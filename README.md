@@ -1,4 +1,4 @@
-# baseComponent 跨项目公共组件库
+# ppfish-components 网易云商服组件库
 
 React + ant-design starter kit / boilerplate with React.js、react-router、Redux、ant-design、WebPack、Less、Jest
 
