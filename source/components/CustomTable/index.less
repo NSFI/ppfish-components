@@ -1,0 +1,22 @@
+@import "../../assets/css/lib/ant-theme-vars";
+
+.row-active {
+  background-color: #f6f7fa;
+}
+
+.row-fail {
+  color: @text-9;
+}
+
+//ellipsis for ant-design table
+//support chrome/safari
+.col-ell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  position: relative;
+  top: 3px;
+}
+

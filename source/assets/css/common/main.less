@@ -1,0 +1,69 @@
+/**
+ * Prophet主站公共样式
+ */
+@import (reference) "mixin";
+
+body {
+  background-color: @bodyBgColor;
+  font-size: 14px;
+  min-width: 1200px;
+}
+textarea {
+  resize: none;
+}
+.g-mnc {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+/* scrollbar 样式 */
+::-webkit-scrollbar {
+  width: 7px;
+  height:7px;
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: #dddfe0;
+}
+::-webkit-scrollbar-track {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+/* 修改原生 scrollbar 样式 */
+.scrollbar-style::-webkit-scrollbar-track {
+  border-radius: 6px;
+  background-color: rgba(255,255,255,0);
+}
+
+.scrollbar-style::-webkit-scrollbar{
+  width: 8px;
+  background-color: rgba(255,255,255,0);
+}
+
+.scrollbar-style::-webkit-scrollbar-thumb{
+  border-radius: 6px;
+  background-color: rgba(255,255,255,.15);
+}
+
+@keyframes slide-type-1 {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animation-type-1 {
+  animation: slide-type-1 1.5s cubic-bezier(.4, 0, .2, 1) 0s 1;
+}

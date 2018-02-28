@@ -1,0 +1,106 @@
+/**
+ * @description   此文件存放公共的 mixin，使用 function mixin 确保 mixin 不会输出
+ *                (http://less.bootcss.com/features/#mixins-feature-not-outputting-the-mixin)
+ * @author        hzmajianglong@corp.netease.com
+ */
+
+@bodyBgColor: #F5F7FA;
+@menuBgColor: rgba(18,19,26,0.9);
+// Encoded SVG Background
+.encoded-svg-background-i(@svg) {
+  @url: `encodeURIComponent(@{svg})`;
+  background-image: url("data:image/svg+xml;charset=utf-8,@{url}");
+}
+
+.clearfix() {
+  &::before, &::after {
+    content: "";
+    display: table;
+  }
+  &::after {
+    clear: both;
+  }
+}
+
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.generate-ellipsis-multiple-lines(10);
+.generate-ellipsis-multiple-lines(@n, @i: 2) when (@i =< @n) {
+  .ellipsis-multiple-line-@{i} {
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: (@i);
+    -webkit-box-orient: vertical;
+  }
+  .generate-ellipsis-multiple-lines(@n, (@i + 1));
+}
+
+.transform(@t) {
+  transform: @t;
+}
+
+.transform-origin(@to) {
+  transform-origin: @to;
+}
+
+.display-box() {
+  display: flex;
+}
+
+.flex-direction(@direction: row) {
+  flex-direction: @direction;
+}
+
+.flex-wrap(@wrap: nowrap) {
+  flex-wrap: @wrap;
+}
+
+.flex-justify(@justify: flex-start) {
+  justify-content: @justify;
+}
+
+.box-align(@align: center) {
+  align-items: @align;
+}
+
+.box-align-content(@alignContent: stretch) {
+  align-content: @alignContent;
+}
+
+.box-flex(@scale: 1) {
+  flex: @scale;
+}
+
+.border-radius(@radius: 0) {
+  border-top-left-radius: @radius;
+  border-top-right-radius: @radius;
+  border-bottom-left-radius: @radius;
+  border-bottom-right-radius: @radius;
+}
+
+.box-sizing(@sizing: border-box) {
+  -webkit-box-sizing: @sizing;
+}
+
+.hide() {
+  display: none;
+}
+.show() {
+  display: block;
+}
+.invisible() {
+  visibility: hidden;
+}
+.affix() {
+  position: fixed;
+}
+
+// 渐变颜色
+.gradual-color( @direction , @color1, @color2 ) {
+  background: linear-gradient(to @direction, @color1 , @color2);
+}

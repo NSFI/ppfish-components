@@ -1,0 +1,19 @@
+{
+  "presets": [
+    "env",
+    "stage-1",
+    "stage-2",
+    "react"
+  ],
+  "plugins": [
+    ["import", {"libraryName": "antd", "style": true}],
+    "add-module-exports"
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        "react-hmre"
+      ]
+    }
+  }
+}
