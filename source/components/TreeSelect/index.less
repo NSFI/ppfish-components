@@ -1,0 +1,38 @@
+@import (reference) "../../assets/css/common/mixin";
+@borderColor: #f0f1f5;
+.tree-select-container {
+  display: flex;
+  border-top: 1px solid @borderColor;
+  border-right: 1px solid @borderColor;
+  border-bottom: 1px solid @borderColor;
+  max-height: 400px;
+  .tree-select-depth {
+    flex: 1;
+    margin-left: -1px;
+    overflow-y: auto;
+  }
+  .tree-select-item {
+    display: flex;
+    padding: 0 20px;
+    line-height: 50px;
+    border-left: 1px solid @borderColor;
+    border-right: 1px solid @borderColor;
+    cursor: pointer;
+    .ellipsis();
+  }
+  .tree-select-item.current {
+    background-color: #f7f8fa;
+  }
+  .ant-checkbox-wrapper {
+  }
+  .tree-select-text {
+    margin-left: 8px;
+    flex: 1;
+  }
+  .tree-select-more {
+    .iconfont {
+      font-size: 8px;
+      color: #999;
+    }
+  }
+}
