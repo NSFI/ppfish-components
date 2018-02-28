@@ -1,7 +1,7 @@
 {
-  "name": "Component",
+  "name": "ppfish-components",
   "version": "1.0.0",
-  "description": "qiyu ui component",
+  "description": "qiyu and prophet ui components",
   "scripts": {
     "precommit": "npm run lint",
     "start-message": "babel-node tools/startMessage.js",

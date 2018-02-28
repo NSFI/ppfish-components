@@ -28,8 +28,6 @@ browserSync({
   },
   middleware: [
     apiProxy,
-    // TODO 使用server.router优化，
-    // or use https://github.com/tinganho/connect-modrewrite
     function(req, res, next) {
       if (/\.js|\.css/.test(req.url)) {
         return next();
