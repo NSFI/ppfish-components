@@ -19,7 +19,7 @@
     "remove-dist": "rimraf ./dist",
     "prebuild": "npm run clean-dist",
     "build": "babel-node tools/build.js",
-    "test": "jest",
+    "test": "jest --setupTestFrameworkScriptFile=raf/polyfill",
     "test:CI": "babel-node tools/testCi.js",
     "test:cover": "npm run test -- --coverage ",
     "test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",

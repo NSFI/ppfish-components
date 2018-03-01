@@ -1,44 +1,43 @@
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
-import { getHeadpic, getDynamicCls } from '../../utils/';
+import { getDynamicCls } from '../../utils';
 import './index.less';
 
 class Avatar extends Component {
+  static propTypes = {
+    // 额外写入的class
+    extraCls: PropTypes.string,
+    // 头像图片url
+    headPic: PropTypes.string,
+    // 身份标识
+    roleFlag: PropTypes.number,
+    children: PropTypes.node,
+  };
+
   constructor(props) {
     super(props);
   }
 
+  getHeadpic = (headpic) => {
+    const defaultHeadpic = require('./default-avatar.png');
+    return (headpic && headpic.trim && headpic.trim()) || defaultHeadpic;
+  };
+
   render() {
-    let { children, extraCls, ltbHeadpic, adviserLeaderFlag } = this.props;
-    let rank;
-    let avatarCls = getDynamicCls('avatar', extraCls, () => {
-      return typeof extraCls != 'undefined';
+    const { children, extraCls, headPic, roleFlag } = this.props;
+    const avatarCls = getDynamicCls('m-avatar', extraCls, () => {
+      return typeof extraCls !== 'undefined';
     });
-    // 是否主理, 1是0否
-    if (typeof adviserLeaderFlag != 'undefined' && adviserLeaderFlag == '1') {
-      rank = (<i className="iconfont main">&#xe61f;</i>);
-    }else {
-      rank = (<i className="iconfont">&#xe61f;</i>);
-    }
+    const rankCls = getDynamicCls('iconfont', 'm-avatar-main',
+      () => typeof roleFlag !== 'undefined' && roleFlag === 1);
     return (
       <div className={avatarCls}>
-        <img src={getHeadpic(ltbHeadpic)} width="100%" height="100%" />
-        {rank}
+        <img src={this.getHeadpic(headPic)} width="100%" height="100%" />
+        <i className={rankCls}>&#xe648;</i>
         {children}
       </div>
     );
   }
 }
-
-Avatar.propTypes = {
-  extraCls: PropTypes.string,
-  ltbHeadpic: PropTypes.string,
-  adviserLeaderFlag: PropTypes.string,
-  roleMark: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  children: PropTypes.node,
-};
 
 export default Avatar;

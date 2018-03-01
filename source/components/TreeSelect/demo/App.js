@@ -8,58 +8,58 @@ const data = [
   {
     text: '浙江',
     key: '232ddsds',
-    value: [
+    values: [
       {
         text: '杭州',
         key: '232ddsd1',
-        value: [
+        values: [
           {
             text: '萧山',
             key: 'kk12111',
-            value: []
+            values: []
           },
           {
             text: '滨江',
             key: 'kk12112',
-            value: []
+            values: []
           },
           {
             text: '下沙',
             key: 'kk12113',
-            value: []
+            values: []
           }
         ]
       },
       {
         text: '温州',
         key: '232ddsd2',
-        value: []
+        values: []
       },
       {
         text: '金华',
         key: '232ddsd3',
-        value: []
+        values: []
       }
     ]
   },
   {
     text: '江西',
     key: '13232dad1',
-    value: [
+    values: [
       {
         text: '南昌',
         key: '13232dad2',
-        value: []
+        values: []
       },
       {
         text: '赣州',
         key: '13232dad3',
-        value: []
+        values: []
       },
       {
         text: '合肥',
         key: '13232dad4',
-        value: []
+        values: []
       }
     ]
   }

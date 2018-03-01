@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.less';
 import AnimationImageLoader from '../index';
-import defaultImage from '../POI@2x.jpg';
+import defaultImage from './create_POI@2x.png';
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class App extends Component {
     return (
       <div style={{margin: 100}}>
         <AnimationImageLoader
+          extraCls="u-nav-icon"
           src={defaultImage}
           zoom={0.5}
         />

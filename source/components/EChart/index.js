@@ -44,7 +44,7 @@ export default class EChart extends Component {
     let events = this.props.events || {};
     for (let [event, handler] of Object.entries(events)){
       this.chart.on(event, params => {
-        handler(params, this.chart);
+        handler && handler(params, this.chart);
       });
     }
   }
@@ -59,6 +59,10 @@ export default class EChart extends Component {
 
   unbindToWindowResize() {
     window.removeEventListener('resize', this.handleWindowResize);
+  }
+
+  getInstance() {
+    return this.chart;
   }
 
   render() {

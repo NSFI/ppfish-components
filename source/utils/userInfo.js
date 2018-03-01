@@ -1,30 +1,6 @@
 // 用户信息辅助方法
-import md5 from 'crypto-js/md5';
-import encHex from 'crypto-js/enc-hex';
-import Cookies from 'js-cookie';
-import constants from '../constants/';
 import { getConfig } from '../config';
 const config = getConfig();
-const { ACCESS_TOKEN, USER_INFO } = constants;
-
-// password 加密
-export const generateAuthPassword = (password) => {
-  return encHex.stringify(md5(password));
-};
-export const getAccessToken = () => {
-  return Cookies.get(ACCESS_TOKEN);
-};
-export const setAccessToken = (accessToken) => {
-  accessToken = accessToken || true;
-  Cookies.set(ACCESS_TOKEN, accessToken);
-};
-export const removeAccessToken = () => {
-  return Cookies.remove(ACCESS_TOKEN);
-};
-export const getHeadpic = (headpic) => {
-  const defaultHeadpic = require('../assets/image/components/default-avatar.png');
-  return (headpic && headpic.trim && headpic.trim()) || defaultHeadpic;
-};
 
 // 跳登录页面
 export const redirectLogin = (originUrl, errorMsg) => {

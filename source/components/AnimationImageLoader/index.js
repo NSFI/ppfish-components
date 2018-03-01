@@ -12,7 +12,7 @@ import classNames from 'classnames';
 class AnimationImageLoader extends Component {
 
   static propTypes = {
-    src: PropTypes.node,
+    src: PropTypes.string,
     zoom: PropTypes.number,
     extraCls: PropTypes.string
   };

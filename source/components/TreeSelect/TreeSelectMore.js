@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class TreeSelectMore extends Component {
@@ -11,12 +11,12 @@ class TreeSelectMore extends Component {
     const { hasSubItem, onClick } = this.props;
     if ( !hasSubItem ) {
       return (
-        <div className="tree-select-more tree-select-more-empty" />
+        <div className="m-tree-select-more m-tree-select-more-empty" />
       );
     }
     return (
       <div
-        className="tree-select-more"
+        className="m-tree-select-more"
         onClick={onClick}
       ><i className="iconfont icon-youjiantou" /></div>
     );

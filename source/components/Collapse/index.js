@@ -12,6 +12,33 @@ function toArray(activeKey) {
   return currentActiveKey;
 }
 class Collapse extends Component {
+
+  static propTypes = {
+    children: PropTypes.node,
+    prefixCls: PropTypes.string,
+    extraCls: PropTypes.string,
+    defaultActiveKey: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
+    activeKey: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
+    // 是否开启功能：点击header后将header置顶
+    isScrollToHeader: PropTypes.bool,
+    // 是否开启功能：手风琴效果，既每次点击header只展开一项
+    accordion: PropTypes.bool,
+    onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    prefixCls: 'm-collapse',
+    isScrollToHeader: false,
+    accordion: false,
+    onChange() {},
+  };
+
   static Panel = CollapsePanel;
 
   constructor(props) {
@@ -141,29 +168,5 @@ class Collapse extends Component {
     );
   }
 }
-
-Collapse.propTypes = {
-  children: PropTypes.node,
-  prefixCls: PropTypes.string,
-  isScrollToHeader: PropTypes.bool,
-  activeKey: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-  defaultActiveKey: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-  onChange: PropTypes.func,
-  accordion: PropTypes.bool,
-  extraCls: PropTypes.string,
-};
-
-Collapse.defaultProps = {
-  prefixCls: 'collapse',
-  isScrollToHeader: false,
-  onChange() {},
-  accordion: false,
-};
 
 export default Collapse;

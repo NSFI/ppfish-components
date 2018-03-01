@@ -1,4 +1,5 @@
-.avatar {
+@avatar-prefix: m-avatar;
+.@{avatar-prefix} {
   position: relative;
   width: 40px;
   height: 40px;
@@ -13,12 +14,12 @@
     position: absolute;
     right: -8px;
     bottom: 0;
-    background-color: #E74528;
-    color: #ffffff;
+    background-color: #e74528;
+    color: #fff;
     border-radius: 9px;
   }
-  .main {
-    background-color: #ffffff;
-    color: #E74528;
+  & &-main {
+    background-color: #fff;
+    color: #e74528;
   }
 }
