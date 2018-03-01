@@ -6,13 +6,29 @@ import './index.less';
 const { span } = DOM;
 
 const Status = {
-  PENDING: 'pending',
-  LOADING: 'loading',
-  LOADED: 'loaded',
-  FAILED: 'failed',
+  PENDING: 'm-image-loader-pending',
+  LOADING: 'm-image-loader-loading',
+  LOADED: 'm-image-loader-loaded',
+  FAILED: 'm-image-loader-failed',
 };
 
 class ImageLoader extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+    wrapper: PropTypes.func,
+    className: PropTypes.string,
+    style: PropTypes.object,
+    preloader: PropTypes.func,
+    src: PropTypes.string,
+    onLoad: PropTypes.func,
+    onError: PropTypes.func,
+    imgProps: PropTypes.object,
+  };
+
+  static defaultProps = {
+    wrapper: span,
+  };
+
   constructor(props) {
     super(props);
     this.state = {status: props.src ? Status.LOADING : Status.PENDING};
@@ -43,7 +59,7 @@ class ImageLoader extends React.Component {
   }
 
   getClassName() {
-    let className = `imageloader ${this.state.status}`;
+    let className = `m-image-loader ${this.state.status}`;
     if (this.props.className) className = `${className} ${this.props.className}`;
     return className;
   }
@@ -120,21 +136,5 @@ class ImageLoader extends React.Component {
     return this.props.wrapper(...wrapperArgs);
   }
 }
-
-ImageLoader.propTypes = {
-  children: PropTypes.node,
-  wrapper: PropTypes.func,
-  className: PropTypes.string,
-  style: PropTypes.object,
-  preloader: PropTypes.func,
-  src: PropTypes.string,
-  onLoad: PropTypes.func,
-  onError: PropTypes.func,
-  imgProps: PropTypes.object,
-};
-
-ImageLoader.defaultProps = {
-  wrapper: span,
-};
 
 export default ImageLoader;

@@ -1,5 +1,5 @@
 /**
- * Prophet常规Table
+ * 常规Table
  *
  * 1、固定表头，需要指定 offsetHeight 值
  * 2、添加点击高亮
@@ -15,7 +15,7 @@
  * @param loading           是否加载中                                                       boolean|object
  * @param onChange          分页排序筛选变化时触发                                              Function(pagination, filters, sorter)
  * @param onRowClick        点击行时触发                                                      Function(record, index, event)
- *
+ * antd3.0更新 onRow事件，这里暂时保持onRowClick，如需要其他onRow事件，再作添加；直接使用onRow将覆盖原事件；
  * 其余属性与ant-design table 一致
  *
  */
@@ -98,11 +98,13 @@ class CustomTable extends Component {
              loading={loading}
              rowKey={rowKey}
              pagination={paginationSetting}
-             onRowClick={
-               (record, index, event) => {
-                 setRowActive(event.target);
-                 onRowClick && onRowClick(record, index, event);
-               }
+             onRow={
+               (record, index) => ({
+                 onClick: (event) => {
+                   setRowActive(event.target);
+                   onRowClick && onRowClick(record, index, event);
+                 }
+               })
              }
              scroll={{
                y: this.state.tableHeight,

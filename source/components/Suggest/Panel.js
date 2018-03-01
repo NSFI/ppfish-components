@@ -1,10 +1,25 @@
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { request } from '../../utils/';
+import axios from 'axios';
 import classNames from 'classnames';
 
 class Panel extends Component {
+  static propTypes = {
+    value: PropTypes.string,
+    panelContainer: PropTypes.object,
+    dataCount: PropTypes.number,
+    position: PropTypes.object,
+    visibility: PropTypes.bool,
+    onSelect: PropTypes.func,
+  };
+
+  static defaultProps = {
+    dataCount: 10,
+    visibility: true,
+    onSelect: () => {},
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +47,7 @@ class Panel extends Component {
         clearTimeout(this.tickHandle);
       }
       this.tickHandle = setTimeout(() => {
-        request({
+        axios({
           url: `http://www.gusoul.com/tsp/hsoi/quote/v1/wizard?en_finance_mic=${finance_mic}&data_count=10&prod_code=${value}`,
           method: 'GET',
         })
@@ -40,7 +55,7 @@ class Panel extends Component {
             const data = json.data;
             if (data) {
               this.setState({
-                list: data,
+                list: data.data,
                 selectedIndex: -1,
               });
             }
@@ -120,7 +135,7 @@ class Panel extends Component {
       const panelItem = this.state.list.map((item, i) => {
         const selectedCls = classNames({
           'clearfix': true,
-          'suggest-panel-item': true,
+          'm-suggest-panel-item': true,
           'selected': i == this.state.selectedIndex,
         });
         return (
@@ -131,7 +146,7 @@ class Panel extends Component {
         );
       });
       return (
-        <ul className="suggest-panel-items">
+        <ul className="m-suggest-panel-items">
           {panelItem}
         </ul>
       );
@@ -139,7 +154,7 @@ class Panel extends Component {
     const panelItems = getItems();
     const style = Object.assign({}, position, {display: this.props.visibility ? 'block' : 'none'});
     return (
-      <div className="suggest-panel" style={style} onKeyUp={this.handleKeyUp}>
+      <div className="m-suggest-panel" style={style} onKeyUp={this.handleKeyUp}>
         {panelItems}
       </div>
     );
@@ -149,19 +164,6 @@ class Panel extends Component {
     return null;
   }
 }
-Panel.propTypes = {
-  value: PropTypes.string,
-  panelContainer: PropTypes.object,
-  dataCount: PropTypes.number,
-  position: PropTypes.object,
-  visibility: PropTypes.bool,
-  onSelect: PropTypes.func,
-};
-Panel.defaultProps = {
-  dataCount: 10,
-  visibility: true,
-  onSelect: () => {},
-};
 
 export default Panel;
 

@@ -11,8 +11,8 @@ class App extends Component {
     return (
       <div style={{ margin: 100 }}>
         <Avatar
-          ltbHeadpic="http://dyttest-oimg.cdn.dayiner.com/gliv/avatar/03553cb17be2482ba3a8373bbd9ef8bd.jpg"
-          adviserLeaderFlag={1}
+          headPic="http://dyttest-oimg.cdn.dayiner.com/gliv/avatar/03553cb17be2482ba3a8373bbd9ef8bd.jpg"
+          roleFlag={1}
         />
       </div>
     );

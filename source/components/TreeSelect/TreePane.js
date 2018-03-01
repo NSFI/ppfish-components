@@ -21,6 +21,23 @@ class TreePane extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    // detect a scrollbar
+    this.addClsIfNeed();
+  }
+
+  componentDidUpdate() {
+    // detect a scrollbar
+    this.addClsIfNeed();
+  }
+
+  addClsIfNeed = () => {
+    const pane = this.pane;
+    if ( pane && (pane.scrollHeight <= pane.clientHeight) ) {
+      pane.classList.add('z-without-scrollbar');
+    }
+  }
+
   setSelected(key, value) {
     const { onSelect } = this.props;
     onSelect(key, value);
@@ -39,7 +56,10 @@ class TreePane extends Component {
       return null;
     }
     return (
-      <div className={[`tree-select-depth tree-select-depth${depth}`]}>
+      <div
+        className={[`m-tree-select-depth m-tree-select-depth${depth}`]}
+        ref={pane => this.pane = pane}
+      >
         {
           data.map((item, i) => {
             return (
@@ -47,7 +67,7 @@ class TreePane extends Component {
                 key={item.key}
                 className={classNames({
                   'clearfix': true,
-                  'tree-select-item': true,
+                  'm-tree-select-item': true,
                   'current': item.current
                 })}
               >
@@ -57,7 +77,7 @@ class TreePane extends Component {
                   onChange={(e) => this.setSelected(item.key, e.target.checked)}
                 />
                 <div
-                  className="tree-select-text"
+                  className="m-tree-select-text"
                   onClick={() => this.setCurrent(item.key)}
                 >{item.text}</div>
                 <TreeSelectMore

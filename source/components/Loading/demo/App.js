@@ -8,7 +8,7 @@ class App extends Component {
   }
 
   render() {
-    const loadingIcon = require('../../../assets/image/components/loading.gif');
+    const loadingIcon = require('./loading.gif');
     return (
       <div>
         <h3>示例1： 使用spin</h3>

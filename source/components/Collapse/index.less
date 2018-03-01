@@ -1,45 +1,51 @@
 @import "../../assets/css/lib/ant-theme-vars";
-.collapse-header {
-  box-sizing: content-box;
-  font-size: 14px;
-  color: #393A4C;
-  margin-left: 15px;
-  height: 50px;
-  line-height: 50px;
-  border-top: 1px solid @separate-light;
-  cursor: pointer;
-  clear: both;
-  .title {
-    float: left;
-  }
-  .arrow {
-    float: right;
-    width: 48px;
+@collapse-prefix: m-collapse;
+.@{collapse-prefix} {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: content-box;
+    font-size: 14px;
+    color: #393a4c;
+    margin-left: 15px;
     height: 50px;
-    text-align: center;
-    .iconfont {
-      font-size: 10px;
-      color: #999;
+    line-height: 50px;
+    border-top: 1px solid @separate-light;
+    cursor: pointer;
+    .title {
+      flex: 1;
+    }
+    .arrow {
+      width: 48px;
+      height: 50px;
+      text-align: center;
+      .iconfont {
+        font-size: 10px;
+        color: #999;
+      }
     }
   }
-}
-.collapse-item:first-child {
-  .collapse-header {
-    border-top: 0;
+  &-content-box {
+    margin-left: 15px;
+    border-top: 1px solid @separate-light;
+    clear: both;
   }
-}
-.collapse-content-box {
-  margin-left: 15px;
-  border-top: 1px solid @separate-light;
-  clear: both;
-}
-.collapse-content-active {
-  display: block;
-  margin-bottom: 10px;
-}
-.collapse-item-active {
-  border-left: 2px solid @primary-color;
-}
-.collapse-content-inactive {
-  display: none;
+  &-content-active {
+    display: block;
+    margin-bottom: 10px;
+  }
+  &-item-active {
+    border-left: 2px solid @primary-color;
+    .@{collapse-prefix}-header {
+      margin-left: 13px;
+    }
+  }
+  &-content-inactive {
+    display: none;
+  }
+  &-item:first-child {
+    .@{collapse-prefix}-header {
+      border-top: 0;
+    }
+  }
 }

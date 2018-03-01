@@ -7,6 +7,28 @@ import SuggestPanel from './Panel';
 const InputGroup = Input.Group;
 
 class Suggest extends Component {
+  static propTypes = {
+    style: PropTypes.object,
+    focus: PropTypes.bool,
+    value: PropTypes.string,
+    onSearch: PropTypes.func,
+    placeholder: PropTypes.string,
+    onSelect: PropTypes.func,
+    onChange: PropTypes.func,
+    defaultVal: PropTypes.string.isRequired,
+
+  };
+
+  static defaultProps = {
+    style: {
+      width: 260,
+    },
+    placeholder: '股票代码/简拼',
+    onSelect: () => {},
+    onChange: () => {},
+    defaultVal: '',
+  };
+
   constructor(props) {
     super(props);
     let defaultState = {
@@ -55,19 +77,19 @@ class Suggest extends Component {
 
   setValue(val) {
     let input = this.refs.input;
-    input = input.refs.input;
+    input = input.input;
     input.value = val;
   }
 
   select() {
     let input = this.refs.input;
-    input = input.refs.input;
+    input = input.input;
     input.select();
   }
 
   focus() {
     let input = this.refs.input;
-    input = input.refs.input;
+    input = input.input;
     input.focus();
   }
 
@@ -159,7 +181,7 @@ class Suggest extends Component {
       'ant-search-input-focus': this.state.focus,
     });
     return (
-      <div className="suggest-wrapper" style={style} ref="suggestInput">
+      <div className="m-suggest-wrapper" style={style} ref="suggestInput">
         <div className="ant-search-input-wrapper">
           <InputGroup className={searchCls}>
             <Input
@@ -190,25 +212,5 @@ class Suggest extends Component {
     );
   }
 }
-Suggest.propTypes = {
-  style: PropTypes.object,
-  focus: PropTypes.bool,
-  value: PropTypes.string,
-  onSearch: PropTypes.func,
-  placeholder: PropTypes.string,
-  onSelect: PropTypes.func,
-  onChange: PropTypes.func,
-  defaultVal: PropTypes.string.isRequired,
-
-};
-Suggest.defaultProps = {
-  style: {
-    width: 260,
-  },
-  placeholder: '股票代码/简拼',
-  onSelect: () => {},
-  onChange: () => {},
-  defaultVal: '',
-};
 
 export default Suggest;

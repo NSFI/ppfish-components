@@ -241,8 +241,8 @@ const createPane = (tree, parentItem = null) => {
     const treeI = tree[i];
     // children后面设置
     const item = new Item(null, pane, treeI.key, treeI.text);
-    if ( treeI.value && treeI.value.length ) {
-      const nextPane = createPane(treeI.value, item);
+    if ( treeI.values && treeI.values.length ) {
+      const nextPane = createPane(treeI.values, item);
       // 设置children
       item.setChildren(nextPane);
     }
@@ -368,7 +368,7 @@ class TreeSelect extends Component {
     const paneArr = generatePaneArr(pane);
     componentLog('多级树分组：', paneArr);
     return (
-      <div className="tree-select-container">
+      <div className="m-tree-select-container">
         {
           paneArr.map((paneList, depth) => {
             return paneList.map((pane, i) => {
