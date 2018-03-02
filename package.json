@@ -1,5 +1,5 @@
 {
-  "name": "ppfish-components",
+  "name": "ppfish",
   "version": "1.0.0",
   "description": "qiyu and prophet ui components",
   "scripts": {
@@ -27,8 +27,9 @@
     "test:watch": "npm run test -- --watch",
     "analyze": "babel-node ./tools/analyzeBundle.js"
   },
+  "main": "source/components/index.js",
   "dependencies": {
-    "antd": "^2.13.4",
+    "antd": "3.1.4",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.5",
