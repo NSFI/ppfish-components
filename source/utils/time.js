@@ -70,27 +70,36 @@ export const getDynamicCls = (clsArr, addCls, condition) => {
 
 /***
  * 将时间转换为时间段，返回[开始时间，结束时间]的时间戳列表
- * 当传入参数为数字N，代表从过去N天到现在的时间段
- * 当传入参数为日期范围字符2017/10/04 ~ 2017/11/10，代表 开始时间 ~ 结束时间
- * 时间戳单位 秒（s）
+ * 1.当传入参数为数字N，代表从过去N天到 【endDate】23：59：59 的时间段
+ * 2.当传入参数为日期范围字符2017/10/04 ~ 2017/11/10，代表 开始时间 ~ 结束时间
  ***/
-export const formatTimestamp = (N) => {
-  let starttime = 0;
-  let endtime = 0;
-  //当传入参数为数字N
-  if (Number.isInteger(N)) {
-    //开始时间为N天前的00：00：00
-    starttime = Date.parse(new Date(new Date(new Date().setDate(new Date().getDate()-N)).setHours(0,0,0,0)));
-    //结束时间为昨天的23:59:59
-    endtime = Date.parse(new Date(new Date().setHours(0,0,0,0))) - 1;
-  } else if (Object.prototype.toString.call(N) === "[object String]") {
-    let arr = N.split('~');
+export const formatTimestamp = (param, endDate='昨天') => {
+  let startTime = 0;
+  let endTime = 0;
+  //1.传入参数为数字
+  if (Number.isInteger(param)) {
+    const N = param;
+    //临时代码：处理昨天没有数据的情况，将来会删掉
+    if(endDate === '前天'){
+      //开始时间为N天前的00：00：00
+      startTime = Date.parse(new Date(new Date(new Date().setDate(new Date().getDate()-N-1)).setHours(0,0,0,0)));
+      //结束时间为前天的23:59:59
+      endTime = Date.parse(new Date(new Date(new Date().setDate(new Date().getDate()-1)).setHours(0,0,0,0))) - 1;
+    }else{
+      //开始时间为N天前的00：00：00
+      startTime = Date.parse(new Date(new Date(new Date().setDate(new Date().getDate()-N)).setHours(0,0,0,0)));
+      //结束时间为昨天的23:59:59
+      endTime = Date.parse(new Date(new Date().setHours(0,0,0,0))) - 1;
+    }
+    //2.传入参数为日期范围字符
+  } else if (Object.prototype.toString.call(param) === "[object String]") {
+    let arr = param.split('~');
     if (arr && arr.length === 2) {
-      starttime = Date.parse(new Date(arr[0]));
-      endtime = Date.parse(new Date(arr[1])) + 86400000 - 1;
+      startTime = Date.parse(new Date(arr[0]));
+      endTime = Date.parse(new Date(arr[1])) + 86400000 - 1;
     }
   }
-  return [starttime, endtime];
+  return [startTime, endTime];
 };
 
 //由时间戳转为显示的日期
