@@ -59,10 +59,6 @@ export default {
       'antd',
       'react',
       'react-dom',
-      'react-router',
-      'redux',
-      'react-redux',
-      'react-router-redux',
     ],
     // 定制 UI 库和工具, 公用率 使用频率	更新频率：高 高	中
     vendor: [
