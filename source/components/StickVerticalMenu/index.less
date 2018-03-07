@@ -1,0 +1,17 @@
+@import "../../assets/css/lib/ant-theme-vars";
+@loading-prefix: m-stick-v-menu;
+@bg-color: #fafafa;
+@active-bg-color: #ccc;
+.@{loading-prefix} {
+  font-size: 12px;
+  color: #222;
+  background: @bg-color;
+  &-item {
+    padding: 15px 30px 15px 20px;
+    color: @primary-color;
+  }
+  &-item.z-active {
+    background-color: @active-bg-color;
+  }
+}
+
