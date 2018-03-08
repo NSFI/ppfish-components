@@ -8,6 +8,7 @@ class StickVerticalMenu extends Component {
   static propTypes = {
     children: PropTypes.node,
     defaultSelectedKeys: PropTypes.array,
+    className: PropTypes.string,
   };
   static defaultProps = {
     defaultSelectedKeys: []
@@ -28,10 +29,12 @@ class StickVerticalMenu extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
     const activeKey = this.state.activeKey;
     return (
-      <div className="m-stick-v-menu">
+      <div className={classNames('m-stick-v-menu', {
+        [`${className}`]: className
+      })}>
         {React.Children.map(children, (child, index) => {
           // If there is no key provide, use the panel order as default key
           const key = child.key || String(index);

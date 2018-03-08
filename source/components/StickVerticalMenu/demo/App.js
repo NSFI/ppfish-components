@@ -36,6 +36,7 @@ class App extends Component {
           <div className="app-menu">
             <StickVerticalMenu
               defaultSelectedKeys={['1']}
+              className="app-menu-sitck"
             >
               {
                 menuData.map(({key, url, icon, text}) => {
