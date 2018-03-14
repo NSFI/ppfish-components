@@ -16,7 +16,6 @@ class StickVerticalMenu extends Component {
     className: PropTypes.string,
   };
   static defaultProps = {
-    defaultSelectedKeys: [],
     selectedKeys: [],
   };
   static Item = Item;
