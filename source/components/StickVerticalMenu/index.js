@@ -52,7 +52,7 @@ class StickVerticalMenu extends Component {
         {React.Children.map(children, (child, index) => {
           // If there is no key provide, use the panel order as default key
           const key = child.key || String(index);
-          const isActive = activeKey.indexOf(key) > -1;
+          const isActive = activeKey.some(it => it.startsWith(key));
           const props = {
             itemKey: el => this[key] = el,
             isActive,
