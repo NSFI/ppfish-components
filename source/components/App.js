@@ -14,7 +14,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       component: null,
-      theme: 'light'
+      theme: 'light',
+      current: '0',
     };
   }
   componentDidMount() {
@@ -24,6 +25,12 @@ class App extends React.Component {
       <div dangerouslySetInnerHTML={{ __html: html }} className="g-table-mk">
       </div>
     )
+  }
+  handleClick = (e) =>{
+    console.log('click ', e);
+    this.setState({
+      current: e.key,
+    });
   }
   urlChange = (url = '/demo/AnimationImageLoader/') => {
     
