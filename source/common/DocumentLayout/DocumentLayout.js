@@ -65,8 +65,8 @@ class DoucumentLayout extends React.Component {
           <Col span={24}>
             <Card bordered={false}>
               {this.props.children}
-              <Collapse onChange={this.callback}>
-                <Panel header="代码演示" key="1">
+              <Collapse onChange={this.callback} >
+                <Panel header="代码演示" key="1" >
                   <AceEditor
                     mode="html"
                     theme="textmate"

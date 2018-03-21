@@ -27,16 +27,11 @@ class App extends React.Component {
     )
   }
   handleClick = (e) =>{
-    console.log('click ', e);
     this.setState({
       current: e.key,
     });
   }
   urlChange = (url = '/demo/AnimationImageLoader/') => {
-    
-    // this.setState({
-    //   current: e.key,
-    // });
     let urlArgu = url.replace(/\/demo\/|\//g, '');
     axios.get('https://raw.githubusercontent.com/octopusccc1/ppfish/master/ppfsbf/source/components/'+urlArgu+'/demo/App.js')
       .then(res => {
@@ -44,11 +39,6 @@ class App extends React.Component {
         Emitter.emit('CodeChange', res.data);
         Emitter.emit('Markdown', Markdown);
       })
-    // Jsonp('https://github.com/octopusccc1/ppfish/blob/master/ppfsbf/source/components/AnimationImageLoader/demo/App.js',null,(err,res) =>{
-    //     let Markdown = require('./'+urlArgu+'/demo/Markdown.js')
-    //     Emitter.emit('CodeChange', res.data);
-    //     Emitter.emit('Markdown', Markdown);
-    // })
     
   }
   render() {
@@ -62,9 +52,9 @@ class App extends React.Component {
     return (
       <div className="g-content" >
         <Row >
-          <Col span={5}>
+          <Col span={3} style={{minWidth:'240px'}}>
             <Menu onClick={this.handleClick}
-              style={{ width: 220 }}
+              style={{ width: '100%'}}
               defaultOpenKeys={['sub1']}
               selectedKeys={[this.state.current]}
               mode="inline"
@@ -88,7 +78,7 @@ class App extends React.Component {
               </SubMenu>
             </Menu>
           </Col>
-          <Col span={19}>
+          <Col span={19} style={{borderLeft:'1px solid #e9e9e9',marginLeft:'-1px'}}>
             {this.props.children}
           </Col>
         </Row>
