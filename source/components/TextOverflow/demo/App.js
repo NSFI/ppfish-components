@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './App.less';
 import TextOverflow from '../index';
-
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 const TEXT1 = Array.from(Array(45)).fill('字');
 const TEXT2 = Array.from(Array(120)).fill('1字');
@@ -23,10 +23,12 @@ class App extends Component {
   }
   render() {
     return (
+      <DocumentLayout>
       <div style={{ margin: 100, backgroundColor:'lightblue'}}>
         <TextOverflow  >{this.state.data}</TextOverflow>
         <button onClick={this.toggleText}>切换字符</button>
       </div>
+      </DocumentLayout>
     );
   }
 }

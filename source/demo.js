@@ -1,6 +1,16 @@
-import React, {Component} from 'react';
-import {render} from 'react-dom';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { Menu, Icon, Row, Col } from 'antd';
+import { Link } from 'react-router';
 import queryString from 'query-string';
+
+
+import RouteMap from './routers/index';
+import Header from './common/Header/Header';
+import Footer from './common/Footer/Footer';
+import './demo.less';
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 const requireContext = require.context("./components", true, /demo\/App\.js$/);
 const upcaseFirstChar = (name) => {
   if (!name || typeof name != 'string') {
@@ -22,7 +32,10 @@ class App extends Component {
 
   componentDidMount() {
   }
+  changeUrl = (url) => {
+    this.context.router = url
 
+  }
   getComponent() {
     // 异步加载组件方式1：
     // require.ensure([], () => {
@@ -38,17 +51,22 @@ class App extends Component {
     //       component: <DemoApp />,
     //     });
     //   })
-    // 异步加载组件方式3：
+    //异步加载组件方式3：
     const DemoApp = requireContext(`./${upcaseFirstChar(queryObj.name)}/demo/App.js`);
     return (
-      <DemoApp/>
+      <div>
+        <DemoApp />
+      </div>
     );
   }
 
   getList() {
     return (
-      <div>
-        <ul>
+      <div className="g-wrapper">
+        <Header style={{ width: 200, marginTop: 20 }} />
+        <RouteMap />
+        <Footer />
+        {/* <ul>
           {
             requireContext.keys().map((id) => {
               const idx = id.indexOf('/') + 1;
@@ -59,7 +77,8 @@ class App extends Component {
             })
           }
 
-        </ul>
+        </ul> */}
+
       </div>
     );
   }
@@ -68,11 +87,11 @@ class App extends Component {
   };
 
   render() {
-    return (<div style={{margin: 100}}>
+    return (<div>
       {queryObj.name ? this.getComponent() : this.getList()}
     </div>);
   }
 }
 
 
-render(<App/>, document.getElementById('demo-content'));
+render(<App />, document.getElementById('demo-content'));

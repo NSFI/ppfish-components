@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.less';
 import Collapse from '../index';
 const CollapsePanel = Collapse.Panel;
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
 
   render() {
     return (
+      <DocumentLayout>
       <div style={{ margin: 100 }}>
         <Collapse
           defaultActiveKey={['todayBusiness']}
@@ -46,6 +48,7 @@ class App extends Component {
           </CollapsePanel>
         </Collapse>
       </div>
+      </DocumentLayout>
     );
   }
 }

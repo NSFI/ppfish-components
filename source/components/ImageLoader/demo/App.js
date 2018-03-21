@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DOM from 'react-dom-factories';
 import './App.less';
 import ImageLoader from '../index';
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends Component {
   constructor(props) {
@@ -14,14 +15,16 @@ class App extends Component {
       return <img src={preUrl} />;
     };
     return (
-      <div style={{ margin: 100 }}>
-        <ImageLoader
-          src="https://dyttest-oimg.cdn.dayiner.com/autd/img/cust_service_talk/P0000002_1483944691579.jpg"
-          wrapper={DOM.div}
-          preloader={preloader}>
-          Image load failed!
-        </ImageLoader>
-      </div>
+      <DocumentLayout>
+        <div style={{ margin: 100 }}>
+          <ImageLoader
+            src="https://dyttest-oimg.cdn.dayiner.com/autd/img/cust_service_talk/P0000002_1483944691579.jpg"
+            wrapper={DOM.div}
+            preloader={preloader}>
+            Image load failed!
+          </ImageLoader>
+        </div>
+      </DocumentLayout>
     );
   }
 }
