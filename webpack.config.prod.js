@@ -29,7 +29,7 @@ const GLOBALS = {
 };
 
 // TODO 压缩混淆代码开关
-const minimize = false;
+const minimize = true;
 
 const getUglifyJsPlugin = () => {
   if (minimize) {
