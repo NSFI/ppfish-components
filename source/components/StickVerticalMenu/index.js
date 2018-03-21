@@ -4,22 +4,36 @@ import classNames from 'classnames';
 import Item from './Item';
 import './index.less';
 
+const difference = (a, b) => {
+  const s = new Set(b);
+  return a.filter(x => !s.has(x));
+};
 class StickVerticalMenu extends Component {
   static propTypes = {
     children: PropTypes.node,
     defaultSelectedKeys: PropTypes.array,
+    selectedKeys: PropTypes.array,
     className: PropTypes.string,
   };
   static defaultProps = {
-    defaultSelectedKeys: []
+    selectedKeys: [],
   };
   static Item = Item;
 
   constructor(props) {
     super(props);
     this.state = {
-      activeKey: props.defaultSelectedKeys
+      activeKey: props.defaultSelectedKeys || props.selectedKeys
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const diffArr = difference(nextProps.selectedKeys, this.props.selectedKeys);
+    if (diffArr && diffArr.length) {
+      this.setState({
+        activeKey: nextProps.selectedKeys
+      });
+    }
   }
 
   onClickItem = (key) => {
@@ -38,7 +52,7 @@ class StickVerticalMenu extends Component {
         {React.Children.map(children, (child, index) => {
           // If there is no key provide, use the panel order as default key
           const key = child.key || String(index);
-          const isActive = activeKey.indexOf(key) > -1;
+          const isActive = activeKey.some(it => it.startsWith(key));
           const props = {
             itemKey: el => this[key] = el,
             isActive,

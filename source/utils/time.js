@@ -76,27 +76,29 @@ export const getDynamicCls = (clsArr, addCls, condition) => {
 export const formatTimestamp = (param, endDate='昨天') => {
   let startTime = 0;
   let endTime = 0;
-  //1.传入参数为数字
   if (Number.isInteger(param)) {
     const N = param;
-    //临时代码：处理昨天没有数据的情况，将来会删掉
+    // 今天的23:59:59
+    const today = new Date().setHours(23,59,59,999);
+    // 昨天的23:59:59
+    const yesterday = new Date().setHours(0,0,0,0) - 1;
+    // 前天的23:59:59
+    const beforeYesterday = new Date(new Date().setDate(new Date().getDate()-1)).setHours(0,0,0,0) - 1;
     if(endDate === '前天'){
-      //开始时间为N天前的00：00：00
-      startTime = Date.parse(new Date(new Date(new Date().setDate(new Date().getDate()-N-1)).setHours(0,0,0,0)));
-      //结束时间为前天的23:59:59
-      endTime = Date.parse(new Date(new Date(new Date().setDate(new Date().getDate()-1)).setHours(0,0,0,0))) - 1;
+      startTime = new Date(new Date().setDate(new Date().getDate()-N-1)).setHours(0,0,0,0);
+      endTime = beforeYesterday;
+    }else if(endDate === '今天'){
+      startTime = new Date(new Date().setDate(new Date().getDate()-N+1)).setHours(0,0,0,0);
+      endTime = today;
     }else{
-      //开始时间为N天前的00：00：00
-      startTime = Date.parse(new Date(new Date(new Date().setDate(new Date().getDate()-N)).setHours(0,0,0,0)));
-      //结束时间为昨天的23:59:59
-      endTime = Date.parse(new Date(new Date().setHours(0,0,0,0))) - 1;
+      startTime = new Date(new Date().setDate(new Date().getDate()-N)).setHours(0,0,0,0);
+      endTime = yesterday;
     }
-    //2.传入参数为日期范围字符
   } else if (Object.prototype.toString.call(param) === "[object String]") {
     let arr = param.split('~');
     if (arr && arr.length === 2) {
-      startTime = Date.parse(new Date(arr[0]));
-      endTime = Date.parse(new Date(arr[1])) + 86400000 - 1;
+      startTime = new Date(arr[0]).setHours(0,0,0,0);
+      endTime = new Date(arr[1]).setHours(23,59,59,999);
     }
   }
   return [startTime, endTime];
