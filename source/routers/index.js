@@ -14,7 +14,7 @@ import StickVerticalMenu from '../components/StickVerticalMenu/demo/App';
 import Suggest from '../components/Suggest/demo/App';
 import TextOverflow from '../components/TextOverflow/demo/App';
 import TreeSelect from '../components/TreeSelect/demo/App';
-import UIKJGF from '../components/UI控件规范/demo/App';
+import UIKJGF from '../components/UI/demo/App';
 
 // import NumberCounter from '../components/NumberCounter/demo/App';
 
@@ -35,7 +35,7 @@ class RouteMap extends React.Component {
           <Route path='/**/Suggest/' component={Suggest} />
           <Route path='/**/TextOverflow/' component={TextOverflow} />
           <Route path='/**/TreeSelect/' component={TreeSelect} />
-          <Route path='/**/UI控件规范/' component={UIKJGF} />
+          <Route path='/**/UI/' component={UIKJGF} />
         </Route>
       </Router>
     )
