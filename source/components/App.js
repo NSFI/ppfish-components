@@ -5,7 +5,6 @@ import axios from 'axios';
 import Emitter from '../monitor/monitor';
 import './App.less';
 import Loading from './Loading';
-import Jsonp from 'jsonp'
 let Markdown = require('./AnimationImageLoader/demo/Markdown.js')
 const requireContext = require.context("../components", true, /demo\/App\.js$/);
 const SubMenu = Menu.SubMenu;
@@ -15,8 +14,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       component: null,
-      theme: 'light',
-      current: '1',
+      theme: 'light'
     };
   }
   componentDidMount() {
@@ -56,7 +54,7 @@ class App extends React.Component {
     return (
       <div className="g-content" >
         <Row >
-          <Col span={4}>
+          <Col span={5}>
             <Menu onClick={this.handleClick}
               style={{ width: 240 }}
               defaultOpenKeys={['sub1']}
@@ -82,7 +80,7 @@ class App extends React.Component {
               </SubMenu>
             </Menu>
           </Col>
-          <Col span={20}>
+          <Col span={19}>
             {this.props.children}
           </Col>
         </Row>
