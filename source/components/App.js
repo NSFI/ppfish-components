@@ -52,7 +52,7 @@ class App extends React.Component {
     return (
       <div className="g-content" >
         <Row >
-          <Col span={3} style={{minWidth:'240px'}}>
+          <Col span={3} style={{minWidth:'220px'}}>
             <Menu onClick={this.handleClick}
               style={{ width: '100%'}}
               defaultOpenKeys={['sub1']}
