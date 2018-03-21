@@ -18,7 +18,7 @@ class Header extends React.Component{
             <img src={logo} className='u-logo'/>
           </Col>
           <Col span={12} align='left'>
-            <CloudSearch style={{width:200,marginTop:25}}/>
+            {/* <CloudSearch style={{width:200,marginTop:25}}/> */}
           </Col>
           <Col span={7} align='center'>组件</Col>
         </Row>

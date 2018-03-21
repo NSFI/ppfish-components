@@ -52,8 +52,9 @@ class App extends React.Component {
     
   }
   render() {
+    //根据浏览器的url地址来判断
     let urlArguArray = location.href.split('demo');
-    if (urlArguArray[1] !== '/') {
+    if (urlArguArray[1] !== undefined) {
       this.urlChange('/demo' + urlArguArray[1])
     } else {
       this.urlChange()
