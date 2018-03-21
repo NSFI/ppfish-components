@@ -6,6 +6,7 @@ import Emitter from '../monitor/monitor';
 import './App.less';
 import Loading from './Loading';
 let Markdown = require('./AnimationImageLoader/demo/Markdown.js')
+const gitAddress = 'https://raw.githubusercontent.com/octopusccc1/ppfish/master/ppfsbf/source/components/';
 const requireContext = require.context("../components", true, /demo\/App\.js$/);
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -17,8 +18,6 @@ class App extends React.Component {
       theme: 'light',
       current: '0',
     };
-  }
-  componentDidMount() {
   }
   stringToElement = (html) => {
     return (
@@ -33,7 +32,7 @@ class App extends React.Component {
   }
   urlChange = (url = '/demo/AnimationImageLoader/') => {
     let urlArgu = url.replace(/\/demo\/|\//g, '');
-    axios.get('https://raw.githubusercontent.com/octopusccc1/ppfish/master/ppfsbf/source/components/'+urlArgu+'/demo/App.js')
+    axios.get(gitAddress+urlArgu+'/demo/App.js')
       .then(res => {
         let Markdown = require('./'+urlArgu+'/demo/Markdown.js')
         Emitter.emit('CodeChange', res.data);
