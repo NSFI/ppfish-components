@@ -22,7 +22,7 @@ class RouteMap extends React.Component {
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path='/demo/' component={App}>
+        <Route path='/' component={App}>
           <IndexRoute component={AnimationImageLoader} />
           <Route path='/**/AnimationImageLoader/' component={AnimationImageLoader} />
           <Route path='/**/Avatar/' component={Avatar} />

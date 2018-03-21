@@ -32,10 +32,8 @@ browserSync({
       if (/\.js|\.css/.test(req.url)) {
         return next();
       }
-      if (req.url.startsWith('/public')) {
-        req.url = req.url.replace(/\/public/, '');
-      } else if (req.url.indexOf('/demo') > -1 && req.url.indexOf('.js') == -1) {
-        req.url = req.url.replace(/\/demo\/\w{0,}\/|\/demo\/?/, '/demo.html');
+      if (req.url==='/') {
+        req.url = '/demo.html';
       }
       return next();
     },
