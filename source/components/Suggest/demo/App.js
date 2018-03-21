@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import './App.less';
 import Suggest from '../index';
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends Component {
   constructor(props) {
@@ -16,9 +17,11 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ margin: 100 }}>
-        <Suggest onSelect={this.onSelect.bind(this)} />
-      </div>
+      <DocumentLayout>
+        <div style={{ margin: 100 }}>
+          <Suggest onSelect={this.onSelect.bind(this)} />
+        </div>
+      </DocumentLayout>
     );
   }
 }
