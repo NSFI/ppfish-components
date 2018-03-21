@@ -3,11 +3,11 @@ import { Row, Col } from 'antd';
 
 import CloudSearch from './CloudSearch';
 import './Header.less';
-const logo = '../../assets/image/登录Bule@2x.png';
+import logo from '../../assets/image/登录Bule@2x.png';
 class Header extends React.Component{
   constructor(props){
     super(props);
-   
+
   }
 
   render(){
