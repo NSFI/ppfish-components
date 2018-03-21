@@ -84,7 +84,7 @@ class DoucumentLayout extends React.Component {
               </Collapse>
             </Card>
           </Col>
-          {this.stringToElement(this.state.markMsg)}
+          {/* {this.stringToElement(this.state.markMsg)} */}
         </Row>
 
       </div>
