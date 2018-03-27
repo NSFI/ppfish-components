@@ -6,6 +6,7 @@ import './index.less';
 class SearchInput extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
+    maxLength: PropTypes.number,
     onSearch: PropTypes.func
   };
 
@@ -33,7 +34,7 @@ class SearchInput extends Component {
 
   render() {
     const {searchInput} = this.state;
-    const {placeholder} = this.props;
+    const {placeholder, maxLength} = this.props;
     const suffix = (
       <Tooltip placement="bottom" title="搜索">
         <Icon type="search" onClick={this.search}
@@ -44,6 +45,7 @@ class SearchInput extends Component {
       <Input
         className="u-searchInput"
         size="large"
+        maxLength={maxLength}
         placeholder={placeholder}
         suffix={suffix}
         value={searchInput}
