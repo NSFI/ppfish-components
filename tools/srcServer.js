@@ -32,7 +32,7 @@ browserSync({
       if (/\.js|\.css/.test(req.url)) {
         return next();
       }
-      if (req.url==='/') {
+      if (!/\./.test(req.url)) {
         req.url = '/demo.html';
       }
       return next();

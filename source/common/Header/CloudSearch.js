@@ -1,15 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, Input, Button } from 'antd';
 import classNames from 'classnames';
 const InputGroup = Input.Group;
 
 class CloudSearch extends React.Component {
+  static propTypes = {
+    style: PropTypes.object,
+    size: PropTypes.string,
+    placeholder: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       value: '',
       focus: false,
-    }
+    };
   }
   handleInputChange = (e) => {
     this.setState({
@@ -42,14 +49,14 @@ class CloudSearch extends React.Component {
           </div>
         </InputGroup>
       </div>
-    )
+    );
   }
   render() {
     return (
       <div>
         {this.InputGroup()}
       </div>
-    )
+    );
   }
 }
 export default CloudSearch;

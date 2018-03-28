@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import './Footer.less'
+import './Footer.less';
 
 class Footer extends React.Component{
   constructor(props){
@@ -10,11 +10,10 @@ class Footer extends React.Component{
     return(
       <div className="g-footer">
          <Row>
-          <Col span={24} align='middle'>
-          </Col>
+          <Col span={24} align="middle" />
         </Row>
       </div>
-    )
+    );
   }
 }
 export default Footer;

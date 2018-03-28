@@ -1,18 +1,24 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Menu, Icon, Row, Col } from 'antd';
 import { Link } from 'react-router';
 import axios from 'axios';
 import Emitter from '../monitor/monitor';
 import './App.less';
 import Loading from './Loading';
-let Markdown = require('./AnimationImageLoader/demo/Markdown.js')
+let Markdown = require('./AnimationImageLoader/demo/Markdown.js');
 const gitAddress = 'https://raw.githubusercontent.com/octopusccc1/ppfish/master/ppfsbf/source/components/';
 const requireContext = require.context("../components", true, /demo\/App\.js$/);
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 class App extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+  }
+
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       component: null,
       theme: 'light',
@@ -21,9 +27,8 @@ class App extends React.Component {
   }
   stringToElement = (html) => {
     return (
-      <div dangerouslySetInnerHTML={{ __html: html }} className="g-table-mk">
-      </div>
-    )
+      <div dangerouslySetInnerHTML={{ __html: html }} className="g-table-mk" />
+    );
   }
   handleClick = (e) =>{
     this.setState({
@@ -34,19 +39,19 @@ class App extends React.Component {
     let urlArgu = url.replace(/\/demo\/|\//g, '');
     axios.get(gitAddress+urlArgu+'/demo/App.js')
       .then(res => {
-        let Markdown = require('./'+urlArgu+'/demo/Markdown.js')
+        let Markdown = require('./'+urlArgu+'/demo/Markdown.js');
         Emitter.emit('CodeChange', res.data);
         Emitter.emit('Markdown', Markdown);
-      })
-    
+      });
+
   }
   render() {
     //根据浏览器的url地址来判断
     let urlArguArray = location.href.split('demo');
     if (urlArguArray[1] !== undefined) {
-      this.urlChange('/demo' + urlArguArray[1])
+      this.urlChange('/demo' + urlArguArray[1]);
     } else {
-      this.urlChange()
+      this.urlChange();
     }
     return (
       <div className="g-content" >
@@ -71,7 +76,7 @@ class App extends React.Component {
                           {name}
                         </Link>
                       </Menu.Item>
-                    )
+                    );
                   })
                 }
               </SubMenu>
@@ -82,7 +87,7 @@ class App extends React.Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 export default App;

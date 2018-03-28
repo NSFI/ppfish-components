@@ -33,7 +33,7 @@ class App extends Component {
   componentDidMount() {
   }
   changeUrl = (url) => {
-    this.context.router = url
+    this.context.router = url;
 
   }
   getComponent() {

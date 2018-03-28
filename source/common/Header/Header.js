@@ -15,15 +15,15 @@ class Header extends React.Component{
       <div className="g-header">
         <Row>
           <Col span={5}>
-            <img src={logo} className='u-logo'/>
+            <img src={logo} className="u-logo"/>
           </Col>
-          <Col span={12} align='left'>
+          <Col span={12} align="left">
             {/* <CloudSearch style={{width:200,marginTop:25}}/> */}
           </Col>
-          <Col span={7} align='center'>组件</Col>
+          <Col span={7} align="center">组件</Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 export default Header;

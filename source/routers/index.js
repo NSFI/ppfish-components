@@ -20,23 +20,23 @@ class RouteMap extends React.Component {
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path='/' component={App}>
+        <Route path="/" component={App}>
           <IndexRoute component={AnimationImageLoader} />
-          <Route path='/**/AnimationImageLoader/' component={AnimationImageLoader} />
-          <Route path='/**/Avatar/' component={Avatar} />
-          <Route path='/**/Collapse/' component={Collapse} />
-          <Route path='/**/ImageLoader/' component={ImageLoader} />
-          <Route path='/**/Loading/' component={Loading} />
-          <Route path='/**/NumberCounter/' component={NumberCounter} />
-          <Route path='/**/SearchInput/' component={SearchInput} />
-          <Route path='/**/StickVerticalMenu/' component={StickVerticalMenu} />
-          <Route path='/**/Suggest/' component={Suggest} />
-          <Route path='/**/TextOverflow/' component={TextOverflow} />
-          <Route path='/**/TreeSelect/' component={TreeSelect} />
-          <Route path='/**/UI/' component={UIKJGF} />
+          <Route path="/**/AnimationImageLoader/" component={AnimationImageLoader} />
+          <Route path="/**/Avatar/" component={Avatar} />
+          <Route path="/**/Collapse/" component={Collapse} />
+          <Route path="/**/ImageLoader/" component={ImageLoader} />
+          <Route path="/**/Loading/" component={Loading} />
+          <Route path="/**/NumberCounter/" component={NumberCounter} />
+          <Route path="/**/SearchInput/" component={SearchInput} />
+          <Route path="/**/StickVerticalMenu/" component={StickVerticalMenu} />
+          <Route path="/**/Suggest/" component={Suggest} />
+          <Route path="/**/TextOverflow/" component={TextOverflow} />
+          <Route path="/**/TreeSelect/" component={TreeSelect} />
+          <Route path="/**/UI/" component={UIKJGF} />
         </Route>
       </Router>
-    )
+    );
   }
 }
 export default RouteMap;
