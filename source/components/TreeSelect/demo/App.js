@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.less';
 import TreeSelect from '../index';
 import { Checkbox, Button } from 'antd';
-import TextOverflow from '../index';
 import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 // API定义的树形结构
