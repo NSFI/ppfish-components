@@ -1,8 +1,6 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 import App from '../components/App';
-import selfone from '../components/selfceshi1/self.js';
-import selftwo from '../components/selfceshi2/self.js';
 import AnimationImageLoader from '../components/AnimationImageLoader/demo/App';
 import Avatar from '../components/Avatar/demo/App';
 import Collapse from '../components/Collapse/demo/App';
