@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.less';
 import StickVerticalMenu from '../index';
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 const menuData = [{
   key: '1',
@@ -30,7 +31,8 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <DocumentLayout>
+      <div style={{marginBottom:'100px'}}>
         <h3>示例1： 基本使用方法</h3>
         <div className="app">
           <div className="app-menu">
@@ -97,6 +99,7 @@ class App extends Component {
           </div>
         </div>
       </div>
+      </DocumentLayout>
     );
   }
 }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.less';
 import SearchInput from '../index';
 import {Modal} from 'antd';
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends Component {
   constructor(props) {
@@ -16,12 +17,14 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{width: 220}}>
-        <SearchInput
-          placeholder={"请输入..."}
-          onSearch={this.onSearch}
-        />
-      </div>
+      <DocumentLayout>
+        <div style={{width: 220,margin:100}}>
+          <SearchInput
+            placeholder={"请输入..."}
+            onSearch={this.onSearch}
+          />
+        </div>
+      </DocumentLayout>
     );
   }
 
