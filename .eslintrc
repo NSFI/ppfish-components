@@ -74,10 +74,10 @@
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
-    "react/jsx-wrap-multilines": 1,
+    "react/jsx-wrap-multilines": 1
   },
   "globals": {
     "define": true,
-    "AMap": true,
+    "AMap": true
   }
 }

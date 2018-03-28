@@ -19,6 +19,7 @@ api-mocks
 ftl-mocks
 #VSCode metadata
 .vscode
+.project
 
 # Mac files
 .DS_Store

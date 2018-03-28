@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.less';
 import NumberCounter from '../index';
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends React.Component {
   constructor() {
@@ -18,6 +19,7 @@ class App extends React.Component {
 
   render() {
     return (
+      <DocumentLayout>
       <div style={{textAlign:'center'}}>
         <label className="label">
           输入任意数字：
@@ -34,6 +36,7 @@ class App extends React.Component {
           steps={10}
         />
       </div>
+      </DocumentLayout>
     );
   }
 }
