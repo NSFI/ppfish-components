@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import {Input, Icon, Tooltip} from 'antd';
 import './index.less';
 
+/**
+ * SearchInput框
+ * @description 带搜索的通用输入框组件
+ * @prop {string} placeholder 提示文字
+ * @prop {function} onSearch 搜索回调
+ * @prop {string} className 样式
+ * @prop {string} defaultValue 默认值
+ */
 class SearchInput extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
-    maxLength: PropTypes.number,
-    onSearch: PropTypes.func
-  };
-
-  static defaultProps = {
-    placeholder: '请输入搜索内容',
-    onSearch: () => {}
+    onSearch: PropTypes.func,
+    className: PropTypes.string,
+    defaultValue: PropTypes.string
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      searchInput: '',
+      searchInput: this.props.defaultValue || '',
     };
   }
 
@@ -32,20 +36,24 @@ class SearchInput extends Component {
     this.setState({searchInput: e.target.value});
   };
 
+  clearSearch = () => {
+    this.setState({searchInput: ''});
+  };
+
   render() {
     const {searchInput} = this.state;
-    const {placeholder, maxLength} = this.props;
+    const {onSearch, placeholder, className, ...otherProps} = this.props;
     const suffix = (
       <Tooltip placement="bottom" title="搜索">
         <Icon type="search" onClick={this.search}
-              className={`${this.state.searchInput ? 'u-search-icon-active' : null}`}/>
+              className={`${this.state.searchInput ? 'u-search-icon-active' : ''}`}/>
       </Tooltip>
     );
+
     return (
       <Input
-        className="u-searchInput"
-        size="large"
-        maxLength={maxLength}
+        {...otherProps}
+        className={`u-searchInput ${className}`}
         placeholder={placeholder}
         suffix={suffix}
         value={searchInput}
