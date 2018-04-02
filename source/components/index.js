@@ -10,6 +10,7 @@ import SearchInput from './SearchInput';
 import Suggest from './Suggest';
 import TreeSelect from './TreeSelect';
 import TextOverflow from './TextOverflow/index';
+import TimePicker from './TimePicker';
 
 // 通用组件从这里暴露
 export { AnimationImageLoader };
@@ -23,5 +24,6 @@ export { NumberCounter };
 export { SearchInput };
 export { Suggest };
 export { TreeSelect };
+export { TimePicker };
 
 export { TextOverflow };

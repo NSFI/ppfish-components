@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.less';
-import TimePicker from '../TimePicker';
+import TimePicker from '../index';
 
 //快速选择时间选项
 const quickTimeOption = [
