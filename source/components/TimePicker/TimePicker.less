@@ -1,0 +1,78 @@
+@import "../../assets/css/lib/ant-theme-vars";
+@import (reference) "../../assets/css/common/mixin";
+
+.time-picker-container {
+  .clearfix();
+  //覆盖antd样式
+  .ant-calendar-range .ant-calendar-in-range-cell:before {
+    background: @primary-color;
+    opacity: 0.15;
+  }
+}
+
+//下拉内容的样式
+.time-picker-content {
+  width: 388px;
+  //链接的样式
+  .quick-picker-item {
+    display: block;
+    height: 40px;
+    padding: 10px 20px;
+    color: @text-3;
+  }
+  span + i {
+    margin-left: 8px;
+  }
+  .quick-picker-item-active {
+    color: @primary-color;
+    i {
+      font-size: 12px;
+      transform: scale(0.79);
+      display: inline-block;
+    }
+  }
+  .quick-picker-item:hover {
+    color: @primary-color;
+    background: @item-hover-bg;
+  }
+
+  //自定义时间的样式
+  .time-picker-customer-time {
+    border-top: solid 1px rgba(235, 237, 240, 0.9);
+    margin: 10px 20px;
+    padding: 14px 0 20px 0;
+    .time-picker-customer-time-text {
+      margin-bottom: 14px;
+      color: @text-9;
+    }
+  }
+}
+
+//下拉按钮的样式
+.time-picker-click-area {
+  float: left;
+  min-width: 110px;
+  height: 40px;
+  padding: 10px 32px;
+  background: @component-background;
+  border-radius: 2px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 #e1e4f0;
+  .time-picker-click-area-icon {
+    transition: transform 0.5s;
+    display: inline-block;
+    i {
+      font-size: 10px;
+    }
+  }
+  .icon-active {
+    transform: rotate(180deg);
+  }
+  span + span {
+    margin-left: 8px;
+  }
+}
+.time-picker-click-area:hover {
+  color: @primary-color;
+}
