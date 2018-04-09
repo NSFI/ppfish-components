@@ -117,6 +117,7 @@ class App extends Component {
           defaultSelectedMap={defaultSelectedMap}
           selectedObj={selectedObj}
           onSelect={this.handleGetSelected}
+          recursive={true}
         />
         <div style={{ margin: 100 }}>
           修改checkbox看看，
