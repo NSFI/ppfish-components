@@ -57,26 +57,28 @@ class Pane {
     return null;
   }
 
-  // 单选Item，往后遍历全选其子树，往前遍历设置父树勾选状态
-  setItemSelected(key, value) {
+  // 单选Item，recursive为true时往后遍历全选其子树，往前遍历设置父树勾选状态
+  setItemSelected(key, value, recursive) {
     const item = this.getItemByKey(key);
     if ( item ) {
       item.setSelected(value, false);
-      item.setForwardSelected(value);
-      if ( item.pane ) {
+      if ( recursive ) {
+        item.setForwardSelected(value);
+      }
+      if ( recursive && item.pane ) {
         item.pane.setItemBackSelected();
       }
     }
   }
 
   // 全选Item
-  setAllItemSelected(checked) {
+  setAllItemSelected(checked, recursive) {
     const items = this.items;
     if ( !items ) {
       return;
     }
     items.forEach(it => {
-      this.setItemSelected(it.key, checked);
+      this.setItemSelected(it.key, checked, recursive);
     });
   }
 
@@ -155,24 +157,55 @@ class Pane {
   }
 
   // 获取当前选中的值
-  getSelected(returned = []) {
+  getSelected(recursive = true) {
+    if ( recursive ) {
+      return this.getSelectedByRecursive();
+    } else {
+      return this.getSelectedByParallel();
+    }
+  }
+
+  getSelectedByRecursive(returned = []) {
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[i];
       // 全选
       if ( item.selected ) {
         // componentLog(`找到勾选项目：${item.selected}`, item.key);
         returned.push(item);
-      // 部分选中
+        // 部分选中
       } else if ( item.indeterminate ) {
         if ( item.children ) {
-          item.children.getSelected(returned);
+          item.children.getSelectedByRecursive(returned);
         }
-      // 全不选
+        // 全不选
       } else {
         // do nothing
       }
     }
     return returned;
+  }
+
+  getSelectedByParallel() {
+    // 广度遍历
+    const loop = (loopItem, nextLoopItem = []) => {
+      let returned = [];
+      for ( let i = 0; i < loopItem.length; i++ ) {
+        const item = loopItem[i];
+        if ( item.selected ) {
+          // componentLog(`找到勾选项目：${item.selected}`, item.key);
+          returned.push(item);
+        }
+        if ( item.children ) {
+          nextLoopItem = nextLoopItem.concat(item.children.items);
+        }
+      }
+      if ( nextLoopItem.length ) {
+        const nextReturned = loop(nextLoopItem);
+        returned = returned.concat(nextReturned);
+      }
+      return returned;
+    };
+    return loop(this.items);
   }
 }
 
@@ -289,11 +322,14 @@ class TreeSelect extends Component {
     ]),
     // true,多选模式/false,单选模式
     multiple: PropTypes.bool,
+    // 勾选后是否递归子树和父树
+    recursive: PropTypes.bool,
     onSelect: PropTypes.func,
   }
 
   static defaultProps = {
     multiple: true,
+    recursive: true,
     onSelect: () => {}
   }
 
@@ -330,26 +366,27 @@ class TreeSelect extends Component {
   }
 
   setItemSelectedByKeys(pane, selectedObj) {
+    const { recursive } = this.props;
     if ( typeof selectedObj == 'object' ) {
       for ( let key in selectedObj ) {
-        pane.setItemSelected(key, selectedObj[key]);
+        pane.setItemSelected(key, selectedObj[key], recursive);
       }
     // 全选
     } else if ( selectedObj ) {
-      pane.setAllItemSelected(true);
+      pane.setAllItemSelected(true, recursive);
     // 全不选
     } else {
-      pane.setAllItemSelected(false);
+      pane.setAllItemSelected(false, recursive);
     }
     return pane;
   }
 
   handlePaneSelect(key, value) {
     const { pane } = this.state;
-    const { onSelect } = this.props;
-    pane.setItemSelected(key, value);
+    const { onSelect, recursive } = this.props;
+    pane.setItemSelected(key, value, recursive);
     pane.setItemCurrent(key);
-    onSelect(pane.getSelected(), key, value);
+    onSelect(pane.getSelected(recursive), key, value);
     this.setState({
       pane,
     });
