@@ -7,67 +7,80 @@ import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 // API定义的树形结构
 const data = [
   {
-    text: '浙江',
-    key: '232ddsds',
+    text: '家具个护',
+    key: '0',
     values: [
       {
-        text: '杭州',
-        key: '232ddsd1',
+        text: '家居生活',
+        key: '1',
         values: [
           {
-            text: '萧山',
-            key: 'kk12111',
-            values: []
-          },
-          {
-            text: '滨江',
-            key: 'kk12112',
-            values: []
-          },
-          {
-            text: '下沙',
-            key: 'kk12113',
-            values: []
+            text: '厨房餐具',
+            key: '2',
+            values: [
+              {
+                text: '杯子',
+                key: '3',
+                values: [
+                  {
+                    text: '马克杯',
+                    key: '4',
+                    values: []
+                  },
+                  {
+                    text: '茶杯',
+                    key: '5',
+                    values: []
+                  }
+                ]
+              },
+              {
+                text: '锅具',
+                key: '6',
+                values: []
+              }
+            ]
           }
         ]
       },
       {
-        text: '温州',
-        key: '232ddsd2',
+        text: '床',
+        key: '20',
         values: []
       },
       {
-        text: '金华',
-        key: '232ddsd3',
+        text: '凳子',
+        key: '30',
         values: []
       }
     ]
   },
   {
-    text: '江西',
-    key: '13232dad1',
+    text: '运动户外',
+    key: '40',
     values: [
       {
-        text: '南昌',
-        key: '13232dad2',
+        text: '帐篷',
+        key: '41',
         values: []
       },
       {
-        text: '赣州',
-        key: '13232dad3',
+        text: '摇椅',
+        key: '42',
         values: []
       },
       {
-        text: '合肥',
-        key: '13232dad4',
+        text: '沙滩',
+        key: '43',
         values: []
       }
     ]
   }
 ];
-const defaultSelectedMap = {
-  'kk12112': true,
-  '13232dad2': true,
+
+const defaultData = {
+  '3': true,
+  '20': true,
 };
 
 class App extends Component {
@@ -76,7 +89,7 @@ class App extends Component {
     this.handleGetSelected = this.handleGetSelected.bind(this);
     this.state = {
       selectedObj: null,
-      selectedItems: [{text: '滨江', key: 'kk12112'},{text: '南昌', key: '13232dad2'}],
+      selectedItems: [{text: '杯子', key: '3'},{text: '床', key: '20'}],
     };
   }
 
@@ -114,18 +127,18 @@ class App extends Component {
         <TreeSelect
           multiple={true}
           data={data}
-          defaultSelectedMap={defaultSelectedMap}
+          defaultSelectedMap={defaultData}
           selectedObj={selectedObj}
           onSelect={this.handleGetSelected}
-          recursive={true}
+          recursive={false}
         />
         <div style={{ margin: 100 }}>
           修改checkbox看看，
           <Checkbox defaultChecked={true}
-                    onChange={(e) => this.handleChange('kk12112', e.target.checked)}>滨江</Checkbox>
+                    onChange={(e) => this.handleChange('3', e.target.checked)}>杯子</Checkbox>
           <Checkbox defaultChecked={true}
-                    onChange={(e) => this.handleChange('232ddsds', e.target.checked)}>浙江</Checkbox>
-          <Checkbox defaultChecked={true}
+                    onChange={(e) => this.handleChange('20', e.target.checked)}>床</Checkbox>
+          <Checkbox defaultChecked={false}
                     onChange={(e) => this.handleAllChange(e.target.checked)}>全选</Checkbox>
         </div>
         <div style={{ margin: 100 }}>

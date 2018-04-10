@@ -385,7 +385,10 @@ class TreeSelect extends Component {
     const { pane } = this.state;
     const { onSelect, recursive } = this.props;
     pane.setItemSelected(key, value, recursive);
-    pane.setItemCurrent(key);
+    // 递归查找时，展示下一层级
+    if ( recursive ) {
+      pane.setItemCurrent(key);
+    }
     onSelect(pane.getSelected(recursive), key, value);
     this.setState({
       pane,
