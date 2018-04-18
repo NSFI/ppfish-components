@@ -4,6 +4,7 @@ import {Table} from 'antd';
 import './index.less';
 import {PAGE_SIZE} from '../../constants';
 import {setRowActive} from '../../utils';
+
 /**
  * Prophet常规Table
  * - 固定表头，需要指定 offsetHeight 值;
@@ -21,11 +22,13 @@ import {setRowActive} from '../../utils';
  * @prop loading         {boolean|object}  是否加载中
  * @prop onChange        {function}  分页排序筛选变化时触发 Function(pagination, filters, sorter)
  * @prop onRowClick      {function}  点击行时触发 Function(record, index, event)
+ * @prop pageSize        {number}  分页数
  */
 class CustomTable extends Component {
 
   static propTypes = {
     dataSource: PropTypes.array,
+    pageSize: PropTypes.number,
     rowKey: PropTypes.string,
     columns: PropTypes.array,
     totalNum: PropTypes.number,
@@ -38,6 +41,10 @@ class CustomTable extends Component {
     loading: PropTypes.bool,
     onChange: PropTypes.func,
     onRowClick: PropTypes.func
+  };
+
+  static defaultProps = {
+    pageSize: PAGE_SIZE
   };
 
   constructor(props) {
@@ -78,15 +85,16 @@ class CustomTable extends Component {
       rowKey,
       pagination,
       scroll,
+      pageSize,
       ...others
     } = this.props;
 
     const isShowPagination = typeof pagination === "boolean";
     const paginationSetting = isShowPagination ? pagination : {
-      pageSize: PAGE_SIZE,
+      pageSize: pageSize,
       total: totalNum,
       showTotal: (total) => {
-        return `每页显示${PAGE_SIZE}条，共 ${Math.ceil(total / PAGE_SIZE)} 页`;
+        return `每页显示${pageSize}条，共 ${Math.ceil(total / pageSize)} 页`;
       },
       ...pagination
     };
