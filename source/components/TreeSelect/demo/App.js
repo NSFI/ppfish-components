@@ -130,7 +130,7 @@ class App extends Component {
           defaultSelectedMap={defaultData}
           selectedObj={selectedObj}
           onSelect={this.handleGetSelected}
-          recursive={false}
+          recursive={true}
         />
         <div style={{ margin: 100 }}>
           修改checkbox看看，
