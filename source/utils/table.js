@@ -18,13 +18,6 @@ export const getSiblings = (elem) => {
  * @param {object} node - 所需要添加样式的节点或子节点
  */
 export const setRowActive = (node) => {
-  //去除个例外
-  if (node.classList.contains('ant-tooltip-inner') || node.classList.contains('ant-tooltip-arrow')) return;
-  while (!node.classList.contains('ant-table-row')) {
-    node = node.parentNode;
-    if (node.classList.contains('ant-table-row')) {
-      node.classList.add('row-active');
-      getSiblings(node).map((i) => i.classList.remove('row-active'));
-    }
-  }
+  node.classList.add('row-active');
+  getSiblings(node).map((i) => i.classList.remove('row-active'));
 };

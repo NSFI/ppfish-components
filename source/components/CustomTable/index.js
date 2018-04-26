@@ -109,7 +109,7 @@ class CustomTable extends Component {
              onRow={
                (record, index) => ({
                  onClick: (event) => {
-                   setRowActive(event.target);
+                   setRowActive(event.currentTarget);
                    onRowClick && onRowClick(record, index, event);
                  }
                })
