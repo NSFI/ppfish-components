@@ -11,6 +11,7 @@ import Suggest from './Suggest';
 import TreeSelect from './TreeSelect';
 import TextOverflow from './TextOverflow/index';
 import TimePicker from './TimePicker';
+import DayTimeSelect from './DayTimeSelect';
 
 // 通用组件从这里暴露
 export { AnimationImageLoader };
@@ -25,5 +26,6 @@ export { SearchInput };
 export { Suggest };
 export { TreeSelect };
 export { TimePicker };
+export { DayTimeSelect };
 
 export { TextOverflow };
