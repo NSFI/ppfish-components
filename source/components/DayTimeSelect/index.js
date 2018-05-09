@@ -57,13 +57,14 @@ class DayTimeSelect extends Component {
 
   render() {
     const { timeRangeArr } = this.state;
+    const { disable } = this.props;
     return (
       <div className="day-time-select">
         <ul>
           {
             timeRangeArr.map((each)=>
               <li key={each.value}
-                  className={"day-time-select-item " + (!each.isChecked ? "": "checked")}
+                  className={"day-time-select-item " + (!each.isChecked ? "": "checked") + (!disable ? "" : "disabled")}
                   onClick={this.handleClick.bind(this, each)}
               >
                 <span>{each.value + ':00'}</span>
