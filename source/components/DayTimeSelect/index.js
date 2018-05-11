@@ -9,8 +9,8 @@ const formatInitTimeRange = (arr, defaultValue) => {
   let endTime = arr[1];
   for(startTime; startTime <= endTime; startTime += 1){
     rangeArr.push({
-      value: startTime,
-      isChecked: defaultValue.indexOf(startTime) >= 0
+      value: parseInt(startTime),
+      isChecked: defaultValue.indexOf(parseInt(startTime)) >= 0
     });
   }
   return rangeArr;
