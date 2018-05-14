@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "qiyu and prophet ui components",
   "scripts": {
     "precommit": "npm run lint",
