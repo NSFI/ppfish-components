@@ -29,7 +29,7 @@ class DayTimeSelect extends Component {
 
   static propTypes = {
     timeRange: PropTypes.array,
-    defaultValue: PropTypes.array,
+    value: PropTypes.array,
     disable: PropTypes.bool,
     onChange: PropTypes.func,
   };
@@ -37,7 +37,7 @@ class DayTimeSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeRangeArr: formatInitTimeRange(this.props.timeRange, this.props.defaultValue)
+      timeRangeArr: formatInitTimeRange(this.props.timeRange, this.props.value || [])
     }
   }
 
