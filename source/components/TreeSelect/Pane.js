@@ -87,7 +87,10 @@ class Pane {
     });
   }
 
-  // 往前遍历设置父树勾选状态，检查当前层级节点是否全部选中/全不选/部分选中，修改上一级勾选状态
+  /**
+   * @method 往前遍历设置父树勾选状态，检查当前层级节点是否全部选中/全不选/部分选中，修改上一级勾选状态
+   * @param indeterminate {Boolean} 是否跳过计算当前层级节点的选中状态
+   */
   setItemBackSelected(indeterminate) {
     const parent = this.parent;
     if ( !parent ) {
@@ -162,18 +165,18 @@ class Pane {
   }
 
   // 获取当前选中的值
-  getSelected(recursive = true) {
+  getSelected(byDepth = true) {
     // true-深度优先遍历
-    if ( recursive ) {
-      return this.getSelectedByRecursive();
+    if ( byDepth ) {
+      return this.getSelectedByDepth();
     // false-广度优先遍历
     } else {
-      return this.getSelectedByParallel();
+      return this.getSelectedByBreadth();
     }
   }
 
   // 深度优先遍历递归获取当前选中的值
-  getSelectedByRecursive(returned = []) {
+  getSelectedByDepth(returned = []) {
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[i];
       // 全选
@@ -183,7 +186,7 @@ class Pane {
       // 部分选中
       } else if ( item.indeterminate ) {
         if ( item.children ) {
-          item.children.getSelectedByRecursive(returned);
+          item.children.getSelectedByDepth(returned);
         }
       // 全不选
       } else {
@@ -194,7 +197,7 @@ class Pane {
   }
 
   // 广度优先遍历递归获取当前选中的值
-  getSelectedByParallel() {
+  getSelectedByBreadth() {
     // 广度优先遍历
     const loop = (loopItem, nextLoopItem = []) => {
       let returned = [];

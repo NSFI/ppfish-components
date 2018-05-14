@@ -12,13 +12,15 @@
 // |            |
 // |------------|
 class Item {
-  constructor(children, pane, key, text) {
+  constructor(children, pane, key, text, leaf) {
     this.children = children; // Pane
     this.pane = pane; // Pane
     this.selected = false;
     this.indeterminate = false;
+    this.loading = false;
     this.key = key;
     this.text = text;
+    this.leaf = leaf;
     this.current = false;
   }
 
@@ -37,14 +39,19 @@ class Item {
   // // 全选
   // selected = true;
   // indeterminate = false;
-  setSelected(value, indeterminate) {
-    this.selected = value;
+  setSelected(selected, indeterminate) {
+    this.selected = selected;
     this.indeterminate = indeterminate;
   }
 
   // 设置当前项高亮
   setCurrent(value) {
     this.current = value;
+  }
+
+  // 设置当前项加载状态
+  setLoading(value) {
+    this.loading = value;
   }
 
   // 往前遍历设置面板显示状态
@@ -56,15 +63,15 @@ class Item {
   }
 
   // 往后遍历全选其子树
-  setForwardSelected(value) {
+  setForwardSelected(selected) {
     const pane = this.children;
     if ( !pane ) {
       return;
     }
     for ( let i = 0; i < pane.items.length; i++ ) {
       const item = pane.items[i];
-      item.setSelected(value, false);
-      item.setForwardSelected(value);
+      item.setSelected(selected, false);
+      item.setForwardSelected(selected);
     }
   }
 }
