@@ -81,7 +81,8 @@ class TreePane extends Component {
                   onClick={() => this.setCurrent(item.key)}
                 >{item.text}</div>
                 <TreeSelectMore
-                  hasSubItem={!!item.children}
+                  hasSubItem={!!item.children || item.leaf}
+                  loading={item.loading}
                   onClick={() => this.setCurrent(item.key)}
                 />
               </div>

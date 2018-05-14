@@ -4,32 +4,38 @@ import TreeSelect from '../index';
 import { Checkbox, Button } from 'antd';
 import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
-// API定义的树形结构
-const data = [
+// 初始化渲染的树形结构
+let defaultData = [
   {
     text: '家具个护',
     key: '0',
+    leaf: true,
     values: [
       {
         text: '家居生活',
         key: '1',
+        leaf: true,
         values: [
           {
             text: '厨房餐具',
             key: '2',
+            leaf: false,
             values: [
               {
                 text: '杯子',
                 key: '3',
+                leaf: true,
                 values: [
                   {
                     text: '马克杯',
                     key: '4',
+                    leaf: false,
                     values: []
                   },
                   {
                     text: '茶杯',
                     key: '5',
+                    leaf: false,
                     values: []
                   }
                 ]
@@ -37,6 +43,7 @@ const data = [
               {
                 text: '锅具',
                 key: '6',
+                leaf: false,
                 values: []
               }
             ]
@@ -46,11 +53,13 @@ const data = [
       {
         text: '床',
         key: '20',
+        leaf: true,
         values: []
       },
       {
         text: '凳子',
         key: '30',
+        leaf: false,
         values: []
       }
     ]
@@ -58,27 +67,32 @@ const data = [
   {
     text: '运动户外',
     key: '40',
+    leaf: true,
     values: [
       {
         text: '帐篷',
         key: '41',
+        leaf: false,
         values: []
       },
       {
         text: '摇椅',
         key: '42',
+        leaf: false,
         values: []
       },
       {
         text: '沙滩',
         key: '43',
+        leaf: false,
         values: []
       }
     ]
   }
 ];
 
-const defaultData = {
+// 选中的树结构数据
+const defaultSelected = {
   '3': true,
   '20': true,
 };
@@ -88,15 +102,15 @@ class App extends Component {
     super(props);
     this.handleGetSelected = this.handleGetSelected.bind(this);
     this.state = {
-      selectedObj: null,
+      selected: null,
       selectedItems: [{text: '杯子', key: '3'},{text: '床', key: '20'}],
     };
   }
 
   handleChange(key, checked) {
-    const { selectedObj } = this.state;
+    const { selected } = this.state;
     this.setState({
-      selectedObj: Object.assign({}, selectedObj, {
+      selected: Object.assign({}, selected, {
         [`${key}`]: checked
       })
     });
@@ -104,33 +118,66 @@ class App extends Component {
 
   handleAllChange(checked) {
     this.setState({
-      selectedObj: checked
+      selected: checked
     });
   }
 
   handleGetSelected(selectedItems, key, value) {
-    // 获取selectedObj
-    const selectedObj = {
+    // 获取selected
+    const selected = {
       [`${key}`]: value
     };
     this.setState({
       selectedItems,
-      selectedObj,
+      selected,
+    });
+  }
+
+  loadLeaf(key) {
+    const data = [
+      {
+        text: '婴儿床',
+        key: '21',
+        leaf: false,
+        values: []
+      },
+      {
+        text: '1-3岁',
+        key: '23',
+        leaf: false,
+        values: []
+      },
+      {
+        text: '4-9岁',
+        key: '26',
+        leaf: false,
+        values: []
+      }
+    ];
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (key === '20') {
+          resolve(data);
+        } else {
+          reject();
+        }
+      }, 200);
     });
   }
 
   render() {
-    const { selectedObj, selectedItems } = this.state;
+    const { selected, selectedItems } = this.state;
     return (
       <DocumentLayout>
       <div style={{ margin: 100 }}>
         <TreeSelect
           multiple={true}
-          data={data}
-          defaultSelectedMap={defaultData}
-          selectedObj={selectedObj}
+          defaultData={defaultData}
+          defaultSelected={defaultSelected}
+          selected={selected}
           onSelect={this.handleGetSelected}
           recursive={true}
+          loadLeaf={this.loadLeaf}
         />
         <div style={{ margin: 100 }}>
           修改checkbox看看，
