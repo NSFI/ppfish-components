@@ -4,7 +4,7 @@ import App from '../components/App';
 import AnimationImageLoader from '../components/AnimationImageLoader/demo/App';
 import Avatar from '../components/Avatar/demo/App';
 import Collapse from '../components/Collapse/demo/App';
-// import CustomTable from '../components/CustomTable/demo/App';
+import CustomTable from '../components/CustomTable/demo/App';
 import Drawer from '../components/Drawer/demo/App';
 // import EChart from '../components/EChart/demo/App';
 import ImageLoader from '../components/ImageLoader/demo/App';
@@ -41,6 +41,7 @@ class RouteMap extends React.Component {
           <Route path="/**/TimePicker/" component={TimePicker}/>
           <Route path="/**/TreeSelect/" component={TreeSelect}/>
           <Route path="/**/TableSorter/" component={TableSorter}/>
+          <Route path="/**/CustomTable/" component={CustomTable}/>
           <Route path="/**/PicturePreview/" component={PicturePreview} />
           <Route path="/**/UI/" component={UIKJGF}/>
         </Route>
