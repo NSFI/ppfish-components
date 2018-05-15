@@ -21,11 +21,11 @@ class App extends Component {
     const {sortBy, order} = this.state;
     return (
       <DocumentLayout>
-        <div>
+        <div className="sorter-demo-container">
           <h3>State</h3>
           {Object.keys(this.state).map(key => <p key={key}>{`${key}: ${this.state[key]}`}</p>)}
         </div>
-        <div>
+        <div className="sorter-demo-container">
           <h3>普通模式</h3>
           <TableSorter
             handleChangeSorter={this.handleChangeSorter}
@@ -34,6 +34,8 @@ class App extends Component {
             order={order}
           />
           <h3>自定义模式</h3>
+        </div>
+        <div className="sorter-demo-container">
           <TableSorter
             handleChangeSorter={this.handleChangeSorter}
             sortBy={sortBy}
