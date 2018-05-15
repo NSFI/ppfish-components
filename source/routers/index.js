@@ -19,6 +19,7 @@ import TextOverflow from '../components/TextOverflow/demo/App';
 import TimePicker from '../components/TimePicker/demo/App';
 import TreeSelect from '../components/TreeSelect/demo/App';
 import UIKJGF from '../components/UI/demo/App';
+import PicturePreview from '../components/PicturePreview/demo/App';
 
 class RouteMap extends React.Component {
   render() {
@@ -40,6 +41,7 @@ class RouteMap extends React.Component {
           <Route path="/**/TimePicker/" component={TimePicker}/>
           <Route path="/**/TreeSelect/" component={TreeSelect}/>
           <Route path="/**/TableSorter/" component={TableSorter}/>
+          <Route path="/**/PicturePreview/" component={PicturePreview} />
           <Route path="/**/UI/" component={UIKJGF}/>
         </Route>
       </Router>

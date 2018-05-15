@@ -1,0 +1,68 @@
+/* use css to set position of modal */
+.vertical-center-modal {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.vertical-center-modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.vertical-center-modal .ant-modal {
+  display: inline-block;
+  vertical-align: middle;
+  top: 0;
+  text-align: left;
+}
+
+.vertical-center-modal .ant-modal-content {
+  background-color: inherit;
+  box-shadow: none;
+  .ant-modal-close-x {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.4);
+  }
+}
+
+.vertical-center-modal .ant-carousel .slick-slide {
+  height: 600px;
+  line-height: 600px;
+}
+
+.picture-preview-modal-content {
+  display: flex;
+  .left-side {
+    margin-right: 90px;
+  }
+  .right-side {
+    margin-left: 90px;
+  }
+  .side {
+    display: flex;
+    align-items: center;
+    .iconfont {
+      color: #fff;
+      font-size: 45px;
+    }
+  }
+  .middle {
+    flex: 1;
+    max-width: 600px;
+    .picture-container {
+      display: flex;
+      align-items: center;
+      img {
+        margin: 0 auto;
+      }
+    }
+  }
+}
