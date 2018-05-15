@@ -15,6 +15,7 @@ import TableSorter from './TableSorter';
 import TextOverflow from './TextOverflow';
 import TimePicker from './TimePicker';
 import DayTimeSelect from './DayTimeSelect';
+import PicturePreview from './PicturePreview';
 import TreeSelect from './TreeSelect';
 
 // 通用组件从这里暴露
@@ -35,5 +36,6 @@ export { TableSorter };
 export { TextOverflow };
 export { TimePicker };
 export { DayTimeSelect };
+export { PicturePreview };
 export { TreeSelect };
 

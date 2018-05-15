@@ -38,7 +38,7 @@ class DayTimeSelect extends Component {
     super(props);
     this.state = {
       timeRangeArr: formatInitTimeRange(this.props.timeRange, this.props.value || [])
-    }
+    };
   }
 
   handleClick(item) {
