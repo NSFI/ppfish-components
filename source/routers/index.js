@@ -20,6 +20,7 @@ import TimePicker from '../components/TimePicker/demo/App';
 import TreeSelect from '../components/TreeSelect/demo/App';
 import UIKJGF from '../components/UI/demo/App';
 import PicturePreview from '../components/PicturePreview/demo/App';
+import DayTimeSelect from '../components/DayTimeSelect/demo/App';
 
 class RouteMap extends React.Component {
   render() {
@@ -43,6 +44,7 @@ class RouteMap extends React.Component {
           <Route path="/**/TableSorter/" component={TableSorter}/>
           <Route path="/**/CustomTable/" component={CustomTable}/>
           <Route path="/**/PicturePreview/" component={PicturePreview} />
+          <Route path="/**/DayTimeSelect/" component={DayTimeSelect} />
           <Route path="/**/UI/" component={UIKJGF}/>
         </Route>
       </Router>
