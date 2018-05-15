@@ -28,16 +28,23 @@ const getSelectTimeArr = (timeRangeArr) => {
 class DayTimeSelect extends Component {
 
   static propTypes = {
-    timeRange: PropTypes.array,
-    value: PropTypes.array,
-    disable: PropTypes.bool,
-    onChange: PropTypes.func,
+    timeRange: PropTypes.array,  // 选择时间范围
+    value: PropTypes.array,      // 默认值
+    disable: PropTypes.bool,     // 是否禁用
+    onChange: PropTypes.func,    // 时间发生变化的回调
+  };
+
+  static defaultProps = {
+    timeRange: [1,24],
+    value: [],
+    disable: false,
+    onChange: () => {},
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      timeRangeArr: formatInitTimeRange(this.props.timeRange, this.props.value || [])
+      timeRangeArr: formatInitTimeRange(this.props.timeRange, this.props.value)
     };
   }
 
