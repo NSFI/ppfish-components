@@ -11,7 +11,7 @@ class App extends Component {
   }
 
   handleTimeSlotChange = (item) => {
-    console.log(item);
+    //console.log(item);
   }
 
   render() {

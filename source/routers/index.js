@@ -10,7 +10,7 @@ import Drawer from '../components/Drawer/demo/App';
 import ImageLoader from '../components/ImageLoader/demo/App';
 import Loading from '../components/Loading/demo/App';
 import NumberCounter from '../components/NumberCounter/demo/App';
-// import ReactAmap from '../components/ReactAmap/demo/App';
+import ReactAmap from '../components/ReactAmap/demo/App';
 import SearchInput from '../components/SearchInput/demo/App';
 import StickVerticalMenu from '../components/StickVerticalMenu/demo/App';
 import Suggest from '../components/Suggest/demo/App';
@@ -45,6 +45,7 @@ class RouteMap extends React.Component {
           <Route path="/**/CustomTable/" component={CustomTable}/>
           <Route path="/**/PicturePreview/" component={PicturePreview} />
           <Route path="/**/DayTimeSelect/" component={DayTimeSelect} />
+          <Route path="/**/ReactAmap/" component={ReactAmap} />
           <Route path="/**/UI/" component={UIKJGF}/>
         </Route>
       </Router>
