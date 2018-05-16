@@ -8,7 +8,8 @@ import Emitter from '../monitor/monitor';
 import './App.less';
 
 let Markdown = require('./AnimationImageLoader/demo/Markdown.js');
-const gitAddress = 'https://raw.githubusercontent.com/NSFI/ppfish-components/dev/source/components/';
+const branchName = 'dev';
+const gitAddress = `https://raw.githubusercontent.com/NSFI/ppfish-components/${branchName}/source/components/`;
 const requireContext = require.context("../components", true, /demo\/App\.js$/);
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;

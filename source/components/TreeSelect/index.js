@@ -90,7 +90,6 @@ const serializeToData = (pane, copyKeys=['key', 'text', 'leaf']) => {
 class TreeSelect extends Component {
   static serializeToData = serializeToData;
   static propTypes = {
-    // TODO 接口更改
     // 首次渲染时使用的树状结构数据
     defaultData: PropTypes.array.isRequired,
     // 注意data受控属性和selected受控属性建议只使用其中一个
@@ -167,12 +166,12 @@ class TreeSelect extends Component {
    * @param selected {Object} [Optional]树状结构数据选中的键值对
    */
   setPane = (data, selected) => {
-    performance.mark('genPane-start');
+    // performance.mark('genPane-start');
     const pane = createPane(data);
-    performance.mark('genPane-end');
-    performance.measure('genPane', 'genPane-start', 'genPane-end');
-    let measures = performance.getEntriesByName('genPane');
-    console.log(measures[0]);
+    // performance.mark('genPane-end');
+    // performance.measure('genPane', 'genPane-start', 'genPane-end');
+    // let measures = performance.getEntriesByName('genPane');
+    // console.log(measures[0]);
     componentLog('多级树实例化：', pane);
     let firstKey;
     // 传入的selected为键值对
@@ -223,7 +222,6 @@ class TreeSelect extends Component {
     if ( recursive ) {
       pane.setItemCurrent(key);
     }
-    // TODO 修改返回值
     // 返回选中的数据项目、当前点击的key、当前点击的value
     onSelect(pane, key, value);
     this.setState({
