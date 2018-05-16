@@ -131,7 +131,7 @@ class Collapse extends Component {
   scrollToHeader() {
     const { currentKey, activeKey } = this.state;
     const { isScrollToHeader } = this.props;
-    const collapse = this.refs.collapse;
+    const collapse = this.collapse;
     if ( !isScrollToHeader || !currentKey || !activeKey.includes(currentKey) ) {
       return;
     }
@@ -162,7 +162,7 @@ class Collapse extends Component {
       style = { overflowY: 'auto', overflowX: 'hidden'};
     }
     return (
-      <div className={classNames(clsObj)} ref="collapse" style={style}>
+      <div className={classNames(clsObj)} ref={node => this.collapse = node} style={style}>
         {this.getItems()}
       </div>
     );

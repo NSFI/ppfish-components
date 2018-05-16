@@ -10,7 +10,7 @@ const dataSource = [
     "size": "600*600"
   },
   {
-    "url": "http://cdn.duitang.com/uploads/item/201506/29/20150629091228_aF2WC.jpeg",
+    "url": "http://cdn.duitang.com/uploads/item/201506/29/20150629091228_aF2WC.jpg",
     "size": "100*100"
   },
   {

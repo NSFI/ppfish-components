@@ -6,7 +6,7 @@ import Avatar from '../components/Avatar/demo/App';
 import Collapse from '../components/Collapse/demo/App';
 import CustomTable from '../components/CustomTable/demo/App';
 import Drawer from '../components/Drawer/demo/App';
-// import EChart from '../components/EChart/demo/App';
+import EChart from '../components/EChart/demo/App';
 import ImageLoader from '../components/ImageLoader/demo/App';
 import Loading from '../components/Loading/demo/App';
 import NumberCounter from '../components/NumberCounter/demo/App';
@@ -33,6 +33,7 @@ class RouteMap extends React.Component {
           <Route path="/**/Collapse/" component={Collapse}/>
           <Route path="/**/ImageLoader/" component={ImageLoader}/>
           <Route path="/**/Drawer/" component={Drawer}/>
+          <Route path="/**/EChart/" component={EChart}/>
           <Route path="/**/Loading/" component={Loading}/>
           <Route path="/**/NumberCounter/" component={NumberCounter}/>
           <Route path="/**/SearchInput/" component={SearchInput}/>

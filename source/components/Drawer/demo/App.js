@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Drawer from '../index';
+import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 import './App.less';
 
@@ -27,15 +28,17 @@ class App extends Component {
   render() {
     const {visible} = this.state;
 
-    return [
-      <p>The container should be relative positioned and overflow hidden.</p>,
-      <div className="g-container">
-        <Drawer visible={visible} onClose={this.handleClose}>
-          <div style={{"padding":"20px"}}>This is custom contents.</div>
-        </Drawer>
-      </div>,
-      <button onClick={this.handleOpen}>Open Drawer</button>
-    ];
+    return (
+      <DocumentLayout>
+        <p>The container should be relative positioned and overflow hidden.</p>
+        <div className="g-container">
+          <Drawer visible={visible} onClose={this.handleClose}>
+            <div style={{"padding":"20px"}}>This is custom contents.</div>
+          </Drawer>
+        </div>
+        <button onClick={this.handleOpen}>Open Drawer</button>
+      </DocumentLayout>
+    );
   }
 }
 
