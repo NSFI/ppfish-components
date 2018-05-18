@@ -48,6 +48,14 @@ class DayTimeSelect extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({
+        timeRangeArr: formatInitTimeRange(nextProps.timeRange, nextProps.value)
+      });
+    }
+  }
+
   handleClick(item) {
     if(this.props.disable){
       return;
