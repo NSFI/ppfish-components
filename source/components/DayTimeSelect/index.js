@@ -28,16 +28,18 @@ const getSelectTimeArr = (timeRangeArr) => {
 class DayTimeSelect extends Component {
 
   static propTypes = {
-    timeRange: PropTypes.array,  // 选择时间范围
-    value: PropTypes.array,      // 默认值
-    disable: PropTypes.bool,     // 是否禁用
-    onChange: PropTypes.func,    // 时间发生变化的回调
+    timeRange: PropTypes.array,      // 选择时间范围
+    value: PropTypes.array,          // 默认值
+    disable: PropTypes.bool,         // 是否禁用
+    intervalWidth: PropTypes.number, // 间隔长度 单位px
+    onChange: PropTypes.func,        // 时间发生变化的回调
   };
 
   static defaultProps = {
     timeRange: [1,24],
     value: [],
     disable: false,
+    intervalWidth: 37,
     onChange: () => {},
   };
 
@@ -72,14 +74,16 @@ class DayTimeSelect extends Component {
 
   render() {
     const { timeRangeArr } = this.state;
-    const { disable } = this.props;
+    const { disable, intervalWidth, timeRange } = this.props;
+    const minWidth = isNaN(intervalWidth) ? 900 : parseInt(intervalWidth) * (timeRange[1] - timeRange[0] + 1) + 20;
     return (
-      <div className="day-time-select">
+      <div className="day-time-select" style={{minWidth: `${minWidth}px`}}>
         <ul>
           {
             timeRangeArr.map((each)=>
               <li key={each.value}
                   className={"day-time-select-item " + (!each.isChecked ? "": "checked") + (!disable ? "" : " disabled")}
+                  style={{width:`${intervalWidth}px`}}
                   onClick={this.handleClick.bind(this, each)}
               >
                 <span>{each.value + ':00'}</span>
