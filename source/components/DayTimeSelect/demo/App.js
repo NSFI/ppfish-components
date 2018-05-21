@@ -22,6 +22,7 @@ class App extends Component {
           <DayTimeSelect
             timeRange={[1, 24]}
             value={[1,2,5]}
+            intervalWidth={37}
             onChange={this.handleTimeSlotChange}
           />
         </div>
