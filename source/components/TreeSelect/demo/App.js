@@ -9,33 +9,39 @@ let defaultData = [
   {
     text: '家具个护',
     key: '0',
-    leaf: true,
+    id: '0',
+    leaf: false,
     values: [
       {
         text: '家居生活',
         key: '1',
-        leaf: true,
+        id: '1',
+        leaf: false,
         values: [
           {
             text: '厨房餐具',
             key: '2',
-            leaf: false,
+            id: '2',
+            leaf: true,
             values: [
               {
                 text: '杯子',
                 key: '3',
-                leaf: true,
+                id: '3',
+                leaf: false,
                 values: [
                   {
                     text: '马克杯',
                     key: '4',
-                    leaf: false,
+                    id: '4',
+                    leaf: true,
                     values: []
                   },
                   {
                     text: '茶杯',
                     key: '5',
-                    leaf: false,
+                    id: '5',
+                    leaf: true,
                     values: []
                   }
                 ]
@@ -43,7 +49,8 @@ let defaultData = [
               {
                 text: '锅具',
                 key: '6',
-                leaf: false,
+                id: '6',
+                leaf: true,
                 values: []
               }
             ]
@@ -53,13 +60,15 @@ let defaultData = [
       {
         text: '床',
         key: '20',
-        leaf: true,
+        id: '20',
+        leaf: false,
         values: []
       },
       {
         text: '凳子',
         key: '30',
-        leaf: false,
+        id: '30',
+        leaf: true,
         values: []
       }
     ]
@@ -67,24 +76,28 @@ let defaultData = [
   {
     text: '运动户外',
     key: '40',
-    leaf: true,
+    id: '40',
+    leaf: false,
     values: [
       {
         text: '帐篷',
         key: '41',
-        leaf: false,
+        id: '41',
+        leaf: true,
         values: []
       },
       {
         text: '摇椅',
         key: '42',
-        leaf: false,
+        id: '42',
+        leaf: true,
         values: []
       },
       {
         text: '沙滩',
         key: '43',
-        leaf: false,
+        id: '43',
+        leaf: true,
         values: []
       }
     ]
@@ -133,24 +146,24 @@ class App extends Component {
     });
   }
 
-  loadLeaf(key) {
+  loadLeaf(key, id) {
     const data = [
       {
         text: '婴儿床',
         key: '21',
-        leaf: false,
+        leaf: true,
         values: []
       },
       {
         text: '1-3岁',
         key: '23',
-        leaf: false,
+        leaf: true,
         values: []
       },
       {
         text: '4-9岁',
         key: '26',
-        leaf: false,
+        leaf: true,
         values: []
       }
     ];

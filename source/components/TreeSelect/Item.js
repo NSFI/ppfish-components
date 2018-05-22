@@ -12,13 +12,14 @@
 // |            |
 // |------------|
 class Item {
-  constructor(children, pane, key, text, leaf) {
+  constructor(children, pane, key, id, text, leaf) {
     this.children = children; // Pane
     this.pane = pane; // Pane
     this.selected = false;
     this.indeterminate = false;
     this.loading = false;
     this.key = key;
+    this.id = id;
     this.text = text;
     this.leaf = leaf;
     this.current = false;
