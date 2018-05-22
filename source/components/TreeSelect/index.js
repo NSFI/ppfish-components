@@ -16,7 +16,7 @@ const createPane = (tree, parentItem = null) => {
   for ( let i = 0; i < tree.length; i++ ) {
     const treeI = tree[i];
     // children后面设置
-    const item = new Item(null, pane, treeI.key, treeI.text, treeI.leaf);
+    const item = new Item(null, pane, treeI.key, treeI.id, treeI.text, treeI.leaf);
     const status = treeI.status;
     if ( typeof status !== 'undefined' ) {
       // status 1-全选，2-半选
@@ -95,7 +95,7 @@ class TreeSelect extends Component {
     // 注意data受控属性和selected受控属性建议只使用其中一个
     // 受控属性，当前树状结构数据
     data: PropTypes.array,
-    // 点击后从服务端获取叶子节点数据
+    // 点击后从服务端获取子节点数据
     loadLeaf: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.object,
@@ -229,7 +229,7 @@ class TreeSelect extends Component {
     });
   }
 
-  handlePaneCurrent(key) {
+  handlePaneCurrent(key, id) {
     const { loadLeaf } = this.props;
     const { pane } = this.state;
     const item = pane.getItemByKey(key);
@@ -239,13 +239,13 @@ class TreeSelect extends Component {
       this.setState({
         pane,
       });
-    // 存在叶子节点
-    } else if ( item.leaf && typeof loadLeaf === 'function' ) {
+    // 存在子节点
+    } else if ( !item.leaf && typeof loadLeaf === 'function' ) {
       item.setLoading(true);
       this.setState({
         pane,
       });
-      Promise.resolve(loadLeaf(key)).then(data => {
+      Promise.resolve(loadLeaf(key, id)).then(data => {
         let childPane;
         if ( data ) {
           // 当用户界面全选或者全不选父节点时，需要更新加载后的data status保持和父节点一致
@@ -304,7 +304,7 @@ class TreeSelect extends Component {
                   pane={pane}
                   depth={depth}
                   onSelect={(key, value) => this.handlePaneSelect(key, value)}
-                  onCurrent={(key) => this.handlePaneCurrent(key)}
+                  onCurrent={(key, id) => this.handlePaneCurrent(key, id)}
                 />
               );
             });
