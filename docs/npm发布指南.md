@@ -19,11 +19,15 @@ npm view ppfish dist-tags
 #查看versions
 npm show ppfish versions
 
-#发布：
-npm version major/minor/patch
-git push
-npm pusblis 默认以latest发布
+#预发布
+git add -A && git commit -m "c
+npm version prerelease
 npm publish --tag beta 指定tag为beta并发布
+
+#发布：
+git add -A && git commit -m "c
+npm version major/minor/patch
+npm publish 默认以latest发布
 
 #为ppfish1.1.0版本添加tag为latest:
 npm dist-tags add ppfish@1.1.0 latest
