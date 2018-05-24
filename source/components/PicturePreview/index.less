@@ -22,46 +22,52 @@
 .vertical-center-modal .ant-modal-content {
   background-color: inherit;
   box-shadow: none;
-  .ant-modal-close-x {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 20px;
-    color: #fff;
-    border-radius: 50%;
-    background-color: rgba(0,0,0,0.4);
-  }
 }
 
 .vertical-center-modal .ant-carousel .slick-slide {
-  height: 600px;
-  line-height: 600px;
+  height: 620px;
+  line-height: 620px;
 }
 
 .picture-preview-modal-content {
   display: flex;
-  .left-side {
-    margin-right: 90px;
-  }
-  .right-side {
-    margin-left: 90px;
-  }
   .side {
     display: flex;
     align-items: center;
     .iconfont {
       color: #fff;
       font-size: 45px;
+      z-index: 10;
     }
   }
   .middle {
-    flex: 1;
-    max-width: 600px;
+    margin: 0 90px;
+    width: 660px;
+    height: 660px;
+    max-width: 660px;
+    max-height: 660px;
+    padding: 20px;
     .picture-container {
       display: flex;
       align-items: center;
-      img {
+      margin: 0 auto;
+      max-width: 600px;
+      max-height: 600px;
+      .icon-guanbi {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        display: inline-block;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 20px;
+        color: #fff;
+        border-radius: 50%;
+        background-color: rgba(0,0,0,0.4);
         margin: 0 auto;
+        z-index: 10;
       }
     }
   }

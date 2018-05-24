@@ -4,6 +4,24 @@ import PropTypes from 'prop-types';
 
 import './index.less';
 
+const getWidthAndHeight = (w, h) => {
+  const max = 600;
+  let rtn = {width: w, height: h};
+  if(w > max) {
+    rtn = {
+      width: max,
+      height: max * (h / w).toFixed(2)
+    };
+  }
+  if(h > max) {
+    rtn = {
+      width: max * (w / h).toFixed(2),
+      height: max
+    };
+  }
+  return rtn;
+};
+
 class PicturePreview extends Component {
 
   static propTypes = {
@@ -53,12 +71,13 @@ class PicturePreview extends Component {
     return (
       <Modal
         title=""
-        width={870}
+        width={978}
         wrapClassName="vertical-center-modal"
         visible={visible}
         footer={null}
-        onCancel={this.handleOnClose}
         destroyOnClose={true}
+        closable={false}
+        onCancel={this.handleOnClose}
       >
         <div className="picture-preview-modal-content">
           <div className="left-side side">
@@ -74,9 +93,18 @@ class PicturePreview extends Component {
             >
               {
                 source.map((each) =>
-                  <div key={each.url} className="picture-container">
-                    <img src={each.url} width={each.size.split("*")[0]} height={each.size.split("*")[1]}/>
-                  </div>
+                  {
+                    const imgWidth = parseInt(each.size.split("*")[0]);
+                    const imgHeight = parseInt(each.size.split("*")[1]);
+                    return (
+                      <div key={each.url} className="picture-container">
+                        <div style={{position: "relative", margin: "0 auto"}}>
+                          <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
+                          <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
+                        </div>
+                      </div>
+                    );
+                  }
                 )
               }
             </Carousel>
