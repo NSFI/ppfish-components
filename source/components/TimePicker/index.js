@@ -127,13 +127,13 @@ class TimePicker extends React.Component {
             </a>
           )
         }
-        <div className="time-picker-customer-time">
+        <div className="time-picker-customer-time" ref="time-picker-customer-time">
           <div className="time-picker-customer-time-text">自定义时间</div>
           <RangePicker
             allowClear={allowClear}
             disabledDate={disabledDate}
             format={dateFormat}
-            getCalendarContainer={()=>document.querySelector("time-picker-customer-time")}
+            getCalendarContainer={()=>this.refs['time-picker-customer-time']}
             onChange={me.handleCustomerTime.bind(this)}
           />
         </div>
@@ -141,14 +141,14 @@ class TimePicker extends React.Component {
     );
 
     return (
-      <div className="time-picker-container">
+      <div className="time-picker-container" ref="time-picker-container">
         <Popover
           placement="bottomLeft"
           content={content}
           trigger="click"
           visible={visible}
           onVisibleChange={me.handleVisibleChange.bind(this)}
-          getPopupContainer={()=>document.querySelector("time-picker-container")}
+          getPopupContainer={()=>this.refs['time-picker-container']}
         >
           <div className="time-picker-click-area">
             <span className="time-picker-click-area-text">{currentTime.text}</span>
