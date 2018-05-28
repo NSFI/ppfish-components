@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './index.less';
 
 const getWidthAndHeight = (w, h) => {
-  const max = 600;
+  const max = 580;
   let rtn = {width: w, height: h};
   if(w > max) {
     rtn = {
@@ -92,18 +92,18 @@ class PicturePreview extends Component {
               ref={carousel => this.carousel = carousel}
             >
               {
-                source.map((each) =>
+                source.map((each, index) =>
                   {
                     const imgWidth = parseInt(each.size.split("*")[0]);
                     const imgHeight = parseInt(each.size.split("*")[1]);
                     return (
-                      <div key={each.url} className="picture-container">
+                      <div key={index} className="picture-container">
                         <div style={{position: "relative", margin: "0 auto"}}>
                           <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
                           <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
                         </div>
                       </div>
-                    );
+                    )
                   }
                 )
               }
