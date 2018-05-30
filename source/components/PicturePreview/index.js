@@ -80,7 +80,7 @@ class PicturePreview extends Component {
         onCancel={this.handleOnClose}
       >
         <div className="picture-preview-modal-content">
-          <div className="left-side side">
+          <div className="left-side side" style={{display: source.length > 1 ? "flex" : "none"}}>
             <i className="iconfont icon-zuojiantou1" onClick={() => this.carousel.prev()}/>
           </div>
           <div className="middle">
@@ -109,7 +109,7 @@ class PicturePreview extends Component {
               }
             </Carousel>
           </div>
-          <div className="right-side side">
+          <div className="right-side side" style={{display: source.length > 1 ? "flex" : "none"}}>
             <i className="iconfont icon-youjiantou1" onClick={() => this.carousel.next()}/>
           </div>
         </div>
