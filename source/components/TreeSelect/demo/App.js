@@ -140,6 +140,10 @@ class App extends Component {
     const selected = {
       [`${key}`]: value
     };
+
+    // selectedItems 是 Pane 的实例
+    selectedItems = selectedItems.items;
+
     this.setState({
       selectedItems,
       selected,
