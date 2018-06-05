@@ -103,7 +103,7 @@ class PicturePreview extends Component {
                           <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
                         </div>
                       </div>
-                    )
+                    );
                   }
                 )
               }
