@@ -6,16 +6,24 @@ import './App.less';
 
 const dataSource = [
   {
-    "url": "http://www.taopic.com/uploads/allimg/131125/240503-1311250IT642.jpg",
-    "size": "600*600"
+    "url": "../../../assets/image/material/382*680.png",
+    "size": "382*680"
   },
   {
-    "url": "http://cdn.duitang.com/uploads/item/201506/29/20150629091228_aF2WC.jpg",
-    "size": "100*100"
+    "url": "../../../assets/image/material/410*412.png",
+    "size": "410*412"
   },
   {
-    "url": "http://imgsrc.baidu.com/imgad/pic/item/72f082025aafa40f9000f0e1a064034f79f019c3.jpg",
-    "size": "60*60"
+    "url": "../../../assets/image/material/895*642.png",
+    "size": "895*642"
+  },
+  {
+    "url": "../../../assets/image/material/960*600.png",
+    "size": "960*600"
+  },
+  {
+    "url": "../../../assets/image/material/680*320.png",
+    "size": "680*320"
   }
 ];
 
