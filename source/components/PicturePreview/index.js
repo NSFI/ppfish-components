@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Carousel, Modal } from 'antd';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './index.less';
 
@@ -74,6 +75,10 @@ class PicturePreview extends Component {
   render() {
     const { visible } = this.state;
     const { source, dots, activeIndex } = this.props;
+    let operateClass = classNames({
+        'operate-wrap': true,
+        'hide': false
+    });
 
     return (
       <Modal
@@ -107,6 +112,13 @@ class PicturePreview extends Component {
                       <div style={{position: "relative", margin: "0 auto"}}>
                         <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
                         <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
+                        <div className={operateClass}>
+                          <i className="iconfont icon-dengbi" onClick={this.handleOnClose}/>
+                          <i className="iconfont icon-fullscreen" onClick={this.handleOnClose}/>
+                          <i className="iconfont icon-fangda" onClick={this.handleOnClose}/>
+                          <i className="iconfont icon-suoxiao" onClick={this.handleOnClose}/>
+                          <i className="iconfont icon-save" onClick={this.handleOnClose}/>
+                        </div>
                       </div>
                     </div>
                   );
