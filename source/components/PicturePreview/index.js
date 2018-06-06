@@ -6,16 +6,23 @@ import './index.less';
 
 const getWidthAndHeight = (w, h) => {
   const max = 580;
-  let rtn = {width: w, height: h};
-  if(w > max) {
+  let rtn = {
+    width: w,
+    height: h
+  };
+  if(w > max && h <= max) {
     rtn = {
       width: max,
       height: max * (h / w).toFixed(2)
     };
-  }
-  if(h > max) {
+  }else if(h > max && w <= max) {
     rtn = {
       width: max * (w / h).toFixed(2),
+      height: max
+    };
+  }else if(w > max && h > max) {
+    rtn = {
+      width: max,
       height: max
     };
   }
