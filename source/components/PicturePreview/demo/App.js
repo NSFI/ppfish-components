@@ -6,23 +6,23 @@ import './App.less';
 
 const dataSource = [
   {
-    "url": "../../../assets/image/material/382*680.png",
+    "url": "../../../assets/image/material/382_680.png",
     "size": "382*680"
   },
   {
-    "url": "../../../assets/image/material/410*412.png",
+    "url": "../../../assets/image/material/410_412.png",
     "size": "410*412"
   },
   {
-    "url": "../../../assets/image/material/895*642.png",
+    "url": "../../../assets/image/material/895_642.png",
     "size": "895*642"
   },
   {
-    "url": "../../../assets/image/material/960*600.png",
+    "url": "../../../assets/image/material/960_600.png",
     "size": "960*600"
   },
   {
-    "url": "../../../assets/image/material/680*320.png",
+    "url": "../../../assets/image/material/680_320.png",
     "size": "680*320"
   }
 ];
