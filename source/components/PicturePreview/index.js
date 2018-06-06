@@ -99,20 +99,18 @@ class PicturePreview extends Component {
               ref={carousel => this.carousel = carousel}
             >
               {
-                source.map((each, index) =>
-                  {
-                    const imgWidth = parseInt(each.size.split("*")[0]);
-                    const imgHeight = parseInt(each.size.split("*")[1]);
-                    return (
-                      <div key={index} className="picture-container">
-                        <div style={{position: "relative", margin: "0 auto"}}>
-                          <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
-                          <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
-                        </div>
+                source.map((each, index) => {
+                  const imgWidth = parseInt(each.size.split("*")[0]);
+                  const imgHeight = parseInt(each.size.split("*")[1]);
+                  return (
+                    <div key={index} className="picture-container">
+                      <div style={{position: "relative", margin: "0 auto"}}>
+                        <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
+                        <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
                       </div>
-                    );
-                  }
-                )
+                    </div>
+                  );
+                })
               }
             </Carousel>
           </div>
