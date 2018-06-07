@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Carousel, Modal } from 'antd';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { fullscreen, exitfullscreen } from '../../utils';
 
 import './index.less';
 
@@ -52,7 +53,8 @@ class PicturePreview extends Component {
     super(props);
     this.carousel = null;
     this.state = {
-      visible: this.props.visible
+      visible: this.props.visible,
+      isFullscreen: false
     };
   }
 
@@ -70,14 +72,53 @@ class PicturePreview extends Component {
     }, () => {
       this.props.onClose();
     });
-  }
+  };
+
+  handleDengbi = () => {
+
+  };
+
+  handleFullscreen = () => {
+    if (this.state.isFullscreen) {
+      // 退出全屏
+      exitfullscreen();
+
+      this.setState({
+        isFullscreen: false
+      });
+    } else {
+      // 进入全屏
+      fullscreen(this.carouselWrap);
+
+      this.setState({
+        isFullscreen: true
+      });
+    }
+  };
+
+  handleZoomin = () => {
+
+  };
+
+  handleZoomout = () => {
+
+  };
 
   render() {
     const { visible } = this.state;
     const { source, dots, activeIndex } = this.props;
+    let carouselWrapClass = classNames({
+        'carousel-wrap': true,
+        'carousel-wrap-fullscreen': this.state.isFullscreen
+    });
     let operateClass = classNames({
         'operate-wrap': true,
         'hide': false
+    });
+    let fullscreenClass = classNames({
+        'iconfont': true,
+        'icon-fullscreen': !this.state.isFullscreen,
+        'icon-fullscreen-exit': this.state.isFullscreen
     });
 
     return (
@@ -91,7 +132,7 @@ class PicturePreview extends Component {
         closable={false}
         onCancel={this.handleOnClose}
       >
-        <div className="picture-preview-modal-content">
+        <div className={carouselWrapClass} ref={node => this.carouselWrap = node}>
           <div className="left-side side" style={{display: source.length > 1 ? "flex" : "none"}}>
             <i className="iconfont icon-zuojiantou1" onClick={() => this.carousel.prev()}/>
           </div>
@@ -113,11 +154,11 @@ class PicturePreview extends Component {
                         <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
                         <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
                         <div className={operateClass}>
-                          <i className="iconfont icon-dengbi" onClick={this.handleOnClose}/>
-                          <i className="iconfont icon-fullscreen" onClick={this.handleOnClose}/>
-                          <i className="iconfont icon-fangda" onClick={this.handleOnClose}/>
-                          <i className="iconfont icon-suoxiao" onClick={this.handleOnClose}/>
-                          <i className="iconfont icon-save" onClick={this.handleOnClose}/>
+                          <i className="iconfont icon-dengbi" onClick={this.handleDengbi}/>
+                          <i className={fullscreenClass} onClick={this.handleFullscreen}/>
+                          <i className="iconfont icon-fangda" onClick={this.handleZoomin}/>
+                          <i className="iconfont icon-suoxiao" onClick={this.handleZoomout}/>
+                          <a download href={each.url} className="iconfont icon-save"></a>
                         </div>
                       </div>
                     </div>
