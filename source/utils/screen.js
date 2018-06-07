@@ -4,12 +4,12 @@
  * @return {[type]}         [description]
  */
 export const fullscreen = function(element) {
-    var func = element.requestFullscreen || element.msRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullScreen;
+    let func = element.requestFullscreen || element.msRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullScreen;
 
     if (Object.prototype.toString.call(func) == "[object Function]") {
         func.call(element);
     }
-}
+};
 
 /**
  * 退出全屏
@@ -25,4 +25,4 @@ export const exitfullscreen = function() {
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
-}
+};
