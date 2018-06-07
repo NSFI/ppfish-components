@@ -43,6 +43,7 @@
       cursor: pointer;
     }
   }
+
   .middle {
     margin: 0 90px;
     width: 660px;
@@ -50,64 +51,72 @@
     max-width: 660px;
     max-height: 660px;
     padding: 20px;
-    .picture-container {
-      display: flex!important;
-      width: 660px;
-      height: 660px;
-      max-width: 660px;
-      max-height: 660px;
-      align-items: center;
+  }
+
+  .picture-container {
+    display: flex!important;
+    width: 660px;
+    height: 660px;
+    max-width: 660px;
+    max-height: 660px;
+    align-items: center;
+    margin: 0 auto;
+    .icon-guanbi {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      display: inline-block;
+      text-align: center;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 20px;
+      color: #fff;
+      border-radius: 50%;
+      background-color: rgba(0,0,0,0.4);
       margin: 0 auto;
-      .icon-guanbi {
-        position: absolute;
-        top: -15px;
-        right: -15px;
-        display: inline-block;
-        text-align: center;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 20px;
-        color: #fff;
-        border-radius: 50%;
-        background-color: rgba(0,0,0,0.4);
-        margin: 0 auto;
-        z-index: 10;
-        cursor: pointer;
-      }
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    .img-wrap {
+      position: relative;
+      margin: 0 auto;
+    }
+  }
+
+  .operate-wrap {
+    position: absolute;
+    width: 360px;
+    height: 50px;
+    border-radius: 40px;
+    background-color: rgba(0,0,0,.4);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+
+    .icon {
+      line-height: 50px;
+      font-size: 30px;
+      color: #fff;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    .icon-dengbi, .icon-fullscreen, .icon-fullscreen-exit, .icon-fangda, .icon-suoxiao, .icon-xuanzhuan, .icon-save {
+      .icon;
+    }
+
+    .icon-save {
+      text-decoration: none;
     }
   }
 }
 
 .carousel-wrap-fullscreen {
-  background-color: rgba(0, 0, 0, .4);
+  background-color: rgba(0,0,0,.4);
 }
 
-.operate-wrap {
-  position: absolute;
-  width: 360px;
-  height: 50px;
-  border-radius: 40px;
-  background-color: rgba(0,0,0,0.1);
-  left: 0;
-  right: 0;
-  margin: auto;
-  display: flex;
-  justify-content: space-around;
-
-  .icon {
-    line-height: 50px;
-    font-size: 30px;
-    color: #fff;
-    z-index: 10;
-    cursor: pointer;
-  }
-
-  .icon-dengbi, .icon-fullscreen, .icon-fullscreen-exit, .icon-fangda, .icon-suoxiao, .icon-save {
-    .icon;
-  }
-
-  .icon-save {
-    text-decoration: none;
-  }
-}

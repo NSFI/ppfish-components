@@ -97,11 +97,15 @@ class PicturePreview extends Component {
     }
   };
 
-  handleZoomin = () => {
+  handleZoomIn = () => {
 
   };
 
-  handleZoomout = () => {
+  handleZoomOut = () => {
+
+  };
+
+  handleRotate = () => {
 
   };
 
@@ -151,16 +155,17 @@ class PicturePreview extends Component {
                   const imgHeight = parseInt(each.size.split("*")[1]);
                   return (
                     <div key={index} className="picture-container">
-                      <div style={{position: "relative", margin: "0 auto"}}>
+                      <div className="img-wrap">
                         <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
                         <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
-                        <div className={operateClass}>
-                          <i className="iconfont icon-dengbi" onClick={this.handleDengbi}/>
-                          <i className={fullscreenClass} onClick={this.handleFullscreen}/>
-                          <i className="iconfont icon-fangda" onClick={this.handleZoomin}/>
-                          <i className="iconfont icon-suoxiao" onClick={this.handleZoomout}/>
-                          <a download href={each.url} className="iconfont icon-save"></a>
-                        </div>
+                      </div>
+                      <div className={operateClass}>
+                        <i className="iconfont icon-dengbi" onClick={this.handleDengbi}/>
+                        <i className={fullscreenClass} onClick={this.handleFullscreen}/>
+                        <i className="iconfont icon-fangda" onClick={this.handleZoomIn}/>
+                        <i className="iconfont icon-suoxiao" onClick={this.handleZoomOut}/>
+                        <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate}/>
+                        <a download href={each.url} className="iconfont icon-save"></a>
                       </div>
                     </div>
                   );
