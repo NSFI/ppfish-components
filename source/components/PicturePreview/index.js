@@ -68,7 +68,8 @@ class PicturePreview extends Component {
 
   handleOnClose = () => {
     this.setState({
-      visible: false
+      visible: false,
+      isFullscreen: false
     }, () => {
       this.props.onClose();
     });
