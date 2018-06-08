@@ -68,7 +68,6 @@ class PicturePreview extends Component {
 
   constructor(props) {
     super(props);
-    this.carousel = null;
     this.hasAddExitfullscreenEvt = false;
     this.state = {
       visible: this.props.visible,
@@ -88,9 +87,13 @@ class PicturePreview extends Component {
     let _this = this;
 
     if (this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
-      // 处理按“Esc”退出全屏的情况
+      // 处理通过按“Esc”键退出全屏的情况
       addFullscreenchangeEvent(this.contentWrap, (e) => {
         if (!checkFullscreen() && _this.state.isFullscreen == true) {
+          // 退出全屏时缩小图片可视区大小
+          let cn = _this.imgWrap.className;
+          _this.imgWrap.className = cn.replace('img-wrap-size-fullscreen', 'img-wrap-size');
+
           _this.setState({
             isFullscreen: false
           });
@@ -119,12 +122,20 @@ class PicturePreview extends Component {
       // 退出全屏
       exitfullscreen();
 
+      // 退出全屏时缩小图片可视区大小
+      let cn = this.imgWrap.className;
+      this.imgWrap.className = cn.replace('img-wrap-size-fullscreen', 'img-wrap-size');
+
       this.setState({
         isFullscreen: false
       });
     } else {
       // 进入全屏
       fullscreen(this.contentWrap);
+
+      // 进入全屏时放大图片可视区大小
+      let cn = this.imgWrap.className;
+      this.imgWrap.className = cn.replace('img-wrap-size', 'img-wrap-size-fullscreen');
 
       this.setState({
         isFullscreen: true
@@ -153,7 +164,7 @@ class PicturePreview extends Component {
     });
     let operateClass = classNames({
         'operate-wrap': true,
-        'pp-hide': true
+        'pp-hide': false
     });
     let fullscreenClass = classNames({
         'iconfont': true,
@@ -176,7 +187,6 @@ class PicturePreview extends Component {
         <div className={contentWrapClass} ref={node => this.contentWrap = node}>
           <div className="carousel-wrap">
             <Carousel
-              focusOnSelect={true}
               dots={dots}
               effect={"fade"}
               initialSlide={activeIndex}
