@@ -29,7 +29,10 @@ class CustomTable extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
     pageSize: PropTypes.number,
-    rowKey: PropTypes.string,
+    rowKey: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func
+    ]),
     columns: PropTypes.array,
     totalNum: PropTypes.number,
     offsetHeight: PropTypes.number,
