@@ -9,8 +9,8 @@ import './index.less';
 /*
   图片可视区默认宽高
  */
-const maxVisualWidth = window.innerWidth * 0.8;
-const maxVisualHeight = window.innerHeight * 0.8;
+const maxVisualWidth = parseInt(window.innerWidth * 0.8, 10);
+const maxVisualHeight = parseInt(window.innerHeight * 0.8, 10);
 
 /**
  * 获取图片的自适应宽高
