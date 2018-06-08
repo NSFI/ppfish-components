@@ -155,6 +155,16 @@ class PicturePreview extends Component {
 
   };
 
+  handleSave = (selector, name) => {
+      let img = document.querySelector(selector),
+          a = document.createElement('a'),
+          event = new MouseEvent('click');
+
+      a.download = name || '';
+      a.href = img.src;
+      a.dispatchEvent(event);
+  };
+
   render() {
     const { visible } = this.state;
     const { source, dots, activeIndex } = this.props;
@@ -225,7 +235,7 @@ class PicturePreview extends Component {
             <i className="iconfont icon-fangda" onClick={this.handleZoomIn}/>
             <i className="iconfont icon-suoxiao" onClick={this.handleZoomOut}/>
             <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate}/>
-            <a download href={'each.url'} className="iconfont icon-save" />
+            <i className="iconfont icon-save" onClick={this.handleSave.bind(this, '.carousel-wrap .slick-current img', null)}/>
           </div>
         </div>
       </Modal>
