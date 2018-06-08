@@ -164,7 +164,7 @@ class PicturePreview extends Component {
     });
     let operateClass = classNames({
         'operate-wrap': true,
-        'pp-hide': false
+        'pp-hide': true
     });
     let fullscreenClass = classNames({
         'iconfont': true,
