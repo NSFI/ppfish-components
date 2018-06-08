@@ -6,29 +6,46 @@ import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen }
 
 import './index.less';
 
-const getWidthAndHeight = (w, h) => {
-  const max = 580;
-  let rtn = {
+/*
+  图片可视区默认宽高
+ */
+const maxVisualWidth = window.innerWidth * 0.8;
+const maxVisualHeight = window.innerHeight * 0.8;
+
+/**
+ * 获取图片的自适应宽高
+ * @param  {[Number]} w [图片原始宽度]
+ * @param  {[Number]} h [图片原始高度]
+ * @param  {[Number]} maxW [图片容器最大宽度]
+ * @param  {[Number]} maxH [图片容器最大高度]
+ * @return {[Object]}   [含自适应后宽高属性的对象]
+ */
+const getAdaptiveWH = (w, h, maxW, maxH) => {
+  let obj = {
     width: w,
     height: h
   };
-  if(w > max && h <= max) {
-    rtn = {
-      width: max,
-      height: max * (h / w).toFixed(2)
+
+  if (w <= maxW && h <= maxH) {
+    return obj;
+  }
+
+  let contRatio = maxW / maxH;
+  let imgRatio = w / h;
+
+  if (imgRatio >= contRatio) {
+    obj = {
+      width: maxW,
+      height: parseInt(maxW * (h / w), 10)
     };
-  }else if(h > max && w <= max) {
-    rtn = {
-      width: max * (w / h).toFixed(2),
-      height: max
-    };
-  }else if(w > max && h > max) {
-    rtn = {
-      width: max,
-      height: max
+  } else {
+    obj = {
+      width: parseInt(maxH * (w / h), 10),
+      height: maxH
     };
   }
-  return rtn;
+
+  return obj;
 };
 
 class PicturePreview extends Component {
@@ -70,9 +87,9 @@ class PicturePreview extends Component {
   componentDidUpdate() {
     let _this = this;
 
-    if (this.carouselWrap != undefined && this.hasAddExitfullscreenEvt == false) {
+    if (this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
       // 处理按“Esc”退出全屏的情况
-      addFullscreenchangeEvent(this.carouselWrap, (e) => {
+      addFullscreenchangeEvent(this.contentWrap, (e) => {
         if (!checkFullscreen() && _this.state.isFullscreen == true) {
           _this.setState({
             isFullscreen: false
@@ -107,7 +124,7 @@ class PicturePreview extends Component {
       });
     } else {
       // 进入全屏
-      fullscreen(this.carouselWrap);
+      fullscreen(this.contentWrap);
 
       this.setState({
         isFullscreen: true
@@ -130,13 +147,13 @@ class PicturePreview extends Component {
   render() {
     const { visible } = this.state;
     const { source, dots, activeIndex } = this.props;
-    let carouselWrapClass = classNames({
-        'carousel-wrap': true,
-        'carousel-wrap-fullscreen': this.state.isFullscreen
+    let contentWrapClass = classNames({
+        'pp-content-wrap': true,
+        'pp-content-wrap-fullscreen': this.state.isFullscreen
     });
     let operateClass = classNames({
         'operate-wrap': true,
-        'hide': false
+        'pp-hide': true
     });
     let fullscreenClass = classNames({
         'iconfont': true,
@@ -148,7 +165,7 @@ class PicturePreview extends Component {
       <Modal
         title=""
         width={"100%"}
-        wrapClassName="modal-wrap"
+        wrapClassName="pp-modal-wrap"
         visible={visible}
         footer={null}
         mask={true}
@@ -156,8 +173,8 @@ class PicturePreview extends Component {
         closable={false}
         onCancel={this.handleOnClose}
       >
-        <div className={carouselWrapClass} ref={node => this.carouselWrap = node}>
-          <div className="middle">
+        <div className={contentWrapClass} ref={node => this.contentWrap = node}>
+          <div className="carousel-wrap">
             <Carousel
               focusOnSelect={true}
               dots={dots}
@@ -167,13 +184,14 @@ class PicturePreview extends Component {
             >
               {
                 source.map((each, index) => {
-                  const imgWidth = parseInt(each.size.split("*")[0]);
-                  const imgHeight = parseInt(each.size.split("*")[1]);
+                  // TODO: 计算图片的原始尺寸
+                  const naturalWidth = parseInt(each.size.split("*")[0]);
+                  const naturalHeight = parseInt(each.size.split("*")[1]);
+                  let adaptiveWH = getAdaptiveWH(naturalWidth, naturalHeight, maxVisualWidth, maxVisualHeight);
+
                   return (
-                    <div key={index} className="picture-container">
-                      <div className="img-wrap">
-                        <img src={each.url} width={getWidthAndHeight(imgWidth, imgHeight).width} height={getWidthAndHeight(imgWidth, imgHeight).height}/>
-                      </div>
+                    <div key={index} className="img-wrap img-wrap-size" ref={node => this.imgWrap = node}>
+                      <img src={each.url} width={adaptiveWH.width} height={adaptiveWH.height}/>
                     </div>
                   );
                 })
@@ -183,11 +201,11 @@ class PicturePreview extends Component {
 
           <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
 
-          <div className="left-side side" style={{display: source.length > 1 ? "flex" : "none"}}>
+          <div className="btn-left btn" style={{display: source.length > 1 ? "flex" : "none"}}>
             <i className="iconfont icon-zuojiantou1" onClick={() => this.carousel.prev()}/>
           </div>
 
-          <div className="right-side side" style={{display: source.length > 1 ? "flex" : "none"}}>
+          <div className="btn-right btn" style={{display: source.length > 1 ? "flex" : "none"}}>
             <i className="iconfont icon-youjiantou1" onClick={() => this.carousel.next()}/>
           </div>
 
