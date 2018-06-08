@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Carousel, Modal } from 'antd';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { fullscreen, exitfullscreen } from '../../utils';
+import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
 
 import './index.less';
 
@@ -52,6 +52,7 @@ class PicturePreview extends Component {
   constructor(props) {
     super(props);
     this.carousel = null;
+    this.hasAddExitfullscreenEvt = false;
     this.state = {
       visible: this.props.visible,
       isFullscreen: false
@@ -63,6 +64,23 @@ class PicturePreview extends Component {
       this.setState({
         visible: nextProps.visible
       });
+    }
+  }
+
+  componentDidUpdate() {
+    let _this = this;
+
+    if (this.carouselWrap != undefined && this.hasAddExitfullscreenEvt == false) {
+      // 处理按“Esc”退出全屏的情况
+      addFullscreenchangeEvent(this.carouselWrap, (e) => {
+        if (!checkFullscreen() && _this.state.isFullscreen == true) {
+          _this.setState({
+            isFullscreen: false
+          });
+        }
+      });
+
+      this.hasAddExitfullscreenEvt = true;
     }
   }
 
@@ -179,7 +197,7 @@ class PicturePreview extends Component {
             <i className="iconfont icon-fangda" onClick={this.handleZoomIn}/>
             <i className="iconfont icon-suoxiao" onClick={this.handleZoomOut}/>
             <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate}/>
-            <a download href={'each.url'} className="iconfont icon-save"></a>
+            <a download href={'each.url'} className="iconfont icon-save" />
           </div>
         </div>
       </Modal>
