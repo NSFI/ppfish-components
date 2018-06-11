@@ -67,7 +67,8 @@ class PicturePreview extends Component {
     source: PropTypes.array,          // 预览图片数组，格式为[{url:"xxxx",size: "200*200"}]
     activeIndex: PropTypes.number,    // 默认打开的图片索引
     onClose: PropTypes.func,          // 关闭预览的回调
-    dots: PropTypes.bool              // 是否显示面板指示点
+    dots: PropTypes.bool,             // 是否显示面板指示点
+    controller: PropTypes.bool        // 是否显示图片控制器
   };
 
   static defaultProps = {
@@ -75,7 +76,8 @@ class PicturePreview extends Component {
     source: [{url:'', size: "200*200"}],
     activeIndex: 0,
     onClose: () => {},
-    dots: false
+    dots: false,
+    controller: false
   };
 
   constructor(props) {
@@ -188,14 +190,14 @@ class PicturePreview extends Component {
 
   render() {
     const { visible, isFullscreen } = this.state;
-    const { source, dots, activeIndex } = this.props;
+    const { source, dots, activeIndex, controller } = this.props;
     let contentWrapClass = classNames({
-        'pp-content-wrap': true,
-        'pp-content-wrap-fullscreen': isFullscreen
+        'm-picture-preview-content-wrap': true,
+        'm-picture-preview-content-wrap-fullscreen': isFullscreen
     });
-    let operateClass = classNames({
-        'operate-wrap': true,
-        'pp-hide': true
+    let ctrlClass = classNames({
+        'ctrl-wrap': true,
+        'm-picture-preview-hide': controller
     });
     let fullscreenClass = classNames({
         'iconfont': true,
@@ -212,7 +214,7 @@ class PicturePreview extends Component {
       <Modal
         title=""
         width={"100%"}
-        wrapClassName="pp-modal-wrap"
+        wrapClassName="m-picture-preview-modal-wrap"
         visible={visible}
         footer={null}
         mask={true}
@@ -256,7 +258,7 @@ class PicturePreview extends Component {
             <i className="iconfont icon-youjiantou1" onClick={() => this.carousel.next()}/>
           </div>
 
-          <div className={operateClass}>
+          <div className={ctrlClass}>
             <i className="iconfont icon-dengbi" onClick={this.handleDengbi}/>
             <i className={fullscreenClass} onClick={this.handleFullscreen}/>
             <i className="iconfont icon-fangda" onClick={this.handleZoom.bind(this, '.carousel-wrap .slick-current img', true)}/>
