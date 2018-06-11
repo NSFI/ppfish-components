@@ -16,15 +16,21 @@ const maxVisualHeight = parseInt(window.innerHeight * 0.8, 10);
  * 获取图片的自适应宽高
  * @param  {[Number]} w [图片原始宽度]
  * @param  {[Number]} h [图片原始高度]
- * @param  {[Number]} maxW [图片容器最大宽度]
- * @param  {[Number]} maxH [图片容器最大高度]
- * @return {[Object]}   [含自适应后宽高属性的对象]
+ * @param  {[Boolean]} isFullscreen [是否为全屏状态]
+ * @return {[Object]}   [包含自适应后宽高属性的对象]
  */
-const getAdaptiveWH = (w, h, maxW, maxH) => {
+const getAdaptiveWH = (w, h, isFullscreen) => {
   let obj = {
     width: w,
     height: h
   };
+  let maxW = maxVisualWidth;
+  let maxH = maxVisualHeight;
+
+  if (isFullscreen) {
+    maxW = window.innerWidth;
+    maxH = window.innerHeight;
+  }
 
   if (w <= maxW && h <= maxH) {
     return obj;
@@ -90,10 +96,6 @@ class PicturePreview extends Component {
       // 处理通过按“Esc”键退出全屏的情况
       addFullscreenchangeEvent(this.contentWrap, (e) => {
         if (!checkFullscreen() && _this.state.isFullscreen == true) {
-          // 退出全屏时缩小图片可视区大小
-          let cn = _this.imgWrap.className;
-          _this.imgWrap.className = cn.replace('img-wrap-size-fullscreen', 'img-wrap-size');
-
           _this.setState({
             isFullscreen: false
           });
@@ -122,20 +124,12 @@ class PicturePreview extends Component {
       // 退出全屏
       exitfullscreen();
 
-      // 退出全屏时缩小图片可视区大小
-      let cn = this.imgWrap.className;
-      this.imgWrap.className = cn.replace('img-wrap-size-fullscreen', 'img-wrap-size');
-
       this.setState({
         isFullscreen: false
       });
     } else {
       // 进入全屏
       fullscreen(this.contentWrap);
-
-      // 进入全屏时放大图片可视区大小
-      let cn = this.imgWrap.className;
-      this.imgWrap.className = cn.replace('img-wrap-size', 'img-wrap-size-fullscreen');
 
       this.setState({
         isFullscreen: true
@@ -166,11 +160,11 @@ class PicturePreview extends Component {
   };
 
   render() {
-    const { visible } = this.state;
+    const { visible, isFullscreen } = this.state;
     const { source, dots, activeIndex } = this.props;
     let contentWrapClass = classNames({
         'pp-content-wrap': true,
-        'pp-content-wrap-fullscreen': this.state.isFullscreen
+        'pp-content-wrap-fullscreen': isFullscreen
     });
     let operateClass = classNames({
         'operate-wrap': true,
@@ -178,8 +172,13 @@ class PicturePreview extends Component {
     });
     let fullscreenClass = classNames({
         'iconfont': true,
-        'icon-fullscreen': !this.state.isFullscreen,
-        'icon-fullscreen-exit': this.state.isFullscreen
+        'icon-fullscreen': !isFullscreen,
+        'icon-fullscreen-exit': isFullscreen
+    });
+    let imgWrapClass = classNames({
+        'img-wrap': true,
+        'img-wrap-size': !isFullscreen,
+        'img-wrap-size-fullscreen': isFullscreen
     });
 
     return (
@@ -207,10 +206,10 @@ class PicturePreview extends Component {
                   // TODO: 计算图片的原始尺寸
                   const naturalWidth = parseInt(each.size.split("*")[0]);
                   const naturalHeight = parseInt(each.size.split("*")[1]);
-                  let adaptiveWH = getAdaptiveWH(naturalWidth, naturalHeight, maxVisualWidth, maxVisualHeight);
+                  let adaptiveWH = getAdaptiveWH(naturalWidth, naturalHeight, isFullscreen);
 
                   return (
-                    <div key={index} className="img-wrap img-wrap-size" ref={node => this.imgWrap = node}>
+                    <div key={index} className={imgWrapClass}>
                       <img src={each.url} width={adaptiveWH.width} height={adaptiveWH.height}/>
                     </div>
                   );
