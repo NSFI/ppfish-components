@@ -54,6 +54,12 @@ const getAdaptiveWH = (w, h, isFullscreen) => {
   return obj;
 };
 
+function setStyle(el, css) {
+  for (var key in css) {
+    el.style[key] = css[key];
+  }
+}
+
 class PicturePreview extends Component {
 
   static propTypes = {
@@ -138,22 +144,36 @@ class PicturePreview extends Component {
   };
 
   handleZoom = (selector, isZoomIn) => {
-      let scale = 0.1,
-          img = document.querySelector(selector),
-          ratio = img.dataset.ratio,
-          zWidth = parseInt(img.width + img.height * scale * ratio, 10),
-          zHeight = parseInt(img.height + img.height * scale, 10);
+    let scale = 0.1,
+        img = document.querySelector(selector),
+        ratio = img.dataset.ratio,
+        zWidth = parseInt(img.width + img.height * scale * ratio, 10),
+        zHeight = parseInt(img.height + img.height * scale, 10);
 
-      if (!isZoomIn) {
-        zWidth = parseInt(img.width - img.height * scale * ratio, 10);
-        zHeight = parseInt(img.height - img.height * scale, 10);
-      }
+    if (!isZoomIn) {
+      zWidth = parseInt(img.width - img.height * scale * ratio, 10);
+      zHeight = parseInt(img.height - img.height * scale, 10);
+    }
 
-      img.setAttribute('style', 'width: ' + zWidth + 'px;' + 'height: ' + zHeight + 'px;');
+    setStyle(img, {
+      'width': zWidth + 'px',
+      'height': zHeight + 'px'
+    });
   };
 
-  handleRotate = () => {
+  handleRotate = (selector) => {
+    let img = document.querySelector(selector),
+        oldVal = parseInt(img.dataset.rotate, 10) || 0,
+        newVal = oldVal + 90,
+        transform = 'rotate(' + newVal + 'deg)';
 
+    img.dataset.rotate = newVal;
+
+    setStyle(img, {
+      '-webkit-transform': transform,
+      '-ms-transform': transform,
+      'transform': transform
+    });
   };
 
   handleSave = (selector, name) => {
@@ -241,7 +261,7 @@ class PicturePreview extends Component {
             <i className={fullscreenClass} onClick={this.handleFullscreen}/>
             <i className="iconfont icon-fangda" onClick={this.handleZoom.bind(this, '.carousel-wrap .slick-current img', true)}/>
             <i className="iconfont icon-suoxiao" onClick={this.handleZoom.bind(this, '.carousel-wrap .slick-current img', false)}/>
-            <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate}/>
+            <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate.bind(this, '.carousel-wrap .slick-current img')}/>
             <i className="iconfont icon-save" onClick={this.handleSave.bind(this, '.carousel-wrap .slick-current img', null)}/>
           </div>
         </div>
