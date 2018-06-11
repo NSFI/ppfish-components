@@ -137,12 +137,19 @@ class PicturePreview extends Component {
     }
   };
 
-  handleZoomIn = () => {
+  handleZoom = (selector, isZoomIn) => {
+      let scale = 0.1,
+          img = document.querySelector(selector),
+          ratio = img.dataset.ratio,
+          zWidth = parseInt(img.width + img.height * scale * ratio, 10),
+          zHeight = parseInt(img.height + img.height * scale, 10);
 
-  };
+      if (!isZoomIn) {
+        zWidth = parseInt(img.width - img.height * scale * ratio, 10);
+        zHeight = parseInt(img.height - img.height * scale, 10);
+      }
 
-  handleZoomOut = () => {
-
+      img.setAttribute('style', 'width: ' + zWidth + 'px;' + 'height: ' + zHeight + 'px;');
   };
 
   handleRotate = () => {
@@ -206,11 +213,12 @@ class PicturePreview extends Component {
                   // TODO: 计算图片的原始尺寸
                   const naturalWidth = parseInt(each.size.split("*")[0]);
                   const naturalHeight = parseInt(each.size.split("*")[1]);
+                  const imgRatio = naturalWidth / naturalHeight;
                   let adaptiveWH = getAdaptiveWH(naturalWidth, naturalHeight, isFullscreen);
 
                   return (
                     <div key={index} className={imgWrapClass}>
-                      <img src={each.url} width={adaptiveWH.width} height={adaptiveWH.height}/>
+                      <img src={each.url} data-ratio={imgRatio} width={adaptiveWH.width} height={adaptiveWH.height}/>
                     </div>
                   );
                 })
@@ -231,8 +239,8 @@ class PicturePreview extends Component {
           <div className={operateClass}>
             <i className="iconfont icon-dengbi" onClick={this.handleDengbi}/>
             <i className={fullscreenClass} onClick={this.handleFullscreen}/>
-            <i className="iconfont icon-fangda" onClick={this.handleZoomIn}/>
-            <i className="iconfont icon-suoxiao" onClick={this.handleZoomOut}/>
+            <i className="iconfont icon-fangda" onClick={this.handleZoom.bind(this, '.carousel-wrap .slick-current img', true)}/>
+            <i className="iconfont icon-suoxiao" onClick={this.handleZoom.bind(this, '.carousel-wrap .slick-current img', false)}/>
             <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate}/>
             <i className="iconfont icon-save" onClick={this.handleSave.bind(this, '.carousel-wrap .slick-current img', null)}/>
           </div>
