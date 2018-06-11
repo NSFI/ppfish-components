@@ -2,13 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Card, Collapse, Table } from 'antd';
-import brace from 'brace';
 import AceEditor from 'react-ace';
 import Emitter from '../../monitor/monitor';
 
 import './DocumentLayout.less';
-import 'brace/mode/html';
-import 'brace/theme/textmate';
 import Markdowner from 'markdown-it';
 const md = new Markdowner({
   html:true,

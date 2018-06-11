@@ -154,6 +154,8 @@ class TreeSelect extends Component {
     } else if ( typeof selected !== 'undefined' ) {
       // fixme react 修改了state导致this.props非预期结果，类似问题见https://github.com/facebook/react/issues/7121
       const newPane = this.setItemSelectedByKeys(pane, selected);
+      // TODO selected受控属性存在的问题：在当前组件只渲染了第一层子节点的情况下，如果传的selected受控属性里有子孙节点，
+      // TODO 则无法根据子孙节点计算第一层子节点的选中状态
       this.setState({
         pane: newPane,
       });
