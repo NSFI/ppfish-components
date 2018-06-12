@@ -6,7 +6,7 @@ for i in "$*"
 do
   if [ "$i" == "push" ]
   then
-    echo "start deploy to gh-pages, please wait...";
+    echo "Start publish to gh-pages, please wait...";
     gh-pages -d _book
   fi
 done
