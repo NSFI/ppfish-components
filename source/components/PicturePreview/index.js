@@ -57,11 +57,29 @@ const getAdaptiveImg = (w, h, isFullscreen) => {
   return obj;
 };
 
-function setStyle(el, css) {
+const setStyle = (el, css) => {
   for (let key in css) {
     el.style[key] = css[key];
   }
-}
+};
+
+/**
+ * 获取图片的原始尺寸
+ * @param  {[type]}   url      [图片的url]
+ * @param  {Function} callback [获取成功后的回调函数]
+ * @param  {[type]}   scope    [回调函数绑定的作用域]
+ */
+const getImageSize = (url, callback, scope) => {
+  let newImage, naturalWidth, naturalHeight;
+
+  newImage = document.createElement('img');
+  newImage.onload = () => {
+    naturalWidth = newImage.naturalWidth || newImage.width;
+    naturalHeight = newImage.naturalHeight || newImage.height;
+    callback.call(scope, naturalWidth, naturalHeight);
+  };
+  newImage.src = url;
+};
 
 class PicturePreview extends Component {
 
@@ -260,17 +278,17 @@ class PicturePreview extends Component {
 
   initImgs = () => {
     this.props.source.map((item, index) => {
-      // TODO: 计算图片的原始尺寸
-      const naturalWidth = parseInt(item.size.split("*")[0]);
-      const naturalHeight = parseInt(item.size.split("*")[1]);
-      let aImg = getAdaptiveImg(naturalWidth, naturalHeight, this.state.isFullscreen);
+      // 计算图片的原始尺寸
+      getImageSize(item.url, (naturalWidth, naturalHeight) => {
+        let aImg = getAdaptiveImg(naturalWidth, naturalHeight, this.state.isFullscreen);
 
-      this.imgs[index].naturalWidth = naturalWidth;
-      this.imgs[index].naturalHeight = naturalHeight;
-      this.imgs[index].adaptiveWidth = aImg.width;
-      this.imgs[index].adaptiveHeight = aImg.height;
-      this.imgs[index].scale = 1.0;
-      this.imgs[index].rotate = 0;
+        this.imgs[index].naturalWidth = naturalWidth;
+        this.imgs[index].naturalHeight = naturalHeight;
+        this.imgs[index].adaptiveWidth = aImg.width;
+        this.imgs[index].adaptiveHeight = aImg.height;
+        this.imgs[index].scale = 1.0;
+        this.imgs[index].rotate = 0;
+      });
     });
   };
 
@@ -398,12 +416,11 @@ class PicturePreview extends Component {
               ref={node => this.carousel = node}
             >
               {
-                source.map((item, index) => {
-                  let imgInfo = this.imgs[index];
-                  let aImg = getAdaptiveImg(imgInfo.naturalWidth, imgInfo.naturalHeight, isFullscreen);
+                this.imgs.map((item, index) => {
+                  let aImg = getAdaptiveImg(item.naturalWidth, item.naturalHeight, isFullscreen);
 
-                  imgInfo.adaptiveWidth = aImg.width;
-                  imgInfo.adaptiveHeight = aImg.height;
+                  item.adaptiveWidth = aImg.width;
+                  item.adaptiveHeight = aImg.height;
 
                   return (
                     <div key={index} className={imgWrapClass}>
