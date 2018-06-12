@@ -5,6 +5,12 @@ import classNames from 'classnames';
 
 const noop = () => {
 };
+/**
+ * 时间戳字符串转换
+ * @method getTimeBarStr
+ * @param {number} timestamp - 时间戳
+ * @returns {string} - 特定规则的时间显示
+ */
 export const getTimeBarStr = (timestamp) => {
   let diffTime = differenceInSeconds(timestamp, new Date());
   // 超过一年
@@ -23,9 +29,10 @@ export const getTimeBarStr = (timestamp) => {
 
 /**
  * 时间戳转换
- * @param timestamp 时间戳
- * @param showSecond 秒
- * @returns {string}
+ * @method getTimeStamp
+ * @param {number} timestamp 时间戳
+ * @param {number} showSecond 秒
+ * @returns {string} - 特定规则的时间显示
  */
 export const getTimeStamp = (timestamp, showSecond = false) => {
   //当日
@@ -68,47 +75,57 @@ export const getDynamicCls = (clsArr, addCls, condition) => {
   return classNames(clsObj);
 };
 
-/***
- * 将时间转换为时间段，返回[开始时间，结束时间]的时间戳列表
- * 1.当传入参数为数字N，代表从过去N天到 【endDate】23：59：59 的时间段
- * 2.当传入参数为日期范围字符2017/10/04 ~ 2017/11/10，代表 开始时间 ~ 结束时间
- ***/
-export const formatTimestamp = (param, endDate='昨天') => {
+/**
+ * 将时间转换为时间段
+ * @method formatTimestamp
+ * @param {number|string|object} param - 当传入参数为数字N，代表从过去N天到 endDate 23：59：59 的时间段,当传入参数为日期范围字符2017/10/04 ~ 2017/11/10，代表 开始时间 ~ 结束时间
+ * @returns {array| * } - [开始时间，结束时间]
+ */
+export const formatTimestamp = (param) => {
   let startTime = 0;
   let endTime = 0;
-  if (Number.isInteger(param)) {
-    const N = param;
-    // 今天的23:59:59
-    const today = new Date().setHours(23,59,59,999);
-    // 昨天的23:59:59
-    const yesterday = new Date().setHours(0,0,0,0) - 1;
-    // 前天的23:59:59
-    const beforeYesterday = new Date(new Date().setDate(new Date().getDate()-1)).setHours(0,0,0,0) - 1;
-    if(endDate === '前天'){
-      startTime = new Date(new Date().setDate(new Date().getDate()-N-1)).setHours(0,0,0,0);
-      endTime = beforeYesterday;
-    }else if(endDate === '今天'){
-      startTime = new Date(new Date().setDate(new Date().getDate()-N+1)).setHours(0,0,0,0);
-      endTime = today;
-    }else{
-      startTime = new Date(new Date().setDate(new Date().getDate()-N)).setHours(0,0,0,0);
-      endTime = yesterday;
+  if (Object.prototype.toString.call(param) === "[object Object]") {
+    if ("value" in param && "endDate" in param) {
+      const N = param.value;
+      const endDate = param.endDate;
+      // 今天的23:59:59
+      const today = new Date().setHours(23, 59, 59, 999);
+      // 昨天的23:59:59
+      const yesterday = new Date().setHours(0, 0, 0, 0) - 1;
+      // 前天的23:59:59
+      const beforeYesterday = new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) - 1;
+      if (endDate === '前天') {
+        startTime = new Date(new Date().setDate(new Date().getDate() - N - 1)).setHours(0, 0, 0, 0);
+        endTime = beforeYesterday;
+      } else if (endDate === '今天') {
+        startTime = new Date(new Date().setDate(new Date().getDate() - N + 1)).setHours(0, 0, 0, 0);
+        endTime = today;
+      } else if (endDate === '昨天') {
+        startTime = new Date(new Date().setDate(new Date().getDate() - N)).setHours(0, 0, 0, 0);
+        endTime = yesterday;
+      }
     }
   } else if (Object.prototype.toString.call(param) === "[object String]") {
     let arr = param.split('~');
     if (arr && arr.length === 2) {
-      startTime = new Date(arr[0]).setHours(0,0,0,0);
-      endTime = new Date(arr[1]).setHours(23,59,59,999);
+      startTime = new Date(arr[0]).setHours(0, 0, 0, 0);
+      endTime = new Date(arr[1]).setHours(23, 59, 59, 999);
     }
   }
   return [startTime, endTime];
 };
 
-//由时间戳转为显示的日期
+/**
+ * 由时间戳转为显示的日期
+ * @method getTimeFromTimestamp
+ * @param {number} startTime 开始时间
+ * @param {number} endTime 终止时间
+ * @returns {string | *} - 日期
+ */
 export const getTimeFromTimestamp = (startTime, endTime) => {
-  if(!startTime || !endTime){
+  if (!startTime || !endTime) {
     return null;
-  }else{
+  } else {
     return new Date(parseInt(startTime)).toLocaleDateString() + ' ~ ' + new Date(parseInt(endTime)).toLocaleDateString();
   }
 };

@@ -76,19 +76,19 @@ class Suggest extends Component {
   }
 
   setValue(val) {
-    let input = this.refs.input;
+    let input = this.input;
     input = input.input;
     input.value = val;
   }
 
   select() {
-    let input = this.refs.input;
+    let input = this.input;
     input = input.input;
     input.select();
   }
 
   focus() {
-    let input = this.refs.input;
+    let input = this.input;
     input = input.input;
     input.focus();
   }
@@ -97,7 +97,7 @@ class Suggest extends Component {
     const doc = document.documentElement;
     const offsetLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     const offsetTop = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
-    const rect = this.refs.suggestInput.getBoundingClientRect();
+    const rect = this.suggestInput.getBoundingClientRect();
     return {
       left: rect.left + offsetLeft + 1,
       top: rect.height + rect.top + offsetTop + 5,
@@ -151,14 +151,14 @@ class Suggest extends Component {
 
   handleSearch() {
     const { onSearch } = this.props;
-    this.refs.suggestPanel.handleSearch();
+    this.suggestPanel.handleSearch();
     if (typeof onSearch == 'function') {
       onSearch(this.state.value);
     }
   }
 
   handleKeyUp(e) {
-    this.refs.suggestPanel.handleKeyUp(e);
+    this.suggestPanel.handleKeyUp(e);
   }
 
   // 搜索结果列表选择事件
@@ -181,11 +181,11 @@ class Suggest extends Component {
       'ant-search-input-focus': this.state.focus,
     });
     return (
-      <div className="m-suggest-wrapper" style={style} ref="suggestInput">
+      <div className="m-suggest-wrapper" style={style} ref={node => this.suggestInput = node}>
         <div className="ant-search-input-wrapper">
           <InputGroup className={searchCls}>
             <Input
-              ref="input"
+              ref={node => this.input = node}
               placeholder={placeholder}
               value={this.state.value}
               onChange={this.handleInputChange}
@@ -201,7 +201,7 @@ class Suggest extends Component {
           </InputGroup>
         </div>
         <SuggestPanel
-          ref="suggestPanel"
+          ref={node => this.suggestPanel = node}
           panelContainer={this.panelContainer}
           value={this.state.value}
           position={this.state.position}

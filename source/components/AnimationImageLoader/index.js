@@ -25,7 +25,6 @@ class AnimationImageLoader extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       scroll: 0, //播放位置
       bgHeight: 0, //图片高度
@@ -36,7 +35,7 @@ class AnimationImageLoader extends Component {
   }
 
   componentDidMount() {
-    const imageSrc = this.refs['img-loader']
+    const imageSrc = this.imgLoader
       .style
       .backgroundImage
       .replace(/url\((['"])?(.*?)\1\)/gi, '$2')
@@ -106,7 +105,7 @@ class AnimationImageLoader extends Component {
     return (
       <div
         className={animationClass}
-        ref="img-loader"
+        ref={node => this.imgLoader = node}
         style={{
           backgroundPosition: `0px -${this.state.scroll}px`,
           backgroundImage: `url(${this.props.src})`,
