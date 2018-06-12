@@ -228,7 +228,7 @@ class PicturePreview extends Component {
         isDisableFangda: false
       });
     } else if (type == '1:1') {
-      curScale = 1;
+      curScale = Number((imgInfo.naturalWidth / imgInfo.adaptiveWidth).toFixed(1));
       zWidth = imgInfo.naturalWidth,
       zHeight = imgInfo.naturalHeight;
       this.setState({
