@@ -12,7 +12,7 @@ import './index.less';
 const maxVisualWidth = parseInt(window.innerWidth * 0.8, 10),   // 图片可视区默认宽度
       maxVisualHeight = parseInt(window.innerHeight * 0.8, 10), // 图片可视区默认高度
       ZOOM_FACTOR = 0.1,//图片缩放系数
-      MAX_SCALE = 5,    //最大的图片显示比例
+      MAX_SCALE = 3.0,  //最大的图片显示比例
       MIN_SCALE = 0.1;  //最小的图片显示比例
 
 /**
@@ -87,7 +87,7 @@ class PicturePreview extends Component {
     super(props);
 
     this.hasAddExitfullscreenEvt = false;
-    this.prevIndex = 0;
+    this.direction = 'prev';
     this.selector = '.carousel-wrap .slick-list img';
     this.imgs = this.props.source;
 
@@ -103,6 +103,7 @@ class PicturePreview extends Component {
 
   componentDidMount() {
     this.initImgs();
+    this.setDengbiStatus(this.props.activeIndex);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -116,7 +117,7 @@ class PicturePreview extends Component {
       this.setState({
         activeIndex: nextProps.activeIndex
       }, () => {
-        this.setDengbiStatus();
+        this.setDengbiStatus(nextProps.activeIndex);
       });
     }
   }
@@ -250,67 +251,64 @@ class PicturePreview extends Component {
   };
 
   /**
-   * 还原对上一张图片进行的操作
+   * 重置上一张图片的缩放和旋转状态
    * @return {[type]} [description]
    */
-  resetImg = () => {
-    let index = this.prevIndex;
-
+  resetImg = (index) => {
     this.handleZoom(index, 'reset');
     this.handleRotate(index, true);
   };
 
-  setDengbiStatus = () => {
-    let activeImg = this.imgs[this.state.activeIndex];
+  setDengbiStatus = (index) => {
+    let activeImg = this.imgs[index],
+        isDisableDengbi = false;
+
     if (activeImg.naturalWidth == activeImg.adaptiveWidth && activeImg.naturalHeight == activeImg.adaptiveHeight) {
-      this.setState({
-        isDisableDengbi: true
-      });
+      isDisableDengbi = true;
     } else {
-      this.setState({
-        isDisableDengbi: false
-      });
+      isDisableDengbi = false;
     }
+
+    this.setState({
+      isDisableDengbi: isDisableDengbi
+    });
+  };
+
+  afterCarouselChange = (curIndex) => {
+    this.setState({
+      activeIndex: curIndex
+    }, () => {
+      // 计算上一张图片的index
+      let oldIndex = 0,
+          totalNum = this.props.source.length;
+
+      if (this.direction == 'prev') {
+        if (curIndex == totalNum - 1) {
+          oldIndex = 0;
+        } else {
+          oldIndex = curIndex + 1;
+        }
+      } else if (this.direction == 'next') {
+        if (curIndex == 0) {
+          oldIndex = totalNum - 1;
+        } else {
+          oldIndex = curIndex - 1;
+        }
+      }
+
+      this.resetImg(oldIndex);
+      this.setDengbiStatus(curIndex);
+    });
   };
 
   handleCarouselPrev = () => {
-    let curIndex = this.state.activeIndex,
-        totalNum = this.props.source.length;
-
-    this.prevIndex = curIndex;
-
-    if (curIndex == 0) {
-      curIndex = totalNum - 1;
-    } else {
-      curIndex -= 1;
-    }
-
-    this.setState({
-      activeIndex: curIndex,
-    }, () => {
-      this.carousel.prev();
-      this.setDengbiStatus();
-    });
+    this.direction = 'prev';
+    this.carousel.prev();
   };
 
   handleCarouselNext = () => {
-    let curIndex = this.state.activeIndex,
-        totalNum = this.props.source.length;
-
-    this.prevIndex = curIndex;
-
-    if (curIndex == totalNum - 1) {
-      curIndex = 0;
-    } else {
-      curIndex += 1;
-    }
-
-    this.setState({
-      activeIndex: curIndex,
-    }, () => {
-      this.carousel.next();
-      this.setDengbiStatus();
-    });
+    this.direction = 'next';
+    this.carousel.next();
   };
 
   render() {
@@ -359,7 +357,7 @@ class PicturePreview extends Component {
               dots={dots}
               effect={"fade"}
               initialSlide={activeIndex}
-              afterChange={this.resetImg}
+              afterChange={this.afterCarouselChange}
               ref={node => this.carousel = node}
             >
               {
