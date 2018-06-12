@@ -37,7 +37,7 @@ class DayTimeSelect extends Component {
 
   static defaultProps = {
     timeRange: [1,24],
-    value: [],
+    //value: [], //https://github.com/ant-design/ant-design/issues/3976
     disable: false,
     intervalWidth: 37,
     onChange: () => {},

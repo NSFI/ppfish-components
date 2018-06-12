@@ -1,148 +1,160 @@
-/* use css to set position of modal */
-.modal-wrap {
-  text-align: center;
-  white-space: nowrap;
+@picture-preview-prefix: m-picture-preview;
+@maxVisualWidth:  80% !important;
+@maxVisualHeight: 80% !important;
 
-  .ant-modal {
-    height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    top: 0;
-    text-align: left;
-    padding-bottom: 0;
+.@{picture-preview-prefix} {
+  &-hide {
+    display: none !important;
   }
 
-  .ant-modal-content {
-    height: 100%;
-    background-color: inherit;
-    box-shadow: none;
-  }
-
-  .ant-modal-body {
-    padding: 0;
-    height: 100%;
-  }
-
-  .ant-carousel .slick-slide {
-    // height: 620px;
-    // line-height: 620px;
+  &-modal-wrap {
     text-align: center;
-    overflow: hidden;
-  }
-}
+    white-space: nowrap;
 
-// .vertical-center-modal:before {
-//   content: '';
-//   display: inline-block;
-//   height: 100%;
-//   vertical-align: middle;
-//   width: 0;
-// }
+    .ant-modal {
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      top: 0;
+      text-align: left;
+      padding-bottom: 0;
+    }
 
-.carousel-wrap {
-  display: flex;
-  width: 100%;
-  height: 100%;
+    .ant-modal-content {
+      height: 100%;
+      background-color: inherit;
+      box-shadow: none;
+    }
 
-  .side {
-    position: absolute;
-    height: 45px;
-    line-height: 45px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+    .ant-modal-body {
+      padding: 0;
+      height: 100%;
+    }
 
-    .iconfont {
-      color: #fff;
-      font-size: 45px;
-      z-index: 10;
-      cursor: pointer;
+    .ant-carousel, .slick-slider, .slick-list, .slick-track {
+      height: 100%;
     }
   }
 
-  .left-side {
-    .side;
-    left: 20px;
-  }
-
-  .right-side {
-    .side;
-    right: 20px;
-  }
-
-  .middle {
-    max-width: 660px;
-    max-height: 660px;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-  }
-
-  .picture-container {
-    display: flex!important;
-    width: 660px;
-    height: 660px;
-    max-width: 660px;
-    max-height: 660px;
-    align-items: center;
-    margin: 0 auto;
-    .img-wrap {
-      position: relative;
-      margin: 0 auto;
-    }
-  }
-
-  .icon-guanbi {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-block;
-    text-align: center;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 20px;
-    color: #fff;
-    border-radius: 50%;
-    background-color: rgba(0,0,0,0.4);
-    margin: 0 auto;
-    z-index: 10;
-    cursor: pointer;
-  }
-
-  .operate-wrap {
-    position: absolute;
-    width: 360px;
-    height: 50px;
-    border-radius: 40px;
-    background-color: rgba(0,0,0,.4);
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
+  &-content-wrap {
     display: flex;
-    justify-content: space-around;
+    width: 100%;
+    height: 100%;
 
-    .icon {
-      line-height: 50px;
-      font-size: 30px;
+    .btn {
+      position: absolute;
+      height: 45px;
+      line-height: 45px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+
+      .iconfont {
+        color: #fff;
+        font-size: 45px;
+        z-index: 10;
+        cursor: pointer;
+      }
+    }
+
+    .btn-left {
+      .btn;
+      left: 20px;
+    }
+
+    .btn-right {
+      .btn;
+      right: 20px;
+    }
+
+    .carousel-wrap {
+      width: 100%;
+      height: 100%;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    .img-wrap {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .img-wrap-size {
+      width: @maxVisualWidth;
+      height: @maxVisualHeight;
+    }
+
+    .img-wrap-size-fullscreen {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .icon-guanbi {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-block;
+      text-align: center;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      font-size: 20px;
       color: #fff;
+      border-radius: 50%;
+      background-color: rgba(0,0,0,0.4);
+      margin: 0 auto;
       z-index: 10;
       cursor: pointer;
     }
 
-    .icon-dengbi, .icon-fullscreen, .icon-fullscreen-exit, .icon-fangda, .icon-suoxiao, .icon-xuanzhuan, .icon-save {
-      .icon;
-    }
+    .ctrl-wrap {
+      position: absolute;
+      width: 360px;
+      height: 50px;
+      border-radius: 40px;
+      background-color: rgba(0,0,0,.4);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      display: flex;
+      justify-content: space-around;
 
-    .icon-save {
-      text-decoration: none;
+      .icon {
+        line-height: 50px;
+        font-size: 30px;
+        color: #fff;
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      .icon-dengbi, .icon-fullscreen, .icon-fullscreen-exit, .icon-fangda, .icon-suoxiao, .icon-xuanzhuan, .icon-save {
+        .icon;
+      }
+
+      .icon-disable {
+        color: #b6b6b6;
+        cursor: default;
+      }
+
+      .icon-save {
+        text-decoration: none;
+      }
     }
   }
-}
 
-.carousel-wrap-fullscreen {
-  background-color: rgba(0,0,0,.4);
+  &-content-wrap-fullscreen {
+    background-color: rgba(222,222,222,.5);
+  }
 }
