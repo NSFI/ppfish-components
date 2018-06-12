@@ -101,6 +101,10 @@ class PicturePreview extends Component {
     };
   }
 
+  componentDidMount() {
+    this.initImgs();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.state.visible != nextProps.visible) {
       this.setState({
@@ -111,18 +115,18 @@ class PicturePreview extends Component {
     if (this.state.activeIndex != nextProps.activeIndex) {
       this.setState({
         activeIndex: nextProps.activeIndex
+      }, () => {
+        this.setDengbiStatus();
       });
     }
   }
 
   componentDidUpdate() {
-    let _this = this;
-
     if (this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
       // 处理通过按“Esc”键退出全屏的情况
       addFullscreenchangeEvent(this.contentWrap, (e) => {
-        if (!checkFullscreen() && _this.state.isFullscreen == true) {
-          _this.setState({
+        if (!checkFullscreen() && this.state.isFullscreen == true) {
+          this.setState({
             isFullscreen: false
           });
         }
@@ -167,7 +171,7 @@ class PicturePreview extends Component {
         zHeight = imgInfo.naturalHeight;
 
     if (type == 'in') {
-      curScale += ZOOM_FACTOR;
+      curScale = Number((curScale + ZOOM_FACTOR).toFixed(1));
       if (curScale > MAX_SCALE) {
         curScale = MAX_SCALE;
         // TODO：禁用放大按钮点击
@@ -175,7 +179,7 @@ class PicturePreview extends Component {
       zWidth = parseInt(imgInfo.adaptiveWidth * curScale, 10);
       zHeight = parseInt(imgInfo.adaptiveHeight * curScale, 10);
     } else if (type == 'out') {
-      curScale -= ZOOM_FACTOR;
+      curScale = Number((curScale - ZOOM_FACTOR).toFixed(1));
       if (curScale < MIN_SCALE) {
         curScale = MIN_SCALE;
         // TODO：禁用缩小按钮点击
@@ -186,6 +190,9 @@ class PicturePreview extends Component {
       curScale = 1;
       zWidth = imgInfo.naturalWidth,
       zHeight = imgInfo.naturalHeight;
+      this.setState({
+        isDisableDengbi: true
+      });
     } else if (type == 'reset') {
       curScale = 1;
       zWidth = imgInfo.adaptiveWidth;
@@ -193,8 +200,6 @@ class PicturePreview extends Component {
     }
 
     imgInfo.scale = curScale;
-
-    // console.log('>> handleZoom: ', this.imgs);
 
     setStyle(img, {
       'width': zWidth + 'px',
@@ -228,6 +233,22 @@ class PicturePreview extends Component {
     a.dispatchEvent(event);
   };
 
+  initImgs = () => {
+    this.props.source.map((item, index) => {
+      // TODO: 计算图片的原始尺寸
+      const naturalWidth = parseInt(item.size.split("*")[0]);
+      const naturalHeight = parseInt(item.size.split("*")[1]);
+      let aImg = getAdaptiveImg(naturalWidth, naturalHeight, this.state.isFullscreen);
+
+      this.imgs[index].naturalWidth = naturalWidth;
+      this.imgs[index].naturalHeight = naturalHeight;
+      this.imgs[index].adaptiveWidth = aImg.width;
+      this.imgs[index].adaptiveHeight = aImg.height;
+      this.imgs[index].scale = 1.0;
+      this.imgs[index].rotate = 0;
+    });
+  };
+
   /**
    * 还原对上一张图片进行的操作
    * @return {[type]} [description]
@@ -237,6 +258,19 @@ class PicturePreview extends Component {
 
     this.handleZoom(index, 'reset');
     this.handleRotate(index, true);
+  };
+
+  setDengbiStatus = () => {
+    let activeImg = this.imgs[this.state.activeIndex];
+    if (activeImg.naturalWidth == activeImg.adaptiveWidth && activeImg.naturalHeight == activeImg.adaptiveHeight) {
+      this.setState({
+        isDisableDengbi: true
+      });
+    } else {
+      this.setState({
+        isDisableDengbi: false
+      });
+    }
   };
 
   handleCarouselPrev = () => {
@@ -255,6 +289,7 @@ class PicturePreview extends Component {
       activeIndex: curIndex,
     }, () => {
       this.carousel.prev();
+      this.setDengbiStatus();
     });
   };
 
@@ -274,6 +309,7 @@ class PicturePreview extends Component {
       activeIndex: curIndex,
     }, () => {
       this.carousel.next();
+      this.setDengbiStatus();
     });
   };
 
@@ -327,22 +363,16 @@ class PicturePreview extends Component {
               ref={node => this.carousel = node}
             >
               {
-                source.map((each, index) => {
-                  // TODO: 计算图片的原始尺寸
-                  const naturalWidth = parseInt(each.size.split("*")[0]);
-                  const naturalHeight = parseInt(each.size.split("*")[1]);
-                  let aImg = getAdaptiveImg(naturalWidth, naturalHeight, isFullscreen);
+                source.map((item, index) => {
+                  let imgInfo = this.imgs[index];
+                  let aImg = getAdaptiveImg(imgInfo.naturalWidth, imgInfo.naturalHeight, isFullscreen);
 
-                  _this.imgs[index].naturalWidth = naturalWidth;
-                  _this.imgs[index].naturalHeight = naturalHeight;
-                  _this.imgs[index].adaptiveWidth = aImg.width;
-                  _this.imgs[index].adaptiveHeight = aImg.height;
-                  _this.imgs[index].scale = 1;
-                  _this.imgs[index].rotate = 0;
+                  imgInfo.adaptiveWidth = aImg.width;
+                  imgInfo.adaptiveHeight = aImg.height;
 
                   return (
                     <div key={index} className={imgWrapClass}>
-                      <img src={each.url} width={aImg.width} height={aImg.height}/>
+                      <img src={item.url} width={aImg.width} height={aImg.height}/>
                     </div>
                   );
                 })
