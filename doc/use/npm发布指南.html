@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>使用文档 · GitBook</title>
+        <title>npm发布指南 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="npm发布指南.html" />
+    <link rel="next" href="../components/REMADE.html" />
     
     
-    <link rel="prev" href="../../" />
+    <link rel="prev" href="REMADE.html" />
     
 
     </head>
@@ -102,7 +102,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="REMADE.html">
+        <li class="chapter " data-level="1.2" data-path="REMADE.html">
             
                 <a href="REMADE.html">
             
@@ -116,7 +116,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1" data-path="npm发布指南.html">
+        <li class="chapter active" data-level="1.2.1" data-path="npm发布指南.html">
             
                 <a href="npm发布指南.html">
             
@@ -313,7 +313,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >使用文档</a>
+        <a href="../.." >npm发布指南</a>
     </h1>
 </div>
 
@@ -328,7 +328,43 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="&#x4F7F;&#x7528;&#x6587;&#x6863;">&#x4F7F;&#x7528;&#x6587;&#x6863;</h1>
+                                <h1 id="npm&#x53D1;&#x5E03;&#x6307;&#x5357;">npm&#x53D1;&#x5E03;&#x6307;&#x5357;</h1>
+<h3 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h3>
+<ul>
+<li>&#x53D1;&#x5E03;&#x4EBA;&#x9700;&#x8981;&#x719F;&#x6089;npm&#x6587;&#x6863;&#xFF0C;&#x80FD;&#x591F;&#x9884;&#x8BA1;&#x5F53;&#x524D;npm&#x53D1;&#x5E03;&#x8BA1;&#x5212;&#x53EF;&#x80FD;&#x5BF9;&#x5373;&#x5C06;&#x8981;&#x53D1;&#x5E03;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x80FD;&#x4EA7;&#x751F;&#x7684;&#x5F71;&#x54CD;</li>
+<li>&#x5904;&#x4E8E;npm&#x7248;&#x672C;&#x8D44;&#x6E90;&#x6709;&#x9650;&#x548C;&#x4FDD;&#x6301;npm&#x4EE3;&#x7801;&#x5E93;&#x7248;&#x672C;&#x53EF;&#x7528;&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x8BF7;&#x8C28;&#x614E;&#x53D1;&#x5E03;npm&#x7248;&#x672C;&#xFF0C;&#x4E0D;&#x968F;&#x610F;&#x53D1;&#x5E03;&#x5F53;&#x524D;&#x8FD8;&#x5904;&#x4E8E;&#x5F00;&#x53D1;&#x72B6;&#x6001;&#x7684;&#x4EE3;&#x7801;</li>
+</ul>
+<h3 id="&#x8BE6;&#x7EC6;&#x6587;&#x6863;">&#x8BE6;&#x7EC6;&#x6587;&#x6863;</h3>
+<ul>
+<li><a href="https://docs.npmjs.com/getting-started/publishing-npm-packages" target="_blank">How to Publish &amp; Update a Package</a></li>
+<li><a href="https://docs.npmjs.com/getting-started/using-tags" target="_blank">How to Label Packages with Dist-tags</a></li>
+</ul>
+<h3 id="&#x7B80;&#x6613;&#x53D1;&#x5E03;&#x6307;&#x5357;">&#x7B80;&#x6613;&#x53D1;&#x5E03;&#x6307;&#x5357;</h3>
+<ol>
+<li>&#x53D1;&#x5E03;&#x524D;&#xFF0C;&#x786E;&#x8BA4;&#x5F53;&#x524D;&#x4EE3;&#x7801;&#x5F00;&#x53D1;&#x72B6;&#x6001;&#xFF0C;&#x786E;&#x8BA4;&#x5F53;&#x524D;&#x7248;&#x672C;&#x53F7;&#x7684;tag&#x662F;beta&#x7248;&#x672C;&#x8FD8;&#x662F;latest&#x7248;&#x672C;&#xFF08;&#x6B63;&#x5F0F;&#x7248;&#xFF09;</li>
+<li>&#x53D1;&#x5E03;&#x524D;&#x67E5;&#x770B;&#x5DF2;&#x6709;versions&#x53CA;tags</li>
+<li>&#x4F7F;&#x7528;npm version&#x547D;&#x4EE4;&#x7BA1;&#x7406;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x624B;&#x52A8;&#x4FEE;&#x6539;&#x7248;&#x672C;&#x53F7;</li>
+<li>&#x6839;&#x636E;&#x5F53;&#x524D;&#x8981;&#x53D1;&#x5E03;&#x7684;&#x7248;&#x672C;&#x72B6;&#x6001;&#xFF0C;&#x4F7F;&#x7528;npm publish &#x6216; npm publish --tag beta &#x53D1;&#x5E03;&#x6B63;&#x5F0F;&#x7248;&#x6216;beta&#x7248;&#x672C;</li>
+</ol>
+<pre><code class="lang-bash"><span class="hljs-comment">#&#x67E5;&#x770B;tags</span>
+npm view ppfish dist-tags
+
+<span class="hljs-comment">#&#x67E5;&#x770B;versions</span>
+npm show ppfish versions
+
+<span class="hljs-comment">#&#x9884;&#x53D1;&#x5E03;</span>
+git add -A &amp;&amp; git commit -m <span class="hljs-string">&quot;c
+npm version prerelease
+npm publish --tag beta &#x6307;&#x5B9A;tag&#x4E3A;beta&#x5E76;&#x53D1;&#x5E03;
+
+#&#x53D1;&#x5E03;&#xFF1A;
+git add -A &amp;&amp; git commit -m &quot;</span>c
+npm version major/minor/patch
+npm publish &#x9ED8;&#x8BA4;&#x4EE5;latest&#x53D1;&#x5E03;
+
+<span class="hljs-comment">#&#x4E3A;ppfish1.1.0&#x7248;&#x672C;&#x6DFB;&#x52A0;tag&#x4E3A;latest:</span>
+npm dist-tags add ppfish@1.1.0 latest
+</code></pre>
 
                                 
                                 </section>
@@ -356,12 +392,12 @@
 
             
                 
-                <a href="../../" class="navigation navigation-prev " aria-label="Previous page: 项目介绍">
+                <a href="REMADE.html" class="navigation navigation-prev " aria-label="Previous page: 使用文档">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="npm发布指南.html" class="navigation navigation-next " aria-label="Next page: npm发布指南">
+                <a href="../components/REMADE.html" class="navigation navigation-next " aria-label="Next page: 组件">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -372,7 +408,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"使用文档","level":"1.2","depth":1,"next":{"title":"npm发布指南","level":"1.2.1","depth":2,"path":"doc/use/npm发布指南.md","ref":"doc/use/npm发布指南.md","articles":[]},"previous":{"title":"项目介绍","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/use/REMADE.md","mtime":"2018-06-12T11:41:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-12T11:42:49.229Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"npm发布指南","level":"1.2.1","depth":2,"next":{"title":"组件","level":"1.3","depth":1,"path":"doc/components/REMADE.md","ref":"doc/components/REMADE.md","articles":[{"title":"CustomeTable 表格","level":"1.3.1","depth":2,"path":"doc/components/CustomeTable.md","ref":"doc/components/CustomeTable.md","articles":[]},{"title":"TreeSelect 树形选择器","level":"1.3.2","depth":2,"path":"doc/components/TreeSelect.md","ref":"doc/components/TreeSelect.md","articles":[]},{"title":"PicturePreview 图片查看器","level":"1.3.3","depth":2,"path":"doc/components/PicturePreview.md","ref":"doc/components/PicturePreview.md","articles":[]},{"title":"DayTimeSelect 时间点选择器","level":"1.3.4","depth":2,"path":"doc/components/DayTimeSelect.md","ref":"doc/components/DayTimeSelect.md","articles":[]},{"title":"NumberCounter 数字","level":"1.3.5","depth":2,"path":"doc/components/NumberCounter.md","ref":"doc/components/NumberCounter.md","articles":[]},{"title":"Collapse 手风琴","level":"1.3.6","depth":2,"path":"doc/components/Collapse.md","ref":"doc/components/Collapse.md","articles":[]},{"title":"Drawer 抽屉","level":"1.3.7","depth":2,"path":"doc/components/Drawer.md","ref":"doc/components/Drawer.md","articles":[]},{"title":"Echart Echart","level":"1.3.8","depth":2,"path":"doc/components/Echart.md","ref":"doc/components/Echart.md","articles":[]},{"title":"Loading 加载中","level":"1.3.9","depth":2,"path":"doc/components/Loading.md","ref":"doc/components/Loading.md","articles":[]},{"title":"TextOverflow 文本溢出","level":"1.3.10","depth":2,"path":"doc/components/TextOverflow.md","ref":"doc/components/TextOverflow.md","articles":[]}]},"previous":{"title":"使用文档","level":"1.2","depth":1,"path":"doc/use/REMADE.md","ref":"doc/use/REMADE.md","articles":[{"title":"npm发布指南","level":"1.2.1","depth":2,"path":"doc/use/npm发布指南.md","ref":"doc/use/npm发布指南.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/use/npm发布指南.md","mtime":"2018-06-12T11:15:58.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-12T11:42:49.229Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
