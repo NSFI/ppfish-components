@@ -323,7 +323,7 @@ class PicturePreview extends Component {
     });
     let ctrlClass = classNames({
         'ctrl-wrap': true,
-        'm-picture-preview-hide': controller
+        'm-picture-preview-hide': !controller
     });
     let fullscreenClass = classNames({
         'iconfont': true,
