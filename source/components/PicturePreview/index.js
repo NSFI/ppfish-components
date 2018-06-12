@@ -266,14 +266,28 @@ class PicturePreview extends Component {
     });
   };
 
-  handleSave = (selector, name) => {
-    let img = document.querySelector(selector),
-        a = document.createElement('a'),
+  handleSave = (selector) => {
+    let img = document.querySelector(selector);
+
+    // for IE10+
+    if (window.navigator.msSaveBlob) {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', img.src , true);
+      xhr.responseType = 'blob';
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == xhr.DONE) {
+          window.navigator.msSaveBlob(xhr.response);
+        }
+      };
+      xhr.send();
+    } else {
+      let a = document.createElement('a'),
         event = new MouseEvent('click');
 
-    a.download = name || '';
-    a.href = img.src;
-    a.dispatchEvent(event);
+      a.download = '';
+      a.href = img.src;
+      a.dispatchEvent(event);
+    }
   };
 
   initImgs = () => {
@@ -448,7 +462,7 @@ class PicturePreview extends Component {
             <i className={fangdaClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'in')}/>
             <i className={suoxiaoClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'out')}/>
             <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate.bind(this, this.state.activeIndex, false)}/>
-            <i className="iconfont icon-save" onClick={this.handleSave.bind(this, '.carousel-wrap .slick-current img', null)}/>
+            <i className="iconfont icon-save" onClick={this.handleSave.bind(this, '.carousel-wrap .slick-current img')}/>
           </div>
         </div>
       </Modal>
