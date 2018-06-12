@@ -92,9 +92,9 @@ class PicturePreview extends Component {
     this.imgs = this.props.source;
 
     this.state = {
+      activeIndex: this.props.activeIndex,
       visible: this.props.visible,
       isFullscreen: false,
-      activeIndex: this.props.activeIndex,
       isDisableDengbi: false,
       isDisableFangda: false,
       isDisableSuoxiao: false
@@ -103,7 +103,7 @@ class PicturePreview extends Component {
 
   componentDidMount() {
     this.initImgs();
-    this.setDengbiStatus(this.props.activeIndex);
+    this.setIconStatus(this.props.activeIndex);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -117,9 +117,17 @@ class PicturePreview extends Component {
       this.setState({
         activeIndex: nextProps.activeIndex
       }, () => {
-        this.setDengbiStatus(nextProps.activeIndex);
+        this.setIconStatus(nextProps.activeIndex);
       });
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (JSON.stringify(this.state) === JSON.stringify(nextState)) {
+      return false;
+    }
+
+    return true;
   }
 
   componentDidUpdate() {
@@ -173,26 +181,42 @@ class PicturePreview extends Component {
 
     if (type == 'in') {
       curScale = Number((curScale + ZOOM_FACTOR).toFixed(1));
-      if (curScale > MAX_SCALE) {
+      if (curScale >= MAX_SCALE) {
         curScale = MAX_SCALE;
-        // TODO：禁用放大按钮点击
+        this.setState({
+          isDisableFangda: true
+        });
       }
       zWidth = parseInt(imgInfo.adaptiveWidth * curScale, 10);
       zHeight = parseInt(imgInfo.adaptiveHeight * curScale, 10);
+
+      this.setState({
+        isDisableDengbi: false,
+        isDisableSuoxiao: false
+      });
     } else if (type == 'out') {
       curScale = Number((curScale - ZOOM_FACTOR).toFixed(1));
-      if (curScale < MIN_SCALE) {
+      if (curScale <= MIN_SCALE) {
         curScale = MIN_SCALE;
-        // TODO：禁用缩小按钮点击
+        this.setState({
+          isDisableSuoxiao: true
+        });
       }
       zWidth = parseInt(imgInfo.adaptiveWidth * curScale, 10);
       zHeight = parseInt(imgInfo.adaptiveHeight * curScale, 10);
+
+      this.setState({
+        isDisableDengbi: false,
+        isDisableFangda: false
+      });
     } else if (type == '1:1') {
       curScale = 1;
       zWidth = imgInfo.naturalWidth,
       zHeight = imgInfo.naturalHeight;
       this.setState({
-        isDisableDengbi: true
+        isDisableDengbi: true,
+        isDisableFangda: false,
+        isDisableSuoxiao: false
       });
     } else if (type == 'reset') {
       curScale = 1;
@@ -259,7 +283,7 @@ class PicturePreview extends Component {
     this.handleRotate(index, true);
   };
 
-  setDengbiStatus = (index) => {
+  setIconStatus = (index) => {
     let activeImg = this.imgs[index],
         isDisableDengbi = false;
 
@@ -270,7 +294,9 @@ class PicturePreview extends Component {
     }
 
     this.setState({
-      isDisableDengbi: isDisableDengbi
+      isDisableDengbi: isDisableDengbi,
+      isDisableFangda: false,
+      isDisableSuoxiao: false
     });
   };
 
@@ -297,7 +323,7 @@ class PicturePreview extends Component {
       }
 
       this.resetImg(oldIndex);
-      this.setDengbiStatus(curIndex);
+      this.setIconStatus(curIndex);
     });
   };
 
@@ -312,7 +338,6 @@ class PicturePreview extends Component {
   };
 
   render() {
-    let _this = this;
     const { visible, isFullscreen, isDisableDengbi, isDisableFangda, isDisableSuoxiao } = this.state;
     const { source, dots, activeIndex, controller } = this.props;
     let contentWrapClass = classNames({
@@ -338,6 +363,18 @@ class PicturePreview extends Component {
         'icon-dengbi': true,
         'icon-disable': isDisableDengbi
     });
+    let fangdaClass = classNames({
+        'iconfont': true,
+        'icon-fangda': true,
+        'icon-disable': isDisableFangda
+    });
+    let suoxiaoClass = classNames({
+        'iconfont': true,
+        'icon-suoxiao': true,
+        'icon-disable': isDisableSuoxiao
+    });
+
+    // console.log('rendering...');
 
     return (
       <Modal
@@ -391,8 +428,8 @@ class PicturePreview extends Component {
           <div className={ctrlClass}>
             <i className={dengbiClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, '1:1')}/>
             <i className={fullscreenClass} onClick={this.handleFullscreen}/>
-            <i className="iconfont icon-fangda" onClick={this.handleZoom.bind(this, this.state.activeIndex, 'in')}/>
-            <i className="iconfont icon-suoxiao" onClick={this.handleZoom.bind(this, this.state.activeIndex, 'out')}/>
+            <i className={fangdaClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'in')}/>
+            <i className={suoxiaoClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'out')}/>
             <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate.bind(this, this.state.activeIndex, false)}/>
             <i className="iconfont icon-save" onClick={this.handleSave.bind(this, '.carousel-wrap .slick-current img', null)}/>
           </div>
