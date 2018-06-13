@@ -89,7 +89,7 @@ class PicturePreview extends Component {
     activeIndex: PropTypes.number,    // 默认打开的图片索引
     onClose: PropTypes.func,          // 关闭预览的回调
     dots: PropTypes.bool,             // 是否显示面板指示点
-    controller: PropTypes.bool,        // 是否显示图片控制器
+    controller: PropTypes.bool        // 是否显示图片控制器
   };
 
   static defaultProps = {
@@ -107,6 +107,7 @@ class PicturePreview extends Component {
     this.hasAddExitfullscreenEvt = false;
     this.direction = 'prev';
     this.selector = '.carousel-wrap .slick-list img';
+    this.curSelector = '.carousel-wrap .slick-current img';
     this.imgs = this.props.source;
 
     this.state = {
@@ -369,6 +370,12 @@ class PicturePreview extends Component {
     this.carousel.next();
   };
 
+  handleMouseDown = (e) => {
+    // TODO: 拖放功能
+    // console.log('mousedown: ', e);
+    e.preventDefault();
+  };
+
   render() {
     const { visible, isFullscreen, isDisableDengbi, isDisableFangda, isDisableSuoxiao } = this.state;
     const { source, dots, activeIndex, controller } = this.props;
@@ -406,8 +413,6 @@ class PicturePreview extends Component {
         'icon-disable': isDisableSuoxiao
     });
 
-    // console.log('rendering...');
-
     return (
       <Modal
         title=""
@@ -436,11 +441,19 @@ class PicturePreview extends Component {
                   item.adaptiveWidth = aImg.width;
                   item.adaptiveHeight = aImg.height;
 
-                  return (
-                    <div key={index} className={imgWrapClass}>
-                      <img src={item.url} width={aImg.width} height={aImg.height}/>
-                    </div>
-                  );
+                  if (controller) {
+                    return (
+                      <div key={index} className={imgWrapClass}>
+                        <img src={item.url} width={aImg.width} height={aImg.height} onMouseDown={this.handleMouseDown.bind(this, event)}/>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div key={index} className={imgWrapClass}>
+                        <img src={item.url} width={aImg.width} height={aImg.height}/>
+                      </div>
+                    );
+                  }
                 })
               }
             </Carousel>
@@ -462,7 +475,7 @@ class PicturePreview extends Component {
             <i className={fangdaClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'in')}/>
             <i className={suoxiaoClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'out')}/>
             <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate.bind(this, this.state.activeIndex, false)}/>
-            <i className="iconfont icon-save" onClick={this.handleSave.bind(this, '.carousel-wrap .slick-current img')}/>
+            <i className="iconfont icon-save" onClick={this.handleSave.bind(this, this.curSelector)}/>
           </div>
         </div>
       </Modal>
