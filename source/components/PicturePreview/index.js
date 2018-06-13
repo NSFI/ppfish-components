@@ -89,7 +89,7 @@ class PicturePreview extends Component {
     activeIndex: PropTypes.number,    // 默认打开的图片索引
     onClose: PropTypes.func,          // 关闭预览的回调
     dots: PropTypes.bool,             // 是否显示面板指示点
-    controller: PropTypes.bool        // 是否显示图片控制器
+    controller: PropTypes.bool,        // 是否显示图片控制器
   };
 
   static defaultProps = {
