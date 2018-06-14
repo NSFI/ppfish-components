@@ -3,9 +3,6 @@
 ## Introduction
 
 React + ant-design starter kit / boilerplate with React.js、react-router、Redux、ant-design、WebPack、Less、Jest
-- 官网 (构建中)
-- 文档 https://nsfi.github.io/ppfish-components
-- 源码 https://github.com/NSFI/ppfish-components
 
 ## Features
 
