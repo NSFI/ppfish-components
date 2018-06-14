@@ -116,7 +116,20 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1" data-path="../use/npm发布指南.html">
+        <li class="chapter " data-level="1.2.1" data-path="../use/开发流程.html">
+            
+                <a href="../use/开发流程.html">
+            
+                    
+                    开发流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../use/npm发布指南.html">
             
                 <a href="../use/npm发布指南.html">
             
@@ -329,6 +342,141 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="picturepreview-&#x56FE;&#x7247;&#x67E5;&#x770B;&#x5668;">PicturePreview &#x56FE;&#x7247;&#x67E5;&#x770B;&#x5668;</h1>
+<h3 id="&#x63CF;&#x8FF0;">&#x63CF;&#x8FF0;</h3>
+<p>&#x5F53;&#x7528;&#x6237;&#x9700;&#x8981;&#x9884;&#x89C8;&#x4E00;&#x4E2A;&#x6216;&#x4E00;&#x7EC4;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x70B9;&#x51FB;&#x56FE;&#x7247;&#x8FDB;&#x884C;&#x9884;&#x89C8;&#x3001;&#x67E5;&#x770B;</p>
+<h3 id="api">API</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x53C2;&#x6570;</th>
+<th style="text-align:left">&#x8BF4;&#x660E;</th>
+<th style="text-align:left">&#x7C7B;&#x578B;</th>
+<th style="text-align:left">&#x9ED8;&#x8BA4;&#x503C;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">visible</td>
+<td style="text-align:left">&#x662F;&#x5426;&#x6253;&#x5F00;&#x56FE;&#x7247;&#x67E5;&#x770B;&#x5668;</td>
+<td style="text-align:left">bool</td>
+<td style="text-align:left">false</td>
+</tr>
+<tr>
+<td style="text-align:left">source</td>
+<td style="text-align:left">&#x9700;&#x8981;&#x67E5;&#x770B;&#x7684;&#x56FE;&#x7247;&#x6570;&#x7EC4;&#xFF0C;&#x683C;&#x5F0F;&#x4E3A;[{url:&quot;xxxx&quot;,size: &quot;width*height&quot;}]</td>
+<td style="text-align:left">array</td>
+<td style="text-align:left">[{url:&apos;&apos;, size: &quot;200*200&quot;}]</td>
+</tr>
+<tr>
+<td style="text-align:left">activeIndex</td>
+<td style="text-align:left">&#x9ED8;&#x8BA4;&#x6253;&#x5F00;&#x7684;&#x56FE;&#x7247;&#x7D22;&#x5F15;</td>
+<td style="text-align:left">number</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">controller</td>
+<td style="text-align:left">&#x662F;&#x5426;&#x663E;&#x793A;&#x56FE;&#x7247;&#x63A7;&#x5236;&#x9762;&#x677F;</td>
+<td style="text-align:left">bool</td>
+<td style="text-align:left">false</td>
+</tr>
+<tr>
+<td style="text-align:left">onClose</td>
+<td style="text-align:left">&#x5173;&#x95ED;&#x56FE;&#x7247;&#x67E5;&#x770B;&#x5668;&#x7684;&#x56DE;&#x8C03;</td>
+<td style="text-align:left">func</td>
+<td style="text-align:left">() =&gt; {}</td>
+</tr>
+</tbody>
+</table>
+<h3 id="&#x4EE3;&#x7801;&#x6F14;&#x793A;">&#x4EE3;&#x7801;&#x6F14;&#x793A;</h3>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> React, {Component} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> PicturePreview <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../index&apos;</span>;
+<span class="hljs-keyword">import</span> DocumentLayout <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;../../../common/DocumentLayout/DocumentLayout&apos;</span>;
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&apos;./App.less&apos;</span>;
+
+<span class="hljs-keyword">const</span> dataSource = [
+  {
+    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;../../../assets/image/material/382_680.png&quot;</span>,
+    <span class="hljs-string">&quot;size&quot;</span>: <span class="hljs-string">&quot;382*680&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;../../../assets/image/material/410_412.png&quot;</span>,
+    <span class="hljs-string">&quot;size&quot;</span>: <span class="hljs-string">&quot;410*412&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;../../../assets/image/material/895_642.png&quot;</span>,
+    <span class="hljs-string">&quot;size&quot;</span>: <span class="hljs-string">&quot;895*642&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;../../../assets/image/material/960_600.png&quot;</span>,
+    <span class="hljs-string">&quot;size&quot;</span>: <span class="hljs-string">&quot;960*600&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;../../../assets/image/material/680_320.png&quot;</span>,
+    <span class="hljs-string">&quot;size&quot;</span>: <span class="hljs-string">&quot;680*320&quot;</span>
+  }
+];
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>();
+    <span class="hljs-keyword">this</span>.state = {
+      picturePreviewVisible: <span class="hljs-literal">false</span>,
+      activePictureIndex: <span class="hljs-number">0</span>,
+    };
+  }
+
+  <span class="hljs-comment">/**
+   * &#x6253;&#x5F00;&#x56FE;&#x7247;&#x9884;&#x89C8;
+   */</span>
+  handleClickPicture(index) {
+    <span class="hljs-keyword">this</span>.setState({
+      picturePreviewVisible: <span class="hljs-literal">true</span>,
+      activePictureIndex: index
+    });
+  }
+
+  <span class="hljs-comment">/**
+   * &#x5173;&#x95ED;&#x56FE;&#x7247;&#x9884;&#x89C8;
+   */</span>
+  handlePreviewClose = () =&gt; {
+    <span class="hljs-keyword">this</span>.setState({
+      picturePreviewVisible: <span class="hljs-literal">false</span>
+    });
+  }
+
+  render() {
+    <span class="hljs-keyword">const</span> { picturePreviewVisible, activePictureIndex } = <span class="hljs-keyword">this</span>.state;
+    <span class="hljs-keyword">return</span> (
+      &lt;DocumentLayout&gt;
+        &lt;div&gt;
+          &lt;div className=&quot;materials-pictures&quot;&gt;
+            &lt;div className=&quot;label&quot;&gt;&#x70B9;&#x51FB;&#x56FE;&#x7247;&#x9884;&#x89C8;&lt;/div&gt;
+            &lt;div className=&quot;content&quot;&gt;
+              {
+                dataSource.map((each, index)=&gt;
+                  &lt;div key={each.size} className=&quot;picture&quot; onClick={this.handleClickPicture.bind(this, index)}&gt;
+                    &lt;img src={each.url} alt={each.url} width=&quot;60px&quot; height=&quot;60px&quot; /&gt;
+                    &lt;div&gt;{each.size}&lt;/div&gt;
+                  &lt;/div&gt;
+                )
+              }
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;PicturePreview
+            visible={picturePreviewVisible}
+            activeIndex={activePictureIndex}
+            source={dataSource}
+            onClose={this.handlePreviewClose}
+            dots={false}
+          /&gt;
+        &lt;/div&gt;
+      &lt;/DocumentLayout&gt;
+    );
+  }
+}
+export default App;
+</code></pre>
 
                                 
                                 </section>
@@ -372,7 +520,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"PicturePreview 图片查看器","level":"1.3.3","depth":2,"next":{"title":"DayTimeSelect 时间点选择器","level":"1.3.4","depth":2,"path":"doc/components/DayTimeSelect.md","ref":"doc/components/DayTimeSelect.md","articles":[]},"previous":{"title":"TreeSelect 树形选择器","level":"1.3.2","depth":2,"path":"doc/components/TreeSelect.md","ref":"doc/components/TreeSelect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/components/PicturePreview.md","mtime":"2018-06-12T11:24:58.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-12T11:47:12.878Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"PicturePreview 图片查看器","level":"1.3.3","depth":2,"next":{"title":"DayTimeSelect 时间点选择器","level":"1.3.4","depth":2,"path":"doc/components/DayTimeSelect.md","ref":"doc/components/DayTimeSelect.md","articles":[]},"previous":{"title":"TreeSelect 树形选择器","level":"1.3.2","depth":2,"path":"doc/components/TreeSelect.md","ref":"doc/components/TreeSelect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/components/PicturePreview.md","mtime":"2018-06-12T12:41:58.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-14T05:45:09.452Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
