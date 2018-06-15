@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, PropTypes } from '../../libs';
+import {Component, PropTypes} from '../../libs';
 
 export default class Icon extends Component {
   render() {
@@ -9,4 +9,4 @@ export default class Icon extends Component {
 
 Icon.propTypes = {
   name: PropTypes.string
-}
+};

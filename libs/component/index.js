@@ -12,7 +12,7 @@ export default class Component extends React.Component {
   }
 
   style(args) {
-    return Object.assign({}, args, this.props.style)
+    return Object.assign({}, args, this.props.style);
   }
 }
 

@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { Component, PropTypes } from '../../libs';
+import {Component, PropTypes} from '../../libs';
 
 import Radio from './Radio';
 
@@ -46,7 +46,7 @@ export default class RadioButton extends Radio {
           {this.props.children || this.props.value}
         </span>
       </label>
-    )
+    );
   }
 }
 
