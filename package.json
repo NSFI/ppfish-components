@@ -27,7 +27,9 @@
     "test:watch": "npm run test -- --watch",
     "analyze": "babel-node ./tools/analyzeBundle.js",
     "site:src": "cd site && babel-node ./run.js",
-    "site:build": "cd build/site && NODE_ENV=production webpack --progress "
+    "site:build": "cd build/site && NODE_ENV=production webpack --progress ",
+    "site:prepubl¡sh": "./build/scripts/prepare.sh",
+    "site:postpublish": "./build/scripts/release.sh"
   },
   "main": "source/components/index.js",
   "dependencies": {
