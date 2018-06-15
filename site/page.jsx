@@ -146,7 +146,7 @@ export default class App extends React.Component {
               <a href="https://github.com/eleme/element-react/issues" target="_blank" rel="noopener noreferrer"
                  className="footer-main-link">{this.getLocale('misc.feedback')}</a>
               <a href="https://github.com/eleme/element-react/blob/master/CONTRIBUTING.md" target="_blank"
-                 rel="noopener noreferrer" className="footer-main-link">{this.getLocale('misc.contribution')}</a>
+                 rel="noopener noreferrer" className="footer-main-link">{this.getLocale('misc.contributing')}</a>
               <a target="_blank"
                  rel="noopener noreferrer" className="footer-main-link">Element</a>
             </div>
