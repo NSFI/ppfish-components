@@ -15,7 +15,7 @@ import Spec from './spec';
 
 render(<AppContainer>
   <Router history={browserHistory}>
-    <Route path="/" component={Home}/>
+    <Route path="/index-cn" component={Home}/>
     <Route path="/spec" component={Spec}/>
     <Route path="*" component={App}/>
   </Router>
@@ -26,7 +26,7 @@ if (module.hot) {
     const App = require('./page').default;
     render(<AppContainer>
       <Router history={browserHistory}>
-        <Route path="/" component={Home}/>
+        <Route path="/index-cn" component={Home}/>
         <Route path="/spec" component={Spec}/>
         <Route path="*" component={App}/>
       </Router>
