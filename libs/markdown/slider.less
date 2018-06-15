@@ -1,0 +1,33 @@
+.u-slider-anchors {
+  position: fixed;
+  right: 50px;
+  top: 150px;
+  width: 100px;
+  font-size: 12px;
+  margin: 16px 0;
+  border-left: 1px solid #ebedf0;
+  li {
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
+    margin-left: 0;
+    padding-left: 0;
+    line-height: 1.5;
+    list-style: none;
+    text-underline: none;
+    cursor: pointer;
+  }
+  a {
+    padding-left: 16px;
+    display: block;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #314659;
+    width: 110px;
+    border-left: 1px solid #0000;
+    margin-left: -1px;
+  }
+}

@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import marked from 'marked';
 import prism from 'prismjs';
-
 import Canvas from './canvas';
+import Slider from './slider';
 
 export default class Markdown extends React.Component {
   constructor(props) {
@@ -15,6 +15,22 @@ export default class Markdown extends React.Component {
     this.renderer.table = (header, body) => {
       return `<table class="grid"><thead>${header}</thead><tbody>${body}</tbody></table>`;
     };
+    this.renderer.heading = function (text, level, raw) {
+      if (this.options.headerIds) {
+        return '<h'
+          + level
+          + ' id="'
+          + text
+          + '">'
+          + text
+          + '</h'
+          + level
+          + '>\n';
+      }
+      // ignore IDs
+      return '<h' + level + '>' + text + '</h' + level + '>\n';
+    };
+
   }
 
   componentDidMount() {
@@ -34,7 +50,16 @@ export default class Markdown extends React.Component {
       }
     }
     prism.highlightAll();
+    this.getSidebarAnchor();
   }
+
+  getSidebarAnchor = () => {
+    const anchors = Array.from(document.querySelectorAll('h3')).map(h3Item => ({
+      id: h3Item.id,
+      name: h3Item.innerText
+    }));
+    ReactDOM.render(<Slider anchors={anchors}/>, document.getElementById('slider-container'));
+  };
 
   //:::demo ::: 更换成带随机数id的坑位 ，再次render 放入坑位内
   render() {
