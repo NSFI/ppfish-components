@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 
 new WebpackDevServer(webpack({
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:5000',
     'webpack/hot/only-dev-server',
