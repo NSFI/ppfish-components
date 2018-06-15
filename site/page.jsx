@@ -48,6 +48,7 @@ export default class App extends React.Component {
     this.setState({page: this.getPage()}, fn);
   }
 
+  //根据page参数获取对应的页的markdown文件并解析
   getComponent(page) {
     this.components = this.components || Object.assign(Object.values(pages.components).reduce((a, b) => {
       return Object.assign(a, b);
@@ -74,14 +75,14 @@ export default class App extends React.Component {
             </h1>
             <ul className="nav">
               <li className="nav-item">
-                <a href="#" target="_blank"
-                   rel="noopener noreferrer">{this.getLocale('misc.guide')}</a>
+                <a href="/"
+                   rel="noopener noreferrer">首页</a>
+              </li>
+              <li className="nav-item">
+                <a href="/spec" rel="noopener noreferrer">设计语言</a>
               </li>
               <li className="nav-item">
                 <a className="active">{this.getLocale('misc.component')}</a>
-              </li>
-              <li className="nav-item">
-                <a href="#" target="_blank" rel="noopener noreferrer">{this.getLocale('misc.resource')}</a>
               </li>
             </ul>
           </div>
@@ -158,6 +159,6 @@ export default class App extends React.Component {
           </div>
         </footer>
       </div>
-    )
+    );
   }
 }

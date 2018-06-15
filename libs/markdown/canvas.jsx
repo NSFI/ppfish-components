@@ -2,18 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import marked from 'marked'
-import { transform } from 'babel-standalone'
+import {transform} from 'babel-standalone'
 
 import Editor from '../editor'
 
+//代码展示容器
 export default class Canvas extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.playerId = `${parseInt(Math.random() * 1e9).toString(36)}`
-    this.document = this.props.children.match(/([^]*)\n?(```[^]+```)/)
-    this.description = marked(this.document[1])
-    this.source = this.document[2].match(/```(.*)\n?([^]+)```/)
+    this.playerId = `${parseInt(Math.random() * 1e9).toString(36)}`;
+    this.document = this.props.children.match(/([^]*)\n?(```[^]+```)/);
+    this.description = marked(this.document[1]);
+    this.source = this.document[2].match(/```(.*)\n?([^]+)```/);
 
     this.state = {
       showBlock: false
@@ -32,11 +33,11 @@ export default class Canvas extends React.Component {
 
   renderSource(value) {
     import('../../src').then(Element => {
-      const args = ['context', 'React', 'ReactDOM']
-      const argv = [this, React, ReactDOM]
+      const args = ['context', 'React', 'ReactDOM'];
+      const argv = [this, React, ReactDOM];
 
       for (const key in Element) {
-        args.push(key)
+        args.push(key);
         argv.push(Element[key])
       }
 
@@ -44,7 +45,7 @@ export default class Canvas extends React.Component {
         args,
         argv
       }
-    }).then(({ args, argv }) => {
+    }).then(({args, argv}) => {
       const code = transform(`
         class Demo extends React.Component {
           ${value}
@@ -53,11 +54,11 @@ export default class Canvas extends React.Component {
         ReactDOM.render(<Demo {...context.props} />, document.getElementById('${this.playerId}'))
       `, {
         presets: ['es2015', 'react']
-      }).code
+      }).code;
 
-      args.push(code)
+      args.push(code);
 
-      new Function(...args).apply(null, argv)
+      new Function(...args).apply(null, argv);
 
       this.source[2] = value
     }).catch((err) => {
@@ -70,7 +71,7 @@ export default class Canvas extends React.Component {
   render() {
     return (
       <div className={`demo-block demo-box demo-${this.props.name}`}>
-        <div className="source" id={this.playerId} />
+        <div className="source" id={this.playerId}/>
         {
           this.state.showBlock && (
             <div className="meta">
@@ -79,7 +80,7 @@ export default class Canvas extends React.Component {
                   <div
                     ref="description"
                     className="description"
-                    dangerouslySetInnerHTML={{ __html: this.description }}
+                    dangerouslySetInnerHTML={{__html: this.description}}
                   />
                 )
               }
@@ -94,11 +95,11 @@ export default class Canvas extends React.Component {
           {
             this.state.showBlock ? (
               <span>
-                <i className="el-icon-caret-top" />{this.props.locale.hide}
+                <i className="el-icon-caret-top"/>{this.props.locale.hide}
               </span>
             ) : (
               <span>
-                <i className="el-icon-caret-bottom" />{this.props.locale.show}
+                <i className="el-icon-caret-bottom"/>{this.props.locale.show}
               </span>
             )
           }
@@ -110,8 +111,8 @@ export default class Canvas extends React.Component {
 
 Canvas.propTypes = {
   locale: PropTypes.object
-}
+};
 
 Canvas.defaultProps = {
   locale: {}
-}
+};
