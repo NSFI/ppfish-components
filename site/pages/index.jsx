@@ -1,6 +1,8 @@
 export default {
   documents: {
     'quick-start': require('./quick-start'),
+    'changelog': require('./changelog'),
+    'contributing': require('./contributing'),
   },
   components: {
     'Basic': {
