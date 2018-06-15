@@ -143,7 +143,7 @@ export default class App extends React.Component {
         <footer className="footer">
           <div className="container">
             <div className="footer-main">
-              <p className="footer-main-title">PPfish</p>
+              <p className="footer-main-title">PPFish</p>
             </div>
             <div className="footer-social">
               <a href="//github.com/NSFI/ppfish-components" target="_blank" rel="noopener noreferrer">
