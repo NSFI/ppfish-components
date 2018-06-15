@@ -158,6 +158,7 @@ export default class App extends React.Component {
             </div>
           </div>
         </footer>
+        <div id="slider-container"></div>
       </div>
     );
   }

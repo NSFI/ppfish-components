@@ -2,7 +2,7 @@
 
 长图制作逐帧动画
 
-## 基本使用
+### 基本使用
 
 :::demo AnimationImageLoader组件图片素材由`src`属性来定义，默认为展示图片。
 
