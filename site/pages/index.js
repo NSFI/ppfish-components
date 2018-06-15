@@ -15,5 +15,8 @@ export default {
       'radio': require('./radio'),
       'checkbox': require('./checkbox'),
     },
+    'Test': {
+      'animationImageLoader': require('./animationImageLoader')
+    }
   }
 };

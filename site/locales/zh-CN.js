@@ -8,7 +8,8 @@ module.exports = {
     'radio': 'Radio 单选框',
     'checkbox': 'Checkbox 多选框',
     'contributing': '贡献指南',
-    'changelog': '更新日志'
+    'changelog': '更新日志',
+    'animationImageLoader': '逐帧动画'
   },
   misc: {
     'guide': '指南',

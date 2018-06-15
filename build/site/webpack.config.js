@@ -23,7 +23,7 @@ module.exports = {
       favicon: path.join(basePath, 'site/assets/favicon.ico')
     })
   ].concat(process.env.TRAVIS_CI ? [] : [
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+    new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')}),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       mangle: {
@@ -60,16 +60,20 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
+      },
+      {
         test: /\.(ttf|eot|svg|woff|woff2)(\?.+)?$/,
         loader: 'file-loader?name=[hash:12].[ext]'
       },
       {
         test: /\.(jpe?g|png|gif)(\?.+)?$/,
-        loader: 'url-loader?name=[hash:12].[ext]&limit=25000'
+        loader: 'file-loader'
       },
       {
         test: /\.md$/,
-        loader : 'raw-loader'
+        loader: 'raw-loader'
       }
     ]
   }

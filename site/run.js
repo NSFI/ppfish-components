@@ -42,16 +42,20 @@ new WebpackDevServer(webpack({
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
+      },
+      {
         test: /\.(eot|svg|ttf|woff|woff2)(\?.+)?$/,
-        loader : 'file-loader'
+        loader: 'file-loader'
       },
       {
         test: /\.(jpe?g|png|gif)(\?.+)?$/,
-        loader : 'url-loader'
+        loader: 'file-loader'
       },
       {
         test: /\.md$/,
-        loader : 'raw-loader'
+        loader: 'raw-loader'
       }
     ]
   }
@@ -59,7 +63,7 @@ new WebpackDevServer(webpack({
   publicPath: '/',
   hot: true,
   historyApiFallback: true,
-  stats: { colors: true }
+  stats: {colors: true}
 }).listen(5000, 'localhost', error => {
   if (error) {
     throw error;
