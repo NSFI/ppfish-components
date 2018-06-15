@@ -9,7 +9,7 @@ import 'element-theme-default';
 import './styles/base.scss';
 import './styles/prism.css';
 
-import App from './page.jsx';
+import App from './page';
 import Home from './home';
 import Spec from './spec';
 

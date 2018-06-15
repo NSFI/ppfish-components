@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { Component, PropTypes } from '../../libs';
+import {Component, PropTypes} from '../../libs';
 
 export default class RadioGroup extends Component {
   getChildContext(): { component: RadioGroup } {
@@ -12,7 +12,7 @@ export default class RadioGroup extends Component {
 
   onChange(value: mixed) {
     if (this.props.onChange) {
-      this.props.onChange(value)
+      this.props.onChange(value);
     }
   }
 
@@ -25,7 +25,7 @@ export default class RadioGroup extends Component {
               return null;
             }
 
-            const { elementType } = element.type;
+            const {elementType} = element.type;
             if (elementType !== 'Radio' && elementType !== 'RadioButton') {
               return null;
             }
@@ -34,11 +34,11 @@ export default class RadioGroup extends Component {
               onChange: this.onChange.bind(this),
               model: this.props.value,
               size: this.props.size
-            }))
+            }));
           })
         }
       </div>
-    )
+    );
   }
 }
 
@@ -53,4 +53,4 @@ RadioGroup.propTypes = {
   textColor: PropTypes.string,
   fill: PropTypes.string,
   onChange: PropTypes.func
-}
+};

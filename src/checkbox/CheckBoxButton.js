@@ -10,11 +10,12 @@ export default class CheckboxButton extends CheckBox {
     const group = this.context.ElCheckboxGroup;
 
     return (
-      <label style={this.style()} className={this.className('el-checkbox-button', group.props.size ? 'el-checkbox-button--' + group.props.size : '', {
-        'is-disabled': this.props.disabled,
-        'is-checked': this.state.checked,
-        'is-focus': this.state.focus
-      })}>
+      <label style={this.style()}
+             className={this.className('el-checkbox-button', group.props.size ? 'el-checkbox-button--' + group.props.size : '', {
+               'is-disabled': this.props.disabled,
+               'is-checked': this.state.checked,
+               'is-focus': this.state.focus
+             })}>
         <input
           className="el-checkbox-button__original"
           type="checkbox"
@@ -29,10 +30,10 @@ export default class CheckboxButton extends CheckBox {
           backgroundColor: group.props.fill || '',
           borderColor: group.props.fill || '',
           color: group.props.textColor || ''
-        }: {}}>
+        } : {}}>
           {this.state.label || this.props.children}
         </span>
       </label>
-    )
+    );
   }
 }

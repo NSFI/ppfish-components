@@ -1,7 +1,7 @@
 /* @flow */
 
-import React from 'react'
-import { Component, PropTypes } from '../../libs'
+import React from 'react';
+import {Component, PropTypes} from '../../libs';
 
 type State = {
   checked: boolean,
@@ -27,7 +27,7 @@ export default class Checkbox extends Component {
   componentWillReceiveProps(nextProps: Object): void {
     this.setState({
       checked: nextProps.checked, focus: nextProps.focus, label: this.getLabel(nextProps)
-    })
+    });
   }
 
   onFocus(): void {
@@ -44,8 +44,8 @@ export default class Checkbox extends Component {
 
   onChange(e: SyntheticEvent): void {
     if (e.target instanceof HTMLInputElement) {
-      const { label } = this.state;
-      const { trueLabel, falseLabel} = this.props;
+      const {label} = this.state;
+      const {trueLabel, falseLabel} = this.props;
 
       const checked = e.target.checked;
       const group = this.context.ElCheckboxGroup;
@@ -111,7 +111,7 @@ export default class Checkbox extends Component {
           {this.props.children || this.state.label}
         </span>
       </label>
-    )
+    );
   }
 }
 

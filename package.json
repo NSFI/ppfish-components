@@ -127,6 +127,7 @@
     "redux-logger": "^2.4.0",
     "rimraf": "2.5.4",
     "sass-loader": "^7.0.3",
+    "sinon": "^6.0.0",
     "style-loader": "^0.18.1",
     "stylelint": "^8.3.1",
     "stylelint-config-standard": "^18.0.0",

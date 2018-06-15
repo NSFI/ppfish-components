@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { Component, PropTypes } from '../../libs';
+import {Component, PropTypes} from '../../libs';
 
 type State = {
   checked: boolean,
@@ -25,7 +25,7 @@ export default class Radio extends Component {
     const checked = this.getChecked(props);
 
     if (this.state.checked != checked) {
-      this.setState({ checked });
+      this.setState({checked});
     }
   }
 
@@ -38,19 +38,19 @@ export default class Radio extends Component {
       }
     }
 
-    this.setState({ checked });
+    this.setState({checked});
   }
 
   onFocus() {
     this.setState({
       focus: true
-    })
+    });
   }
 
   onBlur() {
     this.setState({
       focus: false
-    })
+    });
   }
 
   getChecked(props: Object): boolean {
@@ -58,8 +58,8 @@ export default class Radio extends Component {
   }
 
   render(): React.Element<any> {
-    const { checked, focus } = this.state;
-    const { disabled, value, children } = this.props;
+    const {checked, focus} = this.state;
+    const {disabled, value, children} = this.props;
 
     return (
       <label style={this.style()} className={this.className('el-radio')}>
@@ -84,7 +84,7 @@ export default class Radio extends Component {
           {children || value}
         </span>
       </label>
-    )
+    );
   }
 }
 
@@ -93,4 +93,4 @@ Radio.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   checked: PropTypes.bool
-}
+};

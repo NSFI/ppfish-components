@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { Component, PropTypes } from '../../libs'
+import {Component, PropTypes} from '../../libs';
 
 type State = {
   options: Array<string>,
@@ -51,14 +51,14 @@ export default class CheckboxGroup extends Component {
   }
 
   render(): React.Element<any> {
-    const { options } = this.state;
+    const {options} = this.state;
 
     const children = React.Children.map(this.props.children, (child, index) => {
       if (!child) {
         return null;
       }
 
-      const { elementType } = child.type;
+      const {elementType} = child.type;
       // 过滤非Checkbox和CheckboxButton的子组件
       if (elementType !== 'Checkbox' && elementType !== 'CheckboxButton') {
         return null;
@@ -68,7 +68,7 @@ export default class CheckboxGroup extends Component {
         child,
         Object.assign({}, child.props, {
           key: index,
-          checked: child.props.checked || options.indexOf(child.props.value) >= 0 || options.indexOf(child.props.label) >= 0 ,
+          checked: child.props.checked || options.indexOf(child.props.value) >= 0 || options.indexOf(child.props.label) >= 0,
           onChange: this.onChange.bind(this, child.props.value || child.props.label),
         }),
       );
@@ -78,7 +78,7 @@ export default class CheckboxGroup extends Component {
       <div style={this.style()} className={this.className('el-checkbox-group')}>
         {children}
       </div>
-    )
+    );
   }
 }
 
