@@ -36,6 +36,7 @@ export default class Markdown extends React.Component {
     prism.highlightAll();
   }
 
+  //:::demo ::: 更换成带随机数id的坑位 ，再次render 放入坑位内
   render() {
     const document = this.document(localStorage.getItem('ELEMENT_LANGUAGE') || 'zh-CN');
 
@@ -50,15 +51,15 @@ export default class Markdown extends React.Component {
         }, this.props), p1));
 
         return `<div id=${id}></div>`;
-      }), { renderer: this.renderer });
+      }), {renderer: this.renderer});
 
       return (
         <div dangerouslySetInnerHTML={{
           __html: html
-        }} />
-      )
+        }}/>
+      );
     } else {
-      return <span />
+      return <span/>;
     }
   }
 }
