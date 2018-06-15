@@ -143,16 +143,10 @@ export default class App extends React.Component {
         <footer className="footer">
           <div className="container">
             <div className="footer-main">
-              <p className="footer-main-title">Element-React</p>
-              <a href="https://github.com/eleme/element-react/issues" target="_blank" rel="noopener noreferrer"
-                 className="footer-main-link">{this.getLocale('misc.feedback')}</a>
-              <a href="https://github.com/eleme/element-react/blob/master/CONTRIBUTING.md" target="_blank"
-                 rel="noopener noreferrer" className="footer-main-link">{this.getLocale('misc.contributing')}</a>
-              <a target="_blank"
-                 rel="noopener noreferrer" className="footer-main-link">Element</a>
+              <p className="footer-main-title">PPfish</p>
             </div>
             <div className="footer-social">
-              <a href="//github.com/eleme/element-react" target="_blank" rel="noopener noreferrer">
+              <a href="//github.com/NSFI/ppfish-components" target="_blank" rel="noopener noreferrer">
                 <img src={require('./assets/github.png')}/>
               </a>
             </div>
