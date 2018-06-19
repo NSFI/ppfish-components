@@ -5,5 +5,14 @@ module.exports = {
 	},
 	testMatch: [ "**/__tests__/**/*.js?(x)", "**/?(*.)+(test).js?(x)" ],
   verbose: true,
-  notify: false
+  notify: false,
+  collectCoverage: false,
+  collectCoverageFrom: [
+    "**/source/components/**/*.js",
+    "!**/source/components/**/demo/*.js",
+    "!**/node_modules/**",
+    "!**/tools/**",
+    "!**/doc/**"
+  ],
+  coverageDirectory: '<rootDir>/coverage',
 };
