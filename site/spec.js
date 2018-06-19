@@ -22,7 +22,7 @@ export default class Spec extends React.Component {
                 <a className="active" href="/#/spec/" rel="noopener noreferrer">设计语言</a>
               </li>
               <li className="nav-item">
-                <a href="/#/">组件</a>
+                <a href="/#/components/">组件</a>
               </li>
             </ul>
           </div>
