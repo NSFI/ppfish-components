@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router';
 
 export default class Spec extends React.Component {
   constructor(props) {
@@ -17,13 +16,13 @@ export default class Spec extends React.Component {
             </h1>
             <ul className="nav">
               <li className="nav-item">
-                <Link to="home/" rel="noopener noreferrer">首页</Link>
+                <a href="#/home/" rel="noopener noreferrer">首页</a>
               </li>
               <li className="nav-item">
-                <Link className="active" rel="noopener noreferrer">设计语言</Link>
+                <a className="active" rel="noopener noreferrer">设计语言</a>
               </li>
               <li className="nav-item">
-                <Link to="components/">组件</Link>
+                <a href="#/components/">组件</a>
               </li>
             </ul>
           </div>

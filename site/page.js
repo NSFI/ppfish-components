@@ -2,7 +2,6 @@ import React from 'react';
 import ScrollToTop from 'react-scroll-up';
 import locales from './locales';
 import pages from './pages';
-import {Link} from 'react-router';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -82,10 +81,10 @@ export default class App extends React.Component {
             </h1>
             <ul className="nav">
               <li className="nav-item">
-                <Link to="home/" rel="noopener noreferrer">首页</Link>
+                <a href="#/home/" rel="noopener noreferrer">首页</a>
               </li>
               <li className="nav-item">
-                <Link to="spec/" rel="noopener noreferrer">设计语言</Link>
+                <a href="#/spec/" rel="noopener noreferrer">设计语言</a>
               </li>
               <li className="nav-item">
                 <a className="active">{this.getLocale('misc.component')}</a>
@@ -103,9 +102,9 @@ export default class App extends React.Component {
                     Object.keys(pages.documents).map(page => {
                       return (
                         <li className="nav-item" key={page}>
-                          <Link to={`components/${page}`}
+                          <a href={`#/components/${page}`}
                                 className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}
-                          </Link>
+                          </a>
                         </li>
                       );
                     })
@@ -124,8 +123,8 @@ export default class App extends React.Component {
                             Object.keys(pages.components[group]).map(page => {
                               return (
                                 <li key={page} className="nav-item">
-                                  <Link to={`components/${page}`}
-                                        className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</Link>
+                                  <a href={`#/components/${page}`}
+                                        className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
                                 </li>
                               );
                             })
