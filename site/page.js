@@ -139,12 +139,14 @@ export default class App extends React.Component {
             </ul>
           </nav>
           <div className="content">
+          <article class="markdown">
             {this.getComponent(this.state.page)}
             <ScrollToTop showUnder={210}>
               <div className="page-component-up">
                 <i className="el-icon-caret-top"/>
               </div>
             </ScrollToTop>
+            </article>
           </div>
         </div>
         <footer className="footer">
