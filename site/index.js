@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
-import {Router, Route, hashHistory} from 'react-router';
+import {Router, Route, hashHistory, Redirect} from 'react-router';
 import 'core-js';
 
 import 'element-theme-default';
@@ -17,7 +17,8 @@ render(<AppContainer>
   <Router history={hashHistory}>
     <Route path="/home" component={Home}/>
     <Route path="/spec" component={Spec}/>
-    <Route path="*" component={App}/>
+    <Route path="/components/*" component={App}/>
+    <Redirect from="*" to="/home"/>
   </Router>
 </AppContainer>, document.getElementById('app'));
 
@@ -28,7 +29,8 @@ if (module.hot) {
       <Router history={hashHistory}>
         <Route path="/home" component={Home}/>
         <Route path="/spec" component={Spec}/>
-        <Route path="*" component={App}/>
+        <Route path="/components/*" component={App}/>
+        <Redirect from="*" to="/home"/>
       </Router>
     </AppContainer>, document.getElementById('app'));
   });

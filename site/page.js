@@ -102,7 +102,7 @@ export default class App extends React.Component {
                     Object.keys(pages.documents).map(page => {
                       return (
                         <li className="nav-item" key={page}>
-                          <a href={`#/${page}`}
+                          <a href={`#/components/${page}`}
                              className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
                         </li>
                       );
@@ -122,7 +122,7 @@ export default class App extends React.Component {
                             Object.keys(pages.components[group]).map(page => {
                               return (
                                 <li key={page} className="nav-item">
-                                  <a href={`#/${page}`}
+                                  <a href={`#/components/${page}`}
                                      className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
                                 </li>
                               );
@@ -140,7 +140,7 @@ export default class App extends React.Component {
             {this.getComponent(this.state.page)}
             <ScrollToTop showUnder={210}>
               <div className="page-component-up">
-                <i className="el-icon-caret-top"></i>
+                <i className="el-icon-caret-top"/>
               </div>
             </ScrollToTop>
           </div>
