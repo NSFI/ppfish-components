@@ -3,6 +3,7 @@ export default {
     'quick-start': require('./quick-start'),
     'changelog': require('./changelog'),
     'contributing': require('./contributing'),
+    'resource': require('./resource'),
   },
   components: {
     'Basic': {
