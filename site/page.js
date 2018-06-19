@@ -10,16 +10,22 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    window.addEventListener("hashchange", () => {
-      window.scrollTo(0, 0);
-
-      this.setPage();
-    }, false);
+    window.addEventListener("hashchange", this.setComponentShow, false);
   }
 
   componentDidMount() {
     this.setPage();
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.setComponentShow, false);
+  }
+
+  setComponentShow = () => {
+    window.scrollTo(0, 0);
+
+    this.setPage();
+  };
 
   getLocale(key) {
     const map = locales['zh-CN'] || {};
@@ -75,11 +81,10 @@ export default class App extends React.Component {
             </h1>
             <ul className="nav">
               <li className="nav-item">
-                <a href="/"
-                   rel="noopener noreferrer">首页</a>
+                <a href="/#/home/" rel="noopener noreferrer">首页</a>
               </li>
               <li className="nav-item">
-                <a href="/spec" rel="noopener noreferrer">设计语言</a>
+                <a href="/#/spec/" rel="noopener noreferrer">设计语言</a>
               </li>
               <li className="nav-item">
                 <a className="active">{this.getLocale('misc.component')}</a>
