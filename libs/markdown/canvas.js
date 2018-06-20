@@ -32,6 +32,7 @@ export default class Canvas extends React.Component {
   }
 
   renderSource(value) {
+    //dynamic import
     import('../../src').then(Element => {
       const args = ['context', 'React', 'ReactDOM'];
       const argv = [this, React, ReactDOM];
@@ -57,7 +58,7 @@ export default class Canvas extends React.Component {
       }).code;
 
       args.push(code);
-
+      //render to playrId div
       new Function(...args).apply(null, argv);
 
       this.source[2] = value
