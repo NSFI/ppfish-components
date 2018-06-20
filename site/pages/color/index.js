@@ -1,6 +1,6 @@
 import Markdown from '../../../libs/markdown';
 
-import './style.scss';
+import './style.less';
 
 export default class Color extends Markdown {
   document(locale) {

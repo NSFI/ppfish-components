@@ -6,7 +6,7 @@ import 'core-js';
 
 import 'element-theme-default';
 
-import './styles/base.scss';
+import './styles/base.less';
 import './styles/prism.css';
 
 import App from './page';
