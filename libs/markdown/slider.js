@@ -44,8 +44,15 @@ export default class Slider extends React.Component {
   };
 
   checkActiveAnchors = () => {
-    const wayFromTop = document.documentElement.scrollTop;
     const {anchors} = this.props;
+    if(anchors.length < 2){ return } // 不显示导航时，直接跳出 scroll 事件
+    const wayFromTop = document.documentElement.scrollTop;
+    let menu = this.refs.menu;
+    if(wayFromTop > 80){  // 页面卷过 80px 之后，固定快速导航
+      menu.classList.add('z-fixed');
+    }else{
+      menu.classList.remove('z-fixed');
+    }
     const result = anchors.map(x => ({
       id: x.id,
       offset: Math.abs(getElementTop(x.id) - wayFromTop)
@@ -59,11 +66,14 @@ export default class Slider extends React.Component {
 
   render() {
     const {anchors} = this.props;
-    return (
-      <ul className="u-slider-anchors">
-        {anchors.map(x => <li title={x.id} key={x.id} ref={x.id}>
+    let menuList = anchors.length > 1
+      ? anchors.map(x => <li title={x.id} key={x.id} ref={x.id}>
           <a onClick={(e) => this.clickLink(e, x.id)}>{x.name}</a>
-        </li>)}
+        </li>)
+      : null
+    return (
+      <ul className="u-slider-anchors" ref="menu">
+        { menuList }
       </ul>
     );
   }
@@ -71,4 +81,8 @@ export default class Slider extends React.Component {
 
 Slider.propTypes = {
   anchors: PropTypes.array
+};
+
+Slider.defaultProps={
+  anchors:[]
 };
