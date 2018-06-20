@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import marked from 'marked';
 import prism from 'prismjs';
 import Canvas from './canvas';
-import Slider from './slider';
+import Slider from '../slider';
 
 export default class Markdown extends React.Component {
   constructor(props) {
