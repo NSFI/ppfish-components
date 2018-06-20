@@ -6,18 +6,8 @@ export default {
     'resource': require('./resource'),
   },
   components: {
-    'Basic': {
-      'color': require('./color'),
-      'typography': require('./typography'),
-      'icon': require('./icon'),
-      'button': require('./button')
-    },
-    'Form': {
-      'radio': require('./radio'),
-      'checkbox': require('./checkbox'),
-    },
-    'Test': {
-      'animationImageLoader': require('./animationImageLoader')
+    '业务组件': {
+      'animationImageLoader': require('./animationImageLoader'),
     }
   }
 };
