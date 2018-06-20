@@ -405,7 +405,6 @@ body {
 .page-component-up:hover {
   opacity: 1;
 }
-
 .ant-timeline {
   font-family: Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -414,19 +413,16 @@ body {
   box-sizing: border-box;
   padding: 0
 }
-
 .ant-timeline,
 .ant-timeline-item {
   font-size: 14px;
   list-style: none;
   margin: 0
 }
-
 .ant-timeline-item {
   position: relative;
   padding: 0 0 20px
 }
-
 .ant-timeline-item-tail {
   position: absolute;
   left: 4px;
@@ -434,7 +430,6 @@ body {
   height: 100%;
   border-left: 2px solid #e8e8e8
 }
-
 .ant-timeline-item-pending .ant-timeline-item-head {
   font-size: 12px
 }
@@ -442,7 +437,6 @@ body {
 .ant-timeline-item-pending .ant-timeline-item-tail {
   display: none
 }
-
 .ant-timeline-item-head {
   position: absolute;
   width: 10px;
@@ -455,16 +449,6 @@ body {
 .ant-timeline-item-head-blue {
   border-color: #1890ff;
   color: #1890ff
-}
-
-.ant-timeline-item-head-red {
-  border-color: #f5222d;
-  color: #f5222d
-}
-
-.ant-timeline-item-head-green {
-  border-color: #52c41a;
-  color: #52c41a
 }
 
 .ant-timeline-item-content {
@@ -486,18 +470,7 @@ body {
   display: block
 }
 
-.ant-timeline.ant-timeline-reverse .ant-timeline-item-last .ant-timeline-item-tail {
-  display: none
-}
 
-.ant-timeline.ant-timeline-reverse .ant-timeline-item-pending .ant-timeline-item-tail {
-  border-left: 2px dotted #e8e8e8;
-  display: block
-}
-
-.ant-timeline.ant-timeline-reverse .ant-timeline-item-pending .ant-timeline-item-content {
-  min-height: 48px
-}
 
 .markdown {
   color: #314659;
@@ -621,7 +594,16 @@ body {
 .markdown strong {
   font-weight: 500
 }
-
+.markdown a {
+    color: #1890ff;
+    background-color: transparent;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    -webkit-transition: color .3s;
+    transition: color .3s;
+    -webkit-text-decoration-skip: objects;
+}
 .markdown > table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -630,7 +612,6 @@ body {
   width: 100%;
   margin: 8px 0 16px
 }
-
 .markdown > table th {
   white-space: nowrap;
   color: #5c6b77;
@@ -643,52 +624,6 @@ body {
   border: 1px solid #ebedf0;
   padding: 16px 24px;
   text-align: left
-}
-
-.markdown blockquote {
-  font-size: 90%;
-  color: #697b8c;
-  border-left: 4px solid #ebedf0;
-  padding-left: .8em;
-  margin: 1em 0
-}
-
-.markdown blockquote p {
-  margin: 0
-}
-
-.markdown .anchor {
-  opacity: 0;
-  -webkit-transition: opacity .3s ease;
-  transition: opacity .3s ease;
-  margin-left: 8px
-}
-
-.markdown .waiting {
-  color: #ccc;
-  cursor: not-allowed
-}
-
-.markdown a.edit-button {
-  line-height: 12px;
-  display: inline-block;
-  margin-left: 10px;
-  height: 12px;
-  text-decoration: none;
-  font-weight: 400
-}
-
-.markdown a.edit-button i {
-  color: #697b8c
-}
-
-.markdown a.edit-button i:hover {
-  color: #1890ff
-}
-
-.markdown a.edit-button .anticon {
-  display: block;
-  font-size: 16px
 }
 
 .markdown h1:hover .anchor,
@@ -706,39 +641,10 @@ body {
   clear: both
 }
 
-.markdown.api-container table {
-  font-size: 14px;
-  line-height: 1.5
-}
 
-.markdown.api-container table td:first-child {
-  font-weight: 500;
-  width: 20%;
-  font-family: Lucida Console, Consolas, Menlo, Courier, monospace
-}
-
-.markdown.api-container table td:nth-child(3) {
-  width: 22%;
-  font-size: 12px;
-  font-family: Lucida Console, Consolas, Menlo, Courier, monospace
-}
-
-.markdown.api-container table td:last-child {
-  width: 13%;
-  font-size: 12px;
-  font-family: Lucida Console, Consolas, Menlo, Courier, monospace
-}
-
-.token.cdata, .token.comment, .token.doctype, .token.prolog {
-  color: #7fbdfa
-}
 
 .markdown pre span.cm-tag.cm-bracket {
   color: #999
-}
-
-.namespace {
-  opacity: .7
 }
 
 .token.boolean, .token.constant, .token.deleted, .token.number, .token.property, .token.symbol, .token.tag {
