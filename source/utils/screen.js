@@ -44,7 +44,5 @@ export const addFullscreenchangeEvent = function(element, fn) {
  * @return {[Boolean]} [description]
  */
 export const checkFullscreen = function() {
-  var isFull = document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled;
-
-  return !!isFull;
+  return !!(document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled);
 };
