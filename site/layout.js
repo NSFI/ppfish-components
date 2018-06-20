@@ -33,7 +33,7 @@ export default class Layout extends React.Component {
     function setHighlight(menuItems, cls) {
       Array.from(menuItems).forEach(menuItem => {
         const key = menuItem.getAttribute('href');
-        if ( key && current === key ) {
+        if ( key && current.indexOf(key) > -1 ) {
           menuItem.classList.add(cls);
         } else {
           menuItem.classList.remove(cls);
