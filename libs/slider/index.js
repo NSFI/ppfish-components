@@ -41,6 +41,11 @@ export default class Slider extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.checkActiveAnchors);
+    this.checkActiveAnchors();
+  }
+
+  componentDidUpdate() {
+    this.checkActiveAnchors();
   }
 
   componentWillUnmount() {
