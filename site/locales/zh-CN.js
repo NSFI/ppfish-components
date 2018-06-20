@@ -4,12 +4,6 @@ module.exports = {
     'changelog': '更新日志',
     'contributing': '贡献指南',
     'resource': '设计资源',
-    'color': 'Color 色彩',
-    'typography': 'Typography 字体',
-    'icon': 'Icon 图标',
-    'button': 'Button 按钮',
-    'radio': 'Radio 单选框',
-    'checkbox': 'Checkbox 多选框',
     'animationImageLoader': '逐帧动画'
   },
   misc: {

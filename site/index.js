@@ -4,8 +4,6 @@ import {AppContainer} from 'react-hot-loader';
 import {Router, Route, hashHistory, Redirect} from 'react-router';
 import 'core-js';
 
-import 'element-theme-default';
-
 import './styles/base.less';
 import './styles/prism.css';
 
