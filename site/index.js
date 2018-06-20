@@ -5,6 +5,7 @@ import {Router, Route, hashHistory, Redirect} from 'react-router';
 import 'core-js';
 
 import './styles/base.less';
+import './styles/doc.less';
 import './styles/prism.css';
 
 import App from './page';
