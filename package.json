@@ -6,7 +6,7 @@
     "precommit": "npm run lint",
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message remove-dist",
-    "start": "npm-run-all --parallel test:watch site:src lint:watch",
+    "start": "npm-run-all --parallel test:watch open:site lint:watch",
     "start:prod": "npm run build && npm run open:dist",
     "open:dist": "babel-node tools/distServer.js",
     "stylelint": "stylelint \"source/**/*.less\"",
