@@ -1,5 +1,6 @@
 import React from 'react';
-import { BackTop } from 'antd';
+import { BackTop, Row, Col } from 'antd';
+import Layout from './layout';
 import locales from './locales';
 import pages from './pages';
 
@@ -73,91 +74,64 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        <header className="header">
-          <div className="container">
-            <h1>
-              LOGO
-            </h1>
-            <ul className="nav">
-              <li className="nav-item">
-                <a href="#/home/" rel="noopener noreferrer">首页</a>
-              </li>
-              <li className="nav-item">
-                <a href="#/spec/" rel="noopener noreferrer">设计语言</a>
-              </li>
-              <li className="nav-item">
-                <a className="active">{this.getLocale('misc.component')}</a>
-              </li>
-            </ul>
-          </div>
-        </header>
-        <div className="main container">
-          <nav className="side-nav">
-            <ul>
-              <li className="nav-item">
-                <a>{this.getLocale('misc.development')}</a>
-                <ul className="pure-menu-list sub-nav">
+      <Layout>
+        <Row>
+          <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4}>
+            <nav className="side-nav">
+              <ul>
+                <li className="nav-item">
+                  <a>{this.getLocale('misc.development')}</a>
+                  <ul className="pure-menu-list sub-nav">
+                    {
+                      Object.keys(pages.documents).map(page => {
+                        return (
+                          <li className="nav-item" key={page}>
+                            <a href={`#/components/${page}`}
+                               className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}
+                            </a>
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <a>{this.getLocale('misc.components')}</a>
                   {
-                    Object.keys(pages.documents).map(page => {
+                    Object.keys(pages.components).map(group => {
                       return (
-                        <li className="nav-item" key={page}>
-                          <a href={`#/components/${page}`}
-                                className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}
-                          </a>
-                        </li>
+                        <div className="nav-group" key={group}>
+                          <div className="nav-group__title">{group}</div>
+                          <ul className="pure-menu-list">
+                            {
+                              Object.keys(pages.components[group]).map(page => {
+                                return (
+                                  <li key={page} className="nav-item">
+                                    <a href={`#/components/${page}`}
+                                       className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
+                                  </li>
+                                );
+                              })
+                            }
+                          </ul>
+                        </div>
                       );
                     })
                   }
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a>{this.getLocale('misc.components')}</a>
-                {
-                  Object.keys(pages.components).map(group => {
-                    return (
-                      <div className="nav-group" key={group}>
-                        <div className="nav-group__title">{group}</div>
-                        <ul className="pure-menu-list">
-                          {
-                            Object.keys(pages.components[group]).map(page => {
-                              return (
-                                <li key={page} className="nav-item">
-                                  <a href={`#/components/${page}`}
-                                        className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
-                                </li>
-                              );
-                            })
-                          }
-                        </ul>
-                      </div>
-                    );
-                  })
-                }
-              </li>
-            </ul>
-          </nav>
-          <div className="content">
-          <article className="markdown">
-            {this.getComponent(this.state.page)}
-            <BackTop />
-            </article>
-          </div>
-        </div>
-        <footer className="footer">
-          <div className="container">
-            <div className="footer-main">
-              <p className="footer-main-title">PPFish</p>
+                </li>
+              </ul>
+            </nav>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20}>
+            <div className="content">
+              <article className="markdown">
+                {this.getComponent(this.state.page)}
+                <BackTop />
+              </article>
             </div>
-            <div className="footer-social">
-              <a href="//github.com/NSFI/ppfish-components" target="_blank" rel="noopener noreferrer">
-                <img src={require('./assets/github.png')}/>
-              </a>
-            </div>
-          </div>
-        </footer>
-        <div id="slider-container"></div>
-      </div>
+          </Col>
+        </Row>
+      </Layout>
     );
   }
 }
