@@ -6,7 +6,7 @@
     "precommit": "npm run lint",
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message remove-dist",
-    "start": "npm-run-all --parallel test:watch open:src lint:watch",
+    "start": "npm-run-all --parallel open:src lint:watch",
     "start:prod": "npm run build && npm run open:dist",
     "start:mock": "babel-node tools/mock.js",
     "open:src": "babel-node --max_old_space_size=2048 tools/srcServer.js",
@@ -24,7 +24,7 @@
     "test:cover": "npm run test -- --coverage ",
     "test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
-    "test:watch": "npm run test -- --watch",
+    "test:watch": "npm run test -- --watchAll",
     "analyze": "babel-node ./tools/analyzeBundle.js"
   },
   "main": "source/components/index.js",
