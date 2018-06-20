@@ -118,8 +118,6 @@ run npm start and open [react component demo](localhost:3000/demo) on browser
 │ ├── /store/                 # React Store
 │ ├── /utils/                 # 工具函数
 │ ├── /vendor/                # 不需要编译的静态资源文件，在生产环境可以使用publicPath路径引用
-│ ├── /demo.html              # UI component demo
-│ ├── /demo.js                # UI component demo
 │ └── /favicon.ico            # favicon
 ├── /tools/                   # 项目运行脚本
 ├── /views/                   # java freeMarker 文件
@@ -131,7 +129,6 @@ run npm start and open [react component demo](localhost:3000/demo) on browser
 ├── package.json              # 配置入口文件地址、依赖和 scripts
 ├── postcss.config.js         # postcss配置文件, https://github.com/postcss/postcss-loader
 ├── proxy.config.js           # 代理配置文件, 用于 mock 和在线调试
-└── webpack.config.dev.js     # webpack开发环境配置
 └── webpack.config.prod.js    # webpack生产环境配置
 ```
 
