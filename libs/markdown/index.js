@@ -30,7 +30,6 @@ export default class Markdown extends React.Component {
       // ignore IDs
       return '<h' + level + '>' + text + '</h' + level + '>\n';
     };
-
   }
 
   componentDidMount() {
