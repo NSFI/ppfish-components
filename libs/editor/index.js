@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import CodeMirror from 'codemirror'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import CodeMirror from 'codemirror';
 
-import 'codemirror/mode/jsx/jsx'
-import 'codemirror/keymap/sublime'
-import 'codemirror/addon/comment/comment'
+import 'codemirror/mode/jsx/jsx';
+import 'codemirror/keymap/sublime';
+import 'codemirror/addon/comment/comment';
 
-import 'codemirror/lib/codemirror.css'
-import './style.scss'
+import 'codemirror/lib/codemirror.css';
+import './style.less';
 
 export default class Editor extends Component {
   componentDidMount() {
-    const { onChange, value } = this.props
+    const {onChange, value} = this.props;
 
     this.cm = CodeMirror(this.editor, {
       mode: 'jsx',
@@ -22,7 +22,7 @@ export default class Editor extends Component {
       dragDrop: false
     });
 
-    this.cm.setValue(value)
+    this.cm.setValue(value);
 
     this.cm.on('changes', cm => {
       if (onChange) {
@@ -32,15 +32,15 @@ export default class Editor extends Component {
           onChange(cm.getValue());
         }, 300);
       }
-    })
+    });
   }
 
   render() {
-    return <div className="editor" ref={ref => (this.editor = ref)} />
+    return <div className="editor" ref={ref => (this.editor = ref)}/>;
   }
 }
 
 Editor.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string
-}
+};
