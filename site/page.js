@@ -1,5 +1,5 @@
 import React from 'react';
-import ScrollToTop from 'react-scroll-up';
+import { BackTop } from 'antd';
 import locales from './locales';
 import pages from './pages';
 
@@ -140,11 +140,7 @@ export default class App extends React.Component {
           <div className="content">
           <article className="markdown">
             {this.getComponent(this.state.page)}
-            <ScrollToTop showUnder={210}>
-              <div className="page-component-up">
-                <i className="el-icon-caret-top"/>
-              </div>
-            </ScrollToTop>
+            <BackTop />
             </article>
           </div>
         </div>

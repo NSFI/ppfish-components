@@ -98,8 +98,7 @@ Open your browser and visit http://127.0.0.1:5000
 | ├── /index.html             # 组件库官网html模板
 | ├── /index.js               # 组件库官网入口文件
 | ├── /page.js                # 组件库官网组件页面
-| ├── /spec.js                # 组件库官网设计语言页面
-│ └── /favicon.ico            # favicon
+| └── /spec.js                # 组件库官网设计语言页面
 ├── /source/                  # 应用源码
 │ ├── /assets/                # 可编译静态资源文件
 │ ├── /components/            # React components
