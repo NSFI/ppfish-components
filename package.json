@@ -78,7 +78,6 @@
     "css-loader": "^0.28.2",
     "echarts": "^3.7.2",
     "ejs-loader": "^0.3.0",
-    "element-theme-default": "^1.4.13",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "3.4.0",
