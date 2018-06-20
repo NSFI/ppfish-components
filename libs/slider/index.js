@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import './slider.less';
+import './style.less';
 
-//代码展示容器
-
+//元素距顶部高度
 const getElementTop = (element) => {
   element = document.getElementById(element);
+  if (!element) return;
   let actualTop = element.offsetTop;
   let current = element.offsetParent;
-
   while (current !== null) {
     actualTop += current.offsetTop;
     current = current.offsetParent;
   }
-
   return actualTop;
 };
 
+//获取兄弟节点
 const getSiblings = (elem) => {
   let siblings = [];
   let sibling = elem.parentNode.firstChild;
@@ -28,6 +27,14 @@ const getSiblings = (elem) => {
 
 export default class Slider extends React.Component {
 
+  static defaultProps = {
+    anchors: []
+  };
+
+  static propTypes = {
+    anchors: PropTypes.array
+  };
+
   constructor(props) {
     super(props);
   }
@@ -36,10 +43,10 @@ export default class Slider extends React.Component {
     window.addEventListener('scroll', this.checkActiveAnchors);
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     window.removeEventListener('scroll', this.checkActiveAnchors);
   }
-  
+
   clickLink = (e, id) => {
     e && e.preventDefault();
     document.getElementById(id).scrollIntoView();
@@ -47,12 +54,14 @@ export default class Slider extends React.Component {
 
   checkActiveAnchors = () => {
     const {anchors} = this.props;
-    if(anchors.length < 2){ return } // 不显示导航时，直接跳出 scroll 事件
+    if (anchors.length < 2) {
+      return;
+    } // 不显示导航时，直接跳出 scroll 事件
     const wayFromTop = document.documentElement.scrollTop;
     let menu = this.refs.menu;
-    if(wayFromTop > 80){  // 页面卷过 80px 之后，固定快速导航
+    if (wayFromTop > 80) {  // 页面卷过 80px 之后，固定快速导航
       menu.classList.add('z-fixed');
-    }else{
+    } else {
       menu.classList.remove('z-fixed');
     }
     const result = anchors.map(x => ({
@@ -70,21 +79,13 @@ export default class Slider extends React.Component {
     const {anchors} = this.props;
     let menuList = anchors.length > 1
       ? anchors.map(x => <li title={x.id} key={x.id} ref={x.id}>
-          <a onClick={(e) => this.clickLink(e, x.id)}>{x.name}</a>
-        </li>)
-      : null
+        <a onClick={(e) => this.clickLink(e, x.id)}>{x.name}</a>
+      </li>)
+      : null;
     return (
       <ul className="u-slider-anchors" ref="menu">
-        { menuList }
+        {menuList}
       </ul>
     );
   }
 }
-
-Slider.propTypes = {
-  anchors: PropTypes.array
-};
-
-Slider.defaultProps={
-  anchors:[]
-};
