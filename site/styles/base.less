@@ -21,13 +21,6 @@ body {
 }
 
 .app {
-  .container {
-    width: 1140px;
-    padding: 0 30px;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-
   .header {
     height: 80px;
     background-color: #20a0ff;
@@ -42,6 +35,7 @@ body {
       position: relative;
       margin: 0;
       float: left;
+      padding-left: 40px;
       font-size: 32px;
       font-weight: 400;
 
@@ -74,6 +68,7 @@ body {
       background: transparent;
       padding: 0;
       margin: 0;
+      margin-right: 40px;
     }
 
     .nav-item {
@@ -129,9 +124,9 @@ body {
   }
 
   .main {
+    min-height: 500px;
     padding-top: 60px;
     padding-bottom: 95px;
-    padding-right:170px;
   }
 
   .footer {
@@ -143,6 +138,7 @@ body {
     .footer-main {
       font-size: 0;
       padding-top: 40px;
+      padding-left: 40px;
       display: inline-block;
 
       .footer-main-title {
@@ -163,6 +159,7 @@ body {
 
     .footer-social {
       float: right;
+      margin-right: 40px;
       line-height: 120px;
 
       img {
@@ -181,9 +178,9 @@ body {
 }
 
 .content {
-  display: inline-block;
   vertical-align: top;
-  width: 75%;
+  padding: 0 170px 144px 64px;
+  border-left: 1px solid #ebedf0;
   h2 {
     font-size: 28px;
     color: #1f2d3d;
@@ -240,9 +237,8 @@ body {
 }
 
 .side-nav {
-  display: inline-block;
+  padding-left: 40px;
   vertical-align: top;
-  width: 25%;
 
   li {
     list-style: none;
