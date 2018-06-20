@@ -6,7 +6,7 @@ export default {
     'resource': require('./resource'),
   },
   components: {
-    '业务组件': {
+    '通用组件': {
       'animationImageLoader': require('./animationImageLoader'),
     }
   }
