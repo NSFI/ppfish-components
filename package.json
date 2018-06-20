@@ -22,11 +22,11 @@
     "test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
     "test:watch": "npm run test -- --watch",
-    "analyze": "babel-node ./tools/analyzeBundle.js",
-    "site:src": "cd site && babel-node ./run.js",
-    "site:build": "cd build/site && NODE_ENV=production webpack --progress ",
-    "site:prepublish": "./build/scripts/prepare.sh",
-    "site:postpublish": "./build/scripts/release.sh"
+    "analyze": "babel-node tools/analyzeBundle.js",
+    "open:site": "babel-node tools/openSite.js",
+    "build:site": "cd build/site && NODE_ENV=production webpack --progress ",
+    "prepublish:site": "tools/prepare.sh",
+    "publish:site": "tools/release.sh"
   },
   "main": "source/components/index.js",
   "dependencies": {
