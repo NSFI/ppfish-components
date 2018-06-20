@@ -1,16 +1,16 @@
-/* eslint import/no-extraneous-dependencies: ["off"] */
+/* eslint-disable no-console */
+import webpack from 'webpack';
+import path from 'path';
 
-const path = require('path');
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-
-new WebpackDevServer(webpack({
+export default {
+  // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
+  // and https://webpack.github.io/docs/configuration.html#devtool
   devtool: 'cheap-module-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:5000',
     'webpack/hot/only-dev-server',
     'react-hot-loader/patch',
-    './index'
+    './site/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -28,9 +28,9 @@ new WebpackDevServer(webpack({
         test: /\.jsx?$/,
         loader: 'babel-loader',
         include: [
-          path.join(__dirname, '../site'),
-          path.join(__dirname, '../src'),
-          path.join(__dirname, '../libs')
+          path.join(__dirname, './site'),
+          path.join(__dirname, './src'),
+          path.join(__dirname, './libs')
         ]
       },
       {
@@ -55,13 +55,4 @@ new WebpackDevServer(webpack({
       }
     ]
   }
-}), {
-  publicPath: '/',
-  hot: true,
-  historyApiFallback: true,
-  stats: {colors: true}
-}).listen(5000, 'localhost', error => {
-  if (error) {
-    throw error;
-  }
-});
+};
