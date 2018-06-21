@@ -4,7 +4,8 @@ module.exports = {
     'changelog': '更新日志',
     'contributing': '贡献指南',
     'resource': '设计资源',
-    'animationImageLoader': 'AnimationImageLoader 逐帧动画'
+    'animationImageLoader': 'AnimationImageLoader 逐帧动画',
+    'loading': 'Loading 加载动画',
   },
   misc: {
     'guide': '指南',
