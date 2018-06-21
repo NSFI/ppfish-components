@@ -1,10 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow, render, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import PropTypes from 'prop-types';
-
-Enzyme.configure({ adapter: new Adapter() });
-
+import { shallow, render, mount } from 'enzyme';
 import Avatar from '../index';
 
 describe('<Avatar />', () => {
