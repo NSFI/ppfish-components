@@ -3,14 +3,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const basePath = path.resolve(__dirname, '../../');
-
 module.exports = {
   entry: {
-    site: path.join(basePath, 'site')
+    site: path.join(__dirname, 'site')
   },
   output: {
-    path: path.resolve(basePath, 'dist/site'),
+    path: path.resolve(__dirname, 'dist/site'),
     chunkFilename: '[chunkhash:12].js',
     filename: '[chunkhash:12].js'
   },
@@ -19,8 +17,8 @@ module.exports = {
       filename: '[chunkhash:12].css'
     }),
     new HtmlWebpackPlugin({
-      template: './index.html',
-      favicon: path.join(basePath, 'site/assets/favicon.ico')
+      template: path.join(__dirname, 'site/index.html'),
+      favicon: path.join(__dirname, 'site/assets/favicon.ico')
     })
   ].concat(process.env.TRAVIS_CI ? [] : [
     new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')}),
@@ -43,9 +41,9 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         include: [
-          path.join(basePath, 'site'),
-          path.join(basePath, 'src'),
-          path.join(basePath, 'libs')
+          path.join(__dirname, 'site'),
+          path.join(__dirname, 'src'),
+          path.join(__dirname, 'libs')
         ]
       },
       {

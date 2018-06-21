@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import webpack from 'webpack';
 import path from 'path';
+import webpack from 'webpack';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 export default {
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
@@ -17,6 +18,9 @@ export default {
     filename: 'bundle.js'
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'site/index.html'),
+    }),
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
