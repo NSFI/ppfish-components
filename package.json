@@ -30,7 +30,6 @@
   },
   "main": "source/components/index.js",
   "dependencies": {
-    "axios": "^0.16.2",
     "classnames": "^2.2.5",
     "date-fns": "^1.28.5",
     "debug": "^3.1.0",
