@@ -43,21 +43,71 @@ describe('<PicturePreview />', () => {
   };
 
   const { props } = setup();
+  let wrapper;
+
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  beforeEach(() => {
+    wrapper = mount(<PicturePreview {...props} />);
+  });
 
   test('组件能够被正常渲染', () => {
-    const wrapper = mount(<PicturePreview {...props} />);
-
-    expect(wrapper.find('.m-picture-preview-content-wrap').exists());
+    const inst = wrapper.instance();
+    expect(inst).toBeInstanceOf(PicturePreview);
+    expect(wrapper.find('.m-picture-preview-content-wrap').exists()).toBe(true);
     expect(wrapper.find('.slick-slide').length).toBe(props.source.length);
+    expect(wrapper.state()).toEqual({
+      activeIndex: props.activeIndex,
+      visible: props.visible,
+      isFullscreen: false,
+      isDisableDengbi: false,
+      isDisableFangda: false,
+      isDisableSuoxiao: false
+    });
+  });
+
+  test('组件能够被正常关闭', () => {
+    wrapper.find('.icon-guanbi').simulate('click');
+    expect(wrapper.state('visible')).toBe(false);
+    expect(props.onClose).toBeCalled();
   });
 
   test('能够正常的切换图片', () => {
-    const wrapper = mount(<PicturePreview {...props} />);
+    // 检查 activeIndex 是否为第一张图片
+    expect(wrapper.find('.slick-current img').prop('src')).toBe(props.source[0].url);
+    expect(wrapper.state('activeIndex')).toBe(0);
 
+    // 向左切换图片
+    wrapper.find('.icon-zuojiantou1').simulate('click');
+    jest.runAllTimers();
+    expect(wrapper.state('activeIndex')).toBe(4);
+
+    wrapper.find('.icon-zuojiantou1').simulate('click');
+    jest.runAllTimers();
+    expect(wrapper.state('activeIndex')).toBe(3);
+
+    // 向右切换图片
+    wrapper.find('.icon-youjiantou1').simulate('click');
+    jest.runAllTimers();
+    expect(wrapper.state('activeIndex')).toBe(4);
+
+    wrapper.find('.icon-youjiantou1').simulate('click');
+    jest.runAllTimers();
+    expect(wrapper.state('activeIndex')).toBe(0);
+
+    wrapper.find('.icon-youjiantou1').simulate('click');
+    jest.runAllTimers();
+    expect(wrapper.state('activeIndex')).toBe(1);
+  });
+
+  test('能够正常的显示和隐藏图片控制条', () => {
     // 检查 activeIndex
     expect(wrapper.find('.slick-current img').prop('src')).toBe(props.source[props.activeIndex].url);
-
-    // TODO: 左右切换图片
-    
   });
 });
