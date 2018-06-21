@@ -6,44 +6,36 @@ import PicturePreview from '../index';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('<PicturePreview />', () => {
-  const setup = () => {
-    const props = {
-      visible: true,
-      source: [
-        {
-          "url": "../../../assets/image/material/382_680.png",
-          "size": "382*680"
-        },
-        {
-          "url": "../../../assets/image/material/410_412.png",
-          "size": "410*412"
-        },
-        {
-          "url": "../../../assets/image/material/895_642.png",
-          "size": "895*642"
-        },
-        {
-          "url": "../../../assets/image/material/960_600.png",
-          "size": "960*600"
-        },
-        {
-          "url": "../../../assets/image/material/680_320.png",
-          "size": "680*320"
-        }
-      ],
-      activeIndex: 0,
-      onClose: jest.fn(),
-      dots: false,
-      controller: false
-    };
-
-    return {
-      props
-    };
+  let wrapper,
+    props = {
+    visible: true,
+    source: [
+      {
+        "url": "../../../assets/image/material/382_680.png",
+        "size": "382*680"
+      },
+      {
+        "url": "../../../assets/image/material/410_412.png",
+        "size": "410*412"
+      },
+      {
+        "url": "../../../assets/image/material/895_642.png",
+        "size": "895*642"
+      },
+      {
+        "url": "../../../assets/image/material/960_600.png",
+        "size": "960*600"
+      },
+      {
+        "url": "../../../assets/image/material/680_320.png",
+        "size": "680*320"
+      }
+    ],
+    activeIndex: 0,
+    onClose: jest.fn(),
+    dots: false,
+    controller: false
   };
-
-  const { props } = setup();
-  let wrapper;
 
   beforeAll(() => {
     jest.useFakeTimers();
@@ -78,7 +70,7 @@ describe('<PicturePreview />', () => {
     expect(props.onClose).toBeCalled();
   });
 
-  test('能够正常的切换图片', () => {
+  test('能够正常切换图片', () => {
     // 检查 activeIndex 是否为第一张图片
     expect(wrapper.find('.slick-current img').prop('src')).toBe(props.source[0].url);
     expect(wrapper.state('activeIndex')).toBe(0);
@@ -106,8 +98,13 @@ describe('<PicturePreview />', () => {
     expect(wrapper.state('activeIndex')).toBe(1);
   });
 
-  test('能够正常的显示和隐藏图片控制条', () => {
-    // 检查 activeIndex
-    expect(wrapper.find('.slick-current img').prop('src')).toBe(props.source[props.activeIndex].url);
+  test('能够正常显示和隐藏工具条', () => {
+    // 默认为隐藏状态
+    expect(wrapper.find('.ctrl-wrap').hasClass('m-picture-preview-hide')).toBe(true);
+
+    // 切换为显示状态
+    props.controller = true;
+    wrapper = mount(<PicturePreview {...props} />);
+    expect(wrapper.find('.ctrl-wrap').hasClass('m-picture-preview-hide')).toBe(false);
   });
 });
