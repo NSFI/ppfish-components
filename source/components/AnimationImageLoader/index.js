@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './index.less';
-import defaultImage from './POI@2x.jpg';
+import defaultImage from './create_POI@2x.png';
 import classNames from 'classnames';
 
 class AnimationImageLoader extends Component {
