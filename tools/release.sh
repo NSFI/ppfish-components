@@ -24,4 +24,4 @@ npm run build:site
  git add . -A
  git commit -m "$VERSION"
  git pull --rebase
- #git push -u origin gh-pages
+ git push -u origin gh-pages
