@@ -9,6 +9,8 @@ module.exports = {
   misc: {
     'guide': '指南',
     'component': '组件',
+    'home': '首页',
+    'spec': '设计语言',
     'development': '开发指南',
     'components': '基础组件',
     'feedback': '反馈建议',

@@ -9,7 +9,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <Layout>
-        首页
+        <div>首页</div>
       </Layout>
     );
   }

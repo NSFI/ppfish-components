@@ -9,7 +9,7 @@ export default class Spec extends React.Component {
   render() {
     return (
       <Layout>
-        设计语言
+        <div>设计语言</div>
       </Layout>
     );
   }

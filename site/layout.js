@@ -1,10 +1,16 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import {Row, Col} from 'antd';
 import locales from './locales';
+import PropTypes from "prop-types";
 
 const githubSrc = require('./assets/github.png');
 
 export default class Layout extends React.Component {
+
+  static propTypes = {
+    children: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
   }
@@ -30,21 +36,23 @@ export default class Layout extends React.Component {
     const current = location.hash;
     const HIGHLIGHT_CLS = 'active';
     const menuItems = document.querySelectorAll('.nav-item a');
+
     function setHighlight(menuItems, cls) {
       Array.from(menuItems).forEach(menuItem => {
         const key = menuItem.getAttribute('href');
-        if ( key && current.indexOf(key) > -1 ) {
+        if (key && current.indexOf(key) > -1) {
           menuItem.classList.add(cls);
         } else {
           menuItem.classList.remove(cls);
         }
       });
     }
+
     setHighlight(menuItems, HIGHLIGHT_CLS);
   }
 
   render() {
-    const {children, className} = this.props;
+    const {children} = this.props;
     return (
       <div className="app">
         <header className="header">
@@ -57,10 +65,10 @@ export default class Layout extends React.Component {
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20}>
               <ul className="nav">
                 <li className="nav-item">
-                  <a href="#/home/" rel="noopener noreferrer">首页</a>
+                  <a href="#/home/" rel="noopener noreferrer">{this.getLocale('misc.home')}</a>
                 </li>
                 <li className="nav-item">
-                  <a href="#/spec/" rel="noopener noreferrer">设计语言</a>
+                  <a href="#/spec/" rel="noopener noreferrer">{this.getLocale('misc.spec')}</a>
                 </li>
                 <li className="nav-item">
                   <a href="#/components/">{this.getLocale('misc.component')}</a>
