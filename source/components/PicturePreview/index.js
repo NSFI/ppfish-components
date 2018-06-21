@@ -444,13 +444,13 @@ class PicturePreview extends Component {
                   if (controller) {
                     return (
                       <div key={index} className={imgWrapClass}>
-                        <img src={item.url} width={aImg.width} height={aImg.height} onMouseDown={this.handleMouseDown.bind(this, event)}/>
+                        <img src={item.url} width={aImg.width || 0} height={aImg.height || 0} onMouseDown={this.handleMouseDown.bind(this, event)}/>
                       </div>
                     );
                   } else {
                     return (
                       <div key={index} className={imgWrapClass}>
-                        <img src={item.url} width={aImg.width} height={aImg.height}/>
+                        <img src={item.url} width={aImg.width || 0} height={aImg.height || 0}/>
                       </div>
                     );
                   }
