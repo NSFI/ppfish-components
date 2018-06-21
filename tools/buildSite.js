@@ -8,9 +8,9 @@ import ora from 'ora';
 
 process.env.NODE_ENV = 'production'; // this assures React is built in prod mode and that the Babel dev config doesn't apply.
 
-console.log(chalkProcessing('Generating minified bundle for production via Webpack. This will take a moment...'));
+console.log(chalkProcessing('Site: Generating minified bundle for production via Webpack. This will take a moment...'));
 
-const spinner = ora('building for production...');
+const spinner = ora('building site for production...');
 spinner.start();
 
 webpack(config).run((error, stats) => {
