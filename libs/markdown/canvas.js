@@ -33,7 +33,7 @@ export default class Canvas extends React.Component {
 
   renderSource(value) {
     //dynamic import
-    import('../../src').then(Element => {
+    import('../../source/components').then(Element => {
       const args = ['context', 'React', 'ReactDOM'];
       const argv = [this, React, ReactDOM];
 
