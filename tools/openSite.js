@@ -2,7 +2,7 @@
 
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConfig from '../webpack.config.dev';
+import webpackConfig from '../webpack.config.dev.site';
 
 const bundler = webpack(webpackConfig);
 
