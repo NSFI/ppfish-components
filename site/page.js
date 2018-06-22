@@ -1,5 +1,5 @@
 import React from 'react';
-import {BackTop, Row, Col} from 'antd';
+import { BackTop, Row, Col } from 'antd';
 import Layout from './layout';
 import locales from './locales';
 import pages from './pages';
@@ -76,7 +76,7 @@ export default class App extends React.Component {
     return (
       <Layout>
         <Row>
-          <Col span={6} xxl={4}>
+          <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4}>
             <nav className="side-nav">
               <ul>
                 <li className="nav-item">
@@ -122,11 +122,11 @@ export default class App extends React.Component {
               </ul>
             </nav>
           </Col>
-          <Col span={18} xxl={20}>
+          <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20}>
             <div className="content">
               <article className="markdown">
                 {this.getComponent(this.state.page)}
-                <BackTop/>
+                <BackTop />
               </article>
             </div>
           </Col>
