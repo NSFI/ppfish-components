@@ -5,19 +5,13 @@
 
 html, body {
   height: 100%;
+  min-width: 1200px;
   -webkit-font-smoothing: antialiased;
 }
 
 body {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-weight: 400;
-}
-
-/* 屏幕宽度小于 1000px 时，不显示快速导航 */
-@media screen and (max-width:1125px){
-  #slider-container{
-    display:none;
-  }
 }
 
 .app {
@@ -179,7 +173,7 @@ body {
 
 .content {
   vertical-align: top;
-  padding: 0 170px 144px 64px;
+  padding: 0 64px 144px 64px;
   border-left: 1px solid #ebedf0;
   h2 {
     font-size: 28px;
