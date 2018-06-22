@@ -57,12 +57,10 @@ export default class Layout extends React.Component {
       <div className="app">
         <header className="header">
           <Row>
-            <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4}>
-              <h1>
-                LOGO
-              </h1>
+            <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
+              <h1>NPP Design</h1>
             </Col>
-            <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20}>
+            <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
               <ul className="nav">
                 <li className="nav-item">
                   <a href="#/home/" rel="noopener noreferrer">{this.getLocale('misc.home')}</a>
@@ -72,6 +70,12 @@ export default class Layout extends React.Component {
                 </li>
                 <li className="nav-item">
                   <a href="#/components/">{this.getLocale('misc.component')}</a>
+                </li>
+                <li className="nav-item">
+                  <a>{this.getLocale('misc.demo')}</a>
+                </li>
+                <li className="nav-item">
+                  <a>{this.getLocale('misc.version')}</a>
                 </li>
               </ul>
             </Col>

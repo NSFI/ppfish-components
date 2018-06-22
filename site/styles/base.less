@@ -14,47 +14,45 @@ body {
 }
 
 /* 屏幕宽度小于 1000px 时，不显示快速导航 */
-@media screen and (max-width:1125px){
-  #slider-container{
-    display:none;
+@media screen and (max-width: 1125px) {
+  #slider-container {
+    display: none;
   }
 }
 
 .app {
   .header {
-    height: 80px;
-    background-color: #20a0ff;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 9px 0 rgba(37, 38, 94, 0.1);
     color: #fff;
     top: 0;
     left: 0;
     width: 100%;
-    line-height: 80px;
+    line-height: 64px;
     position: relative;
-
+    .header-title {
+      border-right: 1px solid #f1f1f5;
+      margin: 20px 0;
+    }
     h1 {
       position: relative;
       margin: 0;
       float: left;
       padding-left: 40px;
-      font-size: 32px;
-      font-weight: 400;
-
-      &:after {
-        position: absolute;
-        top: -7px;
-        right: -50px;
-        content: 'React';
-        font-size: 13px;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-
+      height: 24px;
+      line-height: 24px;
+      font-size: 16px;
+      color: #45474d;
+      font-weight: bold;
       a {
-        color: #fff;
         text-decoration: none;
+        font-size: 16px;
+        color: #383838;
+        letter-spacing: 0;
+        text-align: center;
         display: block;
       }
-
       img {
         vertical-align: sub;
         pointer-events: none;
@@ -64,7 +62,7 @@ body {
     .nav {
       float: right;
       height: 100%;
-      line-height: 80px;
+      line-height: 64px;
       background: transparent;
       padding: 0;
       margin: 0;
@@ -73,60 +71,51 @@ body {
 
     .nav-item {
       font-size: 16px;
-      margin: 0;
+      margin: 0 0 0 20px;
       float: left;
       list-style: none;
       position: relative;
       cursor: pointer;
-      margin-left: 20px;
-
       &:last-child {
         cursor: default;
         margin-left: 34px;
       }
-
       .nav-lang {
         cursor: pointer;
         display: inline-block;
         height: 100%;
-        opacity: .8;
+        &.active {
+          font-weight: 700;
+          opacity: 1;
+          font-size: 16px;
+          color: #4d70ff;
+        }
       }
-
-      .nav-lang.active {
-        font-weight: 700;
-        opacity: 1;
-      }
-
       a {
         text-decoration: none;
-        color: #fff;
+        color: #383838;
         display: block;
         padding: 0 20px;
-        opacity: .8;
+        &.active {
+          color: #4d70ff;
+          &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #4d70ff;
+          }
+        }
       }
 
-      a.active {
-        font-weight: 700;
-        opacity: 1;
-      }
-
-      a.active:before {
-        content: "";
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: #99d2fc;
-      }
     }
   }
 
   .main {
     min-height: 500px;
-    padding-top: 60px;
-    padding-bottom: 95px;
   }
 
   .footer {
@@ -179,7 +168,7 @@ body {
 
 .content {
   vertical-align: top;
-  padding: 0 64px 144px 64px;
+  padding: 60px 64px 144px 64px;
   border-left: 1px solid #ebedf0;
   h2 {
     font-size: 28px;
@@ -238,6 +227,7 @@ body {
 
 .side-nav {
   padding-left: 40px;
+  padding-top: 60px;
   vertical-align: top;
 
   li {
@@ -251,26 +241,27 @@ body {
   .nav-item {
     a {
       font-size: 16px;
-      color: #5e6d82;
-      line-height: 40px;
-      height: 40px;
+      color: #45454d;
+      line-height: 50px;
+      height: 50px;
       margin: 0;
       padding: 0;
       text-decoration: none;
       display: block;
       position: relative;
-      transition: all .3s;
-      &.active {
-        color: #20a0ff;
-      }
+      transition: all 0.3s;
     }
     .nav-item {
       a {
         display: block;
         height: 40px;
         line-height: 40px;
-        font-size: 13px;
+        font-size: 14px;
+        color: #737380;
         padding-left: 24px;
+        &.active {
+          color: #20a0ff;
+        }
         &:hover {
           color: #20a0ff;
         }
