@@ -15,6 +15,8 @@ module.exports = {
     'development': '开发指南',
     'components': '基础组件',
     'feedback': '反馈建议',
+    'demo': '演示环境',
+    'version': 'v1.0'
   },
   markdown: {
     'show': '显示代码',

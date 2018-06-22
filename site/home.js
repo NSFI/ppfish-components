@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from './layout';
+import './home.less';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -9,7 +10,9 @@ export default class Home extends React.Component {
   render() {
     return (
       <Layout>
-        <div>首页</div>
+        <div className="m-home-page">
+          <h1>NPP Design</h1>
+        </div>
       </Layout>
     );
   }
