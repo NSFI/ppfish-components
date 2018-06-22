@@ -49,16 +49,7 @@ export default class Markdown extends React.Component {
       }
     }
     prism.highlightAll();
-    this.getSidebarAnchor();
   }
-
-  getSidebarAnchor = () => {
-    const anchors = Array.from(document.querySelectorAll('h3')).map(h3Item => ({
-      id: h3Item.id,
-      name: h3Item.innerText
-    }));
-    ReactDOM.render(<Slider anchors={anchors}/>, document.getElementById('slider-container'));
-  };
 
   //:::demo ::: 更换成带随机数id的坑位 ，再次render 放入坑位内
   render() {
@@ -78,9 +69,12 @@ export default class Markdown extends React.Component {
       }), {renderer: this.renderer});
 
       return (
-        <div dangerouslySetInnerHTML={{
-          __html: html
-        }}/>
+        <div style={{display: "flex"}}>
+          <div style={{flex: 1}} dangerouslySetInnerHTML={{
+            __html: html
+          }}/>
+          <Slider/>
+        </div>
       );
     } else {
       return <span/>;

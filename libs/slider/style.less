@@ -1,11 +1,21 @@
 .u-slider-anchors {
-  position: absolute;
-  right: 50px;
-  top: 100px;
-  width: 100px;
+  width: 150px;
   font-size: 12px;
-  margin: 16px 0;
+  margin: 0 0 16px 30px;
   border-left: 1px solid #ebedf0;
+  a {
+    padding-left: 16px;
+    display: block;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #314659;
+    width: 110px;
+    border-left: 1px solid #0000;
+    margin-left: -1px;
+  }
   li {
     &:not(:last-child) {
       margin-bottom: 4px;
@@ -15,30 +25,11 @@
         color: #3d8fd1;
       }
     }
-    margin-left: 0;
-    padding-left: 0;
     line-height: 1.5;
-    list-style: none;
+    list-style: none !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
     text-underline: none;
     cursor: pointer;
   }
-  a {
-    padding-left: 16px;
-    display: block;
-    -webkit-transition: all .3s ease;
-    transition: all .3s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #314659;
-    width: 110px;
-    border-left: 1px solid #0000;
-    margin-left: -1px;
-  }
-}
-
-.u-slider-anchors.z-fixed {
-  position: fixed;
-  right: 50px;
-  top: 20px;
 }
