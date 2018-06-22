@@ -90,7 +90,6 @@ export default class Layout extends React.Component {
             </a>
           </div>
         </footer>
-        <div id="slider-container"></div>
       </div>
     );
   }
