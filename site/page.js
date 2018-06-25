@@ -85,8 +85,7 @@ export default class App extends React.Component {
                 defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.components')]}
                 mode="inline"
               >
-                <SubMenu key={this.getLocale('misc.development')}
-                         title={<span>{this.getLocale('misc.development')}</span>}>
+                <SubMenu key={this.getLocale('misc.development')} title={this.getLocale('misc.development')}>
                   {
                     Object.keys(pages.documents).map(page => {
                       return (
