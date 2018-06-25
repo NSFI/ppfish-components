@@ -1,0 +1,310 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1740" height="1168" viewBox="0 0 1740 1168">
+    <defs>
+        <linearGradient id="a" x1="50%" x2="50%" y1="50%" y2="100%">
+            <stop offset="0%" stop-color="#9EC3BA"></stop>
+            <stop offset="100%" stop-color="#F5EAC9"></stop>
+        </linearGradient>
+        <linearGradient id="b" x1="0%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#638587" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#638587"></stop>
+        </linearGradient>
+        <linearGradient id="c" x1="101.9%" x2="0%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#638587" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#638587"></stop>
+        </linearGradient>
+        <linearGradient id="d" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#C6ECF2"></stop>
+            <stop offset="100%" stop-color="#A5CBD2"></stop>
+        </linearGradient>
+        <linearGradient id="e" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#F5F4ED"></stop>
+            <stop offset="100%" stop-color="#E0DCCE"></stop>
+        </linearGradient>
+        <linearGradient id="f" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#9ECDC1"></stop>
+            <stop offset="100%" stop-color="#2D4B68"></stop>
+        </linearGradient>
+        <linearGradient id="g" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#000000"></stop>
+        </linearGradient>
+        <linearGradient id="h" x1="0%" y1="100%" y2="100%">
+            <stop offset="0%" stop-color="#20344C" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#20344C"></stop>
+        </linearGradient>
+        <linearGradient id="i" x1="100%" x2="0%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#20344C" stop-opacity="0"></stop>
+            <stop offset="100%" stop-color="#20344C"></stop>
+        </linearGradient>
+        <linearGradient id="j" x1="50%" x2="50%" y1="59.64%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"></stop>
+            <stop offset="100%" stop-color="#E9E9E9" stop-opacity="0"></stop>
+        </linearGradient>
+        <linearGradient id="k" x1="50%" x2="50%" y1="0%" y2="50%">
+            <stop offset="0%" stop-color="#98B8CC" stop-opacity=".7"></stop>
+            <stop offset="100%" stop-color="#FFFFFF"></stop>
+        </linearGradient>
+        <linearGradient id="l" x1="50%" x2="50%" y1="0%" y2="50%">
+            <stop offset="0%" stop-color="#375670"></stop>
+            <stop offset="100%" stop-color="#375670" stop-opacity="0"></stop>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <rect width="1740" height="768" fill="url(#a)"></rect>
+        <polygon fill="#638587" points="1102.5 768 1590 768 1590 668 1529 668 1529 628 1464 628 1464 658 1359 658 1359 698 1305 698 1305 672 1225 652 1225 683 1186 683 1186 633 1096 633 1096 678 978 678 978 638 898 638 898 683 828 683 828 708 780 708 780 652 657 682 657 708 567 708 567 628 444 628 444 668 395 668 395 648 316 648 316 683 256 683 256 621 176 641 176 668 150 668 150 768 972.5 768" opacity=".46"></polygon>
+        <polygon fill="url(#b)" points="0 658 24 658 24 628 89 628 89 668 150 668 150 768 0 768" opacity=".46"></polygon>
+        <polygon fill="url(#c)" points="1740 768 1590 768 1590 668 1616 668 1616 641 1696 621 1696 683 1740 683" opacity=".46"></polygon>
+        <g transform="translate(1074 413)">
+            <polygon fill="url(#d)" points="35 40 20 55 20 276 70 276 60 55 45 40 40 0"></polygon>
+            <polygon fill="url(#e)" points="40 85 60 55 80 85 80 355 40 355"></polygon>
+            <polygon fill="url(#f)" points="0 85 20 55 40 85 40 355 0 355"></polygon>
+        </g>
+        <g transform="translate(337 368)">
+            <rect width="4" height="70" x="38" fill="url(#e)"></rect>
+            <rect width="2" height="40" x="28" y="30" fill="url(#e)"></rect>
+            <rect width="2" height="40" x="69" y="30" fill="url(#e)"></rect>
+            <rect width="4" height="70" x="58" fill="url(#e)"></rect>
+            <rect width="40" height="110" x="70" y="140" fill="url(#e)"></rect>
+            <rect width="60" height="90" x="20" y="60" fill="url(#e)"></rect>
+            <rect width="30" height="90" x="20" y="60" fill="url(#f)"></rect>
+            <rect width="30" height="260" x="50" y="140" fill="url(#f)"></rect>
+            <rect width="30" height="160" y="240" fill="url(#f)"></rect>
+            <rect width="20" height="100" x="10" y="140" fill="url(#f)"></rect>
+            <rect width="20" height="100" x="10" y="140" fill="url(#g)" opacity=".1"></rect>
+            <path fill="url(#e)" d="M70 320V140h20v100h20v160H30v-80h40z"></path>
+            <rect width="20" height="180" x="30" y="140" fill="url(#e)"></rect>
+        </g>
+        <g transform="translate(1403 448)">
+            <rect width="4" height="60" x="28" fill="url(#e)"></rect>
+            <rect width="4" height="60" x="43" fill="url(#e)"></rect>
+            <rect width="39" height="20" x="18" y="50" fill="url(#e)"></rect>
+            <rect width="19" height="20" x="18" y="50" fill="url(#f)"></rect>
+            <polygon fill="url(#f)" points="10 60 60 60 70 320 0 320"></polygon>
+            <polygon fill="url(#e)" points="30 60 70 60 80 320 30 320"></polygon>
+        </g>
+        <g transform="translate(1167 408)">
+            <rect width="60" height="20" x="10" fill="url(#e)"></rect>
+            <rect width="20" height="20" x="8" fill="url(#f)"></rect>
+            <polygon fill="url(#f)" points="0 10 60 10 60 360 0 360"></polygon>
+            <polygon fill="url(#e)" points="20 10 80 10 80 360 20 360"></polygon>
+        </g>
+        <g transform="translate(1317 608)">
+            <rect width="40" height="16" x="20" fill="url(#e)"></rect>
+            <rect width="32" height="16" x="18" fill="url(#f)"></rect>
+            <rect width="70" height="150" y="10" fill="url(#f)"></rect>
+            <polygon fill="url(#e)" points="50 10 80 10 80 160 50 160"></polygon>
+        </g>
+        <g transform="translate(1027 614)">
+            <rect width="40" height="14" x="11" fill="url(#e)"></rect>
+            <rect width="27" height="14" x="9" fill="url(#f)"></rect>
+            <rect width="60" height="150" y="4" fill="url(#f)"></rect>
+            <polygon fill="url(#e)" points="40 4 60 4 60 154 40 154"></polygon>
+        </g>
+        <g transform="translate(921 578)">
+            <polygon fill="url(#d)" points="0 40 30 0 60 40 60 116 60 190 0 190"></polygon>
+            <polygon fill="url(#f)" points="0 40 30 80 50 80 50 190 0 190"></polygon>
+            <polygon fill="url(#e)" points="30 80 60 40 60 190 30 190"></polygon>
+            <rect width="6" height="114" x="27" y="76" fill="#E8FCF8"></rect>
+        </g>
+        <g transform="translate(737 504)">
+            <rect width="60" height="14" x="11" fill="url(#e)"></rect>
+            <rect width="45" height="14" x="11" fill="url(#f)"></rect>
+            <rect width="70" height="260" y="4" fill="url(#f)"></rect>
+            <polygon fill="url(#e)" points="60 4 80 4 80 264 60 264"></polygon>
+        </g>
+        <g transform="translate(627 523)">
+            <rect width="60" height="18" x="11" fill="url(#e)"></rect>
+            <rect width="15" height="18" x="11" fill="url(#f)"></rect>
+            <rect width="70" height="237" y="8" fill="url(#f)"></rect>
+            <polygon fill="url(#e)" points="20 8 80 8 80 245 20 245"></polygon>
+        </g>
+        <g transform="translate(224 558)">
+            <rect width="30" height="20" x="40" fill="url(#e)"></rect>
+            <rect width="13" height="20" x="30" fill="url(#f)"></rect>
+            <path fill="url(#e)" d="M20 90H0v120h100V90H80V10H20v80z"></path>
+            <rect width="15" height="80" x="20" y="10" fill="url(#f)"></rect>
+            <rect width="15" height="120" y="90" fill="url(#f)"></rect>
+            <rect width="15" height="80" x="35" y="10" fill="url(#d)"></rect>
+        </g>
+        <g transform="translate(828 658)">
+            <rect width="50" height="70" x="30" fill="url(#e)"></rect>
+            <rect width="30" height="70" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(808 718)">
+            <rect width="90" height="50" x="30" fill="url(#e)"></rect>
+            <rect width="70" height="50" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(184 668)">
+            <rect width="80" height="100" fill="url(#e)"></rect>
+            <rect width="30" height="100" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(488 518)">
+            <rect width="40" height="20" x="20" fill="url(#e)"></rect>
+            <rect width="15" height="20" x="15" fill="url(#f)"></rect>
+            <rect width="60" height="100" x="10" y="10" fill="url(#e)"></rect>
+            <rect width="20" height="100" x="5" y="10" fill="url(#f)"></rect>
+            <rect width="80" height="140" y="110" fill="url(#e)"></rect>
+            <rect width="20" height="140" y="110" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(412 628)">
+            <polygon fill="#E8FCF8" points="10 20 35 0 60 20 60 140 10 140"></polygon>
+            <polygon fill="url(#d)" points="10 20 35 0 30 20 30 140 10 140"></polygon>
+            <rect width="45" height="40" x="15" y="20" fill="url(#e)"></rect>
+            <rect width="20" height="40" x="10" y="20" fill="url(#f)"></rect>
+            <rect width="55" height="50" x="10" y="50" fill="url(#e)"></rect>
+            <rect width="20" height="50" x="5" y="50" fill="url(#f)"></rect>
+            <rect width="70" height="50" y="90" fill="url(#e)"></rect>
+            <rect width="20" height="50" y="90" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(538 688)">
+            <rect width="100" height="80" fill="url(#e)"></rect>
+            <rect width="50" height="80" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(1213 708)">
+            <rect width="130" height="60" fill="url(#e)"></rect>
+            <rect width="60" height="60" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(1445 688)">
+            <rect width="80" height="80" fill="url(#e)"></rect>
+            <rect width="30" height="80" fill="url(#f)"></rect>
+        </g>
+        <g transform="translate(0 749)">
+            <path fill="#20344C" d="M1350 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 1050 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 750 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 450 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 150 0v19h1440V0a14.1 14.1 0 0 0-10 4.14l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 1350 0z"></path>
+            <path fill="url(#h)" d="M0 19h150V0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0L45 9.14a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 0 0v19z"></path>
+            <path fill="url(#i)" d="M1590 19h150V0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 1590 0v19z"></path>
+        </g>
+        <path fill="url(#j)" d="M10 32.22a14.2 14.2 0 0 1 20 0 14.2 14.2 0 0 0 20 0l20-19.86a42.58 42.58 0 0 1 60 0l15 14.9a21.3 21.3 0 0 0 30 0 21.3 21.3 0 0 1 30 0l.9.9A47.69 47.69 0 0 1 220 62H0v-5.76c0-9.02 3.6-17.67 10-24.02z" opacity=".5" transform="translate(221 241)"></path>
+        <path fill="url(#j)" d="M14.1 21.14l.9-.9a21.29 21.29 0 0 1 30 0 21.29 21.29 0 0 0 30 0l10-9.93a35.48 35.48 0 0 1 50 0l15 14.9a14.2 14.2 0 0 0 20 0 14.2 14.2 0 0 1 20 0c6.4 6.35 10 15 10 24.02V55H0c0-12.71 5.07-24.9 14.1-33.86z" opacity=".5" transform="translate(1146 91)"></path>
+        <path fill="url(#j)" d="M14.1 14.11L20 8.25c11.07-11 28.93-11 40 0l10 9.94a14.19 14.19 0 0 0 20 0 14.19 14.19 0 0 1 20 0 16.36 16.36 0 0 0 21.3 1.5l8.7-6.47a33.47 33.47 0 0 1 40 0l4.06 3.03A39.6 39.6 0 0 1 200 48H0a47.77 47.77 0 0 1 14.1-33.89z" opacity=".5" transform="translate(1304 308)"></path>
+        <g transform="matrix(1 0 0 -1 0 1168)">
+            <g transform="translate(1074 45)">
+                <polygon fill="url(#d)" points="35 40 20 55 20 276 70 276 60 55 45 40 40 0"></polygon>
+                <polygon fill="url(#e)" points="40 85 60 55 80 85 80 355 40 355"></polygon>
+                <polygon fill="url(#f)" points="0 85 20 55 40 85 40 355 0 355"></polygon>
+            </g>
+            <g transform="translate(337)">
+                <rect width="4" height="70" x="38" fill="url(#e)"></rect>
+                <rect width="2" height="40" x="28" y="30" fill="url(#e)"></rect>
+                <rect width="2" height="40" x="69" y="30" fill="url(#e)"></rect>
+                <rect width="4" height="70" x="58" fill="url(#e)"></rect>
+                <rect width="40" height="110" x="70" y="140" fill="url(#e)"></rect>
+                <rect width="60" height="90" x="20" y="60" fill="url(#e)"></rect>
+                <rect width="30" height="90" x="20" y="60" fill="url(#f)"></rect>
+                <rect width="30" height="260" x="50" y="140" fill="url(#f)"></rect>
+                <rect width="30" height="160" y="240" fill="url(#f)"></rect>
+                <rect width="20" height="100" x="10" y="140" fill="url(#f)"></rect>
+                <rect width="20" height="100" x="10" y="140" fill="url(#g)" opacity=".1"></rect>
+                <path fill="url(#e)" d="M70 320V140h20v100h20v160H30v-80h40z"></path>
+                <rect width="20" height="180" x="30" y="140" fill="url(#e)"></rect>
+            </g>
+            <g transform="translate(1403 80)">
+                <rect width="4" height="60" x="28" fill="url(#e)"></rect>
+                <rect width="4" height="60" x="43" fill="url(#e)"></rect>
+                <rect width="39" height="20" x="18" y="50" fill="url(#e)"></rect>
+                <rect width="19" height="20" x="18" y="50" fill="url(#f)"></rect>
+                <polygon fill="url(#f)" points="10 60 60 60 70 320 0 320"></polygon>
+                <polygon fill="url(#e)" points="30 60 70 60 80 320 30 320"></polygon>
+            </g>
+            <g transform="translate(1167 40)">
+                <rect width="60" height="20" x="10" fill="url(#e)"></rect>
+                <rect width="20" height="20" x="8" fill="url(#f)"></rect>
+                <polygon fill="url(#f)" points="0 10 60 10 60 360 0 360"></polygon>
+                <polygon fill="url(#e)" points="20 10 80 10 80 360 20 360"></polygon>
+            </g>
+            <g transform="translate(1317 240)">
+                <rect width="40" height="16" x="20" fill="url(#e)"></rect>
+                <rect width="32" height="16" x="18" fill="url(#f)"></rect>
+                <rect width="70" height="150" y="10" fill="url(#f)"></rect>
+                <polygon fill="url(#e)" points="50 10 80 10 80 160 50 160"></polygon>
+            </g>
+            <g transform="translate(1027 246)">
+                <rect width="40" height="14" x="11" fill="url(#e)"></rect>
+                <rect width="27" height="14" x="9" fill="url(#f)"></rect>
+                <rect width="60" height="150" y="4" fill="url(#f)"></rect>
+                <polygon fill="url(#e)" points="40 4 60 4 60 154 40 154"></polygon>
+            </g>
+            <g transform="translate(921 210)">
+                <polygon fill="url(#d)" points="0 40 30 0 60 40 60 116 60 190 0 190"></polygon>
+                <polygon fill="url(#f)" points="0 40 30 80 50 80 50 190 0 190"></polygon>
+                <polygon fill="url(#e)" points="30 80 60 40 60 190 30 190"></polygon>
+                <rect width="6" height="114" x="27" y="76" fill="#E8FCF8"></rect>
+            </g>
+            <g transform="translate(737 136)">
+                <rect width="60" height="14" x="11" fill="url(#e)"></rect>
+                <rect width="45" height="14" x="11" fill="url(#f)"></rect>
+                <rect width="70" height="260" y="4" fill="url(#f)"></rect>
+                <polygon fill="url(#e)" points="60 4 80 4 80 264 60 264"></polygon>
+            </g>
+            <g transform="translate(627 155)">
+                <rect width="60" height="18" x="11" fill="url(#e)"></rect>
+                <rect width="15" height="18" x="11" fill="url(#f)"></rect>
+                <rect width="70" height="237" y="8" fill="url(#f)"></rect>
+                <polygon fill="url(#e)" points="20 8 80 8 80 245 20 245"></polygon>
+            </g>
+            <g transform="translate(224 190)">
+                <rect width="30" height="20" x="40" fill="url(#e)"></rect>
+                <rect width="13" height="20" x="30" fill="url(#f)"></rect>
+                <path fill="url(#e)" d="M20 90H0v120h100V90H80V10H20v80z"></path>
+                <rect width="15" height="80" x="20" y="10" fill="url(#f)"></rect>
+                <rect width="15" height="120" y="90" fill="url(#f)"></rect>
+                <rect width="15" height="80" x="35" y="10" fill="url(#d)"></rect>
+            </g>
+            <g transform="translate(828 290)">
+                <rect width="50" height="70" x="30" fill="url(#e)"></rect>
+                <rect width="30" height="70" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(808 350)">
+                <rect width="90" height="50" x="30" fill="url(#e)"></rect>
+                <rect width="70" height="50" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(184 300)">
+                <rect width="80" height="100" fill="url(#e)"></rect>
+                <rect width="30" height="100" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(488 150)">
+                <rect width="40" height="20" x="20" fill="url(#e)"></rect>
+                <rect width="15" height="20" x="15" fill="url(#f)"></rect>
+                <rect width="60" height="100" x="10" y="10" fill="url(#e)"></rect>
+                <rect width="20" height="100" x="5" y="10" fill="url(#f)"></rect>
+                <rect width="80" height="140" y="110" fill="url(#e)"></rect>
+                <rect width="20" height="140" y="110" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(412 260)">
+                <polygon fill="#E8FCF8" points="10 20 35 0 60 20 60 140 10 140"></polygon>
+                <polygon fill="url(#d)" points="10 20 35 0 30 20 30 140 10 140"></polygon>
+                <rect width="45" height="40" x="15" y="20" fill="url(#e)"></rect>
+                <rect width="20" height="40" x="10" y="20" fill="url(#f)"></rect>
+                <rect width="55" height="50" x="10" y="50" fill="url(#e)"></rect>
+                <rect width="20" height="50" x="5" y="50" fill="url(#f)"></rect>
+                <rect width="70" height="50" y="90" fill="url(#e)"></rect>
+                <rect width="20" height="50" y="90" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(538 320)">
+                <rect width="100" height="80" fill="url(#e)"></rect>
+                <rect width="50" height="80" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(1213 340)">
+                <rect width="130" height="60" fill="url(#e)"></rect>
+                <rect width="60" height="60" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(1445 320)">
+                <rect width="80" height="80" fill="url(#e)"></rect>
+                <rect width="30" height="80" fill="url(#f)"></rect>
+            </g>
+            <g transform="translate(0 381)">
+                <path fill="#20344C" d="M1350 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 1050 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 750 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 450 0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 150 0v19h1440V0a14.1 14.1 0 0 0-10 4.14l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 1350 0z"></path>
+                <path fill="url(#h)" d="M0 19h150V0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0L45 9.14a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 0 0v19z"></path>
+                <path fill="url(#i)" d="M1590 19h150V0a14.1 14.1 0 0 0-10 4.14l-5 5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5a14.14 14.14 0 0 0-20 0l-2.5 2.5a10.6 10.6 0 0 1-15 0 10.6 10.6 0 0 0-15 0l-2.5 2.5a7.07 7.07 0 0 1-10 0 7.07 7.07 0 0 0-10 0 7.07 7.07 0 0 1-10 0l-5-5A14.1 14.1 0 0 0 1590 0v19z"></path>
+            </g>
+        </g>
+        <rect width="1740" height="400" y="768" fill="url(#k)"></rect>
+        <g transform="translate(664 724)">
+            <polygon fill="url(#l)" points="50 106 110 106 160 156 0 156" opacity=".6"></polygon>
+            <path fill="url(#e)" d="M77 96V0l40 90H81v6h39l-10 10H50L40 96h37zm-4-86v80H43l30-80z"></path>
+        </g>
+        <g transform="translate(950 695)">
+            <polygon fill="url(#l)" points="50 86 90 86 140 136 0 136" opacity=".6"></polygon>
+            <path fill="url(#e)" d="M73 76h27L90 86H50L40 76h29v-6H43L73 0v76zm4-66l20 60H77V10z"></path>
+        </g>
+    </g>
+</svg>
