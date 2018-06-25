@@ -126,7 +126,8 @@ export default {
           }, {
             loader: 'less-loader',
             options: {
-              minimize: minimize
+              minimize: minimize,
+              modifyVars: themeVariables
             }
           }],
           fallback: 'style-loader'
