@@ -124,4 +124,4 @@ Open your browser and visit http://127.0.0.1:5000
 - directory、html、css、js: named using hump form
 - react component and react container: named using hump form and uppercase characters at the beginning
 - test file: named with Component + .test + .js format
-- css: http://nec.netease.com/standard/css-sort.html
+- css: https://nsfi.github.io/blog/2017/12/06/Less%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/
