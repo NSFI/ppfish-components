@@ -1,15 +1,8 @@
 import React from 'react';
-import Enzyme, { shallow, render, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import PropTypes from 'prop-types';
-
-Enzyme.configure({ adapter: new Adapter() });
-
+import { shallow, render, mount } from 'enzyme';
 import AnimationImageLoader from '../index';
 
-
 jest.useFakeTimers();
-
 
 describe('<AnimationImageLoader />', () => {
   const defaultImage = '';
