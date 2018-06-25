@@ -73,11 +73,13 @@ export default class Markdown extends React.Component {
       }), {renderer: this.renderer});
 
       return (
-        <div style={{display: "flex"}}>
-          <div style={{flex: 1}} dangerouslySetInnerHTML={{
+        <div>
+          <div dangerouslySetInnerHTML={{
             __html: html
           }}/>
-          <Slider/>
+          <div className="slider-container">
+            <Slider/>
+          </div>
         </div>
       );
     } else {
