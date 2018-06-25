@@ -1,8 +1,8 @@
-# ppfish-components 网易云商服组件库
+# PPFish Components 网易云商服组件库
 
 ## Introduction
 
-React + ant-design starter kit / boilerplate with React.js、react-router、Redux、ant-design、WebPack、Less、Jest
+PPFish Components is a set of React UI components.
 
 ## Features
 
@@ -10,7 +10,6 @@ React + ant-design starter kit / boilerplate with React.js、react-router、Redu
 - Hot reloading
 - Testing
 - Linting
-- Local mock server
 - Working example app
 
 ## Initial Machine Setup
@@ -21,24 +20,35 @@ React + ant-design starter kit / boilerplate with React.js、react-router、Redu
    ```bash
    $ npm install -g cnpm --registry=https://registry.npm.taobao.org
    ```
-- (freemarker data mock require jdk & NEI)
-  - Install [jdk](www.oracle.com/technetwork/java/javase/downloads/index.html)
-  - Install nei
-  ```
-  $ npm install -g nei@3.5.5
-  ```
 
-## Get Started
+## Install
+
+```bash
+npm install ppfish --save
+```
+
+## Usage
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { AnimationImageLoader } from 'ppfish';
+
+ReactDOM.render(
+  <AnimationImageLoader
+    extraCls="u-nav-icon"
+    src={require('./create_POI@2x.png')}
+    zoom={0.5}
+  />, document.getElementById('app')
+);
+
+```
+
+## Development
 
   Install npm(or cnpm) package
   ```
   $ npm install
-  ```
-  
-  Build or Update mock data from NEI
-  ```
-  $ nei build -k this_is_your_project_uuid
-  $ nei update -k this_is_your_project_uuid
   ```
   
   Start development in your default browser
@@ -46,83 +56,57 @@ React + ant-design starter kit / boilerplate with React.js、react-router、Redu
   $ npm start
   ```
   
-  Run the local mock service
-  ```
-  $ npm run start:mock
-  ```
+Open your browser and visit http://127.0.0.1:5000
+
+## Build
 
   Build scripts ``````and css etc.
   ```
   $ npm run build
   ```
-  
-  Start production in your default browser
+
+  Build site
   ```
-  $ npm run open:dist
+  $ npm run build:site
   ```
-  
-完整命令请查阅package.json
 
 ## Links
 
 - [ant-design](http://ant.design/)
 - [react](https://github.com/facebook/react)
-- [react-router](https://github.com/reactjs/react-router)
-- [react-router-redux](https://github.com/reactjs/react-router-redux)
-- [redux](https://github.com/reactjs/redux)
-- [redux-devtools](https://github.com/gaearon/redux-devtools)
-- [redux-devtools-dock-monitor](https://github.com/gaearon/redux-devtools-dock-monitor)
 - [WebPack](http://webpack.github.io/docs/)
 - [Less](https://github.com/less/less.js)
 - [Jest](https://facebook.github.io/jest/)
 - [enzyme](https://github.com/airbnb/enzyme/blob/master/docs/api/mount.md)
-- [debug](https://github.com/visionmedia/debug)
 
-
-## Demo
-
-run npm start and open [react component demo](localhost:3000/demo) on browser
 
 ## The directory structure
 
 ```
 .
-├── /api-mocks/               # 用于api的mock数据，便于开发调试
 ├── /coverage/                # 运行npm run test:cover输出的测试覆盖率文件
 ├── /dist/                    # 构建输出的文件会在这里
 ├── /docs/                    # 项目文档
-├── /ftl-mocks/               # 用于ftl文件的同步mock数据，便于开发调试
-├── /nei.xxxx/                # 运行nei build构建输出的文件, https://nei.netease.com/
 ├── /node_modules/            # 第三方类库和工具
+├── /site/                    # 页面入口文件
+| ├── /assets                 # css、images等资源
+| ├── /docs                   # 组件库官网markdown
+| ├── /localse                # 本地化文案
+| ├── /pages                  # 组件库官网页面入口
+| ├── /styles                 # 组件库官网页面样式
+| ├── /home.js                # 组件库官网首页
+| ├── /index.html             # 组件库官网html模板
+| ├── /index.js               # 组件库官网入口文件
+| ├── /page.js                # 组件库官网组件页面
+| └── /spec.js                # 组件库官网设计语言页面
 ├── /source/                  # 应用源码
-│ ├── /actions/               # 通用的actions和actionTypes文件
 │ ├── /assets/                # 可编译静态资源文件
 │ ├── /components/            # React components
 │ ├── /config/                # 环境变量配置文件
 │ ├── /constants/             # 常量配置文件
-│ ├── /data/                  # 提供lite database供mock数据使用
-│ ├── /entries/               # 多页打包入口目录
-│ ├── /middleware/            # 业务层中间件,处理日志、打点等公共业务逻辑
-│ ├── /pages/                 # 页面入口文件
-│ | └── /App/                 # 页面目录
-│ | | ├── /actions.js         # 页面actions
-│ | | ├── /actionTypes.js     # 页面action类型
-│ | | ├── /App.js             # 页面组件
-│ | | ├── /App.test.js        # 页面组件单元测试文件
-│ | | ├── /App.less           # 页面样式
-│ | | ├── /index.js           # 页面对外暴露文件
-│ | | ├── /rootReducer        # 页面reducer，视情况使用rootReducer文件或划分到reducer目录内
-│ | | ├── /reducer/           # 页面reducer，视情况使用rootReducer文件或划分到reducer目录内
-│ | | └── /view.js            # 页面视图
-│ ├── /reducers/              # 通用的React reducers文件
-│ ├── /store/                 # React Store
 │ ├── /utils/                 # 工具函数
-│ ├── /vendor/                # 不需要编译的静态资源文件，在生产环境可以使用publicPath路径引用
-│ ├── /demo.html              # UI component demo
-│ ├── /demo.js                # UI component demo
-│ └── /favicon.ico            # favicon
+│ └── /vendor/                # 不需要编译的静态资源文件，在生产环境可以使用publicPath路径引用
 ├── /tools/                   # 项目运行脚本
-├── /views/                   # java freeMarker 文件
 ├── .babelrc                  # babel配置文件, https://babeljs.io/docs/usage/babelrc/
 ├── .editorconfig             # 代码风格配置文件, http://editorconfig.org
 ├── .eslintrc                 # eslint配置文件, http://eslint.cn/docs/user-guide/configuring
@@ -140,4 +124,4 @@ run npm start and open [react component demo](localhost:3000/demo) on browser
 - directory、html、css、js: named using hump form
 - react component and react container: named using hump form and uppercase characters at the beginning
 - test file: named with Component + .test + .js format
-- css: http://nec.netease.com/standard/css-sort.html
+- css: https://nsfi.github.io/blog/2017/12/06/Less%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/
