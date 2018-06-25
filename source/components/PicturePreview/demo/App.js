@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PicturePreview from '../index';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 import './App.less';
 
@@ -58,7 +57,6 @@ class App extends React.Component {
   render() {
     const { picturePreviewVisible, activePictureIndex } = this.state;
     return (
-      <DocumentLayout>
         <div>
           <div className="materials-pictures">
             <div className="label">点击图片预览</div>
@@ -81,7 +79,6 @@ class App extends React.Component {
             dots={false}
           />
         </div>
-      </DocumentLayout>
     );
   }
 }
