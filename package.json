@@ -15,13 +15,13 @@
     "remove-dist": "rimraf ./dist",
     "prebuild": "npm run clean-dist",
     "build:components": "babel-node tools/buildComponents.js",
-    "test": "jest --setupTestFrameworkScriptFile=raf/polyfill",
+    "test": "jest",
     "test:CI": "babel-node tools/testCi.js",
     "test:cover": "npm run test -- --coverage ",
     "test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
-    "test:watch": "npm run test -- --watch",
-    "analyze": "babel-node tools/analyzeBundle.js",
+    "test:watch": "npm run test -- --watchAll",
+    "analyze": "babel-node ./tools/analyzeBundle.js",
     "open:site": "babel-node tools/openSite.js",
     "build:site": "babel-node tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
@@ -49,7 +49,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^6.1.2",
-    "babel-jest": "^21.0.2",
+    "babel-jest": "^23.0.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-import": "^1.4.0",
@@ -84,8 +84,8 @@
     "http-proxy-middleware": "^0.17.4",
     "inline-manifest-webpack-plugin": "^3.0.1",
     "isparta": "^4.0.0",
-    "jest": "^21.0.2",
-    "jest-cli": "^21.0.2",
+    "jest": "^23.1.0",
+    "jest-cli": "^23.1.0",
     "json-server": "^0.12.0",
     "jsonp": "^0.2.1",
     "jsop": "^0.3.1",
@@ -96,6 +96,8 @@
     "loader-utils": "^1.1.0",
     "marked": "^0.4.0",
     "npm-run-all": "3.0.0",
+    "opn": "^5.3.0",
+    "opn-cli": "^3.1.0",
     "ora": "^1.3.0",
     "postcss-loader": "^2.0.5",
     "pre-commit": "^1.2.2",
@@ -142,16 +144,6 @@
     "globOptions": {
       "matchBase": true,
       "dot": true
-    }
-  },
-  "jest": {
-    "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)+(test).js?(x)"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
-      "\\.(css|less)$": "<rootDir>/tools/assetsTransformer.js"
     }
   },
   "author": "and80506 <and80506@163.com>",
