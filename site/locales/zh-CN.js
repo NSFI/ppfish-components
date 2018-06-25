@@ -4,6 +4,7 @@ module.exports = {
     'changelog': '更新日志',
     'contributing': '贡献指南',
     'resource': '设计资源',
+    'customTheme': '定制主题',
     'animationImageLoader': 'AnimationImageLoader 逐帧动画',
     'loading': 'Loading 加载动画',
   },

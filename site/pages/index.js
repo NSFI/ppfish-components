@@ -5,6 +5,7 @@ export default {
     'changelog': require('./changelog'),
     'contributing': require('./contributing'),
     'resource': require('./resource'),
+    'customTheme': require('./customTheme'),
   },
   components: {
     '通用组件': {
