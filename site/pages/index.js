@@ -1,6 +1,7 @@
 export default {
+  //url读key
   documents: {
-    'quick-start': require('./quick-start'),
+    'quick-start': require('./quickStart'),
     'changelog': require('./changelog'),
     'contributing': require('./contributing'),
     'resource': require('./resource'),

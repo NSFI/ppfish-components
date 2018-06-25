@@ -1,6 +1,6 @@
 import Markdown from '../../../libs/markdown';
 
-export default class QuickStart extends Markdown {
+export default class Changelog extends Markdown {
   document(locale) {
     return require(`../../docs/${locale}/changelog.md`);
   }

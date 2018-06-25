@@ -1,6 +1,6 @@
 import Markdown from '../../../libs/markdown';
 
-export default class QuickStart extends Markdown {
+export default class Contributing extends Markdown {
   document(locale) {
     return require(`../../docs/${locale}/contributing.md`);
   }
