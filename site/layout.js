@@ -58,22 +58,26 @@ export default class Layout extends React.Component {
         <header className="header">
           <Row>
             <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
-              <h1>NPP Design</h1>
+              <h1>PPFish Design</h1>
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
               <ul className="nav">
                 <li className="nav-item">
                   <a href="#/home/" rel="noopener noreferrer">{this.getLocale('misc.home')}</a>
                 </li>
+                {/*
                 <li className="nav-item">
                   <a href="#/spec/" rel="noopener noreferrer">{this.getLocale('misc.spec')}</a>
                 </li>
+                */}
                 <li className="nav-item">
                   <a href="#/components/">{this.getLocale('misc.component')}</a>
                 </li>
+                {/*
                 <li className="nav-item">
                   <a>{this.getLocale('misc.demo')}</a>
                 </li>
+                */}
                 <li className="nav-item">
                   <a>{this.getLocale('misc.version')}</a>
                 </li>
@@ -86,7 +90,7 @@ export default class Layout extends React.Component {
         </div>
         <footer className="footer">
           <div className="footer-main">
-            <p className="footer-main-title">PPFish</p>
+            <p className="footer-main-title">PPFish Design</p>
           </div>
           <div className="footer-social">
             <a href="//github.com/NSFI/ppfish-components" target="_blank" rel="noopener noreferrer">
