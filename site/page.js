@@ -1,8 +1,10 @@
 import React from 'react';
-import { BackTop, Row, Col } from 'antd';
+import {BackTop, Row, Col, Menu} from 'antd';
 import Layout from './layout';
 import locales from './locales';
 import pages from './pages';
+
+const SubMenu = Menu.SubMenu;
 
 export default class App extends React.Component {
   constructor(props) {
@@ -78,55 +80,53 @@ export default class App extends React.Component {
         <Row>
           <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4}>
             <nav className="side-nav">
-              <ul>
-                <li className="nav-item">
-                  <a>{this.getLocale('misc.development')}</a>
-                  <ul className="pure-menu-list sub-nav">
-                    {
-                      Object.keys(pages.documents).map(page => {
-                        return (
-                          <li className="nav-item" key={page}>
-                            <a href={`#/components/${page}`}
-                               className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}
-                            </a>
-                          </li>
-                        );
-                      })
-                    }
-                  </ul>
-                </li>
-                <li className="nav-item">
-                  <a>{this.getLocale('misc.components')}</a>
+              <Menu
+                selectedKeys={[this.state.page]}
+                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.components')]}
+                mode="inline"
+              >
+                <SubMenu key={this.getLocale('misc.development')}
+                         title={<span>{this.getLocale('misc.development')}</span>}>
                   {
-                    Object.keys(pages.components).map(group => {
+                    Object.keys(pages.documents).map(page => {
                       return (
-                        <div className="nav-group" key={group}>
-                          <div className="nav-group__title">{group}</div>
-                          <ul className="pure-menu-list">
-                            {
-                              Object.keys(pages.components[group]).map(page => {
-                                return (
-                                  <li key={page} className="nav-item">
-                                    <a href={`#/components/${page}`}
-                                       className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
-                                  </li>
-                                );
-                              })
-                            }
-                          </ul>
-                        </div>
+                        <Menu.Item key={page}>
+                          <a href={`#/components/${page}`}
+                             className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}
+                          </a>
+                        </Menu.Item>
                       );
                     })
                   }
-                </li>
-              </ul>
+                </SubMenu>
+                <SubMenu key={this.getLocale('misc.components')} title={this.getLocale('misc.components')}>
+                  {
+                    Object.keys(pages.components).map(group => {
+                      return (
+                        <Menu.ItemGroup key={group} title={group} disabled={false}>
+                          {
+                            Object.keys(pages.components[group]).map(page => {
+                              return (
+                                <Menu.Item key={page}>
+                                  <a href={`#/components/${page}`}
+                                     className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
+                                </Menu.Item>
+                              );
+                            })
+                          }
+                        </Menu.ItemGroup>
+                      );
+                    })
+                  }
+                </SubMenu>
+              </Menu>
             </nav>
           </Col>
           <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20}>
             <div className="content">
               <article className="markdown">
                 {this.getComponent(this.state.page)}
-                <BackTop />
+                <BackTop/>
               </article>
             </div>
           </Col>

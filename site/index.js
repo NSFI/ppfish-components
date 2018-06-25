@@ -16,6 +16,7 @@ render(<AppContainer>
   <Router history={hashHistory}>
     <Route path="/home" component={Home}/>
     <Route path="/spec" component={Spec}/>
+    <Redirect from="/components" to="/components/quick-start"/>
     <Route path="/components/*" component={App}/>
     <Redirect from="*" to="/home"/>
   </Router>
@@ -28,6 +29,7 @@ if (module.hot) {
       <Router history={hashHistory}>
         <Route path="/home" component={Home}/>
         <Route path="/spec" component={Spec}/>
+        <Redirect from="/components" to="/components/quick-start"/>
         <Route path="/components/*" component={App}/>
         <Redirect from="*" to="/home"/>
       </Router>

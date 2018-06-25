@@ -38,7 +38,9 @@ export default class Slider extends React.Component {
       id: h3Item.id,
       name: h3Item.innerText
     }));
+    /* eslint-disable react/no-did-mount-set-state */
     this.setState({anchors});
+    /* eslint-enable react/no-did-mount-set-state */
     window.addEventListener('scroll', this.checkActiveAnchors);
     this.checkActiveAnchors();
   }
@@ -80,7 +82,7 @@ export default class Slider extends React.Component {
       null;
     return (
       <Affix offsetTop={120}>
-        <ul className="u-slider-anchors" ref="menu" id="slider-container">
+        <ul className="u-slider-anchors slider-container" ref="menu">
           {menuList}
         </ul>
       </Affix>

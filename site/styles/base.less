@@ -3,7 +3,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   -webkit-font-smoothing: antialiased;
 }
@@ -15,7 +16,7 @@ body {
 
 /* 屏幕宽度小于 1000px 时，不显示快速导航 */
 @media screen and (max-width: 1125px) {
-  #slider-container {
+  .slider-container {
     display: none;
   }
 }
@@ -65,8 +66,7 @@ body {
       line-height: 64px;
       background: transparent;
       padding: 0;
-      margin: 0;
-      margin-right: 40px;
+      margin: 0 40px 0 0;
     }
 
     .nav-item {
@@ -110,7 +110,6 @@ body {
           }
         }
       }
-
     }
   }
 
@@ -119,8 +118,8 @@ body {
   }
 
   .footer {
-    height: 120px;
-    background-color: #324057;
+    height: 423px;
+    background-color: #292c33;
     color: #a4aebd;
     width: 100%;
 
@@ -156,7 +155,7 @@ body {
         height: 32px;
         vertical-align: middle;
         opacity: 0.5;
-        transition: .3s;
+        transition: 0.3s;
       }
       img:hover {
         opacity: 1;
@@ -175,23 +174,23 @@ body {
     color: #1f2d3d;
     margin: 0;
   }
-
+  p {
+    margin: 1em 0;
+    font-size: 14px;
+    color: #5e6d82;
+  }
   h3 {
     font-size: 22px;
     margin: 45px 0 15px;
   }
 
-  h2, h3, h4, h5 {
+  h2,
+  h3,
+  h4,
+  h5 {
     font-weight: normal;
     color: #1f2f3d;
   }
-
-  // pre {
-  //   background-color: transparent;
-  //   padding: 18px 24px;
-  //   line-height: 1.8;
-  //   font-size: 12px;
-  // }
 
   table.grid {
     border-collapse: collapse;
@@ -209,81 +208,49 @@ body {
     th {
       text-align: left;
       border-top: 1px solid #eaeefb;
-      background-color: #EFF2F7;
+      background-color: #eff2f7;
       white-space: nowrap;
     }
 
-    td, th {
+    td,
+    th {
       border-bottom: 1px solid #eaeefb;
       padding: 10px;
       max-width: 250px;
     }
 
-    th:first-child, td:first-child {
+    th:first-child,
+    td:first-child {
       padding-left: 10px;
     }
   }
 }
 
+//左侧侧边栏
 .side-nav {
-  padding-left: 40px;
   padding-top: 60px;
-  vertical-align: top;
-
-  li {
-    list-style: none;
-  }
-  ul {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-  }
-  .nav-item {
-    a {
+  > .ant-menu {
+    border-right: 0;
+    .ant-menu-submenu-title {
+      padding-left: 40px;
       font-size: 16px;
       color: #45454d;
-      line-height: 50px;
-      height: 50px;
-      margin: 0;
-      padding: 0;
-      text-decoration: none;
-      display: block;
-      position: relative;
-      transition: all 0.3s;
     }
-    .nav-item {
-      a {
-        display: block;
-        height: 40px;
-        line-height: 40px;
-        font-size: 14px;
-        color: #737380;
-        padding-left: 24px;
-        &.active {
-          color: #20a0ff;
-        }
-        &:hover {
-          color: #20a0ff;
-        }
-      }
+    .ant-menu-item {
+      font-size: 14px;
+      color: #737380;
     }
-  }
-  .nav-group__title {
-    font-size: 12px;
-    color: #99a9bf;
-    padding-left: 8px;
-    line-height: 26px;
-    margin-top: 10px;
   }
 }
 
+//代码demo
 .demo-block {
   border: solid 1px #eaeefb;
   border-radius: 4px;
-  transition: .2s;
+  transition: 0.2s;
 
   &.hover {
-    box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5);
+    box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
   }
 
   .source {
@@ -311,24 +278,12 @@ body {
     line-height: 1.8;
     color: #5e6d82;
     margin-left: -1px;
-    word-break: break-word;
+    word-break: break-all;
     box-sizing: border-box;
     border-left: 1px solid #eaeefb;
-
     p {
       margin: 0;
     }
-
-    // pre span {
-    //   color: #5e6d82;
-    //   background-color: #e6effb;
-    //   margin: 0 4px;
-    //   transform: translateY(-2px);
-    //   display: inline-block;
-    //   padding: 1px 5px;
-    //   font-size: 12px;
-    //   border-radius: 3px;
-    // }
   }
 
   .demo-block-control {
@@ -342,40 +297,28 @@ body {
     margin-top: -1px;
     color: #d3dce6;
     cursor: pointer;
-    transition: .2s;
+    transition: 0.2s;
     position: relative;
-
     i {
       font-size: 12px;
       line-height: 36px;
       margin-right: 5px;
     }
-
     span {
       display: inline-block;
       transform: translateX(40px);
       font-size: 14px;
       line-height: 36px;
-      transition: .3s;
+      transition: 0.3s;
       opacity: 0;
     }
-
     &:hover {
       color: #20a0ff;
       background-color: #f9fafc;
+      span {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
   }
-
-  .demo-block-control:hover {
-    span {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
-
-.content p {
-  margin: 1em 0;
-  font-size: 14px;
-  color: #5e6d82;
 }
