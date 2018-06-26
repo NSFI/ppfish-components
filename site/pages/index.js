@@ -14,6 +14,7 @@ export default {
       'button': require('./button'),
       'dropdown': require('./dropdown'),
       'loading': require('./loading'),
+      'message': require('./message'),
     },
     '业务组件': {
       'Collapse': require('./Collapse'),

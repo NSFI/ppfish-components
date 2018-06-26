@@ -55,7 +55,7 @@ describe('<PicturePreview />', () => {
       activeIndex: props.activeIndex,
       visible: props.visible,
       isFullscreen: false,
-      isDisableDengbi: true,
+      isDisableDengbi: false,
       isDisableFangda: false,
       isDisableSuoxiao: false
     });
