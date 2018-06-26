@@ -167,7 +167,11 @@ body {
 
 .content {
   vertical-align: top;
-  padding: 60px 64px 144px 64px;
+  padding: 60px 174px 144px 64px;
+  //小屏幕去掉右侧快捷导航
+  @media screen and (max-width: 1125px) {
+    padding: 60px 64px 144px 64px;
+  }
   border-left: 1px solid #ebedf0;
   h2 {
     font-size: 28px;
