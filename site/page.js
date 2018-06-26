@@ -99,15 +99,12 @@ export default class App extends React.Component {
       <div>
         <Divider/>
         <Row className="u-navigation-btm">
-          {lastLink &&
-          <Col span={12} href={lastLink.url} className="prev-page">
-            <a href={lastLink.url}><Icon type="arrow-left" className="prev-page-icon"/>{lastLink.key}
-            </a>
-          </Col>}
-          {nextLink &&
+          <Col span={12} className="prev-page">
+            {lastLink && <a href={lastLink.url}><Icon type="arrow-left" className="prev-page-icon"/>{lastLink.key}</a>}
+          </Col>
           <Col span={12} className="next-page">
-            <a href={nextLink.url}>{nextLink.key}<Icon type="arrow-right" className="next-page-icon"/></a>
-          </Col>}
+            {nextLink && <a href={nextLink.url}>{nextLink.key}<Icon type="arrow-right" className="next-page-icon"/></a>}
+          </Col>
         </Row>
       </div>
     );
