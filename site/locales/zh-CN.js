@@ -4,15 +4,13 @@ module.exports = {
     'changelog': '更新日志',
     'contributing': '贡献指南',
     'resource': '设计资源',
-    'customTheme': '定制主题',
+    'CustomTheme': '定制主题',
     'animationImageLoader': 'AnimationImageLoader 逐帧动画',
     'loading': 'Loading 加载动画',
     'button': 'Button 按钮',
     'affix': 'Affix 固钉',
     'dropdown':'Dropdown 下拉菜单',
-<<<<<<< HEAD
     'message':'Message 全局提示',
-=======
     'Collapse': 'Collapse ',
     'CustomTable': 'CustomTable 表格',
     'DayTimeSelect': 'DayTimeSelect 时间段选择',
@@ -27,7 +25,6 @@ module.exports = {
     'TextOverFlow': 'TextOverFlow',
     'TimePicker': 'TimePicker',
     'TreeSelect': 'TreeSelect',
->>>>>>> 业务组件迁移
   },
   misc: {
     'guide': '指南',
