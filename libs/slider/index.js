@@ -34,7 +34,7 @@ export default class Slider extends React.Component {
   }
 
   componentDidMount() {
-    const anchors = Array.from(document.querySelectorAll('h3')).map(h3Item => ({
+    const anchors = Array.from(document.querySelectorAll('h2')).map(h3Item => ({
       id: h3Item.id,
       name: h3Item.innerText
     }));
