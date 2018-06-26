@@ -1,5 +1,5 @@
 import React from 'react';
-import {BackTop, Row, Col, Menu} from 'antd';
+import {BackTop, Row, Col, Menu, Icon, Divider} from 'antd';
 import Layout from './layout';
 import locales from './locales';
 import pages from './pages';
@@ -9,7 +9,24 @@ const SubMenu = Menu.SubMenu;
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    const menuList = [];
+    // 开发指南
+    Object.keys(pages.documents).map(key => {
+      menuList.push({
+        key: this.getLocale(`page.${key}`),
+        url: `#/components/${key}`
+      });
+    });
+    // 基础组件
+    Object.keys(pages.components).map((group) => (
+      Object.keys(pages.components[group]).map(key => {
+        menuList.push({
+          key: this.getLocale(`page.${key}`),
+          url: `#/components/${key}`
+        });
+      })
+    ));
+    this.state = {menuList};
   }
 
   componentWillMount() {
@@ -75,6 +92,25 @@ export default class App extends React.Component {
   }
 
   render() {
+    const componentIndex = this.state.menuList.findIndex((menuItem) => menuItem.key === this.getLocale(`page.${this.state.page}`));
+    const lastLink = this.state.menuList[componentIndex - 1];
+    const nextLink = this.state.menuList[componentIndex + 1];
+    const Navigation = (
+      <div>
+        <Divider/>
+        <Row className="u-navigation-btm">
+          {lastLink &&
+          <Col span={12} href={lastLink.url} className="prev-page">
+            <a href={lastLink.url}><Icon type="arrow-left" className="prev-page-icon"/>{lastLink.key}
+            </a>
+          </Col>}
+          {nextLink &&
+          <Col span={12} className="next-page">
+            <a href={nextLink.url}>{nextLink.key}<Icon type="arrow-right" className="next-page-icon"/></a>
+          </Col>}
+        </Row>
+      </div>
+    );
     return (
       <Layout>
         <Row>
@@ -123,6 +159,7 @@ export default class App extends React.Component {
             <div className="content">
               <article className="markdown">
                 {this.getComponent(this.state.page)}
+                {Navigation}
                 <BackTop/>
               </article>
             </div>
