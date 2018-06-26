@@ -32,7 +32,7 @@ module.exports = {
     'home': '首页',
     'spec': '设计语言',
     'development': '开发指南',
-    'components': '基础组件',
+    'components': '组件',
     'feedback': '反馈建议',
     'demo': '演示环境',
     'version': 'v1.0'
