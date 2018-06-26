@@ -14,7 +14,7 @@ export default {
       'button': require('./button'),
       'dropdown': require('./dropdown'),
       'loading': require('./loading'),
-
+      'message': require('./message'),
     }
   }
 };

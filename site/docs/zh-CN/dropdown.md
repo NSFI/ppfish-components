@@ -38,6 +38,53 @@ render(){
 :::
 
 
+### 弹出位置
+
+:::demo 支持 6 个弹出位置。
+
+```js
+
+render(){
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+      </Menu.Item>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+      </Menu.Item>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
+      </Menu.Item>
+    </Menu>
+  );
+  return(
+  <div className="components-dropdown-demo-placement">
+    <Dropdown overlay={menu} placement="bottomLeft">
+      <Button>bottomLeft</Button>
+    </Dropdown>
+    <Dropdown overlay={menu} placement="bottomCenter">
+      <Button>bottomCenter</Button>
+    </Dropdown>
+    <Dropdown overlay={menu} placement="bottomRight">
+      <Button>bottomRight</Button>
+    </Dropdown>
+    <br />
+    <Dropdown overlay={menu} placement="topLeft">
+      <Button>topLeft</Button>
+    </Dropdown>
+    <Dropdown overlay={menu} placement="topCenter">
+      <Button>topCenter</Button>
+    </Dropdown>
+    <Dropdown overlay={menu} placement="topRight">
+      <Button>topRight</Button>
+    </Dropdown>
+  </div>
+  )
+}
+```
+:::
+
 ### 右键菜单
 
 :::demo 默认是移入触发菜单，可以点击触发。
@@ -60,8 +107,6 @@ render(){
 
 ```
 :::
-
-
 
 ### 带下拉框的按钮
 
@@ -137,7 +182,6 @@ render(){
 }
 ```
 :::
-
 
 ### 其他元素
 
