@@ -82,7 +82,7 @@ export default class Slider extends React.Component {
       null;
     return (
       <Affix offsetTop={120}>
-        <ul className="u-slider-anchors slider-container" ref="menu">
+        <ul className="u-slider-anchors" ref="menu">
           {menuList}
         </ul>
       </Affix>

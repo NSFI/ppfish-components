@@ -7,6 +7,10 @@ module.exports = {
     'customTheme': '定制主题',
     'animationImageLoader': 'AnimationImageLoader 逐帧动画',
     'loading': 'Loading 加载动画',
+    'button': 'Button 按钮',
+    'affix': 'Affix 固钉',
+    'dropdown':'Dropdown 下拉菜单',
+    'message':'Message 全局提示',
   },
   misc: {
     'guide': '指南',

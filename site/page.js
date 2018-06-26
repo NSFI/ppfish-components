@@ -90,8 +90,7 @@ export default class App extends React.Component {
                     Object.keys(pages.documents).map(page => {
                       return (
                         <Menu.Item key={page}>
-                          <a href={`#/components/${page}`}
-                             className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}
+                          <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}
                           </a>
                         </Menu.Item>
                       );
@@ -107,8 +106,7 @@ export default class App extends React.Component {
                             Object.keys(pages.components[group]).map(page => {
                               return (
                                 <Menu.Item key={page}>
-                                  <a href={`#/components/${page}`}
-                                     className={page === this.state.page ? 'active' : ''}>{this.getLocale(`page.${page}`)}</a>
+                                  <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}</a>
                                 </Menu.Item>
                               );
                             })
