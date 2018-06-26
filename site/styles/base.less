@@ -114,6 +114,7 @@ body {
   }
 
   .main {
+    padding-top: 40px;
     min-height: 500px;
   }
 
@@ -167,12 +168,13 @@ body {
 
 .content {
   vertical-align: top;
-  padding: 60px 174px 144px 64px;
+  padding: 0 174px 144px 64px;
   //小屏幕去掉右侧快捷导航
   @media screen and (max-width: 1125px) {
     padding: 60px 64px 144px 64px;
   }
   border-left: 1px solid #ebedf0;
+  margin-left: -1px;
   h2 {
     font-size: 28px;
     color: #1f2d3d;
@@ -232,7 +234,7 @@ body {
 
 //左侧侧边栏
 .side-nav {
-  padding-top: 60px;
+  border-right: 1px solid #e8e8e8;
   > .ant-menu {
     border-right: 0;
     .ant-menu-submenu-title {
