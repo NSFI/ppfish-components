@@ -168,10 +168,10 @@ body {
 
 .content {
   vertical-align: top;
-  padding: 0 174px 144px 64px;
+  padding: 0 174px 30px 64px;
   //小屏幕去掉右侧快捷导航
   @media screen and (max-width: 1125px) {
-    padding: 60px 64px 144px 64px;
+    padding: 60px 64px 30px 64px;
   }
   border-left: 1px solid #ebedf0;
   margin-left: -1px;
@@ -235,6 +235,7 @@ body {
 //左侧侧边栏
 .side-nav {
   border-right: 1px solid #e8e8e8;
+  padding-bottom: 50px;
   > .ant-menu {
     border-right: 0;
     .ant-menu-submenu-title {
@@ -328,6 +329,29 @@ body {
         opacity: 1;
         transform: translateX(0);
       }
+    }
+  }
+}
+
+//底部导航
+.u-navigation-btm {
+  font-size: 14px;
+  .anticon {
+    color: #697b8c;
+    font-size: 12px;
+  }
+  .prev-page {
+    text-align: left;
+    text-decoration: none;
+    .prev-page-icon {
+      margin-right: 5px;
+    }
+  }
+  .next-page {
+    text-align: right;
+    text-decoration: none;
+    .next-page-icon {
+      margin-left: 5px;
     }
   }
 }
