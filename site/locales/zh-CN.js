@@ -7,6 +7,7 @@ module.exports = {
     'customTheme': '定制主题',
     'animationImageLoader': 'AnimationImageLoader 逐帧动画',
     'loading': 'Loading 加载动画',
+    'button': 'Button 按钮'
   },
   misc: {
     'guide': '指南',

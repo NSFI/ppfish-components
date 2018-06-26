@@ -11,6 +11,7 @@ export default {
     '通用组件': {
       'animationImageLoader': require('./animationImageLoader'),
       'loading': require('./loading'),
+      'button': require('./button'),
     }
   }
 };
