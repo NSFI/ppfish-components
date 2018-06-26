@@ -8,7 +8,8 @@ module.exports = {
     'animationImageLoader': 'AnimationImageLoader 逐帧动画',
     'loading': 'Loading 加载动画',
     'button': 'Button 按钮',
-    'affix': 'Affix 固钉'
+    'affix': 'Affix 固钉',
+    'dropdown':'Dropdown 下拉菜单'
   },
   misc: {
     'guide': '指南',

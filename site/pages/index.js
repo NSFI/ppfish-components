@@ -12,7 +12,9 @@ export default {
       'animationImageLoader': require('./animationImageLoader'),
       'affix': require('./affix'),
       'button': require('./button'),
+      'dropdown': require('./dropdown'),
       'loading': require('./loading'),
+
     }
   }
 };

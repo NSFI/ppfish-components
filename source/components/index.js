@@ -34,4 +34,4 @@ export {TimePicker};
 export {DayTimeSelect};
 export {PicturePreview};
 export {TreeSelect};
-export {Button, Icon, Menu, Dropdown, Radio, Affix} from 'antd';
+export {Button, Icon, Menu, Dropdown, Radio, Affix, message} from 'antd';
