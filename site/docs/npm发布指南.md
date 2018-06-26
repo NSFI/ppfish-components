@@ -1,14 +1,14 @@
 # npm发布指南
 
-### 注意事项
+## 注意事项
 - 发布人需要熟悉npm文档，能够预计当前npm发布计划可能对即将要发布的代码可能产生的影响
 - 处于npm版本资源有限和保持npm代码库版本可用的目的，请谨慎发布npm版本，不随意发布当前还处于开发状态的代码
 
-### 详细文档
+## 详细文档
 - [How to Publish & Update a Package](https://docs.npmjs.com/getting-started/publishing-npm-packages)
 - [How to Label Packages with Dist-tags](https://docs.npmjs.com/getting-started/using-tags)
 
-### 简易发布指南
+## 简易发布指南
 1. 发布前，确认当前代码开发状态，确认当前版本号的tag是beta版本还是latest版本（正式版）
 2. 发布前查看已有versions及tags
 3. 使用npm version命令管理版本号，而不是手动修改版本号
