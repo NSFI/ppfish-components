@@ -10,8 +10,9 @@ export default {
   components: {
     '通用组件': {
       'animationImageLoader': require('./animationImageLoader'),
-      'loading': require('./loading'),
+      'affix': require('./affix'),
       'button': require('./button'),
+      'loading': require('./loading'),
     }
   }
 };
