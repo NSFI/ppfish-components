@@ -7,7 +7,7 @@ export default {
     'resource': require('./resource'),
     'CustomTheme': require('./CustomTheme'),
   },
-  components: {
+  list: {
     '通用组件': {
       'animationImageLoader': require('./animationImageLoader'),
       'affix': require('./affix'),
