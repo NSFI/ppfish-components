@@ -10,7 +10,24 @@ module.exports = {
     'button': 'Button 按钮',
     'affix': 'Affix 固钉',
     'dropdown':'Dropdown 下拉菜单',
+<<<<<<< HEAD
     'message':'Message 全局提示',
+=======
+    'Collapse': 'Collapse ',
+    'CustomTable': 'CustomTable 表格',
+    'DayTimeSelect': 'DayTimeSelect 时间段选择',
+    'Drawer': 'Drawer',
+    'Echart': 'Echart',
+    'ImageLoader': 'ImageLoader',
+    'NumberCounter': 'NumberCounter',
+    'PicturePreview': 'PicturePreview',
+    'ReactAmap': 'ReactAmap',
+    'SearchInput': 'SearchInput',
+    'StickVerticalMenu': 'StickVerticalMenu',
+    'TextOverFlow': 'TextOverFlow',
+    'TimePicker': 'TimePicker',
+    'TreeSelect': 'TreeSelect',
+>>>>>>> 业务组件迁移
   },
   misc: {
     'guide': '指南',
