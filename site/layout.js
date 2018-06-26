@@ -63,15 +63,15 @@ export default class Layout extends React.Component {
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
               <ul className="nav">
                 <li className="nav-item">
-                  <a href="#/home/" rel="noopener noreferrer">{this.getLocale('misc.home')}</a>
+                  <a href="#/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</a>
                 </li>
                 {/*
                 <li className="nav-item">
-                  <a href="#/spec/" rel="noopener noreferrer">{this.getLocale('misc.spec')}</a>
+                  <a href="#/spec" rel="noopener noreferrer">{this.getLocale('misc.spec')}</a>
                 </li>
                 */}
                 <li className="nav-item">
-                  <a href="#/components/">{this.getLocale('misc.component')}</a>
+                  <a href="#/components">{this.getLocale('misc.component')}</a>
                 </li>
                 {/*
                 <li className="nav-item">

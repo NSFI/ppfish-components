@@ -2,11 +2,11 @@ import React from 'react';
 import {BackTop, Row, Col, Menu, Icon, Divider} from 'antd';
 import Layout from './layout';
 import locales from './locales';
-import pages from './pages';
+import components from './componentsPage';
 
 const SubMenu = Menu.SubMenu;
 
-export default class App extends React.Component {
+export default class Components extends React.Component {
   constructor(props) {
     super(props);
     const menuList = [];
@@ -76,9 +76,9 @@ export default class App extends React.Component {
 
   //根据page参数获取对应的页的markdown文件并解析
   getComponent(page) {
-    this.components = this.components || Object.assign(Object.values(pages.components).reduce((a, b) => {
+    this.components = this.components || Object.assign(Object.values(components.list).reduce((a, b) => {
       return Object.assign(a, b);
-    }, {}), pages.documents);
+    }, {}), components.documents);
 
     const result = this.components[page] || this.components['quick-start'];
     if (result) {
@@ -109,7 +109,7 @@ export default class App extends React.Component {
       </div>
     );
     return (
-      <Layout>
+      <Layout className="doc">
         <Row>
           <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4}>
             <nav className="side-nav">
@@ -120,7 +120,7 @@ export default class App extends React.Component {
               >
                 <SubMenu key={this.getLocale('misc.development')} title={this.getLocale('misc.development')}>
                   {
-                    Object.keys(pages.documents).map(page => {
+                    Object.keys(components.documents).map(page => {
                       return (
                         <Menu.Item key={page}>
                           <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}
@@ -132,11 +132,11 @@ export default class App extends React.Component {
                 </SubMenu>
                 <SubMenu key={this.getLocale('misc.components')} title={this.getLocale('misc.components')}>
                   {
-                    Object.keys(pages.components).map(group => {
+                    Object.keys(components.list).map(group => {
                       return (
                         <Menu.ItemGroup key={group} title={group} disabled={false}>
                           {
-                            Object.keys(pages.components[group]).map(page => {
+                            Object.keys(components.list[group]).map(page => {
                               return (
                                 <Menu.Item key={page}>
                                   <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}</a>

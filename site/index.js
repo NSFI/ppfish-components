@@ -8,7 +8,7 @@ import './styles/base.less';
 import './styles/doc.less';
 import './styles/prism.css';
 
-import App from './page';
+import Components from './components';
 import Home from './home';
 import Spec from './spec';
 
@@ -17,20 +17,20 @@ render(<AppContainer>
     <Route path="/home" component={Home}/>
     <Route path="/spec" component={Spec}/>
     <Redirect from="/components" to="/components/quick-start"/>
-    <Route path="/components/*" component={App}/>
+    <Route path="/components/*" component={Components}/>
     <Redirect from="*" to="/home"/>
   </Router>
 </AppContainer>, document.getElementById('app'));
 
 if (module.hot) {
-  module.hot.accept('./page', () => {
-    const App = require('./page').default;
+  module.hot.accept('./components', () => {
+    const Components = require('./components').default;
     render(<AppContainer>
       <Router history={hashHistory}>
         <Route path="/home" component={Home}/>
         <Route path="/spec" component={Spec}/>
         <Redirect from="/components" to="/components/quick-start"/>
-        <Route path="/components/*" component={App}/>
+        <Route path="/components/*" component={Components}/>
         <Redirect from="*" to="/home"/>
       </Router>
     </AppContainer>, document.getElementById('app'));
