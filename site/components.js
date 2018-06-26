@@ -11,15 +11,15 @@ export default class Components extends React.Component {
     super(props);
     const menuList = [];
     // 开发指南
-    Object.keys(pages.documents).map(key => {
+    Object.keys(components.documents).map(key => {
       menuList.push({
         key: this.getLocale(`page.${key}`),
         url: `#/components/${key}`
       });
     });
     // 基础组件
-    Object.keys(pages.components).map((group) => (
-      Object.keys(pages.components[group]).map(key => {
+    Object.keys(components.list).map((group) => (
+      Object.keys(components.list[group]).map(key => {
         menuList.push({
           key: this.getLocale(`page.${key}`),
           url: `#/components/${key}`
