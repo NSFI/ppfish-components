@@ -14,9 +14,7 @@ export default {
       'button': require('./button'),
       'dropdown': require('./dropdown'),
       'loading': require('./loading'),
-<<<<<<< HEAD
       'message': require('./message'),
-=======
     },
     '业务组件': {
       'Collapse': require('./Collapse'),
@@ -33,7 +31,6 @@ export default {
       'TextOverFlow': require('./TextOverFlow'),
       'TimePicker': require('./TimePicker'),
       'TreeSelect': require('./TreeSelect'),
->>>>>>> 业务组件迁移
     }
   }
 };
