@@ -21,7 +21,7 @@
 1.  组件API设计文档Review / 讨论
 1.  组件API设计文档Review通过后，基于组件的API编写组件测试用例
 1.  在`source/components`路径下创建新增的组件文件夹，并在`source/index.js`引入，开始组件编码
-1.  在`site/docs/zh-CN`路径下添加markdown文件，编写相对应的demo,示例如图![示例](http://nos.netease.com/ysf/mjwaiygeysdhftzymslvjtnjifewoqke)
+1.  在`site/docs/zh-CN`路径下添加markdown文件，编写相对应的demo
 1.  在`site/pages`中添加新增组件的文件夹，引入编译后的markdown文件，并在`site/pages/index.js`中编辑菜单项
 1.  在`site/locales/zh-CN.js`中添加左侧菜单栏项的中文命名，在网站侧边栏添加你的组件
 1.  组件Code Review，代码编写完后，发起Pull Request进行Code Review
