@@ -248,6 +248,7 @@ body {
     .ant-menu-item {
       font-size: 14px;
       color: #737380;
+      margin: 0 !important;
       > a {
         display: inline;
       }
@@ -271,22 +272,28 @@ body {
         left: 33px;
         top: 0;
         background: #f2f2f5;
-        height: 100%;
+        height: 95%;
+        margin-top: 5%;
         width: 3px;
       }
     }
     .ant-menu-item-group {
       .ant-menu-item {
-        height: 30px;
-        line-height: 30px;
+        &:after {
+          transform: scaleY(1);
+          opacity: 1;
+          border-color: #f2f2f5;
+          left: 33px;
+          top: 10px;
+          right: auto;
+          height: 20px;
+          z-index: 1;
+        }
       }
       .ant-menu-item-selected {
         background: #fff !important;
         &:after {
-          left: 33px;
-          top: 0;
-          height: 30px;
-          z-index: 1;
+          border-color: #1890ff;
         }
       }
     }
