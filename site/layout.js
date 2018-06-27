@@ -17,6 +17,7 @@ export default class Layout extends React.Component {
 
   componentDidMount() {
     this.setMenuHighlight();
+    this.initSearchBox();
   }
 
   getLocale(key) {
@@ -51,6 +52,26 @@ export default class Layout extends React.Component {
     setHighlight(menuItems, HIGHLIGHT_CLS);
   }
 
+  loadSDK(callback) {
+    const e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.async = false;
+    e.src = '//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
+    e.onload = callback;
+    document.head.appendChild(e);
+  }
+
+  initSearchBox() {
+    this.loadSDK(() => {
+      window.docsearch({
+        apiKey: 'ddba94e7e0f7ae0fee63b1645548fc00',
+        indexName: 'ppfish',
+        inputSelector: '#search-box input',
+        debug: false // Set debug to true if you want to inspect the dropdown
+      });
+    });
+  }
+
   render() {
     const {children} = this.props;
     return (
@@ -61,6 +82,9 @@ export default class Layout extends React.Component {
               <h1>PPFish Design</h1>
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
+              <div id="search-box" className="search-box">
+                <i className="anticon anticon-search"></i><input type="text" placeholder="在 ppfish 中搜索" className="ant-input"/>
+              </div>
               <ul className="nav">
                 <li className="nav-item">
                   <a href="#/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</a>
