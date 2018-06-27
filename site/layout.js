@@ -4,6 +4,7 @@ import locales from './locales';
 import PropTypes from "prop-types";
 
 const githubSrc = require('./assets/github.png');
+const searchIcon = require('./assets/search.svg');
 
 export default class Layout extends React.Component {
 
@@ -83,7 +84,7 @@ export default class Layout extends React.Component {
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
               <div id="search-box" className="search-box">
-                <i className="anticon anticon-search"></i><input type="text" placeholder="在 ppfish 中搜索" className="ant-input"/>
+                <img src={searchIcon} className="search-icon" /><input type="text" placeholder="在 ppfish 中搜索" className="ant-input"/>
               </div>
               <ul className="nav">
                 <li className="nav-item">
