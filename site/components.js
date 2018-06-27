@@ -100,10 +100,10 @@ export default class Components extends React.Component {
         <Divider/>
         <Row className="u-navigation-btm">
           <Col span={12} className="prev-page">
-            {lastLink && <a href={lastLink.url}><Icon type="arrow-left" className="prev-page-icon"/>{lastLink.key}</a>}
+            {lastLink && <a href={lastLink.url}><Icon type="left" className="prev-page-icon"/>{lastLink.key}</a>}
           </Col>
           <Col span={12} className="next-page">
-            {nextLink && <a href={nextLink.url}>{nextLink.key}<Icon type="arrow-right" className="next-page-icon"/></a>}
+            {nextLink && <a href={nextLink.url}>{nextLink.key}<Icon type="right" className="next-page-icon"/></a>}
           </Col>
         </Row>
       </div>
@@ -156,9 +156,9 @@ export default class Components extends React.Component {
             <div className="content">
               <article className="markdown">
                 {this.getComponent(this.state.page)}
-                {Navigation}
-                <BackTop/>
               </article>
+              {Navigation}
+              <BackTop/>
             </div>
           </Col>
         </Row>
