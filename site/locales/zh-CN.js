@@ -46,7 +46,7 @@ module.exports = {
     'notification': 'Notification 通知提醒框',
     'pagination': 'Pagination 警告提示',
     'progress': 'Progress 分页',
-    'radio': 'radio 单选框',
+    'radio': 'Radio 单选框',
     'select': 'Select 选择器',
     'slider': 'Slider 滑动输入条',
     'steps': 'Steps 步骤条',

@@ -57,7 +57,6 @@ export default {
       'drawer': require('./drawer'),
       'echart': require('./echart'),
       'imageLoader': require('./imageLoader'),
-      'numberCounter': require('./numberCounter'),
       'picturePreview': require('./picturePreview'),
       'reactAmap': require('./reactAmap'),
       'searchInput': require('./searchInput'),
