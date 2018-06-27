@@ -1,7 +1,7 @@
 .markdown {
-  color: #314659;
+  color: #45454D;
   font-size: 14px;
-  line-height: 2
+  line-height: 24px;
 }
 
 .markdown img {
@@ -29,8 +29,8 @@
 }
 
 .markdown h2 {
-  font-size: 24px;
-  line-height: 32px
+  font-size: 32px;
+  line-height: 45px
 }
 
 .markdown h2,
@@ -38,19 +38,18 @@
 .markdown h4,
 .markdown h5,
 .markdown h6 {
-  color: #0d1a26;
+  color: #18181A;
   font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
   margin: 1.6em 0 .6em;
-  font-weight: 500;
   clear: both
 }
 
 .markdown h3 {
-  font-size: 18px
+  font-size: 24px
 }
 
 .markdown h4 {
-  font-size: 16px
+  font-size: 18px
 }
 
 .markdown h5 {
@@ -70,7 +69,6 @@
 }
 
 .markdown ul > li {
-  list-style-type: circle;
   margin-left: 20px;
   padding-left: 4px
 }
@@ -98,22 +96,22 @@
 
 .markdown pre {
   border-radius: 2px;
-  background: #f2f4f5;
+  background: #f2f2f5;
 }
 .markdown pre code {
   border: none;
-  background: #f2f4f5;
+  background: #f2f2f5;
   margin: 0;
   font-size: 13px;
-  color: #314659;
+  color: #737380;
   overflow: auto;
 }
 .markdown p code {
   border: none;
-  background: #f2f4f5;
+  background: #f2f2f5;
   margin: 0;
   font-size: 13px;
-  color: #314659;
+  color: #737380;
   overflow: auto;
 }
 
@@ -122,7 +120,7 @@
   margin: 0;
   padding: 0;
   font-size: 13px;
-  color: #314659;
+  color: #737380;
   overflow: auto;
   font-family: Menlo, Monaco, Consolas, Courier, monospace;
 }
@@ -132,7 +130,7 @@
   font-weight: 500
 }
 .markdown a {
-  color: #1890ff;
+  color: #4D70FF;
   background-color: transparent;
   text-decoration: none;
   outline: none;
@@ -201,7 +199,7 @@
   left: 4px;
   top: .75em;
   height: 100%;
-  border-left: 2px solid #e8e8e8
+  border-left: 2px dashed #CCD6FF
 }
 .timeline-item-pending .timeline-item-head {
   font-size: 12px
@@ -220,8 +218,9 @@
 }
 
 .timeline-item-head-blue {
-  border-color: #1890ff;
-  color: #1890ff
+  border-color: #4D70FF;
+  color: #4D70FF;
+  background-color: #4D70FF;
 }
 
 .timeline-item-content {
@@ -229,7 +228,15 @@
   position: relative;
   top: -6px
 }
-
+.timeline-item-content p code {
+  display: block;
+  font-size: 14px;
+  height: 24px;
+  width: 92px;
+  text-align: center;
+  line-height: 26px;
+  border-radius: 2px;
+}
 .timeline-item-last .timeline-item-tail {
   display: none
 }
