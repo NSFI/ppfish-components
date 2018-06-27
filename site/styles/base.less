@@ -231,7 +231,7 @@ body {
   }
 }
 
-//左侧侧边栏
+//左侧侧边栏，ant-menu 样式覆盖
 .side-nav {
   border-right: 1px solid #e8e8e8;
   padding-bottom: 50px;
@@ -240,14 +240,54 @@ body {
     border-right: 0;
     .ant-menu-submenu-title {
       padding-left: 40px;
+      height: 50px !important;
+      line-height: 50px !important;
       font-size: 16px;
-      color: #45454d;
+      color: #18181a;
     }
     .ant-menu-item {
       font-size: 14px;
       color: #737380;
       > a {
         display: inline;
+      }
+      &:after {
+        transition: none;
+      }
+    }
+    .ant-menu-item-selected {
+      background: #f7f7fa !important;
+      &:after {
+        right: auto;
+        left: 0;
+      }
+    }
+    .ant-menu-item-group-list {
+      position: relative;
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 33px;
+        top: 0;
+        background: #f2f2f5;
+        height: 100%;
+        width: 3px;
+      }
+    }
+    .ant-menu-item-group {
+      .ant-menu-item {
+        height: 30px;
+        line-height: 30px;
+      }
+      .ant-menu-item-selected {
+        background: #fff !important;
+        &:after {
+          left: 33px;
+          top: 0;
+          height: 30px;
+          z-index: 1;
+        }
       }
     }
   }
