@@ -158,7 +158,9 @@ export default class Components extends React.Component {
                 {this.getComponent(this.state.page)}
               </article>
               {Navigation}
-              <BackTop/>
+              <BackTop>
+                <img src={require('./assets/nppd-web-1.51-but@2x.png')} className="u-backtop" alt="backTop"/>
+              </BackTop>
             </div>
           </Col>
         </Row>
