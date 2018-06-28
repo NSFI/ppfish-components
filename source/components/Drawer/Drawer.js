@@ -12,7 +12,6 @@ import './Drawer.less';
  * @prop {bool} visible       图表参数
  * @prop {object} onClose     图表事件
  * @prop {node} container     容器
- * @author hzmajianglong@corp.netease.com
  */
 class Drawer extends PureComponent {
   static propTypes = {
