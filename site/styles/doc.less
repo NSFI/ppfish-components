@@ -23,7 +23,7 @@
     padding-left: 4px
   }
   
-    .icon-list > li {
+  .icon-list > li {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -203,7 +203,32 @@ code[class*=language-],pre[class*=language-] {
   color: rgba(0, 0, 0, .65);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0
+  padding: 0;
+  ul > li {
+    margin-left: 20px;
+    padding-left: 4px
+  }
+  
+  .icon-list > li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+    ul > li:empty {
+    display: none
+  }
+  
+    ol > li {
+    list-style-type: decimal;
+    margin-left: 20px;
+    padding-left: 4px
+  }
+  
+    ol > li > p,
+    ul > li > p {
+    margin: .2em 0
+  }
+  
 }
 .timeline,
 .timeline-item {
