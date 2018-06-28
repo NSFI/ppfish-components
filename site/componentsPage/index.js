@@ -51,19 +51,17 @@ export default {
     '业务组件': {
       'loading': require('./loading'),
       'animationImageLoader': require('./animationImageLoader'),
-      'collapse': require('./collapse'),
       'customTable': require('./customTable'),
-      'dayTimeSelect': require('./dayTimeSelect'),
       'drawer': require('./drawer'),
-      'echart': require('./echart'),
-      'imageLoader': require('./imageLoader'),
       'picturePreview': require('./picturePreview'),
-      'reactAmap': require('./reactAmap'),
-      'searchInput': require('./searchInput'),
-      'stickVerticalMenu': require('./stickVerticalMenu'),
-      'textOverFlow': require('./textOverFlow'),
       'timePicker': require('./timePicker'),
-      'treeSelect': require('./treeSelect'),
+      //'collapse': require('./collapse'),
+      //'dayTimeSelect': require('./dayTimeSelect'),
+      //'searchInput': require('./searchInput'),
+      //'stickVerticalMenu': require('./stickVerticalMenu'),
+      //'echart': require('./echart'),
+      //'imageLoader': require('./imageLoader'),
+      //'treeSelect': require('./treeSelect')
     }
   }
 };
