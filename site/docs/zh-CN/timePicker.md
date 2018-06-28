@@ -12,7 +12,7 @@
 
 * * *
 
-```jsx
+```js
 import moment from 'moment';
 <TimePicker defaultValue={moment('13:30:56', 'HH:mm:ss')} />
 ```
