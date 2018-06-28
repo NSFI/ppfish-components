@@ -7,7 +7,7 @@ import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
 import TableSorter from './TableSorter';
 import TextOverflow from './TextOverflow';
-import TimePicker from './TimePicker';
+import BizTimePicker from './BizTimePicker';
 import PicturePreview from './PicturePreview';
 import TreeSelect from './TreeSelect';
 
@@ -21,7 +21,7 @@ export {SearchInput};
 export {StickVerticalMenu};
 export {TableSorter};
 export {TextOverflow};
-export {TimePicker};
+export {BizTimePicker};
 export {PicturePreview};
 export {TreeSelect};
 export {

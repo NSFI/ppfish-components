@@ -2,12 +2,6 @@ import React, {Component} from 'react';
 import './App.less';
 import TimePicker from '../index';
 
-//快速选择时间选项
-const quickTimeOption = [
-  { text: '昨天', value: 1 },
-  { text: '过去7天', value: 7 },
-  { text: '过去30天', value: 30 },
-];
 
 class App extends Component {
   constructor(props) {

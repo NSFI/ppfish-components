@@ -55,7 +55,7 @@ module.exports = {
     'picturePreview': 'PicturePreview 图片查看器',
     'searchInput': 'SearchInput 输入搜索框',
     'stickVerticalMenu': 'StickVerticalMenu 二级菜单',
-    'timePicker': 'TimePicker 自定义时间选择器',
+    'bizTimePicker': 'BizTimePicker 自定义时间选择器',
     'treeSelect': 'TreeSelect 树形选择器',
   },
   misc: {
