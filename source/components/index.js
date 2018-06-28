@@ -29,6 +29,7 @@ export {
   Icon,
   Menu,
   BackTop,
+  Spin,
   Dropdown,
   AutoComplete,
   Radio,
