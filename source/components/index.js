@@ -30,6 +30,7 @@ export {
   Menu,
   BackTop,
   Dropdown,
+  AutoComplete,
   Radio,
   Affix,
   message,
