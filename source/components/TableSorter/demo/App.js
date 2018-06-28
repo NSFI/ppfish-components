@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.less';
 import TableSorter from '../index';
 import {Icon} from 'antd';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class App extends Component {
   render() {
     const {sortBy, order} = this.state;
     return (
-      <DocumentLayout>
+      <div>
         <div className="sorter-demo-container">
           <h3>State</h3>
           {Object.keys(this.state).map(key => <p key={key}>{`${key}: ${this.state[key]}`}</p>)}
@@ -46,7 +45,7 @@ class App extends Component {
             customMode={true}
           />
         </div>
-      </DocumentLayout>
+      </div>
     );
   }
 }

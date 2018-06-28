@@ -10,7 +10,7 @@ const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './source/a
 // so we are manually adding it to the produced themeVariables js object here
 themeVariables["@icon-url"] = "'https://at.alicdn.com/t/font_zck90zmlh7hf47vi'";
 
-// TODO 压缩混淆代码开关
+// 压缩混淆代码开关
 const minimize = true;
 
 const getUglifyJsPlugin = () => {

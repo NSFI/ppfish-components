@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DayTimeSelect from '../index';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 import './App.less';
 
@@ -16,7 +15,6 @@ class App extends Component {
 
   render() {
     return (
-      <DocumentLayout>
       <div className="m-timeslot-list-container">
         <div className="timeslot-item">
           <DayTimeSelect
@@ -27,7 +25,6 @@ class App extends Component {
           />
         </div>
       </div>
-      </DocumentLayout>
     );
   }
 }
