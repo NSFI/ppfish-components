@@ -1,5 +1,4 @@
 import AnimationImageLoader from './AnimationImageLoader';
-import Collapse from './Collapse';
 import CustomTable from './CustomTable';
 import Drawer from './Drawer';
 import ImageLoader from './ImageLoader';
@@ -14,7 +13,6 @@ import TreeSelect from './TreeSelect';
 
 // 通用组件从这里暴露
 export {AnimationImageLoader};
-export {Collapse};
 export {CustomTable};
 export {Drawer};
 export {ImageLoader};
