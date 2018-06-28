@@ -51,6 +51,9 @@ export default {
       'transfer': require('./transfer'),
       'tree': require('./tree'),
       'upload': require('./upload'),
+      'collapse': require('./collapse'),
+      'treeSelect': require('./treeSelect'),
+      'timePicker': require('./timePicker')
     },
     '业务组件': {
       'loading': require('./loading'),
