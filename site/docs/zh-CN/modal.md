@@ -9,6 +9,476 @@
 
 另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 `antd.Modal.confirm()` 等方法。
 
+## 基本
+
+:::demo 第一个对话框。
+
+```js
+  state = { visible: false }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  handleOk = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  }
+
+  handleCancel = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Button type="primary" onClick={this.showModal}>Open</Button>
+        <Modal
+          title="Basic Modal"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
+      </div>
+    );
+  }
+```
+:::
+
+## 异步关闭
+
+:::demo 点击确定后异步关闭对话框，例如提交表单。
+
+```js
+  state = {
+    ModalText: 'Content of the modal',
+    visible: false,
+    confirmLoading: false,
+  }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  handleOk = () => {
+    this.setState({
+      ModalText: 'The modal will be closed after two seconds',
+      confirmLoading: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false,
+      });
+    }, 2000);
+  }
+
+  handleCancel = () => {
+    console.log('Clicked cancel button');
+    this.setState({
+      visible: false,
+    });
+  }
+
+  render() {
+    const { visible, confirmLoading, ModalText } = this.state;
+    return (
+      <div>
+        <Button type="primary" onClick={this.showModal}>Open</Button>
+        <Modal title="Title"
+          visible={visible}
+          onOk={this.handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={this.handleCancel}
+        >
+          <p>{ModalText}</p>
+        </Modal>
+      </div>
+    );
+  }
+```
+:::
+
+## 确认对话框
+
+:::demo 使用 `confirm()` 可以快捷地弹出确认框。
+
+```js
+showConfirm=()=> {
+  confirm({
+    title: 'Do you Want to delete these items?',
+    content: 'Some descriptions',
+    onOk() {
+      console.log('OK');
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+};
+
+showDeleteConfirm=()=> {
+  confirm({
+    title: 'Are you sure delete this task?',
+    content: 'Some descriptions',
+    okText: 'Yes',
+    okType: 'danger',
+    cancelText: 'No',
+    onOk() {
+      console.log('OK');
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+};
+
+render(){
+  const confirm = Modal.confirm;
+  return(
+      <div className="demo-modal-btn-group">
+        <Button onClick={this.showConfirm}>
+          Confirm
+        </Button>
+        <Button onClick={this.showDeleteConfirm} type="dashed">
+          Delete
+        </Button>
+      </div>
+  )
+}
+```
+:::
+
+## 确认对话框Promise
+
+:::demo 使用 `confirm()` 可以快捷地弹出确认框。onCancel/onOk 返回 promise 可以延迟关闭
+
+```js
+
+showConfirm=()=> {
+  confirm({
+    title: 'Do you want to delete these items?',
+    content: 'When clicked the OK button, this dialog will be closed after 1 second',
+    onOk() {
+      return new Promise((resolve, reject) => {
+        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+      }).catch(() => console.log('Oops errors!'));
+    },
+    onCancel() {},
+  });
+}
+
+render(){
+  const confirm = Modal.confirm;
+  return(
+    <Button onClick={this.showConfirm}>
+        Confirm
+      </Button>
+  )
+}
+```
+:::
+
+## 自定义页脚
+
+:::demo 更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。
+
+不需要默认确定取消按钮时，你可以把 `footer` 设为 `null`。
+
+```js
+  state = {
+    loading: false,
+    visible: false,
+  }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  handleOk = () => {
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false, visible: false });
+    }, 3000);
+  }
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  }
+
+  render() {
+    const { visible, loading } = this.state;
+    return (
+      <div>
+        <Button type="primary" onClick={this.showModal}>
+          Open
+        </Button>
+        <Modal
+          visible={visible}
+          title="Title"
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          footer={[
+            <Button key="back" onClick={this.handleCancel}>Return</Button>,
+            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+              Submit
+            </Button>,
+          ]}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
+      </div>
+    );
+  }
+```
+:::
+
+## 信息提示
+
+:::demo 各种类型的信息提示，只提供一个按钮用于关闭。
+
+
+```js
+info=()=> {
+  Modal.info({
+    title: 'This is a notification message',
+    content: (
+      <div>
+        <p>some messages...some messages...</p>
+        <p>some messages...some messages...</p>
+      </div>
+    ),
+    onOk() {},
+  });
+}
+
+success=()=> {
+  Modal.success({
+    title: 'This is a success message',
+    content: 'some messages...some messages...',
+  });
+}
+
+error=()=> {
+  Modal.error({
+    title: 'This is an error message',
+    content: 'some messages...some messages...',
+  });
+}
+
+warning=()=> {
+  Modal.warning({
+    title: 'This is a warning message',
+    content: 'some messages...some messages...',
+  });
+}
+
+render(){
+  return(
+      <div className="demo-modal-btn-group">
+        <Button onClick={this.info}>Info</Button>
+        <Button onClick={this.success}>Success</Button>
+        <Button onClick={this.error}>Error</Button>
+        <Button onClick={this.warning}>Warning</Button>
+      </div>
+  )
+}
+
+```
+:::
+
+## 国际化
+
+:::demo 设置 `okText` 与 `cancelText` 以自定义按钮文字。
+
+```js
+  state = { visible: false }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  hideModal = () => {
+    this.setState({
+      visible: false,
+    });
+  }
+  
+  confirm=()=> {
+    Modal.confirm({
+      title: 'Confirm',
+      content: 'Bla bla ...',
+      okText: '确认',
+      cancelText: '取消',
+    });
+  }
+
+  render() {
+    return (
+      <div className="demo-modal-btn-group">
+        <Button type="primary" onClick={this.showModal}>Modal</Button>
+        <Modal
+          title="Modal"
+          visible={this.state.visible}
+          onOk={this.hideModal}
+          onCancel={this.hideModal}
+          okText="确认"
+          cancelText="取消"
+        >
+          <p>Bla bla ...</p>
+          <p>Bla bla ...</p>
+          <p>Bla bla ...</p>
+        </Modal>
+        <Button onClick={this.confirm}>Confirm</Button>
+      </div>
+    );
+  }
+  
+```
+:::
+
+## 手动移除
+
+:::demo 手动关闭modal。
+
+```js
+
+success=()=> {
+  const modal = Modal.success({
+    title: 'This is a notification message',
+    content: 'This modal will be destroyed after 1 second',
+  });
+  setTimeout(() => modal.destroy(), 1000);
+}
+
+render(){
+  return(
+    <Button onClick={this.success}>Success</Button>
+  )
+}
+
+```
+:::
+
+## 自定义位置
+
+:::demo `1.0` 之后，Modal 的 `align` 属性被移除，您可以直接使用 `style.top` 或配合其他样式来设置对话框位置。
+
+```js
+  state = {
+    modal1Visible: false,
+    modal2Visible: false,
+  }
+
+  setModal1Visible(modal1Visible) {
+    this.setState({ modal1Visible });
+  }
+
+  setModal2Visible(modal2Visible) {
+    this.setState({ modal2Visible });
+  }
+
+  render() {
+    return (
+      <div>
+        <Button type="primary" onClick={() => this.setModal1Visible(true)}>Display a modal dialog at 20px to Top</Button>
+        <Modal
+          title="20px to Top"
+          style={{ top: 20 }}
+          visible={this.state.modal1Visible}
+          onOk={() => this.setModal1Visible(false)}
+          onCancel={() => this.setModal1Visible(false)}
+        >
+          <p>some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
+        </Modal>
+        <br /><br />
+        <Button type="primary" onClick={() => this.setModal2Visible(true)}>Vertically centered modal dialog</Button>
+        <Modal
+          title="Vertically centered modal dialog"
+          wrapClassName="vertical-center-modal"
+          visible={this.state.modal2Visible}
+          onOk={() => this.setModal2Visible(false)}
+          onCancel={() => this.setModal2Visible(false)}
+        >
+          <p>some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
+        </Modal>
+      </div>
+    );
+  }
+```
+:::
+
+<style>
+/* use css to set position of modal */
+.vertical-center-modal {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.vertical-center-modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.vertical-center-modal .ant-modal {
+  display: inline-block;
+  vertical-align: middle;
+  top: 0;
+  text-align: left;
+}
+
+/*
+// Use flex which not working in IE
+.vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vertical-center-modal .ant-modal {
+  top: 0;
+}
+*/
+````
+</style>
+
+<style>
+.ant-modal p {
+  margin: 0;
+}
+.demo-modal-btn-group .ant-btn{
+ margin-right:8px;
+}
+</style>
+
 ## API
 
 | 参数 | 说明 | 类型 | 默认值 |
