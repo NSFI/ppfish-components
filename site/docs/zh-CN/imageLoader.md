@@ -31,7 +31,7 @@ render(){
 ## API
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| src  | 加载中动画图    | object   |  —   |
+| src  | 图片地址   | object   |  —   |
 | preloader  | 显示占位图的React Pure Function   | func   |  —   |
 | children  | 图片children    | object   |  —   |
 | wrapper  | 图片外层容器    | DOM.span或DOM.div   |  DOM.span   |
