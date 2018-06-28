@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import marked from 'marked'
 import {transform} from 'babel-standalone'
-
+import moment from 'moment'
 import Editor from '../editor'
 
 //代码展示容器
@@ -34,8 +34,8 @@ export default class Canvas extends React.Component {
   renderSource(value) {
     //dynamic import
     import('../../source/components').then(Element => {
-      const args = ['context', 'React', 'ReactDOM'];
-      const argv = [this, React, ReactDOM];
+      const args = ['context', 'React', 'ReactDOM', 'moment'];
+      const argv = [this, React, ReactDOM, moment];
 
       for (const key in Element) {
         args.push(key);
@@ -54,7 +54,7 @@ export default class Canvas extends React.Component {
 
         ReactDOM.render(<Demo {...context.props} />, document.getElementById('${this.playerId}'))
       `, {
-        presets: ['react', 'stage-2','stage-1']
+        presets: ['react', 'stage-2', 'stage-1']
       }).code;
 
       args.push(code);

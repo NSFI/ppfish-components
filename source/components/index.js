@@ -28,6 +28,7 @@ export {
   Button,
   Icon,
   Menu,
+  BackTop,
   Dropdown,
   Radio,
   Affix,

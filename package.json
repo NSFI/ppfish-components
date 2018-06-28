@@ -97,6 +97,7 @@
     "lint-staged": "^5.0.0",
     "loader-utils": "^1.1.0",
     "marked": "^0.4.0",
+    "moment": "^2.22.2",
     "npm-run-all": "3.0.0",
     "nprogress": "^0.2.0",
     "opn": "^5.3.0",

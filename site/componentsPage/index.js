@@ -9,10 +9,11 @@ export default {
   },
   list: {
     '通用组件 General': {
-      'affix': require('./affix'),
+      // 'affix': require('./affix'),
       'alert': require('./alert'),
       'avatar': require('./avatar'),
       'badge': require('./badge'),
+      // 'backTop': require('./backTop'),
       'breadcrumb': require('./breadcrumb'),
       'button': require('./button'),
       'calendar': require('./calendar'),
