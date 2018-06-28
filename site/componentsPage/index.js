@@ -55,7 +55,9 @@ export default {
     '业务组件': {
       'loading': require('./loading'),
       'customTable': require('./customTable'),
-      'timePicker': require('./timePicker'),
+      'drawer': require('./drawer'),
+      'picturePreview': require('./picturePreview'),
+      'bizTimePicker': require('./bizTimePicker'),
     }
   }
 };

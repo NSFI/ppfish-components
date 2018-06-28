@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { DatePicker, Popover, message } from 'antd';
 import { formatTimestamp, getTimeFromTimestamp } from '../../utils';
 
-import './TimePicker.less';
+import './index.less';
 
 const { RangePicker } = DatePicker;
 
@@ -14,7 +14,7 @@ const defaultQuickTimeOption = [
   { text: '过去30天', value: 30, endDate: '昨天' },
 ];
 
-//默认时间传进来有两种格式：{ text: '过去7天', value: 7 } 或 [startTime, endTime]
+//默认时间传进来有两种格式：{ text: '昨天', value: 1, endDate: '昨天' } 或 [startTime, endTime]
 const formatDefaultTime = (param) => {
   let result = { text: null, value: null };
   if(param instanceof Array){
@@ -28,47 +28,49 @@ const formatDefaultTime = (param) => {
   return result;
 };
 
-class TimePicker extends React.Component {
+class BizTimePicker extends React.Component {
 
   static propTypes = {
-    quickTimeOption: PropTypes.array,
-    dateFormat: PropTypes.string,
-    allowClear: PropTypes.bool,
-    active: PropTypes.bool,
-    defaultTime: PropTypes.oneOfType([
+    quickTimeOption: PropTypes.array,  //快速选择时间选项
+    maxDateRange: PropTypes.number,    //最大可选择的日期范围，单位 天
+    dateFormat: PropTypes.string,      //日期展示格式
+    allowClear: PropTypes.bool,        //是否显示日历的清除按钮
+    visible: PropTypes.bool,           //用于手动控制浮层显隐
+    defaultTime: PropTypes.oneOfType([  //默认时间
       PropTypes.array,
       PropTypes.object,
     ]),
-    disabledDate: PropTypes.func,
-    onChange: PropTypes.func,
-    handleOtherToggle: PropTypes.func,
-    maxDateRange: PropTypes.number,
+    clickAreaStyle: PropTypes.object,   //点击区域的样式
+    disabledDate: PropTypes.func,       //不可选择的日期
+    onChange: PropTypes.func,           //时间发生变化的回调
+    onOpenChange: PropTypes.func,       //弹出或关闭浮层的回调
   }
 
   static defaultProps = {
     quickTimeOption: defaultQuickTimeOption,
+    maxDateRange: null,
     dateFormat: "YYYY/MM/DD",
     allowClear: false,
-    active: false,
-    defaultTime: defaultQuickTimeOption[0],
+    visible: false,
+    defaultTime: null,
+    clickAreaStyle: null,
     disabledDate: () => {},
     onChange: () => {},
-    handleOtherToggle: ()=>{},
-    maxDateRange: null,
+    onOpenChange: ()=>{},
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      currentTime: formatDefaultTime(this.props.defaultTime),
+      currentTime: this.props.defaultTime ? formatDefaultTime(this.props.defaultTime) : formatDefaultTime(this.props.quickTimeOption[0]),
       visible: false,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.active !== nextProps.active){
+    if(this.props.visible !== nextProps.visible){
       this.setState({
-        visible: nextProps.active,
+        visible: nextProps.visible,
       });
     }
   }
@@ -104,13 +106,12 @@ class TimePicker extends React.Component {
 
   handleVisibleChange = (visible) => {
     this.setState({ visible },()=>{
-      this.props.handleOtherToggle(this.state.visible);
+      this.props.onOpenChange(this.state.visible);
     });
   }
 
   render() {
-    const me = this;
-    const {quickTimeOption, dateFormat, allowClear, disabledDate} = this.props;
+    const {quickTimeOption, dateFormat, allowClear, disabledDate, clickAreaStyle} = this.props;
     const {currentTime, visible} = this.state;
     const content = (
       <div className="time-picker-content">
@@ -119,7 +120,7 @@ class TimePicker extends React.Component {
             <a
               className={(item.text === currentTime.text)? "quick-picker-item quick-picker-item-active" : "quick-picker-item"}
               key={`quick-item-${index}`}
-              onClick={me.handleQickTime.bind(this, item)}>
+              onClick={this.handleQickTime.bind(this, item)}>
               <span>{item.text}</span>
               {
                 item.text === currentTime.text ? <i className="iconfont icon-duigou" /> : null
@@ -134,7 +135,7 @@ class TimePicker extends React.Component {
             disabledDate={disabledDate}
             format={dateFormat}
             getCalendarContainer={()=>this.refs['time-picker-customer-time']}
-            onChange={me.handleCustomerTime.bind(this)}
+            onChange={this.handleCustomerTime.bind(this)}
           />
         </div>
       </div>
@@ -147,10 +148,10 @@ class TimePicker extends React.Component {
           content={content}
           trigger="click"
           visible={visible}
-          onVisibleChange={me.handleVisibleChange.bind(this)}
+          onVisibleChange={this.handleVisibleChange.bind(this)}
           getPopupContainer={()=>this.refs['time-picker-container']}
         >
-          <div className="time-picker-click-area">
+          <div className="time-picker-click-area" style={clickAreaStyle}>
             <span className="time-picker-click-area-text">{currentTime.text}</span>
             <span className={visible ? "time-picker-click-area-icon icon-active" : "time-picker-click-area-icon"} >
               <i className="iconfont icon-xiajiantou" />
@@ -162,4 +163,4 @@ class TimePicker extends React.Component {
   }
 }
 
-export default TimePicker;
+export default BizTimePicker;
