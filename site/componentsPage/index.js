@@ -20,6 +20,7 @@ export default {
       'card': require('./card'),
       'carousel': require('./carousel'),
       'checkbox': require('./checkbox'),
+      'collapse': require('./collapse'),
       'drawer': require('./drawer'),
       'dropdown': require('./dropdown'),
       'message': require('./message'),
@@ -27,6 +28,7 @@ export default {
       'grid': require('./grid'),
       'divider': require('./divider'),
       'datePicker': require('./datePicker'),
+      'timePicker': require('./timePicker'),
       'cascader': require('./cascader'),
       'form': require('./form'),
       'imageLoader': require('./imageLoader'),
@@ -50,10 +52,8 @@ export default {
       'tooltip': require('./tooltip'),
       'transfer': require('./transfer'),
       'tree': require('./tree'),
-      'upload': require('./upload'),
-      'collapse': require('./collapse'),
       'treeSelect': require('./treeSelect'),
-      'timePicker': require('./timePicker')
+      'upload': require('./upload'),
     },
     '业务组件': {
       'loading': require('./loading'),
