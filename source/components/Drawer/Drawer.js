@@ -23,6 +23,10 @@ class Drawer extends PureComponent {
     visible: PropTypes.bool.isRequired
   };
 
+  static defaultProps = {
+    visible: false
+  };
+
   handleClose = e => {
     const {onClose} = this.props;
     onClose && onClose();
