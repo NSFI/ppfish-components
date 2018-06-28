@@ -19,6 +19,7 @@ export default {
       'card': require('./card'),
       'carousel': require('./carousel'),
       'checkbox': require('./checkbox'),
+      'drawer': require('./drawer'),
       'dropdown': require('./dropdown'),
       'message': require('./message'),
       'layout': require('./layout'),
@@ -53,7 +54,6 @@ export default {
     '业务组件': {
       'loading': require('./loading'),
       'customTable': require('./customTable'),
-      'drawer': require('./drawer'),
       'timePicker': require('./timePicker'),
     }
   }
