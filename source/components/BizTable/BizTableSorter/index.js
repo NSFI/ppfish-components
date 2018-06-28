@@ -4,7 +4,7 @@ import ClassNames from 'classnames';
 import './index.less';
 
 /**
- * 表格 TableSorter 自定义筛选组件
+ * 表格 BizTableSorter 自定义筛选组件
  *
  * iconUp             升序图标
  * iconDown           降序图标
@@ -14,7 +14,7 @@ import './index.less';
  * handleChangeSorter 改变排序规则
  * customMode         判断是自定义sorter还是普通类型sorter
  */
-class TableSorter extends React.Component {
+class BizTableSorter extends React.Component {
   static propTypes = {
     iconUp: PropTypes.node,
     iconDown: PropTypes.node,
@@ -81,4 +81,4 @@ class TableSorter extends React.Component {
   }
 }
 
-export default TableSorter;
+export default BizTableSorter;
