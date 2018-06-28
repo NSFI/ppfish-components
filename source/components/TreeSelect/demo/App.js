@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.less';
 import TreeSelect from '../index';
 import { Checkbox, Button } from 'antd';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 // 初始化渲染的树形结构
 let defaultData = [
@@ -185,7 +184,6 @@ class App extends Component {
   render() {
     const { selected, selectedItems } = this.state;
     return (
-      <DocumentLayout>
       <div style={{ margin: 100 }}>
         <TreeSelect
           multiple={true}
@@ -213,7 +211,6 @@ class App extends Component {
         </div>
 
       </div>
-      </DocumentLayout>
     );
   }
 }

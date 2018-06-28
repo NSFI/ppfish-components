@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.less';
 import TimePicker from '../index';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 //快速选择时间选项
 const quickTimeOption = [
@@ -44,15 +43,13 @@ class App extends Component {
      * onChange - 时间变化回调函数
      */
     return (
-      <DocumentLayout>
-        <TimePicker
-          quickTimeOption={quickTimeOption}
-          dateFormat="YYYY/MM/DD"
-          allowClear={false}
-          defaultTime={currentTime}
-          onChange={this.handleTimeChange.bind(this)}
-        />
-      </DocumentLayout>
+      <TimePicker
+        quickTimeOption={quickTimeOption}
+        dateFormat="YYYY/MM/DD"
+        allowClear={false}
+        defaultTime={currentTime}
+        onChange={this.handleTimeChange.bind(this)}
+      />
     );
   }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.less';
 import EChart from '../index';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 const option = {
   tooltip: {
@@ -54,12 +53,10 @@ class App extends Component {
 
   render() {
     return (
-      <DocumentLayout>
-        <EChart
-          className="echarts"
-          option={option}
-        />
-      </DocumentLayout>
+      <EChart
+        className="echarts"
+        option={option}
+      />
     );
   }
 }

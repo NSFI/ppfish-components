@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.less';
 import CustomTable from '../';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends Component {
   constructor(props) {
@@ -33,17 +32,15 @@ class App extends Component {
       key: 'name'
     },];
     return (
-      <DocumentLayout>
-        <CustomTable
-          columns={columns}
-          dataSource={list}
-          totalNum={totalNum}
-          onChange={this.handleTableChange}
-          loading={isListLoading}
-          offsetHeight={313}
-          rowKey="id"
-        />
-      </DocumentLayout>
+      <CustomTable
+        columns={columns}
+        dataSource={list}
+        totalNum={totalNum}
+        onChange={this.handleTableChange}
+        loading={isListLoading}
+        offsetHeight={313}
+        rowKey="id"
+      />
     );
   }
 }
