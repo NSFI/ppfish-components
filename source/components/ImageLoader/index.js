@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import DOM from 'react-dom-factories';
 import PropTypes from 'prop-types';
 import './index.less';
 
-const { span } = DOM;
+const span = React.createFactory('span');
 
 const Status = {
   PENDING: 'm-image-loader-pending',
@@ -14,7 +13,10 @@ const Status = {
 
 class ImageLoader extends React.Component {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+    ]),
     wrapper: PropTypes.func,
     className: PropTypes.string,
     style: PropTypes.object,
