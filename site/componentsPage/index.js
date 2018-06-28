@@ -27,12 +27,14 @@ export default {
       'datePicker': require('./datePicker'),
       'cascader': require('./cascader'),
       'form': require('./form'),
+      'imageLoader': require('./imageLoader'),
       'input': require('./input'),
       'list': require('./list'),
       'menu': require('./menu'),
       'modal': require('./modal'),
       'notification': require('./notification'),
       'pagination': require('./pagination'),
+      'picturePreview': require('./picturePreview'),
       'progress': require('./progress'),
       'radio': require('./radio'),
       'select': require('./select'),
@@ -50,18 +52,9 @@ export default {
     },
     '业务组件': {
       'loading': require('./loading'),
-      'animationImageLoader': require('./animationImageLoader'),
       'customTable': require('./customTable'),
       'drawer': require('./drawer'),
-      'picturePreview': require('./picturePreview'),
       'timePicker': require('./timePicker'),
-      //'collapse': require('./collapse'),
-      //'dayTimeSelect': require('./dayTimeSelect'),
-      //'searchInput': require('./searchInput'),
-      //'stickVerticalMenu': require('./stickVerticalMenu'),
-      //'echart': require('./echart'),
-      //'imageLoader': require('./imageLoader'),
-      //'treeSelect': require('./treeSelect')
     }
   }
 };

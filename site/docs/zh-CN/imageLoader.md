@@ -18,7 +18,7 @@ render(){
   };
   return(
     <ImageLoader
-      src="https://dyttest-oimg.cdn.dayiner.com/autd/img/cust_service_talk/P0000002_1483944691579.jpg"
+      src="http://blog.qiyukf.com/wp-content/uploads/2018/01/pexels-photo-821754-e1517317444456.jpeg"
       preloader={preloader}>
       Image load failed!
     </ImageLoader>
