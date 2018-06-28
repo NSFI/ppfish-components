@@ -4,6 +4,7 @@ import {Table} from 'antd';
 import './index.less';
 import {PAGE_SIZE} from '../../constants';
 import {setRowActive} from '../../utils';
+import BizTableSorter from './BizTableSorter';
 
 /**
  * Prophet常规Table
@@ -24,8 +25,8 @@ import {setRowActive} from '../../utils';
  * @prop onRowClick      {function}  点击行时触发 Function(record, index, event)
  * @prop pageSize        {number}  分页数
  */
-class CustomTable extends Component {
-
+class BizTable extends Component {
+  static BizTableSorter = BizTableSorter;
   static propTypes = {
     dataSource: PropTypes.array,
     pageSize: PropTypes.number,
@@ -126,5 +127,5 @@ class CustomTable extends Component {
   }
 }
 
-export default CustomTable;
+export default BizTable;
 

@@ -46,7 +46,7 @@ module.exports = {
     'tree': 'Tree 树形控件',
     'upload': 'Upload 上传',
     'backTop': 'BackTop 回到顶部',
-    'customTable': 'CustomTable 表格',
+    'bizTable': 'BizTable 自定义表格',
     'dayTimeSelect': 'DayTimeSelect 时间段选择',
     'drawer': 'Drawer 抽屉组件',
     'echart': 'Echart Echart图表',
@@ -57,7 +57,7 @@ module.exports = {
     'bizTimePicker': 'BizTimePicker 自定义时间选择器',
     'treeSelect': 'TreeSelect 树选择',
     'collapse': 'Collapse 折叠面板',
-    'timePicker':'TimePicker 时间选择框'
+    'timePicker': 'TimePicker 时间选择框'
   },
   misc: {
     'guide': '指南',

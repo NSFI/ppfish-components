@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.less';
-import CustomTable from '../';
+import BizTable from '../';
 
 class App extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class App extends Component {
       key: 'name'
     },];
     return (
-      <CustomTable
+      <BizTable
         columns={columns}
         dataSource={list}
         totalNum={totalNum}
