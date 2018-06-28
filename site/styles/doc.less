@@ -1,5 +1,5 @@
 .markdown {
-  div:not(.source) {
+  .meta {
   color: #45454D;
     img {
     max-width: calc(100% - 32px)
@@ -9,46 +9,7 @@
     -webkit-box-shadow: 0 8px 20px rgba(143, 168, 191, .35);
     box-shadow: 0 8px 20px rgba(143, 168, 191, .35)
   }
-    h1 {
-    color: #0d1a26;
-    font-weight: 500;
-    margin-bottom: 20px;
-    margin-top: 8px;
-    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 32px;
-    line-height: 38px
-  }
-    h1 .subtitle {
-    margin-left: 12px
-  }
-    h2 {
-    font-size: 24px;
-    line-height: 45px
-  }
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-    color: #18181A;
-    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-    margin: 1.6em 0 .6em;
-    clear: both
-  }
-    h3 {
-    font-size: 18px
-  }
-    h4 {
-    font-size: 14px
-  }
   
-    h5 {
-    font-size: 12px
-  }
-  
-    h6 {
-    font-size: 10px
-  }
     hr {
     height: 1px;
     border: 0;
@@ -108,23 +69,10 @@
     overflow: auto;
     font-family: Menlo, Monaco, Consolas, Courier, monospace;
   }
-  
     b,
     strong {
     font-weight: 500
   }
-    
-
-    h1:hover .anchor,
-    h2:hover .anchor,
-    h3:hover .anchor,
-    h4:hover .anchor,
-    h5:hover .anchor,
-    h6:hover .anchor {
-    opacity: 1;
-    display: inline-block
-  }
-   
     pre span.cm-variable,    pre span.cm-tag {
     color: #f81d22
   }
@@ -148,7 +96,55 @@
     background-color: #f9fafc;
   }
 }
+h1 {
+  color: #0d1a26;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-top: 8px;
+  font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  line-height: 38px
+}
+  h1 .subtitle {
+  margin-left: 12px
+}
+  h2 {
+  font-size: 24px;
+  line-height: 45px
+}
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+  color: #18181A;
+  font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin: 1.6em 0 .6em;
+  clear: both
+}
+  h3 {
+  font-size: 18px
+}
+  h4 {
+  font-size: 14px
+}
 
+  h5 {
+  font-size: 12px
+}
+
+  h6 {
+  font-size: 10px
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+opacity: 1;
+display: inline-block
+}
 a {
   color: #4D70FF;
   background-color: transparent;
