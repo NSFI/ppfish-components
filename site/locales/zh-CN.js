@@ -45,7 +45,7 @@ module.exports = {
     'transfer': 'Transfer 穿梭框',
     'tree': 'Tree 树形控件',
     'upload': 'Upload 上传',
-
+    'backTop': 'BackTop 回到顶部',
     'collapse': 'Collapse ',
     'customTable': 'CustomTable 表格',
     'dayTimeSelect': 'DayTimeSelect 时间段选择',

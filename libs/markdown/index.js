@@ -6,6 +6,7 @@ import Canvas from './canvas';
 import Slider from '../slider';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import 'antd/dist/antd.min.css';
 
 export default class Markdown extends React.Component {
   constructor(props) {
