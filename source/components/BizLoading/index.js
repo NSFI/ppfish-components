@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Spin } from 'antd';
 import './index.less';
 
-class Loading extends Component {
+class BizLoading extends Component {
   static propTypes = {
     children: PropTypes.node,
     extraCls: PropTypes.string,
@@ -39,4 +39,4 @@ class Loading extends Component {
   }
 }
 
-export default Loading;
+export default BizLoading;

@@ -6,7 +6,7 @@ module.exports = {
     'resource': '设计资源',
     'customTheme': '定制主题',
     'animationImageLoader': 'AnimationImageLoader 逐帧动画',
-    'loading': 'Loading 加载动画',
+    'bizLoading': 'BizLoading 加载动画',
     'button': 'Button 按钮',
     'affix': 'Affix 固钉',
     'dropdown': 'Dropdown 下拉菜单',
@@ -73,7 +73,7 @@ module.exports = {
     'components': '组件',
     'feedback': '反馈建议',
     'demo': '演示环境',
-    'version': 'v1.0'
+    'version': 'v1.2.0'
   },
   markdown: {
     'show': '显示代码',

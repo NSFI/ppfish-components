@@ -56,7 +56,7 @@ export default {
       'upload': require('./upload'),
     },
     '业务组件 Business': {
-      'loading': require('./loading'),
+      'bizLoading': require('./bizLoading'),
       'bizTable': require('./bizTable'),
       'bizTimePicker': require('./bizTimePicker'),
     }

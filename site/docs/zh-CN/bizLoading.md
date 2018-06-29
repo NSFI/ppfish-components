@@ -13,7 +13,7 @@
 ```js
 render(){
   return(
-    <Loading/>
+    <BizLoading/>
   )
 }
 ```
