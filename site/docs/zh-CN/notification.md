@@ -11,6 +11,228 @@
 - 带有交互的通知，给出用户下一步的行动点。
 - 系统主动推送。
 
+## 基本
+
+:::demo 最简单的用法，4.5 秒后自动关闭。
+
+```js
+openNotification = () => {
+  notification.open({
+    message: 'Notification Title',
+    description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+  });
+};
+
+render(){
+  return(
+      <Button type="primary" onClick={this.openNotification}>Open the notification box</Button>
+  )
+}
+```
+:::
+
+## 自动关闭的延时
+
+:::demo 自定义通知框自动关闭的延时，默认`4.5s`，取消自动关闭只要将该值设为 `0` 即可。
+
+```js
+openNotification = () => {
+  const args = {
+    message: 'Notification Title',
+    description: 'I will never close automatically. I will be close automatically. I will never close automatically.',
+    duration: 0,
+  };
+  notification.open(args);
+};
+
+render(){
+  return(
+      <Button type="primary" onClick={this.openNotification}>Open the notification box</Button>
+  )
+}
+```
+:::
+
+## 带有图标的通知提醒框
+
+:::demo 通知提醒框左侧有图标。
+
+```js
+openNotificationWithIcon = (type) => {
+  notification[type]({
+    message: 'Notification Title',
+    description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+  });
+};
+
+render(){
+  return(
+     <div className="code-notification-demo">
+        <Button onClick={() => this.openNotificationWithIcon('success')}>Success</Button>
+        <Button onClick={() => this.openNotificationWithIcon('info')}>Info</Button>
+        <Button onClick={() => this.openNotificationWithIcon('warning')}>Warning</Button>
+        <Button onClick={() => this.openNotificationWithIcon('error')}>Error</Button>
+      </div>
+  )
+}
+```
+:::
+
+<style>
+.code-notification-demo .ant-btn {
+  margin-right: 1em;
+}
+</style>
+
+## 自定义按钮
+
+:::demo 自定义关闭按钮的样式和文字。
+
+```js
+close = () => {
+  console.log('Notification was closed. Either the close button was clicked or duration time elapsed.');
+};
+
+openNotification = () => {
+  const key = `open${Date.now()}`;
+  const btn = (
+    <Button type="primary" size="small" onClick={() => notification.close(key)}>
+      Confirm
+    </Button>
+  );
+  notification.open({
+    message: 'Notification Title',
+    description: 'A function will be be called after the notification is closed (automatically after the "duration" time of manually).',
+    btn,
+    key,
+    onClose: close,
+  });
+};
+
+render(){
+  return(
+      <Button type="primary" onClick={this.openNotification}>
+        Open the notification box
+      </Button>
+  )
+}
+```
+:::
+
+## 自定义图标
+
+:::demo 图标可以被自定义。
+
+```js
+openNotification = () => {
+  notification.open({
+    message: 'Notification Title',
+    description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
+  });
+};
+
+render(){
+  return(
+      <Button type="primary" onClick={this.openNotification}>Open the notification box</Button>
+  )
+}
+```
+:::
+
+## 位置
+
+:::demo 可以设置通知从右上角、右下角、左下角、左上角弹出。
+
+```js
+openNotification = () => {
+    notification.open({
+      message: 'Notification Title',
+      description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    });
+  };
+
+render(){
+  const { Option } = Select;
+  const options = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
+  return(
+      <div>
+        <Select
+          defaultValue="topRight"
+          style={{ width: 120, marginRight: 10 }}
+          onChange={(val) => {
+            notification.config({
+              placement: val,
+            });
+          }}
+        >
+          {options.map(val => <Option key={val} value={val}>{val}</Option>)}
+        </Select>
+        <Button
+          type="primary"
+          onClick={this.openNotification}
+        >
+          Open the notification box
+        </Button>
+      </div>
+  )
+}
+```
+:::
+
+## 自定义样式
+
+:::demo 使用 style 和 className 来定义样式。
+
+```js
+openNotification = () => {
+  notification.open({
+    message: 'Notification Title',
+    description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    style: {
+      width: 600,
+      marginLeft: 335 - 600,
+    },
+  });
+};
+
+render(){
+  return(
+      <Button type="primary" onClick={this.openNotification}>Open the notification box</Button>
+  )
+}
+
+```
+:::
+
+## 更新消息内容
+
+:::demo 可以通过唯一的 key 来更新内容。
+
+```js
+openNotification = () => {
+  notification.open({
+    key:'updatable',
+    message: 'Notification Title',
+    description: 'description.',
+  });
+  setTimeout(() => {
+    notification.open({
+      key:'updatable',
+      message: 'New Title',
+      description: 'New description.',
+    });
+  }, 1000);
+};
+
+render(){
+  return(
+      <Button type="primary" onClick={this.openNotification}>Open the notification box</Button>
+  )
+}
+```
+:::
+
 ## API
 
 - `notification.success(config)`

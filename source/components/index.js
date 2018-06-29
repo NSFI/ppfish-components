@@ -23,6 +23,8 @@ export {BizTimePicker};
 export {PicturePreview};
 export {TreeSelect};
 export {
+  Collapse,
+  TimePicker,
   Button,
   Icon,
   Popover,
