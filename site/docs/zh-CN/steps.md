@@ -22,7 +22,7 @@
 :::
 
 ## 迷你版
-:::demo 迷你版的步骤条，通过设置 <Steps size="small"> 启用.
+:::demo 迷你版的步骤条，通过设置 `<Steps size="small">` 启用.
 ```js
   render() {
     return (
@@ -37,7 +37,7 @@
 :::
 
 ## 带图标的步骤条
-:::demo 通过设置 Steps.Step 的 icon 属性，可以启用自定义图标。
+:::demo 通过设置 Steps.Step 的 `icon` 属性，可以启用自定义图标。
 ```js
   render() {
     return (
@@ -149,7 +149,7 @@
 :::
 
 ## 步骤运行错误
-:::demo 使用 Steps 的 status 属性来指定当前步骤的状态。
+:::demo 使用 Steps 的 `status` 属性来指定当前步骤的状态。
 ```js
   render() {
     const Step = Steps.Step;

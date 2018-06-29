@@ -65,7 +65,7 @@
 :::
 
 ## 两种大小
-:::demo size="small" 表示小号开关。
+:::demo `size="small"` 表示小号开关。
 ```js
   render() {
     return (
