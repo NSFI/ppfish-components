@@ -70,7 +70,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 :::
 
 ## 动态添加和删除
-:::demo 用数组生成一组标签，可以动态添加和删除，通过监听删除动画结束的事件 afterClose 实现。
+:::demo 用数组生成一组标签，可以动态添加和删除，通过监听删除动画结束的事件 `afterClose` 实现。
 ```js
   constructor() {
     super();
@@ -152,7 +152,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 :::
 
 ## 可选择
-:::demo 可通过 CheckableTag 实现类似 Checkbox 的效果，点击切换选中效果。该组件为完全受控组件，不支持非受控用法。
+:::demo 可通过 `CheckableTag` 实现类似 Checkbox 的效果，点击切换选中效果。该组件为完全受控组件，不支持非受控用法。
 ```js
     constructor() {
       super();

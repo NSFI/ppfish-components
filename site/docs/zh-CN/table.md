@@ -225,7 +225,7 @@ const columns = [{
 :::
 
 ## 选择和操作
-:::demo 选择后进行操作，完成后清空选择，通过 rowSelection.selectedRowKeys 来控制选中项。。
+:::demo 选择后进行操作，完成后清空选择，通过 `rowSelection.selectedRowKeys` 来控制选中项。。
 ```js
   constructor() {
     super();
@@ -301,7 +301,7 @@ const columns = [{
 :::
 
 ## 自定义选择项
-:::demo 通过 rowSelection.selections 自定义选择项，默认不显示下拉选项，设为 true 时显示默认选择项。
+:::demo 通过 `rowSelection.selections` 自定义选择项，默认不显示下拉选项，设为 `true` 时显示默认选择项。
 ```js
   constructor() {
     super();
@@ -388,9 +388,9 @@ const columns = [{
 ## 可控的筛选和排序
 :::demo 
 使用受控属性对筛选和排序状态进行控制。
-1.columns 中定义了 filteredValue 和 sortOrder 属性即视为受控模式。
-2.只支持同时对一列进行排序，请保证只有一列的 sortOrder 属性是生效的。
-3.务必指定 column.key。
+1.`columns` 中定义了 `filteredValue` 和 `sortOrder` 属性即视为受控模式。
+2.只支持同时对一列进行排序，请保证只有一列的 `sortOrder` 属性是生效的。
+3.务必指定 `column.key`。
 ```js
   constructor() {
     super();
@@ -500,9 +500,9 @@ const columns = [{
 
 ## 筛选和排序
 :::demo 
-对某一列数据进行筛选，使用列的 filters 属性来指定需要筛选菜单的列，onFilter 用于筛选当前数据，filterMultiple 用于指定多选和单选。
-对某一列数据进行排序，通过指定列的 sorter 函数即可启动排序按钮。sorter: function(a, b) { ... }， a、b 为比较的两个列数据。
-使用 defaultSortOrder 属性，设置列的默认排序顺序。
+对某一列数据进行筛选，使用列的 `filters` 属性来指定需要筛选菜单的列，`onFilter` 用于筛选当前数据，`filterMultiple` 用于指定多选和单选。
+对某一列数据进行排序，通过指定列的 `sorter` 函数即可启动排序按钮。sorter: function(a, b) { ... }， a、b 为比较的两个列数据。
+使用 `defaultSortOrder` 属性，设置列的默认排序顺序。
 ```js
   onChange = (pagination, filters, sorter) => {
     console.log('params', pagination, filters, sorter);
@@ -582,7 +582,7 @@ const columns = [{
 
 ## 自定义筛选菜单
 :::demo 
-通过 filterDropdown、filterDropdownVisible 和 filterDropdownVisibleChange 定义自定义的列筛选功能，并实现一个搜索列的示例。
+通过 `filterDropdown`、`filterDropdownVisible` 和 `filterDropdownVisibleChange` 定义自定义的列筛选功能，并实现一个搜索列的示例。
 ```js
   constructor() {
     super();
@@ -892,8 +892,8 @@ const columns = [{
 
 ## 表格行/列合并
 :::demo 
-表头只支持列合并，使用 column 里的 colSpan 进行设置。
-表格支持行/列合并，使用 render 里的单元格属性 colSpan 或者 rowSpan 设值为 0 时，设置的表格不会渲染。
+表头只支持列合并，使用 `column` 里的 `colSpan` 进行设置。
+表格支持行/列合并，使用 `render` 里的单元格属性 `colSpan` 或者 `rowSpan` 设值为 `0` 时，设置的表格不会渲染。
 ```js
   render() {
     // In the fifth row, other columns are merged into first column
@@ -1004,7 +1004,7 @@ const columns = [{
 ## 树形数据展示
 :::demo 
 
-表格支持树形数据的展示，可以通过设置 indentSize 以控制每一层的缩进宽度。
+表格支持树形数据的展示，可以通过设置 `indentSize` 以控制每一层的缩进宽度。
 
 注：暂不支持父子数据递归关联选择。
 
@@ -1099,7 +1099,7 @@ const columns = [{
 ## 固定表头
 :::demo 
 方便一页内展示大量数据。
-需要指定 column 的 width 属性，否则列头和内容可能不对齐。
+需要指定 `column` 的 `width` 属性，否则列头和内容可能不对齐。
 ```js
   render() {
     const columns = [{
@@ -1134,11 +1134,11 @@ const columns = [{
 ## 固定列
 :::demo 
 
-对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据，需要和 scroll.x 配合使用。
+对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据，需要和 `scroll.x` 配合使用。
 
-若列头与内容不对齐或出现列重复，请指定列的宽度 width。
+若列头与内容不对齐或出现列重复，请指定列的宽度 `width`。
 
-建议指定 scroll.x 为大于表格宽度的固定值或百分比。注意，且非固定列宽度之和不要超过 scroll.x。
+建议指定 `scroll.x` 为大于表格宽度的固定值或百分比。注意，且非固定列宽度之和不要超过 `scroll.x`。
 
 ```js
   render() {
@@ -1184,9 +1184,9 @@ const columns = [{
 :::demo 
 适合同时展示有大量数据和数据列。
 
-若列头与内容不对齐或出现列重复，请指定列的宽度 width。
+若列头与内容不对齐或出现列重复，请指定列的宽度 `width`。
 
-建议指定 scroll.x 为大于表格宽度的固定值或百分比。注意，且非固定列宽度之和不要超过 scroll.x。
+建议指定 `scroll.x` 为大于表格宽度的固定值或百分比。注意，且非固定列宽度之和不要超过 `scroll.x`。
 ```js
   render() {
     const columns = [
@@ -1226,7 +1226,7 @@ const columns = [{
 :::
 
 ## 表头分组
-:::demo columns[n] 可以内嵌 children，以渲染分组表头。
+:::demo `columns[n]` 可以内嵌 `children`，以渲染分组表头。
 ```js
   render() {
     const columns = [{
