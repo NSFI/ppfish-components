@@ -58,6 +58,7 @@ module.exports = {
     'treeSelect': 'TreeSelect 树选择',
     'collapse': 'Collapse 折叠面板',
     'timePicker': 'TimePicker 时间选择框',
+    'spin': 'Spin 加载中',
     'ruleColor': '颜色',
     'ruleText': '文本大小',
     'ruleNumber': '数字',

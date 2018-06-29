@@ -54,6 +54,7 @@ export default {
       'tree': require('./tree'),
       'treeSelect': require('./treeSelect'),
       'upload': require('./upload'),
+      'spin': require('./spin'),
     },
     '业务组件 Business': {
       'bizLoading': require('./bizLoading'),
