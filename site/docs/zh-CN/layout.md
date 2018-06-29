@@ -50,6 +50,657 @@
 
 > 注意：采用 flex 布局实现，请注意[浏览器兼容性](http://caniuse.com/#search=flex)问题。
 
+## 基本结构
+
+:::demo 典型的页面布局。
+
+```js
+render(){
+  const { Header, Footer, Sider, Content } = Layout;
+  return(
+      <div id="components-layout-demo-basic">
+        <Layout>
+          <Header>Header</Header>
+          <Content>Content</Content>
+          <Footer>Footer</Footer>
+        </Layout>
+    
+        <Layout>
+          <Header>Header</Header>
+          <Layout>
+            <Sider>Sider</Sider>
+            <Content>Content</Content>
+          </Layout>
+          <Footer>Footer</Footer>
+        </Layout>
+    
+        <Layout>
+          <Header>Header</Header>
+          <Layout>
+            <Content>Content</Content>
+            <Sider>Sider</Sider>
+          </Layout>
+          <Footer>Footer</Footer>
+        </Layout>
+    
+        <Layout>
+          <Sider>Sider</Sider>
+          <Layout>
+            <Header>Header</Header>
+            <Content>Content</Content>
+            <Footer>Footer</Footer>
+          </Layout>
+        </Layout>
+      </div>
+  )
+}
+```
+:::
+
+<style>
+#components-layout-demo-basic .code-box-demo {
+  text-align: center;
+}
+#components-layout-demo-basic .ant-layout-header,
+#components-layout-demo-basic .ant-layout-footer {
+  background: #7dbcea;
+  color: #fff;
+}
+#components-layout-demo-basic .ant-layout-footer {
+  line-height: 1.5;
+}
+#components-layout-demo-basic .ant-layout-sider {
+  background: #3ba0e9;
+  color: #fff;
+  line-height: 120px;
+}
+#components-layout-demo-basic .ant-layout-content {
+  background: rgba(16, 142, 233, 1);
+  color: #fff;
+  min-height: 120px;
+  line-height: 120px;
+}
+#components-layout-demo-basic > .code-box-demo > div > .ant-layout {
+  margin-bottom: 48px;
+}
+#components-layout-demo-basic > .code-box-demo > div > .ant-layout:last-child {
+  margin: 0;
+}
+</style>
+
+## 上中下布局
+
+:::demo 最基本的『上-中-下』布局。
+
+一般主导航放置于页面的顶端，从左自右依次为：logo、一级导航项、辅助菜单（用户、设置、通知等）。通常将内容放在固定尺寸（例如：1200px）内，整个页面排版稳定，不受用户终端显示器影响；上下级的结构符合用户上下浏览的习惯，也是较为经典的网站导航模式。页面上下切分的方式提高了主工作区域的信息展示效率，但在纵向空间上会有一些牺牲。此外，由于导航栏水平空间的限制，不适合那些一级导航项很多的信息结构。
+
+```js
+render(){
+  const { Header, Content, Footer } = Layout;
+  return(
+      <Layout className="layout" id="components-layout-demo-top">
+        <Header>
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['2']}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="1">nav 1</Menu.Item>
+            <Menu.Item key="2">nav 2</Menu.Item>
+            <Menu.Item key="3">nav 3</Menu.Item>
+          </Menu>
+        </Header>
+        <Content style={{ padding: '0 50px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Ant Design ©2016 Created by Ant UED
+        </Footer>
+      </Layout>
+  )
+}
+```
+:::
+
+<style>
+#components-layout-demo-top .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255,255,255,.2);  
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+</style>
+
+## 顶部-侧边布局
+
+:::demo 拥有顶部导航及侧边栏的页面，多用于展示类网站。
+
+```js
+render(){
+  const { SubMenu } = Menu;
+  const { Header, Content, Footer, Sider } = Layout;
+  return(
+      <Layout id="components-layout-demo-top-side">
+        <Header className="header">
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['2']}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="1">nav 1</Menu.Item>
+            <Menu.Item key="2">nav 2</Menu.Item>
+            <Menu.Item key="3">nav 3</Menu.Item>
+          </Menu>
+        </Header>
+        <Content style={{ padding: '0 50px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <Layout style={{ padding: '24px 0', background: '#fff' }}>
+            <Sider width={200} style={{ background: '#fff' }}>
+              <Menu
+                mode="inline"
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                style={{ height: '100%' }}
+              >
+                <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
+                  <Menu.Item key="1">option1</Menu.Item>
+                  <Menu.Item key="2">option2</Menu.Item>
+                  <Menu.Item key="3">option3</Menu.Item>
+                  <Menu.Item key="4">option4</Menu.Item>
+                </SubMenu>
+                <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
+                  <Menu.Item key="5">option5</Menu.Item>
+                  <Menu.Item key="6">option6</Menu.Item>
+                  <Menu.Item key="7">option7</Menu.Item>
+                  <Menu.Item key="8">option8</Menu.Item>
+                </SubMenu>
+                <SubMenu key="sub3" title={<span><Icon type="notification" />subnav 3</span>}>
+                  <Menu.Item key="9">option9</Menu.Item>
+                  <Menu.Item key="10">option10</Menu.Item>
+                  <Menu.Item key="11">option11</Menu.Item>
+                  <Menu.Item key="12">option12</Menu.Item>
+                </SubMenu>
+              </Menu>
+            </Sider>
+            <Content style={{ padding: '0 24px', minHeight: 280 }}>
+              Content
+            </Content>
+          </Layout>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Ant Design ©2016 Created by Ant UED
+        </Footer>
+      </Layout>
+  )
+}
+```
+:::
+
+<style>
+#components-layout-demo-top-side .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255,255,255,.2);  
+  margin: 16px 28px 16px 0;
+  float: left;
+}
+</style>
+
+## 顶部-侧边布局-通栏
+
+:::demo 同样拥有顶部导航及侧边栏，区别是两边未留边距，多用于应用型的网站。
+
+```js
+render(){
+  const { SubMenu } = Menu;
+  const { Header, Content, Sider } = Layout;
+  return(
+      <Layout id="components-layout-demo-top-side-2">
+        <Header className="header">
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['2']}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="1">nav 1</Menu.Item>
+            <Menu.Item key="2">nav 2</Menu.Item>
+            <Menu.Item key="3">nav 3</Menu.Item>
+          </Menu>
+        </Header>
+        <Layout>
+          <Sider width={200} style={{ background: '#fff' }}>
+            <Menu
+              mode="inline"
+              defaultSelectedKeys={['1']}
+              defaultOpenKeys={['sub1']}
+              style={{ height: '100%', borderRight: 0 }}
+            >
+              <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
+                <Menu.Item key="1">option1</Menu.Item>
+                <Menu.Item key="2">option2</Menu.Item>
+                <Menu.Item key="3">option3</Menu.Item>
+                <Menu.Item key="4">option4</Menu.Item>
+              </SubMenu>
+              <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
+                <Menu.Item key="5">option5</Menu.Item>
+                <Menu.Item key="6">option6</Menu.Item>
+                <Menu.Item key="7">option7</Menu.Item>
+                <Menu.Item key="8">option8</Menu.Item>
+              </SubMenu>
+              <SubMenu key="sub3" title={<span><Icon type="notification" />subnav 3</span>}>
+                <Menu.Item key="9">option9</Menu.Item>
+                <Menu.Item key="10">option10</Menu.Item>
+                <Menu.Item key="11">option11</Menu.Item>
+                <Menu.Item key="12">option12</Menu.Item>
+              </SubMenu>
+            </Menu>
+          </Sider>
+          <Layout style={{ padding: '0 24px 24px' }}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>List</Breadcrumb.Item>
+              <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+              Content
+            </Content>
+          </Layout>
+        </Layout>
+      </Layout>
+  )
+}
+```
+:::
+
+<style>
+#components-layout-demo-top-side-2 .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255,255,255,.2);  
+  margin: 16px 28px 16px 0;
+  float: left;
+}
+</style>
+
+## 侧边布局
+
+:::demo 侧边两列式布局。页面横向空间有限时，侧边导航可收起。
+
+侧边导航在页面布局上采用的是左右的结构，一般主导航放置于页面的左侧固定位置，辅助菜单放置于工作区顶部。内容根据浏览器终端进行自适应，能提高横向空间的使用率，但是整个页面排版不稳定。侧边导航的模式层级扩展性强，一、二、三级导航项目可以更为顺畅且具关联性的被展示，同时侧边导航可以固定，使得用户在操作和浏览中可以快速的定位和切换当前位置，有很高的操作效率。但这类导航横向页面内容的空间会被牺牲一部份。
+
+```js
+const { Header, Content, Footer, Sider } = Layout;
+const SubMenu = Menu.SubMenu;
+
+class Demo extends React.Component {
+  state = {
+    collapsed: false,
+  };
+
+  onCollapse = (collapsed) => {
+    console.log(collapsed);
+    this.setState({ collapsed });
+  }
+
+  render() {
+    return (
+      <Layout style={{ minHeight: '100vh' }} id="components-layout-demo-side">
+        <Sider
+          collapsible
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+        >
+          <div className="logo" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+            <Menu.Item key="1">
+              <Icon type="pie-chart" />
+              <span>Option 1</span>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Icon type="desktop" />
+              <span>Option 2</span>
+            </Menu.Item>
+            <SubMenu
+              key="sub1"
+              title={<span><Icon type="user" /><span>User</span></span>}
+            >
+              <Menu.Item key="3">Tom</Menu.Item>
+              <Menu.Item key="4">Bill</Menu.Item>
+              <Menu.Item key="5">Alex</Menu.Item>
+            </SubMenu>
+            <SubMenu
+              key="sub2"
+              title={<span><Icon type="team" /><span>Team</span></span>}
+            >
+              <Menu.Item key="6">Team 1</Menu.Item>
+              <Menu.Item key="8">Team 2</Menu.Item>
+            </SubMenu>
+            <Menu.Item key="9">
+              <Icon type="file" />
+              <span>File</span>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }} />
+          <Content style={{ margin: '0 16px' }}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            </Breadcrumb>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+              Bill is a cat.
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            Ant Design ©2016 Created by Ant UED
+          </Footer>
+        </Layout>
+      </Layout>
+    );
+  }
+}
+```
+:::
+
+<style>
+#components-layout-demo-side .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+</style>
+
+## 自定义触发器
+
+:::demo 要使用自定义触发器，可以设置 `trigger={null}` 来隐藏默认设定。
+
+```js
+const { Header, Sider, Content } = Layout;
+
+class Demo extends React.Component {
+  state = {
+    collapsed: false,
+  };
+
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  }
+
+  render() {
+    return (
+      <Layout id="components-layout-demo-custom-trigger">
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={this.state.collapsed}
+        >
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu.Item key="1">
+              <Icon type="user" />
+              <span>nav 1</span>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Icon type="video-camera" />
+              <span>nav 2</span>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Icon type="upload" />
+              <span>nav 3</span>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }}>
+            <Icon
+              className="trigger"
+              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.toggle}
+            />
+          </Header>
+          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+            Content
+          </Content>
+        </Layout>
+      </Layout>
+    );
+  }
+}
+```
+:::
+
+<style>
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+</style>
+
+## 响应式布局
+
+:::demo Layout.Sider 支持响应式布局。
+
+> 说明：配置 `breakpoint` 属性即生效，视窗宽度小于 `breakpoint` 时 Sider 缩小为 `collapsedWidth` 宽度，若将 `collapsedWidth` 设置为零，会出现特殊 trigger。
+
+```js
+render(){
+  const { Header, Content, Footer, Sider } = Layout;
+  return(
+      <Layout id="components-layout-demo-responsive">
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
+        >
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+            <Menu.Item key="1">
+              <Icon type="user" />
+              <span className="nav-text">nav 1</span>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Icon type="video-camera" />
+              <span className="nav-text">nav 2</span>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Icon type="upload" />
+              <span className="nav-text">nav 3</span>
+            </Menu.Item>
+            <Menu.Item key="4">
+              <Icon type="user" />
+              <span className="nav-text">nav 4</span>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }} />
+          <Content style={{ margin: '24px 16px 0' }}>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+              content
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            Ant Design ©2016 Created by Ant UED
+          </Footer>
+        </Layout>
+      </Layout>
+  )
+}
+```
+:::
+
+<style>
+#components-layout-demo-responsive .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+</style>
+
+
+## 固定头部
+
+:::demo 一般用于固定顶部导航，方便页面切换。
+
+```js
+render(){
+  const { Header, Content, Footer } = Layout;
+  return(
+      <Layout id="components-layout-demo-fixed">
+        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['2']}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="1">nav 1</Menu.Item>
+            <Menu.Item key="2">nav 2</Menu.Item>
+            <Menu.Item key="3">nav 3</Menu.Item>
+          </Menu>
+        </Header>
+        <Content style={{ padding: '0 50px', marginTop: 64 }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>Content</div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Ant Design ©2016 Created by Ant UED
+        </Footer>
+      </Layout>
+  )
+}
+```
+:::
+
+<style>
+#components-layout-demo-fixed .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255,255,255,.2);  
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+</style>
+
+## 固定侧边栏
+
+:::demo 当内容较长时，使用固定侧边栏可以提供更好的体验。
+
+```js
+render(){
+  const { Header, Content, Footer, Sider } = Layout;
+  return(
+   <Layout id="components-layout-demo-fixed-sider">
+      <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
+        <div className="logo" />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+          <Menu.Item key="1">
+            <Icon type="user" />
+            <span className="nav-text">nav 1</span>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Icon type="video-camera" />
+            <span className="nav-text">nav 2</span>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Icon type="upload" />
+            <span className="nav-text">nav 3</span>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Icon type="bar-chart" />
+            <span className="nav-text">nav 4</span>
+          </Menu.Item>
+          <Menu.Item key="5">
+            <Icon type="cloud-o" />
+            <span className="nav-text">nav 5</span>
+          </Menu.Item>
+          <Menu.Item key="6">
+            <Icon type="appstore-o" />
+            <span className="nav-text">nav 6</span>
+          </Menu.Item>
+          <Menu.Item key="7">
+            <Icon type="team" />
+            <span className="nav-text">nav 7</span>
+          </Menu.Item>
+          <Menu.Item key="8">
+            <Icon type="shop" />
+            <span className="nav-text">nav 8</span>
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout style={{ marginLeft: 200 }}>
+        <Header style={{ background: '#fff', padding: 0 }} />
+        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+          <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
+            ...
+            <br />
+            Really
+            <br />...<br />...<br />...<br />
+            long
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />
+            content
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Ant Design ©2016 Created by Ant UED
+        </Footer>
+      </Layout>
+    </Layout>)
+}
+```
+:::
+
+<style>
+#components-layout-demo-fixed-sider .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+</style>
+
 ## API
 
 ```js

@@ -51,7 +51,7 @@
             <div style={{padding:"20px"}}>This is custom contents.</div>
           </Drawer>
         </div>
-        <button onClick={this.handleOpen}>Open Drawer</button>
+        <Button onClick={this.handleOpen}>Open Drawer</Button>
       </div>
     );
   }

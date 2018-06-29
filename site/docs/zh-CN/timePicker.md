@@ -4,8 +4,6 @@
 
 ## 何时使用
 
-* * *
-
 当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。
 
 ## 基本
@@ -18,9 +16,9 @@
     this.setState({ value: time });
   }
 
-render(){
-  return(<TimePicker onChange={this.onChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />)
-}
+  render(){
+    return(<TimePicker onChange={this.onChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />)
+  }
 ```
 :::
 
