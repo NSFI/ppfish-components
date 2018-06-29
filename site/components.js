@@ -159,7 +159,7 @@ export default class Components extends React.Component {
                     })
                   }
                 </SubMenu>
-                <SubMenu key={this.getLocale('misc.patterns')} title={this.getLocale('misc.patterns')}>
+                {/*<SubMenu key={this.getLocale('misc.patterns')} title={this.getLocale('misc.patterns')}>
                   {
                     Object.keys(components.patterns).map(group => {
                       return (
@@ -177,7 +177,7 @@ export default class Components extends React.Component {
                       );
                     })
                   }
-                </SubMenu>
+                </SubMenu>*/}
               </Menu>
             </nav>
           </Col>
