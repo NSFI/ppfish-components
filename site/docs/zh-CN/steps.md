@@ -8,7 +8,7 @@
 
 ## API
 
-```jsx
+```js
 <Steps>
   <Step title="第一步" />
   <Step title="第二步" />

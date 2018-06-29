@@ -52,7 +52,7 @@
 
 ## API
 
-```jsx
+```js
 <Layout>
   <Header>header</Header>
   <Layout>
