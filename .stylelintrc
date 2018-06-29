@@ -2,16 +2,21 @@
   "extends": "stylelint-config-standard",
   "rules": {
     "at-rule-empty-line-before": null,
+    "at-rule-name-space-after": null,
     "comment-empty-line-before": null,
+    "declaration-block-single-line-max-declarations": 50,
     "declaration-empty-line-before": null,
+    "declaration-no-important": true,
     "function-comma-newline-after": null,
+    "function-comma-space-after": null,
     "function-parentheses-newline-inside": null,
     "function-max-empty-lines": null,
     "indentation": null,
+    "max-nesting-depth": 3,
     "rule-empty-line-before": null,
     "selector-list-comma-newline-after": "always",
     "selector-max-id": 0,
-    "selector-pseudo-element-colon-notation": "single",
-    "string-quotes": "double"
+    "selector-pseudo-element-colon-notation": null,
+    "string-quotes": null
   }
 }

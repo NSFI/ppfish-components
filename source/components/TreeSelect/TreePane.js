@@ -43,9 +43,9 @@ class TreePane extends Component {
     onSelect(key, value);
   }
 
-  setCurrent(key) {
+  setCurrent(key, id) {
     const { onCurrent } = this.props;
-    onCurrent(key);
+    onCurrent(key, id);
   }
 
   render() {
@@ -78,11 +78,12 @@ class TreePane extends Component {
                 />
                 <div
                   className="m-tree-select-text"
-                  onClick={() => this.setCurrent(item.key)}
+                  onClick={() => this.setCurrent(item.key, item.id)}
                 >{item.text}</div>
                 <TreeSelectMore
-                  hasSubItem={!!item.children}
-                  onClick={() => this.setCurrent(item.key)}
+                  hasSubItem={!!item.children || !item.leaf}
+                  loading={item.loading}
+                  onClick={() => this.setCurrent(item.key, item.id)}
                 />
               </div>
             );

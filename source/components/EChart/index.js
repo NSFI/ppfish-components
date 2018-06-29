@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as echarts from 'echarts';
-import _ from 'lodash';
+import debounce from 'lodash.debounce';
 import theme from './theme-prophet';
 import './map-china2';
 
@@ -16,7 +16,9 @@ export default class EChart extends Component {
   static propTypes = {
     option: PropTypes.object,
     events: PropTypes.object,
-  }
+    className: PropTypes.string,
+    style: PropTypes.object,
+  };
 
   componentDidMount() {
     this.chart = echarts.init(this.node, theme);
@@ -49,7 +51,7 @@ export default class EChart extends Component {
     }
   }
 
-  handleWindowResize = _.debounce(() => {
+  handleWindowResize = debounce(() => {
     this.chart && this.chart.resize();
   }, 100);
 
@@ -67,9 +69,12 @@ export default class EChart extends Component {
 
   render() {
     let className = 'm-chart';
-    let domProps = _.pick(this.props, ['className', 'style']);
+    let domProps = {
+      className: this.props.className,
+      style: this.props.style,
+    };
     if(domProps.className) {
-      className += ' '+domProps.className;
+      className += ' ' + domProps.className;
     }
     domProps.className = className;
     return (

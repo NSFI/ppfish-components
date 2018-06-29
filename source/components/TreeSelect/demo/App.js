@@ -2,72 +2,111 @@ import React, { Component } from 'react';
 import './App.less';
 import TreeSelect from '../index';
 import { Checkbox, Button } from 'antd';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
-// API定义的树形结构
-const data = [
+// 初始化渲染的树形结构
+let defaultData = [
   {
-    text: '浙江',
-    key: '232ddsds',
+    text: '家具个护',
+    key: '0',
+    id: '0',
+    leaf: false,
     values: [
       {
-        text: '杭州',
-        key: '232ddsd1',
+        text: '家居生活',
+        key: '1',
+        id: '1',
+        leaf: false,
         values: [
           {
-            text: '萧山',
-            key: 'kk12111',
-            values: []
-          },
-          {
-            text: '滨江',
-            key: 'kk12112',
-            values: []
-          },
-          {
-            text: '下沙',
-            key: 'kk12113',
-            values: []
+            text: '厨房餐具',
+            key: '2',
+            id: '2',
+            leaf: true,
+            values: [
+              {
+                text: '杯子',
+                key: '3',
+                id: '3',
+                leaf: false,
+                values: [
+                  {
+                    text: '马克杯',
+                    key: '4',
+                    id: '4',
+                    leaf: true,
+                    values: []
+                  },
+                  {
+                    text: '茶杯',
+                    key: '5',
+                    id: '5',
+                    leaf: true,
+                    values: []
+                  }
+                ]
+              },
+              {
+                text: '锅具',
+                key: '6',
+                id: '6',
+                leaf: true,
+                values: []
+              }
+            ]
           }
         ]
       },
       {
-        text: '温州',
-        key: '232ddsd2',
+        text: '床',
+        key: '20',
+        id: '20',
+        leaf: false,
         values: []
       },
       {
-        text: '金华',
-        key: '232ddsd3',
+        text: '凳子',
+        key: '30',
+        id: '30',
+        leaf: true,
         values: []
       }
     ]
   },
   {
-    text: '江西',
-    key: '13232dad1',
+    text: '运动户外',
+    key: '40',
+    id: '40',
+    leaf: false,
     values: [
       {
-        text: '南昌',
-        key: '13232dad2',
+        text: '帐篷',
+        key: '41',
+        id: '41',
+        leaf: true,
         values: []
       },
       {
-        text: '赣州',
-        key: '13232dad3',
+        text: '摇椅',
+        key: '42',
+        id: '42',
+        leaf: true,
         values: []
       },
       {
-        text: '合肥',
-        key: '13232dad4',
+        text: '沙滩',
+        key: '43',
+        id: '43',
+        leaf: true,
         values: []
       }
     ]
   }
 ];
-const defaultSelectedMap = {
-  'kk12112': true,
-  '13232dad2': true,
+
+// 选中的树结构数据
+const defaultSelected = {
+  '3': true,
+  '20': true,
 };
 
 class App extends Component {
@@ -75,15 +114,15 @@ class App extends Component {
     super(props);
     this.handleGetSelected = this.handleGetSelected.bind(this);
     this.state = {
-      selectedObj: null,
-      selectedItems: [{text: '滨江', key: 'kk12112'},{text: '南昌', key: '13232dad2'}],
+      selected: null,
+      selectedItems: [{text: '杯子', key: '3'},{text: '床', key: '20'}],
     };
   }
 
   handleChange(key, checked) {
-    const { selectedObj } = this.state;
+    const { selected } = this.state;
     this.setState({
-      selectedObj: Object.assign({}, selectedObj, {
+      selected: Object.assign({}, selected, {
         [`${key}`]: checked
       })
     });
@@ -91,40 +130,77 @@ class App extends Component {
 
   handleAllChange(checked) {
     this.setState({
-      selectedObj: checked
+      selected: checked
     });
   }
 
   handleGetSelected(selectedItems, key, value) {
-    // 获取selectedObj
-    const selectedObj = {
+    // 获取selected
+    const selected = {
       [`${key}`]: value
     };
+
+    // selectedItems 是 Pane 的实例
+    selectedItems = selectedItems.items;
+
     this.setState({
       selectedItems,
-      selectedObj,
+      selected,
+    });
+  }
+
+  loadLeaf(key, id) {
+    const data = [
+      {
+        text: '婴儿床',
+        key: '21',
+        leaf: true,
+        values: []
+      },
+      {
+        text: '1-3岁',
+        key: '23',
+        leaf: true,
+        values: []
+      },
+      {
+        text: '4-9岁',
+        key: '26',
+        leaf: true,
+        values: []
+      }
+    ];
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (key === '20') {
+          resolve(data);
+        } else {
+          reject();
+        }
+      }, 200);
     });
   }
 
   render() {
-    const { selectedObj, selectedItems } = this.state;
+    const { selected, selectedItems } = this.state;
     return (
-      <DocumentLayout>
       <div style={{ margin: 100 }}>
         <TreeSelect
           multiple={true}
-          data={data}
-          defaultSelectedMap={defaultSelectedMap}
-          selectedObj={selectedObj}
+          defaultData={defaultData}
+          defaultSelected={defaultSelected}
+          selected={selected}
           onSelect={this.handleGetSelected}
+          recursive={true}
+          loadLeaf={this.loadLeaf}
         />
         <div style={{ margin: 100 }}>
           修改checkbox看看，
           <Checkbox defaultChecked={true}
-                    onChange={(e) => this.handleChange('kk12112', e.target.checked)}>滨江</Checkbox>
+                    onChange={(e) => this.handleChange('3', e.target.checked)}>杯子</Checkbox>
           <Checkbox defaultChecked={true}
-                    onChange={(e) => this.handleChange('232ddsds', e.target.checked)}>浙江</Checkbox>
-          <Checkbox defaultChecked={true}
+                    onChange={(e) => this.handleChange('20', e.target.checked)}>床</Checkbox>
+          <Checkbox defaultChecked={false}
                     onChange={(e) => this.handleAllChange(e.target.checked)}>全选</Checkbox>
         </div>
         <div style={{ margin: 100 }}>
@@ -135,7 +211,6 @@ class App extends Component {
         </div>
 
       </div>
-      </DocumentLayout>
     );
   }
 }

@@ -2,235 +2,11 @@ import React, { Component, Children } from 'react';
 import debug from 'debug';
 import PropTypes from 'prop-types';
 import TreePane from './TreePane';
+import Pane from './Pane';
+import Item from './Item';
 import './index.less';
 const componentLog = debug('component:log');
-const componentError = debug('component:error');
-
-// 树面板class对象
-class Pane {
-  constructor(parent, items) {
-    this.parent = parent; // Item
-    this.items = items; // [Item]
-    this.visible = false;
-    this.cache = {};
-  }
-
-  setItems(items) {
-    this.items = items;
-  }
-
-  setVisible(visible) {
-    this.visible = visible;
-  }
-
-  // 设置默认显示的pane
-  setDefaultVisible(key) {
-    const item = this.getItemByKey(key);
-    if (item) {
-      item.setPanelBackVisible();
-    // 没有匹配到key，显示第一级
-    } else {
-      this.setVisible(true);
-    }
-  }
-
-  getItemByKey(key) {
-    const cacheItem = this.cache[key];
-    if ( cacheItem ) {
-      // componentLog(`从cache中匹配到key：${key}`, cacheItem);
-      return cacheItem;
-    }
-    for ( let i = 0; i < this.items.length; i++ ) {
-      const item = this.items[i];
-      if ( item.key == key ) {
-        // componentLog(`匹配到key：${key}`, item);
-        this.cache[key] = item;
-        return item;
-      }
-      if ( item.children ) {
-        const result = item.children.getItemByKey(key);
-        if ( result ) {
-          return result;
-        }
-      }
-    }
-    return null;
-  }
-
-  // 单选Item，往后遍历全选其子树，往前遍历设置父树勾选状态
-  setItemSelected(key, value) {
-    const item = this.getItemByKey(key);
-    if ( item ) {
-      item.setSelected(value, false);
-      item.setForwardSelected(value);
-      if ( item.pane ) {
-        item.pane.setItemBackSelected();
-      }
-    }
-  }
-
-  // 全选Item
-  setAllItemSelected(checked) {
-    const items = this.items;
-    if ( !items ) {
-      return;
-    }
-    items.forEach(it => {
-      this.setItemSelected(it.key, checked);
-    });
-  }
-
-  // 往前遍历设置父树勾选状态，检查当前层级节点是否全部选中/全不选/部分选中，修改上一级勾选状态
-  setItemBackSelected(indeterminate) {
-    const parent = this.parent;
-    if ( !parent ) {
-      return;
-    }
-    const countLen = (items, key) => {
-      return items.reduce((sum, item) => {
-        return (item[key] ? 1 : 0) + sum;
-      }, 0);
-    };
-    //  😭这里有bug
-    const totalLen = this.items.reduce((sum, item) => {
-      return (item.selected ? 1 : 0) + sum;
-    }, 0);
-    // 不传indeterminate时，执行计算
-    if ( typeof indeterminate == 'undefined') {
-      const selectedLen = countLen(this.items, 'selected');
-      const indeterminateLen = countLen(this.items, 'indeterminate');
-      // 全选
-      if ( selectedLen == this.items.length ) {
-        parent.setSelected(true, false);
-        // 遍历父树检查
-        parent.pane.setItemBackSelected();
-      // 全不选
-      } else if ( indeterminateLen == 0 && selectedLen == 0 ) {
-        parent.setSelected(false, false);
-        // 遍历父树全不选
-        parent.pane.setItemBackSelected();
-      // 部分选中
-      } else {
-        parent.setSelected(false, true);
-        // 遍历父树部分选中
-        parent.pane.setItemBackSelected(true);
-      }
-    // 跳过计算，直接循环遍历部分选中
-    } else {
-      parent.setSelected(false, true);
-      parent.pane.setItemBackSelected(true);
-    }
-  }
-
-  // 设置Item选中状态，设置子树显示状态
-  setItemCurrent(key) {
-    if ( !key ) {
-      return;
-    }
-    const item = this.getItemByKey(key);
-    if ( item ) {
-      // 设置Item选中状态
-      item.pane.items.forEach(it => it.setCurrent(false));
-      item.setCurrent(true);
-      // 设置子树显示状态
-      item.pane.setForwardVisible(false);
-      if ( item.children ) {
-        item.children.setVisible(true);
-      }
-    }
-  }
-
-  // 往后遍历设置显示状态
-  setForwardVisible(visible) {
-    const items = this.items;
-    if ( items ) {
-      for ( let i = 0; i < items.length; i++ ) {
-        const item = items[i];
-        if ( item.children ) {
-          item.children.setVisible(visible);
-          item.children.setForwardVisible(visible);
-        }
-      }
-    }
-  }
-
-  // 获取当前选中的值
-  getSelected(returned = []) {
-    for ( let i = 0; i < this.items.length; i++ ) {
-      const item = this.items[i];
-      // 全选
-      if ( item.selected ) {
-        // componentLog(`找到勾选项目：${item.selected}`, item.key);
-        returned.push(item);
-      // 部分选中
-      } else if ( item.indeterminate ) {
-        if ( item.children ) {
-          item.children.getSelected(returned);
-        }
-      // 全不选
-      } else {
-        // do nothing
-      }
-    }
-    return returned;
-  }
-}
-
-// 树项目class对象
-class Item {
-  constructor(children, pane, key, text) {
-    this.children = children; // Pane
-    this.pane = pane; // Pane
-    this.selected = false;
-    this.indeterminate = false;
-    this.key = key;
-    this.text = text;
-    this.current = false;
-  }
-
-  setChildren(children) {
-    this.children = children;
-  }
-
-  // // 全不选
-  // selected = false;
-  // indeterminate = false;
-  // // 部分选中
-  // selected = false;
-  // indeterminate = true;
-  // // 全选
-  // selected = true;
-  // indeterminate = false;
-  setSelected(value, indeterminate) {
-    this.selected = value;
-    this.indeterminate = indeterminate;
-  }
-
-  setCurrent(value) {
-    this.current = value;
-  }
-
-  // 往前遍历设置面板显示状态
-  setPanelBackVisible() {
-    this.pane.setVisible(true);
-    if ( this.pane.parent ) {
-      this.pane.parent.setPanelBackVisible();
-    }
-  }
-
-  // 往后遍历全选其子树
-  setForwardSelected(value) {
-    const pane = this.children;
-    if ( !pane ) {
-      return;
-    }
-    for ( let i = 0; i < pane.items.length; i++ ) {
-      const item = pane.items[i];
-      item.setSelected(value, false);
-      item.setForwardSelected(value);
-    }
-  }
-}
+const componentWarn = debug('component:warn');
 
 // 实例化根树
 const createPane = (tree, parentItem = null) => {
@@ -240,7 +16,12 @@ const createPane = (tree, parentItem = null) => {
   for ( let i = 0; i < tree.length; i++ ) {
     const treeI = tree[i];
     // children后面设置
-    const item = new Item(null, pane, treeI.key, treeI.text);
+    const item = new Item(null, pane, treeI.key, treeI.id, treeI.text, treeI.leaf);
+    const status = treeI.status;
+    if ( typeof status !== 'undefined' ) {
+      // status 1-全选，2-半选
+      item.setSelected(status === 1, status === 2);
+    }
     if ( treeI.values && treeI.values.length ) {
       const nextPane = createPane(treeI.values, item);
       // 设置children
@@ -255,7 +36,7 @@ const createPane = (tree, parentItem = null) => {
 
 // 分组成适合UI展示的多维数组结构
 const generatePaneArr = (pane, depth = 0, returned = []) => {
-  if ( pane ) {
+  if ( pane && pane.visible ) {
     returned[depth] = returned[depth] || [];
     returned[depth].push(pane);
   }
@@ -271,48 +52,90 @@ const generatePaneArr = (pane, depth = 0, returned = []) => {
   }
   return returned;
 };
-
+// 将pane序列化成输入的data格式
+const serializeToData = (pane, copyKeys=['key', 'text', 'leaf']) => {
+  const data = [];
+  const items = pane.items;
+  for ( let i = 0; i < items.length; i++ ) {
+    const item = items[i];
+    let status;
+    let values;
+    // 全选
+    if ( item.selected ) {
+      status = 1;
+    // 部分选中
+    } else if ( item.indeterminate ) {
+      status = 2;
+    // 全不选
+    } else {
+      status = 0;
+    }
+    if ( item.children ) {
+      values = serializeToData(item.children, copyKeys);
+    } else {
+      values = [];
+    }
+    const newItem = {};
+    copyKeys.forEach(key => {
+      newItem[key] = item[key];
+    });
+    newItem.status = status;
+    newItem.values = values;
+    data.push(newItem);
+  }
+  return data;
+};
 // 支持多级的树形选择控件
 // TODO multiple= false未实现
 class TreeSelect extends Component {
+  static serializeToData = serializeToData;
   static propTypes = {
+    // 首次渲染时使用的树状结构数据
+    defaultData: PropTypes.array.isRequired,
+    // 注意data受控属性和selected受控属性建议只使用其中一个
+    // 受控属性，当前树状结构数据
     data: PropTypes.array,
-    // 默认勾选的节点键值对
-    defaultSelectedMap: PropTypes.oneOfType([
+    // 点击后从服务端获取子节点数据
+    loadLeaf: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object,
+    ]),
+    // 首次渲染时使用的勾选节点键值对，true-全选，false-全不选
+    defaultSelected: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.object,
     ]),
-    // 变化勾选的节点键值对
-    selectedObj: PropTypes.oneOfType([
+    // 注意data受控属性和selected受控属性建议只使用其中一个
+    // 受控属性，当前勾选的节点键值对，true-全选，false-全不选
+    selected: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.object,
     ]),
     // true,多选模式/false,单选模式
     multiple: PropTypes.bool,
+    // 勾选后是否递归子树和父树
+    recursive: PropTypes.bool,
     onSelect: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     multiple: true,
+    recursive: true,
+    loadLeaf: null,
     onSelect: () => {}
-  }
+  };
 
   constructor(props) {
     super(props);
-    const pane = createPane(props.data);
-    componentLog('多级树实例化：', pane);
-    const { defaultSelectedMap } = props;
-    let firstKey;
-    if ( typeof defaultSelectedMap == 'object' ) {
-      firstKey = Object.keys(defaultSelectedMap)[0];
+    const { defaultData, defaultSelected, data, selected } = props;
+    if ( typeof data !== 'undefined' && typeof selected !== 'undefined' ) {
+      componentWarn('同时使用props data和props selected两个受控属性时，将会使用data的status 作为选中状态!');
     }
+    const pane = this.setPane(defaultData, defaultSelected);
     // 设置默认勾选状态
-    this.setItemSelectedByKeys(pane, defaultSelectedMap);
-    // 设置面板显示状态
-    pane.setDefaultVisible(firstKey);
-    // pane.setDefaultVisible('bb0');
-    pane.setItemCurrent(firstKey);
-    // pane.setItemCurrent('13232dad1');
+    if ( defaultSelected ) {
+      this.setItemSelectedByKeys(pane, defaultSelected);
+    }
     this.state = {
       pane,
     };
@@ -320,47 +143,152 @@ class TreeSelect extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { pane } = this.state;
-    const { selectedObj } = nextProps;
-    // 新的勾选keys
-    // fixme react 修改了state导致this.props非预期结果，类似问题见https://github.com/facebook/react/issues/7121
-    const newPane = this.setItemSelectedByKeys(pane, selectedObj);
-    this.setState({
-      pane: newPane,
-    });
+    const { data, selected } = nextProps;
+    // 使用data受控属性，status表示选中状态
+    if ( typeof data !== 'undefined' ) {
+      const newPane = this.setPane(data, selected);
+      this.setState({
+        pane: newPane,
+      });
+    // 使用selected受控属性，key表示操作的键，value表示操作结果
+    } else if ( typeof selected !== 'undefined' ) {
+      // fixme react 修改了state导致this.props非预期结果，类似问题见https://github.com/facebook/react/issues/7121
+      const newPane = this.setItemSelectedByKeys(pane, selected);
+      // TODO selected受控属性存在的问题：在当前组件只渲染了第一层子节点的情况下，如果传的selected受控属性里有子孙节点，
+      // TODO 则无法根据子孙节点计算第一层子节点的选中状态
+      this.setState({
+        pane: newPane,
+      });
+    }
   }
 
-  setItemSelectedByKeys(pane, selectedObj) {
-    if ( typeof selectedObj == 'object' ) {
-      for ( let key in selectedObj ) {
-        pane.setItemSelected(key, selectedObj[key]);
+  /**
+   *
+   * @param data 树状结构数据
+   * @param selected {Object} [Optional]树状结构数据选中的键值对
+   */
+  setPane = (data, selected) => {
+    // performance.mark('genPane-start');
+    const pane = createPane(data);
+    // performance.mark('genPane-end');
+    // performance.measure('genPane', 'genPane-start', 'genPane-end');
+    // let measures = performance.getEntriesByName('genPane');
+    // console.log(measures[0]);
+    componentLog('多级树实例化：', pane);
+    let firstKey;
+    // 传入的selected为键值对
+    if ( typeof selected === 'object' ) {
+      firstKey = Object.keys(selected)[0];
+    // 传入data
+    } else if ( typeof data !== 'undefined' ) {
+      const dataSelected = pane.getSelected();
+      if ( dataSelected && dataSelected.length ) {
+        firstKey = dataSelected[0];
+      }
+    }
+    // 设置面板显示状态
+    pane.setDefaultVisible(firstKey);
+    pane.setItemCurrent(firstKey);
+    this.loaded = {};
+    return pane;
+
+  };
+
+  /**
+   * 根据key设置勾选状态
+   * @param pane
+   * @param selected {Object|Boolean} [required]勾选状态对象
+   * @returns {*}
+   */
+  setItemSelectedByKeys(pane, selected) {
+    const { recursive } = this.props;
+    if ( typeof selected == 'object' ) {
+      for ( let key in selected ) {
+        pane.setItemSelected(key, selected[key], recursive);
       }
     // 全选
-    } else if ( selectedObj ) {
-      pane.setAllItemSelected(true);
+    } else if ( selected === true ) {
+      pane.setAllItemSelected(true, recursive);
     // 全不选
-    } else {
-      pane.setAllItemSelected(false);
+    } else if ( selected === false ) {
+      pane.setAllItemSelected(false, recursive);
     }
     return pane;
   }
 
   handlePaneSelect(key, value) {
     const { pane } = this.state;
-    const { onSelect } = this.props;
-    pane.setItemSelected(key, value);
-    pane.setItemCurrent(key);
-    onSelect(pane.getSelected(), key, value);
+    const { onSelect, recursive } = this.props;
+    pane.setItemSelected(key, value, recursive);
+    // 递归查找时，展示下一层级
+    if ( recursive ) {
+      pane.setItemCurrent(key);
+    }
+    // 返回选中的数据项目、当前点击的key、当前点击的value
+    onSelect(pane, key, value);
     this.setState({
       pane,
     });
   }
 
-  handlePaneCurrent(key) {
+  handlePaneCurrent(key, id) {
+    const { loadLeaf } = this.props;
     const { pane } = this.state;
-    pane.setItemCurrent(key);
-    this.setState({
-      pane,
-    });
+    const item = pane.getItemByKey(key);
+    // 已渲染children
+    if ( item.children || this.loaded[key] ) {
+      pane.setItemCurrent(key);
+      this.setState({
+        pane,
+      });
+    // 存在子节点
+    } else if ( !item.leaf && typeof loadLeaf === 'function' ) {
+      item.setLoading(true);
+      this.setState({
+        pane,
+      });
+      Promise.resolve(loadLeaf(key, id)).then(data => {
+        let childPane;
+        if ( data ) {
+          // 当用户界面全选或者全不选父节点时，需要更新加载后的data status保持和父节点一致
+          if ( item.indeterminate === false ) {
+            const dataCopy = data.map(it => {
+              let status;
+              if ( item.selected ) {
+                status = 1;
+              } else {
+                status = 0;
+              }
+              // 返回复制的对象，注意避免修改data原始值
+              return Object.assign({}, it, {
+                status: status
+              });
+            });
+            childPane = createPane(dataCopy, item);
+          } else {
+            childPane = createPane(data, item);
+          }
+          componentLog('加载新的数据，多级树实例化：', pane);
+          item.setChildren(childPane);
+        }
+      })
+        .catch(e => {
+          componentLog('加载新的数据失败', e);
+        })
+        .finally(() => {
+          this.loaded[key] = true;
+          item.setLoading(false);
+          pane.setItemCurrent(key);
+          this.setState({
+            pane,
+          });
+        });
+    } else {
+      pane.setItemCurrent(key);
+      this.setState({
+        pane,
+      });
+    }
   }
 
   render() {
@@ -378,7 +306,7 @@ class TreeSelect extends Component {
                   pane={pane}
                   depth={depth}
                   onSelect={(key, value) => this.handlePaneSelect(key, value)}
-                  onCurrent={(key) => this.handlePaneCurrent(key)}
+                  onCurrent={(key, id) => this.handlePaneCurrent(key, id)}
                 />
               );
             });
