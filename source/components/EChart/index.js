@@ -5,8 +5,6 @@ import debounce from 'lodash.debounce';
 import theme from './theme-prophet';
 import './map-china2';
 
-import a from '../b';
-
 /**
  * props暴露了如下参数：
  * @param {String} className  设置 chart 类名
