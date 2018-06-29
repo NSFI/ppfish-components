@@ -20,4 +20,3 @@ export {SearchInput};
 export {StickVerticalMenu};
 export {TextOverflow};
 export {PicturePreview};
-export * from 'antd';
