@@ -10,7 +10,6 @@
 - 当需要展现上传的进度时。
 - 当需要使用拖拽交互时。
 
-## API
 
 ## 点击上传
 
@@ -506,6 +505,8 @@ render(){
   margin-top: 16px;
 }
 </style>
+
+## API
 
 > 服务端上传接口实现可以参考 [jQuery-File-Upload](https://github.com/blueimp/jQuery-File-Upload/wiki)。
 
