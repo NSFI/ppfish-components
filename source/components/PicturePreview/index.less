@@ -1,5 +1,7 @@
 @import "../../assets/css/lib/ant-theme-vars";
 @import "../../assets/css/common/index";
+
+/* stylelint-disable declaration-no-important   */
 @picture-preview-prefix: m-picture-preview;
 @maxVisualWidth:  80% !important;
 @maxVisualHeight: 80% !important;
@@ -33,7 +35,10 @@
       height: 100%;
     }
 
-    .ant-carousel, .slick-slider, .slick-list, .slick-track {
+    .ant-carousel,
+    .slick-slider,
+    .slick-list,
+    .slick-track {
       height: 100%;
     }
   }
@@ -129,7 +134,7 @@
       width: 360px;
       height: 50px;
       border-radius: 40px;
-      background-color: rgba(0,0,0,.4);
+      background-color: rgba(0,0,0,0.4);
       left: 0;
       right: 0;
       bottom: 0;
@@ -145,7 +150,13 @@
         cursor: pointer;
       }
 
-      .icon-dengbi, .icon-fullscreen, .icon-fullscreen-exit, .icon-fangda, .icon-suoxiao, .icon-xuanzhuan, .icon-save {
+      .icon-dengbi,
+      .icon-fullscreen,
+      .icon-fullscreen-exit,
+      .icon-fangda,
+      .icon-suoxiao,
+      .icon-xuanzhuan,
+      .icon-save {
         .icon;
       }
 
@@ -161,6 +172,7 @@
   }
 
   &-content-wrap-fullscreen {
-    background-color: rgba(222,222,222,.5);
+    background-color: rgba(222,222,222,0.5);
   }
 }
+/* stylelint-enable */
