@@ -26,6 +26,15 @@ export default class Components extends React.Component {
         });
       })
     ));
+    // 设计规范
+    Object.keys(components.patterns).map((group) => (
+      Object.keys(components.patterns[group]).map(key => {
+        menuList.push({
+          key: this.getLocale(`page.${key}`),
+          url: `#/components/${key}`
+        });
+      })
+    ));
     this.state = {menuList};
   }
 
@@ -76,7 +85,8 @@ export default class Components extends React.Component {
 
   //根据page参数获取对应的页的markdown文件并解析
   getComponent(page) {
-    this.components = this.components || Object.assign(Object.values(components.list).reduce((a, b) => {
+    this.components = this.components
+      || Object.assign(Object.values(Object.assign({}, components.list, components.patterns)).reduce((a, b) => {
       return Object.assign(a, b);
     }, {}), components.documents);
 
@@ -115,7 +125,7 @@ export default class Components extends React.Component {
             <nav className="side-nav">
               <Menu
                 selectedKeys={[this.state.page]}
-                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.components')]}
+                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.components'), this.getLocale('misc.patterns')]}
                 mode="inline"
               >
                 <SubMenu key={this.getLocale('misc.development')} title={this.getLocale('misc.development')}>
@@ -137,6 +147,25 @@ export default class Components extends React.Component {
                         <Menu.ItemGroup key={group} title={group} disabled={false}>
                           {
                             Object.keys(components.list[group]).map(page => {
+                              return (
+                                <Menu.Item key={page}>
+                                  <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}</a>
+                                </Menu.Item>
+                              );
+                            })
+                          }
+                        </Menu.ItemGroup>
+                      );
+                    })
+                  }
+                </SubMenu>
+                <SubMenu key={this.getLocale('misc.patterns')} title={this.getLocale('misc.patterns')}>
+                  {
+                    Object.keys(components.patterns).map(group => {
+                      return (
+                        <Menu.ItemGroup key={group} title={group} disabled={false}>
+                          {
+                            Object.keys(components.patterns[group]).map(page => {
                               return (
                                 <Menu.Item key={page}>
                                   <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}</a>

@@ -55,10 +55,20 @@ export default {
       'treeSelect': require('./treeSelect'),
       'upload': require('./upload'),
     },
-    '业务组件': {
+    '业务组件 Business': {
       'loading': require('./loading'),
       'bizTable': require('./bizTable'),
       'bizTimePicker': require('./bizTimePicker'),
+    }
+  },
+  patterns: {
+    '设计要素 Factor': {
+      'ruleColor': require('./ruleColor'),
+      'ruleText': require('./ruleText')
+    },
+    '交互规则 Rule': {
+      'ruleNumber': require('./ruleNumber'),
+      'ruleDatetime': require('./ruleDatetime')
     }
   }
 };

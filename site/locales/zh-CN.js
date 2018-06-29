@@ -57,11 +57,16 @@ module.exports = {
     'bizTimePicker': 'BizTimePicker 自定义时间选择器',
     'treeSelect': 'TreeSelect 树选择',
     'collapse': 'Collapse 折叠面板',
-    'timePicker': 'TimePicker 时间选择框'
+    'timePicker': 'TimePicker 时间选择框',
+    'ruleColor': '颜色',
+    'ruleText': '文本大小',
+    'ruleNumber': '数字',
+    'ruleDatetime': '日期时间',
   },
   misc: {
     'guide': '指南',
     'component': '组件',
+    'patterns': '规范',
     'home': '首页',
     'spec': '设计语言',
     'development': '开发指南',
