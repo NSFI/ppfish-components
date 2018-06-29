@@ -2057,7 +2057,7 @@ class Demo extends React.Component {
 | text | 选择项显示的文字 | string\|React.ReactNode | - |
 | onSelect | 选择项点击回调 | Function(changeableRowKeys) | - |
 
-## 在 TypeScript 中使用
+### 在 TypeScript 中使用
 
 ```js
 import { Table } from 'antd';
@@ -2090,7 +2090,7 @@ class NameColumn extends Table.Column<IUser> {}
 </UserTable>
 ```
 
-## 注意
+### 注意
 
 按照 [React 的规范](https://facebook.github.io/react/docs/lists-and-keys.html#keys)，所有的组件数组必须绑定 key。在 Table 中，`dataSource` 和 `columns` 里的数据值都需要指定 `key` 值。对于 `dataSource` 默认将每列数据的 `key` 属性作为唯一的标识。
 
