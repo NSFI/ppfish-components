@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.less';
 import AnimationImageLoader from '../index';
 import defaultImage from './create_POI@2x.png';
-import DocumentLayout from '../../../common/DocumentLayout/DocumentLayout';
 
 class App extends Component {
   constructor(props) {
@@ -16,15 +15,13 @@ class App extends Component {
   render() {
     return (
       <div>
-        <DocumentLayout>
-          <div style={{margin:100}}>
-            <AnimationImageLoader
-              extraCls="u-nav-icon"
-              src={defaultImage}
-              zoom={0.5}
-            />
-          </div>
-        </DocumentLayout>
+        <div style={{margin:100}}>
+          <AnimationImageLoader
+            extraCls="u-nav-icon"
+            src={defaultImage}
+            zoom={0.5}
+          />
+        </div>
       </div>
     );
   }

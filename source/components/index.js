@@ -1,27 +1,22 @@
 import AnimationImageLoader from './AnimationImageLoader';
-import Avatar from './Avatar';
-import Collapse from './Collapse';
-import CustomTable from './CustomTable';
-import EChart from './EChart';
+import BizLoading from './BizLoading';
+import BizTimePicker from './BizTimePicker';
+import BizTable from './BizTable';
+import Drawer from './Drawer';
 import ImageLoader from './ImageLoader';
-import Loading from './Loading';
-import NumberCounter from './NumberCounter';
 import SearchInput from './SearchInput';
-import Suggest from './Suggest';
-import TreeSelect from './TreeSelect';
-import TextOverflow from './TextOverflow/index';
+import StickVerticalMenu from './StickVerticalMenu';
+import TextOverflow from './TextOverflow';
+import PicturePreview from './PicturePreview';
 
 // 通用组件从这里暴露
-export { AnimationImageLoader };
-export { Avatar };
-export { Collapse };
-export { CustomTable };
-export { EChart };
-export { ImageLoader };
-export { Loading };
-export { NumberCounter };
-export { SearchInput };
-export { Suggest };
-export { TreeSelect };
-
-export { TextOverflow };
+export {AnimationImageLoader};
+export {BizLoading};
+export {BizTimePicker};
+export {BizTable};
+export {Drawer};
+export {ImageLoader};
+export {SearchInput};
+export {StickVerticalMenu};
+export {TextOverflow};
+export {PicturePreview};

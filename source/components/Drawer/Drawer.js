@@ -12,11 +12,22 @@ import './Drawer.less';
  * @prop {bool} visible       图表参数
  * @prop {object} onClose     图表事件
  * @prop {node} container     容器
- * @author hzmajianglong@corp.netease.com
  */
 class Drawer extends PureComponent {
+  static propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    container: PropTypes.instanceOf(Element),
+    onClose: PropTypes.func,
+    style: PropTypes.object,
+    visible: PropTypes.bool.isRequired
+  };
 
-  handleClose = e=>{
+  static defaultProps = {
+    visible: false
+  };
+
+  handleClose = e => {
     const {onClose} = this.props;
     onClose && onClose();
   };
@@ -37,13 +48,5 @@ class Drawer extends PureComponent {
     return container ? ReactDOM.createPortal(el, container) : el;
   }
 }
-
-Drawer.propTypes = {
-  className: PropTypes.string,
-  container: PropTypes.instanceOf(Element),
-  onClose: PropTypes.func,
-  style: PropTypes.object,
-  visible: PropTypes.bool.isRequired
-};
 
 export default Drawer;
