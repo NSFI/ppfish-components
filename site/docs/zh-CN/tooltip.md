@@ -9,6 +9,113 @@
 可用来代替系统默认的 `title` 提示，提供一个`按钮/文字/操作`的文案解释。
 
 ## API
+## 基本
+
+:::demo 最简单的用法。
+```js
+render () {
+    return (
+        <Tooltip title="prompt text">
+            <span>Tooltip will show when mouse enter.</span>
+        </Tooltip>
+    )
+}
+```
+:::
+
+## 箭头指向
+
+
+:::demo 设置了 `arrowPointAtCenter` 后，箭头将指向目标元素的中心。
+```js
+render () {
+	return (
+	<div>
+    <Tooltip placement="topLeft" title="Prompt Text">
+      <Button>Align edge / 边缘对齐</Button>
+    </Tooltip>
+    <Tooltip placement="topLeft" title="Prompt Text" arrowPointAtCenter>
+      <Button>Arrow points to center / 箭头指向中心</Button>
+    </Tooltip>
+  </div>
+	)
+}
+```
+:::
+<style> .code-box-demo .ant-btn { margin-right: 1em; margin-bottom: 1em; } </style>
+
+## 位置
+
+:::demo 位置有 12 个方向。
+```js
+render(){
+	const text = <span>prompt text</span>;
+	const buttonWidth = 70;
+	return (
+  <div className="demo">
+    <div style={{ marginLeft: buttonWidth, whiteSpace: 'nowrap' }}>
+      <Tooltip placement="topLeft" title={text}>
+        <Button>TL</Button>
+      </Tooltip>
+      <Tooltip placement="top" title={text}>
+        <Button>Top</Button>
+      </Tooltip>
+      <Tooltip placement="topRight" title={text}>
+        <Button>TR</Button>
+      </Tooltip>
+    </div>
+    <div style={{ width: buttonWidth, float: 'left' }}>
+      <Tooltip placement="leftTop" title={text}>
+        <Button>LT</Button>
+      </Tooltip>
+      <Tooltip placement="left" title={text}>
+        <Button>Left</Button>
+      </Tooltip>
+      <Tooltip placement="leftBottom" title={text}>
+        <Button>LB</Button>
+      </Tooltip>
+    </div>
+    <div style={{ width: buttonWidth, marginLeft: (buttonWidth * 4) + 24 }}>
+      <Tooltip placement="rightTop" title={text}>
+        <Button>RT</Button>
+      </Tooltip>
+      <Tooltip placement="right" title={text}>
+        <Button>Right</Button>
+      </Tooltip>
+      <Tooltip placement="rightBottom" title={text}>
+        <Button>RB</Button>
+      </Tooltip>
+    </div>
+    <div style={{ marginLeft: buttonWidth, clear: 'both', whiteSpace: 'nowrap' }}>
+      <Tooltip placement="bottomLeft" title={text}>
+        <Button>BL</Button>
+      </Tooltip>
+      <Tooltip placement="bottom" title={text}>
+        <Button>Bottom</Button>
+      </Tooltip>
+      <Tooltip placement="bottomRight" title={text}>
+        <Button>BR</Button>
+      </Tooltip>
+    </div>
+	</div>
+	)
+  }
+```
+:::
+<style>
+.code-box-demo .demo {
+  overflow: auto;
+}
+.code-box-demo .ant-btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+#components-tooltip-demo-placement .ant-btn {
+  width: 70px;
+  text-align: center;
+  padding: 0;
+}
+</style>
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |

@@ -7,6 +7,205 @@
 类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 TreeSelect，例如公司层级、学科系统、分类目录等等。
 
 ## API
+## 基本
+
+:::demo 最简单的用法。
+
+```js
+	constructor(props){
+		super(props)
+		this.state = {
+			value: undefined,
+		}
+	}
+  onChange = (value) => {
+    console.log(value);
+    this.setState({ value });
+  }
+
+  render() {
+    const TreeNode = TreeSelect.TreeNode;
+    return (
+      <TreeSelect
+        showSearch
+        style={{ width: 300 }}
+        value={this.state.value}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        placeholder="Please select"
+        allowClear
+        treeDefaultExpandAll
+        onChange={this.onChange}
+      >
+        <TreeNode value="parent 1" title="parent 1" key="0-1">
+          <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
+            <TreeNode value="leaf1" title="my leaf" key="random" />
+            <TreeNode value="leaf2" title="your leaf" key="random1" />
+          </TreeNode>
+          <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
+            <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+          </TreeNode>
+        </TreeNode>
+      </TreeSelect>
+    );
+  }
+
+```
+:::
+
+
+
+## 多选
+
+:::demo 多选的树选择。
+
+
+```js
+  state = {
+    value: undefined,
+  }
+
+  onChange = (value) => {
+    console.log(value);
+    this.setState({ value });
+  }
+
+  render() {
+    const TreeNode = TreeSelect.TreeNode;
+    return (
+      <TreeSelect
+        showSearch
+        style={{ width: 300 }}
+        value={this.state.value}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        placeholder="Please select"
+        allowClear
+        multiple
+        treeDefaultExpandAll
+        onChange={this.onChange}
+      >
+        <TreeNode value="parent 1" title="parent 1" key="0-1">
+          <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
+            <TreeNode value="leaf1" title="my leaf" key="random" />
+            <TreeNode value="leaf2" title="your leaf" key="random1" />
+          </TreeNode>
+          <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
+            <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+          </TreeNode>
+        </TreeNode>
+      </TreeSelect>
+    );
+  }
+
+```
+:::
+
+## 从数据直接生成
+
+:::demo 使用 `treeData` 把 JSON 数据直接生成树结构。
+```js
+  state = {
+    value: undefined,
+  }
+
+  onChange = (value) => {
+    console.log(value);
+    this.setState({ value });
+  }
+  render() {
+    const treeData = [{
+    label: 'Node1',
+    value: '0-0',
+    key: '0-0',
+    children: [{
+        label: 'Child Node1',
+        value: '0-0-1',
+        key: '0-0-1',
+    }, {
+        label: 'Child Node2',
+        value: '0-0-2',
+        key: '0-0-2',
+    }],
+    }, {
+    label: 'Node2',
+    value: '0-1',
+    key: '0-1',
+    }];
+    return (
+      <TreeSelect
+        style={{ width: 300 }}
+        value={this.state.value}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="Please select"
+        treeDefaultExpandAll
+        onChange={this.onChange}
+      />
+    );
+  }
+
+```
+:::
+
+
+## 可勾选
+
+:::demo 使用勾选框实现多选功能。
+
+
+```js
+  state = {
+    value: ['0-0-0'],
+  }
+  onChange = (value) => {
+    console.log('onChange ', value);
+    this.setState({ value });
+  }
+
+  render() {
+		const SHOW_PARENT = TreeSelect.SHOW_PARENT;
+		const treeData = [{
+			label: 'Node1',
+			value: '0-0',
+			key: '0-0',
+			children: [{
+				label: 'Child Node1',
+				value: '0-0-0',
+				key: '0-0-0',
+			}],
+		}, {
+			label: 'Node2',
+			value: '0-1',
+			key: '0-1',
+			children: [{
+				label: 'Child Node3',
+				value: '0-1-0',
+				key: '0-1-0',
+			}, {
+				label: 'Child Node4',
+				value: '0-1-1',
+				key: '0-1-1',
+			}, {
+				label: 'Child Node5',
+				value: '0-1-2',
+				key: '0-1-2',
+			}],
+		}];
+    const tProps = {
+      treeData,
+      value: this.state.value,
+      onChange: this.onChange,
+      treeCheckable: true,
+      showCheckedStrategy: SHOW_PARENT,
+      searchPlaceholder: 'Please select',
+      style: {
+        width: 300,
+      },
+    };
+    return <TreeSelect {...tProps} />;
+  }
+```
+:::
+
 
 ### Tree props
 

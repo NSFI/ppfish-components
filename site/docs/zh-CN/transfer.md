@@ -10,6 +10,265 @@
 其中，左边一栏为 `source`，右边一栏为 `target`，API 的设计也反映了这两个概念。
 
 ## API
+## 基本用法
+
+:::demo 最基本的用法，展示了 `dataSource`、`targetKeys`、每行的渲染函数 `render` 以及回调函数 `onChange` `onSelectChange` `onScroll` 的用法。
+
+```js
+  
+	constructor(props){
+		super(props);
+		this.mockData = [];
+		for (let i = 0; i < 20; i++) {
+			this.mockData.push({
+				key: i.toString(),
+				title: `content${i + 1}`,
+				description: `description of content${i + 1}`,
+				disabled: i % 3 < 1,
+			});
+		}
+		this.targetKeys = this.mockData
+			.filter(item => +item.key % 3 > 1)
+			.map(item => item.key);
+		this.state = {
+			targetKeys:this.targetKeys,
+			selectedKeys: [],
+		}
+	}
+  handleChange = (nextTargetKeys, direction, moveKeys) => {
+    this.setState({ targetKeys: nextTargetKeys });
+    console.log('targetKeys: ', this.state.targetKeys);
+    console.log('direction: ', direction);
+    console.log('moveKeys: ', moveKeys);
+  }
+
+  handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
+    this.setState({ selectedKeys: [...sourceSelectedKeys, ...targetSelectedKeys] });
+
+    console.log('sourceSelectedKeys: ', sourceSelectedKeys);
+    console.log('targetSelectedKeys: ', targetSelectedKeys);
+  }
+
+  handleScroll = (direction, e) => {
+    console.log('direction:', direction);
+    console.log('target:', e.target);
+  }
+
+  render() {
+    return (
+      <Transfer
+        dataSource={this.mockData}
+        titles={['Source', 'Target']}
+        targetKeys={this.state.targetKeys}
+        selectedKeys={this.state.selectedKeys}
+        onChange={this.handleChange}
+        onSelectChange={this.handleSelectChange}
+        onScroll={this.handleScroll}
+        render={item => item.title}
+      />
+    );
+  }
+```
+:::
+
+## 带搜索框
+
+:::demo 带搜索框的穿梭框，可以自定义搜索函数。
+
+
+```js
+  state = {
+    mockData: [],
+    targetKeys: [],
+  }
+
+  componentDidMount() {
+    this.getMock();
+  }
+
+  getMock = () => {
+    const targetKeys = [];
+    const mockData = [];
+    for (let i = 0; i < 20; i++) {
+      const data = {
+        key: i.toString(),
+        title: `content${i + 1}`,
+        description: `description of content${i + 1}`,
+        chosen: Math.random() * 2 > 1,
+      };
+      if (data.chosen) {
+        targetKeys.push(data.key);
+      }
+      mockData.push(data);
+    }
+    this.setState({ mockData, targetKeys });
+  }
+
+  filterOption = (inputValue, option) => {
+    return option.description.indexOf(inputValue) > -1;
+  }
+
+  handleChange = (targetKeys) => {
+    this.setState({ targetKeys });
+  }
+
+  render() {
+    return (
+      <Transfer
+        dataSource={this.state.mockData}
+        showSearch
+        filterOption={this.filterOption}
+        targetKeys={this.state.targetKeys}
+        onChange={this.handleChange}
+        render={item => item.title}
+      />
+    );
+  }
+
+```
+:::
+
+## 高级用法
+
+:::demo 穿梭框高级用法，可配置操作文案，可定制宽高，可对底部进行自定义渲染。
+
+
+
+```js
+
+  state = {
+    mockData: [],
+    targetKeys: [],
+  }
+
+  componentDidMount() {
+    this.getMock();
+  }
+
+  getMock = () => {
+    const targetKeys = [];
+    const mockData = [];
+    for (let i = 0; i < 20; i++) {
+      const data = {
+        key: i.toString(),
+        title: `content${i + 1}`,
+        description: `description of content${i + 1}`,
+        chosen: Math.random() * 2 > 1,
+      };
+      if (data.chosen) {
+        targetKeys.push(data.key);
+      }
+      mockData.push(data);
+    }
+    this.setState({ mockData, targetKeys });
+  }
+
+  handleChange = (targetKeys) => {
+    this.setState({ targetKeys });
+  }
+
+  renderFooter = () => {
+    return (
+      <Button
+        size="small"
+        style={{ float: 'right', margin: 5 }}
+        onClick={this.getMock}
+      >
+        reload
+      </Button>
+    );
+  }
+
+  render() {
+    return (
+      <Transfer
+        dataSource={this.state.mockData}
+        showSearch
+        listStyle={{
+          width: 250,
+          height: 300,
+        }}
+        operations={['to right', 'to left']}
+        targetKeys={this.state.targetKeys}
+        onChange={this.handleChange}
+        render={item => `${item.title}-${item.description}`}
+        footer={this.renderFooter}
+      />
+    );
+  }
+```
+:::
+
+## 自定义渲染行数据
+
+:::demo 自定义渲染每一个 Transfer Item，可用于渲染复杂数据。
+
+
+
+```js
+
+  state = {
+    mockData: [],
+    targetKeys: [],
+  }
+
+  componentDidMount() {
+    this.getMock();
+  }
+
+  getMock = () => {
+    const targetKeys = [];
+    const mockData = [];
+    for (let i = 0; i < 20; i++) {
+      const data = {
+        key: i.toString(),
+        title: `content${i + 1}`,
+        description: `description of content${i + 1}`,
+        chosen: Math.random() * 2 > 1,
+      };
+      if (data.chosen) {
+        targetKeys.push(data.key);
+      }
+      mockData.push(data);
+    }
+    this.setState({ mockData, targetKeys });
+  }
+
+  handleChange = (targetKeys, direction, moveKeys) => {
+    console.log(targetKeys, direction, moveKeys);
+    this.setState({ targetKeys });
+  }
+
+  renderItem = (item) => {
+    const customLabel = (
+      <span className="custom-item">
+        {item.title} - {item.description}
+      </span>
+    );
+
+    return {
+      label: customLabel, // for displayed item
+      value: item.title, // for title and filter matching
+    };
+  }
+
+  render() {
+    return (
+      <Transfer
+        dataSource={this.state.mockData}
+        listStyle={{
+          width: 300,
+          height: 300,
+        }}
+        targetKeys={this.state.targetKeys}
+        onChange={this.handleChange}
+        render={this.renderItem}
+      />
+    );
+  }
+
+```
+:::
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
