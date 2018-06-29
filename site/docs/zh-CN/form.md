@@ -1,4 +1,4 @@
-# Form 表单
+# 表单
 
 具有数据收集、校验和提交功能的表单，包含复选框、单选框、输入框、下拉选择框等元素。
 
@@ -7,7 +7,7 @@
 我们为 `form` 提供了以下三种排列方式：
 
 - 水平排列：标签和表单控件水平排列；（默认）
-- 垂直排列：标签和表单控件上下垂直排列；
+- 垂直排列：标签和表单控件上下垂直排列；``
 - 行内排列：表单项水平行内排列。
 
 ## 表单域
@@ -21,6 +21,1715 @@
   {children}
 </Form.Item>
 ```
+
+## 水平登录栏
+
+:::demo 水平登录栏，常用在顶部导航栏中。
+
+```js
+const FormItem = Form.Item;
+
+function hasErrors(fieldsError) {
+  return Object.keys(fieldsError).some(field => fieldsError[field]);
+}
+
+class HorizontalLoginForm extends React.Component {
+  componentDidMount() {
+    // To disabled submit button at the beginning.
+    this.props.form.validateFields();
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  render() {
+    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+
+    // Only show error after a field is touched.
+    const userNameError = isFieldTouched('userName') && getFieldError('userName');
+    const passwordError = isFieldTouched('password') && getFieldError('password');
+    return (
+      <Form layout="inline" onSubmit={this.handleSubmit}>
+        <FormItem
+          validateStatus={userNameError ? 'error' : ''}
+          help={userNameError || ''}
+        >
+          {getFieldDecorator('userName', {
+            rules: [{ required: true, message: 'Please input your username!' }],
+          })(
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+          )}
+        </FormItem>
+        <FormItem
+          validateStatus={passwordError ? 'error' : ''}
+          help={passwordError || ''}
+        >
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }],
+          })(
+            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+          )}
+        </FormItem>
+        <FormItem>
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={hasErrors(getFieldsError())}
+          >
+            Log in
+          </Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(HorizontalLoginForm);
+```
+:::
+
+## 登录框
+
+:::demo 普通的登录框，可以容纳更多的元素。
+
+```js
+const FormItem = Form.Item;
+
+class NormalLoginForm extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <Form onSubmit={this.handleSubmit} className="login-form " id="components-form-demo-normal-login">
+        <FormItem>
+          {getFieldDecorator('userName', {
+            rules: [{ required: true, message: 'Please input your username!' }],
+          })(
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }],
+          })(
+            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('remember', {
+            valuePropName: 'checked',
+            initialValue: true,
+          })(
+            <Checkbox>Remember me</Checkbox>
+          )}
+          <a className="login-form-forgot" href="">Forgot password</a>
+          <Button type="primary" htmlType="submit" className="login-form-button">
+            Log in
+          </Button>
+          Or <a href="">register now!</a>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(NormalLoginForm);
+
+```
+:::
+
+<style>
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+</style>
+
+## 注册新用户
+
+:::demo 用户填写必须的信息以注册新用户。
+
+```js
+const FormItem = Form.Item;
+const Option = Select.Option;
+const AutoCompleteOption = AutoComplete.Option;
+
+const residences = [{
+  value: 'zhejiang',
+  label: 'Zhejiang',
+  children: [{
+    value: 'hangzhou',
+    label: 'Hangzhou',
+    children: [{
+      value: 'xihu',
+      label: 'West Lake',
+    }],
+  }],
+}, {
+  value: 'jiangsu',
+  label: 'Jiangsu',
+  children: [{
+    value: 'nanjing',
+    label: 'Nanjing',
+    children: [{
+      value: 'zhonghuamen',
+      label: 'Zhong Hua Men',
+    }],
+  }],
+}];
+
+class RegistrationForm extends React.Component {
+  state = {
+    confirmDirty: false,
+    autoCompleteResult: [],
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  handleConfirmBlur = (e) => {
+    const value = e.target.value;
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  }
+
+  compareToFirstPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
+    }
+  }
+
+  validateToNextPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
+  }
+
+  handleWebsiteChange = (value) => {
+    let autoCompleteResult;
+    if (!value) {
+      autoCompleteResult = [];
+    } else {
+      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+    }
+    this.setState({ autoCompleteResult });
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    const { autoCompleteResult } = this.state;
+
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
+    const prefixSelector = getFieldDecorator('prefix', {
+      initialValue: '86',
+    })(
+      <Select style={{ width: 70 }}>
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+      </Select>
+    );
+
+    const websiteOptions = autoCompleteResult.map(website => (
+      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+    ));
+
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <FormItem
+          {...formItemLayout}
+          label="E-mail"
+        >
+          {getFieldDecorator('email', {
+            rules: [{
+              type: 'email', message: 'The input is not valid E-mail!',
+            }, {
+              required: true, message: 'Please input your E-mail!',
+            }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Password"
+        >
+          {getFieldDecorator('password', {
+            rules: [{
+              required: true, message: 'Please input your password!',
+            }, {
+              validator: this.validateToNextPassword,
+            }],
+          })(
+            <Input type="password" />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Confirm Password"
+        >
+          {getFieldDecorator('confirm', {
+            rules: [{
+              required: true, message: 'Please confirm your password!',
+            }, {
+              validator: this.compareToFirstPassword,
+            }],
+          })(
+            <Input type="password" onBlur={this.handleConfirmBlur} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label={(
+            <span>
+              Nickname&nbsp;
+              <Tooltip title="What do you want others to call you?">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          )}
+        >
+          {getFieldDecorator('nickname', {
+            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Habitual Residence"
+        >
+          {getFieldDecorator('residence', {
+            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
+            rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
+          })(
+            <Cascader options={residences} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Phone Number"
+        >
+          {getFieldDecorator('phone', {
+            rules: [{ required: true, message: 'Please input your phone number!' }],
+          })(
+            <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Website"
+        >
+          {getFieldDecorator('website', {
+            rules: [{ required: true, message: 'Please input website!' }],
+          })(
+            <AutoComplete
+              dataSource={websiteOptions}
+              onChange={this.handleWebsiteChange}
+              placeholder="website"
+            >
+              <Input />
+            </AutoComplete>
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Captcha"
+          extra="We must make sure that your are a human."
+        >
+          <Row gutter={8}>
+            <Col span={12}>
+              {getFieldDecorator('captcha', {
+                rules: [{ required: true, message: 'Please input the captcha you got!' }],
+              })(
+                <Input />
+              )}
+            </Col>
+            <Col span={12}>
+              <Button>Get captcha</Button>
+            </Col>
+          </Row>
+        </FormItem>
+        <FormItem {...tailFormItemLayout}>
+          {getFieldDecorator('agreement', {
+            valuePropName: 'checked',
+          })(
+            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
+          )}
+        </FormItem>
+        <FormItem {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit">Register</Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(RegistrationForm);
+```
+:::
+
+## 高级搜索
+
+:::demo 三列栅格式的表单排列方式，常用于数据表格的高级搜索。
+
+有部分定制的样式代码，由于输入标签长度不确定，需要根据具体情况自行调整。
+
+
+```js
+const FormItem = Form.Item;
+
+class AdvancedSearchForm extends React.Component {
+  state = {
+    expand: false,
+  };
+
+  handleSearch = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      console.log('Received values of form: ', values);
+    });
+  }
+
+  handleReset = () => {
+    this.props.form.resetFields();
+  }
+
+  toggle = () => {
+    const { expand } = this.state;
+    this.setState({ expand: !expand });
+  }
+
+  // To generate mock Form.Item
+  getFields() {
+    const count = this.state.expand ? 10 : 6;
+    const { getFieldDecorator } = this.props.form;
+    const children = [];
+    for (let i = 0; i < 10; i++) {
+      children.push(
+        <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+          <FormItem label={`Field ${i}`}>
+            {getFieldDecorator(`field-${i}`, {
+              rules: [{
+                required: true,
+                message: 'Input something!',
+              }],
+            })(
+              <Input placeholder="placeholder" />
+            )}
+          </FormItem>
+        </Col>
+      );
+    }
+    return children;
+  }
+
+  render() {
+    return (
+      <Form
+        className="ant-advanced-search-form"
+        id="components-form-demo-advanced-search"
+        onSubmit={this.handleSearch}
+      >
+        <Row gutter={24}>{this.getFields()}</Row>
+        <Row>
+          <Col span={24} style={{ textAlign: 'right' }}>
+            <Button type="primary" htmlType="submit">Search</Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
+              Clear
+            </Button>
+            <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
+              Collapse <Icon type={this.state.expand ? 'up' : 'down'} />
+            </a>
+          </Col>
+        </Row>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(AdvancedSearchForm);
+```
+:::
+
+<style>
+.ant-advanced-search-form {
+  padding: 24px;
+  background: #fbfbfb;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+}
+
+.ant-advanced-search-form .ant-form-item {
+  display: flex;
+}
+
+.ant-advanced-search-form .ant-form-item-control-wrapper {
+  flex: 1;
+}
+</style>
+
+<style>
+#components-form-demo-advanced-search .ant-form {
+  max-width: none;
+}
+#components-form-demo-advanced-search .search-result-list {
+  margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 80px;
+}
+</style>
+
+## 弹出层中的新建表单
+
+:::demo 当用户访问一个展示了某个列表的页面，想新建一项但又不想跳转页面时，可以用 Modal 弹出一个表单，用户填写必要信息后创建新的项。
+
+```js
+const FormItem = Form.Item;
+
+const CollectionCreateForm = Form.create()(
+  class extends React.Component {
+    render() {
+      const { visible, onCancel, onCreate, form } = this.props;
+      const { getFieldDecorator } = form;
+      return (
+        <Modal
+          visible={visible}
+          title="Create a new collection"
+          okText="Create"
+          onCancel={onCancel}
+          onOk={onCreate}
+        >
+          <Form layout="vertical">
+            <FormItem label="Title">
+              {getFieldDecorator('title', {
+                rules: [{ required: true, message: 'Please input the title of collection!' }],
+              })(
+                <Input />
+              )}
+            </FormItem>
+            <FormItem label="Description">
+              {getFieldDecorator('description')(<Input type="textarea" />)}
+            </FormItem>
+            <FormItem className="collection-create-form_last-form-item">
+              {getFieldDecorator('modifier', {
+                initialValue: 'public',
+              })(
+                <Radio.Group>
+                  <Radio value="public">Public</Radio>
+                  <Radio value="private">Private</Radio>
+                </Radio.Group>
+              )}
+            </FormItem>
+          </Form>
+        </Modal>
+      );
+    }
+  }
+);
+
+class Demo extends React.Component {
+  state = {
+    visible: false,
+  };
+
+  showModal = () => {
+    this.setState({ visible: true });
+  }
+
+  handleCancel = () => {
+    this.setState({ visible: false });
+  }
+
+  handleCreate = () => {
+    const form = this.formRef.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  }
+
+  saveFormRef = (formRef) => {
+    this.formRef = formRef;
+  }
+
+  render() {
+    return (
+      <div>
+        <Button type="primary" onClick={this.showModal}>New Collection</Button>
+        <CollectionCreateForm
+          wrappedComponentRef={this.saveFormRef}
+          visible={this.state.visible}
+          onCancel={this.handleCancel}
+          onCreate={this.handleCreate}
+        />
+      </div>
+    );
+  }
+}
+```
+:::
+
+<style>
+.collection-create-form_last-form-item {
+  margin-bottom: 0;
+}
+</style>
+
+## 动态增减表单项
+
+:::demo 动态增加、减少表单项。
+
+```js
+const FormItem = Form.Item;
+
+let uuid = 0;
+class DynamicFieldSet extends React.Component {
+  remove = (k) => {
+    const { form } = this.props;
+    // can use data-binding to get
+    const keys = form.getFieldValue('keys');
+    // We need at least one passenger
+    if (keys.length === 1) {
+      return;
+    }
+
+    // can use data-binding to set
+    form.setFieldsValue({
+      keys: keys.filter(key => key !== k),
+    });
+  }
+
+  add = () => {
+    const { form } = this.props;
+    // can use data-binding to get
+    const keys = form.getFieldValue('keys');
+    const nextKeys = keys.concat(uuid);
+    uuid++;
+    // can use data-binding to set
+    // important! notify form to detect changes
+    form.setFieldsValue({
+      keys: nextKeys,
+    });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  render() {
+    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 4 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 20 },
+      },
+    };
+    const formItemLayoutWithOutLabel = {
+      wrapperCol: {
+        xs: { span: 24, offset: 0 },
+        sm: { span: 20, offset: 4 },
+      },
+    };
+    getFieldDecorator('keys', { initialValue: [] });
+    const keys = getFieldValue('keys');
+    const formItems = keys.map((k, index) => {
+      return (
+        <FormItem
+          {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+          label={index === 0 ? 'Passengers' : ''}
+          required={false}
+          key={k}
+        >
+          {getFieldDecorator(`names[${k}]`, {
+            validateTrigger: ['onChange', 'onBlur'],
+            rules: [{
+              required: true,
+              whitespace: true,
+              message: "Please input passenger's name or delete this field.",
+            }],
+          })(
+            <Input placeholder="passenger name" style={{ width: '60%', marginRight: 8 }} />
+          )}
+          {keys.length > 1 ? (
+            <Icon
+              className="dynamic-delete-button"
+              type="minus-circle-o"
+              disabled={keys.length === 1}
+              onClick={() => this.remove(k)}
+            />
+          ) : null}
+        </FormItem>
+      );
+    });
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        {formItems}
+        <FormItem {...formItemLayoutWithOutLabel}>
+          <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
+            <Icon type="plus" /> Add field
+          </Button>
+        </FormItem>
+        <FormItem {...formItemLayoutWithOutLabel}>
+          <Button type="primary" htmlType="submit">Submit</Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(DynamicFieldSet);
+```
+:::
+
+<style>
+.dynamic-delete-button {
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  font-size: 24px;
+  color: #999;
+  transition: all .3s;
+}
+.dynamic-delete-button:hover {
+  color: #777;
+}
+.dynamic-delete-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+</style>
+
+## 时间类控件
+
+:::demo `antd@2.0` 之后，时间类组件的 `value` 改为 `moment` 类型，所以在提交前需要预处理。
+
+```js
+const FormItem = Form.Item;
+const MonthPicker = DatePicker.MonthPicker;
+const RangePicker = DatePicker.RangePicker;
+
+class TimeRelatedForm extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.form.validateFields((err, fieldsValue) => {
+      if (err) {
+        return;
+      }
+
+      // Should format date value before submit.
+      const rangeValue = fieldsValue['range-picker'];
+      const rangeTimeValue = fieldsValue['range-time-picker'];
+      const values = {
+        ...fieldsValue,
+        'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
+        'date-time-picker': fieldsValue['date-time-picker'].format('YYYY-MM-DD HH:mm:ss'),
+        'month-picker': fieldsValue['month-picker'].format('YYYY-MM'),
+        'range-picker': [rangeValue[0].format('YYYY-MM-DD'), rangeValue[1].format('YYYY-MM-DD')],
+        'range-time-picker': [
+          rangeTimeValue[0].format('YYYY-MM-DD HH:mm:ss'),
+          rangeTimeValue[1].format('YYYY-MM-DD HH:mm:ss'),
+        ],
+        'time-picker': fieldsValue['time-picker'].format('HH:mm:ss'),
+      };
+      console.log('Received values of form: ', values);
+    });
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+    const config = {
+      rules: [{ type: 'object', required: true, message: 'Please select time!' }],
+    };
+    const rangeConfig = {
+      rules: [{ type: 'array', required: true, message: 'Please select time!' }],
+    };
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <FormItem
+          {...formItemLayout}
+          label="DatePicker"
+        >
+          {getFieldDecorator('date-picker', config)(
+            <DatePicker />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="DatePicker[showTime]"
+        >
+          {getFieldDecorator('date-time-picker', config)(
+            <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="MonthPicker"
+        >
+          {getFieldDecorator('month-picker', config)(
+            <MonthPicker />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="RangePicker"
+        >
+          {getFieldDecorator('range-picker', rangeConfig)(
+            <RangePicker />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="RangePicker[showTime]"
+        >
+          {getFieldDecorator('range-time-picker', rangeConfig)(
+            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="TimePicker"
+        >
+          {getFieldDecorator('time-picker', config)(
+            <TimePicker />
+          )}
+        </FormItem>
+        <FormItem
+          wrapperCol={{
+            xs: { span: 24, offset: 0 },
+            sm: { span: 16, offset: 8 },
+          }}
+        >
+          <Button type="primary" htmlType="submit">Submit</Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(TimeRelatedForm);
+
+```
+:::
+
+## 自定义表单控件
+
+:::demo 自定义或第三方的表单控件，也可以与 Form 组件一起使用。只要该组件遵循以下的约定：
+> * 提供受控属性 `value` 或其它与 [`valuePropName`](http://ant.design/components/form/#getFieldDecorator-参数) 的值同名的属性。
+> * 提供 `onChange` 事件或 [`trigger`](http://ant.design/components/form/#getFieldDecorator-参数) 的值同名的事件。
+> * 不能是函数式组件。
+
+```js
+const FormItem = Form.Item;
+const Option = Select.Option;
+
+class PriceInput extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const value = props.value || {};
+    this.state = {
+      number: value.number || 0,
+      currency: value.currency || 'rmb',
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Should be a controlled component.
+    if ('value' in nextProps) {
+      const value = nextProps.value;
+      this.setState(value);
+    }
+  }
+
+  handleNumberChange = (e) => {
+    const number = parseInt(e.target.value || 0, 10);
+    if (isNaN(number)) {
+      return;
+    }
+    if (!('value' in this.props)) {
+      this.setState({ number });
+    }
+    this.triggerChange({ number });
+  }
+
+  handleCurrencyChange = (currency) => {
+    if (!('value' in this.props)) {
+      this.setState({ currency });
+    }
+    this.triggerChange({ currency });
+  }
+
+  triggerChange = (changedValue) => {
+    // Should provide an event to pass value to Form.
+    const onChange = this.props.onChange;
+    if (onChange) {
+      onChange(Object.assign({}, this.state, changedValue));
+    }
+  }
+
+  render() {
+    const { size } = this.props;
+    const state = this.state;
+    return (
+      <span>
+        <Input
+          type="text"
+          size={size}
+          value={state.number}
+          onChange={this.handleNumberChange}
+          style={{ width: '65%', marginRight: '3%' }}
+        />
+        <Select
+          value={state.currency}
+          size={size}
+          style={{ width: '32%' }}
+          onChange={this.handleCurrencyChange}
+        >
+          <Option value="rmb">RMB</Option>
+          <Option value="dollar">Dollar</Option>
+        </Select>
+      </span>
+    );
+  }
+}
+
+class UnWrappedDemo extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  checkPrice = (rule, value, callback) => {
+    if (value.number > 0) {
+      callback();
+      return;
+    }
+    callback('Price must greater than zero!');
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <Form layout="inline" onSubmit={this.handleSubmit}>
+        <FormItem label="Price">
+          {getFieldDecorator('price', {
+            initialValue: { number: 0, currency: 'rmb' },
+            rules: [{ validator: this.checkPrice }],
+          })(<PriceInput />)}
+        </FormItem>
+        <FormItem>
+          <Button type="primary" htmlType="submit">Submit</Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(UnWrappedDemo);
+```
+:::
+
+## 表单数据存储于上层组件
+
+:::demo 通过使用 `onFieldsChange` 与 `mapPropsToFields`，可以把表单的数据存储到上层组件或者 [Redux](https://github.com/reactjs/redux)、[dva](https://github.com/dvajs/dva) 中，更多可参考 [rc-form 示例](http://react-component.github.io/form/examples/redux.html)。
+
+**注意：**`mapPropsToFields` 里面返回的表单域数据必须使用 `Form.createFormField` 包装。
+
+```js
+const FormItem = Form.Item;
+
+const CustomizedForm = Form.create({
+  onFieldsChange(props, changedFields) {
+    props.onChange(changedFields);
+  },
+  mapPropsToFields(props) {
+    return {
+      username: Form.createFormField({
+        ...props.username,
+        value: props.username.value,
+      }),
+    };
+  },
+  onValuesChange(_, values) {
+    console.log(values);
+  },
+})((props) => {
+  const { getFieldDecorator } = props.form;
+  return (
+    <Form layout="inline">
+      <FormItem label="Username">
+        {getFieldDecorator('username', {
+          rules: [{ required: true, message: 'Username is required!' }],
+        })(<Input />)}
+      </FormItem>
+    </Form>
+  );
+});
+
+class Demo extends React.Component {
+  state = {
+    fields: {
+      username: {
+        value: 'benjycui',
+      },
+    },
+  };
+
+  handleFormChange = (changedFields) => {
+    this.setState(({ fields }) => ({
+      fields: { ...fields, ...changedFields },
+    }));
+  }
+
+  render() {
+    const fields = this.state.fields;
+    return (
+      <div id="components-form-demo-global-state">
+        <CustomizedForm {...fields} onChange={this.handleFormChange} />
+        <pre className="language-bash">
+          {JSON.stringify(fields, null, 2)}
+        </pre>
+      </div>
+    );
+  }
+}
+```
+:::
+
+<style>
+#components-form-demo-global-state .language-bash {
+  max-width: 400px;
+  border-radius: 6px;
+  margin-top: 24px;
+}
+</style>
+
+## 自行处理表单数据
+
+:::demo 使用 `Form.create` 处理后的表单具有自动收集数据并校验的功能，但如果您不需要这个功能，或者默认的行为无法满足业务需求，可以选择不使用 `Form.create` 并自行处理数据。
+
+```js
+const FormItem = Form.Item;
+
+function validatePrimeNumber(number) {
+  if (number === 11) {
+    return {
+      validateStatus: 'success',
+      errorMsg: null,
+    };
+  }
+  return {
+    validateStatus: 'error',
+    errorMsg: 'The prime between 8 and 12 is 11!',
+  };
+}
+
+class Demo extends React.Component {
+  state = {
+    number: {
+      value: 11,
+    },
+  };
+
+  handleNumberChange = (value) => {
+    this.setState({
+      number: {
+        ...validatePrimeNumber(value),
+        value,
+      },
+    });
+  }
+
+  render() {
+    const formItemLayout = {
+      labelCol: { span: 7 },
+      wrapperCol: { span: 12 },
+    };
+    const number = this.state.number;
+    const tips = 'A prime is a natural number greater than 1 that has no positive divisors other than 1 and itself.';
+    return (
+      <Form>
+        <FormItem
+          {...formItemLayout}
+          label="Prime between 8 & 12"
+          validateStatus={number.validateStatus}
+          help={number.errorMsg || tips}
+        >
+          <InputNumber
+            min={8}
+            max={12}
+            value={number.value}
+            onChange={this.handleNumberChange}
+          />
+        </FormItem>
+      </Form>
+    );
+  }
+}
+```
+:::
+
+## 自定义校验
+
+:::demo 我们提供了 `validateStatus` `help` `hasFeedback` 等属性，你可以不需要使用 `Form.create` 和 `getFieldDecorator`，自己定义校验的时机和内容。
+
+1. `validateStatus`: 校验状态，可选 'success', 'warning', 'error', 'validating'。
+2. `hasFeedback`：用于给输入框添加反馈图标。
+3. `help`：设置校验文案。
+
+```js
+
+render(){
+  const FormItem = Form.Item;
+  const Option = Select.Option;
+  
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 5 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 12 },
+    },
+  };
+  return(
+    <Form>
+        <FormItem
+          {...formItemLayout}
+          label="Fail"
+          validateStatus="error"
+          help="Should be combination of numbers & alphabets"
+        >
+          <Input placeholder="unavailable choice" id="error" />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Warning"
+          validateStatus="warning"
+        >
+          <Input placeholder="Warning" id="warning" />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Validating"
+          hasFeedback
+          validateStatus="validating"
+          help="The information is being validated..."
+        >
+          <Input placeholder="I'm the content is being validated" id="validating" />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Success"
+          hasFeedback
+          validateStatus="success"
+        >
+          <Input placeholder="I'm the content" id="success" />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Warning"
+          hasFeedback
+          validateStatus="warning"
+        >
+          <Input placeholder="Warning" id="warning" />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Fail"
+          hasFeedback
+          validateStatus="error"
+          help="Should be combination of numbers & alphabets"
+        >
+          <Input placeholder="unavailable choice" id="error" />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Success"
+          hasFeedback
+          validateStatus="success"
+        >
+          <DatePicker style={{ width: '100%' }} />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Warning"
+          hasFeedback
+          validateStatus="warning"
+        >
+          <TimePicker style={{ width: '100%' }} />
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Error"
+          hasFeedback
+          validateStatus="error"
+        >
+          <Select defaultValue="1">
+            <Option value="1">Option 1</Option>
+            <Option value="2">Option 2</Option>
+            <Option value="3">Option 3</Option>
+          </Select>
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Validating"
+          hasFeedback
+          validateStatus="validating"
+          help="The information is being validated..."
+        >
+          <Cascader defaultValue={['1']} options={[]} />
+        </FormItem>
+    
+        <FormItem
+          label="inline"
+          {...formItemLayout}
+        >
+          <Col span={11}>
+            <FormItem validateStatus="error" help="Please select the correct date">
+              <DatePicker />
+            </FormItem>
+          </Col>
+          <Col span={2}>
+            <span style={{ display: 'inline-block', width: '100%', textAlign: 'center' }}>
+              -
+            </span>
+          </Col>
+          <Col span={11}>
+            <FormItem>
+              <DatePicker />
+            </FormItem>
+          </Col>
+        </FormItem>
+    
+        <FormItem
+          {...formItemLayout}
+          label="Success"
+          hasFeedback
+          validateStatus="success"
+        >
+          <InputNumber style={{ width: '100%' }} />
+        </FormItem>
+      </Form>
+  )
+}
+```
+:::
+
+## 表单联动
+
+:::demo 使用 `setFieldsValue` 来动态设置其他控件的值。
+
+```js
+const FormItem = Form.Item;
+const Option = Select.Option;
+
+class App extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  handleSelectChange = (value) => {
+    console.log(value);
+    this.props.form.setFieldsValue({
+      note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
+    });
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <FormItem
+          label="Note"
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 12 }}
+        >
+          {getFieldDecorator('note', {
+            rules: [{ required: true, message: 'Please input your note!' }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          label="Gender"
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 12 }}
+        >
+          {getFieldDecorator('gender', {
+            rules: [{ required: true, message: 'Please select your gender!' }],
+          })(
+            <Select
+              placeholder="Select a option and change input text above"
+              onChange={this.handleSelectChange}
+            >
+              <Option value="male">male</Option>
+              <Option value="female">female</Option>
+            </Select>
+          )}
+        </FormItem>
+        <FormItem
+          wrapperCol={{ span: 12, offset: 5 }}
+        >
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(App);
+```
+:::
+
+## 表单布局
+
+:::demo 表单有三种布局。
+
+
+```js
+const FormItem = Form.Item;
+
+class Demo extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      formLayout: 'horizontal',
+    };
+  }
+
+  handleFormLayoutChange = (e) => {
+    this.setState({ formLayout: e.target.value });
+  }
+
+  render() {
+    const { formLayout } = this.state;
+    const formItemLayout = formLayout === 'horizontal' ? {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
+    } : null;
+    const buttonItemLayout = formLayout === 'horizontal' ? {
+      wrapperCol: { span: 14, offset: 4 },
+    } : null;
+    return (
+      <div>
+        <Form layout={formLayout}>
+          <FormItem
+            label="Form Layout"
+            {...formItemLayout}
+          >
+            <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange}>
+              <Radio.Button value="horizontal">Horizontal</Radio.Button>
+              <Radio.Button value="vertical">Vertical</Radio.Button>
+              <Radio.Button value="inline">Inline</Radio.Button>
+            </Radio.Group>
+          </FormItem>
+          <FormItem
+            label="Field A"
+            {...formItemLayout}
+          >
+            <Input placeholder="input placeholder" />
+          </FormItem>
+          <FormItem
+            label="Field B"
+            {...formItemLayout}
+          >
+            <Input placeholder="input placeholder" />
+          </FormItem>
+          <FormItem {...buttonItemLayout}>
+            <Button type="primary">Submit</Button>
+          </FormItem>
+        </Form>
+      </div>
+    );
+  }
+}
+```
+:::
+
+## 动态校验规则
+
+:::demo 根据不同情况执行不同的校验规则。
+
+```js
+const FormItem = Form.Item;
+
+const formItemLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 8 },
+};
+const formTailLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 8, offset: 4 },
+};
+class DynamicRule extends React.Component {
+  state = {
+    checkNick: false,
+  };
+
+  check = () => {
+    this.props.form.validateFields(
+      (err) => {
+        if (!err) {
+          console.info('success');
+        }
+      },
+    );
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      checkNick: e.target.checked,
+    }, () => {
+      this.props.form.validateFields(['nickname'], { force: true });
+    });
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <div>
+        <FormItem {...formItemLayout} label="Name">
+          {getFieldDecorator('username', {
+            rules: [{
+              required: true,
+              message: 'Please input your name',
+            }],
+          })(
+            <Input placeholder="Please input your name" />
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="Nickname">
+          {getFieldDecorator('nickname', {
+            rules: [{
+              required: this.state.checkNick,
+              message: 'Please input your nickname',
+            }],
+          })(
+            <Input placeholder="Please input your nickname" />
+          )}
+        </FormItem>
+        <FormItem {...formTailLayout}>
+          <Checkbox
+            value={this.state.checkNick}
+            onChange={this.handleChange}
+          >
+            Nickname is required
+          </Checkbox>
+        </FormItem>
+        <FormItem {...formTailLayout}>
+          <Button type="primary" onClick={this.check}>
+            Check
+          </Button>
+        </FormItem>
+      </div>
+    );
+  }
+}
+
+const Demo = Form.create()(DynamicRule);
+
+```
+:::
+
+## 校验其他组件
+
+:::demo 以上演示没有出现的表单控件对应的校验演示。
+
+```js
+const FormItem = Form.Item;
+const Option = Select.Option;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+
+class UnwrappedDemo extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  normFile = (e) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 },
+    };
+    return (
+      <Form onSubmit={this.handleSubmit} id="components-form-demo-validate-other">
+        <FormItem
+          {...formItemLayout}
+          label="Plain Text"
+        >
+          <span className="ant-form-text">China</span>
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Select"
+          hasFeedback
+        >
+          {getFieldDecorator('select', {
+            rules: [
+              { required: true, message: 'Please select your country!' },
+            ],
+          })(
+            <Select placeholder="Please select a country">
+              <Option value="china">China</Option>
+              <Option value="use">U.S.A</Option>
+            </Select>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Select[multiple]"
+        >
+          {getFieldDecorator('select-multiple', {
+            rules: [
+              { required: true, message: 'Please select your favourite colors!', type: 'array' },
+            ],
+          })(
+            <Select mode="multiple" placeholder="Please select favourite colors">
+              <Option value="red">Red</Option>
+              <Option value="green">Green</Option>
+              <Option value="blue">Blue</Option>
+            </Select>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="InputNumber"
+        >
+          {getFieldDecorator('input-number', { initialValue: 3 })(
+            <InputNumber min={1} max={10} />
+          )}
+          <span className="ant-form-text"> machines</span>
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Switch"
+        >
+          {getFieldDecorator('switch', { valuePropName: 'checked' })(
+            <Switch />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Slider"
+        >
+          {getFieldDecorator('slider')(
+            <Slider marks={{ 0: 'A', 20: 'B', 40: 'C', 60: 'D', 80: 'E', 100: 'F' }} />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Radio.Group"
+        >
+          {getFieldDecorator('radio-group')(
+            <RadioGroup>
+              <Radio value="a">item 1</Radio>
+              <Radio value="b">item 2</Radio>
+              <Radio value="c">item 3</Radio>
+            </RadioGroup>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Radio.Button"
+        >
+          {getFieldDecorator('radio-button')(
+            <RadioGroup>
+              <RadioButton value="a">item 1</RadioButton>
+              <RadioButton value="b">item 2</RadioButton>
+              <RadioButton value="c">item 3</RadioButton>
+            </RadioGroup>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Rate"
+        >
+          {getFieldDecorator('rate', {
+            initialValue: 3.5,
+          })(
+            <Rate />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Upload"
+          extra="longgggggggggggggggggggggggggggggggggg"
+        >
+          {getFieldDecorator('upload', {
+            valuePropName: 'fileList',
+            getValueFromEvent: this.normFile,
+          })(
+            <Upload name="logo" action="/upload.do" listType="picture">
+              <Button>
+                <Icon type="upload" /> Click to upload
+              </Button>
+            </Upload>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Dragger"
+        >
+          <div className="dropbox">
+            {getFieldDecorator('dragger', {
+              valuePropName: 'fileList',
+              getValueFromEvent: this.normFile,
+            })(
+              <Upload.Dragger name="files" action="/upload.do">
+                <p className="ant-upload-drag-icon">
+                  <Icon type="inbox" />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+              </Upload.Dragger>
+            )}
+          </div>
+        </FormItem>
+
+        <FormItem
+          wrapperCol={{ span: 12, offset: 6 }}
+        >
+          <Button type="primary" htmlType="submit">Submit</Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(UnwrappedDemo);
+```
+:::
+
+<style>
+#components-form-demo-validate-other .dropbox {
+  height: 180px;
+  line-height: 1.5;
+}
+</style>
 
 ## API
 
