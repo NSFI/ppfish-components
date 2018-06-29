@@ -81,7 +81,7 @@ export default class Slider extends React.Component {
         <li title={x.id} key={x.id} ref={x.id}><a onClick={(e) => this.clickLink(e, x.id)}>{x.name}</a></li>) :
       null;
     return (
-      <Affix offsetTop={120}>
+      <Affix offsetTop={30}>
         <ul className="u-slider-anchors" ref="menu">
           {menuList}
         </ul>
