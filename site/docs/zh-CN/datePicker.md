@@ -19,7 +19,7 @@ onChange=(date, dateString)=> {
 render(){
   const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
   return(
-      <div>
+      <div className="code-box-demo">
        <DatePicker onChange={this.onChange} />
         <br />
         <MonthPicker onChange={this.onChange} placeholder="Select month" />
@@ -43,7 +43,7 @@ render(){
   const dateFormat = 'YYYY/MM/DD';
   const monthFormat = 'YYYY/MM';
   return(
-  <div>
+  <div className="code-box-demo">
     <DatePicker defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat} />
     <br />
     <MonthPicker defaultValue={moment('2015/01', monthFormat)} format={monthFormat} />
@@ -75,7 +75,7 @@ render(){
     const { size } = this.state;
     const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
     return (
-      <div>
+      <div className="code-box-demo">
         <Radio.Group value={size} onChange={this.handleSizeChange}>
           <Radio.Button value="large">Large</Radio.Button>
           <Radio.Button value="default">Default</Radio.Button>
@@ -112,7 +112,7 @@ onOk=(value)=> {
 render(){
   const { RangePicker } = DatePicker;
   return(
-    <div>
+    <div className="code-box-demo">
         <DatePicker
           showTime
           format="YYYY-MM-DD HH:mm:ss"
@@ -144,7 +144,7 @@ render(){
   const { MonthPicker, RangePicker } = DatePicker;
   const dateFormat = 'YYYY-MM-DD';
   return(
-  <div>
+  <div className="code-box-demo">
     <DatePicker defaultValue={moment('2015-06-06', dateFormat)} disabled />
     <br />
     <MonthPicker defaultValue={moment('2015-06', 'YYYY-MM')} disabled />
@@ -202,7 +202,7 @@ disabledRangeTime = (_, type) => {
 render(){
   const { MonthPicker, RangePicker } = DatePicker;
   return(
-  <div>
+  <div className="code-box-demo">
     <DatePicker
       format="YYYY-MM-DD HH:mm:ss"
       disabledDate={this.disabledDate}
@@ -282,7 +282,7 @@ render(){
   render() {
     const { startValue, endValue, endOpen } = this.state;
     return (
-      <div>
+      <div className="code-box-demo">
         <DatePicker
           disabledDate={this.disabledStartDate}
           showTime
@@ -322,7 +322,7 @@ onChange=(dates, dateStrings)=> {
 render(){
   const RangePicker = DatePicker.RangePicker;
   return(
-  <div>
+  <div className="code-box-demo">
     <RangePicker
       ranges={{ Today: [moment(), moment()], 'This Month': [moment(), moment().endOf('month')] }}
       onChange={this.onChange}
@@ -347,7 +347,7 @@ render(){
 render(){
   const { RangePicker, MonthPicker } = DatePicker;
   return(
-    <div>
+    <div className="code-box-demo">
         <DatePicker renderExtraFooter={() => 'extra footer'} />
         <DatePicker renderExtraFooter={() => 'extra footer'} showTime />
         <RangePicker renderExtraFooter={() => 'extra footer'} />
@@ -394,7 +394,7 @@ render(){
     const { value, mode, modeDatePicker } = this.state;
     const { RangePicker } = DatePicker;
     return (
-      <div>
+      <div className="code-box-demo">
       <DatePicker
         mode={modeDatePicker}
         showTime
@@ -423,7 +423,7 @@ render(){
 render(){
   const { RangePicker } = DatePicker;
   return(
-  <div>
+  <div className="code-box-demo">
     <DatePicker
       dateRender={(current) => {
         const style = {};

@@ -16,7 +16,7 @@
 
 这里我们封装了表单域 `<Form.Item />` 。
 
-```jsx
+```js
 <Form.Item {...props}>
   {children}
 </Form.Item>
@@ -39,7 +39,7 @@
 
 使用方式如下：
 
-```jsx
+```js
 class CustomizedForm extends React.Component {}
 
 CustomizedForm = Form.create({})(CustomizedForm);
@@ -56,7 +56,7 @@ CustomizedForm = Form.create({})(CustomizedForm);
 
 经过 `Form.create` 之后如果要拿到 `ref`，可以使用 `rc-form` 提供的 `wrappedComponentRef`，[详细内容可以查看这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140)。
 
-```jsx
+```js
 class CustomizedForm extends React.Component { ... }
 
 // use wrappedComponentRef
@@ -172,7 +172,7 @@ this.form // => The instance of CustomizedForm
 
 ## 在 TypeScript 中使用
 
-```jsx
+```js
 import { Form } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 
