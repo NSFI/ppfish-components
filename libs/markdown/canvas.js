@@ -47,20 +47,29 @@ export default class Canvas extends React.Component {
         argv
       }
     }).then(({args, argv}) => {
-      const code = transform(`
+      let code;
+      //多个class写法,需要return一个Demo对象
+      if (/class.*extends React.Component/.test(value)) {
+        code = transform(`
+        ${value}
+        ReactDOM.render(<Demo {...context.props} />, document.getElementById('${this.playerId}'))
+      `, {
+          presets: ['react', 'stage-2', 'stage-1']
+        }).code;
+      } else {
+        //单个class写关键部分内容
+        code = transform(`
         class Demo extends React.Component {
           ${value}
         }
-
         ReactDOM.render(<Demo {...context.props} />, document.getElementById('${this.playerId}'))
       `, {
-        presets: ['react', 'stage-2', 'stage-1']
-      }).code;
-
+          presets: ['react', 'stage-2', 'stage-1']
+        }).code;
+      }
       args.push(code);
       //render to playrId div
       new Function(...args).apply(null, argv);
-
       this.source[2] = value
     }).catch((err) => {
       if (process.env.NODE_ENV !== 'production') {
