@@ -723,14 +723,8 @@ const columns = [{
   fetch = (params = {}) => {
     console.log('params:', params);
     this.setState({ loading: true });
-    fetch({
-      url: 'https://randomuser.me/api',
-      method: 'get',
-      data: {
-        results: 10,
-        ...params,
-      },
-      type: 'json',
+    fetch('https://randomuser.me/api?results=10').then((res) => {
+      return res.json() 
     }).then((data) => {
       const pagination = { ...this.state.pagination };
       // Read total count from server
