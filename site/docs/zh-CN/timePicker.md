@@ -8,6 +8,150 @@
 
 当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。
 
+## 基本
+
+:::demo 点击 TimePicker，然后可以在浮层中选择或者输入某一时间。
+
+```js
+  onChange = (time) => {
+    console.log(time);
+    this.setState({ value: time });
+  }
+
+render(){
+  return(<TimePicker onChange={this.onChange} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />)
+}
+```
+:::
+
+## 受控组件
+
+:::demo value 和 onChange 需要配合使用。
+
+```js
+  state = {
+    value: null,
+  };
+
+  onChange = (time) => {
+    console.log(time);
+    this.setState({ value: time });
+  }
+
+  render() {
+    return <TimePicker value={this.state.value} onChange={this.onChange} />;
+  }
+```
+:::
+
+## 三种大小
+
+:::demo 三种大小的输入框，大的用在表单中，中的为默认。
+
+```js
+render(){
+  return(
+      <div className="code-box-demo">
+        <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} size="large" />
+        <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} />
+        <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} size="small" />
+      </div>
+  )
+}
+```
+:::
+
+## 禁用
+
+:::demo 禁用时间选择。
+
+```js
+render(){
+  return(
+     <TimePicker defaultValue={moment('12:08:23', 'HH:mm:ss')} disabled />
+  )
+}
+```
+:::
+
+## 选择时分
+
+:::demo TimePicker 浮层中的列会随着 `format` 变化，当略去 `format` 中的某部分时，浮层中对应的列也会消失。
+
+```js
+render(){
+  const format = 'HH:mm';
+  return(
+      <TimePicker defaultValue={moment('12:08', format)} format={format} />
+  )
+}
+```
+:::
+
+## 步长选项
+
+:::demo 可以使用 `hourStep` `minuteStep` `secondStep` 按步长展示可选的时分秒。
+
+```js
+render(){
+  return(
+      <TimePicker minuteStep={15} secondStep={10} />
+  )
+}
+```
+
+:::
+
+## 附加内容
+
+:::demo 在 TimePicker 选择框底部显示自定义的内容。
+
+```js
+  state = { open: false };
+
+  handleOpenChange = (open) => {
+    this.setState({ open });
+  }
+
+  handleClose = () => this.setState({ open: false })
+
+  render() {
+    return (
+      <TimePicker
+        open={this.state.open}
+        onOpenChange={this.handleOpenChange}
+        addon={() => (
+          <Button size="small" type="primary" onClick={this.handleClose}>
+            Ok
+          </Button>
+        )}
+      />
+    );
+  }
+```
+:::
+
+## 12 小时制
+
+:::demo 12 小时制的时间选择器，默认的 format 为 `h:mm:ss a`。
+
+```js
+onChange=(time, timeString)=>{
+  console.log(time, timeString);
+};
+
+render(){
+  return(
+      <div className="code-box-demo">
+        <TimePicker use12Hours onChange={this.onChange} />
+        <TimePicker use12Hours format="h:mm:ss A" onChange={this.onChange} />
+        <TimePicker use12Hours format="h:mm a" onChange={this.onChange} />
+      </div>
+  )
+}
+```
+:::
+
 ## API
 
 ```js
