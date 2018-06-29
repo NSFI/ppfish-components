@@ -1,7 +1,9 @@
 @import "../../assets/css/lib/ant-theme-vars";
 @import "../../assets/css/common/index";
 
-/* stylelint-disable declaration-no-important   */
+// antd 的 Carousel 组件在交互的过程中会在其子元素上动态添加 style 属性把 class 覆盖，
+// 一个解决方案是在部分样式声明中使用 '!important'，故临时关闭 stylelint 的相关检查
+/* stylelint-disable declaration-no-important */
 @picture-preview-prefix: m-picture-preview;
 @maxVisualWidth:  80% !important;
 @maxVisualHeight: 80% !important;
