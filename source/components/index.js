@@ -25,6 +25,7 @@ export {TreeSelect};
 export {
   Button,
   Icon,
+  Popover,
   Menu,
   BackTop,
   Spin,
