@@ -78,7 +78,7 @@ export default class Layout extends React.Component {
     return (
       <div className="app">
         <Affix offsetTop={0}>
-          <header className="header">
+          <header className="fish-header">
             <Row>
               <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
                 <h1>Fish Design</h1>
