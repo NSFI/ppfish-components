@@ -23,7 +23,7 @@
   - 在`site/locales/zh-CN.js`中添加左侧菜单栏项的中文命名，在网站侧边栏添加你的组件
 1.  组件API设计文档Review / 讨论
 1.  组件API设计文档Review通过后，基于组件的API编写组件测试用例
-1.  在`source/components`路径下新增组件文件夹，并在`source/index.js`引入，开始组件编码、完善demo
+1.  在`source/components`路径下新增组件文件夹，并在`libs/markdown/source/index.js`引入，开始组件编码、完善demo
 1.  组件Code Review，代码编写完后，发起Pull Request进行Code Review
 1.  代码合并后发布一个beta版本, 更新演示环境并通知测试
 1.  Publish
