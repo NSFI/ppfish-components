@@ -35,7 +35,9 @@
     "date-fns": "^1.28.5",
     "debug": "^3.1.0",
     "lodash.debounce": "^4.0.8",
-    "query-string": "^4.2.2"
+    "query-string": "^4.2.2",
+    "rc-trigger": "^2.5.4",
+    "tinycolor2": "^1.4.1"
   },
   "peerDependencies": {
     "antd": ">= 3.5.3",

@@ -20,6 +20,7 @@ export default {
       'card': require('./card'),
       'carousel': require('./carousel'),
       'cascader': require('./cascader'),
+      'colorPicker': require('./colorPicker'),
       'checkbox': require('./checkbox'),
       'collapse': require('./collapse'),
       'datePicker': require('./datePicker'),

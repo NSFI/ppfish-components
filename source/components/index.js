@@ -9,6 +9,7 @@ import StickVerticalMenu from './StickVerticalMenu';
 import TextOverflow from './TextOverflow';
 import PicturePreview from './PicturePreview';
 import AudioPlayer from './AudioPlayer';
+import ColorPicker from './ColorPicker';
 
 // 通用组件从这里暴露
 export {AnimationImageLoader};
@@ -22,3 +23,4 @@ export {StickVerticalMenu};
 export {TextOverflow};
 export {PicturePreview};
 export {AudioPlayer};
+export {ColorPicker};
