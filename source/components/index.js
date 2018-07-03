@@ -18,5 +18,4 @@ export {Drawer};
 export {ImageLoader};
 export {SearchInput};
 export {StickVerticalMenu};
-export {TextOverflow};
 export {PicturePreview};
