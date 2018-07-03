@@ -28,6 +28,7 @@ export default {
       'dropdown': require('./dropdown'),
       'form': require('./form'),
       'grid': require('./grid'),
+      'imageLoader': require('./imageLoader'),
       'input': require('./input'),
       'layout': require('./layout'),
       'list': require('./list'),
@@ -53,7 +54,6 @@ export default {
       'transfer': require('./transfer'),
       'tree': require('./tree'),
       'treeSelect': require('./treeSelect'),
-      'imageLoader': require('./imageLoader'),
       'upload': require('./upload'),
     },
     '业务组件 Business': {
