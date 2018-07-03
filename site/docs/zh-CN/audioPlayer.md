@@ -51,12 +51,13 @@ render() {
 | title   | 鼠标hover之后展示的音频描述 | string | '' |
 | src |  音频元素的当前来源 | string | '' |
 | className | 设置类名 | string | '' |
+| controllVolume | 设置是否需要手动控制音量 | boolean | true |
+| controllDownload | 设置是否提供需要下载按钮 | boolean | true |
 | loop | 设置音频是否应在结束时重新播放 | boolean | false |
 | preload  | 音频是否应该在页面加载后进行加载。 可选值有：`auto`指示一旦页面加载，则开始加载音频；`metadata`指示当页面加载后仅加载音频的元数据；`none` 指示页面加载后不应加载音频。 | string | 'metadata' |
 | autoPlay | 设置是否在加载完成后随即播放音频 | boolean | false |
 | muted | 设置音频是否静音 | boolean | false |
 | volume  | 设置音频的当前音量, 必须是介于 0.0 与 1.0 之间的数字。例如：1.0 是最高音量（默认）0.5 是一半音量 （50%）0.0 是静音  | number |  1.0  |
-| controllVolume | 设置是否需要手动控制音量 | boolean | true |
 | onLoadedMetadata     | 当浏览器已加载音频的元数据时的回调   | function   |   () => {}    |
 | onCanPlay  | 当浏览器能够开始播放音频时的回调    | function    |  () => {}   |
 | onCanPlayThrough  | 当浏览器可在不因缓冲而停顿的情况下进行播放时的回调    | function   |  () => {}  |
