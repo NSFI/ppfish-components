@@ -5,5 +5,6 @@ export BizTable from '../../source/components/BizTable';
 export Drawer from '../../source/components/Drawer';
 export ImageLoader from '../../source/components/ImageLoader';
 export PicturePreview from '../../source/components/PicturePreview';
+export AudioPlayer from '../../source/components/AudioPlayer';
 export moment from 'moment';
 export * from 'antd';
