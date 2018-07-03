@@ -60,6 +60,7 @@ export default {
       'bizLoading': require('./bizLoading'),
       'bizTable': require('./bizTable'),
       'bizTimePicker': require('./bizTimePicker'),
+      'audioPlayer': require('./audioPlayer')
     }
   },
   patterns: {
