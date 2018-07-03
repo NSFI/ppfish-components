@@ -39,11 +39,11 @@ render(){
 ## API
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| src  | 图片地址   | object   |  —   |
+| src  | 图片地址   | string   |  —   |
 | preloader  | 显示占位图的React Pure Function   | func   |  —   |
-| children  | 图片加载失败显示的node   | object   |  —   |
-| wrapper  | 图片外层容器    | DOM.span或DOM.div   |  DOM.span   |
-| className  | 图片外层容器class    | object   |  —   |
+| children  | 图片加载失败显示的node   | ReactNode   |  —   |
+| wrapper  | 图片外层容器    | React.createFactory('div'\|'span')  |  DOM.span   |
+| className  | 图片外层容器class    | string   |  —   |
 | style  | 图片外层容器样式对象    | object   |  —   |
 | imgProps  | 图片propTypes  | object   | —   |
 | onLoad  | src图片加载成功的回调    | func   | —   |
