@@ -10,6 +10,7 @@ import TextOverflow from './TextOverflow';
 import PicturePreview from './PicturePreview';
 import AudioPlayer from './AudioPlayer';
 import ColorPicker from './ColorPicker';
+import RichEditor from './RichEditor';
 
 // 通用组件从这里暴露
 export {AnimationImageLoader};
@@ -24,3 +25,4 @@ export {TextOverflow};
 export {PicturePreview};
 export {AudioPlayer};
 export {ColorPicker};
+export {RichEditor};
