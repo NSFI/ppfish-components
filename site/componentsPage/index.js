@@ -251,8 +251,9 @@ export default {
         component: require('./ruleColor')
       },
       'ruleText': {
-        type: 'markdown',
-        name: '文本大小',
+        type: 'react',
+        name: 'Typography 字体',
+        component: require('./ruleText')
       },
     },
     '交互规则 Rule': {
