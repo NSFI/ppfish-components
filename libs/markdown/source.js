@@ -7,5 +7,6 @@ export Drawer from '../../source/components/Drawer';
 export ImageLoader from '../../source/components/ImageLoader';
 export PicturePreview from '../../source/components/PicturePreview';
 export AudioPlayer from '../../source/components/AudioPlayer';
+export RichEditor from '../../source/components/RichEditor';
 export moment from 'moment';
 export * from 'antd';
