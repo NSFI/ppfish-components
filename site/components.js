@@ -2,27 +2,35 @@ import React from 'react';
 import {BackTop, Row, Col, Menu, Icon, Divider} from 'antd';
 import Layout from './layout';
 import locales from './locales';
+import PropTypes from 'prop-types';
 import components from './componentsPage';
 
 const SubMenu = Menu.SubMenu;
 
 export default class Components extends React.Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    params: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
     const menuList = [];
     // 开发指南
     Object.keys(components.documents).map(key => {
       menuList.push({
-        key: this.getLocale(`page.${key}`),
-        url: `#/components/${key}`
+        url: `#/components/${key}`,
+        key: key,
+        value: components.documents[key],
       });
     });
     // 基础组件
     Object.keys(components.list).map((group) => (
       Object.keys(components.list[group]).map(key => {
         menuList.push({
-          key: this.getLocale(`page.${key}`),
-          url: `#/components/${key}`
+          url: `#/components/${key}`,
+          key: key,
+          value: components.list[group][key],
         });
       })
     ));
@@ -30,8 +38,9 @@ export default class Components extends React.Component {
     Object.keys(components.patterns).map((group) => (
       Object.keys(components.patterns[group]).map(key => {
         menuList.push({
-          key: this.getLocale(`page.${key}`),
-          url: `#/components/${key}`
+          url: `#/components/${key}`,
+          key: key,
+          value: components.patterns[group][key],
         });
       })
     ));
@@ -70,39 +79,15 @@ export default class Components extends React.Component {
   }
 
   getPage() {
-    const routes = location.hash.match(/(?:\/(.+))?\/(.+)/);
-
-    if (routes) {
-      return routes[2];
-    }
-
-    return 'quick-start';
+    return this.props.params.demo || this.state.menuList[0].key;
   }
 
   setPage(fn) {
     this.setState({page: this.getPage()}, fn);
   }
 
-  //根据page参数获取对应的页的markdown文件并解析
-  getComponent(page) {
-    this.components = this.components
-      || Object.assign(Object.values(Object.assign({}, components.list, components.patterns)).reduce((a, b) => {
-      return Object.assign(a, b);
-    }, {}), components.documents);
-
-    const result = this.components[page] || this.components['quick-start'];
-    if (result) {
-      return React.createElement(result, {
-        locale: {
-          show: this.getLocale('markdown.show'),
-          hide: this.getLocale('markdown.hide')
-        }
-      });
-    }
-  }
-
   render() {
-    const componentIndex = this.state.menuList.findIndex((menuItem) => menuItem.key === this.getLocale(`page.${this.state.page}`));
+    const componentIndex = this.state.menuList.findIndex((menuItem) => menuItem.key === this.state.page);
     const lastLink = this.state.menuList[componentIndex - 1];
     const nextLink = this.state.menuList[componentIndex + 1];
     const Navigation = (
@@ -110,10 +95,11 @@ export default class Components extends React.Component {
         <Divider/>
         <Row className="u-navigation-btm">
           <Col span={12} className="prev-page">
-            {lastLink && <a href={lastLink.url}><Icon type="left" className="prev-page-icon"/>{lastLink.key}</a>}
+            {lastLink && <a href={lastLink.url}><Icon type="left" className="prev-page-icon"/>{lastLink.value.name}</a>}
           </Col>
           <Col span={12} className="next-page">
-            {nextLink && <a href={nextLink.url}>{nextLink.key}<Icon type="right" className="next-page-icon"/></a>}
+            {nextLink &&
+            <a href={nextLink.url}>{nextLink.value.name}<Icon type="right" className="next-page-icon"/></a>}
           </Col>
         </Row>
       </div>
@@ -133,8 +119,7 @@ export default class Components extends React.Component {
                     Object.keys(components.documents).map(page => {
                       return (
                         <Menu.Item key={page}>
-                          <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}
-                          </a>
+                          <a href={`#/components/${page}`}>{components.documents[page].name}</a>
                         </Menu.Item>
                       );
                     })
@@ -149,7 +134,7 @@ export default class Components extends React.Component {
                             Object.keys(components.list[group]).map(page => {
                               return (
                                 <Menu.Item key={page}>
-                                  <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}</a>
+                                  <a href={`#/components/${page}`}>{components.list[group][page].name}</a>
                                 </Menu.Item>
                               );
                             })
@@ -168,7 +153,7 @@ export default class Components extends React.Component {
                             Object.keys(components.patterns[group]).map(page => {
                               return (
                                 <Menu.Item key={page}>
-                                  <a href={`#/components/${page}`}>{this.getLocale(`page.${page}`)}</a>
+                                  <a href={`#/components/${page}`}>{components.patterns[group][page].name}</a>
                                 </Menu.Item>
                               );
                             })
@@ -184,7 +169,7 @@ export default class Components extends React.Component {
           <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20}>
             <div className="content">
               <article className="markdown">
-                {this.getComponent(this.state.page)}
+                {this.props.children}
               </article>
               {Navigation}
               <BackTop>
