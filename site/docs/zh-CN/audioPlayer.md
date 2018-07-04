@@ -13,10 +13,10 @@
 ```js
 render() {
   return(
-    <div style={{width:280}}>
+    <div style={{width:400}}>
       <AudioPlayer
-        id='1'
         src="https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav"
+        title="这是一个demo"
       />
     </div>
     
@@ -26,16 +26,16 @@ render() {
 :::
 
 ## 简洁版
-:::demo 通过设置 `controllVolume=false` 去掉音量控制按钮
+:::demo 通过设置 `controllVolume=false` 去掉音量控制按钮; 设置 `download=false` 去掉下载按钮。
 
 ```js
 render() {
   return(
-    <div style={{width:280}}>
+    <div style={{width:350}}>
       <AudioPlayer
-        id='2'
-        src="https://ysf.nosdn.127.net/65425B17B49C0C5F73E852209046A477.wav"
+        src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
         controllVolume={false}
+        download={false}
       />
     </div>
     
@@ -47,12 +47,16 @@ render() {
 ## API
 | 属性      | 说明    | 类型      | 默认值   |
 |---------- |-------- |----------   |-------- |
-| id | 音频唯一标志 （必须）| string | '' |
 | title   | 鼠标hover之后展示的音频描述 | string | '' |
 | src |  音频元素的当前来源 | string | '' |
 | className | 设置类名 | string | '' |
-| controllVolume | 设置是否需要手动控制音量 | boolean | true |
-| controllDownload | 设置是否提供需要下载按钮 | boolean | true |
+| controllVolume | 是否需要手动控制音量 | boolean | true |
+| download | 是否需要下载按钮 | boolean | true |
+
+支持常用的H5 audio 标签属性和事件
+
+| 属性      | 说明    | 类型      | 默认值   |
+|---------- |-------- |----------   |-------- |
 | loop | 设置音频是否应在结束时重新播放 | boolean | false |
 | preload  | 音频是否应该在页面加载后进行加载。 可选值有：`auto`指示一旦页面加载，则开始加载音频；`metadata`指示当页面加载后仅加载音频的元数据；`none` 指示页面加载后不应加载音频。 | string | 'metadata' |
 | autoPlay | 设置是否在加载完成后随即播放音频 | boolean | false |
@@ -68,3 +72,4 @@ render() {
 | onPlay  | 当音频已开始或不再暂停时的回调   | function    |  () => {}   |
 | onSeeked  | 当用户已移动/跳跃到音频中的新位置时的回调   | function    |  () => {}   |
 
+其他H5 audio属性和事件配置参见 [H5 audio属性说明](http://www.w3school.com.cn/jsref/dom_obj_audio.asp)。
