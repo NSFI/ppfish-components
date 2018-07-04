@@ -9,13 +9,13 @@ export default class RuleColor extends React.Component {
   handleClick = (copyText) => {
     copy(copyText);
     message.success('copied:' + copyText);
-  }
-  
+  };
+
   render(){
     return (
       <div>
         <h1 className='global-title'>Fish Design 色彩方案</h1>
-        
+
         <h3 id='main-color-title'>主色</h3>
         <p >比较轻透的蓝色（七鱼官网新主色）优点：轻透、饱和度不回过高，看久了不容易疲劳。</p>
         <div className='main-color-container'>
@@ -80,6 +80,6 @@ export default class RuleColor extends React.Component {
         </div>
 
       </div>
-    )
+    );
   }
 }
