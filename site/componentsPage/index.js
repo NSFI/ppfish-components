@@ -41,6 +41,7 @@ export default {
       'picturePreview': require('./picturePreview'),
       'progress': require('./progress'),
       'radio': require('./radio'),
+      'richEditor': require('./richEditor'),
       'select': require('./select'),
       'slider': require('./slider'),
       'spin': require('./spin'),
