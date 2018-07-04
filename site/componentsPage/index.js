@@ -57,12 +57,12 @@ export default {
       'tree': require('./tree'),
       'treeSelect': require('./treeSelect'),
       'upload': require('./upload'),
+      'audioPlayer': require('./audioPlayer')
     },
     '业务组件 Business': {
       'bizLoading': require('./bizLoading'),
       'bizTable': require('./bizTable'),
       'bizTimePicker': require('./bizTimePicker'),
-      'audioPlayer': require('./audioPlayer')
     }
   },
   patterns: {
