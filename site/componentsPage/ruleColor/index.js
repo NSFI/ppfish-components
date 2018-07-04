@@ -14,10 +14,10 @@ export default class RuleColor extends React.Component {
   render(){
     return (
       <div>
-        <h1 className='global-title'>Fish Design 色彩方案</h1>
+        <h1 className='global-title'>Color 色彩</h1>
 
         <h3 id='main-color-title'>主色</h3>
-        <p >比较轻透的蓝色（七鱼官网新主色）优点：轻透、饱和度不回过高，看久了不容易疲劳。</p>
+        <p >FishDesign 为了避免视觉传达差异，使用一套特定的调色板来规定颜色，为你所搭建的产品提供一致的外观视觉感受。</p>
         <div className='main-color-container'>
           <div className='main-color-item' onClick={() => {this.handleClick('#337EFF')}}>
             Blue
@@ -26,22 +26,22 @@ export default class RuleColor extends React.Component {
         </div>
 
         <h3 id='aux-color-title'>辅助色</h3>
-        <p>除了主色外的场景色，需要在不同的场景中使用（例如危险色表示危险的操作）。</p>
+        <p>除了主色外的场景色，需要在不同的场景中使用（例如警告色表示警告的操作）。</p>
         <div className='aux-color-container' onClick={this.click}>
           <div className='aux-color-item palatte-1' onClick={() => { this.handleClick('#F24957') }}>
-            方案一
+            Danger
             <div className='value'>#F24957</div>
           </div>
           <div className='aux-color-item palatte-2' onClick={() => { this.handleClick('#26BD71') }}>
-            方案二
+            Success
             <div className='value'>#26BD71</div>
           </div>
           <div className='aux-color-item palatte-3' onClick={() => { this.handleClick('#FFAF0F') }}>
-            方案三
+            Warning
             <div className='value'>#FFAF0F</div>
           </div>
           <div className='aux-color-item palatte-4' onClick={() => { this.handleClick('#8875FF') }}>
-            方案四
+            Info
             <div className='value'>#8875FF</div>
           </div>
         </div>
