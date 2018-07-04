@@ -6,33 +6,33 @@
 
 ## 基本用法
 
-:::demo 基本使用 
+:::demo 使用`onChange`回调获取`alpha`以及`color`值
 
 ```js
-onChangeColor=(cl)=>{
-  console.log(cl);
+onChangeColor=({color,alpha})=>{
+  console.log(`color:${color},alpha:${alpha}`);
 };
 
 render(){
-  return(<ColorPicker onChange={this.onChangeColor} defaultColor="#1890ff"/>)
+  return(<ColorPicker onChange={this.onChangeColor}/>)
 }
 ```
 :::
 
 ## 关闭透明度
 
-:::demo 关闭透明度选择
+:::demo alpha值默认勾选，可使用`enableAlpha`关闭
 
 ```js
 render(){
-  return(<ColorPicker enableAlpha={false} defaultColor="#1890ff"/>)
+  return(<ColorPicker enableAlpha={false}/>)
 }
 ```
 :::
 
-## 自定义trigger
+## 自定义Children
 
-:::demo 自定义trigger的显示
+:::demo 可以自定义Children的显示,会自动给子元素添加对应的`background-color`
 
 ```js
 render(){
@@ -47,7 +47,7 @@ render(){
 
 ## 受控的组件
 
-:::demo 受控的组件
+:::demo 受控的组件，组件显示受`alpha`、`color`控制
 
 ```js
 state={
@@ -78,7 +78,7 @@ render(){
 
 ## 历史记录
 
-:::demo 可以使用`enableHistory`开启历史记录功能 
+:::demo 可以使用`enableHistory`开启历史记录功能，默认关闭
 
 ```js
 render(){
@@ -89,14 +89,14 @@ render(){
 
 ## 取色器面板单独使用
 
-:::demo 
+:::demo 需要单独使用取色器面板的场景
 ```js
 render(){
   const ColorPickerPanel =ColorPicker.Panel;
   return(
     <div className="panel-demo"> 
-        <ColorPickerPanel enableAlpha={false} color={'#345679'} mode="RGB"/>
-        <ColorPickerPanel alpha={80} color={'#477898'} mode="HSB"/>
+        <ColorPickerPanel enableAlpha={false} color={'#345679'}/>
+        <ColorPickerPanel alpha={80} color={'#477898'}/>
     </div>
   )
 }
