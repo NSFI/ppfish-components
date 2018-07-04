@@ -247,7 +247,7 @@ export default {
     '设计要素 Factor': {
       'ruleColor': {
         type: 'react',
-        name: '颜色',
+        name: 'Color 色彩',
         component: require('./ruleColor')
       },
       'ruleText': {
