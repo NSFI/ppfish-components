@@ -31,16 +31,16 @@
 | value | 默认显示的内容，改变 `value` 将会改变编辑器的内容。可以是普通 String 或 HTML String | String | `''` |
 | defaultValue | 默认显示的内容，改变 `defaultValue` 不会改变编辑器的内容。可以是普通 String 或 HTML String | String | `''` |
 | onChange | 内容改变时的回调函数 | function(content, delta, source, editor) | `noop` |
-| onFocus | 内容改变时的回调函数 | function(range, source, editor) | `noop` |
-| onBlur | 内容改变时的回调函数 | function(previousRange, source, editor) | `noop` |
+| onFocus | 获取焦点时的回调函数 | function(range, source, editor) | `noop` |
+| onBlur | 失去焦点时的回调函数 | function(previousRange, source, editor) | `noop` |
 
 
 ### Editor Node Method
 
 |方法|说明|
 |:-|:-|
-| focus() | 聚焦编辑器 |
-| blur() | 将焦点从编辑器移出 |
+| focus() | 使编辑器获取焦点 |
+| blur() | 使编辑器失去焦点 |
 | getEditor() | 返回 Editor Instance |
 
 
