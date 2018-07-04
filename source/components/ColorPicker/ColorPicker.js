@@ -141,7 +141,6 @@ export default class ColorPicker extends React.Component {
   }
 
   getPickerElement() {
-    // const state = this.state;
     return (
       <ColorPickerPanel
         onMount={this.onPanelMount}
