@@ -1,7 +1,7 @@
 import React from 'react';
 import {Row, Col, Affix} from 'antd';
-import locales from './locales';
 import PropTypes from "prop-types";
+import locales from './locales';
 
 const githubSrc = require('./assets/github.png');
 const searchIcon = require('./assets/search.svg');

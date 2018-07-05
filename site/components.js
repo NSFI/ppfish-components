@@ -1,9 +1,10 @@
 import React from 'react';
 import {BackTop, Row, Col, Menu, Icon, Divider} from 'antd';
+import PropTypes from 'prop-types';
 import Layout from './layout';
 import locales from './locales';
-import PropTypes from 'prop-types';
 import components from './componentsPage';
+import {getPlainComponentList} from './utils';
 
 const SubMenu = Menu.SubMenu;
 
@@ -15,36 +16,7 @@ export default class Components extends React.Component {
 
   constructor(props) {
     super(props);
-    const menuList = [];
-    // 开发指南
-    Object.keys(components.documents).map(key => {
-      menuList.push({
-        url: `#/components/${key}`,
-        key: key,
-        value: components.documents[key],
-      });
-    });
-    // 基础组件
-    Object.keys(components.list).map((group) => (
-      Object.keys(components.list[group]).map(key => {
-        menuList.push({
-          url: `#/components/${key}`,
-          key: key,
-          value: components.list[group][key],
-        });
-      })
-    ));
-    // 设计规范
-    Object.keys(components.patterns).map((group) => (
-      Object.keys(components.patterns[group]).map(key => {
-        menuList.push({
-          url: `#/components/${key}`,
-          key: key,
-          value: components.patterns[group][key],
-        });
-      })
-    ));
-    this.state = {menuList};
+    this.plainComponentList = getPlainComponentList();
   }
 
   componentWillMount() {
@@ -79,7 +51,7 @@ export default class Components extends React.Component {
   }
 
   getPage() {
-    return this.props.params.demo || this.state.menuList[0].key;
+    return this.props.params.demo || this.plainComponentList[0].key;
   }
 
   setPage(fn) {
@@ -87,9 +59,9 @@ export default class Components extends React.Component {
   }
 
   render() {
-    const componentIndex = this.state.menuList.findIndex((menuItem) => menuItem.key === this.state.page);
-    const lastLink = this.state.menuList[componentIndex - 1];
-    const nextLink = this.state.menuList[componentIndex + 1];
+    const componentIndex = this.plainComponentList.findIndex((menuItem) => menuItem.key === this.state.page);
+    const lastLink = this.plainComponentList[componentIndex - 1];
+    const nextLink = this.plainComponentList[componentIndex + 1];
     const Navigation = (
       <div>
         <Divider/>
