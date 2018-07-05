@@ -15,17 +15,42 @@
 // }
 
 .@{rich-editor-prefix} {
-  &-grp {
+  .hide {
+    display: none;
+  }
+
+  .editor-head {
+    // width: 656px;
+    // border: 1px solid #d1d1d1;
+    border-bottom: none;
+    background: #fafafa;
+    padding: 6px 14px;
+    white-space: normal;
+    display: block;
+  }
+
+  .editor-body {
+    // width: 656px;
+    height: 239px;
+  }
+
+  .toolbar-grp {
     display: inline-block;
     float: left;
-    border: 1px solid #d5d5d5;
     margin-right: 10px;
 
-    .item {
+    > .item {
+      display: inline-block;
+      width: 28px;
+      height: 24px;
       line-height: 0;
       background: #fff;
       border: 1px solid #d5d5d5;
+      overflow: hidden;
     }
   }
 
+  .custom-size-panel {
+    
+  }
 }
