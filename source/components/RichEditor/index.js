@@ -5,15 +5,59 @@ import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './index.less';
 
+console.log(Quill.imports);
+
+var Module = Quill.import('core/module');
+class CustomModule extends Module {}
+Quill.register('modules/custom-module', CustomModule);
+
+
+var FontAttributor = Quill.import('attributors/class/font');
+FontAttributor.whitelist = [
+  'sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'
+];
+Quill.register(FontAttributor, true);
+
+
+var BackgroundClass = Quill.import('attributors/class/background');
+var ColorClass = Quill.import('attributors/class/color');
+var SizeStyle = Quill.import('attributors/style/size');
+Quill.register(BackgroundClass, true);
+Quill.register(ColorClass, true);
+Quill.register(SizeStyle, true);
+
+
+var Bold = Quill.import('formats/bold');
+Bold.tagName = 'B';   // 自定义使用的HTML标签，Quill uses <strong> by default
+Quill.register(Bold, true);
+
 
 let Inline = Quill.import('blots/inline');
-class BoldBlot extends Inline { }
-BoldBlot.blotName = 'emoji';
-BoldBlot.tagName = 'entry';
-Quill.register(BoldBlot);
+class EmojiBlot extends Inline { }
+EmojiBlot.blotName = 'emoji';
+EmojiBlot.tagName = 'img';
+Quill.register(EmojiBlot);
+
+class SizeBlot extends Inline {
+  static create(value) {
+    let node = super.create();
+    // node.setAttribute('font-size', value);
+    node.style.fontSize = value;
+    // debugger;
+    return node;
+  }
+
+  static formats(node, tmp) {
+    return node.style.fontSize;
+    // debugger;
+    // return SizeBlot.tagName.indexOf(node.tagName) + 1;
+  }
+}
+SizeBlot.blotName = 'size';
+SizeBlot.tagName = 'span';
+Quill.register(SizeBlot);
 
 const CustomButton = () => <span className="octicon octicon-star" />;
-
 function insertStar() {
   const cursorPosition = this.quill.getSelection().index;
   this.quill.insertText(cursorPosition, "★");
@@ -62,8 +106,12 @@ const CustomToolbar = () => (
 
     <div className="m-rich-editor-grp">
       <select className="ql-size" defaultValue={""} onChange={e => e.persist()}>
-        <option value="12px" />
-        <option value="32px" />
+        <option value="32px">32px</option>
+        <option value="24px">24px</option>
+        <option value="18px">18px</option>
+        <option value="16px">16px</option>
+        <option value="13px">13px</option>
+        <option value="12px">12px</option>
       </select>
     </div>
 
@@ -111,7 +159,19 @@ class RichEditor extends Component {
       toolbar: {
         container: "#toolbar",
         handlers: {
-          insertStar: insertStar
+          'insertStar': insertStar,
+          'link': function(value) {
+            if (value) {
+              var href = prompt('Enter the URL');
+              this.quill.format('link', href);
+            } else {
+              this.quill.format('link', false);
+            }
+          },
+          // 'size': function(value) {
+          //   this.quill.format('size', value);
+          //   debugger;
+          // }
         }
       }
     };
