@@ -17,6 +17,9 @@ export default class Components extends React.Component {
   constructor(props) {
     super(props);
     this.plainComponentList = getPlainComponentList();
+    this.state = {
+      page: ''
+    };
   }
 
   componentWillMount() {
