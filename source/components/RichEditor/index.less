@@ -60,7 +60,20 @@
   }
 
   .custom-size-panel {
+    position: absolute;
+    padding: 5px 0;
+    background-color: #fff;
+    top: 55px;
     border: 1px solid transparent;
     box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+    z-index: 999;
+
+    .item {
+      display: block;
+      float: none;
+      width: auto;
+      height: auto;
+      padding: 3px 5px;
+    }
   }
 }

@@ -21,15 +21,25 @@ class CustomToolbar extends PureComponent {
     }
   }
 
-  showSizePanel = () => {
-    // debugger;
+  toggleSizePanel = () => {
+    this.setState({
+      showSizePanel: !this.state.showSizePanel
+    });
+  };
+
+  closeSizePanel = (e) => {
+    if (e.target.tagName.toUpperCase() == 'BUTTON') {
+      this.setState({
+        showSizePanel: false
+      });
+    }
   };
 
   render() {
     const { showSizePanel, showEmojiPanel } = this.state;
     const { className } = this.props;
     let sizePanelClass = classNames({
-        'hide': true,
+        'hide': !showSizePanel,
         'custom-size-panel': true
     });
 
@@ -83,14 +93,14 @@ class CustomToolbar extends PureComponent {
         </div>
 
         <div className="toolbar-grp">
-          <div className="item custom-size" onClick={this.showSizePanel}></div>
-          <div className={sizePanelClass}>
-            <button type="button" className="ql-customSize item" value="32px">32px</button>
-            <button type="button" className="ql-customSize item" value="24px">24px</button>
-            <button type="button" className="ql-customSize item" value="18px">18px</button>
-            <button type="button" className="ql-customSize item" value="16px">16px</button>
-            <button type="button" className="ql-customSize item" value="13px">13px</button>
-            <button type="button" className="ql-customSize item" value="12px">12px</button>
+          <div className="item custom-size" onClick={this.toggleSizePanel}></div>
+          <div className={sizePanelClass} onClick={this.closeSizePanel}>
+            <button type="button" className="ql-customSize item" value="32px" style={{fontSize: '32px'}}>32px</button>
+            <button type="button" className="ql-customSize item" value="24px" style={{fontSize: '24px'}}>24px</button>
+            <button type="button" className="ql-customSize item" value="18px" style={{fontSize: '18px'}}>18px</button>
+            <button type="button" className="ql-customSize item" value="16px" style={{fontSize: '16px'}}>16px</button>
+            <button type="button" className="ql-customSize item" value="13px" style={{fontSize: '13px'}}>13px</button>
+            <button type="button" className="ql-customSize item" value="12px" style={{fontSize: '12px'}}>12px</button>
           </div>
         </div>
 
