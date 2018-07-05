@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import CustomToolbar from './toolbar.js';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './index.less';
@@ -82,97 +83,6 @@ CustomSizeBlot.blotName = 'customSize';
 CustomSizeBlot.tagName = 'span';
 Quill.register(CustomSizeBlot);
 
-
-class CustomToolbar extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.defaultValue = '14px';
-  }
-
-  showSizePanel = () => {
-    // debugger;
-  };
-
-  render() {
-    return (
-      <div id="toolbar" className={this.props.className}>
-        <div className="toolbar-grp">
-          <button className="item ql-link" />
-          <button className="item ql-bold" />
-          <button className="item ql-italic" />
-          <button className="item ql-underline" />
-        </div>
-
-        <div className="toolbar-grp">
-          <select className="item ql-color">
-          {
-            /*
-            <option value="red" />
-            <option value="green" />
-            <option value="blue" />
-            <option value="orange" />
-            <option value="violet" />
-            <option value="#d0d1d2" />
-            <option value="black" />        
-             */
-          }
-          </select>
-        </div>
-
-        <div className="toolbar-grp">
-          <select className="item ql-align"></select>
-          {
-            /*
-          <button className="ql-align" />
-          <button className="ql-align" value="center" />
-          <button className="ql-align" value="right" />
-             */
-          }
-        </div>
-
-        <div className="toolbar-grp">
-          <button type="button" className="item ql-list" value="ordered" />
-          <button type="button" className="item ql-list" value="bullet" />
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-emoji" />
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-image" />
-        </div>
-
-        <div className="toolbar-grp">
-          <div className="item custom-size" onClick={this.showSizePanel}></div>
-          <div className="custom-size-panel hide">
-            <button type="button" className="ql-customSize item" value="32px">32px</button>
-            <button type="button" className="ql-customSize item" value="24px">24px</button>
-            <button type="button" className="ql-customSize item" value="18px">18px</button>
-            <button type="button" className="ql-customSize item" value="16px">16px</button>
-            <button type="button" className="ql-customSize item" value="13px">13px</button>
-            <button type="button" className="ql-customSize item" value="12px">12px</button>
-          </div>
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-clean" />
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-entry" />
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-insertStar">
-            <span className="octicon octicon-star" />
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
 
 class RichEditor extends Component {
   static propTypes = {
