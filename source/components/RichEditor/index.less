@@ -40,17 +40,27 @@
     margin-right: 10px;
 
     > .item {
-      display: inline-block;
-      width: 28px;
-      height: 24px;
+      // width: 28px;
+      // height: 24px;
       line-height: 0;
       background: #fff;
-      border: 1px solid #d5d5d5;
-      overflow: hidden;
+      border-right: 1px solid #d5d5d5;
+      border-top: 1px solid #d5d5d5;
+      border-bottom: 1px solid #d5d5d5;
+    }
+
+    > .item:first-child {
+      border-left: 1px solid #d5d5d5;
     }
   }
 
+  .custom-size {
+    width: 28px;
+    height: 24px;
+  }
+
   .custom-size-panel {
-    
+    border: 1px solid transparent;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
   }
 }
