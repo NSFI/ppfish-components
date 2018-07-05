@@ -42,23 +42,24 @@ let BlockEmbed = Quill.import('blots/block/embed');
 class EmojiBlot extends BlockEmbed {
   static create(value) {
     let node = super.create();
-    debugger;
+    node.setAttribute('width', '24px');
+    node.setAttribute('height', '24px');
     node.setAttribute('alt', value.alt);
-    node.setAttribute('src', value.url);
+    node.setAttribute('src', value.src);
     return node;
   }
 
   static value(node) {
-    debugger;
     return {
       alt: node.getAttribute('alt'),
-      url: node.getAttribute('src')
+      src: node.getAttribute('src')
     };
   }
 }
 EmojiBlot.blotName = 'emoji';
 EmojiBlot.tagName = 'img';
 Quill.register(EmojiBlot);
+
 
 let Inline = Quill.import('blots/inline');
 // 自定义字体大小
@@ -130,11 +131,14 @@ class RichEditor extends Component {
               this.quill.format('link', false);
             }
           },
-          // 'customSize': function(value) {
-          //   let sec = this.quill.getSelection();
-          //   debugger;
-          //   this.quill.format('customSize', value);
-          // }
+          'emoji': function(value) {
+            let vList = value.split('__');
+            debugger;
+            this.quill.format('emoji', {
+              alt: vList[0],
+              src: vList[1]
+            });
+          }
         }
       }
     };

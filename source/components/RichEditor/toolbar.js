@@ -95,12 +95,12 @@ class CustomToolbar extends PureComponent {
         </div>
 
         <div className="toolbar-grp">
-          <button className="item ql-emoji" onClick={this.toggleEmojiPanel}/>
+          <button className="item" onClick={this.toggleEmojiPanel}/>
           <div className={emojiPanelClass} >
             <div className="custom-emoji-con">
               <div className="emoji-row">
-                <i className="emoji-icon-01" data-src="http://ysf.space/sdk/res/portrait/emoji/emoji_01.png" title="[可爱]" alt="[可爱]"></i>
-                <i className="emoji-icon-00" data-src="http://ysf.space/sdk/res/portrait/emoji/emoji_00.png" title="[大笑]" alt="[大笑]"></i>
+                <button className="ql-emoji emoji-icon-01" value="[可爱]__http://ysf.space/sdk/res/portrait/emoji/emoji_01.png" title="[可爱]" />
+                <i className="emoji-icon-00" src="http://ysf.space/sdk/res/portrait/emoji/emoji_00.png" title="[大笑]" alt="[大笑]"></i>
               </div>
             </div>
           </div>
