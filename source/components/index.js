@@ -6,11 +6,11 @@ import BizTable from './BizTable';
 import ColorPicker from './ColorPicker';
 import Drawer from './Drawer';
 import ImageLoader from './ImageLoader';
+import PicturePreview from './PicturePreview';
 import RichEditor from './RichEditor';
 import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
 import TextOverflow from './TextOverflow';
-import PicturePreview from './PicturePreview';
 import VideoViewer from './VideoViewer';
 
 // 通用组件从这里暴露
@@ -22,9 +22,9 @@ export {BizTable};
 export {ColorPicker};
 export {Drawer};
 export {ImageLoader};
+export {PicturePreview};
+export {RichEditor};
 export {SearchInput};
 export {StickVerticalMenu};
-export {RichEditor};
 export {TextOverflow};
-export {PicturePreview};
 export {VideoViewer};
