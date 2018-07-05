@@ -63,6 +63,7 @@ module.exports = {
     'ruleText': '文本大小',
     'ruleNumber': '数字',
     'ruleDatetime': '日期时间',
+    'videoViewer': 'VideoViewer 视频查看器',
   },
   misc: {
     'guide': '指南',
