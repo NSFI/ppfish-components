@@ -72,7 +72,7 @@ class AudioPlayer extends React.Component {
     switch(type) {
       case 'allTime':
         this.setState({
-          allTime: audio.duration
+          allTime: parseInt(audio.duration)
         });
         this.props.onCanPlay();
         break;
@@ -101,7 +101,7 @@ class AudioPlayer extends React.Component {
         break;
       case 'getCurrentTime':
         this.setState({
-          currentTime: audio.currentTime
+          currentTime: parseInt(audio.currentTime)
         });
         if(audio.currentTime == audio.duration) {
           this.setState({
