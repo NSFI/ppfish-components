@@ -122,5 +122,8 @@ Canvas.propTypes = {
 };
 
 Canvas.defaultProps = {
-  locale: {}
+  locale: {
+    hide: '隐藏代码',
+    show: '显示代码'
+  }
 };

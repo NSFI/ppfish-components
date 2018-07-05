@@ -349,3 +349,11 @@ render(){
 | visible | 菜单是否显示 | boolean | - |
 | onClick | 点击左侧按钮的回调，和 [Button](/components/button/) 一致 | Function | - |
 | onVisibleChange | 菜单显示状态改变时调用，参数为 visible | Function | - |
+
+
+<style>
+.components-dropdown-demo-placement .ant-btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+</style>

@@ -45,7 +45,7 @@
           onCancel={this.handleCancel}
         >
           <VideoViewer.Video
-            src="http://pic.qiantucdn.com/58pic/shipin/13/38/13/13381368.mp4"
+            src="http://www.w3school.com.cn/i/movie.ogg"
           />
         </VideoViewer>
       </div>

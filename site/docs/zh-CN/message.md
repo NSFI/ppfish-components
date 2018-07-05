@@ -149,3 +149,10 @@ message.config({
 | getContainer | 配置渲染节点的输出位置 | () => HTMLElement | () => document.body |
 | maxCount | 最大显示数, 超过限制时，最早的消息会被自动关闭 | number | - |
 | top | 消息距离顶部的位置 | number | 24 |
+
+
+<style>
+.components-message-demo-other .ant-btn {
+  margin-right: 8px;
+}
+</style>
