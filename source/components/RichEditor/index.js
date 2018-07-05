@@ -38,13 +38,29 @@ Bold.tagName = 'B';   // 自定义使用的HTML标签，Quill uses <strong> by d
 
 
 // 插入表情
-let Inline = Quill.import('blots/inline');
-class EmojiBlot extends Inline { }
+let BlockEmbed = Quill.import('blots/block/embed');
+class EmojiBlot extends BlockEmbed {
+  static create(value) {
+    let node = super.create();
+    debugger;
+    node.setAttribute('alt', value.alt);
+    node.setAttribute('src', value.url);
+    return node;
+  }
+
+  static value(node) {
+    debugger;
+    return {
+      alt: node.getAttribute('alt'),
+      url: node.getAttribute('src')
+    };
+  }
+}
 EmojiBlot.blotName = 'emoji';
 EmojiBlot.tagName = 'img';
 Quill.register(EmojiBlot);
 
-
+let Inline = Quill.import('blots/inline');
 // 自定义字体大小
 class CustomSizeBlot extends Inline {
   static create(value) {
