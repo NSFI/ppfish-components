@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
+import Draggable from 'react-draggable';
 import Video from './Video';
 
 import './VideoViewer.less';
@@ -48,7 +49,7 @@ class VideoViewer extends Component {
   };
 
   render() {
-    const {children, closable, wrapClassName, maskStyle} = this.props;
+    const {children, draggable, closable, wrapClassName, maskStyle} = this.props;
     const MODAL_WRAP = 'm-video-viewer-modal-wrap';
     const modalProps = {
       ...this.props,
@@ -59,17 +60,26 @@ class VideoViewer extends Component {
       // 不显示Modal自带的关闭按钮
       closable: false,
     };
+    const content = (
+      <div className="m-video-viewer-content">
+        {
+          closable ?
+            <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
+            : null
+        }
+        {children}
+      </div>
+    );
     return (
       <Modal {...modalProps}>
         <div className="m-video-viewer-inner">
-          <div className="m-video-viewer-content">
-            {
-              closable ?
-                <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
-                : null
-            }
-            {children}
-          </div>
+          {
+            draggable ?
+              <Draggable>
+                {content}
+              </Draggable>
+              : content
+          }
         </div>
       </Modal>
     );

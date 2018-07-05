@@ -229,7 +229,7 @@ export default {
       },
       'videoViewer': {
         type: 'markdown',
-        name: 'videoViewer 视频查看器',
+        name: 'VideoViewer 视频查看器',
       }
     },
     '业务组件 Business': {
