@@ -284,3 +284,30 @@ render(){
 `<Button>Hello world!</Button>` 最终会被渲染为 `<button><span>Hello world!</span></button>`，并且除了上表中的属性，其它属性都会直接传到 `<button></button>`。
 
 `<Button href="http://example.com">Hello world!</Button>` 则会渲染为 `<a href="http://example.com"><span>Hello world!</span></a>`。
+
+
+<style>
+.components-button-demo-button-group {
+  h4 {
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: normal;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  .ant-btn-group {
+    margin-right: 8px;
+  }
+}
+
+[class^="components-button-demo-"] .ant-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .ant-btn-group > .ant-btn {
+  margin-right: 0;
+}
+</style>

@@ -24,7 +24,7 @@ body {
 .app {
   background: url("../assets/nppd-web-2.1.1-pic@2x.png") calc(~"100vw - 250px") -285px no-repeat, url("../assets/nppd-web-2.1.2-pic@2x.png") calc(~"100vw - 265px") -340px no-repeat;
   background-size: 500px;
-  .header {
+  .fish-header {
     height: 64px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 2px 9px 0 rgba(37, 38, 94, 0.1);
@@ -104,6 +104,8 @@ body {
       margin: 0 40px 0 0;
     }
 
+    //层级关系需要保留，作样式覆盖
+    /* stylelint-disable */
     .nav-item {
       font-size: 16px;
       margin: 0 0 0 20px;
@@ -142,10 +144,13 @@ body {
             width: 100%;
             height: 3px;
             background: #4d70ff;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
           }
         }
       }
     }
+    /* stylelint-enable */
   }
 
   .main {
@@ -267,6 +272,7 @@ body {
 }
 
 //左侧侧边栏，ant-menu 样式覆盖
+/* stylelint-disable */
 .side-nav {
   border-right: 1px solid #e8e8e8;
   padding-bottom: 50px;
@@ -296,6 +302,8 @@ body {
       &:after {
         right: auto;
         left: 0;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
       }
     }
     .ant-menu-item-group-list {
@@ -316,6 +324,8 @@ body {
       .ant-menu-item-selected {
         background: #fff !important;
         &:after {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
           left: 33px;
           top: 10px;
           right: auto;
@@ -326,6 +336,8 @@ body {
     }
   }
 }
+
+/* stylelint-enable */
 
 //代码demo
 .demo-block {
