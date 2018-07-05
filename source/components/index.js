@@ -8,6 +8,7 @@ import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
 import TextOverflow from './TextOverflow';
 import PicturePreview from './PicturePreview';
+import VideoViewer from './VideoViewer';
 
 // 通用组件从这里暴露
 export {AnimationImageLoader};
@@ -20,3 +21,4 @@ export {SearchInput};
 export {StickVerticalMenu};
 export {TextOverflow};
 export {PicturePreview};
+export {VideoViewer};

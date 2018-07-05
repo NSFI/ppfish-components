@@ -55,6 +55,7 @@ export default {
       'tree': require('./tree'),
       'treeSelect': require('./treeSelect'),
       'upload': require('./upload'),
+      'videoViewer': require('./videoViewer'),
     },
     '业务组件 Business': {
       'bizLoading': require('./bizLoading'),
