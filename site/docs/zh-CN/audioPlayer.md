@@ -15,7 +15,7 @@ render() {
   return(
     <div style={{width:400}}>
       <AudioPlayer
-        src="https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav"
+        src="http://media.58pic.com/audio/audio_preivew/14/00/65/58pic_audio_14006549.wav"
         title="这是一个demo"
       />
     </div>
@@ -33,7 +33,7 @@ render() {
   return(
     <div style={{width:350}}>
       <AudioPlayer
-        src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+        src="http://media.58pic.com/audio/audio_preivew/14/00/65/58pic_audio_14006549.wav"
         controllVolume={false}
         download={false}
       />
