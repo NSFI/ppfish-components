@@ -20,6 +20,7 @@ export default {
       'card': require('./card'),
       'carousel': require('./carousel'),
       'cascader': require('./cascader'),
+      'colorPicker': require('./colorPicker'),
       'checkbox': require('./checkbox'),
       'collapse': require('./collapse'),
       'datePicker': require('./datePicker'),
@@ -40,6 +41,7 @@ export default {
       'picturePreview': require('./picturePreview'),
       'progress': require('./progress'),
       'radio': require('./radio'),
+      'richEditor': require('./richEditor'),
       'select': require('./select'),
       'slider': require('./slider'),
       'spin': require('./spin'),
@@ -56,6 +58,7 @@ export default {
       'treeSelect': require('./treeSelect'),
       'upload': require('./upload'),
       'videoViewer': require('./videoViewer'),
+      'audioPlayer': require('./audioPlayer')
     },
     '业务组件 Business': {
       'bizLoading': require('./bizLoading'),

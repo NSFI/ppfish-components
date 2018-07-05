@@ -52,6 +52,7 @@ module.exports = {
     'echart': 'Echart Echart图表',
     'imageLoader': 'ImageLoader 图片加载器',
     'picturePreview': 'PicturePreview 图片查看器',
+    'richEditor': 'RichEditor 富文本编辑器',
     'searchInput': 'SearchInput 输入搜索框',
     'stickVerticalMenu': 'StickVerticalMenu 二级菜单',
     'bizTimePicker': 'BizTimePicker 自定义时间选择器',
@@ -64,6 +65,8 @@ module.exports = {
     'ruleNumber': '数字',
     'ruleDatetime': '日期时间',
     'videoViewer': 'VideoViewer 视频查看器',
+    'audioPlayer': 'AudioPlayer 音频播放器',
+    'colorPicker': 'ColorPicker 颜色选择器',
   },
   misc: {
     'guide': '指南',
