@@ -34,5 +34,5 @@ export default Loadable({
       return null;
     }
   },
-  loading: () => <BizLoading/>
+  loading: () => <div style={{height: 540}}><BizLoading /></div>
 });
