@@ -16,3 +16,6 @@
 ## 组件文档demo开发体验优化
 - 干掉libs/markdown/source.js的硬编码；建议改成读取site/componentsPage下的配置文件，不需要每次新增组件时都改libs。
 - 干掉site/componentsPage的重复代码；建议改成读取site/componentsPage下的配置文件，不需要每次新增组件时都新增重复代码。
+
+## 组件
+ - audioPlayer缺少icon和视觉

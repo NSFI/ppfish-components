@@ -1,0 +1,49 @@
+@prefixClass: ~'audio-player';
+
+.m-@{prefixClass} {
+  &-wrap {
+    display: flex;
+    padding: 2px;
+    align-items: center;
+    border: 1px solid #C6C6C6;
+    border-radius: 5px;
+    .box {
+      text-align: center;
+    }
+    //暂停、启动区
+    .pause-play-box {
+      width: 30px;
+    }
+    //进度区
+    .step-box {
+      flex: 1;
+      margin: 0 4px;
+    }
+    //时间展示区
+    .time-box {
+      min-width: 80px;
+    }
+    //音量调节区
+    .volume-box {
+      width: 30px;
+    }
+    //下载区
+    .download-box {
+      width: 30px;
+    }
+  }
+}
+
+.change-audio-volume-box {
+  width: 30px;
+  height: 80px;
+  background-color: #fff;
+  box-sizing: border-box;
+  outline: none;
+  z-index: 9;
+  border-radius: 4px;
+  user-select: none;
+  * {
+    box-sizing: border-box;
+  }
+}
