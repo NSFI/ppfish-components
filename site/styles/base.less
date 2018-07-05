@@ -104,6 +104,8 @@ body {
       margin: 0 40px 0 0;
     }
 
+    //层级关系需要保留，作样式覆盖
+    /* stylelint-disable */
     .nav-item {
       font-size: 16px;
       margin: 0 0 0 20px;
@@ -148,6 +150,7 @@ body {
         }
       }
     }
+    /* stylelint-enable */
   }
 
   .main {
@@ -269,6 +272,7 @@ body {
 }
 
 //左侧侧边栏，ant-menu 样式覆盖
+/* stylelint-disable */
 .side-nav {
   border-right: 1px solid #e8e8e8;
   padding-bottom: 50px;
@@ -332,6 +336,8 @@ body {
     }
   }
 }
+
+/* stylelint-enable */
 
 //代码demo
 .demo-block {

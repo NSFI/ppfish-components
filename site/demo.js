@@ -1,39 +1,14 @@
-import Loadable from 'react-loadable';
-import componentList from './componentsPage';
-import {BizLoading} from '../source/components';
 import React from 'react';
+import Loadable from 'react-loadable';
+import {BizLoading} from '../source/components';
+import {getPlainComponentList} from "./utils";
 
-const menuList = [];
-// 开发指南
-Object.keys(componentList.documents).map(key => {
-  menuList.push({
-    key,
-    value: componentList.documents[key],
-  });
-});
-// 基础组件
-Object.keys(componentList.list).map((group) => (
-  Object.keys(componentList.list[group]).map(key => {
-    menuList.push({
-      key,
-      value: componentList.list[group][key],
-    });
-  })
-));
-// 设计规范
-Object.keys(componentList.patterns).map((group) => (
-  Object.keys(componentList.patterns[group]).map(key => {
-    menuList.push({
-      key,
-      value: componentList.patterns[group][key],
-    });
-  })
-));
+const plainComponentList = getPlainComponentList();
 
 export default Loadable({
   loader: () => import('../libs/markdown'),
   render(Markdown, props) {
-    const menuItem = menuList.find(itm => itm.key === props.params.demo);
+    const menuItem = plainComponentList.find(itm => itm.key === props.params.demo);
     if (menuItem || !props.params.demo) {
       //import react/demo
       if (menuItem && menuItem.value.type === 'react') {
@@ -46,7 +21,7 @@ export default Loadable({
             try {
               markdown = require(`./docs/zh-CN/${props.params.demo}.md`);
             } catch (e) {
-              markdown = require(`./docs/zh-CN/quickStart.md`);
+              markdown = require(`./docs/zh-CN/${plainComponentList[0].key}.md`);
             }
             return markdown;
           }
