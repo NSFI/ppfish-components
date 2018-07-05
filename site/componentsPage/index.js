@@ -11,6 +11,7 @@ export default {
     '通用组件 General': {
       // 'affix': require('./affix'),
       'alert': require('./alert'),
+      'audioPlayer': require('./audioPlayer'),
       'avatar': require('./avatar'),
       'badge': require('./badge'),
       // 'backTop': require('./backTop'),
@@ -58,7 +59,6 @@ export default {
       'treeSelect': require('./treeSelect'),
       'upload': require('./upload'),
       'videoViewer': require('./videoViewer'),
-      'audioPlayer': require('./audioPlayer')
     },
     '业务组件 Business': {
       'bizLoading': require('./bizLoading'),
