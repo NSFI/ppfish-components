@@ -82,6 +82,7 @@
     width: 432px;
     height: 238px;
     top: 55px;
+    background-color: #fff;
     border: 1px solid #d5d5d5;
     border: 1px solid transparent;
     box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
@@ -93,6 +94,32 @@
     width: 100%;
     height: 600px;
     background: #fff url(./img/emoji.png) no-repeat;
+    background-size: 22px auto;
+
+    .emoji-row {
+      width: 100%;
+      height: 20px;
+      margin-top: 20px;
+    }
+
+    .emoji-img {
+      display: inline-block;
+      width: 22px;
+      height: 20px;
+      margin-left: 20px;
+      background: #fff url(./img/emoji.png) no-repeat;
+      background-size: 22px auto;
+    }
+
+    .emoji-icon-01 {
+      .emoji-img;
+      background-position: 0px -1363px;
+    }
+
+    .emoji-icon-00 {
+      .emoji-img;
+      background-position: 0px -22px;
+    }
   }
 
   /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
