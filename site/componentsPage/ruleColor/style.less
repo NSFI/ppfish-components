@@ -1,66 +1,69 @@
-// 彩色矩形公共样式
-.item{
-  height: 74px;
-  font-size: 14px;
-  padding: 20px;
-  box-sizing: border-box;
-  .value{
-    font-size: 12px;
-    line-height: 24px;
+#color {
+  // 彩色矩形公共样式
+  .item-common {
+    height: 74px;
+    font-size: 14px;
+    padding: 20px;
+    box-sizing: border-box;
+    .value {
+      font-size: 12px;
+      line-height: 24px;
+    }
   }
-}
 
   // 主标题  副标题 描述文字
-  .global-title{
-    font-size:32px;
+  .global-title {
+    font-size: 32px;
     font-family: PingFangSC-Regular;
     line-height: 38px;
     color:#18181A;
-    margin:8px 0 20px;
+    margin: 8px 0 20px;
   }
   #main-color-title, #aux-color-title, #neu-color-title {
-    font-size:24px;
+    font-size: 24px;
     margin: 55px 0 20px;
   }
-  p{
+  .desc {
     font-size: 14px;
     color: #333;
     line-height: 2em;
   }
 
   // 主色
-  .main-color-container{
-    .main-color-item{
-      .item;
+  .main-color-container {
+    .main-color-item {
+      .item-common;
       width: 25%;
       border-radius: 4px;
       background-color: #488BFF;
       color: #fff;
     }
   }
+
+
   // 辅色
   .aux-color-container {
     display: flex;
-    .aux-color-item{
-      .item;
+    .aux-color-item {
+      .item-common;
       flex: 1;
       width: 25%;
       border-radius: 4px;
       color:#fff;
     }
-    .palatte-1 {
+    .aux-color-item:nth-child(1) {
       background-color: #F24957;
       margin-right: 16px;
     }
-    .palatte-2 {
+    .aux-color-item:nth-child(2) {
       background-color: #26BD71;
       margin-right: 16px;
     }
-    .palatte-3 {
+    .aux-color-item:nth-child(3) {
       background-color: #FFAF0F;
       margin-right: 16px;
     }
-    .palatte-4 {
+    .aux-color-item:nth-child(4) {
       background-color: #8875FF;
     }
   }
@@ -68,48 +71,49 @@
   // 中性色
   .neu-color-container {
     display: flex;
-    .neu-color-left, .neu-color-right{
-      width:35%;
+    .left, .right {
+      width: 35%;
       display: flex;
       flex-direction: column;
     }
-    .neu-color-right{
-      margin-left:10px;
+    .right {
+      margin-left: 10px;
     }
     .neu-color-item {
-      .item;
-      flex:1;
-      width:100%;
+      .item-common;
+      flex: 1;
+      width: 100%;
       color:#fff;
     }
-    .palatte-1 {
+    .neu-color-item:nth-child(1) {
       background-color: #222222;
-      margin-right:12px;
+      margin-right: 12px;
       border-radius: 4px 4px 0 0;
     }
-    .palatte-2 {
+    .neu-color-item:nth-child(2) {
       background-color: #666666;
-      margin-right:12px;
+      margin-right: 12px;
     }
-    .palatte-3 {
+    .neu-color-item:nth-child(3) {
       background-color: #999999;
-      margin-right:12px;
+      margin-right: 12px;
       border-radius: 0 0 4px 4px;
     }
-    .palatte-4 {
+    .neu-color-item:nth-child(4) {
       color:#333;
       background-color: #CCCCCC;
-      margin-right:12px;
+      margin-right: 12px;
       border-radius: 4px 4px 0 0;
     }
-    .palatte-5 {
+    .neu-color-item:nth-child(5) {
       color:#333;
       background-color: #F2F2F5;
-      margin-right:12px;
+      margin-right: 12px;
     }
-    .palatte-6 {
+    .neu-color-item:nth-child(6) {
       color:#333;
       background-color: #F7F7FA;
       border-radius: 0 0 4px 4px;
     }
   }
+}
