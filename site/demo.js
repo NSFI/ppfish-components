@@ -1,9 +1,10 @@
 import Loadable from 'react-loadable';
 import componentList from './componentsPage';
-import BizLoading from '../source/components/BizLoading';
+import {BizLoading} from '../source/components';
 import React from 'react';
 
 const menuList = [];
+// 开发指南
 Object.keys(componentList.documents).map(key => {
   menuList.push({
     key,
