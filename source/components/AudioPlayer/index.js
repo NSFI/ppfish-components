@@ -57,12 +57,12 @@ class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPlay: this.props.autoPlay, // 是否随即播放
-      isMuted: this.props.muted,  // 是否静音
+      isPlay: this.props.autoPlay,                     // 是否随即播放
+      isMuted: this.props.muted,                       // 是否静音
       currentVolume: parseInt(this.props.volume * 10), // 当前音量
-      allTime: 0,
-      currentTime: 0,
-      volumeChangeOpen: false // 是否打开音量控制
+      allTime: 0,                                      // 总时长
+      currentTime: 0,                                  // 当前播放时间
+      volumeChangeOpen: false                          // 是否打开音量控制
     };
     this.audioInstance = null;
   }
