@@ -35,12 +35,22 @@ class CustomToolbar extends PureComponent {
     }
   };
 
+  toggleEmojiPanel = () => {
+    this.setState({
+      showEmojiPanel: !this.state.showEmojiPanel
+    });
+  };
+
   render() {
     const { showSizePanel, showEmojiPanel } = this.state;
     const { className } = this.props;
     let sizePanelClass = classNames({
         'hide': !showSizePanel,
         'custom-size-panel': true
+    });
+    let emojiPanelClass = classNames({
+        'hide': !showEmojiPanel,
+        'custom-emoji-panel': true
     });
 
     return (
@@ -85,7 +95,12 @@ class CustomToolbar extends PureComponent {
         </div>
 
         <div className="toolbar-grp">
-          <button className="item ql-emoji" />
+          <button className="item ql-emoji" onClick={this.toggleEmojiPanel}/>
+          <div className={emojiPanelClass} >
+            <div className="custom-emoji-con">
+              <i className="portrait_img portrait_icon_emoji_01" data-src="http://ysf.space/sdk/res/portrait/emoji/emoji_01.png" title="[可爱]" alt="[可爱]"></i>
+            </div>
+          </div>
         </div>
 
         <div className="toolbar-grp">
