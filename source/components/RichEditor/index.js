@@ -2,11 +2,14 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CustomToolbar from './toolbar.js';
+import CustomSizeBlot from './formatSizeBlot.js';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './index.less';
 
+Quill.register(CustomSizeBlot);
 console.log(Quill.imports);
+
 
 // 自定义模块
 var Module = Quill.import('core/module');
@@ -37,9 +40,11 @@ Bold.tagName = 'B';   // 自定义使用的HTML标签，Quill uses <strong> by d
 // Quill.register(Bold, true);
 
 
-// 插入表情
 let BlockEmbed = Quill.import('blots/block/embed');
-class EmojiBlot extends BlockEmbed {
+let Inline = Quill.import('blots/inline');
+
+// 插入表情
+class EmojiBlot extends Inline {
   static create(value) {
     let node = super.create();
     node.setAttribute('width', '24px');
@@ -47,6 +52,13 @@ class EmojiBlot extends BlockEmbed {
     node.setAttribute('alt', value.alt);
     node.setAttribute('src', value.src);
     return node;
+  }
+
+  static formats(node) {
+    return {
+      alt: node.getAttribute('alt'),
+      src: node.getAttribute('src')
+    };
   }
 
   static value(node) {
@@ -59,46 +71,6 @@ class EmojiBlot extends BlockEmbed {
 EmojiBlot.blotName = 'emoji';
 EmojiBlot.tagName = 'img';
 Quill.register(EmojiBlot);
-
-
-let Inline = Quill.import('blots/inline');
-// 自定义字体大小
-class CustomSizeBlot extends Inline {
-  static create(value) {
-    let node = super.create();
-    node.style.fontSize = value;
-    return node;
-  }
-
-  static formats(node) {
-    return node.style.fontSize;
-  }
-
-  static value(node) {
-    return node.style.fontSize;
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.defaultValue = '14px';
-  }
-
-  format(name, value) {
-    if (name === 'customSize') {
-      if (value) {
-        this.domNode.style.fontSize = value;
-      } else {
-        this.domNode.style.fontSize = this.defaultValue;
-      }
-    } else {
-      super.format(name, value);
-    }
-  }
-}
-CustomSizeBlot.blotName = 'customSize';
-CustomSizeBlot.tagName = 'span';
-Quill.register(CustomSizeBlot);
 
 
 class RichEditor extends Component {
