@@ -16,6 +16,8 @@ export default Loadable({
         return <Demo {...props}/>;
       } else {
         class Demo extends Markdown {
+          static defaultProps = menuItem.value.props ? menuItem.value.props : {};
+
           document() {
             let markdown;
             try {

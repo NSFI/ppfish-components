@@ -153,7 +153,31 @@ export default {
       'picturePreview': {
         type: 'markdown',
         name: 'PicturePreview 图片查看器',
-        style: require('./picturePreview/index.less')
+        style: require('./picturePreview/index.less'),
+        props: {
+          source: [
+            {
+              "url": require("../assets/382_680.png"),
+              "size": "382*680"
+            },
+            {
+              "url": require("../assets/410_412.png"),
+              "size": "410*412"
+            },
+            {
+              "url": require("../assets/895_642.png"),
+              "size": "895*642"
+            },
+            {
+              "url": require("../assets/960_600.png"),
+              "size": "960*600"
+            },
+            {
+              "url": require("../assets/680_320.png"),
+              "size": "680*320"
+            }
+          ]
+        }
       },
       'progress': {
         type: 'markdown',
