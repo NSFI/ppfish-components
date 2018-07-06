@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Color from "./helpers/color";
-import constants from './constants';
 
 export default class History extends React.Component {
   render() {
-    const {prefixCls, colors} = this.props;
+    const {prefixCls, colors, maxHistory} = this.props;
     let renderColors = [...colors];
-    if (colors.length < constants.maxHistory) {
-      renderColors = [...renderColors, ...new Array(constants.maxHistory - colors.length)];
+    if (colors.length < maxHistory) {
+      renderColors = [...renderColors, ...new Array(maxHistory - colors.length)];
     }
     return (
       <div className={`${prefixCls}-history`}>
@@ -42,5 +41,6 @@ export default class History extends React.Component {
 History.propTypes = {
   prefixCls: PropTypes.string,
   colors: PropTypes.array,
-  onHistoryClick: PropTypes.func
+  maxHistory: PropTypes.number,
+  onHistoryClick: PropTypes.func,
 };
