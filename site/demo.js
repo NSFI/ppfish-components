@@ -16,7 +16,7 @@ export default Loadable({
         return <Demo {...props}/>;
       } else {
         class Demo extends Markdown {
-          static defaultProps = menuItem.value.props ? menuItem.value.props : {};
+          static defaultProps = menuItem && menuItem.value.props ? menuItem.value.props : {};
 
           document() {
             let markdown;
@@ -36,5 +36,5 @@ export default Loadable({
       return null;
     }
   },
-  loading: () => <div style={{height: 540}}><BizLoading /></div>
+  loading: () => <div style={{height: 540}}><BizLoading/></div>
 });
