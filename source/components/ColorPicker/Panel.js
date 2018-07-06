@@ -99,7 +99,6 @@ export default class Panel extends React.Component {
   /**
    * color change
    * @param  {Object}  color      tinycolor instance
-   * @param  {Boolean} syncParams Sync to <Params />
    */
   handleChange = (color) => {
     const {alpha} = this.state;
@@ -186,6 +185,7 @@ export default class Panel extends React.Component {
               prefixCls={prefixCls}
               colors={colors}
               onHistoryClick={this.handleHistoryClick}
+              maxHistory={this.props.maxHistory}
             />
           </div>}
         </div>
@@ -209,6 +209,7 @@ Panel.propTypes = {
   prefixCls: PropTypes.string,
   style: PropTypes.object,
   enableHistory: PropTypes.bool,
+  maxHistory: PropTypes.number,
   colors: PropTypes.array
 };
 
@@ -222,8 +223,9 @@ Panel.defaultProps = {
   onChange: noop,
   onFocus: noop,
   onMount: noop,
-  prefixCls: 'rc-color-picker-panel',
+  prefixCls: 'u-color-picker-panel',
   style: {},
   enableHistory: false,
+  maxHistory: 8,
   colors: []
 };
