@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import ColorPickerPanel from './Panel';
 import placements from './placements';
-import constants from './constants';
 import Color from './helpers/color';
 
 function refFn(field, component) {
@@ -109,7 +108,7 @@ export default class ColorPicker extends React.Component {
         },
         () => {
           if (typeof callback === 'function') callback();
-          const {onOpen, onClose, enableHistory} = this.props;
+          const {onOpen, onClose, enableHistory, maxHistory} = this.props;
           if (this.state.open) {
             onOpen(this.state);
           } else {
@@ -118,7 +117,7 @@ export default class ColorPicker extends React.Component {
               const {color, alpha, colors} = this.state;
               if (colors.length && color === colors[0].color && alpha === colors[0].alpha) return;
               this.setState({
-                colors: colors.length >= constants.maxHistory ?
+                colors: colors.length >= maxHistory ?
                   [{color, alpha}, ...colors.slice(0, -1)] : [{color, alpha}, ...colors]
               }, () => {
                 onClose(this.state);
@@ -154,6 +153,7 @@ export default class ColorPicker extends React.Component {
         className={this.props.className}
         colors={this.state.colors}
         enableHistory={this.props.enableHistory}
+        maxHistory={this.props.maxHistory}
       />
     );
   }
@@ -251,19 +251,21 @@ ColorPicker.propTypes = {
   prefixCls: PropTypes.string.isRequired,
   style: PropTypes.object,
   enableHistory: PropTypes.bool,
+  maxHistory: PropTypes.number
 };
 
 ColorPicker.defaultProps = {
   defaultColor: '#F00',
   defaultAlpha: 100,
   enableHistory: false,
+  maxHistory: 8,
   onChange: noop,
   onOpen: noop,
   onClose: noop,
-  children: <span className="rc-color-picker-trigger"/>,
+  children: <span className="u-color-picker-trigger"/>,
   className: '',
   enableAlpha: true,
   placement: 'topLeft',
-  prefixCls: 'rc-color-picker',
+  prefixCls: 'u-color-picker',
   style: {},
 };

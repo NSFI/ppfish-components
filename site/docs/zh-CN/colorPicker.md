@@ -104,7 +104,7 @@ render(){
 :::
 
 <style>
-.panel-demo .rc-color-picker-panel{
+.panel-demo .u-color-picker-panel{
    display:inline-block;
    margin-right:20px;
 }
