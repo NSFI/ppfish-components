@@ -20,7 +20,7 @@
     this.setState({
       visible: true,
     });
-  }
+  };
   
   onClose = () => {
     console.log('closed');
