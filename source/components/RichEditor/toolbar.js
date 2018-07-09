@@ -21,6 +21,14 @@ class CustomToolbar extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.showEmojiPanel != this.state.showEmojiPanel) {
+      this.setState({
+        showEmojiPanel: nextProps.showEmojiPanel
+      });
+    }
+  }
+
   toggleSizePanel = () => {
     this.setState({
       showSizePanel: !this.state.showSizePanel

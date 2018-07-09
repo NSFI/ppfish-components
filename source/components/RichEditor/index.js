@@ -25,7 +25,9 @@ class RichEditor extends Component {
   constructor(props) {
     super(props);
 
+    let _this = this;
     this.state = { 
+      value: this.props.value,
       showEmojiPanel: false
     };
     this.modules = {
@@ -34,7 +36,7 @@ class RichEditor extends Component {
         handlers: {
           'link': function(value) {
             if (value) {
-              var href = prompt('Enter the URL');
+              let href = prompt('Enter the URL');
               this.quill.format('link', href);
             } else {
               this.quill.format('link', false);
@@ -48,10 +50,22 @@ class RichEditor extends Component {
               src: vList[1]
             });
             this.quill.setSelection(range.index+1, 0);
+            _this.setState({
+              value: this.quill.getContents(),
+              showEmojiPanel: false
+            });
           }
         }
       }
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value != this.state.value) {
+      this.setState({
+        value: nextProps.value
+      });
+    }
   }
 
   handleChange = (value) => {
@@ -59,12 +73,17 @@ class RichEditor extends Component {
   };
 
   render() {
+    let { showEmojiPanel, value } = this.state;
+
     return (
       <div className="m-rich-editor">
-        <CustomToolbar className={'editor-head'}/>
+        <CustomToolbar
+          className={'editor-head'}
+          showEmojiPanel={showEmojiPanel}
+        />
         <ReactQuill
           className={'editor-body'}
-          value={this.props.value}
+          value={value}
           placeholder={'placeholder'}
           modules={this.modules}
           onChange={this.handleChange}
