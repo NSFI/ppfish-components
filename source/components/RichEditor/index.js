@@ -5,11 +5,13 @@ import classNames from 'classnames';
 import CustomToolbar from './toolbar.js';
 import CustomSizeBlot from './formatSizeBlot.js';
 import EmojiBlot from './formatEmojiBlot.js';
+import EntryBlot from './formatEntryBlot.js';
 import 'react-quill/dist/quill.snow.css';
 import './index.less';
 
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
+Quill.register(EntryBlot);
 
 console.log(Quill.imports);
 
@@ -35,11 +37,13 @@ class RichEditor extends Component {
         container: "#toolbar",
         handlers: {
           'link': function(value) {
-            if (value) {
-              let href = prompt('Enter the URL');
+            let range = this.quill.getSelection();
+
+            if (range.length !== 0) {
+              let href = prompt('插入链接');
               this.quill.format('link', href);
             } else {
-              this.quill.format('link', false);
+              // TODO: 提示没有选中文本
             }
           },
           'emoji': function(value) {
@@ -49,11 +53,16 @@ class RichEditor extends Component {
               alt: vList[0],
               src: vList[1]
             });
-            this.quill.setSelection(range.index+1, 0);
+            this.quill.setSelection(range.index + 1);
+            // TODO: 点击外部区域时关闭面板
             // _this.setState({
             //   value: this.quill.getContents(),
             //   showEmojiPanel: false
             // });
+          },
+          'entry': function(value) {
+            this.quill.format('entry', 'qiyu://action.qiyukf.com?command=applyHumanStaff');
+            // TODO: 抽象为插件
           }
         }
       }
