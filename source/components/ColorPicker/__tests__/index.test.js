@@ -34,6 +34,23 @@ describe('<ColorPicker />', () => {
     expect(props.onOpen).toBeCalled();
   });
 
+  test('ColorPicker组件正常开关历史记录', () => {
+    expect(wrapper.find('.u-color-picker-panel-history').exists()).toBe(false);
+    wrapper.setProps({enableHistory: true});
+    expect(wrapper.find('.u-color-picker-panel-history').exists()).toBe(true);
+  });
+
+  test('ColorPicker组件能正确设置历史记录个数', () => {
+    wrapper.setProps({maxHistory: 10});
+    expect(wrapper.find('.u-color-picker-panel-history-color').length).toEqual(10);
+  });
+
+  test('ColorPicker组件正常开关透明度', () => {
+    expect(wrapper.find('.u-color-picker-panel-alpha').exists()).toBe(true);
+    wrapper.setProps({enableAlpha: false});
+    expect(wrapper.find('.u-color-picker-panel-alpha').exists()).toBe(false);
+  });
+
   test('ColorPicker组件能够被正常关闭', () => {
     wrapper.find('.u-color-picker-trigger').simulate('click');
     expect(wrapper.state('open')).toBe(false);
