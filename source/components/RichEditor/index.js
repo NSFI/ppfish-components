@@ -45,11 +45,12 @@ class RichEditor extends Component {
           },
           'emoji': function(value) {
             let vList = value.split('__');
-            debugger;
-            this.quill.format('emoji', {
+            let range = this.quill.getSelection();
+            this.quill.insertEmbed(range.index, 'emoji', {
               alt: vList[0],
               src: vList[1]
             });
+            this.quill.setSelection(range.index+1, 0);
           }
         }
       }
