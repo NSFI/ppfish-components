@@ -1,20 +1,44 @@
 import glob from 'glob';
 import { render } from 'enzyme';
+import { getPlainComponentList } from "../../site/utils/index.js";
+import Markdown from '../../libs/markdown/index.js';
 
-export default function demoTest(component, options = {}) {
-  const files = glob.sync(`./source/components/${component}/demo/App.js`);
+const plainComponentList = getPlainComponentList();
+const getDemo = (demoName) => {
+  if (!demoName) {
+    return null;
+  }
 
-  files.forEach((file) => {
-    let testMethod = options.skip === true ? test.skip : test;
-    
-    if (Array.isArray(options.skip) && options.skip.some(c => file.includes(c))) {
-      testMethod = test.skip;
+  const menuItem = plainComponentList.find(item => item.key === demoName);
+  if (menuItem && menuItem.value.type === 'markdown') {
+    class Demo extends Markdown {
+      static defaultProps = menuItem.value && menuItem.value.props ? menuItem.value.props : {};
+
+      document() {
+        let markdown = null;
+        
+        try {
+          markdown = require(`../../site/docs/zh-CN/${demoName}.md`);
+        } catch (e) {
+          throw e;
+        }
+
+        return markdown;
+      }
     }
 
-    testMethod(`renders ${file} correctly`, () => {
-      const demo = require(`../.${file}`); // eslint-disable-line global-require, import/no-dynamic-require
-      const wrapper = render(demo);
-      expect(wrapper).toMatchSnapshot();
-    });
+    return Demo;
+  }
+
+  return null;
+};
+
+export default function demoTest(compName, options = {}) {
+  let demoName = compName.substr(0, 1).toLowerCase() + compName.substr(1);
+  let testMethod = options.skip === true ? test.skip : test;
+
+  testMethod(`Renders ${compName} demo correctly`, () => {
+    const wrapper = render(getDemo(demoName));
+    expect(wrapper).toMatchSnapshot();
   });
 }
