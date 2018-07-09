@@ -166,6 +166,6 @@
 | source | 设置图片的源数据 | Array | [{url:'', size: "200*200"}] |
 | dots | 是否显示面板指示点 | Boolean | false |
 | controller | 是否显示图片控制条 | Boolean | false |
-| onClose | 关闭图片查看器后的回调函数 | Function | () => {} |
+| onClose | 关闭图片查看器后的回调函数 | Function | noop |
 
 **注意：** `dots` 和 `controller` 不可同时设置为 `true`。
