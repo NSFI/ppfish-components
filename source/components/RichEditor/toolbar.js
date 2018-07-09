@@ -129,12 +129,6 @@ class CustomToolbar extends PureComponent {
         <div className="toolbar-grp">
           <button className="item ql-entry" />
         </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-insertStar">
-            <span className="octicon octicon-star" />
-          </button>
-        </div>
       </div>
     );
   }
