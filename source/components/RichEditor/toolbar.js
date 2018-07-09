@@ -1,6 +1,43 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import emojiList from './emojiList.js';
+
+let genEmoji = (data) => {
+  let colSize = 10,
+      resPath = 'http://ysf.space/sdk/res/portrait/emoji/',
+      tmpObj = {},
+      result = [];
+
+  data.map((item, index) => {
+    let grpIndex = parseInt(item.id / colSize, 10);
+
+    if (typeof tmpObj[grpIndex] == 'undefined') {
+      tmpObj[grpIndex] = [];
+    }
+
+    tmpObj[grpIndex].push(
+      <button
+        key={"emoji_" + grpIndex + "_" + index}
+        className={"ql-emoji emoji-img emoji-" + item.name}
+        value={item.title + "__" + resPath + "emoji_" + item.name + ".png"}
+        title={item.title}
+      />
+    );
+  });
+
+  for (let key in tmpObj) {
+    result.push(
+      <div className="emoji-row" key={"emoji_row_" + key}>
+        { tmpObj[key] }
+      </div>
+    );
+  }
+
+  return result;
+};
+let emojiDom = genEmoji(emojiList);
+
 
 class CustomToolbar extends PureComponent {
   static propTypes = {
@@ -114,10 +151,7 @@ class CustomToolbar extends PureComponent {
           <button className="item" onClick={this.toggleEmojiPanel}/>
           <div className={emojiPanelClass} >
             <div className="custom-emoji-con" onClick={this.closeEmojiPanel}>
-              <div className="emoji-row">
-                <button className="ql-emoji emoji-icon-01" value="[可爱]__http://ysf.space/sdk/res/portrait/emoji/emoji_01.png" title="[可爱]" />
-                <i className="emoji-icon-00" src="http://ysf.space/sdk/res/portrait/emoji/emoji_00.png" title="[大笑]" alt="[大笑]"></i>
-              </div>
+              { emojiDom }
             </div>
           </div>
         </div>
