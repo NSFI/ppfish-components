@@ -50,10 +50,10 @@ class RichEditor extends Component {
               src: vList[1]
             });
             this.quill.setSelection(range.index+1, 0);
-            _this.setState({
-              value: this.quill.getContents(),
-              showEmojiPanel: false
-            });
+            // _this.setState({
+            //   value: this.quill.getContents(),
+            //   showEmojiPanel: false
+            // });
           }
         }
       }

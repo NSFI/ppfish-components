@@ -49,6 +49,14 @@ class CustomToolbar extends PureComponent {
     });
   };
 
+  closeEmojiPanel = (e) => {
+    if (e.target.tagName.toUpperCase() == 'BUTTON') {
+      this.setState({
+        showEmojiPanel: false
+      });
+    }
+  };
+
   render() {
     const { showSizePanel, showEmojiPanel } = this.state;
     const { className } = this.props;
@@ -105,7 +113,7 @@ class CustomToolbar extends PureComponent {
         <div className="toolbar-grp">
           <button className="item" onClick={this.toggleEmojiPanel}/>
           <div className={emojiPanelClass} >
-            <div className="custom-emoji-con">
+            <div className="custom-emoji-con" onClick={this.closeEmojiPanel}>
               <div className="emoji-row">
                 <button className="ql-emoji emoji-icon-01" value="[可爱]__http://ysf.space/sdk/res/portrait/emoji/emoji_01.png" title="[可爱]" />
                 <i className="emoji-icon-00" src="http://ysf.space/sdk/res/portrait/emoji/emoji_00.png" title="[大笑]" alt="[大笑]"></i>
