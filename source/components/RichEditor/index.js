@@ -15,26 +15,23 @@ console.log(Quill.imports);
 
 class RichEditor extends Component {
   static propTypes = {
-    visible: PropTypes.bool,
+    value: PropTypes.string,
   };
 
   static defaultProps = {
-    visible: false,
+    value: '初始内容a<br/>初始内容a',
   };
 
   constructor(props) {
     super(props);
 
-    this.state = { text: '初始内容a<br/>初始内容a' };
+    this.state = { 
+      showEmojiPanel: false
+    };
     this.modules = {
       toolbar: {
         container: "#toolbar",
         handlers: {
-          'insertStar': function insertStar() {
-            const cursorPosition = this.quill.getSelection().index;
-            this.quill.insertText(cursorPosition, "★");
-            this.quill.setSelection(cursorPosition + 1);
-          },
           'link': function(value) {
             if (value) {
               var href = prompt('Enter the URL');
@@ -67,7 +64,7 @@ class RichEditor extends Component {
         <CustomToolbar className={'editor-head'}/>
         <ReactQuill
           className={'editor-body'}
-          value={this.state.text}
+          value={this.props.value}
           placeholder={'placeholder'}
           modules={this.modules}
           onChange={this.handleChange}
