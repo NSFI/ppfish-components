@@ -3,11 +3,14 @@ import { shallow, render, mount } from 'enzyme';
 import VideoViewer from '../index';
 
 describe('<VideoViewer />', () => {
+  let wrapper;
+  let refVideo;
   const props = {
     maskClosable: false,
-    visible: true,
-    mask: false,
-    draggable: false,
+    visible: false,
+    mask: true,
+    draggable: true,
+    width: 600
   };
 
   beforeAll(() => {
@@ -19,16 +22,24 @@ describe('<VideoViewer />', () => {
   });
 
   beforeEach(() => {
+    refVideo = React.createRef();
+    wrapper = mount(<VideoViewer {...props}>
+        <VideoViewer.Video ref={refVideo} src="http://pic.qiantucdn.com/58pic/shipin/13/38/13/13381368.mp4" />
+      </VideoViewer>);
   });
 
   test('组件能够被正确渲染', () => {
-    const wrapper = mount((
-      <VideoViewer {...props}>
-        <VideoViewer.Video src="http://www.w3school.com.cn/i/movie.ogg" />
-      </VideoViewer>
-    ));
     const inst = wrapper.instance();
     expect(inst).toBeInstanceOf(VideoViewer);
-    expect(wrapper.find('.m-video-viewer-inner').exists()).toBe(true);
+    wrapper.setProps({visible: true});
+    // 由于antd Modal使用React.createPortal实现，需要测试document.body内是否插入正确的DOM节点
+    const modalRoot = global.document.querySelector('.ant-modal');
+    expect(modalRoot.querySelector('video')).toBeTruthy();
   });
+
+  test('组件能够被正常关闭', () => {
+    wrapper.setProps({visible: false});
+    expect(wrapper.find('Modal').prop('visible')).toBe(false);
+  });
+
 });
