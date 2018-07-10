@@ -359,6 +359,66 @@ let emojiList = [
     imgName: '1f630',
     title: '[尴尬]'
   },
+  {
+    id: 60,
+    className: 'emoji-149',
+    imgName: '1f60c',
+    title: '[舒适]'
+  },
+  {
+    id: 61,
+    className: 'emoji-150',
+    imgName: '1f612',
+    title: '[不悦]'
+  },
+  {
+    id: 62,
+    className: 'emoji-155',
+    imgName: 'new_emoji_09',
+    title: '[拍掌]'
+  },
+  {
+    id: 63,
+    className: 'emoji-156',
+    imgName: 'new_emoji_07',
+    title: '[糗大了]'
+  },
+  {
+    id: 64,
+    className: 'emoji-122',
+    imgName: '1f4aa-1f3fc',
+    title: '[奋斗]'
+  },
+  {
+    id: 65,
+    className: 'emoji-130',
+    imgName: 'new_emoji_23',
+    title: '[乒乓]'
+  },
+  {
+    id: 66,
+    className: 'emoji-131',
+    imgName: '1f437',
+    title: '[猪头]'
+  },
+  {
+    id: 67,
+    className: 'emoji-132',
+    imgName: 'new_emoji_25',
+    title: '[玫瑰]'
+  },
+  {
+    id: 68,
+    className: 'emoji-133',
+    imgName: 'new_emoji_24',
+    title: '[凋谢]'
+  },
+  {
+    id: 69,
+    className: 'emoji-134',
+    imgName: '1f41e',
+    title: '[瓢虫]'
+  },
 
 
 ];
