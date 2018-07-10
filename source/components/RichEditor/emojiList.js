@@ -599,6 +599,126 @@ let emojiList = [
     imgName: 'emoji_50',
     title: '[钻石]'
   },
+  {
+    id: 100,
+    className: 'emoji-51',
+    imgName: 'emoji_51',
+    title: '[太阳]'
+  },
+  {
+    id: 101,
+    className: 'emoji-52',
+    imgName: 'emoji_52',
+    title: '[有时晴]'
+  },
+  {
+    id: 102,
+    className: 'emoji-53',
+    imgName: 'emoji_53',
+    title: '[多云]'
+  },
+  {
+    id: 103,
+    className: 'emoji-54',
+    imgName: 'emoji_54',
+    title: '[雷]'
+  },
+  {
+    id: 104,
+    className: 'emoji-55',
+    imgName: 'emoji_55',
+    title: '[雨]'
+  },
+  {
+    id: 105,
+    className: 'emoji-56',
+    imgName: 'emoji_56',
+    title: '[雪花]'
+  },
+  {
+    id: 106,
+    className: 'emoji-57',
+    imgName: 'emoji_57',
+    title: '[爱人]'
+  },
+  {
+    id: 107,
+    className: 'emoji-58',
+    imgName: 'emoji_58',
+    title: '[帽子]'
+  },
+  {
+    id: 108,
+    className: 'emoji-59',
+    imgName: 'emoji_59',
+    title: '[皇冠]'
+  },
+  {
+    id: 109,
+    className: 'emoji-60',
+    imgName: 'emoji_60',
+    title: '[篮球]'
+  },
+  {
+    id: 110,
+    className: 'emoji-61',
+    imgName: 'emoji_61',
+    title: '[足球]'
+  },
+  {
+    id: 111,
+    className: 'emoji-62',
+    imgName: 'emoji_62',
+    title: '[垒球]'
+  },
+  {
+    id: 112,
+    className: 'emoji-63',
+    imgName: 'emoji_63',
+    title: '[网球]'
+  },
+  {
+    id: 113,
+    className: 'emoji-64',
+    imgName: 'emoji_64',
+    title: '[台球]'
+  },
+  {
+    id: 114,
+    className: 'emoji-65',
+    imgName: 'emoji_65',
+    title: '[咖啡]'
+  },
+  {
+    id: 115,
+    className: 'emoji-66',
+    imgName: 'emoji_66',
+    title: '[啤酒]'
+  },
+  {
+    id: 116,
+    className: 'emoji-67',
+    imgName: 'emoji_67',
+    title: '[干杯]'
+  },
+  {
+    id: 117,
+    className: 'emoji-68',
+    imgName: 'emoji_68',
+    title: '[柠檬汁]'
+  },
+  {
+    id: 118,
+    className: 'emoji-69',
+    imgName: 'emoji_69',
+    title: '[餐具]'
+  },
+  {
+    id: 119,
+    className: 'emoji-70',
+    imgName: 'emoji_70',
+    title: '[汉堡]'
+  },
 
 
 ];
