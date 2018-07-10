@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList.js';
+import emojiSrc from './img/emoji.png';
 
 let genEmoji = (data) => {
   let colSize = 10,
@@ -58,6 +59,12 @@ class CustomToolbar extends PureComponent {
     }
   }
 
+  componentWillMount() {
+    // Ô¤¼ÓÔØ emoji Í¼±ê
+    let emojiImg = new Image();
+    emojiImg.src = emojiSrc;
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.showEmojiPanel != this.state.showEmojiPanel) {
       this.setState({
@@ -67,15 +74,24 @@ class CustomToolbar extends PureComponent {
   }
 
   toggleSizePanel = (e) => {
-    this.setState({
-      showSizePanel: !this.state.showSizePanel
-    });
+    let clsVal = e.target.classList.value;
+    if (clsVal.indexOf('item') > -1 ||
+        clsVal.indexOf('ql-customSize') > -1) {
+      this.setState({
+        showSizePanel: !this.state.showSizePanel
+      });
+    }
   };
 
-  toggleEmojiPanel = () => {
-    this.setState({
-      showEmojiPanel: !this.state.showEmojiPanel
-    });
+  toggleEmojiPanel = (e) => {
+    let clsVal = e.target.classList.value;
+    if (clsVal.indexOf('item') > -1 ||
+        clsVal.indexOf('icon-emoticon-smile') > -1 ||
+        clsVal.indexOf('ql-emoji') > -1) {
+      this.setState({
+        showEmojiPanel: !this.state.showEmojiPanel
+      });
+    }
   };
 
   render() {
