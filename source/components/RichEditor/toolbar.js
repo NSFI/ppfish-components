@@ -60,7 +60,7 @@ class CustomToolbar extends PureComponent {
   }
 
   componentWillMount() {
-    // ‘§º”‘ÿ emoji Õº±Í
+    // Preload emoji image
     let emojiImg = new Image();
     emojiImg.src = emojiSrc;
   }
