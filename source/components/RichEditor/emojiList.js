@@ -419,6 +419,66 @@ let emojiList = [
     imgName: '1f41e',
     title: '[瓢虫]'
   },
+  {
+    id: 70,
+    className: 'emoji-135',
+    imgName: 'new_emoji_30',
+    title: '[月亮]'
+  },
+  {
+    id: 71,
+    className: 'emoji-136',
+    imgName: 'new_emoji_28',
+    title: '[礼物]'
+  },
+  {
+    id: 72,
+    className: 'emoji-137',
+    imgName: 'new_emoji_08',
+    title: '[拥抱]'
+  },
+  {
+    id: 73,
+    className: 'emoji-138',
+    imgName: 'new_emoji_18',
+    title: '[抱拳]'
+  },
+  {
+    id: 74,
+    className: 'emoji-139',
+    imgName: 'new_emoji_19',
+    title: '[勾引]'
+  },
+  {
+    id: 75,
+    className: 'emoji-140',
+    imgName: 'new_emoji_20',
+    title: '[差劲]'
+  },
+  {
+    id: 76,
+    className: 'emoji-141',
+    imgName: 'new_emoji_21',
+    title: '[爱你]'
+  },
+  {
+    id: 77,
+    className: 'emoji-142',
+    imgName: 'new_emoji_22',
+    title: '[NO]'
+  },
+  {
+    id: 78,
+    className: 'emoji-151',
+    imgName: '1f47b',
+    title: '[幽灵]'
+  },
+  {
+    id: 79,
+    className: 'emoji-152',
+    imgName: '1f49d',
+    title: '[礼盒]'
+  },
 
 
 ];
