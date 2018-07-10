@@ -1,20 +1,21 @@
 @import "../../assets/css/lib/ant-theme-vars";
 @import "../../assets/css/common/index";
 
+/* stylelint-disable declaration-no-important */
 @rich-editor-prefix: m-rich-editor;
 
-// .ql-color {
-//   background-image: url(http://www.runoob.com/try/demo_source/paper.gif);
-//   svg {
-//     display: none;
-//   }
-// }
-
-// .ql-active {
-//   color: initial;
-// }
-
 .@{rich-editor-prefix} {
+  .ql-image {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 0 0 0 !important;
+
+    svg {
+      display: none;
+    }
+  }
+
   .hide {
     display: none;
   }
@@ -58,9 +59,28 @@
     }
   }
 
-  .custom-size {
+  .custom-icon {
     width: 28px;
     height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #000;
+    padding-top: 2px;
+
+    &:hover {
+      color: #06c;
+    }
+
+    .iconfont {
+      font-size: 16px;
+    }
+  }
+
+  .custom-size,
+  .custom-emoji {
+    .custom-icon;
   }
 
   .custom-size-panel {
@@ -78,25 +98,6 @@
       width: auto;
       height: auto;
       padding: 3px 5px;
-    }
-  }
-
-  .custom-emoji {
-    width: 28px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #000;
-
-    &:hover {
-      color: #06c;
-    }
-
-    .iconfont {
-      font-size: 16px;
-      padding-top: 2px;
     }
   }
 
@@ -650,3 +651,4 @@
     background-color: #a3afb7;
   }
 }
+/* stylelint-enable */

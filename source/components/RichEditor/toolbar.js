@@ -159,11 +159,11 @@ class CustomToolbar extends PureComponent {
         </div>
 
         <div className="toolbar-grp">
-          <button className="item ql-image" />
+          <button className="item ql-image iconfont icon-picture" />
         </div>
 
         <div className="toolbar-grp">
-          <div className="item custom-size" onClick={this.toggleSizePanel}></div>
+          <div className="item custom-size iconfont icon-FontSize" onClick={this.toggleSizePanel}></div>
           <div className={sizePanelClass} onClick={this.closeSizePanel}>
             <button type="button" className="ql-customSize item" value="32px" style={{fontSize: '32px'}}>32px</button>
             <button type="button" className="ql-customSize item" value="24px" style={{fontSize: '24px'}}>24px</button>
