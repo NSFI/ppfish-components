@@ -539,6 +539,66 @@ let emojiList = [
     imgName: 'emoji_40',
     title: '[发怒]'
   },
+  {
+    id: 90,
+    className: 'emoji-41',
+    imgName: 'emoji_41',
+    title: '[骷髅]'
+  },
+  {
+    id: 91,
+    className: 'emoji-42',
+    imgName: 'emoji_42',
+    title: '[便便]'
+  },
+  {
+    id: 92,
+    className: 'emoji-43',
+    imgName: 'emoji_43',
+    title: '[火]'
+  },
+  {
+    id: 93,
+    className: 'emoji-44',
+    imgName: 'emoji_44',
+    title: '[溜]'
+  },
+  {
+    id: 94,
+    className: 'emoji-45',
+    imgName: 'emoji_45',
+    title: '[爱心]'
+  },
+  {
+    id: 95,
+    className: 'emoji-46',
+    imgName: 'emoji_46',
+    title: '[心碎]'
+  },
+  {
+    id: 96,
+    className: 'emoji-47',
+    imgName: 'emoji_47',
+    title: '[钟情]'
+  },
+  {
+    id: 97,
+    className: 'emoji-48',
+    imgName: 'emoji_48',
+    title: '[唇]'
+  },
+  {
+    id: 98,
+    className: 'emoji-49',
+    imgName: 'emoji_49',
+    title: '[戒指]'
+  },
+  {
+    id: 99,
+    className: 'emoji-50',
+    imgName: 'emoji_50',
+    title: '[钻石]'
+  },
 
 
 ];
