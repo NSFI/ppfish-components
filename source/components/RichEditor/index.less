@@ -74,6 +74,7 @@
   }
 
   .custom-icon {
+    position: relative;
     width: 28px;
     height: 24px;
     display: flex;
@@ -86,6 +87,10 @@
 
     &:hover {
       color: @primary-color;
+
+      .custom-size-panel {
+        color: #000;
+      }
     }
   }
 
@@ -97,19 +102,24 @@
 
   .custom-size-panel {
     position: absolute;
+    top: 23px;
+    left: 0;
+    font-family: initial;
     padding: 5px 0;
     background-color: #fff;
-    top: 55px;
     border: 1px solid transparent;
     box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
     z-index: 999;
 
-    .item {
+    .size-item {
       display: block;
       float: none;
       width: auto;
-      height: auto;
-      padding: 3px 5px;
+      height: 38px;
+
+      &:hover {
+        color: @primary-color;
+      }
     }
   }
 
