@@ -779,6 +779,66 @@ let emojiList = [
     imgName: 'emoji_80',
     title: '[光碟]'
   },
+  {
+    id: 130,
+    className: 'emoji-81',
+    imgName: 'emoji_81',
+    title: '[手机]'
+  },
+  {
+    id: 131,
+    className: 'emoji-82',
+    imgName: 'emoji_82',
+    title: '[电话]'
+  },
+  {
+    id: 132,
+    className: 'emoji-83',
+    imgName: 'emoji_83',
+    title: '[电视]'
+  },
+  {
+    id: 133,
+    className: 'emoji-84',
+    imgName: 'emoji_84',
+    title: '[声音开启]'
+  },
+  {
+    id: 134,
+    className: 'emoji-85',
+    imgName: 'emoji_85',
+    title: '[声音关闭]'
+  },
+  {
+    id: 135,
+    className: 'emoji-86',
+    imgName: 'emoji_86',
+    title: '[铃铛]'
+  },
+  {
+    id: 136,
+    className: 'emoji-87',
+    imgName: 'emoji_87',
+    title: '[锁头]'
+  },
+  {
+    id: 137,
+    className: 'emoji-88',
+    imgName: 'emoji_88',
+    title: '[放大镜]'
+  },
+  {
+    id: 138,
+    className: 'emoji-89',
+    imgName: 'emoji_89',
+    title: '[灯泡]'
+  },
+  {
+    id: 139,
+    className: 'emoji-90',
+    imgName: 'emoji_90',
+    title: '[锤头]'
+  },
 
 
 ];
