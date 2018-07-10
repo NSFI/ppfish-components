@@ -1,21 +1,36 @@
 @import "../../assets/css/lib/ant-theme-vars";
 @import "../../assets/css/common/index";
 
-/* stylelint-disable declaration-no-important */
+
 @rich-editor-prefix: m-rich-editor;
 
-.@{rich-editor-prefix} {
-  .ql-image {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    padding: 2px 0 0 0 !important;
 
-    svg {
-      display: none;
-    }
+/* stylelint-disable declaration-no-important */
+.ql-snow {
+  a {
+    color: @primary-color;
   }
+}
 
+.ql-image,
+.ql-clean {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 0 0 0 !important;
+  color: #000;
+  font-size: 16px;
+
+  svg {
+    display: none;
+  }
+}
+
+.ql-clean {
+  font-size: 22px;
+}
+
+.@{rich-editor-prefix} {
   .hide {
     display: none;
   }
@@ -41,8 +56,6 @@
     margin-right: 10px;
 
     > .item {
-      // width: 28px;
-      // height: 24px;
       line-height: 0;
       background: #fff;
       border-right: 1px solid #d5d5d5;
@@ -50,6 +63,7 @@
       border-bottom: 1px solid #d5d5d5;
 
       &:hover {
+        color: @primary-color;
         background-color: #ddd;
       }
     }
@@ -68,18 +82,16 @@
     cursor: pointer;
     color: #000;
     padding-top: 2px;
+    font-size: 16px;
 
     &:hover {
-      color: #06c;
-    }
-
-    .iconfont {
-      font-size: 16px;
+      color: @primary-color;
     }
   }
 
   .custom-size,
-  .custom-emoji {
+  .custom-emoji,
+  .custom-entry {
     .custom-icon;
   }
 
