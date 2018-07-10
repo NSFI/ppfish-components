@@ -719,6 +719,66 @@ let emojiList = [
     imgName: 'emoji_70',
     title: '[汉堡]'
   },
+  {
+    id: 120,
+    className: 'emoji-71',
+    imgName: 'emoji_71',
+    title: '[鸡腿]'
+  },
+  {
+    id: 121,
+    className: 'emoji-72',
+    imgName: 'emoji_72',
+    title: '[面条]'
+  },
+  {
+    id: 122,
+    className: 'emoji-73',
+    imgName: 'emoji_73',
+    title: '[冰淇淋]'
+  },
+  {
+    id: 123,
+    className: 'emoji-74',
+    imgName: 'emoji_74',
+    title: '[沙冰]'
+  },
+  {
+    id: 124,
+    className: 'emoji-75',
+    imgName: 'emoji_75',
+    title: '[生日蛋糕]'
+  },
+  {
+    id: 125,
+    className: 'emoji-76',
+    imgName: 'emoji_76',
+    title: '[蛋糕]'
+  },
+  {
+    id: 126,
+    className: 'emoji-77',
+    imgName: 'emoji_77',
+    title: '[糖果]'
+  },
+  {
+    id: 127,
+    className: 'emoji-78',
+    imgName: 'emoji_78',
+    title: '[葡萄]'
+  },
+  {
+    id: 128,
+    className: 'emoji-79',
+    imgName: 'emoji_79',
+    title: '[西瓜]'
+  },
+  {
+    id: 129,
+    className: 'emoji-80',
+    imgName: 'emoji_80',
+    title: '[光碟]'
+  },
 
 
 ];
