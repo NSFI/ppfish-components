@@ -148,7 +148,9 @@ class CustomToolbar extends PureComponent {
         </div>
 
         <div className="toolbar-grp">
-          <button className="item" onClick={this.toggleEmojiPanel}/>
+          <div className="item custom-emoji" onClick={this.toggleEmojiPanel}>
+            <i className="iconfont icon-emoticon-smile" />
+          </div>
           <div className={emojiPanelClass} >
             <div className="custom-emoji-con" onClick={this.closeEmojiPanel}>
               { emojiDom }

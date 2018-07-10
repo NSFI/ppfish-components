@@ -47,6 +47,10 @@
       border-right: 1px solid #d5d5d5;
       border-top: 1px solid #d5d5d5;
       border-bottom: 1px solid #d5d5d5;
+
+      &:hover {
+        background-color: #ddd;
+      }
     }
 
     > .item:first-child {
@@ -74,6 +78,25 @@
       width: auto;
       height: auto;
       padding: 3px 5px;
+    }
+  }
+
+  .custom-emoji {
+    width: 28px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #000;
+
+    &:hover {
+      color: #06c;
+    }
+
+    .iconfont {
+      font-size: 16px;
+      padding-top: 2px;
     }
   }
 
