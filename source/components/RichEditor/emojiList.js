@@ -899,6 +899,66 @@ let emojiList = [
     imgName: 'emoji_100',
     title: '[手柄]'
   },
+  {
+    id: 150,
+    className: 'emoji-101',
+    imgName: 'emoji_101',
+    title: '[麻将]'
+  },
+  {
+    id: 151,
+    className: 'emoji-102',
+    imgName: 'emoji_102',
+    title: '[调色板]'
+  },
+  {
+    id: 152,
+    className: 'emoji-103',
+    imgName: 'emoji_103',
+    title: '[电影]'
+  },
+  {
+    id: 153,
+    className: 'emoji-104',
+    imgName: 'emoji_104',
+    title: '[麦克风]'
+  },
+  {
+    id: 154,
+    className: 'emoji-105',
+    imgName: 'emoji_105',
+    title: '[耳机]'
+  },
+  {
+    id: 155,
+    className: 'emoji-106',
+    imgName: 'emoji_106',
+    title: '[音乐]'
+  },
+  {
+    id: 156,
+    className: 'emoji-107',
+    imgName: 'emoji_107',
+    title: '[吉他]'
+  },
+  {
+    id: 157,
+    className: 'emoji-108',
+    imgName: 'emoji_108',
+    title: '[火箭]'
+  },
+  {
+    id: 158,
+    className: 'emoji-109',
+    imgName: 'emoji_109',
+    title: '[飞机]'
+  },
+  {
+    id: 159,
+    className: 'emoji-110',
+    imgName: 'emoji_110',
+    title: '[火车]'
+  },
 
 
 ];
