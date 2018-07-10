@@ -26,6 +26,7 @@
 @primary-color          : @blue-6;
 @info-color             : @blue-6;
 @success-color          : @assistant-green;
+@processing-color       : @blue-6;
 @error-color            : @assistant-red;
 @highlight-color        : @assistant-red;
 @warning-color          : @assistant-yellow;
@@ -34,9 +35,9 @@
 
 // Color used by default to control hover and active backgrounds and for
 // alert info backgrounds.
-@primary-1: @primary-color;
-@primary-5: @primary-color;
-@primary-7: @primary-color;
+@primary-1: tint(@primary-color, 90%);  // replace tint(@primary-color, 90%)
+@primary-5: tint(@primary-color, 20%);  // color used to control the text color in many active and hover states, replace tint(@primary-color, 20%) // color used to control the text color of active buttons, don't use, use @primary-color
+@primary-7: shade(@primary-color, 7%);  // replace shade(@primary-color, 5%)
 
 // Background color for `<body>`
 @body-background        : #fff;
