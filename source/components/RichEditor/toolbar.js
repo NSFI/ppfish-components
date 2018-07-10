@@ -20,8 +20,8 @@ let genEmoji = (data) => {
     tmpObj[grpIndex].push(
       <button
         key={"emoji_" + grpIndex + "_" + index}
-        className={"ql-emoji emoji-img emoji-" + item.name}
-        value={item.title + "__" + resPath + "emoji_" + item.name + ".png"}
+        className={"ql-emoji emoji-img " + item.className}
+        value={item.title + "__" + resPath + item.imgName + ".png"}
         title={item.title}
       />
     );
