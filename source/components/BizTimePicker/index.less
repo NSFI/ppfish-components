@@ -1,7 +1,9 @@
 @import "../../assets/css/lib/ant-theme-vars";
 @import (reference) "../../assets/css/common/mixin";
 
-.time-picker-container {
+@prefixClass: ~'time-picker';
+
+.@{prefixClass}-container {
   .clearfix();
   //覆盖antd样式
   .ant-calendar-range .ant-calendar-in-range-cell:before {
@@ -11,7 +13,7 @@
 }
 
 //下拉内容的样式
-.time-picker-content {
+.@{prefixClass}-content {
   width: 388px;
   //链接的样式
   .quick-picker-item {
@@ -26,7 +28,7 @@
   .quick-picker-item-active {
     color: @primary-color;
     i {
-      font-size: 12px;
+      font-size: @font-body-medium;
       transform: scale(0.79);
       display: inline-block;
     }
@@ -55,10 +57,10 @@
   height: 40px;
   padding: 10px 32px;
   background: @component-background;
-  border-radius: 2px;
+  border-radius: @border-radius-base;
   text-align: center;
   cursor: pointer;
-  box-shadow: 0 2px 4px 0 #e1e4f0;
+  box-shadow: @box-shadow-base;
   .time-picker-click-area-icon {
     transition: transform 0.5s;
     display: inline-block;
