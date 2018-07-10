@@ -113,8 +113,11 @@ class BizTimePicker extends React.Component {
   render() {
     const {quickTimeOption, dateFormat, allowClear, disabledDate, clickAreaStyle} = this.props;
     const {currentTime, visible} = this.state;
+
+    const prefixCls = 'time-picker';
+
     const content = (
-      <div className="time-picker-content">
+      <div className={`${prefixCls}-content`}>
         {
           quickTimeOption.map((item, index) =>
             <a
@@ -128,8 +131,8 @@ class BizTimePicker extends React.Component {
             </a>
           )
         }
-        <div className="time-picker-customer-time" ref="time-picker-customer-time">
-          <div className="time-picker-customer-time-text">自定义时间</div>
+        <div className={`${prefixCls}-customer-time`} ref="time-picker-customer-time">
+          <div className={`${prefixCls}-customer-time-text`}>自定义时间</div>
           <RangePicker
             allowClear={allowClear}
             disabledDate={disabledDate}
@@ -142,17 +145,17 @@ class BizTimePicker extends React.Component {
     );
 
     return (
-      <div className="time-picker-container" ref="time-picker-container">
+      <div className={`${prefixCls}-container`} ref="time-picker-container">
         <Popover
           placement="bottomLeft"
           content={content}
           trigger="click"
           visible={visible}
-          onVisibleChange={this.handleVisibleChange.bind(this)}
+          onVisibleChange={this.handleVisibleChange}
           getPopupContainer={()=>this.refs['time-picker-container']}
         >
-          <div className="time-picker-click-area" style={clickAreaStyle}>
-            <span className="time-picker-click-area-text">{currentTime.text}</span>
+          <div className={`${prefixCls}-click-area`} style={clickAreaStyle}>
+            <span className={`${prefixCls}-click-area-text`}>{currentTime.text}</span>
             <span className={visible ? "time-picker-click-area-icon icon-active" : "time-picker-click-area-icon"} >
               <i className="iconfont icon-xiajiantou" />
             </span>

@@ -1,3 +1,4 @@
+@import "../../assets/css/lib/ant-theme-vars";
 @prefixClass: ~'audio-player';
 
 .m-@{prefixClass} {
@@ -5,8 +6,8 @@
     display: flex;
     padding: 2px;
     align-items: center;
-    border: 1px solid #C6C6C6;
-    border-radius: 5px;
+    border: @border-width-base @border-style-base @border-color-base;
+    border-radius: @border-radius-base;
     .box {
       text-align: center;
     }
@@ -37,11 +38,11 @@
 .change-audio-volume-box {
   width: 30px;
   height: 80px;
-  background-color: #fff;
+  background-color: @component-background;
   box-sizing: border-box;
   outline: none;
   z-index: 9;
-  border-radius: 4px;
+  border-radius: @border-radius-base;
   user-select: none;
   * {
     box-sizing: border-box;
