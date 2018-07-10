@@ -479,6 +479,66 @@ let emojiList = [
     imgName: '1f49d',
     title: '[礼盒]'
   },
+  {
+    id: 80,
+    className: 'emoji-153',
+    imgName: '1f64f-1f3fc',
+    title: '[拜托]'
+  },
+  {
+    id: 81,
+    className: 'emoji-154',
+    imgName: '1f388',
+    title: '[气球]'
+  },
+  {
+    id: 82,
+    className: 'emoji-34',
+    imgName: 'emoji_34',
+    title: '[强]'
+  },
+  {
+    id: 83,
+    className: 'emoji-35',
+    imgName: 'emoji_35',
+    title: '[弱]'
+  },
+  {
+    id: 84,
+    className: 'emoji-36',
+    imgName: 'emoji_36',
+    title: '[OK]'
+  },
+  {
+    id: 85,
+    className: 'emoji-37',
+    imgName: 'emoji_37',
+    title: '[拳头]'
+  },
+  {
+    id: 86,
+    className: 'emoji-38',
+    imgName: 'emoji_38',
+    title: '[胜利]'
+  },
+  {
+    id: 87,
+    className: 'emoji-39',
+    imgName: 'emoji_39',
+    title: '[鼓掌]'
+  },
+  {
+    id: 88,
+    className: 'emoji-167',
+    imgName: 'emoji_167',
+    title: '[握手]'
+  },
+  {
+    id: 89,
+    className: 'emoji-40',
+    imgName: 'emoji_40',
+    title: '[发怒]'
+  },
 
 
 ];
