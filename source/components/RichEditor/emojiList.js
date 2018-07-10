@@ -839,6 +839,66 @@ let emojiList = [
     imgName: 'emoji_90',
     title: '[锤头]'
   },
+  {
+    id: 140,
+    className: 'emoji-91',
+    imgName: 'emoji_91',
+    title: '[烟]'
+  },
+  {
+    id: 141,
+    className: 'emoji-92',
+    imgName: 'emoji_92',
+    title: '[炸弹]'
+  },
+  {
+    id: 142,
+    className: 'emoji-93',
+    imgName: 'emoji_93',
+    title: '[枪]'
+  },
+  {
+    id: 143,
+    className: 'emoji-94',
+    imgName: 'emoji_94',
+    title: '[刀]'
+  },
+  {
+    id: 144,
+    className: 'emoji-95',
+    imgName: 'emoji_95',
+    title: '[药]'
+  },
+  {
+    id: 145,
+    className: 'emoji-96',
+    imgName: 'emoji_96',
+    title: '[打针]'
+  },
+  {
+    id: 146,
+    className: 'emoji-97',
+    imgName: 'emoji_97',
+    title: '[钱袋]'
+  },
+  {
+    id: 147,
+    className: 'emoji-98',
+    imgName: 'emoji_98',
+    title: '[钞票]'
+  },
+  {
+    id: 148,
+    className: 'emoji-99',
+    imgName: 'emoji_99',
+    title: '[银行卡]'
+  },
+  {
+    id: 149,
+    className: 'emoji-100',
+    imgName: 'emoji_100',
+    title: '[手柄]'
+  },
 
 
 ];
