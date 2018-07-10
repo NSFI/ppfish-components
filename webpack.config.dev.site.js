@@ -1,7 +1,14 @@
 /* eslint-disable no-console */
 import path from 'path';
 import webpack from 'webpack';
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import fs from 'fs';
+import lessToJs from 'less-vars-to-js';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+
+const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './source/assets/css/lib/ant-theme-vars.less'), 'utf8'));
+// lessToJs does not support @icon-url: "some-string",
+// so we are manually adding it to the produced themeVariables js object here
+themeVariables["@icon-url"] = "'https://at.alicdn.com/t/font_zck90zmlh7hf47vi'";
 
 export default {
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
@@ -43,7 +50,16 @@ export default {
       },
       {
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader?'
+        }, {
+          loader: 'less-loader?',
+          options: {
+            modifyVars: themeVariables
+          }
+        }]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)(\?.+)?$/,
