@@ -959,8 +959,36 @@ let emojiList = [
     imgName: 'emoji_110',
     title: '[火车]'
   },
-
-
+  {
+    id: 160,
+    className: 'emoji-111',
+    imgName: 'emoji_111',
+    title: '[公交]'
+  },
+  {
+    id: 161,
+    className: 'emoji-112',
+    imgName: 'emoji_112',
+    title: '[轿车]'
+  },
+  {
+    id: 162,
+    className: 'emoji-113',
+    imgName: 'emoji_113',
+    title: '[出租车]'
+  },
+  {
+    id: 163,
+    className: 'emoji-114',
+    imgName: 'emoji_114',
+    title: '[警车]'
+  },
+  {
+    id: 164,
+    className: 'emoji-115',
+    imgName: 'emoji_115',
+    title: '[自行车]'
+  }
 ];
 
 export default emojiList;
