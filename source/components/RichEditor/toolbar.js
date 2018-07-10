@@ -78,14 +78,6 @@ class CustomToolbar extends PureComponent {
     });
   };
 
-  closeEmojiPanel = (e) => {
-    if (e.target.tagName.toUpperCase() == 'BUTTON') {
-      this.setState({
-        showEmojiPanel: false
-      });
-    }
-  };
-
   render() {
     const { showSizePanel, showEmojiPanel } = this.state;
     const { className } = this.props;
@@ -142,10 +134,10 @@ class CustomToolbar extends PureComponent {
         <div className="toolbar-grp">
           <div className="item custom-emoji" onClick={this.toggleEmojiPanel}>
             <i className="iconfont icon-emoticon-smile" />
-          </div>
-          <div className={emojiPanelClass} >
-            <div className="custom-emoji-con" onClick={this.closeEmojiPanel}>
-              { emojiDom }
+            <div className={emojiPanelClass} >
+              <div className="custom-emoji-con">
+                { emojiDom }
+              </div>
             </div>
           </div>
         </div>
