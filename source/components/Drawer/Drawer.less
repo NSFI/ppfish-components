@@ -3,7 +3,7 @@
 
 @close-width: 28px;
 @blur-radius: 8px;
-@border-color: #ccc;
+@border-color: @border-color-base;
 
 .m-drawer {
   position: absolute;
@@ -15,7 +15,7 @@
   right: 0;
   transform: translate(120%, 0);
   transition: transform 0.4s;
-  box-shadow: 0 2px 8px 0 rgba(191, 195, 199, 0.3);
+  box-shadow: @box-shadow-base;
   .box-sizing();
   &.z-visible {
     transform: translate(0, 0);
@@ -30,10 +30,10 @@
   right: 100%;
   height: 36px;
   width: @close-width;
-  background-color: #fff;
+  background-color: @component-background;
   border-top-left-radius: 18px;
   border-bottom-left-radius: 18px;
-  box-shadow: 0 2px 8px 0 rgba(191, 195, 199, 0.3);
+  box-shadow: @box-shadow-base;
 
   .iconfont {
     color: #999;
@@ -50,6 +50,6 @@
 .m-drawer-container {
   height: 100%;
   overflow: auto;
-  background-color: #fff;
+  background-color: @component-background;
   position: relative;
 }
