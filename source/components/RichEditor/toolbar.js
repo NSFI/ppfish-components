@@ -175,11 +175,11 @@ class CustomToolbar extends PureComponent {
         </div>
 
         <div className="toolbar-grp">
-          <button className="item ql-clean" />
+          <button className="item ql-clean iconfont icon-eraser" />
         </div>
 
         <div className="toolbar-grp">
-          <button className="item ql-entry" />
+          <button className="item ql-entry custom-entry iconfont icon-consult" />
         </div>
       </div>
     );
