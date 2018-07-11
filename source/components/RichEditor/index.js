@@ -28,10 +28,11 @@ class RichEditor extends Component {
     super(props);
 
     let _this = this;
+    
     this.state = { 
-      value: this.props.value,
-      showEmojiPanel: false
+      value: this.props.value
     };
+
     this.modules = {
       toolbar: {
         container: "#toolbar",
@@ -54,11 +55,6 @@ class RichEditor extends Component {
               src: vList[1]
             });
             this.quill.setSelection(range.index + 1);
-            // TODO: 点击外部区域时关闭面板
-            // _this.setState({
-            //   value: this.quill.getContents(),
-            //   showEmojiPanel: false
-            // });
           },
           'entry': function(value) {
             this.quill.format('entry', 'qiyu://action.qiyukf.com?command=applyHumanStaff');
@@ -82,13 +78,12 @@ class RichEditor extends Component {
   };
 
   render() {
-    let { showEmojiPanel, value } = this.state;
+    let { value } = this.state;
 
     return (
       <div className="m-rich-editor">
         <CustomToolbar
           className={'editor-head'}
-          showEmojiPanel={showEmojiPanel}
         />
         <ReactQuill
           className={'editor-body'}
