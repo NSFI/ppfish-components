@@ -33,10 +33,9 @@
   }
 
   .editor-head {
-    // width: 656px;
-    // border: 1px solid #d1d1d1;
+    border: @border-width-base @border-style-base @border-color-base;
     border-bottom: none;
-    background: #fafafa;
+    background: @background-color-base;
     padding: 6px 14px;
     white-space: normal;
     display: block;
@@ -54,19 +53,19 @@
 
     > .item {
       line-height: 0;
-      background: #fff;
-      border-right: 1px solid #d5d5d5;
-      border-top: 1px solid #d5d5d5;
-      border-bottom: 1px solid #d5d5d5;
+      background: @component-background;
+      border-right: @border-width-base @border-style-base @border-color-base;;
+      border-top: @border-width-base @border-style-base @border-color-base;;
+      border-bottom: @border-width-base @border-style-base @border-color-base;;
 
       &:hover {
         color: @primary-color;
-        background-color: #ddd;
+        background-color: @background-color-active;
       }
     }
 
     > .item:first-child {
-      border-left: 1px solid #d5d5d5;
+      border-left: @border-width-base @border-style-base @border-color-base;;
     }
   }
 
@@ -103,9 +102,10 @@
     left: 0;
     font-family: initial;
     padding: 5px 0;
-    background-color: #fff;
-    border: 1px solid transparent;
-    box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+    background-color: @component-background;
+    border: @border-width-base @border-style-base @border-color-base;
+    box-shadow: @box-shadow-base;
+    // box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
     z-index: 999;
 
     .size-item {
@@ -126,10 +126,10 @@
     height: 238px;
     top: 23px;
     left: 0;
-    background-color: #fff;
-    border: 1px solid #d5d5d5;
-    border: 1px solid transparent;
-    box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+    background-color: @component-background;
+    border: @border-width-base @border-style-base @border-color-base;
+    box-shadow: @box-shadow-base;
+    // box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
     z-index: 999;
     overflow-y: scroll;
   }
@@ -137,7 +137,6 @@
   .custom-emoji-con {
     width: 100%;
     padding-bottom: 20px;
-    background-size: 22px auto;
 
     .emoji-row {
       width: 100%;
@@ -151,7 +150,7 @@
       height: 20px;
       padding: 0;
       margin-left: 20px;
-      background: #fff url(./img/emoji.png) no-repeat;
+      background: @component-background url(./img/emoji.png) no-repeat;
       background-size: 22px auto;
     }
 
@@ -824,7 +823,7 @@
   ::-webkit-scrollbar {
     width: 7px;
     height: 0;
-    background-color: #fff;
+    background-color: @component-background;
   }
 
   /*定义滑块 内阴影+圆角*/
