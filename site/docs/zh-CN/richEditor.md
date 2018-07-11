@@ -29,7 +29,6 @@
 | toolbar | 定制工具栏，可选值有： `'link', 'bold', 'italic', 'underline', 'color', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', 'clean', 'entry'`| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean'], ['entry']]` |
 | placeholder | 内容为空时的占位文案 | String | `''` |
 | value | 默认显示的内容，改变 `value` 将会改变编辑器的内容。可以是普通 String 或 HTML String | String | `''` |
-| defaultValue | 默认显示的内容，改变 `defaultValue` 不会改变编辑器的内容。可以是普通 String 或 HTML String | String | `''` |
 | onChange | 内容改变时的回调函数 | function(content, delta, source, editor) | `noop` |
 | onFocus | 获取焦点时的回调函数 | function(range, source, editor) | `noop` |
 | onBlur | 失去焦点时的回调函数 | function(previousRange, source, editor) | `noop` |
