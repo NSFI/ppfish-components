@@ -121,14 +121,14 @@ class AudioPlayer extends React.Component {
 
   millisecondToDate = (time) => {
     const second = Math.floor(time % 60);
-    let minite = Math.floor(time / 60);
-    // let hour
-    // if(minite > 60) {
-    //   hour = minite / 60
-    //   minite = minite % 60
-    //   return `${Math.floor(hour)}:${Math.floor(minite)}:${Math.floor(second)}`
-    // }
-    return `${minite}:${second >= 10 ? second : `0${second}`}`;
+    let minute = Math.floor(time / 60);
+    let hour;
+    if(minute > 60) {
+      hour = minute / 60;
+      minute = minute % 60;
+      return `${Math.floor(hour)}:${Math.floor(minute)}:${Math.floor(second)}`;
+    }
+    return `${minute}:${second >= 10 ? second : `0${second}`}`;
   }
 
   getChangeVolumeElement = () => {
