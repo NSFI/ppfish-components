@@ -20,12 +20,18 @@ class RichEditor extends Component {
     className: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.string,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
     placeholder: 'this is placeholder',
     value: '初始内容a<br/>初始内容a',
+    onChange: () => {},
+    onFocus: () => {},
+    onBlur: () => {},
   };
 
   constructor(props) {
@@ -77,13 +83,9 @@ class RichEditor extends Component {
     }
   }
 
-  handleChange = (value) => {
-    // this.setState({ text: value })
-  };
-
   render() {
     let { value } = this.state;
-    let { className, placeholder } = this.props;
+    let { className, placeholder, onChange, onFocus, onBlur } = this.props;
 
     let editorClass = classNames({
         'm-rich-editor': true
@@ -96,10 +98,12 @@ class RichEditor extends Component {
         />
         <ReactQuill
           className={'editor-body'}
+          modules={this.modules}
           value={value}
           placeholder={placeholder}
-          modules={this.modules}
-          onChange={this.handleChange}
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </div>
     );
