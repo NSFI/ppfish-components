@@ -56,13 +56,15 @@ class CustomToolbar extends PureComponent {
     this.state = {
       showSizePanel: false,
       showEmojiPanel: false
-    }
+    };
   }
 
   componentWillMount() {
     // Preload emoji image
     let emojiImg = new Image();
     emojiImg.src = emojiSrc;
+
+    this.handlePanelStatus();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -72,6 +74,19 @@ class CustomToolbar extends PureComponent {
       });
     }
   }
+
+  handlePanelStatus = () => {
+    window.addEventListener('click', () => {
+      let { showSizePanel, showEmojiPanel } = this.state;
+
+      if (showSizePanel || showEmojiPanel) {
+        this.setState({
+          showSizePanel: false,
+          showEmojiPanel: false
+        });
+      }
+    }, true);
+  };
 
   toggleSizePanel = (e) => {
     let clsVal = e.target.classList.value;
