@@ -18,6 +18,7 @@ Quill.register(EntryBlot);
 class RichEditor extends Component {
   static propTypes = {
     className: PropTypes.string,
+    toolbar: PropTypes.array,
     placeholder: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
@@ -27,6 +28,7 @@ class RichEditor extends Component {
 
   static defaultProps = {
     className: '',
+    toolbar: [],
     placeholder: 'this is placeholder',
     value: '初始内容a<br/>初始内容a',
     onChange: () => {},
@@ -85,7 +87,7 @@ class RichEditor extends Component {
 
   render() {
     let { value } = this.state;
-    let { className, placeholder, onChange, onFocus, onBlur } = this.props;
+    let { className, toolbar, placeholder, onChange, onFocus, onBlur } = this.props;
 
     let editorClass = classNames({
         'm-rich-editor': true
@@ -95,6 +97,7 @@ class RichEditor extends Component {
       <div className={className ? ('m-rich-editor ' + className) : 'm-rich-editor'}>
         <CustomToolbar
           className={'editor-head'}
+          toolbar={toolbar}
         />
         <ReactQuill
           className={'editor-body'}

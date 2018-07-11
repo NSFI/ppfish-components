@@ -42,11 +42,13 @@ let emojiDom = genEmoji(emojiList);
 
 class CustomToolbar extends PureComponent {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    toolbar: PropTypes.array,
   };
 
   static defaultProps = {
-    className: ''
+    className: '',
+    toolbar: []
   };
 
   constructor(props) {
@@ -120,7 +122,7 @@ class CustomToolbar extends PureComponent {
 
   render() {
     const { showSizePanel, showEmojiPanel } = this.state;
-    const { className } = this.props;
+    const { className, toolbar } = this.props;
     let sizePanelClass = classNames({
         'hide': !showSizePanel,
         'custom-size-panel': true
