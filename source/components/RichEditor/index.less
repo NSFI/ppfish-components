@@ -6,7 +6,11 @@
 @icon-normal-color: @heading-color;
 
 /* stylelint-disable declaration-no-important */
+.ql-toolbar,
+.ql-container,
 .ql-snow {
+  border: none;
+
   a {
     color: @primary-color;
   }
@@ -43,6 +47,12 @@
 
   .editor-body {
     height: 239px;
+    border: @border-width-base @border-style-base @border-color-base;
+
+    .ql-container,
+    .ql-snow {
+      border: none;
+    }
   }
 
   .toolbar-grp {
