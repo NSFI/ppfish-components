@@ -3,7 +3,7 @@
 
 
 @rich-editor-prefix: m-rich-editor;
-
+@icon-normal-color: @heading-color;
 
 /* stylelint-disable declaration-no-important */
 .ql-snow {
@@ -42,7 +42,6 @@
   }
 
   .editor-body {
-    // width: 656px;
     height: 239px;
   }
 
@@ -54,18 +53,27 @@
     > .item {
       line-height: 0;
       background: @component-background;
-      border-right: @border-width-base @border-style-base @border-color-base;;
-      border-top: @border-width-base @border-style-base @border-color-base;;
-      border-bottom: @border-width-base @border-style-base @border-color-base;;
+      border-right: @border-width-base @border-style-base @border-color-base;
+      border-top: @border-width-base @border-style-base @border-color-base;
+      border-bottom: @border-width-base @border-style-base @border-color-base;
+
+      .ql-stroke {
+        stroke: @icon-normal-color;
+        stroke-width: 1.5;
+      }
 
       &:hover {
         color: @primary-color;
         background-color: @background-color-active;
+
+        .ql-stroke {
+          stroke: @primary-color;
+        }
       }
     }
 
     > .item:first-child {
-      border-left: @border-width-base @border-style-base @border-color-base;;
+      border-left: @border-width-base @border-style-base @border-color-base;
     }
   }
 
@@ -77,7 +85,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #000;
+    color: @icon-normal-color;
     padding-top: 2px;
     font-size: 16px;
 
