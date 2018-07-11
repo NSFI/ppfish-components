@@ -67,14 +67,6 @@ class CustomToolbar extends PureComponent {
     this.handlePanelStatus();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.showEmojiPanel != this.state.showEmojiPanel) {
-      this.setState({
-        showEmojiPanel: nextProps.showEmojiPanel
-      });
-    }
-  }
-
   handlePanelStatus = () => {
     window.addEventListener('click', (e) => {
       let { showSizePanel, showEmojiPanel } = this.state;
