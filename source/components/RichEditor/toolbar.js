@@ -76,7 +76,7 @@ class CustomToolbar extends PureComponent {
   }
 
   handlePanelStatus = () => {
-    window.addEventListener('click', () => {
+    window.addEventListener('click', (e) => {
       let { showSizePanel, showEmojiPanel } = this.state;
 
       if (showSizePanel || showEmojiPanel) {
@@ -85,28 +85,45 @@ class CustomToolbar extends PureComponent {
           showEmojiPanel: false
         });
       }
-    }, true);
+    }, false);
   };
 
   toggleSizePanel = (e) => {
     let clsVal = e.target.classList.value;
+
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-customSize') > -1) {
       this.setState({
         showSizePanel: !this.state.showSizePanel
       });
     }
+
+    if (this.state.showEmojiPanel) {
+      this.setState({
+        showEmojiPanel: false
+      });
+    }
+
+    e.stopPropagation();
   };
 
   toggleEmojiPanel = (e) => {
     let clsVal = e.target.classList.value;
+
     if (clsVal.indexOf('item') > -1 ||
-        clsVal.indexOf('icon-emoticon-smile') > -1 ||
         clsVal.indexOf('ql-emoji') > -1) {
       this.setState({
         showEmojiPanel: !this.state.showEmojiPanel
       });
     }
+
+    if (this.state.showSizePanel) {
+      this.setState({
+        showSizePanel: false
+      });
+    }
+
+    e.stopPropagation();
   };
 
   render() {
@@ -163,8 +180,7 @@ class CustomToolbar extends PureComponent {
         </div>
 
         <div className="toolbar-grp">
-          <div className="item custom-emoji" onClick={this.toggleEmojiPanel}>
-            <i className="iconfont icon-emoticon-smile" />
+          <div className="item custom-emoji iconfont icon-emoticon-smile" onClick={this.toggleEmojiPanel}>
             <div className={emojiPanelClass} >
               <div className="custom-emoji-con">
                 { emojiDom }
