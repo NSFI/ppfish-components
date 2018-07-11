@@ -1,3 +1,5 @@
+@import "../../assets/css/lib/ant-theme-vars";
+
 @day-time-select: day-time-select;
 
 .@{day-time-select} {
@@ -6,8 +8,8 @@
     height: 22px;
     width: auto;
     display: inline-block;
-    border: 1px solid #d9d9d9;
-    border-radius: 3px;
+    border: @border-color-base;
+    border-radius: @border-radius-base;
     box-sizing: border-box;
   }
   li {
@@ -35,10 +37,10 @@
     right: 0;
     height: 7px;
     width: 1px;
-    background-color: #d9d9d9;
+    background-color: @normal-color;
   }
   .checked {
-    background-color: #49d286;
+    background-color: @success-color;
   }
   .disabled {
     cursor: not-allowed;
