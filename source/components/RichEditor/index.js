@@ -24,27 +24,28 @@ class RichEditor extends Component {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    extendLinkModule: PropTypes.object
   };
 
   static defaultProps = {
     className: '',
-    toolbar: [['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean'], ['entry']],
-    placeholder: 'this is placeholder',
+    toolbar: [['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']],
+    placeholder: '',
     value: '初始内容a<br/>初始内容a',
+    extendLinkModule: {},
     onChange: () => {},
     onFocus: () => {},
-    onBlur: () => {},
+    onBlur: () => {}
   };
 
   constructor(props) {
     super(props);
 
-    let _this = this;
-    
-    this.state = { 
-      value: this.props.value
-    };
+    let { value, extendLinkModule } = this.props;
 
+    this.state = { 
+      value: value
+    };
     this.modules = {
       toolbar: {
         container: "#toolbar",
@@ -67,14 +68,16 @@ class RichEditor extends Component {
               src: vList[1]
             });
             this.quill.setSelection(range.index + 1);
-          },
-          'entry': function(value) {
-            this.quill.format('entry', 'qiyu://action.qiyukf.com?command=applyHumanStaff');
-            // TODO: 抽象为插件
           }
         }
       }
     };
+
+    for (let name in extendLinkModule) {
+      this.modules.toolbar.handlers[name] = function() {
+        this.quill.format('entry', extendLinkModule[name].url);
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,17 +90,14 @@ class RichEditor extends Component {
 
   render() {
     let { value } = this.state;
-    let { className, toolbar, placeholder, onChange, onFocus, onBlur } = this.props;
-
-    let editorClass = classNames({
-        'm-rich-editor': true
-    });
+    let { className, toolbar, placeholder, extendLinkModule, onChange, onFocus, onBlur } = this.props;
 
     return (
       <div className={className ? ('m-rich-editor ' + className) : 'm-rich-editor'}>
         <CustomToolbar
           className={'editor-head'}
           toolbar={toolbar}
+          extendLinkModule={extendLinkModule}
         />
         <ReactQuill
           className={'editor-body'}
