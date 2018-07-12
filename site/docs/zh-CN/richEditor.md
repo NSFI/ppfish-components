@@ -55,5 +55,8 @@
 | getBounds() | 返回给定位置处的相对于编辑器容器的像素位置和选区的尺寸 |
 
 
+_上述 Props 的更多介绍可以参考：_
+[React-Quill](https://github.com/zenoamaro/react-quill)  
 
-
+_更多方法的支持及文档介绍可以参考：_
+[Quill API](https://quilljs.com/docs/api)
