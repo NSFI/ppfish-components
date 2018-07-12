@@ -43,11 +43,13 @@ class CustomToolbar extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     toolbar: PropTypes.array,
+    extendLinkModule: PropTypes.object
   };
 
   static defaultProps = {
     className: '',
-    toolbar: []
+    toolbar: [],
+    extendLinkModule: {}
   };
 
   constructor(props) {
@@ -61,14 +63,21 @@ class CustomToolbar extends PureComponent {
   }
 
   componentWillMount() {
-    // Preload emoji image
     let emojiImg = new Image();
     emojiImg.src = emojiSrc;
 
     this.handlePanelStatus();
   }
 
-  getModuleHTML = (name, key) => {
+  getModuleHTML = (name, key, extendLinkModule) => {
+    if (typeof name !== 'string') {
+      name = JSON.stringify(name);
+    }
+
+    if (name in extendLinkModule) {
+      return <button className={'item ql-' + name + ' custom-entry ' + extendLinkModule[name].className} key={key}/>;
+    }
+
     const { showSizePanel, showEmojiPanel } = this.state;
     let sizePanelClass = classNames({
         'hide': !showSizePanel,
@@ -79,10 +88,6 @@ class CustomToolbar extends PureComponent {
         'custom-emoji-panel': true
     });
     let value = null;
-
-    if (typeof name !== 'string') {
-      name = JSON.stringify(name);
-    }
 
     switch(name) {
       case 'link':
@@ -140,9 +145,6 @@ class CustomToolbar extends PureComponent {
       case 'clean':
         value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;
         break;
-      case 'entry':
-        value = <button className="item ql-entry custom-entry iconfont icon-consult" key={key}/>;
-        break;
       default:
         break;
     }
@@ -150,13 +152,13 @@ class CustomToolbar extends PureComponent {
     return value;
   };
 
-  genToolbar = (toolbar) => {
+  genToolbar = (toolbar, extendLinkModule) => {
     let result = [];
 
     toolbar.forEach((item, index) => {
       if (item instanceof Array) {
         let grpItems = item.map((name, subindex) => {
-          return this.getModuleHTML(name, 'toolbar_' + index + '_sub_' + subindex);
+          return this.getModuleHTML(name, 'toolbar_' + index + '_sub_' + subindex, extendLinkModule);
         });
 
         result.push(
@@ -166,7 +168,7 @@ class CustomToolbar extends PureComponent {
         );
       } else {
         result.push(
-          this.getModuleHTML(item, 'toolbar_' + index)
+          this.getModuleHTML(item, 'toolbar_' + index, extendLinkModule)
         );
       }
     });
@@ -227,11 +229,11 @@ class CustomToolbar extends PureComponent {
   };
 
   render() {
-    const { className, toolbar } = this.props;
+    const { className, toolbar, extendLinkModule } = this.props;
 
     return (
       <div id="toolbar" className={className}>
-        { this.genToolbar(toolbar) }
+        { this.genToolbar(toolbar, extendLinkModule) }
       </div>
     );
   }

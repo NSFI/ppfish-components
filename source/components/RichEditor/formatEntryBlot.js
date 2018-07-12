@@ -6,6 +6,7 @@ class EntryBlot extends Inline {
   static create(value) {
     let node = super.create();
     node.setAttribute('href', value);
+    node.setAttribute('target', '_blank');
     return node;
   }
 
@@ -20,6 +21,7 @@ class EntryBlot extends Inline {
   format(name, value) {
     if (name === 'entry' && value) {
       this.domNode.setAttribute('href', value);
+      this.domNode.setAttribute('target', '_blank');
     }
   }
 }

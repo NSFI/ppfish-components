@@ -25,10 +25,11 @@
 
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
-| className | 应用在编辑器外层 DOM 元素的 class，多个 class 以空格分隔 | String | `''` |
-| toolbar | 定制工具栏，可选值有： `'link', 'bold', 'italic', 'underline', 'color', 'align', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', 'clean', 'entry'`，可以将一个或多个子项放在一个 Array 中以分组展示| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean'], ['entry']]` |
-| placeholder | 内容为空时的占位文案 | String | `''` |
-| value | 默认显示的内容，改变 `value` 将会改变编辑器的内容。可以是普通 String 或 HTML String | String | `''` |
+| className | 应用在编辑器外层 DOM 元素的 class。<br/>如有多个 class，需要以空格分隔。 | String | `''` |
+| toolbar | 定制工具栏。<br/>可选的值有：<br/>`'link', 'bold', 'italic', 'underline', 'color', 'align', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', 'clean'`。<br/>可以将一个或多个子项放在一个 Array 中以达到分组展示的效果。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
+| placeholder | 内容为空时的占位内容。 | String | `''` |
+| value | 默认显示的内容，改变 `value` 将会改变编辑器的内容。<br/>可以是普通 String 或 HTML String | String | `''` |
+| extendLinkModule | 扩展链接模块，通过此属性可以个性化定制链接。<br/>接收的数据格式为：<br/>`{entry:{className:'iconfont icon-consult', url:'http://qiyukf.com'}, moduleName:{className:'', url:''}, ...}`。<br/>其中`entry`、`moduleName`为自定义的模块名，`className`为应用在该模块上的样式，用于定义该模块的图标等，`url`为自定义的链接。<br/>_注意：<br/>`url`中必须包含用于分隔协议的双斜线'//'。自定义的模块名需要在`toolbar`中引用才会显示，引用方式与内置模块的引用方式一致。_ | Object | `{}` |
 | onChange | 内容改变时的回调函数 | function(content, delta, source, editor) | `noop` |
 | onFocus | 获取焦点时的回调函数 | function(range, source, editor) | `noop` |
 | onBlur | 失去焦点时的回调函数 | function(previousRange, source, editor) | `noop` |
