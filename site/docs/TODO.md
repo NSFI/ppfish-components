@@ -14,8 +14,8 @@
 ## 演示环境
 
 ## 组件文档demo开发体验优化
-- 干掉libs/markdown/source.js的硬编码；建议改成读取site/componentsPage下的配置文件，不需要每次新增组件时都改libs。
-- 干掉site/componentsPage的重复代码；建议改成读取site/componentsPage下的配置文件，不需要每次新增组件时都新增重复代码。
+- ~~干掉libs/markdown/source.js的硬编码；建议改成读取site/componentsPage下的配置文件，不需要每次新增组件时都改libs。~~ 
+- ~~干掉site/componentsPage的重复代码；建议改成读取site/componentsPage下的配置文件，不需要每次新增组件时都新增重复代码。~~
 
 ## 组件jest测试相关
 - 干掉__test__目录下的demo.test.js文件，建议直接读取demo文件并测试，不需要每个组件都写一遍；@高志友
