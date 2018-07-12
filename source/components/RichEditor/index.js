@@ -28,7 +28,7 @@ class RichEditor extends Component {
 
   static defaultProps = {
     className: '',
-    toolbar: [],
+    toolbar: [['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean'], ['entry']],
     placeholder: 'this is placeholder',
     value: '初始内容a<br/>初始内容a',
     onChange: () => {},

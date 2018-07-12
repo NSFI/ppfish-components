@@ -10,7 +10,7 @@ let genEmoji = (data) => {
       tmpObj = {},
       result = [];
 
-  data.map((item, index) => {
+  data.forEach((item, index) => {
     let grpIndex = parseInt(item.id / colSize, 10);
 
     if (typeof tmpObj[grpIndex] == 'undefined') {
@@ -37,8 +37,7 @@ let genEmoji = (data) => {
 
   return result;
 };
-let emojiDom = genEmoji(emojiList);
-
+let emojiHTML = genEmoji(emojiList);
 
 class CustomToolbar extends PureComponent {
   static propTypes = {
@@ -69,6 +68,112 @@ class CustomToolbar extends PureComponent {
     this.handlePanelStatus();
   }
 
+  getModuleHTML = (name, key) => {
+    const { showSizePanel, showEmojiPanel } = this.state;
+    let sizePanelClass = classNames({
+        'hide': !showSizePanel,
+        'custom-size-panel': true
+    });
+    let emojiPanelClass = classNames({
+        'hide': !showEmojiPanel,
+        'custom-emoji-panel': true
+    });
+    let value = null;
+
+    if (typeof name !== 'string') {
+      name = JSON.stringify(name);
+    }
+
+    switch(name) {
+      case 'link':
+        value = <button className="item ql-link" key={key}/>;
+        break;
+      case 'bold':
+        value = <button className="item ql-bold" key={key}/>;
+        break;
+      case 'italic':
+        value = <button className="item ql-italic" key={key}/>;
+        break;
+      case 'underline':
+        value = <button className="item ql-underline" key={key}/>;
+        break;
+      case 'color':
+        value = <select className="item ql-color" key={key}></select>;
+        break;
+      case 'align':
+        value = <select className="item ql-align" key={key}></select>
+        break;
+      case '{"list":"ordered"}':
+        value = <button type="button" className="item ql-list" value="ordered" key={key}/>
+        break;
+      case '{"list":"bullet"}':
+        value = <button type="button" className="item ql-list" value="bullet" key={key}/>
+        break;
+      case 'emoji':
+        value = (
+          <div className="item custom-emoji iconfont icon-emoticon-smile" key={key} onClick={this.toggleEmojiPanel}>
+            <div className={emojiPanelClass} >
+              <div className="custom-emoji-con">
+                { emojiHTML }
+              </div>
+            </div>
+          </div>
+        );
+        break;
+      case 'image':
+        value = <button className="item ql-image iconfont icon-picture" key={key}/>;
+        break;
+      case 'size':
+        value = (
+          <div className="item custom-size iconfont icon-FontSize" key={key} onClick={this.toggleSizePanel}>
+            <div className={sizePanelClass}>
+              <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
+              <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
+              <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
+              <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
+              <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
+              <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
+            </div>
+          </div>
+        );
+        break;
+      case 'clean':
+        value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;
+        break;
+      case 'entry':
+        value = <button className="item ql-entry custom-entry iconfont icon-consult" key={key}/>;
+        break;
+      default:
+        break;
+    }
+
+    return value;
+  };
+
+  genToolbar = (toolbar) => {
+    let result = [];
+
+    toolbar.forEach((item, index) => {
+      if (item instanceof Array) {
+        let grpItems = item.map((name, subindex) => {
+          return this.getModuleHTML(name, 'toolbar_' + index + '_sub_' + subindex);
+        });
+
+        result.push(
+          <div className="toolbar-grp" key={'toolbar_' + index}>
+            { grpItems }
+          </div>
+        );
+      } else {
+        result.push(
+          this.getModuleHTML(item, 'toolbar_' + index)
+        );
+      }
+    });
+
+    return result;
+  };
+
   handlePanelStatus = () => {
     window.addEventListener('click', (e) => {
       let { showSizePanel, showEmojiPanel } = this.state;
@@ -87,6 +192,7 @@ class CustomToolbar extends PureComponent {
 
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-customSize') > -1) {
+      console.log('>> ', this.state.showSizePanel);
       this.setState({
         showSizePanel: !this.state.showSizePanel
       });
@@ -121,92 +227,11 @@ class CustomToolbar extends PureComponent {
   };
 
   render() {
-    const { showSizePanel, showEmojiPanel } = this.state;
     const { className, toolbar } = this.props;
-    let sizePanelClass = classNames({
-        'hide': !showSizePanel,
-        'custom-size-panel': true
-    });
-    let emojiPanelClass = classNames({
-        'hide': !showEmojiPanel,
-        'custom-emoji-panel': true
-    });
 
     return (
       <div id="toolbar" className={className}>
-        <div className="toolbar-grp">
-          <button className="item ql-link" />
-          <button className="item ql-bold" />
-          <button className="item ql-italic" />
-          <button className="item ql-underline" />
-        </div>
-
-        <div className="toolbar-grp">
-          <select className="item ql-color">
-          {
-            /*
-            <option value="red" />
-            <option value="green" />
-            <option value="blue" />
-            <option value="orange" />
-            <option value="violet" />
-            <option value="#d0d1d2" />
-            <option value="black" />        
-             */
-          }
-          </select>
-        </div>
-
-        <div className="toolbar-grp">
-          <select className="item ql-align"></select>
-          {
-            /*
-          <button className="ql-align" />
-          <button className="ql-align" value="center" />
-          <button className="ql-align" value="right" />
-             */
-          }
-        </div>
-
-        <div className="toolbar-grp">
-          <button type="button" className="item ql-list" value="ordered" />
-          <button type="button" className="item ql-list" value="bullet" />
-        </div>
-
-        <div className="toolbar-grp">
-          <div className="item custom-emoji iconfont icon-emoticon-smile" onClick={this.toggleEmojiPanel}>
-            <div className={emojiPanelClass} >
-              <div className="custom-emoji-con">
-                { emojiDom }
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-image iconfont icon-picture" />
-        </div>
-
-        <div className="toolbar-grp">
-          <div className="item custom-size iconfont icon-FontSize" onClick={this.toggleSizePanel}>
-            <div className={sizePanelClass}>
-              <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
-              <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
-              <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
-              <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
-              <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
-              <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
-            </div>
-          </div>
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-clean iconfont icon-eraser" />
-        </div>
-
-        <div className="toolbar-grp">
-          <button className="item ql-entry custom-entry iconfont icon-consult" />
-        </div>
+        { this.genToolbar(toolbar) }
       </div>
     );
   }
