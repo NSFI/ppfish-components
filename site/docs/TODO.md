@@ -5,7 +5,7 @@
 - 不需要打包图片，打包生成了2个默认图片
 
 ## 定制主题
-- ppfish组件less整理: 需要定制的地方统一用变量 @各个组件owner
+- ~~ppfish组件less整理: 需要定制的地方统一用变量 @各个组件owner~~
 
 ## 首页
 
@@ -23,4 +23,4 @@
 - source/components下的组件需要补充测试用例；@各组件owner
 
 ## 组件
- - audioPlayer缺少icon和视觉
+ - audioPlayer缺少icon和视觉；@王晓玲
