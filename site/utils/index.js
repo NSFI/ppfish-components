@@ -10,13 +10,23 @@ export const getPlainComponentList = () => {
       value: componentList.documents[key],
     });
   });
-  // 基础组件
+  // 通用组件
   Object.keys(componentList.list).map((group) => (
     Object.keys(componentList.list[group]).map(key => {
       plainComponentList.push({
         url: `#/components/${key}`,
         key,
         value: componentList.list[group][key],
+      });
+    })
+  ));
+  // 业务组件
+  Object.keys(componentList.business).map((group) => (
+    Object.keys(componentList.business[group]).map(key => {
+      plainComponentList.push({
+        url: `#/components/${key}`,
+        key,
+        value: componentList.business[group][key],
       });
     })
   ));
