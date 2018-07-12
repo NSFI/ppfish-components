@@ -70,7 +70,7 @@ export default class Markdown extends React.Component {
           name: this.constructor.name.toLowerCase()
         }, this.props), p1));
 
-        return `<div id=${id}></div>`;
+        return `<div id=${id} class="demo-container"></div>`;
       }), {renderer: this.renderer});
 
       return (
