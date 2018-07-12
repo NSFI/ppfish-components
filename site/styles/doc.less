@@ -27,16 +27,19 @@
     margin: 0.2em 0;
   }
 }
+
 .timeline,
 .timeline-item {
   font-size: 14px;
   list-style: none;
   margin: 0;
 }
+
 .timeline-item {
   position: relative;
   padding: 0 0 20px;
 }
+
 .timeline-item-tail {
   position: absolute;
   left: 4px;
@@ -44,6 +47,7 @@
   height: 100%;
   border-left: 2px dashed #ccd6ff;
 }
+
 .timeline-item-head {
   position: absolute;
   width: 10px;
@@ -52,22 +56,27 @@
   border-radius: 100px;
   border: 2px solid transparent;
 }
+
 .timeline-item-pending .timeline-item-head {
   font-size: 12px;
 }
+
 .timeline-item-pending .timeline-item-tail {
   display: none;
 }
+
 .timeline-item-head-blue {
   border-color: #4d70ff;
   color: #4d70ff;
   background-color: #4d70ff;
 }
+
 .timeline-item-content {
   padding: 0 0 0 18px;
   position: relative;
   top: -6px;
 }
+
 .timeline-item-content p code {
   display: block;
   width: 110px;
@@ -75,6 +84,7 @@
   border-radius: 2px;
   background: #f2f4f5;
 }
+
 .timeline-item-last .timeline-item-tail {
   display: none;
 }
@@ -87,67 +97,51 @@
   border-left: 2px dotted #e8e8e8;
   display: block;
 }
-.markdown {
-  code {
-    margin: 0 1px;
-    background: #f2f4f5;
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-    font-size: 0.9em;
-    border: 1px solid #eee;
-  }
-  
-  ul > li {
-    margin: 4px 0;
-    margin-left: 20px;
-    padding-left: 4px;
-    code {
-      margin: 0 4px;
-    }
-  }
-  ol > li {
-    margin: 4px 0;
-    list-style-type: decimal;
-    margin-left: 20px;
-    padding-left: 4px;
-    code {
-      margin: 0 4px;
-    }
-  }
-  .icon-list > li {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  ul > li:empty {
-    display: none;
-  }
 
-  ol > li > p,
-  ul > li > p {
-    margin: 0.2em 0;
-  }
-  img {
-    max-width: calc(100% - 32px);
-  }
-  .demo-block {
+.markdown {
+  > div > div > :not(.demo-container) {
+    code {
+      margin: 0 1px;
+      background: #f2f4f5;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-size: 0.9em;
+      border: 1px solid #eee;
+    }
+
     ul > li {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
+      margin: 4px 0 0 20px;
+      padding-left: 4px;
+      code {
+        margin: 0 4px;
+      }
     }
     ol > li {
-      margin: 0;
+      margin: 4px 0 0 20px;
+      list-style-type: decimal;
+      padding-left: 4px;
+      code {
+        margin: 0 4px;
+      }
+    }
+    .icon-list > li {
+      list-style: none;
       padding: 0;
-      list-style-type: none;
+      margin: 0;
+    }
+    ul > li:empty {
+      display: none;
+    }
+
+    ol > li > p,
+    ul > li > p {
+      margin: 0.2em 0;
     }
     img {
-      max-width: none;
-    }
-    p {
-      color: inherit;
+      max-width: calc(100% - 32px);
     }
   }
+
   .meta {
     color: #45454d;
     p > img {
@@ -162,22 +156,22 @@
       background: #ebedf0;
       margin: 72px 0;
       clear: both;
-  }
+    }
     pre {
       border-radius: 2px;
-  }
+    }
     pre code {
       border: none;
       margin: 0;
       font-size: 13px;
       overflow: auto;
-  }
+    }
     p code {
       border: none;
       margin: 0;
       font-size: 13px;
       overflow: auto;
-  }
+    }
     pre span {
       border: none;
       margin: 0;
@@ -185,33 +179,34 @@
       font-size: 13px;
       overflow: auto;
       font-family: Menlo, Monaco, Consolas, Courier, monospace;
-  }
+    }
     b,
     strong {
       font-weight: 500;
-  }
+    }
     pre span.cm-variable,
     pre span.cm-tag {
       color: #f81d22;
-  }
+    }
     pre span.cm-tag.cm-bracket {
       color: #999;
-  }
+    }
     pre span.cm-keyword,
     pre span.cm-string {
       color: #008dff;
-  }
+    }
     pre span.cm-attribute {
       color: #0b8235;
-  }
+    }
     pre span.cm-def,
     pre span.cm-property {
-     color: #45454d;
+      color: #45454d;
+    }
+    .CodeMirror-line {
+      display: block;
+    }
   }
-  .CodeMirror-line {
-    display: block;
-  }
-}
+
   h1 {
     color: #0d1a26;
     font-weight: 500;
@@ -221,13 +216,12 @@
     font-size: 32px;
     line-height: 38px;
   }
-  h1 .subtitle {
-    margin-left: 12px;
-  }
+
   h2 {
     font-size: 24px;
     line-height: 45px;
   }
+
   h2,
   h3,
   h4,
@@ -238,9 +232,11 @@
     margin: 1.6em 0 0.6em;
     clear: both;
   }
+
   h3 {
     font-size: 18px;
   }
+
   h4 {
     font-size: 14px;
   }
@@ -252,56 +248,15 @@
   h6 {
     font-size: 10px;
   }
-  h1:hover .anchor,
-  h2:hover .anchor,
-  h3:hover .anchor,
-  h4:hover .anchor,
-  h5:hover .anchor,
-  h6:hover .anchor {
-    opacity: 1;
-    display: inline-block;
-  }
-  a {
-    color: #4d70ff;
-    background-color: transparent;
-    text-decoration: none;
-    outline: none;
-    cursor: pointer;
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s;
-    -webkit-text-decoration-skip: objects;
-  }
-  > table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    empty-cells: show;
-    border: 1px solid #ebedf0;
-    width: 100%;
-    margin: 8px 0 16px;
-  }
-  > table th {
-    white-space: nowrap;
-    color: #5c6b77;
-    font-weight: 500;
-    background: rgba(0, 0, 0, 0.02);
-  }
-  > table td,
-  > table th {
-    border: 1px solid #ebedf0;
-    padding: 16px 24px;
-    text-align: left;
-  }
-  > br,
-  > p > br {
-    clear: both;
-  }
 }
+
 code[class*=language-],
 pre[class*=language-],
 pre code {
   white-space: pre;
   font-family: Lucida Console, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
 }
+
 code[class*=language-],
 pre[class*=language-] {
   color: #000;
@@ -318,6 +273,7 @@ pre[class*=language-] {
   -ms-hyphens: none;
   hyphens: none;
 }
+
 .token.boolean,
 .token.constant,
 .token.deleted,
@@ -327,6 +283,7 @@ pre[class*=language-] {
 .token.tag {
   color: #f81d22;
 }
+
 .language-css.token.string,
 .style.token.string,
 .token.attr-name,
@@ -340,18 +297,22 @@ pre[class*=language-] {
 .token.url {
   color: #0b8235;
 }
+
 .token.important,
 .token.regex,
 .token.variable {
   color: #e90;
 }
+
 .token.bold,
 .token.important {
   font-weight: 700;
 }
+
 .token.italic {
   font-style: italic;
 }
+
 .token.entity {
   cursor: help;
 }
