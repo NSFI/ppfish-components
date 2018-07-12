@@ -26,7 +26,7 @@ class BizLoading extends Component {
         <div className={classNames('m-loading', {[`${extraCls}`]: !!extraCls})}>
           <div className="m-loading-bg">
             <img src={loadingIcon}/>
-            <p className="m-loading-text">{LOADING_TEXT}</p>
+            <div className="m-loading-text">{LOADING_TEXT}</div>
           </div>
         </div>
       );
