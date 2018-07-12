@@ -77,6 +77,12 @@
   top: -6px;
 }
 
+code[class*=language-],
+pre[class*=language-],
+pre code {
+  white-space: pre;
+  font-family: Lucida Console, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+}
 .timeline-item-content p code {
   display: block;
   width: 110px;
@@ -99,49 +105,6 @@
 }
 
 .markdown {
-  > div > div > :not(.demo-container) {
-    code {
-      margin: 0 1px;
-      background: #f2f4f5;
-      padding: 0.2em 0.4em;
-      border-radius: 3px;
-      font-size: 0.9em;
-      border: 1px solid #eee;
-    }
-
-    ul > li {
-      margin: 4px 0 0 20px;
-      padding-left: 4px;
-      code {
-        margin: 0 4px;
-      }
-    }
-    ol > li {
-      margin: 4px 0 0 20px;
-      list-style-type: decimal;
-      padding-left: 4px;
-      code {
-        margin: 0 4px;
-      }
-    }
-    .icon-list > li {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    ul > li:empty {
-      display: none;
-    }
-
-    ol > li > p,
-    ul > li > p {
-      margin: 0.2em 0;
-    }
-    img {
-      max-width: calc(100% - 32px);
-    }
-  }
-
   .meta {
     color: #45454d;
     p > img {
@@ -206,6 +169,48 @@
       display: block;
     }
   }
+  > div > div > :not(.demo-container) {
+    code {
+      margin: 0 1px;
+      background: #f2f4f5;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-size: 0.9em;
+      border: 1px solid #eee;
+    }
+
+    ul > li {
+      margin: 4px 0 0 20px;
+      padding-left: 4px;
+      code {
+        margin: 0 4px;
+      }
+    }
+    ol > li {
+      margin: 4px 0 0 20px;
+      list-style-type: decimal;
+      padding-left: 4px;
+      code {
+        margin: 0 4px;
+      }
+    }
+    .icon-list > li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul > li:empty {
+      display: none;
+    }
+
+    ol > li > p,
+    ul > li > p {
+      margin: 0.2em 0;
+    }
+    img {
+      max-width: calc(100% - 32px);
+    }
+  }
 
   h1 {
     color: #0d1a26;
@@ -248,13 +253,6 @@
   h6 {
     font-size: 10px;
   }
-}
-
-code[class*=language-],
-pre[class*=language-],
-pre code {
-  white-space: pre;
-  font-family: Lucida Console, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
 }
 
 code[class*=language-],
