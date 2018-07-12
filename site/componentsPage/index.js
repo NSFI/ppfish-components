@@ -37,118 +37,14 @@ export default {
     },
   },
   list: {
-    '通用组件 General': {
-      'alert': {
-        type: 'markdown',
-        name: 'Alert 警告提示',
-      },
-      'audioPlayer': {
-        type: 'markdown',
-        name: 'AudioPlayer 音频播放器',
-      },
-      'avatar': {
-        type: 'markdown',
-        name: 'Avatar 头像',
-      },
-      'badge': {
-        type: 'markdown',
-        name: 'Badge 徽标数',
-      },
-      'breadcrumb': {
-        type: 'markdown',
-        name: 'Breadcrumb 面包屑',
-      },
+    '基础组件 Basic': {
       'button': {
         type: 'markdown',
         name: 'Button 按钮',
       },
-      'calendar': {
-        type: 'markdown',
-        name: 'Calendar 日历',
-      },
-      'card': {
-        type: 'markdown',
-        name: 'Card 卡片',
-      },
-      'carousel': {
-        type: 'markdown',
-        name: 'Carousel 走马灯',
-      },
-      'cascader': {
-        type: 'markdown',
-        name: 'Cascader 级联选择',
-      },
-      'colorPicker': {
-        type: 'markdown',
-        name: 'ColorPicker 颜色选择器',
-      },
-      'checkbox': {
-        type: 'markdown',
-        name: 'Checkbox 多选框',
-      },
-      'collapse': {
-        type: 'markdown',
-        name: 'Collapse 折叠面板',
-      },
-      'datePicker': {
-        type: 'markdown',
-        name: 'DatePicker 日期选择框',
-      },
       'divider': {
         type: 'markdown',
         name: 'Divider 分隔符',
-      },
-      'drawer': {
-        type: 'markdown',
-        name: 'Drawer 抽屉组件',
-      },
-      'dropdown': {
-        type: 'markdown',
-        name: 'Dropdown 下拉菜单',
-      },
-      'form': {
-        type: 'markdown',
-        name: 'Form 表单',
-      },
-      'grid': {
-        type: 'markdown',
-        name: 'Grid 栅格系统',
-      },
-      'imageLoader': {
-        type: 'markdown',
-        name: 'ImageLoader 图片加载器',
-      },
-      'input': {
-        type: 'markdown',
-        name: 'Input 输入框',
-      },
-      'layout': {
-        type: 'markdown',
-        name: 'Layout 布局模式',
-      },
-      'list': {
-        type: 'markdown',
-        name: 'List 列表',
-      },
-      'menu': {
-        type: 'markdown',
-        name: 'Menu 导航菜单',
-      },
-      'message': {
-        type: 'markdown',
-        name: 'Message 全局提示',
-      },
-      'modal': {
-        type: 'markdown',
-        name: 'Modal 对话框',
-      },
-      'notification': {
-        type: 'markdown',
-        name: 'Notification 通知提醒框',
-      },
-      'pagination': {
-        type: 'markdown',
-        name: 'Pagination 分页',
       },
       'picturePreview': {
         type: 'markdown',
@@ -179,84 +75,199 @@ export default {
           ]
         }
       },
-      'progress': {
+      'imageLoader': {
         type: 'markdown',
-        name: 'Progress 进度条',
+        name: 'ImageLoader 图片加载器',
       },
-      'radio': {
+      'colorPicker': {
         type: 'markdown',
-        name: 'Radio 单选框',
+        name: 'ColorPicker 颜色选择器',
       },
       'richEditor': {
         type: 'markdown',
         name: 'RichEditor 富文本编辑器',
       },
-      'select': {
+      'audioPlayer': {
         type: 'markdown',
-        name: 'Select 选择器',
+        name: 'AudioPlayer 音频播放器',
       },
-      'slider': {
+      'videoViewer': {
         type: 'markdown',
-        name: 'Slider 滑动输入条',
+        name: 'VideoViewer 视频查看器',
       },
-      'spin': {
+    },
+    '导航 Nav': {
+      'layout': {
         type: 'markdown',
-        name: 'Spin 加载中',
+        name: 'Layout 布局模式',
       },
-      'steps': {
+      'menu': {
         type: 'markdown',
-        name: 'Steps 步骤条',
+        name: 'Menu 导航菜单',
       },
-      'switch': {
+      'dropdown': {
         type: 'markdown',
-        name: 'Switch 开关',
+        name: 'Dropdown 下拉菜单',
       },
-      'table': {
+      'breadcrumb': {
         type: 'markdown',
-        name: 'Table 表格',
+        name: 'Breadcrumb 面包屑',
       },
       'tabs': {
         type: 'markdown',
         name: 'Tabs 标签页',
       },
-      'tag': {
+      'steps': {
         type: 'markdown',
-        name: 'Tag 标签',
+        name: 'Steps 步骤条',
       },
-      'timeline': {
+      'pagination': {
         type: 'markdown',
-        name: 'Timeline 时间轴',
+        name: 'Pagination 分页',
       },
-      'timePicker': {
+    },
+    '数据录入': {
+      'input': {
         type: 'markdown',
-        name: 'TimePicker 时间选择框',
+        name: 'Input 输入框',
       },
-      'tooltip': {
+      'radio': {
         type: 'markdown',
-        name: 'Tooltip 文字提示',
+        name: 'Radio 单选框',
       },
-      'transfer': {
+      'select': {
         type: 'markdown',
-        name: 'Transfer 穿梭框',
-      },
-      'tree': {
-        type: 'markdown',
-        name: 'Tree 树形控件',
+        name: 'Select 选择器',
       },
       'treeSelect': {
         type: 'markdown',
         name: 'TreeSelect 树选择',
       },
+      'checkbox': {
+        type: 'markdown',
+        name: 'Checkbox 多选框',
+      },
+      'switch': {
+        type: 'markdown',
+        name: 'Switch 开关',
+      },
+      'cascader': {
+        type: 'markdown',
+        name: 'Cascader 级联选择',
+      },
+      'timePicker': {
+        type: 'markdown',
+        name: 'TimePicker 时间选择框',
+      },
+      'datePicker': {
+        type: 'markdown',
+        name: 'DatePicker 日期选择框',
+      },
       'upload': {
         type: 'markdown',
         name: 'Upload 上传',
       },
-      'videoViewer': {
+      'slider': {
         type: 'markdown',
-        name: 'VideoViewer 视频查看器',
-      }
+        name: 'Slider 滑动输入条',
+      },
+      'transfer': {
+        type: 'markdown',
+        name: 'Transfer 穿梭框',
+      },
+      'form': {
+        type: 'markdown',
+        name: 'Form 表单',
+      },
     },
-    '业务组件 Business': {
+    '数据展示': {
+      'list': {
+        type: 'markdown',
+        name: 'List 列表',
+      },
+      'grid': {
+        type: 'markdown',
+        name: 'Grid 栅格系统',
+      },
+      'avatar': {
+        type: 'markdown',
+        name: 'Avatar 头像',
+      },
+      'badge': {
+        type: 'markdown',
+        name: 'Badge 徽标数',
+      },
+      'tag': {
+        type: 'markdown',
+        name: 'Tag 标签',
+      },
+      'tooltip': {
+        type: 'markdown',
+        name: 'Tooltip 文字提示',
+      },
+      'tree': {
+        type: 'markdown',
+        name: 'Tree 树形控件',
+      },
+      'collapse': {
+        type: 'markdown',
+        name: 'Collapse 折叠面板',
+      },
+      'drawer': {
+        type: 'markdown',
+        name: 'Drawer 抽屉组件',
+      },
+      'card': {
+        type: 'markdown',
+        name: 'Card 卡片',
+      },
+      'calendar': {
+        type: 'markdown',
+        name: 'Calendar 日历',
+      },
+      'carousel': {
+        type: 'markdown',
+        name: 'Carousel 走马灯',
+      },
+      'timeline': {
+        type: 'markdown',
+        name: 'Timeline 时间轴',
+      },
+      'table': {
+        type: 'markdown',
+        name: 'Table 表格',
+      },
+
+    },
+    '操作反馈': {
+      'alert': {
+        type: 'markdown',
+        name: 'Alert 警告提示',
+      },
+      'message': {
+        type: 'markdown',
+        name: 'Message 全局提示',
+      },
+      'modal': {
+        type: 'markdown',
+        name: 'Modal 对话框',
+      },
+      'notification': {
+        type: 'markdown',
+        name: 'Notification 通知提醒框',
+      },
+      'progress': {
+        type: 'markdown',
+        name: 'Progress 进度条',
+      },
+      'spin': {
+        type: 'markdown',
+        name: 'Spin 加载中',
+      },
+    },
+  },
+  business: {
+    '基本组件 Basic': {
       'bizLoading': {
         type: 'markdown',
         name: 'BizLoading 加载动画',

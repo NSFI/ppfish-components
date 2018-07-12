@@ -86,7 +86,7 @@ export default class Components extends React.Component {
             <nav className="side-nav">
               <Menu
                 selectedKeys={[this.state.page]}
-                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.components'), this.getLocale('misc.patterns')]}
+                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.general'), this.getLocale('misc.business'),this.getLocale('misc.patterns')]}
                 mode="inline"
               >
                 <SubMenu key={this.getLocale('misc.development')} title={this.getLocale('misc.development')}>
@@ -100,7 +100,7 @@ export default class Components extends React.Component {
                     })
                   }
                 </SubMenu>
-                <SubMenu key={this.getLocale('misc.components')} title={this.getLocale('misc.components')}>
+                <SubMenu key={this.getLocale('misc.general')} title={this.getLocale('misc.general')}>
                   {
                     Object.keys(components.list).map(group => {
                       return (
@@ -110,6 +110,25 @@ export default class Components extends React.Component {
                               return (
                                 <Menu.Item key={page}>
                                   <a href={`#/components/${page}`}>{components.list[group][page].name}</a>
+                                </Menu.Item>
+                              );
+                            })
+                          }
+                        </Menu.ItemGroup>
+                      );
+                    })
+                  }
+                </SubMenu>
+                <SubMenu key={this.getLocale('misc.business')} title={this.getLocale('misc.business')}>
+                  {
+                    Object.keys(components.business).map(group => {
+                      return (
+                        <Menu.ItemGroup key={group} title={group} disabled={false}>
+                          {
+                            Object.keys(components.business[group]).map(page => {
+                              return (
+                                <Menu.Item key={page}>
+                                  <a href={`#/components/${page}`}>{components.business[group][page].name}</a>
                                 </Menu.Item>
                               );
                             })
