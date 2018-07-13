@@ -1,10 +1,10 @@
 import React from 'react';
 import {Row, Col, Affix} from 'antd';
 import PropTypes from "prop-types";
-import locales from './locales';
+import locales from '../../locales';
 
-const githubSrc = require('./assets/github.png');
-const searchIcon = require('./assets/search.svg');
+const githubSrc = require('../../assets/github.png');
+const searchIcon = require('../../assets/search.svg');
 
 export default class Layout extends React.Component {
 

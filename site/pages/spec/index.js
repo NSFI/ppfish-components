@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from './layout';
+import Layout from '../common/layout';
 
 export default class Spec extends React.Component {
   constructor(props) {

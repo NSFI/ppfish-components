@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from './layout';
-import './home.less';
+import Layout from '../common/layout';
+import './index.less';
 
 export default class Home extends React.Component {
   constructor(props) {
