@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
-
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/keymap/sublime';
 import 'codemirror/addon/comment/comment';
-
 import 'codemirror/lib/codemirror.css';
 import './style.less';
 

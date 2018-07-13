@@ -1,110 +1,51 @@
-.timeline {
-  font-family: Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.65);
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-  ul > li {
-    margin-left: 20px;
-    padding-left: 4px;
-  }
-  ol > li {
-    list-style-type: decimal;
-    margin-left: 20px;
-    padding-left: 4px;
-  }
-  .icon-list > li {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  ul > li:empty {
-    display: none;
-  }
-  ol > li > p,
-  ul > li > p {
-    margin: 0.2em 0;
-  }
-}
-
-.timeline,
-.timeline-item {
-  font-size: 14px;
-  list-style: none;
-  margin: 0;
-}
-
-.timeline-item {
-  position: relative;
-  padding: 0 0 20px;
-}
-
-.timeline-item-tail {
-  position: absolute;
-  left: 4px;
-  top: 0.75em;
-  height: 100%;
-  border-left: 2px dashed #ccd6ff;
-}
-
-.timeline-item-head {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  border-radius: 100px;
-  border: 2px solid transparent;
-}
-
-.timeline-item-pending .timeline-item-head {
-  font-size: 12px;
-}
-
-.timeline-item-pending .timeline-item-tail {
-  display: none;
-}
-
-.timeline-item-head-blue {
-  border-color: #4d70ff;
-  color: #4d70ff;
-  background-color: #4d70ff;
-}
-
-.timeline-item-content {
-  padding: 0 0 0 18px;
-  position: relative;
-  top: -6px;
-}
-
-code[class*=language-],
-pre[class*=language-],
-pre code {
-  white-space: pre;
-  font-family: Lucida Console, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
-}
-.timeline-item-content p code {
-  display: block;
-  width: 110px;
-  text-align: center;
-  border-radius: 2px;
-  background: #f2f4f5;
-}
-
-.timeline-item-last .timeline-item-tail {
-  display: none;
-}
-
-.timeline-item-last .timeline-item-content {
-  min-height: 48px;
-}
-
-.timeline.timeline-pending .timeline-item-last .timeline-item-tail {
-  border-left: 2px dotted #e8e8e8;
-  display: block;
-}
-
+//右侧内容区样式
 .markdown {
+  p {
+    font-size: 14px;
+    color: #5e6d82;
+  }
+
+  h1 {
+    color: #0d1a26;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-top: 8px;
+    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 45px;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #18181a;
+    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    margin: 1.6em 0 0.6em;
+    clear: both;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 14px;
+  }
+
+  h5 {
+    font-size: 12px;
+  }
+
+  h6 {
+    font-size: 10px;
+  }
   .meta {
     color: #45454d;
     p > img {
@@ -169,6 +110,38 @@ pre code {
       display: block;
     }
   }
+  table.grid {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff;
+    color: #5e6d82;
+    font-size: 14px;
+    margin-bottom: 45px;
+    line-height: 1.5em;
+
+    strong {
+      font-weight: normal;
+    }
+
+    th {
+      text-align: left;
+      border-top: 1px solid #eaeefb;
+      background-color: #fafafa;
+      white-space: nowrap;
+    }
+
+    td,
+    th {
+      border: 1px solid #e6e6eb;
+      padding: 10px;
+      max-width: 250px;
+    }
+
+    th:first-child,
+    td:first-child {
+      padding-left: 10px;
+    }
+  }
   > div > div > :not(.demo-container) {
     code {
       margin: 0 1px;
@@ -211,50 +184,9 @@ pre code {
       max-width: calc(100% - 32px);
     }
   }
-
-  h1 {
-    color: #0d1a26;
-    font-weight: 500;
-    margin-bottom: 20px;
-    margin-top: 8px;
-    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 32px;
-    line-height: 38px;
-  }
-
-  h2 {
-    font-size: 24px;
-    line-height: 45px;
-  }
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: #18181a;
-    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-    margin: 1.6em 0 0.6em;
-    clear: both;
-  }
-
-  h3 {
-    font-size: 18px;
-  }
-
-  h4 {
-    font-size: 14px;
-  }
-
-  h5 {
-    font-size: 12px;
-  }
-
-  h6 {
-    font-size: 10px;
-  }
 }
 
+//```js ``` 样式
 code[class*=language-],
 pre[class*=language-] {
   color: #000;
@@ -270,47 +202,4 @@ pre[class*=language-] {
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-}
-
-.token.boolean,
-.token.constant,
-.token.deleted,
-.token.number,
-.token.property,
-.token.symbol,
-.token.tag {
-  color: #f81d22;
-}
-
-.language-css.token.string,
-.style.token.string,
-.token.attr-name,
-.token.builtin,
-.token.char,
-.token.entity,
-.token.inserted,
-.token.operator,
-.token.selector,
-.token.string,
-.token.url {
-  color: #0b8235;
-}
-
-.token.important,
-.token.regex,
-.token.variable {
-  color: #e90;
-}
-
-.token.bold,
-.token.important {
-  font-weight: 700;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-.token.entity {
-  cursor: help;
 }

@@ -4,8 +4,6 @@ import marked from 'marked';
 import prism from 'prismjs';
 import Canvas from './canvas';
 import Slider from '../slider';
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
 import 'antd/dist/antd.less';
 
 export default class Markdown extends React.Component {
@@ -52,12 +50,10 @@ export default class Markdown extends React.Component {
       }
     }
     prism.highlightAll();
-    NProgress.done();
   }
 
   //:::demo ::: 更换成带随机数id的坑位 ，再次render 放入坑位内
   render() {
-    NProgress.start();
     const document = this.document();
 
     if (typeof document === 'string') {

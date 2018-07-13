@@ -1,12 +1,12 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import {BizLoading} from '../source/components';
-import {getPlainComponentList} from "./utils";
+import {BizLoading} from '../../../source/components/index';
+import {getPlainComponentList} from "../../utils/index";
 
 const plainComponentList = getPlainComponentList();
 
 export default Loadable({
-  loader: () => import('../libs/markdown'),
+  loader: () => import('../../../libs/markdown/index'),
   render(Markdown, props) {
     const menuItem = plainComponentList.find(itm => itm.key === props.params.demo);
     if (menuItem || !props.params.demo) {
@@ -21,9 +21,9 @@ export default Loadable({
           document() {
             let markdown;
             try {
-              markdown = require(`./docs/zh-CN/${props.params.demo}.md`);
+              markdown = require(`../../docs/zh-CN/${props.params.demo}.md`);
             } catch (e) {
-              markdown = require(`./docs/zh-CN/${plainComponentList[0].key}.md`);
+              markdown = require(`../../docs/zh-CN/${plainComponentList[0].key}.md`);
             }
             return markdown;
           }
