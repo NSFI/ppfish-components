@@ -88,6 +88,18 @@ class RichEditor extends Component {
     }
   }
 
+  focus = () => {
+    this.reactQuillRef.focus();
+  };
+
+  blur = () => {
+    this.reactQuillRef.blur();
+  };
+
+  getEditor = () => {
+    return this.reactQuillRef.getEditor();
+  };
+
   render() {
     let { value } = this.state;
     let { className, toolbar, placeholder, extendLinkModule, onChange, onFocus, onBlur } = this.props;
@@ -100,6 +112,7 @@ class RichEditor extends Component {
           extendLinkModule={extendLinkModule}
         />
         <ReactQuill
+          ref={(el) => { this.reactQuillRef = el; }}
           className={'editor-body'}
           modules={this.modules}
           value={value}
