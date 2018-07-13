@@ -1,10 +1,10 @@
 import React from 'react';
 import {BackTop, Row, Col, Menu, Icon, Divider} from 'antd';
 import PropTypes from 'prop-types';
-import Layout from './layout';
-import locales from './locales';
-import components from './componentsPage';
-import {getPlainComponentList} from './utils';
+import Layout from '../common/layout';
+import locales from '../../locales/index';
+import components from '../../componentsPage/index';
+import {getPlainComponentList} from '../../utils/index';
 
 const SubMenu = Menu.SubMenu;
 
@@ -167,7 +167,7 @@ export default class Components extends React.Component {
               </article>
               {Navigation}
               <BackTop>
-                <img src={require('./assets/nppd-web-1.51-but@2x.png')} className="u-backtop" alt="backTop"/>
+                <img src={require('../../assets/nppd-web-1.51-but@2x.png')} className="u-backtop" alt="backTop"/>
               </BackTop>
             </div>
           </Col>
