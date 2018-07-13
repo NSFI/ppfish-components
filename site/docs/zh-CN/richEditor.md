@@ -11,9 +11,13 @@
 :::demo 基本使用方式。
 
 ```js
+  componentDidMount() {
+    this.editorRef.focus();
+  }
+
   render() {
     return (
-      <RichEditor value="初始内容a<br/>初始内容b"/>
+      <RichEditor ref={(el) => { this.editorRef = el; }} value="初始内容a<br/>初始内容b"/>
     );
   }
 ```
@@ -36,7 +40,7 @@
 | onBlur | 失去焦点时的回调函数 | function(previousRange, source, editor) | `noop` |
 
 
-### Editor Node Method
+### Component Node Method
 
 |方法|说明|
 |:-|:-|
@@ -51,12 +55,11 @@
 |:-|:-|
 | getLength() | 返回编辑器内容的长度，以字符为单位，不包括 HTML 标签 |
 | getText() | 返回编辑器的字符串内容，不包括 HTML 标签 |
-| getHTML() | 返回编辑器的完整 HTML 内容 |
 | getSelection() | 返回当前选区的范围，如果编辑器处于 unfocus 状态，则返回 null |
 | getBounds() | 返回给定位置处的相对于编辑器容器的像素位置和选区的尺寸 |
 
 
-_上述 Props 的更多介绍可以参考：_
+_Props 的更多介绍可以参考：_
 [React-Quill](https://github.com/zenoamaro/react-quill)  
 
 _更多方法的支持及文档介绍可以参考：_
