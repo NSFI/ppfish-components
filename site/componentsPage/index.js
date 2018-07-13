@@ -22,6 +22,7 @@ export default {
     'changelog': {
       type: 'markdown',
       name: '更新日志',
+      style: require('./changeLog/index.less')
     },
     'contributing': {
       type: 'markdown',

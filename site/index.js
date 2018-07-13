@@ -1,17 +1,13 @@
+import 'core-js';
 import React from 'react';
 import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import {Router, Route, hashHistory, Redirect, IndexRoute} from 'react-router';
-import 'core-js';
-
-import './styles/base.less';
-import './styles/doc.less';
-import './styles/prism.css';
-
 import Components from './components';
 import Home from './home';
 import Spec from './spec';
 import Demo from './demo';
+import './styles/index.less';
 
 render(<AppContainer>
   <Router history={hashHistory}>
