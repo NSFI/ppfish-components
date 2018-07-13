@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList.js';
 import emojiSrc from './img/emoji.png';
+// import ColorPicker from '../ColorPicker';
 
 let genEmoji = (data) => {
   let colSize = 10,
@@ -103,6 +104,13 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-underline" key={key}/>;
         break;
       case 'color':
+        /*
+        value = (
+          <ColorPicker className="item" enableHistory={true} onChange={this.handleColorChange} key={key}>
+            <div className="ql-color iconfont icon-color"></div>
+          </ColorPicker>
+        );
+        */
         value = <select className="item ql-color" key={key}></select>;
         break;
       case 'align':
@@ -176,6 +184,11 @@ class CustomToolbar extends PureComponent {
     return result;
   };
 
+/*
+  handleColorChange = ({color,alpha}) => {
+    console.log(`color:${color},alpha:${alpha}`);
+  };
+*/
   handlePanelStatus = () => {
     window.addEventListener('click', (e) => {
       let { showSizePanel, showEmojiPanel } = this.state;
@@ -194,7 +207,6 @@ class CustomToolbar extends PureComponent {
 
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-customSize') > -1) {
-      console.log('>> ', this.state.showSizePanel);
       this.setState({
         showSizePanel: !this.state.showSizePanel
       });
