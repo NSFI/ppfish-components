@@ -36,6 +36,30 @@ export default {
       name: '定制主题',
     },
   },
+  patterns: {
+    '设计要素 Factor': {
+      'ruleColor': {
+        type: 'react',
+        name: 'Color 色彩',
+        component: require('./ruleColor')
+      },
+      'ruleText': {
+        type: 'react',
+        name: 'Typography 字体',
+        component: require('./ruleText')
+      },
+    },
+    '交互规则 Rule': {
+      'ruleNumber': {
+        type: 'markdown',
+        name: '数字',
+      },
+      'ruleDatetime': {
+        type: 'markdown',
+        name: '日期时间',
+      },
+    }
+  },
   list: {
     '基础组件 Basic': {
       'button': {
@@ -281,30 +305,6 @@ export default {
       'bizTimePicker': {
         type: 'markdown',
         name: 'BizTimePicker 自定义时间选择器',
-      },
-    }
-  },
-  patterns: {
-    '设计要素 Factor': {
-      'ruleColor': {
-        type: 'react',
-        name: 'Color 色彩',
-        component: require('./ruleColor')
-      },
-      'ruleText': {
-        type: 'react',
-        name: 'Typography 字体',
-        component: require('./ruleText')
-      },
-    },
-    '交互规则 Rule': {
-      'ruleNumber': {
-        type: 'markdown',
-        name: '数字',
-      },
-      'ruleDatetime': {
-        type: 'markdown',
-        name: '日期时间',
       },
     }
   }
