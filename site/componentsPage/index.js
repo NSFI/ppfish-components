@@ -96,11 +96,17 @@ export default {
         name: 'VideoViewer 视频查看器',
       },
     },
-    '导航 Nav': {
+    '布局规范 Layout': {
+      'grid': {
+        type: 'markdown',
+        name: 'Grid 栅格系统',
+      },
       'layout': {
         type: 'markdown',
         name: 'Layout 布局模式',
       },
+    },
+    '导航 Nav': {
       'menu': {
         type: 'markdown',
         name: 'Menu 导航菜单',
@@ -184,10 +190,6 @@ export default {
       'list': {
         type: 'markdown',
         name: 'List 列表',
-      },
-      'grid': {
-        type: 'markdown',
-        name: 'Grid 栅格系统',
       },
       'avatar': {
         type: 'markdown',
