@@ -31,7 +31,7 @@ class RichEditor extends Component {
     className: '',
     toolbar: [['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']],
     placeholder: '',
-    value: '初始内容a<br/>初始内容a',
+    value: '',
     extendLinkModule: {},
     onChange: () => {},
     onFocus: () => {},
