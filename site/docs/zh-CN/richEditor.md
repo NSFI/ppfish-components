@@ -13,7 +13,7 @@
 ```js
   render() {
     return (
-      <RichEditor/>
+      <RichEditor value="初始内容a<br/>初始内容b"/>
     );
   }
 ```
