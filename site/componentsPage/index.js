@@ -36,6 +36,30 @@ export default {
       name: '定制主题',
     },
   },
+  patterns: {
+    '设计要素 Factor': {
+      'ruleColor': {
+        type: 'react',
+        name: 'Color 色彩',
+        component: require('./ruleColor')
+      },
+      'ruleText': {
+        type: 'react',
+        name: 'Typography 字体',
+        component: require('./ruleText')
+      },
+    },
+    '交互规则 Rule': {
+      'ruleNumber': {
+        type: 'markdown',
+        name: '数字',
+      },
+      'ruleDatetime': {
+        type: 'markdown',
+        name: '日期时间',
+      },
+    }
+  },
   list: {
     '基础组件 Basic': {
       'button': {
@@ -96,11 +120,17 @@ export default {
         name: 'VideoViewer 视频查看器',
       },
     },
-    '导航 Nav': {
+    '布局规范 Layout': {
+      'grid': {
+        type: 'markdown',
+        name: 'Grid 栅格系统',
+      },
       'layout': {
         type: 'markdown',
         name: 'Layout 布局模式',
       },
+    },
+    '导航 Nav': {
       'menu': {
         type: 'markdown',
         name: 'Menu 导航菜单',
@@ -184,10 +214,6 @@ export default {
       'list': {
         type: 'markdown',
         name: 'List 列表',
-      },
-      'grid': {
-        type: 'markdown',
-        name: 'Grid 栅格系统',
       },
       'avatar': {
         type: 'markdown',
@@ -279,30 +305,6 @@ export default {
       'bizTimePicker': {
         type: 'markdown',
         name: 'BizTimePicker 自定义时间选择器',
-      },
-    }
-  },
-  patterns: {
-    '设计要素 Factor': {
-      'ruleColor': {
-        type: 'react',
-        name: 'Color 色彩',
-        component: require('./ruleColor')
-      },
-      'ruleText': {
-        type: 'react',
-        name: 'Typography 字体',
-        component: require('./ruleText')
-      },
-    },
-    '交互规则 Rule': {
-      'ruleNumber': {
-        type: 'markdown',
-        name: '数字',
-      },
-      'ruleDatetime': {
-        type: 'markdown',
-        name: '日期时间',
       },
     }
   }

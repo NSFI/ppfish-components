@@ -10,6 +10,16 @@ export const getPlainComponentList = () => {
       value: componentList.documents[key],
     });
   });
+  // 设计规范
+  Object.keys(componentList.patterns).map((group) => (
+    Object.keys(componentList.patterns[group]).map(key => {
+      plainComponentList.push({
+        url: `#/components/${key}`,
+        key,
+        value: componentList.patterns[group][key],
+      });
+    })
+  ));
   // 通用组件
   Object.keys(componentList.list).map((group) => (
     Object.keys(componentList.list[group]).map(key => {
@@ -27,16 +37,6 @@ export const getPlainComponentList = () => {
         url: `#/components/${key}`,
         key,
         value: componentList.business[group][key],
-      });
-    })
-  ));
-  // 设计规范
-  Object.keys(componentList.patterns).map((group) => (
-    Object.keys(componentList.patterns[group]).map(key => {
-      plainComponentList.push({
-        url: `#/components/${key}`,
-        key,
-        value: componentList.patterns[group][key],
       });
     })
   ));
