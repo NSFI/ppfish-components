@@ -86,7 +86,7 @@ export default class Components extends React.Component {
             <nav className="side-nav">
               <Menu
                 selectedKeys={[this.state.page]}
-                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.general'), this.getLocale('misc.business'),this.getLocale('misc.patterns')]}
+                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.general'), this.getLocale('misc.business'), this.getLocale('misc.patterns')]}
                 mode="inline"
               >
                 <SubMenu key={this.getLocale('misc.development')} title={this.getLocale('misc.development')}>
@@ -96,6 +96,25 @@ export default class Components extends React.Component {
                         <Menu.Item key={page}>
                           <a href={`#/components/${page}`}>{components.documents[page].name}</a>
                         </Menu.Item>
+                      );
+                    })
+                  }
+                </SubMenu>
+                <SubMenu key={this.getLocale('misc.patterns')} title={this.getLocale('misc.patterns')}>
+                  {
+                    Object.keys(components.patterns).map(group => {
+                      return (
+                        <Menu.ItemGroup key={group} title={group} disabled={false}>
+                          {
+                            Object.keys(components.patterns[group]).map(page => {
+                              return (
+                                <Menu.Item key={page}>
+                                  <a href={`#/components/${page}`}>{components.patterns[group][page].name}</a>
+                                </Menu.Item>
+                              );
+                            })
+                          }
+                        </Menu.ItemGroup>
                       );
                     })
                   }
@@ -129,25 +148,6 @@ export default class Components extends React.Component {
                               return (
                                 <Menu.Item key={page}>
                                   <a href={`#/components/${page}`}>{components.business[group][page].name}</a>
-                                </Menu.Item>
-                              );
-                            })
-                          }
-                        </Menu.ItemGroup>
-                      );
-                    })
-                  }
-                </SubMenu>
-                <SubMenu key={this.getLocale('misc.patterns')} title={this.getLocale('misc.patterns')}>
-                  {
-                    Object.keys(components.patterns).map(group => {
-                      return (
-                        <Menu.ItemGroup key={group} title={group} disabled={false}>
-                          {
-                            Object.keys(components.patterns[group]).map(page => {
-                              return (
-                                <Menu.Item key={page}>
-                                  <a href={`#/components/${page}`}>{components.patterns[group][page].name}</a>
                                 </Menu.Item>
                               );
                             })
