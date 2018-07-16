@@ -2,9 +2,9 @@ import React from 'react';
 import {BackTop, Row, Col, Menu, Icon, Divider} from 'antd';
 import PropTypes from 'prop-types';
 import Layout from '../common/layout';
-import locales from '../../locales/index';
-import components from '../../componentsPage/index';
-import {getPlainComponentList} from '../../utils/index';
+import locales from '../../locales';
+import components from '../../componentsPage';
+import {getPlainComponentList, getComponentDepth} from '../../utils';
 
 const SubMenu = Menu.SubMenu;
 
@@ -86,77 +86,53 @@ export default class Components extends React.Component {
             <nav className="side-nav">
               <Menu
                 selectedKeys={[this.state.page]}
-                defaultOpenKeys={[this.getLocale('misc.development'), this.getLocale('misc.general'), this.getLocale('misc.business'), this.getLocale('misc.patterns')]}
+                defaultOpenKeys={Object.keys(components).map(key => this.getLocale(`misc.${key}`))}
                 mode="inline"
               >
-                <SubMenu key={this.getLocale('misc.development')} title={this.getLocale('misc.development')}>
-                  {
-                    Object.keys(components.documents).map(page => {
+                {
+                  Object.keys(components).map(key => {
+                    const depth = getComponentDepth(components[key]);
+                    //两层菜单
+                    if (depth === 1) {
                       return (
-                        <Menu.Item key={page}>
-                          <a href={`#/components/${page}`}>{components.documents[page].name}</a>
-                        </Menu.Item>
-                      );
-                    })
-                  }
-                </SubMenu>
-                <SubMenu key={this.getLocale('misc.patterns')} title={this.getLocale('misc.patterns')}>
-                  {
-                    Object.keys(components.patterns).map(group => {
-                      return (
-                        <Menu.ItemGroup key={group} title={group} disabled={false}>
+                        <SubMenu key={this.getLocale(`misc.${key}`)} title={this.getLocale(`misc.${key}`)}>
                           {
-                            Object.keys(components.patterns[group]).map(page => {
+                            Object.keys(components[key]).map(page => {
                               return (
                                 <Menu.Item key={page}>
-                                  <a href={`#/components/${page}`}>{components.patterns[group][page].name}</a>
+                                  <a href={`#/components/${page}`}>{components[key][page].name}</a>
                                 </Menu.Item>
                               );
                             })
                           }
-                        </Menu.ItemGroup>
+                        </SubMenu>
                       );
-                    })
-                  }
-                </SubMenu>
-                <SubMenu key={this.getLocale('misc.general')} title={this.getLocale('misc.general')}>
-                  {
-                    Object.keys(components.list).map(group => {
+                    } else if (depth === 2) {
+                      //三层菜单
                       return (
-                        <Menu.ItemGroup key={group} title={group} disabled={false}>
+                        <SubMenu key={this.getLocale(`misc.${key}`)} title={this.getLocale(`misc.${key}`)}>
                           {
-                            Object.keys(components.list[group]).map(page => {
+                            Object.keys(components[key]).map(group => {
                               return (
-                                <Menu.Item key={page}>
-                                  <a href={`#/components/${page}`}>{components.list[group][page].name}</a>
-                                </Menu.Item>
+                                <Menu.ItemGroup key={group} title={group} disabled={false}>
+                                  {
+                                    Object.keys(components[key][group]).map(page => {
+                                      return (
+                                        <Menu.Item key={page}>
+                                          <a href={`#/components/${page}`}>{components[key][group][page].name}</a>
+                                        </Menu.Item>
+                                      );
+                                    })
+                                  }
+                                </Menu.ItemGroup>
                               );
                             })
                           }
-                        </Menu.ItemGroup>
+                        </SubMenu>
                       );
-                    })
-                  }
-                </SubMenu>
-                <SubMenu key={this.getLocale('misc.business')} title={this.getLocale('misc.business')}>
-                  {
-                    Object.keys(components.business).map(group => {
-                      return (
-                        <Menu.ItemGroup key={group} title={group} disabled={false}>
-                          {
-                            Object.keys(components.business[group]).map(page => {
-                              return (
-                                <Menu.Item key={page}>
-                                  <a href={`#/components/${page}`}>{components.business[group][page].name}</a>
-                                </Menu.Item>
-                              );
-                            })
-                          }
-                        </Menu.ItemGroup>
-                      );
-                    })
-                  }
-                </SubMenu>
+                    }
+                  })
+                }
               </Menu>
             </nav>
           </Col>
