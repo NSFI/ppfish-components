@@ -88,7 +88,7 @@ class CustomToolbar extends PureComponent {
         'hide': !showEmojiPanel,
         'custom-emoji-panel': true
     });
-    let value = null;
+    let value = <div></div>;
 
     switch(name) {
       case 'link':
