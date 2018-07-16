@@ -144,6 +144,10 @@ export default {
         type: 'markdown',
         name: 'Breadcrumb 面包屑',
       },
+      'loadMore': {
+        type: 'markdown',
+        name: 'LoadMore 加载更多'
+      },
       'tabs': {
         type: 'markdown',
         name: 'Tabs 标签页',
