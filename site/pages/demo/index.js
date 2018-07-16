@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import {BizLoading} from '../../../source/components/index';
-import {getPlainComponentList} from "../../utils/index";
+import {BizLoading} from '../../../source/components';
+import {getPlainComponentList} from "../../utils";
 
 const plainComponentList = getPlainComponentList();
 

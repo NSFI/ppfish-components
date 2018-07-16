@@ -1,45 +1,45 @@
 import componentList from '../componentsPage';
 
+//获取平摊后的组件列表
 export const getPlainComponentList = () => {
   const plainComponentList = [];
-  // 开发指南
-  Object.keys(componentList.documents).map(key => {
-    plainComponentList.push({
-      url: `#/components/${key}`,
-      key,
-      value: componentList.documents[key],
-    });
+  Object.keys(componentList).forEach((type) => {
+    const depth = getComponentDepth(componentList[type]);
+    if (depth === 1) {
+      const obj = componentList[type];
+      Object.keys(obj).map(key => {
+        plainComponentList.push({
+          url: `#/components/${key}`,
+          key,
+          value: obj[key],
+        });
+      });
+    } else if (depth === 2) {
+      const obj = componentList[type];
+      Object.keys(obj).map((group) => (
+        Object.keys(obj[group]).map(key => {
+          plainComponentList.push({
+            url: `#/components/${key}`,
+            key,
+            value: obj[group][key],
+          });
+        })
+      ));
+    }
   });
-  // 设计规范
-  Object.keys(componentList.patterns).map((group) => (
-    Object.keys(componentList.patterns[group]).map(key => {
-      plainComponentList.push({
-        url: `#/components/${key}`,
-        key,
-        value: componentList.patterns[group][key],
-      });
-    })
-  ));
-  // 通用组件
-  Object.keys(componentList.list).map((group) => (
-    Object.keys(componentList.list[group]).map(key => {
-      plainComponentList.push({
-        url: `#/components/${key}`,
-        key,
-        value: componentList.list[group][key],
-      });
-    })
-  ));
-  // 业务组件
-  Object.keys(componentList.business).map((group) => (
-    Object.keys(componentList.business[group]).map(key => {
-      plainComponentList.push({
-        url: `#/components/${key}`,
-        key,
-        value: componentList.business[group][key],
-      });
-    })
-  ));
-
   return plainComponentList;
+};
+
+//根据type、name获取菜单深度
+export const getComponentDepth = (object = {}) => {
+  let level = 1;
+  const getDepth = (object => {
+    const secondObj = object[Object.keys(object)[0]];
+    if (!secondObj.type && !secondObj.name) {
+      level++;
+      getDepth(secondObj);
+    }
+  });
+  getDepth(object);
+  return level;
 };

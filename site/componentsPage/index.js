@@ -14,7 +14,7 @@
     },
 */
 export default {
-  documents: {
+  development: {
     'quickStart': {
       type: 'markdown',
       name: '快速上手',
@@ -61,7 +61,7 @@ export default {
       },
     }
   },
-  list: {
+  general: {
     '基础组件 Basic': {
       'button': {
         type: 'markdown',
