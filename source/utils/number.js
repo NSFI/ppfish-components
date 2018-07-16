@@ -1,8 +1,19 @@
+/**
+ * 千位分隔符
+ * @param str
+ * @param format
+ * @returns {string}
+ */
 export const thousandSplit = (str, format = ',') => {
   if (typeof str !== 'number') return str;
   return ('' + str).replace(/(?!^)(?=([0-9]{3})+$)/g, `${format}`);
 };
 
+/**
+ * 数字转化为km单位的字符串
+ * @param num
+ * @returns {string}
+ */
 export const radiusFormat = (num) => {
   if (typeof num !== 'number') return num;
   const k = 1000;
@@ -13,7 +24,12 @@ export const radiusFormat = (num) => {
   }
 };
 
-//阿拉伯数字转换为简写汉字
+/**
+ * 阿拉伯数字转换为简写汉字
+ * @param Num
+ * @returns {string}
+ * @constructor
+ */
 export const Arabia_To_SimplifiedChinese = (Num) => {
   for (let i = Num.length - 1; i >= 0; i--) {
     Num = Num.replace(",", ""); //替换Num中的“,”
@@ -76,4 +92,22 @@ export const Arabia_To_SimplifiedChinese = (Num) => {
     newchar = newchar.substr(0, newchar.length - 1);
   }
   return newchar;
+};
+
+/**
+ * 将字节数转化为不同单位的容量
+ * @param bytes
+ * @returns {string}
+ */
+export const bytesToSize = (bytes) => {
+  if (bytes === 0) return '0 B';
+  let k = 1024,
+    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+    i = Math.floor(Math.log(bytes) / Math.log(k));
+  const size = (bytes / Math.pow(k, i));
+  if (Number.isNaN(size)) {
+    return '未知';
+  } else {
+    return `${size.toPrecision(3)} ${sizes[i]}`;
+  }
 };
