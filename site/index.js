@@ -22,7 +22,7 @@ render(<AppContainer>
 </AppContainer>, document.getElementById('app'));
 
 if (module.hot) {
-  module.hot.accept('./components', () => {
+  module.hot.accept('./pages/components', () => {
     const Components = require('./pages/components').default;
     render(<AppContainer>
       <Router history={hashHistory}>

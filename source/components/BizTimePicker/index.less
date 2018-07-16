@@ -1,7 +1,7 @@
 @import "../../assets/css/lib/ant-theme-vars";
 @import (reference) "../../assets/css/common/mixin";
 
-@prefixClass: ~'time-picker';
+@prefixClass: ~'biz-time-picker';
 
 .@{prefixClass}-container {
   .clearfix();
@@ -37,21 +37,21 @@
     color: @primary-color;
     background: @item-hover-bg;
   }
+}
 
-  //自定义时间的样式
-  .time-picker-customer-time {
-    border-top: solid 1px rgba(235, 237, 240, 0.9);
-    margin: 10px 20px;
-    padding: 14px 0 20px 0;
-    .time-picker-customer-time-text {
-      margin-bottom: 14px;
-      color: @text-9;
-    }
+//自定义时间的样式
+.@{prefixClass}-customer-time {
+  border-top: solid 1px rgba(235, 237, 240, 0.9);
+  margin: 10px 20px;
+  padding: 14px 0 20px 0;
+  .@{prefixClass}-customer-time-text {
+    margin-bottom: 14px;
+    color: @text-9;
   }
 }
 
 //下拉按钮的样式
-.time-picker-click-area {
+.@{prefixClass}-click-area {
   float: left;
   min-width: 110px;
   height: 40px;
@@ -61,7 +61,7 @@
   text-align: center;
   cursor: pointer;
   box-shadow: @box-shadow-base;
-  .time-picker-click-area-icon {
+  .@{prefixClass}-click-area-icon {
     transition: transform 0.5s;
     display: inline-block;
     i {
@@ -75,6 +75,6 @@
     margin-left: 8px;
   }
 }
-.time-picker-click-area:hover {
+.@{prefixClass}-click-area:hover {
   color: @primary-color;
 }
