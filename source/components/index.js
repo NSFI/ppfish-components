@@ -11,6 +11,7 @@ import PicturePreview from './PicturePreview';
 import RichEditor from './RichEditor';
 import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
+import Tabs from './Tabs';
 import TextOverflow from './TextOverflow';
 import VideoViewer from './VideoViewer';
 
@@ -28,5 +29,6 @@ export {PicturePreview};
 export {RichEditor};
 export {SearchInput};
 export {StickVerticalMenu};
+export {Tabs};
 export {TextOverflow};
 export {VideoViewer};
