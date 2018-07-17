@@ -11,9 +11,9 @@ import PicturePreview from './PicturePreview';
 import RichEditor from './RichEditor';
 import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
-import Tabs from './Tabs';
+import Tabs2 from './Tabs';
 import TextOverflow from './TextOverflow';
-import TreeSelect from './TreeSelect2';
+import TreeSelect2 from './TreeSelect2';
 import VideoViewer from './VideoViewer';
 
 // 通用组件从这里暴露
@@ -30,7 +30,7 @@ export {PicturePreview};
 export {RichEditor};
 export {SearchInput};
 export {StickVerticalMenu};
-export {Tabs};
+export {Tabs2};
 export {TextOverflow};
-export {TreeSelect};
+export {TreeSelect2};
 export {VideoViewer};
