@@ -116,6 +116,10 @@ export default {
         type: 'markdown',
         name: 'Tabs 标签页',
       },
+      'treeSelect2': {
+        type: 'markdown',
+        name: 'TreeSelect 树形选择',
+      },
       'audioPlayer': {
         type: 'markdown',
         name: 'AudioPlayer 音频播放器',

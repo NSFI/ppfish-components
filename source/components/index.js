@@ -13,6 +13,7 @@ import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
 import Tabs from './Tabs';
 import TextOverflow from './TextOverflow';
+import TreeSelect from './TreeSelect2';
 import VideoViewer from './VideoViewer';
 
 // 通用组件从这里暴露
@@ -31,4 +32,5 @@ export {SearchInput};
 export {StickVerticalMenu};
 export {Tabs};
 export {TextOverflow};
+export {TreeSelect};
 export {VideoViewer};
