@@ -112,6 +112,10 @@ export default {
         type: 'markdown',
         name: 'RichEditor 富文本编辑器',
       },
+      'tabs': {
+        type: 'markdown',
+        name: 'Tabs 标签页',
+      },
       'audioPlayer': {
         type: 'markdown',
         name: 'AudioPlayer 音频播放器',
