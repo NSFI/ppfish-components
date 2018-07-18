@@ -14,7 +14,7 @@
 
 //下拉内容的样式
 .@{prefixClass}-content {
-  width: 388px;
+  min-width: 318px;
   //链接的样式
   .quick-picker-item {
     display: block;
@@ -73,6 +73,9 @@
   }
   span + span {
     margin-left: 8px;
+  }
+  &.disabled {
+    cursor: not-allowed;
   }
 }
 .@{prefixClass}-click-area:hover {
