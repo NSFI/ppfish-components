@@ -10,22 +10,24 @@
 
 :::demo 最简单的用法。
 
-```js
-	constructor(props){
-		super(props)
-		this.state = {
-			value: undefined,
-		}
-	}
+```js  
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    	value: undefined,
+    }
+  }
+
   onChange = (value) => {
     console.log(value);
     this.setState({ value });
   }
 
   render() {
-    const TreeNode = TreeSelect.TreeNode;
+    const TreeNode = TreeSelect2.TreeNode;
     return (
-      <TreeSelect
+      <TreeSelect2
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -42,7 +44,7 @@
             <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
           </TreeNode>
         </TreeNode>
-      </TreeSelect>
+      </TreeSelect2>
     );
   }
 
@@ -53,6 +55,7 @@
 
 :::demo 使用 `treeData` 把 JSON 数据直接生成树结构。
 ```js
+
   state = {
     value: undefined,
   }
@@ -61,6 +64,7 @@
     console.log(value);
     this.setState({ value });
   }
+
   render() {
     const treeData = [{
     label: 'Node1',
@@ -81,7 +85,7 @@
     key: '0-1',
     }];
     return (
-      <TreeSelect
+      <TreeSelect2
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -103,16 +107,17 @@
 
 
 ```js
+
   state = {
     value: ['0-0-0'],
   }
+
   onChange = (value) => {
     console.log('onChange ', value);
     this.setState({ value });
   }
 
   render() {
-		const SHOW_PARENT = TreeSelect.SHOW_PARENT;
 		const treeData = [{
 			label: 'Node1',
 			value: '0-0',
@@ -145,13 +150,12 @@
       value: this.state.value,
       onChange: this.onChange,
       treeCheckable: true,
-      showCheckedStrategy: SHOW_PARENT,
       searchPlaceholder: 'Please select',
       style: {
         width: 300,
       },
     };
-    return <TreeSelect {...tProps} />;
+    return <TreeSelect2 {...tProps} />;
   }
 ```
 :::
