@@ -17,15 +17,12 @@ import TreeSelect2 from './TreeSelect2';
 import VideoViewer from './VideoViewer';
 
 //<!--utils相关
-import * as browser from '../utils/browser';
-import * as screen from '../utils/screen';
+import * as bom from '../utils/bom';
 import * as dom from '../utils/dom';
-import * as ajax from '../utils/ajax';
 import * as number from '../utils/number';
-import * as string from '../utils/string';
-import * as time from '../utils/time';
-import * as upload from '../utils/upload';
 import {iframeC} from '../utils/iframeC';
+import * as other from '../utils/other';
+import * as upload from '../utils/upload';
 //-->utils相关
 
 // 通用组件从这里暴露
@@ -47,9 +44,7 @@ export {TextOverflow};
 export {TreeSelect2};
 export {VideoViewer};
 
-const bom=Object.assign(browser,screen);
-const tool=Object.assign(number,string,time);
-const util={
-  bom,dom,ajax,tool,upload,iframeC
-}
+const util = {
+  bom, dom, number, other, upload, iframeC
+};
 export {util};

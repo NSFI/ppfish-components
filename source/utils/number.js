@@ -10,21 +10,6 @@ export const thousandSplit = (str, format = ',') => {
 };
 
 /**
- * 数字转化为km单位的字符串
- * @param num
- * @returns {string}
- */
-export const radiusFormat = (num) => {
-  if (typeof num !== 'number') return num;
-  const k = 1000;
-  if (Math.abs(num) < k) {
-    return `${num}m`;
-  }else{
-    return Math.floor(num/1000*100)/100+'km';
-  }
-};
-
-/**
  * 阿拉伯数字转换为简写汉字
  * @param Num
  * @returns {string}
