@@ -12,85 +12,84 @@ const { RangePicker } = DatePicker;
 // 默认快速选择时间选项
 const defaultQuickTimeOption = [
   { text: '今天', value: [moment(), moment()] },
-  { text: '这个月', value: [moment(), moment().endOf('month')] },
+  { text: '这个月', value: [moment(), moment().endOf('month')] }
 ];
 
-// 默认时间传进来有两种格式：{ text: '今天', value: [moment(), moment()] } 或 [moment, moment]
-const getValueFromDefaultTime = (defaultValue) => {
+// 时间传进来有两种格式：{ text: '今天', value: [moment(), moment()] } 或 [moment, moment]
+const getValueFromTime = (value) => {
   let result = [];
-  if(Array.isArray(defaultValue) && defaultValue.length === 2) {
-    result = defaultValue;
-  }else if(defaultValue instanceof Object && 'value' in defaultValue) {
-    result = defaultValue.value;
+  if(Array.isArray(value) && value.length === 2) {
+    result = value;
+  }else if(value instanceof Object && 'value' in value) {
+    result = value.value;
   }
   return result;
 };
 
-const getShowDateFromValue = (value) => {
+const getShowDateFromValue = (value, format) => {
   let result = { text: null, value: null };
   if(value instanceof Object && 'text' in value && 'value' in value) {
     result = value;
   }else if(Array.isArray(value) && value.length === 2) {
-    result = { text: value, value: value}
+    result = { text: `${value[0].format(format)} ~ ${value[1].format(format)}` , value: value};
   }
   return result;
 };
 
-// const getShowDateFromValue = (value) => {
-//   const [start, end] = value;
-//   // value could be an empty array, then we should not reset showDate
-//   if (!start && !end) {
-//     return;
-//   }
-//   const newEnd = end && end.isSame(start, 'month') ? end.clone().add(1, 'month') : end;
-//   return [start, newEnd];
-// };
-
 class BizTimePicker extends React.Component {
 
   static propTypes = {
-    prefixCls: PropTypes.string,         //前缀
-    clickAreaStyle: PropTypes.object,   //点击区域的样式
-    defaultValue: PropTypes.oneOfType([  //默认时间
+    className: PropTypes.string,          //选择器 className
+    prefixCls: PropTypes.string,          //前缀
+    clickAreaStyle: PropTypes.object,     //点击区域的样式
+    quickTimeOption: PropTypes.array,     //快速选择时间选项
+    defaultValue: PropTypes.oneOfType([   //默认时间
       PropTypes.array,
       PropTypes.object,
     ]),
-    value: PropTypes.array,              //value值
-    quickTimeOption: PropTypes.array,  //快速选择时间选项
-    maxDateRange: PropTypes.number,    //最大可选择的日期范围，单位 天
-    dateFormat: PropTypes.string,      //日期展示格式
-    allowClear: PropTypes.bool,        //是否显示日历的清除按钮
-    open: PropTypes.bool,              //用于手动控制浮层显隐
-    disabledDate: PropTypes.func,       //不可选择的日期
-    onChange: PropTypes.func,           //时间发生变化的回调
+    value: PropTypes.array,
+    open: PropTypes.bool,               //用于手动控制浮层显隐
+    disabled: PropTypes.bool,           //禁用
+    maxDateRange: PropTypes.number,     //最大可选择的日期范围，单位 天
     onOpenChange: PropTypes.func,       //弹出或关闭浮层的回调
+    onChange: PropTypes.func,
+    format: PropTypes.string,
+    disabledDate: PropTypes.func,
+    renderExtraFooter: PropTypes.func,
+    showTime: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.bool
+    ]),
+    onOk: PropTypes.func,
+    getPopupContainer: PropTypes.func
   }
 
   static defaultProps = {
+    className: '',
     prefixCls: 'biz-time-picker',
-    clickAreaStyle: null,
-    defaultValue: defaultQuickTimeOption[0],
-    value: null,
     quickTimeOption: defaultQuickTimeOption,
-    maxDateRange: null,
-    dateFormat: "YYYY/MM/DD",
-    allowClear: false,
+    defaultValue: defaultQuickTimeOption[0],
     open: false,
-    disabledDate: () => {},
+    disabled: false,
+    maxDateRange: null,
+    onOpenChange: () => {},
     onChange: () => {},
-    onOpenChange: ()=>{},
+    format: 'YYYY/MM/DD',
+    disabledDate: () => {},
+    renderExtraFooter: null,
+    showTime: false,
+    onOk: ()=>{}
   }
 
   constructor(props) {
     super(props);
-    const value = props.value || getValueFromDefaultTime(props.defaultValue) || [];
+    const value = getValueFromTime(props.value || props.defaultValue);
     if( value[0] && !moment.isMoment(value[0]) || !value[1] && moment.isMoment(value[1]) ) {
       throw new Error('The value/defaultValue of BizTimePicker must be a moment object array');
     }
     this.state = {
-      value,
-      showDate: getShowDateFromValue(props.value || props.defaultValue || []),
-      open: props.open,
+      showDate: getShowDateFromValue(props.value || props.defaultValue || props.quickTimeOption[0], props.format),
+      open: props.open
     };
   }
 
@@ -98,8 +97,7 @@ class BizTimePicker extends React.Component {
     if ('value' in nextProps) {
       const value = nextProps.value || [];
       this.setState({
-        value,
-        showDate: getShowDateFromValue(value) || this.state.showDate,
+        showDate: getShowDateFromValue(value, this.props.format) || this.state.showDate,
       });
     }
     if('open' in nextProps && this.props.open != nextProps.open){
@@ -109,52 +107,87 @@ class BizTimePicker extends React.Component {
     }
   }
 
+  // 快速时间选择
   handleQickTime(item) {
     this.setState({
       showDate: item,
-      open: false,
-    }, () => {
-      this.props.onChange(item);
-    });
-  }
-
-  handleCustomerTime = (date, dateString) => {
-    const maxRange = this.props.maxDateRange;
-    if(maxRange && maxRange > 0) {
-      if(date.length === 2 && (date[1].valueOf() - date[0].valueOf()) / 86400000 + 1 > maxRange){
-        message.error('最大选择范围不能超过'+maxRange+'天');
-        return;
-      }
-    }
-    const timeString = dateString[0] + ' ~ ' + dateString[1];
-    this.setState({
-      showDate: {
-        text: timeString,
-        value: timeString
-      },
       open: false,
     }, () => {
       this.props.onChange(this.state.showDate);
     });
   }
 
+  // 自定义时间选择
+  handleCustomerTimeChange = (date, dateString) => {
+    const maxRange = this.props.maxDateRange;
+    if(maxRange && maxRange > 0) {
+      if(date.length === 2 && date[1].diff(date[0],'days') + 1 > maxRange) {
+        message.error('最大选择范围不能超过'+maxRange+'天');
+        return;
+      }
+    }
+    const timeString = dateString[0] + ' ~ ' + dateString[1];
+
+    // 不需要选时间时，直接关闭弹出层
+    if(!this.props.showTime) {
+      this.setState({
+        open: false,
+      });
+    }
+
+    this.setState({
+      showDate: {
+        text: timeString,
+        value: date
+      },
+    }, () => {
+      this.props.onChange(this.state.showDate);
+    });
+  }
+
+  // 打开、关闭Popover
   handleVisibleChange = (open) => {
-    this.setState({ open },()=>{
-      this.props.onOpenChange(this.state.open);
+    if(!this.props.disabled) {
+      this.setState({ open }, () => {
+        this.props.onOpenChange(open);
+      });
+    }
+  }
+
+  // 点击时间选择的确定按钮
+  handleClickOk = (value) => {
+    this.setState({
+      open: false,
+    },() => {
+      this.props.onOk(value);
     });
   }
 
   render() {
     const {
+      className,
       prefixCls,
       quickTimeOption,
-      dateFormat,
-      allowClear,
-      disabledDate,
       clickAreaStyle,
-    } = this.props;
-    const { showDate, open, value } = this.state;
+      defaultValue,
+      disabled,
+      maxDateRange,
+      onChange,
+      onOpenChange,
+      getPopupContainer,
 
+      disabledDate,
+      format,
+      renderExtraFooter,
+      showTime,
+      onOk
+    } = this.props;
+    const { showDate, open } = this.state;
+
+    const clickAreaClass = classNames({
+      [`${prefixCls}-click-area`]: true,
+      'disabled': disabled
+    });
     const clickAreaIconClass = classNames({
       [`${prefixCls}-click-area-icon`]: true,
       'icon-active': open
@@ -178,27 +211,32 @@ class BizTimePicker extends React.Component {
         <div className={`${prefixCls}-customer-time`} ref="time-picker-customer-time">
           <div className={`${prefixCls}-customer-time-text`}>自定义时间</div>
           <RangePicker
-            allowClear={allowClear}
+            allowClear={false}
+            autoFocus={false}
             disabledDate={disabledDate}
-            format={dateFormat}
+            format={format}
+            renderExtraFooter={renderExtraFooter}
+            showTime={showTime}
+            onOk={this.handleClickOk}
+            value={showDate.value}
             getCalendarContainer={()=>this.refs['time-picker-customer-time']}
-            onChange={this.handleCustomerTime}
+            onChange={this.handleCustomerTimeChange}
           />
         </div>
       </div>
     );
 
     return (
-      <div className={`${prefixCls}-container`} ref="time-picker-container">
+      <div className={[`${prefixCls}-container`, className].join(' ')} >
         <Popover
           placement="bottomLeft"
-          content={content}
           trigger="click"
+          content={content}
           visible={open}
           onVisibleChange={this.handleVisibleChange}
-          getPopupContainer={()=>this.refs['time-picker-container']}
+          getPopupContainer={getPopupContainer}
         >
-          <div className={`${prefixCls}-click-area`} style={clickAreaStyle}>
+          <div className={clickAreaClass} style={clickAreaStyle}>
             <span className={`${prefixCls}-click-area-text`}>{showDate.text}</span>
             <span className={clickAreaIconClass} >
               <i className="iconfont icon-xiajiantou" />
