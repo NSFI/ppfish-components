@@ -16,6 +16,15 @@ import TextOverflow from './TextOverflow';
 import TreeSelect2 from './TreeSelect2';
 import VideoViewer from './VideoViewer';
 
+//<!--utils相关
+import * as bom from '../utils/bom';
+import * as dom from '../utils/dom';
+import * as number from '../utils/number';
+import {iframeC} from '../utils/iframeC';
+import * as other from '../utils/other';
+import * as upload from '../utils/upload';
+//-->utils相关
+
 // 通用组件从这里暴露
 export {AnimationImageLoader};
 export {AudioPlayer};
@@ -34,3 +43,8 @@ export {Tabs2};
 export {TextOverflow};
 export {TreeSelect2};
 export {VideoViewer};
+
+const util = {
+  bom, dom, number, other, upload, iframeC
+};
+export {util};

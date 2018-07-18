@@ -3,8 +3,18 @@ import PropTypes from 'prop-types';
 import {Table} from 'antd';
 import './index.less';
 import {PAGE_SIZE} from '../../constants';
-import {setRowActive} from '../../utils';
+import {getSiblings} from '../../utils';
 import BizTableSorter from './BizTableSorter';
+
+/**
+ * 设置Table列表激活样式
+ * @description 策划要求：被点击的列表加载active样式
+ * @param {object} node - 所需要添加样式的节点或子节点
+ */
+const setRowActive = (node) => {
+  node.classList.add('row-active');
+  getSiblings(node).map((i) => i.classList.remove('row-active'));
+};
 
 /**
  * Prophet常规Table
