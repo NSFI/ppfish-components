@@ -1,4 +1,5 @@
+export * from './bom';
+export * from './dom';
 export * from './number';
-export * from './table';
-export * from './time';
-export * from './screen';
+export * from './other';
+
