@@ -23,14 +23,14 @@ callback=(key)=> {
 };
 
 render(){
-  const TabPane = Tabs.TabPane;
+  const TabPane = Tabs2.TabPane;
   return(
-     <Tabs defaultActiveKey="1" onChange={this.callback}>
-        <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
-        <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
-        <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
-      </Tabs>
-  )
+    <Tabs2 defaultActiveKey="1" onChange={this.callback}>
+      <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
+      <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
+      <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
+    </Tabs2>
+  );
 }
 ```
 :::
@@ -41,13 +41,13 @@ render(){
 
 ```js
 render(){
-  const TabPane = Tabs.TabPane;
+  const TabPane = Tabs2.TabPane;
   return(
-     <Tabs defaultActiveKey="1">
+     <Tabs2 defaultActiveKey="1">
         <TabPane tab="Tab 1" key="1">Tab 1</TabPane>
         <TabPane tab="Tab 2" disabled key="2">Tab 2</TabPane>
         <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
-      </Tabs>
+      </Tabs2>
   )
 }
 ```
@@ -59,16 +59,16 @@ render(){
 
 ```js
 render(){
-  const TabPane = Tabs.TabPane;
+  const TabPane = Tabs2.TabPane;
   return(
-      <Tabs defaultActiveKey="2">
-        <TabPane tab={<span><Icon type="apple" />Tab 1</span>} key="1">
-          Tab 1
-        </TabPane>
-        <TabPane tab={<span><Icon type="android" />Tab 2</span>} key="2">
-          Tab 2
-        </TabPane>
-      </Tabs>
+    <Tabs2 defaultActiveKey="2">
+      <TabPane tab={<span><Icon type="apple" />Tab 1</span>} key="1">
+        Tab 1
+      </TabPane>
+      <TabPane tab={<span><Icon type="android" />Tab 2</span>} key="2">
+        Tab 2
+      </TabPane>
+    </Tabs2>
   )
 }
 ```
@@ -93,14 +93,14 @@ render(){
 
   render() {
     const { mode } = this.state;
-    const TabPane = Tabs.TabPane;
+    const TabPane = Tabs2.TabPane;
     return (
       <div>
         <Radio.Group onChange={this.handleModeChange} value={mode} style={{ marginBottom: 8 }}>
           <Radio.Button value="top">Horizontal</Radio.Button>
           <Radio.Button value="left">Vertical</Radio.Button>
         </Radio.Group>
-        <Tabs
+        <Tabs2
           defaultActiveKey="1"
           tabPosition={mode}
           style={{ height: 220 }}
@@ -116,7 +116,7 @@ render(){
           <TabPane tab="Tab 9" key="9">Content of tab 9</TabPane>
           <TabPane tab="Tab 10" key="10">Content of tab 10</TabPane>
           <TabPane tab="Tab 11" key="11">Content of tab 11</TabPane>
-        </Tabs>
+        </Tabs2>
       </div>
     );
   }
@@ -129,13 +129,13 @@ render(){
 
 ```js
 render(){
-  const TabPane = Tabs.TabPane;
+  const TabPane = Tabs2.TabPane;
   return(
-      <Tabs tabBarExtraContent={ <Button>Extra Action</Button>}>
+      <Tabs2 tabBarExtraContent={ <Button>Extra Action</Button>}>
         <TabPane tab="Tab 1" key="1">Content of tab 1</TabPane>
         <TabPane tab="Tab 2" key="2">Content of tab 2</TabPane>
         <TabPane tab="Tab 3" key="3">Content of tab 3</TabPane>
-      </Tabs>
+      </Tabs2>
   )
 }
 ```
@@ -153,7 +153,7 @@ render(){
   }
 
   render() {
-    const { TabPane } = Tabs;
+    const { TabPane } = Tabs2;
     const { size } = this.state;
     return (
       <div>
@@ -162,11 +162,11 @@ render(){
           <Radio.Button value="default">Default</Radio.Button>
           <Radio.Button value="large">Large</Radio.Button>
         </Radio.Group>
-        <Tabs defaultActiveKey="1" size={size}>
+        <Tabs2 defaultActiveKey="1" size={size}>
           <TabPane tab="Tab 1" key="1">Content of tab 1</TabPane>
           <TabPane tab="Tab 2" key="2">Content of tab 2</TabPane>
           <TabPane tab="Tab 3" key="3">Content of tab 3</TabPane>
-        </Tabs>
+        </Tabs2>
       </div>
     );
   }
@@ -188,7 +188,7 @@ render(){
   }
 
   render() {
-    const TabPane = Tabs.TabPane;
+    const TabPane = Tabs2.TabPane;
     const Option = Select.Option;
     return (
       <div>
@@ -205,11 +205,11 @@ render(){
             <Option value="right">right</Option>
           </Select>
         </div>
-        <Tabs tabPosition={this.state.tabPosition}>
+        <Tabs2 tabPosition={this.state.tabPosition}>
           <TabPane tab="Tab 1" key="1">Content of Tab 1</TabPane>
           <TabPane tab="Tab 2" key="2">Content of Tab 2</TabPane>
           <TabPane tab="Tab 3" key="3">Content of Tab 3</TabPane>
-        </Tabs>
+        </Tabs2>
       </div>
     );
   }
@@ -226,13 +226,13 @@ callback=(key)=> {
 }
 
 render(){
-  const TabPane = Tabs.TabPane;
+  const TabPane = Tabs2.TabPane;
   return(
-     <Tabs onChange={this.callback} type="card">
+     <Tabs2 onChange={this.callback} type="card">
         <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
         <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
         <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
-      </Tabs>
+      </Tabs2>
   )
 }
 ```
@@ -289,16 +289,16 @@ render(){
   }
 
   render() {
-    const TabPane = Tabs.TabPane;
+    const TabPane = Tabs2.TabPane;
     return (
-      <Tabs
+      <Tabs2
         onChange={this.onChange}
         activeKey={this.state.activeKey}
         type="editable-card"
         onEdit={this.onEdit}
       >
         {this.state.panes.map(pane => <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{pane.content}</TabPane>)}
-      </Tabs>
+      </Tabs2>
     );
   }
 ```
@@ -310,10 +310,10 @@ render(){
 
 ```js
 render(){
-  const TabPane = Tabs.TabPane;
+  const TabPane = Tabs2.TabPane;
   return(
     <div className="card-container code-box-demo">
-        <Tabs type="card">
+        <Tabs2 type="card">
           <TabPane tab="Tab Title 1" key="1">
             <p>Content of Tab Pane 1</p>
             <p>Content of Tab Pane 1</p>
@@ -329,7 +329,7 @@ render(){
             <p>Content of Tab Pane 3</p>
             <p>Content of Tab Pane 3</p>
           </TabPane>
-        </Tabs>
+        </Tabs2>
       </div>
   )
 }
@@ -419,13 +419,13 @@ render(){
   }
 
   render() {
-    const TabPane = Tabs.TabPane;
+    const TabPane = Tabs2.TabPane;
     return (
       <div>
         <div style={{ marginBottom: 16 }}>
           <Button onClick={this.add}>ADD</Button>
         </div>
-        <Tabs
+        <Tabs2
           hideAdd
           onChange={this.onChange}
           activeKey={this.state.activeKey}
@@ -433,7 +433,7 @@ render(){
           onEdit={this.onEdit}
         >
           {this.state.panes.map(pane => <TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>)}
-        </Tabs>
+        </Tabs2>
       </div>
     );
   }
