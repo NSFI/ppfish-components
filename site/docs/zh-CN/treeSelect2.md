@@ -163,22 +163,21 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 容器类名 | string | '' |
-| defaultValue | 指定默认选中的条目 | string/string\[] | - |
+| defaultValue | 指定默认选中的条目 | string | - |
 | disabled | 是否禁用 | boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | boolean | true |
 | dropdownStyle | 下拉菜单的样式 | object | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | Function(triggerNode) | () => document.body |
-| labelInValue | 是否把每个选项的 label 包装到 value 中，会把 value 类型从 `string` 变为 `{value: string, label: ReactNode, halfChecked(treeCheckStrictly 时有效): string[] }` 的格式 | boolean | false |
 | loadData | 异步加载数据 | function(node) | - |
 | placeholder | 选择框默认提示文字 | string | - |
 | size | 选择框大小，可选 `large` `small` | string | 'default' |
 | treeCheckable | 显示 checkbox | boolean | false |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一） | array&lt;{value, label, children, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | \[] |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一） | array<{value, label, children, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | boolean | false |
-| treeDefaultExpandedKeys | 默认展开的树节点 | string\[] | - |
+| treeDefaultExpandedKeys | 默认展开的树节点 | array | - |
 | treeNodeResetLabel | 复位选项的默认文字 | string | '不选择任何分类' |
-| value | 指定当前选中的条目 | string/string\[] | - |
+| value | 指定当前选中的条目 | string | - |
 | onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
 | onSelect | 被选中时调用 | function(value, node, extra) | - |
 
