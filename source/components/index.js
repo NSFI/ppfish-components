@@ -25,7 +25,7 @@ import * as number from '../utils/number';
 import * as string from '../utils/string';
 import * as time from '../utils/time';
 import * as upload from '../utils/upload';
-import {iframeC} from './src/utils/iframeC';
+import {iframeC} from '../utils/iframeC';
 //-->utils相关
 
 // 通用组件从这里暴露
