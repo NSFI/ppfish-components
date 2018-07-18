@@ -33,3 +33,40 @@ const config ={
   isRedirectLogin: true,
   useFrontCookie:true
 };
+增加方法initConfig,用于初始化基本配置信息
+
+##建议export配置
+```js
+import * as browser from '../utils/browser';
+import * as screen from '../utils/screen';
+
+import * as dom from '../utils/dom';
+
+import * as ajax from '../utils/ajax';
+
+import * as number from '../utils/number';
+import * as string from '../utils/string';
+import * as time from '../utils/time';
+
+import * as upload from '../utils/upload';
+
+import {iframeC} from './src/utils/iframeC';
+
+const bom=Object.assign(browser,screen);
+const tool=Object.assign(number,string,time);
+
+const util={
+  bom,dom,ajax,tool,upload,iframeC
+}
+
+export {util};
+```
+## Usage
+
+```js
+import util from 'ppfish';
+
+util.dom.getSiblings(e);
+util.iframeC.openNumberInput();
+
+```
