@@ -5,6 +5,7 @@ import { Tabs as AntTabs } from 'antd';
 import './index.less';
 
 class Tabs extends Component {
+	static TabPane = AntTabs.TabPane;
 	static propTypes = {};
 	static defaultProps = {};
 
@@ -13,7 +14,11 @@ class Tabs extends Component {
   }
 
   render() {
-  	<AntTabs />
+  	return (
+  		<div className="m-tabs">
+  			<AntTabs {...this.props} />
+  		</div>
+  	);
   }
 }
 
