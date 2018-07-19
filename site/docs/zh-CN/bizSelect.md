@@ -366,7 +366,6 @@ render(){
 | onSearch | 文本框值变化时回调 | function(value: string) |  |
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | function(value, option:Option) | - |
 | onVisibleChange | 弹出框显示隐藏 | function(visible: boolean) |  |
-| zIndex | 弹出框z-index | number | 1050 |
 
 ### BizSelect.Option props
 
