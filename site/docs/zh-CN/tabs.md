@@ -81,6 +81,39 @@ render(){
 ```
 :::
 
+## 大小
+
+:::demo 大号页签用在页头区域，小号用在弹出框等较狭窄的容器内。
+
+```js
+  state = { size: 'small' };
+
+  onChange = (e) => {
+    this.setState({ size: e.target.value });
+  }
+
+  render() {
+    const { TabPane } = Tabs2;
+    const { size } = this.state;
+    return (
+      <div>
+        <Radio.Group value={size} onChange={this.onChange} style={{ marginBottom: 16 }}>
+          <Radio.Button value="small">Small</Radio.Button>
+          <Radio.Button value="default">Default</Radio.Button>
+          <Radio.Button value="large">Large</Radio.Button>
+        </Radio.Group>
+        <Tabs2 defaultActiveKey="1" size={size}>
+          <TabPane tab="Tab 1" key="1">Content of tab 1</TabPane>
+          <TabPane tab="Tab 2" key="2">Content of tab 2</TabPane>
+          <TabPane tab="Tab 3" key="3">Content of tab 3</TabPane>
+        </Tabs2>
+      </div>
+    );
+  }
+
+```
+:::
+
 ## 四种排版方式
 
 :::demo 有上、下、左、右四种排版方式，`tabPosition="left|right|top|bottom"`。
@@ -211,6 +244,76 @@ render(){
 ```
 :::
 
+## 自定义新增页签触发按钮
+
+:::demo 隐藏默认的页签增加图标，给自定义触发按钮绑定事件。
+
+```js
+  constructor(props) {
+    super(props);
+    this.newTabIndex = 0;
+    const panes = [
+      { title: 'Tab 1', content: 'Content of Tab Pane 1', key: '1' },
+      { title: 'Tab 2', content: 'Content of Tab Pane 2', key: '2' },
+    ];
+    this.state = {
+      activeKey: panes[0].key,
+      panes,
+    };
+  }
+
+  onChange = (activeKey) => {
+    this.setState({ activeKey });
+  }
+
+  onEdit = (targetKey, action) => {
+    this[action](targetKey);
+  }
+
+  add = () => {
+    const panes = this.state.panes;
+    const activeKey = `newTab${this.newTabIndex++}`;
+    panes.push({ title: 'New Tab', content: 'New Tab Pane', key: activeKey });
+    this.setState({ panes, activeKey });
+  }
+
+  remove = (targetKey) => {
+    let activeKey = this.state.activeKey;
+    let lastIndex;
+    this.state.panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1;
+      }
+    });
+    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+    if (lastIndex >= 0 && activeKey === targetKey) {
+      activeKey = panes[lastIndex].key;
+    }
+    this.setState({ panes, activeKey });
+  }
+
+  render() {
+    const TabPane = Tabs2.TabPane;
+    return (
+      <div>
+        <div style={{ marginBottom: 16 }}>
+          <Button onClick={this.add}>ADD</Button>
+        </div>
+        <Tabs2
+          hideAdd
+          onChange={this.onChange}
+          activeKey={this.state.activeKey}
+          type="editable-card"
+          onEdit={this.onEdit}
+        >
+          {this.state.panes.map(pane => <TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>)}
+        </Tabs2>
+      </div>
+    );
+  }
+```
+:::
+
 ## 分段式页签
 
 :::demo 分段式页签，不适用于纵向排版。
@@ -256,10 +359,8 @@ render(){
 | activeKey | 当前激活 tab 面板的 key | string | 无 |
 | animated | 是否使用动画切换 Tabs，在 `tabPosition=top\|bottom` 时有效 | boolean \| {inkBar:boolean, tabPane:boolean} | false, 当 type="line" 时为 true |
 | className | 容器类名 | string | 无 |
-| closable | 页签是否可以被关闭，在 `type="editable-card"` 时有效 | boolean | true |
 | defaultActiveKey | 初始化选中面板的 key，如果没有设置 activeKey | string | 第一个面板 |
 | hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | boolean | false |
-| newTabLabel | 新增页签的名称，在 `type="editable-card"` 时有效 | string | 'New Tab' |
 | size（包括区块长宽、文案字号，视觉定） | 大小，提供 `large`、`default` 和 `small` 三种大小 | string | 'default' |
 | tabBarExtraContent | tab bar 上额外的元素 | React.ReactNode | 无 |
 | tabBarGutter（视觉定） | tabs 之间的间隙，在 `type="section"\|"borderless-section"` 时无效 | number | 无 |
@@ -277,6 +378,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| closable | 页签是否可以被关闭，在 `type="editable-card"` 时有效 | boolean | true |
 | forceRender | 被隐藏时是否渲染 DOM 结构 | boolean | false |
 | key | 对应 activeKey | string | 无 |
 | tab | 选项卡头显示文字 | string\|ReactNode | 无 |
