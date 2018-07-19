@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Tabs as AntTabs } from 'antd';
+import BizLoading from '../BizLoading';
 import './index.less';
 
 class Tabs extends Component {
@@ -15,6 +16,7 @@ class Tabs extends Component {
 		className: PropTypes.string,
 		defaultActiveKey: PropTypes.string,
 		hideAdd: PropTypes.bool,
+		showLoading: PropTypes.bool,
 		// newTabLabel: PropTypes.string,
 		size: PropTypes.string,
 		tabBarExtraContent: PropTypes.node,
@@ -32,6 +34,7 @@ class Tabs extends Component {
 	static defaultProps = {
 		className: '',
 		hideAdd: false,
+		showLoading: false,
 		// newTabLabel: 'New Tab',
 		size: 'default',
 		tabPosition: 'top',
@@ -49,14 +52,17 @@ class Tabs extends Component {
   	const {
   		activeKey,
   		className,
+  		showLoading,
   		type
   	} = this.props;
-
     let tabsClass = classNames({
-        [this.clsPrefix]: true,
-        [this.clsPrefix + '-section']: type === 'section',
-        [this.clsPrefix + '-borderless-section']: type === 'borderless-section',
-        [className]: className !== ''
+      [this.clsPrefix]: true,
+      [this.clsPrefix + '-section']: type === 'section',
+      [this.clsPrefix + '-borderless-section']: type === 'borderless-section',
+      [className]: className !== ''
+    });
+    let loadingClass = classNames({
+			[this.clsPrefix + '-hide']: !showLoading
     });
 
   	return (
@@ -64,6 +70,7 @@ class Tabs extends Component {
   			<AntTabs 
   				{...this.props} 
 				/>
+				<BizLoading extraCls={loadingClass}/>
   		</div>
   	);
   }
