@@ -209,7 +209,7 @@
       line-height: 22px;
       font-weight: 400;
       color: @text-color;
-      &:hover {
+      &:hover:not(&-disabled) {
         background-color: @item-hover-bg;
       }
       &.checked {
@@ -232,7 +232,6 @@
       }
     }
     &-option-item-disabled {
-      background: @disabled-bg;
       color: @disabled-color;
       cursor: not-allowed;
     }
