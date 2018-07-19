@@ -63,7 +63,7 @@
     &-option-clearable-list {
       height: auto;
       margin: 0 0 3px 5px;
-      max-height: 32*3px;
+      max-height: 32*3 - 14px;
       line-height: @default-size-select-line-height;
       overflow: auto;
       .clearfix();
@@ -123,7 +123,7 @@
     min-height: @small-size-select;
     .@{biz-select-prefix}-selection-option-clearable-list {
       line-height: @small-size-select-line-height;
-      max-height: @small-size-select*3px;
+      max-height: @small-size-select*3 - 14px;
     }
 
     .@{biz-select-prefix}-selection-option-clearable-option {
@@ -148,7 +148,7 @@
     }
     .@{biz-select-prefix}-selection-option-clearable-list {
       line-height: @large-size-select-line-height;
-      max-height: @large-size-select*3px;
+      max-height: @large-size-select*3 - 14px;
     }
 
     .@{biz-select-prefix}-selection-option-clearable-option {
