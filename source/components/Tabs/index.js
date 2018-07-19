@@ -12,11 +12,10 @@ class Tabs extends Component {
 			PropTypes.bool,
 			PropTypes.object
 		]),
-		className: PropTypes.string,
-		closable: PropTypes.bool,
+		className: PropTypes.string,	// TODO£ºÌí¼Ó class
 		defaultActiveKey: PropTypes.string,
 		hideAdd: PropTypes.bool,
-		newTabLabel: PropTypes.string,
+		// newTabLabel: PropTypes.string,
 		size: PropTypes.string,
 		tabBarExtraContent: PropTypes.node,
 		tabBarGutter: PropTypes.number,
@@ -31,7 +30,6 @@ class Tabs extends Component {
 		onTabClick: PropTypes.func,
 	};
 	static defaultProps = {
-		closable: true,
 		hideAdd: false,
 		newTabLabel: 'New Tab',
 		size: 'default',
