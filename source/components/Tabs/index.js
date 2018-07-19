@@ -12,7 +12,7 @@ class Tabs extends Component {
 			PropTypes.bool,
 			PropTypes.object
 		]),
-		className: PropTypes.string,	// TODO£ºÌí¼Ó class
+		className: PropTypes.string,
 		defaultActiveKey: PropTypes.string,
 		hideAdd: PropTypes.bool,
 		// newTabLabel: PropTypes.string,
@@ -30,6 +30,7 @@ class Tabs extends Component {
 		onTabClick: PropTypes.func,
 	};
 	static defaultProps = {
+		className: '',
 		hideAdd: false,
 		newTabLabel: 'New Tab',
 		size: 'default',
@@ -47,13 +48,15 @@ class Tabs extends Component {
   render() {
   	const {
   		activeKey,
+  		className,
   		type
   	} = this.props;
 
     let tabsClass = classNames({
         [this.clsPrefix]: true,
         [this.clsPrefix + '-section']: type === 'section',
-        [this.clsPrefix + '-borderless-section']: type === 'borderless-section'
+        [this.clsPrefix + '-borderless-section']: type === 'borderless-section',
+        [className]: className !== ''
     });
 
   	return (
