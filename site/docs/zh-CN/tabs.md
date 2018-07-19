@@ -13,70 +13,28 @@ Fish Design 提供了四种不同样式的选项卡，分别用于不同的场�
 - 分段式页签，一般仅在页面顶部使用，不适用于纵向排版。
 - 无边框分段式页签，常用于较低层级的菜单，一般仅在页面顶部使用，不适用于纵向排版。
 
-## 基本
+## 标准线条式页签
 
 :::demo 默认选中第一项。
-
-```js
-callback=(key)=> {
-  console.log(key);
-};
-
-render(){
-  const TabPane = Tabs2.TabPane;
-  return(
-    <Tabs2 defaultActiveKey="1" onChange={this.callback}>
-      <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
-      <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
-      <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
-    </Tabs2>
-  );
-}
-```
-:::
-
-## 禁用
-
-:::demo 禁用某一项。
+可以设置禁用某一项。
 
 ```js
 render(){
   const TabPane = Tabs2.TabPane;
   return(
-     <Tabs2 defaultActiveKey="1">
-        <TabPane tab="Tab 1" key="1">Tab 1</TabPane>
-        <TabPane tab="Tab 2" disabled key="2">Tab 2</TabPane>
-        <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
-      </Tabs2>
-  )
-}
-```
-:::
-
-## 图标
-
-:::demo 有图标的标签。
-
-```js
-render(){
-  const TabPane = Tabs2.TabPane;
-  return(
-    <Tabs2 defaultActiveKey="2">
-      <TabPane tab={<span><Icon type="apple" />Tab 1</span>} key="1">
-        Tab 1
-      </TabPane>
-      <TabPane tab={<span><Icon type="android" />Tab 2</span>} key="2">
-        Tab 2
-      </TabPane>
+    <Tabs2 defaultActiveKey="1">
+      <TabPane tab="Tab 1" key="1">Tab 1</TabPane>
+      <TabPane tab="Tab 2" disabled key="2">Tab 2</TabPane>
+      <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
     </Tabs2>
   )
 }
 ```
 :::
 
-## 滑动
+## 滚动
 
-:::demo 可以左右、上下滑动，容纳更多标签。
+:::demo 可以左右、上下滚动，容纳更多标签。
 
 ```js
   constructor(props) {
@@ -123,60 +81,9 @@ render(){
 ```
 :::
 
-## 附加内容
+## 四种排版方式
 
-:::demo 可以在页签右边添加附加操作。
-
-```js
-render(){
-  const TabPane = Tabs2.TabPane;
-  return(
-      <Tabs2 tabBarExtraContent={ <Button>Extra Action</Button>}>
-        <TabPane tab="Tab 1" key="1">Content of tab 1</TabPane>
-        <TabPane tab="Tab 2" key="2">Content of tab 2</TabPane>
-        <TabPane tab="Tab 3" key="3">Content of tab 3</TabPane>
-      </Tabs2>
-  )
-}
-```
-:::
-
-## 大小
-
-:::demo 大号页签用在页头区域，小号用在弹出框等较狭窄的容器内。
-
-```js
-  state = { size: 'small' };
-
-  onChange = (e) => {
-    this.setState({ size: e.target.value });
-  }
-
-  render() {
-    const { TabPane } = Tabs2;
-    const { size } = this.state;
-    return (
-      <div>
-        <Radio.Group value={size} onChange={this.onChange} style={{ marginBottom: 16 }}>
-          <Radio.Button value="small">Small</Radio.Button>
-          <Radio.Button value="default">Default</Radio.Button>
-          <Radio.Button value="large">Large</Radio.Button>
-        </Radio.Group>
-        <Tabs2 defaultActiveKey="1" size={size}>
-          <TabPane tab="Tab 1" key="1">Content of tab 1</TabPane>
-          <TabPane tab="Tab 2" key="2">Content of tab 2</TabPane>
-          <TabPane tab="Tab 3" key="3">Content of tab 3</TabPane>
-        </Tabs2>
-      </div>
-    );
-  }
-
-```
-:::
-
-## 位置
-
-:::demo 有四个位置，`tabPosition="left|right|top|bottom"`。
+:::demo 有上、下、左、右四种排版方式，`tabPosition="left|right|top|bottom"`。
 
 ```js
   state = {
@@ -218,7 +125,7 @@ render(){
 
 ## 卡片式页签
 
-:::demo 另一种样式的页签，不提供对应的垂直样式。
+:::demo 常用于容器顶部，支持纵向排版。
 
 ```js
 callback=(key)=> {
@@ -238,9 +145,9 @@ render(){
 ```
 :::
 
-## 新增和关闭页签
+## 可增删的卡片式页签
 
-:::demo 只有卡片样式的页签支持新增和关闭选项。
+:::demo 支持新增和关闭页签。
 使用 `closable={false}` 禁止关闭。
 
 ```js
@@ -304,139 +211,39 @@ render(){
 ```
 :::
 
-## 卡片式页签容器
+## 分段式页签
 
-:::demo 用于容器顶部，需要一点额外的样式覆盖。
+:::demo 分段式页签，不适用于纵向排版。
 
 ```js
 render(){
   const TabPane = Tabs2.TabPane;
   return(
-    <div className="card-container code-box-demo">
-        <Tabs2 type="card">
-          <TabPane tab="Tab Title 1" key="1">
-            <p>Content of Tab Pane 1</p>
-            <p>Content of Tab Pane 1</p>
-            <p>Content of Tab Pane 1</p>
-          </TabPane>
-          <TabPane tab="Tab Title 2" key="2">
-            <p>Content of Tab Pane 2</p>
-            <p>Content of Tab Pane 2</p>
-            <p>Content of Tab Pane 2</p>
-          </TabPane>
-          <TabPane tab="Tab Title 3" key="3">
-            <p>Content of Tab Pane 3</p>
-            <p>Content of Tab Pane 3</p>
-            <p>Content of Tab Pane 3</p>
-          </TabPane>
-        </Tabs2>
-      </div>
+    <Tabs2 defaultActiveKey="1" type="section">
+      <TabPane tab="Tab 1" key="1">Tab 1</TabPane>
+      <TabPane tab="Tab 2" key="2">Tab 2</TabPane>
+      <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
+    </Tabs2>
   )
 }
 ```
 :::
 
-<style>
-.card-container > .ant-tabs-card > .ant-tabs-content {
-  height: 120px;
-  margin-top: -16px;
-}
+## 无边框分段式页签
 
-.card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
-  background: #fff;
-  padding: 16px;
-}
-
-.card-container > .ant-tabs-card > .ant-tabs-bar {
-  border-color: #fff;
-}
-
-.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
-  border-color: transparent;
-  background: transparent;
-}
-
-.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
-  border-color: #fff;
-  background: #fff;
-}
-</style>
-
-<style>
- .code-box-demo {
-  background: #F5F5F5;
-  overflow: hidden;
-  padding: 24px;
-}
-</style>
-
-## 自定义新增页签触发器
-
-:::demo 隐藏默认的页签增加图标，给自定义触发器绑定事件。
+:::demo 无边框分段式页签，不适用于纵向排版。
 
 ```js
-  constructor(props) {
-    super(props);
-    this.newTabIndex = 0;
-    const panes = [
-      { title: 'Tab 1', content: 'Content of Tab Pane 1', key: '1' },
-      { title: 'Tab 2', content: 'Content of Tab Pane 2', key: '2' },
-    ];
-    this.state = {
-      activeKey: panes[0].key,
-      panes,
-    };
-  }
-
-  onChange = (activeKey) => {
-    this.setState({ activeKey });
-  }
-
-  onEdit = (targetKey, action) => {
-    this[action](targetKey);
-  }
-
-  add = () => {
-    const panes = this.state.panes;
-    const activeKey = `newTab${this.newTabIndex++}`;
-    panes.push({ title: 'New Tab', content: 'New Tab Pane', key: activeKey });
-    this.setState({ panes, activeKey });
-  }
-
-  remove = (targetKey) => {
-    let activeKey = this.state.activeKey;
-    let lastIndex;
-    this.state.panes.forEach((pane, i) => {
-      if (pane.key === targetKey) {
-        lastIndex = i - 1;
-      }
-    });
-    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
-    if (lastIndex >= 0 && activeKey === targetKey) {
-      activeKey = panes[lastIndex].key;
-    }
-    this.setState({ panes, activeKey });
-  }
-
-  render() {
-    const TabPane = Tabs2.TabPane;
-    return (
-      <div>
-        <div style={{ marginBottom: 16 }}>
-          <Button onClick={this.add}>ADD</Button>
-        </div>
-        <Tabs2
-          hideAdd
-          onChange={this.onChange}
-          activeKey={this.state.activeKey}
-          type="editable-card"
-          onEdit={this.onEdit}
-        >
-          {this.state.panes.map(pane => <TabPane tab={pane.title} key={pane.key}>{pane.content}</TabPane>)}
-        </Tabs2>
-      </div>
-    );
-  }
+render(){
+  const TabPane = Tabs2.TabPane;
+  return(
+    <Tabs2 defaultActiveKey="1" type="borderless-section">
+      <TabPane tab="Tab 1" key="1">Tab 1</TabPane>
+      <TabPane tab="Tab 2" key="2">Tab 2</TabPane>
+      <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
+    </Tabs2>
+  )
+}
 ```
 :::
 
@@ -447,21 +254,21 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | activeKey | 当前激活 tab 面板的 key | string | 无 |
-| animated | 是否使用动画切换 Tabs，在 `tabPosition=top|bottom` 时有效 | boolean \| {inkBar:boolean, tabPane:boolean} | true, 当 type="card" 时为 false |
-| className | 容器类名 | string | '' |
+| animated | 是否使用动画切换 Tabs，在 `tabPosition=top\|bottom` 时有效 | boolean \| {inkBar:boolean, tabPane:boolean} | false, 当 type="line" 时为 true |
+| className | 容器类名 | string | 无 |
 | closable | 页签是否可以被关闭，在 `type="editable-card"` 时有效 | boolean | true |
 | defaultActiveKey | 初始化选中面板的 key，如果没有设置 activeKey | string | 第一个面板 |
 | hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | boolean | false |
-| newTabTitle | 新增页签的名称，在 `type="editable-card"` 时有效 | string | 'New Tab' |
+| newTabLabel | 新增页签的名称，在 `type="editable-card"` 时有效 | string | 'New Tab' |
 | size（包括区块长宽、文案字号，视觉定） | 大小，提供 `large` `default` 和 `small` 三种大小 | string | 'default' |
 | tabBarExtraContent | tab bar 上额外的元素 | React.ReactNode | 无 |
 | tabBarGutter（视觉定） | tabs 之间的间隙 | number | 无 |
 | tabBarStyle | tab bar 的样式对象 | object | - |
 | tabPosition | 页签位置，可选值有 `top` `right` `bottom` `left` | string | 'top' |
-| tabScrollable | 页签是否可滚动 | boolean | 'false' |
+| tabScrollable | 页签是否可滚动 | boolean | false |
 | type | 页签的基本样式，可选 `line`、`card`、`editable-card`、`section`、`borderless-section` 类型 | string | 'line' |
-| onChange | 切换面板的回调 | Function(activeKey) {} | 无 |
-| onEdit | 新增和删除页签的回调，在 `type="editable-card"` 时有效 | (targetKey, action): void | 无 |
+| onChange | 切换面板的回调 | Function(activeKey) | 无 |
+| onEdit | 新增和删除页签的回调，在 `type="editable-card"` 时有效 | Function(targetKey, action) | 无 |
 | onNextClick | next 按钮被点击的回调 | Function | 无 |
 | onPrevClick | prev 按钮被点击的回调 | Function | 无 |
 | onTabClick | tab 被点击的回调 | Function | 无 |
