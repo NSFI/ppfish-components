@@ -21,7 +21,7 @@ class Tabs extends Component {
 		tabBarGutter: PropTypes.number,
 		tabBarStyle: PropTypes.object,
 		tabPosition: PropTypes.string,
-		tabScrollable: PropTypes.bool,
+		// tabScrollable: PropTypes.bool,
 		type: PropTypes.string,
 		onChange: PropTypes.func,
 		onEdit: PropTypes.func,
@@ -32,10 +32,10 @@ class Tabs extends Component {
 	static defaultProps = {
 		className: '',
 		hideAdd: false,
-		newTabLabel: 'New Tab',
+		// newTabLabel: 'New Tab',
 		size: 'default',
 		tabPosition: 'top',
-		tabScrollable: false,
+		// tabScrollable: false,
 		type: 'line',
 	};
 
