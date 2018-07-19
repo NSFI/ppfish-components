@@ -176,7 +176,7 @@ export default {
       },
       'treeSelect2': {
         type: 'markdown',
-        name: 'TreeSelect 树选择',
+        name: 'TreeSelect 树形选择器',
       },
       'checkbox': {
         type: 'markdown',
