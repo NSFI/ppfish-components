@@ -43,7 +43,7 @@
   },
   "peerDependencies": {
     "antd": ">= 3.5.3",
-    "echarts": "^3.7.2",
+    "echarts": "^4.1.0",
     "prop-types": "> 15.5.10",
     "react": ">= 16.1.1",
     "react-dom": ">= 16.1.1"
@@ -75,7 +75,7 @@
     "core-js": "^2.5.7",
     "coveralls": "^2.13.1",
     "css-loader": "^0.28.2",
-    "echarts": "^3.7.2",
+    "echarts": "^4.1.0",
     "ejs-loader": "^0.3.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
