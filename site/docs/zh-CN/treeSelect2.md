@@ -172,17 +172,22 @@
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | boolean | true |
 | dropdownStyle | 下拉菜单的样式 | object | - |
+| filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | Function(inputValue: string, treeNode: TreeNode) (函数需要返回bool值) | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | Function(triggerNode) | () => document.body |
 | loadData | 异步加载数据 | function(node) | - |
-| placeholder | 选择框默认提示文字 | string | - |
+| placeholder | 选择框默认提示文字 | string | "请选择" |
+| searchPlaceholder | 搜索框默认文字 | string | "请输入关键字" |
+| showSearch | 是否在下拉中显示搜索框 | boolean | false |
 | size | 选择框大小，可选 `large` `small` | string | 'default' |
 | treeCheckable | 显示 checkbox | boolean | false |
 | treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一） | array<{value, label, children, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | array | - |
+| treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'value' |
 | treeNodeResetLabel | 复位选项的默认文字 | string | '不选择任何分类' |
 | value | 指定当前选中的条目 | string | - |
 | onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
+| onSearch | 搜索框值变化时调用 | function(value: string) | - |
 | onSelect | 被选中时调用 | function(value, node, extra) | - |
 
 ### Tree 方法
