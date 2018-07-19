@@ -260,11 +260,11 @@ render(){
 | defaultActiveKey | 初始化选中面板的 key，如果没有设置 activeKey | string | 第一个面板 |
 | hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | boolean | false |
 | newTabLabel | 新增页签的名称，在 `type="editable-card"` 时有效 | string | 'New Tab' |
-| size（包括区块长宽、文案字号，视觉定） | 大小，提供 `large` `default` 和 `small` 三种大小 | string | 'default' |
+| size（包括区块长宽、文案字号，视觉定） | 大小，提供 `large`、`default` 和 `small` 三种大小 | string | 'default' |
 | tabBarExtraContent | tab bar 上额外的元素 | React.ReactNode | 无 |
-| tabBarGutter（视觉定） | tabs 之间的间隙 | number | 无 |
+| tabBarGutter（视觉定） | tabs 之间的间隙，在 `type="section"\|"borderless-section"` 时无效 | number | 无 |
 | tabBarStyle | tab bar 的样式对象 | object | - |
-| tabPosition | 页签位置，可选值有 `top` `right` `bottom` `left` | string | 'top' |
+| tabPosition | 页签位置，可选值有 `top`、`right`、`bottom`、`left` | string | 'top' |
 | tabScrollable | 页签是否可滚动 | boolean | false |
 | type | 页签的基本样式，可选 `line`、`card`、`editable-card`、`section`、`borderless-section` 类型 | string | 'line' |
 | onChange | 切换面板的回调 | Function(activeKey) | 无 |

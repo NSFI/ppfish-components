@@ -3,6 +3,7 @@
 
 @tabs-prefix: m-tabs;
 /* stylelint-disable declaration-no-important */
+// 设置颜色
 .ant-tabs-tab {
 	&:hover {
 		color: @primary-5 !important;
@@ -17,8 +18,9 @@
 	background-color: @primary-color !important;
 }
 
+// 设置大小
 .ant-tabs-small .ant-tabs-nav-container {
-  font-size: 12px;
+  font-size: 12px !important;
 
   .ant-tabs-tab {
   	padding: 8px 16px;
@@ -26,7 +28,7 @@
 }
 
 .ant-tabs-nav-container {
-  font-size: 14px;
+  font-size: 14px !important;
 
   .ant-tabs-tab {
   	padding: 12px 16px;
@@ -34,13 +36,14 @@
 }
 
 .ant-tabs-large .ant-tabs-nav-container {
-  font-size: 16px;
+  font-size: 16px !important;
 
   .ant-tabs-tab {
   	padding: 16px;
 	}
 }
 
+// 分段式页签
 .@{tabs-prefix}-section {
 	.ant-tabs-bar {
 		border-bottom: none;
@@ -75,6 +78,35 @@
 	}
 }
 
+// 无边框分段式页签
+.@{tabs-prefix}-borderless-section {
+	.ant-tabs-bar {
+		border-bottom: none;
 
+		.ant-tabs-nav-container {
+    	overflow: visible;
+		}
+	}
 
+	.ant-tabs-nav > .ant-tabs-tab:last-child {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+	}
+
+	.ant-tabs-ink-bar {
+		display: none !important;
+	}
+
+	.ant-tabs-tab {
+		border: none;
+		margin: 0 !important;
+		-webkit-box-shadow: @border-width-base 0 0 0 @border-color-base;
+		box-shadow: @border-width-base 0 0 0 @border-color-base;
+		padding: 0 16px !important;
+	}
+
+	.ant-tabs-nav > .ant-tabs-tab:nth-child(2) {
+		padding-left: 0 !important;
+	}
+}
 /* stylelint-enable */
