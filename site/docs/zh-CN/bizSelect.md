@@ -242,11 +242,8 @@ render(){
     <div>
           <Radio.Group value={this.state.align} onChange={this.handleChange} style={{marginBottom:20}}>
             <Radio.Button value="bottomLeft">bottomLeft</Radio.Button>
-            <Radio.Button value="bottomCenter">bottomCenter</Radio.Button>
+            <Radio.Button value="bottom">bottom</Radio.Button>
             <Radio.Button value="bottomRight">bottomRight</Radio.Button>
-            <Radio.Button value="topLeft">topLeft</Radio.Button>
-            <Radio.Button value="topCenter">topCenter</Radio.Button>
-            <Radio.Button value="topRight">topRight</Radio.Button>
           </Radio.Group>
         <BizSelect  popupAlign={this.state.align} onChange={(value) => this.setState({value})} value={this.state.value} dropdownMatchSelectWidth={false} dropdownStyle={{width:200}}>
           {Group.map(group =>
@@ -347,7 +344,7 @@ render(){
 | mode | 设置 Select 的模式 | 'multiple' \| 'single' | - |
 | notFoundContent | 当下拉列表为空时显示的内容 | string | '无匹配结果' |
 | placeholder | 选择框默认文字 | string | '请选择' |
-| popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter', 'bottomRight','topLeft', 'topCenter', 'topRight'  | 'bottomLeft' |
+| popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter', 'bottomRight'| 'bottomLeft' |
 | searchPlaceholder | 搜索框默认文字 | string | '请输入关键词' |
 | labelClear | 多选模式下开启label删除功能 | boolean | false |
 | maxScrollHeight | 列表滚动区高度 | number | 250 |
