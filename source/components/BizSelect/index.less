@@ -1,0 +1,251 @@
+@import (reference) "../../assets/css/common/mixin";
+@import "../../assets/css/lib/ant-theme-vars";
+@import "./trigger.less";
+//large
+@large-size-select: 40px;
+@large-size-select-line-height: @large-size-select - 2px;
+@large-size-select-option-height: 32px;
+@large-size-select-option-line-height: @large-size-select-option-height - 2px;
+//default
+@default-size-select: 32px;
+@default-size-select-line-height: @default-size-select - 2px;
+@default-size-select-option-height: 24px;
+@default-size-select-option-line-height: @default-size-select-option-height - 2px;
+//small
+@small-size-select: 24px;
+@small-size-select-line-height: @small-size-select - 2px;
+@small-size-select-option-height: 16px;
+@small-size-select-option-line-height: @small-size-select-option-height - 2px;
+
+@biz-select-prefix: m-biz-select;
+
+.@{biz-select-prefix} {
+  &-selection {
+    min-height: @default-size-select;
+    position: relative;
+    cursor: pointer;
+    background-color: #fff;
+    padding-right: 30px;
+    border-radius: @border-radius-base;
+    border: 1px solid #d9d9d9;
+    user-select: none;
+    &-disabled {
+      background: @input-disabled-bg;
+      color: @disabled-color;
+      cursor: not-allowed;
+    }
+    &-caret {
+      position: absolute;
+      color: @text-color;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      > i {
+        transition: all 0.3s ease;
+      }
+    }
+    &-placeholder {
+      position: absolute;
+      font-size: @font-size-base;
+      top: 50%;
+      left: 10px;
+      color: #bfbfbf;
+      line-height: 20px;
+      height: 20px;
+      max-width: 100%;
+      margin-top: -10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    &-option-clearable-list {
+      height: auto;
+      margin: 0 0 3px 5px;
+      max-height: 32*3px;
+      line-height: @default-size-select-line-height;
+      overflow: auto;
+      .clearfix();
+    }
+
+    &-option-clearable-option {
+      .ellipsis();
+      display: inline-block;
+      width: 100px;
+      border: 1px solid @border-color-base;
+      height: @default-size-select-option-height;
+      line-height: @default-size-select-option-line-height;
+      margin-right: 4px;
+      margin-top: 3px;
+      padding: 0 15px 0 10px;
+      float: left;
+      position: relative;
+      &-close {
+        position: absolute;
+        border-radius: @border-radius-base;
+        cursor: pointer;
+        right: 2px;
+      }
+    }
+
+    &-option-single {
+      display: inline-block;
+      float: left;
+      line-height: @default-size-select-line-height;
+      padding-left: 10px;
+      height: 100%;
+      width: 100%;
+      .ellipsis();
+    }
+
+    &-option-multiple {
+      display: block;
+      max-width: calc(~'100% - 25px');
+      padding-left: 10px;
+      line-height: @default-size-select-line-height;
+      position: absolute;
+      .ellipsis();
+    }
+
+    &:hover:not(&-disabled) {
+      border-color: @primary-5;
+    }
+    &:active:not(&-disabled),
+    &:focus:not(&-disabled) {
+      border-color: @primary-color;
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    }
+  }
+
+  &-selection-small {
+    min-height: @small-size-select;
+    .@{biz-select-prefix}-selection-option-clearable-list {
+      line-height: @small-size-select-line-height;
+      max-height: @small-size-select*3px;
+    }
+
+    .@{biz-select-prefix}-selection-option-clearable-option {
+      height: @small-size-select-option-height;
+      line-height: @small-size-select-option-line-height;
+    }
+
+    .@{biz-select-prefix}-selection-option-single {
+      line-height: @small-size-select-line-height;
+    }
+
+    .@{biz-select-prefix}-selection-option-multiple {
+      line-height: @small-size-select-line-height;
+    }
+  }
+
+  &-selection-large {
+    min-height: @large-size-select;
+    font-size: @font-size-lg;
+    .@{biz-select-prefix}-selection-placeholder {
+      font-size: @font-size-lg;
+    }
+    .@{biz-select-prefix}-selection-option-clearable-list {
+      line-height: @large-size-select-line-height;
+      max-height: @large-size-select*3px;
+    }
+
+    .@{biz-select-prefix}-selection-option-clearable-option {
+      height: @large-size-select-option-height;
+      line-height: @large-size-select-option-line-height;
+    }
+
+    .@{biz-select-prefix}-selection-option-single {
+      line-height: @large-size-select-line-height;
+    }
+
+    .@{biz-select-prefix}-selection-option-multiple {
+      line-height: @large-size-select-line-height;
+    }
+  }
+
+  &-dropDown {
+    line-height: 1.5;
+    color: @text-color;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: @border-radius-base;
+    font-size: 14px;
+    &-search {
+      padding: 5px 12px;
+      &-clear {
+        cursor: pointer;
+        color: @text-color;
+      }
+    }
+    &-list {
+      overflow: auto;
+    }
+    &-option-group {
+      outline: none;
+      margin-bottom: 0;
+      padding-left: 0;
+      list-style: none;
+      max-height: 250px;
+    }
+    &-option-group-label {
+      margin: 0;
+      padding: 5px 10px;
+      background: @text-9;
+      font-weight: bold;
+      user-select: none;
+      cursor: default;
+    }
+    &-option-item {
+      .ellipsis();
+      user-select: none;
+      position: relative;
+      cursor: pointer;
+      display: block;
+      padding: 5px 27px 5px 12px;
+      line-height: 22px;
+      font-weight: 400;
+      color: @text-color;
+      &:hover {
+        background-color: @item-hover-bg;
+      }
+      &.checked {
+        color: @primary-color;
+        background: @item-active-bg;
+        position: relative;
+        font-weight: bold;
+      }
+      &.checked:after {
+        display: inline-block;
+        width: 14px;
+        height: 100%;
+        position: absolute;
+        right: 10px;
+        color: @primary-color;
+        /* stylelint-disable-next-line */
+        font-family: anticon;
+        content: "\E632";
+        font-size: 12px;
+      }
+    }
+    &-option-item-disabled {
+      background: @disabled-bg;
+      color: @disabled-color;
+      cursor: not-allowed;
+    }
+    &-not-found {
+      padding: 5px 27px 5px 12px;
+      cursor: default;
+    }
+    &-footer {
+      padding: 10px;
+      border-top: 1px solid @separate-light;
+      &-btn {
+        width: 100%;
+      }
+    }
+  }
+}
