@@ -43,7 +43,7 @@ export default class BizSelect extends React.Component {
     labelInValue: PropTypes.bool,
     showArrow: PropTypes.bool,
     labelClear: PropTypes.bool,
-    popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topCenter', 'topLeft', 'topRight']),
+    popupAlign: PropTypes.oneOf(['bottomLeft', 'bottom', 'bottomRight']),
     size: PropTypes.oneOf(['default', 'small', 'large']),
     style: PropTypes.object
   };
