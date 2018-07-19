@@ -361,6 +361,7 @@ render(){
 | className | 容器类名 | string | 无 |
 | defaultActiveKey | 初始化选中面板的 key，如果没有设置 activeKey | string | 第一个面板 |
 | hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | boolean | false |
+| showLoading | 是否显示 Loading 状态，异步加载数据时可选择使用 | boolean | false |
 | size（包括区块长宽、文案字号，视觉定） | 大小，提供 `large`、`default` 和 `small` 三种大小 | string | 'default' |
 | tabBarExtraContent | tab bar 上额外的元素 | React.ReactNode | 无 |
 | tabBarGutter（视觉定） | tabs 之间的间隙，在 `type="section"\|"borderless-section"` 时无效 | number | 无 |
