@@ -306,28 +306,35 @@ export default class BizSelect extends React.Component {
   //下拉框内容
   getDropdownPanel() {
     const {prefixCls, extraOptions, allowClear, onPopupScroll, onMouseLeave, onMouseEnter, searchInputProps, searchPlaceholder, dropdownClassName, dropdownStyle, showSearch, showSelectAll, mode, selectAllText, placeholder, children, maxScrollHeight, notFoundContent} = this.props;
-    const {searchValue} = this.state;
+    const {searchValue, selectValue} = this.state;
     const dropDownCls = `${prefixCls}-dropDown`;
     const optionFilteredList = this.getSelectFilteredOptionList(this.getSelectOptionList(children, dropDownCls));
     const showNotFoundContent = !this.getPlainOptionList(optionFilteredList).length;
     return (
-      <div className={classNames(dropDownCls, {[dropdownClassName]: !!dropdownClassName})} style={dropdownStyle}
+      <div className={classNames(dropDownCls, {[dropdownClassName]: !!dropdownClassName})}
+           style={dropdownStyle}
            onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        {showSearch && <SelectSearch
-          searchPlaceholder={searchPlaceholder}
-          prefixCls={`${dropDownCls}-search`}
-          ref={(selectSearch => this.selectSearch = selectSearch)}
-          searchValue={searchValue}
-          allowClear={allowClear}
-          updateSearchValue={this.updateSearchValue}
-          searchInputProps={searchInputProps}
-          emitEmpty={this.emptySearchValue}/>}
-        <div className={`${dropDownCls}-list`} style={{maxHeight: maxScrollHeight}} onScroll={onPopupScroll}>
+        {
+          //搜索框
+          showSearch &&
+          <SelectSearch
+            searchPlaceholder={searchPlaceholder}
+            prefixCls={`${dropDownCls}-search`}
+            ref={(selectSearch => this.selectSearch = selectSearch)}
+            searchValue={searchValue}
+            allowClear={allowClear}
+            updateSearchValue={this.updateSearchValue}
+            searchInputProps={searchInputProps}
+            emitEmpty={this.emptySearchValue}/>
+        }
+        <div className={`${dropDownCls}-list`}
+             style={{maxHeight: maxScrollHeight}}
+             onScroll={onPopupScroll}>
           {
             //全选按钮-多选未搜索的情况下存在
             showSelectAll && !searchValue && mode !== 'single' &&
             <li
-              className={`${dropDownCls}-option-item ${this.getPlainOptionList(children, [], (child) => !child.props.disabled).length === this.state.selectValue.length ? 'checked' : ''}`}
+              className={`${dropDownCls}-option-item ${this.getPlainOptionList(children, [], (child) => !child.props.disabled).length === selectValue.length ? 'checked' : ''}`}
               onClick={this.selectAll}>
               {selectAllText}
             </li>
@@ -349,7 +356,7 @@ export default class BizSelect extends React.Component {
             //列表及空状态框
             showNotFoundContent ?
               <div className={`${dropDownCls}-not-found`}>{notFoundContent}</div> :
-              optionFilteredList
+              <div className={`${dropDownCls}-filtered-list`}>{optionFilteredList}</div>
           }
         </div>
         {
@@ -379,7 +386,6 @@ export default class BizSelect extends React.Component {
     return (
       <div
         className={classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${selectionCls}-${size}`)}
-        ref={(selection) => this.selection = selection}
         style={style}>
         {
           //showArrow并且不是可删除label模式下出现箭头
@@ -431,7 +437,7 @@ export default class BizSelect extends React.Component {
         popupVisible={this.state.popupVisible}
         onPopupVisibleChange={this.onVisibleChange}
         getPopupContainer={getPopupContainer}
-        stretch={dropdownMatchSelectWidth ? 'width' : ''}
+        stretch={dropdownMatchSelectWidth ? 'width height' : 'height'}
         popupPlacement={popupAlign}
         builtinPlacements={placements}
       >
