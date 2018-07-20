@@ -409,7 +409,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| allowClear | 支持搜索框清除操作 | boolean | false |
+| allowClear | 支持搜索框清除操作 | boolean | true |
 | defaultValue | 指定默认选中的条目 | [] | - |
 | disabled | 是否禁用 | boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
@@ -442,6 +442,8 @@ render(){
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | function(value, option:Option) | - |
 | onVisibleChange | 弹出框显示隐藏 | function(visible: boolean) |  |
 
+> 注意，如果发现下拉菜单跟随页面滚动，或者需要在其他弹层中触发 Select，请尝试使用 getPopupContainer={triggerNode => triggerNode.parentNode} 将下拉弹层渲染节点固定在触发器的父元素中。
+  
 ### Select.Option props
 
 | 参数 | 说明 | 类型 | 默认值 |
