@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Dialog from './DialogWrap';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { addEventListener } from '../../utils/index';
 import Button from '../button';
+
 import { ButtonType, NativeButtonProps } from '../button/button';
 
 let mousePosition: { x: number, y: number } | null;
@@ -42,7 +43,7 @@ export interface ModalProps {
   maskTransitionName?: string;
   transitionName?: string;
   className?: string;
-  getContainer?: (instance: React.ReactInstance) => HTMLElement;
+  getContainer?: () => HTMLElement;
   zIndex?: number;
   bodyStyle?: React.CSSProperties;
   maskStyle?: React.CSSProperties;
@@ -101,6 +102,9 @@ export default class Modal extends React.Component<ModalProps, {}> {
     okType: 'primary' as ButtonType,
     okButtonDisabled: false,
     cancelButtonDisabled: false,
+    okText: '确定',
+    cancelText: '取消',
+    justOkText: '知道了'
   };
 
   static propTypes = {
@@ -118,7 +122,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     closable: PropTypes.bool,
   };
 
-  handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+  handleCancel = (e: React.MouseEvent<any>) => {
     const onCancel = this.props.onCancel;
     if (onCancel) {
       onCancel(e);
@@ -150,15 +154,15 @@ export default class Modal extends React.Component<ModalProps, {}> {
     mousePositionEventBinded = true;
   }
 
-  renderFooter = (locale: ModalLocale) => {
-    const { okText, okType, cancelText, confirmLoading } = this.props;
-    return (
+  render() {
+    const { footer, visible, okText, okType, cancelText, confirmLoading } = this.props;
+    const defaultFooter = (
       <div>
         <Button
           onClick={this.handleCancel}
           {...this.props.cancelButtonProps}
         >
-          {cancelText || locale.cancelText}
+          {cancelText}
         </Button>
         <Button
           type={okType}
@@ -166,19 +170,14 @@ export default class Modal extends React.Component<ModalProps, {}> {
           onClick={this.handleOk}
           {...this.props.okButtonProps}
         >
-          {okText || locale.okText}
+          {okText}
         </Button>
       </div>
     );
-  }
-
-  render() {
-    const { footer, visible } = this.props;
-
     return (
       <Dialog
         {...this.props}
-        footer={footer === undefined ? this.renderFooter() : footer}
+        footer={footer === undefined ? defaultFooter : footer}
         visible={visible}
         mousePosition={mousePosition}
         onClose={this.handleCancel}

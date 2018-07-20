@@ -1,6 +1,10 @@
 import { ReactNode, CSSProperties, SyntheticEvent } from 'react';
 
 interface IDialogPropTypes {
+  /** 对话框是否可见*/
+  visible?: boolean;
+  /** 标题*/
+  title?: React.ReactNode | string;
   className?: string;
   keyboard?: boolean;
   style?: CSSProperties;
@@ -10,14 +14,12 @@ interface IDialogPropTypes {
   onClose?: (e: SyntheticEvent<HTMLDivElement>) => any;
   closable?: boolean;
   maskClosable?: boolean;
-  visible?: boolean;
   destroyOnClose ?: boolean;
   mousePosition?: {
     x: number,
     y: number,
   };
-  title?: ReactNode;
-  footer?: ReactNode;
+  footer?: React.ReactNode;
   transitionName?: string;
   maskTransitionName?: string;
   animation?: any;
@@ -27,7 +29,7 @@ interface IDialogPropTypes {
   maskStyle?: {};
   prefixCls?: string;
   wrapClassName?: string;
-  width?: number;
+  width?: string | number;
   height?: number;
   zIndex?: number;
   bodyProps?: any;

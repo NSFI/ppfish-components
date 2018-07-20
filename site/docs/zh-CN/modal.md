@@ -7,7 +7,7 @@
 
 需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 `Modal` 在当前页面正中打开一个浮层，承载相应的操作。
 
-另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 `antd.Modal.confirm()` 等方法。
+另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 `Modal.confirm()` 等方法。
 
 ## 基本
 
@@ -43,6 +43,7 @@
         <Modal
           title="Basic Modal"
           visible={this.state.visible}
+          draggable={true}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
@@ -118,6 +119,7 @@
 
 ```js
 showConfirm=()=> {
+  const confirm = Modal.confirm;
   confirm({
     title: 'Do you Want to delete these items?',
     content: 'Some descriptions',
@@ -131,6 +133,7 @@ showConfirm=()=> {
 };
 
 showDeleteConfirm=()=> {
+  const confirm = Modal.confirm;
   confirm({
     title: 'Are you sure delete this task?',
     content: 'Some descriptions',
@@ -147,7 +150,6 @@ showDeleteConfirm=()=> {
 };
 
 render(){
-  const confirm = Modal.confirm;
   return(
       <div className="demo-modal-btn-group">
         <Button onClick={this.showConfirm}>
@@ -169,6 +171,7 @@ render(){
 ```js
 
 showConfirm=()=> {
+  const confirm = Modal.confirm;
   confirm({
     title: 'Do you want to delete these items?',
     content: 'When clicked the OK button, this dialog will be closed after 1 second',
@@ -182,7 +185,6 @@ showConfirm=()=> {
 }
 
 render(){
-  const confirm = Modal.confirm;
   return(
     <Button onClick={this.showConfirm}>
         Confirm
@@ -528,6 +530,7 @@ render(){
 | className | 容器类名 | string | - |
 | content | 内容 | string\|ReactNode | 无 |
 | iconType | 图标 Icon 类型 | string | question-circle |
+| draggable	| 模态框是否支持拖动	 | boolean | false |
 | maskClosable | 点击蒙层是否允许关闭 | Boolean | `false` |
 | okText | 确认按钮文字 | string | 确定 |
 | okType | 确认按钮类型 | string | primary |
