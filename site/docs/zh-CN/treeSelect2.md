@@ -69,20 +69,20 @@
 
   render() {
     const treeData = [{
-    label: 'Node1',
+    title: 'Node1',
     value: '0-0',
     key: '0-0',
     children: [{
-        label: 'Child Node1',
+        title: 'Child Node1',
         value: '0-0-1',
         key: '0-0-1',
     }, {
-        label: 'Child Node2',
+        title: 'Child Node2',
         value: '0-0-2',
         key: '0-0-2',
     }],
     }, {
-    label: 'Node2',
+    title: 'Node2',
     value: '0-1',
     key: '0-1',
     }];
@@ -121,28 +121,28 @@
 
   render() {
 		const treeData = [{
-			label: 'Node1',
+			title: 'Node1',
 			value: '0-0',
 			key: '0-0',
 			children: [{
-				label: 'Child Node1',
+				title: 'Child Node1',
 				value: '0-0-0',
 				key: '0-0-0',
 			}],
 		}, {
-			label: 'Node2',
+			title: 'Node2',
 			value: '0-1',
 			key: '0-1',
 			children: [{
-				label: 'Child Node3',
+				title: 'Child Node3',
 				value: '0-1-0',
 				key: '0-1-0',
 			}, {
-				label: 'Child Node4',
+				title: 'Child Node4',
 				value: '0-1-1',
 				key: '0-1-1',
 			}, {
-				label: 'Child Node5',
+				title: 'Child Node5',
 				value: '0-1-2',
 				key: '0-1-2',
 			}],
