@@ -331,8 +331,8 @@ export default class Select extends React.Component {
              style={{maxHeight: maxScrollHeight}}
              onScroll={onPopupScroll}>
           {
-            //全选按钮-多选未搜索的情况下存在
-            showSelectAll && !searchValue && mode !== 'single' &&
+            //全选按钮-多选的情况下存在
+            showSelectAll && mode !== 'single' &&
             <li
               className={`${dropDownCls}-option-item ${this.getPlainOptionList(children, [], (child) => !child.props.disabled).length === selectValue.length ? 'checked' : ''}`}
               onClick={this.selectAll}>

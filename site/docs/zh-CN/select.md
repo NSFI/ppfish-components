@@ -207,19 +207,31 @@ render(){
 :::demo
 ```js
 state={
-  value:[1]
+  value:[1],
+  mValue:[1],
 }
 render(){
   const {listConvertToGroup}=this.props.utils;
   const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
   return(
-        <Select showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
+    <div>
+            <Select showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
+              {Group.map(group =>
+                <Select.OptGroup label={group.label} key={group.key}>
+                  {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
+                </Select.OptGroup>
+              )}
+            </Select>
+<br/>
+        <Select mode={'multiple'} showSearch showSelectAll filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({mValue:value})} value={this.state.mValue}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
             </Select.OptGroup>
           )}
         </Select>
+
+</div>
   )
 }
 ```
