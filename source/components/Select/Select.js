@@ -9,7 +9,7 @@ import {placements} from './placements';
 const noop = () => {
 };
 
-export default class BizSelect extends React.Component {
+export default class Select extends React.Component {
   static propTypes = {
     getPopupContainer: PropTypes.func,
     onVisibleChange: PropTypes.func,
@@ -49,7 +49,7 @@ export default class BizSelect extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'm-biz-select',
+    prefixCls: 'fish-select',
     selectAllText: '选择所有',
     placeholder: '请选择',
     searchPlaceholder: '请输入关键词',
@@ -214,7 +214,7 @@ export default class BizSelect extends React.Component {
   //获取列表待筛选操作
   getSelectOptionList = (children, dropDownCls) => {
     return React.Children.map(children, (c) => {
-      if (typeof c === 'object' && c.type.displayName === 'SelectOption') {
+      if (typeof c === 'object' && c.type.isSelectOption) {
         const value = c.props.value || c.key;
         return React.cloneElement(c, {
           prefixCls: `${dropDownCls}-option`,
@@ -223,7 +223,7 @@ export default class BizSelect extends React.Component {
           onOptionClick: this.onOptionClick,
           children: this.getSelectOptionList(c.props.children, dropDownCls),
         });
-      } else if (typeof c === 'object' && c.type.displayName === 'SelectOptionGroup') {
+      } else if (typeof c === 'object' && c.type.isSelectOptGroup) {
         return React.cloneElement(c, {
           prefixCls: `${dropDownCls}-option`,
           children: this.getSelectOptionList(c.props.children, dropDownCls),
@@ -241,7 +241,7 @@ export default class BizSelect extends React.Component {
     const typeOfOption = typeof filterOption;
     React.Children.forEach(children, child => {
       let filterFlag = false;
-      if (child.type.displayName === 'SelectOption') {
+      if (child.type.isSelectOption) {
         if (typeOfOption === 'function') {
           filterFlag = filterOption(searchValue, child);
         } else if (typeOfOption === 'boolean') {
@@ -250,7 +250,7 @@ export default class BizSelect extends React.Component {
         if (filterFlag) {
           ChildrenList.push(child);
         }
-      } else if (child.type.displayName === 'SelectOptionGroup') {
+      } else if (child.type.isSelectOptGroup) {
         const children = this.getSelectFilteredOptionList(child.props.children);
         ChildrenList.push(React.cloneElement(child, {
           children: children,
@@ -265,13 +265,13 @@ export default class BizSelect extends React.Component {
   //获取所有option的[{label,key}]
   getPlainOptionList = (children, plainOptionList = [], filter) => {
     React.Children.forEach(children, (c) => {
-      if (c.type.displayName === 'SelectOption') {
+      if (c.type.isSelectOption) {
         if (filter) {
           filter(c) && plainOptionList.push({label: c.props.children, key: c.props.value || c.key});
         } else {
           plainOptionList.push({label: c.props.children, key: c.props.value || c.key});
         }
-      } else if (c.type.displayName === 'SelectOptionGroup') {
+      } else if (c.type.isSelectOptGroup) {
         this.getPlainOptionList(c.props.children, plainOptionList, filter);
       } else {
         //  其余暂时不做处理
@@ -383,9 +383,10 @@ export default class BizSelect extends React.Component {
     const {prefixCls, placeholder, disabled, className, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
     const selectionCls = `${prefixCls}-selection`;
+    const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
     return (
       <div
-        className={classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${selectionCls}-${size}`)}
+        className={selectionPanelCls}
         style={style}>
         {
           //showArrow并且不是可删除label模式下出现箭头

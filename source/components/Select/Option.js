@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class SelectOption extends React.Component {
+export default class Option extends React.Component {
+  static isSelectOption = true;
+
   static propTypes = {
     prefixCls: PropTypes.string,
     disabled: PropTypes.bool,
@@ -13,7 +15,7 @@ export default class SelectOption extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'm-biz-select-dropDown-option'
+    prefixCls: 'fish-select-dropDown-option'
   };
 
   constructor(props) {

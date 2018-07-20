@@ -17,9 +17,9 @@
 @small-size-select-option-height: 16px;
 @small-size-select-option-line-height: @small-size-select-option-height - 2px;
 
-@biz-select-prefix: m-biz-select;
+@select-prefix: fish-select;
 
-.@{biz-select-prefix} {
+.@{select-prefix} {
   &-selection {
     min-height: @default-size-select;
     position: relative;
@@ -121,21 +121,21 @@
 
   &-selection-small {
     min-height: @small-size-select;
-    .@{biz-select-prefix}-selection-option-clearable-list {
+    .@{select-prefix}-selection-option-clearable-list {
       line-height: @small-size-select-line-height;
       max-height: @small-size-select*3 - 14px;
     }
 
-    .@{biz-select-prefix}-selection-option-clearable-option {
+    .@{select-prefix}-selection-option-clearable-option {
       height: @small-size-select-option-height;
       line-height: @small-size-select-option-line-height;
     }
 
-    .@{biz-select-prefix}-selection-option-single {
+    .@{select-prefix}-selection-option-single {
       line-height: @small-size-select-line-height;
     }
 
-    .@{biz-select-prefix}-selection-option-multiple {
+    .@{select-prefix}-selection-option-multiple {
       line-height: @small-size-select-line-height;
     }
   }
@@ -143,24 +143,24 @@
   &-selection-large {
     min-height: @large-size-select;
     font-size: @font-size-lg;
-    .@{biz-select-prefix}-selection-placeholder {
+    .@{select-prefix}-selection-placeholder {
       font-size: @font-size-lg;
     }
-    .@{biz-select-prefix}-selection-option-clearable-list {
+    .@{select-prefix}-selection-option-clearable-list {
       line-height: @large-size-select-line-height;
       max-height: @large-size-select*3 - 14px;
     }
 
-    .@{biz-select-prefix}-selection-option-clearable-option {
+    .@{select-prefix}-selection-option-clearable-option {
       height: @large-size-select-option-height;
       line-height: @large-size-select-option-line-height;
     }
 
-    .@{biz-select-prefix}-selection-option-single {
+    .@{select-prefix}-selection-option-single {
       line-height: @large-size-select-line-height;
     }
 
-    .@{biz-select-prefix}-selection-option-multiple {
+    .@{select-prefix}-selection-option-multiple {
       line-height: @large-size-select-line-height;
     }
   }
