@@ -251,7 +251,6 @@ export default {
       'echarts': {
         type: 'markdown',
         name: 'Echarts 图表',
-        style: require('./echarts/index.less')
       },
       'list': {
         type: 'markdown',
