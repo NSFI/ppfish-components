@@ -12,9 +12,9 @@ import RichEditor from './RichEditor';
 import Select from './Select';
 import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
-import Tabs2 from './Tabs';
+import Tabs from './Tabs';
 import TextOverflow from './TextOverflow';
-import TreeSelect2 from './TreeSelect2';
+import TreeSelect from './TreeSelect2';
 import VideoViewer from './VideoViewer';
 import Echart from './EChart';
 
@@ -42,9 +42,9 @@ export {RichEditor};
 export {Select};
 export {SearchInput};
 export {StickVerticalMenu};
-export {Tabs2};
+export {Tabs};
 export {TextOverflow};
-export {TreeSelect2};
+export {TreeSelect};
 export {VideoViewer};
 export {Echart};
 
