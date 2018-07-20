@@ -3,19 +3,20 @@ import AudioPlayer from './AudioPlayer';
 import BizLoading from './BizLoading';
 import BizTimePicker from './BizTimePicker';
 import BizTable from './BizTable';
-import BizSelect from './BizSelect';
 import ColorPicker from './ColorPicker';
 import Drawer from './Drawer';
 import ImageLoader from './ImageLoader';
 import LoadMore from './LoadMore';
 import PicturePreview from './PicturePreview';
 import RichEditor from './RichEditor';
+import Select from './Select';
 import SearchInput from './SearchInput';
 import StickVerticalMenu from './StickVerticalMenu';
 import Tabs2 from './Tabs';
 import TextOverflow from './TextOverflow';
 import TreeSelect2 from './TreeSelect2';
 import VideoViewer from './VideoViewer';
+import Echart from './EChart';
 
 //<!--utils相关
 import * as bom from '../utils/bom';
@@ -32,19 +33,20 @@ export {AudioPlayer};
 export {BizLoading};
 export {BizTimePicker};
 export {BizTable};
-export {BizSelect};
 export {ColorPicker};
 export {Drawer};
 export {ImageLoader};
 export {LoadMore};
 export {PicturePreview};
 export {RichEditor};
+export {Select};
 export {SearchInput};
 export {StickVerticalMenu};
 export {Tabs2};
 export {TextOverflow};
 export {TreeSelect2};
 export {VideoViewer};
+export {Echart};
 
 const util = {
   bom, dom, number, other, upload, iframeC
