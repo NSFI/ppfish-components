@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class SelectOptionGroup extends React.Component {
+export default class OptGroup extends React.Component {
+  static isSelectOptGroup = true;
+
   static propTypes = {
     prefixCls: PropTypes.string,
     label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
@@ -12,7 +14,7 @@ export default class SelectOptionGroup extends React.Component {
 
   static defaultProps = {
     _isShow: true,
-    prefixCls: 'm-biz-select-dropDown-option'
+    prefixCls: 'fish-select-dropDown-option'
   };
 
   constructor(props) {

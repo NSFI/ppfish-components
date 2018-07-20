@@ -173,6 +173,10 @@ export default {
       'select': {
         type: 'markdown',
         name: 'Select 选择器',
+        props: {
+          utils: require('../../source/utils'),
+          debounce: require('lodash.debounce')
+        },
       },
       'treeSelect2': {
         type: 'markdown',
@@ -216,10 +220,6 @@ export default {
       },
     },
     '数据展示': {
-      'list': {
-        type: 'markdown',
-        name: 'List 列表',
-      },
       'avatar': {
         type: 'markdown',
         name: 'Avatar 头像',
@@ -228,17 +228,17 @@ export default {
         type: 'markdown',
         name: 'Badge 徽标数',
       },
-      'tag': {
+      'calendar': {
         type: 'markdown',
-        name: 'Tag 标签',
+        name: 'Calendar 日历',
       },
-      'tooltip': {
+      'card': {
         type: 'markdown',
-        name: 'Tooltip 文字提示',
+        name: 'Card 卡片',
       },
-      'tree': {
+      'carousel': {
         type: 'markdown',
-        name: 'Tree 树形控件',
+        name: 'Carousel 走马灯',
       },
       'collapse': {
         type: 'markdown',
@@ -248,27 +248,35 @@ export default {
         type: 'markdown',
         name: 'Drawer 抽屉组件',
       },
-      'card': {
+      'echarts': {
         type: 'markdown',
-        name: 'Card 卡片',
+        name: 'Echarts 图表',
+        style: require('./echarts/index.less')
       },
-      'calendar': {
+      'list': {
         type: 'markdown',
-        name: 'Calendar 日历',
-      },
-      'carousel': {
-        type: 'markdown',
-        name: 'Carousel 走马灯',
-      },
-      'timeline': {
-        type: 'markdown',
-        name: 'Timeline 时间轴',
+        name: 'List 列表',
       },
       'table': {
         type: 'markdown',
         name: 'Table 表格',
       },
-
+      'tag': {
+        type: 'markdown',
+        name: 'Tag 标签',
+      },
+      'timeline': {
+        type: 'markdown',
+        name: 'Timeline 时间轴',
+      },
+      'tooltip': {
+        type: 'markdown',
+        name: 'Tooltip 文字提示',
+      },
+      'tree': {
+        type: 'markdown',
+        name: 'Tree 树形控件',
+      },
     },
     '操作反馈': {
       'alert': {
@@ -310,14 +318,6 @@ export default {
       'bizTimePicker': {
         type: 'markdown',
         name: 'BizTimePicker 自定义时间选择器',
-      },
-      'bizSelect': {
-        type: 'markdown',
-        name: 'bizSelect 自定义下拉筛选',
-        props: {
-          utils: require('../../source/utils'),
-          debounce: require('lodash.debounce')
-        }
       },
     }
   }
