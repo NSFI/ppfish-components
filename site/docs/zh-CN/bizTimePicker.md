@@ -270,7 +270,6 @@
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
 | disabledDate | 不可选择的时间 | function(dates: moment, moment, partial: 'start' 'end') | - |
-| format | 展示的日期格式 | string | "YYYY/MM/DD" | 
 | renderExtraFooter | 在面板中添加额外的页脚 | () => React.ReactNode | - |
 | showTime | 增加时间选择功能 | Object/boolean | - |
 | showTime.defaultValue | 设置用户选择日期时默认的时分秒 | moment[] | moment(), moment() |
