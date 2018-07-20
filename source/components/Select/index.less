@@ -170,6 +170,7 @@
     color: @text-color;
     margin: 0;
     padding: 0;
+    outline: none;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     border-radius: @border-radius-base;
@@ -217,6 +218,9 @@
         background: @item-active-bg;
         position: relative;
         font-weight: bold;
+      }
+      &.active {
+        background: @primary-1;
       }
       &.checked:after {
         display: inline-block;
