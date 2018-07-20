@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import {Col, Row, Button, Icon} from 'antd';
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
+import {KeyCode} from "../../utils";
 
 const noop = () => {
 };
@@ -83,6 +84,7 @@ export default class Select extends React.Component {
       selectValue: this.covertSelectValue(this.props.value || this.props.defaultValue, this.props.labelInValue),
       popupVisible: false,
       resetValue: [],
+      activeKey: undefined,
     };
   }
 
@@ -163,8 +165,12 @@ export default class Select extends React.Component {
     }, () => {
       const {showSearch, onVisibleChange} = this.props;
       onVisibleChange(visible);
-      if (visible && showSearch) {
-        this.selectSearch.searchInput.input.focus();
+      if (visible) {
+        if (showSearch) {
+          this.selectSearch.searchInput.input.focus();
+        } else {
+          this.selection.focus();
+        }
       }
     });
   };
@@ -219,7 +225,9 @@ export default class Select extends React.Component {
           prefixCls: `${dropDownCls}-option`,
           checked: !!this.state.selectValue.find(obj => obj && obj.key == value),
           value: value,
+          activeKey: this.state.activeKey,
           onOptionClick: this.onOptionClick,
+          onOptionMouseEnter: this.onOptionMouseEnter,
           children: this.getSelectOptionList(c.props.children, dropDownCls),
         });
       } else if (typeof c === 'object' && c.type.isSelectOptGroup) {
@@ -306,12 +314,93 @@ export default class Select extends React.Component {
   isSelectAll = () => {
     const optionlist = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled);
     const selectedlist = this.state.selectValue;
-    if (optionlist.length === selectedlist.length) {
-      return selectedlist.every(selected => {
-        return !!optionlist.find(option => option.key === selected.key);
-      });
+    return optionlist.every(selected => {
+      return !!selectedlist.find(option => option.key == selected.key);
+    });
+  };
+
+  //处理tab上下active切换功能
+  handleActiveTabChange = (e) => {
+    const keyCode = e.keyCode;
+    if (keyCode === KeyCode.ENTER || keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
+      e.preventDefault();
+      const {children, mode, labelInValue, onChange} = this.props;
+      const {activeKey, selectValue} = this.state;
+      const optionList = this.getPlainOptionList(children, [], (child) => !child.props.disabled);
+      const optionListLen = optionList.length;
+      if (!optionListLen) return;
+      //enter
+      if (keyCode === KeyCode.ENTER) {
+        const activeTabIndex = optionList.findIndex(option => option.key == activeKey);
+        // activeKey不在列表中
+        if (activeTabIndex !== -1) {
+          if (!selectValue.find((selected) => selected.key == activeKey)) {
+            if (mode === 'single') {
+              this.setState({
+                selectValue: [optionList[activeTabIndex]],
+                popupVisible: false,
+                activeKey: undefined,
+              }, () => {
+                if (labelInValue) {
+                  onChange(this.state.selectValue);
+                } else {
+                  onChange(this.state.selectValue.map(selected => selected.key));
+                }
+              });
+            } else if (mode === 'multiple') {
+              this.setState({
+                selectValue: [...selectValue, optionList[activeTabIndex]]
+              });
+            }
+          }
+        }
+      }
+      //38 up 40 down
+      if (keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
+        // 有activeKey
+        if (activeKey) {
+          const activeTabIndex = optionList.findIndex(option => option.key == activeKey);
+          // activeKey不在列表中
+          if (activeTabIndex === -1) {
+            this.setState({
+              activeKey: optionList[0].key
+            });
+            return;
+          }
+          // 上按钮
+          if (keyCode === KeyCode.UP) {
+            //超出到最后一个
+            if (activeTabIndex === 0) {
+              this.setState({
+                activeKey: optionList[optionListLen - 1].key
+              });
+            } else {
+              this.setState({
+                activeKey: optionList[activeTabIndex - 1].key
+              });
+            }
+          } else if (keyCode === KeyCode.DOWN) {
+            if (activeTabIndex + 1 === optionListLen) {
+              this.setState({
+                activeKey: optionList[0].key
+              });
+            } else {
+              this.setState({
+                activeKey: optionList[activeTabIndex + 1].key
+              });
+            }
+          }
+        } else {
+          this.setState({
+            activeKey: optionList[0].key
+          });
+        }
+      }
     }
-    return false;
+  };
+
+  onOptionMouseEnter = (activeKey) => {
+    this.setState({activeKey: undefined});
   };
 
   //下拉框内容
@@ -323,6 +412,9 @@ export default class Select extends React.Component {
     const showNotFoundContent = !this.getPlainOptionList(optionFilteredList).length;
     return (
       <div className={classNames(dropDownCls, {[dropdownClassName]: !!dropdownClassName})}
+           ref={selection => this.selection = selection}
+           tabIndex="0"
+           onKeyDown={this.handleActiveTabChange}
            style={dropdownStyle}>
         {
           //搜索框
