@@ -316,15 +316,14 @@ export default class Select extends React.Component {
 
   //下拉框内容
   getDropdownPanel() {
-    const {prefixCls, extraOptions, allowClear, onPopupScroll, onMouseLeave, onMouseEnter, searchInputProps, searchPlaceholder, dropdownClassName, dropdownStyle, showSearch, showSelectAll, mode, selectAllText, placeholder, children, maxScrollHeight, notFoundContent} = this.props;
+    const {prefixCls, extraOptions, allowClear, onPopupScroll, searchInputProps, searchPlaceholder, dropdownClassName, dropdownStyle, showSearch, showSelectAll, mode, selectAllText, placeholder, children, maxScrollHeight, notFoundContent} = this.props;
     const {searchValue} = this.state;
     const dropDownCls = `${prefixCls}-dropDown`;
     const optionFilteredList = this.getSelectFilteredOptionList(this.getSelectOptionList(children, dropDownCls));
     const showNotFoundContent = !this.getPlainOptionList(optionFilteredList).length;
     return (
       <div className={classNames(dropDownCls, {[dropdownClassName]: !!dropdownClassName})}
-           style={dropdownStyle}
-           onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+           style={dropdownStyle}>
         {
           //搜索框
           showSearch &&
@@ -391,13 +390,15 @@ export default class Select extends React.Component {
   }
 
   getSelectionPanel() {
-    const {prefixCls, placeholder, disabled, className, mode, showArrow, labelClear, size, style} = this.props;
+    const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
     const selectionCls = `${prefixCls}-selection`;
     const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
     return (
       <div
         className={selectionPanelCls}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         style={style}>
         {
           //showArrow并且不是可删除label模式下出现箭头
