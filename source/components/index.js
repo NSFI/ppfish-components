@@ -46,7 +46,7 @@ export {Tabs2};
 export {TextOverflow};
 export {TreeSelect2};
 export {VideoViewer};
-export {Echart}
+export {Echart};
 
 const util = {
   bom, dom, number, other, upload, iframeC
