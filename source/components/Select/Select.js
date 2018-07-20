@@ -174,7 +174,7 @@ export default class Select extends React.Component {
     e.stopPropagation();
     const {onChange, mode, onSelect, labelInValue} = this.props;
     const selectValue = this.state.selectValue;
-    const index = selectValue.findIndex(valueItem => valueItem.key === obj.key);
+    const index = selectValue.findIndex(valueItem => valueItem.key == obj.key);
     if (mode === 'single') {
       this.setState({
         selectValue: index === -1 ? [obj] : [],
@@ -307,11 +307,9 @@ export default class Select extends React.Component {
     const optionlist = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled);
     const selectedlist = this.state.selectValue;
     if (optionlist.length === selectedlist.length) {
-      let isSelect = true;
-      selectedlist.forEach(selected => {
-        isSelect = !!optionlist.find(option => option.key === selected.key);
+      return selectedlist.every(selected => {
+        return !!optionlist.find(option => option.key === selected.key);
       });
-      return isSelect;
     }
     return false;
   };
