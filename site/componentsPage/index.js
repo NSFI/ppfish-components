@@ -173,6 +173,10 @@ export default {
       'select': {
         type: 'markdown',
         name: 'Select 选择器',
+        props: {
+          utils: require('../../source/utils'),
+          debounce: require('lodash.debounce')
+        },
       },
       'treeSelect2': {
         type: 'markdown',
@@ -314,14 +318,6 @@ export default {
       'bizTimePicker': {
         type: 'markdown',
         name: 'BizTimePicker 自定义时间选择器',
-      },
-      'bizSelect': {
-        type: 'markdown',
-        name: 'bizSelect 自定义下拉筛选',
-        props: {
-          utils: require('../../source/utils'),
-          debounce: require('lodash.debounce')
-        }
       },
     }
   }

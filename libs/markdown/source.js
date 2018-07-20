@@ -37,7 +37,6 @@ export {
   Radio,
   Rate,
   Row,
-  Select,
   Slider,
   Spin,
   Steps,
