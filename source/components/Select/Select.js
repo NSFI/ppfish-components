@@ -114,14 +114,13 @@ export default class Select extends React.Component {
 
   //全选操作
   selectAll = () => {
-    const plainOptionList = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled);
-    if (this.state.selectValue.length !== plainOptionList.length) {
+    if (this.isSelectAll()) {
       this.setState({
-        selectValue: this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled),
+        selectValue: [],
       });
     } else {
       this.setState({
-        selectValue: [],
+        selectValue: this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled),
       });
     }
   };
@@ -303,10 +302,24 @@ export default class Select extends React.Component {
     });
   };
 
+  //判断是否全选
+  isSelectAll = () => {
+    const optionlist = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled);
+    const selectedlist = this.state.selectValue;
+    if (optionlist.length === selectedlist.length) {
+      let isSelect = true;
+      selectedlist.forEach(selected => {
+        isSelect = !!optionlist.find(option => option.key === selected.key);
+      });
+      return isSelect;
+    }
+    return false;
+  };
+
   //下拉框内容
   getDropdownPanel() {
     const {prefixCls, extraOptions, allowClear, onPopupScroll, onMouseLeave, onMouseEnter, searchInputProps, searchPlaceholder, dropdownClassName, dropdownStyle, showSearch, showSelectAll, mode, selectAllText, placeholder, children, maxScrollHeight, notFoundContent} = this.props;
-    const {searchValue, selectValue} = this.state;
+    const {searchValue} = this.state;
     const dropDownCls = `${prefixCls}-dropDown`;
     const optionFilteredList = this.getSelectFilteredOptionList(this.getSelectOptionList(children, dropDownCls));
     const showNotFoundContent = !this.getPlainOptionList(optionFilteredList).length;
@@ -334,7 +347,7 @@ export default class Select extends React.Component {
             //全选按钮-多选的情况下存在
             showSelectAll && mode !== 'single' &&
             <li
-              className={`${dropDownCls}-option-item ${this.getPlainOptionList(children, [], (child) => !child.props.disabled).length === selectValue.length ? 'checked' : ''}`}
+              className={`${dropDownCls}-option-item ${this.isSelectAll() ? 'checked' : ''}`}
               onClick={this.selectAll}>
               {selectAllText}
             </li>
@@ -411,7 +424,7 @@ export default class Select extends React.Component {
             labelClear ?
               <div className={`${selectionCls}-option-clearable-list`}>
                 {selectValue.map(option =>
-                  <div className={`${selectionCls}-option-clearable-option`} key={option.key} title={option.label}>
+                  <div className={`${selectionCls}-option-clearable-option`} key={option.key}>
                     {option.label || option}
                     <span className={`${selectionCls}-option-clearable-option-close`}
                           onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="close"/></span>
@@ -419,7 +432,14 @@ export default class Select extends React.Component {
                 )}
               </div> :
               <div className={`${selectionCls}-option-multiple`}>
-                {selectValue.map((option) => option.label).join('、')}
+                {
+                  selectValue.map((option, index) =>
+                    <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
+                      <span>{option.label}</span>
+                      <span>{index + 1 !== selectValue.length && '、'}</span>
+                    </span>
+                  )
+                }
               </div>
           )
         }
