@@ -28,6 +28,8 @@
     const TreeNode = TreeSelect2.TreeNode;
     return (
       <TreeSelect2
+        showSearch
+        treeNodeFilterProp={'title'}
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
