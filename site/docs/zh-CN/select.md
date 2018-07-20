@@ -171,12 +171,12 @@ render(){
 :::demo  `labelClear`参数可以使label在可删除状态
 ```js
 state={
-  value:[1,2,3,'失效的id']
+  value:[1,2,3,6,'失效的id']
 }
 
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:6,label:'林林'},{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'},{key:5,label:'李二'}]);
+  const Group = listConvertToGroup([{key:6,label:<span>林林<Icon type="cloud" /></span>},{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'},{key:5,label:'李二'}]);
   return(
     <div>
         <Select disabled={false} onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
@@ -275,7 +275,68 @@ render(){
 
 :::
 
-## 后端搜索
+## 后端搜索-单选
+
+:::demo 使用`showSeach`、`labelInValue`、`onSearch`配合进行后端搜索操作，`notFoundContent`可以定制搜索文案
+```js
+  constructor(props) {
+    super(props);
+    this.lastFetchId = 0;
+    this.state={
+      value:[],
+      fetching: false,
+      data:[]
+    }
+  }
+
+    componentDidMount(){
+      this.fetchUser('');
+    }
+
+  
+    fetchUser = (value) => {
+      console.log('fetching user', value);
+      this.lastFetchId += 1;
+      const fetchId = this.lastFetchId;
+      this.setState({ data: [], fetching: true });
+      fetch('https://randomuser.me/api/?results=5')
+        .then(response => response.json())
+        .then((body) => {
+          if (fetchId !== this.lastFetchId) { // for fetch callback order
+            return;
+          }
+          const data = body.results.map(user => ({
+            text: `${user.name.first} ${user.name.last}`,
+            value: user.login.username,
+          }));
+          this.setState({ data, fetching: false });
+        });
+    }
+
+      handleChange = (value) => {
+        this.setState({
+          value,
+          fetching: false,
+        });
+      }
+      
+render(){
+  const { fetching, data, value } = this.state;
+  return(
+    <div>
+        <Select labelInValue showSearch onSearch={this.fetchUser} onChange={this.handleChange} value={value}       
+          notFoundContent={fetching ? <Spin size="small" /> : null} >
+          {data.map(d => <Select.Option key={d.value}>{d.text}</Select.Option>)}
+        </Select>
+</div>
+  )
+  
+}
+```
+
+:::
+
+## 后端搜索-多选
 
 :::demo 使用`showSeach`、`labelInValue`、`onSearch`配合进行后端搜索操作，`notFoundContent`可以定制搜索文案
 ```js
@@ -288,8 +349,11 @@ render(){
       fetching: false,
       data:[]
     }
-    this.fetchUser('');
   }
+  
+    componentDidMount(){
+      this.fetchUser('');
+    }
   
     fetchUser = (value) => {
       console.log('fetching user', value);
@@ -385,6 +449,7 @@ render(){
 | disabled | 是否禁用 | boolean | false |
 | key | 和 value 含义一致。如果 React 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string |  |
 | value | 默认根据此属性值进行筛选 | string\|number | - |
+| title | title值 | string\|number | - |
 | onOptionClick | 未在Select.Children里使用的Select.Option,暴露此事件 | function(e,option:Option) | - |
 
 ### Select.OptGroup props

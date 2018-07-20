@@ -30,9 +30,10 @@ export default class Option extends React.Component {
   };
 
   render() {
-    const {children, value, disabled, checked, prefixCls} = this.props;
+    const {title, children, value, disabled, checked, prefixCls} = this.props;
     return (
       <li
+        title={title}
         className={classNames(`${prefixCls}-item`, {[`${prefixCls}-item-disabled`]: !!disabled}, {[`checked`]: !!checked})}
         onClick={(e) => this.onOptionClick(e, {label: children, key: value})}>
         {children}
