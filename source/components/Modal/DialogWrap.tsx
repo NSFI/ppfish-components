@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Dialog from './Dialog';
-import { ContainerRender, Portal } from '../../utils/index';
+import { ContainerRender, Portal } from '../../utils';
 import IDialogPropTypes from './IDialogPropTypes';
 import './assets/index.less';
 

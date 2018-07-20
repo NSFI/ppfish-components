@@ -54,6 +54,15 @@ module.exports = {
         ]
       },
       {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+        include: [
+          path.join(__dirname, './site'),
+          path.join(__dirname, './source'),
+          path.join(__dirname, './libs')
+        ]
+      },
+      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',

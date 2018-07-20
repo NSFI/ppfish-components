@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import Icon from '../icon';
+import Icon from '../Icon';
 import Dialog, { ModalFuncProps } from './Modal';
 import ActionButton from './ActionButton';
-import { getConfirmLocale } from './locale';
 
 interface ConfirmDialogProps extends ModalFuncProps {
   afterClose?: () => void;
@@ -24,10 +23,8 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
   const style = props.style || {};
   // 默认为 false，保持旧版默认行为
   const maskClosable = props.maskClosable === undefined ? false : props.maskClosable;
-  const runtimeLocale = getConfirmLocale();
-  const okText = props.okText ||
-    (okCancel ? runtimeLocale.okText : runtimeLocale.justOkText);
-  const cancelText = props.cancelText || runtimeLocale.cancelText;
+  const okText = props.okText || '确定';
+  const cancelText = props.cancelText || '取消';
 
   const classString = classNames(
     prefixCls,
