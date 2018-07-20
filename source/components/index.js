@@ -16,6 +16,7 @@ import Tabs2 from './Tabs';
 import TextOverflow from './TextOverflow';
 import TreeSelect2 from './TreeSelect2';
 import VideoViewer from './VideoViewer';
+import Echart from './EChart';
 
 //<!--utils相关
 import * as bom from '../utils/bom';
@@ -45,6 +46,7 @@ export {Tabs2};
 export {TextOverflow};
 export {TreeSelect2};
 export {VideoViewer};
+export {Echart}
 
 const util = {
   bom, dom, number, other, upload, iframeC
