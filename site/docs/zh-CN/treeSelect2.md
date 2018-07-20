@@ -25,9 +25,9 @@
   }
 
   render() {
-    const TreeNode = TreeSelect2.TreeNode;
+    const TreeNode = TreeSelect.TreeNode;
     return (
-      <TreeSelect2
+      <TreeSelect
         showSearch
         treeNodeFilterProp={'title'}
         style={{ width: 300 }}
@@ -46,7 +46,7 @@
             <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
           </TreeNode>
         </TreeNode>
-      </TreeSelect2>
+      </TreeSelect>
     );
   }
 
@@ -87,7 +87,7 @@
     key: '0-1',
     }];
     return (
-      <TreeSelect2
+      <TreeSelect
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -157,7 +157,7 @@
         width: 300,
       },
     };
-    return <TreeSelect2 {...tProps} />;
+    return <TreeSelect {...tProps} />;
   }
 ```
 :::

@@ -44,8 +44,6 @@ export {
   Table,
   Transfer,
   Tree,
-  TreeSelect,
-  Tabs,
   Tag,
   TimePicker,
   Timeline,
