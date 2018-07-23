@@ -178,7 +178,7 @@ export default {
           debounce: require('lodash.debounce')
         },
       },
-      'treeSelect2': {
+      'treeSelect': {
         type: 'markdown',
         name: 'TreeSelect 树形选择器',
       },
