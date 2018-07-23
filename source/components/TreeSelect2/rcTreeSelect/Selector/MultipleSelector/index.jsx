@@ -129,12 +129,12 @@ class MultipleSelector extends React.Component {
       selectedValueNodes.push(restNodeSelect);
     }
 
-    selectedValueNodes.push(<li
-      className={`${prefixCls}-search ${prefixCls}-search--inline`}
-      key="__input"
-    >
-      <SearchInput {...this.props} ref={this.inputRef} needAlign />
-    </li>);
+    // selectedValueNodes.push(
+    //   <li className={`${prefixCls}-search ${prefixCls}-search--inline`} key="__input">
+    //     <SearchInput {...this.props} ref={this.inputRef} needAlign />
+    //   </li>
+    // );
+
     const className = `${prefixCls}-selection__rendered`;
     if (choiceTransitionName) {
       return (<Animate
@@ -146,6 +146,7 @@ class MultipleSelector extends React.Component {
         {selectedValueNodes}
       </Animate>);
     }
+
     return (
       <ul className={className} role="menubar">
         {selectedValueNodes}
