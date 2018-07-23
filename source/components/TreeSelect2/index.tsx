@@ -16,7 +16,9 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     prefixCls: 'ant-select',
     transitionName: 'slide-up',
     choiceTransitionName: 'zoom',
-    showSearch: false
+    showSearch: false,
+    placeholder: '«Î—°‘Ò',
+    searchPlaceholder: '«Î ‰»Îπÿº¸◊÷'
   };
 
   private rcTreeSelect: any;

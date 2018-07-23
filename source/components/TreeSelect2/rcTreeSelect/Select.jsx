@@ -62,7 +62,10 @@ class Select extends React.Component {
     defaultValue: valueProp,
 
     showSearch: PropTypes.bool,
-    placeholder: PropTypes.node,
+    placeholder: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.string,
+    ]),
     inputValue: PropTypes.string, // [Legacy] Deprecated. Use `searchValue` instead.
     searchValue: PropTypes.string,
     autoClearSearchValue: PropTypes.bool,
@@ -118,6 +121,7 @@ class Select extends React.Component {
   };
 
   static defaultProps = {
+    placeholder: 'ÇëÑ¡Ôñ',
     prefixCls: 'rc-tree-select',
     prefixAria: 'rc-tree-select',
     showArrow: true,
@@ -131,7 +135,7 @@ class Select extends React.Component {
     treeNodeFilterProp: 'value',
     treeNodeLabelProp: 'title',
     treeIcon: false,
-    notFoundContent: 'Not Found',
+    notFoundContent: 'Î´ËÑË÷µ½ÄÚÈÝ',
   };
 
   constructor(props) {
