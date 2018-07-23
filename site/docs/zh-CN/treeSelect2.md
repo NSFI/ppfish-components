@@ -156,6 +156,7 @@
 		}];
     const tProps = {
       treeData,
+      treeDefaultExpandAll: true,
       value: this.state.value,
       onChange: this.onChange,
       treeCheckable: true,
