@@ -37,6 +37,7 @@ class BasePopup extends React.Component {
 
     // HOC
     renderSearch: PropTypes.func,
+    renderConfirmBtn: PropTypes.func,
     onTreeExpanded: PropTypes.func,
   };
 
@@ -139,6 +140,7 @@ class BasePopup extends React.Component {
       loadData,
       ariaId,
       renderSearch,
+      renderConfirmBtn
     } = this.props;
     const { rcTreeSelect: {
       onPopupKeyDown,
@@ -206,6 +208,7 @@ class BasePopup extends React.Component {
       >
         {renderSearch ? renderSearch() : null}
         {$tree}
+        {renderConfirmBtn ? renderConfirmBtn() : null}
       </div>
     );
   }
