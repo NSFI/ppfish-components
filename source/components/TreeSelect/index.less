@@ -2,42 +2,69 @@
 @import "../../assets/css/common/index";
 
 @tree-select-prefix: m-tree-select;
+
 /* stylelint-disable declaration-no-important */
+.ant-select-tree-checkbox:hover {
+  .ant-select-tree-checkbox-inner {
+    border-color: @primary-color !important;
+  }
+}
+
+.ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner,
+.ant-select-tree-checkbox-indeterminate .ant-select-tree-checkbox-inner {
+  background-color: @primary-color !important;
+  border-color: @primary-color !important;
+}
+
+.ant-select-focused .ant-select-selection,
+.ant-select-open .ant-select-selection {
+  border-color: @primary-color !important;
+  box-shadow: @shadow-1-down !important;
+  cursor: pointer;
+}
+
+.ant-select-selection {
+  border: @border-width-base @border-style-base @border-color-base;
+  border-radius: @border-radius-base;
+  box-shadow: none !important;
+
+  &:hover {
+    border-color: @primary-color !important;
+    cursor: pointer;
+  }
+
+  &:active,
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.ant-select-dropdown {
+  .hide {
+    display: none;
+  }
+
+  .select-search-icon {
+    position: absolute;
+    right: 0;
+  }
+
+  .select-clear-icon {
+    opacity: 1;
+  }
+
+  .ant-select-search__field__wrap:hover {
+    .ant-select-search__field {
+      border-color: @primary-color !important;
+    }
+  }
+}
+
 .@{tree-select-prefix} {
-	// .ant-select-search {
-	// 	display: none;
-	// }
+  outline: none !important;
 
-	// .ant-select-selection--multiple {
-	// 	cursor: pointer !important;
-	// }
-
-	// .select-arrow {
-	//   display: inline-block;
-	//   font-style: normal;
-	//   vertical-align: baseline;
-	//   text-align: center;
-	//   text-transform: none;
-	//   text-rendering: optimizeLegibility;
-	//   -webkit-font-smoothing: antialiased;
-	//   -moz-osx-font-smoothing: grayscale;
-	//   position: absolute;
-	//   top: 50%;
-	//   right: 11px;
-	//   line-height: 1;
-	//   margin-top: -6px;
-	//   transform-origin: 50% 50%;
-	//   color: rgba(0, 0, 0, 0.25);
-	//   font-size: 12px;
-
-	// 	&:before {
-	//     display: block;
-	//     font-family: "anticon" !important;
-	//     content: '\E61D';
-	//     transition: transform .3s;
-	//     box-sizing: border-box;
-	//     // transform: rotate(180deg);
-	// 	}
-	// }
+  .hide {
+    display: none;
+  }
 }
 /* stylelint-enable */
