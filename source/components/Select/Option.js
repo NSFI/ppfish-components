@@ -13,6 +13,7 @@ export default class Option extends React.Component {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
     onOptionClick: PropTypes.func,
     onOptionMouseEnter: PropTypes.func,
+    onOptionMouseLeave: PropTypes.func,
     activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
@@ -31,13 +32,19 @@ export default class Option extends React.Component {
     }
   };
 
-  onOptionMouseEnter = (e, key) => {
+  onOptionMouseEnter = () => {
     const {disabled, onOptionMouseEnter, value} = this.props;
     if (!disabled) {
       onOptionMouseEnter && onOptionMouseEnter(value);
     }
   };
 
+  onOptionMouseLeave = () => {
+    const {disabled, onOptionMouseLeave, value} = this.props;
+    if (!disabled) {
+      onOptionMouseLeave && onOptionMouseLeave(value);
+    }
+  };
 
   render() {
     const {title, children, activeKey, value, disabled, checked, prefixCls} = this.props;
@@ -45,6 +52,7 @@ export default class Option extends React.Component {
       <li
         title={title}
         onMouseEnter={this.onOptionMouseEnter}
+        onMouseLeave={this.onOptionMouseLeave}
         className={classNames(`${prefixCls}-item`, {[`${prefixCls}-item-disabled`]: !!disabled}, {[`checked`]: !!checked}, {[`active`]: activeKey == value},)}
         onClick={(e) => this.onOptionClick(e, {label: children, key: value})}>
         {children}

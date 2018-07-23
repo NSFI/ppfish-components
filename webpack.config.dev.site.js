@@ -36,8 +36,8 @@ export default {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
         include: [
           path.join(__dirname, './site'),
           path.join(__dirname, './source'),
@@ -45,8 +45,8 @@ export default {
         ]
       },
       {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
         include: [
           path.join(__dirname, './site'),
           path.join(__dirname, './source'),

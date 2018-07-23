@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
 import {Col, Row, Button, Icon} from 'antd';
@@ -12,69 +13,71 @@ const noop = () => {
 
 export default class Select extends React.Component {
   static propTypes = {
-    getPopupContainer: PropTypes.func,
-    onVisibleChange: PropTypes.func,
-    onChange: PropTypes.func,
-    onSelect: PropTypes.func,
-    onSearch: PropTypes.func,
-    onPopupScroll: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
+    allowClear: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
-    prefixCls: PropTypes.string,
-    showSearch: PropTypes.bool,
-    allowClear: PropTypes.bool,
-    placeholder: PropTypes.string,
-    searchPlaceholder: PropTypes.string,
-    maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showSelectAll: PropTypes.bool,
-    selectAllText: PropTypes.string,
-    disabled: PropTypes.bool,
-    mode: PropTypes.oneOf(['multiple', 'single']),
-    filterOption: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-    notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    extraOptions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    searchInputProps: PropTypes.object,
-    dropdownClassName: PropTypes.string,
-    dropdownStyle: PropTypes.object,
-    dropdownMatchSelectWidth: PropTypes.bool,
+    defaultActiveFirstOption: PropTypes.bool,
     defaultValue: PropTypes.array,
-    value: PropTypes.array,
-    labelInValue: PropTypes.bool,
-    showArrow: PropTypes.bool,
+    disabled: PropTypes.bool,
+    dropdownClassName: PropTypes.string,
+    dropdownMatchSelectWidth: PropTypes.bool,
+    dropdownStyle: PropTypes.object,
+    extraOptions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+    filterOption: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    getPopupContainer: PropTypes.func,
     labelClear: PropTypes.bool,
+    labelInValue: PropTypes.bool,
+    maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    mode: PropTypes.oneOf(['multiple', 'single']),
+    notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+    onChange: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onPopupScroll: PropTypes.func,
+    onSearch: PropTypes.func,
+    onSelect: PropTypes.func,
+    onVisibleChange: PropTypes.func,
+    placeholder: PropTypes.string,
     popupAlign: PropTypes.oneOf(['bottomLeft', 'bottom', 'bottomRight']),
+    prefixCls: PropTypes.string,
+    searchInputProps: PropTypes.object,
+    searchPlaceholder: PropTypes.string,
+    selectAllText: PropTypes.string,
+    showArrow: PropTypes.bool,
+    showSearch: PropTypes.bool,
+    showSelectAll: PropTypes.bool,
     size: PropTypes.oneOf(['default', 'small', 'large']),
-    style: PropTypes.object
+    style: PropTypes.object,
+    value: PropTypes.array,
   };
 
   static defaultProps = {
-    prefixCls: 'fish-select',
-    selectAllText: '选择所有',
-    placeholder: '请选择',
-    searchPlaceholder: '请输入关键词',
-    notFoundContent: '无匹配结果',
-    maxScrollHeight: 250,
-    showSearch: false,
     allowClear: true,
-    showSelectAll: false,
+    defaultActiveFirstOption: true,
     disabled: false,
-    onPopupScroll: noop,
-    onVisibleChange: noop,
-    onChange: noop,
-    onSelect: noop,
-    onSearch: noop,
-    mode: 'single',
-    filterOption: true,
-    searchInputProps: {},
-    style: {},
     dropdownMatchSelectWidth: true,
-    labelInValue: false,
-    showArrow: true,
+    filterOption: true,
     labelClear: false,
+    labelInValue: false,
+    maxScrollHeight: 250,
+    mode: 'single',
+    notFoundContent: '无匹配结果',
+    onChange: noop,
+    onPopupScroll: noop,
+    onSearch: noop,
+    onSelect: noop,
+    onVisibleChange: noop,
+    placeholder: '请选择',
     popupAlign: 'bottomLeft',
-    size: 'default'
+    prefixCls: 'fish-select',
+    searchInputProps: {},
+    searchPlaceholder: '请输入关键词',
+    selectAllText: '选择所有',
+    showArrow: true,
+    showSearch: false,
+    showSelectAll: false,
+    size: 'default',
+    style: {},
   };
 
   constructor(props) {
@@ -163,17 +166,38 @@ export default class Select extends React.Component {
     this.setState({
       popupVisible: visible
     }, () => {
-      const {showSearch, onVisibleChange} = this.props;
+      const {onVisibleChange, defaultActiveFirstOption} = this.props;
       onVisibleChange(visible);
       if (visible) {
-        if (showSearch) {
-          this.selectSearch.searchInput.input.focus();
-        } else {
-          this.selection.focus();
+        // 没有选中任何选项、默认开启激活第一个选项
+        if (defaultActiveFirstOption && !this.state.selectValue.length) {
+          this.setState({
+            activeKey: this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled)[0].key
+          });
         }
+        //使框focus()
+        this.focus();
       }
     });
   };
+
+  //聚焦操作
+  focus() {
+    if (this.props.showSearch) {
+      this.selectSearch.searchInput.input.focus();
+    } else {
+      this.selection.focus();
+    }
+  }
+
+  //失焦操作
+  blur() {
+    if (this.props.showSearch) {
+      this.selectSearch.searchInput.input.blur();
+    } else {
+      this.selection.blur();
+    }
+  }
 
   //处理 label、option的click操作
   onOptionClick = (e, obj, clickInLabel) => {
@@ -221,6 +245,7 @@ export default class Select extends React.Component {
     return React.Children.map(children, (c) => {
       if (typeof c === 'object' && c.type.isSelectOption) {
         const value = c.props.value || c.key;
+        //对children中的Option 进行事件绑定、参数补充
         return React.cloneElement(c, {
           prefixCls: `${dropDownCls}-option`,
           checked: !!this.state.selectValue.find(obj => obj && obj.key == value),
@@ -228,6 +253,8 @@ export default class Select extends React.Component {
           activeKey: this.state.activeKey,
           onOptionClick: this.onOptionClick,
           onOptionMouseEnter: this.onOptionMouseEnter,
+          onOptionMouseLeave: this.onOptionMouseLeave,
+          ref: value,
           children: this.getSelectOptionList(c.props.children, dropDownCls),
         });
       } else if (typeof c === 'object' && c.type.isSelectOptGroup) {
@@ -364,42 +391,66 @@ export default class Select extends React.Component {
           if (activeTabIndex === -1) {
             this.setState({
               activeKey: optionList[0].key
+            }, () => {
+              this.setActiveOptionIntoView(optionList[0].key);
             });
             return;
           }
           // 上按钮
+          let nextActiveKEY = undefined;
           if (keyCode === KeyCode.UP) {
             //超出到最后一个
             if (activeTabIndex === 0) {
-              this.setState({
-                activeKey: optionList[optionListLen - 1].key
-              });
+              nextActiveKEY = optionList[optionListLen - 1].key;
             } else {
-              this.setState({
-                activeKey: optionList[activeTabIndex - 1].key
-              });
+              nextActiveKEY = optionList[activeTabIndex - 1].key;
             }
           } else if (keyCode === KeyCode.DOWN) {
             if (activeTabIndex + 1 === optionListLen) {
-              this.setState({
-                activeKey: optionList[0].key
-              });
+              nextActiveKEY = optionList[0].key;
             } else {
-              this.setState({
-                activeKey: optionList[activeTabIndex + 1].key
-              });
+              nextActiveKEY = optionList[activeTabIndex + 1].key;
             }
           }
+          this.setState({
+            activeKey: nextActiveKEY
+          }, () => {
+            this.setActiveOptionIntoView(nextActiveKEY);
+          });
         } else {
           this.setState({
             activeKey: optionList[0].key
+          }, () => {
+            this.setActiveOptionIntoView(optionList[0].key);
           });
         }
       }
     }
   };
 
+  //处理option的激活态
+  setActiveOptionIntoView = (activeKey) => {
+    const activeOption = ReactDOM.findDOMNode(this.refs[activeKey]);
+    const dropdownList = this.dropdownList;
+
+    const optionOffsetTop = activeOption.offsetTop;
+    const listScrollTop = this.dropdownList.scrollTop;
+    const listHeight = this.dropdownList.clientHeight;
+
+    if (optionOffsetTop < listScrollTop) {
+      this.dropdownList.scrollTop = optionOffsetTop;
+    } else if (optionOffsetTop > listScrollTop + listHeight) {
+      this.dropdownList.scrollTop = optionOffsetTop;
+    }
+  };
+
+  //处理option激活态-> mouseEnter
   onOptionMouseEnter = (activeKey) => {
+    this.setState({activeKey});
+  };
+
+  //处理option激活态-> mouseLeave
+  onOptionMouseLeave = () => {
     this.setState({activeKey: undefined});
   };
 
@@ -430,6 +481,7 @@ export default class Select extends React.Component {
             emitEmpty={this.emptySearchValue}/>
         }
         <div className={`${dropDownCls}-list`}
+             ref={dropdownList => this.dropdownList = dropdownList}
              style={{maxHeight: maxScrollHeight}}
              onScroll={onPopupScroll}>
           {
@@ -481,6 +533,7 @@ export default class Select extends React.Component {
     );
   }
 
+  // 获取面板内容
   getSelectionPanel() {
     const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
