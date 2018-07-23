@@ -132,14 +132,14 @@ render(){
 :::
 
 <style>
-.code-box-demo .demo {
+.demo-block .demo {
   overflow: auto;
 }
-.code-box-demo .ant-btn {
+.demo-block .ant-btn {
   margin-right: 8px;
   margin-bottom: 8px;
 }
-#components-popover-demo-placement .ant-btn {
+.demo-block .demo .ant-btn {
   width: 70px;
   text-align: center;
   padding: 0;

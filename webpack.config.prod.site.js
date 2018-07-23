@@ -45,21 +45,21 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        include: [
-          path.join(__dirname, 'site'),
-          path.join(__dirname, 'source'),
-          path.join(__dirname, 'libs')
-        ]
-      },
-      {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
         include: [
           path.join(__dirname, './site'),
           path.join(__dirname, './source'),
           path.join(__dirname, './libs')
+        ]
+      },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: [
+          path.join(__dirname, 'site'),
+          path.join(__dirname, 'source'),
+          path.join(__dirname, 'libs')
         ]
       },
       {
