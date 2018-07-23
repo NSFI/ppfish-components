@@ -87,7 +87,7 @@ const serializeToData = (pane, copyKeys=['key', 'text', 'leaf']) => {
 };
 // 支持多级的树形选择控件
 // TODO multiple= false未实现
-class TreeSelect extends Component {
+class TreePane extends Component {
   static serializeToData = serializeToData;
   static propTypes = {
     // 首次渲染时使用的树状结构数据
@@ -317,4 +317,4 @@ class TreeSelect extends Component {
   }
 }
 
-export default TreeSelect;
+export default TreePane;
