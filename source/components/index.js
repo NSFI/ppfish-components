@@ -8,7 +8,7 @@ import ColorPicker from './ColorPicker';
 import Drawer from './Drawer';
 import ImageLoader from './ImageLoader';
 import LoadMore from './LoadMore';
-import message from './Message';
+import message from './Message/index.tsx';
 import Modal from './Modal/index.tsx';
 import Popover from './Popover/index.tsx';
 import PicturePreview from './PicturePreview';
