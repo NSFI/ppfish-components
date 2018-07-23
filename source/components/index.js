@@ -22,7 +22,7 @@ import StickVerticalMenu from './StickVerticalMenu';
 import Tabs from './Tabs';
 import TextOverflow from './TextOverflow';
 import Tooltip from './Tooltip/index.tsx';
-import TreeSelect from './TreeSelect2/index.tsx';
+import TreeSelect from './TreeSelect/index.tsx';
 import VideoViewer from './VideoViewer';
 import Echart from './EChart';
 
