@@ -34,7 +34,7 @@ export {
   Popconfirm,
   Popover,
   Progress,
-  Radio,
+  // Radio,
   Rate,
   Row,
   Slider,
