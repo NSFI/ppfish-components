@@ -4,8 +4,10 @@
 @tree-select-prefix: m-tree-select;
 
 /* stylelint-disable declaration-no-important */
-.@{tree-select-prefix} {
-
+.ant-select-focused .ant-select-selection, 
+.ant-select-open .ant-select-selection {
+	border-color: @primary-color !important;
+	box-shadow: @shadow-1-down !important;
 }
 
 .ant-select-dropdown {
@@ -21,5 +23,15 @@
 	.select-clear-icon {
 		opacity: 1;
 	}
+
+	.ant-select-search__field__wrap:hover {
+		.ant-select-search__field {
+			border-color: @primary-color !important;
+		}
+	}
+}
+
+.@{tree-select-prefix} {
+
 }
 /* stylelint-enable */
