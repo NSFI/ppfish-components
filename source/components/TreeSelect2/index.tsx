@@ -14,11 +14,11 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   static SHOW_CHILD = SHOW_CHILD;
 
   static defaultProps = {
+    placeholder: '请选择',
     prefixCls: 'ant-select',
     transitionName: 'slide-up',
     choiceTransitionName: 'zoom',
     showSearch: false,
-    placeholder: '请选择',
     searchPlaceholder: '请输入关键字'
   };
 

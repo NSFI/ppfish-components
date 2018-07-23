@@ -8,6 +8,23 @@
 .ant-select-open .ant-select-selection {
 	border-color: @primary-color !important;
 	box-shadow: @shadow-1-down !important;
+	cursor: pointer;
+}
+
+.ant-select-selection {
+	border: @border-width-base @border-style-base @border-color-base;
+	border-radius: @border-radius-base;
+  box-shadow: none !important;
+
+	&:hover {
+		border-color: @primary-color !important;
+		cursor: pointer;
+	}
+
+	&:active,
+	&:focus {
+		box-shadow: none !important;
+	}
 }
 
 .ant-select-dropdown {
@@ -32,6 +49,10 @@
 }
 
 .@{tree-select-prefix} {
+	outline: none !important;
 
+	.hide {
+		display: none;
+	}
 }
 /* stylelint-enable */
