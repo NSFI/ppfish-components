@@ -211,7 +211,7 @@
       font-weight: 400;
       color: @text-color;
       &:hover:not(&-disabled) {
-        background-color: @item-hover-bg;
+        background: @primary-1;
       }
       &.checked {
         color: @primary-color;
@@ -219,7 +219,7 @@
         position: relative;
         font-weight: bold;
       }
-      &.active {
+      &.active:not(&-disabled) {
         background: @primary-1;
       }
       &.checked:after {
