@@ -125,7 +125,7 @@ class Select extends React.Component {
     prefixCls: 'rc-tree-select',
     prefixAria: 'rc-tree-select',
     showArrow: true,
-    showSearch: true,
+    showSearch: false,
     autoClearSearchValue: true,
     showCheckedStrategy: SHOW_CHILD,
 

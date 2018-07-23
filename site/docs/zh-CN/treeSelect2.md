@@ -155,6 +155,7 @@
 			}],
 		}];
     const tProps = {
+      showSearch: true,
       treeData,
       treeDefaultExpandAll: true,
       value: this.state.value,
