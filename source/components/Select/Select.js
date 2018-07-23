@@ -540,7 +540,7 @@ export default class Select extends React.Component {
   getSelectionPanel() {
     const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
-    const selectionCls = `${prefixCls}-selection-panel`;
+    const selectionCls = `${prefixCls}-selection`;
     const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
     return (
       <div
