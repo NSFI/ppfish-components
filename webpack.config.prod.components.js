@@ -69,17 +69,17 @@ export default {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        use: [{
-          loader: 'babel-loader'
-        }]
-      },
-      {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
         include: [
           path.join(__dirname, './source'),
         ]
+      },
+      {
+        test: /\.jsx?$/,
+        use: [{
+          loader: 'babel-loader'
+        }]
       },
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
