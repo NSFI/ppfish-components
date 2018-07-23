@@ -3,6 +3,7 @@ import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcT
 import * as classNames from 'classnames';
 import { TreeSelectProps } from './interface';
 // import warning from '../_util/warning';
+import './index.less';
 
 export { TreeData, TreeSelectProps } from './interface';
 
@@ -17,8 +18,8 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     transitionName: 'slide-up',
     choiceTransitionName: 'zoom',
     showSearch: false,
-    placeholder: 'ÇëÑ¡Ôñ',
-    searchPlaceholder: 'ÇëÊäÈë¹Ø¼ü×Ö'
+    placeholder: 'è¯·é€‰æ‹©',
+    searchPlaceholder: 'è¯·è¾“å…¥å…³é”®å­—'
   };
 
   private rcTreeSelect: any;
@@ -56,6 +57,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     } = this.props;
 
     const cls = classNames({
+      'm-tree-select': true,
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-sm`]: size === 'small',
     }, className);

@@ -91,11 +91,23 @@ class SearchInput extends React.Component {
     }
   };
 
-  render() {
-    const { searchValue, prefixCls, disabled, renderPlaceholder, open, ariaId } = this.props;
+  handleClearInput = () => {
+    this.inputRef.current.value = '';
+
     const { rcTreeSelect: {
       onSearchInputChange, onSearchInputKeyDown,
     } } = this.context;
+    onSearchInputChange({ target: { value: '' } });
+    // debugger;
+  };
+
+  render() {
+    const { searchValue, prefixCls, disabled, renderPlaceholder, open, ariaId } = this.props;
+    const { 
+      rcTreeSelect: {
+        onSearchInputChange, onSearchInputKeyDown,
+      } 
+    } = this.context;
 
     return (
       <span className={`${prefixCls}-search__field__wrap`}>
@@ -119,8 +131,8 @@ class SearchInput extends React.Component {
         >
           {searchValue}&nbsp;
         </span>
-
         {renderPlaceholder ? renderPlaceholder() : null}
+        <span className={`${prefixCls}-selection__clear`} style={{opacity: 1}} onClick={this.handleClearInput}></span>
       </span>
     );
   }

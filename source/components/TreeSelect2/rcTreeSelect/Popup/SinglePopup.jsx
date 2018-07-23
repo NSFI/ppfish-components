@@ -40,6 +40,7 @@ class SinglePopup extends React.Component {
         className={`${prefixCls}-search__field__placeholder`}
       >
         {searchPlaceholder}
+        <i className="select-search-icon iconfont icon-sousuo"></i>
       </span>
     );
   };
