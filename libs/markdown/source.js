@@ -26,7 +26,6 @@ export {
   Layout,
   List,
   LocaleProvider,
-  message,
   Menu,
   notification,
   Pagination,
