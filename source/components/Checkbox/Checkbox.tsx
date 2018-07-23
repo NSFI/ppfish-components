@@ -1,8 +1,8 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import * as PropTypes from 'prop-types';
+import * as classNames from 'classnames';
+import * as shallowEqual from 'shallowequal';
 import RcCheckbox from 'rc-checkbox';
-import shallowEqual from 'shallowequal';
 import CheckboxGroup, { CheckboxGroupContext } from './Group';
 
 export interface AbstractCheckboxProps<T> {
