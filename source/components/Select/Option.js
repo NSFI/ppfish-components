@@ -18,7 +18,7 @@ export default class Option extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'fish-select-dropDown-option'
+    prefixCls: 'ant-select-dropDown-option'
   };
 
   constructor(props) {

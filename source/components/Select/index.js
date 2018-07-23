@@ -7,4 +7,5 @@ Select.Option = Option;
 
 Select.OptGroup = OptGroup;
 
+export {Option, OptGroup};
 export default Select;
