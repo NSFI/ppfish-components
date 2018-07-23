@@ -9,6 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
 import { createRef } from './util';
+import classNames from 'classnames';
 
 export const searchContextTypes = {
   onSearchInputChange: PropTypes.func.isRequired,
@@ -31,11 +32,14 @@ class SearchInput extends React.Component {
     }),
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.inputRef = createRef();
     this.mirrorInputRef = createRef();
+    this.state = {
+      showClear: false
+    };
   }
 
   componentDidMount() {
@@ -92,13 +96,23 @@ class SearchInput extends React.Component {
   };
 
   handleClearInput = () => {
-    this.inputRef.current.value = '';
+    let r = this.inputRef;
+    r.current.value = '';
 
-    const { rcTreeSelect: {
-      onSearchInputChange, onSearchInputKeyDown,
-    } } = this.context;
-    onSearchInputChange({ target: { value: '' } });
-    // debugger;
+    this.handleInputChange({ target: { value: '' } });
+  };
+
+  handleInputChange = (e) => {
+    const { rcTreeSelect: { onSearchInputChange, onSearchInputKeyDown } } = this.context;
+    let { target: { value } } = e;
+
+    if (value === '') {
+      this.setState({showClear: false});
+    } else {
+      this.setState({showClear: true});
+    }
+
+    onSearchInputChange(e);
   };
 
   render() {
@@ -108,13 +122,20 @@ class SearchInput extends React.Component {
         onSearchInputChange, onSearchInputKeyDown,
       } 
     } = this.context;
+    const { showClear } = this.state;
+
+    let clearIconClass = classNames({
+        'hide': !showClear,
+        'select-clear-icon': true,
+        [`${prefixCls}-selection__clear`]: true
+    });
 
     return (
       <span className={`${prefixCls}-search__field__wrap`}>
         <input
           type="text"
           ref={this.inputRef}
-          onChange={onSearchInputChange}
+          onChange={this.handleInputChange}
           onKeyDown={onSearchInputKeyDown}
           value={searchValue}
           disabled={disabled}
@@ -132,7 +153,7 @@ class SearchInput extends React.Component {
           {searchValue}&nbsp;
         </span>
         {renderPlaceholder ? renderPlaceholder() : null}
-        <span className={`${prefixCls}-selection__clear`} style={{opacity: 1}} onClick={this.handleClearInput}></span>
+        <span className={clearIconClass} onClick={this.handleClearInput}></span>
       </span>
     );
   }
