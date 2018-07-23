@@ -17,19 +17,31 @@
 @small-size-select-option-height: 16px;
 @small-size-select-option-line-height: @small-size-select-option-height - 2px;
 
-@select-prefix: fish-select;
+@select-prefix: ant-select;
 
+//这个样式以后搬走
+.ant-pagination-options-size-changer.@{select-prefix}-selection-panel {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.ant-pagination.mini .ant-pagination-options-quick-jumper {
+  vertical-align: middle;
+}
+
+//样式
 .@{select-prefix} {
-  &-selection {
+  &-selection-panel {
     min-height: @default-size-select;
     position: relative;
+    vertical-align: middle;
     cursor: pointer;
     background-color: #fff;
     padding-right: 30px;
     border-radius: @border-radius-base;
     border: 1px solid #d9d9d9;
     user-select: none;
-    &-disabled {
+    &&-disabled {
       background: @input-disabled-bg;
       color: @disabled-color;
       cursor: not-allowed;
@@ -119,48 +131,48 @@
     }
   }
 
-  &-selection-small {
+  &-selection-panel-small {
     min-height: @small-size-select;
-    .@{select-prefix}-selection-option-clearable-list {
+    .@{select-prefix}-selection-panel-option-clearable-list {
       line-height: @small-size-select-line-height;
       max-height: @small-size-select*3 - 14px;
     }
 
-    .@{select-prefix}-selection-option-clearable-option {
+    .@{select-prefix}-selection-panel-option-clearable-option {
       height: @small-size-select-option-height;
       line-height: @small-size-select-option-line-height;
     }
 
-    .@{select-prefix}-selection-option-single {
+    .@{select-prefix}-selection-panel-option-single {
       line-height: @small-size-select-line-height;
     }
 
-    .@{select-prefix}-selection-option-multiple {
+    .@{select-prefix}-selection-panel-option-multiple {
       line-height: @small-size-select-line-height;
     }
   }
 
-  &-selection-large {
+  &-selection-panel-large {
     min-height: @large-size-select;
     font-size: @font-size-lg;
-    .@{select-prefix}-selection-placeholder {
+    .@{select-prefix}-selection-panel-placeholder {
       font-size: @font-size-lg;
     }
-    .@{select-prefix}-selection-option-clearable-list {
+    .@{select-prefix}-selection-panel-option-clearable-list {
       line-height: @large-size-select-line-height;
       max-height: @large-size-select*3 - 14px;
     }
 
-    .@{select-prefix}-selection-option-clearable-option {
+    .@{select-prefix}-selection-panel-option-clearable-option {
       height: @large-size-select-option-height;
       line-height: @large-size-select-option-line-height;
     }
 
-    .@{select-prefix}-selection-option-single {
+    .@{select-prefix}-selection-panel-option-single {
       line-height: @large-size-select-line-height;
     }
 
-    .@{select-prefix}-selection-option-multiple {
+    .@{select-prefix}-selection-panel-option-multiple {
       line-height: @large-size-select-line-height;
     }
   }
