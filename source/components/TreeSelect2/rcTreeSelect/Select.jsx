@@ -121,7 +121,7 @@ class Select extends React.Component {
   };
 
   static defaultProps = {
-    placeholder: 'ÇëÑ¡Ôñ',
+    placeholder: 'è¯·é€‰æ‹©',
     prefixCls: 'rc-tree-select',
     prefixAria: 'rc-tree-select',
     showArrow: true,
@@ -135,7 +135,7 @@ class Select extends React.Component {
     treeNodeFilterProp: 'value',
     treeNodeLabelProp: 'title',
     treeIcon: false,
-    notFoundContent: 'Î´ËÑË÷µ½ÄÚÈÝ',
+    notFoundContent: 'æœªæœç´¢åˆ°å†…å®¹',
   };
 
   constructor(props) {
@@ -422,7 +422,7 @@ class Select extends React.Component {
     if (!onDeselect) return;
 
     onDeselect(wrappedValue, node, nodeEventInfo);
-  }
+  };
 
   onSelectorClear = (event) => {
     const { disabled } = this.props;
