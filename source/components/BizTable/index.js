@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Table} from 'antd';
+import Table from '../Table/index.tsx';
 import './index.less';
 import {PAGE_SIZE} from '../../constants';
 import {getSiblings} from '../../utils';
