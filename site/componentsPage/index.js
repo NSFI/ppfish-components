@@ -268,6 +268,10 @@ export default {
         type: 'markdown',
         name: 'Timeline 时间轴',
       },
+      'popover': {
+        type: 'markdown',
+        name: 'Popover 气泡卡片',
+      },
       'tooltip': {
         type: 'markdown',
         name: 'Tooltip 文字提示',

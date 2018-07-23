@@ -31,7 +31,6 @@ export {
   notification,
   Pagination,
   Popconfirm,
-  Popover,
   Progress,
   Rate,
   Row,
@@ -45,7 +44,6 @@ export {
   Tag,
   TimePicker,
   Timeline,
-  Tooltip,
   Mention,
   Upload
 } from 'antd';
