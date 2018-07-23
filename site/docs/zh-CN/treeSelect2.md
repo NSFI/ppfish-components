@@ -33,17 +33,25 @@
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-        placeholder="Please select"
         treeDefaultExpandAll
         onChange={this.onChange}
       >
         <TreeNode value="parent 1" title="parent 1" key="0-1">
           <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
-            <TreeNode value="leaf1" title="my leaf" key="random" />
-            <TreeNode value="leaf2" title="your leaf" key="random1" />
+            <TreeNode value="leaf1" title="my leaf1" key="random" />
+            <TreeNode value="leaf2" title="your leaf2" key="random1" />
           </TreeNode>
           <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
             <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+          </TreeNode>
+        </TreeNode>
+        <TreeNode value="parent 2" title="parent 2" key="1-1">
+          <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
+            <TreeNode value="leaf1" title="my leaf3" key="random3" />
+            <TreeNode value="leaf2" title="your leaf4" key="random4" />
+          </TreeNode>
+          <TreeNode value="parent 2-1" title="parent 2-1" key="random5">
+            <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random3" />
           </TreeNode>
         </TreeNode>
       </TreeSelect>
@@ -92,7 +100,6 @@
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
         treeData={treeData}
-        placeholder="Please select"
         treeDefaultExpandAll
         onChange={this.onChange}
       />
@@ -152,7 +159,6 @@
       value: this.state.value,
       onChange: this.onChange,
       treeCheckable: true,
-      searchPlaceholder: 'Please select',
       style: {
         width: 300,
       },
