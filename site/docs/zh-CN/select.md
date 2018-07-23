@@ -12,7 +12,7 @@
 render(){
   return(
     <div>
-        <Select>
+        <Select showSingleClear>
           <Select.Option key={1} value={1}>{1}</Select.Option>  
           <Select.Option key={2} value={2} disabled>{2}</Select.Option>       
           <Select.Option key={3} value={3}>{3}</Select.Option>       
@@ -33,7 +33,7 @@ render(){
 render(){
   return(
     <div>
-        <Select extraOptions={
+        <Select showSingleClear extraOptions={
           <div style={{padding:10,background:'#ccc'}}>这里是额外的内容 -。-</div>
         }>
           <Select.Option key={1} value={1}>{1}</Select.Option>  
@@ -69,7 +69,7 @@ render(){
                   <Radio.Button value="default">Default</Radio.Button>
                   <Radio.Button value="small">Small</Radio.Button>
                 </Radio.Group>
-                <Select size={size} style={{margin:10}}>
+                <Select showSingleClear size={size} style={{margin:10}}>
                   <Select.Option key={1} >{1}</Select.Option>  
                   <Select.Option key={2}  disabled>{2}</Select.Option>       
                   <Select.Option key={3} >{3}</Select.Option>       
@@ -124,7 +124,7 @@ render(){
   const {listConvertToGroup}=this.props.utils;
   const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
   return(
-        <Select onChange={(value) => this.setState({value})} value={this.state.value}>
+        <Select showSingleClear onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -152,7 +152,7 @@ render(){
     <div>
        <div>key:{this.state.value[0] && this.state.value[0].key}</div>
        <div>label:{this.state.value[0] && this.state.value[0].label}</div>
-        <Select labelInValue onChange={(value) => this.setState({value})} value={this.state.value}>
+        <Select showSingleClear labelInValue onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -215,7 +215,7 @@ render(){
   const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
   return(
     <div>
-            <Select showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
+            <Select showSingleClear showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
               {Group.map(group =>
                 <Select.OptGroup label={group.label} key={group.key}>
                   {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -255,7 +255,7 @@ render(){
   const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
   return(
     <div>
-          <Radio.Group value={this.state.align} onChange={this.handleChange} style={{marginBottom:20}}>
+          <Radio.Group showSingleClear value={this.state.align} onChange={this.handleChange} style={{marginBottom:20}}>
             <Radio.Button value="bottomLeft">bottomLeft</Radio.Button>
             <Radio.Button value="bottom">bottom</Radio.Button>
             <Radio.Button value="bottomRight">bottomRight</Radio.Button>
@@ -324,7 +324,7 @@ render(){
   const { fetching, data, value } = this.state;
   return(
     <div>
-        <Select labelInValue showSearch onSearch={this.fetchUser} onChange={this.handleChange} value={value}       
+        <Select labelInValue showSingleClear showSearch onSearch={this.fetchUser} onChange={this.handleChange} value={value}       
           notFoundContent={fetching ? <Spin size="small" /> : null} >
           {data.map(d => <Select.Option key={d.value}>{d.text}</Select.Option>)}
         </Select>
@@ -439,6 +439,7 @@ render(){
 | selectAllText | 是否显示全选/反选功能-文案 | string | '选择所有' |
 | showArrow | 是否显示下拉小箭头 | boolean | true |
 | showSearch | 是否可搜索，需要配合filterOption或者后端搜索使用 | boolean | false |
+| showSingleClear | 是否显示清除选择功能（仅在mode='single'生效） | boolean | false |
 | showSelectAll | 是否显示全选/反选功能（仅在mode='multiple'生效） | boolean | true |
 | size | 选择框大小，可选 `large` `small` | string | default |
 | value | 指定当前选中的条目 | [] | - |

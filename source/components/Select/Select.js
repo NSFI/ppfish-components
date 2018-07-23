@@ -17,7 +17,7 @@ export default class Select extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     defaultActiveFirstOption: PropTypes.bool,
-    defaultValue: PropTypes.array,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     disabled: PropTypes.bool,
     dropdownClassName: PropTypes.string,
     dropdownMatchSelectWidth: PropTypes.bool,
@@ -44,11 +44,12 @@ export default class Select extends React.Component {
     searchPlaceholder: PropTypes.string,
     selectAllText: PropTypes.string,
     showArrow: PropTypes.bool,
+    showSingleClear: PropTypes.bool,
     showSearch: PropTypes.bool,
     showSelectAll: PropTypes.bool,
     size: PropTypes.oneOf(['default', 'small', 'large']),
     style: PropTypes.object,
-    value: PropTypes.array,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
   };
 
   static defaultProps = {
@@ -69,12 +70,13 @@ export default class Select extends React.Component {
     onVisibleChange: noop,
     placeholder: '请选择',
     popupAlign: 'bottomLeft',
-    prefixCls: 'fish-select',
+    prefixCls: 'ant-select',
     searchInputProps: {},
     searchPlaceholder: '请输入关键词',
     selectAllText: '选择所有',
     showArrow: true,
     showSearch: false,
+    showSingleClear: false,
     showSelectAll: false,
     size: 'default',
     style: {},
@@ -132,6 +134,7 @@ export default class Select extends React.Component {
 
   //转换传入的value
   covertSelectValue = (value, labelInValue) => {
+    if (typeof value === 'string' || typeof  value === 'number') value = [value];
     if (labelInValue) {
       return value;
     } else {
@@ -456,7 +459,7 @@ export default class Select extends React.Component {
 
   //下拉框内容
   getDropdownPanel() {
-    const {prefixCls, extraOptions, allowClear, onPopupScroll, searchInputProps, searchPlaceholder, dropdownClassName, dropdownStyle, showSearch, showSelectAll, mode, selectAllText, placeholder, children, maxScrollHeight, notFoundContent} = this.props;
+    const {prefixCls, extraOptions, allowClear, showSingleClear, onPopupScroll, searchInputProps, searchPlaceholder, dropdownClassName, dropdownStyle, showSearch, showSelectAll, mode, selectAllText, placeholder, children, maxScrollHeight, notFoundContent} = this.props;
     const {searchValue} = this.state;
     const dropDownCls = `${prefixCls}-dropDown`;
     const optionFilteredList = this.getSelectFilteredOptionList(this.getSelectOptionList(children, dropDownCls));
@@ -495,7 +498,7 @@ export default class Select extends React.Component {
           }
           {
             //清空选项按钮-单选未搜索的情况下存在
-            !searchValue && mode === 'single' &&
+            !searchValue && showSingleClear && mode === 'single' &&
             <li
               className={`${dropDownCls}-option-item`}
               onClick={this.emptySelectValue}>
@@ -537,7 +540,7 @@ export default class Select extends React.Component {
   getSelectionPanel() {
     const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
-    const selectionCls = `${prefixCls}-selection`;
+    const selectionCls = `${prefixCls}-selection-panel`;
     const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
     return (
       <div
