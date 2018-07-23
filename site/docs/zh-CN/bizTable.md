@@ -135,10 +135,11 @@
 
 ### BizTable
 
-   - 固定表头，需要指定 offsetHeight 值;
-   - 添加点击高亮;
-   - 分页定制，页数取props pageSize;
-   - 其余属性与ant-design table 一致
+   - 单页固定表头，需要指定 offsetHeight 值;
+   - 添加点击高亮功能;
+   - 分页页数定制，页数取props pageSize;
+   - ant-table ellpsis 支持 `.col-ell`
+   - 添加customSorter支持
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
