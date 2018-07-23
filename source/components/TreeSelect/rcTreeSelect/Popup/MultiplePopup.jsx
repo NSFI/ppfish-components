@@ -1,11 +1,9 @@
-// import BasePopup from '../Base/BasePopup';
-// export default BasePopup;
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import BasePopup from '../Base/BasePopup';
 import SearchInput from '../SearchInput';
 import { createRef } from '../util';
+import { Button } from 'antd';
 
 class MultiplePopup extends React.Component {
   static propTypes = {
@@ -25,7 +23,7 @@ class MultiplePopup extends React.Component {
 
   onPlaceholderClick = () => {
     this.inputRef.current.focus();
-  }
+  };
 
   renderPlaceholder = () => {
     const { searchPlaceholder, searchValue, prefixCls } = this.props;
@@ -66,11 +64,21 @@ class MultiplePopup extends React.Component {
     );
   };
 
+  renderConfirmBtn = () => {
+    return (
+      <div className="dropdown-confirm">
+        <Button>取消</Button>
+        <Button type="primary">确定</Button>
+      </div>
+    );
+  };
+
   render() {
     return (
       <BasePopup
         {...this.props}
         renderSearch={this.renderSearch}
+        renderConfirmBtn={this.renderConfirmBtn}
       />
     );
   }
