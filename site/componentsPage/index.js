@@ -67,6 +67,10 @@ export default {
         type: 'markdown',
         name: 'Button 按钮',
       },
+      'icon': {
+        type: 'markdown',
+        name: 'icon 图标',
+      },
       // 'divider': {
       //   type: 'markdown',
       //   name: 'Divider 分隔符',

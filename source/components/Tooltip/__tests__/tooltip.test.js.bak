@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Tooltip from '..';
-import Button from '../../button';
+import Button from '../../Button';
 
 describe('Tooltip', () => {
   it('check `onVisibleChange` arguments', () => {

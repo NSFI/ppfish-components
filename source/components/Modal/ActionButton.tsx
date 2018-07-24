@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Button from '../button';
-import { ButtonType } from '../button/button';
+import Button from '../Button';
+import { ButtonType } from '../Button/Button';
 
 export interface ActionButtonProps {
   type?: ButtonType;

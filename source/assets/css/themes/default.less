@@ -1,6 +1,6 @@
 /* stylelint-disable at-rule-no-unknown */
-// Available theme variables can be found in
-// https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+// The prefix to use on all css classes from ant.
+@fishd-prefix             : fishd;
 // -------- Colors -----------
 @blue-6                 : #337EFF;
 @assistant-red          : #F24957;
@@ -58,6 +58,13 @@
 @border-radius-base     : 2px;
 @border-radius-sm       : 2px;
 
+
+// vertical paddings
+@padding-lg    : 24px; // containers
+@padding-md    : 16px; // small containers and buttons
+@padding-sm    : 12px; // Form controls and items
+@padding-xs    : 8px;  // small items
+
 // The background colors for active and hover states for things like
 // list items or table cells.
 @item-active-bg         : @active-color;
@@ -70,8 +77,9 @@
 @table-header-sort-bg: #fff;
 
 // ICONFONT
-@iconfont-css-prefix    : anticon;
-@icon-url               : "https://at.alicdn.com/t/font_zck90zmlh7hf47vi";
+// 记得修改webpack.config.[xx].js中的icon-url
+@iconfont-prefix    : fishdicon;
+@icon-url               : "//at.alicdn.com/t/font_697017_1dtc732aw4c";
 //@icon-url               : "/source/assets/iconfont/iconfont"; // 把 iconfont 地址改到本地, TODO: 需要解决相对路径问题
 
 // LINK
@@ -80,6 +88,20 @@
 @link-active-color      : @primary-7;
 @link-decoration        : none;
 @link-hover-decoration  : none;
+
+// Animation
+@ease-out            : cubic-bezier(0.215, 0.61, 0.355, 1);
+@ease-in             : cubic-bezier(0.55, 0.055, 0.675, 0.19);
+@ease-in-out         : cubic-bezier(0.645, 0.045, 0.355, 1);
+@ease-out-back       : cubic-bezier(0.12, 0.4, 0.29, 1.46);
+@ease-in-back        : cubic-bezier(0.71, -0.46, 0.88, 0.6);
+@ease-in-out-back    : cubic-bezier(0.71, -0.46, 0.29, 1.46);
+@ease-out-circ       : cubic-bezier(0.08, 0.82, 0.17, 1);
+@ease-in-circ        : cubic-bezier(0.6, 0.04, 0.98, 0.34);
+@ease-in-out-circ    : cubic-bezier(0.78, 0.14, 0.15, 0.86);
+@ease-out-quint      : cubic-bezier(0.23, 1, 0.32, 1);
+@ease-in-quint       : cubic-bezier(0.755, 0.05, 0.855, 0.06);
+@ease-in-out-quint   : cubic-bezier(0.86, 0, 0.07, 1);
 
 // Border color
 @border-color-base      : #d9d9d9;        // base border outline a component
@@ -131,10 +153,11 @@
 @btn-disable-bg         : @disabled-bg;
 @btn-disable-border     : @border-color-base;
 
-@btn-padding-base       : 0 15px;
+@btn-padding-base       : 0 @padding-md - 1px;
 @btn-font-size-lg       : @font-size-lg;
+@btn-font-size-sm       : @font-size-base;
 @btn-padding-lg         : @btn-padding-base;
-@btn-padding-sm         : 0 9px;
+@btn-padding-sm         : 0 @padding-xs - 1px;
 
 @btn-height-base        : 30px;
 @btn-height-lg          : 36px;

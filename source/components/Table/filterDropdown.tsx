@@ -5,7 +5,7 @@ import * as closest from 'dom-closest';
 import classNames from 'classnames';
 import * as shallowequal from 'shallowequal';
 import Dropdown from '../Dropdown';
-import Icon from '../Icon';
+import Icon from '../Icon/index';
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import FilterDropdownMenuWrapper from './FilterDropdownMenuWrapper';

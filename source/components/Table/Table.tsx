@@ -4,7 +4,7 @@ import RcTable from './src';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Pagination from '../Pagination';
-import Icon from '../Icon';
+import Icon from '../Icon/index';
 import Spin from '../Spin';
 import * as warning from 'warning';
 import FilterDropdown from './filterDropdown';

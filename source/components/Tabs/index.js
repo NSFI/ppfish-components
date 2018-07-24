@@ -67,8 +67,8 @@ class Tabs extends Component {
 
   	return (
   		<div className={tabsClass}>
-  			<AntTabs 
-  				{...this.props} 
+  			<AntTabs
+  				{...this.props}
 				/>
 				<BizLoading extraCls={loadingClass}/>
   		</div>
