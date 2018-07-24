@@ -33,8 +33,8 @@ export interface PaginationConfig extends PaginationProps {
 
 export default class Pagination extends React.Component<PaginationProps, {}> {
   static defaultProps = {
-    prefixCls: 'ant-pagination',
-    selectPrefixCls: 'ant-select',
+    prefixCls: 'fishd-pagination',
+    selectPrefixCls: 'fishd-select',
   };
 
   renderPagination = () => {

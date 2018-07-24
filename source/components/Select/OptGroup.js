@@ -14,7 +14,7 @@ export default class OptGroup extends React.Component {
 
   static defaultProps = {
     _isShow: true,
-    prefixCls: 'ant-select-dropDown-option'
+    prefixCls: 'fishd-select-dropDown-option'
   };
 
   constructor(props) {

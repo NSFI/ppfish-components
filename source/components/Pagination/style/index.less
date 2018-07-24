@@ -1,6 +1,4 @@
-@import "../../style/themes/default";
-@import "../../style/mixins/index";
-@import "../../input/style/mixin";
+@import "../../../assets/css/index";
 
 @pagination-prefix-cls: ~"@{fishd-prefix}-pagination";
 
@@ -57,7 +55,7 @@
 
     &:focus,
     &:hover {
-      transition: all .3s;
+      transition: all 0.3s;
       border-color: @primary-color;
       a {
         color: @primary-color;
@@ -102,7 +100,8 @@
         color: @primary-color;
         .iconfont-size-under-12px(8px);
         letter-spacing: -1px;
-        font-family: "anticon";
+        /* stylelint-disable-next-line */
+        font-family: "fishdicon";
       }
     }
   }
@@ -143,7 +142,7 @@
     height: @pagination-item-size;
     line-height: @pagination-item-size;
     text-align: center;
-    transition: all .3s;
+    transition: all 0.3s;
     display: inline-block;
     vertical-align: middle;
   }
@@ -167,13 +166,14 @@
       border-radius: @border-radius-base;
       outline: none;
       display: block;
-      transition: all .3s;
+      transition: all 0.3s;
 
       &:after {
         font-size: 12px;
         display: block;
         height: @pagination-item-size - 2px;
-        font-family: "anticon";
+        /* stylelint-disable-next-line */
+        font-family: "fishdicon";
         text-align: center;
         font-weight: 500;
       }
@@ -272,7 +272,7 @@
       padding: 0 6px;
       height: 100%;
       text-align: center;
-      transition: border-color .3s;
+      transition: border-color 0.3s;
 
       &:hover {
         border-color: @primary-color;
@@ -328,7 +328,7 @@
     &-quick-jumper {
       height: @pagination-item-size-sm;
       line-height: @pagination-item-size-sm;
-
+      vertical-align: middle;
       input {
         .input-sm;
         width: 44px;
