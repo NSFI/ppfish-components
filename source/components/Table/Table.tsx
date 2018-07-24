@@ -67,6 +67,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
   static propTypes = {
     dataSource: PropTypes.array,
     columns: PropTypes.array,
+    activeRowByClick: PropTypes.bool,
     prefixCls: PropTypes.string,
     useFixedHeader: PropTypes.bool,
     rowSelection: PropTypes.object,
@@ -83,6 +84,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
   };
 
   static defaultProps = {
+    activeRowByClick: false,
     dataSource: [],
     prefixCls: 'ant-table',
     useFixedHeader: false,
@@ -381,6 +383,40 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
       }));
     }
   }
+
+  toggleTwoStateSortOrder(order: 'ascend' | 'descend', column: ColumnProps<T>) {
+    let {sortColumn, sortOrder} = this.state;
+    // 只同时允许一列进行排序，否则会导致排序顺序的逻辑问题
+    let isSortColumn = this.isSortColumn(column);
+    if (!isSortColumn) {  // 当前列未排序
+      sortOrder = order;
+      sortColumn = column;
+    } else {    // 当前列已排序
+      if (order === 'ascend') {
+        sortOrder = 'descend';
+      } else if (order === 'descend') {
+        sortOrder = 'ascend';
+      }
+    }
+    const newState = {
+      sortOrder,
+      sortColumn,
+    };
+
+    // Controlled
+    if (this.getSortOrderColumns().length === 0) {
+      this.setState(newState);
+    }
+
+    const onChange = this.props.onChange;
+    if (onChange) {
+      onChange.apply(null, this.prepareParamsArguments({
+        ...this.state,
+        ...newState,
+      }));
+    }
+  }
+
 
   handleFilter = (column: ColumnProps<T>, nextFilters: string[]) => {
     const props = this.props;
@@ -738,8 +774,48 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         }
         const isAscend = isSortColumn && sortOrder === 'ascend';
         const isDescend = isSortColumn && sortOrder === 'descend';
-        sortButton = (
-          <div className={`${prefixCls}-column-sorter`}>
+        if (column.sorterType === 'firstLetter') {
+          const sortButtonInner = () => {
+            if (isAscend) {
+              return (
+                <span
+                  className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}
+                  onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
+                  style={{top: 4}}
+                >
+                  <i className="iconfont icon-zimupaixu"/>
+                </span>
+              )
+            } else if (isDescend) {
+              return (
+                <span
+                  className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
+                  onClick={() => this.toggleTwoStateSortOrder('descend', column)}
+                  style={{top: 3}}
+                >
+                  <i className="iconfont icon-zimupaixuZdaoA"/>
+                </span>
+              )
+            } else {
+              return (
+                <span
+                  className={`${prefixCls}-column-sorter-up`}
+                  onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
+                  style={{top: 4}}
+                >
+                  <i className="iconfont icon-zimupaixu"/>
+                </span>
+              )
+            }
+          };
+          sortButton = (
+            <div className={`${prefixCls}-column-sorter`}>
+              {sortButtonInner()}
+            </div>
+          )
+        } else {
+          sortButton = (
+            <div className={`${prefixCls}-column-sorter`}>
             <span
               className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}
               title="↑"
@@ -747,15 +823,16 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
             >
               <Icon type="caret-up"/>
             </span>
-            <span
-              className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
-              title="↓"
-              onClick={() => this.toggleSortOrder('descend', column)}
-            >
+              <span
+                className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
+                title="↓"
+                onClick={() => this.toggleSortOrder('descend', column)}
+              >
               <Icon type="caret-down"/>
             </span>
-          </div>
-        );
+            </div>
+          );
+        }
       }
       column.title = (
         <span key={key}>
@@ -943,8 +1020,8 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
       selectAll: '全选当页',
       selectInvert: '反选当页',
     };
-    const locale = {...localeDefault,...this.props.locale};
-    const {style, className, prefixCls, showHeader, ...restProps} = this.props;
+    const locale = {...localeDefault, ...this.props.locale};
+    const {style, className, prefixCls, showHeader, activeRowByClick, ...restProps} = this.props;
     const data = this.getCurrentPageData();
     const expandIconAsCell = this.props.expandedRowRender && this.props.expandIconAsCell !== false;
 
@@ -977,6 +1054,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         data={data}
         columns={columns}
         showHeader={showHeader}
+        activeRowByClick={activeRowByClick}
         className={classString}
         expandIconColumnIndex={expandIconColumnIndex}
         expandIconAsCell={expandIconAsCell}

@@ -7,6 +7,7 @@ import {Col, Row, Button, Icon} from 'antd';
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
 import {KeyCode} from "../../utils";
+import warning from "warning";
 
 const noop = () => {
 };
@@ -17,7 +18,7 @@ export default class Select extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     defaultActiveFirstOption: PropTypes.bool,
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
     disabled: PropTypes.bool,
     dropdownClassName: PropTypes.string,
     dropdownMatchSelectWidth: PropTypes.bool,
@@ -49,7 +50,7 @@ export default class Select extends React.Component {
     showSelectAll: PropTypes.bool,
     size: PropTypes.oneOf(['default', 'small', 'large']),
     style: PropTypes.object,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
   };
 
   static defaultProps = {
@@ -134,13 +135,30 @@ export default class Select extends React.Component {
 
   //转换传入的value
   covertSelectValue = (value, labelInValue) => {
-    if (typeof value === 'string' || typeof  value === 'number') value = [value];
+    const valueType = Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+    const optionList = this.getPlainOptionList(this.props.children, []);
     if (labelInValue) {
-      return value;
+      if (valueType === 'array') {
+        return value && value.map(key => {
+          const label = (optionList.find(option => option.key === key) || {}).label || key;
+          return {
+            key: key,
+            label: label
+          };
+        }) || [];
+      } else if (valueType === 'object') {
+        return [{
+          key: value.key,
+          label: value.label || (optionList.find(option => option.key === value.key) || {}).label || value.key
+        }];
+      } else {
+        warning('Only object:{key,label} and array[{key,label}] can be passed in this mode. - labelInValue');
+        return [];
+      }
     } else {
-      const optionList = this.getPlainOptionList(this.props.children, []);
+      if (valueType === 'string' || valueType === 'number') value = [value];
       return value && value.map(key => {
-        const label = (optionList.find(option => option.key == key) || {}).label || key;
+        const label = (optionList.find(option => option.key === key) || {}).label || key;
         return {
           key: key,
           label: label
@@ -155,11 +173,11 @@ export default class Select extends React.Component {
       selectValue: [],
       popupVisible: false,
     }, () => {
-      const {labelInValue, onChange} = this.props;
-      if (labelInValue) {
-        onChange(this.state.selectValue);
-      } else {
-        onChange(this.state.selectValue.map(selected => selected.key));
+      const {onChange, mode} = this.props;
+      if (mode === 'single') {
+        onChange('');
+      } else if (mode === 'multiple') {
+        onChange([]);
       }
     });
   };
@@ -207,16 +225,16 @@ export default class Select extends React.Component {
     e.stopPropagation();
     const {onChange, mode, onSelect, labelInValue} = this.props;
     const selectValue = this.state.selectValue;
-    const index = selectValue.findIndex(valueItem => valueItem.key == obj.key);
+    const index = selectValue.findIndex(valueItem => valueItem.key === obj.key);
     if (mode === 'single') {
       this.setState({
         selectValue: index === -1 ? [obj] : [],
         popupVisible: false,
       }, () => {
         if (labelInValue) {
-          onChange(this.state.selectValue);
+          onChange(obj);
         } else {
-          onChange([obj.key]);
+          onChange(obj.key);
         }
       });
     } else if (mode === 'multiple') {
@@ -251,7 +269,7 @@ export default class Select extends React.Component {
         //对children中的Option 进行事件绑定、参数补充
         return React.cloneElement(c, {
           prefixCls: `${dropDownCls}-option`,
-          checked: !!this.state.selectValue.find(obj => obj && obj.key == value),
+          checked: this.state.selectValue && !!this.state.selectValue.find(obj => obj && obj.key === value),
           value: value,
           activeKey: this.state.activeKey,
           onOptionClick: this.onOptionClick,
@@ -345,7 +363,7 @@ export default class Select extends React.Component {
     const optionlist = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled);
     const selectedlist = this.state.selectValue;
     return optionlist.every(selected => {
-      return !!selectedlist.find(option => option.key == selected.key);
+      return !!selectedlist.find(option => option.key === selected.key);
     });
   };
 
@@ -361,10 +379,10 @@ export default class Select extends React.Component {
       if (!optionListLen) return;
       //enter
       if (keyCode === KeyCode.ENTER) {
-        const activeTabIndex = optionList.findIndex(option => option.key == activeKey);
+        const activeTabIndex = optionList.findIndex(option => option.key === activeKey);
         // activeKey不在列表中
         if (activeTabIndex !== -1) {
-          if (!selectValue.find((selected) => selected.key == activeKey)) {
+          if (!selectValue.find((selected) => selected.key === activeKey)) {
             if (mode === 'single') {
               this.setState({
                 selectValue: [optionList[activeTabIndex]],
@@ -372,9 +390,9 @@ export default class Select extends React.Component {
                 activeKey: undefined,
               }, () => {
                 if (labelInValue) {
-                  onChange(this.state.selectValue);
+                  onChange(this.state.selectValue[0]);
                 } else {
-                  onChange(this.state.selectValue.map(selected => selected.key));
+                  onChange(this.state.selectValue.map(selected => selected.key)[0]);
                 }
               });
             } else if (mode === 'multiple') {
@@ -389,7 +407,7 @@ export default class Select extends React.Component {
       if (keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
         // 有activeKey
         if (activeKey) {
-          const activeTabIndex = optionList.findIndex(option => option.key == activeKey);
+          const activeTabIndex = optionList.findIndex(option => option.key === activeKey);
           // activeKey不在列表中
           if (activeTabIndex === -1) {
             this.setState({

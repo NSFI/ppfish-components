@@ -13,9 +13,9 @@ render(){
   return(
     <div>
         <Select showSingleClear>
-          <Select.Option key={1} value={1}>{1}</Select.Option>  
-          <Select.Option key={2} value={2} disabled>{2}</Select.Option>       
-          <Select.Option key={3} value={3}>{3}</Select.Option>       
+          <Select.Option key={"1"} value={1}>{1}</Select.Option>  
+          <Select.Option key={"2"} value={2} disabled>{2}</Select.Option>       
+          <Select.Option key={"3"} value={3}>{3}</Select.Option>       
         </Select>
         <br/>
         <Select disabled ></Select>
@@ -36,9 +36,9 @@ render(){
         <Select showSingleClear extraOptions={
           <div style={{padding:10,background:'#ccc'}}>这里是额外的内容 -。-</div>
         }>
-          <Select.Option key={1} value={1}>{1}</Select.Option>  
-          <Select.Option key={2} value={2} disabled>{2}</Select.Option>       
-          <Select.Option key={3} value={3}>{3}</Select.Option>       
+          <Select.Option key={"1"} value={1}>{1}</Select.Option>  
+          <Select.Option key={"2"} value={2} disabled>{2}</Select.Option>       
+          <Select.Option key={"3"} value={3}>{3}</Select.Option>       
         </Select>
     </div>
   )
@@ -70,39 +70,39 @@ render(){
                   <Radio.Button value="small">Small</Radio.Button>
                 </Radio.Group>
                 <Select showSingleClear size={size} style={{margin:10}}>
-                  <Select.Option key={1} >{1}</Select.Option>  
-                  <Select.Option key={2}  disabled>{2}</Select.Option>       
-                  <Select.Option key={3} >{3}</Select.Option>       
+                  <Select.Option key={"1"} >{1}</Select.Option>  
+                  <Select.Option key={"2"}  disabled>{2}</Select.Option>       
+                  <Select.Option key={"3"} >{3}</Select.Option>       
                 </Select>
                 <Select size={size} mode={'multiple'} style={{margin:10}}>
-                  <Select.Option key={1} >{1}</Select.Option>  
-                  <Select.Option key={2}  disabled>{2}</Select.Option>       
-                  <Select.Option key={3}>{3}</Select.Option>       
+                  <Select.Option key={"1"} >{1}</Select.Option>  
+                  <Select.Option key={"2"}  disabled>{2}</Select.Option>       
+                  <Select.Option key={"3"}>{3}</Select.Option>       
                 </Select>
                 <Select size={size} mode={'multiple'} labelClear style={{margin:10}} showSelectAll>
-                  <Select.Option key={1} >{1}</Select.Option>  
-                  <Select.Option key={2}  disabled>{2}</Select.Option>       
-                  <Select.Option key={3} >{3}</Select.Option>      
-                  <Select.Option key={4} >{4}</Select.Option>  
-                  <Select.Option key={5}>{5}</Select.Option>       
-                  <Select.Option key={6} >{6}</Select.Option>       
-                  <Select.Option key={7} >{7}</Select.Option>  
-                  <Select.Option key={8}  disabled>{8}</Select.Option>       
-                  <Select.Option key={9} >{9}</Select.Option>       
-                  <Select.Option key={10} >{10}</Select.Option>  
-                  <Select.Option key={11}  disabled>{11}</Select.Option>       
-                  <Select.Option key={12} >{12}</Select.Option>       
-                  <Select.Option key={13} >{13}</Select.Option>  
-                  <Select.Option key={14} >{14}</Select.Option>       
-                  <Select.Option key={15} >{15}</Select.Option>       
-                  <Select.Option key={16} >{16}</Select.Option>  
-                  <Select.Option key={17} >{17}</Select.Option>       
-                  <Select.Option key={18} >{18}</Select.Option>       
-                  <Select.Option key={19} >{19}</Select.Option>  
-                  <Select.Option key={20} >{20}</Select.Option>       
-                  <Select.Option key={21} >{21}</Select.Option>       
-                  <Select.Option key={22} >{22}</Select.Option>       
-                  <Select.Option key={23} >{23}</Select.Option>       
+                  <Select.Option key={"1"} >{1}</Select.Option>  
+                  <Select.Option key={"2"}  disabled>{2}</Select.Option>       
+                  <Select.Option key={"3"} >{3}</Select.Option>      
+                  <Select.Option key={"4"} >{4}</Select.Option>  
+                  <Select.Option key={"5"}>{5}</Select.Option>       
+                  <Select.Option key={"6"} >{6}</Select.Option>       
+                  <Select.Option key={"7"} >{7}</Select.Option>  
+                  <Select.Option key={"8"}  disabled>{8}</Select.Option>       
+                  <Select.Option key={"9"} >{9}</Select.Option>       
+                  <Select.Option key={"10"} >{10}</Select.Option>  
+                  <Select.Option key={"11"}  disabled>{11}</Select.Option>       
+                  <Select.Option key={"12"} >{12}</Select.Option>       
+                  <Select.Option key={"13"} >{13}</Select.Option>  
+                  <Select.Option key={"14"} >{14}</Select.Option>       
+                  <Select.Option key={"15"} >{15}</Select.Option>       
+                  <Select.Option key={"16"} >{16}</Select.Option>  
+                  <Select.Option key={"17"} >{17}</Select.Option>       
+                  <Select.Option key={"18"} >{18}</Select.Option>       
+                  <Select.Option key={"19"} >{19}</Select.Option>  
+                  <Select.Option key={"20"} >{20}</Select.Option>       
+                  <Select.Option key={"21"} >{21}</Select.Option>       
+                  <Select.Option key={"22"} >{22}</Select.Option>       
+                  <Select.Option key={"23"} >{23}</Select.Option>       
                 </Select>
         <br/>
     </div>
@@ -118,11 +118,11 @@ render(){
 :::demo 可以使用`Select.OptGroup`进行分组，`utils`库中提供了`listConvertToGroup`首字母分组方法
 ```js
 state={
-  value:[1]
+  value:"1"
 }
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
+  const Group = listConvertToGroup([{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
         <Select showSingleClear onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
@@ -132,7 +132,6 @@ render(){
           )}
         </Select>
   )
-  
 }
 ```
 
@@ -143,15 +142,15 @@ render(){
 :::demo `labelInValue`会返回`key`、`label`值，建议远程搜索采用此方案。
 ```js
 state={
-  value:[]
+  value:{key:"1"}
 }
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
+  const Group = listConvertToGroup([{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
-       <div>key:{this.state.value[0] && this.state.value[0].key}</div>
-       <div>label:{this.state.value[0] && this.state.value[0].label}</div>
+       <div>key:{this.state.value && this.state.value.key}</div>
+       <div>label:{this.state.value && this.state.value.label}</div>
         <Select showSingleClear labelInValue onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
@@ -221,12 +220,12 @@ class Demo extends React.Component {
 :::demo  `labelClear`参数可以使label在可删除状态
 ```js
 state={
-  value:[1,2,3,6,'失效的id']
+  value:["1","2","3","6",'失效的id']
 }
 
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:6,label:<span>林林<Icon type="cloud" /></span>},{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'},{key:5,label:'李二'}]);
+  const Group = listConvertToGroup([{key:"6",label:<span>林林<Icon type="cloud" /></span>},{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'},{key:"5",label:'李二'}]);
   return(
     <div>
         <Select disabled={false} onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
@@ -257,12 +256,12 @@ render(){
 :::demo
 ```js
 state={
-  value:[1],
-  mValue:[1],
+  value:"1",
+  mValue:["1"],
 }
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
+  const Group = listConvertToGroup([{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
             <Select showSingleClear showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
@@ -292,7 +291,7 @@ render(){
 :::demo 下拉弹框位置可以进行自定义，`bottomLeft`、`bottom`、`bottomRight`
 ```js
 state={
-  value:[1],
+  value:"1",
   align:"bottomLeft"
 }
 
@@ -302,7 +301,7 @@ state={
 
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:1,label:'卿泽'},{key:2,label:'李四'},{key:3,label:123},{key:4,label:'李一'}]);
+  const Group = listConvertToGroup([{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
           <Radio.Group showSingleClear value={this.state.align} onChange={this.handleChange} style={{marginBottom:20}}>
@@ -461,8 +460,7 @@ render(){
 | --- | --- | --- | --- |
 | allowClear | 支持搜索框清除操作 | boolean | true |
 | defaultActiveFirstOption | 是否默认激活第一项 | boolean | true |
-| defaultValue | 初始化默认value | [] | - |
-| defaultValue | 指定默认选中的条目 | [] | - |
+| defaultValue | 指定默认选中的条目 | string\|string[]\|number\|number[]	 | - |
 | disabled | 是否禁用 | boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | boolean | true |
@@ -492,7 +490,7 @@ render(){
 | showSingleClear | 是否显示清除选择功能（仅在mode='single'生效） | boolean | false |
 | showSelectAll | 是否显示全选/反选功能（仅在mode='multiple'生效） | boolean | true |
 | size | 选择框大小，可选 `large` `small` | string | default |
-| value | 指定当前选中的条目 | [] | - |
+| value | 指定当前选中的条目 | string\|string[]\|number\|number[] | - |
 
 > 注意，如果发现下拉菜单跟随页面滚动，或者需要在其他弹层中触发 Select，请尝试使用 getPopupContainer={triggerNode => triggerNode.parentNode} 将下拉弹层渲染节点固定在触发器的父元素中。
 

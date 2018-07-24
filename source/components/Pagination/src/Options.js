@@ -28,17 +28,17 @@ class Options extends React.Component {
 
   buildOptionText = (value) => {
     return `${value} ${this.props.locale.items_per_page}`;
-  }
+  };
 
   changeSize = (value) => {
     this.props.changeSize(Number(value));
-  }
+  };
 
   handleChange = (e) => {
     this.setState({
       goInputText: e.target.value,
     });
-  }
+  };
 
   go = (e) => {
     let val = this.state.goInputText;
@@ -52,7 +52,7 @@ class Options extends React.Component {
       });
       this.props.quickGo(val);
     }
-  }
+  };
 
   render() {
     const props = this.props;
@@ -91,7 +91,7 @@ class Options extends React.Component {
           getPopupContainer={triggerNode => triggerNode.parentNode}
         >
           {options}
-       </Select>
+        </Select>
       );
     }
 
@@ -104,7 +104,7 @@ class Options extends React.Component {
               onClick={this.go}
               onKeyUp={this.go}
             >
-            {locale.jump_to_confirm}
+              {locale.jump_to_confirm}
             </button>
           );
         } else {

@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'mini-store';
-import { polyfill } from 'react-lifecycles-compat';
+import {connect} from 'mini-store';
+import {polyfill} from 'react-lifecycles-compat';
 import TableCell from './TableCell';
-import { warningOnce } from './utils';
+import {warningOnce} from './utils';
+
+const noop = () => {
+};
 
 class TableRow extends React.Component {
   static propTypes = {
@@ -18,6 +21,7 @@ class TableRow extends React.Component {
     prefixCls: PropTypes.string,
     onHover: PropTypes.func,
     columns: PropTypes.array,
+    activeRowByClick: PropTypes.bool,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     index: PropTypes.number,
     rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -26,6 +30,7 @@ class TableRow extends React.Component {
     indentSize: PropTypes.number,
     hasExpandIcon: PropTypes.func,
     hovered: PropTypes.bool.isRequired,
+    clicked: PropTypes.bool.isRequired,
     visible: PropTypes.bool.isRequired,
     store: PropTypes.object.isRequired,
     fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
@@ -38,11 +43,11 @@ class TableRow extends React.Component {
   };
 
   static defaultProps = {
-    onRow() {},
-    onHover() {},
-    hasExpandIcon() {},
-    renderExpandIcon() {},
-    renderExpandIconCell() {},
+    onRow: noop,
+    onHover: noop,
+    hasExpandIcon: noop,
+    renderExpandIcon: noop,
+    renderExpandIconCell: noop,
   };
 
   constructor(props) {
@@ -82,28 +87,32 @@ class TableRow extends React.Component {
   }
 
   onRowClick = event => {
-    const { record, index, onRowClick } = this.props;
+    const {store, record, index, onRowClick, activeRowByClick} = this.props;
+    // 点击高亮功能
+    activeRowByClick && store.setState({
+      currentClickedKey: record.key
+    });
     if (onRowClick) {
       onRowClick(record, index, event);
     }
   };
 
   onRowDoubleClick = event => {
-    const { record, index, onRowDoubleClick } = this.props;
+    const {record, index, onRowDoubleClick} = this.props;
     if (onRowDoubleClick) {
       onRowDoubleClick(record, index, event);
     }
   };
 
   onContextMenu = event => {
-    const { record, index, onRowContextMenu } = this.props;
+    const {record, index, onRowContextMenu} = this.props;
     if (onRowContextMenu) {
       onRowContextMenu(record, index, event);
     }
   };
 
   onMouseEnter = event => {
-    const { record, index, onRowMouseEnter, onHover, rowKey } = this.props;
+    const {record, index, onRowMouseEnter, onHover, rowKey} = this.props;
     onHover(true, rowKey);
     if (onRowMouseEnter) {
       onRowMouseEnter(record, index, event);
@@ -111,7 +120,7 @@ class TableRow extends React.Component {
   };
 
   onMouseLeave = event => {
-    const { record, index, onRowMouseLeave, onHover, rowKey } = this.props;
+    const {record, index, onRowMouseLeave, onHover, rowKey} = this.props;
     onHover(false, rowKey);
     if (onRowMouseLeave) {
       onRowMouseLeave(record, index, event);
@@ -119,19 +128,19 @@ class TableRow extends React.Component {
   };
 
   setExpanedRowHeight() {
-    const { store, rowKey } = this.props;
-    let { expandedRowsHeight } = store.getState();
+    const {store, rowKey} = this.props;
+    let {expandedRowsHeight} = store.getState();
     const height = this.rowRef.getBoundingClientRect().height;
     expandedRowsHeight = {
       ...expandedRowsHeight,
       [rowKey]: height,
     };
-    store.setState({ expandedRowsHeight });
+    store.setState({expandedRowsHeight});
   }
 
   setRowHeight() {
-    const { store, rowKey } = this.props;
-    const { fixedColumnsBodyRowsHeight } = store.getState();
+    const {store, rowKey} = this.props;
+    const {fixedColumnsBodyRowsHeight} = store.getState();
     const height = this.rowRef.getBoundingClientRect().height;
     store.setState({
       fixedColumnsBodyRowsHeight: {
@@ -142,14 +151,14 @@ class TableRow extends React.Component {
   }
 
   getStyle() {
-    const { height, visible } = this.props;
+    const {height, visible} = this.props;
 
     if (height && height !== this.style.height) {
-      this.style = { ...this.style, height };
+      this.style = {...this.style, height};
     }
 
     if (!visible && !this.style.display) {
-      this.style = { ...this.style, display: 'none' };
+      this.style = {...this.style, display: 'none'};
     }
 
     return this.style;
@@ -158,7 +167,7 @@ class TableRow extends React.Component {
   saveRowRef() {
     this.rowRef = ReactDOM.findDOMNode(this);
 
-    const { isAnyColumnsFixed, fixed, expandedRow, ancestorKeys } = this.props;
+    const {isAnyColumnsFixed, fixed, expandedRow, ancestorKeys} = this.props;
 
     if (!isAnyColumnsFixed) {
       return;
@@ -188,6 +197,7 @@ class TableRow extends React.Component {
       indent,
       indentSize,
       hovered,
+      clicked,
       height,
       visible,
       components,
@@ -199,10 +209,14 @@ class TableRow extends React.Component {
     const BodyRow = components.body.row;
     const BodyCell = components.body.cell;
 
-    let { className } = this.props;
+    let {className} = this.props;
 
     if (hovered) {
       className += ` ${prefixCls}-hover`;
+    }
+
+    if (clicked) {
+      className += ` ${prefixCls}-click`;
     }
 
     const cells = [];
@@ -236,13 +250,13 @@ class TableRow extends React.Component {
 
     const rowProps = onRow(record, index);
     const customStyle = rowProps ? rowProps.style : {};
-    let style = { height };
+    let style = {height};
 
     if (!visible) {
       style.display = 'none';
     }
 
-    style = { ...style, ...customStyle };
+    style = {...style, ...customStyle};
 
     return (
       <BodyRow
@@ -263,8 +277,8 @@ class TableRow extends React.Component {
 }
 
 function getRowHeight(state, props) {
-  const { expandedRowsHeight, fixedColumnsBodyRowsHeight } = state;
-  const { fixed, rowKey } = props;
+  const {expandedRowsHeight, fixedColumnsBodyRowsHeight} = state;
+  const {fixed, rowKey} = props;
 
   if (!fixed) {
     return null;
@@ -284,13 +298,14 @@ function getRowHeight(state, props) {
 polyfill(TableRow);
 
 export default connect((state, props) => {
-  const { currentHoverKey, expandedRowKeys } = state;
-  const { rowKey, ancestorKeys } = props;
+  const {currentHoverKey, currentClickedKey, expandedRowKeys} = state;
+  const {rowKey, ancestorKeys} = props;
   const visible = ancestorKeys.length === 0 || ancestorKeys.every(k => ~expandedRowKeys.indexOf(k));
 
   return {
     visible,
     hovered: currentHoverKey === rowKey,
+    clicked: currentClickedKey === rowKey,
     height: getRowHeight(state, props),
   };
 })(TableRow);

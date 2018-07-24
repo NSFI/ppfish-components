@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'mini-store';
+import {connect} from 'mini-store';
 import classNames from 'classnames';
 import ColGroup from './ColGroup';
 import TableHeader from './TableHeader';
@@ -25,9 +25,9 @@ class BaseTable extends React.Component {
   };
 
   getColumns(cols) {
-    const { columns = [], fixed } = this.props;
-    const { table } = this.context;
-    const { prefixCls } = table.props;
+    const {columns = [], fixed} = this.props;
+    const {table} = this.context;
+    const {prefixCls} = table.props;
     return (cols || columns).map(column => ({
       ...column,
       className:
@@ -44,10 +44,11 @@ class BaseTable extends React.Component {
   };
 
   renderRows = (renderData, indent, rows = [], ancestorKeys = []) => {
-    const { table } = this.context;
-    const { columnManager, components } = table;
+    const {table} = this.context;
+    const {columnManager, components} = table;
     const {
       prefixCls,
+      activeRowByClick,
       childrenColumnName,
       rowClassName,
       rowRef,
@@ -58,7 +59,7 @@ class BaseTable extends React.Component {
       onRowMouseLeave,
       onRow,
     } = table.props;
-    const { getRowKey, fixed, expander, isAnyColumnsFixed } = this.props;
+    const {getRowKey, fixed, expander, isAnyColumnsFixed} = this.props;
 
     for (let i = 0; i < renderData.length; i++) {
       const record = renderData[i];
@@ -96,13 +97,13 @@ class BaseTable extends React.Component {
           needIndentSpaced={expander.needIndentSpaced}
           onExpandedChange={expander.handleExpandChange}
         >
-          {(
-            expandableRow, // eslint-disable-line
+          {(expandableRow, // eslint-disable-line
           ) => (
             <TableRow
               fixed={fixed}
               indent={indent}
               className={className}
+              activeRowByClick={activeRowByClick}
               record={record}
               index={rowIndex}
               prefixCls={rowPrefixCls}
@@ -133,10 +134,10 @@ class BaseTable extends React.Component {
   };
 
   render() {
-    const { table } = this.context;
-    const { components } = table;
-    const { prefixCls, scroll, data, getBodyWrapper } = table.props;
-    const { expander, tableClassName, hasHead, hasBody, fixed } = this.props;
+    const {table} = this.context;
+    const {components} = table;
+    const {prefixCls, scroll, data, getBodyWrapper} = table.props;
+    const {expander, tableClassName, hasHead, hasBody, fixed} = this.props;
     const tableStyle = {};
 
     if (!fixed && scroll.x) {
@@ -163,8 +164,8 @@ class BaseTable extends React.Component {
 
     return (
       <Table className={tableClassName} style={tableStyle} key="table">
-        <ColGroup columns={columns} fixed={fixed} />
-        {hasHead && <TableHeader expander={expander} columns={columns} fixed={fixed} />}
+        <ColGroup columns={columns} fixed={fixed}/>
+        {hasHead && <TableHeader expander={expander} columns={columns} fixed={fixed}/>}
         {body}
       </Table>
     );
