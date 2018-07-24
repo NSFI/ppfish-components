@@ -166,6 +166,56 @@ render(){
 
 :::
 
+## 联动
+
+:::demo  省市联动是典型的例子。但推荐使用 Cascader 组件。
+```js
+
+const Option = Select.Option;
+
+const provinceData = ['Zhejiang', 'Jiangsu'];
+const cityData = {
+  Zhejiang: ['Hangzhou', 'Ningbo', 'Wenzhou'],
+  Jiangsu: ['Nanjing', 'Suzhou', 'Zhenjiang'],
+};
+
+class Demo extends React.Component {
+  state = {
+    cities: cityData[provinceData[0]],
+    secondCity: cityData[provinceData[0]][0],
+  }
+
+  handleProvinceChange = (value) => {
+    this.setState({
+      cities: cityData[value],
+      secondCity: cityData[value][0],
+    });
+  }
+
+  onSecondCityChange = (value) => {
+    this.setState({
+      secondCity: value,
+    });
+  }
+
+  render() {
+    const provinceOptions = provinceData.map(province => <Option key={province}>{province}</Option>);
+    const cityOptions = this.state.cities.map(city => <Option key={city}>{city}</Option>);
+    return (
+      <div>
+        <Select defaultValue={provinceData[0]} style={{ width: 150,display:'inline-block' }} onChange={this.handleProvinceChange}>
+          {provinceOptions}
+        </Select>
+        <Select value={this.state.secondCity} style={{ width: 150,display:'inline-block' }} onChange={this.onSecondCityChange}>
+          {cityOptions}
+        </Select>
+      </div>
+    );
+  }
+}
+```
+
+:::
 
 ## 多选操作/Label可删除的多选操作
 :::demo  `labelClear`参数可以使label在可删除状态
