@@ -1,4 +1,5 @@
-/* stylelint-disable at-rule-no-unknown */
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+@import "../color/colors";
 // The prefix to use on all css classes from ant.
 @fishd-prefix             : fishd;
 // -------- Colors -----------
@@ -35,9 +36,16 @@
 
 // Color used by default to control hover and active backgrounds and for
 // alert info backgrounds.
-@primary-1: tint(@primary-color, 90%);  // replace tint(@primary-color, 90%)
-@primary-5: tint(@primary-color, 20%);  // color used to control the text color in many active and hover states, replace tint(@primary-color, 20%) // color used to control the text color of active buttons, don't use, use @primary-color
-@primary-7: shade(@primary-color, 7%);  // replace shade(@primary-color, 5%)
+@primary-1: color(~`colorPalette("@{primary-color}", 1)`);  // replace tint(@primary-color, 90%)
+@primary-2: color(~`colorPalette("@{primary-color}", 2)`);  // replace tint(@primary-color, 80%)
+@primary-3: color(~`colorPalette("@{primary-color}", 3)`);  // unused
+@primary-4: color(~`colorPalette("@{primary-color}", 4)`);  // unused
+@primary-5: color(~`colorPalette("@{primary-color}", 5)`);  // color used to control the text color in many active and hover states, replace tint(@primary-color, 20%)
+@primary-6: @primary-color;                                 // color used to control the text color of active buttons, don't use, use @primary-color
+@primary-7: color(~`colorPalette("@{primary-color}", 7)`);  // replace shade(@primary-color, 5%)
+@primary-8: color(~`colorPalette("@{primary-color}", 8)`);  // unused
+@primary-9: color(~`colorPalette("@{primary-color}", 9)`);  // unused
+@primary-10: color(~`colorPalette("@{primary-color}", 10)`);  // unused
 
 // Background color for `<body>`
 @body-background        : #fff;
@@ -96,6 +104,10 @@
 @table-selected-row-bg: @primary-1;
 @table-header-bg: #fff;
 @table-header-sort-bg: #fff;
+@table-header-sort-bg: @background-color-base;
+@table-expanded-row-bg: #fbfbfb;
+@table-padding-vertical: 16px;
+@table-padding-horizontal: 16px;
 
 // Menu
 // ---

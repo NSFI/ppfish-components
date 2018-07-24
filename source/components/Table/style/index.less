@@ -1,5 +1,4 @@
-@import "../../style/themes/default";
-@import "../../style/mixins/index";
+@import "../../../assets/css/index";
 
 @table-prefix-cls: ~"@{fishd-prefix}-table";
 @table-header-icon-color: @text-color-secondary;
@@ -14,10 +13,11 @@
   clear: both;
 
   &-body {
-    transition: opacity .3s;
+    transition: opacity 0.3s;
   }
 
   &-empty &-body {
+    /* stylelint-disable-next-line */
     overflow: auto !important;
   }
 
@@ -31,7 +31,7 @@
 
   &-thead > tr > th {
     background: @table-header-bg;
-    transition: background .3s ease;
+    transition: background 0.3s ease;
     text-align: left;
     color: @heading-color;
     font-weight: 500;
@@ -48,7 +48,7 @@
       font-size: @font-size-base;
       cursor: pointer;
       color: @table-header-icon-color;
-      transition: all .3s;
+      transition: all 0.3s;
       width: 14px;
       font-weight: normal;
       vertical-align: text-bottom;
@@ -90,12 +90,12 @@
 
   &-tbody > tr > td {
     border-bottom: @border-width-base @border-style-base @border-color-split;
-    transition: all .3s;
+    transition: all 0.3s;
   }
 
   &-thead > tr,
   &-tbody > tr {
-    transition: all .3s;
+    transition: all 0.3s;
     &.@{table-prefix-cls}-row-hover,
     &:hover {
       & > td {
@@ -172,6 +172,7 @@
   &-thead > tr > th,
   &-tbody > tr > td {
     padding: @table-padding-vertical @table-padding-horizontal;
+    /* stylelint-disable-next-line */
     word-break: break-word;
   }
 
@@ -251,6 +252,7 @@
         color: @primary-4;
       }
       &.on {
+        /* stylelint-disable-next-line */
         .@{iconfont-prefix}-caret-up,
         .@{iconfont-prefix}-caret-down {
           color: @primary-color;
@@ -279,7 +281,7 @@
       .iconfont-size-under-12px(8px);
       line-height: 4px;
       height: 4px;
-      transition: all .3s;
+      transition: all 0.3s;
       position: relative;
       display: block;
     }
@@ -387,6 +389,7 @@
       }
 
       .@{fishd-prefix}-dropdown-submenu-contain-selected {
+        /* stylelint-disable-next-line */
         .@{fishd-prefix}-dropdown-menu-submenu-title:after {
           color: @primary-color;
           font-weight: bold;
@@ -429,12 +432,13 @@
 
   &-selection {
     &-select-all-custom {
+      /* stylelint-disable-next-line */
       margin-right: 4px !important;
     }
 
     .@{iconfont-prefix}-down {
       color: @table-header-icon-color;
-      transition: all .3s;
+      transition: all 0.3s;
     }
 
     &-menu {
@@ -538,7 +542,7 @@
     position: absolute;
     top: 0;
     overflow: hidden;
-    transition: box-shadow .3s ease;
+    transition: box-shadow 0.3s ease;
     border-radius: 0;
     table {
       width: auto;

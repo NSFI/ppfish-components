@@ -86,7 +86,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
   static defaultProps = {
     activeRowByClick: false,
     dataSource: [],
-    prefixCls: 'ant-table',
+    prefixCls: 'fishd-table',
     useFixedHeader: false,
     className: '',
     size: 'default' as TableSize,
