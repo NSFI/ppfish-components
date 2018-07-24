@@ -1,7 +1,7 @@
 @import "../../style/themes/default";
 @import "../../style/mixins/index";
 
-@table-prefix-cls: ~"@{ant-prefix}-table";
+@table-prefix-cls: ~"@{fishd-prefix}-table";
 @table-header-icon-color: @text-color-secondary;
 
 .@{table-prefix-cls}-wrapper {
@@ -41,7 +41,7 @@
       text-align: center;
     }
 
-    .@{iconfont-css-prefix}-filter,
+    .@{iconfont-prefix}-filter,
     .@{table-prefix-cls}-filter-icon {
       position: relative;
       margin-left: 8px;
@@ -58,11 +58,11 @@
       }
     }
 
-    .@{table-prefix-cls}-column-sorter + .@{iconfont-css-prefix}-filter {
+    .@{table-prefix-cls}-column-sorter + .@{iconfont-prefix}-filter {
       margin-left: 4px;
     }
 
-    .@{table-prefix-cls}-filter-selected.@{iconfont-css-prefix}-filter {
+    .@{table-prefix-cls}-filter-selected.@{iconfont-prefix}-filter {
       color: @primary-color;
     }
 
@@ -185,7 +185,7 @@
     text-align: center;
     min-width: 62px;
     width: 62px;
-    .@{ant-prefix}-radio-wrapper {
+    .@{fishd-prefix}-radio-wrapper {
       margin-right: 0;
     }
   }
@@ -247,12 +247,12 @@
       line-height: @font-size-base / 2 - 1px;
       cursor: pointer;
       position: relative;
-      &:hover .@{iconfont-css-prefix} {
+      &:hover .@{iconfont-prefix} {
         color: @primary-4;
       }
       &.on {
-        .@{iconfont-css-prefix}-caret-up,
-        .@{iconfont-css-prefix}-caret-down {
+        .@{iconfont-prefix}-caret-up,
+        .@{iconfont-prefix}-caret-down {
           color: @primary-color;
         }
       }
@@ -274,8 +274,8 @@
       top: 0;
     }
 
-    .@{iconfont-css-prefix}-caret-up,
-    .@{iconfont-css-prefix}-caret-down {
+    .@{iconfont-prefix}-caret-up,
+    .@{iconfont-prefix}-caret-down {
       .iconfont-size-under-12px(8px);
       line-height: 4px;
       height: 4px;
@@ -288,7 +288,7 @@
       margin-top: 1.5px;
     }
 
-    .@{iconfont-css-prefix}-caret-up {
+    .@{iconfont-prefix}-caret-up {
       margin-top: 0.5px;
     }
   }
@@ -349,12 +349,12 @@
     font-size: @font-size-base;
     color: @text-color-secondary;
     z-index: 1;
-    .@{iconfont-css-prefix} {
+    .@{iconfont-prefix} {
       margin-right: 4px;
     }
   }
 
-  &-pagination.@{ant-prefix}-pagination {
+  &-pagination.@{fishd-prefix}-pagination {
     margin: 16px 0;
     float: right;
   }
@@ -366,7 +366,7 @@
     border-radius: @border-radius-base;
     box-shadow: @box-shadow-base;
 
-    .@{ant-prefix}-dropdown-menu {
+    .@{fishd-prefix}-dropdown-menu {
       border: 0;
       box-shadow: none;
       border-radius: @border-radius-base @border-radius-base 0 0;
@@ -386,8 +386,8 @@
         box-shadow: @box-shadow-base;
       }
 
-      .@{ant-prefix}-dropdown-submenu-contain-selected {
-        .@{ant-prefix}-dropdown-menu-submenu-title:after {
+      .@{fishd-prefix}-dropdown-submenu-contain-selected {
+        .@{fishd-prefix}-dropdown-menu-submenu-title:after {
           color: @primary-color;
           font-weight: bold;
           text-shadow: 0 0 2px @primary-2;
@@ -395,12 +395,12 @@
       }
     }
 
-    .@{ant-prefix}-dropdown-menu-item {
+    .@{fishd-prefix}-dropdown-menu-item {
       overflow: hidden;
     }
 
-    > .@{ant-prefix}-dropdown-menu > .@{ant-prefix}-dropdown-menu-item:last-child,
-    > .@{ant-prefix}-dropdown-menu > .@{ant-prefix}-dropdown-menu-submenu:last-child .@{ant-prefix}-dropdown-menu-submenu-title {
+    > .@{fishd-prefix}-dropdown-menu > .@{fishd-prefix}-dropdown-menu-item:last-child,
+    > .@{fishd-prefix}-dropdown-menu > .@{fishd-prefix}-dropdown-menu-submenu:last-child .@{fishd-prefix}-dropdown-menu-submenu-title {
       border-radius: 0;
     }
 
@@ -432,7 +432,7 @@
       margin-right: 4px !important;
     }
 
-    .@{iconfont-css-prefix}-down {
+    .@{iconfont-prefix}-down {
       color: @table-header-icon-color;
       transition: all .3s;
     }
@@ -445,7 +445,7 @@
       border-radius: @border-radius-base;
       box-shadow: @box-shadow-base;
 
-      .@{ant-prefix}-action-down {
+      .@{fishd-prefix}-action-down {
         color: @table-header-icon-color;
       }
     }
@@ -455,7 +455,7 @@
       padding: 0;
       display: inline-block;
       line-height: 1;
-      &:hover .@{iconfont-css-prefix}-down {
+      &:hover .@{iconfont-prefix}-down {
         color: #666;
       }
     }

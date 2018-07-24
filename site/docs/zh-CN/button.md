@@ -297,17 +297,21 @@ render(){
       margin-top: 0;
     }
   }
-  .ant-btn-group {
+  .fishd-btn-group {
     margin-right: 8px;
   }
 }
 
-[class^="components-button-demo-"] .ant-btn {
+[class^="components-button-demo-"] .fishd-btn {
   margin-right: 8px;
   margin-bottom: 12px;
 }
 
-[class^="components-button-demo-"] .ant-btn-group > .ant-btn {
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
   margin-right: 0;
 }
 </style>

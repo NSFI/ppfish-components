@@ -2,8 +2,9 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from '../Icon';
+import Icon from '../Icon/index';
 import Group from './ButtonGroup';
+import './style/index.less';
 
 const rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/;
 const isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar);
@@ -66,8 +67,9 @@ export default class Button extends React.Component<ButtonProps, any> {
   static Group: typeof Group;
   static __ANT_BUTTON = true;
 
+
   static defaultProps = {
-    prefixCls: 'm-btn',
+    prefixCls: 'fishd-btn',
     loading: false,
     ghost: false,
   };

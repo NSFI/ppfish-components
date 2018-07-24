@@ -2,7 +2,7 @@ import * as React from 'react';
 import Checkbox, { CheckboxChangeEvent } from '../Checkbox';
 import Dropdown from '../Dropdown';
 import Menu from '../Menu';
-import Icon from '../Icon';
+import Icon from '../Icon/index';
 import classNames from 'classnames';
 import { SelectionCheckboxAllProps, SelectionCheckboxAllState, SelectionItem } from './interface';
 

@@ -9,7 +9,6 @@ export {
   BackTop,
   Badge,
   Breadcrumb,
-  Button,
   Calendar,
   Card,
   Collapse,

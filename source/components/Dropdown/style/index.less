@@ -1,7 +1,7 @@
 @import "../../style/themes/default";
 @import "../../style/mixins/index";
 
-@dropdown-prefix-cls: ~"@{ant-prefix}-dropdown";
+@dropdown-prefix-cls: ~"@{fishd-prefix}-dropdown";
 
 .@{dropdown-prefix-cls} {
   .reset-component;
@@ -14,17 +14,17 @@
   &-wrap {
     position: relative;
 
-    .@{ant-prefix}-btn > .@{iconfont-css-prefix}-down {
+    .@{fishd-prefix}-btn > .@{iconfont-prefix}-down {
       .iconfont-size-under-12px(10px);
     }
 
-    .@{iconfont-css-prefix}-down:before {
+    .@{iconfont-prefix}-down:before {
       transition: transform .2s;
     }
   }
 
   &-wrap-open {
-    .@{iconfont-css-prefix}-down:before {
+    .@{iconfont-prefix}-down:before {
       transform: rotate(180deg);
     }
   }
@@ -185,10 +185,10 @@
 
 .@{dropdown-prefix-cls}-trigger,
 .@{dropdown-prefix-cls}-link {
-  .@{iconfont-css-prefix}-down {
+  .@{iconfont-prefix}-down {
     .iconfont-size-under-12px(10px);
   }
-  .@{iconfont-css-prefix}-ellipsis {
+  .@{iconfont-prefix}-ellipsis {
     text-shadow: 0 0 currentColor;
   }
 }
@@ -196,11 +196,11 @@
 .@{dropdown-prefix-cls}-button {
   white-space: nowrap;
 
-  &.@{ant-prefix}-btn-group > .@{ant-prefix}-btn:last-child:not(:first-child) {
+  &.@{fishd-prefix}-btn-group > .@{fishd-prefix}-btn:last-child:not(:first-child) {
     padding-left: @padding-xs;
     padding-right: @padding-xs;
   }
-  .@{iconfont-css-prefix}-down {
+  .@{iconfont-prefix}-down {
     .iconfont-size-under-12px(10px);
   }
 }

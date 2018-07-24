@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render, mount } from 'enzyme';
 import Button from '..';
-import Icon from '../../icon';
+import Icon from '../../Icon';
 
 describe('Button', () => {
   it('renders correctly', () => {

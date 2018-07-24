@@ -2,9 +2,9 @@ import * as React from 'react';
 import Dialog from './DialogWrap';
 import * as PropTypes from 'prop-types';
 import { addEventListener } from '../../utils/index';
-import Button from '../button';
+import Button from '../Button';
 
-import { ButtonType, NativeButtonProps } from '../button/button';
+import { ButtonType, NativeButtonProps } from '../Button/Button';
 
 let mousePosition: { x: number, y: number } | null;
 let mousePositionEventBinded: boolean;

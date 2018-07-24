@@ -3,7 +3,7 @@ ppfish在设计规范上支持一定程度的样式定制。
 
 ## 样式变量
 ppfish的样式使用了 Less 作为开发语言，并定义了一系列全局/组件的样式变量，你可以根据需求进行相应调整。
- - [默认样式变量](https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/lib/ant-theme-vars.less)
+ - [默认样式变量](https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/themes/default.less)
 
 ## 定制方式
 
@@ -56,7 +56,7 @@ module: {
 ```js
 // custom-theme-vars.less
 // Available theme variables can be found in
-// https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/lib/ant-theme-vars.less
+// https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/themes/default.less
 @primary-color: #193D71; // 这里是自定义的颜色
 ```
 
