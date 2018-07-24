@@ -72,7 +72,7 @@ export default class Select extends React.Component {
     onVisibleChange: noop,
     placeholder: '请选择',
     popupAlign: 'bottomLeft',
-    prefixCls: 'ant-select',
+    prefixCls: 'fishd-select',
     searchInputProps: {},
     searchPlaceholder: '请输入关键词',
     selectAllText: '选择所有',
@@ -559,7 +559,7 @@ export default class Select extends React.Component {
   getSelectionPanel() {
     const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
-    const selectionCls = `${prefixCls}-selection-panel`;
+    const selectionCls = `${prefixCls}`;
     const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
     return (
       <div
