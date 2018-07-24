@@ -39,6 +39,10 @@ class BasePopup extends React.Component {
     renderSearch: PropTypes.func,
     renderConfirmBtn: PropTypes.func,
     onTreeExpanded: PropTypes.func,
+
+    // 确定或取消选择
+    onCancel: PropTypes.func,
+    onConfirm: PropTypes.func,
   };
 
   static contextTypes = {

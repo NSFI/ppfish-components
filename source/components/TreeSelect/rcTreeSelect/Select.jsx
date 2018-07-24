@@ -251,6 +251,8 @@ class Select extends React.Component {
       });
     }
 
+    // debugger;
+
     // Convert `treeData` to entities
     if (treeData) {
       const { treeNodes, valueEntities, keyEntities } = convertDataToEntities(treeData);
@@ -386,11 +388,9 @@ class Select extends React.Component {
     }
   }
 
-
   // ==================== Selector ====================
   onSelectorFocus = () => {
     this.setState({ focused: true });
-
   };
 
   onSelectorBlur = () => {
@@ -601,6 +601,7 @@ class Select extends React.Component {
       this.setOpenState(false);
     }
 
+    // 处理单选及非可勾选的多选
     const { selectedNodes } = nodeEventInfo;
     const isAdd = nodeEventInfo.selected;
     this.onValueTrigger(isAdd, selectedNodes, nodeEventInfo, { selected: isAdd });
@@ -714,7 +715,7 @@ class Select extends React.Component {
       const lastValue = valueList[valueList.length - 1].value;
       this.onMultipleSelectorRemove(event, lastValue);
     }
-  }
+  };
 
   /**
    * Only update the value which is not in props
@@ -803,8 +804,10 @@ class Select extends React.Component {
       ...extraInfo,
     };
 
+    // debugger;
     // Format value by `treeCheckStrictly`
     const selectorValueList = formatSelectorValue(valueList, this.props, valueEntities);
+    // const selectorValueList = extra.preValue;
 
     if (!('value' in this.props)) {
       this.setState({
@@ -854,8 +857,15 @@ class Select extends React.Component {
     this.selectorRef.current.blur();
   }
 
-  // ===================== Render =====================
+  handleCancel = () => {
+    console.log('>> cancel');
+  };
 
+  handleConfirm = () => {
+    console.log('>> confirm');
+  };
+
+  // ===================== Render =====================
   render() {
     const {
       valueList, missValueList, selectorValueList,
@@ -889,9 +899,12 @@ class Select extends React.Component {
         onTreeExpanded={this.delayForcePopupAlign}
         treeNodes={treeNodes}
         filteredTreeNodes={filteredTreeNodes}
+        onCancel={this.handleCancel}
+        onConfirm={this.handleConfirm}
       />
     );
 
+    //debugger;
     const Selector = isMultiple ? MultipleSelector : SingleSelector;
     const $selector = (
       <Selector
