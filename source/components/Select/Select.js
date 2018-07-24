@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
-import {Col, Row, Button, Icon} from 'antd';
+import Button from '../Button/index.tsx';
+import {Col, Row, Icon} from 'antd';
+import warning from "warning";
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
 import {KeyCode} from "../../utils";
-import warning from "warning";
 
 const noop = () => {
 };
@@ -139,10 +140,10 @@ export default class Select extends React.Component {
     const optionList = this.getPlainOptionList(this.props.children, []);
     if (labelInValue) {
       if (valueType === 'array') {
-        return value && value.map(key => {
-          const label = (optionList.find(option => option.key === key) || {}).label || key;
+        return value && value.map(obj => {
+          const label = obj.label || (optionList.find(option => option.key === obj.key) || {}).label || obj.key;
           return {
-            key: key,
+            key: obj.key,
             label: label
           };
         }) || [];
@@ -152,7 +153,7 @@ export default class Select extends React.Component {
           label: value.label || (optionList.find(option => option.key === value.key) || {}).label || value.key
         }];
       } else {
-        warning('Only object:{key,label} and array[{key,label}] can be passed in this mode. - labelInValue');
+        warning('warning: Only object{key,label} and array[{key,label}] can be passed in this mode. - labelInValue');
         return [];
       }
     } else {
