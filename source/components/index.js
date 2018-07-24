@@ -2,7 +2,7 @@ import AnimationImageLoader from './AnimationImageLoader';
 import AudioPlayer from './AudioPlayer';
 import BizLoading from './BizLoading';
 import BizTimePicker from './BizTimePicker';
-import BizTable from './BizTable';
+import BizTable from './BizTable/bizTable';
 import Checkbox from './Checkbox/index.tsx';
 import ColorPicker from './ColorPicker';
 import Drawer from './Drawer';

@@ -22,6 +22,7 @@ export interface ColumnProps<T> {
   filterDropdownVisible?: boolean;
   onFilterDropdownVisibleChange?: (visible: boolean) => void;
   sorter?: boolean | CompareFn<T>;
+  sorterType?: 'default' | 'firstLetter';
   defaultSortOrder?: 'ascend' | 'descend';
   colSpan?: number;
   width?: string | number;
@@ -94,6 +95,7 @@ export interface TableProps<T> {
   dataSource?: T[];
   components?: TableComponents;
   columns?: ColumnProps<T>[];
+  activeRowByClick?: boolean;
   rowKey?: string | ((record: T, index: number) => string);
   rowClassName?: (record: T, index: number) => string;
   expandedRowRender?: (record: T, index: number, indent: number, expanded: boolean) => React.ReactNode;
