@@ -105,20 +105,14 @@ showTotal=(total)=> {
 render(){
   return(
     <div id="components-pagination-demo-mini">
-        <Pagination size="small" total={50} />
-        <Pagination size="small" total={50} showSizeChanger showQuickJumper />
+        <Pagination size="small" total={50}  style={{marginBottom:24}}/>
+        <Pagination size="small" total={50} showSizeChanger showQuickJumper style={{marginBottom:24}}/>
         <Pagination size="small" total={50} showTotal={this.showTotal} />
       </div>
   )
 }
 ```
 :::
-
-<style>
-#components-pagination-demo-mini .ant-pagination:not(:last-child) {
-  margin-bottom: 24px;
-}
-</style>
 
 ## 更多
 
