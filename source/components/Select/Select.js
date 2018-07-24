@@ -168,17 +168,17 @@ export default class Select extends React.Component {
     }
   };
 
-  //清空搜索项
+  //清空数据项,mode='single'
   emptySelectValue = () => {
     this.setState({
       selectValue: [],
       popupVisible: false,
     }, () => {
-      const {onChange, mode} = this.props;
-      if (mode === 'single') {
-        onChange('');
-      } else if (mode === 'multiple') {
-        onChange([]);
+      const {onChange, labelInValue} = this.props;
+      if (labelInValue) {
+        onChange(this.state.selectValue);
+      } else {
+        onChange(this.state.selectValue.map(selected => selected.key));
       }
     });
   };
@@ -223,7 +223,7 @@ export default class Select extends React.Component {
 
   //处理 label、option的click操作
   onOptionClick = (e, obj, clickInLabel) => {
-    e.stopPropagation();
+    e && e.stopPropagation();
     const {onChange, mode, onSelect, labelInValue} = this.props;
     const selectValue = this.state.selectValue;
     const index = selectValue.findIndex(valueItem => valueItem.key === obj.key);
@@ -248,7 +248,7 @@ export default class Select extends React.Component {
           selectValue: [...selectValue.slice(0, index), ...selectValue.slice(index + 1)]
         }, () => {
           if (clickInLabel) {
-            //click label fire onChange event
+            //Clicking on label will trigger the onchange event.
             if (labelInValue) {
               onChange(this.state.selectValue);
             } else {
@@ -270,7 +270,7 @@ export default class Select extends React.Component {
         //对children中的Option 进行事件绑定、参数补充
         return React.cloneElement(c, {
           prefixCls: `${dropDownCls}-option`,
-          checked: this.state.selectValue && !!this.state.selectValue.find(obj => obj && obj.key === value),
+          checked: !!this.state.selectValue.find(obj => obj && obj.key === value),
           value: value,
           activeKey: this.state.activeKey,
           onOptionClick: this.onOptionClick,
@@ -310,7 +310,7 @@ export default class Select extends React.Component {
         const children = this.getSelectFilteredOptionList(child.props.children);
         ChildrenList.push(React.cloneElement(child, {
           children: children,
-          _isShow: !!(children && children.length)
+          _isShow: !!(children && children.length) //搜索后分组下没有东西就隐藏该分组
         }));
       }
     });
@@ -456,13 +456,13 @@ export default class Select extends React.Component {
     const dropdownList = this.dropdownList;
 
     const optionOffsetTop = activeOption.offsetTop;
-    const listScrollTop = this.dropdownList.scrollTop;
-    const listHeight = this.dropdownList.clientHeight;
+    const listScrollTop = dropdownList.scrollTop;
+    const listHeight = dropdownList.clientHeight;
 
     if (optionOffsetTop < listScrollTop) {
-      this.dropdownList.scrollTop = optionOffsetTop;
+      dropdownList.scrollTop = optionOffsetTop;
     } else if (optionOffsetTop > listScrollTop + listHeight) {
-      this.dropdownList.scrollTop = optionOffsetTop;
+      dropdownList.scrollTop = optionOffsetTop;
     }
   };
 
