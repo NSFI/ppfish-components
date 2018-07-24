@@ -44,11 +44,12 @@ class MultipleSelector extends React.Component {
 
   onPlaceholderClick = () => {
     this.inputRef.current.focus();
-  }
+  };
 
   focus = () => {
     this.inputRef.current.focus();
   };
+
   blur = () => {
     this.inputRef.current.blur();
   };
@@ -78,7 +79,7 @@ class MultipleSelector extends React.Component {
         {currentPlaceholder}
       </span>
     );
-  }
+  };
 
   renderSelection = () => {
     const {
@@ -87,6 +88,8 @@ class MultipleSelector extends React.Component {
       labelInValue, maxTagCount, maxTagPlaceholder,
     } = this.props;
     const { rcTreeSelect: { onMultipleSelectorRemove } } = this.context;
+
+    // debugger;
 
     // Check if `maxTagCount` is set
     let myValueList = selectorValueList;
@@ -137,14 +140,11 @@ class MultipleSelector extends React.Component {
 
     const className = `${prefixCls}-selection__rendered`;
     if (choiceTransitionName) {
-      return (<Animate
-        className={className}
-        component="ul"
-        transitionName={choiceTransitionName}
-        onLeave={onChoiceAnimationLeave}
-      >
-        {selectedValueNodes}
-      </Animate>);
+      return (
+        <Animate className={className} component="ul" transitionName={choiceTransitionName} onLeave={onChoiceAnimationLeave}>
+          {selectedValueNodes}
+        </Animate>
+      );
     }
 
     return (

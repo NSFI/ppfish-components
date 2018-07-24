@@ -65,10 +65,12 @@ class MultiplePopup extends React.Component {
   };
 
   renderConfirmBtn = () => {
+    const { onCancel, onConfirm } = this.props;
+
     return (
       <div className="dropdown-confirm">
-        <Button>取消</Button>
-        <Button type="primary">确定</Button>
+        <Button onClick={onCancel}>取消</Button>
+        <Button type="primary" onClick={onConfirm}>确定</Button>
       </div>
     );
   };
