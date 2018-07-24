@@ -22,7 +22,7 @@ export interface DropDownProps {
 export default class Dropdown extends React.Component<DropDownProps, any> {
   static Button: typeof DropdownButton;
   static defaultProps = {
-    prefixCls: 'ant-dropdown',
+    prefixCls: 'fishd-dropdown',
     mouseEnterDelay: 0.15,
     mouseLeaveDelay: 0.1,
     placement: 'bottomLeft',

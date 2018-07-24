@@ -16,7 +16,7 @@ export default class DropdownButton extends React.Component<DropdownButtonProps,
   static defaultProps = {
     placement: 'bottomRight',
     type: 'default',
-    prefixCls: 'ant-dropdown-button',
+    prefixCls: 'fishd-dropdown-button',
   };
 
   render() {
