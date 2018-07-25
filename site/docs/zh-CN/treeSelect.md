@@ -19,8 +19,7 @@
     }
   }
 
-  onChange = (value) => {
-    console.log(value);
+  onChange = (value, label, extra) => {
     this.setState({ value });
   }
 
@@ -71,7 +70,6 @@
   }
 
   onChange = (value) => {
-    console.log(value);
     this.setState({ value });
   }
 
@@ -128,8 +126,18 @@
     value: ['0-0-0'],
   }
 
-  onChange = (value) => {
-    console.log('onChange ', value);
+  onChange = (value, label, extra) => {
+    console.log('>> onChange: ', value, label, extra);
+    //this.setState({ value });
+  }
+
+  onConfirm = (value) => {
+    console.log('>> onConfirm: ', value);
+    this.setState({ value });
+  }
+  
+  onCancel = (value) => {
+    console.log('>> onCancel: ', value);
     this.setState({ value });
   }
 
@@ -167,6 +175,8 @@
       treeDefaultExpandAll: true,
       value: this.state.value,
       onChange: this.onChange,
+      onConfirm: this.onConfirm,
+      onCancel: this.onCancel,
       treeCheckable: true,
       style: {
         width: 300,
@@ -184,7 +194,7 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 容器类名 | string | '' |
-| defaultValue | 指定默认选中的条目 | string | - |
+| defaultValue | 指定默认选中的条目 | string/string[] | - |
 | disabled | 是否禁用 | boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | boolean | true |
@@ -202,7 +212,7 @@
 | treeDefaultExpandedKeys | 默认展开的树节点 | array | - |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'value' |
 | treeNodeResetLabel | 复位选项的默认文字 | string | '不选择任何分类' |
-| value | 指定当前选中的条目 | string | - |
+| value | 指定当前选中的条目 | string/string[] | - |
 | onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
 | onSearch | 搜索框值变化时调用 | function(value: string) | - |
 | onSelect | 被选中时调用 | function(value, node, extra) | - |
