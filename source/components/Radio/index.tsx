@@ -1,6 +1,7 @@
 import Radio from './radio';
 import Group from './group';
 import Button from './radioButton';
+import './style/index.less';
 
 export * from './interface';
 

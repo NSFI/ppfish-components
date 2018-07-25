@@ -20,7 +20,7 @@ function getCheckedValue(children: React.ReactNode) {
 export default class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
   static defaultProps = {
     disabled: false,
-    prefixCls: 'ant-radio',
+    prefixCls: 'fishd-radio',
     buttonStyle: 'outline',
   };
 
