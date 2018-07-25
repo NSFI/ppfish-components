@@ -1,5 +1,6 @@
 import React from 'react';
-import {Row, Col, Affix} from 'antd';
+import {Affix} from 'antd';
+import {Row, Col} from '../../../source/components';
 import PropTypes from "prop-types";
 import locales from '../../locales';
 
