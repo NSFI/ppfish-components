@@ -1,6 +1,6 @@
 import React from 'react';
 import copy from 'copy-to-clipboard';
-import { message } from 'antd';
+import { message } from '../../../source/components';
 import './style.less';
 
 export default class RuleText extends React.Component {
@@ -16,7 +16,7 @@ export default class RuleText extends React.Component {
       <div id='typography-text'>
         <h1 className='global-title'>Typography 字体</h1>
         <p className='desc'>文字色主要用于各层级的文本来使用。</p>
-        
+
         <h3 id='text-color-title'>文字色</h3>
         <div className='text-color-container'>
           <div className='text-color-item' onClick={() => {this.handleClick('#333333')}}>

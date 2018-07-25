@@ -16,7 +16,13 @@
       ]
     },
     "test": {
-      "presets": ["react-app"]
+      "plugins":["dynamic-import-node"],
+      "presets": [
+        "env",
+        "stage-1",
+        "stage-2",
+        "react"
+      ]
     }
   }
 }

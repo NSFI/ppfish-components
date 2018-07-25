@@ -135,11 +135,11 @@ render(){
 .demo-block .demo {
   overflow: auto;
 }
-.demo-block .ant-btn {
+.demo-block .fishd-btn {
   margin-right: 8px;
   margin-bottom: 8px;
 }
-.demo-block .demo .ant-btn {
+.demo-block .demo .fishd-btn {
   width: 70px;
   text-align: center;
   padding: 0;

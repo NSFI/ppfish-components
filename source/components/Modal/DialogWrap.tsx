@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import Dialog from './Dialog';
 import { ContainerRender, Portal } from '../../utils';
 import IDialogPropTypes from './IDialogPropTypes';
-import './assets/index.less';
+import './style/index.less';
 
 const IS_REACT_16 = 'createPortal' in ReactDOM;
 

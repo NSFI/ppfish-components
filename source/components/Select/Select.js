@@ -11,7 +11,7 @@ import Icon from '../Icon/index.tsx';
 import warning from "warning";
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
-import {KeyCode} from "../../utils";
+import {KeyCode, shallowEqual} from "../../utils";
 
 const noop = () => {
 };
@@ -100,6 +100,10 @@ export default class Select extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value) {
+      const oldKeys = this.props.children.map(child => child.key);
+      const newKeys = nextProps.children.map(child => child.key);
+      //children 变化时不作value同步、fix：后端搜索中state数据清空
+      if (!shallowEqual(oldKeys, newKeys)) return;
       this.setState({
         selectValue: this.covertSelectValue(nextProps.value, nextProps.labelInValue)
       });
@@ -196,8 +200,9 @@ export default class Select extends React.Component {
       if (visible) {
         // 没有选中任何选项、默认开启激活第一个选项
         if (defaultActiveFirstOption && !this.state.selectValue.length) {
+          const firstOption = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled)[0] || {};
           this.setState({
-            activeKey: this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled)[0].key
+            activeKey: firstOption.key
           });
         }
         //使框focus()
@@ -232,7 +237,7 @@ export default class Select extends React.Component {
     const index = selectValue.findIndex(valueItem => valueItem.key === obj.key);
     if (mode === 'single') {
       this.setState({
-        selectValue: index === -1 ? [obj] : [],
+        selectValue: [obj],
         popupVisible: false,
       }, () => {
         if (labelInValue) {
@@ -513,7 +518,7 @@ export default class Select extends React.Component {
             //清空选项按钮-单选未搜索的情况下存在
             !searchValue && showSingleClear && mode === 'single' &&
             <li
-              className={`${dropDownCls}-option-item`}
+              className={`${dropDownCls}-option-item clear`}
               onClick={this.emptySelectValue}>
               {placeholder}
             </li>
@@ -554,7 +559,7 @@ export default class Select extends React.Component {
     const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
     const selectionCls = `${prefixCls}`;
-    const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
+    const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, {[`open`]: popupVisible}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
     return (
       <div
         className={selectionPanelCls}
@@ -565,7 +570,7 @@ export default class Select extends React.Component {
           //showArrow并且不是可删除label模式下出现箭头
           showArrow && !labelClear &&
           <div className={`${selectionCls}-caret`}>
-            <Icon type="xiajiantou" style={{transform: popupVisible && 'rotate(180deg)'}}/>
+            <Icon type="xiajiantou" className={classNames({['open']: popupVisible})}/>
           </div>
         }
         {

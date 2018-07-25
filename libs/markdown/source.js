@@ -17,8 +17,6 @@ export {
   DatePicker,
   Divider,
   Form,
-  Input,
-  InputNumber,
   List,
   LocaleProvider,
   notification,

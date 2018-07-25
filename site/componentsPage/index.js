@@ -69,7 +69,7 @@ export default {
       },
       'icon': {
         type: 'markdown',
-        name: 'icon 图标',
+        name: 'Icon 图标',
       },
       // 'divider': {
       //   type: 'markdown',

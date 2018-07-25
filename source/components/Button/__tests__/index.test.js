@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render, mount } from 'enzyme';
-import Button from '..';
-import Icon from '../../Icon';
+import Button from '../index';
+import Icon from '../../Icon/index';
+import * as TestUtils from 'react-dom/test-utils';
 
 describe('Button', () => {
   it('renders correctly', () => {
@@ -48,17 +49,22 @@ describe('Button', () => {
     const wrapper = mount(
       <Button><Text>按钮</Text></Button>
     );
-    expect(wrapper.find('.ant-btn').hasClass('ant-btn-two-chinese-chars')).toBe(true);
+
+
+    const defaultPrefix = Button.defaultProps.prefixCls;
+    const prefixCls = '.' + defaultPrefix;
+
+    expect(wrapper.find(prefixCls).hasClass(`${defaultPrefix}-two-chinese-chars`)).toBe(true);
     wrapper.setProps({
       children: <Text>大按钮</Text>,
     });
     wrapper.update();
-    expect(wrapper.find('.ant-btn').hasClass('ant-btn-two-chinese-chars')).toBe(false);
+    expect(wrapper.find(prefixCls).hasClass(`${defaultPrefix}-two-chinese-chars`)).toBe(false);
     wrapper.setProps({
       children: <Text>按钮</Text>,
     });
     wrapper.update();
-    expect(wrapper.find('.ant-btn').hasClass('ant-btn-two-chinese-chars')).toBe(true);
+    expect(wrapper.find(prefixCls).hasClass(`${defaultPrefix}-two-chinese-chars`)).toBe(true);
   });
 
   it('have static property for type detecting', () => {
@@ -70,7 +76,7 @@ describe('Button', () => {
   });
 
   it('should change loading state instantly by default', () => {
-    class DefaultButton extends Component {
+    class DefaultButton extends React.Component {
       state = {
         loading: false,
       };
@@ -87,13 +93,14 @@ describe('Button', () => {
     const wrapper = mount(
       <DefaultButton />
     );
+    const defaultPrefix = Button.defaultProps.prefixCls;
     wrapper.simulate('click');
-    expect(wrapper.find('.ant-btn-loading').length).toBe(1);
+    expect(wrapper.find(`.${defaultPrefix}-loading`).length).toBe(1);
   });
 
   it('should change loading state with delay', () => {
     // eslint-disable-next-line
-    class DefaultButton extends Component {
+    class DefaultButton extends React.Component {
       state = {
         loading: false,
       };

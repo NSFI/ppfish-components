@@ -32,8 +32,8 @@ describe('<VideoViewer />', () => {
     const inst = wrapper.instance();
     expect(inst).toBeInstanceOf(VideoViewer);
     wrapper.setProps({visible: true});
-    // 由于antd Modal使用React.createPortal实现，需要测试document.body内是否插入正确的DOM节点
-    const modalRoot = global.document.querySelector('.ant-modal');
+    // 由于Modal使用React.createPortal实现，需要测试document.body内是否插入正确的DOM节点
+    const modalRoot = global.document.querySelector('.fishd-modal');
     expect(modalRoot.querySelector('video')).toBeTruthy();
   });
 
