@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cloneElement } from 'react';
 import * as RcTooltip from './RcTooltip';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import getPlacements, { AdjustOverflow, PlacementsConfig } from './placements';
 import Button from '../Button';
 

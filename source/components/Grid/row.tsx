@@ -18,7 +18,7 @@ if (typeof window !== 'undefined') {
 
 import * as React from 'react';
 import {Children, cloneElement} from 'react';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 
 export type Breakpoint = 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
