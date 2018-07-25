@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {findDOMNode} from 'react-dom';
-import RcMenu, {Divider, ItemGroup} from 'rc-menu';
+import RcMenu, {Divider, ItemGroup} from './src';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import animation from '../../utils/openAnimation';
