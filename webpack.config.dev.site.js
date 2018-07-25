@@ -9,7 +9,7 @@ const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './source/a
 // lessToJs does not support @icon-url: "some-string",
 // so we are manually adding it to the produced themeVariables js object here
 // 注意：这里需要单引号
-themeVariables["@icon-url"] = "'//at.alicdn.com/t/font_697017_1dtc732aw4c'";
+themeVariables["@icon-url"] = "'//at.alicdn.com/t/font_697017_6jm9mgr6yuw'";
 
 export default {
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps

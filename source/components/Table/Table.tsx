@@ -482,7 +482,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         }));
       }
     });
-  }
+  };
 
   handleSelect = (record: T, rowIndex: number, e: CheckboxChangeEvent) => {
     const checked = e.target.checked;
@@ -505,7 +505,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
       changeRowKeys: void(0),
       nativeEvent,
     });
-  }
+  };
 
   handleRadioSelect = (record: T, rowIndex: number, e: RadioChangeEvent) => {
     const checked = e.target.checked;
@@ -524,7 +524,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
       changeRowKeys: void(0),
       nativeEvent,
     });
-  }
+  };
 
   handleSelectRow = (selectionKey: string, index: number, onSelectFunc: SelectionItemSelectFn) => {
     const data = this.getFlatCurrentPageData();
@@ -591,7 +591,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
       checked,
       changeRowKeys,
     });
-  }
+  };
 
   handlePageChange = (current: number, ...otherArguments: any[]) => {
     const props = this.props;
@@ -629,7 +629,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         pagination,
       }));
     }
-  }
+  };
 
   renderSelectionBox = (type: RowSelectionType | undefined) => {
     return (_: any, record: T, index: number) => {
@@ -653,7 +653,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         </span>
       );
     };
-  }
+  };
 
   getRecordKey = (record: T, index: number) => {
     const rowKey = this.props.rowKey;
@@ -665,11 +665,11 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
       'see https://u.ant.design/table-row-key',
     );
     return recordKey === undefined ? index : recordKey;
-  }
+  };
 
   getPopupContainer = () => {
     return ReactDOM.findDOMNode(this) as HTMLElement;
-  }
+  };
 
   renderRowSelection(locale: TableLocale) {
     const {prefixCls, rowSelection} = this.props;
@@ -760,7 +760,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
             selectedKeys={colFilters}
             confirmFilter={this.handleFilter}
             prefixCls={`${prefixCls}-filter`}
-            dropdownPrefixCls={dropdownPrefixCls || 'ant-dropdown'}
+            dropdownPrefixCls={dropdownPrefixCls || 'fishd-dropdown'}
             getPopupContainer={this.getPopupContainer}
           />
         );
@@ -781,9 +781,8 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
                 <span
                   className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}
                   onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
-                  style={{top: 4}}
                 >
-                  <i className="iconfont icon-zimupaixu"/>
+                 <Icon type="zimupaixu"/>
                 </span>
               )
             } else if (isDescend) {
@@ -791,9 +790,9 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
                 <span
                   className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
                   onClick={() => this.toggleTwoStateSortOrder('descend', column)}
-                  style={{top: 3}}
+                  style={{top: -1}}
                 >
-                  <i className="iconfont icon-zimupaixuZdaoA"/>
+                  <Icon type="zimupaixuZdaoA"/>
                 </span>
               )
             } else {
@@ -801,9 +800,8 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
                 <span
                   className={`${prefixCls}-column-sorter-up`}
                   onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
-                  style={{top: 4}}
                 >
-                  <i className="iconfont icon-zimupaixu"/>
+                 <Icon type="zimupaixu"/>
                 </span>
               )
             }
@@ -821,14 +819,14 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
               title="↑"
               onClick={() => this.toggleSortOrder('ascend', column)}
             >
-              <Icon type="caret-up"/>
+              <Icon type="shangjiantou"/>
             </span>
               <span
                 className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
                 title="↓"
                 onClick={() => this.toggleSortOrder('descend', column)}
               >
-              <Icon type="caret-down"/>
+              <Icon type="xiajiantou"/>
             </span>
             </div>
           );
