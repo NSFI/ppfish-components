@@ -66,7 +66,7 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
 
   setNeverShown = (column: ColumnProps<T>) => {
     const rootNode = ReactDOM.findDOMNode(this);
-    const filterBelongToScrollBody = !!closest(rootNode, `.ant-table-scroll`);
+    const filterBelongToScrollBody = !!closest(rootNode, `.fishd-table-scroll`);
     if (filterBelongToScrollBody) {
       // When fixed column have filters, there will be two dropdown menus
       // Filter dropdown menu inside scroll body should never be shown
@@ -74,11 +74,11 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
       // https://github.com/ant-design/ant-design/issues/7909
       this.neverShown = !!column.fixed;
     }
-  }
+  };
 
   setSelectedKeys = ({selectedKeys}: { selectedKeys: string[] }) => {
     this.setState({selectedKeys});
-  }
+  };
 
   setVisible(visible: boolean) {
     const {column} = this.props;
@@ -94,19 +94,19 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
     this.setState({
       selectedKeys: [],
     }, this.handleConfirm);
-  }
+  };
 
   handleConfirm = () => {
     this.setVisible(false);
     this.confirmFilter();
-  }
+  };
 
   onVisibleChange = (visible: boolean) => {
     this.setVisible(visible);
     if (!visible) {
       this.confirmFilter();
     }
-  }
+  };
 
   confirmFilter() {
     if (this.state.selectedKeys !== this.props.selectedKeys) {
@@ -166,7 +166,7 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
       keyPathOfSelectedItem[info.key] = info.keyPath;
     }
     this.setState({keyPathOfSelectedItem});
-  }
+  };
 
   renderFilterIcon = () => {
     const {column, locale, prefixCls} = this.props;
@@ -181,7 +181,7 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
       title: locale.filterTitle,
       className: classNames(`${prefixCls}-icon`, filterIcon.props.className),
     }) : <Icon title={locale.filterTitle} type="filter" className={dropdownSelectedClass}/>;
-  }
+  };
 
   render() {
     const {column, locale, prefixCls, dropdownPrefixCls, getPopupContainer} = this.props;
