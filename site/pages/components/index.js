@@ -1,6 +1,6 @@
 import React from 'react';
-import {BackTop, Menu, Divider} from 'antd';
-import {Icon, Row, Col} from '../../../source/components';
+import {BackTop, Divider} from 'antd';
+import {Icon, Row, Col, Menu} from '../../../source/components';
 import PropTypes from 'prop-types';
 import Layout from '../common/layout';
 import locales from '../../locales';
