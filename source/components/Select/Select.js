@@ -196,8 +196,9 @@ export default class Select extends React.Component {
       if (visible) {
         // 没有选中任何选项、默认开启激活第一个选项
         if (defaultActiveFirstOption && !this.state.selectValue.length) {
+          const firstOption = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled)[0] || {};
           this.setState({
-            activeKey: this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled)[0].key
+            activeKey: firstOption.key
           });
         }
         //使框focus()
@@ -513,7 +514,7 @@ export default class Select extends React.Component {
             //清空选项按钮-单选未搜索的情况下存在
             !searchValue && showSingleClear && mode === 'single' &&
             <li
-              className={`${dropDownCls}-option-item`}
+              className={`${dropDownCls}-option-item clear`}
               onClick={this.emptySelectValue}>
               {placeholder}
             </li>
@@ -554,7 +555,7 @@ export default class Select extends React.Component {
     const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
     const {selectValue, popupVisible} = this.state;
     const selectionCls = `${prefixCls}`;
-    const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
+    const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, {[`open`]: popupVisible}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
     return (
       <div
         className={selectionPanelCls}
@@ -565,7 +566,7 @@ export default class Select extends React.Component {
           //showArrow并且不是可删除label模式下出现箭头
           showArrow && !labelClear &&
           <div className={`${selectionCls}-caret`}>
-            <Icon type="xiajiantou" style={{transform: popupVisible && 'rotate(180deg)'}}/>
+            <Icon type="xiajiantou" className={classNames({['open']: popupVisible})}/>
           </div>
         }
         {
