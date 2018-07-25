@@ -1,5 +1,5 @@
 import * as React from 'react';
-import omit from 'omit.js';
+import * as omit from 'omit.js';
 import * as classNames from 'classnames';
 import calculateNodeHeight from './calculateNodeHeight';
 
