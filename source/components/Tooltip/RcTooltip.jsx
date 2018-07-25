@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import { rcPlacements } from './rcPlacements';
 import RcContent from './RcContent';
+import './style/index.less';
 
 class RcTooltip extends Component {
   static propTypes = {

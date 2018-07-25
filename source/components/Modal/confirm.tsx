@@ -16,7 +16,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
   const { onCancel, onOk, close, zIndex, afterClose, visible, keyboard } = props;
   const iconType = props.iconType || 'question-circle';
   const okType = props.okType || 'primary';
-  const prefixCls = props.prefixCls || 'ant-confirm';
+  const prefixCls = props.prefixCls || 'fishd-confirm';
   // 默认为 true，保持向下兼容
   const okCancel = ('okCancel' in props) ? props.okCancel! : true;
   const width = props.width || 416;

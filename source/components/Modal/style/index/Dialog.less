@@ -1,8 +1,10 @@
 .@{prefixCls} {
+  // Shell div to position the dialog with bottom padding
   position: relative;
   width: auto;
   margin: 10px;
 
+  // Container that the dialog scrolls within
   &-wrap {
     position: fixed;
     overflow: auto;
@@ -10,24 +12,38 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1050;
+    z-index: @zindex-modal;
     -webkit-overflow-scrolling: touch;
-    outline: 0;
-  }
 
-  &-title {
-    margin: 0;
-    font-size: 14px;
-    line-height: 21px;
-    font-weight: bold;
+    // Prevent Chrome on Windows from adding a focus outline. For details, see
+    // https://github.com/twbs/bootstrap/pull/10951.
+    outline: 0;
   }
 
   &-content {
     position: relative;
-    background-color: #ffffff;
+    background-color: @modal-content-bg;
+    //border: 1px solid @modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+    //border: 1px solid @modal-content-border-color;
     border: none;
-    border-radius: 6px 6px;
+    border-radius: @border-radius-base;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     background-clip: padding-box;
+    // Remove focus outline from opened rc-dialog
+    outline: 0;
+  }
+
+  // Modal header
+  // Top section of the rc-dialog w/ title and dismiss
+  &-header {
+    padding: @modal-title-padding;
+    border-radius: @modal-border-radius-base;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    //background: #fff;
+    //color: #666;
+    border-bottom: 1px solid @modal-header-border-color;
+    &:extend(.clearfix all);
   }
 
   &-close {
@@ -57,23 +73,34 @@
     }
   }
 
-  &-header {
-    padding: 13px 20px 14px 20px;
-    border-radius: 5px 5px 0 0;
-    background: #fff;
-    color: #666;
-    border-bottom: 1px solid #e9e9e9;
+  // Title text within header
+  &-title {
+    margin: 0;
+    line-height: @modal-title-line-height;
+    font-size: 16px;
+    font-weight: 500;
   }
 
+  // Modal body
+  // Where all rc-dialog content resides (sibling of &-header and &-footer)
   &-body {
-    padding: 20px;
+    position: relative;
+    padding: @modal-inner-padding;
   }
 
   &-footer {
-    border-top: 1px solid #e9e9e9;
-    padding: 10px 20px;
-    text-align: right;
-    border-radius: 0 0 5px 5px;
+    padding: @modal-footer-padding;
+    text-align: right; // right align buttons
+    border-top: 1px solid @modal-footer-border-color;
+    border-radius: @modal-border-radius-base;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    // Properly space out buttons
+    button + button {
+      margin-left: 8px;
+      margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+    }
   }
 
   .effect() {
@@ -126,9 +153,9 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: @screen-md) {
   .@{prefixCls} {
-    width: 600px;
+    width: @modal-md;
     margin: 30px auto;
   }
 }
