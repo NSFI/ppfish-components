@@ -1,4 +1,8 @@
-@prefixCls: fishd-select;
+@import "../../assets/css/index";
+
+@select-prefix: ~"@{fishd-prefix}-select";
+
+@prefixCls: @select-prefix;
 .@{prefixCls}-popup {
   position: absolute;
   /* stylelint-disable-next-line */
