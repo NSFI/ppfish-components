@@ -6,7 +6,7 @@
 @large-size-select-option-line-height: @large-size-select-option-height - 2px;
 //default
 @default-size-select-line-height: @select-height-base - 2px;
-@default-size-select-option-height: @select-height-base - 6px;
+@default-size-select-option-height: @select-height-base - 8px;
 @default-size-select-option-line-height: @default-size-select-option-height - 2px;
 //small
 @small-size-select-line-height: @select-height-sm - 2px;
@@ -21,6 +21,7 @@
   position: relative;
   vertical-align: middle;
   cursor: pointer;
+  color: @text-2;
   padding-right: 30px;
   border-radius: @border-radius-base;
   border: 1px solid @select-border-color;
@@ -104,7 +105,7 @@
 
   &-option-multiple {
     display: block;
-    max-width: calc(~'100% - 25px');
+    max-width: calc(~'100% - 30px');
     padding-left: 10px;
     line-height: @default-size-select-line-height;
     position: absolute;
