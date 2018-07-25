@@ -1,8 +1,11 @@
 .@{prefixCls} {
   // Shell div to position the dialog with bottom padding
+  .reset-component;
   position: relative;
   width: auto;
-  margin: 10px;
+  margin: 0 auto;
+  top: 100px;
+  padding-bottom: 24px;
 
   // Container that the dialog scrolls within
   &-wrap {
@@ -153,9 +156,14 @@
   }
 }
 
-@media (min-width: @screen-md) {
+@media (max-width: @screen-sm-max) {
   .@{prefixCls} {
-    width: @modal-md;
-    margin: 30px auto;
+    width: auto !important;
+    margin: 10px;
+  }
+  .vertical-center-modal {
+    .@{prefixCls} {
+      flex: 1;
+    }
   }
 }
