@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
 import Button from '../Button/index.tsx';
-import {Col, Row, Icon} from 'antd';
+import {Col, Row} from 'antd';
+import Icon from '../Icon/index.tsx';
 import warning from "warning";
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
@@ -571,7 +572,7 @@ export default class Select extends React.Component {
           //showArrow并且不是可删除label模式下出现箭头
           showArrow && !labelClear &&
           <div className={`${selectionCls}-caret`}>
-            <Icon type="caret-down" style={{transform: popupVisible && 'rotate(180deg)'}}/>
+            <Icon type="xiajiantou" style={{transform: popupVisible && 'rotate(180deg)'}}/>
           </div>
         }
         {
@@ -593,7 +594,7 @@ export default class Select extends React.Component {
                   <div className={`${selectionCls}-option-clearable-option`} key={option.key}>
                     {option.label || option}
                     <span className={`${selectionCls}-option-clearable-option-close`}
-                          onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="close"/></span>
+                          onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="guanbi"/></span>
                   </div>
                 )}
               </div> :
