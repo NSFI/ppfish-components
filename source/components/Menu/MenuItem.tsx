@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Item } from 'rc-menu';
+import { Item } from './src';
 import Tooltip from '../Tooltip';
 
 class MenuItem extends React.Component<any, any> {

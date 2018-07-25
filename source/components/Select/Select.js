@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
+import scrollIntoView from 'dom-scroll-into-view';
 import classNames from 'classnames';
 import Button from '../Button/index.tsx';
 import Col from '../Col/index.tsx';
@@ -454,18 +455,9 @@ export default class Select extends React.Component {
 
   //处理option的激活态
   setActiveOptionIntoView = (activeKey) => {
-    const activeOption = ReactDOM.findDOMNode(this.refs[activeKey]);
-    const dropdownList = this.dropdownList;
-
-    const optionOffsetTop = activeOption.offsetTop;
-    const listScrollTop = dropdownList.scrollTop;
-    const listHeight = dropdownList.clientHeight;
-
-    if (optionOffsetTop < listScrollTop) {
-      dropdownList.scrollTop = optionOffsetTop;
-    } else if (optionOffsetTop > listScrollTop + listHeight) {
-      dropdownList.scrollTop = optionOffsetTop;
-    }
+    scrollIntoView(ReactDOM.findDOMNode(this.refs[activeKey]), ReactDOM.findDOMNode(this.dropdownList), {
+      onlyScrollIfNeeded: true,
+    });
   };
 
   //处理option激活态-> mouseEnter
