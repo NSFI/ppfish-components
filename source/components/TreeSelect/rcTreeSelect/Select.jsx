@@ -106,6 +106,8 @@ class Select extends React.Component {
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onChange: PropTypes.func,
+    onConfirm: PropTypes.func,
+    onCancel: PropTypes.func,
     onDropdownVisibleChange: PropTypes.func,
   };
 
@@ -143,7 +145,8 @@ class Select extends React.Component {
 
     const {
       prefixAria,
-      defaultOpen, open,
+      defaultOpen,
+      open
     } = props;
 
     this.state = {
@@ -156,6 +159,8 @@ class Select extends React.Component {
       searchValue: '',
 
       init: true,
+      oriValueList: [],
+      curValueList: []
     };
 
     this.selectorRef = createRef();
@@ -251,8 +256,6 @@ class Select extends React.Component {
       });
     }
 
-    // debugger;
-
     // Convert `treeData` to entities
     if (treeData) {
       const { treeNodes, valueEntities, keyEntities } = convertDataToEntities(treeData);
@@ -264,6 +267,14 @@ class Select extends React.Component {
 
     // Value List
     if (prevState.init) {
+      if (nextProps.value && nextProps.value.length) {
+        newState.oriValueList = nextProps.value;
+        newState.curValueList = nextProps.value;
+      } else if (nextProps.defaultValue && nextProps.defaultValue.length) {
+        newState.oriValueList = nextProps.defaultValue;
+        newState.curValueList = nextProps.defaultValue;
+      }
+
       processState('defaultValue', (propValue) => {
         newState.valueList = formatInternalValue(propValue, nextProps);
         valueRefresh = true;
@@ -271,6 +282,8 @@ class Select extends React.Component {
     }
 
     processState('value', (propValue) => {
+      newState.oriValueList = nextProps.value;
+      newState.curValueList = nextProps.value;
       newState.valueList = formatInternalValue(propValue, nextProps);
       valueRefresh = true;
     });
@@ -283,20 +296,19 @@ class Select extends React.Component {
       const keyList = [];
 
       // Get key by value
-      (newState.valueList || prevState.valueList)
-        .forEach((wrapperValue) => {
-          const { value } = wrapperValue;
-          const entity = (newState.valueEntities || prevState.valueEntities)[value];
+      (newState.valueList || prevState.valueList).forEach((wrapperValue) => {
+        const { value } = wrapperValue;
+        const entity = (newState.valueEntities || prevState.valueEntities)[value];
 
-          if (entity) {
-            keyList.push(entity.key);
-            filteredValueList.push(wrapperValue);
-            return;
-          }
+        if (entity) {
+          keyList.push(entity.key);
+          filteredValueList.push(wrapperValue);
+          return;
+        }
 
-          // If not match, it may caused by ajax load. We need keep this
-          missValueList.push(wrapperValue);
-        });
+        // If not match, it may caused by ajax load. We need keep this
+        missValueList.push(wrapperValue);
+      });
 
       // We need calculate the value when tree is checked tree
       if (treeCheckable && !treeCheckStrictly) {
@@ -744,6 +756,18 @@ class Select extends React.Component {
   setOpenState = (open, byTrigger = false) => {
     const { onDropdownVisibleChange } = this.props;
 
+    // 关闭 Popup 时，若有已选择项，则执行取消操作
+    if (!open) {
+      const { oriValueList, curValueList } = this.state;
+      const { onCancel } = this.props;
+      if (JSON.stringify(oriValueList) !== JSON.stringify(curValueList)) {
+        this.setState({
+          curValueList: oriValueList
+        });
+        onCancel && onCancel(oriValueList);
+      }
+    }
+
     if (
       onDropdownVisibleChange &&
       onDropdownVisibleChange(open, { documentClickClose: !open && byTrigger }) === false
@@ -804,10 +828,8 @@ class Select extends React.Component {
       ...extraInfo,
     };
 
-    // debugger;
     // Format value by `treeCheckStrictly`
     const selectorValueList = formatSelectorValue(valueList, this.props, valueEntities);
-    // const selectorValueList = extra.preValue;
 
     if (!('value' in this.props)) {
       this.setState({
@@ -845,6 +867,11 @@ class Select extends React.Component {
         returnValue = returnValue[0];
       }
 
+      // TODO: Set checkbox status
+      this.setState({
+        curValueList: returnValue
+      });
+
       onChange(returnValue, labelList, extra);
     }
   };
@@ -858,11 +885,24 @@ class Select extends React.Component {
   }
 
   handleCancel = () => {
-    console.log('>> cancel');
+    const { oriValueList } = this.state;
+    const { onCancel } = this.props;
+
+    onCancel && onCancel(oriValueList);
+    this.setState({ 
+      curValueList: oriValueList,
+      open: false 
+    });
+    // this.setOpenState(false, true);
   };
 
   handleConfirm = () => {
-    console.log('>> confirm');
+    const { valueList, curValueList } = this.state;
+    const { onConfirm } = this.props;
+
+    onConfirm && onConfirm(curValueList);
+    this.setState({ open: false });
+    // console.log('>> valueList: ', valueList);
   };
 
   // ===================== Render =====================
@@ -904,7 +944,6 @@ class Select extends React.Component {
       />
     );
 
-    //debugger;
     const Selector = isMultiple ? MultipleSelector : SingleSelector;
     const $selector = (
       <Selector
