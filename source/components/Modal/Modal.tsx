@@ -3,8 +3,9 @@ import Dialog from './DialogWrap';
 import * as PropTypes from 'prop-types';
 import { addEventListener } from '../../utils/index';
 import Button from '../Button';
-
 import { ButtonType, NativeButtonProps } from '../Button/Button';
+
+import './style/index.less';
 
 let mousePosition: { x: number, y: number } | null;
 let mousePositionEventBinded: boolean;
@@ -93,7 +94,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
   static confirm: ModalFunc;
 
   static defaultProps = {
-    prefixCls: 'ant-modal',
+    prefixCls: 'fishd-modal',
     width: 520,
     transitionName: 'zoom',
     maskTransitionName: 'fade',
