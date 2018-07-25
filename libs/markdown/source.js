@@ -14,7 +14,6 @@ export {
   Collapse,
   Carousel,
   Cascader,
-  DatePicker,
   Divider,
   Form,
   List,
@@ -29,7 +28,6 @@ export {
   Transfer,
   Tree,
   Tag,
-  TimePicker,
   Timeline,
   Mention,
   Upload

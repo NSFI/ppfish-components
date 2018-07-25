@@ -200,11 +200,13 @@ export default {
       // },
       'timePicker': {
         type: 'markdown',
-        name: 'TimePicker 时间选择框',
+        name: 'TimePicker 时间选择器',
+        //style: require('element-theme-default') //TODO
       },
       'datePicker': {
         type: 'markdown',
         name: 'DatePicker 日期选择框',
+        style: require('./datePicker/index.less')
       },
       // 'upload': {
       //   type: 'markdown',
