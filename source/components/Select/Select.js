@@ -232,7 +232,7 @@ export default class Select extends React.Component {
     const index = selectValue.findIndex(valueItem => valueItem.key === obj.key);
     if (mode === 'single') {
       this.setState({
-        selectValue: index === -1 ? [obj] : [],
+        selectValue: [obj],
         popupVisible: false,
       }, () => {
         if (labelInValue) {

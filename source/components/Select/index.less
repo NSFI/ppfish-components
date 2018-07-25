@@ -1,30 +1,29 @@
 @import "../../assets/css/index";
 @import "./trigger.less";
 //large
-@large-size-select: 40px;
-@large-size-select-line-height: @large-size-select - 2px;
-@large-size-select-option-height: 32px;
+@select-height-lg: 36px;
+@large-size-select-line-height: @select-height-lg - 2px;
+@large-size-select-option-height: @select-height-lg - 8px;
 @large-size-select-option-line-height: @large-size-select-option-height - 2px;
 //default
-@default-size-select: 32px;
-@default-size-select-line-height: @default-size-select - 2px;
-@default-size-select-option-height: 24px;
+@select-height-base: 30px;
+@default-size-select-line-height: @select-height-base - 2px;
+@default-size-select-option-height: @select-height-base - 6px;
 @default-size-select-option-line-height: @default-size-select-option-height - 2px;
 //small
-@small-size-select: 24px;
-@small-size-select-line-height: @small-size-select - 2px;
-@small-size-select-option-height: 16px;
+@select-height-sm: 24px;
+@small-size-select-line-height: @select-height-sm - 2px;
+@small-size-select-option-height: @select-height-sm - 8px;
 @small-size-select-option-line-height: @small-size-select-option-height - 2px;
 
 @select-prefix: ~"@{fishd-prefix}-select";
 
 //样式
 .@{select-prefix} {
-  min-height: @default-size-select;
+  min-height: @select-height-base;
   position: relative;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #fff;
   padding-right: 30px;
   border-radius: @border-radius-base;
   border: 1px solid #d9d9d9;
@@ -110,6 +109,7 @@
 
   &:hover:not(&-disabled) {
     border-color: @primary-5;
+    border-right: 1px solid @primary-color;
   }
   &:active:not(&-disabled),
   &:focus:not(&-disabled) {
@@ -119,10 +119,10 @@
   }
 
   &-small {
-    min-height: @small-size-select;
+    min-height: @select-height-sm;
     .@{select-prefix}-option-clearable-list {
       line-height: @small-size-select-line-height;
-      max-height: @small-size-select*3 - 14px;
+      max-height: @select-height-sm*3 - 14px;
     }
 
     .@{select-prefix}-option-clearable-option {
@@ -140,14 +140,14 @@
   }
 
   &-large {
-    min-height: @large-size-select;
+    min-height: @select-height-lg;
     font-size: @font-size-lg;
     .@{select-prefix}-placeholder {
       font-size: @font-size-lg;
     }
     .@{select-prefix}-option-clearable-list {
       line-height: @large-size-select-line-height;
-      max-height: @large-size-select*3 - 14px;
+      max-height: @select-height-lg*3 - 14px;
     }
 
     .@{select-prefix}-option-clearable-option {
