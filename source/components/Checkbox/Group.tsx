@@ -41,7 +41,7 @@ export interface CheckboxGroupContext {
 export default class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupState> {
   static defaultProps = {
     options: [],
-    prefixCls: 'ant-checkbox',
+    prefixCls: 'fishd-checkbox',
   };
 
   static propTypes = {
