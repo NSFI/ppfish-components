@@ -2,7 +2,7 @@ import * as React from 'react';
 import {findDOMNode} from 'react-dom';
 import RcMenu, {Divider, ItemGroup} from './src';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import animation from '../../utils/openAnimation';
 import warning from '../../utils/warning';
 import SubMenu from './SubMenu';
