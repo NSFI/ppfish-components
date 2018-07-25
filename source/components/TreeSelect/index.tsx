@@ -3,7 +3,8 @@ import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcT
 import * as classNames from 'classnames';
 import { TreeSelectProps } from './interface';
 // import warning from '../_util/warning';
-import './index.less';
+import 'antd/dist/antd.css';
+import './style/index.less';
 
 export { TreeData, TreeSelectProps } from './interface';
 
@@ -58,7 +59,8 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     } = this.props;
 
     const cls = classNames({
-      'm-tree-select': true,
+      // [`${prefixCls}-tree`]: true,
+      "m-select-tree": true,
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-sm`]: size === 'small',
     }, className);
