@@ -1,29 +1,31 @@
-@import "../../assets/css/themes/default";
-@import "../../assets/css/core/index";
+// @import "./TreeSelect.less";
 
-@tree-select-prefix: m-tree-select;
+// @select-prefix: ~"@{fishd-prefix}-select";
+// @select-tree-prefix: ~"@{fishd-prefix}-select-tree";
+@select-prefix: ant-select;
+@select-tree-prefix: m-select-tree;
 
 /* stylelint-disable declaration-no-important */
-.ant-select-tree-checkbox:hover {
-  .ant-select-tree-checkbox-inner {
+.@{select-prefix}-tree-checkbox:hover {
+  .@{select-prefix}-tree-checkbox-inner {
     border-color: @primary-color !important;
   }
 }
 
-.ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner,
-.ant-select-tree-checkbox-indeterminate .ant-select-tree-checkbox-inner {
+.@{select-prefix}-tree-checkbox-checked .@{select-prefix}-tree-checkbox-inner,
+.@{select-prefix}-tree-checkbox-indeterminate .@{select-prefix}-tree-checkbox-inner {
   background-color: @primary-color !important;
   border-color: @primary-color !important;
 }
 
-.ant-select-focused .ant-select-selection,
-.ant-select-open .ant-select-selection {
+.@{select-prefix}-focused .@{select-prefix}-selection,
+.@{select-prefix}-open .@{select-prefix}-selection {
   border-color: @primary-color !important;
   box-shadow: @shadow-1-down !important;
   cursor: pointer;
 }
 
-.ant-select-selection {
+.@{select-prefix}-selection {
   border: @border-width-base @border-style-base @border-color-base;
   border-radius: @border-radius-base;
   box-shadow: none !important;
@@ -39,7 +41,7 @@
   }
 }
 
-.ant-select-dropdown {
+.@{select-prefix}-dropdown {
   .hide {
     display: none;
   }
@@ -53,13 +55,13 @@
     opacity: 1;
   }
 
-  .ant-select-search__field__wrap:hover {
-    .ant-select-search__field {
+  .@{select-prefix}-search__field__wrap:hover {
+    .@{select-prefix}-search__field {
       border-color: @primary-color !important;
     }
   }
 
-  .ant-select-search__field:focus {
+  .@{select-prefix}-search__field:focus {
     border-color: @primary-color !important;
   }
 
@@ -73,7 +75,7 @@
   }
 }
 
-.@{tree-select-prefix} {
+.@{select-tree-prefix} {
   outline: none !important;
 
   .hide {
