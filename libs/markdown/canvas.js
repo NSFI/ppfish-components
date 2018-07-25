@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import marked from 'marked'
 import {transform} from 'babel-standalone'
-import {LocaleProvider} from 'antd';
-import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import Editor from '../editor'
 
 //代码展示容器
@@ -35,8 +33,8 @@ export default class Canvas extends React.Component {
   renderSource(value) {
     //dynamic import
     import('./source').then(Element => {
-      const args = ['context', 'React', 'ReactDOM', 'LocaleProvider', 'zh_CN'];
-      const argv = [this, React, ReactDOM, LocaleProvider, zh_CN];
+      const args = ['context', 'React', 'ReactDOM'];
+      const argv = [this, React, ReactDOM];
       for (const key in Element) {
         args.push(key);
         argv.push(Element[key])
@@ -52,7 +50,7 @@ export default class Canvas extends React.Component {
       if (/class.*extends React.Component/.test(value)) {
         code = transform(`
         ${value}
-        ReactDOM.render(<LocaleProvider locale={zh_CN}><Demo {...context.props} /></LocaleProvider>, 
+        ReactDOM.render(<Demo {...context.props} />, 
         document.getElementById('${this.playerId}'))
       `, {
           presets: ['react', 'stage-2', 'stage-1']
@@ -63,7 +61,7 @@ export default class Canvas extends React.Component {
         class Demo extends React.Component {
           ${value}
         }
-        ReactDOM.render(<LocaleProvider locale={zh_CN}><Demo {...context.props} /></LocaleProvider>, 
+        ReactDOM.render(<Demo {...context.props} />, 
         document.getElementById('${this.playerId}'))
       `, {
           presets: ['react', 'stage-2', 'stage-1']

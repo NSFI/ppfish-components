@@ -1,6 +1,6 @@
 import React from 'react';
 import copy from 'copy-to-clipboard';
-import { message } from 'antd';
+import { message } from '../../../source/components';
 import './style.less';
 
 export default class RuleColor extends React.Component {
