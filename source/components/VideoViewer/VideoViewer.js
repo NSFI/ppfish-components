@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'antd';
+import Modal from '../Modal/index.tsx';
 import Draggable from 'react-draggable';
 import Video from './Video';
 

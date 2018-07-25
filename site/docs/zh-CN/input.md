@@ -187,19 +187,6 @@ render(){
         </InputGroup>
         <br />
         <InputGroup compact>
-          <Select defaultValue="Sign Up">
-            <Option value="Sign Up">Sign Up</Option>
-            <Option value="Sign In">Sign In</Option>
-          </Select>
-          <AutoComplete
-            dataSource={this.state.dataSource}
-            style={{ width: 200 }}
-            onChange={this.handleChange}
-            placeholder="Email"
-          />
-        </InputGroup>
-        <br />
-        <InputGroup compact>
           <Select style={{ width: '30%' }} defaultValue="Home">
             <Option value="Home">Home</Option>
             <Option value="Company">Company</Option>

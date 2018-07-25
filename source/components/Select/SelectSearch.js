@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Input, Icon} from 'antd';
+import Input from '../Input/index.tsx';
+import Icon from '../Icon/index.tsx';
 
 export default class SelectSearch extends React.Component {
   static propTypes = {
@@ -20,7 +21,7 @@ export default class SelectSearch extends React.Component {
   render() {
     const {prefixCls, searchInputProps, allowClear, searchPlaceholder, searchValue, updateSearchValue, emitEmpty} = this.props;
     const suffix = searchValue && allowClear ?
-      <Icon type="close-circle" className={`${prefixCls}-clear`} onClick={emitEmpty}/> : null;
+      <Icon type="qingkongneirong" className={`${prefixCls}-clear`} onClick={emitEmpty}/> : null;
     return (
       <div className={prefixCls}>
         <Input placeholder={searchPlaceholder}

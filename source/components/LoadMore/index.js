@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {Button} from 'antd';
+import Button from '../Button/index.tsx';
 
 import './index.less';
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
-import omit from 'omit.js';
+import * as omit from 'omit.js';
 
 export type SpinSize = 'small' | 'default' | 'large';
 export type SpinIndicator = React.ReactElement<any>;

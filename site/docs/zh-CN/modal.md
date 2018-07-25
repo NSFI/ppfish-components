@@ -450,7 +450,7 @@ render(){
   width: 0;
 }
 
-.vertical-center-modal .ant-modal {
+.vertical-center-modal .fishd-modal {
   display: inline-block;
   vertical-align: middle;
   top: 0;
@@ -465,7 +465,7 @@ render(){
   justify-content: center;
 }
 
-.vertical-center-modal .ant-modal {
+.vertical-center-modal .fishd-modal {
   top: 0;
 }
 */
@@ -473,10 +473,10 @@ render(){
 </style>
 
 <style>
-.ant-modal p {
+.fishd-modal p {
   margin: 0;
 }
-.demo-modal-btn-group .ant-btn{
+.demo-modal-btn-group .fishd-btn{
  margin-right:8px;
 }
 </style>
@@ -548,7 +548,7 @@ ref.destroy();
 ```
 
 <style>
-.code-box-demo .ant-btn {
+.code-box-demo .fishd-btn {
   margin-right: 8px;
 }
 </style>

@@ -5,11 +5,10 @@
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgb(55, 55, 55);
-    background-color: rgba(55, 55, 55, 0.6);
+    background-color: @modal-mask-bg;
     height: 100%;
     filter: alpha(opacity=50);
-    z-index: 1050;
+    z-index: @zindex-modal;
 
     &-hidden {
       display: none;
