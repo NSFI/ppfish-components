@@ -9,10 +9,9 @@ import Col from '../Col/index.tsx';
 import Row from '../Row/index.tsx';
 import Icon from '../Icon/index.tsx';
 import warning from "warning";
-import shallowEqual from 'shallowequal';
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
-import {KeyCode} from "../../utils";
+import {KeyCode, shallowEqual} from "../../utils";
 
 const noop = () => {
 };
