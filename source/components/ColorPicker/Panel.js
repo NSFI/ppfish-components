@@ -8,7 +8,7 @@ import Ribbon from './Ribbon';
 import Alpha from './Alpha';
 import Params from './Params';
 import History from './History';
-import cx from 'classnames';
+import classNames from 'classnames';
 
 function noop() {
 }
@@ -130,7 +130,7 @@ export default class Panel extends React.Component {
     const {prefixCls, enableAlpha, enableHistory, colors} = this.props;
     const {color, alpha} = this.state;
 
-    const wrapClasses = cx({
+    const wrapClasses = classNames({
       [`${prefixCls}-wrap`]: true,
       [`${prefixCls}-wrap-has-alpha`]: enableAlpha,
     });
