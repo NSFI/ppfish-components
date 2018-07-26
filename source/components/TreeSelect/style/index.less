@@ -74,6 +74,26 @@
     background: @background-color-base;
     overflow: hidden;
   }
+
+  &-reset {
+    position: relative;
+    display: inline-block;
+    // padding: 5px;
+    // margin: 0 4px 0 28px;
+    // width: ~"calc(100% - 32px)";
+    padding: 5px 5px 5px 29px;
+    margin: 0 4px;
+    width: ~"calc(100% - 8px)";
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.65);
+    // overflow: hidden;
+    
+    &:hover {
+      background-color: #e6f7ff;
+    }
+  }
 }
 
 .@{select-tree-prefix} {

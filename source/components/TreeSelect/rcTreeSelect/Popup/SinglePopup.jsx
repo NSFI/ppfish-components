@@ -63,11 +63,20 @@ class SinglePopup extends React.Component {
     );
   };
 
+  renderResetItem = () => {
+    const { dropdownPrefixCls } = this.props;
+
+    return (
+      <span className={`${dropdownPrefixCls}-reset`}>不选择任何分类</span>
+    );
+  };
+
   render() {
     return (
       <BasePopup
         {...this.props}
         renderSearch={this.renderSearch}
+        renderResetItem={this.renderResetItem}
       />
     );
   }
