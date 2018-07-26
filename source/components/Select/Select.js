@@ -7,10 +7,9 @@ import classNames from 'classnames';
 import Button from '../Button/index.tsx';
 import Spin from '../Spin/index.tsx';
 import Icon from '../Icon/index.tsx';
-import warning from "warning";
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
-import {KeyCode, shallowEqual} from "../../utils";
+import {KeyCode} from "../../utils";
 
 const noop = () => {
 };
@@ -102,10 +101,6 @@ export default class Select extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
-      const oldKeys = this.props.children.map(child => child.key);
-      const newKeys = nextProps.children.map(child => child.key);
-      //children 变化时不作value同步、fix：后端搜索中state数据清空,具体处理待交互确认
-      if (!shallowEqual(oldKeys, newKeys)) return;
       this.setState({
         selectValue: this.covertSelectValue(nextProps.value, nextProps.labelInValue)
       });
@@ -162,7 +157,7 @@ export default class Select extends React.Component {
           label: value.label || (optionList.find(option => option.key === value.key) || {}).label || value.key
         }];
       } else {
-        warning('warning: Only object{key,label} and array[{key,label}] can be passed in this mode. - labelInValue');
+        // 其余就给空状态
         return [];
       }
     } else {
@@ -183,12 +178,7 @@ export default class Select extends React.Component {
       selectValue: [],
       popupVisible: false,
     }, () => {
-      const {onChange, labelInValue} = this.props;
-      if (labelInValue) {
-        onChange({key: undefined, label: undefined});
-      } else {
-        onChange();
-      }
+      this.props.onChange();
     });
   };
 

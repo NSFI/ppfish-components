@@ -1,6 +1,6 @@
-import React, {Component, Children} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {Input, Icon, Tooltip} from 'antd';
+import {Input, Icon, Tooltip} from '../';
 import './index.less';
 
 /**
@@ -11,7 +11,7 @@ import './index.less';
  * @prop {string} className 样式
  * @prop {string} defaultValue 默认值
  */
-class SearchInput extends Component {
+class SearchInput extends React.Component {
   static propTypes = {
     placeholder: PropTypes.string,
     onSearch: PropTypes.func,
