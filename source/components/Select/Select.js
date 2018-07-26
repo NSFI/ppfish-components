@@ -10,7 +10,7 @@ import Icon from '../Icon/index.tsx';
 import warning from "warning";
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
-import {KeyCode, shallowEqual} from "../../utils";
+import {KeyCode} from "../../utils";
 
 const noop = () => {
 };
@@ -102,10 +102,6 @@ export default class Select extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
-      const oldKeys = this.props.children.map(child => child.key);
-      const newKeys = nextProps.children.map(child => child.key);
-      //children 变化时不作value同步、fix：后端搜索中state数据清空,具体处理待交互确认
-      if (!shallowEqual(oldKeys, newKeys)) return;
       this.setState({
         selectValue: this.covertSelectValue(nextProps.value, nextProps.labelInValue)
       });
