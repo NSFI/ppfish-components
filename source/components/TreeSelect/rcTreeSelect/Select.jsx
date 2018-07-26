@@ -536,6 +536,9 @@ class Select extends React.Component {
 
   // ===================== Popup ======================
   onValueTrigger = (isAdd, nodeList, nodeEventInfo, nodeExtraInfo) => {
+    // Disable deselect item at single select mode
+    if (!this.isMultiple() && !isAdd) return;
+
     const { node } = nodeEventInfo;
     const { value } = node.props;
     const { missValueList, valueEntities, keyEntities, treeNodes } = this.state;

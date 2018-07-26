@@ -51,8 +51,8 @@
         </TreeNode>
         <TreeNode value="parent 2" title="parent 2" key="1-1">
           <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
-            <TreeNode value="leaf1" title="my leaf3" key="random4" />
-            <TreeNode value="leaf2" title="your leaf4" key="random5" />
+            <TreeNode value="leaf3" title="my leaf3" key="random4" />
+            <TreeNode value="leaf4" title="your leaf4" key="random5" />
           </TreeNode>
           <TreeNode value="parent 2-1" title="parent 2-1" key="random6">
             <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random7" />
@@ -111,8 +111,8 @@
         </TreeNode>
         <TreeNode value="parent 2" title="parent 2" key="1-1">
           <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
-            <TreeNode value="leaf1" title="my leaf3" key="random4" />
-            <TreeNode value="leaf2" title="your leaf4" key="random5" />
+            <TreeNode value="leaf3" title="my leaf3" key="random4" />
+            <TreeNode value="leaf4" title="your leaf4" key="random5" />
           </TreeNode>
           <TreeNode value="parent 2-1" title="parent 2-1" key="random6">
             <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random7" />
