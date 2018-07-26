@@ -11,7 +11,9 @@ class SinglePopup extends React.Component {
     showSearch: PropTypes.bool,
     dropdownPrefixCls: PropTypes.string,
     disabled: PropTypes.bool,
+    isRequired: PropTypes.bool,
     searchPlaceholder: PropTypes.string,
+    treeNodeResetTitle: PropTypes.string,
   };
 
   constructor() {
@@ -72,11 +74,13 @@ class SinglePopup extends React.Component {
   };
 
   render() {
+    const { isRequired } = this.props;
+
     return (
       <BasePopup
         {...this.props}
         renderSearch={this.renderSearch}
-        renderResetItem={this.renderResetItem}
+        renderResetItem={isRequired ? null : this.renderResetItem}
       />
     );
   }
