@@ -12,7 +12,6 @@ export interface IconProps {
   spin?: boolean;
   style?: React.CSSProperties;
 }
-debugger
 
 const Icon = (props: IconProps) => {
   const { type, className = '', spin } = props;
