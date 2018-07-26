@@ -122,7 +122,7 @@ state={
 }
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
+  const Group = listConvertToGroup([{key:"1",label:'testxxx'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
         <Select showSingleClear onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
@@ -146,7 +146,7 @@ state={
 }
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
+  const Group = listConvertToGroup([{key:"1",label:'test111'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
        <div>key:{this.state.value && this.state.value.key}</div>
@@ -225,7 +225,7 @@ state={
 
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:"6",label:<span>林林<Icon type="cloud" /></span>},{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'},{key:"5",label:'李二'}]);
+  const Group = listConvertToGroup([{key:"6",label:"qqt"},{key:"1",label:'skrskrskrskr'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'},{key:"5",label:'李二'}]);
   return(
     <div>
         <Select disabled={false} onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
@@ -319,7 +319,7 @@ state={
 
 render(){
   const {listConvertToGroup}=this.props.utils;
-  const Group = listConvertToGroup([{key:"1",label:'卿泽'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
+  const Group = listConvertToGroup([{key:"1",label:'XX1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
           <Radio.Group showSingleClear value={this.state.align} onChange={this.handleChange} style={{marginBottom:20}}>
