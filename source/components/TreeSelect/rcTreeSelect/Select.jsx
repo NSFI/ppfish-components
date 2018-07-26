@@ -88,6 +88,7 @@ class Select extends React.Component {
     treeDataSimpleMode: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     treeNodeFilterProp: PropTypes.string,
     treeNodeLabelProp: PropTypes.string,
+    treeNodeResetTitle: PropTypes.string,
     treeCheckable: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.node,
@@ -136,6 +137,7 @@ class Select extends React.Component {
     // ref: https://github.com/react-component/select/pull/71
     treeNodeFilterProp: 'value',
     treeNodeLabelProp: 'title',
+    treeNodeResetTitle: '不选择任何分类',
     treeIcon: false,
     notFoundContent: '未搜索到内容',
   };

@@ -64,10 +64,10 @@ class SinglePopup extends React.Component {
   };
 
   renderResetItem = () => {
-    const { dropdownPrefixCls } = this.props;
+    const { dropdownPrefixCls, treeNodeResetTitle } = this.props;
 
     return (
-      <span className={`${dropdownPrefixCls}-reset`}>不选择任何分类</span>
+      <span className={`${dropdownPrefixCls}-reset`}>{treeNodeResetTitle}</span>
     );
   };
 

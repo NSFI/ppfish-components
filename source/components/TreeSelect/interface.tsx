@@ -54,6 +54,7 @@ export interface TreeSelectProps extends AbstractSelectProps {
   filterTreeNode?: (inputValue: string, treeNode: any) => boolean | boolean;
   treeNodeFilterProp?: string;
   treeNodeLabelProp?: string;
+  treeNodeResetTitle?: string;
   treeData?: Array<TreeData>;
   treeDataSimpleMode?: boolean | Object;
   loadData?: (node: any) => void;
