@@ -128,8 +128,8 @@ class Select extends React.Component {
 
   static defaultProps = {
     placeholder: '请选择',
-    prefixCls: 'rc-tree-select',
-    prefixAria: 'rc-tree-select',
+    prefixCls: 'fishd-rc-tree-select',
+    prefixAria: 'fishd-rc-tree-select',
     showArrow: true,
     showSearch: false,
     editable: true,

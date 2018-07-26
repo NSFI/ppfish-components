@@ -85,7 +85,7 @@ class Tree extends React.Component {
   static childContextTypes = treeContextTypes;
 
   static defaultProps = {
-    prefixCls: 'rc-tree',
+    prefixCls: 'fishd-rc-tree',
     showLine: false,
     showIcon: true,
     selectable: true,
