@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as RcDropdown from './src';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import DropdownButton from './dropdown-button';
 import * as warning from 'warning';
 

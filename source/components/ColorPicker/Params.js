@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
+import classNames from 'classnames';
 
 import Color from './helpers/color';
 import percentage from './helpers/percentage';
@@ -173,7 +173,7 @@ export default class Params extends React.Component {
       colorChannel[2] = percentage(colorChannel[2]);
     }
 
-    const paramsClasses = cx({
+    const paramsClasses = classNames({
       [prefixCls]: true,
       [`${prefixCls}-has-alpha`]: enableAlpha,
     });

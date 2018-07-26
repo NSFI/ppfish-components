@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import Icon from '../Icon/index';
 import Dialog, { ModalFuncProps } from './Modal';
 import ActionButton from './ActionButton';
