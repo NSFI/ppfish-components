@@ -19,6 +19,7 @@ export default class LoadMore extends React.Component {
     failedText: PropTypes.string,
     endText: PropTypes.string,
     extraCls: PropTypes.string,
+    buttonSize: PropTypes.string,
   };
 
   static defaultProps = {
@@ -30,6 +31,7 @@ export default class LoadMore extends React.Component {
     loadingText: '加载中',
     failedText: '加载失败，请重试',
     endText: '没有更多了',
+    buttonSize: 'large',
   };
 
   constructor(props) {
@@ -37,7 +39,7 @@ export default class LoadMore extends React.Component {
   }
 
   render() {
-    const {normalText, onLoadMore, loading, loadError, loadingText, failedText, loadEnd, extraCls} = this.props;
+    const {normalText, onLoadMore, buttonSize, loading, loadError, loadingText, failedText, loadEnd, extraCls} = this.props;
     let buttonText;
     if (loadError) {
       buttonText = failedText;
@@ -50,7 +52,7 @@ export default class LoadMore extends React.Component {
       <div className={classNames('m-loadmore', {[`${extraCls}`]: !!extraCls})}>
         {loadEnd ?
           <span>没有更多了</span> :
-          <Button type="primary" size="large" onClick={onLoadMore} loading={loading}>{buttonText}</Button>
+          <Button type="primary" size={buttonSize} onClick={onLoadMore} loading={loading}>{buttonText}</Button>
         }
       </div>
     );
