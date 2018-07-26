@@ -18,6 +18,7 @@ class MultipleSelector extends React.Component {
     ...selectorPropTypes,
     selectorValueList: PropTypes.array,
     disabled: PropTypes.bool,
+    editable: PropTypes.bool,
     searchValue: PropTypes.string,
     labelInValue: PropTypes.bool,
     maxTagCount: PropTypes.number,
@@ -87,6 +88,7 @@ class MultipleSelector extends React.Component {
       selectorValueList, choiceTransitionName, prefixCls,
       onChoiceAnimationLeave,
       labelInValue, maxTagCount, maxTagPlaceholder,
+      editable
     } = this.props;
     const { rcTreeSelect: { onMultipleSelectorRemove } } = this.context;
 
@@ -103,7 +105,7 @@ class MultipleSelector extends React.Component {
         key={value}
         label={label}
         value={value}
-        onRemove={onMultipleSelectorRemove}
+        onRemove={editable ? onMultipleSelectorRemove : null}
       />
     ));
 
