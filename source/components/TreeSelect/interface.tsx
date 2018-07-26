@@ -44,6 +44,7 @@ export interface TreeSelectProps extends AbstractSelectProps {
   onChange?: (value: any, label: any, extra: any) => void;
   onConfirm?: (value: any) => void;
   onCancel?: (value: any) => void;
+  onReset?: (value: any) => void;
   onSearch?: (value: any) => void;
   searchPlaceholder?: string;
   dropdownStyle?: React.CSSProperties;

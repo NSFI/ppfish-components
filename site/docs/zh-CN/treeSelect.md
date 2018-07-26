@@ -23,6 +23,10 @@
     this.setState({ value });
   }
 
+  onReset = () => {
+    this.setState({ value: undefined });
+  }
+
   render() {
     const TreeNode = TreeSelect.TreeNode;
     return (
@@ -34,6 +38,7 @@
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
         treeDefaultExpandAll
         onChange={this.onChange}
+        onReset={this.onReset}
       >
         <TreeNode value="parent 1" title="parent 1" key="0-1">
           <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
@@ -211,6 +216,7 @@
 | onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
 | onConfirm | 确认选中树节点时调用此函数，参数 value 为当前选中的条目 | function(value) | - |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | function(value) | - |
+| onReset | 点击复位选项时调用 | function() | - |
 | onSearch | 搜索框值变化时调用 | function(value: string) | - |
 | onSelect | 被选中时调用 | function(value, node, extra) | - |
 

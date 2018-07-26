@@ -110,6 +110,7 @@ class Select extends React.Component {
     onChange: PropTypes.func,
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
+    onReset: PropTypes.func,
     onDropdownVisibleChange: PropTypes.func,
   };
 
@@ -910,6 +911,13 @@ class Select extends React.Component {
     this.setState({ open: false });
   };
 
+  resetSelect = () => {
+    const { onReset } = this.props;
+
+    onReset && onReset();
+    this.setState({ open: false });
+  };
+
   // ===================== Render =====================
   render() {
     const {
@@ -938,6 +946,10 @@ class Select extends React.Component {
       dropdownPrefixCls: `${prefixCls}-dropdown`,
       ariaId: this.ariaId,
     };
+
+    if (!isMultiple) {
+      passProps['resetSelect'] = this.resetSelect;
+    }
 
     const Popup = isMultiple ? MultiplePopup : SinglePopup;
     const $popup = (
