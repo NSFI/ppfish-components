@@ -126,18 +126,13 @@
     value: ['0-0-0'],
   }
 
-  onChange = (value, label, extra) => {
-    console.log('>> onChange: ', value, label, extra);
-    //this.setState({ value });
-  }
-
   onConfirm = (value) => {
-    console.log('>> onConfirm: ', value);
+    // console.log('>> onConfirm: ', value);
     this.setState({ value });
   }
   
   onCancel = (value) => {
-    console.log('>> onCancel: ', value);
+    // console.log('>> onCancel: ', value);
     this.setState({ value });
   }
 
@@ -174,7 +169,6 @@
       treeData,
       treeDefaultExpandAll: true,
       value: this.state.value,
-      onChange: this.onChange,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
       treeCheckable: true,
@@ -214,6 +208,8 @@
 | treeNodeResetLabel | 复位选项的默认文字 | string | '不选择任何分类' |
 | value | 指定当前选中的条目 | string/string[] | - |
 | onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
+| onConfirm | 确认选中树节点时调用此函数，参数 value 为当前选中的条目 | function(value) | - |
+| onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | function(value) | - |
 | onSearch | 搜索框值变化时调用 | function(value: string) | - |
 | onSelect | 被选中时调用 | function(value, node, extra) | - |
 
