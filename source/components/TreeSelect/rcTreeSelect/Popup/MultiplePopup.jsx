@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BasePopup from '../Base/BasePopup';
 import SearchInput from '../SearchInput';
 import { createRef } from '../util';
-import { Button } from 'antd';
+import Button from '../../../Button/index.tsx';
 
 class MultiplePopup extends React.Component {
   static propTypes = {
