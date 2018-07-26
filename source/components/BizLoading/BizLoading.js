@@ -1,7 +1,7 @@
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Spin } from 'antd';
+import Spin from '../Spin/index.tsx';
 import './BizLoading.less';
 
 class BizLoading extends Component {

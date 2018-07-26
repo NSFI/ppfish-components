@@ -3,7 +3,6 @@ import * as classNames from 'classnames';
 import omit from 'omit.js';
 import './Icon.less'
 
-
 export interface IconProps {
   type: string;
   className?: string;

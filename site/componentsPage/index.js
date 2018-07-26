@@ -314,10 +314,11 @@ export default {
   },
   business: {
     '基本组件 Basic': {
-      'bizLoading': {
-        type: 'markdown',
-        name: 'BizLoading 加载动画',
-      },
+      // 已废弃使用，推荐使用spin
+      // 'bizLoading': {
+      //   type: 'markdown',
+      //   name: 'BizLoading 加载动画',
+      // },
       'bizTable': {
         type: 'markdown',
         name: 'BizTable 自定义表格',
