@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import RcTable from './src';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import Pagination from '../Pagination';
 import Icon from '../Icon/index';
 import Spin from '../Spin';
