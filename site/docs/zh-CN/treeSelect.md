@@ -82,10 +82,6 @@
     this.setState({ value });
   }
 
-  onReset = () => {
-    this.setState({ value: undefined });
-  }
-
   render() {
     const TreeNode = TreeSelect.TreeNode;
     return (
@@ -98,7 +94,6 @@
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
         treeDefaultExpandAll
         onChange={this.onChange}
-        onReset={this.onReset}
       >
         <TreeNode value="parent 1" title="parent 1" key="0-1">
           <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
@@ -138,6 +133,10 @@
     this.setState({ value });
   }
 
+  onReset = () => {
+    this.setState({ value: undefined });
+  }
+
   render() {
     const treeData = [
       {
@@ -172,6 +171,7 @@
         treeData={treeData}
         treeDefaultExpandAll
         onChange={this.onChange}
+        onReset={this.onReset}
       />
     );
   }
