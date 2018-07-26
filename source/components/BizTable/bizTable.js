@@ -6,7 +6,7 @@ import Table from '../Table/index.tsx';
  * Prophet常规Table
  * - 固定表头，需要指定 offsetHeight 值;
  */
-class BizTable extends Component {
+export default class BizTable extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
     pageSize: PropTypes.number,
@@ -93,6 +93,3 @@ class BizTable extends Component {
     );
   }
 }
-
-export default BizTable;
-
