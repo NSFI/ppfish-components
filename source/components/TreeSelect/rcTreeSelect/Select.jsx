@@ -57,6 +57,7 @@ class Select extends React.Component {
     open: PropTypes.bool,
     value: valueProp,
     autoFocus: PropTypes.bool,
+    isRequired: PropTypes.bool,
 
     defaultOpen: PropTypes.bool,
     defaultValue: valueProp,
@@ -129,6 +130,7 @@ class Select extends React.Component {
     prefixAria: 'rc-tree-select',
     showArrow: true,
     showSearch: false,
+    isRequired: false,
     autoClearSearchValue: true,
     showCheckedStrategy: SHOW_CHILD,
 

@@ -46,11 +46,11 @@
         </TreeNode>
         <TreeNode value="parent 2" title="parent 2" key="1-1">
           <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
-            <TreeNode value="leaf1" title="my leaf3" key="random3" />
-            <TreeNode value="leaf2" title="your leaf4" key="random4" />
+            <TreeNode value="leaf1" title="my leaf3" key="random4" />
+            <TreeNode value="leaf2" title="your leaf4" key="random5" />
           </TreeNode>
-          <TreeNode value="parent 2-1" title="parent 2-1" key="random5">
-            <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random3" />
+          <TreeNode value="parent 2-1" title="parent 2-1" key="random6">
+            <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random7" />
           </TreeNode>
         </TreeNode>
       </TreeSelect>
@@ -205,7 +205,8 @@
 | treeDefaultExpandAll | 默认展开所有树节点 | boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | array | - |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'value' |
-| treeNodeResetLabel | 复位选项的默认文字 | string | '不选择任何分类' |
+| isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | boolean | false |
+| treeNodeResetTitle | 复位选项的默认文字，单选时有效 | string | '不选择任何分类' |
 | value | 指定当前选中的条目 | string/string[] | - |
 | onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
 | onConfirm | 确认选中树节点时调用此函数，参数 value 为当前选中的条目 | function(value) | - |
