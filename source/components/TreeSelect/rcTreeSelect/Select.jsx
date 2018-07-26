@@ -524,8 +524,7 @@ class Select extends React.Component {
     }
 
     this.onDeselect(wrappedValue, triggerNode, deselectInfo);
-
-    this.triggerChange(newMissValueList, newValueList, extraInfo);
+    this.triggerChange(newMissValueList, newValueList, extraInfo, true);
   };
 
   // ===================== Popup ======================
@@ -815,9 +814,9 @@ class Select extends React.Component {
    * 1. Update state valueList.
    * 2. Fire `onChange` event to user.
    */
-  triggerChange = (missValueList, valueList, extraInfo = {}) => {
+  triggerChange = (missValueList, valueList, extraInfo = {}, immediate = false) => {
     const { valueEntities } = this.state;
-    const { onChange, disabled } = this.props;
+    const { onChange, disabled, onConfirm } = this.props;
 
     if (disabled) return;
 
@@ -841,38 +840,42 @@ class Select extends React.Component {
 
     // Only do the logic when `onChange` function provided
     // if (onChange) {
-      let connectValueList;
+    let connectValueList;
 
-      // Get value by mode
-      if (this.isMultiple()) {
-        connectValueList = [...missValueList, ...selectorValueList];
-      } else {
-        connectValueList = selectorValueList.slice(0, 1);
-      }
+    // Get value by mode
+    if (this.isMultiple()) {
+      connectValueList = [...missValueList, ...selectorValueList];
+    } else {
+      connectValueList = selectorValueList.slice(0, 1);
+    }
 
-      let labelList = null;
-      let returnValue;
+    let labelList = null;
+    let returnValue;
 
-      if (this.isLabelInValue()) {
-        returnValue = connectValueList.map(({ label, value }) => ({ label, value }));
-      } else {
-        labelList = [];
-        returnValue = connectValueList.map(({ label, value }) => {
-          labelList.push(label);
-          return value;
-        });
-      }
+    if (this.isLabelInValue()) {
+      returnValue = connectValueList.map(({ label, value }) => ({ label, value }));
+    } else {
+      labelList = [];
+      returnValue = connectValueList.map(({ label, value }) => {
+        labelList.push(label);
+        return value;
+      });
+    }
 
-      if (!this.isMultiple()) {
-        returnValue = returnValue[0];
-      }
+    if (!this.isMultiple()) {
+      returnValue = returnValue[0];
+    }
 
-      // Set curValueList every time triggerChange
+    // Set curValueList every time triggerChange
+    if (immediate) {
+      onConfirm && onConfirm(returnValue);
+    } else {
       this.setState({
         curValueList: returnValue
       });
+    }
 
-      onChange && onChange(returnValue, labelList, extra);
+    onChange && onChange(returnValue, labelList, extra);
     // }
   };
 
@@ -896,7 +899,7 @@ class Select extends React.Component {
   };
 
   handleConfirm = () => {
-    const { valueList, curValueList } = this.state;
+    const { curValueList } = this.state;
     const { onConfirm } = this.props;
 
     onConfirm && onConfirm(curValueList);
