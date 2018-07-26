@@ -33,9 +33,14 @@ class Selection extends React.Component {
       content = `${content.slice(0, maxTagTextLength)}...`;
     }
 
+    let tagStyle = Object.assign({}, UNSELECTABLE_STYLE);
+    if (!onRemove) {
+      tagStyle['padding'] = '0 10px';
+    }
+
     return (
       <li
-        style={UNSELECTABLE_STYLE}
+        style={tagStyle}
         {...UNSELECTABLE_ATTRIBUTE}
         role="menuitem"
         className={`${prefixCls}-selection__choice`}

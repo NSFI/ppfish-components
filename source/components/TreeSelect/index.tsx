@@ -23,7 +23,8 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     showCheckedStrategy: SHOW_PARENT,
     transitionName: 'slide-up',
     treeNodeResetTitle: '不选择任何分类',
-    isRequired: false
+    isRequired: false,
+    editable: true,
   };
 
   private rcTreeSelect: any;
