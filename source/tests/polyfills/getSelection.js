@@ -17,4 +17,4 @@ function getSelectionShim() {
     setEnd: function() {},
     addRange: function() {},
   };
-}
+};
