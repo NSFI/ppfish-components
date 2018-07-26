@@ -3,7 +3,7 @@ import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcT
 import * as classNames from 'classnames';
 import { TreeSelectProps } from './interface';
 // import warning from '../_util/warning';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import './style/index.less';
 
 export { TreeData, TreeSelectProps } from './interface';
@@ -17,7 +17,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   static defaultProps = {
     choiceTransitionName: 'zoom',
     placeholder: '请选择',
-    prefixCls: 'ant-select',
+    prefixCls: 'fishd-treeselect',
     searchPlaceholder: '请输入关键字',
     showSearch: false,
     showCheckedStrategy: SHOW_PARENT,
@@ -62,8 +62,8 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     } = this.props;
 
     const cls = classNames({
-      // [`${prefixCls}-tree`]: true,
-      "m-select-tree": true,
+      [`${prefixCls}-ctner`]: true,
+      // "m-select-tree": true,
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-sm`]: size === 'small',
     }, className);
