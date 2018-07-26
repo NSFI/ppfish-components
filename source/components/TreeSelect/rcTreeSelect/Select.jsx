@@ -840,7 +840,7 @@ class Select extends React.Component {
     }
 
     // Only do the logic when `onChange` function provided
-    if (onChange) {
+    // if (onChange) {
       let connectValueList;
 
       // Get value by mode
@@ -867,13 +867,13 @@ class Select extends React.Component {
         returnValue = returnValue[0];
       }
 
-      // TODO: Set checkbox status
+      // Set curValueList every time triggerChange
       this.setState({
         curValueList: returnValue
       });
 
-      onChange(returnValue, labelList, extra);
-    }
+      onChange && onChange(returnValue, labelList, extra);
+    // }
   };
 
   focus() {
@@ -893,7 +893,6 @@ class Select extends React.Component {
       curValueList: oriValueList,
       open: false 
     });
-    // this.setOpenState(false, true);
   };
 
   handleConfirm = () => {
@@ -902,7 +901,6 @@ class Select extends React.Component {
 
     onConfirm && onConfirm(curValueList);
     this.setState({ open: false });
-    // console.log('>> valueList: ', valueList);
   };
 
   // ===================== Render =====================
@@ -913,6 +911,7 @@ class Select extends React.Component {
       searchValue,
       open, focused,
       treeNodes, filteredTreeNodes,
+      curValueList
     } = this.state;
     const { prefixCls } = this.props;
     const isMultiple = this.isMultiple();
@@ -920,7 +919,8 @@ class Select extends React.Component {
     const passProps = {
       ...this.props,
       isMultiple,
-      valueList,
+      // valueList,
+      valueList: formatInternalValue(curValueList, this.props), // Set checkbox status in time when `onCheck`
       selectorValueList: [...missValueList, ...selectorValueList],
       valueEntities,
       keyEntities,

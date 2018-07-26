@@ -39,20 +39,20 @@ class MultipleSelector extends React.Component {
 
   constructor() {
     super();
-    this.inputRef = createRef();
+    // this.inputRef = createRef();
   }
 
-  onPlaceholderClick = () => {
-    this.inputRef.current.focus();
-  };
+  // onPlaceholderClick = () => {
+  //   this.inputRef.current.focus();
+  // };
 
-  focus = () => {
-    this.inputRef.current.focus();
-  };
+  // focus = () => {
+  //   this.inputRef.current.focus();
+  // };
 
-  blur = () => {
-    this.inputRef.current.blur();
-  };
+  // blur = () => {
+  //   this.inputRef.current.blur();
+  // };
 
   renderPlaceholder = () => {
     const {
@@ -88,8 +88,6 @@ class MultipleSelector extends React.Component {
       labelInValue, maxTagCount, maxTagPlaceholder,
     } = this.props;
     const { rcTreeSelect: { onMultipleSelectorRemove } } = this.context;
-
-    // debugger;
 
     // Check if `maxTagCount` is set
     let myValueList = selectorValueList;
