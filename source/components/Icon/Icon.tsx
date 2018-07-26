@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import * as omit from 'omit.js';
+import omit from 'omit.js';
 import './Icon.less'
 
 

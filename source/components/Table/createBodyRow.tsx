@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import * as omit from 'omit.js';
+import omit from 'omit.js';
 import { Store } from './createStore';
 
 interface BodyRowProps {
