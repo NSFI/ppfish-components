@@ -65,7 +65,8 @@ class MultipleSelector extends React.Component {
 
     if (!currentPlaceholder) return null;
 
-    const hidden = searchValue || selectorValueList.length;
+    // const hidden = searchValue || selectorValueList.length;
+    const hidden = selectorValueList.length;
 
     // [Legacy] Not remove the placeholder
     return (
