@@ -5,8 +5,7 @@ import Trigger from 'rc-trigger';
 import scrollIntoView from 'dom-scroll-into-view';
 import classNames from 'classnames';
 import Button from '../Button/index.tsx';
-import Col from '../Col/index.tsx';
-import Row from '../Row/index.tsx';
+import Spin from '../Spin/index.tsx';
 import Icon from '../Icon/index.tsx';
 import warning from "warning";
 import SelectSearch from './SelectSearch';
@@ -32,6 +31,7 @@ export default class Select extends React.Component {
     getPopupContainer: PropTypes.func,
     labelClear: PropTypes.bool,
     labelInValue: PropTypes.bool,
+    loading: PropTypes.bool,
     maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     mode: PropTypes.oneOf(['multiple', 'single']),
     notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -59,12 +59,13 @@ export default class Select extends React.Component {
 
   static defaultProps = {
     allowClear: true,
-    defaultActiveFirstOption: true,
+    defaultActiveFirstOption: false,
     disabled: false,
     dropdownMatchSelectWidth: true,
     filterOption: true,
     labelClear: false,
     labelInValue: false,
+    loading: false,
     maxScrollHeight: 250,
     mode: 'single',
     notFoundContent: '无匹配结果',
@@ -89,9 +90,10 @@ export default class Select extends React.Component {
 
   constructor(props) {
     super(props);
+    const {value, defaultValue, labelInValue} = this.props;
     this.state = {
       searchValue: '',
-      selectValue: this.covertSelectValue(this.props.value || this.props.defaultValue, this.props.labelInValue),
+      selectValue: this.covertSelectValue(value || defaultValue, labelInValue),
       popupVisible: false,
       resetValue: [],
       activeKey: undefined,
@@ -99,10 +101,10 @@ export default class Select extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value) {
+    if ('value' in nextProps) {
       const oldKeys = this.props.children.map(child => child.key);
       const newKeys = nextProps.children.map(child => child.key);
-      //children 变化时不作value同步、fix：后端搜索中state数据清空
+      //children 变化时不作value同步、fix：后端搜索中state数据清空,具体处理待交互确认
       if (!shallowEqual(oldKeys, newKeys)) return;
       this.setState({
         selectValue: this.covertSelectValue(nextProps.value, nextProps.labelInValue)
@@ -183,9 +185,9 @@ export default class Select extends React.Component {
     }, () => {
       const {onChange, labelInValue} = this.props;
       if (labelInValue) {
-        onChange(this.state.selectValue);
+        onChange({key: undefined, label: undefined});
       } else {
-        onChange(this.state.selectValue.map(selected => selected.key));
+        onChange();
       }
     });
   };
@@ -213,7 +215,9 @@ export default class Select extends React.Component {
 
   //聚焦操作
   focus() {
-    if (this.props.showSearch) {
+    const {showSearch, loading} = this.props;
+    if (loading) return;
+    if (showSearch) {
       this.selectSearch.searchInput.input.focus();
     } else {
       this.selection.focus();
@@ -222,7 +226,9 @@ export default class Select extends React.Component {
 
   //失焦操作
   blur() {
-    if (this.props.showSearch) {
+    const {showSearch, loading} = this.props;
+    if (loading) return;
+    if (showSearch) {
       this.selectSearch.searchInput.input.blur();
     } else {
       this.selection.blur();
@@ -234,7 +240,7 @@ export default class Select extends React.Component {
     e && e.stopPropagation();
     const {onChange, mode, onSelect, labelInValue} = this.props;
     const selectValue = this.state.selectValue;
-    const index = selectValue.findIndex(valueItem => valueItem.key === obj.key);
+    const index = selectValue.findIndex(selected => selected.key === obj.key);
     if (mode === 'single') {
       this.setState({
         selectValue: [obj],
@@ -271,13 +277,13 @@ export default class Select extends React.Component {
   };
 
   //获取列表待筛选操作
-  getSelectOptionList = (children, dropDownCls) => {
+  getSelectOptionList = (children, dropdownCls) => {
     return React.Children.map(children, (c) => {
       if (typeof c === 'object' && c.type.isSelectOption) {
         const value = c.props.value || c.key;
         //对children中的Option 进行事件绑定、参数补充
         return React.cloneElement(c, {
-          prefixCls: `${dropDownCls}-option`,
+          prefixCls: `${dropdownCls}-option`,
           checked: !!this.state.selectValue.find(obj => obj && obj.key === value),
           value: value,
           activeKey: this.state.activeKey,
@@ -285,12 +291,12 @@ export default class Select extends React.Component {
           onOptionMouseEnter: this.onOptionMouseEnter,
           onOptionMouseLeave: this.onOptionMouseLeave,
           ref: value,
-          children: this.getSelectOptionList(c.props.children, dropDownCls),
+          children: this.getSelectOptionList(c.props.children, dropdownCls),
         });
       } else if (typeof c === 'object' && c.type.isSelectOptGroup) {
         return React.cloneElement(c, {
-          prefixCls: `${dropDownCls}-option`,
-          children: this.getSelectOptionList(c.props.children, dropDownCls),
+          prefixCls: `${dropdownCls}-option`,
+          children: this.getSelectOptionList(c.props.children, dropdownCls),
         });
       } else {
         return children;
@@ -302,7 +308,7 @@ export default class Select extends React.Component {
   getSelectFilteredOptionList = (children, ChildrenList = []) => {
     const {filterOption} = this.props;
     const {searchValue} = this.state;
-    const typeOfOption = typeof filterOption;
+    const typeOfOption = Object.prototype.toString.call(filterOption).slice(8, -1).toLowerCase();
     React.Children.forEach(children, child => {
       let filterFlag = false;
       if (child.type.isSelectOption) {
@@ -344,7 +350,7 @@ export default class Select extends React.Component {
     return plainOptionList;
   };
 
-  //多选取消
+  //多选-取消
   handleCancelSelect = () => {
     const {defaultValue, value, labelInValue} = this.props;
     this.setState({
@@ -353,7 +359,7 @@ export default class Select extends React.Component {
     });
   };
 
-  //多选确定
+  //多选-确定
   handleConfirmSelect = () => {
     const {onChange, labelInValue} = this.props;
     this.setState({
@@ -371,6 +377,7 @@ export default class Select extends React.Component {
   isSelectAll = () => {
     const optionlist = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled);
     const selectedlist = this.state.selectValue;
+    //全选判断逻辑：option中每一项都能在seleced中找到（兼容后端搜索的全选判断）
     return optionlist.every(selected => {
       return !!selectedlist.find(option => option.key === selected.key);
     });
@@ -477,78 +484,100 @@ export default class Select extends React.Component {
 
   //下拉框内容
   getDropdownPanel() {
-    const {prefixCls, extraOptions, allowClear, showSingleClear, onPopupScroll, searchInputProps, searchPlaceholder, dropdownClassName, dropdownStyle, showSearch, showSelectAll, mode, selectAllText, placeholder, children, maxScrollHeight, notFoundContent} = this.props;
+    const {
+      allowClear,
+      children,
+      dropdownClassName,
+      dropdownStyle,
+      extraOptions,
+      loading,
+      maxScrollHeight,
+      mode,
+      notFoundContent,
+      onPopupScroll,
+      placeholder,
+      prefixCls,
+      searchInputProps,
+      searchPlaceholder,
+      selectAllText,
+      showSearch,
+      showSelectAll,
+      showSingleClear,
+    } = this.props;
     const {searchValue} = this.state;
-    const dropDownCls = `${prefixCls}-dropDown`;
-    const optionFilteredList = this.getSelectFilteredOptionList(this.getSelectOptionList(children, dropDownCls));
-    const showNotFoundContent = !this.getPlainOptionList(optionFilteredList).length;
+    const dropdownCls = `${prefixCls}-dropdown`;
+    const optionFilteredList = this.getSelectFilteredOptionList(this.getSelectOptionList(children, dropdownCls)); //获取筛选后的列表
+    const showNotFoundContent = !this.getPlainOptionList(optionFilteredList).length; // optionList为空判断
     return (
-      <div className={classNames(dropDownCls, {[dropdownClassName]: !!dropdownClassName})}
-           ref={selection => this.selection = selection}
-           tabIndex="0"
+      <div className={classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName})}
            onKeyDown={this.handleActiveTabChange}
-           style={dropdownStyle}>
+           ref={selection => this.selection = selection}
+           style={dropdownStyle}
+           tabIndex="0">
         {
-          //搜索框
-          showSearch &&
-          <SelectSearch
-            searchPlaceholder={searchPlaceholder}
-            prefixCls={`${dropDownCls}-search`}
-            ref={(selectSearch => this.selectSearch = selectSearch)}
-            searchValue={searchValue}
-            allowClear={allowClear}
-            updateSearchValue={this.updateSearchValue}
-            searchInputProps={searchInputProps}
-            emitEmpty={this.emptySearchValue}/>
-        }
-        <div className={`${dropDownCls}-list`}
-             ref={dropdownList => this.dropdownList = dropdownList}
-             style={{maxHeight: maxScrollHeight}}
-             onScroll={onPopupScroll}>
-          {
-            //全选按钮-多选的情况下存在
-            showSelectAll && mode !== 'single' &&
-            <li
-              className={`${dropDownCls}-option-item ${this.isSelectAll() ? 'checked' : ''}`}
-              onClick={this.selectAll}>
-              {selectAllText}
-            </li>
-          }
-          {
-            //清空选项按钮-单选未搜索的情况下存在
-            !searchValue && showSingleClear && mode === 'single' &&
-            <li
-              className={`${dropDownCls}-option-item clear`}
-              onClick={this.emptySelectValue}>
-              {placeholder}
-            </li>
-          }
-          {
-            //预留置顶项
-            extraOptions
-          }
-          {
-            //列表及空状态框
-            showNotFoundContent ?
-              <div className={`${dropDownCls}-not-found`}>{notFoundContent}</div> :
-              <div className={`${dropDownCls}-filtered-list`}>{optionFilteredList}</div>
-          }
-        </div>
-        {
-          //多选的点击取消、确定按钮组
-          mode === 'multiple' &&
-          <div className={`${dropDownCls}-footer`}>
-            <Row gutter={10}>
-              <Col span={12}>
-                <Button size="large" className={`${dropDownCls}-footer-btn`}
-                        onClick={this.handleCancelSelect}>取消</Button>
-              </Col>
-              <Col span={12}>
-                <Button size="large" className={`${dropDownCls}-footer-btn`} onClick={this.handleConfirmSelect}
-                        type="primary">确定</Button>
-              </Col>
-            </Row>
-          </div>
+          loading ?
+            <div className={`${dropdownCls}-loading`}>
+              <div><Spin size="small" style={{marginRight: 5}}/>加载中...</div>
+            </div> :
+            <div className={`${dropdownCls}-content`}>
+              {
+                //搜索框
+                showSearch &&
+                <SelectSearch
+                  allowClear={allowClear}
+                  emitEmpty={this.emptySearchValue}
+                  prefixCls={`${dropdownCls}-search`}
+                  ref={(selectSearch => this.selectSearch = selectSearch)}
+                  searchInputProps={searchInputProps}
+                  searchPlaceholder={searchPlaceholder}
+                  searchValue={searchValue}
+                  updateSearchValue={this.updateSearchValue}
+                />
+              }
+              <div className={`${dropdownCls}-list`}
+                   onScroll={onPopupScroll}
+                   ref={dropdownList => this.dropdownList = dropdownList}
+                   style={{maxHeight: maxScrollHeight}}>
+                {
+                  //全选按钮-多选的情况下存在
+                  showSelectAll && mode === 'multiple' &&
+                  <li
+                    className={classNames({[`${dropdownCls}-option-item`]: true}, {['checked']: this.isSelectAll()})}
+                    onClick={this.selectAll}>
+                    {selectAllText}
+                  </li>
+                }
+                {
+                  //清空选项按钮-单选未搜索的情况下存在
+                  !searchValue && showSingleClear && mode === 'single' &&
+                  <li
+                    className={`${dropdownCls}-option-item clear`}
+                    onClick={this.emptySelectValue}>
+                    {placeholder}
+                  </li>
+                }
+                {
+                  //预留置顶项
+                  extraOptions
+                }
+                {
+                  //列表及空状态框
+                  showNotFoundContent ?
+                    <div className={`${dropdownCls}-not-found`}>{notFoundContent}</div> :
+                    <div className={`${dropdownCls}-filtered-list`}>{optionFilteredList}</div>
+                }
+              </div>
+              {
+                //多选的点击取消、确定按钮组
+                mode === 'multiple' &&
+                <div className={`${dropdownCls}-footer`}>
+                  <Button size="large" className={`${dropdownCls}-footer-btn`}
+                          onClick={this.handleCancelSelect}>取消</Button>
+                  <Button size="large" className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect}
+                          type="primary">确定</Button>
+                </div>
+              }
+            </div>
         }
       </div>
     );
@@ -556,10 +585,31 @@ export default class Select extends React.Component {
 
   // 获取面板内容
   getSelectionPanel() {
-    const {prefixCls, placeholder, disabled, className, onMouseEnter, onMouseLeave, mode, showArrow, labelClear, size, style} = this.props;
+    const {
+      className,
+      disabled,
+      labelClear,
+      loading,
+      mode,
+      onMouseEnter,
+      onMouseLeave,
+      placeholder,
+      prefixCls,
+      showArrow,
+      size,
+      style
+    } = this.props;
     const {selectValue, popupVisible} = this.state;
     const selectionCls = `${prefixCls}`;
-    const selectionPanelCls = classNames(`${selectionCls}`, {[className]: !!className}, {[`${selectionCls}-disabled`]: disabled}, {[`open`]: popupVisible}, `${size === 'default' ? '' : `${selectionCls}-${size}`}`);
+    const selectionPanelCls =
+      classNames(
+        {[`${selectionCls}`]: true},
+        {[className]: !!className},
+        {[`${selectionCls}-disabled`]: disabled},
+        {[`open`]: popupVisible},
+        {[`${selectionCls}-large`]: size === 'large'},
+        {[`${selectionCls}-small`]: size === 'small'},
+      );
     return (
       <div
         className={selectionPanelCls}
@@ -567,65 +617,83 @@ export default class Select extends React.Component {
         onMouseLeave={onMouseLeave}
         style={style}>
         {
-          //showArrow并且不是可删除label模式下出现箭头
-          showArrow && !labelClear &&
-          <div className={`${selectionCls}-caret`}>
-            <Icon type="xiajiantou" className={classNames({['open']: popupVisible})}/>
-          </div>
-        }
-        {
-          //没有值的情况下显示placeholder
-          !selectValue.length &&
-          <div unselectable="on" className={`${selectionCls}-placeholder`}>{placeholder}</div>
-        }
-        {
-          //单选模式下有值显示值的label
-          mode === 'single' && !!selectValue.length &&
-          <span className={`${selectionCls}-option-single`}>{selectValue[0].label}</span>
-        }
-        {
-          //多选模式下区分labelClear
-          mode === 'multiple' && (
-            labelClear ?
-              <div className={`${selectionCls}-option-clearable-list`}>
-                {selectValue.map(option =>
-                  <div className={`${selectionCls}-option-clearable-option`} key={option.key}>
-                    {option.label || option}
-                    <span className={`${selectionCls}-option-clearable-option-close`}
-                          onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="guanbi"/></span>
-                  </div>
-                )}
-              </div> :
-              <div className={`${selectionCls}-option-multiple`}>
-                {
-                  selectValue.map((option, index) =>
-                    <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
+          loading ?
+            <div className={`${selectionCls}-loading`}>
+              <div><Spin size="small" style={{marginRight: 5}}/>加载中...</div>
+            </div> :
+            <div className={`${selectionCls}-content`}>
+              {
+                //showArrow并且不是可删除label模式下出现箭头
+                showArrow && !labelClear &&
+                <div className={`${selectionCls}-caret`}>
+                  <Icon type="xiajiantou" className={classNames({['open']: popupVisible})}/>
+                </div>
+              }
+              {
+                //没有值的情况下显示placeholder
+                !selectValue.length &&
+                <div unselectable="on" className={`${selectionCls}-placeholder`}>{placeholder}</div>
+              }
+              {
+                //单选模式下有值显示值的label
+                mode === 'single' && !!selectValue.length &&
+                <span className={`${selectionCls}-option-single`}>{selectValue[0].label}</span>
+              }
+              {
+                //多选模式下区分labelClear
+                mode === 'multiple' && (
+                  labelClear ?
+                    <div className={`${selectionCls}-option-clearable-list`}>
+                      {
+                        selectValue.map(option =>
+                            <div className={`${selectionCls}-option-clearable-option`} key={option.key}>
+                              {option.label}
+                              <span className={`${selectionCls}-option-clearable-option-close`}
+                                    onClick={(e) => this.onOptionClick(e, option, true)}>
+                        <Icon type="guanbi"/>
+                      </span>
+                            </div>
+                        )
+                      }
+                    </div> :
+                    <div className={`${selectionCls}-option-multiple`}>
+                      {
+                        selectValue.map((option, index) =>
+                            <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
                       <span>{option.label}</span>
                       <span>{index + 1 !== selectValue.length && '、'}</span>
                     </span>
-                  )
-                }
-              </div>
-          )
+                        )
+                      }
+                    </div>
+                )
+              }
+            </div>
         }
       </div>
     );
   }
 
   render() {
-    const {getPopupContainer, prefixCls, disabled, dropdownMatchSelectWidth, popupAlign} = this.props;
+    const {
+      disabled,
+      dropdownMatchSelectWidth,
+      getPopupContainer,
+      popupAlign,
+      prefixCls,
+    } = this.props;
     return (
       <Trigger
-        forceRender
         action={disabled ? [] : ['click']}
-        popup={this.getDropdownPanel()}
-        prefixCls={`${prefixCls}-popup`}
-        popupVisible={this.state.popupVisible}
-        onPopupVisibleChange={this.onVisibleChange}
-        getPopupContainer={getPopupContainer}
-        stretch={dropdownMatchSelectWidth ? 'width height' : 'height'}
-        popupPlacement={popupAlign}
         builtinPlacements={placements}
+        forceRender
+        getPopupContainer={getPopupContainer}
+        onPopupVisibleChange={this.onVisibleChange}
+        popup={this.getDropdownPanel()}
+        popupPlacement={popupAlign}
+        popupVisible={this.state.popupVisible}
+        prefixCls={`${prefixCls}-popup`}
+        stretch={dropdownMatchSelectWidth ? 'width height' : 'height'}
       >
         {this.getSelectionPanel()}
       </Trigger>
