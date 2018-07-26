@@ -286,6 +286,24 @@ render(){
 ```
 :::
 
+## 加载状态
+
+:::demo 加载中状态文案
+```js
+render(){
+  return(
+    <div>
+        <Select showSingleClear loading>
+          <Select.Option key={"1"} value={1}>{1}</Select.Option>  
+          <Select.Option key={"2"} value={2} disabled>{2}</Select.Option>       
+          <Select.Option key={"3"} value={3}>{3}</Select.Option>       
+        </Select>
+    </div>
+  )
+}
+```
+:::
+
 ## 宽度及位置自定义
 
 :::demo 下拉弹框位置可以进行自定义，`bottomLeft`、`bottom`、`bottomRight`
@@ -459,7 +477,7 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | allowClear | 支持搜索框清除操作 | boolean | true |
-| defaultActiveFirstOption | 是否默认激活第一项 | boolean | true |
+| defaultActiveFirstOption | 是否默认激活第一项 | boolean | false |
 | defaultValue | 指定默认选中的条目 | string\|string[]\|number\|number[]	 | - |
 | disabled | 是否禁用 | boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
@@ -470,6 +488,7 @@ render(){
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/4j168r7jw0) | Function(triggerNode) | () => document.body |
 | labelClear | 多选模式下开启label删除功能 | boolean | false |
 | labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: string, label: ReactNode}` 的格式 | boolean | false |
+| loading | 加载状态 | boolean | false |
 | maxScrollHeight | 列表滚动区高度 | number | 250 |
 | mode | 设置 Select 的模式 | 'multiple' \| 'single'/ReactNode| - |
 | notFoundContent | 当下拉列表为空时显示的内容 | string\|React.Element | '无匹配结果' |
