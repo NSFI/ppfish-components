@@ -136,10 +136,10 @@ export default {
     //   },
     // },
     '导航 Nav': {
-      // 'menu': {
-      //   type: 'markdown',
-      //   name: 'Menu 导航菜单',
-      // },
+      'menu': {
+        type: 'markdown',
+        name: 'Menu 导航菜单',
+      },
       'dropdown': {
         type: 'markdown',
         name: 'Dropdown 下拉菜单',
