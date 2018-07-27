@@ -45,7 +45,7 @@ export default class TimeRangePanel extends PopperBase {
         onPicked: PropTypes.func.isRequired,
         // cancel btn is clicked
         //()=>()
-        onCancel: PropTypes.func.isRequired,
+        onCancelPicked: PropTypes.func.isRequired,
         // (start, end)=>(), index range indicate which field [hours, minutes, seconds] changes
         onSelectRangeChange: TimeSpinner.propTypes.onSelectRangeChange,
       }, PopperBase.propTypes);
