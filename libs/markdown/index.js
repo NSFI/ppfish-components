@@ -15,6 +15,9 @@ export default class Markdown extends React.Component {
     this.renderer.table = (header, body) => {
       return `<table class="grid"><thead>${header}</thead><tbody>${body}</tbody></table>`;
     };
+    this.renderer.listitem = function(text) {
+      return '<li class="listitem">' + text + '</li>\n';
+    };
     this.renderer.heading = function (text, level, raw) {
       if (this.options.headerIds) {
         return '<h'
