@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Menu, {SubMenu, Item as MenuItem} from 'rc-menu';
 import * as closest from 'dom-closest';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import * as shallowequal from 'shallowequal';
 import Dropdown from '../Dropdown';
 import Icon from '../Icon/index';

@@ -6,12 +6,12 @@
       <div class="timeline-item-tail"></div>
       <div class="timeline-item-head timeline-item-head-blue"></div>
       <div class="timeline-item-content">
-      <h2 id="1.2.0">
-        <span>1.2.0</span>
-        <a href="#1.2.0" class="anchor">#</a>
+      <h2 id="1.3.0">
+        <span>1.3.0</span>
+        <a href="#1.3.0" class="anchor">#</a>
       </h2>
       <p>
-        <code>2018-06-15</code>
+        <code>2018-08-01</code>
       </p>
       <ul>
         <li> <a href="https://github.com/NSFI/ppfish-components/commit/3751e1b9e76bc95fb757d3d2e352054313412798">view commit</a> 保存图片，兼容IE10+</li>

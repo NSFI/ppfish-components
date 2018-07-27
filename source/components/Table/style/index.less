@@ -7,6 +7,19 @@
   .clearfix;
 }
 
+.@{table-prefix-cls}-ellipsis-col {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*! autoprefixer: off */
+  /* stylelint-disable-next-line */
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  position: relative;
+  top: 3px;
+}
+
 .@{table-prefix-cls} {
   .reset-component;
   position: relative;
@@ -97,6 +110,7 @@
   &-tbody > tr {
     transition: all 0.3s;
     &.@{table-prefix-cls}-row-hover,
+    &.@{table-prefix-cls}-row-click,
     &:hover {
       & > td {
         background: @table-row-hover-bg;

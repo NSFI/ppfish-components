@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.less';
 import SearchInput from '../index';
-import {Modal} from 'antd';
 
 class App extends Component {
   constructor(props) {
@@ -9,9 +8,7 @@ class App extends Component {
   }
 
   onSearch = (text) => {
-    Modal.info({
-      title:`From SearchInput: ${text}`
-    });
+    alert(`From SearchInput: ${text}`);
   };
 
   render() {

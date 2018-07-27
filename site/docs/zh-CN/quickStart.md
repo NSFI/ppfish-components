@@ -13,14 +13,10 @@ npm i ppfish --save
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AnimationImageLoader } from 'ppfish';
+import { Button } from 'ppfish';
 
 ReactDOM.render(
-  <AnimationImageLoader
-    extraCls="u-nav-icon"
-    src={require('./create_POI@2x.png')}
-    zoom={0.5}
-  />, document.getElementById('app')
+  <Button type="primary">Primary</Button>, document.getElementById('app')
 );
 
 ```

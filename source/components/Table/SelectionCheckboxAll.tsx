@@ -3,7 +3,7 @@ import Checkbox, { CheckboxChangeEvent } from '../Checkbox';
 import Dropdown from '../Dropdown';
 import Menu from '../Menu';
 import Icon from '../Icon/index';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import { SelectionCheckboxAllProps, SelectionCheckboxAllState, SelectionItem } from './interface';
 
 export default class SelectionCheckboxAll<T> extends

@@ -1,45 +1,35 @@
-// @import "./TreeSelect.less";
+@import "../../../assets/css/index.less";
+@import "./Select.less";
+@import "./CheckboxMixin.less";
+@import "./TreeSelect.less";
 
-// @select-prefix: ~"@{fishd-prefix}-select";
-// @select-tree-prefix: ~"@{fishd-prefix}-select-tree";
-@select-prefix: ant-select;
-@select-tree-prefix: m-select-tree;
+@select-prefix: ~"@{fishd-prefix}-treeselect";
+@select-tree-prefix: ~"@{fishd-prefix}-treeselect-ctner";
 
 /* stylelint-disable declaration-no-important */
-.@{select-prefix}-tree-checkbox:hover {
-  .@{select-prefix}-tree-checkbox-inner {
-    border-color: @primary-color !important;
-  }
-}
 
-.@{select-prefix}-tree-checkbox-checked .@{select-prefix}-tree-checkbox-inner,
-.@{select-prefix}-tree-checkbox-indeterminate .@{select-prefix}-tree-checkbox-inner {
-  background-color: @primary-color !important;
-  border-color: @primary-color !important;
-}
+// .@{select-prefix}-focused .@{select-prefix}-selection,
+// .@{select-prefix}-open .@{select-prefix}-selection {
+//   border-color: @primary-color !important;
+//   box-shadow: @shadow-1-down !important;
+//   cursor: pointer;
+// }
 
-.@{select-prefix}-focused .@{select-prefix}-selection,
-.@{select-prefix}-open .@{select-prefix}-selection {
-  border-color: @primary-color !important;
-  box-shadow: @shadow-1-down !important;
-  cursor: pointer;
-}
+// .@{select-prefix}-selection {
+//   border: @border-width-base @border-style-base @border-color-base;
+//   border-radius: @border-radius-base;
+//   box-shadow: none !important;
 
-.@{select-prefix}-selection {
-  border: @border-width-base @border-style-base @border-color-base;
-  border-radius: @border-radius-base;
-  box-shadow: none !important;
+//   &:hover {
+//     border-color: @primary-color !important;
+//     cursor: pointer;
+//   }
 
-  &:hover {
-    border-color: @primary-color !important;
-    cursor: pointer;
-  }
-
-  &:active,
-  &:focus {
-    box-shadow: none !important;
-  }
-}
+//   &:active,
+//   &:focus {
+//     box-shadow: none !important;
+//   }
+// }
 
 .@{select-prefix}-dropdown {
   .hide {
@@ -72,6 +62,27 @@
     justify-content: space-around;
     height: 40px;
     background: @background-color-base;
+    overflow: hidden;
+  }
+
+  &-reset {
+    position: relative;
+    display: inline-block;
+    // padding: 5px;
+    // margin: 0 4px 0 28px;
+    // width: ~"calc(100% - 32px)";
+    padding: 5px 5px 5px 29px;
+    margin: 0 4px;
+    width: ~"calc(100% - 8px)";
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.65);
+    // overflow: hidden;
+    
+    &:hover {
+      background-color: #e6f7ff;
+    }
   }
 }
 

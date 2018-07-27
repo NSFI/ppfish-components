@@ -22,8 +22,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
-import KeyCode from 'rc-util/lib/KeyCode';
-import { calcCheckStateConduct } from 'rc-tree/lib/util';
+import KeyCode from '../../../utils/KeyCode.js';
+import { calcCheckStateConduct } from './treeUtil.js';
 import shallowEqual from 'shallowequal';
 import raf from 'raf';
 
@@ -57,6 +57,8 @@ class Select extends React.Component {
     open: PropTypes.bool,
     value: valueProp,
     autoFocus: PropTypes.bool,
+    editable: PropTypes.bool,
+    isRequired: PropTypes.bool,
 
     defaultOpen: PropTypes.bool,
     defaultValue: valueProp,
@@ -88,6 +90,7 @@ class Select extends React.Component {
     treeDataSimpleMode: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     treeNodeFilterProp: PropTypes.string,
     treeNodeLabelProp: PropTypes.string,
+    treeNodeResetTitle: PropTypes.string,
     treeCheckable: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.node,
@@ -106,6 +109,9 @@ class Select extends React.Component {
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onChange: PropTypes.func,
+    onConfirm: PropTypes.func,
+    onCancel: PropTypes.func,
+    onReset: PropTypes.func,
     onDropdownVisibleChange: PropTypes.func,
   };
 
@@ -122,10 +128,12 @@ class Select extends React.Component {
 
   static defaultProps = {
     placeholder: '请选择',
-    prefixCls: 'rc-tree-select',
-    prefixAria: 'rc-tree-select',
+    prefixCls: 'fishd-rc-tree-select',
+    prefixAria: 'fishd-rc-tree-select',
     showArrow: true,
     showSearch: false,
+    editable: true,
+    isRequired: false,
     autoClearSearchValue: true,
     showCheckedStrategy: SHOW_CHILD,
 
@@ -134,6 +142,7 @@ class Select extends React.Component {
     // ref: https://github.com/react-component/select/pull/71
     treeNodeFilterProp: 'value',
     treeNodeLabelProp: 'title',
+    treeNodeResetTitle: '不选择任何分类',
     treeIcon: false,
     notFoundContent: '未搜索到内容',
   };
@@ -143,7 +152,8 @@ class Select extends React.Component {
 
     const {
       prefixAria,
-      defaultOpen, open,
+      defaultOpen,
+      open
     } = props;
 
     this.state = {
@@ -156,6 +166,8 @@ class Select extends React.Component {
       searchValue: '',
 
       init: true,
+      oriValueList: [],
+      curValueList: []
     };
 
     this.selectorRef = createRef();
@@ -251,8 +263,6 @@ class Select extends React.Component {
       });
     }
 
-    // debugger;
-
     // Convert `treeData` to entities
     if (treeData) {
       const { treeNodes, valueEntities, keyEntities } = convertDataToEntities(treeData);
@@ -264,6 +274,14 @@ class Select extends React.Component {
 
     // Value List
     if (prevState.init) {
+      if (nextProps.value && nextProps.value.length) {
+        newState.oriValueList = nextProps.value;
+        newState.curValueList = nextProps.value;
+      } else if (nextProps.defaultValue && nextProps.defaultValue.length) {
+        newState.oriValueList = nextProps.defaultValue;
+        newState.curValueList = nextProps.defaultValue;
+      }
+
       processState('defaultValue', (propValue) => {
         newState.valueList = formatInternalValue(propValue, nextProps);
         valueRefresh = true;
@@ -271,6 +289,8 @@ class Select extends React.Component {
     }
 
     processState('value', (propValue) => {
+      newState.oriValueList = nextProps.value;
+      newState.curValueList = nextProps.value;
       newState.valueList = formatInternalValue(propValue, nextProps);
       valueRefresh = true;
     });
@@ -283,20 +303,19 @@ class Select extends React.Component {
       const keyList = [];
 
       // Get key by value
-      (newState.valueList || prevState.valueList)
-        .forEach((wrapperValue) => {
-          const { value } = wrapperValue;
-          const entity = (newState.valueEntities || prevState.valueEntities)[value];
+      (newState.valueList || prevState.valueList).forEach((wrapperValue) => {
+        const { value } = wrapperValue;
+        const entity = (newState.valueEntities || prevState.valueEntities)[value];
 
-          if (entity) {
-            keyList.push(entity.key);
-            filteredValueList.push(wrapperValue);
-            return;
-          }
+        if (entity) {
+          keyList.push(entity.key);
+          filteredValueList.push(wrapperValue);
+          return;
+        }
 
-          // If not match, it may caused by ajax load. We need keep this
-          missValueList.push(wrapperValue);
-        });
+        // If not match, it may caused by ajax load. We need keep this
+        missValueList.push(wrapperValue);
+      });
 
       // We need calculate the value when tree is checked tree
       if (treeCheckable && !treeCheckStrictly) {
@@ -512,12 +531,14 @@ class Select extends React.Component {
     }
 
     this.onDeselect(wrappedValue, triggerNode, deselectInfo);
-
-    this.triggerChange(newMissValueList, newValueList, extraInfo);
+    this.triggerChange(newMissValueList, newValueList, extraInfo, true);
   };
 
   // ===================== Popup ======================
   onValueTrigger = (isAdd, nodeList, nodeEventInfo, nodeExtraInfo) => {
+    // Disable deselect item at single select mode
+    if (!this.isMultiple() && !isAdd) return;
+
     const { node } = nodeEventInfo;
     const { value } = node.props;
     const { missValueList, valueEntities, keyEntities, treeNodes } = this.state;
@@ -744,6 +765,18 @@ class Select extends React.Component {
   setOpenState = (open, byTrigger = false) => {
     const { onDropdownVisibleChange } = this.props;
 
+    // 关闭 Popup 时，若有已选择项，则执行取消操作
+    if (!open) {
+      const { oriValueList, curValueList } = this.state;
+      const { onCancel } = this.props;
+      if (JSON.stringify(oriValueList) !== JSON.stringify(curValueList)) {
+        this.setState({
+          curValueList: oriValueList
+        });
+        onCancel && onCancel(oriValueList);
+      }
+    }
+
     if (
       onDropdownVisibleChange &&
       onDropdownVisibleChange(open, { documentClickClose: !open && byTrigger }) === false
@@ -791,9 +824,9 @@ class Select extends React.Component {
    * 1. Update state valueList.
    * 2. Fire `onChange` event to user.
    */
-  triggerChange = (missValueList, valueList, extraInfo = {}) => {
+  triggerChange = (missValueList, valueList, extraInfo = {}, immediate = false) => {
     const { valueEntities } = this.state;
-    const { onChange, disabled } = this.props;
+    const { onChange, disabled, onConfirm } = this.props;
 
     if (disabled) return;
 
@@ -804,10 +837,8 @@ class Select extends React.Component {
       ...extraInfo,
     };
 
-    // debugger;
     // Format value by `treeCheckStrictly`
     const selectorValueList = formatSelectorValue(valueList, this.props, valueEntities);
-    // const selectorValueList = extra.preValue;
 
     if (!('value' in this.props)) {
       this.setState({
@@ -818,35 +849,44 @@ class Select extends React.Component {
     }
 
     // Only do the logic when `onChange` function provided
-    if (onChange) {
-      let connectValueList;
+    // if (onChange) {
+    let connectValueList;
 
-      // Get value by mode
-      if (this.isMultiple()) {
-        connectValueList = [...missValueList, ...selectorValueList];
-      } else {
-        connectValueList = selectorValueList.slice(0, 1);
-      }
-
-      let labelList = null;
-      let returnValue;
-
-      if (this.isLabelInValue()) {
-        returnValue = connectValueList.map(({ label, value }) => ({ label, value }));
-      } else {
-        labelList = [];
-        returnValue = connectValueList.map(({ label, value }) => {
-          labelList.push(label);
-          return value;
-        });
-      }
-
-      if (!this.isMultiple()) {
-        returnValue = returnValue[0];
-      }
-
-      onChange(returnValue, labelList, extra);
+    // Get value by mode
+    if (this.isMultiple()) {
+      connectValueList = [...missValueList, ...selectorValueList];
+    } else {
+      connectValueList = selectorValueList.slice(0, 1);
     }
+
+    let labelList = null;
+    let returnValue;
+
+    if (this.isLabelInValue()) {
+      returnValue = connectValueList.map(({ label, value }) => ({ label, value }));
+    } else {
+      labelList = [];
+      returnValue = connectValueList.map(({ label, value }) => {
+        labelList.push(label);
+        return value;
+      });
+    }
+
+    if (!this.isMultiple()) {
+      returnValue = returnValue[0];
+    }
+
+    // Set curValueList every time triggerChange
+    if (immediate) {
+      onConfirm && onConfirm(returnValue);
+    } else {
+      this.setState({
+        curValueList: returnValue
+      });
+    }
+
+    onChange && onChange(returnValue, labelList, extra);
+    // }
   };
 
   focus() {
@@ -858,11 +898,29 @@ class Select extends React.Component {
   }
 
   handleCancel = () => {
-    console.log('>> cancel');
+    const { oriValueList } = this.state;
+    const { onCancel } = this.props;
+
+    onCancel && onCancel(oriValueList);
+    this.setState({ 
+      curValueList: oriValueList,
+      open: false 
+    });
   };
 
   handleConfirm = () => {
-    console.log('>> confirm');
+    const { curValueList } = this.state;
+    const { onConfirm } = this.props;
+
+    onConfirm && onConfirm(curValueList);
+    this.setState({ open: false });
+  };
+
+  resetSelect = () => {
+    const { onReset } = this.props;
+
+    onReset && onReset();
+    this.setState({ open: false });
   };
 
   // ===================== Render =====================
@@ -873,6 +931,7 @@ class Select extends React.Component {
       searchValue,
       open, focused,
       treeNodes, filteredTreeNodes,
+      curValueList
     } = this.state;
     const { prefixCls } = this.props;
     const isMultiple = this.isMultiple();
@@ -880,7 +939,8 @@ class Select extends React.Component {
     const passProps = {
       ...this.props,
       isMultiple,
-      valueList,
+      // valueList,
+      valueList: formatInternalValue(curValueList, this.props), // Set checkbox status in time when `onCheck`
       selectorValueList: [...missValueList, ...selectorValueList],
       valueEntities,
       keyEntities,
@@ -891,6 +951,10 @@ class Select extends React.Component {
       dropdownPrefixCls: `${prefixCls}-dropdown`,
       ariaId: this.ariaId,
     };
+
+    if (!isMultiple) {
+      passProps['resetSelect'] = this.resetSelect;
+    }
 
     const Popup = isMultiple ? MultiplePopup : SinglePopup;
     const $popup = (
@@ -904,7 +968,6 @@ class Select extends React.Component {
       />
     );
 
-    //debugger;
     const Selector = isMultiple ? MultipleSelector : SingleSelector;
     const $selector = (
       <Selector
