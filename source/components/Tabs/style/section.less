@@ -9,24 +9,41 @@
     overflow: visible;
   }
   &&-section > &-bar &-ink-bar {
-    visibility: hidden;
+    // visibility: hidden;
+    display: none !important;
   }
   &&-section > &-bar &-tab {
-    margin: 0;
-    border: @border-width-base @border-style-base @border-color-split;
-    border-bottom: 0;
-    border-radius: @border-radius-base @border-radius-base 0 0;
+    margin: 0 !important;
     background: @tabs-card-head-background;
     margin-right: 2px;
     padding: 0 16px;
     transition: all 0.3s @ease-in-out;
     line-height: @tabs-card-height - 2px;
+
+    border: @border-width-base @border-style-base @border-color-base;
+    border-left: none;
   }
+
+  &&-section > &-bar &-tab:first-child {
+    border-left: @border-width-base @border-style-base @border-color-base;
+    border-radius: @border-radius-base 0 0 @border-radius-base;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  &&-section > &-bar &-tab:last-child {
+    border-radius: 0 @border-radius-base @border-radius-base 0;
+  }
+
   &&-section > &-bar &-tab-active {
     background: @component-background;
-    border-color: @border-color-split;
+    border-color: @primary-color !important;
     color: @tabs-card-active-color;
     padding-bottom: 1px;
+
+    -webkit-box-shadow: -@border-width-base 0 0 0 @primary-color;
+    box-shadow: -@border-width-base 0 0 0 @primary-color;
+    z-index: 1;
   }
   &&-section > &-bar &-tab-inactive {
     padding: 0;
