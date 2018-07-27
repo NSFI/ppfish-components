@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import warning from 'warning';
-import toArray from 'rc-util/lib/Children/toArray';
 import { polyfill } from 'react-lifecycles-compat';
 
 import { treeContextTypes } from './contextTypes';
 import {
+  toArray,
   convertTreeToEntities, convertDataToTree,
   getPosition, getDragNodesKeys,
   parseCheckedKeys,

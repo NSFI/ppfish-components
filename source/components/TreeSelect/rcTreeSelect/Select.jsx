@@ -22,8 +22,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
-import KeyCode from 'rc-util/lib/KeyCode';
-import { calcCheckStateConduct } from 'rc-tree/lib/util';
+import KeyCode from '../../../utils/KeyCode.js';
+import { calcCheckStateConduct } from './treeUtil.js';
 import shallowEqual from 'shallowequal';
 import raf from 'raf';
 
