@@ -28,7 +28,7 @@ render(){
   );
   return(
   <Dropdown overlay={menu}>
-    <a className="ant-dropdown-link">
+    <a className="fishd-dropdown-link">
       Hover me <Icon type="down" />
     </a>
   </Dropdown>
@@ -174,7 +174,7 @@ render(){
   );
   return(
   <Dropdown overlay={menu}>
-    <a className="ant-dropdown-link" >
+    <a className="fishd-dropdown-link" >
       Hover me, Click menu item <Icon type="down" />
     </a>
   </Dropdown>
@@ -204,7 +204,7 @@ render(){
   );
   return (
   <Dropdown overlay={menu}>
-    <a className="ant-dropdown-link" >
+    <a className="fishd-dropdown-link" >
       Hover me <Icon type="down" />
     </a>
   </Dropdown>
@@ -245,7 +245,7 @@ render(){
         onVisibleChange={this.handleVisibleChange}
         visible={this.state.visible}
       >
-        <a className="ant-dropdown-link">
+        <a className="fishd-dropdown-link">
           Hover me <Icon type="down" />
         </a>
       </Dropdown>
@@ -278,7 +278,7 @@ render(){
   );
   return(
   <Dropdown overlay={menu}>
-    <a className="ant-dropdown-link" >
+    <a className="fishd-dropdown-link" >
       Cascading menu <Icon type="down" />
     </a>
   </Dropdown>
@@ -307,7 +307,7 @@ render(){
   );
   return(
   <Dropdown overlay={menu} trigger={['click']}>
-    <a className="ant-dropdown-link">
+    <a className="fishd-dropdown-link">
       Click me <Icon type="down" />
     </a>
   </Dropdown>
@@ -352,7 +352,7 @@ render(){
 
 
 <style>
-.components-dropdown-demo-placement .ant-btn {
+.components-dropdown-demo-placement .fishd-btn {
   margin-right: 8px;
   margin-bottom: 8px;
 }

@@ -11,6 +11,6 @@ module.exports = {
     'business': '业务组件',
     'feedback': '反馈建议',
     'demo': '演示环境',
-    'version': 'v1.2.0'
+    'version': 'v1.3.0'
   }
 };
