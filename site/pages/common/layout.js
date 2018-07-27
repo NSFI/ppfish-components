@@ -1,11 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router';
 import {Affix} from 'antd';
 import {Row, Col} from '../../../source/components';
 import PropTypes from "prop-types";
 import locales from '../../locales';
 
-const githubSrc = require('../../assets/github.png');
-const searchIcon = require('../../assets/search.svg');
+const searchIcon = require('../../assets/fd-web-1.2-icon@2x.svg');
 
 export default class Layout extends React.Component {
 
@@ -20,6 +20,10 @@ export default class Layout extends React.Component {
   componentDidMount() {
     this.setMenuHighlight();
     this.initSearchBox();
+  }
+
+  componentDidUpdate() {
+    window.scrollTo(0, 0);
   }
 
   getLocale(key) {
@@ -82,7 +86,7 @@ export default class Layout extends React.Component {
           <header className="fish-header">
             <Row>
               <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
-                <h1>Fish Design</h1>
+                <img src={require('../../assets/FishDesign-Brand-06@2x.png')} alt="fish-disgn"/>
               </Col>
               <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
                 <div id="search-box" className="search-box">
@@ -91,24 +95,24 @@ export default class Layout extends React.Component {
                 </div>
                 <ul className="nav">
                   <li className="nav-item">
-                    <a href="#/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</a>
+                    <Link to="/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</Link>
                   </li>
                   {/*
                 <li className="nav-item">
-                  <a href="#/spec" rel="noopener noreferrer">{this.getLocale('misc.spec')}</a>
+                  <Link to="#/spec" rel="noopener noreferrer">{this.getLocale('misc.spec')}</Link>
                 </li>
                 */}
                   <li className="nav-item">
-                    <a href="#/components">{this.getLocale('misc.component')}</a>
+                    <Link to="/components">{this.getLocale('misc.component')}</Link>
                   </li>
                   {/*
                 <li className="nav-item">
-                  <a>{this.getLocale('misc.demo')}</a>
+                  <Link>{this.getLocale('misc.demo')}</Link>
                 </li>
                 */}
-                  <li className="nav-item">
-                    <a>{this.getLocale('misc.version')}</a>
-                  </li>
+                  <span className="nav-version">
+                    {this.getLocale('misc.version')}
+                  </span>
                 </ul>
               </Col>
             </Row>
@@ -118,12 +122,22 @@ export default class Layout extends React.Component {
           {children}
         </div>
         <footer className="footer">
-          <div className="footer-main">
-            <p className="footer-main-title">Fish Design</p>
+          <div className="logo">
+            <img src={require('../../assets/fd-web-5.1-logo@2x.png')} alt="logo"/>
+            <h3>Fish Design</h3>
+            <p className="version">- {this.getLocale('misc.version')} -</p>
           </div>
-          <div className="footer-social">
-            <a href="//github.com/NSFI/ppfish-components" target="_blank" rel="noopener noreferrer">
-              <img src={githubSrc}/>
+          <div className="link-list">
+            <Link to="/home" className="link-item">首页</Link>
+            <Link to="/home" className="link-item">设计语言</Link>
+            <Link to="/components" className="link-item">组件</Link>
+            <Link className="link-item">演示环境</Link>
+            <Link className="link-item">问题反馈</Link>
+          </div>
+          <div className="github">
+            <a href="//github.com/NSFI/ppfish-components" target="_blank">
+              <img src={require('../../assets/fd-web-5.2-logo@2x.svg')} alt="github"/>
+              <span>GitHub</span>
             </a>
           </div>
         </footer>
