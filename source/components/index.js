@@ -29,7 +29,7 @@ import Spin from './Spin/index.tsx';
 import Icon from './Icon/index.tsx';
 import StickVerticalMenu from './StickVerticalMenu';
 import Table from './Table/index.tsx';
-import Tabs from './Tabs';
+import Tabs from './Tabs/index.tsx';
 import TextOverflow from './TextOverflow';
 import Tooltip from './Tooltip/index.tsx';
 import TreeSelect from './TreeSelect/index.tsx';
