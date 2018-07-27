@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import BasePicker from './BasePicker';
 import TimeSelectPanel from './panel/TimeSelectPanel';
 
-// import 'element-theme-default/lib/time-select.css';
-
 export default class TimeSelect extends BasePicker {
 
   static get propTypes() {

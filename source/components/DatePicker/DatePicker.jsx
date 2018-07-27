@@ -4,8 +4,6 @@ import DatePanel from './panel/DatePanel';
 import { pick } from './libs/utils';
 import { SELECTION_MODES } from './utils';
 
-// import 'element-theme-default/lib/date-picker.css';
-
 export default class DatePicker extends BasePicker {
   static get propTypes() {
     return Object.assign(
@@ -22,7 +20,7 @@ export default class DatePicker extends BasePicker {
   }
 
   constructor(props) {
-    let type = 'date'
+    let type = 'date';
     switch (props.selectionMode) {
       case SELECTION_MODES.YEAR:
         type = 'year'; break;
@@ -39,7 +37,7 @@ export default class DatePicker extends BasePicker {
       <DatePanel
         {...props}
         value={state.value}
-        onPick={this.onPicked.bind(this)}
+        onPick={this.onPicked}
       />
     )
   }

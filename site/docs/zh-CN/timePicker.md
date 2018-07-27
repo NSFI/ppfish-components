@@ -158,27 +158,28 @@
 ## API 公共参数
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| placeholder | 占位内容 | string | — | — |
+| placeholder | 占位内容 | string | - | - |
 | format | 时间格式化 | string | 小时 HH，分 mm，秒 ss | HH:mm:ss |
-| isShowTrigger | 是否显示图标 | bool | - | true |
-| isDisabled | 是否禁用 | boolean | — | false |
-| onFocus | onFocus | func:(TimeSelectReactComponent)=>() | — | - |
-| onBlur | onBlur | func:(TimeSelectReactComponent)=>() | — | - |
-| onChange | onChange | func:(value)=>() | — | - |
+| isShowTrigger | 是否显示前缀图标 | boolean | - | true |
+| isAllowClear | 是否显示清除按钮 | boolean | - | true |
+| isDisabled | 是否禁用 | boolean | - | false |
+| onFocus | onFocus | func:(TimeSelectReactComponent)=>() | - | - |
+| onBlur | onBlur | func:(TimeSelectReactComponent)=>() | - | - |
+| onChange | 确认选定的值时触发 | func:(value)=>() | - | - |
 
 ## TimeSelect
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| value | 值 | date/null | — | - |
-| start | 开始时间 | string | — | 09:00 |
-| end | 结束时间 | string | — | 18:00 |
-| step | 间隔时间 | string | — | 00:30 |
-| minTime | 最小时间 | date | — | - |
-| maxTime | 最大时间 | date | — | - |
+| value | 值 | date/null | - | - |
+| start | 开始时间 | string | - | 09:00 |
+| end | 结束时间 | string | - | 18:00 |
+| step | 间隔时间 | string | - | 00:30 |
+| minTime | 最小时间 | string | - | - |
+| maxTime | 最大时间 | string | - | - |
  
 ## TimePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | isShowCurrent | 是否显示"此刻"快捷按钮 | boolean | - | false |
-| value | 值 | date/null | — | - |
-| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | — | — |
+| value | 值 | date/null | - | - |
+| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - |

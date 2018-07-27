@@ -5,8 +5,6 @@ import TimePanel from './panel/TimePanel';
 import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import { debounce } from 'throttle-debounce';
 
-// import 'element-theme-default/lib/time-picker.css';
-
 function converSelectRange(props) {
   let selectableRange = []
   if (props.selectableRange) {
