@@ -36,7 +36,6 @@ export interface TabsProps {
   tabBarGutter?: number;
   type?: TabsType;
   tabPosition?: TabsPosition;
-  // tabScrollable?: boolean;
   onEdit?: (targetKey: string | React.MouseEvent<HTMLElement>, action: any) => void;
   onChange?: (activeKey: string) => void;
   onTabClick?: Function;
@@ -63,7 +62,6 @@ export default class Tabs extends React.Component<TabsProps, any> {
     hideAdd: false,
     loading: false,
     size: 'default',
-    // tabScrollable: false,
     tabPosition: 'top',
     type: 'line',
   };
@@ -107,9 +105,8 @@ export default class Tabs extends React.Component<TabsProps, any> {
       prefixCls,
       className = '',
       size,
-      type = 'line',
+      type,
       tabPosition,
-      // tabScrollable,
       children,
       tabBarExtraContent,
       tabBarStyle,
@@ -118,19 +115,24 @@ export default class Tabs extends React.Component<TabsProps, any> {
       onTabClick,
       onPrevClick,
       onNextClick,
-      animated = true,
+      animated,
       tabBarGutter,
     } = this.props;
 
     let { inkBarAnimated, tabPaneAnimated } = typeof animated === 'object' ? {
-      inkBarAnimated: animated.inkBar, tabPaneAnimated: animated.tabPane,
+      inkBarAnimated: animated.inkBar, 
+      tabPaneAnimated: animated.tabPane,
     } : {
-      inkBarAnimated: animated, tabPaneAnimated: animated,
+      inkBarAnimated: animated, 
+      tabPaneAnimated: animated,
     };
+
+    let showInkBar = true;
 
     // card tabs should not have animation
     if (type !== 'line') {
-      tabPaneAnimated = 'animated' in this.props ? tabPaneAnimated : false;
+      showInkBar = false;
+      tabPaneAnimated = ('animated' in this.props) ? tabPaneAnimated : false;
     }
 
     warning(
@@ -192,6 +194,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
 
     const renderTabBar = () => (
       <ScrollableInkTabBar
+        showInkBar={showInkBar}
         inkBarAnimated={inkBarAnimated}
         extraContent={tabBarExtraContent}
         onTabClick={onTabClick}
