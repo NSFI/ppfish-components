@@ -2,7 +2,7 @@
 
 .@{prefixClass} {
   &-year-table {
-    font-size: 12px;
+    font-size: @font-size-sm;
     margin: -1px;
     border-collapse: collapse;
 
@@ -34,8 +34,8 @@
       }
 
       &.current:not(.disabled) .cell {
-        background-color: @datepicker-active-color !important;
-        color: @component-background;
+        background-color: @datepicker-cell-hover-color;
+        color: @datepicker-active-color;
       }
     }
   }

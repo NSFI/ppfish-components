@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { PropTypes, Component } from '../libs';
-import { hasClass, deconstructDate, SELECTION_MODES } from '../utils'
-import Locale from '../locale'
+import { hasClass, deconstructDate, SELECTION_MODES } from '../utils';
+import Locale from '../locale';
 
 export default class MonthTable extends Component {
   constructor(props){
@@ -9,9 +9,9 @@ export default class MonthTable extends Component {
   }
 
   getCellStyle(month) {
-    const {date, disabledDate, value} = this.props
+    const {date, disabledDate, value} = this.props;
     const style = {};
-    const ndate = new Date(date)
+    const ndate = new Date(date);
     ndate.setMonth(month);
     // in the element repo, you could see the original code that only disable current month only when all days contains in this month are disabled
     // which i don't think is a good design, so i changed disabledDate callback with an additional type param to solve this kind issue.
@@ -33,8 +33,8 @@ export default class MonthTable extends Component {
   }
 
   render() {
-    const $t = Locale.t
-    const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+    const $t = Locale.t;
+    const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
     return (
       <table onClick={this.handleMonthTableClick.bind(this)} className="el-month-table">

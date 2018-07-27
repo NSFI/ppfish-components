@@ -14,8 +14,6 @@ import {
 } from '../utils';
 import Locale from '../locale';
 
-import type {DateTableProps} from '../Types';
-
 function isFunction(func) {
   return typeof func === 'function'
 }
@@ -29,9 +27,8 @@ const clearHours = function (time) {
 const WEEKS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
 export default class DateTable extends Component {
-  state: any
 
-  constructor(props: DateTableProps) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -52,13 +49,13 @@ export default class DateTable extends Component {
 
 
   getStartDate() {
-    const ds = deconstructDate(this.props.date)
+    const ds = deconstructDate(this.props.date);
     return getStartDateOfMonth(ds.year, ds.month, this.getOffsetWeek());
   }
 
   getRows() {
-    const {date, disabledDate, showWeekNumber, minDate, maxDate, selectionMode, firstDayOfWeek} = this.props
-    const {tableRows} = this.state
+    const {date, disabledDate, showWeekNumber, minDate, maxDate, selectionMode, firstDayOfWeek} = this.props;
+    const {tableRows} = this.state;
 
     const ndate = new Date(date.getTime());
     let day = getFirstDayOfMonth(ndate); // day of first day
@@ -76,7 +73,7 @@ export default class DateTable extends Component {
     const now = clearHours(new Date());
 
 
-    for (var i = 0; i < 6; i++) { // rows
+    for (let i = 0; i < 6; i++) { // rows
       const row = rows[i];
       /*
       cell: {
@@ -96,8 +93,8 @@ export default class DateTable extends Component {
         }
       }
 
-      for (var j = 0; j < 7; j++) {  // columns
-        let cell: any = row[showWeekNumber ? j + 1 : j];
+      for (let j = 0; j < 7; j++) {  // columns
+        let cell = row[showWeekNumber ? j + 1 : j];
         if (!cell) {
           row[showWeekNumber ? j + 1 : j]  = { row: i, column: j, type: 'normal', inRange: false, start: false, end: false };
           cell = row[showWeekNumber ? j + 1 : j]
@@ -161,7 +158,7 @@ export default class DateTable extends Component {
 
   // calc classnames for cell
   getCellClasses(cell: any) {
-    const {selectionMode, date} = this.props
+    const {selectionMode, date} = this.props;
 
     let classes = [];
     if ((cell.type === 'normal' || cell.type === 'today') && !cell.disabled) {
@@ -205,14 +202,14 @@ export default class DateTable extends Component {
   }
 
   getMarkedRangeRows(): any[] {
-    const {showWeekNumber, minDate, selectionMode, rangeState} = this.props
+    const {showWeekNumber, minDate, selectionMode, rangeState} = this.props;
     const rows = this.getRows();
     if (!(selectionMode === SELECTION_MODES.RANGE && rangeState.selecting && rangeState.endDate instanceof Date)) return rows;
 
-    const maxDate = rangeState.endDate
-    for (var i = 0, k = rows.length; i < k; i++) {
+    const maxDate = rangeState.endDate;
+    for (let i = 0, k = rows.length; i < k; i++) {
       const row = rows[i];
-      for (var j = 0, l = row.length; j < l; j++) {
+      for (let j = 0, l = row.length; j < l; j++) {
         if (showWeekNumber && j === 0) continue;
 
         const cell = row[j];
@@ -228,11 +225,11 @@ export default class DateTable extends Component {
     return rows;
   }
 
-  isWeekActive(cell: any): boolean {
+  isWeekActive(cell) {
     if (this.props.selectionMode !== SELECTION_MODES.WEEK) return false;
     if (!this.props.value) return false;
 
-    const newDate = new Date(this.props.date.getTime())// date view
+    const newDate = new Date(this.props.date.getTime());// date view
     const year = newDate.getFullYear();
     const month = newDate.getMonth();
 
@@ -251,8 +248,8 @@ export default class DateTable extends Component {
   }
 
 
-  handleMouseMove(event: SyntheticMouseEvent) {
-    const {showWeekNumber, onChangeRange, rangeState, selectionMode} = this.props
+  handleMouseMove(event) {
+    const {showWeekNumber, onChangeRange, rangeState, selectionMode} = this.props;
 
     const getDateOfCell = (row, column, showWeekNumber) => {
       const startDate = this.getStartDate();
@@ -261,7 +258,7 @@ export default class DateTable extends Component {
 
     if (!(selectionMode === SELECTION_MODES.RANGE && rangeState.selecting)) return;
 
-    const target: any = event.target;
+    const target = event.target;
     if (target.tagName !== 'TD') return;
 
     const column = target.cellIndex;
@@ -271,14 +268,14 @@ export default class DateTable extends Component {
     onChangeRange(rangeState)
   }
 
-  handleClick(event: SyntheticEvent) {
-    let target: any = event.target;
+  handleClick(event) {
+    let target = event.target;
 
     if (target.tagName !== 'TD') return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
 
-    const {selectionMode, date, onPick, minDate, maxDate, rangeState, } = this.props
-    const {year, month} = deconstructDate(date)
+    const {selectionMode, date, onPick, minDate, maxDate, rangeState, } = this.props;
+    const {year, month} = deconstructDate(date);
 
     if (selectionMode === 'week') {
       target = target.parentNode.cells[1];
@@ -295,14 +292,14 @@ export default class DateTable extends Component {
 
     if (className.indexOf('prev') !== -1) {
       if (month === 0) {
-        newDate.setFullYear(year - 1)
+        newDate.setFullYear(year - 1);
         newDate.setMonth(11)
       } else {
         newDate.setMonth(month - 1)
       }
     } else if (className.indexOf('next') !== -1) {
       if (month === 11) {
-        newDate.setFullYear(year + 1)
+        newDate.setFullYear(year + 1);
         newDate.setMonth(0)
       } else {
         newDate.setMonth(month + 1)
