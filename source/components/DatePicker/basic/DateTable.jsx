@@ -29,7 +29,7 @@ const WEEKS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 export default class DateTable extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       tableRows: [[], [], [], [], [], []],
@@ -157,7 +157,7 @@ export default class DateTable extends Component {
   }
 
   // calc classnames for cell
-  getCellClasses(cell: any) {
+  getCellClasses(cell) {
     const {selectionMode, date} = this.props;
 
     let classes = [];
@@ -201,7 +201,7 @@ export default class DateTable extends Component {
     return classes.join(' ');
   }
 
-  getMarkedRangeRows(): any[] {
+  getMarkedRangeRows() {
     const {showWeekNumber, minDate, selectionMode, rangeState} = this.props;
     const rows = this.getRows();
     if (!(selectionMode === SELECTION_MODES.RANGE && rangeState.selecting && rangeState.endDate instanceof Date)) return rows;
