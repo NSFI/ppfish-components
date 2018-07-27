@@ -2,9 +2,13 @@
 
 .@{prefixClass} {
   &-month-table {
-    font-size: 12px;
+    font-size: @font-size-sm;
     margin: -1px;
     border-collapse: collapse;
+
+    .el-icon {
+      color: @datepicker-icon-color;
+    }
 
     td {
       text-align: center;
@@ -30,8 +34,8 @@
       }
 
       &.current:not(.disabled) .cell {
-        background-color: @datepicker-active-color !important;
-        color: @component-background;
+        background-color: @datepicker-cell-hover-color;
+        color: @datepicker-active-color;
       }
     }
   }
