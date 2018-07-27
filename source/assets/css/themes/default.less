@@ -14,8 +14,8 @@
 // 主色经过调制后的色板
 @primary-1: tint(@primary-color, 90%);  // replace tint(@primary-color, 90%)
 @primary-2: tint(@primary-color, 80%);  // replace tint(@primary-color, 80%)
-@primary-3: tint(@primary-color, 80%);  // replace tint(@primary-color, 70%)
-@primary-4: tint(@primary-color, 80%);  // replace tint(@primary-color, 60%)
+@primary-3: tint(@primary-color, 70%);  // replace tint(@primary-color, 70%)
+@primary-4: tint(@primary-color, 60%);  // replace tint(@primary-color, 60%)
 @primary-5: tint(@primary-color, 20%);  // color used to control the text color in many active and hover states, replace tint(@primary-color, 20%)
 @primary-6: @primary-color;             // color used to control the text color of active buttons, don't use, use @primary-color
 @primary-7: shade(@primary-color, 5%);  // replace shade(@primary-color, 5%)
@@ -474,3 +474,21 @@
 @pagination-item-size-sm: 24px;
 @pagination-font-family: Arial;
 @pagination-font-weight-active: 500;
+
+// Slider
+// ---
+@slider-margin:                       14px 6px 10px;
+@slider-border-radius-base:           4px;
+@slider-rail-background-color:        @background-color-base;
+@slider-rail-background-color-hover:  #e1e1e1;
+@slider-track-background-color:       @primary-3;
+@slider-track-background-color-hover: @primary-4;
+@slider-handle-color:                 @primary-3;
+@slider-handle-color-hover:           @primary-4;
+@slider-handle-color-focus:           tint(@primary-color, 20%);
+@slider-handle-color-focus-shadow:    tint(@primary-color, 50%);
+@slider-handle-color-tooltip-open:    @primary-color;
+@slider-dot-border-color:             @border-color-split;
+@slider-dot-border-color-active:      tint(@primary-color, 50%);
+@slider-disabled-color:               @disabled-color;
+@slider-disabled-background-color:    @component-background;
