@@ -2,11 +2,9 @@ import * as React from 'react';
 import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcTreeSelect';
 import * as classNames from 'classnames';
 import { TreeSelectProps } from './interface';
-// import warning from '../_util/warning';
+import * as warning from 'warning';
 // import 'antd/dist/antd.css';
 import './style/index.less';
-
-export { TreeData, TreeSelectProps } from './interface';
 
 export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   static TreeNode = TreeNode;
@@ -32,10 +30,10 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   constructor(props: TreeSelectProps) {
     super(props);
 
-    // warning(
-    //   props.multiple !== false || !props.treeCheckable,
-    //   '`multiple` will alway be `true` when `treeCheckable` is true',
-    // );
+    warning(
+      props.multiple !== false || !props.treeCheckable,
+      '`multiple` will alway be `true` when `treeCheckable` is true',
+    );
   }
 
   focus() {
