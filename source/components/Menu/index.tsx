@@ -73,7 +73,7 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
   };
   static childContextTypes = {
     inlineCollapsed: PropTypes.bool,
-    antdMenuTheme: PropTypes.string,
+    menuTheme: PropTypes.string,
   };
   static contextTypes = {
     siderCollapsed: PropTypes.bool,
@@ -112,7 +112,7 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
   getChildContext() {
     return {
       inlineCollapsed: this.getInlineCollapsed(),
-      antdMenuTheme: this.props.theme,
+      menuTheme: this.props.theme,
     };
   }
 
