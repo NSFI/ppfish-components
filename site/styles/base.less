@@ -26,7 +26,7 @@ body {
   background-size: 500px;
   .fish-header {
     height: 64px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgb(255, 255, 255);
     box-shadow: 0 2px 9px 0 rgba(37, 38, 94, 0.1);
     color: #fff;
     top: 0;
@@ -35,8 +35,10 @@ body {
     line-height: 64px;
     position: relative;
     .header-title {
-      border-right: 1px solid #f1f1f5;
-      margin: 20px 0;
+      img {
+        height: 36px;
+        margin: 13px 40px;
+      }
     }
     h1 {
       position: relative;
@@ -150,6 +152,14 @@ body {
         }
       }
     }
+    .nav-version {
+      background: #337eff;
+      font-size: 12px;
+      color: #fff;
+      border-radius: 46px;
+      margin-left: 60px;
+      padding: 4px 13px;
+    }
     /* stylelint-enable */
   }
 
@@ -158,48 +168,46 @@ body {
   }
 
   .footer {
-    height: 120px;
     background-color: #292c33;
-    color: #a4aebd;
-    width: 100%;
-
-    .footer-main {
-      font-size: 0;
-      padding-top: 40px;
-      padding-left: 40px;
-      display: inline-block;
-
-      .footer-main-title {
-        line-height: 1;
-        font-size: 22px;
-        margin: 0;
+    text-align: center;
+    .logo {
+      padding: 55px 0 22px;
+      img {
+        width: 40px;
       }
-
-      .footer-main-link {
-        display: inline-block;
-        margin: 12px 18px 0 0;
-        line-height: 1;
-        font-size: 12px;
-        color: #768193;
-        text-decoration: none;
+      h3 {
+        font-size: 24px;
+        color: #d2d3d6;
+      }
+      .version {
+        font-size: 13px;
+        color: #65676e;
       }
     }
-
-    .footer-social {
-      float: right;
-      margin-right: 40px;
-      line-height: 120px;
-
-      img {
-        width: 32px;
-        height: 32px;
-        vertical-align: middle;
-        opacity: 0.5;
-        transition: 0.3s;
+    .link-item {
+      font-size: 14px;
+      color: #fff;
+      display: inline-block;
+      min-width: 56px;
+      margin-bottom: 50px;
+      text-decoration: none;
+      &:not(:last-child) {
+        margin-right: 50px;
       }
-      img:hover {
-        opacity: 1;
-        transform: scale(1.2);
+    }
+    .github {
+      border-top: 1px solid #404349;
+      padding: 15px 0;
+      img {
+        height: 20px;
+        position: relative;
+        top: -5px;
+      }
+      span {
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 16px;
+        color: #fff;
       }
     }
   }
