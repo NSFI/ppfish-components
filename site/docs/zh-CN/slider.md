@@ -122,7 +122,7 @@
   padding: 0px 30px;
 }
 
-.icon-wrapper .anticon {
+.icon-wrapper .fishdicon {
   position: absolute;
   top: -2px;
   width: 16px;
@@ -132,11 +132,11 @@
   color: rgba(0, 0, 0, .25);
 }
 
-.icon-wrapper .anticon:first-child {
+.icon-wrapper .fishdicon:first-child {
   left: 0;
 }
 
-.icon-wrapper .anticon:last-child {
+.icon-wrapper .fishdicon:last-child {
   right: 0;
 }
 </style>
@@ -227,7 +227,7 @@ render(){
 #components-slider-demo-mark h4 {
   margin: 0 0 16px;
 }
-#components-slider-demo-mark .ant-slider-with-marks {
+#components-slider-demo-mark .fishd-slider-with-marks {
   margin-bottom: 44px;
 }
 </style>
@@ -299,7 +299,7 @@ render(){
 | focus() | 获取焦点 |
 
 <style>
-.code-box-demo .ant-slider {
+.code-box-demo .fishd-slider {
   margin-bottom: 16px;
 }
 </style>

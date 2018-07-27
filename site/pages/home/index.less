@@ -1,16 +1,4 @@
-// mixins for clearfix
-// ------------------------
-.clearfix() {
-  zoom: 1;
-  &:before,
-  &:after {
-    content: "";
-    display: table;
-  }
-  &:after {
-    clear: both;
-  }
-}
+@import (reference)'../../styles/mixin';
 
 .m-home-page {
   min-width: 1200px;
@@ -26,6 +14,8 @@
     text-align: right;
     img.logo {
       width: 450px;
+      -webkit-user-drag: none;
+      user-select: none;
     }
   }
   .right-desc {
@@ -107,6 +97,8 @@
       }
       img {
         width: 120px;
+        -webkit-user-drag: none;
+        user-select: none;
       }
     }
   }
@@ -132,6 +124,8 @@
       }
       img {
         width: 100%;
+        -webkit-user-drag: none;
+        user-select: none;
       }
       a {
         font-size: 18px;

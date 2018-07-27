@@ -211,10 +211,10 @@ export default {
       //   type: 'markdown',
       //   name: 'Upload 上传',
       // },
-      // 'slider': {
-      //   type: 'markdown',
-      //   name: 'Slider 滑动输入条',
-      // },
+      'slider': {
+        type: 'markdown',
+        name: 'Slider 滑动输入条',
+      },
       // 'transfer': {
       //   type: 'markdown',
       //   name: 'Transfer 穿梭框',

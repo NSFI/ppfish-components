@@ -22,7 +22,6 @@ export {
   Popconfirm,
   Progress,
   Rate,
-  Slider,
   Steps,
   Switch,
   Transfer,
