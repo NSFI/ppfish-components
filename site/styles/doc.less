@@ -1,9 +1,16 @@
 //右侧内容区样式
 .markdown {
-  p, 
-  li {
+  p {
     font-size: 14px;
     color: #5e6d82;
+  }
+
+  .listitem {
+    font-size: 14px;
+    color: #5e6d82;
+    margin: 4px 0 0 20px;
+    list-style-type: circle;
+    padding-left: 4px;
   }
 
   h1 {
@@ -143,7 +150,7 @@
       padding-left: 10px;
     }
   }
-  > div > div:not(.demo-container) {
+  > div > div > div:not(.demo-container) {
     code {
       margin: 0 1px;
       background: #f2f4f5;
