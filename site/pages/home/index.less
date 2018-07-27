@@ -1,16 +1,145 @@
-.m-home-page {
-  background: url("../../assets/bg.svg");
-  height: 900px;
-  width: 100%;
-  h1 {
-    color: #fff;
-    text-align: center;
-    font-size: 40px;
-    padding-top: 200px;
+// mixins for clearfix
+// ------------------------
+.clearfix() {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: "";
+    display: table;
   }
-  p {
-    font-size: 16px;
-    color: #fff;
+  &:after {
+    clear: both;
+  }
+}
+
+.m-home-page {
+  min-width: 1200px;
+  background: url("../../assets/fd-web-0.2-pic@2x.png") 0 400px no-repeat;
+  background-size: 100px;
+  .banner {
+    height: 640px;
+    padding: 82px;
+  }
+  .left-logo {
+    width: 50%;
+    float: left;
+    text-align: right;
+    img.logo {
+      width: 450px;
+    }
+  }
+  .right-desc {
+    width: 50%;
+    float: left;
+    margin-top: 130px;
+    padding-left: 20px;
+    .title {
+      font-size: 36px;
+      color: #2e2e33;
+      margin-bottom: 4px;
+    }
+    .desc {
+      font-size: 24px;
+      color: #85888f;
+      margin-bottom: 40px;
+    }
+    .button-group {
+      .button {
+        border-radius: 100px;
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        text-decoration: none;
+      }
+      .start {
+        background: #337eff;
+        width: 120px;
+        color: #fff;
+        font-size: 18px;
+        margin-right: 8px;
+      }
+      .github {
+        border: 1px solid #dbdbdb;
+        width: 140px;
+        background: url('../../assets/fd-web-2.2-github@2x.svg') center no-repeat;
+        background-size: 88px;
+      }
+    }
+  }
+  .design {
     text-align: center;
+    width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 120px;
+    .title {
+      font-size: 28px;
+      color: #27282a;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .design-list {
+      .clearfix;
+    }
+    .principle {
+      float: left;
+      width: 268px;
+      height: 228px;
+      &:not(:last-child) {
+        margin-right: 36px;
+      }
+      i {
+        display: inline-block;
+        text-align: center;
+        width: 12px;
+        height: 1px;
+        background: #337eff;
+        margin-bottom: 20px;
+      }
+      h3 {
+        font-size: 18px;
+        margin-bottom: 16px;
+        color: #4f5059;
+      }
+      p {
+        font-size: 14px;
+        color: #85888f;
+      }
+      img {
+        width: 120px;
+      }
+    }
+  }
+  .resource {
+    text-align: center;
+    width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 120px;
+    .title {
+      font-size: 28px;
+      color: #27282a;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .resource-list {
+      .clearfix;
+    }
+    .resource-item {
+      width: 268px;
+      float: left;
+      &:not(:last-child) {
+        margin-right: 36px;
+      }
+      img {
+        width: 100%;
+      }
+      a {
+        font-size: 18px;
+        color: #4f5059;
+        text-decoration: none;
+        margin-top: 12px;
+        display: inline-block;
+      }
+    }
   }
 }
