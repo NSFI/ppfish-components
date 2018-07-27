@@ -24,7 +24,7 @@ import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
 import KeyCode from '../../../utils/KeyCode.js';
 import { calcCheckStateConduct } from './treeUtil.js';
-import shallowEqual from 'shallowequal';
+import { shallowEqual } from '../../../utils/other.js';
 import raf from 'raf';
 
 import SelectTrigger from './SelectTrigger';
