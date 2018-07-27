@@ -1,5 +1,5 @@
 # 设计资源
 
-这里提供 Fish Design 相关设计资源。
+还在设计中，目前暂不对外发布。
 
-[Fish Design]()
+<a href="http://axure.yixin.im/home/" target="_blank">Fish Design</a>
