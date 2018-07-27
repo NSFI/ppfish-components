@@ -17,7 +17,7 @@
   
   handleValueChange = (date) => {
     console.debug('DatePicker changed: ', date)
-    this.setState({value1: date})
+    this.setState({value: date})
   }
   
   render() {
@@ -26,7 +26,7 @@
     return (
       <DatePicker
         value={value}
-        placeholder="选择日期"
+        placeholder="请选择日期"
         onChange={this.handleValueChange}
         />
     )
@@ -44,6 +44,7 @@
   render() {
     return (
       <DatePicker
+         placeholder="请选择日期"
          isDisabled={true}
         />
     )
@@ -65,7 +66,7 @@
   
   handleValueChange = (date) => {
     console.debug('DatePicker changed: ', date)
-    this.setState({value1: date})
+    this.setState({value: date})
   }
   
   render() {
@@ -74,7 +75,7 @@
     return (
       <DatePicker
         value={value}
-        placeholder="选择日期"
+        placeholder="请选择日期"
         onChange={this.handleValueChange}
         disabledDate={time=>time.getTime() < Date.now() - 8.64e7}
         />
@@ -216,7 +217,7 @@ render() {
 ```
 :::
 
-## 选择日期范围
+## 日期范围选择器
 
 可在一个选择器中便捷地选择一个时间范围
 
@@ -480,31 +481,29 @@ render() {
 ## API 公共参数
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| placeholder | 占位内容 | string | — | — |
+| placeholder | 占位内容 | string | - | - |
 | format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss` | yyyy-MM-dd |
-| align | 对齐方式 | string | left, center, right | left |
-| isShowTrigger | 是否显示图标 | boolean | - | true |
-| isReadOnly | 是否是只读 | boolean | - | false |
-| isDisabled | 是否是禁用 | boolean | - | false |
-| isShowTime | 是否显示时间 | boolean | - | false |
+| align | 对齐方式 | string | 'left', 'right' | 'left' |
+| isShowTrigger | 是否显示前缀图标 | boolean | - | true |
+| isAllowClear | 是否显示清除按钮 | boolean | - | true |
+| isDisabled | 是否禁用 | boolean | - | false |
+| isShowTime | 是否显示时间选择器 | boolean | - | false |
+| value | - | Date/null | — | - |
 | firstDayOfWeek | 周起始日 | Number | 0 到 6 | 0 |
+| shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
+| shortcutsPlacement | 快捷选项的位置 | string | 'left', 'top' | 'left' |
+| showWeekNumber | 是否展示周数 | boolean | - | false |
 | onFocus | focus 事件触发 | (SyntheticEvent)=>() | - | - |
 | onBlur | blur 事件触发 | (SyntheticEvent)=>() | - | - |
+| onChange | 确认选定的值时触发 | func:(value)=>() | - | - |
 
 ## DatePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| value | - | Date/null | — | - |
-| shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
 | selectionMode | 日期类型 | string, one of ['year', 'month', 'week', 'day'] | - | 'day' |
-| disabledDate | 是否禁用日期 | (Date, selectionMode)=>boolean | - | - |
-| showWeekNumber | 是否展示周数 | boolean | - | false |
-
+| disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
 
 ## DateRangePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| value | - | Date[]/null | — | - |
-| shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
-| showWeekNumber | 是否展示周数 | boolean | - | false |
 | rangeSeparator | 选择范围时的分隔符 | string | - | ' - ' |
