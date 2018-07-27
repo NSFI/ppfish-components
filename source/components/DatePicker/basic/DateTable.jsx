@@ -336,8 +336,8 @@ export default class DateTable extends Component {
   }
 
   render() {
-    const $t = Locale.t
-    const {selectionMode, showWeekNumber} = this.props
+    const $t = Locale.t;
+    const {selectionMode, showWeekNumber} = this.props;
 
     return (
       <table

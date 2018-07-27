@@ -507,7 +507,7 @@ render(){
 | --- | --- |
 | blur() | 取消焦点 |
 | focus() | 获取焦点 |
-| listConvertToGroup | 首字母分组方法 |
+| listConvertToGroup() | 首字母分组方法 |
 
 > 注意，在有SearchInput的情况，操作的目标为Input框
   
@@ -525,5 +525,5 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| key |  | string | - |
+| key | string | - | 无 |
 | label | 组名 | string\|React.Element | 无 |

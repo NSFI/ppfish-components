@@ -10,8 +10,6 @@ import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
 
-// import 'element-theme-default/lib/date-picker.css';
-
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
@@ -45,29 +43,34 @@ export default class BasePicker extends Component {
 
   static get propTypes() {
     return {
-      align: PropTypes.oneOf(['left', 'center', 'right']),
-      format: PropTypes.string,
-      isShowTrigger: PropTypes.bool,
-      isReadOnly: PropTypes.bool,
-      isDisabled: PropTypes.bool,
       placeholder: PropTypes.string,
-      onFocus: PropTypes.func,
-      onBlur: PropTypes.func,
-      // (Date|Date[]|null)=>(), null when click on clear icon
-      onChange: PropTypes.func,
+      format: PropTypes.string,
+      align: PropTypes.oneOf(['left', 'right']),
+      isShowTrigger: PropTypes.bool,
+      isAllowClear: PropTypes.bool,
+      isDisabled: PropTypes.bool,
       // time select pannel:
       value: PropTypes.oneOfType([
         PropTypes.instanceOf(Date),
         PropTypes.arrayOf(PropTypes.instanceOf(Date))
-      ])
+      ]),
+      onFocus: PropTypes.func,
+      onBlur: PropTypes.func,
+      // (Date|Date[]|null)=>(), null when click on clear icon
+      onChange: PropTypes.func,
     }
   }
 
   static get defaultProps() {
     return {
+      align: 'left',
+      isShowTrigger: true,
+      isAllowClear: true,
+      isDisabled: false,
       value: null,
       onFocus: () => {},
       onBlur: () =>{},
+      onChange: () => {},
     }
   }
 
@@ -118,8 +121,10 @@ export default class BasePicker extends Component {
    * @param value: Date|Date[]|null
    * @param isKeepPannel: boolean = false
    */
-  onPicked = (value, isKeepPannel, isConfirmValue) => {//only change input value on picked triggered
+  onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {//only change input value on picked triggered
     //let hasChanged = !valueEquals(this.state.value, value);
+    console.log(isKeepPannel, isConfirmValue);
+    console.log(value)
     this.setState({
       pickerVisible: isKeepPannel,
       value,
@@ -241,7 +246,7 @@ export default class BasePicker extends Component {
     }
     // enter
     if (keyCode === KEYCODE.ENTER) {
-      this.validatorAndSetValue(evt.target.value);
+      this.validatorAndSetValue(this.state.value);
     }
   }
 
@@ -258,10 +263,10 @@ export default class BasePicker extends Component {
 
   // 点击清空图标
   handleClickCloseIcon = () => {
-    const { isReadOnly, isDisabled } = this.props;
+    const { isDisabled, isAllowClear } = this.props;
     const { text } = this.state;
 
-    if (isReadOnly || isDisabled) return;
+    if (isDisabled || !isAllowClear) return;
     if (!text) {
       this.togglePickerVisible()
     } else {
@@ -279,7 +284,7 @@ export default class BasePicker extends Component {
   }
 
   render() {
-    const { isReadOnly, placeholder, isDisabled } = this.props;
+    const { isAllowClear, placeholder, isDisabled } = this.props;
     const { pickerVisible, value, text } = this.state;
 
     const prefixIcon = () => {
@@ -295,7 +300,7 @@ export default class BasePicker extends Component {
     };
 
     const suffixIcon = () => {
-      if(text) {
+      if(text && isAllowClear) {
         return (
           <Icon
             type="filter"
@@ -354,7 +359,6 @@ export default class BasePicker extends Component {
 
         <Input
           className={this.classNames(`el-date-editor el-date-editor--${this.type}`)}
-          readOnly={isReadOnly}
           disabled={isDisabled}
           type="text"
           placeholder={placeholder}

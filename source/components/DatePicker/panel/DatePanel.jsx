@@ -1,15 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { PropTypes } from '../libs'
-import Locale from '../locale'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import Input from '../../Input';
 import TimePanel from './TimePanel'
-import {MountBody} from '../MountBody'
+import { MountBody } from '../MountBody'
+import { PopperBase } from './PopperBase'
 import { SELECTION_MODES, deconstructDate, formatDate, parseDate, toDate } from '../utils'
 import { DateTable, MonthTable, YearTable } from '../basic'
-import { PopperBase } from './PopperBase'
-import {PLACEMENT_MAP} from '../constants'
-
+import { PLACEMENT_MAP } from '../constants'
+import Locale from '../locale'
 
 const PICKER_VIEWS = {
   YEAR: 'year',
@@ -38,6 +37,7 @@ export default class DatePanel extends PopperBase {
           onClick: PropTypes.func.isRequired
         })
       ),
+      shortcutsPlacement: PropTypes.string,
       selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       // (Date)=>bool, if true, disabled
       disabledDate: PropTypes.func,
@@ -47,9 +47,9 @@ export default class DatePanel extends PopperBase {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    let currentView = PICKER_VIEWS.DATE
+    let currentView = PICKER_VIEWS.DATE;
     switch (props.selectionMode) {
       case SELECTION_MODES.MONTH:
         currentView = PICKER_VIEWS.MONTH; break;
@@ -62,7 +62,7 @@ export default class DatePanel extends PopperBase {
       timePickerVisible: false,
       pickerWidth: 0,
       date: new Date() // current view's date
-    }
+    };
 
     if (props.value) {
       this.state.date = new Date(props.value)
@@ -70,7 +70,7 @@ export default class DatePanel extends PopperBase {
   }
 
   componentWillReceiveProps(nextProps) {
-    let date = new Date()
+    let date = new Date();
     if (nextProps.value){
       date = toDate(nextProps.value)
     }
@@ -79,7 +79,7 @@ export default class DatePanel extends PopperBase {
   }
 
   resetDate() {
-    this.date = new Date(this.date)
+    this.date = new Date(this.date);
   }
 
   showMonthPicker() {
@@ -92,11 +92,11 @@ export default class DatePanel extends PopperBase {
 
   prevMonth() {
     this.updateState(() => {
-      const { date } = this.state
-      const { month, year } = deconstructDate(date)
+      const { date } = this.state;
+      const { month, year } = deconstructDate(date);
 
       if (month == 0) {
-        date.setFullYear(year - 1)
+        date.setFullYear(year - 1);
         date.setMonth(11)
       } else {
         date.setMonth(month - 1)
@@ -106,11 +106,11 @@ export default class DatePanel extends PopperBase {
 
   nextMonth() {
     this.updateState(() => {
-      const { date } = this.state
-      const { month, year } = deconstructDate(date)
+      const { date } = this.state;
+      const { month, year } = deconstructDate(date);
 
       if (month == 11) {
-        date.setFullYear(year + 1)
+        date.setFullYear(year + 1);
         date.setMonth(0)
       } else {
         date.setMonth(month + 1)
@@ -120,8 +120,8 @@ export default class DatePanel extends PopperBase {
 
   nextYear() {
     this.updateState(() => {
-      const { date, currentView } = this.state
-      const { year } = deconstructDate(date)
+      const { date, currentView } = this.state;
+      const { year } = deconstructDate(date);
 
       if (currentView === 'year') {
         date.setFullYear(year + 10)
@@ -132,14 +132,14 @@ export default class DatePanel extends PopperBase {
   }
 
   updateState(cb) {
-    cb(this.state)
-    this.setState({})
+    cb(this.state);
+    this.setState({});
   }
 
   prevYear() {
     this.updateState(() => {
-      const { date, currentView } = this.state
-      const { year } = deconstructDate(date)
+      const { date, currentView } = this.state;
+      const { year } = deconstructDate(date);
 
       if (currentView === 'year') {
         date.setFullYear(year - 10)
@@ -150,16 +150,16 @@ export default class DatePanel extends PopperBase {
   }
 
   handleShortcutClick(shortcut) {
-    shortcut.onClick()
+    shortcut.onClick();
   }
 
   handleTimePick(pickedDate, isKeepPanel) {
     this.updateState(state=>{
       if (pickedDate) {
-        let oldDate = state.date
-        oldDate.setHours(pickedDate.getHours())
-        oldDate.setMinutes(pickedDate.getMinutes())
-        oldDate.setSeconds(pickedDate.getSeconds())
+        let oldDate = state.date;
+        oldDate.setHours(pickedDate.getHours());
+        oldDate.setMinutes(pickedDate.getMinutes());
+        oldDate.setSeconds(pickedDate.getSeconds());
       }
       state.timePickerVisible = isKeepPanel
     })
@@ -167,27 +167,26 @@ export default class DatePanel extends PopperBase {
 
   handleMonthPick(month) {
     this.updateState(state => {
-      const { date } = state
-      const { selectionMode } = this.props
-      const { year } = deconstructDate(date)
+      const { date } = state;
+      const { selectionMode } = this.props;
+      const { year } = deconstructDate(date);
 
       if (selectionMode !== SELECTION_MODES.MONTH) {
-        date.setMonth(month)
+        date.setMonth(month);
         state.currentView = PICKER_VIEWS.DATE
       } else {
-        date.setMonth(month)
-        date.setFullYear(year)
-        this.props.onPick(new Date(year, month, 1))
+        date.setMonth(month);
+        date.setFullYear(year);
+        this.props.onPick(new Date(year, month, 1));
       }
     })
   }
 
-
   handleDatePick(value) {
     this.updateState(state => {
-      const { date } = state
-      const { selectionMode, isShowTime, onPick } = this.props
-      const pdate = value.date
+      const { date } = state;
+      const { selectionMode, isShowTime, onPick } = this.props;
+      const pdate = value.date;
       if (selectionMode === SELECTION_MODES.DAY) {
         if (!isShowTime) {
           onPick(new Date(pdate.getTime()))
@@ -199,12 +198,11 @@ export default class DatePanel extends PopperBase {
     })
   }
 
-
   handleYearPick(year) {
     this.updateState(state => {
-      const { onPick, selectionMode } = this.props
-      const { date } = state
-      date.setFullYear(year)
+      const { onPick, selectionMode } = this.props;
+      const { date } = state;
+      date.setFullYear(year);
       if (selectionMode === SELECTION_MODES.YEAR) {
         onPick(new Date(year, 0))
       } else {
@@ -214,9 +212,9 @@ export default class DatePanel extends PopperBase {
   }
 
   changeToNow() {
-    const now = new Date()
-    this.props.onPick(now)
-    this.setState({ date: now })
+    const now = new Date();
+    this.props.onPick(now);
+    this.setState({ date: now });
   }
 
   confirm() {
@@ -224,7 +222,7 @@ export default class DatePanel extends PopperBase {
   }
 
   resetView() {
-    let {selectionMode} = this.props
+    let {selectionMode} = this.props;
 
     this.updateState(state=>{
       if (selectionMode === SELECTION_MODES.MONTH) {
@@ -238,11 +236,11 @@ export default class DatePanel extends PopperBase {
   }
 
   yearLabel() {
-    const { currentView, date } = this.state
-    const { year } = deconstructDate(date)
-    const yearTranslation = Locale.t('el.datepicker.year')
+    const { currentView, date } = this.state;
+    const { year } = deconstructDate(date);
+    const yearTranslation = Locale.t('el.datepicker.year');
     if (currentView === 'year') {
-      const startYear = Math.floor(year / 10) * 10
+      const startYear = Math.floor(year / 10) * 10;
       if (yearTranslation) {
         return startYear + ' ' + yearTranslation + '-' + (startYear + 9) + ' ' + yearTranslation
       }
@@ -257,12 +255,12 @@ export default class DatePanel extends PopperBase {
 
   set visibleTime(val){
     if (val) {
-      const ndate = parseDate(val, this.timeFormat)
-      let {date} = this.state
+      const ndate = parseDate(val, this.timeFormat);
+      let {date} = this.state;
       if (ndate) {
-        ndate.setFullYear(date.getFullYear())
-        ndate.setMonth(date.getMonth())
-        ndate.setDate(date.getDate())
+        ndate.setFullYear(date.getFullYear());
+        ndate.setMonth(date.getMonth());
+        ndate.setDate(date.getDate());
         this.setState({date: ndate, timePickerVisible: false})
       }
     }
@@ -270,28 +268,28 @@ export default class DatePanel extends PopperBase {
 
 
   get visibleDate(){
-    return formatDate(this.state.date, this.dateFormat)
+    return formatDate(this.state.date, this.dateFormat);
   }
 
   set visibleDate(val){
-    const ndate = parseDate(val, this.dateFormat)
+    const ndate = parseDate(val, this.dateFormat);
     if (!ndate) {
       return
     }
-    let {disabledDate } = this.props
-    let {date} = this.state
+    let {disabledDate} = this.props;
+    let {date} = this.state;
     if (typeof disabledDate === 'function' && disabledDate(ndate)) {
       return
     }
-    ndate.setHours(date.getHours())
-    ndate.setMinutes(date.getMinutes())
-    ndate.setSeconds(date.getSeconds())
-    this.setState({date: ndate})
-    this.resetView()
+    ndate.setHours(date.getHours());
+    ndate.setMinutes(date.getMinutes());
+    ndate.setSeconds(date.getSeconds());
+    this.setState({date: ndate});
+    this.resetView();
   }
 
   get timeFormat() {
-    let {format} = this.props
+    let {format} = this.props;
     if (format && format.indexOf('ss') === -1) {
       return 'HH:mm'
     } else {
@@ -302,15 +300,14 @@ export default class DatePanel extends PopperBase {
   get dateFormat(){
     if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim()
     else return 'yyyy-MM-dd'
-  }
-
+  };
 
   // end: ------ public methods
   _pickerContent() {
-    const { value, selectionMode, disabledDate, showWeekNumber } = this.props
-    const { date } = this.state
-    const { currentView } = this.state
-    let result = null
+    const { value, selectionMode, disabledDate, showWeekNumber } = this.props;
+    const { date } = this.state;
+    const { currentView } = this.state;
+    let result = null;
 
     switch (currentView) {
       case PICKER_VIEWS.DATE:
@@ -321,9 +318,9 @@ export default class DatePanel extends PopperBase {
           selectionMode={selectionMode}
           disabledDate={disabledDate}
           showWeekNumber={showWeekNumber}
-        />)
+        />);
 
-        break
+        break;
       case PICKER_VIEWS.YEAR:
         result = (<YearTable
           ref="yearTable"
@@ -331,28 +328,28 @@ export default class DatePanel extends PopperBase {
           date={date}
           onPick={this.handleYearPick.bind(this)}
           disabledDate={disabledDate}
-        />)
-        break
+        />);
+        break;
       case PICKER_VIEWS.MONTH:
         result = (<MonthTable
           value={value}
           date={date}
           onPick={this.handleMonthPick.bind(this)}
           disabledDate={disabledDate}
-        />)
-        break
+        />);
+        break;
       default:
         throw new Error('invalid currentView value')
     }
 
-    return result
+    return result;
   }
 
   render() {
-    const { isShowTime, shortcuts } = this.props
-    const { currentView, date, pickerWidth, timePickerVisible } = this.state
-    const { month } = deconstructDate(date)
-    const t = Locale.t
+    const { isShowTime, shortcuts, shortcutsPlacement } = this.props;
+    const { currentView, date, pickerWidth, timePickerVisible } = this.state;
+    const { month } = deconstructDate(date);
+    const t = Locale.t;
 
     return (
       <div
@@ -366,7 +363,7 @@ export default class DatePanel extends PopperBase {
         <div className="el-picker-panel__body-wrapper">
           {
             Array.isArray(shortcuts) && (
-              <div className="el-picker-panel__sidebar">
+              <div className={this.className('el-picker-panel__sidebar', shortcutsPlacement)}>
                 {
                   shortcuts.map((e, idx) => {
                     return (
@@ -389,7 +386,6 @@ export default class DatePanel extends PopperBase {
                     <Input
                       placeholder={t('el.datepicker.selectDate')}
                       value={this.visibleDate}
-                      size="small"
                       onChange={date=>this.visibleDate=date}
                     />
                   </span>
@@ -399,7 +395,6 @@ export default class DatePanel extends PopperBase {
                       onFocus={()=> this.setState({timePickerVisible: !this.state.timePickerVisible})}
                       placeholder={t('el.datepicker.selectTime')}
                       value={this.visibleTime}
-                      size="small"
                       onChange={date=>this.visibleDate=date}
                     />
                     {
