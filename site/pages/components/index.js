@@ -36,8 +36,6 @@ export default class Components extends React.Component {
   }
 
   setComponentShow = () => {
-    window.scrollTo(0, 0);
-
     this.setPage();
   };
 
