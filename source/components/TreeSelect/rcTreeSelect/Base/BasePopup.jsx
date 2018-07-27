@@ -37,6 +37,7 @@ class BasePopup extends React.Component {
 
     // HOC
     renderSearch: PropTypes.func,
+    renderResetItem: PropTypes.func,
     renderConfirmBtn: PropTypes.func,
     onTreeExpanded: PropTypes.func,
 
@@ -144,6 +145,7 @@ class BasePopup extends React.Component {
       loadData,
       ariaId,
       renderSearch,
+      renderResetItem,
       renderConfirmBtn
     } = this.props;
     const { rcTreeSelect: {
@@ -211,6 +213,7 @@ class BasePopup extends React.Component {
         tabIndex={-1}
       >
         {renderSearch ? renderSearch() : null}
+        {renderResetItem ? renderResetItem() : null}
         {$tree}
         {renderConfirmBtn ? renderConfirmBtn() : null}
       </div>

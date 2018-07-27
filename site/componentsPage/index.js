@@ -136,10 +136,10 @@ export default {
     //   },
     // },
     '导航 Nav': {
-      // 'menu': {
-      //   type: 'markdown',
-      //   name: 'Menu 导航菜单',
-      // },
+      'menu': {
+        type: 'markdown',
+        name: 'Menu 导航菜单',
+      },
       'dropdown': {
         type: 'markdown',
         name: 'Dropdown 下拉菜单',
@@ -178,7 +178,6 @@ export default {
         type: 'markdown',
         name: 'Select 选择器',
         props: {
-          utils: require('../../source/utils'),
           debounce: require('lodash.debounce')
         },
       },
@@ -316,14 +315,16 @@ export default {
   },
   business: {
     '基本组件 Basic': {
-      'bizLoading': {
-        type: 'markdown',
-        name: 'BizLoading 加载动画',
-      },
-      'bizTable': {
-        type: 'markdown',
-        name: 'BizTable 自定义表格',
-      },
+      // 已废弃使用，推荐使用spin
+      // 'bizLoading': {
+      //   type: 'markdown',
+      //   name: 'BizLoading 加载动画',
+      // },
+      // 已废弃，推荐使用table
+      // 'bizTable': {
+      //   type: 'markdown',
+      //   name: 'BizTable 自定义表格',
+      // },
       'bizTimePicker': {
         type: 'markdown',
         name: 'BizTimePicker 自定义时间选择器',

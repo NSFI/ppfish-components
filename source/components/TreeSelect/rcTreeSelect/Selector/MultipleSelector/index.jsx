@@ -18,6 +18,7 @@ class MultipleSelector extends React.Component {
     ...selectorPropTypes,
     selectorValueList: PropTypes.array,
     disabled: PropTypes.bool,
+    editable: PropTypes.bool,
     searchValue: PropTypes.string,
     labelInValue: PropTypes.bool,
     maxTagCount: PropTypes.number,
@@ -39,20 +40,20 @@ class MultipleSelector extends React.Component {
 
   constructor() {
     super();
-    this.inputRef = createRef();
+    // this.inputRef = createRef();
   }
 
-  onPlaceholderClick = () => {
-    this.inputRef.current.focus();
-  };
+  // onPlaceholderClick = () => {
+  //   this.inputRef.current.focus();
+  // };
 
-  focus = () => {
-    this.inputRef.current.focus();
-  };
+  // focus = () => {
+  //   this.inputRef.current.focus();
+  // };
 
-  blur = () => {
-    this.inputRef.current.blur();
-  };
+  // blur = () => {
+  //   this.inputRef.current.blur();
+  // };
 
   renderPlaceholder = () => {
     const {
@@ -65,7 +66,8 @@ class MultipleSelector extends React.Component {
 
     if (!currentPlaceholder) return null;
 
-    const hidden = searchValue || selectorValueList.length;
+    // const hidden = searchValue || selectorValueList.length;
+    const hidden = selectorValueList.length;
 
     // [Legacy] Not remove the placeholder
     return (
@@ -86,10 +88,9 @@ class MultipleSelector extends React.Component {
       selectorValueList, choiceTransitionName, prefixCls,
       onChoiceAnimationLeave,
       labelInValue, maxTagCount, maxTagPlaceholder,
+      editable
     } = this.props;
     const { rcTreeSelect: { onMultipleSelectorRemove } } = this.context;
-
-    // debugger;
 
     // Check if `maxTagCount` is set
     let myValueList = selectorValueList;
@@ -104,7 +105,7 @@ class MultipleSelector extends React.Component {
         key={value}
         label={label}
         value={value}
-        onRemove={onMultipleSelectorRemove}
+        onRemove={editable ? onMultipleSelectorRemove : null}
       />
     ));
 

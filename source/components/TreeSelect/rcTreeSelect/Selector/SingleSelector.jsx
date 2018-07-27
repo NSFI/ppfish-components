@@ -17,6 +17,7 @@ class SingleSelector extends React.Component {
   focus = () => {
     this.selectorRef.current.focus();
   };
+
   blur = () => {
     this.selectorRef.current.blur();
   };

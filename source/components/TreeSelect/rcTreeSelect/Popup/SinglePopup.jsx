@@ -11,7 +11,10 @@ class SinglePopup extends React.Component {
     showSearch: PropTypes.bool,
     dropdownPrefixCls: PropTypes.string,
     disabled: PropTypes.bool,
+    isRequired: PropTypes.bool,
     searchPlaceholder: PropTypes.string,
+    treeNodeResetTitle: PropTypes.string,
+    resetSelect: PropTypes.func,
   };
 
   constructor() {
@@ -22,7 +25,7 @@ class SinglePopup extends React.Component {
 
   onPlaceholderClick = () => {
     this.inputRef.current.focus();
-  }
+  };
 
   renderPlaceholder = () => {
     const { searchPlaceholder, searchValue, prefixCls } = this.props;
@@ -63,11 +66,22 @@ class SinglePopup extends React.Component {
     );
   };
 
+  renderResetItem = () => {
+    const { dropdownPrefixCls, treeNodeResetTitle, resetSelect } = this.props;
+
+    return (
+      <span className={`${dropdownPrefixCls}-reset`} onClick={resetSelect}>{treeNodeResetTitle}</span>
+    );
+  };
+
   render() {
+    const { isRequired } = this.props;
+
     return (
       <BasePopup
         {...this.props}
         renderSearch={this.renderSearch}
+        renderResetItem={isRequired ? null : this.renderResetItem}
       />
     );
   }

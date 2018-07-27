@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as RcPagination from './src';
-import classNames from 'classnames';
+import * as classNames from 'classnames';
 import Select from '../Select';
 import MiniSelect from './MiniSelect';
 
@@ -37,7 +37,7 @@ export default class Pagination extends React.Component<PaginationProps, {}> {
     selectPrefixCls: 'fishd-select',
   };
 
-  renderPagination = () => {
+  render() {
     const {className, size, ...restProps} = this.props;
     const isSmall = size === 'small';
     return (
@@ -46,14 +46,6 @@ export default class Pagination extends React.Component<PaginationProps, {}> {
         className={classNames(className, {mini: isSmall})}
         selectComponentClass={isSmall ? MiniSelect : Select}
       />
-    );
-  };
-
-  render() {
-    return (
-      <div>
-        {this.renderPagination()}
-      </div>
-    );
+    )
   }
 }

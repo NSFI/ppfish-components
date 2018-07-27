@@ -5,7 +5,7 @@ export function flatArray(data: any[] = [], childrenName = 'children') {
   const loop = (array: any[]) => {
     array.forEach(item => {
       if (item[childrenName]) {
-        const newItem = { ...item };
+        const newItem = {...item};
         delete newItem[childrenName];
         result.push(newItem);
         if (item[childrenName].length > 0) {
@@ -65,3 +65,10 @@ export function normalizeColumns(elements: React.ReactChildren) {
   });
   return columns;
 }
+
+export function getResizeTableHeight(offsetHeight: number) {
+  const windowHeight = window.innerHeight
+    || document.documentElement.clientHeight
+    || document.body.clientHeight;
+  return Math.max(windowHeight - offsetHeight, 100);
+};

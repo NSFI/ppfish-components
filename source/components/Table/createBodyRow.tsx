@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classnames from 'classnames';
+import * as classNames from 'classnames';
 import omit from 'omit.js';
 import { Store } from './createStore';
 
@@ -55,7 +55,7 @@ export default function createTableRow(Component = 'tr') {
 
     render() {
       const rowProps = omit(this.props, ['prefixCls', 'rowKey', 'store']);
-      const className = classnames(
+      const className = classNames(
         this.props.className,
         {
           [`${this.props.prefixCls}-row-selected`]: this.state.selected,

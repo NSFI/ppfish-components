@@ -1,5 +1,4 @@
 import React, { Children } from 'react';
-import toArray from 'rc-util/lib/Children/toArray';
 import warning from 'warning';
 import TreeNode from './TreeNode';
 
@@ -7,6 +6,16 @@ const DRAG_SIDE_RANGE = 0.25;
 const DRAG_MIN_GAP = 2;
 
 let onlyTreeNodeWarned = false;
+
+export function toArray(children) {
+  var ret = [];
+  
+  Children.forEach(children, function (c) {
+    ret.push(c);
+  });
+  
+  return ret;
+}
 
 export function warnOnlyTreeNode() {
   if (onlyTreeNodeWarned) return;

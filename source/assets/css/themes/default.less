@@ -1,40 +1,17 @@
 /* stylelint-disable at-rule-no-unknown */
-// The prefix to use on all css classes from ant.
+// 这是一份由视觉、交互及前端一起维护的控制组件库全局风格的配置文件
+// 使用时请注意：
+// 1. 使用中文注释
+// 2. 维护清晰的代码结构，以可读性为优先
+// 3. 简洁，不要放无意义的变量配置
+
 @fishd-prefix             : fishd;
-// -------- Colors -----------
+
+// -------- 主色 -----------
+// 主要品牌颜色
 @blue-6                 : #337EFF;
-@assistant-red          : #F24957;
-@assistant-green        : #26BD71;
-@assistant-yellow       : #FFAF0F;
-@assistant-purple       : #8875FF;
-@text-2                 : #222222;
-@text-3                 : #333333;
-@text-6                 : #666666;
-@text-9                 : #999999;
-@text-c                 : #CCCCCC;
-@text-d                 : #F2F2F5;
-@text-e                 : #F7F7FA;
-@font-title-large       : 20px;
-@font-title-medium      : 18px;
-@font-title-small       : 16px;
-@font-body-large        : 14px;
-@font-body-medium       : 12px;
-@separate-light         : #EBEDF0;
-@separate-heavy         : #D4D6D9;
-
-// -------- Colors -----------
 @primary-color          : @blue-6;
-@info-color             : @blue-6;
-@success-color          : @assistant-green;
-@processing-color       : @blue-6;
-@error-color            : @assistant-red;
-@highlight-color        : @assistant-red;
-@warning-color          : @assistant-yellow;
-@normal-color           : #d9d9d9;
-@active-color           : #f7f8fa;
-
-// Color used by default to control hover and active backgrounds and for
-// alert info backgrounds.
+// 主色经过调制后的色板
 @primary-1: tint(@primary-color, 90%);  // replace tint(@primary-color, 90%)
 @primary-2: tint(@primary-color, 80%);  // replace tint(@primary-color, 80%)
 @primary-3: tint(@primary-color, 80%);  // replace tint(@primary-color, 70%)
@@ -43,105 +20,164 @@
 @primary-6: @primary-color;             // color used to control the text color of active buttons, don't use, use @primary-color
 @primary-7: shade(@primary-color, 5%);  // replace shade(@primary-color, 5%)
 
-// Background color for `<body>`
+// -------- 辅助色 -----------
+// 除了主色外的场景色，需要在不同的场景中使用（例如警告色表示警告的操作）。
+@assistant-danger       : #F24957;
+@assistant-success      : #26BD71;
+@assistant-warning      : #FFAF0F;
+@assistant-info         : #8875FF;
+
+// -------- 中性色 -----------
+// 中性色用于文本、背景和边框颜色，用来表现层次结构。
+@text-2                 : #222222;
+@text-3                 : #333333;
+@text-6                 : #666666;
+@text-9                 : #999999;
+@text-c                 : #CCCCCC;
+@text-d                 : #F2F2F5;
+@text-e                 : #F7F7FA;
+
+// -------- 背景色 -----------
+// 页面
 @body-background        : #fff;
-// Base background color for most components
+// 组件
 @component-background   : #fff;
-@font-family-no-number  : -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", sans-serif;
-@font-family            : "Helvetica Neue For Number", @font-family-no-number;
+// 标题或选中的项目
+@background-color-light : @text-e;  // background of header and selected item
+// 标题或选中的项目
+@background-color-base  : @text-d;         // Default grey background color
+
+// -------- 情境背景色 -----------
+// 消息
+@info-color             : @blue-6;
+// 成功
+@success-color          : @assistant-success;
+@processing-color       : @blue-6;
+// 失败
+@error-color            : @assistant-danger;
+@highlight-color        : @assistant-danger;
+// 警告
+@warning-color          : @assistant-warning;
+@normal-color           : #d9d9d9;
+
+// -------- 表格或列表项目的背景色 -----------
+// ？？需要视觉定义
+// 激活后
+@item-active-bg         : #f7f8fa;
+// ？？需要视觉定义
+// 鼠标移入
+@item-hover-bg          : #f7f8fa;
+
+// -------- 字体 -----------
+// 字体
+@font-family-no-number  : "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family            : "Monospaced Number", @font-family-no-number;
+// 代码字体
 @code-family            : Consolas, Menlo, Courier, monospace;
+
+// -------- 文本颜色 -----------
+// ？？需要视觉定义
+// 标题颜色，如气泡卡片、表格等
 @heading-color          : fade(#000, 85%);
-@text-color             : fade(#000, 65%);
-@text-color-secondary   : fade(#000, 43%);
-@heading-color-dark     : fade(#fff, 97%);
-@text-color-dark        : fade(#fff, 91%);
-@text-color-secondary-dark: fade(#fff, 67%);
-@font-size-base         : 12px;
-@font-size-sm           : 12px;
+// 文本颜色
+@text-color             : @text-3;
+// 文本次级颜色
+@text-color-secondary   : @text-6;
+// 文本三级颜色 预留
+@text-color-tertiary    : @text-9;
+// ？？需要视觉定义
+// 文本反白颜色 预留，导航菜单深色底，下拉菜单深色底
+@text-color-dark        : fade(#fff, 85%);
+// ？？需要视觉定义
+// 文本次级反白颜色 预留，导航菜单深色底，下拉菜单深色底
+@text-color-secondary-dark: fade(#fff, 65%);
+
+// -------- 字号 -----------
+// 基础，正文
+@font-size-base         : 14px;
+// 大，大标题
 @font-size-lg           : @font-size-base + 2px;
+// 小，正文/小标题/辅助文字
+@font-size-sm           : @font-size-base - 2px;
+
+// -------- 行高 -----------
+// 基础
 @line-height-base       : 1.5;
+
+// -------- 圆角 -----------
+// 基础
 @border-radius-base     : 2px;
+// 小
 @border-radius-sm       : 2px;
 
-// Layout
-@layout-body-background         : #f0f2f5;
-@layout-header-background       : #001529;
-@layout-footer-background       : @layout-body-background;
-@layout-header-height           : 64px;
-@layout-header-padding          : 0 50px;
-@layout-footer-padding          : 24px 50px;
-@layout-sider-background        : @layout-header-background;
-@layout-trigger-height          : 48px;
-@layout-trigger-background      : #002140;
-@layout-trigger-color           : #fff;
-@layout-zero-trigger-width      : 36px;
-@layout-zero-trigger-height     : 42px;
-// Layout light theme
-@layout-sider-background-light  : #fff;
-@layout-trigger-background-light: #fff;
-@layout-trigger-color-light     : @text-color;
-
-// vertical padding for all form controls
-@control-padding-horizontal: @padding-sm;
-@control-padding-horizontal-sm: @padding-xs;
-
+// -------- 间距 -----------
 @padding-lg    : 24px; // containers
 @padding-md    : 16px; // small containers and buttons
 @padding-sm    : 12px; // Form controls and items
 @padding-xs    : 8px;  // small items
+@padding-xss   : 4px;  // small items
+// 纵向间距-基础，表单元素如Input、Select的左右间距
+@control-padding-horizontal: @padding-sm;
+// 纵向间距-小，小一号的Input
+@control-padding-horizontal-sm: @padding-xs;
 
-// The background colors for active and hover states for things like
-// list items or table cells.
-@item-active-bg         : @active-color;
-@item-hover-bg          : @active-color;
+// -------- 链接 -----------
+// 默认色
+@link-color             : @primary-color;
+// ？？需要视觉定义
+// 鼠标移入的颜色
+@link-hover-color       : @primary-5;
+// ？？需要视觉定义
+// 激活后的颜色
+@link-active-color      : @primary-7;
+// 链接下划线
+@link-decoration        : none;
+// 鼠标移入后的链接下划线
+@link-hover-decoration  : none;
 
-// TABLE
-@table-row-hover-bg: @active-color;
-@table-selected-row-bg: @primary-1;
-@table-header-bg: #fff;
-@table-header-sort-bg: #fff;
-@table-header-sort-bg: @background-color-base;
-@table-expanded-row-bg: #fbfbfb;
-@table-padding-vertical: 16px;
-@table-padding-horizontal: 16px;
+// -------- 边框 -----------
+// ？？需要视觉定义
+// 边框-用于组件的外部作为轮廓
+@border-color-base      : #d9d9d9;        // base border outline a component
+// ？？需要视觉定义
+// 边框-用于组件的内部作为分隔
+//@border-color-light     : #ebedf0;
+@border-color-split     : #e9e9e9;        // split border inside a component
+// 线条粗细
+@border-width-base      : 1px;            // width of the border for a component
+// 线型
+@border-style-base      : solid;          // style of a components border
 
-//== Grid system
-//
-//## Define your custom responsive grid.
-@grid-columns           : 24;
-@grid-gutter-width      : 0;
+// -------- 禁用状态 -----------
+// 按钮、分页符、时间、日期等组件禁用时状态
+// ？？需要视觉定义
+// 禁用时文字的颜色
+@disabled-color         : fade(#000, 25%);
+// 禁用时背景颜色
+@disabled-bg            : @background-color-base;
+// ？？需要视觉定义
+@disabled-color-dark    : fade(#fff, 35%);
 
-// Menu
-// ---
-@menu-inline-toplevel-item-height: 40px;
-@menu-item-height: 40px;
-@menu-collapsed-width: 80px;
-@menu-bg: @component-background;
-@menu-item-color: @text-color;
-@menu-highlight-color: @primary-color;
-@menu-item-active-bg: @item-active-bg;
-@menu-item-group-title-color: @text-color-secondary;
-// dark theme
-@menu-dark-color: @text-color-secondary-dark;
-@menu-dark-bg: @layout-header-background;
-@menu-dark-arrow-color: #fff;
-@menu-dark-submenu-bg: #000c17;
-@menu-dark-highlight-color: #fff;
-@menu-dark-item-active-bg: @primary-color;
-@menu-dark-item-selected-bg:@primary-color;
+// -------- 阴影 -----------
+@shadow-color           : rgba(0, 0, 0, .15);
+@shadow-1-up            : 0 2px 8px @shadow-color;
+@shadow-1-down          : 0 2px 8px @shadow-color;
+@shadow-1-left          : -2px 0 8px @shadow-color;
+@shadow-1-right         : 2px 0 8px @shadow-color;
+@shadow-2               : 0 4px 12px @shadow-color;
+@box-shadow-base        : @shadow-1-down;
 
-// ICONFONT
+// -------- 轮廓 -----------
+// 轮廓是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。很少用到
+@outline-blur-size      : 0;
+@outline-width          : 2px;
+@outline-color          : @primary-color;
+
+// -------- iconfont图标库 -----------
 // 记得修改webpack.config.[xx].js中的icon-url
-@iconfont-prefix    : fishdicon;
+@iconfont-prefix        : fishdicon;
 @icon-url               : "//at.alicdn.com/t/font_697017_0vgxiew22z3k";
 //@icon-url               : "/source/assets/iconfont/iconfont"; // 把 iconfont 地址改到本地, TODO: 需要解决相对路径问题
-
-// LINK
-@link-color             : @primary-color;
-@link-hover-color       : @primary-5;
-@link-active-color      : @primary-7;
-@link-decoration        : none;
-@link-hover-decoration  : none;
 
 // Animation
 @ease-out            : cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -157,38 +193,8 @@
 @ease-in-quint       : cubic-bezier(0.755, 0.05, 0.855, 0.06);
 @ease-in-out-quint   : cubic-bezier(0.86, 0, 0.07, 1);
 
-// Border color
-@border-color-base      : #d9d9d9;        // base border outline a component
-@border-color-split     : #e9e9e9;        // split border inside a component
-@border-width-base      : 1px;            // width of the border for a component
-@border-style-base      : solid;          // style of a components border
-
-// Outline
-@outline-blur-size      : 0;
-@outline-width          : 2px;
-@outline-color          : @primary-color;
-
-// Default background color for disabled states, Collapse wrappers,
-// and several active and hover states.
-@background-color-base  : #f7f7f7;
-@background-color-active: #eee;
-
-// Disabled states
-@disabled-color         : fade(#000, 25%);
-@disabled-bg            : @background-color-base;
-@disabled-color-dark    : fade(#fff, 35%);
-
-// Shadow
-@shadow-color           : rgba(0, 0, 0, 0.2);
-@box-shadow-base        : @shadow-1-down;
-@shadow-1-up            : 0 -1px 6px @shadow-color;
-@shadow-1-down          : 0 1px 6px @shadow-color;
-@shadow-1-left          : -1px 0 6px @shadow-color;
-@shadow-1-right         : 1px 0 6px @shadow-color;
-@shadow-2               : 0 2px 8px @shadow-color;
-
 // Buttons
-@btn-font-weight        : 500;
+@btn-font-weight        : 400;
 @btn-border-radius-base : @border-radius-base;
 @btn-border-radius-sm   : @border-radius-base;
 
@@ -344,7 +350,7 @@
 @select-height-base               : 32px;
 @select-height-lg                 : 40px;
 @select-height-sm                 : 24px;
-@select-hover-bg                  : @active-color;
+@select-hover-bg                  : @item-hover-bg;
 
 // Tooltip
 // ---
@@ -409,6 +415,40 @@
 @modal-lg:                    900px;
 @modal-md:                    600px;
 @modal-sm:                    300px;
+
+// Menu
+// ---
+@menu-inline-toplevel-item-height: 40px;
+@menu-item-height: 40px;
+@menu-collapsed-width: 80px;
+@menu-bg: @component-background;
+@menu-item-color: @text-color;
+@menu-highlight-color: @primary-color;
+@menu-item-active-bg: @item-active-bg;
+@menu-item-group-title-color: @text-color-secondary;
+// dark theme
+@menu-dark-color: @text-color-secondary-dark;
+@menu-dark-bg: @layout-header-background;
+@menu-dark-arrow-color: #fff;
+@menu-dark-submenu-bg: #000c17;
+@menu-dark-highlight-color: #fff;
+@menu-dark-item-active-bg: @primary-color;
+@menu-dark-item-selected-bg:@primary-color;
+
+// TABLE
+@table-row-hover-bg: @item-hover-bg;
+@table-selected-row-bg: @primary-1;
+@table-header-bg: #fff;
+@table-header-sort-bg: #fff;
+@table-header-sort-bg: @background-color-base;
+@table-expanded-row-bg: #fbfbfb;
+@table-padding-vertical: 16px;
+@table-padding-horizontal: 16px;
+
+// Tag
+@tag-default-bg: @background-color-light;
+@tag-default-color: @text-color;
+@tag-font-size: @font-size-sm;
 
 // Tabs
 // ---
