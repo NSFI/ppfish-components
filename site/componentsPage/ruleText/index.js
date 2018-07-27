@@ -66,27 +66,27 @@ export default class RuleText extends React.Component {
           <tbody>
             <tr>
               <td className='h1'>页面标题</td>
-              <td className='h1'>客群洞察</td>
+              <td className='h1'>网易七鱼</td>
               <td className='color-dark-light'>20px</td>
             </tr>
             <tr>
               <td className='h2'>大标题</td>
-              <td className='h2'>客群洞察</td>
+              <td className='h2'>网易七鱼</td>
               <td className='color-dark-light'>18px</td>
             </tr>
             <tr>
               <td className='h3'>列表标题</td>
-              <td className='h3'>客群洞察</td>
+              <td className='h3'>网易七鱼</td>
               <td className='color-dark-light'>16px</td>
             </tr>
             <tr>
               <td className='regular-text'>正文</td>
-              <td className='regular-text'>客群洞察</td>
+              <td className='regular-text'>网易七鱼</td>
               <td className='color-dark-light'>14px</td>
             </tr>
             <tr>
               <td className='small-text'>正文/小标题/辅助文字</td>
-              <td className='small-text'>客群洞察</td>
+              <td className='small-text'>网易七鱼</td>
               <td className='color-dark-light'>12px</td>
             </tr>
           </tbody>

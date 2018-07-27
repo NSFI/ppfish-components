@@ -5,7 +5,7 @@ import { addResizeListener, removeResizeListener } from '../libs/utils/resize-ev
 import { getScrollBarWidth } from './scrollar-width';
 import { Bar } from './Bar'
 
-import 'element-theme-default/lib/scrollbar.css';
+// import 'element-theme-default/lib/scrollbar.css';
 
 export class Scrollbar extends Component {
   constructor(props) {
