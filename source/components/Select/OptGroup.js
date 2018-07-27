@@ -9,7 +9,7 @@ export default class OptGroup extends React.Component {
     prefixCls: PropTypes.string,
     label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
     children: PropTypes.node.isRequired,
-    _isShow: PropTypes.bool,
+    _isShow: PropTypes.bool, // INTERNAL USE ONLY
   };
 
   static defaultProps = {

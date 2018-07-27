@@ -637,13 +637,12 @@ export default class Select extends React.Component {
                     <div className={`${selectionCls}-option-clearable-list`}>
                       {
                         selectValue.map(option =>
-                            <div className={`${selectionCls}-option-clearable-option`} key={option.key}>
-                              {option.label}
-                              <span className={`${selectionCls}-option-clearable-option-close`}
-                                    onClick={(e) => this.onOptionClick(e, option, true)}>
-                        <Icon type="guanbi"/>
-                      </span>
-                            </div>
+                          <div className={`${selectionCls}-option-clearable-option`} key={option.key}>
+                            <span className={`${selectionCls}-option-clearable-option-content`}>{option.label}</span>
+                            <span className={`${selectionCls}-option-clearable-option-close`}
+                                  onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="guanbi"/>
+                            </span>
+                          </div>
                         )
                       }
                     </div> :

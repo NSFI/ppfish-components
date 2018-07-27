@@ -15,7 +15,7 @@
 
 @select-prefix: ~"@{fishd-prefix}-select";
 
-//样式
+//select-面板样式
 .@{select-prefix} {
   min-height: @select-height-base;
   position: relative;
@@ -27,17 +27,20 @@
   border: 1px solid @select-border-color;
   user-select: none;
   .clearfix;
+
   &.open {
     border: 1px solid @primary-color;
   }
+
   &&-disabled {
     background: @disabled-bg;
     color: @disabled-color;
     cursor: not-allowed;
     .@{select-prefix}-placeholder {
-      color: #ccc;
+      color: @text-c;
     }
   }
+
   &-caret {
     position: absolute;
     color: @text-9;
@@ -52,6 +55,7 @@
       }
     }
   }
+
   &-placeholder {
     position: absolute;
     font-size: @font-size-base;
@@ -74,11 +78,11 @@
     max-height: 32*3 - 14px;
     line-height: @default-size-select-line-height;
     overflow: auto;
-    .clearfix();
+    .clearfix;
   }
 
   &-option-clearable-option {
-    .ellipsis();
+    .ellipsis;
     display: inline-block;
     max-width: 100px;
     height: @default-size-select-option-height;
@@ -90,6 +94,10 @@
     padding: 0 20px 0 10px;
     float: left;
     position: relative;
+    &-content {
+      position: relative;
+      top: 1px;
+    }
     &-close {
       position: absolute;
       border-radius: @border-radius-base;
@@ -146,6 +154,7 @@
   }
   &-small {
     min-height: @select-height-sm;
+    font-size: @font-size-sm;
     .@{select-prefix}-loading {
       font-size: @font-size-sm;
     }
@@ -194,6 +203,7 @@
   }
 }
 
+//select-下拉面板样式
 .@{select-prefix}-dropdown {
   line-height: 1.5;
   color: @text-color;
@@ -203,7 +213,7 @@
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: @border-radius-base;
-  font-size: 14px;
+  font-size: @font-size-base;
   &-loading {
     padding-left: 10px;
     width: 100%;
@@ -217,7 +227,7 @@
     &-clear {
       cursor: pointer;
       color: #d8d8d8;
-      font-size: 16px;
+      font-size: @font-size-lg;
     }
   }
   &-list {
