@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import RcTable from './src';
 import * as PropTypes from 'prop-types';
 import * as classNames from 'classnames';
-import Pagination from '../Pagination';
-import Icon from '../Icon/index';
-import Spin from '../Spin';
 import * as warning from 'warning';
+import RcTable from './src';
+import Pagination from '../Pagination';
+import Icon from '../Icon';
+import Spin from '../Spin';
 import FilterDropdown from './filterDropdown';
 import createStore, {Store} from './createStore';
 import SelectionBox from './SelectionBox';

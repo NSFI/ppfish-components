@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import shallowequal from 'shallowequal';
+import {shallowEqual} from '../../../utils';
 
 export default class ExpandIcon extends React.Component {
   static propTypes = {
@@ -13,11 +13,11 @@ export default class ExpandIcon extends React.Component {
   };
 
   shouldComponentUpdate(nextProps) {
-    return !shallowequal(nextProps, this.props);
+    return !shallowEqual(nextProps, this.props);
   }
 
   render() {
-    const { expandable, prefixCls, onExpand, needIndentSpaced, expanded, record } = this.props;
+    const {expandable, prefixCls, onExpand, needIndentSpaced, expanded, record} = this.props;
     if (expandable) {
       const expandClassName = expanded ? 'expanded' : 'collapsed';
       return (
@@ -27,7 +27,7 @@ export default class ExpandIcon extends React.Component {
         />
       );
     } else if (needIndentSpaced) {
-      return <span className={`${prefixCls}-expand-icon ${prefixCls}-spaced`} />;
+      return <span className={`${prefixCls}-expand-icon ${prefixCls}-spaced`}/>;
     }
     return null;
   }

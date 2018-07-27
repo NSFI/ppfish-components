@@ -1,13 +1,12 @@
 import * as React from 'react';
-import Checkbox, { CheckboxChangeEvent } from '../Checkbox';
+import * as classNames from 'classnames';
+import Checkbox, {CheckboxChangeEvent} from '../Checkbox';
 import Dropdown from '../Dropdown';
 import Menu from '../Menu';
-import Icon from '../Icon/index';
-import * as classNames from 'classnames';
-import { SelectionCheckboxAllProps, SelectionCheckboxAllState, SelectionItem } from './interface';
+import Icon from '../Icon';
+import {SelectionCheckboxAllProps, SelectionCheckboxAllState, SelectionItem} from './interface';
 
-export default class SelectionCheckboxAll<T> extends
-  React.Component<SelectionCheckboxAllProps<T>, SelectionCheckboxAllState> {
+export default class SelectionCheckboxAll<T> extends React.Component<SelectionCheckboxAllProps<T>, SelectionCheckboxAllState> {
   unsubscribe: () => void;
   defaultSelections: SelectionItem[];
 
@@ -17,11 +16,13 @@ export default class SelectionCheckboxAll<T> extends
     this.defaultSelections = props.hideDefaultSelections ? [] : [{
       key: 'all',
       text: props.locale.selectAll,
-      onSelect: () => {},
+      onSelect: () => {
+      },
     }, {
       key: 'invert',
       text: props.locale.selectInvert,
-      onSelect: () => {},
+      onSelect: () => {
+      },
     }];
 
     this.state = {
@@ -45,21 +46,21 @@ export default class SelectionCheckboxAll<T> extends
   }
 
   subscribe() {
-    const { store } = this.props;
+    const {store} = this.props;
     this.unsubscribe = store.subscribe(() => {
       this.setCheckState(this.props);
     });
   }
 
   checkSelection(data: T[], type: string, byDefaultChecked: boolean) {
-    const { store, getCheckboxPropsByItem, getRecordKey } = this.props;
+    const {store, getCheckboxPropsByItem, getRecordKey} = this.props;
     // type should be 'every' | 'some'
     if (type === 'every' || type === 'some') {
       return (
         byDefaultChecked
-        ? data[type]((item, i) => getCheckboxPropsByItem(item, i).defaultChecked)
-        : data[type]((item, i) =>
-              store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0)
+          ? data[type]((item, i) => getCheckboxPropsByItem(item, i).defaultChecked)
+          : data[type]((item, i) =>
+          store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0)
       );
     }
     return false;
@@ -81,7 +82,7 @@ export default class SelectionCheckboxAll<T> extends
   }
 
   getCheckState(props: SelectionCheckboxAllProps<T>) {
-    const { store, data } = props;
+    const {store, data} = props;
     let checked;
     if (!data.length) {
       checked = false;
@@ -98,7 +99,7 @@ export default class SelectionCheckboxAll<T> extends
   }
 
   getIndeterminateState(props: SelectionCheckboxAllProps<T>) {
-    const { store, data } = props;
+    const {store, data} = props;
     let indeterminate;
     if (!data.length) {
       indeterminate = false;
@@ -106,13 +107,13 @@ export default class SelectionCheckboxAll<T> extends
       indeterminate = store.getState().selectionDirty
         ? (
           this.checkSelection(data, 'some', false) &&
-            !this.checkSelection(data, 'every', false)
+          !this.checkSelection(data, 'every', false)
         )
         : ((this.checkSelection(data, 'some', false) &&
             !this.checkSelection(data, 'every', false)) ||
-            (this.checkSelection(data, 'some', true) &&
+          (this.checkSelection(data, 'some', true) &&
             !this.checkSelection(data, 'every', true))
-          );
+        );
     }
     return indeterminate;
   }
@@ -129,7 +130,9 @@ export default class SelectionCheckboxAll<T> extends
           key={selection.key || index}
         >
           <div
-            onClick={() => {this.props.onSelect(selection.key, index, selection.onSelect); }}
+            onClick={() => {
+              this.props.onSelect(selection.key, index, selection.onSelect);
+            }}
           >
             {selection.text}
           </div>
@@ -139,8 +142,8 @@ export default class SelectionCheckboxAll<T> extends
   }
 
   render() {
-    const { disabled, prefixCls, selections, getPopupContainer } = this.props;
-    const { checked, indeterminate } = this.state;
+    const {disabled, prefixCls, selections, getPopupContainer} = this.props;
+    const {checked, indeterminate} = this.state;
 
     let selectionPrefixCls = `${prefixCls}-selection`;
 
@@ -148,7 +151,7 @@ export default class SelectionCheckboxAll<T> extends
 
     if (selections) {
       let newSelections = Array.isArray(selections) ? this.defaultSelections.concat(selections)
-      : this.defaultSelections;
+        : this.defaultSelections;
 
       const menu = (
         <Menu
@@ -165,7 +168,7 @@ export default class SelectionCheckboxAll<T> extends
           getPopupContainer={getPopupContainer}
         >
           <div className={`${selectionPrefixCls}-down`}>
-            <Icon type="down" />
+            <Icon type="down"/>
           </div>
         </Dropdown>
       ) : null;
@@ -174,7 +177,7 @@ export default class SelectionCheckboxAll<T> extends
     return (
       <div className={selectionPrefixCls}>
         <Checkbox
-          className={classNames({ [`${selectionPrefixCls}-select-all-custom`]: customSelections })}
+          className={classNames({[`${selectionPrefixCls}-select-all-custom`]: customSelections})}
           checked={checked}
           indeterminate={indeterminate}
           disabled={disabled}
