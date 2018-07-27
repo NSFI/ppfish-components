@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom';
 import RcTabs, { TabPane, TabContent, ScrollableInkTabBar } from './src/index.js';
 import * as classNames from 'classnames';
 import Icon from '../Icon';
+import * as BizLoading from '../BizLoading';
 import * as warning from 'warning';
 import './style/index.less';
 
@@ -17,28 +18,30 @@ function isFlexSupported() {
   return false;
 }
 
-export type TabsType = 'line' | 'card' | 'editable-card';
+export type TabsType = 'line' | 'card' | 'editable-card' | 'section' | 'borderless-section';
 export type TabsPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface TabsProps {
   activeKey?: string;
+  animated?: boolean | { inkBar: boolean; tabPane: boolean; };
+  className?: string;
   defaultActiveKey?: string;
   hideAdd?: boolean;
+  loading?: boolean;
+  prefixCls?: string;
+  size?: 'large' | 'default' | 'small';
+  style?: React.CSSProperties;
+  tabBarExtraContent?: React.ReactNode | null;
+  tabBarStyle?: React.CSSProperties;
+  tabBarGutter?: number;
+  type?: TabsType;
+  tabPosition?: TabsPosition;
+  // tabScrollable?: boolean;
+  onEdit?: (targetKey: string | React.MouseEvent<HTMLElement>, action: any) => void;
   onChange?: (activeKey: string) => void;
   onTabClick?: Function;
   onPrevClick?: React.MouseEventHandler<any>;
   onNextClick?: React.MouseEventHandler<any>;
-  tabBarExtraContent?: React.ReactNode | null;
-  tabBarStyle?: React.CSSProperties;
-  type?: TabsType;
-  tabPosition?: TabsPosition;
-  onEdit?: (targetKey: string | React.MouseEvent<HTMLElement>, action: any) => void;
-  size?: 'large' | 'default' | 'small';
-  style?: React.CSSProperties;
-  prefixCls?: string;
-  className?: string;
-  animated?: boolean | { inkBar: boolean; tabPane: boolean; };
-  tabBarGutter?: number;
 }
 
 // Tabs
@@ -58,6 +61,11 @@ export default class Tabs extends React.Component<TabsProps, any> {
   static defaultProps = {
     prefixCls: 'fishd-tabs',
     hideAdd: false,
+    loading: false,
+    size: 'default',
+    // tabScrollable: false,
+    tabPosition: 'top',
+    type: 'line',
   };
 
   createNewTab = (targetKey: React.MouseEvent<HTMLElement>) => {
@@ -101,10 +109,12 @@ export default class Tabs extends React.Component<TabsProps, any> {
       size,
       type = 'line',
       tabPosition,
+      // tabScrollable,
       children,
       tabBarExtraContent,
       tabBarStyle,
       hideAdd,
+      loading,
       onTabClick,
       onPrevClick,
       onNextClick,
@@ -135,8 +145,13 @@ export default class Tabs extends React.Component<TabsProps, any> {
       [`${prefixCls}-${type}`]: true,
       [`${prefixCls}-no-animation`]: !tabPaneAnimated,
     });
+    let loadingCls = classNames({
+      'hide': !loading
+    });
+
     // only card type tabs can be added and closed
     let childrenWithClose: React.ReactElement<any>[] = [];
+
     if (type === 'editable-card') {
       childrenWithClose = [];
       React.Children.forEach(children as React.ReactNode, (child: React.ReactElement<any>, index) => {
@@ -188,16 +203,19 @@ export default class Tabs extends React.Component<TabsProps, any> {
     );
 
     return (
-      <RcTabs
-        {...this.props}
-        className={cls}
-        tabBarPosition={tabPosition}
-        renderTabBar={renderTabBar}
-        renderTabContent={() => <TabContent animated={tabPaneAnimated} animatedWithMargin />}
-        onChange={this.handleChange}
-      >
-        {childrenWithClose.length > 0 ? childrenWithClose : children}
-      </RcTabs>
+      <div className={prefixCls + '-ctner'}>
+        <RcTabs
+          {...this.props}
+          className={cls}
+          tabBarPosition={tabPosition}
+          renderTabBar={renderTabBar}
+          renderTabContent={() => <TabContent animated={tabPaneAnimated} animatedWithMargin />}
+          onChange={this.handleChange}
+        >
+          {childrenWithClose.length > 0 ? childrenWithClose : children}
+        </RcTabs>
+        <BizLoading extraCls={loadingCls}/>
+      </div>
     );
   }
 }
