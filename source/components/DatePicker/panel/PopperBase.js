@@ -1,4 +1,5 @@
-import { PropTypes, Component } from '../libs';
+import PropTypes from 'prop-types';
+import { Component } from '../libs';
 import { PopperReactMixin } from '../libs/utils';
 
 export class PopperBase extends Component{

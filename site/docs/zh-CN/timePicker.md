@@ -9,14 +9,7 @@
 ## 选择固定时间点
 
 :::demo 提供几个固定的时间点供用户选择。使用 `TimeSelect` 标签，分别通过`star`、`end`和`step`指定可选的起始时间、结束时间和步长
-```js
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: new Date(2016, 9, 10, 8, 30),
-    };
-  }
-  
+```js  
   handleUpdate = (value) => {
     console.debug('time-select update: ', value)
   }
@@ -36,7 +29,6 @@
         step="00:15"
         end="18:30"
         maxTime="12:30"
-        value={this.state.value}
         placeholder="请选择时间"
         onChange={this.handleUpdate}
         onFocus={this.handleFocus}
@@ -47,7 +39,7 @@
 ```
 :::
 
-### 选择固定时间点的禁用状态。
+### 选择固定时间点的禁用状态
 
 :::demo 通过设置 `isDisabled` 为 `true` 禁用整个选择框
 ```js  
@@ -64,7 +56,7 @@
 
 ## 选择任意时间点
 
-:::demo 使用 `TimePicker` 标签，分别通过`star`、`end`和`step`指定可选的起始时间、结束时间和步长
+:::demo 使用 `TimePicker` 标签
 ```js
   constructor(props) {
     super(props);
@@ -84,14 +76,41 @@
         selectableRange="18:30:00 - 20:30:00"
         placeholder="请选择时间"
         value={this.state.value}
-        isReadOnly={true}
         />
     )
   }
 ```
 :::
 
-### 选择任意时间点的禁用状态。
+### 带快捷操作的面板
+
+:::demo 通过设置 `isShowCurrent`，控制是否显示 "此刻" 快捷操作按钮
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: new Date(2016, 9, 10, 18, 40)
+    }
+  }
+  
+  handleUpdate = (value) => {
+    console.debug('time-picker update: ', value)
+  }
+  
+  render() {
+    return (
+      <TimePicker
+        isShowCurrent={true}
+        onChange={this.handleUpdate}
+        placeholder="请选择时间"
+        value={this.state.value}
+        />
+    )
+  }
+```
+:::
+
+### 选择任意时间点的禁用状态
 
 :::demo 通过设置 `isDisabled` 为 `true` 禁用整个选择框
 ```js  
@@ -106,55 +125,32 @@
 ```
 :::
 
-## 固定时间范围
+## 时间精度
 
-若先选择开始时间，则结束时间内备选项的状态会随之改变
-
-:::demo
+:::demo 通过设置 `format`，控制不同的时间精度
 ```js
-constructor(props) {
-  super(props);
-  this.state = {
-    startDate: new Date(2016, 9, 10, 14, 30),
-    endDate: new Date(2016, 9, 10, 15, 30)
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: new Date(2016, 9, 10, 18, 40)
+    }
   }
-}
-
-handleStartUpdate(startDate) {
-  console.debug('time-select startDate update: ', startDate)
-  this.setState({startDate})
-}
-
-handleEndUpdate(endDate){
-  console.debug('time-select endDate update: ', endDate)
-  this.setState({endDate})
-}
-
-render() {
-  return (
-    <div>
-      <TimeSelect
-        start="08:30"
-        step="00:15"
-        end="18:30"
-        onChange={this.handleStartUpdate.bind(this)}
-        value={this.state.startDate}
-        placeholder="选择时间"
+  
+  handleUpdate = (value) => {
+    console.debug('time-picker update: ', value)
+  }
+  
+  render() {
+    return (
+      <TimePicker
+        onChange={this.handleUpdate}
+        selectableRange="18:30:00 - 20:30:00"
+        placeholder="请选择时间"
+        format="HH:mm"
+        value={this.state.value}
         />
-
-      <TimeSelect
-        start="08:30"
-        step="00:15"
-        end="18:30"
-        onChange={this.handleEndUpdate.bind(this)}
-        value={this.state.endDate}
-        minTime="14:30"
-        placeholder="选择时间"
-        />
-    </div>
-
-  )
-}
+    )
+  }
 ```
 :::
 
@@ -193,6 +189,7 @@ render() {
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | placeholder | 占位内容 | string | — | — |
+| format | 时间格式化 | string | 小时 HH，分 mm，秒 ss | HH:mm:ss |
 | isShowTrigger | 是否显示图标 | bool | - | true |
 | isDisabled | 是否禁用 | boolean | — | false |
 | onFocus | onFocus | func:(TimeSelectReactComponent)=>() | — | - |
@@ -212,6 +209,7 @@ render() {
 ## TimePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
+| isShowCurrent | 是否显示"此刻"快捷按钮 | boolean | - | false |
 | value | 值 | date/null | — | - |
 | selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | — | — |
 

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { PropTypes } from '../libs'
 import Locale from '../locale'
-import Input from '../Input';
+import Input from '../../Input';
 import TimePanel from './TimePanel'
 import {MountBody} from '../MountBody'
 import { SELECTION_MODES, deconstructDate, formatDate, parseDate, toDate } from '../utils'

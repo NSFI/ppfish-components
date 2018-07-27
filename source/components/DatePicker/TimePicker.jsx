@@ -17,7 +17,7 @@ function converSelectRange(props) {
     ranges = Array.isArray(ranges) ? ranges : [ranges];
     selectableRange = ranges.map(range => parser(range, format));
   }
-  return selectableRange
+  return selectableRange;
 }
 
 export default class TimePicker extends BasePicker {
@@ -29,12 +29,13 @@ export default class TimePicker extends BasePicker {
       selectableRange: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
-      ])
+      ]),
+      isShowCurrent: PropTypes.bool
     }, BasePicker.propTypes);
   }
 
   static get defaultProps() {
-    return Object.assign({}, BasePicker.defaultProps);
+    return Object.assign({}, {isShowCurrent: false}, BasePicker.defaultProps);
   }
 
   constructor(props) {
@@ -43,19 +44,20 @@ export default class TimePicker extends BasePicker {
   }
 
   onSelectionChange = (start, end) => {
-    this.refs.inputRoot.refs.input.setSelectionRange(start, end);
-    this.refs.inputRoot.refs.input.focus();
+    // this.refs.inputRoot.refs.input.setSelectionRange(start, end);
+    // this.refs.inputRoot.refs.input.focus();
   }
 
   pickerPanel(state, props) {
     return (
       <TimePanel
         {...props}
+        isShowCurrent={props.isShowCurrent}
         currentDate={state.value}
-        onCancel={()=>this.setState({pickerVisible: false})}
-        onPicked={this.onPicked.bind(this)}
-        onSelectRangeChange={this._onSelectionChange}
         selectableRange={converSelectRange(props)}
+        onCancelPicked={this.onCancelPicked}
+        onPicked={this.onPicked}
+        onSelectRangeChange={this._onSelectionChange}
       />
     )
   }

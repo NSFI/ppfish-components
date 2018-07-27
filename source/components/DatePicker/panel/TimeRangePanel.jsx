@@ -1,10 +1,9 @@
 import React from 'react';
-import { PropTypes } from '../libs';
-import { limitRange, parseDate } from '../utils';
-import TimeSpinner from '../basic/TimeSpinner';
-import Locale from '../locale';
-import type {TimeRangePanelProps } from '../Types';
+import PropTypes from 'prop-types';
 import { PopperBase } from './PopperBase'
+import TimeSpinner from '../basic/TimeSpinner';
+import { limitRange, parseDate } from '../utils';
+import Locale from '../locale';
 
 const MIN_TIME = parseDate('00:00:00', 'HH:mm:ss');
 const MAX_TIME = parseDate('23:59:59', 'HH:mm:ss');
@@ -31,25 +30,7 @@ const calcTime = function (time) {
   return { minTime, maxTime };
 };
 
-const mapPropsToState = props => {
-  const { currentDates, format } = props;
-  const { minTime, maxTime } = calcTime(currentDates);
-
-  const state: any = {
-    format: format || 'HH:mm:ss',
-    minTime,
-    maxTime,
-    minSelectableRange: [[MIN_TIME, maxTime]],
-    maxSelectableRange: [[minTime, MAX_TIME]],
-    btnDisabled: isDisabled(minTime, maxTime)
-  };
-  state.isShowSeconds = (state.format || '').indexOf('ss') !== -1;
-
-  return state;
-};
-
 export default class TimeRangePanel extends PopperBase {
-  state: any;
 
   static get propTypes() {
     return Object.assign(
@@ -76,7 +57,7 @@ export default class TimeRangePanel extends PopperBase {
     };
   }
 
-  constructor(props: TimeRangePanelProps) {
+  constructor(props) {
     super(props);
 
     this.state = Object.assign(
@@ -84,17 +65,34 @@ export default class TimeRangePanel extends PopperBase {
         visible: false,
         width: 0
       },
-      mapPropsToState(props)
+      this.mapPropsToState(props)
     );
   }
 
-  componentWillReceiveProps(nextProps: any) {
-    this.setState(mapPropsToState(nextProps));
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.mapPropsToState(nextProps));
   }
+
+  mapPropsToState = props => {
+    const { currentDates, format } = props;
+    const { minTime, maxTime } = calcTime(currentDates);
+
+    const state = {
+      format: format || 'HH:mm:ss',
+      minTime,
+      maxTime,
+      minSelectableRange: [[MIN_TIME, maxTime]],
+      maxSelectableRange: [[minTime, MAX_TIME]],
+      btnDisabled: isDisabled(minTime, maxTime)
+    };
+    state.isShowSeconds = (state.format || '').indexOf('ss') !== -1;
+
+    return state;
+  };
 
   // type = hours | minutes | seconds
   // date: {type: number}
-  handleChange(date: { string: ?number }, field: string) {
+  handleChange(date , field) {
     const ndate = this.state[field];
 
     if (date.hours !== undefined) {
@@ -109,7 +107,7 @@ export default class TimeRangePanel extends PopperBase {
       ndate.setSeconds(date.seconds);
     }
 
-    const state: any = {
+    const state = {
       [field]: ndate
     };
 
@@ -121,15 +119,21 @@ export default class TimeRangePanel extends PopperBase {
     state.maxTime = limitRange(maxTime, state.maxSelectableRange);
 
     this.setState(state);
-    this.handleConfirm(true);
+    this.handleConfirm(true, false);
 
   }
 
-  handleConfirm(isKeepPannelOpen: boolean = false) {
+  // 点击确定按钮
+  handleConfirm = (isKeepPannelOpen, isConfirmValue) => {
     const { minTime, maxTime } = this.state;
     const { onPicked } = this.props;
 
-    onPicked([minTime, maxTime], isKeepPannelOpen);
+    onPicked([minTime, maxTime], isKeepPannelOpen, isConfirmValue);
+  }
+
+  // 点击取消按钮
+  handleCancel = () => {
+    this.props.onCancelPicked();
   }
 
   render() {
@@ -207,14 +211,14 @@ export default class TimeRangePanel extends PopperBase {
           <button
             type="button"
             className="el-time-panel__btn cancel"
-            onClick={() => this.props.onCancel()}
+            onClick={this.handleCancel}
           >
             {$t('el.datepicker.cancel')}
           </button>
           <button
             type="button"
             className="el-time-panel__btn confirm"
-            onClick={() => this.handleConfirm()}
+            onClick={() => this.handleConfirm(false, true)}
             disabled={btnDisabled}
           >
             {$t('el.datepicker.confirm')}

@@ -3,7 +3,6 @@ import { debounce } from 'throttle-debounce';
 import { PropTypes, Component } from '../libs';
 import { getRangeHours } from '../utils';
 import { Scrollbar } from '../scrollbar';
-import type { TimeSpinnerProps, TimeTypes } from '../Types';
 
 function range(end) {
   let r = [];
@@ -13,13 +12,13 @@ function range(end) {
   return r;
 }
 
-const isNumber = (value: any) => typeof value === 'number';
-const validateHour = (value: any) => isNumber(value) && value >= 0 && value <= 23;
-const validateMinOrSec = (value: any) => isNumber(value) && value >= 0 && value <= 59;
+const isNumber = (value) => typeof value === 'number';
+const validateHour = (value) => isNumber(value) && value >= 0 && value <= 23;
+const validateMinOrSec = (value) => isNumber(value) && value >= 0 && value <= 59;
 
-function propsToState(props: TimeSpinnerProps) {
+function propsToState(props) {
   const { hours, minutes, seconds, selectableRange } = props;
-  const state: any = {};
+  const state = {};
   const setOnValid = (isValid, cb) => isValid && cb(state);
   setOnValid(validateHour(hours), state => state.hours = hours);
   setOnValid(validateMinOrSec(minutes), state => state.minutes = minutes);
@@ -37,8 +36,6 @@ const calcScrollTop = value => Math.max(
 )
 
 export default class TimeSpinner extends Component {
-  state: any;
-
 
   static get propTypes() {
     return {
@@ -69,7 +66,7 @@ export default class TimeSpinner extends Component {
     };
   }
 
-  constructor(props: TimeSpinnerProps) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -87,13 +84,13 @@ export default class TimeSpinner extends Component {
     this.ajustScrollTop(this.state);
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  componentWillReceiveProps(nextProps) {
     this.setState(propsToState(nextProps), () => {
       this.ajustScrollTop(this.state);
     });
   }
 
-  emitSelectRange(type: TimeTypes) {
+  emitSelectRange(type) {
     const { onSelectRangeChange } = this.props;
     if (type === 'hours') {
       onSelectRangeChange(0, 3);
@@ -104,7 +101,7 @@ export default class TimeSpinner extends Component {
     }
   }
 
-  _handleScroll(_type: TimeTypes) {
+  _handleScroll(_type) {
     const value = Math.min(
       Math.floor(
         (this.refs[_type].refs.wrap.scrollTop - SCROLL_AJUST_VALUE) / 32 + 3
@@ -115,7 +112,7 @@ export default class TimeSpinner extends Component {
   }
 
   // type: hours, minutes, seconds
-  handleChange(type: TimeTypes, value: number, disabled: ?boolean) {
+  handleChange(type, value, disabled) {
     if (disabled) return;
     this.state[type] = value;
     const changed = {};
@@ -126,14 +123,14 @@ export default class TimeSpinner extends Component {
     this.props.onChange(changed);
   }
 
-  _ajustScrollTop({ hours, minutes, seconds }: { hours: ?number, minutes: ?number, seconds: ?number }) {
+  _ajustScrollTop({ hours, minutes, seconds }) {
     if (hours != null) {
       this.refs.hours.refs.wrap.scrollTop = calcScrollTop(hours)
     }
     if (minutes != null) {
       this.refs.minutes.refs.wrap.scrollTop = calcScrollTop(minutes)
     }
-    if (seconds != null) {
+    if (this.props.isShowSeconds && seconds != null) {
       this.refs.seconds.refs.wrap.scrollTop = calcScrollTop(seconds)
     }
   }
