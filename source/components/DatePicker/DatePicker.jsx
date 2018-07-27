@@ -4,7 +4,7 @@ import DatePanel from './panel/DatePanel';
 import { pick } from './libs/utils';
 import { SELECTION_MODES } from './utils';
 
-import 'element-theme-default/lib/date-picker.css';
+// import 'element-theme-default/lib/date-picker.css';
 
 export default class DatePicker extends BasePicker {
   static get propTypes() {

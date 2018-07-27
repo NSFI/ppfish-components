@@ -10,7 +10,7 @@ import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
 
-import 'element-theme-default/lib/date-picker.css';
+// import 'element-theme-default/lib/date-picker.css';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
