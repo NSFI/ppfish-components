@@ -36,16 +36,15 @@ export default class TimeSelect extends BasePicker {
   }
 
   pickerPanel(state, props) {
-    const value = this.dateToStr(state.value);
+    const value = state.value ? this.dateToStr(state.value) : null;
     return (
       <TimeSelectPanel
         {...this.panelProps(props)}
         value={value}
         onPicked={this.onPicked}
         dateParser={(str) => {
-          const r = this.parseDate(str);
-          return r;
-        } }
+          return str ? this.parseDate(str) : null;
+        }}
       />
     )
   }

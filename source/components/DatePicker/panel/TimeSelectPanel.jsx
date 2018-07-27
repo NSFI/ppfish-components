@@ -30,7 +30,7 @@ export default class TimeSelectPanel extends PopperBase {
   handleClick(item) {
     const { onPicked, dateParser } = this.props;
     if (!item.disabled) {
-      onPicked(dateParser(item.value));
+      onPicked(dateParser(item.value), false, true);
     }
   }
 
@@ -101,9 +101,9 @@ TimeSelectPanel.items = ({ start, end, step, minTime, maxTime }) => {
 }
 
 TimeSelectPanel.defaultProps = {
-  start: '09:00',
-  end: '18:00',
-  step: '00:30',
+  start: '',
+  end: '',
+  step: '',
   minTime: '',
   onPicked() { },
   popperMixinOption: {},

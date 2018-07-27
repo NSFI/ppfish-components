@@ -205,6 +205,22 @@ export const limitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss')
   return date < minDate ? minDate : maxDate;
 };
 
+export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss') {
+  if (!ranges || !ranges.length) return false;
+
+  const len = ranges.length;
+
+  date = DateUtils.parse(DateUtils.format(date, format), format);
+  for (let i = 0; i < len; i++) {
+    const range = ranges[i];
+    if (date >= range[0] && date <= range[1]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 
 export function hasClass(target, classname) {
   return target.classList.contains(classname)
@@ -224,4 +240,12 @@ export function deconstructDate(date) {
     month: date.getMonth(),
     week: getWeekNumber(date)
   }
+}
+
+export function currentDefaultTime() {
+  const date = new Date();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  return date;
 }

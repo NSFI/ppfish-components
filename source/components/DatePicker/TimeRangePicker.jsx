@@ -20,8 +20,8 @@ export default class TimeRangePicker extends BasePicker {
   }
 
   onSelectionChange(start, end) {
-    this.refs.inputRoot.refs.input.setSelectionRange(start, end);
-    this.refs.inputRoot.refs.input.focus();
+    // this.refs.inputRoot.refs.input.setSelectionRange(start, end);
+    // this.refs.inputRoot.refs.input.focus();
   }
 
   getFormatSeparator() {
@@ -33,8 +33,8 @@ export default class TimeRangePicker extends BasePicker {
       <TimeRangePanel
         {...props}
         currentDates={state.value}
-        onCancel={() => this.setState({ pickerVisible: false })}
-        onPicked={this.onPicked.bind(this)}
+        onCancelPicked={this.onCancelPicked}
+        onPicked={this.onPicked}
         onSelectRangeChange={this._onSelectionChange}
       />
     )
