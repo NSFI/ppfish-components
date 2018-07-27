@@ -101,10 +101,11 @@ TimeSelectPanel.items = ({ start, end, step, minTime, maxTime }) => {
 }
 
 TimeSelectPanel.defaultProps = {
-  start: '',
-  end: '',
-  step: '',
+  start: '09:00',
+  end: '18:00',
+  step: '00:30',
   minTime: '',
+  maxTime: '',
   onPicked() { },
   popperMixinOption: {},
 };
