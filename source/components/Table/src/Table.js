@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import shallowequal from 'shallowequal';
-import {addEventListener} from '../../../utils';
+import {addEventListener, shallowEqual} from '../../../utils';
 import {Provider, create} from 'mini-store';
 import merge from 'lodash.merge';
 import classes from 'component-classes';
@@ -258,8 +257,8 @@ class Table extends React.Component {
     );
     const state = this.store.getState();
     if (
-      shallowequal(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) &&
-      shallowequal(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
+      shallowEqual(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) &&
+      shallowEqual(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
     ) {
       return;
     }

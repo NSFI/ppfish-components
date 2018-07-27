@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Menu, {SubMenu, Item as MenuItem} from 'rc-menu';
+import Menu, {SubMenu, Item as MenuItem} from '../Menu/src';
 import * as closest from 'dom-closest';
 import * as classNames from 'classnames';
-import * as shallowequal from 'shallowequal';
+import {shallowEqual} from '../../utils';
 import Dropdown from '../Dropdown';
-import Icon from '../Icon/index';
+import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import FilterDropdownMenuWrapper from './FilterDropdownMenuWrapper';
@@ -53,7 +53,7 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
      * Fixes https://github.com/ant-design/ant-design/issues/10289 and
      * https://github.com/ant-design/ant-design/issues/10209
      */
-    if ('selectedKeys' in nextProps && !shallowequal(this.props.selectedKeys, nextProps.selectedKeys)) {
+    if ('selectedKeys' in nextProps && !shallowEqual(this.props.selectedKeys, nextProps.selectedKeys)) {
       newState.selectedKeys = nextProps.selectedKeys;
     }
     if ('filterDropdownVisible' in column) {
