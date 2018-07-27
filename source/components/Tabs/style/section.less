@@ -1,17 +1,17 @@
 @tab-prefix-cls: ~"@{fishd-prefix}-tabs";
 
 .@{tab-prefix-cls} {
-  &&-section > &-bar {
+  &&-section > &-bar,
+  &&-borderless-section > &-bar {
     border-bottom: none;
   }
-  &&-section > &-bar &-nav-container {
+
+  &&-section > &-bar &-nav-container,
+  &&-borderless-section > &-bar &-nav-container {
     height: @tabs-card-height;
     overflow: visible;
   }
-  &&-section > &-bar &-ink-bar {
-    // visibility: hidden;
-    display: none !important;
-  }
+
   &&-section > &-bar &-tab {
     margin: 0 !important;
     background: @tabs-card-head-background;
@@ -22,6 +22,18 @@
 
     border: @border-width-base @border-style-base @border-color-base;
     border-left: none;
+  }
+
+  &&-borderless-section > &-bar &-tab {
+    border: none;
+    margin: 0 !important;
+    -webkit-box-shadow: @border-width-base 0 0 0 @border-color-base;
+    box-shadow: @border-width-base 0 0 0 @border-color-base;
+    padding: 0 16px !important;
+  }
+
+  &&-borderless-section > &-bar &-tab:first-child {
+    padding-left: 0 !important;
   }
 
   &&-section > &-bar &-tab:first-child {
