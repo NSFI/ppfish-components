@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BasePicker from './BasePicker'
 import DateRangePanel from './panel/DateRangePanel';
-import { pick } from './libs/utils'
-import 'element-theme-default/lib/icon.css';
+import { pick } from './libs/utils';
 
 export default class DateRangePicker extends BasePicker {
   static get propTypes() {
@@ -26,7 +25,7 @@ export default class DateRangePicker extends BasePicker {
     super(props, 'daterange', {});
   }
 
-  getFormatSeparator(){
+  getFormatSeparator = () => {
     return this.props.rangeSeparator;
   }
 
@@ -39,7 +38,8 @@ export default class DateRangePicker extends BasePicker {
       <DateRangePanel
         {...props}
         value={value}
-        onPick={this.onPicked.bind(this)}
+        onCancelPicked={this.onCancelPicked}
+        onPick={this.onPicked}
       />
     )
   }

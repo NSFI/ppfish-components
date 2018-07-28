@@ -251,26 +251,15 @@ render() {
 :::demo
 ```js
 constructor(props) {
-  super(props)
-  this.state = {value1: null, value2: null}
+  super(props);
+  this.state = {value2: null}
 }
 
 render() {
-  const {value1, value2} = this.state
+  const {value2} = this.state;
 
   return (
     <div className="source">
-      <div className="block">
-        <span className="demonstration">默认</span>
-        <DateRangePicker
-          value={value1}
-          placeholder="选择日期范围"
-          onChange={date=>{
-            console.debug('DateRangePicker1 changed: ', date)
-            this.setState({value1: date})
-          }}
-          />
-      </div>
       <div className="block">
         <span className="demonstration">带快捷选项</span>
         <DateRangePicker

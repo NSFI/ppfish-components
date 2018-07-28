@@ -1,58 +1,26 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { PropTypes } from '../libs'
-import Locale from '../locale';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { PopperBase } from './PopperBase';
 import Input from '../../Input';
 import TimePanel from './TimePanel';
 import { MountBody } from '../MountBody';
-import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate } from '../utils'
+import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate } from '../utils';
 import { DateTable } from '../basic';
-import { PopperBase } from './PopperBase';
 import { PLACEMENT_MAP } from '../constants';
+import Locale from '../locale';
 
 const prevYear = (date) => {
-  var d = toDate(date)
-  d.setFullYear(date.getFullYear() - 1)
-  return d
-}
+  let d = toDate(date);
+  d.setFullYear(date.getFullYear() - 1);
+  return d;
+};
 
 const nextYear = (date) => {
-  var d = toDate(date)
-  d.setFullYear(date.getFullYear() + 1)
-  return d
-}
-
-const mapPropsToState = (props) => {
-  const { value } = props
-  let state = {
-    rangeState: {
-      endDate: null,
-      selecting: false,
-    }
-  }
-  if (!value) {
-    state = {
-      ...state,
-      ...{
-        minDate: null,
-        maxDate: null,
-        date: new Date()
-      }
-    }
-  } else {
-    if (value[0] && value[1]) {
-      state.minDate = toDate(value[0])
-      state.maxDate = toDate(value[1])
-    }
-    if (value[0]) {
-      state.date = toDate(value[0])
-    } else {
-      state.date = new Date()
-    }
-  }
-
-  return state
-}
+  let d = toDate(date);
+  d.setFullYear(date.getFullYear() + 1);
+  return d;
+};
 
 export default class DateRangePanel extends PopperBase {
   static get propTypes() {
@@ -64,26 +32,25 @@ export default class DateRangePanel extends PopperBase {
       value: PropTypes.any,
       // ([value1, value2]|null, isKeepPanel)=>()
       onPick: PropTypes.func.isRequired,
+      onCancelPicked: PropTypes.func.isRequired,
       isShowTime: PropTypes.bool,
       // Array[{text: String, onClick: (picker)=>()}]
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
           text: PropTypes.string.isRequired,
-          // ()=>()
           onClick: PropTypes.func.isRequired
         })
       ),
       // (Date)=>bool, if true, disabled
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.range(0, 6),
-      //()=>HtmlElement
       getPopperRefElement: PropTypes.func,
       popperMixinOption: PropTypes.object
     }, PopperBase.propTypes)
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       ...{
@@ -92,38 +59,68 @@ export default class DateRangePanel extends PopperBase {
         minPickerWidth: 0,    // not used in code right now, due to some reason, for more details see comments in DatePannel that marked with todo.
         maxPickerWidth: 0
       },
-      ...mapPropsToState(props)
+      ...this.mapPropsToState(props)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(mapPropsToState(nextProps))
+    this.setState(this.mapPropsToState(nextProps))
+  }
+
+  mapPropsToState = (props) => {
+    const { value } = props;
+    let state = {
+      rangeState: {
+        endDate: null,
+        selecting: false,
+      }
+    };
+    if (!value) {
+      state = {
+        ...state,
+        ...{
+          minDate: null,
+          maxDate: null,
+          date: new Date()
+        }
+      }
+    } else {
+      if (value[0] && value[1]) {
+        state.minDate = toDate(value[0]);
+        state.maxDate = toDate(value[1]);
+      }
+      if (value[0]) {
+        state.date = toDate(value[0]);
+      } else {
+        state.date = new Date();
+      }
+    }
+
+    return state;
   }
 
   handleRangePick({ minDate, maxDate }, isClose) {
-    const { isShowTime, onPick } = this.props
-    this.setState({ minDate, maxDate })
-    if (!isClose) return
+    const { isShowTime, onPick } = this.props;
+    this.setState({ minDate, maxDate });
+    if (!isClose) return;
     if (!isShowTime) {
       onPick([minDate, maxDate], false)
     }
   }
 
   prevYear() {
-    const { date } = this.state
+    const { date } = this.state;
     this.setState({
       date: prevYear(date),
     })
   }
 
   nextYear() {
-    const { date } = this.state
+    const { date } = this.state;
     this.setState({
       date: nextYear(date),
     })
   }
-
-
 
   prevMonth() {
     this.setState({
@@ -143,10 +140,10 @@ export default class DateRangePanel extends PopperBase {
 
   //todo: wired way to do sth like this? try to come up with a better option
   handleChangeRange({ endDate }) {
-    const { rangeState, minDate } = this.state
-    if (endDate <= minDate) endDate = null
+    const { rangeState, minDate } = this.state;
+    if (endDate <= minDate) endDate = null;
 
-    rangeState.endDate = endDate
+    rangeState.endDate = endDate;
     this.setState({
       maxDate: endDate,
     })
@@ -156,34 +153,32 @@ export default class DateRangePanel extends PopperBase {
     shortcut.onClick()
   }
 
-
   get minVisibleDate() {
-    let { minDate } = this.state
+    let { minDate } = this.state;
     return minDate ? formatDate(minDate) : ''
   }
 
   get maxVisibleDate() {
-    let { maxDate, minDate } = this.state
-    let d = maxDate || minDate
+    let { maxDate, minDate } = this.state;
+    let d = maxDate || minDate;
     return d ? formatDate(d) : ''
   }
 
   get minVisibleTime() {
-    let { minDate } = this.state
+    let { minDate } = this.state;
     return minDate ? formatDate(minDate, 'HH:mm:ss') : ''
   }
 
   get maxVisibleTime() {
-    let { maxDate, minDate } = this.state
-    let d = maxDate || minDate
+    let { maxDate, minDate } = this.state;
+    let d = maxDate || minDate;
     return d ? formatDate(d, 'HH:mm:ss') : ''
   }
 
   get btnDisabled() {
-    let {minDate, maxDate, rangeState: { selecting }} = this.state
+    let {minDate, maxDate, rangeState: { selecting }} = this.state;
     return !(minDate && maxDate && !selecting);
   }
-
 
   setTime(date, value) {
     let oldDate = new Date(date.getTime());
@@ -196,9 +191,8 @@ export default class DateRangePanel extends PopperBase {
     return new Date(oldDate.getTime());
   }
 
-
   handleMinTimePick(pickedDate, isKeepPanel) {
-    let minDate = this.state.minDate || new Date()
+    let minDate = this.state.minDate || new Date();
     if (pickedDate) {
       minDate = this.setTime(minDate, pickedDate);
     }
@@ -206,7 +200,7 @@ export default class DateRangePanel extends PopperBase {
   }
 
   handleMaxTimePick(pickedDate, isKeepPanel) {
-    let {minDate, maxDate} = this.state
+    let {minDate, maxDate} = this.state;
     if (!maxDate) {
       const now = new Date();
       if (now >= minDate) {
@@ -224,12 +218,12 @@ export default class DateRangePanel extends PopperBase {
   }
 
   handleDateChange(value, type) {
-    const parsedValue = parseDate(value, 'yyyy-MM-dd')
+    const parsedValue = parseDate(value, 'yyyy-MM-dd');
     let {minDate, maxDate} = this.state
     if (parsedValue) {
-      const target = new Date(type === 'min' ? minDate : maxDate)
+      const target = new Date(type === 'min' ? minDate : maxDate);
       if (target) {
-        target.setFullYear(parsedValue.getFullYear())
+        target.setFullYear(parsedValue.getFullYear());
         target.setMonth(parsedValue.getMonth(), parsedValue.getDate())
       }
       if (type === 'min') {
@@ -238,7 +232,7 @@ export default class DateRangePanel extends PopperBase {
         }
       } else {
         if (target > minDate) {
-          maxDate = new Date(target.getTime())
+          maxDate = new Date(target.getTime());
           if (minDate && minDate > maxDate) {
             minDate = null
           }
@@ -257,7 +251,7 @@ export default class DateRangePanel extends PopperBase {
         target.setMinutes(parsedValue.getMinutes());
         target.setSeconds(parsedValue.getSeconds());
       }
-      let {minDate, maxDate} = this.state
+      let {minDate, maxDate} = this.state;
       if (type === 'min') {
         if (target < maxDate) {
           minDate = new Date(target.getTime());
@@ -276,28 +270,28 @@ export default class DateRangePanel extends PopperBase {
   }
 
   handleClear() {
-    let {onPick} = this.props
+    let {onPick} = this.props;
     let minDate = null,
       maxDate = null,
-      date = new Date()
+      date = new Date();
 
-    this.setState({minDate, maxDate, date})
+    this.setState({minDate, maxDate, date});
     onPick([], false)
   }
 
   handleConfirm(){
-    let {minDate, maxDate} = this.state
-    this.props.onPick([minDate, maxDate], false)
+    let {minDate, maxDate} = this.state;
+    this.props.onPick([minDate, maxDate], false);
   }
 
   render() {
-    const { shortcuts, disabledDate, firstDayOfWeek, isShowTime } = this.props
-    const { date, rangeState, minDate, maxDate, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state
-    const rightDate = this.rightDate
+    const { shortcuts, disabledDate, firstDayOfWeek, isShowTime } = this.props;
+    const { date, rangeState, minDate, maxDate, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state;
+    const rightDate = this.rightDate;
 
-    const t = Locale.t
-    const leftLabel = `${date.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${date.getMonth() + 1}`)
-    const rightLabel = `${rightDate.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${rightDate.getMonth() + 1}`)
+    const t = Locale.t;
+    const leftLabel = `${date.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${date.getMonth() + 1}`);
+    const rightLabel = `${rightDate.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${rightDate.getMonth() + 1}`);
 
     return (
       <div
@@ -332,7 +326,6 @@ export default class DateRangePanel extends PopperBase {
                   <span className="el-date-range-picker__editors-wrap">
                     <span className="el-date-range-picker__time-picker-wrap">
                       <Input
-                        size="small"
                         ref="minInput"
                         placeholder={Locale.t('el.datepicker.startDate')}
                         className="el-date-range-picker__editor"
@@ -342,7 +335,6 @@ export default class DateRangePanel extends PopperBase {
                     </span>
                     <span className="el-date-range-picker__time-picker-wrap">
                       <Input
-                        size="small"
                         ref="timeIptStart"
                         placeholder={Locale.t('el.datepicker.startTime')}
                         className="el-date-range-picker__editor"
@@ -432,13 +424,25 @@ export default class DateRangePanel extends PopperBase {
               <div className="el-date-range-picker__header">
                 <button
                   type="button"
-                  onClick={this.prevYear.bind(this)}
-                  className="el-picker-panel__icon-btn el-icon-d-arrow-left"></button>
+                  onClick={this.prevYear.bind(this, 'left')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-d-arrow-left">
+                </button>
                 <button
                   type="button"
-                  onClick={this.prevMonth.bind(this)}
-                  className="el-picker-panel__icon-btn el-icon-arrow-left"></button>
-                <div>{leftLabel}</div>
+                  onClick={this.prevMonth.bind(this, 'left')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
+                </button>
+                <span className="el-date-range-picker__header-label">{leftLabel}</span>
+                <button
+                  type="button"
+                  onClick={this.nextYear.bind(this, 'left')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-d-arrow-right">
+                </button>
+                <button
+                  type="button"
+                  onClick={this.nextMonth.bind(this, 'left')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-arrow-right">
+                </button>
               </div>
               <DateTable
                 selectionMode={SELECTION_MODES.RANGE}
@@ -457,13 +461,25 @@ export default class DateRangePanel extends PopperBase {
               <div className="el-date-range-picker__header">
                 <button
                   type="button"
-                  onClick={this.nextYear.bind(this)}
-                  className="el-picker-panel__icon-btn el-icon-d-arrow-right"></button>
+                  onClick={this.prevYear.bind(this, 'right')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-d-arrow-left">
+                </button>
                 <button
                   type="button"
-                  onClick={this.nextMonth.bind(this)}
-                  className="el-picker-panel__icon-btn el-icon-arrow-right"></button>
-                <div>{rightLabel}</div>
+                  onClick={this.prevMonth.bind(this, 'right')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
+                </button>
+                <span className="el-date-range-picker__header-label">{rightLabel}</span>
+                <button
+                  type="button"
+                  onClick={this.nextYear.bind(this, 'right')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-d-arrow-right">
+                </button>
+                <button
+                  type="button"
+                  onClick={this.nextMonth.bind(this, 'right')}
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-arrow-right">
+                </button>
               </div>
               <DateTable
                 selectionMode={SELECTION_MODES.RANGE}
@@ -485,7 +501,8 @@ export default class DateRangePanel extends PopperBase {
             <div className="el-picker-panel__footer">
               <a
                 className="el-picker-panel__link-btn"
-                onClick={()=> this.handleClear()}>{ Locale.t('el.datepicker.clear') }</a>
+                onClick={()=> this.handleClear()}>{ Locale.t('el.datepicker.clear') }
+              </a>
               <button
                 type="button"
                 className="el-picker-panel__btn"
