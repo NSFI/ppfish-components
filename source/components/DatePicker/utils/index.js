@@ -140,7 +140,7 @@ export const prevMonth = function (src) {
 };
 
 export const nextMonth = function (src) {
-  let clone = new Date(src.getTime())
+  let clone = new Date(src.getTime());
   const year = clone.getFullYear();
   const month = clone.getMonth();
   const date = clone.getDate();

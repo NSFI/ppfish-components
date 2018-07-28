@@ -382,6 +382,8 @@ export default class BasePicker extends Component {
         />
 
         {createPickerPanel()}
+
+
       </span>
     )
   }
