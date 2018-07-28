@@ -81,7 +81,8 @@ export default class DateRangePanel extends PopperBase {
         ...{
           minDate: null,
           maxDate: null,
-          date: new Date()
+          leftDate: new Date(),
+          rightDate: nextMonth(new Date())
         }
       }
     } else {
@@ -90,9 +91,11 @@ export default class DateRangePanel extends PopperBase {
         state.maxDate = toDate(value[1]);
       }
       if (value[0]) {
-        state.date = toDate(value[0]);
+        state.leftDate = toDate(value[0]);
+        state.rightDate = nextMonth(toDate(value[0]));
       } else {
-        state.date = new Date();
+        state.leftDate = new Date();
+        state.rightDate = nextMonth(new Date());
       }
     }
 
@@ -108,34 +111,68 @@ export default class DateRangePanel extends PopperBase {
     }
   }
 
-  prevYear() {
-    const { date } = this.state;
+  prevYear(type, date) {
     this.setState({
-      date: prevYear(date),
+      [type]: prevYear(date),
     })
   }
 
-  nextYear() {
-    const { date } = this.state;
+  nextYear(type, date) {
     this.setState({
-      date: nextYear(date),
+      [type]: nextYear(date),
     })
   }
 
-  prevMonth() {
+  prevMonth(type, date) {
     this.setState({
-      date: prevMonth(this.state.date)
+      [type]: prevMonth(date)
     })
   }
 
-  nextMonth() {
+  nextMonth(type, date) {
     this.setState({
-      date: nextMonth(this.state.date)
+      [type]: nextMonth(date)
     })
   }
 
-  get rightDate(){
-    return nextMonth(this.state.date)
+  // 左边日历的next year btn特殊处理：当左右两边年份相等时，需要同时切换右边日历
+  handleLeftNextYear = () => {
+    const { leftDate, rightDate } = this.state;
+
+    this.nextYear('leftDate', leftDate);
+    if(rightDate.getFullYear() == leftDate.getFullYear()) {
+      this.nextYear('rightDate', rightDate);
+    }
+  }
+
+  // 左边日历的next month btn特殊处理：当左右两边月份相等时，需要同时切换右边日历
+  handleLeftNextMonth = () => {
+    const { leftDate, rightDate } = this.state;
+
+    this.nextMonth('leftDate', leftDate);
+    if(rightDate.getFullYear() == leftDate.getFullYear() && rightDate.getMonth() == leftDate.getMonth()) {
+      this.nextMonth('rightDate', rightDate);
+    }
+  }
+
+  // 右边日历的prev year btn特殊处理：当左右两边年份相等时，需要同时切换左边日历
+  handleRightPrevYear = () => {
+    const { leftDate, rightDate } = this.state;
+
+    this.prevYear('rightDate', rightDate);
+    if(rightDate.getFullYear() == leftDate.getFullYear()) {
+      this.prevYear('leftDate', leftDate);
+    }
+  }
+
+  // 右边日历的prev month btn特殊处理：当左右两边月份相等时，需要同时切换左边日历
+  handleRightPrevMonth = () => {
+    const { leftDate, rightDate } = this.state;
+
+    this.prevMonth('rightDate', rightDate);
+    if(rightDate.getFullYear() == leftDate.getFullYear() && rightDate.getMonth() == leftDate.getMonth()) {
+      this.prevMonth('leftDate', leftDate);
+    }
   }
 
   //todo: wired way to do sth like this? try to come up with a better option
@@ -286,11 +323,10 @@ export default class DateRangePanel extends PopperBase {
 
   render() {
     const { shortcuts, disabledDate, firstDayOfWeek, isShowTime } = this.props;
-    const { date, rangeState, minDate, maxDate, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state;
-    const rightDate = this.rightDate;
+    const { leftDate, rightDate, rangeState, minDate, maxDate, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state;
 
     const t = Locale.t;
-    const leftLabel = `${date.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${date.getMonth() + 1}`);
+    const leftLabel = `${leftDate.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${leftDate.getMonth() + 1}`);
     const rightLabel = `${rightDate.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${rightDate.getMonth() + 1}`);
 
     return (
@@ -424,29 +460,29 @@ export default class DateRangePanel extends PopperBase {
               <div className="el-date-range-picker__header">
                 <button
                   type="button"
-                  onClick={this.prevYear.bind(this, 'left')}
+                  onClick={this.prevYear.bind(this, 'leftDate', leftDate)}
                   className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-d-arrow-left">
                 </button>
                 <button
                   type="button"
-                  onClick={this.prevMonth.bind(this, 'left')}
+                  onClick={this.prevMonth.bind(this, 'leftDate', leftDate)}
                   className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
                 </button>
                 <span className="el-date-range-picker__header-label">{leftLabel}</span>
                 <button
                   type="button"
-                  onClick={this.nextYear.bind(this, 'left')}
+                  onClick={this.handleLeftNextYear}
                   className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-d-arrow-right">
                 </button>
                 <button
                   type="button"
-                  onClick={this.nextMonth.bind(this, 'left')}
+                  onClick={this.handleLeftNextMonth}
                   className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-arrow-right">
                 </button>
               </div>
               <DateTable
                 selectionMode={SELECTION_MODES.RANGE}
-                date={date}
+                date={leftDate}
                 value={minDate}
                 minDate={minDate}
                 maxDate={maxDate}
@@ -461,23 +497,23 @@ export default class DateRangePanel extends PopperBase {
               <div className="el-date-range-picker__header">
                 <button
                   type="button"
-                  onClick={this.prevYear.bind(this, 'right')}
+                  onClick={this.handleRightPrevYear}
                   className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-d-arrow-left">
                 </button>
                 <button
                   type="button"
-                  onClick={this.prevMonth.bind(this, 'right')}
+                  onClick={this.handleRightPrevMonth}
                   className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
                 </button>
                 <span className="el-date-range-picker__header-label">{rightLabel}</span>
                 <button
                   type="button"
-                  onClick={this.nextYear.bind(this, 'right')}
+                  onClick={this.nextYear.bind(this, 'rightDate', rightDate)}
                   className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-d-arrow-right">
                 </button>
                 <button
                   type="button"
-                  onClick={this.nextMonth.bind(this, 'right')}
+                  onClick={this.nextMonth.bind(this, 'rightDate', rightDate)}
                   className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-arrow-right">
                 </button>
               </div>
