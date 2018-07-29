@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { PopperBase } from './PopperBase';
+import { MountBody } from '../MountBody';
 import Input from '../../Input';
 import TimePanel from './TimePanel';
-import { MountBody } from '../MountBody';
-import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate } from '../utils';
+import YearAndMonthPopover from './YearAndMonthPopover';
+import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY } from '../utils';
 import { DateTable } from '../basic';
 import { PLACEMENT_MAP } from '../constants';
 import Locale from '../locale';
@@ -57,7 +58,7 @@ export default class DateRangePanel extends PopperBase {
         minTimePickerVisible: false,
         maxTimePickerVisible: false,
         minPickerWidth: 0,    // not used in code right now, due to some reason, for more details see comments in DatePannel that marked with todo.
-        maxPickerWidth: 0
+        maxPickerWidth: 0,
       },
       ...this.mapPropsToState(props)
     }
@@ -173,6 +174,19 @@ export default class DateRangePanel extends PopperBase {
     if(rightDate.getFullYear() == leftDate.getFullYear() && rightDate.getMonth() == leftDate.getMonth()) {
       this.prevMonth('leftDate', leftDate);
     }
+  }
+
+  // 点击改变年份
+  handleChangeYear(type, date, year) {
+    this.setState({
+      [type]: new Date(date.setFullYear(year)),
+    })
+  }
+
+  handleChangeMonth(type, date, month){
+    this.setState({
+      [type]: new Date((date.setMonth(parseInt(month.slice(0,-1)) - 1)))
+    })
   }
 
   //todo: wired way to do sth like this? try to come up with a better option
@@ -326,8 +340,6 @@ export default class DateRangePanel extends PopperBase {
     const { leftDate, rightDate, rangeState, minDate, maxDate, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state;
 
     const t = Locale.t;
-    const leftLabel = `${leftDate.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${leftDate.getMonth() + 1}`);
-    const rightLabel = `${rightDate.getFullYear()} ${t('el.datepicker.year')} ` + t(`el.datepicker.month${rightDate.getMonth() + 1}`);
 
     return (
       <div
@@ -468,7 +480,20 @@ export default class DateRangePanel extends PopperBase {
                   onClick={this.prevMonth.bind(this, 'leftDate', leftDate)}
                   className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
                 </button>
-                <span className="el-date-range-picker__header-label">{leftLabel}</span>
+                <YearAndMonthPopover
+                  value={leftDate.getFullYear()}
+                  sourceData={YEARS_ARRAY()}
+                  onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
+                >
+                  <span className="el-date-range-picker__header-label">{`${leftDate.getFullYear()} ${t('el.datepicker.year')}`}</span>
+                </YearAndMonthPopover>
+                <YearAndMonthPopover
+                  value={leftDate.getMonth() + 1}
+                  sourceData={MONTH_ARRRY}
+                  onChange={this.handleChangeMonth.bind(this, 'leftDate', leftDate)}
+                >
+                  <span className="el-date-range-picker__header-label">{t(`el.datepicker.month${leftDate.getMonth() + 1}`)}</span>
+                </YearAndMonthPopover>
                 <button
                   type="button"
                   onClick={this.handleLeftNextYear}
@@ -505,7 +530,20 @@ export default class DateRangePanel extends PopperBase {
                   onClick={this.handleRightPrevMonth}
                   className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
                 </button>
-                <span className="el-date-range-picker__header-label">{rightLabel}</span>
+                <YearAndMonthPopover
+                  value={rightDate.getFullYear()}
+                  sourceData={YEARS_ARRAY()}
+                  onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
+                >
+                  <span className="el-date-range-picker__header-label">{`${rightDate.getFullYear()} ${t('el.datepicker.year')}`}</span>
+                </YearAndMonthPopover>
+                <YearAndMonthPopover
+                  value={rightDate.getMonth() + 1}
+                  sourceData={MONTH_ARRRY}
+                  onChange={this.handleChangeMonth.bind(this, 'rightDate', rightDate)}
+                >
+                  <span className="el-date-range-picker__header-label">{t(`el.datepicker.month${rightDate.getMonth() + 1}`)}</span>
+                </YearAndMonthPopover>
                 <button
                   type="button"
                   onClick={this.nextYear.bind(this, 'rightDate', rightDate)}
