@@ -1,7 +1,7 @@
 import { DateUtils } from '../libs/utils';
 import Locale from '../locale'
 
-const t = Locale.t
+const t = Locale.t;
 const weeks = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
@@ -11,7 +11,6 @@ DateUtils.i18n = {
   monthNamesShort: months.map(month => t(`el.datepicker.months.${ month }`)),
   monthNames: months.map((month, index) => t(`el.datepicker.month${ index + 1 }`))
 };
-
 
 const newArray = function (start, end) {
   let result = [];
@@ -249,3 +248,15 @@ export function currentDefaultTime() {
   date.setSeconds(0);
   return date;
 }
+
+export const MONTH_ARRRY = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+
+export const YEARS_ARRAY = (N=50) => {
+  const result = [];
+  const currentYearNum = (new Date()).getFullYear();
+  const start = Math.max(currentYearNum - parseInt(N / 2), 0);
+  for(let i = 0; i < N; i++) {
+    result.push(start + i);
+  }
+  return result;
+};
