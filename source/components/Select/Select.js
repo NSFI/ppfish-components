@@ -43,7 +43,7 @@ export default class Select extends React.Component {
     onSelect: PropTypes.func,
     onVisibleChange: PropTypes.func,
     placeholder: PropTypes.string,
-    popupAlign: PropTypes.oneOf(['bottomLeft', 'bottom', 'bottomRight']),
+    popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
     prefixCls: PropTypes.string,
     searchInputProps: PropTypes.object,
     searchPlaceholder: PropTypes.string,
@@ -128,15 +128,11 @@ export default class Select extends React.Component {
 
   //全选操作
   selectAll = () => {
-    if (this.isSelectAll()) {
-      this.setState({
-        selectValue: [],
-      });
-    } else {
-      this.setState({
-        selectValue: this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled),
-      });
-    }
+    this.setState({
+      selectValue: this.isSelectAll() ? [] : this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled),
+    }, () => {
+      this.resizeTrigger();
+    });
   };
 
   //转换传入的value
@@ -244,24 +240,19 @@ export default class Select extends React.Component {
         }
       });
     } else if (mode === 'multiple') {
-      if (index === -1) {
-        this.setState({
-          selectValue: [...selectValue, obj]
-        });
-      } else {
-        this.setState({
-          selectValue: [...selectValue.slice(0, index), ...selectValue.slice(index + 1)]
-        }, () => {
-          if (clickInLabel) {
-            //Clicking on label will trigger the onchange event.
-            if (labelInValue) {
-              onChange(this.state.selectValue);
-            } else {
-              onChange(this.state.selectValue.map(selected => selected.key));
-            }
+      this.setState({
+        selectValue: index === -1 ? [...selectValue, obj] : [...selectValue.slice(0, index), ...selectValue.slice(index + 1)]
+      }, () => {
+        if (clickInLabel) {
+          //Clicking on label will trigger the onchange event.
+          if (labelInValue) {
+            onChange(this.state.selectValue);
+          } else {
+            onChange(this.state.selectValue.map(selected => selected.key));
           }
-        });
-      }
+        }
+        this.resizeTrigger();
+      });
     }
     //fire onSelect event => option/label click
     onSelect(obj);
@@ -405,6 +396,8 @@ export default class Select extends React.Component {
             } else if (mode === 'multiple') {
               this.setState({
                 selectValue: [...selectValue, optionList[activeTabIndex]]
+              }, () => {
+                this.resizeTrigger();
               });
             }
           }
@@ -471,6 +464,15 @@ export default class Select extends React.Component {
   //处理option激活态-> mouseLeave
   onOptionMouseLeave = () => {
     this.setState({activeKey: undefined});
+  };
+
+  // selectionChange后重新定位trigger
+  resizeTrigger = () => {
+    if (this.trigger &&
+      this.trigger._component &&
+      this.trigger._component.alignInstance) {
+      this.trigger._component.alignInstance.forceAlign();
+    }
   };
 
   //下拉框内容
@@ -676,6 +678,7 @@ export default class Select extends React.Component {
       <Trigger
         action={disabled ? [] : ['click']}
         builtinPlacements={placements}
+        ref={node => this.trigger = node}
         forceRender
         getPopupContainer={getPopupContainer}
         onPopupVisibleChange={this.onVisibleChange}
@@ -683,7 +686,7 @@ export default class Select extends React.Component {
         popupPlacement={popupAlign}
         popupVisible={this.state.popupVisible}
         prefixCls={`${prefixCls}-popup`}
-        stretch={dropdownMatchSelectWidth ? 'width height' : 'height'}
+        stretch={dropdownMatchSelectWidth ? 'width' : ''}
       >
         {this.getSelectionPanel()}
       </Trigger>

@@ -288,7 +288,7 @@ render(){
 
 ## 宽度及位置自定义
 
-:::demo 下拉弹框位置可以进行自定义，`bottomLeft`、`bottom`、`bottomRight`
+:::demo 下拉弹框位置可以进行自定义，`bottomLeft`、`bottomCenter`、`bottomRight`、`topLeft`、`topCenter`、`topRight`
 ```js
 state={
   value:"1",
@@ -312,8 +312,11 @@ render(){
           <Input  style={{marginRight:10,width:200}} placeholder="输入宽度" value={this.state.width} onChange={this.handleChangeWidth}/>
           <Radio.Group showSingleClear value={this.state.align} onChange={this.handleChange} style={{marginBottom:20}}>
             <Radio.Button value="bottomLeft">bottomLeft</Radio.Button>
-            <Radio.Button value="bottom">bottom</Radio.Button>
+            <Radio.Button value="bottomCenter">bottomCenter</Radio.Button>
             <Radio.Button value="bottomRight">bottomRight</Radio.Button>
+            <Radio.Button value="topLeft">topLeft</Radio.Button>
+            <Radio.Button value="topCenter">topCenter</Radio.Button>
+            <Radio.Button value="topRight">topRight</Radio.Button>
           </Radio.Group>
         <Select  popupAlign={this.state.align} onChange={(value) => this.setState({value})} value={this.state.value} dropdownMatchSelectWidth={false} dropdownStyle={{width:Number(this.state.width)}}>
           {Group.map(group =>
@@ -488,7 +491,7 @@ render(){
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | function(value, option:Option) | - |
 | onVisibleChange | 弹出框显示隐藏 | function(visible: boolean) |  |
 | placeholder | 选择框默认文字 | string | '请选择' |
-| popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter', 'bottomRight'| 'bottomLeft' |
+| popupAlign | 弹窗位置 | 'bottomLeft', 'bottom', 'bottomRight','bottomLeft' 'top', 'topRight','topLeft' |
 | searchInputProps | 搜索框额外属性 | object | {} |
 | searchPlaceholder | 搜索框默认文字 | string | '请输入关键词' |
 | selectAllText | 是否显示全选/反选功能-文案 | string | '选择所有' |
