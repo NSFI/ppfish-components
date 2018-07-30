@@ -35,7 +35,7 @@
         treeNodeFilterProp={'title'}
         style={{ width: 300 }}
         value={this.state.value}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        dropdownStyle={{ maxHeight: 400, overflowX: 'hidden', overflowY: 'scroll' }}
         treeDefaultExpandAll
         onChange={this.onChange}
         onReset={this.onReset}
