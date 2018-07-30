@@ -59,10 +59,22 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    height: 40px;
-    background: @background-color-base;
+    // justify-content: space-around;
+    justify-content: flex-end;
+    height: 48px;
+    // box-sizing: border-box;
+    // border-top: @border-width-base @border-style-base @border-color-base;
+    border-top: @border-width-base @border-style-base #EBEDF0;
+    border-radius: 0 0 @border-radius-base @border-radius-base;
     overflow: hidden;
+
+    .@{fishd-prefix}-btn {
+      margin-right: 10px;
+    }
+
+    .@{fishd-prefix}-btn:last-child {
+      margin-right: 8px;
+    }
   }
 
   &-reset {
