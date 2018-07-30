@@ -9,39 +9,12 @@ import { Component } from './libs';
 import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
+import { isDate, isInputValid, valueEquals } from './utils';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
 };
-const isValidValue = (value) => {
-  if (value instanceof Date) return true;
-  if (Array.isArray(value) && value.length !== 0 && value[0] instanceof Date) return true;
-  return false
-};
-// only considers date-picker's value: Date or [Date, Date]
-const valueEquals = function (a, b) {
-  const aIsArray = Array.isArray(a);
-  const bIsArray = Array.isArray(b);
-
-  let isEqual = (a, b)=>{ // equal if a, b date is equal or both is null or undefined
-    let equal = false;
-    if (a && b) equal = a.getTime() === b.getTime();
-    else equal = a === b && a == null
-    return equal
-  };
-  if (aIsArray && bIsArray) {
-    return isEqual(a[0], b[0]) && isEqual(a[1], b[1])
-  }
-  if (!aIsArray && !bIsArray) {
-    return isEqual(a, b)
-  }
-  return false;
-};
-
-const isDateValid = (date) => {
-  return date == null || isValidValue(date)
-}
 
 export default class DateRangeBasePicker extends Component {
 
@@ -93,9 +66,12 @@ export default class DateRangeBasePicker extends Component {
 
   propsToState(props) {
     const state = {};
-    if (isDateValid(props.value)) {
-      state.value = props.value;
+    const { value } = props;
+    if (value && value.length ==2 && isDate(value[0]) && isDate(value[1])) {
+      state.text = [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])],
+      state.value = props.value
     } else {
+      state.text = '';
       state.value = null;
     }
     return state;
@@ -125,12 +101,10 @@ export default class DateRangeBasePicker extends Component {
    */
   onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {//only change input value on picked triggered
     //let hasChanged = !valueEquals(this.state.value, value);
-    console.log(isKeepPannel, isConfirmValue);
-    console.log(value)
-    console.log(this.dateToStr(value))
     this.setState({
       pickerVisible: isKeepPannel,
       value,
+      text: [this.dateToStr(value[0], this.dateToStr(value[1]))]
     });
 
     if(isConfirmValue) {
@@ -146,6 +120,7 @@ export default class DateRangeBasePicker extends Component {
     this.setState({
       pickerVisible: false,
       value: this.state.confirmValue ? new Date(this.state.confirmValue) : null,
+      text: this.state.confirmValue ? [this.dateToStr(new Date(this.state.confirmValue[0])),this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
     });
   }
 
@@ -154,7 +129,7 @@ export default class DateRangeBasePicker extends Component {
   }
 
   dateToStr = (date) => {
-    if (!date || !isValidValue(date)) return '';
+    if (!date || !isDate(date)) return '';
     const tdate = date;
     const formatter = (
       TYPE_VALUE_RESOLVER_MAP['date']
@@ -196,7 +171,7 @@ export default class DateRangeBasePicker extends Component {
 
   // 检查值得合法性并选中或取消
   validatorAndSetValue = (value) => {
-    if (value && value.length ==2 && isDateValid(value[0]) && isDateValid(value[1])) {
+    if (value && value.length ==2 && isDate(value[0]) && isDate(value[1])) {
       this.onPicked(value, false, true);
     } else {
       this.onCancelPicked();
@@ -231,14 +206,15 @@ export default class DateRangeBasePicker extends Component {
   // 点击清空图标
   handleClickCloseIcon = () => {
     const { isDisabled, isAllowClear } = this.props;
-    const { value } = this.state;
+    const { text } = this.state;
 
     if (isDisabled || !isAllowClear) return;
-    if (!value) {
+    if (!text) {
       this.togglePickerVisible();
     } else {
       this.setState(
         {
+          text: '',
           value: null,
           pickerVisible: false,
           confirmValue: null
@@ -247,22 +223,6 @@ export default class DateRangeBasePicker extends Component {
       this.props.onChange(null);
       this.context.form && this.context.form.onFieldChange();
     }
-  }
-
-  // return true on condition
-  //  * input is parsable to date
-  //  * also meet your other condition
-  isInputValid(value) {
-    const parseable = this.parseDate(value);
-    if (!parseable) {
-      return false
-    }
-
-    const isdatevalid = isDateValid(parseable);
-    if (!isdatevalid) {
-      return false
-    }
-    return true
   }
 
   render() {
@@ -294,7 +254,7 @@ export default class DateRangeBasePicker extends Component {
     };
 
     const suffixIcon = () => {
-      if(value && isAllowClear) {
+      if(text && isAllowClear) {
         return (
           <Icon
             type="filter"
@@ -353,7 +313,6 @@ export default class DateRangeBasePicker extends Component {
         />
         <div className={this.classNames(`el-date-editor--${this.type}`)}>
           <Input
-            className="item"
             disabled={isDisabled}
             type="text"
             placeholder={startPlaceholder}
@@ -361,22 +320,25 @@ export default class DateRangeBasePicker extends Component {
             onBlur={this.handleBlur}
             onKeyDown={this.handleKeydown}
             onChange={e => {
-              const iptxt = e.target.value;
-              const nstate = { text: iptxt };
-              if (iptxt.trim() === '' || !this.isInputValid(iptxt)) {
-                nstate.value = null;
+              const inputValue = e.target.value;
+              if (inputValue.trim() === '' || !isInputValid(inputValue, this.parseDate(inputValue))) {
+                this.setState({
+                  text: [inputValue, this.state.text[1]],
+                  value: null,
+                })
               } else {//only set value on a valid date input
-                nstate.value = this.parseDate(iptxt);
+                this.setState({
+                  text: [inputValue, this.state.text[1]],
+                  value: [this.parseDate(inputValue), this.state.value[1]],
+                })
               }
-              this.setState(nstate)
             }}
             ref="inputRoot"
-            value={value && value.length == 2 ? this.dateToStr(value[0]) : null}
+            value={text && text.length == 2 ? text[0] : ''}
             prefix={prefixIcon()}
           />
-          <span className="item">{rangeSeparator}</span>
+          <span>{rangeSeparator}</span>
           <Input
-            className="item"
             disabled={isDisabled}
             type="text"
             placeholder={endPlaceholder}
@@ -384,16 +346,20 @@ export default class DateRangeBasePicker extends Component {
             onBlur={this.handleBlur}
             onKeyDown={this.handleKeydown}
             onChange={e => {
-              const iptxt = e.target.value;
-              const nstate = { text: iptxt };
-              if (iptxt.trim() === '' || !this.isInputValid(iptxt)) {
-                nstate.value = null;
+              const inputValue = e.target.value;
+              if (inputValue.trim() === '' || !isInputValid(inputValue, this.parseDate(inputValue))) {
+                this.setState({
+                  text: [this.state.text[0], inputValue],
+                  value: null,
+                })
               } else {//only set value on a valid date input
-                nstate.value = this.parseDate(iptxt);
+                this.setState({
+                  text: [this.state.text[0], inputValue],
+                  value: [this.state.value[0], this.parseDate(inputValue)],
+                })
               }
-              this.setState(nstate)
             }}
-            value={ value && value.length == 2 ? this.dateToStr(value[1]) : null}
+            value={text && text.length == 2 ? text[1] : ''}
             suffix={suffixIcon()}
           />
         </div>

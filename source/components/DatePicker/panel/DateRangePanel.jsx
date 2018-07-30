@@ -8,8 +8,8 @@ import Input from '../../Input';
 import TimePanel from './TimePanel';
 import TimePicker from '../TimePicker';
 import YearAndMonthPopover from './YearAndMonthPopover';
-import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY } from '../utils';
-import { PLACEMENT_MAP } from '../constants';
+import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY, isInputValid, isDate } from '../utils';
+import { PLACEMENT_MAP, DEFAULT_FORMATS, TYPE_VALUE_RESOLVER_MAP } from '../constants';
 import Locale from '../locale';
 
 const prevYear = (date) => {
@@ -23,6 +23,16 @@ const nextYear = (date) => {
   d.setFullYear(date.getFullYear() + 1);
   return d;
 };
+
+const dateToStr = (date) => {
+  if (!date || !isDate(date)) return '';
+  const tdate = date;
+  const formatter = (
+    TYPE_VALUE_RESOLVER_MAP['date']
+  ).formatter;
+  const result = formatter(tdate, DEFAULT_FORMATS['date']);
+  return result;
+}
 
 export default class DateRangePanel extends PopperBase {
   static get propTypes() {
@@ -70,7 +80,7 @@ export default class DateRangePanel extends PopperBase {
   }
 
   mapPropsToState = (props) => {
-    const { value,format,isShowTime } = props;
+    const { value, format, isShowTime } = props;
     let state = {
       rangeState: {
         endDate: null,
@@ -83,6 +93,8 @@ export default class DateRangePanel extends PopperBase {
         ...{
           minDate: null,
           maxDate: null,
+          minDateText: '',
+          maxDateText: '',
           leftDate: new Date(),
           rightDate: nextMonth(new Date())
         }
@@ -91,6 +103,8 @@ export default class DateRangePanel extends PopperBase {
       if (value[0] && value[1]) {
         state.minDate = toDate(value[0]);
         state.maxDate = toDate(value[1]);
+        state.minDateText = dateToStr(toDate(value[0]));
+        state.maxDateText = dateToStr(toDate(value[1]));
       }
       if (value[0]) {
         state.leftDate = toDate(value[0]);
@@ -106,10 +120,15 @@ export default class DateRangePanel extends PopperBase {
 
   handleRangePick({ minDate, maxDate }, isClose) {
     const { isShowTime, onPick } = this.props;
-    this.setState({ minDate, maxDate });
+    this.setState({
+      minDate,
+      maxDate,
+      minDateText: dateToStr(minDate),
+      maxDateText: dateToStr(maxDate)
+    });
     if (!isClose) return;
     if (!isShowTime) {
-      onPick([minDate, maxDate], false)
+      onPick([minDate, maxDate], false, true)
     }
   }
 
@@ -285,58 +304,49 @@ export default class DateRangePanel extends PopperBase {
   }
 
   // 开始日期或结束日期发生改变
-  handleDateChange(value, type) {
-    const parsedValue = parseDate(value, 'yyyy-MM-dd');
-    let {minDate, maxDate} = this.state;
-    if (parsedValue) {
-      const target = new Date(type === 'min' ? minDate : maxDate);
-      if (target) {
-        target.setFullYear(parsedValue.getFullYear());
-        target.setMonth(parsedValue.getMonth(), parsedValue.getDate())
-      }
-      if (type === 'min') {
-        if (target < maxDate) {
-          this.setState({minDate: new Date(target.getTime())})
-        }
-      } else {
-        if (target > minDate) {
-          maxDate = new Date(target.getTime());
-          if (minDate && minDate > maxDate) {
-            minDate = null
-          }
-          this.setState({minDate, maxDate})
-        }
-      }
+  handleDateChange(e, type) {
+    const iptxt = e.target.value;
+    const text = type === 'min' ? 'minDateText' : 'maxDateText';
+    const value = type === 'min' ? 'minDate' : 'maxDate';
+    const dateValue = type === 'min' ? 'leftDate' : 'rightDate';
+    if (iptxt.trim() === '' || !isInputValid(iptxt, parseDate(iptxt))) {
+      this.setState({
+        [text]: iptxt,
+      })
+    } else {//only set value on a valid date input
+      this.setState({
+        [text]: iptxt,
+        [value]: parseDate(iptxt),
+        [dateValue]: parseDate(iptxt),
+      })
     }
   }
 
   // 开始时间或结束时间发生改变
-  handleTimeChange(e, type) {
-    console.log('---------')
-    console.log(e.target.value)
-    const parsedValue = parseDate(e.target.value, 'HH:mm:ss');
-    if (parsedValue) {
-      const target = new Date(type === 'min' ? this.minDate : this.maxDate);
+  handleTimeChange(value, type) {
+    const { minDate, maxDate } = this.state;
+    if (value) {
+      const target = new Date(type === 'min' ? minDate : maxDate);
       if (target) {
-        target.setHours(parsedValue.getHours());
-        target.setMinutes(parsedValue.getMinutes());
-        target.setSeconds(parsedValue.getSeconds());
+        target.setHours(value.getHours());
+        target.setMinutes(value.getMinutes());
+        target.setSeconds(value.getSeconds());
       }
-      let {minDate, maxDate} = this.state;
       if (type === 'min') {
         if (target < maxDate) {
-          minDate = new Date(target.getTime());
+          this.setState({
+            minDate: new Date(target.getTime()),
+            [`${type}TimpickerVisisble`]: false
+          })
         }
       } else {
         if (target > minDate) {
-          maxDate = new Date(target.getTime());
+          this.setState({
+            maxDate: new Date(target.getTime()),
+            [`${type}TimpickerVisisble`]: false
+          })
         }
       }
-      this.setState({
-        minDate,
-        maxDate,
-        [`${type}TimpickerVisisble`]: false
-      })
     }
   }
 
@@ -364,7 +374,7 @@ export default class DateRangePanel extends PopperBase {
 
   render() {
     const { shortcuts, disabledDate, firstDayOfWeek, isShowTime } = this.props;
-    const { leftDate, rightDate, rangeState, minDate, maxDate, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state;
+    const { leftDate, rightDate, rangeState, minDate, minDateText, maxDate, maxDateText, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state;
 
     const t = Locale.t;
 
@@ -404,16 +414,17 @@ export default class DateRangePanel extends PopperBase {
                         ref="minInput"
                         placeholder={Locale.t('el.datepicker.startDate')}
                         className="el-date-range-picker__editor"
-                        value={this.minVisibleDate}
+                        value={minDateText}
                         onChange={value => this.handleDateChange(value, 'min')}
                       />
                     </span>
                     <span className="el-date-range-picker__time-picker-wrap">
-                      <Input
-                        ref="timeIptStart"
+                      <TimePicker
                         placeholder={Locale.t('el.datepicker.startTime')}
                         className="el-date-range-picker__editor"
-                        value={this.minVisibleTime}
+                        isShowTrigger={false}
+                        isAllowClear={false}
+                        value={minDate}
                         onFocus={()=>{
                           this.setState({
                             minTimePickerVisible: !minTimePickerVisible
@@ -421,25 +432,6 @@ export default class DateRangePanel extends PopperBase {
                         }}
                         onChange={value => this.handleTimeChange(value, 'min')}
                       />
-                      {
-                        minTimePickerVisible && (
-                          <MountBody>
-                            <TimePanel
-                              pickerWidth={minPickerWidth}
-                              ref="minTimePicker"
-                              currentDate={minDate}
-                              getPopperRefElement={() => ReactDOM.findDOMNode(this.refs.timeIptStart)}
-                              popperMixinOption={
-                                {
-                                  placement: PLACEMENT_MAP[this.props.align] || PLACEMENT_MAP.left
-                                }
-                              }
-                              onPicked={this.handleMinTimePick.bind(this)}
-                              onCancelPicked={this.handleMinTimeCancelPick}
-                            />
-                          </MountBody>
-                        )
-                      }
                     </span>
                   </span>
                   <span className="el-icon-arrow-right" />
@@ -448,46 +440,25 @@ export default class DateRangePanel extends PopperBase {
                       <Input
                         placeholder={Locale.t('el.datepicker.endDate')}
                         className="el-date-range-picker__editor"
-                        value={this.maxVisibleDate}
+                        value={maxDateText}
                         readOnly={!minDate}
                         onChange={value => this.handleDateChange(value, 'max')}
                       />
                     </span>
                     <span className="el-date-range-picker__time-picker-wrap">
-                      <Input
-                        ref="maxInput"
+                      <TimePicker
                         placeholder={Locale.t('el.datepicker.endTime')}
                         className="el-date-range-picker__editor"
-                        value={this.maxVisibleTime}
-                        onFocus={() => {
-                          if (minDate) {
-                            this.setState({
-                              maxTimePickerVisible: !maxTimePickerVisible
-                            })
-                          }
+                        isShowTrigger={false}
+                        isAllowClear={false}
+                        value={maxDate}
+                        onFocus={()=>{
+                          this.setState({
+                            maxTimePickerVisible: !maxTimePickerVisible
+                          })
                         }}
-                        readOnly={!minDate}
                         onChange={value => this.handleTimeChange(value, 'max')}
                       />
-                      {
-                        maxTimePickerVisible && (
-                          <MountBody>
-                            <TimePanel
-                              pickerWidth={maxPickerWidth}
-                              ref="maxTimePicker"
-                              currentDate={maxDate}
-                              getPopperRefElement={() => ReactDOM.findDOMNode(this.refs.maxInput)}
-                              popperMixinOption={
-                                {
-                                  placement: PLACEMENT_MAP[this.props.align] || PLACEMENT_MAP.left
-                                }
-                              }
-                              onPicked={this.handleMaxTimePick.bind(this)}
-                              onCancelPicked={this.handleMaxTimeCancelPick}
-                            />
-                          </MountBody>
-                        )
-                      }
                     </span>
                   </span>
                 </div>
@@ -600,7 +571,7 @@ export default class DateRangePanel extends PopperBase {
             <div className="el-picker-panel__footer">
               <button
                 type="button"
-                className="el-time-panel__btn cancel"
+                className="el-picker-panel__btn cancel"
                 onClick={this.handleCancel}>{ Locale.t('el.datepicker.cancel') }
               </button>
               <button

@@ -38,8 +38,9 @@ export default class DateRangePicker extends DateRangeBasePicker {
       <DateRangePanel
         {...props}
         value={value}
-        onCancelPicked={this.onCancelPicked}
         onPick={this.onPicked}
+        onCancelPicked={this.onCancelPicked}
+        dateToStr={this.dateToStr}
       />
     )
   }

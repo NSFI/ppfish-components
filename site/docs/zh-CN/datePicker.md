@@ -1,4 +1,4 @@
-# DatePicker DateRangePicker 日期选择器、日期范围选择器
+# DatePicker 日期选择器
 
 用于选择或输入日期
 
@@ -463,7 +463,8 @@ render() {
 | isAllowClear | 是否显示清除按钮 | boolean | - | true |
 | isDisabled | 是否禁用 | boolean | - | false |
 | isShowTime | 是否显示时间选择器 | boolean | - | false |
-| value | - | Date/null | — | - |
+| disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
+| value | - | Date/null/[Date,Date] | — | - |
 | firstDayOfWeek | 周起始日 | Number | 0 到 6 | 0 |
 | shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
 | shortcutsPlacement | 快捷选项的位置 | string | 'left', 'top' | 'left' |
@@ -477,7 +478,6 @@ render() {
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | placeholder | 占位内容 | string | - | - |
 | selectionMode | 日期类型 | string, one of ['week', 'day'] | - | 'day' |
-| disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
 
 ## DateRangePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
