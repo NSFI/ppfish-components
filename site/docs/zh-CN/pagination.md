@@ -65,9 +65,9 @@ render(){
 ```js
 itemRender=(current, type, originalElement) =>{
   if (type === 'prev') {
-    return <a>Previous</a>;
+    return <a>上一页</a>;
   } if (type === 'next') {
-    return <a>Next</a>;
+    return <a>下一页</a>;
   }
   return originalElement;
 }
@@ -99,7 +99,7 @@ render(){
 
 ```js
 showTotal=(total)=> {
-  return `Total ${total} items`;
+  return `共 ${total} 条数据`;
 };
 
 render(){
@@ -147,14 +147,14 @@ render(){
     <div>
         <Pagination
           total={85}
-          showTotal={total => `Total ${total} items`}
+          showTotal={total => `共 ${total} 条数据`}
           pageSize={20}
           defaultCurrent={1}
         />
         <br />
         <Pagination
           total={85}
-          showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+          showTotal={(total, range) => `第${range[0]}-${range[1]} 条，共 ${total} 条数据`}
           pageSize={20}
           defaultCurrent={1}
         />
