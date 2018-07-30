@@ -1,7 +1,6 @@
 @import (reference)'../../styles/mixin';
 
 .m-home-page {
-  min-width: 1200px;
   background: url("../../assets/fd-web-0.2-pic@2x.png") 0 400px no-repeat;
   background-size: 100px;
   .banner {
@@ -37,6 +36,7 @@
       .button {
         border-radius: 100px;
         display: inline-block;
+        margin-bottom: 20px;
         height: 40px;
         line-height: 40px;
         text-align: center;
@@ -59,7 +59,6 @@
   }
   .design {
     text-align: center;
-    width: 1200px;
     margin: 0 auto;
     padding-bottom: 120px;
     .title {
@@ -69,10 +68,10 @@
       margin-bottom: 36px;
     }
     .design-list {
-      .clearfix;
+      display: flex;
+      justify-content: center;
     }
     .principle {
-      float: left;
       width: 268px;
       height: 228px;
       &:not(:last-child) {
@@ -104,7 +103,6 @@
   }
   .resource {
     text-align: center;
-    width: 1200px;
     margin: 0 auto;
     padding-bottom: 120px;
     .title {
@@ -114,11 +112,11 @@
       margin-bottom: 36px;
     }
     .resource-list {
-      .clearfix;
+      display: flex;
+      justify-content: center;
     }
     .resource-item {
       width: 268px;
-      float: left;
       &:not(:last-child) {
         margin-right: 36px;
       }

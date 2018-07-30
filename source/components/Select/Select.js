@@ -564,10 +564,8 @@ export default class Select extends React.Component {
                 //多选的点击取消、确定按钮组
                 mode === 'multiple' &&
                 <div className={`${dropdownCls}-footer`}>
-                  <Button size="large" className={`${dropdownCls}-footer-btn`}
-                          onClick={this.handleCancelSelect}>取消</Button>
-                  <Button size="large" className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect}
-                          type="primary">确定</Button>
+                  <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleCancelSelect}>取消</Button>
+                  <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect} type="primary">确定</Button>
                 </div>
               }
             </div>
