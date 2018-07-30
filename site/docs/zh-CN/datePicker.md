@@ -1,4 +1,4 @@
-# DatePicker 日期选择器
+# DatePicker DateRangePicker 日期选择器、日期范围选择器
 
 用于选择或输入日期
 
@@ -85,9 +85,7 @@
 ```
 :::
 
-## 其他日期单位
-
-通过扩展基础的日期选择，可以选择周、月、年
+## 选择周
 
 :::demo 通过 `selectionMode` 设置不同的日期单位
 ```js
@@ -98,7 +96,7 @@ constructor(props) {
 }
 
 render() {
-  const {value1, value2, value3} = this.state;
+  const {value1} = this.state;
 
   return (
     <div className="source">
@@ -113,31 +111,6 @@ render() {
           }}
           format="yyyy 第 WW 周"
           selectionMode="week"
-          />
-      </div>
-      <div className="block">
-        <span className="demonstration">月</span>
-        <DatePicker
-          value={value2}
-          placeholder="选择月"
-          onChange={date=>{
-            console.debug('month DatePicker changed: ', date)
-            this.setState({value2: date})
-          }}
-          selectionMode="month"
-          />
-      </div>
-      <div className="block">
-        <span className="demonstration">年</span>
-        <DatePicker
-          value={value3}
-          placeholder="选择年"
-          onChange={date=>{
-            console.debug('year DatePicker changed: ', date)
-            this.setState({value3: date})
-          }}
-          selectionMode="year"
-          align="right"
           />
       </div>
     </div>
@@ -217,104 +190,7 @@ render() {
 ```
 :::
 
-## 日期范围选择器
-
-可在一个选择器中便捷地选择一个时间范围
-
-:::demo
-```js
-constructor(props) {
-  super(props);
-  this.state = {value: null};
-}
-
-render() {
-  const {value} = this.state;
-
-  return (
-    <DateRangePicker
-      value={value}
-      placeholder="选择日期范围"
-      onChange={date=>{
-        console.debug('DateRangePicker changed: ', date)
-        this.setState({value: date})
-      }}
-      />
-  )
-}
-
-```
-:::
-
-## 带快速选择的日期范围面板
-
-:::demo
-```js
-constructor(props) {
-  super(props);
-  this.state = {value2: null}
-}
-
-render() {
-  const {value2} = this.state;
-
-  return (
-    <div className="source">
-      <div className="block">
-        <span className="demonstration">带快捷选项</span>
-        <DateRangePicker
-          value={value2}
-          placeholder="选择日期范围"
-          align="left"
-          ref={e=>this.daterangepicker2 = e}
-          onChange={date=>{
-            console.debug('DateRangePicker2 changed: ', date)
-            this.setState({value2: date})
-          }}
-          shortcuts={[{
-            text: '最近一周',
-            onClick: ()=> {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-
-              this.setState({value2: [start, end]})
-              this.daterangepicker2.togglePickerVisible()
-            }
-          }, {
-            text: '最近一个月',
-            onClick: ()=> {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-
-              this.setState({value2: [start, end]})
-              this.daterangepicker2.togglePickerVisible()
-            }
-          }, {
-            text: '最近三个月',
-            onClick: ()=> {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              this.setState({value2: [start, end]})
-              this.daterangepicker2.togglePickerVisible()
-            }
-          }]}
-          />
-      </div>
-    </div>
-  )
-}
-
-```
-:::
-
-## 日期时间组合选择
-
-在同一个选择器里选择日期和时间
-
-### 日期和时间点
+## 带时间的日期面板
 
 :::demo 通过设置`isShowTime`，即可在同一个选择器里同时进行日期和时间的选择。快捷选项的使用方法与 Date Picker 相同。
 ```js
@@ -387,14 +263,124 @@ render() {
 ```
 :::
 
-###  选择日期范围
+## 日期范围选择器
 
-可在一个选择器中便捷地选择一个时间范围
+可在一个选择器中便捷地选择一个日期范围
 
 :::demo
 ```js
 constructor(props) {
-  super(props)
+  super(props);
+  this.state = {value: null};
+}
+
+render() {
+  const {value} = this.state;
+
+  return (
+    <DateRangePicker
+      value={value}
+      startPlaceholder="请选择开始日期"
+      endPlaceholder="请选择结束日期"
+      onChange={date=>{
+        console.debug('DateRangePicker changed: ', date)
+        this.setState({value: date})
+      }}
+      />
+  )
+}
+
+```
+:::
+
+禁用
+
+:::demo
+```js
+
+render() {
+
+  return (
+    <DateRangePicker
+      isDisabled={true}
+      />
+  )
+}
+
+```
+:::
+
+## 带快速选择的日期范围面板
+
+:::demo
+```js
+constructor(props) {
+  super(props);
+  this.state = {value2: null}
+}
+
+render() {
+  const {value2} = this.state;
+
+  return (
+    <div className="source">
+      <div className="block">
+        <span className="demonstration">带快捷选项</span>
+        <DateRangePicker
+          value={value2}
+          placeholder="选择日期范围"
+          align="left"
+          ref={e=>this.daterangepicker2 = e}
+          onChange={date=>{
+            console.debug('DateRangePicker2 changed: ', date)
+            this.setState({value2: date})
+          }}
+          shortcuts={[{
+            text: '最近一周',
+            onClick: ()=> {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+
+              this.setState({value2: [start, end]})
+              this.daterangepicker2.togglePickerVisible()
+            }
+          }, {
+            text: '最近一个月',
+            onClick: ()=> {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+
+              this.setState({value2: [start, end]})
+              this.daterangepicker2.togglePickerVisible()
+            }
+          }, {
+            text: '最近三个月',
+            onClick: ()=> {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              this.setState({value2: [start, end]})
+              this.daterangepicker2.togglePickerVisible()
+            }
+          }]}
+          />
+      </div>
+    </div>
+  )
+}
+
+```
+:::
+
+
+## 带时间的日期范围面板
+
+:::demo 可在一个选择器中便捷地选择一个日期范围和时间范围
+```js
+constructor(props) {
+  super(props);
   this.state = {value1: null, value2: null}
 }
 
@@ -406,6 +392,7 @@ render() {
       <div className="block">
         <span className="demonstration">默认</span>
         <DateRangePicker
+          format="yyyy-MM-dd HH:mm:ss"
           value={value1}
           placeholder="选择日期范围"
           isShowTime={true}
@@ -470,7 +457,6 @@ render() {
 ## API 公共参数
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| placeholder | 占位内容 | string | - | - |
 | format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss` | yyyy-MM-dd |
 | align | 对齐方式 | string | 'left', 'right' | 'left' |
 | isShowTrigger | 是否显示前缀图标 | boolean | - | true |
@@ -489,10 +475,13 @@ render() {
 ## DatePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| selectionMode | 日期类型 | string, one of ['year', 'month', 'week', 'day'] | - | 'day' |
+| placeholder | 占位内容 | string | - | - |
+| selectionMode | 日期类型 | string, one of ['week', 'day'] | - | 'day' |
 | disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
 
 ## DateRangePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| rangeSeparator | 选择范围时的分隔符 | string | - | ' - ' |
+| startPlaceholder | 开始日期的占位内容 | string | - | '选择开始日期' |
+| endPlaceholder | 结束日期的占位内容 | string | - | '选择结束日期' |
+| rangeSeparator | 分隔符 | string | - | ' ~ ' |
