@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Input from '../../Input';
-import TimePanel from './TimePanel'
-import { MountBody } from '../MountBody'
-import { PopperBase } from './PopperBase'
-import { SELECTION_MODES, deconstructDate, formatDate, parseDate, toDate } from '../utils'
-import { DateTable, MonthTable, YearTable } from '../basic'
-import { PLACEMENT_MAP } from '../constants'
-import Locale from '../locale'
+import TimePanel from './TimePanel';
+import { MountBody } from '../MountBody';
+import { PopperBase } from './PopperBase';
+import YearAndMonthPopover from './YearAndMonthPopover';
+import { SELECTION_MODES, deconstructDate, formatDate, parseDate, toDate, MONTH_ARRRY, YEARS_ARRAY } from '../utils';
+import { DateTable, MonthTable, YearTable } from '../basic';
+import { PLACEMENT_MAP } from '../constants';
+import Locale from '../locale';
 
 const PICKER_VIEWS = {
   YEAR: 'year',
@@ -82,14 +83,6 @@ export default class DatePanel extends PopperBase {
     this.date = new Date(this.date);
   }
 
-  showMonthPicker() {
-    this.setState({ currentView: PICKER_VIEWS.MONTH })
-  }
-
-  showYearPicker() {
-    this.setState({ currentView: PICKER_VIEWS.YEAR })
-  }
-
   prevMonth() {
     this.updateState(() => {
       const { date } = this.state;
@@ -153,6 +146,19 @@ export default class DatePanel extends PopperBase {
     shortcut.onClick();
   }
 
+  handleYearPick(year) {
+    this.updateState(state => {
+      const { onPick, selectionMode } = this.props;
+      const { date } = state;
+      date.setFullYear(year);
+      if (selectionMode === SELECTION_MODES.YEAR) {
+          onPick(new Date(year, 0))
+        } else {
+          state.currentView = PICKER_VIEWS.MONTH
+      }
+    })
+  }
+
   handleTimePick(pickedDate, isKeepPanel) {
     this.updateState(state=>{
       if (pickedDate) {
@@ -198,18 +204,6 @@ export default class DatePanel extends PopperBase {
     })
   }
 
-  handleYearPick(year) {
-    this.updateState(state => {
-      const { onPick, selectionMode } = this.props;
-      const { date } = state;
-      date.setFullYear(year);
-      if (selectionMode === SELECTION_MODES.YEAR) {
-        onPick(new Date(year, 0))
-      } else {
-        state.currentView = PICKER_VIEWS.MONTH
-      }
-    })
-  }
 
   changeToNow() {
     const now = new Date();
@@ -266,7 +260,6 @@ export default class DatePanel extends PopperBase {
     }
   }
 
-
   get visibleDate(){
     return formatDate(this.state.date, this.dateFormat);
   }
@@ -298,7 +291,7 @@ export default class DatePanel extends PopperBase {
   }
 
   get dateFormat(){
-    if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim()
+    if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim();
     else return 'yyyy-MM-dd'
   };
 
@@ -343,6 +336,20 @@ export default class DatePanel extends PopperBase {
     }
 
     return result;
+  }
+
+  handleChangeYear = (year) => {
+    const { date } = this.state;
+    this.setState({
+      date: new Date(date.setFullYear(year)),
+    })
+  }
+
+  handleChangeMonth = (month) => {
+    const { date } = this.state;
+    this.setState({
+      date: new Date((date.setMonth(parseInt(month.slice(0,-1)) - 1)))
+    })
   }
 
   render() {
@@ -445,19 +452,28 @@ export default class DatePanel extends PopperBase {
                         className="el-picker-panel__icon-btn el-date-picker__prev-btn el-icon-arrow-left">
                       </button>)
                   }
-                  <span
-                    onClick={this.showYearPicker.bind(this)}
-                    className="el-date-picker__header-label">{this.yearLabel()}</span>
+                  <YearAndMonthPopover
+                    value={date.getFullYear()}
+                    sourceData={YEARS_ARRAY()}
+                    onChange={this.handleChangeYear}
+                  >
+                    <span className="el-date-picker__header-label">{this.yearLabel()}</span>
+                  </YearAndMonthPopover>
                   {
                     currentView === PICKER_VIEWS.DATE && (
-                      <span
-                        onClick={this.showMonthPicker.bind(this)}
-                        className={
-                          this.classNames('el-date-picker__header-label', {
-                            active: currentView === 'month'
-                          })
-                        }
-                      >{t(`el.datepicker.month${month + 1}`)}</span>
+                      <YearAndMonthPopover
+                        value={date.getMonth() + 1}
+                        sourceData={MONTH_ARRRY}
+                        onChange={this.handleChangeMonth}
+                      >
+                        <span
+                          className={
+                            this.classNames('el-date-picker__header-label', {
+                              active: currentView === 'month'
+                            })
+                          }
+                        >{t(`el.datepicker.month${month + 1}`)}</span>
+                      </YearAndMonthPopover>
                     )
                   }
                   <button
