@@ -91,19 +91,22 @@ export default class Select extends React.Component {
   constructor(props) {
     super(props);
     const {value, defaultValue, labelInValue} = this.props;
+    const initialSelectValue = this.covertSelectValue(value || defaultValue || [], labelInValue);
     this.state = {
       searchValue: '',
-      selectValue: this.covertSelectValue(value || defaultValue, labelInValue),
+      selectValue: initialSelectValue,
+      selectValueForMultiplePanel: initialSelectValue,
       popupVisible: false,
-      resetValue: [],
       activeKey: undefined,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
+      const changedValue = this.covertSelectValue(nextProps.value, nextProps.labelInValue);
       this.setState({
-        selectValue: this.covertSelectValue(nextProps.value, nextProps.labelInValue)
+        selectValue: changedValue,
+        selectValueForMultiplePanel: changedValue,
       });
     }
   }
@@ -130,8 +133,6 @@ export default class Select extends React.Component {
   selectAll = () => {
     this.setState({
       selectValue: this.isSelectAll() ? [] : this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled),
-    }, () => {
-      this.resizeTrigger();
     });
   };
 
@@ -233,16 +234,25 @@ export default class Select extends React.Component {
         selectValue: [obj],
         popupVisible: false,
       }, () => {
-        if (labelInValue) {
-          onChange(obj);
-        } else {
-          onChange(obj.key);
+        // 值改变了才触发onChange
+        if (index === -1) {
+          if (labelInValue) {
+            onChange(obj);
+          } else {
+            onChange(obj.key);
+          }
         }
       });
     } else if (mode === 'multiple') {
-      this.setState({
-        selectValue: index === -1 ? [...selectValue, obj] : [...selectValue.slice(0, index), ...selectValue.slice(index + 1)]
-      }, () => {
+      const changedValue = index === -1 ? [...selectValue, obj] : [...selectValue.slice(0, index), ...selectValue.slice(index + 1)];
+      const changedObj = {
+        selectValue: changedValue,
+      };
+      //label点击同步状态
+      if (clickInLabel) {
+        changedObj.selectValueForMultiplePanel = changedValue;
+      }
+      this.setState(changedObj, () => {
         if (clickInLabel) {
           //Clicking on label will trigger the onchange event.
           if (labelInValue) {
@@ -335,9 +345,11 @@ export default class Select extends React.Component {
   //多选-取消
   handleCancelSelect = () => {
     const {defaultValue, value, labelInValue} = this.props;
+    const resetValue = this.covertSelectValue(value || defaultValue || [], labelInValue);
     this.setState({
       popupVisible: false,
-      selectValue: this.covertSelectValue(value || defaultValue || [], labelInValue)
+      selectValue: resetValue,
+      selectValueForMultiplePanel: resetValue,
     });
   };
 
@@ -346,6 +358,7 @@ export default class Select extends React.Component {
     const {onChange, labelInValue} = this.props;
     this.setState({
       popupVisible: false,
+      selectValueForMultiplePanel: this.state.selectValue
     }, () => {
       if (labelInValue) {
         onChange(this.state.selectValue);
@@ -589,9 +602,9 @@ export default class Select extends React.Component {
       prefixCls,
       showArrow,
       size,
-      style
+      style,
     } = this.props;
-    const {selectValue, popupVisible} = this.state;
+    const {selectValue, selectValueForMultiplePanel, popupVisible} = this.state;
     const selectionCls = `${prefixCls}`;
     const selectionPanelCls =
       classNames(
@@ -615,29 +628,34 @@ export default class Select extends React.Component {
             </div> :
             <div className={`${selectionCls}-content`}>
               {
-                //showArrow并且不是可删除label模式下出现箭头
+                // showArrow并且不是可删除label模式下出现箭头
                 showArrow && !labelClear &&
                 <div className={`${selectionCls}-caret`}>
                   <Icon type="xiajiantou" className={classNames({['open']: popupVisible})}/>
                 </div>
               }
               {
-                //没有值的情况下显示placeholder
-                !selectValue.length &&
+                // 没有值的情况下显示placeholder
+                ((!selectValue.length && mode === 'single') || (!selectValueForMultiplePanel.length && mode === 'multiple')) &&
                 <div unselectable="on" className={`${selectionCls}-placeholder`}>{placeholder}</div>
               }
               {
-                //单选模式下有值显示值的label
+                // 单选模式下有值显示值的label
                 mode === 'single' && !!selectValue.length &&
                 <span className={`${selectionCls}-option-single`}>{selectValue[0].label}</span>
               }
               {
-                //多选模式下区分labelClear
+                // 多选模式下区分labelClear
+                // selectValueForMultiplePanel的更新时机：
+                // 1.初始化value、defaultValue
+                // 2.props.value 更改
+                // 3.多选取消、确定按钮点击
+                // 4.label.click事件
                 mode === 'multiple' && (
                   labelClear ?
                     <div className={`${selectionCls}-option-clearable-list`}>
                       {
-                        selectValue.map(option =>
+                        selectValueForMultiplePanel.map(option =>
                           <div className={`${selectionCls}-option-clearable-option`}
                                key={option.key}
                                title={typeof option.label === 'string' || typeof option.label === 'number' ? option.label : ''}
@@ -652,10 +670,10 @@ export default class Select extends React.Component {
                     </div> :
                     <div className={`${selectionCls}-option-multiple`}>
                       {
-                        selectValue.map((option, index) =>
+                        selectValueForMultiplePanel.map((option, index) =>
                             <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
                       <span>{option.label}</span>
-                      <span>{index + 1 !== selectValue.length && '、'}</span>
+                      <span>{index + 1 !== selectValueForMultiplePanel.length && '、'}</span>
                     </span>
                         )
                       }
