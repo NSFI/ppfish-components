@@ -565,7 +565,8 @@ export default class Select extends React.Component {
                 mode === 'multiple' &&
                 <div className={`${dropdownCls}-footer`}>
                   <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleCancelSelect}>取消</Button>
-                  <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect} type="primary">确定</Button>
+                  <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect}
+                          type="primary">确定</Button>
                 </div>
               }
             </div>
@@ -637,7 +638,10 @@ export default class Select extends React.Component {
                     <div className={`${selectionCls}-option-clearable-list`}>
                       {
                         selectValue.map(option =>
-                          <div className={`${selectionCls}-option-clearable-option`} key={option.key}>
+                          <div className={`${selectionCls}-option-clearable-option`}
+                               key={option.key}
+                               title={typeof option.label === 'string' || typeof option.label === 'number' ? option.label : ''}
+                          >
                             <span className={`${selectionCls}-option-clearable-option-content`}>{option.label}</span>
                             <span className={`${selectionCls}-option-clearable-option-close`}
                                   onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="guanbi"/>
