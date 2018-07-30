@@ -122,7 +122,7 @@ export default function (modeName) {
       return (
         <span
           key="arrow"
-          className={`${prefixCls}-arrow`}
+          className={`${prefixCls}-arrow fishdicon-xiajiantou`}
           style={{ outline: 'none' }}
         >
           <b />
