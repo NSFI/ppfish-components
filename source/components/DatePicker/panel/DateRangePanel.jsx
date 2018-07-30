@@ -1,11 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { PopperBase } from './PopperBase';
-import { MountBody } from '../MountBody';
 import { DateTable } from '../basic';
 import Input from '../../Input';
-import TimePanel from './TimePanel';
 import TimePicker from '../TimePicker';
 import YearAndMonthPopover from './YearAndMonthPopover';
 import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY, isInputValid, isDate } from '../utils';
@@ -225,27 +222,27 @@ export default class DateRangePanel extends PopperBase {
     shortcut.onClick();
   }
 
-  get minVisibleDate() {
-    let { minDate } = this.state;
-    return minDate ? formatDate(minDate) : ''
-  }
-
-  get maxVisibleDate() {
-    let { maxDate, minDate } = this.state;
-    let d = maxDate || minDate;
-    return d ? formatDate(d) : ''
-  }
-
-  get minVisibleTime() {
-    let { minDate } = this.state;
-    return minDate ? formatDate(minDate, 'HH:mm:ss') : ''
-  }
-
-  get maxVisibleTime() {
-    let { maxDate, minDate } = this.state;
-    let d = maxDate || minDate;
-    return d ? formatDate(d, 'HH:mm:ss') : ''
-  }
+  // get minVisibleDate() {
+  //   let { minDate } = this.state;
+  //   return minDate ? formatDate(minDate) : ''
+  // }
+  //
+  // get maxVisibleDate() {
+  //   let { maxDate, minDate } = this.state;
+  //   let d = maxDate || minDate;
+  //   return d ? formatDate(d) : ''
+  // }
+  //
+  // get minVisibleTime() {
+  //   let { minDate } = this.state;
+  //   return minDate ? formatDate(minDate, 'HH:mm:ss') : ''
+  // }
+  //
+  // get maxVisibleTime() {
+  //   let { maxDate, minDate } = this.state;
+  //   let d = maxDate || minDate;
+  //   return d ? formatDate(d, 'HH:mm:ss') : ''
+  // }
 
   get btnDisabled() {
     let {minDate, maxDate, rangeState: { selecting }} = this.state;
@@ -586,10 +583,4 @@ export default class DateRangePanel extends PopperBase {
       </div>
     )
   }
-}
-
-
-
-DateRangePanel.defaultProps = {
-
 }

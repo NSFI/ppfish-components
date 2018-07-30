@@ -131,21 +131,10 @@ constructor(props) {
 }
 
 render() {
-  const {value1, value2} = this.state
+  const {value2} = this.state;
 
   return (
     <div className="source">
-      <div className="block">
-        <span className="demonstration">默认</span>
-        <DatePicker
-          value={value1}
-          placeholder="选择日期"
-          onChange={date=>{
-            console.debug('DatePicker1 changed: ', date)
-            this.setState({value1: date})
-          }}
-          />
-      </div>
       <div className="block">
         <span className="demonstration">带快捷选项</span>
         <DatePicker
