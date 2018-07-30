@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { PopperBase } from './PopperBase';
 import { MountBody } from '../MountBody';
+import { DateTable } from '../basic';
 import Input from '../../Input';
 import TimePanel from './TimePanel';
+import TimePicker from '../TimePicker';
 import YearAndMonthPopover from './YearAndMonthPopover';
 import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY } from '../utils';
-import { DateTable } from '../basic';
 import { PLACEMENT_MAP } from '../constants';
 import Locale from '../locale';
 
@@ -69,7 +70,7 @@ export default class DateRangePanel extends PopperBase {
   }
 
   mapPropsToState = (props) => {
-    const { value } = props;
+    const { value,format,isShowTime } = props;
     let state = {
       rangeState: {
         endDate: null,
@@ -200,8 +201,9 @@ export default class DateRangePanel extends PopperBase {
     })
   }
 
+  // 点击快捷选项
   handleShortcutClick(shortcut) {
-    shortcut.onClick()
+    shortcut.onClick();
   }
 
   get minVisibleDate() {
@@ -242,14 +244,22 @@ export default class DateRangePanel extends PopperBase {
     return new Date(oldDate.getTime());
   }
 
+  // 确定选择的开始时间
   handleMinTimePick(pickedDate, isKeepPanel) {
     let minDate = this.state.minDate || new Date();
     if (pickedDate) {
       minDate = this.setTime(minDate, pickedDate);
     }
-    this.setState({minDate, minTimePickerVisible: isKeepPanel,})
+    this.setState({minDate, minTimePickerVisible: isKeepPanel})
   }
 
+  // 取消选择的开始时间
+  handleMinTimeCancelPick = () => {
+    this.setState({ minTimePickerVisible: false });
+    //this.props.onCancelPicked();
+  }
+
+  // 确定选择的结束时间
   handleMaxTimePick(pickedDate, isKeepPanel) {
     let {minDate, maxDate} = this.state;
     if (!maxDate) {
@@ -268,9 +278,16 @@ export default class DateRangePanel extends PopperBase {
     })
   }
 
+  // 取消选择的结束时间
+  handleMaxTimeCancelPick = () => {
+    this.setState({ maxTimePickerVisible: false });
+    //this.props.onCancelPicked();
+  }
+
+  // 开始日期或结束日期发生改变
   handleDateChange(value, type) {
     const parsedValue = parseDate(value, 'yyyy-MM-dd');
-    let {minDate, maxDate} = this.state
+    let {minDate, maxDate} = this.state;
     if (parsedValue) {
       const target = new Date(type === 'min' ? minDate : maxDate);
       if (target) {
@@ -293,8 +310,11 @@ export default class DateRangePanel extends PopperBase {
     }
   }
 
-  handleTimeChange(value, type) {
-    const parsedValue = parseDate(value, 'HH:mm:ss');
+  // 开始时间或结束时间发生改变
+  handleTimeChange(e, type) {
+    console.log('---------')
+    console.log(e.target.value)
+    const parsedValue = parseDate(e.target.value, 'HH:mm:ss');
     if (parsedValue) {
       const target = new Date(type === 'min' ? this.minDate : this.maxDate);
       if (target) {
@@ -320,7 +340,8 @@ export default class DateRangePanel extends PopperBase {
     }
   }
 
-  handleClear() {
+  // 点击清空按钮
+  handleClear = () => {
     let {onPick} = this.props;
     let minDate = null,
       maxDate = null,
@@ -330,9 +351,15 @@ export default class DateRangePanel extends PopperBase {
     onPick([], false)
   }
 
-  handleConfirm(){
+  // 点击确定按钮
+  handleConfirm = () => {
     let {minDate, maxDate} = this.state;
-    this.props.onPick([minDate, maxDate], false);
+    this.props.onPick([minDate, maxDate], false, true);
+  }
+
+  // 点击取消按钮
+  handleCancel = () => {
+    this.props.onCancelPicked();
   }
 
   render() {
@@ -371,7 +398,7 @@ export default class DateRangePanel extends PopperBase {
             {
               isShowTime && (
                 <div className="el-date-range-picker__time-header">
-                  <span className="el-date-range-picker__editors-wrap">
+                  <span className="el-date-range-picker__editors-wrap is-left">
                     <span className="el-date-range-picker__time-picker-wrap">
                       <Input
                         ref="minInput"
@@ -401,35 +428,33 @@ export default class DateRangePanel extends PopperBase {
                               pickerWidth={minPickerWidth}
                               ref="minTimePicker"
                               currentDate={minDate}
-                              onPicked={this.handleMinTimePick.bind(this)}
                               getPopperRefElement={() => ReactDOM.findDOMNode(this.refs.timeIptStart)}
                               popperMixinOption={
                                 {
                                   placement: PLACEMENT_MAP[this.props.align] || PLACEMENT_MAP.left
                                 }
                               }
-                              onCancel={() => this.setState({ minTimePickerVisible: false })}
+                              onPicked={this.handleMinTimePick.bind(this)}
+                              onCancelPicked={this.handleMinTimeCancelPick}
                             />
                           </MountBody>
                         )
                       }
                     </span>
                   </span>
-                  <span className="el-icon-arrow-right"></span>
+                  <span className="el-icon-arrow-right" />
                   <span className="el-date-range-picker__editors-wrap is-right">
                     <span className="el-date-range-picker__time-picker-wrap">
                       <Input
-                        size="small"
                         placeholder={Locale.t('el.datepicker.endDate')}
                         className="el-date-range-picker__editor"
                         value={this.maxVisibleDate}
                         readOnly={!minDate}
-                        onChange={value => this.handleDateInput(value, 'max')}
+                        onChange={value => this.handleDateChange(value, 'max')}
                       />
                     </span>
                     <span className="el-date-range-picker__time-picker-wrap">
                       <Input
-                        size="small"
                         ref="maxInput"
                         placeholder={Locale.t('el.datepicker.endTime')}
                         className="el-date-range-picker__editor"
@@ -451,14 +476,14 @@ export default class DateRangePanel extends PopperBase {
                               pickerWidth={maxPickerWidth}
                               ref="maxTimePicker"
                               currentDate={maxDate}
-                              onPicked={this.handleMaxTimePick.bind(this)}
                               getPopperRefElement={() => ReactDOM.findDOMNode(this.refs.maxInput)}
                               popperMixinOption={
                                 {
                                   placement: PLACEMENT_MAP[this.props.align] || PLACEMENT_MAP.left
                                 }
                               }
-                              onCancel={() => this.setState({ maxTimePickerVisible: false })}
+                              onPicked={this.handleMaxTimePick.bind(this)}
+                              onCancelPicked={this.handleMaxTimeCancelPick}
                             />
                           </MountBody>
                         )
@@ -573,15 +598,17 @@ export default class DateRangePanel extends PopperBase {
         {
           isShowTime && (
             <div className="el-picker-panel__footer">
-              <a
-                className="el-picker-panel__link-btn"
-                onClick={()=> this.handleClear()}>{ Locale.t('el.datepicker.clear') }
-              </a>
               <button
                 type="button"
-                className="el-picker-panel__btn"
-                onClick={()=> this.handleConfirm()}
-                disabled={this.btnDisabled}>{ Locale.t('el.datepicker.confirm') }</button>
+                className="el-time-panel__btn cancel"
+                onClick={this.handleCancel}>{ Locale.t('el.datepicker.cancel') }
+              </button>
+              <button
+                type="button"
+                className="el-picker-panel__btn confirm"
+                onClick={this.handleConfirm}
+                disabled={this.btnDisabled}>{ Locale.t('el.datepicker.confirm') }
+              </button>
             </div>
           )
         }
