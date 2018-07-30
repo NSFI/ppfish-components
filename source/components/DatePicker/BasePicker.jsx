@@ -9,34 +9,11 @@ import { Component } from './libs';
 import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
+import { isDate, isInputValid, valueEquals } from './utils';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
-};
-const isValidValue = (value) => {
-  if (value instanceof Date) return true;
-  if (Array.isArray(value) && value.length !== 0 && value[0] instanceof Date) return true;
-  return false
-};
-// only considers date-picker's value: Date or [Date, Date]
-const valueEquals = function (a, b) {
-  const aIsArray = Array.isArray(a);
-  const bIsArray = Array.isArray(b);
-
-  let isEqual = (a, b)=>{ // equal if a, b date is equal or both is null or undefined
-    let equal = false;
-    if (a && b) equal = a.getTime() === b.getTime();
-    else equal = a === b && a == null
-    return equal
-  };
-  if (aIsArray && bIsArray) {
-    return isEqual(a[0], b[0]) && isEqual(a[1], b[1])
-  }
-  if (!aIsArray && !bIsArray) {
-    return isEqual(a, b)
-  }
-  return false;
 };
 
 export default class BasePicker extends Component {
@@ -90,7 +67,7 @@ export default class BasePicker extends Component {
 
   propsToState(props) {
     const state = {};
-    if (this.isDateValid(props.value)) {
+    if (isDate(props.value)) {
       state.text = this.dateToStr(props.value);
       state.value = props.value;
     } else {
@@ -124,8 +101,6 @@ export default class BasePicker extends Component {
    */
   onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {//only change input value on picked triggered
     //let hasChanged = !valueEquals(this.state.value, value);
-    console.log(isKeepPannel, isConfirmValue);
-    console.log(value)
     this.setState({
       pickerVisible: isKeepPannel,
       value,
@@ -150,7 +125,7 @@ export default class BasePicker extends Component {
   }
 
   dateToStr(date) {
-    if (!isValidValue(date)) return '';
+    if (!isDate(date)) return '';
     const tdate = date;
     const formatter = (
       TYPE_VALUE_RESOLVER_MAP[this.type] ||
@@ -193,26 +168,6 @@ export default class BasePicker extends Component {
     })
   }
 
-  isDateValid(date) {
-    return date == null || isValidValue(date)
-  }
-
-  // return true on condition
-  //  * input is parsable to date
-  //  * also meet your other condition
-  isInputValid(value) {
-    const parseable = this.parseDate(value);
-    if (!parseable) {
-      return false
-    }
-
-    const isdatevalid = this.isDateValid(parseable);
-    if (!isdatevalid) {
-      return false
-    }
-    return true
-  }
-
   // 聚焦
   handleFocus = () => {
     this.isInputFocus = true;
@@ -230,7 +185,7 @@ export default class BasePicker extends Component {
   }
 
   validatorAndSetValue = (value) => {
-    if (this.isDateValid(value)) {
+    if (isDate(value)) {
       this.onPicked(value, false, true);
     } else {
       this.onCancelPicked();
@@ -369,7 +324,7 @@ export default class BasePicker extends Component {
           onChange={e => {
             const iptxt = e.target.value;
             const nstate = { text: iptxt };
-            if (iptxt.trim() === '' || !this.isInputValid(iptxt)) {
+            if (iptxt.trim() === '' || !isInputValid(iptxt, this.parseDate(iptxt))) {
               nstate.value = null;
             } else {//only set value on a valid date input
               nstate.value = this.parseDate(iptxt);
