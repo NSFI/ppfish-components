@@ -486,3 +486,7 @@ export default class DatePanel extends PopperBase {
     )
   }
 }
+
+DatePanel.isValid = (value, { disabledDate }) => {
+  return typeof disabledDate === 'function' && (value instanceof Date) ? !disabledDate(value) : true;
+}
