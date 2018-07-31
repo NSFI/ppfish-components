@@ -38,14 +38,14 @@ body {
     width: 100%;
     line-height: 64px;
     position: relative;
-    @media (max-width: 992px) {
+    @media (max-width: @screen-lg) {
       height: 128px;
     }
     .header-title {
-      text-align: center;
+      text-align: left;
       img {
         height: 36px;
-        margin: 13px 40px;
+        margin: 13px 0 13px 24px;
       }
     }
     h1 {
@@ -76,7 +76,7 @@ body {
       float: left;
       height: 22px;
       line-height: 22px;
-      padding-left: 16px;
+      padding-left: 60px;
       margin: 22px auto 0;
       .search-icon {
         width: 16px;
@@ -112,6 +112,12 @@ body {
       background: transparent;
       padding: 0;
       margin: 0 40px 0 0;
+    }
+
+    @media screen and (max-width: @screen-md) {
+      .nav {
+        display: none;
+      }
     }
 
     //层级关系需要保留，作样式覆盖
