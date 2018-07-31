@@ -131,6 +131,26 @@
   border-top-width: @border-width-base + 0.02px;
   transition: all .3s @ease-in-out;
 
+  // Control overflow
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 86px;
+
+  /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 0;
+    background-color: #ffffff;
+  }
+
+  /*定义滑块 内阴影+圆角*/
+  &::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    // -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+    // background-color: #646566;
+    background-color: rgba(100,101,102,0.2);
+  }
+
   &:hover {
     .hover;
   }
