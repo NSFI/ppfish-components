@@ -5,19 +5,27 @@
     position: relative;
     display: inline-block;
 
-    &.el-input {
+    .fishd-input {
       min-width: 193px;
     }
 
     &--daterange {
-      &.el-input {
-        min-width: 220px;
+      min-width: 220px;
+      border: 1px solid @border-color-base;
+      display: flex;
+      .fishd-input {
+        border: 0;
+        min-width: 193px;
       }
     }
 
     &--datetimerange {
-      &.el-input {
-        min-width: 350px;
+      border: 1px solid @border-color-base;
+      min-width: 340px;
+      display: flex;
+      .fishd-input {
+        border: 0;
+        min-width: 193px;
       }
     }
 

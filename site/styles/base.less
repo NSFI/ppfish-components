@@ -21,6 +21,10 @@ body {
   }
 }
 
+.drawer-handle {
+  top: 144px;
+}
+
 .app {
   background: url("../assets/nppd-web-2.1.1-pic@2x.png") calc(~"100vw - 250px") -285px no-repeat, url("../assets/nppd-web-2.1.2-pic@2x.png") calc(~"100vw - 265px") -340px no-repeat;
   background-size: 500px;
@@ -34,7 +38,11 @@ body {
     width: 100%;
     line-height: 64px;
     position: relative;
+    @media (max-width: 992px) {
+      height: 128px;
+    }
     .header-title {
+      text-align: center;
       img {
         height: 36px;
         margin: 13px 40px;

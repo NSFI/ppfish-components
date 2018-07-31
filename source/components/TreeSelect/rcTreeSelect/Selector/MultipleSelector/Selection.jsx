@@ -48,7 +48,7 @@ class Selection extends React.Component {
       >
         {onRemove &&
           <span
-            className={`${prefixCls}-selection__choice__remove`}
+            className={`${prefixCls}-selection__choice__remove fishdicon-guanbi`}
             onClick={this.onRemove}
           />
         }

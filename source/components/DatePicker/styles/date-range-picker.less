@@ -30,18 +30,41 @@
     }
 
     &__header {
-      position: relative;
+      margin: 12px;
       text-align: center;
-      height: 28px;
+      .clearfix;
+    }
 
-      button {
-        float: left;
+    &__header-label {
+      font-size: 14px;
+      padding: 0 5px;
+      line-height: 22px;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        color: @datepicker-text-hover-color;
       }
 
-      div {
-        font-size: 14px;
-        margin-right: 50px;
+      &.active {
+        color: @datepicker-active-color;
       }
+    }
+
+    &__prev-btn {
+      float: left;
+    }
+
+    &__prev-btn + &__prev-btn {
+      margin-left: 8px;
+    }
+
+    &__next-btn {
+      float: right;
+    }
+
+    &__next-btn + &__next-btn {
+      margin-right: 8px;
     }
 
     &__content {

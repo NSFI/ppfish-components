@@ -20,7 +20,7 @@ export default class DatePicker extends BasePicker {
   }
 
   constructor(props) {
-    let type = 'date';
+    let type = props.isShowTime ? 'datetime' : 'date';
     switch (props.selectionMode) {
       case SELECTION_MODES.YEAR:
         type = 'year'; break;

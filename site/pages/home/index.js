@@ -71,7 +71,7 @@ export default class Home extends React.Component {
               </div>
               <div className="resource-item">
                 <img src={require('../../assets/fd-web-4.4-pic@2x.png')} alt="资源下载"/>
-                <Link>资源下载</Link>
+                <a href="http://axure.yixin.im/view?pid=176&mid=489&id=4937" target="_blank">资源下载</a>
               </div>
             </div>
           </div>
