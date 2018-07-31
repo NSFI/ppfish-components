@@ -10,4 +10,4 @@ exports.reset = css => {
   }
 
   (document.head || document.getElementsByTagName('head')[0]).appendChild(style);
-}
+};
