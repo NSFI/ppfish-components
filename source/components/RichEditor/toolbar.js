@@ -88,7 +88,7 @@ class CustomToolbar extends PureComponent {
         'hide': !showEmojiPanel,
         'custom-emoji-panel': true
     });
-    let value = <div></div>;
+    let value = <div />;
 
     switch(name) {
       case 'link':
@@ -111,16 +111,16 @@ class CustomToolbar extends PureComponent {
           </ColorPicker>
         );
         */
-        value = <select className="item ql-color" key={key}></select>;
+        value = <select className="item ql-color" key={key} />;
         break;
       case 'align':
-        value = <select className="item ql-align" key={key}></select>
+        value = <select className="item ql-align" key={key} />;
         break;
       case '{"list":"ordered"}':
-        value = <button type="button" className="item ql-list" value="ordered" key={key}/>
+        value = <button type="button" className="item ql-list" value="ordered" key={key}/>;
         break;
       case '{"list":"bullet"}':
-        value = <button type="button" className="item ql-list" value="bullet" key={key}/>
+        value = <button type="button" className="item ql-list" value="bullet" key={key}/>;
         break;
       case 'emoji':
         value = (

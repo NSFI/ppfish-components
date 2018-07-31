@@ -8,11 +8,11 @@ export class PopperBase extends Component{
       //()=>HtmlElement
       getPopperRefElement: PropTypes.func,
       popperMixinOption: PropTypes.object
-    }
+    };
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
     PopperReactMixin.call(this, () => this.refs.root, props.getPopperRefElement, Object.assign({
       boundariesPadding: 0,

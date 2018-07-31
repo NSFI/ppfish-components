@@ -1,9 +1,9 @@
 module.exports = function(global) {
   global.document = global.document || {};
   global.window = global.window || {};
-  document.getSelection = getSelectionShim
+  document.getSelection = getSelectionShim;
   document.createRange = document.getSelection;
-}
+};
 
 /**
  * DOM Traversal is not implemented in JSDOM
@@ -17,4 +17,4 @@ function getSelectionShim() {
     setEnd: function() {},
     addRange: function() {},
   };
-};
+}
