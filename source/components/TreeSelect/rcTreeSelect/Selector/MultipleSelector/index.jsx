@@ -6,6 +6,7 @@ import generateSelector, { selectorPropTypes } from '../../Base/BaseSelector';
 import SearchInput from '../../SearchInput';
 import Selection from './Selection';
 import { createRef } from '../../util';
+import classNames from 'classnames';
 
 const Selector = generateSelector('multiple');
 
@@ -99,13 +100,13 @@ class MultipleSelector extends React.Component {
     }
 
     // Selector node list
-    const selectedValueNodes = myValueList.map(({ label, value }) => (
+    let selectedValueNodes = myValueList.map(({ label, value }) => (
       <Selection
         {...this.props}
         key={value}
         label={label}
         value={value}
-        onRemove={editable ? onMultipleSelectorRemove : null}
+        onRemove={onMultipleSelectorRemove}
       />
     ));
 
@@ -139,8 +140,21 @@ class MultipleSelector extends React.Component {
     //   </li>
     // );
 
-    const className = `${prefixCls}-selection__rendered`;
-    if (choiceTransitionName) {
+    // Handle readonly selected items
+    if (!editable) {
+      let labelList = selectedValueNodes.map((item) => {
+        return item.props.label;
+      });
+      selectedValueNodes = labelList.join('¡¢');
+    }
+
+    // const className = `${prefixCls}-selection__rendered`;
+    const className = classNames({
+      [`${prefixCls}-selection__rendered`]: true,
+      [`${prefixCls}-multiple-readonly`]: !editable
+    }, className);
+
+    if (choiceTransitionName && editable) {
       return (
         <Animate className={className} component="ul" transitionName={choiceTransitionName} onLeave={onChoiceAnimationLeave}>
           {selectedValueNodes}
@@ -149,7 +163,7 @@ class MultipleSelector extends React.Component {
     }
 
     return (
-      <ul className={className} role="menubar">
+      <ul className={className} role="menubar" title={!editable ? selectedValueNodes : null}>
         {selectedValueNodes}
       </ul>
     );

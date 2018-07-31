@@ -7,6 +7,7 @@ import {
 
 class Selection extends React.Component {
   static propTypes = {
+    editable: PropTypes.bool,
     prefixCls: PropTypes.string,
     maxTagTextLength: PropTypes.number,
     onRemove: PropTypes.func,
@@ -25,7 +26,7 @@ class Selection extends React.Component {
   render() {
     const {
       prefixCls, maxTagTextLength,
-      label, value, onRemove,
+      label, value, onRemove, editable
     } = this.props;
 
     let content = label || value;
@@ -38,6 +39,7 @@ class Selection extends React.Component {
       tagStyle['padding'] = '0 10px';
     }
 
+    // if (editable) {
     return (
       <li
         style={tagStyle}
@@ -46,17 +48,27 @@ class Selection extends React.Component {
         className={`${prefixCls}-selection__choice`}
         title={toTitle(label)}
       >
-        {onRemove &&
-          <span
-            className={`${prefixCls}-selection__choice__remove fishdicon-guanbi`}
-            onClick={this.onRemove}
-          />
-        }
+        <span
+          className={`${prefixCls}-selection__choice__remove fishdicon-guanbi`}
+          onClick={this.onRemove}
+        />
         <span className={`${prefixCls}-selection__choice__content`}>
           {content}
         </span>
       </li>
     );
+    // } else {
+    //   return (
+    //     <span
+    //       style={tagStyle}
+    //       {...UNSELECTABLE_ATTRIBUTE}
+    //       role="menuitem"
+    //       title={toTitle(label)}
+    //     >
+    //       {content}
+    //     </span>
+    //   );
+    // }
   }
 }
 

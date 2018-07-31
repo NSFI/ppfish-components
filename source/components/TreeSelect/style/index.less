@@ -7,30 +7,6 @@
 @select-tree-ctner-prefix: ~"@{fishd-prefix}-treeselect-ctner";
 
 /* stylelint-disable declaration-no-important */
-
-// .@{select-prefix}-focused .@{select-prefix}-selection,
-// .@{select-prefix}-open .@{select-prefix}-selection {
-//   border-color: @primary-color !important;
-//   box-shadow: @shadow-1-down !important;
-//   cursor: pointer;
-// }
-
-// .@{select-prefix}-selection {
-//   border: @border-width-base @border-style-base @border-color-base;
-//   border-radius: @border-radius-base;
-//   box-shadow: none !important;
-
-//   &:hover {
-//     border-color: @primary-color !important;
-//     cursor: pointer;
-//   }
-
-//   &:active,
-//   &:focus {
-//     box-shadow: none !important;
-//   }
-// }
-
 .@{select-prefix}-dropdown {
   overflow: hidden;
 
@@ -163,6 +139,14 @@
 
   .hide {
     display: none;
+  }
+
+  .@{select-prefix}-multiple-readonly {
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 30px;
   }
 }
 /* stylelint-enable */
