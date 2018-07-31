@@ -3,7 +3,7 @@ Fish Design在设计规范上支持一定程度的样式定制。
 
 ## 样式变量
 Fish Design的样式使用了 Less 作为开发语言，并定义了一系列全局/组件的样式变量，你可以根据需求进行相应调整。
- - [默认样式变量](https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/themes/default.less)
+ - <a href="https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/themes/default.less" target="_blank">默认样式变量</a>
 
 ## 定制方式
 
@@ -13,44 +13,11 @@ Fish Design的样式使用了 Less 作为开发语言，并定义了一系列全
 
 ```js
 npm install ppfish --save-dev
-npm install babel-plugin-import --save-dev
 npm install less-vars-to-js --save-dev
 npm install less less-loader css-loader style-loader --save-dev
 ```
-  
-  
-2.  配置Babel-loader
 
-
-```js
-//.babelrc
-{ 
-  "presets: [...]
-  "plugins": [
-    ["import", {"libraryName": "antd", "style": true} ],
-    ...
-  ]
-}
-// webpack.config.js
-module: {
-  rules: [
-    {
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      test: /\.js$/,
-      options: {
-        presets: [...]
-        plugins: [
-          ['import', { libraryName: "antd", style: true }]
-        ]
-      },
-    },
-  ]
-}
-```
-
-
-3.  创建自定义主题 .less文件
+2.  创建自定义主题 .less文件
 
 
 ```js
@@ -60,7 +27,7 @@ module: {
 @primary-color: #193D71; // 这里是自定义的颜色
 ```
 
-4.  配置webpack less-loader
+3.  配置loader
 
 
 ```js
@@ -90,7 +57,7 @@ module: {
 ```
   
   
-5. fonts配置
+## 本地部署Iconfont
 
 
 ```js

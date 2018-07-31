@@ -100,7 +100,7 @@ if (!attachEvent && !isServer) {
 
   if (animation === false) {
     let prefix = '';
-    for (var i = 0; i < DOM_PREFIXES.length; i++) {
+    for (let i = 0; i < DOM_PREFIXES.length; i++) {
       if (testElement.style[DOM_PREFIXES[i] + 'AnimationName'] !== undefined) {
         prefix = DOM_PREFIXES[i];
         keyFramePrefix = '-' + prefix.toLowerCase() + '-';

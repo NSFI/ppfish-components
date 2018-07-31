@@ -1,10 +1,10 @@
 let _iframeC=function (p){
-  var _W=window;
+  let _W=window;
     _W._MsgCBS={};
-    var _PWin=window.parent?window.parent:null;
-    var _PM=null;
-    var _cbnamexds_index=0;
-    var _cbnamexds=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
+    let _PWin=window.parent?window.parent:null;
+    let _PM=null;
+    let _cbnamexds_index=0;
+    let _cbnamexds=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40];
     try{
       if(_PWin.$forIFR){
         _PM=_PWin.$forIFR;
@@ -12,15 +12,15 @@ let _iframeC=function (p){
     }catch(e){
 
     }
-    var _execMethod=function(name,query){
+    let _execMethod=function(name,query){
       if(_PM){
         _PM[name](query,_W);
       }else{
         _PWin.postMessage({method:name,params:query},"*");
       }
     };
-    var _addToCBS=function(name,query,cb){
-      var oldCB;
+    let _addToCBS=function(name,query,cb){
+      let oldCB;
       if(cb){
          oldCB=_W._MsgCBS[name];
          if(oldCB){
@@ -81,11 +81,11 @@ let _iframeC=function (p){
       _addToCBS("openMailBox_cb",query,cb);
       _execMethod("openMailBox",query);
     };
-    var receiveMessage=function(event){
-      var data=event.data||{};//必须含method,params属性
-      var fromOrigin = event.origin || event.originalEvent.origin; 
-      var fromWin=event.source;
-      var bkfn=_W._MsgCBS[data.type||data.method];
+    let receiveMessage=function(event){
+      let data=event.data||{};//必须含method,params属性
+      let fromOrigin = event.origin || event.originalEvent.origin; 
+      let fromWin=event.source;
+      let bkfn=_W._MsgCBS[data.type||data.method];
       if(bkfn){
         bkfn(data.params||data.data);
         delete _W._MsgCBS[data.type||data.method];
@@ -97,4 +97,4 @@ let _iframeC=function (p){
 };
 
 const iframeC=_iframeC({});
-export {iframeC}
+export {iframeC};

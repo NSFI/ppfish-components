@@ -235,7 +235,7 @@ class AudioPlayer extends React.Component {
                 action={['click']}
                 prefixCls="change-audio-volume"
                 builtinPlacements={placements}
-                popupPlacement='topLeft'
+                popupPlacement="topLeft"
                 popup={this.getChangeVolumeElement()}
                 popupVisible={volumeChangeOpen}
                 onPopupVisibleChange={this.onVolumeVisibleChange}

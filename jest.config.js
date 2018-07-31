@@ -14,6 +14,7 @@ module.exports = {
     "**/__tests__/**/*.(js|jsx|ts|tsx)",
     "**/?(*.)+(test).(js|jsx|ts|tsx)"
   ],
+  testPathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/node_modules/"],
   transform:{
     "^.+\\.tsx?$": "ts-jest",
     "^.+\\.jsx?$": "babel-jest"

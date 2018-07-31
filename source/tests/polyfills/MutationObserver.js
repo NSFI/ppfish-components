@@ -10,14 +10,14 @@
 // @version 0.7.24
 if (typeof WeakMap === "undefined") {
   (function() {
-    var defineProperty = Object.defineProperty;
-    var counter = Date.now() % 1e9;
-    var WeakMap = function() {
+    let defineProperty = Object.defineProperty;
+    let counter = Date.now() % 1e9;
+    let WeakMap = function() {
       this.name = "__st" + (Math.random() * 1e9 >>> 0) + (counter++ + "__");
     };
     WeakMap.prototype = {
       set: function(key, value) {
-        var entry = key[this.name];
+        let entry = key[this.name];
         if (entry && entry[0] === key) entry[1] = value; else defineProperty(key, this.name, {
           value: [ key, value ],
           writable: true
@@ -25,17 +25,17 @@ if (typeof WeakMap === "undefined") {
         return this;
       },
       get: function(key) {
-        var entry;
+        let entry;
         return (entry = key[this.name]) && entry[0] === key ? entry[1] : undefined;
       },
       "delete": function(key) {
-        var entry = key[this.name];
+        let entry = key[this.name];
         if (!entry || entry[0] !== key) return false;
         entry[0] = entry[1] = undefined;
         return true;
       },
       has: function(key) {
-        var entry = key[this.name];
+        let entry = key[this.name];
         if (!entry) return false;
         return entry[0] === key;
       }
@@ -48,18 +48,18 @@ module.exports = function(global) {
   if (global.JsMutationObserver) {
     return;
   }
-  var registrationsTable = new WeakMap();
-  var setImmediate;
+  let registrationsTable = new WeakMap();
+  let setImmediate;
   if (/Trident|Edge/.test(navigator.userAgent)) {
     setImmediate = setTimeout;
   } else if (window.setImmediate) {
     setImmediate = window.setImmediate;
   } else {
-    var setImmediateQueue = [];
-    var sentinel = String(Math.random());
+    let setImmediateQueue = [];
+    let sentinel = String(Math.random());
     window.addEventListener("message", function(e) {
       if (e.data === sentinel) {
-        var queue = setImmediateQueue;
+        let queue = setImmediateQueue;
         setImmediateQueue = [];
         queue.forEach(function(func) {
           func();
@@ -71,8 +71,8 @@ module.exports = function(global) {
       window.postMessage(sentinel, "*");
     };
   }
-  var isScheduled = false;
-  var scheduledObservers = [];
+  let isScheduled = false;
+  let scheduledObservers = [];
   function scheduleCallback(observer) {
     scheduledObservers.push(observer);
     if (!isScheduled) {
@@ -85,14 +85,14 @@ module.exports = function(global) {
   }
   function dispatchCallbacks() {
     isScheduled = false;
-    var observers = scheduledObservers;
+    let observers = scheduledObservers;
     scheduledObservers = [];
     observers.sort(function(o1, o2) {
       return o1.uid_ - o2.uid_;
     });
-    var anyNonEmpty = false;
+    let anyNonEmpty = false;
     observers.forEach(function(observer) {
-      var queue = observer.takeRecords();
+      let queue = observer.takeRecords();
       removeTransientObserversFor(observer);
       if (queue.length) {
         observer.callback_(queue, observer);
@@ -103,7 +103,7 @@ module.exports = function(global) {
   }
   function removeTransientObserversFor(observer) {
     observer.nodes_.forEach(function(node) {
-      var registrations = registrationsTable.get(node);
+      let registrations = registrationsTable.get(node);
       if (!registrations) return;
       registrations.forEach(function(registration) {
         if (registration.observer === observer) registration.removeTransientObservers();
@@ -111,20 +111,20 @@ module.exports = function(global) {
     });
   }
   function forEachAncestorAndObserverEnqueueRecord(target, callback) {
-    for (var node = target; node; node = node.parentNode) {
-      var registrations = registrationsTable.get(node);
+    for (let node = target; node; node = node.parentNode) {
+      let registrations = registrationsTable.get(node);
       if (registrations) {
-        for (var j = 0; j < registrations.length; j++) {
-          var registration = registrations[j];
-          var options = registration.options;
+        for (let j = 0; j < registrations.length; j++) {
+          let registration = registrations[j];
+          let options = registration.options;
           if (node !== target && !options.subtree) continue;
-          var record = callback(options);
+          let record = callback(options);
           if (record) registration.enqueue(record);
         }
       }
     }
   }
-  var uidCounter = 0;
+  let uidCounter = 0;
   function JsMutationObserver(callback) {
     this.callback_ = callback;
     this.nodes_ = [];
@@ -137,10 +137,10 @@ module.exports = function(global) {
       if (!options.childList && !options.attributes && !options.characterData || options.attributeOldValue && !options.attributes || options.attributeFilter && options.attributeFilter.length && !options.attributes || options.characterDataOldValue && !options.characterData) {
         throw new SyntaxError();
       }
-      var registrations = registrationsTable.get(target);
+      let registrations = registrationsTable.get(target);
       if (!registrations) registrationsTable.set(target, registrations = []);
-      var registration;
-      for (var i = 0; i < registrations.length; i++) {
+      let registration;
+      for (let i = 0; i < registrations.length; i++) {
         if (registrations[i].observer === this) {
           registration = registrations[i];
           registration.removeListeners();
@@ -157,9 +157,9 @@ module.exports = function(global) {
     },
     disconnect: function() {
       this.nodes_.forEach(function(node) {
-        var registrations = registrationsTable.get(node);
-        for (var i = 0; i < registrations.length; i++) {
-          var registration = registrations[i];
+        let registrations = registrationsTable.get(node);
+        for (let i = 0; i < registrations.length; i++) {
+          let registration = registrations[i];
           if (registration.observer === this) {
             registration.removeListeners();
             registrations.splice(i, 1);
@@ -170,7 +170,7 @@ module.exports = function(global) {
       this.records_ = [];
     },
     takeRecords: function() {
-      var copyOfRecords = this.records_;
+      let copyOfRecords = this.records_;
       this.records_ = [];
       return copyOfRecords;
     }
@@ -187,7 +187,7 @@ module.exports = function(global) {
     this.oldValue = null;
   }
   function copyMutationRecord(original) {
-    var record = new MutationRecord(original.type, original.target);
+    let record = new MutationRecord(original.type, original.target);
     record.addedNodes = original.addedNodes.slice();
     record.removedNodes = original.removedNodes.slice();
     record.previousSibling = original.previousSibling;
@@ -197,7 +197,7 @@ module.exports = function(global) {
     record.oldValue = original.oldValue;
     return record;
   }
-  var currentRecord, recordWithOldValue;
+  let currentRecord, recordWithOldValue;
   function getRecord(type, target) {
     return currentRecord = new MutationRecord(type, target);
   }
@@ -226,11 +226,11 @@ module.exports = function(global) {
   }
   Registration.prototype = {
     enqueue: function(record) {
-      var records = this.observer.records_;
-      var length = records.length;
+      let records = this.observer.records_;
+      let length = records.length;
       if (records.length > 0) {
-        var lastRecord = records[length - 1];
-        var recordToReplaceLast = selectRecord(lastRecord, record);
+        let lastRecord = records[length - 1];
+        let recordToReplaceLast = selectRecord(lastRecord, record);
         if (recordToReplaceLast) {
           records[length - 1] = recordToReplaceLast;
           return;
@@ -244,7 +244,7 @@ module.exports = function(global) {
       this.addListeners_(this.target);
     },
     addListeners_: function(node) {
-      var options = this.options;
+      let options = this.options;
       if (options.attributes) node.addEventListener("DOMAttrModified", this, true);
       if (options.characterData) node.addEventListener("DOMCharacterDataModified", this, true);
       if (options.childList) node.addEventListener("DOMNodeInserted", this, true);
@@ -254,7 +254,7 @@ module.exports = function(global) {
       this.removeListeners_(this.target);
     },
     removeListeners_: function(node) {
-      var options = this.options;
+      let options = this.options;
       if (options.attributes) node.removeEventListener("DOMAttrModified", this, true);
       if (options.characterData) node.removeEventListener("DOMCharacterDataModified", this, true);
       if (options.childList) node.removeEventListener("DOMNodeInserted", this, true);
@@ -264,17 +264,17 @@ module.exports = function(global) {
       if (node === this.target) return;
       this.addListeners_(node);
       this.transientObservedNodes.push(node);
-      var registrations = registrationsTable.get(node);
+      let registrations = registrationsTable.get(node);
       if (!registrations) registrationsTable.set(node, registrations = []);
       registrations.push(this);
     },
     removeTransientObservers: function() {
-      var transientObservedNodes = this.transientObservedNodes;
+      let transientObservedNodes = this.transientObservedNodes;
       this.transientObservedNodes = [];
       transientObservedNodes.forEach(function(node) {
         this.removeListeners_(node);
-        var registrations = registrationsTable.get(node);
-        for (var i = 0; i < registrations.length; i++) {
+        let registrations = registrationsTable.get(node);
+        for (let i = 0; i < registrations.length; i++) {
           if (registrations[i] === this) {
             registrations.splice(i, 1);
             break;
@@ -347,4 +347,4 @@ module.exports = function(global) {
     global.MutationObserver = JsMutationObserver;
     JsMutationObserver._isPolyfilled = true;
   }
-}
+};

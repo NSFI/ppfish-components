@@ -1,1 +1,1 @@
-export {default as EventRegister} from './EventRegister'
+export {default as EventRegister} from './EventRegister';

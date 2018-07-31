@@ -1,6 +1,6 @@
-# 树形选择器
+# 树选择
 
-树形选择控件。
+树型选择控件。
 
 ## 何时使用
 
@@ -294,6 +294,10 @@
         title: 'Child Node1',
         value: '0-0-0',
         key: '0-0-0',
+      },{
+        title: 'Child Node2',
+        value: '0-0-1',
+        key: '0-0-1',
       }],
     }, {
       title: 'Node2',
@@ -311,6 +315,14 @@
         title: 'Child Node5',
         value: '0-1-2',
         key: '0-1-2',
+      }, {
+        title: 'Child Node6',
+        value: '0-1-3',
+        key: '0-1-3',
+      }, {
+        title: 'Child Node7',
+        value: '0-1-4',
+        key: '0-1-4',
       }],
     }];
     const tProps = {
