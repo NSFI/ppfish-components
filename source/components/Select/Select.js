@@ -9,13 +9,12 @@ import Spin from '../Spin/index.tsx';
 import Icon from '../Icon/index.tsx';
 import SelectSearch from './SelectSearch';
 import {placements} from './placements';
-import {KeyCode, listConvertToGroup} from "../../utils";
+import {KeyCode} from "../../utils";
 
 const noop = () => {
 };
 
 export default class Select extends React.Component {
-  static listConvertToGroup = listConvertToGroup;
   static propTypes = {
     allowClear: PropTypes.bool,
     children: PropTypes.node,

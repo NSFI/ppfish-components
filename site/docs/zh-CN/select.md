@@ -101,13 +101,13 @@ render(){
 
 ## 分组
 
-:::demo 可以使用`Select.OptGroup`进行分组，提供了`Select.listConvertToGroup`首字母分组方法
+:::demo 可以使用`Select.OptGroup`进行分组，提供了`utils.listConvertToGroup`首字母分组方法
 ```js
 state={
   value:"1"
 }
 render(){
-  const Group = Select.listConvertToGroup([{key:"1",label:'不知名人士'},{key:"2",label:'李四'},{key:"3",label:'###'},{key:"4",label:'李一'}]);
+  const Group = this.props.utils.listConvertToGroup([{key:"1",label:'不知名人士'},{key:"2",label:'李四'},{key:"3",label:'###'},{key:"4",label:'李一'}]);
   return(
         <Select style={{width:300}} showSingleClear onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
@@ -130,7 +130,7 @@ state={
   value:{key:"1"}
 }
 render(){
-  const Group = Select.listConvertToGroup([{key:"1",label:'不知名人士'},{key:"2",label:'李四'},{key:"3",label:'@@@###xxx'},{key:"4",label:'李一'}]);
+  const Group = this.props.utils.listConvertToGroup([{key:"1",label:'不知名人士'},{key:"2",label:'李四'},{key:"3",label:'@@@###xxx'},{key:"4",label:'李一'}]);
   return(
     <div>
        <div>key:{this.state.value && this.state.value.key}</div>
@@ -208,7 +208,7 @@ state={
 }
 
 render(){
-  const Group = Select.listConvertToGroup([{key:"6",label:"qqt"},{key:"1",label:'skrskrskrskr'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'},{key:"5",label:'李二'}]);
+  const Group = this.props.utils.listConvertToGroup([{key:"6",label:"qqt"},{key:"1",label:'skrskrskrskr'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'},{key:"5",label:'李二'}]);
   return(
     <div>
         <Select style={{width:300}} disabled={false} onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
@@ -243,7 +243,7 @@ state={
   mValue:["1"],
 }
 render(){
-  const Group = Select.listConvertToGroup([{key:"1",label:'选项1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
+  const Group = this.props.utils.listConvertToGroup([{key:"1",label:'选项1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
             <Select style={{width:300}} showSingleClear showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
@@ -306,7 +306,7 @@ state={
 
 
 render(){
-  const Group = Select.listConvertToGroup([{key:"1",label:'选项1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
+  const Group = this.props.utils.listConvertToGroup([{key:"1",label:'选项1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
           <Input  style={{marginRight:10,width:200}} placeholder="输入宽度" value={this.state.width} onChange={this.handleChangeWidth}/>
@@ -510,9 +510,8 @@ render(){
 | --- | --- |
 | blur() | 取消焦点 |
 | focus() | 获取焦点 |
-| listConvertToGroup() | 首字母分组方法 |
 
-> 注意，在有SearchInput的情况，操作的目标为Input框
+> 注意，在有SearchInput的情况，操作的目标为Input框,`listConvertToGroup`在util库中引用
   
 ### Select.Option props
 

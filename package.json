@@ -43,7 +43,7 @@
     "mini-store": "^1.1.0",
     "moment": "^2.22.2",
     "omit.js": "^1.0.0",
-    "pinyin": "^2.8.3",
+    "pinyin": "2.0.0",
     "query-string": "^4.2.2",
     "raf": "^3.4.0",
     "rc-animate": "^2.4.4",
