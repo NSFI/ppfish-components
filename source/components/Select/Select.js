@@ -244,13 +244,22 @@ export default class Select extends React.Component {
         }
       });
     } else if (mode === 'multiple') {
-      const changedValue = index === -1 ? [...selectValue, obj] : [...selectValue.slice(0, index), ...selectValue.slice(index + 1)];
-      const changedObj = {
-        selectValue: changedValue,
-      };
-      //label点击同步状态
+      let changedValue, changedObj = {};
+      //label 点击
       if (clickInLabel) {
-        changedObj.selectValueForMultiplePanel = changedValue;
+        const selectValueForMultiplePanel = this.state.selectValueForMultiplePanel;
+        const indexInMultiple = selectValueForMultiplePanel.findIndex(selected => selected.key === obj.key);
+        changedValue = [...selectValueForMultiplePanel.slice(0, indexInMultiple), ...selectValueForMultiplePanel.slice(indexInMultiple + 1)];
+        changedObj = {
+          selectValue: changedValue,
+          selectValueForMultiplePanel: changedValue
+        };
+      } else {
+        //option 点击
+        changedValue = index === -1 ? [...selectValue, obj] : [...selectValue.slice(0, index), ...selectValue.slice(index + 1)];
+        changedObj = {
+          selectValue: changedValue,
+        };
       }
       this.setState(changedObj, () => {
         if (clickInLabel) {
@@ -615,12 +624,18 @@ export default class Select extends React.Component {
         {[`${selectionCls}-large`]: size === 'large'},
         {[`${selectionCls}-small`]: size === 'small'},
       );
+    const panelStyle = {
+      ...style
+    };
+    if (labelClear) {
+      panelStyle.paddingRight = 0;
+    }
     return (
       <div
         className={selectionPanelCls}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        style={style}>
+        style={panelStyle}>
         {
           loading ?
             <div className={`${selectionCls}-loading`}>
