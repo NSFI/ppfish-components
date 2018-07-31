@@ -1,8 +1,8 @@
 import * as React from 'react';
 import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcTreeSelect';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { TreeSelectProps } from './interface';
-import * as warning from 'warning';
+import warning from 'warning';
 // import 'antd/dist/antd.css';
 import './style/index.less';
 

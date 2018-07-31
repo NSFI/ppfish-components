@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import Icon from '../Icon/index.tsx';
 
 class TreeSelectMore extends Component {
   static propTypes = {

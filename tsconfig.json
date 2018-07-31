@@ -12,6 +12,8 @@
       "dom.iterable",
       "es2015"
     ],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "baseUrl": "./source/"
   },
   "include": [

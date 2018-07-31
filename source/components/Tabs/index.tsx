@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import RcTabs, { TabPane, TabContent, ScrollableInkTabBar } from './src/index.js';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import Icon from '../Icon';
 import * as BizLoading from '../BizLoading';
-import * as warning from 'warning';
+import warning from 'warning';
 import './style/index.less';
 
 function isFlexSupported() {
@@ -120,10 +120,10 @@ export default class Tabs extends React.Component<TabsProps, any> {
     } = this.props;
 
     let { inkBarAnimated, tabPaneAnimated } = typeof animated === 'object' ? {
-      inkBarAnimated: animated.inkBar, 
+      inkBarAnimated: animated.inkBar,
       tabPaneAnimated: animated.tabPane,
     } : {
-      inkBarAnimated: animated, 
+      inkBarAnimated: animated,
       tabPaneAnimated: animated,
     };
 

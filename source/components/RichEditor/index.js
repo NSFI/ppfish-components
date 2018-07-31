@@ -6,7 +6,7 @@ import CustomToolbar from './toolbar.js';
 import CustomSizeBlot from './formatSizeBlot.js';
 import EmojiBlot from './formatEmojiBlot.js';
 import EntryBlot from './formatEntryBlot.js';
-import 'react-quill/dist/quill.snow.css';
+// import 'react-quill/dist/quill.snow.css';
 import './index.less';
 
 Quill.register(CustomSizeBlot);
@@ -43,7 +43,7 @@ class RichEditor extends Component {
 
     let { value, extendLinkModule } = this.props;
 
-    this.state = { 
+    this.state = {
       value: value
     };
     this.modules = {
