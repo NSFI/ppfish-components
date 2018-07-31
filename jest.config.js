@@ -3,13 +3,13 @@ module.exports = {
     '<rootDir>/source/tests/setup.js',
   ],
 	moduleNameMapper: {
-	  "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
-	  "\\.(css|less)$": "<rootDir>/tools/assetsTransformer.js"
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
+    "\\.(css|less)$": "<rootDir>/tools/assetsTransformer.js"
 	},
   moduleFileExtensions: [
     "js", "jsx", "json", "ts", "tsx"
   ],
-
+  testURL:'http://localhost',
   testMatch: [
     "**/__tests__/**/*.(js|jsx|ts|tsx)",
     "**/?(*.)+(test).(js|jsx|ts|tsx)"
