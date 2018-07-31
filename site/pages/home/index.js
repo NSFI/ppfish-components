@@ -44,7 +44,7 @@ export default class Home extends React.Component {
                 <img src={require('../../assets/fd-web-3.3-pic@2x.png')} alt="优雅｜Elegent"/>
                 <h3>优雅｜Elegent</h3>
                 <i className="split-icon"/>
-                <p>如无必要 勿增实体：慎重筛选客户当前需要信息内容</p>
+                <p>设计方案追求优雅，給使用者有质感的操作感受</p>
               </div>
               <div className="principle">
                 <img src={require('../../assets/fd-web-3.4-pic@2x.png')} alt="适应性｜Adaptability"/>
