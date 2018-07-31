@@ -1,6 +1,6 @@
 import * as React from 'react';
 import omit from 'omit.js';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import calculateNodeHeight from './calculateNodeHeight';
 
 function onNextFrame(cb: () => void) {

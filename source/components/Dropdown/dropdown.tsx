@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as RcDropdown from './src';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import DropdownButton from './dropdown-button';
-import * as warning from 'warning';
+import warning from 'warning';
 
 export interface DropDownProps {
   trigger?: ('click' | 'hover' | 'contextMenu')[];

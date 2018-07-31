@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import Animate from 'rc-animate';
 import omit from 'omit.js';
+
+import './style/index.less';
 
 export type SpinSize = 'small' | 'default' | 'large';
 export type SpinIndicator = React.ReactElement<any>;
@@ -54,7 +56,7 @@ function renderIndicator(props: SpinProps): React.ReactNode {
 
 class Spin extends React.Component<SpinProps, SpinState> {
   static defaultProps = {
-    prefixCls: 'ant-spin',
+    prefixCls: 'fishd-spin',
     spinning: true,
     size: 'default' as SpinSize,
     wrapperClassName: '',

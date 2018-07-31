@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '../Button';
 import { ButtonGroupProps } from '../Button';
 import Dropdown, { DropDownProps } from './dropdown';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 const ButtonGroup = Button.Group;
 
 export interface DropdownButtonProps extends ButtonGroupProps, DropDownProps {
