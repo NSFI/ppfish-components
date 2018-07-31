@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import Input, { InputProps } from './Input';
 import Icon from '../Icon';
 import Button from '../Button';

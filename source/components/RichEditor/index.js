@@ -42,7 +42,7 @@ class RichEditor extends Component {
 
     let { value, extendLinkModule } = this.props;
 
-    this.state = { 
+    this.state = {
       value: value
     };
     this.modules = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider } from 'antd';
+import Slider from '../Slider/index.tsx';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Trigger from 'rc-trigger';

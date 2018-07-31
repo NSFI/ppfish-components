@@ -39,24 +39,12 @@ export default {
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
-        include: [
-          path.join(__dirname, './site'),
-          path.join(__dirname, './source'),
-          path.join(__dirname, './libs')
-        ]
+        exclude: /node_modules/,
       },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        include: [
-          path.join(__dirname, './site'),
-          path.join(__dirname, './source'),
-          path.join(__dirname, './libs')
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        exclude: /node_modules/,
       },
       {
         test: /\.less$/,

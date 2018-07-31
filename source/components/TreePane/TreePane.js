@@ -1,7 +1,7 @@
 import React, { Component, Children } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'antd';
+import Checkbox from '../Checkbox/index.tsx';
 import TreeSelectMore from './TreeSelectMore';
 
 class TreePane extends Component {

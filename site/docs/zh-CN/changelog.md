@@ -8,7 +8,6 @@
       <div class="timeline-item-content">
       <h2 id="1.3.0">
         <span>1.3.0</span>
-        <a href="#1.3.0" class="anchor">#</a>
       </h2>
       <p>
         <code>2018-08-01</code>

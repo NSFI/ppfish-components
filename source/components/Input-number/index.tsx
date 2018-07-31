@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import * as RcInputNumber from './src';
 
 import {Omit} from '../../utils/type';
