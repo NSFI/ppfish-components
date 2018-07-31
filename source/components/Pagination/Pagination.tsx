@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as RcPagination from './src';
+import RcPagination from './src';
 import classNames from 'classnames';
 import Select from '../Select';
 import MiniSelect from './MiniSelect';
