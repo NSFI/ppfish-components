@@ -83,29 +83,28 @@
   }
 
   &-selection {
-    outline: none;
-    user-select: none;
-
-    box-sizing: border-box;
+    // outline: none;
+    // user-select: none;
     display: block;
 
-    background-color: @component-background;
-    border-radius: @border-radius-base;
-    border: @border-width-base @border-style-base @border-color-base;
-    // strange align fix for chrome but works
-    // https://gw.alipayobjects.com/zos/rmsportal/VFTfKXJuogBAXcvfAUWJ.gif
-    border-top-width: @border-width-base + 0.02px;
-    transition: all .3s @ease-in-out;
+    // box-sizing: border-box;
+    // background-color: @component-background;
+    // border-radius: @border-radius-base;
+    // border: @border-width-base @border-style-base @border-color-base;
+    // // strange align fix for chrome but works
+    // // https://gw.alipayobjects.com/zos/rmsportal/VFTfKXJuogBAXcvfAUWJ.gif
+    // border-top-width: @border-width-base + 0.02px;
+    // transition: all .3s @ease-in-out;
 
-    &:hover {
-      .hover;
-    }
+    // &:hover {
+    //   .hover;
+    // }
 
-    .@{select-prefix-cls}-focused &,
-    &:focus,
-    &:active {
-      .active;
-    }
+    // .@{select-prefix-cls}-focused &,
+    // &:focus,
+    // &:active {
+    //   .active;
+    // }
 
     &__clear {
       .selection__clear();
@@ -131,16 +130,31 @@
 
   &-disabled {
     color: @disabled-color;
-  }
 
-  &-disabled &-selection {
+    // modified
     background: @input-disabled-bg;
     cursor: not-allowed;
     &:hover,
     &:focus,
     &:active {
-      border-color: @border-color-base;
-      box-shadow: none;
+      border-color: @border-color-base!important;
+      box-shadow: none!important;
+    }
+  }
+
+  &-disabled &-selection {
+    // background: @input-disabled-bg;
+    cursor: not-allowed;
+    // &:hover,
+    // &:focus,
+    // &:active {
+    //   border-color: @border-color-base;
+    //   box-shadow: none;
+    // }
+
+    // modified
+    &__choice {
+      cursor: not-allowed!important;
     }
 
     &__clear {

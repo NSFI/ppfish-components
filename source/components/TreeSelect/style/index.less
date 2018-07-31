@@ -4,7 +4,7 @@
 @import "./TreeSelect.less";
 
 @select-prefix: ~"@{fishd-prefix}-treeselect";
-@select-tree-prefix: ~"@{fishd-prefix}-treeselect-ctner";
+@select-tree-ctner-prefix: ~"@{fishd-prefix}-treeselect-ctner";
 
 /* stylelint-disable declaration-no-important */
 
@@ -34,14 +34,14 @@
 .@{select-prefix}-dropdown {
   overflow: hidden;
 
-  /*¶¨Òå¹ö¶¯Ìõ¸ß¿í¼°±³¾° ¸ß¿í·Ö±ğ¶ÔÓ¦ºáÊú¹ö¶¯ÌõµÄ³ß´ç*/
+  /*å®šä¹‰æ»šåŠ¨æ¡é«˜å®½åŠèƒŒæ™¯ é«˜å®½åˆ†åˆ«å¯¹åº”æ¨ªç«–æ»šåŠ¨æ¡çš„å°ºå¯¸*/
   &::-webkit-scrollbar {
     width: 4px;
     height: 0;
     background-color: #ffffff;
   }
 
-  /*¶¨Òå»¬¿é ÄÚÒõÓ°+Ô²½Ç*/
+  /*å®šä¹‰æ»‘å— å†…é˜´å½±+åœ†è§’*/
   &::-webkit-scrollbar-thumb {
     border-radius: 100px;
     // -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
@@ -117,8 +117,29 @@
   }
 }
 
-.@{select-tree-prefix} {
+.@{select-tree-ctner-prefix} {
   outline: none !important;
+  user-select: none;
+  display: block;
+
+  box-sizing: border-box;
+  background-color: @component-background;
+  border-radius: @border-radius-base;
+  border: @border-width-base @border-style-base @border-color-base;
+  // strange align fix for chrome but works
+  // https://gw.alipayobjects.com/zos/rmsportal/VFTfKXJuogBAXcvfAUWJ.gif
+  border-top-width: @border-width-base + 0.02px;
+  transition: all .3s @ease-in-out;
+
+  &:hover {
+    .hover;
+  }
+
+  .@{select-prefix}-focused &,
+  &:focus,
+  &:active {
+    .active;
+  }
 
   .hide {
     display: none;
