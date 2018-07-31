@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { SiderProps } from './Sider';
 
 export interface BasicProps extends React.HTMLAttributes<HTMLDivElement> {

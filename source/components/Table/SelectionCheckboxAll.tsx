@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import Checkbox, {CheckboxChangeEvent} from '../Checkbox';
 import Dropdown from '../Dropdown';
 import Menu from '../Menu';

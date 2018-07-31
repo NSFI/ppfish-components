@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.less';
-import TreeSelect from '../index';
-import { Checkbox, Button } from 'antd';
+import TreePane from '../index';
+import Checkbox from '../../Checkbox/index.tsx';
 
 // 初始化渲染的树形结构
 let defaultData = [
@@ -185,7 +185,7 @@ class App extends Component {
     const { selected, selectedItems } = this.state;
     return (
       <div style={{ margin: 100 }}>
-        <TreeSelect
+        <TreePane
           multiple={true}
           defaultData={defaultData}
           defaultSelected={defaultSelected}

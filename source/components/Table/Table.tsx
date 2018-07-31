@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
-import * as classNames from 'classnames';
-import * as warning from 'warning';
+import classNames from 'classnames';
+import warning from 'warning';
 import RcTable from './src';
 import Pagination from '../Pagination';
 import Icon from '../Icon';
