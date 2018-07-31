@@ -2,7 +2,7 @@ import React from 'react';
 import {BackTop, Divider} from 'antd';
 import {Icon, Row, Col, Menu} from '../../../source/components';
 import MobileMenu from 'rc-drawer';
-import 'rc-drawer/dist/rc-drawer.css';
+import '../../styles/rc-drawer.less';
 import PropTypes from 'prop-types';
 import Layout from '../common/layout';
 import locales from '../../locales';
