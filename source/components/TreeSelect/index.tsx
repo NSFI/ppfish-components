@@ -60,7 +60,6 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
 
     const cls = classNames({
       [`${prefixCls}-ctner`]: true,
-      // "m-select-tree": true,
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-sm`]: size === 'small',
     }, className);
