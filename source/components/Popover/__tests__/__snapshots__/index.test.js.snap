@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popover should show overlay when trigger is clicked 1`] = `"<div class=\\"fishd-popover-content\\"><div class=\\"fishd-popover-arrow\\"></div><div class=\\"fishd-popover-inner\\"><div><div class=\\"fishd-popover-title\\">code</div><div class=\\"fishd-popover-inner-content\\">console.log('hello world')</div></div></div></div>"`;
+
+exports[`Popover should show overlay when trigger is clicked 2`] = `"<div class=\\"fishd-popover-content\\"><div class=\\"fishd-popover-arrow\\"></div><div class=\\"fishd-popover-inner\\"><div><div class=\\"fishd-popover-title\\">code</div><div class=\\"fishd-popover-inner-content\\">console.log('hello world')</div></div></div></div>"`;
