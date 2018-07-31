@@ -41,9 +41,9 @@ export default class TimePicker extends BasePicker {
     this._onSelectionChange = debounce(200, this.onSelectionChange);
   }
 
-  isDateValid(value) {
-    return super.isDateValid(value) && TimePanel.isValid(value, this.panelProps());
-  }
+  // isDateValid(value) {
+  //   return super.isDateValid(value) && TimePanel.isValid(value, this.panelProps());
+  // }
 
   panelProps(props){
     const ps = props || this.props;
