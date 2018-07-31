@@ -14,6 +14,6 @@ export class ExtendableError extends Error {
 
 export class MethodImplementationRequiredError extends ExtendableError {
   constructor(msg){
-    super(msg)
+    super(msg);
   }
 }

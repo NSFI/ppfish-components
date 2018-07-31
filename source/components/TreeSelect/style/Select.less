@@ -184,7 +184,8 @@
     margin-left: @control-padding-horizontal - 1px;
     margin-right: @control-padding-horizontal - 1px;
     position: relative;
-    line-height: @input-height-base - 2px;
+    // line-height: @input-height-base - 2px;
+    line-height: @input-height-base;  // modified
     // https://github.com/ant-design/ant-design/issues/3481#issuecomment-254721026
     &:after {
       content: '.';
@@ -341,7 +342,8 @@
 
     > ul > li,
     .@{select-prefix-cls}-selection__rendered > ul > li {  // for tree-select
-      margin-top: 3px;
+      // margin-top: 3px;
+      margin-top: 4px;  // modified
       height: @input-height-base - 8px;
       line-height: @input-height-base - 8px - 2px;
     }

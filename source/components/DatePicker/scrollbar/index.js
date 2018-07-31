@@ -1,2 +1,2 @@
 import './scrollbar.less';
-export {Scrollbar} from './Scrollbar'
+export {Scrollbar} from './Scrollbar';

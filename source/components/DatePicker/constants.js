@@ -71,47 +71,47 @@ export const TYPE_VALUE_RESOLVER_MAP = {
           const weekNumber = getWeekNumber(value);
           return value.getFullYear() + 'w' + (weekNumber > 9 ? weekNumber : '0' + weekNumber);
         } else {
-          let str = DATE_FORMATTER(value, format)
+          let str = DATE_FORMATTER(value, format);
           if (str != '') {
-            let weekno = deconstructDate(value).week
-            str = /WW/.test(str) ? str.replace(/WW/, weekno < 10 ? `0${weekno}` : weekno) : str.replace(/W/, weekno)
+            let weekno = deconstructDate(value).week;
+            str = /WW/.test(str) ? str.replace(/WW/, weekno < 10 ? `0${weekno}` : weekno) : str.replace(/W/, weekno);
           }
-          return str
+          return str;
         }
       }
 
-      return ''
+      return '';
     },
     parser(text, format) {
       const weekno = (matcher, src) => {
         let str = src.substr(matcher.index, matcher.length);
         if (/\d\d?/.test(str)) {
-          return { week: Number(str), isValid: true }
+          return { week: Number(str), isValid: true };
         } else {
-          return { week: -1, isValid: false }
+          return { week: -1, isValid: false };
         }
-      }
+      };
 
-      let date = DATE_PARSER(text, format)
-      let matcher = format.match(/(WW?)/)
-      let wn = null
+      let date = DATE_PARSER(text, format);
+      let matcher = format.match(/(WW?)/);
+      let wn = null;
 
-      if (!matcher) return date
+      if (!matcher) return date;
       else {
-        if (text.length > format.length) return ''
+        if (text.length > format.length) return '';
 
         switch (matcher.length) {
           case 1:
-            wn = weekno(matcher, text)
-            if (!wn.isValid) return ''
+            wn = weekno(matcher, text);
+            if (!wn.isValid) return '';
             break;
           case 2:
-            wn = weekno(matcher, text)
-            if (!wn.isValid) return ''
+            wn = weekno(matcher, text);
+            if (!wn.isValid) return '';
             break;
-          default: throw new Error('never reach here')
+          default: throw new Error('never reach here');
         }
-        return getDateOfISOWeek(wn.week, date.getFullYear())
+        return getDateOfISOWeek(wn.week, date.getFullYear());
       }
     }
   },

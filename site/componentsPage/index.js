@@ -140,10 +140,10 @@ export default {
         type: 'markdown',
         name: 'Menu 导航菜单',
       },
-      'dropdown': {
-        type: 'markdown',
-        name: 'Dropdown 下拉菜单',
-      },
+      // 'dropdown': {
+      //   type: 'markdown',
+      //   name: 'Dropdown 下拉菜单',
+      // },
       // 'breadcrumb': {
       //   type: 'markdown',
       //   name: 'Breadcrumb 面包屑',
@@ -178,12 +178,13 @@ export default {
         type: 'markdown',
         name: 'Select 选择器',
         props: {
+          utils: require('../../source/utils'),
           debounce: require('lodash.debounce')
         },
       },
       'treeSelect': {
         type: 'markdown',
-        name: 'TreeSelect 树形选择器',
+        name: 'TreeSelect 树选择',
       },
       'checkbox': {
         type: 'markdown',
@@ -211,10 +212,10 @@ export default {
       //   type: 'markdown',
       //   name: 'Upload 上传',
       // },
-      'slider': {
-        type: 'markdown',
-        name: 'Slider 滑动输入条',
-      },
+      // 'slider': {
+      //   type: 'markdown',
+      //   name: 'Slider 滑动输入条',
+      // },
       // 'transfer': {
       //   type: 'markdown',
       //   name: 'Transfer 穿梭框',
