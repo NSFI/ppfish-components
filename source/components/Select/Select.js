@@ -90,7 +90,7 @@ export default class Select extends React.Component {
   constructor(props) {
     super(props);
     const {value, defaultValue, labelInValue} = this.props;
-    const initialSelectValue = this.covertSelectValue(value || defaultValue || [], labelInValue);
+    const initialSelectValue = this.getValueFromProps(value || defaultValue || [], labelInValue);
     this.state = {
       searchValue: '',
       selectValue: initialSelectValue,
@@ -102,7 +102,7 @@ export default class Select extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
-      const changedValue = this.covertSelectValue(nextProps.value, nextProps.labelInValue);
+      const changedValue = this.getValueFromProps(nextProps.value, nextProps.labelInValue);
       this.setState({
         selectValue: changedValue,
         selectValueForMultiplePanel: changedValue,
@@ -129,16 +129,16 @@ export default class Select extends React.Component {
   };
 
   //全选操作
-  selectAll = () => {
+  selectAllOption = () => {
     this.setState({
-      selectValue: this.isSelectAll() ? [] : this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled),
+      selectValue: this.isSelectAll() ? [] : this.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled),
     });
   };
 
   //转换传入的value
-  covertSelectValue = (value, labelInValue) => {
+  getValueFromProps = (value, labelInValue) => {
     const valueType = Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
-    const optionList = this.getPlainOptionList(this.props.children, []);
+    const optionList = this.getOptionFromChildren(this.props.children, []);
     if (labelInValue) {
       if (valueType === 'array') {
         return value && value.map(obj => {
@@ -184,18 +184,25 @@ export default class Select extends React.Component {
     this.setState({
       popupVisible: visible
     }, () => {
-      const {onVisibleChange, defaultActiveFirstOption} = this.props;
+      const {onVisibleChange, defaultActiveFirstOption, mode} = this.props;
+      const {selectValue, selectValueForMultiplePanel} = this.state;
       onVisibleChange(visible);
       if (visible) {
         // 没有选中任何选项、默认开启激活第一个选项
-        if (defaultActiveFirstOption && !this.state.selectValue.length) {
-          const firstOption = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled)[0] || {};
+        if (defaultActiveFirstOption && !selectValue.length) {
+          const firstOption = this.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
           this.setState({
             activeKey: firstOption.key
           });
         }
-        //使框focus()
         this.focus();
+      } else {
+        // 多选就还原状态-同handleCancel
+        if (mode === 'multiple') {
+          this.setState({
+            selectValue: selectValueForMultiplePanel
+          });
+        }
       }
     });
   };
@@ -277,7 +284,7 @@ export default class Select extends React.Component {
   };
 
   //获取列表待筛选操作
-  getSelectOptionList = (children, dropdownCls) => {
+  getProcessedChildren = (children, dropdownCls) => {
     return React.Children.map(children, (c) => {
       if (typeof c === 'object' && c.type.isSelectOption) {
         const value = c.props.value || c.key;
@@ -291,12 +298,12 @@ export default class Select extends React.Component {
           onOptionMouseEnter: this.onOptionMouseEnter,
           onOptionMouseLeave: this.onOptionMouseLeave,
           ref: value,
-          children: this.getSelectOptionList(c.props.children, dropdownCls),
+          children: this.getProcessedChildren(c.props.children, dropdownCls),
         });
       } else if (typeof c === 'object' && c.type.isSelectOptGroup) {
         return React.cloneElement(c, {
           prefixCls: `${dropdownCls}-option`,
-          children: this.getSelectOptionList(c.props.children, dropdownCls),
+          children: this.getProcessedChildren(c.props.children, dropdownCls),
         });
       } else {
         return children;
@@ -305,7 +312,7 @@ export default class Select extends React.Component {
   };
 
   //获取筛选后列表
-  getSelectFilteredOptionList = (children, ChildrenList = []) => {
+  getFilteredChildren = (children, ChildrenList = []) => {
     const {filterOption} = this.props;
     const {searchValue} = this.state;
     const typeOfOption = Object.prototype.toString.call(filterOption).slice(8, -1).toLowerCase();
@@ -321,7 +328,7 @@ export default class Select extends React.Component {
           ChildrenList.push(child);
         }
       } else if (child.type.isSelectOptGroup) {
-        const children = this.getSelectFilteredOptionList(child.props.children);
+        const children = this.getFilteredChildren(child.props.children);
         ChildrenList.push(React.cloneElement(child, {
           children: children,
           _isShow: !!(children && children.length) //搜索后分组下没有东西就隐藏该分组
@@ -333,7 +340,7 @@ export default class Select extends React.Component {
   };
 
   //获取所有option的[{label,key}]
-  getPlainOptionList = (children, plainOptionList = [], filter) => {
+  getOptionFromChildren = (children, plainOptionList = [], filter) => {
     React.Children.forEach(children, (c) => {
       if (c.type.isSelectOption) {
         if (filter) {
@@ -342,7 +349,7 @@ export default class Select extends React.Component {
           plainOptionList.push({label: c.props.children, key: c.props.value || c.key});
         }
       } else if (c.type.isSelectOptGroup) {
-        this.getPlainOptionList(c.props.children, plainOptionList, filter);
+        this.getOptionFromChildren(c.props.children, plainOptionList, filter);
       } else {
         //  其余暂时不做处理
       }
@@ -352,12 +359,9 @@ export default class Select extends React.Component {
 
   //多选-取消
   handleCancelSelect = () => {
-    const {defaultValue, value, labelInValue} = this.props;
-    const resetValue = this.covertSelectValue(value || defaultValue || [], labelInValue);
     this.setState({
       popupVisible: false,
-      selectValue: resetValue,
-      selectValueForMultiplePanel: resetValue,
+      selectValue: this.state.selectValueForMultiplePanel
     });
   };
 
@@ -378,7 +382,7 @@ export default class Select extends React.Component {
 
   //判断是否全选
   isSelectAll = () => {
-    const optionlist = this.getPlainOptionList(this.props.children, [], (child) => !child.props.disabled);
+    const optionlist = this.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
     const selectedlist = this.state.selectValue;
     //全选判断逻辑：option中每一项都能在seleced中找到（兼容后端搜索的全选判断）
     return optionlist.every(selected => {
@@ -393,7 +397,7 @@ export default class Select extends React.Component {
       e.preventDefault();
       const {children, mode, labelInValue, onChange} = this.props;
       const {activeKey, selectValue} = this.state;
-      const optionList = this.getPlainOptionList(children, [], (child) => !child.props.disabled);
+      const optionList = this.getOptionFromChildren(children, [], (child) => !child.props.disabled);
       const optionListLen = optionList.length;
       if (!optionListLen) return;
       //enter
@@ -520,8 +524,8 @@ export default class Select extends React.Component {
     } = this.props;
     const {searchValue} = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
-    const optionFilteredList = this.getSelectFilteredOptionList(this.getSelectOptionList(children, dropdownCls)); //获取筛选后的列表
-    const showNotFoundContent = !this.getPlainOptionList(optionFilteredList).length; // optionList为空判断
+    const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的列表
+    const showNotFoundContent = !this.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
     return (
       <div className={classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName})}
            onKeyDown={this.handleActiveTabChange}
@@ -557,7 +561,7 @@ export default class Select extends React.Component {
                   showSelectAll && mode === 'multiple' &&
                   <li
                     className={classNames({[`${dropdownCls}-option-item`]: true}, {['checked']: this.isSelectAll()})}
-                    onClick={this.selectAll}>
+                    onClick={this.selectAllOption}>
                     {selectAllText}
                   </li>
                 }
