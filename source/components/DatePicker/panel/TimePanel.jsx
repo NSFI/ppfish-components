@@ -123,7 +123,7 @@ export default class TimePanel extends PopperBase {
     return (
       <div
         ref="root"
-        className="el-time-panel">
+        className="el-picker-panel el-time-panel">
         <div className={this.classNames('el-time-panel__content', { 'has-seconds': isShowSeconds })}>
           <TimeSpinner
             ref="spinner"
