@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BasePicker from './BasePicker'
+import DateRangeBasePicker from './DateRangeBasePicker';
 import DateRangePanel from './panel/DateRangePanel';
-import { pick } from './libs/utils'
-import 'element-theme-default/lib/icon.css';
+import { pick } from './libs/utils';
 
-export default class DateRangePicker extends BasePicker {
+export default class DateRangePicker extends DateRangeBasePicker {
   static get propTypes() {
     return Object.assign({}, {
-      rangeSeparator: PropTypes.string
+        rangeSeparator: PropTypes.string
       },
-      BasePicker.propTypes,
+      DateRangeBasePicker.propTypes,
       // default value is been defined in ./constants file
       pick(DateRangePanel.propTypes,
         ['value', 'isShowTime', 'shortcuts', 'firstDayOfWeek']
@@ -19,14 +18,14 @@ export default class DateRangePicker extends BasePicker {
   }
 
   static get defaultProps() {
-    return Object.assign({}, BasePicker.defaultProps)
+    return Object.assign({}, DateRangeBasePicker.defaultProps)
   }
 
   constructor(props) {
-    super(props, 'daterange', {});
+    super(props, props.isShowTime ? 'datetimerange' : 'daterange', {});
   }
 
-  getFormatSeparator(){
+  getFormatSeparator = () => {
     return this.props.rangeSeparator;
   }
 
@@ -39,7 +38,9 @@ export default class DateRangePicker extends BasePicker {
       <DateRangePanel
         {...props}
         value={value}
-        onPick={this.onPicked.bind(this)}
+        onPick={this.onPicked}
+        onCancelPicked={this.onCancelPicked}
+        dateToStr={this.dateToStr}
       />
     )
   }

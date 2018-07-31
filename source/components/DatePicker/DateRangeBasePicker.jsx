@@ -16,31 +16,30 @@ const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
 };
 
-export default class BasePicker extends Component {
+export default class DateRangeBasePicker extends Component {
 
   static get propTypes() {
     return {
-      placeholder: PropTypes.string,
+      startPlaceholder: PropTypes.string,
+      endPlaceholder: PropTypes.string,
+      rangeSeparator: PropTypes.string,
       format: PropTypes.string,
       align: PropTypes.oneOf(['left', 'right']),
       isShowTrigger: PropTypes.bool,
       isAllowClear: PropTypes.bool,
       isDisabled: PropTypes.bool,
-      // time select pannel:
-      value: PropTypes.oneOfType([
-        PropTypes.instanceOf(Date),
-        PropTypes.arrayOf(PropTypes.instanceOf(Date))
-      ]),
+      value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
-      // (Date|Date[]|null)=>(), null when click on clear icon
       onChange: PropTypes.func,
     }
   }
 
   static get defaultProps() {
     return {
-      placeholder: '',
+      startPlaceholder: '选择开始日期',
+      endPlaceholder: '选择结束日期',
+      rangeSeparator: '~',
       align: 'left',
       isShowTrigger: true,
       isAllowClear: true,
@@ -62,14 +61,15 @@ export default class BasePicker extends Component {
       confirmValue: props.value // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
     }, this.propsToState(props));
 
-    this.clickOutsideId = 'clickOutsideId_' + idGen.next();
+    this.clickOutsideId = 'clickOutsideId2_' + idGen.next();
   }
 
   propsToState(props) {
     const state = {};
-    if (isDate(props.value)) {
-      state.text = this.dateToStr(props.value);
-      state.value = props.value;
+    const { value } = props;
+    if (value && value.length ==2 && isDate(value[0]) && isDate(value[1])) {
+      state.text = [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])],
+      state.value = props.value
     } else {
       state.text = '';
       state.value = null;
@@ -104,7 +104,7 @@ export default class BasePicker extends Component {
     this.setState({
       pickerVisible: isKeepPannel,
       value,
-      text: this.dateToStr(value)
+      text: [this.dateToStr(value[0], this.dateToStr(value[1]))]
     });
 
     if(isConfirmValue) {
@@ -120,46 +120,31 @@ export default class BasePicker extends Component {
     this.setState({
       pickerVisible: false,
       value: this.state.confirmValue ? new Date(this.state.confirmValue) : null,
-      text: this.state.confirmValue ? this.dateToStr(new Date(this.state.confirmValue)) : ''
+      text: this.state.confirmValue ? [this.dateToStr(new Date(this.state.confirmValue[0])),this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
     });
-  }
-
-  dateToStr(date) {
-    if (!isDate(date)) return '';
-    const tdate = date;
-    const formatter = (
-      TYPE_VALUE_RESOLVER_MAP[this.type] ||
-      TYPE_VALUE_RESOLVER_MAP['default']
-    ).formatter;
-    const result = formatter(tdate, this.getFormat(), this.getFormatSeparator());
-    return result;
-  }
-
-  // (string) => Date | null
-  parseDate(dateStr) {
-    if (!dateStr) return null;
-    const type = this.type;
-    const parser = (
-      TYPE_VALUE_RESOLVER_MAP[type] ||
-      TYPE_VALUE_RESOLVER_MAP['default']
-    ).parser;
-    return parser(dateStr, this.getFormat(), this.getFormatSeparator());
   }
 
   getFormat() {
     return this.props.format || DEFAULT_FORMATS[this.type]
   }
 
-  triggerClass() {
-    return this.type.includes('time') ? 'shangjiantou' : 'xiajiantou';
+  dateToStr = (date) => {
+    if (!date || !isDate(date)) return '';
+    const tdate = date;
+    const formatter = (
+      TYPE_VALUE_RESOLVER_MAP['date']
+    ).formatter;
+    const result = formatter(tdate, this.getFormat(), this.getFormatSeparator());
+    return result;
   }
 
-  calcIsShowTrigger() {
-    if (this.props.isShowTrigger != null) {
-      return !!this.props.isShowTrigger;
-    } else {
-      return haveTriggerType(this.type);
-    }
+  parseDate = (dateStr) => {
+    if (!dateStr) return null;
+    const type = this.type;
+    const parser = (
+      TYPE_VALUE_RESOLVER_MAP['date']
+    ).parser;
+    return parser(dateStr, this.getFormat(), this.getFormatSeparator());
   }
 
   togglePickerVisible() {
@@ -184,8 +169,9 @@ export default class BasePicker extends Component {
     this.props.onBlur(this);
   }
 
+  // 检查值得合法性并选中或取消
   validatorAndSetValue = (value) => {
-    if (isDate(value)) {
+    if (value && value.length ==2 && isDate(value[0]) && isDate(value[1])) {
       this.onPicked(value, false, true);
     } else {
       this.onCancelPicked();
@@ -224,7 +210,7 @@ export default class BasePicker extends Component {
 
     if (isDisabled || !isAllowClear) return;
     if (!text) {
-      this.togglePickerVisible()
+      this.togglePickerVisible();
     } else {
       this.setState(
         {
@@ -240,14 +226,26 @@ export default class BasePicker extends Component {
   }
 
   render() {
-    const { isAllowClear, placeholder, isDisabled } = this.props;
+    const { startPlaceholder, endPlaceholder, rangeSeparator, isShowTrigger, isAllowClear, isDisabled } = this.props;
     const { pickerVisible, value, text } = this.state;
 
+    const calcIsShowTrigger = () => {
+      if (isShowTrigger != null) {
+        return !!isShowTrigger;
+      } else {
+        return haveTriggerType(this.type);
+      }
+    };
+
+    const triggerClass = () => {
+      return this.type.includes('time') ? 'shangjiantou' : 'xiajiantou';
+    }
+
     const prefixIcon = () => {
-      if(this.calcIsShowTrigger()) {
+      if(calcIsShowTrigger()) {
         return (
           <Icon
-            type={this.triggerClass()}
+            type={triggerClass()}
           />
         )
       }else{
@@ -299,7 +297,7 @@ export default class BasePicker extends Component {
     return (
       <span
         className={this.classNames('el-date-editor', {
-          'is-have-trigger': this.calcIsShowTrigger(),
+          'is-have-trigger': calcIsShowTrigger(),
           'is-active': pickerVisible,
           'is-filled': !!value
         })}
@@ -311,39 +309,66 @@ export default class BasePicker extends Component {
           id={this.clickOutsideId}
           target={document}
           eventName="click"
-          func={this.handleClickOutside} />
-
-        <Input
-          className={this.classNames(`el-date-editor el-date-editor--${this.type}`)}
-          disabled={isDisabled}
-          type="text"
-          placeholder={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeydown}
-          onChange={e => {
-            const iptxt = e.target.value;
-            const nstate = { text: iptxt };
-            if (iptxt.trim() === '' || !isInputValid(iptxt, this.parseDate(iptxt))) {
-              nstate.value = null;
-            } else {//only set value on a valid date input
-              nstate.value = this.parseDate(iptxt);
-            }
-            this.setState(nstate)
-          }}
-          ref="inputRoot"
-          value={text}
-          prefix={prefixIcon()}
-          suffix={suffixIcon()}
+          func={this.handleClickOutside}
         />
-
+        <div className={this.classNames(`el-date-editor--${this.type}`)}>
+          <Input
+            disabled={isDisabled}
+            type="text"
+            placeholder={startPlaceholder}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onKeyDown={this.handleKeydown}
+            onChange={e => {
+              const inputValue = e.target.value;
+              if (inputValue.trim() === '' || !isInputValid(inputValue, this.parseDate(inputValue))) {
+                this.setState({
+                  text: [inputValue, this.state.text[1]],
+                  value: null,
+                })
+              } else {//only set value on a valid date input
+                this.setState({
+                  text: [inputValue, this.state.text[1]],
+                  value: [this.parseDate(inputValue), this.state.value[1]],
+                })
+              }
+            }}
+            ref="inputRoot"
+            value={text && text.length == 2 ? text[0] : ''}
+            prefix={prefixIcon()}
+          />
+          <span>{rangeSeparator}</span>
+          <Input
+            disabled={isDisabled}
+            type="text"
+            placeholder={endPlaceholder}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onKeyDown={this.handleKeydown}
+            onChange={e => {
+              const inputValue = e.target.value;
+              if (inputValue.trim() === '' || !isInputValid(inputValue, this.parseDate(inputValue))) {
+                this.setState({
+                  text: [this.state.text[0], inputValue],
+                  value: null,
+                })
+              } else {//only set value on a valid date input
+                this.setState({
+                  text: [this.state.text[0], inputValue],
+                  value: [this.state.value[0], this.parseDate(inputValue)],
+                })
+              }
+            }}
+            value={text && text.length == 2 ? text[1] : ''}
+            suffix={suffixIcon()}
+          />
+        </div>
         {createPickerPanel()}
-
       </span>
     )
   }
 }
 
-BasePicker.contextTypes = {
+DateRangeBasePicker.contextTypes = {
   form: PropTypes.any
 };
