@@ -223,7 +223,7 @@
     user-select: none;
   }
   &-search {
-    padding: 5px 12px;
+    padding: 10px 12px 4px;
     &-clear {
       cursor: pointer;
       color: #d8d8d8;
@@ -240,9 +240,12 @@
     padding-left: 0;
     list-style: none;
     max-height: 250px;
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
   }
   &-option-group-label {
-    margin: 0;
+    margin: 0 0 4px;
     padding-left: 12px;
     height: 24px;
     line-height: 24px;
@@ -302,6 +305,7 @@
     border-top: 1px solid @border-color-split;
     text-align: right;
     &-btn {
+      width: 80px;
       &:not(:last-child) {
         margin-right: 8px;
       }

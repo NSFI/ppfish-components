@@ -35,7 +35,12 @@
         treeNodeFilterProp={'title'}
         style={{ width: 300 }}
         value={this.state.value}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        dropdownStyle={{ 
+          maxHeight: 400,
+          width: 300,
+          overflowX: 'hidden',
+          overflowY: 'scroll'
+        }}
         treeDefaultExpandAll
         onChange={this.onChange}
         onReset={this.onReset}
@@ -207,10 +212,14 @@
 			value: '0-0',
 			key: '0-0',
 			children: [{
-				title: 'Child Node1',
+				title: 'Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1',
 				value: '0-0-0',
 				key: '0-0-0',
-			}],
+			}, {
+        title: 'Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2',
+        value: '0-0-1',
+        key: '0-0-1',
+      }],
 		}, {
 			title: 'Node2',
 			value: '0-1',
@@ -220,14 +229,22 @@
 				value: '0-1-0',
 				key: '0-1-0',
 			}, {
-				title: 'Child Node4',
+				title: 'Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4',
 				value: '0-1-1',
 				key: '0-1-1',
 			}, {
 				title: 'Child Node5',
 				value: '0-1-2',
 				key: '0-1-2',
-			}],
+			}, {
+        title: 'Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6',
+        value: '0-1-3',
+        key: '0-1-3',
+      }, {
+        title: 'Child Node7',
+        value: '0-1-4',
+        key: '0-1-4',
+      }],
 		}];
     const tProps = {
       showSearch: true,

@@ -1,5 +1,5 @@
 const autoAdjustOverflow = {
-  adjustX: 0,
+  adjustX: 1,
   adjustY: 1,
 };
 
@@ -14,16 +14,26 @@ export const placements = {
     overflow: autoAdjustOverflow,
     offset: [0, 4],
   },
-  bottom: {
+  bottomCenter: {
     points: ['tc', 'bc'],
     overflow: autoAdjustOverflow,
     offset: [0, 4],
   },
   topLeft: {
     points: ['bl', 'tl'],
-    offset: [0, -4],
     overflow: autoAdjustOverflow,
-  }
+    offset: [0, -4]
+  },
+  topCenter: {
+    points: ['bc', 'tc'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -4]
+  },
+  topRight: {
+    points: ['br', 'tr'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -4]
+  },
 };
 
 export default placements;
