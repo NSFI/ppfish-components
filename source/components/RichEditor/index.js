@@ -6,8 +6,7 @@ import CustomToolbar from './toolbar.js';
 import CustomSizeBlot from './formatSizeBlot.js';
 import EmojiBlot from './formatEmojiBlot.js';
 import EntryBlot from './formatEntryBlot.js';
-import 'react-quill/dist/quill.snow.css';
-import './index.less';
+import './style/index.less';
 
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
