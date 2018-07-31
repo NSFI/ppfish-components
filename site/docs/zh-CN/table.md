@@ -2124,8 +2124,8 @@ class Demo extends React.Component {
 ### 在 TypeScript 中使用
 
 ```js
-import { Table } from 'antd';
-import { ColumnProps } from 'antd/lib/table';
+import { Table } from 'ppfish';
+import { ColumnProps } from 'ppfish/source/interface.tsx';
 
 interface IUser {
   key: number;

@@ -8,7 +8,7 @@ const DRAG_MIN_GAP = 2;
 let onlyTreeNodeWarned = false;
 
 export function toArray(children) {
-  var ret = [];
+  let ret = [];
   
   Children.forEach(children, function (c) {
     ret.push(c);

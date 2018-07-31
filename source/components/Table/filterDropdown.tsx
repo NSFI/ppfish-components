@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Menu, {SubMenu, Item as MenuItem} from '../Menu/src';
-import * as closest from 'dom-closest';
+import closest from 'dom-closest';
 import classNames from 'classnames';
 import {shallowEqual} from '../../utils';
 import Dropdown from '../Dropdown';

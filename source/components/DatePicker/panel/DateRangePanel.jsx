@@ -5,7 +5,7 @@ import { DateTable } from '../basic';
 import Input from '../../Input';
 import TimePicker from '../TimePicker';
 import YearAndMonthPopover from './YearAndMonthPopover';
-import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY, isInputValid, isDate } from '../utils';
+import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY, isInputValid, isValidValue } from '../utils';
 import { PLACEMENT_MAP, DEFAULT_FORMATS, TYPE_VALUE_RESOLVER_MAP } from '../constants';
 import Locale from '../locale';
 
@@ -22,7 +22,7 @@ const nextYear = (date) => {
 };
 
 const dateToStr = (date) => {
-  if (!date || !isDate(date)) return '';
+  if (!date || !isValidValue(date)) return '';
   const tdate = date;
   const formatter = (
     TYPE_VALUE_RESOLVER_MAP['date']

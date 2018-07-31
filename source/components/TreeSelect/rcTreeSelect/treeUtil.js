@@ -19,21 +19,21 @@ exports.calcSelectedKeys = calcSelectedKeys;
 exports.calcCheckStateConduct = calcCheckStateConduct;
 exports.calcCheckedKeys = calcCheckedKeys;
 
-var _react = require('react');
+let _react = require('react');
 
-var _warning = require('warning');
+let _warning = require('warning');
 
-var _warning2 = _interopRequireDefault(_warning);
+let _warning2 = _interopRequireDefault(_warning);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /* eslint no-loop-func: 0*/
-var DRAG_SIDE_RANGE = 0.25;
-var DRAG_MIN_GAP = 2;
+let DRAG_SIDE_RANGE = 0.25;
+let DRAG_MIN_GAP = 2;
 
 function arrDel(list, value) {
-  var clone = list.slice();
-  var index = clone.indexOf(value);
+  let clone = list.slice();
+  let index = clone.indexOf(value);
   if (index >= 0) {
     clone.splice(index, 1);
   }
@@ -41,7 +41,7 @@ function arrDel(list, value) {
 }
 
 function arrAdd(list, value) {
-  var clone = list.slice();
+  let clone = list.slice();
   if (clone.indexOf(value) === -1) {
     clone.push(value);
   }
@@ -57,14 +57,14 @@ function getPosition(level, index) {
 }
 
 function getNodeChildren(children) {
-  var childList = Array.isArray(children) ? children : [children];
+  let childList = Array.isArray(children) ? children : [children];
   return childList.filter(function (child) {
     return child && child.type && child.type.isTreeNode;
   });
 }
 
 function isCheckDisabled(node) {
-  var _ref = node.props || {},
+  let _ref = node.props || {},
       disabled = _ref.disabled,
       disableCheckbox = _ref.disableCheckbox;
 
@@ -78,15 +78,15 @@ function traverseTreeNodes(treeNodes, subTreeData, callback) {
   }
 
   function processNode(node, index, parent) {
-    var children = node ? node.props.children : treeNodes;
-    var pos = node ? getPosition(parent.pos, index) : 0;
+    let children = node ? node.props.children : treeNodes;
+    let pos = node ? getPosition(parent.pos, index) : 0;
 
     // Filter children
-    var childList = getNodeChildren(children);
+    let childList = getNodeChildren(children);
 
     // Process node if is not root
     if (node) {
-      var data = {
+      let data = {
         node: node,
         index: index,
         pos: pos,
@@ -97,10 +97,10 @@ function traverseTreeNodes(treeNodes, subTreeData, callback) {
       // Children data is not must have
       if (subTreeData) {
         // Statistic children
-        var subNodes = [];
+        let subNodes = [];
         _react.Children.forEach(childList, function (subNode, subIndex) {
           // Provide limit snapshot
-          var subPos = getPosition(pos, index);
+          let subPos = getPosition(pos, index);
           subNodes.push({
             node: subNode,
             key: subNode.key || subPos,
@@ -140,9 +140,9 @@ function getStrictlyValue(checkedKeys, halfChecked) {
 }
 
 function getFullKeyList(treeNodes) {
-  var keyList = [];
+  let keyList = [];
   traverseTreeNodes(treeNodes, function (_ref2) {
-    var key = _ref2.key;
+    let key = _ref2.key;
 
     keyList.push(key);
   });
@@ -157,18 +157,18 @@ function getFullKeyList(treeNodes) {
  * @returns {boolean}
  */
 function isParent(parentPos, childPos) {
-  var directly = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let directly = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
   if (!parentPos || !childPos || parentPos.length > childPos.length) return false;
 
-  var parentPath = posToArr(parentPos);
-  var childPath = posToArr(childPos);
+  let parentPath = posToArr(parentPos);
+  let childPath = posToArr(childPos);
 
   // Directly check
   if (directly && parentPath.length !== childPath.length - 1) return false;
 
-  var len = parentPath.length;
-  for (var i = 0; i < len; i += 1) {
+  let len = parentPath.length;
+  for (let i = 0; i < len; i += 1) {
     if (parentPath[i] !== childPath[i]) return false;
   }
 
@@ -181,21 +181,21 @@ function isParent(parentPos, childPos) {
  * @returns {{}}
  */
 function getNodesStatistic(treeNodes) {
-  var statistic = {
+  let statistic = {
     keyNodes: {},
     posNodes: {},
     nodeList: []
   };
 
   traverseTreeNodes(treeNodes, true, function (_ref3) {
-    var node = _ref3.node,
+    let node = _ref3.node,
         index = _ref3.index,
         pos = _ref3.pos,
         key = _ref3.key,
         subNodes = _ref3.subNodes,
         parentPos = _ref3.parentPos;
 
-    var data = { node: node, index: index, pos: pos, key: key, subNodes: subNodes, parentPos: parentPos };
+    let data = { node: node, index: index, pos: pos, key: key, subNodes: subNodes, parentPos: parentPos };
     statistic.keyNodes[key] = data;
     statistic.posNodes[pos] = data;
     statistic.nodeList.push(data);
@@ -205,14 +205,14 @@ function getNodesStatistic(treeNodes) {
 }
 
 function getDragNodesKeys(treeNodes, node) {
-  var _node$props = node.props,
+  let _node$props = node.props,
       eventKey = _node$props.eventKey,
       pos = _node$props.pos;
 
-  var dragNodesKeys = [];
+  let dragNodesKeys = [];
 
   traverseTreeNodes(treeNodes, function (_ref4) {
-    var nodePos = _ref4.pos,
+    let nodePos = _ref4.pos,
         key = _ref4.key;
 
     if (isParent(pos, nodePos)) {
@@ -225,14 +225,14 @@ function getDragNodesKeys(treeNodes, node) {
 
 // Only used when drag, not affect SSR.
 function calcDropPosition(event, treeNode) {
-  var clientY = event.clientY;
+  let clientY = event.clientY;
 
-  var _treeNode$selectHandl = treeNode.selectHandle.getBoundingClientRect(),
+  let _treeNode$selectHandl = treeNode.selectHandle.getBoundingClientRect(),
       top = _treeNode$selectHandl.top,
       bottom = _treeNode$selectHandl.bottom,
       height = _treeNode$selectHandl.height;
 
-  var des = Math.max(height * DRAG_SIDE_RANGE, DRAG_MIN_GAP);
+  let des = Math.max(height * DRAG_SIDE_RANGE, DRAG_MIN_GAP);
 
   if (clientY <= top + des) {
     return -1;
@@ -254,20 +254,20 @@ function calcExpandedKeys(keyList, props) {
     return [];
   }
 
-  var children = props.children;
+  let children = props.children;
 
   // Fill parent expanded keys
 
-  var _getNodesStatistic = getNodesStatistic(children),
+  let _getNodesStatistic = getNodesStatistic(children),
       keyNodes = _getNodesStatistic.keyNodes,
       nodeList = _getNodesStatistic.nodeList;
 
-  var needExpandKeys = {};
-  var needExpandPathList = [];
+  let needExpandKeys = {};
+  let needExpandPathList = [];
 
   // Fill expanded nodes
   keyList.forEach(function (key) {
-    var node = keyNodes[key];
+    let node = keyNodes[key];
     if (node) {
       needExpandKeys[key] = true;
       needExpandPathList.push(node.pos);
@@ -276,7 +276,7 @@ function calcExpandedKeys(keyList, props) {
 
   // Match parent by path
   nodeList.forEach(function (_ref5) {
-    var pos = _ref5.pos,
+    let pos = _ref5.pos,
         key = _ref5.key;
 
     if (needExpandPathList.some(function (childPos) {
@@ -286,7 +286,7 @@ function calcExpandedKeys(keyList, props) {
     }
   });
 
-  var calcExpandedKeyList = Object.keys(needExpandKeys);
+  let calcExpandedKeyList = Object.keys(needExpandKeys);
 
   // [Legacy] Return origin keyList if calc list is empty
   return calcExpandedKeyList.length ? calcExpandedKeyList : keyList;
@@ -303,7 +303,7 @@ function calcSelectedKeys(selectedKeys, props) {
     return undefined;
   }
 
-  var multiple = props.multiple;
+  let multiple = props.multiple;
 
   if (multiple) {
     return selectedKeys.slice();
@@ -323,18 +323,18 @@ function calcSelectedKeys(selectedKeys, props) {
  * @returns {{checkedKeys: Array, halfCheckedKeys: Array}}
  */
 function calcCheckStateConduct(treeNodes, checkedKeys) {
-  var _getNodesStatistic2 = getNodesStatistic(treeNodes),
+  let _getNodesStatistic2 = getNodesStatistic(treeNodes),
       keyNodes = _getNodesStatistic2.keyNodes,
       posNodes = _getNodesStatistic2.posNodes;
 
-  var tgtCheckedKeys = {};
-  var tgtHalfCheckedKeys = {};
+  let tgtCheckedKeys = {};
+  let tgtHalfCheckedKeys = {};
 
   // Conduct up
   function conductUp(key, halfChecked) {
     if (tgtCheckedKeys[key]) return;
 
-    var _keyNodes$key = keyNodes[key],
+    let _keyNodes$key = keyNodes[key],
         _keyNodes$key$subNode = _keyNodes$key.subNodes,
         subNodes = _keyNodes$key$subNode === undefined ? [] : _keyNodes$key$subNode,
         parentPos = _keyNodes$key.parentPos,
@@ -342,7 +342,7 @@ function calcCheckStateConduct(treeNodes, checkedKeys) {
 
     if (isCheckDisabled(node)) return;
 
-    var allSubChecked = !halfChecked && subNodes.filter(function (sub) {
+    let allSubChecked = !halfChecked && subNodes.filter(function (sub) {
       return !isCheckDisabled(sub.node);
     }).every(function (sub) {
       return tgtCheckedKeys[sub.key];
@@ -362,7 +362,7 @@ function calcCheckStateConduct(treeNodes, checkedKeys) {
   // Conduct down
   function conductDown(key) {
     if (tgtCheckedKeys[key]) return;
-    var _keyNodes$key2 = keyNodes[key],
+    let _keyNodes$key2 = keyNodes[key],
         _keyNodes$key2$subNod = _keyNodes$key2.subNodes,
         subNodes = _keyNodes$key2$subNod === undefined ? [] : _keyNodes$key2$subNod,
         node = _keyNodes$key2.node;
@@ -383,7 +383,7 @@ function calcCheckStateConduct(treeNodes, checkedKeys) {
       return;
     }
 
-    var _keyNodes$key3 = keyNodes[key],
+    let _keyNodes$key3 = keyNodes[key],
         _keyNodes$key3$subNod = _keyNodes$key3.subNodes,
         subNodes = _keyNodes$key3$subNod === undefined ? [] : _keyNodes$key3$subNod,
         parentPos = _keyNodes$key3.parentPos,
@@ -423,7 +423,7 @@ function calcCheckStateConduct(treeNodes, checkedKeys) {
  * This should be only run in init or props changed.
  */
 function calcCheckedKeys(keys, props) {
-  var checkable = props.checkable,
+  let checkable = props.checkable,
       children = props.children,
       checkStrictly = props.checkStrictly;
 
@@ -433,7 +433,7 @@ function calcCheckedKeys(keys, props) {
   }
 
   // Convert keys to object format
-  var keyProps = void 0;
+  let keyProps = void 0;
   if (Array.isArray(keys)) {
     // [Legacy] Follow the api doc
     keyProps = {
@@ -456,7 +456,7 @@ function calcCheckedKeys(keys, props) {
   }
 
   // Conduct calculate the check status
-  var _keyProps = keyProps,
+  let _keyProps = keyProps,
       _keyProps$checkedKeys = _keyProps.checkedKeys,
       checkedKeys = _keyProps$checkedKeys === undefined ? [] : _keyProps$checkedKeys;
 

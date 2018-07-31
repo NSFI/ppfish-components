@@ -1,5 +1,5 @@
 import { DateUtils } from '../libs/utils';
-import Locale from '../locale'
+import Locale from '../locale';
 
 const t = Locale.t;
 const weeks = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
@@ -27,13 +27,13 @@ export const equalDate = function (dateA, dateB) {
 
 // Date对象
 export const toDate = function(date) {
-  return isDate(date) ? new Date(date) : null;
+  return isValidValue(date) ? new Date(date) : null;
 };
 
-// 判断是否是Date对象
-export const isDate = function(value) {
+export const isValidValue = (value) => {
   if (value instanceof Date) return true;
-  return false
+  if (Array.isArray(value) && value.length !== 0 && value[0] instanceof Date) return true;
+  return false;
 };
 
 // format Date对象
@@ -96,8 +96,8 @@ export const getStartDateOfMonth = function (year, month, offsetWeek = 0) {
  */
 export function getOffsetToWeekOrigin(day, offsetWeek = 0) {
   let offset = day >= offsetWeek ? day - offsetWeek : 7 + day - offsetWeek;
-  offset = offset === 0 ? 7 : offset // if the two days collide, we force 7 days padding
-  return offset
+  offset = offset === 0 ? 7 : offset; // if the two days collide, we force 7 days padding
+  return offset;
 }
 
 export const getWeekNumber = function (src) {
@@ -113,9 +113,9 @@ export const getWeekNumber = function (src) {
 
 // http://stackoverflow.com/questions/16590500/javascript-calculate-date-from-week-number
 export function getDateOfISOWeek(w, y) {
-  var simple = new Date(y, 0, 1 + (w - 1) * 7);
-  var dow = simple.getDay();
-  var ISOweekStart = simple;
+  let simple = new Date(y, 0, 1 + (w - 1) * 7);
+  let dow = simple.getDay();
+  let ISOweekStart = simple;
   if (dow <= 4)
     ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
   else
@@ -210,7 +210,7 @@ export const limitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss')
 
 // 判断日期是否在范围以内
 export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss') {
-  if (!ranges || !ranges.length) return false;
+  if (!ranges || !ranges.length) return true;
 
   const len = ranges.length;
 
@@ -218,16 +218,16 @@ export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss
   for (let i = 0; i < len; i++) {
     const range = ranges[i];
     if (date >= range[0] && date <= range[1]) {
-      return false;
+      return true;
     }
   }
 
-  return true;
+  return false;
 };
 
 
 export function hasClass(target, classname) {
-  return target.classList.contains(classname)
+  return target.classList.contains(classname);
 }
 
 export const SELECTION_MODES = {
@@ -236,14 +236,14 @@ export const SELECTION_MODES = {
   WEEK: 'week',
   DAY: 'day',
   RANGE: 'range'
-}
+};
 
 export function deconstructDate(date) {
   return {
     year: date.getFullYear(),
     month: date.getMonth(),
     week: getWeekNumber(date)
-  }
+  };
 }
 
 // 月份数组
@@ -261,12 +261,12 @@ export const YEARS_ARRAY = (N=50) => {
 };
 
 // 判断输入值的合法性
-export const isInputValid = (value, parseable) => {
+export const isInputValid = (parseable) => {
   if (!parseable) {
     return false;
   }
 
-  const isdatevalid = isDate(parseable);
+  const isdatevalid = isValidValue(parseable);
   if (!isdatevalid) {
     return false;
   }
@@ -281,14 +281,14 @@ export const valueEquals = function (a, b) {
   let isEqual = (a, b)=>{ // equal if a, b date is equal or both is null or undefined
     let equal = false;
     if (a && b) equal = a.getTime() === b.getTime();
-    else equal = a === b && a == null
-    return equal
+    else equal = a === b && a == null;
+    return equal;
   };
   if (aIsArray && bIsArray) {
-    return isEqual(a[0], b[0]) && isEqual(a[1], b[1])
+    return isEqual(a[0], b[0]) && isEqual(a[1], b[1]);
   }
   if (!aIsArray && !bIsArray) {
-    return isEqual(a, b)
+    return isEqual(a, b);
   }
   return false;
 };

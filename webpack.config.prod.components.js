@@ -67,6 +67,9 @@ export default {
     lessStyle,
   ]
     .concat(getUglifyJsPlugin()),
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
+  },
   module: {
     loaders: [
       {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import * as RcInputNumber from './src';
+import RcInputNumber from './src';
 
 import {Omit} from '../../utils/type';
 import './style/index.less';

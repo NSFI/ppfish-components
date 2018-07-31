@@ -6,7 +6,7 @@ import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import { debounce } from 'throttle-debounce';
 
 function converSelectRange(props) {
-  let selectableRange = []
+  let selectableRange = [];
   if (props.selectableRange) {
     let ranges = props.selectableRange;
     const parser = TYPE_VALUE_RESOLVER_MAP.datetimerange.parser;
@@ -38,7 +38,16 @@ export default class TimePicker extends BasePicker {
 
   constructor(props) {
     super(props, 'time', {});
-    this._onSelectionChange = debounce(200, this.onSelectionChange)
+    this._onSelectionChange = debounce(200, this.onSelectionChange);
+  }
+
+  isDateValid(value) {
+    return super.isDateValid(value) && TimePanel.isValid(value, this.panelProps());
+  }
+
+  panelProps(props){
+    const ps = props || this.props;
+    return {...ps};
   }
 
   onSelectionChange = (start, end) => {
