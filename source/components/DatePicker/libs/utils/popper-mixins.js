@@ -1,5 +1,5 @@
 import PopperJS from './popper';
-import { require_condition } from './assert'
+import { require_condition } from './assert';
 
 const mixinPrototype = {
   //---------- start: public methods
@@ -9,17 +9,17 @@ const mixinPrototype = {
    * @param {object} popperOptions, PopperJS options
    */
   createPopper(popupElement, refElement, popperOptions) {
-    require_condition(popupElement && refElement)
+    require_condition(popupElement && refElement);
 
-    const { visibleArrow, placement, zIndex, offset, width, ...others } = this._popper_config
-    popperOptions = { ...popperOptions, ...others }
+    const { visibleArrow, placement, zIndex, offset, width, ...others } = this._popper_config;
+    popperOptions = { ...popperOptions, ...others };
 
     if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(placement)) {
       return;
     }
 
-    const popper = popupElement
-    const reference = refElement
+    const popper = popupElement;
+    const reference = refElement;
 
     if (!popper || !reference) return;
     if (visibleArrow) this._appendArrow(popper);
@@ -39,9 +39,9 @@ const mixinPrototype = {
 
     this._poperJS.onCreate(() => {
       this._resetTransformOrigin();
-      this._popper_state.isCreated = true
-      this._poperJS._popper.style.zIndex = zIndex
-      this._poperJS._popper.style.width = width !== null ? `${width}px` : reference.getBoundingClientRect().width + 'px'
+      this._popper_state.isCreated = true;
+      this._poperJS._popper.style.zIndex = zIndex;
+      this._poperJS._popper.style.width = width !== null ? `${width}px` : reference.getBoundingClientRect().width + 'px';
     });
   },
 
@@ -49,8 +49,8 @@ const mixinPrototype = {
     if (this._poperJS && this._popper_state.isCreated) {
       this._poperJS.destroy();
       this._poperJS = null;
-      this._popper_state = {}
-      this._popper_config = {}
+      this._popper_state = {};
+      this._popper_config = {};
     }
   },
 
@@ -80,7 +80,7 @@ const mixinPrototype = {
     arrow.className = 'popper__arrow';
     element.appendChild(arrow);
   }
-}
+};
 
 /**
  * @param {args} @see PopperMixin
@@ -99,43 +99,43 @@ export function PopperMixin(config) {
       placement: 'bottom',
       boundariesPadding: 5,
       visibleArrow: false,
-    }, config)
-  this._popper_state = {}
+    }, config);
+  this._popper_state = {};
 }
-PopperMixin.prototype = mixinPrototype
+PopperMixin.prototype = mixinPrototype;
 
 
 const PopperReactMixinMethods = {
   hookReactLifeCycle(getPopperRootDom, getRefDom) {
 
-    const componentDidMount = this.componentDidMount
-    const componentWillUnmount = this.componentWillUnmount
+    const componentDidMount = this.componentDidMount;
+    const componentWillUnmount = this.componentWillUnmount;
 
     this.componentDidMount = function (...args) {
-      const root = getPopperRootDom()
-      const ref = getRefDom()
-      require_condition(root, 'method `getPopperRootDom()` require a HTMLElement instance when componentDidMount is called')
-      require_condition(ref, 'method `getRefDom()` require a HTMLElement instance when componentDidMount is called')
+      const root = getPopperRootDom();
+      const ref = getRefDom();
+      require_condition(root, 'method `getPopperRootDom()` require a HTMLElement instance when componentDidMount is called');
+      require_condition(ref, 'method `getRefDom()` require a HTMLElement instance when componentDidMount is called');
 
-      this.createPopper(root, ref)
+      this.createPopper(root, ref);
       this._animateRef = window.requestAnimationFrame(this.updatePopper.bind(this));
 
       if (typeof componentDidMount === 'function') {
-        componentDidMount.apply(this, args)
+        componentDidMount.apply(this, args);
       }
-    }
+    };
 
     this.componentWillUnmount = function (...args) {
       window.cancelAnimationFrame(this._animateRef);
-      this.destroyPopper()
+      this.destroyPopper();
 
       if (typeof componentWillUnmount === 'function') {
-        componentWillUnmount.apply(this, args)
+        componentWillUnmount.apply(this, args);
       }
-    }
+    };
 
   }
-}
+};
 
 /**
  * this Mixin provide utility method to hook reactjs component lifecycle
@@ -144,12 +144,12 @@ const PopperReactMixinMethods = {
  * @param getRefDom: ()=>HTMLElement, ref node, the node that popper aligns its pop-up to, see the popperjs doc for more information
  */
 export function PopperReactMixin(getPopperRootDom, getRefDom, config) {
-  require_condition(typeof getPopperRootDom === 'function', '`getPopperRootDom` func is required!')
-  require_condition(typeof getRefDom === 'function', '`getRefDom` func is required!')
+  require_condition(typeof getPopperRootDom === 'function', '`getPopperRootDom` func is required!');
+  require_condition(typeof getRefDom === 'function', '`getRefDom` func is required!');
 
-  PopperMixin.call(this, config)
-  Object.keys(mixinPrototype).forEach(k=>this[k]=mixinPrototype[k])
-  PopperReactMixinMethods.hookReactLifeCycle.call(this, getPopperRootDom, getRefDom)
+  PopperMixin.call(this, config);
+  Object.keys(mixinPrototype).forEach(k=>this[k]=mixinPrototype[k]);
+  PopperReactMixinMethods.hookReactLifeCycle.call(this, getPopperRootDom, getRefDom);
 
-  return this
+  return this;
 }

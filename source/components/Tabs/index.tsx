@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import RcTabs, { TabPane, TabContent, ScrollableInkTabBar } from './src/index.js';
 import classNames from 'classnames';
 import Icon from '../Icon';
-import * as BizLoading from '../BizLoading';
+import BizLoading from '../BizLoading';
 import warning from 'warning';
 import './style/index.less';
 

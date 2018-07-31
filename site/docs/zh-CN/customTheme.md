@@ -3,7 +3,7 @@ Fish Design在设计规范上支持一定程度的样式定制。
 
 ## 样式变量
 Fish Design的样式使用了 Less 作为开发语言，并定义了一系列全局/组件的样式变量，你可以根据需求进行相应调整。
- - [默认样式变量](https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/themes/default.less)
+ - <a href="https://github.com/NSFI/ppfish-components/blob/master/source/assets/css/themes/default.less" target="_blank">默认样式变量</a>
 
 ## 定制方式
 

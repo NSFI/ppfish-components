@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 
 function firstChild(props) {
@@ -6,4 +6,4 @@ function firstChild(props) {
   return childrenArray[0] || null;
 }
 
-export {firstChild}
+export {firstChild};

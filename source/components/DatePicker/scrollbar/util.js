@@ -20,7 +20,7 @@ export const BAR_MAP = {
     client: 'clientX',
     direction: 'left'
   }
-}
+};
 
 export function renderThumbStyle({ move, size, bar }) {
   const style = {};

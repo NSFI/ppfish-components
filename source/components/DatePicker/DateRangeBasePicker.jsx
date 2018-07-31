@@ -9,7 +9,7 @@ import { Component } from './libs';
 import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isDate, isInputValid, valueEquals } from './utils';
+import { isValidValue, isInputValid, valueEquals } from './utils';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
@@ -67,14 +67,18 @@ export default class DateRangeBasePicker extends Component {
   propsToState(props) {
     const state = {};
     const { value } = props;
-    if (value && value.length ==2 && isDate(value[0]) && isDate(value[1])) {
-      state.text = [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])],
+    if (this.isDateValid(value)) {
+      state.text = value && value.length ==2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '',
       state.value = props.value
     } else {
       state.text = '';
       state.value = null;
     }
     return state;
+  }
+
+  isDateValid(date) {
+    return date == null || isValidValue(date);
   }
 
   // ---: start, abstract methods
@@ -129,7 +133,7 @@ export default class DateRangeBasePicker extends Component {
   }
 
   dateToStr = (date) => {
-    if (!date || !isDate(date)) return '';
+    if (!date || !this.isDateValid(date)) return '';
     const tdate = date;
     const formatter = (
       TYPE_VALUE_RESOLVER_MAP['date']
@@ -169,15 +173,6 @@ export default class DateRangeBasePicker extends Component {
     this.props.onBlur(this);
   }
 
-  // 检查值得合法性并选中或取消
-  validatorAndSetValue = (value) => {
-    if (value && value.length ==2 && isDate(value[0]) && isDate(value[1])) {
-      this.onPicked(value, false, true);
-    } else {
-      this.onCancelPicked();
-    }
-  }
-
   // 键盘事件
   handleKeydown = (evt) => {
     const keyCode = evt.keyCode;
@@ -188,7 +183,9 @@ export default class DateRangeBasePicker extends Component {
     }
     // enter
     if (keyCode === KEYCODE.ENTER) {
-      this.validatorAndSetValue(this.state.value);
+      if (this.isDateValid(this.state.value)) {
+        this.onPicked(this.state.value, false, true);
+      }
     }
   }
 
@@ -196,11 +193,16 @@ export default class DateRangeBasePicker extends Component {
   handleClickOutside = (evt) => {
     const { value, pickerVisible } = this.state;
     if (!this.isInputFocus && !pickerVisible) {
-      return;
+      return
     }
     if (this.domRoot.contains(evt.target)) return;
     if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
-    this.validatorAndSetValue(value);
+
+    if (this.isDateValid(value)) {
+      this.onPicked(value, false, true);
+    } else {
+      this.onCancelPicked();
+    }
   }
 
   // 点击清空图标
@@ -321,10 +323,9 @@ export default class DateRangeBasePicker extends Component {
             onKeyDown={this.handleKeydown}
             onChange={e => {
               const inputValue = e.target.value;
-              if (inputValue.trim() === '' || !isInputValid(inputValue, this.parseDate(inputValue))) {
+              if (inputValue.trim() === '' || !isInputValid(this.parseDate(inputValue))) {
                 this.setState({
                   text: [inputValue, this.state.text[1]],
-                  value: null,
                 })
               } else {//only set value on a valid date input
                 this.setState({
@@ -347,10 +348,9 @@ export default class DateRangeBasePicker extends Component {
             onKeyDown={this.handleKeydown}
             onChange={e => {
               const inputValue = e.target.value;
-              if (inputValue.trim() === '' || !isInputValid(inputValue, this.parseDate(inputValue))) {
+              if (inputValue.trim() === '' || !isInputValid(this.parseDate(inputValue))) {
                 this.setState({
                   text: [this.state.text[0], inputValue],
-                  value: null,
                 })
               } else {//only set value on a valid date input
                 this.setState({

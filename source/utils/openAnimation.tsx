@@ -1,5 +1,5 @@
 import cssAnimation from 'css-animation';
-import * as raf from 'raf';
+import raf from 'raf';
 
 function animate(node: HTMLElement, show: boolean, done: () => void) {
   let height: number;

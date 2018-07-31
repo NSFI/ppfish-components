@@ -10,7 +10,7 @@ export const loadStyleString = (css, id = '') => {
   }
   const head = document.getElementsByTagName('head')[0];
   head.appendChild(style);
-}
+};
 
 
 let isServer = false;

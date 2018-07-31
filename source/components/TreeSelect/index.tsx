@@ -3,7 +3,6 @@ import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcT
 import classNames from 'classnames';
 import { TreeSelectProps } from './interface';
 import warning from 'warning';
-// import 'antd/dist/antd.css';
 import './style/index.less';
 
 export default class TreeSelect extends React.Component<TreeSelectProps, any> {

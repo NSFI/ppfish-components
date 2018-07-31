@@ -75,7 +75,7 @@ class RichEditor extends Component {
     for (let name in extendLinkModule) {
       this.modules.toolbar.handlers[name] = function() {
         this.quill.format('entry', extendLinkModule[name].url);
-      }
+      };
     }
   }
 
