@@ -108,7 +108,7 @@ export default class DateRangeBasePicker extends Component {
     this.setState({
       pickerVisible: isKeepPannel,
       value,
-      text: [this.dateToStr(value[0], this.dateToStr(value[1]))]
+      text: value && value.length ===2 ? [this.dateToStr(value[0], this.dateToStr(value[1]))] : ''
     });
 
     if(isConfirmValue) {

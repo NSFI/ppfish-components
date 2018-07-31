@@ -3,7 +3,7 @@
 
 .@{prefixClass} {
   &-date-picker {
-    min-width: 254px;
+    min-width: 300px;
 
     &.has-sidebar.has-time {
       min-width: 434px;
@@ -47,25 +47,27 @@
     }
 
     &__header {
-      margin: 12px;
+      padding: 25px 21px 21px 21px;
       text-align: center;
       .clearfix;
+      // 样式覆盖
+      .fishd-popover-inner-content {
+        padding: 8px 0;
+      }
     }
 
     &__header-label {
+      font-family: PingFangSC-Medium;
       font-size: 14px;
-      padding: 0 5px;
-      line-height: 22px;
       text-align: center;
       cursor: pointer;
-
-      &:hover {
-        color: @datepicker-text-hover-color;
-      }
-
-      &.active {
+      &:hover,&.active {
         color: @datepicker-active-color;
       }
+    }
+
+    &__header-label + &__header-label {
+      margin-left: 8px;
     }
 
     &__prev-btn {

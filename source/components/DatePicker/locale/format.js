@@ -23,6 +23,8 @@ export default function(string, ...args) {
     args = {};
   }
 
+  if(!string) return;
+
   return string.replace(RE_NARGS, (match, prefix, i, index) => {
     let result;
 

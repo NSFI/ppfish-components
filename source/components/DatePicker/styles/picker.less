@@ -1,12 +1,21 @@
 @import "../../../assets/css/index";
 
 .@{prefixClass} {
+  // 输入框统一样式
   &-date-editor {
     position: relative;
     display: inline-block;
 
     .fishd-input {
-      min-width: 193px;
+      min-width: 205px;
+    }
+
+    &--time,timeselect {
+      min-width: 205px;
+    }
+
+    &--datetime,&--date {
+      min-width: 300px;
     }
 
     &--daterange {
@@ -27,16 +36,6 @@
         border: 0;
         min-width: 193px;
       }
-    }
-
-    .el-picker-panel {
-      position: absolute;
-      min-width: 180px;
-      box-sizing: border-box;
-      box-shadow: @box-shadow-base;
-      background: @component-background;
-      z-index: 10;
-      top: 41px;
     }
   }
 }
