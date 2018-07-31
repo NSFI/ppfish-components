@@ -16,7 +16,17 @@
       ]
     },
     "test": {
-      "presets": ["react-app"]
+      "presets": [
+        "env",
+        "stage-1",
+        "stage-2",
+        "react"
+      ],
+      "plugins": [
+        ["import", {"libraryName": "antd", "style": true}],
+        "add-module-exports",
+        "dynamic-import-node"
+      ]
     }
   }
 }
