@@ -48,5 +48,5 @@ PR 标题规则：[ bug fix / breaking change / new feature ] 组件名字（英
 
 ## changelog
 
-`git log dev...site --pretty=format:'<li> <a href="https://github.com/NSFI/ppfish-components/commit/%H">view commit &bull;</a> %s</li> ' --reverse | grep -v Merge`
+`git log dev...site --pretty=format:'<li> <a target="_blank" href="https://github.com/NSFI/ppfish-components/commit/%H">view commit &bull;</a> %s</li> ' --reverse | grep -v Merge`
 
