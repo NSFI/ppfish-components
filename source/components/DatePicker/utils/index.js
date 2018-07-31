@@ -1,7 +1,7 @@
 import { DateUtils } from '../libs/utils';
 import Locale from '../locale'
 
-const t = Locale.t
+const t = Locale.t;
 const weeks = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
@@ -12,7 +12,6 @@ DateUtils.i18n = {
   monthNames: months.map((month, index) => t(`el.datepicker.month${ index + 1 }`))
 };
 
-
 const newArray = function (start, end) {
   let result = [];
   for (let i = start; i <= end; i++) {
@@ -21,26 +20,30 @@ const newArray = function (start, end) {
   return result;
 };
 
+// 判断两个日期是否相等
 export const equalDate = function (dateA, dateB) {
   return dateA === dateB || new Date(dateA).getTime() === new Date(dateB).getTime();
 };
 
+// Date对象
 export const toDate = function(date) {
   return isDate(date) ? new Date(date) : null;
 };
 
-export const isDate = function(date) {
-  if (date === null || date === undefined) return false;
-  if (isNaN(new Date(date).getTime())) return false;
-  return true;
+// 判断是否是Date对象
+export const isDate = function(value) {
+  if (value instanceof Date) return true;
+  return false
 };
 
+// format Date对象
 export const formatDate = function (date, format) {
   date = toDate(date);
   if (!date) return '';
   return DateUtils.format(date, format || 'yyyy-MM-dd');
 };
 
+// 将string format成Date对象
 export const parseDate = function (string, format) {
   return DateUtils.parse(string, format || 'yyyy-MM-dd');
 };
@@ -140,7 +143,7 @@ export const prevMonth = function (src) {
 };
 
 export const nextMonth = function (src) {
-  let clone = new Date(src.getTime())
+  let clone = new Date(src.getTime());
   const year = clone.getFullYear();
   const month = clone.getMonth();
   const date = clone.getDate();
@@ -205,6 +208,7 @@ export const limitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss')
   return date < minDate ? minDate : maxDate;
 };
 
+// 判断日期是否在范围以内
 export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss') {
   if (!ranges || !ranges.length) return false;
 
@@ -242,10 +246,49 @@ export function deconstructDate(date) {
   }
 }
 
-export function currentDefaultTime() {
-  const date = new Date();
-  date.setHours(0);
-  date.setMinutes(0);
-  date.setSeconds(0);
-  return date;
-}
+// 月份数组
+export const MONTH_ARRRY = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+
+// 年份数组
+export const YEARS_ARRAY = (N=50) => {
+  const result = [];
+  const currentYearNum = (new Date()).getFullYear();
+  const start = Math.max(currentYearNum - parseInt(N / 2), 0);
+  for(let i = 0; i < N; i++) {
+    result.push(start + i);
+  }
+  return result;
+};
+
+// 判断输入值的合法性
+export const isInputValid = (value, parseable) => {
+  if (!parseable) {
+    return false;
+  }
+
+  const isdatevalid = isDate(parseable);
+  if (!isdatevalid) {
+    return false;
+  }
+  return true;
+};
+
+// only considers date-picker's value: Date or [Date, Date]
+export const valueEquals = function (a, b) {
+  const aIsArray = Array.isArray(a);
+  const bIsArray = Array.isArray(b);
+
+  let isEqual = (a, b)=>{ // equal if a, b date is equal or both is null or undefined
+    let equal = false;
+    if (a && b) equal = a.getTime() === b.getTime();
+    else equal = a === b && a == null
+    return equal
+  };
+  if (aIsArray && bIsArray) {
+    return isEqual(a[0], b[0]) && isEqual(a[1], b[1])
+  }
+  if (!aIsArray && !bIsArray) {
+    return isEqual(a, b)
+  }
+  return false;
+};

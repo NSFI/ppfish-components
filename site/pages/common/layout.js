@@ -129,10 +129,10 @@ export default class Layout extends React.Component {
           </div>
           <div className="link-list">
             <Link to="/home" className="link-item">首页</Link>
-            <Link to="/home" className="link-item">设计语言</Link>
+            {/*<Link to="/home" className="link-item">设计语言</Link>*/}
             <Link to="/components" className="link-item">组件</Link>
-            <Link className="link-item">演示环境</Link>
-            <Link className="link-item">问题反馈</Link>
+            {/*<Link className="link-item">演示环境</Link>*/}
+            <a href="http://jira.netease.com/projects/YSFCOMP/summary" target="_blank" className="link-item">问题反馈</a>
           </div>
           <div className="github">
             <a href="//github.com/NSFI/ppfish-components" target="_blank">

@@ -12,13 +12,13 @@
 render(){
   return(
     <div>
-        <Select showSingleClear>
+        <Select showSingleClear style={{width:300}}>
           <Select.Option key={"1"} >{'选项1'}</Select.Option>  
           <Select.Option key={"2"}  disabled>{'选项2'}</Select.Option>       
           <Select.Option key={"3"} >{'选项3'}</Select.Option>       
         </Select>
         <br/>
-        <Select disabled ></Select>
+        <Select disabled style={{width:300}}></Select>
     </div>
   )
   
@@ -33,7 +33,7 @@ render(){
 render(){
   return(
     <div>
-        <Select showSingleClear extraOptions={
+        <Select style={{width:300}} showSingleClear extraOptions={
           <div style={{padding:10,background:'#ccc'}}>这里是额外的内容 -。-</div>
         }>
           <Select.Option key={"1"} >{'选项1'}</Select.Option>  
@@ -64,22 +64,22 @@ render(){
         const { size } = this.state;
   return(
     <div>
-                <Radio.Group value={size} onChange={this.handleSizeChange} style={{margin:10}}>
+                <Radio.Group value={size} onChange={this.handleSizeChange} style={{width:300,margin:10}}>
                   <Radio.Button value="large">Large</Radio.Button>
                   <Radio.Button value="default">Default</Radio.Button>
                   <Radio.Button value="small">Small</Radio.Button>
                 </Radio.Group>
-                <Select showSingleClear size={size} style={{margin:10}}>
+                <Select showSingleClear size={size} style={{width:300,margin:10}}>
                   <Select.Option key={"1"} >{'选项1'}</Select.Option>  
                   <Select.Option key={"2"}  disabled>{'选项2'}</Select.Option>       
                   <Select.Option key={"3"} >{'选项3'}</Select.Option>       
                 </Select>
-                <Select size={size} mode={'multiple'} style={{margin:10}}>
+                <Select  size={size} mode={'multiple'} style={{width:300,margin:10}}>
                   <Select.Option key={"1"} >{'选项1'}</Select.Option>  
                   <Select.Option key={"2"}  disabled>{'选项2'}</Select.Option>       
                   <Select.Option key={"3"} >{'选项3'}</Select.Option>       
                 </Select>
-                <Select size={size} mode={'multiple'} labelClear style={{margin:10}} showSelectAll>
+                <Select size={size} mode={'multiple'} labelClear style={{width:300,margin:10}} showSelectAll>
                   <Select.Option key={"1"} >{'选项1'}</Select.Option>  
                   <Select.Option key={"2"}  disabled>{'选项2'}</Select.Option>       
                   <Select.Option key={"3"} >{'选项3'}</Select.Option>       
@@ -109,7 +109,7 @@ state={
 render(){
   const Group = Select.listConvertToGroup([{key:"1",label:'不知名人士'},{key:"2",label:'李四'},{key:"3",label:'###'},{key:"4",label:'李一'}]);
   return(
-        <Select showSingleClear onChange={(value) => this.setState({value})} value={this.state.value}>
+        <Select style={{width:300}} showSingleClear onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -135,7 +135,7 @@ render(){
     <div>
        <div>key:{this.state.value && this.state.value.key}</div>
        <div>label:{this.state.value && this.state.value.label}</div>
-        <Select showSingleClear labelInValue onChange={(value) => this.setState({value})} value={this.state.value}>
+        <Select style={{width:300}} showSingleClear labelInValue onChange={(value) => this.setState({value})} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -211,7 +211,7 @@ render(){
   const Group = Select.listConvertToGroup([{key:"6",label:"qqt"},{key:"1",label:'skrskrskrskr'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'},{key:"5",label:'李二'}]);
   return(
     <div>
-        <Select disabled={false} onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
+        <Select style={{width:300}} disabled={false} onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
                   {Group.map(group =>
                    <Select.OptGroup label={group.label} key={group.key}>
                      {group.list && group.list.map(item=> <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -219,7 +219,7 @@ render(){
                   )}
         </Select>
 <br/>
-        <Select disabled={false} labelClear onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
+        <Select style={{width:300}} disabled={false} labelClear onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
                   {Group.map(group =>
                    <Select.OptGroup label={group.label} key={group.key}>
                      {group.list && group.list.map(item=> <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -246,7 +246,7 @@ render(){
   const Group = Select.listConvertToGroup([{key:"1",label:'选项1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
-            <Select showSingleClear showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
+            <Select style={{width:300}} showSingleClear showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
               {Group.map(group =>
                 <Select.OptGroup label={group.label} key={group.key}>
                   {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -254,7 +254,7 @@ render(){
               )}
             </Select>
 <br/>
-        <Select mode={'multiple'} showSearch showSelectAll filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({mValue:value})} value={this.state.mValue}>
+        <Select style={{width:300}} mode={'multiple'} showSearch showSelectAll filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({mValue:value})} value={this.state.mValue}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -275,11 +275,11 @@ render(){
 render(){
   return(
     <div>
-        <Select size={'small'} loading/>
+        <Select style={{width:300}} size={'small'} loading/>
         <br/>
-        <Select loading/>
+        <Select style={{width:300}} loading/>
         <br/>
-        <Select size={'large'} loading/>
+        <Select style={{width:300}} size={'large'} loading/>
     </div>
   )
 }
@@ -318,7 +318,7 @@ render(){
             <Radio.Button value="topCenter">topCenter</Radio.Button>
             <Radio.Button value="topRight">topRight</Radio.Button>
           </Radio.Group>
-        <Select  popupAlign={this.state.align} onChange={(value) => this.setState({value})} value={this.state.value} dropdownMatchSelectWidth={false} dropdownStyle={{width:Number(this.state.width)}}>
+        <Select  style={{width:300}} popupAlign={this.state.align} onChange={(value) => this.setState({value})} value={this.state.value} dropdownMatchSelectWidth={false} dropdownStyle={{width:Number(this.state.width)}}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key} >{item.label}</Select.Option>)}
@@ -382,7 +382,7 @@ render(){
   const { fetching, data, value } = this.state;
   return(
     <div>
-        <Select labelInValue showSingleClear showSearch onSearch={this.fetchUser} onChange={this.handleChange} value={value}       
+        <Select style={{width:300}} labelInValue showSingleClear showSearch onSearch={this.fetchUser} onChange={this.handleChange} value={value}       
           notFoundContent={fetching ? <Spin size="small" /> : null} >
           {data.map(d => <Select.Option key={d.value}>{d.text}</Select.Option>)}
         </Select>
@@ -443,7 +443,7 @@ render(){
   const { fetching, data, value } = this.state;
   return(
     <div>
-        <Select  showSelectAll selectAllText={'选中所有搜索结果'} mode="multiple" labelInValue showSearch onSearch={this.fetchUser} onChange={this.handleChange} value={value}       
+        <Select style={{width:300}} showSelectAll selectAllText={'选中所有搜索结果'} mode="multiple" labelInValue showSearch onSearch={this.fetchUser} onChange={this.handleChange} value={value}       
           notFoundContent={fetching ? <Spin size="small" /> : null} >
           {data.map(d => <Select.Option key={d.value}>{d.text}</Select.Option>)}
         </Select>
