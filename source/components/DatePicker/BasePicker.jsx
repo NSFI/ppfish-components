@@ -9,7 +9,7 @@ import { Component } from './libs';
 import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isDate, isInputValid, valueEquals } from './utils';
+import { isValidValue, isInputValid, valueEquals } from './utils';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
@@ -67,7 +67,7 @@ export default class BasePicker extends Component {
 
   propsToState(props) {
     const state = {};
-    if (isDate(props.value)) {
+    if (this.isDateValid(props.value)) {
       state.text = this.dateToStr(props.value);
       state.value = props.value;
     } else {
@@ -75,6 +75,11 @@ export default class BasePicker extends Component {
       state.value = null;
     }
     return state;
+  }
+
+
+  isDateValid(date) {
+    return date == null || isValidValue(date);
   }
 
   // ---: start, abstract methods
@@ -125,7 +130,7 @@ export default class BasePicker extends Component {
   }
 
   dateToStr(date) {
-    if (!isDate(date)) return '';
+    if (!date || !this.isDateValid(date)) return '';
     const tdate = date;
     const formatter = (
       TYPE_VALUE_RESOLVER_MAP[this.type] ||
@@ -184,14 +189,6 @@ export default class BasePicker extends Component {
     this.props.onBlur(this);
   }
 
-  validatorAndSetValue = (value) => {
-    if (isDate(value)) {
-      this.onPicked(value, false, true);
-    } else {
-      this.onCancelPicked();
-    }
-  }
-
   // 键盘事件
   handleKeydown = (evt) => {
     const keyCode = evt.keyCode;
@@ -202,7 +199,9 @@ export default class BasePicker extends Component {
     }
     // enter
     if (keyCode === KEYCODE.ENTER) {
-      this.validatorAndSetValue(this.state.value);
+      if (this.isDateValid(this.state.value)) {
+        this.onPicked(this.state.value, false, true);
+      }
     }
   }
 
@@ -210,11 +209,16 @@ export default class BasePicker extends Component {
   handleClickOutside = (evt) => {
     const { value, pickerVisible } = this.state;
     if (!this.isInputFocus && !pickerVisible) {
-      return;
+      return
     }
     if (this.domRoot.contains(evt.target)) return;
     if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
-    this.validatorAndSetValue(value);
+
+    if (this.isDateValid(value)) {
+      this.onPicked(value, false, true);
+    } else {
+      this.onCancelPicked();
+    }
   }
 
   // 点击清空图标
@@ -224,7 +228,7 @@ export default class BasePicker extends Component {
 
     if (isDisabled || !isAllowClear) return;
     if (!text) {
-      this.togglePickerVisible()
+      this.togglePickerVisible();
     } else {
       this.setState(
         {
@@ -324,8 +328,8 @@ export default class BasePicker extends Component {
           onChange={e => {
             const iptxt = e.target.value;
             const nstate = { text: iptxt };
-            if (iptxt.trim() === '' || !isInputValid(iptxt, this.parseDate(iptxt))) {
-              nstate.value = null;
+            if (iptxt.trim() === '' || !isInputValid(this.parseDate(iptxt))) {
+              return;
             } else {//only set value on a valid date input
               nstate.value = this.parseDate(iptxt);
             }

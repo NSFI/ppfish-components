@@ -55,6 +55,11 @@ export default class TimePanel extends PopperBase {
     return state;
   };
 
+  // 判断值的合法性
+  isValid = (value) => {
+    return TimePanel.isValid(value, this.props);
+  }
+
   // type: string,  one of [hours, minutes, seconds]
   // date: {type: number}
   handleChange = (date) => {
@@ -69,7 +74,7 @@ export default class TimePanel extends PopperBase {
     if (date.seconds !== undefined) {
       currentDate.setSeconds(date.seconds);
     }
-    if(isLimitRange(currentDate, selectableRange, 'HH:mm:ss')){
+    if(!this.isValid){
       this.setState({
         confirmButtonDisabled: true,
         currentDate: currentDate
@@ -158,4 +163,8 @@ export default class TimePanel extends PopperBase {
       </div>
     );
   }
+}
+
+TimePanel.isValid = (value, { selectableRange }) => {
+  return isLimitRange(value, selectableRange, 'HH:mm:ss');
 }

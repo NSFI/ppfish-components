@@ -27,14 +27,14 @@ export const equalDate = function (dateA, dateB) {
 
 // Date对象
 export const toDate = function(date) {
-  return isDate(date) ? new Date(date) : null;
+  return isValidValue(date) ? new Date(date) : null;
 };
 
-// 判断是否是Date对象
-export const isDate = function(value) {
+export const isValidValue = (value) => {
   if (value instanceof Date) return true;
+  if (Array.isArray(value) && value.length !== 0 && value[0] instanceof Date) return true;
   return false
-};
+}
 
 // format Date对象
 export const formatDate = function (date, format) {
@@ -210,7 +210,7 @@ export const limitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss')
 
 // 判断日期是否在范围以内
 export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss') {
-  if (!ranges || !ranges.length) return false;
+  if (!ranges || !ranges.length) return true;
 
   const len = ranges.length;
 
@@ -218,11 +218,11 @@ export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss
   for (let i = 0; i < len; i++) {
     const range = ranges[i];
     if (date >= range[0] && date <= range[1]) {
-      return false;
+      return true;
     }
   }
 
-  return true;
+  return false;
 };
 
 
@@ -261,12 +261,12 @@ export const YEARS_ARRAY = (N=50) => {
 };
 
 // 判断输入值的合法性
-export const isInputValid = (value, parseable) => {
+export const isInputValid = (parseable) => {
   if (!parseable) {
     return false;
   }
 
-  const isdatevalid = isDate(parseable);
+  const isdatevalid = isValidValue(parseable);
   if (!isdatevalid) {
     return false;
   }
