@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import * as shallowEqual from 'shallowequal';
+import shallowEqual from 'shallowequal';
 import Radio from './radio';
 import { RadioGroupProps, RadioGroupState, RadioChangeEvent } from './interface';
 

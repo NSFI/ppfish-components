@@ -1,7 +1,7 @@
 import * as React from 'react';
-import * as RcSlider from './RcSlider';
-import * as RcRange from './RcRange';
-import * as RcHandle from './RcHandle';
+import RcSlider from './RcSlider';
+import RcRange from './RcRange';
+import RcHandle from './RcHandle';
 import Tooltip from '../Tooltip';
 
 import './style/index.less';
