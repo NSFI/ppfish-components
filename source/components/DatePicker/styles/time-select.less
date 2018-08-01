@@ -18,20 +18,17 @@
 }
 
 .time-select-item.selected:not(.disabled) {
-  background-color: @datepicker-active-color;
-  color: #ffffff;
-
-  &:hover {
-    background-color: @primary-color;
-  }
+  background-color: @datepicker-active-background-color;
+  color: #fff;
 }
 
 .time-select-item.disabled {
-  color: @datepicker-border-color;
+  color: @datepicker-disable-color;
   cursor: not-allowed;
 }
 
-.time-select-item:hover {
-  background-color: @datepicker-cell-hover-color;
+.time-select-item:not(.disabled):not(.selected):hover {
+  color: @datepicker-active-color;
+  background-color: @datepicker-hover-background-color;
   cursor: pointer;
 }
