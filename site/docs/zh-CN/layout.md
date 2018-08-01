@@ -651,7 +651,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| breakpoint | 触发响应式布局的[断点](/#/components/grid) | Enum { 'xs', 'sm', 'md', 'lg', 'xl', 'xxl' } | - |
+| breakpoint | 触发响应式布局的[断点](https://nsfi.github.io/ppfish-components/#/components/grid) | Enum { 'xs', 'sm', 'md', 'lg', 'xl', 'xxl' } | - |
 | className | 容器 className | string | - |
 | collapsed | 当前收起状态 | boolean | - |
 | collapsedWidth | 收缩宽度，设置为 0 会出现特殊 trigger | number | 64 |
