@@ -95,11 +95,11 @@ export default class Components extends React.Component {
         <Divider/>
         <Row className="u-navigation-btm">
           <Col span={12} className="prev-page">
-            {lastLink && <a href={lastLink.url}><Icon type="left" className="prev-page-icon"/>{lastLink.value.name}</a>}
+            {lastLink && <a href={lastLink.url}><Icon type="left-pagination-line" className="prev-page-icon"/>{lastLink.value.name}</a>}
           </Col>
           <Col span={12} className="next-page">
             {nextLink &&
-            <a href={nextLink.url}>{nextLink.value.name}<Icon type="right" className="next-page-icon"/></a>}
+            <a href={nextLink.url}>{nextLink.value.name}<Icon type="right-pagination-lin" className="next-page-icon"/></a>}
           </Col>
         </Row>
       </div>
