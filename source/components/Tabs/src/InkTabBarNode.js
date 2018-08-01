@@ -109,14 +109,14 @@ function componentDidUpdate(component, init) {
 
 export default class InkTabBarNode extends React.Component {
   componentDidMount() {
-    if (isDev) {
-      // https://github.com/ant-design/ant-design/issues/8678
-      this.timeout = setTimeout(() => {
-        componentDidUpdate(this, true);
-      }, 0);
-    } else {
+    // if (isDev) {
+    // https://github.com/ant-design/ant-design/issues/8678
+    this.timeout = setTimeout(() => {
       componentDidUpdate(this, true);
-    }
+    }, 0);
+    // } else {
+    //   componentDidUpdate(this, true);
+    // }
   }
 
   componentDidUpdate() {
