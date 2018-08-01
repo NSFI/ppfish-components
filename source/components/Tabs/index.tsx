@@ -161,7 +161,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
         closable = typeof closable === 'undefined' ? true : closable;
         const closeIcon = closable ? (
            <Icon
-             type="close"
+             type="close-tag-line"
              onClick={e => this.removeTab(child.key as string, e)}
            />
         ) : null;
