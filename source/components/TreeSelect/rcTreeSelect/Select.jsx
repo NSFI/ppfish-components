@@ -723,19 +723,19 @@ class Select extends React.Component {
   };
 
   onSearchInputKeyDown = (event) => {
-    const { searchValue, valueList } = this.state;
+    // Remove
+    // const { searchValue, valueList } = this.state;
+    // const { keyCode } = event;
 
-    const { keyCode } = event;
-
-    if (
-      KeyCode.BACKSPACE === keyCode &&
-      this.isMultiple() &&
-      !searchValue &&
-      valueList.length
-    ) {
-      const lastValue = valueList[valueList.length - 1].value;
-      this.onMultipleSelectorRemove(event, lastValue);
-    }
+    // if (
+    //   KeyCode.BACKSPACE === keyCode &&
+    //   this.isMultiple() &&
+    //   !searchValue &&
+    //   valueList.length
+    // ) {
+    //   const lastValue = valueList[valueList.length - 1].value;
+    //   this.onMultipleSelectorRemove(event, lastValue);
+    // }
   };
 
   /**
