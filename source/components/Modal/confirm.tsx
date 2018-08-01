@@ -14,7 +14,7 @@ const IS_REACT_16 = !!ReactDOM.createPortal;
 
 const ConfirmDialog = (props: ConfirmDialogProps) => {
   const { onCancel, onOk, close, zIndex, afterClose, visible, keyboard } = props;
-  const iconType = props.iconType || 'question-circle';
+  const iconType = props.iconType || 'hints-descriptions';
   const okType = props.okType || 'primary';
   const prefixCls = props.prefixCls || 'fishd-confirm';
   // 默认为 true，保持向下兼容

@@ -56,8 +56,8 @@ render(){
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button type="primary" icon="cloud" />
-      <Button type="primary" icon="cloud-download" />
+      <Button type="primary" icon="spare-icon-VideoPla" />
+      <Button type="primary" icon="spare-icon-Imagex" />
     </ButtonGroup>
   </div>)
 }
@@ -117,15 +117,15 @@ render(){
 ```js
 render(){
   return(<div className="components-button-demo-icon">
-    <Button type="primary" shape="circle" icon="search" />
-    <Button type="primary" icon="search">Search</Button>
-    <Button shape="circle" icon="search" />
-    <Button icon="search">Search</Button>
+    <Button type="primary" shape="circle" icon="search-line" />
+    <Button type="primary" icon="search-line">Search</Button>
+    <Button shape="circle" icon="search-line" />
+    <Button icon="search-line">Search</Button>
     <br />
-    <Button shape="circle" icon="search" />
-    <Button icon="search">Search</Button>
-    <Button type="dashed" shape="circle" icon="search" />
-    <Button type="dashed" icon="search">Search</Button>
+    <Button shape="circle" icon="search-line" />
+    <Button icon="search-line">Search</Button>
+    <Button type="dashed" shape="circle" icon="search-line" />
+    <Button type="dashed" icon="search-line">Search</Button>
   </div>)
 }
 ```

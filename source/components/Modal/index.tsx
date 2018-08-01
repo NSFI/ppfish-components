@@ -7,7 +7,7 @@ export { ModalProps, ModalFuncProps } from './Modal';
 Modal.info = function (props: ModalFuncProps) {
   const config = {
     type: 'info',
-    iconType: 'info-circle',
+    iconType: 'hints-notification',
     okCancel: false,
     ...props,
   };
@@ -17,7 +17,7 @@ Modal.info = function (props: ModalFuncProps) {
 Modal.success = function (props: ModalFuncProps) {
   const config = {
     type: 'success',
-    iconType: 'check-circle',
+    iconType: 'hints-success',
     okCancel: false,
     ...props,
   };
@@ -27,7 +27,7 @@ Modal.success = function (props: ModalFuncProps) {
 Modal.error = function (props: ModalFuncProps) {
   const config = {
     type: 'error',
-    iconType: 'cross-circle',
+    iconType: 'hints-error',
     okCancel: false,
     ...props,
   };
@@ -37,7 +37,7 @@ Modal.error = function (props: ModalFuncProps) {
 Modal.warning = Modal.warn = function (props: ModalFuncProps) {
   const config = {
     type: 'warning',
-    iconType: 'exclamation-circle',
+    iconType: 'hints-warning',
     okCancel: false,
     ...props,
   };
