@@ -60,8 +60,18 @@
       color: @text-color;
       transition: all .3s;
       width: ~"calc(100% - 24px)";
+      vertical-align: middle; // add
       &:hover {
         background-color: @item-hover-bg;
+      }
+      // add: handle text ellipsis
+      .@{select-tree-prefix-cls}-title {
+        display: inline-block;
+        width: 100%;
+        // line-height: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
       &.@{select-tree-prefix-cls}-node-selected {
         background-color: @primary-2;
