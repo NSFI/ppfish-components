@@ -1,15 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
-import fs from 'fs';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import autoprefixer from 'autoprefixer';
-import lessToJs from 'less-vars-to-js';
-
-const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './source/assets/css/themes/default.less'), 'utf8'));
-// lessToJs does not support @icon-url: "some-string",
-// so we are manually adding it to the produced themeVariables js object here
-// 注意：这里需要单引号
-themeVariables["@icon-url"] = "'//at.alicdn.com/t/font_697017_1dtc732aw4c'";
 
 // 压缩混淆代码开关
 const minimize = true;
@@ -137,8 +129,7 @@ export default {
           }, {
             loader: 'less-loader',
             options: {
-              minimize: minimize,
-              modifyVars: themeVariables
+              minimize: minimize
             }
           }],
           fallback: 'style-loader'
