@@ -75,55 +75,55 @@ export default {
       //   type: 'markdown',
       //   name: 'Divider 分隔符',
       // },
-      'picturePreview': {
-        type: 'markdown',
-        name: 'PicturePreview 图片查看器',
-        style: require('./picturePreview/index.less'),
-        props: {
-          source: [
-            {
-              "url": require("../assets/382_680.png"),
-              "size": "382*680"
-            },
-            {
-              "url": require("../assets/410_412.png"),
-              "size": "410*412"
-            },
-            {
-              "url": require("../assets/895_642.png"),
-              "size": "895*642"
-            },
-            {
-              "url": require("../assets/960_600.png"),
-              "size": "960*600"
-            },
-            {
-              "url": require("../assets/680_320.png"),
-              "size": "680*320"
-            }
-          ]
-        }
-      },
-      'imageLoader': {
-        type: 'markdown',
-        name: 'ImageLoader 图片加载器',
-      },
-      'colorPicker': {
-        type: 'markdown',
-        name: 'ColorPicker 颜色选择器',
-      },
+      // 'picturePreview': {
+      //   type: 'markdown',
+      //   name: 'PicturePreview 图片查看器',
+      //   style: require('./picturePreview/index.less'),
+      //   props: {
+      //     source: [
+      //       {
+      //         "url": require("../assets/382_680.png"),
+      //         "size": "382*680"
+      //       },
+      //       {
+      //         "url": require("../assets/410_412.png"),
+      //         "size": "410*412"
+      //       },
+      //       {
+      //         "url": require("../assets/895_642.png"),
+      //         "size": "895*642"
+      //       },
+      //       {
+      //         "url": require("../assets/960_600.png"),
+      //         "size": "960*600"
+      //       },
+      //       {
+      //         "url": require("../assets/680_320.png"),
+      //         "size": "680*320"
+      //       }
+      //     ]
+      //   }
+      // },
+      // 'imageLoader': {
+      //   type: 'markdown',
+      //   name: 'ImageLoader 图片加载器',
+      // },
+      // 'colorPicker': {
+      //   type: 'markdown',
+      //   name: 'ColorPicker 颜色选择器',
+      // },
       // 'richEditor': {
       //   type: 'markdown',
       //   name: 'RichEditor 富文本编辑器',
       // },
-      'audioPlayer': {
-        type: 'markdown',
-        name: 'AudioPlayer 音频播放器',
-      },
-      'videoViewer': {
-        type: 'markdown',
-        name: 'VideoViewer 视频查看器',
-      },
+      // 'audioPlayer': {
+      //   type: 'markdown',
+      //   name: 'AudioPlayer 音频播放器',
+      // },
+      // 'videoViewer': {
+      //   type: 'markdown',
+      //   name: 'VideoViewer 视频查看器',
+      // },
     },
     // '布局规范 Layout': {
     //   'grid': {
@@ -198,16 +198,16 @@ export default {
       //   type: 'markdown',
       //   name: 'Cascader 级联选择',
       // },
-      'timePicker': {
-        type: 'markdown',
-        name: 'TimePicker 时间选择器',
-        //style: require('element-theme-default') //TODO
-      },
-      'datePicker': {
-        type: 'markdown',
-        name: 'DatePicker 日期选择框',
-        style: require('./datePicker/index.less')
-      },
+      // 'timePicker': {
+      //   type: 'markdown',
+      //   name: 'TimePicker 时间选择器',
+      //   //style: require('element-theme-default') //TODO
+      // },
+      // 'datePicker': {
+      //   type: 'markdown',
+      //   name: 'DatePicker 日期选择框',
+      //   style: require('./datePicker/index.less')
+      // },
       // 'upload': {
       //   type: 'markdown',
       //   name: 'Upload 上传',
@@ -314,22 +314,22 @@ export default {
       },
     },
   },
-  business: {
-    '基本组件 Basic': {
-      // 已废弃使用，推荐使用spin
-      // 'bizLoading': {
-      //   type: 'markdown',
-      //   name: 'BizLoading 加载动画',
-      // },
-      // 已废弃，推荐使用table
-      // 'bizTable': {
-      //   type: 'markdown',
-      //   name: 'BizTable 自定义表格',
-      // },
-      'bizTimePicker': {
-        type: 'markdown',
-        name: 'BizTimePicker 自定义时间选择器',
-      },
-    }
-  }
+  // business: {
+  //   '基本组件 Basic': {
+  //     // 已废弃使用，推荐使用spin
+  //     // 'bizLoading': {
+  //     //   type: 'markdown',
+  //     //   name: 'BizLoading 加载动画',
+  //     // },
+  //     // 已废弃，推荐使用table
+  //     // 'bizTable': {
+  //     //   type: 'markdown',
+  //     //   name: 'BizTable 自定义表格',
+  //     // },
+  //     'bizTimePicker': {
+  //       type: 'markdown',
+  //       name: 'BizTimePicker 自定义时间选择器',
+  //     },
+  //   }
+  // }
 };
