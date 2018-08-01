@@ -59,7 +59,7 @@ export default class BasePicker extends Component {
     this.type = _type; // type need to be set first
     this.state = Object.assign({}, state, {
       pickerVisible: false,
-      confirmValue: props.value // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
+      confirmValue: props.value // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
     }, this.propsToState(props));
 
     this.clickOutsideId = 'clickOutsideId_' + idGen.next();
@@ -124,13 +124,13 @@ export default class BasePicker extends Component {
   onCancelPicked = () => {
     this.setState({
       pickerVisible: false,
-      value: this.state.confirmValue ? new Date(this.state.confirmValue) : null,
-      text: this.state.confirmValue ? this.dateToStr(new Date(this.state.confirmValue)) : ''
+      value: this.state.confirmValue ? this.state.confirmValue : null,
+      text: this.state.confirmValue ? this.dateToStr(this.state.confirmValue) : ''
     });
   }
 
   dateToStr(date) {
-    if (!date || !this.isDateValid(date)) return '';
+    if (!date || !isValidValue(date)) return '';
     const tdate = date;
     const formatter = (
       TYPE_VALUE_RESOLVER_MAP[this.type] ||

@@ -32,12 +32,12 @@
         mode="horizontal"
       >
         <Menu.Item key="mail">
-          Navigation One
+          <Icon type="demo-mail" />Navigation One
         </Menu.Item>
-        <Menu.Item key="app" disabled>
-          Navigation Two
+        <Menu.Item key="pie" disabled>
+          <Icon type="demo-pie" />Navigation Two
         </Menu.Item>
-        <SubMenu title={<span>Navigation Three - Submenu</span>}>
+        <SubMenu title={<span><Icon type="demo-grid" />Navigation Three - Submenu</span>}>
           <MenuItemGroup title="Item 1">
             <Menu.Item key="setting:1">Option 1</Menu.Item>
             <Menu.Item key="setting:2">Option 2</Menu.Item>
@@ -47,7 +47,7 @@
             <Menu.Item key="setting:4">Option 4</Menu.Item>
           </MenuItemGroup>
         </SubMenu>
-        <Menu.Item key="alipay">
+        <Menu.Item key="fishd">
           <a href={window.location.host} target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
         </Menu.Item>
       </Menu>
@@ -76,7 +76,7 @@
         defaultOpenKeys={['sub1']}
         mode="inline"
       >
-        <SubMenu key="sub1" title={<span>Navigation One</span>}>
+        <SubMenu key="sub1" title={<span><Icon type="demo-mail" />Navigation One</span>}>
           <MenuItemGroup key="g1" title="Item 1">
             <Menu.Item key="1">Option 1</Menu.Item>
             <Menu.Item key="2">Option 2</Menu.Item>
@@ -86,7 +86,7 @@
             <Menu.Item key="4">Option 4</Menu.Item>
           </MenuItemGroup>
         </SubMenu>
-        <SubMenu key="sub2" title={<span>Navigation Two</span>}>
+        <SubMenu key="sub2" title={<span><Icon type="demo-pie" />Navigation Two</span>}>
           <Menu.Item key="5">Option 5</Menu.Item>
           <Menu.Item key="6">Option 6</Menu.Item>
           <SubMenu key="sub3" title="Submenu">
@@ -94,7 +94,7 @@
             <Menu.Item key="8">Option 8</Menu.Item>
           </SubMenu>
         </SubMenu>
-        <SubMenu key="sub4" title={<span>Navigation Three</span>}>
+        <SubMenu key="sub4" title={<span><Icon type="demo-grid" />Navigation Three</span>}>
           <Menu.Item key="9">Option 9</Menu.Item>
           <Menu.Item key="10">Option 10</Menu.Item>
           <Menu.Item key="11">Option 11</Menu.Item>
