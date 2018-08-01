@@ -5,13 +5,13 @@ import Icon from '../Icon/index.tsx';
 
 export default class SelectSearch extends React.Component {
   static propTypes = {
+    allowClear: PropTypes.bool,
+    emitEmpty: PropTypes.func,
     prefixCls: PropTypes.string,
+    searchInputProps: PropTypes.object,
     searchPlaceholder: PropTypes.string,
     searchValue: PropTypes.string,
     updateSearchValue: PropTypes.func,
-    emitEmpty: PropTypes.func,
-    searchInputProps: PropTypes.object,
-    allowClear: PropTypes.bool
   };
 
   constructor(props) {
@@ -19,7 +19,15 @@ export default class SelectSearch extends React.Component {
   }
 
   render() {
-    const {prefixCls, searchInputProps, allowClear, searchPlaceholder, searchValue, updateSearchValue, emitEmpty} = this.props;
+    const {
+      allowClear,
+      emitEmpty,
+      prefixCls,
+      searchInputProps,
+      searchPlaceholder,
+      searchValue,
+      updateSearchValue,
+    } = this.props;
     const suffix = searchValue && allowClear ?
       <Icon type="qingkongneirong" className={`${prefixCls}-clear`} onClick={emitEmpty}/> : null;
     return (

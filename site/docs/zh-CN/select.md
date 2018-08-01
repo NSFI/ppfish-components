@@ -106,10 +106,17 @@ render(){
 state={
   value:"1"
 }
+
+handleChange = (value) => {
+  this.setState({value});
+  console.log('newState: ',value);
+};
+
+
 render(){
   const Group = this.props.utils.listConvertToGroup([{key:"1",label:'不知名人士'},{key:"2",label:'李四'},{key:"3",label:'###'},{key:"4",label:'李一'}]);
   return(
-        <Select style={{width:300}} showSingleClear onChange={(value) => this.setState({value})} value={this.state.value}>
+        <Select style={{width:300}} showSingleClear onChange={this.handleChange} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -129,13 +136,19 @@ render(){
 state={
   value:{key:"1"}
 }
+
+handleChange = (value) => {
+  this.setState({value});
+  console.log('newState: ',value);
+};
+
 render(){
   const Group = this.props.utils.listConvertToGroup([{key:"1",label:'不知名人士'},{key:"2",label:'李四'},{key:"3",label:'@@@###xxx'},{key:"4",label:'李一'}]);
   return(
     <div>
        <div>key:{this.state.value && this.state.value.key}</div>
        <div>label:{this.state.value && this.state.value.label}</div>
-        <Select style={{width:300}} showSingleClear labelInValue onChange={(value) => this.setState({value})} value={this.state.value}>
+        <Select style={{width:300}} showSingleClear labelInValue onChange={this.handleChange} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -207,11 +220,16 @@ state={
   value:["1","2","3","6",'失效的id']
 }
 
+handleChange = (value) => {
+  this.setState({value});
+  console.log('newState: ',value);
+};
+
 render(){
   const Group = this.props.utils.listConvertToGroup([{key:"6",label:"qqt"},{key:"1",label:'skrskrskrskr'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'},{key:"5",label:'李二'}]);
   return(
     <div>
-        <Select style={{width:300}} disabled={false} onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
+        <Select style={{width:300}} disabled={false} onChange={this.handleChange} value={this.state.value} showSelectAll={true} mode={'multiple'} >
                   {Group.map(group =>
                    <Select.OptGroup label={group.label} key={group.key}>
                      {group.list && group.list.map(item=> <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -219,7 +237,7 @@ render(){
                   )}
         </Select>
 <br/>
-        <Select style={{width:300}} disabled={false} labelClear onChange={(value)=>this.setState({value})} value={this.state.value} showSelectAll={true} mode={'multiple'} >
+        <Select style={{width:300}} disabled={false} labelClear onChange={this.handleChange} value={this.state.value} showSelectAll={true} mode={'multiple'} >
                   {Group.map(group =>
                    <Select.OptGroup label={group.label} key={group.key}>
                      {group.list && group.list.map(item=> <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -242,11 +260,17 @@ state={
   value:"1",
   mValue:["1"],
 }
+
+handleChange = (value) => {
+  this.setState({value});
+  console.log('newState: ',value);
+};
+
 render(){
   const Group = this.props.utils.listConvertToGroup([{key:"1",label:'选项1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
     <div>
-            <Select style={{width:300}} showSingleClear showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({value})} value={this.state.value}>
+            <Select style={{width:300}} showSingleClear showSearch filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={this.handleChange} value={this.state.value}>
               {Group.map(group =>
                 <Select.OptGroup label={group.label} key={group.key}>
                   {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -254,7 +278,7 @@ render(){
               )}
             </Select>
 <br/>
-        <Select style={{width:300}} mode={'multiple'} showSearch showSelectAll filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={(value) => this.setState({mValue:value})} value={this.state.mValue}>
+        <Select style={{width:300}} mode={'multiple'} showSearch showSelectAll filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={this.handleChange} value={this.state.mValue}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
@@ -376,6 +400,7 @@ render(){
           value,
           fetching: false,
         });
+        console.log('newState:',value);
       }
       
 render(){
@@ -437,6 +462,7 @@ render(){
           value,
           fetching: false,
         });
+        console.log('newState:',value);
       }
       
 render(){

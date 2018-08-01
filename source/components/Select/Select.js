@@ -283,7 +283,7 @@ export default class Select extends React.Component {
     onSelect(obj);
   };
 
-  //获取列表待筛选操作
+  //获取加料后的children
   getProcessedChildren = (children, dropdownCls) => {
     return React.Children.map(children, (c) => {
       if (typeof c === 'object' && c.type.isSelectOption) {
@@ -311,7 +311,7 @@ export default class Select extends React.Component {
     });
   };
 
-  //获取筛选后列表
+  //获取筛选后children
   getFilteredChildren = (children, ChildrenList = []) => {
     const {filterOption} = this.props;
     const {searchValue} = this.state;
@@ -368,25 +368,26 @@ export default class Select extends React.Component {
   //多选-确定
   handleConfirmSelect = () => {
     const {onChange, labelInValue} = this.props;
+    const {selectValue} = this.state;
     this.setState({
       popupVisible: false,
-      selectValueForMultiplePanel: this.state.selectValue
+      selectValueForMultiplePanel: selectValue,
     }, () => {
       if (labelInValue) {
-        onChange(this.state.selectValue);
+        onChange(selectValue);
       } else {
-        onChange(this.state.selectValue.map(selected => selected.key));
+        onChange(selectValue.map(selected => selected.key));
       }
     });
   };
 
   //判断是否全选
   isSelectAll = () => {
-    const optionlist = this.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
-    const selectedlist = this.state.selectValue;
+    const optionList = this.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
+    const selectedList = this.state.selectValue;
     //全选判断逻辑：option中每一项都能在seleced中找到（兼容后端搜索的全选判断）
-    return optionlist.every(selected => {
-      return !!selectedlist.find(option => option.key === selected.key);
+    return optionList.every(selected => {
+      return !!selectedList.find(option => option.key === selected.key);
     });
   };
 
@@ -524,7 +525,7 @@ export default class Select extends React.Component {
     } = this.props;
     const {searchValue} = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
-    const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的列表
+    const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的children
     const showNotFoundContent = !this.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
     return (
       <div className={classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName})}
