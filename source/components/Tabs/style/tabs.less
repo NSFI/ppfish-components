@@ -106,10 +106,10 @@
       transform: translate(-50%, -50%);
       text-align: center;
       text-transform: none;
+      .iconfont-mixin();
 
       &:before {
         display: block;
-        font-family: "anticon" !important;
         .iconfont-size-under-12px(10px);
       }
     }
@@ -126,15 +126,20 @@
   &-tab-next {
     right: 2px;
 
+    // fishdicon-right
     &-icon:before {
-      content: "\e61f";
+      // content: "\e61f";
+      content: "\e68c";
     }
   }
 
   &-tab-prev {
     left: 0;
+
+    // fishdicon-left
     &-icon:before {
-      content: "\e620";
+      // content: "\e620";
+      content: "\e68d";
     }
     :root & {
       filter: none;
