@@ -145,7 +145,7 @@ class MultipleSelector extends React.Component {
       let labelList = selectedValueNodes.map((item) => {
         return item.props.label;
       });
-      selectedValueNodes = labelList.join('°¢');
+      selectedValueNodes = labelList.join('„ÄÅ');
     }
 
     // const className = `${prefixCls}-selection__rendered`;
