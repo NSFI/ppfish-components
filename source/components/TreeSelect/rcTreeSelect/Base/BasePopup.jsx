@@ -38,7 +38,6 @@ class BasePopup extends React.Component {
     // HOC
     renderSearch: PropTypes.func,
     renderResetItem: PropTypes.func,
-    renderConfirmBtn: PropTypes.func,
     onTreeExpanded: PropTypes.func,
 
     // 确定或取消选择
@@ -145,8 +144,7 @@ class BasePopup extends React.Component {
       loadData,
       ariaId,
       renderSearch,
-      renderResetItem,
-      renderConfirmBtn
+      renderResetItem
     } = this.props;
     const { rcTreeSelect: {
       onPopupKeyDown,
@@ -207,6 +205,7 @@ class BasePopup extends React.Component {
 
     return (
       <div
+        className={`${prefixCls}-base-popup`}
         role="listbox"
         id={ariaId}
         onKeyDown={onPopupKeyDown}
@@ -215,7 +214,6 @@ class BasePopup extends React.Component {
         {renderSearch ? renderSearch() : null}
         {renderResetItem ? renderResetItem() : null}
         {$tree}
-        {renderConfirmBtn ? renderConfirmBtn() : null}
       </div>
     );
   }
