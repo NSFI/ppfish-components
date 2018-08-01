@@ -126,7 +126,7 @@
 | afterClose  | 模态框关闭的回调    | func   | —   |
 | width	| 设置模态框的宽度  | string|number |  520  |
 
-更多模态框配置项，请查看 [`Modal`](#/components/modal)。其中title、footer不支持配置。
+更多模态框配置项，请查看 [`Modal`](https://nsfi.github.io/ppfish-components/#/components/modal)。其中title、footer不支持配置。
 
 ### VideoViewer.Video
 | 属性      | 说明    | 类型      |  默认值   |
