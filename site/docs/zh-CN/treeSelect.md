@@ -35,19 +35,16 @@
         treeNodeFilterProp={'title'}
         style={{ width: 300 }}
         value={this.state.value}
-        dropdownStyle={{ 
-          maxHeight: 400,
-          width: 300,
-          overflowX: 'hidden',
-          overflowY: 'scroll'
+        dropdownStyle={{
+          width: 300
         }}
         treeDefaultExpandAll
         onChange={this.onChange}
         onReset={this.onReset}
       >
         <TreeNode value="parent 1" title="parent 1" key="0-1">
-          <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
-            <TreeNode value="leaf1" title="my leaf1" key="random" />
+          <TreeNode value="parent 1-0" title="parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0" key="0-1-1">
+            <TreeNode value="leaf1" title="my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1" key="random" />
             <TreeNode value="leaf2" title="your leaf2" key="random1" />
           </TreeNode>
           <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
@@ -244,6 +241,14 @@
         title: 'Child Node7',
         value: '0-1-4',
         key: '0-1-4',
+      }, {
+        title: 'Child Node8',
+        value: '0-1-5',
+        key: '0-1-5',
+      }, {
+        title: 'Child Node9',
+        value: '0-1-6',
+        key: '0-1-6',
       }],
 		}];
     const tProps = {
@@ -257,6 +262,9 @@
       style: {
         width: 300,
       },
+      dropdownStyle: {
+        width: 300,
+      }
     };
     return <TreeSelect {...tProps} />;
   }
