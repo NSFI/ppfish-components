@@ -6,22 +6,19 @@ ORIGIN=$(git remote -v | awk '$1=="origin" && $3=="(push)" {print $2}');
 VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g');
 
 # target folder: /dist/site, make it clean and step into
-rm -fr dist/site
-mkdir dist dist/site
-cd dist/site
+rm -fr dist
+mkdir dist
+cd dist
 
 # init an empty git repo, checkout branch gh-pages
-git init
-git remote add origin $ORIGIN
-git fetch
-git checkout -t origin/gh-pages
+git clone -b gh-pages --depth 1 $ORIGIN site
 
 # remove all existed files in the repo, run the site build script
-rm *
+cd site
+rm -rf *
 npm run build:site
 
 # commit and push to gh-pages
- git add . -A
- git commit -m "$VERSION"
- git pull --rebase
- git push -u origin gh-pages
+git add . -A
+git commit -m "$VERSION publish!"
+git push origin gh-pages
