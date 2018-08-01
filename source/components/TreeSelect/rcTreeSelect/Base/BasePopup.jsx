@@ -176,8 +176,10 @@ class BasePopup extends React.Component {
     }
 
     let $tree;
+    let isNotFound = false;
     if ($notFound) {
       $tree = $notFound;
+      isNotFound = true;
     } else {
       $tree = (
         <Tree
@@ -212,7 +214,7 @@ class BasePopup extends React.Component {
         tabIndex={-1}
       >
         {renderSearch ? renderSearch() : null}
-        {renderResetItem ? renderResetItem() : null}
+        {renderResetItem && !isNotFound ? renderResetItem() : null}
         {$tree}
       </div>
     );
