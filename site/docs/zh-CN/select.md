@@ -33,7 +33,9 @@
     return (
       <div>
         <Select style={{width: 300}} showSingleClear extraOptions={
-          <div style={{padding: 10, background: '#ccc'}}>这里是额外的内容 -。-</div>
+          <div style={{padding: 10, background: '#f7f8fa'}}>
+          额外的任意内容<Icon type="demo-play"/>
+          </div>
         }>
           <Select.Option key={"1"}>{'选项1'}</Select.Option>
           <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
@@ -112,10 +114,10 @@
 
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '不知名人士'}, {key: "2", label: '李四'}, {
+    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
       key: "3",
-      label: '###'
-    }, {key: "4", label: '李一'}]);
+      label: '选项3'
+    }, {key: "4", label: '选项4'}]);
     return (
       <Select style={{width: 300}} showSingleClear onChange={this.handleChange} value={this.state.value}>
         {Group.map(group =>
@@ -144,10 +146,10 @@
   };
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '不知名人士'}, {key: "2", label: '李四'}, {
+    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
       key: "3",
-      label: '@@@###xxx'
-    }, {key: "4", label: '李一'}]);
+      label: '选项3'
+    }, {key: "4", label: '选项4'}]);
     return (
       <div>
         <div>key:{this.state.value && this.state.value.key}</div>
@@ -230,10 +232,10 @@ class Demo extends React.Component {
   };
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "6", label: "qqt"}, {
+    const Group = this.props.utils.listConvertToGroup([{key: "6", label: "选项6"}, {
       key: "1",
-      label: 'skrskrskrskr'
-    }, {key: "2", label: '李四'}, {key: "3", label: 123}, {key: "4", label: '李一'}, {key: "5", label: '李二'}]);
+      label: '选项1'
+    }, {key: "2", label: '选项2'}, {key: "3", label: '选项3'}, {key: "4", label: '选项4'}, {key: "5", label: '选项5'}]);
     return (
       <div>
         <Select style={{width: 300}} disabled={false} onChange={this.handleChange} value={this.state.value}
@@ -281,10 +283,10 @@ class Demo extends React.Component {
 
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '李四'}, {
+    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
       key: "3",
-      label: 123
-    }, {key: "4", label: '李一'}]);
+      label: '选项3'
+    }, {key: "4", label: '选项4'}]);
     return (
       <div>
         <Select style={{width: 300}} showSingleClear showSearch
@@ -350,10 +352,10 @@ render(){
 
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '李四'}, {
+    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
       key: "3",
-      label: 123
-    }, {key: "4", label: '李一'}]);
+      label: '选项3'
+    }, {key: "4", label: '选项4'}]);
     return (
       <div>
         <Input style={{marginBottom: 20, width: 200}} placeholder="输入宽度" value={this.state.width}
