@@ -266,6 +266,12 @@ handleChange = (value) => {
   console.log('newState: ',value);
 };
 
+handleChangeMultiple = (mValue) => {
+  this.setState({mValue});
+  console.log('newState: ',mValue);
+};
+
+
 render(){
   const Group = this.props.utils.listConvertToGroup([{key:"1",label:'选项1'},{key:"2",label:'李四'},{key:"3",label:123},{key:"4",label:'李一'}]);
   return(
@@ -278,7 +284,7 @@ render(){
               )}
             </Select>
 <br/>
-        <Select style={{width:300}} mode={'multiple'} showSearch showSelectAll filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={this.handleChange} value={this.state.mValue}>
+        <Select style={{width:300}} mode={'multiple'} showSearch showSelectAll filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0} onChange={this.handleChangeMultiple} value={this.state.mValue}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
               {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
