@@ -56,8 +56,8 @@ render(){
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button type="primary" icon="spare-icon-VideoPla" />
-      <Button type="primary" icon="spare-icon-Imagex" />
+      <Button type="primary" icon="demo-mail" />
+      <Button type="primary" icon="demo-image" />
     </ButtonGroup>
   </div>)
 }
@@ -244,8 +244,8 @@ render(){
         <Button type="dashed" size={size}>Dashed</Button>
         <Button type="danger" size={size}>Danger</Button>
         <br />
-        <Button type="primary" shape="circle" icon="download" size={size} />
-        <Button type="primary" icon="download" size={size}>Download</Button>
+        <Button type="primary" shape="circle" icon="demo-mail" size={size} />
+        <Button type="primary" icon="demo-phone" size={size}>拨号</Button>
         <br />
         <Button.Group size={size}>
           <Button type="primary">

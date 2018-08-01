@@ -12,8 +12,10 @@
 ```js
 render(){
   return(<div className="code-box-demo">
-    <Icon type="color" />
-    <Icon type="duanxin" />
+    <Icon type="demo-play" />
+    <Icon type="demo-trash" />
+    <Icon type="demo-pie" />
+    <Icon type="demo-note" />
   </div>)
 }
 ```
@@ -25,7 +27,7 @@ render(){
 ```js
 render(){
   return(<div className="code-box-demo">
-    <Icon type="color" spin={true} />
+    <Icon type="load-line" spin={true} />
   </div>)
 }
 ```
