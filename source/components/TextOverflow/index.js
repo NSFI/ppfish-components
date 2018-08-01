@@ -37,6 +37,7 @@ function cancelResizeDo(key) {
 
 function checkOverflow(el) {
 
+  if(!el) return false;
   const cssStyle = window.getComputedStyle(el);
 
   const curOverflow = cssStyle.overflow;
@@ -69,7 +70,7 @@ export default class TextOverflow extends React.Component {
     };
   }
   componentWillMount() {
-    whenResizeDo(this.handleResize);
+   this.listenerId = whenResizeDo(this.handleResize);
   }
   componentDidMount() {
     this.handleResize();
@@ -78,7 +79,7 @@ export default class TextOverflow extends React.Component {
     this.handleResize();
   }
   componentWillUnmount() {
-    cancelResizeDo(this.handleResize);
+    cancelResizeDo(this.listenerId);
   }
   handleResize = () => {
     let isOverflow = checkOverflow(this.wrapper);
