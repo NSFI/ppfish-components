@@ -21,7 +21,7 @@
       &::after, &::before {
         content: ":";
         top: 50%;
-        color: var(--color-white);
+        color: #fff;
         position: absolute;
         font-size: 14px;
         margin-top: -15px;
@@ -58,6 +58,8 @@
     }
 
     &__footer {
+      display: flex;
+      justify-content: space-between;
       border-top: 1px solid @datepicker-border-color;
       padding: 4px;
       height: 36px;
@@ -75,11 +77,15 @@
       background-color: transparent;
       outline: none;
       font-size: 12px;
-      color: var(--color-base-silver);
 
       &.confirm {
         font-weight: 800;
         color: @datepicker-active-color;
+      }
+
+      &.disabled {
+        color: @datepicker-disable-color;
+        cursor: not-allowed;
       }
     }
   }

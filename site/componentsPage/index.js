@@ -201,7 +201,6 @@ export default {
       // 'timePicker': {
       //   type: 'markdown',
       //   name: 'TimePicker 时间选择器',
-      //   //style: require('element-theme-default') //TODO
       // },
       // 'datePicker': {
       //   type: 'markdown',

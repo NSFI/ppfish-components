@@ -61,7 +61,7 @@
   constructor(props) {
     super(props);
     this.state = {
-      value: new Date(2016, 9, 10, 18, 40)
+      value: null
     }
   }
   
