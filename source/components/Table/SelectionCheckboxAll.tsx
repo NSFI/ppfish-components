@@ -168,7 +168,7 @@ export default class SelectionCheckboxAll<T> extends React.Component<SelectionCh
           getPopupContainer={getPopupContainer}
         >
           <div className={`${selectionPrefixCls}-down`}>
-            <Icon type="down-formx"/>
+            <Icon type="down-bolder"/>
           </div>
         </Dropdown>
       ) : null;

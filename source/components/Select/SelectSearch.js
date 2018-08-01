@@ -29,7 +29,7 @@ export default class SelectSearch extends React.Component {
       updateSearchValue,
     } = this.props;
     const suffix = searchValue && allowClear ?
-      <Icon type="close-circle-fillx" className={`${prefixCls}-clear`} onClick={emitEmpty}/> : null;
+      <Icon type="close-circle-fill" className={`${prefixCls}-clear`} onClick={emitEmpty}/> : null;
     return (
       <div className={prefixCls}>
         <Input placeholder={searchPlaceholder}
