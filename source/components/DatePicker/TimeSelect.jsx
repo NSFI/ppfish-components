@@ -24,9 +24,9 @@ export default class TimeSelect extends BasePicker {
     super(props, 'timeselect', {});
   }
 
-  isDateValid(value) {
-    return super.isDateValid(value) && TimeSelectPanel.isValid(this.dateToStr(value), this.panelProps());
-  }
+  // isDateValid(value) {
+  //   return super.isDateValid(value) && TimeSelectPanel.isValid(this.dateToStr(value), this.panelProps());
+  // }
 
   panelProps(props){
     const ps = props || this.props;
