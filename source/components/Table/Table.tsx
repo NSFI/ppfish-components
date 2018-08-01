@@ -782,7 +782,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
                   className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}
                   onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
                 >
-                 <Icon type="zimupaixu"/>
+                 <Icon type="a-z"/>
                 </span>
               )
             } else if (isDescend) {
@@ -790,9 +790,9 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
                 <span
                   className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
                   onClick={() => this.toggleTwoStateSortOrder('descend', column)}
-                  style={{top: -1}}
+                  style={{top: -2}}
                 >
-                  <Icon type="zimupaixuZdaoA"/>
+                  <Icon type="z-a"/>
                 </span>
               )
             } else {
@@ -801,7 +801,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
                   className={`${prefixCls}-column-sorter-up`}
                   onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
                 >
-                 <Icon type="zimupaixu"/>
+                 <Icon type="a-z"/>
                 </span>
               )
             }
@@ -819,14 +819,14 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
               title="↑"
               onClick={() => this.toggleSortOrder('ascend', column)}
             >
-              <Icon type="shangjiantou"/>
+              <Icon type="up-fillx"/>
             </span>
               <span
                 className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
                 title="↓"
                 onClick={() => this.toggleSortOrder('descend', column)}
               >
-              <Icon type="xiajiantou"/>
+              <Icon type="down-fillx"/>
             </span>
             </div>
           );
