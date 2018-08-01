@@ -194,8 +194,8 @@ export default class Button extends React.Component<ButtonProps, any> {
       [`${prefixCls}-two-chinese-chars`]: hasTwoCNChar,
     });
 
-    const iconType = loading ? 'loading' : icon;
-    const iconNode = iconType ? <Icon type={iconType} /> : null;
+    const iconType = loading ? 'load-line' : icon;
+    const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null;
     const kids = (children || children === 0)
       ? React.Children.map(children, child => insertSpace(child, this.isNeedInserted())) : null;
 
