@@ -235,12 +235,10 @@ render(){
     const SubMenu = Menu.SubMenu;
     return (
       <div>
-        <Button.Group>
-          <Button type="primary" value="dark" onClick={this.changeTheme}>Dark</Button>
-          <Button value="light" onClick={this.changeTheme}>Light</Button>
-        </Button.Group>
-        <br />
-        <br />
+        <Radio.Group onChange={this.changeTheme} defaultValue="dark" style={{ marginBottom: 10 }}>
+          <Radio.Button value="dark">Dark</Radio.Button>
+          <Radio.Button value="light">Light</Radio.Button>
+        </Radio.Group>
         <Menu
           theme={this.state.theme}
           onClick={this.handleClick}
