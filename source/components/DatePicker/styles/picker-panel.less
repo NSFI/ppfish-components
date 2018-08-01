@@ -2,13 +2,18 @@
 
 .@{prefixClass} {
   &-picker-panel {
-    color: @text-color;
-    border: 1px solid @datepicker-border-color;
-    box-shadow: 0 2px 6px #ccc;
-    background: @component-background;
-    border-radius: 2px;
+    min-width: 180px;
+    position: absolute;
+    top: 41px;
     line-height: 20px;
     margin: 5px 0;
+    color: @text-2;
+    border: 1px solid @datepicker-border-color;
+    background: @component-background;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: @box-shadow-base;
+    z-index: 10;
 
     &__body, body-wrapper {
       &::after {
@@ -20,36 +25,38 @@
 
     &__content {
       position: relative;
-      margin: 15px;
+      margin: 0 21px 21px 21px;
     }
 
     &__footer {
-      border-top: 1px solid @datepicker-inner-border-color;
+      height: 46px;
+      display: flex;
+      align-items: center;
       padding: 4px;
-      text-align: right;
+      border-top: 1px solid @datepicker-border-color;
       background-color: @component-background;
-      position: relative;
     }
 
     &__shortcut {
       display: block;
       width: 100%;
+      height: 36px;
       border: 0;
-      background-color: transparent;
+      background-color: @component-background;
       line-height: 28px;
       font-size: 14px;
       color: @datepicker-color;
-      padding-left: 12px;
-      text-align: left;
+      text-align: center;
       outline: none;
       cursor: pointer;
+      border-bottom: 1px solid @border-color-base;
 
       &:hover {
-        background-color: @datepicker-cell-hover-color;
+        color: @datepicker-active-color;
+        background-color: @datepicker-hover-background-color;
       }
 
       &.active {
-        background-color: #e6f1fe;
         color: @datepicker-active-color;
       }
     }
@@ -92,23 +99,22 @@
       padding: 15px;
       font-size: 12px;
     }
-  }
 
-  .el-picker-panel *[slot=sidebar],
-  .el-picker-panel__sidebar {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 110px;
-    border-right: 1px solid @datepicker-inner-border-color;
-    box-sizing: border-box;
-    padding-top: 6px;
-    background-color: @text-c;
-    overflow: auto;
-  }
+    & *[slot=sidebar],
+    &__sidebar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 110px;
+      border-right: 1px solid @border-color-base;
+      box-sizing: border-box;
+      background-color: @component-background;
+      overflow: auto;
+    }
 
-  .el-picker-panel *[slot=sidebar] + .el-picker-panel__body,
-  .el-picker-panel__sidebar + .el-picker-panel__body {
-    margin-left: 110px;
+    & *[slot=sidebar] + &__body,
+    &__sidebar + &__body {
+      margin-left: 110px;
+    }
   }
 }

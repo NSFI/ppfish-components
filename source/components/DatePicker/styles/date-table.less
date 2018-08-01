@@ -5,33 +5,62 @@
     font-size: 12px;
     min-width: 224px;
     user-select: none;
+    border-collapse: separate;
 
-    .is-week-mode {
+    &.is-week-mode {
       .el-date-table__row {
-        &:hover {
-          background-color: @datepicker-cell-hover-color;
+        &.current td div {
+          background-color: @datepicker-inrange-color;
         }
 
-        &.current {
+        &:hover div {
           background-color: @datepicker-inrange-color;
+        }
+        &:hover td:first-child div {
+          margin-left: 5px;
+          border-top-left-radius: 15px;
+          border-bottom-left-radius: 15px;
+        }
+        &:hover td:last-child div {
+          margin-right: 5px;
+          border-top-right-radius: 15px;
+          border-bottom-right-radius: 15px;
         }
       }
     }
 
     td {
       width: 32px;
-      height: 32px;
+      height: 30px;
+      padding: 4px 0;
       box-sizing: border-box;
       text-align: center;
       cursor: pointer;
+      position: relative;
+      div {
+        height: 30px;
+        padding: 3px 0;
+        box-sizing: border-box;
+        span {
+          width: 24px;
+          height: 24px;
+          display: block;
+          margin: 0 auto;
+          line-height: 24px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          border-radius: 50%;
+        }
+      }
 
       &.next-month,
       &.prev-month {
-        color: @datepicker-off-color;
+        color: @datepicker-icon-color;
       }
 
       &.today {
-        color: @datepicker-text-hover-color;
+        color: @datepicker-active-color;
         position: relative;
         &:before {
           content: " ";
@@ -46,21 +75,34 @@
       }
 
       &.available:hover {
-        background-color: @datepicker-cell-hover-color;
+        color: @datepicker-active-color;
       }
 
-      &.in-range {
+      &.in-range div {
         background-color: @datepicker-inrange-color;
-        &:hover {
-          background-color: @datepicker-inrange-hover-color;
-        }
       }
 
-      &.current:not(.disabled),
-      &.start-date,
-      &.end-date {
-        background-color: @datepicker-active-color !important;
-        color: var(--color-white);
+      &.in-range.start-date div {
+        margin-left: 5px;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+      }
+
+      &.in-range.end-date div {
+        margin-right: 5px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+      }
+
+      &.in-range.start-date.end-date div {
+        border-radius: 15px;
+      }
+
+      &.current:not(.disabled) span,
+      &.start-date span,
+      &.end-date span {
+        background-color: @datepicker-active-background-color;
+        color: #fff;
       }
 
       &.disabled {
@@ -78,8 +120,8 @@
 
     th {
       padding: 5px;
-      color: @datepicker-header-color;
       font-weight: 400;
+      text-align: center;
     }
   }
 }

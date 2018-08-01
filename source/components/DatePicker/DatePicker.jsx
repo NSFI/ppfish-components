@@ -32,9 +32,9 @@ export default class DatePicker extends BasePicker {
     super(props, type, {})
   }
 
-  isDateValid(value) {
-    return super.isDateValid(value) && DatePanel.isValid(value, this.panelProps());
-  }
+  // isDateValid(value) {
+  //   return super.isDateValid(value) && DatePanel.isValid(value, this.panelProps());
+  // }
 
   panelProps(props){
     const ps = props || this.props;

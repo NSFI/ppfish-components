@@ -2,9 +2,10 @@
 
 .el-year-and-month-popover {
   overflow: scroll;
-  min-width: 53px;
+  min-width: 60px;
   text-align: center;
   max-height: 200px;
+  font-size: 12px;
   &-item {
     cursor: pointer;
   }
@@ -14,6 +15,10 @@
   }
 
   &-item:hover {
-    color: @primary-color;
+    background-color: @datepicker-hover-background-color;
+  }
+
+  &-item + &-item {
+    margin-top: 8px;
   }
 }

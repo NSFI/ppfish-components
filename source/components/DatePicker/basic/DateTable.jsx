@@ -269,7 +269,7 @@ export default class DateTable extends Component {
   }
 
   handleClick(event) {
-    let target = event.target;
+    let target = event.target.parentNode.parentNode;
 
     if (target.tagName !== 'TD') return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
@@ -346,7 +346,7 @@ export default class DateTable extends Component {
         <tbody>
 
         <tr>
-          {showWeekNumber && <th>{$t('el.datepicker.week')}</th>}
+          {showWeekNumber && <th>周</th>}
           {
             this.WEEKS().map((e, idx)=> <th key={idx}>{$t(`el.datepicker.weeks.${e}`)}</th> )
           }
@@ -361,7 +361,7 @@ export default class DateTable extends Component {
                 {
                   row.map((cell, idx) => (
                     <td className={this.getCellClasses(cell)} key={idx}>
-                      {cell.type === 'today' ? $t('el.datepicker.today') : cell.text}
+                      <div><span>{cell.text}</span></div>
                     </td>
                   ))
                 }

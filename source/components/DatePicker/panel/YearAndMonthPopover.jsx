@@ -68,6 +68,7 @@ export default class YearAndMonthPopover extends React.Component {
         placement="bottom"
         visible={this.state.visible}
         onVisibleChange={this.handleVisibleChange}
+        getPopupContainer={triggerNode => triggerNode.parentNode}
       >
         {children}
       </Popover>
