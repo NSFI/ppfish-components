@@ -4,8 +4,8 @@ import Input from '../../Input';
 import { PopperBase } from './PopperBase';
 import YearAndMonthPopover from './YearAndMonthPopover';
 import TimePicker from '../TimePicker';
-import { SELECTION_MODES, deconstructDate, formatDate, parseDate, toDate, MONTH_ARRRY, YEARS_ARRAY } from '../utils';
 import { DateTable, MonthTable, YearTable } from '../basic';
+import { SELECTION_MODES, deconstructDate, formatDate, parseDate, toDate, MONTH_ARRRY, YEARS_ARRAY } from '../utils';
 import Locale from '../locale';
 
 const PICKER_VIEWS = {

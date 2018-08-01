@@ -14,7 +14,7 @@ export default class TimePanel extends PopperBase {
         onSelectRangeChange: TimeSpinner.propTypes.onSelectRangeChange
       }, {
         pickerWidth: PropTypes.number,
-        currentDate: PropTypes.instanceOf(Date),
+        value: PropTypes.instanceOf(Date),
         isShowCurrent: PropTypes.bool,
         /*
         onPicked: (value, isKeepPannelOpen)=>()
@@ -28,6 +28,7 @@ export default class TimePanel extends PopperBase {
 
   static get defaultProps() {
     return {
+      value: null,
       popperMixinOption: {}
     }
   }
@@ -42,11 +43,11 @@ export default class TimePanel extends PopperBase {
   }
 
   mapPropsToState = (props) => {
-    const { format, currentDate } = props;
+    const { format, value } = props;
 
     const state = {
       format: format || 'HH:mm:ss',
-      currentDate: currentDate || parseDate('00:00:00', 'HH:mm:ss'),
+      currentDate: value || parseDate('00:00:00', 'HH:mm:ss'),
       confirmButtonDisabled: false,
       currentButtonDisabled: isLimitRange(new Date(), props.selectableRange, 'HH:mm:ss')
     };
@@ -57,14 +58,14 @@ export default class TimePanel extends PopperBase {
 
   // 判断值的合法性
   isValid = (value) => {
-    return TimePanel.isValid(value, this.props);
+    return TimePanel.isValid(value, this.props.selectableRange);
   }
 
   // type: string,  one of [hours, minutes, seconds]
   // date: {type: number}
   handleChange = (date) => {
-    const {currentDate} = this.state;
-    const {selectableRange} = this.props;
+    const { currentDate } = this.state;
+
     if (date.hours !== undefined) {
       currentDate.setHours(date.hours);
     }
@@ -74,7 +75,8 @@ export default class TimePanel extends PopperBase {
     if (date.seconds !== undefined) {
       currentDate.setSeconds(date.seconds);
     }
-    if(!this.isValid){
+
+    if(!this.isValid(currentDate)){
       this.setState({
         confirmButtonDisabled: true,
         currentDate: currentDate
@@ -137,34 +139,38 @@ export default class TimePanel extends PopperBase {
           />
         </div>
         <div className="el-time-panel__footer">
-          {
-            isShowCurrent ?
-              <button
-                type="button"
-                disabled={currentButtonDisabled}
-                className={this.className('el-time-panel__btn confirm', {'disabled' : currentButtonDisabled})}
-                onClick={this.handleCurrent}>{$t('el.datepicker.now')}
-              </button>
-              :
-              null
-          }
-          <button
-            type="button"
-            className="el-time-panel__btn cancel"
-            onClick={this.handleCancel}>{$t('el.datepicker.cancel')}
-          </button>
-          <button
-            type="button"
-            disabled={confirmButtonDisabled}
-            className={this.className('el-time-panel__btn confirm', {'disabled' : confirmButtonDisabled})}
-            onClick={() => this.handleConfirm(false, true)}>{$t('el.datepicker.confirm')}
-          </button>
+          <div>
+            {
+              isShowCurrent ?
+                <button
+                  type="button"
+                  disabled={currentButtonDisabled}
+                  className={this.className('el-time-panel__btn confirm', {'disabled' : currentButtonDisabled})}
+                  onClick={this.handleCurrent}>{$t('el.datepicker.now')}
+                </button>
+                :
+                null
+            }
+          </div>
+          <div>
+            <button
+              type="button"
+              className="el-time-panel__btn cancel"
+              onClick={this.handleCancel}>{$t('el.datepicker.cancel')}
+            </button>
+            <button
+              type="button"
+              disabled={confirmButtonDisabled}
+              className={this.className('el-time-panel__btn confirm', {'disabled' : confirmButtonDisabled})}
+              onClick={() => this.handleConfirm(false, true)}>{$t('el.datepicker.confirm')}
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 }
 
-TimePanel.isValid = (value, { selectableRange }) => {
-  return isLimitRange(value, selectableRange, 'HH:mm:ss');
+TimePanel.isValid = (value, selectableRange) => {
+  return value == null || isLimitRange(value, selectableRange, 'HH:mm:ss');
 }
