@@ -77,11 +77,13 @@ class MultiplePopup extends React.Component {
 
   render() {
     return (
-      <BasePopup
-        {...this.props}
-        renderSearch={this.renderSearch}
-        renderConfirmBtn={this.renderConfirmBtn}
-      />
+      <div>
+        <BasePopup
+          {...this.props}
+          renderSearch={this.renderSearch}
+        />
+        {this.renderConfirmBtn()}
+      </div>
     );
   }
 }
