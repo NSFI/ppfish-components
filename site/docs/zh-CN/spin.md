@@ -67,36 +67,6 @@ render(){
 }
 </style>
 
-## 卡片加载中
-
-:::demo 可以直接把内容内嵌到 `Spin` 中，将现有容器变为加载状态。
-
-```js
-  state = { loading: false }
-
-  toggle = (value) => {
-    this.setState({ loading: value });
-  }
-
-  render() {
-    return (
-      <div>
-        <Spin spinning={this.state.loading}>
-          <Alert
-            message="Alert message title"
-            description="Further details about the context of this alert."
-            type="info"
-          />
-        </Spin>
-        <div style={{ marginTop: 16 }}>
-          Loading state：<Switch checked={this.state.loading} onChange={this.toggle} />
-        </div>
-      </div>
-    );
-  }
-```
-:::
-
 ## 自定义描述文案
 
 :::demo 自定义描述文案。
@@ -113,37 +83,6 @@ render(){
       </Spin>
   )
 }
-```
-:::
-
-## 延迟
-
-:::demo 延迟显示 loading 效果。当 spinning 状态在 `delay` 时间内结束，则不显示 loading 状态。
-
-```js
-  state = { loading: false }
-
-  toggle = (value) => {
-    this.setState({ loading: value });
-  }
-
-  render() {
-    const container = (
-      <Alert
-        message="Alert message title"
-        description="Further details about the context of this alert."
-        type="info"
-      />
-    );
-    return (
-      <div>
-        <Spin spinning={this.state.loading} delay={500}>{container}</Spin>
-        <div style={{ marginTop: 16 }}>
-          Loading state：<Switch checked={this.state.loading} onChange={this.toggle} />
-        </div>
-      </div>
-    );
-  }
 ```
 :::
 
