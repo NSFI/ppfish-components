@@ -180,7 +180,7 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
     return filterIcon ? React.cloneElement(filterIcon as any, {
       title: locale.filterTitle,
       className: classNames(`${prefixCls}-icon`, filterIcon.props.className),
-    }) : <Icon title={locale.filterTitle} type="screen-formx" className={dropdownSelectedClass}/>;
+    }) : <Icon title={locale.filterTitle} type="filter" className={dropdownSelectedClass}/>;
   };
 
   render() {

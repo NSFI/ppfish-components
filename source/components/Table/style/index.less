@@ -54,7 +54,7 @@
       text-align: center;
     }
 
-    .@{iconfont-prefix}-screen-formx,
+    .@{iconfont-prefix}-filter,
     .@{table-prefix-cls}-filter-icon {
       .iconfont-size-under-12px(10px);
       position: relative;
@@ -72,11 +72,11 @@
       }
     }
 
-    .@{table-prefix-cls}-column-sorter + .@{iconfont-prefix}-screen-formx {
+    .@{table-prefix-cls}-column-sorter + .@{iconfont-prefix}-filter {
       margin-left: 4px;
     }
 
-    .@{table-prefix-cls}-filter-selected.@{iconfont-prefix}-screen-formx {
+    .@{table-prefix-cls}-filter-selected.@{iconfont-prefix}-filter {
       color: @primary-color;
     }
 
@@ -268,8 +268,8 @@
       }
       &.on {
         /* stylelint-disable-next-line */
-        .@{iconfont-prefix}-up-fillx,
-        .@{iconfont-prefix}-down-fillx,
+        .@{iconfont-prefix}-up-fill,
+        .@{iconfont-prefix}-down-fill,
         .@{iconfont-prefix}-a-z,
         .@{iconfont-prefix}-z-a {
           color: @primary-color;
@@ -293,8 +293,8 @@
       top: 0;
     }
 
-    .@{iconfont-prefix}-up-fillx,
-    .@{iconfont-prefix}-down-fillx {
+    .@{iconfont-prefix}-up-fill,
+    .@{iconfont-prefix}-down-fill {
       .iconfont-size-under-12px(8px);
       line-height: 4px;
       height: 4px;
@@ -307,7 +307,7 @@
       margin-top: 1.5px;
     }
 
-    .@{iconfont-prefix}-up-fillx {
+    .@{iconfont-prefix}-up-fill {
       margin-top: 0.5px;
     }
   }
@@ -453,7 +453,7 @@
       margin-right: 4px !important;
     }
 
-    .@{iconfont-prefix}-down-formx {
+    .@{iconfont-prefix}-down-bolder {
       .iconfont-size-under-12px(8);
       color: @table-header-icon-color;
       transition: all 0.3s;
@@ -477,7 +477,7 @@
       padding: 0;
       display: inline-block;
       line-height: 1;
-      &:hover .@{iconfont-prefix}-down-formx {
+      &:hover .@{iconfont-prefix}-down-bolder {
         color: #666;
       }
     }
