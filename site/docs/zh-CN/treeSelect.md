@@ -32,7 +32,6 @@
     return (
       <TreeSelect
         showSearch
-        treeNodeFilterProp={'title'}
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{
@@ -90,7 +89,6 @@
       <TreeSelect
         showSearch
         isRequired={true}
-        treeNodeFilterProp={'title'}
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -376,7 +374,7 @@
 | treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一） | array<{value, label, children, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | array | - |
-| treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'value' |
+| treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'title' |
 | isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | boolean | false |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | string | '不选择任何分类' |
 | value | 指定当前选中的条目 | string/string[] | - |
