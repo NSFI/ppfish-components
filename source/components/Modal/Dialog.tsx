@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Animate from 'rc-animate';
+import Icon from '../Icon';
 import { contains, getScrollBarSize, KeyCode } from '../../utils/index';
 import IDialogPropTypes from './IDialogPropTypes';
 import LazyRenderBox from './LazyRenderBox';
@@ -198,7 +199,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
           aria-label="Close"
           className={`${prefixCls}-close`}
         >
-          <span className={`${prefixCls}-close-x`} />
+          <Icon type="close-modal-line" />
         </button>);
     }
 
