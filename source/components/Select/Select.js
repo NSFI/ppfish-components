@@ -306,7 +306,7 @@ export default class Select extends React.Component {
           children: this.getProcessedChildren(c.props.children, dropdownCls),
         });
       } else {
-        return children;
+        return c;
       }
     });
   };
