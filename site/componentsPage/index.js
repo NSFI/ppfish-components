@@ -73,7 +73,7 @@ export default {
       },
       // 'divider': {
       //   type: 'markdown',
-      //   name: 'Divider 分隔符',
+      //   name: 'Divider 分割线',
       // },
       // 'picturePreview': {
       //   type: 'markdown',
@@ -252,7 +252,7 @@ export default {
       // },
       // 'drawer': {
       //   type: 'markdown',
-      //   name: 'Drawer 抽屉组件',
+      //   name: 'Drawer 抽屉',
       // },
       'echarts': {
         type: 'markdown',
