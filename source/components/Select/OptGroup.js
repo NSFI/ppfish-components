@@ -6,10 +6,10 @@ export default class OptGroup extends React.Component {
   static isSelectOptGroup = true;
 
   static propTypes = {
-    prefixCls: PropTypes.string,
-    label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
-    children: PropTypes.node.isRequired,
     _isShow: PropTypes.bool, // INTERNAL USE ONLY
+    children: PropTypes.node.isRequired,
+    label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+    prefixCls: PropTypes.string,
   };
 
   static defaultProps = {
