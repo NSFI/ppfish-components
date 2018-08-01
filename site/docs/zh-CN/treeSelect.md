@@ -209,7 +209,7 @@
 			value: '0-0',
 			key: '0-0',
 			children: [{
-				title: 'Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1Child Node1',
+				title: 'CNode1',
 				value: '0-0-0',
 				key: '0-0-0',
 			}, {
@@ -222,7 +222,7 @@
 			value: '0-1',
 			key: '0-1',
 			children: [{
-				title: 'Child Node3',
+				title: 'CNode3',
 				value: '0-1-0',
 				key: '0-1-0',
 			}, {
@@ -230,7 +230,7 @@
 				value: '0-1-1',
 				key: '0-1-1',
 			}, {
-				title: 'Child Node5',
+				title: 'CNode5',
 				value: '0-1-2',
 				key: '0-1-2',
 			}, {
