@@ -198,16 +198,15 @@ export default {
       //   type: 'markdown',
       //   name: 'Cascader 级联选择',
       // },
-      // 'timePicker': {
-      //   type: 'markdown',
-      //   name: 'TimePicker 时间选择器',
-      //   //style: require('element-theme-default') //TODO
-      // },
-      // 'datePicker': {
-      //   type: 'markdown',
-      //   name: 'DatePicker 日期选择框',
-      //   style: require('./datePicker/index.less')
-      // },
+      'timePicker': {
+        type: 'markdown',
+        name: 'TimePicker 时间选择器',
+      },
+      'datePicker': {
+        type: 'markdown',
+        name: 'DatePicker 日期选择框',
+        style: require('./datePicker/index.less')
+      },
       // 'upload': {
       //   type: 'markdown',
       //   name: 'Upload 上传',

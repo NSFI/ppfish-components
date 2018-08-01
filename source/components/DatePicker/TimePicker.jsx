@@ -41,13 +41,8 @@ export default class TimePicker extends BasePicker {
     this._onSelectionChange = debounce(200, this.onSelectionChange);
   }
 
-  // isDateValid(value) {
-  //   return super.isDateValid(value) && TimePanel.isValid(value, this.panelProps());
-  // }
-
-  panelProps(props){
-    const ps = props || this.props;
-    return {...ps};
+  isDateValid(value) {
+    return super.isDateValid(value) && TimePanel.isValid(value, converSelectRange(this.props));
   }
 
   onSelectionChange = (start, end) => {
@@ -56,11 +51,12 @@ export default class TimePicker extends BasePicker {
   }
 
   pickerPanel(state, props) {
+    const value = state.value ? state.value : null;
     return (
       <TimePanel
         {...props}
         isShowCurrent={props.isShowCurrent}
-        currentDate={state.value}
+        value={value}
         selectableRange={converSelectRange(props)}
         onCancelPicked={this.onCancelPicked}
         onPicked={this.onPicked}
