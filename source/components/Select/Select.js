@@ -650,7 +650,7 @@ export default class Select extends React.Component {
                 // showArrow并且不是可删除label模式下出现箭头
                 showArrow && !labelClear &&
                 <div className={`${selectionCls}-caret`}>
-                  <Icon type="down-fillx" className={classNames({['open']: popupVisible})}/>
+                  <Icon type="down-fill" className={classNames({['open']: popupVisible})}/>
                 </div>
               }
               {
@@ -681,7 +681,7 @@ export default class Select extends React.Component {
                           >
                             <span className={`${selectionCls}-option-clearable-option-content`}>{option.label}</span>
                             <span className={`${selectionCls}-option-clearable-option-close`}
-                                  onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="close-moad-linex"/>
+                                  onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="close-modal-line"/>
                             </span>
                           </div>
                         )

@@ -819,14 +819,14 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
               title="↑"
               onClick={() => this.toggleSortOrder('ascend', column)}
             >
-              <Icon type="up-fillx"/>
+              <Icon type="up-fill"/>
             </span>
               <span
                 className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
                 title="↓"
                 onClick={() => this.toggleSortOrder('descend', column)}
               >
-              <Icon type="down-fillx"/>
+              <Icon type="down-fill"/>
             </span>
             </div>
           );
