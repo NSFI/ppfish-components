@@ -481,7 +481,7 @@ render(){
 | labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: string, label: ReactNode}` 的格式 | boolean | false |
 | loading | 加载状态 | boolean | false |
 | maxScrollHeight | 列表滚动区高度 | number | 250 |
-| mode | 设置 Select 的模式 | 'multiple' \| 'single'/ReactNode| - |
+| mode | 设置 Select 的模式 | 'multiple' \| 'single' | - |
 | notFoundContent | 当下拉列表为空时显示的内容 | string\|React.Element | '无匹配结果' |
 | onChange | 选中 option时，调用此函数 | function(value, option:Option/Array&lt;Option>) | - |
 | onMouseEnter | 鼠标移入时回调 | function | - |
@@ -491,7 +491,7 @@ render(){
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | function(value, option:Option) | - |
 | onVisibleChange | 弹出框显示隐藏 | function(visible: boolean) |  |
 | placeholder | 选择框默认文字 | string | '请选择' |
-| popupAlign | 弹窗位置 | 'bottomLeft', 'bottom', 'bottomRight','bottomLeft' 'top', 'topRight','topLeft' |
+| popupAlign | 弹窗位置 | 'bottomLeft', 'bottom', 'bottomRight','bottomLeft' 'top', 'topRight','topLeft' | 'bottomLeft' |
 | searchInputProps | 搜索框额外属性 | object | {} |
 | searchPlaceholder | 搜索框默认文字 | string | '请输入关键词' |
 | selectAllText | 是否显示全选/反选功能-文案 | string | '选择所有' |
