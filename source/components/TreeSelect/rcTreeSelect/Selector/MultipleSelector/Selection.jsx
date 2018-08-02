@@ -10,6 +10,7 @@ class Selection extends React.Component {
     editable: PropTypes.bool,
     prefixCls: PropTypes.string,
     maxTagTextLength: PropTypes.number,
+    tagWidth: PropTypes.number,
     onRemove: PropTypes.func,
 
     label: PropTypes.node,
@@ -26,7 +27,8 @@ class Selection extends React.Component {
   render() {
     const {
       prefixCls, maxTagTextLength,
-      label, value, onRemove, editable
+      label, value, onRemove,
+      tagWidth
     } = this.props;
 
     let content = label || value;
@@ -34,10 +36,9 @@ class Selection extends React.Component {
       content = `${content.slice(0, maxTagTextLength)}...`;
     }
 
-    let tagStyle = Object.assign({}, UNSELECTABLE_STYLE);
-    if (!onRemove) {
-      tagStyle['padding'] = '0 10px';
-    }
+    let tagStyle = Object.assign({
+      width: tagWidth + 'px'
+    }, UNSELECTABLE_STYLE);
 
     // if (editable) {
     return (

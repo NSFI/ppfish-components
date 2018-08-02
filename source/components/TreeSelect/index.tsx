@@ -13,16 +13,17 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
 
   static defaultProps = {
     choiceTransitionName: 'zoom',
+    editable: true,
+    isRequired: false,
     placeholder: '请选择',
     prefixCls: 'fishd-treeselect',
     searchPlaceholder: '请输入关键字',
-    showSearch: false,
     showCheckedStrategy: SHOW_PARENT,
+    showSearch: false,
+    tagWidth: 100,
     transitionName: 'slide-up',
     treeCheckStrictly: false,
     treeNodeResetTitle: '不选择任何分类',
-    isRequired: false,
-    editable: true,
   };
 
   private rcTreeSelect: any;

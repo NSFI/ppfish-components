@@ -37,32 +37,33 @@ export interface TreeData {
 }
 
 export interface TreeSelectProps extends AbstractSelectProps {
-  value?: string | Array<any>;
   defaultValue?: string | Array<any>;
-  multiple?: boolean;
-  editable?: boolean;
-  onSelect?: (value: any) => void;
-  onChange?: (value: any, label: any, extra: any) => void;
-  onConfirm?: (value: any) => void;
-  onCancel?: (value: any) => void;
-  onReset?: (value: any) => void;
-  onSearch?: (value: any) => void;
-  searchPlaceholder?: string;
   dropdownStyle?: React.CSSProperties;
   dropdownMatchSelectWidth?: boolean;
-  treeDefaultExpandAll?: boolean;
+  editable?: boolean;
   isRequired?: boolean;
+  labelInValue?: boolean;
+  multiple?: boolean;
+  searchPlaceholder?: string;
+  showCheckedStrategy?: 'SHOW_ALL' | 'SHOW_PARENT' | 'SHOW_CHILD';
+  tagWidth?: number;
   treeCheckable?: boolean | React.ReactNode;
+  treeCheckStrictly?: boolean;
+  treeData?: Array<TreeData>;
+  treeDataSimpleMode?: boolean | Object;
+  treeDefaultExpandAll?: boolean;
   treeDefaultExpandedKeys?: Array<string>;
-  filterTreeNode?: (inputValue: string, treeNode: any) => boolean | boolean;
   treeNodeFilterProp?: string;
   treeNodeLabelProp?: string;
   treeNodeResetTitle?: string;
-  treeData?: Array<TreeData>;
-  treeDataSimpleMode?: boolean | Object;
-  loadData?: (node: any) => void;
-  showCheckedStrategy?: 'SHOW_ALL' | 'SHOW_PARENT' | 'SHOW_CHILD';
-  labelInValue?: boolean;
-  treeCheckStrictly?: boolean;
+  value?: string | Array<any>;
+  filterTreeNode?: (inputValue: string, treeNode: any) => boolean | boolean;
   getPopupContainer?: (triggerNode: Element) => HTMLElement;
+  loadData?: (node: any) => void;
+  onCancel?: (value: any) => void;
+  onChange?: (value: any, label: any, extra: any) => void;
+  onConfirm?: (value: any) => void;
+  onReset?: (value: any) => void;
+  onSearch?: (value: any) => void;
+  onSelect?: (value: any) => void;
 }

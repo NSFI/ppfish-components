@@ -86,6 +86,7 @@ class Select extends React.Component {
     ]),
 
     dropdownMatchSelectWidth: PropTypes.bool,
+    tagWidth: PropTypes.number,
     treeData: PropTypes.array,
     treeDataSimpleMode: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     treeNodeFilterProp: PropTypes.string,

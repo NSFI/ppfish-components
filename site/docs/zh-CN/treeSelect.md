@@ -370,6 +370,8 @@
 | searchPlaceholder | 搜索框默认文字 | string | '请输入关键字' |
 | showSearch | 是否在下拉中显示搜索框 | boolean | false |
 | size | 选择框大小，可选 `large` `small` | string | 'default' |
+| style | 选择框的样式 | object | - |
+| tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | number | 100 |
 | treeCheckable | 显示 checkbox | boolean | false |
 | treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一） | array<{value, label, children, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | boolean | false |

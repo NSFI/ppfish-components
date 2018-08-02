@@ -27,6 +27,7 @@ class MultipleSelector extends React.Component {
       PropTypes.node,
       PropTypes.func,
     ]),
+    tagWidth: PropTypes.number,
 
     onChoiceAnimationLeave: PropTypes.func,
   };
