@@ -18,23 +18,26 @@
       min-width: 300px;
     }
 
-    &--daterange {
-      min-width: 220px;
+    &--daterange,&--datetimerange {
+      min-width: 400px;
       border: 1px solid @border-color-base;
       display: flex;
       .fishd-input {
         border: 0;
         min-width: 193px;
+        &:hover,&:focus {
+          box-shadow: none;
+          border: none;
+        }
       }
-    }
-
-    &--datetimerange {
-      border: 1px solid @border-color-base;
-      min-width: 340px;
-      display: flex;
-      .fishd-input {
-        border: 0;
-        min-width: 193px;
+      .range-separator {
+        display: flex;
+        align-items: center;
+        &.disabled {
+          color: #666;
+          background-color: #F2F2F5;
+          cursor: not-allowed;
+        }
       }
     }
 

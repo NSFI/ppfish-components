@@ -39,7 +39,7 @@ export default class DateRangeBasePicker extends Component {
     return {
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
-      rangeSeparator: '~',
+      rangeSeparator: '至',
       align: 'left',
       isShowTrigger: true,
       isAllowClear: true,
@@ -240,13 +240,14 @@ export default class DateRangeBasePicker extends Component {
     };
 
     const triggerClass = () => {
-      return this.type.includes('time') ? 'shangjiantou' : 'xiajiantou';
+      return this.type.includes('time') ? 'time-line' : 'date-line';
     }
 
     const prefixIcon = () => {
       if(calcIsShowTrigger()) {
         return (
           <Icon
+            className="prefix-iconfont"
             type={triggerClass()}
           />
         )
@@ -259,7 +260,8 @@ export default class DateRangeBasePicker extends Component {
       if(text && isAllowClear) {
         return (
           <Icon
-            type="filter"
+            className="suffix-iconfont"
+            type="close-circle-fill"
             onClick={this.handleClickCloseIcon}
           />
         )
@@ -338,7 +340,7 @@ export default class DateRangeBasePicker extends Component {
             value={text && text.length == 2 ? text[0] : ''}
             prefix={prefixIcon()}
           />
-          <span>{rangeSeparator}</span>
+          <span className={this.className("range-separator", {'disabled':isDisabled})}>{rangeSeparator}</span>
           <Input
             disabled={isDisabled}
             type="text"

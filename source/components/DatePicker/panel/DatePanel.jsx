@@ -345,6 +345,7 @@ export default class DatePanel extends PopperBase {
 
   // 点击确定按钮
   handleConfirm = () => {
+    if(this.state.confirmBtnDisabled) return;
     this.props.onPick(new Date(this.state.date.getTime()))
   }
 

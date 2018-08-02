@@ -475,4 +475,4 @@ render() {
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | startPlaceholder | 开始日期的占位内容 | string | - | '选择开始日期' |
 | endPlaceholder | 结束日期的占位内容 | string | - | '选择结束日期' |
-| rangeSeparator | 分隔符 | string | - | ' ~ ' |
+| rangeSeparator | 分隔符 | string | - | ' 至 ' |
