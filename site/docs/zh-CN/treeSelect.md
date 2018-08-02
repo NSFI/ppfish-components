@@ -383,7 +383,7 @@
 | onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
 | onConfirm | 确认选中树节点时调用此函数，参数 value 为当前选中的条目 | function(value) | - |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | function(value) | - |
-| onReset | 点击复位选项时调用 | function() | - |
+| onReset | 点击复位选项时调用，单选时有效 | function() | - |
 | onSearch | 搜索框值变化时调用 | function(value: string) | - |
 | onSelect | 被选中时调用 | function(value, node, extra) | - |
 
