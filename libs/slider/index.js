@@ -56,8 +56,9 @@ export default class Slider extends React.Component {
 
   clickLink = (e, id) => {
     e && e.preventDefault();
+    const fixedHeaderHeight = parseInt(getComputedStyle(document.querySelector('.fish-header')).height);
     scrollIntoView(document.getElementById(id), window, {
-      offsetTop: 70,
+      offsetTop: fixedHeaderHeight + 5,
       alignWithTop: true
     });
   };
