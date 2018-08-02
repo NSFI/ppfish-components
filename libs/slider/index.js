@@ -68,9 +68,10 @@ export default class Slider extends React.Component {
       return;
     } // 不显示导航时，直接跳出 scroll 事件
     const wayFromTop = document.documentElement.scrollTop;
+    const fixedHeaderHeight = parseInt(getComputedStyle(document.querySelector('.fish-header')).height);
     const result = anchors.map(x => ({
       id: x.id,
-      offset: Math.abs(getElementTop(x.id) - wayFromTop)
+      offset: Math.abs(getElementTop(x.id) - fixedHeaderHeight - wayFromTop)
     })).reduce((a, b) => {
       return a.offset < b.offset ? a : b;
     });
