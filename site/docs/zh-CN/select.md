@@ -83,12 +83,12 @@
           <Select.Option key={"1"}>{'选项1'}</Select.Option>
           <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
           <Select.Option key={"3"}>{'选项3'}</Select.Option>
-          <Select.Option key={"4"}>{'选项4'}</Select.Option>
+          <Select.Option key={"4"}>{'比较长的选项比较长的选项-选项4'}</Select.Option>
           <Select.Option key={"5"}>{'选项5'}</Select.Option>
           <Select.Option key={"6"}>{'选项6'}</Select.Option>
           <Select.Option key={"7"}>{'选项7'}</Select.Option>
           <Select.Option key={"8"}>{'选项8'}</Select.Option>
-          <Select.Option key={"9"}>{'选项9'}</Select.Option>
+          <Select.Option key={"9"}>{'比较长的选项比较长的选项比较长的选项-选项9'}</Select.Option>
         </Select>
         <br/>
       </div>
@@ -114,10 +114,10 @@
 
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
+    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '张三-选项1'}, {key: "2", label: '李四-选项2'}, {
       key: "3",
-      label: '选项3'
-    }, {key: "4", label: '选项4'}]);
+      label: '默认-选项3'
+    }, {key: "4", label: '默认-选项4'}]);
     return (
       <Select style={{width: 300}} showSingleClear onChange={this.handleChange} value={this.state.value}>
         {Group.map(group =>
@@ -524,6 +524,7 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | allowClear | 支持搜索框清除操作 | boolean | true |
+| clearableOptionWidth | 可清除选项的宽度（仅在mode = 'multiple' 且 labelClear = true 生效） | string\| number | 100 |
 | defaultActiveFirstOption | 是否默认激活第一项 | boolean | false |
 | defaultValue | 指定默认选中的条目 | string\|string[]\|number\|number[]	 | - |
 | disabled | 是否禁用 | boolean | false |

@@ -19,6 +19,7 @@ export default class Select extends React.Component {
     allowClear: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
+    clearableOptionWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     defaultActiveFirstOption: PropTypes.bool,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
     disabled: PropTypes.bool,
@@ -58,6 +59,7 @@ export default class Select extends React.Component {
 
   static defaultProps = {
     allowClear: true,
+    clearableOptionWidth: 100,
     defaultActiveFirstOption: false,
     disabled: false,
     dropdownMatchSelectWidth: true,
@@ -605,6 +607,7 @@ export default class Select extends React.Component {
   getSelectionPanel() {
     const {
       className,
+      clearableOptionWidth,
       disabled,
       labelClear,
       loading,
@@ -676,6 +679,7 @@ export default class Select extends React.Component {
                       {
                         selectValueForMultiplePanel.map(option =>
                           <div className={`${selectionCls}-option-clearable-option`}
+                               style={{width: clearableOptionWidth}}
                                key={option.key}
                                title={typeof option.label === 'string' || typeof option.label === 'number' ? option.label : ''}
                           >
