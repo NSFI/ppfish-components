@@ -38,7 +38,7 @@ class SearchInput extends React.Component {
     this.inputRef = createRef();
     this.mirrorInputRef = createRef();
     this.state = {
-      showClear: false
+      showClear: !!this.props.searchValue
     };
   }
 
@@ -53,13 +53,26 @@ class SearchInput extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.searchValue != this.props.searchValue) {
+      if (nextProps.searchValue) {
+        this.setState({
+          showClear: true
+        });
+      } else {
+        this.setState({
+          showClear: false
+        });
+      }
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { open, searchValue, needAlign } = this.props;
 
     if (open && prevProps.open !== open) {
       this.focus();
     }
-
 
     if (needAlign && searchValue !== prevProps.searchValue) {
       this.alignInputWidth();
@@ -106,10 +119,10 @@ class SearchInput extends React.Component {
     const { rcTreeSelect: { onSearchInputChange, onSearchInputKeyDown } } = this.context;
     let { target: { value } } = e;
 
-    if (value === '') {
-      this.setState({showClear: false});
-    } else {
+    if (value) {
       this.setState({showClear: true});
+    } else {
+      this.setState({showClear: false});
     }
 
     onSearchInputChange(e);
