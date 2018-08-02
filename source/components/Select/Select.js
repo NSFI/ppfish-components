@@ -142,30 +142,42 @@ export default class Select extends React.Component {
     const valueType = Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
     const optionList = this.getOptionFromChildren(this.props.children, []);
     if (labelInValue) {
+      //labelInValue数据从传入数据中取
       if (valueType === 'array') {
         return value && value.map(obj => {
-          const label = obj.label || (optionList.find(option => option.key === obj.key) || {}).label || obj.key;
+          const option = optionList.find(option => option.key === obj.key) || {};
+          const label = obj.label || option.label || obj.key;
+          const title = obj.title || option.title;
           return {
             key: obj.key,
-            label: label
+            label,
+            title,
           };
         }) || [];
       } else if (valueType === 'object') {
+        const option = optionList.find(option => option.key === value.key) || {};
+        const label = value.label || option.label || value.key;
+        const title = value.title || option.title;
         return [{
           key: value.key,
-          label: value.label || (optionList.find(option => option.key === value.key) || {}).label || value.key
+          label,
+          title,
         }];
       } else {
         // 其余就给空状态
         return [];
       }
     } else {
+      // 非labelInValue数据从option里取
       if (valueType === 'string' || valueType === 'number') value = [value];
       return value && value.map(key => {
-        const label = (optionList.find(option => option.key === key) || {}).label || key;
+        const option = optionList.find(option => option.key === key) || {};
+        const label = option.label || key;
+        const title = option.title;
         return {
-          key: key,
-          label: label
+          key,
+          label,
+          title,
         };
       }) || [];
     }
@@ -346,9 +358,17 @@ export default class Select extends React.Component {
     React.Children.forEach(children, (c) => {
       if (c.type.isSelectOption) {
         if (filter) {
-          filter(c) && plainOptionList.push({label: c.props.children, key: c.props.value || c.key});
+          filter(c) && plainOptionList.push({
+            label: c.props.children,
+            key: c.props.value || c.key,
+            title: c.props.title
+          });
         } else {
-          plainOptionList.push({label: c.props.children, key: c.props.value || c.key});
+          plainOptionList.push({
+            label: c.props.children,
+            key: c.props.value || c.key,
+            title: c.props.title
+          });
         }
       } else if (c.type.isSelectOptGroup) {
         this.getOptionFromChildren(c.props.children, plainOptionList, filter);
@@ -664,7 +684,8 @@ export default class Select extends React.Component {
               {
                 // 单选模式下有值显示值的label
                 mode === 'single' && !!selectValue.length &&
-                <span className={`${selectionCls}-option-single`}>{selectValue[0].label}</span>
+                <span className={`${selectionCls}-option-single`}
+                      title={selectValue[0].title}>{selectValue[0].label}</span>
               }
               {
                 // 多选模式下区分labelClear
@@ -681,7 +702,7 @@ export default class Select extends React.Component {
                           <div className={`${selectionCls}-option-clearable-option`}
                                style={{width: clearableOptionWidth}}
                                key={option.key}
-                               title={typeof option.label === 'string' || typeof option.label === 'number' ? option.label : ''}
+                               title={option.title}
                           >
                             <span className={`${selectionCls}-option-clearable-option-content`}>{option.label}</span>
                             <span className={`${selectionCls}-option-clearable-option-close`}

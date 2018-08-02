@@ -157,7 +157,7 @@
         <Select style={{width: 300}} showSingleClear labelInValue onChange={this.handleChange} value={this.state.value}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
+              {group.list && group.list.map(item => <Select.Option title={item.label} key={item.key}>{item.label}</Select.Option>)}
             </Select.OptGroup>
           )}
         </Select>
@@ -231,7 +231,7 @@ class Demo extends React.Component {
     console.log('newState: ', value);
   };
 
-  render() {
+  render() {``
     const Group = this.props.utils.listConvertToGroup([{key: "6", label: "选项6"}, {
       key: "1",
       label: '选项1'
@@ -251,7 +251,7 @@ class Demo extends React.Component {
                 showSelectAll={true} mode={'multiple'}>
           {Group.map(group =>
             <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
+              {group.list && group.list.map(item => <Select.Option title={item.label} key={item.key}>{item.label}</Select.Option>)}
             </Select.OptGroup>
           )}
         </Select>
@@ -440,7 +440,7 @@ render(){
         <Select style={{width: 300}} labelInValue showSingleClear showSearch onSearch={this.fetchUser}
                 onChange={this.handleChange} value={value}
                 notFoundContent={fetching ? <Spin size="small"/> : null}>
-          {data.map(d => <Select.Option key={d.value}>{d.text}</Select.Option>)}
+          {data.map(d => <Select.Option key={d.value} title={d.text}>{d.text}</Select.Option>)}
         </Select>
       </div>
     );
@@ -502,7 +502,7 @@ render(){
         <Select style={{width: 300}} showSelectAll selectAllText={'选中所有搜索结果'} mode="multiple" labelInValue showSearch
                 onSearch={this.fetchUser} onChange={this.handleChange} value={value}
                 notFoundContent={fetching ? <Spin size="small"/> : null}>
-          {data.map(d => <Select.Option key={d.value}>{d.text}</Select.Option>)}
+          {data.map(d => <Select.Option key={d.value} title={d.text}>{d.text}</Select.Option>)}
         </Select>
       </div>
     );
@@ -535,7 +535,7 @@ render(){
 | filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | boolean or function(inputValue, option) | true |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/4j168r7jw0) | Function(triggerNode) | () => document.body |
 | labelClear | 多选模式下开启label删除功能 | boolean | false |
-| labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: string, label: ReactNode}` 的格式 | boolean | false |
+| labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: string, label: ReactNode , title : string }` 的格式 | boolean | false |
 | loading | 加载状态 | boolean | false |
 | maxScrollHeight | 列表滚动区高度 | number | 250 |
 | mode | 设置 Select 的模式 | 'multiple' \| 'single' | - |
@@ -577,7 +577,7 @@ render(){
 | disabled | 是否禁用 | boolean | false |
 | key | 和 value 含义一致。如果 React 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string |  |
 | value | 值 | string\|number | - |
-| title | title值 | string\|number | - |
+| title | title值 | string | - |
 | onOptionClick | 未在Select.Children里使用的Select.Option,暴露此事件 | function(e,option:Option) | - |
 
 ### Select.OptGroup props

@@ -14,7 +14,7 @@ export default class Option extends React.Component {
     onOptionMouseEnter: PropTypes.func,
     onOptionMouseLeave: PropTypes.func,
     prefixCls: PropTypes.string,
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
   };
 
@@ -56,7 +56,7 @@ export default class Option extends React.Component {
         onMouseEnter={this.onOptionMouseEnter}
         onMouseLeave={this.onOptionMouseLeave}
         className={classNames(`${prefixCls}-item`, {[`${prefixCls}-item-disabled`]: !!disabled}, {[`checked`]: !!checked}, {[`active`]: activeKey == value},)}
-        onClick={(e) => this.onOptionClick(e, {label, key: value})}>
+        onClick={(e) => this.onOptionClick(e, {label, title, key: value})}>
         {children}
       </li>
     );
