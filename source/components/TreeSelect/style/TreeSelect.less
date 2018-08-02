@@ -54,7 +54,7 @@
     .@{select-tree-prefix-cls}-node-content-wrapper {
       display: inline-block;
       padding: 3px 5px;
-      border-radius: 2px;
+      border-radius: @border-radius-base;
       margin: 0;
       cursor: pointer;
       text-decoration: none;
@@ -162,7 +162,7 @@
       width: 100%;
       box-sizing: border-box;
       border: @border-width-base @border-style-base @border-color-base;
-      border-radius: 4px;
+      border-radius: @border-radius-base;
       outline: none;
     }
     &.@{select-prefix-cls}-search--hide {

@@ -61,7 +61,7 @@
     display: block;
 
     background-color: #fff;
-    border-radius: 6px;
+    border-radius: @border-radius-base;
     border: 1px solid #d9d9d9;
 
     &__clear {
@@ -236,7 +236,7 @@
 
   & &-selection__choice {
     background-color: #f3f3f3;
-    border-radius: 4px;
+    border-radius: @border-radius-base;
     float: left;
     padding: 0 15px;
     margin-right: 4px;
@@ -316,7 +316,7 @@
     background-color: white;
     border: 1px solid #d9d9d9;
     box-shadow: 0 0px 4px #d9d9d9;
-    border-radius: 4px;
+    border-radius: @border-radius-base;
     box-sizing: border-box;
     z-index: 100;
     left: -9999px;
@@ -492,7 +492,7 @@
       width: 100%;
       box-sizing: border-box;
       border: 1px solid #d9d9d9;
-      border-radius: 4px;
+      border-radius: @border-radius-base;
       outline: none;
     }
     &.@{selectPrefixCls}-search--hide {
