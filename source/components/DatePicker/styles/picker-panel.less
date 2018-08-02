@@ -2,7 +2,7 @@
 
 .@{prefixClass} {
   &-picker-panel {
-    min-width: 180px;
+    min-width: 134px;
     position: absolute;
     top: 41px;
     line-height: 20px;
@@ -32,6 +32,7 @@
       height: 48px;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       padding: 8px;
       border-top: 1px solid @datepicker-border-color;
       background-color: @component-background;
@@ -74,10 +75,20 @@
       outline: none;
       font-size: 14px;
 
-      &[disabled] {
+      &.confirm {
+        font-weight: 800;
+        background-color: @datepicker-active-background-color;
+        color: #fff;
+      }
+
+      &.disabled {
         color: @datepicker-disable-color;
         cursor: not-allowed;
       }
+    }
+
+    &__btn + &__btn {
+      margin-left: 8px;
     }
 
     &__icon-btn {

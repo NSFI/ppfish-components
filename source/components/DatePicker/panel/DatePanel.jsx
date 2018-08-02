@@ -63,23 +63,192 @@ export default class DatePanel extends PopperBase {
 
     this.state = {
       currentView,
-      timePickerVisible: false,
-      pickerWidth: 0,
-      date: props.value ? new Date(props.value) : new Date() // current view's date
+      date: props.value ? new Date(props.value) : new Date(),  // 默认当前日历视图
+      dateInputText: formatDate(props.value, this.dateFormat), // 日期输入框的值 string，当props.value为null时，值为''
+      timeInputText: toDate(props.value), // 时间输入组件的值 Date，当props.value为null时，值为null
+      confirmBtnDisabled: !props.value    // 确定按钮是否禁用
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    let date = new Date();
     if (nextProps.value){
-      date = toDate(nextProps.value)
+      const date = toDate(nextProps.value);
+      this.setState({ date });
     }
-    this.setState({ date })
   }
 
   // 判断值的合法性
   isValid = (value) => {
     return DatePanel.isValid(value, this.props.disabledDate);
+  }
+
+  updateState(cb) {
+    cb(this.state);
+    this.setState({});
+  }
+
+  // handleYearPick(year) {
+  //   this.updateState(state => {
+  //     const { onPick, selectionMode } = this.props;
+  //     const { date } = state;
+  //     date.setFullYear(year);
+  //     if (selectionMode === SELECTION_MODES.YEAR) {
+  //         onPick(new Date(year, 0))
+  //       } else {
+  //         state.currentView = PICKER_VIEWS.MONTH
+  //     }
+  //   })
+  // }
+  //
+  // handleMonthPick(month) {
+  //   this.updateState(state => {
+  //     const { date } = state;
+  //     const { selectionMode } = this.props;
+  //     const { year } = deconstructDate(date);
+  //
+  //     if (selectionMode !== SELECTION_MODES.MONTH) {
+  //       date.setMonth(month);
+  //       state.currentView = PICKER_VIEWS.DATE
+  //     } else {
+  //       date.setMonth(month);
+  //       date.setFullYear(year);
+  //       this.props.onPick(new Date(year, month, 1));
+  //     }
+  //   })
+  // }
+
+  resetView() {
+    let {selectionMode} = this.props;
+
+    this.updateState(state=>{
+      if (selectionMode === SELECTION_MODES.MONTH) {
+        state.currentView = PICKER_VIEWS.MONTH
+      } else if (selectionMode === SELECTION_MODES.YEAR) {
+        state.currentView = PICKER_VIEWS.YEAR
+      } else {
+        state.currentView = PICKER_VIEWS.DATE
+      }
+    })
+  }
+
+  yearLabel() {
+    const { currentView, date } = this.state;
+    const { year } = deconstructDate(date);
+    const yearTranslation = Locale.t('el.datepicker.year');
+    if (currentView === 'year') {
+      const startYear = Math.floor(year / 10) * 10;
+      if (yearTranslation) {
+        return startYear + ' ' + yearTranslation + '-' + (startYear + 9) + ' ' + yearTranslation
+      }
+      return startYear + ' - ' + (startYear + 9)
+    }
+    return year + ' ' + yearTranslation
+  }
+
+  get timeFormat() {
+    let {format} = this.props;
+    if (format && format.indexOf('ss') === -1) {
+      return 'HH:mm'
+    } else {
+      return 'HH:mm:ss'
+    }
+  }
+
+  get dateFormat(){
+    if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim();
+    else return 'yyyy-MM-dd'
+  };
+
+  // end: ------ public methods
+  _pickerContent() {
+    const { value, selectionMode, disabledDate, showWeekNumber } = this.props;
+    const { date } = this.state;
+    const { currentView } = this.state;
+    let result = null;
+
+    switch (currentView) {
+      case PICKER_VIEWS.DATE:
+        result = (<DateTable
+          onPick={this.handleDatePick.bind(this)}
+          date={date}
+          value={value}
+          selectionMode={selectionMode}
+          disabledDate={disabledDate}
+          showWeekNumber={showWeekNumber}
+        />);
+
+        break;
+      // case PICKER_VIEWS.YEAR:
+      //   result = (<YearTable
+      //     ref="yearTable"
+      //     value={value}
+      //     date={date}
+      //     onPick={this.handleYearPick.bind(this)}
+      //     disabledDate={disabledDate}
+      //   />);
+      //   break;
+      // case PICKER_VIEWS.MONTH:
+      //   result = (<MonthTable
+      //     value={value}
+      //     date={date}
+      //     onPick={this.handleMonthPick.bind(this)}
+      //     disabledDate={disabledDate}
+      //   />);
+      //   break;
+      default:
+        throw new Error('invalid currentView value')
+    }
+
+    return result;
+  }
+
+  // 日期变化
+  handleDateInputChange = (e) => {
+    const {disabledDate} = this.props;
+    const {date} = this.state;
+    const iptxt = e.target.value;
+    const ndate = parseDate(iptxt, this.dateFormat);
+    // 日期变化的时候，时间保持不变
+    ndate.setHours(date.getHours());
+    ndate.setMinutes(date.getMinutes());
+    ndate.setSeconds(date.getSeconds());
+    if (iptxt.trim() === '' || !ndate || typeof disabledDate === 'function' && disabledDate(ndate)) {
+      //only set value on a valid date input
+      this.setState({
+        dateInputText: iptxt,
+      })
+    }else{
+      this.setState({
+        date: ndate,
+        dateInputText: iptxt,
+        confirmBtnDisabled: !this.state.timeInputText
+      });
+    }
+    this.resetView();
+  }
+
+  // 时间变化
+  handleTimeInputChange = (val) => {
+    if (val) {
+      const ndate = val;
+      let {date} = this.state;
+      if (ndate) {
+        ndate.setFullYear(date.getFullYear());
+        ndate.setMonth(date.getMonth());
+        ndate.setDate(date.getDate());
+        this.setState({
+          date: ndate,
+          timePickerVisible: false,
+          timeInputText: ndate,
+          confirmBtnDisabled: !this.state.dateInputText
+        })
+      }
+    }
+  }
+
+  // 点击快捷按钮
+  handleShortcutClick(shortcut) {
+    shortcut.onClick();
   }
 
   prevYear = () => {
@@ -136,45 +305,23 @@ export default class DatePanel extends PopperBase {
     })
   }
 
-  updateState(cb) {
-    cb(this.state);
-    this.setState({});
-  }
-
-  handleShortcutClick(shortcut) {
-    shortcut.onClick();
-  }
-
-  handleYearPick(year) {
-    this.updateState(state => {
-      const { onPick, selectionMode } = this.props;
-      const { date } = state;
-      date.setFullYear(year);
-      if (selectionMode === SELECTION_MODES.YEAR) {
-          onPick(new Date(year, 0))
-        } else {
-          state.currentView = PICKER_VIEWS.MONTH
-      }
+  // 切换年份
+  handleChangeYear = (year) => {
+    const { date } = this.state;
+    this.setState({
+      date: new Date(date.setFullYear(year)),
     })
   }
 
-  handleMonthPick(month) {
-    this.updateState(state => {
-      const { date } = state;
-      const { selectionMode } = this.props;
-      const { year } = deconstructDate(date);
-
-      if (selectionMode !== SELECTION_MODES.MONTH) {
-        date.setMonth(month);
-        state.currentView = PICKER_VIEWS.DATE
-      } else {
-        date.setMonth(month);
-        date.setFullYear(year);
-        this.props.onPick(new Date(year, month, 1));
-      }
+  // 切换月份
+  handleChangeMonth = (month) => {
+    const { date } = this.state;
+    this.setState({
+      date: new Date((date.setMonth(parseInt(month.slice(0,-1)) - 1)))
     })
   }
 
+  // 点击日
   handleDatePick(value) {
     this.updateState(state => {
       const { date } = state;
@@ -184,175 +331,31 @@ export default class DatePanel extends PopperBase {
         if (!isShowTime) {
           onPick(new Date(pdate.getTime()))
         }
-        date.setTime(pdate.getTime())
+        pdate.setHours(date.getHours());
+        pdate.setMinutes(date.getMinutes());
+        pdate.setSeconds(date.getSeconds());
+        date.setTime(pdate.getTime());
+        state.dateInputText = formatDate(date, this.dateFormat); // 点击日，左侧日期输入框的值同步变化
+        state.confirmButtonDisabled = !state.timeInputText; // 日期、时间都选择，确定按钮才可点击
       } else if (selectionMode === SELECTION_MODES.WEEK) {
         onPick(pdate)
       }
     })
   }
 
-  handleTimePick(pickedDate, isKeepPanel) {
-    this.updateState(state=>{
-      if (pickedDate) {
-        let oldDate = state.date;
-        oldDate.setHours(pickedDate.getHours());
-        oldDate.setMinutes(pickedDate.getMinutes());
-        oldDate.setSeconds(pickedDate.getSeconds());
-      }
-      state.timePickerVisible = isKeepPanel
-    })
-  }
-
-  changeToNow = () => {
-    const now = new Date();
-    this.props.onPick(now);
-    this.setState({ date: now });
-  }
-
-  confirm = () => {
+  // 点击确定按钮
+  handleConfirm = () => {
     this.props.onPick(new Date(this.state.date.getTime()))
   }
 
-  resetView() {
-    let {selectionMode} = this.props;
-
-    this.updateState(state=>{
-      if (selectionMode === SELECTION_MODES.MONTH) {
-        state.currentView = PICKER_VIEWS.MONTH
-      } else if (selectionMode === SELECTION_MODES.YEAR) {
-        state.currentView = PICKER_VIEWS.YEAR
-      } else {
-        state.currentView = PICKER_VIEWS.DATE
-      }
-    })
-  }
-
-  yearLabel() {
-    const { currentView, date } = this.state;
-    const { year } = deconstructDate(date);
-    const yearTranslation = Locale.t('el.datepicker.year');
-    if (currentView === 'year') {
-      const startYear = Math.floor(year / 10) * 10;
-      if (yearTranslation) {
-        return startYear + ' ' + yearTranslation + '-' + (startYear + 9) + ' ' + yearTranslation
-      }
-      return startYear + ' - ' + (startYear + 9)
-    }
-    return year + ' ' + yearTranslation
-  }
-
-  get visibleTime(){
-    return formatDate(this.state.date, this.timeFormat)
-  }
-
-  set visibleTime(val){
-    if (val) {
-      const ndate = val;
-      let {date} = this.state;
-      if (ndate) {
-        ndate.setFullYear(date.getFullYear());
-        ndate.setMonth(date.getMonth());
-        ndate.setDate(date.getDate());
-        this.setState({date: ndate, timePickerVisible: false})
-      }
-    }
-  }
-
-  get visibleDate(){
-    return formatDate(this.state.date, this.dateFormat);
-  }
-
-  set visibleDate(val){
-    const ndate = parseDate(val, this.dateFormat);
-    if (!ndate) {
-      return
-    }
-    let {disabledDate} = this.props;
-    let {date} = this.state;
-    if (typeof disabledDate === 'function' && disabledDate(ndate)) {
-      return;
-    }
-    ndate.setHours(date.getHours());
-    ndate.setMinutes(date.getMinutes());
-    ndate.setSeconds(date.getSeconds());
-    this.setState({date: ndate});
-    this.resetView();
-  }
-
-  get timeFormat() {
-    let {format} = this.props;
-    if (format && format.indexOf('ss') === -1) {
-      return 'HH:mm'
-    } else {
-      return 'HH:mm:ss'
-    }
-  }
-
-  get dateFormat(){
-    if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim();
-    else return 'yyyy-MM-dd'
-  };
-
-  // end: ------ public methods
-  _pickerContent() {
-    const { value, selectionMode, disabledDate, showWeekNumber } = this.props;
-    const { date } = this.state;
-    const { currentView } = this.state;
-    let result = null;
-
-    switch (currentView) {
-      case PICKER_VIEWS.DATE:
-        result = (<DateTable
-          onPick={this.handleDatePick.bind(this)}
-          date={date}
-          value={value}
-          selectionMode={selectionMode}
-          disabledDate={disabledDate}
-          showWeekNumber={showWeekNumber}
-        />);
-
-        break;
-      case PICKER_VIEWS.YEAR:
-        result = (<YearTable
-          ref="yearTable"
-          value={value}
-          date={date}
-          onPick={this.handleYearPick.bind(this)}
-          disabledDate={disabledDate}
-        />);
-        break;
-      case PICKER_VIEWS.MONTH:
-        result = (<MonthTable
-          value={value}
-          date={date}
-          onPick={this.handleMonthPick.bind(this)}
-          disabledDate={disabledDate}
-        />);
-        break;
-      default:
-        throw new Error('invalid currentView value')
-    }
-
-    return result;
-  }
-
-  handleChangeYear = (year) => {
-    const { date } = this.state;
-    this.setState({
-      date: new Date(date.setFullYear(year)),
-    })
-  }
-
-  handleChangeMonth = (month) => {
-    const { date } = this.state;
-    this.setState({
-      date: new Date((date.setMonth(parseInt(month.slice(0,-1)) - 1)))
-    })
+  // 点击取消按钮
+  handleCancel = () => {
+    this.props.onCancelPicked();
   }
 
   render() {
     const { isShowTime, shortcuts, shortcutsPlacement } = this.props;
-    const { currentView, date, pickerWidth, timePickerVisible } = this.state;
+    const { currentView, date, dateInputText, timeInputText, confirmBtnDisabled } = this.state;
     const { month } = deconstructDate(date);
     const t = Locale.t;
 
@@ -390,8 +393,8 @@ export default class DatePanel extends PopperBase {
                   <span className="el-date-picker__editor-wrap">
                     <Input
                       placeholder={t('el.datepicker.selectDate')}
-                      value={this.visibleDate}
-                      onChange={date=>this.visibleDate=date}
+                      value={dateInputText}
+                      onChange={this.handleDateInputChange}
                     />
                   </span>
                   <span className="el-date-picker__editor-wrap">
@@ -400,9 +403,9 @@ export default class DatePanel extends PopperBase {
                       className="el-date-range-picker__editor"
                       isShowTrigger={false}
                       isAllowClear={false}
-                      value={date}
+                      value={timeInputText}
                       onFocus={()=> this.setState({timePickerVisible: !this.state.timePickerVisible})}
-                      onChange={date=>this.visibleTime=date}
+                      onChange={this.handleTimeInputChange}
                     />
                   </span>
                 </div>
@@ -476,15 +479,16 @@ export default class DatePanel extends PopperBase {
           isShowTime && currentView === PICKER_VIEWS.DATE && (
             <div
               className="el-picker-panel__footer">
-              <a
-                href="JavaScript:"
-                className="el-picker-panel__link-btn"
-                onClick={this.changeToNow}>{t('el.datepicker.now')}
-              </a>
               <button
                 type="button"
-                className="el-picker-panel__btn"
-                onClick={this.confirm}>{t('el.datepicker.confirm')}</button>
+                className="el-picker-panel__btn cancel"
+                onClick={this.handleCancel}>{t('el.datepicker.cancel')}
+              </button>
+              <button
+                type="button"
+                className={this.className("el-picker-panel__btn", "confirm", {'disabled': confirmBtnDisabled})}
+                onClick={this.handleConfirm}>{t('el.datepicker.confirm')}
+              </button>
             </div>
           )
         }

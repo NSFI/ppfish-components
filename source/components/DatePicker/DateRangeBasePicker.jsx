@@ -37,8 +37,8 @@ export default class DateRangeBasePicker extends Component {
 
   static get defaultProps() {
     return {
-      startPlaceholder: '选择开始日期',
-      endPlaceholder: '选择结束日期',
+      startPlaceholder: '开始日期',
+      endPlaceholder: '结束日期',
       rangeSeparator: '~',
       align: 'left',
       isShowTrigger: true,

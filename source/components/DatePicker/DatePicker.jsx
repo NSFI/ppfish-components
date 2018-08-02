@@ -43,6 +43,7 @@ export default class DatePicker extends BasePicker {
         {...props}
         value={value}
         onPick={this.onPicked}
+        onCancelPicked={this.onCancelPicked}
       />
     )
   }
