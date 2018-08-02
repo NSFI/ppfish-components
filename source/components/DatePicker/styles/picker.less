@@ -7,11 +7,11 @@
     display: inline-block;
 
     .fishd-input {
-      min-width: 205px;
+      min-width: 180px;
     }
 
     &--time,timeselect {
-      min-width: 205px;
+      min-width: 180px;
     }
 
     &--datetime,&--date {
@@ -35,6 +35,17 @@
       .fishd-input {
         border: 0;
         min-width: 193px;
+      }
+    }
+
+    .prefix-iconfont,.suffix-iconfont {
+      color: #ccc;
+    }
+
+    .suffix-iconfont {
+      &:hover {
+        color: @text-9;
+        cursor: pointer;
       }
     }
   }

@@ -156,7 +156,7 @@ export default class BasePicker extends Component {
   }
 
   triggerClass() {
-    return this.type.includes('time') ? 'shangjiantou' : 'xiajiantou';
+    return this.type.includes('time') ? 'time-line' : 'date-line';
   }
 
   calcIsShowTrigger() {
@@ -251,6 +251,7 @@ export default class BasePicker extends Component {
       if(this.calcIsShowTrigger()) {
         return (
           <Icon
+            className="prefix-iconfont"
             type={this.triggerClass()}
           />
         )
@@ -263,7 +264,8 @@ export default class BasePicker extends Component {
       if(text && isAllowClear) {
         return (
           <Icon
-            type="filter"
+            className="suffix-iconfont"
+            type="close-circle-fill"
             onClick={this.handleClickCloseIcon}
           />
         )
@@ -329,7 +331,7 @@ export default class BasePicker extends Component {
             const iptxt = e.target.value;
             const nstate = { text: iptxt };
             if (iptxt.trim() === '' || !isInputValid(this.parseDate(iptxt))) {
-              return;
+              nstate.value = null
             } else {//only set value on a valid date input
               nstate.value = this.parseDate(iptxt);
             }

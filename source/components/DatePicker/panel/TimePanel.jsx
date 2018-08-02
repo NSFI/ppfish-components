@@ -48,7 +48,7 @@ export default class TimePanel extends PopperBase {
     const state = {
       format: format || 'HH:mm:ss',
       currentDate: value || parseDate('00:00:00', 'HH:mm:ss'),
-      confirmButtonDisabled: false,
+      confirmButtonDisabled: value == null || !this.isValid(value),
       currentButtonDisabled: isLimitRange(new Date(), props.selectableRange, 'HH:mm:ss')
     };
     state.isShowSeconds = (state.format || '').indexOf('ss') !== -1;
