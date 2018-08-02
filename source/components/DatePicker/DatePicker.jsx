@@ -33,19 +33,15 @@ export default class DatePicker extends BasePicker {
   }
 
   isDateValid(value) {
-    return super.isDateValid(value) && DatePanel.isValid(value, this.panelProps());
-  }
-
-  panelProps(props){
-    const ps = props || this.props;
-    return {...ps};
+    return super.isDateValid(value) && DatePanel.isValid(value, this.props.disabledDate);
   }
 
   pickerPanel(state, props) {
+    const value = state.value && this.isDateValid(state.value) ? state.value : null;
     return (
       <DatePanel
         {...props}
-        value={state.value}
+        value={value}
         onPick={this.onPicked}
       />
     )

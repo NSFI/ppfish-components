@@ -51,7 +51,7 @@ export default class TimePicker extends BasePicker {
   }
 
   pickerPanel(state, props) {
-    const value = state.value ? state.value : null;
+    const value = state.value && this.isDateValid(state.value) ? state.value : null;
     return (
       <TimePanel
         {...props}

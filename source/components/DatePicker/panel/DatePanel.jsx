@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../Input';
+import Icon from '../../Icon/index.tsx';
 import { PopperBase } from './PopperBase';
 import YearAndMonthPopover from './YearAndMonthPopover';
 import TimePicker from '../TimePicker';
@@ -74,6 +75,11 @@ export default class DatePanel extends PopperBase {
       date = toDate(nextProps.value)
     }
     this.setState({ date })
+  }
+
+  // 判断值的合法性
+  isValid = (value) => {
+    return DatePanel.isValid(value, this.props.disabledDate);
   }
 
   prevYear = () => {
@@ -406,18 +412,18 @@ export default class DatePanel extends PopperBase {
             {
               currentView !== 'time' && (
                 <div className="el-date-picker__header">
-                  <button
-                    type="button"
+                  <Icon
+                    type="left-double"
                     onClick={this.prevYear}
-                    className="el-picker-panel__icon-btn el-date-picker__prev-btn el-icon-d-arrow-left">
-                  </button>
+                    className="el-picker-panel__icon-btn el-date-picker__prev-btn">
+                  </Icon>
                   {
                     currentView === PICKER_VIEWS.DATE && (
-                      <button
-                        type="button"
+                      <Icon
+                        type="left"
                         onClick={this.prevMonth}
-                        className="el-picker-panel__icon-btn el-date-picker__prev-btn el-icon-arrow-left">
-                      </button>)
+                        className="el-picker-panel__icon-btn el-date-picker__prev-btn">
+                      </Icon>)
                   }
                   <YearAndMonthPopover
                     value={date.getFullYear()}
@@ -443,18 +449,18 @@ export default class DatePanel extends PopperBase {
                       </YearAndMonthPopover>
                     )
                   }
-                  <button
-                    type="button"
+                  <Icon
+                    type="right-double"
                     onClick={this.nextYear}
-                    className="el-picker-panel__icon-btn el-date-picker__next-btn el-icon-d-arrow-right">
-                  </button>
+                    className="el-picker-panel__icon-btn el-date-picker__next-btn">
+                  </Icon>
                   {
                     currentView === PICKER_VIEWS.DATE && (
-                      <button
-                        type="button"
+                      <Icon
+                        type="right"
                         onClick={this.nextMonth}
-                        className="el-picker-panel__icon-btn el-date-picker__next-btn el-icon-arrow-right">
-                      </button>
+                        className="el-picker-panel__icon-btn el-date-picker__next-btn">
+                      </Icon>
                     )
                   }
                 </div>
@@ -487,6 +493,6 @@ export default class DatePanel extends PopperBase {
   }
 }
 
-DatePanel.isValid = (value, { disabledDate }) => {
+DatePanel.isValid = (value, disabledDate) => {
   return typeof disabledDate === 'function' && (value instanceof Date) ? !disabledDate(value) : true;
 }
