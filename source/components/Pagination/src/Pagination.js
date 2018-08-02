@@ -244,14 +244,6 @@ export default class Pagination extends React.Component {
     }
   }
 
-  getJumpPrevPage() {
-    return Math.max(1, this.state.current - (this.props.showLessItems ? 3 : 5));
-  }
-
-  getJumpNextPage() {
-    return Math.min(this.calculatePage(), this.state.current + (this.props.showLessItems ? 3 : 5));
-  }
-
   jumpPrev = () => {
     this.handleChange(this.getJumpPrevPage());
   }

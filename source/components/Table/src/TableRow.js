@@ -36,7 +36,19 @@ class TableRow extends React.Component {
     fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     renderExpandIcon: PropTypes.func,
     renderExpandIconCell: PropTypes.func,
-    components: PropTypes.any,
+    components: PropTypes.shape({
+      table: PropTypes.any,
+      header: PropTypes.shape({
+        wrapper: PropTypes.any,
+        row: PropTypes.any,
+        cell: PropTypes.any,
+      }),
+      body: PropTypes.shape({
+        wrapper: PropTypes.any,
+        row: PropTypes.any,
+        cell: PropTypes.any,
+      }),
+    }),
     expandedRow: PropTypes.bool,
     isAnyColumnsFixed: PropTypes.bool,
     ancestorKeys: PropTypes.array.isRequired,
@@ -50,14 +62,6 @@ class TableRow extends React.Component {
     renderExpandIconCell: noop,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.shouldRender = props.visible;
-
-    this.state = {};
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.visible || (!prevState.visible && nextProps.visible)) {
       return {
@@ -68,6 +72,14 @@ class TableRow extends React.Component {
     return {
       visible: nextProps.visible,
     };
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.shouldRender = props.visible;
+
+    this.state = {};
   }
 
   componentDidMount() {

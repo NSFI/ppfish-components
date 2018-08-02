@@ -29,7 +29,19 @@ TableHeaderRow.propTypes = {
   row: PropTypes.array,
   index: PropTypes.number,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  components: PropTypes.any,
+  components: PropTypes.shape({
+    table: PropTypes.any,
+    header: PropTypes.shape({
+      wrapper: PropTypes.any,
+      row: PropTypes.any,
+      cell: PropTypes.any,
+    }),
+    body: PropTypes.shape({
+      wrapper: PropTypes.any,
+      row: PropTypes.any,
+      cell: PropTypes.any,
+    }),
+  }),
   onHeaderRow: PropTypes.func,
 };
 

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import placements from './placements';
-import { polyfill } from 'react-lifecycles-compat';
+import {polyfill} from 'react-lifecycles-compat';
 
 class Dropdown extends Component {
   static propTypes = {
@@ -11,10 +11,10 @@ class Dropdown extends Component {
     onVisibleChange: PropTypes.func,
     onOverlayClick: PropTypes.func,
     prefixCls: PropTypes.string,
-    children: PropTypes.any,
+    children: PropTypes.node,
     transitionName: PropTypes.string,
     overlayClassName: PropTypes.string,
-    animation: PropTypes.any,
+    animation: PropTypes.string,
     align: PropTypes.object,
     overlayStyle: PropTypes.object,
     placement: PropTypes.string,
@@ -38,6 +38,15 @@ class Dropdown extends Component {
     onVisibleChange() {
     },
     placement: 'bottomLeft',
+  };
+
+  static getDerivedStateFromProps(nextProps) {
+    if ('visible' in nextProps) {
+      return {
+        visible: nextProps.visible,
+      };
+    }
+    return null;
   }
 
   constructor(props) {
@@ -78,19 +87,10 @@ class Dropdown extends Component {
       });
     }
     props.onVisibleChange(visible);
-  }
-
-  static getDerivedStateFromProps(nextProps) {
-    if ('visible' in nextProps) {
-      return {
-        visible: nextProps.visible,
-      };
-    }
-    return null;
-  }
+  };
 
   getMinOverlayWidthMatchTrigger = () => {
-    const { minOverlayWidthMatchTrigger, alignPoint } = this.props;
+    const {minOverlayWidthMatchTrigger, alignPoint} = this.props;
     if ('minOverlayWidthMatchTrigger' in this.props) {
       return minOverlayWidthMatchTrigger;
     }
@@ -99,7 +99,7 @@ class Dropdown extends Component {
   };
 
   getMenuElement() {
-    const { overlay, prefixCls } = this.props;
+    const {overlay, prefixCls} = this.props;
     const extraOverlayProps = {
       prefixCls: `${prefixCls}-menu`,
       onClick: this.onClick,
@@ -121,8 +121,8 @@ class Dropdown extends Component {
       if (rootNode && overlayNode && rootNode.offsetWidth > overlayNode.offsetWidth) {
         overlayNode.style.minWidth = `${rootNode.offsetWidth}px`;
         if (this.trigger &&
-            this.trigger._component &&
-            this.trigger._component.alignInstance) {
+          this.trigger._component &&
+          this.trigger._component.alignInstance) {
           this.trigger._component.alignInstance.forceAlign();
         }
       }

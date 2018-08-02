@@ -19,13 +19,13 @@ export default class TableCell extends React.Component {
     indentSize: PropTypes.number,
     column: PropTypes.object,
     expandIcon: PropTypes.node,
-    component: PropTypes.any,
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.node, PropTypes.string]),
   };
 
   handleClick = e => {
     const {
       record,
-      column: { onCellClick },
+      column: {onCellClick},
     } = this.props;
     if (onCellClick) {
       onCellClick(record, e);
@@ -43,7 +43,7 @@ export default class TableCell extends React.Component {
       column,
       component: BodyCell,
     } = this.props;
-    const { dataIndex, render, className = '' } = column;
+    const {dataIndex, render, className = ''} = column;
 
     // We should return undefined if no dataIndex is specified, but in order to
     // be compatible with object-path's behavior, we return the record object instead.
@@ -70,7 +70,7 @@ export default class TableCell extends React.Component {
     }
 
     if (column.onCell) {
-      tdProps = { ...tdProps, ...column.onCell(record) };
+      tdProps = {...tdProps, ...column.onCell(record)};
     }
 
     // Fix https://github.com/ant-design/ant-design/issues/1202
@@ -80,7 +80,7 @@ export default class TableCell extends React.Component {
 
     const indentText = expandIcon ? (
       <span
-        style={{ paddingLeft: `${indentSize * indent}px` }}
+        style={{paddingLeft: `${indentSize * indent}px`}}
         className={`${prefixCls}-indent indent-level-${indent}`}
       />
     ) : null;
@@ -90,7 +90,7 @@ export default class TableCell extends React.Component {
     }
 
     if (column.align) {
-      tdProps.style = { ...tdProps.style, textAlign: column.align };
+      tdProps.style = {...tdProps.style, textAlign: column.align};
     }
 
     return (

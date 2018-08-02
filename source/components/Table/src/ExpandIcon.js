@@ -6,7 +6,7 @@ export default class ExpandIcon extends React.Component {
   static propTypes = {
     record: PropTypes.object,
     prefixCls: PropTypes.string,
-    expandable: PropTypes.any,
+    expandable: PropTypes.bool,
     expanded: PropTypes.bool,
     needIndentSpaced: PropTypes.bool,
     onExpand: PropTypes.func,
