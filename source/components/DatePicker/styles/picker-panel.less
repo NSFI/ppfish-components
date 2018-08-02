@@ -10,7 +10,7 @@
     color: @text-2;
     border: 1px solid @datepicker-border-color;
     background: @component-background;
-    border-radius: 4px;
+    border-radius: 2px;
     box-sizing: border-box;
     box-shadow: @box-shadow-base;
     z-index: 10;
@@ -25,14 +25,14 @@
 
     &__content {
       position: relative;
-      margin: 0 21px 21px 21px;
+      margin: 15px;
     }
 
     &__footer {
-      height: 46px;
+      height: 48px;
       display: flex;
       align-items: center;
-      padding: 4px;
+      padding: 8px;
       border-top: 1px solid @datepicker-border-color;
       background-color: @component-background;
     }
@@ -45,10 +45,11 @@
       background-color: @component-background;
       line-height: 28px;
       font-size: 14px;
+      color: #333;
       text-align: center;
       outline: none;
       cursor: pointer;
-      border-bottom: 1px solid @border-color-base;
+      border-bottom: 1px solid @datepicker-border-color;
 
       &:hover {
         color: @datepicker-active-color;
@@ -61,18 +62,20 @@
     }
 
     &__btn {
-      border: 1px solid #dcdcdc;
-      color: #333;
-      line-height: 24px;
+      width: 80px;
+      height: 32px;
+      border: 1px solid @datepicker-border-color;
+      color: #666;
+      line-height: 12px;
       border-radius: 2px;
       padding: 0 20px;
       cursor: pointer;
       background-color: transparent;
       outline: none;
-      font-size: 12px;
+      font-size: 14px;
 
       &[disabled] {
-        color: #cccccc;
+        color: @datepicker-disable-color;
         cursor: not-allowed;
       }
     }
@@ -93,11 +96,11 @@
     }
 
     &__link-btn {
-      cursor: pointer;
       color: @primary-color;
-      text-decoration: none;
       padding: 15px;
-      font-size: 12px;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
     }
 
     & *[slot=sidebar],
@@ -106,7 +109,7 @@
       top: 0;
       bottom: 0;
       width: 110px;
-      border-right: 1px solid @border-color-base;
+      border-right: 1px solid @datepicker-border-color;
       box-sizing: border-box;
       background-color: @component-background;
       overflow: auto;
