@@ -27,6 +27,11 @@ export default class TimeSelectPanel extends PopperBase {
     super(props);
   }
 
+  // 判断值的合法性
+  isValid = (value) => {
+    return TimeSelectPanel.isValid(value, this.props);
+  }
+
   handleClick(item) {
     const { onPicked, dateParser } = this.props;
     if (!item.disabled) {
