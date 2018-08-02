@@ -190,7 +190,9 @@ class Tree extends React.Component {
       // Calculate the entities data for quick match
       const entitiesMap = convertTreeToEntities(treeNode, props.unstable_processTreeEntity);
       newState.posEntities = entitiesMap.posEntities;
-      newState.keyEntities = entitiesMap.keyEntities;
+      // Fixed error when check/uncheck node in search result
+      // newState.keyEntities = entitiesMap.keyEntities;
+      newState.keyEntities = Object.assign({}, prevState.keyEntities, entitiesMap.keyEntities);
     }
 
     const keyEntities = newState.keyEntities || prevState.keyEntities;
