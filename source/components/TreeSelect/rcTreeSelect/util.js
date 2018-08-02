@@ -1,7 +1,7 @@
 import React from 'react';
 import warning from 'warning';
-import SelectNode from './SelectNode';
-import { SHOW_CHILD, SHOW_PARENT } from './strategies';
+import SelectNode from './SelectNode.jsx';
+import { SHOW_CHILD, SHOW_PARENT } from './strategies.js';
 
 // When treeNode not provide key, and we will use value as key.
 // Some time value is empty, we should pass it instead.

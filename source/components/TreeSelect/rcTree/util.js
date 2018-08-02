@@ -1,6 +1,6 @@
 import React, { Children } from 'react';
 import warning from 'warning';
-import TreeNode from './TreeNode';
+import TreeNode from './TreeNode.jsx';
 
 const DRAG_SIDE_RANGE = 0.25;
 const DRAG_MIN_GAP = 2;
@@ -188,11 +188,11 @@ function keyListToString(keyList) {
 export function convertDataToTree(treeData) {
   if (!treeData) return [];
   const list = Array.isArray(treeData) ? treeData : [treeData];
-  return list.map(({ children, ...props }) => {
+  return list.map(({ children, ...props }, index) => {
     const childrenNodes = (children || []).map(convertDataToTree);
 
     return (
-      <TreeNode {...props}>
+      <TreeNode key={'convert_treenode_' + index} {...props}>
         {childrenNodes}
       </TreeNode>
     );

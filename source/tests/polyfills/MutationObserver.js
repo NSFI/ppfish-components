@@ -285,59 +285,61 @@ module.exports = function(global) {
     handleEvent: function(e) {
       e.stopImmediatePropagation();
       switch (e.type) {
-       case "DOMAttrModified":
-        var name = e.attrName;
-        var namespace = e.relatedNode.namespaceURI;
-        var target = e.target;
-        var record = new getRecord("attributes", target);
-        record.attributeName = name;
-        record.attributeNamespace = namespace;
-        var oldValue = e.attrChange === MutationEvent.ADDITION ? null : e.prevValue;
-        forEachAncestorAndObserverEnqueueRecord(target, function(options) {
-          if (!options.attributes) return;
-          if (options.attributeFilter && options.attributeFilter.length && options.attributeFilter.indexOf(name) === -1 && options.attributeFilter.indexOf(namespace) === -1) {
-            return;
-          }
-          if (options.attributeOldValue) return getRecordWithOldValue(oldValue);
-          return record;
-        });
-        break;
-
-       case "DOMCharacterDataModified":
-        var target = e.target;
-        var record = getRecord("characterData", target);
-        var oldValue = e.prevValue;
-        forEachAncestorAndObserverEnqueueRecord(target, function(options) {
-          if (!options.characterData) return;
-          if (options.characterDataOldValue) return getRecordWithOldValue(oldValue);
-          return record;
-        });
-        break;
-
-       case "DOMNodeRemoved":
-        this.addTransientObserver(e.target);
-
-       case "DOMNodeInserted":
-        var changedNode = e.target;
-        var addedNodes, removedNodes;
-        if (e.type === "DOMNodeInserted") {
-          addedNodes = [ changedNode ];
-          removedNodes = [];
-        } else {
-          addedNodes = [];
-          removedNodes = [ changedNode ];
+        case "DOMAttrModified": {
+          let name = e.attrName;
+          let namespace = e.relatedNode.namespaceURI;
+          let target = e.target;
+          let record = new getRecord("attributes", target);
+          record.attributeName = name;
+          record.attributeNamespace = namespace;
+          let oldValue = e.attrChange === MutationEvent.ADDITION ? null : e.prevValue;
+          forEachAncestorAndObserverEnqueueRecord(target, function(options) {
+            if (!options.attributes) return;
+            if (options.attributeFilter && options.attributeFilter.length && options.attributeFilter.indexOf(name) === -1 && options.attributeFilter.indexOf(namespace) === -1) {
+              return;
+            }
+            if (options.attributeOldValue) return getRecordWithOldValue(oldValue);
+            return record;
+          });
+          break;
         }
-        var previousSibling = changedNode.previousSibling;
-        var nextSibling = changedNode.nextSibling;
-        var record = getRecord("childList", e.target.parentNode);
-        record.addedNodes = addedNodes;
-        record.removedNodes = removedNodes;
-        record.previousSibling = previousSibling;
-        record.nextSibling = nextSibling;
-        forEachAncestorAndObserverEnqueueRecord(e.relatedNode, function(options) {
-          if (!options.childList) return;
-          return record;
-        });
+        case "DOMCharacterDataModified": {
+          let target = e.target;
+          let record = getRecord("characterData", target);
+          let oldValue = e.prevValue;
+          forEachAncestorAndObserverEnqueueRecord(target, function(options) {
+            if (!options.characterData) return;
+            if (options.characterDataOldValue) return getRecordWithOldValue(oldValue);
+            return record;
+          });
+          break;
+        }
+        case "DOMNodeRemoved": {
+          this.addTransientObserver(e.target);
+          break;
+        }
+        case "DOMNodeInserted": {
+          let changedNode = e.target;
+          let addedNodes, removedNodes;
+          if (e.type === "DOMNodeInserted") {
+            addedNodes = [ changedNode ];
+            removedNodes = [];
+          } else {
+            addedNodes = [];
+            removedNodes = [ changedNode ];
+          }
+          let previousSibling = changedNode.previousSibling;
+          let nextSibling = changedNode.nextSibling;
+          let record = getRecord("childList", e.target.parentNode);
+          record.addedNodes = addedNodes;
+          record.removedNodes = removedNodes;
+          record.previousSibling = previousSibling;
+          record.nextSibling = nextSibling;
+          forEachAncestorAndObserverEnqueueRecord(e.relatedNode, function(options) {
+            if (!options.childList) return;
+            return record;
+          });
+        }
       }
       clearRecords();
     }
