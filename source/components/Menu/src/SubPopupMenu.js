@@ -78,7 +78,8 @@ export class SubPopupMenu extends React.Component {
     openAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     openKeys: PropTypes.arrayOf(PropTypes.string),
     visible: PropTypes.bool,
-    children: PropTypes.any,
+    // children: PropTypes.any,
+    children: PropTypes.node,
     parentMenu: PropTypes.object,
     eventKey: PropTypes.string,
     store: PropTypes.shape({

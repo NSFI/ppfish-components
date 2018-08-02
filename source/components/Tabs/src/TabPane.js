@@ -35,7 +35,8 @@ export default class TabPane extends React.Component {
 TabPane.propTypes = {
   className: PropTypes.string,
   active: PropTypes.bool,
-  style: PropTypes.any,
+  // style: PropTypes.any,
+  style: PropTypes.object,
   destroyInactiveTabPane: PropTypes.bool,
   forceRender: PropTypes.bool,
   placeholder: PropTypes.node,

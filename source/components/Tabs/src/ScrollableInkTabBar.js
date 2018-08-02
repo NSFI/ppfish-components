@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InkTabBarNode from './InkTabBarNode';
 import TabBarTabsNode from './TabBarTabsNode';
 import TabBarRootNode from './TabBarRootNode';
@@ -6,6 +7,10 @@ import ScrollableTabBarNode from './ScrollableTabBarNode';
 import SaveRef from './SaveRef';
 
 export default class ScrollableInkTabBar extends React.Component {
+  static propTypes = {
+    showInkBar: PropTypes.bool,
+  };
+
   render() {
     const { showInkBar } = this.props;
 

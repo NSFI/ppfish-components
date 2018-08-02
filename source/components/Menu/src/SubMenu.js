@@ -39,7 +39,8 @@ export class SubMenu extends React.Component {
   static propTypes = {
     parentMenu: PropTypes.object,
     title: PropTypes.node,
-    children: PropTypes.any,
+    // children: PropTypes.any,
+    children: PropTypes.node,
     selectedKeys: PropTypes.array,
     openKeys: PropTypes.array,
     onClick: PropTypes.func,

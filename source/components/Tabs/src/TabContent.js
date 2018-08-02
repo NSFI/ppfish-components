@@ -78,7 +78,8 @@ TabContent.propTypes = {
   prefixCls: PropTypes.string,
   children: PropTypes.node,
   activeKey: PropTypes.string,
-  style: PropTypes.any,
+  // style: PropTypes.any,
+  style: PropTypes.object,
   tabBarPosition: PropTypes.string,
 };
 
