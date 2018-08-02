@@ -578,7 +578,6 @@ render(){
 | key | 和 value 含义一致。如果 React 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string |  |
 | value | 值 | string\|number | - |
 | title | title值 | string | - |
-| onOptionClick | 未在Select.Children里使用的Select.Option,暴露此事件 | function(e,option:Option) | - |
 
 ### Select.OptGroup props
 

@@ -6,16 +6,17 @@ export default class Option extends React.Component {
   static isSelectOption = true;
 
   static propTypes = {
-    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    onOptionClick: PropTypes.func,
-    onOptionMouseEnter: PropTypes.func,
-    onOptionMouseLeave: PropTypes.func,
     prefixCls: PropTypes.string,
     title: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
+    // INTERNAL USE ONLY
+    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onOptionClick: PropTypes.func,
+    onOptionMouseEnter: PropTypes.func,
+    onOptionMouseLeave: PropTypes.func,
   };
 
   static defaultProps = {
@@ -55,7 +56,7 @@ export default class Option extends React.Component {
         title={title}
         onMouseEnter={this.onOptionMouseEnter}
         onMouseLeave={this.onOptionMouseLeave}
-        className={classNames(`${prefixCls}-item`, {[`${prefixCls}-item-disabled`]: !!disabled}, {[`checked`]: !!checked}, {[`active`]: activeKey == value},)}
+        className={classNames(`${prefixCls}-item`, {[`${prefixCls}-item-disabled`]: !!disabled}, {[`checked`]: !!checked}, {[`active`]: activeKey === value},)}
         onClick={(e) => this.onOptionClick(e, {label, title, key: value})}>
         {children}
       </li>
