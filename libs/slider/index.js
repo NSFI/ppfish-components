@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.less';
 import {Affix} from 'antd';
+import scrollIntoView from 'dom-scroll-into-view';
 //元素距顶部高度
 const getElementTop = (element) => {
   element = document.getElementById(element);
@@ -55,7 +56,10 @@ export default class Slider extends React.Component {
 
   clickLink = (e, id) => {
     e && e.preventDefault();
-    document.getElementById(id).scrollIntoView();
+    scrollIntoView(document.getElementById(id), window, {
+      offsetTop: 70,
+      alignWithTop: true
+    });
   };
 
   checkActiveAnchors = () => {
