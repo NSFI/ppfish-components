@@ -68,8 +68,10 @@
     line-height: 1;
     margin-top: -@font-size-sm / 2;
     transform-origin: 50% 50%;
-    color: @disabled-color;
     font-size: @font-size-sm;
+    // color: @disabled-color;
+    color: @text-9; // modified
+    transform: scale(0.8);  // add
 
     * {
       display: none;
@@ -347,10 +349,11 @@
       line-height: @input-height-base - 8px - 2px;
     }
 
+    // multiple select tag
     .@{select-prefix-cls}-selection__choice {
       color: @tag-default-color;
       background-color: @tag-default-bg;
-      border: 1px solid @border-color-split;
+      // border: 1px solid @border-color-split;
       border-radius: @border-radius-sm;
       cursor: default;
       float: left;
@@ -384,7 +387,8 @@
       font-weight: bold;
       transition: all .3s;
       font-size: @font-size-sm;
-      .iconfont-size-under-12px(10px);
+      .iconfont-size-under-12px(8px);
+      // transform: scale(0.7);
       position: absolute;
       right: 4px;
       &:hover {
@@ -413,7 +417,9 @@
       transform: rotate(180deg);
     }
     .@{select-prefix-cls}-selection {
-      .active();
+      // .active();
+      // border: @border-width-base @border-style-base @input-hover-border-color;
+      box-shadow: none;
     }
   }
 

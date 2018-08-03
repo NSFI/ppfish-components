@@ -31,6 +31,9 @@
 
   .@{select-prefix}-search__field:focus {
     border-color: @primary-color !important;
+    // box-shadow: @box-shadow-base;
+    // outline: 0;
+    box-shadow: 0 0 0 2px rgba(51, 126, 255, 0.2)
   }
 
   .dropdown-confirm {
@@ -96,6 +99,10 @@
   max-height: 89px;
 }
 
+.@{select-tree-ctner-prefix}.@{select-prefix}-open {
+  border-color: @input-hover-border-color;
+}
+
 .@{select-tree-ctner-prefix} {
   outline: none !important;
   user-select: none;
@@ -104,6 +111,7 @@
   box-sizing: border-box;
   border-radius: @border-radius-base;
   border: @border-width-base @border-style-base @border-color-base;
+
   // strange align fix for chrome but works
   // https://gw.alipayobjects.com/zos/rmsportal/VFTfKXJuogBAXcvfAUWJ.gif
   border-top-width: @border-width-base + 0.02px;
@@ -113,12 +121,14 @@
 
   &:hover {
     .hover;
+    box-shadow: none;
   }
 
   .@{select-prefix}-focused &,
   &:focus,
   &:active {
     .active;
+    box-shadow: none;
   }
 
   .hide {

@@ -50,7 +50,7 @@ class Selection extends React.Component {
         title={toTitle(label)}
       >
         <span
-          className={`${prefixCls}-selection__choice__remove fishdicon-close-tag-line`}
+          className={`${prefixCls}-selection__choice__remove fishdicon-close-modal-line`}
           onClick={this.onRemove}
         />
         <span className={`${prefixCls}-selection__choice__content`}>
