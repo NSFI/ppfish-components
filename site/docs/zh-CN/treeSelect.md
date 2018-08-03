@@ -15,7 +15,7 @@
   constructor(props) {
     super(props);
     this.state = {
-    	value: undefined,
+      value: undefined,
     }
   }
 
@@ -30,36 +30,41 @@
   render() {
     const TreeNode = TreeSelect.TreeNode;
     return (
-      <TreeSelect
-        showSearch
-        style={{ width: 300 }}
-        value={this.state.value}
-        dropdownStyle={{
-          width: 300
-        }}
-        treeDefaultExpandAll
-        onChange={this.onChange}
-        onReset={this.onReset}
-      >
-        <TreeNode value="parent 1" title="parent 1" key="0-1">
-          <TreeNode value="parent 1-0" title="parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0" key="0-1-1">
-            <TreeNode value="leaf1" title="my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1" key="random" />
-            <TreeNode value="leaf2" title="your leaf2" key="random1" />
+      <div>
+        <TreeSelect
+          showSearch
+          style={{ width: 300 }}
+          value={this.state.value}
+          dropdownStyle={{
+            width: 300
+          }}
+          treeNodeResetTitle={"请选择"}
+          treeDefaultExpandAll
+          onChange={this.onChange}
+          onReset={this.onReset}
+        >
+          <TreeNode value="parent 1" title="parent 1" key="0-1">
+            <TreeNode value="parent 1-0" title="parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0" key="0-1-1">
+              <TreeNode value="leaf1" title="my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1" key="random" />
+              <TreeNode value="leaf2" disabled title="your leaf2" key="random1" />
+            </TreeNode>
+            <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
+              <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+            </TreeNode>
           </TreeNode>
-          <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
-            <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+          <TreeNode value="parent 2" title="parent 2" key="1-1">
+            <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
+              <TreeNode value="leaf3" title="my leaf3" key="random4" />
+              <TreeNode value="leaf4" title="your leaf4" key="random5" />
+            </TreeNode>
+            <TreeNode value="parent 2-1" title="parent 2-1" key="random6">
+              <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random7" />
+            </TreeNode>
           </TreeNode>
-        </TreeNode>
-        <TreeNode value="parent 2" title="parent 2" key="1-1">
-          <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
-            <TreeNode value="leaf3" title="my leaf3" key="random4" />
-            <TreeNode value="leaf4" title="your leaf4" key="random5" />
-          </TreeNode>
-          <TreeNode value="parent 2-1" title="parent 2-1" key="random6">
-            <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random7" />
-          </TreeNode>
-        </TreeNode>
-      </TreeSelect>
+        </TreeSelect>
+        <br/>
+        <TreeSelect disabled style={{ width: 300 }}></TreeSelect>
+      </div>
     );
   }
 
@@ -68,7 +73,7 @@
 
 ## 无复位选项的单选
 
-:::demo 最简单的用法。
+:::demo 无复位选项的单选。
 
 ```js  
 
@@ -202,36 +207,37 @@
   }
 
   render() {
-		const treeData = [{
-			title: 'Node1',
-			value: '0-0',
-			key: '0-0',
-			children: [{
-				title: 'CNode1',
-				value: '0-0-0',
-				key: '0-0-0',
-			}, {
+    const treeData = [{
+      title: 'Node1',
+      value: '0-0',
+      key: '0-0',
+      children: [{
+        title: 'CNode1',
+        value: '0-0-0',
+        key: '0-0-0',
+      }, {
         title: 'Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2',
         value: '0-0-1',
         key: '0-0-1',
       }],
-		}, {
-			title: 'Node2',
-			value: '0-1',
-			key: '0-1',
-			children: [{
-				title: 'CNode3',
-				value: '0-1-0',
-				key: '0-1-0',
-			}, {
-				title: 'Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4',
-				value: '0-1-1',
-				key: '0-1-1',
-			}, {
-				title: 'CNode5',
-				value: '0-1-2',
-				key: '0-1-2',
-			}, {
+    }, {
+      title: 'Node2',
+      value: '0-1',
+      key: '0-1',
+      children: [{
+        title: 'CNode3',
+        value: '0-1-0',
+        key: '0-1-0',
+        disabled: true
+      }, {
+        title: 'Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4',
+        value: '0-1-1',
+        key: '0-1-1',
+      }, {
+        title: 'CNode5',
+        value: '0-1-2',
+        key: '0-1-2',
+      }, {
         title: 'Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6',
         value: '0-1-3',
         key: '0-1-3',
@@ -247,8 +253,16 @@
         title: 'Child Node9',
         value: '0-1-6',
         key: '0-1-6',
+      }, {
+        title: 'Child Node10',
+        value: '0-1-7',
+        key: '0-1-7',
+      }, {
+        title: 'Child Node11',
+        value: '0-1-8',
+        key: '0-1-8',
       }],
-		}];
+    }];
     const tProps = {
       showSearch: true,
       treeData,
@@ -264,7 +278,20 @@
         width: 300,
       }
     };
-    return <TreeSelect {...tProps} />;
+    const tPropsDisabled = {
+      disabled: true,
+      treeCheckable: true,
+      style: {
+        width: 300,
+      }
+    };
+    return (
+      <div>
+        <TreeSelect {...tProps} />
+        <br/>
+        <TreeSelect {...tPropsDisabled} />
+      </div>
+    );
   }
 ```
 :::

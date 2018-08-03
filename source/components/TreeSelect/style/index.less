@@ -86,24 +86,28 @@
   }
 }
 
+.@{select-prefix}-disabled {
+  overflow: hidden !important;
+}
+
+.@{select-prefix}-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 89px;
+}
+
 .@{select-tree-ctner-prefix} {
   outline: none !important;
   user-select: none;
   display: block;
 
   box-sizing: border-box;
-  background-color: @component-background;
   border-radius: @border-radius-base;
   border: @border-width-base @border-style-base @border-color-base;
   // strange align fix for chrome but works
   // https://gw.alipayobjects.com/zos/rmsportal/VFTfKXJuogBAXcvfAUWJ.gif
   border-top-width: @border-width-base + 0.02px;
   transition: all .3s @ease-in-out;
-
-  // Control overflow
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 89px;
 
   .scrollbar();
 

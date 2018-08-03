@@ -57,16 +57,18 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
       notFoundContent,
       dropdownStyle,
       dropdownClassName,
+      treeCheckable,
       ...restProps
     } = this.props;
 
     const cls = classNames({
       [`${prefixCls}-ctner`]: true,
+      [`${prefixCls}-scroll`]: (restProps.multiple || treeCheckable) && restProps.editable,
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-sm`]: size === 'small',
     }, className);
 
-    let checkable = restProps.treeCheckable;
+    let checkable = treeCheckable;
     if (checkable) {
       checkable = <span className={`${prefixCls}-tree-checkbox-inner`} />;
     }
