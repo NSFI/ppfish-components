@@ -12,7 +12,7 @@
 
 ## 分支管理
 
-新的开发周期开始后，从 master 分支切一个 feature 分支出来（比如 features-1.1 分支用来发布 1.1 版本）。 如果你要修一个 bug，那么请发 pull request 到 master；如果你要提一个增加新功能的 pull request，那么请基于 feature 分支来做。
+新的开发周期开始后，从 master 分支切一个 feature 分支出来（比如 feature-1.1 分支用来发布 1.1 版本）。 如果你要修一个 bug，那么请发 pull request 到 master；如果你要提一个增加新功能的 pull request，那么请基于 feature 分支来做。
 
 ## 开发流程
 

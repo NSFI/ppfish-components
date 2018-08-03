@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import warning from 'warning';
 
@@ -39,6 +40,21 @@ const Steps = ({ prefixCls, vertical, marks, dots, step, included,
   });
 
   return <div className={`${prefixCls}-step`}>{elements}</div>;
+};
+
+Steps.propTypes = {
+  prefixCls: PropTypes.string,
+  vertical: PropTypes.bool,
+  marks: PropTypes.object,
+  dots: PropTypes.bool,
+  step: PropTypes.number,
+  included: PropTypes.bool,
+  lowerBound: PropTypes.number,
+  upperBound: PropTypes.number,
+  max: PropTypes.number,
+  min: PropTypes.number,
+  dotStyle: PropTypes.object,
+  activeDotStyle: PropTypes.object,
 };
 
 export default Steps;

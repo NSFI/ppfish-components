@@ -14,7 +14,7 @@ export default class OptGroup extends React.Component {
 
   static defaultProps = {
     _isShow: true,
-    prefixCls: 'fishd-select-dropDown-option'
+    prefixCls: 'fishd-select-dropdown-option-group'
   };
 
   constructor(props) {
@@ -25,8 +25,8 @@ export default class OptGroup extends React.Component {
     const {children, label, prefixCls, _isShow} = this.props;
     if (_isShow) {
       return (
-        <div className={classNames(`${prefixCls}-group`)}>
-          <p className={`${prefixCls}-group-label`}>{label}</p>
+        <div className={classNames(`${prefixCls}`)}>
+          <p className={`${prefixCls}-label`}>{label}</p>
           {children}
         </div>
       );

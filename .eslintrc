@@ -45,6 +45,8 @@
     "import/extensions": 0,
     "import/default": 0,
     "import/namespace": 0,
+    "import/no-named-as-default": 0,
+    "import/no-named-as-default-member": 0,
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],
     "react/forbid-prop-types": [1, {"forbid": ["any"]}],
     "react/jsx-boolean-value": 0,

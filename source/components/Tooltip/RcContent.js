@@ -9,8 +9,8 @@ export default class RcContent extends React.Component {
       PropTypes.func,
     ]).isRequired,
     id: PropTypes.string,
-    trigger: PropTypes.any,
-  }
+    trigger: PropTypes.node,
+  };
 
   componentDidUpdate() {
     const { trigger } = this.props;

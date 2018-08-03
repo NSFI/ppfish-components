@@ -20,17 +20,17 @@ export default class Option extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'fishd-select-dropDown-option'
+    prefixCls: 'fishd-select-dropdown-option'
   };
 
   constructor(props) {
     super(props);
   }
 
-  onOptionClick = (e, optionObject) => {
+  onOptionClick = (e, option) => {
     const {disabled, onOptionClick} = this.props;
     if (!disabled) {
-      onOptionClick && onOptionClick(e, optionObject);
+      onOptionClick && onOptionClick(e, option);
     }
   };
 
@@ -51,12 +51,19 @@ export default class Option extends React.Component {
   render() {
     const {title, children, activeKey, value, disabled, checked, prefixCls} = this.props;
     const label = children && children.length === 1 ? children[0] : children;
+    const optionCls =
+      classNames(
+        {[`${prefixCls}-item`]: true},
+        {[`${prefixCls}-item-disabled`]: !!disabled},
+        {[`checked`]: !!checked},
+        {[`active`]: activeKey === value}
+      );
     return (
       <li
         title={title}
         onMouseEnter={this.onOptionMouseEnter}
         onMouseLeave={this.onOptionMouseLeave}
-        className={classNames(`${prefixCls}-item`, {[`${prefixCls}-item-disabled`]: !!disabled}, {[`checked`]: !!checked}, {[`active`]: activeKey === value},)}
+        className={optionCls}
         onClick={(e) => this.onOptionClick(e, {label, title, key: value})}>
         {children}
       </li>

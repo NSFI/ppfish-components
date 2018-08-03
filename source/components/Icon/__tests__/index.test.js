@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'enzyme';
-import Icon from '..';
+import Icon from '../index.tsx';
 
 describe('Icon', () => {
   it('should render to a <i class="xxx"></i>', () => {

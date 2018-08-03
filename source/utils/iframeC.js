@@ -10,7 +10,7 @@ let _iframeC=function (p){
         _PM=_PWin.$forIFR;
       }
     }catch(e){
-
+      // do nothing
     }
     let _execMethod=function(name,query){
       if(_PM){
@@ -27,7 +27,7 @@ let _iframeC=function (p){
             name=name+"_"+_cbnamexds[_cbnamexds_index];
             _cbnamexds_index++;
             _W._MsgCBS[name]=cb;
-            
+
          }else{
            _W._MsgCBS[name]=cb;
          }
@@ -49,7 +49,7 @@ let _iframeC=function (p){
     p.openSelectKefu=function(query,cb){
       _addToCBS("openSelectKefu_cb",query,cb);
       _execMethod("openSelectKefu",query);
-     
+
     };
     p.openMulSelectKefu=function(query,cb){
       _addToCBS("openMulSelectKefu_cb",query,cb);
@@ -83,7 +83,7 @@ let _iframeC=function (p){
     };
     let receiveMessage=function(event){
       let data=event.data||{};//必须含method,params属性
-      let fromOrigin = event.origin || event.originalEvent.origin; 
+      let fromOrigin = event.origin || event.originalEvent.origin;
       let fromWin=event.source;
       let bkfn=_W._MsgCBS[data.type||data.method];
       if(bkfn){

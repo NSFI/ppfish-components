@@ -11,12 +11,10 @@ const noop = () => {
 export default class LoadMore extends React.Component {
   static propTypes = {
     onLoadMore: PropTypes.func,
-    loading: PropTypes.bool,
-    loadError: PropTypes.bool,
-    loadEnd: PropTypes.bool,
-    normalText: PropTypes.string,
+    status: PropTypes.string,
+    defaultText: PropTypes.string,
     loadingText: PropTypes.string,
-    failedText: PropTypes.string,
+    errorText: PropTypes.string,
     endText: PropTypes.string,
     extraCls: PropTypes.string,
     buttonSize: PropTypes.string,
@@ -24,14 +22,12 @@ export default class LoadMore extends React.Component {
 
   static defaultProps = {
     onLoadMore: noop,
-    loading: false,
-    loadError: false,
-    loadEnd: false,
-    normalText: '查看更多',
+    status: 'default',
+    defaultText: '查看更多',
     loadingText: '加载中',
-    failedText: '加载失败，请重试',
+    errorText: '加载失败，请重试',
     endText: '没有更多了',
-    buttonSize: 'large',
+    buttonSize: 'default',
   };
 
   constructor(props) {
@@ -39,20 +35,28 @@ export default class LoadMore extends React.Component {
   }
 
   render() {
-    const {normalText, onLoadMore, buttonSize, loading, loadError, loadingText, failedText, loadEnd, extraCls} = this.props;
+    const {defaultText, onLoadMore, status, buttonSize, loadingText, errorText, endText, extraCls, ...otherProps} = this.props;
     let buttonText;
-    if (loadError) {
-      buttonText = failedText;
-    } else if (loading) {
-      buttonText = loadingText;
-    } else {
-      buttonText = normalText;
+    switch (status) {
+      case 'default':
+        buttonText = defaultText;
+        break;
+      case 'loading':
+        buttonText = loadingText;
+        break;
+      case 'error':
+        buttonText = errorText;
+        break;
+      case 'end':
+        buttonText = endText;
     }
     return (
       <div className={classNames('m-loadmore', {[`${extraCls}`]: !!extraCls})}>
-        {loadEnd ?
-          <span>没有更多了</span> :
-          <Button type="primary" size={buttonSize} onClick={onLoadMore} loading={loading}>{buttonText}</Button>
+        {status === 'end' ?
+          <span className="z-load-end">{endText}</span> :
+          <Button size={buttonSize} onClick={onLoadMore} loading={status === 'loading'} {...otherProps}>
+            {buttonText}
+          </Button>
         }
       </div>
     );
