@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
+import Animate from 'rc-animate';
 import scrollIntoView from 'dom-scroll-into-view';
 import classNames from 'classnames';
 import Button from '../Button/index.tsx';
@@ -317,7 +318,6 @@ export default class Select extends React.Component {
             onChange(this.state.selectValue.map(selected => selected.key));
           }
         }
-        this.resizeTrigger();
       });
     }
     //fire onSelect event => option/label click
@@ -445,8 +445,6 @@ export default class Select extends React.Component {
             } else if (mode === 'multiple') {
               this.setState({
                 selectValue: [...selectValue, optionList[activeTabIndex]]
-              }, () => {
-                this.resizeTrigger();
               });
             }
           }
@@ -697,7 +695,8 @@ export default class Select extends React.Component {
                 // 4.label.click事件
                 mode === 'multiple' && (
                   labelClear ?
-                    <div className={`${selectionCls}-option-clearable-list`}>
+                    <Animate onEnd={this.resizeTrigger} component="div" transitionName="zoom"
+                             className={`${selectionCls}-option-clearable-list`}>
                       {
                         selectValueForMultiplePanel.map(option =>
                           <div className={`${selectionCls}-option-clearable-option`}
@@ -712,7 +711,7 @@ export default class Select extends React.Component {
                           </div>
                         )
                       }
-                    </div> :
+                    </Animate> :
                     <div className={`${selectionCls}-option-multiple`}>
                       {
                         selectValueForMultiplePanel.map((option, index) =>
