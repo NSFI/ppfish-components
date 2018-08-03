@@ -24,7 +24,7 @@ export default class DateRangeBasePicker extends Component {
       endPlaceholder: PropTypes.string,
       rangeSeparator: PropTypes.string,
       format: PropTypes.string,
-      align: PropTypes.oneOf(['left', 'right']),
+      align: PropTypes.oneOf(['left']),
       isShowTrigger: PropTypes.bool,
       isAllowClear: PropTypes.bool,
       isDisabled: PropTypes.bool,

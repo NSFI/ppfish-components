@@ -12,6 +12,20 @@ DateUtils.i18n = {
   monthNames: months.map((month, index) => t(`el.datepicker.month${ index + 1 }`))
 };
 
+// 月份数组
+export const MONTH_ARRRY = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+
+// 年份数组
+export const YEARS_ARRAY = (N=50) => {
+  const result = [];
+  const currentYearNum = (new Date()).getFullYear();
+  const start = Math.max(currentYearNum - parseInt(N / 2), 0);
+  for(let i = 0; i < N; i++) {
+    result.push(start + i);
+  }
+  return result;
+};
+
 const newArray = function (start, end) {
   let result = [];
   for (let i = start; i <= end; i++) {
@@ -25,28 +39,58 @@ export const equalDate = function (dateA, dateB) {
   return dateA === dateB || new Date(dateA).getTime() === new Date(dateB).getTime();
 };
 
+// 判断两个日期的年\月是否相等
+export const equalYearAndMonth = function (dateA, dateB) {
+  return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth();
+};
+
 // Date对象
 export const toDate = function(date) {
   return isValidValue(date) ? new Date(date) : null;
 };
 
+// 判断值的合法性：Date或[Date,Date]合法
 export const isValidValue = (value) => {
   if (value instanceof Date) return true;
   if (Array.isArray(value) && value.length !== 0 && value[0] instanceof Date) return true;
   return false;
 };
 
-// format Date对象
+// Date对象->string
 export const formatDate = function (date, format) {
   date = toDate(date);
   if (!date) return '';
   return DateUtils.format(date, format || 'yyyy-MM-dd');
 };
 
-// 将string format成Date对象
+// string->Date对象
 export const parseDate = function (string, format) {
   return DateUtils.parse(string, format || 'yyyy-MM-dd');
 };
+
+// 只改变date的时间，不改变日期
+export const setTime = (date, value) => {
+  let oldDate = new Date(date.getTime());
+  let hour = value.getHours();
+  let minute = value.getMinutes();
+  let second = value.getSeconds();
+  oldDate.setHours(hour);
+  oldDate.setMinutes(minute);
+  oldDate.setSeconds(second);
+  return new Date(oldDate.getTime());
+}
+
+// 只改变date的日期，不改变时间
+export const setDate = (date, value) => {
+  let oldDate = new Date(date.getTime());
+  let hour = oldDate.getHours();
+  let minute = oldDate.getMinutes();
+  let second = oldDate.getSeconds();
+  value.setHours(hour);
+  value.setMinutes(minute);
+  value.setSeconds(second);
+  return new Date(value.getTime());
+}
 
 export const getDayCountOfMonth = function (year, month) {
   if (month === 3 || month === 5 || month === 8 || month === 10) {
@@ -122,6 +166,18 @@ export function getDateOfISOWeek(w, y) {
     ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
   return ISOweekStart;
 }
+
+export const prevYear = (date) => {
+  let d = toDate(date);
+  d.setFullYear(date.getFullYear() - 1);
+  return d;
+};
+
+export const nextYear = (date) => {
+  let d = toDate(date);
+  d.setFullYear(date.getFullYear() + 1);
+  return d;
+};
 
 export const prevMonth = function (src) {
   const year = src.getFullYear();
@@ -225,7 +281,6 @@ export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss
   return false;
 };
 
-
 export function hasClass(target, classname) {
   return target.classList.contains(classname);
 }
@@ -245,20 +300,6 @@ export function deconstructDate(date) {
     week: getWeekNumber(date)
   };
 }
-
-// 月份数组
-export const MONTH_ARRRY = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-
-// 年份数组
-export const YEARS_ARRAY = (N=50) => {
-  const result = [];
-  const currentYearNum = (new Date()).getFullYear();
-  const start = Math.max(currentYearNum - parseInt(N / 2), 0);
-  for(let i = 0; i < N; i++) {
-    result.push(start + i);
-  }
-  return result;
-};
 
 // 判断输入值的合法性
 export const isInputValid = (parseable) => {

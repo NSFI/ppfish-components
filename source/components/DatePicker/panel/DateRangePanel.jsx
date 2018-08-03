@@ -3,130 +3,193 @@ import PropTypes from 'prop-types';
 import { PopperBase } from './PopperBase';
 import { DateTable } from '../basic';
 import Input from '../../Input';
+import Icon from '../../Icon/index.tsx';
 import TimePicker from '../TimePicker';
 import YearAndMonthPopover from './YearAndMonthPopover';
-import { SELECTION_MODES, toDate, prevMonth, nextMonth, formatDate, parseDate, MONTH_ARRRY, YEARS_ARRAY, isInputValid, isValidValue } from '../utils';
-import { PLACEMENT_MAP, DEFAULT_FORMATS, TYPE_VALUE_RESOLVER_MAP } from '../constants';
+import {
+  SELECTION_MODES,
+  toDate,
+  prevYear,
+  nextYear,
+  prevMonth,
+  nextMonth,
+  formatDate,
+  parseDate,
+  MONTH_ARRRY,
+  YEARS_ARRAY,
+  isValidValue,
+  setDate,
+  equalYearAndMonth
+} from '../utils';
 import Locale from '../locale';
 
-const prevYear = (date) => {
-  let d = toDate(date);
-  d.setFullYear(date.getFullYear() - 1);
-  return d;
-};
+const isInputValid = (text, date, disabledDate) => {
+  if(text.trim() === '' || !isValidValue(date) || typeof disabledDate === 'function' && disabledDate(date)) return false;
+  return true;
+}
 
-const nextYear = (date) => {
-  let d = toDate(date);
-  d.setFullYear(date.getFullYear() + 1);
-  return d;
-};
-
-const dateToStr = (date) => {
-  if (!date || !isValidValue(date)) return '';
-  const tdate = date;
-  const formatter = (
-    TYPE_VALUE_RESOLVER_MAP['date']
-  ).formatter;
-  const result = formatter(tdate, DEFAULT_FORMATS['date']);
-  return result;
+const setRightDate = (dateA, dateB) => {
+  if(equalYearAndMonth(dateA,dateB)){
+    return nextMonth(dateB);
+  }else{
+    return dateB
+  }
 }
 
 export default class DateRangePanel extends PopperBase {
   static get propTypes() {
     return Object.assign({
-      // user picked date value
-      /*
-      value: null | [Date, null | false]
-      */
-      value: PropTypes.any,
-      // ([value1, value2]|null, isKeepPanel)=>()
-      onPick: PropTypes.func.isRequired,
-      onCancelPicked: PropTypes.func.isRequired,
+      value: PropTypes.array,
       isShowTime: PropTypes.bool,
-      // Array[{text: String, onClick: (picker)=>()}]
+      format: PropTypes.string,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
           text: PropTypes.string.isRequired,
           onClick: PropTypes.func.isRequired
         })
       ),
-      // (Date)=>bool, if true, disabled
+      shortcutsPlacement: PropTypes.string,
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.range(0, 6),
       getPopperRefElement: PropTypes.func,
-      popperMixinOption: PropTypes.object
+      popperMixinOption: PropTypes.object,
+      onPick: PropTypes.func.isRequired,
+      onCancelPicked: PropTypes.func.isRequired,
     }, PopperBase.propTypes)
+  }
+
+  static get defaultProps() {
+    return {
+      value: null,
+      isShowTime: false,
+      shortcutsPlacement: 'left',
+      firstDayOfWeek: 0
+    }
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      ...{
-        minTimePickerVisible: false,
-        maxTimePickerVisible: false,
-        minPickerWidth: 0,    // not used in code right now, due to some reason, for more details see comments in DatePannel that marked with todo.
-        maxPickerWidth: 0,
+      rangeState: {
+        endDate: null,
+        selecting: false,
       },
-      ...this.mapPropsToState(props)
+      minTimePickerVisible: false,
+      maxTimePickerVisible: false,
+      leftDate: isValidValue(props.value) ? props.value[0] : new Date(),
+      rightDate: isValidValue(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date()),
+      minDate: isValidValue(props.value) ? toDate(props.value[0]) : null,
+      maxDate: isValidValue(props.value) ? toDate(props.value[1]) : null,
+      minDateInputText: isValidValue(props.value) ? formatDate(props.value[0], this.dateFormat) : '',
+      maxDateInputText: isValidValue(props.value) ? formatDate(props.value[1], this.dateFormat) : '',
+      minTimeInputText: isValidValue(props.value) ? toDate(props.value[0]) : null,
+      maxTimeInputText: isValidValue(props.value) ? toDate(props.value[1]) : null,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.mapPropsToState(nextProps))
+    const value = nextProps.value;
+    if (value && isValidValue(value)){
+      this.setState({
+        minDate: toDate(nextProps.value[0]),
+        maxDate: toDate(nextProps.value[1]),
+        // leftDate: toDate(nextProps.value[0]),
+        // rightDate:  setRightDate(nextProps.value[0], nextProps.value[1])
+      });
+    }
   }
 
-  mapPropsToState = (props) => {
-    const { value, format, isShowTime } = props;
-    let state = {
-      rangeState: {
-        endDate: null,
-        selecting: false,
+  get timeFormat() {
+    let {format} = this.props;
+    if (format && format.indexOf('ss') === -1) {
+      return 'HH:mm'
+    } else {
+      return 'HH:mm:ss'
+    }
+  }
+
+  get dateFormat(){
+    if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim();
+    else return 'yyyy-MM-dd'
+  };
+
+  //todo: wired way to do sth like this? try to come up with a better option
+  handleChangeRange({ endDate }) {
+    const { rangeState, minDate } = this.state;
+    if (endDate <= minDate) endDate = null;
+
+    rangeState.endDate = endDate;
+    this.setState({
+      maxDate: endDate,
+    })
+  }
+
+  // 日期时间都选择，确定按钮才可点击
+  btnDisabled = () => {
+    const {minDate, maxDate, minDateInputText, maxDateInputText, minTimeInputText, maxTimeInputText} = this.state;
+    return !(minDate && maxDate && minDateInputText && maxDateInputText && minTimeInputText && maxTimeInputText);
+  }
+
+  // 开始日期或结束日期发生改变
+  handleDateInputChange(e, type) {
+    const {disabledDate} = this.props;
+    const {minDate, maxDate} = this.state;
+    const text = type === 'min' ? 'minDateInputText' : 'maxDateInputText';
+    const value = type === 'min' ? 'minDate' : 'maxDate';
+    const dateValue = type === 'min' ? 'leftDate' : 'rightDate';
+    const stateDate = type === 'min' ? minDate : maxDate;
+
+    const inputText = e.target.value;
+    const ndate = parseDate(inputText, this.dateFormat);
+    if (!isInputValid(inputText, ndate, disabledDate)) {
+      this.setState({
+        [text]: inputText,
+      })
+    } else {//only set value on a valid date input
+      this.setState({
+        [text]: inputText,
+        [value]: setDate(stateDate, ndate), // 日期变化的时候，时间保持不变,
+        [dateValue]: ndate,
+      })
+    }
+  }
+
+  // 开始时间或结束时间发生改变
+  handleTimeInputChange(value, type) {
+    const { minDate, maxDate } = this.state;
+    if (value) {
+      const target = type === 'min' ? minDate : maxDate;
+      if (target) {
+        target.setHours(value.getHours());
+        target.setMinutes(value.getMinutes());
+        target.setSeconds(value.getSeconds());
       }
-    };
-    if (!value) {
-      state = {
-        ...state,
-        ...{
-          minDate: null,
-          maxDate: null,
-          minDateText: '',
-          maxDateText: '',
-          leftDate: new Date(),
-          rightDate: nextMonth(new Date())
+      if (type === 'min') {
+        if (target < maxDate) {
+          this.setState({
+            minDate: new Date(target.getTime()),
+            minDateInputText: formatDate(new Date(target.getTime())),
+            minTimeInputText: new Date(target.getTime()),
+            [`${type}TimpickerVisisble`]: false,
+          })
+        }
+      } else {
+        if (target > minDate) {
+          this.setState({
+            maxDate: new Date(target.getTime()),
+            maxDateInputText: formatDate(new Date(target.getTime())),
+            maxTimeInputText: new Date(target.getTime()),
+            [`${type}TimpickerVisisble`]: false
+          })
         }
       }
-    } else {
-      if (value[0] && value[1]) {
-        state.minDate = toDate(value[0]);
-        state.maxDate = toDate(value[1]);
-        state.minDateText = dateToStr(toDate(value[0]));
-        state.maxDateText = dateToStr(toDate(value[1]));
-      }
-      if (value[0]) {
-        state.leftDate = toDate(value[0]);
-        state.rightDate = nextMonth(toDate(value[0]));
-      } else {
-        state.leftDate = new Date();
-        state.rightDate = nextMonth(new Date());
-      }
     }
-
-    return state;
   }
 
-  handleRangePick({ minDate, maxDate }, isClose) {
-    const { isShowTime, onPick } = this.props;
-    this.setState({
-      minDate,
-      maxDate,
-      minDateText: dateToStr(minDate),
-      maxDateText: dateToStr(maxDate)
-    });
-    if (!isClose) return;
-    if (!isShowTime) {
-      onPick([minDate, maxDate], false, true)
-    }
+  // 点击快捷选项
+  handleShortcutClick(shortcut) {
+    shortcut.onClick();
   }
 
   prevYear(type, date) {
@@ -193,174 +256,38 @@ export default class DateRangePanel extends PopperBase {
     }
   }
 
-  // 点击改变年份
+  // 切换年份
   handleChangeYear(type, date, year) {
     this.setState({
       [type]: new Date(date.setFullYear(year)),
     })
   }
 
+  // 切换月份
   handleChangeMonth(type, date, month){
     this.setState({
       [type]: new Date((date.setMonth(parseInt(month.slice(0,-1)) - 1)))
     })
   }
 
-  //todo: wired way to do sth like this? try to come up with a better option
-  handleChangeRange({ endDate }) {
-    const { rangeState, minDate } = this.state;
-    if (endDate <= minDate) endDate = null;
-
-    rangeState.endDate = endDate;
+  // 点击日期
+  handleRangePick({ minDate, maxDate }, isClose) {
+    const { isShowTime, onPick } = this.props;
     this.setState({
-      maxDate: endDate,
-    })
-  }
-
-  // 点击快捷选项
-  handleShortcutClick(shortcut) {
-    shortcut.onClick();
-  }
-
-  // get minVisibleDate() {
-  //   let { minDate } = this.state;
-  //   return minDate ? formatDate(minDate) : ''
-  // }
-  //
-  // get maxVisibleDate() {
-  //   let { maxDate, minDate } = this.state;
-  //   let d = maxDate || minDate;
-  //   return d ? formatDate(d) : ''
-  // }
-  //
-  // get minVisibleTime() {
-  //   let { minDate } = this.state;
-  //   return minDate ? formatDate(minDate, 'HH:mm:ss') : ''
-  // }
-  //
-  // get maxVisibleTime() {
-  //   let { maxDate, minDate } = this.state;
-  //   let d = maxDate || minDate;
-  //   return d ? formatDate(d, 'HH:mm:ss') : ''
-  // }
-
-  get btnDisabled() {
-    let {minDate, maxDate, rangeState: { selecting }} = this.state;
-    return !(minDate && maxDate && !selecting);
-  }
-
-  setTime(date, value) {
-    let oldDate = new Date(date.getTime());
-    let hour = value.getHours();
-    let minute = value.getMinutes();
-    let second = value.getSeconds();
-    oldDate.setHours(hour);
-    oldDate.setMinutes(minute);
-    oldDate.setSeconds(second);
-    return new Date(oldDate.getTime());
-  }
-
-  // 确定选择的开始时间
-  handleMinTimePick(pickedDate, isKeepPanel) {
-    let minDate = this.state.minDate || new Date();
-    if (pickedDate) {
-      minDate = this.setTime(minDate, pickedDate);
+      minDate: setDate(new Date(this.state.minDate), new Date(minDate)), // 日期变化，时间不变
+      maxDate: setDate(new Date(this.state.maxDate), new Date(maxDate)),
+      minDateInputText: formatDate(minDate),
+      maxDateInputText: formatDate(maxDate),
+    });
+    if (!isClose) return;
+    if (!isShowTime) {
+      onPick([minDate, maxDate], false, true)
     }
-    this.setState({minDate, minTimePickerVisible: isKeepPanel})
-  }
-
-  // 取消选择的开始时间
-  handleMinTimeCancelPick = () => {
-    this.setState({ minTimePickerVisible: false });
-    //this.props.onCancelPicked();
-  }
-
-  // 确定选择的结束时间
-  handleMaxTimePick(pickedDate, isKeepPanel) {
-    let {minDate, maxDate} = this.state;
-    if (!maxDate) {
-      const now = new Date();
-      if (now >= minDate) {
-        maxDate = new Date();
-      }
-    }
-
-    if (maxDate && pickedDate) {
-      maxDate = this.setTime(maxDate, pickedDate);
-    }
-    this.setState({
-      maxDate,
-      maxTimePickerVisible: isKeepPanel,
-    })
-  }
-
-  // 取消选择的结束时间
-  handleMaxTimeCancelPick = () => {
-    this.setState({ maxTimePickerVisible: false });
-    //this.props.onCancelPicked();
-  }
-
-  // 开始日期或结束日期发生改变
-  handleDateChange(e, type) {
-    const iptxt = e.target.value;
-    const text = type === 'min' ? 'minDateText' : 'maxDateText';
-    const value = type === 'min' ? 'minDate' : 'maxDate';
-    const dateValue = type === 'min' ? 'leftDate' : 'rightDate';
-    if (iptxt.trim() === '' || !isInputValid(iptxt, parseDate(iptxt))) {
-      this.setState({
-        [text]: iptxt,
-      })
-    } else {//only set value on a valid date input
-      this.setState({
-        [text]: iptxt,
-        [value]: parseDate(iptxt),
-        [dateValue]: parseDate(iptxt),
-      })
-    }
-  }
-
-  // 开始时间或结束时间发生改变
-  handleTimeChange(value, type) {
-    const { minDate, maxDate } = this.state;
-    if (value) {
-      const target = new Date(type === 'min' ? minDate : maxDate);
-      if (target) {
-        target.setHours(value.getHours());
-        target.setMinutes(value.getMinutes());
-        target.setSeconds(value.getSeconds());
-      }
-      if (type === 'min') {
-        if (target < maxDate) {
-          this.setState({
-            minDate: new Date(target.getTime()),
-            [`${type}TimpickerVisisble`]: false
-          })
-        }
-      } else {
-        if (target > minDate) {
-          this.setState({
-            maxDate: new Date(target.getTime()),
-            [`${type}TimpickerVisisble`]: false
-          })
-        }
-      }
-    }
-  }
-
-  // 点击清空按钮
-  handleClear = () => {
-    let {onPick} = this.props;
-    let minDate = null,
-      maxDate = null,
-      date = new Date();
-
-    this.setState({minDate, maxDate, date});
-    onPick([], false)
   }
 
   // 点击确定按钮
   handleConfirm = () => {
-    let {minDate, maxDate} = this.state;
+    const { minDate, maxDate } = this.state;
     this.props.onPick([minDate, maxDate], false, true);
   }
 
@@ -370,8 +297,20 @@ export default class DateRangePanel extends PopperBase {
   }
 
   render() {
-    const { shortcuts, disabledDate, firstDayOfWeek, isShowTime } = this.props;
-    const { leftDate, rightDate, rangeState, minDate, minDateText, maxDate, maxDateText, minTimePickerVisible, maxTimePickerVisible, minPickerWidth, maxPickerWidth } = this.state;
+    const { shortcuts, shortcutsPlacement, disabledDate, firstDayOfWeek, isShowTime } = this.props;
+    const {
+      rangeState,
+      minTimePickerVisible,
+      maxTimePickerVisible,
+      leftDate,
+      rightDate,
+      minDate,
+      maxDate,
+      minDateInputText,
+      maxDateInputText,
+      minTimeInputText,
+      maxTimeInputText
+    } = this.state;
 
     const t = Locale.t;
 
@@ -379,13 +318,13 @@ export default class DateRangePanel extends PopperBase {
       <div
         ref="root"
         className={this.classNames('el-picker-panel el-date-range-picker', {
-          'has-sidebar': shortcuts,
+          'has-sidebar': shortcuts && shortcutsPlacement === 'left',
           'has-time': isShowTime
         })}
       >
         <div className="el-picker-panel__body-wrapper">
           {
-            Array.isArray(shortcuts) && (
+            shortcutsPlacement === 'left' && Array.isArray(shortcuts) && (
               <div className="el-picker-panel__sidebar">
                 {
                   shortcuts.map((e, idx) => {
@@ -411,8 +350,8 @@ export default class DateRangePanel extends PopperBase {
                         ref="minInput"
                         placeholder={Locale.t('el.datepicker.startDate')}
                         className="el-date-range-picker__editor"
-                        value={minDateText}
-                        onChange={value => this.handleDateChange(value, 'min')}
+                        value={minDateInputText}
+                        onChange={value => this.handleDateInputChange(value, 'min')}
                       />
                     </span>
                     <span className="el-date-range-picker__time-picker-wrap">
@@ -421,13 +360,13 @@ export default class DateRangePanel extends PopperBase {
                         className="el-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
-                        value={minDate}
+                        value={minTimeInputText}
                         onFocus={()=>{
                           this.setState({
                             minTimePickerVisible: !minTimePickerVisible
                           })
                         }}
-                        onChange={value => this.handleTimeChange(value, 'min')}
+                        onChange={value => this.handleTimeInputChange(value, 'min')}
                       />
                     </span>
                   </span>
@@ -437,9 +376,9 @@ export default class DateRangePanel extends PopperBase {
                       <Input
                         placeholder={Locale.t('el.datepicker.endDate')}
                         className="el-date-range-picker__editor"
-                        value={maxDateText}
+                        value={maxDateInputText}
                         readOnly={!minDate}
-                        onChange={value => this.handleDateChange(value, 'max')}
+                        onChange={value => this.handleDateInputChange(value, 'max')}
                       />
                     </span>
                     <span className="el-date-range-picker__time-picker-wrap">
@@ -448,13 +387,13 @@ export default class DateRangePanel extends PopperBase {
                         className="el-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
-                        value={maxDate}
+                        value={maxTimeInputText}
                         onFocus={()=>{
                           this.setState({
                             maxTimePickerVisible: !maxTimePickerVisible
                           })
                         }}
-                        onChange={value => this.handleTimeChange(value, 'max')}
+                        onChange={value => this.handleTimeInputChange(value, 'max')}
                       />
                     </span>
                   </span>
@@ -463,16 +402,16 @@ export default class DateRangePanel extends PopperBase {
             }
             <div className="el-picker-panel__content el-date-range-picker__content is-left">
               <div className="el-date-range-picker__header">
-                <button
-                  type="button"
+                <Icon
+                  type="left-double"
                   onClick={this.prevYear.bind(this, 'leftDate', leftDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-d-arrow-left">
-                </button>
-                <button
-                  type="button"
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                </Icon>
+                <Icon
+                  type="left"
                   onClick={this.prevMonth.bind(this, 'leftDate', leftDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
-                </button>
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                </Icon>
                 <YearAndMonthPopover
                   value={leftDate.getFullYear()}
                   sourceData={YEARS_ARRAY()}
@@ -487,16 +426,16 @@ export default class DateRangePanel extends PopperBase {
                 >
                   <span className="el-date-range-picker__header-label">{t(`el.datepicker.month${leftDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
-                <button
-                  type="button"
+                <Icon
+                  type="right-double"
                   onClick={this.handleLeftNextYear}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-d-arrow-right">
-                </button>
-                <button
-                  type="button"
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                </Icon>
+                <Icon
+                  type="right"
                   onClick={this.handleLeftNextMonth}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-arrow-right">
-                </button>
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                </Icon>
               </div>
               <DateTable
                 selectionMode={SELECTION_MODES.RANGE}
@@ -513,16 +452,16 @@ export default class DateRangePanel extends PopperBase {
             </div>
             <div className="el-picker-panel__content el-date-range-picker__content is-right">
               <div className="el-date-range-picker__header">
-                <button
-                  type="button"
+                <Icon
+                  type="left-double"
                   onClick={this.handleRightPrevYear}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-d-arrow-left">
-                </button>
-                <button
-                  type="button"
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                </Icon>
+                <Icon
+                  type="left"
                   onClick={this.handleRightPrevMonth}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn el-icon-arrow-left">
-                </button>
+                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                </Icon>
                 <YearAndMonthPopover
                   value={rightDate.getFullYear()}
                   sourceData={YEARS_ARRAY()}
@@ -537,16 +476,16 @@ export default class DateRangePanel extends PopperBase {
                 >
                   <span className="el-date-range-picker__header-label">{t(`el.datepicker.month${rightDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
-                <button
-                  type="button"
+                <Icon
+                  type="right-double"
                   onClick={this.nextYear.bind(this, 'rightDate', rightDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-d-arrow-right">
-                </button>
-                <button
-                  type="button"
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                </Icon>
+                <Icon
+                  type="right"
                   onClick={this.nextMonth.bind(this, 'rightDate', rightDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn el-icon-arrow-right">
-                </button>
+                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                </Icon>
               </div>
               <DateTable
                 selectionMode={SELECTION_MODES.RANGE}
@@ -573,9 +512,9 @@ export default class DateRangePanel extends PopperBase {
               </button>
               <button
                 type="button"
-                className="el-picker-panel__btn confirm"
+                className={this.className("el-picker-panel__btn", "confirm", {'disabled': this.btnDisabled()})}
                 onClick={this.handleConfirm}
-                disabled={this.btnDisabled}>{ Locale.t('el.datepicker.confirm') }
+                disabled={this.btnDisabled()}>{ Locale.t('el.datepicker.confirm') }
               </button>
             </div>
           )

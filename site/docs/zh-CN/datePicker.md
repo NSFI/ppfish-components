@@ -455,11 +455,9 @@ render() {
 | isDisabled | 是否禁用 | boolean | - | false |
 | isShowTime | 是否显示时间选择器 | boolean | - | false |
 | disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
-| value | - | Date/null/[Date,Date] | — | - |
 | firstDayOfWeek | 周起始日 | Number | 0 到 6 | 0 |
 | shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
-| shortcutsPlacement | 快捷选项的位置 | string | 'left', 'top' | 'left' |
-| showWeekNumber | 是否展示周数 | boolean | - | false |
+| shortcutsPlacement | 快捷选项的位置 | string | 'left' | 'left' |
 | onFocus | focus 事件触发 | (SyntheticEvent)=>() | - | - |
 | onBlur | blur 事件触发 | (SyntheticEvent)=>() | - | - |
 | onChange | 确认选定的值时触发 | func:(value)=>() | - | - |
@@ -468,11 +466,14 @@ render() {
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | placeholder | 占位内容 | string | - | - |
+| value | - | Date/null | — | null |
 | selectionMode | 日期类型 | string, one of ['week', 'day'] | - | 'day' |
+| showWeekNumber | 是否展示周数 | boolean | - | false |
 
 ## DateRangePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| startPlaceholder | 开始日期的占位内容 | string | - | '选择开始日期' |
-| endPlaceholder | 结束日期的占位内容 | string | - | '选择结束日期' |
+| startPlaceholder | 开始日期的占位内容 | string | - | '开始日期' |
+| endPlaceholder | 结束日期的占位内容 | string | - | '结束日期' |
+| value | - | [Date,Date]/null | — | null |
 | rangeSeparator | 分隔符 | string | - | ' 至 ' |
