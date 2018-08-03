@@ -269,9 +269,23 @@ export default class DateTable extends Component {
   }
 
   handleClick(event) {
-    let target = event.target.parentNode.parentNode;
+    const getTarget = () => {
+      const tag = event.target.tagName;
+      if(tag === 'SPAN') {
+        return event.target.parentNode.parentNode;
+      }
+      if(tag === 'DIV') {
+        return event.target.parentNode;
+      }
 
-    if (target.tagName !== 'TD') return;
+      if(tag === 'TD') {
+        return event.target
+      }
+      return null;
+    }
+    let target = getTarget();
+
+    if (!target) return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
 
     const {selectionMode, date, onPick, minDate, maxDate, rangeState, } = this.props;
