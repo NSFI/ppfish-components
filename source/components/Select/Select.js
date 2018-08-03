@@ -316,7 +316,7 @@ export default class Select extends React.Component {
         });
       } else if (typeof c === 'object' && c.type.isSelectOptGroup) {
         return React.cloneElement(c, {
-          prefixCls: `${dropdownCls}-option`,
+          prefixCls: `${dropdownCls}-option-group`,
           children: this.getProcessedChildren(c.props.children, dropdownCls),
         });
       } else {
