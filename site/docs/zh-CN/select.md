@@ -576,12 +576,12 @@ render(){
 | --- | --- | --- | --- |
 | disabled | 是否禁用 | boolean | false |
 | key | 和 value 含义一致。如果 React 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string |  |
-| value | 值 | string\|number | - |
+| value | - | string\|number | - |
 | title | title值 | string | - |
 
 ### Select.OptGroup props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| key | string | - | 无 |
+| key | - | string | 无 |
 | label | 组名 | string\|React.Element | 无 |
