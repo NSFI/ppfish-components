@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { render, mount } from 'enzyme';
-import Button from '..';
-import Icon from '../../Icon';
+import Button from '../index.tsx';
+import Icon from '../../Icon/index.tsx';
 
 describe('Button', () => {
   it('renders correctly', () => {
@@ -136,3 +137,4 @@ describe('Button', () => {
     expect(wrapper2).toMatchSnapshot();
   });
 });
+/* eslint-enable */

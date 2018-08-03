@@ -9,6 +9,8 @@ import './VideoViewer.less';
 /**
  * 视频查看器组件
  * @prop {node} children   视频播放器节点
+ * @prop {bool} wrapClassName  模态框class
+ * @prop {bool} maskStyle      遮罩样式
  * @prop {bool} visible       模态框是否可见
  * @prop {bool} draggable       模态框是否支持拖动
  * @prop {bool} mask     模态框关闭的遮罩是否可见
@@ -19,6 +21,8 @@ import './VideoViewer.less';
 class VideoViewer extends Component {
   static propTypes = {
     children: PropTypes.node,
+    wrapClassName: PropTypes.string,
+    maskStyle: PropTypes.object,
     visible: PropTypes.bool.isRequired,
     draggable: PropTypes.bool,
     mask: PropTypes.bool,

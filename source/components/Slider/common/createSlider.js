@@ -23,7 +23,7 @@ export default function createSlider(Component) {
       className: PropTypes.string,
       prefixCls: PropTypes.string,
       disabled: PropTypes.bool,
-      children: PropTypes.any,
+      children: PropTypes.node,
       onBeforeChange: PropTypes.func,
       onChange: PropTypes.func,
       onAfterChange: PropTypes.func,

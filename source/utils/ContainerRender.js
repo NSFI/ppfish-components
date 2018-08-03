@@ -8,7 +8,7 @@ export default class ContainerRender extends React.Component {
     autoDestroy: PropTypes.bool,
     visible: PropTypes.bool,
     forceRender: PropTypes.bool,
-    parent: PropTypes.any,
+    parent: PropTypes.node,
     getComponent: PropTypes.func.isRequired,
     getContainer: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired,

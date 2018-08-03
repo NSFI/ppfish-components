@@ -143,7 +143,7 @@ describe('<Modal />', () => {
       visible: true,
     });
     $(".inputElem")[0].value = "test";
-    expect($(".inputElem")[0].value).toBe("test")
+    expect($(".inputElem")[0].value).toBe("test");
     wrapper.setState({
       visible: false,
     });
@@ -151,7 +151,7 @@ describe('<Modal />', () => {
     wrapper.setState({
       visible: true,
     });
-    expect($(".inputElem")[0].value).toBe("")
+    expect($(".inputElem")[0].value).toBe("");
   });
 
 

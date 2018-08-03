@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Popover from '..';
+import Popover from '../index.tsx';
 
 describe('Popover', () => {
   it('should show overlay when trigger is clicked', () => {

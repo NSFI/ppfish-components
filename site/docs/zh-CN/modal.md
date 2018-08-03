@@ -369,9 +369,9 @@ render(){
 success=()=> {
   const modal = Modal.success({
     title: 'This is a notification message',
-    content: 'This modal will be destroyed after 1 second',
+    content: 'This modal will be destroyed after 3 second',
   });
-  setTimeout(() => modal.destroy(), 1000);
+  setTimeout(() => modal.destroy(), 3000);
 }
 
 render(){
@@ -480,6 +480,14 @@ render(){
  margin-right:8px;
 }
 </style>
+
+## 拖动支持
+配合使用react-draggable支持拖动。
+```
+render {
+  return <Draggable><Modal></Draggable>;
+}
+```
 
 ## API
 

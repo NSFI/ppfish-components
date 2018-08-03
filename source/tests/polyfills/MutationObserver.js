@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * @license
  * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
@@ -350,3 +351,4 @@ module.exports = function(global) {
     JsMutationObserver._isPolyfilled = true;
   }
 };
+/* eslint-enable */
