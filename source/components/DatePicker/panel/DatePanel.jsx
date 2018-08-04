@@ -185,9 +185,15 @@ export default class DatePanel extends PopperBase {
   }
 
   // 日期时间都选择，确定按钮才可点击
-  btnDisabled = () => {
+  confirmBtnDisabled = () => {
     const {date, dateInputText, timeInputText} = this.state;
     return !(date && dateInputText && timeInputText);
+  }
+
+  // 未选择日期时，时间不可选
+  timePickerDisable = () => {
+    const {date, dateInputText} = this.state;
+    return !(date && dateInputText);
   }
 
   // 日期变化
@@ -379,6 +385,7 @@ export default class DatePanel extends PopperBase {
                       className="fishd-date-range-picker__editor"
                       isShowTrigger={false}
                       isAllowClear={false}
+                      isDisabled={this.timePickerDisable()}
                       value={timeInputText}
                       onFocus={()=> this.setState({timePickerVisible: !this.state.timePickerVisible})}
                       onChange={this.handleTimeInputChange}
@@ -462,9 +469,9 @@ export default class DatePanel extends PopperBase {
               </button>
               <button
                 type="button"
-                className={this.className("fishd-picker-panel__btn", "confirm", {'disabled': this.btnDisabled()})}
+                className={this.className("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
-                disabled={this.btnDisabled()}>{t('fishd.datepicker.confirm')}
+                disabled={this.confirmBtnDisabled()}>{t('fishd.datepicker.confirm')}
               </button>
             </div>
           )

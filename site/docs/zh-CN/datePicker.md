@@ -25,6 +25,10 @@
   
     return (
       <DatePicker
+        format="yyyy-MM"
+        align="right"
+        isShowTrigger={false}
+        isAllowClear={false}
         value={value}
         placeholder="请选择日期"
         onChange={this.handleValueChange}
@@ -449,7 +453,6 @@ render() {
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss` | yyyy-MM-dd |
-| align | 对齐方式 | string | 'left', 'right' | 'left' |
 | isShowTrigger | 是否显示前缀图标 | boolean | - | true |
 | isAllowClear | 是否显示清除按钮 | boolean | - | true |
 | isDisabled | 是否禁用 | boolean | - | false |
@@ -466,14 +469,13 @@ render() {
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | placeholder | 占位内容 | string | - | - |
-| value | - | Date/null | — | null |
+| value | - | Date | Date/null | null |
 | selectionMode | 日期类型 | string, one of ['week', 'day'] | - | 'day' |
-| showWeekNumber | 是否展示周数 | boolean | - | false |
 
 ## DateRangePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | startPlaceholder | 开始日期的占位内容 | string | - | '开始日期' |
 | endPlaceholder | 结束日期的占位内容 | string | - | '结束日期' |
-| value | - | [Date,Date]/null | — | null |
+| value | - | array | [Date,Date]/null | null |
 | rangeSeparator | 分隔符 | string | - | ' 至 ' |

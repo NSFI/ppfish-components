@@ -126,9 +126,15 @@ export default class DateRangePanel extends PopperBase {
   }
 
   // 日期时间都选择，确定按钮才可点击
-  btnDisabled = () => {
+  confirmBtnDisabled = () => {
     const {minDate, maxDate, minDateInputText, maxDateInputText, minTimeInputText, maxTimeInputText} = this.state;
     return !(minDate && maxDate && minDateInputText && maxDateInputText && minTimeInputText && maxTimeInputText);
+  }
+
+  // 未选择日期时，时间不可选
+  timePickerDisable = () => {
+    const {minDate, maxDate, minDateInputText, maxDateInputText} = this.state;
+    return !(minDate && maxDate && minDateInputText && maxDateInputText);
   }
 
   // 开始日期或结束日期发生改变
@@ -360,6 +366,7 @@ export default class DateRangePanel extends PopperBase {
                         className="fishd-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
+                        isDisabled={this.timePickerDisable()}
                         value={minTimeInputText}
                         onFocus={()=>{
                           this.setState({
@@ -387,6 +394,7 @@ export default class DateRangePanel extends PopperBase {
                         className="fishd-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
+                        isDisabled={this.timePickerDisable()}
                         value={maxTimeInputText}
                         onFocus={()=>{
                           this.setState({
@@ -512,9 +520,9 @@ export default class DateRangePanel extends PopperBase {
               </button>
               <button
                 type="button"
-                className={this.className("fishd-picker-panel__btn", "confirm", {'disabled': this.btnDisabled()})}
+                className={this.className("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
-                disabled={this.btnDisabled()}>{ Locale.t('fishd.datepicker.confirm') }
+                disabled={this.confirmBtnDisabled()}>{ Locale.t('fishd.datepicker.confirm') }
               </button>
             </div>
           )
