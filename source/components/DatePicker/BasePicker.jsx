@@ -9,12 +9,16 @@ import { Component } from './libs';
 import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isValidValue, isInputValid, valueEquals } from './utils';
+import { isValidValue } from './utils';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
 };
+const isInputValid = (text, date) => {
+  if(text.trim() === '' || !isValidValue(date)) return false;
+  return true;
+}
 
 export default class BasePicker extends Component {
 
@@ -328,14 +332,18 @@ export default class BasePicker extends Component {
           onBlur={this.handleBlur}
           onKeyDown={this.handleKeydown}
           onChange={e => {
-            const iptxt = e.target.value;
-            const nstate = { text: iptxt };
-            if (iptxt.trim() === '' || !isInputValid(this.parseDate(iptxt))) {
-              nstate.value = null
+            const inputValue = e.target.value;
+            const ndate = this.parseDate(inputValue);
+            if (!isInputValid(inputValue, ndate)) {
+              this.setState({
+                text: inputValue
+              })
             } else {//only set value on a valid date input
-              nstate.value = this.parseDate(iptxt);
+              this.setState({
+                text: inputValue,
+                value: ndate
+              })
             }
-            this.setState(nstate)
           }}
           ref="inputRoot"
           value={text}

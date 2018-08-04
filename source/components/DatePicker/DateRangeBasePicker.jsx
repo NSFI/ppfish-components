@@ -9,12 +9,16 @@ import { Component } from './libs';
 import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isValidValue, isInputValid, valueEquals } from './utils';
+import { isValidValue } from './utils';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
 };
+const isInputValid = (text, date) => {
+  if(text.trim() === '' || !isValidValue(date)) return false;
+  return true;
+}
 
 export default class DateRangeBasePicker extends Component {
 
@@ -325,14 +329,15 @@ export default class DateRangeBasePicker extends Component {
             onKeyDown={this.handleKeydown}
             onChange={e => {
               const inputValue = e.target.value;
-              if (inputValue.trim() === '' || !isInputValid(this.parseDate(inputValue))) {
+              const ndate = this.parseDate(inputValue);
+              if (!isInputValid(inputValue, ndate)) {
                 this.setState({
                   text: [inputValue, this.state.text[1]],
                 })
               } else {//only set value on a valid date input
                 this.setState({
                   text: [inputValue, this.state.text[1]],
-                  value: [this.parseDate(inputValue), this.state.value[1]],
+                  value: [ndate, this.state.value[1]],
                 })
               }
             }}
@@ -350,14 +355,15 @@ export default class DateRangeBasePicker extends Component {
             onKeyDown={this.handleKeydown}
             onChange={e => {
               const inputValue = e.target.value;
-              if (inputValue.trim() === '' || !isInputValid(this.parseDate(inputValue))) {
+              const ndate = this.parseDate(inputValue);
+              if (!isInputValid(inputValue, ndate)) {
                 this.setState({
                   text: [this.state.text[0], inputValue],
                 })
               } else {//only set value on a valid date input
                 this.setState({
                   text: [this.state.text[0], inputValue],
-                  value: [this.state.value[0], this.parseDate(inputValue)],
+                  value: [this.state.value[0], ndate],
                 })
               }
             }}

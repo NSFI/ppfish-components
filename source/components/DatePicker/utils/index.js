@@ -301,19 +301,6 @@ export function deconstructDate(date) {
   };
 }
 
-// 判断输入值的合法性
-export const isInputValid = (parseable) => {
-  if (!parseable) {
-    return false;
-  }
-
-  const isdatevalid = isValidValue(parseable);
-  if (!isdatevalid) {
-    return false;
-  }
-  return true;
-};
-
 // only considers date-picker's value: Date or [Date, Date]
 export const valueEquals = function (a, b) {
   const aIsArray = Array.isArray(a);
