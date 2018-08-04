@@ -37,13 +37,13 @@ export default class MonthTable extends Component {
     const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
     return (
-      <table onClick={this.handleMonthTableClick.bind(this)} className="el-month-table">
+      <table onClick={this.handleMonthTableClick.bind(this)} className="fishd-month-table">
         <tbody>
         {
           months.map((key, idx) => {
             return (
               <td className={this.classNames(this.getCellStyle(idx))} key={idx}>
-                <a className="cell">{$t(`el.datepicker.months.${key}`)}</a>
+                <a className="cell">{$t(`fishd.datepicker.months.${key}`)}</a>
               </td>
             )
           }).reduce((col, item) => {

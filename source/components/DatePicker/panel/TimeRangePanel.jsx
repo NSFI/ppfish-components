@@ -157,17 +157,17 @@ export default class TimeRangePanel extends PopperBase {
     return (
       <div
         ref="root"
-        className="el-time-range-picker el-picker-panel"
+        className="fishd-time-range-picker fishd-picker-panel"
         style={{ minWidth: '330px' }}
       >
-        <div className="el-time-range-picker__content">
-          <div className="el-time-range-picker__cell">
-            <div className="el-time-range-picker__header">
-              {$t('el.datepicker.startTime')}
+        <div className="fishd-time-range-picker__content">
+          <div className="fishd-time-range-picker__cell">
+            <div className="fishd-time-range-picker__header">
+              {$t('fishd.datepicker.startTime')}
             </div>
             <div
               className={this.classNames(
-                'el-time-range-picker__body el-time-panel__content',
+                'fishd-time-range-picker__body fishd-time-panel__content',
                 { 'has-seconds': isShowSeconds }
               )}
             >
@@ -183,13 +183,13 @@ export default class TimeRangePanel extends PopperBase {
               />
             </div>
           </div>
-          <div className="el-time-range-picker__cell">
-            <div className="el-time-range-picker__header">
-              {$t('el.datepicker.endTime')}
+          <div className="fishd-time-range-picker__cell">
+            <div className="fishd-time-range-picker__header">
+              {$t('fishd.datepicker.endTime')}
             </div>
             <div
               className={this.classNames(
-                'el-time-range-picker__body el-time-panel__content',
+                'fishd-time-range-picker__body fishd-time-panel__content',
                 { 'has-seconds': isShowSeconds }
               )}
             >
@@ -207,21 +207,21 @@ export default class TimeRangePanel extends PopperBase {
             </div>
           </div>
         </div>
-        <div className="el-time-panel__footer">
+        <div className="fishd-time-panel__footer">
           <button
             type="button"
-            className="el-time-panel__btn cancel"
+            className="fishd-time-panel__btn cancel"
             onClick={this.handleCancel}
           >
-            {$t('el.datepicker.cancel')}
+            {$t('fishd.datepicker.cancel')}
           </button>
           <button
             type="button"
-            className="el-time-panel__btn confirm"
+            className="fishd-time-panel__btn confirm"
             onClick={() => this.handleConfirm(false, true)}
             disabled={btnDisabled}
           >
-            {$t('el.datepicker.confirm')}
+            {$t('fishd.datepicker.confirm')}
           </button>
         </div>
       </div>

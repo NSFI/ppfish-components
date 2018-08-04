@@ -308,7 +308,7 @@ export default class BasePicker extends Component {
 
     return (
       <span
-        className={this.classNames('el-date-editor', {
+        className={this.classNames('fishd-date-editor', {
           'is-have-trigger': this.calcIsShowTrigger(),
           'is-active': pickerVisible,
           'is-filled': !!value
@@ -324,7 +324,7 @@ export default class BasePicker extends Component {
           func={this.handleClickOutside} />
 
         <Input
-          className={this.classNames(`el-date-editor el-date-editor--${this.type}`)}
+          className={this.classNames(`fishd-date-editor fishd-date-editor--${this.type}`)}
           disabled={isDisabled}
           type="text"
           placeholder={placeholder}

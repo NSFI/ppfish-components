@@ -304,7 +304,7 @@ export default class DateRangeBasePicker extends Component {
 
     return (
       <span
-        className={this.classNames('el-date-editor', {
+        className={this.classNames('fishd-date-editor', {
           'is-have-trigger': calcIsShowTrigger(),
           'is-active': pickerVisible,
           'is-filled': !!value
@@ -319,7 +319,7 @@ export default class DateRangeBasePicker extends Component {
           eventName="click"
           func={this.handleClickOutside}
         />
-        <div className={this.classNames(`el-date-editor--${this.type}`)}>
+        <div className={this.classNames(`fishd-date-editor--${this.type}`)}>
           <Input
             disabled={isDisabled}
             type="text"

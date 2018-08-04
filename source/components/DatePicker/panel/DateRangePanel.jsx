@@ -317,22 +317,22 @@ export default class DateRangePanel extends PopperBase {
     return (
       <div
         ref="root"
-        className={this.classNames('el-picker-panel el-date-range-picker', {
+        className={this.classNames('fishd-picker-panel fishd-date-range-picker', {
           'has-sidebar': shortcuts && shortcutsPlacement === 'left',
           'has-time': isShowTime
         })}
       >
-        <div className="el-picker-panel__body-wrapper">
+        <div className="fishd-picker-panel__body-wrapper">
           {
             shortcutsPlacement === 'left' && Array.isArray(shortcuts) && (
-              <div className="el-picker-panel__sidebar">
+              <div className="fishd-picker-panel__sidebar">
                 {
                   shortcuts.map((e, idx) => {
                     return (
                       <button
                         key={idx}
                         type="button"
-                        className="el-picker-panel__shortcut"
+                        className="fishd-picker-panel__shortcut"
                         onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
                     )
                   })
@@ -340,24 +340,24 @@ export default class DateRangePanel extends PopperBase {
               </div>
             )
           }
-          <div className="el-picker-panel__body">
+          <div className="fishd-picker-panel__body">
             {
               isShowTime && (
-                <div className="el-date-range-picker__time-header">
-                  <span className="el-date-range-picker__editors-wrap is-left">
-                    <span className="el-date-range-picker__time-picker-wrap">
+                <div className="fishd-date-range-picker__time-header">
+                  <span className="fishd-date-range-picker__editors-wrap is-left">
+                    <span className="fishd-date-range-picker__time-picker-wrap">
                       <Input
                         ref="minInput"
-                        placeholder={Locale.t('el.datepicker.startDate')}
-                        className="el-date-range-picker__editor"
+                        placeholder={Locale.t('fishd.datepicker.startDate')}
+                        className="fishd-date-range-picker__editor"
                         value={minDateInputText}
                         onChange={value => this.handleDateInputChange(value, 'min')}
                       />
                     </span>
-                    <span className="el-date-range-picker__time-picker-wrap">
+                    <span className="fishd-date-range-picker__time-picker-wrap">
                       <TimePicker
-                        placeholder={Locale.t('el.datepicker.startTime')}
-                        className="el-date-range-picker__editor"
+                        placeholder={Locale.t('fishd.datepicker.startTime')}
+                        className="fishd-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
                         value={minTimeInputText}
@@ -370,21 +370,21 @@ export default class DateRangePanel extends PopperBase {
                       />
                     </span>
                   </span>
-                  <span className="el-icon-arrow-right" />
-                  <span className="el-date-range-picker__editors-wrap is-right">
-                    <span className="el-date-range-picker__time-picker-wrap">
+                  <span className="fishd-icon-arrow-right" />
+                  <span className="fishd-date-range-picker__editors-wrap is-right">
+                    <span className="fishd-date-range-picker__time-picker-wrap">
                       <Input
-                        placeholder={Locale.t('el.datepicker.endDate')}
-                        className="el-date-range-picker__editor"
+                        placeholder={Locale.t('fishd.datepicker.endDate')}
+                        className="fishd-date-range-picker__editor"
                         value={maxDateInputText}
                         readOnly={!minDate}
                         onChange={value => this.handleDateInputChange(value, 'max')}
                       />
                     </span>
-                    <span className="el-date-range-picker__time-picker-wrap">
+                    <span className="fishd-date-range-picker__time-picker-wrap">
                       <TimePicker
-                        placeholder={Locale.t('el.datepicker.endTime')}
-                        className="el-date-range-picker__editor"
+                        placeholder={Locale.t('fishd.datepicker.endTime')}
+                        className="fishd-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
                         value={maxTimeInputText}
@@ -400,41 +400,41 @@ export default class DateRangePanel extends PopperBase {
                 </div>
               )
             }
-            <div className="el-picker-panel__content el-date-range-picker__content is-left">
-              <div className="el-date-range-picker__header">
+            <div className="fishd-picker-panel__content fishd-date-range-picker__content is-left">
+              <div className="fishd-date-range-picker__header">
                 <Icon
                   type="left-double"
                   onClick={this.prevYear.bind(this, 'leftDate', leftDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <Icon
                   type="left"
                   onClick={this.prevMonth.bind(this, 'leftDate', leftDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <YearAndMonthPopover
                   value={leftDate.getFullYear()}
                   sourceData={YEARS_ARRAY()}
                   onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className="el-date-range-picker__header-label">{`${leftDate.getFullYear()} ${t('el.datepicker.year')}`}</span>
+                  <span className="fishd-date-range-picker__header-label">{`${leftDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={leftDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className="el-date-range-picker__header-label">{t(`el.datepicker.month${leftDate.getMonth() + 1}`)}</span>
+                  <span className="fishd-date-range-picker__header-label">{t(`fishd.datepicker.month${leftDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
                   onClick={this.handleLeftNextYear}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
                 <Icon
                   type="right"
                   onClick={this.handleLeftNextMonth}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
               </div>
               <DateTable
@@ -450,41 +450,41 @@ export default class DateRangePanel extends PopperBase {
                 firstDayOfWeek={firstDayOfWeek}
               />
             </div>
-            <div className="el-picker-panel__content el-date-range-picker__content is-right">
-              <div className="el-date-range-picker__header">
+            <div className="fishd-picker-panel__content fishd-date-range-picker__content is-right">
+              <div className="fishd-date-range-picker__header">
                 <Icon
                   type="left-double"
                   onClick={this.handleRightPrevYear}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <Icon
                   type="left"
                   onClick={this.handleRightPrevMonth}
-                  className="el-picker-panel__icon-btn el-date-range-picker__prev-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <YearAndMonthPopover
                   value={rightDate.getFullYear()}
                   sourceData={YEARS_ARRAY()}
                   onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className="el-date-range-picker__header-label">{`${rightDate.getFullYear()} ${t('el.datepicker.year')}`}</span>
+                  <span className="fishd-date-range-picker__header-label">{`${rightDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={rightDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className="el-date-range-picker__header-label">{t(`el.datepicker.month${rightDate.getMonth() + 1}`)}</span>
+                  <span className="fishd-date-range-picker__header-label">{t(`fishd.datepicker.month${rightDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
                   onClick={this.nextYear.bind(this, 'rightDate', rightDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
                 <Icon
                   type="right"
                   onClick={this.nextMonth.bind(this, 'rightDate', rightDate)}
-                  className="el-picker-panel__icon-btn el-date-range-picker__next-btn">
+                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
               </div>
               <DateTable
@@ -504,17 +504,17 @@ export default class DateRangePanel extends PopperBase {
         </div>
         {
           isShowTime && (
-            <div className="el-picker-panel__footer">
+            <div className="fishd-picker-panel__footer">
               <button
                 type="button"
-                className="el-picker-panel__btn cancel"
-                onClick={this.handleCancel}>{ Locale.t('el.datepicker.cancel') }
+                className="fishd-picker-panel__btn cancel"
+                onClick={this.handleCancel}>{ Locale.t('fishd.datepicker.cancel') }
               </button>
               <button
                 type="button"
-                className={this.className("el-picker-panel__btn", "confirm", {'disabled': this.btnDisabled()})}
+                className={this.className("fishd-picker-panel__btn", "confirm", {'disabled': this.btnDisabled()})}
                 onClick={this.handleConfirm}
-                disabled={this.btnDisabled()}>{ Locale.t('el.datepicker.confirm') }
+                disabled={this.btnDisabled()}>{ Locale.t('fishd.datepicker.confirm') }
               </button>
             </div>
           )

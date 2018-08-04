@@ -6,10 +6,10 @@ const weeks = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 DateUtils.i18n = {
-  dayNamesShort: weeks.map(week => t(`el.datepicker.weeks.${ week }`)),
-  dayNames: weeks.map(week => t(`el.datepicker.weeks.${ week }`)),
-  monthNamesShort: months.map(month => t(`el.datepicker.months.${ month }`)),
-  monthNames: months.map((month, index) => t(`el.datepicker.month${ index + 1 }`))
+  dayNamesShort: weeks.map(week => t(`fishd.datepicker.weeks.${ week }`)),
+  dayNames: weeks.map(week => t(`fishd.datepicker.weeks.${ week }`)),
+  monthNamesShort: months.map(month => t(`fishd.datepicker.months.${ month }`)),
+  monthNames: months.map((month, index) => t(`fishd.datepicker.month${ index + 1 }`))
 };
 
 // 月份数组

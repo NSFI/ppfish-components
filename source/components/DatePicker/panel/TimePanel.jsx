@@ -125,8 +125,8 @@ export default class TimePanel extends PopperBase {
     return (
       <div
         ref="root"
-        className="el-picker-panel el-time-panel">
-        <div className={this.classNames('el-time-panel__content', { 'has-seconds': isShowSeconds })}>
+        className="fishd-picker-panel fishd-time-panel">
+        <div className={this.classNames('fishd-time-panel__content', { 'has-seconds': isShowSeconds })}>
           <TimeSpinner
             ref="spinner"
             isShowSeconds={isShowSeconds}
@@ -138,15 +138,15 @@ export default class TimePanel extends PopperBase {
             onChange={this.handleChange}
           />
         </div>
-        <div className="el-time-panel__footer">
+        <div className="fishd-time-panel__footer">
           <div>
             {
               isShowCurrent ?
                 <button
                   type="button"
                   disabled={currentButtonDisabled}
-                  className={this.className('el-time-panel__btn confirm', {'disabled' : currentButtonDisabled})}
-                  onClick={this.handleCurrent}>{$t('el.datepicker.now')}
+                  className={this.className('fishd-time-panel__btn confirm', {'disabled' : currentButtonDisabled})}
+                  onClick={this.handleCurrent}>{$t('fishd.datepicker.now')}
                 </button>
                 :
                 null
@@ -155,14 +155,14 @@ export default class TimePanel extends PopperBase {
           <div>
             <button
               type="button"
-              className="el-time-panel__btn cancel"
-              onClick={this.handleCancel}>{$t('el.datepicker.cancel')}
+              className="fishd-time-panel__btn cancel"
+              onClick={this.handleCancel}>{$t('fishd.datepicker.cancel')}
             </button>
             <button
               type="button"
               disabled={confirmButtonDisabled}
-              className={this.className('el-time-panel__btn confirm', {'disabled' : confirmButtonDisabled})}
-              onClick={() => this.handleConfirm(false, true)}>{$t('el.datepicker.confirm')}
+              className={this.className('fishd-time-panel__btn confirm', {'disabled' : confirmButtonDisabled})}
+              onClick={() => this.handleConfirm(false, true)}>{$t('fishd.datepicker.confirm')}
             </button>
           </div>
         </div>

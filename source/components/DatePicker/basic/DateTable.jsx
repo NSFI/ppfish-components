@@ -356,13 +356,13 @@ export default class DateTable extends Component {
         cellPadding="0"
         onClick={this.handleClick.bind(this)}
         onMouseMove={this.handleMouseMove.bind(this)}
-        className={this.classNames('el-date-table', { 'is-week-mode': selectionMode === 'week' })}>
+        className={this.classNames('fishd-date-table', { 'is-week-mode': selectionMode === 'week' })}>
         <tbody>
 
         <tr>
           {showWeekNumber && <th>周</th>}
           {
-            this.WEEKS().map((e, idx)=> <th key={idx}>{$t(`el.datepicker.weeks.${e}`)}</th> )
+            this.WEEKS().map((e, idx)=> <th key={idx}>{$t(`fishd.datepicker.weeks.${e}`)}</th> )
           }
         </tr>
 
@@ -371,7 +371,7 @@ export default class DateTable extends Component {
             return (
               <tr
                 key={idx}
-                className={this.classNames('el-date-table__row', { 'current': row.isWeekActive })}>
+                className={this.classNames('fishd-date-table__row', { 'current': row.isWeekActive })}>
                 {
                   row.map((cell, idx) => (
                     <td className={this.getCellClasses(cell)} key={idx}>

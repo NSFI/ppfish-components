@@ -92,7 +92,7 @@ export class Scrollbar extends Component {
     }
 
     const view = React.createElement(viewComponent, {
-      className: this.classNames('el-scrollbar__view', viewClass),
+      className: this.classNames('fishd-scrollbar__view', viewClass),
       style: viewStyle,
       ref: 'resize'
     }, children);
@@ -106,7 +106,7 @@ export class Scrollbar extends Component {
           key={0}
           style={style}
           onScroll={this.handleScroll.bind(this)}
-          className={this.classNames(wrapClass, 'el-scrollbar__wrap', gutter ? '' : 'el-scrollbar__wrap--hidden-default')}
+          className={this.classNames(wrapClass, 'fishd-scrollbar__wrap', gutter ? '' : 'fishd-scrollbar__wrap--hidden-default')}
         >
           {view}
         </div>
@@ -123,7 +123,7 @@ export class Scrollbar extends Component {
             {...others}
             key={0}
             ref="wrap"
-            className={this.classNames(wrapClass, 'el-scrollbar__wrap')}
+            className={this.classNames(wrapClass, 'fishd-scrollbar__wrap')}
             style={style}>
             {view}
           </div>
@@ -131,7 +131,7 @@ export class Scrollbar extends Component {
       ]
     }
 
-    return React.createElement('div', {className: this.classNames('el-scrollbar', className)}, nodes)
+    return React.createElement('div', {className: this.classNames('fishd-scrollbar', className)}, nodes)
   }
 }
 

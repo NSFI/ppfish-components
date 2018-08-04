@@ -40,14 +40,14 @@ export default class YearAndMonthPopover extends React.Component {
     const content = () => {
       return (
         <div
-          className="el-year-and-month-popover"
+          className="fishd-year-and-month-popover"
         >
           {
             sourceData.map((item) => {
             return (
               <li
                 className={classnames({
-                  'el-year-and-month-popover-item': true,
+                  'fishd-year-and-month-popover-item': true,
                   'active': value == item || typeof item === 'string' && item.slice(-1) == '月' && value == item.slice(0,-1)
                 })}
                 key={item}
