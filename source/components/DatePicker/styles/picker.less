@@ -22,6 +22,7 @@
       min-width: 400px;
       border: 1px solid @border-color-base;
       display: flex;
+      // 清除2个Input的样式
       .fishd-input {
         border: 0;
         min-width: 193px;
@@ -38,6 +39,13 @@
           background-color: #F2F2F5;
           cursor: not-allowed;
         }
+      }
+      &.is-active {
+        border: 1px solid #5c9dff;
+      }
+      &:hover:not(.disabled) {
+        border-color: #5c9dff;
+        transition: all .3s;
       }
     }
 

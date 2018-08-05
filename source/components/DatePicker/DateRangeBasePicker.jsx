@@ -319,7 +319,7 @@ export default class DateRangeBasePicker extends Component {
           eventName="click"
           func={this.handleClickOutside}
         />
-        <div className={this.classNames(`fishd-date-editor--${this.type}`)}>
+        <div className={this.classNames(`fishd-date-editor--${this.type}`,{'is-active': pickerVisible, 'disabled': isDisabled})}>
           <Input
             disabled={isDisabled}
             type="text"

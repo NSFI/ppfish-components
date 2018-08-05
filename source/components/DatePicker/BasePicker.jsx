@@ -321,7 +321,8 @@ export default class BasePicker extends Component {
           id={this.clickOutsideId}
           target={document}
           eventName="click"
-          func={this.handleClickOutside} />
+          func={this.handleClickOutside}
+        />
 
         <Input
           className={this.classNames(`fishd-date-editor fishd-date-editor--${this.type}`)}

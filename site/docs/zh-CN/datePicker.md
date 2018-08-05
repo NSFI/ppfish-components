@@ -25,10 +25,6 @@
   
     return (
       <DatePicker
-        format="yyyy-MM"
-        align="right"
-        isShowTrigger={false}
-        isAllowClear={false}
         value={value}
         placeholder="请选择日期"
         onChange={this.handleValueChange}
@@ -137,16 +133,15 @@ constructor(props) {
 }
 
 render() {
-  const {value2} = this.state;
+  const {value1, value2} = this.state;
 
   return (
     <div className="source">
       <div className="block">
-        <span className="demonstration">带快捷选项</span>
+        <span className="demonstration">左侧自定义</span>
         <DatePicker
           ref={e=>this.datepicker2 = e}
           value={value2}
-          align="left"
           placeholder="选择日期"
           onChange={date=>{
             console.debug('DatePicker2 changed: ', date)
@@ -176,6 +171,7 @@ render() {
               this.datepicker2.togglePickerVisible()
             }
           }]}
+          shortcutsPlacement="left"
           />
       </div>
     </div>
