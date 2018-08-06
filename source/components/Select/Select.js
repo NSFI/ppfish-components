@@ -9,7 +9,7 @@ import Button from '../Button/index.tsx';
 import Spin from '../Spin/index.tsx';
 import Icon from '../Icon/index.tsx';
 import SelectSearch from './SelectSearch';
-import {placements} from './placements';
+import placements from './placements';
 import {KeyCode} from "../../utils";
 
 const noop = () => {
@@ -249,26 +249,29 @@ export default class Select extends React.Component {
     });
   };
 
-  //聚焦操作
-  focus() {
+  // 焦点操作
+  focusEvent = (event) => {
     const {showSearch, loading} = this.props;
     if (loading) return;
-    if (showSearch) {
-      this.selectSearch.searchInput.input.focus();
+    const targetElement = showSearch ? this.selectSearch && this.selectSearch.searchInput.input : this.selection;
+    if (targetElement) {
+      targetElement[event]();
     } else {
-      this.selection.focus();
+      setTimeout(() => {
+        const targetElement = showSearch ? this.selectSearch.searchInput.input : this.selection;
+        targetElement[event]();
+      });
     }
+  };
+
+  // 聚焦
+  focus() {
+    this.focusEvent('focus');
   }
 
-  //失焦操作
+  // 失焦
   blur() {
-    const {showSearch, loading} = this.props;
-    if (loading) return;
-    if (showSearch) {
-      this.selectSearch.searchInput.input.blur();
-    } else {
-      this.selection.blur();
-    }
+    this.focusEvent('blur');
   }
 
   //处理 label、option的click操作
@@ -465,25 +468,25 @@ export default class Select extends React.Component {
             return;
           }
           // 上按钮
-          let nextActiveKEY = undefined;
+          let nextActiveKey = undefined;
           if (keyCode === KeyCode.UP) {
             //超出到最后一个
             if (activeTabIndex === 0) {
-              nextActiveKEY = optionList[optionListLen - 1].key;
+              nextActiveKey = optionList[optionListLen - 1].key;
             } else {
-              nextActiveKEY = optionList[activeTabIndex - 1].key;
+              nextActiveKey = optionList[activeTabIndex - 1].key;
             }
           } else if (keyCode === KeyCode.DOWN) {
             if (activeTabIndex + 1 === optionListLen) {
-              nextActiveKEY = optionList[0].key;
+              nextActiveKey = optionList[0].key;
             } else {
-              nextActiveKEY = optionList[activeTabIndex + 1].key;
+              nextActiveKey = optionList[activeTabIndex + 1].key;
             }
           }
           this.setState({
-            activeKey: nextActiveKEY
+            activeKey: nextActiveKey
           }, () => {
-            this.setActiveOptionIntoView(nextActiveKEY);
+            this.setActiveOptionIntoView(nextActiveKey);
           });
         } else {
           this.setState({
@@ -743,7 +746,6 @@ export default class Select extends React.Component {
         action={disabled ? [] : ['click']}
         builtinPlacements={placements}
         ref={node => this.trigger = node}
-        forceRender
         getPopupContainer={getPopupContainer}
         onPopupVisibleChange={this.onVisibleChange}
         popup={this.getDropdownPanel()}

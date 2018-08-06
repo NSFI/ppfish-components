@@ -3,7 +3,7 @@ const autoAdjustOverflow = {
   adjustY: 1,
 };
 
-export const placements = {
+export default {
   bottomLeft: {
     points: ['tl', 'bl'],
     overflow: autoAdjustOverflow,
@@ -35,5 +35,3 @@ export const placements = {
     offset: [0, -4]
   },
 };
-
-export default placements;
