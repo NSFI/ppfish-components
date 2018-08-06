@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
 import { polyfill } from 'react-lifecycles-compat';
+import Spin from '../../Spin/index.tsx';
 import { nodeContextTypes } from './contextTypes';
 import {
   toArray,
@@ -341,6 +342,11 @@ class TreeNode extends React.Component {
     const { rcTree: { prefixCls } } = this.context;
 
     return (
+      <Spin className={prefixCls + '-spinning'} size="small" />
+    );
+
+    /* Deprecated loading icon.
+    return (
       <span
         className={classNames(
           `${prefixCls}-iconEle`,
@@ -349,6 +355,7 @@ class TreeNode extends React.Component {
         )}
       />
     );
+    */
   };
 
   // Icon + Title

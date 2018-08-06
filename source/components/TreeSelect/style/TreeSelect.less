@@ -31,6 +31,11 @@
 
 .antCheckboxFn(@checkbox-prefix-cls: ~"@{fishd-prefix}-treeselect-tree-checkbox");
 
+.@{select-tree-prefix-cls}-spinning {
+  line-height: 1;
+  margin-right: 7px;
+}
+
 .@{select-tree-prefix-cls} {
   .reset-component;
   margin: 0;
@@ -61,7 +66,7 @@
       color: @text-color;
       transition: all .3s;
       width: ~"calc(100% - 24px)";
-      vertical-align: middle; // add
+      // vertical-align: middle; // add
       &:hover {
         background-color: @item-hover-bg;
       }
@@ -73,6 +78,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        vertical-align: top;
       }
       &.@{select-tree-prefix-cls}-node-selected {
         background-color: @primary-2;
