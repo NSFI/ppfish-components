@@ -24,7 +24,7 @@
   
   render() {
     return (
-      <TimeSelect
+      <TimePicker.TimeSelect
         start="08:30"
         step="00:15"
         end="18:30"
@@ -45,7 +45,7 @@
 ```js  
   render() {
     return (
-      <TimeSelect
+      <TimePicker.TimeSelect
         isDisabled={true}
         placeholder="请选择时间"
         />

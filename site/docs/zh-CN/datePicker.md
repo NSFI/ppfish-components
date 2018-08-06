@@ -269,7 +269,7 @@ render() {
   const {value} = this.state;
 
   return (
-    <DateRangePicker
+    <DatePicker.DateRangePicker
       value={value}
       startPlaceholder="请选择开始日期"
       endPlaceholder="请选择结束日期"
@@ -292,7 +292,7 @@ render() {
 render() {
 
   return (
-    <DateRangePicker
+    <DatePicker.DateRangePicker
       isDisabled={true}
       />
   )
@@ -317,7 +317,7 @@ render() {
     <div className="source">
       <div className="block">
         <span className="demonstration">带快捷选项</span>
-        <DateRangePicker
+        <DatePicker.DateRangePicker
           value={value2}
           placeholder="选择日期范围"
           align="left"
@@ -382,7 +382,7 @@ render() {
     <div className="source">
       <div className="block">
         <span className="demonstration">默认</span>
-        <DateRangePicker
+        <DatePicker.DateRangePicker
           format="yyyy-MM-dd HH:mm:ss"
           value={value1}
           placeholder="选择日期范围"
@@ -395,7 +395,7 @@ render() {
       </div>
       <div className="block">
         <span className="demonstration">带快捷选项</span>
-        <DateRangePicker
+        <DatePicker.DateRangePicker
           value={value2}
           isShowTime={true}
           placeholder="选择日期范围"

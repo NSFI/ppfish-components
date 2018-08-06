@@ -1023,27 +1023,8 @@ const columns = [{
 
 ## 固定表头-单屏幕固定
 :::demo 
-方便一页内展示大量数据，传入table高度与屏幕的差值，`getResizeTableHeight`传出最小值为100，使至少两行可见。
+方便一页单屏内展示大量数据。
 ```js
-  state={
-    tableHeight:0
-  }
-  
-  componentDidMount() {
-    window.addEventListener('resize', this.resizeTable);
-    this.resizeTable();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resizeTable);
-  }
-
-  resizeTable = () => {
-    const tableHeight= Table.getResizeTableHeight(600);
-    console.log(tableHeight);
-    this.setState({tableHeight});
-  };
-
   render() {
     const columns = [{
       title: 'Name',
@@ -1068,7 +1049,7 @@ const columns = [{
       });
     }
     return (
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: this.state.tableHeight }} />
+      <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 'calc(100vh - 400px)' }} />
     );
   }
 ```
@@ -1885,13 +1866,6 @@ class Demo extends React.Component {
 | onExpandedRowsChange | 展开的行变化时触发 | Function(expandedRows) |  |
 | onHeaderRow | 设置头部行属性 | Function(column, index) | - |
 | onRow | 设置行属性 | Function(record, index) | - |
-
-
-#### Methods
-
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| getResizeTableHeight | 计算屏幕差值 | function(number) | - |
 
 #### onRow 用法
 
