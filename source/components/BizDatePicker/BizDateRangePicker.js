@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popover from '../Popover';
+import Popover from '../Popover/index.tsx';
 import { message } from 'antd';
-import Icon from '../Icon';
+import Icon from '../Icon/index.tsx';
 import { DateRangePicker } from '../DatePicker';
 import { formatDate, isValidValue, diffDate } from "../../utils/date/index";
 
@@ -20,7 +20,7 @@ const getShowDateFromValue = (value, format) => {
     result = value;
   }else if(isValidValue(value)) {
     result = { text: `${formatDate(value[0], format)} ~ ${formatDate(value[1], format)}`  , value: value};
-  };
+  }
   return result;
 };
 
@@ -39,7 +39,8 @@ class BizDatePicker extends React.Component {
     disabledDate: PropTypes.func,
     onOpenChange: PropTypes.func,       //弹出或关闭浮层的回调
     onChange: PropTypes.func,
-    rangeSeparator: PropTypes.string
+    rangeSeparator: PropTypes.string,
+    maxDateRange: Popover.number
   }
 
   static defaultProps = {
@@ -100,7 +101,7 @@ class BizDatePicker extends React.Component {
     }
 
     // 不需要选时间时，直接关闭弹出层
-    if(!this.props.showTime) {
+    if(!this.props.isShowTime) {
       this.setState({
         open: false,
       });

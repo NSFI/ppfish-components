@@ -1,5 +1,5 @@
 import React from 'react';
-import BasePicker from './BasePicker';
+import BasePicker from './BasePicker.jsx';
 import DatePanel from './panel/DatePanel';
 import { pick } from './libs/utils';
 import { SELECTION_MODES } from '../../utils/date';

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popover from '../Popover';
-import Icon from '../Icon';
+import Popover from '../Popover/index.tsx';
+import Icon from '../Icon/index.tsx';
 import { DatePicker } from '../DatePicker';
 import { formatDate } from "../../utils/date/index";
 
@@ -18,8 +18,8 @@ const getShowDateFromValue = (value, format) => {
   if(value instanceof Object && 'text' in value && 'value' in value) {
     result = value;
   }else if(value instanceof Date) {
-    result = { text: `${formatDate(value, format)}`  , value: value};
-  };
+    result = {text: formatDate(value, format), value: value};
+  }
   return result;
 };
 
@@ -90,7 +90,7 @@ class BizDatePicker extends React.Component {
   // 自定义时间选择
   handleCustomerTimeChange = (date) => {
     // 不需要选时间时，直接关闭弹出层
-    if(!this.props.showTime) {
+    if(!this.props.isShowTime) {
       this.setState({
         open: false,
       });

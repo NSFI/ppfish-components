@@ -49,7 +49,7 @@ export const diffDate = (dateA, dateB) => {
   const time = dateB.getTime() - dateA.getTime();
   const days = parseInt(time / (1000 * 60 * 60 * 24));
   return days;
-}
+};
 
 // Date对象
 export const toDate = function(date) {
@@ -85,7 +85,7 @@ export const setTime = (date, value) => {
   oldDate.setMinutes(minute);
   oldDate.setSeconds(second);
   return new Date(oldDate.getTime());
-}
+};
 
 // 只改变date的日期，不改变时间
 export const setDate = (date, value) => {
@@ -97,7 +97,7 @@ export const setDate = (date, value) => {
   value.setMinutes(minute);
   value.setSeconds(second);
   return new Date(value.getTime());
-}
+};
 
 export const getDayCountOfMonth = function (year, month) {
   if (month === 3 || month === 5 || month === 8 || month === 10) {
