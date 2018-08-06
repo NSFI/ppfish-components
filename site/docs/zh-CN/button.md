@@ -14,7 +14,6 @@ render(){
  return(<div className="components-button-demo-basic">
     <Button type="primary">Primary</Button>
     <Button>Default</Button>
-    <Button type="dashed">Dashed</Button>
     <Button type="danger">Danger</Button>
   </div>)
 }
@@ -78,8 +77,6 @@ render(){
     <Button>Default</Button>
     <Button disabled>Default(disabled)</Button>
     <br />
-    <Button type="dashed">Dashed</Button>
-    <Button type="dashed" disabled>Dashed(disabled)</Button>
     <div style={{ padding: '8px 8px 0 8px', background: 'rgb(190, 200, 200)' }}>
       <Button ghost>Ghost</Button>
       <Button ghost disabled>Ghost(disabled)</Button>
@@ -100,7 +97,6 @@ render(){
   <div style={{ background: 'rgb(190, 200, 200)', padding: '26px 16px 16px' }} className="components-button-demo-ghost">
     <Button type="primary" ghost>Primary</Button>
     <Button ghost>Default</Button>
-    <Button type="dashed" ghost>Dashed</Button>
     <Button type="danger" ghost>danger</Button>
   </div>);
 }
@@ -121,11 +117,6 @@ render(){
     <Button type="primary" icon="search-line">Search</Button>
     <Button shape="circle" icon="search-line" />
     <Button icon="search-line">Search</Button>
-    <br />
-    <Button shape="circle" icon="search-line" />
-    <Button icon="search-line">Search</Button>
-    <Button type="dashed" shape="circle" icon="search-line" />
-    <Button type="dashed" icon="search-line">Search</Button>
   </div>)
 }
 ```
@@ -241,7 +232,6 @@ render(){
         <br /><br />
         <Button type="primary" size={size}>Primary</Button>
         <Button size={size}>Normal</Button>
-        <Button type="dashed" size={size}>Dashed</Button>
         <Button type="danger" size={size}>Danger</Button>
         <br />
         <Button type="primary" shape="circle" icon="demo-mail" size={size} />
@@ -270,7 +260,7 @@ render(){
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 按钮失效状态 | boolean | `false` |
-| ghost | 幽灵属性，使按钮背景透明，版本 2.7 中增加 | boolean | false |
+| ghost | 幽灵属性，使按钮背景透明 | boolean | false |
 | href | 点击跳转的地址，指定此属性 button 的行为和 a 链接一致 | string | - |
 | htmlType | 设置 `button` 原生的 `type` 值，可选值请参考 [HTML 标准](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) | string | `button` |
 | icon | 设置按钮的图标类型 | string | - |
@@ -278,7 +268,7 @@ render(){
 | shape | 设置按钮形状，可选值为 `circle` 或者不设 | string | - |
 | size | 设置按钮大小，可选值为 `small` `large` 或者不设 | string | `default` |
 | target | 相当于 a 链接的 target 属性，href 存在时生效 | string | - |
-| type | 设置按钮类型，可选值为 `primary` `dashed` `danger`(版本 2.7 中增加) 或者不设 | string | - |
+| type | 设置按钮类型，可选值为 `primary` `dashed` `danger` 或者不设 | string | - |
 | onClick | `click` 事件的 handler | function | - |
 
 `<Button>Hello world!</Button>` 最终会被渲染为 `<button><span>Hello world!</span></button>`，并且除了上表中的属性，其它属性都会直接传到 `<button></button>`。

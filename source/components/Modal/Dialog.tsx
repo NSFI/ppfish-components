@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Animate from 'rc-animate';
+import Draggable from 'react-draggable';
+import classNames from 'classnames';
 import Icon from '../Icon';
 import { contains, getScrollBarSize, KeyCode } from '../../utils/index';
 import IDialogPropTypes from './IDialogPropTypes';
@@ -54,6 +56,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     closable: true,
     maskClosable: true,
     destroyOnClose: false,
+    draggable: false,
     prefixCls: 'rc-dialog',
   };
 
@@ -205,15 +208,10 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
 
     const style = { ... props.style, ...dest };
     const transitionName = this.getTransitionName();
-    const dialogElement = (
-      <LazyRenderBox
-        key="dialog-element"
-        role="document"
-        ref={this.saveRef('dialog')}
-        style={style}
-        className={`${prefixCls} ${props.className || ''}`}
-        visible={props.visible}
-      >
+    const dialog = (
+      <div className={classNames(`${prefixCls}-dialog`, {
+        'draggable': props.draggable
+      })}>
         <div className={`${prefixCls}-content`}>
           {closer}
           {header}
@@ -230,7 +228,24 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
         <div tabIndex={0} ref={this.saveRef('sentinel')} style={{ width: 0, height: 0, overflow: 'hidden' }}>
           sentinel
         </div>
-      </LazyRenderBox>
+      </div>
+    );
+    const dialogElement = (
+        <LazyRenderBox
+          key="dialog-element"
+          role="document"
+          ref={this.saveRef('dialog')}
+          style={style}
+          className={`${prefixCls} ${props.className || ''}`}
+          visible={props.visible}
+        >
+          {props.draggable ? (
+            <Draggable>
+              {dialog}
+            </Draggable>
+          ) : dialog}
+
+        </LazyRenderBox>
     );
     return (
       <Animate
@@ -239,6 +254,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
         onLeave={this.onAnimateLeave}
         transitionName={transitionName}
         component=""
+        visible={props.visible}
         transitionAppear
       >
         {(props.visible || !props.destroyOnClose) ? dialogElement : null}

@@ -40,17 +40,16 @@
     return (
       <div>
         <Button type="primary" onClick={this.showModal}>Open</Button>
-        <Modal
-          title="Basic Modal"
-          visible={this.state.visible}
-          draggable={true}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
+          <Modal
+            title="Basic Modal"
+            visible={this.state.visible}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Modal>
       </div>
     );
   }
@@ -121,7 +120,7 @@
 showConfirm=()=> {
   const confirm = Modal.confirm;
   confirm({
-    title: 'Do you Want to delete these items?',
+    title: 'Do you want to submit this file?',
     content: 'Some descriptions',
     onOk() {
       console.log('OK');
@@ -137,7 +136,7 @@ showDeleteConfirm=()=> {
   confirm({
     title: 'Are you sure delete this task?',
     content: 'Some descriptions',
-    okText: 'Yes',
+    okText: 'Delete',
     okType: 'danger',
     cancelText: 'No',
     onOk() {
@@ -173,7 +172,7 @@ render(){
 showConfirm=()=> {
   const confirm = Modal.confirm;
   confirm({
-    title: 'Do you want to delete these items?',
+    title: 'Do you want to submit this file?',
     content: 'When clicked the OK button, this dialog will be closed after 1 second',
     onOk() {
       return new Promise((resolve, reject) => {
@@ -482,12 +481,52 @@ render(){
 </style>
 
 ## 拖动支持
-配合使用react-draggable支持拖动。
+
+:::demo 可拖动的对话框。
+
+```js
+  state = { visible: false }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+
+  handleOk = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  }
+
+  handleCancel = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Button type="primary" onClick={this.showModal}>Open</Button>
+          <Modal
+            title="Basic Modal"
+            visible={this.state.visible}
+            draggable={true}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+          >
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+          </Modal>
+      </div>
+    );
+  }
 ```
-render {
-  return <Draggable><Modal></Draggable>;
-}
-```
+:::
 
 ## API
 

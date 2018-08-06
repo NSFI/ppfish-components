@@ -40,7 +40,7 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
 
   saveDialog = (node: any) => {
     this._component = node;
- }
+  }
 
   getComponent = (extra = {}) => {
     return (

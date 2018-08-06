@@ -103,6 +103,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     okType: 'primary' as ButtonType,
     okButtonDisabled: false,
     cancelButtonDisabled: false,
+    draggable: false,
     okText: '确定',
     cancelText: '取消',
     justOkText: '知道了'
@@ -114,6 +115,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     onCancel: PropTypes.func,
     okText: PropTypes.node,
     cancelText: PropTypes.node,
+    draggable: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     confirmLoading: PropTypes.bool,
     visible: PropTypes.bool,
