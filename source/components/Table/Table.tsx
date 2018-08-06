@@ -14,7 +14,7 @@ import SelectionCheckboxAll from './SelectionCheckboxAll';
 import Column from './Column';
 import ColumnGroup from './ColumnGroup';
 import createBodyRow from './createBodyRow';
-import {flatArray, treeMap, flatFilter, normalizeColumns, getResizeTableHeight} from './util';
+import {flatArray, treeMap, flatFilter, normalizeColumns} from './util';
 import {SpinProps} from '../Spin';
 import {
   TableProps,
@@ -63,7 +63,6 @@ const emptyObject = {};
 export default class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   static Column = Column;
   static ColumnGroup = ColumnGroup;
-  static getResizeTableHeight = getResizeTableHeight;
   static propTypes = {
     dataSource: PropTypes.array,
     columns: PropTypes.array,
