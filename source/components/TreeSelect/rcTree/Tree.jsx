@@ -190,6 +190,7 @@ class Tree extends React.Component {
       // Calculate the entities data for quick match
       const entitiesMap = convertTreeToEntities(treeNode, props.unstable_processTreeEntity);
       newState.posEntities = entitiesMap.posEntities;
+
       // Fixed error when check/uncheck node in search result
       // newState.keyEntities = entitiesMap.keyEntities;
       newState.keyEntities = Object.assign({}, prevState.keyEntities, entitiesMap.keyEntities);
@@ -473,7 +474,7 @@ class Tree extends React.Component {
       const halfCheckedKeys = arrDel(oriHalfCheckedKeys, eventKey);
       checkedObj = { checked: checkedKeys, halfChecked: halfCheckedKeys };
 
-      eventObj.checkedNodes = checkedKeys.map(key => keyEntities[key].node);
+      eventObj.checkedNodes = checkedKeys.map(key => keyEntities[key] && keyEntities[key].node);
 
       this.setUncontrolledState({ checkedKeys });
     } else {
@@ -635,7 +636,7 @@ class Tree extends React.Component {
    * [Legacy] Original logic use `key` as tracking clue.
    * We have to use `cloneElement` to pass `key`.
    */
-  renderTreeNode = (child, index, level = 0) => {
+  renderTreeNode = (child, index, level = 0, parentChecked = false) => {
     const {
       keyEntities,
       expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],
@@ -657,7 +658,7 @@ class Tree extends React.Component {
       selected: selectedKeys.indexOf(key) !== -1,
       loaded: loadedKeys.indexOf(key) !== -1,
       loading: loadingKeys.indexOf(key) !== -1,
-      checked: this.isKeyChecked(key),
+      checked: this.isKeyChecked(key), // || parentChecked,
       halfChecked: halfCheckedKeys.indexOf(key) !== -1,
       pos,
 
