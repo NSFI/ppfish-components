@@ -1,0 +1,68 @@
+@import "../../assets/css/themes/default";
+@import (reference) "../../assets/css/core/mixin";
+
+@prefixClass: ~'biz-date-picker';
+
+.@{prefixClass}-container {
+  color: @text-3;
+  .clearfix();
+  // 样式覆盖
+  .fishd-popover-inner-content {
+    padding: 0;
+  }
+}
+
+//下拉内容的样式
+.@{prefixClass}-content {
+  min-width: 318px;
+  //链接的样式
+  .quick-picker-item {
+    display: block;
+    height: 36px;
+    padding: 10px 12px;
+    border-bottom: solid 1px #EBEDF0;
+  }
+  span + i {
+    margin-left: 8px;
+  }
+  .is-active {
+    color: @primary-color;
+  }
+  .quick-picker-item:hover {
+    color: @primary-color;
+    background: @datepicker-hover-background-color;
+  }
+}
+
+//自定义时间的样式
+.@{prefixClass}-customer-time {
+  padding: 14px 12px;
+}
+
+//下拉按钮的样式
+.@{prefixClass}-click-area {
+  min-width: 200px;
+  height: 36px;
+  float: left;
+  padding: 0 12px;
+  background: @component-background;
+  border: 1px solid #E1E3E6;
+  border-radius: @border-radius-base;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .@{prefixClass}-click-area-icon {
+    transition: transform 0.5s;
+    display: inline-block;
+    i {
+      font-size: 12px;
+    }
+  }
+  .icon-active {
+    transform: rotate(180deg);
+  }
+  &.disabled {
+    cursor: not-allowed;
+  }
+}

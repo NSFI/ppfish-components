@@ -44,6 +44,13 @@ export const equalYearAndMonth = function (dateA, dateB) {
   return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth();
 };
 
+// 判断两个日期差
+export const diffDate = (dateA, dateB) => {
+  const time = dateB.getTime() - dateA.getTime();
+  const days = parseInt(time / (1000 * 60 * 60 * 24));
+  return days;
+}
+
 // Date对象
 export const toDate = function(date) {
   return isValidValue(date) ? new Date(date) : null;

@@ -82,8 +82,8 @@ export default class DateRangePanel extends PopperBase {
       rightDate: isValidValue(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date()),
       minDate: isValidValue(props.value) ? toDate(props.value[0]) : null,
       maxDate: isValidValue(props.value) ? toDate(props.value[1]) : null,
-      minDateInputText: isValidValue(props.value) ? formatDate(props.value[0], this.dateFormat) : '',
-      maxDateInputText: isValidValue(props.value) ? formatDate(props.value[1], this.dateFormat) : '',
+      minDateInputText: isValidValue(props.value) ? formatDate(props.value[0], this.dateFormat()) : '',
+      maxDateInputText: isValidValue(props.value) ? formatDate(props.value[1], this.dateFormat()) : '',
       minTimeInputText: isValidValue(props.value) ? toDate(props.value[0]) : null,
       maxTimeInputText: isValidValue(props.value) ? toDate(props.value[1]) : null,
     }
@@ -101,7 +101,7 @@ export default class DateRangePanel extends PopperBase {
     }
   }
 
-  get timeFormat() {
+  timeFormat = () => {
     let {format} = this.props;
     if (format && format.indexOf('ss') === -1) {
       return 'HH:mm'
@@ -110,7 +110,7 @@ export default class DateRangePanel extends PopperBase {
     }
   }
 
-  get dateFormat(){
+  dateFormat = () => {
     if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim();
     else return 'yyyy-MM-dd'
   };
@@ -148,7 +148,7 @@ export default class DateRangePanel extends PopperBase {
     const stateDate = type === 'min' ? minDate : maxDate;
 
     const inputText = e.target.value;
-    const ndate = parseDate(inputText, this.dateFormat);
+    const ndate = parseDate(inputText, this.dateFormat());
     if (!isInputValid(inputText, ndate, disabledDate)) {
       this.setState({
         [text]: inputText,
@@ -367,6 +367,7 @@ export default class DateRangePanel extends PopperBase {
                         className="fishd-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
+                        format={this.timeFormat()}
                         isDisabled={this.timePickerDisable()}
                         value={minTimeInputText}
                         onFocus={()=>{
@@ -395,6 +396,7 @@ export default class DateRangePanel extends PopperBase {
                         className="fishd-date-range-picker__editor"
                         isShowTrigger={false}
                         isAllowClear={false}
+                        format={this.timeFormat()}
                         isDisabled={this.timePickerDisable()}
                         value={maxTimeInputText}
                         onFocus={()=>{

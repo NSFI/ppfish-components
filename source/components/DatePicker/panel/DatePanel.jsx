@@ -81,7 +81,7 @@ export default class DatePanel extends PopperBase {
       currentView,
       currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 默认当前日历视图
       date: toDate(props.value),
-      dateInputText: formatDate(props.value, this.dateFormat), // 日期输入框的值(string)，当props.value为null时，值为''
+      dateInputText: formatDate(props.value, this.dateFormat()), // 日期输入框的值(string)，当props.value为null时，值为''
       timeInputText: toDate(props.value),                      // 时间输入组件的值(Date)，当props.value为null时，值为null
       confirmBtnDisabled: !props.value                         // 确定按钮是否禁用
     };
@@ -127,7 +127,7 @@ export default class DatePanel extends PopperBase {
     return year + ' ' + yearTranslation
   }
 
-  get timeFormat() {
+  timeFormat = () => {
     let {format} = this.props;
     if (format && format.indexOf('ss') === -1) {
       return 'HH:mm'
@@ -136,7 +136,7 @@ export default class DatePanel extends PopperBase {
     }
   }
 
-  get dateFormat(){
+  dateFormat = () => {
     if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim();
     else return 'yyyy-MM-dd'
   };
@@ -203,7 +203,7 @@ export default class DatePanel extends PopperBase {
     const {date} = this.state;
 
     const inputText = e.target.value;
-    let ndate = parseDate(inputText, this.dateFormat);
+    let ndate = parseDate(inputText, this.dateFormat());
     if (!isInputValid(inputText, ndate, disabledDate)) {
       this.setState({
         dateInputText: inputText,
@@ -317,7 +317,7 @@ export default class DatePanel extends PopperBase {
         }
         // 日期变化，时间不变
         state.date = setDate(new Date(state.date), pdate);
-        state.dateInputText = formatDate(pdate, this.dateFormat); // 点击日期，左侧日期输入框的值同步变化
+        state.dateInputText = formatDate(pdate, this.dateFormat()); // 点击日期，左侧日期输入框的值同步变化
         state.currentDate = pdate;
       } else if (selectionMode === SELECTION_MODES.WEEK) {
         onPick(pdate)
@@ -386,6 +386,7 @@ export default class DatePanel extends PopperBase {
                       className="fishd-date-range-picker__editor"
                       isShowTrigger={false}
                       isAllowClear={false}
+                      format={this.timeFormat()}
                       isDisabled={this.timePickerDisable()}
                       value={timeInputText}
                       onFocus={()=> this.setState({timePickerVisible: !this.state.timePickerVisible})}

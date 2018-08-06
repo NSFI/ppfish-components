@@ -313,22 +313,22 @@ export default {
       },
     },
   },
-  // business: {
-  //   '基本组件 Basic': {
-  //     // 已废弃使用，推荐使用spin
-  //     // 'bizLoading': {
-  //     //   type: 'markdown',
-  //     //   name: 'BizLoading 加载动画',
-  //     // },
-  //     // 已废弃，推荐使用table
-  //     // 'bizTable': {
-  //     //   type: 'markdown',
-  //     //   name: 'BizTable 自定义表格',
-  //     // },
-  //     'bizTimePicker': {
-  //       type: 'markdown',
-  //       name: 'BizTimePicker 自定义时间选择器',
-  //     },
-  //   }
-  // }
+  business: {
+    '基本组件 Basic': {
+      // 已废弃使用，推荐使用spin
+      // 'bizLoading': {
+      //   type: 'markdown',
+      //   name: 'BizLoading 加载动画',
+      // },
+      // 已废弃，推荐使用table
+      // 'bizTable': {
+      //   type: 'markdown',
+      //   name: 'BizTable 自定义表格',
+      // },
+      'bizDatePicker': {
+        type: 'markdown',
+        name: 'BizDatePicker 自定义日期选择器',
+      },
+    }
+  }
 };

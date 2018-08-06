@@ -94,7 +94,7 @@ export function PopperMixin(config) {
   this._popper_config = Object.assign(
     {}, {
       width: null,
-      zIndex: 1020,
+      zIndex: 1050,
       offset: 0,
       placement: 'bottom',
       boundariesPadding: 5,

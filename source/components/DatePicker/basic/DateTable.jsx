@@ -259,8 +259,23 @@ export default class DateTable extends React.Component {
 
     if (!(selectionMode === SELECTION_MODES.RANGE && rangeState.selecting)) return;
 
-    const target = event.target;
-    if (target.tagName !== 'TD') return;
+    const getTarget = () => {
+      const tag = event.target.tagName;
+      if(tag === 'SPAN') {
+        return event.target.parentNode.parentNode;
+      }
+      if(tag === 'DIV') {
+        return event.target.parentNode;
+      }
+
+      if(tag === 'TD') {
+        return event.target
+      }
+      return null;
+    }
+    let target = getTarget();
+
+    if (!target) return;
 
     const column = target.cellIndex;
     const row = target.parentNode.rowIndex - 1;

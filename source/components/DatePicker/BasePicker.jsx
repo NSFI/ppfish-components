@@ -284,7 +284,7 @@ export default class BasePicker extends React.Component {
         let {placeholder, onFocus, onBlur, onChange, ...others} = this.props;
         /* eslint-enable */
         return (
-          <MountBody ref={e => this.pickerProxy = e}>
+          <MountBody ref={e => this.pickerProxy = e} getPopupContainer={() => this.domRoot}>
             {
               this.pickerPanel(
                 this.state,

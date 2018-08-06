@@ -1,7 +1,7 @@
 import AnimationImageLoader from './AnimationImageLoader';
 import AudioPlayer from './AudioPlayer';
 import BizLoading from './BizLoading';
-import BizTimePicker from './BizTimePicker';
+import BizDatePicker from './BizDatePicker';
 import Button from './Button/index.tsx';
 import Checkbox from './Checkbox/index.tsx';
 import Col from './Col/index.tsx';
@@ -50,7 +50,7 @@ import * as upload from '../utils/upload';
 export {AnimationImageLoader};
 export {AudioPlayer};
 export {BizLoading};
-export {BizTimePicker};
+export {BizDatePicker};
 export {Button};
 export {Checkbox};
 export {Col};

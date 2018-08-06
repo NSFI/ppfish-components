@@ -301,7 +301,7 @@ render() {
 ```
 :::
 
-## 带快速选择的日期范围面板
+## 带快捷选项的日期范围面板
 
 :::demo
 ```js
@@ -316,7 +316,7 @@ render() {
   return (
     <div className="source">
       <div className="block">
-        <span className="demonstration">带快捷选项</span>
+        <span className="demonstration">左侧自定义</span>
         <DatePicker.DateRangePicker
           value={value2}
           placeholder="选择日期范围"
