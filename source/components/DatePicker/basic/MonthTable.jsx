@@ -1,9 +1,10 @@
 import React from 'react';
-import { PropTypes, Component } from '../libs';
-import { hasClass, deconstructDate, SELECTION_MODES } from '../utils';
-import Locale from '../locale';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { hasClass, deconstructDate, SELECTION_MODES } from '../../../utils/date';
+import Locale from '../../../utils/date/locale';
 
-export default class MonthTable extends Component {
+export default class MonthTable extends React.Component {
   constructor(props){
     super(props)
   }
@@ -42,7 +43,7 @@ export default class MonthTable extends Component {
         {
           months.map((key, idx) => {
             return (
-              <td className={this.classNames(this.getCellStyle(idx))} key={idx}>
+              <td className={classNames(this.getCellStyle(idx))} key={idx}>
                 <a className="cell">{$t(`fishd.datepicker.months.${key}`)}</a>
               </td>
             )

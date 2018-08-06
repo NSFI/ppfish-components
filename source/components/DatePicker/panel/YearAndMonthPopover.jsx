@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import Popover from '../../Popover';
 
 import '../styles/YearAndMonthPopover.less'
@@ -46,7 +46,7 @@ export default class YearAndMonthPopover extends React.Component {
             sourceData.map((item) => {
             return (
               <li
-                className={classnames({
+                className={classNames({
                   'fishd-year-and-month-popover-item': true,
                   'active': value == item || typeof item === 'string' && item.slice(-1) == '月' && value == item.slice(0,-1)
                 })}

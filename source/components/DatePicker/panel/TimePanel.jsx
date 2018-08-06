@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TimeSpinner from '../basic/TimeSpinner'
 import { PopperBase } from './PopperBase'
-import Locale from '../locale'
-import { limitRange, isLimitRange, parseDate } from '../utils';
+import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
+import Locale from '../../../utils/date/locale';
 
 export default class TimePanel extends PopperBase {
 
@@ -126,7 +127,7 @@ export default class TimePanel extends PopperBase {
       <div
         ref="root"
         className="fishd-picker-panel fishd-time-panel">
-        <div className={this.classNames('fishd-time-panel__content', { 'has-seconds': isShowSeconds })}>
+        <div className={classNames('fishd-time-panel__content', { 'has-seconds': isShowSeconds })}>
           <TimeSpinner
             ref="spinner"
             isShowSeconds={isShowSeconds}
@@ -145,7 +146,7 @@ export default class TimePanel extends PopperBase {
                 <button
                   type="button"
                   disabled={currentButtonDisabled}
-                  className={this.className('fishd-time-panel__btn confirm', {'disabled' : currentButtonDisabled})}
+                  className={classNames('fishd-time-panel__btn confirm', {'disabled' : currentButtonDisabled})}
                   onClick={this.handleCurrent}>{$t('fishd.datepicker.now')}
                 </button>
                 :
@@ -161,7 +162,7 @@ export default class TimePanel extends PopperBase {
             <button
               type="button"
               disabled={confirmButtonDisabled}
-              className={this.className('fishd-time-panel__btn confirm', {'disabled' : confirmButtonDisabled})}
+              className={classNames('fishd-time-panel__btn confirm', {'disabled' : confirmButtonDisabled})}
               onClick={() => this.handleConfirm(false, true)}>{$t('fishd.datepicker.confirm')}
             </button>
           </div>

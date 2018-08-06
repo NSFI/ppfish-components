@@ -1,8 +1,9 @@
 import React from 'react';
-import { debounce } from 'throttle-debounce';
-import { PropTypes, Component } from '../libs';
-import { getRangeHours } from '../utils';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
+import { debounce } from 'throttle-debounce';
+import { getRangeHours } from '../../../utils/date';
 
 function range(end) {
   let r = [];
@@ -35,7 +36,7 @@ const calcScrollTop = value => Math.max(
   (value - 2.5) * 32 + SCROLL_AJUST_VALUE
 )
 
-export default class TimeSpinner extends Component {
+export default class TimeSpinner extends React.Component {
 
   static get propTypes() {
     return {
@@ -148,7 +149,7 @@ export default class TimeSpinner extends Component {
 
     return (
       <div
-        className={this.classNames('fishd-time-spinner', {
+        className={classNames('fishd-time-spinner', {
           'has-seconds': isShowSeconds
         })}
       >
@@ -168,7 +169,7 @@ export default class TimeSpinner extends Component {
               <li
                 key={idx}
                 onClick={() => this.handleChange('hours', idx, disabled)}
-                className={this.classNames('fishd-time-spinner__item', {
+                className={classNames('fishd-time-spinner__item', {
                   active: idx === hours,
                   disabled: disabled
                 })}
@@ -192,7 +193,7 @@ export default class TimeSpinner extends Component {
               <li
                 key={minute}
                 onClick={() => this.handleChange('minutes', minute)}
-                className={this.classNames('fishd-time-spinner__item', {
+                className={classNames('fishd-time-spinner__item', {
                   active: minute === minutes
                 })}
               >
@@ -216,7 +217,7 @@ export default class TimeSpinner extends Component {
               <li
                 key={sec}
                 onClick={() => this.handleChange('seconds', sec)}
-                className={this.classNames('fishd-time-spinner__item', {
+                className={classNames('fishd-time-spinner__item', {
                   active: sec === seconds
                 })}
               >

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { PopperBase } from './PopperBase';
 import { DateTable } from '../basic';
 import Input from '../../Input';
@@ -20,8 +21,8 @@ import {
   isValidValue,
   setDate,
   equalYearAndMonth
-} from '../utils';
-import Locale from '../locale';
+} from '../../../utils/date';
+import Locale from '../../../utils/date/locale';
 
 const isInputValid = (text, date, disabledDate) => {
   if(text.trim() === '' || !isValidValue(date) || typeof disabledDate === 'function' && disabledDate(date)) return false;
@@ -50,7 +51,7 @@ export default class DateRangePanel extends PopperBase {
       ),
       shortcutsPlacement: PropTypes.string,
       disabledDate: PropTypes.func,
-      firstDayOfWeek: PropTypes.range(0, 6),
+      firstDayOfWeek: PropTypes.number,
       getPopperRefElement: PropTypes.func,
       popperMixinOption: PropTypes.object,
       onPick: PropTypes.func.isRequired,
@@ -323,7 +324,7 @@ export default class DateRangePanel extends PopperBase {
     return (
       <div
         ref="root"
-        className={this.classNames('fishd-picker-panel fishd-date-range-picker', {
+        className={classNames('fishd-picker-panel fishd-date-range-picker', {
           'has-sidebar': shortcuts && shortcutsPlacement === 'left',
           'has-time': isShowTime
         })}
@@ -520,7 +521,7 @@ export default class DateRangePanel extends PopperBase {
               </button>
               <button
                 type="button"
-                className={this.className("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
+                className={classNames("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
                 disabled={this.confirmBtnDisabled()}>{ Locale.t('fishd.datepicker.confirm') }
               </button>

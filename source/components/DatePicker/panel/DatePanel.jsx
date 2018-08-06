@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Input from '../../Input';
 import Icon from '../../Icon/index.tsx';
 import { PopperBase } from './PopperBase';
@@ -17,8 +18,8 @@ import {
   isValidValue,
   setDate,
   setTime
-} from '../utils';
-import Locale from '../locale';
+} from '../../../utils/date';
+import Locale from '../../../utils/date/locale';
 
 const PICKER_VIEWS = {
   YEAR: 'year',
@@ -48,7 +49,7 @@ export default class DatePanel extends PopperBase {
       shortcutsPlacement: PropTypes.string,
       selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
-      firstDayOfWeek: PropTypes.range(0, 6),
+      firstDayOfWeek: PropTypes.number,
       onPick: PropTypes.func.isRequired,
       onCancelPicked: PropTypes.func.isRequired,
     }, PopperBase.propTypes)
@@ -344,7 +345,7 @@ export default class DatePanel extends PopperBase {
     return (
       <div
         ref="root"
-        className={this.classNames('fishd-picker-panel fishd-date-picker', {
+        className={classNames('fishd-picker-panel fishd-date-picker', {
           'has-sidebar': shortcuts && shortcutsPlacement === 'left',
           'has-time': isShowTime
         })}
@@ -353,7 +354,7 @@ export default class DatePanel extends PopperBase {
         <div className="fishd-picker-panel__body-wrapper">
           {
             shortcutsPlacement === 'left' && Array.isArray(shortcuts) && (
-              <div className={this.className('fishd-picker-panel__sidebar', shortcutsPlacement)}>
+              <div className={classNames('fishd-picker-panel__sidebar', shortcutsPlacement)}>
                 {
                   shortcuts.map((e, idx) => {
                     return (
@@ -427,7 +428,7 @@ export default class DatePanel extends PopperBase {
                       >
                         <span
                           className={
-                            this.classNames('fishd-date-picker__header-label', {
+                            classNames('fishd-date-picker__header-label', {
                               active: currentView === 'month'
                             })
                           }
@@ -469,7 +470,7 @@ export default class DatePanel extends PopperBase {
               </button>
               <button
                 type="button"
-                className={this.className("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
+                className={classNames("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
                 disabled={this.confirmBtnDisabled()}>{t('fishd.datepicker.confirm')}
               </button>

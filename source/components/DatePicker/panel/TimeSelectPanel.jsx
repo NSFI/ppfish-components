@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { PopperBase } from './PopperBase';
-import { scrollIntoView } from '../libs/utils/dom';
 import { Scrollbar } from '../scrollbar';
+import { scrollIntoView } from '../libs/utils/dom';
 
 export default class TimeSelectPanel extends PopperBase {
 
@@ -71,7 +72,7 @@ export default class TimeSelectPanel extends PopperBase {
             this.items().map((item, idx) => {
               return (
                 <div key={idx}
-                     className={this.classNames('time-select-item',
+                     className={classNames('time-select-item',
                        { selected: value === item.value, disabled: item.disabled }
                      )}
                      disabled={item.disabled}
