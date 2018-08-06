@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Popover from '../Popover/index.tsx';
 import { message } from 'antd';
 import Icon from '../Icon/index.tsx';
-import { DateRangePicker } from '../DatePicker';
+import { DatePicker } from '../DatePicker';
 import { formatDate, isValidValue, diffDate } from "../../utils/date/index";
 
 // 默认快速选择时间选项
@@ -40,7 +40,7 @@ class BizDatePicker extends React.Component {
     onOpenChange: PropTypes.func,       //弹出或关闭浮层的回调
     onChange: PropTypes.func,
     rangeSeparator: PropTypes.string,
-    maxDateRange: Popover.number
+    maxDateRange: PropTypes.number
   }
 
   static defaultProps = {
@@ -55,6 +55,7 @@ class BizDatePicker extends React.Component {
     disabledDate: () => {},
     onOpenChange: () => {},
     onChange: () => {},
+    maxDateRange: null
   }
 
   constructor(props) {
@@ -164,7 +165,7 @@ class BizDatePicker extends React.Component {
           )
         }
         <li className={`${prefixCls}-customer-time`}>
-          <DateRangePicker
+          <DatePicker.DateRangePicker
             format={format}
             isShowTrigger={true}
             isAllowClear={false}
