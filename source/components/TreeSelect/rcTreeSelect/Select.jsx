@@ -448,7 +448,7 @@ class Select extends React.Component {
     const { disabled } = this.props;
     if (disabled) return;
 
-    this.triggerChange([], []);
+    this.triggerChange([], [], {}, true);
 
     if (!this.isSearchValueControlled()) {
       this.setUncontrolledState({
@@ -691,12 +691,15 @@ class Select extends React.Component {
   };
 
   onSearchInputChange = ({ target: { value } }) => {
-    const { treeNodes } = this.state;
+    const { treeNodes, valueList, valueEntities } = this.state;
     const { onSearch, filterTreeNode, treeNodeFilterProp } = this.props;
 
     if (onSearch) {
       onSearch(value);
     }
+
+    //let keyList = valueList.map(({ value: val }) => valueEntities[val].key);
+    //let checkedKeys = calcCheckStateConduct(treeNodes, keyList).checkedKeys;
 
     let isSet = false;
 

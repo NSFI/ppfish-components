@@ -209,7 +209,7 @@ class TreeNode extends React.Component {
   };
 
   getNodeChildren = () => {
-    const { children } = this.props;
+    const { children, checked } = this.props;
     const originList = toArray(children).filter(node => node);
     const targetList = getNodeChildren(originList);
 
@@ -217,7 +217,10 @@ class TreeNode extends React.Component {
       warnOnlyTreeNode();
     }
 
-    return targetList;
+    return {
+      targetList,
+      parentChecked: checked
+    };
   };
 
   getNodeState = () => {
@@ -234,7 +237,7 @@ class TreeNode extends React.Component {
     const { isLeaf, loaded } = this.props;
     const { rcTree: { loadData } } = this.context;
 
-    const hasChildren = this.getNodeChildren().length !== 0;
+    const hasChildren = this.getNodeChildren().targetList.length !== 0;
 
     if (isLeaf === false) {
       return false;
@@ -280,7 +283,7 @@ class TreeNode extends React.Component {
     if (expanded && !this.isLeaf()) {
       // We needn't reload data when has children in sync logic
       // It's only needed in node expanded
-      const hasChildren = this.getNodeChildren().length !== 0;
+      const hasChildren = this.getNodeChildren().targetList.length !== 0;
       if (!hasChildren) {
         onNodeLoad(this);
       }
@@ -425,7 +428,8 @@ class TreeNode extends React.Component {
     }
 
     // Children TreeNode
-    const nodeList = this.getNodeChildren();
+    const childrenInfo = this.getNodeChildren();
+    const nodeList = childrenInfo.targetList;
 
     if (nodeList.length === 0) {
       return null;
@@ -443,7 +447,7 @@ class TreeNode extends React.Component {
           role="group"
         >
           {mapChildren(nodeList, (node, index) => (
-            renderTreeNode(node, index, pos)
+            renderTreeNode(node, index, pos, childrenInfo.parentChecked)
           ))}
         </ul>
       );
