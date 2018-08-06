@@ -1025,32 +1025,6 @@ const columns = [{
 :::demo 
 方便一页单屏内展示大量数据。
 ```js
-  state={
-    tableHeight:0
-  }
-  
-  componentDidMount() {
-    window.addEventListener('resize', this.resizeTable);
-    this.resizeTable();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resizeTable);
-  }
-
-  getResizeTableHeight=(offsetHeight)=> {
-    const windowHeight = window.innerHeight
-      || document.documentElement.clientHeight
-      || document.body.clientHeight;
-    return Math.max(windowHeight - offsetHeight, 100);
-  }
-  
-  resizeTable = () => {
-    const tableHeight= this.getResizeTableHeight(600);
-    console.log(tableHeight);
-    this.setState({tableHeight});
-  };
-
   render() {
     const columns = [{
       title: 'Name',
@@ -1075,7 +1049,7 @@ const columns = [{
       });
     }
     return (
-      <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: this.state.tableHeight }} />
+      <Table columns={columns} dataSource={data} pagination={{ pageSize: 50 }} scroll={{ y: 'calc(100vh - 400px)' }} />
     );
   }
 ```
