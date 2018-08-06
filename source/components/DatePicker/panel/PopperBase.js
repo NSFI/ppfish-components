@@ -1,8 +1,8 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Component } from '../libs';
 import { PopperReactMixin } from '../libs/utils';
 
-export class PopperBase extends Component{
+export class PopperBase extends React.Component{
   static get propTypes() {
     return {
       //()=>HtmlElement

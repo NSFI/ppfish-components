@@ -1,5 +1,6 @@
 import React from 'react';
-import { PropTypes, Component } from '../libs';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import {
   toDate,
   getFirstDayOfMonth,
@@ -11,8 +12,8 @@ import {
   deconstructDate,
   hasClass,
   getOffsetToWeekOrigin
-} from '../utils';
-import Locale from '../locale';
+} from '../../../utils/date';
+import Locale from '../../../utils/date/locale';
 
 function isFunction(func) {
   return typeof func === 'function'
@@ -26,7 +27,7 @@ const clearHours = function (time) {
 
 const WEEKS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
-export default class DateTable extends Component {
+export default class DateTable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -356,7 +357,7 @@ export default class DateTable extends Component {
         cellPadding="0"
         onClick={this.handleClick.bind(this)}
         onMouseMove={this.handleMouseMove.bind(this)}
-        className={this.classNames('fishd-date-table', { 'is-week-mode': selectionMode === 'week' })}>
+        className={classNames('fishd-date-table', { 'is-week-mode': selectionMode === 'week' })}>
         <tbody>
 
         <tr>
@@ -371,7 +372,7 @@ export default class DateTable extends Component {
             return (
               <tr
                 key={idx}
-                className={this.classNames('fishd-date-table__row', { 'current': row.isWeekActive })}>
+                className={classNames('fishd-date-table__row', { 'current': row.isWeekActive })}>
                 {
                   row.map((cell, idx) => (
                     <td className={this.getCellClasses(cell)} key={idx}>
@@ -428,7 +429,7 @@ DateTable.propTypes = {
     endDate: PropTypes.date,
     selecting: PropTypes.bool,
   }),
-  firstDayOfWeek: PropTypes.range(0, 6),
+  firstDayOfWeek: PropTypes.number,
 }
 
 DateTable.defaultProps = {

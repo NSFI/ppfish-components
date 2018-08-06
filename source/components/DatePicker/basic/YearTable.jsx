@@ -1,8 +1,9 @@
 import React from 'react'
-import { PropTypes, Component } from '../libs';
-import { hasClass, deconstructDate, SELECTION_MODES } from '../utils';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { hasClass, deconstructDate, SELECTION_MODES } from '../../../utils/date';
 
-export default class YearTable extends Component {
+export default class YearTable extends React.Component {
   constructor(props){
     super(props)
   }
@@ -36,38 +37,38 @@ export default class YearTable extends Component {
       <table onClick={this.handleYearTableClick.bind(this)} className="fishd-year-table">
         <tbody>
         <tr>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 0))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 0))}>
             <a className="cell">{startYear}</a>
           </td>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 1))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 1))}>
             <a className="cell">{startYear + 1}</a>
           </td>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 2))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 2))}>
             <a className="cell">{startYear + 2}</a>
           </td>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 3))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 3))}>
             <a className="cell">{startYear + 3}</a>
           </td>
         </tr>
         <tr>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 4))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 4))}>
             <a className="cell">{startYear + 4}</a>
           </td>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 5))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 5))}>
             <a className="cell">{startYear + 5}</a>
           </td>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 6))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 6))}>
             <a className="cell">{startYear + 6}</a>
           </td>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 7))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 7))}>
             <a className="cell">{startYear + 7}</a>
           </td>
         </tr>
         <tr>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 8))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 8))}>
             <a className="cell">{startYear + 8}</a>
           </td>
-          <td className={this.classNames('available', this.getCellStyle(startYear + 9))}>
+          <td className={classNames('available', this.getCellStyle(startYear + 9))}>
             <a className="cell">{startYear + 9}</a>
           </td>
           <td></td>

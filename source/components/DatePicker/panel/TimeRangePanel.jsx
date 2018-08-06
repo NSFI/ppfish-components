@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { PopperBase } from './PopperBase'
 import TimeSpinner from '../basic/TimeSpinner';
-import { limitRange, parseDate } from '../utils';
-import Locale from '../locale';
+import { limitRange, parseDate } from '../../../utils/date';
+import Locale from '../../../utils/date/locale';
 
 const MIN_TIME = parseDate('00:00:00', 'HH:mm:ss');
 const MAX_TIME = parseDate('23:59:59', 'HH:mm:ss');
@@ -166,7 +167,7 @@ export default class TimeRangePanel extends PopperBase {
               {$t('fishd.datepicker.startTime')}
             </div>
             <div
-              className={this.classNames(
+              className={classNames(
                 'fishd-time-range-picker__body fishd-time-panel__content',
                 { 'has-seconds': isShowSeconds }
               )}
@@ -188,7 +189,7 @@ export default class TimeRangePanel extends PopperBase {
               {$t('fishd.datepicker.endTime')}
             </div>
             <div
-              className={this.classNames(
+              className={classNames(
                 'fishd-time-range-picker__body fishd-time-panel__content',
                 { 'has-seconds': isShowSeconds }
               )}

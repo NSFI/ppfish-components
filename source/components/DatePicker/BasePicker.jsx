@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Input from '../Input';
 import Icon from '../Icon/index.tsx';
 import { MountBody } from './MountBody';
 import { PLACEMENT_MAP, HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
-import { Component } from './libs';
 import { EventRegister } from './libs/internal';
 import { Errors, require_condition, IDGenerator } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isValidValue } from './utils';
+import { isValidValue } from '../../utils/date';
 
 const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
@@ -20,7 +20,7 @@ const isInputValid = (text, date) => {
   return true;
 }
 
-export default class BasePicker extends Component {
+export default class BasePicker extends React.Component {
 
   static get propTypes() {
     return {
@@ -308,7 +308,7 @@ export default class BasePicker extends Component {
 
     return (
       <span
-        className={this.classNames('fishd-date-editor', {
+        className={classNames('fishd-date-editor', {
           'is-have-trigger': this.calcIsShowTrigger(),
           'is-active': pickerVisible,
           'is-filled': !!value
@@ -325,7 +325,7 @@ export default class BasePicker extends Component {
         />
 
         <Input
-          className={this.classNames(`fishd-date-editor fishd-date-editor--${this.type}`)}
+          className={classNames(`fishd-date-editor fishd-date-editor--${this.type}`)}
           disabled={isDisabled}
           type="text"
           placeholder={placeholder}

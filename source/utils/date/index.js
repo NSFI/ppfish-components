@@ -1,5 +1,5 @@
-import { DateUtils } from '../libs/utils';
-import Locale from '../locale';
+import DateUtils from './date';
+import Locale from './locale';
 
 const t = Locale.t;
 const weeks = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];

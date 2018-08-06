@@ -1,4 +1,4 @@
-import { formatDate, parseDate, getWeekNumber, getDateOfISOWeek, deconstructDate } from './utils';
+import { formatDate, parseDate, getWeekNumber, getDateOfISOWeek, deconstructDate } from '../../utils/date';
 
 export const RANGE_SEPARATOR = ' - ';
 export const DEFAULT_FORMATS = {

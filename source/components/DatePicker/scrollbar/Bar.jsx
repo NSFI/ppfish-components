@@ -1,9 +1,10 @@
 import React from 'react';
-import { PropTypes, Component } from '../libs';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { BAR_MAP, renderThumbStyle} from './util';
 import {on, off} from '../libs/utils/dom';
 
-export class Bar extends Component {
+export class Bar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -69,7 +70,7 @@ export class Bar extends Component {
     return (
       <div
         ref={root => this.rootRef = root}
-        className={this.classNames('fishd-scrollbar__bar', `is-${this.bar.key}`)}
+        className={classNames('fishd-scrollbar__bar', `is-${this.bar.key}`)}
         onMouseDown={ this.clickTrackHandler } >
         <div
           ref={thumb => this.thumbRef = thumb}
