@@ -185,6 +185,103 @@
 :::
 
 
+## 异步加载数据的单选
+
+:::demo 异步加载数据的单选。
+
+
+```js
+
+  state = {
+    value: undefined,
+    treeData: [
+      { title: 'Node1', key: '0-0', value: '0-0' },
+      { title: 'Node2', key: '0-1', value: '0-1' },
+      { title: 'Node3', key: '0-2', value: '0-2', isLeaf: true }
+    ]
+  }
+
+  generateTreeNodes = (treeNode) => {
+    const arr = [];
+    const key = treeNode.props.eventKey;
+    for (let i = 0; i < 3; i++) {
+      arr.push({ title: `CNode${i+1}`, key: `${key}-${i}`, value: `${key}-${i}` });
+    }
+    return arr;
+  }
+
+  setLeaf = (treeData, curKey, level) => {
+    const loopLeaf = (data, lev) => {
+      const l = lev - 1;
+      data.forEach((item) => {
+        if ((item.key.length > curKey.length) ? item.key.indexOf(curKey) !== 0 :
+          curKey.indexOf(item.key) !== 0) {
+          return;
+        }
+        if (item.children) {
+          loopLeaf(item.children, l);
+        } else if (l < 1) {
+          item.isLeaf = true;
+        }
+      });
+    };
+    loopLeaf(treeData, level + 1);
+  }
+
+  getNewTreeData = (treeData, curKey, child, level) => {
+    const loop = (data) => {
+      if (level < 1 || curKey.length - 3 > level * 2) return;
+      data.forEach((item) => {
+        if (curKey.indexOf(item.key) === 0) {
+          if (item.children) {
+            loop(item.children);
+          } else {
+            item.children = child;
+          }
+        }
+      });
+    };
+    loop(treeData);
+    this.setLeaf(treeData, curKey, level);
+  }
+
+  onLoadData = (treeNode) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const treeData = [...this.state.treeData];
+        this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateTreeNodes(treeNode), 1);
+        this.setState({ treeData });
+        resolve();
+      }, 1000);
+    });
+  }
+
+  onChange = (value) => {
+    this.setState({ value });
+  }
+
+  render() {
+    const tProps = {
+      showSearch: true,
+      treeData: this.state.treeData,
+      value: this.state.value,
+      onChange: this.onChange,
+      isRequired: true,
+      style: {
+        width: 300,
+      },
+      dropdownStyle: {
+        width: 300,
+      }
+    };
+    return (
+      <TreeSelect {...tProps} loadData={this.onLoadData}/>
+    );
+  }
+```
+:::
+
+
 ## 多选
 
 :::demo 使用勾选框实现多选功能。
@@ -197,12 +294,10 @@
   }
 
   onConfirm = (value) => {
-    // console.log('>> onConfirm: ', value);
     this.setState({ value });
   }
   
   onCancel = (value) => {
-    // console.log('>> onCancel: ', value);
     this.setState({ value });
   }
 
@@ -309,12 +404,10 @@
   }
 
   onConfirm = (value) => {
-    // console.log('>> onConfirm: ', value);
     this.setState({ value });
   }
   
   onCancel = (value) => {
-    // console.log('>> onCancel: ', value);
     this.setState({ value });
   }
 
@@ -376,6 +469,105 @@
 ```
 :::
 
+## 异步加载数据的多选
+
+:::demo 异步加载数据的多选。
+
+```js
+
+  state = {
+    value: [],
+    treeData: [
+      { title: 'Node1', key: '0-0', value: '0-0' },
+      { title: 'Node2', key: '0-1', value: '0-1' },
+      { title: 'Node3', key: '0-2', value: '0-2', isLeaf: true }
+    ]
+  }
+
+  onConfirm = (value) => {
+    this.setState({ value });
+  }
+  
+  onCancel = (value) => {
+    this.setState({ value });
+  }
+
+  generateTreeNodes = (treeNode) => {
+    const arr = [];
+    const key = treeNode.props.eventKey;
+    for (let i = 0; i < 3; i++) {
+      arr.push({ title: `CNode${i+1}`, key: `${key}-${i}`, value: `${key}-${i}` });
+    }
+    return arr;
+  }
+
+  setLeaf = (treeData, curKey, level) => {
+    const loopLeaf = (data, lev) => {
+      const l = lev - 1;
+      data.forEach((item) => {
+        if ((item.key.length > curKey.length) ? item.key.indexOf(curKey) !== 0 :
+          curKey.indexOf(item.key) !== 0) {
+          return;
+        }
+        if (item.children) {
+          loopLeaf(item.children, l);
+        } else if (l < 1) {
+          item.isLeaf = true;
+        }
+      });
+    };
+    loopLeaf(treeData, level + 1);
+  }
+
+  getNewTreeData = (treeData, curKey, child, level) => {
+    const loop = (data) => {
+      if (level < 1 || curKey.length - 3 > level * 2) return;
+      data.forEach((item) => {
+        if (curKey.indexOf(item.key) === 0) {
+          if (item.children) {
+            loop(item.children);
+          } else {
+            item.children = child;
+          }
+        }
+      });
+    };
+    loop(treeData);
+    this.setLeaf(treeData, curKey, level);
+  }
+
+  onLoadData = (treeNode) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const treeData = [...this.state.treeData];
+        this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateTreeNodes(treeNode), 1);
+        this.setState({ treeData });
+        resolve();
+      }, 1000);
+    });
+  }
+
+  render() {
+    const tProps = {
+      showSearch: true,
+      treeData: this.state.treeData,
+      value: this.state.value,
+      onConfirm: this.onConfirm,
+      onCancel: this.onCancel,
+      treeCheckable: true,
+      style: {
+        width: 300,
+      },
+      dropdownStyle: {
+        width: 300,
+      }
+    };
+    return (
+      <TreeSelect {...tProps} loadData={this.onLoadData}/>
+    );
+  }
+```
+:::
 
 ## API
 
@@ -391,8 +583,8 @@
 | dropdownStyle | 下拉菜单的样式 | object | - |
 | editable | 选中的条目是否可编辑，多选时有效 | boolean | true |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | Function(inputValue: string, treeNode: TreeNode) (函数需要返回bool值) | - |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | Function(triggerNode) | () => document.body |
-| loadData | 异步加载数据 | function(node) | - |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | function(triggerNode) | () => document.body |
+| loadData | 异步加载数据，返回值应该是一个 promise | function(treeNode) | - |
 | placeholder | 选择框默认提示文字 | string | '请选择' |
 | searchPlaceholder | 搜索框默认文字 | string | '请输入关键字' |
 | showSearch | 是否在下拉中显示搜索框 | boolean | false |
@@ -400,7 +592,7 @@
 | style | 选择框的样式 | object | - |
 | tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | number | 100 |
 | treeCheckable | 显示 checkbox | boolean | false |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一） | array<{value, label, children, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 在整个树范围内唯一） | array<{value, label, children, isLeaf, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | array | - |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'title' |
