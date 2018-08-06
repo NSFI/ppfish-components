@@ -10,8 +10,7 @@ import { formatDate, isValidValue, diffDate } from "../../utils/date/index";
 // 默认快速选择时间选项
 const defaultQuickTimeOption = [
   { text: '今天', value: [new Date(new Date().setHours(0,0,0,0)), new Date(new Date().setHours(23,59,59,59))]},
-  { text: '过去7天', value: [new Date(new Date().setHours(0,0,0,0)-7*24*60*60*1000), new Date(new Date().setHours(23,59,59,59))] },
-  { text: '过去30天', value: [new Date(new Date().setHours(0,0,0,0)-30*24*60*60*1000), new Date(new Date().setHours(23,59,59,59))] }
+  { text: '过去7天', value: [new Date(new Date().setHours(0,0,0,0)-7*24*60*60*1000), new Date(new Date().setHours(23,59,59,59))] }
 ];
 
 // value传进来有两种格式：{ text: '今天', value: [Date, Date] } 或 [Date, Date]

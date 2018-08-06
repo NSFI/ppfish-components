@@ -179,6 +179,26 @@
 ```
 :::
 
+## 设置最大可选择的日期范围
+
+:::demo 通过`maxDateRange`设置最大可选择的日期天数。
+```js
+  handleTimeChange = (time) => {
+    console.log(time);
+  }
+  
+  render() {
+    return (
+      <BizDatePicker.BizDateRangePicker
+        className="my-time-picker-demo"
+        onChange={this.handleTimeChange}
+        maxDateRange={8}
+      />
+    );
+  }
+```
+:::
+
 
 ## 公共API
 
@@ -205,9 +225,9 @@
 
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| quickTimeOption | 快速选择时间选项,格式参考默认值 | array |[{ text: '今天', value: new Date() },{ text: '昨天', value: new Date(new Date()-24*60*60*1000)}]|
-| defaultValue  | 默认时间，支持两种格式，例如：`{ text: '今天', value: new Date() } ` 或 `Date `| object | quickTimeOption[0]   |
+| quickTimeOption | 快速选择时间选项,格式参考默认值 | array |[{ text: '今天', value: [new Date(new Date().setHours(0,0,0,0)), new Date(new Date().setHours(23,59,59,59))]},{text:'过去7天',value: [new Date(new Date().setHours(0,0,0,0)-7*24*60*60*1000), new Date(new Date().setHours(23,59,59,59))]}]|
+| defaultValue  | 默认时间，支持两种格式，例如：`{ text: '今天', value: [Date,Date] } ` 或 `[Date,Date]`| object | quickTimeOption[0]   |
 | value | 日期，支持两种格式, 同defaultValue | object | - |
 | maxDateRange  | 最大可选择的日期范围，单位 天    | number   | null   |
-| rangeSeparator | 分隔符 | string | - | ' 至 ' |
+| rangeSeparator | 分隔符 | string | - | '至' |
 

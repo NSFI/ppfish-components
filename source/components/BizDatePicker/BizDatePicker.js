@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Popover from '../Popover';
-import message from '../Message';
 import Icon from '../Icon';
 import { DatePicker } from '../DatePicker';
 import { formatDate } from "../../utils/date/index";
