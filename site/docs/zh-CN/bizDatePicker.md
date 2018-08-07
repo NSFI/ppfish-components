@@ -4,7 +4,8 @@
 
 ## 何时使用
 
-当需要能快速选择时间段，同时能进行日期选择时，可以用自定义时间选择器
+- 当需要能快速选择时间段，同时能进行日期选择时，可以用自定义时间选择器。
+- 如果通用组件[DatePicker](https://nsfi.github.io/ppfish-components/index.html#/components/datePicker)能满足业务需求，请尽量使用DatePicker
 
 ## 基本使用
 

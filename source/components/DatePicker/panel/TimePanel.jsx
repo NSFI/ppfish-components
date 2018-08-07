@@ -61,26 +61,30 @@ export default class TimePanel extends PopperBase {
   // date: {type: number}
   handleChange = (date) => {
     const {currentDate} = this.state;
+    const newDate = new Date(currentDate);
 
     if (date.hours !== undefined) {
-      currentDate.setHours(date.hours);
+      newDate.setHours(date.hours);
     }
     if (date.minutes !== undefined) {
-      currentDate.setMinutes(date.minutes);
+      newDate.setMinutes(date.minutes);
     }
     if (date.seconds !== undefined) {
-      currentDate.setSeconds(date.seconds);
+      newDate.setSeconds(date.seconds);
     }
 
-    if(!this.isValid(currentDate)){
+    if(!this.isValid(newDate)){
       this.setState({
         confirmButtonDisabled: true,
+        currentDate: newDate
       });
     }else{
       this.setState({
         confirmButtonDisabled: false,
+        currentDate: newDate
+      }, () => {
+        this.handleConfirm(true, false); //面板展开，不保存值
       });
-      this.handleConfirm(true, false); //面板展开，不保存值
     }
   }
 

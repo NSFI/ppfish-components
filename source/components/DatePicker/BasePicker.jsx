@@ -107,7 +107,6 @@ export default class BasePicker extends React.Component {
    * @param isKeepPannel: boolean = false
    */
   onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {//only change input value on picked triggered
-    //let hasChanged = !valueEquals(this.state.value, value);
     this.setState({
       pickerVisible: isKeepPannel,
       value,

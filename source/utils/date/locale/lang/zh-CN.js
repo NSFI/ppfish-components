@@ -5,7 +5,7 @@ export default {
       clear: '清空'
     },
     datepicker: {
-      now: '此刻',
+      now: '现在',
       today: '今天',
       cancel: '取消',
       clear: '清空',

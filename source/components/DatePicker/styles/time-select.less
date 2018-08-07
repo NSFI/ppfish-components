@@ -7,6 +7,7 @@
     &.time-select {
       margin: 5px 0;
       min-width: 0;
+      font-size: 12px;
       .fishd-picker-panel__content {
         max-height: 200px;
         margin: 0;
@@ -16,15 +17,25 @@
       padding: 8px 10px;
       font-size: 14px;
       &.selected:not(.disabled) {
-        background-color: @datepicker-active-background-color;
-        color: #fff;
+        color: @primary-color;
+      }
+      &.selected:after {
+        display: inline-block;
+        width: 14px;
+        height: 100%;
+        position: absolute;
+        right: 15px;
+        color: @primary-color;
+        /* stylelint-disable-next-line */
+        font-family: fishdicon;
+        content: "\e671";
+        font-size: 12px;
       }
       &.disabled {
         color: @datepicker-disable-color;
         cursor: not-allowed;
       }
       &:not(.disabled):not(.selected):hover {
-        color: @datepicker-active-color;
         background-color: @datepicker-hover-background-color;
         cursor: pointer;
       }
