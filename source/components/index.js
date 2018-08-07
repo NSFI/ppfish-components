@@ -1,12 +1,13 @@
 import AnimationImageLoader from './AnimationImageLoader';
 import AudioPlayer from './AudioPlayer';
+import BackTop from './BackTop/index.tsx';
 import BizLoading from './BizLoading';
 import BizDatePicker from './BizDatePicker';
 import Button from './Button/index.tsx';
 import Checkbox from './Checkbox/index.tsx';
 import Col from './Col/index.tsx';
 import ColorPicker from './ColorPicker';
-import { TimePicker, DatePicker } from './DatePicker';
+import {TimePicker, DatePicker} from './DatePicker';
 import Drawer from './Drawer';
 import Dropdown from './Dropdown/index.tsx';
 import ImageLoader from './ImageLoader';
@@ -49,6 +50,7 @@ import * as upload from '../utils/upload';
 // 通用组件从这里暴露
 export {AnimationImageLoader};
 export {AudioPlayer};
+export {BackTop};
 export {BizLoading};
 export {BizDatePicker};
 export {Button};

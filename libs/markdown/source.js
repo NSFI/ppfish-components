@@ -6,7 +6,6 @@ export {
   AutoComplete,
   Alert,
   Avatar,
-  BackTop,
   Badge,
   Breadcrumb,
   Calendar,
