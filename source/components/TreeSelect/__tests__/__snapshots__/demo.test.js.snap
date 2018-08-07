@@ -1,0 +1,258 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders treeSelect demo correctly 1`] = `
+<div>
+  <div>
+    <span
+      aria-haspopup="listbox"
+      class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+      role="combobox"
+      style="width:300px"
+      tabindex="0"
+    >
+      <span
+        class="fishd-treeselect-selection fishd-treeselect-selection--single"
+      >
+        <span
+          class="fishd-treeselect-selection__rendered"
+        >
+          <span
+            class="fishd-treeselect-selection__placeholder"
+          >
+            请选择
+          </span>
+        </span>
+        <span
+          class="fishd-treeselect-arrow fishdicon-down-fill"
+          style="outline:none"
+        >
+          <b />
+        </span>
+      </span>
+    </span>
+    <br />
+    <span
+      aria-disabled="true"
+      aria-haspopup="listbox"
+      class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-disabled"
+      role="combobox"
+      style="width:300px"
+    >
+      <span
+        class="fishd-treeselect-selection fishd-treeselect-selection--single"
+      >
+        <span
+          class="fishd-treeselect-selection__rendered"
+        >
+          <span
+            class="fishd-treeselect-selection__placeholder"
+          >
+            请选择
+          </span>
+        </span>
+        <span
+          class="fishd-treeselect-arrow fishdicon-down-fill"
+          style="outline:none"
+        >
+          <b />
+        </span>
+      </span>
+    </span>
+  </div>
+  <span
+    aria-haspopup="listbox"
+    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    role="combobox"
+    style="width:300px"
+    tabindex="0"
+  >
+    <span
+      class="fishd-treeselect-selection fishd-treeselect-selection--single"
+    >
+      <span
+        class="fishd-treeselect-selection__rendered"
+      >
+        <span
+          class="fishd-treeselect-selection__placeholder"
+        >
+          请选择
+        </span>
+      </span>
+      <span
+        class="fishd-treeselect-arrow fishdicon-down-fill"
+        style="outline:none"
+      >
+        <b />
+      </span>
+    </span>
+  </span>
+  <span
+    aria-haspopup="listbox"
+    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    role="combobox"
+    style="width:300px"
+    tabindex="0"
+  >
+    <span
+      class="fishd-treeselect-selection fishd-treeselect-selection--single"
+    >
+      <span
+        class="fishd-treeselect-selection__rendered"
+      >
+        <span
+          class="fishd-treeselect-selection__placeholder"
+        >
+          请选择
+        </span>
+      </span>
+      <span
+        class="fishd-treeselect-arrow fishdicon-down-fill"
+        style="outline:none"
+      >
+        <b />
+      </span>
+    </span>
+  </span>
+  <span
+    aria-haspopup="listbox"
+    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    role="combobox"
+    style="width:300px"
+    tabindex="0"
+  >
+    <span
+      class="fishd-treeselect-selection fishd-treeselect-selection--single"
+    >
+      <span
+        class="fishd-treeselect-selection__rendered"
+      >
+        <span
+          class="fishd-treeselect-selection__placeholder"
+        >
+          请选择
+        </span>
+      </span>
+      <span
+        class="fishd-treeselect-arrow fishdicon-down-fill"
+        style="outline:none"
+      >
+        <b />
+      </span>
+    </span>
+  </span>
+  <div>
+    <span
+      aria-haspopup="listbox"
+      class="fishd-treeselect-ctner fishd-treeselect-scroll fishd-treeselect fishd-treeselect-enabled"
+      role="combobox"
+      style="width:300px"
+      tabindex="-1"
+    >
+      <span
+        class="fishd-treeselect-selection fishd-treeselect-selection--multiple"
+      >
+        <ul
+          class="fishd-treeselect-selection__rendered"
+        >
+          <li
+            class="fishd-treeselect-selection__choice"
+            role="menuitem"
+            style="width:100px;user-select:none;-webkit-user-select:none"
+            title="CNode1"
+            unselectable="unselectable"
+          >
+            <span
+              class="fishd-treeselect-selection__choice__remove fishdicon-close-modal-line"
+            />
+            <span
+              class="fishd-treeselect-selection__choice__content"
+            >
+              CNode1
+            </span>
+          </li>
+        </ul>
+        <span
+          class="fishd-treeselect-search__field__placeholder"
+          style="display:none"
+        >
+          请选择
+        </span>
+      </span>
+    </span>
+    <br />
+    <span
+      aria-disabled="true"
+      aria-haspopup="listbox"
+      class="fishd-treeselect-ctner fishd-treeselect-scroll fishd-treeselect fishd-treeselect-disabled"
+      role="combobox"
+      style="width:300px"
+    >
+      <span
+        class="fishd-treeselect-selection fishd-treeselect-selection--multiple"
+      >
+        <ul
+          class="fishd-treeselect-selection__rendered"
+        />
+        <span
+          class="fishd-treeselect-search__field__placeholder"
+          style="display:block"
+        >
+          请选择
+        </span>
+      </span>
+    </span>
+  </div>
+  <span
+    aria-haspopup="listbox"
+    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    role="combobox"
+    style="width:300px"
+    tabindex="-1"
+  >
+    <span
+      class="fishd-treeselect-selection fishd-treeselect-selection--multiple"
+    >
+      <ul
+        class="fishd-treeselect-selection__rendered fishd-treeselect-multiple-readonly"
+        role="menubar"
+        title="Child Node1"
+      >
+        Child Node1
+      </ul>
+      <span
+        class="fishd-treeselect-arrow fishdicon-down-fill"
+        style="outline:none"
+      >
+        <b />
+      </span>
+      <span
+        class="fishd-treeselect-search__field__placeholder"
+        style="display:none"
+      >
+        请选择
+      </span>
+    </span>
+  </span>
+  <span
+    aria-haspopup="listbox"
+    class="fishd-treeselect-ctner fishd-treeselect-scroll fishd-treeselect fishd-treeselect-enabled"
+    role="combobox"
+    style="width:300px"
+    tabindex="-1"
+  >
+    <span
+      class="fishd-treeselect-selection fishd-treeselect-selection--multiple"
+    >
+      <ul
+        class="fishd-treeselect-selection__rendered"
+      />
+      <span
+        class="fishd-treeselect-search__field__placeholder"
+        style="display:block"
+      >
+        请选择
+      </span>
+    </span>
+  </span>
+</div>
+`;
