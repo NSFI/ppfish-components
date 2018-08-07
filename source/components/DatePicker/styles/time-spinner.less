@@ -14,7 +14,7 @@
 
     &__wrapper {
       max-height: 190px;
-      overflow: auto;
+      overflow: hidden;
       display: inline-block;
       width: 50%;
       vertical-align: top;
@@ -46,7 +46,7 @@
       font-size: 12px;
 
       &:hover:not(.disabled):not(.active) {
-        background: @datepicker-hover-background-color;
+        color: @datepicker-active-color;
         cursor: pointer;
       }
 
