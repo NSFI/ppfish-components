@@ -65,10 +65,3 @@ export function normalizeColumns(elements: React.ReactChildren) {
   });
   return columns;
 }
-
-export function getResizeTableHeight(offsetHeight: number) {
-  const windowHeight = window.innerHeight
-    || document.documentElement.clientHeight
-    || document.body.clientHeight;
-  return Math.max(windowHeight - offsetHeight, 100);
-};

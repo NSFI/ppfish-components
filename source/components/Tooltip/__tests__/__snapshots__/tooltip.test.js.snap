@@ -1,95 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tooltip should hide when mouse leave fishd disabled Button 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "style": "display: inline-block; cursor: not-allowed;",
-    },
-    "children": Array [
-      Object {
-        "attribs": Object {
-          "class": "fishd-btn",
-          "disabled": "",
-          "style": "pointer-events: none;",
-          "type": "button",
-        },
-        "children": Array [
-          Object {
-            "attribs": Object {},
-            "children": Array [
-              Object {
-                "data": "Hello world!",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "span",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {},
-            "x-attribsPrefix": Object {},
-          },
-        ],
-        "name": "button",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-          "disabled": undefined,
-          "style": undefined,
-          "type": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-          "disabled": undefined,
-          "style": undefined,
-          "type": undefined,
-        },
-      },
-    ],
-    "name": "span",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "style": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "style": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+<span
+  style="display: inline-block; cursor: not-allowed;"
+>
+  <button
+    class="fishd-btn"
+    disabled=""
+    style="pointer-events: none;"
+    type="button"
+  >
+    <span>
+      Hello world!
+    </span>
+  </button>
+</span>
 `;

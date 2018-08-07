@@ -34,6 +34,7 @@ export interface TreeData {
   value: string;
   label: React.ReactNode;
   children?: TreeData[];
+  isLeaf?: boolean;
 }
 
 export interface TreeSelectProps extends AbstractSelectProps {

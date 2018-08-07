@@ -1,12 +1,143 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Renders tooltip demo correctly 1`] = `
-initialize {
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+<div>
+  <span>
+    Tooltip will show when mouse enter.
+  </span>
+  <div>
+    <button
+      class="fishd-btn"
+      type="button"
+    >
+      <span>
+        Align edge / 边缘对齐
+      </span>
+    </button>
+    <button
+      class="fishd-btn"
+      type="button"
+    >
+      <span>
+        Arrow points to center / 箭头指向中心
+      </span>
+    </button>
+  </div>
+  <div
+    class="demo"
+  >
+    <div
+      style="margin-left:70px;white-space:nowrap"
+    >
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          TL
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          Top
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          TR
+        </span>
+      </button>
+    </div>
+    <div
+      style="width:70px;float:left"
+    >
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          LT
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          Left
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          LB
+        </span>
+      </button>
+    </div>
+    <div
+      style="width:70px;margin-left:304px"
+    >
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          RT
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          Right
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          RB
+        </span>
+      </button>
+    </div>
+    <div
+      style="margin-left:70px;clear:both;white-space:nowrap"
+    >
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          BL
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          Bottom
+        </span>
+      </button>
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          BR
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
 `;

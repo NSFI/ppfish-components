@@ -2,12 +2,13 @@ module.exports = {
   setupFiles: [
     '<rootDir>/source/tests/setup.js',
   ],
+  "snapshotSerializers": ["enzyme-to-json/serializer"],
 	moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
     "\\.(css|less)$": "<rootDir>/tools/assetsTransformer.js"
 	},
   moduleFileExtensions: [
-    "js", "jsx", "json", "ts", "tsx"
+    "js", "jsx", "json", "ts", "tsx", "md"
   ],
   testURL:'http://localhost',
   testMatch: [
@@ -17,7 +18,8 @@ module.exports = {
   testPathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/node_modules/"],
   transform:{
     "^.+\\.tsx?$": "ts-jest",
-    "^.+\\.jsx?$": "babel-jest"
+    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.md$": "<rootDir>/tools/markdownDemoTransformer.js"
   },
   globals: {
     "ts-jest": {
