@@ -10,7 +10,12 @@ const searchIcon = require('../../assets/fd-web-1.2-icon@2x.svg');
 export default class Layout extends React.Component {
 
   static propTypes = {
-    children: PropTypes.object
+    children: PropTypes.object,
+    hideFooter: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    hideFooter: false
   };
 
   constructor(props) {
@@ -20,10 +25,6 @@ export default class Layout extends React.Component {
   componentDidMount() {
     this.setMenuHighlight();
     this.initSearchBox();
-  }
-
-  componentDidUpdate() {
-    window.scrollTo(0, 0);
   }
 
   getLocale(key) {
@@ -79,7 +80,7 @@ export default class Layout extends React.Component {
   }
 
   render() {
-    const {children} = this.props;
+    const {children, hideFooter} = this.props;
     return (
       <div className="app">
         <Affix offsetTop={0}>
@@ -90,8 +91,8 @@ export default class Layout extends React.Component {
               </Col>
               <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
                 <div id="search-box" className="search-box">
-                  <img src={searchIcon} className="search-icon"/><input type="text" placeholder="在 Fish Design 中搜索"
-                                                                        className="ant-input"/>
+                  <img src={searchIcon} className="search-icon"/>
+                  <input type="text" placeholder="在 Fish Design 中搜索" className="ant-input"/>
                 </div>
                 <ul className="nav">
                   <li className="nav-item">
@@ -121,26 +122,30 @@ export default class Layout extends React.Component {
         <div className="main">
           {children}
         </div>
-        <footer className="footer">
-          <div className="logo">
-            <img src={require('../../assets/fd-web-5.1-logo@2x.png')} alt="logo"/>
-            <h3>Fish Design</h3>
-            <p className="version">- {this.getLocale('misc.version')} -</p>
-          </div>
-          <div className="link-list">
-            <Link to="/home" className="link-item">首页</Link>
-            {/*<Link to="/home" className="link-item">设计语言</Link>*/}
-            <Link to="/components" className="link-item">组件</Link>
-            {/*<Link className="link-item">演示环境</Link>*/}
-            <a href="http://jira.netease.com/projects/YSFCOMP/summary" target="_blank" className="link-item">问题反馈</a>
-          </div>
-          <div className="github">
-            <a href="//github.com/NSFI/ppfish-components" target="_blank">
-              <img src={require('../../assets/fd-web-5.2-logo@2x.svg')} alt="github"/>
-              <span>GitHub</span>
-            </a>
-          </div>
-        </footer>
+        {
+          !hideFooter &&
+          <footer className="footer">
+            <div className="logo">
+              <img src={require('../../assets/fd-web-5.1-logo@2x.png')} alt="logo"/>
+              <h3>Fish Design</h3>
+              <p className="version">- {this.getLocale('misc.version')} -</p>
+            </div>
+            <div className="link-list">
+              <Link to="/home" className="link-item">首页</Link>
+              {/*<Link to="/home" className="link-item">设计语言</Link>*/}
+              <Link to="/components" className="link-item">组件</Link>
+              {/*<Link className="link-item">演示环境</Link>*/}
+              <a href="http://jira.netease.com/projects/YSFCOMP/summary" target="_blank" className="link-item">问题反馈</a>
+            </div>
+            <div className="github">
+              <a href="//github.com/NSFI/ppfish-components" target="_blank">
+                <img src={require('../../assets/fd-web-5.2-logo@2x.svg')} alt="github"/>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </footer>
+
+        }
       </div>
     );
   }

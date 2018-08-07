@@ -42,40 +42,36 @@ export default class Slider extends React.Component {
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({anchors});
     /* eslint-enable react/no-did-mount-set-state */
-    window.addEventListener('scroll', this.checkActiveAnchors);
-    this.checkActiveAnchors();
+    this.scrollContainer = document.querySelector('.component-content');
+    this.scrollContainer.addEventListener('scroll', this.handleSliderActiveCheck);
+    this.handleSliderActiveCheck();
   }
 
   componentDidUpdate() {
-    this.checkActiveAnchors();
+    this.handleSliderActiveCheck();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.checkActiveAnchors);
+    this.scrollContainer.removeEventListener('scroll', this.handleSliderActiveCheck);
   }
 
-  clickLink = (e, id) => {
+  handleSliderClick = (e, id) => {
     e && e.preventDefault();
-    const fixedHeaderHeight = parseInt(getComputedStyle(document.querySelector('.fish-header')).height);
-    scrollIntoView(document.getElementById(id), window, {
-      offsetTop: fixedHeaderHeight + 5,
+    scrollIntoView(document.getElementById(id), this.scrollContainer, {
+      offsetTop: 5,
       alignWithTop: true
     });
   };
 
-  checkActiveAnchors = () => {
+  handleSliderActiveCheck = () => {
     const {anchors} = this.state;
-    if (anchors.length < 2) {
-      return;
-    } // 不显示导航时，直接跳出 scroll 事件
-    const wayFromTop = document.documentElement.scrollTop;
-    const fixedHeaderHeight = parseInt(getComputedStyle(document.querySelector('.fish-header')).height);
-    const result = anchors.map(x => ({
-      id: x.id,
-      offset: Math.abs(getElementTop(x.id) - fixedHeaderHeight - wayFromTop)
-    })).reduce((a, b) => {
-      return a.offset < b.offset ? a : b;
-    });
+    if (anchors.length < 2) return;
+    const result = anchors
+      .map(x => ({
+        id: x.id,
+        offset: Math.abs(getElementTop(x.id) - this.scrollContainer.scrollTop)
+      }))
+      .reduce((a, b) => a.offset < b.offset ? a : b);
     const el = this.refs[result.id];
     el.classList.add('active');
     getSiblings(el).map((i) => i.classList.remove('active'));
@@ -84,10 +80,10 @@ export default class Slider extends React.Component {
   render() {
     const {anchors} = this.state;
     const menuList = anchors.length > 1 ? anchors.map(x =>
-        <li title={x.id} key={x.id} ref={x.id}><a onClick={(e) => this.clickLink(e, x.id)}>{x.name}</a></li>) :
+        <li title={x.id} key={x.id} ref={x.id}><a onClick={(e) => this.handleSliderClick(e, x.id)}>{x.name}</a></li>) :
       null;
     return (
-      <Affix offsetTop={90}>
+      <Affix offsetTop={90} target={() => document.querySelector('.component-content')}>
         <ul className="u-slider-anchors" ref="menu">
           {menuList}
         </ul>

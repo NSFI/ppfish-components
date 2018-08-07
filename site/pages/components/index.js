@@ -2,13 +2,14 @@ import React from 'react';
 import {Divider} from 'antd';
 import {BackTop, Icon, Row, Col, Menu} from '../../../source/components';
 import MobileMenu from 'rc-drawer';
-import '../../styles/rc-drawer.less';
 import PropTypes from 'prop-types';
 import Layout from '../common/layout';
 import locales from '../../locales';
 import components from '../../componentsPage';
 import {getPlainComponentList, getComponentDepth} from '../../utils';
 import {enquireScreen, unenquireScreen} from 'enquire-js';
+import '../../styles/rc-drawer.less';
+import './index.less';
 
 const SubMenu = Menu.SubMenu;
 let isMobile = false;
@@ -38,6 +39,11 @@ export default class Components extends React.Component {
   componentDidMount() {
     this.setPage();
     this.screentRegister = this.enquireScreenRegister();
+  }
+
+  componentDidUpdate() {
+    const componentContent = document.querySelector('.component-content');
+    componentContent.scrollTop = 0;
   }
 
   componentWillUnmount() {
@@ -159,8 +165,8 @@ export default class Components extends React.Component {
       </nav>
     );
     return (
-      <Layout className="doc">
-        <Row>
+      <Layout className="doc" hideFooter>
+        <Row className="component-container">
           {isMobile ?
             <MobileMenu
               key="Mobile-menu"
@@ -168,17 +174,17 @@ export default class Components extends React.Component {
             >
               {menuChild}
             </MobileMenu> :
-            <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4}>
+            <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="component-list">
               {menuChild}
             </Col>
           }
-          <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20}>
+          <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="component-content">
             <div className="content">
               <article className="markdown">
                 {this.props.children}
               </article>
               {Navigation}
-              <BackTop>
+              <BackTop target={() => document.querySelector('.component-content')}>
                 <img src={require('../../assets/nppd-web-1.51-but@2x.png')} className="u-backtop" alt="backTop"/>
               </BackTop>
             </div>
