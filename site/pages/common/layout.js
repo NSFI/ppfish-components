@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Affix} from 'antd';
 import {Row, Col} from '../../../source/components';
 import PropTypes from "prop-types";
 import locales from '../../locales';
@@ -83,42 +82,40 @@ export default class Layout extends React.Component {
     const {children, hideFooter} = this.props;
     return (
       <div className="app">
-        <Affix offsetTop={0}>
-          <header className="fish-header">
-            <Row>
-              <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
-                <img src={require('../../assets/FishDesign-Brand-06@2x.png')} alt="fish-disgn"/>
-              </Col>
-              <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
-                <div id="search-box" className="search-box">
-                  <img src={searchIcon} className="search-icon"/>
-                  <input type="text" placeholder="在 Fish Design 中搜索" className="ant-input"/>
-                </div>
-                <ul className="nav">
-                  <li className="nav-item">
-                    <Link to="/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</Link>
-                  </li>
-                  {/*
+        <header className="fish-header">
+          <Row>
+            <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
+              <img src={require('../../assets/FishDesign-Brand-06@2x.png')} alt="fish-disgn"/>
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
+              <div id="search-box" className="search-box">
+                <img src={searchIcon} className="search-icon"/>
+                <input type="text" placeholder="在 Fish Design 中搜索" className="ant-input"/>
+              </div>
+              <ul className="nav">
+                <li className="nav-item">
+                  <Link to="/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</Link>
+                </li>
+                {/*
                 <li className="nav-item">
                   <Link to="#/spec" rel="noopener noreferrer">{this.getLocale('misc.spec')}</Link>
                 </li>
                 */}
-                  <li className="nav-item">
-                    <Link to="/components">{this.getLocale('misc.component')}</Link>
-                  </li>
-                  {/*
+                <li className="nav-item">
+                  <Link to="/components">{this.getLocale('misc.component')}</Link>
+                </li>
+                {/*
                 <li className="nav-item">
                   <Link>{this.getLocale('misc.demo')}</Link>
                 </li>
                 */}
-                  <span className="nav-version">
+                <span className="nav-version">
                     {this.getLocale('misc.version')}
                   </span>
-                </ul>
-              </Col>
-            </Row>
-          </header>
-        </Affix>
+              </ul>
+            </Col>
+          </Row>
+        </header>
         <div className="main">
           {children}
         </div>
