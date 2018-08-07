@@ -2,33 +2,32 @@
 @import "./picker.less";
 @import "./date-picker.less";
 
-.time-select {
-  margin: 5px 0;
-  min-width: 0;
-}
-
-.time-select .fishd-picker-panel__content {
-  max-height: 200px;
-  margin: 0;
-}
-
-.time-select-item {
-  padding: 8px 10px;
-  font-size: 14px;
-}
-
-.time-select-item.selected:not(.disabled) {
-  background-color: @datepicker-active-background-color;
-  color: #fff;
-}
-
-.time-select-item.disabled {
-  color: @datepicker-disable-color;
-  cursor: not-allowed;
-}
-
-.time-select-item:not(.disabled):not(.selected):hover {
-  color: @datepicker-active-color;
-  background-color: @datepicker-hover-background-color;
-  cursor: pointer;
+.@{prefixClass} {
+  &-picker-panel {
+    &.time-select {
+      margin: 5px 0;
+      min-width: 0;
+      .fishd-picker-panel__content {
+        max-height: 200px;
+        margin: 0;
+      }
+    }
+    .time-select-item {
+      padding: 8px 10px;
+      font-size: 14px;
+      &.selected:not(.disabled) {
+        background-color: @datepicker-active-background-color;
+        color: #fff;
+      }
+      &.disabled {
+        color: @datepicker-disable-color;
+        cursor: not-allowed;
+      }
+      &:not(.disabled):not(.selected):hover {
+        color: @datepicker-active-color;
+        background-color: @datepicker-hover-background-color;
+        cursor: pointer;
+      }
+    }
+  }
 }

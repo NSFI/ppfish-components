@@ -89,14 +89,8 @@ class BizDatePicker extends React.Component {
 
   // 自定义时间选择
   handleCustomerTimeChange = (date) => {
-    // 不需要选时间时，直接关闭弹出层
-    if(!this.props.isShowTime) {
-      this.setState({
-        open: false,
-      });
-    }
-
     this.setState({
+      open: false,
       showDate: {
         text: formatDate(date, this.props.format),
         value: date

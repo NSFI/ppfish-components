@@ -30,14 +30,12 @@ export default class BasePicker extends React.Component {
       isShowTrigger: PropTypes.bool,
       isAllowClear: PropTypes.bool,
       isDisabled: PropTypes.bool,
-      // time select pannel:
       value: PropTypes.oneOfType([
         PropTypes.instanceOf(Date),
         PropTypes.arrayOf(PropTypes.instanceOf(Date))
       ]),
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
-      // (Date|Date[]|null)=>(), null when click on clear icon
       onChange: PropTypes.func,
     }
   }
@@ -63,8 +61,8 @@ export default class BasePicker extends React.Component {
     this.type = _type; // type need to be set first
     this.state = Object.assign({}, state, {
       pickerVisible: false,
-      confirmValue: props.value // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
-    }, this.propsToState(props));
+      confirmValue: props.value, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
+    }, this.propsToState(props))
 
     this.clickOutsideId = 'clickOutsideId_' + idGen.next();
   }

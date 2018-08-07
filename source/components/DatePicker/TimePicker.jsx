@@ -22,8 +22,7 @@ export default class TimePicker extends BasePicker {
   // why this is used, goto: http://exploringjs.com/es6/ch_classes.html
   static get propTypes() {
     return Object.assign({}, {
-      // '18:30:00 - 20:30:00'
-      // or ['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']
+      // '18:30:00 - 20:30:00' or ['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']
       selectableRange: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
@@ -46,8 +45,8 @@ export default class TimePicker extends BasePicker {
   }
 
   onSelectionChange = (start, end) => {
-    // this.refs.inputRoot.refs.input.setSelectionRange(start, end);
-    // this.refs.inputRoot.refs.input.focus();
+    this.refs.inputRoot.input.setSelectionRange(start, end);
+    this.refs.inputRoot.input.focus();
   }
 
   pickerPanel(state, props) {
@@ -58,9 +57,9 @@ export default class TimePicker extends BasePicker {
         isShowCurrent={props.isShowCurrent}
         value={value}
         selectableRange={converSelectRange(props)}
-        onCancelPicked={this.onCancelPicked}
-        onPicked={this.onPicked}
         onSelectRangeChange={this._onSelectionChange}
+        onPicked={this.onPicked}
+        onCancelPicked={this.onCancelPicked}
       />
     )
   }

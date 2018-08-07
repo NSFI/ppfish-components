@@ -16,9 +16,7 @@ export default class TimeSelectPanel extends PopperBase {
       maxTime: PropTypes.string,
       value: PropTypes.string,
       onPicked: PropTypes.func,
-      //(string)=>date
       dateParser: PropTypes.func.isRequired,
-      //()=>HtmlElement
       getPopperRefElement: PropTypes.func,
       popperMixinOption: PropTypes.object
     }, PopperBase.propTypes)
@@ -71,12 +69,15 @@ export default class TimeSelectPanel extends PopperBase {
           {
             this.items().map((item, idx) => {
               return (
-                <div key={idx}
-                     className={classNames('time-select-item',
-                       { selected: value === item.value, disabled: item.disabled }
-                     )}
-                     disabled={item.disabled}
-                     onClick={() => this.handleClick(item)}>{item.value}</div>)
+                <div
+                  key={idx}
+                  className={classNames('time-select-item', { selected: value === item.value, disabled: item.disabled })}
+                  disabled={item.disabled}
+                  onClick={() => this.handleClick(item)}
+                >
+                  {item.value}
+                </div>
+              )
             })
           }
         </Scrollbar>

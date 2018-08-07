@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TimeSpinner from '../basic/TimeSpinner'
-import { PopperBase } from './PopperBase'
+import TimeSpinner from '../basic/TimeSpinner';
+import { PopperBase } from './PopperBase';
 import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
 
@@ -17,11 +17,6 @@ export default class TimePanel extends PopperBase {
         pickerWidth: PropTypes.number,
         value: PropTypes.instanceOf(Date),
         isShowCurrent: PropTypes.bool,
-        /*
-        onPicked: (value, isKeepPannelOpen)=>()
-        @param value: Date|null
-        @param isKeepPannelOpen:boolean, should parent close the pannel
-        */
         onPicked: PropTypes.func.isRequired,
         onCancelPicked: PropTypes.func.isRequired,
       }, PopperBase.propTypes)
@@ -65,7 +60,7 @@ export default class TimePanel extends PopperBase {
   // type: string,  one of [hours, minutes, seconds]
   // date: {type: number}
   handleChange = (date) => {
-    const { currentDate } = this.state;
+    const {currentDate} = this.state;
 
     if (date.hours !== undefined) {
       currentDate.setHours(date.hours);
@@ -80,14 +75,12 @@ export default class TimePanel extends PopperBase {
     if(!this.isValid(currentDate)){
       this.setState({
         confirmButtonDisabled: true,
-        currentDate: currentDate
       });
     }else{
       this.setState({
         confirmButtonDisabled: false,
-        currentDate: currentDate
       });
-      this.handleConfirm(true, false); //收起面板，不保存值
+      this.handleConfirm(true, false); //面板展开，不保存值
     }
   }
 
@@ -107,15 +100,14 @@ export default class TimePanel extends PopperBase {
 
   // 点击此刻按钮
   handleCurrent = () => {
-    const {onPicked, selectableRange} = this.props;
+    const {onPicked} = this.props;
     const value = new Date();
-    const date = new Date(limitRange(value, selectableRange, 'HH:mm:ss'));
-    onPicked(date, false, true);
+    onPicked(value, false, true);
   }
 
   render() {
-    const {isShowSeconds, currentDate, confirmButtonDisabled, currentButtonDisabled} = this.state;
     const {onSelectRangeChange, selectableRange, isShowCurrent} = this.props;
+    const {isShowSeconds, currentDate, confirmButtonDisabled, currentButtonDisabled} = this.state;
 
     const hours = currentDate ? currentDate.getHours() : null;
     const minutes = currentDate ? currentDate.getMinutes() : null;
