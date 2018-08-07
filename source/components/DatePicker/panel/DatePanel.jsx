@@ -25,12 +25,12 @@ const PICKER_VIEWS = {
   YEAR: 'year',
   MONTH: 'month',
   DATE: 'date',
-}
+};
 
 const isInputValid = (text, date, disabledDate) => {
   if(text.trim() === '' || !isValidValue(date) || typeof disabledDate === 'function' && disabledDate(date)) return false;
   return true;
-}
+};
 
 export default class DatePanel extends PopperBase {
 
@@ -79,7 +79,7 @@ export default class DatePanel extends PopperBase {
 
     this.state = {
       currentView,
-      currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 默认当前日历视图
+      currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 当前日历视图
       date: toDate(props.value),
       dateInputText: formatDate(props.value, this.dateFormat()), // 日期输入框的值(string)，当props.value为null时，值为''
       timeInputText: toDate(props.value),                      // 时间输入组件的值(Date)，当props.value为null时，值为null
@@ -338,7 +338,7 @@ export default class DatePanel extends PopperBase {
 
   render() {
     const { isShowTime, shortcuts, shortcutsPlacement } = this.props;
-    const { currentView, date, dateInputText, timeInputText, currentDate } = this.state;
+    const { currentView, dateInputText, timeInputText, currentDate } = this.state;
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
 
@@ -347,8 +347,8 @@ export default class DatePanel extends PopperBase {
         ref="root"
         className={classNames('fishd-picker-panel fishd-date-picker', {
           'has-sidebar': shortcuts && shortcutsPlacement === 'left',
-          'has-time': isShowTime
-        })}
+          'has-time': isShowTime})
+        }
       >
 
         <div className="fishd-picker-panel__body-wrapper">

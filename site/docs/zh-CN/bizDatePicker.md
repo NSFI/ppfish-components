@@ -17,7 +17,7 @@
   render() {
     return (
       <BizDatePicker
-        className="my-time-picker-demo"
+        className="my-date-picker-demo"
         onChange={this.handleTimeChange}
       />
     );
@@ -36,7 +36,7 @@
   render() {
     return (
       <BizDatePicker
-        className="my-time-picker-demo"
+        className="my-date-picker-demo"
         onChange={this.handleTimeChange}
         disabled={true}
       />
@@ -48,7 +48,7 @@
 
 ## 自定义快速选择时间
 
-:::demo 使用`quickTimeOption`来自定义快速选择时间。注意：`value`必须为[moment](http://momentjs.cn/docs/#/displaying/format/)数组，代表快速选择时间的[startTime, endTime]
+:::demo 使用`quickTimeOption`来自定义快速选择时间。
 ```js
   handleTimeChange = (time) => {
     console.log(time);
@@ -141,7 +141,7 @@
 
 ## 增加选择时间功能
 
-:::demo 增加选择时间。
+:::demo 通过设置`isShowTime`增加选择时间功能。注意：需要同时设置format.
 ```js
 
   handleTimeChange = (time) => {

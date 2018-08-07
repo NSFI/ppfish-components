@@ -2,11 +2,9 @@
 
 用于选择某个日期、日期范围、某个日期的具体时间点、日期时间点范围；多用于表单输入、筛选等场景。
 
-## 日期选择
+## 日期选择器
 
-以「日」为基本单位，基础的日期选择控件
-
-:::demo 基本单位由`type`属性指定。
+:::demo 基础的日期选择控件。
 
 ```js
 
@@ -78,7 +76,7 @@
         placeholder="请选择日期"
         onChange={this.handleValueChange}
         disabledDate={time=>time.getTime() < Date.now() - 8.64e7}
-        />
+       />
     )
   }
 
@@ -123,7 +121,7 @@ render() {
 
 当展示结果关注绝对时间、且快捷选项较多时使用。快捷选项不建议太多。
 
-:::demo 快捷选项需配置 `shortcuts`
+:::demo 快捷选项需配置 `shortcuts`。
 
 ```js
 
@@ -183,7 +181,7 @@ render() {
 
 ## 带时间的日期面板
 
-:::demo 通过设置`isShowTime`，即可在同一个选择器里同时进行日期和时间的选择。快捷选项的使用方法与 Date Picker 相同。
+:::demo 通过设置`isShowTime`，即可在同一个选择器里同时进行日期和时间的选择。
 ```js
 
 constructor(props) {
@@ -192,7 +190,7 @@ constructor(props) {
 }
 
 render() {
-  const {value1, value2} = this.state
+  const {value1, value2} = this.state;
 
   return (
     <div className="source">

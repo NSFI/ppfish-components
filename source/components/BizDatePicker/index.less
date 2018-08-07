@@ -10,27 +10,37 @@
   .fishd-popover-inner-content {
     padding: 0;
   }
+  .fishd-popover-arrow {
+    display: none;
+  }
 }
 
 //下拉内容的样式
 .@{prefixClass}-content {
   min-width: 318px;
-  //链接的样式
   .quick-picker-item {
     display: block;
     height: 36px;
     padding: 10px 12px;
     border-bottom: solid 1px #EBEDF0;
-  }
-  span + i {
-    margin-left: 8px;
-  }
-  .is-active {
-    color: @primary-color;
-  }
-  .quick-picker-item:hover {
-    color: @primary-color;
-    background: @datepicker-hover-background-color;
+    &.active {
+      color: @primary-color;
+    }
+    &.active:after {
+      display: inline-block;
+      width: 14px;
+      height: 100%;
+      position: absolute;
+      right: 15px;
+      color: @primary-color;
+      /* stylelint-disable-next-line */
+      font-family: fishdicon;
+      content: "\e671";
+      font-size: 12px;
+    }
+    &:hover {
+      background-color: #f7f8fa;
+    }
   }
 }
 
@@ -53,16 +63,19 @@
   align-items: center;
   justify-content: space-between;
   .@{prefixClass}-click-area-icon {
+    color: #999;
     transition: transform 0.5s;
-    display: inline-block;
     i {
       font-size: 12px;
+      transition: all 0.3s ease;
+      transform: scale(0.8);
+    }
+    &.active {
+      transform: rotate(180deg);
     }
   }
-  .icon-active {
-    transform: rotate(180deg);
-  }
   &.disabled {
+    color: #ccc;
     background-color: #F2F2F5;
     cursor: not-allowed;
   }

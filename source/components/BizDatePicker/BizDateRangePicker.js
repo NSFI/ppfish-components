@@ -146,7 +146,7 @@ class BizDatePicker extends React.Component {
     });
     const clickAreaIconClass = classNames({
       [`${prefixCls}-click-area-icon`]: true,
-      'icon-active': open
+      'active': open
     });
 
     const content = (
@@ -154,13 +154,10 @@ class BizDatePicker extends React.Component {
         {
           quickTimeOption.map((item, index) =>
             <li
-              className={classNames("quick-picker-item",{"is-active": item.text === showDate.text})}
+              className={classNames("quick-picker-item",{"active": item.text === showDate.text})}
               key={`quick-item-${index}`}
               onClick={this.handleQickTime.bind(this, item)}>
               <span>{item.text}</span>
-              {
-                item.text === showDate.text ? <Icon className="iconfont" type="check-line" /> : null
-              }
             </li>
           )
         }
