@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List renders empty list 1`] = `
+<div
+  class="fishd-list fishd-list-split"
+>
+  <div
+    class="fishd-spin-nested-loading"
+  >
+    <div
+      class="fishd-spin-container"
+    >
+      <div />
+    </div>
+  </div>
+</div>
+`;

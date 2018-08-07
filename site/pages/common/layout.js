@@ -59,6 +59,8 @@ export default class Layout extends React.Component {
   }
 
   loadSDK(callback) {
+    // algolia：https://community.algolia.com/docsearch/documentation/docsearch-FAQ/customize-configuration-file/
+    // algolia doc search配置文件：https://github.com/algolia/docsearch-configs/blob/master/configs/ppfish.json
     const e = document.createElement('script');
     e.type = 'text/javascript';
     e.async = false;

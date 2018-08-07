@@ -24,12 +24,12 @@
   .button-color(@color; @background; @background);
   &:hover,
   &:focus {
-    .button-color(@color; ~`colorPalette("@{background}", 5)`; ~`colorPalette("@{background}", 5)`);
+    .button-color(@color; tint(@background, 20%); tint(@background, 20%));
   }
 
   &:active,
   &.active {
-    .button-color(@color; ~`colorPalette("@{background}", 7)`; ~`colorPalette("@{background}", 7)`);
+    .button-color(@color; tint(@background, 5%); tint(@background, 5%));
   }
 
   .button-disabled();
@@ -56,12 +56,12 @@
 
   &:hover,
   &:focus {
-    .button-color(@color; ~`colorPalette("@{background}", 5)`; ~`colorPalette("@{background}", 5)`);
+    .button-color(@color; tint(@background, 20%); tint(@background, 20%));
   }
 
   &:active,
   &.active {
-    .button-color(@color; ~`colorPalette("@{color}", 7)`; ~`colorPalette("@{color}", 7)`);
+    .button-color(@color; tint(@color, 5%); tint(@color, 5%));
   }
 
   .button-disabled();
@@ -72,12 +72,12 @@
 
   &:hover,
   &:focus {
-    .button-color(~`colorPalette("@{color}", 5)`; transparent; ~`colorPalette("@{color}", 5)`);
+    .button-color(tint(@color, 5%); transparent; tint(@color, 5%));
   }
 
   &:active,
   &.active {
-    .button-color(~`colorPalette("@{color}", 7)`; transparent; ~`colorPalette("@{color}", 7)`);
+    .button-color(tint(@color, 5%); transparent; tint(@color, 5%));
   }
 
   .button-disabled();

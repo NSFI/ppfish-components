@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List.pagination renders pagination correctly 1`] = `
+<div
+  class="fishd-list fishd-list-vertical fishd-list-split fishd-list-something-after-last-item"
+>
+  <div
+    class="fishd-spin-nested-loading"
+  >
+    <div
+      class="fishd-spin-container"
+    >
+      <div
+        class="fishd-list-item"
+      >
+        <div
+          class="fishd-list-item-content fishd-list-item-content-single"
+        >
+          Jack
+        </div>
+      </div>
+      <div
+        class="fishd-list-item"
+      >
+        <div
+          class="fishd-list-item-content fishd-list-item-content-single"
+        >
+          Lucy
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-list-pagination"
+  >
+    <ul
+      class="fishd-pagination my-page"
+      unselectable="unselectable"
+    >
+      <li
+        aria-disabled="true"
+        class="fishd-pagination-disabled fishd-pagination-prev"
+        title="上一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+        tabindex="0"
+        title="1"
+      >
+        <a>
+          1
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-2"
+        tabindex="0"
+        title="2"
+      >
+        <a>
+          2
+        </a>
+      </li>
+      <li
+        aria-disabled="false"
+        class=" fishd-pagination-next"
+        tabindex="0"
+        title="下一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+`;
