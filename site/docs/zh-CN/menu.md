@@ -48,7 +48,7 @@
           </MenuItemGroup>
         </SubMenu>
         <Menu.Item key="fishd">
-          <a href={window.location.host} target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
+          <a href="https://www.163.com" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
         </Menu.Item>
       </Menu>
     );
