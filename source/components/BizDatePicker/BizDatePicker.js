@@ -164,7 +164,7 @@ class BizDatePicker extends React.Component {
           action={disabled ? [] : ['click']}
           builtinPlacements={placements}
           ref={node => this.trigger = node}
-          //getPopupContainer={node => node.parentNode}
+          getPopupContainer={node => node.parentNode}
           onPopupVisibleChange={this.handleVisibleChange}
           popup={content}
           popupPlacement="bottomLeft"
