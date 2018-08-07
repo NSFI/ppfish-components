@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'enzyme';
+import {render} from 'enzyme';
 import List from '../index.tsx';
 import Icon from '../../Icon/index.tsx';
 
@@ -9,9 +9,9 @@ describe('List', () => {
       spinning: true,
     };
     const wrapper = render(
-      <List loading={loading} dataSource={[]} renderItem={() => <List.Item />} />
+      <List loading={loading} dataSource={[]} renderItem={() => <List.Item/>}/>
     );
-    expect(wrapper.find('.ant-list-empty-text')).toHaveLength(0);
+    expect(wrapper.find('.fishd-list-empty-text')).toHaveLength(0);
   });
 
   it('renders object loading', () => {
@@ -22,14 +22,14 @@ describe('List', () => {
       <List
         loading={loading}
         dataSource={[1]}
-        renderItem={() => <List.Item />}
+        renderItem={() => <List.Item/>}
       />
     );
-    expect(wrapper.find('.ant-spin-spinning')).toHaveLength(1);
+    expect(wrapper.find('.fishd-spin-spinning')).toHaveLength(1);
   });
 
   it('renders object loading with indicator', () => {
-    const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+    const antIcon = <Icon type="loading" style={{fontSize: 24}} spin/>;
 
     const loading = {
       spinning: true,
@@ -39,9 +39,9 @@ describe('List', () => {
       <List
         loading={loading}
         dataSource={[1]}
-        renderItem={() => <List.Item />}
+        renderItem={() => <List.Item/>}
       />
     );
-    expect(wrapper.find('.anticon-loading')).toHaveLength(1);
+    expect(wrapper.find('.fishdicon-loading')).toHaveLength(1);
   });
 });
