@@ -320,11 +320,6 @@ export default {
       //   type: 'markdown',
       //   name: 'BizLoading 加载动画',
       // },
-      // 已废弃，推荐使用table
-      // 'bizTable': {
-      //   type: 'markdown',
-      //   name: 'BizTable 自定义表格',
-      // },
       'bizDatePicker': {
         type: 'markdown',
         name: 'BizDatePicker 自定义日期选择器',

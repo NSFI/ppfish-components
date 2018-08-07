@@ -13,7 +13,6 @@ export {
   Collapse,
   Carousel,
   Cascader,
-  Divider,
   Form,
   List,
   LocaleProvider,

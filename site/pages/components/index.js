@@ -1,6 +1,5 @@
 import React from 'react';
-import {Divider} from 'antd';
-import {BackTop, Icon, Row, Col, Menu} from '../../../source/components';
+import {Divider, BackTop, Icon, Row, Col, Menu} from '../../../source/components';
 import MobileMenu from 'rc-drawer';
 import PropTypes from 'prop-types';
 import Layout from '../common/layout';
