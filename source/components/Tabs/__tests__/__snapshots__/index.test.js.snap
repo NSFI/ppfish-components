@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs tabPosition match position left 1`] = `
+<div
+  class="fishd-tabs-ctner"
+>
+  <div
+    class="fishd-tabs fishd-tabs-left fishd-tabs-vertical fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
+  >
+    <div
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
+    >
+      <div
+        class="fishd-tabs-nav-container"
+      >
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
+          <div
+            class="fishd-tabs-nav-scroll"
+          >
+            <div
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
+            >
+              <div
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
+              >
+                foo
+              </div>
+              <div
+                class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-tabs-extra-content"
+      >
+        xxx
+      </div>
+    </div>
+    <div
+      class="fishd-tabs-content fishd-tabs-content-animated"
+      style="margin-top:0%"
+    >
+      <div
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
+      >
+        foo
+      </div>
+    </div>
+  </div>
+  <div
+    class="m-loading hide"
+  >
+    <div
+      class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+    >
+      <span
+        class="fishd-spin-dot fishd-spin-dot-spin"
+      >
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <div
+        class="fishd-spin-text"
+      >
+        加载中...
+      </div>
+    </div>
+  </div>
+</div>
+`;
