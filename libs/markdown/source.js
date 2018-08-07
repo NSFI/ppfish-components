@@ -11,7 +11,6 @@ export {
   Calendar,
   Card,
   Collapse,
-  Carousel,
   Cascader,
   Form,
   LocaleProvider,
