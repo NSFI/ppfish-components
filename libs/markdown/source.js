@@ -14,7 +14,6 @@ export {
   Carousel,
   Cascader,
   Form,
-  List,
   LocaleProvider,
   notification,
   Popconfirm,
