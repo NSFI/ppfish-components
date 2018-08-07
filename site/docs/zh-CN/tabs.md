@@ -129,7 +129,6 @@ render(){
 
   render() {
     const TabPane = Tabs.TabPane;
-    const Option = Select.Option;
     return (
       <div>
         <div>
