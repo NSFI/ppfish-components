@@ -39,34 +39,38 @@ npm install typescript awesome-typescript-loader@^4.0.1 @types/node @types/react
 
 ```js
 // webpack.config.js
-module: {
-  rules: [
-    {
-      test: /\.tsx?$/,
-      loader: 'awesome-typescript-loader',
-      include: [
-        path.join(__dirname, './site'),
-        path.join(__dirname, './source'),
-        path.join(__dirname, './libs')
-      ]
-    },
-    {
-      test: /\.jsx?$/,
-      include: [
-        path.resolve(__dirname, 'source'),
-        fs.realpathSync(__dirname + '/node_modules/ppfish') // 指定使用babel-loader编译ppfish
-      ],
-      // exclude: /(node_modules|vendor)\/(?!(ppfish)\/).*/, // 优先于include，排除ppfish
-      use: [{
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true
-        }
-      }]
-    },
-  ],
+{
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        include: [
+          path.resolve(__dirname, 'source'),
+          // issues: [Symlinks in project - loader not working when using include](https://github.com/webpack/webpack/issues/1643)
+          fs.realpathSync(__dirname + '/node_modules/ppfish') // 指定使用awesome-typescript-loader编译ppfish源码
+        ],
+        use: [{
+          loader: 'awesome-typescript-loader'
+        }]
+      },
+      {
+        test: /\.jsx?$/,
+        include: [
+          path.resolve(__dirname, 'source'),
+          fs.realpathSync(__dirname + '/node_modules/ppfish') // 指定使用babel-loader编译ppfish
+        ],
+        // exclude: /(node_modules|vendor)\/(?!(ppfish)\/).*/, // 优先于include，排除ppfish
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }]
+      },
+    ],
+  }
 }
 ```
