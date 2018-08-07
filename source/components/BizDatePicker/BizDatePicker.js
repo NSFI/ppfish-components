@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popover from '../Popover/index.tsx';
-import Icon from '../Icon/index.tsx';
 import { DatePicker } from '../DatePicker';
+import Icon from '../Icon/index.tsx';
+import Trigger from 'rc-trigger';
+import placements from './placements';
 import { formatDate } from "../../utils/date/index";
 
 // 默认快速选择时间选项
@@ -142,7 +143,7 @@ class BizDatePicker extends React.Component {
             </li>
           )
         }
-        <li className={`${prefixCls}-customer-time`}>
+        <div className={`${prefixCls}-customer-time`}>
           <DatePicker
             format={format}
             isShowTrigger={true}
@@ -153,19 +154,22 @@ class BizDatePicker extends React.Component {
             placeholder="请选择日期"
             value={showDate.value}
           />
-        </li>
+        </div>
       </div>
     );
 
     return (
       <div className={[`${prefixCls}-container`, className].join(' ')} >
-        <Popover
-          placement="bottomLeft"
-          trigger="click"
-          content={content}
-          visible={open}
-          onVisibleChange={this.handleVisibleChange}
-          getPopupContainer={node => node.parentNode}
+        <Trigger
+          action={disabled ? [] : ['click']}
+          builtinPlacements={placements}
+          ref={node => this.trigger = node}
+          //getPopupContainer={node => node.parentNode}
+          onPopupVisibleChange={this.handleVisibleChange}
+          popup={content}
+          popupPlacement="bottomLeft"
+          popupVisible={open}
+          prefixCls={`${prefixCls}-popup`}
         >
           <div className={clickAreaClass}>
             <div className={`${prefixCls}-click-area-text`}>
@@ -179,7 +183,7 @@ class BizDatePicker extends React.Component {
               />
             </div>
           </div>
-        </Popover>
+        </Trigger>
       </div>
     );
   }

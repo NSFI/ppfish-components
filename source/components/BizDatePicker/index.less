@@ -1,23 +1,26 @@
 @import "../../assets/css/themes/default";
 @import (reference) "../../assets/css/core/mixin";
+@import "./trigger.less";
 
 @prefixClass: ~'biz-date-picker';
 
 .@{prefixClass}-container {
   color: @text-3;
   .clearfix();
-  // 样式覆盖
-  .fishd-popover-inner-content {
-    padding: 0;
-  }
-  //.fishd-popover-arrow {
-  //  display: none;
-  //}
 }
 
 //下拉内容的样式
 .@{prefixClass}-content {
   min-width: 318px;
+  line-height: 1.5;
+  color: @text-color;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: @border-radius-base;
+  font-size: @font-size-base;
   .quick-picker-item {
     display: block;
     height: 36px;

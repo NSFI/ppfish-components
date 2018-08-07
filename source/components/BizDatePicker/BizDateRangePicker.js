@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popover from '../Popover/index.tsx';
-import { message } from 'antd';
-import Icon from '../Icon/index.tsx';
 import { DatePicker } from '../DatePicker';
+import Icon from '../Icon/index.tsx';
+import Trigger from 'rc-trigger';
+import placements from './placements';
+import { message } from 'antd';
 import { formatDate, isValidValue, diffDate } from "../../utils/date/index";
 
 // 默认快速选择时间选项
@@ -161,7 +162,7 @@ class BizDatePicker extends React.Component {
             </li>
           )
         }
-        <li className={`${prefixCls}-customer-time`}>
+        <div className={`${prefixCls}-customer-time`}>
           <DatePicker.DateRangePicker
             format={format}
             isShowTrigger={true}
@@ -172,19 +173,22 @@ class BizDatePicker extends React.Component {
             value={showDate.value}
             rangeSeparator={rangeSeparator}
           />
-        </li>
+        </div>
       </div>
     );
 
     return (
       <div className={[`${prefixCls}-container`, className].join(' ')} >
-        <Popover
-          placement="bottomLeft"
-          trigger="click"
-          content={content}
-          visible={open}
-          onVisibleChange={this.handleVisibleChange}
-          getPopupContainer={node => node.parentNode}
+        <Trigger
+          action={disabled ? [] : ['click']}
+          builtinPlacements={placements}
+          ref={node => this.trigger = node}
+          //getPopupContainer={node => node.parentNode}
+          onPopupVisibleChange={this.handleVisibleChange}
+          popup={content}
+          popupPlacement="bottomLeft"
+          popupVisible={open}
+          prefixCls={`${prefixCls}-popup`}
         >
           <div className={clickAreaClass}>
             <span className={`${prefixCls}-click-area-text`}>{showDate.text}</span>
@@ -196,7 +200,7 @@ class BizDatePicker extends React.Component {
               />
             </span>
           </div>
-        </Popover>
+        </Trigger>
       </div>
     );
   }
