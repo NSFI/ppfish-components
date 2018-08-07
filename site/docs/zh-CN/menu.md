@@ -32,12 +32,12 @@
         mode="horizontal"
       >
         <Menu.Item key="mail">
-          <Icon type="demo-mail" />Navigation One
+          <Icon type="demo-mail" />Nav1
         </Menu.Item>
-        <Menu.Item key="pie" disabled>
-          <Icon type="demo-pie" />Navigation Two
+        <Menu.Item key="pie">
+          <Icon type="demo-pie" />Nav2
         </Menu.Item>
-        <SubMenu title={<span><Icon type="demo-grid" />Navigation Three - Submenu</span>}>
+        <SubMenu title={<span><Icon type="demo-grid" />Nav3 - Submenu</span>}>
           <MenuItemGroup title="Item 1">
             <Menu.Item key="setting:1">Option 1</Menu.Item>
             <Menu.Item key="setting:2">Option 2</Menu.Item>
@@ -47,8 +47,11 @@
             <Menu.Item key="setting:4">Option 4</Menu.Item>
           </MenuItemGroup>
         </SubMenu>
+        <Menu.Item key="disable" disabled>
+          Nav4 - Disabled
+        </Menu.Item>
         <Menu.Item key="fishd">
-          <a href="https://www.163.com" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
+          <a href="https://www.163.com" target="_blank" rel="noopener noreferrer">Nav5 - Link</a>
         </Menu.Item>
       </Menu>
     );
