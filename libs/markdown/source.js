@@ -22,7 +22,6 @@ export {
   Switch,
   Transfer,
   Tree,
-  Tag,
   Timeline,
   Mention,
   Upload
