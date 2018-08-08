@@ -64,41 +64,47 @@ const setStyle = (el, css) => {
 };
 
 /**
- * 获取图片的原始尺寸
- * @param  {[type]}   url      [图片的url]
+ * 获取传进来的图片尺寸或计算图片的原始尺寸
+ * @param  {Object}   img      [图片对象，格式为{url:'', size: '200*200'}]
  * @param  {Function} callback [获取成功后的回调函数]
  * @param  {[type]}   scope    [回调函数绑定的作用域]
  */
-const getImageSize = (url, callback, scope) => {
+const getImageSize = (img, callback, scope) => {
   let newImage, naturalWidth, naturalHeight;
 
-  newImage = document.createElement('img');
-  newImage.onload = () => {
-    naturalWidth = newImage.naturalWidth || newImage.width;
-    naturalHeight = newImage.naturalHeight || newImage.height;
-    callback.call(scope, naturalWidth, naturalHeight);
-  };
-  newImage.src = url;
+  if (img.size && img.size.indexOf('*') > -1) {
+    let sizeList = img.size.split('*');
+    callback.call(scope, sizeList[0] || 0, sizeList[1] || 0);
+  } else {
+    newImage = document.createElement('img');
+    newImage.onload = () => {
+      naturalWidth = newImage.naturalWidth || newImage.width;
+      naturalHeight = newImage.naturalHeight || newImage.height;
+      callback.call(scope, naturalWidth, naturalHeight);
+    };
+    newImage.src = img.url;
+  }
 };
 
 class PicturePreview extends Component {
 
   static propTypes = {
-    visible: PropTypes.bool,          // 是否打开预览
-    source: PropTypes.array,          // 预览图片数组，格式为[{url:"xxxx",size: "200*200"}]
     activeIndex: PropTypes.number,    // 默认打开的图片索引
-    onClose: PropTypes.func,          // 关闭预览的回调
+    className: PropTypes.string,
+    controller: PropTypes.bool,       // 是否显示图片控制器
     dots: PropTypes.bool,             // 是否显示面板指示点
-    controller: PropTypes.bool        // 是否显示图片控制器
+    source: PropTypes.array,          // 预览图片数组，格式为[{url:"xxxx",size: "200*200"}]
+    visible: PropTypes.bool,          // 是否打开预览
+    onClose: PropTypes.func,          // 关闭预览的回调
   };
 
   static defaultProps = {
-    visible: false,
-    source: [{url:'', size: "200*200"}],
     activeIndex: 0,
-    onClose: () => {},
+    controller: false,
     dots: false,
-    controller: false
+    source: [{url:'', size: "200*200"}],
+    visible: false,
+    onClose: () => {},
   };
 
   constructor(props) {
@@ -122,21 +128,23 @@ class PicturePreview extends Component {
 
   componentDidMount() {
     this.initImgs();
-    this.setIconStatus(this.props.activeIndex);
+    this.props.controller && this.setCtrlIconStatus(this.props.activeIndex);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.visible != nextProps.visible) {
+    const { activeIndex, visible, controller } = nextProps;
+
+    if (this.state.visible != visible) {
       this.setState({
-        visible: nextProps.visible
+        visible: visible
       });
     }
 
-    if (this.state.activeIndex != nextProps.activeIndex) {
+    if (this.state.activeIndex != activeIndex) {
       this.setState({
-        activeIndex: nextProps.activeIndex
+        activeIndex: activeIndex
       }, () => {
-        this.setIconStatus(nextProps.activeIndex);
+        controller && this.setCtrlIconStatus(nextProps.activeIndex);
       });
     }
   }
@@ -294,7 +302,7 @@ class PicturePreview extends Component {
   initImgs = () => {
     this.props.source.map((item, index) => {
       // 计算图片的原始尺寸
-      getImageSize(item.url, (naturalWidth, naturalHeight) => {
+      getImageSize(item, (naturalWidth, naturalHeight) => {
         let aImg = getAdaptiveImg(naturalWidth, naturalHeight, this.state.isFullscreen);
 
         this.imgs[index].naturalWidth = naturalWidth;
@@ -316,11 +324,11 @@ class PicturePreview extends Component {
     this.handleRotate(index, true);
   };
 
-  setIconStatus = (index) => {
+  setCtrlIconStatus = (index) => {
     let activeImg = this.imgs[index],
         isDisableDengbi = false;
 
-    if (activeImg.naturalWidth == activeImg.adaptiveWidth && activeImg.naturalHeight == activeImg.adaptiveHeight) {
+    if (activeImg && activeImg.naturalWidth == activeImg.adaptiveWidth && activeImg.naturalHeight == activeImg.adaptiveHeight) {
       isDisableDengbi = true;
     } else {
       isDisableDengbi = false;
@@ -356,7 +364,7 @@ class PicturePreview extends Component {
       }
 
       this.resetImg(oldIndex);
-      this.setIconStatus(curIndex);
+      this.props.controller && this.setCtrlIconStatus(curIndex);
     });
   };
 
@@ -379,19 +387,21 @@ class PicturePreview extends Component {
 
   render() {
     const { visible, isFullscreen, isDisableDengbi, isDisableFangda, isDisableSuoxiao } = this.state;
-    const { source, dots, activeIndex, controller } = this.props;
+    const { source, dots, activeIndex } = this.props;
+    const controller = false; // 未提供视觉 icon，暂时关闭 controller 功能
+
     let contentWrapClass = classNames({
-        'm-picture-preview-content-wrap': true,
-        'm-picture-preview-content-wrap-fullscreen': isFullscreen
+        'fishd-picturepreview-content-wrap': true,
+        'fishd-picturepreview-content-wrap-fullscreen': isFullscreen
     });
     let ctrlClass = classNames({
         'ctrl-wrap': true,
-        'm-picture-preview-hide': !controller
+        'hide': !controller
     });
     let fullscreenClass = classNames({
-        'iconfont': true,
-        'icon-fullscreen': !isFullscreen,
-        'icon-fullscreen-exit': isFullscreen
+        'fishdicon': true,
+        'fishdicon-fullscreen': !isFullscreen,
+        'fishdicon-fullscreen-exit': isFullscreen
     });
     let imgWrapClass = classNames({
         'img-wrap': true,
@@ -399,26 +409,38 @@ class PicturePreview extends Component {
         'img-wrap-size-fullscreen': isFullscreen
     });
     let dengbiClass = classNames({
-        'iconfont': true,
-        'icon-dengbi': true,
-        'icon-disable': isDisableDengbi
+        'fishdicon': true,
+        'fishdicon-dengbi': true,
+        'fishdicon-disable': isDisableDengbi
     });
     let fangdaClass = classNames({
-        'iconfont': true,
-        'icon-fangda': true,
-        'icon-disable': isDisableFangda
+        'fishdicon': true,
+        'fishdicon-fangda': true,
+        'fishdicon-disable': isDisableFangda
     });
     let suoxiaoClass = classNames({
-        'iconfont': true,
-        'icon-suoxiao': true,
-        'icon-disable': isDisableSuoxiao
+        'fishdicon': true,
+        'fishdicon-suoxiao': true,
+        'fishdicon-disable': isDisableSuoxiao
+    });
+    let leftBtnClass = classNames({
+        'fishdicon': true,
+        'btn-left': true,
+        'fishdicon-left': true,
+        'hide': source.length <= 1
+    });
+    let rightBtnClass = classNames({
+        'fishdicon': true,
+        'btn-right': true,
+        'fishdicon-right': true,
+        'hide': source.length <= 1
     });
 
     return (
       <Modal
         title=""
         width={"100%"}
-        wrapClassName="m-picture-preview-modal-wrap"
+        wrapClassName="fishd-picturepreview-modal-wrap"
         visible={visible}
         footer={null}
         mask={true}
@@ -460,23 +482,17 @@ class PicturePreview extends Component {
             </Carousel>
           </div>
 
-          <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
-
-          <div className="btn-left btn" style={{display: source.length > 1 ? "flex" : "none"}}>
-            <i className="iconfont icon-zuojiantou1" onClick={this.handleCarouselPrev}/>
-          </div>
-
-          <div className="btn-right btn" style={{display: source.length > 1 ? "flex" : "none"}}>
-            <i className="iconfont icon-youjiantou1" onClick={this.handleCarouselNext}/>
-          </div>
+          <i className="fishdicon fishdicon-close-modal-line" onClick={this.handleOnClose}/>
+          <i className={leftBtnClass} onClick={this.handleCarouselPrev}/>
+          <i className={rightBtnClass} onClick={this.handleCarouselNext}/>
 
           <div className={ctrlClass}>
             <i className={dengbiClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, '1:1')}/>
             <i className={fullscreenClass} onClick={this.handleFullscreen}/>
             <i className={fangdaClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'in')}/>
             <i className={suoxiaoClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'out')}/>
-            <i className="iconfont icon-xuanzhuan" onClick={this.handleRotate.bind(this, this.state.activeIndex, false)}/>
-            <i className="iconfont icon-save" onClick={this.handleSave.bind(this, this.curSelector)}/>
+            <i className="fishdicon fishdicon-xuanzhuan" onClick={this.handleRotate.bind(this, this.state.activeIndex, false)}/>
+            <i className="fishdicon fishdicon-save" onClick={this.handleSave.bind(this, this.curSelector)}/>
           </div>
         </div>
       </Modal>

@@ -1,20 +1,19 @@
-@import "../../assets/css/themes/default";
-@import "../../assets/css/core/index";
+@import "../../assets/css/index.less";
 
 // Carousel 组件在交互过程中会用 style 覆盖 class，在此使用 '!important' 防止其覆盖
 /* stylelint-disable declaration-no-important */
-@picture-preview-prefix: m-picture-preview;
+@picture-preview-prefix: ~"@{fishd-prefix}-picturepreview";
 @maxVisualWidth:  80% !important;
 @maxVisualHeight: 80% !important;
 
 .@{picture-preview-prefix} {
-  &-hide {
-    display: none !important;
-  }
-
   &-modal-wrap {
     text-align: center;
     white-space: nowrap;
+
+    .hide {
+      display: none !important;
+    }
 
     .ant-modal {
       height: 100%;
@@ -57,12 +56,10 @@
       bottom: 0;
       margin: auto;
 
-      .iconfont {
-        color: #fff;
-        font-size: 45px;
-        z-index: 10;
-        cursor: pointer;
-      }
+      color: #fff;
+      font-size: 45px;
+      z-index: 10;
+      cursor: pointer;
     }
 
     .btn-left {
@@ -112,7 +109,7 @@
       height: 100% !important;
     }
 
-    .icon-guanbi {
+    .@{iconfont-prefix}-close-modal-line {
       position: absolute;
       top: 0;
       right: 0;
@@ -151,22 +148,22 @@
         cursor: pointer;
       }
 
-      .icon-dengbi,
-      .icon-fullscreen,
-      .icon-fullscreen-exit,
-      .icon-fangda,
-      .icon-suoxiao,
-      .icon-xuanzhuan,
-      .icon-save {
+      .@{iconfont-prefix}-dengbi,
+      .@{iconfont-prefix}-fullscreen,
+      .@{iconfont-prefix}-fullscreen-exit,
+      .@{iconfont-prefix}-fangda,
+      .@{iconfont-prefix}-suoxiao,
+      .@{iconfont-prefix}-xuanzhuan,
+      .@{iconfont-prefix}-save {
         .icon;
       }
 
-      .icon-disable {
+      .@{iconfont-prefix}-disable {
         color: #b6b6b6;
         cursor: default;
       }
 
-      .icon-save {
+      .@{iconfont-prefix}-save {
         text-decoration: none;
       }
     }
