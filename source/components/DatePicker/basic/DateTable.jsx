@@ -304,7 +304,7 @@ export default class DateTable extends React.Component {
     if (!target) return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
 
-    const {selectionMode, date, onPick, minDate, maxDate, rangeState, } = this.props;
+    const {selectionMode, date, onPick, minDate, maxDate, rangeState} = this.props;
     const {year, month} = deconstructDate(date);
 
     if (selectionMode === 'week') {

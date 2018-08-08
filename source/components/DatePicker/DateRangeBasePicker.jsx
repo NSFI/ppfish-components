@@ -189,6 +189,7 @@ export default class DateRangeBasePicker extends React.Component {
     if (keyCode === KEYCODE.ENTER) {
       if (this.isDateValid(this.state.value)) {
         this.onPicked(this.state.value, false, true);
+        this.refs.inputRoot.blur();
       }
     }
   }

@@ -47,7 +47,6 @@ class BizDatePicker extends React.Component {
   static defaultProps = {
     prefixCls: 'biz-date-picker',
     className: '',
-    format: 'yyyy-MM-dd',
     quickTimeOption: defaultQuickTimeOption,
     defaultValue: defaultQuickTimeOption[0],
     open: false,
@@ -102,14 +101,8 @@ class BizDatePicker extends React.Component {
       }
     }
 
-    // 不需要选时间时，直接关闭弹出层
-    if(!this.props.isShowTime) {
-      this.setState({
-        open: false,
-      });
-    }
-
     this.setState({
+      open: false,
       showDate: {
         text: formatDate(date[0], this.props.format) + ' ~ ' + formatDate(date[1], this.props.format),
         value: date

@@ -119,7 +119,8 @@ render() {
 
 ## 带快捷选项的日期面板
 
-当展示结果关注绝对时间、且快捷选项较多时使用。快捷选项不建议太多。
+ - 当展示结果关注绝对时间、且快捷选项较多时使用。快捷选项不建议太多。
+ - 注：当需要选择快捷选项之后，直接展示快捷选项的文本而不是具体日期时间，请参考业务组件[BizDatePicker](https://nsfi.github.io/ppfish-components/index.html#/components/bizDatePicker)
 
 :::demo 快捷选项需配置 `shortcuts`。
 
@@ -186,11 +187,11 @@ render() {
 
 constructor(props) {
   super(props)
-  this.state = {}
+  this.state = {value3: new Date(new Date().setHours(0,0,0,0))}
 }
 
 render() {
-  const {value1, value2} = this.state;
+  const {value1, value2, value3} = this.state;
 
   return (
     <div className="source">
@@ -203,6 +204,19 @@ render() {
           onChange={date=>{
             console.debug('DatePicker1 changed: ', date)
             this.setState({value1: date})
+          }}
+          disabledDate={time=>time.getTime() < Date.now() - 8.64e7}
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">设置默认时间</span>
+        <DatePicker
+          value={value3}
+          isShowTime={true}
+          placeholder="选择日期"
+          onChange={date=>{
+            console.debug('DatePicker1 changed: ', date)
+            this.setState({value3: date})
           }}
           disabledDate={time=>time.getTime() < Date.now() - 8.64e7}
           />
@@ -300,6 +314,8 @@ render() {
 :::
 
 ## 带快捷选项的日期范围面板
+
+ - 注：当需要选择快捷选项之后，直接展示快捷选项的文本而不是具体日期时间，请参考业务组件[BizDatePicker](https://nsfi.github.io/ppfish-components/index.html#/components/bizDatePicker)
 
 :::demo
 ```js

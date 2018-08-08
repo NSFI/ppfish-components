@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from '../../Input';
 import Icon from '../../Icon/index.tsx';
+import Button from '../../Button/index.tsx';
 import { PopperBase } from './PopperBase';
 import YearAndMonthPopover from './YearAndMonthPopover';
 import TimePicker from '../TimePicker';
@@ -464,17 +465,16 @@ export default class DatePanel extends PopperBase {
           isShowTime && currentView === PICKER_VIEWS.DATE && (
             <div
               className="fishd-picker-panel__footer">
-              <button
-                type="button"
+              <Button
                 className="fishd-picker-panel__btn cancel"
                 onClick={this.handleCancel}>{t('fishd.datepicker.cancel')}
-              </button>
-              <button
-                type="button"
+              </Button>
+              <Button
+                type="primary"
                 className={classNames("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
                 disabled={this.confirmBtnDisabled()}>{t('fishd.datepicker.confirm')}
-              </button>
+              </Button>
             </div>
           )
         }

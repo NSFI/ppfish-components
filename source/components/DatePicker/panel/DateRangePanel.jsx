@@ -5,6 +5,7 @@ import { PopperBase } from './PopperBase';
 import { DateTable } from '../basic';
 import Input from '../../Input';
 import Icon from '../../Icon/index.tsx';
+import Button from '../../Button/index.tsx';
 import TimePicker from '../TimePicker';
 import YearAndMonthPopover from './YearAndMonthPopover';
 import {
@@ -223,44 +224,40 @@ export default class DateRangePanel extends PopperBase {
     })
   }
 
-  // 左边日历的next year btn特殊处理：当左右两边年份相等时，需要同时切换右边日历
+  // 左边日历的next year btn特殊处理
   handleLeftNextYear = () => {
     const { leftDate, rightDate } = this.state;
-
+    // if((leftDate.getFullYear() + 1) === (rightDate.getFullYear())) {
+    //   this.nextYear('rightDate', rightDate);
+    // }
     this.nextYear('leftDate', leftDate);
-    if(rightDate.getFullYear() == leftDate.getFullYear()) {
-      this.nextYear('rightDate', rightDate);
-    }
   }
 
-  // 左边日历的next month btn特殊处理：当左右两边月份相等时，需要同时切换右边日历
+  // 左边日历的next month btn特殊处理
   handleLeftNextMonth = () => {
     const { leftDate, rightDate } = this.state;
-
+    // if((rightDate.getFullYear() === leftDate.getFullYear()) && (rightDate.getMonth() === (leftDate.getMonth() + 1))) {
+    //   this.nextMonth('rightDate', rightDate);
+    // }
     this.nextMonth('leftDate', leftDate);
-    if(rightDate.getFullYear() == leftDate.getFullYear() && rightDate.getMonth() == leftDate.getMonth()) {
-      this.nextMonth('rightDate', rightDate);
-    }
   }
 
-  // 右边日历的prev year btn特殊处理：当左右两边年份相等时，需要同时切换左边日历
+  // 右边日历的prev year btn特殊处理
   handleRightPrevYear = () => {
     const { leftDate, rightDate } = this.state;
-
+    // if(rightDate.getFullYear() === leftDate.getFullYear()) {
+    //   this.prevYear('leftDate', leftDate);
+    // }
     this.prevYear('rightDate', rightDate);
-    if(rightDate.getFullYear() == leftDate.getFullYear()) {
-      this.prevYear('leftDate', leftDate);
-    }
   }
 
-  // 右边日历的prev month btn特殊处理：当左右两边月份相等时，需要同时切换左边日历
+  // 右边日历的prev month btn特殊处理
   handleRightPrevMonth = () => {
     const { leftDate, rightDate } = this.state;
-
+    // if((rightDate.getFullYear() === leftDate.getFullYear()) && (rightDate.getMonth() === leftDate.getMonth() + 1)) {
+    //   this.prevMonth('leftDate', leftDate);
+    // }
     this.prevMonth('rightDate', rightDate);
-    if(rightDate.getFullYear() == leftDate.getFullYear() && rightDate.getMonth() == leftDate.getMonth()) {
-      this.prevMonth('leftDate', leftDate);
-    }
   }
 
   // 切换年份
@@ -340,7 +337,8 @@ export default class DateRangePanel extends PopperBase {
                         key={idx}
                         type="button"
                         className="fishd-picker-panel__shortcut"
-                        onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
+                        onClick={() => this.handleShortcutClick(e)}>{e.text}
+                      </button>
                     )
                   })
                 }
@@ -516,17 +514,16 @@ export default class DateRangePanel extends PopperBase {
         {
           isShowTime && (
             <div className="fishd-picker-panel__footer">
-              <button
-                type="button"
+              <Button
                 className="fishd-picker-panel__btn cancel"
                 onClick={this.handleCancel}>{ Locale.t('fishd.datepicker.cancel') }
-              </button>
-              <button
-                type="button"
+              </Button>
+              <Button
+                type="primary"
                 className={classNames("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
                 disabled={this.confirmBtnDisabled()}>{ Locale.t('fishd.datepicker.confirm') }
-              </button>
+              </Button>
             </div>
           )
         }

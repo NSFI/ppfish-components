@@ -200,6 +200,27 @@
 ```
 :::
 
+## 带时间选择功能的日期范围
+
+:::demo
+```js
+  handleTimeChange = (time) => {
+    console.log(time);
+  }
+  
+  render() {
+    return (
+      <BizDatePicker.BizDateRangePicker
+        className="my-time-picker-demo"
+        onChange={this.handleTimeChange}
+        isShowTime={true}
+        format="yyyy-MM-dd HH:mm:ss"
+      />
+    );
+  }
+```
+:::
+
 
 ## 公共API
 

@@ -202,6 +202,7 @@ export default class BasePicker extends React.Component {
     if (keyCode === KEYCODE.ENTER) {
       if (this.isDateValid(this.state.value)) {
         this.onPicked(this.state.value, false, true);
+        this.refs.inputRoot.blur();
       }
     }
   }
@@ -237,10 +238,11 @@ export default class BasePicker extends React.Component {
           value: null,
           pickerVisible: false,
           confirmValue: null
+        },() => {
+          this.props.onChange(null);
+          this.context.form && this.context.form.onFieldChange();
         }
       );
-      this.props.onChange(null);
-      this.context.form && this.context.form.onFieldChange();
     }
   }
 

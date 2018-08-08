@@ -44,7 +44,6 @@ class BizDatePicker extends React.Component {
   static defaultProps = {
     prefixCls: 'biz-date-picker',
     className: '',
-    format: 'yyyy-MM-dd',
     quickTimeOption: defaultQuickTimeOption,
     defaultValue: defaultQuickTimeOption[0],
     open: false,
