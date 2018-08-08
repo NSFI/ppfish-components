@@ -16,12 +16,13 @@
 
 render(){
   return(
-  <Breadcrumb>
-    <Breadcrumb.Item>Home</Breadcrumb.Item>
-    <Breadcrumb.Item><a href="">Application Center</a></Breadcrumb.Item>
-    <Breadcrumb.Item><a href="">Application List</a></Breadcrumb.Item>
-    <Breadcrumb.Item>An Application</Breadcrumb.Item>
-  </Breadcrumb>)
+    <Breadcrumb>
+      <Breadcrumb.Item>Home</Breadcrumb.Item>
+      <Breadcrumb.Item><a href="">Application Center</a></Breadcrumb.Item>
+      <Breadcrumb.Item><a href="">Application List</a></Breadcrumb.Item>
+      <Breadcrumb.Item>An Application</Breadcrumb.Item>
+    </Breadcrumb>
+  )
 }
 ```
 :::
@@ -32,18 +33,21 @@ render(){
 
 ```js
 render(){
-  return(<Breadcrumb>
-    <Breadcrumb.Item href="">
-      <Icon type="home" />
-    </Breadcrumb.Item>
-    <Breadcrumb.Item href="">
-      <Icon type="user" />
-      <span>Application List</span>
-    </Breadcrumb.Item>
-    <Breadcrumb.Item>
-      Application
-    </Breadcrumb.Item>
-  </Breadcrumb>)
+  return(
+    <Breadcrumb>
+      <Breadcrumb.Item href="">
+        <Icon type="demo-grid" />
+        <span>Home</span>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item href="">
+        <Icon type="demo-pie" />
+        <span>Application List</span>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <Icon type="demo-mail" />
+        <span>Application</span>
+      </Breadcrumb.Item>
+    </Breadcrumb>)
   }
 ```
 :::
@@ -55,24 +59,25 @@ render(){
 ```js
 render(){
   return(
-  <Breadcrumb separator=">">
-    <Breadcrumb.Item>Home</Breadcrumb.Item>
-    <Breadcrumb.Item href="">Application Center</Breadcrumb.Item>
-    <Breadcrumb.Item href="">Application List</Breadcrumb.Item>
-    <Breadcrumb.Item>An Application</Breadcrumb.Item>
-  </Breadcrumb>)
+    <Breadcrumb separator=">">
+      <Breadcrumb.Item>Home</Breadcrumb.Item>
+      <Breadcrumb.Item href="">Application Center</Breadcrumb.Item>
+      <Breadcrumb.Item href="">Application List</Breadcrumb.Item>
+      <Breadcrumb.Item>An Application</Breadcrumb.Item>
+    </Breadcrumb>
+  )
 }
 ```
 :::
 
 ## API
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-| --- | --- | --- | --- | --- |
-| itemRender | 自定义链接函数，和 react-router 配置使用 | (route, params, routes, paths) => ReactNode |  | - |
-| params | 路由的参数 | object |  | - |
-| routes | router 的路由栈信息 | object\[] |  | - |
-| separator | 分隔符自定义 | string\|ReactNode |  | '/' |
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| itemRender | 自定义链接函数，和 react-router 配置使用 | (route, params, routes, paths) => ReactNode | - |
+| params | 路由的参数 | object | - |
+| routes | router 的路由栈信息 | object\[] | - |
+| separator | 分隔符自定义 | string\|ReactNode | '/' |
 
 > 2.0 之后，`linkRender` 和 `nameRender` 被移除，请使用 `itemRender` 来代替。
 

@@ -7,7 +7,6 @@ export {
   Alert,
   Avatar,
   Badge,
-  Breadcrumb,
   Calendar,
   Card,
   Collapse,
