@@ -44,7 +44,7 @@ export default class Search extends React.Component<SearchProps, any> {
     const enterButtonAsElement = enterButton as React.ReactElement<any>;
     let node;
     if (!enterButton) {
-      node = <Icon className={`${prefixCls}-icon`} type="search" key="searchIcon" />;
+      node = <Icon className={`${prefixCls}-icon`} type="search-line" key="searchIcon" />;
     } else if (enterButtonAsElement.type === Button || enterButtonAsElement.type === 'button') {
       node = React.cloneElement(enterButtonAsElement, enterButtonAsElement.type === Button ? {
         className: `${prefixCls}-button`,
@@ -59,7 +59,7 @@ export default class Search extends React.Component<SearchProps, any> {
           disabled={disabled}
           key="enterButton"
         >
-          {enterButton === true ? <Icon type="search" /> : enterButton}
+          {enterButton === true ? <Icon type="search-line" /> : enterButton}
         </Button>
       );
     }
