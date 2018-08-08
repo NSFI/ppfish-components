@@ -291,10 +291,10 @@ export default {
       //   type: 'markdown',
       //   name: 'Alert 警告提示',
       // },
-      // 'message': {
-      //   type: 'markdown',
-      //   name: 'Message 全局提示',
-      // },
+      'message': {
+        type: 'markdown',
+        name: 'Message 全局提示框',
+      },
       'modal': {
         type: 'markdown',
         name: 'Modal 对话框',

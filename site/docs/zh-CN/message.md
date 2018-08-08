@@ -1,11 +1,11 @@
-# 全局提示
+# 全局提示框
 
 全局展示操作反馈信息。
 
 ## 何时使用
 
-- 可提供成功、警告和错误等反馈信息。
-- 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
+- 对用户执行的操作结果进行轻量级的反馈，是一种不打断用户操作的提示方式。
+- 顶部居中显示并自动消失，可提供成功、警告和错误等反馈信息。
 
 ## 普通提示
 
@@ -152,7 +152,7 @@ message.config({
 
 
 <style>
-.components-message-demo-other .ant-btn {
+.components-message-demo-other .fishd-btn {
   margin-right: 8px;
 }
 </style>
