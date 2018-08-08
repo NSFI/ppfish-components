@@ -166,10 +166,10 @@ export default {
       },
     },
     '数据录入': {
-      // 'input': {
-      //   type: 'markdown',
-      //   name: 'Input 输入框',
-      // },
+      'input': {
+        type: 'markdown',
+        name: 'Input 输入框',
+      },
       'radio': {
         type: 'markdown',
         name: 'Radio 单选框',

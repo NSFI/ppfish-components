@@ -5,7 +5,7 @@ import { DatePicker } from '../DatePicker';
 import Icon from '../Icon/index.tsx';
 import Trigger from 'rc-trigger';
 import placements from './placements';
-import { message } from 'antd';
+import message from '../Message/index.tsx';
 import { formatDate, isValidValue, diffDate } from "../../utils/date/index";
 
 // 默认快速选择时间选项

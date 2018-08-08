@@ -1,4 +1,4 @@
-import Message from './Message';
+import message from './Message';
 import './style/index.less';
 
-export default Message;
+export default message;

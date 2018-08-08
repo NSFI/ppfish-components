@@ -98,7 +98,7 @@ const columns = [{
 :::
 
 ## JSX 风格的 API
-:::demo 使用 JSX 风格的 API（2.5.0 以后引入）。
+:::demo 使用 JSX 风格的 API。
 > 这个只是一个描述 `columns` 的语法糖，所以你不能用其他组件去包裹 `Column` 和 `ColumnGroup`。
 ```js
   render() {

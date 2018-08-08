@@ -1,5 +1,4 @@
 // Ant的依赖引入
-export moment from 'moment';
 export {
   Affix,
   Anchor,

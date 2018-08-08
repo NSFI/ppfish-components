@@ -32,7 +32,7 @@ Fish Design使用了react和Typescript，在编译时除了需要配置babel-loa
 npm install typescript awesome-typescript-loader@^4.0.1 @types/node @types/react @types/react-dom --save-dev
 ```
 
-注意：如果项目webpack版本是3，awesome-typescript-loader版本不能高于4
+注意：如果项目webpack版本是3.x，awesome-typescript-loader版本不能高于4.xw
 
 2. 配置awesome-typescript-loader
 

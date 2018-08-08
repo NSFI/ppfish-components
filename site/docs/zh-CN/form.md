@@ -769,7 +769,7 @@ const Demo = Form.create()(DynamicFieldSet);
 
 ## 时间类控件
 
-:::demo `antd@2.0` 之后，时间类组件的 `value` 改为 `moment` 类型，所以在提交前需要预处理。
+:::demo 在提交前需要预处理。
 
 ```js
 const FormItem = Form.Item;
@@ -1739,9 +1739,9 @@ const Demo = Form.create()(UnwrappedDemo);
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| form | 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可。1.7.0 之后无需设置 | object | 无 |
+| form | 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可。 | object | 无 |
 | hideRequiredMark | 隐藏所有表单项的必选标记 | Boolean | false |
-| layout | 表单布局(2.8 之后支持) | 'horizontal'\|'vertical'\|'inline' | 'horizontal' |
+| layout | 表单布局 | 'horizontal'\|'vertical'\|'inline' | 'horizontal' |
 | onSubmit | 数据验证成功后回调事件 | Function(e:Event) |  |
 
 ### Form.create(options)
@@ -1841,7 +1841,6 @@ this.form // => The instance of CustomizedForm
 注意：
 
 - 一个 Form.Item 建议只放一个被 getFieldDecorator 装饰过的 child，当有多个被装饰过的 child 时，`help` `required` `validateStatus` 无法自动生成。
-- `2.2.0` 之前，只有当表单域为 Form.Item 的子元素时，才会自动生成 `help` `required` `validateStatus`，嵌套情况需要自行设置。
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |

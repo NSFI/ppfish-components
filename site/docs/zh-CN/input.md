@@ -36,7 +36,7 @@ render(){
 :::
 
 <style>
-.example-input .ant-input {
+.example-input .fishd-input {
   width: 200px;
   margin: 0 8px 8px 0;
 }
@@ -72,7 +72,7 @@ render(){
           <Input addonBefore={selectBefore} addonAfter={selectAfter} defaultValue="mysite" />
         </div>
         <div style={{ marginBottom: 16 }}>
-          <Input addonAfter={<Icon type="setting" />} defaultValue="mysite" />
+          <Input addonAfter={<Icon type="stop-line" />} defaultValue="mysite" />
         </div>
     </div>
   )
@@ -201,7 +201,7 @@ render(){
 
 ## 搜索框
 
-:::demo 带有搜索按钮的输入框，`2.5.0` 时新增。
+:::demo 带有搜索按钮的输入框。
 
 ```js
 render(){
@@ -287,11 +287,11 @@ render(){
 
   render() {
     const { userName } = this.state;
-    const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
+    const suffix = userName ? <Icon type="close-modal-line" onClick={this.emitEmpty} /> : null;
     return (
       <Input
         placeholder="Enter your username"
-        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+        prefix={<Icon type="date-line" style={{ color: 'rgba(0,0,0,.25)' }} />}
         suffix={suffix}
         value={userName}
         onChange={this.onChangeUserName}
@@ -340,8 +340,6 @@ render(){
 Input 的其他属性和 React 自带的 [input](https://facebook.github.io/react/docs/events.html#supported-events) 一致。
 
 ### Input.TextArea
-
-> `2.12` 后新增的组件，旧版请使用 `Input[type=textarea]`。
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
