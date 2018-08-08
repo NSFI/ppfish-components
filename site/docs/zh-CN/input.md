@@ -186,13 +186,6 @@ render(){
           <Input style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="Maximum" />
         </InputGroup>
         <br />
-        <InputGroup compact>
-          <Select style={{ width: '30%' }} defaultValue="Home">
-            <Option value="Home">Home</Option>
-            <Option value="Company">Company</Option>
-          </Select>
-          <Cascader style={{ width: '70%' }} options={this.state.options} placeholder="Select Address" />
-        </InputGroup>
       </div>
     );
   }
