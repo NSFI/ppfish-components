@@ -1,16 +1,11 @@
 # 标签页
 
-选项卡切换组件。
+进行标记和分类的小标签。
 
 ## 何时使用
 
-提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
-
-Ant Design 依次提供了三级选项卡，分别用于不同的场景。
-
-- 卡片式的页签，提供可关闭的样式，常用于容器顶部。
-- 标准线条式页签，用于容器内部的主功能切换，这是最常用的 Tabs。
-- [RadioButton](/components/radio/#components-radio-demo-radiobutton) 可作为更次级的页签来使用。
+- 用于标记事物的属性和维度。
+- 进行分类。
 
 ## 基本
 :::demo 基本标签的用法，可以通过添加 closable 变为可关闭标签。可关闭标签具有 onClose afterClose 两个事件。
@@ -27,7 +22,7 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
     return (
       <div>
         <Tag>Tag 1</Tag>
-        <Tag><a href="https://github.com/ant-design/ant-design/issues/1862">Link</a></Tag>
+        <Tag><a href="https://github.com/NSFI/ppfish-components">Link</a></Tag>
         <Tag closable onClose={this.log}>Tag 2</Tag>
         <Tag closable onClose={this.preventDefault}>Prevent Default</Tag>
       </div>
@@ -36,33 +31,16 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 ```
 :::
 
-## 多彩标签
-:::demo 我们添加了多种预设色彩的标签样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
+## 自定义标签颜色
+:::demo 可以为标签设置具体的色值。
 ```js
   render() {
     return (
       <div>
-        <h4 style={{ marginBottom: 16 }}>Presets:</h4>
-        <div>
-          <Tag color="magenta">magenta</Tag>
-          <Tag color="red">red</Tag>
-          <Tag color="volcano">volcano</Tag>
-          <Tag color="orange">orange</Tag>
-          <Tag color="gold">gold</Tag>
-          <Tag color="lime">lime</Tag>
-          <Tag color="green">green</Tag>
-          <Tag color="cyan">cyan</Tag>
-          <Tag color="blue">blue</Tag>
-          <Tag color="geekblue">geekblue</Tag>
-          <Tag color="purple">purple</Tag>
-        </div>
-        <h4 style={{ margin: '16px 0' }}>Custom:</h4>
-        <div>
-          <Tag color="#f50">#f50</Tag>
-          <Tag color="#2db7f5">#2db7f5</Tag>
-          <Tag color="#87d068">#87d068</Tag>
-          <Tag color="#108ee9">#108ee9</Tag>
-        </div>
+        <Tag color="#f50">#f50</Tag>
+        <Tag color="#2db7f5">#2db7f5</Tag>
+        <Tag color="#87d068">#87d068</Tag>
+        <Tag color="#108ee9">#108ee9</Tag>
       </div>
     );
   }
@@ -221,37 +199,19 @@ Ant Design 依次提供了三级选项卡，分别用于不同的场景。
 
 ## API
 
-### Tabs
+### Tag
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| activeKey | 当前激活 tab 面板的 key | string | 无 |
-| animated | 是否使用动画切换 Tabs，在 `tabPosition=top|bottom` 时有效 | boolean \| {inkBar:boolean, tabPane:boolean} | true, 当 type="card" 时为 false |
-| defaultActiveKey | 初始化选中面板的 key，如果没有设置 activeKey | string | 第一个面板 |
-| hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | boolean | false |
-| size | 大小，提供 `large` `default` 和 `small` 三种大小 | string | 'default' |
-| tabBarExtraContent | tab bar 上额外的元素 | React.ReactNode | 无 |
-| tabBarGutter | tabs 之间的间隙 | number | 无 |
-| tabBarStyle | tab bar 的样式对象 | object | - |
-| tabPosition | 页签位置，可选值有 `top` `right` `bottom` `left` | string | 'top' |
-| type | 页签的基本样式，可选 `line`、`card` `editable-card` 类型 | string | 'line' |
-| onChange | 切换面板的回调 | Function(activeKey) {} | 无 |
-| onEdit | 新增和删除页签的回调，在 `type="editable-card"` 时有效 | (targetKey, action): void | 无 |
-| onNextClick | next 按钮被点击的回调 | Function | 无 |
-| onPrevClick | prev 按钮被点击的回调 | Function | 无 |
-| onTabClick | tab 被点击的回调 | Function | 无 |
+| afterClose | 关闭动画完成后的回调 | () => void | - |
+| closable | 标签是否可以关闭 | boolean | false |
+| color | 标签色 | string | - |
+| onClose | 关闭时的回调 | (e) => void | - |
+| visible | 是否显示标签 | boolean | `true` |
 
-### Tabs.TabPane
+### Tag.CheckableTag
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| forceRender | 被隐藏时是否渲染 DOM 结构 | boolean | false |
-| key | 对应 activeKey | string | 无 |
-| tab | 选项卡头显示文字 | string\|ReactNode | 无 |
-
-
-<style>
-.ant-tag {
-  margin-bottom: 8px;
-}
-</style>
+| checked | 设置标签的选中状态 | boolean | false |
+| onChange | 点击标签时触发的回调 | (checked) => void | - |
