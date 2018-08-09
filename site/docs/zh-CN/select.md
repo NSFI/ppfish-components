@@ -585,3 +585,10 @@ render(){
 | --- | --- | --- | --- |
 | key | - | string | 无 |
 | label | 组名 | string\|React.Element | 无 |
+
+
+<style>
+ .fishd-select{
+   margin-bottom: 10px;
+ }
+</style>
