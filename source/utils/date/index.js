@@ -15,16 +15,16 @@ DateUtils.i18n = {
 // 时间format
 export const timeFormat = (format) => {
   if (format && format.indexOf('ss') === -1) {
-    return 'HH:mm'
+    return 'HH:mm';
   } else {
-    return 'HH:mm:ss'
+    return 'HH:mm:ss';
   }
-}
+};
 
 // 日期format
 export const dateFormat = (format) => {
   if (format) return format.replace('HH:mm', '').replace(':ss', '').trim();
-  else return 'yyyy-MM-dd'
+  else return 'yyyy-MM-dd';
 };
 
 // 月份数组

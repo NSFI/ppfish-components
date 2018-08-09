@@ -330,6 +330,36 @@
   }
 }
 
+.input-counter(@inputClass) {
+  position: relative;
+  border: @border-width-base @border-style-base @input-border-color;
+  border-radius: @border-radius-base;
+  transition: all .3s;
+  &:focus-within {
+    .active();
+  }
+  textarea {
+    //resize: none; // prevent textarea resize from coming out of its container
+    border: transparent;
+  }
+  textarea:focus {
+    border-color: transparent;
+    box-shadow: none;
+  }
+  &-footer {
+    position: relative;
+    height: 22px;
+    background-color: @input-bg;
+  }
+  &-indicator {
+    position: absolute;
+    font-size: @font-size-base;
+    color: @text-color-tertiary;
+    bottom: 2px;
+    right: 16px;
+  }
+}
+
 // label input
 .input-group(@inputClass) {
   position: relative;

@@ -257,6 +257,44 @@ render(){
 ```
 :::
 
+## 计数器
+
+:::demo 计数器是文本域的特殊表现形式。
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+    };
+  }
+
+  onChange = (e) => {
+    this.setState({ name: e.target.value });
+  }
+  render(){
+    const { Counter } = Input;
+    return(
+      <div>
+          <Counter 
+            placeholder="Autosize height based on content lines" 
+            limit={50} 
+            value={this.state.name}
+            autosize 
+            onChange={this.onChange}
+          />
+          <div style={{ margin: '24px 0' }} />
+          <Counter 
+            placeholder="Autosize height with minimum and maximum number of lines" 
+            limit={500} 
+            autosize={{ minRows: 2, maxRows: 6 }} 
+          />
+      </div>
+    )
+  }
+```
+:::
+
 ## 前缀和后缀
 
 :::demo 在输入框上添加前缀或后缀图标。
@@ -342,6 +380,14 @@ Input 的其他属性和 React 自带的 [input](https://facebook.github.io/reac
 | onPressEnter | 按下回车的回调 | function(e) |  |
 
 `Input.TextArea` 的其他属性和浏览器自带的 [textarea](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) 一致。
+
+### Input.Counter
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| limit | 输入框字符限制数量 | number |  |
+
+`Input.Counter` 的其他属性和`Input.TextArea`一致。
 
 #### Input.Search
 

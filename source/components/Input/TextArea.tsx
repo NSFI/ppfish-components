@@ -46,7 +46,7 @@ export default class TextArea extends React.Component<TextAreaProps & HTMLTextar
     textareaStyles: {},
   };
 
-  private textAreaRef: HTMLTextAreaElement;
+  textAreaRef: HTMLTextAreaElement;
 
   componentDidMount() {
     this.resizeTextarea();
