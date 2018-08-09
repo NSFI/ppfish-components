@@ -447,6 +447,34 @@
     }
   }
 
+  &-filtrate-modal {
+    .@{fishd-prefix}-modal-body {
+      padding-bottom: 0;
+    }
+    .@{fishd-prefix}-checkbox-group {
+      width: 100%;
+    }
+    .@{fishd-prefix}-checkbox-group-item {
+      width: 25%;
+      margin-right: 0;
+      margin-bottom: 30px;
+      padding-right: 10px;
+      .ellipsis;
+    }
+
+    &-disabled-list {
+      border-top: 1px solid #ebedf0;
+      .title {
+        margin-top: 14px;
+      }
+    }
+  }
+
+  &-filtrate-icon {
+    cursor: pointer;
+    font-size: 20px;
+  }
+
   &-selection {
     &-select-all-custom {
       /* stylelint-disable-next-line */

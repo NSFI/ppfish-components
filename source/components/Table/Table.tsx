@@ -11,6 +11,7 @@ import FilterDropdown from './filterDropdown';
 import createStore, {Store} from './createStore';
 import SelectionBox from './SelectionBox';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
+import ColumnFiltrateModal from './ColumnFiltrateModal';
 import Column from './Column';
 import ColumnGroup from './ColumnGroup';
 import createBodyRow from './createBodyRow';
@@ -70,6 +71,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
     prefixCls: PropTypes.string,
     useFixedHeader: PropTypes.bool,
     rowSelection: PropTypes.object,
+    columnFiltrate: PropTypes.object,
     className: PropTypes.string,
     size: PropTypes.string,
     loading: PropTypes.oneOfType([
@@ -104,6 +106,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
   columns: ColumnProps<T>[];
   components: TableComponents;
   row: React.ComponentType<any>;
+  hideColumns: string[];
 
   constructor(props: TableProps<T>) {
     super(props);
@@ -115,6 +118,12 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
     );
 
     this.columns = props.columns || normalizeColumns(props.children as React.ReactChildren);
+
+    this.hideColumns = [];
+    // 初始化隐藏列
+    if (props.columnFiltrate && props.columnFiltrate.hideColumns) {
+      this.hideColumns.push(...props.columnFiltrate.hideColumns);
+    }
 
     this.createComponents(props.components);
 
@@ -722,6 +731,44 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
     return columns;
   }
 
+  renderColumnsFiltrate(columnsProps) {
+    const {prefixCls, columnFiltrate} = this.props;
+    const columns = columnsProps.concat();
+    if (columnFiltrate) {
+      const filtrateColumn: ColumnProps<T> = {
+        key: 'filtrate-column',
+        className: classNames(`${prefixCls}-filtrate-column`),
+        width: 50,
+        title: <ColumnFiltrateModal
+          prefixCls={prefixCls}
+          columns={this.columns}
+          hideColumns={this.hideColumns}
+          defaultColumns={columnFiltrate.defaultColumns}
+          onChange={this.handleColumnsFiltrateChange}/>,
+      };
+      if (typeof columnFiltrate === 'object' && 'fixed' in columnFiltrate) {
+        filtrateColumn.fixed = columnFiltrate.fixed;
+      } else if (columns.some(column => column.fixed === 'right' || column.fixed === true)) {
+        filtrateColumn.fixed = 'right';
+      }
+      if (columns[columns.length - 1] && columns[columns.length - 1].key === 'filtrate-column') {
+        columns[columns.length - 1] = filtrateColumn;
+      } else {
+        columns.push(filtrateColumn);
+      }
+    }
+    return columns;
+  }
+
+  handleColumnsFiltrateChange = (hideColumns: string[]) => {
+    const {columnFiltrate} = this.props;
+    if (columnFiltrate && columnFiltrate.hideColumnsChange) {
+      columnFiltrate.hideColumnsChange(hideColumns);
+    }
+    this.hideColumns = hideColumns;
+    this.forceUpdate();
+  };
+
   getColumnKey(column: ColumnProps<T>, index?: number) {
     return column.key || column.dataIndex || index;
   }
@@ -864,7 +911,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         pagination: nextPagination,
       }));
     }
-  }
+  };
 
   renderPagination(paginationPosition: string) {
     // 强制不需要分页
@@ -1030,7 +1077,9 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
     });
 
     let columns = this.renderRowSelection(locale);
+    columns = this.renderColumnsFiltrate(columns);
     columns = this.renderColumnsDropdown(columns, locale);
+    columns = columns.filter(column => this.hideColumns.indexOf(column.key && column.key.toString() || column.dataIndex) === -1);
     columns = columns.map((column, i) => {
       const newColumn = {...column};
       newColumn.key = this.getColumnKey(newColumn, i);

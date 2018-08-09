@@ -7,7 +7,7 @@ import Checkbox from './Checkbox';
 export type CheckboxValueType = string | number | boolean;
 
 export interface CheckboxOptionType {
-  label: string;
+  label: string | React.ReactNode;
   value: CheckboxValueType;
   disabled?: boolean;
 }

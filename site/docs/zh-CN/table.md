@@ -67,7 +67,7 @@ const columns = [{
           <Divider type="vertical" />
           <a href="javascript:;">Delete</a>
           <Divider type="vertical" />
-          <a href="javascript:;" className="ant-dropdown-link">
+          <a href="javascript:;" className="fishd-dropdown-link">
             More actions <Icon type="down" />
           </a>
         </span>
@@ -96,6 +96,68 @@ const columns = [{
   }
 ```
 :::
+
+## 控制列的显示
+
+:::demo 
+```js
+  render() {
+    const columns = [{
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a href="javascript:;">{text}</a>,
+    }, {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+    }, {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    }, {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <a href="javascript:;">Action 一 {record.name}</a>
+          <Divider type="vertical" />
+          <a href="javascript:;">Delete</a>
+          <Divider type="vertical" />
+          <a href="javascript:;" className="fishd-dropdown-link">
+            More actions <Icon type="down" />
+          </a>
+        </span>
+      ),
+    }];
+    
+    const data = [{
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    }, {
+      key: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    }, {
+      key: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    }];
+    return (
+      <Table columns={columns} dataSource={data} columnFiltrate={{
+               defaultColumns:['age'],
+               hideColumns:['name'],
+               hideColumnsChange:(x)=>console.log(x),
+      }}/>
+    );
+  }
+```
+:::
+
 
 ## JSX 风格的 API
 :::demo 使用 JSX 风格的 API。
@@ -155,7 +217,7 @@ const columns = [{
               <Divider type="vertical" />
               <a href="javascript:;">Delete</a>
               <Divider type="vertical" />
-              <a href="javascript:;" className="ant-dropdown-link">
+              <a href="javascript:;" className="fishd-dropdown-link">
                 More actions <Icon type="down" />
               </a>
             </span>
@@ -1144,7 +1206,7 @@ const columns = [{
       });
     }
     return (
-      <Table columns={columns} dataSource={data} scroll={{ x: 1500, y: 300 }} />
+      <Table columnFiltrate={{}} columns={columns} dataSource={data} scroll={{ x: 1500, y: 300 }} />
     );
   }
 ```
@@ -1718,7 +1780,7 @@ const columns = [{
       <Divider type="vertical" />
       <a href="javascript:;">Delete</a>
       <Divider type="vertical" />
-      <a href="javascript:;" className="ant-dropdown-link">
+      <a href="javascript:;" className="fishd-dropdown-link">
         More actions <Icon type="down" />
       </a>
     </span>
@@ -1842,6 +1904,7 @@ class Demo extends React.Component {
 | bordered | 是否展示外边框和列边框 | boolean | false |
 | childrenColumnName | 指定树形结构的列名 | string\[] | children |
 | columns | 表格列的配置描述，具体项见下表 | [ColumnProps](https://git.io/vMMXC)\[] | - |
+| columnFiltrate | 列表筛选显示功能 | object\| boolean | false |
 | components | 覆盖默认的 table 元素 | object | - |
 | dataSource | 数据数组 | any\[] |  |
 | defaultExpandAllRows | 初始时，是否展开所有行 | boolean | false |
@@ -1851,13 +1914,13 @@ class Demo extends React.Component {
 | expandRowByClick | 通过点击行来展开子行 | boolean | `false` |
 | footer | 表格尾部 | Function(currentPageData) |  |
 | indentSize | 展示树形数据时，每层缩进的宽度，以 px 为单位 | number | 15 |
-| loading | 页面是否加载中 | boolean\|[object](https://ant.design/components/spin-cn/#API) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
+| loading | 页面是否加载中 | boolean\|[object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
 | locale | 默认文案设置，目前包括排序、过滤、空数据文案 | object | filterConfirm: '确定' <br> filterReset: '重置' <br> emptyText: '暂无数据' <br> [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
 | pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | object |  |
 | rowClassName | 表格行的类名 | Function(record, index):string | - |
 | rowKey | 表格行 key 的取值，可以是字符串或一个函数 | string\|Function(record):string | 'key' |
 | rowSelection | 列表项是否可选择 | object | null |
-| scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.ant-table td { white-space: nowrap; }` | { x: number \| true, y: number } | - |
+| scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | { x: number \| true, y: number } | - |
 | showHeader | 是否显示表头 | boolean | true |
 | size | 正常或迷你类型，`default` or `small` | string | default |
 | title | 表格标题 | Function(currentPageData) |  |
@@ -1960,6 +2023,26 @@ class Demo extends React.Component {
 | text | 选择项显示的文字 | string\|React.ReactNode | - |
 | onSelect | 选择项点击回调 | Function(changeableRowKeys) | - |
 
+
+### columnFiltrate
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| fixed | 是否fixed | ['left','right'] | - |
+| hideColumns | 初始化组件时需要隐藏的columns的key[] | string[] | - |
+| defaultColumns | 默认需要显示的不能调整的列的key[] | string[] | - |
+| hideColumnsChange | 选择隐藏的列后的回调 | fucntion(hideColumns:string[]) | - |
+
+> 隐藏列表项有以下限制：
+
+- fixed的列不能隐藏
+
+- 分组的列不能隐藏
+
+- 存在fixed列的普通列的最后一列不能隐藏
+
+- 没有fixed的列中至少保留一列不能隐藏
+
 ### 在 TypeScript 中使用
 
 ```js
@@ -2012,7 +2095,7 @@ return <Table rowKey={record => record.uid} />;
 <style>
 th.column-money,
 td.column-money {
-  text-align: right !important;
+  text-align: right !importfishd;
 }
 .table-operations {
   margin-bottom: 16px;
@@ -2021,27 +2104,27 @@ td.column-money {
 .table-operations > button {
   margin-right: 8px;
 }
-.components-table-demo-nested .ant-table-expanded-row > td:last-child {
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child {
   padding: 0 48px 0 8px;
 }
 
-.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-thead th {
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-thead th {
   border-bottom: 1px solid #e9e9e9;
 }
 
-.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-thead th:first-child {
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-thead th:first-child {
   padding-left: 0;
 }
 
-.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-row td:first-child {
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-row td:first-child {
   padding-left: 0;
 }
 
-.components-table-demo-nested .ant-table-expanded-row .ant-table-row:last-child td {
+.components-table-demo-nested .fishd-table-expanded-row .fishd-table-row:last-child td {
   border: none;
 }
 
-.components-table-demo-nested .ant-table-expanded-row .ant-table-thead > tr > th {
+.components-table-demo-nested .fishd-table-expanded-row .fishd-table-thead > tr > th {
   background: none;
 }
 
@@ -2049,7 +2132,7 @@ td.column-money {
   margin-right: 24px;
 }
 
-.components-table-demo-nested .ant-table-expanded-row:hover > td {
+.components-table-demo-nested .fishd-table-expanded-row:hover > td {
   background: #fbfbfb;
 }
 
@@ -2080,7 +2163,7 @@ td:hover .editable-cell-icon {
   color: #108ee9;
 }
 
-.editable-row .ant-form-explain {
+.editable-row .fishd-form-explain {
   position: absolute;
   font-size: 12px;
   margin-top: -4px;
@@ -2094,5 +2177,5 @@ td:hover .editable-cell-icon {
   border-top: 2px dashed #1890ff;
 }
 
-.components-table-demo-control-bar { margin-bottom: 10px; } .components-table-demo-control-bar .ant-form-item { margin-right: 16px; margin-bottom: 8px; } 
+.components-table-demo-control-bar { margin-bottom: 10px; } .components-table-demo-control-bar .fishd-form-item { margin-right: 16px; margin-bottom: 8px; } 
 </style>

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { SpinProps } from '../Spin';
-import { Store } from './createStore';
-import { RadioChangeEvent } from '../Radio';
-import { CheckboxChangeEvent } from '../Checkbox';
-import { PaginationConfig } from '../Pagination';
-export { PaginationConfig } from '../Pagination';
+import {SpinProps} from '../Spin';
+import {Store} from './createStore';
+import {RadioChangeEvent} from '../Radio';
+import {CheckboxChangeEvent} from '../Checkbox';
+import {PaginationConfig} from '../Pagination';
+
+export {PaginationConfig} from '../Pagination';
 
 export type CompareFn<T> = ((a: T, b: T, sortOrder?: 'ascend' | 'descend') => number);
 export type ColumnFilterItem = { text: string; value: string, children?: ColumnFilterItem[] };
@@ -78,18 +79,23 @@ export interface TableRowSelection<T> {
   fixed?: boolean;
   columnWidth?: string | number;
 }
+
 export type SortOrder = 'descend' | 'ascend';
+
 export interface SorterResult<T> {
   column: ColumnProps<T>;
   order: SortOrder;
   field: string;
   columnKey: string;
 }
+
 export type TableSize = 'default' | 'middle' | 'small';
+
 export interface TableProps<T> {
   prefixCls?: string;
   dropdownPrefixCls?: string;
   rowSelection?: TableRowSelection<T>;
+  columnFiltrate?: FiltrateProps;
   pagination?: PaginationConfig | false;
   size?: TableSize;
   dataSource?: T[];
@@ -107,11 +113,9 @@ export interface TableProps<T> {
   expandRowByClick?: boolean;
   onExpandedRowsChange?: (expandedRowKeys: string[] | number[]) => void;
   onExpand?: (expanded: boolean, record: T) => void;
-  onChange?: (
-    pagination: PaginationConfig,
-    filters: Record<keyof T, string[]>,
-    sorter: SorterResult<T>,
-  ) => void;
+  onChange?: (pagination: PaginationConfig,
+              filters: Record<keyof T, string[]>,
+              sorter: SorterResult<T>,) => void;
   loading?: boolean | SpinProps;
   locale?: Object;
   indentSize?: number;
@@ -189,6 +193,27 @@ export interface SelectionInfo<T> {
   checked?: boolean;
   changeRowKeys?: React.Key[];
   nativeEvent?: Event;
+}
+
+export interface FiltrateProps {
+  fixed?: boolean;
+  hideColumns?: string[];
+  defaultColumns?: string[];
+  hideColumnsChange?: (e) => void;
+}
+
+export interface ColumnFiltrateProps<T> {
+  prefixCls?: string;
+  columns: ColumnProps<T>[];
+  hideColumns?: string[];
+  defaultColumns?: string[];
+  onChange?: (e) => void;
+}
+
+export interface ColumnFiltrateState {
+  visible?: boolean;
+  checkedOption?: any[];
+  checkedOptionConfirm?: any[];
 }
 
 export interface FilterMenuProps<T> {
