@@ -23,10 +23,10 @@ export default class YearAndMonthPopover extends React.Component {
     }
   }
 
-  scrollToOption(className="active") {
+  scrollToOption = () => {
     const menu = this.refs.root;
-    const active = menu.getElementsByClassName(className)[0];
-    scrollIntoView(active, menu);
+    const active = menu.getElementsByClassName('active')[0];
+    active && scrollIntoView(active, menu);
   }
 
   handleOnClick(item) {
