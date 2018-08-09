@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Tag from '..';
+import Tag from '../index.tsx';
 
 describe('Tag', () => {
   beforeAll(() => {

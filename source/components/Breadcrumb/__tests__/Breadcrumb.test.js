@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, render } from 'enzyme';
-import Breadcrumb from '../index';
+import Breadcrumb from '../index.tsx';
 
 describe('Breadcrumb', () => {
   const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});

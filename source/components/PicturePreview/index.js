@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Carousel from '../Carousel';
-import Modal from '../Modal';
+import Carousel from '../Carousel/index.tsx';
+import Modal from '../Modal/index.tsx';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
 import './index.less';
 
@@ -88,6 +88,7 @@ class PicturePreview extends Component {
   static propTypes = {
     activeIndex: PropTypes.number,    // 默认打开的图片索引
     className: PropTypes.string,
+    children: PropTypes.node,
     controller: PropTypes.bool,       // 是否显示图片控制器
     dots: PropTypes.bool,             // 是否显示面板指示点
     source: PropTypes.array,          // 预览图片数组，格式为[{url:"xxxx",size: "200*200"}]
