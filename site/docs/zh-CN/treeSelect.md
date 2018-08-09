@@ -33,7 +33,10 @@
       <div>
         <TreeSelect
           showSearch
-          style={{ width: 300 }}
+          style={{ 
+            width: 300,
+            marginRight: '20px'
+          }}
           value={this.state.value}
           dropdownStyle={{
             width: 300
@@ -62,7 +65,6 @@
             </TreeNode>
           </TreeNode>
         </TreeSelect>
-        <br/>
         <TreeSelect disabled style={{ width: 300 }}></TreeSelect>
       </div>
     );
@@ -368,6 +370,7 @@
       treeCheckable: true,
       style: {
         width: 300,
+        marginRight: '20px'
       },
       dropdownStyle: {
         width: 300,
@@ -383,7 +386,6 @@
     return (
       <div>
         <TreeSelect {...tProps} />
-        <br/>
         <TreeSelect {...tPropsDisabled} />
       </div>
     );
