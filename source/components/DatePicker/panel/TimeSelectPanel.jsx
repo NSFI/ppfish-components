@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { PopperBase } from './PopperBase';
 import { Scrollbar } from '../scrollbar';
-import { scrollIntoView } from '../libs/utils/dom';
+import scrollIntoView from 'dom-scroll-into-view';
 
 export default class TimeSelectPanel extends PopperBase {
 
@@ -44,7 +44,8 @@ export default class TimeSelectPanel extends PopperBase {
 
   scrollToOption(className="selected") {
     const menu = this.refs.root.querySelector('.fishd-picker-panel__content');
-    scrollIntoView(menu, menu.getElementsByClassName(className)[0]);
+    const selected = menu.getElementsByClassName(className)[0];
+    selected && scrollIntoView(selected, menu);
   }
 
   componentDidMount() {

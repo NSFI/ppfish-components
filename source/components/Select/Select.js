@@ -502,7 +502,7 @@ export default class Select extends React.Component {
   //处理option的激活态
   setActiveOptionIntoView = (activeKey) => {
     scrollIntoView(ReactDOM.findDOMNode(this.refs[activeKey]), ReactDOM.findDOMNode(this.dropdownList), {
-      onlyScrollIfNeeded: true,
+      onlyScrollIfNeeded: true
     });
   };
 

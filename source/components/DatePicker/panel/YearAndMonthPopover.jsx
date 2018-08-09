@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Popover from '../../Popover';
+import scrollIntoView from 'dom-scroll-into-view';
 
 import '../styles/YearAndMonthPopover.less'
 
@@ -14,14 +15,6 @@ export default class YearAndMonthPopover extends React.Component {
     value: PropTypes.number
   }
 
-  handleOnClick(item) {
-    this.setState({
-      visible: false,
-    }, () => {
-      this.props.onChange(item);
-    });
-  }
-
   constructor(props) {
     super(props);
 
@@ -30,8 +23,26 @@ export default class YearAndMonthPopover extends React.Component {
     }
   }
 
+  scrollToOption(className="active") {
+    const menu = this.refs.root;
+    const active = menu.getElementsByClassName(className)[0];
+    scrollIntoView(active, menu);
+  }
+
+  handleOnClick(item) {
+    this.setState({
+      visible: false,
+    }, () => {
+      this.props.onChange(item);
+    });
+  }
+
   handleVisibleChange = (visible) => {
-    this.setState({ visible });
+    this.setState({ visible }, () => {
+      if(visible) {
+        this.scrollToOption()
+      }
+    });
   }
 
   render() {
@@ -40,6 +51,7 @@ export default class YearAndMonthPopover extends React.Component {
     const content = () => {
       return (
         <div
+          ref="root"
           className="fishd-year-and-month-popover"
         >
           {
@@ -69,6 +81,7 @@ export default class YearAndMonthPopover extends React.Component {
         visible={this.state.visible}
         onVisibleChange={this.handleVisibleChange}
         getPopupContainer={triggerNode => triggerNode.parentNode}
+        forceRender
       >
         {children}
       </Popover>
