@@ -165,7 +165,7 @@
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | activeIndex | 当前展示第几张图片 | Number | 0 |
-| className | 容器样式 | String | - |
+| className | 容器类名 | String | - |
 | dots | 是否显示面板指示点 | Boolean | false |
 | source | 设置图片的源数据，可选属性，格式为 `[{url:"xxx", size: "200*300"}]` 。其中 size 是可选属性，格式为 `宽度*高度` ，宽、高均为数字。当不传 size 时会自动计算图片的原始尺寸。当不设置 source 时可以手动构造子节点，若 source 与子节点同时存在，子节点将被忽略。 | Array | [] |
 | visible | 是否展示图片查看器 | Boolean | false |
