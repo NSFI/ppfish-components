@@ -316,3 +316,40 @@
   }
 }
 
+//input-addon style fix
+.@{fishd-prefix}-input-group-wrapper {
+  .@{fishd-prefix}-input-group-addon {
+    .@{select-prefix} {
+      min-height: @select-height-base - 2px;
+      height: @select-height-base - 2px;
+    }
+    .@{select-prefix}-option-single {
+      line-height: @default-size-select-line-height - 2px;
+    }
+  }
+}
+
+.@{fishd-prefix}-input-group-wrapper-lg {
+  .@{fishd-prefix}-input-group-addon {
+    .@{select-prefix}-large {
+      min-height: @select-height-lg - 2px;
+      height: @select-height-lg - 2px;
+    }
+    .@{select-prefix}-option-single {
+      line-height: @large-size-select-line-height - 2px;
+    }
+  }
+}
+
+.@{fishd-prefix}-input-group-wrapper-sm {
+  .@{fishd-prefix}-input-group-addon {
+    .@{select-prefix}-small {
+      min-height: @select-height-sm - 4px;
+      height: @select-height-sm - 4px;
+    }
+    .@{select-prefix}-option-single {
+      line-height: @small-size-select-line-height - 4px;
+    }
+  }
+}
+

@@ -50,7 +50,7 @@ render(){
 render(){
   const Option = Select.Option;
   const selectBefore = (
-    <Select defaultValue="Http://" style={{ width: 90 }}>
+    <Select defaultValue="Http://" style={{ width: 100 }}>
       <Option value="Http://">Http://</Option>
       <Option value="Https://">Https://</Option>
     </Select>

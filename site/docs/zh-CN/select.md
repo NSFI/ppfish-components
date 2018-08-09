@@ -11,7 +11,7 @@
 ```js
   render() {
     return (
-      <div>
+      <div className="demo-select">
         <Select showSingleClear style={{width: 300}}>
           <Select.Option key={"1"}>{'选项1'}</Select.Option>
           <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
@@ -31,7 +31,7 @@
 ```js
   render() {
     return (
-      <div>
+      <div className="demo-select">
         <Select style={{width: 300}} showSingleClear extraOptions={
           <div style={{padding: 10, background: '#f7f8fa'}}>
           额外的任意内容<Icon type="demo-play"/>
@@ -63,7 +63,7 @@
   render() {
     const {size} = this.state;
     return (
-      <div>
+      <div className="demo-select">
         <Radio.Group value={size} onChange={this.handleSizeChange} style={{width: 300, margin: 10}}>
           <Radio.Button value="large">Large</Radio.Button>
           <Radio.Button value="default">Default</Radio.Button>
@@ -119,13 +119,15 @@
       label: '默认-选项3'
     }, {key: "4", label: '默认-选项4'}]);
     return (
-      <Select style={{width: 300}} showSingleClear onChange={this.handleChange} value={this.state.value}>
-        {Group.map(group =>
-          <Select.OptGroup label={group.label} key={group.key}>
-            {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
-          </Select.OptGroup>
-        )}
-      </Select>
+      <div className="demo-select">
+        <Select style={{width: 300}} showSingleClear onChange={this.handleChange} value={this.state.value}>
+          {Group.map(group =>
+            <Select.OptGroup label={group.label} key={group.key}>
+              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
+            </Select.OptGroup>
+          )}
+        </Select>
+      </div>
     );
   }
 ```
@@ -137,7 +139,7 @@
 :::demo `labelInValue`会返回`key`、`label`值，建议远程搜索采用此方案。
 ```js
   state = {
-    value: {key: "1"}
+    value: {key: "1",label:"选项1"}
   };
 
   handleChange = (value) => {
@@ -151,23 +153,49 @@
       label: '选项3'
     }, {key: "4", label: '选项4'}]);
     return (
-      <div>
-        <div>key:{this.state.value && this.state.value.key}</div>
-        <div>label:{this.state.value && this.state.value.label}</div>
-        <Select style={{width: 300}} showSingleClear labelInValue onChange={this.handleChange} value={this.state.value}>
-          {Group.map(group =>
-            <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option title={item.label} key={item.key}>{item.label}</Select.Option>)}
-            </Select.OptGroup>
-          )}
-        </Select>
-      </div>
+        <div className="demo-select">
+          <div className="demo-select-label">
+            <div>
+              <span className="label">Key: </span>
+              {this.state.value && this.state.value.key}
+            </div>
+            <div>
+              <span className="label">Label:</span>
+              {this.state.value && this.state.value.label}
+            </div>
+          </div>
+          <Select style={{width: 300}} showSingleClear labelInValue onChange={this.handleChange}
+                  value={this.state.value}>
+            {Group.map(group =>
+              <Select.OptGroup label={group.label} key={group.key}>
+                {group.list && group.list.map(item => <Select.Option title={item.label}
+                                                                     key={item.key}>{item.label}</Select.Option>)}
+              </Select.OptGroup>
+            )}
+          </Select>
+        </div>
     );
   }
 ```
 
 :::
 
+<style>
+.demo-select-label{
+ margin-bottom:10px;
+}
+
+.demo-select-label div{
+ margin-bottom:10px;
+ display:inline-block;
+ margin-right:60px;
+}
+
+.demo-select-label .label{
+  display:inline-block;
+  width:40px;
+}
+</style>
 ## 联动
 
 :::demo  省市联动是典型的例子。但推荐使用 Cascader 组件。
@@ -204,7 +232,7 @@ class Demo extends React.Component {
     const provinceOptions = provinceData.map(province => <Option key={province}>{province}</Option>);
     const cityOptions = this.state.cities.map(city => <Option key={city}>{city}</Option>);
     return (
-      <div>
+      <div className="demo-select">
         <Select defaultValue={provinceData[0]} style={{ width: 150,display:'inline-block',marginRight:5 }} onChange={this.handleProvinceChange}>
           {provinceOptions}
         </Select>
@@ -237,7 +265,7 @@ class Demo extends React.Component {
       label: '选项1'
     }, {key: "2", label: '选项2'}, {key: "3", label: '选项3'}, {key: "4", label: '选项4'}, {key: "5", label: '选项5'}]);
     return (
-      <div>
+      <div className="demo-select">
         <Select style={{width: 300}} disabled={false} onChange={this.handleChange} value={this.state.value}
                 showSelectAll={true} mode={'multiple'}>
           {Group.map(group =>
@@ -288,7 +316,7 @@ class Demo extends React.Component {
       label: '选项3'
     }, {key: "4", label: '选项4'}]);
     return (
-      <div>
+      <div className="demo-select">
         <Select style={{width: 300}} showSingleClear showSearch
                 filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 onChange={this.handleChange} value={this.state.value}>
@@ -320,7 +348,7 @@ class Demo extends React.Component {
 ```js
 render(){
   return(
-    <div>
+    <div className="demo-select">
         <Select style={{width:300}} size={'small'} loading/>
         <br/>
         <Select style={{width:300}} loading/>
@@ -357,7 +385,7 @@ render(){
       label: '选项3'
     }, {key: "4", label: '选项4'}]);
     return (
-      <div>
+      <div className="demo-select">
         <Input style={{marginBottom: 20, width: 200}} placeholder="输入宽度" value={this.state.width}
                onChange={this.handleChangeWidth}/>
         <div>
@@ -436,7 +464,7 @@ render(){
   render() {
     const {fetching, data, value} = this.state;
     return (
-      <div>
+      <div className="demo-select">
         <Select style={{width: 300}} labelInValue showSingleClear showSearch onSearch={this.fetchUser}
                 onChange={this.handleChange} value={value}
                 notFoundContent={fetching ? <Spin size="small"/> : null}>
@@ -498,7 +526,7 @@ render(){
   render() {
     const {fetching, data, value} = this.state;
     return (
-      <div>
+      <div className="demo-select">
         <Select style={{width: 300}} showSelectAll selectAllText={'选中所有搜索结果'} mode="multiple" labelInValue showSearch
                 onSearch={this.fetchUser} onChange={this.handleChange} value={value}
                 notFoundContent={fetching ? <Spin size="small"/> : null}>
@@ -588,7 +616,7 @@ render(){
 
 
 <style>
- .fishd-select{
+ .demo-select .fishd-select{
    margin-bottom: 10px;
  }
 </style>
