@@ -336,10 +336,10 @@ export default class DateTable extends React.Component {
     newDate.setDate(parseInt(text, 10));
     if (selectionMode === SELECTION_MODES.RANGE) {
       if (rangeState.selecting) {
-        if (newDate < minDate) {
+        if (minDate && clearHours(newDate) < clearHours(minDate)) {
           rangeState.selecting = true;
           onPick({ minDate: toDate(newDate), maxDate: null }, false)
-        } else if (newDate >= minDate) {
+        } else if (minDate && clearHours(newDate) >= clearHours(minDate)) {
           rangeState.selecting = false;
           onPick({ minDate, maxDate: toDate(newDate) }, true)
         }
@@ -352,7 +352,6 @@ export default class DateTable extends React.Component {
           rangeState.selecting = true;
           onPick({ minDate: toDate(newDate), maxDate: null }, false)
         }
-
       }
     } else if (selectionMode === SELECTION_MODES.DAY || selectionMode === SELECTION_MODES.WEEK) {
       onPick({ date: newDate })

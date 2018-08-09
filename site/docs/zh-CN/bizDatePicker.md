@@ -226,7 +226,8 @@
 
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| className | 选择器 className | string | '' |
+| className | 选择器的className | string | - |
+| popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter','bottomRight','topLeft', 'topCenter','topLeft' | 'bottomLeft' |
 | open  | 用于手动控制浮层显隐    |  boolean   | false |
 | disabled | 禁用 | boolean | false |
 | onOpenChange | 弹出和关闭的回调 | function(status) | - |

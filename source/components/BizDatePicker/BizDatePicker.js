@@ -29,6 +29,7 @@ class BizDatePicker extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
+    popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
     format: PropTypes.string,
     quickTimeOption: PropTypes.array,
     defaultValue: PropTypes.object,
@@ -43,7 +44,7 @@ class BizDatePicker extends React.Component {
 
   static defaultProps = {
     prefixCls: 'biz-date-picker',
-    className: '',
+    popupAlign: 'bottomLeft',
     quickTimeOption: defaultQuickTimeOption,
     defaultValue: defaultQuickTimeOption[0],
     open: false,
@@ -118,6 +119,7 @@ class BizDatePicker extends React.Component {
       disabledDate,
       format,
       isShowTime,
+      popupAlign
     } = this.props;
     const { showDate, open } = this.state;
 
@@ -166,7 +168,7 @@ class BizDatePicker extends React.Component {
           getPopupContainer={node => node.parentNode}
           onPopupVisibleChange={this.handleVisibleChange}
           popup={content}
-          popupPlacement="bottomLeft"
+          popupPlacement={popupAlign}
           popupVisible={open}
           prefixCls={`${prefixCls}-popup`}
         >

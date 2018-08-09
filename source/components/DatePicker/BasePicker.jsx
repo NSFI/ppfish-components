@@ -24,6 +24,7 @@ export default class BasePicker extends React.Component {
 
   static get propTypes() {
     return {
+      className: PropTypes.string,
       placeholder: PropTypes.string,
       format: PropTypes.string,
       align: PropTypes.oneOf(['left', 'right']),
@@ -247,7 +248,7 @@ export default class BasePicker extends React.Component {
   }
 
   render() {
-    const { isAllowClear, placeholder, isDisabled } = this.props;
+    const { isAllowClear, placeholder, isDisabled, className } = this.props;
     const { pickerVisible, value, text } = this.state;
 
     const prefixIcon = () => {
@@ -307,7 +308,7 @@ export default class BasePicker extends React.Component {
 
     return (
       <span
-        className={classNames('fishd-date-editor', {
+        className={classNames('fishd-date-editor', className, {
           'is-have-trigger': this.calcIsShowTrigger(),
           'is-active': pickerVisible,
           'is-filled': !!value

@@ -296,8 +296,8 @@ export default class DateRangePanel extends PopperBase {
   handleRangePick({ minDate, maxDate }, isClose) {
     const { isShowTime, onPick } = this.props;
     this.setState({
-      minDate: setDate(new Date(this.state.minDate), new Date(minDate)), // 日期变化，时间不变
-      maxDate: setDate(new Date(this.state.maxDate), new Date(maxDate)),
+      minDate: minDate ? setDate(new Date(this.state.minDate), new Date(minDate)) : null, // 日期变化，时间不变
+      maxDate: maxDate ? setDate(new Date(this.state.maxDate), new Date(maxDate)) : null,
       minDateInputText: formatDate(minDate),
       maxDateInputText: formatDate(maxDate),
     });

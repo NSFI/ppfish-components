@@ -90,28 +90,28 @@ export const parseDate = function (string, format) {
   return DateUtils.parse(string, format || 'yyyy-MM-dd');
 };
 
-// 只改变date的时间，不改变日期
-export const setTime = (date, value) => {
-  let oldDate = new Date(date.getTime());
-  let hour = value.getHours();
-  let minute = value.getMinutes();
-  let second = value.getSeconds();
-  oldDate.setHours(hour);
-  oldDate.setMinutes(minute);
-  oldDate.setSeconds(second);
-  return new Date(oldDate.getTime());
+// 只改变时间，不改变日期
+export const setTime = (oldDate, newDate) => {
+  let old = new Date(oldDate.getTime());
+  let hour = newDate.getHours();
+  let minute = newDate.getMinutes();
+  let second = newDate.getSeconds();
+  old.setHours(hour);
+  old.setMinutes(minute);
+  old.setSeconds(second);
+  return new Date(old.getTime());
 };
 
-// 只改变date的日期，不改变时间
-export const setDate = (date, value) => {
-  let oldDate = new Date(date.getTime());
-  let hour = oldDate.getHours();
-  let minute = oldDate.getMinutes();
-  let second = oldDate.getSeconds();
-  value.setHours(hour);
-  value.setMinutes(minute);
-  value.setSeconds(second);
-  return new Date(value.getTime());
+// 只改变日期，不改变时间
+export const setDate = (oldDate, newDate) => {
+  let old = new Date(oldDate.getTime());
+  let hour = old.getHours();
+  let minute = old.getMinutes();
+  let second = old.getSeconds();
+  newDate.setHours(hour);
+  newDate.setMinutes(minute);
+  newDate.setSeconds(second);
+  return new Date(newDate.getTime());
 };
 
 export const getDayCountOfMonth = function (year, month) {

@@ -494,6 +494,7 @@ render() {
 ## API 公共参数
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
+| className | 选择器的className | string | - |
 | format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss` | yyyy-MM-dd |
 | isShowTrigger | 是否显示前缀图标 | boolean | - | true |
 | isAllowClear | 是否显示清除按钮 | boolean | - | true |

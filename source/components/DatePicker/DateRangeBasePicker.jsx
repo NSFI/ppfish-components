@@ -24,6 +24,7 @@ export default class DateRangeBasePicker extends React.Component {
 
   static get propTypes() {
     return {
+      className: PropTypes.string,
       startPlaceholder: PropTypes.string,
       endPlaceholder: PropTypes.string,
       rangeSeparator: PropTypes.string,
@@ -233,7 +234,7 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   render() {
-    const { startPlaceholder, endPlaceholder, rangeSeparator, isShowTrigger, isAllowClear, isDisabled } = this.props;
+    const { startPlaceholder, endPlaceholder, rangeSeparator, isShowTrigger, isAllowClear, isDisabled, className } = this.props;
     const { pickerVisible, value, text } = this.state;
 
     const calcIsShowTrigger = () => {
@@ -305,7 +306,7 @@ export default class DateRangeBasePicker extends React.Component {
 
     return (
       <span
-        className={classNames('fishd-date-editor', {
+        className={classNames('fishd-date-editor', className, {
           'is-have-trigger': calcIsShowTrigger(),
           'is-active': pickerVisible,
           'is-filled': !!value

@@ -158,6 +158,7 @@
 ## API 公共参数
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
+| className | 选择器的className | string | - |
 | placeholder | 占位内容 | string | - | - |
 | format | 时间格式化 | string | 小时 HH，分 mm，秒 ss | HH:mm:ss |
 | isShowTrigger | 是否显示前缀图标 | boolean | - | true |
