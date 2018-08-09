@@ -5,6 +5,7 @@ import omit from 'omit.js';
 import Group from './Group';
 import Search from './Search';
 import TextArea from './TextArea';
+import Counter from './Counter';
 import { Omit } from '../../utils/type';
 
 function fixControlledValue<T>(value: T) {
@@ -28,6 +29,7 @@ export default class Input extends React.Component<InputProps, any> {
   static Group: typeof Group;
   static Search: typeof Search;
   static TextArea: typeof TextArea;
+  static Counter: typeof Counter;
 
   static defaultProps = {
     prefixCls: 'fishd-input',
