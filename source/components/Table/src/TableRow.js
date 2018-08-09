@@ -99,10 +99,10 @@ class TableRow extends React.Component {
   }
 
   onRowClick = event => {
-    const {store, record, index, onRowClick, activeRowByClick} = this.props;
+    const {store, record, index, onRowClick, activeRowByClick, rowKey} = this.props;
     // 点击高亮功能
     activeRowByClick && store.setState({
-      currentClickedKey: record.key
+      currentClickedKey: rowKey
     });
     if (onRowClick) {
       onRowClick(record, index, event);
