@@ -516,7 +516,7 @@ render() {
 | value | - | Date | Date/null | null |
 | selectionMode | 日期类型 | string, one of ['week', 'day'] | - | 'day' |
 
-## DateRangePicker
+## DatePicker.DateRangePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | startPlaceholder | 开始日期的占位内容 | string | - | '开始日期' |

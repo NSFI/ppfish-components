@@ -168,7 +168,14 @@
 | onBlur | onBlur | func:(TimeSelectReactComponent)=>() | - | - |
 | onChange | 确认选定的值时触发 | func:(value)=>() | - | - |
 
-## TimeSelect
+## TimePicker
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| isShowCurrent | 是否显示"现在"快捷按钮 | boolean | - | false |
+| value | 值 | date/null | - | - |
+| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - |
+
+## TimePicker.TimeSelect
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | value | 值 | date/null | - | - |
@@ -177,10 +184,4 @@
 | step | 间隔时间 | string | - | 00:30 |
 | minTime | 最小时间 | string | - | - |
 | maxTime | 最大时间 | string | - | - |
- 
-## TimePicker
-| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
-|---------- |-------------- |---------- |--------------------------------  |-------- |
-| isShowCurrent | 是否显示"现在"快捷按钮 | boolean | - | false |
-| value | 值 | date/null | - | - |
-| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - |
+
