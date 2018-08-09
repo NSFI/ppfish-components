@@ -6,7 +6,7 @@ export function getScrollBarWidth() {
   const outer = document.createElement('div');
   outer.className = 'fishd-scrollbar__wrap';
   outer.style.visibility = 'hidden';
-  outer.style.width = '99px';
+  outer.style.width = '100px';
   outer.style.position = 'absolute';
   outer.style.top = '-9999px';
   document.body.appendChild(outer);
