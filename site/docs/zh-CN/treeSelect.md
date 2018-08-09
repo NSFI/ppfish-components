@@ -623,5 +623,5 @@
 | disabled | 是否禁用 | boolean | false |
 | isLeaf | 是否是叶子节点 | boolean | false |
 | key | 此项必须设置（其值在整个树范围内唯一） | string | - |
-| title | 树节点显示的内容 | string\|ReactNode | '---' |
-| value | 默认根据此属性值进行筛选（其值在整个树范围内唯一） | string | - |
+| title | 树节点显示的内容，默认根据此属性值进行筛选 | string\|ReactNode | '---' |
+| value | 树节点的值，在整个树范围内唯一 | string | - |
