@@ -43,6 +43,7 @@ const setRightDate = (dateA, dateB) => {
 export default class DateRangePanel extends PopperBase {
   static get propTypes() {
     return Object.assign({
+      yearCount: PropTypes.number,
       value: PropTypes.array,
       isShowTime: PropTypes.bool,
       format: PropTypes.string,
@@ -64,6 +65,7 @@ export default class DateRangePanel extends PopperBase {
 
   static get defaultProps() {
     return {
+      yearCount: 50,
       value: null,
       isShowTime: false,
       shortcutsPlacement: 'left',
@@ -319,7 +321,7 @@ export default class DateRangePanel extends PopperBase {
   }
 
   render() {
-    const { shortcuts, shortcutsPlacement, disabledDate, firstDayOfWeek, isShowTime, format } = this.props;
+    const { shortcuts, shortcutsPlacement, disabledDate, firstDayOfWeek, isShowTime, format, yearCount } = this.props;
     const {
       rangeState,
       minTimePickerVisible,
@@ -441,7 +443,7 @@ export default class DateRangePanel extends PopperBase {
                 </Icon>
                 <YearAndMonthPopover
                   value={leftDate.getFullYear()}
-                  sourceData={YEARS_ARRAY()}
+                  sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
                 >
                   <span className="fishd-date-range-picker__header-label">{`${leftDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
@@ -491,7 +493,7 @@ export default class DateRangePanel extends PopperBase {
                 </Icon>
                 <YearAndMonthPopover
                   value={rightDate.getFullYear()}
-                  sourceData={YEARS_ARRAY()}
+                  sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
                 >
                   <span className="fishd-date-range-picker__header-label">{`${rightDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>

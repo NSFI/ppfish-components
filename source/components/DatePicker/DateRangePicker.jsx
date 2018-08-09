@@ -12,7 +12,7 @@ export default class DateRangePicker extends DateRangeBasePicker {
       DateRangeBasePicker.propTypes,
       // default value is been defined in ./constants file
       pick(DateRangePanel.propTypes,
-        ['value', 'isShowTime', 'shortcuts', 'firstDayOfWeek']
+        ['value', 'isShowTime', 'shortcuts', 'firstDayOfWeek', 'yearCount']
       )
     )
   }

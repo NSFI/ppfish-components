@@ -502,6 +502,7 @@ render() {
 | isShowTime | 是否显示时间选择器 | boolean | - | false |
 | disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
 | firstDayOfWeek | 周起始日 | Number | 0 到 6 | 0 |
+| yearCount | 可选择的年份总数 | Number | Number | 50 |
 | shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
 | shortcutsPlacement | 快捷选项的位置 | string | 'left' | 'left' |
 | onFocus | focus 事件触发 | (SyntheticEvent)=>() | - | - |

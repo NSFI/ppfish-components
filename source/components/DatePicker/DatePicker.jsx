@@ -10,7 +10,7 @@ export default class DatePicker extends BasePicker {
       {},
       BasePicker.propTypes,
       pick(DatePanel.propTypes,
-        ['value', 'shortcuts', 'selectionMode', 'disabledDate', 'showWeekNumber', 'firstDayOfWeek', 'isShowTime']
+        ['value', 'shortcuts', 'selectionMode', 'disabledDate', 'showWeekNumber', 'firstDayOfWeek', 'isShowTime', 'yearCount']
       )
     );
   }

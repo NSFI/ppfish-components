@@ -43,6 +43,7 @@ export default class DatePanel extends PopperBase {
 
   static get propTypes() {
     return Object.assign({
+      yearCount: PropTypes.number,
       value: PropTypes.instanceOf(Date),
       isShowTime: PropTypes.bool,
       showWeekNumber: PropTypes.bool,
@@ -64,6 +65,7 @@ export default class DatePanel extends PopperBase {
 
   static get defaultProps() {
     return {
+      yearCount: 50,
       value: null,
       isShowTime: false,
       showWeekNumber: false,
@@ -288,7 +290,7 @@ export default class DatePanel extends PopperBase {
   }
 
   render() {
-    const { isShowTime, shortcuts, shortcutsPlacement, format } = this.props;
+    const { isShowTime, shortcuts, shortcutsPlacement, format, yearCount } = this.props;
     const { currentView, dateInputText, timeInputText, currentDate } = this.state;
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
@@ -366,7 +368,7 @@ export default class DatePanel extends PopperBase {
                   }
                   <YearAndMonthPopover
                     value={currentDate.getFullYear()}
-                    sourceData={YEARS_ARRAY()}
+                    sourceData={YEARS_ARRAY(yearCount)}
                     onChange={this.handleChangeYear}
                   >
                     <span className="fishd-date-picker__header-label">{`${currentDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
