@@ -200,70 +200,82 @@ export default class DateRangePanel extends PopperBase {
     shortcut.onClick();
   }
 
-  prevYear(type, date) {
+  prevYear(type, date, callback=()=>{}) {
     this.setState({
       [type]: prevYear(date),
-    })
+    }, callback)
   }
 
-  nextYear(type, date) {
+  nextYear(type, date, callback=()=>{}) {
     this.setState({
       [type]: nextYear(date),
-    })
+    }, callback)
   }
 
-  prevMonth(type, date) {
+  prevMonth(type, date, callback=()=>{}) {
     this.setState({
       [type]: prevMonth(date)
-    })
+    }, callback)
   }
 
-  nextMonth(type, date) {
+  nextMonth(type, date, callback=()=>{}) {
     this.setState({
       [type]: nextMonth(date)
-    })
+    }, callback)
   }
 
-  // 左边日历的next year btn特殊处理
+  // 左边日历的next year btn特殊处理: 左边日历的下一年面板日期大于右边日历，右边日历的年份+1
   handleLeftNextYear = () => {
     const { leftDate, rightDate } = this.state;
-    // if((leftDate.getFullYear() + 1) === (rightDate.getFullYear())) {
-    //   this.nextYear('rightDate', rightDate);
-    // }
-    this.nextYear('leftDate', leftDate);
+    if(leftDate >= rightDate) {
+      this.nextYear('rightDate', rightDate);
+    }
   }
 
-  // 左边日历的next month btn特殊处理
+  // 左边日历的next month btn特殊处理: 左边日历的下一月等于右边日历，右边日历月份+1
   handleLeftNextMonth = () => {
     const { leftDate, rightDate } = this.state;
-    // if((rightDate.getFullYear() === leftDate.getFullYear()) && (rightDate.getMonth() === (leftDate.getMonth() + 1))) {
-    //   this.nextMonth('rightDate', rightDate);
-    // }
-    this.nextMonth('leftDate', leftDate);
+    if((rightDate.getFullYear() === leftDate.getFullYear()) && (rightDate.getMonth() === (leftDate.getMonth()))) {
+      this.nextMonth('rightDate', rightDate);
+    }
   }
 
-  // 右边日历的prev year btn特殊处理
+  // 右边日历的prev year btn特殊处理: 右边日历的上一年面板小于左边日历，左边日历年份-1
   handleRightPrevYear = () => {
     const { leftDate, rightDate } = this.state;
-    // if(rightDate.getFullYear() === leftDate.getFullYear()) {
-    //   this.prevYear('leftDate', leftDate);
-    // }
-    this.prevYear('rightDate', rightDate);
+    if(rightDate <= leftDate) {
+      this.prevYear('leftDate', leftDate);
+    }
   }
 
-  // 右边日历的prev month btn特殊处理
+  // 右边日历的prev month btn特殊处理： 右边日历的上一月等于左边日历，左边日历的月份-1
   handleRightPrevMonth = () => {
     const { leftDate, rightDate } = this.state;
-    // if((rightDate.getFullYear() === leftDate.getFullYear()) && (rightDate.getMonth() === leftDate.getMonth() + 1)) {
-    //   this.prevMonth('leftDate', leftDate);
-    // }
-    this.prevMonth('rightDate', rightDate);
+    if((rightDate.getFullYear() === leftDate.getFullYear()) && (rightDate.getMonth() === leftDate.getMonth())) {
+      this.prevMonth('leftDate', leftDate);
+    }
   }
 
   // 切换年份
   handleChangeYear(type, date, year) {
     this.setState({
       [type]: new Date(date.setFullYear(year)),
+    }, () => {
+      // 切换完年份，若左边日历小于等于右边日历，保持右边日历是左边日历的下一年
+      const { leftDate, rightDate } = this.state;
+      if(type === 'leftDate'){
+        if(leftDate >= rightDate) {
+          this.setState({
+            rightDate: new Date(rightDate.setFullYear(leftDate.getFullYear() + 1))
+          })
+        }
+      }else if(type === 'rightDate') {
+        if(leftDate >= rightDate) {
+          this.setState({
+            leftDate: new Date(leftDate.setFullYear(rightDate.getFullYear() - 1))
+          })
+        }
+      }
     })
   }
 
@@ -271,6 +283,22 @@ export default class DateRangePanel extends PopperBase {
   handleChangeMonth(type, date, month){
     this.setState({
       [type]: new Date((date.setMonth(parseInt(month.slice(0,-1)) - 1)))
+    }, ()=>{
+      // 切换完月份，若左边日历小于等于右边日历，保持右边日历是左边日历的下一月
+      const { leftDate, rightDate } = this.state;
+      if(type === 'leftDate'){
+        if(leftDate >= rightDate) {
+          this.setState({
+            rightDate: nextMonth(leftDate)
+          })
+        }
+      }else if(type === 'rightDate') {
+        if(leftDate >= rightDate) {
+          this.setState({
+            leftDate: prevMonth(rightDate)
+          })
+        }
+      }
     })
   }
 
@@ -413,12 +441,12 @@ export default class DateRangePanel extends PopperBase {
               <div className="fishd-date-range-picker__header">
                 <Icon
                   type="left-double"
-                  onClick={this.prevYear.bind(this, 'leftDate', leftDate)}
+                  onClick={this.prevYear.bind(this, 'leftDate', leftDate, ()=>{})}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <Icon
                   type="left"
-                  onClick={this.prevMonth.bind(this, 'leftDate', leftDate)}
+                  onClick={this.prevMonth.bind(this, 'leftDate', leftDate, ()=>{})}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <YearAndMonthPopover
@@ -437,12 +465,12 @@ export default class DateRangePanel extends PopperBase {
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
-                  onClick={this.handleLeftNextYear}
+                  onClick={this.nextYear.bind(this, 'leftDate', leftDate, this.handleLeftNextYear)}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
                 <Icon
                   type="right"
-                  onClick={this.handleLeftNextMonth}
+                  onClick={this.nextMonth.bind(this, 'leftDate', leftDate, this.handleLeftNextMonth)}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
               </div>
@@ -463,12 +491,12 @@ export default class DateRangePanel extends PopperBase {
               <div className="fishd-date-range-picker__header">
                 <Icon
                   type="left-double"
-                  onClick={this.handleRightPrevYear}
+                  onClick={this.prevYear.bind(this, 'rightDate', rightDate, this.handleRightPrevYear)}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <Icon
                   type="left"
-                  onClick={this.handleRightPrevMonth}
+                  onClick={this.prevMonth.bind(this, 'rightDate', rightDate, this.handleRightPrevMonth)}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
                 </Icon>
                 <YearAndMonthPopover
@@ -487,12 +515,12 @@ export default class DateRangePanel extends PopperBase {
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
-                  onClick={this.nextYear.bind(this, 'rightDate', rightDate)}
+                  onClick={this.nextYear.bind(this, 'rightDate', rightDate, ()=>{})}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
                 <Icon
                   type="right"
-                  onClick={this.nextMonth.bind(this, 'rightDate', rightDate)}
+                  onClick={this.nextMonth.bind(this, 'rightDate', rightDate, ()=>{})}
                   className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
                 </Icon>
               </div>

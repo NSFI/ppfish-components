@@ -26,7 +26,7 @@
         value={value}
         placeholder="请选择日期"
         onChange={this.handleValueChange}
-        />
+      />
     )
   }
 
@@ -44,7 +44,7 @@
       <DatePicker
          placeholder="请选择日期"
          isDisabled={true}
-        />
+      />
     )
   }
 
@@ -76,7 +76,7 @@
         placeholder="请选择日期"
         onChange={this.handleValueChange}
         disabledDate={time=>time.getTime() < Date.now() - 8.64e7}
-       />
+      />
     )
   }
 
@@ -283,20 +283,18 @@ render() {
   return (
     <DatePicker.DateRangePicker
       value={value}
-      startPlaceholder="请选择开始日期"
-      endPlaceholder="请选择结束日期"
       onChange={date=>{
         console.debug('DateRangePicker changed: ', date)
         this.setState({value: date})
       }}
-      />
+    />
   )
 }
 
 ```
 :::
 
-禁用
+## 禁用日期范围选择器
 
 :::demo
 ```js
@@ -390,7 +388,7 @@ constructor(props) {
 }
 
 render() {
-  const {value1, value2} = this.state
+  const {value1, value2} = this.state;
 
   return (
     <div className="source">
