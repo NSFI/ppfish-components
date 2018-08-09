@@ -318,7 +318,7 @@ render(){
 
   render() {
     const { userName } = this.state;
-    const suffix = userName ? <Icon type="close-modal-line" onClick={this.emitEmpty} /> : null;
+    const suffix = userName ? <Icon type="close-circle-fill" onClick={this.emitEmpty} /> : null;
     return (
       <Input
         placeholder="Enter your username"
@@ -334,16 +334,16 @@ render(){
 :::
 
 <style>
-.anticon-close-circle {
+.fishdicon-close-circle-fill {
   cursor: pointer;
   color: #ccc;
   transition: color 0.3s;
   font-size: 12px;
 }
-.anticon-close-circle:hover {
+.fishdicon-close-circle-fill:hover {
   color: #999;
 }
-.anticon-close-circle:active {
+.fishdicon-close-circle-fill:active {
   color: #666;
 }
 </style>

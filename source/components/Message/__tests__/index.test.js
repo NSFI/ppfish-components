@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import message from '..';
+import message from '../index.tsx';
 
 describe('message', () => {
   beforeEach(() => {

@@ -37,7 +37,7 @@ render(){
 :::
 
 <style>
-.ant-spin {
+.fishd-spin {
   margin-right: 16px;
 }
 </style>

@@ -7,7 +7,7 @@ exports[`Renders treeSelect demo correctly 1`] = `
       aria-haspopup="listbox"
       class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
       role="combobox"
-      style="width:300px"
+      style="width:300px;margin-right:20px"
       tabindex="0"
     >
       <span
@@ -30,7 +30,6 @@ exports[`Renders treeSelect demo correctly 1`] = `
         </span>
       </span>
     </span>
-    <br />
     <span
       aria-disabled="true"
       aria-haspopup="listbox"
@@ -145,7 +144,7 @@ exports[`Renders treeSelect demo correctly 1`] = `
       aria-haspopup="listbox"
       class="fishd-treeselect-ctner fishd-treeselect-scroll fishd-treeselect fishd-treeselect-enabled"
       role="combobox"
-      style="width:300px"
+      style="width:300px;margin-right:20px"
       tabindex="-1"
     >
       <span
@@ -179,7 +178,6 @@ exports[`Renders treeSelect demo correctly 1`] = `
         </span>
       </span>
     </span>
-    <br />
     <span
       aria-disabled="true"
       aria-haspopup="listbox"
