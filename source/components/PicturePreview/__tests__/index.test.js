@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, render, mount } from 'enzyme';
 import PicturePreview from '../index';
 
-xdescribe('<PicturePreview />', () => {
+describe('<PicturePreview />', () => {
   let wrapper,
     props = {
     visible: true,
@@ -95,7 +95,7 @@ xdescribe('<PicturePreview />', () => {
     expect(wrapper.state('activeIndex')).toBe(1);
   });
 
-  test('能够正常显示和隐藏工具条', () => {
+  xtest('能够正常显示和隐藏图片控制条', () => {
     // 默认为隐藏状态
     expect(wrapper.find('.ctrl-wrap').hasClass('hide')).toBe(true);
 

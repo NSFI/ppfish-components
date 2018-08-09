@@ -1,6 +1,6 @@
-@import "../../assets/css/index.less";
+// @import "../../assets/css/index.less";
+@import "../../assets/css/themes/default";
 
-// Carousel 组件在交互过程中会用 style 覆盖 class，在此使用 '!important' 防止其覆盖
 /* stylelint-disable declaration-no-important */
 @picture-preview-prefix: ~"@{fishd-prefix}-picturepreview";
 @maxVisualWidth:  80% !important;
@@ -15,7 +15,7 @@
       display: none !important;
     }
 
-    .ant-modal {
+    .@{fishd-prefix}-modal {
       height: 100%;
       display: inline-block;
       vertical-align: middle;
@@ -24,18 +24,16 @@
       padding-bottom: 0;
     }
 
-    .ant-modal-content {
+    .@{fishd-prefix}-modal-dialog,
+    .@{fishd-prefix}-modal-content,
+    .@{fishd-prefix}-modal-body {
       height: 100%;
-      background-color: inherit;
-      box-shadow: none;
-    }
-
-    .ant-modal-body {
       padding: 0;
-      height: 100%;
+      box-shadow: none;
+      background-color: inherit;
     }
 
-    .ant-carousel,
+    .@{fishd-prefix}-carousel,
     .slick-slider,
     .slick-list,
     .slick-track {
@@ -80,6 +78,12 @@
       top: 0;
       bottom: 0;
       margin: auto;
+      overflow: hidden;
+
+      .slick-slide {
+        height: 100%;
+        background: none;
+      }
 
       .slick-current {
         z-index: 10;

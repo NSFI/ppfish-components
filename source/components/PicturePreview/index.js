@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import { Carousel, Modal } from 'antd';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Carousel from '../Carousel';
+import Modal from '../Modal';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
-
 import './index.less';
 
-/*
-  常量定义
- */
 const maxVisualWidth = parseInt(window.innerWidth * 0.8, 10),   // 图片可视区默认宽度
       maxVisualHeight = parseInt(window.innerHeight * 0.8, 10), // 图片可视区默认高度
       ZOOM_FACTOR = 0.1,//图片缩放系数
       MAX_SCALE = 3.0,  //最大的图片显示比例
       MIN_SCALE = 0.1;  //最小的图片显示比例
+
+const setStyle = (el, css) => {
+  for (let key in css) {
+    el.style[key] = css[key];
+  }
+};
 
 /**
  * 获取图片的自适应宽高
@@ -57,12 +60,6 @@ const getAdaptiveImg = (w, h, isFullscreen) => {
   return obj;
 };
 
-const setStyle = (el, css) => {
-  for (let key in css) {
-    el.style[key] = css[key];
-  }
-};
-
 /**
  * 获取传进来的图片尺寸或计算图片的原始尺寸
  * @param  {Object}   img      [图片对象，格式为{url:'', size: '200*200'}]
@@ -102,7 +99,7 @@ class PicturePreview extends Component {
     activeIndex: 0,
     controller: false,
     dots: false,
-    source: [{url:'', size: "200*200"}],
+    source: [],
     visible: false,
     onClose: () => {},
   };
@@ -114,7 +111,7 @@ class PicturePreview extends Component {
     this.direction = 'prev';
     this.selector = '.carousel-wrap .slick-list img';
     this.curSelector = '.carousel-wrap .slick-current img';
-    this.imgs = this.props.source;
+    this.imgs = this.props.source || [];
 
     this.state = {
       activeIndex: this.props.activeIndex,
@@ -127,7 +124,7 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
-    this.initImgs();
+    this.imgs.length && this.initImgs();
     this.props.controller && this.setCtrlIconStatus(this.props.activeIndex);
   }
 
@@ -158,7 +155,7 @@ class PicturePreview extends Component {
   }
 
   componentDidUpdate() {
-    if (this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
+    if (this.props.controller && this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
       // 处理通过按“Esc”键退出全屏的情况
       addFullscreenchangeEvent(this.contentWrap, (e) => {
         if (!checkFullscreen() && this.state.isFullscreen == true) {
@@ -345,26 +342,28 @@ class PicturePreview extends Component {
     this.setState({
       activeIndex: curIndex
     }, () => {
-      // 计算上一张图片的index
-      let oldIndex = 0,
-          totalNum = this.props.source.length;
+      if (this.props.controller) {
+        // 计算上一张图片的index
+        let oldIndex = 0,
+            totalNum = this.props.source.length;
 
-      if (this.direction == 'prev') {
-        if (curIndex == totalNum - 1) {
-          oldIndex = 0;
-        } else {
-          oldIndex = curIndex + 1;
+        if (this.direction == 'prev') {
+          if (curIndex == totalNum - 1) {
+            oldIndex = 0;
+          } else {
+            oldIndex = curIndex + 1;
+          }
+        } else if (this.direction == 'next') {
+          if (curIndex == 0) {
+            oldIndex = totalNum - 1;
+          } else {
+            oldIndex = curIndex - 1;
+          }
         }
-      } else if (this.direction == 'next') {
-        if (curIndex == 0) {
-          oldIndex = totalNum - 1;
-        } else {
-          oldIndex = curIndex - 1;
-        }
+
+        this.resetImg(oldIndex);
+        this.setCtrlIconStatus(curIndex);
       }
-
-      this.resetImg(oldIndex);
-      this.props.controller && this.setCtrlIconStatus(curIndex);
     });
   };
 
@@ -387,7 +386,7 @@ class PicturePreview extends Component {
 
   render() {
     const { visible, isFullscreen, isDisableDengbi, isDisableFangda, isDisableSuoxiao } = this.state;
-    const { source, dots, activeIndex } = this.props;
+    const { className, children, source, dots, activeIndex } = this.props;
     const controller = false; // 未提供视觉 icon，暂时关闭 controller 功能
 
     let contentWrapClass = classNames({
@@ -423,27 +422,27 @@ class PicturePreview extends Component {
         'fishdicon-suoxiao': true,
         'fishdicon-disable': isDisableSuoxiao
     });
+    let isHideBtn = !(source.length > 1 || (!!children && children.length > 1));
     let leftBtnClass = classNames({
         'fishdicon': true,
         'btn-left': true,
         'fishdicon-left': true,
-        'hide': source.length <= 1
+        'hide': isHideBtn
     });
     let rightBtnClass = classNames({
         'fishdicon': true,
         'btn-right': true,
         'fishdicon-right': true,
-        'hide': source.length <= 1
+        'hide': isHideBtn
     });
 
     return (
       <Modal
-        title=""
+        title={null}
         width={"100%"}
-        wrapClassName="fishd-picturepreview-modal-wrap"
+        wrapClassName={className ? className + " fishd-picturepreview-modal-wrap" : "fishd-picturepreview-modal-wrap"}
         visible={visible}
         footer={null}
-        mask={true}
         destroyOnClose={true}
         closable={false}
         onCancel={this.handleOnClose}
@@ -458,7 +457,7 @@ class PicturePreview extends Component {
               ref={node => this.carousel = node}
             >
               {
-                this.imgs.map((item, index) => {
+                this.imgs.length ? this.imgs.map((item, index) => {
                   let aImg = getAdaptiveImg(item.naturalWidth, item.naturalHeight, isFullscreen);
 
                   item.adaptiveWidth = aImg.width;
@@ -477,7 +476,8 @@ class PicturePreview extends Component {
                       </div>
                     );
                   }
-                })
+                }) :
+                this.props.children
               }
             </Carousel>
           </div>
