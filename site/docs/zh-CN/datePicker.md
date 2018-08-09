@@ -10,23 +10,39 @@
 
   constructor(props) {
     super(props);
-    this.state = {};
-  }
-  
-  handleValueChange = (date) => {
-    console.debug('DatePicker changed: ', date)
-    this.setState({value: date})
+    this.state = {
+      value1: null,
+      value2: new Date()
+    };
   }
   
   render() {
-    const {value} = this.state;
+    const {value1, value2} = this.state;
   
     return (
-      <DatePicker
-        value={value}
-        placeholder="请选择日期"
-        onChange={this.handleValueChange}
-      />
+      <div className="source">
+        <div className="block">
+          <span className="demonstration">基本使用</span>
+          <DatePicker
+            value={value1}
+            onChange={date=>{
+              console.debug('DatePicker1 changed: ', date)
+              this.setState({value1: date})
+            }}
+            />
+        </div>
+        <div className="block">
+          <span className="demonstration">设置默认时间</span>
+          <DatePicker
+            value={value2}
+            placeholder="请选择日期"
+            onChange={date=>{
+              console.debug('DatePicker2 changed: ', date)
+              this.setState({value2: date})
+            }}
+            />
+        </div>
+      </div>
     )
   }
 
@@ -274,20 +290,38 @@ render() {
 ```js
 constructor(props) {
   super(props);
-  this.state = {value: null};
+  this.state = {
+    value1: null,
+    value2: [new Date(), new Date()]
+  };
 }
 
 render() {
-  const {value} = this.state;
+  const {value1, value2} = this.state;
 
   return (
-    <DatePicker.DateRangePicker
-      value={value}
-      onChange={date=>{
-        console.debug('DateRangePicker changed: ', date)
-        this.setState({value: date})
-      }}
-    />
+    <div className="source">
+      <div className="block">
+        <span className="demonstration">基本使用</span>
+        <DatePicker.DateRangePicker
+          value={value1}
+          onChange={date=>{
+            console.debug('DateRangePicker1 changed: ', date)
+            this.setState({value1: date})
+          }}
+        />
+      </div>
+      <div className="block">
+        <span className="demonstration">设置默认时间</span>
+        <DatePicker.DateRangePicker
+          value={value2}
+          onChange={date=>{
+            console.debug('DateRangePicker2 changed: ', date)
+            this.setState({value2: date})
+          }}
+        />
+      </div>
+    </div>
   )
 }
 
@@ -313,7 +347,7 @@ render() {
 
 ## 带快捷选项的日期范围面板
 
- - 注：当需要选择快捷选项之后，直接展示快捷选项的文本而不是具体日期时间，请参考业务组件[BizDatePicker](https://nsfi.github.io/ppfish-components/index.html#/components/bizDatePicker)
+ - 注：当需要选择快捷选项之后，直接展示快捷选项的文本而不是具体日期时间，请参考业务组件[BizDateRangePicker](https://nsfi.github.io/ppfish-components/index.html#/components/bizDatePicker)
 
 :::demo
 ```js

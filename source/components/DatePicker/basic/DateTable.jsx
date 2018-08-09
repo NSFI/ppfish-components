@@ -159,7 +159,7 @@ export default class DateTable extends React.Component {
 
   // calc classnames for cell
   getCellClasses(cell) {
-    const {selectionMode, date} = this.props;
+    const {selectionMode, date, value} = this.props;
 
     let classes = [];
     if ((cell.type === 'normal' || cell.type === 'today') && !cell.disabled) {
@@ -173,13 +173,10 @@ export default class DateTable extends React.Component {
 
     if (selectionMode === 'day'
       && (cell.type === 'normal' || cell.type === 'today')
-      // following code only highlight date that is the actuall value of the datepicker, but actually it should
-      // be the temp that value use selected
-      && date.getDate() === +cell.text){
-      // && value
-      // && value.getFullYear() === date.getFullYear()
-      // && value.getMonth() === date.getMonth()
-      // && value.getDate() === Number(cell.text)) {
+      && value
+      && value.getFullYear() === date.getFullYear()
+      && value.getMonth() === date.getMonth()
+      && value.getDate() === Number(cell.text)) {
       classes.push('current');
     }
 
@@ -372,7 +369,8 @@ export default class DateTable extends React.Component {
         cellPadding="0"
         onClick={this.handleClick.bind(this)}
         onMouseMove={this.handleMouseMove.bind(this)}
-        className={classNames('fishd-date-table', { 'is-week-mode': selectionMode === 'week' })}>
+        className={classNames('fishd-date-table', { 'is-week-mode': selectionMode === 'week' })}
+      >
         <tbody>
 
         <tr>

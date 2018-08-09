@@ -14,6 +14,12 @@ import {
   formatDate,
   parseDate,
   toDate,
+  prevYear,
+  nextYear,
+  prevMonth,
+  nextMonth,
+  timeFormat,
+  dateFormat,
   MONTH_ARRRY,
   YEARS_ARRAY,
   isValidValue,
@@ -82,7 +88,7 @@ export default class DatePanel extends PopperBase {
       currentView,
       currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 当前日历视图
       date: toDate(props.value),
-      dateInputText: formatDate(props.value, this.dateFormat()), // 日期输入框的值(string)，当props.value为null时，值为''
+      dateInputText: formatDate(props.value, dateFormat(props.format)), // 日期输入框的值(string)，当props.value为null时，值为''
       timeInputText: toDate(props.value),                      // 时间输入组件的值(Date)，当props.value为null时，值为null
       confirmBtnDisabled: !props.value                         // 确定按钮是否禁用
     };
@@ -95,52 +101,22 @@ export default class DatePanel extends PopperBase {
     }
   }
 
-  updateState(cb) {
-    cb(this.state);
-    this.setState({});
-  }
-
   resetView() {
-    let {selectionMode} = this.props;
+    const {selectionMode} = this.props;
+    const {currentView} = this.state;
 
-    this.updateState(state=>{
-      if (selectionMode === SELECTION_MODES.MONTH) {
-        state.currentView = PICKER_VIEWS.MONTH
-      } else if (selectionMode === SELECTION_MODES.YEAR) {
-        state.currentView = PICKER_VIEWS.YEAR
-      } else {
-        state.currentView = PICKER_VIEWS.DATE
-      }
+    let view = currentView;
+    if (selectionMode === SELECTION_MODES.MONTH) {
+      view = PICKER_VIEWS.MONTH
+    } else if (selectionMode === SELECTION_MODES.YEAR) {
+      view = PICKER_VIEWS.YEAR
+    } else {
+      view = PICKER_VIEWS.DATE
+    }
+    this.setState({
+      currentView: view
     })
   }
-
-  yearLabel() {
-    const { currentView, currentDate } = this.state;
-    const { year } = deconstructDate(currentDate);
-    const yearTranslation = Locale.t('fishd.datepicker.year');
-    if (currentView === 'year') {
-      const startYear = Math.floor(year / 10) * 10;
-      if (yearTranslation) {
-        return startYear + ' ' + yearTranslation + '-' + (startYear + 9) + ' ' + yearTranslation
-      }
-      return startYear + ' - ' + (startYear + 9)
-    }
-    return year + ' ' + yearTranslation
-  }
-
-  timeFormat = () => {
-    let {format} = this.props;
-    if (format && format.indexOf('ss') === -1) {
-      return 'HH:mm'
-    } else {
-      return 'HH:mm:ss'
-    }
-  }
-
-  dateFormat = () => {
-    if (this.props.format) return this.props.format.replace('HH:mm', '').replace(':ss', '').trim();
-    else return 'yyyy-MM-dd'
-  };
 
   // 年份、月份面板先注释掉，需要时再打开
   _pickerContent() {
@@ -198,13 +174,13 @@ export default class DatePanel extends PopperBase {
     return !(date && dateInputText);
   }
 
-  // 日期变化
+  // 日期输入框变化
   handleDateInputChange = (e) => {
-    const {disabledDate} = this.props;
+    const {disabledDate, format} = this.props;
     const {date} = this.state;
 
     const inputText = e.target.value;
-    let ndate = parseDate(inputText, this.dateFormat());
+    let ndate = parseDate(inputText, dateFormat(format));
     if (!isInputValid(inputText, ndate, disabledDate)) {
       this.setState({
         dateInputText: inputText,
@@ -219,7 +195,7 @@ export default class DatePanel extends PopperBase {
     this.resetView();
   }
 
-  // 时间变化
+  // 时间输入框变化
   handleTimeInputChange = (val) => {
     const {date} = this.state;
     if (val) {
@@ -236,58 +212,32 @@ export default class DatePanel extends PopperBase {
     shortcut.onClick();
   }
 
+  // 上一年
   prevYear = () => {
-    this.updateState(() => {
-      const { currentDate, currentView } = this.state;
-      const { year } = deconstructDate(currentDate);
-
-      if (currentView === 'year') {
-        currentDate.setFullYear(year - 10)
-      } else {
-        currentDate.setFullYear(year - 1)
-      }
-    })
+    this.setState({
+      currentDate: prevYear(this.state.currentDate)
+    });
   }
 
+  // 下一年
   nextYear = () => {
-    this.updateState(() => {
-      const { currentDate, currentView } = this.state;
-      const { year } = deconstructDate(currentDate);
-
-      if (currentView === 'year') {
-        currentDate.setFullYear(year + 10)
-      } else {
-        currentDate.setFullYear(year + 1)
-      }
-    })
+    this.setState({
+      currentDate: nextYear(this.state.currentDate)
+    });
   }
 
+  // 上一月
   prevMonth = () => {
-    this.updateState(() => {
-      const { currentDate } = this.state;
-      const { month, year } = deconstructDate(currentDate);
-
-      if (month == 0) {
-        currentDate.setFullYear(year - 1);
-        currentDate.setMonth(11)
-      } else {
-        currentDate.setMonth(month - 1)
-      }
-    })
+    this.setState({
+      currentDate: prevMonth(this.state.currentDate)
+    });
   }
 
+  // 下一月
   nextMonth = () => {
-    this.updateState(() => {
-      const { currentDate } = this.state;
-      const { month, year } = deconstructDate(currentDate);
-
-      if (month == 11) {
-        currentDate.setFullYear(year + 1);
-        currentDate.setMonth(0)
-      } else {
-        currentDate.setMonth(month + 1)
-      }
-    })
+    this.setState({
+      currentDate: nextMonth(this.state.currentDate)
+    });
   }
 
   // 切换年份
@@ -308,22 +258,22 @@ export default class DatePanel extends PopperBase {
 
   // 点击日期
   handleDatePick(value) {
-    this.updateState(state => {
-      const { date } = state;
-      const { selectionMode, isShowTime, onPick } = this.props;
-      const pdate = value.date;
-      if (selectionMode === SELECTION_MODES.DAY) {
-        if (!isShowTime) {
-          onPick(new Date(pdate.getTime()))
-        }
-        // 日期变化，时间不变
-        state.date = setDate(new Date(state.date), pdate);
-        state.dateInputText = formatDate(pdate, this.dateFormat()); // 点击日期，左侧日期输入框的值同步变化
-        state.currentDate = pdate;
-      } else if (selectionMode === SELECTION_MODES.WEEK) {
+    const { selectionMode, isShowTime, onPick, format } = this.props;
+    const pdate = value.date;
+
+    if (selectionMode === SELECTION_MODES.DAY) {
+      if (!isShowTime) {
         onPick(pdate)
       }
-    })
+      // 日期变化，时间不变
+      this.setState({
+        date: setDate(new Date(this.state.date), pdate),
+        dateInputText: formatDate(pdate, dateFormat(format)), // 点击日期，左侧日期输入框的值同步变化
+        currentDate: pdate
+      })
+    } else if (selectionMode === SELECTION_MODES.WEEK) {
+      onPick(pdate)
+    }
   }
 
   // 点击确定按钮
@@ -338,7 +288,7 @@ export default class DatePanel extends PopperBase {
   }
 
   render() {
-    const { isShowTime, shortcuts, shortcutsPlacement } = this.props;
+    const { isShowTime, shortcuts, shortcutsPlacement, format } = this.props;
     const { currentView, dateInputText, timeInputText, currentDate } = this.state;
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
@@ -387,7 +337,7 @@ export default class DatePanel extends PopperBase {
                       className="fishd-date-range-picker__editor"
                       isShowTrigger={false}
                       isAllowClear={false}
-                      format={this.timeFormat()}
+                      format={timeFormat(format)}
                       isDisabled={this.timePickerDisable()}
                       value={timeInputText}
                       onFocus={()=> this.setState({timePickerVisible: !this.state.timePickerVisible})}
@@ -419,7 +369,7 @@ export default class DatePanel extends PopperBase {
                     sourceData={YEARS_ARRAY()}
                     onChange={this.handleChangeYear}
                   >
-                    <span className="fishd-date-picker__header-label">{this.yearLabel()}</span>
+                    <span className="fishd-date-picker__header-label">{`${currentDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
                   </YearAndMonthPopover>
                   {
                     currentView === PICKER_VIEWS.DATE && (
