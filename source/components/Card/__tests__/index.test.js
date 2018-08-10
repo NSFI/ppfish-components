@@ -28,11 +28,11 @@ describe('Card', () => {
     fakeResizeWindowTo(wrapper, 1000);
     jest.runAllTimers();
     wrapper.update();
-    expect(wrapper.find('.ant-card-wider-padding').length).toBe(1);
+    expect(wrapper.find('.fishd-card-wider-padding').length).toBe(1);
     fakeResizeWindowTo(wrapper, 800);
     jest.runAllTimers();
     wrapper.update();
-    expect(wrapper.find('.ant-card-wider-padding').length).toBe(0);
+    expect(wrapper.find('.fishd-card-wider-padding').length).toBe(0);
   });
 
   it('should still have padding when card which set padding to 0 is loading', () => {
