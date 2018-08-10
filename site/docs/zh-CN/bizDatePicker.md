@@ -244,7 +244,7 @@
 | defaultValue  | 默认时间，支持两种格式，例如：`{ text: '今天', value: new Date() } ` 或 `Date `| object | quickTimeOption[0]   |
 | value | 日期，支持两种格式, 同defaultValue | object | - |
 
-## BizDateRangePicker
+## BizDatePicker.BizDateRangePicker
 
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |

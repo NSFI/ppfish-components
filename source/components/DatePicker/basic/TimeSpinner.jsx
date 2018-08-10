@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
-import { debounce } from 'throttle-debounce';
+import debounce from 'lodash.debounce';
 import { getRangeHours } from '../../../utils/date';
 
 function range(end) {
@@ -78,7 +78,7 @@ export default class TimeSpinner extends React.Component {
 
     Object.assign(this.state, propsToState(props));
     this.ajustScrollTop = this._ajustScrollTop.bind(this);
-    this.handleScroll = debounce(20, this._handleScroll.bind(this));
+    this.handleScroll = debounce(this._handleScroll.bind(this), 20);
   }
 
   componentDidMount() {

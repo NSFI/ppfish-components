@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BasePicker from './BasePicker';
 import TimePanel from './panel/TimePanel';
 import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
-import { debounce } from 'throttle-debounce';
+import debounce from 'lodash.debounce';
 
 function converSelectRange(props) {
   let selectableRange = [];
@@ -37,7 +37,7 @@ export default class TimePicker extends BasePicker {
 
   constructor(props) {
     super(props, 'time', {});
-    this._onSelectionChange = debounce(200, this.onSelectionChange);
+    this._onSelectionChange = debounce(this.onSelectionChange, 200);
   }
 
   isDateValid(value) {

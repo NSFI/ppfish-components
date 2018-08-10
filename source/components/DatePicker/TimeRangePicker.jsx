@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BasePicker from './BasePicker'
 import TimeRangePanel from './panel/TimeRangePanel'
-import { debounce } from 'throttle-debounce';
+import debounce from 'lodash.debounce';
 
 export default class TimeRangePicker extends BasePicker {
   static get propTypes() {
@@ -16,7 +16,7 @@ export default class TimeRangePicker extends BasePicker {
 
   constructor(props) {
     super(props, 'timerange', {})
-    this._onSelectionChange = debounce(200, this.onSelectionChange.bind(this))
+    this._onSelectionChange = debounce(this.onSelectionChange.bind(this), 200)
   }
 
   onSelectionChange(start, end) {
