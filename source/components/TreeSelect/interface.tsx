@@ -8,6 +8,13 @@ interface OptionProps {
   children?: React.ReactNode;
 }
 
+interface PopupAlign {
+  points?: Array<string>;
+  offset?: Array<number>;
+  overflow?: Object;
+  ignoreShake?: boolean;
+}
+
 interface AbstractSelectProps {
   prefixCls?: string;
   className?: string;
@@ -23,6 +30,8 @@ interface AbstractSelectProps {
   placeholder?: string | React.ReactNode;
   defaultActiveFirstOption?: boolean;
   dropdownClassName?: string;
+  dropdownPopupAlign?: PopupAlign;
+  dropdownPopupPlacement?: string;
   dropdownStyle?: React.CSSProperties;
   dropdownMenuStyle?: React.CSSProperties;
   onSearch?: (value: string) => any;

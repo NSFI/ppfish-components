@@ -1571,12 +1571,7 @@ class Demo extends React.Component {
                       </a>
                     )}
                   </EditableContext.Consumer>
-                  <Popconfirm
-                    title="Sure to cancel?"
-                    onConfirm={() => this.cancel(record.key)}
-                  >
-                    <a>Cancel</a>
-                  </Popconfirm>
+                    <a onClick={() => this.cancel(record.key)}>Cancel</a>
                 </span>
               ) : (
                 <a onClick={() => this.edit(record.key)}>Edit</a>

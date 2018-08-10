@@ -30,8 +30,8 @@ function transformCode(codes) {
   //   }`
   // ]
 
-  let components = [];// Button, Slider, Col
-
+  let components = [];//用于存错Button, Slider, Col这样的组件类名
+  let subComponents = [];//用于缓存 const Col = Grid.Col;中的 Col，避免CheckComponetVisitor再去
   // let codes = [];
   let classNames = [];  //Demo Demo2 Demo3 Demo4
   let classNameIndex = 2;
@@ -49,11 +49,86 @@ function transformCode(codes) {
         tagName = path.node.name.name;
       }
       if (tagName && !w3c.includes(tagName)) {
-        if (!components.includes(tagName)) {
-          components.push(tagName);//把自定义的组件加入components，以便按需引入
+        if (!components.includes(tagName) && !subComponents.includes(tagName)) {
+
+          /*
+          已经筛选出JSX Element使用的组件了
+          接下来就要解决 const Col = Grid.Col的这种情况。
+          情况1：
+          <Button >xxxx</Button>
+          这种情况在作用域中不会找到 Button的binding；
+          直接把Button推入components数组
+
+          情况2:
+          const Col = Grid.Col;
+          <Col ></Col>
+          会在作用域里找到Col的binding引用；那么依赖注入的组件就应该是Grid 而不是 Col.
+          会把Grid推入components数组，把Col推入subComponents数组
+
+          情况3：
+            const PureComponent = (props)=><div>{props.children}</div>;
+            或
+            const PureComponent = function(props){return <div>{props.children}</div>};
+            这种情况，只把PureCompoent加入subCompoents数组里
+          */
+
+          if (path.scope.hasBinding(tagName)) {
+            //第二种情况 需要回溯到父组件
+
+            //根据path得到绑定
+            const tagNameBinding = path.scope.getBinding(tagName);
+
+            let topTagName,
+              noNeedInject = false//子类元素,情况3,无需依赖注入
+              ;
+
+            //首先对声明进行检测
+            if (tagNameBinding.path.type === "VariableDeclarator") {
+              const declarator = tagNameBinding.path.node;
+              const initType = declarator.init.type;
+
+              if (initType === "Identifier") { // const $ = jQuery;取别名;
+                topTagName = declarator.init.name;
+              } else if (initType === "MemberExpression") {// const Col = Grid.Col;
+                topTagName = declarator.init.object.name;
+              } else if (
+                initType === "ArrowFunctionExpression" ||
+                initType === "FunctionExpression"
+              ) {
+                noNeedInject = true;
+              }
+            }else if (tagNameBinding.path.type ==="FunctionDeclaration"){
+              //function NewElement(props){}
+              noNeedInject = true;
+            }
+
+
+            if (!topTagName && !noNeedInject) {
+              //没有tagName，说明先初始化为undefined，然后才对其赋值。
+              //对赋值进行检测
+              tagNameBinding.constantViolations.map(nodePath => {
+                if (nodePath.type === "AssignmentExpression" && nodePath.node.operator === "=") {
+                  let assignRight = nodePath.node.right;
+                  if (assignRight.type === 'MemberExpression') {
+                    topTagName = assignRight.object.name;
+                  }
+                }
+              });
+            }
+
+            subComponents.push(tagName);//把原来的标签加入子组件
+            if (!noNeedInject) {
+              if (!components.includes(topTagName)) {
+                components.push(topTagName);
+              }
+            }
+
+          } else {
+            //第一种情况
+            components.push(tagName);//把自定义的组件加入components，以便按需引入
+          }
         }
       }
-
     },
     ClassDeclaration: (path) => {
       let id = path.node.id;
@@ -91,7 +166,10 @@ function transformCode(codes) {
   import React from 'react';
   import ReactDOM from 'react-dom';
   import PropTypes from 'prop-types';
-  import {${components.join(',')}} from 'ppfish';
+  ${components.length
+      ? `import {${components.join(',')}} from 'ppfish';`
+      : ''}
+
 
   ${codeBodys.join('\n')}
 
