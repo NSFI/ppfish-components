@@ -1,6 +1,6 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import {BizLoading} from '../../../source/components';
+import {Spin} from '../../../source/components';
 import {getPlainComponentList} from "../../utils";
 
 const plainComponentList = getPlainComponentList();
@@ -36,5 +36,5 @@ export default Loadable({
       return null;
     }
   },
-  loading: () => <div style={{height: 540}}><BizLoading/></div>
+  loading: () => <Spin.Container style={{height: 540}}><Spin tip="组件正在加载..." /></Spin.Container>
 });

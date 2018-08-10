@@ -17,6 +17,7 @@ function fixControlledValue<T>(value: T) {
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
   prefixCls?: string;
+  className?: string;
   size?: 'large' | 'default' | 'small';
   onPressEnter?: React.KeyboardEventHandler<HTMLInputElement>;
   addonBefore?: React.ReactNode;

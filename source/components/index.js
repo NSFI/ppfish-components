@@ -1,7 +1,6 @@
 import AnimationImageLoader from './AnimationImageLoader';
 import AudioPlayer from './AudioPlayer';
 import BackTop from './BackTop/index.tsx';
-import BizLoading from './BizLoading';
 import BizDatePicker from './BizDatePicker';
 import Breadcrumb from './Breadcrumb/index.tsx';
 import Button from './Button/index.tsx';
@@ -57,7 +56,6 @@ import * as upload from '../utils/upload';
 export {AnimationImageLoader};
 export {AudioPlayer};
 export {BackTop};
-export {BizLoading};
 export {BizDatePicker};
 export {Breadcrumb};
 export {Button};
