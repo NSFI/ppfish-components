@@ -11,7 +11,7 @@ const BUILT_IN_PLACEMENTS = {
     points: ['tl', 'bl'],
     offset: [0, 4],
     overflow: {
-      adjustX: 0,
+      adjustX: 1,
       adjustY: 1,
     },
     ignoreShake: true,
@@ -20,7 +20,7 @@ const BUILT_IN_PLACEMENTS = {
     points: ['bl', 'tl'],
     offset: [0, -4],
     overflow: {
-      adjustX: 0,
+      adjustX: 1,
       adjustY: 1,
     },
     ignoreShake: true,
