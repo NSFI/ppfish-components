@@ -84,7 +84,6 @@ const getImageSize = (img, callback, scope) => {
 };
 
 class PicturePreview extends Component {
-
   static propTypes = {
     activeIndex: PropTypes.number,    // 默认打开的图片索引
     className: PropTypes.string,
@@ -112,29 +111,36 @@ class PicturePreview extends Component {
     this.direction = 'prev';
     this.selector = '.carousel-wrap .slick-list img';
     this.curSelector = '.carousel-wrap .slick-current img';
-    this.imgs = this.props.source || [];
-
     this.state = {
       activeIndex: this.props.activeIndex,
-      visible: this.props.visible,
+      imgs: this.props.source || [],
       isFullscreen: false,
       isDisableDengbi: false,
       isDisableFangda: false,
-      isDisableSuoxiao: false
+      isDisableSuoxiao: false,
+      visible: this.props.visible,
     };
   }
 
   componentDidMount() {
-    this.imgs.length && this.initImgs();
+    this.state.imgs.length && this.initImgs();
     this.props.controller && this.setCtrlIconStatus(this.props.activeIndex);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { activeIndex, visible, controller } = nextProps;
+    const { activeIndex, visible, controller, source } = nextProps;
 
     if (this.state.visible != visible) {
       this.setState({
         visible: visible
+      });
+    }
+
+    if (JSON.stringify(this.state.imgs) != JSON.stringify(source)) {
+      this.setState({
+        imgs: source
+      }, () => {
+        this.state.imgs.length && this.initImgs();
       });
     }
 
@@ -199,7 +205,7 @@ class PicturePreview extends Component {
 
   handleZoom = (index, type) => {
     let img = document.querySelectorAll(this.selector)[index],
-        imgInfo = this.imgs[index],
+        imgInfo = this.state.imgs[index],
         curScale = imgInfo.scale,
         zWidth = imgInfo.naturalWidth,
         zHeight = imgInfo.naturalHeight;
@@ -259,7 +265,7 @@ class PicturePreview extends Component {
 
   handleRotate = (index, isReset) => {
     let img = document.querySelectorAll(this.selector)[index],
-        imgInfo = this.imgs[index],
+        imgInfo = this.state.imgs[index],
         oldVal = imgInfo.rotate || 0,
         newVal = isReset ? 0 : (oldVal + 90),
         transform = 'rotate(' + newVal + 'deg)';
@@ -299,16 +305,14 @@ class PicturePreview extends Component {
 
   initImgs = () => {
     this.props.source.map((item, index) => {
-      // 计算图片的原始尺寸
       getImageSize(item, (naturalWidth, naturalHeight) => {
         let aImg = getAdaptiveImg(naturalWidth, naturalHeight, this.state.isFullscreen);
-
-        this.imgs[index].naturalWidth = naturalWidth;
-        this.imgs[index].naturalHeight = naturalHeight;
-        this.imgs[index].adaptiveWidth = aImg.width;
-        this.imgs[index].adaptiveHeight = aImg.height;
-        this.imgs[index].scale = 1.0;
-        this.imgs[index].rotate = 0;
+        this.state.imgs[index].naturalWidth = naturalWidth;
+        this.state.imgs[index].naturalHeight = naturalHeight;
+        this.state.imgs[index].adaptiveWidth = aImg.width;
+        this.state.imgs[index].adaptiveHeight = aImg.height;
+        this.state.imgs[index].scale = 1.0;
+        this.state.imgs[index].rotate = 0;
       });
     });
   };
@@ -323,7 +327,7 @@ class PicturePreview extends Component {
   };
 
   setCtrlIconStatus = (index) => {
-    let activeImg = this.imgs[index],
+    let activeImg = this.state.imgs[index],
         isDisableDengbi = false;
 
     if (activeImg && activeImg.naturalWidth == activeImg.adaptiveWidth && activeImg.naturalHeight == activeImg.adaptiveHeight) {
@@ -379,9 +383,7 @@ class PicturePreview extends Component {
   };
 
   handleMouseDown = (e) => {
-    // debugger;
     // TODO: 拖放功能
-    // console.log('mousedown: ', e);
     e.preventDefault();
   };
 
@@ -458,7 +460,7 @@ class PicturePreview extends Component {
               ref={node => this.carousel = node}
             >
               {
-                this.imgs.length ? this.imgs.map((item, index) => {
+                this.state.imgs.length ? this.state.imgs.map((item, index) => {
                   let aImg = getAdaptiveImg(item.naturalWidth, item.naturalHeight, isFullscreen);
 
                   item.adaptiveWidth = aImg.width;

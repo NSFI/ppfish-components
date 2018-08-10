@@ -4,7 +4,7 @@ import PicturePreview from '../index';
 
 describe('<PicturePreview />', () => {
   let wrapper,
-    props = {
+  props = {
     visible: true,
     source: [
       {
@@ -53,11 +53,12 @@ describe('<PicturePreview />', () => {
     expect(wrapper.find('.slick-slide').length).toBe(props.source.length);
     expect(wrapper.state()).toEqual({
       activeIndex: props.activeIndex,
-      visible: props.visible,
+      imgs: props.source,
       isFullscreen: false,
       isDisableDengbi: false,
       isDisableFangda: false,
-      isDisableSuoxiao: false
+      isDisableSuoxiao: false,
+      visible: props.visible,
     });
   });
 
