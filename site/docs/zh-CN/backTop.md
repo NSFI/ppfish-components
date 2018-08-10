@@ -13,8 +13,8 @@
 
 ```js
   render(){
-  return(<div>
-    <BackTop />
+  return(<div id="components-back-top-demo-custom-2">
+    <BackTop target={() => document.querySelector('.component-content')} />
     Scroll down to see the bottom-right
     <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
     button.
@@ -31,8 +31,8 @@
 render(){
   return(
     <div id="components-back-top-demo-custom">
-      <BackTop>
-        <div className="ant-back-top-inner">UP</div>
+      <BackTop target={() => document.querySelector('.component-content')}>
+        <div className="fishd-back-top-inner">UP</div>
       </BackTop>
       Scroll down to see the bottom-right
       <strong style={{ color: '#1088e9' }}> blue </strong>
@@ -44,10 +44,13 @@ render(){
 :::
 
 <style>
-#components-back-top-demo-custom .ant-back-top {
+#components-back-top-demo-custom-2 .fishd-back-top {
+  bottom: 150px;
+}
+#components-back-top-demo-custom .fishd-back-top {
   bottom: 100px;
 }
-#components-back-top-demo-custom .ant-back-top-inner {
+#components-back-top-demo-custom .fishd-back-top-inner {
   height: 40px;
   width: 40px;
   line-height: 40px;

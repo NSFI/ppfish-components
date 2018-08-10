@@ -160,6 +160,10 @@ export default {
       //   type: 'markdown',
       //   name: 'Steps 步骤条',
       // },
+      // 'backTop': {
+      //   type: 'markdown',
+      //   name: 'backTop 回到顶部',
+      // },
       'pagination': {
         type: 'markdown',
         name: 'Pagination 分页',

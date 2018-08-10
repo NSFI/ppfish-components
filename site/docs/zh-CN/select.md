@@ -576,7 +576,7 @@ render(){
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | function(value, option:Option) | - |
 | onVisibleChange | 弹出框显示隐藏 | function(visible: boolean) |  |
 | placeholder | 选择框默认文字 | string | '请选择' |
-| popupAlign | 弹窗位置 | 'bottomLeft', 'bottom', 'bottomRight','bottomLeft' 'top', 'topRight','topLeft' | 'bottomLeft' |
+| popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'| 'bottomLeft' |
 | searchInputProps | 搜索框额外属性 | object | {} |
 | searchPlaceholder | 搜索框默认文字 | string | '请输入关键词' |
 | selectAllText | 是否显示全选/反选功能-文案 | string | '选择所有' |
