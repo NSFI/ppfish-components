@@ -7,7 +7,6 @@ export {
   Avatar,
   Badge,
   Calendar,
-  Card,
   Collapse,
   Cascader,
   Form,
