@@ -6,24 +6,73 @@ import classNames from 'classnames';
 
 import { createRef } from './util';
 
+const commonPlacements = {
+  overflow: {
+    adjustX: 1,
+    adjustY: 1,
+  },
+  ignoreShake: true,
+};
 const BUILT_IN_PLACEMENTS = {
-  bottomLeft: {
-    points: ['tl', 'bl'],
-    offset: [0, 4],
-    overflow: {
-      adjustX: 1,
-      adjustY: 1,
-    },
-    ignoreShake: true,
+  leftCenter: {
+    points: ['cr', 'cl'],
+    offset: [-4, 0],
+    ...commonPlacements
+  },
+  leftTop: {
+    points: ['tr', 'tl'],
+    offset: [-4, 0],
+    ...commonPlacements
+  },
+  leftBottom: {
+    points: ['br', 'bl'],
+    offset: [-4, 0],
+    ...commonPlacements
+  },
+  rightCenter: {
+    points: ['cl', 'cr'],
+    offset: [4, 0],
+    ...commonPlacements
+  },
+  rightTop: {
+    points: ['tl', 'tr'],
+    offset: [4, 0],
+    ...commonPlacements
+  },
+  rightBottom: {
+    points: ['bl', 'br'],
+    offset: [4, 0],
+    ...commonPlacements
+  },
+  topCenter: {
+    points: ['bc', 'tc'],
+    offset: [0, -4],
+    ...commonPlacements
+  },
+  topRight: {
+    points: ['br', 'tr'],
+    offset: [0, -4],
+    ...commonPlacements
   },
   topLeft: {
     points: ['bl', 'tl'],
     offset: [0, -4],
-    overflow: {
-      adjustX: 1,
-      adjustY: 1,
-    },
-    ignoreShake: true,
+    ...commonPlacements
+  },
+  bottomCenter: {
+    points: ['tc', 'bc'],
+    offset: [0, 4],
+    ...commonPlacements
+  },
+  bottomRight: {
+    points: ['tr', 'br'],
+    offset: [0, 4],
+    ...commonPlacements
+  },
+  bottomLeft: {
+    points: ['tl', 'bl'],
+    offset: [0, 4],
+    ...commonPlacements
   },
 };
 
@@ -34,6 +83,7 @@ class SelectTrigger extends React.Component {
     showSearch: PropTypes.bool,
     prefixCls: PropTypes.string,
     dropdownPopupAlign: PropTypes.object,
+    dropdownPopupPlacement: PropTypes.string,
     dropdownClassName: PropTypes.string,
     dropdownStyle: PropTypes.object,
     transitionName: PropTypes.string,
@@ -79,7 +129,7 @@ class SelectTrigger extends React.Component {
       dropdownPopupAlign, dropdownMatchSelectWidth, dropdownClassName,
       dropdownStyle, onDropdownVisibleChange, getPopupContainer,
       dropdownPrefixCls, popupElement, open,
-      children,
+      children, dropdownPopupPlacement
     } = this.props;
 
     // TODO: [Legacy] Use new action when trigger fixed: https://github.com/react-component/trigger/pull/86
@@ -95,7 +145,7 @@ class SelectTrigger extends React.Component {
       <Trigger
         ref={this.triggerRef}
         action={disabled ? [] : ['click']}
-        popupPlacement="bottomLeft"
+        popupPlacement={dropdownPopupPlacement}
         builtinPlacements={BUILT_IN_PLACEMENTS}
         popupAlign={dropdownPopupAlign}
         prefixCls={dropdownPrefixCls}

@@ -581,6 +581,8 @@
 | defaultValue | 指定默认选中的条目 | string/string[] | - |
 | disabled | 是否禁用 | boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
+| dropdownPopupAlign | 下拉菜单的对齐方式，具体配置可参考 [dom-align](https://github.com/yiminghe/dom-align) 的 alignConfig | object | - |
+| dropdownPopupPlacement | 下拉菜单的位置，可选值有：`topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight, leftCenter, leftTop, leftBottom, rightCenter, rightTop, rightBottom` | string | 'bottomLeft' |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | boolean | true |
 | dropdownStyle | 下拉菜单的样式 | object | - |
 | editable | 选中的条目是否可编辑，多选时有效 | boolean | true |
