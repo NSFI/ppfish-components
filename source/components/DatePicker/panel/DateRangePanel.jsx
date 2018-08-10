@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { PopperBase } from './PopperBase';
 import { DateTable } from '../basic';
-import Input from '../../Input';
+import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
-import TimePicker from '../TimePicker';
-import YearAndMonthPopover from './YearAndMonthPopover';
+import TimePicker from '../TimePicker.jsx';
+import YearAndMonthPopover from './YearAndMonthPopover.jsx';
+
 import {
   SELECTION_MODES,
   toDate,
@@ -40,13 +40,15 @@ const setRightDate = (dateA, dateB) => {
   }
 }
 
-export default class DateRangePanel extends PopperBase {
+export default class DateRangePanel extends React.Component {
   static get propTypes() {
-    return Object.assign({
+    return {
+      format: PropTypes.string,                  //base
+      value: PropTypes.array,                    //base
+      onPick: PropTypes.func.isRequired,         //base
+      onCancelPicked: PropTypes.func.isRequired, //base
       yearCount: PropTypes.number,
-      value: PropTypes.array,
       isShowTime: PropTypes.bool,
-      format: PropTypes.string,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
           text: PropTypes.string.isRequired,
@@ -56,17 +58,12 @@ export default class DateRangePanel extends PopperBase {
       shortcutsPlacement: PropTypes.string,
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
-      getPopperRefElement: PropTypes.func,
-      popperMixinOption: PropTypes.object,
-      onPick: PropTypes.func.isRequired,
-      onCancelPicked: PropTypes.func.isRequired,
-    }, PopperBase.propTypes)
+    }
   }
 
   static get defaultProps() {
     return {
       yearCount: 50,
-      value: null,
       isShowTime: false,
       shortcutsPlacement: 'left',
       firstDayOfWeek: 0
@@ -340,7 +337,6 @@ export default class DateRangePanel extends PopperBase {
 
     return (
       <div
-        ref="root"
         className={classNames('fishd-picker-panel fishd-date-range-picker', {
           'has-sidebar': shortcuts && shortcutsPlacement === 'left',
           'has-time': isShowTime

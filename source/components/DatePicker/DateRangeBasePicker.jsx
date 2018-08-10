@@ -1,20 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from '../Input';
+import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
-import { MountBody } from './MountBody';
-import { PLACEMENT_MAP, HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
-import { EventRegister } from './libs/internal';
-import { Errors, require_condition, IDGenerator } from './libs/utils';
+import Trigger from 'rc-trigger';
+import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
+import { Errors, require_condition } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
 import { isValidValue } from '../../utils/date';
+import placements from './placements';
 
-const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
 };
+
 const isInputValid = (text, date) => {
   if(text.trim() === '' || !isValidValue(date)) return false;
   return true;
@@ -29,7 +28,9 @@ export default class DateRangeBasePicker extends React.Component {
       endPlaceholder: PropTypes.string,
       rangeSeparator: PropTypes.string,
       format: PropTypes.string,
-      align: PropTypes.oneOf(['left']),
+      popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
+      prefixCls: PropTypes.string,
+      getPopupContainer: PropTypes.func,
       isShowTrigger: PropTypes.bool,
       isAllowClear: PropTypes.bool,
       isDisabled: PropTypes.bool,
@@ -45,7 +46,8 @@ export default class DateRangeBasePicker extends React.Component {
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
       rangeSeparator: '至',
-      align: 'left',
+      popupAlign: 'bottomLeft',
+      prefixCls: 'fishd-date-time-picker',
       isShowTrigger: true,
       isAllowClear: true,
       isDisabled: false,
@@ -65,15 +67,13 @@ export default class DateRangeBasePicker extends React.Component {
       pickerVisible: false,
       confirmValue: props.value // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
     }, this.propsToState(props));
-
-    this.clickOutsideId = 'clickOutsideId2_' + idGen.next();
   }
 
   propsToState(props) {
     const state = {};
     const { value } = props;
     if (this.isDateValid(value)) {
-      state.text = value && value.length ==2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '',
+      state.text = value && value.length == 2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '',
       state.value = props.value
     } else {
       state.text = '';
@@ -108,8 +108,7 @@ export default class DateRangeBasePicker extends React.Component {
    * @param value: Date|Date[]|null
    * @param isKeepPannel: boolean = false
    */
-  onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {//only change input value on picked triggered
-    //let hasChanged = !valueEquals(this.state.value, value);
+  onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {
     this.setState({
       pickerVisible: isKeepPannel,
       value,
@@ -165,11 +164,7 @@ export default class DateRangeBasePicker extends React.Component {
   // 聚焦
   handleFocus = () => {
     this.isInputFocus = true;
-    if (haveTriggerType(this.type) && !this.state.pickerVisible) {
-      this.setState({ pickerVisible: true }, () => {
-        this.props.onFocus(this);
-      })
-    }
+    this.props.onFocus(this);
   }
 
   // 失焦
@@ -196,20 +191,20 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   // 点击空白区域
-  handleClickOutside = (evt) => {
-    const { value, pickerVisible } = this.state;
-    if (!this.isInputFocus && !pickerVisible) {
-      return
-    }
-    if (this.domRoot.contains(evt.target)) return;
-    if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
-
-    if (this.isDateValid(value)) {
-      this.onPicked(value, false, true);
-    } else {
-      this.onCancelPicked();
-    }
-  }
+  // handleClickOutside = (evt) => {
+  //   const { value, pickerVisible } = this.state;
+  //   if (!this.isInputFocus && !pickerVisible) {
+  //     return
+  //   }
+  //   if (this.domRoot.contains(evt.target)) return;
+  //   if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
+  //
+  //   if (this.isDateValid(value)) {
+  //     this.onPicked(value, false, true);
+  //   } else {
+  //     this.onCancelPicked();
+  //   }
+  // }
 
   // 点击清空图标
   handleClickCloseIcon = () => {
@@ -233,8 +228,27 @@ export default class DateRangeBasePicker extends React.Component {
     }
   }
 
+
+  // 面板打开关闭的回调
+  onVisibleChange = (visible) => {
+    this.setState({
+      pickerVisible: visible
+    })
+  }
+
   render() {
-    const { startPlaceholder, endPlaceholder, rangeSeparator, isShowTrigger, isAllowClear, isDisabled, className } = this.props;
+    const {
+      startPlaceholder,
+      endPlaceholder,
+      rangeSeparator,
+      isShowTrigger,
+      isAllowClear,
+      isDisabled,
+      className,
+      popupAlign,
+      prefixCls,
+      getPopupContainer,
+    } = this.props;
     const { pickerVisible, value, text } = this.state;
 
     const calcIsShowTrigger = () => {
@@ -249,6 +263,7 @@ export default class DateRangeBasePicker extends React.Component {
       return this.type.includes('time') ? 'time-line' : 'date-line';
     }
 
+    // 前缀图标
     const prefixIcon = () => {
       if(calcIsShowTrigger()) {
         return (
@@ -262,6 +277,7 @@ export default class DateRangeBasePicker extends React.Component {
       }
     };
 
+    // 后缀图标
     const suffixIcon = () => {
       if(text && isAllowClear) {
         return (
@@ -276,105 +292,94 @@ export default class DateRangeBasePicker extends React.Component {
       }
     };
 
-    const createPickerPanel = () => {
-      if (pickerVisible) {
-        /* eslint-disable */
-        let {placeholder, onFocus, onBlur, onChange, ...others} = this.props;
-        /* eslint-enable */
-        return (
-          <MountBody ref={e => this.pickerProxy = e} getPopupContainer={() => this.domRoot} >
-            {
-              this.pickerPanel(
-                this.state,
-                {
-                  ...others,
-                  ... {
-                    getPopperRefElement: () => ReactDOM.findDOMNode(this.refs.inputRoot),
-                    popperMixinOption: {
-                      placement: PLACEMENT_MAP[this.props.align] || PLACEMENT_MAP.left
-                    }
-                  }
+    // 下拉面板
+    const getPickerPanel = () => {
+      return this.pickerPanel(this.state)
+    };
+
+    // 选择框
+    const getInputPanel = () => {
+      return (
+        <span
+          className={classNames('fishd-date-editor', className, {
+            'is-have-trigger': calcIsShowTrigger(),
+            'is-active': pickerVisible,
+            'is-filled': !!value
+          })}
+        >
+          <div className={classNames(`fishd-date-editor--${this.type}`,{'is-active': pickerVisible, 'disabled': isDisabled})}>
+            <Input
+              disabled={isDisabled}
+              type="text"
+              placeholder={startPlaceholder}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              onKeyDown={this.handleKeydown}
+              onChange={e => {
+                const inputValue = e.target.value;
+                const ndate = this.parseDate(inputValue);
+                if (!isInputValid(inputValue, ndate)) {
+                  this.setState({
+                    text: [inputValue, this.state.text[1]],
+                  })
+                } else {//only set value on a valid date input
+                  this.setState({
+                    text: [inputValue, this.state.text[1]],
+                    value: [ndate, this.state.value[1]],
+                  })
                 }
-              )
-            }
-          </MountBody>
-        )
-      } else {
-        return null
-      }
+              }}
+              ref="inputRoot"
+              value={text && text.length == 2 ? text[0] : ''}
+              prefix={prefixIcon()}
+            />
+            <span className={classNames("range-separator", {'disabled':isDisabled})}>{rangeSeparator}</span>
+            <Input
+              disabled={isDisabled}
+              type="text"
+              placeholder={endPlaceholder}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              onKeyDown={this.handleKeydown}
+              onChange={e => {
+                const inputValue = e.target.value;
+                const ndate = this.parseDate(inputValue);
+                if (!isInputValid(inputValue, ndate)) {
+                  this.setState({
+                    text: [this.state.text[0], inputValue],
+                  })
+                } else {//only set value on a valid date input
+                  this.setState({
+                    text: [this.state.text[0], inputValue],
+                    value: [this.state.value[0], ndate],
+                  })
+                }
+              }}
+              value={text && text.length == 2 ? text[1] : ''}
+              suffix={suffixIcon()}
+            />
+          </div>
+        </span>
+      )
     };
 
     return (
-      <span
-        className={classNames('fishd-date-editor', className, {
-          'is-have-trigger': calcIsShowTrigger(),
-          'is-active': pickerVisible,
-          'is-filled': !!value
-        })}
-
-        ref={v => this.domRoot = v}
+      <Trigger
+        action={isDisabled ? [] : ['click']}
+        builtinPlacements={placements}
+        ref={node => this.trigger = node}
+        getPopupContainer={getPopupContainer}
+        onPopupVisibleChange={this.onVisibleChange}
+        popup={getPickerPanel()}
+        popupPlacement={popupAlign}
+        popupVisible={pickerVisible}
+        prefixCls={`${prefixCls}-popup`}
+        stretch='width'
+        destroyPopupOnHide={true}
+        forceRender
       >
-
-        <EventRegister
-          id={this.clickOutsideId}
-          target={document}
-          eventName="click"
-          func={this.handleClickOutside}
-        />
-        <div className={classNames(`fishd-date-editor--${this.type}`,{'is-active': pickerVisible, 'disabled': isDisabled})}>
-          <Input
-            disabled={isDisabled}
-            type="text"
-            placeholder={startPlaceholder}
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
-            onKeyDown={this.handleKeydown}
-            onChange={e => {
-              const inputValue = e.target.value;
-              const ndate = this.parseDate(inputValue);
-              if (!isInputValid(inputValue, ndate)) {
-                this.setState({
-                  text: [inputValue, this.state.text[1]],
-                })
-              } else {//only set value on a valid date input
-                this.setState({
-                  text: [inputValue, this.state.text[1]],
-                  value: [ndate, this.state.value[1]],
-                })
-              }
-            }}
-            ref="inputRoot"
-            value={text && text.length == 2 ? text[0] : ''}
-            prefix={prefixIcon()}
-          />
-          <span className={classNames("range-separator", {'disabled':isDisabled})}>{rangeSeparator}</span>
-          <Input
-            disabled={isDisabled}
-            type="text"
-            placeholder={endPlaceholder}
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
-            onKeyDown={this.handleKeydown}
-            onChange={e => {
-              const inputValue = e.target.value;
-              const ndate = this.parseDate(inputValue);
-              if (!isInputValid(inputValue, ndate)) {
-                this.setState({
-                  text: [this.state.text[0], inputValue],
-                })
-              } else {//only set value on a valid date input
-                this.setState({
-                  text: [this.state.text[0], inputValue],
-                  value: [this.state.value[0], ndate],
-                })
-              }
-            }}
-            value={text && text.length == 2 ? text[1] : ''}
-            suffix={suffixIcon()}
-          />
-        </div>
-        {createPickerPanel()}
-      </span>
+        {getInputPanel()}
+      </Trigger>
     )
   }
 }

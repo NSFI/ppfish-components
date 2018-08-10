@@ -1,24 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from '../Input';
+import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
-import { MountBody } from './MountBody';
-import { PLACEMENT_MAP, HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
-import { EventRegister } from './libs/internal';
-import { Errors, require_condition, IDGenerator } from './libs/utils';
+import Trigger from 'rc-trigger';
+import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
+import { Errors, require_condition } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
 import { isValidValue } from '../../utils/date';
+import placements from './placements';
 
-const idGen = new IDGenerator();
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
 };
 const isInputValid = (text, date) => {
   if(text.trim() === '' || !isValidValue(date)) return false;
   return true;
-}
+};
 
 export default class BasePicker extends React.Component {
 
@@ -27,7 +25,9 @@ export default class BasePicker extends React.Component {
       className: PropTypes.string,
       placeholder: PropTypes.string,
       format: PropTypes.string,
-      align: PropTypes.oneOf(['left', 'right']),
+      popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
+      prefixCls: PropTypes.string,
+      getPopupContainer: PropTypes.func,
       isShowTrigger: PropTypes.bool,
       isAllowClear: PropTypes.bool,
       isDisabled: PropTypes.bool,
@@ -44,7 +44,8 @@ export default class BasePicker extends React.Component {
   static get defaultProps() {
     return {
       placeholder: '',
-      align: 'left',
+      popupAlign: 'bottomLeft',
+      prefixCls: 'fishd-date-time-picker',
       isShowTrigger: true,
       isAllowClear: true,
       isDisabled: false,
@@ -63,9 +64,7 @@ export default class BasePicker extends React.Component {
     this.state = Object.assign({}, state, {
       pickerVisible: false,
       confirmValue: props.value, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
-    }, this.propsToState(props))
-
-    this.clickOutsideId = 'clickOutsideId_' + idGen.next();
+    }, this.propsToState(props));
   }
 
   propsToState(props) {
@@ -107,7 +106,7 @@ export default class BasePicker extends React.Component {
    * @param value: Date|Date[]|null
    * @param isKeepPannel: boolean = false
    */
-  onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {//only change input value on picked triggered
+  onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {
     this.setState({
       pickerVisible: isKeepPannel,
       value,
@@ -157,18 +156,6 @@ export default class BasePicker extends React.Component {
     return this.props.format || DEFAULT_FORMATS[this.type]
   }
 
-  triggerClass() {
-    return this.type.includes('time') ? 'time-line' : 'date-line';
-  }
-
-  calcIsShowTrigger() {
-    if (this.props.isShowTrigger != null) {
-      return !!this.props.isShowTrigger;
-    } else {
-      return haveTriggerType(this.type);
-    }
-  }
-
   togglePickerVisible() {
     this.setState({
       pickerVisible: !this.state.pickerVisible
@@ -178,11 +165,7 @@ export default class BasePicker extends React.Component {
   // 聚焦
   handleFocus = () => {
     this.isInputFocus = true;
-    if (haveTriggerType(this.type) && !this.state.pickerVisible) {
-      this.setState({ pickerVisible: true }, () => {
-        this.props.onFocus(this);
-      })
-    }
+    this.props.onFocus(this);
   }
 
   // 失焦
@@ -209,20 +192,20 @@ export default class BasePicker extends React.Component {
   }
 
   // 点击空白区域
-  handleClickOutside = (evt) => {
-    const { value, pickerVisible } = this.state;
-    if (!this.isInputFocus && !pickerVisible) {
-      return
-    }
-    if (this.domRoot.contains(evt.target)) return;
-    if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
-
-    if (this.isDateValid(value)) {
-      this.onPicked(value, false, true);
-    } else {
-      this.onCancelPicked();
-    }
-  }
+  // handleClickOutside = (evt) => {
+  //   const { value, pickerVisible } = this.state;
+  //   if (!this.isInputFocus && !pickerVisible) {
+  //     return
+  //   }
+  //   if (this.domRoot.contains(evt.target)) return;
+  //   if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
+  //
+  //   if (this.isDateValid(value)) {
+  //     this.onPicked(value, false, true);
+  //   } else {
+  //     this.onCancelPicked();
+  //   }
+  // }
 
   // 点击清空图标
   handleClickCloseIcon = () => {
@@ -247,16 +230,45 @@ export default class BasePicker extends React.Component {
     }
   }
 
+  // 面板打开关闭的回调
+  onVisibleChange = (visible) => {
+    this.setState({
+      pickerVisible: visible
+    })
+  }
+
   render() {
-    const { isAllowClear, placeholder, isDisabled, className } = this.props;
+    const {
+      className,
+      placeholder,
+      popupAlign,
+      prefixCls,
+      getPopupContainer,
+      isShowTrigger,
+      isAllowClear,
+      isDisabled
+    } = this.props;
     const { pickerVisible, value, text } = this.state;
 
+    const triggerClass = () => {
+      return this.type.includes('time') ? 'time-line' : 'date-line';
+    }
+
+    const calcIsShowTrigger = () => {
+      if (isShowTrigger != null) {
+        return !!isShowTrigger;
+      } else {
+        return haveTriggerType(this.type);
+      }
+    }
+
+    // 前缀图标
     const prefixIcon = () => {
-      if(this.calcIsShowTrigger()) {
+      if(calcIsShowTrigger()) {
         return (
           <Icon
             className="prefix-iconfont"
-            type={this.triggerClass()}
+            type={triggerClass()}
           />
         )
       }else{
@@ -264,6 +276,7 @@ export default class BasePicker extends React.Component {
       }
     };
 
+    // 后缀图标
     const suffixIcon = () => {
       if(text && isAllowClear) {
         return (
@@ -278,51 +291,21 @@ export default class BasePicker extends React.Component {
       }
     };
 
-    const createPickerPanel = () => {
-      if (pickerVisible) {
-        /* eslint-disable */
-        let {placeholder, onFocus, onBlur, onChange, ...others} = this.props;
-        /* eslint-enable */
-        return (
-          <MountBody ref={e => this.pickerProxy = e} getPopupContainer={() => this.domRoot}>
-            {
-              this.pickerPanel(
-                this.state,
-                {
-                  ...others,
-                  ... {
-                    getPopperRefElement: () => ReactDOM.findDOMNode(this.refs.inputRoot),
-                    popperMixinOption: {
-                      placement: PLACEMENT_MAP[this.props.align] || PLACEMENT_MAP.left
-                    }
-                  }
-                }
-              )
-            }
-          </MountBody>
-        )
-      } else {
-        return null
-      }
+    // 下拉面板
+    const getPickerPanel = () => {
+      return this.pickerPanel(this.state)
     };
 
-    return (
-      <span
-        className={classNames('fishd-date-editor', className, {
-          'is-have-trigger': this.calcIsShowTrigger(),
-          'is-active': pickerVisible,
-          'is-filled': !!value
-        })}
-
-        ref={v => this.domRoot = v}
-      >
-
-        <EventRegister
-          id={this.clickOutsideId}
-          target={document}
-          eventName="click"
-          func={this.handleClickOutside}
-        />
+    // 选择框
+    const getInputPanel = () => {
+      return (
+        <span
+          className={classNames('fishd-date-editor', className, {
+            'is-have-trigger': calcIsShowTrigger(),
+            'is-active': pickerVisible,
+            'is-filled': !!value
+          })}
+        >
 
         <Input
           className={classNames(`fishd-date-editor fishd-date-editor--${this.type}`)}
@@ -351,10 +334,27 @@ export default class BasePicker extends React.Component {
           prefix={prefixIcon()}
           suffix={suffixIcon()}
         />
+        </span>
+      )
+    };
 
-        {createPickerPanel()}
-
-      </span>
+    return (
+      <Trigger
+        action={isDisabled ? [] : ['click']}
+        builtinPlacements={placements}
+        ref={node => this.trigger = node}
+        getPopupContainer={getPopupContainer}
+        onPopupVisibleChange={this.onVisibleChange}
+        popup={getPickerPanel()}
+        popupPlacement={popupAlign}
+        popupVisible={pickerVisible}
+        prefixCls={`${prefixCls}-popup`}
+        stretch='width'
+        destroyPopupOnHide={true}
+        forceRender
+      >
+        {getInputPanel()}
+      </Trigger>
     )
   }
 }

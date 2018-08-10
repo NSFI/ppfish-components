@@ -3,18 +3,18 @@
 .@{prefixClass} {
   &-picker-panel {
     min-width: 134px;
-    position: absolute;
-    top: 41px;
-    line-height: 20px;
-    margin: 5px 0;
     color: @text-2;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    font-size: @font-size-base;
     border: 1px solid @datepicker-border-color;
-    background: @component-background;
-    border-radius: 2px;
+    background-color: @component-background;
+    border-radius: @border-radius-base;
     box-sizing: border-box;
     box-shadow: @box-shadow-base;
-    z-index: 10;
 
+    // DatePicker & DateRangePicker
     &__body, body-wrapper {
       &::after {
         content: "";

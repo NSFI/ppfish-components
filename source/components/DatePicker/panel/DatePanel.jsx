@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from '../../Input';
+import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
-import { PopperBase } from './PopperBase';
-import YearAndMonthPopover from './YearAndMonthPopover';
-import TimePicker from '../TimePicker';
+import YearAndMonthPopover from './YearAndMonthPopover.jsx';
+import TimePicker from '../TimePicker.jsx';
 import { DateTable, MonthTable, YearTable } from '../basic';
 import {
   SELECTION_MODES,
@@ -39,15 +38,17 @@ const isInputValid = (text, date, disabledDate) => {
   return true;
 };
 
-export default class DatePanel extends PopperBase {
+export default class DatePanel extends React.Component {
 
   static get propTypes() {
-    return Object.assign({
+    return {
+      format: PropTypes.string,                  //base
+      value: PropTypes.instanceOf(Date),         //base
+      onPick: PropTypes.func.isRequired,         //base
+      onCancelPicked: PropTypes.func.isRequired, //base
       yearCount: PropTypes.number,
-      value: PropTypes.instanceOf(Date),
       isShowTime: PropTypes.bool,
       showWeekNumber: PropTypes.bool,
-      format: PropTypes.string,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
           text: PropTypes.string.isRequired,
@@ -58,15 +59,12 @@ export default class DatePanel extends PopperBase {
       selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
-      onPick: PropTypes.func.isRequired,
-      onCancelPicked: PropTypes.func.isRequired,
-    }, PopperBase.propTypes)
+    }
   }
 
   static get defaultProps() {
     return {
       yearCount: 50,
-      value: null,
       isShowTime: false,
       showWeekNumber: false,
       shortcutsPlacement: 'left',
@@ -89,10 +87,9 @@ export default class DatePanel extends PopperBase {
     this.state = {
       currentView,
       currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 当前日历视图
-      date: toDate(props.value),
-      dateInputText: formatDate(props.value, dateFormat(props.format)), // 日期输入框的值(string)，当props.value为null时，值为''
-      timeInputText: toDate(props.value),                      // 时间输入组件的值(Date)，当props.value为null时，值为null
-      confirmBtnDisabled: !props.value                         // 确定按钮是否禁用
+      date: toDate(props.value),                                                 // 当前值
+      dateInputText: formatDate(props.value, dateFormat(props.format)),          // 日期输入框的值(string)，当props.value为null时，值为''
+      timeInputText: toDate(props.value),                                        // 时间输入组件的值(Date)，当props.value为null时，值为null
     };
   }
 
@@ -101,23 +98,6 @@ export default class DatePanel extends PopperBase {
       const date = toDate(nextProps.value);
       this.setState({ date });
     }
-  }
-
-  resetView() {
-    const {selectionMode} = this.props;
-    const {currentView} = this.state;
-
-    let view = currentView;
-    if (selectionMode === SELECTION_MODES.MONTH) {
-      view = PICKER_VIEWS.MONTH
-    } else if (selectionMode === SELECTION_MODES.YEAR) {
-      view = PICKER_VIEWS.YEAR
-    } else {
-      view = PICKER_VIEWS.DATE
-    }
-    this.setState({
-      currentView: view
-    })
   }
 
   // 年份、月份面板先注释掉，需要时再打开
@@ -194,7 +174,6 @@ export default class DatePanel extends PopperBase {
         currentDate: ndate
       });
     }
-    this.resetView();
   }
 
   // 时间输入框变化
@@ -290,8 +269,8 @@ export default class DatePanel extends PopperBase {
   }
 
   render() {
-    const { isShowTime, shortcuts, shortcutsPlacement, format, yearCount } = this.props;
-    const { currentView, dateInputText, timeInputText, currentDate } = this.state;
+    const { format, isShowTime, shortcuts, shortcutsPlacement, yearCount } = this.props;
+    const { currentView, currentDate, dateInputText, timeInputText } = this.state;
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
 
@@ -423,7 +402,7 @@ export default class DatePanel extends PopperBase {
               </Button>
               <Button
                 type="primary"
-                className={classNames("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
+                className="fishd-picker-panel__btn confirm"
                 onClick={this.handleConfirm}
                 disabled={this.confirmBtnDisabled()}>{t('fishd.datepicker.confirm')}
               </Button>
