@@ -51,15 +51,12 @@ describe('<PicturePreview />', () => {
     expect(inst).toBeInstanceOf(PicturePreview);
     expect(wrapper.find('.fishd-picturepreview-content-wrap').exists()).toBe(true);
     expect(wrapper.find('.slick-slide').length).toBe(props.source.length);
-    expect(wrapper.state()).toEqual({
-      activeIndex: props.activeIndex,
-      imgs: props.source,
-      isFullscreen: false,
-      isDisableDengbi: false,
-      isDisableFangda: false,
-      isDisableSuoxiao: false,
-      visible: props.visible,
-    });
+    expect(wrapper.state('activeIndex')).toBe(props.activeIndex);
+    expect(wrapper.state('visible')).toBe(props.visible);
+    expect(wrapper.state('isFullscreen')).toBe(false);
+    expect(wrapper.state('isDisableDengbi')).toBe(false);
+    expect(wrapper.state('isDisableFangda')).toBe(false);
+    expect(wrapper.state('isDisableSuoxiao')).toBe(false);
   });
 
   test('组件能够被正常关闭', () => {

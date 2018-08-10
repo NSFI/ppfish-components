@@ -71,13 +71,13 @@ const getImageSize = (img, callback, scope) => {
 
   if (img.size && img.size.indexOf('*') > -1) {
     let sizeList = img.size.split('*');
-    callback.call(scope, sizeList[0] || 0, sizeList[1] || 0);
+    (typeof callback === "function") && callback.call(scope, sizeList[0] || 0, sizeList[1] || 0);
   } else {
     newImage = document.createElement('img');
     newImage.onload = () => {
       naturalWidth = newImage.naturalWidth || newImage.width;
       naturalHeight = newImage.naturalHeight || newImage.height;
-      callback.call(scope, naturalWidth, naturalHeight);
+      (typeof callback === "function") && callback.call(scope, naturalWidth, naturalHeight);
     };
     newImage.src = img.url;
   }
@@ -113,7 +113,7 @@ class PicturePreview extends Component {
     this.curSelector = '.carousel-wrap .slick-current img';
     this.state = {
       activeIndex: this.props.activeIndex,
-      imgs: this.props.source || [],
+      imgs: [],
       isFullscreen: false,
       isDisableDengbi: false,
       isDisableFangda: false,
@@ -123,7 +123,7 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
-    this.state.imgs.length && this.initImgs();
+    this.initImgs(this.props.source);
     this.props.controller && this.setCtrlIconStatus(this.props.activeIndex);
   }
 
@@ -136,12 +136,8 @@ class PicturePreview extends Component {
       });
     }
 
-    if (JSON.stringify(this.state.imgs) != JSON.stringify(source)) {
-      this.setState({
-        imgs: source
-      }, () => {
-        this.state.imgs.length && this.initImgs();
-      });
+    if (JSON.stringify(this.props.source) != JSON.stringify(source)) {
+      this.initImgs(source);
     }
 
     if (this.state.activeIndex != activeIndex) {
@@ -303,16 +299,35 @@ class PicturePreview extends Component {
     }
   };
 
-  initImgs = () => {
-    this.props.source.map((item, index) => {
-      getImageSize(item, (naturalWidth, naturalHeight) => {
-        let aImg = getAdaptiveImg(naturalWidth, naturalHeight, this.state.isFullscreen);
-        this.state.imgs[index].naturalWidth = naturalWidth;
-        this.state.imgs[index].naturalHeight = naturalHeight;
-        this.state.imgs[index].adaptiveWidth = aImg.width;
-        this.state.imgs[index].adaptiveHeight = aImg.height;
-        this.state.imgs[index].scale = 1.0;
-        this.state.imgs[index].rotate = 0;
+  initImgs = (source) => {
+    if (!source || !source.length) {
+      return [];
+    }
+
+    let imgInfoList = [],
+        srcLen = source.length;
+
+    source.forEach((item, index) => {
+      getImageSize(item, (nWidth, nHeight) => {
+        let aImg = getAdaptiveImg(nWidth, nHeight, this.state.isFullscreen);
+        let imgInfo = {
+          url: item.url,
+          size: item.size,
+          scale: 1.0,
+          rotate: 0,
+          adaptiveWidth: aImg.width,
+          adaptiveHeight: aImg.height,
+          naturalWidth: nWidth,
+          naturalHeight: nHeight,
+        };
+
+        imgInfoList.push(imgInfo);
+
+        if (index === srcLen - 1) {
+          this.setState({
+            imgs: imgInfoList
+          });
+        }
       });
     });
   };
