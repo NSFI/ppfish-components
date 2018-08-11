@@ -198,16 +198,29 @@ render() {
 
 ## 带时间的日期面板
 
-:::demo 通过设置`isShowTime`，即可在同一个选择器里同时进行日期和时间的选择。
+:::demo 
+通过设置`isShowTime`，即可在同一个选择器里同时进行日期和时间的选择。
+`defaultTimeValue`用来设置默认时间；
+`isShowTimeCurrent`用来设置是否展示时间面板的"现在"快捷选项；
+`timeSelectableRange`设置可选择的时间范围；
+
+
 ```js
 
 constructor(props) {
-  super(props)
-  this.state = {value3: new Date(new Date().setHours(0,0,0,0))}
+  super(props);
+  this.state = {
+    value1: null,
+    value2: null,
+    value3: null,
+    value4: null,
+    value5: null,
+  }
+  this.defaultTimeValue = new Date(new Date().setHours(0,0,0,0))
 }
 
 render() {
-  const {value1, value2, value3} = this.state;
+  const {value1, value2, value3, value4, value5} = this.state;
 
   return (
     <div className="source">
@@ -221,56 +234,81 @@ render() {
             console.debug('DatePicker1 changed: ', date)
             this.setState({value1: date})
           }}
-          disabledDate={time=>time.getTime() < Date.now() - 8.64e7}
           />
       </div>
       <div className="block">
-        <span className="demonstration">设置默认时间</span>
+        <span className="demonstration">设置时间面板的默认时间</span>
         <DatePicker
-          value={value3}
-          isShowTime={true}
-          placeholder="选择日期"
-          onChange={date=>{
-            console.debug('DatePicker1 changed: ', date)
-            this.setState({value3: date})
-          }}
-          disabledDate={time=>time.getTime() < Date.now() - 8.64e7}
-          />
-      </div>
-      <div className="block">
-        <span className="demonstration">带快捷选项</span>
-        <DatePicker
-          ref={e=>this.datepicker2 = e}
-          isShowTime={true}
           value={value2}
-          align="left"
+          defaultTimeValue={this.defaultTimeValue}
+          isShowTime={true}
           placeholder="选择日期"
           onChange={date=>{
             console.debug('DatePicker2 changed: ', date)
             this.setState({value2: date})
+          }}
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">展示时间面板的"现在"快捷选项</span>
+        <DatePicker
+          value={value3}
+          isShowTimeCurrent={true}
+          isShowTime={true}
+          placeholder="选择日期"
+          onChange={date=>{
+            console.debug('DatePicker3 changed: ', date)
+            this.setState({value3: date})
+          }}
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">设置时间面板的可选时间范围</span>
+        <DatePicker
+          value={value4}
+          timeSelectableRange="18:30:00 - 20:30:00"
+          isShowTime={true}
+          placeholder="选择日期"
+          onChange={date=>{
+            console.debug('DatePicker4 changed: ', date)
+            this.setState({value4: date})
+          }}
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">带快捷选项的日期时间面板</span>
+        <DatePicker
+          ref={e=>this.datepicker5 = e}
+          isShowTime={true}
+          value={value5}
+          align="left"
+          placeholder="选择日期"
+          onChange={date=>{
+            console.debug('DatePicker5 changed: ', date)
+            this.setState({value5: date})
 
           }}
           shortcuts={[{
             text: '今天',
             onClick: (picker)=> {
-              this.setState({value2: new Date()})
-              this.datepicker2.togglePickerVisible()
+              this.setState({value5: new Date()})
+              this.datepicker5.togglePickerVisible()
             }
           }, {
             text: '昨天',
             onClick: (picker)=> {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
-              this.setState({value2: date})
-              this.datepicker2.togglePickerVisible()
+              this.setState({value5: date})
+              this.datepicker5.togglePickerVisible()
             }
           }, {
             text: '一周前',
             onClick: (picker)=> {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              this.setState({value2: date})
-              this.datepicker2.togglePickerVisible()
+              this.setState({value5: date})
+              this.datepicker5.togglePickerVisible()
             }
           }]}
           />
@@ -496,10 +534,11 @@ render() {
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | className | 选择器的className | string | - |
 | format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss` | yyyy-MM-dd |
+| popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter','bottomRight','topLeft', 'topCenter','topLeft' | 'bottomLeft' |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/4j168r7jw0) | Function(triggerNode) | () => document.body |
 | isShowTrigger | 是否显示前缀图标 | boolean | - | true |
 | isAllowClear | 是否显示清除按钮 | boolean | - | true |
 | isDisabled | 是否禁用 | boolean | - | false |
-| isShowTime | 是否显示时间选择器 | boolean | - | false |
 | disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
 | firstDayOfWeek | 周起始日 | Number | 0 到 6 | 0 |
 | yearCount | 可选择的年份总数 | Number | Number | 50 |
@@ -508,6 +547,15 @@ render() {
 | onFocus | focus 事件触发 | (SyntheticEvent)=>() | - | - |
 | onBlur | blur 事件触发 | (SyntheticEvent)=>() | - | - |
 | onChange | 确认选定的值时触发 | func:(value)=>() | - | - |
+
+时间面板的参数
+
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| isShowTime | 是否显示时间选择器 | boolean | - | false |
+| isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | boolean | - | false |
+| defaultTimeValue | 时间面板的默认时间 | Date | - | -
+| timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - ||
 
 ## DatePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |

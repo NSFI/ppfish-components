@@ -40,7 +40,7 @@ export default class TimePanel extends React.Component {
       format: format || 'HH:mm:ss',
       currentDate: value || parseDate('00:00:00', 'HH:mm:ss'),
       confirmButtonDisabled: value == null || !this.isValid(value),
-      currentButtonDisabled: isLimitRange(new Date(), props.selectableRange, 'HH:mm:ss')
+      currentButtonDisabled: !isLimitRange(new Date(), props.selectableRange, 'HH:mm:ss')
     };
     state.isShowSeconds = (state.format || '').indexOf('ss') !== -1;
 

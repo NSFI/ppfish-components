@@ -47,7 +47,6 @@ export default class DatePanel extends React.Component {
       onPick: PropTypes.func.isRequired,         //base
       onCancelPicked: PropTypes.func.isRequired, //base
       yearCount: PropTypes.number,
-      isShowTime: PropTypes.bool,
       showWeekNumber: PropTypes.bool,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
@@ -59,17 +58,26 @@ export default class DatePanel extends React.Component {
       selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
+      isShowTime: PropTypes.bool,
+      isShowTimeCurrent: PropTypes.bool,
+      timeSelectableRange: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+      ]),
+      defaultTimeValue: PropTypes.instanceOf(Date),
     }
   }
 
   static get defaultProps() {
     return {
       yearCount: 50,
-      isShowTime: false,
       showWeekNumber: false,
       shortcutsPlacement: 'left',
       selectionMode: SELECTION_MODES.DAY,
-      firstDayOfWeek: 0
+      firstDayOfWeek: 0,
+      isShowTime: false,
+      isShowTimeCurrent: false,
+      defaultTimeValue: null,
     }
   }
 
@@ -86,17 +94,18 @@ export default class DatePanel extends React.Component {
 
     this.state = {
       currentView,
-      currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 当前日历视图
-      date: toDate(props.value),                                                 // 当前值
+      currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 日历视图
+      date: toDate(props.value),                                                 // 日期
       dateInputText: formatDate(props.value, dateFormat(props.format)),          // 日期输入框的值(string)，当props.value为null时，值为''
-      timeInputText: toDate(props.value),                                        // 时间输入组件的值(Date)，当props.value为null时，值为null
+      time: toDate(props.value || props.defaultTimeValue),                       // 时间
+      timePickerVisible: false
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value){
+    if (nextProps.value) {
       const date = toDate(nextProps.value);
-      this.setState({ date });
+      this.setState({date})
     }
   }
 
@@ -111,7 +120,7 @@ export default class DatePanel extends React.Component {
       case PICKER_VIEWS.DATE:
         result = (
           <DateTable
-            onPick={this.handleDatePick.bind(this)}
+            onPick={this.handleDatePick}
             date={currentDate}
             value={date}
             selectionMode={selectionMode}
@@ -146,8 +155,8 @@ export default class DatePanel extends React.Component {
 
   // 日期时间都选择，确定按钮才可点击
   confirmBtnDisabled = () => {
-    const {date, dateInputText, timeInputText} = this.state;
-    return !(date && dateInputText && timeInputText);
+    const {date, time} = this.state;
+    return !(date && time);
   }
 
   // 未选择日期时，时间不可选
@@ -159,7 +168,6 @@ export default class DatePanel extends React.Component {
   // 日期输入框变化
   handleDateInputChange = (e) => {
     const {disabledDate, format} = this.props;
-    const {date} = this.state;
 
     const inputText = e.target.value;
     let ndate = parseDate(inputText, dateFormat(format));
@@ -170,20 +178,18 @@ export default class DatePanel extends React.Component {
     }else{//only set value on a valid date input
       this.setState({
         dateInputText: inputText,
-        date: setDate(new Date(date), ndate), // 日期变化的时候，时间保持不变
-        currentDate: ndate
+        date: new Date(ndate),
+        currentDate: new Date(ndate)
       });
     }
   }
 
   // 时间输入框变化
   handleTimeInputChange = (val) => {
-    const {date} = this.state;
     if (val) {
       this.setState({
-        date: setTime(new Date(date), val), // 时间变化的时候，日期保持不变
+        time: new Date(val),
         timePickerVisible: false,
-        timeInputText: val,
       })
     }
   }
@@ -225,7 +231,7 @@ export default class DatePanel extends React.Component {
   handleChangeYear = (year) => {
     const { currentDate } = this.state;
     this.setState({
-      currentDate: new Date(currentDate.setFullYear(year)),
+      currentDate: new Date(new Date(currentDate).setFullYear(year)),
     })
   }
 
@@ -233,12 +239,12 @@ export default class DatePanel extends React.Component {
   handleChangeMonth = (month) => {
     const { currentDate } = this.state;
     this.setState({
-      currentDate: new Date((currentDate.setMonth(parseInt(month.slice(0,-1)) - 1)))
+      currentDate: new Date((new Date(currentDate).setMonth(parseInt(month.slice(0,-1)) - 1)))
     })
   }
 
   // 点击日期
-  handleDatePick(value) {
+  handleDatePick = (value) => {
     const { selectionMode, isShowTime, onPick, format } = this.props;
     const pdate = value.date;
 
@@ -246,9 +252,8 @@ export default class DatePanel extends React.Component {
       if (!isShowTime) {
         onPick(pdate)
       }
-      // 日期变化，时间不变
       this.setState({
-        date: setDate(new Date(this.state.date), pdate),
+        date: new Date(pdate),
         dateInputText: formatDate(pdate, dateFormat(format)), // 点击日期，左侧日期输入框的值同步变化
         currentDate: pdate
       })
@@ -259,8 +264,9 @@ export default class DatePanel extends React.Component {
 
   // 点击确定按钮
   handleConfirm = () => {
-    const { date } = this.state;
-    this.props.onPick(date, false, true);
+    const { date, time } = this.state;
+    const pickedTime = setTime(new Date(date), time);
+    this.props.onPick(pickedTime, false, true);
   }
 
   // 点击取消按钮
@@ -269,14 +275,21 @@ export default class DatePanel extends React.Component {
   }
 
   render() {
-    const { format, isShowTime, shortcuts, shortcutsPlacement, yearCount } = this.props;
-    const { currentView, currentDate, dateInputText, timeInputText } = this.state;
+    const {
+      format,
+      shortcuts,
+      shortcutsPlacement,
+      yearCount,
+      isShowTime,
+      isShowTimeCurrent,
+      timeSelectableRange
+    } = this.props;
+    const { currentView, currentDate, dateInputText, time } = this.state;
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
 
     return (
       <div
-        ref="root"
         className={classNames('fishd-picker-panel fishd-date-picker', {
           'has-sidebar': shortcuts && shortcutsPlacement === 'left',
           'has-time': isShowTime})
@@ -314,15 +327,18 @@ export default class DatePanel extends React.Component {
                   </span>
                   <span className="fishd-date-picker__editor-wrap">
                     <TimePicker
+                      className="fishd-date-picker-time__editor"
                       placeholder={t('fishd.datepicker.selectTime')}
-                      className="fishd-date-range-picker__editor"
+                      format={timeFormat(format)}
+                      getPopupContainer={(node) => node.parentNode}
                       isShowTrigger={false}
                       isAllowClear={false}
-                      format={timeFormat(format)}
                       isDisabled={this.timePickerDisable()}
-                      value={timeInputText}
+                      value={time}
                       onFocus={()=> this.setState({timePickerVisible: !this.state.timePickerVisible})}
                       onChange={this.handleTimeInputChange}
+                      isShowCurrent={isShowTimeCurrent}
+                      selectableRange={timeSelectableRange}
                     />
                   </span>
                 </div>
@@ -395,7 +411,8 @@ export default class DatePanel extends React.Component {
         {
           isShowTime && currentView === PICKER_VIEWS.DATE && (
             <div
-              className="fishd-picker-panel__footer">
+              className="fishd-picker-panel__footer"
+            >
               <Button
                 className="fishd-picker-panel__btn cancel"
                 onClick={this.handleCancel}>{t('fishd.datepicker.cancel')}
