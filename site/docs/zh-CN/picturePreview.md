@@ -36,7 +36,7 @@
             <div className="pics">
               {
                 this.props.source && this.props.source.map((each, index)=>
-                  <div key={each.size} className="item" onClick={this.handleOpen.bind(this, index)}>
+                  <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={each.url} alt={each.url} width="60px" height="60px" />
                     <div>{each.size}</div>
                   </div>
@@ -86,7 +86,7 @@
             <div className="pics">
               {
                 this.props.source && this.props.source.map((each, index)=>
-                  <div key={each.size} className="item" onClick={this.handleOpen.bind(this, index)}>
+                  <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={each.url} alt={each.url} width="60px" height="60px" />
                     <div>{each.size}</div>
                   </div>
@@ -140,7 +140,7 @@
             <div className="pics">
               {
                 this.props.source && this.props.source.map((each, index)=>
-                  <div key={each.size} className="item" onClick={this.handleOpen.bind(this, index)}>
+                  <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={each.url} alt={each.url} width="60px" height="60px" />
                     <div>{each.size}</div>
                   </div>
