@@ -146,20 +146,75 @@ render() {
 
 constructor(props) {
   super(props)
-  this.state = {}
+  this.state = {
+    popupAlign: 'bottomLeft'
+  }
+}
+
+handleChange = (value) => {
+  this.setState({
+    popupAlign: value
+  })
 }
 
 render() {
-  const {value1, value2} = this.state;
+  const {value1, value2, popupAlign} = this.state;
 
   return (
     <div className="source">
       <div className="block">
         <span className="demonstration">左侧自定义</span>
         <DatePicker
+          ref={e=>this.datepicker1 = e}
+          value={value1}
+          placeholder="选择日期"
+          onChange={date=>{
+            console.debug('DatePicker1 changed: ', date)
+            this.setState({value1: date})
+
+          }}
+          shortcuts={[{
+            text: '今天',
+            onClick: (picker)=> {
+              this.setState({value1: new Date()})
+              this.datepicker1.togglePickerVisible()
+            }
+          }, {
+            text: '昨天',
+            onClick: (picker)=> {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              this.setState({value1: date})
+              this.datepicker1.togglePickerVisible()
+            }
+          }, {
+            text: '一周前',
+            onClick: (picker)=> {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              this.setState({value1: date})
+              this.datepicker1.togglePickerVisible()
+            }
+          }]}
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">定义面板展开位置</span>
+        <span className="demonstration">
+          <Select style={{width: 150}} onChange={this.handleChange} placeholder="请选择位置">
+            <Select.Option key={"bottomLeft"}>{'bottomLeft'}</Select.Option>
+            <Select.Option key={"bottomCenter"}>{'bottomCenter'}</Select.Option>
+            <Select.Option key={"bottomRight"}>{'bottomRight'}</Select.Option>
+            <Select.Option key={"topLeft"}>{'topLeft'}</Select.Option>
+            <Select.Option key={"topCenter"}>{'topCenter'}</Select.Option>
+            <Select.Option key={"topRight"}>{'topRight'}</Select.Option>
+          </Select>
+        </span>
+        <DatePicker
           ref={e=>this.datepicker2 = e}
           value={value2}
           placeholder="选择日期"
+          popupAlign={popupAlign}
           onChange={date=>{
             console.debug('DatePicker2 changed: ', date)
             this.setState({value2: date})
@@ -188,7 +243,6 @@ render() {
               this.datepicker2.togglePickerVisible()
             }
           }]}
-          shortcutsPlacement="left"
           />
       </div>
     </div>
@@ -393,19 +447,80 @@ render() {
 ```js
 constructor(props) {
   super(props);
-  this.state = {value2: null}
+  this.state = {
+    popupAlign: 'bottomLeft'
+  }
+}
+
+handleChange = (value) => {
+  this.setState({
+    popupAlign: value
+  })
 }
 
 render() {
-  const {value2} = this.state;
+  const {value1, value2, popupAlign} = this.state;
 
   return (
     <div className="source">
       <div className="block">
         <span className="demonstration">左侧自定义</span>
         <DatePicker.DateRangePicker
+          value={value1}
+          placeholder="选择日期范围"
+          ref={e=>this.daterangepicker1 = e}
+          onChange={date=>{
+            console.debug('DateRangePicker1 changed: ', date)
+            this.setState({value1: date})
+          }}
+          shortcuts={[{
+            text: '最近一周',
+            onClick: ()=> {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+
+              this.setState({value1: [start, end]})
+              this.daterangepicker1.togglePickerVisible()
+            }
+          }, {
+            text: '最近一个月',
+            onClick: ()=> {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+
+              this.setState({value1: [start, end]})
+              this.daterangepicker1.togglePickerVisible()
+            }
+          }, {
+            text: '最近三个月',
+            onClick: ()=> {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              this.setState({value1: [start, end]})
+              this.daterangepicker1.togglePickerVisible()
+            }
+          }]}
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">定义面板展开位置</span>
+        <span className="demonstration">
+          <Select style={{width: 150}} onChange={this.handleChange} placeholder="请选择位置">
+            <Select.Option key={"bottomLeft"}>{'bottomLeft'}</Select.Option>
+            <Select.Option key={"bottomCenter"}>{'bottomCenter'}</Select.Option>
+            <Select.Option key={"bottomRight"}>{'bottomRight'}</Select.Option>
+            <Select.Option key={"topLeft"}>{'topLeft'}</Select.Option>
+            <Select.Option key={"topCenter"}>{'topCenter'}</Select.Option>
+            <Select.Option key={"topRight"}>{'topRight'}</Select.Option>
+          </Select>
+        </span>
+        <DatePicker.DateRangePicker
           value={value2}
           placeholder="选择日期范围"
+          popupAlign={popupAlign}
           ref={e=>this.daterangepicker2 = e}
           onChange={date=>{
             console.debug('DateRangePicker2 changed: ', date)
