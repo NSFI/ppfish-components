@@ -22,7 +22,6 @@ import {
   MONTH_ARRRY,
   YEARS_ARRAY,
   isValidValue,
-  setDate,
   setTime
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
@@ -58,6 +57,7 @@ export default class DatePanel extends React.Component {
       selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
+      //时间面板
       isShowTime: PropTypes.bool,
       isShowTimeCurrent: PropTypes.bool,
       timeSelectableRange: PropTypes.oneOfType([
@@ -97,7 +97,7 @@ export default class DatePanel extends React.Component {
       currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 日历视图
       date: toDate(props.value),                                                 // 日期
       dateInputText: formatDate(props.value, dateFormat(props.format)),          // 日期输入框的值(string)，当props.value为null时，值为''
-      time: toDate(props.value || props.defaultTimeValue),                       // 时间
+      time: toDate(props.value || props.defaultTimeValue),                                      // 时间
       timePickerVisible: false
     };
   }

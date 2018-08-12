@@ -22,7 +22,7 @@ import {
   MONTH_ARRRY,
   YEARS_ARRAY,
   isValidValue,
-  setDate,
+  setTime,
   equalYearAndMonth
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
@@ -48,7 +48,6 @@ export default class DateRangePanel extends React.Component {
       onPick: PropTypes.func.isRequired,         //base
       onCancelPicked: PropTypes.func.isRequired, //base
       yearCount: PropTypes.number,
-      isShowTime: PropTypes.bool,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
           text: PropTypes.string.isRequired,
@@ -58,15 +57,31 @@ export default class DateRangePanel extends React.Component {
       shortcutsPlacement: PropTypes.string,
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
+      // 时间面板
+      isShowTime: PropTypes.bool,
+      isShowTimeCurrent: PropTypes.bool,
+      startTimeSelectableRange: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+      ]),
+      endTimeSelectableRange: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+      ]),
+      defaultStartTimeValue: PropTypes.instanceOf(Date),
+      defaultEndTimeValue: PropTypes.instanceOf(Date)
     }
   }
 
   static get defaultProps() {
     return {
       yearCount: 50,
-      isShowTime: false,
       shortcutsPlacement: 'left',
-      firstDayOfWeek: 0
+      firstDayOfWeek: 0,
+      isShowTime: false,
+      isShowTimeCurrent: false,
+      defaultStartTimeValue: null,
+      defaultEndTimeValue: null
     }
   }
 
@@ -86,8 +101,8 @@ export default class DateRangePanel extends React.Component {
       maxDate: isValidValue(props.value) ? toDate(props.value[1]) : null,
       minDateInputText: isValidValue(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '',
       maxDateInputText: isValidValue(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '',
-      minTimeInputText: isValidValue(props.value) ? toDate(props.value[0]) : null,
-      maxTimeInputText: isValidValue(props.value) ? toDate(props.value[1]) : null,
+      minTime: isValidValue(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue),
+      maxTime: isValidValue(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue)
     }
   }
 
@@ -114,8 +129,8 @@ export default class DateRangePanel extends React.Component {
 
   // 日期时间都选择，确定按钮才可点击
   confirmBtnDisabled = () => {
-    const {minDate, maxDate, minDateInputText, maxDateInputText, minTimeInputText, maxTimeInputText} = this.state;
-    return !(minDate && maxDate && minDateInputText && maxDateInputText && minTimeInputText && maxTimeInputText);
+    const {minDate, maxDate, minTime, maxTime} = this.state;
+    return !(minDate && maxDate && minTime && maxTime);
   }
 
   // 未选择日期时，时间不可选
@@ -127,55 +142,39 @@ export default class DateRangePanel extends React.Component {
   // 开始日期或结束日期发生改变
   handleDateInputChange(e, type) {
     const {disabledDate,format} = this.props;
-    const {minDate, maxDate} = this.state;
     const text = type === 'min' ? 'minDateInputText' : 'maxDateInputText';
     const value = type === 'min' ? 'minDate' : 'maxDate';
     const dateValue = type === 'min' ? 'leftDate' : 'rightDate';
-    const stateDate = type === 'min' ? minDate : maxDate;
 
     const inputText = e.target.value;
     const ndate = parseDate(inputText, dateFormat(format));
+
     if (!isInputValid(inputText, ndate, disabledDate)) {
       this.setState({
         [text]: inputText,
       })
-    } else {//only set value on a valid date input
+    } else {
       this.setState({
         [text]: inputText,
-        [value]: setDate(stateDate, ndate), // 日期变化的时候，时间保持不变,
-        [dateValue]: ndate,
+        [value]: new Date(ndate),
+        [dateValue]: new Date(ndate)
       })
     }
   }
 
   // 开始时间或结束时间发生改变
   handleTimeInputChange(value, type) {
-    const { minDate, maxDate } = this.state;
     if (value) {
-      const target = type === 'min' ? minDate : maxDate;
-      if (target) {
-        target.setHours(value.getHours());
-        target.setMinutes(value.getMinutes());
-        target.setSeconds(value.getSeconds());
-      }
       if (type === 'min') {
-        if (target < maxDate) {
-          this.setState({
-            minDate: new Date(target.getTime()),
-            minDateInputText: formatDate(new Date(target.getTime())),
-            minTimeInputText: new Date(target.getTime()),
-            [`${type}TimpickerVisisble`]: false,
-          })
-        }
+        this.setState({
+          minTime: new Date(value),
+          [`${type}TimpickerVisisble`]: false,
+        })
       } else {
-        if (target > minDate) {
-          this.setState({
-            maxDate: new Date(target.getTime()),
-            maxDateInputText: formatDate(new Date(target.getTime())),
-            maxTimeInputText: new Date(target.getTime()),
-            [`${type}TimpickerVisisble`]: false
-          })
-        }
+        this.setState({
+          maxTime: new Date(value),
+          [`${type}TimpickerVisisble`]: false
+        })
       }
     }
   }
@@ -293,12 +292,12 @@ export default class DateRangePanel extends React.Component {
 
   // 点击日期
   handleRangePick({ minDate, maxDate }, isClose) {
-    const { isShowTime, onPick } = this.props;
+    const { isShowTime, onPick, format } = this.props;
     this.setState({
-      minDate: minDate ? setDate(new Date(this.state.minDate), new Date(minDate)) : null, // 日期变化，时间不变
-      maxDate: maxDate ? setDate(new Date(this.state.maxDate), new Date(maxDate)) : null,
-      minDateInputText: formatDate(minDate),
-      maxDateInputText: formatDate(maxDate),
+      minDate: minDate ? new Date(minDate) : null,
+      maxDate: maxDate ? new Date(maxDate) : null,
+      minDateInputText: formatDate(minDate, dateFormat(format)),
+      maxDateInputText: formatDate(maxDate, dateFormat(format)),
     });
     if (!isClose) return;
     if (!isShowTime) {
@@ -308,8 +307,10 @@ export default class DateRangePanel extends React.Component {
 
   // 点击确定按钮
   handleConfirm = () => {
-    const { minDate, maxDate } = this.state;
-    this.props.onPick([minDate, maxDate], false, true);
+    const { minDate, maxDate, minTime, maxTime } = this.state;
+    const pickedMinTime = setTime(new Date(minDate), minTime);
+    const pickedMaxTime = setTime(new Date(maxDate), maxTime);
+    this.props.onPick([pickedMinTime, pickedMaxTime], false, true);
   }
 
   // 点击取消按钮
@@ -318,7 +319,18 @@ export default class DateRangePanel extends React.Component {
   }
 
   render() {
-    const { shortcuts, shortcutsPlacement, disabledDate, firstDayOfWeek, isShowTime, format, yearCount } = this.props;
+    const {
+      shortcuts,
+      shortcutsPlacement,
+      disabledDate,
+      firstDayOfWeek,
+      format,
+      yearCount,
+      isShowTime,
+      isShowTimeCurrent,
+      startTimeSelectableRange,
+      endTimeSelectableRange
+    } = this.props;
     const {
       rangeState,
       minTimePickerVisible,
@@ -329,8 +341,8 @@ export default class DateRangePanel extends React.Component {
       maxDate,
       minDateInputText,
       maxDateInputText,
-      minTimeInputText,
-      maxTimeInputText
+      minTime,
+      maxTime
     } = this.state;
 
     const t = Locale.t;
@@ -368,7 +380,6 @@ export default class DateRangePanel extends React.Component {
                   <span className="fishd-date-range-picker__editors-wrap is-left">
                     <span className="fishd-date-range-picker__time-picker-wrap">
                       <Input
-                        ref="minInput"
                         placeholder={Locale.t('fishd.datepicker.startDate')}
                         className="fishd-date-range-picker__editor"
                         value={minDateInputText}
@@ -377,19 +388,22 @@ export default class DateRangePanel extends React.Component {
                     </span>
                     <span className="fishd-date-range-picker__time-picker-wrap">
                       <TimePicker
-                        placeholder={Locale.t('fishd.datepicker.startTime')}
                         className="fishd-date-range-picker__editor"
+                        placeholder={Locale.t('fishd.datepicker.startTime')}
+                        format={timeFormat(format)}
+                        getPopupContainer={(node) => node.parentNode}
                         isShowTrigger={false}
                         isAllowClear={false}
-                        format={timeFormat(format)}
                         isDisabled={this.timePickerDisable()}
-                        value={minTimeInputText}
+                        value={minTime}
                         onFocus={()=>{
                           this.setState({
                             minTimePickerVisible: !minTimePickerVisible
                           })
                         }}
                         onChange={value => this.handleTimeInputChange(value, 'min')}
+                        isShowCurrent={isShowTimeCurrent}
+                        selectableRange={startTimeSelectableRange}
                       />
                     </span>
                   </span>
@@ -406,19 +420,22 @@ export default class DateRangePanel extends React.Component {
                     </span>
                     <span className="fishd-date-range-picker__time-picker-wrap">
                       <TimePicker
-                        placeholder={Locale.t('fishd.datepicker.endTime')}
                         className="fishd-date-range-picker__editor"
+                        placeholder={Locale.t('fishd.datepicker.endTime')}
+                        format={timeFormat(format)}
+                        getPopupContainer={(node) => node.parentNode}
                         isShowTrigger={false}
                         isAllowClear={false}
-                        format={timeFormat(format)}
                         isDisabled={this.timePickerDisable()}
-                        value={maxTimeInputText}
+                        value={maxTime}
                         onFocus={()=>{
                           this.setState({
                             maxTimePickerVisible: !maxTimePickerVisible
                           })
                         }}
                         onChange={value => this.handleTimeInputChange(value, 'max')}
+                        isShowCurrent={isShowTimeCurrent}
+                        selectableRange={endTimeSelectableRange}
                       />
                     </span>
                   </span>

@@ -207,7 +207,8 @@ export default class DateRangeBasePicker extends React.Component {
   // }
 
   // 点击清空图标
-  handleClickCloseIcon = () => {
+  handleClickCloseIcon = (e) => {
+    e && e.stopPropagation();
     const { isDisabled, isAllowClear } = this.props;
     const { text } = this.state;
 
@@ -374,9 +375,7 @@ export default class DateRangeBasePicker extends React.Component {
         popupPlacement={popupAlign}
         popupVisible={pickerVisible}
         prefixCls={`${prefixCls}-popup`}
-        stretch='width'
         destroyPopupOnHide={true}
-        forceRender
       >
         {getInputPanel()}
       </Trigger>

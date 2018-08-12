@@ -294,7 +294,7 @@ export default class BasePicker extends React.Component {
 
     // 下拉面板
     const getPickerPanel = () => {
-      return this.pickerPanel(this.state)
+      return this.pickerPanel(this.state);
     };
 
     // 选择框
@@ -339,6 +339,8 @@ export default class BasePicker extends React.Component {
       )
     };
 
+    console.log(popupAlign)
+
     return (
       <Trigger
         action={isDisabled ? [] : ['click']}
@@ -350,9 +352,7 @@ export default class BasePicker extends React.Component {
         popupPlacement={popupAlign}
         popupVisible={pickerVisible}
         prefixCls={`${prefixCls}-popup`}
-        stretch='width'
         destroyPopupOnHide={true}
-        forceRender
       >
         {getInputPanel()}
       </Trigger>
