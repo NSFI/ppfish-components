@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Carousel from '../Carousel/index.tsx';
 import Modal from '../Modal/index.tsx';
+import warning from 'warning';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
 import './index.less';
 
@@ -64,23 +65,35 @@ const getAdaptiveImg = (w, h, isFullscreen) => {
  * 获取传进来的图片尺寸或计算图片的原始尺寸
  * @param  {Object}   img      [图片对象，格式为{url:'', size: '200*200'}]
  * @param  {Function} callback [获取成功后的回调函数]
- * @param  {[type]}   scope    [回调函数绑定的作用域]
+ * @param  {[type]}   ctx      [回调函数绑定的作用域]
  */
-const getImageSize = (img, callback, scope) => {
-  let newImage, naturalWidth, naturalHeight;
+const getImageSize = (img, callback, ctx) => {
+  let newImage, naturalWidth, naturalHeight, promise;
 
   if (img.size && img.size.indexOf('*') > -1) {
     let sizeList = img.size.split('*');
-    (typeof callback === "function") && callback.call(scope, sizeList[0] || 0, sizeList[1] || 0);
+
+    promise = new Promise((resolve, reject) => {
+      callback.call(ctx, sizeList[0] || 0, sizeList[1] || 0);
+      resolve();
+    });
   } else {
     newImage = document.createElement('img');
-    newImage.onload = () => {
-      naturalWidth = newImage.naturalWidth || newImage.width;
-      naturalHeight = newImage.naturalHeight || newImage.height;
-      (typeof callback === "function") && callback.call(scope, naturalWidth, naturalHeight);
-    };
+    promise = new Promise((resolve, reject) => {
+      newImage.onload = () => {
+        naturalWidth = newImage.naturalWidth || newImage.width || 0;
+        naturalHeight = newImage.naturalHeight || newImage.height || 0;
+        callback.call(ctx, naturalWidth, naturalHeight);
+        resolve();
+      };
+      newImage.onerror = () => {
+        reject('Image load error: ' + img.url);
+      };
+    });
     newImage.src = img.url;
   }
+
+  return promise;
 };
 
 class PicturePreview extends Component {
@@ -304,11 +317,10 @@ class PicturePreview extends Component {
       return [];
     }
 
-    let imgInfoList = [],
-        srcLen = source.length;
+    let imgInfoList = [], promises = [];
 
     source.forEach((item, index) => {
-      getImageSize(item, (nWidth, nHeight) => {
+      promises.push(getImageSize(item, (nWidth, nHeight) => {
         let aImg = getAdaptiveImg(nWidth, nHeight, this.state.isFullscreen);
         let imgInfo = {
           url: item.url,
@@ -321,14 +333,16 @@ class PicturePreview extends Component {
           naturalHeight: nHeight,
         };
 
-        imgInfoList.push(imgInfo);
+        imgInfoList[index] = imgInfo;
+      }));
+    });
 
-        if (index === srcLen - 1) {
-          this.setState({
-            imgs: imgInfoList
-          });
-        }
+    Promise.all(promises).then(() => {
+      this.setState({
+        imgs: imgInfoList
       });
+    }).catch((reason) => {
+      warning(!reason, reason);
     });
   };
 
