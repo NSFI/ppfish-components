@@ -183,11 +183,10 @@ export default {
       },
     },
     '数据录入': {
-      // 'cascader': {
-      //   type: 'markdown',
-      //   name: 'Cascader 级联选择',
-      //   published: true,
-      // },
+      'cascader': {
+        type: 'markdown',
+        name: 'Cascader 级联选择'
+      },
       'checkbox': {
         type: 'markdown',
         name: 'Checkbox 多选框',
@@ -247,7 +246,6 @@ export default {
       'treePane': {
         type: 'markdown',
         name: 'TreePane 树形组件 Alpha',
-        published: true,
       },
       'upload': {
         type: 'markdown',
