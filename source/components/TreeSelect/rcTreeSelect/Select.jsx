@@ -666,7 +666,7 @@ class Select extends React.Component {
           ]),
         );
 
-        checkedNodeList = keyList.map(key => keyEntities[key].node);
+        // checkedNodeList = keyList.map(key => keyEntities[key].node);
       } else {
         keyList = calcUncheckConduct(
           oriKeyList,
@@ -674,6 +674,9 @@ class Select extends React.Component {
           keyEntities,
         );
       }
+
+      // Fixed error when uncheck node in search result
+      checkedNodeList = keyList.map(key => keyEntities[key].node);
 
       // Let's follow as not `treeCheckStrictly` format
       extraInfo.allCheckedNodes = keyList.map(key => cleanEntity(keyEntities[key]));
