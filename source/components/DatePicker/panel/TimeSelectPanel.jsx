@@ -1,32 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { PopperBase } from './PopperBase';
 import { Scrollbar } from '../scrollbar';
 import scrollIntoView from 'dom-scroll-into-view';
 
-export default class TimeSelectPanel extends PopperBase {
+export default class TimeSelectPanel extends React.Component {
 
   static get propTypes() {
-    return Object.assign({}, {
+    return {
+      value: PropTypes.instanceOf(Date),         //base
+      onPicked: PropTypes.func.isRequired,       //base
       start: PropTypes.string,
       end: PropTypes.string,
       step: PropTypes.string,
       minTime: PropTypes.string,
       maxTime: PropTypes.string,
-      value: PropTypes.string,
-      onPicked: PropTypes.func,
       dateParser: PropTypes.func.isRequired,
-      getPopperRefElement: PropTypes.func,
-      popperMixinOption: PropTypes.object
-    }, PopperBase.propTypes)
+    }
+  }
+
+  static get defaultProps() {
+    return {
+      start: '09:00',
+      end: '18:00',
+      step: '00:30',
+      minTime: '',
+      maxTime: '',
+      onPicked() { },
+    }
   }
 
   constructor(props) {
     super(props);
   }
 
-  // 判断值的合法性
   isValid = (value) => {
     return TimeSelectPanel.isValid(value, this.props);
   }
@@ -38,18 +45,21 @@ export default class TimeSelectPanel extends PopperBase {
     }
   }
 
-  items() {
-    return TimeSelectPanel.items(this.props);
+  items = () => {
+    return getItems(this.props);
   }
 
   scrollToOption(className="selected") {
-    const menu = this.refs.root.querySelector('.fishd-picker-panel__content');
+    const menu = this.timeSelectRoot.querySelector('.fishd-picker-panel__content');
     const selected = menu.getElementsByClassName(className)[0];
-    selected && scrollIntoView(selected, menu);
+    selected && scrollIntoView(selected, menu,  {
+      offsetTop: 74,
+      alignWithTop: true,
+    });
   }
 
   componentDidMount() {
-    this.scrollToOption()
+    this.scrollToOption();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,7 +74,7 @@ export default class TimeSelectPanel extends PopperBase {
 
     return (
       <div
-        ref="root"
+        ref={node => this.timeSelectRoot = node}
         className="fishd-picker-panel time-select">
         <Scrollbar wrapClass="fishd-picker-panel__content" noresize={true}>
           {
@@ -88,11 +98,11 @@ export default class TimeSelectPanel extends PopperBase {
 }
 
 TimeSelectPanel.isValid = (value, { start, end, step, minTime, maxTime }) => {
-  const items = TimeSelectPanel.items({ start, end, step, minTime, maxTime });
+  const items = getItems({ start, end, step, minTime, maxTime });
   return !!items.filter(e => !e.disabled).find(e => e.value === value)
 }
 
-TimeSelectPanel.items = ({ start, end, step, minTime, maxTime }) => {
+const getItems = ({ start, end, step, minTime, maxTime }) => {
   const result = [];
 
   if (start && end && step) {
@@ -107,16 +117,6 @@ TimeSelectPanel.items = ({ start, end, step, minTime, maxTime }) => {
   }
   return result;
 }
-
-TimeSelectPanel.defaultProps = {
-  start: '09:00',
-  end: '18:00',
-  step: '00:30',
-  minTime: '',
-  maxTime: '',
-  onPicked() { },
-  popperMixinOption: {},
-};
 
 const parseTime = function (time) {
   const values = (time || '').split(':');

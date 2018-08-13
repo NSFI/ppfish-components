@@ -8,7 +8,7 @@ exports[`List renders empty list 1`] = `
     class="fishd-spin-nested-loading"
   >
     <div
-      class="fishd-spin-container"
+      class="fishd-spin-nested"
     >
       <div />
     </div>

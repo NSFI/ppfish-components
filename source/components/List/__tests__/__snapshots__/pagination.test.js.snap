@@ -8,7 +8,7 @@ exports[`List.pagination renders pagination correctly 1`] = `
     class="fishd-spin-nested-loading"
   >
     <div
-      class="fishd-spin-container"
+      class="fishd-spin-nested"
     >
       <div
         class="fishd-list-item"

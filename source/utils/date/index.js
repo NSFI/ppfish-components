@@ -102,18 +102,6 @@ export const setTime = (oldDate, newDate) => {
   return new Date(old.getTime());
 };
 
-// 只改变日期，不改变时间
-export const setDate = (oldDate, newDate) => {
-  let old = new Date(oldDate.getTime());
-  let hour = old.getHours();
-  let minute = old.getMinutes();
-  let second = old.getSeconds();
-  newDate.setHours(hour);
-  newDate.setMinutes(minute);
-  newDate.setSeconds(second);
-  return new Date(newDate.getTime());
-};
-
 export const getDayCountOfMonth = function (year, month) {
   if (month === 3 || month === 5 || month === 8 || month === 10) {
     return 30;

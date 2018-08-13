@@ -1,16 +1,27 @@
 import React from 'react';
 import BasePicker from './BasePicker.jsx';
-import DatePanel from './panel/DatePanel';
+import DatePanel from './panel/DatePanel.jsx';
 import { pick } from './libs/utils';
 import { SELECTION_MODES } from '../../utils/date';
 
 export default class DatePicker extends BasePicker {
+
   static get propTypes() {
     return Object.assign(
       {},
       BasePicker.propTypes,
       pick(DatePanel.propTypes,
-        ['value', 'shortcuts', 'selectionMode', 'disabledDate', 'showWeekNumber', 'firstDayOfWeek', 'isShowTime', 'yearCount']
+        [
+          'value',
+          'shortcuts',
+          'selectionMode',
+          'disabledDate',
+          'showWeekNumber',
+          'firstDayOfWeek',
+          'isShowTime',
+          'yearCount',
+          'shortcutsPlacement'
+        ]
       )
     );
   }
@@ -36,11 +47,11 @@ export default class DatePicker extends BasePicker {
     return super.isDateValid(value) && DatePanel.isValid(value, this.props.disabledDate);
   }
 
-  pickerPanel(state, props) {
+  pickerPanel(state) {
     const value = state.value && this.isDateValid(state.value) ? state.value : null;
     return (
       <DatePanel
-        {...props}
+        {...this.props}
         value={value}
         onPick={this.onPicked}
         onCancelPicked={this.onCancelPicked}

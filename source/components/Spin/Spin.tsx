@@ -164,8 +164,8 @@ class Spin extends React.Component<SpinProps, SpinState> {
       if (wrapperClassName) {
         animateClassName += ' ' + wrapperClassName;
       }
-      const containerClassName = classNames({
-        [`${prefixCls}-container`]: true,
+      const nestedClassName = classNames({
+        [`${prefixCls}-nested`]: true,
         [`${prefixCls}-blur`]: spinning,
       });
       return (
@@ -177,7 +177,7 @@ class Spin extends React.Component<SpinProps, SpinState> {
           transitionName="fade"
         >
           {spinning && <div key="loading">{spinElement}</div>}
-          <div className={containerClassName} key="container">
+          <div className={nestedClassName} key="nested">
             {this.props.children}
           </div>
         </Animate>
