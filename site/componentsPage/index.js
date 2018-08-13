@@ -170,10 +170,10 @@ export default {
       },
     },
     '数据录入': {
-      // 'input': {
-      //   type: 'markdown',
-      //   name: 'Input 输入框',
-      // },
+      'input': {
+        type: 'markdown',
+        name: 'Input 输入框',
+      },
       'radio': {
         type: 'markdown',
         name: 'Radio 单选框',
@@ -189,6 +189,10 @@ export default {
       'treeSelect': {
         type: 'markdown',
         name: 'TreeSelect 树选择',
+      },
+      'treePane': {
+        type: 'markdown',
+        name: 'TreePane 树形组件 Alpha',
       },
       'checkbox': {
         type: 'markdown',
@@ -318,12 +322,7 @@ export default {
     },
   },
   business: {
-    '基本组件 Basic': {
-      // 已废弃使用，推荐使用spin
-      // 'bizLoading': {
-      //   type: 'markdown',
-      //   name: 'BizLoading 加载动画',
-      // },
+    '数据录入': {
       'bizDatePicker': {
         type: 'markdown',
         name: 'BizDatePicker 自定义日期选择器',

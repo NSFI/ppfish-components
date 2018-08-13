@@ -23,5 +23,7 @@ export {
   Mention,
   Upload
 } from 'antd';
-// 引入对外暴露的Biz组件
+// alpha组件
+export TreePane from '../../source/components/TreePane';
+// ppfish发布的组件
 export * from '../../source/components';

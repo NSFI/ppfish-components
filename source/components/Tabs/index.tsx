@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import RcTabs, { TabPane, TabContent, ScrollableInkTabBar } from './src/index.js';
 import classNames from 'classnames';
 import Icon from '../Icon';
-import BizLoading from '../BizLoading';
+import Spin from '../Spin';
 import warning from 'warning';
 import './style/index.less';
 
@@ -147,9 +147,6 @@ export default class Tabs extends React.Component<TabsProps, any> {
       [`${prefixCls}-${type}`]: true,
       [`${prefixCls}-no-animation`]: !tabPaneAnimated,
     });
-    let loadingCls = classNames({
-      'hide': !loading
-    });
 
     // only card type tabs can be added and closed
     let childrenWithClose: React.ReactElement<any>[] = [];
@@ -217,7 +214,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
         >
           {childrenWithClose.length > 0 ? childrenWithClose : children}
         </RcTabs>
-        <BizLoading extraCls={loadingCls}/>
+        <Spin.Container><Spin spinning={loading}/></Spin.Container>
       </div>
     );
   }

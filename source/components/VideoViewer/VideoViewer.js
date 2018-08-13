@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import omit from 'omit.js';
 import Modal from '../Modal/index.tsx';
-import Draggable from 'react-draggable';
+import Icon from '../Icon/index.tsx';
 import Video from './Video';
 
 import './VideoViewer.less';
 
-/**
- * 视频查看器组件
- * @prop {node} children   视频播放器节点
- * @prop {bool} wrapClassName  模态框class
- * @prop {bool} maskStyle      遮罩样式
- * @prop {bool} visible       模态框是否可见
- * @prop {bool} draggable       模态框是否支持拖动
- * @prop {bool} mask     模态框关闭的遮罩是否可见
- * @prop {function} onCancel     点击遮罩层或右上角叉或取消按钮的回调
- * @prop {function} afterClose     模态框关闭的回调
- * @prop {number|string} width     模态框的宽度
- */
 class VideoViewer extends Component {
+  static defaultProps = {
+    prefixCls: 'fishd-video-viewer',
+    visible: false,
+    draggable: false,
+    mask: false,
+    closable: true,
+  };
+
   static propTypes = {
+    prefixCls: PropTypes.string,
     children: PropTypes.node,
     wrapClassName: PropTypes.string,
     maskStyle: PropTypes.object,
@@ -35,13 +33,6 @@ class VideoViewer extends Component {
     ]),
   };
 
-  static defaultProps = {
-    visible: false,
-    draggable: false,
-    mask: false,
-    closable: true,
-  };
-
   static Video = Video;
 
   constructor(props) {
@@ -53,11 +44,25 @@ class VideoViewer extends Component {
   };
 
   render() {
-    const {children, draggable, closable, wrapClassName, maskStyle} = this.props;
-    const MODAL_WRAP = 'm-video-viewer-modal-wrap';
+    const {prefixCls, children, draggable, closable, wrapClassName = '', maskStyle} = this.props;
+    const MODAL_WRAP = `${prefixCls}-modal-wrap`;
+    const otherProps = omit(this.props, [
+      'prefixCls',
+      'wrapClassName',
+      // 'visible',
+      // 'mask',
+      // 'onCancel',
+      // 'afterClose',
+      // 'width',
+      'title',
+      'footer',
+      'maskStyle',
+      'closable',
+    ]);
     const modalProps = {
-      ...this.props,
-      wrapClassName: wrapClassName ? `${wrapClassName} ${MODAL_WRAP}` : MODAL_WRAP,
+      ...otherProps,
+      wrapClassName: `${wrapClassName} ${MODAL_WRAP}`,
+      className: 'fishd-modal',
       title: null,
       footer: null,
       maskStyle: maskStyle ? maskStyle : {backgroundColor: 'rgba(0,0,0,0.2)'},
@@ -65,25 +70,19 @@ class VideoViewer extends Component {
       closable: false,
     };
     const content = (
-      <div className="m-video-viewer-content">
+      <div className={`${prefixCls}-content`}>
+        {children}
         {
           closable ?
-            <i className="iconfont icon-guanbi" onClick={this.handleOnClose}/>
+            <Icon type="close-circle-fill" className="icon-close" onClick={this.handleOnClose} />
             : null
         }
-        {children}
       </div>
     );
     return (
       <Modal {...modalProps}>
-        <div className="m-video-viewer-inner">
-          {
-            draggable ?
-              <Draggable>
-                {content}
-              </Draggable>
-              : content
-          }
+        <div className={`${prefixCls}-inner`}>
+          {content}
         </div>
       </Modal>
     );

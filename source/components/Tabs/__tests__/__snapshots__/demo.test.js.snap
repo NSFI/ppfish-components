@@ -97,10 +97,10 @@ exports[`Renders tabs demo correctly 1`] = `
       </div>
     </div>
     <div
-      class="m-loading hide"
+      class="fishd-spin-container"
     >
       <div
-        class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+        class="fishd-spin"
       >
         <span
           class="fishd-spin-dot fishd-spin-dot-spin"
@@ -110,11 +110,6 @@ exports[`Renders tabs demo correctly 1`] = `
           <i />
           <i />
         </span>
-        <div
-          class="fishd-spin-text"
-        >
-          加载中...
-        </div>
       </div>
     </div>
   </div>
@@ -363,10 +358,10 @@ exports[`Renders tabs demo correctly 1`] = `
         </div>
       </div>
       <div
-        class="m-loading hide"
+        class="fishd-spin-container"
       >
         <div
-          class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+          class="fishd-spin"
         >
           <span
             class="fishd-spin-dot fishd-spin-dot-spin"
@@ -376,11 +371,6 @@ exports[`Renders tabs demo correctly 1`] = `
             <i />
             <i />
           </span>
-          <div
-            class="fishd-spin-text"
-          >
-            加载中...
-          </div>
         </div>
       </div>
     </div>
@@ -544,10 +534,10 @@ exports[`Renders tabs demo correctly 1`] = `
         </div>
       </div>
       <div
-        class="m-loading hide"
+        class="fishd-spin-container"
       >
         <div
-          class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+          class="fishd-spin"
         >
           <span
             class="fishd-spin-dot fishd-spin-dot-spin"
@@ -557,11 +547,6 @@ exports[`Renders tabs demo correctly 1`] = `
             <i />
             <i />
           </span>
-          <div
-            class="fishd-spin-text"
-          >
-            加载中...
-          </div>
         </div>
       </div>
     </div>
@@ -746,10 +731,10 @@ exports[`Renders tabs demo correctly 1`] = `
         </div>
       </div>
       <div
-        class="m-loading hide"
+        class="fishd-spin-container"
       >
         <div
-          class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+          class="fishd-spin"
         >
           <span
             class="fishd-spin-dot fishd-spin-dot-spin"
@@ -759,11 +744,6 @@ exports[`Renders tabs demo correctly 1`] = `
             <i />
             <i />
           </span>
-          <div
-            class="fishd-spin-text"
-          >
-            加载中...
-          </div>
         </div>
       </div>
     </div>
@@ -859,10 +839,10 @@ exports[`Renders tabs demo correctly 1`] = `
       </div>
     </div>
     <div
-      class="m-loading hide"
+      class="fishd-spin-container"
     >
       <div
-        class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+        class="fishd-spin"
       >
         <span
           class="fishd-spin-dot fishd-spin-dot-spin"
@@ -872,11 +852,6 @@ exports[`Renders tabs demo correctly 1`] = `
           <i />
           <i />
         </span>
-        <div
-          class="fishd-spin-text"
-        >
-          加载中...
-        </div>
       </div>
     </div>
   </div>
@@ -995,10 +970,10 @@ exports[`Renders tabs demo correctly 1`] = `
       </div>
     </div>
     <div
-      class="m-loading hide"
+      class="fishd-spin-container"
     >
       <div
-        class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+        class="fishd-spin"
       >
         <span
           class="fishd-spin-dot fishd-spin-dot-spin"
@@ -1008,11 +983,6 @@ exports[`Renders tabs demo correctly 1`] = `
           <i />
           <i />
         </span>
-        <div
-          class="fishd-spin-text"
-        >
-          加载中...
-        </div>
       </div>
     </div>
   </div>
@@ -1117,10 +1087,10 @@ exports[`Renders tabs demo correctly 1`] = `
         </div>
       </div>
       <div
-        class="m-loading hide"
+        class="fishd-spin-container"
       >
         <div
-          class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+          class="fishd-spin"
         >
           <span
             class="fishd-spin-dot fishd-spin-dot-spin"
@@ -1130,11 +1100,6 @@ exports[`Renders tabs demo correctly 1`] = `
             <i />
             <i />
           </span>
-          <div
-            class="fishd-spin-text"
-          >
-            加载中...
-          </div>
         </div>
       </div>
     </div>
@@ -1230,10 +1195,10 @@ exports[`Renders tabs demo correctly 1`] = `
       </div>
     </div>
     <div
-      class="m-loading hide"
+      class="fishd-spin-container"
     >
       <div
-        class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+        class="fishd-spin"
       >
         <span
           class="fishd-spin-dot fishd-spin-dot-spin"
@@ -1243,11 +1208,6 @@ exports[`Renders tabs demo correctly 1`] = `
           <i />
           <i />
         </span>
-        <div
-          class="fishd-spin-text"
-        >
-          加载中...
-        </div>
       </div>
     </div>
   </div>
@@ -1342,10 +1302,10 @@ exports[`Renders tabs demo correctly 1`] = `
       </div>
     </div>
     <div
-      class="m-loading hide"
+      class="fishd-spin-container"
     >
       <div
-        class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+        class="fishd-spin"
       >
         <span
           class="fishd-spin-dot fishd-spin-dot-spin"
@@ -1355,11 +1315,6 @@ exports[`Renders tabs demo correctly 1`] = `
           <i />
           <i />
         </span>
-        <div
-          class="fishd-spin-text"
-        >
-          加载中...
-        </div>
       </div>
     </div>
   </div>

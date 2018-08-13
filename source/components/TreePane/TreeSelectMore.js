@@ -14,7 +14,7 @@ class TreeSelectMore extends Component {
     if ( loading ) {
       return (
         <div className="m-tree-select-more m-tree-select-more-empty">
-          <Icon type="loading" spin={1} />
+          <Icon type="load-line" spin={1} />
         </div>
       );
     }
@@ -27,7 +27,7 @@ class TreeSelectMore extends Component {
       <div
         className="m-tree-select-more"
         onClick={onClick}
-      ><i className="iconfont icon-youjiantou" /></div>
+      ><Icon type="right" className="arrow-right" /></div>
     );
   }
 }
