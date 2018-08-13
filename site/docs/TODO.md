@@ -30,5 +30,5 @@
 - 组件库官网发布脚本更新支持多文档打包；
 
 ## switch导致的组件demo暂时去除，待switch完工后重新补充
-- table 自定义显示隐藏demo
-- spin demo
+- ~~table 自定义显示隐藏demo~~
+- ~~spin demo~~

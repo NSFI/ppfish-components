@@ -98,6 +98,37 @@ render(){
 }
 </style>
 
+## 卡片加载中
+
+:::demo 可以直接把内容内嵌到 `Spin` 中，将现有容器变为加载状态。
+
+```js
+  state = { loading: false }
+
+  toggle = (value) => {
+    this.setState({ loading: value });
+  }
+
+  render() {
+    return (
+      <div>
+        <Spin spinning={this.state.loading}>
+          <Alert
+            message="Alert message title"
+            description="Further details about the context of this alert."
+            type="info"
+          />
+        </Spin>
+        <div style={{ marginTop: 16 }}>
+          Loading state：<Switch checked={this.state.loading} onChange={this.toggle} />
+        </div>
+      </div>
+    );
+  }
+```
+:::
+
+
 ## 自定义指示符
 
 :::demo 使用自定义指示符。

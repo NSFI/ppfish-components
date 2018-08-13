@@ -1861,6 +1861,30 @@ class Demo extends React.Component {
       <div>
         <div className="components-table-demo-control-bar">
           <Form layout="inline">
+            <FormItem label="Bordered">
+              <Switch checked={state.bordered} onChange={this.handleToggle('bordered')} />
+            </FormItem>
+            <FormItem label="loading">
+              <Switch checked={state.loading} onChange={this.handleToggle('loading')} />
+            </FormItem>
+            <FormItem label="Title">
+              <Switch checked={!!state.title} onChange={this.handleTitleChange} />
+            </FormItem>
+            <FormItem label="Column Header">
+              <Switch checked={!!state.showHeader} onChange={this.handleHeaderChange} />
+            </FormItem>
+            <FormItem label="Footer">
+              <Switch checked={!!state.footer} onChange={this.handleFooterChange} />
+            </FormItem>
+            <FormItem label="Expandable">
+              <Switch checked={!!state.expandedRowRender} onChange={this.handleExpandChange} />
+            </FormItem>
+            <FormItem label="Checkbox">
+              <Switch checked={!!state.rowSelection} onChange={this.handleRowSelectionChange} />
+            </FormItem>
+            <FormItem label="Fixed Header">
+              <Switch checked={!!state.scroll} onChange={this.handleScollChange} />
+            </FormItem>
             <FormItem label="Size">
               <Radio.Group size="default" value={state.size} onChange={this.handleSizeChange}>
                 <Radio.Button value="default">Default</Radio.Button>
