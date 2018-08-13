@@ -16,6 +16,8 @@ enquireScreen((b) => {
   isMobile = b;
 }, 'only screen and (max-width: 992px)');
 
+const isShowAllComponents = !!localStorage.getItem('isShowAllComponents');
+
 export default class Components extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -24,7 +26,7 @@ export default class Components extends React.Component {
 
   constructor(props) {
     super(props);
-    this.plainComponentList = getPlainComponentList();
+    this.plainComponentList = getPlainComponentList().filter(component => isShowAllComponents || component.published);
     this.state = {
       page: '',
       isMobile: isMobile,
@@ -124,7 +126,7 @@ export default class Components extends React.Component {
                 return (
                   <SubMenu key={this.getLocale(`misc.${key}`)} title={this.getLocale(`misc.${key}`)}>
                     {
-                      Object.keys(components[key]).map(page => {
+                      Object.keys(components[key]).filter(page => isShowAllComponents || components[key][page].published).map(page => {
                         return (
                           <Menu.Item key={page}>
                             <a href={`#/components/${page}`}>{components[key][page].name}</a>
@@ -143,7 +145,7 @@ export default class Components extends React.Component {
                         return (
                           <Menu.ItemGroup key={group} title={group} disabled={false}>
                             {
-                              Object.keys(components[key][group]).map(page => {
+                              Object.keys(components[key][group]).filter(page => isShowAllComponents || components[key][group][page].published).map(page => {
                                 return (
                                   <Menu.Item key={page}>
                                     <a href={`#/components/${page}`}>{components[key][group][page].name}</a>

@@ -12,6 +12,7 @@ export const getPlainComponentList = () => {
           url: `#/components/${key}`,
           key,
           value: obj[key],
+          published: obj[key].published,
         });
       });
     } else if (depth === 2) {
@@ -22,6 +23,7 @@ export const getPlainComponentList = () => {
             url: `#/components/${key}`,
             key,
             value: obj[group][key],
+            published: obj[group][key].published
           });
         })
       ));
