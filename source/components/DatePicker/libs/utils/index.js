@@ -106,6 +106,3 @@ export function range(start, stop, step) {
 
   return range;
 }
-
-export * from './popper-mixins';
-export {IDGenerator} from './IDGenertor';

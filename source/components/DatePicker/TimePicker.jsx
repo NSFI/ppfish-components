@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BasePicker from './BasePicker';
-import TimePanel from './panel/TimePanel';
+import BasePicker from './BasePicker.jsx';
+import TimePanel from './panel/TimePanel.jsx';
 import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import debounce from 'lodash.debounce';
 
@@ -49,15 +49,14 @@ export default class TimePicker extends BasePicker {
     this.refs.inputRoot.input.focus();
   }
 
-  pickerPanel(state, props) {
+  pickerPanel(state) {
     const value = state.value && this.isDateValid(state.value) ? state.value : null;
     return (
       <TimePanel
-        {...props}
-        isShowCurrent={props.isShowCurrent}
-        value={value}
-        selectableRange={converSelectRange(props)}
+        {...this.props}
+        selectableRange={converSelectRange(this.props)}
         onSelectRangeChange={this._onSelectionChange}
+        value={value}
         onPicked={this.onPicked}
         onCancelPicked={this.onCancelPicked}
       />

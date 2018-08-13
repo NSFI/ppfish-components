@@ -6,26 +6,26 @@
     position: relative;
     display: inline-block;
 
-    .fishd-input {
-      min-width: 200px;
+    &--time,&--timeselect {
+      width: 144px;
     }
 
-    &--time,timeselect {
-      min-width: 134px;
+    &--date,&--week {
+      width: 300px;
     }
 
-    &--datetime,&--date,&--week {
-      min-width: 300px;
+    &--datetime {
+      width: 310px;
     }
 
     &--daterange,&--datetimerange {
-      min-width: 400px;
+      width: 400px;
       border: 1px solid @border-color-base;
       display: flex;
       // 清除2个Input的样式
       .fishd-input {
         border: 0;
-        min-width: 193px;
+        min-width: 192px;
         &:hover,&:focus {
           box-shadow: none;
           border: none;
