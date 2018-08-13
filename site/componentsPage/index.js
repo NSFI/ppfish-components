@@ -183,6 +183,26 @@ export default {
       },
     },
     '数据录入': {
+      // 'cascader': {
+      //   type: 'markdown',
+      //   name: 'Cascader 级联选择',
+      //   published: true,
+      // },
+      'checkbox': {
+        type: 'markdown',
+        name: 'Checkbox 多选框',
+        published: true,
+      },
+      'datePicker': {
+        type: 'markdown',
+        name: 'DatePicker 日期选择框',
+        style: require('./datePicker/index.less'),
+        published: true,
+      },
+      'form': {
+        type: 'markdown',
+        name: 'Form 表单',
+      },
       'input': {
         type: 'markdown',
         name: 'Input 输入框',
@@ -202,6 +222,23 @@ export default {
         },
         published: true,
       },
+      'slider': {
+        type: 'markdown',
+        name: 'Slider 滑动输入条',
+      },
+      'switch': {
+        type: 'markdown',
+        name: 'Switch 开关',
+      },
+      'timePicker': {
+        type: 'markdown',
+        name: 'TimePicker 时间选择器',
+        published: true,
+      },
+      'transfer': {
+        type: 'markdown',
+        name: 'Transfer 穿梭框',
+      },
       'treeSelect': {
         type: 'markdown',
         name: 'TreeSelect 树选择',
@@ -212,45 +249,9 @@ export default {
         name: 'TreePane 树形组件 Alpha',
         published: true,
       },
-      'checkbox': {
-        type: 'markdown',
-        name: 'Checkbox 多选框',
-        published: true,
-      },
-      'switch': {
-        type: 'markdown',
-        name: 'Switch 开关',
-      },
-      'cascader': {
-        type: 'markdown',
-        name: 'Cascader 级联选择',
-      },
-      'timePicker': {
-        type: 'markdown',
-        name: 'TimePicker 时间选择器',
-        published: true,
-      },
-      'datePicker': {
-        type: 'markdown',
-        name: 'DatePicker 日期选择框',
-        style: require('./datePicker/index.less'),
-        published: true,
-      },
       'upload': {
         type: 'markdown',
         name: 'Upload 上传',
-      },
-      'slider': {
-        type: 'markdown',
-        name: 'Slider 滑动输入条',
-      },
-      'transfer': {
-        type: 'markdown',
-        name: 'Transfer 穿梭框',
-      },
-      'form': {
-        type: 'markdown',
-        name: 'Form 表单',
       },
     },
     '数据展示': {

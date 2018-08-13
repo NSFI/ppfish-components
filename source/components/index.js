@@ -1,6 +1,8 @@
 import AnimationImageLoader from './AnimationImageLoader';
 import AudioPlayer from './AudioPlayer';
+import Avatar from './Avatar/index.tsx';
 import BackTop from './BackTop/index.tsx';
+import Badge from './Badge/index.tsx';
 import BizDatePicker from './BizDatePicker';
 import Breadcrumb from './Breadcrumb/index.tsx';
 import Button from './Button/index.tsx';
@@ -34,6 +36,7 @@ import Slider from './Slider/index.tsx';
 import Spin from './Spin/index.tsx';
 import Icon from './Icon/index.tsx';
 import StickVerticalMenu from './StickVerticalMenu';
+import Switch from './Switch/index.tsx';
 import Table from './Table/index.tsx';
 import Tabs from './Tabs/index.tsx';
 import Tag from './Tag/index.tsx';
@@ -55,7 +58,9 @@ import * as upload from '../utils/upload';
 // 通用组件从这里暴露
 export {AnimationImageLoader};
 export {AudioPlayer};
+export {Avatar}
 export {BackTop};
+export {Badge};
 export {BizDatePicker};
 export {Breadcrumb};
 export {Button};
@@ -87,6 +92,7 @@ export {RichEditor};
 export {Select};
 export {SearchInput};
 export {StickVerticalMenu};
+export {Switch};
 export {Table};
 export {Slider};
 export {Spin};

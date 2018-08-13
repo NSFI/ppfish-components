@@ -177,6 +177,50 @@
 @iconfont-prefix        : fishdicon;
 @icon-url               : "//at.alicdn.com/t/font_697017_qk7q81ud6o";
 
+// Media queries breakpoints
+// Extra small screen / phone
+@screen-xs              : 480px;
+@screen-xs-min          : @screen-xs;
+
+// Small screen / tablet
+@screen-sm              : 576px;
+@screen-sm-min          : @screen-sm;
+
+// Medium screen / desktop
+@screen-md              : 768px;
+@screen-md-min          : @screen-md;
+
+// Large screen / wide desktop
+@screen-lg              : 992px;
+@screen-lg-min          : @screen-lg;
+
+// Extra large screen / full hd
+@screen-xl              : 1200px;
+@screen-xl-min          : @screen-xl;
+
+// Extra extra large screen / large descktop
+@screen-xxl              : 1600px;
+@screen-xxl-min          : @screen-xxl;
+
+// provide a maximum
+@screen-xs-max          : (@screen-sm-min - 1px);
+@screen-sm-max          : (@screen-md-min - 1px);
+@screen-md-max          : (@screen-lg-min - 1px);
+@screen-lg-max          : (@screen-xl-min - 1px);
+@screen-xl-max          : (@screen-xxl-min - 1px);
+
+// z-index list
+@zindex-affix           : 10;
+@zindex-back-top        : 10;
+@zindex-modal-mask      : 1000;
+@zindex-modal           : 1000;
+@zindex-notification    : 1010;
+@zindex-message         : 1010;
+@zindex-popover         : 1030;
+@zindex-picker          : 1050;
+@zindex-dropdown        : 1050;
+@zindex-tooltip         : 1060;
+
 // Animation
 @ease-out            : cubic-bezier(0.215, 0.61, 0.355, 1);
 @ease-in             : cubic-bezier(0.55, 0.055, 0.675, 0.19);
@@ -190,6 +234,47 @@
 @ease-out-quint      : cubic-bezier(0.23, 1, 0.32, 1);
 @ease-in-quint       : cubic-bezier(0.755, 0.05, 0.855, 0.06);
 @ease-in-out-quint   : cubic-bezier(0.86, 0, 0.07, 1);
+
+// Animation
+@animation-duration-slow: 0.3s; // Modal
+@animation-duration-base: 0.2s;
+@animation-duration-fast: 0.1s; // Tooltip
+
+// Avatar
+// ---
+@avatar-size-base: 32px;
+@avatar-size-lg: 40px;
+@avatar-size-sm: 24px;
+@avatar-font-size-base: 18px;
+@avatar-font-size-lg: 24px;
+@avatar-font-size-sm: 14px;
+@avatar-bg: #ccc;
+@avatar-color: #fff;
+@avatar-border-radius: @border-radius-base;
+
+// BackTop
+// ---
+@back-top-color: #fff;
+@back-top-bg: @text-color-secondary;
+@back-top-hover-bg: @text-color;
+
+// Badge
+// ---
+@badge-height: 20px;
+@badge-dot-size: 6px;
+@badge-font-size: @font-size-sm;
+@badge-font-weight: normal;
+@badge-status-size: 6px;
+
+// Breadcrumb
+@breadcrumb-base-color:        @text-color-secondary;
+@breadcrumb-last-item-color:   @text-color;
+@breadcrumb-font-size:         @font-size-base;
+@breadcrumb-icon-font-size:    @font-size-sm;
+@breadcrumb-link-color:        @text-color-secondary;
+@breadcrumb-link-color-hover:  @primary-5;
+@breadcrumb-separator-color:   @text-color-secondary;
+@breadcrumb-separator-margin:  0 @padding-xs;
 
 // Buttons
 @btn-font-weight        : 400;
@@ -227,94 +312,38 @@
 
 @btn-group-border       : @primary-7;
 
+// Card
+@card-head-color: @heading-color;
+@card-head-background: transparent;
+@card-head-padding: 16px;
+@card-inner-head-padding: 12px;
+@card-padding-base: 24px;
+@card-padding-wider: 32px;
+@card-actions-background: @background-color-light;
+@card-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+
+// Carousel
+@carousel-dot-width: 16px;
+@carousel-dot-height: 3px;
+@carousel-dot-active-width: 24px;
+
 // Checkbox
 @checkbox-size          : 14px;
 @checkbox-color         : @primary-color;
 @checkbox-check-color   : #fff;
 
-// Radio
-@radio-size             : 16px;
-@radio-dot-color        : @primary-color;
-
-// Radio buttons
-@radio-button-bg           : @btn-default-bg;
-@radio-button-color        : @btn-default-color;
-@radio-button-hover-color  : @primary-5;
-@radio-button-active-color : @primary-7;
-
-// Media queries breakpoints
-// Extra small screen / phone
-@screen-xs              : 480px;
-@screen-xs-min          : @screen-xs;
-
-// Small screen / tablet
-@screen-sm              : 576px;
-@screen-sm-min          : @screen-sm;
-
-// Medium screen / desktop
-@screen-md              : 768px;
-@screen-md-min          : @screen-md;
-
-// Large screen / wide desktop
-@screen-lg              : 992px;
-@screen-lg-min          : @screen-lg;
-
-// Extra large screen / full hd
-@screen-xl              : 1200px;
-@screen-xl-min          : @screen-xl;
-
-// Extra extra large screen / large descktop
-@screen-xxl              : 1600px;
-@screen-xxl-min          : @screen-xxl;
-
-// provide a maximum
-@screen-xs-max          : (@screen-sm-min - 1px);
-@screen-sm-max          : (@screen-md-min - 1px);
-@screen-md-max          : (@screen-lg-min - 1px);
-@screen-lg-max          : (@screen-xl-min - 1px);
-@screen-xl-max          : (@screen-xxl-min - 1px);
-
-// Grid system
-@grid-columns           : 24;
-@grid-gutter-width      : 0;
-
-// Layout
-@layout-body-background         : #f0f2f5;
-@layout-header-background       : #001529;
-@layout-footer-background       : @layout-body-background;
-@layout-header-height           : 64px;
-@layout-header-padding          : 0 50px;
-@layout-footer-padding          : 24px 50px;
-@layout-sider-background        : @layout-header-background;
-@layout-trigger-height          : 48px;
-@layout-trigger-background      : #002140;
-@layout-trigger-color           : #fff;
-@layout-zero-trigger-width      : 36px;
-@layout-zero-trigger-height     : 42px;
-// Layout light theme
-@layout-sider-background-light  : #fff;
-@layout-trigger-background-light: #fff;
-@layout-trigger-color-light     : @text-color;
-
-// z-index list
-@zindex-affix           : 10;
-@zindex-back-top        : 10;
-@zindex-modal-mask      : 1000;
-@zindex-modal           : 1000;
-@zindex-notification    : 1010;
-@zindex-message         : 1010;
-@zindex-popover         : 1030;
-@zindex-picker          : 1050;
-@zindex-dropdown        : 1050;
-@zindex-tooltip         : 1060;
-
-// Animation
-@animation-duration-slow: 0.3s; // Modal
-@animation-duration-base: 0.2s;
-@animation-duration-fast: 0.1s; // Tooltip
+// DatePicker
+@datepicker-border-color: #e1e3e6;
+@datepicker-active-color: @primary-color;
+@datepicker-active-background-color: @primary-color;
+@datepicker-disable-color: #e1e3e6;
+@datepicker-disable-background-color: #e1e3e6;
+@datepicker-hover-background-color: #f7f8fa;
+@datepicker-icon-color: @text-3;
+@datepicker-inrange-color: #eaf2ff;
+@datepicker-cell-hover-color: @text-c;
 
 // Form
-// ---
 @label-required-color        : @highlight-color;
 @label-color                 : @heading-color;
 @form-item-margin-bottom     : 24px;
@@ -322,8 +351,11 @@
 @form-vertical-label-padding : 0 0 8px;
 @form-vertical-label-margin  : 0;
 
+// Grid system
+@grid-columns           : 24;
+@grid-gutter-width      : 0;
+
 // Input
-// ---
 @input-height-base               : 32px;
 @input-height-lg                 : 40px;
 @input-height-sm                 : 24px;
@@ -343,50 +375,46 @@
 @input-disabled-bg               : @disabled-bg;
 @input-outline-offset            : 0 0;
 
-// Select
-@select-border-color              : #e1e3e6;
-@select-height-base               : 32px;
-@select-height-lg                 : 40px;
-@select-height-sm                 : 24px;
-@select-hover-bg                  : @item-hover-bg;
+// Layout
+@layout-body-background         : #f0f2f5;
+@layout-header-background       : #001529;
+@layout-footer-background       : @layout-body-background;
+@layout-header-height           : 64px;
+@layout-header-padding          : 0 50px;
+@layout-footer-padding          : 24px 50px;
+@layout-sider-background        : @layout-header-background;
+@layout-trigger-height          : 48px;
+@layout-trigger-background      : #002140;
+@layout-trigger-color           : #fff;
+@layout-zero-trigger-width      : 36px;
+@layout-zero-trigger-height     : 42px;
+// Layout light theme
+@layout-sider-background-light  : #fff;
+@layout-trigger-background-light: #fff;
+@layout-trigger-color-light     : @text-color;
 
-// Tooltip
-// ---
-//* Tooltip max width
-@tooltip-max-width: 250px;
-//** Tooltip text color
-@tooltip-color: #fff;
-//** Tooltip background color
-@tooltip-bg: @text-3;
-//** Tooltip arrow width
-@tooltip-arrow-width: 5px;
-//** Tooltip distance with trigger
-@tooltip-distance: @tooltip-arrow-width - 1px + 4px;
-//** Tooltip arrow color
-@tooltip-arrow-color: @tooltip-bg;
+// Menu
+@menu-inline-toplevel-item-height: 40px;
+@menu-item-height: 40px;
+@menu-collapsed-width: 80px;
+@menu-bg: @component-background;
+@menu-item-color: @text-color;
+@menu-highlight-color: @primary-color;
+@menu-item-active-bg: @item-active-bg;
+@menu-item-group-title-color: @text-color-secondary;
+//dark theme
+@menu-dark-color: @text-color-secondary-dark;
+@menu-dark-bg: @layout-header-background;
+@menu-dark-arrow-color: #fff;
+@menu-dark-submenu-bg: #000c17;
+@menu-dark-highlight-color: #fff;
+@menu-dark-item-active-bg: @primary-color;
+@menu-dark-item-selected-bg:@primary-color;
 
-// Popover
-// ---
-//** Popover body background color
-@popover-bg: #fff;
-//** Popover text color
-@popover-color: @text-color;
-//** Popover maximum width
-@popover-min-width: 177px;
-//** Popover arrow width
-@popover-arrow-width: 6px;
-//** Popover arrow color
-@popover-arrow-color: @popover-bg;
-//** Popover outer arrow width
-//** Popover outer arrow color
-@popover-arrow-outer-color: @popover-bg;
-//** Popover distance with trigger
-@popover-distance: @popover-arrow-width + 4px;
+// Message
+@message-notice-content-padding:      10px 16px;
 
-//== Modals
-//
-//##
-
+// Modals
 //** Padding applied to the modal body
 @modal-inner-padding:         24px;
 //** Padding applied to the modal title
@@ -414,32 +442,76 @@
 @modal-md:                    600px;
 @modal-sm:                    300px;
 
-// Menu
-// ---
-@menu-inline-toplevel-item-height: 40px;
-@menu-item-height: 40px;
-@menu-collapsed-width: 80px;
-@menu-bg: @component-background;
-@menu-item-color: @text-color;
-@menu-highlight-color: @primary-color;
-@menu-item-active-bg: @item-active-bg;
-@menu-item-group-title-color: @text-color-secondary;
-// dark theme
-@menu-dark-color: @text-color-secondary-dark;
-@menu-dark-bg: @layout-header-background;
-@menu-dark-arrow-color: #fff;
-@menu-dark-submenu-bg: #000c17;
-@menu-dark-highlight-color: #fff;
-@menu-dark-item-active-bg: @primary-color;
-@menu-dark-item-selected-bg:@primary-color;
+// Pagination
+@pagination-item-size: 32px;
+@pagination-item-size-sm: 24px;
+@pagination-font-family: Arial;
+@pagination-font-weight-active: 500;
+
+// Popover
+//** Popover body background color
+@popover-bg: #fff;
+//** Popover text color
+@popover-color: @text-color;
+//** Popover maximum width
+@popover-min-width: 177px;
+//** Popover arrow width
+@popover-arrow-width: 6px;
+//** Popover arrow color
+@popover-arrow-color: @popover-bg;
+//** Popover outer arrow width
+//** Popover outer arrow color
+@popover-arrow-outer-color: @popover-bg;
+//** Popover distance with trigger
+@popover-distance: @popover-arrow-width + 4px;
+
+// Radio
+@radio-size             : 16px;
+@radio-dot-color        : @primary-color;
+
+// Radio buttons
+@radio-button-bg           : @btn-default-bg;
+@radio-button-color        : @btn-default-color;
+@radio-button-hover-color  : @primary-5;
+@radio-button-active-color : @primary-7;
+
+// Select
+@select-border-color              : #e1e3e6;
+@select-height-base               : 32px;
+@select-height-lg                 : 40px;
+@select-height-sm                 : 24px;
+@select-hover-bg                  : @item-hover-bg;
+
+// Slider
+@slider-margin:                       14px 6px 10px;
+@slider-border-radius-base:           4px;
+@slider-rail-background-color:        @background-color-base;
+@slider-rail-background-color-hover:  #e1e1e1;
+@slider-track-background-color:       @primary-3;
+@slider-track-background-color-hover: @primary-4;
+@slider-handle-color:                 @primary-3;
+@slider-handle-color-hover:           @primary-4;
+@slider-handle-color-focus:           tint(@primary-color, 20%);
+@slider-handle-color-focus-shadow:    tint(@primary-color, 50%);
+@slider-handle-color-tooltip-open:    @primary-color;
+@slider-dot-border-color:             @border-color-split;
+@slider-dot-border-color-active:      tint(@primary-color, 50%);
+@slider-disabled-color:               @disabled-color;
+@slider-disabled-background-color:    @component-background;
 
 // Spin
-// ---
 @spin-dot-size-sm: 14px;
 @spin-dot-size: 20px;
 @spin-dot-size-lg: 32px;
 
-// TABLE
+// Switch
+@switch-height: 22px;
+@switch-sm-height: 16px;
+@switch-sm-checked-margin-left: -(@switch-sm-height - 3px);
+@switch-disabled-opacity: 0.4;
+@switch-color: @primary-color;
+
+// Table
 @table-row-hover-bg: @item-hover-bg;
 @table-selected-row-bg: @primary-1;
 @table-header-bg: #f7f7fa;
@@ -447,11 +519,6 @@
 @table-expanded-row-bg: #fbfbfb;
 @table-padding-vertical: 16px;
 @table-padding-horizontal: 16px;
-
-// Tag
-@tag-default-bg: @background-color-base;
-@tag-default-color: @text-color;
-@tag-font-size: @font-size-sm;
 
 // Tabs
 @tabs-card-head-background: @background-color-light;
@@ -471,74 +538,21 @@
 @tabs-hover-color: @primary-5;
 @tabs-active-color: @primary-7;
 
-// Card
-// ---
-@card-head-color: @heading-color;
-@card-head-background: transparent;
-@card-head-padding: 16px;
-@card-inner-head-padding: 12px;
-@card-padding-base: 24px;
-@card-padding-wider: 32px;
-@card-actions-background: @background-color-light;
-@card-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+// Tag
+@tag-default-bg: @background-color-base;
+@tag-default-color: @text-color;
+@tag-font-size: @font-size-sm;
 
-// Pagination
-// ---
-@pagination-item-size: 32px;
-@pagination-item-size-sm: 24px;
-@pagination-font-family: Arial;
-@pagination-font-weight-active: 500;
-
-// Slider
-// ---
-@slider-margin:                       14px 6px 10px;
-@slider-border-radius-base:           4px;
-@slider-rail-background-color:        @background-color-base;
-@slider-rail-background-color-hover:  #e1e1e1;
-@slider-track-background-color:       @primary-3;
-@slider-track-background-color-hover: @primary-4;
-@slider-handle-color:                 @primary-3;
-@slider-handle-color-hover:           @primary-4;
-@slider-handle-color-focus:           tint(@primary-color, 20%);
-@slider-handle-color-focus-shadow:    tint(@primary-color, 50%);
-@slider-handle-color-tooltip-open:    @primary-color;
-@slider-dot-border-color:             @border-color-split;
-@slider-dot-border-color-active:      tint(@primary-color, 50%);
-@slider-disabled-color:               @disabled-color;
-@slider-disabled-background-color:    @component-background;
-
-// DatePicker
-@datepicker-border-color: #e1e3e6;
-@datepicker-active-color: @primary-color;
-@datepicker-active-background-color: @primary-color;
-@datepicker-disable-color: #e1e3e6;
-@datepicker-disable-background-color: #e1e3e6;
-@datepicker-hover-background-color: #f7f8fa;
-@datepicker-icon-color: @text-3;
-@datepicker-inrange-color: #eaf2ff;
-@datepicker-cell-hover-color: @text-c;
-
-// BackTop
-// ---
-@back-top-color: #fff;
-@back-top-bg: @text-color-secondary;
-@back-top-hover-bg: @text-color;
-
-// Carousel
-@carousel-dot-width: 16px;
-@carousel-dot-height: 3px;
-@carousel-dot-active-width: 24px;
-
-// Breadcrumb
-@breadcrumb-base-color:        @text-color-secondary;
-@breadcrumb-last-item-color:   @text-color;
-@breadcrumb-font-size:         @font-size-base;
-@breadcrumb-icon-font-size:    @font-size-sm;
-@breadcrumb-link-color:        @text-color-secondary;
-@breadcrumb-link-color-hover:  @primary-5;
-@breadcrumb-separator-color:   @text-color-secondary;
-@breadcrumb-separator-margin:  0 @padding-xs;
-
-// Message
-// ---
-@message-notice-content-padding:      10px 16px;
+// Tooltip
+//* Tooltip max width
+@tooltip-max-width: 250px;
+//** Tooltip text color
+@tooltip-color: #fff;
+//** Tooltip background color
+@tooltip-bg: @text-3;
+//** Tooltip arrow width
+@tooltip-arrow-width: 5px;
+//** Tooltip distance with trigger
+@tooltip-distance: @tooltip-arrow-width - 1px + 4px;
+//** Tooltip arrow color
+@tooltip-arrow-color: @tooltip-bg;

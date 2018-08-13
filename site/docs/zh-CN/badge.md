@@ -28,7 +28,7 @@ render(){
 :::
 
 <style>
-.ant-badge:not(.ant-badge-status) {
+.fishd-badge:not(.fishd-badge-status) {
   margin-right: 20px;
 }
 .head-example {
@@ -108,7 +108,7 @@ render(){
 :::
 
 <style>
-.anticon-notification {
+.fishdicon-notification {
   width: 16px;
   height: 16px;
   line-height: 16px;
@@ -236,7 +236,7 @@ render(){
 :::
 
 <style>
-.ant-badge:not(.ant-badge-status) {
+.fishd-badge:not(.fishd-badge-status) {
   margin-right: 20px;
 }
 .head-example {
@@ -252,13 +252,13 @@ render(){
 
 ## API
 
-```js
+```jsx
 <Badge count={5}>
   <a href="#" className="head-example" />
 </Badge>
 ```
 
-```js
+```jsx
 <Badge count={5} />
 ```
 

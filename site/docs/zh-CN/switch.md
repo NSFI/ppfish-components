@@ -115,4 +115,6 @@
 | blur() | 移除焦点 |
 | focus() | 获取焦点 |
 
-<style> .ant-switch { margin-bottom: 8px; } </style>
+<style> 
+.fishd-switch { margin-bottom: 8px; } 
+</style>
