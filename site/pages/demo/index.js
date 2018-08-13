@@ -36,5 +36,9 @@ export default Loadable({
       return null;
     }
   },
-  loading: () => <Spin.Container style={{height: 540}}><Spin tip="组件正在加载..." /></Spin.Container>
+  loading: () => (
+    <Spin.Container style={{height: 540}}>
+      <Spin tip="组件正在加载..."/>
+    </Spin.Container>
+  )
 });

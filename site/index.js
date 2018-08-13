@@ -9,31 +9,25 @@ import Spec from './pages/spec';
 import Demo from './pages/demo';
 import './styles/index.less';
 
-render(<AppContainer>
-  <Router history={hashHistory}>
-    <Route path="/home" component={Home}/>
-    <Route path="/spec" component={Spec}/>
-    <Route path="/components" component={Components}>
-      <IndexRoute component={Demo}/>
-      <Route path=":demo" component={Demo}/>
-    </Route>
-    <Redirect from="*" to="/home"/>
-  </Router>
-</AppContainer>, document.getElementById('app'));
+const App = (Components) => (
+  <AppContainer>
+    <Router history={hashHistory}>
+      <Route path="/home" component={Home}/>
+      <Route path="/spec" component={Spec}/>
+      <Route path="/components" component={Components}>
+        <IndexRoute component={Demo}/>
+        <Route path=":demo" component={Demo}/>
+      </Route>
+      <Redirect from="*" to="/home"/>
+    </Router>
+  </AppContainer>
+);
+
+render(App(Components), document.getElementById('app'));
 
 if (module.hot) {
   module.hot.accept('./pages/components', () => {
     const Components = require('./pages/components').default;
-    render(<AppContainer>
-      <Router history={hashHistory}>
-        <Route path="/home" component={Home}/>
-        <Route path="/spec" component={Spec}/>
-        <Route path="/components" component={Components}>
-          <IndexRoute component={Demo}/>
-          <Route path=":demo" component={Demo}/>
-        </Route>
-        <Redirect from="*" to="/home"/>
-      </Router>
-    </AppContainer>, document.getElementById('app'));
+    render(App(Components), document.getElementById('app'));
   });
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Row, Col} from '../../../source/components';
 import PropTypes from "prop-types";
+import {Row, Col} from '../../../source/components';
 import locales from '../../locales';
 
 const searchIcon = require('../../assets/fd-web-1.2-icon@2x.svg');
@@ -27,14 +27,12 @@ export default class Layout extends React.Component {
   }
 
   getLocale(key) {
-    const map = locales['zh-CN'] || {};
+    const map = locales || {};
     return key.split('.').reduce((a, b) => {
       const parent = map[a];
-
       if (b) {
         return (parent || {})[b];
       }
-
       return parent;
     });
   }

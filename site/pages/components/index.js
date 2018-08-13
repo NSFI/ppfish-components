@@ -2,21 +2,20 @@ import React from 'react';
 import {Divider, BackTop, Icon, Row, Col, Menu} from '../../../source/components';
 import MobileMenu from 'rc-drawer';
 import PropTypes from 'prop-types';
+import {enquireScreen, unenquireScreen} from 'enquire-js';
 import Layout from '../common/layout';
 import locales from '../../locales';
 import components from '../../componentsPage';
 import {getPlainComponentList, getComponentDepth} from '../../utils';
-import {enquireScreen, unenquireScreen} from 'enquire-js';
-import '../../styles/rc-drawer.less';
 import './index.less';
 
 const SubMenu = Menu.SubMenu;
+const isShowAllComponents = false;
 let isMobile = false;
 enquireScreen((b) => {
   isMobile = b;
 }, 'only screen and (max-width: 992px)');
 
-const isShowAllComponents = false;
 
 export default class Components extends React.Component {
   static propTypes = {
@@ -34,24 +33,24 @@ export default class Components extends React.Component {
   }
 
   componentWillMount() {
-    window.addEventListener("hashchange", this.setComponentShow, false);
+    window.addEventListener("hashchange", this.setActiveKey, false);
   }
 
   componentDidMount() {
-    this.setPage();
+    this.setActiveKey();
     this.screentRegister = this.enquireScreenRegister();
   }
 
   componentDidUpdate() {
-    const componentContent = document.querySelector('.component-content');
-    componentContent.scrollTop = 0;
+    document.querySelector('.component-content').scrollTop = 0;
   }
 
   componentWillUnmount() {
-    window.removeEventListener("hashchange", this.setComponentShow, false);
+    window.removeEventListener("hashchange", this.setActiveKey, false);
     this.unenquireScreenRegister();
   }
 
+  //监听屏幕宽度
   enquireScreenRegister = () => {
     const mediaCondition = 'only screen and (max-width: 992px)';
     return enquireScreen((mobile) => {
@@ -61,56 +60,36 @@ export default class Components extends React.Component {
     }, mediaCondition);
   };
 
+  //取消监听
   unenquireScreenRegister = () => {
     const mediaCondition = 'only screen and (max-width: 992px)';
     unenquireScreen(this.screentRegister, mediaCondition);
   };
 
-
-  setComponentShow = () => {
-    this.setPage();
-  };
-
-  getLocale(key) {
-    const map = locales['zh-CN'] || {};
+  getLocale = (key) => {
+    const map = locales || {};
     return key.split('.').reduce((a, b) => {
       const parent = map[a];
-
       if (b) {
         return (parent || {})[b];
       }
-
       return parent;
     });
-  }
+  };
 
-  getPage() {
+  getActiveKeyFromParams = () => {
     return this.props.params.demo || this.plainComponentList[0].key;
-  }
+  };
 
-  setPage(fn) {
-    this.setState({page: this.getPage()}, fn);
-  }
+  setActiveKey = () => {
+    this.setState({page: this.getActiveKeyFromParams()});
+  };
 
   render() {
     const componentIndex = this.plainComponentList.findIndex((menuItem) => menuItem.key === this.state.page);
-    const {isMobile} = this.state;
-    const lastLink = this.plainComponentList[componentIndex - 1];
+    const prevLink = this.plainComponentList[componentIndex - 1];
     const nextLink = this.plainComponentList[componentIndex + 1];
-    const Navigation = (
-      <div>
-        <Divider/>
-        <Row className="u-navigation-btm">
-          <Col span={12} className="prev-page">
-            {lastLink && <a href={lastLink.url}><Icon type="left" className="prev-page-icon"/>{lastLink.value.name}</a>}
-          </Col>
-          <Col span={12} className="next-page">
-            {nextLink &&
-            <a href={nextLink.url}>{nextLink.value.name}<Icon type="right" className="next-page-icon"/></a>}
-          </Col>
-        </Row>
-      </div>
-    );
+    const {isMobile} = this.state;
     const menuChild = (
       <nav className="side-nav">
         <Menu
@@ -184,7 +163,25 @@ export default class Components extends React.Component {
               <article className="markdown">
                 {this.props.children}
               </article>
-              {Navigation}
+              <Divider/>
+              <Row className="u-navigation-btm">
+                <Col span={12} className="prev-page">
+                  {
+                    prevLink &&
+                    <a href={prevLink.url}>
+                      <Icon type="left" className="prev-page-icon"/>{prevLink.value.name}
+                    </a>
+                  }
+                </Col>
+                <Col span={12} className="next-page">
+                  {
+                    nextLink &&
+                    <a href={nextLink.url}>
+                      {nextLink.value.name}<Icon type="right" className="next-page-icon"/>
+                    </a>
+                  }
+                </Col>
+              </Row>
               <BackTop target={() => document.querySelector('.component-content')}>
                 <img src={require('../../assets/nppd-web-1.51-but@2x.png')} className="u-backtop" alt="backTop"/>
               </BackTop>
