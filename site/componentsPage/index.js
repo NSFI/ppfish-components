@@ -347,14 +347,5 @@ export default {
         published: true,
       },
     },
-  },
-  business: {
-    '数据录入': {
-      'bizDatePicker': {
-        type: 'markdown',
-        name: 'BizDatePicker 自定义日期选择器',
-        published: true,
-      },
-    }
   }
 };

@@ -3,7 +3,6 @@ import AudioPlayer from './AudioPlayer';
 import Avatar from './Avatar/index.tsx';
 import BackTop from './BackTop/index.tsx';
 import Badge from './Badge/index.tsx';
-import BizDatePicker from './BizDatePicker';
 import Breadcrumb from './Breadcrumb/index.tsx';
 import Button from './Button/index.tsx';
 import Carousel from './Carousel/index.tsx';
@@ -61,7 +60,6 @@ export {AudioPlayer};
 export {Avatar}
 export {BackTop};
 export {Badge};
-export {BizDatePicker};
 export {Breadcrumb};
 export {Button};
 export {Card};
