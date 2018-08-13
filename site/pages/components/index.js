@@ -102,13 +102,21 @@ export default class Components extends React.Component {
               const depth = getComponentDepth(components[key]);
               //两层菜单
               if (depth === 1) {
+                const menuList = Object.keys(components[key])
+                  .filter(page => isShowAllComponents || components[key][page].published)
+                  .map(page => ({
+                    key: page,
+                    href: `#/components/${page}`,
+                    title: components[key][page].name,
+                  }));
                 return (
+                  menuList.length &&
                   <SubMenu key={this.getLocale(`misc.${key}`)} title={this.getLocale(`misc.${key}`)}>
                     {
-                      Object.keys(components[key]).filter(page => isShowAllComponents || components[key][page].published).map(page => {
+                      menuList.map(component => {
                         return (
-                          <Menu.Item key={page}>
-                            <a href={`#/components/${page}`}>{components[key][page].name}</a>
+                          <Menu.Item key={component.key}>
+                            <a href={component.href}>{component.title}</a>
                           </Menu.Item>
                         );
                       })
@@ -117,23 +125,34 @@ export default class Components extends React.Component {
                 );
               } else if (depth === 2) {
                 //三层菜单
+                const menuList = Object.keys(components[key])
+                  .map(group => ({
+                    title: group,
+                    components: Object.keys(components[key][group])
+                      .filter(page => isShowAllComponents || components[key][group][page].published)
+                      .map(page => ({
+                        key: page,
+                        href: `#/components/${page}`,
+                        title: components[key][group][page].name,
+                      }))
+                  }));
                 return (
+                  menuList.length &&
                   <SubMenu key={this.getLocale(`misc.${key}`)} title={this.getLocale(`misc.${key}`)}>
                     {
-                      Object.keys(components[key]).map(group => {
-                        return (
-                          <Menu.ItemGroup key={group} title={group} disabled={false}>
+                      menuList.map(subMenu => {
+                        return subMenu.components.length &&
+                          <Menu.ItemGroup key={subMenu.title} title={subMenu.title} disabled={false}>
                             {
-                              Object.keys(components[key][group]).filter(page => isShowAllComponents || components[key][group][page].published).map(page => {
+                              subMenu.components.map(component => {
                                 return (
-                                  <Menu.Item key={page}>
-                                    <a href={`#/components/${page}`}>{components[key][group][page].name}</a>
+                                  <Menu.Item key={component.key}>
+                                    <a href={component.href}>{component.title}</a>
                                   </Menu.Item>
                                 );
                               })
                             }
-                          </Menu.ItemGroup>
-                        );
+                          </Menu.ItemGroup>;
                       })
                     }
                   </SubMenu>
