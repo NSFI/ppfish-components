@@ -16,7 +16,7 @@ enquireScreen((b) => {
   isMobile = b;
 }, 'only screen and (max-width: 992px)');
 
-const isShowAllComponents = !!localStorage.getItem('isShowAllComponents');
+const isShowAllComponents = false;
 
 export default class Components extends React.Component {
   static propTypes = {
