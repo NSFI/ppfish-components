@@ -23,7 +23,8 @@ import {
   YEARS_ARRAY,
   isValidValue,
   setTime,
-  equalYearAndMonth
+  equalYearAndMonth,
+  diffDate
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
 
@@ -57,6 +58,9 @@ export default class DateRangePanel extends React.Component {
       shortcutsPlacement: PropTypes.string,
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
+      renderExtraFooter: PropTypes.func,
+      maxDateRange: PropTypes.number,
+      onError: PropTypes.func,
       // 时间面板
       isShowTime: PropTypes.bool,
       isShowTimeCurrent: PropTypes.bool,
@@ -78,6 +82,8 @@ export default class DateRangePanel extends React.Component {
       yearCount: 50,
       shortcutsPlacement: 'left',
       firstDayOfWeek: 0,
+      maxDateRange: null,
+      onError: () => {},
       isShowTime: false,
       isShowTimeCurrent: false,
       defaultStartTimeValue: null,
@@ -292,13 +298,24 @@ export default class DateRangePanel extends React.Component {
 
   // 点击日期
   handleRangePick({ minDate, maxDate }, isClose) {
-    const { isShowTime, onPick, format } = this.props;
+    const { isShowTime, onPick, format, maxDateRange, onError } = this.props;
+
+    if(maxDateRange && maxDateRange > 0) {
+      if(minDate && maxDate && diffDate(minDate, maxDate) + 1 > maxDateRange) {
+        onError('最大选择范围不能超过'+maxDateRange+'天');
+        return;
+      }else{
+        onError(null);
+      }
+    }
+
     this.setState({
       minDate: minDate ? new Date(minDate) : null,
       maxDate: maxDate ? new Date(maxDate) : null,
       minDateInputText: formatDate(minDate, dateFormat(format)),
       maxDateInputText: formatDate(maxDate, dateFormat(format)),
     });
+
     if (!isClose) return;
     if (!isShowTime) {
       onPick([minDate, maxDate], false, true)
@@ -329,7 +346,8 @@ export default class DateRangePanel extends React.Component {
       isShowTime,
       isShowTimeCurrent,
       startTimeSelectableRange,
-      endTimeSelectableRange
+      endTimeSelectableRange,
+      renderExtraFooter
     } = this.props;
     const {
       rangeState,
@@ -544,6 +562,15 @@ export default class DateRangePanel extends React.Component {
             </div>
           </div>
         </div>
+        {
+          typeof renderExtraFooter == 'function' && renderExtraFooter() && (
+            <div
+              className="fishd-picker-panel__extra-footer"
+            >
+              {renderExtraFooter()}
+            </div>
+          )
+        }
         {
           isShowTime && (
             <div className="fishd-picker-panel__footer">

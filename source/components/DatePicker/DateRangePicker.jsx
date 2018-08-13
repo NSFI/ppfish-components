@@ -19,7 +19,10 @@ export default class DateRangePicker extends DateRangeBasePicker {
           'isShowTime',
           'firstDayOfWeek',
           'yearCount',
-          'shortcutsPlacement'
+          'shortcutsPlacement',
+          'renderExtraFooter',
+          'maxDateRange',
+          'onError'
         ]
       )
     )

@@ -11,13 +11,13 @@
     }
     .time-select-item {
       padding: 8px 10px;
-      font-size: 14px;
+      font-size: @font-size-base;
       &.selected:not(.disabled) {
         color: @primary-color;
       }
       &.selected:after {
         display: inline-block;
-        width: 14px;
+        width: @font-size-base;
         height: 100%;
         position: absolute;
         right: 15px;
@@ -25,7 +25,7 @@
         /* stylelint-disable-next-line */
         font-family: fishdicon;
         content: "\e671";
-        font-size: 12px;
+        font-size: @font-size-sm;
       }
       &.disabled {
         color: @datepicker-disable-color;

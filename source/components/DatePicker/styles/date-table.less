@@ -2,7 +2,7 @@
 
 .@{prefixClass} {
   &-date-table {
-    font-size: 12px;
+    font-size: @font-size-sm;
     min-width: 224px;
     user-select: none;
     border-collapse: separate;
@@ -60,22 +60,12 @@
       }
 
       &.today {
-        color: @datepicker-active-color;
+        color: @primary-color;
         position: relative;
-        &:before {
-          content: " ";
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 0;
-          height: 0;
-          border-top: 0.5em solid var(--datepicker-active-color);
-          border-left: .5em solid transparent;
-        }
       }
 
       &.available:hover {
-        color: @datepicker-active-color;
+        color: @primary-color;
       }
 
       &.in-range div {
@@ -101,7 +91,7 @@
       &.current:not(.disabled) span,
       &.start-date span,
       &.end-date span {
-        background-color: @datepicker-active-background-color;
+        background-color: @primary-color;
         color: #fff;
       }
 
@@ -109,7 +99,7 @@
         opacity: 1;
         cursor: not-allowed;
         color: #ccc;
-        background-color: #F2F2F5;
+        background-color: @datepicker-disable-background-color;
       }
 
       &.week {

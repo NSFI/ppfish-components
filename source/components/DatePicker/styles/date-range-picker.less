@@ -16,6 +16,12 @@
       width: 720px;
     }
 
+    &.has-time,&.has-sidebar {
+      .fishd-picker-panel__body-wrapper {
+        position: relative;
+      }
+    }
+
     table {
       table-layout: fixed;
       width: 100%;
@@ -40,18 +46,18 @@
     }
 
     &__header-label {
-      font-size: 14px;
+      font-size: @font-size-base;
       padding: 0 5px;
       line-height: 22px;
       text-align: center;
       cursor: pointer;
 
       &:hover {
-        color: @datepicker-active-color;
+        color: @primary-color;
       }
 
       &.active {
-        color: @datepicker-active-color;
+        color: @primary-color;
       }
     }
 
@@ -108,7 +114,7 @@
     &__time-header {
       position: relative;
       border-bottom: 1px solid @datepicker-border-color;
-      font-size: 12px;
+      font-size: @font-size-sm;
       padding: 8px 5px 5px 5px;
       display: table;
       width: 100%;

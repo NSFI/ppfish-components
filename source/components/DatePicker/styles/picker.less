@@ -35,22 +35,22 @@
         display: flex;
         align-items: center;
         &.disabled {
-          color: #666;
-          background-color: #F2F2F5;
+          color: @text-6;
+          background-color: @text-d;
           cursor: not-allowed;
         }
       }
       &.is-active {
-        border: 1px solid #5c9dff;
+        border: 1px solid @primary-color;
       }
       &:hover:not(.disabled) {
-        border-color: #5c9dff;
+        border-color: @primary-color;
         transition: all .3s;
       }
     }
 
     .prefix-iconfont,.suffix-iconfont {
-      color: #ccc;
+      color: @text-c;
     }
 
     .suffix-iconfont {

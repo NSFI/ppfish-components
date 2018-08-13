@@ -17,8 +17,10 @@
       width: 310px;
     }
 
-    &.has-time .fishd-picker-panel__body-wrapper {
-      position: relative;
+    &.has-time,&.has-sidebar {
+      .fishd-picker-panel__body-wrapper {
+        position: relative;
+      }
     }
 
     .fishd-picker-panel__content {
@@ -39,7 +41,7 @@
 
     &__time-header {
       position: relative;
-      font-size: 12px;
+      font-size: @font-size-sm;
       padding: 12px 5px 0px 5px;
       display: table;
       width: 100%;
@@ -58,11 +60,11 @@
 
     &__header-label {
       font-family: PingFangSC-Medium;
-      font-size: 14px;
+      font-size: @font-size-base;
       text-align: center;
       cursor: pointer;
       &:hover,&.active {
-        color: @datepicker-active-color;
+        color: @primary-color;
       }
     }
 

@@ -57,6 +57,7 @@ export default class DatePanel extends React.Component {
       selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
+      renderExtraFooter: PropTypes.func,
       //时间面板
       isShowTime: PropTypes.bool,
       isShowTimeCurrent: PropTypes.bool,
@@ -282,7 +283,8 @@ export default class DatePanel extends React.Component {
       yearCount,
       isShowTime,
       isShowTimeCurrent,
-      timeSelectableRange
+      timeSelectableRange,
+      renderExtraFooter
     } = this.props;
     const { currentView, currentDate, dateInputText, time } = this.state;
     const { month } = deconstructDate(currentDate);
@@ -407,7 +409,15 @@ export default class DatePanel extends React.Component {
             </div>
           </div>
         </div>
-
+        {
+          typeof renderExtraFooter == 'function' && renderExtraFooter() && (
+            <div
+              className="fishd-picker-panel__extra-footer"
+            >
+              {renderExtraFooter()}
+            </div>
+          )
+        }
         {
           isShowTime && currentView === PICKER_VIEWS.DATE && (
             <div

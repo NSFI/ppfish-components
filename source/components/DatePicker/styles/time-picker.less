@@ -4,7 +4,7 @@
   &-time-panel {
     position: absolute;
     left: 0;
-    z-index: 9999;
+    z-index: @zindex-dropdown;
     user-select: none;
     box-sizing: content-box;
 
@@ -18,10 +18,10 @@
         top: 50%;
         color: @primary-color;
         position: absolute;
-        font-size: 14px;
+        font-size: @font-size-base;
         margin-top: -18px;
         line-height: 16px;
-        background-color: #F2F2F5;
+        background-color: @background-color-base;
         height: 32px;
         z-index: -1;
         left: 0;
@@ -52,6 +52,13 @@
       }
     }
 
+    &__extra-footer {
+      font-size: @font-size-sm;
+      padding: 8px;
+      border-top: 1px solid @datepicker-border-color;
+      background-color: @component-background;
+    }
+
     &__footer {
       display: flex;
       justify-content: space-between;
@@ -75,7 +82,7 @@
 
       &.confirm {
         font-weight: 800;
-        color: @datepicker-active-color;
+        color: @primary-color;
       }
 
       &.disabled {

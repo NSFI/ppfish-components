@@ -25,7 +25,6 @@
           <span className="demonstration">基本使用</span>
           <DatePicker
             value={value1}
-            popupAlign="topRight"
             onChange={date=>{
               console.debug('DatePicker1 changed: ', date)
               this.setState({value1: date})
@@ -36,7 +35,6 @@
           <span className="demonstration">设置默认时间</span>
           <DatePicker
             value={value2}
-            popupAlign="topRight"
             placeholder="请选择日期"
             onChange={date=>{
               console.debug('DatePicker2 changed: ', date)
@@ -101,6 +99,42 @@
 ```
 :::
 
+## 日期选择器额外的页脚
+在浮层中加入额外的页脚，以满足某些定制信息的需求
+
+:::demo
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+ 
+  render() {
+    const {value1} = this.state;
+  
+    return (
+      <div className="source">
+        <div className="block">
+          <DatePicker
+            value={value1}
+            placeholder="请选择日期"
+            onChange={date=>{
+              console.debug('DatePicker1 changed: ', date)
+              this.setState({value1: date})
+  
+            }}
+            renderExtraFooter={() => '额外的页脚信息'}
+          />
+        </div>
+      </div>
+    )
+  }
+
+```
+:::
+
 ## 选择周
 
 :::demo 通过 `selectionMode` 设置不同的日期单位
@@ -137,8 +171,7 @@ render() {
 
 ## 带快捷选项的日期面板
 
- - 当展示结果关注绝对时间、且快捷选项较多时使用。快捷选项不建议太多。
- - 注：当需要选择快捷选项之后，直接展示快捷选项的文本而不是具体日期时间，请参考业务组件[BizDatePicker](https://nsfi.github.io/ppfish-components/index.html#/components/bizDatePicker)
+当展示结果关注绝对时间、且快捷选项较多时使用。快捷选项不建议太多。
 
 :::demo 快捷选项需配置 `shortcuts`。
 
@@ -163,7 +196,7 @@ render() {
   return (
     <div className="source">
       <div className="block">
-        <span className="demonstration">左侧自定义</span>
+        <span className="demonstration">基本使用</span>
         <DatePicker
           ref={e=>this.datepicker1 = e}
           value={value1}
@@ -439,9 +472,106 @@ render() {
 ```
 :::
 
-## 带快捷选项的日期范围面板
 
- - 注：当需要选择快捷选项之后，直接展示快捷选项的文本而不是具体日期时间，请参考业务组件[BizDateRangePicker](https://nsfi.github.io/ppfish-components/index.html#/components/bizDatePicker)
+## 日期范围选择器额外的页脚
+在浮层中加入额外的页脚
+
+:::demo
+```js
+constructor(props) {
+  super(props);
+  this.state = {
+    value1: null,
+    value2: null
+  };
+}
+
+render() {
+  const {value1, value2} = this.state;
+
+  return (
+    <div className="source">
+      <div className="block">
+        <DatePicker.DateRangePicker
+          value={value1}
+          onChange={date=>{
+            console.debug('DateRangePicker1 changed: ', date)
+            this.setState({value1: date})
+          }}
+          renderExtraFooter={() => '额外的页脚信息'}
+        />
+      </div>
+    </div>
+  )
+}
+
+```
+:::
+
+## 设置最大可选时间范围
+
+- 根据不同的业务需求，设置最大可选的时间范围
+- 超过最大范围的错误信息展示形式可以自定义，如Message或额外的页脚
+
+:::demo
+```js
+constructor(props) {
+  super(props);
+  this.state = {
+    value1: null,
+    value2: null,
+    extraFoot: null
+  };
+}
+
+render() {
+  const {value1, value2, extraFoot} = this.state;
+
+  return (
+    <div className="source">
+      <div className="block">
+        <span className="demonstration">场景1：Message展示错误信息</span>
+        <DatePicker.DateRangePicker
+          value={value1}
+          onChange={date=>{
+            console.debug('DateRangePicker1 changed: ', date)
+            this.setState({value1: date})
+          }}
+          maxDateRange={7}
+          onError={(msg) => {
+            if(msg){
+              message.error(msg)
+              }
+            }
+          }
+        />
+      </div>
+      <div className="block">
+        <span className="demonstration">场景2：额外的页脚展示错误信息</span>
+        <DatePicker.DateRangePicker
+          value={value2}
+          onChange={date=>{
+            console.debug('DateRangePicker2 changed: ', date)
+            this.setState({value2: date})
+          }}
+          maxDateRange={7}
+          onError={(msg) => {
+            this.setState({extraFoot: ()=> msg})
+          }}
+          renderExtraFooter={extraFoot}
+          onOpenChange={(status)=> {
+            this.setState({extraFoot: null})
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
+```
+:::
+
+## 带快捷选项的日期范围面板
 
 :::demo
 ```js
@@ -713,9 +843,11 @@ render() {
 | yearCount | 可选择的年份总数 | Number | Number | 50 |
 | shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
 | shortcutsPlacement | 快捷选项的位置 | string | 'left' | 'left' |
+| renderExtraFooter | 在面板中添加额外的页脚 | ()=>React.ReactNode | - | - |
 | onFocus | focus 事件触发 | (SyntheticEvent)=>() | - | - |
 | onBlur | blur 事件触发 | (SyntheticEvent)=>() | - | - |
-| onChange | 确认选定的值时触发 | func:(value)=>() | - | - |
+| onChange | 确认选定的值时触发 | function:(value)=>() | - | - |
+| onOpenChange | 弹出或关闭日历的回调 | function:(status)=>() | - | - |
 
 ## DatePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
@@ -740,6 +872,8 @@ DatePicker 时间面板的参数
 | endPlaceholder | 结束日期的占位内容 | string | - | '结束日期' |
 | value | - | array | [Date,Date]/null | null |
 | rangeSeparator | 分隔符 | string | - | ' 至 ' |
+| maxDateRange  | 最大可选择的日期范围，单位 天    | number   | null   | - |
+| onError  |  选择日期超过maxDateRange的回调   | function:(message)=>() | - | - |
 
 DateRangePicker 时间面板的参数
 

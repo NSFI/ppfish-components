@@ -16,12 +16,15 @@ export default class TimePanel extends React.Component {
       selectableRange: TimeSpinner.propTypes.selectableRange,
       onSelectRangeChange: TimeSpinner.propTypes.onSelectRangeChange,
       isShowCurrent: PropTypes.bool,
+      renderExtraFooter: PropTypes.func,
+      onValueChange: PropTypes.func
     }
   }
 
   static get defaultProps() {
     return {
       isShowCurrent: false,
+      onValueChange: ()=>{}
     }
   }
 
@@ -72,12 +75,15 @@ export default class TimePanel extends React.Component {
       this.setState({
         confirmButtonDisabled: true,
         currentDate: newDate
+      },()=> {
+        this.props.onValueChange(newDate);
       });
     }else{
       this.setState({
         confirmButtonDisabled: false,
         currentDate: newDate
       }, () => {
+        this.props.onValueChange(newDate);
         this.handleConfirm(true, false); //面板展开，不保存值
       });
     }
@@ -105,7 +111,7 @@ export default class TimePanel extends React.Component {
   }
 
   render() {
-    const {onSelectRangeChange, selectableRange, isShowCurrent} = this.props;
+    const {onSelectRangeChange, selectableRange, isShowCurrent, renderExtraFooter} = this.props;
     const {isShowSeconds, currentDate, confirmButtonDisabled, currentButtonDisabled} = this.state;
 
     const hours = currentDate ? currentDate.getHours() : null;
@@ -131,6 +137,15 @@ export default class TimePanel extends React.Component {
             onChange={this.handleChange}
           />
         </div>
+        {
+          typeof renderExtraFooter == 'function' && renderExtraFooter() && (
+            <div
+              className="fishd-time-panel__extra-footer"
+            >
+              {renderExtraFooter()}
+            </div>
+          )
+        }
         <div className="fishd-time-panel__footer">
           <div>
             {

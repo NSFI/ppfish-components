@@ -20,7 +20,8 @@ export default class DatePicker extends BasePicker {
           'firstDayOfWeek',
           'isShowTime',
           'yearCount',
-          'shortcutsPlacement'
+          'shortcutsPlacement',
+          'renderExtraFooter'
         ]
       )
     );

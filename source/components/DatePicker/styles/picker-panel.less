@@ -28,6 +28,12 @@
       margin: 15px;
     }
 
+    &__extra-footer {
+      padding: 8px;
+      border-top: 1px solid @datepicker-border-color;
+      background-color: @component-background;
+    }
+
     &__footer {
       height: 48px;
       display: flex;
@@ -53,12 +59,12 @@
       border-bottom: 1px solid @datepicker-border-color;
 
       &:hover {
-        color: @datepicker-active-color;
+        color: @primary-color;
         background-color: @datepicker-hover-background-color;
       }
 
       &.active {
-        color: @datepicker-active-color;
+        color: @primary-color;
       }
     }
 
@@ -77,7 +83,7 @@
       margin-top: 3px;
 
       &:hover {
-        color: @datepicker-active-color;
+        color: @primary-color;
       }
     }
 

@@ -38,6 +38,7 @@ export default class DateRangeBasePicker extends React.Component {
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
       onChange: PropTypes.func,
+      onOpenChange: PropTypes.func
     }
   }
 
@@ -55,6 +56,7 @@ export default class DateRangeBasePicker extends React.Component {
       onFocus: () => {},
       onBlur: () =>{},
       onChange: () => {},
+      onOpenChange: () => {}
     }
   }
 
@@ -234,6 +236,8 @@ export default class DateRangeBasePicker extends React.Component {
   onVisibleChange = (visible) => {
     this.setState({
       pickerVisible: visible
+    },() => {
+      this.props.onOpenChange(visible)
     })
   }
 
