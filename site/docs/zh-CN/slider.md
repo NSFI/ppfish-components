@@ -38,12 +38,19 @@
 
 ```js
   state = {
-    inputValue: 0,
+    integerValue: 0,
+    decimalValue: 0,
   }
 
-  onChange = (value) => {
+  onIntegerChange = (value) => {
     this.setState({
-      inputValue: value,
+      integerValue: value,
+    });
+  }
+
+  onDecimalChange = (value) => {
+    this.setState({
+      decimalValue: value,
     });
   }
 
@@ -52,21 +59,21 @@
       <div>
         <Row>
           <Col span={12}>
-            <Slider min={1} max={20} onChange={this.onChange} value={this.state.inputValue}/>
+            <Slider min={1} max={20} onChange={this.onIntegerChange} value={this.state.integerValue}/>
           </Col>
           <Col span={4}>
             <InputNumber
               min={1}
               max={20}
               style={{marginLeft: 16}}
-              value={this.state.inputValue}
-              onChange={this.onChange}
+              value={this.state.integerValue}
+              onChange={this.onIntegerChange}
             />
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-            <Slider min={0} max={1} onChange={this.onChange} value={this.state.inputValue} step={0.01}/>
+            <Slider min={0} max={1} onChange={this.onDecimalChange} value={this.state.decimalValue} step={0.01}/>
           </Col>
           <Col span={4}>
             <InputNumber
@@ -74,8 +81,8 @@
               max={1}
               style={{marginLeft: 16}}
               step={0.01}
-              value={this.state.inputValue}
-              onChange={this.onChange}
+              value={this.state.decimalValue}
+              onChange={this.onDecimalChange}
             />
           </Col>
         </Row>
@@ -107,9 +114,9 @@
     const nextColor = value >= mid ? 'rgba(0, 0, 0, .45)' : '';
     return (
       <div className="icon-wrapper">
-        <Icon style={{ color: preColor }} type="frown-o" />
+        <Icon style={{ color: preColor }} type="demo-like" />
         <Slider max={20} min={0} onChange={this.handleChange} value={value} />
-        <Icon style={{ color: nextColor }} type="smile-o" />
+        <Icon style={{ color: nextColor }} type="demo-play" />
       </div>
     );
   }
