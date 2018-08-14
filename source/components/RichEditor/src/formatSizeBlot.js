@@ -34,6 +34,7 @@ class CustomSizeBlot extends Inline {
     }
   }
 }
+
 CustomSizeBlot.blotName = 'customSize';
 CustomSizeBlot.tagName = 'span';
 

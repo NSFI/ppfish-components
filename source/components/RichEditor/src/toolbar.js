@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList.js';
-import emojiSrc from './img/emoji.png';
+import emojiSrc from '../img/emoji.png';
 // import ColorPicker from '../ColorPicker';
 
 let genEmoji = (data) => {
@@ -134,7 +134,8 @@ class CustomToolbar extends PureComponent {
         );
         break;
       case 'image':
-        value = <button className="item ql-image iconfont icon-picture" key={key}/>;
+        {/*value = <button className="item ql-image iconfont icon-picture" key={key}/>;*/}
+        value = <button className="item ql-image" key={key}/>;
         break;
       case 'size':
         value = (
@@ -151,7 +152,8 @@ class CustomToolbar extends PureComponent {
         );
         break;
       case 'clean':
-        value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;
+        {/*value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;*/}
+        value = <button className="item ql-clean" key={key}/>;
         break;
       default:
         break;

@@ -3,7 +3,7 @@
 exports[`Renders richEditor demo correctly 1`] = `
 <div>
   <div
-    class="m-rich-editor"
+    class="fishd-richeditor"
   >
     <div
       class="editor-head"
@@ -966,7 +966,7 @@ exports[`Renders richEditor demo correctly 1`] = `
         class="toolbar-grp"
       >
         <button
-          class="item ql-image iconfont icon-picture"
+          class="item ql-image"
         />
       </div>
       <div
@@ -1033,7 +1033,7 @@ exports[`Renders richEditor demo correctly 1`] = `
         class="toolbar-grp"
       >
         <button
-          class="item ql-clean iconfont icon-eraser"
+          class="item ql-clean"
         />
       </div>
     </div>

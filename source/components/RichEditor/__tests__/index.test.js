@@ -24,7 +24,7 @@ xdescribe('<RichEditor />', () => {
     const inst = wrapper.instance();
     expect(inst).toBeInstanceOf(RichEditor);
     expect(inst.getEditor().constructor.name).toBe('Quill');
-    expect(wrapper.find('.m-rich-editor').exists()).toBe(true);
+    expect(wrapper.find('.fishd-richeditor').exists()).toBe(true);
     expect(wrapper.find('.editor-head').exists()).toBe(true);
     expect(wrapper.find('.editor-body').exists()).toBe(true);
     expect(wrapper.state()).toEqual({
