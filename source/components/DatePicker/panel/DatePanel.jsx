@@ -95,7 +95,6 @@ export default class DatePanel extends React.Component {
 
     this.state = Object.assign({}, {
       currentView,
-      timePickerVisible: false
     }, this.propsToState(props));
   }
 
@@ -192,7 +191,6 @@ export default class DatePanel extends React.Component {
     if (val) {
       this.setState({
         time: new Date(val),
-        timePickerVisible: false,
       })
     }
   }
@@ -292,6 +290,8 @@ export default class DatePanel extends React.Component {
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
 
+    console.log('日历面板刷新', this.state)
+
     return (
       <div
         className={classNames('fishd-picker-panel fishd-date-picker', {
@@ -339,7 +339,6 @@ export default class DatePanel extends React.Component {
                       isAllowClear={false}
                       isDisabled={this.timePickerDisable()}
                       value={time}
-                      onFocus={()=> this.setState({timePickerVisible: !this.state.timePickerVisible})}
                       onChange={this.handleTimeInputChange}
                       isShowCurrent={isShowTimeCurrent}
                       selectableRange={timeSelectableRange}

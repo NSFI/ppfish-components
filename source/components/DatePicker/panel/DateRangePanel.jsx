@@ -99,8 +99,6 @@ export default class DateRangePanel extends React.Component {
         endDate: null,
         selecting: false,
       },
-      minTimePickerVisible: false,
-      maxTimePickerVisible: false,
     }, this.propsToState(props))
   }
 
@@ -360,8 +358,6 @@ export default class DateRangePanel extends React.Component {
     } = this.props;
     const {
       rangeState,
-      minTimePickerVisible,
-      maxTimePickerVisible,
       leftDate,
       rightDate,
       minDate,
@@ -423,11 +419,6 @@ export default class DateRangePanel extends React.Component {
                         isAllowClear={false}
                         isDisabled={this.timePickerDisable()}
                         value={minTime}
-                        onFocus={()=>{
-                          this.setState({
-                            minTimePickerVisible: !minTimePickerVisible
-                          })
-                        }}
                         onChange={value => this.handleTimeInputChange(value, 'min')}
                         isShowCurrent={isShowTimeCurrent}
                         selectableRange={startTimeSelectableRange}
@@ -455,11 +446,6 @@ export default class DateRangePanel extends React.Component {
                         isAllowClear={false}
                         isDisabled={this.timePickerDisable()}
                         value={maxTime}
-                        onFocus={()=>{
-                          this.setState({
-                            maxTimePickerVisible: !maxTimePickerVisible
-                          })
-                        }}
                         onChange={value => this.handleTimeInputChange(value, 'max')}
                         isShowCurrent={isShowTimeCurrent}
                         selectableRange={endTimeSelectableRange}
