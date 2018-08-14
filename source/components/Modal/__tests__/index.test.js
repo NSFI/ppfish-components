@@ -1,7 +1,4 @@
 /* eslint-disable func-names */
-import 'core-js/es6/map';
-import 'core-js/es6/set';
-
 import Dialog from '../index.tsx';
 import React from 'react';
 import ReactDOM from 'react-dom';

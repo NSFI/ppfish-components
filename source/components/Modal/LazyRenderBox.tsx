@@ -10,7 +10,6 @@ export interface ILazyRenderBoxPropTypes {
 
 export default class LazyRenderBox extends React.Component<ILazyRenderBoxPropTypes, any> {
   shouldComponentUpdate(nextProps: ILazyRenderBoxPropTypes) {
-    console.log(nextProps.visible)
     return !!nextProps.hiddenClassName || !!nextProps.visible;
   }
   render() {

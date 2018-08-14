@@ -1,6 +1,6 @@
 /* global Promise */
 import * as React from 'react';
-import Notification from 'rc-notification';
+import Notification from '../Notification';
 import Icon from '../Icon/index';
 
 let defaultDuration = 3;
