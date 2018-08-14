@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import shallowEqual from 'shallowequal';
 import Checkbox from './Checkbox';
+import { shallowEqual } from '../../utils/other.js';
 
 export type CheckboxValueType = string | number | boolean;
 
