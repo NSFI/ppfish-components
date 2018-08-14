@@ -10,7 +10,7 @@ import {getPlainComponentList, getComponentDepth} from '../../utils';
 import './index.less';
 
 const SubMenu = Menu.SubMenu;
-const isShowAllComponents = true;
+const isShowAllComponents = false;
 let isMobile = false;
 enquireScreen((b) => {
   isMobile = b;
