@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import RcSwitch from 'rc-switch';
 import classNames from 'classnames';
+import RcSwitch from './src/Switch';
 import omit from 'omit.js';
 import Wave from '../../utils/wave';
 
