@@ -182,14 +182,14 @@ export default class DateTable extends React.Component {
 
     if (cell.inRange && ((cell.type === 'normal' || cell.type === 'today') || selectionMode === 'week')) {
       classes.push('in-range');
+    }
 
-      if (cell.start) {
-        classes.push('start-date');
-      }
+    if (cell.start) {
+      classes.push('start-date');
+    }
 
-      if (cell.end) {
-        classes.push('end-date');
-      }
+    if (cell.end) {
+      classes.push('end-date');
     }
 
     if (cell.disabled) {
