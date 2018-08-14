@@ -71,13 +71,18 @@ class CustomToolbar extends PureComponent {
     this.handlePanelStatus();
   }
 
-  getModuleHTML = (name, key, extendLinkModule) => {
-    if (typeof name !== 'string') {
-      name = JSON.stringify(name);
+  getModuleHTML = (mType, key, extendLinkModule) => {
+    let mValue = '';
+
+    if (typeof mType === 'object') {
+      let typeValue = JSON.stringify(mType).match(/\w+/g);
+      mType = typeValue[0];
+      mValue = typeValue[1];
     }
 
-    if (name in extendLinkModule) {
-      return <button className={'item ql-' + name + ' custom-entry ' + extendLinkModule[name].className} key={key}/>;
+    // 处理扩展的链接模块
+    if (mType in extendLinkModule) {
+      return <button className={'item ql-' + mType + ' custom-entry ' + extendLinkModule[mType].className} key={key}/>;
     }
 
     const { showSizePanel, showEmojiPanel } = this.state;
@@ -91,7 +96,7 @@ class CustomToolbar extends PureComponent {
     });
     let value = null;
 
-    switch(name) {
+    switch(mType) {
       case 'link':
         value = <button className="item ql-link" key={key}/>;
         break;
@@ -117,12 +122,12 @@ class CustomToolbar extends PureComponent {
       case 'align':
         value = <select className="item ql-align" key={key} />;
         break;
-      case '{"list":"ordered"}':
-        value = <button type="button" className="item ql-list" value="ordered" key={key}/>;
+      case 'list':
+        value = <button type="button" className="item ql-list" value={mValue} key={key}/>;
         break;
-      case '{"list":"bullet"}':
-        value = <button type="button" className="item ql-list" value="bullet" key={key}/>;
-        break;
+      // case '{"list":"bullet"}':
+      //   value = <button type="button" className="item ql-list" value="bullet" key={key}/>;
+      //   break;
       case 'emoji':
         value = (
           <div className="item custom-emoji iconfont icon-emoticon-smile" key={key} onClick={this.toggleEmojiPanel}>
@@ -156,6 +161,18 @@ class CustomToolbar extends PureComponent {
         {/*value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;*/}
         value = <button className="item ql-clean" key={key}/>;
         break;
+      case 'strike':
+        value = <button className="item ql-strike" key={key}/>;
+        break;
+      case 'blockquote':
+        value = <button className="item ql-blockquote" key={key}/>;
+        break;
+      case 'code-block':
+        value = <button className="item ql-code-block" key={key}/>;
+        break;
+      case 'header':
+        value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
+        break;
       default:
         break;
     }
@@ -169,8 +186,8 @@ class CustomToolbar extends PureComponent {
     toolbar.forEach((item, index) => {
       // 分组展示的项目
       if (item instanceof Array) {
-        let grpItems = item.map((name, subindex) => {
-          return this.getModuleHTML(name, 'toolbar_' + index + '_sub_' + subindex, extendLinkModule);
+        let grpItems = item.map((mType, subindex) => {
+          return this.getModuleHTML(mType, 'toolbar_' + index + '_sub_' + subindex, extendLinkModule);
         });
 
         result.push(
