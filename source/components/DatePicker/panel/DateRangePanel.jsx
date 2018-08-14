@@ -122,15 +122,25 @@ export default class DateRangePanel extends React.Component {
     }
   }
 
-  //todo: wired way to do sth like this? try to come up with a better option
+  // 鼠标移动选择结束时间的回调
   handleChangeRange({ endDate }) {
-    const { rangeState, minDate } = this.state;
-    if (endDate <= minDate) endDate = null;
-
-    rangeState.endDate = endDate;
-    this.setState({
-      maxDate: endDate,
-    })
+    const { minDate, maxDate } = this.state;
+    // 向前选择
+    if (endDate <= minDate) {
+      this.setState({
+        minDate: new Date(endDate)
+      });
+      if(!maxDate) {
+        this.setState({
+          maxDate: new Date(minDate)
+        })
+      }
+      // 向后选择
+    }else{
+      this.setState({
+        maxDate: new Date(endDate),
+      })
+    }
   }
 
   // 日期时间都选择，确定按钮才可点击
@@ -563,7 +573,7 @@ export default class DateRangePanel extends React.Component {
           </div>
         </div>
         {
-          typeof renderExtraFooter == 'function' && renderExtraFooter() && (
+          typeof renderExtraFooter === 'function' && renderExtraFooter() && (
             <div
               className="fishd-picker-panel__extra-footer"
             >
