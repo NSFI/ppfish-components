@@ -1,36 +1,9 @@
-@import "../../../assets/css/index.less";
 @import "./quill.snow.less";
-@import "../../../assets/css/index.less";
 
 @rich-editor-prefix: ~"@{fishd-prefix}-richeditor";
 @icon-normal-color: @heading-color;
 
 /* stylelint-disable declaration-no-important */
-.ql-toolbar,
-.ql-container,
-.ql-snow {
-  border: none;
-
-  a {
-    color: @primary-color;
-  }
-}
-
-.ql-image,
-.ql-clean {
-  // padding: 2px 0 0 0 !important;
-  color: #000;
-  font-size: 16px;
-
-  // svg {
-  //   display: none;
-  // }
-}
-
-.ql-clean {
-  font-size: 22px;
-}
-
 .@{rich-editor-prefix} {
   .hide {
     display: none;
@@ -48,11 +21,6 @@
   .editor-body {
     height: 239px;
     border: @border-width-base @border-style-base @border-color-base;
-
-    .ql-container,
-    .ql-snow {
-      border: none;
-    }
   }
 
   .toolbar-grp {
@@ -67,29 +35,18 @@
       border-top: @border-width-base @border-style-base @border-color-base;
       border-bottom: @border-width-base @border-style-base @border-color-base;
 
-      .ql-stroke {
-        stroke: @icon-normal-color;
-        stroke-width: 1.5;
-      }
-
       &:hover {
         color: @primary-color;
         background-color: @background-color-base;
-
-        .ql-stroke {
-          stroke: @primary-color;
-        }
       }
 
       .ql-picker-options {
         .ql-stroke {
           stroke: @icon-normal-color;
-          stroke-width: 1.5;
         }
       }
 
       .ql-picker-item:hover {
-        color: @primary-color;
         background-color: @background-color-base;
 
         .ql-stroke {

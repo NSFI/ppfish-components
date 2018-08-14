@@ -1,3 +1,5 @@
+@import "../../../assets/css/index.less";
+
 /*!
  * Quill Editor v1.3.0
  * https://quilljs.com/
@@ -11,6 +13,7 @@
   height: 100%;
   margin: 0px;
   position: relative;
+  border: none; // add
 }
 .ql-container.ql-disabled .ql-tooltip {
   visibility: hidden;
@@ -441,7 +444,10 @@
 .ql-snow .ql-toolbar .ql-picker-item:hover,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-  color: #06c;
+  // color: #06c;
+  // add
+  color: @primary-color;
+  // background-color: @background-color-base;
 }
 .ql-snow.ql-toolbar button:hover .ql-fill,
 .ql-snow .ql-toolbar button:hover .ql-fill,
@@ -471,7 +477,8 @@
 .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
-  fill: #06c;
+  // fill: #06c;
+  fill: @primary-color; // add
 }
 .ql-snow.ql-toolbar button:hover .ql-stroke,
 .ql-snow .ql-toolbar button:hover .ql-stroke,
@@ -501,7 +508,8 @@
 .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
 .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
-  stroke: #06c;
+  // stroke: #06c;
+  stroke: @primary-color; // add
 }
 @media (pointer: coarse) {
   .ql-snow.ql-toolbar button:hover:not(.ql-active),
@@ -523,6 +531,7 @@
 }
 .ql-snow {
   box-sizing: border-box;
+  border: none; // add
 }
 .ql-snow * {
   box-sizing: border-box;
@@ -556,16 +565,20 @@
 }
 .ql-snow .ql-stroke {
   fill: none;
-  stroke: #444;
+  // stroke: #444;
+  stroke: @icon-normal-color; // add
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 2;
+  // stroke-width: 2;
+  stroke-width: 1.5;  // add
 }
 .ql-snow .ql-stroke-miter {
   fill: none;
-  stroke: #444;
+  // stroke: #444;
+  stroke: @icon-normal-color; // add
   stroke-miterlimit: 10;
-  stroke-width: 2;
+  // stroke-width: 2;
+  stroke-width: 1.5;  // add
 }
 .ql-snow .ql-fill,
 .ql-snow .ql-stroke.ql-fill {
@@ -691,10 +704,12 @@
   z-index: 2;
 }
 .ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-fill {
-  fill: #ccc;
+  // fill: #ccc;
+  fill: @icon-normal-color; // add
 }
 .ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
-  stroke: #ccc;
+  // stroke: #ccc;
+  stroke: @icon-normal-color; // add
 }
 .ql-snow .ql-picker.ql-expanded .ql-picker-options {
   display: block;
@@ -946,8 +961,10 @@
   content: "Enter video:";
 }
 .ql-snow a {
-  color: #06c;
+  // color: #06c;
+  color: @primary-color;
 }
 .ql-container.ql-snow {
   border: 1px solid #ccc;
+  border: none; // add
 }
