@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders tag demo correctly 1`] = `
+<div>
+  <div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+    >
+      Tag 1
+    </div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+    >
+      <a
+        href="https://github.com/NSFI/ppfish-components"
+      >
+        Link
+      </a>
+    </div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+    >
+      Tag 2
+      <i
+        class="fishdicon fishdicon-close-modal-line"
+      />
+    </div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+    >
+      Prevent Default
+      <i
+        class="fishdicon fishdicon-close-modal-line"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-tag fishd-tag-has-color"
+      data-show="true"
+      style="background-color:#f50"
+    >
+      #f50
+    </div>
+    <div
+      class="fishd-tag fishd-tag-has-color"
+      data-show="true"
+      style="background-color:#2db7f5"
+    >
+      #2db7f5
+    </div>
+    <div
+      class="fishd-tag fishd-tag-has-color"
+      data-show="true"
+      style="background-color:#87d068"
+    >
+      #87d068
+    </div>
+    <div
+      class="fishd-tag fishd-tag-has-color"
+      data-show="true"
+      style="background-color:#108ee9"
+    >
+      #108ee9
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+    >
+      Unremovable
+    </div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+    >
+      Tag 2
+      <i
+        class="fishdicon fishdicon-close-modal-line"
+      />
+    </div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+    >
+      Tag 3
+      <i
+        class="fishdicon fishdicon-close-modal-line"
+      />
+    </div>
+    <div
+      class="fishd-tag"
+      data-show="true"
+      style="background:#fff;border-style:dashed"
+    >
+      <i
+        class="fishdicon fishdicon-plus"
+      />
+       New Tag
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-tag fishd-tag-checkable fishd-tag-checkable-checked"
+    >
+      tag1
+    </div>
+  </div>
+  <div>
+    <h6
+      style="margin-right:8px;display:inline"
+    >
+      Categories:
+    </h6>
+    <div
+      class="fishd-tag fishd-tag-checkable"
+    >
+      Movies
+    </div>
+    <div
+      class="fishd-tag fishd-tag-checkable"
+    >
+      Books
+    </div>
+    <div
+      class="fishd-tag fishd-tag-checkable"
+    >
+      Music
+    </div>
+    <div
+      class="fishd-tag fishd-tag-checkable"
+    >
+      Sports
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders videoViewer demo correctly 1`] = `
+<div>
+  <div>
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        Play
+      </span>
+    </button>
+  </div>
+  <div>
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        Play
+      </span>
+    </button>
+  </div>
+</div>
+`;

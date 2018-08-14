@@ -66,8 +66,6 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
   }
 
   toggleTooltipVisible = (index: number, visible: boolean) => {
-    console.log(visible === true ? 'enter' : 'leave')
-    console.log(`index: ${index}`)
     this.setState(({ visibles }) => ({
       visibles: {
         ...visibles,

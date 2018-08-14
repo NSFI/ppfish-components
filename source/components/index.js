@@ -57,7 +57,7 @@ import * as upload from '../utils/upload';
 // 通用组件从这里暴露
 export {AnimationImageLoader};
 export {AudioPlayer};
-export {Avatar}
+export {Avatar};
 export {BackTop};
 export {Badge};
 export {Breadcrumb};

@@ -115,6 +115,10 @@ class Range extends React.Component {
   onEnd = () => {
     this.removeDocumentEvents();
     this.props.onAfterChange(this.getValue());
+    // RcHandle被点击后，鼠标移开后还原到初始状态
+    this.setState({
+      handle: null,
+    });
   }
 
   onMove(e, position) {

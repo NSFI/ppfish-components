@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders divider demo correctly 1`] = `
+<div>
+  <div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+    <div
+      class="fishd-divider fishd-divider-horizontal"
+    />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+    <div
+      class="fishd-divider fishd-divider-horizontal fishd-divider-with-text"
+    >
+      <span
+        class="fishd-divider-inner-text"
+      >
+        With Text
+      </span>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+    <div
+      class="fishd-divider fishd-divider-horizontal fishd-divider-dashed"
+    />
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+  </div>
+  <div>
+    Text
+    <div
+      class="fishd-divider fishd-divider-vertical"
+    />
+    <a
+      href="#"
+    >
+      Link
+    </a>
+    <div
+      class="fishd-divider fishd-divider-vertical"
+    />
+    <a
+      href="#"
+    >
+      Link
+    </a>
+  </div>
+  <div>
+    <div
+      class="fishd-divider fishd-divider-horizontal fishd-divider-with-text-left"
+    >
+      <span
+        class="fishd-divider-inner-text"
+      >
+        Left Text
+      </span>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+    <div
+      class="fishd-divider fishd-divider-horizontal fishd-divider-with-text-right"
+    >
+      <span
+        class="fishd-divider-inner-text"
+      >
+        Right Text
+      </span>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+  </div>
+</div>
+`;

@@ -36,7 +36,7 @@ class RcTooltip extends Component {
   };
 
   static defaultProps = {
-    prefixCls: 'rc-tooltip',
+    prefixCls: 'fishd-tooltip',
     mouseEnterDelay: 0,
     destroyTooltipOnHide: false,
     mouseLeaveDelay: 0.1,

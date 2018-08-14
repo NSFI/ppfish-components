@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders breadcrumb demo correctly 1`] = `
+<div>
+  <div
+    class="fishd-breadcrumb"
+  >
+    <span>
+      <span
+        class="fishd-breadcrumb-link"
+      >
+        Home
+      </span>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        /
+      </span>
+    </span>
+    <span>
+      <span
+        class="fishd-breadcrumb-link"
+      >
+        <a
+          href=""
+        >
+          Application Center
+        </a>
+      </span>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        /
+      </span>
+    </span>
+    <span>
+      <span
+        class="fishd-breadcrumb-link"
+      >
+        <a
+          href=""
+        >
+          Application List
+        </a>
+      </span>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        /
+      </span>
+    </span>
+    <span>
+      <span
+        class="fishd-breadcrumb-link"
+      >
+        An Application
+      </span>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        /
+      </span>
+    </span>
+  </div>
+  <div
+    class="fishd-breadcrumb"
+  >
+    <span>
+      <a
+        class="fishd-breadcrumb-link"
+        href=""
+      >
+        <i
+          class="fishdicon fishdicon-demo-grid"
+        />
+        <span>
+          Home
+        </span>
+      </a>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        /
+      </span>
+    </span>
+    <span>
+      <a
+        class="fishd-breadcrumb-link"
+        href=""
+      >
+        <i
+          class="fishdicon fishdicon-demo-pie"
+        />
+        <span>
+          Application List
+        </span>
+      </a>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        /
+      </span>
+    </span>
+    <span>
+      <span
+        class="fishd-breadcrumb-link"
+      >
+        <i
+          class="fishdicon fishdicon-demo-mail"
+        />
+        <span>
+          Application
+        </span>
+      </span>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        /
+      </span>
+    </span>
+  </div>
+  <div
+    class="fishd-breadcrumb"
+  >
+    <span>
+      <span
+        class="fishd-breadcrumb-link"
+      >
+        Home
+      </span>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        &gt;
+      </span>
+    </span>
+    <span>
+      <a
+        class="fishd-breadcrumb-link"
+        href=""
+      >
+        Application Center
+      </a>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        &gt;
+      </span>
+    </span>
+    <span>
+      <a
+        class="fishd-breadcrumb-link"
+        href=""
+      >
+        Application List
+      </a>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        &gt;
+      </span>
+    </span>
+    <span>
+      <span
+        class="fishd-breadcrumb-link"
+      >
+        An Application
+      </span>
+      <span
+        class="fishd-breadcrumb-separator"
+      >
+        &gt;
+      </span>
+    </span>
+  </div>
+</div>
+`;
