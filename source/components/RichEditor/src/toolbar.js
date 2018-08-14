@@ -28,16 +28,17 @@ let genEmoji = (data) => {
     );
   });
 
-  for (let key in tmpObj) {
+  Object.keys(tmpObj).forEach((key) => {
     result.push(
       <div className="emoji-row" key={"emoji_row_" + key}>
         { tmpObj[key] }
       </div>
     );
-  }
+  });
 
   return result;
 };
+
 let emojiHTML = genEmoji(emojiList);
 
 class CustomToolbar extends PureComponent {
@@ -88,7 +89,7 @@ class CustomToolbar extends PureComponent {
         'hide': !showEmojiPanel,
         'custom-emoji-panel': true
     });
-    let value = <div />;
+    let value = null;
 
     switch(name) {
       case 'link':
@@ -166,6 +167,7 @@ class CustomToolbar extends PureComponent {
     let result = [];
 
     toolbar.forEach((item, index) => {
+      // 分组展示的项目
       if (item instanceof Array) {
         let grpItems = item.map((name, subindex) => {
           return this.getModuleHTML(name, 'toolbar_' + index + '_sub_' + subindex, extendLinkModule);
@@ -176,7 +178,7 @@ class CustomToolbar extends PureComponent {
             { grpItems }
           </div>
         );
-      } else {
+      } else {  // 单个展示的项目
         result.push(
           this.getModuleHTML(item, 'toolbar_' + index, extendLinkModule)
         );

@@ -27,7 +27,12 @@ class RichEditor extends Component {
 
   static defaultProps = {
     className: '',
-    toolbar: [['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']],
+    toolbar: [
+      ['link', 'bold', 'italic', 'underline'],
+      ['color'], ['align'],
+      [{'list': 'ordered'}, {'list': 'bullet'}],
+      ['emoji'], ['image'], ['size'], ['clean']
+    ],
     placeholder: '',
     prefixCls: 'fishd-richeditor',
     value: '',
@@ -72,11 +77,11 @@ class RichEditor extends Component {
       }
     };
 
-    for (let name in extendLinkModule) {
+    Object.keys(extendLinkModule).forEach((name) => {
       this.modules.toolbar.handlers[name] = function() {
         this.quill.format('entry', extendLinkModule[name].url);
       };
-    }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
