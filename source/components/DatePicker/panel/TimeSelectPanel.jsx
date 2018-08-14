@@ -8,7 +8,7 @@ export default class TimeSelectPanel extends React.Component {
 
   static get propTypes() {
     return {
-      value: PropTypes.instanceOf(Date),         //base
+      value: PropTypes.string,                   //base
       onPicked: PropTypes.func.isRequired,       //base
       start: PropTypes.string,
       end: PropTypes.string,

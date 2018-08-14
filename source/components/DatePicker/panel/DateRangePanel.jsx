@@ -94,32 +94,31 @@ export default class DateRangePanel extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.state = Object.assign({}, {
       rangeState: {
         endDate: null,
         selecting: false,
       },
       minTimePickerVisible: false,
       maxTimePickerVisible: false,
-      leftDate: isValidValue(props.value) ? props.value[0] : new Date(),
-      rightDate: isValidValue(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date()),
-      minDate: isValidValue(props.value) ? toDate(props.value[0]) : null,
-      maxDate: isValidValue(props.value) ? toDate(props.value[1]) : null,
-      minDateInputText: isValidValue(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '',
-      maxDateInputText: isValidValue(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '',
-      minTime: isValidValue(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue),
-      maxTime: isValidValue(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue)
-    }
+    }, this.propsToState(props))
+  }
+
+  propsToState(props) {
+    const state = {};
+    state.leftDate = isValidValue(props.value) ? props.value[0] : new Date();
+    state.rightDate = isValidValue(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date());
+    state.minDate = isValidValue(props.value) ? toDate(props.value[0]) : null;
+    state.maxDate = isValidValue(props.value) ? toDate(props.value[1]) : null;
+    state.minDateInputText = isValidValue(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '';
+    state.maxDateInputText = isValidValue(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '';
+    state.minTime = isValidValue(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue);
+    state.maxTime = isValidValue(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue);
+    return state;
   }
 
   componentWillReceiveProps(nextProps) {
-    const value = nextProps.value;
-    if (value && isValidValue(value)){
-      this.setState({
-        minDate: toDate(nextProps.value[0]),
-        maxDate: toDate(nextProps.value[1]),
-      });
-    }
+    this.setState(this.propsToState(nextProps))
   }
 
   // 鼠标移动选择结束时间的回调

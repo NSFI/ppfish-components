@@ -93,21 +93,23 @@ export default class DatePanel extends React.Component {
         currentView = PICKER_VIEWS.YEAR; break;
     }
 
-    this.state = {
+    this.state = Object.assign({}, {
       currentView,
-      currentDate: isValidValue(props.value) ? toDate(props.value) : new Date(), // 日历视图
-      date: toDate(props.value),                                                 // 日期
-      dateInputText: formatDate(props.value, dateFormat(props.format)),          // 日期输入框的值(string)，当props.value为null时，值为''
-      time: toDate(props.value || props.defaultTimeValue),                                      // 时间
       timePickerVisible: false
-    };
+    }, this.propsToState(props));
+  }
+
+  propsToState(props) {
+    const state = {};
+    state.currentDate = isValidValue(props.value) ? toDate(props.value) : new Date();  // 日历视图
+    state.date = toDate(props.value);                                                  // 日期
+    state.dateInputText = formatDate(props.value, dateFormat(props.format));           // 日期输入框的值(string)，当props.value为null时，值为''
+    state.time = toDate(props.value || props.defaultTimeValue);                        // 时间
+    return state;
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value) {
-      const date = toDate(nextProps.value);
-      this.setState({date})
-    }
+    this.setState(this.propsToState(nextProps))
   }
 
   // 年份、月份面板先注释掉，需要时再打开
