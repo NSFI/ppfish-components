@@ -35,6 +35,7 @@ export interface AbstractTooltipProps {
   getTooltipContainer?: (triggerNode: Element) => HTMLElement;
   getPopupContainer?: (triggerNode: Element) => HTMLElement;
   children?: React.ReactNode;
+  stretch?: string;
 }
 
 export type RenderFunction = () => React.ReactNode;

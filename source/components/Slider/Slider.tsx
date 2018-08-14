@@ -86,6 +86,7 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
         placement="top"
         transitionName="zoom-down"
         key={index}
+        stretch="minWidth"
       >
         <RcHandle
           {...restProps}
