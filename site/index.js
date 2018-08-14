@@ -3,11 +3,11 @@ import React from 'react';
 import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import {Router, Route, hashHistory, Redirect, IndexRoute} from 'react-router';
+import './styles/index.less';
 import Components from './pages/components';
 import Home from './pages/home';
 import Spec from './pages/spec';
 import Demo from './pages/demo';
-import './styles/index.less';
 
 const App = (Components) => (
   <AppContainer>
