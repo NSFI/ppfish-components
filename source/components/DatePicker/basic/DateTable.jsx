@@ -37,17 +37,15 @@ export default class DateTable extends React.Component {
     }
   }
 
+  getOffsetWeek(){
+    return this.props.firstDayOfWeek % 7;
+  }
 
   WEEKS() {
     // 0-6
     const week = this.getOffsetWeek();
     return WEEKS.slice(week).concat(WEEKS.slice(0, week));
   }
-
-  getOffsetWeek(){
-    return this.props.firstDayOfWeek % 7;
-  }
-
 
   getStartDate() {
     const ds = deconstructDate(this.props.date);
@@ -184,11 +182,11 @@ export default class DateTable extends React.Component {
       classes.push('in-range');
     }
 
-    if (cell.start) {
+    if (cell.start && (cell.type === 'normal' || cell.type === 'today') && !cell.disabled) {
       classes.push('start-date');
     }
 
-    if (cell.end) {
+    if (cell.end && (cell.type === 'normal' || cell.type === 'today') && !cell.disabled) {
       classes.push('end-date');
     }
 
@@ -200,11 +198,10 @@ export default class DateTable extends React.Component {
   }
 
   getMarkedRangeRows() {
-    const {showWeekNumber, minDate, selectionMode, rangeState} = this.props;
+    const {showWeekNumber, minDate, maxDate, selectionMode, rangeState} = this.props;
     const rows = this.getRows();
     if (!(selectionMode === SELECTION_MODES.RANGE && rangeState.selecting && rangeState.endDate instanceof Date)) return rows;
 
-    const maxDate = rangeState.endDate;
     for (let i = 0, k = rows.length; i < k; i++) {
       const row = rows[i];
       for (let j = 0, l = row.length; j < l; j++) {
@@ -214,7 +211,7 @@ export default class DateTable extends React.Component {
         const index = i * 7 + j + (showWeekNumber ? -1 : 0);
         const time = this.getStartDate().getTime() + DAY_DURATION * index;
 
-        cell.inRange = minDate && time >= clearHours(minDate) && time <= clearHours(maxDate);
+        cell.inRange = minDate && maxDate && time >= clearHours(minDate) && time <= clearHours(maxDate);
         cell.start = minDate && time === clearHours(minDate.getTime());
         cell.end = maxDate && time === clearHours(maxDate.getTime());
       }
@@ -245,8 +242,7 @@ export default class DateTable extends React.Component {
     return getWeekNumber(newDate) === deconstructDate(this.props.value).week // current date value
   }
 
-
-  handleMouseMove(event) {
+  handleMouseMove = (event) => {
     const {showWeekNumber, onChangeRange, rangeState, selectionMode} = this.props;
 
     const getDateOfCell = (row, column, showWeekNumber) => {
@@ -272,16 +268,16 @@ export default class DateTable extends React.Component {
     }
     let target = getTarget();
 
-    if (!target) return;
+    if (!target || target.tagName !== 'TD') return;
 
     const column = target.cellIndex;
     const row = target.parentNode.rowIndex - 1;
 
     rangeState.endDate = getDateOfCell(row, column, showWeekNumber);
-    onChangeRange(rangeState)
+    onChangeRange(rangeState);
   }
 
-  handleClick(event) {
+  handleClick = (event) => {
     const getTarget = () => {
       const tag = event.target.tagName;
       if(tag === 'SPAN') {
@@ -298,7 +294,7 @@ export default class DateTable extends React.Component {
     }
     let target = getTarget();
 
-    if (!target) return;
+    if (!target || target.tagName !== 'TD') return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
 
     const {selectionMode, date, onPick, minDate, maxDate, rangeState} = this.props;
@@ -336,13 +332,8 @@ export default class DateTable extends React.Component {
     newDate.setDate(parseInt(text, 10));
     if (selectionMode === SELECTION_MODES.RANGE) {
       if (rangeState.selecting) {
-        if (minDate && clearHours(newDate) < clearHours(minDate)) {
-          rangeState.selecting = true;
-          onPick({ minDate: toDate(newDate), maxDate: null }, false)
-        } else if (minDate && clearHours(newDate) >= clearHours(minDate)) {
-          rangeState.selecting = false;
-          onPick({ minDate, maxDate: toDate(newDate) }, true)
-        }
+        rangeState.selecting = false;
+        onPick({ minDate, maxDate }, true)
       } else {
         if (minDate && maxDate || !minDate) {
           // be careful about the rangeState & onPick order
@@ -366,8 +357,8 @@ export default class DateTable extends React.Component {
       <table
         cellSpacing="0"
         cellPadding="0"
-        onClick={this.handleClick.bind(this)}
-        onMouseMove={this.handleMouseMove.bind(this)}
+        onClick={this.handleClick}
+        onMouseMove={this.handleMouseMove}
         className={classNames('fishd-date-table', { 'is-week-mode': selectionMode === 'week' })}
       >
         <tbody>
