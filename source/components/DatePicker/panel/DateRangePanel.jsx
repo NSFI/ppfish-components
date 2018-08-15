@@ -423,7 +423,6 @@ export default class DateRangePanel extends React.Component {
                       />
                     </span>
                   </span>
-                  <span className="fishd-icon-arrow-right" />
                   <span className="fishd-date-range-picker__editors-wrap is-right">
                     <span className="fishd-date-range-picker__time-picker-wrap">
                       <Input
