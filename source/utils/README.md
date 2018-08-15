@@ -38,7 +38,7 @@ export {util};
 ## Usage
 
 ```js
-import util from 'ppfish';
+import {util} from 'ppfish';
 
 util.dom.getSiblings(e);
 util.iframeC.openNumberInput();
