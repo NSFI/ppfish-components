@@ -311,8 +311,6 @@ export default class DateRangePanel extends React.Component {
       if(minDate && maxDate && diffDate(minDate, maxDate) + 1 > maxDateRange) {
         onError('最大选择范围不能超过'+maxDateRange+'天');
         return;
-      }else{
-        onError(null);
       }
     }
 

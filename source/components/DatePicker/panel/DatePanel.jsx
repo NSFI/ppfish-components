@@ -290,8 +290,6 @@ export default class DatePanel extends React.Component {
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
 
-    console.log('日历面板刷新', this.state)
-
     return (
       <div
         className={classNames('fishd-picker-panel fishd-date-picker', {
