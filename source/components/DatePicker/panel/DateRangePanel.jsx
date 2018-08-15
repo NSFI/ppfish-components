@@ -96,6 +96,7 @@ export default class DateRangePanel extends React.Component {
 
     this.state = Object.assign({}, {
       rangeState: {
+        firstSelectedValue: null,
         endDate: null,
         selecting: false,
       },
@@ -120,24 +121,11 @@ export default class DateRangePanel extends React.Component {
   }
 
   // 鼠标移动选择结束时间的回调
-  handleChangeRange({ endDate }) {
-    const { minDate, maxDate } = this.state;
-    // 向前选择
-    if (endDate <= minDate) {
-      this.setState({
-        minDate: new Date(endDate)
-      });
-      if(!maxDate) {
-        this.setState({
-          maxDate: new Date(minDate)
-        })
-      }
-      // 向后选择
-    }else{
-      this.setState({
-        maxDate: new Date(endDate),
-      })
-    }
+  handleChangeRange(rangeState) {
+    this.setState({
+      minDate: new Date(Math.min(rangeState.firstSelectedValue, rangeState.endDate)),
+      maxDate: new Date(Math.max(rangeState.firstSelectedValue, rangeState.endDate))
+    })
   }
 
   // 日期时间都选择，确定按钮才可点击

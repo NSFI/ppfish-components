@@ -331,23 +331,18 @@ export default class DateTable extends React.Component {
 
     newDate.setDate(parseInt(text, 10));
     if (selectionMode === SELECTION_MODES.RANGE) {
-      if (rangeState.selecting) {
-        rangeState.selecting = false;
-        if(minDate && maxDate) {
-          onPick({ minDate, maxDate }, true)
-        }else if (minDate && !maxDate){
-          onPick({ minDate, maxDate: toDate(newDate)}, true)
-        }
-      } else {
-        if (minDate && maxDate || !minDate) {
-          // be careful about the rangeState & onPick order
-          // since rangeState is a object, mutate it will make child DateTable see the
-          // changes, but wont trigger a DateTable re-render. but onPick would trigger it.
-          // so a reversed order may cause a bug.
-          rangeState.selecting = true;
-          onPick({ minDate: toDate(newDate), maxDate: null }, false)
-        }
+      if(!rangeState.selecting) {
+        rangeState.firstSelectedValue = toDate(newDate);
+        onPick({ minDate: toDate(newDate), maxDate: null }, false);
+      }else{
+        onPick({
+          minDate: new Date(Math.min(rangeState.firstSelectedValue, toDate(newDate))),
+          maxDate: new Date(Math.max(rangeState.firstSelectedValue, toDate(newDate)))
+          },
+          true
+        )
       }
+      rangeState.selecting = !rangeState.selecting;
     } else if (selectionMode === SELECTION_MODES.DAY || selectionMode === SELECTION_MODES.WEEK) {
       onPick({ date: newDate })
     }
