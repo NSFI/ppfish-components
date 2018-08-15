@@ -6,7 +6,6 @@
     "react"
   ],
   "plugins": [
-    ["import", {"libraryName": "antd", "style": true}],
     "add-module-exports"
   ],
   "env": {
@@ -23,7 +22,6 @@
         "react"
       ],
       "plugins": [
-        ["import", {"libraryName": "antd", "style": true}],
         "add-module-exports",
         "dynamic-import-node"
       ]

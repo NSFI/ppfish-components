@@ -1,7 +1,7 @@
 # todo list
 
 ## 打包组件为静态文件
-- 不需要打包peerDependencies，目前打包后的代码包含antd是有问题的；
+- 不需要打包peerDependencies
 - 不需要打包图片，打包生成了2个默认图片
 
 ## 定制主题
@@ -32,3 +32,5 @@
 ## switch导致的组件demo暂时去除，待switch完工后重新补充
 - ~~table 自定义显示隐藏demo~~
 - ~~spin demo~~
+
+## 发布的npm包太大，site/assets占了一半大小，可以去掉
