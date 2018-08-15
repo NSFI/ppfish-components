@@ -333,7 +333,11 @@ export default class DateTable extends React.Component {
     if (selectionMode === SELECTION_MODES.RANGE) {
       if (rangeState.selecting) {
         rangeState.selecting = false;
-        onPick({ minDate, maxDate }, true)
+        if(minDate && maxDate) {
+          onPick({ minDate, maxDate }, true)
+        }else if (minDate && !maxDate){
+          onPick({ minDate, maxDate: toDate(newDate)}, true)
+        }
       } else {
         if (minDate && maxDate || !minDate) {
           // be careful about the rangeState & onPick order
