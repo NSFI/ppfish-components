@@ -120,7 +120,21 @@ class CustomToolbar extends PureComponent {
         value = <select className="item ql-color" key={key} />;
         break;
       case 'align':
-        value = <select className="item ql-align" key={key} />;
+        if (mValue instanceof Array && mValue.length) {
+          value = (
+            <select className="item ql-align" key={key}>
+              <option></option>
+              {
+                mValue.map((val, idx) => {
+                  return <option key={key+'_option_'+idx} value={val}></option>;
+                })
+              }
+            </select>
+          );
+        } else {
+          value = <select className="item ql-align" key={key} />;
+        }
+
         break;
       case 'list':
         value = <button type="button" className="item ql-list" value={mValue} key={key}/>;
@@ -141,7 +155,7 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-image" key={key}/>;
         break;
       case 'size':
-        if (mValue instanceof Array) {
+        if (mValue instanceof Array && mValue.length) {
           value = (
             <div className="item custom-size iconfont icon-FontSize" key={key} onClick={this.toggleSizePanel}>
               <div className={sizePanelClass}>
@@ -193,7 +207,7 @@ class CustomToolbar extends PureComponent {
       case 'header':
         if (typeof mValue === 'string' || typeof mValue === 'number') {
           value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
-        } else if (mValue instanceof Array){
+        } else if (mValue instanceof Array && mValue.length){
           value = (
             <select className="item ql-header" defaultValue="normal" key={key}>
               {
