@@ -10,12 +10,12 @@
   }
 
   .editor-head {
+    display: block;
+    padding: 2px 14px;
     border: @border-width-base @border-style-base @border-color-base;
     border-bottom: none;
     background: @background-color-base;
-    padding: 6px 14px;
     white-space: normal;
-    display: block;
   }
 
   .editor-body {
@@ -26,7 +26,7 @@
   .toolbar-grp {
     display: inline-block;
     float: left;
-    margin-right: 10px;
+    margin: 3px 10px 3px 0;
 
     > .item {
       line-height: 0;
@@ -38,6 +38,10 @@
       &:hover {
         color: @primary-color;
         background-color: @background-color-base;
+
+        .ql-picker-options {
+          color: @icon-normal-color;
+        }
       }
 
       .ql-picker-options {
@@ -47,6 +51,7 @@
       }
 
       .ql-picker-item:hover {
+        color: @primary-color;
         background-color: @background-color-base;
 
         .ql-stroke {
