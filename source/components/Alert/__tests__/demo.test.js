@@ -1,3 +1,14 @@
-import demoTest from '../../../../../../Downloads/ant-design-master/tests/shared/demoTest';
+import { getPlainComponentList } from "../../../../site/utils/index.js";
+const plainComponentList = getPlainComponentList();
 
-demoTest('alert');
+let demo_component = 'Alert';
+
+let demoName = demo_component.substr(0, 1).toLowerCase() + demo_component.substr(1);
+const menuItem = plainComponentList.find(item => item.key === demoName);
+
+if(menuItem){
+  const demoTest = require('../../../tests/demoTest');
+  demoTest(demoName);
+}else{
+  xit('skip',()=>{});
+}

@@ -1,0 +1,433 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders alert demo correctly 1`] = `
+<div>
+  <div
+    class="fishd-alert fishd-alert-success fishd-alert-no-icon"
+    data-show="true"
+  >
+    <span
+      class="fishd-alert-message"
+    >
+      Success Text
+    </span>
+    <span
+      class="fishd-alert-description"
+    />
+  </div>
+  <div>
+    <div
+      class="fishd-alert fishd-alert-success fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Success Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <div
+      class="fishd-alert fishd-alert-info fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Info Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <div
+      class="fishd-alert fishd-alert-warning fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Warning Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <div
+      class="fishd-alert fishd-alert-error fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Error Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-alert fishd-alert-warning fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Warning Text Warning Text Warning TextW arning Text Warning Text Warning TextWarning Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+      <a
+        class="fishd-alert-close-icon"
+      >
+        <i
+          class="fishdicon fishdicon-close-modal-line"
+        />
+      </a>
+    </div>
+    <div
+      class="fishd-alert fishd-alert-error fishd-alert-with-description fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Error Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        Error Description Error Description Error Description Error Description Error Description Error Description
+      </span>
+      <a
+        class="fishd-alert-close-icon"
+      >
+        <i
+          class="fishdicon fishdicon-close-modal-line"
+        />
+      </a>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-alert fishd-alert-success fishd-alert-with-description fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Success Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        Success Description Success Description Success Description
+      </span>
+    </div>
+    <div
+      class="fishd-alert fishd-alert-info fishd-alert-with-description fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Info Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        Info Description Info Description Info Description Info Description
+      </span>
+    </div>
+    <div
+      class="fishd-alert fishd-alert-warning fishd-alert-with-description fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Warning Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        Warning Description Warning Description Warning Description Warning Description
+      </span>
+    </div>
+    <div
+      class="fishd-alert fishd-alert-error fishd-alert-with-description fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Error Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        Error Description Error Description Error Description Error Description
+      </span>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-alert fishd-alert-success"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-success fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Success Tips
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <div
+      class="fishd-alert fishd-alert-info"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-notification fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Informational Notes
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <div
+      class="fishd-alert fishd-alert-warning"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-warning fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Warning
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <div
+      class="fishd-alert fishd-alert-error"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-error fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Error
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <div
+      class="fishd-alert fishd-alert-success fishd-alert-with-description"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-success-o fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Success Tips
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        Detailed description and advices about successful copywriting.
+      </span>
+    </div>
+    <div
+      class="fishd-alert fishd-alert-info fishd-alert-with-description"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-notification-o fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Informational Notes
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        Additional description and informations about copywriting.
+      </span>
+    </div>
+    <div
+      class="fishd-alert fishd-alert-warning fishd-alert-with-description"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-warning-o fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Warning
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        This is a warning notice about copywriting.
+      </span>
+    </div>
+    <div
+      class="fishd-alert fishd-alert-error fishd-alert-with-description"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-error-o fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Error
+      </span>
+      <span
+        class="fishd-alert-description"
+      >
+        This is an error message about copywriting.
+      </span>
+    </div>
+  </div>
+  <div
+    class="fishd-alert fishd-alert-info fishd-alert-no-icon"
+    data-show="true"
+  >
+    <span
+      class="fishd-alert-message"
+    >
+      Info Text
+    </span>
+    <span
+      class="fishd-alert-description"
+    />
+    <a
+      class="fishd-alert-close-icon"
+    >
+      Close Now
+    </a>
+  </div>
+  <div>
+    <div
+      class="fishd-alert fishd-alert-warning fishd-alert-banner"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-warning fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Warning text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <br />
+    <div
+      class="fishd-alert fishd-alert-warning fishd-alert-banner"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-warning fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Very long warning text warning text text text text text text text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+      <a
+        class="fishd-alert-close-icon"
+      >
+        <i
+          class="fishdicon fishdicon-close-modal-line"
+        />
+      </a>
+    </div>
+    <br />
+    <div
+      class="fishd-alert fishd-alert-warning fishd-alert-no-icon fishd-alert-banner"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Warning text without icon
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+    <br />
+    <div
+      class="fishd-alert fishd-alert-error fishd-alert-banner"
+      data-show="true"
+    >
+      <i
+        class="fishdicon fishdicon-hints-error fishd-alert-icon"
+      />
+      <span
+        class="fishd-alert-message"
+      >
+        Error text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-alert fishd-alert-success fishd-alert-no-icon"
+      data-show="true"
+    >
+      <span
+        class="fishd-alert-message"
+      >
+        Alert Message Text
+      </span>
+      <span
+        class="fishd-alert-description"
+      />
+      <a
+        class="fishd-alert-close-icon"
+      >
+        <i
+          class="fishdicon fishdicon-close-modal-line"
+        />
+      </a>
+    </div>
+    <p>
+      placeholder text here
+    </p>
+  </div>
+</div>
+`;

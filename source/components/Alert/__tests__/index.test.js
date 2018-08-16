@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Alert from '../index';
+import Alert from '../Alert.tsx';
 
 describe('Alert', () => {
   beforeAll(() => {
@@ -23,7 +23,7 @@ describe('Alert', () => {
         afterClose={afterClose}
       />
     );
-    wrapper.find('.ant-alert-close-icon').simulate('click');
+    wrapper.find('.fishd-alert-close-icon').simulate('click');
     expect(onClose).toBeCalled();
     jest.runAllTimers();
     expect(afterClose).toBeCalled();
@@ -34,7 +34,7 @@ describe('Alert', () => {
       const wrapper = mount(
         <Alert data-test="test-id" data-id="12345" />
       );
-      const input = wrapper.find('.ant-alert').getDOMNode();
+      const input = wrapper.find('.fishd-alert').getDOMNode();
       expect(input.getAttribute('data-test')).toBe('test-id');
       expect(input.getAttribute('data-id')).toBe('12345');
     });
@@ -43,7 +43,7 @@ describe('Alert', () => {
       const wrapper = mount(
         <Alert aria-describedby="some-label" />
       );
-      const input = wrapper.find('.ant-alert').getDOMNode();
+      const input = wrapper.find('.fishd-alert').getDOMNode();
       expect(input.getAttribute('aria-describedby')).toBe('some-label');
     });
 
@@ -51,7 +51,7 @@ describe('Alert', () => {
       const wrapper = mount(
         <Alert role="status" />
       );
-      const input = wrapper.find('.ant-alert').getDOMNode();
+      const input = wrapper.find('.fishd-alert').getDOMNode();
       expect(input.getAttribute('role')).toBe('status');
     });
   });
