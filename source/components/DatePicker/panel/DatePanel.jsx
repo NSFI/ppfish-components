@@ -33,7 +33,7 @@ const PICKER_VIEWS = {
 };
 
 const isInputValid = (text, date, disabledDate) => {
-  if(text.trim() === '' || !isValidValue(date) || typeof disabledDate === 'function' && disabledDate(date)) return false;
+  if(text && text.trim() === '' || !isValidValue(date) || !DatePanel.isValid(date, disabledDate)) return false;
   return true;
 };
 
@@ -186,6 +186,14 @@ export default class DatePanel extends React.Component {
     }
   }
 
+  // 日期输入框失焦时，重置入合法值
+  handleDateInputBlur = (e) => {
+    const {date} = this.state;
+    this.setState({
+      dateInputText: formatDate(date, dateFormat(this.props.format))
+    })
+  }
+
   // 时间输入框变化
   handleTimeInputChange = (val) => {
     if (val) {
@@ -325,6 +333,7 @@ export default class DatePanel extends React.Component {
                       placeholder={t('fishd.datepicker.selectDate')}
                       value={dateInputText}
                       onChange={this.handleDateInputChange}
+                      onBlur={this.handleDateInputBlur}
                     />
                   </span>
                   <span className="fishd-date-picker__editor-wrap">

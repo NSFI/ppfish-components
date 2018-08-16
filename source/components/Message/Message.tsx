@@ -1,6 +1,6 @@
 /* global Promise */
 import * as React from 'react';
-import Notification from '../Notification';
+import RcNotification from '../Notification/RcNotification';
 import Icon from '../Icon/index';
 
 let defaultDuration = 3;
@@ -17,7 +17,7 @@ function getMessageInstance(callback: (i: any) => void) {
     callback(messageInstance);
     return;
   }
-  Notification.newInstance({
+  RcNotification.newInstance({
     prefixCls,
     transitionName,
     style: { top: defaultTop }, // 覆盖原来的样式

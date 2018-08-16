@@ -79,7 +79,7 @@ render(){
 :::
 
 <style>
-.code-notification-demo .ant-btn {
+.code-notification-demo .fishd-btn {
   margin-right: 1em;
 }
 </style>

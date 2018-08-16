@@ -193,22 +193,6 @@ export default class BasePicker extends React.Component {
     }
   }
 
-  // 点击空白区域
-  // handleClickOutside = (evt) => {
-  //   const { value, pickerVisible } = this.state;
-  //   if (!this.isInputFocus && !pickerVisible) {
-  //     return
-  //   }
-  //   if (this.domRoot.contains(evt.target)) return;
-  //   if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
-  //
-  //   if (this.isDateValid(value)) {
-  //     this.onPicked(value, false, true);
-  //   } else {
-  //     this.onCancelPicked();
-  //   }
-  // }
-
   // 点击清空图标
   handleClickCloseIcon = (e) => {
     e && e.stopPropagation();
@@ -233,12 +217,25 @@ export default class BasePicker extends React.Component {
     }
   }
 
+  // 收起面板时检查值的合法性
+  checkDateValid = (visible) => {
+    const { value } = this.state;
+    if (visible) return;
+
+    if (this.isDateValid(value)) {
+      this.onPicked(value, false, true);
+    } else {
+      this.onCancelPicked();
+    }
+  }
+
   // 面板打开关闭的回调
   onVisibleChange = (visible) => {
     this.setState({
       pickerVisible: visible
     },() => {
-      this.props.onOpenChange(visible)
+      this.checkDateValid(visible);
+      this.props.onOpenChange(visible);
     })
   }
 

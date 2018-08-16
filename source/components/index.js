@@ -1,3 +1,4 @@
+import Alert from './Alert/index.tsx';
 import AnimationImageLoader from './AnimationImageLoader';
 import AudioPlayer from './AudioPlayer';
 import Avatar from './Avatar/index.tsx';
@@ -24,6 +25,7 @@ import InputNumber from './Input-number/index.tsx';
 import Menu from './Menu/index.tsx';
 import message from './Message/index.tsx';
 import Modal from './Modal/index.tsx';
+import notification from './Notification/index.tsx';
 import Pagination from './Pagination/index.tsx';
 import Popover from './Popover/index.tsx';
 import PicturePreview from './PicturePreview';
@@ -56,6 +58,7 @@ import * as upload from '../utils/upload';
 //-->utils相关
 
 // 通用组件从这里暴露
+export {Alert};
 export {AnimationImageLoader};
 export {AudioPlayer};
 export {Avatar};
@@ -83,6 +86,7 @@ export {InputNumber};
 export {Menu};
 export {message};
 export {Modal};
+export {notification};
 export {Pagination};
 export {PicturePreview};
 export {Radio};

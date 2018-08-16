@@ -6,7 +6,7 @@ import { createChainedFunction } from '../../utils';
 import classnames from 'classnames';
 import Notice from './Notice';
 
-import './styles/index.less';
+import './styles/RcNotification.less';
 
 let seed = 0;
 const now = Date.now();
@@ -15,7 +15,7 @@ function getUuid() {
   return `rcNotification_${now}_${seed++}`;
 }
 
-class Notification extends Component {
+class RcNotification extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     transitionName: PropTypes.string,
@@ -110,7 +110,7 @@ class Notification extends Component {
   }
 }
 
-Notification.newInstance = function newNotificationInstance(properties, callback) {
+RcNotification.newInstance = function newNotificationInstance(properties, callback) {
   const { getContainer, ...props } = properties || {};
   const div = document.createElement('div');
   if (getContainer) {
@@ -139,7 +139,7 @@ Notification.newInstance = function newNotificationInstance(properties, callback
       },
     });
   }
-  ReactDOM.render(<Notification {...props} ref={ref} />, div);
+  ReactDOM.render(<RcNotification {...props} ref={ref} />, div);
 };
 
-export default Notification;
+export default RcNotification;
