@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Radio should render correctly 1`] = `
+<label
+  class="customized fishd-radio-wrapper"
+>
+  <span
+    class="fishd-radio"
+  >
+    <input
+      class="fishd-radio-input"
+      type="radio"
+    />
+    <span
+      class="fishd-radio-inner"
+    />
+  </span>
+  <span>
+    Test
+  </span>
+</label>
+`;
