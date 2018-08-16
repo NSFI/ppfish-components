@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders dropdown demo correctly 1`] = `
+<div>
+  <a
+    class="fishd-dropdown-link fishd-dropdown-trigger"
+  >
+    Hover me 
+    <i
+      class="fishdicon fishdicon-down"
+    />
+  </a>
+  <div
+    class="components-dropdown-demo-placement"
+  >
+    <button
+      class="fishd-btn fishd-dropdown-trigger"
+      type="button"
+    >
+      <span>
+        bottomLeft
+      </span>
+    </button>
+    <button
+      class="fishd-btn fishd-dropdown-trigger"
+      type="button"
+    >
+      <span>
+        bottomCenter
+      </span>
+    </button>
+    <button
+      class="fishd-btn fishd-dropdown-trigger"
+      type="button"
+    >
+      <span>
+        bottomRight
+      </span>
+    </button>
+    <br />
+    <button
+      class="fishd-btn fishd-dropdown-trigger"
+      type="button"
+    >
+      <span>
+        topLeft
+      </span>
+    </button>
+    <button
+      class="fishd-btn fishd-dropdown-trigger"
+      type="button"
+    >
+      <span>
+        topCenter
+      </span>
+    </button>
+    <button
+      class="fishd-btn fishd-dropdown-trigger"
+      type="button"
+    >
+      <span>
+        topRight
+      </span>
+    </button>
+  </div>
+  <span
+    class="fishd-dropdown-trigger"
+    style="user-select:none"
+  >
+    Right Click on Me
+  </span>
+  <div>
+    <div
+      class="fishd-btn-group fishd-dropdown-button"
+    >
+      <button
+        class="fishd-btn fishd-btn-default"
+        type="button"
+      >
+        <span>
+          Dropdown
+        </span>
+      </button>
+      <button
+        class="fishd-btn fishd-dropdown-trigger fishd-btn-default fishd-btn-icon-only"
+        type="button"
+      >
+        <i
+          class="fishdicon fishdicon-ellipsis"
+        />
+      </button>
+    </div>
+    <div
+      class="fishd-btn-group fishd-dropdown-button"
+      style="margin-left:8px"
+    >
+      <button
+        class="fishd-btn fishd-btn-default"
+        disabled=""
+        type="button"
+      >
+        <span>
+          Dropdown
+        </span>
+      </button>
+      <button
+        class="fishd-btn fishd-dropdown-trigger fishd-btn-default fishd-btn-icon-only"
+        disabled=""
+        type="button"
+      >
+        <i
+          class="fishdicon fishdicon-ellipsis"
+        />
+      </button>
+    </div>
+    <button
+      class="fishd-btn fishd-dropdown-trigger"
+      style="margin-left:8px"
+      type="button"
+    >
+      <span>
+        Button 
+      </span>
+      <i
+        class="fishdicon fishdicon-down"
+      />
+    </button>
+  </div>
+  <a
+    class="fishd-dropdown-link fishd-dropdown-trigger"
+  >
+    Hover me, Click menu item 
+    <i
+      class="fishdicon fishdicon-down"
+    />
+  </a>
+  <a
+    class="fishd-dropdown-link fishd-dropdown-trigger"
+  >
+    Hover me 
+    <i
+      class="fishdicon fishdicon-down"
+    />
+  </a>
+  <a
+    class="fishd-dropdown-link fishd-dropdown-trigger"
+  >
+    Hover me 
+    <i
+      class="fishdicon fishdicon-down"
+    />
+  </a>
+  <a
+    class="fishd-dropdown-link fishd-dropdown-trigger"
+  >
+    Cascading menu 
+    <i
+      class="fishdicon fishdicon-down"
+    />
+  </a>
+  <a
+    class="fishd-dropdown-link fishd-dropdown-trigger"
+  >
+    Click me 
+    <i
+      class="fishdicon fishdicon-down"
+    />
+  </a>
+</div>
+`;

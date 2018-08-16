@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table renders JSX correctly 1`] = `
+<div
+  class="fishd-table-wrapper"
+>
+  <div
+    class="fishd-spin-nested-loading"
+  >
+    <div
+      class="fishd-spin-nested"
+    >
+      <div>
+        <div
+          class="fishd-table fishd-table-default fishd-table-scroll-position-left"
+        >
+          <div
+            class="fishd-table-content"
+          >
+            <div
+              class="fishd-table-body"
+            >
+              <table
+                class=""
+              >
+                <colgroup>
+                  <col />
+                  <col />
+                  <col />
+                </colgroup>
+                <thead
+                  class="fishd-table-thead"
+                >
+                  <tr>
+                    <th
+                      class=""
+                      colspan="2"
+                    >
+                      <span>
+                        Name
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                      rowspan="2"
+                    >
+                      <span>
+                        Age
+                      </span>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th
+                      class=""
+                    >
+                      <span>
+                        First Name
+                      </span>
+                    </th>
+                    <th
+                      class=""
+                    >
+                      <span>
+                        Last Name
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="fishd-table-tbody"
+                >
+                  <tr
+                    class="fishd-table-row  fishd-table-row-level-0"
+                    data-row-key="1"
+                  >
+                    <td
+                      class=""
+                    >
+                      <span
+                        class="fishd-table-row-indent indent-level-0"
+                        style="padding-left:0px"
+                      />
+                      John
+                    </td>
+                    <td
+                      class=""
+                    >
+                      Brown
+                    </td>
+                    <td
+                      class=""
+                    >
+                      32
+                    </td>
+                  </tr>
+                  <tr
+                    class="fishd-table-row  fishd-table-row-level-0"
+                    data-row-key="2"
+                  >
+                    <td
+                      class=""
+                    >
+                      <span
+                        class="fishd-table-row-indent indent-level-0"
+                        style="padding-left:0px"
+                      />
+                      Jim
+                    </td>
+                    <td
+                      class=""
+                    >
+                      Green
+                    </td>
+                    <td
+                      class=""
+                    >
+                      42
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

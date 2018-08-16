@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table.pagination renders pagination correctly 1`] = `
+<div
+  class="fishd-table-wrapper"
+>
+  <div
+    class="fishd-spin-nested-loading"
+  >
+    <div
+      class="fishd-spin-nested"
+    >
+      <div>
+        <div
+          class="fishd-table fishd-table-default fishd-table-scroll-position-left"
+        >
+          <div
+            class="fishd-table-content"
+          >
+            <div
+              class="fishd-table-body"
+            >
+              <table
+                class=""
+              >
+                <colgroup>
+                  <col />
+                </colgroup>
+                <thead
+                  class="fishd-table-thead"
+                >
+                  <tr>
+                    <th
+                      class=""
+                    >
+                      <span>
+                        Name
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="fishd-table-tbody"
+                >
+                  <tr
+                    class="fishd-table-row  fishd-table-row-level-0"
+                    data-row-key="0"
+                  >
+                    <td
+                      class=""
+                    >
+                      <span
+                        class="fishd-table-row-indent indent-level-0"
+                        style="padding-left:0px"
+                      />
+                      Jack
+                    </td>
+                  </tr>
+                  <tr
+                    class="fishd-table-row  fishd-table-row-level-0"
+                    data-row-key="1"
+                  >
+                    <td
+                      class=""
+                    >
+                      <span
+                        class="fishd-table-row-indent indent-level-0"
+                        style="padding-left:0px"
+                      />
+                      Lucy
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul
+        class="fishd-pagination my-page fishd-table-pagination"
+        unselectable="unselectable"
+      >
+        <li
+          aria-disabled="true"
+          class="fishd-pagination-disabled fishd-pagination-prev"
+          title="上一页"
+        >
+          <a
+            class="fishd-pagination-item-link"
+          />
+        </li>
+        <li
+          class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+          tabindex="0"
+          title="1"
+        >
+          <a>
+            1
+          </a>
+        </li>
+        <li
+          class="fishd-pagination-item fishd-pagination-item-2"
+          tabindex="0"
+          title="2"
+        >
+          <a>
+            2
+          </a>
+        </li>
+        <li
+          aria-disabled="false"
+          class=" fishd-pagination-next"
+          tabindex="0"
+          title="下一页"
+        >
+          <a
+            class="fishd-pagination-item-link"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

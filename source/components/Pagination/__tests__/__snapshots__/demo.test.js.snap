@@ -1,0 +1,995 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders pagination demo correctly 1`] = `
+<div>
+  <ul
+    class="fishd-pagination "
+    unselectable="unselectable"
+  >
+    <li
+      aria-disabled="true"
+      class="fishd-pagination-disabled fishd-pagination-prev"
+      title="上一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+      tabindex="0"
+      title="1"
+    >
+      <a>
+        1
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-2"
+      tabindex="0"
+      title="2"
+    >
+      <a>
+        2
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-3"
+      tabindex="0"
+      title="3"
+    >
+      <a>
+        3
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-4"
+      tabindex="0"
+      title="4"
+    >
+      <a>
+        4
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-5"
+      tabindex="0"
+      title="5"
+    >
+      <a>
+        5
+      </a>
+    </li>
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-next"
+      tabindex="0"
+      title="下一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+  </ul>
+  <ul
+    class="fishd-pagination "
+    unselectable="unselectable"
+  >
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-prev"
+      tabindex="0"
+      title="上一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-1"
+      tabindex="0"
+      title="1"
+    >
+      <a>
+        1
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-2"
+      tabindex="0"
+      title="2"
+    >
+      <a>
+        2
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-3 fishd-pagination-item-active"
+      tabindex="0"
+      title="3"
+    >
+      <a>
+        3
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-4"
+      tabindex="0"
+      title="4"
+    >
+      <a>
+        4
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-5 fishd-pagination-item-before-jump-next"
+      tabindex="0"
+      title="5"
+    >
+      <a>
+        5
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-jump-next"
+      tabindex="0"
+      title="向后 5 页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-50"
+      tabindex="0"
+      title="50"
+    >
+      <a>
+        50
+      </a>
+    </li>
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-next"
+      tabindex="0"
+      title="下一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-options"
+    >
+      <div
+        class="fishd-select fishd-pagination-options-size-changer"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <span
+            class="fishd-select-option-single"
+          >
+            10 条/页
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <ul
+    class="fishd-pagination "
+    unselectable="unselectable"
+  >
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-prev"
+      tabindex="0"
+      title="上一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-1"
+      tabindex="0"
+      title="1"
+    >
+      <a>
+        1
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-2"
+      tabindex="0"
+      title="2"
+    >
+      <a>
+        2
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-3 fishd-pagination-item-active"
+      tabindex="0"
+      title="3"
+    >
+      <a>
+        3
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-4"
+      tabindex="0"
+      title="4"
+    >
+      <a>
+        4
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-5"
+      tabindex="0"
+      title="5"
+    >
+      <a>
+        5
+      </a>
+    </li>
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-next"
+      tabindex="0"
+      title="下一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+  </ul>
+  <ul
+    class="fishd-pagination "
+    unselectable="unselectable"
+  >
+    <li
+      aria-disabled="true"
+      class="fishd-pagination-disabled fishd-pagination-prev"
+      title="上一页"
+    >
+      <a>
+        上一页
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+      tabindex="0"
+      title="1"
+    >
+      <a>
+        1
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-2"
+      tabindex="0"
+      title="2"
+    >
+      <a>
+        2
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-3"
+      tabindex="0"
+      title="3"
+    >
+      <a>
+        3
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-4"
+      tabindex="0"
+      title="4"
+    >
+      <a>
+        4
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-5 fishd-pagination-item-before-jump-next"
+      tabindex="0"
+      title="5"
+    >
+      <a>
+        5
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-jump-next"
+      tabindex="0"
+      title="向后 5 页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-50"
+      tabindex="0"
+      title="50"
+    >
+      <a>
+        50
+      </a>
+    </li>
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-next"
+      tabindex="0"
+      title="下一页"
+    >
+      <a>
+        下一页
+      </a>
+    </li>
+  </ul>
+  <ul
+    class="fishd-pagination "
+    unselectable="unselectable"
+  >
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-prev"
+      tabindex="0"
+      title="上一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-1"
+      tabindex="0"
+      title="1"
+    >
+      <a>
+        1
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-2 fishd-pagination-item-active"
+      tabindex="0"
+      title="2"
+    >
+      <a>
+        2
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-3"
+      tabindex="0"
+      title="3"
+    >
+      <a>
+        3
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-4"
+      tabindex="0"
+      title="4"
+    >
+      <a>
+        4
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-5 fishd-pagination-item-before-jump-next"
+      tabindex="0"
+      title="5"
+    >
+      <a>
+        5
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-jump-next"
+      tabindex="0"
+      title="向后 5 页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-50"
+      tabindex="0"
+      title="50"
+    >
+      <a>
+        50
+      </a>
+    </li>
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-next"
+      tabindex="0"
+      title="下一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-options"
+    >
+      <div
+        class="fishd-pagination-options-quick-jumper"
+      >
+        跳至
+        <input
+          type="text"
+          value=""
+        />
+        页
+      </div>
+    </li>
+  </ul>
+  <div
+    id="components-pagination-demo-mini"
+  >
+    <ul
+      class="fishd-pagination mini"
+      style="margin-bottom:24px"
+      unselectable="unselectable"
+    >
+      <li
+        aria-disabled="true"
+        class="fishd-pagination-disabled fishd-pagination-prev"
+        title="上一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+        tabindex="0"
+        title="1"
+      >
+        <a>
+          1
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-2"
+        tabindex="0"
+        title="2"
+      >
+        <a>
+          2
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-3"
+        tabindex="0"
+        title="3"
+      >
+        <a>
+          3
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-4"
+        tabindex="0"
+        title="4"
+      >
+        <a>
+          4
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-5"
+        tabindex="0"
+        title="5"
+      >
+        <a>
+          5
+        </a>
+      </li>
+      <li
+        aria-disabled="false"
+        class=" fishd-pagination-next"
+        tabindex="0"
+        title="下一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+    </ul>
+    <ul
+      class="fishd-pagination mini"
+      style="margin-bottom:24px"
+      unselectable="unselectable"
+    >
+      <li
+        aria-disabled="true"
+        class="fishd-pagination-disabled fishd-pagination-prev"
+        title="上一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+        tabindex="0"
+        title="1"
+      >
+        <a>
+          1
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-2"
+        tabindex="0"
+        title="2"
+      >
+        <a>
+          2
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-3"
+        tabindex="0"
+        title="3"
+      >
+        <a>
+          3
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-4"
+        tabindex="0"
+        title="4"
+      >
+        <a>
+          4
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-5"
+        tabindex="0"
+        title="5"
+      >
+        <a>
+          5
+        </a>
+      </li>
+      <li
+        aria-disabled="false"
+        class=" fishd-pagination-next"
+        tabindex="0"
+        title="下一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+      <li
+        class="fishd-pagination-options"
+      >
+        <div
+          class="fishd-select fishd-pagination-options-size-changer fishd-select-small"
+        >
+          <div
+            class="fishd-select-content"
+          >
+            <div
+              class="fishd-select-caret"
+            >
+              <i
+                class="fishdicon fishdicon-down-fill"
+              />
+            </div>
+            <span
+              class="fishd-select-option-single"
+            >
+              10 条/页
+            </span>
+          </div>
+        </div>
+        <div
+          class="fishd-pagination-options-quick-jumper"
+        >
+          跳至
+          <input
+            type="text"
+            value=""
+          />
+          页
+        </div>
+      </li>
+    </ul>
+    <ul
+      class="fishd-pagination mini"
+      unselectable="unselectable"
+    >
+      <li
+        class="fishd-pagination-total-text"
+      >
+        共 50 条数据
+      </li>
+      <li
+        aria-disabled="true"
+        class="fishd-pagination-disabled fishd-pagination-prev"
+        title="上一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+        tabindex="0"
+        title="1"
+      >
+        <a>
+          1
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-2"
+        tabindex="0"
+        title="2"
+      >
+        <a>
+          2
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-3"
+        tabindex="0"
+        title="3"
+      >
+        <a>
+          3
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-4"
+        tabindex="0"
+        title="4"
+      >
+        <a>
+          4
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-5"
+        tabindex="0"
+        title="5"
+      >
+        <a>
+          5
+        </a>
+      </li>
+      <li
+        aria-disabled="false"
+        class=" fishd-pagination-next"
+        tabindex="0"
+        title="下一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+    </ul>
+  </div>
+  <ul
+    class="fishd-pagination "
+    unselectable="unselectable"
+  >
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-prev"
+      tabindex="0"
+      title="上一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-1"
+      tabindex="0"
+      title="1"
+    >
+      <a>
+        1
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-jump-prev"
+      tabindex="0"
+      title="向前 5 页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-4 fishd-pagination-item-after-jump-prev"
+      tabindex="0"
+      title="4"
+    >
+      <a>
+        4
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-5"
+      tabindex="0"
+      title="5"
+    >
+      <a>
+        5
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-6 fishd-pagination-item-active"
+      tabindex="0"
+      title="6"
+    >
+      <a>
+        6
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-7"
+      tabindex="0"
+      title="7"
+    >
+      <a>
+        7
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-8 fishd-pagination-item-before-jump-next"
+      tabindex="0"
+      title="8"
+    >
+      <a>
+        8
+      </a>
+    </li>
+    <li
+      class="fishd-pagination-jump-next"
+      tabindex="0"
+      title="向后 5 页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-item fishd-pagination-item-50"
+      tabindex="0"
+      title="50"
+    >
+      <a>
+        50
+      </a>
+    </li>
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-next"
+      tabindex="0"
+      title="下一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+  </ul>
+  <ul
+    class="fishd-pagination fishd-pagination-simple "
+  >
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-prev"
+      tabindex="0"
+      title="上一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+    <li
+      class="fishd-pagination-simple-pager"
+      title="2/5"
+    >
+      <input
+        size="3"
+        type="text"
+        value="2"
+      />
+      <span
+        class="fishd-pagination-slash"
+      >
+        ／
+      </span>
+      5
+    </li>
+    <li
+      aria-disabled="false"
+      class=" fishd-pagination-next"
+      tabindex="0"
+      title="下一页"
+    >
+      <a
+        class="fishd-pagination-item-link"
+      />
+    </li>
+  </ul>
+  <div>
+    <ul
+      class="fishd-pagination "
+      unselectable="unselectable"
+    >
+      <li
+        class="fishd-pagination-total-text"
+      >
+        共 85 条数据
+      </li>
+      <li
+        aria-disabled="true"
+        class="fishd-pagination-disabled fishd-pagination-prev"
+        title="上一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+        tabindex="0"
+        title="1"
+      >
+        <a>
+          1
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-2"
+        tabindex="0"
+        title="2"
+      >
+        <a>
+          2
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-3"
+        tabindex="0"
+        title="3"
+      >
+        <a>
+          3
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-4"
+        tabindex="0"
+        title="4"
+      >
+        <a>
+          4
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-5"
+        tabindex="0"
+        title="5"
+      >
+        <a>
+          5
+        </a>
+      </li>
+      <li
+        aria-disabled="false"
+        class=" fishd-pagination-next"
+        tabindex="0"
+        title="下一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+    </ul>
+    <br />
+    <ul
+      class="fishd-pagination "
+      unselectable="unselectable"
+    >
+      <li
+        class="fishd-pagination-total-text"
+      >
+        第1-20 条，共 85 条数据
+      </li>
+      <li
+        aria-disabled="true"
+        class="fishd-pagination-disabled fishd-pagination-prev"
+        title="上一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+        tabindex="0"
+        title="1"
+      >
+        <a>
+          1
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-2"
+        tabindex="0"
+        title="2"
+      >
+        <a>
+          2
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-3"
+        tabindex="0"
+        title="3"
+      >
+        <a>
+          3
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-4"
+        tabindex="0"
+        title="4"
+      >
+        <a>
+          4
+        </a>
+      </li>
+      <li
+        class="fishd-pagination-item fishd-pagination-item-5"
+        tabindex="0"
+        title="5"
+      >
+        <a>
+          5
+        </a>
+      </li>
+      <li
+        aria-disabled="false"
+        class=" fishd-pagination-next"
+        tabindex="0"
+        title="下一页"
+      >
+        <a
+          class="fishd-pagination-item-link"
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+`;

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table.sorter renders sorter icon correctly 1`] = `
+<thead
+  class="fishd-table-thead"
+>
+  <tr>
+    <th
+      class="fishd-table-column-has-filters"
+    >
+      <span>
+        Name
+        <div
+          class="fishd-table-column-sorter"
+        >
+          <span
+            class="fishd-table-column-sorter-up off"
+            title="↑"
+          >
+            <i
+              class="fishdicon fishdicon-up-fill"
+            />
+          </span>
+          <span
+            class="fishd-table-column-sorter-down off"
+            title="↓"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </span>
+        </div>
+      </span>
+    </th>
+  </tr>
+</thead>
+`;
