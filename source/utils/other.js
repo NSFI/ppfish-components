@@ -32,6 +32,26 @@ export const shallowEqual = (objA, objB) => {
 
   return true;
 };
+
+export const shallowEqualArrays = (arrA, arrB) => {
+  if (arrA === arrB) {
+    return true;
+  }
+
+  const len = arrA.length;
+
+  if (arrB.length !== len) {
+    return false;
+  }
+
+  for (let i = 0; i < len; i++) {
+    if (arrA[i] !== arrB[i]) {
+      return false;
+    }
+  }
+
+  return true;
+};
 /**
  * 将HTML代码片段转化为编码后的字符串
  * @param htmlFragment

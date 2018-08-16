@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders cascader demo correctly 1`] = `
+<div>
+  <span
+    class="fishd-cascader-picker"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    />
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      placeholder="Please select"
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <span
+    class="fishd-cascader-picker"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    >
+      Zhejiang / Hangzhou / West Lake
+    </span>
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-close-circle-fill fishd-cascader-picker-clear"
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <span>
+    Unselect 
+    <a
+      href="#"
+      tabindex="0"
+    >
+      Change city
+    </a>
+  </span>
+  <span
+    class="fishd-cascader-picker"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    />
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      placeholder="Please select"
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <span
+    class="fishd-cascader-picker"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    />
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      placeholder="Please select"
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <span
+    class="fishd-cascader-picker"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    />
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      placeholder="Please select"
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <div>
+    <span
+      class="fishd-cascader-picker fishd-cascader-picker-large"
+      tabindex="0"
+    >
+      <span
+        class="fishd-cascader-picker-label"
+      />
+      <input
+        autocomplete="off"
+        class="fishd-input fishd-cascader-input fishd-input-lg"
+        placeholder="Please select"
+        readonly=""
+        type="text"
+        value=""
+      />
+      <i
+        class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+      />
+    </span>
+    <br />
+    <br />
+    <span
+      class="fishd-cascader-picker"
+      tabindex="0"
+    >
+      <span
+        class="fishd-cascader-picker-label"
+      />
+      <input
+        autocomplete="off"
+        class="fishd-input fishd-cascader-input "
+        placeholder="Please select"
+        readonly=""
+        type="text"
+        value=""
+      />
+      <i
+        class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+      />
+    </span>
+    <br />
+    <br />
+    <span
+      class="fishd-cascader-picker fishd-cascader-picker-small"
+      tabindex="0"
+    >
+      <span
+        class="fishd-cascader-picker-label"
+      />
+      <input
+        autocomplete="off"
+        class="fishd-input fishd-cascader-input fishd-input-sm"
+        placeholder="Please select"
+        readonly=""
+        type="text"
+        value=""
+      />
+      <i
+        class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+      />
+    </span>
+    <br />
+    <br />
+  </div>
+  <span
+    class="fishd-cascader-picker"
+    style="width:100%"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    >
+      <span>
+        Zhejiang / 
+      </span>
+      <span>
+        Hangzhou / 
+      </span>
+      <span>
+        West Lake (
+        <a>
+          752100
+        </a>
+        )
+      </span>
+    </span>
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-close-circle-fill fishd-cascader-picker-clear"
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <span
+    class="fishd-cascader-picker fishd-cascader-picker-show-search"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    />
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      placeholder="Please select"
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <span
+    class="fishd-cascader-picker"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    />
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      placeholder="Please select"
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+  <span
+    class="fishd-cascader-picker"
+    tabindex="0"
+  >
+    <span
+      class="fishd-cascader-picker-label"
+    />
+    <input
+      autocomplete="off"
+      class="fishd-input fishd-cascader-input "
+      placeholder="Please select"
+      readonly=""
+      type="text"
+      value=""
+    />
+    <i
+      class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+    />
+  </span>
+</div>
+`;

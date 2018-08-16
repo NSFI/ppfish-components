@@ -1,0 +1,912 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cascader can be selected 1`] = `
+<div>
+  <div
+    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+  >
+    <div>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
+          title="Zhejiang"
+        >
+          Zhejiang
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
+          title="Jiangsu"
+        >
+          Jiangsu
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
+          title="Hangzhou"
+        >
+          Hangzhou
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Cascader can be selected 2`] = `
+<div>
+  <div
+    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+  >
+    <div>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
+          title="Zhejiang"
+        >
+          Zhejiang
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
+          title="Jiangsu"
+        >
+          Jiangsu
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
+          title="Hangzhou"
+        >
+          Hangzhou
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item"
+          title="West Lake"
+        >
+          West Lake
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Cascader can be selected 3`] = `
+<div>
+  <div
+    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft  fishd-cascader-menus-hidden"
+  >
+    <div>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
+          title="Zhejiang"
+        >
+          Zhejiang
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
+          title="Jiangsu"
+        >
+          Jiangsu
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
+          title="Hangzhou"
+        >
+          Hangzhou
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-active"
+          title="West Lake"
+        >
+          West Lake
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Cascader popup correctly when panel is hidden 1`] = `
+<div>
+  <div
+    class="fishd-cascader-menus  fishd-cascader-menus-empty fishd-cascader-menus-placement-bottomLeft  fishd-cascader-menus-hidden"
+  >
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Cascader popup correctly when panel is open 1`] = `
+<div>
+  <div
+    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+  >
+    <div>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
+          title="Zhejiang"
+        >
+          Zhejiang
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
+          title="Jiangsu"
+        >
+          Jiangsu
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Cascader popup correctly with defaultValue 1`] = `
+<div>
+  <div
+    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+  >
+    <div>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
+          title="Zhejiang"
+        >
+          Zhejiang
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
+          title="Jiangsu"
+        >
+          Jiangsu
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
+          title="Hangzhou"
+        >
+          Hangzhou
+          <span
+            class="fishd-cascader-menu-item-expand-icon"
+          />
+        </li>
+      </ul>
+      <ul
+        class="fishd-cascader-menu"
+      >
+        <li
+          class="fishd-cascader-menu-item"
+          title="West Lake"
+        >
+          West Lake
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Cascader should highlight keyword and filter when search in Cascader 1`] = `
+<Popup
+  action={
+    Array [
+      "click",
+    ]
+  }
+  align={
+    Object {
+      "offset": Array [
+        0,
+        4,
+      ],
+      "overflow": Object {
+        "adjustX": 1,
+        "adjustY": 1,
+      },
+      "points": Array [
+        "tl",
+        "bl",
+      ],
+    }
+  }
+  className=""
+  destroyPopupOnHide={false}
+  getClassNameFromAlign={[Function]}
+  getRootDomNode={[Function]}
+  mask={false}
+  onAlign={[Function]}
+  prefixCls="fishd-cascader-menus"
+  style={Object {}}
+  transitionName="slide-up"
+  visible={true}
+>
+  <div>
+    <Animate
+      animation={Object {}}
+      component=""
+      componentProps={Object {}}
+      exclusive={true}
+      onAppear={[Function]}
+      onEnd={[Function]}
+      onEnter={[Function]}
+      onLeave={[Function]}
+      showProp="xVisible"
+      transitionAppear={true}
+      transitionEnter={true}
+      transitionLeave={true}
+      transitionName="slide-up"
+    >
+      <AnimateChild
+        animation={Object {}}
+        key="popup"
+        transitionAppear={true}
+        transitionEnter={true}
+        transitionLeave={true}
+        transitionName="slide-up"
+      >
+        <Align
+          align={
+            Object {
+              "offset": Array [
+                0,
+                4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "tl",
+                "bl",
+              ],
+            }
+          }
+          childrenProps={
+            Object {
+              "visible": "xVisible",
+            }
+          }
+          disabled={false}
+          key="popup"
+          monitorBufferTime={50}
+          monitorWindowResize={true}
+          onAlign={[Function]}
+          target={[Function]}
+          xVisible={true}
+        >
+          <PopupInner
+            className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+            hiddenClassName="fishd-cascader-menus-hidden"
+            prefixCls="fishd-cascader-menus"
+            style={Object {}}
+            visible={true}
+          >
+            <div
+              className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+              style={Object {}}
+            >
+              <LazyRenderBox
+                className="fishd-cascader-menus-content"
+                visible={true}
+              >
+                <Menus
+                  activeValue={Array []}
+                  allowClear={true}
+                  builtinPlacements={
+                    Object {
+                      "bottomLeft": Object {
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "bl",
+                        ],
+                      },
+                      "bottomRight": Object {
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "br",
+                        ],
+                      },
+                      "topLeft": Object {
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "tl",
+                        ],
+                      },
+                      "topRight": Object {
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "tr",
+                        ],
+                      },
+                    }
+                  }
+                  defaultFieldNames={
+                    Object {
+                      "children": "children",
+                      "label": "label",
+                      "value": "value",
+                    }
+                  }
+                  disabled={false}
+                  dropdownMenuColumnStyle={
+                    Object {
+                      "width": 0,
+                    }
+                  }
+                  expandIcon=""
+                  expandTrigger="click"
+                  fieldNames={
+                    Object {
+                      "children": "children",
+                      "label": "label",
+                      "value": "value",
+                    }
+                  }
+                  inputPrefixCls="fishd-input"
+                  notFoundContent="Not Found"
+                  onChange={[Function]}
+                  onPopupVisibleChange={[Function]}
+                  onSelect={[Function]}
+                  options={
+                    Array [
+                      Object {
+                        "__IS_FILTERED_OPTION": true,
+                        "disabled": false,
+                        "label": Array [
+                          "Jiangsu",
+                          Array [
+                            " / ",
+                            "Nanjing",
+                          ],
+                          Array [
+                            " / ",
+                            "Zhong Hua Men",
+                          ],
+                        ],
+                        "path": Array [
+                          Object {
+                            "children": Array [
+                              Object {
+                                "children": Array [
+                                  Object {
+                                    "label": "Zhong Hua Men",
+                                    "value": "zhonghuamen",
+                                  },
+                                ],
+                                "label": "Nanjing",
+                                "value": "nanjing",
+                              },
+                            ],
+                            "label": "Jiangsu",
+                            "value": "jiangsu",
+                          },
+                          Object {
+                            "children": Array [
+                              Object {
+                                "label": "Zhong Hua Men",
+                                "value": "zhonghuamen",
+                              },
+                            ],
+                            "label": "Nanjing",
+                            "value": "nanjing",
+                          },
+                          Object {
+                            "label": "Zhong Hua Men",
+                            "value": "zhonghuamen",
+                          },
+                        ],
+                        "value": Array [
+                          "jiangsu",
+                          "nanjing",
+                          "zhonghuamen",
+                        ],
+                      },
+                      Object {
+                        "__IS_FILTERED_OPTION": true,
+                        "disabled": false,
+                        "label": Array [
+                          "Zhejiang",
+                          Array [
+                            " / ",
+                            Array [
+                              "Hang",
+                              Array [
+                                <span
+                                  className="fishd-cascader-menu-item-keyword"
+                                >
+                                  z
+                                </span>,
+                                "hou",
+                              ],
+                            ],
+                          ],
+                          Array [
+                            " / ",
+                            "West Lake",
+                          ],
+                        ],
+                        "path": Array [
+                          Object {
+                            "children": Array [
+                              Object {
+                                "children": Array [
+                                  Object {
+                                    "label": "West Lake",
+                                    "value": "xihu",
+                                  },
+                                ],
+                                "label": "Hangzhou",
+                                "value": "hangzhou",
+                              },
+                            ],
+                            "label": "Zhejiang",
+                            "value": "zhejiang",
+                          },
+                          Object {
+                            "children": Array [
+                              Object {
+                                "label": "West Lake",
+                                "value": "xihu",
+                              },
+                            ],
+                            "label": "Hangzhou",
+                            "value": "hangzhou",
+                          },
+                          Object {
+                            "label": "West Lake",
+                            "value": "xihu",
+                          },
+                        ],
+                        "value": Array [
+                          "zhejiang",
+                          "hangzhou",
+                          "xihu",
+                        ],
+                      },
+                    ]
+                  }
+                  placeholder="Please select"
+                  popupClassName=""
+                  popupPlacement="bottomLeft"
+                  popupVisible={true}
+                  prefixCls="fishd-cascader"
+                  showSearch={
+                    Object {
+                      "filter": [Function],
+                    }
+                  }
+                  transitionName="slide-up"
+                  value={Array []}
+                  visible={true}
+                >
+                  <div>
+                    <ul
+                      className="fishd-cascader-menu"
+                      key="0"
+                      style={
+                        Object {
+                          "width": 0,
+                        }
+                      }
+                    >
+                      <li
+                        className="fishd-cascader-menu-item"
+                        key="jiangsu,nanjing,zhonghuamen"
+                        onClick={[Function]}
+                        title=""
+                      >
+                        Jiangsu
+                         / 
+                        Nanjing
+                         / 
+                        Zhong Hua Men
+                      </li>
+                      <li
+                        className="fishd-cascader-menu-item"
+                        key="zhejiang,hangzhou,xihu"
+                        onClick={[Function]}
+                        title=""
+                      >
+                        Zhejiang
+                         / 
+                        Hang
+                        <span
+                          className="fishd-cascader-menu-item-keyword"
+                          key="seperator"
+                        >
+                          z
+                        </span>
+                        hou
+                         / 
+                        West Lake
+                      </li>
+                    </ul>
+                  </div>
+                </Menus>
+              </LazyRenderBox>
+            </div>
+          </PopupInner>
+        </Align>
+      </AnimateChild>
+    </Animate>
+  </div>
+</Popup>
+`;
+
+exports[`Cascader should render not found content 1`] = `
+<Popup
+  action={
+    Array [
+      "click",
+    ]
+  }
+  align={
+    Object {
+      "offset": Array [
+        0,
+        4,
+      ],
+      "overflow": Object {
+        "adjustX": 1,
+        "adjustY": 1,
+      },
+      "points": Array [
+        "tl",
+        "bl",
+      ],
+    }
+  }
+  className=""
+  destroyPopupOnHide={false}
+  getClassNameFromAlign={[Function]}
+  getRootDomNode={[Function]}
+  mask={false}
+  onAlign={[Function]}
+  prefixCls="fishd-cascader-menus"
+  style={Object {}}
+  transitionName="slide-up"
+  visible={true}
+>
+  <div>
+    <Animate
+      animation={Object {}}
+      component=""
+      componentProps={Object {}}
+      exclusive={true}
+      onAppear={[Function]}
+      onEnd={[Function]}
+      onEnter={[Function]}
+      onLeave={[Function]}
+      showProp="xVisible"
+      transitionAppear={true}
+      transitionEnter={true}
+      transitionLeave={true}
+      transitionName="slide-up"
+    >
+      <AnimateChild
+        animation={Object {}}
+        key="popup"
+        transitionAppear={true}
+        transitionEnter={true}
+        transitionLeave={true}
+        transitionName="slide-up"
+      >
+        <Align
+          align={
+            Object {
+              "offset": Array [
+                0,
+                4,
+              ],
+              "overflow": Object {
+                "adjustX": 1,
+                "adjustY": 1,
+              },
+              "points": Array [
+                "tl",
+                "bl",
+              ],
+            }
+          }
+          childrenProps={
+            Object {
+              "visible": "xVisible",
+            }
+          }
+          disabled={false}
+          key="popup"
+          monitorBufferTime={50}
+          monitorWindowResize={true}
+          onAlign={[Function]}
+          target={[Function]}
+          xVisible={true}
+        >
+          <PopupInner
+            className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+            hiddenClassName="fishd-cascader-menus-hidden"
+            prefixCls="fishd-cascader-menus"
+            style={Object {}}
+            visible={true}
+          >
+            <div
+              className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+              style={Object {}}
+            >
+              <LazyRenderBox
+                className="fishd-cascader-menus-content"
+                visible={true}
+              >
+                <Menus
+                  activeValue={Array []}
+                  allowClear={true}
+                  builtinPlacements={
+                    Object {
+                      "bottomLeft": Object {
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "bl",
+                        ],
+                      },
+                      "bottomRight": Object {
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "br",
+                        ],
+                      },
+                      "topLeft": Object {
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "tl",
+                        ],
+                      },
+                      "topRight": Object {
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "tr",
+                        ],
+                      },
+                    }
+                  }
+                  defaultFieldNames={
+                    Object {
+                      "children": "children",
+                      "label": "label",
+                      "value": "value",
+                    }
+                  }
+                  disabled={false}
+                  dropdownMenuColumnStyle={
+                    Object {
+                      "height": "auto",
+                      "width": 0,
+                    }
+                  }
+                  expandIcon=""
+                  expandTrigger="click"
+                  fieldNames={
+                    Object {
+                      "children": "children",
+                      "label": "label",
+                      "value": "value",
+                    }
+                  }
+                  inputPrefixCls="fishd-input"
+                  notFoundContent="Not Found"
+                  onChange={[Function]}
+                  onPopupVisibleChange={[Function]}
+                  onSelect={[Function]}
+                  options={
+                    Array [
+                      Object {
+                        "disabled": true,
+                        "label": "Not Found",
+                        "value": "FISHD_CASCADER_NOT_FOUND",
+                      },
+                    ]
+                  }
+                  placeholder="Please select"
+                  popupClassName=""
+                  popupPlacement="bottomLeft"
+                  popupVisible={true}
+                  prefixCls="fishd-cascader"
+                  showSearch={
+                    Object {
+                      "filter": [Function],
+                    }
+                  }
+                  transitionName="slide-up"
+                  value={Array []}
+                  visible={true}
+                >
+                  <div>
+                    <ul
+                      className="fishd-cascader-menu"
+                      key="0"
+                      style={
+                        Object {
+                          "height": "auto",
+                          "width": 0,
+                        }
+                      }
+                    >
+                      <li
+                        className="fishd-cascader-menu-item fishd-cascader-menu-item-disabled"
+                        key="FISHD_CASCADER_NOT_FOUND"
+                        onClick={[Function]}
+                        title="Not Found"
+                      >
+                        Not Found
+                      </li>
+                    </ul>
+                  </div>
+                </Menus>
+              </LazyRenderBox>
+            </div>
+          </PopupInner>
+        </Align>
+      </AnimateChild>
+    </Animate>
+  </div>
+</Popup>
+`;
+
+exports[`Cascader support controlled mode 1`] = `
+<span
+  class="fishd-cascader-picker"
+  tabindex="0"
+>
+  <span
+    class="fishd-cascader-picker-label"
+  >
+    Zhejiang / Hangzhou / West Lake
+  </span>
+  <input
+    autocomplete="off"
+    class="fishd-input fishd-cascader-input "
+    readonly=""
+    type="text"
+    value=""
+  />
+  <i
+    class="fishdicon fishdicon-close-circle-fill fishd-cascader-picker-clear"
+  />
+  <i
+    class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+  />
+</span>
+`;
