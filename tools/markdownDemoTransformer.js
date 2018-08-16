@@ -20,6 +20,7 @@ const w3c = [
   'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr',
 ];
 
+const DEFAULT_INJECT = ['React', 'ReactDOM', 'PropTypes'];
 
 function transformCode(codes) {
   // let codes = [
@@ -76,49 +77,59 @@ function transformCode(codes) {
             //第二种情况 需要回溯到父组件
 
             //根据path得到绑定
-            const tagNameBinding = path.scope.getBinding(tagName);
 
             let topTagName,
               noNeedInject = false//子类元素,情况3,无需依赖注入
               ;
 
-            //首先对声明进行检测
-            if (tagNameBinding.path.type === "VariableDeclarator") {
-              const declarator = tagNameBinding.path.node;
-              const initType = declarator.init.type;
+            const recursionToTopClass = (tagName) => {
 
-              if (initType === "Identifier") { // const $ = jQuery;取别名;
-                topTagName = declarator.init.name;
-              } else if (initType === "MemberExpression") {// const Col = Grid.Col;
-                topTagName = declarator.init.object.name;
-              } else if (
-                initType === "ArrowFunctionExpression" ||
-                initType === "FunctionExpression"
-              ) {
+              let tagNameBinding = path.scope.getBinding(tagName);
+              //首先对声明进行检测
+              if (tagNameBinding.path.type === "VariableDeclarator") {
+                const declarator = tagNameBinding.path.node;
+                const initType = declarator.init.type;
+
+                if (initType === "Identifier") { // const $ = jQuery;取别名;
+                  topTagName = declarator.init.name;
+                } else if (initType === "MemberExpression") {// const Col = Grid.Col;
+                  topTagName = declarator.init.object.name;
+                } else if (initType === "CallExpression") { // EditableContext = React.createContext()
+                  topTagName = declarator.init.callee.object.name;
+                } else if (
+                  initType === "ArrowFunctionExpression" ||
+                  initType === "FunctionExpression"
+                ) {
+                  noNeedInject = true;
+                }
+              } else if (tagNameBinding.path.type === "FunctionDeclaration") {
+                //function NewElement(props){}
                 noNeedInject = true;
               }
-            }else if (tagNameBinding.path.type ==="FunctionDeclaration"){
-              //function NewElement(props){}
-              noNeedInject = true;
-            }
 
 
-            if (!topTagName && !noNeedInject) {
-              //没有tagName，说明先初始化为undefined，然后才对其赋值。
-              //对赋值进行检测
-              tagNameBinding.constantViolations.map(nodePath => {
-                if (nodePath.type === "AssignmentExpression" && nodePath.node.operator === "=") {
-                  let assignRight = nodePath.node.right;
-                  if (assignRight.type === 'MemberExpression') {
-                    topTagName = assignRight.object.name;
+              if (!topTagName && !noNeedInject) {
+                //没有tagName，说明先初始化为undefined，然后才对其赋值。
+                //对赋值进行检测
+                tagNameBinding.constantViolations.map(nodePath => {
+                  if (nodePath.type === "AssignmentExpression" && nodePath.node.operator === "=") {
+                    let assignRight = nodePath.node.right;
+                    if (assignRight.type === 'MemberExpression') {
+                      topTagName = assignRight.object.name;
+                    }
                   }
-                }
-              });
-            }
+                });
+              }
+              if (topTagName && path.scope.hasBinding(topTagName)) {
+                return recursionToTopClass(topTagName);
+              }
+            };
+
+            recursionToTopClass(tagName);//递归查找最顶级的类名
 
             subComponents.push(tagName);//把原来的标签加入子组件
             if (!noNeedInject) {
-              if (!components.includes(topTagName)) {
+              if (topTagName && !components.includes(topTagName)) {
                 components.push(topTagName);
               }
             }
@@ -158,11 +169,16 @@ function transformCode(codes) {
       'functionSent',
       'dynamicImport',
     ] // default: []
-  })).map(ast => (traverse(ast, MyVisitor), generate(ast).code));
+  })).map((ast) => {
+    traverse(ast, MyVisitor);
+    return generate(ast).code;
+  });
 
-
+  //2018-08-16 排除 React
+  components = components.filter(ele => !DEFAULT_INJECT.includes(ele)); //排除 React
+  classNames = classNames.filter(classname => /^demo/i.test(classname));  //一个demo 需要导出一个demo开头的名字以便测试
   //拼成一份模块的代码，用babel转成nodejs能够运行的代码。
-  let transformed = babel.transform(`
+  let composedCode = `
   import React from 'react';
   import ReactDOM from 'react-dom';
   import PropTypes from 'prop-types';
@@ -171,7 +187,11 @@ function transformCode(codes) {
       : ''}
 
 
-  ${codeBodys.join('\n')}
+ const [ ${classNames.join(',')} ]  = [${codeBodys.map((demoCode, demoIndex) => `(()=>{
+    ${demoCode}
+    return ${classNames[demoIndex]}
+  })()
+  `).join(',\n')}]
 
   export default function TestDemoContainer(props){
     return (
@@ -180,7 +200,9 @@ function transformCode(codes) {
       </div>
     )
   }
-  `, babelrc);
+  `;
+
+  let transformed = babel.transform(composedCode, babelrc);
 
   return transformed.code;
 }
