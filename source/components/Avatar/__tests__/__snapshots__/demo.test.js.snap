@@ -1,0 +1,326 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders avatar demo correctly 1`] = `
+<div>
+  <div
+    id="components-avatar-demo-basic"
+  >
+    <div>
+      <span
+        class="fishd-avatar fishd-avatar-lg fishd-avatar-circle fishd-avatar-icon"
+      >
+        <i
+          class="fishdicon fishdicon-user"
+        />
+      </span>
+      <span
+        class="fishd-avatar fishd-avatar-circle fishd-avatar-icon"
+      >
+        <i
+          class="fishdicon fishdicon-user"
+        />
+      </span>
+      <span
+        class="fishd-avatar fishd-avatar-sm fishd-avatar-circle fishd-avatar-icon"
+      >
+        <i
+          class="fishdicon fishdicon-user"
+        />
+      </span>
+    </div>
+    <div>
+      <span
+        class="fishd-avatar fishd-avatar-lg fishd-avatar-square fishd-avatar-icon"
+      >
+        <i
+          class="fishdicon fishdicon-user"
+        />
+      </span>
+      <span
+        class="fishd-avatar fishd-avatar-square fishd-avatar-icon"
+      >
+        <i
+          class="fishdicon fishdicon-user"
+        />
+      </span>
+      <span
+        class="fishd-avatar fishd-avatar-sm fishd-avatar-square fishd-avatar-icon"
+      >
+        <i
+          class="fishdicon fishdicon-user"
+        />
+      </span>
+    </div>
+  </div>
+  <div
+    id="components-avatar-demo-type"
+  >
+    <span
+      class="fishd-avatar fishd-avatar-circle fishd-avatar-icon"
+    >
+      <i
+        class="fishdicon fishdicon-user"
+      />
+    </span>
+    <span
+      class="fishd-avatar fishd-avatar-circle"
+    >
+      <span
+        class="fishd-avatar-string"
+      >
+        U
+      </span>
+    </span>
+    <span
+      class="fishd-avatar fishd-avatar-circle"
+    >
+      <span
+        class="fishd-avatar-string"
+      >
+        USER
+      </span>
+    </span>
+    <span
+      class="fishd-avatar fishd-avatar-circle fishd-avatar-image"
+    >
+      <img
+        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+      />
+    </span>
+    <span
+      class="fishd-avatar fishd-avatar-circle"
+      style="color:#f56a00;background-color:#fde3cf"
+    >
+      <span
+        class="fishd-avatar-string"
+      >
+        U
+      </span>
+    </span>
+    <span
+      class="fishd-avatar fishd-avatar-circle fishd-avatar-icon"
+      style="background-color:#87d068"
+    >
+      <i
+        class="fishdicon fishdicon-user"
+      />
+    </span>
+  </div>
+  <div>
+    <span
+      class="fishd-avatar fishd-avatar-lg fishd-avatar-circle"
+      style="background-color:#f56a00;vertical-align:middle"
+    >
+      <span
+        class="fishd-avatar-string"
+      >
+        U
+      </span>
+    </span>
+    <button
+      class="fishd-btn fishd-btn-sm"
+      style="margin-left:16px;vertical-align:middle"
+      type="button"
+    >
+      <span>
+        Change
+      </span>
+    </button>
+  </div>
+  <div>
+    <span
+      style="margin-right:24px"
+    >
+      <span
+        class="fishd-badge"
+      >
+        <span
+          class="fishd-avatar fishd-avatar-square fishd-avatar-icon"
+        >
+          <i
+            class="fishdicon fishdicon-user"
+          />
+        </span>
+        <sup
+          class="fishd-scroll-number fishd-badge-count"
+          data-show="true"
+          title="1"
+        >
+          <span
+            class="fishd-scroll-number-only"
+            style="transition:none;-ms-transform:translateY(-1100%);-webkit-transform:translateY(-1100%);transform:translateY(-1100%)"
+          >
+            <p
+              class=""
+            >
+              0
+            </p>
+            <p
+              class=""
+            >
+              1
+            </p>
+            <p
+              class=""
+            >
+              2
+            </p>
+            <p
+              class=""
+            >
+              3
+            </p>
+            <p
+              class=""
+            >
+              4
+            </p>
+            <p
+              class=""
+            >
+              5
+            </p>
+            <p
+              class=""
+            >
+              6
+            </p>
+            <p
+              class=""
+            >
+              7
+            </p>
+            <p
+              class=""
+            >
+              8
+            </p>
+            <p
+              class=""
+            >
+              9
+            </p>
+            <p
+              class=""
+            >
+              0
+            </p>
+            <p
+              class="current"
+            >
+              1
+            </p>
+            <p
+              class=""
+            >
+              2
+            </p>
+            <p
+              class=""
+            >
+              3
+            </p>
+            <p
+              class=""
+            >
+              4
+            </p>
+            <p
+              class=""
+            >
+              5
+            </p>
+            <p
+              class=""
+            >
+              6
+            </p>
+            <p
+              class=""
+            >
+              7
+            </p>
+            <p
+              class=""
+            >
+              8
+            </p>
+            <p
+              class=""
+            >
+              9
+            </p>
+            <p
+              class=""
+            >
+              0
+            </p>
+            <p
+              class=""
+            >
+              1
+            </p>
+            <p
+              class=""
+            >
+              2
+            </p>
+            <p
+              class=""
+            >
+              3
+            </p>
+            <p
+              class=""
+            >
+              4
+            </p>
+            <p
+              class=""
+            >
+              5
+            </p>
+            <p
+              class=""
+            >
+              6
+            </p>
+            <p
+              class=""
+            >
+              7
+            </p>
+            <p
+              class=""
+            >
+              8
+            </p>
+            <p
+              class=""
+            >
+              9
+            </p>
+          </span>
+        </sup>
+      </span>
+    </span>
+    <span>
+      <span
+        class="fishd-badge"
+      >
+        <span
+          class="fishd-avatar fishd-avatar-square fishd-avatar-icon"
+        >
+          <i
+            class="fishdicon fishdicon-user"
+          />
+        </span>
+        <sup
+          class="fishd-scroll-number fishd-badge-dot"
+          data-show="true"
+        />
+      </span>
+    </span>
+  </div>
+</div>
+`;
