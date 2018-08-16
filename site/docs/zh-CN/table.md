@@ -1392,9 +1392,7 @@ class Demo extends React.Component {
         return (
           this.state.dataSource.length > 1
             ? (
-              <Popconfirm title="Sure to delete?" onConfirm={() => this.onDelete(record.key)}>
-                <a href="javascript:;">Delete</a>
-              </Popconfirm>
+                <a href="javascript:;" onClick={() => this.onDelete(record.key)}>Delete</a>
             ) : null
         );
       },

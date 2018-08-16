@@ -168,10 +168,10 @@ export default {
         name: 'Tabs 标签页',
         published: true,
       },
-      'steps': {
-        type: 'markdown',
-        name: 'Steps 步骤条',
-      },
+      // 'steps': {
+      //   type: 'markdown',
+      //   name: 'Steps 步骤条',
+      // },
       'backTop': {
         type: 'markdown',
         name: 'backTop 回到顶部',
@@ -261,10 +261,10 @@ export default {
         type: 'markdown',
         name: 'Badge 徽标数',
       },
-      'calendar': {
-        type: 'markdown',
-        name: 'Calendar 日历',
-      },
+      // 'calendar': {
+      //   type: 'markdown',
+      //   name: 'Calendar 日历',
+      // },
       'card': {
         type: 'markdown',
         name: 'Card 卡片',
@@ -299,10 +299,10 @@ export default {
         type: 'markdown',
         name: 'Tag 标签',
       },
-      'timeline': {
-        type: 'markdown',
-        name: 'Timeline 时间轴',
-      },
+      // 'timeline': {
+      //   type: 'markdown',
+      //   name: 'Timeline 时间轴',
+      // },
       'popover': {
         type: 'markdown',
         name: 'Popover 气泡卡片',
@@ -313,10 +313,10 @@ export default {
         name: 'Tooltip 文字提示',
         published: true,
       },
-      'tree': {
-        type: 'markdown',
-        name: 'Tree 树形控件',
-      },
+      // 'tree': {
+      //   type: 'markdown',
+      //   name: 'Tree 树形控件',
+      // },
     },
     '操作反馈': {
       'alert': {
