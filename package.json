@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.3.2-alpha.1",
+  "version": "1.3.2-alpha.2",
   "description": "qiyu and prophet ui components",
   "scripts": {
     "precommit": "lint-staged",
@@ -36,7 +36,6 @@
     "css-animation": "^1.4.1",
     "debug": "^3.1.0",
     "dom-closest": "^0.2.0",
-    "dom-scroll-into-view": "^1.2.1",
     "echarts": "^4.1.0",
     "is-negative-zero": "^2.0.0",
     "lodash.debounce": "^4.0.8",
@@ -54,11 +53,11 @@
     "react-quill": "^1.3.0",
     "react-slick": "~0.23.1",
     "rmc-feedback": "^2.0.0",
+    "shallowequal": "^1.1.0",
     "tinycolor2": "^1.4.1",
     "warning": "^4.0.1"
   },
   "peerDependencies": {
-    "antd": ">= 3.5.3",
     "prop-types": "> 15.5.10",
     "react": ">= 16.1.1",
     "react-dom": ">= 16.1.1"
@@ -67,9 +66,8 @@
     "@types/enzyme": "^3.1.12",
     "@types/jest": "^23.3.1",
     "@types/node": "^10.5.2",
-    "@types/react": "^16.4.6",
+    "@types/react": "16.4.7",
     "@types/react-dom": "^16.0.6",
-    "antd": "^3.5.3",
     "autoprefixer": "^6.4.0",
     "awesome-typescript-loader": "^4.0.1",
     "babel-cli": "^6.26.0",
@@ -98,6 +96,7 @@
     "coveralls": "^2.13.1",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.2",
+    "dom-scroll-into-view": "^1.2.1",
     "ejs-loader": "^0.3.0",
     "element-theme-default": "^1.4.13",
     "enquire-js": "^0.2.1",

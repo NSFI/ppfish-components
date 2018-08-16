@@ -31,7 +31,7 @@
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
-| toolbar | 定制工具栏。可选的值有：<br/>`'link', 'bold', 'italic', 'underline', 'color', 'align', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', 'clean'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
+| toolbar | 定制工具栏。可选的值有：<br/>`'link', 'bold', 'italic', 'underline', 'color', 'align', {'align': ['right', 'center', 'justify']}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'header': 1}, {'header': 2}, {'header': [1, 2, 3, 4, 5, 6]}, {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, background, font`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
 | placeholder | 内容为空时的占位内容。 | String | - |
 | value | 默认显示的内容，改变 `value` 将会改变编辑器的内容。<br/>可以是普通 String 或 HTML String | String | - |
 | extendLinkModule | 扩展链接模块，通过此属性可以个性化定制链接。接收的数据格式为： `{'yourModuleName': {className: '', url: ''}}`。其中 `className` 为该模块的类名， `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//' 。 | Object | - |

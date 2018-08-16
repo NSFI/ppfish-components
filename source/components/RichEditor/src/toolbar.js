@@ -72,12 +72,12 @@ class CustomToolbar extends PureComponent {
   }
 
   getModuleHTML = (mType, key, extendLinkModule) => {
-    let mValue = '';
+    let mValue = null;
 
     if (typeof mType === 'object') {
-      let typeValue = JSON.stringify(mType).match(/\w+/g);
-      mType = typeValue[0];
-      mValue = typeValue[1];
+      let obj = mType;
+      mType = Object.keys(obj)[0];
+      mValue = obj[mType];
     }
 
     // 处理扩展的链接模块
@@ -120,14 +120,25 @@ class CustomToolbar extends PureComponent {
         value = <select className="item ql-color" key={key} />;
         break;
       case 'align':
-        value = <select className="item ql-align" key={key} />;
+        if (mValue instanceof Array && mValue.length) {
+          value = (
+            <select className="item ql-align" key={key}>
+              <option></option>
+              {
+                mValue.map((val, idx) => {
+                  return <option key={key+'_option_'+idx} value={val}></option>;
+                })
+              }
+            </select>
+          );
+        } else {
+          value = <select className="item ql-align" key={key} />;
+        }
+
         break;
       case 'list':
         value = <button type="button" className="item ql-list" value={mValue} key={key}/>;
         break;
-      // case '{"list":"bullet"}':
-      //   value = <button type="button" className="item ql-list" value="bullet" key={key}/>;
-      //   break;
       case 'emoji':
         value = (
           <div className="item custom-emoji iconfont icon-emoticon-smile" key={key} onClick={this.toggleEmojiPanel}>
@@ -144,18 +155,41 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-image" key={key}/>;
         break;
       case 'size':
-        value = (
-          <div className="item custom-size iconfont icon-FontSize" key={key} onClick={this.toggleSizePanel}>
-            <div className={sizePanelClass}>
-              <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
-              <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
-              <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
-              <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
-              <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
-              <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
+        if (mValue instanceof Array && mValue.length) {
+          value = (
+            <div className="item custom-size iconfont icon-FontSize" key={key} onClick={this.toggleSizePanel}>
+              <div className={sizePanelClass}>
+                {
+                  mValue.map((val, idx) => {
+                    return (
+                      <button 
+                        key={key+'_csize_'+idx}
+                        type="button" 
+                        className="ql-customSize size-item" 
+                        value={val}
+                        style={{fontSize: val}}
+                      >{val}</button>
+                    );
+                  })
+                }
+              </div>
             </div>
-          </div>
-        );
+          );
+        } else {
+          value = (
+            <div className="item custom-size iconfont icon-FontSize" key={key} onClick={this.toggleSizePanel}>
+              <div className={sizePanelClass}>
+                <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
+                <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
+                <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
+                <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
+                <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
+                <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
+              </div>
+            </div>
+          );
+        }
+
         break;
       case 'clean':
         {/*value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;*/}
@@ -171,7 +205,34 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-code-block" key={key}/>;
         break;
       case 'header':
-        value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
+        if (typeof mValue === 'string' || typeof mValue === 'number') {
+          value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
+        } else if (mValue instanceof Array && mValue.length){
+          value = (
+            <select className="item ql-header" defaultValue="normal" key={key}>
+              {
+                mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val}></option>)
+              }
+              <option value="normal"></option>
+            </select>
+          );
+        }
+
+        break;
+      case 'script':
+        value = <button type="button" className="item ql-script" value={mValue} key={key}/>;
+        break;
+      case 'indent':
+        value = <button type="button" className="item ql-indent" value={mValue} key={key}/>;
+        break;
+      case 'direction':
+        value = <button type="button" className="item ql-direction" value={mValue} key={key} />;
+        break;
+      case 'background':
+        value = <select className="item ql-background" key={key} />;
+        break;
+      case 'font':
+        value = <select className="item ql-font" key={key} />;
         break;
       default:
         break;

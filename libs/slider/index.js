@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.less';
-import {Affix} from 'antd';
+import Affix from '../../source/components/Affix/index.tsx';
 import scrollIntoView from 'dom-scroll-into-view';
 //元素距顶部高度
 const getElementTop = (element) => {
