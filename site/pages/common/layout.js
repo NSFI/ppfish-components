@@ -85,7 +85,9 @@ export default class Layout extends React.Component {
         <header className="fish-header">
           <Row>
             <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
-              <img src={require('../../assets/FishDesign-Brand-06@2x.png')} alt="fish-disgn"/>
+              <Link to="/home" rel="noopener noreferrer">
+                <img src={require('../../assets/FishDesign-Brand-06@2x.png')} alt="fish-disgn"/>
+              </Link>
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
               <div id="search-box" className="search-box">

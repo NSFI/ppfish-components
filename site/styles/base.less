@@ -11,6 +11,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+  height: 0;
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  // -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+  // background-color: #646566;
+  background-color: rgba(100, 101, 102, 0.2);
+}
+
 /* 屏幕宽度小于 1000px 时，不显示快速导航 */
 @media screen and (max-width: 1125px) {
   .slider-container {
