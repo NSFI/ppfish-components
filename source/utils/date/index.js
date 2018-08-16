@@ -71,9 +71,14 @@ export const toDate = function(date) {
   return isValidValue(date) ? new Date(date) : null;
 };
 
-// 判断值的合法性：Date或[Date,Date]合法
+// 判断值的合法性：Date合法
 export const isValidValue = (value) => {
   if (value instanceof Date) return true;
+  return false;
+};
+
+// 判断值的合法性：[Date,Date]合法
+export const isValidValueArr = (value) => {
   if (Array.isArray(value) && value.length >= 2 && value[0] instanceof Date && value[1] instanceof Date) return true;
   return false;
 };

@@ -33,7 +33,7 @@ const PICKER_VIEWS = {
 };
 
 const isInputValid = (text, date, disabledDate) => {
-  if(text.trim() === '' || !isValidValue(date) || typeof disabledDate === 'function' && disabledDate(date)) return false;
+  if(text.trim() === '' || !isValidValue(date) || !DatePanel.isValid(date, disabledDate)) return false;
   return true;
 };
 

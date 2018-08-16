@@ -7,7 +7,7 @@ import Trigger from 'rc-trigger';
 import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import { Errors, require_condition } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isValidValue } from '../../utils/date';
+import { isValidValue, isValidValueArr } from '../../utils/date';
 import placements from './placements';
 
 const haveTriggerType = (type) => {
@@ -85,7 +85,7 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   isDateValid(date) {
-    return date == null || isValidValue(date);
+    return date == null || isValidValueArr(date);
   }
 
   // ---: start, abstract methods
@@ -139,7 +139,7 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   dateToStr = (date) => {
-    if (!date || !this.isDateValid(date)) return '';
+    if (!date || !isValidValue(date)) return '';
     const tdate = date;
     const formatter = (
       TYPE_VALUE_RESOLVER_MAP['date']
@@ -192,22 +192,6 @@ export default class DateRangeBasePicker extends React.Component {
     }
   }
 
-  // 点击空白区域
-  // handleClickOutside = (evt) => {
-  //   const { value, pickerVisible } = this.state;
-  //   if (!this.isInputFocus && !pickerVisible) {
-  //     return
-  //   }
-  //   if (this.domRoot.contains(evt.target)) return;
-  //   if (this.pickerProxy && this.pickerProxy.contains(evt)) return;
-  //
-  //   if (this.isDateValid(value)) {
-  //     this.onPicked(value, false, true);
-  //   } else {
-  //     this.onCancelPicked();
-  //   }
-  // }
-
   // 点击清空图标
   handleClickCloseIcon = (e) => {
     e && e.stopPropagation();
@@ -231,13 +215,25 @@ export default class DateRangeBasePicker extends React.Component {
     }
   }
 
+  // 收起面板时检查值的合法性
+  checkDateValid = (visible) => {
+    const { value } = this.state;
+    if (visible) return;
+
+    if (this.isDateValid(value)) {
+      this.onPicked(value, false, true);
+    } else {
+      this.onCancelPicked();
+    }
+  }
 
   // 面板打开关闭的回调
   onVisibleChange = (visible) => {
     this.setState({
       pickerVisible: visible
     },() => {
-      this.props.onOpenChange(visible)
+      this.checkDateValid(visible);
+      this.props.onOpenChange(visible);
     })
   }
 

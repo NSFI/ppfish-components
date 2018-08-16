@@ -21,7 +21,7 @@ import {
   parseDate,
   MONTH_ARRRY,
   YEARS_ARRAY,
-  isValidValue,
+  isValidValueArr,
   setTime,
   equalYearAndMonth,
   diffDate
@@ -29,7 +29,7 @@ import {
 import Locale from '../../../utils/date/locale';
 
 const isInputValid = (text, date, disabledDate) => {
-  if(text.trim() === '' || !isValidValue(date) || typeof disabledDate === 'function' && disabledDate(date)) return false;
+  if(text.trim() === '' || !isValidValueArr(date) || !DateRangePanel.isValid(date, disabledDate)) return false;
   return true;
 }
 
@@ -105,14 +105,14 @@ export default class DateRangePanel extends React.Component {
 
   propsToState(props) {
     const state = {};
-    state.leftDate = isValidValue(props.value) ? props.value[0] : new Date();
-    state.rightDate = isValidValue(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date());
-    state.minDate = isValidValue(props.value) ? toDate(props.value[0]) : null;
-    state.maxDate = isValidValue(props.value) ? toDate(props.value[1]) : null;
-    state.minDateInputText = isValidValue(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '';
-    state.maxDateInputText = isValidValue(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '';
-    state.minTime = isValidValue(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue);
-    state.maxTime = isValidValue(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue);
+    state.leftDate = isValidValueArr(props.value) ? props.value[0] : new Date();
+    state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date());
+    state.minDate = isValidValueArr(props.value) ? toDate(props.value[0]) : null;
+    state.maxDate = isValidValueArr(props.value) ? toDate(props.value[1]) : null;
+    state.minDateInputText = isValidValueArr(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '';
+    state.maxDateInputText = isValidValueArr(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '';
+    state.minTime = isValidValueArr(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue);
+    state.maxTime = isValidValueArr(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue);
     return state;
   }
 
@@ -143,6 +143,7 @@ export default class DateRangePanel extends React.Component {
   // 开始日期或结束日期发生改变
   handleDateInputChange(e, type) {
     const {disabledDate,format} = this.props;
+    const {minDate, maxDate} = this.state;
     const text = type === 'min' ? 'minDateInputText' : 'maxDateInputText';
     const value = type === 'min' ? 'minDate' : 'maxDate';
     const dateValue = type === 'min' ? 'leftDate' : 'rightDate';
@@ -150,15 +151,14 @@ export default class DateRangePanel extends React.Component {
     const inputText = e.target.value;
     const ndate = parseDate(inputText, dateFormat(format));
 
-    if (!isInputValid(inputText, ndate, disabledDate)) {
+    if (!isInputValid(inputText, type === 'min'?[ndate, maxDate]:[minDate, ndate], disabledDate)) {
       this.setState({
         [text]: inputText,
       })
     } else {
       this.setState({
         [text]: inputText,
-        [value]: new Date(ndate),
-        [dateValue]: new Date(ndate)
+        [value]: new Date(ndate)
       })
     }
   }
@@ -573,5 +573,6 @@ export default class DateRangePanel extends React.Component {
 }
 
 DateRangePanel.isValid = (value, disabledDate) => {
+  if(value && value.length >= 2 && value[0] > value[1]) return false;
   return typeof disabledDate === 'function' && (value && value.length >= 2) ? !(disabledDate(value[0]) || disabledDate(value[1])) : true;
 };
