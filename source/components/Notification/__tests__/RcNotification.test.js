@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import Notification from '../';
+import RcNotification from '../RcNotification';
 
 describe('rc-notification', () => {
 
   it('works', (done) => {
-    Notification.newInstance({}, notification => {
+    RcNotification.newInstance({}, notification => {
       notification.notice({
         content: <p className="test">1</p>,
         duration: 0.1,
@@ -27,7 +27,7 @@ describe('rc-notification', () => {
   });
 
   it('works with custom close icon', (done) => {
-    Notification.newInstance({
+    RcNotification.newInstance({
       closeIcon: <span className="test-icon">test-close-icon</span>,
     }, notification => {
       notification.notice({
@@ -50,7 +50,7 @@ describe('rc-notification', () => {
   });
 
   it('works with multi instance', (done) => {
-    Notification.newInstance({}, notification => {
+    RcNotification.newInstance({}, notification => {
       notification.notice({
         content: <p className="test">1</p>,
         duration: 0.1,
@@ -75,7 +75,7 @@ describe('rc-notification', () => {
   });
 
   it('destroy works', () => {
-    Notification.newInstance({}, notification => {
+    RcNotification.newInstance({}, notification => {
       notification.notice({
         content: <p id="test" className="test">222222</p>,
         duration: 0.1,
@@ -97,7 +97,7 @@ describe('rc-notification', () => {
     div.innerHTML = '<span>test</span>';
     document.body.appendChild(div);
 
-    Notification.newInstance({
+    RcNotification.newInstance({
       getContainer: () => {
         return document.getElementById('get-container-test');
       },
@@ -116,7 +116,7 @@ describe('rc-notification', () => {
   });
 
   it('remove notify works', (done) => {
-    Notification.newInstance({}, notification => {
+    RcNotification.newInstance({}, notification => {
       const key = Date.now();
       const close = (k) => {
         notification.removeNotice(k);
@@ -149,7 +149,7 @@ describe('rc-notification', () => {
   });
 
   it('update notification by key with multi instance', (done) => {
-    Notification.newInstance({}, notification => {
+    RcNotification.newInstance({}, notification => {
       const key = 'updatable';
       const value = 'value';
       const newValue = `new-${value}`;
@@ -194,7 +194,7 @@ describe('rc-notification', () => {
   });
 
   // it('freeze notification layer when mouse over', (done) => {
-  //   Notification.newInstance({}, notification => {
+  //   RcNotification.newInstance({}, notification => {
   //     notification.notice({
   //       content: <p id="freeze" className="freeze">freeze</p>,
   //       duration: 0.3,
@@ -224,7 +224,7 @@ describe('rc-notification', () => {
   it('should work in lifecycle of React component', () => {
     class Test extends React.Component {
       componentDidMount() {
-        Notification.newInstance({}, notification => {
+        RcNotification.newInstance({}, notification => {
           notification.notice({
             content: <span>In lifecycle</span>,
           });
@@ -241,7 +241,7 @@ describe('rc-notification', () => {
   });
 
   it('drop first notice when items limit exceeds', (done) => {
-    Notification.newInstance({ maxCount: 1 }, notification => {
+    RcNotification.newInstance({ maxCount: 1 }, notification => {
       const value = 'updated last';
       notification.notice({
         content: <span className="test-maxcount">simple show</span>,

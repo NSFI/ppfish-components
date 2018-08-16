@@ -21,7 +21,7 @@ render(){
 :::
 
 <style>
-.ant-alert {
+.fishd-alert {
   margin-bottom: 16px;
 }
 </style>
