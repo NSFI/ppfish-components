@@ -47,8 +47,9 @@ render(){
         <Icon type="demo-mail" />
         <span>Application</span>
       </Breadcrumb.Item>
-    </Breadcrumb>)
-  }
+    </Breadcrumb>
+  )
+}
 ```
 :::
 
@@ -74,6 +75,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| className | 容器类名 | string | - |
 | itemRender | 自定义链接函数，和 react-router 配置使用 | (route, params, routes, paths) => ReactNode | - |
 | params | 路由的参数 | object | - |
 | routes | router 的路由栈信息 | object\[] | - |
