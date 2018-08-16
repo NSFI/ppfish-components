@@ -207,6 +207,10 @@ export default {
         name: 'Input 输入框',
         published: true,
       },
+      'input-number': {
+        type: 'markdown',
+        name: 'InputNumber 数字输入框',
+      },
       'radio': {
         type: 'markdown',
         name: 'Radio 单选框',
