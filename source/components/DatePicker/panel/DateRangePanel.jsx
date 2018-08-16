@@ -571,3 +571,7 @@ export default class DateRangePanel extends React.Component {
     )
   }
 }
+
+DateRangePanel.isValid = (value, disabledDate) => {
+  return typeof disabledDate === 'function' && (value && value.length >= 2) ? !(disabledDate(value[0]) || disabledDate(value[1])) : true;
+};

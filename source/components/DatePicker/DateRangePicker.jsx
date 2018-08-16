@@ -36,15 +36,16 @@ export default class DateRangePicker extends DateRangeBasePicker {
     super(props, props.isShowTime ? 'datetimerange' : 'daterange', {});
   }
 
+  isDateValid(value) {
+    return super.isDateValid(value) && DateRangePanel.isValid(value, this.props.disabledDate);
+  }
+
   getFormatSeparator = () => {
     return this.props.rangeSeparator;
   }
 
   pickerPanel(state) {
-    let value = state.value;
-    if (value instanceof Date) {
-      value = [value, null]
-    }
+    const value = state.value && this.isDateValid(state.value) ? state.value : null;
     return (
       <DateRangePanel
         {...this.props}
