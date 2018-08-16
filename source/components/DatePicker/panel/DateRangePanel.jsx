@@ -146,7 +146,6 @@ export default class DateRangePanel extends React.Component {
     const {minDate, maxDate} = this.state;
     const text = type === 'min' ? 'minDateInputText' : 'maxDateInputText';
     const value = type === 'min' ? 'minDate' : 'maxDate';
-    const dateValue = type === 'min' ? 'leftDate' : 'rightDate';
 
     const inputText = e.target.value;
     const ndate = parseDate(inputText, dateFormat(format));
@@ -159,6 +158,20 @@ export default class DateRangePanel extends React.Component {
       this.setState({
         [text]: inputText,
         [value]: new Date(ndate)
+      })
+    }
+  }
+
+  // 日期输入框失焦时，重置入合法值
+  handleDateInputBlur = (e, type) => {
+    const {minDate, maxDate} = this.state;
+    if(type === 'min') {
+      this.setState({
+        minDateInputText: formatDate(minDate, dateFormat(this.props.format))
+      })
+    }else{
+      this.setState({
+        maxDateInputText: formatDate(maxDate, dateFormat(this.props.format))
       })
     }
   }
@@ -393,6 +406,7 @@ export default class DateRangePanel extends React.Component {
                         className="fishd-date-range-picker__editor"
                         value={minDateInputText}
                         onChange={value => this.handleDateInputChange(value, 'min')}
+                        onBlur={value => this.handleDateInputBlur(value, 'min')}
                       />
                     </span>
                     <span className="fishd-date-range-picker__time-picker-wrap">
@@ -419,6 +433,7 @@ export default class DateRangePanel extends React.Component {
                         value={maxDateInputText}
                         readOnly={!minDate}
                         onChange={value => this.handleDateInputChange(value, 'max')}
+                        onBlur={value => this.handleDateInputBlur(value, 'max')}
                       />
                     </span>
                     <span className="fishd-date-range-picker__time-picker-wrap">
