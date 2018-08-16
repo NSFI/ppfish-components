@@ -3,11 +3,15 @@ import ReactQuill, { Quill } from 'react-quill';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CustomToolbar from './toolbar.js';
+import CustomColorBlot from './formatColorBlot.js';
 import CustomSizeBlot from './formatSizeBlot.js';
 import EmojiBlot from './formatEmojiBlot.js';
 import EntryBlot from './formatEntryBlot.js';
 import '../style/index.less';
 
+export const EditorContext = React.createContext({});
+
+Quill.register(CustomColorBlot);
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
 Quill.register(EntryBlot);
@@ -31,7 +35,14 @@ class RichEditor extends Component {
       ['link', 'bold', 'italic', 'underline'],
       ['color'], ['align'],
       [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['emoji'], ['image'], ['size'], ['clean']
+      ['emoji'], ['image'], ['size'], ['clean'],
+      // ['strike', 'blockquote', 'code-block'],
+      // [{'header': 1}, {'header': 2}, {'header': [1, 2, 3, 4, 5, 6]}],
+      // [{'script': 'sub'}, {'script': 'super'}],
+      // [{'indent': '-1'}, {'indent': '+1'}],
+      // ['background'], ['font'],
+      // [{direction: "rtl"}],[{size: ['32px', '24px', '18px', '16px', '13px', '12px']}],
+      // [{'align': ['right', 'center', 'justify']}],
     ],
     placeholder: '',
     prefixCls: 'fishd-richeditor',
@@ -72,7 +83,10 @@ class RichEditor extends Component {
               src: vList[1]
             });
             this.quill.setSelection(range.index + 1);
-          }
+          },
+          'color': (value) => {
+            // debugger;
+          },
         }
       }
     };
@@ -111,11 +125,13 @@ class RichEditor extends Component {
 
     return (
       <div className={className ? (prefixCls + ' ' + className) : prefixCls}>
-        <CustomToolbar
-          className={'editor-head'}
-          toolbar={toolbar}
-          extendLinkModule={extendLinkModule}
-        />
+        <EditorContext.Provider value={this.modules.toolbar.handlers}>
+          <CustomToolbar
+            className={'editor-head'}
+            toolbar={toolbar}
+            extendLinkModule={extendLinkModule}
+          />
+        </EditorContext.Provider>
         <ReactQuill
           ref={(el) => { this.reactQuillRef = el; }}
           className={'editor-body'}

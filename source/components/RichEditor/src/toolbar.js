@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList.js';
 import emojiSrc from '../img/emoji.png';
-// import ColorPicker from '../ColorPicker';
+import ColorPicker from '../../ColorPicker/index.js';
+import { EditorContext } from './editor.js';
 
 let genEmoji = (data) => {
   let colSize = 10,
@@ -59,8 +60,9 @@ class CustomToolbar extends PureComponent {
 
     this.defaultValue = '14px';
     this.state = {
+      showColorPanel: false,
       showSizePanel: false,
-      showEmojiPanel: false
+      showEmojiPanel: false,
     };
   }
 
@@ -85,14 +87,18 @@ class CustomToolbar extends PureComponent {
       return <button className={'item ql-' + mType + ' custom-entry ' + extendLinkModule[mType].className} key={key}/>;
     }
 
-    const { showSizePanel, showEmojiPanel } = this.state;
+    const { showColorPanel, showSizePanel, showEmojiPanel } = this.state;
+    let sizeColorClass = classNames({
+      'hide': !showColorPanel,
+      'custom-color-panel': true
+    });
     let sizePanelClass = classNames({
-        'hide': !showSizePanel,
-        'custom-size-panel': true
+      'hide': !showSizePanel,
+      'custom-size-panel': true
     });
     let emojiPanelClass = classNames({
-        'hide': !showEmojiPanel,
-        'custom-emoji-panel': true
+      'hide': !showEmojiPanel,
+      'custom-emoji-panel': true
     });
     let value = null;
 
@@ -110,23 +116,30 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-underline" key={key}/>;
         break;
       case 'color':
-        /*
-        value = (
-          <ColorPicker className="item" enableHistory={true} onChange={this.handleColorChange} key={key}>
-            <div className="ql-color iconfont icon-color"></div>
-          </ColorPicker>
-        );
-        */
         value = <select className="item ql-color" key={key} />;
+        // value = (
+        //   <EditorContext.Consumer>
+        //     {
+        //       ({color}) => {
+        //         // color();
+        //         return (
+        //           <div className="item ql-customColor custom-color" key={key}> 
+        //             <ColorPicker.Panel enableAlpha={false} color={'#345679'} style={{display: 'none'}}/>
+        //           </div>
+        //         );
+        //       }
+        //     }
+        //   </EditorContext.Consumer>
+        // );
         break;
       case 'align':
         if (mValue instanceof Array && mValue.length) {
           value = (
             <select className="item ql-align" key={key}>
-              <option></option>
+              <option />
               {
                 mValue.map((val, idx) => {
-                  return <option key={key+'_option_'+idx} value={val}></option>;
+                  return <option key={key+'_option_'+idx} value={val} />;
                 })
               }
             </select>
@@ -151,7 +164,7 @@ class CustomToolbar extends PureComponent {
         );
         break;
       case 'image':
-        {/*value = <button className="item ql-image iconfont icon-picture" key={key}/>;*/}
+        // value = <button className="item ql-image iconfont icon-picture" key={key}/>;
         value = <button className="item ql-image" key={key}/>;
         break;
       case 'size':
@@ -192,7 +205,7 @@ class CustomToolbar extends PureComponent {
 
         break;
       case 'clean':
-        {/*value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;*/}
+        // value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;
         value = <button className="item ql-clean" key={key}/>;
         break;
       case 'strike':
@@ -211,9 +224,9 @@ class CustomToolbar extends PureComponent {
           value = (
             <select className="item ql-header" defaultValue="normal" key={key}>
               {
-                mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val}></option>)
+                mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
               }
-              <option value="normal"></option>
+              <option value="normal" />
             </select>
           );
         }
@@ -266,22 +279,29 @@ class CustomToolbar extends PureComponent {
     return result;
   };
 
-/*
-  handleColorChange = ({color,alpha}) => {
-    console.log(`color:${color},alpha:${alpha}`);
-  };
-*/
   handlePanelStatus = () => {
     window.addEventListener('click', (e) => {
-      let { showSizePanel, showEmojiPanel } = this.state;
-
-      if (showSizePanel || showEmojiPanel) {
-        this.setState({
-          showSizePanel: false,
-          showEmojiPanel: false
-        });
-      }
+      this.setState({
+        showColorPanel: false,
+        showSizePanel: false,
+        showEmojiPanel: false
+      });
     }, false);
+  };
+
+  toggleColorPanel = (e) => {
+    let clsVal = e.target.classList.value;
+
+    if (clsVal.indexOf('item') > -1 ||
+        clsVal.indexOf('ql-customColor') > -1) {
+      this.setState({
+        showColorPanel: !this.state.showColorPanel,
+        showSizePanel: false,
+        showEmojiPanel: false,
+      });
+    }
+
+    e.stopPropagation();
   };
 
   toggleSizePanel = (e) => {
@@ -290,13 +310,9 @@ class CustomToolbar extends PureComponent {
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-customSize') > -1) {
       this.setState({
-        showSizePanel: !this.state.showSizePanel
-      });
-    }
-
-    if (this.state.showEmojiPanel) {
-      this.setState({
-        showEmojiPanel: false
+        showColorPanel: false,
+        showSizePanel: !this.state.showSizePanel,
+        showEmojiPanel: false,
       });
     }
 
@@ -309,13 +325,9 @@ class CustomToolbar extends PureComponent {
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-emoji') > -1) {
       this.setState({
+        showColorPanel: false,
+        showSizePanel: false,
         showEmojiPanel: !this.state.showEmojiPanel
-      });
-    }
-
-    if (this.state.showSizePanel) {
-      this.setState({
-        showSizePanel: false
       });
     }
 
