@@ -33,6 +33,8 @@ export default class Select extends React.Component {
     labelClear: PropTypes.bool,
     labelInValue: PropTypes.bool,
     loading: PropTypes.bool,
+    maxCount: PropTypes.number,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     mode: PropTypes.oneOf(['multiple', 'single']),
     notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -69,6 +71,7 @@ export default class Select extends React.Component {
     labelInValue: false,
     loading: false,
     maxScrollHeight: 250,
+    errorMessage: '超过选项上限',
     mode: 'single',
     notFoundContent: '无匹配结果',
     onChange: noop,
@@ -534,6 +537,8 @@ export default class Select extends React.Component {
       dropdownStyle,
       extraOptions,
       loading,
+      maxCount,
+      errorMessage,
       maxScrollHeight,
       mode,
       notFoundContent,
@@ -547,10 +552,11 @@ export default class Select extends React.Component {
       showSelectAll,
       showSingleClear,
     } = this.props;
-    const {searchValue} = this.state;
+    const {searchValue, selectValue} = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
     const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的children
     const showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
+    const maxCountError = maxCount && selectValue.length > maxCount;
     return (
       <div className={classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName})}
            onKeyDown={this.handleActiveTabChange}
@@ -613,10 +619,20 @@ export default class Select extends React.Component {
               {
                 //多选的点击取消、确定按钮组
                 mode === 'multiple' &&
-                <div className={`${dropdownCls}-footer`}>
-                  <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleCancelSelect}>取消</Button>
-                  <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect}
-                          type="primary">确定</Button>
+                <div>
+                  {
+                    maxCountError &&
+                    (
+                      <div className={`${dropdownCls}-error-panel`}>
+                        <p className={`${dropdownCls}-error-panel-msg`}>{errorMessage}</p>
+                      </div>
+                    )
+                  }
+                  <div className={`${dropdownCls}-footer`}>
+                    <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleCancelSelect}>取消</Button>
+                    <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect}
+                            disabled={maxCountError} type="primary">确定</Button>
+                  </div>
                 </div>
               }
             </div>

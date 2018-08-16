@@ -25,6 +25,30 @@
 ```
 :::
 
+## 限制多选个数
+
+:::demo 最基本的下拉筛选使用方式
+```js
+  render() {
+    return (
+      <div className="demo-select">
+        <Select mode={'multiple'} labelClear maxCount={3} style={{width: 300, margin: 10}} showSelectAll>
+          <Select.Option key={"1"}>{'选项1'}</Select.Option>
+          <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
+          <Select.Option key={"3"}>{'选项3'}</Select.Option>
+          <Select.Option key={"4"}>{'比较长的选项比较长的选项-选项4'}</Select.Option>
+          <Select.Option key={"5"}>{'选项5'}</Select.Option>
+          <Select.Option key={"6"}>{'选项6'}</Select.Option>
+          <Select.Option key={"7"}>{'选项7'}</Select.Option>
+          <Select.Option key={"8"}>{'选项8'}</Select.Option>
+          <Select.Option key={"9"}>{'比较长的选项比较长的选项比较长的选项-选项9'}</Select.Option>
+        </Select>
+      </div>
+    )
+  }
+```
+:::
+
 ## 添加额外的内容
 
 :::demo 
@@ -559,12 +583,14 @@ render(){
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | boolean | true |
 | dropdownStyle | 下拉菜单的 style 属性 | object | - |
+| errorMessage | 错误提示文案 | string/ReactNode | '超过选项上限' |
 | extraOptions | 额外的列表项 | string/ReactNode | - |
 | filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | boolean or function(inputValue, option) | true |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/4j168r7jw0) | Function(triggerNode) | () => document.body |
 | labelClear | 多选模式下开启label删除功能 | boolean | false |
 | labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: string, label: ReactNode , title : string }` 的格式 | boolean | false |
 | loading | 加载状态 | boolean | false |
+| maxCount | 最大多选个数 | number | - |
 | maxScrollHeight | 列表滚动区高度 | number | 250 |
 | mode | 设置 Select 的模式 | 'multiple' \| 'single' | - |
 | notFoundContent | 当下拉列表为空时显示的内容 | string\|React.Element | '无匹配结果' |
