@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders switch demo correctly 1`] = `
+<div>
+  <span
+    class="fishd-switch fishd-switch-checked"
+    tabindex="0"
+  >
+    <span
+      class="fishd-switch-inner"
+    />
+  </span>
+  <div>
+    <span
+      class="fishd-switch fishd-switch-checked fishd-switch-disabled"
+      tabindex="-1"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+    <br />
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        Toggle disabled
+      </span>
+    </button>
+  </div>
+  <div>
+    <span
+      class="fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      >
+        \\u5F00
+      </span>
+    </span>
+    <br />
+    <span
+      class="fishd-switch"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      >
+        0
+      </span>
+    </span>
+    <br />
+    <span
+      class="fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      >
+        <i
+          class="fishdicon fishdicon-check"
+        />
+      </span>
+    </span>
+  </div>
+  <div>
+    <span
+      class="fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+    <br />
+    <span
+      class="fishd-switch-small fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+  </div>
+  <div>
+    <span
+      class="fishd-switch-loading fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+    <br />
+    <span
+      class="fishd-switch-small fishd-switch-loading fishd-switch"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+  </div>
+</div>
+`;
