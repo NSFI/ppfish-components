@@ -16,14 +16,14 @@
 ```js
 render(){
   return (
-           <div>
-             <Progress percent={30} />
-             <Progress percent={50} status="active" />
-             <Progress percent={70} status="exception" />
-             <Progress percent={100} />
-             <Progress percent={50} showInfo={false} />
-           </div>
-           )
+    <div>
+      <Progress percent={30} />
+      <Progress percent={50} status="active" />
+      <Progress percent={70} status="exception" />
+      <Progress percent={100} />
+      <Progress percent={50} showInfo={false} />
+    </div>
+  )
 }
 ```
 :::
@@ -36,11 +36,11 @@ render(){
 render(){
   return (
     <div style={{ width: 170 }}>
-        <Progress percent={30} size="small" />
-        <Progress percent={50} size="small" status="active" />
-        <Progress percent={70} size="small" status="exception" />
-        <Progress percent={100} size="small" />
-      </div>
+      <Progress percent={30} size="small" />
+      <Progress percent={50} size="small" status="active" />
+      <Progress percent={70} size="small" status="exception" />
+      <Progress percent={100} size="small" />
+    </div>
   )
 }
 ```
@@ -54,21 +54,21 @@ render(){
 render(){
   return(
     <div>
-        <Progress type="circle" percent={75} />
-        <Progress type="circle" percent={70} status="exception" />
-        <Progress type="circle" percent={100} />
-      </div>
+      <Progress type="circle" percent={75} />
+      <Progress type="circle" percent={70} status="exception" />
+      <Progress type="circle" percent={100} />
+    </div>
   )
 }
 ```
 :::
 
 <style>
-.ant-progress-circle-wrap,
-.ant-progress-line-wrap {
-  margin-right: 8px;
-  margin-bottom: 5px;
-}
+  .fishd-progress-circle-wrap,
+  .fishd-progress-line-wrap {
+    margin-right: 8px;
+    margin-bottom: 5px;
+  }
 </style>
 
 ## 小型进度圈
@@ -78,11 +78,11 @@ render(){
 ```js
 render(){
   return(
-      <div>
-        <Progress type="circle" percent={30} width={80} />
-        <Progress type="circle" percent={70} width={80} status="exception" />
-        <Progress type="circle" percent={100} width={80} />
-      </div>
+    <div>
+      <Progress type="circle" percent={30} width={80} />
+      <Progress type="circle" percent={70} width={80} status="exception" />
+      <Progress type="circle" percent={100} width={80} />
+    </div>
   )
 }
 ```
@@ -135,21 +135,21 @@ render(){
 ```js
 render(){
   return(
-     <div>
-        <Progress type="circle" percent={75} format={percent => `${percent} Days`} />
-        <Progress type="circle" percent={100} format={() => 'Done'} />
-      </div>
+    <div>
+      <Progress type="circle" percent={75} format={percent => `${percent} Days`} />
+      <Progress type="circle" percent={100} format={() => 'Done'} />
+    </div>
   )
 }
 ```
 :::
 
 <style>
-div.ant-progress-circle,
-div.ant-progress-line {
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
+  div.fishd-progress-circle,
+  div.fishd-progress-line {
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
 </style>
 
 ## 动态展示
@@ -213,9 +213,9 @@ render(){
 ```js
 render(){
   return(
-      <Tooltip title="3 done / 3 in progress / 4 to do">
-        <Progress percent={60} successPercent={30} />
-      </Tooltip>
+    <Tooltip title="3 done / 3 in progress / 4 to do">
+      <Progress percent={60} successPercent={30} />
+    </Tooltip>
   )
 }
 ```
