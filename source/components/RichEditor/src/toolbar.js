@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import emojiList from './emojiList.js';
 import emojiSrc from '../img/emoji.png';
 import ColorPicker from '../../ColorPicker/index.js';
-import { EditorContext } from './editor.js';
 
 let genEmoji = (data) => {
   let colSize = 10,
@@ -60,7 +59,6 @@ class CustomToolbar extends PureComponent {
 
     this.defaultValue = '14px';
     this.state = {
-      showColorPanel: false,
       showSizePanel: false,
       showEmojiPanel: false,
     };
@@ -87,11 +85,7 @@ class CustomToolbar extends PureComponent {
       return <button className={'item ql-' + mType + ' custom-entry ' + extendLinkModule[mType].className} key={key}/>;
     }
 
-    const { showColorPanel, showSizePanel, showEmojiPanel } = this.state;
-    let sizeColorClass = classNames({
-      'hide': !showColorPanel,
-      'custom-color-panel': true
-    });
+    const { showSizePanel, showEmojiPanel } = this.state;
     let sizePanelClass = classNames({
       'hide': !showSizePanel,
       'custom-size-panel': true
@@ -116,21 +110,14 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-underline" key={key}/>;
         break;
       case 'color':
-        value = <select className="item ql-color" key={key} />;
-        // value = (
-        //   <EditorContext.Consumer>
-        //     {
-        //       ({color}) => {
-        //         // color();
-        //         return (
-        //           <div className="item ql-customColor custom-color" key={key}> 
-        //             <ColorPicker.Panel enableAlpha={false} color={'#345679'} style={{display: 'none'}}/>
-        //           </div>
-        //         );
-        //       }
-        //     }
-        //   </EditorContext.Consumer>
-        // );
+        // value = <select className="item ql-color" key={key} />;
+        value = (
+          <ColorPicker key={key} enableHistory={true} enableAlpha={false} onChange={this.handleColorChange} >
+            <div className="item custom-color">
+              <button className="ql-customColor" style={{display: 'none'}}/>
+            </div>
+          </ColorPicker>
+        );
         break;
       case 'align':
         if (mValue instanceof Array && mValue.length) {
@@ -282,26 +269,16 @@ class CustomToolbar extends PureComponent {
   handlePanelStatus = () => {
     window.addEventListener('click', (e) => {
       this.setState({
-        showColorPanel: false,
         showSizePanel: false,
         showEmojiPanel: false
       });
     }, false);
   };
 
-  toggleColorPanel = (e) => {
-    let clsVal = e.target.classList.value;
-
-    if (clsVal.indexOf('item') > -1 ||
-        clsVal.indexOf('ql-customColor') > -1) {
-      this.setState({
-        showColorPanel: !this.state.showColorPanel,
-        showSizePanel: false,
-        showEmojiPanel: false,
-      });
-    }
-
-    e.stopPropagation();
+  handleColorChange = ({color}) => {
+    let btn = document.querySelector('.ql-customColor');
+    btn.setAttribute("value", color);
+    btn.click();
   };
 
   toggleSizePanel = (e) => {
@@ -310,7 +287,6 @@ class CustomToolbar extends PureComponent {
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-customSize') > -1) {
       this.setState({
-        showColorPanel: false,
         showSizePanel: !this.state.showSizePanel,
         showEmojiPanel: false,
       });
@@ -325,7 +301,6 @@ class CustomToolbar extends PureComponent {
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-emoji') > -1) {
       this.setState({
-        showColorPanel: false,
         showSizePanel: false,
         showEmojiPanel: !this.state.showEmojiPanel
       });

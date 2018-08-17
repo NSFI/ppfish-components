@@ -3,15 +3,11 @@ import ReactQuill, { Quill } from 'react-quill';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CustomToolbar from './toolbar.js';
-import CustomColorBlot from './formatColorBlot.js';
 import CustomSizeBlot from './formatSizeBlot.js';
 import EmojiBlot from './formatEmojiBlot.js';
 import EntryBlot from './formatEntryBlot.js';
 import '../style/index.less';
 
-export const EditorContext = React.createContext({});
-
-Quill.register(CustomColorBlot);
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
 Quill.register(EntryBlot);
@@ -84,8 +80,13 @@ class RichEditor extends Component {
             });
             this.quill.setSelection(range.index + 1);
           },
-          'color': (value) => {
-            // debugger;
+          'customColor': function(color) {
+            let range = this.quill.getSelection();
+
+            if (range.length !== 0) {
+              // 此处使用内置的ColorBlot设置字体颜色，可以自定义CustomColorBlot添加更多扩展功能
+              this.quill.format('color', color);
+            }
           },
         }
       }
@@ -125,13 +126,11 @@ class RichEditor extends Component {
 
     return (
       <div className={className ? (prefixCls + ' ' + className) : prefixCls}>
-        <EditorContext.Provider value={this.modules.toolbar.handlers}>
-          <CustomToolbar
-            className={'editor-head'}
-            toolbar={toolbar}
-            extendLinkModule={extendLinkModule}
-          />
-        </EditorContext.Provider>
+        <CustomToolbar
+          className={'editor-head'}
+          toolbar={toolbar}
+          extendLinkModule={extendLinkModule}
+        />
         <ReactQuill
           ref={(el) => { this.reactQuillRef = el; }}
           className={'editor-body'}

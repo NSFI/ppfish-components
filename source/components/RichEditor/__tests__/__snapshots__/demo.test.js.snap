@@ -28,9 +28,20 @@ exports[`Renders richEditor demo correctly 1`] = `
       <div
         class="toolbar-grp"
       >
-        <select
-          class="item ql-color"
-        />
+        <div
+          class="u-color-picker-wrap "
+        >
+          <div
+            class="item custom-color"
+            style="background-color:rgba(255,0,0,1)"
+            unselectable="unselectable"
+          >
+            <button
+              class="ql-customColor"
+              style="display:none"
+            />
+          </div>
+        </div>
       </div>
       <div
         class="toolbar-grp"
