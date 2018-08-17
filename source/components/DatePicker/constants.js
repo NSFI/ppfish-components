@@ -13,6 +13,7 @@ export const DEFAULT_FORMATS = {
   daterange: 'yyyy-MM-dd',
   datetimerange: 'yyyy-MM-dd HH:mm:ss'
 };
+
 export const HAVE_TRIGGER_TYPES = [
   'date',
   'datetime',
@@ -29,9 +30,11 @@ export const HAVE_TRIGGER_TYPES = [
 export const DATE_FORMATTER = function (value, format) {
   return formatDate(value, format);
 };
+
 export const DATE_PARSER = function (text, format) {
   return parseDate(text, format);
 };
+
 export const RANGE_FORMATTER = function (value, format, separator = RANGE_SEPARATOR) {
   if (Array.isArray(value) && value.length === 2) {
     const start = value[0];
@@ -43,6 +46,7 @@ export const RANGE_FORMATTER = function (value, format, separator = RANGE_SEPARA
   }
   return '';
 };
+
 export const RANGE_PARSER = function (text, format, separator = RANGE_SEPARATOR) {
   const array = text.split(separator);
   if (array.length === 2) {
@@ -166,13 +170,4 @@ export const TYPE_VALUE_RESOLVER_MAP = {
       }
     }
   }
-};
-
-export const PLACEMENT_MAP = {
-  left: 'bottom-start',
-  // in git version 8de9d2ce, this been changed to
-  // center: 'bottom',
-  // due to it's close relation to popper, I dont have enought confidence to update it right now
-  center: 'bottom-center',
-  right: 'bottom-end'
 };
