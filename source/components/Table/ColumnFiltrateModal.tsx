@@ -97,21 +97,14 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
 
   getOptions = () => {
     const {columns, defaultColumns} = this.props;
-    const notFixedColumns = columns.filter(column => !column.fixed);
-    const isAnyColumnsFixed = columns.some(column => !!column.fixed);
     return columns
     // 去除表头合并的不显示的
       .filter(column => column.colSpan !== 0)
       // 获取他们的label、value、disabled
       .map((column) => {
         const uniqKey = getColumnKey(column);
-        const disabled =
-          // fixed
-          !!column.fixed
-          // 表格分组
-          || !!column.children
-          // 未fixed的项至少保留一项
-          || (this.state.checkedOption.indexOf(getColumnKey(column)) !== -1 && notFixedColumns.filter(column => this.state.checkedOption.indexOf(getColumnKey(column)) !== -1).length === 1);
+        //fixed /分组不能控制显示隐藏
+        const disabled = !!column.fixed || !!column.children;
         return {
           label: column.title,
           value: uniqKey,
