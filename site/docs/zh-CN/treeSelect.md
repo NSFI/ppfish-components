@@ -584,7 +584,7 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 容器类名 | string | '' |
+| className | 容器类名 | string | - |
 | defaultValue | 指定默认选中的条目 | string/string[] | - |
 | disabled | 是否禁用 | boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | string | - |
