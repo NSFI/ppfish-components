@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Progress render format 1`] = `
+<div
+  class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
+>
+  <div>
+    <div
+      class="fishd-progress-outer"
+    >
+      <div
+        class="fishd-progress-inner"
+      >
+        <div
+          class="fishd-progress-bg"
+          style="width: 50%; height: 8px; border-radius: 100px;"
+        />
+        <div
+          class="fishd-progress-success-bg"
+          style="width: 10%; height: 8px; border-radius: 100px;"
+        />
+      </div>
+    </div>
+    <span
+      class="fishd-progress-text"
+    >
+      50 10
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Progress render negetive progress 1`] = `
+<div
+  class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
+>
+  <div>
+    <div
+      class="fishd-progress-outer"
+    >
+      <div
+        class="fishd-progress-inner"
+      >
+        <div
+          class="fishd-progress-bg"
+          style="width: 0%; height: 8px; border-radius: 100px;"
+        />
+      </div>
+    </div>
+    <span
+      class="fishd-progress-text"
+    >
+      0%
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Progress render negetive successPercent 1`] = `
+<div
+  class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
+>
+  <div>
+    <div
+      class="fishd-progress-outer"
+    >
+      <div
+        class="fishd-progress-inner"
+      >
+        <div
+          class="fishd-progress-bg"
+          style="width: 50%; height: 8px; border-radius: 100px;"
+        />
+        <div
+          class="fishd-progress-success-bg"
+          style="width: 0%; height: 8px; border-radius: 100px;"
+        />
+      </div>
+    </div>
+    <span
+      class="fishd-progress-text"
+    >
+      50%
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Progress render out-of-range progress 1`] = `
+<div
+  class="fishd-progress fishd-progress-line fishd-progress-status-success fishd-progress-show-info fishd-progress-default"
+>
+  <div>
+    <div
+      class="fishd-progress-outer"
+    >
+      <div
+        class="fishd-progress-inner"
+      >
+        <div
+          class="fishd-progress-bg"
+          style="width: 100%; height: 8px; border-radius: 100px;"
+        />
+      </div>
+    </div>
+    <span
+      class="fishd-progress-text"
+    >
+      <i
+        class="fishdicon fishdicon-hints-success"
+      />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Progress render out-of-range progress with info 1`] = `
+<div
+  class="fishd-progress fishd-progress-line fishd-progress-status-success fishd-progress-show-info fishd-progress-default"
+>
+  <div>
+    <div
+      class="fishd-progress-outer"
+    >
+      <div
+        class="fishd-progress-inner"
+      >
+        <div
+          class="fishd-progress-bg"
+          style="width: 100%; height: 8px; border-radius: 100px;"
+        />
+      </div>
+    </div>
+    <span
+      class="fishd-progress-text"
+    >
+      <i
+        class="fishdicon fishdicon-hints-success"
+      />
+    </span>
+  </div>
+</div>
+`;

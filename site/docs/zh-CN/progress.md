@@ -119,8 +119,8 @@ render(){
       <div>
         <Progress type="circle" percent={this.state.percent} />
         <ButtonGroup>
-          <Button onClick={this.decline} icon="minus" />
-          <Button onClick={this.increase} icon="plus" />
+          <Button onClick={this.decline}> - </Button>
+          <Button onClick={this.increase}> + </Button>
         </ButtonGroup>
       </div>
     );
@@ -183,8 +183,8 @@ div.ant-progress-line {
       <div>
         <Progress percent={this.state.percent} />
         <ButtonGroup>
-          <Button onClick={this.decline} icon="minus" />
-          <Button onClick={this.increase} icon="plus" />
+          <Button onClick={this.decline}> - </Button>
+          <Button onClick={this.increase}> + </Button>
         </ButtonGroup>
       </div>
     );
