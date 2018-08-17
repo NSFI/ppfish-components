@@ -71,7 +71,7 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
   static __ANT_LAYOUT_SIDER: any = true;
 
   static defaultProps = {
-    prefixCls: 'ant-layout-sider',
+    prefixCls: 'fishd-layout-sider',
     collapsible: false,
     defaultCollapsed: false,
     reverseArrow: false,
@@ -95,7 +95,7 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
 
   constructor(props: SiderProps) {
     super(props);
-    this.uniqueId = generateId('ant-sider-');
+    this.uniqueId = generateId('fishd-sider-');
     let matchMedia;
     if (typeof window !== 'undefined') {
       matchMedia = window.matchMedia;
