@@ -6,16 +6,27 @@
   @media (max-width: @screen-lg) {
     height: calc(~"100vh - 128px");
   }
+  .component-list {
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(100, 101, 102, 0.1);
+    }
+  }
   .component-list,
   .component-content {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-  }
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 0;
+      background-color: #fff;
+    }
 
-  .component-list {
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(100, 101, 102, 0.1);
+      border-radius: 100px;
+      // -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+      // background-color: #646566;
+      background-color: rgba(100, 101, 102, 0.2);
     }
   }
 

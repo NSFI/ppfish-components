@@ -110,8 +110,6 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
           !!column.fixed
           // 表格分组
           || !!column.children
-          // 有fixed列的情况下的普通列的最后一项
-          || isAnyColumnsFixed && (uniqKey === (notFixedColumns[notFixedColumns.length - 1].key || notFixedColumns[notFixedColumns.length - 1].dataIndex))
           // 未fixed的项至少保留一项
           || (this.state.checkedOption.indexOf(getColumnKey(column)) !== -1 && notFixedColumns.filter(column => this.state.checkedOption.indexOf(getColumnKey(column)) !== -1).length === 1);
         return {
