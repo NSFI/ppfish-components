@@ -111,7 +111,7 @@ export {Tag};
 export {TextOverflow};
 export {TimePicker};
 export {Tooltip};
-export {Transfer}
+export {Transfer};
 export {TreeSelect};
 export {Upload};
 export {VideoViewer};

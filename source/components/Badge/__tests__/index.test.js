@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, render } from 'enzyme';
 import Badge from '../index.tsx';
-import Tooltip from '../../tooltip/index.tsx';
+import Tooltip from '../../Tooltip/index.tsx';
 
 describe('Badge', () => {
   beforeEach(() => {

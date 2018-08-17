@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, mount } from 'enzyme';
-import List from '../list';
-import Checkbox from '../../Checkbox';
+import List from '../list.tsx';
+import Checkbox from '../../Checkbox/index.tsx';
 
 const listCommonProps = {
   prefixCls: 'fishd-transfer-list',

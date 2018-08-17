@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, render } from 'enzyme';
-import Layout from '..';
+import Layout from '../index.tsx';
 
 const { Sider, Content } = Layout;
 

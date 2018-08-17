@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Search from '../search';
+import Search from '../search.tsx';
 
 describe('Search', () => {
   it('should show cross icon when input value exists', () => {
