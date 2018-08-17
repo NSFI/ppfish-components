@@ -296,7 +296,7 @@ exports[`Renders progress demo correctly 1`] = `
           class="fishd-progress-text"
         >
           <i
-            class="fishdicon fishdicon-error"
+            class="fishdicon fishdicon-hints-alone-error"
           />
         </span>
       </div>
@@ -338,7 +338,7 @@ exports[`Renders progress demo correctly 1`] = `
           class="fishd-progress-text"
         >
           <i
-            class="fishdicon fishdicon-success"
+            class="fishdicon fishdicon-hints-alone-success"
           />
         </span>
       </div>
@@ -422,7 +422,7 @@ exports[`Renders progress demo correctly 1`] = `
           class="fishd-progress-text"
         >
           <i
-            class="fishdicon fishdicon-error"
+            class="fishdicon fishdicon-hints-alone-error"
           />
         </span>
       </div>
@@ -464,7 +464,7 @@ exports[`Renders progress demo correctly 1`] = `
           class="fishd-progress-text"
         >
           <i
-            class="fishdicon fishdicon-success"
+            class="fishdicon fishdicon-hints-alone-success"
           />
         </span>
       </div>
