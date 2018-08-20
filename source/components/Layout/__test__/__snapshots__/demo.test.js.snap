@@ -1,0 +1,1333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders layout demo correctly 1`] = `
+<div>
+  <div
+    id="components-layout-demo-basic"
+  >
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-header"
+      >
+        Header
+      </div>
+      <div
+        class="fishd-layout-content"
+      >
+        Content
+      </div>
+      <div
+        class="fishd-layout-footer"
+      >
+        Footer
+      </div>
+    </div>
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-header"
+      >
+        Header
+      </div>
+      <div
+        class="fishd-layout"
+      >
+        <div
+          class="fishd-layout-sider fishd-layout-sider-dark"
+          style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+        >
+          <div
+            class="fishd-layout-sider-children"
+          >
+            Sider
+          </div>
+        </div>
+        <div
+          class="fishd-layout-content"
+        >
+          Content
+        </div>
+      </div>
+      <div
+        class="fishd-layout-footer"
+      >
+        Footer
+      </div>
+    </div>
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-header"
+      >
+        Header
+      </div>
+      <div
+        class="fishd-layout"
+      >
+        <div
+          class="fishd-layout-content"
+        >
+          Content
+        </div>
+        <div
+          class="fishd-layout-sider fishd-layout-sider-dark"
+          style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+        >
+          <div
+            class="fishd-layout-sider-children"
+          >
+            Sider
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-layout-footer"
+      >
+        Footer
+      </div>
+    </div>
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-sider fishd-layout-sider-dark"
+        style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+      >
+        <div
+          class="fishd-layout-sider-children"
+        >
+          Sider
+        </div>
+      </div>
+      <div
+        class="fishd-layout"
+      >
+        <div
+          class="fishd-layout-header"
+        >
+          Header
+        </div>
+        <div
+          class="fishd-layout-content"
+        >
+          Content
+        </div>
+        <div
+          class="fishd-layout-footer"
+        >
+          Footer
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="layout fishd-layout"
+    id="components-layout-demo-top"
+  >
+    <div
+      class="fishd-layout-header"
+    >
+      <div
+        class="logo"
+      />
+      <ul
+        class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-horizontal"
+        role="menu"
+        style="line-height:64px"
+      >
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 1
+        </li>
+        <li
+          class="fishd-menu-item fishd-menu-item-selected"
+          role="menuitem"
+        >
+          nav 2
+        </li>
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 3
+        </li>
+      </ul>
+    </div>
+    <div
+      class="fishd-layout-content"
+      style="padding:0 50px"
+    >
+      <div
+        class="fishd-breadcrumb"
+        style="margin:16px 0"
+      >
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            Home
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            List
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            App
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+      </div>
+      <div
+        style="background:#fff;padding:24px;min-height:280px"
+      >
+        Content
+      </div>
+    </div>
+    <div
+      class="fishd-layout-footer"
+      style="text-align:center"
+    >
+      Fish Design
+    </div>
+  </div>
+  <div
+    class="fishd-layout"
+    id="components-layout-demo-top-side"
+  >
+    <div
+      class="header fishd-layout-header"
+    >
+      <div
+        class="logo"
+      />
+      <ul
+        class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-horizontal"
+        role="menu"
+        style="line-height:64px"
+      >
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 1
+        </li>
+        <li
+          class="fishd-menu-item fishd-menu-item-selected"
+          role="menuitem"
+        >
+          nav 2
+        </li>
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 3
+        </li>
+      </ul>
+    </div>
+    <div
+      class="fishd-layout-content"
+      style="padding:0 50px"
+    >
+      <div
+        class="fishd-breadcrumb"
+        style="margin:16px 0"
+      >
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            Home
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            List
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            App
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+      </div>
+      <div
+        class="fishd-layout"
+        style="padding:24px 0;background:#fff"
+      >
+        <div
+          class="fishd-layout-sider fishd-layout-sider-dark"
+          style="background:#fff;flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+        >
+          <div
+            class="fishd-layout-sider-children"
+          >
+            <ul
+              class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-inline"
+              role="menu"
+              style="height:100%"
+            >
+              <li
+                class="fishd-menu-submenu fishd-menu-submenu-inline fishd-menu-submenu-open fishd-menu-submenu-selected"
+                role="menuitem"
+              >
+                <div
+                  aria-expanded="true"
+                  aria-haspopup="true"
+                  aria-owns="sub1$Menu"
+                  class="fishd-menu-submenu-title"
+                  style="padding-left:24px"
+                >
+                  <span>
+                    <i
+                      class="fishdicon fishdicon-user"
+                    />
+                    subnav 1
+                  </span>
+                  <i
+                    class="fishd-menu-submenu-arrow"
+                  />
+                </div>
+                <ul
+                  class="fishd-menu  fishd-menu-sub fishd-menu-inline"
+                  id="sub1$Menu"
+                  role="menu"
+                >
+                  <li
+                    class="fishd-menu-item fishd-menu-item-selected"
+                    role="menuitem"
+                    style="padding-left:48px"
+                  >
+                    option1
+                  </li>
+                  <li
+                    class="fishd-menu-item"
+                    role="menuitem"
+                    style="padding-left:48px"
+                  >
+                    option2
+                  </li>
+                  <li
+                    class="fishd-menu-item"
+                    role="menuitem"
+                    style="padding-left:48px"
+                  >
+                    option3
+                  </li>
+                  <li
+                    class="fishd-menu-item"
+                    role="menuitem"
+                    style="padding-left:48px"
+                  >
+                    option4
+                  </li>
+                </ul>
+              </li>
+              <li
+                class="fishd-menu-submenu fishd-menu-submenu-inline"
+                role="menuitem"
+              >
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="fishd-menu-submenu-title"
+                  style="padding-left:24px"
+                >
+                  <span>
+                    <i
+                      class="fishdicon fishdicon-laptop"
+                    />
+                    subnav 2
+                  </span>
+                  <i
+                    class="fishd-menu-submenu-arrow"
+                  />
+                </div>
+                <div />
+              </li>
+              <li
+                class="fishd-menu-submenu fishd-menu-submenu-inline"
+                role="menuitem"
+              >
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="fishd-menu-submenu-title"
+                  style="padding-left:24px"
+                >
+                  <span>
+                    <i
+                      class="fishdicon fishdicon-notification"
+                    />
+                    subnav 3
+                  </span>
+                  <i
+                    class="fishd-menu-submenu-arrow"
+                  />
+                </div>
+                <div />
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="fishd-layout-content"
+          style="padding:0 24px;min-height:280px"
+        >
+          Content
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-layout-footer"
+      style="text-align:center"
+    >
+      Fish Design
+    </div>
+  </div>
+  <div
+    class="fishd-layout"
+    id="components-layout-demo-top-side-2"
+  >
+    <div
+      class="header fishd-layout-header"
+    >
+      <div
+        class="logo"
+      />
+      <ul
+        class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-horizontal"
+        role="menu"
+        style="line-height:64px"
+      >
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 1
+        </li>
+        <li
+          class="fishd-menu-item fishd-menu-item-selected"
+          role="menuitem"
+        >
+          nav 2
+        </li>
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 3
+        </li>
+      </ul>
+    </div>
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-sider fishd-layout-sider-dark"
+        style="background:#fff;flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+      >
+        <div
+          class="fishd-layout-sider-children"
+        >
+          <ul
+            class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-inline"
+            role="menu"
+            style="height:100%;border-right:0"
+          >
+            <li
+              class="fishd-menu-submenu fishd-menu-submenu-inline fishd-menu-submenu-open fishd-menu-submenu-selected"
+              role="menuitem"
+            >
+              <div
+                aria-expanded="true"
+                aria-haspopup="true"
+                aria-owns="sub1$Menu"
+                class="fishd-menu-submenu-title"
+                style="padding-left:24px"
+              >
+                <span>
+                  <i
+                    class="fishdicon fishdicon-user"
+                  />
+                  subnav 1
+                </span>
+                <i
+                  class="fishd-menu-submenu-arrow"
+                />
+              </div>
+              <ul
+                class="fishd-menu  fishd-menu-sub fishd-menu-inline"
+                id="sub1$Menu"
+                role="menu"
+              >
+                <li
+                  class="fishd-menu-item fishd-menu-item-selected"
+                  role="menuitem"
+                  style="padding-left:48px"
+                >
+                  option1
+                </li>
+                <li
+                  class="fishd-menu-item"
+                  role="menuitem"
+                  style="padding-left:48px"
+                >
+                  option2
+                </li>
+                <li
+                  class="fishd-menu-item"
+                  role="menuitem"
+                  style="padding-left:48px"
+                >
+                  option3
+                </li>
+                <li
+                  class="fishd-menu-item"
+                  role="menuitem"
+                  style="padding-left:48px"
+                >
+                  option4
+                </li>
+              </ul>
+            </li>
+            <li
+              class="fishd-menu-submenu fishd-menu-submenu-inline"
+              role="menuitem"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="fishd-menu-submenu-title"
+                style="padding-left:24px"
+              >
+                <span>
+                  <i
+                    class="fishdicon fishdicon-laptop"
+                  />
+                  subnav 2
+                </span>
+                <i
+                  class="fishd-menu-submenu-arrow"
+                />
+              </div>
+              <div />
+            </li>
+            <li
+              class="fishd-menu-submenu fishd-menu-submenu-inline"
+              role="menuitem"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="fishd-menu-submenu-title"
+                style="padding-left:24px"
+              >
+                <span>
+                  <i
+                    class="fishdicon fishdicon-notification"
+                  />
+                  subnav 3
+                </span>
+                <i
+                  class="fishd-menu-submenu-arrow"
+                />
+              </div>
+              <div />
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="fishd-layout"
+        style="padding:0 24px 24px"
+      >
+        <div
+          class="fishd-breadcrumb"
+          style="margin:16px 0"
+        >
+          <span>
+            <span
+              class="fishd-breadcrumb-link"
+            >
+              Home
+            </span>
+            <span
+              class="fishd-breadcrumb-separator"
+            >
+              /
+            </span>
+          </span>
+          <span>
+            <span
+              class="fishd-breadcrumb-link"
+            >
+              List
+            </span>
+            <span
+              class="fishd-breadcrumb-separator"
+            >
+              /
+            </span>
+          </span>
+          <span>
+            <span
+              class="fishd-breadcrumb-link"
+            >
+              App
+            </span>
+            <span
+              class="fishd-breadcrumb-separator"
+            >
+              /
+            </span>
+          </span>
+        </div>
+        <div
+          class="fishd-layout-content"
+          style="background:#fff;padding:24px;margin:0;min-height:280px"
+        >
+          Content
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-layout"
+    id="components-layout-demo-side"
+  >
+    <div
+      class="fishd-layout-sider fishd-layout-sider-dark fishd-layout-sider-has-trigger"
+      style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+    >
+      <div
+        class="fishd-layout-sider-children"
+      >
+        <div
+          class="logo"
+        />
+        <ul
+          class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+          role="menu"
+        >
+          <li
+            class="fishd-menu-item fishd-menu-item-selected"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-pie-chart"
+            />
+            <span>
+              Option 1
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-desktop"
+            />
+            <span>
+              Option 2
+            </span>
+          </li>
+          <li
+            class="fishd-menu-submenu fishd-menu-submenu-inline"
+            role="menuitem"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="fishd-menu-submenu-title"
+              style="padding-left:24px"
+            >
+              <span>
+                <i
+                  class="fishdicon fishdicon-user"
+                />
+                <span>
+                  User
+                </span>
+              </span>
+              <i
+                class="fishd-menu-submenu-arrow"
+              />
+            </div>
+            <div />
+          </li>
+          <li
+            class="fishd-menu-submenu fishd-menu-submenu-inline"
+            role="menuitem"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="fishd-menu-submenu-title"
+              style="padding-left:24px"
+            >
+              <span>
+                <i
+                  class="fishdicon fishdicon-team"
+                />
+                <span>
+                  Team
+                </span>
+              </span>
+              <i
+                class="fishd-menu-submenu-arrow"
+              />
+            </div>
+            <div />
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-file"
+            />
+            <span>
+              File
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="fishd-layout-sider-trigger"
+        style="width:200px"
+      >
+        <i
+          class="fishdicon fishdicon-left"
+        />
+      </div>
+    </div>
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-header"
+        style="background:#fff;padding:0"
+      />
+      <div
+        class="fishd-layout-content"
+        style="margin:0 16px"
+      >
+        <div
+          class="fishd-breadcrumb"
+          style="margin:16px 0"
+        >
+          <span>
+            <span
+              class="fishd-breadcrumb-link"
+            >
+              User
+            </span>
+            <span
+              class="fishd-breadcrumb-separator"
+            >
+              /
+            </span>
+          </span>
+          <span>
+            <span
+              class="fishd-breadcrumb-link"
+            >
+              Bill
+            </span>
+            <span
+              class="fishd-breadcrumb-separator"
+            >
+              /
+            </span>
+          </span>
+        </div>
+        <div
+          style="padding:24px;background:#fff;min-height:360px"
+        >
+          Bill is a cat.
+        </div>
+      </div>
+      <div
+        class="fishd-layout-footer"
+        style="text-align:center"
+      >
+        Fish Design
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-layout"
+    id="components-layout-demo-custom-trigger"
+  >
+    <div
+      class="fishd-layout-sider fishd-layout-sider-dark"
+      style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+    >
+      <div
+        class="fishd-layout-sider-children"
+      >
+        <div
+          class="logo"
+        />
+        <ul
+          class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+          role="menu"
+        >
+          <li
+            class="fishd-menu-item fishd-menu-item-selected"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-user"
+            />
+            <span>
+              nav 1
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-video-camera"
+            />
+            <span>
+              nav 2
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-upload"
+            />
+            <span>
+              nav 3
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-header"
+        style="background:#fff;padding:0"
+      >
+        <i
+          class="fishdicon fishdicon-menu-fold trigger"
+        />
+      </div>
+      <div
+        class="fishd-layout-content"
+        style="margin:24px 16px;padding:24px;background:#fff;min-height:280px"
+      >
+        Content
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-layout"
+    id="components-layout-demo-responsive"
+  >
+    <div
+      class="fishd-layout-sider fishd-layout-sider-dark"
+      style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+    >
+      <div
+        class="fishd-layout-sider-children"
+      >
+        <div
+          class="logo"
+        />
+        <ul
+          class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+          role="menu"
+        >
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-user"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 1
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-video-camera"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 2
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-upload"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 3
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item fishd-menu-item-selected"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-user"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 4
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="fishd-layout"
+    >
+      <div
+        class="fishd-layout-header"
+        style="background:#fff;padding:0"
+      />
+      <div
+        class="fishd-layout-content"
+        style="margin:24px 16px 0"
+      >
+        <div
+          style="padding:24px;background:#fff;min-height:360px"
+        >
+          content
+        </div>
+      </div>
+      <div
+        class="fishd-layout-footer"
+        style="text-align:center"
+      >
+        Fish Design
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-layout"
+    id="components-layout-demo-fixed"
+  >
+    <div
+      class="fishd-layout-header"
+      style="position:fixed;z-index:1;width:100%"
+    >
+      <div
+        class="logo"
+      />
+      <ul
+        class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-horizontal"
+        role="menu"
+        style="line-height:64px"
+      >
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 1
+        </li>
+        <li
+          class="fishd-menu-item fishd-menu-item-selected"
+          role="menuitem"
+        >
+          nav 2
+        </li>
+        <li
+          class="fishd-menu-item"
+          role="menuitem"
+        >
+          nav 3
+        </li>
+      </ul>
+    </div>
+    <div
+      class="fishd-layout-content"
+      style="padding:0 50px;margin-top:64px"
+    >
+      <div
+        class="fishd-breadcrumb"
+        style="margin:16px 0"
+      >
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            Home
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            List
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+        <span>
+          <span
+            class="fishd-breadcrumb-link"
+          >
+            App
+          </span>
+          <span
+            class="fishd-breadcrumb-separator"
+          >
+            /
+          </span>
+        </span>
+      </div>
+      <div
+        style="background:#fff;padding:24px;min-height:380px"
+      >
+        Content
+      </div>
+    </div>
+    <div
+      class="fishd-layout-footer"
+      style="text-align:center"
+    >
+      Fish Design
+    </div>
+  </div>
+  <div
+    class="fishd-layout"
+  >
+    <div
+      class="fishd-layout-sider fishd-layout-sider-dark"
+      style="overflow:auto;height:100vh;position:fixed;left:0;flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+    >
+      <div
+        class="fishd-layout-sider-children"
+      >
+        <div
+          class="logo"
+        />
+        <ul
+          class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+          role="menu"
+        >
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-user"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 1
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-video-camera"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 2
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-upload"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 3
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item fishd-menu-item-selected"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-bar-chart"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 4
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-cloud-o"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 5
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-appstore-o"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 6
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-team"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 7
+            </span>
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:24px"
+          >
+            <i
+              class="fishdicon fishdicon-shop"
+            />
+            <span
+              class="nav-text"
+            >
+              nav 8
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="fishd-layout"
+      style="margin-left:200px"
+    >
+      <div
+        class="fishd-layout-header"
+        style="background:#fff;padding:0"
+      />
+      <div
+        class="fishd-layout-content"
+        style="margin:24px 16px 0;overflow:initial"
+      >
+        <div
+          style="padding:24px;background:#fff;text-align:center"
+        >
+          ...
+          <br />
+          Really
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          long
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          ...
+          <br />
+          content
+        </div>
+      </div>
+      <div
+        class="fishd-layout-footer"
+        style="text-align:center"
+      >
+        Fish Design
+      </div>
+    </div>
+  </div>
+</div>
+`;
