@@ -5,27 +5,14 @@
   &-date-editor {
     position: relative;
     display: inline-block;
-
-    &--time,&--timeselect {
-      width: 144px;
-    }
-
-    &--date,&--week {
-      width: 300px;
-    }
-
-    &--datetime {
-      width: 310px;
-    }
+    width: 100%;
 
     &--daterange,&--datetimerange {
-      width: 400px;
       border: 1px solid @border-color-base;
       display: flex;
       // 清除2个Input的样式
       .fishd-input {
         border: 0;
-        min-width: 192px;
         &:hover,&:focus {
           box-shadow: none;
           border: none;

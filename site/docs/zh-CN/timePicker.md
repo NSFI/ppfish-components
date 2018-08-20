@@ -26,6 +26,7 @@
   render() {
     return (
       <TimePicker.TimeSelect
+        style={{width: 144}}
         start="08:30"
         step="00:15"
         end="18:30"
@@ -47,6 +48,7 @@
   render() {
     return (
       <TimePicker.TimeSelect
+        style={{width: 144}}
         isDisabled={true}
         placeholder="请选择时间"
         />
@@ -73,6 +75,7 @@
   render() {
     return (
       <TimePicker
+        style={{width: 144}}
         onChange={this.handleUpdate}
         selectableRange="18:30:00 - 20:30:00"
         placeholder="请选择时间"
@@ -101,6 +104,7 @@
   render() {
     return (
       <TimePicker
+        style={{width: 144}}
         isShowCurrent={true}
         onChange={this.handleUpdate}
         placeholder="请选择时间"
@@ -118,6 +122,7 @@
   render() {
     return (
       <TimePicker
+        style={{width: 144}}
         isDisabled={true}
         placeholder="请选择时间"
         />
@@ -144,6 +149,7 @@
   render() {
     return (
       <TimePicker
+        style={{width: 144}}
         onChange={this.handleUpdate}
         selectableRange="18:30:00 - 20:30:00"
         placeholder="请选择时间"
@@ -174,6 +180,7 @@
   render() {
     return (
       <TimePicker
+        style={{width: 144}}
         onChange={this.handleUpdate}
         selectableRange="18:30:00 - 20:30:00"
         placeholder="请选择时间"
@@ -191,6 +198,7 @@
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | className | 选择器的className | string | - |
+| style | 选择框的样式 | object | - |
 | placeholder | 占位内容 | string | - | - |
 | format | 时间格式化 | string | 小时 HH，分 mm，秒 ss | HH:mm:ss |
 | isShowTrigger | 是否显示前缀图标 | boolean | - | true |

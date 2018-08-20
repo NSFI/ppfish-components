@@ -24,6 +24,7 @@
         <div className="block">
           <span className="demonstration">基本使用</span>
           <DatePicker
+            style={{width: 300}}
             value={value1}
             onChange={date=>{
               console.debug('DatePicker1 changed: ', date)
@@ -34,6 +35,7 @@
         <div className="block">
           <span className="demonstration">设置默认时间</span>
           <DatePicker
+            style={{width: 300}}
             value={value2}
             placeholder="请选择日期"
             onChange={date=>{
@@ -60,6 +62,7 @@
       <DatePicker
          placeholder="请选择日期"
          isDisabled={true}
+         style={{width: 300}}
       />
     )
   }
@@ -88,6 +91,7 @@
   
     return (
       <DatePicker
+        style={{width: 300}}
         value={value}
         placeholder="请选择日期"
         onChange={this.handleValueChange}
@@ -118,6 +122,7 @@
       <div className="source">
         <div className="block">
           <DatePicker
+            style={{width: 300}}
             value={value1}
             placeholder="请选择日期"
             onChange={date=>{
@@ -153,6 +158,7 @@ render() {
       <div className="block">
         <span className="demonstration">周</span>
         <DatePicker
+          style={{width: 300}}
           value={value1}
           placeholder="选择周"
           onChange={date=>{
@@ -198,6 +204,7 @@ render() {
       <div className="block">
         <span className="demonstration">基本使用</span>
         <DatePicker
+          style={{width: 300}}
           ref={e=>this.datepicker1 = e}
           value={value1}
           placeholder="选择日期"
@@ -244,6 +251,7 @@ render() {
           </Select>
         </span>
         <DatePicker
+          style={{width: 300}}
           ref={e=>this.datepicker2 = e}
           value={value2}
           placeholder="选择日期"
@@ -316,6 +324,7 @@ render() {
       <div className="block">
         <span className="demonstration">默认</span>
         <DatePicker
+          style={{width: 310}}
           value={value1}
           isShowTime={true}
           placeholder="选择日期"
@@ -328,6 +337,7 @@ render() {
       <div className="block">
         <span className="demonstration">设置时间面板的默认时间</span>
         <DatePicker
+          style={{width: 310}}
           value={value2}
           defaultTimeValue={this.defaultTimeValue}
           isShowTime={true}
@@ -341,6 +351,7 @@ render() {
       <div className="block">
         <span className="demonstration">展示时间面板的"现在"快捷选项</span>
         <DatePicker
+          style={{width: 310}}
           value={value3}
           isShowTimeCurrent={true}
           isShowTime={true}
@@ -354,6 +365,7 @@ render() {
       <div className="block">
         <span className="demonstration">设置时间面板的可选时间范围</span>
         <DatePicker
+          style={{width: 310}}
           value={value4}
           timeSelectableRange="18:30:00 - 20:30:00"
           isShowTime={true}
@@ -368,6 +380,7 @@ render() {
         <span className="demonstration">带快捷选项的日期时间面板</span>
         <DatePicker
           ref={e=>this.datepicker5 = e}
+          style={{width: 310}}
           isShowTime={true}
           value={value5}
           align="left"
@@ -431,6 +444,7 @@ render() {
       <div className="block">
         <span className="demonstration">基本使用</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value1}
           onChange={date=>{
             console.debug('DateRangePicker1 changed: ', date)
@@ -441,6 +455,7 @@ render() {
       <div className="block">
         <span className="demonstration">设置默认时间</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value2}
           onChange={date=>{
             console.debug('DateRangePicker2 changed: ', date)
@@ -464,6 +479,7 @@ render() {
 
   return (
     <DatePicker.DateRangePicker
+      style={{width: 400}}
       isDisabled={true}
       />
   )
@@ -493,6 +509,7 @@ render() {
     <div className="source">
       <div className="block">
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value1}
           onChange={date=>{
             console.debug('DateRangePicker1 changed: ', date)
@@ -532,6 +549,7 @@ render() {
       <div className="block">
         <span className="demonstration">场景1：Message展示错误信息</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value1}
           onChange={date=>{
             console.debug('DateRangePicker1 changed: ', date)
@@ -549,6 +567,7 @@ render() {
       <div className="block">
         <span className="demonstration">场景2：额外的页脚展示错误信息</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value2}
           onChange={date=>{
             console.debug('DateRangePicker2 changed: ', date)
@@ -596,6 +615,7 @@ render() {
       <div className="block">
         <span className="demonstration">左侧自定义</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value1}
           placeholder="选择日期范围"
           ref={e=>this.daterangepicker1 = e}
@@ -648,6 +668,7 @@ render() {
           </Select>
         </span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value2}
           placeholder="选择日期范围"
           popupAlign={popupAlign}
@@ -721,6 +742,7 @@ render() {
       <div className="block">
         <span className="demonstration">默认</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           format="yyyy-MM-dd HH:mm:ss"
           value={value1}
           placeholder="选择日期范围"
@@ -734,6 +756,7 @@ render() {
       <div className="block">
         <span className="demonstration">设置默认时间</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           format="yyyy-MM-dd HH:mm:ss"
           value={value2}
           placeholder="选择日期范围"
@@ -749,6 +772,7 @@ render() {
       <div className="block">
         <span className="demonstration">展示"现在"快捷选项</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           format="yyyy-MM-dd HH:mm:ss"
           value={value3}
           placeholder="选择日期范围"
@@ -763,6 +787,7 @@ render() {
       <div className="block">
         <span className="demonstration">设置可选时间范围</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           format="yyyy-MM-dd HH:mm:ss"
           value={value4}
           placeholder="选择日期范围"
@@ -778,6 +803,7 @@ render() {
       <div className="block">
         <span className="demonstration">带快捷选项</span>
         <DatePicker.DateRangePicker
+          style={{width: 400}}
           value={value5}
           isShowTime={true}
           placeholder="选择日期范围"
@@ -832,6 +858,7 @@ render() {
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | className | 选择器的className | string | - |
+| style | 选择框的样式 | object | - |
 | format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss` | yyyy-MM-dd |
 | popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter','bottomRight','topLeft', 'topCenter','topLeft' | 'bottomLeft' |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| Function(triggerNode) | () => document.body |
