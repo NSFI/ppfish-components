@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Upload from '..';
 // import Form from '../../Form';
-import { setup, teardown } from '../utils';
+import { setup, teardown } from '../src/mock.js';
 
 const successRequest = ({ onSuccess, file }) => {
   setTimeout(() => {

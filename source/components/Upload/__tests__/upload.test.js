@@ -2,7 +2,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Upload from '..';
-import { fileToObject, setup, teardown } from '../utils';
+import { fileToObject } from '../utils';
+import { setup, teardown } from '../src/mock.js';
 
 describe('Upload', () => {
   beforeEach(() => setup());
