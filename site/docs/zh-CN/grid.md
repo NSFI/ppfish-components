@@ -5,49 +5,49 @@
 ## 设计理念
 
 <div class="grid-demo">
-<div class="ant-row demo-row">
-  <div class="ant-col-24 demo-col demo-col-1">
+<div class="fishd-row demo-row">
+  <div class="fishd-col-24 demo-col demo-col-1">
     100%
   </div>
 </div>
-<div class="ant-row demo-row">
-  <div class="ant-col-6 demo-col demo-col-2">
+<div class="fishd-row demo-row">
+  <div class="fishd-col-6 demo-col demo-col-2">
     25%
   </div>
-  <div class="ant-col-6 demo-col demo-col-3">
+  <div class="fishd-col-6 demo-col demo-col-3">
     25%
   </div>
-  <div class="ant-col-6 demo-col demo-col-2">
+  <div class="fishd-col-6 demo-col demo-col-2">
     25%
   </div>
-  <div class="ant-col-6 demo-col demo-col-3">
+  <div class="fishd-col-6 demo-col demo-col-3">
     25%
   </div>
 </div>
-<div class="ant-row demo-row">
-  <div class="ant-col-8 demo-col demo-col-4">
+<div class="fishd-row demo-row">
+  <div class="fishd-col-8 demo-col demo-col-4">
     33.33%
   </div>
-  <div class="ant-col-8 demo-col demo-col-5">
+  <div class="fishd-col-8 demo-col demo-col-5">
     33.33%
   </div>
-  <div class="ant-col-8 demo-col demo-col-4">
+  <div class="fishd-col-8 demo-col demo-col-4">
     33.33%
   </div>
 </div>
-<div class="ant-row demo-row">
-  <div class="ant-col-12 demo-col demo-col-1">
+<div class="fishd-row demo-row">
+  <div class="fishd-col-12 demo-col demo-col-1">
     50%
   </div>
-  <div class="ant-col-12 demo-col demo-col-3">
+  <div class="fishd-col-12 demo-col demo-col-3">
     50%
   </div>
 </div>
-<div class="ant-row demo-row">
-  <div class="ant-col-16 demo-col demo-col-4">
+<div class="fishd-row demo-row">
+  <div class="fishd-col-16 demo-col demo-col-4">
     66.66%
   </div>
-  <div class="ant-col-8 demo-col demo-col-5">
+  <div class="fishd-col-8 demo-col demo-col-5">
     33.33%
   </div>
 </div>
@@ -63,11 +63,11 @@
   margin-bottom: 8px
 }
 
-.grid-demo .ant-row-flex,.grid-demo .code-box-demo .ant-row-flex,[id^=components-grid-demo-] .ant-row-flex,[id^=components-grid-demo-] .code-box-demo .ant-row-flex {
+.grid-demo .fishd-row-flex,.grid-demo .code-box-demo .fishd-row-flex,[id^=components-grid-demo-] .fishd-row-flex,[id^=components-grid-demo-] .code-box-demo .fishd-row-flex {
   background: #f5f5f5
 }
 
-.grid-demo .ant-row-flex>div,.grid-demo .ant-row>div,.grid-demo .code-box-demo .ant-row-flex>div,.grid-demo .code-box-demo .ant-row>div,[id^=components-grid-demo-] .ant-row-flex>div,[id^=components-grid-demo-] .ant-row>div,[id^=components-grid-demo-] .code-box-demo .ant-row-flex>div,[id^=components-grid-demo-] .code-box-demo .ant-row>div {
+.grid-demo .fishd-row-flex>div,.grid-demo .fishd-row>div,.grid-demo .code-box-demo .fishd-row-flex>div,.grid-demo .code-box-demo .fishd-row>div,[id^=components-grid-demo-] .fishd-row-flex>div,[id^=components-grid-demo-] .fishd-row>div,[id^=components-grid-demo-] .code-box-demo .fishd-row-flex>div,[id^=components-grid-demo-] .code-box-demo .fishd-row>div {
   padding: 5px 0;
   text-align: center;
   border-radius: 0;
@@ -77,16 +77,16 @@
   color: #fff
 }
 
-.grid-demo .code-box-demo .ant-row-flex>div:not(.gutter-row),.grid-demo .code-box-demo .ant-row>div:not(.gutter-row),[id^=components-grid-demo-] .code-box-demo .ant-row-flex>div:not(.gutter-row),[id^=components-grid-demo-] .code-box-demo .ant-row>div:not(.gutter-row) {
+.grid-demo .code-box-demo .fishd-row-flex>div:not(.gutter-row),.grid-demo .code-box-demo .fishd-row>div:not(.gutter-row),[id^=components-grid-demo-] .code-box-demo .fishd-row-flex>div:not(.gutter-row),[id^=components-grid-demo-] .code-box-demo .fishd-row>div:not(.gutter-row) {
   background: #00a0e9;
   padding: 16px 0
 }
 
-.grid-demo .code-box-demo .ant-row-flex>div:not(.gutter-row):nth-child(odd),.grid-demo .code-box-demo .ant-row>div:not(.gutter-row):nth-child(odd),[id^=components-grid-demo-] .code-box-demo .ant-row-flex>div:not(.gutter-row):nth-child(odd),[id^=components-grid-demo-] .code-box-demo .ant-row>div:not(.gutter-row):nth-child(odd) {
+.grid-demo .code-box-demo .fishd-row-flex>div:not(.gutter-row):nth-child(odd),.grid-demo .code-box-demo .fishd-row>div:not(.gutter-row):nth-child(odd),[id^=components-grid-demo-] .code-box-demo .fishd-row-flex>div:not(.gutter-row):nth-child(odd),[id^=components-grid-demo-] .code-box-demo .fishd-row>div:not(.gutter-row):nth-child(odd) {
   background: rgba(0,160,233,.7)
 }
 
-.grid-demo .ant-row .demo-col,.grid-demo .code-box-demo .ant-row .demo-col,[id^=components-grid-demo-] .ant-row .demo-col,[id^=components-grid-demo-] .code-box-demo .ant-row .demo-col {
+.grid-demo .fishd-row .demo-col,.grid-demo .code-box-demo .fishd-row .demo-col,[id^=components-grid-demo-] .fishd-row .demo-col,[id^=components-grid-demo-] .code-box-demo .fishd-row .demo-col {
   text-align: center;
   padding: 30px 0;
   color: #fff;
@@ -96,24 +96,24 @@
   margin-bottom: 0
 }
 
-.grid-demo .ant-row .demo-col-1,[id^=components-grid-demo-] .ant-row .demo-col-1 {
+.grid-demo .fishd-row .demo-col-1,[id^=components-grid-demo-] .fishd-row .demo-col-1 {
   background: rgba(0,160,233,.7)
 }
 
-.grid-demo .ant-row .demo-col-2,.grid-demo .code-box-demo .ant-row .demo-col-2,[id^=components-grid-demo-] .ant-row .demo-col-2,[id^=components-grid-demo-] .code-box-demo .ant-row .demo-col-2 {
+.grid-demo .fishd-row .demo-col-2,.grid-demo .code-box-demo .fishd-row .demo-col-2,[id^=components-grid-demo-] .fishd-row .demo-col-2,[id^=components-grid-demo-] .code-box-demo .fishd-row .demo-col-2 {
   background: rgba(0,160,233,.5)
 }
 
-.grid-demo .ant-row .demo-col-3,.grid-demo .code-box-demo .ant-row .demo-col-3,[id^=components-grid-demo-] .ant-row .demo-col-3,[id^=components-grid-demo-] .code-box-demo .ant-row .demo-col-3 {
+.grid-demo .fishd-row .demo-col-3,.grid-demo .code-box-demo .fishd-row .demo-col-3,[id^=components-grid-demo-] .fishd-row .demo-col-3,[id^=components-grid-demo-] .code-box-demo .fishd-row .demo-col-3 {
   background: hsla(0,0%,100%,.2);
   color: #999
 }
 
-.grid-demo .ant-row .demo-col-4,.grid-demo .code-box-demo .ant-row .demo-col-4,[id^=components-grid-demo-] .ant-row .demo-col-4,[id^=components-grid-demo-] .code-box-demo .ant-row .demo-col-4 {
+.grid-demo .fishd-row .demo-col-4,.grid-demo .code-box-demo .fishd-row .demo-col-4,[id^=components-grid-demo-] .fishd-row .demo-col-4,[id^=components-grid-demo-] .code-box-demo .fishd-row .demo-col-4 {
   background: rgba(0,160,233,.6)
 }
 
-.grid-demo .ant-row .demo-col-5,.grid-demo .code-box-demo .ant-row .demo-col-5,[id^=components-grid-demo-] .ant-row .demo-col-5,[id^=components-grid-demo-] .code-box-demo .ant-row .demo-col-5 {
+.grid-demo .fishd-row .demo-col-5,.grid-demo .code-box-demo .fishd-row .demo-col-5,[id^=components-grid-demo-] .fishd-row .demo-col-5,[id^=components-grid-demo-] .code-box-demo .fishd-row .demo-col-5 {
   background: hsla(0,0%,100%,.5);
   color: #999
 }
