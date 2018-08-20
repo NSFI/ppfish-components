@@ -29,7 +29,7 @@ render(){
   return(
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link">
-      Hover me <Icon type="down" />
+      Hover me
     </a>
   </Dropdown>
   )
@@ -48,13 +48,13 @@ render(){
   const menu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.163.com/">1st menu item</a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+        <a target="_blank" rel="noopener noreferrer" href="http://you.163.com/">2nd menu item</a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
+        <a target="_blank" rel="noopener noreferrer" href="http://qi.163.com/">3rd menu item</a>
       </Menu.Item>
     </Menu>
   );
@@ -147,7 +147,7 @@ render(){
     </Dropdown.Button>
     <Dropdown overlay={menu}>
       <Button style={{ marginLeft: 8 }}>
-        Button <Icon type="down" />
+        Button
       </Button>
     </Dropdown>
   </div>)
@@ -175,7 +175,7 @@ render(){
   return(
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link" >
-      Hover me, Click menu item <Icon type="down" />
+      Hover me, Click menu item
     </a>
   </Dropdown>
   )
@@ -193,10 +193,10 @@ render(){
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+        <a target="_blank" rel="noopener noreferrer" href="http://www.163.com/">1st menu item</a>
       </Menu.Item>
       <Menu.Item key="1">
-        <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+        <a target="_blank" rel="noopener noreferrer" href="http://qi.163.com/">2nd menu item</a>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="3" disabled>3rd menu item（disabled）</Menu.Item>
@@ -205,7 +205,7 @@ render(){
   return (
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link" >
-      Hover me <Icon type="down" />
+      Hover me
     </a>
   </Dropdown>
   )
@@ -246,7 +246,7 @@ render(){
         visible={this.state.visible}
       >
         <a className="fishd-dropdown-link">
-          Hover me <Icon type="down" />
+          Hover me
         </a>
       </Dropdown>
     );
@@ -279,7 +279,7 @@ render(){
   return(
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link" >
-      Cascading menu <Icon type="down" />
+      Cascading menu
     </a>
   </Dropdown>
   )
@@ -296,10 +296,10 @@ render(){
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <a href="http://www.alipay.com/">1st menu item</a>
+        <a href="http://www.163.com/">1st menu item</a>
       </Menu.Item>
       <Menu.Item key="1">
-        <a href="http://www.taobao.com/">2nd menu item</a>
+        <a href="http://qi.163.com/">2nd menu item</a>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="3">3rd menu item</Menu.Item>
@@ -308,7 +308,7 @@ render(){
   return(
   <Dropdown overlay={menu} trigger={['click']}>
     <a className="fishd-dropdown-link">
-      Click me <Icon type="down" />
+      Click me
     </a>
   </Dropdown>
   )
