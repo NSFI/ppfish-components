@@ -1,9 +1,5 @@
 export default {
   fishd: {
-    colorpicker: {
-      confirm: '确定',
-      clear: '清空'
-    },
     datepicker: {
       now: '现在',
       today: '今天',
