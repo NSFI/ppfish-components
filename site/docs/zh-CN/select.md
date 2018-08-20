@@ -32,7 +32,7 @@
   render() {
     return (
       <div className="demo-select">
-        <Select mode={'multiple'} labelClear maxCount={3} style={{width: 300, margin: 10}} showSelectAll>
+        <Select mode={'multiple'} errorMessage={'最多仅能选择3项'} labelClear maxCount={3} style={{width: 300, margin: 10}} showSelectAll>
           <Select.Option key={"1"}>{'选项1'}</Select.Option>
           <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
           <Select.Option key={"3"}>{'选项3'}</Select.Option>
