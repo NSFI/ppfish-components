@@ -1,8 +1,8 @@
 /* eslint-disable react/no-string-refs, react/prefer-es6-class */
 import React from 'react';
 import { mount } from 'enzyme';
-import Upload from '..';
-import { fileToObject } from '../utils';
+import Upload from '../index.tsx';
+import { fileToObject } from '../utils.tsx';
 import { setup, teardown } from '../src/mock.js';
 
 describe('Upload', () => {
