@@ -734,10 +734,9 @@ export default class Select extends React.Component {
                     <div className={`${selectionCls}-option-multiple`}>
                       {
                         selectValueForMultiplePanel.map((option, index) =>
-                            <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
-                      <span>{option.label}</span>
-                      <span>{index + 1 !== selectValueForMultiplePanel.length && '、'}</span>
-                    </span>
+                          <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
+                              <span>{option.label}</span>
+                            {index + 1 !== selectValueForMultiplePanel.length && '、'}</span>
                         )
                       }
                     </div>

@@ -20,7 +20,8 @@
   min-height: @select-height-base;
   display: inline-block;
   position: relative;
-  vertical-align: middle;
+  //暂时解决Form中与其他组件同行对齐问题
+  vertical-align: -10px;
   cursor: pointer;
   color: @text-2;
   padding-right: 32px;
@@ -29,10 +30,12 @@
   user-select: none;
   .clearfix;
 
+  //开启状态
   &.open {
     border: 1px solid @primary-color;
   }
 
+  //禁用状态
   &&-disabled {
     background: @disabled-bg;
     color: @disabled-color;
@@ -42,6 +45,12 @@
     }
   }
 
+  //面板内容区
+  &-content {
+    .clearfix;
+  }
+
+  //右侧箭头
   &-caret {
     position: absolute;
     color: @text-9;
@@ -159,6 +168,8 @@
   &-small {
     min-height: @select-height-sm;
     font-size: @font-size-sm;
+    //暂时解决Form中与其他组件同行对齐问题
+    vertical-align: -6px;
     .@{select-prefix}-loading {
       font-size: @font-size-sm;
     }
@@ -184,6 +195,8 @@
   &-large {
     min-height: @select-height-lg;
     font-size: @font-size-lg;
+    //暂时解决Form中与其他组件同行对齐问题
+    vertical-align: -14px;
     .@{select-prefix}-placeholder {
       font-size: @font-size-lg;
     }
@@ -332,6 +345,8 @@
     .@{select-prefix} {
       min-height: @select-height-base - 2px;
       height: @select-height-base - 2px;
+      position: relative;
+      top: -1px;
     }
     .@{select-prefix}-option-single {
       line-height: @default-size-select-line-height - 2px;
@@ -344,6 +359,7 @@
     .@{select-prefix}-large {
       min-height: @select-height-lg - 2px;
       height: @select-height-lg - 2px;
+      top: 0;
     }
     .@{select-prefix}-option-single {
       line-height: @large-size-select-line-height - 2px;
@@ -356,6 +372,7 @@
     .@{select-prefix}-small {
       min-height: @select-height-sm - 4px;
       height: @select-height-sm - 4px;
+      top: -4px;
     }
     .@{select-prefix}-option-single {
       line-height: @small-size-select-line-height - 4px;
