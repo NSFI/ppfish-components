@@ -46,6 +46,7 @@ import Tag from './Tag/index.tsx';
 import TextOverflow from './TextOverflow';
 import Tooltip from './Tooltip/index.tsx';
 import TreeSelect from './TreeSelect/index.tsx';
+import Upload from './Upload/index.tsx';
 import VideoViewer from './VideoViewer';
 import Echart from './EChart';
 
@@ -108,6 +109,7 @@ export {TextOverflow};
 export {TimePicker};
 export {Tooltip};
 export {TreeSelect};
+export {Upload};
 export {VideoViewer};
 export {Echart};
 

@@ -41,7 +41,7 @@ render() {
         <Icon type="upload" /> Click to Upload
       </Button>
     </Upload>
-  )
+  );
 }
 ```
 :::
@@ -91,7 +91,7 @@ render() {
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
-        <div className="ant-upload-text">Upload</div>
+        <div className="fishd-upload-text">Upload</div>
       </div>
     );
     const imageUrl = this.state.imageUrl;
@@ -113,7 +113,7 @@ render() {
 :::
 
 <style>
-.avatar-uploader > .ant-upload {
+.avatar-uploader > .fishd-upload {
   width: 128px;
   height: 128px;
 }
@@ -221,11 +221,11 @@ render() {
 
 <style>
 /* you can make up upload button and sample style by using stylesheets */
-.ant-upload-select-picture-card i {
+.fishd-upload-select-picture-card i {
   font-size: 32px;
   color: #999;
 }
-.ant-upload-select-picture-card .ant-upload-text {
+.fishd-upload-select-picture-card .fishd-upload-text {
   margin-top: 8px;
   color: #666;
 }
@@ -397,15 +397,15 @@ render(){
 
 <style>
 /* tile uploaded pictures */
-.upload-list-inline .ant-upload-list-item {
+.upload-list-inline .fishd-upload-list-item {
   float: left;
   width: 200px;
   margin-right: 8px;
 }
-.upload-list-inline .ant-upload-animate-enter {
+.upload-list-inline .fishd-upload-animate-enter {
   animation-name: uploadAnimateInlineIn;
 }
-.upload-list-inline .ant-upload-animate-leave {
+.upload-list-inline .fishd-upload-animate-leave {
   animation-name: uploadAnimateInlineOut;
 }
 </style>

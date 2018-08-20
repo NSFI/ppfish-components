@@ -1,0 +1,413 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders upload demo correctly 1`] = `
+<div>
+  <span
+    class=""
+  >
+    <div
+      class="fishd-upload fishd-upload-select fishd-upload-select-text"
+      style="display:"
+    />
+    <div
+      class="fishd-upload-list fishd-upload-list-text"
+    />
+  </span>
+  <span
+    class="avatar-uploader"
+  >
+    <div
+      class="fishd-upload fishd-upload-select fishd-upload-select-picture-card"
+      style="display:"
+    />
+  </span>
+  <span
+    class=""
+  >
+    <div
+      class="fishd-upload fishd-upload-select fishd-upload-select-text"
+      style="display:"
+    />
+    <div
+      class="fishd-upload-list fishd-upload-list-text"
+    >
+      <div
+        class="fishd-upload-list-item fishd-upload-list-item-done"
+      >
+        <div
+          class="fishd-upload-list-item-info"
+        >
+          <span>
+            <i
+              class="fishdicon fishdicon-paper-clip"
+            />
+            <a
+              class="fishd-upload-list-item-name"
+              href="http://www.baidu.com/xxx.png"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="xxx.png"
+            >
+              xxx.png
+            </a>
+          </span>
+        </div>
+        <i
+          class="fishdicon fishdicon-cross"
+          title="Remove file"
+        />
+      </div>
+      <div
+        class="fishd-upload-list-item fishd-upload-list-item-done"
+      >
+        <div
+          class="fishd-upload-list-item-info"
+        >
+          <span>
+            <i
+              class="fishdicon fishdicon-paper-clip"
+            />
+            <a
+              class="fishd-upload-list-item-name"
+              href="http://www.baidu.com/yyy.png"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="yyy.png"
+            >
+              yyy.png
+            </a>
+          </span>
+        </div>
+        <i
+          class="fishdicon fishdicon-cross"
+          title="Remove file"
+        />
+      </div>
+      <div
+        class="fishd-upload-list-item fishd-upload-list-item-error"
+      >
+        <div
+          class="fishd-upload-list-item-info"
+        >
+          <span>
+            <i
+              class="fishdicon fishdicon-paper-clip"
+            />
+            <a
+              class="fishd-upload-list-item-name"
+              href="http://www.baidu.com/zzz.png"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="zzz.png"
+            >
+              zzz.png
+            </a>
+          </span>
+        </div>
+        <i
+          class="fishdicon fishdicon-cross"
+          title="Remove file"
+        />
+      </div>
+    </div>
+  </span>
+  <div
+    class="clearfix"
+  >
+    <span
+      class=""
+    >
+      <div
+        class="fishd-upload-list fishd-upload-list-picture-card"
+      >
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <a
+                class="fishd-upload-list-item-thumbnail"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="xxx.png"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
+              </a>
+              <a
+                class="fishd-upload-list-item-name"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="xxx.png"
+              >
+                xxx.png
+              </a>
+            </span>
+          </div>
+          <span
+            class="fishd-upload-list-item-actions"
+          >
+            <a
+              href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Preview file"
+            >
+              <i
+                class="fishdicon fishdicon-eye-o"
+              />
+            </a>
+            <i
+              class="fishdicon fishdicon-delete"
+              title="Remove file"
+            />
+          </span>
+        </div>
+      </div>
+      <div
+        class="fishd-upload fishd-upload-select fishd-upload-select-picture-card"
+        style="display:"
+      />
+    </span>
+  </div>
+  <span
+    class=""
+  >
+    <div
+      class="fishd-upload fishd-upload-select fishd-upload-select-text"
+      style="display:"
+    />
+    <div
+      class="fishd-upload-list fishd-upload-list-text"
+    >
+      <div
+        class="fishd-upload-list-item fishd-upload-list-item-done"
+      >
+        <div
+          class="fishd-upload-list-item-info"
+        >
+          <span>
+            <i
+              class="fishdicon fishdicon-paper-clip"
+            />
+            <a
+              class="fishd-upload-list-item-name"
+              href="http://www.baidu.com/xxx.png"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="xxx.png"
+            >
+              xxx.png
+            </a>
+          </span>
+        </div>
+        <i
+          class="fishdicon fishdicon-cross"
+          title="Remove file"
+        />
+      </div>
+    </div>
+  </span>
+  <span
+    class=""
+  >
+    <div
+      class="fishd-upload fishd-upload-drag"
+    />
+    <div
+      class="fishd-upload-list fishd-upload-list-text"
+    />
+  </span>
+  <div>
+    <span
+      class=""
+    >
+      <div
+        class="fishd-upload fishd-upload-select fishd-upload-select-picture"
+        style="display:"
+      />
+      <div
+        class="fishd-upload-list fishd-upload-list-picture"
+      >
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <a
+                class="fishd-upload-list-item-thumbnail"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="xxx.png"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
+              </a>
+              <a
+                class="fishd-upload-list-item-name"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="xxx.png"
+              >
+                xxx.png
+              </a>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-cross"
+            title="Remove file"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <a
+                class="fishd-upload-list-item-thumbnail"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="yyy.png"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
+              </a>
+              <a
+                class="fishd-upload-list-item-name"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="yyy.png"
+              >
+                yyy.png
+              </a>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-cross"
+            title="Remove file"
+          />
+        </div>
+      </div>
+    </span>
+    <br />
+    <br />
+    <span
+      class="upload-list-inline"
+    >
+      <div
+        class="fishd-upload fishd-upload-select fishd-upload-select-picture"
+        style="display:"
+      />
+      <div
+        class="fishd-upload-list fishd-upload-list-picture"
+      >
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <a
+                class="fishd-upload-list-item-thumbnail"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="xxx.png"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
+              </a>
+              <a
+                class="fishd-upload-list-item-name"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="xxx.png"
+              >
+                xxx.png
+              </a>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-cross"
+            title="Remove file"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <a
+                class="fishd-upload-list-item-thumbnail"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="yyy.png"
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
+              </a>
+              <a
+                class="fishd-upload-list-item-name"
+                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="yyy.png"
+              >
+                yyy.png
+              </a>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-cross"
+            title="Remove file"
+          />
+        </div>
+      </div>
+    </span>
+  </div>
+  <div>
+    <span
+      class=""
+    >
+      <div
+        class="fishd-upload fishd-upload-select fishd-upload-select-text"
+        style="display:"
+      />
+      <div
+        class="fishd-upload-list fishd-upload-list-text"
+      />
+    </span>
+    <button
+      class="fishd-btn upload-demo-start fishd-btn-primary"
+      disabled=""
+      type="button"
+    >
+      <span>
+        Start Upload
+      </span>
+    </button>
+  </div>
+</div>
+`;
