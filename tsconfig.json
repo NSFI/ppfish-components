@@ -10,7 +10,7 @@
       "es5",
       "dom",
       "dom.iterable",
-      "es2015"
+      "es2016"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

@@ -159,10 +159,8 @@ form {
 
     // Fix overlapping between feedback icon and <Select>'s arrow.
     // https://github.com/ant-design/ant-design/issues/4431
-    > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
-    > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection__clear,
-    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
-    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection__clear {
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-caret,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-caret {
       right: 28px;
     }
     > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection-selected-value,
@@ -262,7 +260,7 @@ form {
 
 // Input combined with select
 .@{fishd-prefix}-input-group-wrap {
-  .@{fishd-prefix}-select-selection {
+  .@{fishd-prefix}-select {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     &:hover {
@@ -281,7 +279,7 @@ form {
     }
   }
 
-  .@{fishd-prefix}-select-open .@{fishd-prefix}-select-selection {
+  .open.@{fishd-prefix}-select {
     border-color: @border-color-base;
     box-shadow: none;
   }
@@ -437,12 +435,10 @@ form {
 
   //select
   .@{fishd-prefix}-select {
-    &-selection {
-      border-color: @warning-color;
-    }
-    &-open .@{fishd-prefix}-select-selection,
-    &-focused .@{fishd-prefix}-select-selection {
-      .active(@warning-color);
+    border-color: @warning-color !important;
+    &:focus,
+    &.open {
+      box-shadow: 0 0 0 2px fade(@warning-color, 20%) !important;
     }
   }
 
@@ -450,7 +446,7 @@ form {
   .@{fishd-prefix}-calendar-picker-icon:after,
   .@{fishd-prefix}-time-picker-icon:after,
   .@{fishd-prefix}-picker-icon:after,
-  .@{fishd-prefix}-select-arrow,
+  .@{fishd-prefix}-select-caret,
   .@{fishd-prefix}-cascader-picker-arrow {
     color: @warning-color;
   }
@@ -484,12 +480,10 @@ form {
 
   //select
   .@{fishd-prefix}-select {
-    &-selection {
-      border-color: @error-color;
-    }
-    &-open .@{fishd-prefix}-select-selection,
-    &-focused .@{fishd-prefix}-select-selection {
-      .active(@error-color);
+    border-color: @error-color !important;
+    &:focus,
+    &.open {
+      box-shadow: 0 0 0 2px fade(@error-color, 20%) !important;
     }
   }
 
@@ -500,17 +494,15 @@ form {
   }
 
   .@{fishd-prefix}-input-group-addon .@{fishd-prefix}-select {
-    &-selection {
-      border-color: transparent;
-      box-shadow: none;
-    }
+    border-color: transparent;
+    box-shadow: none;
   }
 
   // arrow and icon
   .@{fishd-prefix}-calendar-picker-icon:after,
   .@{fishd-prefix}-time-picker-icon:after,
   .@{fishd-prefix}-picker-icon:after,
-  .@{fishd-prefix}-select-arrow,
+  .@{fishd-prefix}-select-caret,
   .@{fishd-prefix}-cascader-picker-arrow {
     color: @error-color;
   }

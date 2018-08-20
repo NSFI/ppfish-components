@@ -2,6 +2,7 @@
 
 协助进行页面级整体布局。
 
+
 ## 设计规则
 
 ### 尺寸
@@ -98,7 +99,7 @@ render(){
 :::
 
 <style>
-#components-layout-demo-basic .code-box-demo {
+#components-layout-demo-basic {
   text-align: center;
 }
 #components-layout-demo-basic .fishd-layout-header,
@@ -120,10 +121,11 @@ render(){
   min-height: 120px;
   line-height: 120px;
 }
-#components-layout-demo-basic > .code-box-demo > div > .fishd-layout {
+
+#components-layout-demo-basic > .fishd-layout {
   margin-bottom: 48px;
 }
-#components-layout-demo-basic > .code-box-demo > div > .fishd-layout:last-child {
+#components-layout-demo-basic > .fishd-layout:last-child {
   margin: 0;
 }
 </style>
@@ -161,7 +163,7 @@ render(){
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2016 Created by Ant UED
+          Fish Design
         </Footer>
       </Layout>
   )
@@ -242,7 +244,7 @@ render(){
           </Layout>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2016 Created by Ant UED
+          Fish Design
         </Footer>
       </Layout>
   )
@@ -360,7 +362,7 @@ class Demo extends React.Component {
 
   render() {
     return (
-      <Layout style={{ minHeight: '100vh' }} id="components-layout-demo-side">
+      <Layout id="components-layout-demo-side">
         <Sider
           collapsible
           collapsed={this.state.collapsed}
@@ -409,7 +411,7 @@ class Demo extends React.Component {
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2016 Created by Ant UED
+            Fish Design
           </Footer>
         </Layout>
       </Layout>
@@ -424,6 +426,9 @@ class Demo extends React.Component {
   height: 32px;
   background: rgba(255,255,255,.2);
   margin: 16px;
+}
+#components-layout-demo-side .fishd-layout-sider-trigger {
+  position:relative
 }
 </style>
 
@@ -552,7 +557,7 @@ render(){
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2016 Created by Ant UED
+            Fish Design
           </Footer>
         </Layout>
       </Layout>
@@ -601,7 +606,7 @@ render(){
           <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>Content</div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2016 Created by Ant UED
+          Fish Design
         </Footer>
       </Layout>
   )
@@ -619,9 +624,92 @@ render(){
 }
 </style>
 
-## API
+## 固定侧边栏
+
+:::demo 当内容较长时，使用固定侧边栏可以提供更好的体验。
 
 ```js
+render() {
+  const { Header, Content, Footer, Sider } = Layout;
+  return (
+    <Layout>
+      <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
+        <div className="logo" />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+          <Menu.Item key="1">
+            <Icon type="user" />
+            <span className="nav-text">nav 1</span>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Icon type="video-camera" />
+            <span className="nav-text">nav 2</span>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Icon type="upload" />
+            <span className="nav-text">nav 3</span>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Icon type="bar-chart" />
+            <span className="nav-text">nav 4</span>
+          </Menu.Item>
+          <Menu.Item key="5">
+            <Icon type="cloud-o" />
+            <span className="nav-text">nav 5</span>
+          </Menu.Item>
+          <Menu.Item key="6">
+            <Icon type="appstore-o" />
+            <span className="nav-text">nav 6</span>
+          </Menu.Item>
+          <Menu.Item key="7">
+            <Icon type="team" />
+            <span className="nav-text">nav 7</span>
+          </Menu.Item>
+          <Menu.Item key="8">
+            <Icon type="shop" />
+            <span className="nav-text">nav 8</span>
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout style={{ marginLeft: 200 }}>
+        <Header style={{ background: '#fff', padding: 0 }} />
+        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+          <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
+            ...
+            <br />
+            Really
+            <br />...<br />...<br />...<br />
+            long
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />...
+            <br />...<br />...<br />...<br />...<br />...<br />
+            content
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Fish Design
+        </Footer>
+      </Layout>
+    </Layout>
+  )
+}
+```
+:::
+
+<style>
+#components-layout-demo-fixed-sider .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+</style>
+
+## API
+
+```jsx
 <Layout>
   <Header>header</Header>
   <Layout>
@@ -651,7 +739,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| breakpoint | 触发响应式布局的[断点](https://nsfi.github.io/ppfish-components/#/components/grid) | Enum { 'xs', 'sm', 'md', 'lg', 'xl', 'xxl' } | - |
+| breakpoint | 触发响应式布局的[断点](/components/grid#api) | Enum { 'xs', 'sm', 'md', 'lg', 'xl', 'xxl' } | - |
 | className | 容器 className | string | - |
 | collapsed | 当前收起状态 | boolean | - |
 | collapsedWidth | 收缩宽度，设置为 0 会出现特殊 trigger | number | 64 |
@@ -663,6 +751,7 @@ render(){
 | trigger | 自定义 trigger，设置为 null 时隐藏 trigger | string\|ReactNode | - |
 | width | 宽度 | number\|string | 200 |
 | onCollapse | 展开-收起时的回调函数，有点击 trigger 以及响应式反馈两种方式可以触发 | (collapsed, type) => {} | - |
+| onBreakpoint | 触发响应式布局[断点](/components/grid#api)时的回调 | (broken) => {} | - |
 
 #### breakpoint width
 

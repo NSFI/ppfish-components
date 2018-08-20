@@ -38,7 +38,8 @@ export default class DateRangeBasePicker extends React.Component {
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
       onChange: PropTypes.func,
-      onOpenChange: PropTypes.func
+      onOpenChange: PropTypes.func,
+      style: PropTypes.object
     }
   }
 
@@ -249,6 +250,7 @@ export default class DateRangeBasePicker extends React.Component {
       popupAlign,
       prefixCls,
       getPopupContainer,
+      style
     } = this.props;
     const { pickerVisible, value, text } = this.state;
 
@@ -307,6 +309,7 @@ export default class DateRangeBasePicker extends React.Component {
             'is-active': pickerVisible,
             'is-filled': !!value
           })}
+          style={{...style}}
         >
           <div className={classNames(`fishd-date-editor--${this.type}`,{'is-active': pickerVisible, 'disabled': isDisabled})}>
             <Input

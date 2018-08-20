@@ -38,7 +38,8 @@ export default class BasePicker extends React.Component {
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
       onChange: PropTypes.func,
-      onOpenChange: PropTypes.func
+      onOpenChange: PropTypes.func,
+      style: PropTypes.object
     }
   }
 
@@ -248,7 +249,8 @@ export default class BasePicker extends React.Component {
       getPopupContainer,
       isShowTrigger,
       isAllowClear,
-      isDisabled
+      isDisabled,
+      style
     } = this.props;
     const { pickerVisible, value, text } = this.state;
 
@@ -307,10 +309,11 @@ export default class BasePicker extends React.Component {
             'is-active': pickerVisible,
             'is-filled': !!value
           })}
+          style={{...style}}
         >
 
         <Input
-          className={classNames(`fishd-date-editor fishd-date-editor--${this.type}`)}
+          className={classNames(`fishd-date-editor--${this.type}`)}
           disabled={isDisabled}
           type="text"
           placeholder={placeholder}
