@@ -2,6 +2,7 @@
 @import "./Select.less";
 @import "./CheckboxMixin.less";
 @import "./TreeSelect.less";
+@import (reference) "../../Input/style/mixin";
 
 @select-prefix: ~"@{fishd-prefix}-treeselect";
 @select-tree-ctner-prefix: ~"@{fishd-prefix}-treeselect-ctner";
@@ -74,7 +75,7 @@
     text-decoration: none;
     color: rgba(0, 0, 0, 0.65);
     // overflow: hidden;
-    
+
     &:hover {
       background-color: @item-hover-bg;
     }
