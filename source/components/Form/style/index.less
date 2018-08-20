@@ -159,9 +159,8 @@ form {
 
     // Fix overlapping between feedback icon and <Select>'s arrow.
     // https://github.com/ant-design/ant-design/issues/4431
-    > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
-    > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection__clear,
-    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-caret,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-caret,
     :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection__clear {
       right: 28px;
     }
@@ -450,7 +449,7 @@ form {
   .@{fishd-prefix}-calendar-picker-icon:after,
   .@{fishd-prefix}-time-picker-icon:after,
   .@{fishd-prefix}-picker-icon:after,
-  .@{fishd-prefix}-select-arrow,
+  .@{fishd-prefix}-select-caret,
   .@{fishd-prefix}-cascader-picker-arrow {
     color: @warning-color;
   }
@@ -484,9 +483,7 @@ form {
 
   //select
   .@{fishd-prefix}-select {
-    &-selection {
-      border-color: @error-color;
-    }
+    border-color: @error-color;
     &-open .@{fishd-prefix}-select-selection,
     &-focused .@{fishd-prefix}-select-selection {
       .active(@error-color);
@@ -510,7 +507,7 @@ form {
   .@{fishd-prefix}-calendar-picker-icon:after,
   .@{fishd-prefix}-time-picker-icon:after,
   .@{fishd-prefix}-picker-icon:after,
-  .@{fishd-prefix}-select-arrow,
+  .@{fishd-prefix}-select-caret,
   .@{fishd-prefix}-cascader-picker-arrow {
     color: @error-color;
   }
