@@ -1,0 +1,626 @@
+@import "../../../assets/css/index";
+@import "../../Input/style/mixin";
+@import "../../Button/style/mixin";
+@import "../../Grid/style/mixin";
+@import "./mixin";
+
+@form-prefix-cls: ~"@{fishd-prefix}-form";
+@form-component-height: @input-height-base;
+@form-component-max-height: @input-height-lg;
+@form-feedback-icon-size: 14px;
+@form-help-margin-top: (@form-component-height - @form-component-max-height) / 2 + 2px;
+
+.@{form-prefix-cls} {
+  .reset-component;
+  .reset-form;
+}
+
+.@{form-prefix-cls}-item-required:before {
+  display: inline-block;
+  margin-right: 4px;
+  content: "*";
+  font-family: SimSun;
+  line-height: 1;
+  font-size: @font-size-base;
+  color: @label-required-color;
+  .@{form-prefix-cls}-hide-required-mark & {
+    display: none;
+  }
+}
+
+// Radio && Checkbox
+input[type="radio"],
+input[type="checkbox"] {
+  &[disabled],
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+// These classes are used directly on <label>s
+.@{fishd-prefix}-radio-inline,
+.@{fishd-prefix}-radio-vertical,
+.@{fishd-prefix}-checkbox-inline,
+.@{fishd-prefix}-checkbox-vertical {
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+// These classes are used on elements with <label> descendants
+.@{fishd-prefix}-radio,
+.@{fishd-prefix}-checkbox {
+  &.disabled {
+    label {
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Form items
+// You should wrap labels and controls in .@{form-prefix-cls}-item for optimum spacing
+.@{form-prefix-cls}-item {
+  label {
+    position: relative;
+
+    > .@{iconfont-prefix} {
+      vertical-align: top;
+      font-size: @font-size-base;
+    }
+  }
+
+  .reset-component;
+  margin-bottom: @form-item-margin-bottom;
+  vertical-align: top;
+
+  // nested FormItem
+  &-control > &:last-child,
+  & [class^="@{fishd-prefix}-col-"] > &:only-child {
+    margin-bottom: -@form-item-margin-bottom;
+  }
+
+  &-control {
+    line-height: @form-component-max-height - 0.0001px; // https://github.com/ant-design/ant-design/issues/8220
+    position: relative;
+    .clearfix;
+  }
+
+  &-children {
+    position: relative;
+  }
+
+  &-with-help {
+    margin-bottom: @form-item-margin-bottom - @font-size-base * @line-height-base - @form-help-margin-top;
+  }
+
+  &-label {
+    text-align: right;
+    vertical-align: middle;
+    line-height: @form-component-max-height - 0.0001px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+
+    label {
+      color: @label-color;
+
+      &:after {
+        & when (@form-item-trailing-colon=true) {
+          content: ":";
+        }
+        & when not (@form-item-trailing-colon=true) {
+          content: " ";
+        }
+        margin: 0 8px 0 2px;
+        position: relative;
+        top: -0.5px;
+      }
+    }
+  }
+
+  .@{fishd-prefix}-switch {
+    margin: 2px 0 4px;
+  }
+
+  &-no-colon &-label label:after {
+    content: " ";
+  }
+}
+
+.@{form-prefix-cls}-explain,
+.@{form-prefix-cls}-extra {
+  color: @text-color-secondary;
+  line-height: @line-height-base;
+  transition: color .3s @ease-out; // sync input color transition
+  margin-top: @form-help-margin-top;
+  clear: both;
+}
+
+.@{form-prefix-cls}-extra {
+  padding-top: 4px;
+}
+
+.@{form-prefix-cls}-text {
+  display: inline-block;
+  padding-right: 8px;
+}
+
+.@{form-prefix-cls}-split {
+  display: block;
+  text-align: center;
+}
+
+// 表单下的输入框尺寸唯一: 大尺寸
+form {
+  .has-feedback {
+    .@{fishd-prefix}-input {
+      padding-right: 24px;
+    }
+
+    // Fix overlapping between feedback icon and <Select>'s arrow.
+    // https://github.com/ant-design/ant-design/issues/4431
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection__clear,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection__clear {
+      right: 28px;
+    }
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection-selected-value,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection-selected-value {
+      padding-right: 42px;
+    }
+
+    .@{fishd-prefix}-cascader-picker {
+      &-arrow {
+        margin-right: 17px;
+      }
+      &-clear {
+        right: 28px;
+      }
+    }
+
+    // Fix issue: https://github.com/ant-design/ant-design/issues/7854
+    .@{fishd-prefix}-input-search:not(.@{fishd-prefix}-input-search-enter-button) {
+      .@{fishd-prefix}-input-suffix {
+        right: 28px;
+      }
+    }
+
+    // Fix issue: https://github.com/ant-design/ant-design/issues/4783
+    .@{fishd-prefix}-calendar-picker,
+    .@{fishd-prefix}-time-picker {
+      &-icon,
+      &-clear {
+        right: 28px;
+      }
+    }
+  }
+
+  textarea.@{fishd-prefix}-input {
+    height: auto;
+  }
+
+  // input[type=file]
+  .@{fishd-prefix}-upload {
+    background: transparent;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+
+  // Radios and checkboxes on same line
+  .@{fishd-prefix}-radio-inline,
+  .@{fishd-prefix}-checkbox-inline {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: normal;
+    cursor: pointer;
+    margin-left: 8px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .@{fishd-prefix}-checkbox-vertical,
+  .@{fishd-prefix}-radio-vertical {
+    display: block;
+  }
+
+  .@{fishd-prefix}-checkbox-vertical + .@{fishd-prefix}-checkbox-vertical,
+  .@{fishd-prefix}-radio-vertical + .@{fishd-prefix}-radio-vertical {
+    margin-left: 0;
+  }
+
+  .@{fishd-prefix}-input-number + .@{form-prefix-cls}-text {
+    margin-left: 8px;
+  }
+
+  .@{fishd-prefix}-select,
+  .@{fishd-prefix}-cascader-picker {
+    width: 100%;
+  }
+
+  // Don't impact select inside input group
+  .@{fishd-prefix}-input-group .@{fishd-prefix}-select,
+  .@{fishd-prefix}-input-group .@{fishd-prefix}-cascader-picker {
+    width: auto;
+  }
+
+  // fix input with addon position. https://github.com/ant-design/ant-design/issues/8243
+  :not(.@{fishd-prefix}-input-group-wrapper) > .@{fishd-prefix}-input-group,
+  .@{fishd-prefix}-input-group-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+}
+
+// Input combined with select
+.@{fishd-prefix}-input-group-wrap {
+  .@{fishd-prefix}-select-selection {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    &:hover {
+      border-color: @border-color-base;
+    }
+  }
+
+  .@{fishd-prefix}-select-selection--single {
+    margin-left: -1px;
+    height: @input-height-lg;
+    background-color: #eee;
+    .@{fishd-prefix}-select-selection__rendered {
+      padding-left: 8px;
+      padding-right: 25px;
+      line-height: 30px;
+    }
+  }
+
+  .@{fishd-prefix}-select-open .@{fishd-prefix}-select-selection {
+    border-color: @border-color-base;
+    box-shadow: none;
+  }
+}
+
+// Form layout
+//== Vertical Form
+.make-vertical-layout-label() {
+  padding: @form-vertical-label-padding;
+  margin: @form-vertical-label-margin;
+  display: block;
+  text-align: left;
+  line-height: @line-height-base;
+
+  label:after {
+    display: none;
+  }
+}
+
+.make-vertical-layout() {
+  .@{form-prefix-cls}-item-label,
+  .@{form-prefix-cls}-item-control-wrapper {
+    display: block;
+    width: 100%;
+  }
+  .@{form-prefix-cls}-item-label {
+    .make-vertical-layout-label();
+  }
+}
+
+.@{form-prefix-cls}-vertical .@{form-prefix-cls}-item-label,
+  // when labelCol is 24, it is a vertical form
+.@{fishd-prefix}-col-24.@{form-prefix-cls}-item-label,
+.@{fishd-prefix}-col-xl-24.@{form-prefix-cls}-item-label {
+  .make-vertical-layout-label();
+}
+
+.@{form-prefix-cls}-vertical {
+  .@{form-prefix-cls}-item {
+    padding-bottom: 8px;
+  }
+  .@{form-prefix-cls}-item-control {
+    line-height: @line-height-base;
+  }
+  .@{form-prefix-cls}-explain,
+  .@{form-prefix-cls}-extra {
+    margin-top: 2px;
+    margin-bottom: -4px;
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .make-vertical-layout();
+  .@{fishd-prefix}-col-xs-24.@{form-prefix-cls}-item-label {
+    .make-vertical-layout-label();
+  }
+}
+
+@media (max-width: @screen-sm-max) {
+  .@{fishd-prefix}-col-sm-24.@{form-prefix-cls}-item-label {
+    .make-vertical-layout-label();
+  }
+}
+
+@media (max-width: @screen-md-max) {
+  .@{fishd-prefix}-col-md-24.@{form-prefix-cls}-item-label {
+    .make-vertical-layout-label();
+  }
+}
+
+@media (max-width: @screen-lg-max) {
+  .@{fishd-prefix}-col-lg-24.@{form-prefix-cls}-item-label {
+    .make-vertical-layout-label();
+  }
+}
+
+@media (max-width: @screen-xl-max) {
+  .@{fishd-prefix}-col-xl-24.@{form-prefix-cls}-item-label {
+    .make-vertical-layout-label();
+  }
+}
+
+//== Inline Form
+.@{form-prefix-cls}-inline {
+  .@{form-prefix-cls}-item {
+    display: inline-block;
+    margin-right: 16px;
+    margin-bottom: 0;
+
+    &-with-help {
+      margin-bottom: 24px;
+    }
+
+    > .@{form-prefix-cls}-item-control-wrapper, > .@{form-prefix-cls}-item-label {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  .@{form-prefix-cls}-text {
+    display: inline-block;
+  }
+
+  .has-feedback {
+    display: inline-block;
+  }
+
+  // Fix https://github.com/ant-design/ant-design/issues/1040
+  .@{form-prefix-cls}-explain {
+    position: absolute;
+  }
+}
+
+// Validation state
+.has-success,
+.has-warning,
+.has-error,
+.is-validating {
+  &.has-feedback .@{form-prefix-cls}-item-children:after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    visibility: visible;
+    pointer-events: none;
+    width: @form-component-height;
+    height: 20px;
+    line-height: 20px;
+    margin-top: -10px;
+    text-align: center;
+    font-size: @form-feedback-icon-size;
+    animation: zoomIn .3s @ease-out-back;
+    .iconfont-font("");
+    z-index: 1;
+  }
+}
+
+.has-success {
+  &.has-feedback .@{form-prefix-cls}-item-children:after {
+    animation-name: diffZoomIn1 !important;
+    content: '\e6a8';
+    color: @success-color;
+  }
+}
+
+.has-warning {
+  .form-control-validation(@warning-color; @warning-color;);
+
+  &.has-feedback .@{form-prefix-cls}-item-children:after {
+    content: '\e6a9';
+    color: @warning-color;
+    animation-name: diffZoomIn3 !important;
+  }
+
+  //select
+  .@{fishd-prefix}-select {
+    &-selection {
+      border-color: @warning-color;
+    }
+    &-open .@{fishd-prefix}-select-selection,
+    &-focused .@{fishd-prefix}-select-selection {
+      .active(@warning-color);
+    }
+  }
+
+  // arrow and icon
+  .@{fishd-prefix}-calendar-picker-icon:after,
+  .@{fishd-prefix}-time-picker-icon:after,
+  .@{fishd-prefix}-picker-icon:after,
+  .@{fishd-prefix}-select-arrow,
+  .@{fishd-prefix}-cascader-picker-arrow {
+    color: @warning-color;
+  }
+
+  //input-number, timepicker
+  .@{fishd-prefix}-input-number,
+  .@{fishd-prefix}-time-picker-input {
+    border-color: @warning-color;
+    &-focused,
+    &:focus {
+      .active(@warning-color);
+    }
+    &:not([disabled]):hover {
+      border-color: @warning-color;
+    }
+  }
+
+  .@{fishd-prefix}-cascader-picker:focus .@{fishd-prefix}-cascader-input {
+    .active(@warning-color);
+  }
+}
+
+.has-error {
+  .form-control-validation(@error-color; @error-color;);
+
+  &.has-feedback .@{form-prefix-cls}-item-children:after {
+    content: '\e6a7';
+    color: @error-color;
+    animation-name: diffZoomIn2 !important;
+  }
+
+  //select
+  .@{fishd-prefix}-select {
+    &-selection {
+      border-color: @error-color;
+    }
+    &-open .@{fishd-prefix}-select-selection,
+    &-focused .@{fishd-prefix}-select-selection {
+      .active(@error-color);
+    }
+  }
+
+  .@{fishd-prefix}-select.@{fishd-prefix}-select-auto-complete {
+    .@{fishd-prefix}-input:focus {
+      border-color: @error-color;
+    }
+  }
+
+  .@{fishd-prefix}-input-group-addon .@{fishd-prefix}-select {
+    &-selection {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  // arrow and icon
+  .@{fishd-prefix}-calendar-picker-icon:after,
+  .@{fishd-prefix}-time-picker-icon:after,
+  .@{fishd-prefix}-picker-icon:after,
+  .@{fishd-prefix}-select-arrow,
+  .@{fishd-prefix}-cascader-picker-arrow {
+    color: @error-color;
+  }
+
+  //input-number, timepicker
+  .@{fishd-prefix}-input-number,
+  .@{fishd-prefix}-time-picker-input {
+    border-color: @error-color;
+    &-focused,
+    &:focus {
+      .active(@error-color);
+    }
+    &:not([disabled]):hover {
+      border-color: @error-color;
+    }
+  }
+  .@{fishd-prefix}-mention-wrapper {
+    .@{fishd-prefix}-mention-editor {
+      &,
+      &:not([disabled]):hover {
+        border-color: @error-color;
+      }
+    }
+    &.@{fishd-prefix}-mention-active:not([disabled]) .@{fishd-prefix}-mention-editor,
+    .@{fishd-prefix}-mention-editor:not([disabled]):focus {
+      .active(@error-color);
+    }
+  }
+
+  .@{fishd-prefix}-cascader-picker:focus .@{fishd-prefix}-cascader-input {
+    .active(@error-color);
+  }
+}
+
+.is-validating {
+  &.has-feedback .@{form-prefix-cls}-item-children:after {
+    display: inline-block;
+    animation: loadingCircle 1s infinite linear;
+    content: "\e6a4";
+    color: @primary-color;
+  }
+}
+
+.@{fishd-prefix}-advanced-search-form {
+  .@{form-prefix-cls}-item {
+    margin-bottom: @form-item-margin-bottom;
+
+    &-with-help {
+      margin-bottom: @form-item-margin-bottom - @font-size-base * @line-height-base - @form-help-margin-top;
+    }
+  }
+}
+
+.show-help-motion(@className, @keyframeName, @duration: @animation-duration-slow) {
+  .make-motion(@className, @keyframeName, @duration);
+  .@{className}-enter,
+  .@{className}-appear {
+    opacity: 0;
+    animation-timing-function: @ease-in-out;
+  }
+  .@{className}-leave {
+    animation-timing-function: @ease-in-out;
+  }
+}
+
+.show-help-motion(show-help, antShowHelp, 0.3s);
+
+@keyframes antShowHelpIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes antShowHelpOut {
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+// need there different zoom animation
+// otherwise won't trigger anim
+@keyframes diffZoomIn1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes diffZoomIn2 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes diffZoomIn3 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

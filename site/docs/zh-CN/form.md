@@ -476,7 +476,7 @@ class AdvancedSearchForm extends React.Component {
   render() {
     return (
       <Form
-        className="ant-advanced-search-form"
+        className="fishd-advanced-search-form"
         id="components-form-demo-advanced-search"
         onSubmit={this.handleSearch}
       >
@@ -502,24 +502,24 @@ const Demo = Form.create()(AdvancedSearchForm);
 :::
 
 <style>
-.ant-advanced-search-form {
+.fishd-advanced-search-form {
   padding: 24px;
   background: #fbfbfb;
   border: 1px solid #d9d9d9;
   border-radius: 6px;
 }
 
-.ant-advanced-search-form .ant-form-item {
+.fishd-advanced-search-form .fishd-form-item {
   display: flex;
 }
 
-.ant-advanced-search-form .ant-form-item-control-wrapper {
+.fishd-advanced-search-form .fishd-form-item-control-wrapper {
   flex: 1;
 }
 </style>
 
 <style>
-#components-form-demo-advanced-search .ant-form {
+#components-form-demo-advanced-search .fishd-form {
   max-width: none;
 }
 #components-form-demo-advanced-search .search-result-list {
@@ -773,8 +773,7 @@ const Demo = Form.create()(DynamicFieldSet);
 
 ```js
 const FormItem = Form.Item;
-const MonthPicker = DatePicker.MonthPicker;
-const RangePicker = DatePicker.RangePicker;
+const RangePicker = DatePicker.DateRangePicker;
 
 class TimeRelatedForm extends React.Component {
   handleSubmit = (e) => {
@@ -792,7 +791,6 @@ class TimeRelatedForm extends React.Component {
         ...fieldsValue,
         'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
         'date-time-picker': fieldsValue['date-time-picker'].format('YYYY-MM-DD HH:mm:ss'),
-        'month-picker': fieldsValue['month-picker'].format('YYYY-MM'),
         'range-picker': [rangeValue[0].format('YYYY-MM-DD'), rangeValue[1].format('YYYY-MM-DD')],
         'range-time-picker': [
           rangeTimeValue[0].format('YYYY-MM-DD HH:mm:ss'),
@@ -838,14 +836,6 @@ class TimeRelatedForm extends React.Component {
         >
           {getFieldDecorator('date-time-picker', config)(
             <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="MonthPicker"
-        >
-          {getFieldDecorator('month-picker', config)(
-            <MonthPicker />
           )}
         </FormItem>
         <FormItem
@@ -1184,7 +1174,7 @@ render(){
           validateStatus="error"
           help="Should be combination of numbers & alphabets"
         >
-          <Input placeholder="unavailable choice" id="error" />
+          <Input placeholder="unavailable choice" />
         </FormItem>
     
         <FormItem
@@ -1192,7 +1182,7 @@ render(){
           label="Warning"
           validateStatus="warning"
         >
-          <Input placeholder="Warning" id="warning" />
+          <Input placeholder="Warning" />
         </FormItem>
     
         <FormItem
@@ -1202,7 +1192,7 @@ render(){
           validateStatus="validating"
           help="The information is being validated..."
         >
-          <Input placeholder="I'm the content is being validated" id="validating" />
+          <Input placeholder="I'm the content is being validated" />
         </FormItem>
     
         <FormItem
@@ -1211,7 +1201,7 @@ render(){
           hasFeedback
           validateStatus="success"
         >
-          <Input placeholder="I'm the content" id="success" />
+          <Input placeholder="I'm the content" />
         </FormItem>
     
         <FormItem
@@ -1220,7 +1210,7 @@ render(){
           hasFeedback
           validateStatus="warning"
         >
-          <Input placeholder="Warning" id="warning" />
+          <Input placeholder="Warning" />
         </FormItem>
     
         <FormItem
@@ -1230,7 +1220,7 @@ render(){
           validateStatus="error"
           help="Should be combination of numbers & alphabets"
         >
-          <Input placeholder="unavailable choice" id="error" />
+          <Input placeholder="unavailable choice" />
         </FormItem>
     
         <FormItem
@@ -1572,7 +1562,7 @@ class UnwrappedDemo extends React.Component {
           {...formItemLayout}
           label="Plain Text"
         >
-          <span className="ant-form-text">China</span>
+          <span className="fishd-form-text">China</span>
         </FormItem>
         <FormItem
           {...formItemLayout}
@@ -1615,7 +1605,7 @@ class UnwrappedDemo extends React.Component {
           {getFieldDecorator('input-number', { initialValue: 3 })(
             <InputNumber min={1} max={10} />
           )}
-          <span className="ant-form-text"> machines</span>
+          <span className="fishd-form-text"> machines</span>
         </FormItem>
 
         <FormItem
@@ -1664,17 +1654,6 @@ class UnwrappedDemo extends React.Component {
 
         <FormItem
           {...formItemLayout}
-          label="Rate"
-        >
-          {getFieldDecorator('rate', {
-            initialValue: 3.5,
-          })(
-            <Rate />
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
           label="Upload"
           extra="longgggggggggggggggggggggggggggggggggg"
         >
@@ -1700,11 +1679,11 @@ class UnwrappedDemo extends React.Component {
               getValueFromEvent: this.normFile,
             })(
               <Upload.Dragger name="files" action="/upload.do">
-                <p className="ant-upload-drag-icon">
+                <p className="fishd-upload-drag-icon">
                   <Icon type="inbox" />
                 </p>
-                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+                <p className="fishd-upload-text">Click or drag file to this area to upload</p>
+                <p className="fishd-upload-hint">Support for a single or bulk upload.</p>
               </Upload.Dragger>
             )}
           </div>
@@ -1790,7 +1769,7 @@ this.form // => The instance of CustomizedForm
 | isFieldValidating | 判断一个输入控件是否在校验状态 | Function(name) |
 | resetFields | 重置一组输入控件的值（为 `initialValue`）与状态，如不传入参数，则重置所有组件 | Function(\[names: string\[]]) |
 | setFields | 设置一组输入控件的值与 Error。 [代码](https://github.com/react-component/form/blob/3b9959b57ab30b41d8890ff30c79a7e7c383cad3/examples/server-validate.js#L74-L79) | Function({ [fieldName]&#x3A; { value: any, errors: [Error] } }) |
-| setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/ant-design/ant-design/issues/2985)） | Function({ [fieldName]&#x3A; value } |
+| setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/fishd-design/ant-design/issues/2985)） | Function({ [fieldName]&#x3A; value } |
 | validateFields | 校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件 | Function(\[fieldNames: string\[]], [options: object], callback: Function(errors, values)) |
 | validateFieldsAndScroll | 与 `validateFields` 相似，但校验完后，如果校验不通过的菜单域不在可见范围内，则自动滚动进可见范围 | 参考 `validateFields` |
 
@@ -1873,7 +1852,7 @@ this.form // => The instance of CustomizedForm
 更多高级用法可研究 [async-validator](https://github.com/yiminghe/async-validator)。
 
 <style>
-.code-box-demo .ant-form:not(.ant-form-inline):not(.ant-form-vertical) {
+.code-box-demo .fishd-form:not(.fishd-form-inline):not(.fishd-form-vertical) {
   max-width: 600px;
 }
 </style>

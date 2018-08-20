@@ -6,7 +6,7 @@ export default class Notice extends Component {
   static propTypes = {
     duration: PropTypes.number,
     onClose: PropTypes.func,
-    children: PropTypes.any,
+    children: PropTypes.node,
     update: PropTypes.bool,
     closeIcon: PropTypes.node,
   };

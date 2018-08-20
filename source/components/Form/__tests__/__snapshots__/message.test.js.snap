@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form should display custom message 1`] = `
+<form
+  class="fishd-form fishd-form-horizontal"
+>
+  <div
+    class="fishd-row fishd-form-item fishd-form-item-with-help"
+  >
+    <div
+      class="fishd-form-item-label"
+    >
+      <label
+        class=""
+        for="account"
+        title="Account"
+      >
+        Account
+      </label>
+    </div>
+    <div
+      class="fishd-form-item-control-wrapper"
+    >
+      <div
+        class="fishd-form-item-control has-error"
+      >
+        <span
+          class="fishd-form-item-children"
+        >
+          <input
+            data-__field="[object Object]"
+            data-__meta="[object Object]"
+            id="account"
+            value="antd"
+          />
+        </span>
+        <div
+          class="fishd-form-explain show-help-enter"
+        >
+          <span>
+            Account does not exist, 
+            <a
+              href="https://www.alipay.com/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Forgot account?
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form should display two message 1`] = `
+<form
+  class="fishd-form fishd-form-horizontal"
+>
+  <div
+    class="fishd-row fishd-form-item fishd-form-item-with-help"
+  >
+    <div
+      class="fishd-form-item-label"
+    >
+      <label
+        class=""
+        for="account"
+        title="Account"
+      >
+        Account
+      </label>
+    </div>
+    <div
+      class="fishd-form-item-control-wrapper"
+    >
+      <div
+        class="fishd-form-item-control has-error"
+      >
+        <span
+          class="fishd-form-item-children"
+        >
+          <input
+            data-__field="[object Object]"
+            data-__meta="[object Object]"
+            id="account"
+            value="+=-/"
+          />
+        </span>
+        <div
+          class="fishd-form-explain show-help-enter"
+        >
+          Error message 1 Error message 2
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
