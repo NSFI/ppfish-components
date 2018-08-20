@@ -195,7 +195,6 @@ export default {
       'datePicker': {
         type: 'markdown',
         name: 'DatePicker 日期选择框',
-        style: require('./datePicker/index.less'),
         published: true,
       },
       'form': {
