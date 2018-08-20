@@ -148,23 +148,23 @@ describe('Transfer', () => {
     expect(wrapper.find(TransferList).at(0).find(TransferItem).find(Checkbox)).toHaveLength(1);
   });
 
-  // it('should display the correct count of items when filter by input', () => {
-  //   const filterOption = (inputValue, option) => option.description.indexOf(inputValue) > -1;
-  //   const renderFunc = item => item.title;
-  //   const wrapper = mount(
-  //     <Transfer
-  //       {...searchTransferProps}
-  //       showSearch
-  //       filterOption={filterOption}
-  //       render={renderFunc}
-  //     />
-  //   );
-  //   wrapper.find(TransferSearch).at(0).find('input').simulate('change', { target: { value: 'content2' } });
-  //   expect(wrapper.find(TransferList).at(0).find('.fishd-transfer-list-header-selected > span').at(0)
-  //     .first()
-  //     .text()
-  //     .trim()).toEqual('1 items');
-  // });
+  it('should display the correct count of items when filter by input', () => {
+    const filterOption = (inputValue, option) => option.description.indexOf(inputValue) > -1;
+    const renderFunc = item => item.title;
+    const wrapper = mount(
+      <Transfer
+        {...searchTransferProps}
+        showSearch
+        filterOption={filterOption}
+        render={renderFunc}
+      />
+    );
+    wrapper.find(TransferSearch).at(0).find('input').simulate('change', { target: { value: 'content2' } });
+    expect(wrapper.find(TransferList).at(0).find('.fishd-transfer-list-header-selected > span').at(0)
+      .first()
+      .text()
+      .trim()).toEqual("1 项");
+  });
 
   it('should just check the filtered item when click on check all after search by input', () => {
     const filterOption = (inputValue, option) => option.description.indexOf(inputValue) > -1;
