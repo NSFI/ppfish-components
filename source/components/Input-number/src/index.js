@@ -13,6 +13,7 @@ function preventDefault(e) {
 }
 
 function defaultParser(input) {
+  /* eslint-disable-next-line */
   return input.replace(/[^\w\.-]+/g, '');
 }
 

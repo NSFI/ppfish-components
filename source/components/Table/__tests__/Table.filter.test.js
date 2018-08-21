@@ -85,7 +85,8 @@ describe('Table.filter', () => {
   });
 
   it('override custom filter correctly', () => {
-    const filter = ({prefixCls, setSelectedKeys, confirm, clearFilters}) => {
+    /* eslint-disable-next-line */
+    const filterDropdown = ({prefixCls, setSelectedKeys, confirm, clearFilters}) => {
       return (
         <div className={`${prefixCls}-view`} id="customFilter">
           <span onClick={() => setSelectedKeys([42])} id="setSelectedKeys">setSelectedKeys</span>
@@ -98,7 +99,7 @@ describe('Table.filter', () => {
     const wrapper = mount(createTable({
       columns: [{
         ...column,
-        filterDropdown: filter,
+        filterDropdown,
       }],
     }));
 
@@ -272,11 +273,11 @@ describe('Table.filter', () => {
     class App extends React.Component {
       state = {
         filters: {},
-      }
+      };
 
       handleChange = (pagination, filters) => {
         this.setState({filters});
-      }
+      };
 
       render() {
         const {filters} = this.state;
@@ -370,10 +371,11 @@ describe('Table.filter', () => {
   });
 
   it('renders custom filter icon correctly', () => {
+    const filterIcon = (filtered) => <span>{filtered ? 'filtered' : 'unfiltered'}</span>;
     const wrapper = mount(createTable({
       columns: [{
         ...column,
-        filterIcon: filtered => <span>{filtered ? 'filtered' : 'unfiltered'}</span>,
+        filterIcon
       }],
     }));
 
