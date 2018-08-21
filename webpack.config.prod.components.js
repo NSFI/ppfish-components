@@ -3,13 +3,13 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
+const isProduction = process.env.NODE_ENV === 'production';
 // 压缩混淆代码开关
 const minimize = true;
 const lessStyle = new ExtractTextPlugin({
   filename: minimize ? 'ppfish.min.css' : 'ppfish.css',
   allChunks: true
 });
-const isProduction = process.env.NODE_ENV === 'production';
 
 // more info: https://github.com/isaacs/node-glob
 export default {
