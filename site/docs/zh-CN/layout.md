@@ -580,49 +580,48 @@ render(){
 :::demo 一般用于固定顶部导航，方便页面切换。
 
 ```js
+
 render(){
   const { Header, Content, Footer } = Layout;
+
+  const layoutFixedHeader = () => {
+    <Layout>
+      <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['2']}
+          style={{ lineHeight: '64px' }}
+        >
+          <Menu.Item key="1">nav 1</Menu.Item>
+          <Menu.Item key="2">nav 2</Menu.Item>
+          <Menu.Item key="3">nav 3</Menu.Item>
+        </Menu>
+      </Header>
+      <Content style={{ padding: '0 50px', marginTop: 64 }}>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>List</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item>
+        </Breadcrumb>
+        <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>Content</div>
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>
+        Fish Design
+      </Footer>
+    </Layout>
+  }
+  //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的layoutFixedHeader
   return(
-      <Layout id="components-layout-demo-fixed">
-        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={['2']}
-            style={{ lineHeight: '64px' }}
-          >
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
-        </Header>
-        <Content style={{ padding: '0 50px', marginTop: 64 }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>Content</div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Fish Design
-        </Footer>
-      </Layout>
+    <div className="browser-mockup">
+      <iframe src="./demo/layoutFixedHeader.html" height={450}></iframe>
+    </div>
   )
+  
 }
 ```
 :::
-
-<style>
-#components-layout-demo-fixed .logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255,255,255,.2);  
-  margin: 16px 24px 16px 0;
-  float: left;
-}
-</style>
 
 ## 固定侧边栏
 
@@ -631,79 +630,117 @@ render(){
 ```js
 render() {
   const { Header, Content, Footer, Sider } = Layout;
-  return (
+  
+  const layoutFixedSider = () => {
     <Layout>
-      <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
-        <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-          <Menu.Item key="1">
-            <Icon type="user" />
-            <span className="nav-text">nav 1</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Icon type="video-camera" />
-            <span className="nav-text">nav 2</span>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <Icon type="upload" />
-            <span className="nav-text">nav 3</span>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <Icon type="bar-chart" />
-            <span className="nav-text">nav 4</span>
-          </Menu.Item>
-          <Menu.Item key="5">
-            <Icon type="cloud-o" />
-            <span className="nav-text">nav 5</span>
-          </Menu.Item>
-          <Menu.Item key="6">
-            <Icon type="appstore-o" />
-            <span className="nav-text">nav 6</span>
-          </Menu.Item>
-          <Menu.Item key="7">
-            <Icon type="team" />
-            <span className="nav-text">nav 7</span>
-          </Menu.Item>
-          <Menu.Item key="8">
-            <Icon type="shop" />
-            <span className="nav-text">nav 8</span>
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout style={{ marginLeft: 200 }}>
-        <Header style={{ background: '#fff', padding: 0 }} />
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-            ...
-            <br />
-            Really
-            <br />...<br />...<br />...<br />
-            long
-            <br />...<br />...<br />...<br />...<br />...<br />...
-            <br />...<br />...<br />...<br />...<br />...<br />...
-            <br />...<br />...<br />...<br />...<br />...<br />...
-            <br />...<br />...<br />...<br />...<br />...<br />...
-            <br />...<br />...<br />...<br />...<br />...<br />...
-            <br />...<br />...<br />...<br />...<br />...<br />...
-            <br />...<br />...<br />...<br />...<br />...<br />
-            content
-          </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Fish Design
-        </Footer>
+        <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+            <Menu.Item key="1">
+              <Icon type="user" />
+              <span className="nav-text">nav 1</span>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Icon type="video-camera" />
+              <span className="nav-text">nav 2</span>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Icon type="upload" />
+              <span className="nav-text">nav 3</span>
+            </Menu.Item>
+            <Menu.Item key="4">
+              <Icon type="bar-chart" />
+              <span className="nav-text">nav 4</span>
+            </Menu.Item>
+            <Menu.Item key="5">
+              <Icon type="cloud-o" />
+              <span className="nav-text">nav 5</span>
+            </Menu.Item>
+            <Menu.Item key="6">
+              <Icon type="appstore-o" />
+              <span className="nav-text">nav 6</span>
+            </Menu.Item>
+            <Menu.Item key="7">
+              <Icon type="team" />
+              <span className="nav-text">nav 7</span>
+            </Menu.Item>
+            <Menu.Item key="8">
+              <Icon type="shop" />
+              <span className="nav-text">nav 8</span>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout style={{ marginLeft: 200 }}>
+          <Header style={{ background: '#fff', padding: 0 }} />
+          <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+            <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
+              ...
+              <br />
+              Really
+              <br />...<br />...<br />...<br />
+              long
+              <br />...<br />...<br />...<br />...<br />...<br />...
+              <br />...<br />...<br />...<br />...<br />...<br />...
+              <br />...<br />...<br />...<br />...<br />...<br />...
+              <br />...<br />...<br />...<br />...<br />...<br />...
+              <br />...<br />...<br />...<br />...<br />...<br />...
+              <br />...<br />...<br />...<br />...<br />...<br />...
+              <br />...<br />...<br />...<br />...<br />...<br />
+              content
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            Fish Design
+          </Footer>
+        </Layout>
       </Layout>
-    </Layout>
+  }
+  
+  //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的layoutFixedSider
+  return(
+    <div className="browser-mockup">
+      <iframe src="./demo/layoutFixedSider.html" height={350}></iframe>
+    </div>
   )
 }
 ```
 :::
 
 <style>
-#components-layout-demo-fixed-sider .logo {
-  height: 32px;
-  background: rgba(255,255,255,.2);
-  margin: 16px;
+.browser-mockup {
+    border-top: 2em solid rgba(230, 230, 230, 0.7);
+    -webkit-box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    position: relative;
+    border-radius: 3px 3px 0 0;
+}
+.browser-mockup:before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.25em;
+    left: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background-color: #f44;
+    -webkit-box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+    box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+}
+.browser-mockup:after {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.6em;
+    left: 5.5em;
+    width: calc(100% - 6em);
+    height: 1.2em;
+    border-radius: 2px;
+    background-color: white;
+}
+.browser-mockup iframe {
+    width: 100%;
+    border: 0;
 }
 </style>
 
