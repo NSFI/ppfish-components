@@ -43,14 +43,18 @@ const getDemoEntries = () => {
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   optimization: {
-    minimize: new UglifyJsPlugin({
-      mangle: {
-        keep_fnames: true
-      },
-      output: {
-        comments: false
-      }
-    })
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          mangle: {
+            keep_fnames: true
+          },
+          output: {
+            comments: false
+          }
+        }
+      })
+    ]
   },
   entry: Object.assign({},
     {
