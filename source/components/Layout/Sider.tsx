@@ -68,7 +68,7 @@ const generateId = (() => {
 })();
 
 export default class Sider extends React.Component<SiderProps, SiderState> {
-  static __ANT_LAYOUT_SIDER: any = true;
+  static __FISHD_LAYOUT_SIDER: any = true;
 
   static defaultProps = {
     prefixCls: 'fishd-layout-sider',

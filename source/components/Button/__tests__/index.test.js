@@ -67,7 +67,7 @@ describe('Button', () => {
       <Button>Button Text</Button>
     );
     // eslint-disable-next-line
-    expect(wrapper.type().__ANT_BUTTON).toBe(true);
+    expect(wrapper.type().__FISHD_BUTTON).toBe(true);
   });
 
   it('should change loading state instantly by default', () => {

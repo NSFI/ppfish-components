@@ -95,7 +95,7 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
           return element;
         }
         warning(
-          element.type && element.type.__ANT_BREADCRUMB_ITEM,
+          element.type && element.type.__FISHD_BREADCRUMB_ITEM,
           'Breadcrumb only accepts Breadcrumb.Item as it\'s children',
         );
         return cloneElement(element, {

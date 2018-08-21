@@ -65,7 +65,7 @@ export type ButtonProps = AnchorButtonProps | NativeButtonProps;
 
 export default class Button extends React.Component<ButtonProps, any> {
   static Group: typeof Group;
-  static __ANT_BUTTON = true;
+  static __FISHD_BUTTON = true;
 
 
   static defaultProps = {

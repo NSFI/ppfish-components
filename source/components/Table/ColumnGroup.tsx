@@ -5,5 +5,5 @@ export interface ColumnGroupProps {
 }
 
 export default class ColumnGroup extends React.Component<ColumnGroupProps, React.ComponentState> {
-  static __ANT_TABLE_COLUMN_GROUP = true;
+  static __FISHD_TABLE_COLUMN_GROUP = true;
 }
