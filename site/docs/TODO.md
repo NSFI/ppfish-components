@@ -33,4 +33,4 @@
 - ~~table 自定义显示隐藏demo~~
 - ~~spin demo~~
 
-## 发布的npm包太大，site/assets占了一半大小，可以去掉
+## ~~发布的npm包太大，site/assets占了一半大小，可以去掉~~

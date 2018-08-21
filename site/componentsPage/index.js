@@ -91,23 +91,23 @@ export default {
         props: {
           source: [
             {
-              "url": require("../assets/382_680.png"),
+              "url": "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin",
               "size": "382*680"
             },
             {
-              "url": require("../assets/410_412.png"),
+              "url": "//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf",
               "size": "410*412"
             },
             {
-              "url": require("../assets/895_642.png"),
+              "url": "//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd",
               "size": "895*642"
             },
             {
-              "url": require("../assets/960_600.png"),
+              "url": "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
               "size": "960*600"
             },
             {
-              "url": require("../assets/680_320.png"),
+              "url": "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
               "size": "680*320"
             }
           ]
