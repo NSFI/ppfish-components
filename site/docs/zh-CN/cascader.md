@@ -41,7 +41,7 @@ render(){
       }],
     }],
   }];
-  return(<Cascader options={options} onChange={this.onChange} placeholder="Please select" />)
+  return(<Cascader options={options} onChange={this.onChange} />)
 }
 ```
 
@@ -409,7 +409,6 @@ render(){
   <Cascader
     options={options}
     onChange={this.onChange}
-    placeholder="Please select"
     showSearch={this.filter}
   />)
 }
@@ -507,7 +506,7 @@ render(){
     }],
   }];
   return(
-  <Cascader fieldNames={{ label: 'name', value: 'code', children: 'items' }} options={options} onChange={this.onChange} placeholder="Please select" />);
+  <Cascader fieldNames={{ label: 'name', value: 'code', children: 'items' }} options={options} onChange={this.onChange} />);
   }
 ```
 :::
