@@ -2,7 +2,6 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList.js';
-import emojiSrc from '../img/emoji.png';
 import ColorPicker from '../../ColorPicker/index.js';
 
 let genEmoji = (data) => {
@@ -66,7 +65,7 @@ class CustomToolbar extends PureComponent {
 
   componentWillMount() {
     let emojiImg = new Image();
-    emojiImg.src = emojiSrc;
+    emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
 
     this.handlePanelStatus();
   }
@@ -162,10 +161,10 @@ class CustomToolbar extends PureComponent {
                 {
                   mValue.map((val, idx) => {
                     return (
-                      <button 
+                      <button
                         key={key+'_csize_'+idx}
-                        type="button" 
-                        className="ql-customSize size-item" 
+                        type="button"
+                        className="ql-customSize size-item"
                         value={val}
                         style={{fontSize: val}}
                       >{val}</button>

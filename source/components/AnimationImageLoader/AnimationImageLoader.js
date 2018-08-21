@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import defaultImage from './create_POI@2x.png';
 import './AnimationImageLoader.less';
 
 class AnimationImageLoader extends Component {
@@ -18,7 +17,7 @@ class AnimationImageLoader extends Component {
   };
 
   static defaultProps = {
-    src: defaultImage,
+    src: "//ysf.nosdn.127.net/gbhbqwjrokndzdqpowqtjsqzncealuvl",
     zoom: 0.5,
     extraCls: ''
   };
