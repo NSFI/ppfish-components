@@ -714,23 +714,29 @@ export default class Select extends React.Component {
                 // 4.label.click事件
                 mode === 'multiple' && (
                   labelClear ?
-                    <Animate onEnd={this.resizeTrigger} component="div" transitionName="zoom"
-                             className={`${selectionCls}-option-clearable-list`}>
-                      {
-                        selectValueForMultiplePanel.map(option =>
-                          <div className={`${selectionCls}-option-clearable-option`}
-                               style={{width: clearableOptionWidth}}
-                               key={option.key}
-                               title={option.title}
-                          >
-                            <span className={`${selectionCls}-option-clearable-option-content`}>{option.label}</span>
-                            <span className={`${selectionCls}-option-clearable-option-close`}
-                                  onClick={(e) => this.onOptionClick(e, option, true)}><Icon type="close-modal-line"/>
-                            </span>
-                          </div>
-                        )
-                      }
-                    </Animate> :
+                    (
+                      //仅在有选中数据时渲染，fix空状态面板上方高度问题
+                      selectValueForMultiplePanel && selectValueForMultiplePanel.length ?
+                        <Animate onEnd={this.resizeTrigger} component="div" transitionName="zoom"
+                                 className={`${selectionCls}-option-clearable-list`}>
+                          {
+                            selectValueForMultiplePanel.map(option =>
+                              <div className={`${selectionCls}-option-clearable-option`}
+                                   style={{width: clearableOptionWidth}}
+                                   key={option.key}
+                                   title={option.title}
+                              >
+                                <span
+                                  className={`${selectionCls}-option-clearable-option-content`}>{option.label}</span>
+                                <span className={`${selectionCls}-option-clearable-option-close`}
+                                      onClick={(e) => this.onOptionClick(e, option, true)}>
+                                    <Icon type="close-modal-line"/>
+                                  </span>
+                              </div>
+                            )
+                          }
+                        </Animate> : null
+                    ) :
                     <div className={`${selectionCls}-option-multiple`}>
                       {
                         selectValueForMultiplePanel.map((option, index) =>

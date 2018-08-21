@@ -1,21 +1,26 @@
 @import "../../assets/css/index";
 @import "./trigger.less";
-//large
-@large-size-select-line-height: @select-height-lg - 2px;
-@large-size-select-option-height: @select-height-lg - 8px;
-@large-size-select-option-line-height: @large-size-select-option-height - 2px;
-//default
-@default-size-select-line-height: @select-height-base - 2px;
-@default-size-select-option-height: @select-height-base - 8px;
-@default-size-select-option-line-height: @default-size-select-option-height - 2px;
-//small
-@small-size-select-line-height: @select-height-sm - 2px;
-@small-size-select-option-height: @select-height-sm - 8px;
-@small-size-select-option-line-height: @small-size-select-option-height - 2px;
 
 @select-prefix: ~"@{fishd-prefix}-select";
 
-//select-面板样式
+/**
+下拉筛选框的高度、行高、选项高度、选项行高变量计算
+ */
+
+//lg
+@select-line-height-lg: @select-height-lg - 2px;
+@select-option-height-lg: @select-height-lg - 8px;
+@select-option-line-height-lg: @select-option-height-lg - 2px;
+//base
+@select-line-height-base: @select-height-base - 2px;
+@select-option-height-base: @select-height-base - 8px;
+@select-option-line-height-base: @select-option-height-base - 2px;
+//sm
+@select-line-height-sm: @select-height-sm - 2px;
+@select-option-height-sm: @select-height-sm - 8px;
+@select-option-line-height-sm: @select-option-height-sm - 2px;
+
+//select面板
 .@{select-prefix} {
   min-height: @select-height-base;
   display: inline-block;
@@ -30,6 +35,17 @@
   user-select: none;
   .clearfix;
 
+  //状态处理
+  &:hover:not(&-disabled) {
+    border-color: @primary-5;
+    border-right: 1px solid @primary-color;
+  }
+  &:active:not(&-disabled),
+  &:focus:not(&-disabled) {
+    border-color: @primary-color;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
   //开启状态
   &.open {
     border: 1px solid @primary-color;
@@ -67,6 +83,7 @@
     }
   }
 
+  //空白提示
   &-placeholder {
     position: absolute;
     font-size: @font-size-base;
@@ -84,22 +101,24 @@
     text-align: left;
   }
 
+  //可清除选项列表
   &-option-clearable-list {
     height: auto;
     margin: 0 0 3px 5px;
     max-height: @select-height-base*3 - 14px;
-    line-height: @default-size-select-line-height;
+    line-height: @select-line-height-base;
     overflow: auto;
     .scrollbar();
     .clearfix;
   }
-
+  //可清除选项
   &-option-clearable-option {
     .ellipsis;
     display: inline-block;
+    //单个选项最多占满一行
     max-width: calc(~"100% - 5px");
-    height: @default-size-select-option-height;
-    line-height: @default-size-select-option-line-height;
+    height: @select-option-height-base;
+    line-height: @select-option-line-height-base;
     background: #f2f3f5;
     color: @text-3;
     margin-right: 4px;
@@ -122,34 +141,15 @@
     }
   }
 
-  &-option-single {
+  //单选、多选面板
+  &-option-single,
+  &-option-multiple {
     display: inline-block;
     float: left;
-    line-height: @default-size-select-line-height;
+    line-height: @select-line-height-base;
     padding-left: 10px;
-    height: 100%;
     width: 100%;
     .ellipsis();
-  }
-
-  &-option-multiple {
-    display: block;
-    max-width: calc(~'100% - 30px');
-    padding-left: 10px;
-    line-height: @default-size-select-line-height;
-    position: absolute;
-    .ellipsis();
-  }
-
-  &:hover:not(&-disabled) {
-    border-color: @primary-5;
-    border-right: 1px solid @primary-color;
-  }
-  &:active:not(&-disabled),
-  &:focus:not(&-disabled) {
-    border-color: @primary-color;
-    outline: 0;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
   }
 
   &-loading {
@@ -174,21 +174,16 @@
       font-size: @font-size-sm;
     }
     .@{select-prefix}-option-clearable-list {
-      line-height: @small-size-select-line-height;
+      line-height: @select-line-height-sm;
       max-height: @select-height-sm*3 - 14px;
     }
-
     .@{select-prefix}-option-clearable-option {
-      height: @small-size-select-option-height;
-      line-height: @small-size-select-option-line-height;
+      height: @select-option-height-sm;
+      line-height: @select-option-line-height-sm;
     }
-
-    .@{select-prefix}-option-single {
-      line-height: @small-size-select-line-height;
-    }
-
+    .@{select-prefix}-option-single,
     .@{select-prefix}-option-multiple {
-      line-height: @small-size-select-line-height;
+      line-height: @select-line-height-sm;
     }
   }
 
@@ -201,26 +196,21 @@
       font-size: @font-size-lg;
     }
     .@{select-prefix}-option-clearable-list {
-      line-height: @large-size-select-line-height;
+      line-height: @select-line-height-lg;
       max-height: @select-height-lg*3 - 14px;
     }
-
     .@{select-prefix}-option-clearable-option {
-      height: @large-size-select-option-height;
-      line-height: @large-size-select-option-line-height;
+      height: @select-option-height-lg;
+      line-height: @select-option-line-height-lg;
     }
-
-    .@{select-prefix}-option-single {
-      line-height: @large-size-select-line-height;
-    }
-
+    .@{select-prefix}-option-single,
     .@{select-prefix}-option-multiple {
-      line-height: @large-size-select-line-height;
+      line-height: @select-line-height-lg;
     }
   }
 }
 
-//select-下拉面板样式
+//select下拉面板
 .@{select-prefix}-dropdown {
   line-height: 1.5;
   color: @text-color;
@@ -231,6 +221,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: @border-radius-base;
   font-size: @font-size-base;
+  //loading状态
   &-loading {
     padding-left: 10px;
     width: 100%;
@@ -239,6 +230,7 @@
     color: @text-9;
     user-select: none;
   }
+  //搜索框
   &-search {
     padding: 10px 12px 4px;
     &-clear {
@@ -247,17 +239,18 @@
       font-size: @font-size-lg;
     }
   }
+  //option列表
   &-list {
     overflow: auto;
     padding: 8px 0;
     .scrollbar();
   }
+  //optGroup
   &-option-group {
     outline: none;
     margin-bottom: 0;
     padding-left: 0;
     list-style: none;
-    max-height: 250px;
     &:not(:last-child) {
       margin-bottom: 4px;
     }
@@ -272,6 +265,7 @@
     user-select: none;
     cursor: default;
   }
+  //option
   &-option-item {
     .ellipsis();
     user-select: none;
@@ -282,15 +276,13 @@
     line-height: 22px;
     font-weight: 400;
     color: @text-2;
-    &:hover:not(&-disabled) {
+    &:hover:not(&-disabled),
+    &.active:not(&-disabled) {
       background: @select-hover-bg;
     }
     &.checked {
       color: @primary-color;
       position: relative;
-    }
-    &.active:not(&-disabled) {
-      background: @select-hover-bg;
     }
     &.checked:after {
       display: inline-block;
@@ -304,6 +296,7 @@
       content: "\e671";
       font-size: 12px;
     }
+    //option-还原选项
     &.clear {
       color: @text-9;
     }
@@ -312,11 +305,13 @@
     color: @disabled-color;
     cursor: not-allowed;
   }
+  //空状态框
   &-not-found {
     padding: 5px 27px 5px 12px;
     color: @text-9;
     cursor: default;
   }
+  //多选错误提示栏
   &-error-panel {
     padding: 8px;
     border-top: 1px solid @border-color-split;
@@ -326,6 +321,7 @@
       text-align: left;
     }
   }
+  //多选底部按钮组
   &-footer {
     padding: 8px;
     border-top: 1px solid @border-color-split;
@@ -349,7 +345,7 @@
       top: -1px;
     }
     .@{select-prefix}-option-single {
-      line-height: @default-size-select-line-height - 2px;
+      line-height: @select-line-height-base - 2px;
     }
   }
 }
@@ -362,7 +358,7 @@
       top: 0;
     }
     .@{select-prefix}-option-single {
-      line-height: @large-size-select-line-height - 2px;
+      line-height: @select-line-height-lg - 2px;
     }
   }
 }
@@ -375,7 +371,7 @@
       top: -4px;
     }
     .@{select-prefix}-option-single {
-      line-height: @small-size-select-line-height - 4px;
+      line-height: @select-line-height-sm - 4px;
     }
   }
 }

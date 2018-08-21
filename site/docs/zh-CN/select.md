@@ -12,6 +12,12 @@
   render() {
     return (
       <div className="demo-select">
+        <Select style={{width: 300}}>
+          <Select.Option key={"1"}>{'选项1'}</Select.Option>
+          <Select.Option key={"2"}>{'选项2'}</Select.Option>
+          <Select.Option key={"3"}>{'选项3'}</Select.Option>
+        </Select>
+        <br/>
         <Select showSingleClear style={{width: 300}}>
           <Select.Option key={"1"}>{'选项1'}</Select.Option>
           <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
