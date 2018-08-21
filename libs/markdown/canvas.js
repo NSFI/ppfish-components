@@ -120,7 +120,9 @@ export default class Canvas extends React.Component {
 }
 
 Canvas.propTypes = {
-  locale: PropTypes.object
+  locale: PropTypes.object,
+  name: PropTypes.string,
+  children: PropTypes.node
 };
 
 Canvas.defaultProps = {
