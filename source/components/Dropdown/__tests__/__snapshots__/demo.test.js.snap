@@ -5,10 +5,7 @@ exports[`Renders dropdown demo correctly 1`] = `
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me 
-    <i
-      class="fishdicon fishdicon-down"
-    />
+    Hover me
   </a>
   <div
     class="components-dropdown-demo-placement"
@@ -119,52 +116,34 @@ exports[`Renders dropdown demo correctly 1`] = `
       type="button"
     >
       <span>
-        Button 
+        Button
       </span>
-      <i
-        class="fishdicon fishdicon-down"
-      />
     </button>
   </div>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me, Click menu item 
-    <i
-      class="fishdicon fishdicon-down"
-    />
+    Hover me, Click menu item
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me 
-    <i
-      class="fishdicon fishdicon-down"
-    />
+    Hover me
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me 
-    <i
-      class="fishdicon fishdicon-down"
-    />
+    Hover me
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Cascading menu 
-    <i
-      class="fishdicon fishdicon-down"
-    />
+    Cascading menu
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Click me 
-    <i
-      class="fishdicon fishdicon-down"
-    />
+    Click me
   </a>
 </div>
 `;

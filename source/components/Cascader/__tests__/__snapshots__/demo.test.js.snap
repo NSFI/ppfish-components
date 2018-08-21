@@ -12,7 +12,7 @@ exports[`Renders cascader demo correctly 1`] = `
     <input
       autocomplete="off"
       class="fishd-input fishd-cascader-input "
-      placeholder="Please select"
+      placeholder="请选择"
       readonly=""
       type="text"
       value=""
@@ -63,7 +63,7 @@ exports[`Renders cascader demo correctly 1`] = `
     <input
       autocomplete="off"
       class="fishd-input fishd-cascader-input "
-      placeholder="Please select"
+      placeholder="请选择"
       readonly=""
       type="text"
       value=""
@@ -82,7 +82,7 @@ exports[`Renders cascader demo correctly 1`] = `
     <input
       autocomplete="off"
       class="fishd-input fishd-cascader-input "
-      placeholder="Please select"
+      placeholder="请选择"
       readonly=""
       type="text"
       value=""
@@ -101,7 +101,7 @@ exports[`Renders cascader demo correctly 1`] = `
     <input
       autocomplete="off"
       class="fishd-input fishd-cascader-input "
-      placeholder="Please select"
+      placeholder="请选择"
       readonly=""
       type="text"
       value=""
@@ -121,7 +121,7 @@ exports[`Renders cascader demo correctly 1`] = `
       <input
         autocomplete="off"
         class="fishd-input fishd-cascader-input fishd-input-lg"
-        placeholder="Please select"
+        placeholder="请选择"
         readonly=""
         type="text"
         value=""
@@ -142,7 +142,7 @@ exports[`Renders cascader demo correctly 1`] = `
       <input
         autocomplete="off"
         class="fishd-input fishd-cascader-input "
-        placeholder="Please select"
+        placeholder="请选择"
         readonly=""
         type="text"
         value=""
@@ -163,7 +163,7 @@ exports[`Renders cascader demo correctly 1`] = `
       <input
         autocomplete="off"
         class="fishd-input fishd-cascader-input fishd-input-sm"
-        placeholder="Please select"
+        placeholder="请选择"
         readonly=""
         type="text"
         value=""
@@ -221,7 +221,7 @@ exports[`Renders cascader demo correctly 1`] = `
     <input
       autocomplete="off"
       class="fishd-input fishd-cascader-input "
-      placeholder="Please select"
+      placeholder="请选择"
       type="text"
       value=""
     />
@@ -239,7 +239,7 @@ exports[`Renders cascader demo correctly 1`] = `
     <input
       autocomplete="off"
       class="fishd-input fishd-cascader-input "
-      placeholder="Please select"
+      placeholder="请选择"
       readonly=""
       type="text"
       value=""
@@ -258,7 +258,7 @@ exports[`Renders cascader demo correctly 1`] = `
     <input
       autocomplete="off"
       class="fishd-input fishd-cascader-input "
-      placeholder="Please select"
+      placeholder="请选择"
       readonly=""
       type="text"
       value=""
