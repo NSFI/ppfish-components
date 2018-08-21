@@ -3,8 +3,42 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import { parseDir } from './tools/helps';
 
 const isProduction = process.env.NODE_ENV === 'production';
+
+const demoPath = './site/docs/demoPage/';
+const getHtmlWebpackPlugin = () => {
+  const demoNameArr = [];
+  parseDir(demoPath, demoNameArr);
+  const htmlWebpackPlugin = demoNameArr
+    .filter((name)=>{
+      return name.slice(-3) === '.js';
+    })
+    .map((name) => {
+      const demoName = name.slice(0,-3);
+      return new HtmlWebpackPlugin({
+        filename: 'demo/' + demoName + '.html',
+        template: path.join(__dirname, demoPath + 'demo.html'),
+        chunks: [demoName]
+      });
+    });
+  return htmlWebpackPlugin;
+};
+
+const getDemoEntries = () => {
+  const entries = {};
+  const demoNameArr = [];
+  parseDir(demoPath, demoNameArr);
+  const arr = demoNameArr.filter((name)=>{
+      return name.slice(-3) === '.js';
+    }
+  );
+  for(let each of arr) {
+    entries[each.slice(0,-3)] = [demoPath + each]
+  }
+  return entries;
+};
 
 module.exports = {
   mode: isProduction ? 'production' : 'development',
@@ -18,13 +52,16 @@ module.exports = {
       }
     })
   },
-  entry: {
-    site: path.join(__dirname, 'site')
-  },
+  entry: Object.assign({},
+    {
+      site: path.join(__dirname, 'site')
+    },
+    getDemoEntries()
+  ),
   output: {
     path: path.resolve(__dirname, 'dist/site'),
-    chunkFilename: '[chunkhash:12].js',
-    filename: '[chunkhash:12].js'
+    chunkFilename: '[name].[chunkhash:12].js',
+    filename: '[name].[chunkhash:12].js'
   },
   plugins: [
     new ExtractTextPlugin({
@@ -34,7 +71,9 @@ module.exports = {
       template: path.join(__dirname, 'site/index.html'),
       favicon: path.join(__dirname, 'site/assets/favicon.ico')
     })
-  ].concat(process.env.TRAVIS_CI ? [] : [
+  ]
+  .concat(getHtmlWebpackPlugin())
+  .concat(process.env.TRAVIS_CI ? [] : [
     new webpack.optimize.ModuleConcatenationPlugin()
   ]),
   resolve: {
