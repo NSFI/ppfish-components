@@ -183,6 +183,10 @@ export default {
       },
     },
     '数据录入': {
+      'autoComplete': {
+        type: 'markdown',
+        name: 'AutoComplete 自动完成'
+      },
       'cascader': {
         type: 'markdown',
         name: 'Cascader 级联选择'

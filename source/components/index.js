@@ -1,6 +1,7 @@
 export { default as Alert } from './Alert/index.tsx';
 export { default as AnimationImageLoader } from './AnimationImageLoader';
 export { default as AudioPlayer } from './AudioPlayer';
+export { default as AutoComplete } from './AutoComplete';
 export { default as Avatar } from './Avatar/index.tsx';
 export { default as BackTop } from './BackTop/index.tsx';
 export { default as Badge } from './Badge/index.tsx';

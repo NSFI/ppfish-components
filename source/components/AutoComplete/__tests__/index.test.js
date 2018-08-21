@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import AutoComplete from '..';
-import focusTest from '../../../tests/shared/focusTest';
+import AutoComplete from '../index.tsx';
+import focusTest from '../../../tests/focusTest.js';
 
 describe('AutoComplete with Custom Input Element Render', () => {
   focusTest(AutoComplete);

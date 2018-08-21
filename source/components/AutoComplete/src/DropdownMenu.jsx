@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
-import toArray from 'rc-util/lib/Children/toArray';
+import { toArray } from './util.js';
 import Menu from '../../Menu/src/index.js';
 import scrollIntoView from 'dom-scroll-into-view';
 import raf from 'raf';

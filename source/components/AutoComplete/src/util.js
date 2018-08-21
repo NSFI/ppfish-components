@@ -54,6 +54,14 @@ export function isSingleMode(props) {
   return !isMultipleOrTagsOrCombobox(props);
 }
 
+export function childrenToArray(children) {
+  const ret = [];
+  React.Children.forEach(children, (c) => {
+    ret.push(c);
+  });
+  return ret;
+}
+
 export function toArray(value) {
   let ret = value;
   if (value === undefined) {

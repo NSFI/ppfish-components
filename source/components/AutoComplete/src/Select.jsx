@@ -2,8 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { polyfill } from 'react-lifecycles-compat';
-import KeyCode from 'rc-util/lib/KeyCode';
-import childrenToArray from 'rc-util/lib/Children/toArray';
+import KeyCode from '../../../utils/KeyCode.js';
+import { childrenToArray } from './util.js';
 import classnames from 'classnames';
 import Animate from 'rc-animate';
 import classes from 'component-classes';
