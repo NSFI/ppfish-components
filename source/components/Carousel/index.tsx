@@ -1,5 +1,5 @@
 import * as React from 'react';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 import './style/index.less';
 
 // matchMedia polyfill for

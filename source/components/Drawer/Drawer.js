@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import Icon from '../Icon/index.tsx';
 import './Drawer.less';
 
 /**
@@ -39,9 +39,9 @@ class Drawer extends PureComponent {
     });
     const el = (
       <div className={drawerClass} style={style}>
-        <a className="m-drawer-close" onClick={this.handleClose}>
-          <i className="iconfont icon-guanbi"/>
-        </a>
+        <span className="m-drawer-close" onClick={this.handleClose}>
+          <Icon className="iconfont" type="close-modal-line"/>
+        </span>
         <div className="m-drawer-container">{children}</div>
       </div>
     );

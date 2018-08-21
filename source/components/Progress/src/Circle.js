@@ -51,7 +51,7 @@ class Circle extends Component {
   render() {
     const {
       prefixCls, strokeWidth, trailWidth, strokeColor, percent,
-      trailColor, strokeLinecap, style, className, ...restProps,
+      trailColor, strokeLinecap, style, className, ...restProps
     } = this.props;
     const { pathString, trailPathStyle, strokePathStyle } = this.getPathStyles();
     delete restProps.percent;

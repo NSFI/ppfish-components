@@ -946,12 +946,12 @@ class PriceInput extends React.Component {
           size={size}
           value={state.number}
           onChange={this.handleNumberChange}
-          style={{ width: '65%', marginRight: '3%' }}
+          style={{ width: '57%', marginRight: '3%' }}
         />
         <Select
           value={state.currency}
           size={size}
-          style={{ width: '32%' }}
+          style={{ width: '40%' }}
           onChange={this.handleCurrencyChange}
         >
           <Option value="rmb">RMB</Option>

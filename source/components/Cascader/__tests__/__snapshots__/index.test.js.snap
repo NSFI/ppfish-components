@@ -446,7 +446,7 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                     }
                   }
                   inputPrefixCls="fishd-input"
-                  notFoundContent="Not Found"
+                  notFoundContent="无搜索结果"
                   onChange={[Function]}
                   onPopupVisibleChange={[Function]}
                   onSelect={[Function]}
@@ -568,7 +568,7 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                       },
                     ]
                   }
-                  placeholder="Please select"
+                  placeholder="请选择"
                   popupClassName=""
                   popupPlacement="bottomLeft"
                   popupVisible={true}
@@ -826,7 +826,7 @@ exports[`Cascader should render not found content 1`] = `
                     }
                   }
                   inputPrefixCls="fishd-input"
-                  notFoundContent="Not Found"
+                  notFoundContent="无搜索结果"
                   onChange={[Function]}
                   onPopupVisibleChange={[Function]}
                   onSelect={[Function]}
@@ -834,12 +834,12 @@ exports[`Cascader should render not found content 1`] = `
                     Array [
                       Object {
                         "disabled": true,
-                        "label": "Not Found",
+                        "label": "无搜索结果",
                         "value": "FISHD_CASCADER_NOT_FOUND",
                       },
                     ]
                   }
-                  placeholder="Please select"
+                  placeholder="请选择"
                   popupClassName=""
                   popupPlacement="bottomLeft"
                   popupVisible={true}
@@ -868,9 +868,9 @@ exports[`Cascader should render not found content 1`] = `
                         className="fishd-cascader-menu-item fishd-cascader-menu-item-disabled"
                         key="FISHD_CASCADER_NOT_FOUND"
                         onClick={[Function]}
-                        title="Not Found"
+                        title="无搜索结果"
                       >
-                        Not Found
+                        无搜索结果
                       </li>
                     </ul>
                   </div>

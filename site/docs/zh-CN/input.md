@@ -162,7 +162,7 @@ render(){
         <br />
         <InputGroup compact>
           <Input style={{ width: '50%' }} defaultValue="input content" />
-          <DatePicker />
+          <DatePicker style={{width:300}}/>
         </InputGroup>
         <br />
         <InputGroup compact>

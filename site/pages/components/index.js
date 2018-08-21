@@ -202,7 +202,7 @@ export default class Components extends React.Component {
                 </Col>
               </Row>
               <BackTop target={() => document.querySelector('.component-content')}>
-                <img src={require('../../assets/nppd-web-1.51-but@2x.png')} className="u-backtop" alt="backTop"/>
+                <img src={'//ysf.nosdn.127.net/wkohrqpcnyecodfhfpduzggtvgbhjxpv'} className="u-backtop" alt="backTop"/>
               </BackTop>
             </div>
           </Col>

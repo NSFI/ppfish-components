@@ -108,12 +108,12 @@ export default class Checkbox extends React.Component {
       onBlur,
       autoFocus,
       value,
-      ...others,
+      ...otherprops
     } = this.props;
 
-    const globalProps = Object.keys(others).reduce((prev, key) => {
+    const globalProps = Object.keys(otherprops).reduce((prev, key) => {
       if (key.substr(0, 5) === 'aria-' || key.substr(0, 5) === 'data-' || key === 'role') {
-        prev[key] = others[key];
+        prev[key] = otherprops[key];
       }
       return prev;
     }, {});

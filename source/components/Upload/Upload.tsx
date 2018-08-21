@@ -1,7 +1,7 @@
 import * as React from 'react';
 import RcUpload from './src/index.js';
 import classNames from 'classnames';
-import uniqBy from 'lodash.uniqBy';
+import uniqBy from 'lodash/uniqBy';
 import Dragger from './Dragger';
 import UploadList from './UploadList';
 import {

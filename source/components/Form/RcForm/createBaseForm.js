@@ -514,7 +514,7 @@ function createBaseForm(option = {}, mixins = []) {
         }
         const props = mapProps.call(this, {
           ...formProps,
-          ...restProps,
+          ...restProps
         });
         return <WrappedComponent {...props}/>;
       },

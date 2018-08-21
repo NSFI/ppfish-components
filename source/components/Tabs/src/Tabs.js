@@ -132,7 +132,7 @@ export default class Tabs extends React.Component {
       renderTabContent,
       renderTabBar,
       destroyInactiveTabPane,
-      ...restProps,
+      ...restProps
     } = props;
     const cls = classnames({
       [prefixCls]: 1,

@@ -852,6 +852,17 @@ render() {
 ```
 :::
 
+<style>
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+</style>
+
 
 ## API 公共参数
 

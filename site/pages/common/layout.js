@@ -86,7 +86,7 @@ export default class Layout extends React.Component {
           <Row>
             <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
               <Link to="/home" rel="noopener noreferrer">
-                <img src={require('../../assets/FishDesign-Brand-06@2x.png')} alt="fish-disgn"/>
+                <img src={'//ysf.nosdn.127.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-disgn"/>
               </Link>
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
@@ -125,7 +125,7 @@ export default class Layout extends React.Component {
           !hideFooter &&
           <footer className="footer">
             <div className="logo">
-              <img src={require('../../assets/fd-web-5.1-logo@2x.png')} alt="logo"/>
+              <img src={'//ysf.nosdn.127.net/cipiqsfpsbyreuwspfkybadithmnnlmc'} alt="logo"/>
               <h3>Fish Design</h3>
               <p className="version">- {this.getLocale('misc.version')} -</p>
             </div>

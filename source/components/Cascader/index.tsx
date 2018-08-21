@@ -140,13 +140,13 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
   static defaultProps = {
     prefixCls: 'fishd-cascader',
     inputPrefixCls: 'fishd-input',
-    placeholder: 'Please select',
+    placeholder: '请选择',
     transitionName: 'slide-up',
     popupPlacement: 'bottomLeft',
     options: [],
     disabled: false,
     allowClear: true,
-    notFoundContent: 'Not Found',
+    notFoundContent: '无搜索结果',
   };
 
   cachedOptions: CascaderOptionType[];

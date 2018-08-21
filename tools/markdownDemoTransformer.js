@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const babel = require('babel-core');
+const babel = require('@babel/core');
 const babelrc = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../.babelrc')).toString());
 const babylon = require('babylon');
 const traverse = require('babel-traverse').default;
@@ -21,6 +21,7 @@ const w3c = [
 ];
 
 const DEFAULT_INJECT = ['React', 'ReactDOM', 'PropTypes'];
+const DEMO_EXPORTS_REG = /^demo/i; //检测demo代码片段中导出作为Demo测试类的 类名或者变量名称
 
 function transformCode(codes) {
   // let codes = [
@@ -38,7 +39,34 @@ function transformCode(codes) {
   let classNameIndex = 2;
 
 
+  // MyVisitor 主要做两件事,1，找到用了哪些组件，2:修改重名demo名，加上序号
   let MyVisitor = {
+    Identifier: (path) => {
+
+      const scope = path.scope;
+      if (scope.parent === undefined) {
+        //  保证这个变量是在最外层
+        Object.keys(scope.bindings)
+          .filter(name => DEMO_EXPORTS_REG.test(name))
+          .reduce((classNames, demoname) => {
+
+            /* 这是第几个demo,收集的导出类名是不是已经够了
+                主要是一个demo里面 的全局变量有很多，所以这里的reduce可能会跑几次，为了排除掉已经添加过的demo类，可以判断全局scope的uid是否相同
+                这里是判断demo的个数和已经收集了的类名的个数
+            */
+            if (classNames.length == MyVisitor.__demoIndex) {
+              if (classNames.includes(demoname)) {
+                //说明重名了，需要使用
+                let id = scope.getBinding(demoname).identifier;
+                id.name += classNameIndex++;
+                classNames.push(id.name);
+              } else {
+                classNames.push(demoname);
+              }
+            }
+          }, classNames);
+      }
+    },
     JSXOpeningElement: (path) => {
       let node = path.node;
       let tagName;
@@ -95,7 +123,9 @@ function transformCode(codes) {
                 } else if (initType === "MemberExpression") {// const Col = Grid.Col;
                   topTagName = declarator.init.object.name;
                 } else if (initType === "CallExpression") { // EditableContext = React.createContext()
-                  topTagName = declarator.init.callee.object.name;
+                  let callee = declarator.init.callee;
+                  while (callee.type !== 'MemberExpression') { callee = callee.callee; }// const CollectionCreateForm = Form.create()(class extends React.Component {})
+                  topTagName = callee.object.name;
                 } else if (
                   initType === "ArrowFunctionExpression" ||
                   initType === "FunctionExpression"
@@ -143,13 +173,16 @@ function transformCode(codes) {
     },
     ClassDeclaration: (path) => {
       let id = path.node.id;
-
-      if (classNames.includes(id.name)) {
-        //为类名增加序号，避免duplicate declare
-        id.name += classNameIndex++;
-        classNames.push(id.name);
-      } else {
-        classNames.push(id.name);
+      if (DEMO_EXPORTS_REG.test(id.name)) {
+        if (classNames.length == MyVisitor.__demoIndex) {
+          if (classNames.includes(id.name)) {
+            //为类名增加序号，避免duplicate declare
+            id.name += classNameIndex++;
+            classNames.push(id.name);
+          } else {
+            classNames.push(id.name);
+          }
+        }
       }
     }
   };
@@ -169,14 +202,15 @@ function transformCode(codes) {
       'functionSent',
       'dynamicImport',
     ] // default: []
-  })).map((ast) => {
+  })).map((ast, index) => {
+    MyVisitor.__demoIndex = index;
     traverse(ast, MyVisitor);
     return generate(ast).code;
   });
 
   //2018-08-16 排除 React
   components = components.filter(ele => !DEFAULT_INJECT.includes(ele)); //排除 React
-  classNames = classNames.filter(classname => /^demo/i.test(classname));  //一个demo 需要导出一个demo开头的名字以便测试
+  classNames = classNames.filter(classname => DEMO_EXPORTS_REG.test(classname));  //一个demo 需要导出一个demo开头的名字以便测试
   //拼成一份模块的代码，用babel转成nodejs能够运行的代码。
   let composedCode = `
   import React from 'react';
