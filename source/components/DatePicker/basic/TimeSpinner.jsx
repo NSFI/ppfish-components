@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 import { getRangeHours } from '../../../utils/date';
 
 function range(end) {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BasePicker from './BasePicker.jsx';
 import TimePanel from './panel/TimePanel.jsx';
 import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 
 function converSelectRange(props) {
   let selectableRange = [];

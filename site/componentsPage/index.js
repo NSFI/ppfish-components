@@ -220,7 +220,7 @@ export default {
         name: 'Select 选择器',
         props: {
           utils: require('../../source/utils'),
-          debounce: require('lodash.debounce')
+          debounce: require('lodash/debounce')
         },
         published: true,
       },

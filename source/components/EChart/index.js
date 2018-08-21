@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as echarts from 'echarts';
-import debounce from 'lodash.debounce';
+import debounce from 'lodash/debounce';
 import theme from './theme-prophet';
 import './map-china2';
 

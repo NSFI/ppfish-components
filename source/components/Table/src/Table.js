@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {addEventListener, shallowEqual} from '../../../utils';
 import {Provider, create} from 'mini-store';
-import merge from 'lodash.merge';
+import merge from 'lodash/merge';
 import classes from 'component-classes';
 import {polyfill} from 'react-lifecycles-compat';
 import {debounce, warningOnce} from './utils';

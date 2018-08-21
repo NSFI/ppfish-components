@@ -1,21 +1,10 @@
 import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 // 压缩混淆代码开关
 const minimize = true;
-const getUglifyJsPlugin = () => {
-  if (minimize) {
-    return [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      }),
-    ];
-  }
-  return [];
-};
 const lessStyle = new ExtractTextPlugin({
   filename: minimize ? 'ppfish.min.css' : 'ppfish.css',
   allChunks: true
@@ -25,6 +14,17 @@ const isProduction = process.env.NODE_ENV === 'production';
 // more info: https://github.com/isaacs/node-glob
 export default {
   mode: isProduction ? 'production' : 'development',
+  optimization: {
+    minimizer: minimize ? [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            warnings: false
+          }
+        }
+      })
+    ] : []
+  },
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
   // and https://webpack.github.io/docs/configuration.html#devtool
   devtool: false,
@@ -40,16 +40,17 @@ export default {
   },
   plugins: [
     lessStyle,
-  ]
-    .concat(getUglifyJsPlugin()),
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
+        use: [{
+          loader: 'awesome-typescript-loader'
+        }],
         include: [
           path.join(__dirname, './source'),
         ]
