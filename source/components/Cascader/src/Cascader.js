@@ -268,7 +268,7 @@ class Cascader extends Component {
   render() {
     const {
       prefixCls, transitionName, popupClassName, options, disabled,
-      builtinPlacements, popupPlacement, children, ...restProps,
+      builtinPlacements, popupPlacement, children, ...restProps
     } = this.props;
     // Did not show popup when there is no options
     let menus = <div/>;

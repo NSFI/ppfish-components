@@ -3,7 +3,10 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default {
+  mode: isProduction ? 'production' : 'development',
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
   // and https://webpack.github.io/docs/configuration.html#devtool
   devtool: 'cheap-module-source-map',
@@ -49,7 +52,7 @@ export default {
         }]
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?.+)?$/,
+        test: /\.(ttf|eot|svg|woff|woff2)(\?.+)?$/,
         loader: 'file-loader'
       },
       {

@@ -5,7 +5,7 @@ import Touchable from 'rmc-feedback';
 class InputHandler extends Component {
   render() {
     const {
-      prefixCls, disabled, ...otherProps,
+      prefixCls, disabled, ...otherProps
     } = this.props;
     return (
       <Touchable

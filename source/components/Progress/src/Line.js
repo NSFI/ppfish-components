@@ -14,7 +14,7 @@ class Line extends Component {
       style,
       trailColor,
       trailWidth,
-      ...restProps,
+      ...restProps
     } = this.props;
 
     delete restProps.gapPosition;

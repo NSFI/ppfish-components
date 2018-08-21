@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const babel = require('babel-core');
+const babel = require('@babel/core');
 const babelrc = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../.babelrc')).toString());
 const babylon = require('babylon');
 const traverse = require('babel-traverse').default;

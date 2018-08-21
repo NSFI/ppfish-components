@@ -3,7 +3,10 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
+  mode: isProduction ? 'production' : 'development',
   entry: {
     site: path.join(__dirname, 'site')
   },
@@ -21,7 +24,6 @@ module.exports = {
       favicon: path.join(__dirname, 'site/assets/favicon.ico')
     })
   ].concat(process.env.TRAVIS_CI ? [] : [
-    new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')}),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       mangle: {

@@ -6,7 +6,7 @@ import {getPlainComponentList} from "../../utils";
 const plainComponentList = getPlainComponentList();
 
 export default Loadable({
-  loader: () => import('../../../libs/markdown/index'),
+  loader: () => import('../../../libs/markdown/index').then(object => object.default),
   render(Markdown, props) {
     const menuItem = plainComponentList.find(itm => itm.key === props.params.demo);
     if (menuItem || !props.params.demo) {

@@ -140,7 +140,7 @@ class Dropdown extends Component {
       align, placement, getPopupContainer,
       showAction, hideAction,
       overlayClassName, overlayStyle,
-      trigger, ...otherProps,
+      trigger, ...otherProps
     } = this.props;
 
     let triggerHideAction = hideAction;

@@ -109,7 +109,7 @@ export function createChainedFunction() {
 }
 
 
-export function getScroll(target, top): number {
+export function getScroll(target, top) {
   if (typeof window === 'undefined') {
     return 0;
   }
