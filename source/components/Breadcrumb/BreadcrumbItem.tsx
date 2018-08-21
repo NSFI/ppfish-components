@@ -8,7 +8,7 @@ export interface BreadcrumbItemProps {
 }
 
 export default class BreadcrumbItem extends React.Component<BreadcrumbItemProps, any> {
-  static __ANT_BREADCRUMB_ITEM = true;
+  static __FISHD_BREADCRUMB_ITEM = true;
 
   static defaultProps = {
     prefixCls: 'fishd-breadcrumb',
