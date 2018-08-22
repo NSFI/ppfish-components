@@ -26,7 +26,7 @@
   display: inline-block;
   position: relative;
   //暂时解决Form中与其他组件同行对齐问题
-  vertical-align: -10px;
+  vertical-align: -(@select-height-base/2 - 6);
   cursor: pointer;
   color: @text-2;
   padding-right: 32px;
@@ -169,7 +169,7 @@
     min-height: @select-height-sm;
     font-size: @font-size-sm;
     //暂时解决Form中与其他组件同行对齐问题
-    vertical-align: -6px;
+    vertical-align: -(@select-height-sm/2 - 6);
     .@{select-prefix}-loading {
       font-size: @font-size-sm;
     }
@@ -191,7 +191,7 @@
     min-height: @select-height-lg;
     font-size: @font-size-lg;
     //暂时解决Form中与其他组件同行对齐问题
-    vertical-align: -14px;
+    vertical-align: -(@select-height-lg/2 - 6);
     .@{select-prefix}-placeholder {
       font-size: @font-size-lg;
     }
@@ -344,8 +344,7 @@
     .@{select-prefix} {
       min-height: @select-height-base - 2px;
       height: @select-height-base - 2px;
-      position: relative;
-      top: -1px;
+      margin: 0 -7px;
     }
     .@{select-prefix}-option-single {
       line-height: @select-line-height-base - 2px;
@@ -358,7 +357,6 @@
     .@{select-prefix}-large {
       min-height: @select-height-lg - 2px;
       height: @select-height-lg - 2px;
-      top: 0;
     }
     .@{select-prefix}-option-single {
       line-height: @select-line-height-lg - 2px;
@@ -369,12 +367,11 @@
 .@{fishd-prefix}-input-group-wrapper-sm {
   .@{fishd-prefix}-input-group-addon {
     .@{select-prefix}-small {
-      min-height: @select-height-sm - 4px;
-      height: @select-height-sm - 4px;
-      top: -4px;
+      min-height: @select-height-sm - 2px;
+      height: @select-height-sm - 2px;
     }
     .@{select-prefix}-option-single {
-      line-height: @select-line-height-sm - 4px;
+      line-height: @select-line-height-sm - 2px;
     }
   }
 }

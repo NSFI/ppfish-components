@@ -37,7 +37,7 @@ exports[`Renders switch demo correctly 1`] = `
       <span
         class="fishd-switch-inner"
       >
-        \\u5F00
+        开
       </span>
     </span>
     <br />
