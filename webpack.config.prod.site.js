@@ -75,11 +75,8 @@ module.exports = {
       template: path.join(__dirname, 'site/index.html'),
       favicon: path.join(__dirname, 'site/assets/favicon.ico')
     })
-  ]
+  ],
   //.concat(getHtmlWebpackPlugin())
-  .concat(process.env.TRAVIS_CI ? [] : [
-    new webpack.optimize.ModuleConcatenationPlugin()
-  ]),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
