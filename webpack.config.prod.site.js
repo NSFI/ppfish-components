@@ -35,7 +35,7 @@ const getDemoEntries = () => {
     }
   );
   for(let each of arr) {
-    entries[each.slice(0,-3)] = [demoPath + each]
+    entries[each.slice(0,-3)] = [demoPath + each];
   }
   return entries;
 };
