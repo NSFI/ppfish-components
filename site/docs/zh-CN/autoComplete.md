@@ -38,6 +38,7 @@
         onSelect={this.onSelect}
         onSearch={this.handleSearch}
         placeholder="input here"
+        getPopupContainer={() => document.querySelector('.main .component-content')}
       />
     );
   }
@@ -73,6 +74,7 @@
         style={{ width: 200 }}
         onSearch={this.handleSearch}
         placeholder="input here"
+        getPopupContainer={() => document.querySelector('.main .component-content')}
       >
         {children}
       </AutoComplete>
@@ -96,6 +98,7 @@
         dataSource={dataSource}
         placeholder="try to type `b`"
         filterOption={(inputValue, option) => option.props.children.toUpperCase && option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+        getPopupContainer={() => document.querySelector('.main .component-content')}
       />
     );
   }
@@ -138,6 +141,7 @@
         style={{ width: 200 }}
         onSelect={this.onSelect}
         onSearch={this.handleSearch}
+        getPopupContainer={() => document.querySelector('.main .component-content')}
       >
         <TextArea
           placeholder="input here"
@@ -238,6 +242,7 @@
           dataSource={this.options}
           placeholder="input here"
           optionLabelProp="value"
+          getPopupContainer={() => document.querySelector('.main .component-content')}
         >
           <Input suffix={<Icon type="search-line" className="certain-category-icon" />} />
         </AutoComplete>
@@ -314,6 +319,7 @@
           onSearch={this.handleSearch}
           placeholder="input here"
           optionLabelProp="text"
+          getPopupContainer={() => document.querySelector('.main .component-content')}
         >
           <Input suffix={<Icon type="search-line" />} />
         </AutoComplete>
@@ -337,6 +343,7 @@
 | defaultValue | 指定默认选中的条目 | string\|string\[]\|{ key: string, label: string\|ReactNode }\|Array&lt;{ key: string, label: string\|ReactNode}> | - |
 | disabled | 是否禁用 | boolean | false |
 | filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | boolean or function(inputValue, option) | true |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 | function(triggerNode) | () => document.body |
 | optionLabelProp | 回填到选择框的 Option 的属性值，默认是 Option 的子元素。比如在子元素需要高亮效果时，此值可以设为 `value` | string | `children` |
 | placeholder | 输入框提示 | string | - |
 | value | 指定当前选中的条目 | string\|string\[]\|{ key: string, label: string\|ReactNode }\|Array&lt;{ key: string, label: string\|ReactNode }> | - |

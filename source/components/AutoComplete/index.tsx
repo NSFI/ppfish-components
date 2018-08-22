@@ -30,6 +30,7 @@ export interface AutoCompleteProps extends AbstractSelectProps {
   autoFocus?: boolean;
   backfill?: boolean;
   optionLabelProp?: string;
+  getPopupContainer?: (triggerNode: Element) => HTMLElement;
   onChange?: (value: SelectValue) => void;
   onSelect?: (value: SelectValue, option: Object) => any;
   children?: ValidInputElement |
