@@ -419,6 +419,10 @@
 .@{select-prefix-cls}-dropdown {
   .reset-component;
 
+  &-menu {
+    .scrollbar();
+  }
+
   &.slide-up-enter.slide-up-enter-active&-placement-bottomLeft,
   &.slide-up-appear.slide-up-appear-active&-placement-bottomLeft {
     animation-name: antSlideUpIn;
