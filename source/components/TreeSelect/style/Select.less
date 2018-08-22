@@ -164,7 +164,7 @@
   }
 
   &-selection--single {
-    height: @input-height-base;
+    height: @input-height-base - 2px;
     position: relative;
     cursor: pointer;
   }
@@ -174,8 +174,8 @@
     margin-left: @control-padding-horizontal - 1px;
     margin-right: @control-padding-horizontal - 1px;
     position: relative;
-    // line-height: @input-height-base - 2px;
-    line-height: @input-height-base;  // modified
+    line-height: @input-height-base - 2px;
+    // line-height: @input-height-base;  // modified
     // https://github.com/ant-design/ant-design/issues/3481#issuecomment-254721026
     &:after {
       content: '.';
@@ -189,13 +189,13 @@
   &-lg {
     font-size: @font-size-lg;
     .@{select-prefix-cls}-selection--single {
-      height: @input-height-lg;
+      height: @input-height-lg - 2px;
     }
     .@{select-prefix-cls}-selection__rendered {
       line-height: @input-height-lg - 2px;
     }
     .@{select-prefix-cls}-selection--multiple {
-      min-height: @input-height-lg;
+      min-height: @input-height-lg - 2px;
       .@{select-prefix-cls}-selection__rendered {
         li {
           height: @input-height-lg - 8px;
@@ -210,14 +210,14 @@
 
   &-sm {
     .@{select-prefix-cls}-selection--single {
-      height: @input-height-sm;
+      height: @input-height-sm - 2px;
     }
     .@{select-prefix-cls}-selection__rendered {
       line-height: @input-height-sm - 2px;
       margin: 0 @control-padding-horizontal-sm - 1px;
     }
     .@{select-prefix-cls}-selection--multiple {
-      min-height: @input-height-sm;
+      min-height: @input-height-sm - 2px;
       .@{select-prefix-cls}-selection__rendered {
         li {
           height: @input-height-sm - 8px;
@@ -303,7 +303,7 @@
   }
 
   &-selection--multiple {
-    min-height: @input-height-base;
+    min-height: @input-height-base - 2px;
     cursor: text;
     padding-bottom: 3px;
     .clearfix;
@@ -334,7 +334,7 @@
     .@{select-prefix-cls}-selection__rendered > ul > li {  // for tree-select
       // margin-top: 3px;
       margin-top: 4px;  // modified
-      height: @input-height-base - 8px;
+      height: @input-height-base - 8px - 2px;
       line-height: @input-height-base - 8px - 2px;
     }
 
