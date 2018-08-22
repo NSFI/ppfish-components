@@ -186,7 +186,7 @@
     }, {
       title: '文章',
       children: [{
-        title: 'FishDesign 是一个设计语言',
+        title: 'FishDesign 是一种设计语言',
         count: 100000,
       }],
     }];
@@ -338,7 +338,7 @@
 | backfill | 使用键盘选择选项的时候把选中项回填到输入框中 | boolean | false |
 | children (自动完成的数据源) | 自动完成的数据源 | React.ReactElement<OptionProps> / Array&lt;React.ReactElement<OptionProps>> | - |
 | children (自定义输入框) | 自定义输入框 | HTMLInputElement / HTMLTextAreaElement / React.ReactElement<InputProps> | `<Input />` |
-| dataSource | 自动完成的数据源 | [DataSourceItemType](https://git.io/vMMKF)\[] |  |
+| dataSource | 自动完成的数据源 | [DataSourceItemType](https://git.io/vMMKF)\[] | - |
 | defaultActiveFirstOption | 是否默认高亮第一个选项 | boolean | true |
 | defaultValue | 指定默认选中的条目 | string\|string\[]\|{ key: string, label: string\|ReactNode }\|Array&lt;{ key: string, label: string\|ReactNode}> | - |
 | disabled | 是否禁用 | boolean | false |
