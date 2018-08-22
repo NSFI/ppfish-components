@@ -52,7 +52,7 @@ export default class TimeSelectPanel extends React.Component {
   }
 
   scrollToOption(className="selected") {
-    const menu = this.timeSelectRoot.querySelector(".fishd-picker-panel__content");
+    const menu = this.timeSelectRoot.querySelector(`.${this.props.prefixCls}-picker-panel__content`);
     const selected = menu.getElementsByClassName(className)[0];
     selected && scrollIntoView(selected, menu,  {
       offsetTop: 74,
