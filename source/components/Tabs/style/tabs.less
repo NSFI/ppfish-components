@@ -21,7 +21,7 @@
     border-bottom: @border-width-base @border-style-base @border-color-split;
     margin: @tabs-bar-margin;
     outline: none;
-    transition: padding .3s @ease-in-out;
+    transition: padding 0.3s @ease-in-out;
   }
 
   &-nav-container {
@@ -31,7 +31,7 @@
     position: relative;
     white-space: nowrap;
     margin-bottom: -1px;
-    transition: padding .3s @ease-in-out;
+    transition: padding 0.3s @ease-in-out;
     .clearfix;
 
     &-scrolling {
@@ -68,7 +68,7 @@
     position: absolute;
     text-align: center;
     color: @text-color-secondary;
-    transition: width .3s @ease-in-out, opacity .3s @ease-in-out, color .3s @ease-in-out;
+    transition: width 0.3s @ease-in-out, opacity 0.3s @ease-in-out, color 0.3s @ease-in-out;
     opacity: 0;
     pointer-events: none;
 
@@ -236,7 +236,7 @@
       > .@{tab-prefix-cls}-tabpane {
         flex-shrink: 0;
         width: 100%;
-        transition: opacity .45s;
+        transition: opacity 0.45s;
         opacity: 1;
       }
 
@@ -262,7 +262,7 @@
       &-tab-prev, &-tab-next {
         width: @tabs-scrolling-size;
         height: 0;
-        transition: height .3s @ease-in-out, opacity .3s @ease-in-out, color .3s @ease-in-out;
+        transition: height 0.3s @ease-in-out, opacity 0.3s @ease-in-out, color 0.3s @ease-in-out;
       }
       &-tab-prev.@{tab-prefix-cls}-tab-arrow-show,
       &-tab-next.@{tab-prefix-cls}-tab-arrow-show {
@@ -404,12 +404,12 @@
 
 .@{tab-prefix-cls}-top .@{tab-prefix-cls}-ink-bar-animated,
 .@{tab-prefix-cls}-bottom .@{tab-prefix-cls}-ink-bar-animated {
-  transition: transform .3s @ease-in-out, width .3s @ease-in-out;
+  transition: transform 0.3s @ease-in-out, width 0.3s @ease-in-out;
 }
 
 .@{tab-prefix-cls}-left .@{tab-prefix-cls}-ink-bar-animated,
 .@{tab-prefix-cls}-right .@{tab-prefix-cls}-ink-bar-animated {
-  transition: transform .3s @ease-in-out, height .3s @ease-in-out;
+  transition: transform 0.3s @ease-in-out, height 0.3s @ease-in-out;
 }
 
 .no-flex,

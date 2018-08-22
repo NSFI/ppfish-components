@@ -2,7 +2,7 @@
 @selectPrefixCls: fishd-rc-tree-select;
 
 .effect() {
-  animation-duration: .3s;
+  animation-duration: 0.3s;
   animation-fill-mode: both;
   transform-origin: 0 0;
 }
@@ -39,7 +39,7 @@
     right: 1px;
     width: 20px;
     b {
-      border-color: #999999 transparent transparent transparent;
+      border-color: #999 transparent transparent transparent;
       border-style: solid;
       border-width: 5px 4px 0 4px;
       height: 0;
@@ -69,7 +69,7 @@
       position: absolute;
 
       &:after {
-        content: '×'
+        content: '×';
       }
     }
   }
@@ -225,8 +225,7 @@
           opacity: 1;
           transform: scale(1);
         }
-        .@{selectPrefixCls}-selection__choice__remove +
-        .@{selectPrefixCls}-selection__choice__content {
+        .@{selectPrefixCls}-selection__choice__remove + .@{selectPrefixCls}-selection__choice__content {
           margin-left: -8px;
           margin-right: 8px;
         }
@@ -242,12 +241,12 @@
     margin-right: 4px;
     position: relative;
     overflow: hidden;
-    transition: padding .3s cubic-bezier(0.6, -0.28, 0.735, 0.045), width .3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    transition: padding 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045), width 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 
     &__content {
       margin-left: 0;
       margin-right: 0;
-      transition: margin .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: margin 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     &-zoom-enter, &-zoom-appear, &-zoom-leave {
@@ -301,9 +300,9 @@
       transform: scale(0);
       top: 0;
       right: 2px;
-      transition: opacity .3s, transform .3s;
+      transition: opacity 0.3s, transform 0.3s;
       &:before {
-        content: '×'
+        content: '×';
       }
 
       &:hover {
@@ -315,7 +314,7 @@
   &-dropdown {
     background-color: white;
     border: 1px solid #d9d9d9;
-    box-shadow: 0 0px 4px #d9d9d9;
+    box-shadow: 0 0 4px #d9d9d9;
     border-radius: @border-radius-base;
     box-sizing: border-box;
     z-index: 100;
@@ -365,7 +364,7 @@
         display: block;
         padding: 7px 10px;
         font-weight: normal;
-        color: #666666;
+        color: #666;
         white-space: nowrap;
 
         &-selected {

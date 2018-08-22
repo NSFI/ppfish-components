@@ -8,12 +8,12 @@
   height: 26px;
   display: inline-block;
   vertical-align: middle;
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
   border-radius: 5px;
 
   &-focused {
     border-color: #40a9ff;
-    box-shadow: 0 0 0 2px rgba(24,144,255,.2);
+    box-shadow: 0 0 0 2px rgba(24,144,255,0.2);
   }
 
   &-handler {
@@ -21,7 +21,7 @@
     line-height: 12px;
     height: 12px;
     overflow: hidden;
-    display:block;
+    display: block;
     touch-action: none;
 
     &-active {
@@ -30,7 +30,7 @@
   }
 
   &-handler-up-inner, &-handler-down-inner {
-    color: #666666;
+    color: #666;
     user-select: none;
     -webkit-user-select: none;
   }
@@ -64,7 +64,7 @@
     line-height: 26px;
     height: 100%;
     transition: all 0.3s ease;
-    color: #666666;
+    color: #666;
     border: 0;
     border-radius: 5px;
     padding: 0;
@@ -72,13 +72,13 @@
 
   &-handler-wrap {
     float: right;
-    border-left: 1px solid #D9D9D9;
+    border-left: 1px solid #d9d9d9;
     width: 20px;
     height: 100%;
   }
 
   &-handler-up {
-    border-bottom: 1px solid #D9D9D9;
+    border-bottom: 1px solid #d9d9d9;
     padding-top: 1px;
     &-inner {
       &:after {

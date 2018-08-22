@@ -54,7 +54,7 @@
   border: @border-width-base @border-style-base @input-border-color;
   border-radius: @border-radius-base;
   .placeholder(); // Reset placeholder
-  transition: all .3s;
+  transition: all 0.3s;
 
   &:hover {
     .hover();
@@ -73,7 +73,7 @@
     max-width: 100%; // prevent textearea resize from coming out of its container
     height: auto;
     vertical-align: bottom;
-    transition: all .3s, height 0s;
+    transition: all 0.3s, height 0s;
     min-height: @input-height-base;
   }
 
@@ -91,7 +91,7 @@
   position: relative;
   border: @border-width-base @border-style-base @input-border-color;
   border-radius: @border-radius-base;
-  transition: all .3s;
+  transition: all 0.3s;
   &:focus-within {
     .active();
   }

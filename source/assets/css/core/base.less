@@ -1,4 +1,4 @@
-/* stylelint-disable at-rule-no-unknown */
+/* stylelint-disable */
 
 // Reboot
 //
@@ -114,7 +114,7 @@ hr {
 // margin for easier control within type scales as it avoids margin collapsing.
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   color: @heading-color;
   font-weight: 500;
 }
@@ -175,7 +175,7 @@ dt {
 }
 
 dd {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   margin-left: 0; // Undo browser default
 }
 
@@ -209,8 +209,8 @@ sup {
   vertical-align: baseline;
 }
 
-sub { bottom: -.25em; }
-sup { top: -.5em; }
+sub { bottom: -0.25em; }
+sup { top: -0.5em; }
 
 //
 // Links
@@ -222,7 +222,7 @@ a {
   text-decoration: @link-decoration;
   outline: none;
   cursor: pointer;
-  transition: color .3s;
+  transition: color 0.3s;
   -webkit-text-decoration-skip: objects; // remove gaps in links underline in iOS 8+ and Safari 8+.
 
   &:focus {
@@ -324,8 +324,8 @@ table {
 }
 
 caption {
-  padding-top: .75em;
-  padding-bottom: .3em;
+  padding-top: 0.75em;
+  padding-bottom: 0.3em;
   color: @text-color-secondary;
   text-align: left;
   caption-side: bottom;
@@ -426,7 +426,7 @@ legend {
   width: 100%;
   max-width: 100%; // 1
   padding: 0;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   font-size: 1.5em;
   line-height: inherit;
   color: inherit; // 2
@@ -494,7 +494,7 @@ template {
 }
 
 mark {
-  padding: .2em;
+  padding: 0.2em;
 }
 
 ::selection {

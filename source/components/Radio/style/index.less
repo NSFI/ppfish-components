@@ -3,7 +3,7 @@
 @radio-prefix-cls: ~"@{fishd-prefix}-radio";
 @radio-group-prefix-cls: ~"@{radio-prefix-cls}-group";
 @radio-inner-prefix-cls: ~"@{radio-prefix-cls}-inner";
-@radio-duration: .3s;
+@radio-duration: 0.3s;
 
 .@{radio-group-prefix-cls} {
   .reset-component;
@@ -104,7 +104,7 @@
   .@{radio-inner-prefix-cls} {
     border-color: @radio-dot-color;
     &:after {
-      transform: scale(.875);
+      transform: scale(0.875);
       opacity: 1;
       transition: all @radio-duration @ease-in-out-circ;
     }

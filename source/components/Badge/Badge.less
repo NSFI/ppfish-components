@@ -99,12 +99,12 @@
 
   &-zoom-appear,
   &-zoom-enter {
-    animation: antZoomBadgeIn .3s @ease-out-back;
+    animation: antZoomBadgeIn 0.3s @ease-out-back;
     animation-fill-mode: both;
   }
 
   &-zoom-leave {
-    animation: antZoomBadgeOut .3s @ease-in-back;
+    animation: antZoomBadgeOut 0.3s @ease-in-back;
     animation-fill-mode: both;
   }
 
@@ -134,7 +134,7 @@
   overflow: hidden;
   &-only {
     display: inline-block;
-    transition: all .3s @ease-in-out;
+    transition: all 0.3s @ease-in-out;
     height: @badge-height;
     > p {
       height: @badge-height;

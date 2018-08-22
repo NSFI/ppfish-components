@@ -28,7 +28,7 @@
     color: @tag-default-color;
   }
 
-  >a:first-child:last-child {
+  > a:first-child:last-child {
     display: inline-block;
     margin: 0 -8px;
     padding: 0 8px;
@@ -38,7 +38,7 @@
     .iconfont-size-under-12px(10px);
     cursor: pointer;
     margin-left: 3px;
-    transition: all .3s;
+    transition: all 0.3s;
     color: @text-color-secondary;
     font-weight: bold;
 
@@ -84,12 +84,12 @@
 
   &-zoom-enter,
   &-zoom-appear {
-    animation: antFadeIn .2s @ease-in-out-circ;
+    animation: antFadeIn 0.2s @ease-in-out-circ;
     animation-fill-mode: both;
   }
 
   &-zoom-leave {
-    animation: antZoomOut .3s @ease-in-out-circ;
+    animation: antZoomOut 0.3s @ease-in-out-circ;
     animation-fill-mode: both;
   }
 
