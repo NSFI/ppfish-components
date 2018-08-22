@@ -53,7 +53,8 @@ export default class TimeSpinner extends React.Component {
       onChange: ({type})=>()
       */
       onChange: PropTypes.func.isRequired,
-      onSelectRangeChange: PropTypes.func
+      onSelectRangeChange: PropTypes.func,
+      prefixCls: PropTypes.string
     };
   }
 
@@ -63,7 +64,8 @@ export default class TimeSpinner extends React.Component {
       minutes: 0,
       seconds: 0,
       isShowSeconds: true,
-      onSelectRangeChange: ()=>{}
+      onSelectRangeChange: ()=>{},
+      prefixCls: 'fishd'
     };
   }
 
@@ -145,11 +147,11 @@ export default class TimeSpinner extends React.Component {
       minutes,
       seconds
     } = this.state;
-    const { isShowSeconds } = this.props;
+    const { isShowSeconds, prefixCls } = this.props;
 
     return (
       <div
-        className={classNames('fishd-time-spinner', {
+        className={classNames(`${prefixCls}-time-spinner`, {
           'has-seconds': isShowSeconds
         })}
       >
@@ -159,9 +161,9 @@ export default class TimeSpinner extends React.Component {
             this.handleScroll('hours');
           }}
           ref="hours"
-          className="fishd-time-spinner__wrapper"
+          className={`${prefixCls}-time-spinner__wrapper`}
           wrapStyle={{ maxHeight: 'inherit' }}
-          viewClass="fishd-time-spinner__list"
+          viewClass={`${prefixCls}-time-spinner__list`}
           viewComponent="ul"
         >
           {hoursList.map((disabled, idx) => {
@@ -169,7 +171,7 @@ export default class TimeSpinner extends React.Component {
               <li
                 key={idx}
                 onClick={() => this.handleChange('hours', idx, disabled)}
-                className={classNames('fishd-time-spinner__item', {
+                className={classNames(`${prefixCls}-time-spinner__item`, {
                   active: idx === hours,
                   disabled: disabled
                 })}
@@ -183,9 +185,9 @@ export default class TimeSpinner extends React.Component {
           onMouseEnter={() => this.emitSelectRange('minutes')}
           onWheel={() => this.handleScroll('minutes')}
           ref="minutes"
-          className="fishd-time-spinner__wrapper"
+          className={`${prefixCls}-time-spinner__wrapper`}
           wrapStyle={{ maxHeight: 'inherit' }}
-          viewClass="fishd-time-spinner__list"
+          viewClass={`${prefixCls}-time-spinner__list`}
           viewComponent="ul"
         >
           {minutesLisit.map((minute) => {
@@ -193,7 +195,7 @@ export default class TimeSpinner extends React.Component {
               <li
                 key={minute}
                 onClick={() => this.handleChange('minutes', minute)}
-                className={classNames('fishd-time-spinner__item', {
+                className={classNames(`${prefixCls}-time-spinner__item`, {
                   active: minute === minutes
                 })}
               >
@@ -207,9 +209,9 @@ export default class TimeSpinner extends React.Component {
           onMouseEnter={() => this.emitSelectRange('seconds')}
           onWheel={() => this.handleScroll('seconds')}
           ref="seconds"
-          className="fishd-time-spinner__wrapper"
+          className={`${prefixCls}-time-spinner__wrapper`}
           wrapStyle={{ maxHeight: 'inherit' }}
-          viewClass="fishd-time-spinner__list"
+          viewClass={`${prefixCls}-time-spinner__list`}
           viewComponent="ul"
         >
           {secondsList.map((sec) => {
@@ -217,7 +219,7 @@ export default class TimeSpinner extends React.Component {
               <li
                 key={sec}
                 onClick={() => this.handleChange('seconds', sec)}
-                className={classNames('fishd-time-spinner__item', {
+                className={classNames(`${prefixCls}-time-spinner__item`, {
                   active: sec === seconds
                 })}
               >

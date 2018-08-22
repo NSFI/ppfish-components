@@ -12,8 +12,13 @@ export default class YearAndMonthPopover extends React.Component {
     sourceData: PropTypes.array.isRequired,
     onChange: PropTypes.func,
     children: PropTypes.node,
-    value: PropTypes.number
+    value: PropTypes.number,
+    prefixCls: PropTypes.string
   };
+
+  static defaultProps = {
+    prefixCls: 'fishd'
+  }
 
   constructor(props) {
     super(props);
@@ -49,20 +54,20 @@ export default class YearAndMonthPopover extends React.Component {
   };
 
   render() {
-    const {children, sourceData, value} = this.props;
+    const {children, sourceData, value, prefixCls} = this.props;
 
     const content = () => {
       return (
         <div
           ref="root"
-          className="fishd-year-and-month-popover"
+          className={`${prefixCls}-year-and-month-popover`}
         >
           {
             sourceData.map((item) => {
               return (
                 <li
                   className={classNames({
-                    'fishd-year-and-month-popover-item': true,
+                    [`${prefixCls}-year-and-month-popover-item`]: true,
                     'active': value == item || typeof item === 'string' && item.slice(-1) == '月' && value == item.slice(0,-1)
                   })}
                   key={item}

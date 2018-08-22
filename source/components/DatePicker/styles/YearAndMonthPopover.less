@@ -1,13 +1,14 @@
 @import (reference) "../../../assets/css/index";
+@prefixClass: @fishd-prefix;
 
-.fishd-year-and-month-popover {
+.@{prefixClass}-year-and-month-popover {
   overflow: auto;
   .scrollbar();
   overflow-x: hidden;
   min-width: 60px;
   text-align: center;
   max-height: 200px;
-  font-size: 12px;
+  font-size: @font-size-sm;
   &-item {
     cursor: pointer;
   }

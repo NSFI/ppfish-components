@@ -17,14 +17,16 @@ export default class TimePanel extends React.Component {
       onSelectRangeChange: TimeSpinner.propTypes.onSelectRangeChange,
       isShowCurrent: PropTypes.bool,
       renderExtraFooter: PropTypes.func,
-      onValueChange: PropTypes.func
+      onValueChange: PropTypes.func,
+      prefixCls: PropTypes.string
     }
   }
 
   static get defaultProps() {
     return {
       isShowCurrent: false,
-      onValueChange: ()=>{}
+      onValueChange: ()=>{},
+      prefixCls: 'fishd'
     }
   }
 
@@ -111,7 +113,7 @@ export default class TimePanel extends React.Component {
   }
 
   render() {
-    const {onSelectRangeChange, selectableRange, isShowCurrent, renderExtraFooter} = this.props;
+    const {onSelectRangeChange, selectableRange, isShowCurrent, renderExtraFooter, prefixCls} = this.props;
     const {isShowSeconds, currentDate, confirmButtonDisabled, currentButtonDisabled} = this.state;
 
     const hours = currentDate ? currentDate.getHours() : null;
@@ -123,9 +125,9 @@ export default class TimePanel extends React.Component {
     return (
       <div
         ref="root"
-        className="fishd-picker-panel fishd-time-panel"
+        className={`${prefixCls}-picker-panel ${prefixCls}-time-panel`}
       >
-        <div className={classNames('fishd-time-panel__content', { 'has-seconds': isShowSeconds })}>
+        <div className={classNames(`${prefixCls}-time-panel__content`, { 'has-seconds': isShowSeconds })}>
           <TimeSpinner
             ref="spinner"
             isShowSeconds={isShowSeconds}
@@ -140,20 +142,20 @@ export default class TimePanel extends React.Component {
         {
           typeof renderExtraFooter == 'function' && renderExtraFooter() && (
             <div
-              className="fishd-time-panel__extra-footer"
+              className={`${prefixCls}-time-panel__extra-footer`}
             >
               {renderExtraFooter()}
             </div>
           )
         }
-        <div className="fishd-time-panel__footer">
+        <div className={`${prefixCls}-time-panel__footer`}>
           <div>
             {
               isShowCurrent ?
                 <button
                   type="button"
                   disabled={currentButtonDisabled}
-                  className={classNames('fishd-time-panel__btn confirm', {'disabled' : currentButtonDisabled})}
+                  className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : currentButtonDisabled})}
                   onClick={this.handleCurrent}>{$t('fishd.datepicker.now')}
                 </button>
                 :
@@ -163,13 +165,13 @@ export default class TimePanel extends React.Component {
           <div>
             <button
               type="button"
-              className="fishd-time-panel__btn cancel"
+              className={`${prefixCls}-time-panel__btn cancel`}
               onClick={this.handleCancel}>{$t('fishd.datepicker.cancel')}
             </button>
             <button
               type="button"
               disabled={confirmButtonDisabled}
-              className={classNames('fishd-time-panel__btn confirm', {'disabled' : confirmButtonDisabled})}
+              className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : confirmButtonDisabled})}
               onClick={() => this.handleConfirm(false, true)}>{$t('fishd.datepicker.confirm')}
             </button>
           </div>

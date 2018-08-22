@@ -1,4 +1,3 @@
-@import (reference) "../../../assets/css/index";
 
 .@{prefixClass} {
   &-date-table {
@@ -8,7 +7,7 @@
     border-collapse: separate;
 
     &.is-week-mode {
-      .fishd-date-table__row {
+      .@{prefixClass}-date-table__row {
         &.current td div {
           background-color: @datepicker-inrange-color;
         }

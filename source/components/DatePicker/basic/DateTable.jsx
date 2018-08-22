@@ -350,7 +350,7 @@ export default class DateTable extends React.Component {
 
   render() {
     const $t = Locale.t;
-    const {selectionMode, showWeekNumber} = this.props;
+    const {selectionMode, showWeekNumber, prefixCls} = this.props;
 
     return (
       <table
@@ -358,7 +358,7 @@ export default class DateTable extends React.Component {
         cellPadding="0"
         onClick={this.handleClick}
         onMouseMove={this.handleMouseMove}
-        className={classNames('fishd-date-table', { 'is-week-mode': selectionMode === 'week' })}
+        className={classNames(`${prefixCls}-date-table`, { 'is-week-mode': selectionMode === 'week' })}
       >
         <tbody>
 
@@ -374,7 +374,7 @@ export default class DateTable extends React.Component {
             return (
               <tr
                 key={idx}
-                className={classNames('fishd-date-table__row', { 'current': row.isWeekActive })}>
+                className={classNames(`${prefixCls}-date-table__row`, { 'current': row.isWeekActive })}>
                 {
                   row.map((cell, idx) => (
                     <td className={this.getCellClasses(cell)} key={idx}>
@@ -432,9 +432,11 @@ DateTable.propTypes = {
     selecting: PropTypes.bool,
   }),
   firstDayOfWeek: PropTypes.number,
+  prefixCls: PropTypes.string
 }
 
 DateTable.defaultProps = {
   selectionMode: 'day',
-  firstDayOfWeek: 0
+  firstDayOfWeek: 0,
+  prefixCls: 'fishd'
 }

@@ -47,7 +47,7 @@ export default class BasePicker extends React.Component {
     return {
       placeholder: '',
       popupAlign: 'bottomLeft',
-      prefixCls: 'fishd-date-time-picker',
+      prefixCls: 'fishd',
       isShowTrigger: true,
       isAllowClear: true,
       isDisabled: false,
@@ -304,16 +304,20 @@ export default class BasePicker extends React.Component {
     const getInputPanel = () => {
       return (
         <span
-          className={classNames('fishd-date-editor', className, {
-            'is-have-trigger': calcIsShowTrigger(),
-            'is-active': pickerVisible,
-            'is-filled': !!value
-          })}
+          className={classNames(
+            `${prefixCls}-date-editor`,
+            className,
+            {
+              'is-have-trigger': calcIsShowTrigger(),
+              'is-active': pickerVisible,
+              'is-filled': !!value
+            }
+          )}
           style={{...style}}
         >
 
         <Input
-          className={classNames(`fishd-date-editor--${this.type}`)}
+          className={classNames(`${prefixCls}-date-editor--${this.type}`)}
           disabled={isDisabled}
           type="text"
           placeholder={placeholder}
@@ -353,7 +357,7 @@ export default class BasePicker extends React.Component {
         popup={getPickerPanel()}
         popupPlacement={popupAlign}
         popupVisible={pickerVisible}
-        prefixCls={`${prefixCls}-popup`}
+        prefixCls={`${prefixCls}-date-time-picker-popup`}
         destroyPopupOnHide={true}
       >
         {getInputPanel()}

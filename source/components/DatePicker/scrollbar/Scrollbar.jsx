@@ -75,7 +75,7 @@ export class Scrollbar extends React.Component {
     /* eslint-disable */
     let {
       native, viewStyle, wrapStyle, viewClass, children, viewComponent, wrapClass, noresize,
-      className, ...others} = this.props;
+      className, prefixCls, ...others} = this.props;
     let {moveX, moveY, sizeWidth, sizeHeight} = this.state;
     /* eslint-enable */
 
@@ -91,7 +91,7 @@ export class Scrollbar extends React.Component {
     }
 
     const view = React.createElement(viewComponent, {
-      className: classNames('fishd-scrollbar__view', viewClass),
+      className: classNames(`${prefixCls}-scrollbar__view`, viewClass),
       style: viewStyle,
       ref: 'resize'
     }, children);
@@ -105,7 +105,7 @@ export class Scrollbar extends React.Component {
           key={0}
           style={style}
           onScroll={this.handleScroll.bind(this)}
-          className={classNames(wrapClass, 'fishd-scrollbar__wrap', gutter ? '' : 'fishd-scrollbar__wrap--hidden-default')}
+          className={classNames(wrapClass, `${prefixCls}-scrollbar__wrap`, gutter ? '' : `${prefixCls}-scrollbar__wrap--hidden-default`)}
         >
           {view}
         </div>
@@ -122,7 +122,7 @@ export class Scrollbar extends React.Component {
             {...others}
             key={0}
             ref="wrap"
-            className={classNames(wrapClass, 'fishd-scrollbar__wrap')}
+            className={classNames(wrapClass, `${prefixCls}-scrollbar__wrap`)}
             style={style}>
             {view}
           </div>
@@ -130,7 +130,7 @@ export class Scrollbar extends React.Component {
       ]
     }
 
-    return React.createElement('div', {className: classNames('fishd-scrollbar', className)}, nodes)
+    return React.createElement('div', {className: classNames(`${prefixCls}-scrollbar`, className)}, nodes)
   }
 }
 
@@ -148,9 +148,11 @@ Scrollbar.propTypes = {
   viewComponent: PropTypes.oneOfType([
     PropTypes.string, PropTypes.element
   ]),
-  noresize: PropTypes.bool
+  noresize: PropTypes.bool,
+  prefixCls: PropTypes.string
 }
 
 Scrollbar.defaultProps = {
-  viewComponent: 'div'
+  viewComponent: 'div',
+  prefixCls: 'fishd'
 }

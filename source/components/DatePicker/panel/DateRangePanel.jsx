@@ -73,7 +73,8 @@ export default class DateRangePanel extends React.Component {
         PropTypes.arrayOf(PropTypes.string)
       ]),
       defaultStartTimeValue: PropTypes.instanceOf(Date),
-      defaultEndTimeValue: PropTypes.instanceOf(Date)
+      defaultEndTimeValue: PropTypes.instanceOf(Date),
+      prefixCls: PropTypes.string
     }
   }
 
@@ -87,7 +88,8 @@ export default class DateRangePanel extends React.Component {
       isShowTime: false,
       isShowTimeCurrent: false,
       defaultStartTimeValue: null,
-      defaultEndTimeValue: null
+      defaultEndTimeValue: null,
+      prefixCls: 'fishd'
     }
   }
 
@@ -353,7 +355,8 @@ export default class DateRangePanel extends React.Component {
       isShowTimeCurrent,
       startTimeSelectableRange,
       endTimeSelectableRange,
-      renderExtraFooter
+      renderExtraFooter,
+      prefixCls
     } = this.props;
     const {
       rangeState,
@@ -371,22 +374,25 @@ export default class DateRangePanel extends React.Component {
 
     return (
       <div
-        className={classNames('fishd-picker-panel fishd-date-range-picker', {
-          'has-sidebar': shortcuts && shortcutsPlacement === 'left',
-          'has-time': isShowTime
-        })}
+        className={classNames(
+          `${prefixCls}-picker-panel`,
+          `${prefixCls}-date-range-picker`,
+          {
+            'has-sidebar': shortcuts && shortcutsPlacement === 'left',
+            'has-time': isShowTime
+          })}
       >
-        <div className="fishd-picker-panel__body-wrapper">
+        <div className={`${prefixCls}-picker-panel__body-wrapper`}>
           {
             shortcutsPlacement === 'left' && Array.isArray(shortcuts) && (
-              <div className="fishd-picker-panel__sidebar">
+              <div className={`${prefixCls}-picker-panel__sidebar`}>
                 {
                   shortcuts.map((e, idx) => {
                     return (
                       <button
                         key={idx}
                         type="button"
-                        className="fishd-picker-panel__shortcut"
+                        className={`${prefixCls}-picker-panel__shortcut`}
                         onClick={() => this.handleShortcutClick(e)}>{e.text}
                       </button>
                     )
@@ -395,23 +401,23 @@ export default class DateRangePanel extends React.Component {
               </div>
             )
           }
-          <div className="fishd-picker-panel__body">
+          <div className={`${prefixCls}-picker-panel__body`}>
             {
               isShowTime && (
-                <div className="fishd-date-range-picker__time-header">
-                  <span className="fishd-date-range-picker__editors-wrap is-left">
-                    <span className="fishd-date-range-picker__time-picker-wrap">
+                <div className={`${prefixCls}-date-range-picker__time-header`}>
+                  <span className={`${prefixCls}-date-range-picker__editors-wrap is-left`}>
+                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <Input
                         placeholder={Locale.t('fishd.datepicker.startDate')}
-                        className="fishd-date-range-picker__editor"
+                        className={`${prefixCls}-date-range-picker__editor`}
                         value={minDateInputText}
                         onChange={value => this.handleDateInputChange(value, 'min')}
                         onBlur={value => this.handleDateInputBlur(value, 'min')}
                       />
                     </span>
-                    <span className="fishd-date-range-picker__time-picker-wrap">
+                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <TimePicker
-                        className="fishd-date-range-picker__editor"
+                        className={`${prefixCls}-date-range-picker__editor`}
                         placeholder={Locale.t('fishd.datepicker.startTime')}
                         format={timeFormat(format)}
                         getPopupContainer={(node) => node.parentNode}
@@ -425,20 +431,20 @@ export default class DateRangePanel extends React.Component {
                       />
                     </span>
                   </span>
-                  <span className="fishd-date-range-picker__editors-wrap is-right">
-                    <span className="fishd-date-range-picker__time-picker-wrap">
+                  <span className={`${prefixCls}-date-range-picker__editors-wrap is-right`}>
+                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <Input
                         placeholder={Locale.t('fishd.datepicker.endDate')}
-                        className="fishd-date-range-picker__editor"
+                        className={`${prefixCls}-date-range-picker__editor`}
                         value={maxDateInputText}
                         readOnly={!minDate}
                         onChange={value => this.handleDateInputChange(value, 'max')}
                         onBlur={value => this.handleDateInputBlur(value, 'max')}
                       />
                     </span>
-                    <span className="fishd-date-range-picker__time-picker-wrap">
+                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <TimePicker
-                        className="fishd-date-range-picker__editor"
+                        className={`${prefixCls}-date-range-picker__editor`}
                         placeholder={Locale.t('fishd.datepicker.endTime')}
                         format={timeFormat(format)}
                         getPopupContainer={(node) => node.parentNode}
@@ -455,41 +461,41 @@ export default class DateRangePanel extends React.Component {
                 </div>
               )
             }
-            <div className="fishd-picker-panel__content fishd-date-range-picker__content is-left">
-              <div className="fishd-date-range-picker__header">
+            <div className={`${prefixCls}-picker-panel__content ${prefixCls}-date-range-picker__content is-left`}>
+              <div className={`${prefixCls}-date-range-picker__header`}>
                 <Icon
                   type="left-double"
                   onClick={this.prevYear.bind(this, 'leftDate', leftDate, ()=>{})}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
                 </Icon>
                 <Icon
                   type="left"
                   onClick={this.prevMonth.bind(this, 'leftDate', leftDate, ()=>{})}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
                 </Icon>
                 <YearAndMonthPopover
                   value={leftDate.getFullYear()}
                   sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className="fishd-date-range-picker__header-label">{`${leftDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${leftDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={leftDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className="fishd-date-range-picker__header-label">{t(`fishd.datepicker.month${leftDate.getMonth() + 1}`)}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`fishd.datepicker.month${leftDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
                   onClick={this.nextYear.bind(this, 'leftDate', leftDate, this.handleLeftNextYear)}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
                 </Icon>
                 <Icon
                   type="right"
                   onClick={this.nextMonth.bind(this, 'leftDate', leftDate, this.handleLeftNextMonth)}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
                 </Icon>
               </div>
               <DateTable
@@ -505,41 +511,41 @@ export default class DateRangePanel extends React.Component {
                 firstDayOfWeek={firstDayOfWeek}
               />
             </div>
-            <div className="fishd-picker-panel__content fishd-date-range-picker__content is-right">
-              <div className="fishd-date-range-picker__header">
+            <div className={`${prefixCls}-picker-panel__content ${prefixCls}-date-range-picker__content is-right`}>
+              <div className={`${prefixCls}-date-range-picker__header`}>
                 <Icon
                   type="left-double"
                   onClick={this.prevYear.bind(this, 'rightDate', rightDate, this.handleRightPrevYear)}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
                 </Icon>
                 <Icon
                   type="left"
                   onClick={this.prevMonth.bind(this, 'rightDate', rightDate, this.handleRightPrevMonth)}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__prev-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
                 </Icon>
                 <YearAndMonthPopover
                   value={rightDate.getFullYear()}
                   sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className="fishd-date-range-picker__header-label">{`${rightDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${rightDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={rightDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className="fishd-date-range-picker__header-label">{t(`fishd.datepicker.month${rightDate.getMonth() + 1}`)}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`fishd.datepicker.month${rightDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
                   onClick={this.nextYear.bind(this, 'rightDate', rightDate, ()=>{})}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
                 </Icon>
                 <Icon
                   type="right"
                   onClick={this.nextMonth.bind(this, 'rightDate', rightDate, ()=>{})}
-                  className="fishd-picker-panel__icon-btn fishd-date-range-picker__next-btn">
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
                 </Icon>
               </div>
               <DateTable
@@ -560,7 +566,7 @@ export default class DateRangePanel extends React.Component {
         {
           typeof renderExtraFooter === 'function' && renderExtraFooter() && (
             <div
-              className="fishd-picker-panel__extra-footer"
+              className={`${prefixCls}-picker-panel__extra-footer`}
             >
               {renderExtraFooter()}
             </div>
@@ -568,14 +574,14 @@ export default class DateRangePanel extends React.Component {
         }
         {
           isShowTime && (
-            <div className="fishd-picker-panel__footer">
+            <div className={`${prefixCls}-picker-panel__footer`}>
               <Button
-                className="fishd-picker-panel__btn cancel"
+                className={`${prefixCls}-picker-panel__btn cancel`}
                 onClick={this.handleCancel}>{ Locale.t('fishd.datepicker.cancel') }
               </Button>
               <Button
                 type="primary"
-                className={classNames("fishd-picker-panel__btn", "confirm", {'disabled': this.confirmBtnDisabled()})}
+                className={classNames(`${prefixCls}-picker-panel__btn confirm`, {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
                 disabled={this.confirmBtnDisabled()}>{ Locale.t('fishd.datepicker.confirm') }
               </Button>

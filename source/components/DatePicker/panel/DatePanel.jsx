@@ -66,6 +66,7 @@ export default class DatePanel extends React.Component {
         PropTypes.arrayOf(PropTypes.string)
       ]),
       defaultTimeValue: PropTypes.instanceOf(Date),
+      prefixCls: PropTypes.string
     }
   }
 
@@ -79,6 +80,7 @@ export default class DatePanel extends React.Component {
       isShowTime: false,
       isShowTimeCurrent: false,
       defaultTimeValue: null,
+      prefixCls: 'fishd'
     }
   }
 
@@ -292,7 +294,8 @@ export default class DatePanel extends React.Component {
       isShowTime,
       isShowTimeCurrent,
       timeSelectableRange,
-      renderExtraFooter
+      renderExtraFooter,
+      prefixCls
     } = this.props;
     const { currentView, currentDate, dateInputText, time } = this.state;
     const { month } = deconstructDate(currentDate);
@@ -300,23 +303,27 @@ export default class DatePanel extends React.Component {
 
     return (
       <div
-        className={classNames('fishd-picker-panel fishd-date-picker', {
-          'has-sidebar': shortcuts && shortcutsPlacement === 'left',
-          'has-time': isShowTime})
+        className={classNames(
+          `${prefixCls}-picker-panel`,
+          `${prefixCls}-date-picker`,
+          {
+            'has-sidebar': shortcuts && shortcutsPlacement === 'left',
+            'has-time': isShowTime
+          })
         }
       >
 
-        <div className="fishd-picker-panel__body-wrapper">
+        <div className={`${prefixCls}-picker-panel__body-wrapper`}>
           {
             shortcutsPlacement === 'left' && Array.isArray(shortcuts) && (
-              <div className={classNames('fishd-picker-panel__sidebar', shortcutsPlacement)}>
+              <div className={classNames(`${prefixCls}-picker-panel__sidebar`, shortcutsPlacement)}>
                 {
                   shortcuts.map((e, idx) => {
                     return (
                       <button
                         key={idx}
                         type="button"
-                        className="fishd-picker-panel__shortcut"
+                        className={`${prefixCls}-picker-panel__shortcut`}
                         onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
                     )
                   })
@@ -324,11 +331,11 @@ export default class DatePanel extends React.Component {
               </div>
             )
           }
-          <div className="fishd-picker-panel__body">
+          <div className={`${prefixCls}-picker-panel__body`}>
             {
               isShowTime && (
-                <div className="fishd-date-picker__time-header">
-                  <span className="fishd-date-picker__editor-wrap">
+                <div className={`${prefixCls}-date-picker__time-header`}>
+                  <span className={`${prefixCls}-date-picker__editor-wrap`}>
                     <Input
                       placeholder={t('fishd.datepicker.selectDate')}
                       value={dateInputText}
@@ -336,9 +343,9 @@ export default class DatePanel extends React.Component {
                       onBlur={this.handleDateInputBlur}
                     />
                   </span>
-                  <span className="fishd-date-picker__editor-wrap">
+                  <span className={`${prefixCls}-date-picker__editor-wrap`}>
                     <TimePicker
-                      className="fishd-date-picker-time__editor"
+                      className={`${prefixCls}-date-picker-time__editor`}
                       placeholder={t('fishd.datepicker.selectTime')}
                       format={timeFormat(format)}
                       getPopupContainer={(node) => node.parentNode}
@@ -357,18 +364,18 @@ export default class DatePanel extends React.Component {
 
             {
               currentView !== 'time' && (
-                <div className="fishd-date-picker__header">
+                <div className={`${prefixCls}-date-picker__header`}>
                   <Icon
                     type="left-double"
                     onClick={this.prevYear}
-                    className="fishd-picker-panel__icon-btn fishd-date-picker__prev-btn">
+                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`}>
                   </Icon>
                   {
                     currentView === PICKER_VIEWS.DATE && (
                       <Icon
                         type="left"
                         onClick={this.prevMonth}
-                        className="fishd-picker-panel__icon-btn fishd-date-picker__prev-btn">
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`}>
                       </Icon>)
                   }
                   <YearAndMonthPopover
@@ -376,7 +383,7 @@ export default class DatePanel extends React.Component {
                     sourceData={YEARS_ARRAY(yearCount)}
                     onChange={this.handleChangeYear}
                   >
-                    <span className="fishd-date-picker__header-label">{`${currentDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
+                    <span className={`${prefixCls}-date-picker__header-label`}>{`${currentDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
                   </YearAndMonthPopover>
                   {
                     currentView === PICKER_VIEWS.DATE && (
@@ -387,7 +394,7 @@ export default class DatePanel extends React.Component {
                       >
                         <span
                           className={
-                            classNames('fishd-date-picker__header-label', {
+                            classNames(`${prefixCls}-date-picker__header-label`, {
                               active: currentView === 'month'
                             })
                           }
@@ -398,21 +405,21 @@ export default class DatePanel extends React.Component {
                   <Icon
                     type="right-double"
                     onClick={this.nextYear}
-                    className="fishd-picker-panel__icon-btn fishd-date-picker__next-btn">
+                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`}>
                   </Icon>
                   {
                     currentView === PICKER_VIEWS.DATE && (
                       <Icon
                         type="right"
                         onClick={this.nextMonth}
-                        className="fishd-picker-panel__icon-btn fishd-date-picker__next-btn">
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`}>
                       </Icon>
                     )
                   }
                 </div>
               )
             }
-            <div className="fishd-picker-panel__content">
+            <div className={`${prefixCls}-picker-panel__content`}>
               {this._pickerContent()}
             </div>
           </div>
@@ -420,7 +427,7 @@ export default class DatePanel extends React.Component {
         {
           typeof renderExtraFooter == 'function' && renderExtraFooter() && (
             <div
-              className="fishd-picker-panel__extra-footer"
+              className={`${prefixCls}-picker-panel__extra-footer`}
             >
               {renderExtraFooter()}
             </div>
@@ -429,15 +436,15 @@ export default class DatePanel extends React.Component {
         {
           isShowTime && currentView === PICKER_VIEWS.DATE && (
             <div
-              className="fishd-picker-panel__footer"
+              className={`${prefixCls}-picker-panel__footer`}
             >
               <Button
-                className="fishd-picker-panel__btn cancel"
+                className={`${prefixCls}-picker-panel__btn cancel`}
                 onClick={this.handleCancel}>{t('fishd.datepicker.cancel')}
               </Button>
               <Button
                 type="primary"
-                className="fishd-picker-panel__btn confirm"
+                className={`${prefixCls}-picker-panel__btn confirm`}
                 onClick={this.handleConfirm}
                 disabled={this.confirmBtnDisabled()}>{t('fishd.datepicker.confirm')}
               </Button>

@@ -1,4 +1,3 @@
-@import (reference) "../../../assets/css/index";
 
 .@{prefixClass} {
   &-date-range-picker {
@@ -17,7 +16,7 @@
     }
 
     &.has-time,&.has-sidebar {
-      .fishd-picker-panel__body-wrapper {
+      .@{prefixClass}-picker-panel__body-wrapper {
         position: relative;
       }
     }
@@ -27,11 +26,11 @@
       width: 100%;
     }
 
-    .fishd-picker-panel__body {
+    .@{prefixClass}-picker-panel__body {
       min-width: 513px;
     }
 
-    .fishd-picker-panel__content {
+    .@{prefixClass}-picker-panel__content {
       margin: 0;
     }
 
@@ -40,7 +39,7 @@
       text-align: center;
       .clearfix;
       // 样式覆盖
-      .fishd-popover-inner-content {
+      .@{prefixClass}-popover-inner-content {
         padding: 8px 0;
       }
       .fishdicon {
@@ -92,7 +91,7 @@
       }
 
       .is-right {
-        .fishd-date-range-picker__header {
+        .@{prefixClass}-date-range-picker__header {
           button {
             float: right;
           }
@@ -129,16 +128,12 @@
       display: table-cell;
       padding: 0 5px;
 
-      .fishd-picker-panel {
+      .@{prefixClass}-picker-panel {
         position: absolute;
         right: 0;
         z-index: 1;
         background: @component-background;
       }
-    }
-
-    .fishd-input {
-      min-width: 134px;
     }
   }
 }
