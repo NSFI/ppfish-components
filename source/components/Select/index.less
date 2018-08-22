@@ -22,7 +22,7 @@
 
 //select面板
 .@{select-prefix} {
-  min-height: @select-height-base;
+  height: @select-height-base;
   display: inline-block;
   position: relative;
   //暂时解决Form中与其他组件同行对齐问题
@@ -166,7 +166,7 @@
     }
   }
   &-small {
-    min-height: @select-height-sm;
+    height: @select-height-sm;
     font-size: @font-size-sm;
     //暂时解决Form中与其他组件同行对齐问题
     vertical-align: -(@select-height-sm/2 - 6);
@@ -188,7 +188,7 @@
   }
 
   &-large {
-    min-height: @select-height-lg;
+    height: @select-height-lg;
     font-size: @font-size-lg;
     //暂时解决Form中与其他组件同行对齐问题
     vertical-align: -(@select-height-lg/2 - 6);
@@ -342,7 +342,6 @@
 .@{fishd-prefix}-input-group-wrapper {
   .@{fishd-prefix}-input-group-addon {
     .@{select-prefix} {
-      min-height: @select-height-base - 2px;
       height: @select-height-base - 2px;
       margin: 0 -7px;
     }
@@ -355,7 +354,6 @@
 .@{fishd-prefix}-input-group-wrapper-lg {
   .@{fishd-prefix}-input-group-addon {
     .@{select-prefix}-large {
-      min-height: @select-height-lg - 2px;
       height: @select-height-lg - 2px;
     }
     .@{select-prefix}-option-single {
@@ -367,7 +365,6 @@
 .@{fishd-prefix}-input-group-wrapper-sm {
   .@{fishd-prefix}-input-group-addon {
     .@{select-prefix}-small {
-      min-height: @select-height-sm - 2px;
       height: @select-height-sm - 2px;
     }
     .@{select-prefix}-option-single {

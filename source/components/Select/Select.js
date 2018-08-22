@@ -680,6 +680,9 @@ export default class Select extends React.Component {
     };
     if (labelClear) {
       panelStyle.paddingRight = 0;
+      if (mode === 'multiple' && selectValueForMultiplePanel.length) {
+        panelStyle.height = 'auto';
+      }
     }
     return (
       <div
