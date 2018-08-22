@@ -52,6 +52,7 @@ export default class Select extends React.Component {
     searchPlaceholder: PropTypes.string,
     selectAllText: PropTypes.string,
     showArrow: PropTypes.bool,
+    showOptionCheckedIcon: PropTypes.bool,
     showSingleClear: PropTypes.bool,
     showSearch: PropTypes.bool,
     showSelectAll: PropTypes.bool,
@@ -86,6 +87,7 @@ export default class Select extends React.Component {
     searchPlaceholder: '请输入关键词',
     selectAllText: '选择所有',
     showArrow: true,
+    showOptionCheckedIcon: true,
     showSearch: false,
     showSingleClear: false,
     showSelectAll: false,
@@ -333,21 +335,25 @@ export default class Select extends React.Component {
   //获取加料后的children
   getProcessedChildren = (children, dropdownCls) => {
     return React.Children.map(children, (c) => {
-      if (typeof c === 'object' && c.type.isSelectOption) {
+      const typeOfChildren = Object.prototype.toString.call(c).slice(8, -1).toLowerCase();
+      if (!!c && typeOfChildren === 'object' && c.type.isSelectOption) {
+        const {selectValue, activeKey} = this.state;
+        const {showOptionCheckedIcon} = this.props;
         const value = c.props.value || c.key;
         //对children中的Option 进行事件绑定、参数补充
         return React.cloneElement(c, {
           prefixCls: `${dropdownCls}-option`,
-          checked: !!this.state.selectValue.find(obj => obj && obj.key === value),
+          checked: !!selectValue.find(obj => obj && obj.key === value),
           value: value,
-          activeKey: this.state.activeKey,
+          activeKey: activeKey,
+          showOptionCheckedIcon: showOptionCheckedIcon,
           onOptionClick: this.onOptionClick,
           onOptionMouseEnter: this.onOptionMouseEnter,
           onOptionMouseLeave: this.onOptionMouseLeave,
           ref: value,
           children: this.getProcessedChildren(c.props.children, dropdownCls),
         });
-      } else if (typeof c === 'object' && c.type.isSelectOptGroup) {
+      } else if (!!c && typeOfChildren === 'object' && c.type.isSelectOptGroup) {
         return React.cloneElement(c, {
           prefixCls: `${dropdownCls}-option-group`,
           children: this.getProcessedChildren(c.props.children, dropdownCls),

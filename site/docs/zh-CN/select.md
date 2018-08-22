@@ -614,6 +614,7 @@ render(){
 | searchPlaceholder | 搜索框默认文字 | string | '请输入关键词' |
 | selectAllText | 是否显示全选/反选功能-文案 | string | '选择所有' |
 | showArrow | 是否显示下拉小箭头 | boolean | true |
+| showOptionCheckedIcon | 是否显示option选中的√ | boolean | true |
 | showSearch | 是否可搜索，需要配合filterOption或者后端搜索使用 | boolean | false |
 | showSingleClear | 是否显示清除选择功能（仅在mode='single'生效） | boolean | false |
 | showSelectAll | 是否显示全选/反选功能（仅在mode='multiple'生效） | boolean | true |

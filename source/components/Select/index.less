@@ -284,17 +284,20 @@
       color: @primary-color;
       position: relative;
     }
-    &.checked:after {
-      display: inline-block;
-      width: 14px;
-      height: 100%;
-      position: absolute;
-      right: 15px;
-      color: @primary-color;
-      /* stylelint-disable-next-line */
-      font-family: fishdicon;
-      content: "\e671";
-      font-size: 12px;
+    &.checked-icon {
+      position: relative;
+      &:after {
+        display: inline-block;
+        width: 14px;
+        height: 100%;
+        position: absolute;
+        right: 15px;
+        color: @primary-color;
+        /* stylelint-disable-next-line */
+        font-family: fishdicon;
+        content: "\e671";
+        font-size: 12px;
+      }
     }
     //option-还原选项
     &.clear {

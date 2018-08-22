@@ -12,6 +12,7 @@ export default class Option extends React.Component {
     prefixCls: PropTypes.string,
     title: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
+    showOptionCheckedIcon: PropTypes.bool,
     // INTERNAL USE ONLY
     activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onOptionClick: PropTypes.func,
@@ -20,7 +21,8 @@ export default class Option extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'fishd-select-dropdown-option'
+    prefixCls: 'fishd-select-dropdown-option',
+    showOptionCheckedIcon: true,
   };
 
   constructor(props) {
@@ -49,13 +51,14 @@ export default class Option extends React.Component {
   };
 
   render() {
-    const {title, children, activeKey, value, disabled, checked, prefixCls} = this.props;
+    const {title, children, activeKey, showOptionCheckedIcon, value, disabled, checked, prefixCls} = this.props;
     const label = children && children.length === 1 ? children[0] : children;
     const optionCls =
       classNames(
         {[`${prefixCls}-item`]: true},
         {[`${prefixCls}-item-disabled`]: !!disabled},
         {[`checked`]: !!checked},
+        {[`checked-icon`]: !!checked && showOptionCheckedIcon},
         {[`active`]: activeKey === value}
       );
     return (
