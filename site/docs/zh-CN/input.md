@@ -144,7 +144,7 @@ render(){
         </InputGroup>
         <br />
         <InputGroup compact>
-          <Select defaultValue="Zhejiang">
+          <Select style={{width:120}} defaultValue="Zhejiang">
             <Option value="Zhejiang">Zhejiang</Option>
             <Option value="Jiangsu">Jiangsu</Option>
           </Select>
@@ -152,7 +152,7 @@ render(){
         </InputGroup>
         <br />
         <InputGroup compact>
-          <Select defaultValue="Option1">
+          <Select style={{width:120}} defaultValue="Option1">
             <Option value="Option1">Option1</Option>
             <Option value="Option2">Option2</Option>
           </Select>
@@ -166,28 +166,28 @@ render(){
         </InputGroup>
         <br />
         <InputGroup compact>
-          <Select defaultValue="Option1-1">
+          <Select style={{width:120}} defaultValue="Option1-1">
             <Option value="Option1-1">Option1-1</Option>
             <Option value="Option1-2">Option1-2</Option>
           </Select>
-          <Select defaultValue="Option2-2">
+          <Select style={{width:120}} defaultValue="Option2-2">
             <Option value="Option2-1">Option2-1</Option>
             <Option value="Option2-2">Option2-2</Option>
           </Select>
         </InputGroup>
         <br />
         <InputGroup compact>
-          <Select defaultValue="1">
+          <Select style={{width:120}} defaultValue="1">
             <Option value="1">Between</Option>
             <Option value="2">Except</Option>
           </Select>
-          <Input style={{ width: 100, textAlign: 'center' }} placeholder="Minimum" />
+          <Input style={{ width: 120, textAlign: 'center' }} placeholder="Minimum" />
           <Input style={{ width: 30, borderLeft: 0, pointerEvents: 'none', backgroundColor: '#fff' }} placeholder="~" disabled />
-          <Input style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="Maximum" />
+          <Input style={{ width: 120, textAlign: 'center', borderLeft: 0 }} placeholder="Maximum" />
         </InputGroup>
         <br />
         <InputGroup compact>
-          <Select defaultValue="Sign Up" style={{width:100}}>
+          <Select defaultValue="Sign Up" style={{width:120}}>
             <Option value="Sign Up">Sign Up</Option>
             <Option value="Sign In">Sign In</Option>
           </Select>
@@ -200,7 +200,7 @@ render(){
         </InputGroup>
         <br />
         <InputGroup compact>
-          <Select style={{ width: 150}} defaultValue="Home">
+          <Select style={{ width: 120}} defaultValue="Home">
             <Option value="Home">Home</Option>
             <Option value="Company">Company</Option>
           </Select>
