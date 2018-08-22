@@ -477,7 +477,7 @@ exports[`Renders form demo correctly 1`] = `
                 >
                   <div
                     class="fishd-select"
-                    style="width:70px"
+                    style="width:80px"
                   >
                     <div
                       class="fishd-select-content"

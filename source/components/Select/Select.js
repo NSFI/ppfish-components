@@ -597,7 +597,7 @@ export default class Select extends React.Component {
                   //全选按钮-多选的情况下存在
                   showSelectAll && mode === 'multiple' &&
                   <li
-                    className={classNames({[`${dropdownCls}-option-item`]: true}, {['checked']: this.isSelectAll()})}
+                    className={classNames({[`${dropdownCls}-option-item`]: true}, {['checked checked-icon']: this.isSelectAll()})}
                     onClick={this.selectAllOption}>
                     {selectAllText}
                   </li>
