@@ -1,13 +1,12 @@
-@import (reference) "../../../assets/css/index";
 
 .@{prefixClass} {
   &-time-spinner {
     &.has-seconds {
-      .fishd-time-spinner__wrapper {
+      .@{prefixClass}-time-spinner__wrapper {
         width: 33%;
       }
 
-      .fishd-time-spinner__wrapper:nth-child(2) {
+      .@{prefixClass}-time-spinner__wrapper:nth-child(2) {
         margin-left: 1%;
       }
     }
@@ -20,7 +19,7 @@
       vertical-align: top;
       position: relative;
 
-      & .fishd-scrollbar__wrap:not(.fishd-scrollbar__wrap--hidden-default) {
+      & .@{prefixClass}-scrollbar__wrap:not(.@{prefixClass}-scrollbar__wrap--hidden-default) {
         padding-bottom: 15px;
       }
     }

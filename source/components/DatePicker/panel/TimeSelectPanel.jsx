@@ -16,6 +16,7 @@ export default class TimeSelectPanel extends React.Component {
       minTime: PropTypes.string,
       maxTime: PropTypes.string,
       dateParser: PropTypes.func.isRequired,
+      prefixCls: PropTypes.string
     }
   }
 
@@ -27,6 +28,7 @@ export default class TimeSelectPanel extends React.Component {
       minTime: '',
       maxTime: '',
       onPicked() { },
+      prefixCls: 'fishd'
     }
   }
 
@@ -50,7 +52,7 @@ export default class TimeSelectPanel extends React.Component {
   }
 
   scrollToOption(className="selected") {
-    const menu = this.timeSelectRoot.querySelector('.fishd-picker-panel__content');
+    const menu = this.timeSelectRoot.querySelector(".fishd-picker-panel__content");
     const selected = menu.getElementsByClassName(className)[0];
     selected && scrollIntoView(selected, menu,  {
       offsetTop: 74,
@@ -70,13 +72,13 @@ export default class TimeSelectPanel extends React.Component {
   }
 
   render() {
-    const { value } = this.props;
+    const { value, prefixCls } = this.props;
 
     return (
       <div
         ref={node => this.timeSelectRoot = node}
-        className="fishd-picker-panel time-select">
-        <Scrollbar wrapClass="fishd-picker-panel__content" noresize={true}>
+        className={`${prefixCls}-picker-panel time-select`}>
+        <Scrollbar wrapClass={`${prefixCls}-picker-panel__content`} noresize={true}>
           {
             this.items().map((item, idx) => {
               return (

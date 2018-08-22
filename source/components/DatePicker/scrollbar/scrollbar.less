@@ -1,6 +1,6 @@
 @import (reference) "../../../assets/css/index";
-@prefixClass: ~'fishd';
-@scrollbar-hover-background-color: #f7f8fa;
+@prefixClass: @fishd-prefix;
+@scrollbar-hover-background-color: #F7F8FA;
 
 .@{prefixClass} {
   &-scrollbar {
@@ -10,7 +10,7 @@
     &:hover,
     &:active,
     &:focus {
-      .fishd-scrollbar__bar {
+      .@{prefixClass}-scrollbar__bar {
         opacity: 1;
         transition: opacity 340ms ease-out;
       }
