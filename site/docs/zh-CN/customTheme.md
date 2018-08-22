@@ -67,6 +67,6 @@ const fs  = require('fs');
 
 const lessToJs = require('less-vars-to-js');
 const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './custom-theme-vars.less'), 'utf8'));
-// lessToJs does not support @icon-url: "some-string", so we are manually adding it to the produced themeVariables js object here
-themeVariables["@icon-url"] = "'//localhost:8080/fonts/iconfont'";
+// lessToJs does not support @fishdicon-url: "some-string", so we are manually adding it to the produced themeVariables js object here
+themeVariables["@fishdicon-url"] = "'//localhost:8080/fonts/iconfont'";
 ```

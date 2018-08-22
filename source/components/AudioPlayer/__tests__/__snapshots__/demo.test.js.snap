@@ -7,7 +7,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
   >
     <div
       class="m-audio-player-wrap "
-      title="\\\\u8FD9\\\\u662F\\\\u4E00\\\\u4E2Ademo"
+      title="这是一个demo"
     >
       <div
         class="audio-box"
