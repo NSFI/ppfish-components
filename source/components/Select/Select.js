@@ -97,23 +97,23 @@ export default class Select extends React.Component {
 
   //获取所有option的[{label,key,title}]
   static getOptionFromChildren = (children, plainOptionList = [], filter) => {
-    React.Children.forEach(children, (c) => {
-      if (c.type.isSelectOption) {
+    React.Children.forEach(children, (child) => {
+      if (child && child.type && child.type.isSelectOption) {
         if (filter) {
-          filter(c) && plainOptionList.push({
-            label: c.props.children,
-            key: c.props.value || c.key,
-            title: c.props.title
+          filter(child) && plainOptionList.push({
+            label: child.props.children,
+            key: child.props.value || child.key,
+            title: child.props.title
           });
         } else {
           plainOptionList.push({
-            label: c.props.children,
-            key: c.props.value || c.key,
-            title: c.props.title
+            label: child.props.children,
+            key: child.props.value || child.key,
+            title: child.props.title
           });
         }
-      } else if (c.type.isSelectOptGroup) {
-        Select.getOptionFromChildren(c.props.children, plainOptionList, filter);
+      } else if (child && child.type && child.type.isSelectOptGroup) {
+        Select.getOptionFromChildren(child.props.children, plainOptionList, filter);
       } else {
         //  其余暂时不做处理
       }
@@ -334,14 +334,14 @@ export default class Select extends React.Component {
 
   //获取加料后的children
   getProcessedChildren = (children, dropdownCls) => {
-    return React.Children.map(children, (c) => {
-      const typeOfChildren = Object.prototype.toString.call(c).slice(8, -1).toLowerCase();
-      if (!!c && typeOfChildren === 'object' && c.type.isSelectOption) {
+    return React.Children.map(children, (child) => {
+      const typeOfChildren = Object.prototype.toString.call(child).slice(8, -1).toLowerCase();
+      if (!!child && typeOfChildren === 'object' && child.type.isSelectOption) {
         const {selectValue, activeKey} = this.state;
         const {showOptionCheckedIcon} = this.props;
-        const value = c.props.value || c.key;
+        const value = child.props.value || child.key;
         //对children中的Option 进行事件绑定、参数补充
-        return React.cloneElement(c, {
+        return React.cloneElement(child, {
           prefixCls: `${dropdownCls}-option`,
           checked: !!selectValue.find(obj => obj && obj.key === value),
           value: value,
@@ -351,15 +351,15 @@ export default class Select extends React.Component {
           onOptionMouseEnter: this.onOptionMouseEnter,
           onOptionMouseLeave: this.onOptionMouseLeave,
           ref: value,
-          children: this.getProcessedChildren(c.props.children, dropdownCls),
+          children: this.getProcessedChildren(child.props.children, dropdownCls),
         });
-      } else if (!!c && typeOfChildren === 'object' && c.type.isSelectOptGroup) {
-        return React.cloneElement(c, {
+      } else if (!!child && typeOfChildren === 'object' && child.type.isSelectOptGroup) {
+        return React.cloneElement(child, {
           prefixCls: `${dropdownCls}-option-group`,
-          children: this.getProcessedChildren(c.props.children, dropdownCls),
+          children: this.getProcessedChildren(child.props.children, dropdownCls),
         });
       } else {
-        return c;
+        return child;
       }
     });
   };
@@ -371,7 +371,7 @@ export default class Select extends React.Component {
     const typeOfOption = Object.prototype.toString.call(filterOption).slice(8, -1).toLowerCase();
     React.Children.forEach(children, child => {
       let filterFlag = false;
-      if (child.type.isSelectOption) {
+      if (child && child.type && child.type.isSelectOption) {
         if (typeOfOption === 'function') {
           filterFlag = filterOption(searchValue, child);
         } else if (typeOfOption === 'boolean') {
@@ -380,7 +380,7 @@ export default class Select extends React.Component {
         if (filterFlag) {
           ChildrenList.push(child);
         }
-      } else if (child.type.isSelectOptGroup) {
+      } else if (child && child.type && child.type.isSelectOptGroup) {
         const children = this.getFilteredChildren(child.props.children);
         ChildrenList.push(React.cloneElement(child, {
           children: children,
