@@ -598,12 +598,12 @@ render(){
 | maxScrollHeight | 列表滚动区高度 | number | 250 |
 | mode | 设置 Select 的模式 | 'multiple' \| 'single' | - |
 | notFoundContent | 当下拉列表为空时显示的内容 | string\|React.Element | '无匹配结果' |
-| onChange | 选中 option时，调用此函数 | function(value, option:Option/Array&lt;Option>) | - |
+| onChange | 选中 option时，调用此函数 | function(value) | - |
 | onMouseEnter | 鼠标移入时回调 | function | - |
 | onMouseLeave | 鼠标移出时回调 | function | - |
 | onPopupScroll | 下拉列表滚动时的回调 | function | - |
 | onSearch | 文本框值变化时回调 | function(value: string) |  |
-| onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | function(value, option:Option) | - |
+| onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | function(value) | - |
 | onVisibleChange | 弹出框显示隐藏 | function(visible: boolean) |  |
 | placeholder | 选择框默认文字 | string | '请选择' |
 | popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'| 'bottomLeft' |
