@@ -13,15 +13,16 @@
     return (
       <div className="demo-select">
         <Select style={{width: 300}}>
-          <Select.Option key={"1"}>{'选项1'}</Select.Option>
-          <Select.Option key={"2"}>{'选项2'}</Select.Option>
-          <Select.Option key={"3"}>{'选项3'}</Select.Option>
+          <Select.Option value={0}>{'选项0'}</Select.Option>
+          <Select.Option value={1}>{'选项1'}</Select.Option>
+          <Select.Option value={2}>{'选项2'}</Select.Option>
+          <Select.Option value={3}>{'选项3'}</Select.Option>
         </Select>
         <br/>
         <Select showSingleClear style={{width: 300}}>
-          <Select.Option key={"1"}>{'选项1'}</Select.Option>
-          <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
-          <Select.Option key={"3"}>{'选项3'}</Select.Option>
+          <Select.Option value={1}>{'选项1'}</Select.Option>
+          <Select.Option value={2} disabled>{'选项2'}</Select.Option>
+          <Select.Option value={3}>{'选项3'}</Select.Option>
         </Select>
         <br/>
         <Select disabled style={{width: 300}}></Select>
@@ -39,15 +40,11 @@
     return (
       <div className="demo-select">
         <Select mode={'multiple'} errorMessage={'最多仅能选择3项'} labelClear maxCount={3} style={{width: 300, margin: 10}} showSelectAll>
-          <Select.Option key={"1"}>{'选项1'}</Select.Option>
-          <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
-          <Select.Option key={"3"}>{'选项3'}</Select.Option>
-          <Select.Option key={"4"}>{'比较长的选项比较长的选项-选项4'}</Select.Option>
-          <Select.Option key={"5"}>{'选项5'}</Select.Option>
-          <Select.Option key={"6"}>{'选项6'}</Select.Option>
-          <Select.Option key={"7"}>{'选项7'}</Select.Option>
-          <Select.Option key={"8"}>{'选项8'}</Select.Option>
-          <Select.Option key={"9"}>{'比较长的选项比较长的选项比较长的选项-选项9'}</Select.Option>
+          <Select.Option value={"1"}>{'选项1'}</Select.Option>
+          <Select.Option value={"2"} disabled>{'选项2'}</Select.Option>
+          <Select.Option value={"3"}>{'选项3'}</Select.Option>
+          <Select.Option value={"4"}>{'比较长的选项比较长的选项-选项4'}</Select.Option>
+          <Select.Option value={"5"}>{'选项5'}</Select.Option>
         </Select>
       </div>
     )
@@ -67,9 +64,9 @@
           额外的任意内容<Icon type="demo-play"/>
           </div>
         }>
-          <Select.Option key={"1"}>{'选项1'}</Select.Option>
-          <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
-          <Select.Option key={"3"}>{'选项3'}</Select.Option>
+          <Select.Option value={"1"}>{'选项1'}</Select.Option>
+          <Select.Option value={"2"}>{'选项2'}</Select.Option>
+          <Select.Option value={"3"}>{'选项3'}</Select.Option>
         </Select>
       </div>
     );
@@ -101,25 +98,25 @@
         </Radio.Group>
         <br/>
         <Select showSingleClear size={size} style={{width: 300, margin: 10}}>
-          <Select.Option key={"1"}>{'选项1'}</Select.Option>
-          <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
-          <Select.Option key={"3"}>{'选项3'}</Select.Option>
+          <Select.Option value={"1"}>{'选项1'}</Select.Option>
+          <Select.Option value={"2"} disabled>{'选项2'}</Select.Option>
+          <Select.Option value={"3"}>{'选项3'}</Select.Option>
         </Select>
         <Select size={size} mode={'multiple'} style={{width: 300, margin: 10}}>
-          <Select.Option key={"1"}>{'选项1'}</Select.Option>
-          <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
-          <Select.Option key={"3"}>{'选项3'}</Select.Option>
+          <Select.Option value={"1"}>{'选项1'}</Select.Option>
+          <Select.Option value={"2"} disabled>{'选项2'}</Select.Option>
+          <Select.Option value={"3"}>{'选项3'}</Select.Option>
         </Select>
         <Select size={size} mode={'multiple'} labelClear style={{width: 300, margin: 10}} showSelectAll>
-          <Select.Option key={"1"}>{'选项1'}</Select.Option>
-          <Select.Option key={"2"} disabled>{'选项2'}</Select.Option>
-          <Select.Option key={"3"}>{'选项3'}</Select.Option>
-          <Select.Option key={"4"}>{'比较长的选项比较长的选项-选项4'}</Select.Option>
-          <Select.Option key={"5"}>{'选项5'}</Select.Option>
-          <Select.Option key={"6"}>{'选项6'}</Select.Option>
-          <Select.Option key={"7"}>{'选项7'}</Select.Option>
-          <Select.Option key={"8"}>{'选项8'}</Select.Option>
-          <Select.Option key={"9"}>{'比较长的选项比较长的选项比较长的选项-选项9'}</Select.Option>
+          <Select.Option value={"1"}>{'选项1'}</Select.Option>
+          <Select.Option value={"2"} disabled>{'选项2'}</Select.Option>
+          <Select.Option value={"3"}>{'选项3'}</Select.Option>
+          <Select.Option value={"4"}>{'比较长的选项比较长的选项-选项4'}</Select.Option>
+          <Select.Option value={"5"}>{'选项5'}</Select.Option>
+          <Select.Option value={"6"}>{'选项6'}</Select.Option>
+          <Select.Option value={"7"}>{'选项7'}</Select.Option>
+          <Select.Option value={"8"}>{'选项8'}</Select.Option>
+          <Select.Option value={"9"}>{'比较长的选项比较长的选项比较长的选项-选项9'}</Select.Option>
         </Select>
         <br/>
       </div>

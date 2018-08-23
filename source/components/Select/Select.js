@@ -99,18 +99,15 @@ export default class Select extends React.Component {
   static getOptionFromChildren = (children, plainOptionList = [], filter) => {
     React.Children.forEach(children, (child) => {
       if (child && child.type && child.type.isSelectOption) {
+        const selectOption = {
+          label: child.props.children,
+          key: 'value' in child.props ? child.props.value : child.key,
+          title: child.props.title
+        };
         if (filter) {
-          filter(child) && plainOptionList.push({
-            label: child.props.children,
-            key: child.props.value || child.key,
-            title: child.props.title
-          });
+          filter(child) && plainOptionList.push(selectOption);
         } else {
-          plainOptionList.push({
-            label: child.props.children,
-            key: child.props.value || child.key,
-            title: child.props.title
-          });
+          plainOptionList.push(selectOption);
         }
       } else if (child && child.type && child.type.isSelectOptGroup) {
         Select.getOptionFromChildren(child.props.children, plainOptionList, filter);
@@ -170,7 +167,13 @@ export default class Select extends React.Component {
   constructor(props) {
     super(props);
     const {value, defaultValue, labelInValue, children} = this.props;
-    const initialSelectValue = Select.getValueFromProps(value || defaultValue || [], labelInValue, children);
+    let initialValue = [];
+    if ('value' in this.props) {
+      initialValue = value;
+    } else if ('defaultValue' in this.props) {
+      initialValue = defaultValue;
+    }
+    const initialSelectValue = Select.getValueFromProps(initialValue, labelInValue, children);
     this.state = {
       searchValue: '',
       selectValue: initialSelectValue,
@@ -339,7 +342,7 @@ export default class Select extends React.Component {
       if (!!child && typeOfChildren === 'object' && child.type.isSelectOption) {
         const {selectValue, activeKey} = this.state;
         const {showOptionCheckedIcon} = this.props;
-        const value = child.props.value || child.key;
+        const value = 'value' in child.props ? child.props.value : child.key;
         //对children中的Option 进行事件绑定、参数补充
         return React.cloneElement(child, {
           prefixCls: `${dropdownCls}-option`,
