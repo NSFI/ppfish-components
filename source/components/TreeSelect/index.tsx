@@ -61,10 +61,12 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
       treeCheckable,
       ...restProps
     } = this.props;
+    const isEditableMul = (restProps.multiple || treeCheckable) && restProps.editable;
 
     const cls = classNames({
       [`${prefixCls}-ctner`]: true,
-      [`${prefixCls}-scroll`]: (restProps.multiple || treeCheckable) && restProps.editable,
+      [`${prefixCls}-scroll`]: isEditableMul,
+      [`${prefixCls}-singleline`]: !isEditableMul,
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-sm`]: size === 'small',
     }, className);
