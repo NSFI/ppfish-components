@@ -4,8 +4,6 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { parseDir } from './tools/helps';
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 const demoPath = './site/docs/demoPage/';
 const getHtmlWebpackPlugin = () => {
   const demoNameArr = [];
@@ -40,7 +38,7 @@ const getDemoEntries = () => {
 };
 
 export default {
-  mode: isProduction ? 'production' : 'development',
+  mode: 'development',
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
   // and https://webpack.github.io/docs/configuration.html#devtool
   devtool: 'cheap-module-source-map',

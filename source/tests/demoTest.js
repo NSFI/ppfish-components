@@ -29,17 +29,12 @@ export default function demoTest(compName, options = {}) {
   let testMethod = options.skip === true ? test.skip : test;
 
   const menuItem = plainComponentList.find(item => item.key === demoName);
-  if (menuItem && menuItem.value.type === 'markdown') {
-    testMethod(`Renders ${compName} demo correctly`, () => {
-      const Container = getDemoContainer(demoName);
+  testMethod(`Renders ${compName} demo correctly`, () => {
+    const Container = getDemoContainer(demoName);
 
-      expect(Container).not.toBeNull();
-      const wrapper = render(<Container />);
+    expect(Container).not.toBeNull();
+    const wrapper = render(<Container />);
 
-      expect(wrapper).toMatchSnapshot();
-    });
-
-  } else {
-    xit('skip', () => {});
-  }
+    expect(wrapper).toMatchSnapshot();
+  });
 }

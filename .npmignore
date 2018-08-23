@@ -1,0 +1,17 @@
+coverage
+dist
+libs
+site
+source
+tools
+.babelrc
+.editorconfig
+.eslintignore
+.eslintrc
+.stylelintrc
+jest.config.js
+postcss.config.js
+tsconfig.json
+webpack.config.dev.site.js
+webpack.config.prod.components.js
+webpack.config.prod.site.js

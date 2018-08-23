@@ -5,8 +5,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import { parseDir } from './tools/helps';
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 // const demoPath = './site/docs/demoPage/';
 // const getHtmlWebpackPlugin = () => {
 //   const demoNameArr = [];
@@ -41,7 +39,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 // };
 
 module.exports = {
-  mode: isProduction ? 'production' : 'development',
+  mode: 'production',
   optimization: {
     minimizer: [
       new UglifyJsPlugin({

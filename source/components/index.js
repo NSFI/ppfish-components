@@ -51,20 +51,9 @@ export { default as Transfer } from './Transfer/index.tsx';
 export { default as TreeSelect } from './TreeSelect/index.tsx';
 export { default as Upload } from './Upload/index.tsx';
 export { default as VideoViewer } from './VideoViewer';
-export { default as Echart } from './EChart';
-
-//<!--utils相关
-import * as bom from '../utils/bom';
-import * as dom from '../utils/dom';
-import * as number from '../utils/number';
-import * as other from '../utils/other';
-import * as upload from '../utils/upload';
-import { iframeC } from '../utils/iframeC';
-//-->utils相关
+export { default as Echart,  } from './EChart';
 
 // 确保暴露给外部的接口稳定：
 // import {util} from 'ppfish';
 // util.dom.getSiblings(e);
-export const util = {
-  bom, dom, number, other, upload, iframeC
-};
+export { default as util } from '../utils/api.js';

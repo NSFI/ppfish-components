@@ -2,20 +2,26 @@ import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import components from './components.json';
 
-const isProduction = process.env.NODE_ENV === 'production';
-// 压缩混淆代码开关
-const minimize = true;
+const externals = {
+  'prop-types': 'prop-types',
+  'react': 'react',
+  'react-dom': 'react-dom'
+};
+Object.keys(components).forEach(function(key) {
+  externals[`ppfish/source/components/${key}`] = `ppfish/lib/${key}`;
+});
 const lessStyle = new ExtractTextPlugin({
-  filename: minimize ? 'ppfish.min.css' : 'ppfish.css',
+  filename: '[name].css',
   allChunks: true
 });
 
 // more info: https://github.com/isaacs/node-glob
 export default {
-  mode: isProduction ? 'production' : 'development',
+  mode: 'production',
   optimization: {
-    minimizer: minimize ? [
+    minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
           compress: {
@@ -23,22 +29,26 @@ export default {
           }
         }
       })
-    ] : []
+    ],
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   // 输出 Source Map
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
   // and https://webpack.github.io/docs/configuration.html#devtool
   devtool: 'source-map',
   entry: {
-    ppfish: path.join(__dirname, 'source/components'),
+    ...components,
+    util: './source/utils/api.js',
+    index: './source/components/index.js'
   },
   target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
   output: {
-    // 输出的代码符合 CommonJS 模块化规范，以供给其它模块导入使用。
     libraryTarget: 'commonjs2',
     path: `${__dirname}/lib`,
-    // 输出文件的名称
-    filename: 'index.js',
+    filename: '[name].js',
+    chunkFilename: '[id].js',
   },
   plugins: [
     lessStyle,
@@ -46,6 +56,7 @@ export default {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
+  externals: externals,
   module: {
     rules: [
       {
@@ -105,17 +116,17 @@ export default {
           use: [{
             loader: 'css-loader',
             options: {
-              minimize: minimize
+              minimize: true
             }
           }, {
             loader: 'postcss-loader',
             options: {
-              minimize: minimize
+              minimize: true
             }
           }, {
             loader: 'less-loader',
             options: {
-              minimize: minimize
+              minimize: true
             }
           }],
           fallback: 'style-loader'

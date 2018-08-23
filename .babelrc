@@ -4,8 +4,6 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "add-module-exports",
-
     "@babel/plugin-proposal-export-default-from",
     "@babel/plugin-proposal-logical-assignment-operators",
     ["@babel/plugin-proposal-optional-chaining", { "loose": false }],

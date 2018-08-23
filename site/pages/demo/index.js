@@ -12,7 +12,7 @@ export default Loadable({
     if (menuItem || !props.params.demo) {
       //import react/demo
       if (menuItem && menuItem.value.type === 'react') {
-        const Demo = menuItem.value.component;
+        const Demo = menuItem.value.component.default;
         return <Demo {...props}/>;
       } else {
         class Demo extends Markdown {
