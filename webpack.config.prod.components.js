@@ -25,18 +25,20 @@ export default {
       })
     ] : []
   },
+  // 输出 Source Map
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
   // and https://webpack.github.io/docs/configuration.html#devtool
-  devtool: false,
+  devtool: 'source-map',
   entry: {
     ppfish: path.join(__dirname, 'source/components'),
   },
   target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
   output: {
-    path: `${__dirname}/dist/static`,
-    publicPath: '/static/',
-    filename: minimize ? '[name].min.js' : '[name].js',
-    chunkFilename: minimize ? '[name].min.js' : '[name].js',
+    // 输出的代码符合 CommonJS 模块化规范，以供给其它模块导入使用。
+    libraryTarget: 'commonjs2',
+    path: `${__dirname}/lib`,
+    // 输出文件的名称
+    filename: 'index.js',
   },
   plugins: [
     lessStyle,

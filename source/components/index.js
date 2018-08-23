@@ -62,11 +62,9 @@ import * as upload from '../utils/upload';
 import { iframeC } from '../utils/iframeC';
 //-->utils相关
 
-export {
-  bom,
-  dom,
-  number,
-  other,
-  upload,
-  iframeC
+// 确保暴露给外部的接口稳定：
+// import {util} from 'ppfish';
+// util.dom.getSiblings(e);
+export const util = {
+  bom, dom, number, other, upload, iframeC
 };

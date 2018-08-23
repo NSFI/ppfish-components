@@ -17,8 +17,9 @@
 3. 使用npm version命令管理版本号，而不是手动修改版本号。
 当然如果你非常清楚[semantic version](https://docs.npmjs.com/misc/semver)，使用类似`0.5.0-alpha.1`也OK
 4. 根据当前要发布的版本状态，使用npm publish 或 npm publish --tag beta 发布正式版或beta版本
+5. cnpm每隔10分钟同步一次，着急使用可以移步[TAONPM](https://npm.taobao.org/package/ppfish)点击SNYC链接手动同步。
 
-```bash
+```bash****
 #查看tags
 npm view ppfish dist-tags
 
