@@ -156,13 +156,13 @@ export default class BasePicker extends React.Component {
   }
 
   getFormat() {
-    return this.props.format || DEFAULT_FORMATS[this.type]
+    return this.props.format || DEFAULT_FORMATS[this.type];
   }
 
   togglePickerVisible() {
     this.setState({
       pickerVisible: !this.state.pickerVisible
-    })
+    });
   }
 
   // 聚焦
@@ -237,7 +237,7 @@ export default class BasePicker extends React.Component {
     },() => {
       this.checkDateValid(visible);
       this.props.onOpenChange(visible);
-    })
+    });
   }
 
   render() {
@@ -256,7 +256,7 @@ export default class BasePicker extends React.Component {
 
     const triggerClass = () => {
       return this.type.includes('time') ? 'time-line' : 'date-line';
-    }
+    };
 
     const calcIsShowTrigger = () => {
       if (isShowTrigger != null) {
@@ -264,7 +264,7 @@ export default class BasePicker extends React.Component {
       } else {
         return haveTriggerType(this.type);
       }
-    }
+    };
 
     // 前缀图标
     const prefixIcon = () => {
@@ -274,7 +274,7 @@ export default class BasePicker extends React.Component {
             className="prefix-iconfont"
             type={triggerClass()}
           />
-        )
+        );
       }else{
         return null;
       }
@@ -289,7 +289,7 @@ export default class BasePicker extends React.Component {
             type="close-circle-fill"
             onClick={this.handleClickCloseIcon}
           />
-        )
+        );
       }else{
         return null;
       }
@@ -330,12 +330,12 @@ export default class BasePicker extends React.Component {
             if (!isInputValid(inputValue, ndate)) {
               this.setState({
                 text: inputValue
-              })
+              });
             } else {//only set value on a valid date input
               this.setState({
                 text: inputValue,
                 value: ndate
-              })
+              });
             }
           }}
           ref="inputRoot"
@@ -344,7 +344,7 @@ export default class BasePicker extends React.Component {
           suffix={suffixIcon()}
         />
         </span>
-      )
+      );
     };
 
     return (
@@ -362,7 +362,7 @@ export default class BasePicker extends React.Component {
       >
         {getInputPanel()}
       </Trigger>
-    )
+    );
   }
 }
 
