@@ -64,7 +64,9 @@
     line-height: @select-line-height-base;
     margin-bottom: -@select-line-height-base;
     .clearfix;
-    //fix  vertical-align在inline-block下的底线判断基准
+    //fix:vertical-align在inline-block下的基线判断基准
+    // 一个 inline-block 元素，如果里面没有内联元素，或者 overflow 不是 visible， 则该元素的基线就是其 margin 底边缘;
+    // 否则其基线就是元素里面最后一行内联元素的基线
     &:after {
       content: '';
       visibility: hidden;
