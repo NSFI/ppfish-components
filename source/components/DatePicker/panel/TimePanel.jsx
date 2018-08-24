@@ -156,7 +156,7 @@ export default class TimePanel extends React.Component {
                   type="button"
                   disabled={currentButtonDisabled}
                   className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : currentButtonDisabled})}
-                  onClick={this.handleCurrent}>{$t('fishd.datepicker.now')}
+                  onClick={this.handleCurrent}>{$t('datepicker.now')}
                 </button>
                 :
                 null
@@ -166,13 +166,13 @@ export default class TimePanel extends React.Component {
             <button
               type="button"
               className={`${prefixCls}-time-panel__btn cancel`}
-              onClick={this.handleCancel}>{$t('fishd.datepicker.cancel')}
+              onClick={this.handleCancel}>{$t('datepicker.cancel')}
             </button>
             <button
               type="button"
               disabled={confirmButtonDisabled}
               className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : confirmButtonDisabled})}
-              onClick={() => this.handleConfirm(false, true)}>{$t('fishd.datepicker.confirm')}
+              onClick={() => this.handleConfirm(false, true)}>{$t('datepicker.confirm')}
             </button>
           </div>
         </div>

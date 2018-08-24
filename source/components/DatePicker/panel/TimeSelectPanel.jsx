@@ -67,7 +67,7 @@ export default class TimeSelectPanel extends React.Component {
   componentWillReceiveProps(nextProps) {
     clearTimeout(this._timer);
     if (nextProps.value !== this.props.value) {
-      this._timer = setTimeout(() => this.scrollToOption(), 0)
+      this._timer = setTimeout(() => this.scrollToOption(), 0);
     }
   }
 

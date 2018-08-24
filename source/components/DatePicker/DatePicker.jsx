@@ -28,7 +28,7 @@ export default class DatePicker extends BasePicker {
   }
 
   static get defaultProps() {
-    return Object.assign({}, BasePicker.defaultProps)
+    return Object.assign({}, BasePicker.defaultProps);
   }
 
   constructor(props) {
@@ -41,7 +41,7 @@ export default class DatePicker extends BasePicker {
       case SELECTION_MODES.WEEK:
         type = 'week'; break;
     }
-    super(props, type, {})
+    super(props, type, {});
   }
 
   isDateValid(value) {
@@ -57,6 +57,6 @@ export default class DatePicker extends BasePicker {
         onPick={this.onPicked}
         onCancelPicked={this.onCancelPicked}
       />
-    )
+    );
   }
 }

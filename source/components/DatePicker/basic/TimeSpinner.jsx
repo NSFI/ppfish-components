@@ -128,13 +128,13 @@ export default class TimeSpinner extends React.Component {
 
   _ajustScrollTop({ hours, minutes, seconds }) {
     if (hours != null) {
-      this.refs.hours.refs.wrap.scrollTop = calcScrollTop(hours)
+      this.refs.hours.refs.wrap.scrollTop = calcScrollTop(hours);
     }
     if (minutes != null) {
-      this.refs.minutes.refs.wrap.scrollTop = calcScrollTop(minutes)
+      this.refs.minutes.refs.wrap.scrollTop = calcScrollTop(minutes);
     }
     if (this.props.isShowSeconds && seconds != null) {
-      this.refs.seconds.refs.wrap.scrollTop = calcScrollTop(seconds)
+      this.refs.seconds.refs.wrap.scrollTop = calcScrollTop(seconds);
     }
   }
 

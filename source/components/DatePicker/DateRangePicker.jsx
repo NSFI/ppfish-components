@@ -29,7 +29,7 @@ export default class DateRangePicker extends DateRangeBasePicker {
   }
 
   static get defaultProps() {
-    return Object.assign({}, DateRangeBasePicker.defaultProps)
+    return Object.assign({}, DateRangeBasePicker.defaultProps);
   }
 
   constructor(props) {
@@ -54,6 +54,6 @@ export default class DateRangePicker extends DateRangeBasePicker {
         onCancelPicked={this.onCancelPicked}
         dateToStr={this.dateToStr}
       />
-    )
+    );
   }
 }

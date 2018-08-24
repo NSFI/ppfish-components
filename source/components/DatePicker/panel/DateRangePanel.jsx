@@ -408,7 +408,7 @@ export default class DateRangePanel extends React.Component {
                   <span className={`${prefixCls}-date-range-picker__editors-wrap is-left`}>
                     <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <Input
-                        placeholder={Locale.t('fishd.datepicker.startDate')}
+                        placeholder={Locale.t('datepicker.startDate')}
                         className={`${prefixCls}-date-range-picker__editor`}
                         value={minDateInputText}
                         onChange={value => this.handleDateInputChange(value, 'min')}
@@ -418,7 +418,7 @@ export default class DateRangePanel extends React.Component {
                     <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <TimePicker
                         className={`${prefixCls}-date-range-picker__editor`}
-                        placeholder={Locale.t('fishd.datepicker.startTime')}
+                        placeholder={Locale.t('datepicker.startTime')}
                         format={timeFormat(format)}
                         getPopupContainer={(node) => node.parentNode}
                         isShowTrigger={false}
@@ -434,7 +434,7 @@ export default class DateRangePanel extends React.Component {
                   <span className={`${prefixCls}-date-range-picker__editors-wrap is-right`}>
                     <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <Input
-                        placeholder={Locale.t('fishd.datepicker.endDate')}
+                        placeholder={Locale.t('datepicker.endDate')}
                         className={`${prefixCls}-date-range-picker__editor`}
                         value={maxDateInputText}
                         readOnly={!minDate}
@@ -445,7 +445,7 @@ export default class DateRangePanel extends React.Component {
                     <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
                       <TimePicker
                         className={`${prefixCls}-date-range-picker__editor`}
-                        placeholder={Locale.t('fishd.datepicker.endTime')}
+                        placeholder={Locale.t('datepicker.endTime')}
                         format={timeFormat(format)}
                         getPopupContainer={(node) => node.parentNode}
                         isShowTrigger={false}
@@ -478,14 +478,14 @@ export default class DateRangePanel extends React.Component {
                   sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${leftDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${leftDate.getFullYear()} ${t('datepicker.year')}`}</span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={leftDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`fishd.datepicker.month${leftDate.getMonth() + 1}`)}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`datepicker.month${leftDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
@@ -528,14 +528,14 @@ export default class DateRangePanel extends React.Component {
                   sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${rightDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${rightDate.getFullYear()} ${t('datepicker.year')}`}</span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={rightDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`fishd.datepicker.month${rightDate.getMonth() + 1}`)}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`datepicker.month${rightDate.getMonth() + 1}`)}</span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
@@ -577,13 +577,13 @@ export default class DateRangePanel extends React.Component {
             <div className={`${prefixCls}-picker-panel__footer`}>
               <Button
                 className={`${prefixCls}-picker-panel__btn cancel`}
-                onClick={this.handleCancel}>{ Locale.t('fishd.datepicker.cancel') }
+                onClick={this.handleCancel}>{ Locale.t('datepicker.cancel') }
               </Button>
               <Button
                 type="primary"
                 className={classNames(`${prefixCls}-picker-panel__btn confirm`, {'disabled': this.confirmBtnDisabled()})}
                 onClick={this.handleConfirm}
-                disabled={this.confirmBtnDisabled()}>{ Locale.t('fishd.datepicker.confirm') }
+                disabled={this.confirmBtnDisabled()}>{ Locale.t('datepicker.confirm') }
               </Button>
             </div>
           )

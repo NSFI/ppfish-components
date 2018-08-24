@@ -109,7 +109,7 @@ export default class TransferList extends React.Component<TransferListProps, any
     // https://github.com/ant-design/ant-design/issues/5631
     this.triggerScrollTimer = window.setTimeout(() => {
       const transferNode = ReactDOM.findDOMNode(this) as Element;
-      const listNode = transferNode.querySelectorAll('.ant-transfer-list-content')[0];
+      const listNode = transferNode.querySelectorAll('.fishd-transfer-list-content')[0];
       if (listNode) {
         triggerEvent(listNode, 'scroll');
       }

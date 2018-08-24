@@ -11,7 +11,7 @@ import { isValidValue } from '../../utils/date';
 import placements from './placements';
 
 const haveTriggerType = (type) => {
-  return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
+  return HAVE_TRIGGER_TYPES.indexOf(type) !== -1;
 };
 const isInputValid = (text, date) => {
   if(text.trim() === '' || !isValidValue(date)) return false;

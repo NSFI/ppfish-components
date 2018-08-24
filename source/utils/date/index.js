@@ -41,14 +41,6 @@ export const YEARS_ARRAY = (N=50) => {
   return result;
 };
 
-const newArray = function (start, end) {
-  let result = [];
-  for (let i = start; i <= end; i++) {
-    result.push(i);
-  }
-  return result;
-};
-
 // 判断两个日期是否相等
 export const equalDate = function (dateA, dateB) {
   return dateA === dateB || new Date(dateA).getTime() === new Date(dateB).getTime();
@@ -59,7 +51,7 @@ export const equalYearAndMonth = function (dateA, dateB) {
   return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth();
 };
 
-// 判断两个日期差
+// 判断两个日期差(天)
 export const diffDate = (dateA, dateB) => {
   const time = dateB.getTime() - dateA.getTime();
   const days = parseInt(time / (1000 * 60 * 60 * 24));
@@ -234,6 +226,13 @@ export const nextMonth = function (src) {
 };
 
 export const getRangeHours = function (ranges) {
+  const newArray = function (start, end) {
+    let result = [];
+    for (let i = start; i <= end; i++) {
+      result.push(i);
+    }
+    return result;
+  };
   const hours = [];
   let disabledHours = [];
 
@@ -316,23 +315,3 @@ export function deconstructDate(date) {
     week: getWeekNumber(date)
   };
 }
-
-// only considers date-picker's value: Date or [Date, Date]
-export const valueEquals = function (a, b) {
-  const aIsArray = Array.isArray(a);
-  const bIsArray = Array.isArray(b);
-
-  let isEqual = (a, b)=>{ // equal if a, b date is equal or both is null or undefined
-    let equal = false;
-    if (a && b) equal = a.getTime() === b.getTime();
-    else equal = a === b && a == null;
-    return equal;
-  };
-  if (aIsArray && bIsArray) {
-    return isEqual(a[0], b[0]) && isEqual(a[1], b[1]);
-  }
-  if (!aIsArray && !bIsArray) {
-    return isEqual(a, b);
-  }
-  return false;
-};

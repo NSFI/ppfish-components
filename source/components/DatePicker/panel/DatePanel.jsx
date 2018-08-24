@@ -6,7 +6,7 @@ import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import TimePicker from '../TimePicker.jsx';
-import { DateTable, MonthTable, YearTable } from '../basic';
+import { DateTable } from '../basic';
 import {
   SELECTION_MODES,
   deconstructDate,
@@ -110,7 +110,7 @@ export default class DatePanel extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps))
+    this.setState(this.propsToState(nextProps));
   }
 
   // 年份、月份面板先注释掉，需要时再打开
@@ -151,7 +151,7 @@ export default class DatePanel extends React.Component {
       //   />);
       //   break;
       default:
-        throw new Error('invalid currentView value')
+        throw new Error('invalid currentView value');
     }
 
     return result;
@@ -337,7 +337,7 @@ export default class DatePanel extends React.Component {
                 <div className={`${prefixCls}-date-picker__time-header`}>
                   <span className={`${prefixCls}-date-picker__editor-wrap`}>
                     <Input
-                      placeholder={t('fishd.datepicker.selectDate')}
+                      placeholder={t('datepicker.selectDate')}
                       value={dateInputText}
                       onChange={this.handleDateInputChange}
                       onBlur={this.handleDateInputBlur}
@@ -346,7 +346,7 @@ export default class DatePanel extends React.Component {
                   <span className={`${prefixCls}-date-picker__editor-wrap`}>
                     <TimePicker
                       className={`${prefixCls}-date-picker-time__editor`}
-                      placeholder={t('fishd.datepicker.selectTime')}
+                      placeholder={t('datepicker.selectTime')}
                       format={timeFormat(format)}
                       getPopupContainer={(node) => node.parentNode}
                       isShowTrigger={false}
@@ -383,7 +383,7 @@ export default class DatePanel extends React.Component {
                     sourceData={YEARS_ARRAY(yearCount)}
                     onChange={this.handleChangeYear}
                   >
-                    <span className={`${prefixCls}-date-picker__header-label`}>{`${currentDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
+                    <span className={`${prefixCls}-date-picker__header-label`}>{`${currentDate.getFullYear()} ${t('datepicker.year')}`}</span>
                   </YearAndMonthPopover>
                   {
                     currentView === PICKER_VIEWS.DATE && (
@@ -398,7 +398,7 @@ export default class DatePanel extends React.Component {
                               active: currentView === 'month'
                             })
                           }
-                        >{t(`fishd.datepicker.month${month + 1}`)}</span>
+                        >{t(`datepicker.month${month + 1}`)}</span>
                       </YearAndMonthPopover>
                     )
                   }
@@ -440,13 +440,13 @@ export default class DatePanel extends React.Component {
             >
               <Button
                 className={`${prefixCls}-picker-panel__btn cancel`}
-                onClick={this.handleCancel}>{t('fishd.datepicker.cancel')}
+                onClick={this.handleCancel}>{t('datepicker.cancel')}
               </Button>
               <Button
                 type="primary"
                 className={`${prefixCls}-picker-panel__btn confirm`}
                 onClick={this.handleConfirm}
-                disabled={this.confirmBtnDisabled()}>{t('fishd.datepicker.confirm')}
+                disabled={this.confirmBtnDisabled()}>{t('datepicker.confirm')}
               </Button>
             </div>
           )
