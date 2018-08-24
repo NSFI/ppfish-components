@@ -40,7 +40,7 @@ export default class DateRangeBasePicker extends React.Component {
       onChange: PropTypes.func,
       onOpenChange: PropTypes.func,
       style: PropTypes.object
-    }
+    };
   }
 
   static get defaultProps() {
@@ -58,7 +58,7 @@ export default class DateRangeBasePicker extends React.Component {
       onBlur: () =>{},
       onChange: () => {},
       onOpenChange: () => {}
-    }
+    };
   }
 
   constructor(props, _type, state) {
@@ -161,7 +161,7 @@ export default class DateRangeBasePicker extends React.Component {
   togglePickerVisible() {
     this.setState({
       pickerVisible: !this.state.pickerVisible
-    })
+    });
   }
 
   // 聚焦

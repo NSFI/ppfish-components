@@ -67,7 +67,7 @@ export default class DatePanel extends React.Component {
       ]),
       defaultTimeValue: PropTypes.instanceOf(Date),
       prefixCls: PropTypes.string
-    }
+    };
   }
 
   static get defaultProps() {
@@ -81,7 +81,7 @@ export default class DatePanel extends React.Component {
       isShowTimeCurrent: false,
       defaultTimeValue: null,
       prefixCls: 'fishd'
-    }
+    };
   }
 
   constructor(props) {
@@ -178,7 +178,7 @@ export default class DatePanel extends React.Component {
     if (!isInputValid(inputText, ndate, disabledDate)) {
       this.setState({
         dateInputText: inputText,
-      })
+      });
     }else{//only set value on a valid date input
       this.setState({
         dateInputText: inputText,
@@ -193,7 +193,7 @@ export default class DatePanel extends React.Component {
     const {date} = this.state;
     this.setState({
       dateInputText: formatDate(date, dateFormat(this.props.format))
-    })
+    });
   }
 
   // 时间输入框变化
@@ -201,7 +201,7 @@ export default class DatePanel extends React.Component {
     if (val) {
       this.setState({
         time: new Date(val),
-      })
+      });
     }
   }
 
@@ -243,7 +243,7 @@ export default class DatePanel extends React.Component {
     const { currentDate } = this.state;
     this.setState({
       currentDate: new Date(new Date(currentDate).setFullYear(year)),
-    })
+    });
   }
 
   // 切换月份
@@ -251,7 +251,7 @@ export default class DatePanel extends React.Component {
     const { currentDate } = this.state;
     this.setState({
       currentDate: new Date((new Date(currentDate).setMonth(parseInt(month.slice(0,-1)) - 1)))
-    })
+    });
   }
 
   // 点击日期
@@ -261,15 +261,15 @@ export default class DatePanel extends React.Component {
 
     if (selectionMode === SELECTION_MODES.DAY) {
       if (!isShowTime) {
-        onPick(pdate)
+        onPick(pdate);
       }
       this.setState({
         date: new Date(pdate),
         dateInputText: formatDate(pdate, dateFormat(format)), // 点击日期，左侧日期输入框的值同步变化
         currentDate: pdate
-      })
+      });
     } else if (selectionMode === SELECTION_MODES.WEEK) {
-      onPick(pdate)
+      onPick(pdate);
     }
   }
 
@@ -325,7 +325,7 @@ export default class DatePanel extends React.Component {
                         type="button"
                         className={`${prefixCls}-picker-panel__shortcut`}
                         onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
-                    )
+                    );
                   })
                 }
               </div>
@@ -452,10 +452,10 @@ export default class DatePanel extends React.Component {
           )
         }
       </div>
-    )
+    );
   }
 }
 
 DatePanel.isValid = (value, disabledDate) => {
   return typeof disabledDate === 'function' && (value instanceof Date) ? !disabledDate(value) : true;
-}
+};

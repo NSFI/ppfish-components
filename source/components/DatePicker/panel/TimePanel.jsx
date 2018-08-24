@@ -19,7 +19,7 @@ export default class TimePanel extends React.Component {
       renderExtraFooter: PropTypes.func,
       onValueChange: PropTypes.func,
       prefixCls: PropTypes.string
-    }
+    };
   }
 
   static get defaultProps() {
@@ -27,16 +27,16 @@ export default class TimePanel extends React.Component {
       isShowCurrent: false,
       onValueChange: ()=>{},
       prefixCls: 'fishd'
-    }
+    };
   }
 
   constructor(props) {
     super(props);
-    this.state = this.mapPropsToState(props)
+    this.state = this.mapPropsToState(props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.mapPropsToState(nextProps))
+    this.setState(this.mapPropsToState(nextProps));
   }
 
   mapPropsToState = (props) => {
@@ -183,4 +183,4 @@ export default class TimePanel extends React.Component {
 
 TimePanel.isValid = (value, selectableRange) => {
   return value == null || isLimitRange(value, selectableRange, 'HH:mm:ss');
-}
+};

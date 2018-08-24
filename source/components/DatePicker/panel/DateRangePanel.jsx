@@ -31,15 +31,15 @@ import Locale from '../../../utils/date/locale';
 const isInputValid = (text, date, disabledDate) => {
   if(text.trim() === '' || !isValidValueArr(date) || !DateRangePanel.isValid(date, disabledDate)) return false;
   return true;
-}
+};
 
 const setRightDate = (dateA, dateB) => {
   if(equalYearAndMonth(dateA,dateB)){
     return nextMonth(dateB);
   }else{
-    return dateB
+    return dateB;
   }
-}
+};
 
 export default class DateRangePanel extends React.Component {
   static get propTypes() {
@@ -90,7 +90,7 @@ export default class DateRangePanel extends React.Component {
       defaultStartTimeValue: null,
       defaultEndTimeValue: null,
       prefixCls: 'fishd'
-    }
+    };
   }
 
   constructor(props) {
@@ -102,7 +102,7 @@ export default class DateRangePanel extends React.Component {
         endDate: null,
         selecting: false,
       },
-    }, this.propsToState(props))
+    }, this.propsToState(props));
   }
 
   propsToState(props) {
@@ -119,7 +119,7 @@ export default class DateRangePanel extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps))
+    this.setState(this.propsToState(nextProps));
   }
 
   // 鼠标移动选择结束时间的回调
@@ -127,7 +127,7 @@ export default class DateRangePanel extends React.Component {
     this.setState({
       minDate: new Date(Math.min(rangeState.firstSelectedValue, rangeState.endDate)),
       maxDate: new Date(Math.max(rangeState.firstSelectedValue, rangeState.endDate))
-    })
+    });
   }
 
   // 日期时间都选择，确定按钮才可点击
@@ -155,12 +155,12 @@ export default class DateRangePanel extends React.Component {
     if (!isInputValid(inputText, type === 'min'?[ndate, maxDate]:[minDate, ndate], disabledDate)) {
       this.setState({
         [text]: inputText,
-      })
+      });
     } else {
       this.setState({
         [text]: inputText,
         [value]: new Date(ndate)
-      })
+      });
     }
   }
 
@@ -170,11 +170,11 @@ export default class DateRangePanel extends React.Component {
     if(type === 'min') {
       this.setState({
         minDateInputText: formatDate(minDate, dateFormat(this.props.format))
-      })
+      });
     }else{
       this.setState({
         maxDateInputText: formatDate(maxDate, dateFormat(this.props.format))
-      })
+      });
     }
   }
 
@@ -185,12 +185,12 @@ export default class DateRangePanel extends React.Component {
         this.setState({
           minTime: new Date(value),
           [`${type}TimpickerVisisble`]: false,
-        })
+        });
       } else {
         this.setState({
           maxTime: new Date(value),
           [`${type}TimpickerVisisble`]: false
-        })
+        });
       }
     }
   }
@@ -204,28 +204,28 @@ export default class DateRangePanel extends React.Component {
   prevYear(type, date, callback=()=>{}) {
     this.setState({
       [type]: prevYear(date),
-    }, callback)
+    }, callback);
   }
 
   // 下一年
   nextYear(type, date, callback=()=>{}) {
     this.setState({
       [type]: nextYear(date),
-    }, callback)
+    }, callback);
   }
 
   // 上个月
   prevMonth(type, date, callback=()=>{}) {
     this.setState({
       [type]: prevMonth(date)
-    }, callback)
+    }, callback);
   }
 
   // 下个月
   nextMonth(type, date, callback=()=>{}) {
     this.setState({
       [type]: nextMonth(date)
-    }, callback)
+    }, callback);
   }
 
   // 左边日历的next year btn特殊处理: 左边日历的下一年面板日期大于右边日历，右边日历的年份+1
@@ -271,16 +271,16 @@ export default class DateRangePanel extends React.Component {
         if(leftDate >= rightDate) {
           this.setState({
             rightDate: new Date(rightDate.setFullYear(leftDate.getFullYear() + 1))
-          })
+          });
         }
       }else if(type === 'rightDate') {
         if(leftDate >= rightDate) {
           this.setState({
             leftDate: new Date(leftDate.setFullYear(rightDate.getFullYear() - 1))
-          })
+          });
         }
       }
-    })
+    });
   }
 
   // 切换月份
@@ -294,16 +294,16 @@ export default class DateRangePanel extends React.Component {
         if(leftDate >= rightDate) {
           this.setState({
             rightDate: nextMonth(leftDate)
-          })
+          });
         }
       }else if(type === 'rightDate') {
         if(leftDate >= rightDate) {
           this.setState({
             leftDate: prevMonth(rightDate)
-          })
+          });
         }
       }
-    })
+    });
   }
 
   // 点击日期
@@ -326,7 +326,7 @@ export default class DateRangePanel extends React.Component {
 
     if (!isClose) return;
     if (!isShowTime) {
-      onPick([minDate, maxDate], false, true)
+      onPick([minDate, maxDate], false, true);
     }
   }
 
@@ -395,7 +395,7 @@ export default class DateRangePanel extends React.Component {
                         className={`${prefixCls}-picker-panel__shortcut`}
                         onClick={() => this.handleShortcutClick(e)}>{e.text}
                       </button>
-                    )
+                    );
                   })
                 }
               </div>
@@ -589,7 +589,7 @@ export default class DateRangePanel extends React.Component {
           )
         }
       </div>
-    )
+    );
   }
 }
 
