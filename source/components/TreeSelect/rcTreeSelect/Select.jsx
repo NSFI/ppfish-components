@@ -205,8 +205,15 @@ class Select extends React.Component {
       filterTreeNode, treeNodeFilterProp,
       treeDataSimpleMode,
     } = nextProps;
+    const {
+      treeData: tData,
+      ...restNextProps
+    } = nextProps;
     const newState = {
-      prevProps: nextProps,
+      prevProps: {
+        treeData: (tData && tData.length) ? JSON.parse(JSON.stringify(tData)) : [],
+        ...restNextProps
+      },
       init: false,
     };
 
@@ -227,12 +234,14 @@ class Select extends React.Component {
     });
 
     // Tree Nodes
-    let treeData;
+    let treeData = prevProps['treeData'];
     let treeDataChanged = false;
     let treeDataModeChanged = false;
     processState('treeData', (propValue) => {
-      treeData = propValue;
-      treeDataChanged = true;
+      if (JSON.stringify(propValue) !== JSON.stringify(treeData)) {
+        treeData = propValue;
+        treeDataChanged = true;
+      }
     });
 
     processState('treeDataSimpleMode', (propValue, prevValue) => {
@@ -261,11 +270,12 @@ class Select extends React.Component {
     if (!nextProps.treeData) {
       processState('children', (propValue) => {
         treeData = convertTreeToData(propValue);
+        treeDataChanged = true;
       });
     }
 
     // Convert `treeData` to entities
-    if (treeData) {
+    if (treeData && treeDataChanged) {
       const { treeNodes, valueEntities, keyEntities } = convertDataToEntities(treeData);
       newState.treeNodes = treeNodes;
       newState.valueEntities = valueEntities;
