@@ -3,8 +3,9 @@
 @close-width: 28px;
 @blur-radius: 8px;
 @border-color: @border-color-base;
+@prefixCls: @fishd-prefix;
 
-.m-drawer {
+.@{prefixCls}-drawer {
   position: absolute;
   width: 841px;
   min-width: 200px;
@@ -21,7 +22,7 @@
   }
 }
 
-.m-drawer-close {
+.@{prefixCls}-drawer-close {
   .box-sizing();
   cursor: pointer;
   display: inline-block;
@@ -47,7 +48,7 @@
   }
 }
 
-.m-drawer-container {
+.@{prefixCls}-drawer-container {
   height: 100%;
   overflow: auto;
   background-color: @component-background;

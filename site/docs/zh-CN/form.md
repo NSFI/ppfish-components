@@ -1856,19 +1856,3 @@ this.form // => The instance of CustomizedForm
   max-width: 600px;
 }
 </style>
-
-## 在 TypeScript 中使用
-
-```js
-import { Form } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
-
-interface UserFormProps extends FormComponentProps {
-  age: number;
-  name: string;
-}
-
-class UserForm extends React.Component<UserFormProps, any> {
-
-}
-```

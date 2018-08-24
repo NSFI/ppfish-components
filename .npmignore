@@ -1,8 +1,7 @@
 coverage
-dist
+dist/site
 libs
 site
-source
 tools
 .babelrc
 .editorconfig
@@ -15,3 +14,8 @@ tsconfig.json
 webpack.config.dev.site.js
 webpack.config.prod.components.js
 webpack.config.prod.site.js
+
+.DS_Store
+.idea
+.vscode
+.project

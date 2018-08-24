@@ -20,11 +20,13 @@ class Drawer extends PureComponent {
     container: PropTypes.instanceOf(Element),
     onClose: PropTypes.func,
     style: PropTypes.object,
-    visible: PropTypes.bool.isRequired
+    visible: PropTypes.bool.isRequired,
+    prefixCls: PropTypes.string
   };
 
   static defaultProps = {
-    visible: false
+    visible: false,
+    prefixCls: 'fishd'
   };
 
   handleClose = e => {
@@ -33,16 +35,16 @@ class Drawer extends PureComponent {
   };
 
   render() {
-    const {children, className, style, visible, container} = this.props;
-    const drawerClass = classNames("m-drawer", className, {
+    const {children, className, style, visible, container, prefixCls} = this.props;
+    const drawerClass = classNames(`${prefixCls}-drawer`, className, {
       "z-visible": visible
     });
     const el = (
       <div className={drawerClass} style={style}>
-        <span className="m-drawer-close" onClick={this.handleClose}>
+        <span className={`${prefixCls}-drawer-close`} onClick={this.handleClose}>
           <Icon className="iconfont" type="close-modal-line"/>
         </span>
-        <div className="m-drawer-container">{children}</div>
+        <div className={`${prefixCls}-drawer-container`}>{children}</div>
       </div>
     );
     return container ? ReactDOM.createPortal(el, container) : el;

@@ -1,8 +1,8 @@
-import path from 'path';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 import { parseDir } from './tools/helps';
 
 // const demoPath = './site/docs/demoPage/';

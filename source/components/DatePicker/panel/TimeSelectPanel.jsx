@@ -17,7 +17,7 @@ export default class TimeSelectPanel extends React.Component {
       maxTime: PropTypes.string,
       dateParser: PropTypes.func.isRequired,
       prefixCls: PropTypes.string
-    }
+    };
   }
 
   static get defaultProps() {
@@ -29,7 +29,7 @@ export default class TimeSelectPanel extends React.Component {
       maxTime: '',
       onPicked() { },
       prefixCls: 'fishd'
-    }
+    };
   }
 
   constructor(props) {
@@ -67,7 +67,7 @@ export default class TimeSelectPanel extends React.Component {
   componentWillReceiveProps(nextProps) {
     clearTimeout(this._timer);
     if (nextProps.value !== this.props.value) {
-      this._timer = setTimeout(() => this.scrollToOption(), 0)
+      this._timer = setTimeout(() => this.scrollToOption(), 0);
     }
   }
 
@@ -90,7 +90,7 @@ export default class TimeSelectPanel extends React.Component {
                 >
                   {item.value}
                 </div>
-              )
+              );
             })
           }
         </Scrollbar>
@@ -102,7 +102,7 @@ export default class TimeSelectPanel extends React.Component {
 TimeSelectPanel.isValid = (value, { start, end, step, minTime, maxTime }) => {
   const items = getItems({ start, end, step, minTime, maxTime });
   return !!items.filter(e => !e.disabled).find(e => e.value === value)
-}
+};
 
 const getItems = ({ start, end, step, minTime, maxTime }) => {
   const result = [];
@@ -118,7 +118,7 @@ const getItems = ({ start, end, step, minTime, maxTime }) => {
     }
   }
   return result;
-}
+};
 
 const parseTime = function (time) {
   const values = (time || '').split(':');

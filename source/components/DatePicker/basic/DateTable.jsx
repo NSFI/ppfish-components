@@ -16,7 +16,7 @@ import {
 import Locale from '../../../utils/date/locale';
 
 function isFunction(func) {
-  return typeof func === 'function'
+  return typeof func === 'function';
 }
 
 const clearHours = function (time) {
@@ -96,7 +96,7 @@ export default class DateTable extends React.Component {
         let cell = row[showWeekNumber ? j + 1 : j];
         if (!cell) {
           row[showWeekNumber ? j + 1 : j]  = { row: i, column: j, type: 'normal', inRange: false, start: false, end: false };
-          cell = row[showWeekNumber ? j + 1 : j]
+          cell = row[showWeekNumber ? j + 1 : j];
         }
 
         cell.type = 'normal';
@@ -146,7 +146,7 @@ export default class DateTable extends React.Component {
         row[start].start = isWeekActive;
         row[end].inRange = isWeekActive;
         row[end].end = isWeekActive;
-        row.isWeekActive = isWeekActive
+        row.isWeekActive = isWeekActive;
       }
     }
 
@@ -365,7 +365,7 @@ export default class DateTable extends React.Component {
         <tr>
           {showWeekNumber && <th>周</th>}
           {
-            this.WEEKS().map((e, idx)=> <th key={idx}>{$t(`fishd.datepicker.weeks.${e}`)}</th> )
+            this.WEEKS().map((e, idx)=> <th key={idx}>{$t(`datepicker.weeks.${e}`)}</th> )
           }
         </tr>
 

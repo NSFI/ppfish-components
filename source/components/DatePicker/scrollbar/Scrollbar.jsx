@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { addResizeListener, removeResizeListener } from '../libs/utils/resize-event';
 import { getScrollBarWidth } from './scrollar-width';
-import { Bar } from './Bar'
+import { Bar } from './Bar';
 
 export class Scrollbar extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ export class Scrollbar extends React.Component {
       moveY: 0
     };
 
-    this.update = this._update.bind(this)
+    this.update = this._update.bind(this);
   }
 
   get wrap(){
@@ -26,16 +26,16 @@ export class Scrollbar extends React.Component {
 
   componentDidMount(){
     if (this.native) return;
-    let rafId = requestAnimationFrame(this.update)
+    let rafId = requestAnimationFrame(this.update);
     this.cleanRAF = ()=>{
-      cancelAnimationFrame(rafId)
+      cancelAnimationFrame(rafId);
     }
   }
 
   componentDidUpdate() {
-    this.resizeDom = ReactDOM.findDOMNode(this.refs.resize)
+    this.resizeDom = ReactDOM.findDOMNode(this.refs.resize);
     if (!this.props.noresize){
-      addResizeListener(this.resizeDom, this.update)
+      addResizeListener(this.resizeDom, this.update);
       this.cleanResize = ()=>{
         removeResizeListener(this.resizeDom, this.update);
       }
@@ -67,7 +67,7 @@ export class Scrollbar extends React.Component {
     let sizeHeight = (heightPercentage < 100) ? (heightPercentage + '%') : '';
     let sizeWidth = (widthPercentage < 100) ? (widthPercentage + '%') : '';
 
-    this.setState({sizeHeight, sizeWidth})
+    this.setState({sizeHeight, sizeWidth});
   }
 
   render() {

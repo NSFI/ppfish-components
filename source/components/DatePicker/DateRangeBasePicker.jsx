@@ -11,13 +11,13 @@ import { isValidValue, isValidValueArr } from '../../utils/date';
 import placements from './placements';
 
 const haveTriggerType = (type) => {
-  return HAVE_TRIGGER_TYPES.indexOf(type) !== -1
+  return HAVE_TRIGGER_TYPES.indexOf(type) !== -1;
 };
 
 const isInputValid = (text, date) => {
   if(text.trim() === '' || !isValidValue(date)) return false;
   return true;
-}
+};
 
 export default class DateRangeBasePicker extends React.Component {
 
@@ -40,7 +40,7 @@ export default class DateRangeBasePicker extends React.Component {
       onChange: PropTypes.func,
       onOpenChange: PropTypes.func,
       style: PropTypes.object
-    }
+    };
   }
 
   static get defaultProps() {
@@ -58,7 +58,7 @@ export default class DateRangeBasePicker extends React.Component {
       onBlur: () =>{},
       onChange: () => {},
       onOpenChange: () => {}
-    }
+    };
   }
 
   constructor(props, _type, state) {
@@ -76,8 +76,8 @@ export default class DateRangeBasePicker extends React.Component {
     const state = {};
     const { value } = props;
     if (this.isDateValid(value)) {
-      state.text = value && value.length == 2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '',
-      state.value = props.value
+      state.text = value && value.length == 2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '';
+      state.value = props.value;
     } else {
       state.text = '';
       state.value = null;
@@ -161,7 +161,7 @@ export default class DateRangeBasePicker extends React.Component {
   togglePickerVisible() {
     this.setState({
       pickerVisible: !this.state.pickerVisible
-    })
+    });
   }
 
   // 聚焦
@@ -235,7 +235,7 @@ export default class DateRangeBasePicker extends React.Component {
     },() => {
       this.checkDateValid(visible);
       this.props.onOpenChange(visible);
-    })
+    });
   }
 
   render() {
@@ -264,7 +264,7 @@ export default class DateRangeBasePicker extends React.Component {
 
     const triggerClass = () => {
       return this.type.includes('time') ? 'time-line' : 'date-line';
-    }
+    };
 
     // 前缀图标
     const prefixIcon = () => {
@@ -274,7 +274,7 @@ export default class DateRangeBasePicker extends React.Component {
             className="prefix-iconfont"
             type={triggerClass()}
           />
-        )
+        );
       }else{
         return null;
       }
@@ -289,7 +289,7 @@ export default class DateRangeBasePicker extends React.Component {
             type="close-circle-fill"
             onClick={this.handleClickCloseIcon}
           />
-        )
+        );
       }else{
         return null;
       }
@@ -297,7 +297,7 @@ export default class DateRangeBasePicker extends React.Component {
 
     // 下拉面板
     const getPickerPanel = () => {
-      return this.pickerPanel(this.state)
+      return this.pickerPanel(this.state);
     };
 
     // 选择框
@@ -325,12 +325,12 @@ export default class DateRangeBasePicker extends React.Component {
                 if (!isInputValid(inputValue, ndate)) {
                   this.setState({
                     text: [inputValue, this.state.text[1]],
-                  })
+                  });
                 } else {//only set value on a valid date input
                   this.setState({
                     text: [inputValue, this.state.text[1]],
                     value: [ndate, this.state.value[1]],
-                  })
+                  });
                 }
               }}
               ref="inputRoot"
@@ -351,12 +351,12 @@ export default class DateRangeBasePicker extends React.Component {
                 if (!isInputValid(inputValue, ndate)) {
                   this.setState({
                     text: [this.state.text[0], inputValue],
-                  })
+                  });
                 } else {//only set value on a valid date input
                   this.setState({
                     text: [this.state.text[0], inputValue],
                     value: [this.state.value[0], ndate],
-                  })
+                  });
                 }
               }}
               value={text && text.length == 2 ? text[1] : ''}
@@ -364,7 +364,7 @@ export default class DateRangeBasePicker extends React.Component {
             />
           </div>
         </span>
-      )
+      );
     };
 
     return (
@@ -382,7 +382,7 @@ export default class DateRangeBasePicker extends React.Component {
       >
         {getInputPanel()}
       </Trigger>
-    )
+    );
   }
 }
 

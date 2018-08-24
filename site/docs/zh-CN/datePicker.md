@@ -811,7 +811,7 @@ render() {
           ref={e=>this.daterangepicker5 = e}
           onChange={date=>{
             console.debug('DateRangePicker5 changed: ', date)
-            this.setState({value2: date})
+            this.setState({value5: date})
           }}
           shortcuts={[{
             text: '最近一周',

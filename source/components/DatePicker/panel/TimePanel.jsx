@@ -19,7 +19,7 @@ export default class TimePanel extends React.Component {
       renderExtraFooter: PropTypes.func,
       onValueChange: PropTypes.func,
       prefixCls: PropTypes.string
-    }
+    };
   }
 
   static get defaultProps() {
@@ -27,16 +27,16 @@ export default class TimePanel extends React.Component {
       isShowCurrent: false,
       onValueChange: ()=>{},
       prefixCls: 'fishd'
-    }
+    };
   }
 
   constructor(props) {
     super(props);
-    this.state = this.mapPropsToState(props)
+    this.state = this.mapPropsToState(props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.mapPropsToState(nextProps))
+    this.setState(this.mapPropsToState(nextProps));
   }
 
   mapPropsToState = (props) => {
@@ -156,7 +156,7 @@ export default class TimePanel extends React.Component {
                   type="button"
                   disabled={currentButtonDisabled}
                   className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : currentButtonDisabled})}
-                  onClick={this.handleCurrent}>{$t('fishd.datepicker.now')}
+                  onClick={this.handleCurrent}>{$t('datepicker.now')}
                 </button>
                 :
                 null
@@ -166,13 +166,13 @@ export default class TimePanel extends React.Component {
             <button
               type="button"
               className={`${prefixCls}-time-panel__btn cancel`}
-              onClick={this.handleCancel}>{$t('fishd.datepicker.cancel')}
+              onClick={this.handleCancel}>{$t('datepicker.cancel')}
             </button>
             <button
               type="button"
               disabled={confirmButtonDisabled}
               className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : confirmButtonDisabled})}
-              onClick={() => this.handleConfirm(false, true)}>{$t('fishd.datepicker.confirm')}
+              onClick={() => this.handleConfirm(false, true)}>{$t('datepicker.confirm')}
             </button>
           </div>
         </div>
@@ -183,4 +183,4 @@ export default class TimePanel extends React.Component {
 
 TimePanel.isValid = (value, selectableRange) => {
   return value == null || isLimitRange(value, selectableRange, 'HH:mm:ss');
-}
+};
