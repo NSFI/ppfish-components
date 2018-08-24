@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { parseDir } from './tools/helps';
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { parseDir } = require('./tools/helps');
 
 const demoPath = './site/docs/demoPage/';
 const getHtmlWebpackPlugin = () => {
@@ -37,7 +37,7 @@ const getDemoEntries = () => {
   return entries;
 };
 
-export default {
+module.exports = {
   mode: 'development',
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
   // and https://webpack.github.io/docs/configuration.html#devtool

@@ -32,7 +32,7 @@
   "engines": {
     "node": ">=6.11.5"
   },
-  "main": "lib/index.js",
+  "main": "dist/ppfish.js",
   "dependencies": {
     "array-tree-filter": "^2.1.0",
     "async-validator": "^1.8.5",

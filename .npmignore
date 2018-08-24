@@ -1,5 +1,5 @@
 coverage
-dist
+dist/site
 libs
 site
 source

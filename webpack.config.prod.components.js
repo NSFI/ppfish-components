@@ -1,28 +1,41 @@
-import webpack from 'webpack';
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import components from './components.json';
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const components = require('./components.json');
 
 const externals = {
-  'prop-types': 'prop-types',
-  'react': 'react',
-  'react-dom': 'react-dom'
+  react: {
+    root: 'React',
+    commonjs2: 'react',
+    commonjs: 'react',
+    amd: 'react',
+  },
+  'react-dom': {
+    root: 'ReactDOM',
+    commonjs2: 'react-dom',
+    commonjs: 'react-dom',
+    amd: 'react-dom',
+  },
+  'react-dom/server': {
+    root: ['ReactDOM', 'server'],
+    commonjs2: 'react-dom/server',
+    commonjs: 'react-dom/server',
+    amd: 'react-dom/server',
+  }
 };
-Object.keys(components).forEach(function(key) {
-  externals[`ppfish/source/components/${key}`] = `ppfish/lib/${key}`;
-});
 const lessStyle = new ExtractTextPlugin({
   filename: '[name].css',
   allChunks: true
 });
 
-// more info: https://github.com/isaacs/node-glob
-export default {
+// fixme: https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/294
+module.exports = {
   mode: 'production',
   optimization: {
+    minimize: true,
     minimizer: [
       new UglifyJsPlugin({
+        sourceMap: true,
         uglifyOptions: {
           compress: {
             warnings: false
@@ -30,33 +43,32 @@ export default {
         }
       })
     ],
-    splitChunks: {
-      chunks: 'all'
-    }
+    // splitChunks: {
+    //   chunks: 'all'
+    // }
   },
   // 输出 Source Map
   // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps
   // and https://webpack.github.io/docs/configuration.html#devtool
   devtool: 'source-map',
   entry: {
-    ...components,
-    util: './source/utils/api.js',
-    index: './source/components/index.js'
+    ppfish: './source/components/index.js'
   },
   target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
   output: {
-    libraryTarget: 'commonjs2',
-    path: `${__dirname}/lib`,
+    library: 'ppfish',
+    libraryTarget: 'umd',
+    path: `${__dirname}/dist`,
     filename: '[name].js',
     chunkFilename: '[id].js',
   },
+  externals: externals,
   plugins: [
     lessStyle,
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
-  externals: externals,
   module: {
     rules: [
       {
