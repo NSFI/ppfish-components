@@ -22,13 +22,11 @@
 
 //select面板
 .@{select-prefix} {
+  .reset-component();
   height: @select-height-base;
   display: inline-block;
   position: relative;
-  //暂时解决Form中与其他组件同行对齐问题
-  vertical-align: -(@select-height-base/2 - 6);
   cursor: pointer;
-  color: @text-2;
   padding-right: 32px;
   border-radius: @border-radius-base;
   border: 1px solid @select-border-color;
@@ -63,7 +61,17 @@
 
   //面板内容区
   &-content {
+    line-height: @select-line-height-base;
+    margin-bottom: -@select-line-height-base;
     .clearfix;
+    //fix  vertical-align在inline-block下的底线判断基准
+    &:after {
+      content: '';
+      visibility: hidden;
+      pointer-events: none;
+      display: inline-block;
+      width: 0;
+    }
   }
 
   //右侧箭头
@@ -144,10 +152,8 @@
   //单选、多选面板
   &-option-single,
   &-option-multiple {
-    display: inline-block;
     float: left;
     color: @text-3;
-    line-height: @select-line-height-base;
     padding-left: 10px;
     width: 100%;
     .ellipsis();
@@ -169,8 +175,6 @@
   &-small {
     height: @select-height-sm;
     font-size: @font-size-sm;
-    //暂时解决Form中与其他组件同行对齐问题
-    vertical-align: -(@select-height-sm/2 - 6);
     .@{select-prefix}-loading {
       font-size: @font-size-sm;
     }
@@ -182,17 +186,15 @@
       height: @select-option-height-sm;
       line-height: @select-option-line-height-sm;
     }
-    .@{select-prefix}-option-single,
-    .@{select-prefix}-option-multiple {
+    .@{select-prefix}-content {
       line-height: @select-line-height-sm;
+      margin-bottom: -@select-line-height-sm;
     }
   }
 
   &-large {
     height: @select-height-lg;
     font-size: @font-size-lg;
-    //暂时解决Form中与其他组件同行对齐问题
-    vertical-align: -(@select-height-lg/2 - 6);
     .@{select-prefix}-placeholder {
       font-size: @font-size-lg;
     }
@@ -204,9 +206,9 @@
       height: @select-option-height-lg;
       line-height: @select-option-line-height-lg;
     }
-    .@{select-prefix}-option-single,
-    .@{select-prefix}-option-multiple {
+    .@{select-prefix}-content {
       line-height: @select-line-height-lg;
+      margin-bottom: -@select-line-height-lg;
     }
   }
 }
@@ -344,7 +346,7 @@
   .@{fishd-prefix}-input-group-addon {
     .@{select-prefix} {
       height: @select-height-base - 2px;
-      margin: 0 -7px;
+      vertical-align: middle;
     }
     .@{select-prefix}-option-single {
       line-height: @select-line-height-base - 2px;

@@ -714,8 +714,8 @@ export default class Select extends React.Component {
               {
                 // 单选模式下有值显示值的label
                 mode === 'single' && !!selectValue.length &&
-                <span className={`${selectionCls}-option-single`}
-                      title={selectValue[0].title}>{selectValue[0].label}</span>
+                <div className={`${selectionCls}-option-single`}
+                      title={selectValue[0].title}>{selectValue[0].label}</div>
               }
               {
                 // 多选模式下区分labelClear
