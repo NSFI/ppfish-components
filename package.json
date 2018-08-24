@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.3.2-alpha.3",
+  "version": "1.3.2-alpha.4",
   "description": "qiyu and prophet ui components",
   "scripts": {
     "precommit": "lint-staged",
@@ -32,6 +32,7 @@
   "engines": {
     "node": ">=6.11.5"
   },
+  "module": "source/components/index.js",
   "main": "dist/ppfish.js",
   "dependencies": {
     "array-tree-filter": "^2.1.0",
