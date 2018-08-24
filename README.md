@@ -1,4 +1,4 @@
-# Fish Design Components 网易云商服Fish Design组件库
+# Fish Design 网易云商服UI组件库
 
 ## Introduction
 
