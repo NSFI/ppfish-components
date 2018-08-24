@@ -27,14 +27,14 @@ render(){
       <TabPane tab="Tab 2" disabled key="2">Tab 2</TabPane>
       <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
     </Tabs>
-  )
+  );
 }
 ```
 :::
 
 ## 滚动
 
-:::demo 可以左右、上下滚动，容纳更多标签。
+:::demo 可以左右、上下滚动，容纳更多页签。
 
 ```js
   constructor(props) {
@@ -150,6 +150,44 @@ render(){
 ```
 :::
 
+
+## 图标
+
+:::demo 有图标的页签。
+
+```js
+
+  render(){
+    const TabPane = Tabs.TabPane;
+    return (
+      <Tabs defaultActiveKey="1">
+        <TabPane tab={<span><Icon type="demo-phone" />Tab 1</span>} key="1">Tab 1</TabPane>
+        <TabPane tab={<span><Icon type="demo-mail" />Tab 2</span>} key="2">Tab 2</TabPane>
+      </Tabs>
+    );
+  }
+```
+:::
+
+## 附加内容
+
+:::demo 可以在页签右边添加附加操作。
+
+```js
+
+  render(){
+    const TabPane = Tabs.TabPane;
+    const operations = <Button>Extra Action</Button>;
+    return (
+      <Tabs tabBarExtraContent={operations}>
+        <TabPane tab="Tab 1" key="1">Tab 1</TabPane>
+        <TabPane tab="Tab 2" key="2">Tab 2</TabPane>
+      </Tabs>
+    );
+  }
+```
+:::
+
 ## 卡片式页签
 
 :::demo 常用于容器顶部，支持纵向排版。
@@ -161,13 +199,13 @@ callback=(key)=> {
 
 render(){
   const TabPane = Tabs.TabPane;
-  return(
-     <Tabs onChange={this.callback} type="card">
-        <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
-        <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
-        <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
-      </Tabs>
-  )
+  return (
+    <Tabs onChange={this.callback} type="card">
+      <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
+      <TabPane tab="Tab 2" key="2">Content of Tab Pane 2</TabPane>
+      <TabPane tab="Tab 3" key="3">Content of Tab Pane 3</TabPane>
+    </Tabs>
+  );
 }
 ```
 :::
