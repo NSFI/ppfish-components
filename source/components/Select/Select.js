@@ -565,7 +565,7 @@ export default class Select extends React.Component {
     const dropdownCls = `${prefixCls}-dropdown`;
     const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的children
     const showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
-    const maxCountError = maxCount && selectValue.length > maxCount;
+    const maxCountError = 'maxCount' in this.props && selectValue.length > maxCount; // maxCount值存在且小于选择数量
     return (
       <div className={classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName})}
            onKeyDown={this.handleActiveTabChange}
@@ -715,7 +715,7 @@ export default class Select extends React.Component {
                 // 单选模式下有值显示值的label
                 mode === 'single' && !!selectValue.length &&
                 <div className={`${selectionCls}-option-single`}
-                      title={selectValue[0].title}>{selectValue[0].label}</div>
+                     title={selectValue[0].title}>{selectValue[0].label}</div>
               }
               {
                 // 多选模式下区分labelClear
