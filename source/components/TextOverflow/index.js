@@ -99,15 +99,16 @@ export default class TextOverflow extends React.Component {
   render() {
     const { className, children } = this.props;
     const { overflow, open } = this.state;
+    const prefix = 'fishd-text-overflow';
 
     const wrapper = Classnames([
-      'm-text-overflow-wrapper',
+      `${prefix}-wrapper`,
       className,
       { 'isOverflow': overflow }
     ]);
 
     const _classname = Classnames([
-      'm-text-overflow',
+      prefix,
       { open: open }
     ]);
 
@@ -116,8 +117,8 @@ export default class TextOverflow extends React.Component {
         <div className={_classname} ref={dom => this.wrapper = dom}>
           {children}
         </div>
-        {open ? <div className="u-showmore" onClick={this.toggleOpen}>收起更多<i className="iconfont icon-xiajiantou f-rotate180 f-font-inherit" /></div>
-          : <div className="u-showmore" onClick={this.toggleOpen}>展开更多<i className="iconfont icon-xiajiantou f-font-inherit" /></div>}
+        {open ? <div className="u-showmore" onClick={this.toggleOpen}>收起更多<i className="iconfont icon-xiajiantou f-rotate180 u-inherit" /></div>
+          : <div className="u-showmore" onClick={this.toggleOpen}>展开更多<i className="iconfont icon-xiajiantou u-inherit" /></div>}
       </div>
     );
 

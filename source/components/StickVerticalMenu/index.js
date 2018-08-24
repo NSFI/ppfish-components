@@ -46,7 +46,7 @@ class StickVerticalMenu extends Component {
     const { children, className } = this.props;
     const activeKey = this.state.activeKey;
     return (
-      <div className={classNames('m-stick-v-menu', {
+      <div className={classNames('fishd-stick-v-menu', {
         [`${className}`]: className
       })}>
         {React.Children.map(children, (child, index) => {
