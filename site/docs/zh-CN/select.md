@@ -102,11 +102,13 @@
           <Select.Option value={"2"} disabled>{'选项2'}</Select.Option>
           <Select.Option value={"3"}>{'选项3'}</Select.Option>
         </Select>
+        <br/>
         <Select size={size} mode={'multiple'} style={{width: 300, margin: 10}}>
           <Select.Option value={"1"}>{'选项1'}</Select.Option>
           <Select.Option value={"2"} disabled>{'选项2'}</Select.Option>
           <Select.Option value={"3"}>{'选项3'}</Select.Option>
         </Select>
+        <br/>
         <Select size={size} mode={'multiple'} labelClear style={{width: 300, margin: 10}} showSelectAll>
           <Select.Option value={"1"}>{'选项1'}</Select.Option>
           <Select.Option value={"2"} disabled>{'选项2'}</Select.Option>
@@ -118,7 +120,6 @@
           <Select.Option value={"8"}>{'选项8'}</Select.Option>
           <Select.Option value={"9"}>{'比较长的选项比较长的选项比较长的选项-选项9'}</Select.Option>
         </Select>
-        <br/>
       </div>
     );
   }

@@ -6,7 +6,7 @@ import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import TimePicker from '../TimePicker.jsx';
-import { DateTable, MonthTable, YearTable } from '../basic';
+import { DateTable } from '../basic';
 import {
   SELECTION_MODES,
   deconstructDate,
@@ -67,7 +67,7 @@ export default class DatePanel extends React.Component {
       ]),
       defaultTimeValue: PropTypes.instanceOf(Date),
       prefixCls: PropTypes.string
-    }
+    };
   }
 
   static get defaultProps() {
@@ -81,7 +81,7 @@ export default class DatePanel extends React.Component {
       isShowTimeCurrent: false,
       defaultTimeValue: null,
       prefixCls: 'fishd'
-    }
+    };
   }
 
   constructor(props) {
@@ -110,7 +110,7 @@ export default class DatePanel extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps))
+    this.setState(this.propsToState(nextProps));
   }
 
   // 年份、月份面板先注释掉，需要时再打开
@@ -151,7 +151,7 @@ export default class DatePanel extends React.Component {
       //   />);
       //   break;
       default:
-        throw new Error('invalid currentView value')
+        throw new Error('invalid currentView value');
     }
 
     return result;
@@ -178,7 +178,7 @@ export default class DatePanel extends React.Component {
     if (!isInputValid(inputText, ndate, disabledDate)) {
       this.setState({
         dateInputText: inputText,
-      })
+      });
     }else{//only set value on a valid date input
       this.setState({
         dateInputText: inputText,
@@ -193,7 +193,7 @@ export default class DatePanel extends React.Component {
     const {date} = this.state;
     this.setState({
       dateInputText: formatDate(date, dateFormat(this.props.format))
-    })
+    });
   }
 
   // 时间输入框变化
@@ -201,7 +201,7 @@ export default class DatePanel extends React.Component {
     if (val) {
       this.setState({
         time: new Date(val),
-      })
+      });
     }
   }
 
@@ -243,7 +243,7 @@ export default class DatePanel extends React.Component {
     const { currentDate } = this.state;
     this.setState({
       currentDate: new Date(new Date(currentDate).setFullYear(year)),
-    })
+    });
   }
 
   // 切换月份
@@ -251,7 +251,7 @@ export default class DatePanel extends React.Component {
     const { currentDate } = this.state;
     this.setState({
       currentDate: new Date((new Date(currentDate).setMonth(parseInt(month.slice(0,-1)) - 1)))
-    })
+    });
   }
 
   // 点击日期
@@ -261,15 +261,15 @@ export default class DatePanel extends React.Component {
 
     if (selectionMode === SELECTION_MODES.DAY) {
       if (!isShowTime) {
-        onPick(pdate)
+        onPick(pdate);
       }
       this.setState({
         date: new Date(pdate),
         dateInputText: formatDate(pdate, dateFormat(format)), // 点击日期，左侧日期输入框的值同步变化
         currentDate: pdate
-      })
+      });
     } else if (selectionMode === SELECTION_MODES.WEEK) {
-      onPick(pdate)
+      onPick(pdate);
     }
   }
 
@@ -325,7 +325,7 @@ export default class DatePanel extends React.Component {
                         type="button"
                         className={`${prefixCls}-picker-panel__shortcut`}
                         onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
-                    )
+                    );
                   })
                 }
               </div>
@@ -337,7 +337,7 @@ export default class DatePanel extends React.Component {
                 <div className={`${prefixCls}-date-picker__time-header`}>
                   <span className={`${prefixCls}-date-picker__editor-wrap`}>
                     <Input
-                      placeholder={t('fishd.datepicker.selectDate')}
+                      placeholder={t('datepicker.selectDate')}
                       value={dateInputText}
                       onChange={this.handleDateInputChange}
                       onBlur={this.handleDateInputBlur}
@@ -346,7 +346,7 @@ export default class DatePanel extends React.Component {
                   <span className={`${prefixCls}-date-picker__editor-wrap`}>
                     <TimePicker
                       className={`${prefixCls}-date-picker-time__editor`}
-                      placeholder={t('fishd.datepicker.selectTime')}
+                      placeholder={t('datepicker.selectTime')}
                       format={timeFormat(format)}
                       getPopupContainer={(node) => node.parentNode}
                       isShowTrigger={false}
@@ -383,7 +383,7 @@ export default class DatePanel extends React.Component {
                     sourceData={YEARS_ARRAY(yearCount)}
                     onChange={this.handleChangeYear}
                   >
-                    <span className={`${prefixCls}-date-picker__header-label`}>{`${currentDate.getFullYear()} ${t('fishd.datepicker.year')}`}</span>
+                    <span className={`${prefixCls}-date-picker__header-label`}>{`${currentDate.getFullYear()} ${t('datepicker.year')}`}</span>
                   </YearAndMonthPopover>
                   {
                     currentView === PICKER_VIEWS.DATE && (
@@ -398,7 +398,7 @@ export default class DatePanel extends React.Component {
                               active: currentView === 'month'
                             })
                           }
-                        >{t(`fishd.datepicker.month${month + 1}`)}</span>
+                        >{t(`datepicker.month${month + 1}`)}</span>
                       </YearAndMonthPopover>
                     )
                   }
@@ -440,22 +440,22 @@ export default class DatePanel extends React.Component {
             >
               <Button
                 className={`${prefixCls}-picker-panel__btn cancel`}
-                onClick={this.handleCancel}>{t('fishd.datepicker.cancel')}
+                onClick={this.handleCancel}>{t('datepicker.cancel')}
               </Button>
               <Button
                 type="primary"
                 className={`${prefixCls}-picker-panel__btn confirm`}
                 onClick={this.handleConfirm}
-                disabled={this.confirmBtnDisabled()}>{t('fishd.datepicker.confirm')}
+                disabled={this.confirmBtnDisabled()}>{t('datepicker.confirm')}
               </Button>
             </div>
           )
         }
       </div>
-    )
+    );
   }
 }
 
 DatePanel.isValid = (value, disabledDate) => {
   return typeof disabledDate === 'function' && (value instanceof Date) ? !disabledDate(value) : true;
-}
+};
