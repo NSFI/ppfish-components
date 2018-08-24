@@ -1,8 +1,8 @@
-coverage
-dist/site
-libs
-site
-tools
+/coverage
+/dist/site
+/libs
+/site
+/tools
 .babelrc
 .editorconfig
 .eslintignore
