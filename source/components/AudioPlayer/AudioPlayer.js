@@ -32,7 +32,7 @@ class AudioPlayer extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'audio-player',
+    prefixCls: 'fishd-audio-player',
     className: '',
     title: '',
     src: '',
@@ -171,7 +171,7 @@ class AudioPlayer extends React.Component {
       onCanPlayThrough,
       onAbort,onEnded, onError, onPause, onPlay, onSeeked, ...otherProps } = this.props;
 
-    const wrapClass = [`m-${prefixCls}-wrap`, className];
+    const wrapClass = [`${prefixCls}-wrap`, className];
     const pausePlayClass = classNames({
       'iconfont': true,
       'icon-youjiantou1': !isPlay,
