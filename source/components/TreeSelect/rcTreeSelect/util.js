@@ -368,10 +368,12 @@ export function formatSelectorValue(valueList, props, valueEntities) {
     const hierarchyList = flatToHierarchy(valueList.map(({ value }) => valueEntities[value]));
 
     if (showCheckedStrategy === SHOW_PARENT) {
+      // 返回除 label、value 外更多的信息
       // Only get the parent checked value
-      return hierarchyList.map(({ node: { props: { value } } }) => ({
+      return hierarchyList.map(({ node: { props: { label, value, ...restProps } } }) => ({
         label: getLabel(values[value], valueEntities[value], treeNodeLabelProp),
         value,
+        ...restProps
       }));
 
     } else if (showCheckedStrategy === SHOW_CHILD) {
@@ -379,11 +381,13 @@ export function formatSelectorValue(valueList, props, valueEntities) {
       const targetValueList = [];
 
       // Find the leaf children
-      const traverse = ({ node: { props: { value } }, children }) => {
+      const traverse = ({ node: { props: { label, value, ...restProps } }, children }) => {
         if (!children || children.length === 0) {
+          // 返回除 label、value 外更多的信息
           targetValueList.push({
             label: getLabel(values[value], valueEntities[value], treeNodeLabelProp),
             value,
+            ...restProps
           });
           return;
         }
@@ -401,10 +405,20 @@ export function formatSelectorValue(valueList, props, valueEntities) {
     }
   }
 
-  return valueList.map(wrappedValue => ({
-    label: getLabel(wrappedValue, valueEntities[wrappedValue.value], treeNodeLabelProp),
-    value: wrappedValue.value,
-  }));
+  // return valueList.map(wrappedValue => ({
+  //   label: getLabel(wrappedValue, valueEntities[wrappedValue.value], treeNodeLabelProp),
+  //   value: wrappedValue.value,
+  // }));
+
+  // 返回除 label、value 外更多的信息
+  return valueList.map(wrappedValue => {
+    const { label, value, ...restWrappedValue } = wrappedValue;
+    return {
+      label: getLabel(wrappedValue, valueEntities[wrappedValue.value], treeNodeLabelProp),
+      value: wrappedValue.value,
+      ...restWrappedValue
+    }
+  });
 }
 
 /**

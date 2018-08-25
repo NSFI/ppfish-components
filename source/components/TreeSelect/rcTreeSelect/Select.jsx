@@ -168,7 +168,11 @@ class Select extends React.Component {
 
       init: true,
       oriValueList: [],
-      curValueList: []
+      curValueList: [],
+
+      // onChange 和 onConfirm 回调函数的回传参数
+      connectValueList: [],
+      extra: {}
     };
 
     this.selectorRef = createRef();
@@ -584,10 +588,12 @@ class Select extends React.Component {
 
     // Get wrapped value list.
     // This is a bit hack cause we use key to match the value.
-    let newValueList = nodeList.map(({ props }) => ({
-      value: props.value,
-      label: props[treeNodeLabelProp],
-    }));
+    // let newValueList = nodeList.map(({ props }) => ({
+    //   value: props.value,
+    //   label: props[treeNodeLabelProp],
+    // }));
+    // 返回节点对象所有的属性信息
+    let newValueList = nodeList.map(({ props }) => (props));
 
     // When is `treeCheckable` and with `searchValue`, `valueList` is not full filled.
     // We need calculate the missing nodes.
@@ -600,10 +606,12 @@ class Select extends React.Component {
       }
       newValueList = keyList.map(key => {
         const { node: { props } } = keyEntities[key];
-        return {
-          value: props.value,
-          label: props[treeNodeLabelProp],
-        };
+        // return {
+        //   value: props.value,
+        //   label: props[treeNodeLabelProp],
+        // };
+        // 返回节点对象所有的属性信息
+        return props;
       });
     }
 
@@ -878,6 +886,11 @@ class Select extends React.Component {
       connectValueList = selectorValueList.slice(0, 1);
     }
 
+    this.setState({
+      connectValueList,
+      extra
+    });
+
     let labelList = null;
     let returnValue;
 
@@ -897,8 +910,10 @@ class Select extends React.Component {
 
     // 每次触发改变都重新设置 curValueList
     if (immediate) {
-      onConfirm && onConfirm(returnValue, labelList, extra);
-      onChange && onChange(returnValue, labelList, extra);
+      // onConfirm && onConfirm(returnValue, labelList, extra);
+      // onChange && onChange(returnValue, labelList, extra);
+      onConfirm && onConfirm(returnValue, connectValueList, extra);
+      onChange && onChange(returnValue, connectValueList, extra);
     } else {
       this.setState({
         curValueList: returnValue
@@ -931,11 +946,12 @@ class Select extends React.Component {
   };
 
   handleConfirm = () => {
-    const { curValueList } = this.state;
+    const { curValueList, connectValueList, extra } = this.state;
     const { onConfirm, onChange } = this.props;
 
-    onConfirm && onConfirm(curValueList);
-    onChange && onChange(curValueList);
+    // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
+    onConfirm && onConfirm(curValueList, connectValueList, extra);
+    onChange && onChange(curValueList, connectValueList, extra);
 
     this.setState({ open: false });
   };

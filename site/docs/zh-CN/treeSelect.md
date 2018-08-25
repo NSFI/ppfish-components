@@ -19,7 +19,7 @@
     }
   }
 
-  onChange = (value, label, extra) => {
+  onChange = (value) => {
     this.setState({ value });
   }
 
@@ -87,7 +87,7 @@
     }
   }
 
-  onChange = (value, label, extra) => {
+  onChange = (value) => {
     this.setState({ value });
   }
 
@@ -302,7 +302,7 @@
   onConfirm = (value) => {
     this.setState({ value });
   }
-  
+
   onCancel = (value) => {
     this.setState({ value });
   }
@@ -611,12 +611,12 @@
 | isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | boolean | false |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | string | '不选择任何分类' |
 | value | 指定当前选中的条目 | string/string[] | - |
-| onChange | 选中树节点时调用此函数 | function(value, label, extra) | - |
-| onConfirm | 确认选中树节点时调用此函数，参数 value 为当前选中的条目 | function(value) | - |
+| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值的列表，info 为已选择的树节点对象的列表 | function(value, info, extra) | - |
+| onConfirm | 确认选中树节点时调用此函数。函数参数 value 为已选择的树节点值的列表，info 为已选择的树节点对象的列表 | function(value, info, extra) | - |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | function(value) | - |
 | onReset | 点击复位选项时调用，单选时有效 | function() | - |
 | onSearch | 搜索框值变化时调用 | function(value: string) | - |
-| onSelect | 被选中时调用 | function(value, node, extra) | - |
+| onSelect | 被选中时调用。函数参数 node 为选中的树节点的实例 | function(value, node, extra) | - |
 
 ### Tree 方法
 
