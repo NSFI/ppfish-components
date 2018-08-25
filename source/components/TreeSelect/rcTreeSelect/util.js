@@ -170,7 +170,6 @@ export function convertTreeToData(treeNodes) {
  */
 export function convertDataToEntities(treeData) {
   const list = toArray(treeData);
-
   const valueEntities = {};
   const keyEntities = {};
   const posEntities = {};
@@ -226,7 +225,6 @@ export function convertDataToEntities(treeData) {
 
   return {
     treeNodes,
-
     valueEntities,
     keyEntities,
     posEntities,

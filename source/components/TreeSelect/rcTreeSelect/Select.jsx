@@ -547,7 +547,7 @@ class Select extends React.Component {
 
   // ===================== Popup ======================
   onValueTrigger = (isAdd, nodeList, nodeEventInfo, nodeExtraInfo) => {
-    // Disable deselect item at single select mode
+    // 禁用单选模式下的取消选择功能
     if (!this.isMultiple() && !isAdd) return;
 
     const { node } = nodeEventInfo;
@@ -895,16 +895,19 @@ class Select extends React.Component {
       returnValue = returnValue[0];
     }
 
-    // Set curValueList every time triggerChange
+    // 每次触发改变都重新设置 curValueList
     if (immediate) {
-      onConfirm && onConfirm(returnValue);
+      onConfirm && onConfirm(returnValue, labelList, extra);
+      onChange && onChange(returnValue, labelList, extra);
     } else {
       this.setState({
         curValueList: returnValue
       });
     }
 
-    onChange && onChange(returnValue, labelList, extra);
+    if (!this.isMultiple()) {
+      onChange && onChange(returnValue, labelList, extra);
+    }
     // }
   };
 
@@ -929,9 +932,11 @@ class Select extends React.Component {
 
   handleConfirm = () => {
     const { curValueList } = this.state;
-    const { onConfirm } = this.props;
+    const { onConfirm, onChange } = this.props;
 
     onConfirm && onConfirm(curValueList);
+    onChange && onChange(curValueList);
+
     this.setState({ open: false });
   };
 
