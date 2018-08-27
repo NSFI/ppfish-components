@@ -53,7 +53,7 @@ export { default as Transfer } from './Transfer/index.tsx';
 export { default as TreeSelect } from './TreeSelect/index.tsx';
 export { default as Upload } from './Upload/index.tsx';
 export { default as VideoViewer } from './VideoViewer';
-export { default as Echart,  } from './EChart';
+export { default as Echart } from './EChart';
 
 // 确保暴露给外部的接口稳定：
 // import {util} from 'ppfish';
