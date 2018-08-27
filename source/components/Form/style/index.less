@@ -167,6 +167,10 @@ form {
     :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection-selected-value {
       padding-right: 42px;
     }
+    //Fix labelClear 模式下icon被覆盖
+    .@{fishd-prefix}-select .@{fishd-prefix}-select-option-clearable-list {
+      padding-right: 30px;
+    }
 
     .@{fishd-prefix}-cascader-picker {
       &-arrow {

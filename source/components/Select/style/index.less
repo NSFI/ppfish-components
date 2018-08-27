@@ -26,6 +26,8 @@
   height: @select-height-base;
   display: inline-block;
   position: relative;
+  //fix vertical-align
+  vertical-align: -(@select-height-base/2 - 6);
   cursor: pointer;
   padding-right: 32px;
   border-radius: @border-radius-base;
@@ -61,19 +63,7 @@
 
   //面板内容区
   &-content {
-    line-height: @select-line-height-base;
-    margin-bottom: -@select-line-height-base;
     .clearfix;
-    //fix:vertical-align在inline-block下的基线判断基准
-    // 一个 inline-block 元素，如果里面没有内联元素，或者 overflow 不是 visible， 则该元素的基线就是其 margin 底边缘;
-    // 否则其基线就是元素里面最后一行内联元素的基线
-    &:after {
-      content: '';
-      visibility: hidden;
-      pointer-events: none;
-      display: inline-block;
-      width: 0;
-    }
   }
 
   //右侧箭头
@@ -156,6 +146,7 @@
   &-option-multiple {
     float: left;
     color: @text-3;
+    line-height: @select-line-height-base;
     padding-left: 10px;
     width: 100%;
     .ellipsis();
@@ -177,6 +168,8 @@
   &-small {
     height: @select-height-sm;
     font-size: @font-size-sm;
+    //fix vertical-align
+    vertical-align: -(@select-height-sm/2 - 6);
     .@{select-prefix}-loading {
       font-size: @font-size-sm;
     }
@@ -188,15 +181,17 @@
       height: @select-option-height-sm;
       line-height: @select-option-line-height-sm;
     }
-    .@{select-prefix}-content {
+    .@{select-prefix}-option-single,
+    .@{select-prefix}-option-multiple {
       line-height: @select-line-height-sm;
-      margin-bottom: -@select-line-height-sm;
     }
   }
 
   &-large {
     height: @select-height-lg;
     font-size: @font-size-lg;
+    //fix vertical-align
+    vertical-align: -(@select-height-lg/2 - 6);
     .@{select-prefix}-placeholder {
       font-size: @font-size-lg;
     }
@@ -208,9 +203,9 @@
       height: @select-option-height-lg;
       line-height: @select-option-line-height-lg;
     }
-    .@{select-prefix}-content {
+    .@{select-prefix}-option-single,
+    .@{select-prefix}-option-multiple {
       line-height: @select-line-height-lg;
-      margin-bottom: -@select-line-height-lg;
     }
   }
 }
