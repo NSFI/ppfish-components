@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const webpack = require('webpack');
 const path = require('path');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { parseDir } = require('./tools/helps');
 
@@ -59,6 +60,7 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new CaseSensitivePathsPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'site/index.html'),
       chunks: ['site']
