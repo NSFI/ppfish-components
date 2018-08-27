@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './AnimationImageLoader.less';
+import './style/AnimationImageLoader.less';
 
 class AnimationImageLoader extends Component {
 

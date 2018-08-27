@@ -1,7 +1,7 @@
 import Select from './Select';
 import Option from './Option';
 import OptGroup from './OptGroup';
-import './index.less';
+import './style/index.less';
 
 Select.Option = Option;
 

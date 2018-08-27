@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../Icon/index.tsx';
-import './Drawer.less';
+import './style/Drawer.less';
 
 /**
  * 抽屉组件

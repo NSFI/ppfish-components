@@ -5,7 +5,7 @@ import Modal from '../Modal/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Video from './Video';
 
-import './VideoViewer.less';
+import './style/VideoViewer.less';
 
 class VideoViewer extends Component {
   static defaultProps = {

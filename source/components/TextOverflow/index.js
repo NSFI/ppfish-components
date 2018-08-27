@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
-import './TextOverflow.less';
+import './style/TextOverflow.less';
 import _throttle from 'lodash/throttle';
 
 const listeners = new Map();

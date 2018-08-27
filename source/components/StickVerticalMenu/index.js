@@ -2,7 +2,7 @@ import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Item from './Item';
-import './index.less';
+import './style/index.less';
 
 const difference = (a, b) => {
   const s = new Set(b);

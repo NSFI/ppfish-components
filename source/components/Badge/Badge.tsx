@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Animate from 'rc-animate';
 import ScrollNumber from './ScrollNumber';
 import classNames from 'classnames';
-import './Badge.less';
+import './style/Badge.less';
 
 export { ScrollNumberProps } from './ScrollNumber';
 

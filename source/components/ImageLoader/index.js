@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './index.less';
+import './style/index.less';
 
 const span = React.createFactory('span');
 
 const Status = {
-  PENDING: 'm-image-loader-pending',
-  LOADING: 'm-image-loader-loading',
-  LOADED: 'm-image-loader-loaded',
-  FAILED: 'm-image-loader-failed',
+  PENDING: 'fishd-image-loader-pending',
+  LOADING: 'fishd-image-loader-loading',
+  LOADED: 'fishd-image-loader-loaded',
+  FAILED: 'fishd-image-loader-failed',
 };
 const noop = () => {};
 
@@ -74,7 +74,7 @@ class ImageLoader extends React.Component {
   }
 
   getClassName() {
-    let className = `m-image-loader ${this.state.status}`;
+    let className = `fishd-image-loader ${this.state.status}`;
     if (this.props.className) className = `${className} ${this.props.className}`;
     return className;
   }

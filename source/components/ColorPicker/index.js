@@ -1,4 +1,4 @@
-import './styles/index.less';
+import './style/index.less';
 import ColorPicker from './ColorPicker';
 import Panel from './Panel';
 

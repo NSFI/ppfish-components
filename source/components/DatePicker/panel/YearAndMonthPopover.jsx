@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Popover from '../../Popover/index.tsx';
 import scrollIntoView from 'dom-scroll-into-view';
 
-import '../styles/YearAndMonthPopover.less';
+import '../style/YearAndMonthPopover.less';
 
 export default class YearAndMonthPopover extends React.Component {
 

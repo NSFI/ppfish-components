@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Trigger from 'rc-trigger';
 import placements from './placements';
 
-import './AudioPlayer.less';
+import './style/AudioPlayer.less';
 
 class AudioPlayer extends React.Component {
   static propTypes = {

@@ -5,7 +5,7 @@ import Carousel from '../Carousel/index.tsx';
 import Modal from '../Modal/index.tsx';
 import warning from 'warning';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
-import './index.less';
+import './style/index.less';
 
 const maxVisualWidth = parseInt(window.innerWidth * 0.8, 10),   // 图片可视区默认宽度
       maxVisualHeight = parseInt(window.innerHeight * 0.8, 10), // 图片可视区默认高度

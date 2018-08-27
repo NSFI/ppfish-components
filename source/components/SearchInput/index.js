@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Tooltip from '../Tooltip/index.tsx';
-import './index.less';
+import './style/index.less';
 
 /**
  * SearchInput框

@@ -57,7 +57,7 @@ class TreePane extends Component {
     }
     return (
       <div
-        className={[`m-tree-select-depth m-tree-select-depth${depth}`]}
+        className={[`fishd-tree-select-depth fishd-tree-select-depth${depth}`]}
         ref={pane => this.pane = pane}
       >
         {
@@ -67,7 +67,7 @@ class TreePane extends Component {
                 key={item.key}
                 className={classNames({
                   'clearfix': true,
-                  'm-tree-select-item': true,
+                  'fishd-tree-select-item': true,
                   'current': item.current
                 })}
               >
@@ -77,7 +77,7 @@ class TreePane extends Component {
                   onChange={(e) => this.setSelected(item.key, e.target.checked)}
                 />
                 <div
-                  className="m-tree-select-text"
+                  className="fishd-tree-select-text"
                   onClick={() => this.setCurrent(item.key, item.id)}
                 >{item.text}</div>
                 <TreeSelectMore

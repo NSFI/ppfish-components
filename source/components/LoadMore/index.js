@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from '../Button/index.tsx';
 
-import './index.less';
+import './style/index.less';
 
 const noop = () => {
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './index.less';
+import './style/index.less';
 
 const formatInitTimeRange = (arr, defaultValue) => {
   let rangeArr = [];

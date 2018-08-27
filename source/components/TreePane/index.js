@@ -1,10 +1,12 @@
 import React, { Component, Children } from 'react';
 import debug from 'debug';
 import PropTypes from 'prop-types';
-import TreePane from './TreePane';
+import { default as TreePaneView } from './TreePane';
 import Pane from './Pane';
 import Item from './Item';
-import './index.less';
+
+import './style/index.less';
+
 const componentLog = debug('component:log');
 const componentWarn = debug('component:warn');
 
@@ -87,7 +89,7 @@ const serializeToData = (pane, copyKeys=['key', 'text', 'leaf']) => {
 };
 // 支持多级的树形选择控件
 // TODO multiple= false未实现
-class TreePane2 extends Component {
+class TreePane extends Component {
   static serializeToData = serializeToData;
   static propTypes = {
     // 首次渲染时使用的树状结构数据
@@ -296,12 +298,12 @@ class TreePane2 extends Component {
     const paneArr = generatePaneArr(pane);
     componentLog('多级树分组：', paneArr);
     return (
-      <div className="m-tree-select-container">
+      <div className="fishd-tree-select-container">
         {
           paneArr.map((paneList, depth) => {
             return paneList.map((pane, i) => {
               return (
-                <TreePane
+                <TreePaneView
                   key={i}
                   pane={pane}
                   depth={depth}
@@ -317,4 +319,4 @@ class TreePane2 extends Component {
   }
 }
 
-export default TreePane2;
+export default TreePane;

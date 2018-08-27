@@ -1,9 +1,10 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import RcInputNumber from './src';
-
 import {Omit} from '../../utils/type';
+
 import './style/index.less';
+
 // omitting this attrs because they conflicts with the ones defined in InputNumberProps
 export type OmitAttrs = 'defaultValue' | 'onChange' | 'size';
 
