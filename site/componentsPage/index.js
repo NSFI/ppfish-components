@@ -87,7 +87,7 @@ export default {
       'picturePreview': {
         type: 'markdown',
         name: 'PicturePreview 图片查看器',
-        style: require('./PicturePreview/index.less'),
+        style: require('./picturePreview/index.less'),
         props: {
           source: [
             {

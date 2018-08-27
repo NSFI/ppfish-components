@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import Checkbox from '../Checkbox';
 import PureRenderMixin from '../Checkbox/src/PureRenderMixin';
 import { TransferItem } from './index';
-import Search from './search';
-import Item from './item';
+import Search from './Search';
+import Item from './Item';
 import Animate from 'rc-animate';
 import triggerEvent from '../../utils/triggerEvent';
 

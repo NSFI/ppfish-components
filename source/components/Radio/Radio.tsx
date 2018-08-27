@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
 import RcCheckbox from '../Checkbox/src/Checkbox.jsx';
-import RadioGroup from './group';
-import RadioButton from './radioButton';
+import RadioGroup from './Group';
+import RadioButton from './RadioButton';
 import { RadioProps, RadioGroupContext } from './interface';
 // case sensitive
 export default class Radio extends React.Component<RadioProps, {}> {
