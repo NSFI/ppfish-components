@@ -173,7 +173,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
         <Icon type="delete" title={locale.removeFile} onClick={() => this.handleClose(file)} />
       ) : null;
       const removeIconCross = showRemoveIcon ? (
-        <Icon type="cross" title={locale.removeFile} onClick={() => this.handleClose(file)} />
+        <Icon type="hints-alone-error" className={'icon-remove'} title={locale.removeFile} onClick={() => this.handleClose(file)} />
       ) : null;
       const actions = (listType === 'picture-card' && file.status !== 'uploading')
         ? <span className={`${prefixCls}-list-item-actions`}>{previewIcon}{removeIcon}</span>
