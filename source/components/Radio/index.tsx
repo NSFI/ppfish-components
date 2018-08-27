@@ -1,6 +1,6 @@
-import Radio from './Radio';
-import Group from './Group';
-import Button from './RadioButton';
+import Radio from './radio';
+import Group from './group';
+import Button from './radioButton';
 import './style/index.less';
 
 export * from './interface';
