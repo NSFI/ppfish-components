@@ -595,6 +595,7 @@ render(){
 | labelClear | 多选模式下开启label删除功能 | boolean | false |
 | labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: string, label: ReactNode , title : string }` 的格式 | boolean | false |
 | loading | 加载状态 | boolean | false |
+| maxLabelClearPanelHeight | 可删除label模式下面板的最大高度( mode='multiple' & labelClear) | number\|string ，例如：100，'100px' | '三行高度' |
 | maxCount | 最大多选个数 | number | - |
 | maxScrollHeight | 列表滚动区高度 | number | 250 |
 | mode | 设置 Select 的模式 | 'multiple' \| 'single' | - |

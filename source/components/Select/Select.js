@@ -35,6 +35,7 @@ export default class Select extends React.Component {
     loading: PropTypes.bool,
     maxCount: PropTypes.number,
     errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    maxLabelClearPanelHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     mode: PropTypes.oneOf(['multiple', 'single']),
     notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -658,6 +659,7 @@ export default class Select extends React.Component {
       disabled,
       labelClear,
       loading,
+      maxLabelClearPanelHeight,
       mode,
       onMouseEnter,
       onMouseLeave,
@@ -730,6 +732,7 @@ export default class Select extends React.Component {
                       //仅在有选中数据时渲染，fix空状态面板上方高度问题
                       selectValueForMultiplePanel && selectValueForMultiplePanel.length ?
                         <Animate onEnd={this.resizeTrigger} component="div" transitionName="zoom"
+                                 style={{maxHeight: maxLabelClearPanelHeight ? maxLabelClearPanelHeight : null}}
                                  className={`${selectionCls}-option-clearable-list`}>
                           {
                             selectValueForMultiplePanel.map(option =>
