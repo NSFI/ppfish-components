@@ -15,7 +15,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="m-timeslot-list-container">
+      <div className="fishd-timeslot-list-container">
         <div className="timeslot-item">
           <DayTimeSelect
             timeRange={[1, 24]}

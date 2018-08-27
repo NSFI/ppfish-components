@@ -51,7 +51,7 @@ export default class LoadMore extends React.Component {
         buttonText = endText;
     }
     return (
-      <div className={classNames('m-loadmore', {[`${extraCls}`]: !!extraCls})}>
+      <div className={classNames('fishd-loadmore', {[`${extraCls}`]: !!extraCls})}>
         {status === 'end' ?
           <span className="z-load-end">{endText}</span> :
           <Button size={buttonSize} onClick={onLoadMore} loading={status === 'loading'} {...otherProps}>

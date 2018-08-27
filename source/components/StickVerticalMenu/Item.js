@@ -20,7 +20,7 @@ class Item extends Component {
     const {children, onItemClick, isActive} = this.props;
     return (
       <div
-        className={classNames('m-stick-v-menu-item', {
+        className={classNames('fishd-stick-v-menu-item', {
           'z-active': isActive
         })}
         onClick={onItemClick}

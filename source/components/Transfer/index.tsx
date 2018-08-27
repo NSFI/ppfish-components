@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import List, { TransferListProps } from './list';
-import Operation from './operation';
-import Search from './search';
+import List, { TransferListProps } from './List';
+import Operation from './Operation';
+import Search from './Search';
 
 import './style/index.less';
 
-export { TransferListProps } from './list';
-export { TransferOperationProps } from './operation';
-export { TransferSearchProps } from './search';
+export { TransferListProps } from './List';
+export { TransferOperationProps } from './Operation';
+export { TransferSearchProps } from './Search';
 
 function noop() {
 }

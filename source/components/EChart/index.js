@@ -72,7 +72,7 @@ export default class EChart extends Component {
   }
 
   render() {
-    let className = 'm-chart';
+    let className = 'fishd-chart';
     let domProps = {
       className: this.props.className,
       style: this.props.style,
