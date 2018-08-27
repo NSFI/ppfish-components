@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, mount } from 'enzyme';
-import List from '../list.tsx';
+import List from '../List.tsx';
 import Checkbox from '../../Checkbox/index.tsx';
 
 const listCommonProps = {

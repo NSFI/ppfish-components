@@ -2,10 +2,10 @@
 import React from 'react';
 import { render, mount } from 'enzyme';
 import Transfer from '../index.tsx';
-import TransferList from '../list.tsx';
-import TransferOperation from '../operation.tsx';
-import TransferSearch from '../search.tsx';
-import TransferItem from '../item.tsx';
+import TransferList from '../List.tsx';
+import TransferOperation from '../Operation.tsx';
+import TransferSearch from '../Search.tsx';
+import TransferItem from '../Item.tsx';
 import Button from '../../Button/index.tsx';
 import Checkbox from '../../Checkbox/index.tsx';
 

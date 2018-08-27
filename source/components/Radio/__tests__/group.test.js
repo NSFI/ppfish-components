@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import Radio from '../radio.tsx';
-import RadioGroup from '../group.tsx';
+import Radio from '../Radio.tsx';
+import RadioGroup from '../Group.tsx';
 
 describe('Radio', () => {
   function createRadioGroup(props) {
