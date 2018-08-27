@@ -51,7 +51,8 @@ render() {
 
 :::demo 点击上传用户头像，并使用 `beforeUpload` 限制用户上传的图片格式和大小。
 
-> `beforeUpload` 的返回值可以是一个 Promise 以支持也支持异步检查：[示例](http://react-component.github.io/upload/examples/beforeUpload.html)。
+`beforeUpload` 的返回值可以是一个 Promise 以支持也支持异步检查：[示例](http://react-component.github.io/upload/examples/beforeUpload.html)。
+
 ```js
   state = {
     loading: false,
@@ -90,7 +91,7 @@ render() {
     }
     const uploadButton = (
       <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
+        { this.state.loading ?  <Spin /> : <Icon type='plus'/> }
         <div className="fishd-upload-text">Upload</div>
       </div>
     );
@@ -528,11 +529,11 @@ render(){
 | showUploadList | 是否展示 uploadList, 可设为一个对象，用于单独设定 showPreviewIcon 和 showRemoveIcon | Boolean or { showPreviewIcon?: boolean, showRemoveIcon?: boolean } | true |
 | supportServerRender | 服务端渲染时需要打开这个 | boolean | false |
 | withCredentials | 上传请求时是否携带 cookie | boolean | false |
-| onChange | 上传文件改变时的状态，详见 onChange | Function | - |
+| onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | Function | - |
 | onPreview | 点击文件链接或预览图标时的回调 | Function(file) | - |
 | onRemove | 点击移除文件时的回调，返回值为 false 时不移除。支持返回一个 Promise 对象，Promise 对象 resolve(false) 或 reject 时不移除。 | Function(file): `boolean \| Promise` | - |
 
-### onChange
+## onChange
 
 > 上传中、完成、失败都会调用这个函数。
 
