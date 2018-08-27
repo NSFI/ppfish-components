@@ -5,7 +5,7 @@ import Radio from './Radio';
 import { RadioChangeEvent } from './interface';
 
 export type RadioButtonProps = AbstractCheckboxProps<RadioChangeEvent>;
-
+// case sensitive
 export default class RadioButton extends React.Component<RadioButtonProps, any> {
   static defaultProps = {
     prefixCls: 'fishd-radio-button',

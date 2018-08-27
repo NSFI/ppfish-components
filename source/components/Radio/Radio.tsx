@@ -6,7 +6,7 @@ import RcCheckbox from '../Checkbox/src/Checkbox.jsx';
 import RadioGroup from './Group';
 import RadioButton from './RadioButton';
 import { RadioProps, RadioGroupContext } from './interface';
-
+// case sensitive
 export default class Radio extends React.Component<RadioProps, {}> {
   static Group: typeof RadioGroup;
   static Button: typeof RadioButton;

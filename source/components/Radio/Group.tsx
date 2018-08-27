@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
 import Radio from './Radio';
 import { RadioGroupProps, RadioGroupState, RadioChangeEvent } from './interface';
-
+// case sensitive
 function getCheckedValue(children: React.ReactNode) {
   let value = null;
   let matched = false;

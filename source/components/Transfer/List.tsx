@@ -9,6 +9,7 @@ import Item from './Item';
 import Animate from 'rc-animate';
 import triggerEvent from '../../utils/triggerEvent';
 
+// case sensitive
 function isIEorEDGE() {
   return (document as any).documentMode || /Edge/.test(navigator.userAgent);
 }
