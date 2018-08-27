@@ -15,6 +15,7 @@ import './map-china2';
 export default class EChart extends Component {
   static propTypes = {
     option: PropTypes.object,
+    opts: PropTypes.object,
     events: PropTypes.object,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -27,9 +28,16 @@ export default class EChart extends Component {
     this.bindToWindowResize();
   }
 
+  /**http://echarts.baidu.com/api.html#echartsInstance.setOption
+   * chart.setOption(option, {
+   *   notMerge: ...,
+   *   lazyUpdate: ...,
+   *   silent: ...
+   *   });
+   */
   componentWillReceiveProps(nextProps) {
     if(nextProps.option && nextProps.option != this.props.option) {
-      this.chart.setOption(nextProps.option);
+      this.chart.setOption(nextProps.option, nextProps.opts);
     }
   }
 
