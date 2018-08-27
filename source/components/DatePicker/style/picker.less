@@ -1,10 +1,10 @@
-
 .@{prefixClass} {
   // 输入框统一样式
   &-date-editor {
     position: relative;
     display: inline-block;
     width: 100%;
+    height: @datepicker-height;
 
     .prefix-iconfont,.suffix-iconfont {
       color: @text-c;
@@ -31,9 +31,11 @@
       border: 1px solid @border-color-base;
       border-radius: 2px;
       display: flex;
+      height: @datepicker-height;
       // 清除2个Input的样式
       .@{prefixClass}-input {
         border: 0;
+        height: @datepicker-height - 2px;
         &:hover,&:focus {
           box-shadow: none;
           border: none;
