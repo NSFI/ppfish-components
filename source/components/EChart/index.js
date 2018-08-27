@@ -67,6 +67,10 @@ export default class EChart extends Component {
     return this.chart;
   }
 
+  getEcharts() {
+    return echarts;
+  }
+
   render() {
     let className = 'm-chart';
     let domProps = {
