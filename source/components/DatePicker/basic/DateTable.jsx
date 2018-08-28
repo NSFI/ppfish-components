@@ -182,11 +182,11 @@ export default class DateTable extends React.Component {
       classes.push('in-range');
     }
 
-    if (cell.start && (cell.type === 'normal' || cell.type === 'today') && !cell.disabled) {
+    if (cell.start && (cell.type === 'normal' || cell.type === 'today' || selectionMode === 'week') && !cell.disabled) {
       classes.push('start-date');
     }
 
-    if (cell.end && (cell.type === 'normal' || cell.type === 'today') && !cell.disabled) {
+    if (cell.end && (cell.type === 'normal' || cell.type === 'today' || selectionMode === 'week') && !cell.disabled) {
       classes.push('end-date');
     }
 
@@ -239,7 +239,7 @@ export default class DateTable extends React.Component {
     }
     newDate.setDate(parseInt(cell.text, 10));
 
-    return getWeekNumber(newDate) === deconstructDate(this.props.value).week // current date value
+    return getWeekNumber(newDate) === deconstructDate(this.props.value).week; // current date value
   }
 
   handleMouseMove = (event) => {
