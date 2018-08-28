@@ -17,6 +17,7 @@ export type ProgressSize = 'default' | 'small';
 export interface ProgressProps {
   prefixCls?: string;
   className?: string;
+  extraContent?: React.ReactNode | null;
   type?: ProgressType;
   percent?: number;
   successPercent?: number;
@@ -76,7 +77,7 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     const {
       prefixCls, className, percent = 0, status, format, trailColor, size, successPercent,
       type, strokeWidth, width, showInfo, gapDegree = 0, gapPosition, strokeColor, strokeLinecap = 'round',
-      ...restProps
+      extraContent, ...restProps
     } = props;
     const progressStatus = parseInt((successPercent ? successPercent.toString() : percent.toString()), 10) >= 100 &&
     !('status' in props) ? 'success' : (status || 'normal');
@@ -116,7 +117,9 @@ export default class Progress extends React.Component<ProgressProps, {}> {
         <div>
           <div className={`${prefixCls}-outer`}>
             <div className={`${prefixCls}-inner`}>
-              <div className={`${prefixCls}-bg`} style={percentStyle} />
+              <div className={`${prefixCls}-bg`} style={percentStyle}>
+                { extraContent ? <div className={`${prefixCls}-extra`}>{extraContent}</div> : null }
+              </div>
               {successSegment}
             </div>
           </div>

@@ -37,6 +37,21 @@
     position: relative;
   }
 
+  &-extra {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    // border-radius: 50%;
+    // overflow: hidden;
+  }
+
   &-circle-trail {
     stroke: @progress-remaining-color;
   }
