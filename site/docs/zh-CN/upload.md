@@ -197,7 +197,7 @@ render() {
     const uploadButton = (
       <div>
         <Icon type="plus" />
-        <div className="ant-upload-text">Upload</div>
+        <div className="fishd-upload-text">Upload</div>
       </div>
     );
     return (
@@ -329,11 +329,11 @@ render(){
     };
   return (
     <Dragger {...props}>
-      <p className="ant-upload-drag-icon">
+      <p className="fishd-upload-drag-icon">
         <Icon type="inbox" />
       </p>
-      <p className="ant-upload-text">Click or drag file to this area to upload</p>
-      <p className="ant-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
+      <p className="fishd-upload-text">Click or drag file to this area to upload</p>
+      <p className="fishd-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
     </Dragger>
   )
 }
