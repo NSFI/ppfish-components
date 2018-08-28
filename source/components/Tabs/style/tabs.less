@@ -1,5 +1,6 @@
 @tab-prefix-cls: ~"@{fishd-prefix}-tabs";
 
+/* stylelint-disable declaration-no-important */
 .@{tab-prefix-cls} {
   .reset-component;
   position: relative;
@@ -259,11 +260,14 @@
     > .@{tab-prefix-cls}-bar {
       border-bottom: 0;
       height: 100%;
-      &-tab-prev, &-tab-next {
+
+      &-tab-prev,
+      &-tab-next {
         width: @tabs-scrolling-size;
         height: 0;
         transition: height 0.3s @ease-in-out, opacity 0.3s @ease-in-out, color 0.3s @ease-in-out;
       }
+
       &-tab-prev.@{tab-prefix-cls}-tab-arrow-show,
       &-tab-next.@{tab-prefix-cls}-tab-arrow-show {
         width: 100%;
@@ -425,3 +429,4 @@
     }
   }
 }
+/* stylelint-enable */

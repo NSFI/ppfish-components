@@ -1,5 +1,6 @@
 @select-prefix-cls: ~"@{fishd-prefix}-treeselect";
 
+/* stylelint-disable declaration-no-important */
 .selection__clear() {
   display: inline-block;
   font-style: normal;
@@ -127,8 +128,8 @@
     &:hover,
     &:focus,
     &:active {
-      border-color: @border-color-base!important;
-      box-shadow: none!important;
+      border-color: @border-color-base !important;
+      box-shadow: none !important;
     }
   }
 
@@ -144,7 +145,7 @@
 
     // modified
     &__choice {
-      cursor: not-allowed!important;
+      cursor: not-allowed !important;
     }
 
     &__clear {
@@ -597,3 +598,4 @@
     }
   }
 }
+/* stylelint-enable */
