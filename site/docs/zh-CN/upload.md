@@ -181,8 +181,6 @@ render() {
     }],
   };
 
-  handleCancel = () => this.setState({ previewVisible: false })
-
   handlePreview = (file) => {
     this.setState({
       previewImage: file.url || file.thumbUrl,
@@ -190,7 +188,7 @@ render() {
     });
   }
 
-  handleChange = ({ fileList }) => this.setState({ fileList })
+  handleChange = ({ fileList }) => this.setState({ fileList, previewVisible: false })
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
@@ -211,9 +209,10 @@ render() {
         >
           {fileList.length >= 3 ? null : uploadButton}
         </Upload>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
+        <PicturePreview
+          source={[{url: previewImage}]}
+          visible={previewVisible}
+        />
       </div>
     );
   }
@@ -414,8 +413,6 @@ render(){
 ## 手动上传
 
 :::demo `beforeUpload` 返回 `false` 后，手动上传文件。
-
-
 
 ```js
   state = {
