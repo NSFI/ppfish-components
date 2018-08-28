@@ -143,6 +143,7 @@
     "raw-loader": "^0.5.1",
     "rc-drawer": "^1.6.2",
     "react": "^16.1.1",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.1.1",
     "react-hot-loader": "^4.3.2",
     "react-lazy-load": "^3.0.13",

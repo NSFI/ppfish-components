@@ -6,35 +6,16 @@
   @media (max-width: @screen-lg) {
     height: calc(~"100vh - 128px");
   }
-  .component-list {
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(100, 101, 102, 0.1);
-    }
-  }
   .component-list,
   .component-content {
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      width: 6px;
-      height: 0;
-      background-color: #fff;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 100px;
-      // -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
-      // background-color: #646566;
-      background-color: rgba(100, 101, 102, 0.2);
-    }
   }
-
   .content {
     background: url("//ysf.nosdn.127.net/zeenqqdsasgclvvedsbvueqvkzpufgoj") top right no-repeat;
   }
 }
 
+/* stylelint-disable-next-line */
 .content {
   vertical-align: top;
   padding: 60px 200px 60px 60px;
@@ -51,6 +32,7 @@
 .side-nav {
   padding-bottom: 50px;
   padding-top: 60px;
+  padding-right: 1px;
   border-right: 1px solid #f2f2f5;
   > .fishd-menu {
     border-right: 0;

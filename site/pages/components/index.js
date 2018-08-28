@@ -1,5 +1,6 @@
 import React from 'react';
 import {Divider, BackTop, Icon, Row, Col, Menu} from '../../../source/components';
+import {Scrollbars} from 'react-custom-scrollbars';
 import MobileMenu from 'rc-drawer';
 import PropTypes from 'prop-types';
 import {enquireScreen, unenquireScreen} from 'enquire-js';
@@ -174,37 +175,42 @@ export default class Components extends React.Component {
               {menuChild}
             </MobileMenu> :
             <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="component-list">
-              {menuChild}
+              <Scrollbars autoHide>
+                {menuChild}
+              </Scrollbars>
             </Col>
           }
           <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="component-content">
-            <div className="content">
-              <article className="markdown">
-                {this.props.children}
-              </article>
-              <Divider/>
-              <Row className="u-navigation-btm">
-                <Col span={12} className="prev-page">
-                  {
-                    prevLink &&
-                    <a href={prevLink.url}>
-                      <Icon type="left" className="prev-page-icon"/>{prevLink.value.name}
-                    </a>
-                  }
-                </Col>
-                <Col span={12} className="next-page">
-                  {
-                    nextLink &&
-                    <a href={nextLink.url}>
-                      {nextLink.value.name}<Icon type="right" className="next-page-icon"/>
-                    </a>
-                  }
-                </Col>
-              </Row>
-              <BackTop target={() => document.querySelector('.component-content')}>
-                <img src={'//ysf.nosdn.127.net/wkohrqpcnyecodfhfpduzggtvgbhjxpv'} className="u-backtop" alt="backTop"/>
-              </BackTop>
-            </div>
+            <Scrollbars autoHide>
+              <div className="content">
+                <article className="markdown">
+                  {this.props.children}
+                </article>
+                <Divider/>
+                <Row className="u-navigation-btm">
+                  <Col span={12} className="prev-page">
+                    {
+                      prevLink &&
+                      <a href={prevLink.url}>
+                        <Icon type="left" className="prev-page-icon"/>{prevLink.value.name}
+                      </a>
+                    }
+                  </Col>
+                  <Col span={12} className="next-page">
+                    {
+                      nextLink &&
+                      <a href={nextLink.url}>
+                        {nextLink.value.name}<Icon type="right" className="next-page-icon"/>
+                      </a>
+                    }
+                  </Col>
+                </Row>
+                <BackTop target={() => document.querySelector('.component-content')}>
+                  <img src={'//ysf.nosdn.127.net/wkohrqpcnyecodfhfpduzggtvgbhjxpv'} className="u-backtop"
+                       alt="backTop"/>
+                </BackTop>
+              </div>
+            </Scrollbars>
           </Col>
         </Row>
       </Layout>
