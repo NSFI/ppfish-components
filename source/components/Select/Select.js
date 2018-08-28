@@ -469,7 +469,7 @@ export default class Select extends React.Component {
       //38 up 40 down
       if (keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
         // 有activeKey
-        if (activeKey) {
+        if (activeKey !== undefined) {
           const activeTabIndex = optionList.findIndex(option => option.key === activeKey);
           // activeKey不在列表中
           if (activeTabIndex === -1) {
