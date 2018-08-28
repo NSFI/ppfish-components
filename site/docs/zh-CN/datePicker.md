@@ -116,11 +116,12 @@
   }
  
   render() {
-    const {value1} = this.state;
+    const {value1, value2} = this.state;
   
     return (
       <div className="source">
         <div className="block">
+          <span className="demonstration">基本使用</span>
           <DatePicker
             style={{width: 300}}
             value={value1}
@@ -131,6 +132,29 @@
   
             }}
             renderExtraFooter={() => '额外的页脚信息'}
+          />
+        </div>
+        <div className="block">
+          <span className="demonstration">额外的页脚中设置快捷选项</span>
+          <DatePicker
+            ref={e=>this.datepicker2 = e}
+            style={{width: 300}}
+            value={value2}
+            placeholder="请选择日期"
+            onChange={date=>{
+              console.debug('DatePicker2 changed: ', date)
+              this.setState({value2: date})
+            }}
+            renderExtraFooter={() => {
+              return (
+                <div style={{marginLeft: 20}}>
+                  <a onClick={()=>{
+                    this.setState({value2: new Date()})
+                    this.datepicker2.togglePickerVisible()
+                  }}>今天</a>
+                </div>
+              )
+            }}
           />
         </div>
       </div>
@@ -902,7 +926,6 @@ render() {
 | firstDayOfWeek | 周起始日 | Number | 0 到 6 | 0 |
 | yearCount | 可选择的年份总数 | Number | Number | 50 |
 | shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
-| shortcutsPlacement | 快捷选项的位置 | string | 'left' | 'left' |
 | renderExtraFooter | 在面板中添加额外的页脚 | ()=>React.ReactNode | - | - |
 | onFocus | focus 事件触发 | (SyntheticEvent)=>() | - | - |
 | onBlur | blur 事件触发 | (SyntheticEvent)=>() | - | - |
