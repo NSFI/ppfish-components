@@ -863,6 +863,28 @@ render() {
 }
 </style>
 
+##  日期格式
+
+- 使用 `format` 指定输入框的格式;
+- 请注意大小写;
+
+以下为可用的格式化字串，以 UTC 2018年1月2日 03:04:05 为例：
+
+| 格式      | 含义          | 备注      | 举例                           |
+|---------- |-------------- |---------- |--------------------------------  |
+| `yyyy` | 年 | - | 2018 |
+| `M`  | 月 | 不补0 | 1 |
+| `MM` | 月 | 补0 | 01 |
+| `W`  | 周 | 仅周选择器的 `format` 可用；不补0 | 1 |
+| `WW` | 周 | 仅周选择器的 `format` 可用 | 01 |
+| `d`  | 日 | 不补0 | 2 |
+| `dd` | 日 | 补0 | 02 |
+| `H`  | 小时 | 24小时制；不补0 | 3 |
+| `HH` | 小时 | 24小时制；补0 | 03 |
+| `m`  | 分钟 | 不补0 | 4 |
+| `mm` | 分钟 | 补0 | 04 |
+| `s`  | 秒 | 不补0 | 5 |
+| `ss` | 秒 | 补0 | 05 |
 
 ## API 公共参数
 
@@ -870,7 +892,7 @@ render() {
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | className | 选择器的className | string | - |
 | style | 选择框的样式 | object | - |
-| format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss` | yyyy-MM-dd |
+| format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | yyyy-MM-dd |
 | popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter','bottomRight','topLeft', 'topCenter','topLeft' | 'bottomLeft' |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| Function(triggerNode) | () => document.body |
 | isShowTrigger | 是否显示前缀图标 | boolean | - | true |

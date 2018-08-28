@@ -262,10 +262,10 @@ export default class DateTable extends React.Component {
       }
 
       if(tag === 'TD') {
-        return event.target
+        return event.target;
       }
       return null;
-    }
+    };
     let target = getTarget();
 
     if (!target || target.tagName !== 'TD') return;
@@ -288,10 +288,10 @@ export default class DateTable extends React.Component {
       }
 
       if(tag === 'TD') {
-        return event.target
+        return event.target;
       }
       return null;
-    }
+    };
     let target = getTarget();
 
     if (!target || target.tagName !== 'TD') return;
@@ -316,16 +316,16 @@ export default class DateTable extends React.Component {
     if (className.indexOf('prev') !== -1) {
       if (month === 0) {
         newDate.setFullYear(year - 1);
-        newDate.setMonth(11)
+        newDate.setMonth(11);
       } else {
-        newDate.setMonth(month - 1)
+        newDate.setMonth(month - 1);
       }
     } else if (className.indexOf('next') !== -1) {
       if (month === 11) {
         newDate.setFullYear(year + 1);
-        newDate.setMonth(0)
+        newDate.setMonth(0);
       } else {
-        newDate.setMonth(month + 1)
+        newDate.setMonth(month + 1);
       }
     }
 
@@ -340,11 +340,11 @@ export default class DateTable extends React.Component {
           maxDate: new Date(Math.max(rangeState.firstSelectedValue, toDate(newDate)))
           },
           true
-        )
+        );
       }
       rangeState.selecting = !rangeState.selecting;
     } else if (selectionMode === SELECTION_MODES.DAY || selectionMode === SELECTION_MODES.WEEK) {
-      onPick({ date: newDate })
+      onPick({ date: newDate });
     }
   }
 
@@ -383,10 +383,9 @@ export default class DateTable extends React.Component {
                   ))
                 }
               </tr>
-            )
+            );
           })
         }
-
         </tbody>
       </table>
     );
