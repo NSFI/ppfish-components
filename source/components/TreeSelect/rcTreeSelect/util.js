@@ -417,7 +417,7 @@ export function formatSelectorValue(valueList, props, valueEntities) {
       label: getLabel(wrappedValue, valueEntities[wrappedValue.value], treeNodeLabelProp),
       value: wrappedValue.value,
       ...restWrappedValue
-    }
+    };
   });
 }
 
