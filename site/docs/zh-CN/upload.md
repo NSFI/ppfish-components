@@ -434,26 +434,22 @@ render(){
       uploading: true,
     });
 
-    // You can use any AJAX library you like
-    reqwest({
-      url: '//jsonplaceholder.typicode.com/posts/',
-      method: 'post',
-      processData: false,
-      data: formData,
-      success: () => {
-        this.setState({
-          fileList: [],
-          uploading: false,
-        });
-        message.success('upload successfully.');
-      },
-      error: () => {
-        this.setState({
-          uploading: false,
-        });
-        message.error('upload failed.');
-      },
-    });
+    const xhr = new XMLHttpRequest();
+    xhr.onerror = () => {
+      this.setState({
+        uploading: false,
+      });
+      message.error('upload failed.');
+    };
+    xhr.onload = () => {
+      this.setState({
+        fileList: [],
+        uploading: false,
+      });
+      message.success('upload successfully.');
+    };
+    xhr.open('post', '//jsonplaceholder.typicode.com/posts/', true);
+    xhr.send(formData);
   }
 
   render() {
