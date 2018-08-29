@@ -87,7 +87,7 @@ export default class DateTable extends React.Component {
       }
       */
       if (showWeekNumber) {//prepend week info to the head of each row array
-        row[0] = { type: 'week', text: getWeekNumber(new Date(startDate.getTime() + DAY_DURATION * (i * 7 + 1))) };
+        row[0] = { type: 'week', text: '第'+ getWeekNumber(new Date(startDate.getTime() + DAY_DURATION * (i * 7 + 1))) + '周' };
       }
 
       for (let j = 0; j < 7; j++) {  // columns

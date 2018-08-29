@@ -6,33 +6,6 @@
     user-select: none;
     border-collapse: separate;
 
-    &.is-week-mode {
-      .@{prefixClass}-date-table__row {
-        &.current td:not(.week) div {
-          background-color: @datepicker-inrange-color;
-        }
-
-        &:hover td:not(.week) div {
-          background-color: @datepicker-inrange-color;
-        }
-        &:hover td:first-child.week + td div {
-          margin-left: 5px;
-          border-top-left-radius: 15px;
-          border-bottom-left-radius: 15px;
-        }
-        &:hover td:first-child:not(.week) div {
-          margin-left: 5px;
-          border-top-left-radius: 15px;
-          border-bottom-left-radius: 15px;
-        }
-        &:hover td:last-child div {
-          margin-right: 5px;
-          border-top-right-radius: 15px;
-          border-bottom-right-radius: 15px;
-        }
-      }
-    }
-
     td {
       width: 32px;
       height: 30px;
@@ -105,17 +78,50 @@
         color: #ccc;
         background-color: @datepicker-disable-background-color;
       }
-
-      &.week {
-        font-size: 80%;
-        color: #ccc;
-      }
     }
 
     th {
       padding: 5px;
       font-weight: 400;
       text-align: center;
+    }
+
+    &.is-week-mode {
+      .@{prefixClass}-date-table__row {
+        td.week {
+          color: @text-c;
+          span {
+            width: 42px;
+          }
+        }
+        td.week + td {
+          margin-right: 4px;
+        }
+        &.current td:not(.week) div {
+          background-color: @datepicker-inrange-color;
+        }
+        &.current .week div {
+          color: @primary-color;
+        }
+        &:hover td:not(.week) div {
+          background-color: @datepicker-inrange-color;
+        }
+        &:hover td:first-child.week + td div {
+          margin-left: 5px;
+          border-top-left-radius: 15px;
+          border-bottom-left-radius: 15px;
+        }
+        &:hover td:first-child:not(.week) div {
+          margin-left: 5px;
+          border-top-left-radius: 15px;
+          border-bottom-left-radius: 15px;
+        }
+        &:hover td:last-child div {
+          margin-right: 5px;
+          border-top-right-radius: 15px;
+          border-bottom-right-radius: 15px;
+        }
+      }
     }
   }
 }
