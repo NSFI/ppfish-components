@@ -15,13 +15,16 @@
         &:hover td:not(.week) div {
           background-color: @datepicker-inrange-color;
         }
-
-        &:hover td:first-child div {
+        &:hover td:first-child.week + td div {
           margin-left: 5px;
           border-top-left-radius: 15px;
           border-bottom-left-radius: 15px;
         }
-
+        &:hover td:first-child:not(.week) div {
+          margin-left: 5px;
+          border-top-left-radius: 15px;
+          border-bottom-left-radius: 15px;
+        }
         &:hover td:last-child div {
           margin-right: 5px;
           border-top-right-radius: 15px;
