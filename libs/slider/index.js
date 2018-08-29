@@ -42,7 +42,7 @@ export default class Slider extends React.Component {
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({anchors});
     /* eslint-enable react/no-did-mount-set-state */
-    this.scrollContainer = document.querySelector('.component-content');
+    this.scrollContainer = document.querySelector('.content').parentNode;
     this.scrollContainer.addEventListener('scroll', this.handleSliderActiveCheck);
     this.handleSliderActiveCheck();
   }
@@ -83,7 +83,7 @@ export default class Slider extends React.Component {
         <li title={x.id} key={x.id} ref={x.id}><a onClick={(e) => this.handleSliderClick(e, x.id)}>{x.name}</a></li>) :
       null;
     return (
-      <Affix offsetTop={80} target={() => document.querySelector('.component-content')}>
+      <Affix offsetTop={80} target={() => document.querySelector('.content').parentNode}>
         <ul className="u-slider-anchors" ref="menu">
           {menuList}
         </ul>
