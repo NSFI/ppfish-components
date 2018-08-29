@@ -8,18 +8,20 @@
 
     &.is-week-mode {
       .@{prefixClass}-date-table__row {
-        &.current td div {
+        &.current td:not(.week) div {
           background-color: @datepicker-inrange-color;
         }
 
-        &:hover div {
+        &:hover td:not(.week) div {
           background-color: @datepicker-inrange-color;
         }
+
         &:hover td:first-child div {
           margin-left: 5px;
           border-top-left-radius: 15px;
           border-bottom-left-radius: 15px;
         }
+
         &:hover td:last-child div {
           margin-right: 5px;
           border-top-right-radius: 15px;

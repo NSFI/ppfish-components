@@ -87,9 +87,7 @@ export default class DateTable extends React.Component {
       }
       */
       if (showWeekNumber) {//prepend week info to the head of each row array
-        if (!row[0]) {
-          row[0] = { type: 'week', text: getWeekNumber(new Date(startDate.getTime() + DAY_DURATION * (i * 7 + 1))) };
-        }
+        row[0] = { type: 'week', text: getWeekNumber(new Date(startDate.getTime() + DAY_DURATION * (i * 7 + 1))) };
       }
 
       for (let j = 0; j < 7; j++) {  // columns
@@ -238,7 +236,6 @@ export default class DateTable extends React.Component {
       newDate.setFullYear(month === 11 ? year + 1 : year);
     }
     newDate.setDate(parseInt(cell.text, 10));
-
     return getWeekNumber(newDate) === deconstructDate(this.props.value).week; // current date value
   }
 
@@ -297,11 +294,11 @@ export default class DateTable extends React.Component {
     if (!target || target.tagName !== 'TD') return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
 
-    const {selectionMode, date, onPick, minDate, maxDate, rangeState} = this.props;
+    const {selectionMode, showWeekNumber, date, onPick, minDate, maxDate, rangeState} = this.props;
     const {year, month} = deconstructDate(date);
 
     if (selectionMode === 'week') {
-      target = target.parentNode.cells[1];
+      target = showWeekNumber ? target.parentNode.cells[2] : target.parentNode.cells[1];
     }
 
     const cellIndex = target.cellIndex;

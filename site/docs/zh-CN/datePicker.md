@@ -191,6 +191,7 @@ render() {
           }}
           format="yyyy 第 WW 周"
           selectionMode="week"
+          showWeekNumber={true}
           />
       </div>
     </div>
