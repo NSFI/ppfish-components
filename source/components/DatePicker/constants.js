@@ -1,4 +1,4 @@
-import { formatDate, parseDate, getWeekNumber, getDateOfISOWeek, deconstructDate } from '../../utils/date';
+import { formatDate, parseDate, getWeekNumber, getDateOfISOWeek, deconstructDate, DAY_DURATION } from '../../utils/date';
 
 export const RANGE_SEPARATOR = ' - ';
 export const DEFAULT_FORMATS = {
@@ -75,10 +75,16 @@ export const TYPE_VALUE_RESOLVER_MAP = {
           const weekNumber = getWeekNumber(value);
           return value.getFullYear() + 'w' + (weekNumber > 9 ? weekNumber : '0' + weekNumber);
         } else {
-          let str = DATE_FORMATTER(value, format);
-          if (str != '') {
-            let weekno = deconstructDate(value).week;
-            str = /WW/.test(str) ? str.replace(/WW/, weekno < 10 ? `0${weekno}` : weekno) : str.replace(/W/, weekno);
+          let str = '';
+          if( format.indexOf('W') === -1 ) {
+            // 当周面板format为具体日期，展示为日期范围格式
+            str = RANGE_FORMATTER([value, new Date(value.getTime() + 3600 * 24 * 6 * 1000)], format);
+          } else {
+            str = DATE_FORMATTER(value, format);
+            if(str) {
+              let weekno = deconstructDate(new Date(value.getTime() + DAY_DURATION)).week;
+              str = /WW/.test(str) ? str.replace(/WW/, weekno < 10 ? `0${weekno}` : weekno) : str.replace(/W/, weekno);
+            }
           }
           return str;
         }

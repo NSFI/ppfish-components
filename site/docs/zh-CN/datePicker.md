@@ -175,7 +175,7 @@ constructor(props) {
 }
 
 render() {
-  const {value1, value2} = this.state;
+  const {value1, value2, value3} = this.state;
 
   return (
     <div className="source">
@@ -194,7 +194,7 @@ render() {
           />
       </div>
       <div className="block">
-        <span className="demonstration">显示周次</span>
+        <span className="demonstration">选择结果格式化为日期范围</span>
         <DatePicker
           style={{width: 300}}
           value={value2}
@@ -202,6 +202,20 @@ render() {
           onChange={date=>{
             console.debug('week DatePicker2 changed: ', date)
             this.setState({value2: date})
+          }}
+          format="yyyy-MM-dd"
+          selectionMode="week"
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">显示周次</span>
+        <DatePicker
+          style={{width: 300}}
+          value={value3}
+          placeholder="选择周"
+          onChange={date=>{
+            console.debug('week DatePicker3 changed: ', date)
+            this.setState({value3: date})
           }}
           format="yyyy 第 WW 周"
           selectionMode="week"

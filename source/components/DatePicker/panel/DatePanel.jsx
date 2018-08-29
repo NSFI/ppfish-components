@@ -115,7 +115,7 @@ export default class DatePanel extends React.Component {
 
   // 年份、月份面板先注释掉，需要时再打开
   _pickerContent() {
-    const { selectionMode, disabledDate, showWeekNumber } = this.props;
+    const { selectionMode, disabledDate, showWeekNumber, firstDayOfWeek } = this.props;
     const { date, currentDate } = this.state;
     const { currentView } = this.state;
     let result = null;
@@ -130,6 +130,7 @@ export default class DatePanel extends React.Component {
             selectionMode={selectionMode}
             disabledDate={disabledDate}
             showWeekNumber={showWeekNumber}
+            firstDayOfWeek={firstDayOfWeek}
           />);
 
         break;

@@ -236,7 +236,8 @@ export default class DateTable extends React.Component {
       newDate.setFullYear(month === 11 ? year + 1 : year);
     }
     newDate.setDate(parseInt(cell.text, 10));
-    return getWeekNumber(newDate) === deconstructDate(this.props.value).week; // current date value
+
+    return getWeekNumber(newDate) === deconstructDate(new Date(this.props.value.getTime() + DAY_DURATION)).week; // current date value
   }
 
   handleMouseMove = (event) => {
@@ -298,7 +299,7 @@ export default class DateTable extends React.Component {
     const {year, month} = deconstructDate(date);
 
     if (selectionMode === 'week') {
-      target = showWeekNumber ? target.parentNode.cells[2] : target.parentNode.cells[1];
+      target = showWeekNumber ? target.parentNode.cells[1] : target.parentNode.cells[0];
     }
 
     const cellIndex = target.cellIndex;
