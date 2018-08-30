@@ -5,6 +5,8 @@ import createReactContext, { Context } from 'create-react-context';
 import warning from 'warning';
 import classNames from 'classnames';
 
+import './style/index.less';
+
 const DrawerContext: Context<Drawer | null> = createReactContext(null);
 
 type EventType =
@@ -63,7 +65,7 @@ export default class Drawer extends React.Component<DrawerProps, IDrawerState> {
   };
 
   static defaultProps = {
-    prefixCls: 'ant-drawer',
+    prefixCls: 'fishd-drawer',
     width: 256,
     closable: true,
     placement: 'right',

@@ -1,5 +1,7 @@
 # 抽屉组件
 
+抽屉从父窗体边缘滑入，覆盖住部分父窗体内容。用户在抽屉内操作时不必离开当前任务，操作完成后，可以平滑地回到到原任务。
+
 ## 何时使用
 
 * 当需要一个附加的面板来控制父窗体内容，这个面板在需要时呼出。比如，控制界面展示样式，往界面中添加内容。
@@ -94,6 +96,10 @@
 :::demo 基础抽屉，点击触发按钮抽屉从右滑出，点击遮罩区关闭
 
 ```js
+const { Option } = Select;
+const FormItem = Form.Item;
+
+class DrawerForm extends React.Component {
   state = { visible: false };
 
   showDrawer = () => {
@@ -131,14 +137,14 @@
           <Form layout="vertical" hideRequiredMark>
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item label="Name">
+                <FormItem label="Name">
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: 'please enter user name' }],
                   })(<Input placeholder="please enter user name" />)}
-                </Form.Item>
+                </FormItem>
               </Col>
               <Col span={12}>
-                <Form.Item label="Url">
+                <FormItem label="Url">
                   {getFieldDecorator('url', {
                     rules: [{ required: true, message: 'please enter url' }],
                   })(
@@ -149,12 +155,12 @@
                       placeholder="please enter url"
                     />
                   )}
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item label="Owner">
+                <FormItem label="Owner">
                   {getFieldDecorator('owner', {
                     rules: [{ required: true, message: 'Please select an owner' }],
                   })(
@@ -163,10 +169,10 @@
                       <Option value="mao">Maomao Zhou</Option>
                     </Select>
                   )}
-                </Form.Item>
+                </FormItem>
               </Col>
               <Col span={12}>
-                <Form.Item label="Type">
+                <FormItem label="Type">
                   {getFieldDecorator('type', {
                     rules: [{ required: true, message: 'Please choose the type' }],
                   })(
@@ -175,12 +181,12 @@
                       <Option value="public">Public</Option>
                     </Select>
                   )}
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item label="Approver">
+                <FormItem label="Approver">
                   {getFieldDecorator('approver', {
                     rules: [{ required: true, message: 'Please choose the approver' }],
                   })(
@@ -189,24 +195,24 @@
                       <Option value="tom">Tom Liu</Option>
                     </Select>
                   )}
-                </Form.Item>
+                </FormItem>
               </Col>
               <Col span={12}>
-                <Form.Item label="DateTime">
+                <FormItem label="DateTime">
                   {getFieldDecorator('dateTime', {
                     rules: [{ required: true, message: 'Please choose the dateTime' }],
                   })(
-                    <DatePicker.RangePicker
+                    <DatePicker.DateRangePicker
                       style={{ width: '100%' }}
                       getPopupContainer={trigger => trigger.parentNode}
                     />
                   )}
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
             <Row gutter={16}>
               <Col span={24}>
-                <Form.Item label="Description">
+                <FormItem label="Description">
                   {getFieldDecorator('description', {
                     rules: [
                       {
@@ -215,7 +221,7 @@
                       },
                     ],
                   })(<Input.TextArea rows={4} placeholder="please enter url description" />)}
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
           </Form>
@@ -246,6 +252,10 @@
       </div>
     );
   }
+}
+
+const Demo = Form.create()(DrawerForm);
+
 ```
 :::
 
