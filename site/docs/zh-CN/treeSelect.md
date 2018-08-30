@@ -307,6 +307,11 @@
     this.setState({ value });
   }
 
+  onSelect = (value, valueList, infoList, extra) => {
+    console.log('选中：', value);
+    console.log('已选择：', valueList);
+  }
+
   render() {
     const treeData = [{
       title: 'Node1',
@@ -372,6 +377,7 @@
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
+      onSelect: this.onSelect,
       treeCheckable: true,
       style: {
         width: 300,
@@ -611,12 +617,12 @@
 | isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | boolean | false |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | string | '不选择任何分类' |
 | value | 指定当前选中的条目 | string/string[] | - |
-| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值的列表，info 为已选择的树节点对象的列表 | function(value, info, extra) | - |
-| onConfirm | 确认选中树节点时调用此函数。函数参数 value 为已选择的树节点值的列表，info 为已选择的树节点对象的列表 | function(value, info, extra) | - |
+| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | function(value, infoList, extra) | - |
+| onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | function(valueList, infoList, extra) | - |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | function(value) | - |
 | onReset | 点击复位选项时调用，单选时有效 | function() | - |
 | onSearch | 搜索框值变化时调用 | function(value: string) | - |
-| onSelect | 被选中时调用。函数参数 node 为选中的树节点的实例 | function(value, node, extra) | - |
+| onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | function(value, valueList, infoList, extra) | - |
 
 ### Tree 方法
 

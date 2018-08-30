@@ -171,6 +171,7 @@ class Select extends React.Component {
       curValueList: [],
 
       // onChange 和 onConfirm 回调函数的回传参数
+      returnValue: [],
       connectValueList: [],
       extra: {}
     };
@@ -578,11 +579,14 @@ class Select extends React.Component {
     }
 
     // [Legacy] Origin code not trigger `onDeselect` every time. Let's align the behaviour.
-    if (isAdd) {
-      if (onSelect) {
-        onSelect(wrappedValue, node, nodeEventInfo);
-      }
-    } else {
+    // if (isAdd) {
+    //   if (onSelect) {
+    //     onSelect(wrappedValue, node, nodeEventInfo);
+    //   }
+    // } else {
+    //   this.onDeselect(wrappedValue, node, nodeEventInfo);
+    // }
+    if (!isAdd) {
       this.onDeselect(wrappedValue, node, nodeEventInfo);
     }
 
@@ -630,7 +634,7 @@ class Select extends React.Component {
       triggerNode: node,
     };
 
-    this.triggerChange(missValueList, newValueList, extraInfo);
+    this.triggerChange(missValueList, newValueList, extraInfo, false, isAdd);
   };
 
   onTreeNodeSelect = (_, nodeEventInfo) => {
@@ -851,9 +855,9 @@ class Select extends React.Component {
    * 1. Update state valueList.
    * 2. Fire `onChange` event to user.
    */
-  triggerChange = (missValueList, valueList, extraInfo = {}, immediate = false) => {
+  triggerChange = (missValueList, valueList, extraInfo = {}, immediate = false, triggerSelect = false) => {
     const { valueEntities } = this.state;
-    const { onChange, disabled, onConfirm } = this.props;
+    const { onChange, disabled, onConfirm, onSelect, treeNodeLabelProp } = this.props;
 
     if (disabled) return;
 
@@ -886,11 +890,6 @@ class Select extends React.Component {
       connectValueList = selectorValueList.slice(0, 1);
     }
 
-    this.setState({
-      connectValueList,
-      extra
-    });
-
     let labelList = null;
     let returnValue;
 
@@ -906,6 +905,27 @@ class Select extends React.Component {
 
     if (!this.isMultiple()) {
       returnValue = returnValue[0];
+    }
+
+    this.setState({
+      returnValue,
+      connectValueList,
+      extra
+    });
+
+    let selectValue;
+    if (this.isLabelInValue()) {
+      selectValue = {
+        value: extraInfo.triggerValue,
+        label: extraInfo.triggerNode.props[treeNodeLabelProp],
+      };
+    } else {
+      selectValue = extraInfo.triggerValue;
+    }
+
+    // 触发 onSelect 事件
+    if (triggerSelect) {
+      onSelect && onSelect(selectValue, returnValue, connectValueList, extra);
     }
 
     // 每次触发改变都重新设置 curValueList
