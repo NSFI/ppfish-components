@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Drawer from '..';
-import Button from '../../button';
+import Drawer from '../index.tsx';
+import Button from '../../Button/index.tsx';
 
 class MultiDrawer extends React.Component {
   state = { visible: false, childrenDrawer: false };
@@ -100,7 +100,7 @@ describe('Drawer', () => {
     const wrapper = mount(<MultiDrawer placement="right" />);
     wrapper.find('button#open_drawer').simulate('click');
     wrapper.find('button#open_two_drawer').simulate('click');
-    const translateX = wrapper.find('.ant-drawer.test_drawer').get(0).props.style.transform;
+    const translateX = wrapper.find('.fishd-drawer.test_drawer').get(0).props.style.transform;
     expect(translateX).toEqual('translateX(-180px)');
     expect(wrapper.find('#two_drawer_text').exists()).toBe(true);
   });
@@ -109,7 +109,7 @@ describe('Drawer', () => {
     const wrapper = mount(<MultiDrawer placement="left" />);
     wrapper.find('button#open_drawer').simulate('click');
     wrapper.find('button#open_two_drawer').simulate('click');
-    const translateX = wrapper.find('.ant-drawer.test_drawer').get(0).props.style.transform;
+    const translateX = wrapper.find('.fishd-drawer.test_drawer').get(0).props.style.transform;
     expect(translateX).toEqual('translateX(180px)');
     expect(wrapper.find('#two_drawer_text').exists()).toBe(true);
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'enzyme';
-import Drawer from '..';
+import Drawer from '../index.tsx';
 
 describe('Drawer', () => {
   it('render correctly', () => {

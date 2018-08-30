@@ -51,7 +51,7 @@
 
 ## 左侧滑出
 
-:::demo 基础抽屉，点击触发按钮抽屉从右滑出，点击遮罩区关闭
+:::demo 基础抽屉，点击触发按钮抽屉从左滑出，点击遮罩区关闭
 
 ```js
   state = { visible: false };
@@ -93,7 +93,7 @@
 
 ## 对象编辑
 
-:::demo 基础抽屉，点击触发按钮抽屉从右滑出，点击遮罩区关闭
+:::demo 用于承载编辑相关操作，需要点击关闭按钮关闭。
 
 ```js
 const { Option } = Select;
@@ -261,7 +261,7 @@ const Demo = Form.create()(DrawerForm);
 
 ## 多层抽屉
 
-:::demo 基础抽屉，点击触发按钮抽屉从右滑出，点击遮罩区关闭
+:::demo 在抽屉内打开新的抽屉，用以解决多分支任务的复杂状况。
 
 ```js
   state = { visible: false, childrenDrawer: false };
@@ -349,7 +349,7 @@ const Demo = Form.create()(DrawerForm);
 
 ## 信息预览
 
-:::demo 基础抽屉，点击触发按钮抽屉从右滑出，点击遮罩区关闭
+:::demo 需要快速预览对象概要时使用，点击遮罩区关闭
 
 ```js
 const pStyle = {
@@ -416,7 +416,7 @@ class Demo extends React.Component {
                 avatar={
                   <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
                 }
-                title={<a href="https://ant.design/index-cn">{item.name}</a>}
+                title={<a>{item.name}</a>}
                 description="Progresser AFX"
               />
             </List.Item>
@@ -436,7 +436,7 @@ class Demo extends React.Component {
               <DescriptionItem title="Full Name" content="Lily" />{' '}
             </Col>
             <Col span={12}>
-              <DescriptionItem title="Account" content="AntDesign@example.com" />
+              <DescriptionItem title="Account" content="Design@example.com" />
             </Col>
           </Row>
           <Row>
@@ -493,7 +493,7 @@ class Demo extends React.Component {
           <p style={pStyle}>Contacts</p>
           <Row>
             <Col span={12}>
-              <DescriptionItem title="Email" content="AntDesign@example.com" />
+              <DescriptionItem title="Email" content="FishDesign@example.com" />
             </Col>
             <Col span={12}>
               <DescriptionItem title="Phone Number" content="+86 181 0000 0000" />
@@ -504,8 +504,8 @@ class Demo extends React.Component {
               <DescriptionItem
                 title="Github"
                 content={(
-                  <a href="http://github.com/ant-design/ant-design/">
-                    github.com/ant-design/ant-design/
+                  <a href="https://github.com/NSFI/ppfish-components">
+                    https://github.com/NSFI/ppfish-components
                   </a>
                 )}
               />
@@ -535,7 +535,7 @@ class Demo extends React.Component {
 | width | 宽度 | string \| number | 256 |
 | className | 对话框外层容器的类名 | string | - |
 | zIndex | 设置 Drawer 的 `z-index` | Number | 1000 |
-| placement | 抽屉的方向 | 'left' \| 'right' | 'right'
+| placement | 抽屉的方向 | 'left' \| 'right' | 'right' |
 | onClose | 点击遮罩层或右上角叉或取消按钮的回调 | function(e) | 无 |
 
 <style>
