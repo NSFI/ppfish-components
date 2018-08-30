@@ -17,7 +17,7 @@ export { default as Col } from './Col/index.tsx';
 export { default as Collapse } from './Collapse';
 export { default as ColorPicker } from './ColorPicker';
 export { TimePicker, DatePicker} from './DatePicker';
-export { default as Drawer } from './Drawer';
+export { default as Drawer } from './Drawer/index.tsx';
 export { default as Dropdown } from './Dropdown/index.tsx';
 export { default as Divider } from './Divider/index.tsx';
 export { default as Form } from './Form/index.tsx';

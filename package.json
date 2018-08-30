@@ -107,6 +107,7 @@
     "copy-to-clipboard": "^3.0.8",
     "copy-webpack-plugin": "^3.0.1",
     "coveralls": "^2.13.1",
+    "create-react-context": "^0.2.3",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "dom-scroll-into-view": "^1.2.1",
