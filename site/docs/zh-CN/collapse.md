@@ -113,9 +113,9 @@ render(){
 ```
 :::
 
-## 简洁风格
+## 激活后将激活的面板置顶
 
-:::demo 一套没有边框的简洁样式。
+:::demo 容器的高度有限展示不下折叠面板出现滚动条时，可以设置该属性，开启激活后自动将激活面板置顶的功能。
 
 ```js
 render(){
@@ -128,7 +128,12 @@ render(){
     </p>
   );
   return(
-      <Collapse bordered={false} defaultActiveKey={['1']}>
+      <Collapse 
+        onChange={this.callback}
+        isScrollToHeader
+        defaultActiveKey={['1']}
+        className="collapse-demo"
+      >
         <Panel header="This is panel header 1" key="1">
           {text}
         </Panel>
@@ -138,11 +143,35 @@ render(){
         <Panel header="This is panel header 3" key="3">
           {text}
         </Panel>
+        <Panel header="This is panel header 4" key="4">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 5" key="5">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 6" key="6">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 7" key="7">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 8" key="8">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 9" key="9">
+          <p>{text}</p>
+        </Panel>
       </Collapse>
   )
 }
 ```
 :::
+
+<style>
+.collapse-demo {
+  height: 260px;
+}
+</style>
 
 ## 自定义面板
 
@@ -180,35 +209,6 @@ render(){
 ```
 :::
 
-## 隐藏箭头
-
-:::demo 你可以通过 `showArrow={false}` 隐藏 `CollapsePanel` 组件的箭头图标。
-```js
-callback=(key)=>{
-  console.log(key);
-};
-
-render(){
-  const Panel = Collapse.Panel;
-  const text = `
-    A dog is a type of domesticated animal.
-    Known for its loyalty and faithfulness,
-    it can be found as a welcome guest in many households across the world.
-  `;
-  return(
-      <Collapse defaultActiveKey={['1']} onChange={this.callback}>
-        <Panel header="This is panel header with arrow icon" key="1">
-          <p>{text}</p>
-        </Panel>
-        <Panel showArrow={false} header="This is panel header with no arrow icon" key="2">
-          <p>{text}</p>
-        </Panel>
-      </Collapse>
-  )
-}
-```
-:::
-
 ## API
 
 ### Collapse
@@ -218,12 +218,12 @@ render(){
 | activeKey | 当前激活 tab 面板的 key | string\[]\|string | 默认无，accordion模式下默认第一个元素 |
 | defaultActiveKey | 初始化选中面板的 key | string | 无 |
 | onChange | 切换面板的回调 | Function | 无 |
+| isScrollToHeader | 激活后将激活的面板置顶 | Function | 无 |
 
 ### Collapse.Panel
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | boolean | false |
-| forceRender | 被隐藏时是否渲染 DOM 结构 | boolean | false |
 | header | 面板头内容 | string\|ReactNode | 无 |
 | key | 对应 activeKey | string | 无 |

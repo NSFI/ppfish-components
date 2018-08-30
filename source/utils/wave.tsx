@@ -24,8 +24,8 @@ export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
     this.removeExtraStyleNode();
     const { insertExtraNode } = this.props;
     const extraNode = document.createElement('div');
-    extraNode.className = 'ant-click-animating-node';
-    const attributeName = insertExtraNode ? 'ant-click-animating' : 'ant-click-animating-without-extra-node';
+    extraNode.className = 'fishd-click-animating-node';
+    const attributeName = insertExtraNode ? 'fishd-click-animating' : 'fishd-click-animating-without-extra-node';
     node.removeAttribute(attributeName);
     node.setAttribute(attributeName, 'true');
     // Get wave color from target
@@ -43,7 +43,7 @@ export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
       extraNode.style.borderColor = waveColor;
       this.styleForPesudo = document.createElement('style');
       this.styleForPesudo.innerHTML =
-        `[ant-click-animating-without-extra-node]:after { border-color: ${waveColor}; }`;
+        `[fishd-click-animating-without-extra-node]:after { border-color: ${waveColor}; }`;
       document.body.appendChild(this.styleForPesudo);
     }
     if (insertExtraNode) {

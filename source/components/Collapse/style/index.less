@@ -1,0 +1,60 @@
+@import (reference) "../../../assets/css/index";
+
+@collapse-prefix-cls: ~"@{fishd-prefix}-collapse";
+.@{collapse-prefix-cls} {
+  height: 100%;
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: content-box;
+    font-size: 14px;
+    color: #393a4c;
+    margin-left: 15px;
+    height: 50px;
+    line-height: 50px;
+    border-top: 1px solid @border-color-base;
+    cursor: pointer;
+    .title {
+      flex: 1;
+    }
+    .arrow {
+      width: 48px;
+      height: 50px;
+      text-align: center;
+    }
+    .icon {
+      font-size: 10px;
+      color: #999;
+    }
+  }
+  &-header-disabled {
+    cursor: not-allowed;
+    color: @disabled-color;
+    .icon {
+      color: @disabled-color;
+    }
+  }
+  &-content-box {
+    margin-left: 15px;
+    border-top: 1px solid @border-color-base;
+    clear: both;
+  }
+  &-content-active {
+    display: block;
+    margin-bottom: 10px;
+  }
+  &-item-active {
+    border-left: 2px solid @primary-color;
+    .@{collapse-prefix-cls}-header {
+      margin-left: 13px;
+    }
+  }
+  &-content-inactive {
+    display: none;
+  }
+  &-item:first-child {
+    .@{collapse-prefix-cls}-header {
+      border-top: 0;
+    }
+  }
+}

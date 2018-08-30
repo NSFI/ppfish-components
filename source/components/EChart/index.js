@@ -26,6 +26,7 @@ export default class EChart extends Component {
     this.props.option && this.chart.setOption(this.props.option);
     this.bindEvents();
     this.bindToWindowResize();
+    this.handleWindowResize();
   }
 
   /**http://echarts.baidu.com/api.html#echartsInstance.setOption
