@@ -209,35 +209,6 @@ render(){
 ```
 :::
 
-## 隐藏箭头
-
-:::demo 你可以通过 `showArrow={false}` 隐藏 `CollapsePanel` 组件的箭头图标。
-```js
-callback=(key)=>{
-  console.log(key);
-};
-
-render(){
-  const Panel = Collapse.Panel;
-  const text = `
-    A dog is a type of domesticated animal.
-    Known for its loyalty and faithfulness,
-    it can be found as a welcome guest in many households across the world.
-  `;
-  return(
-      <Collapse defaultActiveKey={['1']} onChange={this.callback}>
-        <Panel header="This is panel header with arrow icon" key="1">
-          <p>{text}</p>
-        </Panel>
-        <Panel showArrow={false} header="This is panel header with no arrow icon" key="2">
-          <p>{text}</p>
-        </Panel>
-      </Collapse>
-  )
-}
-```
-:::
-
 ## API
 
 ### Collapse
@@ -254,6 +225,5 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | boolean | false |
-| forceRender | 被隐藏时是否渲染 DOM 结构 | boolean | false |
 | header | 面板头内容 | string\|ReactNode | 无 |
 | key | 对应 activeKey | string | 无 |

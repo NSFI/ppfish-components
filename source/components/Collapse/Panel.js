@@ -14,6 +14,7 @@ class CollapsePanel extends Component {
     children: PropTypes.node,
     openAnimation: PropTypes.object,
     prefixCls: PropTypes.string,
+    disabled: PropTypes.bool,
     header: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -24,6 +25,7 @@ class CollapsePanel extends Component {
   };
   static defaultProps = {
     isActive: false,
+    disabled: false,
     onItemClick() {
     }
   };
@@ -34,14 +36,26 @@ class CollapsePanel extends Component {
   }
 
   handleItemClick() {
-    const { onItemClick } = this.props;
-    onItemClick();
+    const { onItemClick, disabled } = this.props;
+    if( !disabled ) {
+      onItemClick();
+    }
   }
 
   render() {
-    const { itemKey, className, prefixCls, header, children, isActive } = this.props;
+    const {
+      itemKey,
+      className,
+      prefixCls,
+      disabled,
+      header,
+      style,
+      children,
+      isActive
+    } = this.props;
     const headerCls = classNames({
       [`${prefixCls}-header`]: true,
+      [`${prefixCls}-header-disabled`]: disabled,
     });
     const itemCls = classNames({
       // 'clearfix': true,
@@ -61,7 +75,7 @@ class CollapsePanel extends Component {
       }
     };
     return (
-      <div className={itemCls}>
+      <div className={itemCls} style={style}>
         <div
           className={headerCls}
           onClick={this.handleItemClick}
