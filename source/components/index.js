@@ -14,6 +14,7 @@ export { default as Carousel } from './Carousel/index.tsx';
 export { default as Checkbox } from './Checkbox/index.tsx';
 export { default as Card } from './Card/index.tsx';
 export { default as Col } from './Col/index.tsx';
+export { default as Collapse } from './Collapse';
 export { default as ColorPicker } from './ColorPicker';
 export { TimePicker, DatePicker} from './DatePicker';
 export { default as Drawer } from './Drawer';

@@ -113,9 +113,9 @@ render(){
 ```
 :::
 
-## 简洁风格
+## 激活后将激活的面板置顶
 
-:::demo 一套没有边框的简洁样式。
+:::demo 容器的高度有限展示不下折叠面板出现滚动条时，可以设置该属性，开启激活后自动将激活面板置顶的功能。
 
 ```js
 render(){
@@ -128,7 +128,12 @@ render(){
     </p>
   );
   return(
-      <Collapse bordered={false} defaultActiveKey={['1']}>
+      <Collapse 
+        onChange={this.callback}
+        isScrollToHeader
+        defaultActiveKey={['1']}
+        className="collapse-demo"
+      >
         <Panel header="This is panel header 1" key="1">
           {text}
         </Panel>
@@ -138,11 +143,35 @@ render(){
         <Panel header="This is panel header 3" key="3">
           {text}
         </Panel>
+        <Panel header="This is panel header 4" key="4">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 5" key="5">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 6" key="6">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 7" key="7">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 8" key="8">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 9" key="9">
+          <p>{text}</p>
+        </Panel>
       </Collapse>
   )
 }
 ```
 :::
+
+<style>
+.collapse-demo {
+  height: 260px;
+}
+</style>
 
 ## 自定义面板
 
@@ -218,6 +247,7 @@ render(){
 | activeKey | 当前激活 tab 面板的 key | string\[]\|string | 默认无，accordion模式下默认第一个元素 |
 | defaultActiveKey | 初始化选中面板的 key | string | 无 |
 | onChange | 切换面板的回调 | Function | 无 |
+| isScrollToHeader | 激活后将激活的面板置顶 | Function | 无 |
 
 ### Collapse.Panel
 
