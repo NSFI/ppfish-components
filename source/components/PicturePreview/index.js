@@ -7,10 +7,11 @@ import './style/index.less';
 
 const CON_MAX_WIDTH = 1024, //容器最大宽度
   CON_MIN_WIDTH = 360, //容器最小宽度
-  CON_MAX_HEIGHT = 722, //容器最大高度
+  CON_MAX_HEIGHT = 768, //容器最大高度
   CON_MIN_HEIGHT = 360, //容器最小高度
   MAX_RATIO = 5, //最大的图片显示比例
   MIN_RATIO = 0.1, //最小的图片显示比例
+  STEP_RATIO = 0.1, //图片缩放比例步长
   DEFAULT_RATIO = 0.8; //默认的图片显示比例
 
 function num2px(num) {
@@ -389,7 +390,7 @@ class PicturePreview extends Component {
   };
 
   render() {
-    const { show, current, imgs } = this.state;
+    const { show, current, imgs, image } = this.state;
     const { className, prefixCls, source, children, toolbar } = this.props;
     let ctnerClass = classNames(prefixCls, 'root', {
       [className]: className,
@@ -411,16 +412,16 @@ class PicturePreview extends Component {
     let toolbarClass = classNames('toolbar', {
       'hide': !toolbar
     });
-    let dengbiClass = classNames('fishdicon fishdicon-search-line icon', {
+    let one2oneClass = classNames('fishdicon fishdicon-search-line icon', {
       'hide': false
     });
     let fullscreenClass = classNames('fishdicon fishdicon-search-line icon', {
       'hide': false
     });
-    let fangdaClass = classNames('fishdicon fishdicon-search-line icon', {
+    let zoomInClass = classNames('fishdicon fishdicon-search-line icon', {
       'hide': false
     });
-    let suoxiaoClass = classNames('fishdicon fishdicon-search-line icon', {
+    let zoomOutClass = classNames('fishdicon fishdicon-search-line icon', {
       'hide': false
     });
 
@@ -459,10 +460,10 @@ class PicturePreview extends Component {
         <div className={toolbarClass}>
           <div className="toolbarTitle">{current+1}/{imgs.length}</div>
           <div className="toolbarCon">
-            <i className={dengbiClass} onClick={this.handleZoom.bind(this, current, '1:1')}/>
+            <i className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
             <i className={fullscreenClass} onClick={this.handleFullscreen}/>
-            <i className={fangdaClass} onClick={this.handleZoom.bind(this, current, 'in')}/>
-            <i className={suoxiaoClass} onClick={this.handleZoom.bind(this, current, 'out')}/>
+            <i className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
+            <i className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
             <i className="fishdicon fishdicon-search-line icon" onClick={this.handleRotate}/>
             <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
               <i className="fishdicon fishdicon-download-line icon" onClick={this.handleSave}/>
