@@ -1,7 +1,6 @@
 import React from 'react';
-import {Divider, BackTop, Icon, Row, Col, Menu} from '../../../source/components';
+import {Divider, BackTop, Icon, Row, Col, Menu, Drawer} from '../../../source/components';
 import {Scrollbars} from 'react-custom-scrollbars';
-import MobileMenu from 'rc-drawer';
 import PropTypes from 'prop-types';
 import {enquireScreen, unenquireScreen} from 'enquire-js';
 import Layout from '../common/layout';
@@ -168,12 +167,13 @@ export default class Components extends React.Component {
       <Layout className="doc" hideFooter>
         <Row className="component-container">
           {isMobile ?
-            <MobileMenu
+            <Drawer
               key="Mobile-menu"
               wrapperClassName="m-mobile-menu"
+              placement="left"
             >
               {menuChild}
-            </MobileMenu> :
+            </Drawer> :
             <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="component-list">
               <Scrollbars autoHide>
                 {menuChild}
