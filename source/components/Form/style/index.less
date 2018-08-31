@@ -441,6 +441,7 @@ form {
   .@{fishd-prefix}-select {
     border-color: @warning-color !important;
     &:focus,
+    &:active,
     &.open {
       box-shadow: 0 0 0 2px fade(@warning-color, 20%) !important;
     }
@@ -486,6 +487,7 @@ form {
   .@{fishd-prefix}-select {
     border-color: @error-color !important;
     &:focus,
+    &:active,
     &.open {
       box-shadow: 0 0 0 2px fade(@error-color, 20%) !important;
     }
@@ -498,7 +500,7 @@ form {
   }
 
   .@{fishd-prefix}-input-group-addon .@{fishd-prefix}-select {
-    border-color: transparent;
+    border-color: transparent !important;
     box-shadow: none;
   }
 

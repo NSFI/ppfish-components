@@ -43,7 +43,7 @@ export default class Components extends React.Component {
   }
 
   componentDidUpdate() {
-    document.querySelector('.component-content').scrollTop = 0;
+    document.querySelector('.content').parentNode.scrollTop = 0;
   }
 
   componentWillUnmount() {
@@ -206,7 +206,8 @@ export default class Components extends React.Component {
                   </Col>
                 </Row>
                 <BackTop target={() => document.querySelector('.content').parentNode}>
-                  <img src={'//ysf.nosdn.127.net/wkohrqpcnyecodfhfpduzggtvgbhjxpv'} className="u-backtop" alt="backTop"/>
+                  <img src={'//ysf.nosdn.127.net/wkohrqpcnyecodfhfpduzggtvgbhjxpv'} className="u-backtop"
+                       alt="backTop"/>
                 </BackTop>
               </div>
             </Scrollbars>
