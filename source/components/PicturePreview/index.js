@@ -263,13 +263,14 @@ class PicturePreview extends Component {
       }
 
       this.setState({
-        image: {
+        image: Object.assign({}, this.state.image, {
           naturalWidth: naturalWidth,
           naturalHeight: naturalHeight,
           ratio: imgRatio
-        },
+        }),
         container: {
-          style: css ? css : null
+          style: css ? css : null,
+          isFull: this.state.container.isFull
         }
       }, () => {
         //等视图更新后，再缩放，要用到con的尺寸
@@ -320,7 +321,7 @@ class PicturePreview extends Component {
         conel = this.$el;
 
     //已经是1:1的情况下，不处理
-    if (ratio === 1 && this.isOne2One)
+    if (ratio === 1 && this.isOne2One())
       return;
 
     //缩放比例限定范围在0.1和5之间
@@ -335,14 +336,18 @@ class PicturePreview extends Component {
     // image.marginL = (conel.clientWidth - width) / 2;
     // image.marginT = (conel.clientHeight - height) / 2;
 
-    image.marginL = (this.state.container.style.width - width) / 2;
-    image.marginT = (this.state.container.style.height - height) / 2;
+    image.marginL = (parseInt(this.state.container.style.width, 10) - width) / 2;
+    image.marginT = (parseInt(this.state.container.style.height, 10) - height) / 2;
 
-    setStyle(this.state.image.el, {
-      'margin-left': num2px(image.marginL),
-      'margin-top': num2px(image.marginT),
-      width: num2px(width),
-      height: num2px(height)
+    this.setState({
+      image: Object.assign({}, this.state.image, image)
+    }, () => {
+      setStyle(this.state.image.el, {
+        'margin-left': num2px(image.marginL),
+        'margin-top': num2px(image.marginT),
+        width: num2px(width),
+        height: num2px(height)
+      });
     });
   };
 
