@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Carousel from '../Carousel/index.tsx';
-import Modal from '../Modal/index.tsx';
-import warning from 'warning';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
+import { throttle } from 'lodash';
 import './style/index.less';
 
-const maxVisualWidth = parseInt(window.innerWidth * 0.8, 10),   // 图片可视区默认宽度
-      maxVisualHeight = parseInt(window.innerHeight * 0.8, 10), // 图片可视区默认高度
-      ZOOM_FACTOR = 0.1,//图片缩放系数
-      MAX_SCALE = 3.0,  //最大的图片显示比例
-      MIN_SCALE = 0.1;  //最小的图片显示比例
+const CON_MAX_WIDTH = 1024, //容器最大宽度
+  CON_MIN_WIDTH = 360, //容器最小宽度
+  CON_MAX_HEIGHT = 722, //容器最大高度
+  CON_MIN_HEIGHT = 360, //容器最小高度
+  MAX_RATIO = 5, //最大的图片显示比例
+  MIN_RATIO = 0.1, //最小的图片显示比例
+  DEFAULT_RATIO = 0.8; //默认的图片显示比例
+
+function num2px(num) {
+  return parseInt(num, 10) + 'px';
+}
+
+function px2num(str) {
+  return Number(str.replace('px', '')) || 0;
+}
+
+/**
+ * el1元素的区域是否超过el2元素
+ * @param  {[type]}  el1 [description]
+ * @param  {[type]}  el2 [description]
+ * @return {Boolean}     [description]
+ */
+function isLargger(el1, el2) {
+  return el1.clientHeight > el2.clientHeight || el1.clientWidth > el2.clientWidth;
+}
 
 const setStyle = (el, css) => {
   for (let key in css) {
@@ -19,277 +37,334 @@ const setStyle = (el, css) => {
   }
 };
 
-/**
- * 获取图片的自适应宽高
- * @param  {[Number]} w [图片原始宽度]
- * @param  {[Number]} h [图片原始高度]
- * @param  {[Boolean]} isFullscreen [是否为全屏状态]
- * @return {[Object]}   [返回适应后的宽、高]
- */
-const getAdaptiveImg = (w, h, isFullscreen) => {
-  let obj = {
-    width: w,
-    height: h
+const getImageSize = function(image, callback, scope) {
+  var newImage;
+
+  // Modern browsers
+  if (image.naturalWidth) {
+    return callback.call(scope, image.naturalWidth, image.naturalHeight);
+  }
+
+  // IE8: Don't use `new Image()` here
+  newImage = document.createElement('img');
+  newImage.onload = function() {
+    callback.call(scope, this.width, this.height);
   };
-  let maxW = maxVisualWidth;
-  let maxH = maxVisualHeight;
+  newImage.src = image.src;
+}
 
-  if (isFullscreen) {
-    maxW = window.innerWidth;
-    maxH = window.innerHeight;
-  }
-
-  if (w <= maxW && h <= maxH) {
-    return obj;
-  }
-
-  let contRatio = maxW / maxH;
-  let imgRatio = w / h;
-
-  if (imgRatio >= contRatio) {
-    obj = {
-      width: maxW,
-      height: parseInt(maxW * (h / w), 10)
-    };
-  } else {
-    obj = {
-      width: parseInt(maxH * (w / h), 10),
-      height: maxH
-    };
-  }
-
-  return obj;
+const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
+const camelCase = function(name) {
+  return name.replace(
+    SPECIAL_CHARS_REGEXP, (_, separator, letter, offset) => offset
+    ? letter.toUpperCase()
+    : letter).replace(MOZ_HACK_REGEXP, 'Moz$1');
 };
 
 /**
- * 获取传进来的图片尺寸或计算图片的原始尺寸
- * @param  {Object}   img      [图片对象，格式为{url:'', size: '200*200'}]
- * @param  {Function} callback [获取成功后的回调函数]
- * @param  {[type]}   ctx      [回调函数绑定的作用域]
+ * 获取元素的样式
+ * @param  {[type]} element   [description] 元素标签
+ * @param  {[type]} styleName [description] 样式名
+ * @return {[type]}           [description]
  */
-const getImageSize = (img, callback, ctx) => {
-  let newImage, naturalWidth, naturalHeight, promise;
+const getStyle = function(element, styleName) {
+  if (!element || !styleName)
+    return null;
 
-  if (img.size && img.size.indexOf('*') > -1) {
-    let sizeList = img.size.split('*');
+  styleName = camelCase(styleName);
 
-    promise = new Promise((resolve, reject) => {
-      callback.call(ctx, sizeList[0] || 0, sizeList[1] || 0);
-      resolve();
-    });
-  } else {
-    newImage = document.createElement('img');
-    promise = new Promise((resolve, reject) => {
-      newImage.onload = () => {
-        naturalWidth = newImage.naturalWidth || newImage.width || 0;
-        naturalHeight = newImage.naturalHeight || newImage.height || 0;
-        callback.call(ctx, naturalWidth, naturalHeight);
-        resolve();
-      };
-      newImage.onerror = () => {
-        reject('Image load error: ' + img.url);
-      };
-    });
-    newImage.src = img.url;
+  if (styleName === 'float')
+    styleName = 'cssFloat';
+
+  try {
+    const computed = document.defaultView.getComputedStyle(element, '');
+    return element.style[styleName] || computed
+      ? computed[styleName]
+      : null;
+  } catch (e) {
+    return element.style[styleName];
   }
-
-  return promise;
 };
 
 class PicturePreview extends Component {
   static propTypes = {
-    activeIndex: PropTypes.number,    // 默认打开的图片索引
+    prefixCls: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.node,
-    controller: PropTypes.bool,       // 是否显示图片控制器
-    dots: PropTypes.bool,             // 是否显示面板指示点
-    source: PropTypes.array,          // 预览图片数组，格式为[{url:"xxxx",size: "200*200"}]
-    visible: PropTypes.bool,          // 是否打开预览
-    onClose: PropTypes.func,          // 关闭预览的回调
+    toolbar: PropTypes.bool,
+    source: PropTypes.array,
+    visible: PropTypes.bool,
+    activeIndex: PropTypes.number,
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
-    activeIndex: 0,
-    controller: false,
-    dots: false,
-    source: [],
+    prefixCls: 'fishd-picturepreview',
+    toolbar: false,
+    source: [], // [{name: '', src: ''}]
     visible: false,
+    activeIndex: 0,
     onClose: () => {},
   };
 
   constructor(props) {
     super(props);
 
-    this.hasAddExitfullscreenEvt = false;
-    this.direction = 'prev';
-    this.selector = '.carousel-wrap .slick-list img';
-    this.curSelector = '.carousel-wrap .slick-current img';
     this.state = {
-      activeIndex: this.props.activeIndex,
-      imgs: [],
-      isFullscreen: false,
-      isDisableDengbi: false,
-      isDisableFangda: false,
-      isDisableSuoxiao: false,
-      visible: this.props.visible,
+      current: props.activeIndex || 0,
+      show: props.visible || false,
+      imgs: props.source || [],
+      container: {
+        style: null,
+        isFull: false //是否全屏
+      },
+      image: {
+        el: null,
+        ratio: 0 //图片的缩放比例
+      },
+      shown: false, //标记是否显示过，第一次显示时居中显示
+      moving: '' //表示移动的目标  'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
     };
   }
 
   componentDidMount() {
-    this.initImgs(this.props.source);
-    this.props.controller && this.setCtrlIconStatus(this.props.activeIndex);
+    document.body.appendChild(this.$el);
+    this.setContainerStyle();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { activeIndex, visible, controller, source } = nextProps;
+    const { current, show, imgs } = this.state;
+    const { activeIndex, visible, source, children } = nextProps;
 
-    if (this.state.visible != visible) {
+    if (activeIndex != current) {
       this.setState({
-        visible: visible
-      });
-    }
-
-    if (JSON.stringify(this.props.source) != JSON.stringify(source)) {
-      this.initImgs(source);
-    }
-
-    if (this.state.activeIndex != activeIndex) {
-      this.setState({
-        activeIndex: activeIndex
+        current: activeIndex
       }, () => {
-        controller && this.setCtrlIconStatus(nextProps.activeIndex);
+        this.setContainerStyle();
       });
     }
-  }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (JSON.stringify(this.state) === JSON.stringify(nextState)) {
-      return false;
+    if (visible != show) {
+      this.setState({
+        show: visible
+      });
     }
 
-    return true;
-  }
+    if (source && source.length) {
+      let sourceStr = JSON.stringify(source);
 
-  componentDidUpdate() {
-    if (this.props.controller && this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
-      // 处理通过按“Esc”键退出全屏的情况
-      addFullscreenchangeEvent(this.contentWrap, (e) => {
-        if (!checkFullscreen() && this.state.isFullscreen == true) {
-          this.setState({
-            isFullscreen: false
-          });
+      if (sourceStr != JSON.stringify(imgs)) {
+        this.setState({
+          imgs: JSON.parse(sourceStr)
+        }, () => {
+          this.setContainerStyle();
+        });
+      }
+    } else if (children) {
+      let imgList = [];
+
+      imgList = React.Children.map(children, (child, index) => {
+        let { props, type } = child, img = {};
+
+        if (type === 'img') {
+          img.name = props.name || props.alt;
+          img.src = props.src;
         }
-      });
 
-      this.hasAddExitfullscreenEvt = true;
+        return img;
+      }).filter((item) => item);
+
+      this.setState({
+        imgs: imgList
+      }, () => {
+        this.setContainerStyle();
+      });
     }
   }
 
-  handleOnClose = () => {
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   // if (JSON.stringify(this.state) === JSON.stringify(nextState)) {
+  //   //   return false;
+  //   // }
+
+  //   return true;
+  // }
+
+  componentDidUpdate(prevProps, prevState) {
+    // if (this.props.controller && this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
+    //   // 处理通过按“Esc”键退出全屏的情况
+    //   addFullscreenchangeEvent(this.contentWrap, (e) => {
+    //     if (!checkFullscreen() && this.state.isFullscreen == true) {
+    //       this.setState({
+    //         isFullscreen: false
+    //       });
+    //     }
+    //   });
+
+    //   this.hasAddExitfullscreenEvt = true;
+    // }
+  }
+
+  componentWillUnmount() {
+    if (this.$el && this.$el.parentNode === document.body)
+      document.body.removeChild(this.$el);
+  }
+
+  /**
+   * 设置容器的样式，用于切换图片时，根据图片大小，确定容器的尺寸以及位置
+   */
+  setContainerStyle = () => {
+    if (!this.state.image.el) return;
+
+    getImageSize(this.state.image.el, (naturalWidth, naturalHeight) => {
+      // this.state.image.naturalWidth = naturalWidth;
+      // this.state.image.naturalHeight = naturalHeight;
+
+      //计算容器的宽度
+      var width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
+      if (width > CON_MAX_WIDTH)
+        width = CON_MAX_WIDTH;
+      if (width < CON_MIN_WIDTH)
+        width = CON_MIN_WIDTH;
+
+      //计算图片的缩放比例
+      // this.state.image.ratio = width / naturalWidth;
+      var imgRatio = (width / naturalWidth) || 0;
+
+      //计算容器的高度
+      var height = naturalHeight * imgRatio;
+      if (height > CON_MAX_HEIGHT)
+        height = CON_MAX_HEIGHT;
+      if (height < CON_MIN_HEIGHT)
+        height = CON_MIN_HEIGHT;
+
+      var css = '';
+      if (!this.state.shown) {
+        css = {
+            width: num2px(width),
+            height: num2px(height),
+            left: num2px((window.innerWidth - width) / 2),
+            top: num2px((window.innerHeight - height) / 2)
+        };
+        // this.state.container.style = css;
+      } else if (!this.state.container.isFull) {
+        var oriTop = px2num(getStyle(this.$el, 'top')),
+            oriLeft = px2num(getStyle(this.$el, 'left')),
+            oriWidth = px2num(getStyle(this.$el, 'width')),
+            oriHeight = px2num(getStyle(this.$el, 'height'));
+        css = {
+            width: num2px(width),
+            height: num2px(height),
+            left: num2px(oriLeft + (oriWidth - width) / 2),
+            top: num2px(oriTop + (oriHeight - height) / 2)
+        };
+        // this.state.container.style = css;
+      }
+
+      this.setState({
+        image: {
+          naturalWidth: naturalWidth,
+          naturalHeight: naturalHeight,
+          ratio: imgRatio
+        },
+        container: {
+          style: css ? css : null
+        }
+      }, () => {
+        //等视图更新后，再缩放，要用到con的尺寸
+        this.handleZoom(imgRatio);
+      });
+    });
+  };
+
+  isFullEnabled = () => {
+    return document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled;
+  };
+
+  isOne2One = () => {
+    return Math.round(this.state.image.ratio * 100) === 100;
+  };
+
+  handleClose = () => {
+    const { onClose } = this.props;
+
+    this.state.container.isFull && exitfullscreen();
     this.setState({
-      visible: false,
-      isFullscreen: false
+      show: false
     }, () => {
-      this.props.onClose();
+      if (onClose && typeof onClose == "function") {
+        onClose();
+      }
+    });
+  };
+
+  handlePrev = () => {
+    this.setState({
+      current: this.state.current <= 0 ? (this.state.imgs.length - 1) : (this.state.current - 1)
+    }, () => {
+      this.setContainerStyle();
+    });
+  };
+
+  handleNext = () => {
+    this.setState({
+      current: this.state.current >= (this.state.imgs.length - 1) ? 0 : (this.state.current + 1)
+    }, () => {
+      this.setContainerStyle();
+    });
+  };
+
+  handleZoom = (ratio) => {
+    var image = {},
+        conel = this.$el;
+
+    //已经是1:1的情况下，不处理
+    if (ratio === 1 && this.isOne2One)
+      return;
+
+    //缩放比例限定范围在0.1和5之间
+    ratio = Math.min(ratio, MAX_RATIO);
+    ratio = Math.max(ratio, MIN_RATIO);
+
+    image.ratio = ratio;
+
+    var width = this.state.image.naturalWidth * ratio,
+        height = this.state.image.naturalHeight * ratio;
+
+    // image.marginL = (conel.clientWidth - width) / 2;
+    // image.marginT = (conel.clientHeight - height) / 2;
+
+    image.marginL = (this.state.container.style.width - width) / 2;
+    image.marginT = (this.state.container.style.height - height) / 2;
+
+    setStyle(this.state.image.el, {
+      'margin-left': num2px(image.marginL),
+      'margin-top': num2px(image.marginT),
+      width: num2px(width),
+      height: num2px(height)
     });
   };
 
   handleFullscreen = () => {
-    if (this.state.isFullscreen) {
-      // 退出全屏
-      exitfullscreen();
 
-      this.setState({
-        isFullscreen: false
-      });
-    } else {
-      // 进入全屏
-      fullscreen(this.contentWrap);
-
-      this.setState({
-        isFullscreen: true
-      });
-    }
   };
 
-  handleZoom = (index, type) => {
-    let img = document.querySelectorAll(this.selector)[index],
-        imgInfo = this.state.imgs[index],
-        curScale = imgInfo.scale,
-        zWidth = imgInfo.naturalWidth,
-        zHeight = imgInfo.naturalHeight;
+  handleRotate = () => {
+    var old = this.state.image.el.rotateValue || 0,
+        rotate = old + 90,
+        transform = 'rotate(' + rotate + 'deg)';
 
-    if (type == 'in') {
-      curScale = Number((curScale + ZOOM_FACTOR).toFixed(1));
-      if (curScale >= MAX_SCALE) {
-        curScale = MAX_SCALE;
-        this.setState({
-          isDisableFangda: true
-        });
-      }
-      zWidth = parseInt(imgInfo.adaptiveWidth * curScale, 10);
-      zHeight = parseInt(imgInfo.adaptiveHeight * curScale, 10);
+    this.state.image.el.rotateValue = rotate;
 
-      this.setState({
-        isDisableDengbi: false,
-        isDisableSuoxiao: false
-      });
-    } else if (type == 'out') {
-      curScale = Number((curScale - ZOOM_FACTOR).toFixed(1));
-      if (curScale <= MIN_SCALE) {
-        curScale = MIN_SCALE;
-        this.setState({
-          isDisableSuoxiao: true
-        });
-      }
-      zWidth = parseInt(imgInfo.adaptiveWidth * curScale, 10);
-      zHeight = parseInt(imgInfo.adaptiveHeight * curScale, 10);
-
-      this.setState({
-        isDisableDengbi: false,
-        isDisableFangda: false
-      });
-    } else if (type == '1:1') {
-      curScale = Number((imgInfo.naturalWidth / imgInfo.adaptiveWidth).toFixed(1));
-      zWidth = imgInfo.naturalWidth,
-      zHeight = imgInfo.naturalHeight;
-      this.setState({
-        isDisableDengbi: true,
-        isDisableFangda: false,
-        isDisableSuoxiao: false
-      });
-    } else if (type == 'reset') {
-      curScale = 1;
-      zWidth = imgInfo.adaptiveWidth;
-      zHeight = imgInfo.adaptiveHeight;
-    }
-
-    imgInfo.scale = curScale;
-
-    setStyle(img, {
-      'width': zWidth + 'px',
-      'height': zHeight + 'px'
-    });
-  };
-
-  handleRotate = (index, isReset) => {
-    let img = document.querySelectorAll(this.selector)[index],
-        imgInfo = this.state.imgs[index],
-        oldVal = imgInfo.rotate || 0,
-        newVal = isReset ? 0 : (oldVal + 90),
-        transform = 'rotate(' + newVal + 'deg)';
-
-    imgInfo.rotate = newVal;
-
-    setStyle(img, {
-      '-webkit-transform': transform,
+    setStyle(this.state.image.el, {
+      '-webkit-ransform': transform,
       '-ms-transform': transform,
       'transform': transform
     });
   };
 
-  handleSave = (selector) => {
-    let img = document.querySelector(selector);
+  handleSave = () => {
+    let img = this.state.image.el;
 
     // for IE10+
     if (window.navigator.msSaveBlob) {
@@ -302,232 +377,99 @@ class PicturePreview extends Component {
         }
       };
       xhr.send();
-    } else {
-      let a = document.createElement('a'),
-        event = new MouseEvent('click');
-
-      a.download = '';
-      a.href = img.src;
-      a.dispatchEvent(event);
     }
-  };
-
-  initImgs = (source) => {
-    if (!source || !source.length) {
-      return [];
-    }
-
-    let imgInfoList = [], promises = [];
-
-    source.forEach((item, index) => {
-      promises.push(getImageSize(item, (nWidth, nHeight) => {
-        let aImg = getAdaptiveImg(nWidth, nHeight, this.state.isFullscreen);
-        let imgInfo = {
-          url: item.url,
-          size: item.size,
-          scale: 1.0,
-          rotate: 0,
-          adaptiveWidth: aImg.width,
-          adaptiveHeight: aImg.height,
-          naturalWidth: nWidth,
-          naturalHeight: nHeight,
-        };
-
-        imgInfoList[index] = imgInfo;
-      }));
-    });
-
-    Promise.all(promises).then(() => {
-      this.setState({
-        imgs: imgInfoList
-      });
-    }).catch((reason) => {
-      warning(!reason, reason);
-    });
-  };
-
-  /**
-   * 重置上一张图片的缩放和旋转状态
-   * @return {[type]} [description]
-   */
-  resetImg = (index) => {
-    this.handleZoom(index, 'reset');
-    this.handleRotate(index, true);
-  };
-
-  setCtrlIconStatus = (index) => {
-    let activeImg = this.state.imgs[index],
-        isDisableDengbi = false;
-
-    if (activeImg && activeImg.naturalWidth == activeImg.adaptiveWidth && activeImg.naturalHeight == activeImg.adaptiveHeight) {
-      isDisableDengbi = true;
-    } else {
-      isDisableDengbi = false;
-    }
-
-    this.setState({
-      isDisableDengbi: isDisableDengbi,
-      isDisableFangda: false,
-      isDisableSuoxiao: false
-    });
-  };
-
-  afterCarouselChange = (curIndex) => {
-    this.setState({
-      activeIndex: curIndex
-    }, () => {
-      if (this.props.controller) {
-        // 计算上一张图片的index
-        let oldIndex = 0,
-            totalNum = this.props.source.length;
-
-        if (this.direction == 'prev') {
-          if (curIndex == totalNum - 1) {
-            oldIndex = 0;
-          } else {
-            oldIndex = curIndex + 1;
-          }
-        } else if (this.direction == 'next') {
-          if (curIndex == 0) {
-            oldIndex = totalNum - 1;
-          } else {
-            oldIndex = curIndex - 1;
-          }
-        }
-
-        this.resetImg(oldIndex);
-        this.setCtrlIconStatus(curIndex);
-      }
-    });
-  };
-
-  handleCarouselPrev = () => {
-    this.direction = 'prev';
-    this.carousel.prev();
-  };
-
-  handleCarouselNext = () => {
-    this.direction = 'next';
-    this.carousel.next();
-  };
-
-  handleMouseDown = (e) => {
-    // TODO: 拖放功能
-    e.preventDefault();
+    //  else {
+    //   let a = document.createElement('a');
+    //   // a.download = '';
+    //   // a.href = img.src;
+    //   a.setAttribute('download', '');
+    //   a.setAttribute('href', img.src);
+    //   a.click();
+    // }
   };
 
   render() {
-    const { visible, isFullscreen, isDisableDengbi, isDisableFangda, isDisableSuoxiao } = this.state;
-    const { className, children, source, dots, activeIndex } = this.props;
-    const controller = false; // 未提供视觉 icon，暂时关闭 controller 功能
-
-    let contentWrapClass = classNames({
-        'fishd-picturepreview-content-wrap': true,
-        'fishd-picturepreview-content-wrap-fullscreen': isFullscreen
+    const { show, current, imgs } = this.state;
+    const { className, prefixCls, source, children, toolbar } = this.props;
+    let ctnerClass = classNames(prefixCls, 'root', {
+      [className]: className,
+      'hide': !show
     });
-    let ctrlClass = classNames({
-        'ctrl-wrap': true,
-        'hide': !controller
-    });
-    let fullscreenClass = classNames({
-        'fishdicon': true,
-        'fishdicon-fullscreen': !isFullscreen,
-        'fishdicon-fullscreen-exit': isFullscreen
-    });
-    let imgWrapClass = classNames({
-        'img-wrap': true,
-        'img-wrap-size': !isFullscreen,
-        'img-wrap-size-fullscreen': isFullscreen
-    });
-    let dengbiClass = classNames({
-        'fishdicon': true,
-        'fishdicon-dengbi': true,
-        'fishdicon-disable': isDisableDengbi
-    });
-    let fangdaClass = classNames({
-        'fishdicon': true,
-        'fishdicon-fangda': true,
-        'fishdicon-disable': isDisableFangda
-    });
-    let suoxiaoClass = classNames({
-        'fishdicon': true,
-        'fishdicon-suoxiao': true,
-        'fishdicon-disable': isDisableSuoxiao
-    });
-    let isHideBtn = !(source.length > 1 || (!!children && children.length > 1));
+    let isHide = !(source.length > 1 || (!!children && children.length > 1));
     let leftBtnClass = classNames({
-        'fishdicon': true,
-        'btn-left': true,
-        'fishdicon-left': true,
-        'hide': isHideBtn
+      'prev': true,
+      'fishdicon': true,
+      'fishdicon-left': true,
+      'hide': isHide
     });
     let rightBtnClass = classNames({
-        'fishdicon': true,
-        'btn-right': true,
-        'fishdicon-right': true,
-        'hide': isHideBtn
+      'next': true,
+      'fishdicon': true,
+      'fishdicon-right': true,
+      'hide': isHide
+    });
+    let toolbarClass = classNames('toolbar', {
+      'hide': !toolbar
+    });
+    let dengbiClass = classNames('fishdicon fishdicon-search-line icon', {
+      'hide': false
+    });
+    let fullscreenClass = classNames('fishdicon fishdicon-search-line icon', {
+      'hide': false
+    });
+    let fangdaClass = classNames('fishdicon fishdicon-search-line icon', {
+      'hide': false
+    });
+    let suoxiaoClass = classNames('fishdicon fishdicon-search-line icon', {
+      'hide': false
     });
 
     return (
-      <Modal
-        title={null}
-        width={"100%"}
-        wrapClassName={className ? className + " fishd-picturepreview-modal-wrap" : "fishd-picturepreview-modal-wrap"}
-        visible={visible}
-        footer={null}
-        destroyOnClose={true}
-        closable={false}
-        onCancel={this.handleOnClose}
-      >
-        <div className={contentWrapClass} ref={node => this.contentWrap = node}>
-          <div className="carousel-wrap">
-            <Carousel
-              dots={dots}
-              effect={"fade"}
-              initialSlide={activeIndex}
-              afterChange={this.afterCarouselChange}
-              ref={node => this.carousel = node}
-            >
-              {
-                this.state.imgs.length ? this.state.imgs.map((item, index) => {
-                  let aImg = getAdaptiveImg(item.naturalWidth, item.naturalHeight, isFullscreen);
+      <div className={ctnerClass} ref={node => this.$el = node} style={this.state.container.style} >
+        <i className="fishdicon fishdicon-close-modal-line close" onClick={this.handleClose}/>
+        <i className={leftBtnClass} onClick={this.handlePrev}/>
+        <i className={rightBtnClass} onClick={this.handleNext}/>
 
-                  item.adaptiveWidth = aImg.width;
-                  item.adaptiveHeight = aImg.height;
-
-                  if (controller) {
-                    return (
-                      <div key={index} className={imgWrapClass}>
-                        <img src={item.url} width={aImg.width || 0} height={aImg.height || 0} onMouseDown={this.handleMouseDown}/>
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div key={index} className={imgWrapClass}>
-                        <img src={item.url} width={aImg.width || 0} height={aImg.height || 0}/>
-                      </div>
-                    );
-                  }
-                }) :
-                this.props.children
+        <div className="canvas">
+          {
+            imgs.map((item, index) => {
+              if (current === index) {
+                return (
+                  <img key={'pic_'+index}
+                    className='img'
+                    src={item.src}
+                    alt={item.name} 
+                    active='true'
+                    ref={node => this.state.image.el = node}
+                  />
+                );
+              } else {
+                return (
+                  <img key={'pic_'+index}
+                    className='img'
+                    src={item.src}
+                    alt={item.name}
+                  />
+                );
               }
-            </Carousel>
-          </div>
+            })
+          }
+        </div>
 
-          <i className="fishdicon fishdicon-close-modal-line" onClick={this.handleOnClose}/>
-          <i className={leftBtnClass} onClick={this.handleCarouselPrev}/>
-          <i className={rightBtnClass} onClick={this.handleCarouselNext}/>
-
-          <div className={ctrlClass}>
-            <i className={dengbiClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, '1:1')}/>
+        <div className={toolbarClass}>
+          <div className="toolbarTitle">{current+1}/{imgs.length}</div>
+          <div className="toolbarCon">
+            <i className={dengbiClass} onClick={this.handleZoom.bind(this, current, '1:1')}/>
             <i className={fullscreenClass} onClick={this.handleFullscreen}/>
-            <i className={fangdaClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'in')}/>
-            <i className={suoxiaoClass} onClick={this.handleZoom.bind(this, this.state.activeIndex, 'out')}/>
-            <i className="fishdicon fishdicon-xuanzhuan" onClick={this.handleRotate.bind(this, this.state.activeIndex, false)}/>
-            <i className="fishdicon fishdicon-save" onClick={this.handleSave.bind(this, this.curSelector)}/>
+            <i className={fangdaClass} onClick={this.handleZoom.bind(this, current, 'in')}/>
+            <i className={suoxiaoClass} onClick={this.handleZoom.bind(this, current, 'out')}/>
+            <i className="fishdicon fishdicon-search-line icon" onClick={this.handleRotate}/>
+            <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
+              <i className="fishdicon fishdicon-download-line icon" onClick={this.handleSave}/>
+            </a>
           </div>
         </div>
-      </Modal>
+      </div>
     );
   }
 }

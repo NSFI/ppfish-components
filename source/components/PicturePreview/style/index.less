@@ -1,179 +1,136 @@
 @import (reference) "../../../assets/css/index";
 
+
 /* stylelint-disable declaration-no-important */
+
 @picture-preview-prefix: ~"@{fishd-prefix}-picturepreview";
-@maxVisualWidth:  80% !important;
-@maxVisualHeight: 80% !important;
 
 .@{picture-preview-prefix} {
-  &-modal-wrap {
-    text-align: center;
-    white-space: nowrap;
+  position: absolute;
+  z-index: 100;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  border-radius: 5px;
+  background-color: rgba(222, 222, 222, 0.5);
+  box-shadow: 0px 2px 14px rgba(183, 183, 183, 0.5);
+  overflow: hidden;
 
-    .hide {
-      display: none !important;
-    }
-
-    .@{fishd-prefix}-modal {
-      height: 100%;
-      display: inline-block;
-      vertical-align: middle;
-      top: 0;
-      text-align: left;
-      padding-bottom: 0;
-    }
-
-    .@{fishd-prefix}-modal-dialog,
-    .@{fishd-prefix}-modal-content,
-    .@{fishd-prefix}-modal-body {
-      height: 100%;
-      padding: 0;
-      box-shadow: none;
-      background-color: inherit;
-    }
-
-    .@{fishd-prefix}-carousel,
-    .slick-slider,
-    .slick-list,
-    .slick-track {
-      height: 100%;
-    }
-  }
-
-  &-content-wrap {
-    display: flex;
-    width: 100%;
-    height: 100%;
-
-    .btn {
-      position: absolute;
-      height: 45px;
-      line-height: 45px;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-
-      color: #fff;
-      font-size: 45px;
-      z-index: 10;
-      cursor: pointer;
-    }
-
-    .btn-left {
-      .btn;
-      left: 20px;
-    }
-
-    .btn-right {
-      .btn;
-      right: 20px;
-    }
-
-    .carousel-wrap {
-      width: 100%;
-      height: 100%;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-      overflow: hidden;
-
-      .slick-slide {
-        height: 100%;
-        background: none;
-      }
-
-      .slick-current {
-        z-index: 10;
-      }
-    }
-
-    .img-wrap {
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      overflow: hidden;
-    }
-
-    .img-wrap-size {
-      width: @maxVisualWidth;
-      height: @maxVisualHeight;
-    }
-
-    .img-wrap-size-fullscreen {
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    .@{iconfont-prefix}-close-modal-line {
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: inline-block;
-      text-align: center;
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      font-size: 20px;
-      color: #fff;
-      border-radius: 50%;
-      background-color: rgba(0,0,0,0.4);
-      margin: 0 auto;
-      z-index: 10;
-      cursor: pointer;
-    }
-
-    .ctrl-wrap {
-      position: absolute;
-      width: 360px;
-      height: 50px;
-      border-radius: 40px;
-      background-color: rgba(0,0,0,0.4);
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
+  &:hover {
+    .prev,
+    .next {
       display: flex;
-      justify-content: space-around;
-
-      .icon {
-        line-height: 50px;
-        font-size: 30px;
-        color: #fff;
-        z-index: 10;
-        cursor: pointer;
-      }
-
-      .@{iconfont-prefix}-dengbi,
-      .@{iconfont-prefix}-fullscreen,
-      .@{iconfont-prefix}-fullscreen-exit,
-      .@{iconfont-prefix}-fangda,
-      .@{iconfont-prefix}-suoxiao,
-      .@{iconfont-prefix}-xuanzhuan,
-      .@{iconfont-prefix}-save {
-        .icon;
-      }
-
-      .@{iconfont-prefix}-disable {
-        color: #b6b6b6;
-        cursor: default;
-      }
-
-      .@{iconfont-prefix}-save {
-        text-decoration: none;
-      }
+    }
+    .toolbar {
+      display: block;
     }
   }
 
-  &-content-wrap-fullscreen {
-    background-color: rgba(222,222,222,0.5);
+  .hide,
+  &.hide {
+    display: none !important;
+  }
+
+  .canvas[moving] {
+    transition: none;
+  }
+
+  .img {
+    display: none;
+    transition: none;
+  }
+
+  .img[active] {
+    display: block;
+    transition: all .3s ease-out;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: calc(100 + 2);
+    cursor: pointer;
+    color: #fff;
+    >a::before,
+    >span::before {
+      color: #fff;
+    }
+  }
+  /* 向左以及向右翻页的icon */
+  .iconDir {
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 30px;
+    height: 30px;
+    display: none;
+    .icon;
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 25px;
+    height: 25px;
+    .icon;
+  }
+
+  .prev {
+    left: 0px;
+    margin-left: 20px;
+    .iconDir;
+  }
+
+  .next {
+    right: 0px;
+    margin-right: 20px;
+    .iconDir;
+  }
+
+  .toolbar {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    // display: none;
+    display: block;
+    color: #fff;
+    font-size: 32px;
+  }
+
+  .toolbarTitle {
+    font-size: 12px;
+    line-height: 1;
+    height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    opacity: 0.5;
+    color: #ccc;
+    text-align: center;
+  }
+
+  .toolbarCon {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 40px;
+  }
+
+  .divider {
+    width: 1px;
+    background-color: #3a3a3a;
+    height: 24px;
   }
 }
 /* stylelint-enable */
