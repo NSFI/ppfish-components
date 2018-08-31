@@ -28,9 +28,9 @@ export default class Tabs extends React.Component {
     super(props);
 
     let activeKey;
-    if ('activeKey' in props) {
+    if ('activeKey' in props && (typeof props.activeKey == 'string')) {
       activeKey = props.activeKey;
-    } else if ('defaultActiveKey' in props) {
+    } else if ('defaultActiveKey' in props && (typeof props.defaultActiveKey == 'string')) {
       activeKey = props.defaultActiveKey;
     } else {
       activeKey = getDefaultActiveKey(props);
