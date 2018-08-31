@@ -7,539 +7,319 @@
 * 当需要一个附加的面板来控制父窗体内容，这个面板在需要时呼出。比如，控制界面展示样式，往界面中添加内容。
 * 当需要在当前任务流中插入临时任务，创建或预览附加内容。比如展示协议条款，创建子对象。
 
-## 基础抽屉
+## 基础用法
 
-:::demo 基础抽屉，点击触发按钮抽屉从右滑出，点击遮罩区关闭
+:::demo
 
 ```js
-  state = { visible: false };
 
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Button type="primary" onClick={this.showDrawer}>
-          Open
-        </Button>
-        <Drawer
-          title="Basic Drawer"
-          placement="right"
-          closable={false}
-          onClose={this.onClose}
-          visible={this.state.visible}
+drawerBaiscDemo = () => {
+  return (
+    <div>
+      <Drawer
+        handler={false}
+        level={null}
+        width="30vw"
+        visible={this.state.open}
+        onChange={this.onChange}
+        onMaskClick={this.onTouchEnd}
+      >
+        <Menu
+          style={{ height: '200%' }}
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Drawer>
+          <Menu.SubMenu
+            key="sub1"
+            title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+          >
+            <Menu.ItemGroup key="g1" title="Item 1">
+              <Menu.Item key="1">Option 1</Menu.Item>
+              <Menu.Item key="2">Option 2</Menu.Item>
+            </Menu.ItemGroup>
+            <Menu.ItemGroup key="g2" title="Item 2">
+              <Menu.Item key="3">Option 3</Menu.Item>
+              <Menu.Item key="4">Option 4</Menu.Item>
+            </Menu.ItemGroup>
+          </Menu.SubMenu>
+          <Menu.SubMenu
+            key="sub2"
+            title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+          >
+            <Menu.Item key="5">Option 5</Menu.Item>
+            <Menu.Item key="6">Option 6</Menu.Item>
+            <Menu.SubMenu key="sub3" title="Submenu">
+              <Menu.Item key="7">Option 7</Menu.Item>
+              <Menu.Item key="8">Option 8</Menu.Item>
+            </Menu.SubMenu>
+          </Menu.SubMenu>
+          <Menu.SubMenu
+            key="sub4"
+            title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+          >
+            <Menu.Item key="9">Option 9</Menu.Item>
+            <Menu.Item key="10">Option 10</Menu.Item>
+            <Menu.Item key="11">Option 11</Menu.Item>
+            <Menu.Item key="12">Option 12</Menu.Item>
+          </Menu.SubMenu>
+        </Menu>
+      </Drawer>
+      <div
+        style={{
+          width: '100%', height: 450,
+          textAlign: 'center', lineHeight: '450px',
+        }}
+      >
+        内容区块
+        <Button
+          onClick={this.onSwitch}
+          style={{ height: 24, width: 100, marginLeft: 20, color: '#000', lineHeight: '24px' }}
+        >
+          {!this.state.open ? '打开' : '关闭'}
+        </Button>
       </div>
-    );
-  }
+    </div>
+  )
+}
+render() {
+  //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerBaiscDemo
+  return(
+    <div className="browser-mockup">
+      <iframe src="./demo/drawerBasic.html" height={450}></iframe>
+    </div>
+  )
+}
 ```
 :::
 
-## 左侧滑出
 
-:::demo 基础抽屉，点击触发按钮抽屉从左滑出，点击遮罩区关闭
+## 带触发按钮的抽屉
+
+提供左、右、上、下四种位置可供选择
+
+:::demo 带触发按钮的抽屉，点击触发按钮抽屉滑出，点击遮罩区或再次点击触发按钮关闭。`handler` 控制是否显示触发按钮，默认为false
 
 ```js
-  state = { visible: false };
-
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Button type="primary" onClick={this.showDrawer}>
-          Open
-        </Button>
-        <Drawer
-          title="Basic Drawer"
-          placement="left"
-          closable={false}
-          onClose={this.onClose}
-          visible={this.state.visible}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Drawer>
-      </div>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      placement: 'right',
+      childShow: true,
+      height: null,
+    };
   }
-```
-:::
-
-## 对象编辑
-
-:::demo 用于承载编辑相关操作，需要点击关闭按钮关闭。
-
-```js
-const { Option } = Select;
-const FormItem = Form.Item;
-
-class DrawerForm extends React.Component {
-  state = { visible: false };
-
-  showDrawer = () => {
+  
+  onChange = (value) => {
     this.setState({
-      visible: true,
+      placement: value,
+      width: value === 'right' || value === 'left' ? '20vw' : null,
+      childShow: false, // 删除子级，删除切换时的过渡动画。。。
+    }, () => {
+      this.setState({
+        childShow: true,
+      });
     });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  render() {
-    const { getFieldDecorator } = this.props.form;
+  }
+  
+  drawerWithButton = () => {
     return (
-      <div>
-        <Button type="primary" onClick={this.showDrawer}>
-          Create
-        </Button>
-        <Drawer
-          title="Create"
-          width={720}
-          placement="right"
-          onClose={this.onClose}
-          maskClosable={false}
-          visible={this.state.visible}
+      <div >
+        {this.state.childShow && (
+          <Drawer
+            placement={this.state.placement}
+            width={this.state.width}
+          >
+            <Menu
+              style={{ height: '200%' }}
+              defaultSelectedKeys={['1']}
+              defaultOpenKeys={['sub1']}
+              mode="inline"
+            >
+              <Menu.SubMenu
+                key="sub1"
+                title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+              >
+                <Menu.ItemGroup key="g1" title="Item 1">
+                  <Menu.Item key="1">Option 1</Menu.Item>
+                  <Menu.Item key="2">Option 2</Menu.Item>
+                </Menu.ItemGroup>
+                <Menu.ItemGroup key="g2" title="Item 2">
+                  <Menu.Item key="3">Option 3</Menu.Item>
+                  <Menu.Item key="4">Option 4</Menu.Item>
+                </Menu.ItemGroup>
+              </Menu.SubMenu>
+              <Menu.SubMenu
+                key="sub2"
+                title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+              >
+                <Menu.Item key="5">Option 5</Menu.Item>
+                <Menu.Item key="6">Option 6</Menu.Item>
+                <Menu.SubMenu key="sub3" title="Submenu">
+                  <Menu.Item key="7">Option 7</Menu.Item>
+                  <Menu.Item key="8">Option 8</Menu.Item>
+                </Menu.SubMenu>
+              </Menu.SubMenu>
+              <Menu.SubMenu
+                key="sub4"
+                title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+              >
+                <Menu.Item key="9">Option 9</Menu.Item>
+                <Menu.Item key="10">Option 10</Menu.Item>
+                <Menu.Item key="11">Option 11</Menu.Item>
+                <Menu.Item key="12">Option 12</Menu.Item>
+              </Menu.SubMenu>
+            </Menu>
+          </Drawer>
+        )}
+        <div
           style={{
-            height: 'calc(100% - 55px)',
-            overflow: 'auto',
-            paddingBottom: 53,
+            width: '100%', height: 450,
+            textAlign: 'center', lineHeight: '450px',
           }}
         >
-          <Form layout="vertical" hideRequiredMark>
-            <Row gutter={16}>
-              <Col span={12}>
-                <FormItem label="Name">
-                  {getFieldDecorator('name', {
-                    rules: [{ required: true, message: 'please enter user name' }],
-                  })(<Input placeholder="please enter user name" />)}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="Url">
-                  {getFieldDecorator('url', {
-                    rules: [{ required: true, message: 'please enter url' }],
-                  })(
-                    <Input
-                      style={{ width: '100%' }}
-                      addonBefore="http://"
-                      addonAfter=".com"
-                      placeholder="please enter url"
-                    />
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col span={12}>
-                <FormItem label="Owner">
-                  {getFieldDecorator('owner', {
-                    rules: [{ required: true, message: 'Please select an owner' }],
-                  })(
-                    <Select placeholder="Please select an owner">
-                      <Option value="xiao">Xiaoxiao Fu</Option>
-                      <Option value="mao">Maomao Zhou</Option>
-                    </Select>
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="Type">
-                  {getFieldDecorator('type', {
-                    rules: [{ required: true, message: 'Please choose the type' }],
-                  })(
-                    <Select placeholder="Please choose the type">
-                      <Option value="private">Private</Option>
-                      <Option value="public">Public</Option>
-                    </Select>
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col span={12}>
-                <FormItem label="Approver">
-                  {getFieldDecorator('approver', {
-                    rules: [{ required: true, message: 'Please choose the approver' }],
-                  })(
-                    <Select placeholder="Please choose the approver">
-                      <Option value="jack">Jack Ma</Option>
-                      <Option value="tom">Tom Liu</Option>
-                    </Select>
-                  )}
-                </FormItem>
-              </Col>
-              <Col span={12}>
-                <FormItem label="DateTime">
-                  {getFieldDecorator('dateTime', {
-                    rules: [{ required: true, message: 'Please choose the dateTime' }],
-                  })(
-                    <DatePicker.DateRangePicker
-                      style={{ width: '100%' }}
-                      getPopupContainer={trigger => trigger.parentNode}
-                    />
-                  )}
-                </FormItem>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col span={24}>
-                <FormItem label="Description">
-                  {getFieldDecorator('description', {
-                    rules: [
-                      {
-                        required: true,
-                        message: 'please enter url description',
-                      },
-                    ],
-                  })(<Input.TextArea rows={4} placeholder="please enter url description" />)}
-                </FormItem>
-              </Col>
-            </Row>
-          </Form>
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              width: '100%',
-              borderTop: '1px solid #e8e8e8',
-              padding: '10px 16px',
-              textAlign: 'right',
-              left: 0,
-              background: '#fff',
-              borderRadius: '0 0 4px 4px',
-            }}
+          选择位置：
+          <Select
+            style={{ width: 200, marginLeft: 20 }}
+            defaultValue={this.state.placement}
+            onChange={this.onChange}
           >
-            <Button
-              style={{
-                marginRight: 8,
-              }}
-              onClick={this.onClose}
-            >
-              Cancel
-            </Button>
-            <Button onClick={this.onClose} type="primary">Submit</Button>
-          </div>
-        </Drawer>
+            <Option value="left">左边 left</Option>
+            <Option value="top">上面 top</Option>
+            <Option value="right">右边 right</Option>
+            <Option value="bottom">下面 bottom</Option>
+          </Select>
+        </div>
       </div>
-    );
+    )
   }
-}
 
-const Demo = Form.create()(DrawerForm);
-
+  render() {
+    //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerWithButton
+    return(
+      <div className="browser-mockup">
+        <iframe src="./demo/drawerWithButton.html" height={450}></iframe>
+      </div>
+    )
+  }
 ```
 :::
 
 ## 多层抽屉
 
-:::demo 在抽屉内打开新的抽屉，用以解决多分支任务的复杂状况。
+:::demo
 
 ```js
-  state = { visible: false, childrenDrawer: false };
-
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  showChildrenDrawer = () => {
-    this.setState({
-      childrenDrawer: true,
-    });
-  };
-
-  onChildrenDrawerClose = () => {
-    this.setState({
-      childrenDrawer: false,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <Button type="primary" onClick={this.showDrawer}>
-          Open drawer
-        </Button>
-        <Drawer
-          title="Multi-level drawer"
-          width={520}
-          closable={false}
-          onClose={this.onClose}
-          visible={this.state.visible}
-        >
-          <Button type="primary" onClick={this.showChildrenDrawer}>
-            Two-level drawer
-          </Button>
+drawerMultipleDemo = () => {
+  return (
+    <div >
+      <div
+        style={{
+          width: '100%', height: 450,
+          textAlign: 'center', lineHeight: '450px',
+        }}
+      >
+        <Button type="primary" onClick={this.onClick}>打开抽屉</Button>
+      </div>
+      <Drawer
+        width="520"
+        handler={false}
+        visible={this.state.open}
+        onMaskClick={this.onClick}
+        level={null}
+      >
+        <div>
+          <Button type="primary" onClick={this.onChildClick}>打开子级</Button>
           <Drawer
-            title="Two-level Drawer"
-            width={320}
-            closable={false}
-            onClose={this.onChildrenDrawerClose}
-            visible={this.state.childrenDrawer}
+            width="320"
+            handler={false}
+            visible={this.state.openChild}
+            onMaskClick={this.onChildClick}
           >
-            This is two-level drawer
+            <div>
+              二级抽屉
+              <Button type="primary" onClick={this.onChildrenClick}>打开子级</Button>
+              <Drawer
+                width="200"
+                handler={false}
+                visible={this.state.openChildren}
+                onMaskClick={this.onChildrenClick}
+              >
+                <div>
+                  三级抽屉
+                </div>
+              </Drawer>
+            </div>
           </Drawer>
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              width: '100%',
-              borderTop: '1px solid #e8e8e8',
-              padding: '10px 16px',
-              textAlign: 'right',
-              left: 0,
-              background: '#fff',
-              borderRadius: '0 0 4px 4px',
-            }}
-          >
-            <Button
-              style={{
-                marginRight: 8,
-              }}
-              onClick={this.onClose}
-            >
-              Cancel
-            </Button>
-            <Button onClick={this.onClose} type="primary">
-              Submit
-            </Button>
-          </div>
-        </Drawer>
-      </div>
-    );
-  }
-```
-:::
-
-## 信息预览
-
-:::demo 需要快速预览对象概要时使用，点击遮罩区关闭
-
-```js
-const pStyle = {
-  fontSize: 16,
-  color: 'rgba(0,0,0,0.85)',
-  lineHeight: '24px',
-  display: 'block',
-  marginBottom: 16,
-};
-
-const DescriptionItem = ({ title, content }) => (
-  <div
-    style={{
-      fontSize: 14,
-      lineHeight: '22px',
-      marginBottom: 7,
-      color: 'rgba(0,0,0,0.65)',
-    }}
-  >
-    <p
-      style={{
-        marginRight: 8,
-        display: 'inline-block',
-        color: 'rgba(0,0,0,0.85)',
-      }}
-    >
-      {title}:
-    </p>
-    {content}
-  </div>
-);
-
-class Demo extends React.Component {
-  state = { visible: false };
-
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        <List
-          dataSource={[
-            {
-              name: 'Lily',
-            },
-            {
-              name: 'Lily',
-            },
-          ]}
-          bordered
-          renderItem={item => (
-            <List.Item key={item.id} actions={[<a onClick={this.showDrawer}>View Profile</a>]}>
-              <List.Item.Meta
-                avatar={
-                  <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" />
-                }
-                title={<a>{item.name}</a>}
-                description="Progresser AFX"
-              />
-            </List.Item>
-          )}
-        />
-        <Drawer
-          width={640}
-          placement="right"
-          closable={false}
-          onClose={this.onClose}
-          visible={this.state.visible}
-        >
-          <p style={{ ...pStyle, marginBottom: 24 }}>User Profile</p>
-          <p style={pStyle}>Personal</p>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="Full Name" content="Lily" />{' '}
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Account" content="Design@example.com" />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="City" content="HangZhou" />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Country" content="China🇨🇳" />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="Birthday" content="February 2,1900" />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Website" content="-" />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <DescriptionItem
-                title="Message"
-                content="Make things as simple as possible but no simpler."
-              />
-            </Col>
-          </Row>
-          <Divider />
-          <p style={pStyle}>Company</p>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="Position" content="Programmer" />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Responsibilities" content="Coding" />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="Department" content="AFX" />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Supervisor" content={<a>Lin</a>} />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <DescriptionItem
-                title="Skills"
-                content="C / C + +, data structures, software engineering, operating systems, computer networks, databases, compiler theory, computer architecture, Microcomputer Principle and Interface Technology, Computer English, Java, ASP, etc."
-              />
-            </Col>
-          </Row>
-          <Divider />
-          <p style={pStyle}>Contacts</p>
-          <Row>
-            <Col span={12}>
-              <DescriptionItem title="Email" content="FishDesign@example.com" />
-            </Col>
-            <Col span={12}>
-              <DescriptionItem title="Phone Number" content="+86 181 0000 0000" />
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <DescriptionItem
-                title="Github"
-                content={(
-                  <a href="https://github.com/NSFI/ppfish-components">
-                    https://github.com/NSFI/ppfish-components
-                  </a>
-                )}
-              />
-            </Col>
-          </Row>
-        </Drawer>
-      </div>
-    );
-  }
+        </div>
+      </Drawer>
+    </div>
+  )
+}
+render() {
+  //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerMultipleDemo
+  return(
+    <div className="browser-mockup">
+      <iframe src="./demo/drawerMultiple.html" height={450}></iframe>
+    </div>
+  )
 }
 ```
 :::
+
+<style>
+.browser-mockup {
+    border-top: 2em solid rgba(230, 230, 230, 0.7);
+    -webkit-box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    position: relative;
+    border-radius: 3px 3px 0 0;
+}
+.browser-mockup:before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.25em;
+    left: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background-color: #f44;
+    -webkit-box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+    box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+}
+.browser-mockup:after {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.6em;
+    left: 5.5em;
+    width: calc(100% - 6em);
+    height: 1.2em;
+    border-radius: 2px;
+    background-color: white;
+}
+.browser-mockup iframe {
+    width: 100%;
+    border: 0;
+}
+</style>
 
 ## API
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| closable | 是否显示右上角的关闭按钮 | boolean | true |
-| destroyOnClose | 关闭时销毁 Drawer 里的子元素 | boolean | false |
+| className | 对话框外层容器的类名 | string | - |
+| width | 宽度 | string \| number | - |
+| height | 高度 | string \| number | - |
+| visible | Drawer 是否可见 | boolean | - |
+| placement | 抽屉的方向 | 'left' \| 'right' \| 'top' \| 'botton' | 'right' |
 | getContainer | 指定 Drawer 挂载的 HTML 节点 | HTMLElement \| `() => HTMLElement` \| selectors  | 'body' |
-| maskClosable | 点击蒙层是否允许关闭 | boolean | true |
+| style | 可用于设置 Drawer 的样式，调整浮层位置等 | object | - |
 | mask | 是否展示遮罩 | Boolean | true |
 | maskStyle | 遮罩样式 | object | {} |
-| style | 可用于设置 Drawer 的样式，调整浮层位置等 | object | - |
-| title | 标题 | string \| ReactNode | - |
-| visible | Drawer 是否可见 | boolean | - |
-| width | 宽度 | string \| number | 256 |
-| className | 对话框外层容器的类名 | string | - |
-| zIndex | 设置 Drawer 的 `z-index` | Number | 1000 |
-| placement | 抽屉的方向 | 'left' \| 'right' | 'right' |
-| onClose | 点击遮罩层或右上角叉或取消按钮的回调 | function(e) | 无 |
-
-<style>
-#_hj_feedback_container {
-  display: none;
-}
-</style>
+| handler | 是否显示触发按钮或自定义触发按钮样式 | false \| HTMLElement | <div className="drawer-handle"><i className="drawer-handle-icon" /></div> |
+| level | 随着抽屉移动的元素, 可选值有all / null / className / id / tagName | string \| array | "all" |
+| onChange | 展开或收起的回调 | function() | - |
+| onMaskClick | 点击遮罩的回调 | function() | - |
+| onHandleClick | 点击触发按钮的回调 | function() | - |

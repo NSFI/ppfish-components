@@ -13,6 +13,7 @@ import {
   transformArguments,
   isNumeric,
 } from './utils';
+import './Drawer.less';
 
 const IS_REACT_16 = 'createPortal' in ReactDOM;
 
