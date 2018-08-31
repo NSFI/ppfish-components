@@ -218,19 +218,19 @@ render(){
                 defaultOpenKeys={['sub1']}
                 style={{ height: '100%' }}
               >
-                <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
+                <SubMenu key="sub1" title={<span><Icon type="demo-play" />subnav 1</span>}>
                   <Menu.Item key="1">option1</Menu.Item>
                   <Menu.Item key="2">option2</Menu.Item>
                   <Menu.Item key="3">option3</Menu.Item>
                   <Menu.Item key="4">option4</Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
+                <SubMenu key="sub2" title={<span><Icon type="demo-play" />subnav 2</span>}>
                   <Menu.Item key="5">option5</Menu.Item>
                   <Menu.Item key="6">option6</Menu.Item>
                   <Menu.Item key="7">option7</Menu.Item>
                   <Menu.Item key="8">option8</Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub3" title={<span><Icon type="notification" />subnav 3</span>}>
+                <SubMenu key="sub3" title={<span><Icon type="demo-play" />subnav 3</span>}>
                   <Menu.Item key="9">option9</Menu.Item>
                   <Menu.Item key="10">option10</Menu.Item>
                   <Menu.Item key="11">option11</Menu.Item>
@@ -293,19 +293,19 @@ render(){
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-              <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
+              <SubMenu key="sub1" title={<span><Icon type="demo-play" />subnav 1</span>}>
                 <Menu.Item key="1">option1</Menu.Item>
                 <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
                 <Menu.Item key="4">option4</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
+              <SubMenu key="sub2" title={<span><Icon type="demo-play" />subnav 2</span>}>
                 <Menu.Item key="5">option5</Menu.Item>
                 <Menu.Item key="6">option6</Menu.Item>
                 <Menu.Item key="7">option7</Menu.Item>
                 <Menu.Item key="8">option8</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub3" title={<span><Icon type="notification" />subnav 3</span>}>
+              <SubMenu key="sub3" title={<span><Icon type="demo-play" />subnav 3</span>}>
                 <Menu.Item key="9">option9</Menu.Item>
                 <Menu.Item key="10">option10</Menu.Item>
                 <Menu.Item key="11">option11</Menu.Item>
@@ -371,16 +371,16 @@ class Demo extends React.Component {
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1">
-              <Icon type="pie-chart" />
+              <Icon type="demo-play" />
               <span>Option 1</span>
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="desktop" />
+              <Icon type="demo-pie" />
               <span>Option 2</span>
             </Menu.Item>
             <SubMenu
               key="sub1"
-              title={<span><Icon type="user" /><span>User</span></span>}
+              title={<span><Icon type="demo-grid" /><span>User</span></span>}
             >
               <Menu.Item key="3">Tom</Menu.Item>
               <Menu.Item key="4">Bill</Menu.Item>
@@ -388,13 +388,13 @@ class Demo extends React.Component {
             </SubMenu>
             <SubMenu
               key="sub2"
-              title={<span><Icon type="team" /><span>Team</span></span>}
+              title={<span><Icon type="demo-grid" /><span>Team</span></span>}
             >
               <Menu.Item key="6">Team 1</Menu.Item>
               <Menu.Item key="8">Team 2</Menu.Item>
             </SubMenu>
             <Menu.Item key="9">
-              <Icon type="file" />
+              <Icon type="demo-file" />
               <span>File</span>
             </Menu.Item>
           </Menu>
@@ -461,15 +461,15 @@ class Demo extends React.Component {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
-              <Icon type="user" />
+              <Icon type="demo-play" />
               <span>nav 1</span>
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="video-camera" />
+              <Icon type="demo-play" />
               <span>nav 2</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="upload" />
+              <Icon type="demo-play" />
               <span>nav 3</span>
             </Menu.Item>
           </Menu>
@@ -532,19 +532,19 @@ render(){
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
             <Menu.Item key="1">
-              <Icon type="user" />
+              <Icon type="demo-play" />
               <span className="nav-text">nav 1</span>
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="video-camera" />
+              <Icon type="demo-play" />
               <span className="nav-text">nav 2</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="upload" />
+              <Icon type="demo-play" />
               <span className="nav-text">nav 3</span>
             </Menu.Item>
             <Menu.Item key="4">
-              <Icon type="user" />
+              <Icon type="demo-play" />
               <span className="nav-text">nav 4</span>
             </Menu.Item>
           </Menu>
@@ -637,7 +637,7 @@ render() {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
             <Menu.Item key="1">
-              <Icon type="user" />
+              <Icon type="demo-pie" />
               <span className="nav-text">nav 1</span>
             </Menu.Item>
             <Menu.Item key="2">
@@ -645,7 +645,7 @@ render() {
               <span className="nav-text">nav 2</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="upload" />
+              <Icon type="download-line" />
               <span className="nav-text">nav 3</span>
             </Menu.Item>
             <Menu.Item key="4">
@@ -653,19 +653,19 @@ render() {
               <span className="nav-text">nav 4</span>
             </Menu.Item>
             <Menu.Item key="5">
-              <Icon type="cloud-o" />
+              <Icon type="demo-grid" />
               <span className="nav-text">nav 5</span>
             </Menu.Item>
             <Menu.Item key="6">
-              <Icon type="appstore-o" />
+              <Icon type="demo-bargraph" />
               <span className="nav-text">nav 6</span>
             </Menu.Item>
             <Menu.Item key="7">
-              <Icon type="team" />
+              <Icon type="demo-play" />
               <span className="nav-text">nav 7</span>
             </Menu.Item>
             <Menu.Item key="8">
-              <Icon type="shop" />
+              <Icon type="Settingx" />
               <span className="nav-text">nav 8</span>
             </Menu.Item>
           </Menu>
