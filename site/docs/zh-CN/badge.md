@@ -93,10 +93,10 @@ render(){
   return(
     <div>
       <Badge dot>
-        <Icon type="notification" />
+        <Icon type="demo-phone" />
       </Badge>
       <Badge count={0} dot>
-        <Icon type="notification" />
+        <Icon type="demo-phone" />
       </Badge>
       <Badge dot>
         <a href="#">Link something</a>
