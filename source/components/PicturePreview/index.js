@@ -292,7 +292,10 @@ class PicturePreview extends Component {
 
     this.state.container.isFull && exitfullscreen();
     this.setState({
-      show: false
+      show: false,
+      container: {
+        isFull: false
+      }
     }, () => {
       if (onClose && typeof onClose == "function") {
         onClose();
@@ -351,8 +354,40 @@ class PicturePreview extends Component {
     });
   };
 
-  handleFullscreen = () => {
+  handleSwitchFull = () => {
+    if (!this.isFullEnabled()) return;
 
+    if (this.state.container.isFull) {
+      this.exitfullscreen();
+    } else {
+      this.enterfullscreen();
+    }
+  };
+
+  enterfullscreen = () => {
+    fullscreen(this.$el);
+    this.setState({
+      container: {
+        style: {
+          width: '100%',
+          height: '100%',
+          left: 0,
+          top: 0
+        },
+        isFull: true
+      },
+    });
+  };
+
+  exitfullscreen = () => {
+    exitfullscreen();
+    this.setState({
+      container: {
+        isFull: false
+      }
+    }, () => {
+      this.setContainerStyle();
+    });
   };
 
   handleRotate = () => {
@@ -466,7 +501,7 @@ class PicturePreview extends Component {
           <div className="toolbarTitle">{current+1}/{imgs.length}</div>
           <div className="toolbarCon">
             <i className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
-            <i className={fullscreenClass} onClick={this.handleFullscreen}/>
+            <i className={fullscreenClass} onClick={this.handleSwitchFull}/>
             <i className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
             <i className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
             <i className="fishdicon fishdicon-search-line icon" onClick={this.handleRotate}/>
