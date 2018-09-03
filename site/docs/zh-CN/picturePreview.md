@@ -60,6 +60,109 @@
 ```
 :::
 
+
+## 展示工具栏
+
+:::demo 基本使用方式。
+
+```js
+  constructor() {
+    super();
+
+    this.state = {
+      visible: false,
+      activeIndex: 0
+    };
+  }
+
+  handleOpen = (index) => {
+    this.setState({
+      visible: true,
+      activeIndex: index
+    });
+  };
+
+  render() {
+    const { visible, activeIndex } = this.state;
+    return (
+        <div>
+          <div className="demo-picpreview">
+            <div className="tips">点击图片预览</div>
+            <div className="pics">
+              {
+                this.props.source && this.props.source.map((item, index)=>
+                  <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
+                    <img src={item.src} alt={item.name} width="60px" height="60px" />
+                    <div className="name">{item.name}</div>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+          <PicturePreview
+            activeIndex={activeIndex}
+            source={this.props.source}
+            toolbar={true}
+            visible={visible}
+          />
+        </div>
+    );
+  }
+```
+:::
+
+
+## 支持拖动
+
+:::demo 基本使用方式。
+
+```js
+  constructor() {
+    super();
+
+    this.state = {
+      visible: false,
+      activeIndex: 0
+    };
+  }
+
+  handleOpen = (index) => {
+    this.setState({
+      visible: true,
+      activeIndex: index
+    });
+  };
+
+  render() {
+    const { visible, activeIndex } = this.state;
+    return (
+        <div>
+          <div className="demo-picpreview">
+            <div className="tips">点击图片预览</div>
+            <div className="pics">
+              {
+                this.props.source && this.props.source.map((item, index)=>
+                  <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
+                    <img src={item.src} alt={item.name} width="60px" height="60px" />
+                    <div className="name">{item.name}</div>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+          <PicturePreview
+            activeIndex={activeIndex}
+            source={this.props.source}
+            dragable={true}
+            visible={visible}
+          />
+        </div>
+    );
+  }
+```
+:::
+
+
 ## 手动构造子节点
 
 :::demo 显示面板指示点。
@@ -120,6 +223,8 @@
 |:-|:-|:-|:-|
 | activeIndex | 当前展示第几张图片 | Number | 0 |
 | className | 容器类名 | String | - |
+| dragable | 是否可拖动 | Boolean | false |
 | source | 设置图片的源数据，可选属性，格式为 `[{name: "", src: ""}]` 。当不设置 source 时可以手动构造子节点，子节点需是 `img` 标签，且包含 `src` 和 `name` 属性。若 source 与子节点同时存在，子节点将被忽略。 | Array | [] |
-| visible | 是否展示 | Boolean | false |
+| toolbar | 是否展示工具栏 | Boolean | false |
+| visible | 是否展示图片查看器 | Boolean | false |
 | onClose | 关闭后的回调函数 | Function | - |
