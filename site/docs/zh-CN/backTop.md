@@ -14,7 +14,7 @@
 ```js
   render(){
   return(<div id="components-back-top-demo-custom-2">
-    <BackTop target={() => document.querySelector('.component-content')} />
+    <BackTop target={() => document.querySelector('.content').parentNode} />
     Scroll down to see the bottom-right
     <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
     button.
@@ -31,12 +31,45 @@
 render(){
   return(
     <div id="components-back-top-demo-custom">
-      <BackTop target={() => document.querySelector('.component-content')}>
+      <BackTop target={() => document.querySelector('.content').parentNode}>
         <div className="fishd-back-top-inner">UP</div>
       </BackTop>
-      Scroll down to see the bottom-right
+      <p>Scroll down to see the bottom-right
       <strong style={{ color: '#1088e9' }}> blue </strong>
       button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
+      <p>Scroll down to see the bottom-right
+      <strong style={{ color: '#1088e9' }}> blue </strong>
+      button.
+      </p>
     </div>
   )
 }
@@ -45,10 +78,10 @@ render(){
 
 <style>
 #components-back-top-demo-custom-2 .fishd-back-top {
-  bottom: 150px;
+  bottom: 160px;
 }
 #components-back-top-demo-custom .fishd-back-top {
-  bottom: 100px;
+  bottom: 110px;
 }
 #components-back-top-demo-custom .fishd-back-top-inner {
   height: 40px;

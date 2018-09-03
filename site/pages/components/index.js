@@ -1,21 +1,15 @@
 import React from 'react';
 import {Divider, BackTop, Icon, Row, Col, Menu, Drawer} from '../../../source/components';
-import {Scrollbars} from 'react-custom-scrollbars';
 import PropTypes from 'prop-types';
 import {enquireScreen, unenquireScreen} from 'enquire-js';
+import {Scrollbars} from 'react-custom-scrollbars';
 import Layout from '../common/layout';
 import locales from '../../locales';
 import components from '../../componentsPage';
 import {getPlainComponentList, getComponentDepth} from '../../utils';
 import './index.less';
 
-const SubMenu = Menu.SubMenu;
 const isShowAllComponents = true;
-let isMobile = false;
-enquireScreen((b) => {
-  isMobile = b;
-}, 'only screen and (max-width: 992px)');
-
 
 export default class Components extends React.Component {
   static propTypes = {
@@ -26,6 +20,10 @@ export default class Components extends React.Component {
   constructor(props) {
     super(props);
     this.plainComponentList = getPlainComponentList().filter(component => isShowAllComponents || component.published);
+    let isMobile = false;
+    enquireScreen((b) => {
+      isMobile = b;
+    }, 'only screen and (max-width: 992px)');
     this.state = {
       page: '',
       isMobile: isMobile,
@@ -86,6 +84,7 @@ export default class Components extends React.Component {
   };
 
   render() {
+    const SubMenu = Menu.SubMenu;
     const componentIndex = this.plainComponentList.findIndex((menuItem) => menuItem.key === this.state.page);
     const prevLink = this.plainComponentList[componentIndex - 1];
     const nextLink = this.plainComponentList[componentIndex + 1];

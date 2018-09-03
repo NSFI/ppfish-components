@@ -7,6 +7,19 @@ import Editor from '../editor';
 
 //代码展示容器
 export default class Canvas extends React.Component {
+  static propTypes = {
+    locale: PropTypes.object,
+    name: PropTypes.string,
+    children: PropTypes.node
+  };
+
+  static defaultProps = {
+    locale: {
+      hide: '隐藏代码',
+      show: '显示代码'
+    }
+  };
+
   constructor(props) {
     super(props);
 
@@ -118,16 +131,3 @@ export default class Canvas extends React.Component {
     );
   }
 }
-
-Canvas.propTypes = {
-  locale: PropTypes.object,
-  name: PropTypes.string,
-  children: PropTypes.node
-};
-
-Canvas.defaultProps = {
-  locale: {
-    hide: '隐藏代码',
-    show: '显示代码'
-  }
-};

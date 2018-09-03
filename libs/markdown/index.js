@@ -11,6 +11,7 @@ export default class Markdown extends React.Component {
 
     this.components = new Map;
 
+    //针对 table、li、title一些特殊处理
     this.renderer = new marked.Renderer();
     this.renderer.table = (header, body) => {
       return `<table class="grid"><thead>${header}</thead><tbody>${body}</tbody></table>`;

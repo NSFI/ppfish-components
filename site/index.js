@@ -1,7 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
-import {Scrollbars} from 'react-custom-scrollbars';
 import {Router, Route, hashHistory, Redirect, IndexRoute} from 'react-router';
 import './styles/index.less';
 import Components from './pages/components';

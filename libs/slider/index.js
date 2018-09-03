@@ -1,7 +1,8 @@
 import React from 'react';
-import './style.less';
 import Affix from '../../source/components/Affix/index.tsx';
 import scrollIntoView from 'dom-scroll-into-view';
+import './style.less';
+
 //元素距顶部高度
 const getElementTop = (element) => {
   element = document.getElementById(element);
@@ -35,9 +36,9 @@ export default class Slider extends React.Component {
   }
 
   componentDidMount() {
-    const anchors = Array.from(document.querySelectorAll('h2')).map(h3Item => ({
-      id: h3Item.id,
-      name: h3Item.innerText
+    const anchors = Array.from(document.querySelectorAll('h2')).map(h2Item => ({
+      id: h2Item.id,
+      name: h2Item.innerText
     }));
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({anchors});

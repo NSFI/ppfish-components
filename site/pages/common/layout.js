@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import {Row, Col} from '../../../source/components';
 import locales from '../../locales';
 
-const searchIcon = require('../../assets/fd-web-1.2-icon@2x.svg');
-
 export default class Layout extends React.Component {
 
   static propTypes = {
@@ -91,7 +89,7 @@ export default class Layout extends React.Component {
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
               <div id="search-box" className="search-box">
-                <img src={searchIcon} className="search-icon"/>
+                <img src={require('../../assets/fd-web-1.2-icon@2x.svg')} className="search-icon"/>
                 <input type="text" placeholder="在 Fish Design 中搜索" className="ant-input"/>
               </div>
               <ul className="nav">
@@ -143,7 +141,6 @@ export default class Layout extends React.Component {
               </a>
             </div>
           </footer>
-
         }
       </div>
     );
