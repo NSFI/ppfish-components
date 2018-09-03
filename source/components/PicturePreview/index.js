@@ -462,30 +462,21 @@ class PicturePreview extends Component {
   };
 
   handleMouseDown = (e) => {
-    var con = this.state.container,
-        image = this.state.image,
-        el = this.$el,
-        tar = e.target;
+    var con = {}, image = {}, tar = e.target;
 
-    // console.log('>> onMouseDown target: ', e, image.el, con);
-
-    // debugger;
-
-    if (tar === image.el && (con.isFull || isLargger(image.el, el))) {
+    if (tar === this.state.image.el && (this.state.container.isFull || isLargger(this.state.image.el, this.$el))) {
       //点击在图片上，并且是全屏模式或者图片比容器大，此时移动图片
-      // this.moving = 'img';
       image.startX = e.pageX;
       image.startY = e.pageY;
-      image.marginL = px2num(getStyle(image.el, 'margin-left'));
-      image.marginT = px2num(getStyle(image.el, 'margin-top'));
+      image.marginL = px2num(getStyle(this.state.image.el, 'margin-left'));
+      image.marginT = px2num(getStyle(this.state.image.el, 'margin-top'));
 
       this.setState({
         moving: 'img',
         image: Object.assign({}, this.state.image, image)
       });
-    } else if (!con.isFull) {
+    } else if (!this.state.container.isFull) {
       //非全屏模式下，移动容器
-      // this.moving = 'con';
       con.rect = this.$el.getBoundingClientRect();
       con.startX = e.clientX;
       con.startY = e.clientY;
@@ -502,7 +493,7 @@ class PicturePreview extends Component {
   handleMouseMove = (e) => {
     var con = this.state.container,
         image = this.state.image,
-        conStyle = {};
+        conStyle = {...con.style};
 
     if (this.state.moving) {
       e.preventDefault();
@@ -512,6 +503,10 @@ class PicturePreview extends Component {
           'margin-left': num2px(e.pageX - image.startX + image.marginL),
           'margin-top': num2px(e.pageY - image.startY + image.marginT)
         });
+
+        // this.setState({
+        //   image: Object.assign({}, this.state.image, image)
+        // });
       } else if (this.state.moving === 'con') {
         conStyle.left = num2px(e.pageX - con.startX + con.rect.left);
         conStyle.top = num2px(e.pageY - con.startY + con.rect.top);
