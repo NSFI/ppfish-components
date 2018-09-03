@@ -48,3 +48,4 @@ export default class Operation extends React.Component<TransferOperationProps, a
     );
   }
 }
+
