@@ -961,12 +961,17 @@ render() {
 | onChange | 确认选定的值时触发 | function:(value)=>() | - | - |
 | onOpenChange | 弹出或关闭日历的回调 | function:(status)=>() | - | - |
 
+## 方法
+| 参数      | 描述          |
+|---------- |-------------- |
+| togglePickerVisible() | 切换日历面板的展开关闭。示范见上文示例中的 `带快捷选项的日期面板` |
+
 ## DatePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | placeholder | 占位内容 | string | - | - |
 | value | - | Date | Date/null | null |
-| selectionMode | 日期类型 | string, one of ['week', 'day'] | - | 'day' |
+| selectionMode | 日期类型 | string | 'week', 'day' | 'day' |
 
 DatePicker 时间面板的参数
 
