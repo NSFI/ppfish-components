@@ -1743,6 +1743,127 @@ class Demo extends React.Component {
 ```
 :::
 
+## 可伸缩列
+:::demo  使用开源库`import { Resizable } from 'react-resizable';`
+
+```js
+const ResizeableTitle = (props) => {
+  const { onResize, width, ...restProps } = props;
+
+  if (!width) {
+    return <th {...restProps} />;
+  }
+  
+  return (
+    <Resizable width={width} height={0} onResize={onResize}>
+      <th {...restProps} />
+    </Resizable>
+  );
+};
+
+class Demo extends React.Component {
+  state = {
+    columns: [{
+      title: 'Date',
+      dataIndex: 'date',
+      width: 200,
+    }, {
+      title: 'Amount',
+      dataIndex: 'amount',
+      width: 100,
+    }, {
+      title: 'Type',
+      dataIndex: 'type',
+      width: 100,
+    }, {
+      title: 'Note',
+      dataIndex: 'note',
+      width: 100,
+    }, {
+      title: 'Action',
+      key: 'action',
+      render: () => (
+        <a href="javascript:;">Delete</a>
+      ),
+    }],
+  };
+
+  components = {
+    header: {
+      cell: ResizeableTitle,
+    },
+  };
+
+  data = [{
+    key: 0,
+    date: '2018-02-11',
+    amount: 120,
+    type: 'income',
+    note: 'transfer',
+  }, {
+    key: 1,
+    date: '2018-03-11',
+    amount: 243,
+    type: 'income',
+    note: 'transfer',
+  }, {
+    key: 2,
+    date: '2018-04-11',
+    amount: 98,
+    type: 'income',
+    note: 'transfer',
+  }];
+
+  handleResize = index => (e, { size }) => {
+    this.setState(({ columns }) => {
+      const nextColumns = [...columns];
+      nextColumns[index] = {
+        ...nextColumns[index],
+        width: size.width,
+      };
+      return { columns: nextColumns };
+    });
+  };
+
+  render() {
+    const columns = this.state.columns.map((col, index) => ({
+      ...col,
+      onHeaderCell: column => ({
+        width: column.width,
+        onResize: this.handleResize(index),
+      }),
+    }));
+
+    return (
+      <div id="components-table-demo-resizable-column">
+        <Table
+          bordered
+          components={this.components}
+          columns={columns}
+          dataSource={this.data}
+        />
+      </div>
+    );
+  }
+}
+```
+:::
+
+<style>
+#components-table-demo-resizable-column .react-resizable {
+  position: relative;
+}
+
+#components-table-demo-resizable-column .react-resizable-handle {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  bottom: 0;
+  right: -5px;
+  cursor: col-resize;
+}
+
+</style>
 ## 动态控制表格属性
 :::demo 选择不同配置组合查看效果。
 ```js
@@ -2021,6 +2142,7 @@ class Demo extends React.Component {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | columnWidth | 自定义列表选择框宽度 | string\|number | - |
+| columnTitle | 自定义列表选择框标题	 | string\|React.ReactNode | - |
 | fixed | 把选择框列固定在左边 | boolean | - |
 | getCheckboxProps | 选择框的默认属性配置 | Function(record) | - |
 | hideDefaultSelections | 去掉『全选』『反选』两个默认选项 | boolean | false |

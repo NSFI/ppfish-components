@@ -132,6 +132,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
       // 减少状态
       filters: this.getFiltersFromColumns(),
       pagination: this.getDefaultPagination(props),
+      pivot: undefined,
     };
 
     this.CheckboxPropsCache = {};
@@ -258,6 +259,11 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
     }
     if (selectWay === 'onSelect' && rowSelection.onSelect) {
       rowSelection.onSelect(record!, checked!, selectedRows, nativeEvent!);
+    } else if (selectWay === 'onSelectMultiple' && rowSelection.onSelectMultiple) {
+      const changeRows = data.filter(
+        (row, i) => changeRowKeys!.indexOf(this.getRecordKey(row, i)) >= 0,
+      );
+      rowSelection.onSelectMultiple(checked!, selectedRows, changeRows);
     } else if (selectWay === 'onSelectAll' && rowSelection.onSelectAll) {
       const changeRows = data.filter(
         (row, i) => changeRowKeys!.indexOf(this.getRecordKey(row, i)) >= 0,
@@ -494,25 +500,71 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
 
   handleSelect = (record: T, rowIndex: number, e: CheckboxChangeEvent) => {
     const checked = e.target.checked;
-    const nativeEvent = e.nativeEvent;
+    const nativeEvent = e.nativeEvent as any;
     const defaultSelection = this.store.getState().selectionDirty ? [] : this.getDefaultSelection();
     let selectedRowKeys = this.store.getState().selectedRowKeys.concat(defaultSelection);
     let key = this.getRecordKey(record, rowIndex);
-    if (checked) {
-      selectedRowKeys.push(this.getRecordKey(record, rowIndex));
-    } else {
-      selectedRowKeys = selectedRowKeys.filter((i: string) => key !== i);
+    const pivot = this.state.pivot;
+    const rows = this.getFlatCurrentPageData();
+    let realIndex = rowIndex;
+    if (this.props.expandedRowRender) {
+      realIndex = rows.findIndex(row => this.getRecordKey(row, rowIndex) === key);
     }
-    this.store.setState({
-      selectionDirty: true,
-    });
-    this.setSelectedRowKeys(selectedRowKeys, {
-      selectWay: 'onSelect',
-      record,
-      checked,
-      changeRowKeys: void(0),
-      nativeEvent,
-    });
+
+    if (nativeEvent.shiftKey && pivot !== undefined && realIndex !== pivot) {
+      const changeRowKeys = [];
+      const direction = Math.sign(pivot - realIndex);
+      const dist = Math.abs(pivot - realIndex);
+      let step = 0;
+      while (step <= dist) {
+        const i = realIndex + (step * direction);
+        step += 1;
+        const row = rows[i];
+        const rowKey = this.getRecordKey(row, i);
+        const checkboxProps = this.getCheckboxPropsByItem(row, i);
+        if (!checkboxProps.disabled) {
+          if (selectedRowKeys.includes(rowKey)) {
+            if (!checked) {
+              selectedRowKeys = selectedRowKeys.filter((j: string) => rowKey !== j);
+              changeRowKeys.push(rowKey);
+            }
+          } else if (checked) {
+            selectedRowKeys.push(rowKey);
+            changeRowKeys.push(rowKey);
+          }
+        }
+      }
+
+      this.setState({pivot: realIndex});
+      this.store.setState({
+        selectionDirty: true,
+      });
+      this.setSelectedRowKeys(selectedRowKeys, {
+        selectWay: 'onSelectMultiple',
+        record,
+        checked,
+        changeRowKeys,
+        nativeEvent,
+      });
+    } else {
+      if (checked) {
+        selectedRowKeys.push(this.getRecordKey(record, realIndex));
+      } else {
+        selectedRowKeys = selectedRowKeys.filter((i: string) => key !== i);
+      }
+
+      this.setState({pivot: realIndex});
+      this.store.setState({
+        selectionDirty: true,
+      });
+      this.setSelectedRowKeys(selectedRowKeys, {
+        selectWay: 'onSelect',
+        record,
+        checked,
+        changeRowKeys: void(0),
+        nativeEvent,
+      });
+    }
   };
 
   handleRadioSelect = (record: T, rowIndex: number, e: RadioChangeEvent) => {
@@ -698,6 +750,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         className: selectionColumnClass,
         fixed: rowSelection.fixed,
         width: rowSelection.columnWidth,
+        title: rowSelection.columnTitle,
       };
       if (rowSelection.type !== 'radio') {
         const checkboxAllDisabled = data.every((item, index) => this.getCheckboxPropsByItem(item, index).disabled);
