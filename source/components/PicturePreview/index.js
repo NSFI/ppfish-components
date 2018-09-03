@@ -538,16 +538,16 @@ class PicturePreview extends Component {
       'hide': !toolbar
     });
     let one2oneClass = classNames('fishdicon fishdicon-search-line icon', {
-      'hide': false
+      'icon-disabled': image.ratio == 1
     });
     let fullscreenClass = classNames('fishdicon fishdicon-search-line icon', {
       'hide': false
     });
     let zoomInClass = classNames('fishdicon fishdicon-search-line icon', {
-      'hide': false
+      'icon-disabled': image.ratio >= MAX_RATIO
     });
     let zoomOutClass = classNames('fishdicon fishdicon-search-line icon', {
-      'hide': false
+      'icon-disabled': image.ratio <= MIN_RATIO
     });
 
     return (
