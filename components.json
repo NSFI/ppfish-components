@@ -24,7 +24,7 @@
   "LoadMore": "./source/components/LoadMore",
   "List": "./source/components/List/index.tsx",
   "Input": "./source/components/Input/index.tsx",
-  "InputNumber": "./source/components/Input-number/index.tsx",
+  "InputNumber": "./source/components/InputNumber/index.tsx",
   "Menu": "./source/components/Menu/index.tsx",
   "message": "./source/components/Message/index.tsx",
   "Modal": "./source/components/Modal/index.tsx",

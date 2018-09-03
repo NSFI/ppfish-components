@@ -210,7 +210,7 @@ export default {
         name: 'Input 输入框',
         published: true,
       },
-      'input-number': {
+      'inputNumber': {
         type: 'markdown',
         name: 'InputNumber 数字输入框',
       },
