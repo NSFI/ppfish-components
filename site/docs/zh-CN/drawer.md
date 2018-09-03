@@ -307,19 +307,19 @@ render() {
 
 ## API
 
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | 对话框外层容器的类名 | string | - |
-| width | 宽度 | string \| number | - |
-| height | 高度 | string \| number | - |
-| visible | Drawer 是否可见 | boolean | - |
-| placement | 抽屉的方向 | 'left' \| 'right' \| 'top' \| 'botton' | 'right' |
-| getContainer | 指定 Drawer 挂载的 HTML 节点 | HTMLElement \| `() => HTMLElement` \| selectors  | 'body' |
-| style | 可用于设置 Drawer 的样式，调整浮层位置等 | object | - |
-| mask | 是否展示遮罩 | Boolean | true |
-| maskStyle | 遮罩样式 | object | {} |
-| handler | 是否显示触发按钮或自定义触发按钮样式 | false \| HTMLElement | <div className="drawer-handle"><i className="drawer-handle-icon" /></div> |
-| level | 随着抽屉移动的元素, 可选值有all / null / className / id / tagName | string \| array | "all" |
-| onChange | 展开或收起的回调 | function() | - |
-| onMaskClick | 点击遮罩的回调 | function() | - |
-| onHandleClick | 点击触发按钮的回调 | function() | - |
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| className | 对话框外层容器的类名 | string | - | - |
+| width | 宽度 | string \| number | - | - |
+| height | 高度 | string \| number | - | - |
+| visible | Drawer 是否可见 | boolean | true\|false | false | 
+| placement | 抽屉的方向 | string | 'left' \| 'right' \| 'top' \| 'bottom' | 'right' |
+| getContainer | 指定 Drawer 挂载的 HTML 节点 | HTMLElement \| `() => HTMLElement` \| selectors  | - | 'body' |
+| style | 可用于设置 Drawer 的样式，调整浮层位置等 | object | - | - |
+| mask | 是否展示遮罩 | boolean | true\|false | true |
+| maskStyle | 遮罩样式 | object | - | - |
+| handler | 是否显示触发按钮或自定义触发按钮样式 | boolean \| HTMLElement |false \| HTMLElement | `<div className="drawer-handle"><i className="drawer-handle-icon" /></div>` |
+| level | 随着抽屉移动的元素 | string \| array | "all" \| null \| className \| id \| tagName | "all" |
+| onChange | 展开或收起的回调 | function() | - | - |
+| onMaskClick | 点击遮罩的回调 | function() | - | - |
+| onHandleClick | 点击触发按钮的回调 | function() | - | - |
