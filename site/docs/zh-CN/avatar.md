@@ -121,6 +121,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | --- | --- | --- | --- | --- |
+| className | 类名 | string | - | - |
 | icon | 设置头像的图标类型，参考 `Icon` 组件 | string | - | - |
 | shape | 指定头像的形状 | string | "circle" \| "square" | "circle" |
 | size | 设置头像的大小 | string | "large" \| "small" \| "default" | "default" |

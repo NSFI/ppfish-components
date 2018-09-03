@@ -264,6 +264,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | --- | --- | --- | --- | --- |
+| className | 类名 | string | - | - |
 | count | 展示的数字，大于 overflowCount 时显示为 `${overflowCount}+`，为 0 时隐藏 | number \| ReactNode | - | - |
 | dot | 不展示数字，只有一个小红点 | boolean | true \| false | false |
 | offset | 设置状态点的位置偏移，格式为 `[x, y]` | `[number, number]` | - | - |
