@@ -49,6 +49,7 @@ export { default as Table } from './Table/index.tsx';
 export { default as Tabs } from './Tabs/index.tsx';
 export { default as Tag } from './Tag/index.tsx';
 export { default as TextOverflow } from './TextOverflow';
+export { default as Timeline } from './Timeline/index.tsx';
 export { default as Tooltip } from './Tooltip/index.tsx';
 export { default as Transfer } from './Transfer/index.tsx';
 export { default as TreeSelect } from './TreeSelect/index.tsx';

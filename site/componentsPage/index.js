@@ -306,10 +306,10 @@ export default {
         type: 'markdown',
         name: 'Tag 标签',
       },
-      // 'timeline': {
-      //   type: 'markdown',
-      //   name: 'Timeline 时间轴',
-      // },
+      'timeline': {
+        type: 'markdown',
+        name: 'Timeline 时间轴',
+      },
       'popover': {
         type: 'markdown',
         name: 'Popover 气泡卡片',

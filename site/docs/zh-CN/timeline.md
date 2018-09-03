@@ -84,7 +84,7 @@
       <Timeline>
         <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
         <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
-        <Timeline.Item dot={<Icon type="clock-circle-o" style={{ fontSize: '16px' }} />} color="red">Technical testing 2015-09-01</Timeline.Item>
+        <Timeline.Item dot={<Icon type="demo-bargraph" style={{ fontSize: '16px' }} />} color="red">Technical testing 2015-09-01</Timeline.Item>
         <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
       </Timeline>
     );
@@ -92,10 +92,47 @@
 ```
 :::
 
+## 交替展现
+
+:::demo 内容在时间轴两侧轮流出现。
+
+```js
+render(){
+  return(
+    <Timeline mode="alternate">
+        <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+        <Timeline.Item color="green">Solve initial network problems 2015-09-01</Timeline.Item>
+        <Timeline.Item dot={<Icon type="demo-bargraph" style={{ fontSize: '16px' }} />}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</Timeline.Item>
+        <Timeline.Item color="red">Network problems being solved 2015-09-01</Timeline.Item>
+        <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+        <Timeline.Item dot={<Icon type="demo-bargraph" style={{ fontSize: '16px' }} />}>Technical testing 2015-09-01</Timeline.Item>
+      </Timeline>
+  )
+}
+```
+:::
+
+## 右侧时间轴点
+
+:::demo 时间轴点可以在内容的右边。
+
+```js
+render(){
+  return(
+      <Timeline mode="right">
+        <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+        <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
+        <Timeline.Item dot={<Icon type="demo-bargraph" style={{ fontSize: '16px' }} />} color="red">Technical testing 2015-09-01</Timeline.Item>
+        <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+      </Timeline>
+  )
+}
+```
+:::
 
 ## API
 
-```jsx
+```js
 <Timeline>
   <Timeline.Item>创建服务现场 2015-09-01</Timeline.Item>
   <Timeline.Item>初步排除网络异常 2015-09-01</Timeline.Item>
@@ -111,8 +148,9 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | pending | 指定最后一个幽灵节点是否存在或内容 | boolean\|string\|ReactNode | false |
-| pendingDot | 当最后一个幽灵节点存在時，指定其时间图点 | \|string\|ReactNode | `<Icon type="loading" />` |
+| pendingDot | 当最后一个幽灵节点存在時，指定其时间图点 | \|string\|ReactNode | `<Icon type="load-line" spin />` |
 | reverse | 节点排序 | boolean | false |
+| mode | 通过设置 `mode` 可以改变时间轴和内容的相对位置  | `left` \| `alternate` \| `right` |
 
 ### Timeline.Item
 
