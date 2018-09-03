@@ -55,6 +55,7 @@ const getImageSize = function(image, callback, scope) {
 }
 
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
+const MOZ_HACK_REGEXP = /^moz([A-Z])/;
 const camelCase = function(name) {
   return name.replace(
     SPECIAL_CHARS_REGEXP, (_, separator, letter, offset) => offset
@@ -131,6 +132,9 @@ class PicturePreview extends Component {
   componentDidMount() {
     document.body.appendChild(this.$el);
     this.setContainerStyle();
+    this.$el.addEventListener("fullscreenchange", this.handleFullChange);
+    this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
+    this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -269,7 +273,7 @@ class PicturePreview extends Component {
           ratio: imgRatio
         }),
         container: {
-          style: css ? css : null,
+          style: css ? css : this.state.container.style,
           isFull: this.state.container.isFull
         }
       }, () => {
@@ -294,6 +298,7 @@ class PicturePreview extends Component {
     this.setState({
       show: false,
       container: {
+        style: this.state.container.style,
         isFull: false
       }
     }, () => {
@@ -366,28 +371,28 @@ class PicturePreview extends Component {
 
   enterfullscreen = () => {
     fullscreen(this.$el);
-    this.setState({
-      container: {
-        style: {
-          width: '100%',
-          height: '100%',
-          left: 0,
-          top: 0
-        },
-        isFull: true
-      },
-    });
+    // this.setState({
+    //   container: {
+    //     style: {
+    //       width: '100%',
+    //       height: '100%',
+    //       left: 0,
+    //       top: 0
+    //     },
+    //     isFull: true
+    //   },
+    // });
   };
 
   exitfullscreen = () => {
     exitfullscreen();
-    this.setState({
-      container: {
-        isFull: false
-      }
-    }, () => {
-      this.setContainerStyle();
-    });
+    // this.setState({
+    //   container: {
+    //     isFull: false
+    //   }
+    // }, () => {
+    //   this.setContainerStyle();
+    // });
   };
 
   handleRotate = () => {
@@ -427,6 +432,43 @@ class PicturePreview extends Component {
     //   a.setAttribute('href', img.src);
     //   a.click();
     // }
+  };
+
+  handleFullChange = (e) => {
+    var con = this.state.container;
+
+    if (con.isFull) {
+      //从全屏退出到非全屏时，认为是没有显示过，让图片居中显示
+      this.setState({
+        shown: false
+      }, () => {
+        this.setContainerStyle();
+        this.setState({
+          shown: true
+        });
+      });
+      // this.state.shown = false;
+      // this.setContainerStyle();
+      // this.state.shown = true;
+    } else {
+      con.style = {
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%'
+      };
+      //等视图更新后，再缩放，要用到con的尺寸
+      this.setState({
+        container: con
+      }, () => this.handleZoom(this.state.image.ratio));
+    }
+    // con.isFull = !con.isFull;
+    this.setState({
+      container: {
+        style: this.state.container.style,
+        isFull: !con.isFull
+      }
+    });
   };
 
   render() {
