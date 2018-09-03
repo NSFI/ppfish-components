@@ -336,12 +336,10 @@ class PicturePreview extends Component {
   };
 
   handleZoom = (ratio) => {
-    var image = {},
-        conel = this.$el;
+    let image = {};
 
     //已经是1:1的情况下，不处理
-    if (ratio === 1 && this.isOne2One())
-      return;
+    if (ratio === 1 && this.isOne2One()) return;
 
     //缩放比例限定范围在0.1和5之间
     ratio = Math.min(ratio, MAX_RATIO);
@@ -349,14 +347,11 @@ class PicturePreview extends Component {
 
     image.ratio = ratio;
 
-    var width = this.state.image.naturalWidth * ratio,
+    let width = this.state.image.naturalWidth * ratio,
         height = this.state.image.naturalHeight * ratio;
 
-    // image.marginL = (conel.clientWidth - width) / 2;
-    // image.marginT = (conel.clientHeight - height) / 2;
-
-    image.marginL = (parseInt(this.state.container.style.width, 10) - width) / 2;
-    image.marginT = (parseInt(this.state.container.style.height, 10) - height) / 2;
+    image.marginL = (this.$el.clientWidth - width) / 2;
+    image.marginT = (this.$el.clientHeight - height) / 2;
 
     this.setState({
       image: Object.assign({}, this.state.image, image)
