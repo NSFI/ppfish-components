@@ -197,31 +197,31 @@
 ## API 公共参数
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| className | 选择器的className | string | - |
-| style | 选择框的样式 | object | - |
+| className | 选择器的className | string | - | - |
+| style | 选择框的样式 | object | - | - |
 | placeholder | 占位内容 | string | - | - |
 | format | 时间格式化 | string | 小时 HH，分 mm，秒 ss | HH:mm:ss |
-| isShowTrigger | 是否显示前缀图标 | boolean | - | true |
-| isAllowClear | 是否显示清除按钮 | boolean | - | true |
-| isDisabled | 是否禁用 | boolean | - | false |
-| onFocus | onFocus | function:(TimeSelectReactComponent)=>() | - | - |
-| onBlur | onBlur | function:(TimeSelectReactComponent)=>() | - | - |
-| onChange | 确认选定的值时触发 | function:(value)=>() | - | - |
-| onOpenChange | 弹出或关闭弹窗的回调 | function:(status)=>() | - | - |
+| isShowTrigger | 是否显示前缀图标 | boolean | true \| false | true |
+| isAllowClear | 是否显示清除按钮 | boolean | true \| false | true |
+| isDisabled | 是否禁用 | boolean | true \| false | false |
+| onFocus | onFocus | (TimeSelectReactComponent)=>{} | - | - |
+| onBlur | onBlur | (TimeSelectReactComponent)=>{} | - | - |
+| onChange | 确认选定的值时触发 | (value)=>{} | - | - |
+| onOpenChange | 弹出或关闭弹窗的回调 | (status)=>{} | - | - |
 
 ## TimePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| isShowCurrent | 是否显示"现在"快捷按钮 | boolean | - | false |
-| value | 值 | date/null | - | - |
-| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - |
+| isShowCurrent | 是否显示"现在"快捷按钮 | boolean | true \| false  | false |
+| value | 值 | date \| null | - | - |
+| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string \| string[] | - | - |
 | renderExtraFooter | 在面板中添加额外的页脚 | ()=>React.ReactNode | - | - |
-| onValueChange | 时、分、秒发生变化时的回调 | function:(date)=>() | - | - |
+| onValueChange | 时、分、秒发生变化时的回调 | (date)=>{} | - | - |
 
 ## TimePicker.TimeSelect
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| value | 值 | date/null | - | - |
+| value | 值 | date \| null | - | - |
 | start | 开始时间 | string | - | 09:00 |
 | end | 结束时间 | string | - | 18:00 |
 | step | 间隔时间 | string | - | 00:30 |

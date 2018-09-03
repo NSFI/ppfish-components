@@ -943,23 +943,23 @@ render() {
 
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| className | 选择器的className | string | - |
-| style | 选择框的样式 | object | - |
+| className | 选择器的className | string | - | - |
+| style | 选择框的样式 | object | - | - |
 | format | 时间日期格式化 | string | 年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | yyyy-MM-dd |
-| popupAlign | 弹窗位置 | 'bottomLeft', 'bottomCenter','bottomRight','topLeft', 'topCenter','topLeft' | 'bottomLeft' |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| Function(triggerNode) | () => document.body |
-| isShowTrigger | 是否显示前缀图标 | boolean | - | true |
-| isAllowClear | 是否显示清除按钮 | boolean | - | true |
-| isDisabled | 是否禁用 | boolean | - | false |
+| popupAlign | 弹窗位置 | string | 'bottomLeft' \| 'bottomCenter' \| 'bottomRight' \| 'topLeft' \| 'topCenter' \| 'topLeft' | 'bottomLeft' |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| (triggerNode)=>{} | - | () => document.body |
+| isShowTrigger | 是否显示前缀图标 | boolean | true \| false | true |
+| isAllowClear | 是否显示清除按钮 | boolean | true \| false | true |
+| isDisabled | 是否禁用 | boolean | true \| false | false |
 | disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - | - |
 | firstDayOfWeek | 周起始日 | Number | 0 到 6 | 0 |
-| yearCount | 可选择的年份总数 | Number | Number | 50 |
-| shortcuts | 快捷选项 | {text: string, onClick: ()=>()}[] | - | - |
+| yearCount | 可选择的年份总数 | Number | - | 50 |
+| shortcuts | 快捷选项 | {text: string, onClick: ()=>()} | - | - |
 | renderExtraFooter | 在面板中添加额外的页脚 | ()=>React.ReactNode | - | - |
-| onFocus | focus 事件触发 | (SyntheticEvent)=>() | - | - |
-| onBlur | blur 事件触发 | (SyntheticEvent)=>() | - | - |
-| onChange | 确认选定的值时触发 | function:(value)=>() | - | - |
-| onOpenChange | 弹出或关闭日历的回调 | function:(status)=>() | - | - |
+| onFocus | focus 事件触发 | (SyntheticEvent)=>{} | - | - |
+| onBlur | blur 事件触发 | (SyntheticEvent)=>{} | - | - |
+| onChange | 确认选定的值时触发 | (value)=>{} | - | - |
+| onOpenChange | 弹出或关闭日历的回调 | (status)=>{} | - | - |
 
 ## 方法
 | 参数      | 描述          |
@@ -970,35 +970,35 @@ render() {
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | placeholder | 占位内容 | string | - | - |
-| value | - | Date | Date/null | null |
-| selectionMode | 日期类型 | string | 'week', 'day' | 'day' |
+| value | 值 | Date | Date \| null | null |
+| selectionMode | 日期类型 | string | 'week' \| 'day' | 'day' |
 
 DatePicker 时间面板的参数
 
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| isShowTime | 是否显示时间选择器 | boolean | - | false |
-| isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | boolean | - | false |
-| defaultTimeValue | 时间面板的默认时间 | Date | - | -
-| timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - |
+| isShowTime | 是否显示时间选择器 | boolean | true \| false | false |
+| isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | boolean | true \| false | false |
+| defaultTimeValue | 时间面板的默认时间 | Date | - | - |
+| timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string \| string[] | - | - |
 
 ## DatePicker.DateRangePicker
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | startPlaceholder | 开始日期的占位内容 | string | - | '开始日期' |
 | endPlaceholder | 结束日期的占位内容 | string | - | '结束日期' |
-| value | - | array | [Date,Date]/null | null |
+| value | 值 | array | [Date,Date] \| null | null |
 | rangeSeparator | 分隔符 | string | - | ' 至 ' |
-| maxDateRange  | 最大可选择的日期范围，单位 天    | number   | null   | - |
-| onError  |  选择日期超过maxDateRange的回调   | function:(message)=>() | - | - |
+| maxDateRange  | 最大可选择的日期范围，单位 天    | number | - | - |
+| onError  |  选择日期超过maxDateRange的回调   | (message)=>{} | - | - |
 
 DateRangePicker 时间面板的参数
 
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| isShowTime | 是否显示时间选择器 | boolean | - | false |
-| isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | boolean | - | false |
+| isShowTime | 是否显示时间选择器 | boolean | true \| false  | false |
+| isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | boolean | true \| false  | false |
 | defaultStartTimeValue | 开始时间面板的默认时间 | Date | - | - |
 | defaultEndTimeValue | 结束时间面板的默认时间 | Date | - | - |
-| startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - |
-| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string/string[] | - | - |
+| startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string \| string[] | - | - |
+| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | string \| string[] | - | - |
