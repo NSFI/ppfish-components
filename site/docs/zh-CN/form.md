@@ -7,7 +7,7 @@
 我们为 `form` 提供了以下三种排列方式：
 
 - 水平排列：标签和表单控件水平排列；（默认）
-- 垂直排列：标签和表单控件上下垂直排列；``
+- 垂直排列：标签和表单控件上下垂直排列；
 - 行内排列：表单项水平行内排列。
 
 ## 表单域
@@ -52,15 +52,15 @@ class HorizontalLoginForm extends React.Component {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
 
     // Only show error after a field is touched.
-    const userNameError = isFieldTouched('userName') && getFieldError('userName');
-    const passwordError = isFieldTouched('password') && getFieldError('password');
+    const userNameError = isFieldTouched('userName1') && getFieldError('userName1');
+    const passwordError = isFieldTouched('password1') && getFieldError('password1');
     return (
       <Form layout="inline" onSubmit={this.handleSubmit}>
         <FormItem
           validateStatus={userNameError ? 'error' : ''}
           help={userNameError || ''}
         >
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('userName1', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
@@ -70,7 +70,7 @@ class HorizontalLoginForm extends React.Component {
           validateStatus={passwordError ? 'error' : ''}
           help={passwordError || ''}
         >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('password1', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
@@ -116,14 +116,14 @@ class NormalLoginForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form " id="components-form-demo-normal-login">
         <FormItem>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('userName2', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
           )}
         </FormItem>
         <FormItem>
-          {getFieldDecorator('password', {
+          {getFieldDecorator('password2', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
@@ -219,7 +219,7 @@ class RegistrationForm extends React.Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
+    if (value && value !== form.getFieldValue('password3')) {
       callback('Two passwords that you enter is inconsistent!');
     } else {
       callback();
@@ -303,7 +303,7 @@ class RegistrationForm extends React.Component {
           {...formItemLayout}
           label="Password"
         >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('password3', {
             rules: [{
               required: true, message: 'Please input your password!',
             }, {
@@ -338,7 +338,7 @@ class RegistrationForm extends React.Component {
             </span>
           )}
         >
-          {getFieldDecorator('nickname', {
+          {getFieldDecorator('nickname1', {
             rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
           })(
             <Input />
@@ -883,8 +883,8 @@ const Demo = Form.create()(TimeRelatedForm);
 ## 自定义表单控件
 
 :::demo 自定义或第三方的表单控件，也可以与 Form 组件一起使用。只要该组件遵循以下的约定：
-> * 提供受控属性 `value` 或其它与 [`valuePropName`](http://ant.design/components/form/#getFieldDecorator-参数) 的值同名的属性。
-> * 提供 `onChange` 事件或 [`trigger`](http://ant.design/components/form/#getFieldDecorator-参数) 的值同名的事件。
+> * 提供受控属性 `value` 或其它与 `valuePropName`的值同名的属性。
+> * 提供 `onChange` 事件或 `trigger`的值同名的事件。
 > * 不能是函数式组件。
 
 ```js
@@ -1004,7 +1004,7 @@ const Demo = Form.create()(UnWrappedDemo);
 
 ## 表单数据存储于上层组件
 
-:::demo 通过使用 `onFieldsChange` 与 `mapPropsToFields`，可以把表单的数据存储到上层组件或者 [Redux](https://github.com/reactjs/redux)、[dva](https://github.com/dvajs/dva) 中，更多可参考 [rc-form 示例](http://react-component.github.io/form/examples/redux.html)。
+:::demo 通过使用 `onFieldsChange` 与 `mapPropsToFields`，可以把表单的数据存储到上层组件或者 [Redux](https://github.com/reactjs/redux)
 
 **注意：**`mapPropsToFields` 里面返回的表单域数据必须使用 `Form.createFormField` 包装。
 
@@ -1017,9 +1017,9 @@ const CustomizedForm = Form.create({
   },
   mapPropsToFields(props) {
     return {
-      username: Form.createFormField({
-        ...props.username,
-        value: props.username.value,
+      username3: Form.createFormField({
+        ...props.username3,
+        value: props.username3.value,
       }),
     };
   },
@@ -1031,7 +1031,7 @@ const CustomizedForm = Form.create({
   return (
     <Form layout="inline">
       <FormItem label="Username">
-        {getFieldDecorator('username', {
+        {getFieldDecorator('username3', {
           rules: [{ required: true, message: 'Username is required!' }],
         })(<Input />)}
       </FormItem>
@@ -1042,7 +1042,7 @@ const CustomizedForm = Form.create({
 class Demo extends React.Component {
   state = {
     fields: {
-      username: {
+      username3: {
         value: 'benjycui',
       },
     },
@@ -1402,18 +1402,15 @@ class Demo extends React.Component {
       wrapperCol: { span: 14, offset: 4 },
     } : null;
     return (
-      <div>
+      <div className="demo-layout">
+        <div className="demo-layout-head">
+          <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange}>
+            <Radio.Button value="horizontal">Horizontal</Radio.Button>
+            <Radio.Button value="vertical">Vertical</Radio.Button>
+            <Radio.Button value="inline">Inline</Radio.Button>
+          </Radio.Group>
+        </div>
         <Form layout={formLayout}>
-          <FormItem
-            label="Form Layout"
-            {...formItemLayout}
-          >
-            <Radio.Group defaultValue="horizontal" onChange={this.handleFormLayoutChange}>
-              <Radio.Button value="horizontal">Horizontal</Radio.Button>
-              <Radio.Button value="vertical">Vertical</Radio.Button>
-              <Radio.Button value="inline">Inline</Radio.Button>
-            </Radio.Group>
-          </FormItem>
           <FormItem
             label="Field A"
             {...formItemLayout}
@@ -1436,6 +1433,11 @@ class Demo extends React.Component {
 }
 ```
 :::
+<style>
+.demo-layout-head {
+  margin-bottom: 20px;
+}
+</style>
 
 ## 动态校验规则
 
@@ -1471,7 +1473,7 @@ class DynamicRule extends React.Component {
     this.setState({
       checkNick: e.target.checked,
     }, () => {
-      this.props.form.validateFields(['nickname'], { force: true });
+      this.props.form.validateFields(['nickname2'], { force: true });
     });
   }
 
@@ -1480,7 +1482,7 @@ class DynamicRule extends React.Component {
     return (
       <div>
         <FormItem {...formItemLayout} label="Name">
-          {getFieldDecorator('username', {
+          {getFieldDecorator('username4', {
             rules: [{
               required: true,
               message: 'Please input your name',
@@ -1490,7 +1492,7 @@ class DynamicRule extends React.Component {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Nickname">
-          {getFieldDecorator('nickname', {
+          {getFieldDecorator('nickname2', {
             rules: [{
               required: this.state.checkNick,
               message: 'Please input your nickname',
@@ -1714,8 +1716,6 @@ const Demo = Form.create()(UnwrappedDemo);
 
 ### Form
 
-**更多示例参考 [rc-form](http://react-component.github.io/form/)**。
-
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | form | 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可。 | object | 无 |
@@ -1737,12 +1737,12 @@ CustomizedForm = Form.create({})(CustomizedForm);
 
 | 参数 | 说明 | 类型 |
 | --- | --- | --- |
-| mapPropsToFields | 把父组件的属性映射到表单项上（如：把 Redux store 中的值读出），需要对返回值中的表单域数据用 [`Form.createFormField`](#Form.createFormField) 标记 | (props) => Object{ fieldName: FormField { value } } |
+| mapPropsToFields | 把父组件的属性映射到表单项上（如：把 Redux store 中的值读出），需要对返回值中的表单域数据用 `Form.createFormField` 标记 | (props) => Object{ fieldName: FormField { value } } |
 | validateMessages | 默认校验信息，可用于把默认错误信息改为中文等，格式与 [newMessages](https://github.com/yiminghe/async-validator/blob/master/src/messages.js) 返回值一致 | Object { [nested.path]&#x3A; String } |
 | onFieldsChange | 当 `Form.Item` 子节点的值发生改变时触发，可以把对应的值转存到 Redux store | Function(props, fields) |
 | onValuesChange | 任一表单域的值发生改变时的回调 | (props, changedValues, allValues) => void |
 
-经过 `Form.create` 之后如果要拿到 `ref`，可以使用 `rc-form` 提供的 `wrappedComponentRef`，[详细内容可以查看这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140)。
+经过 `Form.create` 之后如果要拿到 `ref`，可以使用 `wrappedComponentRef` 。
 
 ```js
 class CustomizedForm extends React.Component { ... }
@@ -1753,9 +1753,11 @@ const EnhancedForm =  Form.create()(CustomizedForm);
 this.form // => The instance of CustomizedForm
 ```
 
-经过 `Form.create` 包装的组件将会自带 `this.props.form` 属性，`this.props.form` 提供的 API 如下：
+经过 `Form.create` 包装的组件将会自带 `this.props.form` 属性。
 
 > 注意：使用 `getFieldsValue` `getFieldValue` `setFieldsValue` 等时，应确保对应的 field 已经用 `getFieldDecorator` 注册过了。
+
+#### `this.props.form` 提供的 API
 
 | 方法      | 说明                                     | 类型       |
 | ------- | -------------------------------------- | -------- |
@@ -1768,12 +1770,12 @@ this.form // => The instance of CustomizedForm
 | isFieldTouched | 判断一个输入控件是否经历过 `getFieldDecorator` 的值收集时机 `options.trigger` | (name: string) => boolean |
 | isFieldValidating | 判断一个输入控件是否在校验状态 | Function(name) |
 | resetFields | 重置一组输入控件的值（为 `initialValue`）与状态，如不传入参数，则重置所有组件 | Function(\[names: string\[]]) |
-| setFields | 设置一组输入控件的值与 Error。 [代码](https://github.com/react-component/form/blob/3b9959b57ab30b41d8890ff30c79a7e7c383cad3/examples/server-validate.js#L74-L79) | Function({ [fieldName]&#x3A; { value: any, errors: [Error] } }) |
-| setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/fishd-design/ant-design/issues/2985)） | Function({ [fieldName]&#x3A; value } |
+| setFields | 设置一组输入控件的值与 Error。 | Function({ [fieldName]&#x3A; { value: any, errors: [Error] } }) |
+| setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/ant-design/ant-design/issues/2985)） | Function({ [fieldName]&#x3A; value } |
 | validateFields | 校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件 | Function(\[fieldNames: string\[]], [options: object], callback: Function(errors, values)) |
 | validateFieldsAndScroll | 与 `validateFields` 相似，但校验完后，如果校验不通过的菜单域不在可见范围内，则自动滚动进可见范围 | 参考 `validateFields` |
 
-### this.props.form.validateFields/validateFieldsAndScroll(\[fieldNames: string\[]], [options: object], callback: Function(errors, values))
+#### `this.props.form.validateFields/validateFieldsAndScroll(fieldNames, options, callback)` 的参数`options`的配置项
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -1782,11 +1784,7 @@ this.form // => The instance of CustomizedForm
 | options.force | 对已经校验过的表单域，在 validateTrigger 再次被触发时是否再次校验 | boolean | false |
 | options.scroll | 定义 validateFieldsAndScroll 的滚动行为，详细配置见 [dom-scroll-into-view config](https://github.com/yiminghe/dom-scroll-into-view#function-parameter) | Object | {} |
 
-### Form.createFormField
-
-用于标记 `mapPropsToFields` 返回的表单域数据，[例子](#components-form-demo-global-state)。
-
-### this.props.form.getFieldDecorator(id, options)
+#### `this.props.form.getFieldDecorator(id, options)` 
 
 经过 `getFieldDecorator` 包装的控件，表单控件会自动添加 `value`（或 `valuePropName` 指定的其他属性） `onChange`（或 `trigger` 指定的其他属性），数据同步将被 Form 接管，这会导致以下结果：
 
@@ -1794,12 +1792,12 @@ this.form // => The instance of CustomizedForm
 2. 你不能用控件的 `value` `defaultValue` 等属性来设置表单域的值，默认值可以用 `getFieldDecorator` 里的 `initialValue`。
 3. 你不应该用 `setState`，可以使用 `this.props.form.setFieldsValue` 来动态改变表单值。
 
-#### 特别注意
+特别注意:
 
 1. `getFieldDecorator` 不能用于装饰纯函数组件。
 2. 如果使用的是 `react@<15.3.0`，则 `getFieldDecorator` 调用不能位于纯函数组件中: <https://github.com/facebook/react/pull/6534>
 
-#### getFieldDecorator(id, options) 参数
+参数如下：
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -1808,12 +1806,19 @@ this.form // => The instance of CustomizedForm
 | options.initialValue | 子节点的初始值，类型、可选值均由子节点决定(注意：由于内部校验时使用 `===` 判断是否变化，建议使用变量缓存所需设置的值而非直接使用字面量)) |  |  |
 | options.normalize | 转换默认的 value 给控件，[一个选择全部的例子](https://codepen.io/afc163/pen/JJVXzG?editors=001) | function(value, prevValue, allValues): any | - |
 | options.rules | 校验规则，参考下方文档 | object\[] |  |
+| options.validate | 校验方法 | Object[] | - |
+| options.validate[n].trigger | Event which is listened to validate. Set to falsy to only validate when call props.validateFields. | String|String[] | 'onChange' |
+| options.validate[n].rules | Validator rules. see: [async-validator](https://github.com/yiminghe/async-validator) | Object[] | - |
 | options.trigger | 收集子节点的值的时机 | string | 'onChange' |
 | options.validateFirst | 当某一规则校验不通过时，是否停止剩下的规则的校验 | boolean | false |
 | options.validateTrigger | 校验子节点值的时机 | string\|string\[] | 'onChange' |
 | options.valuePropName | 子节点的值的属性，如 Switch 的是 'checked' | string | 'value' |
+| options.getValueProps | Get the component props according to field value. | (value): Object | (value) => ({ value }) |
+| options.hidden | Ignore current field while validating or gettting fields | boolean | false |
 
-更多参数请查看 [rc-form option](https://github.com/react-component/form#option-object)。
+### Form.createFormField
+
+用于标记 `mapPropsToFields` 返回的表单域数据，请查看表单数据存储于上层组件的例子。
 
 ### Form.Item
 
