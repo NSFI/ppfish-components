@@ -95,6 +95,7 @@ class PicturePreview extends Component {
     children: PropTypes.node,
     toolbar: PropTypes.bool,
     source: PropTypes.array,
+    dragable: PropTypes.bool,
     visible: PropTypes.bool,
     activeIndex: PropTypes.number,
     onClose: PropTypes.func,
@@ -104,6 +105,7 @@ class PicturePreview extends Component {
     prefixCls: 'fishd-picturepreview',
     toolbar: false,
     source: [], // [{name: '', src: ''}]
+    dragable: false,
     visible: false,
     activeIndex: 0,
     onClose: () => {},
@@ -130,11 +132,23 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
+    const { dragable, toolbar } = this.props;
+
     document.body.appendChild(this.$el);
     this.setContainerStyle();
-    this.$el.addEventListener("fullscreenchange", this.handleFullChange);
-    this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
-    this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
+
+    if (toolbar) {
+      // 监听全屏事件
+      this.$el.addEventListener("fullscreenchange", this.handleFullChange);
+      this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
+      this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
+    }
+
+    if (dragable) {
+      // 监听拖动事件
+      document.addEventListener('mousemove', this.handleMouseMove);
+      document.addEventListener('mouseup', this.handleMouseUp);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -211,8 +225,14 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    if (this.$el && this.$el.parentNode === document.body)
+    if (this.$el && this.$el.parentNode === document.body) {
       document.body.removeChild(this.$el);
+    }
+
+    if (this.props.dragable) {
+      document.removeEventListener('mousemove', this.handleMouseMove);
+      document.removeEventListener('mouseup', this.handleMouseUp);
+    }
   }
 
   /**
@@ -222,9 +242,6 @@ class PicturePreview extends Component {
     if (!this.state.image.el) return;
 
     getImageSize(this.state.image.el, (naturalWidth, naturalHeight) => {
-      // this.state.image.naturalWidth = naturalWidth;
-      // this.state.image.naturalHeight = naturalHeight;
-
       //计算容器的宽度
       var width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
       if (width > CON_MAX_WIDTH)
@@ -251,7 +268,7 @@ class PicturePreview extends Component {
             left: num2px((window.innerWidth - width) / 2),
             top: num2px((window.innerHeight - height) / 2)
         };
-        // this.state.container.style = css;
+
         this.setState({
           container: {
             style: css,
@@ -269,7 +286,7 @@ class PicturePreview extends Component {
             left: num2px(oriLeft + (oriWidth - width) / 2),
             top: num2px(oriTop + (oriHeight - height) / 2)
         };
-        // this.state.container.style = css;
+
         this.setState({
           container: {
             style: css,
@@ -368,37 +385,7 @@ class PicturePreview extends Component {
   handleSwitchFull = () => {
     if (!this.isFullEnabled()) return;
 
-    if (this.state.container.isFull) {
-      this.exitfullscreen();
-    } else {
-      this.enterfullscreen();
-    }
-  };
-
-  enterfullscreen = () => {
-    fullscreen(this.$el);
-    // this.setState({
-    //   container: {
-    //     style: {
-    //       width: '100%',
-    //       height: '100%',
-    //       left: 0,
-    //       top: 0
-    //     },
-    //     isFull: true
-    //   },
-    // });
-  };
-
-  exitfullscreen = () => {
-    exitfullscreen();
-    // this.setState({
-    //   container: {
-    //     isFull: false
-    //   }
-    // }, () => {
-    //   this.setContainerStyle();
-    // });
+    this.state.container.isFull ? exitfullscreen() : fullscreen(this.$el);
   };
 
   handleRotate = () => {
@@ -453,9 +440,6 @@ class PicturePreview extends Component {
           shown: true
         });
       });
-      // this.state.shown = false;
-      // this.setContainerStyle();
-      // this.state.shown = true;
     } else {
       con.style = {
         left: 0,
@@ -468,7 +452,7 @@ class PicturePreview extends Component {
         container: con
       }, () => this.handleZoom(this.state.image.ratio));
     }
-    // con.isFull = !con.isFull;
+
     this.setState({
       container: {
         style: this.state.container.style,
@@ -477,11 +461,80 @@ class PicturePreview extends Component {
     });
   };
 
+  handleMouseDown = (e) => {
+    var con = this.state.container,
+        image = this.state.image,
+        el = this.$el,
+        tar = e.target;
+
+    // console.log('>> onMouseDown target: ', e, image.el, con);
+
+    // debugger;
+
+    if (tar === image.el && (con.isFull || isLargger(image.el, el))) {
+      //点击在图片上，并且是全屏模式或者图片比容器大，此时移动图片
+      // this.moving = 'img';
+      image.startX = e.pageX;
+      image.startY = e.pageY;
+      image.marginL = px2num(getStyle(image.el, 'margin-left'));
+      image.marginT = px2num(getStyle(image.el, 'margin-top'));
+
+      this.setState({
+        moving: 'img',
+        image: Object.assign({}, this.state.image, image)
+      });
+    } else if (!con.isFull) {
+      //非全屏模式下，移动容器
+      // this.moving = 'con';
+      con.rect = this.$el.getBoundingClientRect();
+      con.startX = e.clientX;
+      con.startY = e.clientY;
+
+      this.setState({
+        moving: 'con',
+        container: Object.assign({}, this.state.container, con)
+      });
+    } else {
+      e.preventDefault();
+    }
+  };
+
+  handleMouseMove = (e) => {
+    var con = this.state.container,
+        image = this.state.image,
+        conStyle = {};
+
+    if (this.state.moving) {
+      e.preventDefault();
+
+      if (this.state.moving === 'img') {
+        setStyle(image.el, {
+          'margin-left': num2px(e.pageX - image.startX + image.marginL),
+          'margin-top': num2px(e.pageY - image.startY + image.marginT)
+        });
+      } else if (this.state.moving === 'con') {
+        conStyle.left = num2px(e.pageX - con.startX + con.rect.left);
+        conStyle.top = num2px(e.pageY - con.startY + con.rect.top);
+
+        this.setState({
+          container: Object.assign({}, this.state.container, {style: conStyle})
+        });
+      }
+    }
+  };
+
+  handleMouseUp = (e) => {
+    this.setState({
+      moving: ''
+    });
+  };
+
   render() {
     const { show, current, imgs, image } = this.state;
-    const { className, prefixCls, source, children, toolbar } = this.props;
-    let ctnerClass = classNames(prefixCls, 'root', {
+    const { className, prefixCls, source, children, toolbar, dragable } = this.props;
+    let ctnerClass = classNames(prefixCls, {
       [className]: className,
+      'dragable': dragable,
       'hide': !show
     });
     let isHide = !(source.length > 1 || (!!children && children.length > 1));
@@ -514,7 +567,8 @@ class PicturePreview extends Component {
     });
 
     return (
-      <div className={ctnerClass} ref={node => this.$el = node} style={this.state.container.style} >
+      <div className={ctnerClass} ref={node => this.$el = node} style={this.state.container.style}
+        onMouseDown={dragable ? this.handleMouseDown : null} >
         <i className="fishdicon fishdicon-close-modal-line close" onClick={this.handleClose}/>
         <i className={leftBtnClass} onClick={this.handlePrev}/>
         <i className={rightBtnClass} onClick={this.handleNext}/>
