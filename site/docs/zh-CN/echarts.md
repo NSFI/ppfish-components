@@ -285,7 +285,7 @@
 
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| option |  图表参数 | object | - |
-| events |  图表事件 | object | - |
 | className | 设置 chart 类名 | string | '' |
 | style | 设置样式 | Object | - |
+| option |  图表参数 | object | - |
+| events |  图表事件 | object | - |
