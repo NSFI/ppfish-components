@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
-import { throttle } from 'lodash';
 import './style/index.less';
 
 const CON_MAX_WIDTH = 1024, //容器最大宽度
@@ -201,29 +200,6 @@ class PicturePreview extends Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // if (JSON.stringify(this.state) === JSON.stringify(nextState)) {
-  //   //   return false;
-  //   // }
-
-  //   return true;
-  // }
-
-  componentDidUpdate(prevProps, prevState) {
-    // if (this.props.controller && this.contentWrap != undefined && this.hasAddExitfullscreenEvt == false) {
-    //   // 处理通过按“Esc”键退出全屏的情况
-    //   addFullscreenchangeEvent(this.contentWrap, (e) => {
-    //     if (!checkFullscreen() && this.state.isFullscreen == true) {
-    //       this.setState({
-    //         isFullscreen: false
-    //       });
-    //     }
-    //   });
-
-    //   this.hasAddExitfullscreenEvt = true;
-    // }
-  }
-
   componentWillUnmount() {
     if (this.$el && this.$el.parentNode === document.body) {
       document.body.removeChild(this.$el);
@@ -263,10 +239,10 @@ class PicturePreview extends Component {
       var css = '';
       if (!this.state.shown) {
         css = {
-            width: num2px(width),
-            height: num2px(height),
-            left: num2px((window.innerWidth - width) / 2),
-            top: num2px((window.innerHeight - height) / 2)
+          width: num2px(width),
+          height: num2px(height),
+          left: num2px((window.innerWidth - width) / 2),
+          top: num2px((window.innerHeight - height) / 2)
         };
 
         this.setState({
@@ -277,14 +253,14 @@ class PicturePreview extends Component {
         });
       } else if (!this.state.container.isFull) {
         var oriTop = px2num(getStyle(this.$el, 'top')),
-            oriLeft = px2num(getStyle(this.$el, 'left')),
-            oriWidth = px2num(getStyle(this.$el, 'width')),
-            oriHeight = px2num(getStyle(this.$el, 'height'));
+          oriLeft = px2num(getStyle(this.$el, 'left')),
+          oriWidth = px2num(getStyle(this.$el, 'width')),
+          oriHeight = px2num(getStyle(this.$el, 'height'));
         css = {
-            width: num2px(width),
-            height: num2px(height),
-            left: num2px(oriLeft + (oriWidth - width) / 2),
-            top: num2px(oriTop + (oriHeight - height) / 2)
+          width: num2px(width),
+          height: num2px(height),
+          left: num2px(oriLeft + (oriWidth - width) / 2),
+          top: num2px(oriTop + (oriHeight - height) / 2)
         };
 
         this.setState({
@@ -365,7 +341,7 @@ class PicturePreview extends Component {
     image.ratio = ratio;
 
     let width = this.state.image.naturalWidth * ratio,
-        height = this.state.image.naturalHeight * ratio;
+      height = this.state.image.naturalHeight * ratio;
 
     image.marginL = (this.$el.clientWidth - width) / 2;
     image.marginT = (this.$el.clientHeight - height) / 2;
@@ -390,8 +366,8 @@ class PicturePreview extends Component {
 
   handleRotate = () => {
     var old = this.state.image.el.rotateValue || 0,
-        rotate = old + 90,
-        transform = 'rotate(' + rotate + 'deg)';
+      rotate = old + 90,
+      transform = 'rotate(' + rotate + 'deg)';
 
     this.state.image.el.rotateValue = rotate;
 
@@ -408,9 +384,9 @@ class PicturePreview extends Component {
     // for IE10+
     if (window.navigator.msSaveBlob) {
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', img.src , true);
+      xhr.open('GET', img.src, true);
       xhr.responseType = 'blob';
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == xhr.DONE) {
           window.navigator.msSaveBlob(xhr.response);
         }
@@ -462,7 +438,9 @@ class PicturePreview extends Component {
   };
 
   handleMouseDown = (e) => {
-    var con = {}, image = {}, tar = e.target;
+    var con = {},
+      image = {},
+      tar = e.target;
 
     if (tar === this.state.image.el && (this.state.container.isFull || isLargger(this.state.image.el, this.$el))) {
       //点击在图片上，并且是全屏模式或者图片比容器大，此时移动图片
@@ -492,8 +470,8 @@ class PicturePreview extends Component {
 
   handleMouseMove = (e) => {
     var con = this.state.container,
-        image = this.state.image,
-        conStyle = {...con.style};
+      image = this.state.image,
+      conStyle = { ...con.style };
 
     if (this.state.moving) {
       e.preventDefault();
@@ -503,16 +481,12 @@ class PicturePreview extends Component {
           'margin-left': num2px(e.pageX - image.startX + image.marginL),
           'margin-top': num2px(e.pageY - image.startY + image.marginT)
         });
-
-        // this.setState({
-        //   image: Object.assign({}, this.state.image, image)
-        // });
       } else if (this.state.moving === 'con') {
         conStyle.left = num2px(e.pageX - con.startX + con.rect.left);
         conStyle.top = num2px(e.pageY - con.startY + con.rect.top);
 
         this.setState({
-          container: Object.assign({}, this.state.container, {style: conStyle})
+          container: Object.assign({}, this.state.container, { style: conStyle })
         });
       }
     }
@@ -522,6 +496,21 @@ class PicturePreview extends Component {
     this.setState({
       moving: ''
     });
+  };
+
+  handleWheel = (e) => {
+    let { deltaY, wheelDelta, detail } = e,
+      delta = 1;
+
+    if (deltaY) {
+      delta = deltaY > 0 ? -1 : 1;
+    } else if (wheelDelta) {
+      delta = wheelDelta / 120;
+    } else if (detail) {
+      delta = detail > 0 ? -1 : 1;
+    }
+
+    this.handleZoom(this.state.image.ratio + (delta > 0 ? STEP_RATIO : -STEP_RATIO));
   };
 
   render() {
@@ -563,7 +552,8 @@ class PicturePreview extends Component {
 
     return (
       <div className={ctnerClass} ref={node => this.$el = node} style={this.state.container.style}
-        onMouseDown={dragable ? this.handleMouseDown : null} >
+        onMouseDown={dragable ? this.handleMouseDown : null}
+        onWheel={this.handleWheel} >
         <i className="fishdicon fishdicon-close-modal-line close" onClick={this.handleClose}/>
         <i className={leftBtnClass} onClick={this.handlePrev}/>
         <i className={rightBtnClass} onClick={this.handleNext}/>
