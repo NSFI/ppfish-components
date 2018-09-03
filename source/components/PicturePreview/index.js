@@ -252,6 +252,12 @@ class PicturePreview extends Component {
             top: num2px((window.innerHeight - height) / 2)
         };
         // this.state.container.style = css;
+        this.setState({
+          container: {
+            style: css,
+            isFull: this.state.container.isFull
+          }
+        });
       } else if (!this.state.container.isFull) {
         var oriTop = px2num(getStyle(this.$el, 'top')),
             oriLeft = px2num(getStyle(this.$el, 'left')),
@@ -264,6 +270,12 @@ class PicturePreview extends Component {
             top: num2px(oriTop + (oriHeight - height) / 2)
         };
         // this.state.container.style = css;
+        this.setState({
+          container: {
+            style: css,
+            isFull: this.state.container.isFull
+          }
+        });
       }
 
       this.setState({
@@ -271,11 +283,7 @@ class PicturePreview extends Component {
           naturalWidth: naturalWidth,
           naturalHeight: naturalHeight,
           ratio: imgRatio
-        }),
-        container: {
-          style: css ? css : this.state.container.style,
-          isFull: this.state.container.isFull
-        }
+        })
       }, () => {
         //等视图更新后，再缩放，要用到con的尺寸
         this.handleZoom(imgRatio);
@@ -297,6 +305,7 @@ class PicturePreview extends Component {
     this.state.container.isFull && exitfullscreen();
     this.setState({
       show: false,
+      shown: false,
       container: {
         style: this.state.container.style,
         isFull: false
@@ -310,7 +319,8 @@ class PicturePreview extends Component {
 
   handlePrev = () => {
     this.setState({
-      current: this.state.current <= 0 ? (this.state.imgs.length - 1) : (this.state.current - 1)
+      current: this.state.current <= 0 ? (this.state.imgs.length - 1) : (this.state.current - 1),
+      shown: true
     }, () => {
       this.setContainerStyle();
     });
@@ -318,7 +328,8 @@ class PicturePreview extends Component {
 
   handleNext = () => {
     this.setState({
-      current: this.state.current >= (this.state.imgs.length - 1) ? 0 : (this.state.current + 1)
+      current: this.state.current >= (this.state.imgs.length - 1) ? 0 : (this.state.current + 1),
+      shown: true
     }, () => {
       this.setContainerStyle();
     });
