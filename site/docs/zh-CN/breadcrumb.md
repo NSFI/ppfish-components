@@ -14,15 +14,15 @@
 
 ```js
 
-render(){
-  return(
+render() {
+  return (
     <Breadcrumb>
       <Breadcrumb.Item>Home</Breadcrumb.Item>
       <Breadcrumb.Item><a href="">Application Center</a></Breadcrumb.Item>
       <Breadcrumb.Item><a href="">Application List</a></Breadcrumb.Item>
       <Breadcrumb.Item>An Application</Breadcrumb.Item>
     </Breadcrumb>
-  )
+  );
 }
 ```
 :::
@@ -32,8 +32,8 @@ render(){
 :::demo 图标放在文字前面。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <Breadcrumb>
       <Breadcrumb.Item href="">
         <Icon type="demo-grid" />
@@ -48,7 +48,7 @@ render(){
         <span>Application</span>
       </Breadcrumb.Item>
     </Breadcrumb>
-  )
+  );
 }
 ```
 :::
@@ -58,15 +58,15 @@ render(){
 :::demo 使用 `separator=">"` 可以自定义分隔符。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <Breadcrumb separator=">">
       <Breadcrumb.Item>Home</Breadcrumb.Item>
       <Breadcrumb.Item href="">Application Center</Breadcrumb.Item>
       <Breadcrumb.Item href="">Application List</Breadcrumb.Item>
       <Breadcrumb.Item>An Application</Breadcrumb.Item>
     </Breadcrumb>
-  )
+  );
 }
 ```
 :::
@@ -75,11 +75,11 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 容器类名 | string | - |
+| className | 容器类名 | String | - |
 | itemRender | 自定义链接函数，和 react-router 配置使用 | (route, params, routes, paths) => ReactNode | - |
-| params | 路由的参数 | object | - |
-| routes | router 的路由栈信息 | object\[] | - |
-| separator | 分隔符自定义 | string\|ReactNode | '/' |
+| params | 路由的参数 | Object | - |
+| routes | router 的路由栈信息 | Object[] | - |
+| separator | 分隔符自定义 | String \| ReactNode | '/' |
 
 ### 和 browserHistory 配合
 

@@ -227,4 +227,4 @@
 | source | 设置图片的源数据，可选属性，格式为 `[{name: "", src: ""}]` 。当不设置 source 时可以手动构造子节点，子节点需是 `img` 标签，且包含 `src` 和 `name` 属性。若 source 与子节点同时存在，子节点将被忽略。 | Array | [] |
 | toolbar | 是否展示工具栏 | Boolean | false |
 | visible | 是否展示图片查看器 | Boolean | false |
-| onClose | 关闭后的回调函数 | Function | - |
+| onClose | 关闭后的回调函数 | () => any | - |

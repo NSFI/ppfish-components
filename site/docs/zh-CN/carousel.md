@@ -13,17 +13,19 @@
 :::demo 最简单的用法。
 
 ```js
-onChange=(a, b, c)=> {
+onChange = (a, b, c) => {
   console.log(a, b, c);
 };
 
-render(){
-  return(<Carousel afterChange={this.onChange}>
-             <div><h3>1</h3></div>
-             <div><h3>2</h3></div>
-             <div><h3>3</h3></div>
-             <div><h3>4</h3></div>
-           </Carousel>)
+render() {
+  return (
+    <Carousel afterChange={this.onChange}>
+      <div><h3>1</h3></div>
+      <div><h3>2</h3></div>
+      <div><h3>3</h3></div>
+      <div><h3>4</h3></div>
+    </Carousel>
+  );
 }
 ```
 :::
@@ -34,13 +36,15 @@ render(){
 
 ```js
 
-render(){
-  return( <Carousel vertical>
-             <div><h3>1</h3></div>
-             <div><h3>2</h3></div>
-             <div><h3>3</h3></div>
-             <div><h3>4</h3></div>
-           </Carousel>)
+render() {
+  return (
+    <Carousel vertical>
+      <div><h3>1</h3></div>
+      <div><h3>2</h3></div>
+      <div><h3>3</h3></div>
+      <div><h3>4</h3></div>
+    </Carousel>
+  );
 }
 ```
 :::
@@ -51,13 +55,15 @@ render(){
 
 ```js
 
-render(){
-  return( <Carousel effect="fade">
-             <div><h3>1</h3></div>
-             <div><h3>2</h3></div>
-             <div><h3>3</h3></div>
-             <div><h3>4</h3></div>
-           </Carousel>)
+render() {
+  return (
+    <Carousel effect="fade">
+      <div><h3>1</h3></div>
+      <div><h3>2</h3></div>
+      <div><h3>3</h3></div>
+      <div><h3>4</h3></div>
+    </Carousel>
+  );
 }
 ```
 
@@ -68,13 +74,15 @@ render(){
 :::demo 定时切换下一张。
 
 ```js
-render(){
-  return(<Carousel autoplay>
-             <div><h3>1</h3></div>
-             <div><h3>2</h3></div>
-             <div><h3>3</h3></div>
-             <div><h3>4</h3></div>
-           </Carousel>)
+render() {
+  return (
+    <Carousel autoplay>
+      <div><h3>1</h3></div>
+      <div><h3>2</h3></div>
+      <div><h3>3</h3></div>
+      <div><h3>4</h3></div>
+    </Carousel>
+  );
 }
 ```
 :::
@@ -83,14 +91,14 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| afterChange | 切换面板的回调 | function(current) | - |
-| autoplay | 是否自动切换 | boolean | false |
-| beforeChange | 切换面板的回调 | function(from, to) | - |
-| className | 容器类名 | string | - |
-| dots | 是否显示面板指示点 | boolean | true |
-| easing | 动画效果 | string | linear |
-| effect | 动画效果函数，可取 scrollx, fade | string | scrollx |
-| vertical | 垂直显示 | boolean | false |
+| afterChange | 切换面板的回调 | (current) => any | - |
+| autoplay | 是否自动切换 | Boolean | false |
+| beforeChange | 切换面板的回调 | (from, to) => any | - |
+| className | 容器类名 | String | - |
+| dots | 是否显示面板指示点 | Boolean | true |
+| easing | 动画效果 | String | 'linear' |
+| effect | 动画效果函数 | Enum {'scrollx', 'fade'} | 'scrollx' |
+| vertical | 垂直显示 | Boolean | false |
 
 ## 方法
 

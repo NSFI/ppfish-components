@@ -14,7 +14,7 @@
 :::demo 标准的进度条。
 
 ```js
-render(){
+render() {
   return (
     <div>
       <Progress percent={30} />
@@ -23,7 +23,7 @@ render(){
       <Progress percent={100} />
       <Progress percent={50} showInfo={false} />
     </div>
-  )
+  );
 }
 ```
 :::
@@ -33,7 +33,7 @@ render(){
 :::demo 适合放在较狭窄的区域内。
 
 ```js
-render(){
+render() {
   return (
     <div style={{ width: 170 }}>
       <Progress percent={30} size="small" />
@@ -41,7 +41,7 @@ render(){
       <Progress percent={70} size="small" status="exception" />
       <Progress percent={100} size="small" />
     </div>
-  )
+  );
 }
 ```
 :::
@@ -51,14 +51,14 @@ render(){
 :::demo 圈形的进度。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <div>
       <Progress type="circle" percent={75} />
       <Progress type="circle" percent={70} status="exception" />
       <Progress type="circle" percent={100} />
     </div>
-  )
+  );
 }
 ```
 :::
@@ -76,14 +76,14 @@ render(){
 :::demo 小一号的圈形进度。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <div>
       <Progress type="circle" percent={30} width={80} />
       <Progress type="circle" percent={70} width={80} status="exception" />
       <Progress type="circle" percent={100} width={80} />
     </div>
-  )
+  );
 }
 ```
 :::
@@ -133,13 +133,13 @@ render(){
 :::demo `format` 属性指定格式。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <div>
       <Progress type="circle" percent={75} format={percent => `${percent} Days`} />
       <Progress type="circle" percent={100} format={() => 'Done'} />
     </div>
-  )
+  );
 }
 ```
 :::
@@ -198,10 +198,10 @@ render(){
 :::demo 通过设置 `type=dashboard`，可以很方便地实现仪表盘样式的进度条。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <Progress type="dashboard" percent={75} />
-  )
+  );
 }
 ```
 :::
@@ -211,12 +211,12 @@ render(){
 :::demo 标准的进度条。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <Tooltip title="3 done / 3 in progress / 4 to do">
       <Progress percent={60} successPercent={30} />
     </Tooltip>
-  )
+  );
 }
 ```
 :::
@@ -226,10 +226,10 @@ render(){
 :::demo 可以在进度条末端添加附加內容，`type="line"` 时有效。
 
 ```js
-render(){
-  return(
+render() {
+  return (
     <Progress type="line" percent={65} extraContent={<Icon type="demo-like" />}/>
-  )
+  );
 }
 ```
 :::
@@ -238,16 +238,16 @@ render(){
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 容器类名 | string | - |
-| extraContent | progress bar 上额外的元素，`type="line"` 时有效 | React.ReactNode | - |
-| format | 内容的模板函数 | function(percent, successPercent) | `percent => percent + '%'` |
-| gapDegree `(type=circle)` | 圆形进度条缺口角度，可取值 0 ~ 360 | number | 0 |
-| gapPosition `(type=circle)` | 圆形进度条缺口位置 | Enum{ 'top', 'bottom', 'left', 'right' } | `top` |
-| percent | 百分比 | number | 0 |
-| showInfo | 是否显示进度数值或状态图标 | boolean | true |
-| status | 状态，可选：`success`、`exception`、`active` | string | - |
-| strokeWidth `(type=line)` | 进度条线的宽度，单位 px | number | 10 |
-| strokeWidth `(type=circle)` | 圆形进度条线的宽度，单位是进度条画布宽度的百分比 | number | 6 |
-| successPercent | 已完成的分段百分比，`type="line"` 时有效 | number | 0 |
-| type | 类型，可选：`line`、`circle`、`dashboard` | string | line |
-| width `(type=circle)` | 圆形进度条画布宽度，单位 px | number | 132 |
+| className | 容器类名 | String | - |
+| extraContent | Progress bar 上额外的元素，`type="line"` 时有效 | ReactNode | - |
+| format | 内容的模板函数 | (percent, successPercent) => any | `percent => percent + '%'` |
+| gapDegree `(type=circle)` | 圆形进度条缺口角度，可取值 0 ~ 360 | Number | 0 |
+| gapPosition `(type=circle)` | 圆形进度条缺口位置 | Enum { 'top', 'bottom', 'left', 'right' } | 'top' |
+| percent | 百分比 | Number | 0 |
+| showInfo | 是否显示进度数值或状态图标 | Boolean | true |
+| status | 状态 | Enum { 'success', 'exception', 'active' } | - |
+| strokeWidth `(type=line)` | 进度条线的宽度，单位 px | Number | 10 |
+| strokeWidth `(type=circle)` | 圆形进度条线的宽度，单位是进度条画布宽度的百分比 | Number | 6 |
+| successPercent | 已完成的分段百分比，`type="line"` 时有效 | Number | 0 |
+| type | 类型 | Enum { 'line', 'circle', 'dashboard' } | 'line' |
+| width `(type=circle)` | 圆形进度条画布宽度，单位 px | Number | 132 |

@@ -590,39 +590,39 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 容器类名 | string | - |
-| defaultValue | 指定默认选中的条目 | string/string[] | - |
-| disabled | 是否禁用 | boolean | false |
-| dropdownClassName | 下拉菜单的 className 属性 | string | - |
-| dropdownPopupAlign | 下拉菜单的对齐方式，具体配置可参考 [dom-align](https://github.com/yiminghe/dom-align) 的 alignConfig | object | - |
-| dropdownPopupPlacement | 下拉菜单的位置，可选值有：`topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight, leftCenter, leftTop, leftBottom, rightCenter, rightTop, rightBottom` | string | 'bottomLeft' |
-| dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | boolean | true |
-| dropdownStyle | 下拉菜单的样式 | object | - |
-| editable | 选中的条目是否可编辑，多选时有效 | boolean | true |
-| filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | Function(inputValue: string, treeNode: TreeNode) (函数需要返回bool值) | - |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | function(triggerNode) | () => document.body |
-| loadData | 异步加载数据，返回值应该是一个 promise | function(treeNode) | - |
-| placeholder | 选择框默认提示文字 | string | '请选择' |
-| searchPlaceholder | 搜索框默认文字 | string | '请输入关键字' |
-| showSearch | 是否在下拉中显示搜索框 | boolean | false |
-| size | 选择框大小，可选 `large` `small` | string | 'default' |
-| style | 选择框的样式 | object | - |
-| tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | number | 100 |
-| treeCheckable | 显示 checkbox | boolean | false |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 必须设置，且其值需在整个树范围内唯一） | array<{value, label, children, isLeaf, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
-| treeDefaultExpandAll | 默认展开所有树节点 | boolean | false |
-| treeDefaultExpandedKeys | 默认展开的树节点 | array | - |
-| treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | string | 'title' |
-| treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | string | 'title' |
-| isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | boolean | false |
-| treeNodeResetTitle | 复位选项的默认文字，单选时有效 | string | '不选择任何分类' |
-| value | 指定当前选中的条目 | string/string[] | - |
-| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | function(value, infoList, extra) | - |
-| onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | function(valueList, infoList, extra) | - |
-| onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | function(value) | - |
-| onReset | 点击复位选项时调用，单选时有效 | function() | - |
-| onSearch | 搜索框值变化时调用 | function(value: string) | - |
-| onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | function(value, valueList, infoList, extra) | - |
+| className | 容器类名 | String | - |
+| defaultValue | 指定默认选中的条目 | String \| String[] | - |
+| disabled | 是否禁用 | Boolean | false |
+| dropdownClassName | 下拉菜单的 className 属性 | String | - |
+| dropdownPopupAlign | 下拉菜单的对齐方式，具体配置可参考 [dom-align](https://github.com/yiminghe/dom-align) 的 alignConfig | Object | - |
+| dropdownPopupPlacement | 下拉菜单弹出的位置 | Enum {'topCenter', 'topLeft', 'topRight', 'bottomCenter', 'bottomLeft', 'bottomRight', 'leftCenter', 'leftTop', 'leftBottom', 'rightCenter', 'rightTop', 'rightBottom'} | 'bottomLeft' |
+| dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Boolean | true |
+| dropdownStyle | 下拉菜单的样式 | Object | - |
+| editable | 选中的条目是否可编辑，多选时有效 | Boolean | true |
+| filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => ElementNode | () => document.body |
+| loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => any | - |
+| placeholder | 选择框默认提示文字 | String | '请选择' |
+| searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
+| showSearch | 是否在下拉中显示搜索框 | Boolean | false |
+| size | 选择框大小 | Enum {'default', 'large', 'small'} | 'default' |
+| style | 选择框的样式 | Object | - |
+| tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | Number | 100 |
+| treeCheckable | 显示 checkbox | Boolean | false |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 必须设置，且其值需在整个树范围内唯一） | Array<{value, label, children, isLeaf, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
+| treeDefaultExpandAll | 默认展开所有树节点 | Boolean | false |
+| treeDefaultExpandedKeys | 默认展开的树节点 | Array | - |
+| treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |
+| treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
+| isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
+| treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
+| value | 指定当前选中的条目 | String \| String[] | - |
+| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => any | - |
+| onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => any | - |
+| onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => any | - |
+| onReset | 点击复位选项时调用，单选时有效 | () => any | - |
+| onSearch | 搜索框值变化时调用 | (value: String) => any | - |
+| onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => any | - |
 
 ### Tree 方法
 
@@ -637,9 +637,9 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| disableCheckbox | 禁掉 checkbox | boolean | false |
-| disabled | 是否禁用 | boolean | false |
-| isLeaf | 是否是叶子节点 | boolean | false |
-| key | 此项可选，若设置，其值需在整个树范围内唯一 | string | - |
-| title | 树节点显示的内容，默认根据此属性值进行筛选 | string\|ReactNode | '---' |
-| value | 此项必须设置，且其值需在整个树范围内唯一 | string | - |
+| disableCheckbox | 禁掉 checkbox | Boolean | false |
+| disabled | 是否禁用 | Boolean | false |
+| isLeaf | 是否是叶子节点 | Boolean | false |
+| key | 此项可选，若设置，其值需在整个树范围内唯一 | String | - |
+| title | 树节点显示的内容，默认根据此属性值进行筛选 | String \| ReactNode | '---' |
+| value | 此项必须设置，且其值需在整个树范围内唯一 | String | - |
