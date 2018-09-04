@@ -947,7 +947,7 @@ render() {
 | style | 选择框的样式 | Object | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| ()=>ReactNode | ()=>document.body |
 | format | 时间日期格式化,  年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | String | 'yyyy-MM-dd' |
-| popupAlign | 弹窗位置 | Enum {bottomLeft, bottomCenter, bottomRight, topLeft, topCenter, topRight} | 'bottomLeft' |
+| popupAlign | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight'} | 'bottomLeft' |
 | isShowTrigger | 是否显示前缀图标 | Boolean | true |
 | isAllowClear | 是否显示清除按钮 | Boolean | true |
 | isDisabled | 是否禁用 | Boolean | false |
@@ -971,7 +971,7 @@ render() {
 |---------- |-------------- |---------- |-------- |
 | placeholder | 占位内容 | String | - |
 | value | 值 | Date | null |
-| selectionMode | 日期类型 | Enum {week,day} | 'day' |
+| selectionMode | 日期类型 | Enum {'week', 'day'} | 'day' |
 
 DatePicker 时间面板的参数
 

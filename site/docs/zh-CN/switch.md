@@ -105,7 +105,7 @@
 | defaultChecked | 初始是否选中 | Boolean | false |
 | disabled | 是否禁用 | Boolean | false |
 | loading | 加载中的开关 | Boolean | false |
-| size | 开关大小 | Enum {default, small} | 'default' |
+| size | 开关大小 | Enum {'default', 'small'} | 'default' |
 | unCheckedChildren | 非选中时的内容 | string \| ReactNode | - |
 | onChange | 变化时回调函数 | (checked:Boolean)=>{} | - |
 

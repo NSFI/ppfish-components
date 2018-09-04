@@ -297,7 +297,7 @@ render(){
 | defaultValue | 默认选中的值 | any | - |
 | name | RadioGroup 下所有 `input[type="radio"]` 的 `name` 属性 | String | - |
 | options | 以配置形式设置子元素 | String \| [{ label: String, value: String, disabled?: Boolean}] | - |
-| size | 大小，只对按钮样式生效 | Enum {large, default, small} | 'default' |
+| size | 大小，只对按钮样式生效 | Enum {'large', 'default', 'small'} | 'default' |
 | value | 用于设置当前选中的值 | any | - |
 | onChange | 选项变化时的回调函数 | (e:Event)={} | - |
 

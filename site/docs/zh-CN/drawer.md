@@ -313,7 +313,7 @@ render() {
 | width | 宽度 | String \| Number | - |
 | height | 高度 | String \| Number | - |
 | visible | Drawer 是否可见 | Boolean | false | 
-| placement | 抽屉的方向 | Enum {left, right, top, bottom} | 'right' |
+| placement | 抽屉的方向 | Enum {'left', 'right', 'top', 'bottom'} | 'right' |
 | getContainer | 指定Drawer挂载的HTML节点 | ()=>ReactNode | ()=>document.body |
 | style | 可用于设置 Drawer 的样式，调整浮层位置等 | Object | - |
 | mask | 是否展示遮罩 | Boolean | true |
