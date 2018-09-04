@@ -233,17 +233,17 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| bordered | 是否展示边框 | boolean | false |
-| footer | 列表底部 | string\|ReactNode | - |
-| grid | 列表栅格配置 | object | - |
-| header | 列表头部 | string\|ReactNode | - |
-| itemLayout | 设置 `List.Item` 布局, 设置成 `vertical` 则竖直样式显示, 默认横排 | string | - |
-| loading | 当卡片内容还在加载中时，可以用 `loading` 展示一个占位 | boolean\|[object](https://ant.design/components/spin-cn/#API) ([更多](https://github.com/ant-design/ant-design/issues/8659)) | false |
-| loadMore | 加载更多 | string\|ReactNode | - |
-| locale | 默认文案设置，目前包括空数据文案 | object | emptyText: '暂无数据' |
-| pagination | 对应的 `pagination` 配置, 设置 `false` 不显示 | boolean\|object | false |
-| size | list 的尺寸 | `default` \| `middle` \| `small` | `default` |
-| split | 是否展示分割线 | boolean | true |
+| bordered | 是否展示边框 | Boolean | false |
+| footer | 列表底部 | String\|ReactNode | - |
+| grid | 列表栅格配置 | Object | - |
+| header | 列表头部 | String\|ReactNode | - |
+| itemLayout | 设置 `List.Item` 布局, 设置成 `vertical` 则竖直样式显示, 默认横排 | String | - |
+| loading | 当卡片内容还在加载中时，可以用 `loading` 展示一个占位 | Boolean\|[object](https://ant.design/components/spin-cn/#API) ([更多](https://github.com/ant-design/ant-design/issues/8659)) | false |
+| loadMore | 加载更多 | String\|ReactNode | - |
+| locale | 默认文案设置，目前包括空数据文案 | Object | {emptyText: '暂无数据'} |
+| pagination | 对应的 `pagination` 配置, 设置 `false` 不显示 | Boolean\|Object | false |
+| size | list 的尺寸 | Enum {'default' , 'middle', 'small' }| 'default' |
+| split | 是否展示分割线 | Boolean | true |
 
 ### pagination
 
@@ -251,7 +251,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| position | 指定分页显示的位置 | 'top' \| 'bottom' \| 'both' | 'bottom' |
+| position | 指定分页显示的位置 | Enum {'top' , 'bottom' , 'both' }| 'bottom' |
 
 更多配置项，请查看 [`Pagination`](/components/pagination/)。
 

@@ -147,10 +147,10 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| pending | 指定最后一个幽灵节点是否存在或内容 | boolean\|string\|ReactNode | false |
-| pendingDot | 当最后一个幽灵节点存在時，指定其时间图点 | \|string\|ReactNode | `<Icon type="load-line" spin />` |
-| reverse | 节点排序 | boolean | false |
-| mode | 通过设置 `mode` 可以改变时间轴和内容的相对位置  | `left` \| `alternate` \| `right` |
+| pending | 指定最后一个幽灵节点是否存在或内容 | Boolean\|String\|ReactNode | false |
+| pendingDot | 当最后一个幽灵节点存在時，指定其时间图点 | \|String\|ReactNode | `<Icon type="load-line" spin />` |
+| reverse | 节点排序 | Boolean | false |
+| mode | 通过设置 `mode` 可以改变时间轴和内容的相对位置  | Enum{'left' , 'alternate' , 'right'} | 'left'  |
 
 ### Timeline.Item
 
@@ -158,5 +158,5 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| color | 指定圆圈颜色 `blue, red, green`，或自定义的色值 | string | blue |
-| dot | 自定义时间轴点 | string\|ReactNode | - |
+| color | 指定圆圈颜色 `blue, red, green`，或自定义的色值 | String | blue |
+| dot | 自定义时间轴点 | String\|ReactNode | - |

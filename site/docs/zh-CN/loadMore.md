@@ -55,12 +55,12 @@ render(){
 ## API
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| onLoadMore  | 点击加载事件    | function  |  noop   |
-| status  | 状态    | string ['default','loading','error','end']  |  'default'   |
-| defaultText  | 正常状态文案    | string   | '查看更多'   |
-| loadingText  | 加载中文案    | string   | '加载中'   |
-| errorText  | 加载失败文案    | string   | '加载失败，请重试'   |
-| endText  | 完全加载文案    | string   | '没有更多了'   |
-| buttonSize  | button大小    | string ['default','large','small']  | 'default'   |
+| onLoadMore  | 点击加载事件    | Function  |  noop   |
+| status  | 状态    | Enum {'default','loading','error','end'}  |  'default'   |
+| defaultText  | 正常状态文案    | String   | '查看更多'   |
+| loadingText  | 加载中文案    | String   | '加载中'   |
+| errorText  | 加载失败文案    | String   | '加载失败，请重试'   |
+| endText  | 完全加载文案    | String   | '没有更多了'   |
+| buttonSize  | button大小    | Enum {'default','large','small'}  | 'default'   |
 
  > 其他属性会透传到Button上

@@ -2038,35 +2038,35 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| activeRowByClick | 点击后激活Row的激活态样式 | boolean | `false` |
+| activeRowByClick | 点击后激活Row的激活态样式 | boolean | false |
 | bordered | 是否展示外边框和列边框 | boolean | false |
 | childrenColumnName | 指定树形结构的列名 | string\[] | children |
 | columns | 表格列的配置描述，具体项见下表 | [ColumnProps](https://git.io/vMMXC)\[] | - |
 | columnFiltrate | 列表筛选显示功能 | object\| boolean | false |
 | components | 覆盖默认的 table 元素 | object | - |
-| dataSource | 数据数组 | any\[] |  |
+| dataSource | 数据数组 | any\[] | - |
 | defaultExpandAllRows | 初始时，是否展开所有行 | boolean | false |
 | defaultExpandedRowKeys | 默认展开的行 | string\[] | - |
 | expandedRowKeys | 展开的行，控制属性 | string\[] | - |
-| expandedRowRender | 额外的展开行 | Function(record):ReactNode | - |
-| expandRowByClick | 通过点击行来展开子行 | boolean | `false` |
-| footer | 表格尾部 | Function(currentPageData) |  |
+| expandedRowRender | 额外的展开行 | function(record):ReactNode | - |
+| expandRowByClick | 通过点击行来展开子行 | boolean | false |
+| footer | 表格尾部 | function(currentPageData) | - |
 | indentSize | 展示树形数据时，每层缩进的宽度，以 px 为单位 | number | 15 |
 | loading | 页面是否加载中 | boolean\|[object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
 | locale | 默认文案设置，目前包括排序、过滤、空数据文案 | object | filterConfirm: '确定' <br> filterReset: '重置' <br> emptyText: '暂无数据' <br> [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
-| pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | object |  |
-| rowClassName | 表格行的类名 | Function(record, index):string | - |
-| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | string\|Function(record):string | 'key' |
+| pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | object | - |
+| rowClassName | 表格行的类名 | function(record, index):string | - |
+| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | string\|function(record):string | 'key' |
 | rowSelection | 列表项是否可选择 | object | null |
 | scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | { x: number \| true, y: number } | - |
 | showHeader | 是否显示表头 | boolean | true |
-| size | 正常或迷你类型，`default` or `small` | string | default |
-| title | 表格标题 | Function(currentPageData) |  |
-| onChange | 分页、排序、筛选变化时触发 | Function(pagination, filters, sorter) |  |
-| onExpand | 点击展开图标时触发 | Function(expanded, record) |  |
-| onExpandedRowsChange | 展开的行变化时触发 | Function(expandedRows) |  |
-| onHeaderRow | 设置头部行属性 | Function(column, index) | - |
-| onRow | 设置行属性 | Function(record, index) | - |
+| size | 正常或迷你类型，`default` or `small` | enum {'default' ,'small'} | 'default' |
+| title | 表格标题 | function(currentPageData) | - |
+| onChange | 分页、排序、筛选变化时触发 | function(pagination, filters, sorter) | - |
+| onExpand | 点击展开图标时触发 | function(expanded, record) | - |
+| onExpandedRowsChange | 展开的行变化时触发 | function(expandedRows) | - |
+| onHeaderRow | 设置头部行属性 | function(column, index) | - |
+| onRow | 设置行属性 | function(record, index) | - |
 
 #### onRow 用法
 
@@ -2095,35 +2095,35 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| align | 设置列内容的对齐方式 | 'left' \| 'right' \| 'center' | 'left' |
-| className | 列的 className | string | - |
-| colSpan | 表头列合并,设置为 0 时，不渲染 | number |  |
-| dataIndex | 列数据在数据项中对应的 key，支持 `a.b.c` 的嵌套写法 | string | - |
+| align | 设置列内容的对齐方式 | Enum{ 'left','right' ,'center'} | 'left' |
+| className | 列的 className | String | - |
+| colSpan | 表头列合并,设置为 0 时，不渲染 | Number | - |
+| dataIndex | 列数据在数据项中对应的 key，支持 `a.b.c` 的嵌套写法 | String | - |
 | filterDropdown | 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互 | ReactNode | - |
-| filterDropdownVisible | 用于控制自定义筛选菜单是否可见 | boolean | - |
-| filtered | 标识数据是否经过过滤，筛选图标会高亮 | boolean | false |
-| filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | string\[] | - |
+| filterDropdownVisible | 用于控制自定义筛选菜单是否可见 | Boolean | - |
+| filtered | 标识数据是否经过过滤，筛选图标会高亮 | bBoolean | false |
+| filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | String\[] | - |
 | filterIcon | 自定义 fiter 图标。 | ReactNode | false |
-| filterMultiple | 是否多选 | boolean | true |
-| filters | 表头的筛选菜单项 | object\[] | - |
-| fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | boolean\|string | false |
-| key | React 需要的 key，如果已经设置了唯一的 `dataIndex`，可以忽略这个属性 | string | - |
+| filterMultiple | 是否多选 | Boolean | true |
+| filters | 表头的筛选菜单项 | Object\[] | - |
+| fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | Enum{true,'left','right'} | false |
+| key | React 需要的 key，如果已经设置了唯一的 `dataIndex`，可以忽略这个属性 | String | - |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并 | Function(text, record, index) {} | - |
-| sorter | 排序函数，本地排序使用一个函数(参考 [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的 compareFunction)，需要服务端排序可设为 true | Function\|boolean | - |
-| sorterType | 排序按钮类型：默认、首字母A-Z排序 | 'default' \| 'firstLetter' | - |
-| sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 `'ascend'` `'descend'` `false` | boolean\|string | - |
-| title | 列头显示文字 | string\|ReactNode | - |
-| width | 列宽度 | string\|number | - |
+| sorter | 排序函数，本地排序使用一个函数(参考 [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的 compareFunction)，需要服务端排序可设为 true | Function\|Boolean | - |
+| sorterType | 排序按钮类型：默认、首字母A-Z排序 | Enum {'default' ,'firstLetter'} | 'default' |
+| sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为  | Enum{'ascend' ,'descend', false} | - |
+| title | 列头显示文字 | String\|ReactNode | - |
+| width | 列宽度 | String\|Number | - |
 | onCell | 设置单元格属性 | Function(record) | - |
 | onFilter | 本地模式下，确定筛选的运行函数 | Function | - |
-| onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用 | function(visible) {} | - |
+| onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用 | Function(visible) {} | - |
 | onHeaderCell | 设置头部单元格属性 | Function(column) | - |
 
 ### ColumnGroup
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| title | 列头显示文字 | string\|ReactNode | - |
+| title | 列头显示文字 | String\|ReactNode | - |
 
 ### pagination
 
@@ -2131,7 +2131,7 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| position | 指定分页显示的位置 | 'top' \| 'bottom' \| 'both' | 'bottom' |
+| position | 指定分页显示的位置 | Enum {'top','bottom','both'} | 'bottom' |
 
 更多配置项，请查看 [`Pagination`](https://nsfi.github.io/ppfish-components/#/components/pagination/)。
 
@@ -2141,14 +2141,14 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| columnWidth | 自定义列表选择框宽度 | string\|number | - |
-| columnTitle | 自定义列表选择框标题	 | string\|React.ReactNode | - |
-| fixed | 把选择框列固定在左边 | boolean | - |
+| columnWidth | 自定义列表选择框宽度 | String\|Number | - |
+| columnTitle | 自定义列表选择框标题	 | String\|React.ReactNode | - |
+| fixed | 把选择框列固定在左边 | Boolean | - |
 | getCheckboxProps | 选择框的默认属性配置 | Function(record) | - |
-| hideDefaultSelections | 去掉『全选』『反选』两个默认选项 | boolean | false |
-| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | string\[] | \[] |
-| selections | 自定义选择项 设为 `true` 时使用默认选择项 | object\[]\|boolean | true |
-| type | 多选/单选，`checkbox` or `radio` | string | `checkbox` |
+| hideDefaultSelections | 去掉『全选』『反选』两个默认选项 | Boolean | false |
+| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | String\[] | \[] |
+| selections | 自定义选择项 设为 `true` 时使用默认选择项 | Object\[]\|Boolean | true |
+| type | 多选/单选，`checkbox` or `radio` | String | 'checkbox' |
 | onChange | 选中项发生变化的时的回调 | Function(selectedRowKeys, selectedRows) | - |
 | onSelect | 用户手动选择/取消选择某列的回调 | Function(record, selected, selectedRows, nativeEvent) | - |
 | onSelectAll | 用户手动选择/取消选择所有列的回调 | Function(selected, selectedRows, changeRows) | - |
@@ -2158,8 +2158,8 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| key | React 需要的 key，建议设置 | string | - |
-| text | 选择项显示的文字 | string\|React.ReactNode | - |
+| key | React 需要的 key，建议设置 | String | - |
+| text | 选择项显示的文字 | String\|React.ReactNode | - |
 | onSelect | 选择项点击回调 | Function(changeableRowKeys) | - |
 
 
@@ -2167,10 +2167,10 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| fixed | 是否fixed | ['left','right'] | - |
-| hideColumns | 初始化组件时需要隐藏的columns的key[] | string[] | - |
-| defaultColumns | 默认需要显示的不能调整的列的key[] | string[] | - |
-| hideColumnsChange | 选择隐藏的列后的回调 | fucntion(hideColumns:string[]) | - |
+| fixed | 是否fixed | Enum {'left','right'} | - |
+| hideColumns | 初始化组件时需要隐藏的columns的key[] | String[] | - |
+| defaultColumns | 默认需要显示的不能调整的列的key[] | String[] | - |
+| hideColumnsChange | 选择隐藏的列后的回调 | Fucntion(hideColumns:string[]) | - |
 
 > 隐藏列表项有以下限制：
 
