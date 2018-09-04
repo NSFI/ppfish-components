@@ -210,7 +210,7 @@ render() {
           {fileList.length >= 3 ? null : uploadButton}
         </Upload>
         <PicturePreview
-          source={[{url: previewImage}]}
+          source={[{src: previewImage}]}
           visible={previewVisible}
         />
       </div>
