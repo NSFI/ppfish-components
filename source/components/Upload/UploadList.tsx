@@ -91,7 +91,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
     const { prefixCls, items = [], listType, showPreviewIcon, showRemoveIcon, locale } = this.props;
     const list = items.map(file => {
       let progress;
-      let icon = <Icon type={file.status === 'uploading' ? 'load-line' : 'clip-line'} />;
+      let icon = <Icon type={file.status === 'uploading' ? 'load-line' : 'clip-line'} spin={file.status === 'uploading' ? true : false} />;
 
       if (listType === 'picture' || listType === 'picture-card') {
         if (listType === 'picture-card' && file.status === 'uploading') {
@@ -173,7 +173,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
         <Icon type="delete-line" title={locale.removeFile} onClick={() => this.handleClose(file)} />
       ) : null;
       const removeIconCross = showRemoveIcon ? (
-        <Icon type="hints-alone-error" className={'icon-remove'} title={locale.removeFile} onClick={() => this.handleClose(file)} />
+        <Icon type="hints-alone-error" title={locale.removeFile} onClick={() => this.handleClose(file)} />
       ) : null;
       const actions = (listType === 'picture-card' && file.status !== 'uploading')
         ? <span className={`${prefixCls}-list-item-actions`}>{previewIcon}{removeIcon}</span>

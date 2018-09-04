@@ -128,14 +128,6 @@
     position: relative;
     height: 22px;
 
-    .icon-remove {
-      position: absolute;
-      top: 0;
-      right: 4px;
-      line-height: 22px;
-      cursor: pointer;
-    }
-
     &-name {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -163,8 +155,9 @@
       }
     }
 
-    .@{iconfont-prefix}-cross {
-      .iconfont-size-under-12px(10px);
+    .@{iconfont-prefix}-hints-alone-error {
+      // .iconfont-size-under-12px(10px);
+      font-size: 12px;
       transition: all 0.3s;
       opacity: 0;
       cursor: pointer;
@@ -182,17 +175,17 @@
       background-color: @item-hover-bg;
     }
 
-    &:hover .@{iconfont-prefix}-cross {
+    &:hover .@{iconfont-prefix}-hints-alone-error {
       opacity: 1;
     }
 
     &-error,
-    &-error .@{iconfont-prefix}-paper-clip,
+    &-error .@{iconfont-prefix}-clip-line,
     &-error &-name {
       color: @error-color;
     }
 
-    &-error .@{iconfont-prefix}-cross {
+    &-error .@{iconfont-prefix}-hints-alone-error {
       opacity: 1;
       color: @error-color !important;
     }
@@ -292,7 +285,7 @@
       width: ~"calc(100% - 24px)";
     }
 
-    .@{iconfont-prefix}-cross {
+    .@{iconfont-prefix}-hints-alone-error {
       position: absolute;
       right: 8px;
       top: 8px;
@@ -380,7 +373,7 @@
       display: none;
     }
 
-    .anticon-picture + .@{upload-item}-name {
+    .@{iconfont-prefix}-picture + .@{upload-item}-name {
       display: block;
     }
 
@@ -392,8 +385,8 @@
       .@{upload-item}-info {
         height: auto;
         &:before,
-        .@{iconfont-prefix}-eye-o,
-        .@{iconfont-prefix}-delete {
+        .@{iconfont-prefix}-watch-line,
+        .@{iconfont-prefix}-delete-line {
           display: none;
         }
       }
