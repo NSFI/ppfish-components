@@ -241,13 +241,13 @@ render() {
 | className | 容器类名 | String | - |
 | extraContent | Progress bar 上额外的元素，`type="line"` 时有效 | ReactNode | - |
 | format | 内容的模板函数 | (percent, successPercent) => any | `percent => percent + '%'` |
-| gapDegree `(type=circle)` | 圆形进度条缺口角度，可取值 0 ~ 360 | Number | 0 |
-| gapPosition `(type=circle)` | 圆形进度条缺口位置 | Enum { 'top', 'bottom', 'left', 'right' } | 'top' |
+| gapDegree | 圆形进度条缺口角度，可取值 0 ~ 360，`type="circle"` 时有效 | Number | 0 |
+| gapPosition | 圆形进度条缺口位置，`type="circle"` 时有效 | Enum { 'top', 'bottom', 'left', 'right' } | 'top' |
 | percent | 百分比 | Number | 0 |
 | showInfo | 是否显示进度数值或状态图标 | Boolean | true |
 | status | 状态 | Enum { 'success', 'exception', 'active' } | - |
-| strokeWidth `(type=line)` | 进度条线的宽度，单位 px | Number | 10 |
-| strokeWidth `(type=circle)` | 圆形进度条线的宽度，单位是进度条画布宽度的百分比 | Number | 6 |
+| strokeWidth | 进度条线的宽度，单位 px，`type="line"` 时有效 | Number | 10 |
+| strokeWidth | 圆形进度条线的宽度，单位是进度条画布宽度的百分比，`type="circle"` 时有效 | Number | 6 |
 | successPercent | 已完成的分段百分比，`type="line"` 时有效 | Number | 0 |
 | type | 类型 | Enum { 'line', 'circle', 'dashboard' } | 'line' |
-| width `(type=circle)` | 圆形进度条画布宽度，单位 px | Number | 132 |
+| width | 圆形进度条画布宽度，单位 px，`type="circle"` 时有效 | Number | 132 |
