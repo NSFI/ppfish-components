@@ -91,13 +91,13 @@ export default class UploadList extends React.Component<UploadListProps, any> {
     const { prefixCls, items = [], listType, showPreviewIcon, showRemoveIcon, locale } = this.props;
     const list = items.map(file => {
       let progress;
-      let icon = <Icon type={file.status === 'uploading' ? 'loading' : 'paper-clip'} />;
+      let icon = <Icon type={file.status === 'uploading' ? 'load-line' : 'clip-line'} />;
 
       if (listType === 'picture' || listType === 'picture-card') {
         if (listType === 'picture-card' && file.status === 'uploading') {
           icon = <div className={`${prefixCls}-list-item-uploading-text`}>{locale.uploading}</div>;
         } else if (!file.thumbUrl && !file.url) {
-          icon = <Icon className={`${prefixCls}-list-item-thumbnail`} type="picture" />;
+          icon = <Icon type="picture" className={`${prefixCls}-list-item-thumbnail`} />;
         } else {
           let thumbnail = isImageUrl((file.thumbUrl || file.url) as string)
             ? <img src={file.thumbUrl || file.url} alt={file.name} />
@@ -166,11 +166,11 @@ export default class UploadList extends React.Component<UploadListProps, any> {
           onClick={e => this.handlePreview(file, e)}
           title={locale.previewFile}
         >
-          <Icon type="eye-o" />
+          <Icon type="watch-line" />
         </a>
       ) : null;
       const removeIcon = showRemoveIcon ? (
-        <Icon type="delete" title={locale.removeFile} onClick={() => this.handleClose(file)} />
+        <Icon type="delete-line" title={locale.removeFile} onClick={() => this.handleClose(file)} />
       ) : null;
       const removeIconCross = showRemoveIcon ? (
         <Icon type="hints-alone-error" className={'icon-remove'} title={locale.removeFile} onClick={() => this.handleClose(file)} />

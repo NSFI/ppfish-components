@@ -38,7 +38,7 @@ render() {
   return (
     <Upload {...props}>
       <Button>
-        <Icon type="upload" /> Click to Upload
+        <Icon type="upload-line" /> Click to Upload
       </Button>
     </Upload>
   );
@@ -91,7 +91,7 @@ render() {
     }
     const uploadButton = (
       <div>
-        { this.state.loading ?  <Spin /> : <Icon type='plus'/> }
+        { this.state.loading ?  <Spin /> : <Icon type="upload-plus"/> }
         <div className="fishd-upload-text">Upload</div>
       </div>
     );
@@ -156,7 +156,7 @@ render() {
   return (
     <Upload {...props}>
       <Button>
-        <Icon type="upload" /> Upload
+        <Icon type="upload-line" /> Upload
       </Button>
     </Upload>
     )
@@ -194,7 +194,7 @@ render() {
     const { previewVisible, previewImage, fileList } = this.state;
     const uploadButton = (
       <div>
-        <Icon type="plus" />
+        <Icon type="upload-plus" />
         <div className="fishd-upload-text">Upload</div>
       </div>
     );
@@ -290,7 +290,7 @@ render() {
     return (
       <Upload {...props} fileList={this.state.fileList}>
         <Button>
-          <Icon type="upload" /> upload
+          <Icon type="upload-line" /> upload
         </Button>
       </Upload>
     );
@@ -329,7 +329,7 @@ render(){
   return (
     <Dragger {...props}>
       <p className="fishd-upload-drag-icon">
-        <Icon type="inbox" />
+        <Icon type="upload-cloud" />
       </p>
       <p className="fishd-upload-text">Click or drag file to this area to upload</p>
       <p className="fishd-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
@@ -378,14 +378,14 @@ render(){
     <div>
       <Upload {...props}>
         <Button>
-          <Icon type="upload" /> upload
+          <Icon type="upload-line" /> upload
         </Button>
       </Upload>
       <br />
       <br />
       <Upload {...props2}>
         <Button>
-          <Icon type="upload" /> upload
+          <Icon type="upload-line" /> upload
         </Button>
       </Upload>
     </div>
@@ -476,7 +476,7 @@ render(){
       <div>
         <Upload {...props}>
           <Button>
-            <Icon type="upload" /> Select File
+            <Icon type="upload-line" /> Select File
           </Button>
         </Upload>
         <Button
