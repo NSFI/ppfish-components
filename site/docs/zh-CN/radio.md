@@ -280,25 +280,33 @@ render(){
 
 ### Radio
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-| --- | --- | --- | --- | --- |
-| className | 选择器的className | string | - | - |
-| autoFocus | 自动获取焦点 | boolean | true \| false | false |
-| checked | 指定当前是否选中 | boolean | true \| false | false |
-| defaultChecked | 初始是否选中 | boolean | true \| false | false |
-| value | 根据 value 进行比较，判断是否选中 | any | - | - |
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | 选择器的className | String | - |
+| autoFocus | 自动获取焦点 | Boolean | false |
+| checked | 指定当前是否选中 | Boolean | false |
+| defaultChecked | 初始是否选中 | Boolean | false |
+| value | 根据 value 进行比较，判断是否选中 | any | - |
 
 ### RadioGroup
 
 单选框组合，用于包裹一组 `Radio`。
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-| --- | --- | --- | --- | --- |
-| defaultValue | 默认选中的值 | any | - | - |
-| name | RadioGroup 下所有 `input[type="radio"]` 的 `name` 属性 | string | - | - |
-| options | 以配置形式设置子元素 | string \| [{ label: string, value: string, disabled?: boolean}] | - | - |
-| size | 大小，只对按钮样式生效 | string | "large" \| "default" \| "small" | "default" |
-| value | 用于设置当前选中的值 | any | - | - |
-| onChange | 选项变化时的回调函数 | (e:Event)={} | - | - |
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| defaultValue | 默认选中的值 | any | - |
+| name | RadioGroup 下所有 `input[type="radio"]` 的 `name` 属性 | String | - |
+| options | 以配置形式设置子元素 | String \| [{ label: String, value: String, disabled?: Boolean}] | - |
+| size | 大小，只对按钮样式生效 | Enum {large, default, small} | 'default' |
+| value | 用于设置当前选中的值 | any | - |
+| onChange | 选项变化时的回调函数 | (e:Event)={} | - |
 
-## 方法
+
+### 方法
+
+#### Radio
+
+| 名称 | 描述 |
+| --- | --- |
+| blur() | 移除焦点 |
+| focus() | 获取焦点 |

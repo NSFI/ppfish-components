@@ -166,15 +166,15 @@ export default class BasePicker extends React.Component {
   }
 
   // 聚焦
-  handleFocus = () => {
+  handleFocus = (e) => {
     this.isInputFocus = true;
-    this.props.onFocus(this);
+    this.props.onFocus(e);
   }
 
   // 失焦
-  handleBlur = () => {
+  handleBlur = (e) => {
     this.isInputFocus = false;
-    this.props.onBlur(this);
+    this.props.onBlur(e);
   }
 
   // 键盘事件

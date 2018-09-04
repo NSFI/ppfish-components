@@ -212,25 +212,25 @@ render(){
 
 #### Checkbox
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-| --- | --- | --- | --- | --- |
-| className | 选择器的className | string | - | - |
-| autoFocus | 自动获取焦点 | boolean | true \| false | false |
-| checked | 指定当前是否选中 | boolean | true \| false | false |
-| defaultChecked | 初始是否选中 | boolean | true \| false | false |
-| disabled | 失效状态 | boolean | true \| false | false |
-| indeterminate | 设置 indeterminate 状态，只负责样式控制 | boolean | true \| false | false |
-| onChange | 变化时回调函数 | (e:Event)={} | - | - |
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | 选择器的className | String | - |
+| autoFocus | 自动获取焦点 | Boolean | false |
+| checked | 指定当前是否选中 | Boolean | false |
+| defaultChecked | 初始是否选中 | Boolean | false |
+| disabled | 失效状态 | Boolean | false |
+| indeterminate | 设置 indeterminate 状态，只负责样式控制 | Boolean | false |
+| onChange | 变化时回调函数 | (e:Event)={} | - |
 
 #### Checkbox Group
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-| --- | --- | --- | --- | --- |
-| defaultValue | 默认选中的选项 | string \| [] | - | [] |
-| disabled | 整组失效 | boolean | true \| false | false |
-| options | 指定可选项 | string \| [] | - | [] |
-| value | 指定选中的选项 |  string \| [] | - | [] |
-| onChange | 变化时回调函数 | (checkedValue)=>{} | - | - |
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| defaultValue | 默认选中的选项 | String \| String[] | [] |
+| disabled | 整组失效 | Boolean | false |
+| options | 指定可选项 | String \| String[] | [] |
+| value | 指定选中的选项 |  String \| String[] | [] |
+| onChange | 变化时回调函数 | (checkedValue)=>{} | - |
 
 ### 方法
 
