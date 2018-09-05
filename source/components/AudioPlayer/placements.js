@@ -15,19 +15,19 @@ const placements = {
   topRight: {
     points: ['br', 'tr'],
     overflow: autoAdjustOverflow,
-    offset: [0, -5],
+    offset: [0, -8],
     targetOffset,
   },
   bottomLeft: {
     points: ['tl', 'bl'],
     overflow: autoAdjustOverflow,
-    offset: [0, 5],
+    offset: [0, 8],
     targetOffset,
   },
   bottomRight: {
     points: ['tr', 'br'],
     overflow: autoAdjustOverflow,
-    offset: [0, 5],
+    offset: [0, 8],
     targetOffset,
   },
 };
