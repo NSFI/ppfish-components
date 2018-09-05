@@ -9,7 +9,7 @@ import arrayTreeFilter from 'array-tree-filter';
 const BUILT_IN_PLACEMENTS = {
   bottomLeft: {
     points: ['tl', 'bl'],
-    offset: [0, 4],
+    offset: [0, 8],
     overflow: {
       adjustX: 1,
       adjustY: 1,
@@ -17,7 +17,7 @@ const BUILT_IN_PLACEMENTS = {
   },
   topLeft: {
     points: ['bl', 'tl'],
-    offset: [0, -4],
+    offset: [0, -8],
     overflow: {
       adjustX: 1,
       adjustY: 1,
@@ -25,7 +25,7 @@ const BUILT_IN_PLACEMENTS = {
   },
   bottomRight: {
     points: ['tr', 'br'],
-    offset: [0, 4],
+    offset: [0, 8],
     overflow: {
       adjustX: 1,
       adjustY: 1,
@@ -33,7 +33,7 @@ const BUILT_IN_PLACEMENTS = {
   },
   topRight: {
     points: ['br', 'tr'],
-    offset: [0, -4],
+    offset: [0, -8],
     overflow: {
       adjustX: 1,
       adjustY: 1,
