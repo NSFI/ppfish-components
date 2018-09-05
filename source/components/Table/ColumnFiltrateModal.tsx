@@ -32,6 +32,27 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
   constructor(props: ColumnFiltrateProps<T>) {
     super(props);
     const {columns, hideColumns} = this.props;
+    const option = this.getCheckedOptions(columns, hideColumns);
+    this.state = {
+      visible: false,
+      checkedOption: option,
+      checkedOptionConfirm: option,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //监听column个数变化，重新初始化checkedOption
+    if ('columns' in nextProps && nextProps.columns.length !== this.props.columns.length) {
+      const {columns, hideColumns} = nextProps;
+      const option = this.getCheckedOptions(columns, hideColumns);
+      this.setState({
+        checkedOption: option,
+        checkedOptionConfirm: option,
+      })
+    }
+  }
+
+  getCheckedOptions = (columns, hideColumns) => {
     const option = columns
     // 去除表头合并不显示的列
       .filter(column => column.colSpan !== 0)
@@ -49,13 +70,9 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
         })
       }
     });
+    return option;
+  };
 
-    this.state = {
-      visible: false,
-      checkedOption: option,
-      checkedOptionConfirm: option,
-    };
-  }
 
   showModal = () => {
     this.setState({
