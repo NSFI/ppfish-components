@@ -16,62 +16,62 @@ const commonPlacements = {
 const BUILT_IN_PLACEMENTS = {
   leftCenter: {
     points: ['cr', 'cl'],
-    offset: [-4, 0],
+    offset: [-8, 0],
     ...commonPlacements
   },
   leftTop: {
     points: ['tr', 'tl'],
-    offset: [-4, 0],
+    offset: [-8, 0],
     ...commonPlacements
   },
   leftBottom: {
     points: ['br', 'bl'],
-    offset: [-4, 0],
+    offset: [-8, 0],
     ...commonPlacements
   },
   rightCenter: {
     points: ['cl', 'cr'],
-    offset: [4, 0],
+    offset: [8, 0],
     ...commonPlacements
   },
   rightTop: {
     points: ['tl', 'tr'],
-    offset: [4, 0],
+    offset: [8, 0],
     ...commonPlacements
   },
   rightBottom: {
     points: ['bl', 'br'],
-    offset: [4, 0],
+    offset: [8, 0],
     ...commonPlacements
   },
   topCenter: {
     points: ['bc', 'tc'],
-    offset: [0, -4],
+    offset: [0, -8],
     ...commonPlacements
   },
   topRight: {
     points: ['br', 'tr'],
-    offset: [0, -4],
+    offset: [0, -8],
     ...commonPlacements
   },
   topLeft: {
     points: ['bl', 'tl'],
-    offset: [0, -4],
+    offset: [0, -8],
     ...commonPlacements
   },
   bottomCenter: {
     points: ['tc', 'bc'],
-    offset: [0, 4],
+    offset: [0, 8],
     ...commonPlacements
   },
   bottomRight: {
     points: ['tr', 'br'],
-    offset: [0, 4],
+    offset: [0, 8],
     ...commonPlacements
   },
   bottomLeft: {
     points: ['tl', 'bl'],
-    offset: [0, 4],
+    offset: [0, 8],
     ...commonPlacements
   },
 };
