@@ -254,13 +254,11 @@ export default class TransferList extends React.Component<TransferListProps, any
       <div className={listCls} style={style}>
         <div className={`${prefixCls}-header`}>
           {checkAllCheckbox}
-          <span className={`${prefixCls}-header-selected`}>
-            <span>
-              {(checkedKeys.length > 0 ? `${checkedKeys.length}/` : '') + totalDataSource.length} {unit}
-            </span>
-            <span className={`${prefixCls}-header-title`}>
+          <span className={`${prefixCls}-header-title`}>
               {titleText}
-            </span>
+          </span>
+          <span className={`${prefixCls}-header-selected`}>
+              {(checkedKeys.length > 0 ? `${checkedKeys.length}/` : `0/`) + totalDataSource.length} {unit}
           </span>
         </div>
         {listBody}

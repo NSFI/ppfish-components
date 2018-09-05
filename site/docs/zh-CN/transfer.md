@@ -57,7 +57,7 @@
     return (
       <Transfer
         dataSource={this.mockData}
-        titles={['Source', 'Target']}
+        titles={['源列表', '目标列表']}
         targetKeys={this.state.targetKeys}
         selectedKeys={this.state.selectedKeys}
         onChange={this.handleChange}

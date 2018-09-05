@@ -349,9 +349,11 @@ export default class Transfer extends React.Component<TransferProps, any> {
     const localeDefault = {
       titles: [''],
       notFoundContent: '无匹配结果',
+      sourceNotFoundContent: '暂无相关信息',
+      targetNotFonudContent: '请从左侧选择添加',
       searchPlaceholder: '请输入搜索内容',
-      itemUnit: '项',
-      itemsUnit: '项',
+      itemUnit: '',
+      itemsUnit: '',
     };
 
     const titles = this.getTitles(localeDefault);
@@ -372,7 +374,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
           render={render}
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder || localeDefault.searchPlaceholder}
-          notFoundContent={notFoundContent || localeDefault.notFoundContent}
+          notFoundContent={notFoundContent || localeDefault.sourceNotFoundContent}
           itemUnit={localeDefault.itemUnit}
           itemsUnit={localeDefault.itemsUnit}
           body={body}
@@ -405,7 +407,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
           render={render}
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder || localeDefault.searchPlaceholder}
-          notFoundContent={notFoundContent || localeDefault.notFoundContent}
+          notFoundContent={notFoundContent || localeDefault.targetNotFonudContent}
           itemUnit={localeDefault.itemUnit}
           itemsUnit={localeDefault.itemsUnit}
           body={body}

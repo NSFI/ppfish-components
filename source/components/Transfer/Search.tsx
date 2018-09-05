@@ -34,10 +34,10 @@ export default class Search extends React.Component<TransferSearchProps, any> {
     const { placeholder, value, prefixCls } = this.props;
     const icon = (value && value.length > 0) ? (
       <a href="#" className={`${prefixCls}-action`} onClick={this.handleClear}>
-        <Icon type="cross-circle" />
+        <Icon type="close-circle-fill" />
       </a>
     ) : (
-      <span className={`${prefixCls}-action`}><Icon type="search" /></span>
+      <span className={`${prefixCls}-action`}><Icon type="search-line" /></span>
     );
     return (
       <div>
