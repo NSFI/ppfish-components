@@ -1015,7 +1015,8 @@ class Select extends React.Component {
       ...this.props,
       isMultiple,
       // valueList,
-      valueList: formatInternalValue(curValueList, this.props), // Set checkbox status in time when `onCheck`
+      // Check 一个节点时，实时显示其选中状态。在搜索结果中正确显示其子节点的选中状态
+      valueList: formatInternalValue(conductCheck(curValueList, true, keyEntities).checkedKeys, this.props),
       selectorValueList: [...missValueList, ...selectorValueList],
       valueEntities,
       keyEntities,
