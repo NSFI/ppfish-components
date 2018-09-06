@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { polyfill } from 'react-lifecycles-compat';
 import { createRef } from '../util';
+import Icon from '../../../Icon';
 
 export const selectorPropTypes = {
   prefixCls: PropTypes.string,
@@ -115,18 +116,12 @@ export default function (modeName) {
 
     renderArrow() {
       const { prefixCls, showArrow } = this.props;
+
       if (!showArrow) {
         return null;
       }
 
-      return (
-        <span
-          key="arrow"
-          className={`${prefixCls}-arrow fishdicon-down-fill`}
-          style={{ outline: 'none' }}
-        >
-        </span>
-      );
+      return <Icon key="arrow" type="down-fill" className={`${prefixCls}-arrow`} style={{ outline: 'none' }} />;
     }
 
     render() {
