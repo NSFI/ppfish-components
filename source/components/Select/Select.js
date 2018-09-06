@@ -752,7 +752,8 @@ export default class Select extends React.Component {
                           }
                         </Animate> : null
                     ) :
-                    <div className={`${selectionCls}-option-multiple`}>
+                    <div className={`${selectionCls}-option-multiple`}
+                         title={selectValueForMultiplePanel.map(panel => panel.title).join("、")}>
                       {
                         selectValueForMultiplePanel.map((option, index) =>
                           <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
