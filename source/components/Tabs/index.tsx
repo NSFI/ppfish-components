@@ -176,7 +176,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
       if (!hideAdd) {
         tabBarExtraContent = (
           <span>
-            <Icon type="plus" className={`${prefixCls}-new-tab`} onClick={this.createNewTab} />
+            <Icon type="upload-plus" className={`${prefixCls}-new-tab`} onClick={this.createNewTab} />
             {tabBarExtraContent}
           </span>
         );
