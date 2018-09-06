@@ -59,12 +59,16 @@ export default {
     },
     '交互规则 Rule': {
       'ruleNumber': {
-        type: 'markdown',
-        name: '数字',
+        type: 'react',
+        name: 'Number 数字',
+        component: require('./ruleNumber'),
+        published: true,
       },
       'ruleDatetime': {
-        type: 'markdown',
-        name: '日期时间',
+        type: 'react',
+        name: 'DateTime 日期时间',
+        component: require('./ruleDatetime'),
+        published: true,
       },
     }
   },
