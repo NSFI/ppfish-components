@@ -689,6 +689,12 @@ export default class Select extends React.Component {
         panelStyle.height = 'auto';
       }
     }
+    let multipleTitle = "";
+    if (mode === 'multiple' && !labelClear) {
+      const titleArray = selectValueForMultiplePanel.map(panel => panel.title);
+      const isShowTitle = titleArray.every(title => !!title);
+      multipleTitle = isShowTitle ? titleArray.join("、") : "";
+    }
     return (
       <div
         className={selectionPanelCls}
@@ -752,8 +758,7 @@ export default class Select extends React.Component {
                           }
                         </Animate> : null
                     ) :
-                    <div className={`${selectionCls}-option-multiple`}
-                         title={selectValueForMultiplePanel.map(panel => panel.title).join("、")}>
+                    <div className={`${selectionCls}-option-multiple`} title={multipleTitle}>
                       {
                         selectValueForMultiplePanel.map((option, index) =>
                           <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
