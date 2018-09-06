@@ -299,7 +299,10 @@
     value: ['0-0-0'],
   }
 
-  onConfirm = (value) => {
+  onConfirm = (value, infoList, extra) => {
+    console.log('选中节点：', value);
+    console.log('详细信息：', infoList);
+    console.log('额外信息：', extra);
     this.setState({ value });
   }
 
