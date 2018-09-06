@@ -31,14 +31,14 @@
   cursor: pointer;
   padding-right: 32px;
   border-radius: @border-radius-base;
-  border: 1px solid @select-border-color;
+  border: @border-width-base @border-style-base @select-border-color;
   user-select: none;
   .clearfix;
 
   //状态处理
   &:hover:not(&-disabled) {
     border-color: @primary-5;
-    border-right: 1px solid @primary-color;
+    border-right: @border-width-base @border-style-base @primary-color;
   }
   &:active:not(&-disabled),
   &:focus:not(&-disabled) {
@@ -48,7 +48,7 @@
   }
   //开启状态
   &.open {
-    border: 1px solid @primary-color;
+    border: @border-width-base @border-style-base @primary-color;
   }
 
   //禁用状态
@@ -318,7 +318,7 @@
   //多选错误提示栏
   &-error-panel {
     padding: 8px;
-    border-top: 1px solid @border-color-split;
+    border-top: @border-width-base @border-style-base @border-color-split;
     &-msg {
       color: @error-color;
       margin: 0;
@@ -328,7 +328,7 @@
   //多选底部按钮组
   &-footer {
     padding: 8px;
-    border-top: 1px solid @border-color-split;
+    border-top: @border-width-base @border-style-base @border-color-split;
     text-align: right;
     &-btn {
       width: 80px;
