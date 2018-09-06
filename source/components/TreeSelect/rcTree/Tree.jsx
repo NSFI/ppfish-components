@@ -8,6 +8,7 @@ import { treeContextTypes } from './contextTypes';
 import {
   toArray,
   convertTreeToEntities, convertDataToTree,
+  getDataAndAria,
   getPosition, getDragNodesKeys,
   parseCheckedKeys,
   conductExpandParent, calcSelectedKeys,
@@ -70,16 +71,6 @@ class Tree extends React.Component {
     openTransitionName: PropTypes.string,
     openAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
-    // Tree will parse treeNode as entities map,
-    // This prop enable user to process the Tree with additional entities
-    // This function may be remove in future if we start to remove the dependency on key
-    // So any user should not relay on this function.
-    // If you are refactor this code, you can remove it as your wish
-    unstable_processTreeEntity: PropTypes.shape({
-      initWrapper: PropTypes.func.isRequired,
-      processEntity: PropTypes.func.isRequired,
-      onProcessFinished: PropTypes.func.isRequired,
-    }),
   };
 
   static childContextTypes = treeContextTypes;
@@ -188,12 +179,9 @@ class Tree extends React.Component {
       newState.treeNode = treeNode;
 
       // Calculate the entities data for quick match
-      const entitiesMap = convertTreeToEntities(treeNode, props.unstable_processTreeEntity);
+      const entitiesMap = convertTreeToEntities(treeNode);
       newState.posEntities = entitiesMap.posEntities;
-
-      // Fixed error when check/uncheck node in search result
-      // newState.keyEntities = entitiesMap.keyEntities;
-      newState.keyEntities = Object.assign({}, prevState.keyEntities, entitiesMap.keyEntities);
+      newState.keyEntities = entitiesMap.keyEntities;
     }
 
     const keyEntities = newState.keyEntities || prevState.keyEntities;
@@ -474,7 +462,10 @@ class Tree extends React.Component {
       const halfCheckedKeys = arrDel(oriHalfCheckedKeys, eventKey);
       checkedObj = { checked: checkedKeys, halfChecked: halfCheckedKeys };
 
-      eventObj.checkedNodes = checkedKeys.map(key => keyEntities[key] && keyEntities[key].node);
+      eventObj.checkedNodes = checkedKeys
+        .map(key => keyEntities[key])
+        .filter(entity => entity)
+        .map(entity => entity.node);
 
       this.setUncontrolledState({ checkedKeys });
     } else {
@@ -510,39 +501,46 @@ class Tree extends React.Component {
     }
   };
 
-  onNodeLoad = (treeNode) => {
-    const { loadData, onLoad } = this.props;
-    const { loadedKeys = [], loadingKeys = [] } = this.state;
-    const { eventKey } = treeNode.props;
+  onNodeLoad = treeNode => (
+    new Promise((resolve) => {
+      // We need to get the latest state of loading/loaded keys
+      this.setState(({ loadedKeys = [], loadingKeys = [] }) => {
+        const { loadData, onLoad } = this.props;
+        const { eventKey } = treeNode.props;
 
-    if (!loadData || loadedKeys.indexOf(eventKey) !== -1 || loadingKeys.indexOf(eventKey) !== -1) {
-      return null;
-    }
+        if (!loadData || loadedKeys.indexOf(eventKey) !== -1 || loadingKeys.indexOf(eventKey) !== -1) {
+          // react 15 will warn if return null
+          return {};
+        }
 
-    this.setState({
-      loadingKeys: arrAdd(loadingKeys, eventKey),
-    });
-    const promise = loadData(treeNode);
-    promise.then(() => {
-      const newLoadedKeys = arrAdd(this.state.loadedKeys, eventKey);
-      this.setUncontrolledState({
-        loadedKeys: newLoadedKeys,
-      });
-      this.setState({
-        loadingKeys: arrDel(this.state.loadingKeys, eventKey),
-      });
+        // Process load data
+        const promise = loadData(treeNode);
+        promise.then(() => {
+          const newLoadedKeys = arrAdd(this.state.loadedKeys, eventKey);
+          this.setUncontrolledState({
+            loadedKeys: newLoadedKeys,
+          });
+          this.setState({
+            loadingKeys: arrDel(this.state.loadingKeys, eventKey),
+          });
 
-      if (onLoad) {
-        const eventObj = {
-          event: 'load',
-          node: treeNode,
+          if (onLoad) {
+            const eventObj = {
+              event: 'load',
+              node: treeNode,
+            };
+            onLoad(newLoadedKeys, eventObj);
+          }
+
+          resolve();
+        });
+
+        return {
+          loadingKeys: arrAdd(loadingKeys, eventKey),
         };
-        onLoad(newLoadedKeys, eventObj);
-      }
-    });
-
-    return promise;
-  };
+      });
+    })
+  );
 
   onNodeExpand = (e, treeNode) => {
     let { expandedKeys } = this.state;
@@ -636,7 +634,7 @@ class Tree extends React.Component {
    * [Legacy] Original logic use `key` as tracking clue.
    * We have to use `cloneElement` to pass `key`.
    */
-  renderTreeNode = (child, index, level = 0, parentChecked = false) => {
+  renderTreeNode = (child, index, level = 0) => {
     const {
       keyEntities,
       expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],
@@ -658,7 +656,7 @@ class Tree extends React.Component {
       selected: selectedKeys.indexOf(key) !== -1,
       loaded: loadedKeys.indexOf(key) !== -1,
       loading: loadingKeys.indexOf(key) !== -1,
-      checked: this.isKeyChecked(key), // || parentChecked,
+      checked: this.isKeyChecked(key),
       halfChecked: halfCheckedKeys.indexOf(key) !== -1,
       pos,
 
@@ -675,7 +673,7 @@ class Tree extends React.Component {
       prefixCls, className, focusable,
       showLine, tabIndex = 0,
     } = this.props;
-    const domProps = {};
+    const domProps = getDataAndAria(this.props);
 
     if (focusable) {
       domProps.tabIndex = tabIndex;

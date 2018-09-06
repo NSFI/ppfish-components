@@ -7,7 +7,9 @@ import Spin from '../../Spin/index.tsx';
 import { nodeContextTypes } from './contextTypes';
 import {
   toArray,
-  getNodeChildren, mapChildren,
+  getNodeChildren,
+  getDataAndAria,
+  mapChildren,
   warnOnlyTreeNode,
 } from './util';
 
@@ -210,7 +212,7 @@ class TreeNode extends React.Component {
   };
 
   getNodeChildren = () => {
-    const { children, checked } = this.props;
+    const { children } = this.props;
     const originList = toArray(children).filter(node => node);
     const targetList = getNodeChildren(originList);
 
@@ -218,10 +220,7 @@ class TreeNode extends React.Component {
       warnOnlyTreeNode();
     }
 
-    return {
-      targetList,
-      parentChecked: checked
-    };
+    return targetList;
   };
 
   getNodeState = () => {
@@ -238,7 +237,7 @@ class TreeNode extends React.Component {
     const { isLeaf, loaded } = this.props;
     const { rcTree: { loadData } } = this.context;
 
-    const hasChildren = this.getNodeChildren().targetList.length !== 0;
+    const hasChildren = this.getNodeChildren().length !== 0;
 
     if (isLeaf === false) {
       return false;
@@ -277,15 +276,17 @@ class TreeNode extends React.Component {
 
   // Load data to avoid default expanded tree without data
   syncLoadData = (props) => {
-    const { expanded } = props;
+    const { expanded, loading, loaded } = props;
     const { rcTree: { onNodeLoad } } = this.context;
+
+    if (loading) return;
 
     // read from state to avoid loadData at same time
     if (expanded && !this.isLeaf()) {
       // We needn't reload data when has children in sync logic
       // It's only needed in node expanded
-      const hasChildren = this.getNodeChildren().targetList.length !== 0;
-      if (!hasChildren) {
+      const hasChildren = this.getNodeChildren().length !== 0;
+      if (!hasChildren && !loaded) {
         onNodeLoad(this);
       }
     }
@@ -293,21 +294,34 @@ class TreeNode extends React.Component {
 
   // Switcher
   renderSwitcher = () => {
-    const { expanded } = this.props;
-    const { rcTree: { prefixCls } } = this.context;
+    const {
+      expanded,
+      switcherIcon: switcherIconFromProps,
+    } = this.props;
+    const {
+      rcTree: {
+        prefixCls,
+        switcherIcon: switcherIconFromCtx,
+      }
+    } = this.context;
+
+    const switcherIcon = switcherIconFromProps || switcherIconFromCtx;
 
     if (this.isLeaf()) {
-      return <span className={`${prefixCls}-switcher ${prefixCls}-switcher-noop`} />;
+      return (
+        <span className={classNames(`${prefixCls}-switcher`, `${prefixCls}-switcher-noop`)}>
+          {typeof switcherIcon === 'function' ?
+            React.createElement(switcherIcon, { ...this.props, isLeaf: true }) : switcherIcon}
+        </span>
+      );
     }
 
+    const switcherCls = classNames(`${prefixCls}-switcher`, `${prefixCls}-switcher_${expanded ? ICON_OPEN : ICON_CLOSE}`);
     return (
-      <span
-        className={classNames(
-          `${prefixCls}-switcher`,
-          `${prefixCls}-switcher_${expanded ? ICON_OPEN : ICON_CLOSE}`,
-        )}
-        onClick={this.onExpand}
-      />
+      <span onClick={this.onExpand} className={switcherCls}>
+        {typeof switcherIcon === 'function' ?
+          React.createElement(switcherIcon, { ...this.props, isLeaf: false }) : switcherIcon}
+      </span>
     );
   };
 
@@ -435,8 +449,7 @@ class TreeNode extends React.Component {
     }
 
     // Children TreeNode
-    const childrenInfo = this.getNodeChildren();
-    const nodeList = childrenInfo.targetList;
+    const nodeList = this.getNodeChildren();
 
     if (nodeList.length === 0) {
       return null;
@@ -454,7 +467,7 @@ class TreeNode extends React.Component {
           role="group"
         >
           {mapChildren(nodeList, (node, index) => (
-            renderTreeNode(node, index, pos, childrenInfo.parentChecked)
+            renderTreeNode(node, index, pos)
           ))}
         </ul>
       );
@@ -486,12 +499,7 @@ class TreeNode extends React.Component {
       draggable,
     } } = this.context;
     const disabled = this.isDisabled();
-    const dataOrAriaAttributeProps = Object.keys(otherProps).reduce((prev, key) => {
-      if ((key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-')) {
-        prev[key] = otherProps[key];
-      }
-      return prev;
-    }, {});
+    const dataOrAriaAttributeProps = getDataAndAria(otherProps);
 
     return (
       <li

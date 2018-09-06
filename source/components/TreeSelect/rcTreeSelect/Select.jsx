@@ -23,7 +23,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
 import KeyCode from '../../../utils/KeyCode.js';
-import { calcCheckStateConduct } from './treeUtil.js';
 import { shallowEqual } from '../../../utils/other.js';
 import raf from 'raf';
 
@@ -40,8 +39,9 @@ import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './strategies';
 import {
   createRef, generateAriaId,
   formatInternalValue, formatSelectorValue,
-  parseSimpleTreeData, convertDataToEntities, convertTreeToData,
-  calcUncheckConduct, flatToHierarchy,
+  parseSimpleTreeData,
+  convertDataToTree, convertTreeToEntities, conductCheck,
+  flatToHierarchy,
   isPosRelated, isLabelInValue, getFilterTree,
   cleanEntity,
 } from './util';
@@ -210,15 +210,8 @@ class Select extends React.Component {
       filterTreeNode, treeNodeFilterProp,
       treeDataSimpleMode,
     } = nextProps;
-    const {
-      treeData: tData,
-      ...restNextProps
-    } = nextProps;
     const newState = {
-      prevProps: {
-        treeData: (tData && tData.length) ? JSON.parse(JSON.stringify(tData)) : [],
-        ...restNextProps
-      },
+      prevProps: nextProps,
       init: false,
     };
 
@@ -239,14 +232,12 @@ class Select extends React.Component {
     });
 
     // Tree Nodes
-    let treeData = prevProps['treeData'];
+    let treeNodes;
     let treeDataChanged = false;
     let treeDataModeChanged = false;
     processState('treeData', (propValue) => {
-      if (JSON.stringify(propValue) !== JSON.stringify(treeData)) {
-        treeData = propValue;
-        treeDataChanged = true;
-      }
+      treeNodes = convertDataToTree(propValue);
+      treeDataChanged = true;
     });
 
     processState('treeDataSimpleMode', (propValue, prevValue) => {
@@ -268,23 +259,26 @@ class Select extends React.Component {
         rootPId: null,
         ...(treeDataSimpleMode !== true ? treeDataSimpleMode : {}),
       };
-      treeData = parseSimpleTreeData(nextProps.treeData, simpleMapper);
+      treeNodes = convertDataToTree(
+        parseSimpleTreeData(nextProps.treeData, simpleMapper)
+      );
     }
 
     // If `treeData` not provide, use children TreeNodes
     if (!nextProps.treeData) {
       processState('children', (propValue) => {
-        treeData = convertTreeToData(propValue);
-        treeDataChanged = true;
+        treeNodes = Array.isArray(propValue) ? propValue : [propValue];
       });
     }
 
     // Convert `treeData` to entities
-    if (treeData && treeDataChanged) {
-      const { treeNodes, valueEntities, keyEntities } = convertDataToEntities(treeData);
+    if (treeNodes) {
+      const entitiesMap = convertTreeToEntities(treeNodes);
       newState.treeNodes = treeNodes;
-      newState.valueEntities = valueEntities;
-      newState.keyEntities = keyEntities;
+      newState.posEntities = entitiesMap.posEntities;
+      newState.valueEntities = entitiesMap.valueEntities;
+      newState.keyEntities = entitiesMap.keyEntities;
+
       valueRefresh = true;
     }
 
@@ -318,27 +312,36 @@ class Select extends React.Component {
       const filteredValueList = [];
       const keyList = [];
 
+      // Get latest value list
+      let latestValueList = newState.valueList;
+      if (!latestValueList) {
+        // Also need add prev missValueList to avoid new treeNodes contains the value
+        latestValueList = [...prevState.valueList, ...prevState.missValueList];
+      }
+
       // Get key by value
-      (newState.valueList || prevState.valueList).forEach((wrapperValue) => {
-        const { value } = wrapperValue;
-        const entity = (newState.valueEntities || prevState.valueEntities)[value];
+      latestValueList
+        .forEach((wrapperValue) => {
+          const { value } = wrapperValue;
+          const entity = (newState.valueEntities || prevState.valueEntities)[value];
 
-        if (entity) {
-          keyList.push(entity.key);
-          filteredValueList.push(wrapperValue);
-          return;
-        }
+          if (entity) {
+            keyList.push(entity.key);
+            filteredValueList.push(wrapperValue);
+            return;
+          }
 
-        // If not match, it may caused by ajax load. We need keep this
-        missValueList.push(wrapperValue);
-      });
+          // If not match, it may caused by ajax load. We need keep this
+          missValueList.push(wrapperValue);
+        });
 
       // We need calculate the value when tree is checked tree
       if (treeCheckable && !treeCheckStrictly) {
         // Calculate the keys need to be checked
-        const { checkedKeys } = calcCheckStateConduct(
-          newState.treeNodes || prevState.treeNodes,
+        const { checkedKeys } = conductCheck(
           keyList,
+          true,
+          newState.keyEntities || prevState.keyEntities,
         );
 
         // Format value list again for internal usage
@@ -375,8 +378,12 @@ class Select extends React.Component {
     });
 
     // Do the search logic
-    if (newState.searchValue !== undefined) {
-      const upperSearchValue = String(newState.searchValue).toUpperCase();
+    if (
+      newState.searchValue !== undefined ||
+      (prevState.searchValue && treeNodes)
+    ) {
+      const searchValue = newState.searchValue !== undefined ? newState.searchValue : prevState.searchValue;
+      const upperSearchValue = String(searchValue).toUpperCase();
 
       let filterTreeNodeFn = filterTreeNode;
       if (filterTreeNode === false) {
@@ -392,8 +399,9 @@ class Select extends React.Component {
 
       newState.filteredTreeNodes = getFilterTree(
         newState.treeNodes || prevState.treeNodes,
-        newState.searchValue,
+        searchValue,
         filterTreeNodeFn,
+        newState.valueEntities || prevState.valueEntities,
       );
     }
 
@@ -604,9 +612,18 @@ class Select extends React.Component {
     if (treeCheckable && !treeCheckStrictly) {
       let keyList = newValueList.map(({ value: val }) => valueEntities[val].key);
       if (isAdd) {
-        keyList = calcCheckStateConduct(treeNodes, keyList).checkedKeys;
+        keyList = conductCheck(
+          keyList,
+          true,
+          keyEntities,
+        ).checkedKeys;
       } else {
-        keyList = calcUncheckConduct(keyList, valueEntities[value].key, keyEntities);
+        keyList = conductCheck(
+          [valueEntities[value].key],
+          false,
+          keyEntities,
+          { checkedKeys: keyList },
+        ).checkedKeys;
       }
       newValueList = keyList.map(key => {
         const { node: { props } } = keyEntities[key];
@@ -682,19 +699,16 @@ class Select extends React.Component {
         keyList = Array.from(
           new Set([
             ...oriKeyList,
-            // Fixed error when check/uncheck node in search result
-            // checkedNodeList.map(({ props: { value } }) => valueEntities[value].key),
             ...checkedNodeList.map(({ props: { value } }) => valueEntities[value].key),
           ]),
         );
-
-        // checkedNodeList = keyList.map(key => keyEntities[key].node);
       } else {
-        keyList = calcUncheckConduct(
-          oriKeyList,
-          nodeEventInfo.node.props.eventKey,
+        keyList = conductCheck(
+          [nodeEventInfo.node.props.eventKey],
+          false,
           keyEntities,
-        );
+          { checkedKeys: oriKeyList },
+        ).checkedKeys;
       }
 
       // Fixed error when uncheck node in search result
@@ -716,15 +730,12 @@ class Select extends React.Component {
   };
 
   onSearchInputChange = ({ target: { value } }) => {
-    const { treeNodes, valueList, valueEntities } = this.state;
+    const { treeNodes, valueEntities } = this.state;
     const { onSearch, filterTreeNode, treeNodeFilterProp } = this.props;
 
     if (onSearch) {
       onSearch(value);
     }
-
-    //let keyList = valueList.map(({ value: val }) => valueEntities[val].key);
-    //let checkedKeys = calcCheckStateConduct(treeNodes, keyList).checkedKeys;
 
     let isSet = false;
 
@@ -748,7 +759,7 @@ class Select extends React.Component {
       }
 
       this.setState({
-        filteredTreeNodes: getFilterTree(treeNodes, value, filterTreeNodeFn),
+        filteredTreeNodes: getFilterTree(treeNodes, value, filterTreeNodeFn, valueEntities),
       });
     }
   };
@@ -848,7 +859,11 @@ class Select extends React.Component {
   };
 
   delayForcePopupAlign = () => {
-    raf(this.forcePopupAlign);
+    // Wait 2 frame to avoid dom update & dom algin in the same time
+    // https://github.com/ant-design/ant-design/issues/12031
+    raf(() => {
+      raf(this.forcePopupAlign);
+    });
   };
 
   /**

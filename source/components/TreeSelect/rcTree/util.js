@@ -104,38 +104,12 @@ export function mapChildren(children, func) {
   return list;
 }
 
-/**
- * Check position relation.
- * @param parentPos
- * @param childPos
- * @param directly only directly parent can be true
- * @returns {boolean}
- */
-export function isParent(parentPos, childPos, directly = false) {
-  if (!parentPos || !childPos || parentPos.length > childPos.length) return false;
-
-  const parentPath = posToArr(parentPos);
-  const childPath = posToArr(childPos);
-
-  // Directly check
-  if (directly && parentPath.length !== childPath.length - 1) return false;
-
-  const len = parentPath.length;
-  for (let i = 0; i < len; i += 1) {
-    if (parentPath[i] !== childPath[i]) return false;
-  }
-
-  return true;
-}
-
 export function getDragNodesKeys(treeNodes, node) {
   const { eventKey, pos } = node.props;
   const dragNodesKeys = [];
 
-  traverseTreeNodes(treeNodes, ({ pos: nodePos, key }) => {
-    if (isParent(pos, nodePos)) {
-      dragNodesKeys.push(key);
-    }
+  traverseTreeNodes(treeNodes, ({ key }) => {
+    dragNodesKeys.push(key);
   });
   dragNodesKeys.push(eventKey || pos);
   return dragNodesKeys;
@@ -185,14 +159,17 @@ function keyListToString(keyList) {
   return keyList.map(key => String(key));
 }
 
-export function convertDataToTree(treeData) {
+const internalProcessProps = props => props;
+export function convertDataToTree(treeData, processer) {
   if (!treeData) return [];
+
+  const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
   return list.map(({ children, ...props }, index) => {
-    const childrenNodes = (children || []).map(convertDataToTree);
+    const childrenNodes = convertDataToTree(children, processer);
 
     return (
-      <TreeNode key={'convert_treenode_' + index} {...props}>
+      <TreeNode key={'convert_treenode_' + index} {...processProps(props)}>
         {childrenNodes}
       </TreeNode>
     );
@@ -201,7 +178,7 @@ export function convertDataToTree(treeData) {
 
 // TODO: ========================= NEW LOGIC =========================
 /**
- * Calculate treeNodes entities.
+ * Calculate treeNodes entities. `processTreeEntity` is used for `rc-tree-select`
  * @param treeNodes
  * @param processTreeEntity  User can customize the entity
  */
@@ -267,7 +244,7 @@ export function parseCheckedKeys(keys) {
       halfCheckedKeys: keys.halfChecked || undefined,
     };
   } else {
-    warning(false, '`CheckedKeys` is not an array or an object');
+    warning(false, '`checkedKeys` is not an array or an object');
     return null;
   }
 
@@ -421,11 +398,11 @@ export function conductExpandParent(keyList, keyEntities) {
     const entity = keyEntities[key];
     if (!entity) return;
 
+    expandedKeys[key] = true;
+
     const { parent, node } = entity;
 
     if (isCheckDisabled(node)) return;
-
-    expandedKeys[key] = true;
 
     if (parent) {
       conductUp(parent.key);
@@ -437,4 +414,17 @@ export function conductExpandParent(keyList, keyEntities) {
   });
 
   return Object.keys(expandedKeys);
+}
+
+/**
+ * Returns only the data- and aria- key/value pairs
+ * @param {object} props 
+ */
+export function getDataAndAria(props) {
+  return Object.keys(props).reduce((prev, key) => {
+    if ((key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-')) {
+      prev[key] = props[key];
+    }
+    return prev;
+  }, {});
 }

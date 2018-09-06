@@ -125,7 +125,6 @@ export default function (modeName) {
           className={`${prefixCls}-arrow fishdicon-down-fill`}
           style={{ outline: 'none' }}
         >
-          <b />
         </span>
       );
     }
