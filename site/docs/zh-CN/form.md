@@ -769,7 +769,7 @@ const Demo = Form.create()(DynamicFieldSet);
 
 ## 时间类控件
 
-:::demo 在提交前需要预处理。
+:::demo 时间类组件的 `value` 为 `Date` 类型。
 
 ```js
 const FormItem = Form.Item;
@@ -789,14 +789,14 @@ class TimeRelatedForm extends React.Component {
       const rangeTimeValue = fieldsValue['range-time-picker'];
       const values = {
         ...fieldsValue,
-        'date-picker': fieldsValue['date-picker'].format('yyyy-MM-DD'),
-        'date-time-picker': fieldsValue['date-time-picker'].format('yyyy-MM-DD HH:mm:ss'),
-        'range-picker': [rangeValue[0].format('yyyy-MM-DD'), rangeValue[1].format('yyyy-MM-DD')],
+        'date-picker': fieldsValue['date-picker'],
+        'date-time-picker': fieldsValue['date-time-picker'],
+        'range-picker': [rangeValue[0], rangeValue[1]],
         'range-time-picker': [
-          rangeTimeValue[0].format('yyyy-MM-DD HH:mm:ss'),
-          rangeTimeValue[1].format('yyyy-MM-DD HH:mm:ss'),
+          rangeTimeValue[0],
+          rangeTimeValue[1],
         ],
-        'time-picker': fieldsValue['time-picker'].format('HH:mm:ss'),
+        'time-picker': fieldsValue['time-picker'],
       };
       console.log('Received values of form: ', values);
     });
