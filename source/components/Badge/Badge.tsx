@@ -13,6 +13,7 @@ export interface BadgeProps {
   showZero?: boolean;
   /** Max count to show */
   overflowCount?: number;
+  overflowType?: 'plus' | 'ellipsis'
   /** whether to show red dot without number */
   dot?: boolean;
   style?: React.CSSProperties;
@@ -33,6 +34,7 @@ export default class Badge extends React.Component<BadgeProps, any> {
     showZero: false,
     dot: false,
     overflowCount: 99,
+    overflowType: 'plus'
   };
 
   static propTypes = {
@@ -52,6 +54,7 @@ export default class Badge extends React.Component<BadgeProps, any> {
       prefixCls,
       scrollNumberPrefixCls,
       overflowCount,
+      overflowType,
       className,
       style,
       children,
@@ -62,7 +65,7 @@ export default class Badge extends React.Component<BadgeProps, any> {
       title,
       ...restProps
     } = this.props;
-    let displayCount = (count as number) > (overflowCount as number) ? `${overflowCount}+` : count;
+    let displayCount = (count as number) > (overflowCount as number) ? (overflowType === 'plus' ? `${overflowCount}+` : '...') : count;
     const isZero = displayCount === '0' || displayCount === 0;
     const isDot = (dot && !isZero) || status;
     // dot mode don't need count

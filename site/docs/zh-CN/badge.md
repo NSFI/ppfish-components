@@ -60,7 +60,9 @@ render(){
 
 ## 封顶数字
 
-:::demo 超过 `overflowCount` 的会显示为 `${overflowCount}+`，默认的 `overflowCount` 为 `99`。
+:::demo 超过 `overflowCount` 的会显示为 `${overflowCount}+` 或 `...`
+默认的 `overflowCount` 为 `99`,
+默认的 `overflowType` 为 `plus`,
 
 ```js
 
@@ -77,6 +79,9 @@ render(){
       <a href="#" className="head-example" />
     </Badge>
     <Badge count={1000} overflowCount={999}>
+      <a href="#" className="head-example" />
+    </Badge>
+    <Badge count={1000} overflowCount={999} overflowType='ellipsis'>
       <a href="#" className="head-example" />
     </Badge>
   </div>)
@@ -269,6 +274,7 @@ render(){
 | dot | 不展示数字，只有一个小红点 | Boolean | false |
 | offset | 设置状态点的位置偏移，格式为 `[x, y]` | Number[] | - |
 | overflowCount | 展示封顶的数字值 | Number | 99 |
+| overflowTyle | 展示封顶展示形式 '+' 或 '...' | Enum {'plus', 'ellipsis'} | 'plus' |
 | showZero | 当数值为 0 时，是否展示 Badge | Boolean | false |
 | status | 设置 Badge 为状态点 | Enum {'success', 'processing', 'default', 'error', 'warning'} | - |
 | text | 在设置了 `status` 的前提下有效，设置状态点的文本 | String | '' |
