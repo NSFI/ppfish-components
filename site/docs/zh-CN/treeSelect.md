@@ -319,57 +319,57 @@
     const treeData = [{
       title: 'Node1',
       value: '0-0',
-      key: '0-0',
+      key: '0-0a',
       children: [{
         title: 'CNode1',
         value: '0-0-0',
-        key: '0-0-0',
+        key: '0-0a-0',
       }, {
         title: 'Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2',
         value: '0-0-1',
-        key: '0-0-1',
+        key: '0-0a-1',
       }],
     }, {
       title: 'Node2',
       value: '0-1',
-      key: '0-1',
+      key: '0-1a',
       children: [{
         title: 'CNode3',
         value: '0-1-0',
-        key: '0-1-0',
+        key: '0-1a-0',
         disabled: true
       }, {
         title: 'Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4',
         value: '0-1-1',
-        key: '0-1-1',
+        key: '0-1a-1',
       }, {
         title: 'CNode5',
         value: '0-1-2',
-        key: '0-1-2',
+        key: '0-1a-2',
       }, {
         title: 'Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6',
         value: '0-1-3',
-        key: '0-1-3',
+        key: '0-1a-3',
       }, {
         title: 'Child Node7',
         value: '0-1-4',
-        key: '0-1-4',
+        key: '0-1a-4',
       }, {
         title: 'Child Node8',
         value: '0-1-5',
-        key: '0-1-5',
+        key: '0-1a-5',
       }, {
         title: 'Child Node9',
         value: '0-1-6',
-        key: '0-1-6',
+        key: '0-1a-6',
       }, {
         title: 'Child Node10',
         value: '0-1-7',
-        key: '0-1-7',
+        key: '0-1a-7',
       }, {
         title: 'Child Node11',
         value: '0-1-8',
-        key: '0-1-8',
+        key: '0-1a-8',
       }],
     }];
     const tProps = {

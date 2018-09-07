@@ -1013,7 +1013,13 @@ class Select extends React.Component {
 
     let rtValueList = [...curValueList];
     if (isMultiple) {
-      rtValueList = conductCheck(curValueList, true, keyEntities).checkedKeys;
+      let keyList = rtValueList.map(value => {
+        return valueEntities[value].key;
+      });
+      let checkedKeys = conductCheck(keyList, true, keyEntities).checkedKeys;
+      rtValueList = checkedKeys.map(key => {
+        return keyEntities[key].value;
+      });
     }
 
     const passProps = {
