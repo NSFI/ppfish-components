@@ -64,11 +64,10 @@
       color: @text-color;
       transition: all 0.3s;
       width: ~"calc(100% - 24px)";
-      // vertical-align: middle; // add
       &:hover {
         background-color: @item-hover-bg;
       }
-      // add: handle text ellipsis
+      // 文本超长时显示省略号
       .@{select-tree-prefix-cls}-title {
         display: inline-block;
         width: 100%;
@@ -79,7 +78,8 @@
         vertical-align: top;
       }
       &.@{select-tree-prefix-cls}-node-selected {
-        background-color: @primary-2;
+        color: @primary-color;
+        background-color: @item-hover-bg;
       }
     }
     span {

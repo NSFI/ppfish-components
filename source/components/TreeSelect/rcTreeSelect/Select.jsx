@@ -1011,7 +1011,7 @@ class Select extends React.Component {
     const { prefixCls } = this.props;
     const isMultiple = this.isMultiple();
 
-    let rtValueList = [...curValueList];
+    let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
     if (isMultiple) {
       let keyList = rtValueList.map(value => {
         return valueEntities[value].key;
