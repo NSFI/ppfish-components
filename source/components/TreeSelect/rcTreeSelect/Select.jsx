@@ -1011,12 +1011,17 @@ class Select extends React.Component {
     const { prefixCls } = this.props;
     const isMultiple = this.isMultiple();
 
+    let rtValueList = [...curValueList];
+    if (isMultiple) {
+      rtValueList = conductCheck(curValueList, true, keyEntities).checkedKeys;
+    }
+
     const passProps = {
       ...this.props,
       isMultiple,
       // valueList,
       // Check 一个节点时，实时显示其选中状态。在搜索结果中正确显示其子节点的选中状态
-      valueList: formatInternalValue(conductCheck(curValueList, true, keyEntities).checkedKeys, this.props),
+      valueList: formatInternalValue(rtValueList, this.props),
       selectorValueList: [...missValueList, ...selectorValueList],
       valueEntities,
       keyEntities,
