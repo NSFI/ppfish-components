@@ -15,7 +15,7 @@
   constructor(props) {
     super(props);
     this.state = {
-      value: undefined,
+      value: 'n4',
     }
   }
 
@@ -25,6 +25,13 @@
 
   onReset = () => {
     this.setState({ value: undefined });
+  }
+
+  onSelect = (value, valueList, infoList, extra) => {
+    console.log("value: ", value);
+    console.log("valueList: ", valueList);
+    console.log("infoList: ", infoList);
+    console.log("extra: ", extra);
   }
 
   render() {
@@ -39,30 +46,26 @@
             marginRight: '20px'
           }}
           value={this.state.value}
-          dropdownStyle={{
-            width: 300
-          }}
+          dropdownStyle={{ width: 300 }}
           treeNodeResetTitle={"请选择"}
           treeDefaultExpandAll
           onChange={this.onChange}
           onReset={this.onReset}
+          onSelect={this.onSelect}
         >
-          <TreeNode value="parent 1" title="parent 1" key="0-1">
-            <TreeNode value="parent 1-0" title="parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0parent 1-0" key="0-1-1">
-              <TreeNode value="leaf1" title="my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1my leaf1" key="random" />
-              <TreeNode value="leaf2" disabled title="your leaf2" key="random1" />
+          <TreeNode value="n1" title="PNode1">
+            <TreeNode value="n2" title="Node1">
+              <TreeNode value="n3" title="CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title" />
+              <TreeNode value="n4" title="CNode2" />
             </TreeNode>
-            <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
-              <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+            <TreeNode value="n5" title="Node2">
+              <TreeNode value="n6" disabled title="CNode3" />
             </TreeNode>
           </TreeNode>
-          <TreeNode value="parent 2" title="parent 2" key="1-1">
-            <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
-              <TreeNode value="leaf3" title="my leaf3" key="random4" />
-              <TreeNode value="leaf4" title="your leaf4" key="random5" />
-            </TreeNode>
-            <TreeNode value="parent 2-1" title="parent 2-1" key="random6">
-              <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random7" />
+          <TreeNode value="n7" title="PNode2">
+            <TreeNode value="n8" title="Node3">
+              <TreeNode value="n9" title="CNode4" />
+              <TreeNode value="n10" title="CNode5" />
             </TreeNode>
           </TreeNode>
         </TreeSelect>
@@ -100,26 +103,23 @@
         isRequired={true}
         style={{ width: 300 }}
         value={this.state.value}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        dropdownStyle={{ width: 300 }}
         treeDefaultExpandAll
         onChange={this.onChange}
       >
-        <TreeNode value="parent 1" title="parent 1" key="0-1">
-          <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-1">
-            <TreeNode value="leaf1" title="my leaf1" key="random" />
-            <TreeNode value="leaf2" title="your leaf2" key="random1" />
+        <TreeNode value="n1" title="PNode1">
+          <TreeNode value="n2" title="Node1">
+            <TreeNode value="n3" title="CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title" />
+            <TreeNode value="n4" title="CNode2" />
           </TreeNode>
-          <TreeNode value="parent 1-1" title="parent 1-1" key="random2">
-            <TreeNode value="sss" title={<b style={{ color: '#08c' }}>sss</b>} key="random3" />
+          <TreeNode value="n5" title="Node2">
+            <TreeNode value="n6" disabled title="CNode3" />
           </TreeNode>
         </TreeNode>
-        <TreeNode value="parent 2" title="parent 2" key="1-1">
-          <TreeNode value="parent 2-0" title="parent 2-0" key="1-1-1">
-            <TreeNode value="leaf3" title="my leaf3" key="random4" />
-            <TreeNode value="leaf4" title="your leaf4" key="random5" />
-          </TreeNode>
-          <TreeNode value="parent 2-1" title="parent 2-1" key="random6">
-            <TreeNode value="sss2" title={<b style={{ color: '#08c' }}>sss2</b>} key="random7" />
+        <TreeNode value="n7" title="PNode2">
+          <TreeNode value="n8" title="Node3">
+            <TreeNode value="n9" title="CNode4" />
+            <TreeNode value="n10" title="CNode5" />
           </TreeNode>
         </TreeNode>
       </TreeSelect>
@@ -150,25 +150,25 @@
     const treeData = [
       {
         title: 'Node1',
-        value: '0-0',
-        key: '0-0',
+        value: 'n1',
+        key: 'k1',
         children: [
           {
-            title: 'Child Node1',
-            value: '0-0-1',
-            key: '0-0-1',
+            title: 'CNode1',
+            value: 'n2',
+            key: 'k2',
           }, 
           {
-            title: 'Child Node2',
-            value: '0-0-2',
-            key: '0-0-2',
+            title: 'CNode2',
+            value: 'n3',
+            key: 'k3',
           }
         ],
       }, 
       {
         title: 'Node2',
-        value: '0-1',
-        key: '0-1',
+        value: 'n4',
+        key: 'k4',
       }
     ];
     
@@ -176,7 +176,7 @@
       <TreeSelect
         style={{ width: 300 }}
         value={this.state.value}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        dropdownStyle={{ width: 300 }}
         getPopupContainer={() => document.querySelector('.content')}
         treeData={treeData}
         treeDefaultExpandAll
@@ -200,9 +200,9 @@
   state = {
     value: undefined,
     treeData: [
-      { title: 'Node1', key: '0-0', value: '0-0' },
-      { title: 'Node2', key: '0-1', value: '0-1' },
-      { title: 'Node3', key: '0-2', value: '0-2', isLeaf: true }
+      { title: 'Node1', key: 'k1', value: 'n1' },
+      { title: 'Node2', key: 'k2', value: 'n2' },
+      { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
     ]
   }
 
@@ -325,7 +325,7 @@
         value: '0-0-0',
         key: '0-0a-0',
       }, {
-        title: 'Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2Child Node2',
+        title: 'CNode2-long-title-CNode2-long-title-CNode2-long-title-CNode2-long-title',
         value: '0-0-1',
         key: '0-0a-1',
       }],
@@ -337,39 +337,43 @@
         title: 'CNode3',
         value: '0-1-0',
         key: '0-1a-0',
-        disabled: true
       }, {
-        title: 'Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4Child Node4',
+        title: 'CNode4',
         value: '0-1-1',
         key: '0-1a-1',
+        disabled: true
       }, {
         title: 'CNode5',
         value: '0-1-2',
         key: '0-1a-2',
       }, {
-        title: 'Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6Child Node6',
+        title: 'CNode6',
         value: '0-1-3',
         key: '0-1a-3',
       }, {
-        title: 'Child Node7',
+        title: 'CNode7',
         value: '0-1-4',
         key: '0-1a-4',
       }, {
-        title: 'Child Node8',
+        title: 'CNode8',
         value: '0-1-5',
         key: '0-1a-5',
       }, {
-        title: 'Child Node9',
+        title: 'CNode9',
         value: '0-1-6',
         key: '0-1a-6',
       }, {
-        title: 'Child Node10',
+        title: 'CNode10',
         value: '0-1-7',
         key: '0-1a-7',
       }, {
-        title: 'Child Node11',
+        title: 'CNode11',
         value: '0-1-8',
         key: '0-1a-8',
+      }, {
+        title: 'CNode12',
+        value: '0-1-9',
+        key: '0-1a-9',
       }],
     }];
     const tProps = {
@@ -386,16 +390,12 @@
         width: 300,
         marginRight: '20px'
       },
-      dropdownStyle: {
-        width: 300,
-      }
+      dropdownStyle: { width: 300 }
     };
     const tPropsDisabled = {
       disabled: true,
       treeCheckable: true,
-      style: {
-        width: 300,
-      }
+      style: { width: 300 }
     };
     return (
       <div>
@@ -431,40 +431,61 @@
     const treeData = [{
       title: 'Node1',
       value: '0-0',
-      key: '0-0',
+      key: '0-0a',
       children: [{
-        title: 'Child Node1',
+        title: 'CNode1',
         value: '0-0-0',
-        key: '0-0-0',
-      },{
-        title: 'Child Node2',
+        key: '0-0a-0',
+      }, {
+        title: 'CNode2-long-title-CNode2-long-title-CNode2-long-title-CNode2-long-title',
         value: '0-0-1',
-        key: '0-0-1',
+        key: '0-0a-1',
       }],
     }, {
       title: 'Node2',
       value: '0-1',
-      key: '0-1',
+      key: '0-1a',
       children: [{
-        title: 'Child Node3',
+        title: 'CNode3',
         value: '0-1-0',
-        key: '0-1-0',
+        key: '0-1a-0',
       }, {
-        title: 'Child Node4',
+        title: 'CNode4',
         value: '0-1-1',
-        key: '0-1-1',
+        key: '0-1a-1',
+        disabled: true
       }, {
-        title: 'Child Node5',
+        title: 'CNode5',
         value: '0-1-2',
-        key: '0-1-2',
+        key: '0-1a-2',
       }, {
-        title: 'Child Node6',
+        title: 'CNode6',
         value: '0-1-3',
-        key: '0-1-3',
+        key: '0-1a-3',
       }, {
-        title: 'Child Node7',
+        title: 'CNode7',
         value: '0-1-4',
-        key: '0-1-4',
+        key: '0-1a-4',
+      }, {
+        title: 'CNode8',
+        value: '0-1-5',
+        key: '0-1a-5',
+      }, {
+        title: 'CNode9',
+        value: '0-1-6',
+        key: '0-1a-6',
+      }, {
+        title: 'CNode10',
+        value: '0-1-7',
+        key: '0-1a-7',
+      }, {
+        title: 'CNode11',
+        value: '0-1-8',
+        key: '0-1a-8',
+      }, {
+        title: 'CNode12',
+        value: '0-1-9',
+        key: '0-1a-9',
       }],
     }];
     const tProps = {
@@ -480,6 +501,9 @@
       style: {
         width: 300,
       },
+      dropdownStyle: {
+        width: 300,
+      }
     };
     return <TreeSelect {...tProps} />;
   }
@@ -495,9 +519,9 @@
   state = {
     value: [],
     treeData: [
-      { title: 'Node1', key: '0-0', value: '0-0' },
-      { title: 'Node2', key: '0-1', value: '0-1' },
-      { title: 'Node3', key: '0-2', value: '0-2', isLeaf: true }
+      { title: 'Node1', key: 'k1', value: 'n1' },
+      { title: 'Node2', key: 'k2', value: 'n2' },
+      { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
     ]
   }
 
