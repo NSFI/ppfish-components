@@ -73,7 +73,7 @@ export default {
     }
   },
   general: {
-    '基础组件 Basic': {
+    '基础组件 General': {
       'button': {
         type: 'markdown',
         name: 'Button 按钮',
@@ -148,7 +148,7 @@ export default {
         name: 'Layout 布局模式',
       },
     },
-    '导航 Nav': {
+    '导航 Navigation': {
       'menu': {
         type: 'markdown',
         name: 'Menu 导航菜单',
@@ -186,7 +186,7 @@ export default {
         published: true,
       },
     },
-    '数据录入': {
+    '数据录入 Data Entry': {
       'autoComplete': {
         type: 'markdown',
         name: 'AutoComplete 自动完成'
@@ -263,7 +263,7 @@ export default {
         name: 'Upload 上传',
       },
     },
-    '数据展示': {
+    '数据展示 Data Display': {
       'avatar': {
         type: 'markdown',
         name: 'Avatar 头像',
@@ -329,7 +329,7 @@ export default {
       //   name: 'Tree 树形控件',
       // },
     },
-    '操作反馈': {
+    '操作反馈 Feedback': {
       'alert': {
         type: 'markdown',
         name: 'Alert 警告提示',
