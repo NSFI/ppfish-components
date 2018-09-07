@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {SpinProps} from '../Spin';
-
+import Sortable from './sortable';
 import Spin from '../Spin';
 import Pagination, {PaginationConfig} from '../Pagination';
 import {Row} from '../Grid';
@@ -65,7 +65,7 @@ export interface ListLocale {
 
 export default class List extends React.Component<ListProps> {
   static Item: typeof Item = Item;
-
+  static Sortable = Sortable;
   static childContextTypes = {
     grid: PropTypes.any,
   };
