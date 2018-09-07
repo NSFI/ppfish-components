@@ -11,7 +11,9 @@
 
 ## 基本用法
 
-:::demo 最基本的用法，展示了 `dataSource`、`targetKeys`、每行的渲染函数 `render` 以及回调函数 `onChange` `onSelectChange` `onScroll` 的用法。
+#### 单次选择多项数据
+
+:::demo `multiple`模式最基本的用法，展示了 `dataSource`、`targetKeys`、每行的渲染函数 `render` 以及回调函数 `onChange` `onSelectChange` `onScroll` 的用法。
 
 ```js
   
@@ -35,6 +37,7 @@
 		}
 	}
   handleChange = (nextTargetKeys, direction, moveKeys) => {
+	  console.log('next:', nextTargetKeys)
     this.setState({ targetKeys: nextTargetKeys });
     console.log('targetKeys: ', this.state.targetKeys);
     console.log('direction: ', direction);
@@ -70,11 +73,64 @@
 ```
 :::
 
+#### 单次选择一项数据
+
+:::demo `single`模式最基本的用法。
+
+```js
+  
+	constructor(props){
+		super(props);
+		this.mockData = [];
+		for (let i = 0; i < 20; i++) {
+			this.mockData.push({
+				key: i.toString(),
+				title: `content${i + 1}`,
+				description: `description of content${i + 1}`,
+				disabled: i % 3 < 1,
+			});
+		}
+		this.targetKeys = this.mockData
+			.filter(item => +item.key % 3 > 1)
+			.map(item => item.key);
+		this.state = {
+			targetKeys:this.targetKeys,
+		}
+	}
+  handleChange = (nextTargetKeys, direction, moveKeys) => {
+	  console.log('next:', nextTargetKeys)
+    this.setState({ targetKeys: nextTargetKeys });
+    console.log('targetKeys: ', this.state.targetKeys);
+    console.log('direction: ', direction);
+    console.log('moveKeys: ', moveKeys);
+  }
+
+  handleScroll = (direction, e) => {
+    console.log('direction:', direction);
+    console.log('target:', e.target);
+  }
+
+  render() {
+    return (
+      <Transfer
+        mode="single"
+        dataSource={this.mockData}
+        titles={['源列表', '目标列表']}
+        targetKeys={this.state.targetKeys}
+        onChange={this.handleChange}
+        onScroll={this.handleScroll}
+        render={item => item.title}
+      />
+    );
+  }
+```
+:::
+
 ## 带搜索框
 
+#### 单次选择多项数据
+
 :::demo 带搜索框的穿梭框，可以自定义搜索函数。
-
-
 ```js
   state = {
     mockData: [],
@@ -114,6 +170,62 @@
   render() {
     return (
       <Transfer
+        dataSource={this.state.mockData}
+        showSearch
+        filterOption={this.filterOption}
+        targetKeys={this.state.targetKeys}
+        onChange={this.handleChange}
+        render={item => item.title}
+      />
+    );
+  }
+
+```
+:::
+
+#### 单次选择一项数据
+
+:::demo 带搜索框的穿梭框，可以自定义搜索函数。
+```js
+  state = {
+    mockData: [],
+    targetKeys: [],
+  }
+
+  componentDidMount() {
+    this.getMock();
+  }
+
+  getMock = () => {
+    const targetKeys = [];
+    const mockData = [];
+    for (let i = 0; i < 20; i++) {
+      const data = {
+        key: i.toString(),
+        title: `content${i + 1}`,
+        description: `description of content${i + 1}`,
+        chosen: Math.random() * 2 > 1,
+      };
+      if (data.chosen) {
+        targetKeys.push(data.key);
+      }
+      mockData.push(data);
+    }
+    this.setState({ mockData, targetKeys });
+  }
+
+  filterOption = (inputValue, option) => {
+    return option.description.indexOf(inputValue) > -1;
+  }
+
+  handleChange = (targetKeys) => {
+    this.setState({ targetKeys });
+  }
+
+  render() {
+    return (
+      <Transfer
+        mode="single"
         dataSource={this.state.mockData}
         showSearch
         filterOption={this.filterOption}
@@ -270,23 +382,34 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 自定义类 | String | - |
+| titles | 标题集合，顺序从左至右 | String[] | ['', ''] |
 | dataSource | 数据源，其中的数据将会被渲染到左边一栏中，`targetKeys` 中指定的除外。 | Array | [] |
 | filterOption | 接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | (inputValue, option)=>Boolean | - |
 | footer | 底部渲染函数 | (props)=>ReactNode | - |
 | lazy | Transfer 使用了 [react-lazy-load](https://github.com/loktar00/react-lazy-load) 优化性能，这里可以设置相关参数。设为 `false` 可以关闭懒加载。 | Object \| Boolean | `{ height: 32, offset: 32 }` |
 | listStyle | 两个穿梭框的自定义样式 | Object | - |
 | notFoundContent | 当列表为空时显示的内容 | String \| ReactNode | '列表为空' |
-| operations | 操作文案集合，顺序从下至上 | String[] | ['>', '<'] |
 | render | 每行数据渲染函数，该函数的入参为 `dataSource` 中的项，返回值为 ReactElement。或者返回一个普通对象，其中 `label` 字段为 ReactElement，`value` 字段为 title | (record)=>{} | - |
 | searchPlaceholder | 搜索框的默认值 | String | '请输入搜索内容' |
-| selectedKeys | 设置哪些项应该被选中 | String[] | [] |
 | showSearch | 是否显示搜索框 | Boolean | false |
 | targetKeys | 显示在右侧框数据的key集合 | String[] | [] |
-| titles | 标题集合，顺序从左至右 | String[] | ['', ''] |
 | onChange | 选项在两栏之间转移时的回调函数 | (targetKeys, direction, moveKeys)=>void | - |
 | onScroll | 选项列表滚动时的回调函数 | (direction, event)=>void | - |
 | onSearchChange | 搜索框内容时改变时的回调函数 | (direction: 'left'\|'right', event: Event)=>void | - |
+
+## 多选模式
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| operations | 操作文案集合，顺序从下至上 | String[] | ['>', '<'] |
+| selectedKeys | 设置哪些项应该被选中 | String[] | [] |
 | onSelectChange | 选中项发生改变时的回调函数 | (sourceSelectedKeys, targetSelectedKeys)=>void | - |
+
+## 单选模式
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| operation | 操作文案 | String | '<' |
 
 ## 注意
 

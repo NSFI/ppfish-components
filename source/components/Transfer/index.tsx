@@ -26,6 +26,7 @@ export interface TransferItem {
 export interface TransferProps {
   prefixCls?: string;
   className?: string;
+  mode?: 'single' | 'multiple';
   dataSource: TransferItem[];
   targetKeys?: string[];
   selectedKeys?: string[];
@@ -37,6 +38,7 @@ export interface TransferProps {
   operationStyle?: React.CSSProperties;
   titles?: string[];
   operations?: string[];
+  operation?: string;
   showSearch?: boolean;
   filterOption?: (inputValue: any, item: any) => boolean;
   searchPlaceholder?: string;
@@ -64,9 +66,11 @@ export default class Transfer extends React.Component<TransferProps, any> {
   static Search = Search;
 
   static defaultProps = {
+    mode: 'multiple',
     dataSource: [],
     render: noop,
     showSearch: false,
+    operation: '>'
   };
 
   static propTypes = {
@@ -82,6 +86,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
     className: PropTypes.string,
     titles: PropTypes.array,
     operations: PropTypes.array,
+    operation: PropTypes.string,
     showSearch: PropTypes.bool,
     filterOption: PropTypes.func,
     searchPlaceholder: PropTypes.string,
@@ -204,7 +209,6 @@ export default class Transfer extends React.Component<TransferProps, any> {
       onChange(newTargetKeys, direction, newMoveKeys);
     }
   }
-
   moveToLeft = () => this.moveTo('left');
   moveToRight = () => this.moveTo('right');
 
@@ -242,7 +246,6 @@ export default class Transfer extends React.Component<TransferProps, any> {
       });
     }
   }
-
   handleLeftSelectAll = (filteredDataSource: TransferItem[], checkAll: boolean) => (
     this.handleSelectAll('left', filteredDataSource, checkAll)
   )
@@ -259,7 +262,6 @@ export default class Transfer extends React.Component<TransferProps, any> {
       this.props.onSearchChange(direction, e);
     }
   }
-
   handleLeftFilter = (e: React.ChangeEvent<HTMLInputElement>) => this.handleFilter('left', e);
   handleRightFilter = (e: React.ChangeEvent<HTMLInputElement>) => this.handleFilter('right', e);
 
@@ -268,33 +270,55 @@ export default class Transfer extends React.Component<TransferProps, any> {
       [`${direction}Filter`]: '',
     });
   }
-
   handleLeftClear = () => this.handleClear('left');
   handleRightClear = () => this.handleClear('right');
 
-  handleSelect = (direction: TransferDirection, selectedItem: TransferItem, checked: boolean) => {
-    const { sourceSelectedKeys, targetSelectedKeys } = this.state;
-    const holder = direction === 'left' ? [...sourceSelectedKeys] : [...targetSelectedKeys];
-    const index = holder.indexOf(selectedItem.key);
-    if (index > -1) {
-      holder.splice(index, 1);
-    }
-    if (checked) {
-      holder.push(selectedItem.key);
-    }
-    this.handleSelectChange(direction, holder);
-
-    if (!this.props.selectedKeys) {
-      this.setState({
-        [this.getSelectedKeysName(direction)]: holder,
-      });
+  // 只单选模式下的目标列表
+  handleClose = (selectedItem: TransferItem) => {
+    if(this.props.mode === 'single') {
+      const { targetKeys = [], onChange } = this.props;
+      const newMoveKeys = [selectedItem.key];
+      const newTargetKeys = targetKeys.filter(key => key !== selectedItem.key);
+      if (onChange) {
+        onChange(newTargetKeys, 'left', newMoveKeys);
+      }
     }
   }
 
+  handleSelect = (direction: TransferDirection, selectedItem: TransferItem, checked: boolean) => {
+    // 单选模式下，点击直接move
+    if(this.props.mode === 'single') {
+      if(direction === 'right'){
+        return;
+      }
+      const { targetKeys = [], onChange } = this.props;
+      const newMoveKeys = [selectedItem.key];
+      const newTargetKeys = targetKeys.concat(newMoveKeys);
+      if (onChange) {
+        onChange(newTargetKeys, 'right', newMoveKeys);
+      }
+    }else{
+      const { sourceSelectedKeys, targetSelectedKeys } = this.state;
+      const holder = direction === 'left' ? [...sourceSelectedKeys] : [...targetSelectedKeys];
+      const index = holder.indexOf(selectedItem.key);
+      if (index > -1) {
+        holder.splice(index, 1);
+      }
+      if (checked) {
+        holder.push(selectedItem.key);
+      }
+      this.handleSelectChange(direction, holder);
+
+      if (!this.props.selectedKeys) {
+        this.setState({
+          [this.getSelectedKeysName(direction)]: holder,
+        });
+      }
+    }
+  }
   handleLeftSelect = (selectedItem: TransferItem, checked: boolean) => {
     return this.handleSelect('left', selectedItem, checked);
   }
-
   handleRightSelect = (selectedItem: TransferItem, checked: boolean) => {
     return this.handleSelect('right', selectedItem, checked);
   }
@@ -305,11 +329,10 @@ export default class Transfer extends React.Component<TransferProps, any> {
       onScroll(direction, e);
     }
   }
-
   handleLeftScroll = (e: React.SyntheticEvent<HTMLDivElement>) => this.handleScroll('left', e);
   handleRightScroll = (e: React.SyntheticEvent<HTMLDivElement>) => this.handleScroll('right', e);
 
-  getTitles(transferLocale: TransferLocale): string[] {
+  getTitles = (transferLocale: TransferLocale) => {
     const { props } = this;
     if (props.titles) {
       return props.titles;
@@ -317,7 +340,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
     return transferLocale.titles;
   }
 
-  getSelectedKeysName(direction: TransferDirection) {
+  getSelectedKeysName = (direction: TransferDirection) => {
     return direction === 'left' ? 'sourceSelectedKeys' : 'targetSelectedKeys';
   }
 
@@ -325,7 +348,9 @@ export default class Transfer extends React.Component<TransferProps, any> {
     const {
       prefixCls = 'fishd-transfer',
       className,
+      mode,
       operations = [],
+      operation,
       showSearch,
       notFoundContent,
       searchPlaceholder,
@@ -357,9 +382,12 @@ export default class Transfer extends React.Component<TransferProps, any> {
     };
 
     const titles = this.getTitles(localeDefault);
+
     return (
       <div className={cls} style={style}>
         <List
+          mode={mode}
+          direction='left'
           prefixCls={`${prefixCls}-list`}
           titleText={titles[0]}
           dataSource={leftDataSource}
@@ -383,6 +411,8 @@ export default class Transfer extends React.Component<TransferProps, any> {
           onScroll={this.handleLeftScroll}
         />
         <Operation
+          mode={mode}
+          arrowText={operation}
           className={`${prefixCls}-operation`}
           rightActive={rightActive}
           rightArrowText={operations[0]}
@@ -393,6 +423,8 @@ export default class Transfer extends React.Component<TransferProps, any> {
           style={operationStyle}
         />
         <List
+          mode={mode}
+          direction="right"
           prefixCls={`${prefixCls}-list`}
           titleText={titles[1]}
           dataSource={rightDataSource}
@@ -404,6 +436,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
           handleClear={this.handleRightClear}
           handleSelect={this.handleRightSelect}
           handleSelectAll={this.handleRightSelectAll}
+          handleClose={this.handleClose}
           render={render}
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder || localeDefault.searchPlaceholder}

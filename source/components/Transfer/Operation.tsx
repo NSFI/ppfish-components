@@ -2,6 +2,8 @@ import * as React from 'react';
 import Button from '../Button';
 
 export interface TransferOperationProps {
+  mode?: 'single' | 'multiple';
+  arrowText?: string,
   className?: string;
   leftArrowText?: string;
   rightArrowText?: string;
@@ -15,6 +17,8 @@ export interface TransferOperationProps {
 export default class Operation extends React.Component<TransferOperationProps, any> {
   render() {
     const {
+      mode,
+      arrowText,
       moveToLeft,
       moveToRight,
       leftArrowText = '',
@@ -24,28 +28,37 @@ export default class Operation extends React.Component<TransferOperationProps, a
       className,
       style,
     } = this.props;
-    return (
-      <div className={className} style={style}>
-        <Button
-          type="primary"
-          size="small"
-          disabled={!rightActive}
-          onClick={moveToRight}
-          icon="right"
-        >
-          {rightArrowText}
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          disabled={!leftActive}
-          onClick={moveToLeft}
-          icon="left"
-        >
-          {leftArrowText}
-        </Button>
-      </div>
-    );
+
+    if(mode === 'single'){
+      return (
+        <div className={className} style={style}>
+          {arrowText}
+        </div>
+      )
+    }else{
+      return (
+        <div className={className} style={style}>
+          <Button
+            type="primary"
+            size="small"
+            disabled={!rightActive}
+            onClick={moveToRight}
+            icon="right"
+          >
+            {rightArrowText}
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            disabled={!leftActive}
+            onClick={moveToLeft}
+            icon="left"
+          >
+            {leftArrowText}
+          </Button>
+        </div>
+      );
+    }
   }
 }
 

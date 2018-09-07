@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import PureRenderMixin from '../Checkbox/src/PureRenderMixin';
 import Checkbox from '../Checkbox';
+import Icon from '../Icon';
 import Lazyload from 'react-lazy-load';
 
 export default class Item extends React.Component<any, any> {
@@ -9,7 +10,18 @@ export default class Item extends React.Component<any, any> {
     return PureRenderMixin.shouldComponentUpdate.apply(this, args);
   }
   render() {
-    const { renderedText, renderedEl, item, lazy, checked, prefixCls, onClick } = this.props;
+    const {
+      mode,
+      direction,
+      renderedText,
+      renderedEl,
+      item,
+      lazy,
+      checked,
+      prefixCls,
+      onClick,
+      onClose
+    } = this.props;
 
     const className = classNames({
       [`${prefixCls}-content-item`]: true,
@@ -20,10 +32,18 @@ export default class Item extends React.Component<any, any> {
       <li
         className={className}
         title={renderedText}
-        onClick={item.disabled ? undefined : () => onClick(item)}
       >
-        <Checkbox checked={checked} disabled={item.disabled} />
-        <span>{renderedEl}</span>
+        <span className={`${prefixCls}-content-item-text`} onClick={item.disabled ? undefined : () => onClick(item, direction)}>
+          { mode === 'multiple' ? <Checkbox checked={checked} disabled={item.disabled} /> : null }
+          <span>{renderedEl}</span>
+        </span>
+        {
+          mode === 'single' && direction === 'right' ?
+            <span className={`${prefixCls}-content-item-close`} onClick={item.disabled ? undefined : () => onClose(item)}>
+              <Icon type="close-modal-line"/>
+            </span>
+            : null
+        }
       </li>
     );
     let children: JSX.Element | null = null;
