@@ -53,7 +53,6 @@ export default class DateRangeBasePicker extends React.Component {
       isShowTrigger: true,
       isAllowClear: true,
       isDisabled: false,
-      value: null,
       onFocus: () => {},
       onBlur: () =>{},
       onChange: () => {},

@@ -51,7 +51,6 @@ export default class BasePicker extends React.Component {
       isShowTrigger: true,
       isAllowClear: true,
       isDisabled: false,
-      value: null,
       onFocus: () => {},
       onBlur: () =>{},
       onChange: () => {},
