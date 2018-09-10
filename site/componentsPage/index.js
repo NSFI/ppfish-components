@@ -92,6 +92,7 @@ export default {
         type: 'markdown',
         name: 'PicturePreview 图片查看器',
         style: require('./picturePreview/index.less'),
+        published: true,
         props: {
           source: [
             {
@@ -128,6 +129,7 @@ export default {
       'richEditor': {
         type: 'markdown',
         name: 'RichEditor 富文本编辑器',
+        published: true,
       },
       'audioPlayer': {
         type: 'markdown',
@@ -161,6 +163,7 @@ export default {
       'breadcrumb': {
         type: 'markdown',
         name: 'Breadcrumb 面包屑',
+        published: true,
       },
       'loadMore': {
         type: 'markdown',
@@ -193,7 +196,8 @@ export default {
       },
       'cascader': {
         type: 'markdown',
-        name: 'Cascader 级联选择'
+        name: 'Cascader 级联选择',
+        published: true,
       },
       'checkbox': {
         type: 'markdown',
@@ -208,6 +212,7 @@ export default {
       'form': {
         type: 'markdown',
         name: 'Form 表单',
+        published: true,
       },
       'input': {
         type: 'markdown',
@@ -239,6 +244,7 @@ export default {
       'switch': {
         type: 'markdown',
         name: 'Switch 开关',
+        published: true,
       },
       'timePicker': {
         type: 'markdown',
@@ -261,6 +267,7 @@ export default {
       'upload': {
         type: 'markdown',
         name: 'Upload 上传',
+        published: true,
       },
     },
     '数据展示 Data Display': {
@@ -271,6 +278,7 @@ export default {
       'badge': {
         type: 'markdown',
         name: 'Badge 徽标数',
+        published: true,
       },
       // 'calendar': {
       //   type: 'markdown',
@@ -287,6 +295,7 @@ export default {
       'collapse': {
         type: 'markdown',
         name: 'Collapse 折叠面板',
+        published: true,
       },
       'drawer': {
         type: 'markdown',
@@ -300,6 +309,7 @@ export default {
       'list': {
         type: 'markdown',
         name: 'List 列表',
+        published: true,
       },
       'table': {
         type: 'markdown',
