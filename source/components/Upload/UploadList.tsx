@@ -58,6 +58,13 @@ export default class UploadList extends React.Component<UploadListProps, any> {
     }
   }
 
+  handleDeleteAll = () => {
+    const { onDeleteAll } = this.props;
+    if (onDeleteAll) {
+      onDeleteAll();
+    }
+  }
+
   handlePreview = (file: UploadFile, e: React.SyntheticEvent<HTMLElement>) => {
     const { onPreview } = this.props;
     if (!onPreview) {
@@ -220,8 +227,8 @@ export default class UploadList extends React.Component<UploadListProps, any> {
       return (
         <div className={null}>
           <div className={`${prefixCls}-list-scroll-info`}>
-            <span>ÒÑÉÏ´« {list.length} Ïî</span>
-            <span className={deleteAllCls}>È«²¿É¾³ý</span>
+            <span>å·²ä¸Šä¼  {list.length} é¡¹</span>
+            <span className={deleteAllCls} onClick={() => this.handleDeleteAll()}>å…¨éƒ¨åˆ é™¤</span>
           </div>
           <Animate
             transitionName={`${prefixCls}-${animationDirection}`}

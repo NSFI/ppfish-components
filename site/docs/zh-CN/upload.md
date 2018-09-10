@@ -134,6 +134,9 @@ render() {
         console.log(file, fileList);
       }
     },
+    onDeleteAll() {
+      console.log('delete all');
+    },
     defaultFileList: [{
       uid: 1,
       name: 'xxx.png',
@@ -151,6 +154,28 @@ render() {
       status: 'error',
       response: 'Server Error 500', // custom error message to show
       url: 'http://www.baidu.com/zzz.png',
+    }, {
+      uid: 4,
+      name: 'xxx.png',
+      status: 'done',
+      response: 'Server Error 500', // custom error message to show
+      url: 'http://www.baidu.com/xxx.png',
+    }, {
+      uid: 5,
+      name: 'yyy.png',
+      status: 'done',
+      url: 'http://www.baidu.com/yyy.png',
+    }, {
+      uid: 6,
+      name: 'xxx.png',
+      status: 'done',
+      response: 'Server Error 500', // custom error message to show
+      url: 'http://www.baidu.com/xxx.png',
+    }, {
+      uid: 7,
+      name: 'yyy.png',
+      status: 'done',
+      url: 'http://www.baidu.com/yyy.png',
     }],
   };
   return (
@@ -527,6 +552,7 @@ render(){
 | onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | () => any | - |
 | onPreview | 点击文件链接或预览图标时的回调 | (file) => any | - |
 | onRemove | 点击移除文件时的回调，返回值为 false 时不移除。支持返回一个 Promise 对象，Promise 对象 resolve(false) 或 reject 时不移除。 | (file) => `Boolean \| Promise` | - |
+| onDeleteAll | 点击全部删除时的回调 | () => any | - |
 
 ## onChange
 

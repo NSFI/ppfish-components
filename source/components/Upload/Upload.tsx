@@ -155,6 +155,20 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     });
   }
 
+  handleDeleteAll = () => {
+    this.state.fileList.forEach((file) => {
+      this.upload.abort(file);
+      file.status = 'removed'; // eslint-disable-line
+    });
+
+    this.setState({ fileList: [] });
+
+    const { onDeleteAll } = this.props;
+    if (onDeleteAll) {
+      onDeleteAll();
+    }
+  }
+
   handleManualRemove = (file: UploadFile) => {
     this.upload.abort(file);
     file.status = 'removed'; // eslint-disable-line
@@ -223,6 +237,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
         items={this.state.fileList}
         onPreview={onPreview}
         onRemove={this.handleManualRemove}
+        onDeleteAll={this.handleDeleteAll}
         showRemoveIcon={showRemoveIcon}
         showPreviewIcon={showPreviewIcon}
         maxFileCount={maxFileCount}
