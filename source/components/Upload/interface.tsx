@@ -77,6 +77,8 @@ export interface UploadProps {
   customRequest?: (option: any) => void;
   withCredentials?: boolean;
   locale?: UploadLocale;
+  maxFileCount?: number;
+  showDeleteAll?: boolean;
 }
 
 export interface UploadState {
@@ -94,4 +96,6 @@ export interface UploadListProps {
   showRemoveIcon?: boolean;
   showPreviewIcon?: boolean;
   locale: UploadLocale;
+  maxFileCount?: number;
+  showDeleteAll?: boolean;
 }

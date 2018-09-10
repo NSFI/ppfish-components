@@ -215,7 +215,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
   }
 
   renderUploadList = (locale: UploadLocale) => {
-    const { showUploadList, listType, onPreview } = this.props;
+    const { showUploadList, listType, onPreview, maxFileCount, showDeleteAll } = this.props;
     const { showRemoveIcon, showPreviewIcon } = showUploadList as any;
     return (
       <UploadList
@@ -225,6 +225,8 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
         onRemove={this.handleManualRemove}
         showRemoveIcon={showRemoveIcon}
         showPreviewIcon={showPreviewIcon}
+        maxFileCount={maxFileCount}
+        showDeleteAll={showDeleteAll}
         locale={{ ...locale, ...this.props.locale }}
       />
     );

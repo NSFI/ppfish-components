@@ -6,6 +6,8 @@ import Progress from '../Progress';
 import classNames from 'classnames';
 import { UploadListProps, UploadFile, UploadListType } from './interface';
 
+const fileListItemHeight = 30;
+
 // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
 const previewFile = (file: File, callback: Function) => {
   const reader = new FileReader();
@@ -45,6 +47,8 @@ export default class UploadList extends React.Component<UploadListProps, any> {
     prefixCls: 'fishd-upload',
     showRemoveIcon: true,
     showPreviewIcon: true,
+    maxFileCount: 5,
+    showDeleteAll: true
   };
 
   handleClose = (file: UploadFile) => {
@@ -88,7 +92,8 @@ export default class UploadList extends React.Component<UploadListProps, any> {
   }
 
   render() {
-    const { prefixCls, items = [], listType, showPreviewIcon, showRemoveIcon, locale } = this.props;
+    const { prefixCls, items = [], listType, showPreviewIcon, showRemoveIcon, locale,
+            showDeleteAll, maxFileCount } = this.props;
     const list = items.map(file => {
       let progress;
       let icon = <Icon type={file.status === 'uploading' ? 'load-line' : 'clip-line'} spin={file.status === 'uploading' ? true : false} />;
@@ -200,20 +205,44 @@ export default class UploadList extends React.Component<UploadListProps, any> {
         </div>
       );
     });
+    const showScrollbar = listType==='text' && list.length>=maxFileCount;
     const listClassNames = classNames({
       [`${prefixCls}-list`]: true,
       [`${prefixCls}-list-${listType}`]: true,
+      [`${prefixCls}-list-scroll`]: showScrollbar,
     });
-    const animationDirection =
-      listType === 'picture-card' ? 'animate-inline' : 'animate';
-    return (
-      <Animate
-        transitionName={`${prefixCls}-${animationDirection}`}
-        component="div"
-        className={listClassNames}
-      >
-        {list}
-      </Animate>
-    );
+    const animationDirection = listType === 'picture-card' ? 'animate-inline' : 'animate';
+    const deleteAllCls = classNames(`${prefixCls}-list-scroll-delete-all`, {
+      [`${prefixCls}-hide`]: !showDeleteAll
+    });
+
+    if (showScrollbar) {
+      return (
+        <div className={null}>
+          <div className={`${prefixCls}-list-scroll-info`}>
+            <span>已上传 {list.length} 项</span>
+            <span className={deleteAllCls}>全部删除</span>
+          </div>
+          <Animate
+            transitionName={`${prefixCls}-${animationDirection}`}
+            component="div"
+            className={listClassNames}
+            style={{height: fileListItemHeight * maxFileCount}}
+          >
+            {list}
+          </Animate>
+        </div>
+      );
+    } else {
+      return (
+        <Animate
+          transitionName={`${prefixCls}-${animationDirection}`}
+          component="div"
+          className={listClassNames}
+        >
+          {list}
+        </Animate>
+      );
+    }
   }
 }
