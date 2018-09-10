@@ -517,8 +517,10 @@ render(){
 | fileList | 已经上传的文件列表（受控） | Object[] | - |
 | headers | 设置上传的请求头部，IE10 以上有效 | Object | - |
 | listType | 上传列表的内建样式 | Enum {'text', 'picture', 'picture-card'} | 'text' |
-| multiple | 是否支持多选文件，IE10 以上支持。开启后按住 ctrl 可选择多个文件。 | Boolean | false |
+| maxFileCount | 文件列表可展示的最大文件数，超出该数值后将展示滚动条，当 listType 为 `text` 时有效 | Number | 5 |
+| multiple | 是否支持多选文件，IE10 以上支持。开启后按住 ctrl 可选择多个文件 | Boolean | false |
 | name | 发到后台的文件参数名 | String | 'file' |
+| showDeleteAll | 文件列表中的文件数超出 `maxFileCount` 后是否展示 `删除全部`，当 listType 为 `text` 时有效 | Boolean | true |
 | showUploadList | 是否展示 uploadList, 可设为一个对象，用于单独设定 showPreviewIcon 和 showRemoveIcon | Boolean \| { showPreviewIcon?: Boolean, showRemoveIcon?: Boolean } | true |
 | supportServerRender | 服务端渲染时需要打开这个 | Boolean | false |
 | withCredentials | 上传请求时是否携带 cookie | Boolean | false |
