@@ -46,63 +46,6 @@ render(){
 ```
 :::
 
-## 可拖动排序列表
-
-:::demo 可拖动排序列表。
-
-```js
-
-  class Demo extends React.Component{
-  state={
-    data : [
-        {
-          title: '可拖动列 1',
-        },
-        {
-          title: '可拖动列 2',
-        },
-        {
-          title: '可拖动列 3',
-        },
-        {
-          title: '可拖动列 4',
-        },
-      ]
-  }
-    onSortItems = (items) => {
-      this.setState({
-        data: items
-      },()=>{
-        console.log('newData :',this.state.data);
-      });
-    }
-  
-  render(){
-    return(
-        <List
-          itemLayout="horizontal"
-          dataSource={this.state.data}
-          renderItem={(item,i) => (
-            <List.Sortable
-                      key={i}
-                      onSortItems={this.onSortItems}
-                      items={this.state.data}
-                      sortId={i}>
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                  title={<a href="https://ant.design">{item.title}</a>}
-                  description="Fishd Design, a design language for background applications, is refined by Fishd UED Team"
-                />
-              </List.Item>
-            </List.Sortable>
-          )}
-        />
-    )
-  }
-}
-```
-:::
 
 ## 栅格列表
 
