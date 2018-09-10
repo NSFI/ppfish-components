@@ -6,7 +6,7 @@
 @tree-showline-close-icon: "\e645";
 @tree-doc-icon: "\e664";
 
-.antTreeSwitcherIcon(@type: "tree-default-open-icon") {
+.fishdTreeSwitcherIcon(@type: "tree-default-open-icon") {
   &:after {
     .iconfont-size-under-12px(8px);
     display: inline-block;
@@ -16,7 +16,7 @@
   }
 }
 
-// .antTreeShowLineIcon(@type) {
+// .fishdTreeShowLineIcon(@type) {
 //   &:after {
 //     .iconfont-size-under-12px(12px);
 //     display: inline-block;
@@ -27,7 +27,7 @@
 //   }
 // }
 
-.antCheckboxFn(@checkbox-prefix-cls: ~"@{fishd-prefix}-treeselect-tree-checkbox");
+.fishdCheckboxFn(@checkbox-prefix-cls: ~"@{fishd-prefix}-treeselect-tree-checkbox");
 
 .@{select-tree-prefix-cls}-spinning {
   line-height: 1;
@@ -115,10 +115,10 @@
           cursor: auto;
         }
         &.@{select-tree-prefix-cls}-switcher_open {
-          .antTreeSwitcherIcon();
+          .fishdTreeSwitcherIcon();
         }
         &.@{select-tree-prefix-cls}-switcher_close {
-          .antTreeSwitcherIcon();
+          .fishdTreeSwitcherIcon();
           &:after {
             transform: rotate(270deg) scale(0.59);
           }
