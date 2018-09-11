@@ -529,6 +529,8 @@ render(){
 
 > 服务端上传接口实现可以参考 [jQuery-File-Upload](https://github.com/blueimp/jQuery-File-Upload/wiki)。
 
+### Upload props
+
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | accept | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String | - |
@@ -554,7 +556,7 @@ render(){
 | onRemove | 点击移除文件时的回调，返回值为 false 时不移除。支持返回一个 Promise 对象，Promise 对象 resolve(false) 或 reject 时不移除。 | (file) => `Boolean \| Promise` | - |
 | onDeleteAll | 点击全部删除时的回调 | () => any | - |
 
-## onChange
+### onChange
 
 > 上传中、完成、失败都会调用这个函数。
 
@@ -583,14 +585,14 @@ render(){
 2. `fileList` 当前的文件列表。
 3. `event` 上传中的服务端响应内容，包含了上传进度等信息，高级浏览器支持。
 
-## 显示下载链接
+### 显示下载链接
 
 请使用 fileList 属性设置数组项的 url 属性进行展示控制。
 
-## customRequest
+### customRequest
 
 - <https://github.com/react-component/upload#customrequest>
 
-## IE note
+### IE note
 
 - <https://github.com/react-component/upload#ie89-note>
