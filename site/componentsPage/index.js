@@ -338,6 +338,7 @@ export default {
       'tree': {
         type: 'markdown',
         name: 'Tree 树形控件',
+        published: true,
       },
     },
     '操作反馈 Feedback': {
