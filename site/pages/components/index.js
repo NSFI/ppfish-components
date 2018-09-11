@@ -9,7 +9,7 @@ import components from '../../componentsPage';
 import {getPlainComponentList, getComponentDepth} from '../../utils';
 import './index.less';
 
-const isShowAllComponents = true;
+const isShowAllComponents = false;
 
 export default class Components extends React.Component {
   static propTypes = {

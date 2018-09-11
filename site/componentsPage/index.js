@@ -261,10 +261,10 @@ export default {
         name: 'TreeSelect 树选择',
         published: true,
       },
-      'treePane': {
-        type: 'markdown',
-        name: 'TreePane 树形组件 Alpha',
-      },
+      // 'treePane': {
+      //   type: 'markdown',
+      //   name: 'TreePane 树形组件 Alpha',
+      // },
       'upload': {
         type: 'markdown',
         name: 'Upload 上传',
