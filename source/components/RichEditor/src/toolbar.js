@@ -6,7 +6,7 @@ import ColorPicker from '../../ColorPicker/index.js';
 
 let genEmoji = (data) => {
   let colSize = 10,
-      resPath = 'http://ysf.space/sdk/res/portrait/emoji/',
+      resPath = '//ysf.space/sdk/res/portrait/emoji/',
       tmpObj = {},
       result = [];
 
@@ -44,13 +44,13 @@ class CustomToolbar extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     toolbar: PropTypes.array,
-    extendLinkModule: PropTypes.object
+    customLink: PropTypes.object
   };
 
   static defaultProps = {
     className: '',
     toolbar: [],
-    extendLinkModule: {}
+    customLink: {}
   };
 
   constructor(props) {
@@ -66,11 +66,13 @@ class CustomToolbar extends PureComponent {
   componentWillMount() {
     let emojiImg = new Image();
     emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
+  }
 
+  componentDidMount() {
     this.handlePanelStatus();
   }
 
-  getModuleHTML = (mType, key, extendLinkModule) => {
+  getModuleHTML = (mType, key, customLink) => {
     let mValue = null;
 
     if (typeof mType === 'object') {
@@ -80,8 +82,13 @@ class CustomToolbar extends PureComponent {
     }
 
     // 处理扩展的链接模块
-    if (mType in extendLinkModule) {
-      return <button className={'item ql-' + mType + ' custom-entry ' + extendLinkModule[mType].className} key={key}/>;
+    if (mType in customLink) {
+      let entryClass = classNames('item', {
+        [`ql-${mType}`]: !showSizePanel,
+        'custom-entry': true
+      }, customLink[mType].className);
+
+      return <button className={entryClass} key={key}/>;
     }
 
     const { showSizePanel, showEmojiPanel } = this.state;
@@ -111,11 +118,11 @@ class CustomToolbar extends PureComponent {
       case 'color':
         // value = <select className="item ql-color" key={key} />;
         value = (
-          <ColorPicker key={key} enableHistory={true} enableAlpha={false} onChange={this.handleColorChange} >
-            <div className="item custom-color">
-              <button className="ql-customColor" style={{display: 'none'}}/>
-            </div>
-          </ColorPicker>
+          <div className="item custom-color" key={key}>
+            <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onChange={this.handleColorChange.bind(this)} >
+              <button className="ql-customColor" />
+            </ColorPicker>
+          </div>
         );
         break;
       case 'align':
@@ -240,14 +247,14 @@ class CustomToolbar extends PureComponent {
     return value;
   };
 
-  genToolbar = (toolbar, extendLinkModule) => {
+  genToolbar = (toolbar, customLink) => {
     let result = [];
 
     toolbar.forEach((item, index) => {
       // 分组展示的项目
       if (item instanceof Array) {
         let grpItems = item.map((mType, subindex) => {
-          return this.getModuleHTML(mType, 'toolbar_' + index + '_sub_' + subindex, extendLinkModule);
+          return this.getModuleHTML(mType, 'toolbar_' + index + '_sub_' + subindex, customLink);
         });
 
         result.push(
@@ -257,7 +264,7 @@ class CustomToolbar extends PureComponent {
         );
       } else {  // 单个展示的项目
         result.push(
-          this.getModuleHTML(item, 'toolbar_' + index, extendLinkModule)
+          this.getModuleHTML(item, 'toolbar_' + index, customLink)
         );
       }
     });
@@ -275,8 +282,8 @@ class CustomToolbar extends PureComponent {
   };
 
   handleColorChange = ({color}) => {
-    let btn = document.querySelector('.ql-customColor');
-    btn.setAttribute("value", color);
+    let btn = this.toolbarCtner.querySelector('.ql-customColor');
+    btn.setAttribute('value', color);
     btn.click();
   };
 
@@ -309,11 +316,11 @@ class CustomToolbar extends PureComponent {
   };
 
   render() {
-    const { className, toolbar, extendLinkModule } = this.props;
+    const { className, toolbar, customLink } = this.props;
 
     return (
-      <div id="toolbar" className={className}>
-        { this.genToolbar(toolbar, extendLinkModule) }
+      <div className={className} ref={node => this.toolbarCtner = node}>
+        { this.genToolbar(toolbar, customLink) }
       </div>
     );
   }
