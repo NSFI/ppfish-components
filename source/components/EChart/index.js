@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as echarts from 'echarts';
 import debounce from 'lodash/debounce';
 import theme from './theme-prophet';
 import './map-china2';
+import 'echarts-wordcloud';
 
 /**
  * props暴露了如下参数：
@@ -37,7 +38,7 @@ export default class EChart extends Component {
    *   });
    */
   componentWillReceiveProps(nextProps) {
-    if(nextProps.option && nextProps.option != this.props.option) {
+    if (nextProps.option && nextProps.option != this.props.option) {
       this.chart.setOption(nextProps.option, nextProps.opts);
     }
   }
@@ -53,7 +54,7 @@ export default class EChart extends Component {
 
   bindEvents() {
     let events = this.props.events || {};
-    for (let [event, handler] of Object.entries(events)){
+    for (let [event, handler] of Object.entries(events)) {
       this.chart.on(event, params => {
         handler && handler(params, this.chart);
       });
@@ -86,7 +87,7 @@ export default class EChart extends Component {
       className: this.props.className,
       style: this.props.style,
     };
-    if(domProps.className) {
+    if (domProps.className) {
       className += ' ' + domProps.className;
     }
     domProps.className = className;
