@@ -547,7 +547,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| filter | 接收 `inputValue` `path` 两个参数，当 `path` 符合筛选条件时，应返回 true，反之则返回 false。 | function(inputValue, path): boolean | - |
+| filter | 接收 `inputValue` `path` 两个参数，当 `path` 符合筛选条件时，应返回 true，反之则返回 false。 | Function(inputValue, path): boolean | - |
 | matchInputWidth | 搜索结果列表是否与输入框同宽 | Boolean | - |
 | render | 用于渲染 filter 后的选项 | Function(inputValue, path): ReactNode | - |
 | sort | 用于排序 filter 后的选项 | Function(a, b, inputValue) | - |
