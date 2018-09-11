@@ -175,10 +175,11 @@ export default {
         name: 'Tabs 标签页',
         published: true,
       },
-      // 'steps': {
-      //   type: 'markdown',
-      //   name: 'Steps 步骤条',
-      // },
+      'steps': {
+        type: 'markdown',
+        name: 'Steps 步骤条',
+        published: true,
+      },
       'backTop': {
         type: 'markdown',
         name: 'backTop 回到顶部',
