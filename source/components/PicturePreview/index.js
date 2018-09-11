@@ -114,7 +114,6 @@ class PicturePreview extends Component {
     super(props);
 
     this.state = {
-      current: props.activeIndex || 0,
       show: props.visible || false,
       imgs: props.source || [],
       container: {
@@ -154,7 +153,7 @@ class PicturePreview extends Component {
     const { current, show, imgs } = this.state;
     const { activeIndex, visible, source, children } = nextProps;
 
-    if (activeIndex != current) {
+    if (activeIndex !== current) {
       this.setState({
         current: activeIndex
       }, () => {
@@ -162,7 +161,7 @@ class PicturePreview extends Component {
       });
     }
 
-    if (visible != show) {
+    if (visible !== show) {
       this.setState({
         show: visible
       });
@@ -171,7 +170,7 @@ class PicturePreview extends Component {
     if (source && source.length) {
       let sourceStr = JSON.stringify(source);
 
-      if (sourceStr != JSON.stringify(imgs)) {
+      if (sourceStr !== JSON.stringify(imgs)) {
         this.setState({
           imgs: JSON.parse(sourceStr)
         }, () => {
