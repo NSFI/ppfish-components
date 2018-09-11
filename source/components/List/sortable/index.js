@@ -13,10 +13,10 @@ class SortableItem extends React.Component {
 
   render() {
     return (
-      <div {...this.props}>
+      <div {...this.props} className="fishd-list-sortable-item">
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 

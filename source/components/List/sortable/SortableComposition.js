@@ -35,9 +35,8 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
       draggingIndex = e.currentTarget.dataset.id;
       let dt = e.dataTransfer;
       if (dt !== undefined) {
+        dt.effectAllowed = 'move';
         e.dataTransfer.setData('text', e.target.innerHTML);
-
-        //fix http://stackoverflow.com/questions/27656183/preserve-appearance-of-dragged-a-element-when-using-html5-draggable-attribute
         if (dt.setDragImage && e.currentTarget.tagName.toLowerCase() === 'a') {
           dt.setDragImage(e.target, 0, 0);
         }
@@ -59,7 +58,6 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
       let mouseBeyond;
       let {items} = this.props;
 
-
       if (flowDirection === VERTICAL) {
         mouseBeyond = isMouseBeyond(positionY, topOffset, height, moveInMiddle);
       }
@@ -67,8 +65,6 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
       if (flowDirection === HORIZONTAL) {
         mouseBeyond = isMouseBeyond(positionX, leftOffset, width, moveInMiddle);
       }
-
-      let shouldSwapItems = isMouseBeyond && indexDragged !== indexFrom;
 
       if (indexDragged !== indexFrom && mouseBeyond) {
         items = swapArrayElements(items, indexFrom, indexDragged);
