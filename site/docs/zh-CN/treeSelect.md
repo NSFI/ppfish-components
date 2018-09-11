@@ -627,7 +627,7 @@
 | dropdownStyle | 下拉菜单的样式 | Object | - |
 | editable | 选中的条目是否可编辑，多选时有效 | Boolean | true |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => ElementNode | () => document.body |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => any | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |

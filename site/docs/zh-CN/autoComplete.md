@@ -343,7 +343,7 @@
 | defaultValue | 指定默认选中的条目 | String \| String[] \| { key: String, label: String \| ReactNode } \| Array<{ key: String, label: String \| ReactNode}> | - |
 | disabled | 是否禁用 | Boolean | false |
 | filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | Boolean or (inputValue, option) => Boolean | true |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 | (triggerNode) => ElementNode | () => document.body |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 | (triggerNode) => HTMLElement | () => document.body |
 | optionLabelProp | 回填到选择框的 Option 的属性值，默认是 Option 的子元素。比如在子元素需要高亮效果时，此值可以设为 `value` | String | `children` |
 | placeholder | 输入框提示 | String | - |
 | value | 指定当前选中的条目 | String \| String[] \| { key: String, label: String \| ReactNode } \| Array<{ key: String, label: String \| ReactNode }> | - |
