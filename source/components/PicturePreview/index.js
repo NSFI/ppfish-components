@@ -219,10 +219,11 @@ class PicturePreview extends Component {
     getImageSize(this.state.image.el, (naturalWidth, naturalHeight) => {
       //计算容器的宽度
       var width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
-      if (width > CON_MAX_WIDTH)
+      if (width > CON_MAX_WIDTH) {
         width = CON_MAX_WIDTH;
-      if (width < CON_MIN_WIDTH)
+      } else if (width < CON_MIN_WIDTH) {
         width = CON_MIN_WIDTH;
+      }
 
       //计算图片的缩放比例
       // this.state.image.ratio = width / naturalWidth;
@@ -230,10 +231,11 @@ class PicturePreview extends Component {
 
       //计算容器的高度
       var height = naturalHeight * imgRatio;
-      if (height > CON_MAX_HEIGHT)
+      if (height > CON_MAX_HEIGHT) {
         height = CON_MAX_HEIGHT;
-      if (height < CON_MIN_HEIGHT)
+      } else if (height < CON_MIN_HEIGHT) {
         height = CON_MIN_HEIGHT;
+      }
 
       var css = '';
       if (!this.state.shown) {
