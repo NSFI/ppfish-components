@@ -537,43 +537,61 @@ this.state = {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| autoExpandParent | 是否自动展开父节点 | boolean | true |
-| checkable | 节点前添加 Checkbox 复选框 | boolean | false |
-| checkedKeys | （受控）选中复选框的树节点（注意：父子节点有关联，如果传入父节点key，则子节点自动选中；相应当子节点key都传入，父节点也自动选中。当设置`checkable`和`checkStrictly`，它是一个有`checked`和`halfChecked`属性的对象，并且父子节点的选中与否不再关联 | string\[] \| {checked: string\[], halfChecked: string\[]} | \[] |
-| checkStrictly | checkable状态下节点选择完全受控（父子节点选中状态不再关联） | boolean | false |
-| defaultCheckedKeys | 默认选中复选框的树节点 | string\[] | \[] |
-| defaultExpandAll | 默认展开所有树节点 | boolean | false |
-| defaultExpandedKeys | 默认展开指定的树节点 | string\[] | \[] |
-| defaultExpandParent | 默认展开父节点 | bool | true |
-| defaultSelectedKeys | 默认选中的树节点 | string\[] | \[] |
-| disabled | 将树禁用 | bool | false |
-| draggable | 设置节点可拖拽（IE>8） | boolean | false |
-| expandedKeys | （受控）展开指定的树节点 | string\[] | \[] |
-| filterTreeNode | 按需筛选树节点（高亮），返回true | function(node) | - |
-| loadData | 异步加载数据 | function(node) | - |
-| multiple | 支持点选多个节点（节点本身） | boolean | false |
-| selectedKeys | （受控）设置选中的树节点 | string\[] | - |
-| showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | boolean | false |
-| showLine | 是否展示连接线 | boolean | false |
-| onCheck | 点击复选框触发 | function(checkedKeys, e:{checked: bool, checkedNodes, node, event}) | - |
-| onDragEnd | dragend 触发时调用 | function({event, node}) | - |
-| onDragEnter | dragenter 触发时调用 | function({event, node, expandedKeys}) | - |
-| onDragLeave | dragleave 触发时调用 | function({event, node}) | - |
-| onDragOver | dragover 触发时调用 | function({event, node}) | - |
-| onDragStart | 开始拖拽时调用 | function({event, node}) | - |
-| onDrop | drop 触发时调用 | function({event, node, dragNode, dragNodesKeys}) | - |
-| onExpand | 展开/收起节点时触发 | function(expandedKeys, {expanded: bool, node}) | - |
-| onRightClick | 响应右键点击 | function({event, node}) | - |
-| onSelect | 点击树节点触发 | function(selectedKeys, e:{selected: bool, selectedNodes, node, event}) | - |
+| autoExpandParent | 是否自动展开父节点 | Boolean | true |
+| checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
+| checkedKeys | （受控）选中复选框的树节点（注意：父子节点有关联，如果传入父节点key，则子节点自动选中；相应当子节点key都传入，父节点也自动选中。当设置`checkable`和`checkStrictly`，它是一个有`checked`和`halfChecked`属性的对象，并且父子节点的选中与否不再关联 | String[] \| {checked: String[], halfChecked: String[]} | [] |
+| checkStrictly | checkable状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false |
+| defaultCheckedKeys | 默认选中复选框的树节点 | String[] | [] |
+| defaultExpandAll | 默认展开所有树节点 | Boolean | false |
+| defaultExpandedKeys | 默认展开指定的树节点 | String[] | [] |
+| defaultExpandParent | 默认展开父节点 | Boolean | true |
+| defaultSelectedKeys | 默认选中的树节点 | String[] | [] |
+| disabled | 将树禁用 | Boolean | false |
+| draggable | 设置节点可拖拽（IE8+） | Boolean | false |
+| expandedKeys | （受控）展开指定的树节点 | String[] | [] |
+| filterTreeNode | 按需筛选树节点（高亮），返回true | (node) => any | - |
+| loadData | 异步加载数据 | (node) => any | - |
+| loadedKeys | （受控）已经加载的节点，需要配合 `loadData` 使用 | String[] | [] |
+| multiple | 支持点选多个节点（节点本身） | Boolean | false |
+| selectedKeys | （受控）设置选中的树节点 | String[] | - |
+| showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
+| showLine | 是否展示连接线 | Boolean | false |
+| onCheck | 点击复选框触发 | (checkedKeys, e:{checked: Boolean, checkedNodes, node, event}) => any | - |
+| onDragEnd | dragend 触发时调用 | ({event, node}) => any | - |
+| onDragEnter | dragenter 触发时调用 | ({event, node, expandedKeys}) => any | - |
+| onDragLeave | dragleave 触发时调用 | ({event, node}) => any | - |
+| onDragOver | dragover 触发时调用 | ({event, node}) => any | - |
+| onDragStart | 开始拖拽时调用 | ({event, node}) => any | - |
+| onDrop | drop 触发时调用 | ({event, node, dragNode, dragNodesKeys}) => any | - |
+| onExpand | 展开/收起节点时触发 | (expandedKeys, {expanded: Boolean, node}) => any | - |
+| onLoad | 节点加载完毕时触发 | (loadedKeys, {event, node}) => any | - |
+| onRightClick | 响应右键点击 | ({event, node}) => any | - |
+| onSelect | 点击树节点触发 | (selectedKeys, e:{selected: Boolean, selectedNodes, node, event}) => any | - |
 
 ### TreeNode props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| disableCheckbox | 禁掉 checkbox | boolean | false |
-| disabled | 禁掉响应 | boolean | false |
-| icon | 自定义图标。可接收组件，props 为当前节点 props | ReactNode/Function(props):ReactNode | - |
-| isLeaf | 设置为叶子节点(设置了`loadData`时有效) | boolean | false |
-| key | 被树的 (default)ExpandedKeys / (default)CheckedKeys / (default)SelectedKeys 属性所用。注意：整个树范围内的所有节点的 key 值不能重复！ | string | 内部计算出的节点位置 |
-| selectable | 设置节点是否可被选中 | boolean | true |
-| title | 标题 | string\|ReactNode | '---' |
+| disableCheckbox | 禁掉 checkbox | Boolean | false |
+| disabled | 禁掉响应 | Boolean | false |
+| icon | 自定义图标。可接收组件，props 为当前节点 props | ReactNode \| Function(props):ReactNode | - |
+| isLeaf | 设置为叶子节点(设置了`loadData`时有效) | Boolean | false |
+| key | 被树的 (default)ExpandedKeys \| (default)CheckedKeys \| (default)SelectedKeys 属性所用。注意：整个树范围内的所有节点的 key 值不能重复 | String | 内部计算出的节点位置 |
+| selectable | 设置节点是否可被选中 | Boolean | true |
+| title | 标题 | String \| ReactNode | '---' |
+
+### DirectoryTree props
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| expandAction | 目录展开逻辑 | Enum {false, 'click', 'doubleClick'} | click |
+
+### 注意
+
+树节点可以有很多，在设置`checkable`时，将会花费更多的计算时间，因此我们缓存了一些计算结果（`this.treeNodesStates`）避免多次重复计算，以此提高性能。但这也带来了一些限制，当你异步加载树节点时，你需要这样渲染树：
+
+```jsx
+{this.state.treeData.length
+  ? <Tree>{this.state.treeData.map(data => <TreeNode />)}</Tree>
+  : 'loading tree'}
+```
