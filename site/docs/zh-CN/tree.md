@@ -515,11 +515,11 @@ this.state = {
         defaultExpandAll
         defaultSelectedKeys={['0-0-0']}
       >
-        <TreeNode icon={<Icon type="smile-o" />} title="parent 1" key="0-0">
-          <TreeNode icon={<Icon type="meh-o" />} title="leaf" key="0-0-0" />
+        <TreeNode icon={<Icon type="demo-grid" />} title="parent 1" key="0-0">
+          <TreeNode icon={<Icon type="demo-image" />} title="leaf" key="0-0-0" />
           <TreeNode
             icon={({ selected }) => (
-              <Icon type={selected ? 'frown' : 'frown-o'} />
+              <Icon type={selected ? 'demo-mail' : 'demo-folder'} />
             )}
             title="leaf"
             key="0-0-1"

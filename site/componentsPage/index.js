@@ -334,10 +334,10 @@ export default {
         name: 'Tooltip 文字提示',
         published: true,
       },
-      // 'tree': {
-      //   type: 'markdown',
-      //   name: 'Tree 树形控件',
-      // },
+      'tree': {
+        type: 'markdown',
+        name: 'Tree 树形控件',
+      },
     },
     '操作反馈 Feedback': {
       'alert': {

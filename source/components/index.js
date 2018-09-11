@@ -52,6 +52,7 @@ export { default as TextOverflow } from './TextOverflow';
 export { default as Timeline } from './Timeline/index.tsx';
 export { default as Tooltip } from './Tooltip/index.tsx';
 export { default as Transfer } from './Transfer/index.tsx';
+export { default as Tree } from './Tree/index.tsx';
 export { default as TreeSelect } from './TreeSelect/index.tsx';
 export { default as Upload } from './Upload/index.tsx';
 export { default as VideoViewer } from './VideoViewer';
