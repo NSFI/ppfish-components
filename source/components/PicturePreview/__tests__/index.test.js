@@ -8,30 +8,30 @@ xdescribe('<PicturePreview />', () => {
     visible: true,
     source: [
       {
-        "url": "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin",
-        "size": "382*680"
+        "src": "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin",
+        "name": "pic1"
       },
       {
-        "url": "//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf",
-        "size": "410*412"
+        "src": "//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf",
+        "name": "pic2"
       },
       {
-        "url": "//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd",
-        "size": "895*642"
+        "src": "//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd",
+        "name": "pic3"
       },
       {
-        "url": "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
-        "size": "960*600"
+        "src": "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
+        "name": "pic4"
       },
       {
-        "url": "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
-        "size": "680*320"
+        "src": "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
+        "name": "pic5"
       }
     ],
     activeIndex: 0,
     onClose: jest.fn(),
-    dots: false,
-    controller: false
+    dragable: false,
+    toolbar: false
   };
 
   beforeAll(() => {
