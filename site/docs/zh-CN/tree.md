@@ -7,7 +7,9 @@
 ## 基本
 
 :::demo 最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。
+
 ```js
+
   onSelect = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info);
   }
@@ -46,7 +48,9 @@
 ## 受控操作示例
 
 :::demo 受控操作示例
+
 ```js
+
   constructor(props){
     super(props);
     this.treeData = [{
@@ -91,6 +95,7 @@
       selectedKeys: [],
     }
   }
+
   onExpand = (expandedKeys) => {
     console.log('onExpand', expandedKeys);
     // if not set autoExpandParent to false, if children expanded, parent can not collapse.
@@ -142,7 +147,6 @@
       </Tree>
     );
   }
-
 ```
 :::
 
@@ -152,39 +156,40 @@
 :::demo 将节点拖拽到其他节点内部或前后。
 
 ```js
-constructor(props){
-  super(props);
-  this.x = 3;
-  this.y = 2;
-  this.z = 1;
-  this.gData = [];
-  this.generateData = (_level, _preKey, _tns) => {
-    const preKey = _preKey || '0';
-    const tns = _tns || this.gData;
+  constructor(props){
+    super(props);
+    this.x = 3;
+    this.y = 2;
+    this.z = 1;
+    this.gData = [];
+    this.generateData = (_level, _preKey, _tns) => {
+      const preKey = _preKey || '0';
+      const tns = _tns || this.gData;
 
-    const children = [];
-    for (let i = 0; i < this.x; i++) {
-      const key = `${preKey}-${i}`;
-      tns.push({ title: key, key });
-      if (i < this.y) {
-        children.push(key);
+      const children = [];
+      for (let i = 0; i < this.x; i++) {
+        const key = `${preKey}-${i}`;
+        tns.push({ title: key, key });
+        if (i < this.y) {
+          children.push(key);
+        }
       }
+      if (_level < 0) {
+        return tns;
+      }
+      const level = _level - 1;
+      children.forEach((key, index) => {
+        tns[index].children = [];
+        return this.generateData(level, key, tns[index].children);
+      });
+    };
+    this.generateData(this.z);
+    this.state = {
+      gData:this.gData,
+      expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
     }
-    if (_level < 0) {
-      return tns;
-    }
-    const level = _level - 1;
-    children.forEach((key, index) => {
-      tns[index].children = [];
-      return this.generateData(level, key, tns[index].children);
-    });
-  };
-  this.generateData(this.z);
-  this.state = {
-    gData:this.gData,
-    expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
   }
-}
+
   onDragEnter = (info) => {
     console.log(info);
     // expandedKeys 需要受控时设置
@@ -265,7 +270,7 @@ constructor(props){
 :::
 
 <style>
-#components-tree-demo-draggable .draggable-tree .ant-tree-node-content-wrapper {
+#components-tree-demo-draggable .draggable-tree .fishd-tree-node-content-wrapper {
   width: calc(100% - 18px);
 }
 </style>
@@ -274,8 +279,8 @@ constructor(props){
 
 :::demo 点击展开节点，动态加载数据。
 
-
 ```js
+
   constructor(props){
     super(props);
     this.state = {
@@ -286,6 +291,7 @@ constructor(props){
       ],
     }
   }
+
   onLoadData = (treeNode) => {
     return new Promise((resolve) => {
       if (treeNode.props.children) {
@@ -327,7 +333,6 @@ constructor(props){
       </Tree>
     );
   }
-
 ```
 :::
 
@@ -336,73 +341,68 @@ constructor(props){
 
 :::demo 可搜索的树。
 
-
-
 ```js
-constructor(props){
-  super(props);
-  
-  
 
-  this.x = 3;
-  this.y = 2;
-  this.z = 1;
-  this.gData = [];
-
-  this.generateData = (_level, _preKey, _tns) => {
-    const preKey = _preKey || '0';
-    const tns = _tns || this.gData;
-
-    const children = [];
-    for (let i = 0; i < this.x; i++) {
-      const key = `${preKey}-${i}`;
-      tns.push({ title: key, key });
-      if (i < this.y) {
-        children.push(key);
+  constructor(props) {
+    super(props);
+    this.x = 3;
+    this.y = 2;
+    this.z = 1;
+    this.gData = [];
+    this.generateData = (_level, _preKey, _tns) => {
+      const preKey = _preKey || '0';
+      const tns = _tns || this.gData;
+      const children = [];
+      for (let i = 0; i < this.x; i++) {
+        const key = `${preKey}-${i}`;
+        tns.push({ title: key, key });
+        if (i < this.y) {
+          children.push(key);
+        }
       }
-    }
-    if (_level < 0) {
-      return tns;
-    }
-    const level = _level - 1;
-    children.forEach((key, index) => {
-      tns[index].children = [];
-      return this.generateData(level, key, tns[index].children);
-    });
-  };
-  this.generateData(this.z);
-  this.dataList = [];
-  this.generateList = (data) => {
-    for (let i = 0; i < data.length; i++) {
-      const node = data[i];
-      const key = node.key;
-      this.dataList.push({ key, title: key });
-      if (node.children) {
-        this.generateList(node.children, node.key);
+      if (_level < 0) {
+        return tns;
       }
-    }
-  };
-  this.generateList(this.gData);
-  this.getParentKey = (key, tree) => {
-  let parentKey;
-  for (let i = 0; i < tree.length; i++) {
-    const node = tree[i];
-    if (node.children) {
-      if (node.children.some(item => item.key === key)) {
-        parentKey = node.key;
-      } else if (this.getParentKey(key, node.children)) {
-        parentKey = this.getParentKey(key, node.children);
+      const level = _level - 1;
+      children.forEach((key, index) => {
+        tns[index].children = [];
+        return this.generateData(level, key, tns[index].children);
+      });
+    };
+    this.generateData(this.z);
+    this.dataList = [];
+    this.generateList = (data) => {
+      for (let i = 0; i < data.length; i++) {
+        const node = data[i];
+        const key = node.key;
+        this.dataList.push({ key, title: key });
+        if (node.children) {
+          this.generateList(node.children, node.key);
+        }
       }
+    };
+    this.generateList(this.gData);
+    this.getParentKey = (key, tree) => {
+      let parentKey;
+      for (let i = 0; i < tree.length; i++) {
+        const node = tree[i];
+        if (node.children) {
+          if (node.children.some(item => item.key === key)) {
+            parentKey = node.key;
+          } else if (this.getParentKey(key, node.children)) {
+            parentKey = this.getParentKey(key, node.children);
+          }
+        }
+      }
+      return parentKey;
+    };
+    this.state = {
+      expandedKeys: [],
+      searchValue: '',
+      autoExpandParent: true,
     }
   }
-  return parentKey;
-};
-this.state = {
-    expandedKeys: [],
-    searchValue: '',
-    autoExpandParent: true,
-  }
-}
+
   onExpand = (expandedKeys) => {
     this.setState({
       expandedKeys,
@@ -467,10 +467,13 @@ this.state = {
 
 ## 连接线
 :::demo 带连接线的树。
+
 ````js
+
   onSelect = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info);
   }
+
   render() {
     const TreeNode = Tree.TreeNode;
     return (
@@ -499,16 +502,14 @@ this.state = {
 ```
 :::
 
-
 ## 自定义图标
 
 :::demo 可以针对不同的节点定制图标。
 
+````js
 
-
-````jsx
   render() {
-  const TreeNode = Tree.TreeNode;
+    const TreeNode = Tree.TreeNode;
     return (
       <Tree
         showIcon
@@ -530,6 +531,45 @@ this.state = {
   }
 ```
 :::
+
+## 目录
+
+:::demo 内置的目录树，`multiple` 模式支持 `ctrl(Windows)` / `command(Mac)` 复选。
+
+````js
+
+  onSelect = () => {
+    console.log('Trigger Select');
+  };
+
+  onExpand = () => {
+    console.log('Trigger Expand');
+  };
+
+  render() {
+    const DirectoryTree = Tree.DirectoryTree;
+    const TreeNode = Tree.TreeNode;
+    return (
+      <DirectoryTree
+        multiple
+        defaultExpandAll
+        onSelect={this.onSelect}
+        onExpand={this.onExpand}
+      >
+        <TreeNode title="parent 0" key="0-0">
+          <TreeNode title="leaf 0-0" key="0-0-0" isLeaf />
+          <TreeNode title="leaf 0-1" key="0-0-1" isLeaf />
+        </TreeNode>
+        <TreeNode title="parent 1" key="0-1">
+          <TreeNode title="leaf 1-0" key="0-1-0" isLeaf />
+          <TreeNode title="leaf 1-1" key="0-1-1" isLeaf />
+        </TreeNode>
+      </DirectoryTree>
+    );
+  }
+```
+:::
+
 
 ## API
 
