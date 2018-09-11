@@ -47,6 +47,7 @@ class TreeNode extends React.Component {
     disabled: PropTypes.bool,
     disableCheckbox: PropTypes.bool,
     icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    switcherIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   };
 
   static contextTypes = nodeContextTypes;
