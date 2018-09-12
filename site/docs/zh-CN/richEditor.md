@@ -12,15 +12,10 @@
 
 ```js
 
-  componentDidMount() {
-    this.editorRef.focus();
-  }
-
   render() {
     return (
       <RichEditor
-        ref={(el) => { this.editorRef = el; }}
-        value="初始内容a<br/>初始内容b"
+        value="初始内容 line1<br/>初始内容 line2"
       />
     );
   }
@@ -46,7 +41,6 @@
     return (
       <RichEditor
         toolbar={this.toolbar}
-        value="初始内容a<br/>初始内容b"
       />
     );
   }
@@ -55,7 +49,7 @@
 
 ## 定制文本链接
 
-:::demo 基本使用方式。
+:::demo 定制文本链接。
 
 ```js
 
@@ -69,7 +63,6 @@
       <RichEditor
         customLink={{'mylink': {className: 'my-link', url: '//nsfi.github.io/ppfish-components/#/home'}}}
         toolbar={this.toolbar}
-        value="初始内容a<br/>初始内容b"
       />
     );
   }

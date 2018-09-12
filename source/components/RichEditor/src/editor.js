@@ -1,6 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill, { Quill } from '../quill/index.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CustomToolbar from './toolbar.js';
@@ -95,7 +95,7 @@ class RichEditor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value != this.state.value) {
+    if (nextProps.value !== this.state.value) {
       this.setState({
         value: nextProps.value
       });
