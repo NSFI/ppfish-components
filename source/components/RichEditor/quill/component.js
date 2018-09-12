@@ -217,7 +217,8 @@ var QuillComponent = createClass({
 	},
 
 	componentWillUnmount: function() {
-		var editor; if ((editor = this.getEditor())) {
+		var editor; 
+		if ((editor = this.getEditor())) {
 			this.unhookEditor(editor);
 			this.editor = null;
 		}
@@ -272,7 +273,7 @@ var QuillComponent = createClass({
 			modules:      this.props.modules,
 			placeholder:  this.props.placeholder,
 			readOnly:     this.props.readOnly,
-      			scrollingContainer: this.props.scrollingContainer,
+			scrollingContainer: this.props.scrollingContainer,
 			tabIndex:     this.props.tabIndex,
 			theme:        this.props.theme,
 		};

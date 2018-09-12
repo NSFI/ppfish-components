@@ -16,14 +16,19 @@ Quill.register(EntryBlot);
 class RichEditor extends Component {
   static propTypes = {
     className: PropTypes.string,
+    customLink: PropTypes.object,
+    defaultValue: PropTypes.string,
     toolbar: PropTypes.array,
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
+    onChangeSelection: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    customLink: PropTypes.object
+    onKeyPress: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onKeyUp: PropTypes.func,
   };
 
   static defaultProps = {
@@ -36,10 +41,7 @@ class RichEditor extends Component {
       [{'list': 'ordered'}, {'list': 'bullet'}],
       ['emoji'], ['image'], ['size'], ['clean']
     ],
-    value: '',
-    onChange: () => {},
-    onFocus: () => {},
-    onBlur: () => {}
+    value: ''
   };
 
   constructor(props) {
@@ -117,8 +119,10 @@ class RichEditor extends Component {
   render() {
     const { value, toolbarCtner } = this.state;
     const {
-      className, prefixCls, toolbar, placeholder, customLink,
-      onChange, onFocus, onBlur
+      className, prefixCls,
+      value: propsValue,
+      toolbar, placeholder,
+      customLink, ...restProps
     } = this.props;
     const cls = classNames({
       [`${prefixCls}`]: true
@@ -143,9 +147,7 @@ class RichEditor extends Component {
           }}
           value={value}
           placeholder={placeholder}
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
+          {...restProps}
         />
       </div>
     );

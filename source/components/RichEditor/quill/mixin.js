@@ -10,10 +10,14 @@ var QuillMixin = {
 	*/
 	createEditor: function($el, config) {
 		var editor = new Quill($el, config);
+		editor.getHTML = function(){ return editor.root.innerHTML };
+
 		if (config.tabIndex !== undefined) {
 			this.setEditorTabIndex(editor, config.tabIndex);
 		}
+
 		this.hookEditor(editor);
+
 		return editor;
 	},
 
