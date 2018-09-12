@@ -112,7 +112,7 @@ Open your browser and visit http://127.0.0.1:5000
 ├── README.md                         # readme
 ├── tsconfig.json                     # TypeScript配置文件
 └── webpack.config.dev.site.js        # 文档网站本地开发编译配置
-└── webpack.config.prod.conponents.js # 组件源码生产环境编译配置
+└── webpack.config.prod.components.js # 组件源码生产环境编译配置
 └── webpack.config.prod.site.js       # 文档网站生产环境编译配置
 ```
 
