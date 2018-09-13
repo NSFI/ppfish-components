@@ -262,7 +262,7 @@ export default class DateRangeBasePicker extends React.Component {
     };
 
     const triggerClass = () => {
-      return this.type.includes('time') ? 'time-line' : 'date-line';
+      return this.type.includes('date') || this.type.includes('week') ? 'date-line' : 'time-line';
     };
 
     // 前缀图标
