@@ -37,7 +37,6 @@ render() {
     <Breadcrumb>
       <Breadcrumb.Item href="">
         <Icon type="demo-grid" />
-        <span>Home</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item href="">
         <Icon type="demo-pie" />

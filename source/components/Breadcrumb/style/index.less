@@ -11,11 +11,16 @@
     font-size: @breadcrumb-icon-font-size;
   }
 
+  & > span {
+    display: inline-flex;
+  }
+
   a {
     color: @breadcrumb-link-color;
-    transition: color 0.3s;
+    // transition: color 0.3s;
+
     &:hover {
-      color: @breadcrumb-link-color-hover;
+      color: @primary-color;
     }
   }
 
@@ -33,6 +38,16 @@
   }
 
   &-link {
+    max-width: 70px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:hover {
+      max-width: none;
+    }
+
     > .@{iconfont-prefix} + span {
       margin-left: 4px;
     }
