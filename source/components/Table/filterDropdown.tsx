@@ -223,16 +223,16 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
         </Menu>
         <div className={`${prefixCls}-dropdown-btns`}>
           <a
-            className={`${prefixCls}-dropdown-link confirm`}
-            onClick={this.handleConfirm}
-          >
-            {locale.filterConfirm}
-          </a>
-          <a
             className={`${prefixCls}-dropdown-link clear`}
             onClick={this.handleClearFilters}
           >
             {locale.filterReset}
+          </a>
+          <a
+            className={`${prefixCls}-dropdown-link confirm`}
+            onClick={this.handleConfirm}
+          >
+            {locale.filterConfirm}
           </a>
         </div>
       </FilterDropdownMenuWrapper>
