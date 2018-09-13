@@ -221,14 +221,54 @@ render() {
 ```
 :::
 
-## 附加內容
+## 品牌调性
 
-:::demo 可以在进度条末端添加附加內容，`type="line"` 时有效。
+:::demo 可以在进度条末端添加品牌 logo 或其他形象，`type="line"` 时有效。
 
 ```js
 render() {
   return (
-    <Progress type="line" percent={65} extraContent={<Icon type="demo-like" />}/>
+    <Progress
+      type="line"
+      percent={65}
+      extraContent={<Icon type="demo-like" style={{color: '#50E3C2'}}/>}
+    />
+  );
+}
+```
+:::
+
+## 显示辅助信息
+
+:::demo 显示辅助信息，如上传成功、网络错误等。
+
+```js
+render() {
+  return (
+    <div>
+      <Progress percent={70} status="exception" message="网络错误" />
+      <Progress percent={100} message="上传成功" />
+      <Progress type="circle" percent={70} status="exception"  message="网络错误" />
+      <Progress type="circle" percent={100} message="上传成功" />
+    </div>
+  );
+}
+```
+:::
+
+## 提供操作按钮
+
+:::demo 显示辅助信息，如上传成功、网络错误等。
+
+```js
+render() {
+  return (
+    <div>
+      <Progress percent={30} operation={<Button size="small">取消</Button>} />
+      <Progress percent={70} status="exception" operation={<Button size="small">重试</Button>} />
+      <Progress type="circle" percent={30} operation={<Button size="small">取消</Button>} />
+      <Progress type="circle" percent={70} status="exception" operation={<Button size="small">重试</Button>} />
+    </div>
   );
 }
 ```
@@ -239,15 +279,18 @@ render() {
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 容器类名 | String | - |
-| extraContent | Progress bar 上额外的元素，`type="line"` 时有效 | ReactNode | - |
+| extraContent | 进度条末端额外的元素，`type="line"` 时有效 | ReactNode | - |
 | format | 内容的模板函数 | (percent, successPercent) => any | `percent => percent + '%'` |
-| gapDegree | 圆形进度条缺口角度，可取值 0 ~ 360，`type="circle"` 时有效 | Number | 0 |
-| gapPosition | 圆形进度条缺口位置，`type="circle"` 时有效 | Enum { 'top', 'bottom', 'left', 'right' } | 'top' |
+| gapDegree | 进度圈缺口角度，可取值 0 ~ 360，`type="circle"` 时有效 | Number | 0 |
+| gapPosition | 进度圈缺口位置，`type="circle"` 时有效 | Enum { 'top', 'bottom', 'left', 'right' } | 'top' |
+| message | 进度条的辅助信息 | String | - |
+| operation(`type="line"`) | 进度条右侧额外的元素 | ReactNode | - |
+| operation(`type="circle"`) | 进度圈下方额外的元素 | ReactNode | - |
 | percent | 百分比 | Number | 0 |
 | showInfo | 是否显示进度数值或状态图标 | Boolean | true |
 | status | 状态 | Enum { 'success', 'exception', 'active' } | - |
-| strokeWidth | 进度条线的宽度，单位 px，`type="line"` 时有效 | Number | 10 |
-| strokeWidth | 圆形进度条线的宽度，单位是进度条画布宽度的百分比，`type="circle"` 时有效 | Number | 6 |
+| strokeWidth(`type="line"`) | `type="line"` 时为进度条线的宽度，单位 px | Number | 10 |
+| strokeWidth(`type="circle"`) | 进度圈线的宽度，单位是进度条画布宽度的百分比 | Number | 6 |
 | successPercent | 已完成的分段百分比，`type="line"` 时有效 | Number | 0 |
 | type | 类型 | Enum { 'line', 'circle', 'dashboard' } | 'line' |
-| width | 圆形进度条画布宽度，单位 px，`type="circle"` 时有效 | Number | 132 |
+| width | 进度圈的画布宽度，单位 px，`type="circle"` 时有效 | Number | 132 |
