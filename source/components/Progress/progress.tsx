@@ -17,7 +17,9 @@ export type ProgressSize = 'default' | 'small';
 export interface ProgressProps {
   prefixCls?: string;
   className?: string;
+  message?: string;
   extraContent?: React.ReactNode | null;
+  operation?: React.ReactNode | null;
   type?: ProgressType;
   percent?: number;
   successPercent?: number;
@@ -77,7 +79,7 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     const {
       prefixCls, className, percent = 0, status, format, trailColor, size, successPercent,
       type, strokeWidth, width, showInfo, gapDegree = 0, gapPosition, strokeColor, strokeLinecap = 'round',
-      extraContent, ...restProps
+      extraContent, message, operation, ...restProps
     } = props;
     const progressStatus = parseInt((successPercent ? successPercent.toString() : percent.toString()), 10) >= 100 &&
     !('status' in props) ? 'success' : (status || 'normal');
@@ -113,17 +115,22 @@ export default class Progress extends React.Component<ProgressProps, {}> {
       const successSegment = successPercent !== undefined
         ? <div className={`${prefixCls}-success-bg`} style={successPercentStyle} />
         : null;
+
       progress = (
-        <div>
-          <div className={`${prefixCls}-outer`}>
-            <div className={`${prefixCls}-inner`}>
-              <div className={`${prefixCls}-bg`} style={percentStyle}>
-                { extraContent ? <div className={`${prefixCls}-extra`}>{extraContent}</div> : null }
+        <div className={`${prefixCls}-line-ctner`}>
+          <div className={`${prefixCls}-basic`}>
+            <div className={`${prefixCls}-outer`}>
+              <div className={`${prefixCls}-inner`}>
+                <div className={`${prefixCls}-bg`} style={percentStyle}>
+                  { extraContent ? <div className={`${prefixCls}-extra`}>{extraContent}</div> : null }
+                </div>
+                {successSegment}
               </div>
-              {successSegment}
             </div>
+            {progressInfo}
           </div>
-          {progressInfo}
+          { message ? <span className={`${prefixCls}-msg`}>{message}</span> : null }
+          { operation ? <span className={`${prefixCls}-oper`}>{operation}</span> : null }
         </div>
       );
     } else if (type === 'circle' || type === 'dashboard') {

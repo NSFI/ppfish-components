@@ -7,14 +7,24 @@
   display: inline-block;
 
   &-line {
+    position: relative;
     width: 100%;
     font-size: @font-size-base;
-    position: relative;
   }
 
   &-small&-line,
-  &-small&-line &-text .@{iconfont-prefix} {
+  &-small&-line &-text .@{iconfont-prefix},
+  &-small&-line &-msg .@{iconfont-prefix} {
     font-size: @font-size-sm;
+  }
+
+  &-line-ctner {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  &-basic {
+    flex: 1;
   }
 
   &-outer {
@@ -90,6 +100,28 @@
     }
   }
 
+  &-msg {
+    font-size: 1em;
+    margin-left: 8px;
+    display: inline-block;
+    color: @text-color-secondary;
+
+    .@{iconfont-prefix} {
+      font-size: @font-size-base;
+    }
+  }
+
+  &-oper {
+    font-size: 1em;
+    margin-left: 8px;
+    display: inline-block;
+    // color: @primary-color;
+
+    .@{iconfont-prefix} {
+      font-size: @font-size-base;
+    }
+  }
+
   &-status-active {
     .@{progress-prefix-cls}-bg:before {
       content: "";
@@ -109,7 +141,8 @@
     .@{progress-prefix-cls}-bg {
       background-color: @error-color;
     }
-    .@{progress-prefix-cls}-text {
+    .@{progress-prefix-cls}-text,
+    .@{progress-prefix-cls}-msg {
       color: @error-color;
     }
     .@{progress-prefix-cls}-circle-path {
@@ -121,7 +154,8 @@
     .@{progress-prefix-cls}-bg {
       background-color: @success-color;
     }
-    .@{progress-prefix-cls}-text {
+    .@{progress-prefix-cls}-text,
+    .@{progress-prefix-cls}-msg {
       color: @success-color;
     }
     .@{progress-prefix-cls}-circle-path {
@@ -135,7 +169,8 @@
     background-color: transparent;
   }
 
-  &-circle &-text {
+  &-circle &-text,
+  &-circle &-msg {
     display: block;
     position: absolute;
     width: 100%;
@@ -153,12 +188,14 @@
   }
 
   &-circle&-status-exception {
-    .@{progress-prefix-cls}-text {
+    .@{progress-prefix-cls}-text,
+    .@{progress-prefix-cls}-msg {
       color: @error-color;
     }
   }
   &-circle&-status-success {
-    .@{progress-prefix-cls}-text {
+    .@{progress-prefix-cls}-text,
+    .@{progress-prefix-cls}-msg {
       color: @success-color;
     }
   }
