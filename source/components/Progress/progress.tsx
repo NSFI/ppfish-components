@@ -156,7 +156,10 @@ export default class Progress extends React.Component<ProgressProps, {}> {
             gapDegree={gapDeg}
             gapPosition={gapPos}
           />
-          {progressInfo}
+          <div className={`${prefixCls}-circle-info`}>
+            {progressInfo}
+            { message ? <span className={`${prefixCls}-msg`}>{message}</span> : null }
+          </div>
         </div>
       );
     }
@@ -171,6 +174,11 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     return (
       <div {...restProps} className={classString}>
         {progress}
+        { 
+          (type === 'circle' || type === 'dashboard') && operation 
+          ? <span className={`${prefixCls}-oper`}>{operation}</span>
+          : null
+        }
       </div>
     );
   }
