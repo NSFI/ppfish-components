@@ -254,7 +254,7 @@ export default class BasePicker extends React.Component {
     const { pickerVisible, value, text } = this.state;
 
     const triggerClass = () => {
-      return this.type.includes('time') ? 'time-line' : 'date-line';
+      return this.type.includes('date') || this.type.includes('week') ? 'date-line' : 'time-line';
     };
 
     const calcIsShowTrigger = () => {
