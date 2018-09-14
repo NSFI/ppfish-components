@@ -425,10 +425,11 @@ export default class Select extends React.Component {
   };
 
   //判断是否全选
-  isSelectAll = (isMultiple = false) => {
+  isSelectAll = (countSelectValueForMultiplePanel = false) => {
     const {selectValueForMultiplePanel, selectValue} = this.state;
     const optionList = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
-    const selectedList = isMultiple ? selectValueForMultiplePanel : selectValue;
+    // 全选判断来源是 ：false-下拉面板内容区，true-显示面板内容区
+    const selectedList = countSelectValueForMultiplePanel ? selectValueForMultiplePanel : selectValue;
     //全选判断逻辑：option中每一项都能在seleced中找到（兼容后端搜索的全选判断）
     return optionList.every(selected => {
       return !!selectedList.find(option => option.key === selected.key);
