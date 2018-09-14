@@ -43,12 +43,14 @@ let emojiHTML = genEmoji(emojiList);
 class CustomToolbar extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    iconPrefix: PropTypes.string,
     toolbar: PropTypes.array,
     customLink: PropTypes.object
   };
 
   static defaultProps = {
     className: '',
+    iconPrefix: 'fishdicon',
     toolbar: [],
     customLink: {}
   };
@@ -74,6 +76,7 @@ class CustomToolbar extends PureComponent {
 
   getModuleHTML = (mType, key, customLink) => {
     let mValue = null;
+    let { iconPrefix } = this.props;
 
     if (typeof mType === 'object') {
       let obj = mType;
@@ -92,14 +95,6 @@ class CustomToolbar extends PureComponent {
     }
 
     const { showSizePanel, showEmojiPanel } = this.state;
-    let sizePanelClass = classNames({
-      'hide': !showSizePanel,
-      'custom-size-panel': true
-    });
-    let emojiPanelClass = classNames({
-      'hide': !showEmojiPanel,
-      'custom-emoji-panel': true
-    });
     let value = null;
 
     switch(mType) {
@@ -146,9 +141,14 @@ class CustomToolbar extends PureComponent {
         value = <button type="button" className="item ql-list" value={mValue} key={key}/>;
         break;
       case 'emoji':
+        const emojiPanelCls = classNames({
+          'hide': !showEmojiPanel,
+          'custom-emoji-panel': true
+        });
+
         value = (
           <div className="item custom-emoji iconfont icon-emoticon-smile" key={key} onClick={this.toggleEmojiPanel}>
-            <div className={emojiPanelClass} >
+            <div className={emojiPanelCls} >
               <div className="custom-emoji-con">
                 { emojiHTML }
               </div>
@@ -161,10 +161,19 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-image" key={key}/>;
         break;
       case 'size':
+        const sizeCls = classNames('item custom-size', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-size`]: true
+        });
+        const sizePanelCls = classNames({
+          'hide': !showSizePanel,
+          'custom-size-panel': true
+        });
+
         if (mValue instanceof Array && mValue.length) {
           value = (
-            <div className="item custom-size iconfont icon-FontSize" key={key} onClick={this.toggleSizePanel}>
-              <div className={sizePanelClass}>
+            <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
+              <div className={sizePanelCls}>
                 {
                   mValue.map((val, idx) => {
                     return (
@@ -183,8 +192,8 @@ class CustomToolbar extends PureComponent {
           );
         } else {
           value = (
-            <div className="item custom-size iconfont icon-FontSize" key={key} onClick={this.toggleSizePanel}>
-              <div className={sizePanelClass}>
+            <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
+              <div className={sizePanelCls}>
                 <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
                 <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
                 <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
