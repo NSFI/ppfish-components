@@ -5,8 +5,7 @@ import {enquireScreen, unenquireScreen} from 'enquire-js';
 import {Scrollbars} from 'react-custom-scrollbars';
 import Layout from '../common/layout';
 import locales from '../../locales';
-import components from '../../componentsPage';
-import {getPlainComponentList, getComponentDepth} from '../../utils';
+import {components, plainComponents} from '../../componentsPage';
 import './index.less';
 
 const isShowAllComponents = true;
@@ -19,7 +18,7 @@ export default class Components extends React.Component {
 
   constructor(props) {
     super(props);
-    this.plainComponentList = getPlainComponentList().filter(component => isShowAllComponents || component.published);
+    this.plainComponentList = plainComponents.filter(component => isShowAllComponents || component.published);
     let isMobile = false;
     enquireScreen((b) => {
       isMobile = b;
@@ -97,20 +96,54 @@ export default class Components extends React.Component {
           mode="inline"
         >
           {
-            Object.keys(components).map(key => {
-              const depth = getComponentDepth(components[key]);
-              //两层菜单
-              if (depth === 1) {
-                const menuList = Object.keys(components[key])
-                  .filter(page => isShowAllComponents || components[key][page].published)
-                  .map(page => ({
-                    key: page,
-                    href: `#/components/${page}`,
-                    title: components[key][page].name,
+            Object.keys(components).map(type => {
+              const typeList = components[type];
+              if (typeList && typeList.every(componentsList => componentsList.children)) {
+                const menuList = typeList.map(typeListItem => {
+                  return {
+                    title: typeListItem.key,
+                    children: typeListItem.children
+                      .filter(components => isShowAllComponents || components.published)
+                      .map(component => ({
+                        key: component.key,
+                        href: `/#/components/${component.key}`,
+                        title: component.name,
+                      }))
+                  };
+                });
+                return (
+                  menuList.length &&
+                  <SubMenu key={this.getLocale(`misc.${type}`)} title={this.getLocale(`misc.${type}`)}>
+                    {
+                      menuList.map(subMenu => (
+                        <Menu.ItemGroup key={subMenu.title} title={subMenu.title} disabled={false}>
+                          {
+                            subMenu.children.map(component => {
+                              return (
+                                <Menu.Item key={component.key}>
+                                  <a href={component.href}>{component.title}</a>
+                                </Menu.Item>
+                              );
+                            })
+                          }
+                        </Menu.ItemGroup>
+                      ))
+                    }
+                  </SubMenu>
+                );
+              }
+              else {
+                //二级菜单
+                const menuList = typeList
+                  .filter(components => isShowAllComponents || components.published)
+                  .map(components => ({
+                    key: components.key,
+                    href: `#/components/${components.key}`,
+                    title: components.name,
                   }));
                 return (
                   menuList.length &&
-                  <SubMenu key={this.getLocale(`misc.${key}`)} title={this.getLocale(`misc.${key}`)}>
+                  <SubMenu key={this.getLocale(`misc.${type}`)} title={this.getLocale(`misc.${type}`)}>
                     {
                       menuList.map(component => {
                         return (
@@ -118,40 +151,6 @@ export default class Components extends React.Component {
                             <a href={component.href}>{component.title}</a>
                           </Menu.Item>
                         );
-                      })
-                    }
-                  </SubMenu>
-                );
-              } else if (depth === 2) {
-                //三层菜单
-                const menuList = Object.keys(components[key])
-                  .map(group => ({
-                    title: group,
-                    components: Object.keys(components[key][group])
-                      .filter(page => isShowAllComponents || components[key][group][page].published)
-                      .map(page => ({
-                        key: page,
-                        href: `#/components/${page}`,
-                        title: components[key][group][page].name,
-                      }))
-                  }));
-                return (
-                  menuList.length &&
-                  <SubMenu key={this.getLocale(`misc.${key}`)} title={this.getLocale(`misc.${key}`)}>
-                    {
-                      menuList.map(subMenu => {
-                        return subMenu.components.length &&
-                          <Menu.ItemGroup key={subMenu.title} title={subMenu.title} disabled={false}>
-                            {
-                              subMenu.components.map(component => {
-                                return (
-                                  <Menu.Item key={component.key}>
-                                    <a href={component.href}>{component.title}</a>
-                                  </Menu.Item>
-                                );
-                              })
-                            }
-                          </Menu.ItemGroup>;
                       })
                     }
                   </SubMenu>
@@ -190,16 +189,16 @@ export default class Components extends React.Component {
                   <Col span={12} className="prev-page">
                     {
                       prevLink &&
-                      <a href={prevLink.url}>
-                        <Icon type="left" className="prev-page-icon"/>{prevLink.value.name}
+                      <a href={`/#/components/${prevLink.key}`}>
+                        <Icon type="left" className="prev-page-icon"/>{prevLink.name}
                       </a>
                     }
                   </Col>
                   <Col span={12} className="next-page">
                     {
                       nextLink &&
-                      <a href={nextLink.url}>
-                        {nextLink.value.name}<Icon type="right" className="next-page-icon"/>
+                      <a href={`/#/components/${nextLink.key}`}>
+                        {nextLink.name}<Icon type="right" className="next-page-icon"/>
                       </a>
                     }
                   </Col>

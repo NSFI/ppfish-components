@@ -1,29 +1,27 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import {Spin} from '../../../source/components';
-import {getPlainComponentList} from "../../utils";
-
-const plainComponentList = getPlainComponentList();
+import {plainComponents} from '../../componentsPage';
 
 export default Loadable({
   loader: () => import('../../../libs/markdown/index').then(object => object.default),
   render(Markdown, props) {
-    const menuItem = plainComponentList.find(itm => itm.key === props.params.demo);
+    const menuItem = plainComponents.find(itm => itm.key === props.params.demo);
     if (menuItem || !props.params.demo) {
       //import react/demo
-      if (menuItem && menuItem.value.type === 'react') {
-        const Demo = menuItem.value.component.default;
+      if (menuItem && menuItem.type === 'react') {
+        const Demo = menuItem.component.default;
         return <div><Demo {...props}/></div>;
       } else {
         class Demo extends Markdown {
-          static defaultProps = menuItem && menuItem.value.props ? menuItem.value.props : {};
+          static defaultProps = menuItem && menuItem.props ? menuItem.props : {};
 
           document() {
             let markdown;
             try {
               markdown = require(`../../docs/zh-CN/${props.params.demo}.md`);
             } catch (e) {
-              markdown = require(`../../docs/zh-CN/${plainComponentList[0].key}.md`);
+              markdown = require(`../../docs/zh-CN/quickStart.md`);
             }
             return markdown;
           }
