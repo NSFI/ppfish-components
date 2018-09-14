@@ -4,7 +4,7 @@
 
 ## 何时使用
 
-适用于有富文本编辑需求的场景，如设置链接、格式化字体、插入图片、插入表情等。
+当用户对于信息内容及内容的格式有更复杂的要求时，使用富文本编辑器进行内容编辑。
 
 ## 基本使用
 
@@ -35,6 +35,47 @@
 ```
 :::
 
+## 定制超链接
+
+:::demo 定制超链接。
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['mylink']];
+  }
+
+  render() {
+    return (
+      <RichEditor
+        customLink={{'mylink': {className: 'my-link', url: '//nsfi.github.io/ppfish-components/#/home'}}}
+        toolbar={this.toolbar}
+      />
+    );
+  }
+```
+:::
+
+## 轻量版
+
+:::demo 轻量版。
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean']];
+  }
+
+  render() {
+    return (
+      <RichEditor toolbar={this.toolbar} />
+    );
+  }
+```
+:::
+
 ## 完整版
 
 :::demo 完整版。
@@ -53,28 +94,6 @@
   render() {
     return (
       <RichEditor
-        toolbar={this.toolbar}
-      />
-    );
-  }
-```
-:::
-
-## 定制文本链接
-
-:::demo 定制文本链接。
-
-```js
-
-  constructor(props) {
-    super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['color'], ['align'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean'], ['mylink']];
-  }
-
-  render() {
-    return (
-      <RichEditor
-        customLink={{'mylink': {className: 'my-link', url: '//nsfi.github.io/ppfish-components/#/home'}}}
         toolbar={this.toolbar}
       />
     );

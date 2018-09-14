@@ -37,9 +37,9 @@ class RichEditor extends Component {
     prefixCls: 'fishd-richeditor',
     toolbar: [
       ['link', 'bold', 'italic', 'underline'],
-      ['color'], ['align'],
+      ['size'], ['color'], ['align'],
       [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['emoji'], ['image'], ['size'], ['clean']
+      ['emoji'], ['image'], ['clean']
     ],
     value: ''
   };

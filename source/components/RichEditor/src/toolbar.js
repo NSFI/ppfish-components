@@ -116,14 +116,14 @@ class CustomToolbar extends PureComponent {
         value = <button className="item ql-underline" key={key}/>;
         break;
       case 'color':
-        // value = <select className="item ql-color" key={key} />;
-        value = (
-          <div className="item custom-color" key={key}>
-            <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onChange={this.handleColorChange.bind(this)} >
-              <button className="ql-customColor" />
-            </ColorPicker>
-          </div>
-        );
+        value = <select className="item ql-color" key={key} />;
+        // value = (
+        //   <div className="item custom-color" key={key}>
+        //     <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onClose={this.handleColorSelect.bind(this)} >
+        //       <button className="ql-customColor" />
+        //     </ColorPicker>
+        //   </div>
+        // );
         break;
       case 'align':
         if (mValue instanceof Array && mValue.length) {
@@ -281,11 +281,11 @@ class CustomToolbar extends PureComponent {
     }, false);
   };
 
-  handleColorChange = ({color}) => {
-    let btn = this.toolbarCtner.querySelector('.ql-customColor');
-    btn.setAttribute('value', color);
-    btn.click();
-  };
+  // handleColorSelect = ({color}) => {
+  //   let btn = this.toolbarCtner.querySelector('.ql-customColor');
+  //   btn.setAttribute('value', color);
+  //   btn.click();
+  // };
 
   toggleSizePanel = (e) => {
     let clsVal = e.target.classList.value;
