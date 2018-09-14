@@ -301,6 +301,7 @@ export default {
       'drawer': {
         type: 'markdown',
         name: 'Drawer 抽屉',
+        published: true,
       },
       'echarts': {
         type: 'markdown',

@@ -15,6 +15,17 @@ export default class Layout extends React.Component {
     hideFooter: false
   };
 
+  static loadSDK(callback) {
+    // algolia：https://community.algolia.com/docsearch/documentation/docsearch-FAQ/customize-configuration-file/
+    // algolia doc search配置文件：https://github.com/algolia/docsearch-configs/blob/master/configs/ppfish.json
+    const e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.async = false;
+    e.src = '//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
+    e.onload = callback;
+    document.head.appendChild(e);
+  }
+
   constructor(props) {
     super(props);
   }
@@ -54,19 +65,8 @@ export default class Layout extends React.Component {
     setHighlight(menuItems, HIGHLIGHT_CLS);
   }
 
-  loadSDK(callback) {
-    // algolia：https://community.algolia.com/docsearch/documentation/docsearch-FAQ/customize-configuration-file/
-    // algolia doc search配置文件：https://github.com/algolia/docsearch-configs/blob/master/configs/ppfish.json
-    const e = document.createElement('script');
-    e.type = 'text/javascript';
-    e.async = false;
-    e.src = '//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
-    e.onload = callback;
-    document.head.appendChild(e);
-  }
-
   initSearchBox() {
-    this.loadSDK(() => {
+    Layout.loadSDK(() => {
       window.docsearch({
         apiKey: 'ddba94e7e0f7ae0fee63b1645548fc00',
         indexName: 'ppfish',
