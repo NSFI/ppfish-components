@@ -178,8 +178,11 @@ class CustomToolbar extends PureComponent {
         );
         break;
       case 'image':
-        // value = <button className="item ql-image iconfont icon-picture" key={key}/>;
-        value = <button className="item ql-image" key={key}/>;
+        const imageCls = classNames('item ql-image', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-picture`]: true
+        });
+        value = <button className={imageCls} key={key}/>;
         break;
       case 'size':
         const sizeCls = classNames('item custom-size', {
