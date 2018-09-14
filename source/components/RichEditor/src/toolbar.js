@@ -139,7 +139,20 @@ class CustomToolbar extends PureComponent {
         break;
       case 'align':
         if (typeof mValue === 'string') {
-          value = <button type="button" className="item ql-align" value={mValue} key={key}/>;
+          let alignIconType = 'richeditor-align-lef';
+          if (mValue == 'right') {
+            alignIconType = 'richeditor-align-rig';
+          } else if (mValue == 'center') {
+            alignIconType = 'richeditor-align-mid';
+          } else if (mValue == 'justify') {
+            alignIconType = 'richeditor-align-all';
+          }
+
+          const alignCls = classNames('item ql-align', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-${alignIconType}`]: true
+          });
+          value = <button type="button" className={alignCls} value={mValue} key={key}/>;
         } else if (mValue instanceof Array && mValue.length) {
           value = (
             <select className="item ql-align" key={key}>
@@ -157,10 +170,10 @@ class CustomToolbar extends PureComponent {
 
         break;
       case 'list':
-        const iconName = mValue == 'ordered' ? 'richeditor-numberlis' : 'richeditor-list';
+        const listIconType = mValue == 'ordered' ? 'richeditor-numberlis' : 'richeditor-list';
         const listCls = classNames('item ql-list', {
           [`${iconPrefix}`]: true,
-          [`${iconPrefix}-${iconName}`]: true
+          [`${iconPrefix}-${listIconType}`]: true
         });
 
         value = <button type="button" className={listCls} value={mValue} key={key}/>;
