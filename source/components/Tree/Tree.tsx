@@ -170,7 +170,7 @@ export default class Tree extends React.Component<TreeProps, any> {
       if (isLeaf) {
         return (
           <Icon
-            type="file"
+            type="file-line"
             className={`${prefixCls}-switcher-line-icon`}
           />
         );

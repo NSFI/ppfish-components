@@ -25,9 +25,9 @@ export interface DirectoryTreeState {
 function getIcon(props: FishdTreeNodeAttribute): React.ReactNode {
   const { isLeaf, expanded } = props;
   if (isLeaf) {
-    return <Icon type="file" />;
+    return <Icon type="file-line" />;
   }
-  return <Icon type={expanded ? 'folder-open' : 'folder'} />;
+  return <Icon type={expanded ? 'folder-open-line' : 'folder-close-line'} />;
 }
 
 export default class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeState> {
