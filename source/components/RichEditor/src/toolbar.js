@@ -155,7 +155,13 @@ class CustomToolbar extends PureComponent {
 
         break;
       case 'list':
-        value = <button type="button" className="item ql-list" value={mValue} key={key}/>;
+        const iconName = mValue == 'ordered' ? 'richeditor-numberlis' : 'richeditor-list';
+        const listCls = classNames('item ql-list', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-${iconName}`]: true
+        });
+
+        value = <button type="button" className={listCls} value={mValue} key={key}/>;
         break;
       case 'emoji':
         const emojiCls = classNames('item custom-emoji', {
