@@ -138,7 +138,9 @@ class CustomToolbar extends PureComponent {
         // );
         break;
       case 'align':
-        if (mValue instanceof Array && mValue.length) {
+        if (typeof mValue === 'string') {
+          value = <button type="button" className="item ql-align" value={mValue} key={key}/>;
+        } else if (mValue instanceof Array && mValue.length) {
           value = (
             <select className="item ql-align" key={key}>
               <option />
