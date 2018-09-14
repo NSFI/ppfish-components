@@ -35,6 +35,7 @@ export default class Select extends React.Component {
     loading: PropTypes.bool,
     maxCount: PropTypes.number,
     errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    multipleSelectAllText: PropTypes.string,
     maxLabelClearPanelHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     mode: PropTypes.oneOf(['multiple', 'single']),
@@ -52,6 +53,7 @@ export default class Select extends React.Component {
     searchInputProps: PropTypes.object,
     searchPlaceholder: PropTypes.string,
     selectAllText: PropTypes.string,
+    showMultipleSelectAll: PropTypes.bool,
     showArrow: PropTypes.bool,
     showOptionCheckedIcon: PropTypes.bool,
     showSingleClear: PropTypes.bool,
@@ -89,6 +91,8 @@ export default class Select extends React.Component {
     selectAllText: '选择所有',
     showArrow: true,
     showOptionCheckedIcon: true,
+    showMultipleSelectAll: false,
+    multipleSelectAllText: '所有选项',
     showSearch: false,
     showSingleClear: false,
     showSelectAll: false,
@@ -421,9 +425,10 @@ export default class Select extends React.Component {
   };
 
   //判断是否全选
-  isSelectAll = () => {
+  isSelectAll = (isMultiple = false) => {
+    const {selectValueForMultiplePanel, selectValue} = this.state;
     const optionList = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
-    const selectedList = this.state.selectValue;
+    const selectedList = isMultiple ? selectValueForMultiplePanel : selectValue;
     //全选判断逻辑：option中每一项都能在seleced中找到（兼容后端搜索的全选判断）
     return optionList.every(selected => {
       return !!selectedList.find(option => option.key === selected.key);
@@ -660,6 +665,8 @@ export default class Select extends React.Component {
       labelClear,
       loading,
       maxLabelClearPanelHeight,
+      showMultipleSelectAll,
+      multipleSelectAllText,
       mode,
       onMouseEnter,
       onMouseLeave,
@@ -760,11 +767,13 @@ export default class Select extends React.Component {
                     ) :
                     <div className={`${selectionCls}-option-multiple`} title={multipleTitle}>
                       {
-                        selectValueForMultiplePanel.map((option, index) =>
-                          <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
+                        (this.isSelectAll(true) && showMultipleSelectAll) ? <span>{multipleSelectAllText}</span>
+                          :
+                          selectValueForMultiplePanel.map((option, index) =>
+                            <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
                               <span>{option.label}</span>
-                            {index + 1 !== selectValueForMultiplePanel.length && '、'}</span>
-                        )
+                              {index + 1 !== selectValueForMultiplePanel.length && '、'}</span>
+                          )
                       }
                     </div>
                 )
