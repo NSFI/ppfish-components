@@ -1,3 +1,4 @@
+@import (reference) "../../../assets/css/index";
 @import "./quill.snow.less";
 
 @rich-editor-prefix: ~"@{fishd-prefix}-richeditor";
@@ -23,6 +24,12 @@
     border: @border-width-base @border-style-base @border-color-base;
   }
 
+  .item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .toolbar-grp {
     display: inline-block;
     height: 24px;
@@ -30,8 +37,6 @@
     margin: 3px 10px 3px 0;
 
     > .item {
-      display: flex;
-      align-items: center;
       background: @component-background;
       border-right: @border-width-base @border-style-base @border-color-base;
       border-top: @border-width-base @border-style-base @border-color-base;
@@ -830,6 +835,39 @@
 
     .emoji-167 {
       background-position: 0 -901px;
+    }
+  }
+
+  .ql-link,
+  .ql-bold,
+  .ql-italic,
+  .ql-underline,
+  .ql-clean {
+    svg {
+      display: none;
+    }
+  }
+
+  .ql-color {
+    .ql-picker-label {
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+
+      .iconfont-mixin();
+
+      &:before {
+        content: "\e6cd";
+      }
+
+      svg {
+        display: none;
+      }
+    }
+
+    .ql-picker-options {
+      position: absolute;
+      left: 0;
     }
   }
 }

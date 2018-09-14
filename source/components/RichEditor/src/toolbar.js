@@ -100,16 +100,32 @@ class CustomToolbar extends PureComponent {
 
     switch(mType) {
       case 'link':
-        value = <button className="item ql-link" key={key}/>;
+        const linkCls = classNames('item ql-link', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-link`]: true
+        });
+        value = <button className={linkCls} key={key}/>;
         break;
       case 'bold':
-        value = <button className="item ql-bold" key={key}/>;
+        const boldCls = classNames('item ql-bold', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-bold`]: true
+        });
+        value = <button className={boldCls} key={key}/>;
         break;
       case 'italic':
-        value = <button className="item ql-italic" key={key}/>;
+        const italicCls = classNames('item ql-italic', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-tilt`]: true
+        });
+        value = <button className={italicCls} key={key}/>;
         break;
       case 'underline':
-        value = <button className="item ql-underline" key={key}/>;
+        const underlineCls = classNames('item ql-underline', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-underline`]: true
+        });
+        value = <button className={underlineCls} key={key}/>;
         break;
       case 'color':
         value = <select className="item ql-color" key={key} />;
@@ -212,8 +228,12 @@ class CustomToolbar extends PureComponent {
 
         break;
       case 'clean':
-        // value = <button className="item ql-clean iconfont icon-eraser" key={key}/>;
-        value = <button className="item ql-clean" key={key}/>;
+        const cleanCls = classNames('item ql-clean', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-clear`]: true
+        });
+
+        value = <button className={cleanCls} key={key}/>;
         break;
       case 'strike':
         value = <button className="item ql-strike" key={key}/>;
