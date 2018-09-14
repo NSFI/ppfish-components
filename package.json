@@ -156,6 +156,7 @@
     "react-resizable": "^1.7.5",
     "react-router": "^3.2.1",
     "react-test-renderer": "^16.2.0",
+    "report-url": "^1.0.0",
     "rimraf": "2.5.4",
     "style-loader": "^0.22.1",
     "stylelint": "^9.5.0",

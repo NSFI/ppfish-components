@@ -47,8 +47,6 @@ render(){
 | style | 设置图标的样式，例如 fontSize 和 color | object | - |
 | type | 图标类型 | string | - |
 
-```
-
 <style>
 .code-box-demo .fishdicon {
   font-size: 24px;
