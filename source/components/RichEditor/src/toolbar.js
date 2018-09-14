@@ -141,13 +141,17 @@ class CustomToolbar extends PureComponent {
         value = <button type="button" className="item ql-list" value={mValue} key={key}/>;
         break;
       case 'emoji':
+        const emojiCls = classNames('item custom-emoji', {
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-expressio`]: true
+        });
         const emojiPanelCls = classNames({
           'hide': !showEmojiPanel,
           'custom-emoji-panel': true
         });
 
         value = (
-          <div className="item custom-emoji iconfont icon-emoticon-smile" key={key} onClick={this.toggleEmojiPanel}>
+          <div className={emojiCls} key={key} onClick={this.toggleEmojiPanel}>
             <div className={emojiPanelCls} >
               <div className="custom-emoji-con">
                 { emojiHTML }
