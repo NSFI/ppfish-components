@@ -974,9 +974,9 @@ class Select extends React.Component {
     const { onCancel } = this.props;
 
     onCancel && onCancel(oriValueList);
-    this.setState({ 
+    this.setState({
       curValueList: oriValueList,
-      open: false 
+      open: false
     });
   };
 
@@ -1010,15 +1010,19 @@ class Select extends React.Component {
     } = this.state;
     const { prefixCls } = this.props;
     const isMultiple = this.isMultiple();
-
     let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
+
     if (isMultiple) {
-      let keyList = rtValueList.map(value => {
-        return valueEntities[value].key;
+      let keyList = [];
+      rtValueList.forEach(value => {
+        if (valueEntities[value] != undefined) {
+          keyList.push(valueEntities[value].key);
+        }
       });
+
       let checkedKeys = conductCheck(keyList, true, keyEntities).checkedKeys;
       rtValueList = checkedKeys.map(key => {
-        return keyEntities[key].value;
+        return keyEntities[key] && keyEntities[key].value;
       });
     }
 
