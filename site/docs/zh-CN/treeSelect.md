@@ -48,7 +48,6 @@
           value={this.state.value}
           dropdownStyle={{ width: 300 }}
           treeNodeResetTitle={"请选择"}
-          treeDefaultExpandAll
           onChange={this.onChange}
           onReset={this.onReset}
           onSelect={this.onSelect}
@@ -104,7 +103,6 @@
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ width: 300 }}
-        treeDefaultExpandAll
         onChange={this.onChange}
       >
         <TreeNode value="n1" title="PNode1">
@@ -179,7 +177,6 @@
         dropdownStyle={{ width: 300 }}
         getPopupContainer={() => document.querySelector('.content')}
         treeData={treeData}
-        treeDefaultExpandAll
         onChange={this.onChange}
         onReset={this.onReset}
       />
@@ -380,7 +377,6 @@
       showSearch: true,
       getPopupContainer: () => document.querySelector('.content'),
       treeData,
-      treeDefaultExpandAll: true,
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
@@ -493,7 +489,6 @@
       editable: false,
       getPopupContainer: () => document.querySelector('.content'),
       treeData,
-      treeDefaultExpandAll: true,
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
@@ -631,6 +626,7 @@
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => any | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
+| showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
 | showSearch | 是否在下拉中显示搜索框 | Boolean | false |
 | size | 选择框大小 | Enum {'default', 'large', 'small'} | 'default' |
 | style | 选择框的样式 | Object | - |

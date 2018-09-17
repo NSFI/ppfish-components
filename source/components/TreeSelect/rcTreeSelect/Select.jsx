@@ -153,8 +153,7 @@ class Select extends React.Component {
 
     const {
       prefixAria,
-      defaultOpen,
-      open
+      defaultOpen, open,
     } = props;
 
     this.state = {
