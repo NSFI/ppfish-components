@@ -1,10 +1,10 @@
-# 开关
+# 开关 Switch
 
-开关选择器。
+功能的开关组件。
 
 ## 何时使用
 
-- 需要表示开关状态/两种状态之间的切换时；
+- 适用于在开关状态，或两个互斥状态中进行切换。切换的结果会即时作用于页面。
 - 和 `checkbox`的区别是，切换 `switch` 会直接触发状态改变，而 `checkbox` 一般用于状态标记，需要和提交操作配合。
 
 ## 基本用法
@@ -64,15 +64,23 @@
 ```
 :::
 
-## 两种大小
-:::demo `size="small"` 表示小号开关。
+## 三种大小
+:::demo `size="small"` 表示小号开关；`size="large"` 表示大号开关
 ```js
   render() {
     return (
       <div>
+        <Switch size="small" defaultChecked />
+        <br />
         <Switch defaultChecked />
         <br />
-        <Switch size="small" defaultChecked />
+        <Switch size="large" defaultChecked />
+        <br />
+        <Switch size="small" defaultChecked checkedChildren="开" unCheckedChildren="关"/>
+        <br />
+        <Switch defaultChecked checkedChildren="开" unCheckedChildren="关"/>
+        <br />
+        <Switch size="large" defaultChecked checkedChildren="开" unCheckedChildren="关"/>
       </div>
     );
   }
@@ -85,9 +93,11 @@
   render() {
     return (
       <div>
+        <Switch size="small" loading />
+        <br />
         <Switch loading defaultChecked />
         <br />
-        <Switch size="small" loading />
+        <Switch size="large" loading />
       </div>
     );
   }
@@ -105,7 +115,7 @@
 | defaultChecked | 初始是否选中 | Boolean | false |
 | disabled | 是否禁用 | Boolean | false |
 | loading | 加载中的开关 | Boolean | false |
-| size | 开关大小 | Enum {'default', 'small'} | 'default' |
+| size | 开关大小 | Enum {'default', 'small', 'large'} | 'default' |
 | unCheckedChildren | 非选中时的内容 | string \| ReactNode | - |
 | onChange | 变化时回调函数 | (checked:Boolean)=>{} | - |
 
