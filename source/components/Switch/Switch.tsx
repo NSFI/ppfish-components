@@ -9,7 +9,7 @@ import './style/Switch.less';
 
 export interface SwitchProps {
   prefixCls?: string;
-  size?: 'small' | 'default';
+  size?: 'small' | 'default' | 'large';
   className?: string;
   checked?: boolean;
   defaultChecked?: boolean;
