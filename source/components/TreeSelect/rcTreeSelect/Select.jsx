@@ -661,14 +661,15 @@ class Select extends React.Component {
       this.setOpenState(false);
     }
 
-    // 处理单选及非可勾选的多选
+    // 处理单选
     const { selectedNodes } = nodeEventInfo;
     const isAdd = nodeEventInfo.selected;
+
     this.onValueTrigger(isAdd, selectedNodes, nodeEventInfo, { selected: isAdd });
   };
 
   onTreeNodeCheck = (_, nodeEventInfo) => {
-    const { searchValue, keyEntities, valueEntities, valueList } = this.state;
+    const { searchValue, keyEntities, valueEntities, curValueList } = this.state;
     const { treeCheckStrictly } = this.props;
 
     const { checkedNodes, checkedNodesPositions } = nodeEventInfo;
@@ -688,8 +689,8 @@ class Select extends React.Component {
     if (treeCheckStrictly) {
       extraInfo.allCheckedNodes = nodeEventInfo.checkedNodes;
     } else if (searchValue) {
-      const oriKeyList = valueList
-        .map(({ value }) => valueEntities[value])
+      const oriKeyList = curValueList
+        .map((value) => valueEntities[value])
         .filter(entity => entity)
         .map(({ key }) => key);
 
