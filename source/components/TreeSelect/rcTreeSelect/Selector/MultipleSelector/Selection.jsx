@@ -14,7 +14,7 @@ class Selection extends React.Component {
     onRemove: PropTypes.func,
 
     label: PropTypes.node,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   onRemove = (event) => {
@@ -40,7 +40,6 @@ class Selection extends React.Component {
       width: tagWidth + 'px'
     }, UNSELECTABLE_STYLE);
 
-    // if (editable) {
     return (
       <li
         style={tagStyle}
@@ -58,18 +57,6 @@ class Selection extends React.Component {
         </span>
       </li>
     );
-    // } else {
-    //   return (
-    //     <span
-    //       style={tagStyle}
-    //       {...UNSELECTABLE_ATTRIBUTE}
-    //       role="menuitem"
-    //       title={toTitle(label)}
-    //     >
-    //       {content}
-    //     </span>
-    //   );
-    // }
   }
 }
 

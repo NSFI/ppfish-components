@@ -130,11 +130,9 @@ class SearchInput extends React.Component {
 
   render() {
     const { searchValue, prefixCls, disabled, renderPlaceholder, open, ariaId } = this.props;
-    const { 
-      rcTreeSelect: {
-        onSearchInputChange, onSearchInputKeyDown,
-      } 
-    } = this.context;
+    const { rcTreeSelect: {
+      onSearchInputChange, onSearchInputKeyDown,
+    } } = this.context;
     const { showClear } = this.state;
 
     let clearIconClass = classNames({
@@ -165,6 +163,7 @@ class SearchInput extends React.Component {
         >
           {searchValue}&nbsp;
         </span>
+
         {renderPlaceholder ? renderPlaceholder() : null}
         <span className={clearIconClass} onClick={this.handleClearInput}></span>
       </span>
