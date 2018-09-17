@@ -54,19 +54,77 @@
 
 ## 添加额外的内容
 
-:::demo 
+:::demo  可以自定义实现：最近选择、常用选项等功能，下面是最近选择的功能实现demo
 ```js
+  state={
+      recentOption:[],
+      value:undefined,
+      visible:false,
+   };
+  
+  onChange=(value)=>{
+    const {recentOption=[]}=this.state;
+    let newRecentOption= recentOption;
+    if(value){
+      if(!!recentOption.length ){
+        const index =recentOption.findIndex(op=>op.key === value.key);
+        if(index === -1){
+          newRecentOption = [value,...this.state.recentOption].slice(0,3);
+        }else{
+          const tmpOption = recentOption[index]
+          newRecentOption = [tmpOption,...recentOption.slice(0,index),...recentOption.slice(index+1)];
+        }
+      }else{
+        newRecentOption = [value];
+      }
+    }
+    this.setState({value,recentOption:newRecentOption})
+  };
+  
+  onVisibleChange=(visible)=>{
+    this.setState({visible});
+  }
+  
+  onOptionClick=(option)=>{
+    const {recentOption=[]} = this.state;
+    const index =  recentOption.findIndex(op=>op.key === option.key)
+    const tmpOption = recentOption[index];
+       this.setState({
+          visible:false,
+          value:option,
+          recentOption:[tmpOption,...recentOption.slice(0,index),...recentOption.slice(index+1)]
+       })
+  };
+  
   render() {
+    const {value,recentOption=[],visible}=this.state;
     return (
       <div className="demo-select">
-        <Select style={{width: 300}} showSingleClear extraOptions={
-          <div style={{padding: 10, background: '#f7f8fa'}}>
-          额外的任意内容<Icon type="demo-play"/>
-          </div>
+        <Select 
+        style={{width: 300}} 
+        showSingleClear
+        visible={visible}
+        value={value}
+        onVisibleChange={this.onVisibleChange} 
+        labelInValue 
+        onChange={this.onChange} 
+        extraOptions={
+              <Select.OptGroup label={"最近选择项"} _isShow={!!recentOption.length}>
+                {recentOption.map((op,index) => <Select.Option 
+                key={op.key}
+                value={op.key}
+                onOptionClick={()=>this.onOptionClick(op)}
+                checked={value && op.key === value.key}>{op.label}</Select.Option>)}
+              </Select.OptGroup>
         }>
-          <Select.Option value={"1"}>{'选项1'}</Select.Option>
-          <Select.Option value={"2"}>{'选项2'}</Select.Option>
-          <Select.Option value={"3"}>{'选项3'}</Select.Option>
+          <Select.OptGroup label={'常规选项'}>
+             <Select.Option value={"1"}>{'选项1'}</Select.Option>
+             <Select.Option value={"2"}>{'选项2'}</Select.Option>
+             <Select.Option value={"3"}>{'选项3'}</Select.Option>
+             <Select.Option value={"4"}>{'选项4'}</Select.Option>
+             <Select.Option value={"5"}>{'选项5'}</Select.Option>
+             <Select.Option value={"6"}>{'选项6'}</Select.Option>
+          </Select.OptGroup>
         </Select>
       </div>
     );
@@ -621,6 +679,7 @@ render(){
 | showSelectAll | 是否显示全选/反选功能（仅在mode='multiple'生效） | Boolean | true |
 | size | 选择框大小，可选 `large` `small` | Enum {'large','small'} | default |
 | value | 指定当前选中的条目 | String\|String[]\|Number\|Number[] | - |
+| visible | 下拉选择框显示隐藏 | Boolean | - |
 
 > 注意，如果发现下拉菜单跟随页面滚动，或者需要在其他弹层中触发 Select，请尝试使用 getPopupContainer={triggerNode => triggerNode.parentNode} 将下拉弹层渲染节点固定在触发器的父元素中。
 

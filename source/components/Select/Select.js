@@ -62,6 +62,7 @@ export default class Select extends React.Component {
     size: PropTypes.oneOf(['default', 'small', 'large']),
     style: PropTypes.object,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
+    visible: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -171,7 +172,7 @@ export default class Select extends React.Component {
 
   constructor(props) {
     super(props);
-    const {value, defaultValue, labelInValue, children} = this.props;
+    const {value, defaultValue, labelInValue, children, visible} = this.props;
     let initialValue = [];
     if ('value' in this.props) {
       initialValue = value;
@@ -183,12 +184,18 @@ export default class Select extends React.Component {
       searchValue: '',
       selectValue: initialSelectValue,
       selectValueForMultiplePanel: initialSelectValue,
-      popupVisible: false,
+      popupVisible: visible,
       activeKey: undefined,
     };
   }
 
   componentWillReceiveProps(nextProps) {
+    if ('visible' in nextProps && nextProps.visible !== this.props.visible) {
+      this.setState({
+        popupVisible: nextProps.visible
+      });
+    }
+
     if ('value' in nextProps) {
       const {value, labelInValue, children} = nextProps;
       const changedValue = Select.getValueFromProps(value, labelInValue, children);
