@@ -106,7 +106,7 @@ export default class Components extends React.Component {
                       .filter(components => isShowAllComponents || components.published)
                       .map(component => ({
                         key: component.key,
-                        href: `/#/components/${component.key}`,
+                        href: `#/components/${component.key}`,
                         title: component.name,
                       }))
                   };
@@ -189,7 +189,7 @@ export default class Components extends React.Component {
                   <Col span={12} className="prev-page">
                     {
                       prevLink &&
-                      <a href={`/#/components/${prevLink.key}`}>
+                      <a href={`#/components/${prevLink.key}`}>
                         <Icon type="left" className="prev-page-icon"/>{prevLink.name}
                       </a>
                     }
@@ -197,7 +197,7 @@ export default class Components extends React.Component {
                   <Col span={12} className="next-page">
                     {
                       nextLink &&
-                      <a href={`/#/components/${nextLink.key}`}>
+                      <a href={`#/components/${nextLink.key}`}>
                         {nextLink.name}<Icon type="right" className="next-page-icon"/>
                       </a>
                     }
