@@ -142,40 +142,33 @@ render() {
       name: 'xxx.png',
       status: 'done',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
     }, {
       uid: 2,
       name: 'yyy.png',
       status: 'done',
-      url: 'http://www.baidu.com/yyy.png',
     }, {
       uid: 3,
       name: 'zzz.png',
       status: 'error',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/zzz.png',
     }, {
       uid: 4,
       name: 'xxx.png',
       status: 'done',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
     }, {
       uid: 5,
       name: 'yyy.png',
       status: 'done',
-      url: 'http://www.baidu.com/yyy.png',
     }, {
       uid: 6,
       name: 'xxx.png',
       status: 'done',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
     }, {
       uid: 7,
       name: 'yyy.png',
       status: 'done',
-      url: 'http://www.baidu.com/yyy.png',
     }],
   };
   return (
@@ -275,7 +268,6 @@ render() {
       uid: -1,
       name: 'xxx.png',
       status: 'done',
-      url: 'http://www.baidu.com/xxx.png',
     }],
   }
 
@@ -390,8 +382,6 @@ render(){
     uid: -2,
     name: 'yyy.png',
     status: 'done',
-    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
   }];
 
   const props = {
