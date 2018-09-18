@@ -27,7 +27,10 @@ class Upload extends Component {
       PropTypes.func,
     ]),
     headers: PropTypes.object,
-    accept: PropTypes.string,
+    accept: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+    ]),
     multiple: PropTypes.bool,
     disabled: PropTypes.bool,
     beforeUpload: PropTypes.func,

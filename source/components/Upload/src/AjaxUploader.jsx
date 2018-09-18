@@ -17,7 +17,10 @@ class AjaxUploader extends Component {
     multiple: PropTypes.bool,
     directory: PropTypes.bool,
     disabled: PropTypes.bool,
-    accept: PropTypes.string,
+    accept: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+    ]),
     children: PropTypes.any,
     onStart: PropTypes.func,
     data: PropTypes.oneOfType([
