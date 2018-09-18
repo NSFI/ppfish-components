@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Icon from '../Icon';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
 import './style/index.less';
 
@@ -8,7 +9,7 @@ const CON_MAX_WIDTH = 1024, //容器最大宽度
   CON_MIN_WIDTH = 360, //容器最小宽度
   CON_MAX_HEIGHT = 768, //容器最大高度
   CON_MIN_HEIGHT = 360, //容器最小高度
-  MAX_RATIO = 5, //最大的图片显示比例
+  MAX_RATIO = 2, //最大的图片显示比例
   MIN_RATIO = 0.1, //最小的图片显示比例
   STEP_RATIO = 0.1, //图片缩放比例步长
   DEFAULT_RATIO = 0.8; //默认的图片显示比例
@@ -518,7 +519,7 @@ class PicturePreview extends Component {
   };
 
   render() {
-    const { show, current, imgs, image } = this.state;
+    const { show, current, imgs, image, container } = this.state;
     const { className, prefixCls, source, children, toolbar, dragable } = this.props;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
@@ -526,41 +527,33 @@ class PicturePreview extends Component {
       'hide': !show
     });
     let isHide = !(source.length > 1 || (!!children && children.length > 1));
-    let leftBtnClass = classNames({
-      'prev': true,
-      'fishdicon': true,
-      'fishdicon-left': true,
+    let leftBtnClass = classNames('prev', {
       'hide': isHide
     });
-    let rightBtnClass = classNames({
-      'next': true,
-      'fishdicon': true,
-      'fishdicon-right': true,
+    let rightBtnClass = classNames('next', {
       'hide': isHide
     });
     let toolbarClass = classNames('toolbar', {
       'hide': !toolbar
     });
-    let one2oneClass = classNames('fishdicon fishdicon-search-line icon', {
+    let one2oneClass = classNames('icon', {
       'icon-disabled': image.ratio == 1
     });
-    let fullscreenClass = classNames('fishdicon fishdicon-search-line icon', {
-      'hide': false
-    });
-    let zoomInClass = classNames('fishdicon fishdicon-search-line icon', {
+    let zoomInClass = classNames('icon', {
       'icon-disabled': image.ratio >= MAX_RATIO
     });
-    let zoomOutClass = classNames('fishdicon fishdicon-search-line icon', {
+    let zoomOutClass = classNames('icon', {
       'icon-disabled': image.ratio <= MIN_RATIO
     });
+    let screenStatus = container.isFull ? 'picture-shrink' : 'picture-fullscreen';
 
     return (
       <div className={ctnerClass} ref={node => this.$el = node} style={this.state.container.style}
         onMouseDown={dragable ? this.handleMouseDown : null}
         onWheel={this.handleWheel} >
-        <i className="fishdicon fishdicon-close-modal-line close" onClick={this.handleClose}/>
-        <i className={leftBtnClass} onClick={this.handlePrev}/>
-        <i className={rightBtnClass} onClick={this.handleNext}/>
+        <Icon type="picture-close" className="close" onClick={this.handleClose}/>
+        <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
+        <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
 
         <div className="canvas">
           {
@@ -588,16 +581,16 @@ class PicturePreview extends Component {
           }
         </div>
 
-        <div className={toolbarClass}>
-          <div className="toolbarTitle">{current+1}/{imgs.length}</div>
+        <div className={toolbarClass} style={container.isFull ? {bottom: '20px'} : null}>
+          {/* <div className="toolbarTitle">{current+1}/{imgs.length}</div> */}
           <div className="toolbarCon">
-            <i className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
-            <i className={fullscreenClass} onClick={this.handleSwitchFull}/>
-            <i className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
-            <i className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
-            <i className="fishdicon fishdicon-search-line icon" onClick={this.handleRotate}/>
+            <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
+            <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
+            <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
+            <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
+            <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
             <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
-              <i className="fishdicon fishdicon-download-line icon" onClick={this.handleSave}/>
+              <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
             </a>
           </div>
         </div>
