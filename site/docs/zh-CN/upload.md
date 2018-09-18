@@ -37,8 +37,8 @@ render() {
   };
   return (
     <Upload {...props}>
-      <Button>
-        <Icon type="upload-line" /> Click to Upload
+      <Button type="primary">
+        <Icon type="upload-line" /> 上传
       </Button>
     </Upload>
   );
@@ -92,7 +92,7 @@ render() {
     const uploadButton = (
       <div>
         { this.state.loading ?  <Spin /> : <Icon type="upload-plus"/> }
-        <div className="fishd-upload-text">Upload</div>
+        <div className="fishd-upload-text">上传图片</div>
       </div>
     );
     const imageUrl = this.state.imageUrl;
@@ -180,8 +180,8 @@ render() {
   };
   return (
     <Upload {...props}>
-      <Button>
-        <Icon type="upload-line" /> Upload
+      <Button type="primary">
+        <Icon type="upload-line" /> 上传
       </Button>
     </Upload>
     )
@@ -220,7 +220,7 @@ render() {
     const uploadButton = (
       <div>
         <Icon type="upload-plus" />
-        <div className="fishd-upload-text">Upload</div>
+        <div className="fishd-upload-text">上传</div>
       </div>
     );
     return (
@@ -314,8 +314,8 @@ render() {
     };
     return (
       <Upload {...props} fileList={this.state.fileList}>
-        <Button>
-          <Icon type="upload-line" /> upload
+        <Button type="primary">
+          <Icon type="upload-line" /> 上传
         </Button>
       </Upload>
     );
@@ -356,13 +356,20 @@ render(){
       <p className="fishd-upload-drag-icon">
         <Icon type="upload-cloud" />
       </p>
-      <p className="fishd-upload-text">Click or drag file to this area to upload</p>
-      <p className="fishd-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
+      <p className="fishd-upload-text">
+        将文件拖到此处，或<span className="fishd-upload-impt">点击上传</span>
+      </p>
     </Dragger>
   )
 }
 ```
 :::
+
+<style>
+.fishd-upload-text .fishd-upload-impt {
+  color: #337eff;
+}
+</style>
 
 
 ## 图片列表样式
@@ -402,15 +409,15 @@ render(){
   return (
     <div>
       <Upload {...props}>
-        <Button>
-          <Icon type="upload-line" /> upload
+        <Button type="primary">
+          <Icon type="upload-line" /> 上传
         </Button>
       </Upload>
       <br />
       <br />
       <Upload {...props2}>
-        <Button>
-          <Icon type="upload-line" /> upload
+        <Button type="primary">
+          <Icon type="upload-line" /> 上传
         </Button>
       </Upload>
     </div>
@@ -500,8 +507,8 @@ render(){
     return (
       <div>
         <Upload {...props}>
-          <Button>
-            <Icon type="upload-line" /> Select File
+          <Button type="primary">
+            <Icon type="upload-line" /> 选择文件
           </Button>
         </Upload>
         <Button
@@ -511,7 +518,7 @@ render(){
           disabled={this.state.fileList.length === 0}
           loading={uploading}
         >
-          {uploading ? 'Uploading' : 'Start Upload' }
+          {uploading ? '上传中' : '开始上传' }
         </Button>
       </div>
     );

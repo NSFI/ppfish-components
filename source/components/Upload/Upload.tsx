@@ -270,10 +270,10 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     delete rcUploadProps.className;
 
     const uploadList = showUploadList ? this.renderUploadList({
-      uploading: 'Uploading...',
-      removeFile: 'Remove file',
-      uploadError: 'Upload error',
-      previewFile: 'Preview file',
+      uploading: '上传中',
+      removeFile: '移除文件',
+      uploadError: '上传错误',
+      previewFile: '预览文件',
     }) : null;
 
     if (type === 'drag') {
