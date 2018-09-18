@@ -302,10 +302,6 @@ class PicturePreview extends Component {
     this.setState({
       show: false,
       shown: false,
-      container: {
-        style: this.state.container.style,
-        isFull: false
-      }
     }, () => {
       if (onClose && typeof onClose == "function") {
         onClose();
@@ -521,12 +517,17 @@ class PicturePreview extends Component {
   render() {
     const { show, current, imgs, image, container } = this.state;
     const { className, prefixCls, source, children, toolbar, dragable } = this.props;
+    let isFullscreen = container.isFull;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
       'dragable': dragable,
       'hide': !show
     });
     let isHide = !(source.length > 1 || (!!children && children.length > 1));
+    let closeBtnClass = classNames({
+      'close': !isFullscreen,
+      'close-fullscreen': isFullscreen
+    });
     let leftBtnClass = classNames('prev', {
       'hide': isHide
     });
@@ -545,13 +546,14 @@ class PicturePreview extends Component {
     let zoomOutClass = classNames('icon', {
       'icon-disabled': image.ratio <= MIN_RATIO
     });
-    let screenStatus = container.isFull ? 'picture-shrink' : 'picture-fullscreen';
+    let screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
+    // let ctnerStyle = isFullscreen ? Object.assign({}, container.style, {background: 'rgba(0,0,0,0.8)'}) : container.style;
 
     return (
-      <div className={ctnerClass} ref={node => this.$el = node} style={this.state.container.style}
+      <div className={ctnerClass} ref={node => this.$el = node} style={container.style}
         onMouseDown={dragable ? this.handleMouseDown : null}
         onWheel={this.handleWheel} >
-        <Icon type="picture-close" className="close" onClick={this.handleClose}/>
+        <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
         <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
         <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
 
@@ -581,7 +583,7 @@ class PicturePreview extends Component {
           }
         </div>
 
-        <div className={toolbarClass} style={container.isFull ? {bottom: '20px'} : null}>
+        <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
           {/* <div className="toolbarTitle">{current+1}/{imgs.length}</div> */}
           <div className="toolbarCon">
             <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
