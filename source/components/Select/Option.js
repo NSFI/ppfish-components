@@ -6,18 +6,17 @@ export default class Option extends React.Component {
   static isSelectOption = true;
 
   static propTypes = {
+    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    prefixCls: PropTypes.string,
-    title: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
-    showOptionCheckedIcon: PropTypes.bool,
-    // INTERNAL USE ONLY
-    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onOptionClick: PropTypes.func,
     onOptionMouseEnter: PropTypes.func,
     onOptionMouseLeave: PropTypes.func,
+    prefixCls: PropTypes.string,
+    showOptionCheckedIcon: PropTypes.bool,
+    title: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
   };
 
   static defaultProps = {
