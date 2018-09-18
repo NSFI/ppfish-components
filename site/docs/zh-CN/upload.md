@@ -115,8 +115,8 @@ render() {
 
 <style>
 .avatar-uploader > .fishd-upload {
-  width: 128px;
-  height: 128px;
+  width: 100px;
+  height: 100px;
 }
 </style>
 
@@ -213,7 +213,7 @@ render() {
     const uploadButton = (
       <div>
         <Icon type="upload-plus" />
-        <div className="fishd-upload-text">上传</div>
+        <div className="fishd-upload-text">上传图片</div>
       </div>
     );
     return (
@@ -530,7 +530,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| accept | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String | - |
+| accept | 接受上传的文件类型，多种类型用 `,` 分隔或写成数组形式，详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String \| String[] | - |
 | action | 必选参数, 上传的地址 | String | - |
 | beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 `false` 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传。**注意：IE9 不支持该方法**。 | (file, fileList) => `Boolean \| Promise` | - |
 | className | 容器类名 | String | - |

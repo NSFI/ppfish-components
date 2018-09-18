@@ -2,7 +2,7 @@
 
 @upload-prefix-cls: ~"@{fishd-prefix}-upload";
 @upload-item: ~"@{fishd-prefix}-upload-list-item";
-@upload-pictrue-card-size: 104px;
+@upload-pictrue-card-size: 100px;
 
 /* stylelint-disable declaration-no-important */
 .@{upload-prefix-cls} {
@@ -155,6 +155,7 @@
     height: 22px;
 
     &-name {
+      font-size: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -310,6 +311,14 @@
 
     .@{upload-item}-uploading .@{upload-item}-name {
       line-height: 28px;
+    }
+
+    .@{upload-item}-uploading .@{fishd-prefix}-progress-oper {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: 0;
     }
 
     .@{upload-item}-progress {
