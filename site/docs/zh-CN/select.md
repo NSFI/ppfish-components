@@ -85,7 +85,7 @@
     this.setState({visible});
   }
   
-  onOptionClick=(option)=>{
+  onOptionClick=(e,option)=>{
     const {recentOption=[]} = this.state;
     const index =  recentOption.findIndex(op=>op.key === option.key)
     const tmpOption = recentOption[index];
@@ -113,7 +113,7 @@
                 {recentOption.map((op,index) => <Select.Option 
                 key={op.key}
                 value={op.key}
-                onOptionClick={()=>this.onOptionClick(op)}
+                onOptionClick={this.onOptionClick}
                 checked={value && op.key === value.key}>{op.label}</Select.Option>)}
               </Select.OptGroup>
         }>

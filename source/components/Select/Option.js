@@ -36,14 +36,14 @@ export default class Option extends React.Component {
     }
   };
 
-  onOptionMouseEnter = () => {
+  onOptionMouseEnter = (e) => {
     const {disabled, onOptionMouseEnter, value} = this.props;
     if (!disabled) {
       onOptionMouseEnter && onOptionMouseEnter(value);
     }
   };
 
-  onOptionMouseLeave = () => {
+  onOptionMouseLeave = (e) => {
     const {disabled, onOptionMouseLeave, value} = this.props;
     if (!disabled) {
       onOptionMouseLeave && onOptionMouseLeave(value);
@@ -59,7 +59,7 @@ export default class Option extends React.Component {
         {[`${prefixCls}-item-disabled`]: !!disabled},
         {[`checked`]: !!checked},
         {[`checked-icon`]: !!checked && showOptionCheckedIcon},
-        {[`active`]: activeKey === value}
+        {[`active`]: 'activeKey' in this.props && activeKey === value}
       );
     return (
       <li
