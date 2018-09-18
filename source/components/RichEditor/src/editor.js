@@ -49,9 +49,9 @@ class RichEditor extends Component {
 
     let { value, customLink } = this.props;
 
+    this.toolbarCtner = null;
     this.state = {
       value: value,
-      toolbarCtner: null
     };
     this.handlers = {
       'link': function(value) {
@@ -91,9 +91,8 @@ class RichEditor extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      toolbarCtner: findDOMNode(this.toolbarRef)
-    });
+    this.toolbarCtner = findDOMNode(this.toolbarRef);
+    this.forceUpdate();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -117,7 +116,7 @@ class RichEditor extends Component {
   };
 
   render() {
-    const { value, toolbarCtner } = this.state;
+    const { value } = this.state;
     const {
       className, prefixCls,
       value: propsValue,
@@ -141,7 +140,7 @@ class RichEditor extends Component {
           className={'editor-body'}
           modules={{
             toolbar: {
-              container: toolbarCtner,
+              container: this.toolbarCtner,
               handlers: this.handlers
             }
           }}

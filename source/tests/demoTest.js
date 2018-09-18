@@ -1,9 +1,7 @@
 import { render, mount, shallow } from 'enzyme';
 import React from 'react';
 
-import { getPlainComponentList } from "../../site/utils/index.js";
-const plainComponentList = getPlainComponentList();
-
+import { plainComponents } from "../../site/componentsPage/index.js";
 
 const getDemoContainer = (demoName) => {
   if (!demoName) {
@@ -28,7 +26,7 @@ export default function demoTest(compName, options = {}) {
   let demoName = compName.substr(0, 1).toLowerCase() + compName.substr(1);
   let testMethod = options.skip === true ? test.skip : test;
 
-  const menuItem = plainComponentList.find(item => item.key === demoName);
+  const menuItem = plainComponents.find(item => item.key === demoName);
   testMethod(`Renders ${compName} demo correctly`, () => {
     const Container = getDemoContainer(demoName);
 

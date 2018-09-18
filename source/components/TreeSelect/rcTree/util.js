@@ -165,11 +165,11 @@ export function convertDataToTree(treeData, processer) {
 
   const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
-  return list.map(({ children, ...props }) => {
+  return list.map(({ children, ...props }, index) => {
     const childrenNodes = convertDataToTree(children, processer);
 
     return (
-      <TreeNode {...processProps(props)}>
+      <TreeNode key={"convert_data2tree_" + index} {...processProps(props)}>
         {childrenNodes}
       </TreeNode>
     );

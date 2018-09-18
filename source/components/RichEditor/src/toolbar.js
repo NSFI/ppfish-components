@@ -99,35 +99,39 @@ class CustomToolbar extends PureComponent {
     let value = null;
 
     switch(mType) {
-      case 'link':
+      case 'link': {
         const linkCls = classNames('item ql-link', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-link`]: true
         });
         value = <button className={linkCls} key={key}/>;
         break;
-      case 'bold':
+      }
+      case 'bold': {
         const boldCls = classNames('item ql-bold', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-bold`]: true
         });
         value = <button className={boldCls} key={key}/>;
         break;
-      case 'italic':
+      }
+      case 'italic': {
         const italicCls = classNames('item ql-italic', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-tilt`]: true
         });
         value = <button className={italicCls} key={key}/>;
         break;
-      case 'underline':
+      }
+      case 'underline': {
         const underlineCls = classNames('item ql-underline', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-underline`]: true
         });
         value = <button className={underlineCls} key={key}/>;
         break;
-      case 'color':
+      }
+      case 'color': {
         value = <select className="item ql-color" key={key} />;
         // value = (
         //   <div className="item custom-color" key={key}>
@@ -137,7 +141,8 @@ class CustomToolbar extends PureComponent {
         //   </div>
         // );
         break;
-      case 'align':
+      }
+      case 'align': {
         if (typeof mValue === 'string') {
           let alignIconType = 'richeditor-align-lef';
           if (mValue == 'right') {
@@ -169,7 +174,8 @@ class CustomToolbar extends PureComponent {
         }
 
         break;
-      case 'list':
+      }
+      case 'list': {
         const listIconType = mValue == 'ordered' ? 'richeditor-numberlis' : 'richeditor-list';
         const listCls = classNames('item ql-list', {
           [`${iconPrefix}`]: true,
@@ -178,7 +184,8 @@ class CustomToolbar extends PureComponent {
 
         value = <button type="button" className={listCls} value={mValue} key={key}/>;
         break;
-      case 'emoji':
+      }
+      case 'emoji': {
         const emojiCls = classNames('item custom-emoji', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-expressio`]: true
@@ -198,14 +205,16 @@ class CustomToolbar extends PureComponent {
           </div>
         );
         break;
-      case 'image':
+      }
+      case 'image': {
         const imageCls = classNames('item ql-image', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-picture`]: true
         });
         value = <button className={imageCls} key={key}/>;
         break;
-      case 'size':
+      }
+      case 'size': {
         const sizeCls = classNames('item custom-size', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-size`]: true
@@ -251,7 +260,8 @@ class CustomToolbar extends PureComponent {
         }
 
         break;
-      case 'clean':
+      }
+      case 'clean': {
         const cleanCls = classNames('item ql-clean', {
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-clear`]: true
@@ -259,16 +269,20 @@ class CustomToolbar extends PureComponent {
 
         value = <button className={cleanCls} key={key}/>;
         break;
-      case 'strike':
+      }
+      case 'strike': {
         value = <button className="item ql-strike" key={key}/>;
         break;
-      case 'blockquote':
+      }
+      case 'blockquote': {
         value = <button className="item ql-blockquote" key={key}/>;
         break;
-      case 'code-block':
+      }
+      case 'code-block': {
         value = <button className="item ql-code-block" key={key}/>;
         break;
-      case 'header':
+      }
+      case 'header': {
         if (typeof mValue === 'string' || typeof mValue === 'number') {
           value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
         } else if (mValue instanceof Array && mValue.length){
@@ -283,23 +297,30 @@ class CustomToolbar extends PureComponent {
         }
 
         break;
-      case 'script':
+      }
+      case 'script': {
         value = <button type="button" className="item ql-script" value={mValue} key={key}/>;
         break;
-      case 'indent':
+      }
+      case 'indent': {
         value = <button type="button" className="item ql-indent" value={mValue} key={key}/>;
         break;
-      case 'direction':
+      }
+      case 'direction': {
         value = <button type="button" className="item ql-direction" value={mValue} key={key} />;
         break;
-      case 'background':
+      }
+      case 'background': {
         value = <select className="item ql-background" key={key} />;
         break;
-      case 'font':
+      }
+      case 'font': {
         value = <select className="item ql-font" key={key} />;
         break;
-      default:
+      }
+      default: {
         break;
+      }
     }
 
     return value;

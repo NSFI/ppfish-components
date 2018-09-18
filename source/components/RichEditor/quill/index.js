@@ -2,8 +2,8 @@
 React-Quill v1.0.0
 https://github.com/zenoamaro/react-quill
 */
-var Quill = require('quill');
-var Component = require('./component');
+let Quill = require('quill');
+let Component = require('./component');
 
 module.exports = Component;
 module.exports.default = Component;

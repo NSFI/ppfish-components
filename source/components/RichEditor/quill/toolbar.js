@@ -6,15 +6,15 @@ See https://quilljs.com/docs/modules/toolbar
 
 'use strict';
 
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var createClass = require('create-react-class');
-var find = require('lodash/find');
-var isEqual = require('lodash/isEqual');
-var T = require('prop-types');
-var DOM = require('react-dom-factories');
+let React = require('react');
+let ReactDOMServer = require('react-dom/server');
+let createClass = require('create-react-class');
+let find = require('lodash/find');
+let isEqual = require('lodash/isEqual');
+let T = require('prop-types');
+let DOM = require('react-dom-factories');
 
-var defaultColors = [
+let defaultColors = [
 	'rgb(  0,   0,   0)', 'rgb(230,   0,   0)', 'rgb(255, 153,   0)',
 	'rgb(255, 255,   0)', 'rgb(  0, 138,   0)', 'rgb(  0, 102, 204)',
 	'rgb(153,  51, 255)', 'rgb(255, 255, 255)', 'rgb(250, 204, 204)',
@@ -27,9 +27,9 @@ var defaultColors = [
 	'rgb(107,  36, 178)', 'rgb( 68,  68,  68)', 'rgb( 92,   0,   0)',
 	'rgb(102,  61,   0)', 'rgb(102, 102,   0)', 'rgb(  0,  55,   0)',
 	'rgb(  0,  41, 102)', 'rgb( 61,  20,  10)',
-].map(function(color){ return { value: color } });
+].map(function(color){ return { value: color }; });
 
-var defaultItems = [
+let defaultItems = [
 
 	{ label:'Formats', type:'group', items: [
 		{ label:'Font', type:'font', items: [
@@ -72,7 +72,7 @@ var defaultItems = [
 
 ];
 
-var QuillToolbar = createClass({
+let QuillToolbar = createClass({
 
 	displayName: 'Quill Toolbar',
 
@@ -89,13 +89,13 @@ var QuillToolbar = createClass({
 		};
 	},
 
-	componentDidMount: function() {
-		console.warn(
-			'QuillToolbar is deprecated. Consider switching to the official Quill ' +
-			'toolbar format, or providing your own toolbar instead. ' +
-			'See: https://github.com/zenoamaro/react-quill#upgrading-to-react-quill-v1-0-0'
-		);
-	},
+	// componentDidMount: function() {
+	// 	console.warn(
+	// 		'QuillToolbar is deprecated. Consider switching to the official Quill ' +
+	// 		'toolbar format, or providing your own toolbar instead. ' +
+	// 		'See: https://github.com/zenoamaro/react-quill#upgrading-to-react-quill-v1-0-0'
+	// 	);
+	// },
 
 	shouldComponentUpdate: function(nextProps, nextState) {
 		return !isEqual(nextProps, this.props);
@@ -118,9 +118,9 @@ var QuillToolbar = createClass({
 	},
 
 	renderChoices: function(item, key) {
-		var choiceItems = item.items.map(this.renderChoiceItem);
-		var selectedItem = find(item.items, function(item){ return item.selected });
-		var attrs = {
+		let choiceItems = item.items.map(this.renderChoiceItem);
+		let selectedItem = find(item.items, function(item){ return item.selected; });
+		let attrs = {
 			key: item.label || key,
 			title: item.label,
 			className: 'ql-'+item.type,
@@ -183,8 +183,8 @@ var QuillToolbar = createClass({
 	},
 
 	render: function() {
-		var children = this.props.items.map(this.renderItem);
-		var html = children.map(ReactDOMServer.renderToStaticMarkup).join('');
+		let children = this.props.items.map(this.renderItem);
+		let html = children.map(ReactDOMServer.renderToStaticMarkup).join('');
 		return DOM.div({
 			id: this.props.id,
 			className: this.getClassName(),
