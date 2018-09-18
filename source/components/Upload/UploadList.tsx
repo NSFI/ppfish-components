@@ -131,7 +131,8 @@ export default class UploadList extends React.Component<UploadListProps, any> {
       if (file.status === 'uploading') {
         // show loading icon if upload progress listener is disabled
         const loadingProgress = ('percent' in file) ? (
-          <Progress type="line" {...this.props.progressAttr} percent={file.percent} />
+          <Progress type="line" {...this.props.progressAttr} percent={file.percent}
+            operation={<div className={`${prefixCls}-action-cancel`} onClick={() => this.handleClose(file)}>取消</div>} />
         ) : null;
 
         progress = (

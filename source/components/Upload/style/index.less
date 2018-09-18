@@ -19,6 +19,11 @@
     outline: none;
   }
 
+  &-action-cancel {
+    cursor: pointer;
+    color: @primary-color;
+  }
+
   input[type="file"] {
     cursor: pointer;
   }
@@ -196,8 +201,12 @@
       background-color: @item-hover-bg;
     }
 
-    &:hover .@{iconfont-prefix}-hints-alone-error {
+    &-done:hover .@{iconfont-prefix}-hints-alone-error {
       opacity: 1;
+    }
+
+    &-uploading .@{iconfont-prefix}-hints-alone-error {
+      display: none;
     }
 
     &-error,
