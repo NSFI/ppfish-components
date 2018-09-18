@@ -6,9 +6,9 @@
 
 上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。
 
-- 当需要上传一个或一些文件时。
-- 当需要展现上传的进度时。
-- 当需要使用拖拽交互时。
+- 当需要上传一个或一些文件时
+- 当需要展现上传的进度时
+- 当需要使用拖拽交互时
 
 
 ## 点击上传
@@ -20,6 +20,7 @@
 render() {
   const props = {
     name: 'file',
+    tips: '这里是上传提示',
     action: '//jsonplaceholder.typicode.com/posts/',
     headers: {
       authorization: 'authorization-text',
@@ -547,6 +548,7 @@ render(){
 | showDeleteAll | 文件列表中的文件数超出 `maxFileCount` 后是否展示 `删除全部`，当 listType 为 `text` 时有效 | Boolean | true |
 | showUploadList | 是否展示 uploadList, 可设为一个对象，用于单独设定 showPreviewIcon 和 showRemoveIcon | Boolean \| { showPreviewIcon?: Boolean, showRemoveIcon?: Boolean } | true |
 | supportServerRender | 服务端渲染时需要打开这个 | Boolean | false |
+| tips | 上传提示 | String | - |
 | withCredentials | 上传请求时是否携带 cookie | Boolean | false |
 | onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | () => any | - |
 | onPreview | 点击文件链接或预览图标时的回调 | (file) => any | - |

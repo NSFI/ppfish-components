@@ -34,6 +34,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     className: '',
     disabled: false,
     supportServerRender: true,
+    tips: ''
   };
 
   recentUploadStatus: boolean | PromiseLike<any>;
@@ -256,6 +257,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       type,
       disabled,
       children,
+      tips
     } = this.props;
 
     const rcUploadProps = {
@@ -314,19 +316,28 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       </div>
     );
 
+    const uploadTips = tips ? (
+      <div className={`${prefixCls}-tips`}>
+        {tips}
+      </div>
+    ) : null;
+
     if (listType === 'picture-card') {
       return (
         <span className={className}>
           {uploadList}
           {uploadButton}
+          {uploadTips}
+        </span>
+      );
+    } else {
+      return (
+        <span className={className}>
+          {uploadButton}
+          {uploadTips}
+          {uploadList}
         </span>
       );
     }
-    return (
-      <span className={className}>
-        {uploadButton}
-        {uploadList}
-      </span>
-    );
   }
 }

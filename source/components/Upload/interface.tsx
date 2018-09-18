@@ -63,7 +63,7 @@ export interface UploadProps {
   headers?: HttpRequestHeader;
   showUploadList?: boolean | ShowUploadListInterface;
   multiple?: boolean;
-  accept?: string;
+  accept?: string | String[];
   beforeUpload?: (file: RcFile, FileList: RcFile[]) => boolean | PromiseLike<any>;
   onChange?: (info: UploadChangeParam) => void;
   listType?: UploadListType;
@@ -80,6 +80,7 @@ export interface UploadProps {
   locale?: UploadLocale;
   maxFileCount?: number;
   showDeleteAll?: boolean;
+  tips?: string;
 }
 
 export interface UploadState {
