@@ -38,7 +38,7 @@ const setStyle = (el, css) => {
 };
 
 const getImageSize = function(image, callback, scope) {
-  var newImage;
+  let newImage;
 
   // Modern browsers
   if (image.naturalWidth) {
@@ -51,7 +51,7 @@ const getImageSize = function(image, callback, scope) {
     callback.call(scope, this.width, this.height);
   };
   newImage.src = image.src;
-}
+};
 
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
 const MOZ_HACK_REGEXP = /^moz([A-Z])/;
@@ -113,6 +113,7 @@ class PicturePreview extends Component {
   constructor(props) {
     super(props);
 
+    this.imgEl = null;
     this.state = {
       show: props.visible || false,
       imgs: props.source || [],
@@ -181,11 +182,11 @@ class PicturePreview extends Component {
       let imgList = [];
 
       imgList = React.Children.map(children, (child, index) => {
-        let { props, type } = child, img = {};
+        let img = {};
 
-        if (type === 'img') {
-          img.name = props.name || props.alt;
-          img.src = props.src;
+        if (child.type === 'img') {
+          img.name = child.props.name || child.props.alt;
+          img.src = child.props.src;
         }
 
         return img;
@@ -214,11 +215,11 @@ class PicturePreview extends Component {
    * 设置容器的样式，用于切换图片时，根据图片大小，确定容器的尺寸以及位置
    */
   setContainerStyle = () => {
-    if (!this.state.image.el) return;
+    if (!this.imgEl) return;
 
-    getImageSize(this.state.image.el, (naturalWidth, naturalHeight) => {
+    getImageSize(this.imgEl, (naturalWidth, naturalHeight) => {
       //计算容器的宽度
-      var width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
+      let width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
       if (width > CON_MAX_WIDTH) {
         width = CON_MAX_WIDTH;
       } else if (width < CON_MIN_WIDTH) {
@@ -227,17 +228,17 @@ class PicturePreview extends Component {
 
       //计算图片的缩放比例
       // this.state.image.ratio = width / naturalWidth;
-      var imgRatio = (width / naturalWidth) || 0;
+      let imgRatio = (width / naturalWidth) || 0;
 
       //计算容器的高度
-      var height = naturalHeight * imgRatio;
+      let height = naturalHeight * imgRatio;
       if (height > CON_MAX_HEIGHT) {
         height = CON_MAX_HEIGHT;
       } else if (height < CON_MIN_HEIGHT) {
         height = CON_MIN_HEIGHT;
       }
 
-      var css = '';
+      let css = '';
       if (!this.state.shown) {
         css = {
           width: num2px(width),
@@ -253,7 +254,7 @@ class PicturePreview extends Component {
           }
         });
       } else if (!this.state.container.isFull) {
-        var oriTop = px2num(getStyle(this.$el, 'top')),
+        let oriTop = px2num(getStyle(this.$el, 'top')),
           oriLeft = px2num(getStyle(this.$el, 'left')),
           oriWidth = px2num(getStyle(this.$el, 'width')),
           oriHeight = px2num(getStyle(this.$el, 'height'));
@@ -350,7 +351,7 @@ class PicturePreview extends Component {
     this.setState({
       image: Object.assign({}, this.state.image, image)
     }, () => {
-      setStyle(this.state.image.el, {
+      setStyle(this.imgEl, {
         'margin-left': num2px(image.marginL),
         'margin-top': num2px(image.marginT),
         width: num2px(width),
@@ -366,13 +367,15 @@ class PicturePreview extends Component {
   };
 
   handleRotate = () => {
-    var old = this.state.image.el.rotateValue || 0,
+    if (!this.imgEl) return;
+
+    let old = this.imgEl.rotateValue || 0,
       rotate = old + 90,
       transform = 'rotate(' + rotate + 'deg)';
 
-    this.state.image.el.rotateValue = rotate;
+    this.imgEl.rotateValue = rotate;
 
-    setStyle(this.state.image.el, {
+    setStyle(this.imgEl, {
       '-webkit-ransform': transform,
       '-ms-transform': transform,
       'transform': transform
@@ -380,12 +383,12 @@ class PicturePreview extends Component {
   };
 
   handleSave = () => {
-    let img = this.state.image.el;
+    if (!this.imgEl) return;
 
     // for IE10+
     if (window.navigator.msSaveBlob) {
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', img.src, true);
+      xhr.open('GET', this.imgEl.src, true);
       xhr.responseType = 'blob';
       xhr.onreadystatechange = function() {
         if (xhr.readyState == xhr.DONE) {
@@ -397,15 +400,15 @@ class PicturePreview extends Component {
     //  else {
     //   let a = document.createElement('a');
     //   // a.download = '';
-    //   // a.href = img.src;
+    //   // a.href = this.imgEl.src;
     //   a.setAttribute('download', '');
-    //   a.setAttribute('href', img.src);
+    //   a.setAttribute('href', this.imgEl.src);
     //   a.click();
     // }
   };
 
   handleFullChange = (e) => {
-    var con = this.state.container;
+    let con = this.state.container;
 
     if (con.isFull) {
       //从全屏退出到非全屏时，认为是没有显示过，让图片居中显示
@@ -439,16 +442,16 @@ class PicturePreview extends Component {
   };
 
   handleMouseDown = (e) => {
-    var con = {},
+    let con = {},
       image = {},
       tar = e.target;
 
-    if (tar === this.state.image.el && (this.state.container.isFull || isLargger(this.state.image.el, this.$el))) {
+    if (tar === this.imgEl && (this.state.container.isFull || isLargger(this.imgEl, this.$el))) {
       //点击在图片上，并且是全屏模式或者图片比容器大，此时移动图片
       image.startX = e.pageX;
       image.startY = e.pageY;
-      image.marginL = px2num(getStyle(this.state.image.el, 'margin-left'));
-      image.marginT = px2num(getStyle(this.state.image.el, 'margin-top'));
+      image.marginL = px2num(getStyle(this.imgEl, 'margin-left'));
+      image.marginT = px2num(getStyle(this.imgEl, 'margin-top'));
 
       this.setState({
         moving: 'img',
@@ -470,7 +473,7 @@ class PicturePreview extends Component {
   };
 
   handleMouseMove = (e) => {
-    var con = this.state.container,
+    let con = this.state.container,
       image = this.state.image,
       conStyle = { ...con.style };
 
@@ -478,7 +481,7 @@ class PicturePreview extends Component {
       e.preventDefault();
 
       if (this.state.moving === 'img') {
-        setStyle(image.el, {
+        setStyle(this.imgEl, {
           'margin-left': num2px(e.pageX - image.startX + image.marginL),
           'margin-top': num2px(e.pageY - image.startY + image.marginT)
         });
@@ -565,17 +568,17 @@ class PicturePreview extends Component {
               if (current === index) {
                 return (
                   <img key={'pic_'+index}
-                    className='img'
+                    className="img"
                     src={item.src}
-                    alt={item.name} 
-                    active='true'
-                    ref={node => this.state.image.el = node}
+                    alt={item.name}
+                    active="true"
+                    ref={node => this.imgEl = node}
                   />
                 );
               } else {
                 return (
                   <img key={'pic_'+index}
-                    className='img'
+                    className="img"
                     src={item.src}
                     alt={item.name}
                   />
