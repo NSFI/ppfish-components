@@ -13,6 +13,7 @@ export default class Drawer extends React.Component {
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     visible: PropTypes.bool,
+    closed: PropTypes.bool,
     placement: PropTypes.oneOf(['left', 'right', 'bottom', 'top']),
     getContainer: PropTypes.oneOfType([
       PropTypes.string,
@@ -29,6 +30,7 @@ export default class Drawer extends React.Component {
     onChange: PropTypes.func,
     onMaskClick: PropTypes.func,
     onHandleClick: PropTypes.func,
+    onCloseClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -55,6 +57,10 @@ export default class Drawer extends React.Component {
     this.props.onHandleClick(e);
   }
 
+  handleCloseClick = (e) => {
+    this.props.onCloseClick(e);
+  }
+
   render() {
     const {
       prefixCls,
@@ -69,7 +75,8 @@ export default class Drawer extends React.Component {
       mask,
       maskStyle,
       handler,
-      level
+      level,
+      closed
     } = this.props;
 
     return (
@@ -79,6 +86,7 @@ export default class Drawer extends React.Component {
         width={width}
         height={height}
         open={visible}
+        closed={closed}
         placement={placement}
         getContainer={getContainer}
         showMask={mask}
@@ -89,6 +97,7 @@ export default class Drawer extends React.Component {
         onMaskClick={this.handleMaskClick}
         onHandleClick={this.handleHandleClick}
         onChange={this.handleChange}
+        onCloseClick={this.handleCloseClick}
       >
         {this.props.children}
       </RcDrawer>

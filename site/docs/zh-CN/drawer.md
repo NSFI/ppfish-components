@@ -12,8 +12,36 @@
 :::demo
 
 ```js
+constructor(props) {
+  super(props);
+  this.state = {
+    open: false
+  };
+}
 
-drawerBaiscDemo = () => {
+onChange = (bool) => {
+  console.log(bool);
+}
+
+onTouchEnd = () => {
+  this.setState({
+    open: false,
+  });
+}
+
+onSwitch = () => {
+  this.setState({
+    open: !this.state.open,
+  });
+}
+
+onCloseClick = () => {
+  this.setState({
+    open: !this.state.open,
+  });
+}
+
+drawerBaiscDemo = () => {  
   return (
     <div>
       <Drawer
@@ -21,49 +49,53 @@ drawerBaiscDemo = () => {
         level={null}
         width="30vw"
         visible={this.state.open}
+        close={true}
         onChange={this.onChange}
         onMaskClick={this.onTouchEnd}
+        onCloseClick={this.onCloseClick}
       >
-        <Menu
-          style={{ height: '200%' }}
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-        >
-          <Menu.SubMenu
-            key="sub1"
-            title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+        <div>
+          <Menu
+            style={{ height: '200%' }}
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline"
           >
-            <Menu.ItemGroup key="g1" title="Item 1">
-              <Menu.Item key="1">Option 1</Menu.Item>
-              <Menu.Item key="2">Option 2</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.ItemGroup key="g2" title="Item 2">
-              <Menu.Item key="3">Option 3</Menu.Item>
-              <Menu.Item key="4">Option 4</Menu.Item>
-            </Menu.ItemGroup>
-          </Menu.SubMenu>
-          <Menu.SubMenu
-            key="sub2"
-            title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
-          >
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.SubMenu key="sub3" title="Submenu">
-              <Menu.Item key="7">Option 7</Menu.Item>
-              <Menu.Item key="8">Option 8</Menu.Item>
+            <Menu.SubMenu
+              key="sub1"
+              title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+            >
+              <Menu.ItemGroup key="g1" title="Item 1">
+                <Menu.Item key="1">Option 1</Menu.Item>
+                <Menu.Item key="2">Option 2</Menu.Item>
+              </Menu.ItemGroup>
+              <Menu.ItemGroup key="g2" title="Item 2">
+                <Menu.Item key="3">Option 3</Menu.Item>
+                <Menu.Item key="4">Option 4</Menu.Item>
+              </Menu.ItemGroup>
             </Menu.SubMenu>
-          </Menu.SubMenu>
-          <Menu.SubMenu
-            key="sub4"
-            title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
-          >
-            <Menu.Item key="9">Option 9</Menu.Item>
-            <Menu.Item key="10">Option 10</Menu.Item>
-            <Menu.Item key="11">Option 11</Menu.Item>
-            <Menu.Item key="12">Option 12</Menu.Item>
-          </Menu.SubMenu>
-        </Menu>
+            <Menu.SubMenu
+              key="sub2"
+              title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+            >
+              <Menu.Item key="5">Option 5</Menu.Item>
+              <Menu.Item key="6">Option 6</Menu.Item>
+              <Menu.SubMenu key="sub3" title="Submenu">
+                <Menu.Item key="7">Option 7</Menu.Item>
+                <Menu.Item key="8">Option 8</Menu.Item>
+              </Menu.SubMenu>
+            </Menu.SubMenu>
+            <Menu.SubMenu
+              key="sub4"
+              title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+            >
+              <Menu.Item key="9">Option 9</Menu.Item>
+              <Menu.Item key="10">Option 10</Menu.Item>
+              <Menu.Item key="11">Option 11</Menu.Item>
+              <Menu.Item key="12">Option 12</Menu.Item>
+            </Menu.SubMenu>
+          </Menu>
+        </div>
       </Drawer>
       <div
         style={{
@@ -73,15 +105,17 @@ drawerBaiscDemo = () => {
       >
         内容区块
         <Button
+          type="primary"
           onClick={this.onSwitch}
-          style={{ height: 24, width: 100, marginLeft: 20, color: '#000', lineHeight: '24px' }}
+          style={{marginLeft: 20}}
         >
-          {!this.state.open ? '打开' : '关闭'}
+          {!this.state.open ? '打开抽屉' : '关闭抽屉'}
         </Button>
       </div>
     </div>
   )
 }
+
 render() {
   //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerBaiscDemo
   return(
@@ -210,6 +244,33 @@ render() {
 :::demo
 
 ```js
+constructor(props) {
+  super(props);
+  this.state = {
+    open: false,
+    openChild: false,
+    openChildren: false,
+  }
+}
+
+onClick = () => {
+  this.setState({
+    open: !this.state.open,
+  });
+}
+
+onChildClick = () => {
+  this.setState({
+    openChild: !this.state.openChild,
+  })
+}
+
+onChildrenClick = () => {
+  this.setState({
+    openChildren: !this.state.openChildren,
+  });
+}
+
 drawerMultipleDemo = () => {
   return (
     <div >
@@ -317,9 +378,11 @@ render() {
 | getContainer | 指定Drawer挂载的HTML节点 | ()=>ReactNode | ()=>document.body |
 | style | 可用于设置 Drawer 的样式，调整浮层位置等 | Object | - |
 | mask | 是否展示遮罩 | Boolean | true |
+| closed | 是否展示关闭按钮 | Boolean | false |
 | maskStyle | 遮罩样式 | Object | - |
 | handler | 是否显示触发按钮或自定义触发按钮样式 | Boolean \| ReactNode | `<div className="drawer-handle"><i className="drawer-handle-icon" /></div>` |
 | level | 随着抽屉移动的元素 | Enum {'all',null,className,id,tagName} | 'all' |
 | onChange | 展开或收起的回调 | (status:Boolean)=>{} | - |
 | onMaskClick | 点击遮罩的回调 | (e)=>{} | - |
 | onHandleClick | 点击触发按钮的回调 | (e)=>{} | - |
+| onCloseClick | 点击关闭按钮的回调 | (e)=>{} | - |
