@@ -208,19 +208,17 @@ export default class Select extends React.Component {
 
   //搜索键入
   updateSearchValue = (e) => {
-    this.setState({
-      searchValue: e.target.value
-    }, () => {
-      this.props.onSearch(this.state.searchValue);
+    const searchValue = e.target.value;
+    this.setState({searchValue}, () => {
+      this.props.onSearch(searchValue);
     });
   };
 
   //清空搜索
   emptySearchValue = () => {
-    this.setState({
-      searchValue: ''
-    }, () => {
-      this.props.onSearch(this.state.searchValue);
+    const searchValue = '';
+    this.setState({searchValue}, () => {
+      this.props.onSearch(searchValue);
     });
   };
 
@@ -250,7 +248,7 @@ export default class Select extends React.Component {
       const {selectValue, selectValueForMultiplePanel} = this.state;
       onVisibleChange(visible);
       if (visible) {
-        // 没有选中任何选项、默认开启激活第一个选项
+        // 打开弹出框时，没有选中任何选项且开启defaultActiveFirstOption - 开启激活第一个选项
         if (defaultActiveFirstOption && !selectValue.length) {
           const firstOption = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
           this.setState({
@@ -259,7 +257,7 @@ export default class Select extends React.Component {
         }
         this.focus();
       } else {
-        // 多选就还原状态-同handleCancel
+        // 隐藏弹出框时，多选模式下还原状态-同handleCancel
         if (mode === 'multiple') {
           this.setState({
             selectValue: selectValueForMultiplePanel
@@ -298,7 +296,7 @@ export default class Select extends React.Component {
   onOptionClick = (e, obj, clickInLabel) => {
     e && e.stopPropagation();
     const {onChange, mode, onSelect, labelInValue} = this.props;
-    const selectValue = this.state.selectValue;
+    const {selectValue} = this.state;
     const index = selectValue.findIndex(selected => selected.key === obj.key);
     if (mode === 'single') {
       this.setState({
@@ -318,7 +316,7 @@ export default class Select extends React.Component {
       let changedValue, changedObj = {};
       //label 点击
       if (clickInLabel) {
-        const selectValueForMultiplePanel = this.state.selectValueForMultiplePanel;
+        const {selectValueForMultiplePanel} = this.state;
         const indexInMultiple = selectValueForMultiplePanel.findIndex(selected => selected.key === obj.key);
         changedValue = [...selectValueForMultiplePanel.slice(0, indexInMultiple), ...selectValueForMultiplePanel.slice(indexInMultiple + 1)];
         changedObj = {
@@ -334,11 +332,12 @@ export default class Select extends React.Component {
       }
       this.setState(changedObj, () => {
         if (clickInLabel) {
-          //Clicking on label will trigger the onchange event.
+          //click on label will trigger the onchange event.
+          const {selectValue} = this.state;
           if (labelInValue) {
-            onChange(this.state.selectValue);
+            onChange(selectValue);
           } else {
-            onChange(this.state.selectValue.map(selected => selected.key));
+            onChange(selectValue.map(selected => selected.key));
           }
         }
       });
@@ -409,9 +408,10 @@ export default class Select extends React.Component {
 
   //多选-取消
   handleCancelSelect = () => {
+    const {selectValueForMultiplePanel} = this.state;
     this.setState({
       popupVisible: false,
-      selectValue: this.state.selectValueForMultiplePanel
+      selectValue: selectValueForMultiplePanel
     });
   };
 
@@ -580,8 +580,9 @@ export default class Select extends React.Component {
     const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的children
     const showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
     const maxCountError = 'maxCount' in this.props && selectValue.length > maxCount; // maxCount值存在且小于选择数量
+    const dropdownPanelCls = classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName});
     return (
-      <div className={classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName})}
+      <div className={dropdownPanelCls}
            onKeyDown={this.handleActiveTabChange}
            ref={selection => this.selection = selection}
            style={dropdownStyle}
