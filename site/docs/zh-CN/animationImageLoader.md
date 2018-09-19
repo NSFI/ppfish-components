@@ -1,4 +1,4 @@
-# 逐帧动画
+# AnimationImageLoader 逐帧动画
 
 长图制作逐帧动画
 

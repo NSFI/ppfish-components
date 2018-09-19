@@ -63,7 +63,6 @@ export default class Select extends React.Component {
     style: PropTypes.object,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
     visible: PropTypes.bool,
-    transitionName: PropTypes.string,
   };
 
   static defaultProps = {
@@ -100,7 +99,7 @@ export default class Select extends React.Component {
     showSingleClear: false,
     size: 'default',
     style: {},
-    transitionName: 'slide-up',
+    visible: false,
   };
 
   //获取所有option的[{label,key,title}]
@@ -188,11 +187,16 @@ export default class Select extends React.Component {
       selectValueForMultiplePanel: initialSelectValue,
       popupVisible: visible,
       activeKey: undefined,
+      dropdownWidth: null,
     };
   }
 
+  componentDidMount() {
+    this.setDropdownWidth();
+  }
+
   componentWillReceiveProps(nextProps) {
-    if ('visible' in nextProps && nextProps.visible !== this.props.visible) {
+    if ('visible' in nextProps) {
       this.setState({
         popupVisible: nextProps.visible
       });
@@ -207,6 +211,20 @@ export default class Select extends React.Component {
       });
     }
   }
+
+  componentDidUpdate() {
+    this.setDropdownWidth();
+  }
+
+  setDropdownWidth = () => {
+    if (!this.props.dropdownMatchSelectWidth) {
+      return;
+    }
+    const width = ReactDOM.findDOMNode(this).offsetWidth;
+    if (width !== this.state.dropdownWidth) {
+      this.setState({dropdownWidth: width});
+    }
+  };
 
   //搜索键入
   updateSearchValue = (e) => {
@@ -233,16 +251,16 @@ export default class Select extends React.Component {
 
   //清空数据项,mode='single'
   emptySelectValue = () => {
+    this.changeVisibleState(false);
     this.setState({
       selectValue: [],
-      popupVisible: false,
     }, () => {
       this.props.onChange();
     });
   };
 
   //popup显示隐藏
-  onVisibleChange = (visible) => {
+  changeVisibleState = (visible) => {
     this.setState({
       popupVisible: visible
     }, () => {
@@ -301,9 +319,9 @@ export default class Select extends React.Component {
     const {selectValue} = this.state;
     const index = selectValue.findIndex(selected => selected.key === obj.key);
     if (mode === 'single') {
+      this.changeVisibleState(false);
       this.setState({
         selectValue: [obj],
-        popupVisible: false,
       }, () => {
         // 值改变了才触发onChange
         if (index === -1) {
@@ -411,8 +429,8 @@ export default class Select extends React.Component {
   //多选-取消
   handleCancelSelect = () => {
     const {selectValueForMultiplePanel} = this.state;
+    this.changeVisibleState(false);
     this.setState({
-      popupVisible: false,
       selectValue: selectValueForMultiplePanel
     });
   };
@@ -421,8 +439,8 @@ export default class Select extends React.Component {
   handleConfirmSelect = () => {
     const {onChange, labelInValue} = this.props;
     const {selectValue} = this.state;
+    this.changeVisibleState(false);
     this.setState({
-      popupVisible: false,
       selectValueForMultiplePanel: selectValue,
     }, () => {
       if (labelInValue) {
@@ -439,7 +457,7 @@ export default class Select extends React.Component {
     const optionList = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
     // 全选判断来源是 ：false-下拉面板内容区，true-显示面板内容区
     const selectedList = countSelectValueForMultiplePanel ? selectValueForMultiplePanel : selectValue;
-    //全选判断逻辑：option中每一项都能在seleced中找到（兼容后端搜索的全选判断）
+    //全选判断逻辑：option中每一项都能在selected中找到（兼容后端搜索的全选判断）
     return optionList.every(selected => {
       return !!selectedList.find(option => option.key === selected.key);
     });
@@ -462,9 +480,9 @@ export default class Select extends React.Component {
         if (activeTabIndex !== -1) {
           if (!selectValue.find((selected) => selected.key === activeKey)) {
             if (mode === 'single') {
+              this.changeVisibleState(false);
               this.setState({
                 selectValue: [optionList[activeTabIndex]],
-                popupVisible: false,
                 activeKey: undefined,
               }, () => {
                 if (labelInValue) {
@@ -803,18 +821,25 @@ export default class Select extends React.Component {
       popupAlign,
       prefixCls,
     } = this.props;
+
+    const {popupVisible, dropdownWidth} = this.state;
+    const popupStyle = {};
+    const widthProp = dropdownMatchSelectWidth ? 'width' : 'minWidth';
+    if (dropdownWidth) {
+      popupStyle[widthProp] = `${dropdownWidth}px`;
+    }
     return (
       <Trigger
         action={disabled ? [] : ['click']}
         builtinPlacements={placements}
         ref={node => this.trigger = node}
         getPopupContainer={getPopupContainer}
-        onPopupVisibleChange={this.onVisibleChange}
+        onPopupVisibleChange={this.changeVisibleState}
         popup={this.getDropdownPanel()}
         popupPlacement={popupAlign}
-        popupVisible={this.state.popupVisible}
+        popupVisible={popupVisible}
         prefixCls={`${prefixCls}-popup`}
-        stretch={dropdownMatchSelectWidth ? 'width' : ''}
+        popupStyle={popupStyle}
       >
         {this.getSelectionPanel()}
       </Trigger>
