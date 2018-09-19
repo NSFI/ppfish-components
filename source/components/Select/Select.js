@@ -11,6 +11,7 @@ import Icon from '../Icon/index.tsx';
 import SelectSearch from './SelectSearch';
 import placements from './placements';
 import {KeyCode} from "../../utils";
+import isEqual from 'lodash/isEqual';
 
 const noop = () => {
 };
@@ -196,19 +197,30 @@ export default class Select extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ('visible' in nextProps) {
+    if ('visible' in nextProps && !isEqual(nextProps.visible, this.props.visible)) {
       this.setState({
         popupVisible: nextProps.visible
       });
     }
 
     if ('value' in nextProps) {
-      const {value, labelInValue, children} = nextProps;
+      const {value, labelInValue, children, mode} = nextProps;
       const changedValue = Select.getValueFromProps(value, labelInValue, children);
-      this.setState({
-        selectValue: changedValue,
-        selectValueForMultiplePanel: changedValue,
-      });
+      const {selectValue, selectValueForMultiplePanel} = this.state;
+      if (mode === 'single') {
+        if (!isEqual(changedValue, selectValue)) {
+          this.setState({
+            selectValue: changedValue,
+          });
+        }
+      } else if (mode === 'multiple') {
+        if (!isEqual(changedValue, selectValueForMultiplePanel) || !isEqual(changedValue, selectValue)) {
+          this.setState({
+            selectValue: changedValue,
+            selectValueForMultiplePanel: changedValue,
+          });
+        }
+      }
     }
   }
 
@@ -216,6 +228,7 @@ export default class Select extends React.Component {
     this.setDropdownWidth();
   }
 
+  //获取面板宽度
   setDropdownWidth = () => {
     if (!this.props.dropdownMatchSelectWidth) {
       return;
@@ -229,17 +242,15 @@ export default class Select extends React.Component {
   //搜索键入
   updateSearchValue = (e) => {
     const searchValue = e.target.value;
-    this.setState({searchValue}, () => {
-      this.props.onSearch(searchValue);
-    });
+    this.props.onSearch(searchValue);
+    this.setState({searchValue});
   };
 
   //清空搜索
   emptySearchValue = () => {
     const searchValue = '';
-    this.setState({searchValue}, () => {
-      this.props.onSearch(searchValue);
-    });
+    this.props.onSearch(searchValue);
+    this.setState({searchValue});
   };
 
   //全选操作
@@ -252,39 +263,44 @@ export default class Select extends React.Component {
   //清空数据项,mode='single'
   emptySelectValue = () => {
     this.changeVisibleState(false);
+    this.props.onChange();
     this.setState({
       selectValue: [],
-    }, () => {
-      this.props.onChange();
     });
   };
 
   //popup显示隐藏
   changeVisibleState = (visible) => {
-    this.setState({
+    this.props.onVisibleChange(visible);
+    const changedState = {
       popupVisible: visible
-    }, () => {
-      const {onVisibleChange, defaultActiveFirstOption, mode} = this.props;
-      const {selectValue, selectValueForMultiplePanel} = this.state;
-      onVisibleChange(visible);
-      if (visible) {
-        // 打开弹出框时，没有选中任何选项且开启defaultActiveFirstOption - 开启激活第一个选项
-        if (defaultActiveFirstOption && !selectValue.length) {
-          const firstOption = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
-          this.setState({
-            activeKey: firstOption.key
-          });
-        }
-        this.focus();
-      } else {
-        // 隐藏弹出框时，多选模式下还原状态-同handleCancel
-        if (mode === 'multiple') {
-          this.setState({
-            selectValue: selectValueForMultiplePanel
-          });
-        }
+    };
+    const {defaultActiveFirstOption} = this.props;
+    const {selectValue} = this.state;
+    if (visible) {
+      // 打开弹出框时，没有选中任何选项且开启defaultActiveFirstOption - 开启激活第一个选项
+      if (defaultActiveFirstOption && !selectValue.length) {
+        const firstOption = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
+        changedState.activeKey = firstOption.key;
       }
+    } else {
+      changedState.activeKey = undefined;
+    }
+    this.setState(changedState, () => {
+      visible && this.focus();
     });
+  };
+
+  //rc-trigger触发visibleChange事件
+  visibleChangeFromTrigger = (visible) => {
+    const {selectValueForMultiplePanel} = this.state;
+    const {mode} = this.props;
+    if (!visible && mode === 'multiple') {
+      this.setState({
+        selectValue: selectValueForMultiplePanel
+      });
+    }
+    this.changeVisibleState(visible);
   };
 
   // 焦点操作
@@ -297,7 +313,7 @@ export default class Select extends React.Component {
     } else {
       setTimeout(() => {
         const targetElement = showSearch ? this.selectSearch.searchInput.input : this.selection;
-        targetElement[event]();
+        targetElement && targetElement[event]();
       });
     }
   };
@@ -322,16 +338,14 @@ export default class Select extends React.Component {
       this.changeVisibleState(false);
       this.setState({
         selectValue: [obj],
-      }, () => {
-        // 值改变了才触发onChange
-        if (index === -1) {
-          if (labelInValue) {
-            onChange(obj);
-          } else {
-            onChange(obj.key);
-          }
-        }
       });
+      if (index === -1) {
+        if (labelInValue) {
+          onChange(obj);
+        } else {
+          onChange(obj.key);
+        }
+      }
     } else if (mode === 'multiple') {
       let changedValue, changedObj = {};
       //label 点击
@@ -350,17 +364,16 @@ export default class Select extends React.Component {
           selectValue: changedValue,
         };
       }
-      this.setState(changedObj, () => {
-        if (clickInLabel) {
-          //click on label will trigger the onchange event.
-          const {selectValue} = this.state;
-          if (labelInValue) {
-            onChange(selectValue);
-          } else {
-            onChange(selectValue.map(selected => selected.key));
-          }
+      this.setState(changedObj);
+      if (clickInLabel) {
+        //click on label will trigger the onchange event.
+        const {selectValue} = this.state;
+        if (labelInValue) {
+          onChange(selectValue);
+        } else {
+          onChange(selectValue.map(selected => selected.key));
         }
-      });
+      }
     }
     //fire onSelect event => option/label click
     onSelect(obj);
@@ -383,7 +396,6 @@ export default class Select extends React.Component {
           showOptionCheckedIcon: showOptionCheckedIcon,
           onOptionClick: this.onOptionClick,
           onOptionMouseEnter: this.onOptionMouseEnter,
-          onOptionMouseLeave: this.onOptionMouseLeave,
           ref: value,
           children: this.getProcessedChildren(child.props.children, dropdownCls),
         });
@@ -442,13 +454,12 @@ export default class Select extends React.Component {
     this.changeVisibleState(false);
     this.setState({
       selectValueForMultiplePanel: selectValue,
-    }, () => {
-      if (labelInValue) {
-        onChange(selectValue);
-      } else {
-        onChange(selectValue.map(selected => selected.key));
-      }
     });
+    if (labelInValue) {
+      onChange(selectValue);
+    } else {
+      onChange(selectValue.map(selected => selected.key));
+    }
   };
 
   //判断是否全选
@@ -555,11 +566,6 @@ export default class Select extends React.Component {
   //处理option激活态-> mouseEnter
   onOptionMouseEnter = (activeKey) => {
     this.setState({activeKey});
-  };
-
-  //处理option激活态-> mouseLeave
-  onOptionMouseLeave = () => {
-    this.setState({activeKey: undefined});
   };
 
   // selectionChange后重新定位trigger
@@ -834,7 +840,7 @@ export default class Select extends React.Component {
         builtinPlacements={placements}
         ref={node => this.trigger = node}
         getPopupContainer={getPopupContainer}
-        onPopupVisibleChange={this.changeVisibleState}
+        onPopupVisibleChange={this.visibleChangeFromTrigger}
         popup={this.getDropdownPanel()}
         popupPlacement={popupAlign}
         popupVisible={popupVisible}
