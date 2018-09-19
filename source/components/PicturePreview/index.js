@@ -96,6 +96,8 @@ class PicturePreview extends Component {
     toolbar: PropTypes.bool,
     source: PropTypes.array,
     dragable: PropTypes.bool,
+    mask: PropTypes.bool,
+    progress: PropTypes.bool,
     visible: PropTypes.bool,
     activeIndex: PropTypes.number,
     onClose: PropTypes.func,
@@ -106,6 +108,8 @@ class PicturePreview extends Component {
     toolbar: false,
     source: [], // [{name: '', src: ''}]
     dragable: false,
+    mask: true,
+    progress: false,
     visible: false,
     activeIndex: 0,
     onClose: () => {},
@@ -134,7 +138,7 @@ class PicturePreview extends Component {
   componentDidMount() {
     const { dragable, toolbar } = this.props;
 
-    document.body.appendChild(this.$el);
+    document.body.appendChild(this.$root);
     this.setContainerStyle();
 
     if (toolbar) {
@@ -202,8 +206,8 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    if (this.$el && this.$el.parentNode === document.body) {
-      document.body.removeChild(this.$el);
+    if (this.$root && this.$root.parentNode === document.body) {
+      document.body.removeChild(this.$root);
     }
 
     if (this.props.dragable) {
@@ -516,26 +520,25 @@ class PicturePreview extends Component {
 
   render() {
     const { show, current, imgs, image, container } = this.state;
-    const { className, prefixCls, source, children, toolbar, dragable } = this.props;
+    const { className, prefixCls, source, children, toolbar, dragable, mask, progress } = this.props;
     let isFullscreen = container.isFull;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
-      'dragable': dragable,
-      'hide': !show
+      'dragable': dragable
     });
-    let isHide = !(source.length > 1 || (!!children && children.length > 1));
     let closeBtnClass = classNames({
       'close': !isFullscreen,
       'close-fullscreen': isFullscreen
     });
+    let isHide = !(source.length > 1 || (!!children && children.length > 1));
     let leftBtnClass = classNames('prev', {
-      'hide': isHide
+      [`${prefixCls}-hide`]: isHide
     });
     let rightBtnClass = classNames('next', {
-      'hide': isHide
+      [`${prefixCls}-hide`]: isHide
     });
     let toolbarClass = classNames('toolbar', {
-      'hide': !toolbar
+      [`${prefixCls}-hide`]: !toolbar
     });
     let one2oneClass = classNames('icon', {
       'icon-disabled': image.ratio == 1
@@ -548,52 +551,64 @@ class PicturePreview extends Component {
     });
     let screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
     // let ctnerStyle = isFullscreen ? Object.assign({}, container.style, {background: 'rgba(0,0,0,0.8)'}) : container.style;
+    let rootClass = classNames({
+      [`${prefixCls}-hide`]: !show
+    });
+    let maskClass = classNames(`${prefixCls}-mask`, {
+      [`${prefixCls}-hide`]: !mask
+    });
+    let progressClass = classNames('toolbarTitle', {
+      [`${prefixCls}-hide`]: !progress
+    });
 
     return (
-      <div className={ctnerClass} ref={node => this.$el = node} style={container.style}
-        onMouseDown={dragable ? this.handleMouseDown : null}
-        onWheel={this.handleWheel} >
-        <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
-        <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
-        <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
+      <div className={rootClass} ref={node => this.$root = node}>
+        <div className={maskClass}></div>
+        <div className={ctnerClass} ref={node => this.$el = node} style={container.style}
+          onMouseDown={dragable ? this.handleMouseDown : null}
+          onWheel={this.handleWheel} >
+          <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
+          <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
+          <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
 
-        <div className="canvas">
-          {
-            imgs.map((item, index) => {
-              if (current === index) {
-                return (
-                  <img key={'pic_'+index}
-                    className="img"
-                    src={item.src}
-                    alt={item.name}
-                    active="true"
-                    ref={node => this.imgEl = node}
-                  />
-                );
-              } else {
-                return (
-                  <img key={'pic_'+index}
-                    className="img"
-                    src={item.src}
-                    alt={item.name}
-                  />
-                );
-              }
-            })
-          }
-        </div>
+          <div className="canvas">
+            {
+              imgs.map((item, index) => {
+                if (current === index) {
+                  return (
+                    <img key={'pic_'+index}
+                      className="img"
+                      src={item.src}
+                      alt={item.name}
+                      active="true"
+                      ref={node => this.imgEl = node}
+                    />
+                  );
+                } else {
+                  return (
+                    <img key={'pic_'+index}
+                      className="img"
+                      src={item.src}
+                      alt={item.name}
+                    />
+                  );
+                }
+              })
+            }
+          </div>
 
-        <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
-          {/* <div className="toolbarTitle">{current+1}/{imgs.length}</div> */}
-          <div className="toolbarCon">
-            <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
-            <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
-            <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
-            <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
-            <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
-            <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
-              <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
-            </a>
+          <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
+            <div className={progressClass}>{current+1}/{imgs.length}</div>
+            <div className="toolbarCon">
+              <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
+              <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
+              <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
+              <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
+              <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
+              <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
+                <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
+              </a>
+            </div>
           </div>
         </div>
       </div>
