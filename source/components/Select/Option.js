@@ -11,8 +11,6 @@ export default class Option extends React.Component {
     children: PropTypes.node,
     disabled: PropTypes.bool,
     onOptionClick: PropTypes.func,
-    onOptionMouseEnter: PropTypes.func,
-    onOptionMouseLeave: PropTypes.func,
     prefixCls: PropTypes.string,
     showOptionCheckedIcon: PropTypes.bool,
     title: PropTypes.string,
@@ -35,20 +33,6 @@ export default class Option extends React.Component {
     }
   };
 
-  onOptionMouseEnter = (e) => {
-    const {disabled, onOptionMouseEnter, value} = this.props;
-    if (!disabled) {
-      onOptionMouseEnter && onOptionMouseEnter(value);
-    }
-  };
-
-  onOptionMouseLeave = (e) => {
-    const {disabled, onOptionMouseLeave, value} = this.props;
-    if (!disabled) {
-      onOptionMouseLeave && onOptionMouseLeave(value);
-    }
-  };
-
   render() {
     const {title, children, activeKey, showOptionCheckedIcon, value, disabled, checked, prefixCls} = this.props;
     const label = children && children.length === 1 ? children[0] : children;
@@ -63,8 +47,6 @@ export default class Option extends React.Component {
     return (
       <li
         title={title}
-        onMouseEnter={this.onOptionMouseEnter}
-        onMouseLeave={this.onOptionMouseLeave}
         className={optionCls}
         onClick={(e) => this.onOptionClick(e, {label, title, key: value})}>
         {children}

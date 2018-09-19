@@ -276,10 +276,9 @@ export default class Select extends React.Component {
       popupVisible: visible
     };
     const {defaultActiveFirstOption} = this.props;
-    const {selectValue} = this.state;
     if (visible) {
-      // 打开弹出框时，没有选中任何选项且开启defaultActiveFirstOption - 开启激活第一个选项
-      if (defaultActiveFirstOption && !selectValue.length) {
+      // 打开弹出框时，开启激活第一个选项
+      if (defaultActiveFirstOption) {
         const firstOption = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
         changedState.activeKey = firstOption.key;
       }
@@ -561,11 +560,6 @@ export default class Select extends React.Component {
     scrollIntoView(ReactDOM.findDOMNode(this.refs[activeKey]), ReactDOM.findDOMNode(this.dropdownList), {
       onlyScrollIfNeeded: true
     });
-  };
-
-  //处理option激活态-> mouseEnter
-  onOptionMouseEnter = (activeKey) => {
-    this.setState({activeKey});
   };
 
   // selectionChange后重新定位trigger
