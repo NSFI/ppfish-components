@@ -20,12 +20,14 @@ class CollapsePanel extends Component {
       PropTypes.number,
       PropTypes.node,
     ]),
+    showArrow: PropTypes.bool,
     isActive: PropTypes.bool,
     onItemClick: PropTypes.func,
   };
   static defaultProps = {
     isActive: false,
     disabled: false,
+    showArrow: true,
     onItemClick() {
     }
   };
@@ -49,6 +51,7 @@ class CollapsePanel extends Component {
       prefixCls,
       disabled,
       header,
+      showArrow,
       style,
       children,
       isActive
@@ -62,6 +65,10 @@ class CollapsePanel extends Component {
       [`${prefixCls}-item`]: true,
       [`${prefixCls}-item-active`]: isActive,
       [className]: className,
+    });
+    const arrowCls = classNames({
+      'arrow': true,
+      'z-show': showArrow,
     });
     const getArrowIcon = (isActive) => {
       if (isActive) {
@@ -83,10 +90,10 @@ class CollapsePanel extends Component {
           aria-expanded={isActive}
           ref={itemKey}
         >
-          <div className="title">{header}</div>
-          <div className="arrow">
+          <div className={arrowCls}>
             {getArrowIcon(isActive)}
           </div>
+          <div className="title">{header}</div>
         </div>
         <PanelContent prefixCls={prefixCls} isActive={isActive}>
           {children}
