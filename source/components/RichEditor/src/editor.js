@@ -6,12 +6,10 @@ import classNames from 'classnames';
 import CustomToolbar from './toolbar.js';
 import CustomSizeBlot from './formatSizeBlot.js';
 import EmojiBlot from './formatEmojiBlot.js';
-import EntryBlot from './formatEntryBlot.js';
 import '../style/index.less';
 
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
-Quill.register(EntryBlot);
 
 class RichEditor extends Component {
   static propTypes = {
@@ -80,12 +78,15 @@ class RichEditor extends Component {
           // 此处使用内置的ColorBlot设置字体颜色，可以自定义CustomColorBlot添加更多扩展功能
           this.quill.format('color', color);
         }
-      },
+      }
     };
 
     Object.keys(customLink).forEach((name) => {
-      this.handlers[name] = function() {
-        this.quill.format('entry', customLink[name].url);
+      this.handlers[`${name}Entry`] = function() {
+        let range = this.quill.getSelection();
+        if (range.length !== 0) {
+          this.quill.format('link', customLink[name].url);
+        }
       };
     });
   }

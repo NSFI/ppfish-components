@@ -87,7 +87,7 @@ class CustomToolbar extends PureComponent {
     // 处理扩展的链接模块
     if (mType in customLink) {
       let entryClass = classNames('item custom-entry', {
-        [`ql-${mType}`]: !showSizePanel,
+        [`ql-${mType}Entry`]: true,
         [`${iconPrefix}`]: true,
         [`${iconPrefix}-richeditor-transfer`]: true
       }, customLink[mType].className);
