@@ -127,6 +127,7 @@ class RichEditor extends Component {
     if (el.value) {
       let quill = this.getEditor();
       quill.format('link', el.value);
+      el.value = 'http://';
 
       this.setState({
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
