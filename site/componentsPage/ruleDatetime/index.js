@@ -7,7 +7,7 @@ export default class ruleDatetime extends React.Component {
   render() {
     return (
       <div className="rule-date-time">
-        <h1>日期时间 Date Time</h1>
+        <h1>Date Time 日期时间</h1>
         <p>产品中的日期时间。</p>
         <h2>适用场景</h2>
         <p>平台全局使用统一时间显示规则。</p>
