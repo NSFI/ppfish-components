@@ -3,6 +3,9 @@ import { findDOMNode } from 'react-dom';
 import ReactQuill, { Quill } from '../quill/index.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Modal from '../../Modal/index.tsx';
+import Input from '../../Input/index.tsx';
+import message from '../../Message/index.tsx';
 import CustomToolbar from './toolbar.js';
 import CustomSizeBlot from './formatSizeBlot.js';
 import EmojiBlot from './formatEmojiBlot.js';
@@ -50,16 +53,19 @@ class RichEditor extends Component {
     this.toolbarCtner = null;
     this.state = {
       value: value,
+      showLinkModal: false
     };
     this.handlers = {
-      'link': function(value) {
-        let range = this.quill.getSelection();
+      'link': (value) => {
+        let quill = this.getEditor();
+        let range = quill.getSelection();
 
         if (range.length !== 0) {
-          let href = prompt('插入链接');
-          this.quill.format('link', href);
+          this.setState({
+            showLinkModal: true
+          });
         } else {
-          // TODO: 提示没有选中文本
+          message.info('没有选中文本');
         }
       },
       'emoji': function(value) {
@@ -116,8 +122,27 @@ class RichEditor extends Component {
     return this.reactQuillRef.getEditor();
   };
 
+  handleLinkModalOk = () => {
+    let el = this.linkModalInputRef.input;
+    if (el.value) {
+      let quill = this.getEditor();
+      quill.format('link', el.value);
+
+      this.setState({
+        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        showLinkModal: false
+      });
+    }
+  };
+
+  handleLinkModalCancel = () => {
+    this.setState({
+      showLinkModal: false
+    });
+  };
+
   render() {
-    const { value } = this.state;
+    const { value, showLinkModal } = this.state;
     const {
       className, prefixCls,
       value: propsValue,
@@ -130,6 +155,16 @@ class RichEditor extends Component {
 
     return (
       <div className={cls}>
+        <Modal
+          title="插入超链接"
+          className={`${prefixCls}-link-modal`}
+          visible={showLinkModal}
+          onOk={this.handleLinkModalOk}
+          onCancel={this.handleLinkModalCancel}
+        >
+          <span className="link-modal-text">超链接地址</span>
+          <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue="http://" />
+        </Modal>
         <CustomToolbar
           ref={el => this.toolbarRef = el}
           className={'editor-head'}
