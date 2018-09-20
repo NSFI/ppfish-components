@@ -65,7 +65,7 @@ class RichEditor extends Component {
             showLinkModal: true
           });
         } else {
-          message.info('没有选中文本');
+          message.error('没有选中文本');
         }
       },
       'emoji': function(value) {
@@ -123,10 +123,23 @@ class RichEditor extends Component {
   };
 
   handleLinkModalOk = () => {
-    let el = this.linkModalInputRef.input;
-    if (el.value) {
+    let el = this.linkModalInputRef.input,
+        val = el.value;
+
+    if (val) {
+      if (val.length > 1000) {
+        message.error('链接地址不得超过1000个字');
+        return;
+      }
+
+      let urlRe = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+      if (!urlRe.test(val)) {
+        message.error('请输入链接地址');
+        return;
+      }
+
       let quill = this.getEditor();
-      quill.format('link', el.value);
+      quill.format('link', val);
       el.value = 'http://';
 
       this.setState({
@@ -137,6 +150,7 @@ class RichEditor extends Component {
   };
 
   handleLinkModalCancel = () => {
+    this.linkModalInputRef.input.value = 'http://';
     this.setState({
       showLinkModal: false
     });

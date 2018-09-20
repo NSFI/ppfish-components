@@ -370,7 +370,7 @@ class CustomToolbar extends PureComponent {
     }
 
     if (value) {
-      value = <Tooltip placement="bottom" title={tooltip} key={key}>{value}</Tooltip>;
+      value = <Tooltip key={key} placement="bottom" title={tooltip} mouseEnterDelay={2}>{value}</Tooltip>;
     }
 
     return value;
