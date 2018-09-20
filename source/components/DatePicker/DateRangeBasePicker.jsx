@@ -306,7 +306,8 @@ export default class DateRangeBasePicker extends React.Component {
           className={classNames(`${prefixCls}-date-editor`, className, {
             'is-have-trigger': calcIsShowTrigger(),
             'is-active': pickerVisible,
-            'is-filled': !!value
+            'is-filled': !!value,
+            'is-disable': isDisabled
           })}
           style={{...style}}
         >

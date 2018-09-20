@@ -304,7 +304,8 @@ export default class BasePicker extends React.Component {
             {
               'is-have-trigger': calcIsShowTrigger(),
               'is-active': pickerVisible,
-              'is-filled': !!value
+              'is-filled': !!value,
+              'is-disable': isDisabled
             }
           )}
           style={{...style}}
