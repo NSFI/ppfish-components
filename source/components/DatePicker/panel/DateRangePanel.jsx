@@ -7,7 +7,6 @@ import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import TimePicker from '../TimePicker.jsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
-
 import {
   SELECTION_MODES,
   toDate,
@@ -33,21 +32,14 @@ const isInputValid = (text, date, disabledDate) => {
   return true;
 };
 
-const setRightDate = (dateA, dateB) => {
-  if(equalYearAndMonth(dateA,dateB)){
-    return nextMonth(dateB);
-  }else{
-    return dateB;
-  }
-};
-
 export default class DateRangePanel extends React.Component {
   static get propTypes() {
     return {
-      format: PropTypes.string,                  //base
-      value: PropTypes.array,                    //base
-      onPick: PropTypes.func.isRequired,         //base
-      onCancelPicked: PropTypes.func.isRequired, //base
+      prefixCls: PropTypes.string,
+      format: PropTypes.string,                  //basePicker
+      value: PropTypes.array,                    //basePicker
+      onPick: PropTypes.func.isRequired,         //basePicker
+      onCancelPicked: PropTypes.func.isRequired, //basePicker
       yearCount: PropTypes.number,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
@@ -55,7 +47,6 @@ export default class DateRangePanel extends React.Component {
           onClick: PropTypes.func.isRequired
         })
       ),
-      shortcutsPlacement: PropTypes.string,
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
       renderExtraFooter: PropTypes.func,
@@ -74,14 +65,13 @@ export default class DateRangePanel extends React.Component {
       ]),
       defaultStartTimeValue: PropTypes.instanceOf(Date),
       defaultEndTimeValue: PropTypes.instanceOf(Date),
-      prefixCls: PropTypes.string
-    }
+    };
   }
 
   static get defaultProps() {
     return {
+      prefixCls: 'fishd',
       yearCount: 50,
-      shortcutsPlacement: 'left',
       firstDayOfWeek: 0,
       maxDateRange: null,
       onError: () => {},
@@ -89,7 +79,6 @@ export default class DateRangePanel extends React.Component {
       isShowTimeCurrent: false,
       defaultStartTimeValue: null,
       defaultEndTimeValue: null,
-      prefixCls: 'fishd'
     };
   }
 
@@ -106,6 +95,13 @@ export default class DateRangePanel extends React.Component {
   }
 
   propsToState(props) {
+    const setRightDate = (dateA, dateB) => {
+      if(equalYearAndMonth(dateA,dateB)){
+        return nextMonth(dateB);
+      }else{
+        return dateB;
+      }
+    };
     const state = {};
     state.leftDate = isValidValueArr(props.value) ? props.value[0] : new Date();
     state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date());
@@ -326,7 +322,10 @@ export default class DateRangePanel extends React.Component {
 
     if (!isClose) return;
     if (!isShowTime) {
-      onPick([minDate, maxDate], false, true);
+      //日期范围选择的开始时间为 00：00 结束时间为 23：59
+      const pickedMinTime = setTime(new Date(minDate), new Date(new Date().setHours(0,0,0,0)));
+      const pickedMaxTime = setTime(new Date(maxDate), new Date(new Date().setHours(23,59,59,59)));
+      onPick([pickedMinTime, pickedMaxTime], false, true);
     }
   }
 
@@ -346,7 +345,6 @@ export default class DateRangePanel extends React.Component {
   render() {
     const {
       shortcuts,
-      shortcutsPlacement,
       disabledDate,
       firstDayOfWeek,
       format,
@@ -378,13 +376,13 @@ export default class DateRangePanel extends React.Component {
           `${prefixCls}-picker-panel`,
           `${prefixCls}-date-range-picker`,
           {
-            'has-sidebar': shortcuts && shortcutsPlacement === 'left',
+            'has-sidebar': shortcuts,
             'has-time': isShowTime
           })}
       >
         <div className={`${prefixCls}-picker-panel__body-wrapper`}>
           {
-            shortcutsPlacement === 'left' && Array.isArray(shortcuts) && (
+            Array.isArray(shortcuts) && (
               <div className={`${prefixCls}-picker-panel__sidebar`}>
                 {
                   shortcuts.map((e, idx) => {

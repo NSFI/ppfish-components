@@ -85,7 +85,7 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   isDateValid(date) {
-    return date == null || isValidValueArr(date);
+    return date === null || isValidValueArr(date);
   }
 
   // ---: start, abstract methods
@@ -254,7 +254,7 @@ export default class DateRangeBasePicker extends React.Component {
     const { pickerVisible, value, text } = this.state;
 
     const calcIsShowTrigger = () => {
-      if (isShowTrigger != null) {
+      if (isShowTrigger !== null) {
         return !!isShowTrigger;
       } else {
         return haveTriggerType(this.type);
