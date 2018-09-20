@@ -20,7 +20,7 @@
 
   .editor-head {
     display: block;
-    padding: 6px 14px;
+    padding: 0 14px 6px;
     border: @border-width-base @border-style-base @border-color-base;
     border-radius: @border-radius-base @border-radius-base 0 0;
     border-bottom: none;
@@ -41,6 +41,7 @@
     width: 28px;
     height: 24px;
     float: left;
+    margin-top: 6px;
 
     &:focus,
     .ql-picker:focus,
@@ -68,7 +69,6 @@
 
   .toolbar-grp {
     display: inline-block;
-    height: 24px;
     float: left;
     margin: 0 12px 0 0;
 
@@ -121,6 +121,10 @@
     > .item:last-child {
       border-top-right-radius: @border-radius-base;
       border-bottom-right-radius: @border-radius-base;
+    }
+
+    &:last-child {
+      margin-right: 0;
     }
   }
 
