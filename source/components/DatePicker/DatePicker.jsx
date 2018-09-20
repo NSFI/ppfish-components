@@ -1,30 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import BasePicker from './BasePicker.jsx';
 import DatePanel from './panel/DatePanel.jsx';
-import { pick } from './libs/utils';
 import { SELECTION_MODES } from '../../utils/date';
 
 export default class DatePicker extends BasePicker {
 
   static get propTypes() {
-    return Object.assign(
-      {},
-      BasePicker.propTypes,
-      pick(DatePanel.propTypes,
-        [
-          'value',
-          'shortcuts',
-          'selectionMode',
-          'disabledDate',
-          'showWeekNumber',
-          'firstDayOfWeek',
-          'isShowTime',
-          'yearCount',
-          'shortcutsPlacement',
-          'renderExtraFooter'
-        ]
-      )
-    );
+    return Object.assign({}, {
+      shortcuts: PropTypes.arrayOf(
+        PropTypes.shape({
+          text: PropTypes.string.isRequired,
+          onClick: PropTypes.func.isRequired
+        })
+      ),
+      disabledDate: PropTypes.func,
+      firstDayOfWeek: PropTypes.number,
+      renderExtraFooter: PropTypes.func,
+      isShowTime: PropTypes.bool,
+      yearCount: PropTypes.number,
+      showWeekNumber: PropTypes.bool,
+      selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
+    }, BasePicker.propTypes);
   }
 
   static get defaultProps() {
@@ -34,10 +31,10 @@ export default class DatePicker extends BasePicker {
   constructor(props) {
     let type = props.isShowTime ? 'datetime' : 'date';
     switch (props.selectionMode) {
-      case SELECTION_MODES.YEAR:
-        type = 'year'; break;
-      case SELECTION_MODES.MONTH:
-        type = 'month'; break;
+      // case SELECTION_MODES.YEAR:
+      //   type = 'year'; break;
+      // case SELECTION_MODES.MONTH:
+      //   type = 'month'; break;
       case SELECTION_MODES.WEEK:
         type = 'week'; break;
     }
