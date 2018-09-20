@@ -8,56 +8,32 @@ export default class TimeSelectPanel extends React.Component {
 
   static get propTypes() {
     return {
-      value: PropTypes.string,                   //base
-      onPicked: PropTypes.func.isRequired,       //base
+      prefixCls: PropTypes.string,
+      value: PropTypes.string,                   //basePicker
+      onPicked: PropTypes.func.isRequired,       //basePicker
       start: PropTypes.string,
       end: PropTypes.string,
       step: PropTypes.string,
       minTime: PropTypes.string,
       maxTime: PropTypes.string,
-      dateParser: PropTypes.func.isRequired,
-      prefixCls: PropTypes.string
+      dateParser: PropTypes.func.isRequired
     };
   }
 
   static get defaultProps() {
     return {
+      prefixCls: 'fishd',
       start: '09:00',
       end: '18:00',
       step: '00:30',
       minTime: '',
       maxTime: '',
-      onPicked() { },
-      prefixCls: 'fishd'
+      onPicked: ()=>{}
     };
   }
 
   constructor(props) {
     super(props);
-  }
-
-  isValid = (value) => {
-    return TimeSelectPanel.isValid(value, this.props);
-  }
-
-  handleClick(item) {
-    const { onPicked, dateParser } = this.props;
-    if (!item.disabled) {
-      onPicked(dateParser(item.value), false, true);
-    }
-  }
-
-  items = () => {
-    return getItems(this.props);
-  }
-
-  scrollToOption(className="selected") {
-    const menu = this.timeSelectRoot.querySelector(`.${this.props.prefixCls}-picker-panel__content`);
-    const selected = menu.getElementsByClassName(className)[0];
-    selected && scrollIntoView(selected, menu,  {
-      offsetTop: 74,
-      alignWithTop: true,
-    });
   }
 
   componentDidMount() {
@@ -71,13 +47,33 @@ export default class TimeSelectPanel extends React.Component {
     }
   }
 
+  handleClick(item) {
+    const { onPicked, dateParser } = this.props;
+    if (!item.disabled) {
+      onPicked(dateParser(item.value), false, true);
+    }
+  }
+
+  items = () => {
+    return getItems(this.props);
+  }
+
+  scrollToOption = (className="selected") => {
+    const menu = this.timeSelectRoot.querySelector(`.${this.props.prefixCls}-picker-panel__content`);
+    const selected = menu.getElementsByClassName(className)[0];
+    selected && scrollIntoView(selected, menu,  {
+      offsetTop: 74,
+      alignWithTop: true,
+    });
+  }
+
   render() {
     const { value, prefixCls } = this.props;
 
     return (
       <div
         ref={node => this.timeSelectRoot = node}
-        className={`${prefixCls}-picker-panel time-select`}>
+        className={`${prefixCls}-picker-panel time-select-panel`}>
         <Scrollbar wrapClass={`${prefixCls}-picker-panel__content`} noresize={true}>
           {
             this.items().map((item, idx) => {
@@ -95,13 +91,13 @@ export default class TimeSelectPanel extends React.Component {
           }
         </Scrollbar>
       </div>
-    )
+    );
   }
 }
 
 TimeSelectPanel.isValid = (value, { start, end, step, minTime, maxTime }) => {
   const items = getItems({ start, end, step, minTime, maxTime });
-  return !!items.filter(e => !e.disabled).find(e => e.value === value)
+  return !!items.filter(e => !e.disabled).find(e => e.value === value);
 };
 
 const getItems = ({ start, end, step, minTime, maxTime }) => {
@@ -131,7 +127,6 @@ const parseTime = function (time) {
       minutes
     };
   }
-  /* istanbul ignore next */
   return null;
 };
 

@@ -135,7 +135,7 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   getFormat() {
-    return this.props.format || DEFAULT_FORMATS[this.type]
+    return this.props.format || DEFAULT_FORMATS[this.type];
   }
 
   dateToStr = (date) => {
