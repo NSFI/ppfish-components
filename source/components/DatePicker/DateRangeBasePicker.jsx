@@ -71,6 +71,10 @@ export default class DateRangeBasePicker extends React.Component {
     }, this.propsToState(props));
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.propsToState(nextProps));
+  }
+
   propsToState(props) {
     const state = {};
     const { value } = props;
@@ -88,19 +92,12 @@ export default class DateRangeBasePicker extends React.Component {
     return date === null || isValidValueArr(date);
   }
 
-  // ---: start, abstract methods
-  // (state, props)=>ReactElement
   pickerPanel(state, props) {
     throw new Errors.MethodImplementationRequiredError(props);
   }
 
   getFormatSeparator() {
     return undefined;
-  }
-  // ---: end, abstract methods
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps));
   }
 
   /**
