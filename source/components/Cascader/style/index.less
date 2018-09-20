@@ -72,7 +72,7 @@
       background: @component-background;
       top: 50%;
       font-size: @font-size-sm;
-      color: @disabled-color;
+      color: @text-9;
       width: 12px;
       height: 12px;
       margin-top: -6px;
@@ -99,7 +99,7 @@
       font-size: 12px;
       margin-top: -6px;
       line-height: 12px;
-      color: @disabled-color;
+      color: @text-9;
       transform: scale(0.66);
       &:before {
         transition: transform 0.2s;
@@ -121,6 +121,7 @@
     font-size: @font-size-base;
     background: @component-background;
     position: absolute;
+    padding: 8px 0;
     z-index: @zindex-dropdown;
     border-radius: @border-radius-base;
     box-shadow: @box-shadow-base;
@@ -196,8 +197,8 @@
     &-active:not(&-disabled) {
       &,
       &:hover {
-        background: @background-color-base;
-        font-weight: 600;
+        background: @item-active-bg;
+        color: @primary-color;
       }
     }
     &-expand {
@@ -217,7 +218,7 @@
     }
 
     & &-keyword {
-      color: @highlight-color;
+      color: @primary-color;
     }
   }
 }
