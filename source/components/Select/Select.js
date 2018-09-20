@@ -251,6 +251,7 @@ export default class Select extends React.Component {
     const searchValue = '';
     this.props.onSearch(searchValue);
     this.setState({searchValue});
+    this.focus();
   };
 
   //全选操作
@@ -632,8 +633,8 @@ export default class Select extends React.Component {
                    ref={dropdownList => this.dropdownList = dropdownList}
                    style={{maxHeight: maxScrollHeight}}>
                 {
-                  //全选按钮-多选的情况下存在
-                  showSelectAll && mode === 'multiple' &&
+                  //全选按钮-多选未搜索的情况下存在
+                  !searchValue && showSelectAll && mode === 'multiple' &&
                   <li
                     className={classNames({[`${dropdownCls}-option-item`]: true}, {['checked checked-icon']: this.isSelectAll()})}
                     onClick={this.selectAllOption}>
@@ -644,7 +645,7 @@ export default class Select extends React.Component {
                   //清空选项按钮-单选未搜索的情况下存在
                   !searchValue && showSingleClear && mode === 'single' &&
                   <li
-                    className={`${dropdownCls}-option-item clear`}
+                    className={`${dropdownCls}-option-item`}
                     onClick={this.emptySelectValue}>
                     {placeholder}
                   </li>

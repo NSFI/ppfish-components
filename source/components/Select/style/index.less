@@ -68,17 +68,19 @@
 
   //右侧箭头
   &-caret {
-    position: absolute;
-    color: @text-9;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
     > i {
       font-size: 12px;
-      transition: all 0.3s ease;
-      transform: scale(0.66666667);
-      &.open {
-        transform: scale(0.66666667) rotate(-180deg);
+      position: absolute;
+      right: 15px;
+      color: @text-9;
+      top: 50%;
+      margin-top: -6px;
+      .iconfont-size-under-12px(8px);
+      &:before {
+        transition: all 0.3s ease;
+      }
+      &.open:before {
+        transform: rotate(180deg);
       }
     }
   }
@@ -299,10 +301,6 @@
         content: "\e671";
         font-size: 12px;
       }
-    }
-    //option-还原选项
-    &.clear {
-      color: @text-9;
     }
   }
   &-option-item-disabled {

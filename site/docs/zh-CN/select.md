@@ -614,7 +614,7 @@ render(){
     const {fetching, data, value} = this.state;
     return (
       <div className="demo-select">
-        <Select style={{width: 300}} showSelectAll selectAllText={'选中所有搜索结果'} mode="multiple" labelInValue showSearch
+        <Select style={{width: 300}} showSelectAll mode="multiple" labelInValue showSearch
                 onSearch={this.fetchUser} onChange={this.handleChange} value={value}
                 notFoundContent={fetching ? <Spin size="small"/> : null}>
           {data.map(d => <Select.Option key={d.value} title={d.text}>{d.text}</Select.Option>)}
