@@ -84,9 +84,9 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [
+    this.toolbar = [[
       'link', 'bold', 'italic', 'underline', 'color', 'background', 'align', 'size', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, 
-      {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'clean'
+      {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'clean']
     ];
   }
 
