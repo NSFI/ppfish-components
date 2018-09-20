@@ -7,12 +7,14 @@ import Modal from '../../Modal/index.tsx';
 import Input from '../../Input/index.tsx';
 import message from '../../Message/index.tsx';
 import CustomToolbar from './toolbar.js';
-import CustomSizeBlot from './formatSizeBlot.js';
-import EmojiBlot from './formatEmojiBlot.js';
+import CustomSizeBlot from './formats/size.js';
+import EmojiBlot from './formats/emoji.js';
+import LinkBlot from './formats/link.js';
 import '../style/index.less';
 
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
+Quill.register(LinkBlot);
 
 class RichEditor extends Component {
   static propTypes = {
