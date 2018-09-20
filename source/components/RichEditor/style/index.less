@@ -38,11 +38,22 @@
     align-items: center;
     justify-content: center;
     font-size: 12px;
+    width: 28px;
+    height: 24px;
+    float: left;
   }
 
   .ql-active {
-    color: #fff !important;
     background: @primary-color !important;
+    color: #fff !important;
+
+    .ql-stroke {
+      stroke: #fff !important;
+    }
+
+    .ql-fill {
+      fill: #fff !important;
+    }
   }
 
   .ql-tooltip {
@@ -65,7 +76,8 @@
         color: @icon-normal-color;
         background: #F2F3F5;
 
-        .ql-picker-options {
+        .ql-picker-options,
+        .ql-picker-label {
           color: @icon-normal-color;
         }
       }
@@ -917,6 +929,7 @@
       display: flex !important;
       justify-content: center;
       align-items: center;
+      color: @icon-normal-color;
 
       .iconfont-mixin();
 

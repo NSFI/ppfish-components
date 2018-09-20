@@ -137,7 +137,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'color': {
-          value = <select className="item ql-color" key={key} />;
+          value = <div className="item" key={key}><select className="ql-color" /></div>;
           // value = (
           //   <div className="item custom-color" key={key}>
           //     <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onClose={this.handleColorSelect.bind(this)} >
@@ -171,18 +171,20 @@ class CustomToolbar extends PureComponent {
             value = <button type="button" className={alignCls} value={mValue} key={key}/>;
           } else if (mValue instanceof Array && mValue.length) {
             value = (
-              <select className="item ql-align" key={key}>
-                <option />
-                {
-                  mValue.map((val, idx) => {
-                    return <option key={key+'_option_'+idx} value={val} />;
-                  })
-                }
-              </select>
+              <div className="item" key={key}>
+                <select className="ql-align">
+                  <option />
+                  {
+                    mValue.map((val, idx) => {
+                      return <option key={key+'_option_'+idx} value={val} />;
+                    })
+                  }
+                </select>
+              </div>
             );
             tooltip = '对齐';
           } else {
-            value = <select className="item ql-align" key={key} />;
+            value = <div className="item" key={key}><select className="ql-align" /></div>;
             tooltip = '对齐';
           }
           break;
@@ -309,24 +311,6 @@ class CustomToolbar extends PureComponent {
           tooltip = '代码块';
           break;
         }
-        case 'header': {
-          if (typeof mValue === 'string' || typeof mValue === 'number') {
-            value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
-          } else if (mValue instanceof Array && mValue.length){
-            value = (
-              <select className="item ql-header" defaultValue="normal" key={key}>
-                {
-                  mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
-                }
-                <option value="normal" />
-              </select>
-            );
-          }
-
-          tooltip = '头标题';
-
-          break;
-        }
         case 'script': {
           value = <button type="button" className="item ql-script" value={mValue} key={key}/>;
           if (mValue == 'super') {
@@ -354,15 +338,33 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'background': {
-          value = <select className="item ql-background" key={key} />;
+          value = <div className="item" key={key}><select className="ql-background" /></div>;
           tooltip = '背景色';
           break;
         }
-        case 'font': {
-          value = <select className="item ql-font" key={key} />;
-          tooltip = '字体';
-          break;
-        }
+        // case 'header': {
+        //   if (typeof mValue === 'string' || typeof mValue === 'number') {
+        //     value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
+        //   } else if (mValue instanceof Array && mValue.length){
+        //     value = (
+        //       // <div className="item" key={key}>
+        //         <select className="item ql-header" defaultValue="normal">
+        //           {
+        //             mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
+        //           }
+        //           <option value="normal" />
+        //         </select>
+        //       // </div>
+        //     );
+        //   }
+        //   tooltip = '标题';
+        //   break;
+        // }
+        // case 'font': {
+        //   value = <select className="item ql-font" />;
+        //   tooltip = '字体';
+        //   break;
+        // }
         default: {
           break;
         }
