@@ -67,6 +67,7 @@ class RichEditor extends Component {
 
         if (range.length !== 0) {
           this.setState({
+            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
             showLinkModal: true
           });
         } else {
@@ -89,7 +90,9 @@ class RichEditor extends Component {
         }
       },
       image: () => {
+        let quill = this.getEditor();
         this.setState({
+          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
           showImageModal: true
         });
       },
