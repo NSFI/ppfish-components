@@ -29,22 +29,29 @@ class Collapse extends Component {
     isScrollToHeader: PropTypes.bool,
     // 是否开启功能：手风琴效果，既每次点击header只展开一项
     accordion: PropTypes.bool,
+    // 是否开启删除功能
+    showClose: PropTypes.bool,
+    // 是否显示面板的状态数组
+    statusList: PropTypes.array,
     onChange: PropTypes.func,
+    close: PropTypes.func,
   };
 
   static defaultProps = {
     prefixCls: 'fishd-collapse',
     isScrollToHeader: false,
     accordion: false,
+    showClose: false,
     onChange() {},
+    close() {},
   };
 
   static Panel = CollapsePanel;
 
   constructor(props) {
     super(props);
-    const { activeKey, defaultActiveKey } = props;
-    let currentActiveKey = defaultActiveKey;
+    const { activeKey, defaultActiveKey, statusList } = props;
+    let currentActiveKey = defaultActiveKey; 
     if ('activeKey' in props) {
       currentActiveKey = activeKey;
     }
@@ -52,7 +59,8 @@ class Collapse extends Component {
       // 已激活面板的key
       activeKey: toArray(currentActiveKey),
       // 当前点击的key
-      currentKey: null,
+      currentKey: null,  
+      statusList: statusList || new Array(this.props.children.length).fill(true),
     };
   }
 
@@ -60,6 +68,11 @@ class Collapse extends Component {
     if ('activeKey' in nextProps) {
       this.setState({
         activeKey: toArray(nextProps.activeKey),
+      });
+    }
+    if(nextProps.statusList != this.props.statusList){
+      this.setState({
+        statusList: nextProps.statusList,
       });
     }
   }
@@ -92,10 +105,25 @@ class Collapse extends Component {
     };
   }
 
+  onCloseItem(key) {
+    return () => {
+      const { children, statusList } = this.props;
+      const keyList = Children.map(children, (child, index) => {
+        return child.key || String(index);
+      });
+      const index = keyList.findIndex((item) => {
+        return key == item;
+      });
+      statusList[index] = false;
+      this.props.close(statusList);
+    }
+  }
+
   getItems() {
     const activeKey = this.state.activeKey;
-    const { prefixCls, accordion } = this.props;
+    const { prefixCls, accordion, showClose } = this.props;
     return Children.map(this.props.children, (child, index) => {
+      if(!this.state.statusList[index]){ return null }
       // If there is no key provide, use the panel order as default key
       const key = child.key || String(index);
       const header = child.props.header;
@@ -111,10 +139,12 @@ class Collapse extends Component {
         itemKey: el => this[key] = el,
         header,
         showArrow,
+        showClose,
         isActive,
         prefixCls,
         children: child.props.children,
         onItemClick: this.onClickItem(key).bind(this),
+        onCloseItem: this.onCloseItem(key).bind(this),
       };
 
       return React.cloneElement(child, props);

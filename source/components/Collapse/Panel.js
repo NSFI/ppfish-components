@@ -21,20 +21,25 @@ class CollapsePanel extends Component {
       PropTypes.node,
     ]),
     showArrow: PropTypes.bool,
+    showClose:PropTypes.bool,
     isActive: PropTypes.bool,
     onItemClick: PropTypes.func,
+    onCloseItem: PropTypes.func,
   };
   static defaultProps = {
     isActive: false,
     disabled: false,
     showArrow: true,
     onItemClick() {
-    }
+    },
+    onCloseItem() {
+    },
   };
 
   constructor(props) {
     super(props);
     this.handleItemClick = this.handleItemClick.bind(this);
+    this.handleItemClose = this.handleItemClose.bind(this);
   }
 
   handleItemClick() {
@@ -42,6 +47,12 @@ class CollapsePanel extends Component {
     if( !disabled ) {
       onItemClick();
     }
+  }
+
+  handleItemClose(e) {
+    e.stopPropagation();
+    const { onCloseItem } = this.props;
+    onCloseItem();
   }
 
   render() {
@@ -52,6 +63,7 @@ class CollapsePanel extends Component {
       disabled,
       header,
       showArrow,
+      showClose,
       style,
       children,
       isActive
@@ -68,7 +80,11 @@ class CollapsePanel extends Component {
     });
     const arrowCls = classNames({
       'arrow': true,
-      'z-show': showArrow,
+      'z-arrow-show': showArrow,
+    });
+    const closeCls = classNames({
+      'close': true,
+      'z-close-show': showClose,
     });
     const getArrowIcon = (isActive) => {
       if (isActive) {
@@ -94,6 +110,9 @@ class CollapsePanel extends Component {
             {getArrowIcon(isActive)}
           </div>
           <div className="title">{header}</div>
+          <div className={closeCls} onClick={this.handleItemClose} >
+            <Icon className="icon" type="picture-close" />
+          </div>
         </div>
         <PanelContent prefixCls={prefixCls} isActive={isActive}>
           {children}
