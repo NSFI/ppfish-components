@@ -336,7 +336,7 @@ export const components = {
         {
           key: 'badge',
           type: 'markdown',
-          name: 'Badge 徽标数',
+          name: 'Badge 徽标',
           published: true,
         },
         // {
