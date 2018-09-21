@@ -703,11 +703,16 @@ class Select extends React.Component {
           ]),
         );
       } else {
+        let oriCheckedKeys = conductCheck(
+          oriKeyList,
+          true,
+          keyEntities
+        ).checkedKeys;
         keyList = conductCheck(
           [nodeEventInfo.node.props.eventKey],
           false,
           keyEntities,
-          { checkedKeys: oriKeyList },
+          { checkedKeys: oriCheckedKeys },
         ).checkedKeys;
       }
 
