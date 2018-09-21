@@ -48,50 +48,6 @@ render(){
 ```
 :::
 
-## 按钮样式
-
-:::demo 按钮样式的单选组合。
-
-```js
-
-onChange=(e)=> {
-  console.log(`radio checked:${e.target.value}`);
-};
-
-render(){
-  const RadioButton = Radio.Button;
-  const RadioGroup = Radio.Group;
-  return(
-  <div>
-    <div>
-      <RadioGroup onChange={this.onChange} defaultValue="a">
-        <RadioButton value="a">Hangzhou</RadioButton>
-        <RadioButton value="b">Shanghai</RadioButton>
-        <RadioButton value="c">Beijing</RadioButton>
-        <RadioButton value="d">Chengdu</RadioButton>
-      </RadioGroup>
-    </div>
-    <div style={{ marginTop: 16 }}>
-      <RadioGroup onChange={this.onChange} defaultValue="a">
-        <RadioButton value="a">Hangzhou</RadioButton>
-        <RadioButton value="b" disabled>Shanghai</RadioButton>
-        <RadioButton value="c">Beijing</RadioButton>
-        <RadioButton value="d">Chengdu</RadioButton>
-      </RadioGroup>
-    </div>
-    <div style={{ marginTop: 16 }}>
-      <RadioGroup disabled onChange={this.onChange} defaultValue="a">
-        <RadioButton value="a">Hangzhou</RadioButton>
-        <RadioButton value="b">Shanghai</RadioButton>
-        <RadioButton value="c">Beijing</RadioButton>
-        <RadioButton value="d">Chengdu</RadioButton>
-      </RadioGroup>
-    </div>
-  </div>)
-}
-```
-:::
-
 ## 单选组合
 
 :::demo 一组互斥的 Radio 配合使用。
@@ -122,43 +78,22 @@ render(){
 ```
 :::
 
-## 大小
+## 单选组合 - 配合 name 使用
 
-:::demo 大中小三种组合，可以和表单输入框进行对应配合。
-
+:::demo 可以为 RadioGroup 配置 `name` 参数，为组合内的 input 元素赋予相同的 `name` 属性，使浏览器把 RadioGroup 下的 Radio 真正看作是一组（例如可以通过方向键始终**在同一组内**更改选项）。
 
 ```js
 render(){
-  const RadioButton = Radio.Button;
   const RadioGroup = Radio.Group;
   return(
-  <div>
-    <div>
-      <RadioGroup defaultValue="a" size="large">
-        <RadioButton value="a">Hangzhou</RadioButton>
-        <RadioButton value="b">Shanghai</RadioButton>
-        <RadioButton value="c">Beijing</RadioButton>
-        <RadioButton value="d">Chengdu</RadioButton>
-      </RadioGroup>
-    </div>
-    <div style={{ marginTop: 16 }}>
-      <RadioGroup defaultValue="a">
-        <RadioButton value="a">Hangzhou</RadioButton>
-        <RadioButton value="b">Shanghai</RadioButton>
-        <RadioButton value="c">Beijing</RadioButton>
-        <RadioButton value="d">Chengdu</RadioButton>
-      </RadioGroup>
-    </div>
-    <div style={{ marginTop: 16 }}>
-      <RadioGroup defaultValue="a" size="small">
-        <RadioButton value="a">Hangzhou</RadioButton>
-        <RadioButton value="b">Shanghai</RadioButton>
-        <RadioButton value="c">Beijing</RadioButton>
-        <RadioButton value="d">Chengdu</RadioButton>
-      </RadioGroup>
-    </div>
-  </div>)
-  }
+        <RadioGroup name="radiogroup" defaultValue={1}>
+          <Radio value={1}>A</Radio>
+          <Radio value={2}>B</Radio>
+          <Radio value={3}>C</Radio>
+          <Radio value={4}>D</Radio>
+        </RadioGroup>
+  )
+}
 ```
 :::
 
@@ -248,7 +183,9 @@ render(){
     return (
       <div>
         <RadioGroup options={plainOptions} onChange={this.onChange1} value={this.state.value1} />
+        <br/>
         <RadioGroup options={options} onChange={this.onChange2} value={this.state.value2} />
+        <br/>
         <RadioGroup options={optionsWithDisabled} onChange={this.onChange3} value={this.state.value3} />
       </div>
     );
@@ -256,22 +193,87 @@ render(){
 ```
 :::
 
-## 单选组合 - 配合 name 使用
+## 按钮样式
 
-:::demo 可以为 RadioGroup 配置 `name` 参数，为组合内的 input 元素赋予相同的 `name` 属性，使浏览器把 RadioGroup 下的 Radio 真正看作是一组（例如可以通过方向键始终**在同一组内**更改选项）。
+:::demo 按钮样式的单选组合。
+
+```js
+
+onChange=(e)=> {
+  console.log(`radio checked:${e.target.value}`);
+};
+
+render(){
+  const RadioButton = Radio.Button;
+  const RadioGroup = Radio.Group;
+  return(
+  <div>
+    <div>
+      <RadioGroup onChange={this.onChange} defaultValue="a">
+        <RadioButton value="a">Hangzhou</RadioButton>
+        <RadioButton value="b">Shanghai</RadioButton>
+        <RadioButton value="c">Beijing</RadioButton>
+        <RadioButton value="d">Chengdu</RadioButton>
+      </RadioGroup>
+    </div>
+    <div style={{ marginTop: 16 }}>
+      <RadioGroup onChange={this.onChange} defaultValue="a">
+        <RadioButton value="a">Hangzhou</RadioButton>
+        <RadioButton value="b" disabled>Shanghai</RadioButton>
+        <RadioButton value="c">Beijing</RadioButton>
+        <RadioButton value="d">Chengdu</RadioButton>
+      </RadioGroup>
+    </div>
+    <div style={{ marginTop: 16 }}>
+      <RadioGroup disabled onChange={this.onChange} defaultValue="a">
+        <RadioButton value="a">Hangzhou</RadioButton>
+        <RadioButton value="b">Shanghai</RadioButton>
+        <RadioButton value="c">Beijing</RadioButton>
+        <RadioButton value="d">Chengdu</RadioButton>
+      </RadioGroup>
+    </div>
+  </div>)
+}
+```
+:::
+
+## 按钮样式三种大小
+
+:::demo 大中小三种组合，可以和表单输入框进行对应配合。
+
 
 ```js
 render(){
+  const RadioButton = Radio.Button;
   const RadioGroup = Radio.Group;
   return(
-        <RadioGroup name="radiogroup" defaultValue={1}>
-          <Radio value={1}>A</Radio>
-          <Radio value={2}>B</Radio>
-          <Radio value={3}>C</Radio>
-          <Radio value={4}>D</Radio>
-        </RadioGroup>
-  )
-}
+  <div>
+    <div>
+      <RadioGroup defaultValue="a" size="large">
+        <RadioButton value="a">Hangzhou</RadioButton>
+        <RadioButton value="b">Shanghai</RadioButton>
+        <RadioButton value="c">Beijing</RadioButton>
+        <RadioButton value="d">Chengdu</RadioButton>
+      </RadioGroup>
+    </div>
+    <div style={{ marginTop: 16 }}>
+      <RadioGroup defaultValue="a">
+        <RadioButton value="a">Hangzhou</RadioButton>
+        <RadioButton value="b">Shanghai</RadioButton>
+        <RadioButton value="c">Beijing</RadioButton>
+        <RadioButton value="d">Chengdu</RadioButton>
+      </RadioGroup>
+    </div>
+    <div style={{ marginTop: 16 }}>
+      <RadioGroup defaultValue="a" size="small">
+        <RadioButton value="a">Hangzhou</RadioButton>
+        <RadioButton value="b">Shanghai</RadioButton>
+        <RadioButton value="c">Beijing</RadioButton>
+        <RadioButton value="d">Chengdu</RadioButton>
+      </RadioGroup>
+    </div>
+  </div>)
+  }
 ```
 :::
 
