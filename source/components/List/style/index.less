@@ -65,7 +65,7 @@
         }
       }
       &-description {
-        color: @text-color-secondary;
+        color: @text-color-tertiary;
         font-size: @font-size-base;
         line-height: 22px;
       }
@@ -141,10 +141,13 @@
     min-height: 32px;
   }
 
-  &-something-after-last-item .@{fishd-prefix}-spin-container > &-item:last-child {
+  &-something-after-last-item .@{fishd-prefix}-spin-nested > &-item:last-child {
     border-bottom: 1px solid @border-color-split;
   }
 
+  &-striped .@{fishd-prefix}-spin-nested > &-item:nth-child(2n) {
+    background: #fafbfc;
+  }
   &-lg &-item {
     padding-top: 16px;
     padding-bottom: 16px;
