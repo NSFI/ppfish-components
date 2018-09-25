@@ -306,7 +306,7 @@ p {
 | statusList | 面板是否显示的状态数组 | Array | [true, true, ...] |
 | onChange | 切换面板的回调 | Function | 无 |
 | isScrollToHeader | 激活后将激活的面板置顶 | Function | 无 |
-| delete | 删除面板的回调 | Function | 无 |
+| close | 删除面板的回调 | Function | 无 |
 
 ### Collapse.Panel
 
