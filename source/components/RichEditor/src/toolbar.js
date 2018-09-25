@@ -7,7 +7,7 @@ import Tooltip from '../../Tooltip/index.tsx';
 
 let genEmoji = (data) => {
   let colSize = 10,
-      resPath = '//ysf.space/sdk/res/portrait/emoji/',
+      resPath = '//qiyukf.com/sdk/res/portrait/emoji/',
       tmpObj = {},
       result = [];
 
