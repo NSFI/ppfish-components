@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import emojiList from './emojiList.js';
 // import ColorPicker from '../../ColorPicker/index.js';
 import Tooltip from '../../Tooltip/index.tsx';
+import Popover from '../../Popover/index.tsx';
 
 let genEmoji = (data) => {
   let colSize = 10,
@@ -21,7 +22,7 @@ let genEmoji = (data) => {
     tmpObj[grpIndex].push(
       <button
         key={"emoji_" + grpIndex + "_" + index}
-        className={"ql-emoji emoji-img " + item.className}
+        className={"emoji-img " + item.className}
         value={item.title + "__" + resPath + item.imgName + ".png"}
         title={item.title}
       />
@@ -46,7 +47,8 @@ class CustomToolbar extends PureComponent {
     className: PropTypes.string,
     iconPrefix: PropTypes.string,
     toolbar: PropTypes.array,
-    customLink: PropTypes.object
+    customLink: PropTypes.object,
+    handleInsertEmoji: PropTypes.func
   };
 
   static defaultProps = {
@@ -77,7 +79,7 @@ class CustomToolbar extends PureComponent {
 
   getModuleHTML = (mType, key, customLink) => {
     const { showSizePanel, showEmojiPanel } = this.state;
-    let { iconPrefix } = this.props;
+    let { iconPrefix, handleInsertEmoji } = this.props;
     let mValue = null,
         value = null,
         tooltip = null;
@@ -216,14 +218,35 @@ class CustomToolbar extends PureComponent {
             'custom-emoji-panel': true
           });
 
-          value = (
-            <div className={emojiCls} key={key} onClick={this.toggleEmojiPanel}>
-              <div className={emojiPanelCls} >
-                <div className="custom-emoji-con">
-                  { emojiHTML }
-                </div>
-              </div>
+          // value = (
+          //   <div className={emojiCls} key={key} onClick={this.toggleEmojiPanel}>
+          //     <div className={emojiPanelCls} >
+          //       <div className="custom-emoji-con">
+          //         { emojiHTML }
+          //       </div>
+          //     </div>
+          //   </div>
+          // );
+
+          let content = (
+            <div className="custom-emoji-con" onClick={handleInsertEmoji}>
+              { emojiHTML }
             </div>
+          );
+
+          value = (
+            <Popover
+              trigger="click"
+              overlayClassName="custom-emoji-popover"
+              content={content}
+              title={null}
+              key={key}
+              getPopupContainer={() => this.emojiRef}
+            >
+              <div className={emojiCls} ref={node => this.emojiRef = node}>
+                <button type="button" data-role="emoji" value="" className="ql-emoji hide"></button>
+              </div>
+            </Popover>
           );
           tooltip = '插入表情';
           break;

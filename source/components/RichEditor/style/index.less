@@ -1,6 +1,7 @@
 @import (reference) "../../../assets/css/index";
 @import "./quill.snow.less";
 
+@popover-prefix: ~"@{fishd-prefix}-popover";
 @rich-editor-prefix: ~"@{fishd-prefix}-richeditor";
 @icon-normal-color: @heading-color;
 
@@ -197,21 +198,32 @@
     }
   }
 
-  .custom-emoji-panel {
-    position: absolute;
-    width: 438px;
-    height: 238px;
-    top: 23px;
-    left: -1px;
-    background-color: @component-background;
-    border: @border-width-base @border-style-base @border-color-base;
-    box-shadow: @box-shadow-base;
-    // box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
-    z-index: 999;
-    overflow-y: scroll;
+  .custom-emoji-popover {
 
-    .scrollbar();
+    .@{popover-prefix}-inner-content {
+      width: 438px;
+      height: 238px;
+      padding: 0;
+      overflow-y: scroll;
+      .scrollbar();
+    }
   }
+
+  // .custom-emoji-panel {
+  //   position: absolute;
+  //   width: 438px;
+  //   height: 238px;
+  //   top: 23px;
+  //   left: -1px;
+  //   background-color: @component-background;
+  //   border: @border-width-base @border-style-base @border-color-base;
+  //   box-shadow: @box-shadow-base;
+  //   // box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+  //   z-index: 999;
+  //   overflow-y: scroll;
+
+  //   .scrollbar();
+  // }
 
   .custom-emoji-con {
     width: 100%;

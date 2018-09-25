@@ -205,7 +205,24 @@ class RichEditor extends Component {
       this.toolbarCtner.appendChild(fileInput);
     }
     fileInput.click();
-  }
+  };
+
+  handleInsertEmoji = (e) => {
+    let target = e.target;
+    if (target.classList.value.indexOf('emoji-img') > -1 && target.hasAttribute('value')) {
+      let emojiEl = this.toolbarCtner.querySelector('button.ql-emoji[data-role=emoji]');
+      if (emojiEl == null) {
+        emojiEl = document.createElement('button');
+        this.toolbarCtner.querySelector('.custom-emoji').appendChild(emojiEl);
+      }
+
+      emojiEl.setAttribute('type', 'button');
+      emojiEl.setAttribute('data-role', 'emoji');
+      emojiEl.setAttribute('value', target.value);
+      emojiEl.classList.add('ql-emoji', 'hide');
+      emojiEl.click();
+    }
+  };
 
   render() {
     const { value, showLinkModal, showImageModal } = this.state;
@@ -246,6 +263,7 @@ class RichEditor extends Component {
           className={'editor-head'}
           toolbar={toolbar}
           customLink={customLink}
+          handleInsertEmoji={this.handleInsertEmoji}
         />
         <ReactQuill
           ref={el => this.reactQuillRef = el}
