@@ -125,6 +125,7 @@ input[type="checkbox"] {
   line-height: 1;
   font-size: @font-size-base;
   color: @label-required-color;
+  .@{form-prefix-cls}-hide-required-mark .@{form-prefix-cls}-item-label &,
   .@{form-prefix-cls}-hide-required-mark & {
     display: none;
   }
@@ -301,8 +302,8 @@ form {
   text-align: left;
   line-height: @line-height-base;
 
-  label:after {
-    // display: none;
+  .@{form-prefix-cls}-hide-required-mark label:after {
+    display: none;
   }
 }
 
