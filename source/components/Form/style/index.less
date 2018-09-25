@@ -15,19 +15,6 @@
   .reset-form;
 }
 
-.@{form-prefix-cls}-item-required:before {
-  display: inline-block;
-  margin-right: 4px;
-  content: "*";
-  font-family: SimSun;
-  line-height: 1;
-  font-size: @font-size-base;
-  color: @label-required-color;
-  .@{form-prefix-cls}-hide-required-mark & {
-    display: none;
-  }
-}
-
 // Radio && Checkbox
 input[type="radio"],
 input[type="checkbox"] {
@@ -94,7 +81,7 @@ input[type="checkbox"] {
   }
 
   &-label {
-    text-align: right;
+    text-align: left;
     vertical-align: middle;
     line-height: @form-component-max-height - 0.0001px;
     display: inline-block;
@@ -106,7 +93,7 @@ input[type="checkbox"] {
 
       &:after {
         & when (@form-item-trailing-colon=true) {
-          content: ":";
+          content: " ";
         }
         & when not (@form-item-trailing-colon=true) {
           content: " ";
@@ -115,6 +102,9 @@ input[type="checkbox"] {
         position: relative;
         top: -0.5px;
       }
+      &.@{form-prefix-cls}-item-required:after{
+        content: "*";
+      }
     }
   }
 
@@ -122,8 +112,22 @@ input[type="checkbox"] {
     margin: 2px 0 4px;
   }
 
-  &-no-colon &-label label:after {
-    content: " ";
+  // &-no-colon &-label label:after {
+  //   content: " ";
+  // }
+}
+
+.@{form-prefix-cls}-item-required:after {
+  display: inline-block;
+  margin-right: 4px;
+  content: "*";
+  font-family: SimSun;
+  line-height: 1;
+  font-size: @font-size-base;
+  color: @label-required-color;
+  .@{form-prefix-cls}-hide-required-mark .@{form-prefix-cls}-item-label &,
+  .@{form-prefix-cls}-hide-required-mark & {
+    display: none;
   }
 }
 
@@ -298,7 +302,7 @@ form {
   text-align: left;
   line-height: @line-height-base;
 
-  label:after {
+  .@{form-prefix-cls}-hide-required-mark label:after {
     display: none;
   }
 }

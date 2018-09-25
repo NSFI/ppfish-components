@@ -71,7 +71,9 @@
     const current = this.state.current - 1;
     this.setState({ current });
   }
-
+  handleItemChange(index){
+    this.setState({ current:index });
+  };
   render() {
     const { current } = this.state;
     const Step = Steps.Step;
@@ -89,7 +91,7 @@
     return (
       <div>
         <Steps current={current}>
-          {steps.map(item => <Step key={item.title} title={item.title} />)}
+          {steps.map((item,i) => <Step key={item.title} title={item.title} onClick={this.handleItemChange.bind(this,i)}/>)}
         </Steps>
         <div className="steps-content">{steps[current].content}</div>
         <div className="steps-action">

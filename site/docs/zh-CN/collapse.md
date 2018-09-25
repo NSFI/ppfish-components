@@ -45,7 +45,7 @@ p {
   margin: 0;
 }
 </style>
-
+ 
 ## 手风琴
 
 :::demo 手风琴，每次只打开一个tab。默认打开第一个。
@@ -209,6 +209,91 @@ render(){
 ```
 :::
 
+
+## 隐藏箭头
+
+:::demo 你可以通过 showArrow={false} 隐藏 CollapsePanel 组件的箭头图标。。
+
+```js
+
+render(){
+  const text = `
+    A dog is a type of domesticated animal.
+    Known for its loyalty and faithfulness,
+    it can be found as a welcome guest in many households across the world.
+  `;
+  const Panel = Collapse.Panel;
+  return(
+      <Collapse>
+        <Panel header="This is panel header 1" key="1">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 2" key="2" showArrow={false}>
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 3" key="3">
+          <p>{text}</p>
+        </Panel>
+      </Collapse>
+  )
+}
+```
+:::
+
+<style>
+p {
+  margin: 0;
+}
+</style>
+
+## 删除面板
+
+:::demo 使用 showClose={true} 开启删除功能，同时使用 statusList 指定面板是否显示。删除的回调函数 close 的参数为更新过的状态数组，实际使用时，可以将此数组储存在服务端。
+
+```js
+constructor() {
+  super();
+  this.state = {
+    statusList: [true,true,false],
+  }
+}
+
+close = (statusList) => {
+  this.setState({
+    statusList: statusList,
+  })
+}
+
+render(){
+  const text = `
+    A dog is a type of domesticated animal.
+    Known for its loyalty and faithfulness,
+    it can be found as a welcome guest in many households across the world.
+  `;
+  const Panel = Collapse.Panel;
+  return(
+      <Collapse showClose={true} statusList={this.state.statusList} close={this.close} >
+        <Panel header="This is panel header 1" key="1">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 2" key="2">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 3" key="3">
+          <p>{text}</p>
+        </Panel>
+      </Collapse>
+  )
+}
+```
+:::
+
+<style>
+p {
+  margin: 0;
+}
+</style>
+
 ## API
 
 ### Collapse
@@ -217,8 +302,11 @@ render(){
 | --- | --- | --- | --- |
 | activeKey | 当前激活 tab 面板的 key | string\[]\|string | 默认无，accordion模式下默认第一个元素 |
 | defaultActiveKey | 初始化选中面板的 key | string | 无 |
+| showClose | 是否开启删除功能，与 statusList 配合使用| bool | false |
+| statusList | 面板是否显示的状态数组 | Array | [true, true, ...] |
 | onChange | 切换面板的回调 | Function | 无 |
 | isScrollToHeader | 激活后将激活的面板置顶 | Function | 无 |
+| close | 删除面板的回调 | Function | 无 |
 
 ### Collapse.Panel
 
@@ -227,3 +315,4 @@ render(){
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | boolean | false |
 | header | 面板头内容 | string\|ReactNode | 无 |
 | key | 对应 activeKey | string | 无 |
+| showArrow | 是否显示箭头 | bool | true |
