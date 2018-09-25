@@ -55,7 +55,7 @@ export default class BasePicker extends React.Component {
       onBlur: () =>{},
       onChange: () => {},
       onOpenChange: () => {}
-    }
+    };
   }
 
   constructor(props, _type, state) {
@@ -67,6 +67,10 @@ export default class BasePicker extends React.Component {
       pickerVisible: false,
       confirmValue: props.value, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
     }, this.propsToState(props));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.propsToState(nextProps));
   }
 
   propsToState(props) {
@@ -83,22 +87,15 @@ export default class BasePicker extends React.Component {
 
 
   isDateValid(date) {
-    return date == null || isValidValue(date);
+    return date === null || isValidValue(date);
   }
 
-  // ---: start, abstract methods
-  // (state, props)=>ReactElement
   pickerPanel(state, props) {
     throw new Errors.MethodImplementationRequiredError(props);
   }
 
   getFormatSeparator() {
     return undefined;
-  }
-  // ---: end, abstract methods
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps));
   }
 
   /**
@@ -166,13 +163,11 @@ export default class BasePicker extends React.Component {
 
   // 聚焦
   handleFocus = (e) => {
-    this.isInputFocus = true;
     this.props.onFocus(e);
   }
 
   // 失焦
   handleBlur = (e) => {
-    this.isInputFocus = false;
     this.props.onBlur(e);
   }
 
@@ -309,7 +304,8 @@ export default class BasePicker extends React.Component {
             {
               'is-have-trigger': calcIsShowTrigger(),
               'is-active': pickerVisible,
-              'is-filled': !!value
+              'is-filled': !!value,
+              'is-disable': isDisabled
             }
           )}
           style={{...style}}

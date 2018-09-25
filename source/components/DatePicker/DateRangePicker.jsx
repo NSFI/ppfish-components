@@ -2,30 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DateRangeBasePicker from './DateRangeBasePicker.jsx';
 import DateRangePanel from './panel/DateRangePanel.jsx';
-import { pick } from './libs/utils';
 
 export default class DateRangePicker extends DateRangeBasePicker {
   static get propTypes() {
     return Object.assign({}, {
-        rangeSeparator: PropTypes.string
-      },
-      DateRangeBasePicker.propTypes,
-      // default value is been defined in ./constants file
-      pick(DateRangePanel.propTypes,
-        [
-          'value',
-          'shortcuts',
-          'disabledDate',
-          'isShowTime',
-          'firstDayOfWeek',
-          'yearCount',
-          'shortcutsPlacement',
-          'renderExtraFooter',
-          'maxDateRange',
-          'onError'
-        ]
-      )
-    )
+      rangeSeparator: PropTypes.string,
+      yearCount: PropTypes.number,
+      shortcuts: PropTypes.arrayOf(
+        PropTypes.shape({
+          text: PropTypes.string.isRequired,
+          onClick: PropTypes.func.isRequired
+        })
+      ),
+      disabledDate: PropTypes.func,
+      firstDayOfWeek: PropTypes.number,
+      renderExtraFooter: PropTypes.func,
+      maxDateRange: PropTypes.number,
+      onError: PropTypes.func
+    }, DateRangeBasePicker.propTypes);
   }
 
   static get defaultProps() {

@@ -1,32 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TimeSpinner from '../basic/TimeSpinner';
+import TimeSpinner from '../basic/TimeSpinner.jsx';
 import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
+import { DEFAULT_FORMATS } from '../constants';
 import Locale from '../../../utils/date/locale';
 
 export default class TimePanel extends React.Component {
 
   static get propTypes() {
     return {
-      format: PropTypes.string,                  //base
-      value: PropTypes.instanceOf(Date),         //base
-      onPicked: PropTypes.func.isRequired,       //base
-      onCancelPicked: PropTypes.func.isRequired, //base
+      prefixCls: PropTypes.string,
+      format: PropTypes.string,                  //basePicker
+      value: PropTypes.instanceOf(Date),         //basePicker
+      onPicked: PropTypes.func.isRequired,       //basePicker
+      onCancelPicked: PropTypes.func.isRequired, //basePicker
       selectableRange: TimeSpinner.propTypes.selectableRange,
       onSelectRangeChange: TimeSpinner.propTypes.onSelectRangeChange,
       isShowCurrent: PropTypes.bool,
       renderExtraFooter: PropTypes.func,
-      onValueChange: PropTypes.func,
-      prefixCls: PropTypes.string
+      onValueChange: PropTypes.func
     };
   }
 
   static get defaultProps() {
     return {
+      prefixCls: 'fishd',
       isShowCurrent: false,
       onValueChange: ()=>{},
-      prefixCls: 'fishd'
     };
   }
 
@@ -42,25 +43,22 @@ export default class TimePanel extends React.Component {
   mapPropsToState = (props) => {
     const { format, value } = props;
     const state = {
-      format: format || 'HH:mm:ss',
-      currentDate: value || parseDate('00:00:00', 'HH:mm:ss'),
-      confirmButtonDisabled: value == null || !this.isValid(value),
-      currentButtonDisabled: !isLimitRange(new Date(), props.selectableRange, 'HH:mm:ss')
+      format: format || DEFAULT_FORMATS.time,
+      currentDate: value || parseDate('00:00:00', DEFAULT_FORMATS.time),
+      confirmButtonDisabled: value === null || !this.isValid(value),
+      currentButtonDisabled: !isLimitRange(new Date(), props.selectableRange, DEFAULT_FORMATS.time)
     };
     state.isShowSeconds = (state.format || '').indexOf('ss') !== -1;
 
     return state;
   };
 
-  // 判断值的合法性
   isValid = (value) => {
     return TimePanel.isValid(value, this.props.selectableRange);
   }
 
-  // type: string,  one of [hours, minutes, seconds]
-  // date: {type: number}
   handleChange = (date) => {
-    const {currentDate} = this.state;
+    const { currentDate } = this.state;
     const newDate = new Date(currentDate);
 
     if (date.hours !== undefined) {
@@ -93,9 +91,9 @@ export default class TimePanel extends React.Component {
 
   // 点击确定按钮
   handleConfirm = (isKeepPannelOpen, isConfirmValue) => {
-    const {currentDate} = this.state;
-    const {onPicked, selectableRange} = this.props;
-    const date = new Date(limitRange(currentDate, selectableRange, 'HH:mm:ss'));
+    const { currentDate } = this.state;
+    const { onPicked, selectableRange } = this.props;
+    const date = new Date(limitRange(currentDate, selectableRange, DEFAULT_FORMATS.time));
 
     onPicked(date, isKeepPannelOpen, isConfirmValue);
   }
@@ -107,7 +105,7 @@ export default class TimePanel extends React.Component {
 
   // 点击此刻按钮
   handleCurrent = () => {
-    const {onPicked} = this.props;
+    const { onPicked } = this.props;
     const value = new Date();
     onPicked(value, false, true);
   }
@@ -182,5 +180,5 @@ export default class TimePanel extends React.Component {
 }
 
 TimePanel.isValid = (value, selectableRange) => {
-  return value == null || isLimitRange(value, selectableRange, 'HH:mm:ss');
+  return value === null || isLimitRange(value, selectableRange, DEFAULT_FORMATS.time);
 };

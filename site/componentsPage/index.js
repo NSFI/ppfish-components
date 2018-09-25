@@ -169,11 +169,13 @@ export const components = {
           key: 'grid',
           type: 'markdown',
           name: 'Grid 栅格系统',
+          published: true,
         },
         {
           key: 'layout',
           type: 'markdown',
           name: 'Layout 布局模式',
+          published: true,
         }
       ]
     }, {
@@ -334,7 +336,7 @@ export const components = {
         {
           key: 'badge',
           type: 'markdown',
-          name: 'Badge 徽标数',
+          name: 'Badge 徽标',
           published: true,
         },
         // {

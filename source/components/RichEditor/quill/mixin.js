@@ -1,16 +1,16 @@
 'use strict';
 
-var Quill = require('quill');
+let Quill = require('quill');
 
-var QuillMixin = {
+let QuillMixin = {
 
 	/**
 	Creates an editor on the given element. The editor will
 	be passed the configuration, have its events bound,
 	*/
 	createEditor: function($el, config) {
-		var editor = new Quill($el, config);
-		editor.getHTML = function(){ return editor.root.innerHTML };
+		let editor = new Quill($el, config);
+		editor.getHTML = function(){ return editor.root.innerHTML; };
 
 		if (config.tabIndex !== undefined) {
 			this.setEditorTabIndex(editor, config.tabIndex);
@@ -25,7 +25,7 @@ var QuillMixin = {
 		// Expose the editor on change events via a weaker,
 		// unprivileged proxy object that does not allow
 		// accidentally modifying editor state.
-		var unprivilegedEditor = this.makeUnprivilegedEditor(editor);
+		let unprivilegedEditor = this.makeUnprivilegedEditor(editor);
 
 		this.handleTextChange = function(delta, oldDelta, source) {
 			if (this.onEditorChangeText) {
@@ -59,8 +59,7 @@ var QuillMixin = {
 	},
 
 	setEditorReadOnly: function(editor, value) {
-		value? editor.disable()
-		     : editor.enable();
+		value? editor.disable() : editor.enable();
 	},
 
 	/*
@@ -69,7 +68,7 @@ var QuillMixin = {
 	the cursor won't move.
 	*/
 	setEditorContents: function(editor, value) {
-		var sel = editor.getSelection();
+		let sel = editor.getSelection();
 
 		if (typeof value === 'string') {
 			editor.setContents(editor.clipboard.convert(value));
@@ -83,7 +82,7 @@ var QuillMixin = {
 	setEditorSelection: function(editor, range) {
 		if (range) {
 			// Validate bounds before applying.
-			var length = editor.getLength();
+			let length = editor.getLength();
 			range.index = Math.max(0, Math.min(range.index, length-1));
 			range.length = Math.max(0, Math.min(range.length, (length-1) - range.index));
 		}
@@ -102,11 +101,11 @@ var QuillMixin = {
 	without any state-modificating methods.
 	*/
 	makeUnprivilegedEditor: function(editor) {
-		var e = editor;
+		let e = editor;
 		return {
 			getLength:    function(){ return e.getLength.apply(e, arguments); },
 			getText:      function(){ return e.getText.apply(e, arguments); },
-			getHTML:      function(){ return e.root.innerHTML },
+			getHTML:      function(){ return e.root.innerHTML; },
 			getContents:  function(){ return e.getContents.apply(e, arguments); },
 			getSelection: function(){ return e.getSelection.apply(e, arguments); },
 			getBounds:    function(){ return e.getBounds.apply(e, arguments); },

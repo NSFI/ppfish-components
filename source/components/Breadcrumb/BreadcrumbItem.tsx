@@ -5,6 +5,7 @@ export interface BreadcrumbItemProps {
   prefixCls?: string;
   separator?: React.ReactNode;
   href?: string;
+  maxWidth: number;
 }
 
 export default class BreadcrumbItem extends React.Component<BreadcrumbItemProps, any> {
@@ -22,15 +23,16 @@ export default class BreadcrumbItem extends React.Component<BreadcrumbItemProps,
       PropTypes.element,
     ]),
     href: PropTypes.string,
+    maxWidth: PropTypes.number,
   };
 
   render() {
-    const { prefixCls, separator, children, ...restProps } = this.props;
-    let link;
+    const { prefixCls, separator, children, maxWidth, ...restProps } = this.props;
+    let link = null;
     if ('href' in this.props) {
-      link = <a className={`${prefixCls}-link`} {...restProps}>{children}</a>;
+      link = <a className={`${prefixCls}-link`} style={maxWidth!=undefined ? {'maxWidth':maxWidth} : null} {...restProps}>{children}</a>;
     } else {
-      link = <span className={`${prefixCls}-link`} {...restProps}>{children}</span>;
+      link = <span className={`${prefixCls}-link`} style={maxWidth!=undefined ? {'maxWidth':maxWidth} : null} {...restProps}>{children}</span>;
     }
     if (children) {
       return (

@@ -57,6 +57,7 @@ export interface ListProps {
   header?: React.ReactNode;
   footer?: React.ReactNode;
   locale?: Object;
+  striped?: Boolean;
 }
 
 export interface ListLocale {
@@ -77,6 +78,7 @@ export default class List extends React.Component<ListProps> {
     split: true,
     loading: false,
     pagination: false,
+    striped: false,
   };
 
   state = {
@@ -164,6 +166,7 @@ export default class List extends React.Component<ListProps> {
       footer,
       loading,
       locale,
+      striped,
       ...rest
     } = this.props;
 
@@ -195,6 +198,7 @@ export default class List extends React.Component<ListProps> {
       [`${prefixCls}-bordered`]: bordered,
       [`${prefixCls}-loading`]: isLoading,
       [`${prefixCls}-grid`]: grid,
+      [`${prefixCls}-striped`]: striped,
       [`${prefixCls}-something-after-last-item`]: this.isSomethingAfterLastItem(),
     });
 

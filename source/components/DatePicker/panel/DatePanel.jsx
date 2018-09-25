@@ -41,10 +41,11 @@ export default class DatePanel extends React.Component {
 
   static get propTypes() {
     return {
-      format: PropTypes.string,                  //base
-      value: PropTypes.instanceOf(Date),         //base
-      onPick: PropTypes.func.isRequired,         //base
-      onCancelPicked: PropTypes.func.isRequired, //base
+      prefixCls: PropTypes.string,
+      format: PropTypes.string,                  //basePicker
+      value: PropTypes.instanceOf(Date),         //basePicker
+      onPick: PropTypes.func.isRequired,         //basePicker
+      onCancelPicked: PropTypes.func.isRequired, //basePicker
       yearCount: PropTypes.number,
       showWeekNumber: PropTypes.bool,
       shortcuts: PropTypes.arrayOf(
@@ -53,7 +54,6 @@ export default class DatePanel extends React.Component {
           onClick: PropTypes.func.isRequired
         })
       ),
-      shortcutsPlacement: PropTypes.string,
       selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
@@ -65,22 +65,20 @@ export default class DatePanel extends React.Component {
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
       ]),
-      defaultTimeValue: PropTypes.instanceOf(Date),
-      prefixCls: PropTypes.string
+      defaultTimeValue: PropTypes.instanceOf(Date)
     };
   }
 
   static get defaultProps() {
     return {
+      prefixCls: 'fishd',
       yearCount: 50,
       showWeekNumber: false,
-      shortcutsPlacement: 'left',
       selectionMode: SELECTION_MODES.DAY,
       firstDayOfWeek: 0,
       isShowTime: false,
       isShowTimeCurrent: false,
-      defaultTimeValue: null,
-      prefixCls: 'fishd'
+      defaultTimeValue: null
     };
   }
 
@@ -88,16 +86,20 @@ export default class DatePanel extends React.Component {
     super(props);
 
     let currentView = PICKER_VIEWS.DATE;
-    switch (props.selectionMode) {
-      case SELECTION_MODES.MONTH:
-        currentView = PICKER_VIEWS.MONTH; break;
-      case SELECTION_MODES.YEAR:
-        currentView = PICKER_VIEWS.YEAR; break;
-    }
+    // switch (props.selectionMode) {
+    //   case SELECTION_MODES.MONTH:
+    //     currentView = PICKER_VIEWS.MONTH; break;
+    //   case SELECTION_MODES.YEAR:
+    //     currentView = PICKER_VIEWS.YEAR; break;
+    // }
 
     this.state = Object.assign({}, {
       currentView,
     }, this.propsToState(props));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.propsToState(nextProps));
   }
 
   propsToState(props) {
@@ -107,10 +109,6 @@ export default class DatePanel extends React.Component {
     state.dateInputText = formatDate(props.value, dateFormat(props.format));           // 日期输入框的值(string)，当props.value为null时，值为''
     state.time = toDate(props.value || props.defaultTimeValue);                        // 时间
     return state;
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps));
   }
 
   // 年份、月份面板先注释掉，需要时再打开
@@ -277,7 +275,7 @@ export default class DatePanel extends React.Component {
   // 点击确定按钮
   handleConfirm = () => {
     const { date, time } = this.state;
-    const pickedTime = setTime(new Date(date), time);
+    const pickedTime = setTime(date, time);
     this.props.onPick(pickedTime, false, true);
   }
 
@@ -290,7 +288,6 @@ export default class DatePanel extends React.Component {
     const {
       format,
       shortcuts,
-      shortcutsPlacement,
       yearCount,
       isShowTime,
       isShowTimeCurrent,
@@ -308,7 +305,7 @@ export default class DatePanel extends React.Component {
           `${prefixCls}-picker-panel`,
           `${prefixCls}-date-picker`,
           {
-            'has-sidebar': shortcuts && shortcutsPlacement === 'left',
+            'has-sidebar': shortcuts,
             'has-time': isShowTime
           })
         }
@@ -316,8 +313,8 @@ export default class DatePanel extends React.Component {
 
         <div className={`${prefixCls}-picker-panel__body-wrapper`}>
           {
-            shortcutsPlacement === 'left' && Array.isArray(shortcuts) && (
-              <div className={classNames(`${prefixCls}-picker-panel__sidebar`, shortcutsPlacement)}>
+            Array.isArray(shortcuts) && (
+              <div className={classNames(`${prefixCls}-picker-panel__sidebar`)}>
                 {
                   shortcuts.map((e, idx) => {
                     return (

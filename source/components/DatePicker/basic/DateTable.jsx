@@ -295,7 +295,7 @@ export default class DateTable extends React.Component {
     if (!target || target.tagName !== 'TD') return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
 
-    const {selectionMode, showWeekNumber, date, onPick, minDate, maxDate, rangeState} = this.props;
+    const {selectionMode, showWeekNumber, date, onPick, rangeState} = this.props;
     const {year, month} = deconstructDate(date);
 
     if (selectionMode === 'week') {
@@ -430,10 +430,10 @@ DateTable.propTypes = {
   }),
   firstDayOfWeek: PropTypes.number,
   prefixCls: PropTypes.string
-}
+};
 
 DateTable.defaultProps = {
   selectionMode: 'day',
   firstDayOfWeek: 0,
   prefixCls: 'fishd'
-}
+};

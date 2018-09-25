@@ -36,6 +36,7 @@ class Drawer extends React.PureComponent {
         <i className="drawer-handle-icon" />
       </div>
     ),
+    closed: false,
     firstEnter: false,
     showMask: true,
     maskStyle: {},
@@ -158,6 +159,11 @@ class Drawer extends React.PureComponent {
     this.setState({
       open: !open,
     });
+  };
+
+  handleOnClosed = (e) => {
+    this.props.onCloseClick(e);
+    this.onTouchEnd(e, true);
   };
 
   onWrapperTransitionEnd = (e) => {
@@ -302,7 +308,7 @@ class Drawer extends React.PureComponent {
               this.dom.style.transform = `translateX(${right}px)`;
               this.dom.style.msTransform = `translateX(${right}px)`;
               this.dom.style.width = '100%';
-              widthTransition = `width 0s ${ease} ${duration}`
+              widthTransition = `width 0s ${ease} ${duration}`;
               if (this.maskDom) {
                 this.maskDom.style.left = `-${right}px`;
                 this.maskDom.style.width = `calc(100% + ${right}px)`;
@@ -314,7 +320,7 @@ class Drawer extends React.PureComponent {
               this.dom.style.width = `calc(100% + ${right}px)`;
               this.dom.style.height = '100%';
               this.dom.style.transform = 'translateZ(0)';
-              heightTransition = `height 0s ${ease} ${duration}`
+              heightTransition = `height 0s ${ease} ${duration}`;
               break;
             }
             default:
@@ -362,6 +368,7 @@ class Drawer extends React.PureComponent {
       maskStyle,
       width,
       height,
+      closed
     } = this.props;
     const wrapperClassname = classnames(prefixCls, {
       [`${prefixCls}-${placement}`]: true,
@@ -392,6 +399,18 @@ class Drawer extends React.PureComponent {
       },
       ref: (c) => {
         this.handlerdom = c;
+      }
+    });
+    const closedElement = () => {
+      return (
+        <div className="drawer-close">
+          <i className="drawer-close-icon" />
+        </div>
+      );
+    };
+    const closedChildren = closed && this.state.open && React.cloneElement(closedElement(), {
+      onClick: (e) => {
+        this.handleOnClosed(e);
       }
     });
     return (
@@ -434,6 +453,7 @@ class Drawer extends React.PureComponent {
             {children}
           </div>
           {handlerCildren}
+          {closedChildren}
         </div>
       </div>
     );
@@ -562,8 +582,8 @@ Drawer.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   style: PropTypes.object,
-  width: PropTypes.any,
-  height: PropTypes.any,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   defaultOpen: PropTypes.bool,
   firstEnter: PropTypes.bool,
   open: PropTypes.bool,
@@ -574,12 +594,13 @@ Drawer.propTypes = {
   ease: PropTypes.string,
   duration: PropTypes.string,
   getContainer: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object, PropTypes.bool]),
-  handler: PropTypes.any,
+  handler: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   onChange: PropTypes.func,
   onMaskClick: PropTypes.func,
   onHandleClick: PropTypes.func,
   showMask: PropTypes.bool,
   maskStyle: PropTypes.object,
+  closed: PropTypes.bool
 };
 
 export default Drawer;

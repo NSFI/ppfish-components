@@ -71,6 +71,10 @@ export default class DateRangeBasePicker extends React.Component {
     }, this.propsToState(props));
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(this.propsToState(nextProps));
+  }
+
   propsToState(props) {
     const state = {};
     const { value } = props;
@@ -85,22 +89,15 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   isDateValid(date) {
-    return date == null || isValidValueArr(date);
+    return date === null || isValidValueArr(date);
   }
 
-  // ---: start, abstract methods
-  // (state, props)=>ReactElement
   pickerPanel(state, props) {
     throw new Errors.MethodImplementationRequiredError(props);
   }
 
   getFormatSeparator() {
     return undefined;
-  }
-  // ---: end, abstract methods
-
-  componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps));
   }
 
   /**
@@ -135,7 +132,7 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   getFormat() {
-    return this.props.format || DEFAULT_FORMATS[this.type]
+    return this.props.format || DEFAULT_FORMATS[this.type];
   }
 
   dateToStr = (date) => {
@@ -254,7 +251,7 @@ export default class DateRangeBasePicker extends React.Component {
     const { pickerVisible, value, text } = this.state;
 
     const calcIsShowTrigger = () => {
-      if (isShowTrigger != null) {
+      if (isShowTrigger !== null) {
         return !!isShowTrigger;
       } else {
         return haveTriggerType(this.type);
@@ -306,7 +303,8 @@ export default class DateRangeBasePicker extends React.Component {
           className={classNames(`${prefixCls}-date-editor`, className, {
             'is-have-trigger': calcIsShowTrigger(),
             'is-active': pickerVisible,
-            'is-filled': !!value
+            'is-filled': !!value,
+            'is-disable': isDisabled
           })}
           style={{...style}}
         >

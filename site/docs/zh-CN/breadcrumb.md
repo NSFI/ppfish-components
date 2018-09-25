@@ -1,4 +1,4 @@
-# 面包屑
+# Breadcrumb 面包屑
 
 显示当前页面在系统层级结构中的位置，并能向上返回。
 
@@ -76,6 +76,7 @@ render() {
 | --- | --- | --- | --- |
 | className | 容器类名 | String | - |
 | itemRender | 自定义链接函数，和 react-router 配置使用 | (route, params, routes, paths) => ReactNode | - |
+| maxWidth | Breadcrumb Item 的最大宽度，超出后显示省略号。默认展示全部内容 | Number | - |
 | params | 路由的参数 | Object | - |
 | routes | router 的路由栈信息 | Object[] | - |
 | separator | 分隔符自定义 | String \| ReactNode | '/' |

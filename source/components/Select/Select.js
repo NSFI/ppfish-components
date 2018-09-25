@@ -11,6 +11,7 @@ import Icon from '../Icon/index.tsx';
 import SelectSearch from './SelectSearch';
 import placements from './placements';
 import {KeyCode} from "../../utils";
+import isEqual from 'lodash/isEqual';
 
 const noop = () => {
 };
@@ -27,6 +28,7 @@ export default class Select extends React.Component {
     dropdownClassName: PropTypes.string,
     dropdownMatchSelectWidth: PropTypes.bool,
     dropdownStyle: PropTypes.object,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     extraOptions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     filterOption: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
     getPopupContainer: PropTypes.func,
@@ -34,11 +36,10 @@ export default class Select extends React.Component {
     labelInValue: PropTypes.bool,
     loading: PropTypes.bool,
     maxCount: PropTypes.number,
-    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    multipleSelectAllText: PropTypes.string,
     maxLabelClearPanelHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     mode: PropTypes.oneOf(['multiple', 'single']),
+    multipleSelectAllText: PropTypes.string,
     notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     onChange: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -53,12 +54,12 @@ export default class Select extends React.Component {
     searchInputProps: PropTypes.object,
     searchPlaceholder: PropTypes.string,
     selectAllText: PropTypes.string,
-    showMultipleSelectAll: PropTypes.bool,
     showArrow: PropTypes.bool,
+    showMultipleSelectAll: PropTypes.bool,
     showOptionCheckedIcon: PropTypes.bool,
-    showSingleClear: PropTypes.bool,
     showSearch: PropTypes.bool,
     showSelectAll: PropTypes.bool,
+    showSingleClear: PropTypes.bool,
     size: PropTypes.oneOf(['default', 'small', 'large']),
     style: PropTypes.object,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -71,13 +72,14 @@ export default class Select extends React.Component {
     defaultActiveFirstOption: false,
     disabled: false,
     dropdownMatchSelectWidth: true,
+    errorMessage: '超过选项上限',
     filterOption: true,
     labelClear: false,
     labelInValue: false,
     loading: false,
     maxScrollHeight: 250,
-    errorMessage: '超过选项上限',
     mode: 'single',
+    multipleSelectAllText: '所有选项',
     notFoundContent: '无匹配结果',
     onChange: noop,
     onPopupScroll: noop,
@@ -91,14 +93,14 @@ export default class Select extends React.Component {
     searchPlaceholder: '请输入关键词',
     selectAllText: '选择所有',
     showArrow: true,
-    showOptionCheckedIcon: true,
     showMultipleSelectAll: false,
-    multipleSelectAllText: '所有选项',
+    showOptionCheckedIcon: true,
     showSearch: false,
-    showSingleClear: false,
     showSelectAll: false,
+    showSingleClear: false,
     size: 'default',
     style: {},
+    visible: false,
   };
 
   //获取所有option的[{label,key,title}]
@@ -186,42 +188,70 @@ export default class Select extends React.Component {
       selectValueForMultiplePanel: initialSelectValue,
       popupVisible: visible,
       activeKey: undefined,
+      dropdownWidth: null,
     };
   }
 
+  componentDidMount() {
+    this.setDropdownWidth();
+  }
+
   componentWillReceiveProps(nextProps) {
-    if ('visible' in nextProps && nextProps.visible !== this.props.visible) {
+    if ('visible' in nextProps && !isEqual(nextProps.visible, this.props.visible)) {
       this.setState({
         popupVisible: nextProps.visible
       });
     }
 
     if ('value' in nextProps) {
-      const {value, labelInValue, children} = nextProps;
+      const {value, labelInValue, children, mode} = nextProps;
       const changedValue = Select.getValueFromProps(value, labelInValue, children);
-      this.setState({
-        selectValue: changedValue,
-        selectValueForMultiplePanel: changedValue,
-      });
+      const {selectValue, selectValueForMultiplePanel} = this.state;
+      if (mode === 'single') {
+        if (!isEqual(changedValue, selectValue)) {
+          this.setState({
+            selectValue: changedValue,
+          });
+        }
+      } else if (mode === 'multiple') {
+        if (!isEqual(changedValue, selectValueForMultiplePanel) || !isEqual(changedValue, selectValue)) {
+          this.setState({
+            selectValue: changedValue,
+            selectValueForMultiplePanel: changedValue,
+          });
+        }
+      }
     }
   }
 
+  componentDidUpdate() {
+    this.setDropdownWidth();
+  }
+
+  //获取面板宽度
+  setDropdownWidth = () => {
+    if (!this.props.dropdownMatchSelectWidth) {
+      return;
+    }
+    const width = ReactDOM.findDOMNode(this).offsetWidth;
+    if (width !== this.state.dropdownWidth) {
+      this.setState({dropdownWidth: width});
+    }
+  };
+
   //搜索键入
   updateSearchValue = (e) => {
-    this.setState({
-      searchValue: e.target.value
-    }, () => {
-      this.props.onSearch(this.state.searchValue);
-    });
+    const searchValue = e.target.value;
+    this.props.onSearch(searchValue);
+    this.setState({searchValue});
   };
 
   //清空搜索
   emptySearchValue = () => {
-    this.setState({
-      searchValue: ''
-    }, () => {
-      this.props.onSearch(this.state.searchValue);
-    });
+    const searchValue = '';
+    this.props.onSearch(searchValue);
+    this.setState({searchValue});
+    this.focus();
   };
 
   //全选操作
@@ -233,40 +263,44 @@ export default class Select extends React.Component {
 
   //清空数据项,mode='single'
   emptySelectValue = () => {
+    this.changeVisibleState(false);
+    this.props.onChange();
     this.setState({
       selectValue: [],
-      popupVisible: false,
-    }, () => {
-      this.props.onChange();
     });
   };
 
   //popup显示隐藏
-  onVisibleChange = (visible) => {
-    this.setState({
+  changeVisibleState = (visible) => {
+    this.props.onVisibleChange(visible);
+    const changedState = {
       popupVisible: visible
-    }, () => {
-      const {onVisibleChange, defaultActiveFirstOption, mode} = this.props;
-      const {selectValue, selectValueForMultiplePanel} = this.state;
-      onVisibleChange(visible);
-      if (visible) {
-        // 没有选中任何选项、默认开启激活第一个选项
-        if (defaultActiveFirstOption && !selectValue.length) {
-          const firstOption = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
-          this.setState({
-            activeKey: firstOption.key
-          });
-        }
-        this.focus();
-      } else {
-        // 多选就还原状态-同handleCancel
-        if (mode === 'multiple') {
-          this.setState({
-            selectValue: selectValueForMultiplePanel
-          });
-        }
+    };
+    const {defaultActiveFirstOption} = this.props;
+    if (visible) {
+      // 打开弹出框时，开启激活第一个选项
+      if (defaultActiveFirstOption) {
+        const firstOption = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
+        changedState.activeKey = firstOption.key;
       }
+    } else {
+      changedState.activeKey = undefined;
+    }
+    this.setState(changedState, () => {
+      visible && this.focus();
     });
+  };
+
+  //rc-trigger触发visibleChange事件
+  visibleChangeFromTrigger = (visible) => {
+    const {selectValueForMultiplePanel} = this.state;
+    const {mode} = this.props;
+    if (!visible && mode === 'multiple') {
+      this.setState({
+        selectValue: selectValueForMultiplePanel
+      });
+    }
+    this.changeVisibleState(visible);
   };
 
   // 焦点操作
@@ -279,7 +313,7 @@ export default class Select extends React.Component {
     } else {
       setTimeout(() => {
         const targetElement = showSearch ? this.selectSearch.searchInput.input : this.selection;
-        targetElement[event]();
+        targetElement && targetElement[event]();
       });
     }
   };
@@ -298,27 +332,25 @@ export default class Select extends React.Component {
   onOptionClick = (e, obj, clickInLabel) => {
     e && e.stopPropagation();
     const {onChange, mode, onSelect, labelInValue} = this.props;
-    const selectValue = this.state.selectValue;
+    const {selectValue} = this.state;
     const index = selectValue.findIndex(selected => selected.key === obj.key);
     if (mode === 'single') {
+      this.changeVisibleState(false);
       this.setState({
         selectValue: [obj],
-        popupVisible: false,
-      }, () => {
-        // 值改变了才触发onChange
-        if (index === -1) {
-          if (labelInValue) {
-            onChange(obj);
-          } else {
-            onChange(obj.key);
-          }
-        }
       });
+      if (index === -1) {
+        if (labelInValue) {
+          onChange(obj);
+        } else {
+          onChange(obj.key);
+        }
+      }
     } else if (mode === 'multiple') {
       let changedValue, changedObj = {};
       //label 点击
       if (clickInLabel) {
-        const selectValueForMultiplePanel = this.state.selectValueForMultiplePanel;
+        const {selectValueForMultiplePanel} = this.state;
         const indexInMultiple = selectValueForMultiplePanel.findIndex(selected => selected.key === obj.key);
         changedValue = [...selectValueForMultiplePanel.slice(0, indexInMultiple), ...selectValueForMultiplePanel.slice(indexInMultiple + 1)];
         changedObj = {
@@ -332,16 +364,16 @@ export default class Select extends React.Component {
           selectValue: changedValue,
         };
       }
-      this.setState(changedObj, () => {
-        if (clickInLabel) {
-          //Clicking on label will trigger the onchange event.
-          if (labelInValue) {
-            onChange(this.state.selectValue);
-          } else {
-            onChange(this.state.selectValue.map(selected => selected.key));
-          }
+      this.setState(changedObj);
+      if (clickInLabel) {
+        //click on label will trigger the onchange event.
+        const {selectValue} = this.state;
+        if (labelInValue) {
+          onChange(selectValue);
+        } else {
+          onChange(selectValue.map(selected => selected.key));
         }
-      });
+      }
     }
     //fire onSelect event => option/label click
     onSelect(obj);
@@ -364,7 +396,6 @@ export default class Select extends React.Component {
           showOptionCheckedIcon: showOptionCheckedIcon,
           onOptionClick: this.onOptionClick,
           onOptionMouseEnter: this.onOptionMouseEnter,
-          onOptionMouseLeave: this.onOptionMouseLeave,
           ref: value,
           children: this.getProcessedChildren(child.props.children, dropdownCls),
         });
@@ -409,9 +440,10 @@ export default class Select extends React.Component {
 
   //多选-取消
   handleCancelSelect = () => {
+    const {selectValueForMultiplePanel} = this.state;
+    this.changeVisibleState(false);
     this.setState({
-      popupVisible: false,
-      selectValue: this.state.selectValueForMultiplePanel
+      selectValue: selectValueForMultiplePanel
     });
   };
 
@@ -419,16 +451,15 @@ export default class Select extends React.Component {
   handleConfirmSelect = () => {
     const {onChange, labelInValue} = this.props;
     const {selectValue} = this.state;
+    this.changeVisibleState(false);
     this.setState({
-      popupVisible: false,
       selectValueForMultiplePanel: selectValue,
-    }, () => {
-      if (labelInValue) {
-        onChange(selectValue);
-      } else {
-        onChange(selectValue.map(selected => selected.key));
-      }
     });
+    if (labelInValue) {
+      onChange(selectValue);
+    } else {
+      onChange(selectValue.map(selected => selected.key));
+    }
   };
 
   //判断是否全选
@@ -437,7 +468,7 @@ export default class Select extends React.Component {
     const optionList = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
     // 全选判断来源是 ：false-下拉面板内容区，true-显示面板内容区
     const selectedList = countSelectValueForMultiplePanel ? selectValueForMultiplePanel : selectValue;
-    //全选判断逻辑：option中每一项都能在seleced中找到（兼容后端搜索的全选判断）
+    //全选判断逻辑：option中每一项都能在selected中找到（兼容后端搜索的全选判断）
     return optionList.every(selected => {
       return !!selectedList.find(option => option.key === selected.key);
     });
@@ -460,9 +491,9 @@ export default class Select extends React.Component {
         if (activeTabIndex !== -1) {
           if (!selectValue.find((selected) => selected.key === activeKey)) {
             if (mode === 'single') {
+              this.changeVisibleState(false);
               this.setState({
                 selectValue: [optionList[activeTabIndex]],
-                popupVisible: false,
                 activeKey: undefined,
               }, () => {
                 if (labelInValue) {
@@ -532,16 +563,6 @@ export default class Select extends React.Component {
     });
   };
 
-  //处理option激活态-> mouseEnter
-  onOptionMouseEnter = (activeKey) => {
-    this.setState({activeKey});
-  };
-
-  //处理option激活态-> mouseLeave
-  onOptionMouseLeave = () => {
-    this.setState({activeKey: undefined});
-  };
-
   // selectionChange后重新定位trigger
   resizeTrigger = () => {
     if (this.trigger &&
@@ -558,10 +579,10 @@ export default class Select extends React.Component {
       children,
       dropdownClassName,
       dropdownStyle,
+      errorMessage,
       extraOptions,
       loading,
       maxCount,
-      errorMessage,
       maxScrollHeight,
       mode,
       notFoundContent,
@@ -580,8 +601,9 @@ export default class Select extends React.Component {
     const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的children
     const showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
     const maxCountError = 'maxCount' in this.props && selectValue.length > maxCount; // maxCount值存在且小于选择数量
+    const dropdownPanelCls = classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName});
     return (
-      <div className={classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName})}
+      <div className={dropdownPanelCls}
            onKeyDown={this.handleActiveTabChange}
            ref={selection => this.selection = selection}
            style={dropdownStyle}
@@ -611,8 +633,8 @@ export default class Select extends React.Component {
                    ref={dropdownList => this.dropdownList = dropdownList}
                    style={{maxHeight: maxScrollHeight}}>
                 {
-                  //全选按钮-多选的情况下存在
-                  showSelectAll && mode === 'multiple' &&
+                  //全选按钮-多选未搜索的情况下存在
+                  !searchValue && showSelectAll && mode === 'multiple' &&
                   <li
                     className={classNames({[`${dropdownCls}-option-item`]: true}, {['checked checked-icon']: this.isSelectAll()})}
                     onClick={this.selectAllOption}>
@@ -623,7 +645,7 @@ export default class Select extends React.Component {
                   //清空选项按钮-单选未搜索的情况下存在
                   !searchValue && showSingleClear && mode === 'single' &&
                   <li
-                    className={`${dropdownCls}-option-item clear`}
+                    className={`${dropdownCls}-option-item`}
                     onClick={this.emptySelectValue}>
                     {placeholder}
                   </li>
@@ -673,14 +695,14 @@ export default class Select extends React.Component {
       labelClear,
       loading,
       maxLabelClearPanelHeight,
-      showMultipleSelectAll,
-      multipleSelectAllText,
       mode,
+      multipleSelectAllText,
       onMouseEnter,
       onMouseLeave,
       placeholder,
       prefixCls,
       showArrow,
+      showMultipleSelectAll,
       size,
       style,
     } = this.props;
@@ -800,18 +822,25 @@ export default class Select extends React.Component {
       popupAlign,
       prefixCls,
     } = this.props;
+
+    const {popupVisible, dropdownWidth} = this.state;
+    const popupStyle = {};
+    const widthProp = dropdownMatchSelectWidth ? 'width' : 'minWidth';
+    if (dropdownWidth) {
+      popupStyle[widthProp] = `${dropdownWidth}px`;
+    }
     return (
       <Trigger
         action={disabled ? [] : ['click']}
         builtinPlacements={placements}
         ref={node => this.trigger = node}
         getPopupContainer={getPopupContainer}
-        onPopupVisibleChange={this.onVisibleChange}
+        onPopupVisibleChange={this.visibleChangeFromTrigger}
         popup={this.getDropdownPanel()}
         popupPlacement={popupAlign}
-        popupVisible={this.state.popupVisible}
+        popupVisible={popupVisible}
         prefixCls={`${prefixCls}-popup`}
-        stretch={dropdownMatchSelectWidth ? 'width' : ''}
+        popupStyle={popupStyle}
       >
         {this.getSelectionPanel()}
       </Trigger>

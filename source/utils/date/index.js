@@ -93,9 +93,11 @@ export const setTime = (oldDate, newDate) => {
   let hour = newDate.getHours();
   let minute = newDate.getMinutes();
   let second = newDate.getSeconds();
+  let milliSeconds = newDate.getMilliseconds();
   old.setHours(hour);
   old.setMinutes(minute);
   old.setSeconds(second);
+  old.setMilliseconds(milliSeconds);
   return new Date(old.getTime());
 };
 

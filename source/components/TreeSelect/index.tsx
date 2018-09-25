@@ -12,6 +12,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   static SHOW_CHILD = SHOW_CHILD;
 
   static defaultProps = {
+    autoClearSearchValue: false,
     choiceTransitionName: 'zoom',
     editable: true,
     isRequired: false,

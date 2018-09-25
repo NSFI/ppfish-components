@@ -5,14 +5,30 @@
 @icon-normal-color: @heading-color;
 
 /* stylelint-disable declaration-no-important */
+.@{rich-editor-prefix}-link-modal {
+  .link-modal-text {
+    font-size: 14px;
+    margin-right: 8px;
+    color: #333;
+  }
+}
+
+.@{rich-editor-prefix}-image-modal {
+  .image-modal-text {
+    font-size: 12px;
+    margin-top: 8px;
+    color: #999;
+  }
+}
+
 .@{rich-editor-prefix} {
   .hide {
-    display: none;
+    display: none !important;
   }
 
   .editor-head {
     display: block;
-    padding: 6px 14px;
+    padding: 0 14px 6px;
     border: @border-width-base @border-style-base @border-color-base;
     border-radius: @border-radius-base @border-radius-base 0 0;
     border-bottom: none;
@@ -30,16 +46,37 @@
     align-items: center;
     justify-content: center;
     font-size: 12px;
+    width: 28px;
+    height: 24px;
+    float: left;
+    margin-top: 6px;
+
+    &:focus,
+    .ql-picker:focus,
+    .ql-picker-label:focus {
+      outline: none;
+    }
   }
 
   .ql-active {
-    color: #fff !important;
     background: @primary-color !important;
+    color: #fff !important;
+
+    .ql-stroke {
+      stroke: #fff !important;
+    }
+
+    .ql-fill {
+      fill: #fff !important;
+    }
+  }
+
+  .ql-tooltip {
+    display: none;
   }
 
   .toolbar-grp {
     display: inline-block;
-    height: 24px;
     float: left;
     margin: 0 12px 0 0;
 
@@ -53,8 +90,17 @@
         color: @icon-normal-color;
         background: #F2F3F5;
 
-        .ql-picker-options {
+        .ql-picker-options,
+        .ql-picker-label {
           color: @icon-normal-color;
+        }
+
+        .ql-stroke {
+          stroke: @icon-normal-color;
+        }
+
+        .ql-fill {
+          fill: @icon-normal-color;
         }
       }
 
@@ -83,6 +129,10 @@
     > .item:last-child {
       border-top-right-radius: @border-radius-base;
       border-bottom-right-radius: @border-radius-base;
+    }
+
+    &:last-child {
+      margin-right: 0;
     }
   }
 
@@ -181,6 +231,7 @@
       margin-left: 20px;
       background: @component-background url('//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy') no-repeat;
       background-size: 22px auto;
+      outline: none;
     }
 
     .emoji-00 {
@@ -252,7 +303,7 @@
     }
 
     .emoji-106 {
-      background-position: 0 -372px;
+      background-position: 0 -374px;
     }
 
     .emoji-107 {
@@ -696,7 +747,7 @@
     }
 
     .emoji-119 {
-      background-position: 0 -2825px;
+      background-position: 0 -2826px;
     }
 
     .emoji-120 {
@@ -704,7 +755,7 @@
     }
 
     .emoji-121 {
-      background-position: 0 -2876px;
+      background-position: 0 -2875px;
     }
 
     .emoji-123 {
@@ -720,7 +771,7 @@
     }
 
     .emoji-126 {
-      background-position: 0 -2987px;
+      background-position: 0 -2985px;
     }
 
     .emoji-127 {
@@ -736,7 +787,7 @@
     }
 
     .emoji-144 {
-      background-position: 0 -3457px;
+      background-position: 0 -3455px;
     }
 
     .emoji-145 {
@@ -744,7 +795,7 @@
     }
 
     .emoji-146 {
-      background-position: 0 -3506px;
+      background-position: 0 -3505px;
     }
 
     .emoji-147 {
@@ -752,7 +803,7 @@
     }
 
     .emoji-148 {
-      background-position: 0 -3559px;
+      background-position: 0 -3558px;
     }
 
     .emoji-149 {
@@ -804,7 +855,7 @@
     }
 
     .emoji-137 {
-      background-position: 0 -3274px;
+      background-position: 0 -3272px;
     }
 
     .emoji-138 {
@@ -905,6 +956,7 @@
       display: flex !important;
       justify-content: center;
       align-items: center;
+      color: @icon-normal-color;
 
       .iconfont-mixin();
 

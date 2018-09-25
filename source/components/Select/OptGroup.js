@@ -23,15 +23,12 @@ export default class OptGroup extends React.Component {
 
   render() {
     const {children, label, prefixCls, _isShow} = this.props;
-    if (_isShow) {
-      return (
+    return _isShow &&
+      (
         <div className={classNames(`${prefixCls}`)}>
           <p className={`${prefixCls}-label`}>{label}</p>
           {children}
         </div>
       );
-    } else {
-      return null;
-    }
   }
 }

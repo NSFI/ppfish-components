@@ -135,7 +135,7 @@ class Select extends React.Component {
     showSearch: false,
     editable: true,
     isRequired: false,
-    autoClearSearchValue: true,
+    autoClearSearchValue: false,
     showCheckedStrategy: SHOW_CHILD,
 
     // dropdownMatchSelectWidth change the origin design, set to false now
@@ -703,11 +703,16 @@ class Select extends React.Component {
           ]),
         );
       } else {
+        let oriCheckedKeys = conductCheck(
+          oriKeyList,
+          true,
+          keyEntities
+        ).checkedKeys;
         keyList = conductCheck(
           [nodeEventInfo.node.props.eventKey],
           false,
           keyEntities,
-          { checkedKeys: oriKeyList },
+          { checkedKeys: oriCheckedKeys },
         ).checkedKeys;
       }
 

@@ -6,18 +6,15 @@ export default class Option extends React.Component {
   static isSelectOption = true;
 
   static propTypes = {
+    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     children: PropTypes.node,
     disabled: PropTypes.bool,
+    onOptionClick: PropTypes.func,
     prefixCls: PropTypes.string,
+    showOptionCheckedIcon: PropTypes.bool,
     title: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
-    showOptionCheckedIcon: PropTypes.bool,
-    // INTERNAL USE ONLY
-    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onOptionClick: PropTypes.func,
-    onOptionMouseEnter: PropTypes.func,
-    onOptionMouseLeave: PropTypes.func,
   };
 
   static defaultProps = {
@@ -36,20 +33,6 @@ export default class Option extends React.Component {
     }
   };
 
-  onOptionMouseEnter = () => {
-    const {disabled, onOptionMouseEnter, value} = this.props;
-    if (!disabled) {
-      onOptionMouseEnter && onOptionMouseEnter(value);
-    }
-  };
-
-  onOptionMouseLeave = () => {
-    const {disabled, onOptionMouseLeave, value} = this.props;
-    if (!disabled) {
-      onOptionMouseLeave && onOptionMouseLeave(value);
-    }
-  };
-
   render() {
     const {title, children, activeKey, showOptionCheckedIcon, value, disabled, checked, prefixCls} = this.props;
     const label = children && children.length === 1 ? children[0] : children;
@@ -59,13 +42,11 @@ export default class Option extends React.Component {
         {[`${prefixCls}-item-disabled`]: !!disabled},
         {[`checked`]: !!checked},
         {[`checked-icon`]: !!checked && showOptionCheckedIcon},
-        {[`active`]: activeKey === value}
+        {[`active`]: 'activeKey' in this.props && activeKey === value}
       );
     return (
       <li
         title={title}
-        onMouseEnter={this.onOptionMouseEnter}
-        onMouseLeave={this.onOptionMouseLeave}
         className={optionCls}
         onClick={(e) => this.onOptionClick(e, {label, title, key: value})}>
         {children}

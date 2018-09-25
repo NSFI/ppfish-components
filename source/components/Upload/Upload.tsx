@@ -34,6 +34,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     className: '',
     disabled: false,
     supportServerRender: true,
+    tips: ''
   };
 
   recentUploadStatus: boolean | PromiseLike<any>;
@@ -256,6 +257,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       type,
       disabled,
       children,
+      tips
     } = this.props;
 
     const rcUploadProps = {
@@ -270,10 +272,10 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     delete rcUploadProps.className;
 
     const uploadList = showUploadList ? this.renderUploadList({
-      uploading: 'Uploading...',
-      removeFile: 'Remove file',
-      uploadError: 'Upload error',
-      previewFile: 'Preview file',
+      uploading: '上传中',
+      removeFile: '移除文件',
+      uploadError: '上传错误',
+      previewFile: '预览文件',
     }) : null;
 
     if (type === 'drag') {
@@ -314,19 +316,28 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       </div>
     );
 
+    const uploadTips = tips ? (
+      <div className={`${prefixCls}-tips`}>
+        {tips}
+      </div>
+    ) : null;
+
     if (listType === 'picture-card') {
       return (
         <span className={className}>
           {uploadList}
           {uploadButton}
+          {uploadTips}
+        </span>
+      );
+    } else {
+      return (
+        <span className={className}>
+          {uploadButton}
+          {uploadTips}
+          {uploadList}
         </span>
       );
     }
-    return (
-      <span className={className}>
-        {uploadButton}
-        {uploadList}
-      </span>
-    );
   }
 }

@@ -1,4 +1,4 @@
-# 图片查看器
+# PicturePreview 图片查看器
 
 预览图片，对图片进行等比缩放、全屏显示、放大、缩小、旋转90度、保存等操作。
 
@@ -224,6 +224,8 @@
 | activeIndex | 当前展示第几张图片 | Number | 0 |
 | className | 容器类名 | String | - |
 | dragable | 是否可拖动 | Boolean | false |
+| mask | 是否展示遮罩层 | Boolean | true |
+| progress | 是否展示图片总数和当前进度 | Boolean | false |
 | source | 设置图片的源数据，可选属性，格式为 `[{name: "", src: ""}]` 。当不设置 source 时可以手动构造子节点，子节点需是 `img` 标签，且包含 `src` 和 `name` 属性。若 source 与子节点同时存在，子节点将被忽略。 | Array | [] |
 | toolbar | 是否展示工具栏 | Boolean | false |
 | visible | 是否展示图片查看器 | Boolean | false |

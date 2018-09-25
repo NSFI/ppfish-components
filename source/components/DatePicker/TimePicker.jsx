@@ -5,7 +5,7 @@ import TimePanel from './panel/TimePanel.jsx';
 import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import debounce from 'lodash/debounce';
 
-function converSelectRange(props) {
+const converSelectRange = (props) => {
   let selectableRange = [];
   if (props.selectableRange) {
     let ranges = props.selectableRange;
@@ -16,10 +16,9 @@ function converSelectRange(props) {
     selectableRange = ranges.map(range => parser(range, format));
   }
   return selectableRange;
-}
+};
 
 export default class TimePicker extends BasePicker {
-  // why this is used, goto: http://exploringjs.com/es6/ch_classes.html
   static get propTypes() {
     return Object.assign({}, {
       // '18:30:00 - 20:30:00' or ['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']
@@ -38,6 +37,7 @@ export default class TimePicker extends BasePicker {
   }
 
   constructor(props) {
+    //props, type, state
     super(props, 'time', {});
     this._onSelectionChange = debounce(this.onSelectionChange, 200);
   }

@@ -3,15 +3,36 @@
 @picture-preview-prefix: ~"@{fishd-prefix}-picturepreview";
 
 /* stylelint-disable declaration-no-important */
+.@{picture-preview-prefix}-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.3);
+  border-radius: @border-radius-base;
+  z-index: @zindex-picture-preview - 1;
+}
+
+.@{picture-preview-prefix}-hide {
+  display: none !important;
+}
+
 .@{picture-preview-prefix} {
   position: absolute;
   z-index: @zindex-picture-preview;
   user-select: none;
   touch-action: none;
-  border-radius: 5px;
-  background-color: rgba(222, 222, 222, 0.5);
-  box-shadow: 0px 2px 14px rgba(183, 183, 183, 0.5);
+  border-radius: @border-radius-base;
+  // background-color: rgba(222, 222, 222, 0.5);
+  // box-shadow: 0px 2px 14px rgba(183, 183, 183, 0.5);
+  background: #5C5F66;
+  box-shadow: 0 2px 6px 0 rgba(23, 23, 26, 0.1);
   overflow: hidden;
+
+  // &:-webkit-full-screen {
+  //   background: rgba(0,0,0,0.8);
+  // }
 
   &.dragable {
     cursor: move;
@@ -25,11 +46,6 @@
     .toolbar {
       display: block;
     }
-  }
-
-  .hide,
-  &.hide {
-    display: none !important;
   }
 
   .canvas[moving] {
@@ -53,6 +69,7 @@
     z-index: @zindex-picture-preview;
     cursor: pointer;
     color: #fff;
+
     >a::before,
     >span::before {
       color: #fff;
@@ -67,13 +84,14 @@
   /* 向左以及向右翻页的icon */
   .iconDir {
     position: absolute;
+    display: none;
     top: 50%;
-    margin-top: -15px;
+    transform: translateY(-50%);
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.5);
-    width: 30px;
-    height: 30px;
-    display: none;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
     .icon;
   }
 
@@ -82,10 +100,28 @@
     right: 0;
     top: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 5px;
-    width: 25px;
-    height: 25px;
+    font-size: 16px;
+    height: 32px;
+    width: 32px;
+    border-radius: 0 0 0 32px;
+    .icon;
+
+    &:before {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+  }
+
+  .close-fullscreen {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
     .icon;
   }
 
@@ -103,14 +139,13 @@
 
   .toolbar {
     position: absolute;
-    bottom: 10px;
+    bottom: 16px;
     left: 50%;
-    margin-left: -150px;
-    width: 300px;
-    // display: none;
+    transform: translateX(-50%);
+    width: 248px;
     display: block;
     color: #fff;
-    font-size: 32px;
+    font-size: 20px;
   }
 
   .toolbarTitle {
@@ -131,7 +166,7 @@
     align-items: center;
     height: 40px;
     background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 40px;
+    border-radius: 100px;
   }
 
   .divider {

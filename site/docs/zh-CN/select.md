@@ -1,5 +1,5 @@
-# 下拉筛选
-
+# Select 选择器
+ 
 ## 何时使用
 
 - 弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。
@@ -85,7 +85,7 @@
     this.setState({visible});
   }
   
-  onOptionClick=(option)=>{
+  onOptionClick=(e,option)=>{
     const {recentOption=[]} = this.state;
     const index =  recentOption.findIndex(op=>op.key === option.key)
     const tmpOption = recentOption[index];
@@ -113,7 +113,7 @@
                 {recentOption.map((op,index) => <Select.Option 
                 key={op.key}
                 value={op.key}
-                onOptionClick={()=>this.onOptionClick(op)}
+                onOptionClick={this.onOptionClick}
                 checked={value && op.key === value.key}>{op.label}</Select.Option>)}
               </Select.OptGroup>
         }>
@@ -614,7 +614,7 @@ render(){
     const {fetching, data, value} = this.state;
     return (
       <div className="demo-select">
-        <Select style={{width: 300}} showSelectAll selectAllText={'选中所有搜索结果'} mode="multiple" labelInValue showSearch
+        <Select style={{width: 300}} showSelectAll mode="multiple" labelInValue showSearch
                 onSearch={this.fetchUser} onChange={this.handleChange} value={value}
                 notFoundContent={fetching ? <Spin size="small"/> : null}>
           {data.map(d => <Select.Option key={d.value} title={d.text}>{d.text}</Select.Option>)}

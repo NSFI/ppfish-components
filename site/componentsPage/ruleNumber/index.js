@@ -7,7 +7,7 @@ export default class ruleNumber extends React.Component {
   render() {
     return (
       <div className="rule-number">
-        <h1>数字 Number</h1>
+        <h1>Number 数字</h1>
         <p>产品中的数字。</p>
         <h2>适用场景</h2>
         <p>产品内统一使用的数字显示规则。</p>

@@ -1,4 +1,4 @@
-# 上传
+# Upload 上传
 
 文件选择上传和拖拽上传控件。
 
@@ -6,9 +6,9 @@
 
 上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。
 
-- 当需要上传一个或一些文件时。
-- 当需要展现上传的进度时。
-- 当需要使用拖拽交互时。
+- 当需要上传一个或一些文件时
+- 当需要展现上传的进度时
+- 当需要使用拖拽交互时
 
 
 ## 点击上传
@@ -20,6 +20,7 @@
 render() {
   const props = {
     name: 'file',
+    tips: '这里是上传提示',
     action: '//jsonplaceholder.typicode.com/posts/',
     headers: {
       authorization: 'authorization-text',
@@ -37,8 +38,8 @@ render() {
   };
   return (
     <Upload {...props}>
-      <Button>
-        <Icon type="upload-line" /> Click to Upload
+      <Button type="primary">
+        <Icon type="upload-line" /> 上传
       </Button>
     </Upload>
   );
@@ -92,7 +93,7 @@ render() {
     const uploadButton = (
       <div>
         { this.state.loading ?  <Spin /> : <Icon type="upload-plus"/> }
-        <div className="fishd-upload-text">Upload</div>
+        <div className="fishd-upload-text">上传图片</div>
       </div>
     );
     const imageUrl = this.state.imageUrl;
@@ -115,8 +116,8 @@ render() {
 
 <style>
 .avatar-uploader > .fishd-upload {
-  width: 128px;
-  height: 128px;
+  width: 100px;
+  height: 100px;
 }
 </style>
 
@@ -142,46 +143,39 @@ render() {
       name: 'xxx.png',
       status: 'done',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
     }, {
       uid: 2,
       name: 'yyy.png',
       status: 'done',
-      url: 'http://www.baidu.com/yyy.png',
     }, {
       uid: 3,
       name: 'zzz.png',
       status: 'error',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/zzz.png',
     }, {
       uid: 4,
       name: 'xxx.png',
       status: 'done',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
     }, {
       uid: 5,
       name: 'yyy.png',
       status: 'done',
-      url: 'http://www.baidu.com/yyy.png',
     }, {
       uid: 6,
       name: 'xxx.png',
       status: 'done',
       response: 'Server Error 500', // custom error message to show
-      url: 'http://www.baidu.com/xxx.png',
     }, {
       uid: 7,
       name: 'yyy.png',
       status: 'done',
-      url: 'http://www.baidu.com/yyy.png',
     }],
   };
   return (
     <Upload {...props}>
-      <Button>
-        <Icon type="upload-line" /> Upload
+      <Button type="primary">
+        <Icon type="upload-line" /> 上传
       </Button>
     </Upload>
     )
@@ -220,7 +214,7 @@ render() {
     const uploadButton = (
       <div>
         <Icon type="upload-plus" />
-        <div className="fishd-upload-text">Upload</div>
+        <div className="fishd-upload-text">上传图片</div>
       </div>
     );
     return (
@@ -275,7 +269,6 @@ render() {
       uid: -1,
       name: 'xxx.png',
       status: 'done',
-      url: 'http://www.baidu.com/xxx.png',
     }],
   }
 
@@ -314,8 +307,8 @@ render() {
     };
     return (
       <Upload {...props} fileList={this.state.fileList}>
-        <Button>
-          <Icon type="upload-line" /> upload
+        <Button type="primary">
+          <Icon type="upload-line" /> 上传
         </Button>
       </Upload>
     );
@@ -356,13 +349,20 @@ render(){
       <p className="fishd-upload-drag-icon">
         <Icon type="upload-cloud" />
       </p>
-      <p className="fishd-upload-text">Click or drag file to this area to upload</p>
-      <p className="fishd-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
+      <p className="fishd-upload-text">
+        将文件拖到此处，或<span className="fishd-upload-impt">点击上传</span>
+      </p>
     </Dragger>
   )
 }
 ```
 :::
+
+<style>
+.fishd-upload-text .fishd-upload-impt {
+  color: #337eff;
+}
+</style>
 
 
 ## 图片列表样式
@@ -383,8 +383,6 @@ render(){
     uid: -2,
     name: 'yyy.png',
     status: 'done',
-    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
   }];
 
   const props = {
@@ -402,15 +400,15 @@ render(){
   return (
     <div>
       <Upload {...props}>
-        <Button>
-          <Icon type="upload-line" /> upload
+        <Button type="primary">
+          <Icon type="upload-line" /> 上传
         </Button>
       </Upload>
       <br />
       <br />
       <Upload {...props2}>
-        <Button>
-          <Icon type="upload-line" /> upload
+        <Button type="primary">
+          <Icon type="upload-line" /> 上传
         </Button>
       </Upload>
     </div>
@@ -500,8 +498,8 @@ render(){
     return (
       <div>
         <Upload {...props}>
-          <Button>
-            <Icon type="upload-line" /> Select File
+          <Button type="primary">
+            <Icon type="upload-line" /> 选择文件
           </Button>
         </Upload>
         <Button
@@ -511,7 +509,7 @@ render(){
           disabled={this.state.fileList.length === 0}
           loading={uploading}
         >
-          {uploading ? 'Uploading' : 'Start Upload' }
+          {uploading ? '上传中' : '开始上传' }
         </Button>
       </div>
     );
@@ -533,7 +531,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| accept | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String | - |
+| accept | 接受上传的文件类型，多种类型用 `,` 分隔或写成数组形式，详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String \| String[] | - |
 | action | 必选参数, 上传的地址 | String | - |
 | beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 `false` 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传。**注意：IE9 不支持该方法**。 | (file, fileList) => `Boolean \| Promise` | - |
 | className | 容器类名 | String | - |
@@ -550,6 +548,7 @@ render(){
 | showDeleteAll | 文件列表中的文件数超出 `maxFileCount` 后是否展示 `删除全部`，当 listType 为 `text` 时有效 | Boolean | true |
 | showUploadList | 是否展示 uploadList, 可设为一个对象，用于单独设定 showPreviewIcon 和 showRemoveIcon | Boolean \| { showPreviewIcon?: Boolean, showRemoveIcon?: Boolean } | true |
 | supportServerRender | 服务端渲染时需要打开这个 | Boolean | false |
+| tips | 上传提示 | String | - |
 | withCredentials | 上传请求时是否携带 cookie | Boolean | false |
 | onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | () => any | - |
 | onPreview | 点击文件链接或预览图标时的回调 | (file) => any | - |

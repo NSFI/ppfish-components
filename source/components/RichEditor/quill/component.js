@@ -1,20 +1,18 @@
 'use strict';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var createClass = require('create-react-class');
-var QuillMixin = require('./mixin');
-var find = require('lodash/find');
-var some = require('lodash/some');
-var isEqual = require('lodash/isEqual');
-var T = require('prop-types');
-var DOM = require('react-dom-factories');
+let React = require('react');
+let ReactDOM = require('react-dom');
+let createClass = require('create-react-class');
+let QuillMixin = require('./mixin');
+let find = require('lodash/find');
+let some = require('lodash/some');
+let isEqual = require('lodash/isEqual');
+let T = require('prop-types');
+let DOM = require('react-dom-factories');
 
-var QuillComponent = createClass({
+let QuillComponent = createClass({
 
 	displayName: 'Quill',
-
-	mixins: [ QuillMixin ],
 
 	propTypes: {
 		id: T.string,
@@ -27,6 +25,7 @@ var QuillComponent = createClass({
 		placeholder: T.string,
 		tabIndex: T.number,
 		bounds: T.oneOfType([T.string, T.element]),
+		scrollingContainer: T.node,
 		onChange: T.func,
 		onChangeSelection: T.func,
 		onFocus: T.func,
@@ -36,7 +35,7 @@ var QuillComponent = createClass({
 		onKeyUp: T.func,
 
 		modules: function(props) {
-			var isNotObject = T.object.apply(this, arguments);
+			let isNotObject = T.object.apply(this, arguments);
 			if (isNotObject) return isNotObject;
 
 			if (
@@ -59,7 +58,7 @@ var QuillComponent = createClass({
 		},
 
 		formats: function(props) {
-			var isNotArrayOfString = T.arrayOf(T.string).apply(this, arguments);
+			let isNotArrayOfString = T.arrayOf(T.string).apply(this, arguments);
 
 			if (isNotArrayOfString) return new Error(
 				'You cannot specify custom `formats` anymore. Use Parchment instead.  ' +
@@ -84,61 +83,27 @@ var QuillComponent = createClass({
 
 		children: function(props) {
 			// Validate that the editor has only one child element and it is not a <textarea>
-			var isNotASingleElement = T.element.apply(this, arguments);
+			let isNotASingleElement = T.element.apply(this, arguments);
 			if (isNotASingleElement) return new Error(
 				'The Quill editing area can only be composed of a single React element.'
 			);
 
 			if (React.Children.count(props.children)) {
-				var child = React.Children.only(props.children);
+				let child = React.Children.only(props.children);
 				if (child.type === 'textarea') return new Error(
 					'Quill does not support editing on a <textarea>. Use a <div> instead.'
 				);
 			}
 		}
 	},
-		
-	/*
-	Changing one of these props should cause a full re-render.
-	*/
-	dirtyProps: [
-		'modules',
-		'formats',
-		'bounds',
-		'theme',
-		'children',
-	],
 
-	/*
-	Changing one of these props should cause a regular update.
-	*/
-	cleanProps: [
-		'id',
-		'className',
-		'style',
-		'placeholder',
-		'tabIndex',
-		'onChange',
-		'onChangeSelection',
-		'onFocus',
-		'onBlur',
-		'onKeyPress',
-		'onKeyDown',
-		'onKeyUp',
-	],
+	mixins: [ QuillMixin ],
 
 	getDefaultProps: function() {
 		return {
 			theme: 'snow',
 			modules: {},
 		};
-	},
-
-	/*
-	We consider the component to be controlled if `value` is being sent in props.
-	*/
-	isControlled: function() {
-		return 'value' in this.props;
 	},
 
 	getInitialState: function() {
@@ -150,8 +115,27 @@ var QuillComponent = createClass({
 		};
 	},
 
+	componentDidMount: function() {
+		this.editor = this.createEditor(
+			this.getEditingArea(),
+			this.getEditorConfig()
+		);
+		// Restore editor from Quill's native formats in regeneration scenario
+		if (this.quillDelta) {
+			this.editor.setContents(this.quillDelta);
+			this.editor.setSelection(this.quillSelection);		
+			// this.editor.focus();
+			this.quillDelta = this.quillSelection = null;
+			return;
+		}
+		if (this.state.value) {
+			this.setEditorContents(this.editor, this.state.value);
+			return;
+		}
+	},
+
 	componentWillReceiveProps: function(nextProps, nextState) {
-		var editor = this.editor;
+		let editor = this.editor;
 
 		// If the component is unmounted and mounted too quickly
 		// an error is thrown in setEditorContents since editor is
@@ -162,8 +146,8 @@ var QuillComponent = createClass({
 		// Update only if we've been passed a new `value`.
 		// This leaves components using `defaultValue` alone.
 		if ('value' in nextProps) {
-			var currentContents = this.getEditorContents();
-			var nextContents = nextProps.value;
+			let currentContents = this.getEditorContents();
+			let nextContents = nextProps.value;
 
 			if (nextContents === this.lastDeltaChangeSet) throw new Error(
 				'You are passing the `delta` object from the `onChange` event back ' +
@@ -197,35 +181,8 @@ var QuillComponent = createClass({
 		}
 	},
 
-	componentDidMount: function() {
-		this.editor = this.createEditor(
-			this.getEditingArea(),
-			this.getEditorConfig()
-		);
-		// Restore editor from Quill's native formats in regeneration scenario
-		if (this.quillDelta) {
-			this.editor.setContents(this.quillDelta);
-			this.editor.setSelection(this.quillSelection);		
-			// this.editor.focus();
-			this.quillDelta = this.quillSelection = null;
-			return;
-		}
-		if (this.state.value) {
-			this.setEditorContents(this.editor, this.state.value);
-			return;
-		}
-	},
-
-	componentWillUnmount: function() {
-		var editor; 
-		if ((editor = this.getEditor())) {
-			this.unhookEditor(editor);
-			this.editor = null;
-		}
-	},
-
 	shouldComponentUpdate: function(nextProps, nextState) {
-		var self = this;
+		let self = this;
 
 		// If the component has been regenerated, we already know we should update.
 		if (this.state.generation !== nextState.generation) {
@@ -234,16 +191,6 @@ var QuillComponent = createClass({
 		
 		// Compare props that require React updating the DOM.
 		return some(this.cleanProps, function(prop) {
-			// Note that `isEqual` compares deeply, making it safe to perform
-			// non-immutable updates, at the cost of performance.
-			return !isEqual(nextProps[prop], self.props[prop]);
-		});
-	},
-
-	shouldComponentRegenerate: function(nextProps, nextState) {
-		var self = this;
-		// Whenever a `dirtyProp` changes, the editor needs reinstantiation.
-		return some(this.dirtyProps, function(prop) {
 			// Note that `isEqual` compares deeply, making it safe to perform
 			// non-immutable updates, at the cost of performance.
 			return !isEqual(nextProps[prop], self.props[prop]);
@@ -264,6 +211,60 @@ var QuillComponent = createClass({
 		if (this.state.generation !== prevState.generation) {
 			this.componentDidMount();
 		}
+	},
+
+	componentWillUnmount: function() {
+		let editor; 
+		if ((editor = this.getEditor())) {
+			this.unhookEditor(editor);
+			this.editor = null;
+		}
+	},
+
+	/*
+	Changing one of these props should cause a full re-render.
+	*/
+	dirtyProps: [
+		'modules',
+		'formats',
+		'bounds',
+		'theme',
+		'children',
+	],
+
+	/*
+	Changing one of these props should cause a regular update.
+	*/
+	cleanProps: [
+		'id',
+		'className',
+		'style',
+		'placeholder',
+		'tabIndex',
+		'onChange',
+		'onChangeSelection',
+		'onFocus',
+		'onBlur',
+		'onKeyPress',
+		'onKeyDown',
+		'onKeyUp',
+	],
+
+	/*
+	We consider the component to be controlled if `value` is being sent in props.
+	*/
+	isControlled: function() {
+		return 'value' in this.props;
+	},
+
+	shouldComponentRegenerate: function(nextProps, nextState) {
+		let self = this;
+		// Whenever a `dirtyProp` changes, the editor needs reinstantiation.
+		return some(this.dirtyProps, function(prop) {
+			// Note that `isEqual` compares deeply, making it safe to perform
+			// non-immutable updates, at the cost of performance.
+			return !isEqual(nextProps[prop], self.props[prop]);
+		});
 	},
 
 	getEditorConfig: function() {
@@ -330,45 +331,32 @@ var QuillComponent = createClass({
 	Renders an editor area, unless it has been provided one to clone.
 	*/
 	renderEditingArea: function() {
-		var self = this;
-		var children = this.props.children;
+		let self = this;
+		let children = this.props.children;
 
-		var properties = {
+		let properties = {
 			key: this.state.generation,
 			tabIndex: this.props.tabIndex,
-			ref: function(element) { self.editingArea = element },
+			ref: function(element) { self.editingArea = element; },
 		};
 
-		var customElement = React.Children.count(children)
+		let customElement = React.Children.count(children)
 			? React.Children.only(children)
 			: null;
 
-		var editingArea = customElement
+		let editingArea = customElement
 			? React.cloneElement(customElement, properties)
 			: DOM.div(properties);
 
 		return editingArea;
 	},
 
-	render: function() {
-		return DOM.div({
-			id: this.props.id,
-			style: this.props.style,
-			key: this.state.generation,
-			className: ['quill'].concat(this.props.className).join(' '),
-			onKeyPress: this.props.onKeyPress,
-			onKeyDown: this.props.onKeyDown,
-			onKeyUp: this.props.onKeyUp },
-			this.renderEditingArea()
-		);
-	},
-
 	onEditorChangeText: function(value, delta, source, editor) {
-		var currentContents = this.getEditorContents();
+		let currentContents = this.getEditorContents();
 
 		// We keep storing the same type of value as what the user gives us,
 		// so that value comparisons will be more stable and predictable.
-		var nextContents = this.isDelta(currentContents)
+		let nextContents = this.isDelta(currentContents)
 			? editor.getContents()
 			: editor.getHTML();
 		
@@ -386,9 +374,9 @@ var QuillComponent = createClass({
 	},
 
 	onEditorChangeSelection: function(nextSelection, source, editor) {
-		var currentSelection = this.getEditorSelection();
-		var hasGainedFocus = !currentSelection && nextSelection;
-		var hasLostFocus = currentSelection && !nextSelection;
+		let currentSelection = this.getEditorSelection();
+		let hasGainedFocus = !currentSelection && nextSelection;
+		let hasLostFocus = currentSelection && !nextSelection;
 
 		if (isEqual(nextSelection, currentSelection)) {
 			return;
@@ -413,8 +401,20 @@ var QuillComponent = createClass({
 
 	blur: function() {
 		this.setEditorSelection(this.editor, null);
-	}
+	},
 
+	render: function() {
+		return DOM.div({
+			id: this.props.id,
+			style: this.props.style,
+			key: this.state.generation,
+			className: ['quill'].concat(this.props.className).join(' '),
+			onKeyPress: this.props.onKeyPress,
+			onKeyDown: this.props.onKeyDown,
+			onKeyUp: this.props.onKeyUp },
+			this.renderEditingArea()
+		);
+	},
 });
 
 module.exports = QuillComponent;

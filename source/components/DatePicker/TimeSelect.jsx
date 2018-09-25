@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BasePicker from './BasePicker';
-import TimeSelectPanel from './panel/TimeSelectPanel';
+import BasePicker from './BasePicker.jsx';
+import TimeSelectPanel from './panel/TimeSelectPanel.jsx';
 
 export default class TimeSelect extends BasePicker {
 
@@ -12,7 +12,7 @@ export default class TimeSelect extends BasePicker {
       step: PropTypes.string,
       minTime: PropTypes.string,
       maxTime: PropTypes.string,
-    }, BasePicker.propTypes)
+    }, BasePicker.propTypes);
   }
 
   static get defaultProps() {
@@ -20,7 +20,7 @@ export default class TimeSelect extends BasePicker {
   }
 
   constructor(props) {
-    // props, type, state
+    //props, type, state
     super(props, 'timeselect', {});
   }
 

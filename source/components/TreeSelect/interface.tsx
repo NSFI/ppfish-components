@@ -47,6 +47,7 @@ export interface TreeData {
 }
 
 export interface TreeSelectProps extends AbstractSelectProps {
+  autoClearSearchValue?: boolean;
   defaultValue?: string | Array<any>;
   dropdownStyle?: React.CSSProperties;
   dropdownMatchSelectWidth?: boolean;

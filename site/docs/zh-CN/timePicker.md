@@ -1,4 +1,4 @@
-# Time Picker 时间选择器
+# TimePicker 时间选择器
 
 用于选择或输入时间
 

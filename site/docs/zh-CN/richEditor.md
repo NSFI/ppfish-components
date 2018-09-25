@@ -1,4 +1,4 @@
-# 富文本编辑器
+# RichEditor 富文本编辑器
 
 一种可内嵌于浏览器，所见即所得的文本编辑器。
 
@@ -11,24 +11,19 @@
 :::demo 基本使用方式。
 
 ```js
-  
-  componentDidMount() {
-    window.rEditor = this.richEditor;
-  }
 
   onChange = (content, delta, source, editor) => {
-    console.log('content: ', content);
-    console.log('delta: ', delta);
-    console.log('source: ', source);
-    console.log('editor: ', editor);
+    //console.log('content: ', content);
+    //console.log('delta: ', delta);
+    //console.log('source: ', source);
+    //console.log('editor: ', editor);
   }
 
   render() {
     return (
       <RichEditor
-        ref={(node) => this.richEditor = node}
         onChange={this.onChange}
-        value="初始内容 Line1<br/>初始内容 Line2"
+        value={`<div class="ql-editor" data-gramm="false" contenteditable="true"><p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p></div>`}
       />
     );
   }
@@ -49,7 +44,7 @@
   render() {
     return (
       <RichEditor
-        customLink={{'mylink': {className: 'my-link', url: '//nsfi.github.io/ppfish-components/#/home'}}}
+        customLink={{'mylink': {className: 'my-link', url: 'qiyu://action.qiyukf.com?command=applyHumanStaff', title: '设置为转人工入口'}}}
         toolbar={this.toolbar}
       />
     );
@@ -84,18 +79,15 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [
-      'link', 'bold', 'italic', 'underline', 'color', 'background', 'align', 'font', 'size', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'strike', 'blockquote', 'code-block', 
-      {'header': [1, 2, 3, 4, 5, 6]}, {'script': 'sub'}, {'script': 'super'}, 
-      {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'clean'
+    this.toolbar = [[
+      'link', 'bold', 'italic', 'underline', 'color', 'background', 'align', 'size', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, 
+      {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'clean']
     ];
   }
 
   render() {
     return (
-      <RichEditor
-        toolbar={this.toolbar}
-      />
+      <RichEditor toolbar={this.toolbar} />
     );
   }
 ```
@@ -108,10 +100,10 @@
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
-| customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: '', url: ''}}`。 `className` 为该模块的类名，此属性非必填。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//' | Object | - |
+| customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: '', url: '', title: ''}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | placeholder | 内容为空时的占位内容 | String | - |
-| toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', 'align', [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], {'align': ['', 'right', 'center', 'justify']}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'header': 1}, {'header': 2}, {'header': [1, 2, 3, 4, 5, 6]}, {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'background', 'font'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
+| toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', 'align', [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], {'align': ['', 'right', 'center', 'justify']}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'background'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | onChange | 内容改变时的回调 | (content, delta, source, editor) => any | - |
 | onChangeSelection | 选区改变时的回调 | (range, source, editor) => any | - |

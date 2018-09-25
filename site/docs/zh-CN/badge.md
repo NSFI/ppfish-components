@@ -1,12 +1,13 @@
-# 徽标记
+# Badge 徽标
 
 图标右上角的圆形徽标数字。
 
 ## 何时使用
 
-一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户处理。
+- 一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户处理。
+- 运用小的徽标颜色告知用户当前的状态。
 
-## 基本
+## 基本状态
 
 :::demo 简单的徽章展示，当 `count` 为 `0` 时，默认不显示，但是可以使用 `showZero` 修改为显示。
 
@@ -41,24 +42,7 @@ render(){
 </style>
 
 
-## 独立使用
-
-:::demo 不包裹任何元素即是独立使用，可自定样式展现。
-
-> 在右上角的 badge 则限定为红色。
-
-```js
-render(){
-  return(<div>
-    <Badge count={25} />
-    <Badge count={4} style={{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }} />
-    <Badge count={109} style={{ backgroundColor: '#52c41a' }} />
-  </div>)
-}
-```
-:::
-
-## 封顶数字
+## 极限状态
 
 :::demo 超过 `overflowCount` 的会显示为 `${overflowCount}+` 或 `...`
 默认的 `overflowCount` 为 `99`,
@@ -89,7 +73,7 @@ render(){
 ```
 :::
 
-## 讨嫌的小红点
+## 弱提醒小红点
 
 :::demo 没有具体的数字。
 
@@ -120,6 +104,53 @@ render(){
   font-size: 16px;
 }
 </style>
+
+
+## 状态提醒
+
+:::demo 结合小圆点不同的颜色，可代表不同的业务状态
+
+```js
+render(){
+  return(
+  <div>
+    <Badge status="success" />
+    <Badge status="error" />
+    <Badge status="default" />
+    <Badge status="processing" />
+    <Badge status="warning" />
+    <br />
+    <Badge status="success" text="Success" />
+    <br />
+    <Badge status="error" text="Error" />
+    <br />
+    <Badge status="default" text="Default" />
+    <br />
+    <Badge status="processing" text="Processing" />
+    <br />
+    <Badge status="warning" text="Warning" />
+  </div>)
+ }
+```
+:::
+
+
+## 单独使用的样式
+
+:::demo 不包裹任何元素即是独立使用，可自定样式展现。
+
+> 在右上角的 badge 则限定为红色。
+
+```js
+render(){
+  return(<div>
+    <Badge count={25} />
+    <Badge count={4} style={{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }} />
+    <Badge count={109} style={{ backgroundColor: '#52c41a' }} />
+  </div>)
+}
+```
+:::
 
 ## 可点击
 
@@ -175,10 +206,10 @@ render(){
           </Badge>
           <ButtonGroup>
             <Button onClick={this.decline}>
-              <Icon type="minus" />
+              -
             </Button>
             <Button onClick={this.increase}>
-              <Icon type="plus" />
+              +
             </Button>
           </ButtonGroup>
         </div>
@@ -191,34 +222,6 @@ render(){
       </div>
     );
   }
-```
-:::
-
-## 状态点
-
-:::demo 用于表示状态的小圆点。
-
-```js
-render(){
-  return(
-  <div>
-    <Badge status="success" />
-    <Badge status="error" />
-    <Badge status="default" />
-    <Badge status="processing" />
-    <Badge status="warning" />
-    <br />
-    <Badge status="success" text="Success" />
-    <br />
-    <Badge status="error" text="Error" />
-    <br />
-    <Badge status="default" text="Default" />
-    <br />
-    <Badge status="processing" text="Processing" />
-    <br />
-    <Badge status="warning" text="Warning" />
-  </div>)
- }
 ```
 :::
 

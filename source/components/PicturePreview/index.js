@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Icon from '../Icon';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
 import './style/index.less';
 
@@ -8,7 +9,7 @@ const CON_MAX_WIDTH = 1024, //容器最大宽度
   CON_MIN_WIDTH = 360, //容器最小宽度
   CON_MAX_HEIGHT = 768, //容器最大高度
   CON_MIN_HEIGHT = 360, //容器最小高度
-  MAX_RATIO = 5, //最大的图片显示比例
+  MAX_RATIO = 2, //最大的图片显示比例
   MIN_RATIO = 0.1, //最小的图片显示比例
   STEP_RATIO = 0.1, //图片缩放比例步长
   DEFAULT_RATIO = 0.8; //默认的图片显示比例
@@ -38,7 +39,7 @@ const setStyle = (el, css) => {
 };
 
 const getImageSize = function(image, callback, scope) {
-  var newImage;
+  let newImage;
 
   // Modern browsers
   if (image.naturalWidth) {
@@ -51,7 +52,7 @@ const getImageSize = function(image, callback, scope) {
     callback.call(scope, this.width, this.height);
   };
   newImage.src = image.src;
-}
+};
 
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
 const MOZ_HACK_REGEXP = /^moz([A-Z])/;
@@ -95,6 +96,8 @@ class PicturePreview extends Component {
     toolbar: PropTypes.bool,
     source: PropTypes.array,
     dragable: PropTypes.bool,
+    mask: PropTypes.bool,
+    progress: PropTypes.bool,
     visible: PropTypes.bool,
     activeIndex: PropTypes.number,
     onClose: PropTypes.func,
@@ -105,6 +108,8 @@ class PicturePreview extends Component {
     toolbar: false,
     source: [], // [{name: '', src: ''}]
     dragable: false,
+    mask: true,
+    progress: false,
     visible: false,
     activeIndex: 0,
     onClose: () => {},
@@ -113,6 +118,7 @@ class PicturePreview extends Component {
   constructor(props) {
     super(props);
 
+    this.imgEl = null;
     this.state = {
       show: props.visible || false,
       imgs: props.source || [],
@@ -132,7 +138,7 @@ class PicturePreview extends Component {
   componentDidMount() {
     const { dragable, toolbar } = this.props;
 
-    document.body.appendChild(this.$el);
+    document.body.appendChild(this.$root);
     this.setContainerStyle();
 
     if (toolbar) {
@@ -181,11 +187,11 @@ class PicturePreview extends Component {
       let imgList = [];
 
       imgList = React.Children.map(children, (child, index) => {
-        let { props, type } = child, img = {};
+        let img = {};
 
-        if (type === 'img') {
-          img.name = props.name || props.alt;
-          img.src = props.src;
+        if (child.type === 'img') {
+          img.name = child.props.name || child.props.alt;
+          img.src = child.props.src;
         }
 
         return img;
@@ -200,8 +206,8 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    if (this.$el && this.$el.parentNode === document.body) {
-      document.body.removeChild(this.$el);
+    if (this.$root && this.$root.parentNode === document.body) {
+      document.body.removeChild(this.$root);
     }
 
     if (this.props.dragable) {
@@ -214,11 +220,11 @@ class PicturePreview extends Component {
    * 设置容器的样式，用于切换图片时，根据图片大小，确定容器的尺寸以及位置
    */
   setContainerStyle = () => {
-    if (!this.state.image.el) return;
+    if (!this.imgEl) return;
 
-    getImageSize(this.state.image.el, (naturalWidth, naturalHeight) => {
+    getImageSize(this.imgEl, (naturalWidth, naturalHeight) => {
       //计算容器的宽度
-      var width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
+      let width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
       if (width > CON_MAX_WIDTH) {
         width = CON_MAX_WIDTH;
       } else if (width < CON_MIN_WIDTH) {
@@ -227,17 +233,17 @@ class PicturePreview extends Component {
 
       //计算图片的缩放比例
       // this.state.image.ratio = width / naturalWidth;
-      var imgRatio = (width / naturalWidth) || 0;
+      let imgRatio = (width / naturalWidth) || 0;
 
       //计算容器的高度
-      var height = naturalHeight * imgRatio;
+      let height = naturalHeight * imgRatio;
       if (height > CON_MAX_HEIGHT) {
         height = CON_MAX_HEIGHT;
       } else if (height < CON_MIN_HEIGHT) {
         height = CON_MIN_HEIGHT;
       }
 
-      var css = '';
+      let css = '';
       if (!this.state.shown) {
         css = {
           width: num2px(width),
@@ -253,7 +259,7 @@ class PicturePreview extends Component {
           }
         });
       } else if (!this.state.container.isFull) {
-        var oriTop = px2num(getStyle(this.$el, 'top')),
+        let oriTop = px2num(getStyle(this.$el, 'top')),
           oriLeft = px2num(getStyle(this.$el, 'left')),
           oriWidth = px2num(getStyle(this.$el, 'width')),
           oriHeight = px2num(getStyle(this.$el, 'height'));
@@ -300,10 +306,6 @@ class PicturePreview extends Component {
     this.setState({
       show: false,
       shown: false,
-      container: {
-        style: this.state.container.style,
-        isFull: false
-      }
     }, () => {
       if (onClose && typeof onClose == "function") {
         onClose();
@@ -350,7 +352,7 @@ class PicturePreview extends Component {
     this.setState({
       image: Object.assign({}, this.state.image, image)
     }, () => {
-      setStyle(this.state.image.el, {
+      setStyle(this.imgEl, {
         'margin-left': num2px(image.marginL),
         'margin-top': num2px(image.marginT),
         width: num2px(width),
@@ -366,13 +368,15 @@ class PicturePreview extends Component {
   };
 
   handleRotate = () => {
-    var old = this.state.image.el.rotateValue || 0,
+    if (!this.imgEl) return;
+
+    let old = this.imgEl.rotateValue || 0,
       rotate = old + 90,
       transform = 'rotate(' + rotate + 'deg)';
 
-    this.state.image.el.rotateValue = rotate;
+    this.imgEl.rotateValue = rotate;
 
-    setStyle(this.state.image.el, {
+    setStyle(this.imgEl, {
       '-webkit-ransform': transform,
       '-ms-transform': transform,
       'transform': transform
@@ -380,12 +384,12 @@ class PicturePreview extends Component {
   };
 
   handleSave = () => {
-    let img = this.state.image.el;
+    if (!this.imgEl) return;
 
     // for IE10+
     if (window.navigator.msSaveBlob) {
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', img.src, true);
+      xhr.open('GET', this.imgEl.src, true);
       xhr.responseType = 'blob';
       xhr.onreadystatechange = function() {
         if (xhr.readyState == xhr.DONE) {
@@ -397,15 +401,15 @@ class PicturePreview extends Component {
     //  else {
     //   let a = document.createElement('a');
     //   // a.download = '';
-    //   // a.href = img.src;
+    //   // a.href = this.imgEl.src;
     //   a.setAttribute('download', '');
-    //   a.setAttribute('href', img.src);
+    //   a.setAttribute('href', this.imgEl.src);
     //   a.click();
     // }
   };
 
   handleFullChange = (e) => {
-    var con = this.state.container;
+    let con = this.state.container;
 
     if (con.isFull) {
       //从全屏退出到非全屏时，认为是没有显示过，让图片居中显示
@@ -439,16 +443,16 @@ class PicturePreview extends Component {
   };
 
   handleMouseDown = (e) => {
-    var con = {},
+    let con = {},
       image = {},
       tar = e.target;
 
-    if (tar === this.state.image.el && (this.state.container.isFull || isLargger(this.state.image.el, this.$el))) {
+    if (tar === this.imgEl && (this.state.container.isFull || isLargger(this.imgEl, this.$el))) {
       //点击在图片上，并且是全屏模式或者图片比容器大，此时移动图片
       image.startX = e.pageX;
       image.startY = e.pageY;
-      image.marginL = px2num(getStyle(this.state.image.el, 'margin-left'));
-      image.marginT = px2num(getStyle(this.state.image.el, 'margin-top'));
+      image.marginL = px2num(getStyle(this.imgEl, 'margin-left'));
+      image.marginT = px2num(getStyle(this.imgEl, 'margin-top'));
 
       this.setState({
         moving: 'img',
@@ -470,7 +474,7 @@ class PicturePreview extends Component {
   };
 
   handleMouseMove = (e) => {
-    var con = this.state.container,
+    let con = this.state.container,
       image = this.state.image,
       conStyle = { ...con.style };
 
@@ -478,7 +482,7 @@ class PicturePreview extends Component {
       e.preventDefault();
 
       if (this.state.moving === 'img') {
-        setStyle(image.el, {
+        setStyle(this.imgEl, {
           'margin-left': num2px(e.pageX - image.startX + image.marginL),
           'margin-top': num2px(e.pageY - image.startY + image.marginT)
         });
@@ -515,87 +519,96 @@ class PicturePreview extends Component {
   };
 
   render() {
-    const { show, current, imgs, image } = this.state;
-    const { className, prefixCls, source, children, toolbar, dragable } = this.props;
+    const { show, current, imgs, image, container } = this.state;
+    const { className, prefixCls, source, children, toolbar, dragable, mask, progress } = this.props;
+    let isFullscreen = container.isFull;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
-      'dragable': dragable,
-      'hide': !show
+      'dragable': dragable
+    });
+    let closeBtnClass = classNames({
+      'close': !isFullscreen,
+      'close-fullscreen': isFullscreen
     });
     let isHide = !(source.length > 1 || (!!children && children.length > 1));
-    let leftBtnClass = classNames({
-      'prev': true,
-      'fishdicon': true,
-      'fishdicon-left': true,
-      'hide': isHide
+    let leftBtnClass = classNames('prev', {
+      [`${prefixCls}-hide`]: isHide
     });
-    let rightBtnClass = classNames({
-      'next': true,
-      'fishdicon': true,
-      'fishdicon-right': true,
-      'hide': isHide
+    let rightBtnClass = classNames('next', {
+      [`${prefixCls}-hide`]: isHide
     });
     let toolbarClass = classNames('toolbar', {
-      'hide': !toolbar
+      [`${prefixCls}-hide`]: !toolbar
     });
-    let one2oneClass = classNames('fishdicon fishdicon-search-line icon', {
+    let one2oneClass = classNames('icon', {
       'icon-disabled': image.ratio == 1
     });
-    let fullscreenClass = classNames('fishdicon fishdicon-search-line icon', {
-      'hide': false
-    });
-    let zoomInClass = classNames('fishdicon fishdicon-search-line icon', {
+    let zoomInClass = classNames('icon', {
       'icon-disabled': image.ratio >= MAX_RATIO
     });
-    let zoomOutClass = classNames('fishdicon fishdicon-search-line icon', {
+    let zoomOutClass = classNames('icon', {
       'icon-disabled': image.ratio <= MIN_RATIO
+    });
+    let screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
+    // let ctnerStyle = isFullscreen ? Object.assign({}, container.style, {background: 'rgba(0,0,0,0.8)'}) : container.style;
+    let rootClass = classNames({
+      [`${prefixCls}-hide`]: !show
+    });
+    let maskClass = classNames(`${prefixCls}-mask`, {
+      [`${prefixCls}-hide`]: !mask
+    });
+    let progressClass = classNames('toolbarTitle', {
+      [`${prefixCls}-hide`]: !progress
     });
 
     return (
-      <div className={ctnerClass} ref={node => this.$el = node} style={this.state.container.style}
-        onMouseDown={dragable ? this.handleMouseDown : null}
-        onWheel={this.handleWheel} >
-        <i className="fishdicon fishdicon-close-modal-line close" onClick={this.handleClose}/>
-        <i className={leftBtnClass} onClick={this.handlePrev}/>
-        <i className={rightBtnClass} onClick={this.handleNext}/>
+      <div className={rootClass} ref={node => this.$root = node}>
+        <div className={maskClass}></div>
+        <div className={ctnerClass} ref={node => this.$el = node} style={container.style}
+          onMouseDown={dragable ? this.handleMouseDown : null}
+          onWheel={this.handleWheel} >
+          <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
+          <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
+          <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
 
-        <div className="canvas">
-          {
-            imgs.map((item, index) => {
-              if (current === index) {
-                return (
-                  <img key={'pic_'+index}
-                    className='img'
-                    src={item.src}
-                    alt={item.name} 
-                    active='true'
-                    ref={node => this.state.image.el = node}
-                  />
-                );
-              } else {
-                return (
-                  <img key={'pic_'+index}
-                    className='img'
-                    src={item.src}
-                    alt={item.name}
-                  />
-                );
-              }
-            })
-          }
-        </div>
+          <div className="canvas">
+            {
+              imgs.map((item, index) => {
+                if (current === index) {
+                  return (
+                    <img key={'pic_'+index}
+                      className="img"
+                      src={item.src}
+                      alt={item.name}
+                      active="true"
+                      ref={node => this.imgEl = node}
+                    />
+                  );
+                } else {
+                  return (
+                    <img key={'pic_'+index}
+                      className="img"
+                      src={item.src}
+                      alt={item.name}
+                    />
+                  );
+                }
+              })
+            }
+          </div>
 
-        <div className={toolbarClass}>
-          <div className="toolbarTitle">{current+1}/{imgs.length}</div>
-          <div className="toolbarCon">
-            <i className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
-            <i className={fullscreenClass} onClick={this.handleSwitchFull}/>
-            <i className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
-            <i className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
-            <i className="fishdicon fishdicon-search-line icon" onClick={this.handleRotate}/>
-            <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
-              <i className="fishdicon fishdicon-download-line icon" onClick={this.handleSave}/>
-            </a>
+          <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
+            <div className={progressClass}>{current+1}/{imgs.length}</div>
+            <div className="toolbarCon">
+              <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
+              <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
+              <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
+              <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
+              <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
+              <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
+                <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
+              </a>
+            </div>
           </div>
         </div>
       </div>

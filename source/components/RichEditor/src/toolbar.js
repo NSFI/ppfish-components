@@ -2,11 +2,12 @@ import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList.js';
-import ColorPicker from '../../ColorPicker/index.js';
+// import ColorPicker from '../../ColorPicker/index.js';
+import Tooltip from '../../Tooltip/index.tsx';
 
 let genEmoji = (data) => {
   let colSize = 10,
-      resPath = '//ysf.space/sdk/res/portrait/emoji/',
+      resPath = '//qiyukf.com/sdk/res/portrait/emoji/',
       tmpObj = {},
       result = [];
 
@@ -75,8 +76,11 @@ class CustomToolbar extends PureComponent {
   }
 
   getModuleHTML = (mType, key, customLink) => {
-    let mValue = null;
+    const { showSizePanel, showEmojiPanel } = this.state;
     let { iconPrefix } = this.props;
+    let mValue = null,
+        value = null,
+        tooltip = null;
 
     if (typeof mType === 'object') {
       let obj = mType;
@@ -87,219 +91,288 @@ class CustomToolbar extends PureComponent {
     // 处理扩展的链接模块
     if (mType in customLink) {
       let entryClass = classNames('item custom-entry', {
-        [`ql-${mType}`]: !showSizePanel,
+        [`ql-${mType}Entry`]: true,
         [`${iconPrefix}`]: true,
         [`${iconPrefix}-richeditor-transfer`]: true
       }, customLink[mType].className);
 
-      return <button className={entryClass} key={key}/>;
-    }
+      value = <button className={entryClass} key={key}/>;
+      tooltip = customLink[mType].title || '';
+    } else {
+      switch(mType) {
+        case 'link': {
+          const linkCls = classNames('item ql-link', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-link`]: true
+          });
+          value = <button className={linkCls} key={key}/>;
+          tooltip = '超链接';
+          break;
+        }
+        case 'bold': {
+          const boldCls = classNames('item ql-bold', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-bold`]: true
+          });
+          value = <button className={boldCls} key={key}/>;
+          tooltip = '粗体';
+          break;
+        }
+        case 'italic': {
+          const italicCls = classNames('item ql-italic', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-tilt`]: true
+          });
+          value = <button className={italicCls} key={key}/>;
+          tooltip = '斜体';
+          break;
+        }
+        case 'underline': {
+          const underlineCls = classNames('item ql-underline', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-underline`]: true
+          });
+          value = <button className={underlineCls} key={key}/>;
+          tooltip = '下划线';
+          break;
+        }
+        case 'color': {
+          value = <div className="item" key={key}><select className="ql-color" /></div>;
+          // value = (
+          //   <div className="item custom-color" key={key}>
+          //     <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onClose={this.handleColorSelect.bind(this)} >
+          //       <button className="ql-customColor" />
+          //     </ColorPicker>
+          //   </div>
+          // );
+          tooltip = '文字颜色';
+          break;
+        }
+        case 'align': {
+          if (typeof mValue === 'string') {
+            let alignIconType = 'richeditor-align-lef';
+            tooltip = '居左';
 
-    const { showSizePanel, showEmojiPanel } = this.state;
-    let value = null;
+            if (mValue == 'right') {
+              alignIconType = 'richeditor-align-rig';
+              tooltip = '居右';
+            } else if (mValue == 'center') {
+              alignIconType = 'richeditor-align-mid';
+              tooltip = '居中';
+            } else if (mValue == 'justify') {
+              alignIconType = 'richeditor-align-all';
+              tooltip = '两端对齐';
+            }
+            
+            const alignCls = classNames('item ql-align', {
+              [`${iconPrefix}`]: true,
+              [`${iconPrefix}-${alignIconType}`]: true
+            });
+            value = <button type="button" className={alignCls} value={mValue} key={key}/>;
+          } else if (mValue instanceof Array && mValue.length) {
+            value = (
+              <div className="item" key={key}>
+                <select className="ql-align">
+                  <option />
+                  {
+                    mValue.map((val, idx) => {
+                      return <option key={key+'_option_'+idx} value={val} />;
+                    })
+                  }
+                </select>
+              </div>
+            );
+            tooltip = '对齐';
+          } else {
+            value = <div className="item" key={key}><select className="ql-align" /></div>;
+            tooltip = '对齐';
+          }
+          break;
+        }
+        case 'list': {
+          let listIconType = 'richeditor-list';
+          tooltip = '无序列表';
 
-    switch(mType) {
-      case 'link':
-        const linkCls = classNames('item ql-link', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-link`]: true
-        });
-        value = <button className={linkCls} key={key}/>;
-        break;
-      case 'bold':
-        const boldCls = classNames('item ql-bold', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-bold`]: true
-        });
-        value = <button className={boldCls} key={key}/>;
-        break;
-      case 'italic':
-        const italicCls = classNames('item ql-italic', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-tilt`]: true
-        });
-        value = <button className={italicCls} key={key}/>;
-        break;
-      case 'underline':
-        const underlineCls = classNames('item ql-underline', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-underline`]: true
-        });
-        value = <button className={underlineCls} key={key}/>;
-        break;
-      case 'color':
-        value = <select className="item ql-color" key={key} />;
-        // value = (
-        //   <div className="item custom-color" key={key}>
-        //     <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onClose={this.handleColorSelect.bind(this)} >
-        //       <button className="ql-customColor" />
-        //     </ColorPicker>
-        //   </div>
-        // );
-        break;
-      case 'align':
-        if (typeof mValue === 'string') {
-          let alignIconType = 'richeditor-align-lef';
-          if (mValue == 'right') {
-            alignIconType = 'richeditor-align-rig';
-          } else if (mValue == 'center') {
-            alignIconType = 'richeditor-align-mid';
-          } else if (mValue == 'justify') {
-            alignIconType = 'richeditor-align-all';
+          if (mValue == 'ordered') {
+            listIconType = 'richeditor-numberlis';
+            tooltip = '有序列表';
           }
 
-          const alignCls = classNames('item ql-align', {
+          const listCls = classNames('item ql-list', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-${alignIconType}`]: true
+            [`${iconPrefix}-${listIconType}`]: true
           });
-          value = <button type="button" className={alignCls} value={mValue} key={key}/>;
-        } else if (mValue instanceof Array && mValue.length) {
-          value = (
-            <select className="item ql-align" key={key}>
-              <option />
-              {
-                mValue.map((val, idx) => {
-                  return <option key={key+'_option_'+idx} value={val} />;
-                })
-              }
-            </select>
-          );
-        } else {
-          value = <select className="item ql-align" key={key} />;
+
+          value = <button type="button" className={listCls} value={mValue} key={key}/>;
+          break;
         }
+        case 'emoji': {
+          const emojiCls = classNames('item custom-emoji', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-expressio`]: true
+          });
+          const emojiPanelCls = classNames({
+            'hide': !showEmojiPanel,
+            'custom-emoji-panel': true
+          });
 
-        break;
-      case 'list':
-        const listIconType = mValue == 'ordered' ? 'richeditor-numberlis' : 'richeditor-list';
-        const listCls = classNames('item ql-list', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-${listIconType}`]: true
-        });
-
-        value = <button type="button" className={listCls} value={mValue} key={key}/>;
-        break;
-      case 'emoji':
-        const emojiCls = classNames('item custom-emoji', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-expressio`]: true
-        });
-        const emojiPanelCls = classNames({
-          'hide': !showEmojiPanel,
-          'custom-emoji-panel': true
-        });
-
-        value = (
-          <div className={emojiCls} key={key} onClick={this.toggleEmojiPanel}>
-            <div className={emojiPanelCls} >
-              <div className="custom-emoji-con">
-                { emojiHTML }
-              </div>
-            </div>
-          </div>
-        );
-        break;
-      case 'image':
-        const imageCls = classNames('item ql-image', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-picture`]: true
-        });
-        value = <button className={imageCls} key={key}/>;
-        break;
-      case 'size':
-        const sizeCls = classNames('item custom-size', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-size`]: true
-        });
-        const sizePanelCls = classNames({
-          'hide': !showSizePanel,
-          'custom-size-panel': true
-        });
-
-        if (mValue instanceof Array && mValue.length) {
           value = (
-            <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
-              <div className={sizePanelCls}>
-                {
-                  mValue.map((val, idx) => {
-                    return (
-                      <button
-                        key={key+'_csize_'+idx}
-                        type="button"
-                        className="ql-customSize size-item"
-                        value={val}
-                        style={{fontSize: val}}
-                      >{val}</button>
-                    );
-                  })
-                }
+            <div className={emojiCls} key={key} onClick={this.toggleEmojiPanel}>
+              <div className={emojiPanelCls} >
+                <div className="custom-emoji-con">
+                  { emojiHTML }
+                </div>
               </div>
             </div>
           );
-        } else {
-          value = (
-            <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
-              <div className={sizePanelCls}>
-                <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
-                <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
-                <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
-                <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
-                <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
-                <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
+          tooltip = '插入表情';
+          break;
+        }
+        case 'image': {
+          const imageCls = classNames('item ql-image', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-picture`]: true
+          });
+          value = <button className={imageCls} key={key}/>;
+          tooltip = '插入图片';
+          break;
+        }
+        case 'size': {
+          const sizeCls = classNames('item custom-size', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-size`]: true
+          });
+          const sizePanelCls = classNames({
+            'hide': !showSizePanel,
+            'custom-size-panel': true
+          });
+
+          if (mValue instanceof Array && mValue.length) {
+            value = (
+              <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
+                <div className={sizePanelCls}>
+                  {
+                    mValue.map((val, idx) => {
+                      return (
+                        <button
+                          key={key+'_csize_'+idx}
+                          type="button"
+                          className="ql-customSize size-item"
+                          value={val}
+                          style={{fontSize: val}}
+                        >{val}</button>
+                      );
+                    })
+                  }
+                </div>
               </div>
-            </div>
-          );
+            );
+          } else {
+            value = (
+              <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
+                <div className={sizePanelCls}>
+                  <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
+                  <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
+                  <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
+                  <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
+                  <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
+                  <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
+                </div>
+              </div>
+            );
+          }
+
+          tooltip = '文字大小';
+
+          break;
         }
+        case 'clean': {
+          const cleanCls = classNames('item ql-clean', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-clear`]: true
+          });
 
-        break;
-      case 'clean':
-        const cleanCls = classNames('item ql-clean', {
-          [`${iconPrefix}`]: true,
-          [`${iconPrefix}-richeditor-clear`]: true
-        });
-
-        value = <button className={cleanCls} key={key}/>;
-        break;
-      case 'strike':
-        value = <button className="item ql-strike" key={key}/>;
-        break;
-      case 'blockquote':
-        value = <button className="item ql-blockquote" key={key}/>;
-        break;
-      case 'code-block':
-        value = <button className="item ql-code-block" key={key}/>;
-        break;
-      case 'header':
-        if (typeof mValue === 'string' || typeof mValue === 'number') {
-          value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
-        } else if (mValue instanceof Array && mValue.length){
-          value = (
-            <select className="item ql-header" defaultValue="normal" key={key}>
-              {
-                mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
-              }
-              <option value="normal" />
-            </select>
-          );
+          value = <button className={cleanCls} key={key}/>;
+          tooltip = '清除格式';
+          break;
         }
+        case 'strike': {
+          value = <button className="item ql-strike" key={key}/>;
+          tooltip = '删除线';
+          break;
+        }
+        case 'blockquote': {
+          value = <button className="item ql-blockquote" key={key}/>;
+          tooltip = '块引用';
+          break;
+        }
+        case 'code-block': {
+          value = <button className="item ql-code-block" key={key}/>;
+          tooltip = '代码块';
+          break;
+        }
+        case 'script': {
+          value = <button type="button" className="item ql-script" value={mValue} key={key}/>;
+          if (mValue == 'super') {
+            tooltip = '上脚标';
+          } else {
+            tooltip = '下脚标';
+          }
 
-        break;
-      case 'script':
-        value = <button type="button" className="item ql-script" value={mValue} key={key}/>;
-        break;
-      case 'indent':
-        value = <button type="button" className="item ql-indent" value={mValue} key={key}/>;
-        break;
-      case 'direction':
-        value = <button type="button" className="item ql-direction" value={mValue} key={key} />;
-        break;
-      case 'background':
-        value = <select className="item ql-background" key={key} />;
-        break;
-      case 'font':
-        value = <select className="item ql-font" key={key} />;
-        break;
-      default:
-        break;
+          break;
+        }
+        case 'indent': {
+          value = <button type="button" className="item ql-indent" value={mValue} key={key}/>;
+
+          if (mValue == '-1') {
+            tooltip = '减少缩进';
+          } else {
+            tooltip = '增加缩进';
+          }
+
+          break;
+        }
+        case 'direction': {
+          value = <button type="button" className="item ql-direction" value={mValue} key={key} />;
+          tooltip = '文字方向';
+          break;
+        }
+        case 'background': {
+          value = <div className="item" key={key}><select className="ql-background" /></div>;
+          tooltip = '背景色';
+          break;
+        }
+        // case 'header': {
+        //   if (typeof mValue === 'string' || typeof mValue === 'number') {
+        //     value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
+        //   } else if (mValue instanceof Array && mValue.length){
+        //     value = (
+        //       // <div className="item" key={key}>
+        //         <select className="item ql-header" defaultValue="normal">
+        //           {
+        //             mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
+        //           }
+        //           <option value="normal" />
+        //         </select>
+        //       // </div>
+        //     );
+        //   }
+        //   tooltip = '标题';
+        //   break;
+        // }
+        // case 'font': {
+        //   value = <select className="item ql-font" />;
+        //   tooltip = '字体';
+        //   break;
+        // }
+        default: {
+          break;
+        }
+      }
+    }
+
+    if (value) {
+      value = <Tooltip key={key} placement="bottom" title={tooltip} mouseEnterDelay={2}>{value}</Tooltip>;
     }
 
     return value;

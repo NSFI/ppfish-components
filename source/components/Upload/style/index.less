@@ -2,7 +2,7 @@
 
 @upload-prefix-cls: ~"@{fishd-prefix}-upload";
 @upload-item: ~"@{fishd-prefix}-upload-list-item";
-@upload-pictrue-card-size: 104px;
+@upload-pictrue-card-size: 100px;
 
 /* stylelint-disable declaration-no-important */
 .@{upload-prefix-cls} {
@@ -13,10 +13,22 @@
     margin: 0;
   }
 
+  &-tips {
+    font-size: 12px;
+    margin-top: 8px;
+    color: #999;
+    line-height: 12px;
+  }
+
   &-btn {
     display: block;
     width: 100%;
     outline: none;
+  }
+
+  &-action-cancel {
+    cursor: pointer;
+    color: @primary-color;
   }
 
   input[type="file"] {
@@ -150,6 +162,7 @@
     height: 22px;
 
     &-name {
+      font-size: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -196,8 +209,16 @@
       background-color: @item-hover-bg;
     }
 
-    &:hover .@{iconfont-prefix}-hints-alone-error {
+    &-done:hover &-name {
+      color: @primary-color;
+    }
+
+    &-done:hover .@{iconfont-prefix}-hints-alone-error {
       opacity: 1;
+    }
+
+    &-uploading .@{iconfont-prefix}-hints-alone-error {
+      display: none;
     }
 
     &-error,
@@ -297,6 +318,14 @@
 
     .@{upload-item}-uploading .@{upload-item}-name {
       line-height: 28px;
+    }
+
+    .@{upload-item}-uploading .@{fishd-prefix}-progress-oper {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: 0;
     }
 
     .@{upload-item}-progress {
@@ -415,6 +444,7 @@
       &-text {
         margin-top: 18px;
         color: @text-color-secondary;
+        text-align: center;
       }
     }
 

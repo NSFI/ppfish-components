@@ -1,4 +1,4 @@
-# 进度条
+# Progress 进度条
 
 展示操作的当前进度。
 
@@ -264,15 +264,23 @@ render() {
 render() {
   return (
     <div>
-      <Progress percent={30} operation={<Button size="small">取消</Button>} />
-      <Progress percent={70} status="exception" operation={<Button size="small">重试</Button>} />
-      <Progress type="circle" percent={30} operation={<Button size="small">取消</Button>} />
-      <Progress type="circle" percent={70} status="exception" operation={<Button size="small">重试</Button>} />
+      <Progress percent={30} operation={<Button size="small" className="fishd-progress-oper-btn">取消</Button>} />
+      <Progress percent={70} status="exception" operation={<Button size="small" className="fishd-progress-oper-btn">重试</Button>} />
+      <Progress type="circle" percent={30} operation={<Button size="small" className="fishd-progress-oper-btn">取消</Button>} />
+      <Progress type="circle" percent={70} status="exception" operation={<Button size="small" className="fishd-progress-oper-btn">重试</Button>} />
     </div>
   );
 }
 ```
 :::
+
+<style>
+.fishd-progress-oper-btn {
+  border: none;
+  color: #337eff;
+}
+</style>
+
 
 ## API
 

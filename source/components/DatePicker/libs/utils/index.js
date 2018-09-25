@@ -3,14 +3,6 @@ import * as Errors from './errors';
 
 export {require_condition, Errors};
 
-export function pick(obj, keys) {
-  require_condition(obj != null && Array.isArray(keys));
-
-  const r = {};
-  keys.forEach(e=> r[e]= obj[e]);
-  return r;
-}
-
 export function range(start, stop, step) {
   if (stop == null) {
     stop = start || 0;
