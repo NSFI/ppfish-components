@@ -324,7 +324,7 @@ export default class DateRangePanel extends React.Component {
     if (!isShowTime) {
       //日期范围选择的开始时间为 00：00 结束时间为 23：59
       const pickedMinTime = setTime(new Date(minDate), new Date(new Date().setHours(0,0,0,0)));
-      const pickedMaxTime = setTime(new Date(maxDate), new Date(new Date().setHours(23,59,59,59)));
+      const pickedMaxTime = setTime(new Date(maxDate), new Date(new Date().setHours(23,59,59,999)));
       onPick([pickedMinTime, pickedMaxTime], false, true);
     }
   }
