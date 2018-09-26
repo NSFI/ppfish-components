@@ -247,7 +247,7 @@ class CustomToolbar extends PureComponent {
               key={key}
               getPopupContainer={getPopupContainer}
             >
-              <div className={emojiCls} ref={node => this.emojiRef = node}>
+              <div className={emojiCls}>
                 <button type="button" data-role="emoji" value="" className="ql-emoji hide"></button>
               </div>
             </Popover>
