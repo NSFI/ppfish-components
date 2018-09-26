@@ -46,16 +46,20 @@ class CustomToolbar extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     iconPrefix: PropTypes.string,
+    prefixCls: PropTypes.string,
     toolbar: PropTypes.array,
     customLink: PropTypes.object,
-    handleInsertEmoji: PropTypes.func
+    getPopupContainer: PropTypes.func,
+    handleInsertEmoji: PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
     iconPrefix: 'fishdicon',
     toolbar: [],
-    customLink: {}
+    customLink: {},
+    prefixCls: 'fishd-richeditor',
+    getPopupContainer: () => document.body
   };
 
   constructor(props) {
@@ -79,7 +83,7 @@ class CustomToolbar extends PureComponent {
 
   getModuleHTML = (mType, key, customLink) => {
     const { showSizePanel, showEmojiPanel } = this.state;
-    let { iconPrefix, handleInsertEmoji } = this.props;
+    let { iconPrefix, handleInsertEmoji, prefixCls, getPopupContainer } = this.props;
     let mValue = null,
         value = null,
         tooltip = null;
@@ -237,11 +241,11 @@ class CustomToolbar extends PureComponent {
           value = (
             <Popover
               trigger="click"
-              overlayClassName="custom-emoji-popover"
+              overlayClassName={`${prefixCls}-emoji-popover`}
               content={content}
               title={null}
               key={key}
-              getPopupContainer={() => this.emojiRef}
+              getPopupContainer={getPopupContainer}
             >
               <div className={emojiCls} ref={node => this.emojiRef = node}>
                 <button type="button" data-role="emoji" value="" className="ql-emoji hide"></button>

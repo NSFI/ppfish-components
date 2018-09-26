@@ -30,6 +30,7 @@ class RichEditor extends Component {
     resizable: PropTypes.bool,
     toolbar: PropTypes.array,
     value: PropTypes.string,
+    getPopupContainer: PropTypes.func,
     onChange: PropTypes.func,
     onChangeSelection: PropTypes.func,
     onFocus: PropTypes.func,
@@ -50,7 +51,8 @@ class RichEditor extends Component {
       [{'list': 'ordered'}, {'list': 'bullet'}],
       ['emoji'], ['image'], ['clean']
     ],
-    value: ''
+    value: '',
+    getPopupContainer: () => document.body
   };
 
   constructor(props) {
@@ -236,6 +238,7 @@ class RichEditor extends Component {
       toolbar, placeholder,
       customLink, resizable,
       maxWidth, maxHeight,
+      getPopupContainer,
       ...restProps
     } = this.props;
     const cls = classNames(`${prefixCls}`, {
@@ -270,6 +273,7 @@ class RichEditor extends Component {
           toolbar={toolbar}
           customLink={customLink}
           handleInsertEmoji={this.handleInsertEmoji}
+          getPopupContainer={getPopupContainer}
         />
         <ReactQuill
           ref={el => this.reactQuillRef = el}

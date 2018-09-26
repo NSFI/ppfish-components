@@ -171,7 +171,6 @@
     position: relative;
     width: 28px;
     height: 24px;
-    // display: inline-block;
     float: left;
     cursor: pointer;
     color: @icon-normal-color;
@@ -213,7 +212,6 @@
     background-color: @component-background;
     border: @border-width-base @border-style-base @border-color-base;
     box-shadow: @box-shadow-base;
-    // box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
     z-index: 999;
 
     .size-item {
@@ -228,15 +226,91 @@
     }
   }
 
-  .custom-emoji-popover {
-
-    .@{popover-prefix}-inner-content {
-      width: 438px;
-      height: 238px;
-      padding: 0;
-      overflow-y: scroll;
-      .scrollbar();
+  .ql-link,
+  .ql-bold,
+  .ql-italic,
+  .ql-underline,
+  .ql-list,
+  .ql-image,
+  .ql-clean {
+    svg {
+      display: none;
     }
+  }
+
+  .ql-align > svg {
+    display: none;
+  }
+
+  .ql-align {
+    .ql-picker-label,
+    .ql-picker-item {
+      .iconfont-mixin();
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:before {
+        content: "\e6c2";
+      }
+
+      &[data-value='center'] {
+        &:before {
+          content: "\e6c7";
+        }
+      }
+
+      &[data-value='right'] {
+        &:before {
+          content: "\e6c9";
+        }
+      }
+
+      &[data-value='justify'] {
+        &:before {
+          content: "\e6cf";
+        }
+      }
+
+      svg {
+        display: none;
+      }
+    }
+  }
+
+  .ql-color {
+    .ql-picker-label {
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      color: @icon-normal-color;
+
+      .iconfont-mixin();
+
+      &:before {
+        content: "\e6cd";
+      }
+
+      svg {
+        display: none;
+      }
+    }
+
+    // .ql-picker-options {
+    //   position: absolute;
+    //   left: 0;
+    // }
+  }
+}
+
+.@{rich-editor-prefix}-emoji-popover {
+
+  .@{popover-prefix}-inner-content {
+    width: 438px;
+    height: 238px;
+    padding: 0;
+    overflow-y: scroll;
+    .scrollbar();
   }
 
   // .custom-emoji-panel {
@@ -274,6 +348,8 @@
       background: @component-background url('//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy') no-repeat;
       background-size: 22px auto;
       outline: none;
+      border: none;
+      cursor: pointer;
     }
 
     .emoji-00 {
@@ -940,82 +1016,5 @@
       background-position: 0 -901px;
     }
   }
-
-  .ql-link,
-  .ql-bold,
-  .ql-italic,
-  .ql-underline,
-  .ql-list,
-  .ql-image,
-  .ql-clean {
-    svg {
-      display: none;
-    }
-  }
-
-  .ql-align > svg {
-    display: none;
-  }
-
-  .ql-align {
-    .ql-picker-label,
-    .ql-picker-item {
-      .iconfont-mixin();
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:before {
-        content: "\e6c2";
-      }
-
-      &[data-value='center'] {
-        &:before {
-          content: "\e6c7";
-        }
-      }
-
-      &[data-value='right'] {
-        &:before {
-          content: "\e6c9";
-        }
-      }
-
-      &[data-value='justify'] {
-        &:before {
-          content: "\e6cf";
-        }
-      }
-
-      svg {
-        display: none;
-      }
-    }
-  }
-
-  .ql-color {
-    .ql-picker-label {
-      display: flex !important;
-      justify-content: center;
-      align-items: center;
-      color: @icon-normal-color;
-
-      .iconfont-mixin();
-
-      &:before {
-        content: "\e6cd";
-      }
-
-      svg {
-        display: none;
-      }
-    }
-
-    // .ql-picker-options {
-    //   position: absolute;
-    //   left: 0;
-    // }
-  }
 }
-
 /* stylelint-enable */

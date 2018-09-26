@@ -22,6 +22,7 @@
   render() {
     return (
       <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
         onChange={this.onChange}
         value={`<div class="ql-editor" data-gramm="false" contenteditable="true"><p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p></div>`}
       />
@@ -44,6 +45,7 @@
   render() {
     return (
       <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
         customLink={{'mylink': {className: 'my-link', url: 'qiyu://action.qiyukf.com?command=applyHumanStaff', title: '设置为转人工入口'}}}
         toolbar={this.toolbar}
       />
@@ -65,7 +67,10 @@
 
   render() {
     return (
-      <RichEditor toolbar={this.toolbar} />
+      <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
+        toolbar={this.toolbar}
+      />
     );
   }
 ```
@@ -102,6 +107,7 @@
 | className | 容器类名 | String | - |
 | customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: '', url: '', title: ''}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
+| getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | maxWidth | 编辑区域的最大宽度 | String | '100%' |
 | maxHeight | 编辑区域的最大高度 | String | '100%' |
 | placeholder | 内容为空时的占位内容 | String | - |
