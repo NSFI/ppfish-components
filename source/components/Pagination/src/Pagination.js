@@ -135,7 +135,7 @@ export default class Pagination extends React.Component {
 
   savePaginationNode = (node) => {
     this.paginationNode = node;
-  }
+  };
 
   calculatePage = (p) => {
     let pageSize = p;
@@ -143,17 +143,17 @@ export default class Pagination extends React.Component {
       pageSize = this.state.pageSize;
     }
     return Math.floor((this.props.total - 1) / pageSize) + 1;
-  }
+  };
 
   isValid = (page) => {
     return isInteger(page) && page >= 1 && page !== this.state.current;
-  }
+  };
 
   handleKeyDown = (e) => {
     if (e.keyCode === KEYCODE.ARROW_UP || e.keyCode === KEYCODE.ARROW_DOWN) {
       e.preventDefault();
     }
-  }
+  };
 
   handleKeyUp = (e) => {
     const inputValue = e.target.value;
@@ -181,7 +181,7 @@ export default class Pagination extends React.Component {
     } else if (e.keyCode === KEYCODE.ARROW_DOWN) {
       this.handleChange(value + 1);
     }
-  }
+  };
 
   changePageSize = (size) => {
     let current = this.state.current;
@@ -207,7 +207,7 @@ export default class Pagination extends React.Component {
       }
     }
     this.props.onShowSizeChange(current, size);
-  }
+  };
 
   handleChange = (p) => {
     let page = p;
@@ -230,63 +230,63 @@ export default class Pagination extends React.Component {
     }
 
     return this.state.current;
-  }
+  };
 
   prev = () => {
     if (this.hasPrev()) {
       this.handleChange(this.state.current - 1);
     }
-  }
+  };
 
   next = () => {
     if (this.hasNext()) {
       this.handleChange(this.state.current + 1);
     }
-  }
+  };
 
   jumpPrev = () => {
     this.handleChange(this.getJumpPrevPage());
-  }
+  };
 
   jumpNext = () => {
     this.handleChange(this.getJumpNextPage());
-  }
+  };
 
   hasPrev = () => {
     return this.state.current > 1;
-  }
+  };
 
   hasNext = () => {
     return this.state.current < this.calculatePage();
-  }
+  };
 
   runIfEnter = (event, callback, ...restParams) => {
     if (event.key === 'Enter' || event.charCode === 13) {
       callback(...restParams);
     }
-  }
+  };
 
   runIfEnterPrev = e => {
     this.runIfEnter(e, this.prev);
-  }
+  };
 
   runIfEnterNext = e => {
     this.runIfEnter(e, this.next);
-  }
+  };
 
   runIfEnterJumpPrev = e => {
     this.runIfEnter(e, this.jumpPrev);
-  }
+  };
 
   runIfEnterJumpNext = e => {
     this.runIfEnter(e, this.jumpNext);
-  }
+  };
 
   handleGoTO = e => {
     if (e.keyCode === KEYCODE.ENTER || e.type === 'click') {
       this.handleChange(this.state.currentInputValue);
     }
-  }
+  };
 
   render() {
     // When hideOnSinglePage is true and there is only 1 page, hide the pager

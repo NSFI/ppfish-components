@@ -84,7 +84,6 @@ class Options extends React.Component {
           prefixCls={props.selectPrefixCls}
           showSearch={false}
           className={`${prefixCls}-size-changer`}
-          optionLabelProp="children"
           dropdownMatchSelectWidth={false}
           value={pageSize.toString()}
           onChange={this.changeSize}
