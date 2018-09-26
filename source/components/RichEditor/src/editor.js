@@ -26,6 +26,7 @@ class RichEditor extends Component {
     toolbar: PropTypes.array,
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
+    resizable: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onChangeSelection: PropTypes.func,
@@ -40,6 +41,7 @@ class RichEditor extends Component {
     customLink: {},
     placeholder: '',
     prefixCls: 'fishd-richeditor',
+    resizable: true,
     toolbar: [
       ['link', 'bold', 'italic', 'underline'],
       ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
@@ -230,10 +232,11 @@ class RichEditor extends Component {
       className, prefixCls,
       value: propsValue,
       toolbar, placeholder,
-      customLink, ...restProps
+      customLink, resizable,
+      ...restProps
     } = this.props;
-    const cls = classNames({
-      [`${prefixCls}`]: true
+    const cls = classNames(`${prefixCls}`, {
+      'resizable': resizable,
     }, className);
 
     return (
