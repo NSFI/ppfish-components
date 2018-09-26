@@ -23,10 +23,12 @@ class RichEditor extends Component {
     className: PropTypes.string,
     customLink: PropTypes.object,
     defaultValue: PropTypes.string,
-    toolbar: PropTypes.array,
+    maxWidth: PropTypes.string,
+    maxHeight: PropTypes.string,
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
     resizable: PropTypes.bool,
+    toolbar: PropTypes.array,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onChangeSelection: PropTypes.func,
@@ -233,6 +235,7 @@ class RichEditor extends Component {
       value: propsValue,
       toolbar, placeholder,
       customLink, resizable,
+      maxWidth, maxHeight,
       ...restProps
     } = this.props;
     const cls = classNames(`${prefixCls}`, {
@@ -240,7 +243,7 @@ class RichEditor extends Component {
     }, className);
 
     return (
-      <div className={cls}>
+      <div className={cls} style={{maxWidth: maxWidth, maxHeight: maxHeight}}>
         <Modal
           title="插入超链接"
           className={`${prefixCls}-link-modal`}

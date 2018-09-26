@@ -102,6 +102,8 @@
 | className | 容器类名 | String | - |
 | customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: '', url: '', title: ''}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
+| maxWidth | 编辑区域的最大宽度 | String | '100%' |
+| maxHeight | 编辑区域的最大高度 | String | '100%' |
 | placeholder | 内容为空时的占位内容 | String | - |
 | resizable | 是否支持对编辑区域的大小进行拖拽 | Boolean | true |
 | toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', 'align', [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], {'align': ['', 'right', 'center', 'justify']}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'background'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
