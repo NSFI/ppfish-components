@@ -227,24 +227,25 @@ class CustomToolbar extends PureComponent {
               [`${iconPrefix}-${alignIconType}`]: true
             });
             value = <button type="button" className={alignCls} value={mValue} key={key}/>;
-          } else if (mValue instanceof Array && mValue.length) {
-            value = (
-              <div className="item" key={key}>
-                <select className="ql-align">
-                  <option />
-                  {
-                    mValue.map((val, idx) => {
-                      return <option key={key+'_option_'+idx} value={val} />;
-                    })
-                  }
-                </select>
-              </div>
-            );
-            tooltip = '对齐';
-          } else {
-            value = <div className="item" key={key}><select className="ql-align" /></div>;
-            tooltip = '对齐';
           }
+          // else if (mValue instanceof Array && mValue.length) {
+          //   value = (
+          //     <div className="item" key={key}>
+          //       <select className="ql-align">
+          //         <option />
+          //         {
+          //           mValue.map((val, idx) => {
+          //             return <option key={key+'_option_'+idx} value={val} />;
+          //           })
+          //         }
+          //       </select>
+          //     </div>
+          //   );
+          //   tooltip = '对齐';
+          // } else {
+          //   value = <div className="item" key={key}><select className="ql-align" /></div>;
+          //   tooltip = '对齐';
+          // }
           break;
         }
         case 'list': {
