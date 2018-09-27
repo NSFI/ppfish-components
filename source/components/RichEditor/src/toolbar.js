@@ -31,6 +31,21 @@ let defaultColors = [
   );
 });
 
+let defaultSizes = [
+  '32px', '24px', '18px', '16px', '13px', '12px'
+].map(function(size, index) {
+  return (
+    <button
+      className="size-item"
+      key={"default_size_" + index}
+      value={size}
+      style={{fontSize: size}}
+    >
+      {size}
+    </button>
+  );
+});
+
 let genEmoji = (data) => {
   let colSize = 10,
       resPath = '//qiyukf.com/sdk/res/portrait/emoji/',
@@ -76,6 +91,8 @@ class CustomToolbar extends PureComponent {
     customLink: PropTypes.object,
     getPopupContainer: PropTypes.func,
     handleInsertEmoji: PropTypes.func,
+    handleFormatColor: PropTypes.func,
+    handleFormatSize: PropTypes.func,
   };
 
   static defaultProps = {
@@ -111,6 +128,7 @@ class CustomToolbar extends PureComponent {
       iconPrefix,
       handleInsertEmoji,
       handleFormatColor,
+      handleFormatSize,
       prefixCls,
       getPopupContainer
     } = this.props;
@@ -173,6 +191,10 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'color': {
+          const colorCls = classNames('item custom-color', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-color`]: true
+          });
           let content = (
             <div className="color-con" onClick={handleFormatColor}>
               {defaultColors}
@@ -188,7 +210,7 @@ class CustomToolbar extends PureComponent {
               key={key}
               getPopupContainer={getPopupContainer}
             >
-              <div className="item custom-color">
+              <div className={colorCls}>
                 <button type="button" data-role="color" value="" className="ql-color hide"></button>
               </div>
             </Popover>
@@ -312,40 +334,61 @@ class CustomToolbar extends PureComponent {
             'custom-size-panel': true
           });
 
-          if (mValue instanceof Array && mValue.length) {
-            value = (
-              <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
-                <div className={sizePanelCls}>
-                  {
-                    mValue.map((val, idx) => {
-                      return (
-                        <button
-                          key={key+'_csize_'+idx}
-                          type="button"
-                          className="ql-customSize size-item"
-                          value={val}
-                          style={{fontSize: val}}
-                        >{val}</button>
-                      );
-                    })
-                  }
-                </div>
+          let content = (
+            <div className="size-con" onClick={handleFormatSize}>
+              {defaultSizes}
+            </div>
+          );
+
+          value = (
+            <Popover
+              trigger="click"
+              overlayClassName={`${prefixCls}-size-popover`}
+              content={content}
+              title={null}
+              key={key}
+              getPopupContainer={getPopupContainer}
+            >
+              <div className={sizeCls} >
+                <button type="button" data-role="customSize" value="" className="ql-customSize hide"></button>
               </div>
-            );
-          } else {
-            value = (
-              <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
-                <div className={sizePanelCls}>
-                  <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
-                  <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
-                  <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
-                  <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
-                  <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
-                  <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
-                </div>
-              </div>
-            );
-          }
+            </Popover>
+          );
+
+          // if (mValue instanceof Array && mValue.length) {
+          //   value = (
+          //     <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
+          //       <div className={sizePanelCls}>
+          //         {
+          //           mValue.map((val, idx) => {
+          //             return (
+          //               <button
+          //                 key={key+'_csize_'+idx}
+          //                 type="button"
+          //                 className="ql-customSize size-item"
+          //                 value={val}
+          //                 style={{fontSize: val}}
+          //               >{val}</button>
+          //             );
+          //           })
+          //         }
+          //       </div>
+          //     </div>
+          //   );
+          // } else {
+          //   value = (
+          //     <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
+          //       <div className={sizePanelCls}>
+          //         <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
+          //         <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
+          //         <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
+          //         <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
+          //         <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
+          //         <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
+          //       </div>
+          //     </div>
+          //   );
+          // }
 
           tooltip = '文字大小';
 

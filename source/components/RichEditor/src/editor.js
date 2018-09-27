@@ -216,34 +216,51 @@ class RichEditor extends Component {
   handleInsertEmoji = (e) => {
     let target = e.target;
     if (target.classList.value.indexOf('emoji-img') > -1 && target.hasAttribute('value')) {
-      let emojiEl = this.toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
-      if (emojiEl == null) {
-        emojiEl = document.createElement('button');
-        this.toolbarCtner.querySelector('.custom-emoji').appendChild(emojiEl);
+      let el = this.toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
+      if (el == null) {
+        el = document.createElement('button');
+        this.toolbarCtner.querySelector('.custom-emoji').appendChild(el);
       }
 
-      emojiEl.setAttribute('type', 'button');
-      emojiEl.setAttribute('data-role', 'emoji');
-      emojiEl.setAttribute('value', target.value);
-      emojiEl.classList.add('ql-emoji', 'hide');
-      emojiEl.click();
+      el.setAttribute('type', 'button');
+      el.setAttribute('data-role', 'emoji');
+      el.setAttribute('value', target.value);
+      el.classList.add('ql-emoji', 'hide');
+      el.click();
     }
   };
 
   handleFormatColor = (e) => {
     let target = e.target;
     if (target.classList.value.indexOf('color-item') > -1 && target.hasAttribute('value')) {
-      let colorEl = this.toolbarCtner.querySelector('button.ql-color[data-role="color"]');
-      if (colorEl == null) {
-        colorEl = document.createElement('button');
-        this.toolbarCtner.querySelector('.custom-color').appendChild(colorEl);
+      let el = this.toolbarCtner.querySelector('button.ql-color[data-role="color"]');
+      if (el == null) {
+        el = document.createElement('button');
+        this.toolbarCtner.querySelector('.custom-color').appendChild(el);
       }
 
-      colorEl.setAttribute('type', 'button');
-      colorEl.setAttribute('data-role', 'color');
-      colorEl.setAttribute('value', target.value);
-      colorEl.classList.add('ql-color', 'hide');
-      colorEl.click();
+      el.setAttribute('type', 'button');
+      el.setAttribute('data-role', 'color');
+      el.setAttribute('value', target.value);
+      el.classList.add('ql-color', 'hide');
+      el.click();
+    }
+  };
+
+  handleFormatSize = (e) => {
+    let target = e.target;
+    if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
+      let el = this.toolbarCtner.querySelector('button.ql-customSize[data-role="customSize"]');
+      if (el == null) {
+        el = document.createElement('button');
+        this.toolbarCtner.querySelector('.custom-size').appendChild(el);
+      }
+
+      el.setAttribute('type', 'button');
+      el.setAttribute('data-role', 'customSize');
+      el.setAttribute('value', target.value);
+      el.classList.add('ql-customSize', 'hide');
+      el.click();
     }
   };
 
@@ -291,6 +308,7 @@ class RichEditor extends Component {
           customLink={customLink}
           handleInsertEmoji={this.handleInsertEmoji}
           handleFormatColor={this.handleFormatColor}
+          handleFormatSize={this.handleFormatSize}
           getPopupContainer={getPopupContainer}
         />
         <ReactQuill

@@ -179,52 +179,14 @@
 
     &:hover {
       color: @primary-color;
-
-      .custom-size-panel {
-        color: #000;
-      }
     }
   }
 
-  // .custom-color,
+  .custom-color,
   .custom-size,
   .custom-emoji,
   .custom-entry {
     .custom-icon;
-  }
-
-  .custom-color-picker {
-    width: 100%;
-    height: 100%;
-  }
-
-  .ql-customColor {
-    width: 100% !important;
-    height: 100% !important;
-    padding: 0 !important;
-  }
-
-  .custom-size-panel {
-    position: absolute;
-    top: 23px;
-    left: 0;
-    font-family: initial;
-    padding: 5px 0;
-    background-color: @component-background;
-    border: @border-width-base @border-style-base @border-color-base;
-    box-shadow: @box-shadow-base;
-    z-index: 999;
-
-    .size-item {
-      display: block;
-      float: none;
-      width: auto;
-      height: 38px;
-
-      &:hover {
-        color: @primary-color;
-      }
-    }
   }
 
   .ql-link,
@@ -278,38 +240,32 @@
       }
     }
   }
+}
 
-  .custom-color {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    color: @icon-normal-color;
+.@{rich-editor-prefix}-size-popover {
 
-    .iconfont-mixin();
-
-    &:before {
-      content: "\e6cd";
-    }
+  .@{popover-prefix}-inner-content {
+    padding: 0;
   }
 
-  // .ql-color {
-  //   .ql-picker-label {
-  //     display: flex !important;
-  //     justify-content: center;
-  //     align-items: center;
-  //     color: @icon-normal-color;
+  .size-con {
+    position: relative;
+    display: inline-block;
+    padding: 5px 0;
+  }
 
-  //     .iconfont-mixin();
+  .size-item {
+    display: block;
+    padding: 3px 5px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
 
-  //     &:before {
-  //       content: "\e6cd";
-  //     }
-
-  //     svg {
-  //       display: none;
-  //     }
-  //   }
-  // }
+    &:hover {
+      color: @primary-color;
+    }
+  }
 }
 
 .@{rich-editor-prefix}-color-popover {
@@ -347,22 +303,6 @@
     overflow-y: scroll;
     .scrollbar();
   }
-
-  // .custom-emoji-panel {
-  //   position: absolute;
-  //   width: 438px;
-  //   height: 238px;
-  //   top: 23px;
-  //   left: -1px;
-  //   background-color: @component-background;
-  //   border: @border-width-base @border-style-base @border-color-base;
-  //   box-shadow: @box-shadow-base;
-  //   // box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
-  //   z-index: 999;
-  //   overflow-y: scroll;
-
-  //   .scrollbar();
-  // }
 
   .custom-emoji-con {
     width: 100%;
