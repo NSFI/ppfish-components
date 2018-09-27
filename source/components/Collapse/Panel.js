@@ -39,7 +39,7 @@ class CollapsePanel extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleItemClose = this.handleItemClose.bind(this);
     this.state = {
-      showArrow: true,
+      isCustom: false, //是否显示箭头,不可关闭时不显示
     }
   }
 
@@ -47,7 +47,7 @@ class CollapsePanel extends Component {
     const { header } = this.props;
     if (typeof header === 'function') {
       this.setState({
-        showArrow: false,
+        isCustom: true, // 是否自定义 header
       })
     }
   }
@@ -88,20 +88,18 @@ class CollapsePanel extends Component {
       children,
       isActive
     } = this.props;
-    const { showArrow } = this.state;
+    const { isCustom } = this.state;
     const headerCls = classNames({
       [`${prefixCls}-header`]: true,
       [`${prefixCls}-header-disabled`]: disabled,
+      [`${prefixCls}-header-noclose`]: !showClose, // 不可关闭时，箭头放置在右侧
+      [`${prefixCls}-header-custom`]: isCustom,
     });
     const itemCls = classNames({
       // 'clearfix': true,
       [`${prefixCls}-item`]: true,
       [`${prefixCls}-item-active`]: isActive,
       [className]: className,
-    });
-    const arrowCls = classNames({
-      'arrow': true,
-      'z-arrow-show': showArrow,
     });
     const closeCls = classNames({
       'close': true,
@@ -127,7 +125,7 @@ class CollapsePanel extends Component {
           aria-expanded={isActive}
           ref={itemKey}
         >
-          <div className={arrowCls}>
+          <div className="arrow">
             {getArrowIcon(isActive)}
           </div>
           <div className="title">{this.getHeader(isActive)}</div>
