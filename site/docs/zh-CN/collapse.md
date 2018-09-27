@@ -260,7 +260,7 @@ p {
 
 ## header 传入一个函数
 
-:::demo header支持传入一个函数，函数参数为面板的状态（收起为 true，展开为 false）可使用此状态定义展开和收起的图标。
+:::demo header支持传入一个函数，函数参数为面板的状态（展开为 true，收起为 false）可使用此状态定义展开和收起的图标。
 
 ```js
 callback=(key)=> {
@@ -268,7 +268,7 @@ callback=(key)=> {
 };
 getHeader=(status)=>{
   return (
-      <div><Icon className="icon" type={`${status ? 'plus-square' : 'minus-square' }`} style={{marginRight:10}}></Icon>自定义   header</div>
+      <div><Icon className="icon" type={`${status ? 'minus-square' : 'plus-square' }`} style={{marginRight:20,marginLeft: 20}}></Icon>自定义   header</div>
       )
 }
 
@@ -311,6 +311,7 @@ p {
 | activeKey | 当前激活 tab 面板的 key | string\[]\|string | 默认无，accordion模式下默认第一个元素 |
 | defaultActiveKey | 初始化选中面板的 key | string | 无 |
 | showClose | 是否开启删除功能，与 statusList 配合使用| bool | false |
+| bordered | 是否显示边框 | boolean | true |
 | statusList | 面板是否显示的状态数组 | Array | [true, true, ...] |
 | onChange | 切换面板的回调 | Function | 无 |
 | isScrollToHeader | 激活后将激活的面板置顶 | Function | 无 |
@@ -323,4 +324,3 @@ p {
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | boolean | false |
 | header | 面板头内容 | string\|Function | 无 |
 | key | 对应 activeKey | string | 无 |
-| showArrow | 是否显示箭头 | bool | true |

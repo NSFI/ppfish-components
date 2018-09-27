@@ -42,6 +42,7 @@ class Collapse extends Component {
     isScrollToHeader: false,
     accordion: false,
     showClose: false,
+    bordered: true,
     onChange() {},
     close() {},
   };
@@ -181,12 +182,15 @@ class Collapse extends Component {
   }
 
   render() {
-    const { prefixCls, className, isScrollToHeader } = this.props;
+    const { prefixCls, className, isScrollToHeader, bordered } = this.props;
     let clsObj = {};
     let style = null;
     clsObj[prefixCls] = true;
     if (className) {
       clsObj[className] = true;
+    }
+    if (!bordered) {
+      clsObj[`${prefixCls}-borderless`] = true;
     }
     if (isScrollToHeader) {
       style = { overflowY: 'auto', overflowX: 'hidden'};

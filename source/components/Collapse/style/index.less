@@ -3,16 +3,18 @@
 @collapse-prefix-cls: ~"@{fishd-prefix}-collapse";
 .@{collapse-prefix-cls} {
   height: 100%;
+  border: 1px solid @border-color-base;
+  border-radius: 2px;
+  border-bottom: 0;
+  background-color: #F7F8FA;
   &-header {
     display: flex;
     justify-content: space-between;
     box-sizing: content-box;
     font-size: 14px;
-    color: #393a4c;
-    margin-left: 15px;
-    height: 50px;
-    line-height: 50px;
-    border-top: 1px solid @border-color-base;
+    color: #333;
+    height: 48px;
+    line-height: 48px;
     cursor: pointer;
     .title {
       flex: 1;
@@ -48,25 +50,33 @@
     }
   }
   &-content-box {
-    margin-left: 15px;
+    padding: 18px 16px;
     border-top: 1px solid @border-color-base;
+    background-color: #fff;
     clear: both;
   }
   &-content-active {
     display: block;
-    margin-bottom: 10px;
   }
-  &-item-active {
-    border-left: 2px solid @primary-color;
-    .@{collapse-prefix-cls}-header {
-      margin-left: 13px;
-    }
+  &-item {
+    border-bottom: 1px solid @border-color-base;
   }
   &-content-inactive {
     display: none;
   }
   &-item:first-child {
     .@{collapse-prefix-cls}-header {
+      border-top: 0;
+    }
+  }
+}
+
+.@{collapse-prefix-cls}-borderless {
+  background-color: #fff;
+  border: 0;
+  .@{collapse-prefix-cls}-item {
+     .@{collapse-prefix-cls}-content-box {
+      background-color: transparent;
       border-top: 0;
     }
   }
