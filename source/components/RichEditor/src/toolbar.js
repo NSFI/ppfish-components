@@ -78,8 +78,7 @@ let genEmoji = (data) => {
 
   return result;
 };
-
-let emojiHTML = genEmoji(emojiList);
+let defaultEmojis = genEmoji(emojiList);
 
 class CustomToolbar extends PureComponent {
   static propTypes = {
@@ -296,7 +295,7 @@ class CustomToolbar extends PureComponent {
           });
           let content = (
             <div className="custom-emoji-con" onClick={handleInsertEmoji}>
-              { emojiHTML }
+              { defaultEmojis }
             </div>
           );
 

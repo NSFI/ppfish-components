@@ -42,7 +42,7 @@ class RichEditor extends Component {
 
   static defaultProps = {
     customLink: {},
-    placeholder: '',
+    placeholder: '请输入内容',
     prefixCls: 'fishd-richeditor',
     resizable: true,
     toolbar: [
