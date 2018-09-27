@@ -185,9 +185,23 @@ class CustomToolbar extends PureComponent {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-color`]: true
           });
+          let colorHTML = defaultColors;
+          if (Array.isArray(mValue) && mValue.length) {
+            colorHTML = mValue.map(function(color, index) {
+              return (
+                <button
+                  className="color-item"
+                  key={"custom_color_" + index}
+                  value={color}
+                  style={{backgroundColor: color}}
+                >
+                </button>
+              );
+            });
+          }
           let content = (
             <div className="color-con" onClick={handleFormatColor}>
-              {defaultColors}
+              {colorHTML}
             </div>
           );
 
@@ -325,7 +339,7 @@ class CustomToolbar extends PureComponent {
               return (
                 <button
                   className="size-item"
-                  key={"default_size_" + index}
+                  key={"custom_size_" + index}
                   value={size}
                   style={{fontSize: size}}
                 >
@@ -354,28 +368,6 @@ class CustomToolbar extends PureComponent {
               </div>
             </Popover>
           );
-
-          // if (mValue instanceof Array && mValue.length) {
-          //   value = (
-          //     <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
-          //       <div className={sizePanelCls}>
-          //         {
-          //           mValue.map((val, idx) => {
-          //             return (
-          //               <button
-          //                 key={key+'_csize_'+idx}
-          //                 type="button"
-          //                 className="ql-customSize size-item"
-          //                 value={val}
-          //                 style={{fontSize: val}}
-          //               >{val}</button>
-          //             );
-          //           })
-          //         }
-          //       </div>
-          //     </div>
-          //   );
-          // }
 
           tooltip = '文字大小';
 
