@@ -210,42 +210,6 @@ render(){
 :::
 
 
-## 隐藏箭头
-
-:::demo 你可以通过 showArrow={false} 隐藏 CollapsePanel 组件的箭头图标。。
-
-```js
-
-render(){
-  const text = `
-    A dog is a type of domesticated animal.
-    Known for its loyalty and faithfulness,
-    it can be found as a welcome guest in many households across the world.
-  `;
-  const Panel = Collapse.Panel;
-  return(
-      <Collapse>
-        <Panel header="This is panel header 1" key="1">
-          <p>{text}</p>
-        </Panel>
-        <Panel header="This is panel header 2" key="2" showArrow={false}>
-          <p>{text}</p>
-        </Panel>
-        <Panel header="This is panel header 3" key="3">
-          <p>{text}</p>
-        </Panel>
-      </Collapse>
-  )
-}
-```
-:::
-
-<style>
-p {
-  margin: 0;
-}
-</style>
-
 ## 删除面板
 
 :::demo 使用 showClose={true} 开启删除功能，同时使用 statusList 指定面板是否显示。删除的回调函数 close 的参数为更新过的状态数组，实际使用时，可以将此数组储存在服务端。
@@ -294,6 +258,50 @@ p {
 }
 </style>
 
+## header 传入一个函数
+
+:::demo header支持传入一个函数，函数参数为面板的状态（收起为 true，展开为 false）可使用此状态定义展开和收起的图标。
+
+```js
+callback=(key)=> {
+  console.log(key);
+};
+getHeader=(status)=>{
+  return (
+      <div><Icon className="icon" type={`${status ? 'plus-square' : 'minus-square' }`} style={{marginRight:10}}></Icon>自定义   header</div>
+      )
+}
+
+render(){
+  const text = `
+    A dog is a type of domesticated animal.
+    Known for its loyalty and faithfulness,
+    it can be found as a welcome guest in many households across the world.
+  `;
+  const Panel = Collapse.Panel;
+  return(
+      <Collapse onChange={this.callback}>
+        <Panel header={this.getHeader} key="1">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 2" key="2">
+          <p>{text}</p>
+        </Panel>
+        <Panel header="This is panel header 3" key="3">
+          <p>{text}</p>
+        </Panel>
+      </Collapse>
+  )
+}
+```
+:::
+
+<style>
+p {
+  margin: 0;
+}
+</style>
+
 ## API
 
 ### Collapse
@@ -313,6 +321,6 @@ p {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | boolean | false |
-| header | 面板头内容 | string\|ReactNode | 无 |
+| header | 面板头内容 | string\|Function | 无 |
 | key | 对应 activeKey | string | 无 |
 | showArrow | 是否显示箭头 | bool | true |

@@ -18,9 +18,8 @@ class CollapsePanel extends Component {
     header: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
-      PropTypes.node,
+      PropTypes.func
     ]),
-    showArrow: PropTypes.bool,
     showClose:PropTypes.bool,
     isActive: PropTypes.bool,
     onItemClick: PropTypes.func,
@@ -29,7 +28,6 @@ class CollapsePanel extends Component {
   static defaultProps = {
     isActive: false,
     disabled: false,
-    showArrow: true,
     onItemClick() {
     },
     onCloseItem() {
@@ -40,6 +38,18 @@ class CollapsePanel extends Component {
     super(props);
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleItemClose = this.handleItemClose.bind(this);
+    this.state = {
+      showArrow: true,
+    }
+  }
+
+  componentDidMount() {
+    const { header } = this.props;
+    if (typeof header === 'function') {
+      this.setState({
+        showArrow: false,
+      })
+    }
   }
 
   handleItemClick() {
@@ -55,6 +65,17 @@ class CollapsePanel extends Component {
     onCloseItem();
   }
 
+  getHeader = (status) => {
+    const { header } = this.props;
+
+    if (typeof header === 'function') {
+      
+      return header(status);
+    } else {
+      return header;
+    }
+  }
+
   render() {
     const {
       itemKey,
@@ -62,12 +83,12 @@ class CollapsePanel extends Component {
       prefixCls,
       disabled,
       header,
-      showArrow,
       showClose,
       style,
       children,
       isActive
     } = this.props;
+    const { showArrow } = this.state;
     const headerCls = classNames({
       [`${prefixCls}-header`]: true,
       [`${prefixCls}-header-disabled`]: disabled,
@@ -109,8 +130,8 @@ class CollapsePanel extends Component {
           <div className={arrowCls}>
             {getArrowIcon(isActive)}
           </div>
-          <div className="title">{header}</div>
-          <div className={closeCls} onClick={this.handleItemClose} >
+          <div className="title">{this.getHeader(isActive)}</div>
+          <div className={closeCls} onClick={this.handleItemClose}>
             <Icon className="icon" type="picture-close" />
           </div>
         </div>
