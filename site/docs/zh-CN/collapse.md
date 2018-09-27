@@ -280,19 +280,6 @@ render(){
 
 :::demo 使用 showClose={false} 关闭删除功能。
 ```js
-constructor() {
-  super();
-  this.state = {
-    statusList: [true,true,true],
-  }
-}
-
-close = (statusList) => {
-  this.setState({
-    statusList: statusList,
-  })
-}
-
 render(){
   const text = `
     A dog is a type of domesticated animal.
@@ -323,9 +310,9 @@ p {
 }
 </style>
 
-## header 传入一个函数
+## 定制 header
 
-:::demo header支持传入一个函数，函数参数为面板的状态（展开为 true，收起为 false）可使用此状态定义展开和收起的图标。
+:::demo header 支持传入一个函数，函数参数为面板的状态（展开为 true，收起为 false）可使用此状态定义展开和收起的图标。
 
 ```js
 constructor() {
