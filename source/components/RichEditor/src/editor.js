@@ -102,6 +102,21 @@ class RichEditor extends Component {
           showImageModal: true
         });
       },
+      clean: function() {
+        let range = this.quill.getSelection();
+        if (range == null) return;
+        if (range.length == 0) {
+          let formats = this.quill.getFormat();
+          Object.keys(formats).forEach((name) => {
+            // Clean functionality in existing apps only clean inline formats
+            if (Parchment.query(name, Parchment.Scope.INLINE) != null) {
+              this.quill.format(name, false);
+            }
+          });
+        } else {
+          this.quill.removeFormat(range, Quill.sources.USER);
+        }
+      },
     };
 
     Object.keys(customLink).forEach((name) => {
