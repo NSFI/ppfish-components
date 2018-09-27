@@ -6,6 +6,31 @@ import emojiList from './emojiList.js';
 import Tooltip from '../../Tooltip/index.tsx';
 import Popover from '../../Popover/index.tsx';
 
+let defaultColors = [
+  'rgb(  0,   0,   0)', 'rgb(230,   0,   0)', 'rgb(255, 153,   0)',
+  'rgb(255, 255,   0)', 'rgb(  0, 138,   0)', 'rgb(  0, 102, 204)',
+  'rgb(153,  51, 255)', 'rgb(255, 255, 255)', 'rgb(250, 204, 204)',
+  'rgb(255, 235, 204)', 'rgb(255, 255, 204)', 'rgb(204, 232, 204)',
+  'rgb(204, 224, 245)', 'rgb(235, 214, 255)', 'rgb(187, 187, 187)',
+  'rgb(240, 102, 102)', 'rgb(255, 194, 102)', 'rgb(255, 255, 102)',
+  'rgb(102, 185, 102)', 'rgb(102, 163, 224)', 'rgb(194, 133, 255)',
+  'rgb(136, 136, 136)', 'rgb(161,   0,   0)', 'rgb(178, 107,   0)',
+  'rgb(178, 178,   0)', 'rgb(  0,  97,   0)', 'rgb(  0,  71, 178)',
+  'rgb(107,  36, 178)', 'rgb( 68,  68,  68)', 'rgb( 92,   0,   0)',
+  'rgb(102,  61,   0)', 'rgb(102, 102,   0)', 'rgb(  0,  55,   0)',
+  'rgb(  0,  41, 102)', 'rgb( 61,  20,  10)',
+].map(function(color, index) {
+  return (
+    <button
+      className="color-item"
+      key={"default_color_" + index}
+      value={color}
+      style={{backgroundColor: color}}
+    >
+    </button>
+  );
+});
+
 let genEmoji = (data) => {
   let colSize = 10,
       resPath = '//qiyukf.com/sdk/res/portrait/emoji/',
@@ -67,8 +92,7 @@ class CustomToolbar extends PureComponent {
 
     this.defaultValue = '14px';
     this.state = {
-      showSizePanel: false,
-      showEmojiPanel: false,
+      showSizePanel: false
     };
   }
 
@@ -82,8 +106,14 @@ class CustomToolbar extends PureComponent {
   }
 
   getModuleHTML = (mType, key, customLink) => {
-    const { showSizePanel, showEmojiPanel } = this.state;
-    let { iconPrefix, handleInsertEmoji, prefixCls, getPopupContainer } = this.props;
+    const { showSizePanel } = this.state;
+    let {
+      iconPrefix,
+      handleInsertEmoji,
+      handleFormatColor,
+      prefixCls,
+      getPopupContainer
+    } = this.props;
     let mValue = null,
         value = null,
         tooltip = null;
@@ -143,7 +173,29 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'color': {
-          value = <div className="item" key={key}><select className="ql-color" /></div>;
+          let content = (
+            <div className="color-con" onClick={handleFormatColor}>
+              {defaultColors}
+            </div>
+          );
+
+          value = (
+            <Popover
+              trigger="click"
+              overlayClassName={`${prefixCls}-color-popover`}
+              content={content}
+              title={null}
+              key={key}
+              getPopupContainer={getPopupContainer}
+            >
+              <div className="item custom-color">
+                <button type="button" data-role="color" value="" className="ql-color hide"></button>
+              </div>
+            </Popover>
+          );
+
+          // value = <div className="item"><select className="ql-color" /></div>;
+
           // value = (
           //   <div className="item custom-color" key={key}>
           //     <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onClose={this.handleColorSelect.bind(this)} >
@@ -217,21 +269,6 @@ class CustomToolbar extends PureComponent {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-expressio`]: true
           });
-          const emojiPanelCls = classNames({
-            'hide': !showEmojiPanel,
-            'custom-emoji-panel': true
-          });
-
-          // value = (
-          //   <div className={emojiCls} key={key} onClick={this.toggleEmojiPanel}>
-          //     <div className={emojiPanelCls} >
-          //       <div className="custom-emoji-con">
-          //         { emojiHTML }
-          //       </div>
-          //     </div>
-          //   </div>
-          // );
-
           let content = (
             <div className="custom-emoji-con" onClick={handleInsertEmoji}>
               { emojiHTML }
@@ -433,8 +470,7 @@ class CustomToolbar extends PureComponent {
   handlePanelStatus = () => {
     window.addEventListener('click', (e) => {
       this.setState({
-        showSizePanel: false,
-        showEmojiPanel: false
+        showSizePanel: false
       });
     }, false);
   };
@@ -451,22 +487,7 @@ class CustomToolbar extends PureComponent {
     if (clsVal.indexOf('item') > -1 ||
         clsVal.indexOf('ql-customSize') > -1) {
       this.setState({
-        showSizePanel: !this.state.showSizePanel,
-        showEmojiPanel: false,
-      });
-    }
-
-    e.stopPropagation();
-  };
-
-  toggleEmojiPanel = (e) => {
-    let clsVal = e.target.classList.value;
-
-    if (clsVal.indexOf('item') > -1 ||
-        clsVal.indexOf('ql-emoji') > -1) {
-      this.setState({
-        showSizePanel: false,
-        showEmojiPanel: !this.state.showEmojiPanel
+        showSizePanel: !this.state.showSizePanel
       });
     }
 

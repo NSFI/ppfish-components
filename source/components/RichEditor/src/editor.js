@@ -216,7 +216,7 @@ class RichEditor extends Component {
   handleInsertEmoji = (e) => {
     let target = e.target;
     if (target.classList.value.indexOf('emoji-img') > -1 && target.hasAttribute('value')) {
-      let emojiEl = this.toolbarCtner.querySelector('button.ql-emoji[data-role=emoji]');
+      let emojiEl = this.toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
       if (emojiEl == null) {
         emojiEl = document.createElement('button');
         this.toolbarCtner.querySelector('.custom-emoji').appendChild(emojiEl);
@@ -227,6 +227,23 @@ class RichEditor extends Component {
       emojiEl.setAttribute('value', target.value);
       emojiEl.classList.add('ql-emoji', 'hide');
       emojiEl.click();
+    }
+  };
+
+  handleFormatColor = (e) => {
+    let target = e.target;
+    if (target.classList.value.indexOf('color-item') > -1 && target.hasAttribute('value')) {
+      let colorEl = this.toolbarCtner.querySelector('button.ql-color[data-role="color"]');
+      if (colorEl == null) {
+        colorEl = document.createElement('button');
+        this.toolbarCtner.querySelector('.custom-color').appendChild(colorEl);
+      }
+
+      colorEl.setAttribute('type', 'button');
+      colorEl.setAttribute('data-role', 'color');
+      colorEl.setAttribute('value', target.value);
+      colorEl.classList.add('ql-color', 'hide');
+      colorEl.click();
     }
   };
 
@@ -273,6 +290,7 @@ class RichEditor extends Component {
           toolbar={toolbar}
           customLink={customLink}
           handleInsertEmoji={this.handleInsertEmoji}
+          handleFormatColor={this.handleFormatColor}
           getPopupContainer={getPopupContainer}
         />
         <ReactQuill

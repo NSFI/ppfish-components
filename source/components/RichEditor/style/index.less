@@ -60,7 +60,7 @@
     background: #FAFBFC;
     white-space: normal;
     height: 36px;
-    // overflow: hidden;
+    overflow: hidden;
   }
 
   .editor-body {
@@ -186,7 +186,7 @@
     }
   }
 
-  .custom-color,
+  // .custom-color,
   .custom-size,
   .custom-emoji,
   .custom-entry {
@@ -279,28 +279,62 @@
     }
   }
 
-  .ql-color {
-    .ql-picker-label {
-      display: flex !important;
-      justify-content: center;
-      align-items: center;
-      color: @icon-normal-color;
+  .custom-color {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    color: @icon-normal-color;
 
-      .iconfont-mixin();
+    .iconfont-mixin();
 
-      &:before {
-        content: "\e6cd";
-      }
-
-      svg {
-        display: none;
-      }
+    &:before {
+      content: "\e6cd";
     }
+  }
 
-    // .ql-picker-options {
-    //   position: absolute;
-    //   left: 0;
-    // }
+  // .ql-color {
+  //   .ql-picker-label {
+  //     display: flex !important;
+  //     justify-content: center;
+  //     align-items: center;
+  //     color: @icon-normal-color;
+
+  //     .iconfont-mixin();
+
+  //     &:before {
+  //       content: "\e6cd";
+  //     }
+
+  //     svg {
+  //       display: none;
+  //     }
+  //   }
+  // }
+}
+
+.@{rich-editor-prefix}-color-popover {
+
+  .@{popover-prefix}-inner-content {
+    padding: 0;
+  }
+
+  .color-con {
+    position: relative;
+    display: inline-block;
+    padding: 3px 5px;
+    width: 152px;
+  }
+
+  .color-item {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    float: left;
   }
 }
 
