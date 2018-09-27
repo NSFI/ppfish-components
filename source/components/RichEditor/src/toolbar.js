@@ -106,11 +106,6 @@ class CustomToolbar extends PureComponent {
 
   constructor(props) {
     super(props);
-
-    this.defaultValue = '14px';
-    this.state = {
-      showSizePanel: false
-    };
   }
 
   componentWillMount() {
@@ -118,12 +113,7 @@ class CustomToolbar extends PureComponent {
     emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
   }
 
-  componentDidMount() {
-    this.handlePanelStatus();
-  }
-
   getModuleHTML = (mType, key, customLink) => {
-    const { showSizePanel } = this.state;
     let {
       iconPrefix,
       handleInsertEmoji,
@@ -329,14 +319,24 @@ class CustomToolbar extends PureComponent {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-size`]: true
           });
-          const sizePanelCls = classNames({
-            'hide': !showSizePanel,
-            'custom-size-panel': true
-          });
-
+          let sizeHTML = defaultSizes;
+          if (Array.isArray(mValue) && mValue.length) {
+            sizeHTML = mValue.map(function(size, index) {
+              return (
+                <button
+                  className="size-item"
+                  key={"default_size_" + index}
+                  value={size}
+                  style={{fontSize: size}}
+                >
+                  {size}
+                </button>
+              );
+            });
+          }
           let content = (
             <div className="size-con" onClick={handleFormatSize}>
-              {defaultSizes}
+              {sizeHTML}
             </div>
           );
 
@@ -372,19 +372,6 @@ class CustomToolbar extends PureComponent {
           //             );
           //           })
           //         }
-          //       </div>
-          //     </div>
-          //   );
-          // } else {
-          //   value = (
-          //     <div className={sizeCls} key={key} onClick={this.toggleSizePanel}>
-          //       <div className={sizePanelCls}>
-          //         <button type="button" className="ql-customSize size-item" value="32px" style={{fontSize: '32px'}}>32px</button>
-          //         <button type="button" className="ql-customSize size-item" value="24px" style={{fontSize: '24px'}}>24px</button>
-          //         <button type="button" className="ql-customSize size-item" value="18px" style={{fontSize: '18px'}}>18px</button>
-          //         <button type="button" className="ql-customSize size-item" value="16px" style={{fontSize: '16px'}}>16px</button>
-          //         <button type="button" className="ql-customSize size-item" value="13px" style={{fontSize: '13px'}}>13px</button>
-          //         <button type="button" className="ql-customSize size-item" value="12px" style={{fontSize: '12px'}}>12px</button>
           //       </div>
           //     </div>
           //   );
@@ -511,32 +498,11 @@ class CustomToolbar extends PureComponent {
     return result;
   };
 
-  handlePanelStatus = () => {
-    window.addEventListener('click', (e) => {
-      this.setState({
-        showSizePanel: false
-      });
-    }, false);
-  };
-
   // handleColorSelect = ({color}) => {
   //   let btn = this.toolbarCtner.querySelector('.ql-customColor');
   //   btn.setAttribute('value', color);
   //   btn.click();
   // };
-
-  toggleSizePanel = (e) => {
-    let clsVal = e.target.classList.value;
-
-    if (clsVal.indexOf('item') > -1 ||
-        clsVal.indexOf('ql-customSize') > -1) {
-      this.setState({
-        showSizePanel: !this.state.showSizePanel
-      });
-    }
-
-    e.stopPropagation();
-  };
 
   render() {
     const { className, toolbar, customLink } = this.props;
