@@ -54,6 +54,50 @@
 ```
 :::
 
+## 定制文字大小
+
+:::demo 定制文字大小。
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean']];
+  }
+
+  render() {
+    return (
+      <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
+        toolbar={this.toolbar}
+      />
+    );
+  }
+```
+:::
+
+## 定制文字颜色
+
+:::demo 定制文字颜色。
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], [{'color': ['#000', '#333', 'red', 'green', 'blue']}], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean']];
+  }
+
+  render() {
+    return (
+      <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
+        toolbar={this.toolbar}
+      />
+    );
+  }
+```
+:::
+
 ## 轻量版
 
 :::demo 轻量版。
