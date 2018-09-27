@@ -109,6 +109,8 @@ class RichEditor extends Component {
         let range = this.quill.getSelection();
         if (range.length !== 0) {
           this.quill.format('link', customLink[name].url);
+        } else {
+          message.error('没有选中文本');
         }
       };
     });
