@@ -154,7 +154,7 @@
 | maxWidth | 编辑区域的最大宽度 | String | '100%' |
 | maxHeight | 编辑区域的最大高度 | String | '100%' |
 | placeholder | 内容为空时的占位内容 | String | - |
-| resizable | 是否支持对编辑区域的大小进行拖拽 | Boolean | true |
+| resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | true |
 | toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'background'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | onChange | 内容改变时的回调 | (content, delta, source, editor) => any | - |
