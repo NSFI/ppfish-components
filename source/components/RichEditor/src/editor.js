@@ -231,8 +231,10 @@ class RichEditor extends Component {
   };
 
   handleInsertEmoji = (e) => {
-    let target = e.target;
-    if (target.classList.value.indexOf('emoji-img') > -1 && target.hasAttribute('value')) {
+    let target = e.target,
+        clsList = target.classList.value;
+
+    if ((clsList.indexOf('emoji-item') > -1 || clsList.indexOf('emoji-item-custom') > -1) && target.hasAttribute('value')) {
       let el = this.toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
       if (el == null) {
         el = document.createElement('button');
@@ -241,7 +243,7 @@ class RichEditor extends Component {
 
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'emoji');
-      el.setAttribute('value', target.value);
+      el.setAttribute('value', target.getAttribute('value'));
       el.classList.add('ql-emoji', 'hide');
       el.click();
     }

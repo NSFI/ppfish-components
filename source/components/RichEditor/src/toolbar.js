@@ -58,7 +58,7 @@ let genEmoji = (data) => {
     tmpObj[grpIndex].push(
       <button
         key={"emoji_" + grpIndex + "_" + index}
-        className={"emoji-img " + item.className}
+        className={"emoji-item " + item.className}
         value={item.title + "__" + resPath + item.imgName + ".png"}
         title={item.title}
       />
@@ -76,6 +76,65 @@ let genEmoji = (data) => {
   return result;
 };
 let defaultEmojis = genEmoji(emojiList);
+
+let emojiData = {
+  name: '表情包名称',
+  width: 100,
+  height: 100,
+  data: [
+    {
+      id: 0,
+      className: 'emoji-00',
+      url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
+      title: '[可爱]'
+    },
+    {
+      id: 1,
+      className: 'emoji-01',
+      url: '//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf',
+      title: '[大笑]'
+    },
+    {
+      id: 2,
+      className: 'emoji-02',
+      url: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
+      title: '[色]'
+    }
+  ]
+};
+let defaultEmojiWidth = 24;
+let defaultEmojiHeight = 24;
+let genEmojiBz = (emojiData) => {
+  let data = emojiData.data,
+      iWidth = emojiData.width || defaultEmojiWidth,
+      iHeight = emojiData.height || defaultEmojiHeight;
+
+  if (!(data && data.length)) return;
+
+  let sortedData = data.sort((a, b) => {
+    if (typeof a.id != "number" || typeof b.id != "number") {
+      return 0;
+    } else {
+      return a.id - b.id; 
+    }
+  });
+
+  return sortedData.map((item, index) => {
+    return (
+      <img
+        key={"emoji_bz_" + index}
+        className={"emoji-item-custom " + item.className}
+        value={item.title + "__" + item.url}
+        title={item.title}
+        src={item.url}
+        width={iWidth}
+        height={iHeight}
+        alt={item.title}
+      />
+    );
+  });
+};
+let bzEmojis = genEmojiBz(emojiData);
 
 class CustomToolbar extends PureComponent {
   static propTypes = {
