@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from '../Icon';
+import Icon from '../Icon/index.tsx';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
 import './style/index.less';
 
@@ -563,7 +563,7 @@ class PicturePreview extends Component {
 
     return (
       <div className={rootClass} ref={node => this.$root = node}>
-        <div className={maskClass}></div>
+        <div className={maskClass} />
         <div className={ctnerClass} ref={node => this.$el = node} style={container.style}
           onMouseDown={dragable ? this.handleMouseDown : null}
           onWheel={this.handleWheel} >

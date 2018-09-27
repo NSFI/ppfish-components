@@ -151,7 +151,7 @@ class RichEditor extends Component {
         return;
       }
 
-      let urlRe = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+      let urlRe = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi;
       if (!urlRe.test(val)) {
         message.error('请输入链接地址');
         return;
@@ -206,7 +206,7 @@ class RichEditor extends Component {
               value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
               showImageModal: false
             });
-          }
+          };
           reader.readAsDataURL(fileInput.files[0]);
         }
       });

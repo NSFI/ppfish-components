@@ -26,8 +26,7 @@ let defaultColors = [
       key={"default_color_" + index}
       value={color}
       style={{backgroundColor: color}}
-    >
-    </button>
+    />
   );
 });
 
@@ -194,8 +193,7 @@ class CustomToolbar extends PureComponent {
                   key={"custom_color_" + index}
                   value={color}
                   style={{backgroundColor: color}}
-                >
-                </button>
+                />
               );
             });
           }
@@ -215,7 +213,7 @@ class CustomToolbar extends PureComponent {
               getPopupContainer={getPopupContainer}
             >
               <div className={colorCls}>
-                <button type="button" data-role="color" value="" className="ql-color hide"></button>
+                <button type="button" data-role="color" value="" className="ql-color hide" />
               </div>
             </Popover>
           );
@@ -312,7 +310,7 @@ class CustomToolbar extends PureComponent {
               getPopupContainer={getPopupContainer}
             >
               <div className={emojiCls}>
-                <button type="button" data-role="emoji" value="" className="ql-emoji hide"></button>
+                <button type="button" data-role="emoji" value="" className="ql-emoji hide" />
               </div>
             </Popover>
           );
@@ -364,7 +362,7 @@ class CustomToolbar extends PureComponent {
               getPopupContainer={getPopupContainer}
             >
               <div className={sizeCls} >
-                <button type="button" data-role="customSize" value="" className="ql-customSize hide"></button>
+                <button type="button" data-role="customSize" value="" className="ql-customSize hide" />
               </div>
             </Popover>
           );
