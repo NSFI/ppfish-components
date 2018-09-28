@@ -119,6 +119,7 @@ class PicturePreview extends Component {
     super(props);
 
     this.imgEl = null;
+    this.moving = ''; //'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
     this.state = {
       show: props.visible || false,
       imgs: props.source || [],
@@ -131,7 +132,6 @@ class PicturePreview extends Component {
         ratio: 0 //图片的缩放比例
       },
       shown: false, //标记是否显示过，第一次显示时居中显示
-      moving: '' //表示移动的目标  'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
     };
   }
 
@@ -443,6 +443,8 @@ class PicturePreview extends Component {
   };
 
   handleMouseDown = (e) => {
+    e.preventDefault();
+
     let con = {},
       image = {},
       tar = e.target;
@@ -454,8 +456,8 @@ class PicturePreview extends Component {
       image.marginL = px2num(getStyle(this.imgEl, 'margin-left'));
       image.marginT = px2num(getStyle(this.imgEl, 'margin-top'));
 
+      this.moving = 'img';
       this.setState({
-        moving: 'img',
         image: Object.assign({}, this.state.image, image)
       });
     } else if (!this.state.container.isFull) {
@@ -464,43 +466,40 @@ class PicturePreview extends Component {
       con.startX = e.clientX;
       con.startY = e.clientY;
 
+      this.moving = 'con';
       this.setState({
-        moving: 'con',
         container: Object.assign({}, this.state.container, con)
       });
-    } else {
-      e.preventDefault();
     }
   };
 
   handleMouseMove = (e) => {
+    e.preventDefault();
+
+    if (!this.moving) return;
+
     let con = this.state.container,
       image = this.state.image,
       conStyle = { ...con.style };
 
-    if (this.state.moving) {
-      e.preventDefault();
+    if (this.moving === 'img') {
+      setStyle(this.imgEl, {
+        'margin-left': num2px(e.pageX - image.startX + image.marginL),
+        'margin-top': num2px(e.pageY - image.startY + image.marginT)
+      });
+    } else if (this.moving === 'con') {
+      conStyle.left = num2px(e.pageX - con.startX + con.rect.left);
+      conStyle.top = num2px(e.pageY - con.startY + con.rect.top);
 
-      if (this.state.moving === 'img') {
-        setStyle(this.imgEl, {
-          'margin-left': num2px(e.pageX - image.startX + image.marginL),
-          'margin-top': num2px(e.pageY - image.startY + image.marginT)
-        });
-      } else if (this.state.moving === 'con') {
-        conStyle.left = num2px(e.pageX - con.startX + con.rect.left);
-        conStyle.top = num2px(e.pageY - con.startY + con.rect.top);
-
-        this.setState({
-          container: Object.assign({}, this.state.container, { style: conStyle })
-        });
-      }
+      this.setState({
+        container: Object.assign({}, this.state.container, { style: conStyle })
+      });
     }
   };
 
   handleMouseUp = (e) => {
-    this.setState({
-      moving: ''
-    });
+    e.preventDefault();
+    this.moving = '';
   };
 
   handleWheel = (e) => {
