@@ -295,8 +295,8 @@ render(){
 | tipFormatter | Slider 会把当前值传给 `tipFormatter`，并在 Tooltip 中显示 `tipFormatter` 的返回值，若为 null，则隐藏 Tooltip。 | Function\|null | IDENTITY |
 | value | 设置当前取值。当 `range` 为 `false` 时，使用 `Number`，否则用 `[Number, Number]` | Number\|Array<Number> |  |
 | vertical | 值为 `true` 时，Slider 为垂直方向 | Boolean | false |
-| onAfterChange | 与 `onmouseup` 触发时机一致，把当前值作为参数传入。 | Function(value) | NOOP |
-| onChange | 当 Slider 的值发生改变时，会触发 onChange 事件，并把改变后的值作为参数传入。 | Function(value) | NOOP |
+| onAfterChange | 与 `onmouseup` 触发时机一致，把当前值作为参数传入。 | (value) => Void | noop |
+| onChange | 当 Slider 的值发生改变时，会触发 onChange 事件，并把改变后的值作为参数传入。 | (value) => Void | noop |
 
 ## 方法
 

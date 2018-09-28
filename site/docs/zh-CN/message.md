@@ -119,7 +119,7 @@ render(){
 | --- | --- | --- | --- |
 | content | 提示内容 | String\|ReactNode | - |
 | duration | 自动关闭的延时，单位秒。设为 0 时不自动关闭。 | Number | 3 |
-| onClose | 关闭时触发的回调函数 | Function | - |
+| onClose | 关闭时触发的回调函数 | (e) => Void | - |
 
 还提供了全局配置和全局销毁方法：
 

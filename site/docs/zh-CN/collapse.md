@@ -379,8 +379,8 @@ p {
 | showClose | 是否开启删除功能；开启后，需传入 statusList 属性| Boolean | true |
 | bordered | 是否显示边框 | Boolean | true |
 | statusList | 面板是否显示的状态数组 | Array | [true, true, ...] |
-| onChange | 切换面板的回调 | Function | 无 |
-| isScrollToHeader | 激活后将激活的面板置顶 | Function | 无 |
+| onChange | 切换面板的回调 | (key) => Void | 无 |
+| isScrollToHeader | 激活后将激活的面板置顶 | Boolean | 无 |
 | close | 删除面板的回调 | (statusList: Array) => Void | 无 |
 
 ### Collapse.Panel
