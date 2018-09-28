@@ -16,7 +16,7 @@
   return(<div id="components-back-top-demo-custom-2">
     <BackTop target={() => document.querySelector('.content').parentNode} />
     Scroll down to see the bottom-right
-    <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
+    <strong> original </strong>
     button.
   </div>)
 }
@@ -35,39 +35,39 @@ render(){
         <div className="fishd-back-top-inner">UP</div>
       </BackTop>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
       <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> blue </strong>
+      <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
       </p>
     </div>
