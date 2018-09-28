@@ -5,6 +5,32 @@
 @upload-pictrue-card-size: 100px;
 
 /* stylelint-disable declaration-no-important */
+.@{upload-prefix-cls}-hide {
+  display: none;
+}
+
+.@{upload-prefix-cls}-list-scroll {
+  .scrollbar();
+  overflow-y: scroll;
+  border-radius: @border-radius-base;
+
+  &:hover {
+    background: #FAFBFC;
+  }
+
+  &-info {
+    font-size: 12px;
+    margin: 8px 0;
+    color: @text-3;
+  }
+
+  &-delete-all {
+    margin-left: 10px;
+    cursor: pointer;
+    color: @primary-color;
+  }
+}
+
 .@{upload-prefix-cls} {
   .reset-component;
   outline: 0;
@@ -16,7 +42,7 @@
   &-tips {
     font-size: 12px;
     margin-top: 8px;
-    color: #999;
+    color: @text-9;
     line-height: 12px;
   }
 
@@ -73,14 +99,14 @@
     cursor: pointer;
     border-radius: @border-radius-base;
     text-align: center;
-    width: 100%;
-    height: 100%;
+    width: 360px;
+    height: 180px;
     position: relative;
-    padding: 16px 0;
     background: @background-color-light;
 
     &.@{upload-prefix-cls}-drag-hover:not(.@{upload-prefix-cls}-disabled) {
-      border: 2px dashed @primary-5;
+      border: @border-width-base dashed @primary-color;
+      background: #F1F6FF;
     }
 
     &.@{upload-prefix-cls}-disabled {
@@ -98,22 +124,25 @@
     }
 
     &:not(.@{upload-prefix-cls}-disabled):hover {
-      border-color: @primary-5;
+      border-color: @primary-color;
     }
 
-    p.@{upload-prefix-cls}-drag-icon {
+    .@{upload-prefix-cls}-drag-icon {
       .@{iconfont-prefix} {
-        font-size: 48px;
-        color: @primary-5;
+        font-size: 64px;
+        color: @text-9;
       }
-      margin-bottom: 20px;
     }
-    p.@{upload-prefix-cls}-text {
-      font-size: @font-size-lg;
-      margin: 0 0 4px;
-      color: @heading-color;
+    .@{upload-prefix-cls}-text {
+      font-size: @font-size-base;
+      margin-top: 13px;
+      color: @text-color-secondary;
+
+      &-hl {
+        color: @primary-color;
+      }
     }
-    p.@{upload-prefix-cls}-hint {
+    .@{upload-prefix-cls}-hint {
       font-size: @font-size-base;
       color: @text-color-secondary;
     }
@@ -131,67 +160,59 @@
   }
 }
 
-.@{upload-prefix-cls}-hide {
-  display: none;
-}
-
-.@{upload-prefix-cls}-list-scroll {
-  .scrollbar();
-  overflow-y: scroll;
-  border-top: 1px solid @border-color-base;
-  border-bottom: 1px solid @border-color-base;
-
-  &-info {
-    margin: 8px 0;
-  }
-
-  &-delete-all {
-    margin-left: 10px;
-    cursor: pointer;
-    color: @primary-color;
-  }
-}
-
 .@{upload-prefix-cls}-list {
   .reset-component;
   .clearfix;
+
+  margin-top: 12px;
+
   &-item {
-    margin-top: 8px;
     font-size: @font-size-base;
     position: relative;
-    height: 22px;
+    border-radius: @border-radius-base;
 
     &-name {
       font-size: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      padding-left: @font-size-base + 8px;
+      padding-left: 28px;
       width: 100%;
+      height: 100%;
       display: inline-block;
     }
 
     &-info {
-      height: 100%;
+      height: 24px;
       padding: 0 12px 0 4px;
       transition: background-color 0.3s;
 
       > span {
+        position: relative;
         display: block;
+        height: 100%;
       }
 
-      .@{iconfont-prefix}-load-line,
       .@{iconfont-prefix}-clip-line {
-        font-size: @font-size-base;
-        color: @text-color-secondary;
         position: absolute;
-        top: @font-size-base / 2 - 2px;
+        top: 2px;
+        left: 4px;
+        color: @text-color-secondary;
+        font-size: 20px;
+      }
+
+      .@{iconfont-prefix}-load-line {
+        position: absolute;
+        top: 2px;
+        left: 4px;
+        color: @text-color-secondary;
+        font-size: @font-size-base;
       }
     }
 
     .@{iconfont-prefix}-hints-alone-error {
-      // .iconfont-size-under-12px(10px);
-      font-size: 12px;
+      // .iconfont-size-under-12px(8px);
+      font-size: 14px;
       transition: all 0.3s;
       opacity: 0;
       cursor: pointer;
@@ -199,14 +220,15 @@
       top: 0;
       right: 4px;
       color: @text-color-secondary;
-      line-height: 22px;
+      line-height: 24px;
       &:hover {
         color: @text-color;
       }
     }
 
     &:hover &-info {
-      background-color: @item-hover-bg;
+      // background-color: @item-hover-bg;
+      background-color: #F2F3F5;
     }
 
     &-done:hover &-name {
@@ -235,20 +257,16 @@
     &-progress {
       line-height: 0;
       font-size: @font-size-base;
-      position: absolute;
       width: 100%;
-      bottom: -12px;
-      padding-left: @font-size-base + 12px;
     }
   }
 
   &-picture,
   &-picture-card {
     .@{upload-item} {
-      padding: 8px;
       border-radius: @border-radius-base;
       border: @border-width-base @border-style-base @border-color-base;
-      height: 66px;
+      // height: 66px;
       position: relative;
       &:hover {
         background: transparent;
@@ -274,8 +292,6 @@
       width: 48px;
       height: 48px;
       position: absolute;
-      top: 8px;
-      left: 8px;
       text-align: center;
     }
 
@@ -329,10 +345,11 @@
     }
 
     .@{upload-item}-progress {
-      padding-left: 56px;
-      margin-top: 0;
+      // padding-left: 56px;
+      // margin-top: 0;
       bottom: 14px;
-      width: ~"calc(100% - 24px)";
+      width: ~"calc(100% - 20px)";
+      margin-left: 10px;
     }
 
     .@{iconfont-prefix}-hints-alone-error {
@@ -340,6 +357,16 @@
       right: 8px;
       top: 8px;
       line-height: 1;
+    }
+  }
+
+  &-picture {
+    .@{upload-item} {
+      margin-bottom: 8px;
+    }
+
+    .@{upload-item}-info {
+      height: auto;
     }
   }
 

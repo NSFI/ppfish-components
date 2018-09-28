@@ -6,7 +6,7 @@ import Progress from '../Progress';
 import classNames from 'classnames';
 import { UploadListProps, UploadFile, UploadListType } from './interface';
 
-const fileListItemHeight = 30;
+const fileListItemHeight = 24;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
 const previewFile = (file: File, callback: Function) => {
@@ -235,7 +235,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
             transitionName={`${prefixCls}-${animationDirection}`}
             component="div"
             className={listClassNames}
-            style={{height: fileListItemHeight * maxFileCount}}
+            style={{height: fileListItemHeight*maxFileCount + fileListItemHeight/2}}
           >
             {list}
           </Animate>
