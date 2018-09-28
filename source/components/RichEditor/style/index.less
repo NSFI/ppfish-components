@@ -3,7 +3,7 @@
 
 @popover-prefix: ~"@{fishd-prefix}-popover";
 @rich-editor-prefix: ~"@{fishd-prefix}-richeditor";
-@icon-normal-color: @heading-color;
+@icon-normal-color: @text-6;
 
 /* stylelint-disable declaration-no-important */
 .@{rich-editor-prefix}-link-modal {
@@ -124,6 +124,7 @@
       border-right: @border-width-base @border-style-base @border-color-base;
       border-top: @border-width-base @border-style-base @border-color-base;
       border-bottom: @border-width-base @border-style-base @border-color-base;
+      color: @icon-normal-color;
 
       &:hover {
         color: @icon-normal-color;
@@ -157,6 +158,10 @@
           stroke: @primary-color;
         }
       }
+
+      .ql-fill {
+        fill: @icon-normal-color;
+      }
     }
 
     > .item:first-child {
@@ -183,10 +188,6 @@
     cursor: pointer;
     color: @icon-normal-color;
     padding: 6px 8px;
-
-    &:hover {
-      color: @primary-color;
-    }
   }
 
   .custom-color,
