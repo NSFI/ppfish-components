@@ -154,6 +154,7 @@
             activeIndex={activeIndex}
             source={this.props.source}
             dragable={true}
+            toolbar={true}
             visible={visible}
           />
         </div>
