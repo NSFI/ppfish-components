@@ -10,7 +10,7 @@
   &-header {
     position: relative;
     height: 48px;
-    padding-left: 40px;
+    padding-left: 16px;
     line-height: 48px;
     font-size: 14px;
     box-sizing: content-box;
@@ -31,7 +31,7 @@
       display: block;
       position: absolute;
       top: 50%;
-      left: 16px;
+      right: 16px;
       transform: translateY(-50%);
       text-align: center;
     }
@@ -47,12 +47,12 @@
       color: @disabled-color;
     }
   }
-  &-header-noclose {
-    padding-left: 16px;
+  &-header-close {
+    padding-left: 40px;
     .arrow {
       top: 50%;
-      right: 16px;
-      left: inherit;
+      left: 16px;
+      right: inherit;
       transform: translateY(-50%);
       text-align: center;
     }

@@ -61,7 +61,7 @@ class CollapsePanel extends Component {
 
   handleItemClose(e) {
     e.stopPropagation();
-    const { onCloseItem } = this.props;
+    const { onCloseItem, disabled } = this.props;
     if (!disabled) {
       onCloseItem();
     }
@@ -94,7 +94,7 @@ class CollapsePanel extends Component {
     const headerCls = classNames({
       [`${prefixCls}-header`]: true,
       [`${prefixCls}-header-disabled`]: disabled,
-      [`${prefixCls}-header-noclose`]: !showClose, // 不可关闭时，箭头放置在右侧
+      [`${prefixCls}-header-close`]: showClose, // 可关闭时，箭头放置在左侧
       [`${prefixCls}-header-custom`]: isCustom,
     });
     const itemCls = classNames({

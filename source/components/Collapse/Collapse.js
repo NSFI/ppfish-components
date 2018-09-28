@@ -41,7 +41,7 @@ class Collapse extends Component {
     prefixCls: 'fishd-collapse',
     isScrollToHeader: false,
     accordion: false,
-    showClose: true,
+    showClose: false,
     bordered: true,
     onChange() {},
     close() {},
