@@ -31,6 +31,7 @@ class Drawer extends React.PureComponent {
     onChange: () => { },
     onMaskClick: () => { },
     onHandleClick: () => { },
+    onCloseClick: () => { },
     handler: (
       <div className="drawer-handle">
         <i className="drawer-handle-icon" />
@@ -598,6 +599,7 @@ Drawer.propTypes = {
   onChange: PropTypes.func,
   onMaskClick: PropTypes.func,
   onHandleClick: PropTypes.func,
+  onCloseClick: PropTypes.func,
   showMask: PropTypes.bool,
   maskStyle: PropTypes.object,
   closed: PropTypes.bool
