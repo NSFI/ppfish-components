@@ -116,7 +116,7 @@
 | disabled | 是否禁用 | Boolean | false |
 | loading | 加载中的开关 | Boolean | false |
 | size | 开关大小 | Enum {'default', 'small', 'large'} | 'default' |
-| unCheckedChildren | 非选中时的内容 | string \| ReactNode | - |
+| unCheckedChildren | 非选中时的内容 | String \| ReactNode | - |
 | onChange | 变化时回调函数 | (checked:Boolean)=>{} | - |
 
 ## 方法

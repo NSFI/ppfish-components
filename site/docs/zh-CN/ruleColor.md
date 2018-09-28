@@ -23,5 +23,5 @@ render(){
 ## API
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| loadingIcon  | 加载中动画图    | object   |  —   |
-| extraCls  | 额外的class    | string   | —   |
+| loadingIcon  | 加载中动画图    | Object   |  —   |
+| extraCls  | 额外的class    | String   | —   |

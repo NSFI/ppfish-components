@@ -287,7 +287,7 @@ render(){
 | grid | 列表栅格配置 | Object | - |
 | header | 列表头部 | String\|ReactNode | - |
 | itemLayout | 设置 `List.Item` 布局, 设置成 `vertical` 则竖直样式显示, 默认横排 | String | - |
-| loading | 当卡片内容还在加载中时，可以用 `loading` 展示一个占位 | Boolean\|[object](https://nsfi.github.io/ppfish-components/#/components/spin)  | false |
+| loading | 当卡片内容还在加载中时，可以用 `loading` 展示一个占位 | Boolean\|[Object](https://nsfi.github.io/ppfish-components/#/components/spin)  | false |
 | loadMore | 加载更多 | String\|ReactNode | - |
 | locale | 默认文案设置，目前包括空数据文案 | Object | {emptyText: '暂无数据'} |
 | pagination | 对应的 `pagination` 配置, 设置 `false` 不显示 | Boolean\|Object | false |
@@ -309,26 +309,26 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| column | 列数 | number | - |
-| gutter | 栅格间隔 | number | 0 |
-| xs | `<576px` 展示的列数 | number | - |
-| sm | `≥576px` 展示的列数 | number | - |
-| md | `≥768px` 展示的列数 | number | - |
-| lg | `≥992px` 展示的列数 | number | - |
-| xl | `≥1200px` 展示的列数 | number | - |
-| xxl | `≥1600px` 展示的列数 | number | - |
+| column | 列数 | Number | - |
+| gutter | 栅格间隔 | Number | 0 |
+| xs | `<576px` 展示的列数 | Number | - |
+| sm | `≥576px` 展示的列数 | Number | - |
+| md | `≥768px` 展示的列数 | Number | - |
+| lg | `≥992px` 展示的列数 | Number | - |
+| xl | `≥1200px` 展示的列数 | Number | - |
+| xxl | `≥1600px` 展示的列数 | Number | - |
 
 ### List.Item
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| actions | 列表操作组，根据 `itemLayout` 的不同, 位置在卡片底部或者最右侧 | Array&lt;ReactNode> | - |
-| extra | 额外内容, 通常用在 `itemLayout` 为 `vertical` 的情况下, 展示右侧内容; `horizontal` 展示在列表元素最右侧 | string\|ReactNode | - |
+| actions | 列表操作组，根据 `itemLayout` 的不同, 位置在卡片底部或者最右侧 | Array<ReactNode> | - |
+| extra | 额外内容, 通常用在 `itemLayout` 为 `vertical` 的情况下, 展示右侧内容; `horizontal` 展示在列表元素最右侧 | String\|ReactNode | - |
 
 ### List.Item.Meta
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | avatar | 列表元素的图标 | ReactNode | - |
-| description | 列表元素的描述内容 | string\|ReactNode | - |
-| title | 列表元素的标题 | string\|ReactNode | - |
+| description | 列表元素的描述内容 | String\|ReactNode | - |
+| title | 列表元素的标题 | String\|ReactNode | - |

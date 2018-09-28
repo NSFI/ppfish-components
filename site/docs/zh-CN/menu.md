@@ -294,23 +294,23 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 容器类名 | String | - |
-| defaultOpenKeys | 初始展开的 SubMenu 菜单项 key 数组 | String[] | - |
-| defaultSelectedKeys | 初始选中的菜单项 key 数组 | String[] | - |
+| defaultOpenKeys | 初始展开的 SubMenu 菜单项 key 数组 | Array<String> | - |
+| defaultSelectedKeys | 初始选中的菜单项 key 数组 | Array<String> | - |
 | forceSubMenuRender | 在子菜单展示之前就渲染进 DOM | Boolean | false |
 | inlineCollapsed | inline 时菜单是否收起状态 | Boolean | - |
 | inlineIndent | inline 模式的菜单缩进宽度 | Number | 24 |
 | mode | 菜单类型 | Enum {'vertical', 'vertical-right', 'horizontal', 'inline'} | 'vertical' |
 | multiple | 是否允许多选 | Boolean | false |
-| openKeys | 当前展开的 SubMenu 菜单项 key 数组 | String[] | - |
+| openKeys | 当前展开的 SubMenu 菜单项 key 数组 | Array<String> | - |
 | selectable | 是否允许选中 | Boolean | true |
-| selectedKeys | 当前选中的菜单项 key 数组 | String[] | - |
+| selectedKeys | 当前选中的菜单项 key 数组 | Array<String> | - |
 | style | 根节点样式 | Object | - |
 | subMenuCloseDelay | 用户鼠标离开子菜单后关闭延时，单位：秒 | Number | 0.1 |
 | subMenuOpenDelay | 用户鼠标进入子菜单后开启延时，单位：秒 | Number | 0 |
 | theme | 主题颜色 | Enum {'light', 'dark'} | 'light' |
 | onClick | 点击 MenuItem 调用此函数 | ({ item, key, keyPath }) => any | - |
 | onDeselect | 取消选中时调用，仅在 multiple 生效 | ({ item, key, selectedKeys }) => any | - |
-| onOpenChange | SubMenu 展开/关闭的回调 | (openKeys: String[]) => any | - |
+| onOpenChange | SubMenu 展开/关闭的回调 | (openKeys: Array<String>) => any | - |
 | onSelect | 被选中时调用 | ({ item, key, selectedKeys }) => any | - |
 
 > More options in [rc-menu](https://github.com/react-component/menu#api)

@@ -2038,29 +2038,29 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| activeRowByClick | 点击后激活Row的激活态样式 | boolean | false |
-| bordered | 是否展示外边框和列边框 | boolean | false |
-| childrenColumnName | 指定树形结构的列名 | string\[] | children |
+| activeRowByClick | 点击后激活Row的激活态样式 | Boolean | false |
+| bordered | 是否展示外边框和列边框 | Boolean | false |
+| childrenColumnName | 指定树形结构的列名 | String\[] | children |
 | columns | 表格列的配置描述，具体项见下表 | [ColumnProps](https://git.io/vMMXC)\[] | - |
-| columnFiltrate | 列表筛选显示功能 | object\| boolean | false |
-| components | 覆盖默认的 table 元素 | object | - |
+| columnFiltrate | 列表筛选显示功能 | Object\| Boolean | false |
+| components | 覆盖默认的 table 元素 | Object | - |
 | dataSource | 数据数组 | any\[] | - |
-| defaultExpandAllRows | 初始时，是否展开所有行 | boolean | false |
-| defaultExpandedRowKeys | 默认展开的行 | string\[] | - |
-| expandedRowKeys | 展开的行，控制属性 | string\[] | - |
+| defaultExpandAllRows | 初始时，是否展开所有行 | Boolean | false |
+| defaultExpandedRowKeys | 默认展开的行 | String\[] | - |
+| expandedRowKeys | 展开的行，控制属性 | String\[] | - |
 | expandedRowRender | 额外的展开行 | function(record):ReactNode | - |
-| expandRowByClick | 通过点击行来展开子行 | boolean | false |
+| expandRowByClick | 通过点击行来展开子行 | Boolean | false |
 | footer | 表格尾部 | function(currentPageData) | - |
-| indentSize | 展示树形数据时，每层缩进的宽度，以 px 为单位 | number | 15 |
-| loading | 页面是否加载中 | boolean\|[object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
-| locale | 默认文案设置，目前包括排序、过滤、空数据文案 | object | filterConfirm: '确定' <br> filterReset: '重置' <br> emptyText: '暂无数据' <br> [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
-| pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | object | - |
-| rowClassName | 表格行的类名 | function(record, index):string | - |
-| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | string\|function(record):string | 'key' |
-| rowSelection | 列表项是否可选择 | object | null |
-| scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | { x: number \| true, y: number } | - |
-| showHeader | 是否显示表头 | boolean | true |
-| size | 正常或迷你类型，`default` or `small` | enum {'default' ,'small'} | 'default' |
+| indentSize | 展示树形数据时，每层缩进的宽度，以 px 为单位 | Number | 15 |
+| loading | 页面是否加载中 | Boolean\|[Object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
+| locale | 默认文案设置，目前包括排序、过滤、空数据文案 | Object | filterConfirm: '确定' <br> filterReset: '重置' <br> emptyText: '暂无数据' <br> [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
+| pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | Object | - |
+| rowClassName | 表格行的类名 | function(record, index): String | - |
+| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | String\|function(record):String | 'key' |
+| rowSelection | 列表项是否可选择 | Object | null |
+| scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | { x: Number \| true, y: Number } | - |
+| showHeader | 是否显示表头 | Boolean | true |
+| size | 正常或迷你类型，`default` or `small` | Enum {'default' ,'small'} | 'default' |
 | title | 表格标题 | function(currentPageData) | - |
 | onChange | 分页、排序、筛选变化时触发 | function(pagination, filters, sorter) | - |
 | onExpand | 点击展开图标时触发 | function(expanded, record) | - |
@@ -2168,9 +2168,9 @@ class Demo extends React.Component {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | fixed | 是否fixed | Enum {'left','right'} | - |
-| hideColumns | 初始化组件时需要隐藏的columns的key[] | String[] | - |
-| defaultColumns | 默认需要显示的不能调整的列的key[] | String[] | - |
-| hideColumnsChange | 选择隐藏的列后的回调 | Fucntion(hideColumns:string[]) | - |
+| hideColumns | 初始化组件时需要隐藏的columns的key[] | Array<String> | - |
+| defaultColumns | 默认需要显示的不能调整的列的key[] | Array<String> | - |
+| hideColumnsChange | 选择隐藏的列后的回调 | (hideColumns:Array<String>) => Void | - |
 
 > 隐藏列表项有以下限制：
 
@@ -2188,7 +2188,7 @@ import { ColumnProps } from 'ppfish/source/interface.tsx';
 
 interface IUser {
   key: number;
-  name: string;
+  name: String;
 }
 
 const columns: ColumnProps<IUser>[] = [{

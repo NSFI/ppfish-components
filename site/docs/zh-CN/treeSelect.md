@@ -614,7 +614,7 @@
 | --- | --- | --- | --- |
 | autoClearSearchValue | 当树节点被选择时，是否自动清空搜索框 | Boolean | false |
 | className | 容器类名 | String | - |
-| defaultValue | 指定默认选中的条目 | String \| String[] | - |
+| defaultValue | 指定默认选中的条目 | String \| Array<String> | - |
 | disabled | 是否禁用 | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
 | dropdownPopupAlign | 下拉菜单的对齐方式，具体配置可参考 [dom-align](https://github.com/yiminghe/dom-align) 的 alignConfig | Object | - |
@@ -640,7 +640,7 @@
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
 | isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
-| value | 指定当前选中的条目 | String \| String[] | - |
+| value | 指定当前选中的条目 | String \| Array<String> | - |
 | onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => any | - |
 | onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => any | - |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => any | - |

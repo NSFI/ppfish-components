@@ -951,7 +951,7 @@ render() {
 | isShowTrigger | 是否显示前缀图标 | Boolean | true |
 | isAllowClear | 是否显示清除按钮 | Boolean | true |
 | isDisabled | 是否禁用 | Boolean | false |
-| disabledDate | 禁用日期 | (Date, selectionMode)=>boolean | - |
+| disabledDate | 禁用日期 | (Date, selectionMode)=>Boolean | - |
 | firstDayOfWeek | 周起始日 | Enum {0,1,2,3,4,5,6} | 0 |
 | yearCount | 可选择的年份总数 | Number | 50 |
 | shortcuts | 快捷选项 | {text: String, onClick: ()=>{}} | - |
@@ -980,7 +980,7 @@ DatePicker 时间面板的参数
 | isShowTime | 是否显示时间选择器 | Boolean | false |
 | isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
 | defaultTimeValue | 时间面板的默认时间 | Date | - |
-| timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| String[] | - |
+| timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 
 ## DatePicker.DateRangePicker
 | 参数      | 说明          | 类型      |   默认值  |
@@ -1000,5 +1000,5 @@ DateRangePicker 时间面板的参数
 | isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
 | defaultStartTimeValue | 开始时间面板的默认时间 | Date | - |
 | defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
-| startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| String[] | - |
-| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| String[] | - |
+| startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |

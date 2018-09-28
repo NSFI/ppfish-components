@@ -313,10 +313,10 @@ render(){
 | extra | 卡片右上角的操作区域 | String\|ReactNode | - |
 | hoverable | 鼠标移过时可浮起 | Boolean | false |
 | loading | 当卡片内容还在加载中时，可以用 loading 展示一个占位 | Boolean | false |
-| tabList | 页签标题列表 | Array&lt;{key: String, tab: ReactNode}> | - |
+| tabList | 页签标题列表 | Array<{key: String, tab: ReactNode}> | - |
 | title | 卡片标题 | String\|ReactNode | - |
-| type | 卡片类型，可设置为 `inner` 或 不设置 | string | - |
-| onTabChange | 页签切换的回调 | Function:(key) => void | - |
+| type | 卡片类型，可设置为 `inner` 或 不设置 | String | - |
+| onTabChange | 页签切换的回调 | (key) => void | - |
 
 ### Card.Grid
 

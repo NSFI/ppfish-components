@@ -275,7 +275,7 @@ render(){
 | className | 类名 | String | - | - |
 | count | 展示的数字，大于 overflowCount 时显示为 `${overflowCount}+`，为 0 时隐藏 | Number \| ReactNode | - |
 | dot | 不展示数字，只有一个小红点 | Boolean | false |
-| offset | 设置状态点的位置偏移，格式为 `[x, y]` | Number[] | - |
+| offset | 设置状态点的位置偏移，格式为 `[x, y]` | Array<Number> | - |
 | overflowCount | 展示封顶的数字值 | Number | 99 |
 | overflowTyle | 展示封顶展示形式 '+' 或 '...' | Enum {'plus', 'ellipsis'} | 'plus' |
 | showZero | 当数值为 0 时，是否展示 Badge | Boolean | false |

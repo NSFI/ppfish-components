@@ -641,7 +641,7 @@ render(){
 | allowClear | 支持搜索框清除操作 | Boolean | true |
 | clearableOptionWidth | 可清除选项的宽度（仅在mode = 'multiple' 且 labelClear = true 生效） | String\| Number | 100 |
 | defaultActiveFirstOption | 是否默认激活第一项 | Boolean | false |
-| defaultValue | 指定默认选中的条目 | String\|String[]\|Number\|Number[]	 | - |
+| defaultValue | 指定默认选中的条目 | String\|Array<String>\|Number\|Array<Number>	 | - |
 | disabled | 是否禁用 | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Bolean | true |
@@ -651,21 +651,21 @@ render(){
 | filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | Boolean \| Function(inputValue, option) | true |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/4j168r7jw0) | Function(triggerNode) | () => document.body |
 | labelClear | 多选模式下开启label删除功能 | Boolean | false |
-| labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: string, label: ReactNode , title : string }` 的格式 | Boolean | false |
+| labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: String, label: ReactNode , title : String }` 的格式 | Boolean | false |
 | loading | 加载状态 | Boolean | false |
 | maxLabelClearPanelHeight | 可删除label模式下面板的最大高度( mode='multiple' & labelClear) | Number\|String ，例如：100，'100px' | '三行高度' |
 | maxCount | 最大多选个数 | Number | - |
 | maxScrollHeight | 列表滚动区高度 | Number | 250 |
 | multipleSelectAllText | 多选模式下全部选中的文案 | String | '全部选中' |
 | mode | 设置 Select 的模式 |  Enum {'multiple' , 'single' } | - |
-| notFoundContent | 当下拉列表为空时显示的内容 | string\|React.Element | '无匹配结果' |
+| notFoundContent | 当下拉列表为空时显示的内容 | String\|React.Element | '无匹配结果' |
 | onChange | 选中 option时，调用此函数 | Function(value) | - |
 | onMouseEnter | 鼠标移入时回调 | Function | - |
 | onMouseLeave | 鼠标移出时回调 | Function | - |
 | onPopupScroll | 下拉列表滚动时的回调 | Function | - |
-| onSearch | 文本框值变化时回调 | Function(value: string) |  |
+| onSearch | 文本框值变化时回调 | Function(value: String) |  |
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | Function(value) | - |
-| onVisibleChange | 弹出框显示隐藏 | Function(visible: boolean) |  |
+| onVisibleChange | 弹出框显示隐藏 | Function(visible: Boolean) |  |
 | placeholder | 选择框默认文字 | String | '请选择' |
 | popupAlign | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'}| 'bottomLeft' |
 | searchInputProps | 搜索框额外属性 | Object | {} |
@@ -678,7 +678,7 @@ render(){
 | showSingleClear | 是否显示清除选择功能（仅在mode='single'生效） | Boolean | false |
 | showSelectAll | 是否显示全选/反选功能（仅在mode='multiple'生效） | Boolean | true |
 | size | 选择框大小，可选 `large` `small` | Enum {'large','small'} | default |
-| value | 指定当前选中的条目 | String\|String[]\|Number\|Number[] | - |
+| value | 指定当前选中的条目 | String\|Array<String>\|Number\|Array<Number> | - |
 | visible | 下拉选择框显示隐藏 | Boolean | - |
 
 > 注意，如果发现下拉菜单跟随页面滚动，或者需要在其他弹层中触发 Select，请尝试使用 getPopupContainer={triggerNode => triggerNode.parentNode} 将下拉弹层渲染节点固定在触发器的父元素中。

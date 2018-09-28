@@ -183,7 +183,7 @@ render(){
 | showSizeChanger | 是否可以改变 pageSize | Boolean | false |
 | showPrevNextJumpers | 是否展示>>双箭头跳转 | Boolean | true |
 | showLessItems | 是否显示更少的Items | Boolean | false |
-| showTotal | 用于显示数据总量和当前数据顺序 | Function(total, range) | - |
+| showTotal | 用于显示数据总量和当前数据顺序 | (total, range) => Void | - |
 | simple | 当添加该属性时，显示为简单分页 | Boolean | - |
 | size | 当为「small」时，是小尺寸分页 | String | "" |
 | total | 数据总数 | Number | 0 |

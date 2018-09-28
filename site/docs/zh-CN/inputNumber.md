@@ -140,10 +140,10 @@ render(){
 | autoFocus | 自动获取焦点 | Boolean | false |
 | defaultValue | 初始值 | Number | - |
 | disabled | 禁用 | Boolean | false |
-| formatter | 指定输入框展示值的格式 | function(value: Number \| String): String | - |
+| formatter | 指定输入框展示值的格式 | (value: Number \| String) => String | - |
 | max | 最大值 | Number | Infinity |
 | min | 最小值 | Number | -Infinity |
-| parser | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | Function( String): Number | - |
+| parser | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | (String) => Number | - |
 | precision | 数值精度 | Number | - |
 | size | 输入框大小 | String | 无 |
 | step | 每次改变步数，可以为小数 | Number\|String | 1 |

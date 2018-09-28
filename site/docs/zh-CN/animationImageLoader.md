@@ -22,6 +22,6 @@ render(){
 ## API
 | 属性      | 说明    | 类型      | 默认值   |
 |---------- |-------- |----------   |-------- |
-| src     | 动画图地址   | string   |    示例图     |
+| src     | 动画图地址   | String   |    示例图     |
 | zoom  | 缩放比例    | number    | 0.5   |
-| extraCls  | 额外的class    | string   | —   |
+| extraCls  | 额外的class    | String   | —   |

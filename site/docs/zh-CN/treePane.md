@@ -236,12 +236,12 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 容器类名 | string | '' |
-| defaultData | 指定默认的条目 | array<{key, text, id, leaf, values}> | - |
-| data | 受控属性，树条目数据 | array<{key, text, id, leaf, values}> | - |
-| loadLeaf | 异步加载数据，返回值应该是一个 promise | function(treeNode) | - |
-| defaultSelected | 指定默认的选中的条目，true-全选，false-全不选 | boolean \| object | - |
-| selected | 受控属性，树选中的条目数据，true-全选，false-全不选 | boolean \| object | - |
-| multiple | 是否多选 | boolean | true |
-| recursive | 勾选后是否递归子树和父树并返回合并后的条目 | boolean | true |
-| onSelect | 被选中时调用 | function(pane, key, value) | () => {} |
+| className | 容器类名 | String | '' |
+| defaultData | 指定默认的条目 | Array<{key, text, id, leaf, values}> | - |
+| data | 受控属性，树条目数据 | Array<{key, text, id, leaf, values}> | - |
+| loadLeaf | 异步加载数据，返回值应该是一个 promise | (treeNode) => Promise | - |
+| defaultSelected | 指定默认的选中的条目，true-全选，false-全不选 | Boolean \| Object | - |
+| selected | 受控属性，树选中的条目数据，true-全选，false-全不选 | Boolean \| Object | - |
+| multiple | 是否多选 | Boolean | true |
+| recursive | 勾选后是否递归子树和父树并返回合并后的条目 | Boolean | true |
+| onSelect | 被选中时调用 | (pane, key, value) => Void | () => {} |
