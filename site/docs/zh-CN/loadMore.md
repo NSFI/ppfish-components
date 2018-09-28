@@ -55,7 +55,7 @@ render(){
 ## API
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| onLoadMore  | 点击加载事件    | Function  |  noop   |
+| onLoadMore  | 点击加载事件    | () => Void  |  noop   |
 | status  | 状态    | Enum {'default','loading','error','end'}  |  'default'   |
 | defaultText  | 正常状态文案    | String   | '查看更多'   |
 | loadingText  | 加载中文案    | String   | '加载中'   |

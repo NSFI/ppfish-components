@@ -2050,7 +2050,7 @@ class Demo extends React.Component {
 | expandedRowKeys | 展开的行，控制属性 | Array<String> | - |
 | expandedRowRender | 额外的展开行 | (record) => ReactNode | - |
 | expandRowByClick | 通过点击行来展开子行 | Boolean | false |
-| footer | 表格尾部 | function(currentPageData) | - |
+| footer | 表格尾部 | (currentPageData) => ReactNode | - |
 | indentSize | 展示树形数据时，每层缩进的宽度，以 px 为单位 | Number | 15 |
 | loading | 页面是否加载中 | Boolean\|[Object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
 | locale | 默认文案设置，目前包括排序、过滤、空数据文案 | Object | filterConfirm: '确定' <br> filterReset: '重置' <br> emptyText: '暂无数据' <br> [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
@@ -2058,7 +2058,7 @@ class Demo extends React.Component {
 | rowClassName | 表格行的类名 | (record, index) => String | - |
 | rowKey | 表格行 key 的取值，可以是字符串或一个函数 | String\|(record) => String | 'key' |
 | rowSelection | 列表项是否可选择 | Object | null |
-| scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | { x: Number \| true, y: Number } | - |
+| scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | Object { x: Number \| true, y: Number } | - |
 | showHeader | 是否显示表头 | Boolean | true |
 | size | 正常或迷你类型，`default` or `small` | Enum {'default' ,'small'} | 'default' |
 | title | 表格标题 | (currentPageData) => String\|ReactNode | - |
@@ -2095,7 +2095,7 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| align | 设置列内容的对齐方式 | Enum{ 'left','right' ,'center'} | 'left' |
+| align | 设置列内容的对齐方式 | Enum { 'left','right' ,'center'} | 'left' |
 | className | 列的 className | String | - |
 | colSpan | 表头列合并,设置为 0 时，不渲染 | Number | - |
 | dataIndex | 列数据在数据项中对应的 key，支持 `a.b.c` 的嵌套写法 | String | - |
@@ -2108,10 +2108,10 @@ class Demo extends React.Component {
 | filters | 表头的筛选菜单项 | Array<Object> | - |
 | fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | Enum{true,'left','right'} | false |
 | key | React 需要的 key，如果已经设置了唯一的 `dataIndex`，可以忽略这个属性 | String | - |
-| render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并 | Function(text, record, index) {} | - |
+| render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并 | (text, record, index) => ReactNode | - |
 | sorter | 排序函数，本地排序使用一个函数(参考 [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的 compareFunction)，需要服务端排序可设为 true | Function\|Boolean | - |
 | sorterType | 排序按钮类型：默认、首字母A-Z排序 | Enum {'default' ,'firstLetter'} | 'default' |
-| sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为  | Enum{'ascend' ,'descend', false} | - |
+| sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为  | Enum {'ascend' ,'descend', false} | - |
 | title | 列头显示文字 | String\|ReactNode | - |
 | width | 列宽度 | String\|Number | - |
 | onCell | 设置单元格属性 | (record) => Object | - |

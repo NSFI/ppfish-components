@@ -649,11 +649,11 @@ render(){
 | errorMessage | 错误提示文案 | String/ReactNode | '超过选项上限' |
 | extraOptions | 额外的列表项 | String/ReactNode | - |
 | filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | Boolean \| (inputValue, option)=> Void | true |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/4j168r7jw0) | Function(triggerNode) | () => document.body |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codesandbox.io/s/4j168r7jw0) | (triggerNode) => HTMLElementNode | () => document.body |
 | labelClear | 多选模式下开启label删除功能 | Boolean | false |
 | labelInValue | 是否把每个选项的 label 包装到 value 中，会把 Select 的 value 类型从 `string` 变为 `{key: String, label: ReactNode , title : String }` 的格式 | Boolean | false |
 | loading | 加载状态 | Boolean | false |
-| maxLabelClearPanelHeight | 可删除label模式下面板的最大高度( mode='multiple' & labelClear) | Number\|String ，例如：100，'100px' | '三行高度' |
+| maxLabelClearPanelHeight | 可删除label模式下面板的最大高度( mode='multiple' & labelClear) | Number\|String | '三行的高度' |
 | maxCount | 最大多选个数 | Number | - |
 | maxScrollHeight | 列表滚动区高度 | Number | 250 |
 | multipleSelectAllText | 多选模式下全部选中的文案 | String | '全部选中' |

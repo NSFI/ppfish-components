@@ -187,5 +187,5 @@ render(){
 | simple | 当添加该属性时，显示为简单分页 | Boolean | - |
 | size | 当为「small」时，是小尺寸分页 | String | "" |
 | total | 数据总数 | Number | 0 |
-| onChange | 页码改变的回调，参数是改变后的页码及每页条数 | Function(page, pageSize) | noop |
-| onShowSizeChange | pageSize 变化的回调 | Function(current, size) | noop |
+| onChange | 页码改变的回调，参数是改变后的页码及每页条数 | (page, pageSize) => Void | noop |
+| onShowSizeChange | pageSize 变化的回调 | (current, size) => Void | noop |
