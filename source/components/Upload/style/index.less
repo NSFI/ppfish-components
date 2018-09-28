@@ -44,6 +44,7 @@
     margin-top: 8px;
     color: @text-9;
     line-height: 12px;
+    clear: both;
   }
 
   &-btn {
@@ -172,6 +173,10 @@
     position: relative;
     border-radius: @border-radius-base;
 
+    &-progress {
+      display: none;
+    }
+
     &-name {
       font-size: 12px;
       overflow: hidden;
@@ -240,8 +245,17 @@
       opacity: 1;
     }
 
-    &-uploading .@{iconfont-prefix}-hints-alone-error {
-      display: none;
+    &-uploading {
+      .@{iconfont-prefix}-hints-alone-error {
+        display: none;
+      }
+
+      .@{upload-item}-progress {
+        display: block;
+        line-height: 0;
+        font-size: @font-size-base;
+        width: 100%;
+      }
     }
 
     &-error,
@@ -253,12 +267,6 @@
     &-error .@{iconfont-prefix}-hints-alone-error {
       opacity: 1;
       color: @error-color !important;
-    }
-
-    &-progress {
-      line-height: 0;
-      font-size: @font-size-base;
-      width: 100%;
     }
   }
 
@@ -287,6 +295,27 @@
 
     .@{upload-item}-uploading {
       border-style: dashed;
+
+      .@{upload-item}-name {
+        line-height: 28px;
+      }
+
+      .@{fishd-prefix}-progress-oper {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-left: 0;
+      }
+
+      .@{upload-item}-progress {
+        display: block;
+        // padding-left: 56px;
+        // margin-top: 0;
+        bottom: 14px;
+        width: ~"calc(100% - 20px)";
+        margin-left: 10px;
+      }
     }
 
     .@{upload-item}-thumbnail {
@@ -331,26 +360,6 @@
       max-width: 100%;
       display: inline-block;
       box-sizing: border-box;
-    }
-
-    .@{upload-item}-uploading .@{upload-item}-name {
-      line-height: 28px;
-    }
-
-    .@{upload-item}-uploading .@{fishd-prefix}-progress-oper {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-left: 0;
-    }
-
-    .@{upload-item}-progress {
-      // padding-left: 56px;
-      // margin-top: 0;
-      bottom: 14px;
-      width: ~"calc(100% - 20px)";
-      margin-left: 10px;
     }
 
     .@{iconfont-prefix}-hints-alone-error {
