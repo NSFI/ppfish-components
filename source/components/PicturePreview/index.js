@@ -147,12 +147,6 @@ class PicturePreview extends Component {
       this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
       this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
     }
-
-    if (dragable) {
-      // 监听拖动事件
-      document.addEventListener('mousemove', this.handleMouseMove);
-      document.addEventListener('mouseup', this.handleMouseUp);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -208,11 +202,6 @@ class PicturePreview extends Component {
   componentWillUnmount() {
     if (this.$root && this.$root.parentNode === document.body) {
       document.body.removeChild(this.$root);
-    }
-
-    if (this.props.dragable) {
-      document.removeEventListener('mousemove', this.handleMouseMove);
-      document.removeEventListener('mouseup', this.handleMouseUp);
     }
   }
 
@@ -565,6 +554,9 @@ class PicturePreview extends Component {
         <div className={maskClass} />
         <div className={ctnerClass} ref={node => this.$el = node} style={container.style}
           onMouseDown={dragable ? this.handleMouseDown : null}
+          onMouseMove={dragable ? this.handleMouseMove : null}
+          onMouseUp={dragable ? this.handleMouseUp : null}
+          onMouseLeave={dragable ? this.handleMouseUp : null}
           onWheel={this.handleWheel} >
           <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
           <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
