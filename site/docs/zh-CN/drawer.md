@@ -503,6 +503,8 @@ render() {
 | maskStyle | 遮罩样式 | Object | - |
 | handler | 是否显示触发按钮或自定义触发按钮样式 | Boolean \| ReactNode | `<div className="drawer-handle"><i className="drawer-handle-icon" /></div>` |
 | level | 随着抽屉移动的元素 | Enum {'all',null,className,id,tagName} | 'all' |
+| duration | 过渡效果需要的时间 | String | '.3s' |  
+| ease | 过渡效果的时间曲线 | String | 'cubic-bezier(0.78, 0.14, 0.15, 0.86)' |
 | onChange | 展开或收起的回调 | (status:Boolean) => Void | - |
 | onMaskClick | 点击遮罩的回调 | (e) => Void | - |
 | onHandleClick | 点击触发按钮的回调 | (e) => Void | - |

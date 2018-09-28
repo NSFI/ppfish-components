@@ -26,6 +26,8 @@ export default class Drawer extends React.Component {
     children: PropTypes.node,
     handler: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
     level: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    ease: PropTypes.string,
+    duration: PropTypes.string,
     onChange: PropTypes.func,
     onMaskClick: PropTypes.func,
     onHandleClick: PropTypes.func,
@@ -75,6 +77,8 @@ export default class Drawer extends React.Component {
       maskStyle,
       handler,
       level,
+      ease,
+      duration,
       closed
     } = this.props;
 
@@ -90,6 +94,8 @@ export default class Drawer extends React.Component {
         getContainer={getContainer}
         showMask={mask}
         level={level}
+        ease={ease}
+        duration={duration}
         maskStyle={maskStyle}
         style={style}
         handler={handler}
