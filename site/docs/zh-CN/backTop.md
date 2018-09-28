@@ -77,9 +77,6 @@ render(){
 :::
 
 <style>
-#components-back-top-demo-custom-2 .fishd-back-top {
-  bottom: 160px;
-}
 #components-back-top-demo-custom .fishd-back-top {
   bottom: 110px;
 }

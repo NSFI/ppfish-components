@@ -203,10 +203,7 @@ export default class Components extends React.Component {
                     }
                   </Col>
                 </Row>
-                <BackTop target={() => document.querySelector('.content').parentNode}>
-                  <img src={'//ysf.nosdn.127.net/wkohrqpcnyecodfhfpduzggtvgbhjxpv'} className="u-backtop"
-                       alt="backTop"/>
-                </BackTop>
+                <BackTop target={() => document.querySelector('.content').parentNode}/>
               </div>
             </Scrollbars>
           </Col>
