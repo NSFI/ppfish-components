@@ -1721,7 +1721,7 @@ const Demo = Form.create()(UnwrappedDemo);
 | form | 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可。 | Object | 无 |
 | hideRequiredMark | 隐藏所有表单项的必选标记 | Boolean | false |
 | layout | 表单布局 | 'horizontal'\|'vertical'\|'inline' | 'horizontal' |
-| onSubmit | 数据验证成功后回调事件 | Function(e:Event) |  |
+| onSubmit | 数据验证成功后回调事件 | (e:Event) => Void |  |
 
 ### Form.create(options)
 
@@ -1738,8 +1738,8 @@ CustomizedForm = Form.create({})(CustomizedForm);
 | 参数 | 说明 | 类型 |
 | --- | --- | --- |
 | mapPropsToFields | 把父组件的属性映射到表单项上（如：把 Redux store 中的值读出），需要对返回值中的表单域数据用 `Form.createFormField` 标记 | (props) => Object{ fieldName: FormField { value } } |
-| validateMessages | 默认校验信息，可用于把默认错误信息改为中文等，格式与 [newMessages](https://github.com/yiminghe/async-validator/blob/master/src/messages.js) 返回值一致 | Object { [nested.path]&#x3A; String } |
-| onFieldsChange | 当 `Form.Item` 子节点的值发生改变时触发，可以把对应的值转存到 Redux store | Function(props, fields) |
+| validateMessages | 默认校验信息，可用于把默认错误信息改为中文等，格式与 [newMessages](https://github.com/yiminghe/async-validator/blob/master/src/messages.js) 返回值一致 | Object { [nested.path]: String } |
+| onFieldsChange | 当 `Form.Item` 子节点的值发生改变时触发，可以把对应的值转存到 Redux store | (props, fields) => Void |
 | onValuesChange | 任一表单域的值发生改变时的回调 | (props, changedValues, allValues) => void |
 
 经过 `Form.create` 之后如果要拿到 `ref`，可以使用 `wrappedComponentRef` 。
@@ -1762,17 +1762,17 @@ this.form // => The instance of CustomizedForm
 | 方法      | 说明                                     | 类型       |
 | ------- | -------------------------------------- | -------- |
 | getFieldDecorator | 用于和表单进行双向绑定，详见下方描述 |  |
-| getFieldError | 获取某个输入控件的 Error | Function(name) |
-| getFieldsError | 获取一组输入控件的 Error ，如不传入参数，则获取全部组件的 Error | Function(\[names: String\[]]) |
-| getFieldsValue | 获取一组输入控件的值，如不传入参数，则获取全部组件的值 | Function(\[fieldNames: String\[]]) |
-| getFieldValue | 获取一个输入控件的值 | Function(fieldName: String) |
+| getFieldError | 获取某个输入控件的 Error | (name) => Void |
+| getFieldsError | 获取一组输入控件的 Error ，如不传入参数，则获取全部组件的 Error | (\[names: String\[]]) => Void |
+| getFieldsValue | 获取一组输入控件的值，如不传入参数，则获取全部组件的值 | (\[fieldNames: String\[]]) => Void |
+| getFieldValue | 获取一个输入控件的值 | (fieldName: String) => Void |
 | isFieldsTouched | 判断是否任一输入控件经历过 `getFieldDecorator` 的值收集时机 `options.trigger` | (names?: String\[]) => Boolean |
 | isFieldTouched | 判断一个输入控件是否经历过 `getFieldDecorator` 的值收集时机 `options.trigger` | (name: String) => Boolean |
-| isFieldValidating | 判断一个输入控件是否在校验状态 | Function(name) |
-| resetFields | 重置一组输入控件的值（为 `initialValue`）与状态，如不传入参数，则重置所有组件 | Function(\[names: String\[]]) |
-| setFields | 设置一组输入控件的值与 Error。 | Function({ [fieldName]&#x3A; { value: any, errors: [Error] } }) |
-| setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/ant-design/ant-design/issues/2985)） | Function({ [fieldName]&#x3A; value } |
-| validateFields | 校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件 | Function(\[fieldNames: String\[]], [options: Object], callback: Function(errors, values)) |
+| isFieldValidating | 判断一个输入控件是否在校验状态 | (name) => Void |
+| resetFields | 重置一组输入控件的值（为 `initialValue`）与状态，如不传入参数，则重置所有组件 | (\[names: String\[]]) => Void |
+| setFields | 设置一组输入控件的值与 Error。 | ({ [fieldName]: { value: any, errors: [Error] } }) |
+| setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/ant-design/ant-design/issues/2985)） | ({ [fieldName]: value }) => Void |
+| validateFields | 校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件 | (\[fieldNames: String\[]], [options: Object], callback: (errors, values) => Void) => Void |
 | validateFieldsAndScroll | 与 `validateFields` 相似，但校验完后，如果校验不通过的菜单域不在可见范围内，则自动滚动进可见范围 | 参考 `validateFields` |
 
 #### `this.props.form.validateFields/validateFieldsAndScroll(fieldNames, options, callback)` 的参数`options`的配置项
