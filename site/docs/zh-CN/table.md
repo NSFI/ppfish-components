@@ -2048,25 +2048,25 @@ class Demo extends React.Component {
 | defaultExpandAllRows | 初始时，是否展开所有行 | Boolean | false |
 | defaultExpandedRowKeys | 默认展开的行 | String\[] | - |
 | expandedRowKeys | 展开的行，控制属性 | String\[] | - |
-| expandedRowRender | 额外的展开行 | function(record):ReactNode | - |
+| expandedRowRender | 额外的展开行 | (record) => ReactNode | - |
 | expandRowByClick | 通过点击行来展开子行 | Boolean | false |
 | footer | 表格尾部 | function(currentPageData) | - |
 | indentSize | 展示树形数据时，每层缩进的宽度，以 px 为单位 | Number | 15 |
 | loading | 页面是否加载中 | Boolean\|[Object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
 | locale | 默认文案设置，目前包括排序、过滤、空数据文案 | Object | filterConfirm: '确定' <br> filterReset: '重置' <br> emptyText: '暂无数据' <br> [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
 | pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | Object | - |
-| rowClassName | 表格行的类名 | function(record, index): String | - |
-| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | String\|function(record):String | 'key' |
+| rowClassName | 表格行的类名 | (record, index) => String | - |
+| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | String\|(record) => String | 'key' |
 | rowSelection | 列表项是否可选择 | Object | null |
 | scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | { x: Number \| true, y: Number } | - |
 | showHeader | 是否显示表头 | Boolean | true |
 | size | 正常或迷你类型，`default` or `small` | Enum {'default' ,'small'} | 'default' |
-| title | 表格标题 | function(currentPageData) | - |
-| onChange | 分页、排序、筛选变化时触发 | function(pagination, filters, sorter) | - |
-| onExpand | 点击展开图标时触发 | function(expanded, record) | - |
-| onExpandedRowsChange | 展开的行变化时触发 | function(expandedRows) | - |
-| onHeaderRow | 设置头部行属性 | function(column, index) | - |
-| onRow | 设置行属性 | function(record, index) | - |
+| title | 表格标题 | (currentPageData) => String\|ReactNode | - |
+| onChange | 分页、排序、筛选变化时触发 | (pagination, filters, sorter) => Void | - |
+| onExpand | 点击展开图标时触发 | (expanded, record) => Void | - |
+| onExpandedRowsChange | 展开的行变化时触发 | (expandedRows) => Void | - |
+| onHeaderRow | 设置头部行属性,参考onRow | (column, index) => Object| - |
+| onRow | 设置行属性 | (record, index) => Object | - |
 
 #### onRow 用法
 
@@ -2114,10 +2114,10 @@ class Demo extends React.Component {
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为  | Enum{'ascend' ,'descend', false} | - |
 | title | 列头显示文字 | String\|ReactNode | - |
 | width | 列宽度 | String\|Number | - |
-| onCell | 设置单元格属性 | Function(record) | - |
-| onFilter | 本地模式下，确定筛选的运行函数 | Function | - |
-| onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用 | Function(visible) {} | - |
-| onHeaderCell | 设置头部单元格属性 | Function(column) | - |
+| onCell | 设置单元格属性 | (record) => Object | - |
+| onFilter | 本地模式下，确定筛选的运行函数 | () => Boolean | - |
+| onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用 | (visible) => Void | - |
+| onHeaderCell | 设置头部单元格属性 | (column) => Object | - |
 
 ### ColumnGroup
 
@@ -2144,15 +2144,15 @@ class Demo extends React.Component {
 | columnWidth | 自定义列表选择框宽度 | String\|Number | - |
 | columnTitle | 自定义列表选择框标题	 | String\|React.ReactNode | - |
 | fixed | 把选择框列固定在左边 | Boolean | - |
-| getCheckboxProps | 选择框的默认属性配置 | Function(record) | - |
+| getCheckboxProps | 选择框的默认属性配置 | (record) => Object | - |
 | hideDefaultSelections | 去掉『全选』『反选』两个默认选项 | Boolean | false |
 | selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | String\[] | \[] |
 | selections | 自定义选择项 设为 `true` 时使用默认选择项 | Object\[]\|Boolean | true |
 | type | 多选/单选，`checkbox` or `radio` | String | 'checkbox' |
-| onChange | 选中项发生变化的时的回调 | Function(selectedRowKeys, selectedRows) | - |
-| onSelect | 用户手动选择/取消选择某列的回调 | Function(record, selected, selectedRows, nativeEvent) | - |
-| onSelectAll | 用户手动选择/取消选择所有列的回调 | Function(selected, selectedRows, changeRows) | - |
-| onSelectInvert | 用户手动选择反选的回调 | Function(selectedRows) | - |
+| onChange | 选中项发生变化的时的回调 | (selectedRowKeys, selectedRows) => Void | - |
+| onSelect | 用户手动选择/取消选择某列的回调 | (record, selected, selectedRows, nativeEvent) => Void | - |
+| onSelectAll | 用户手动选择/取消选择所有列的回调 | (selected, selectedRows, changeRows) => Void | - |
+| onSelectInvert | 用户手动选择反选的回调 | (selectedRows) => Void | - |
 
 ### selection
 
@@ -2160,7 +2160,7 @@ class Demo extends React.Component {
 | --- | --- | --- | --- |
 | key | React 需要的 key，建议设置 | String | - |
 | text | 选择项显示的文字 | String\|React.ReactNode | - |
-| onSelect | 选择项点击回调 | Function(changeableRowKeys) | - |
+| onSelect | 选择项点击回调 | (changeableRowKeys) => Void | - |
 
 
 ### columnFiltrate

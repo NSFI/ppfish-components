@@ -116,7 +116,7 @@ render(){
 
 | 参数                 |说明                                                 | 类型                                                                      | 默认值                                               |
 |:---------------------|:------------------------------------------------------------|:--------------------------------------------------------------------------|:------------------------------------------------------|
-| children             | additional trigger appended to picker                       |Node                                                                      | `<span className='react-colorpicker-trigger'></span>` |
+| children             | additional trigger appended to picker                       | ReactNode                                                                      | `<span className='react-colorpicker-trigger'></span>` |
 | className            | 额外的className                    |String                                                                    | -                                                  | 
 | alpha                | 颜色opacity值                                       |Number                                                                    | 100                                                 | 
 | color                | 取色板当前的颜色值                        |String                                                                    | '#ff0000'                                            | 
@@ -124,10 +124,10 @@ render(){
 | defaultColor         | 默认的的颜色值                        |String                                                                    | '#ff0000'                                             | 
 | enableAlpha          | 是否开启opacity                                      |Boolean                                                                   | true                                                |
 | enableHistory        | 开启历史记录                                     |Boolean                                                                    |     false                                                  | 
-| onChange             | 颜色更改                                           |Function                                                                  | noop                                                  | 
-| onClose              | 弹出框关闭                               |Function                                                                  | noop                                                  | 
-| onOpen               | 弹出框打开                                |Function                                                                  | noop                                                  |
-| getPopupContainer    | container                   |Function():Element                                                        | () => document.body                   | 
+| onChange             | 颜色更改                                           |（state）=> Void                                                                  | noop                                                  | 
+| onClose              | 弹出框关闭                               | (state）=> Void                                                                  | noop                                                  | 
+| onOpen               | 弹出框打开                                | (state）=> Void                                                                   | noop                                                  |
+| getPopupContainer    | container                   |() => HTMLElementNode                                                        | () => document.body                   | 
 
 ### ColorPicker.Panel
 
@@ -139,6 +139,6 @@ render(){
 | defaultAlpha | 默认的opacity值                           | Number   | 100     |
 | defaultColor | 默认的的颜色值           | String   | '#ff0000' |
 | enableAlpha  | 是否开启opacity                         | Boolean  | true    | 
-| onBlur       | 失焦事件                        | Function |      noop     |
-| onChange     | 颜色值改变事件                      | Function |     noop      |
-| onFocus      | 聚焦事件                      | Function |      noop     |
+| onBlur       | 失焦事件                        | (）=> Void  |      noop     |
+| onChange     | 颜色值改变事件                      | (color,alpha）=> Void  |     noop      |
+| onFocus      | 聚焦事件                      | (）=> Void  |      noop     |
