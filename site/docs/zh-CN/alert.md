@@ -167,20 +167,67 @@ render(){
 :::demo 页面顶部通告形式，默认有图标且`type` 为 'warning'。
 
 ```js
-render(){
+drawerAlertDemo() {
+  return (
+    <div>
+      <Alert message="Warning text" banner />
+      <br />
+      <Alert message="Very long warning text warning text text text text text text text" banner closable />
+      <br />
+      <Alert showIcon={false} message="Warning text without icon" banner />
+      <br />
+      <Alert type="error" message="Error text" banner />
+    </div>
+  )
+}
+render() {
+  //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerAlertDemo
   return(
-  <div>
-    <Alert message="Warning text" banner />
-    <br />
-    <Alert message="Very long warning text warning text text text text text text text" banner closable />
-    <br />
-    <Alert showIcon={false} message="Warning text without icon" banner />
-    <br />
-    <Alert type="error" message="Error text" banner />
-  </div>)
-  }
+    <div className="browser-mockup">
+      <iframe src="./demo/drawerAlertDemo.html" height={450}></iframe>
+    </div>
+  )
+}
 ```
 :::
+
+<style>
+.browser-mockup {
+    border-top: 2em solid rgba(230, 230, 230, 0.7);
+    -webkit-box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    position: relative;
+    border-radius: 3px 3px 0 0;
+}
+.browser-mockup:before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.25em;
+    left: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background-color: #f44;
+    -webkit-box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+    box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+}
+.browser-mockup:after {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.6em;
+    left: 5.5em;
+    width: calc(100% - 6em);
+    height: 1.2em;
+    border-radius: 2px;
+    background-color: white;
+}
+.browser-mockup iframe {
+    width: 100%;
+    border: 0;
+}
+</style>
 
 ## 平滑地卸载
 

@@ -538,7 +538,7 @@ render(){
 | confirmLoading | 确定按钮 loading | Boolean | - |
 | destroyOnClose | 关闭时销毁 Modal 里的子元素 | Boolean | false |
 | footer | 底部内容，当不需要默认底部按钮时，可以设为 `footer={null}` | String\|ReactNode | 确定取消按钮 |
-| getContainer | 指定 Modal 挂载的 HTML 节点 | (instance): HTMLElement | () => document.body |
+| getContainer | 指定 Modal 挂载的 HTML 节点 | (instance) => HTMLElement | () => document.body |
 | keyboard | 是否支持键盘esc关闭 | Boolean | true |
 | mask | 是否展示遮罩 | Boolean | true |
 | maskClosable | 点击蒙层是否允许关闭 | Boolean | true |
