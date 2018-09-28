@@ -203,11 +203,11 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| afterClose | 关闭动画完成后的回调 | () => any | - |
+| afterClose | 关闭动画完成后的回调 | () => Void | - |
 | className | 容器类名 | String | - |
 | closable | 标签是否可以关闭 | Boolean | false |
 | color | 标签色 | String | - |
-| onClose | 关闭时的回调 | (e) => any | - |
+| onClose | 关闭时的回调 | (e) => Void | - |
 | visible | 是否显示标签 | Boolean | true |
 
 ### Tag.CheckableTag
@@ -215,4 +215,4 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | checked | 设置标签的选中状态 | Boolean | false |
-| onChange | 点击标签时触发的回调 | (checked) => any | - |
+| onChange | 点击标签时触发的回调 | (checked) => Void | - |

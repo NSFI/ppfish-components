@@ -624,7 +624,7 @@
 | editable | 选中的条目是否可编辑，多选时有效 | Boolean | true |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
-| loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => any | - |
+| loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
@@ -641,12 +641,12 @@
 | isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
 | value | 指定当前选中的条目 | String \| Array<String> | - |
-| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => any | - |
-| onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => any | - |
-| onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => any | - |
-| onReset | 点击复位选项时调用，单选时有效 | () => any | - |
-| onSearch | 搜索框值变化时调用 | (value: String) => any | - |
-| onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => any | - |
+| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
+| onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => Void | - |
+| onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
+| onReset | 点击复位选项时调用，单选时有效 | () => Void | - |
+| onSearch | 搜索框值变化时调用 | (value: String) => Void | - |
+| onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => Void | - |
 
 ### Tree 方法
 

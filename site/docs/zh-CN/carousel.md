@@ -91,9 +91,9 @@ render() {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| afterChange | 切换面板的回调 | (current) => any | - |
+| afterChange | 切换面板的回调 | (current) => Void | - |
 | autoplay | 是否自动切换 | Boolean | false |
-| beforeChange | 切换面板的回调 | (from, to) => any | - |
+| beforeChange | 切换面板的回调 | (from, to) => Void | - |
 | className | 容器类名 | String | - |
 | dots | 是否显示面板指示点 | Boolean | true |
 | easing | 动画效果 | String | 'linear' |

@@ -347,11 +347,11 @@
 | optionLabelProp | 回填到选择框的 Option 的属性值，默认是 Option 的子元素。比如在子元素需要高亮效果时，此值可以设为 `value` | String | `children` |
 | placeholder | 输入框提示 | String | - |
 | value | 指定当前选中的条目 | String \| Array<String> \| { key: String, label: String \| ReactNode } \| Array<{ key: String, label: String \| ReactNode }> | - |
-| onBlur | 失去焦点时的回调 | () => any | - |
-| onChange | 选中 option，或 input 的 value 变化时，调用此函数 | (value) => any | - |
-| onFocus | 获得焦点时的回调 | () => any | - |
-| onSearch | 搜索补全项的时候调用 | (value) => any | - |
-| onSelect | 被选中时调用，参数为选中项的 value 值 | (value, option) => any | - |
+| onBlur | 失去焦点时的回调 | () => Void | - |
+| onChange | 选中 option，或 input 的 value 变化时，调用此函数 | (value) => Void | - |
+| onFocus | 获得焦点时的回调 | () => Void | - |
+| onSearch | 搜索补全项的时候调用 | (value) => Void | - |
+| onSelect | 被选中时调用，参数为选中项的 value 值 | (value, option) => Void | - |
 
 ## 方法
 

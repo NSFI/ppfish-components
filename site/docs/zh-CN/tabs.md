@@ -400,11 +400,11 @@ render(){
 | tabBarStyle | tab bar 的样式对象 | Object | - |
 | tabPosition | 页签位置 | Enum {'top', 'right', 'bottom', 'left'} | 'top' |
 | type | 页签的基本样式 | Enum {'line', 'card', 'editable-card', 'section', 'borderless-section'} | 'line' |
-| onChange | 切换面板的回调 | (activeKey) => any | - |
-| onEdit | 新增和删除页签的回调，在 `type="editable-card"` 时有效 | (targetKey, action) => any | - |
-| onNextClick | next 按钮被点击的回调 | () => any | - |
-| onPrevClick | prev 按钮被点击的回调 | () => any | - |
-| onTabClick | tab 被点击的回调 | () => any | - |
+| onChange | 切换面板的回调 | (activeKey) => Void | - |
+| onEdit | 新增和删除页签的回调，在 `type="editable-card"` 时有效 | (targetKey, action) => Void | - |
+| onNextClick | next 按钮被点击的回调 | () => Void | - |
+| onPrevClick | prev 按钮被点击的回调 | () => Void | - |
+| onTabClick | tab 被点击的回调 | () => Void | - |
 
 ### Tabs.TabPane
 

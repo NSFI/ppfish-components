@@ -288,7 +288,7 @@ render() {
 | --- | --- | --- | --- |
 | className | 容器类名 | String | - |
 | extraContent | 进度条末端额外的元素，`type="line"` 时有效 | ReactNode | - |
-| format | 内容的模板函数 | (percent, successPercent) => any | `percent => percent + '%'` |
+| format | 内容的模板函数 | (percent, successPercent) => Void | `percent => percent + '%'` |
 | gapDegree | 进度圈缺口角度，可取值 0 ~ 360，`type="circle"` 时有效 | Number | 0 |
 | gapPosition | 进度圈缺口位置，`type="circle"` 时有效 | Enum { 'top', 'bottom', 'left', 'right' } | 'top' |
 | message | 进度条的辅助信息 | String | - |

@@ -308,10 +308,10 @@ render(){
 | subMenuCloseDelay | 用户鼠标离开子菜单后关闭延时，单位：秒 | Number | 0.1 |
 | subMenuOpenDelay | 用户鼠标进入子菜单后开启延时，单位：秒 | Number | 0 |
 | theme | 主题颜色 | Enum {'light', 'dark'} | 'light' |
-| onClick | 点击 MenuItem 调用此函数 | ({ item, key, keyPath }) => any | - |
-| onDeselect | 取消选中时调用，仅在 multiple 生效 | ({ item, key, selectedKeys }) => any | - |
-| onOpenChange | SubMenu 展开/关闭的回调 | (openKeys: Array<String>) => any | - |
-| onSelect | 被选中时调用 | ({ item, key, selectedKeys }) => any | - |
+| onClick | 点击 MenuItem 调用此函数 | ({ item, key, keyPath }) => Void | - |
+| onDeselect | 取消选中时调用，仅在 multiple 生效 | ({ item, key, selectedKeys }) => Void | - |
+| onOpenChange | SubMenu 展开/关闭的回调 | (openKeys: Array<String>) => Void | - |
+| onSelect | 被选中时调用 | ({ item, key, selectedKeys }) => Void | - |
 
 > More options in [rc-menu](https://github.com/react-component/menu#api)
 
@@ -330,7 +330,7 @@ render(){
 | disabled | 是否禁用 | Boolean | false |
 | key | 唯一标志 | String | - |
 | title | 子菜单项值 | String \| ReactNode | - |
-| onTitleClick | 点击子菜单标题 | ({ key, domEvent }) => any | - |
+| onTitleClick | 点击子菜单标题 | ({ key, domEvent }) => Void | - |
 
 ### Menu.ItemGroup
 

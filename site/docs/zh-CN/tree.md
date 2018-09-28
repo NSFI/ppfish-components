@@ -589,24 +589,24 @@
 | disabled | 将树禁用 | Boolean | false |
 | draggable | 设置节点可拖拽（IE8+） | Boolean | false |
 | expandedKeys | （受控）展开指定的树节点 | Array<String> | [] |
-| filterTreeNode | 按需筛选树节点（高亮），返回true | (node) => any | - |
-| loadData | 异步加载数据 | (node) => any | - |
+| filterTreeNode | 按需筛选树节点（高亮），返回true | (node) => Boolean | - |
+| loadData | 异步加载数据 | (node) => Void | - |
 | loadedKeys | （受控）已经加载的节点，需要配合 `loadData` 使用 | Array<String> | [] |
 | multiple | 支持点选多个节点（节点本身） | Boolean | false |
 | selectedKeys | （受控）设置选中的树节点 | Array<String> | - |
 | showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
 | showLine | 是否展示连接线 | Boolean | false |
-| onCheck | 点击复选框触发 | (checkedKeys, e:{checked: Boolean, checkedNodes, node, event}) => any | - |
-| onDragEnd | dragend 触发时调用 | ({event, node}) => any | - |
-| onDragEnter | dragenter 触发时调用 | ({event, node, expandedKeys}) => any | - |
-| onDragLeave | dragleave 触发时调用 | ({event, node}) => any | - |
-| onDragOver | dragover 触发时调用 | ({event, node}) => any | - |
-| onDragStart | 开始拖拽时调用 | ({event, node}) => any | - |
-| onDrop | drop 触发时调用 | ({event, node, dragNode, dragNodesKeys}) => any | - |
-| onExpand | 展开/收起节点时触发 | (expandedKeys, {expanded: Boolean, node}) => any | - |
-| onLoad | 节点加载完毕时触发 | (loadedKeys, {event, node}) => any | - |
-| onRightClick | 响应右键点击 | ({event, node}) => any | - |
-| onSelect | 点击树节点触发 | (selectedKeys, e:{selected: Boolean, selectedNodes, node, event}) => any | - |
+| onCheck | 点击复选框触发 | (checkedKeys, e:{checked: Boolean, checkedNodes, node, event}) => Void | - |
+| onDragEnd | dragend 触发时调用 | ({event, node}) => Void | - |
+| onDragEnter | dragenter 触发时调用 | ({event, node, expandedKeys}) => Void | - |
+| onDragLeave | dragleave 触发时调用 | ({event, node}) => Void | - |
+| onDragOver | dragover 触发时调用 | ({event, node}) => Void | - |
+| onDragStart | 开始拖拽时调用 | ({event, node}) => Void | - |
+| onDrop | drop 触发时调用 | ({event, node, dragNode, dragNodesKeys}) => Void | - |
+| onExpand | 展开/收起节点时触发 | (expandedKeys, {expanded: Boolean, node}) => Void | - |
+| onLoad | 节点加载完毕时触发 | (loadedKeys, {event, node}) => Void | - |
+| onRightClick | 响应右键点击 | ({event, node}) => Void | - |
+| onSelect | 点击树节点触发 | (selectedKeys, e:{selected: Boolean, selectedNodes, node, event}) => Void | - |
 
 ### TreeNode props
 

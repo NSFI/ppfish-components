@@ -535,7 +535,7 @@ render(){
 | action | 必选参数, 上传的地址 | String | - |
 | beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 `false` 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传。**注意：IE9 不支持该方法**。 | (file, fileList) => `Boolean \| Promise` | - |
 | className | 容器类名 | String | - |
-| customRequest | 通过覆盖默认的上传行为，可以自定义自己的上传实现 | () => any | - |
+| customRequest | 通过覆盖默认的上传行为，可以自定义自己的上传实现 | () => Void | - |
 | data | 上传所需参数或返回上传参数的方法 | Object \| (file) => Object | - |
 | defaultFileList | 默认已经上传的文件列表 | Object[] | - |
 | disabled | 是否禁用 | Boolean | false |
@@ -550,10 +550,10 @@ render(){
 | supportServerRender | 服务端渲染时需要打开这个 | Boolean | false |
 | tips | 上传提示 | String | - |
 | withCredentials | 上传请求时是否携带 cookie | Boolean | false |
-| onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | () => any | - |
-| onPreview | 点击文件链接或预览图标时的回调 | (file) => any | - |
+| onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | () => Void | - |
+| onPreview | 点击文件链接或预览图标时的回调 | (file) => Void | - |
 | onRemove | 点击移除文件时的回调，返回值为 false 时不移除。支持返回一个 Promise 对象，Promise 对象 resolve(false) 或 reject 时不移除。 | (file) => `Boolean \| Promise` | - |
-| onDeleteAll | 点击全部删除时的回调 | () => any | - |
+| onDeleteAll | 点击全部删除时的回调 | () => Void | - |
 
 ### onChange
 
