@@ -62,7 +62,9 @@ class CollapsePanel extends Component {
   handleItemClose(e) {
     e.stopPropagation();
     const { onCloseItem } = this.props;
-    onCloseItem();
+    if (!disabled) {
+      onCloseItem();
+    }
   }
 
   getHeader = (status) => {
