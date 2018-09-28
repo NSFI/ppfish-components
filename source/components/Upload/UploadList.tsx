@@ -213,7 +213,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
         </div>
       );
     });
-    const showScrollbar = listType==='text' && list.length>=maxFileCount;
+    const showScrollbar = listType==='text' && list.length>maxFileCount;
     const listClassNames = classNames({
       [`${prefixCls}-list`]: true,
       [`${prefixCls}-list-${listType}`]: true,

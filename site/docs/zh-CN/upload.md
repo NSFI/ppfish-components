@@ -88,6 +88,7 @@ render() {
           action="//jsonplaceholder.typicode.com/posts/"
           listType="picture-card"
           fileList={fileList}
+          tips="这里是上传提示"
           onPreview={this.handlePreview}
           onChange={this.handleChange}
         >
@@ -127,23 +128,23 @@ render() {
 
 render(){
   const Dragger = Upload.Dragger;
-    const props = {
-      name: 'file',
-      multiple: true,
-      tips: '这里是上传提示',
-      action: '//jsonplaceholder.typicode.com/posts/',
-      onChange(info) {
-        const status = info.file.status;
-        if (status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      },
-    };
+  const props = {
+    name: 'file',
+    multiple: true,
+    tips: '这里是上传提示',
+    action: '//jsonplaceholder.typicode.com/posts/',
+    onChange(info) {
+      const status = info.file.status;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
   return (
     <Dragger {...props}>
       <p className="fishd-upload-drag-icon">
@@ -166,6 +167,7 @@ render(){
 render() {
   const props = {
     action: '//jsonplaceholder.typicode.com/posts/',
+    tips: '这里是上传提示',
     onChange({ file, fileList }) {
       if (file.status !== 'uploading') {
         console.log(file, fileList);
@@ -274,6 +276,7 @@ render() {
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
+        tips="这里是上传提示"
         action="//jsonplaceholder.typicode.com/posts/"
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
@@ -343,6 +346,7 @@ render() {
   render() {
     const props = {
       action: '//jsonplaceholder.typicode.com/posts/',
+      tips: '这里是上传提示',
       onChange: this.handleChange,
       multiple: true,
     };
@@ -382,11 +386,13 @@ render(){
     action: '//jsonplaceholder.typicode.com/posts/',
     listType: 'picture',
     defaultFileList: [...fileList],
+    tips: '这里是上传提示',
   };
 
   const props2 = {
     action: '//jsonplaceholder.typicode.com/posts/',
     listType: 'picture',
+    tips: '这里是上传提示',
     defaultFileList: [...fileList],
     className: 'upload-list-inline',
   };
@@ -469,6 +475,7 @@ render(){
     const { uploading } = this.state;
     const props = {
       action: '//jsonplaceholder.typicode.com/posts/',
+      tips: '这里是上传提示',
       onRemove: (file) => {
         this.setState(({ fileList }) => {
           const index = fileList.indexOf(file);

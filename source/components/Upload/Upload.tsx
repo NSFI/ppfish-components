@@ -278,6 +278,12 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       previewFile: '预览文件',
     }) : null;
 
+    const uploadTips = tips ? (
+      <div className={`${prefixCls}-tips`}>
+        {tips}
+      </div>
+    ) : null;
+
     if (type === 'drag') {
       const dragCls = classNames(prefixCls, {
         [`${prefixCls}-drag`]: true,
@@ -299,6 +305,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
               </div>
             </RcUpload>
           </div>
+          {uploadTips}
           {uploadList}
         </span>
       );
@@ -315,12 +322,6 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
         <RcUpload {...rcUploadProps} ref={this.saveUpload} />
       </div>
     );
-
-    const uploadTips = tips ? (
-      <div className={`${prefixCls}-tips`}>
-        {tips}
-      </div>
-    ) : null;
 
     if (listType === 'picture-card') {
       return (
