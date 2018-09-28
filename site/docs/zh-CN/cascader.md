@@ -523,7 +523,7 @@ render(){
 | autoFocus | 自动获取焦点 | Boolean | false |
 | changeOnSelect | 当此项为 true 时，点选每级菜单选项值都会发生变化，具体见上面的演示 | Boolean | false |
 | className | 自定义类名 | String | - |
-| defaultValue | 默认的选中项 | String\[] | \[] |
+| defaultValue | 默认的选中项 | Array<String> | \[] |
 | disabled | 禁用 | Boolean | false |
 | displayRender | 选择后展示的渲染函数 | (label, selectedOptions) => ReactNode | label => label.join(' / ') |
 | expandTrigger | 次级菜单的展开方式，可选 'click' 和 'hover' | String | 'click' |
@@ -539,7 +539,7 @@ render(){
 | showSearch | 在选择框中显示搜索框 | Boolean | false |
 | size | 输入框大小 | Enum {'large' 'default' 'small'} | 'default' |
 | style | 自定义样式 | String | - |
-| value | 指定选中项 | String\[] | - |
+| value | 指定选中项 | Array<String> | - |
 | onChange | 选择完成后的回调 | (value, selectedOptions) => void | - |
 | onPopupVisibleChange | 显示/隐藏浮层的回调 | (value) => void | - |
 

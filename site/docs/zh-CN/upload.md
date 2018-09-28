@@ -537,9 +537,9 @@ render(){
 | className | 容器类名 | String | - |
 | customRequest | 通过覆盖默认的上传行为，可以自定义自己的上传实现 | () => Void | - |
 | data | 上传所需参数或返回上传参数的方法 | Object \| (file) => Object | - |
-| defaultFileList | 默认已经上传的文件列表 | Object[] | - |
+| defaultFileList | 默认已经上传的文件列表 | Array<{uid, name, status, response}>[] | - |
 | disabled | 是否禁用 | Boolean | false |
-| fileList | 已经上传的文件列表（受控） | Object[] | - |
+| fileList | 已经上传的文件列表（受控） | Array<{uid, name, status, response}> | - |
 | headers | 设置上传的请求头部，IE10 以上有效 | Object | - |
 | listType | 上传列表的内建样式 | Enum {'text', 'picture', 'picture-card'} | 'text' |
 | maxFileCount | 文件列表可展示的最大文件数，超出该数值后将展示滚动条，当 listType 为 `text` 时有效 | Number | 5 |

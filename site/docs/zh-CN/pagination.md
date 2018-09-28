@@ -178,7 +178,7 @@ render(){
 | hideOnSinglePage | 只有一页时是否隐藏分页器 | Boolean | false |
 | itemRender | 用于自定义页码的结构，可用于优化 SEO | (page, type: 'page' \| 'prev' \| 'next', originalElement) => React.ReactNode | - |
 | pageSize | 每页条数 | Number | - |
-| pageSizeOptions | 指定每页可以显示多少条 | String\[] | ['10', '20', '30', '40'] |
+| pageSizeOptions | 指定每页可以显示多少条 | Array<String> | ['10', '20', '30', '40'] |
 | showQuickJumper | 是否可以快速跳转至某页 | Boolean | false |
 | showSizeChanger | 是否可以改变 pageSize | Boolean | false |
 | showPrevNextJumpers | 是否展示>>双箭头跳转 | Boolean | true |

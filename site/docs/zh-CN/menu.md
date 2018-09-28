@@ -336,7 +336,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| children | 分组的菜单项 | MenuItem[] | - |
+| children | 分组的菜单项 | Array<MenuItem> | - |
 | title | 分组标题 | String \| ReactNode | - |
 
 ### Menu.Divider

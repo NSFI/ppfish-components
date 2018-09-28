@@ -374,19 +374,19 @@ p {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| activeKey | 当前激活 tab 面板的 key | String\[]\|String | 默认无，accordion模式下默认第一个元素 |
+| activeKey | 当前激活 tab 面板的 key | Array<String>\|String | 默认无，accordion模式下默认第一个元素 |
 | defaultActiveKey | 初始化选中面板的 key | String | 无 |
 | showClose | 是否开启删除功能；开启后，需传入 statusList 属性| Boolean | true |
 | bordered | 是否显示边框 | Boolean | true |
 | statusList | 面板是否显示的状态数组 | Array | [true, true, ...] |
 | onChange | 切换面板的回调 | Function | 无 |
 | isScrollToHeader | 激活后将激活的面板置顶 | Function | 无 |
-| close | 删除面板的回调 | (statusList) => Void | 无 |
+| close | 删除面板的回调 | (statusList: Array) => Void | 无 |
 
 ### Collapse.Panel
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | Boolean | false |
-| header | 面板头内容 | String\|() => ReactNode | 无 |
+| header | 面板头内容 | String\|() => ReactNode\|HTMLElementNode | 无 |
 | key | 对应 activeKey | String | 无 |

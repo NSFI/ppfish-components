@@ -2040,14 +2040,14 @@ class Demo extends React.Component {
 | --- | --- | --- | --- |
 | activeRowByClick | 点击后激活Row的激活态样式 | Boolean | false |
 | bordered | 是否展示外边框和列边框 | Boolean | false |
-| childrenColumnName | 指定树形结构的列名 | String\[] | children |
+| childrenColumnName | 指定树形结构的列名 | Array<String> | children |
 | columns | 表格列的配置描述，具体项见下表 | [ColumnProps](https://git.io/vMMXC)\[] | - |
 | columnFiltrate | 列表筛选显示功能 | Object\| Boolean | false |
 | components | 覆盖默认的 table 元素 | Object | - |
-| dataSource | 数据数组 | any\[] | - |
+| dataSource | 数据数组 | Array<Object> | - |
 | defaultExpandAllRows | 初始时，是否展开所有行 | Boolean | false |
-| defaultExpandedRowKeys | 默认展开的行 | String\[] | - |
-| expandedRowKeys | 展开的行，控制属性 | String\[] | - |
+| defaultExpandedRowKeys | 默认展开的行 | Array<String> | - |
+| expandedRowKeys | 展开的行，控制属性 | Array<String> | - |
 | expandedRowRender | 额外的展开行 | (record) => ReactNode | - |
 | expandRowByClick | 通过点击行来展开子行 | Boolean | false |
 | footer | 表格尾部 | function(currentPageData) | - |
@@ -2102,10 +2102,10 @@ class Demo extends React.Component {
 | filterDropdown | 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互 | ReactNode | - |
 | filterDropdownVisible | 用于控制自定义筛选菜单是否可见 | Boolean | - |
 | filtered | 标识数据是否经过过滤，筛选图标会高亮 | bBoolean | false |
-| filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | String\[] | - |
+| filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | Array<String> | - |
 | filterIcon | 自定义 fiter 图标。 | ReactNode | false |
 | filterMultiple | 是否多选 | Boolean | true |
-| filters | 表头的筛选菜单项 | Object\[] | - |
+| filters | 表头的筛选菜单项 | Array<Object> | - |
 | fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | Enum{true,'left','right'} | false |
 | key | React 需要的 key，如果已经设置了唯一的 `dataIndex`，可以忽略这个属性 | String | - |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并 | Function(text, record, index) {} | - |
@@ -2146,8 +2146,8 @@ class Demo extends React.Component {
 | fixed | 把选择框列固定在左边 | Boolean | - |
 | getCheckboxProps | 选择框的默认属性配置 | (record) => Object | - |
 | hideDefaultSelections | 去掉『全选』『反选』两个默认选项 | Boolean | false |
-| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | String\[] | \[] |
-| selections | 自定义选择项 设为 `true` 时使用默认选择项 | Object\[]\|Boolean | true |
+| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | Array<String> | \[] |
+| selections | 自定义选择项 设为 `true` 时使用默认选择项 | Array<Object>\|Boolean | true |
 | type | 多选/单选，`checkbox` or `radio` | String | 'checkbox' |
 | onChange | 选中项发生变化的时的回调 | (selectedRowKeys, selectedRows) => Void | - |
 | onSelect | 用户手动选择/取消选择某列的回调 | (record, selected, selectedRows, nativeEvent) => Void | - |
