@@ -393,9 +393,9 @@
 | searchPlaceholder | 搜索框的默认值 | String | '请输入搜索内容' |
 | showSearch | 是否显示搜索框 | Boolean | false |
 | targetKeys | 显示在右侧框数据的key集合 | Array<String> | [] |
-| onChange | 选项在两栏之间转移时的回调函数 | (targetKeys, direction, moveKeys)=>void | - |
-| onScroll | 选项列表滚动时的回调函数 | (direction, event)=>void | - |
-| onSearchChange | 搜索框内容时改变时的回调函数 | (direction: 'left'\|'right', event: Event)=>void | - |
+| onChange | 选项在两栏之间转移时的回调函数 | (targetKeys, direction, moveKeys)=>Void | - |
+| onScroll | 选项列表滚动时的回调函数 | (direction, event)=>Void | - |
+| onSearchChange | 搜索框内容时改变时的回调函数 | (direction: 'left'\|'right', event: Event)=>Void | - |
 
 ## 多选模式
 
@@ -403,7 +403,7 @@
 | --- | --- | --- | --- |
 | operations | 操作文案集合，顺序从下至上 | Array<String> | ['>', '<'] |
 | selectedKeys | 设置哪些项应该被选中 | Array<String> | [] |
-| onSelectChange | 选中项发生改变时的回调函数 | (sourceSelectedKeys, targetSelectedKeys)=>void | - |
+| onSelectChange | 选中项发生改变时的回调函数 | (sourceSelectedKeys, targetSelectedKeys)=>Void | - |
 
 ## 单选模式
 

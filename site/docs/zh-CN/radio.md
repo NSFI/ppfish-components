@@ -300,7 +300,7 @@ render(){
 | options | 以配置形式设置子元素 | String \| [{ label: String, value: String, disabled?: Boolean}] | - |
 | size | 大小，只对按钮样式生效 | Enum {'large', 'default', 'small'} | 'default' |
 | value | 用于设置当前选中的值 | any | - |
-| onChange | 选项变化时的回调函数 | (e:Event)={} | - |
+| onChange | 选项变化时的回调函数 | (e:Event) => Void | - |
 
 
 ### 方法

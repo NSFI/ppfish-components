@@ -786,8 +786,8 @@ render() {
 | theme | 主题颜色 | Enum {'light', 'dark'} | "dark" |
 | trigger | 自定义 trigger，设置为 null 时隐藏 trigger | String \| ReactNode | - |
 | width | 宽度 | Number \| String | 200 |
-| onCollapse | 展开-收起时的回调函数，有点击 trigger 以及响应式反馈两种方式可以触发 | (collapsed, type)=>{} | - |
-| onBreakpoint | 触发响应式布局[断点](/components/grid#api)时的回调 | (broken)=>{} | - |
+| onCollapse | 展开、收起时的回调函数，有点击 trigger 以及响应式反馈两种方式可以触发 | (collapsed, type) => Void | - |
+| onBreakpoint | 触发响应式布局[断点](/components/grid#api)时的回调 | (broken) => Void | - |
 
 #### breakpoint width
 

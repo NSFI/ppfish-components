@@ -990,7 +990,7 @@ DatePicker 时间面板的参数
 | value | 值 | Array<Date> | null |
 | rangeSeparator | 分隔符 | String | ' 至 ' |
 | maxDateRange  | 最大可选择的日期范围，单位 天    | Number | - |
-| onError  |  选择日期超过maxDateRange的回调   | (message)=>{} | - |
+| onError  |  选择日期超过maxDateRange的回调   | (message) => Void | - |
 
 DateRangePicker 时间面板的参数
 

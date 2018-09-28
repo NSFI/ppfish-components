@@ -117,7 +117,7 @@
 | loading | 加载中的开关 | Boolean | false |
 | size | 开关大小 | Enum {'default', 'small', 'large'} | 'default' |
 | unCheckedChildren | 非选中时的内容 | String \| ReactNode | - |
-| onChange | 变化时回调函数 | (checked:Boolean)=>{} | - |
+| onChange | 变化时回调函数 | (checked:Boolean) => Void | - |
 
 ## 方法
 

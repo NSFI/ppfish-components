@@ -220,7 +220,7 @@ render(){
 | defaultChecked | 初始是否选中 | Boolean | false |
 | disabled | 失效状态 | Boolean | false |
 | indeterminate | 设置 indeterminate 状态，只负责样式控制 | Boolean | false |
-| onChange | 变化时回调函数 | (e:Event)={} | - |
+| onChange | 变化时回调函数 | (e:Event) => Void | - |
 
 #### Checkbox Group
 
@@ -230,7 +230,7 @@ render(){
 | disabled | 整组失效 | Boolean | false |
 | options | 指定可选项 | String \| Array<String> | [] |
 | value | 指定选中的选项 |  String \| Array<String> | [] |
-| onChange | 变化时回调函数 | (checkedValue)=>{} | - |
+| onChange | 变化时回调函数 | (checkedValue) => Void | - |
 
 ### 方法
 

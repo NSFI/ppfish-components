@@ -205,10 +205,10 @@
 | isShowTrigger | 是否显示前缀图标 | Boolean | true |
 | isAllowClear | 是否显示清除按钮 | Boolean  | true |
 | isDisabled | 是否禁用 | Boolean | false |
-| onFocus | 聚焦时的回调 | (e)=>{} | - |
-| onBlur | 失焦时的回调 | (e)=>{} | - |
-| onChange | 确认选定的值时触发 | (value)=>{} | - | - |
-| onOpenChange | 弹出或关闭弹窗的回调 | (status:Boolean)=>{} | - |
+| onFocus | 聚焦时的回调 | (e) => Void | - |
+| onBlur | 失焦时的回调 | (e) => Void | - |
+| onChange | 确认选定的值时触发 | (value) => Void | - | - |
+| onOpenChange | 弹出或关闭弹窗的回调 | (status:Boolean) => Void | - |
 
 ## TimePicker
 | 参数      | 说明          | 类型      | 默认值  |
@@ -216,8 +216,8 @@
 | isShowCurrent | 是否显示"现在"快捷按钮 | Boolean | false |
 | value | 值 | Date | - |
 | selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
-| renderExtraFooter | 在面板中添加额外的页脚 | ()=>ReactNode | - |
-| onValueChange | 时、分、秒发生变化时的回调 | (date)=>{} | - |
+| renderExtraFooter | 在面板中添加额外的页脚 | () => ReactNode | - |
+| onValueChange | 时、分、秒发生变化时的回调 | (date) => Void | - |
 
 ## TimePicker.TimeSelect
 | 参数      | 说明          | 类型      |  默认值  |
