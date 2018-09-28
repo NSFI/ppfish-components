@@ -376,7 +376,7 @@ p {
 | --- | --- | --- | --- |
 | activeKey | 当前激活 tab 面板的 key | String\[]\|String | 默认无，accordion模式下默认第一个元素 |
 | defaultActiveKey | 初始化选中面板的 key | String | 无 |
-| showClose | 是否开启删除功能，与 statusList 配合使用| bool | true |
+| showClose | 是否开启删除功能；开启后，需传入 statusList 属性| Boolean | true |
 | bordered | 是否显示边框 | Boolean | true |
 | statusList | 面板是否显示的状态数组 | Array | [true, true, ...] |
 | onChange | 切换面板的回调 | Function | 无 |
