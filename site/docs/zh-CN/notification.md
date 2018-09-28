@@ -1,4 +1,4 @@
-# notification 通知提醒框
+# Notification 通知提醒框
 
 全局展示通知提醒信息。
 

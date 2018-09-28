@@ -145,7 +145,7 @@ render(){
 | min | 最小值 | Number | -Infinity |
 | parser | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | (String) => Number | - |
 | precision | 数值精度 | Number | - |
-| size | 输入框大小 | String | 无 |
+| size | 输入框大小 | String | - |
 | step | 每次改变步数，可以为小数 | Number\|String | 1 |
 | value | 当前值 | Number | - |
 | onChange | 变化回调 | (value: Number \| String) => Void | - |

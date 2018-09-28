@@ -1718,10 +1718,10 @@ const Demo = Form.create()(UnwrappedDemo);
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| form | 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可。 | Object | 无 |
+| form | 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可。 | Object | - |
 | hideRequiredMark | 隐藏所有表单项的必选标记 | Boolean | false |
 | layout | 表单布局 | 'horizontal'\|'vertical'\|'inline' | 'horizontal' |
-| onSubmit | 数据验证成功后回调事件 | (e:Event) => Void |  |
+| onSubmit | 数据验证成功后回调事件 | (e:Event) => Void | - |
 
 ### Form.create(options)
 
@@ -1761,7 +1761,7 @@ this.form // => The instance of CustomizedForm
 
 | 方法      | 说明                                     | 类型       |
 | ------- | -------------------------------------- | -------- |
-| getFieldDecorator | 用于和表单进行双向绑定，详见下方描述 |  |
+| getFieldDecorator | 用于和表单进行双向绑定，详见下方描述 | - |
 | getFieldError | 获取某个输入控件的 Error | (name) => Void |
 | getFieldsError | 获取一组输入控件的 Error ，如不传入参数，则获取全部组件的 Error | (\[names: Array<String>]) => Void |
 | getFieldsValue | 获取一组输入控件的值，如不传入参数，则获取全部组件的值 | (\[fieldNames: Array<String>]) => Void |
@@ -1801,11 +1801,11 @@ this.form // => The instance of CustomizedForm
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| id | 必填输入控件唯一标志。支持嵌套式的[写法](https://github.com/react-component/form/pull/48)。 | String |  |
+| id | 必填输入控件唯一标志。支持嵌套式的[写法](https://github.com/react-component/form/pull/48)。 | String | - |
 | options.getValueFromEvent | 可以把 onChange 的参数（如 event）转化为控件的值 | (..args) => Void | [reference](https://github.com/react-component/form#option-object) |
-| options.initialValue | 子节点的初始值，类型、可选值均由子节点决定(注意：由于内部校验时使用 `===` 判断是否变化，建议使用变量缓存所需设置的值而非直接使用字面量)) |  |  |
+| options.initialValue | 子节点的初始值，类型、可选值均由子节点决定(注意：由于内部校验时使用 `===` 判断是否变化，建议使用变量缓存所需设置的值而非直接使用字面量)) | - |  |
 | options.normalize | 转换默认的 value 给控件，[一个选择全部的例子](https://codepen.io/afc163/pen/JJVXzG?editors=001) | (value, prevValue, allValues) => any | - |
-| options.rules | 校验规则，参考下方文档 | Array<Object> |  |
+| options.rules | 校验规则，参考下方文档 | Array<Object> | - |
 | options.validate | 校验方法 | Array<Object> | - |
 | options.validate[n].trigger | Event which is listened to validate. Set to falsy to only validate when call props.validateFields. | String|Array<String> | 'onChange' |
 | options.validate[n].rules | Validator rules. see: [async-validator](https://github.com/yiminghe/async-validator) | Array<Object> | - |
@@ -1829,14 +1829,14 @@ this.form // => The instance of CustomizedForm
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | colon | 配合 label 属性使用，表示是否显示 label 后面的冒号 | Boolean | true |
-| extra | 额外的提示信息，和 help 类似，当需要错误信息和提示文案同时出现时，可以使用这个。 | String\|ReactNode |  |
+| extra | 额外的提示信息，和 help 类似，当需要错误信息和提示文案同时出现时，可以使用这个。 | String\|ReactNode | - |
 | hasFeedback | 配合 validateStatus 属性使用，展示校验状态图标，建议只配合 Input 组件使用 | Boolean | false |
-| help | 提示信息，如不设置，则会根据校验规则自动生成 | String\|ReactNode |  |
-| label | label 标签的文本 | String\|ReactNode |  |
-| labelCol | label 标签布局，同 `<Col>` 组件，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` 或 `sm: {span: 3, offset: 12}` | [Object](https://nsfi.github.io/ppfish-components/#/components/grid/) |  |
+| help | 提示信息，如不设置，则会根据校验规则自动生成 | String\|ReactNode | - |
+| label | label 标签的文本 | String\|ReactNode | - |
+| labelCol | label 标签布局，同 `<Col>` 组件，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` 或 `sm: {span: 3, offset: 12}` | [Object](https://nsfi.github.io/ppfish-components/#/components/grid/) | - |
 | required | 是否必填，如不设置，则会根据校验规则自动生成 | Boolean | false |
-| validateStatus | 校验状态，如不设置，则会根据校验规则自动生成，可选：'success' 'warning' 'error' 'validating' | String |  |
-| wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol | [Object](https://nsfi.github.io/ppfish-components/#/components/grid/) |  |
+| validateStatus | 校验状态，如不设置，则会根据校验规则自动生成，可选：'success' 'warning' 'error' 'validating' | String | - |
+| wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol | [Object](https://nsfi.github.io/ppfish-components/#/components/grid/) | - |
 
 ### 校验规则
 

@@ -211,8 +211,8 @@ render() {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| content | 卡片内容 | String\|ReactNode | 无 |
-| title | 卡片标题 | String\|ReactNode | 无 |
+| content | 卡片内容 | String\|ReactNode | - |
+| title | 卡片标题 | String\|ReactNode | - |
 
 更多属性请参考 [Tooltip](https://nsfi.github.io/ppfish-components/#/components/tooltip)。
 

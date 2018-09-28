@@ -531,11 +531,11 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| afterClose | Modal 完全关闭后的回调 | (e) => Void | 无 |
+| afterClose | Modal 完全关闭后的回调 | (e) => Void | - |
 | bodyStyle | Modal body 样式 | Object | {} |
 | cancelText | 取消按钮文字 | String | 取消 |
 | closable | 是否显示右上角的关闭按钮 | Boolean | true |
-| confirmLoading | 确定按钮 loading | Boolean | 无 |
+| confirmLoading | 确定按钮 loading | Boolean | - |
 | destroyOnClose | 关闭时销毁 Modal 里的子元素 | Boolean | false |
 | footer | 底部内容，当不需要默认底部按钮时，可以设为 `footer={null}` | String\|ReactNode | 确定取消按钮 |
 | getContainer | 指定 Modal 挂载的 HTML 节点 | (instance): HTMLElement | () => document.body |
@@ -546,13 +546,13 @@ render(){
 | okText | 确认按钮文字 | String | 确定 |
 | okType | 确认按钮类型 | String | primary |
 | style | 可用于设置浮层的样式，调整浮层位置等 | Object | - |
-| title | 标题 | String\|ReactNode | 无 |
-| visible | 对话框是否可见 | Boolean | 无 |
+| title | 标题 | String\|ReactNode | - |
+| visible | 对话框是否可见 | Boolean | - |
 | width | 宽度 | String\|Number | 520 |
 | wrapClassName | 对话框外层容器的类名 | String | - |
 | zIndex | 设置 Modal 的 `z-index` | Number | 1000 |
-| onCancel | 点击遮罩层或右上角叉或取消按钮的回调 | (e) => Void | 无 |
-| onOk | 点击确定回调 | (e) => Void | 无 |
+| onCancel | 点击遮罩层或右上角叉或取消按钮的回调 | (e) => Void | - |
+| onOk | 点击确定回调 | (e) => Void | - |
 
 #### 注意
 
@@ -574,17 +574,17 @@ render(){
 | --- | --- | --- | --- |
 | cancelText | 取消按钮文字 | String | 取消 |
 | className | 容器类名 | String | - |
-| content | 内容 | String\|ReactNode | 无 |
+| content | 内容 | String\|ReactNode | - |
 | iconType | 图标 Icon 类型 | String | question-circle |
 | draggable	| 模态框是否支持拖动	 | Boolean | false |
 | maskClosable | 点击蒙层是否允许关闭 | Boolean | `false` |
 | okText | 确认按钮文字 | String | 确定 |
 | okType | 确认按钮类型 | String | primary |
-| title | 标题 | String\|ReactNode | 无 |
+| title | 标题 | String\|ReactNode | - |
 | width | 宽度 | String\|Number | 416 |
 | zIndex | 设置 Modal 的 `z-index` | Number | 1000 |
-| onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | 无 |
-| onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | 无 |
+| onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |
+| onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |
 
 以上函数调用后，会返回一个引用，可以通过该引用关闭弹窗。
 

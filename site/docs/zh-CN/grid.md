@@ -172,7 +172,7 @@ Ant Design 的布局组件若不能满足你的需求，你也可以直接使用
 | align | flex 布局下的垂直对齐方式：`top` `middle` `bottom` | String | `top` |
 | gutter | 栅格间隔，可以写成像素值或支持响应式的对象写法 `{ xs: 8, sm: 16, md: 24}` | Number/Object | 0 |
 | justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | String | `start` |
-| type | 布局模式，可选 `flex`，[现代浏览器](http://caniuse.com/#search=flex) 下有效 | String |  |
+| type | 布局模式，可选 `flex`，[现代浏览器](http://caniuse.com/#search=flex) 下有效 | String | - |
 
 ### Col
 

@@ -663,9 +663,9 @@ render(){
 | onMouseEnter | 鼠标移入时回调 | (value)=> Void | - |
 | onMouseLeave | 鼠标移出时回调 | (value)=> Void | - |
 | onPopupScroll | 下拉列表滚动时的回调 | (value)=> Void | - |
-| onSearch | 文本框值变化时回调 | (value)=> Void |  |
+| onSearch | 文本框值变化时回调 | (value)=> Void | - |
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | (value)=> Void | - |
-| onVisibleChange | 弹出框显示隐藏 | (visible)=> Void |  |
+| onVisibleChange | 弹出框显示隐藏 | (visible)=> Void | - |
 | placeholder | 选择框默认文字 | String | '请选择' |
 | popupAlign | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'}| 'bottomLeft' |
 | searchInputProps | 搜索框额外属性 | Object | {} |
@@ -697,7 +697,7 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 是否禁用 | Boolean | false |
-| key | 和 value 含义一致。如果 React 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | String |  |
+| key | 和 value 含义一致。如果 React 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | String | - |
 | value | - | String\|Number | - |
 | title | title值 | String | - |
 
@@ -705,8 +705,8 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| key | - | String | 无 |
-| label | 组名 | String\|React.Element | 无 |
+| key | - | String | - |
+| label | 组名 | String\|React.Element | - |
 
 
 <style>

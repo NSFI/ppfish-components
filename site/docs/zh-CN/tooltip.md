@@ -122,7 +122,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| title | 提示文字 | String\|ReactNode\|() => ReactNode | 无 |
+| title | 提示文字 | String\|ReactNode\|() => ReactNode | - |
 
 ### 共同的 API
 
@@ -136,12 +136,12 @@ render(){
 | getPopupContainer | 浮层渲染父节点，默认渲染到 body 上。 | (triggerNode) => ReactNode|HTMLElementNode | () => document.body |
 | mouseEnterDelay | 鼠标移入后延时多少才显示 Tooltip，单位：秒 | Number | 0 |
 | mouseLeaveDelay | 鼠标移出后延时多少才隐藏 Tooltip，单位：秒 | Number | 0.1 |
-| overlayClassName | 卡片类名 | String | 无 |
-| overlayStyle | 卡片样式 | Object | 无 |
+| overlayClassName | 卡片类名 | String | - |
+| overlayStyle | 卡片样式 | Object | - |
 | placement | 气泡框位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom` | String | top |
 | trigger | 触发行为，可选 `hover/focus/click/contextMenu` | String | hover |
 | visible | 用于手动控制浮层显隐 | Boolean | false |
-| onVisibleChange | 显示隐藏的回调 | (visible) => void | 无 |
+| onVisibleChange | 显示隐藏的回调 | (visible) => void | - |
 
 ## 注意
 
