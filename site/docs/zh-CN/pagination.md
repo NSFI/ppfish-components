@@ -181,6 +181,8 @@ render(){
 | pageSizeOptions | 指定每页可以显示多少条 | String\[] | ['10', '20', '30', '40'] |
 | showQuickJumper | 是否可以快速跳转至某页 | Boolean | false |
 | showSizeChanger | 是否可以改变 pageSize | Boolean | false |
+| showPrevNextJumpers | 是否展示>>双箭头跳转 | Boolean | true |
+| showLessItems | 是否显示更少的Items | Boolean | false |
 | showTotal | 用于显示数据总量和当前数据顺序 | Function(total, range) | - |
 | simple | 当添加该属性时，显示为简单分页 | Boolean | - |
 | size | 当为「small」时，是小尺寸分页 | String | "" |
