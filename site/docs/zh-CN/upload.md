@@ -11,7 +11,7 @@
 - 当需要使用拖拽交互时
 
 
-## 点击上传
+## 基本使用
 
 :::demo 经典款式，用户点击按钮弹出文件选择框。
 
@@ -47,6 +47,177 @@ render() {
 ```
 :::
 
+
+## 可预览样式
+
+:::demo 用户可以上传图片并在列表中显示缩略图。当上传照片数到达限制后，上传按钮消失。
+
+```js
+
+  state = {
+    previewVisible: false,
+    previewImage: '',
+    fileList: [{
+      uid: -1,
+      name: 'xxx.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    }],
+  };
+
+  handlePreview = (file) => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true,
+    });
+  }
+
+  handleChange = ({ fileList }) => this.setState({ fileList, previewVisible: false })
+
+  render() {
+    const { previewVisible, previewImage, fileList } = this.state;
+    const uploadButton = (
+      <div>
+        <Icon type="upload-plus" />
+        <div className="fishd-upload-text">上传图片</div>
+      </div>
+    );
+    return (
+      <div className="clearfix">
+        <Upload
+          action="//jsonplaceholder.typicode.com/posts/"
+          listType="picture-card"
+          fileList={fileList}
+          onPreview={this.handlePreview}
+          onChange={this.handleChange}
+        >
+          {fileList.length >= 3 ? null : uploadButton}
+        </Upload>
+        <PicturePreview
+          source={[{src: previewImage}]}
+          visible={previewVisible}
+        />
+      </div>
+    );
+  }
+```
+:::
+
+<style>
+/* you can make up upload button and sample style by using stylesheets */
+.fishd-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999;
+}
+.fishd-upload-select-picture-card .fishd-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+</style>
+
+
+## 拖拽上传
+
+:::demo 把文件拖入指定区域，完成上传，同样支持点击上传。
+
+设置 `multiple` 后，在 `IE10+` 可以一次上传多个文件。
+
+
+```js
+
+render(){
+  const Dragger = Upload.Dragger;
+    const props = {
+      name: 'file',
+      multiple: true,
+      tips: '这里是上传提示',
+      action: '//jsonplaceholder.typicode.com/posts/',
+      onChange(info) {
+        const status = info.file.status;
+        if (status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully.`);
+        } else if (status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },
+    };
+  return (
+    <Dragger {...props}>
+      <p className="fishd-upload-drag-icon">
+        <Icon type="upload-cloud" />
+      </p>
+      <p className="fishd-upload-text">
+        将文件拖到此处，或<span className="fishd-upload-text-hl">点击上传</span>
+      </p>
+    </Dragger>
+  )
+}
+```
+:::
+
+## 文件数量超出
+
+:::demo 使用 `defaultFileList` 设置已上传的内容。
+
+```js
+render() {
+  const props = {
+    action: '//jsonplaceholder.typicode.com/posts/',
+    onChange({ file, fileList }) {
+      if (file.status !== 'uploading') {
+        console.log(file, fileList);
+      }
+    },
+    onDeleteAll() {
+      console.log('delete all');
+    },
+    defaultFileList: [{
+      uid: 1,
+      name: 'xxx.png',
+      status: 'done',
+      response: 'Server Error 500', // custom error message to show
+    }, {
+      uid: 2,
+      name: 'yyy.png',
+      status: 'done',
+    }, {
+      uid: 3,
+      name: 'zzz.png',
+      status: 'error',
+      response: 'Server Error 500', // custom error message to show
+    }, {
+      uid: 4,
+      name: 'xxx.png',
+      status: 'done',
+      response: 'Server Error 500', // custom error message to show
+    }, {
+      uid: 5,
+      name: 'yyy.png',
+      status: 'done',
+    }, {
+      uid: 6,
+      name: 'xxx.png',
+      status: 'done',
+      response: 'Server Error 500', // custom error message to show
+    }, {
+      uid: 7,
+      name: 'yyy.png',
+      status: 'done',
+    }],
+  };
+  return (
+    <Upload {...props}>
+      <Button type="primary">
+        <Icon type="upload-line" /> 上传
+      </Button>
+    </Upload>
+    )
+  }
+```
+:::
 
 ## 用户头像
 
@@ -122,136 +293,6 @@ render() {
 </style>
 
 
-## 已上传的文件列表
-
-:::demo 使用 `defaultFileList` 设置已上传的内容。
-
-```js
-render() {
-  const props = {
-    action: '//jsonplaceholder.typicode.com/posts/',
-    onChange({ file, fileList }) {
-      if (file.status !== 'uploading') {
-        console.log(file, fileList);
-      }
-    },
-    onDeleteAll() {
-      console.log('delete all');
-    },
-    defaultFileList: [{
-      uid: 1,
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500', // custom error message to show
-    }, {
-      uid: 2,
-      name: 'yyy.png',
-      status: 'done',
-    }, {
-      uid: 3,
-      name: 'zzz.png',
-      status: 'error',
-      response: 'Server Error 500', // custom error message to show
-    }, {
-      uid: 4,
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500', // custom error message to show
-    }, {
-      uid: 5,
-      name: 'yyy.png',
-      status: 'done',
-    }, {
-      uid: 6,
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500', // custom error message to show
-    }, {
-      uid: 7,
-      name: 'yyy.png',
-      status: 'done',
-    }],
-  };
-  return (
-    <Upload {...props}>
-      <Button type="primary">
-        <Icon type="upload-line" /> 上传
-      </Button>
-    </Upload>
-    )
-  }
-```
-:::
-
-## 照片墙
-
-:::demo 用户可以上传图片并在列表中显示缩略图。当上传照片数到达限制后，上传按钮消失。
-
-```js
-
-  state = {
-    previewVisible: false,
-    previewImage: '',
-    fileList: [{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    }],
-  };
-
-  handlePreview = (file) => {
-    this.setState({
-      previewImage: file.url || file.thumbUrl,
-      previewVisible: true,
-    });
-  }
-
-  handleChange = ({ fileList }) => this.setState({ fileList, previewVisible: false })
-
-  render() {
-    const { previewVisible, previewImage, fileList } = this.state;
-    const uploadButton = (
-      <div>
-        <Icon type="upload-plus" />
-        <div className="fishd-upload-text">上传图片</div>
-      </div>
-    );
-    return (
-      <div className="clearfix">
-        <Upload
-          action="//jsonplaceholder.typicode.com/posts/"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-        >
-          {fileList.length >= 3 ? null : uploadButton}
-        </Upload>
-        <PicturePreview
-          source={[{src: previewImage}]}
-          visible={previewVisible}
-        />
-      </div>
-    );
-  }
-```
-:::
-
-<style>
-/* you can make up upload button and sample style by using stylesheets */
-.fishd-upload-select-picture-card i {
-  font-size: 32px;
-  color: #999;
-}
-.fishd-upload-select-picture-card .fishd-upload-text {
-  margin-top: 8px;
-  color: #666;
-}
-</style>
-
-
-
 ## 完全控制的上传列表
 
 :::demo 使用 `fileList` 对列表进行完全控制，可以实现各种自定义功能，以下演示三种情况：
@@ -316,54 +357,6 @@ render() {
 
 ```
 :::
-
-## 拖拽上传
-
-:::demo 把文件拖入指定区域，完成上传，同样支持点击上传。
-
-设置 `multiple` 后，在 `IE10+` 可以一次上传多个文件。
-
-
-```js
-
-render(){
-  const Dragger = Upload.Dragger;
-    const props = {
-      name: 'file',
-      multiple: true,
-      action: '//jsonplaceholder.typicode.com/posts/',
-      onChange(info) {
-        const status = info.file.status;
-        if (status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-          message.error(`${info.file.name} file upload failed.`);
-        }
-      },
-    };
-  return (
-    <Dragger {...props}>
-      <p className="fishd-upload-drag-icon">
-        <Icon type="upload-cloud" />
-      </p>
-      <p className="fishd-upload-text">
-        将文件拖到此处，或<span className="fishd-upload-impt">点击上传</span>
-      </p>
-    </Dragger>
-  )
-}
-```
-:::
-
-<style>
-.fishd-upload-text .fishd-upload-impt {
-  color: #337eff;
-}
-</style>
-
 
 ## 图片列表样式
 

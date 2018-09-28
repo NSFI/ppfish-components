@@ -338,7 +338,7 @@
 | backfill | 使用键盘选择选项的时候把选中项回填到输入框中 | Boolean | false |
 | children (自动完成的数据源) | 自动完成的数据源 | ReactElement<OptionProps> \| Array<ReactElement<OptionProps>> | - |
 | children (自定义输入框) | 自定义输入框 | HTMLInputElement \| HTMLTextAreaElement \| ReactElement<InputProps> | `<Input />` |
-| dataSource | 自动完成的数据源 | Array<[DataSourceItemType](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/index.tsx#L10)> | - |
+| dataSource | 自动完成的数据源 | Array<DataSourceItemType(https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/index.tsx#L10)> | - |
 | defaultActiveFirstOption | 是否默认高亮第一个选项 | Boolean | true |
 | defaultValue | 指定默认选中的条目 | String \| Array<String> \| { key: String, label: String \| ReactNode } \| Array<{ key: String, label: String \| ReactNode}> | - |
 | disabled | 是否禁用 | Boolean | false |
