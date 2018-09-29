@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Animate from 'rc-animate';
 import Icon from '../Icon/index.tsx';
 import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
 import './style/index.less';
@@ -136,12 +137,12 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
-    const { dragable, toolbar } = this.props;
+    const { dragable, toolbar, mask } = this.props;
 
-    document.body.appendChild(this.$root);
+    document.body.appendChild(mask ? this.$root : this.$el);
     this.setContainerStyle();
 
-    if (toolbar) {
+    if (toolbar && this.$el) {
       // 监听全屏事件
       this.$el.addEventListener("fullscreenchange", this.handleFullChange);
       this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
@@ -206,11 +207,13 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    if (this.$root && this.$root.parentNode === document.body) {
-      document.body.removeChild(this.$root);
+    const { dragable, mask } = this.props;
+    let el = mask ? this.$root : this.$el;
+    if (el && el.parentNode === document.body) {
+      document.body.removeChild(el);
     }
 
-    if (this.props.dragable) {
+    if (dragable) {
       document.removeEventListener('mousemove', this.handleMouseMove);
       document.removeEventListener('mouseup', this.handleMouseUp);
     }
@@ -523,7 +526,8 @@ class PicturePreview extends Component {
     let isFullscreen = container.isFull;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
-      'dragable': dragable
+      'dragable': dragable,
+      [`${prefixCls}-hide`]: !show
     });
     let closeBtnClass = classNames({
       'close': !isFullscreen,
@@ -561,58 +565,82 @@ class PicturePreview extends Component {
       [`${prefixCls}-hide`]: !progress
     });
 
-    return (
-      <div className={rootClass} ref={node => this.$root = node} >
-        <div className={maskClass} />
-        <div className={ctnerClass} ref={node => this.$el = node} style={container.style}
-          onMouseDown={dragable ? this.handleMouseDown : null}
-          onWheel={this.handleWheel} >
-          <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
-          <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
-          <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
+    const renderCtner = (
+      <div data-show={show} className={ctnerClass} ref={node => this.$el = node} style={container.style}
+        onMouseDown={dragable ? this.handleMouseDown : null}
+        onWheel={this.handleWheel} >
+        <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
+        <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
+        <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
 
-          <div className="canvas">
-            {
-              imgs.map((item, index) => {
-                if (current === index) {
-                  return (
-                    <img key={'pic_'+index}
-                      className="img"
-                      src={item.src}
-                      alt={item.name}
-                      active="true"
-                      ref={node => this.imgEl = node}
-                    />
-                  );
-                } else {
-                  return (
-                    <img key={'pic_'+index}
-                      className="img"
-                      src={item.src}
-                      alt={item.name}
-                    />
-                  );
-                }
-              })
-            }
-          </div>
+        <div className="canvas">
+          {
+            imgs.map((item, index) => {
+              if (current === index) {
+                return (
+                  <img key={'pic_'+index}
+                    className="img"
+                    src={item.src}
+                    alt={item.name}
+                    active="true"
+                    ref={node => this.imgEl = node}
+                  />
+                );
+              } else {
+                return (
+                  <img key={'pic_'+index}
+                    className="img"
+                    src={item.src}
+                    alt={item.name}
+                  />
+                );
+              }
+            })
+          }
+        </div>
 
-          <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
-            <div className={progressClass}>{current+1}/{imgs.length}</div>
-            <div className="toolbarCon">
-              <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
-              <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
-              <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
-              <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
-              <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
-              <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
-                <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
-              </a>
-            </div>
+        <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
+          <div className={progressClass}>{current+1}/{imgs.length}</div>
+          <div className="toolbarCon">
+            <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
+            <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
+            <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
+            <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
+            <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
+            <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
+              <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
+            </a>
           </div>
         </div>
       </div>
     );
+
+    if (mask) {
+      return (
+        <Animate
+          component=""
+          showProp="data-show"
+          transitionName="zoom"
+          transitionAppear={true}
+        >
+        <div key={`${prefixCls}-root`} data-show={show} className={rootClass} ref={node => this.$root = node}>
+          <div className={maskClass} />
+          { renderCtner }
+        </div>
+        </Animate>
+      );
+    } else {
+      return (
+        <Animate
+          component=""
+          showProp="data-show"
+          transitionName="zoom"
+          transitionAppear={true}
+        >
+          { renderCtner }
+        </Animate>
+      );
+    }
   }
 }
 
