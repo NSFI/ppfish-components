@@ -449,6 +449,140 @@ render() {
 ```
 :::
 
+## 加入拖拽功能
+
+- 抽屉组件可以与其他组件配合使用，实现复杂的功能；
+- 下面示例中使用的拖拽组件文档链接请参考：https://github.com/bokuweb/re-resizable
+
+:::demo
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      width: 450
+    };
+  }
+
+  onChange = (bool) => {
+    console.log(bool);
+  }
+
+  onTouchEnd = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  onSwitch = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  onCloseClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  drawerDrag = () => {
+    return (
+      <div>
+        <Drawer
+          handler={false}
+          level={null}
+          width={this.state.width}
+          visible={this.state.open}
+          closed={true}
+          onChange={this.onChange}
+          onMaskClick={this.onTouchEnd}
+          onCloseClick={this.onCloseClick}
+        >
+          <Resizable
+            maxWidth={900}
+            size={{ width: this.state.width }}
+            onResizeStop={(e, direction, ref, d) => {
+              this.setState({
+                width: this.state.width + d.width,
+              });
+            }}
+          >
+            <div>
+              <Menu
+                style={{ height: '200%' }}
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                mode="inline"
+              >
+                <Menu.SubMenu
+                  key="sub1"
+                  title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+                >
+                  <Menu.ItemGroup key="g1" title="Item 1">
+                    <Menu.Item key="1">Option 1</Menu.Item>
+                    <Menu.Item key="2">Option 2</Menu.Item>
+                  </Menu.ItemGroup>
+                  <Menu.ItemGroup key="g2" title="Item 2">
+                    <Menu.Item key="3">Option 3</Menu.Item>
+                    <Menu.Item key="4">Option 4</Menu.Item>
+                  </Menu.ItemGroup>
+                </Menu.SubMenu>
+                <Menu.SubMenu
+                  key="sub2"
+                  title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+                >
+                  <Menu.Item key="5">Option 5</Menu.Item>
+                  <Menu.Item key="6">Option 6</Menu.Item>
+                  <Menu.SubMenu key="sub3" title="Submenu">
+                    <Menu.Item key="7">Option 7</Menu.Item>
+                    <Menu.Item key="8">Option 8</Menu.Item>
+                  </Menu.SubMenu>
+                </Menu.SubMenu>
+                <Menu.SubMenu
+                  key="sub4"
+                  title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+                >
+                  <Menu.Item key="9">Option 9</Menu.Item>
+                  <Menu.Item key="10">Option 10</Menu.Item>
+                  <Menu.Item key="11">Option 11</Menu.Item>
+                  <Menu.Item key="12">Option 12</Menu.Item>
+                </Menu.SubMenu>
+              </Menu>
+            </div>
+          </Resizable>
+        </Drawer>
+        <div
+          style={{
+            width: '100%', height: 450,
+            textAlign: 'center', lineHeight: '450px',
+          }}
+        >
+          内容区块
+          <Button
+            type="primary"
+            onClick={this.onSwitch}
+            style={{marginLeft: 20}}
+          >
+            {!this.state.open ? '打开抽屉' : '关闭抽屉'}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  
+  render() {
+    //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerDrag
+    return(
+      <div className="browser-mockup">
+        <iframe src="./demo/drawerDrag.html" height={450}></iframe>
+      </div>
+    )
+  }
+```
+:::
+
 <style>
 .browser-mockup {
     border-top: 2em solid rgba(230, 230, 230, 0.7);
