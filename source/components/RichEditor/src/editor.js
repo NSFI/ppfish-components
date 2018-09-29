@@ -3,7 +3,6 @@ import { findDOMNode } from 'react-dom';
 import ReactQuill, { Quill } from '../quill/index.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Delta from 'quill-delta';
 import Modal from '../../Modal/index.tsx';
 import Input from '../../Input/index.tsx';
 import Button from '../../Button/index.tsx';
@@ -13,6 +12,8 @@ import CustomSizeBlot from './formats/size.js';
 import EmojiBlot from './formats/emoji.js';
 import LinkBlot from './formats/link.js';
 import '../style/index.less';
+
+const { delta: Delta, parchment: Parchment } = Quill.imports;
 
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
