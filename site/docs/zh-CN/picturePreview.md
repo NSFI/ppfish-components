@@ -63,7 +63,7 @@
 
 ## 展示工具栏
 
-:::demo 基本使用方式。
+:::demo 展示工具栏。
 
 ```js
   constructor() {
@@ -114,7 +114,7 @@
 
 ## 支持拖动
 
-:::demo 基本使用方式。
+:::demo 支持拖动。
 
 ```js
   constructor() {
@@ -164,9 +164,62 @@
 :::
 
 
+## 隐藏遮罩层
+
+:::demo 隐藏遮罩层。
+
+```js
+  constructor() {
+    super();
+
+    this.state = {
+      visible: false,
+      activeIndex: 0
+    };
+  }
+
+  handleOpen = (index) => {
+    this.setState({
+      visible: true,
+      activeIndex: index
+    });
+  };
+
+  render() {
+    const { visible, activeIndex } = this.state;
+    return (
+        <div>
+          <div className="demo-picpreview">
+            <div className="tips">点击图片预览</div>
+            <div className="pics">
+              {
+                this.props.source && this.props.source.map((item, index)=>
+                  <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
+                    <img src={item.src} alt={item.name} width="60px" height="60px" />
+                    <div className="name">{item.name}</div>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+          <PicturePreview
+            activeIndex={activeIndex}
+            source={this.props.source}
+            dragable={true}
+            toolbar={true}
+            mask={false}
+            visible={visible}
+          />
+        </div>
+    );
+  }
+```
+:::
+
+
 ## 手动构造子节点
 
-:::demo 显示面板指示点。
+:::demo 手动构造子节点。
 
 ```js
   constructor() {
