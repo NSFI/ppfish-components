@@ -167,7 +167,7 @@ render(){
 :::demo 页面顶部通告形式，默认有图标且`type` 为 'warning'。
 
 ```js
-drawerAlertDemo() {
+alertDemo() {
   return (
     <div>
       <Alert message="Warning text" banner />
@@ -181,10 +181,10 @@ drawerAlertDemo() {
   )
 }
 render() {
-  //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerAlertDemo
+  //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 alertDemo
   return(
     <div className="browser-mockup">
-      <iframe src="./demo/drawerAlertDemo.html" height={450}></iframe>
+      <iframe src="./demo/alertDemo.html" height={450}></iframe>
     </div>
   )
 }
