@@ -50,9 +50,6 @@ class Demo extends React.Component {
           <Resizable
             maxWidth={900}
             size={{ width: this.state.width }}
-            top={false}
-            right={false}
-            left={false}
             onResizeStop={(e, direction, ref, d) => {
               this.setState({
                 width: this.state.width + d.width,
