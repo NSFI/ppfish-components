@@ -31,6 +31,8 @@ class Collapse extends Component {
     accordion: PropTypes.bool,
     // 是否开启删除功能
     showClose: PropTypes.bool,
+    // 是否显示边框
+    bordered: PropTypes.bool,
     // 是否显示面板的状态数组
     statusList: PropTypes.array,
     onChange: PropTypes.func,
@@ -117,14 +119,14 @@ class Collapse extends Component {
       });
       statusList[index] = false;
       this.props.close(statusList);
-    }
+    };
   }
 
   getItems() {
     const activeKey = this.state.activeKey;
     const { prefixCls, accordion, showClose } = this.props;
     return Children.map(this.props.children, (child, index) => {
-      if(!this.state.statusList[index]){ return null }
+      if(!this.state.statusList[index]){ return null; }
       // If there is no key provide, use the panel order as default key
       const key = child.key || String(index);
       const header = child.props.header;

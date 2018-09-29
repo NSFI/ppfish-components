@@ -11,6 +11,7 @@ class CollapsePanel extends Component {
       PropTypes.string,
       PropTypes.object,
     ]),
+    style: PropTypes.object,
     children: PropTypes.node,
     openAnimation: PropTypes.object,
     prefixCls: PropTypes.string,
@@ -28,6 +29,7 @@ class CollapsePanel extends Component {
   static defaultProps = {
     isActive: false,
     disabled: false,
+    style: {},
     onItemClick() {
     },
     onCloseItem() {
@@ -40,15 +42,15 @@ class CollapsePanel extends Component {
     this.handleItemClose = this.handleItemClose.bind(this);
     this.state = {
       isCustom: false, //是否显示箭头,不可关闭时不显示
-    }
+    };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { header } = this.props;
     if (typeof header === 'function') {
       this.setState({
         isCustom: true, // 是否自定义 header
-      })
+      });
     }
   }
 
