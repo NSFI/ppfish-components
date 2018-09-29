@@ -169,13 +169,13 @@ export const components = {
           key: 'grid',
           type: 'markdown',
           name: 'Grid 栅格系统',
-          published: true,
+          published: true
         },
         {
           key: 'layout',
           type: 'markdown',
           name: 'Layout 布局模式',
-          published: true,
+          published: true
         }
       ]
     }, {
@@ -191,6 +191,7 @@ export const components = {
           key: 'dropdown',
           type: 'markdown',
           name: 'Dropdown 下拉菜单',
+          published: true,
         },
         {
           key: 'breadcrumb',
@@ -441,6 +442,7 @@ export const components = {
           key: 'progress',
           type: 'markdown',
           name: 'Progress 进度条',
+          published: true
         },
         {
           key: 'spin',
