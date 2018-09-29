@@ -22,6 +22,16 @@ render() {
     name: 'file',
     tips: '这里是上传提示',
     action: '//jsonplaceholder.typicode.com/posts/',
+    defaultFileList: [{
+      uid: 1,
+      name: 'xxx.png',
+      status: 'done',
+      response: 'custom message',
+    }, {
+      uid: 2,
+      name: 'yyy.png',
+      status: 'done',
+    }],
     headers: {
       authorization: 'authorization-text',
     },
