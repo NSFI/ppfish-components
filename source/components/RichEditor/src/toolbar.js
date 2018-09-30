@@ -79,8 +79,6 @@ let defaultEmojis = genEmoji(emojiList);
 
 let emojiData = {
   name: '表情包名称',
-  width: 100,
-  height: 100,
   data: [
     {
       id: 0,
@@ -102,12 +100,12 @@ let emojiData = {
     }
   ]
 };
-let defaultEmojiWidth = 24;
-let defaultEmojiHeight = 24;
+let defaultEmojiWidth = 88;
+let defaultEmojiHeight = 88;
 let genEmojiBz = (emojiData) => {
   let data = emojiData.data,
-      iWidth = emojiData.width || defaultEmojiWidth,
-      iHeight = emojiData.height || defaultEmojiHeight;
+      iWidth = defaultEmojiWidth,
+      iHeight = defaultEmojiHeight;
 
   if (!(data && data.length)) return;
 

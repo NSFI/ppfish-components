@@ -52,7 +52,6 @@ class RichEditor extends Component {
       [{'list': 'ordered'}, {'list': 'bullet'}],
       ['emoji'], ['image'], ['clean']
     ],
-    value: '',
     getPopupContainer: () => document.body
   };
 
@@ -63,7 +62,7 @@ class RichEditor extends Component {
 
     this.toolbarCtner = null;
     this.state = {
-      value: value,
+      value: value || '',
       showLinkModal: false,
       showImageModal: false,
     };
