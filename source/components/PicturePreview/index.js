@@ -96,7 +96,7 @@ class PicturePreview extends Component {
     children: PropTypes.node,
     toolbar: PropTypes.bool,
     source: PropTypes.array,
-    dragable: PropTypes.bool,
+    draggable: PropTypes.bool,
     mask: PropTypes.bool,
     progress: PropTypes.bool,
     visible: PropTypes.bool,
@@ -108,7 +108,7 @@ class PicturePreview extends Component {
     prefixCls: 'fishd-picturepreview',
     toolbar: false,
     source: [], // [{name: '', src: ''}]
-    dragable: false,
+    draggable: false,
     mask: true,
     progress: false,
     visible: false,
@@ -137,7 +137,7 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
-    const { dragable, toolbar, mask } = this.props;
+    const { draggable, toolbar, mask } = this.props;
 
     document.body.appendChild(mask ? this.$root : this.$el);
     this.setContainerStyle();
@@ -149,7 +149,7 @@ class PicturePreview extends Component {
       this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
     }
 
-    if (dragable) {
+    if (draggable) {
       // 监听拖动事件
       document.addEventListener('mousemove', this.handleMouseMove);
       document.addEventListener('mouseup', this.handleMouseUp);
@@ -207,13 +207,13 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    const { dragable, mask } = this.props;
+    const { draggable, mask } = this.props;
     let el = mask ? this.$root : this.$el;
     if (el && el.parentNode === document.body) {
       document.body.removeChild(el);
     }
 
-    if (dragable) {
+    if (draggable) {
       document.removeEventListener('mousemove', this.handleMouseMove);
       document.removeEventListener('mouseup', this.handleMouseUp);
     }
@@ -522,11 +522,11 @@ class PicturePreview extends Component {
 
   render() {
     const { show, current, imgs, image, container } = this.state;
-    const { className, prefixCls, source, children, toolbar, dragable, mask, progress } = this.props;
+    const { className, prefixCls, source, children, toolbar, draggable, mask, progress } = this.props;
     let isFullscreen = container.isFull;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
-      'dragable': dragable,
+      'draggable': draggable,
       [`${prefixCls}-hide`]: !show
     });
     let closeBtnClass = classNames({
@@ -566,9 +566,12 @@ class PicturePreview extends Component {
     });
 
     const renderCtner = (
-      <div data-show={show} className={ctnerClass} ref={node => this.$el = node} style={container.style}
-        onMouseDown={dragable ? this.handleMouseDown : null}
-        onWheel={this.handleWheel} >
+      <div data-show={show} className={ctnerClass} style={container.style}
+        ref={node => this.$el = node}
+        onDragStart={(e) => {e.preventDefault();}}
+        onMouseDown={draggable ? this.handleMouseDown : null}
+        onWheel={this.handleWheel}
+      >
         <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
         <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
         <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
