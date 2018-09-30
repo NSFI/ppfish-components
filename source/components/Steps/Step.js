@@ -24,13 +24,22 @@ export default class Step extends React.Component {
       PropTypes.string,
     ]),
     stepNumber: PropTypes.string,
-    description: PropTypes.any,
-    title: PropTypes.any,
+    description: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+    ]),
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+    ]),
     progressDot: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.func,
     ]),
-    tailContent: PropTypes.any,
+    tailContent: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+    ]),
     icons: PropTypes.shape({
       finish: PropTypes.node,
       error: PropTypes.node,
@@ -47,7 +56,7 @@ export default class Step extends React.Component {
       [`${iconPrefix}icon-check-line`]: !icon && status === 'finish',
       [`${iconPrefix}icon-close-tag-line`]: !icon && status === 'error',
     });
-    const iconDot = <span className={`${prefixCls}-icon-dot`}></span>;
+    const iconDot = <span className={`${prefixCls}-icon-dot`} />;
     // `progressDot` enjoy the highest priority
     if (progressDot) {
       if (typeof progressDot === 'function') {

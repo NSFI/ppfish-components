@@ -15,7 +15,7 @@ export default class Steps extends Component {
     iconPrefix: PropTypes.string,
     direction: PropTypes.string,
     labelPlacement: PropTypes.string,
-    children: PropTypes.any,
+    children: PropTypes.node,
     status: PropTypes.string,
     size: PropTypes.string,
     progressDot: PropTypes.oneOfType([
@@ -100,7 +100,7 @@ export default class Steps extends Component {
     const { lastStepOffsetWidth, flexSupported } = this.state;
     const filteredChildren = React.Children.toArray(children).filter(c => !!c);
     const lastIndex = filteredChildren.length - 1;
-    const adjustedlabelPlacement = !!progressDot ? 'vertical' : labelPlacement;
+    const adjustedlabelPlacement = progressDot ? 'vertical' : labelPlacement;
     const classString = classNames(prefixCls, `${prefixCls}-${direction}`, className, {
       [`${prefixCls}-${size}`]: size,
       [`${prefixCls}-label-${adjustedlabelPlacement}`]: direction === 'horizontal',

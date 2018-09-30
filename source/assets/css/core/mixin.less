@@ -153,7 +153,7 @@
 
 // Encoded SVG Background
 .encoded-svg-background-i(@svg) {
-  @url: `encodeURIComponent(@{svg})`;
+  @url: `encodeuricomponent(@{svg}) `;
   background-image: url("data:image/svg+xml;charset=utf-8,@{url}");
 }
 
