@@ -2,41 +2,42 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { parseDir } = require('./tools/helps');
 
-import { parseDir } from './tools/helps';
+const demoPath = './site/docs/demoPage/';
+const getHtmlWebpackPlugin = () => {
+  const demoNameArr = [];
+  parseDir(demoPath, demoNameArr);
+  const htmlWebpackPlugin = demoNameArr
+    .filter((name)=>{
+      return name.slice(-3) === '.js';
+    })
+    .map((name) => {
+      const demoName = name.slice(0,-3);
+      return new HtmlWebpackPlugin({
+        filename: 'demo/' + demoName + '.html',
+        template: path.join(__dirname, demoPath + 'demo.html'),
+        chunks: [demoName]
+      });
+    });
+  console.log(htmlWebpackPlugin)
+  return htmlWebpackPlugin;
+};
 
-// const demoPath = './site/docs/demoPage/';
-// const getHtmlWebpackPlugin = () => {
-//   const demoNameArr = [];
-//   parseDir(demoPath, demoNameArr);
-//   const htmlWebpackPlugin = demoNameArr
-//     .filter((name)=>{
-//       return name.slice(-3) === '.js';
-//     })
-//     .map((name) => {
-//       const demoName = name.slice(0,-3);
-//       return new HtmlWebpackPlugin({
-//         filename: 'demo/' + demoName + '.html',
-//         template: path.join(__dirname, demoPath + 'demo.html'),
-//         chunks: [demoName]
-//       });
-//     });
-//   return htmlWebpackPlugin;
-// };
-//
-// const getDemoEntries = () => {
-//   const entries = {};
-//   const demoNameArr = [];
-//   parseDir(demoPath, demoNameArr);
-//   const arr = demoNameArr.filter((name)=>{
-//       return name.slice(-3) === '.js';
-//     }
-//   );
-//   for(let each of arr) {
-//     entries[each.slice(0,-3)] = [demoPath + each];
-//   }
-//   return entries;
-// };
+const getDemoEntries = () => {
+  const entries = {};
+  const demoNameArr = [];
+  parseDir(demoPath, demoNameArr);
+  const arr = demoNameArr.filter((name)=>{
+      return name.slice(-3) === '.js';
+    }
+  );
+  for(let each of arr) {
+    entries[each.slice(0,-3)] = [demoPath + each];
+  }
+  console.log(entries)
+  return entries;
+};
 
 module.exports = {
   mode: 'production',
@@ -58,7 +59,7 @@ module.exports = {
     {
       site: path.join(__dirname, 'site')
     },
-    //getDemoEntries()
+    getDemoEntries()
   ),
   output: {
     path: path.resolve(__dirname, 'dist/site'),
@@ -73,8 +74,7 @@ module.exports = {
       template: path.join(__dirname, 'site/index.html'),
       favicon: path.join(__dirname, 'site/assets/favicon.ico')
     })
-  ],
-  //.concat(getHtmlWebpackPlugin())
+  ].concat(getHtmlWebpackPlugin()),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
