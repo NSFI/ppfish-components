@@ -20,7 +20,6 @@ const getHtmlWebpackPlugin = () => {
         chunks: [demoName]
       });
     });
-  console.log(htmlWebpackPlugin)
   return htmlWebpackPlugin;
 };
 
@@ -35,7 +34,6 @@ const getDemoEntries = () => {
   for(let each of arr) {
     entries[each.slice(0,-3)] = [demoPath + each];
   }
-  console.log(entries)
   return entries;
 };
 
