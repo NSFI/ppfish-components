@@ -1,4 +1,4 @@
-# VideoViewer 视频查看器
+# VideoViewer 视频查看器 【开发: 吴圣筑】
 
 播放视频
 
