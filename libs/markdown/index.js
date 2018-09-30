@@ -16,20 +16,21 @@ export default class Markdown extends React.Component {
     this.renderer.table = (header, body) => {
       return `<table class="grid"><thead>${header}</thead><tbody>${body}</tbody></table>`;
     };
-    this.renderer.listitem = function(text) {
+    this.renderer.listitem = function (text) {
       return '<li class="listitem">' + text + '</li>\n';
     };
     this.renderer.heading = function (text, level, raw) {
       if (this.options.headerIds) {
-        return '<h'
-          + level
-          + ' id="'
-          + text
-          + '">'
-          + text
-          + '</h'
-          + level
-          + '>\n';
+        let id = text;
+        // h1
+        if (level === 1) {
+          const textId = text.replace(/【(.+)】/, '');
+          id = textId === text ? text : textId;
+          text = text.replace(/【(.+)】/, function (ownerList) {
+            return `<div class="owner"><div class="owner-title"><i class="fishdicon fishdicon-user-line"></i></div><div class="owner-list">${ownerList.slice(1, -1).split('|').map(owner => `<div class="item">${owner}</div>`).join('')}</div></div>`;
+          });
+        }
+        return '<h' + level + ' id="' + id + '">' + text + '</h' + level + '>\n';
       }
       // ignore IDs
       return '<h' + level + '>' + text + '</h' + level + '>\n';

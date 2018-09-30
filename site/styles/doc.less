@@ -200,6 +200,43 @@
   }
 }
 
+.owner {
+  display: inline-block;
+  position: relative;
+  font-weight: normal;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  .owner-title {
+    font-size: 12px;
+    cursor: default;
+  }
+  .owner-list {
+    display: none;
+    position: absolute;
+    margin-left: -44px;
+    text-align: center;
+    border-radius: 2px;
+    width: 100px;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #e1e3e6;
+    color: #333;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    .item {
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+  &:hover {
+    .owner-title {
+      color: #337eff;
+    }
+    .owner-list {
+      display: block;
+    }
+  }
+}
+
 //```js ``` 样式
 code[class*=language-],
 pre[class*=language-] {
