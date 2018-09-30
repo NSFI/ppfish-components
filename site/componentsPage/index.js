@@ -191,7 +191,6 @@ export const components = {
           key: 'dropdown',
           type: 'markdown',
           name: 'Dropdown 下拉菜单',
-          published: true,
         },
         {
           key: 'breadcrumb',
