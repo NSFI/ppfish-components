@@ -27,7 +27,7 @@ export default class Markdown extends React.Component {
           const textId = text.replace(/【(.+)】/, '');
           id = textId === text ? text : textId;
           text = text.replace(/【(.+)】/, function (ownerList) {
-            return `<div class="owner"><div class="owner-title"><i class="fishdicon fishdicon-user-line"></i></div><div class="owner-list">${ownerList.slice(1, -1).split('|').map(owner => `<div class="item">${owner}</div>`).join('')}</div></div>`;
+            return `<div class="owner"><div class="owner-title"><i class="fishdicon fishdicon-user-line"></i></div><ul class="owner-list">${ownerList.slice(1, -1).split('|').map(owner => `<li class="item">${owner}</li>`).join('')}</ul></div>`;
           });
         }
         return '<h' + level + ' id="' + id + '">' + text + '</h' + level + '>\n';
