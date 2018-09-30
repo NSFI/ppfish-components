@@ -127,7 +127,7 @@ render(){
 | onChange             | 颜色更改                                           |(state）=> Void                                                                  | noop                                                  | 
 | onClose              | 弹出框关闭                               |(state）=> Void                                                                  | noop                                                  | 
 | onOpen               | 弹出框打开                                |(state）=> Void                                                                   | noop                                                  |
-| getPopupContainer    | container                   |() => HTMLElementNode                                                        | () => document.body                   | 
+| getPopupContainer    | container                   |() => HTMLElement                                                        | () => document.body                   | 
 
 ### ColorPicker.Panel
 

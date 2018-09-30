@@ -327,5 +327,5 @@ p {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | Boolean | false |
-| header | 面板头内容 | String\|() => ReactNode\|HTMLElementNode | - |
+| header | 面板头内容 | String\|() => ReactNode\|HTMLElement | - |
 | key | 对应 activeKey | String | - |

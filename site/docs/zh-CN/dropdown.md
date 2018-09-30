@@ -323,7 +323,7 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 菜单是否禁用 | Boolean | - |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codepen.io/afc163/pen/zEjNOy?editors=0010) |  () => HTMLElementNode | () => document.body |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codepen.io/afc163/pen/zEjNOy?editors=0010) |  () => HTMLElement | () => document.body |
 | overlay | 菜单 | [Menu](https://nsfi.github.io/ppfish-components/#/components/menu) | - |
 | placement | 菜单弹出位置 | Enum {'bottomLeft', 'bottomCenter' ,'bottomRight' ,'topLeft' ,'topCenter', 'topRight'}| 'bottomLeft' |
 | trigger | 触发下拉的行为 | Array<`click`\|`hover`\|`contextMenu`> | ['hover'] |
