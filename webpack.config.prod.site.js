@@ -70,7 +70,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'site/index.html'),
-      favicon: path.join(__dirname, 'site/assets/favicon.ico')
+      favicon: path.join(__dirname, 'site/assets/favicon.ico'),
+      chunks: ['site']
     })
   ].concat(getHtmlWebpackPlugin()),
   resolve: {
