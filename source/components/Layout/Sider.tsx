@@ -1,15 +1,15 @@
 // matchMedia polyfill for
 // https://github.com/WickyNilliams/enquire.js/issues/82
 if (typeof window !== 'undefined') {
-  const matchMediaPolyfill = (mediaQuery: string): MediaQueryList => {
-    return {
+  const matchMediaPolyfill = (mediaQuery: string) => {
+    return ({
       media: mediaQuery,
       matches: false,
       addListener() {
       },
       removeListener() {
       },
-    };
+    } as any) as MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
 }
@@ -132,8 +132,8 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
 
   componentDidMount() {
     if (this.mql) {
-      this.mql.addListener(this.responsiveHandler);
-      this.responsiveHandler(this.mql);
+      this.mql.addEventListener('change', this.responsiveHandler);
+      this.responsiveHandler((this.mql as any) as MediaQueryListEvent);
     }
 
     if (this.context.siderHook) {
@@ -151,7 +151,7 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
     }
   }
 
-  responsiveHandler = (mql: MediaQueryList) => {
+  responsiveHandler = (mql: MediaQueryListEvent): void => {
     this.setState({ below: mql.matches });
     const { onBreakpoint } = this.props;
     if (onBreakpoint) {

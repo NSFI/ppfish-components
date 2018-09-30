@@ -5,15 +5,15 @@ import './style/index.less';
 // matchMedia polyfill for
 // https://github.com/WickyNilliams/enquire.js/issues/82
 if (typeof window !== 'undefined') {
-  const matchMediaPolyfill = (mediaQuery: string): MediaQueryList => {
-    return {
+  const matchMediaPolyfill = (mediaQuery: string) => {
+    return ({
       media: mediaQuery,
       matches: false,
       addListener() {
       },
       removeListener() {
       },
-    };
+    } as any) as  MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
 }

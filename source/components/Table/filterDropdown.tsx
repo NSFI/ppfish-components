@@ -192,7 +192,7 @@ export default class FilterMenu<T> extends React.Component<FilterMenuProps<T>, F
     });
     let {filterDropdown} = column;
     if (filterDropdown && typeof filterDropdown === 'function') {
-      filterDropdown = filterDropdown({
+      filterDropdown = (filterDropdown as (props:Object)=>React.ReactNode)({
         prefixCls: `${dropdownPrefixCls}-custom`,
         setSelectedKeys: (selectedKeys: Array<any>) => this.setSelectedKeys({selectedKeys}),
         selectedKeys: this.state.selectedKeys,
