@@ -6,6 +6,7 @@
 @import "./directory";
 
 @tree-prefix-cls: ~"@{fishd-prefix}-tree";
+@spin-prefix-cls: ~"@{fishd-prefix}-spin";
 @tree-showline-icon-color: @text-color-secondary;
 
 .fishdCheckboxFn(@checkbox-prefix-cls: ~"@{fishd-prefix}-tree-checkbox");
@@ -116,6 +117,10 @@
       }
       &.@{tree-prefix-cls}-node-selected {
         background-color: @primary-2;
+      }
+
+      .@{spin-prefix-cls}-spinning {
+        margin-right: 8px;
       }
     }
     span {
