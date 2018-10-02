@@ -169,10 +169,15 @@
     });
   }
 
+  emitEmpty = () => {
+    this.searchInput.focus();
+    this.setState({ searchValue: '' });
+  }
+
   render() {
-    const Search = Input.Search;
     const TreeNode = Tree.TreeNode;
     const { searchValue, expandedKeys, autoExpandParent } = this.state;
+    const suffix = searchValue ? <Icon type="close-circle-fill" onClick={this.emitEmpty} /> : <Icon type="search-line" />;
     const loop = data => data.map((item) => {
       const index = item.title.indexOf(searchValue);
       const beforeStr = item.title.substr(0, index);
@@ -180,7 +185,7 @@
       const title = index > -1 ? (
         <span>
           {beforeStr}
-          <span style={{ color: '#f50' }}>{searchValue}</span>
+          <span style={{ color: '#337eff' }}>{searchValue}</span>
           {afterStr}
         </span>
       ) : <span>{item.title}</span>;
@@ -195,7 +200,14 @@
     });
     return (
       <div>
-        <Search style={{ marginBottom: 8 }} placeholder="Search" onChange={this.onChange} />
+        <Input
+          style={{ marginBottom: 8 }}
+          placeholder="请输入关键字"
+          onChange={this.onChange}
+          suffix={suffix}
+          value={searchValue}
+          ref={node => this.searchInput = node}
+        />
         <Tree
           onExpand={this.onExpand}
           expandedKeys={expandedKeys}
@@ -208,6 +220,24 @@
   }
 ```
 :::
+
+<style>
+.fishdicon-search-line,
+.fishdicon-close-circle-fill {
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.3s;
+  font-size: 12px;
+}
+.fishdicon-search-line:hover,
+.fishdicon-close-circle-fill:hover {
+  color: #999;
+}
+.fishdicon-search-line:active,
+.fishdicon-close-circle-fill:active {
+  color: #666;
+}
+</style>
 
 
 ## 异步数据加载
@@ -566,7 +596,7 @@
       </Tree>
     );
   }
-  
+
 ```
 :::
 
