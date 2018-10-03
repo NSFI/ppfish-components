@@ -309,8 +309,8 @@
 .@{rich-editor-prefix}-emoji-popover {
 
   .@{popover-prefix}-inner-content {
-    width: 438px;
-    height: 238px;
+    width: 402px;
+    height: 220px;
     padding: 0;
     overflow-y: scroll;
     .scrollbar();
@@ -318,7 +318,7 @@
 
   .custom-emoji-con {
     width: 100%;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
 
     .emoji-item-custom {
       display: inline-block;
@@ -331,9 +331,26 @@
     }
 
     .emoji-row {
-      width: 100%;
-      height: 20px;
-      margin-top: 20px;
+      height: 36px;
+      margin-left: 10px;
+      margin-top: 2px;
+
+      &:first-child {
+        margin-top: 12px;
+      }
+    }
+
+    .emoji-item-conter {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      margin-left: 2px;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: @text-d;
+      }
     }
 
     .emoji-item {
@@ -341,7 +358,7 @@
       width: 22px;
       height: 20px;
       padding: 0;
-      margin-left: 20px;
+      // margin-left: 20px;
       background: @component-background url('//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy') no-repeat;
       background-size: 22px auto;
       outline: none;

@@ -56,12 +56,14 @@ let genEmoji = (data) => {
     }
 
     tmpObj[grpIndex].push(
-      <button
-        key={"emoji_" + grpIndex + "_" + index}
-        className={"emoji-item " + item.className}
-        value={item.title + "__" + resPath + item.imgName + ".png"}
-        title={item.title}
-      />
+      <div className="emoji-item-conter">
+        <button
+          key={"emoji_" + grpIndex + "_" + index}
+          className={"emoji-item " + item.className}
+          value={item.title + "__" + resPath + item.imgName + ".png"}
+          title={item.title}
+        />
+      </div>
     );
   });
 
@@ -113,7 +115,7 @@ let genEmojiBz = (emojiData) => {
     if (typeof a.id != "number" || typeof b.id != "number") {
       return 0;
     } else {
-      return a.id - b.id; 
+      return a.id - b.id;
     }
   });
 
@@ -299,7 +301,7 @@ class CustomToolbar extends PureComponent {
               alignIconType = 'richeditor-align-all';
               tooltip = '两端对齐';
             }
-            
+
             const alignCls = classNames('item ql-align', {
               [`${iconPrefix}`]: true,
               [`${iconPrefix}-${alignIconType}`]: true
