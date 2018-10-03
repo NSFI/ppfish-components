@@ -15,6 +15,15 @@
   .reset-component;
   margin: 0;
   padding: 0;
+  max-width: 300px;
+
+  &-title {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   ol, ul {
     list-style: none;
@@ -102,6 +111,7 @@
     }
     .@{tree-prefix-cls}-node-content-wrapper {
       display: inline-block;
+      width: ~"calc(100% - 24px)";
       padding: 0 5px;
       border-radius: @border-radius-sm;
       margin: 0;

@@ -24,8 +24,8 @@
       >
         <TreeNode title="parent 1" key="0-0">
           <TreeNode title="parent 1-0" key="0-0-0" disabled>
-            <TreeNode title="leaf" key="0-0-0-0" disableCheckbox />
-            <TreeNode title="leaf" key="0-0-0-1" />
+            <TreeNode title="leaf" key="0-0-0-0" />
+            <TreeNode title="leaf with long title leaf with long title leaf with long title" key="0-0-0-1" />
           </TreeNode>
           <TreeNode title="parent 1-1" key="0-0-1">
             <TreeNode title={<span style={{ color: '#1890ff' }}>sss</span>} key="0-0-1-0" />
@@ -210,7 +210,7 @@
 
     let treeData = loop(this.gData);
     const renderTree = (notFound) => {
-      return notFound ? <span className="not-found">无搜索结果</span> : (
+      return notFound ? <div className="not-found">无搜索结果</div> : (
         <Tree
           onExpand={this.onExpand}
           expandedKeys={expandedKeys}
@@ -224,7 +224,7 @@
     return (
       <div>
         <Input
-          style={{ marginBottom: 8 }}
+          style={{ marginBottom: 8, width: 300 }}
           placeholder="请输入关键字"
           onChange={this.onChange}
           suffix={suffix}
