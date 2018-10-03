@@ -144,7 +144,8 @@
       expandedKeys: [],
       searchValue: '',
       autoExpandParent: true,
-    }
+      notFound: true
+    };
   }
 
   onExpand = (expandedKeys) => {
@@ -171,24 +172,32 @@
 
   emitEmpty = () => {
     this.searchInput.focus();
-    this.setState({ searchValue: '' });
+    this.setState({ searchValue: '', notFound: false });
   }
 
   render() {
     const TreeNode = Tree.TreeNode;
     const { searchValue, expandedKeys, autoExpandParent } = this.state;
     const suffix = searchValue ? <Icon type="close-circle-fill" onClick={this.emitEmpty} /> : <Icon type="search-line" />;
+    let notFound = true;
     const loop = data => data.map((item) => {
       const index = item.title.indexOf(searchValue);
       const beforeStr = item.title.substr(0, index);
       const afterStr = item.title.substr(index + searchValue.length);
-      const title = index > -1 ? (
-        <span>
-          {beforeStr}
-          <span style={{ color: '#337eff' }}>{searchValue}</span>
-          {afterStr}
-        </span>
-      ) : <span>{item.title}</span>;
+      let title = <span>{item.title}</span>;
+
+      if (index > -1) {
+        title = (
+          <span>
+            {beforeStr}
+            <span style={{ color: '#337eff' }}>{searchValue}</span>
+            {afterStr}
+          </span>
+        );
+
+        notFound = false;
+      }
+
       if (item.children) {
         return (
           <TreeNode key={item.key} title={title}>
@@ -198,6 +207,20 @@
       }
       return <TreeNode key={item.key} title={title} />;
     });
+
+    let treeData = loop(this.gData);
+    const renderTree = (notFound) => {
+      return notFound ? <span className="not-found">无搜索结果</span> : (
+        <Tree
+          onExpand={this.onExpand}
+          expandedKeys={expandedKeys}
+          autoExpandParent={autoExpandParent}
+        >
+          {treeData}
+        </Tree>
+      );
+    }
+
     return (
       <div>
         <Input
@@ -208,13 +231,7 @@
           value={searchValue}
           ref={node => this.searchInput = node}
         />
-        <Tree
-          onExpand={this.onExpand}
-          expandedKeys={expandedKeys}
-          autoExpandParent={autoExpandParent}
-        >
-          {loop(this.gData)}
-        </Tree>
+        {renderTree(notFound)}
       </div>
     );
   }
@@ -236,6 +253,12 @@
 .fishdicon-search-line:active,
 .fishdicon-close-circle-fill:active {
   color: #666;
+}
+.not-found {
+  font-size: 14px;
+  color: #999;
+  line-height: 32px;
+  margin-left: 12px;
 }
 </style>
 
