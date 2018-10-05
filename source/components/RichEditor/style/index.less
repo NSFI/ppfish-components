@@ -309,7 +309,7 @@
 .@{rich-editor-prefix}-emoji-popover {
 
   .@{popover-prefix}-inner-content {
-    width: 402px;
+    // width: 402px;
     height: 220px;
     padding: 0;
     overflow-y: scroll;
@@ -318,7 +318,7 @@
 
   .custom-emoji-con {
     width: 100%;
-    padding-bottom: 12px;
+    padding: 12px 8px 12px 12px;
 
     .emoji-item-custom {
       display: inline-block;
@@ -332,11 +332,11 @@
 
     .emoji-row {
       height: 36px;
-      margin-left: 10px;
+      margin-left: 0;
       margin-top: 2px;
 
       &:first-child {
-        margin-top: 12px;
+        margin-top: 0;
       }
     }
 
@@ -347,6 +347,10 @@
       margin-left: 2px;
       justify-content: center;
       align-items: center;
+
+      &:first-child {
+        margin-left: 0;
+      }
 
       &:hover {
         background-color: @text-d;

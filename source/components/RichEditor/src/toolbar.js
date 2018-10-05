@@ -102,8 +102,8 @@ let emojiData = {
     }
   ]
 };
-let defaultEmojiWidth = 88;
-let defaultEmojiHeight = 88;
+let defaultEmojiWidth = 74;
+let defaultEmojiHeight = 74;
 let genEmojiBz = (emojiData) => {
   let data = emojiData.data,
       iWidth = defaultEmojiWidth,
