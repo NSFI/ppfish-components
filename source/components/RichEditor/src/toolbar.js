@@ -45,6 +45,9 @@ let defaultSizes = [
   );
 });
 
+const emojiValueDivider = '///***';
+let defaultEmojiWidth = 24;
+let defaultEmojiHeight = 24;
 let genEmoji = (data) => {
   let colSize = 10,
       resPath = '//qiyukf.com/sdk/res/portrait/emoji/',
@@ -62,7 +65,10 @@ let genEmoji = (data) => {
       <div className="emoji-item-ctner" key={"emoji_" + grpIndex + "_" + index} >
         <button
           className={"emoji-item " + item.className}
-          value={item.title + "__" + resPath + item.imgName + ".png"}
+          value={`${item.title}${emojiValueDivider}
+                  ${resPath}${item.imgName}.png${emojiValueDivider}
+                  ${defaultEmojiWidth}${emojiValueDivider}
+                  ${defaultEmojiHeight}`}
           title={item.title}
         />
       </div>
@@ -81,12 +87,9 @@ let genEmoji = (data) => {
 };
 let defaultEmojis = genEmoji(emojiList);
 
-let defaultEmojiWidth = 74;
-let defaultEmojiHeight = 74;
+let customEmojiWidth = 74;
+let customEmojiHeight = 74;
 let genCustomEmoji = (data) => {
-  let iWidth = defaultEmojiWidth,
-      iHeight = defaultEmojiHeight;
-
   if (!(data && data.length)) return;
 
   let sortedData = data.sort((a, b) => {
@@ -102,11 +105,14 @@ let genCustomEmoji = (data) => {
       <img
         key={"emoji_extend_" + index}
         className={"emoji-extend-item " + item.className}
-        value={item.title + "__" + item.url}
+        value={`${item.title}${emojiValueDivider}
+                ${item.url}${emojiValueDivider}
+                ${customEmojiWidth}${emojiValueDivider}
+                ${customEmojiHeight}`}
         title={item.title}
         src={item.url}
-        width={iWidth}
-        height={iHeight}
+        width={customEmojiWidth}
+        height={customEmojiHeight}
         alt={item.title}
       />
     );

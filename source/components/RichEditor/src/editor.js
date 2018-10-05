@@ -83,11 +83,14 @@ class RichEditor extends Component {
         }
       },
       emoji: function(value) {
-        let vList = value.split('__');
+        const emojiValueDivider = '///***';
+        let vList = value.split(emojiValueDivider);
         let range = this.quill.getSelection();
         this.quill.insertEmbed(range.index, 'emoji', {
           alt: vList[0],
-          src: vList[1]
+          src: vList[1],
+          width: vList[2],
+          height: vList[3]
         });
         this.quill.setSelection(range.index + 1);
       },
