@@ -1,6 +1,7 @@
 @import (reference) "../../../assets/css/index";
 @import "./quill.snow.less";
 
+@tabs-prefix: ~"@{fishd-prefix}-tabs";
 @popover-prefix: ~"@{fishd-prefix}-popover";
 @rich-editor-prefix: ~"@{fishd-prefix}-richeditor";
 @icon-normal-color: @text-6;
@@ -309,14 +310,21 @@
 .@{rich-editor-prefix}-emoji-popover {
 
   .@{popover-prefix}-inner-content {
+    padding: 0;
+  }
+
+  .@{tabs-prefix}-bar {
+    margin-bottom: 0;
+  }
+
+  .emoji-ctner {
     width: 402px;
     height: 220px;
-    padding: 0;
     overflow-y: scroll;
     .scrollbar();
   }
 
-  .custom-emoji-con {
+  .emoji-con {
     width: 100%;
     height: 100%;
     display: inline-block;

@@ -98,6 +98,68 @@
 ```
 :::
 
+## 定制表情包
+
+:::demo 定制表情包。
+
+```js
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
+        customEmoji={[{
+          name: '自定义表情1',
+          data: [
+            {
+              id: 0,
+              className: 'e0',
+              url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
+              title: 'pic1'
+            },
+            {
+              id: 1,
+              className: 'e1',
+              url: '//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf',
+              title: 'pic2'
+            },
+            {
+              id: 2,
+              className: 'e2',
+              url: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
+              title: 'pic3'
+            },
+            {
+              id: 3,
+              className: 'e3',
+              url: "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
+              title: "pic4"
+            },
+            {
+              id: 4,
+              className: 'e4',
+              url: "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
+              title: "pic5"
+            },
+            {
+              id: 5,
+              className: 'e5',
+              url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
+              title: 'pic6'
+            },
+          ]
+        }]}
+      />
+    );
+  }
+```
+:::
+
+
 ## 轻量版
 
 :::demo 轻量版。
@@ -148,7 +210,8 @@
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
-| customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: '', url: '', title: ''}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
+| customEmoji | 定制表情包 | Array<Object {name: String, id: Number, [className]: String, url: String, [title]: String}> | - |
+| customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
 | maxWidth | 编辑区域的最大宽度 | String | '100%' |

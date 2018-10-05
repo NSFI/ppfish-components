@@ -22,6 +22,7 @@ Quill.register(LinkBlot);
 class RichEditor extends Component {
   static propTypes = {
     className: PropTypes.string,
+    customEmoji: PropTypes.array,
     customLink: PropTypes.object,
     defaultValue: PropTypes.string,
     maxWidth: PropTypes.string,
@@ -42,6 +43,7 @@ class RichEditor extends Component {
   };
 
   static defaultProps = {
+    customEmoji: [],
     customLink: {},
     placeholder: '请输入内容',
     prefixCls: 'fishd-richeditor',
@@ -234,7 +236,7 @@ class RichEditor extends Component {
     let target = e.target,
         clsList = target.classList.value;
 
-    if ((clsList.indexOf('emoji-item') > -1 || clsList.indexOf('emoji-item-custom') > -1) && target.hasAttribute('value')) {
+    if ((clsList.indexOf('emoji-item') > -1 || clsList.indexOf('emoji-extend-item') > -1) && target.hasAttribute('value')) {
       let el = this.toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
       if (el == null) {
         el = document.createElement('button');
@@ -292,6 +294,7 @@ class RichEditor extends Component {
       customLink, resizable,
       maxWidth, maxHeight,
       getPopupContainer,
+      customEmoji,
       ...restProps
     } = this.props;
     const cls = classNames(`${prefixCls}`, {
@@ -324,6 +327,7 @@ class RichEditor extends Component {
           ref={el => this.toolbarRef = el}
           className={'editor-head'}
           toolbar={toolbar}
+          customEmoji={customEmoji}
           customLink={customLink}
           handleInsertEmoji={this.handleInsertEmoji}
           handleFormatColor={this.handleFormatColor}

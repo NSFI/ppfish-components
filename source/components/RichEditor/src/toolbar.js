@@ -5,6 +5,9 @@ import emojiList from './emojiList.js';
 // import ColorPicker from '../../ColorPicker/index.js';
 import Tooltip from '../../Tooltip/index.tsx';
 import Popover from '../../Popover/index.tsx';
+import Tabs from '../../Tabs/index.tsx';
+
+const TabPane = Tabs.TabPane;
 
 let defaultColors = [
   '#E53333', '#E56600', '#FF9900',
@@ -56,9 +59,8 @@ let genEmoji = (data) => {
     }
 
     tmpObj[grpIndex].push(
-      <div className="emoji-item-ctner">
+      <div className="emoji-item-ctner" key={"emoji_" + grpIndex + "_" + index} >
         <button
-          key={"emoji_" + grpIndex + "_" + index}
           className={"emoji-item " + item.className}
           value={item.title + "__" + resPath + item.imgName + ".png"}
           title={item.title}
@@ -79,52 +81,10 @@ let genEmoji = (data) => {
 };
 let defaultEmojis = genEmoji(emojiList);
 
-let emojiData = {
-  name: '表情包名称',
-  data: [
-    {
-      id: 0,
-      className: 'emoji-00',
-      url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
-      title: 'pic1'
-    },
-    {
-      id: 1,
-      className: 'emoji-01',
-      url: '//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf',
-      title: 'pic2'
-    },
-    {
-      id: 2,
-      className: 'emoji-02',
-      url: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
-      title: 'pic3'
-    },
-    {
-      id: 3,
-      className: 'emoji-03',
-      url: "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
-      title: "pic4"
-    },
-    {
-      id: 4,
-      className: 'emoji-04',
-      url: "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
-      title: "pic5"
-    },
-    {
-      id: 5,
-      className: 'emoji-05',
-      url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
-      title: 'pic6'
-    },
-  ]
-};
 let defaultEmojiWidth = 74;
 let defaultEmojiHeight = 74;
-let genEmojiBz = (emojiData) => {
-  let data = emojiData.data,
-      iWidth = defaultEmojiWidth,
+let genCustomEmoji = (data) => {
+  let iWidth = defaultEmojiWidth,
       iHeight = defaultEmojiHeight;
 
   if (!(data && data.length)) return;
@@ -152,7 +112,6 @@ let genEmojiBz = (emojiData) => {
     );
   });
 };
-let bzEmojis = genEmojiBz(emojiData);
 
 class CustomToolbar extends PureComponent {
   static propTypes = {
@@ -160,6 +119,7 @@ class CustomToolbar extends PureComponent {
     iconPrefix: PropTypes.string,
     prefixCls: PropTypes.string,
     toolbar: PropTypes.array,
+    customEmoji: PropTypes.array,
     customLink: PropTypes.object,
     getPopupContainer: PropTypes.func,
     handleInsertEmoji: PropTypes.func,
@@ -171,6 +131,7 @@ class CustomToolbar extends PureComponent {
     className: '',
     iconPrefix: 'fishdicon',
     toolbar: [],
+    customEmoji: [],
     customLink: {},
     prefixCls: 'fishd-richeditor',
     getPopupContainer: () => document.body
@@ -185,13 +146,15 @@ class CustomToolbar extends PureComponent {
     emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
   }
 
-  getModuleHTML = (mType, key, customLink) => {
+  getModuleHTML = (mType, key) => {
     let {
       iconPrefix,
       handleInsertEmoji,
       handleFormatColor,
       handleFormatSize,
       prefixCls,
+      customEmoji,
+      customLink,
       getPopupContainer
     } = this.props;
     let mValue = null,
@@ -369,10 +332,42 @@ class CustomToolbar extends PureComponent {
             [`${iconPrefix}-richeditor-expressio`]: true
           });
           let content = (
-            <div className="custom-emoji-con" onClick={handleInsertEmoji}>
-              { defaultEmojis }
+            <div className="emoji-ctner">
+              <div className="emoji-con" onClick={handleInsertEmoji}>
+                { defaultEmojis }
+              </div>
             </div>
           );
+
+          if (customEmoji && customEmoji.length) {
+            let tabPanes = [
+              <TabPane tab="默认表情" key="emoji_default">
+                <div className="emoji-ctner">
+                  <div className="emoji-con" onClick={handleInsertEmoji}>
+                    { defaultEmojis }
+                  </div>
+                </div>
+              </TabPane>
+            ];
+
+            customEmoji.forEach((item, index) => {
+              tabPanes.push(
+                <TabPane tab={item.name} key={'custom_emoji_' + index}>
+                  <div className="emoji-ctner">
+                    <div className="emoji-con" onClick={handleInsertEmoji}>
+                      { genCustomEmoji(item.data) }
+                    </div>
+                  </div>
+                </TabPane>
+              );
+            });
+
+            content = (
+              <Tabs defaultActiveKey="emoji_default">
+                { tabPanes }
+              </Tabs>
+            );
+          }
 
           value = (
             <Popover
@@ -537,14 +532,14 @@ class CustomToolbar extends PureComponent {
     return value;
   };
 
-  genToolbar = (toolbar, customLink) => {
+  genToolbar = (toolbar) => {
     let result = [];
 
     toolbar.forEach((item, index) => {
       // 分组展示的项目
       if (item instanceof Array) {
         let grpItems = item.map((mType, subindex) => {
-          return this.getModuleHTML(mType, 'toolbar_' + index + '_sub_' + subindex, customLink);
+          return this.getModuleHTML(mType, 'toolbar_' + index + '_sub_' + subindex);
         });
 
         result.push(
@@ -554,7 +549,7 @@ class CustomToolbar extends PureComponent {
         );
       } else {  // 单个展示的项目
         result.push(
-          this.getModuleHTML(item, 'toolbar_' + index, customLink)
+          this.getModuleHTML(item, 'toolbar_' + index)
         );
       }
     });
@@ -569,11 +564,11 @@ class CustomToolbar extends PureComponent {
   // };
 
   render() {
-    const { className, toolbar, customLink } = this.props;
+    const { className, toolbar } = this.props;
 
     return (
       <div className={className} ref={node => this.toolbarCtner = node}>
-        { this.genToolbar(toolbar, customLink) }
+        { this.genToolbar(toolbar) }
       </div>
     );
   }
