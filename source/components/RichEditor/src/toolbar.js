@@ -56,7 +56,7 @@ let genEmoji = (data) => {
     }
 
     tmpObj[grpIndex].push(
-      <div className="emoji-item-conter">
+      <div className="emoji-item-ctner">
         <button
           key={"emoji_" + grpIndex + "_" + index}
           className={"emoji-item " + item.className}
@@ -86,20 +86,38 @@ let emojiData = {
       id: 0,
       className: 'emoji-00',
       url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
-      title: '[可爱]'
+      title: 'pic1'
     },
     {
       id: 1,
       className: 'emoji-01',
       url: '//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf',
-      title: '[大笑]'
+      title: 'pic2'
     },
     {
       id: 2,
       className: 'emoji-02',
       url: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
-      title: '[色]'
-    }
+      title: 'pic3'
+    },
+    {
+      id: 3,
+      className: 'emoji-03',
+      url: "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
+      title: "pic4"
+    },
+    {
+      id: 4,
+      className: 'emoji-04',
+      url: "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
+      title: "pic5"
+    },
+    {
+      id: 5,
+      className: 'emoji-05',
+      url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
+      title: 'pic6'
+    },
   ]
 };
 let defaultEmojiWidth = 74;
@@ -122,8 +140,8 @@ let genEmojiBz = (emojiData) => {
   return sortedData.map((item, index) => {
     return (
       <img
-        key={"emoji_bz_" + index}
-        className={"emoji-item-custom " + item.className}
+        key={"emoji_extend_" + index}
+        className={"emoji-extend-item " + item.className}
         value={item.title + "__" + item.url}
         title={item.title}
         src={item.url}
