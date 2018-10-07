@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
 import Icon from '../Icon/index.tsx';
-import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen } from '../../utils';
+import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen, KeyCode } from '../../utils';
 import './style/index.less';
 
 const CON_MAX_WIDTH = 1024, //容器最大宽度
@@ -520,6 +520,19 @@ class PicturePreview extends Component {
     this.handleZoom(this.state.image.ratio + (delta > 0 ? STEP_RATIO : -STEP_RATIO));
   };
 
+  handleKeyDown = (e) => {
+    e.preventDefault();
+    // console.log('>> e.keyCode: ', e.keyCode);
+    // debugger;
+    if (!this.state.container.isFull && e.keyCode === KeyCode.ESC) {
+      this.handleClose();
+    } else if (e.keyCode === KeyCode.LEFT) {
+      this.handlePrev();
+    } else if (e.keyCode === KeyCode.RIGHT) {
+      this.handleNext();
+    }
+  };
+
   render() {
     const { show, current, imgs, image, container } = this.state;
     const { className, prefixCls, source, children, toolbar, draggable, mask, progress } = this.props;
@@ -566,7 +579,10 @@ class PicturePreview extends Component {
     });
 
     const renderCtner = (
-      <div data-show={show} className={ctnerClass} style={container.style}
+      <div
+        data-show={show}
+        className={ctnerClass}
+        style={container.style}
         ref={node => this.$el = node}
         onDragStart={(e) => {e.preventDefault();}}
         onMouseDown={draggable ? this.handleMouseDown : null}
@@ -618,32 +634,28 @@ class PicturePreview extends Component {
       </div>
     );
 
-    if (mask) {
-      return (
-        <Animate
-          component=""
-          showProp="data-show"
-          transitionName="zoom"
-          transitionAppear={true}
-        >
-        <div key={`${prefixCls}-root`} data-show={show} className={rootClass} ref={node => this.$root = node}>
-          <div className={maskClass} />
-          { renderCtner }
-        </div>
-        </Animate>
-      );
-    } else {
-      return (
-        <Animate
-          component=""
-          showProp="data-show"
-          transitionName="zoom"
-          transitionAppear={true}
-        >
-          { renderCtner }
-        </Animate>
-      );
-    }
+    const renderMaskCtner = (
+      <div
+        key={`${prefixCls}-root`}
+        data-show={show}
+        className={rootClass}
+        ref={node => this.$root = node}
+      >
+        <div className={maskClass} />
+        { renderCtner }
+      </div>
+    );
+
+    return (
+      <Animate
+        component=""
+        showProp="data-show"
+        transitionName="zoom"
+        transitionAppear={true}
+      >
+        { mask ? renderMaskCtner : renderCtner }
+      </Animate>
+    );
   }
 }
 
