@@ -110,7 +110,8 @@
       padding: 0 0 0 @tree-child-padding;
     }
     .@{tree-prefix-cls}-node-content-wrapper {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       width: ~"calc(100% - 24px)";
       padding: 0 5px;
       border-radius: @border-radius-sm;
@@ -131,6 +132,7 @@
 
       .@{spin-prefix-cls}-spinning {
         margin-right: 8px;
+        line-height: 0;
       }
     }
     span {
