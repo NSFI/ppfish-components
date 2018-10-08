@@ -97,6 +97,7 @@ class PicturePreview extends Component {
     toolbar: PropTypes.bool,
     source: PropTypes.array,
     draggable: PropTypes.bool,
+    keyboard: PropTypes.bool,
     mask: PropTypes.bool,
     progress: PropTypes.bool,
     visible: PropTypes.bool,
@@ -109,6 +110,7 @@ class PicturePreview extends Component {
     toolbar: false,
     source: [], // [{name: '', src: ''}]
     draggable: false,
+    keyboard: true,
     mask: true,
     progress: false,
     visible: false,
@@ -137,7 +139,7 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
-    const { draggable, toolbar, mask } = this.props;
+    const { draggable, toolbar, mask, keyboard } = this.props;
 
     document.body.appendChild(mask ? this.$root : this.$el);
     this.setContainerStyle();
@@ -151,9 +153,11 @@ class PicturePreview extends Component {
 
     if (draggable) {
       // 监听拖动事件
-      document.addEventListener('mousemove', this.handleMouseMove);
-      document.addEventListener('mouseup', this.handleMouseUp);
+      document.addEventListener("mousemove", this.handleMouseMove);
+      document.addEventListener("mouseup", this.handleMouseUp);
     }
+
+    keyboard && document.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -207,16 +211,19 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    const { draggable, mask } = this.props;
+    const { draggable, mask, keyboard } = this.props;
     let el = mask ? this.$root : this.$el;
+
     if (el && el.parentNode === document.body) {
       document.body.removeChild(el);
     }
 
     if (draggable) {
-      document.removeEventListener('mousemove', this.handleMouseMove);
-      document.removeEventListener('mouseup', this.handleMouseUp);
+      document.removeEventListener("mousemove", this.handleMouseMove);
+      document.removeEventListener("mouseup", this.handleMouseUp);
     }
+
+    keyboard && document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   /**
@@ -521,9 +528,6 @@ class PicturePreview extends Component {
   };
 
   handleKeyDown = (e) => {
-    e.preventDefault();
-    // console.log('>> e.keyCode: ', e.keyCode);
-    // debugger;
     if (!this.state.container.isFull && e.keyCode === KeyCode.ESC) {
       this.handleClose();
     } else if (e.keyCode === KeyCode.LEFT) {
