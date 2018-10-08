@@ -69,7 +69,7 @@ class RichEditor extends Component {
       showImageModal: false,
     };
     this.handlers = {
-      link: (value) => {
+      myLink: (value) => {
         let quill = this.getEditor();
         let range = quill.getSelection();
 
@@ -128,7 +128,7 @@ class RichEditor extends Component {
       this.handlers[`${name}Entry`] = function() {
         let range = this.quill.getSelection();
         if (range.length !== 0) {
-          this.quill.format('link', customLink[name].url);
+          this.quill.format('myLink', customLink[name].url);
         } else {
           message.error('没有选中文本');
         }
@@ -178,7 +178,7 @@ class RichEditor extends Component {
       }
 
       let quill = this.getEditor();
-      quill.format('link', val);
+      quill.format('myLink', val);
       el.value = 'http://';
 
       this.setState({

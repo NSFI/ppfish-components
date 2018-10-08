@@ -25,7 +25,7 @@ class Link extends Inline {
     }
   }
 }
-Link.blotName = 'link';
+Link.blotName = 'myLink';
 Link.tagName = 'A';
 // Link.SANITIZED_URL = 'about:blank';
 // Link.PROTOCOL_WHITELIST = ['http', 'https', 'mailto', 'tel'];
