@@ -199,7 +199,7 @@ render(){
 
 ```js
 
-onChange=(e)=> {
+onChange=(e) => {
   console.log(`radio checked:${e.target.value}`);
 };
 

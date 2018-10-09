@@ -11,7 +11,7 @@
 :::demo
 
 ```js
-onChange = (value) =>{
+onChange = (value) => {
   console.log('changed', value);
 }
 
@@ -29,7 +29,7 @@ render(){
 
 ```js
 
-onChange = (value) =>{
+onChange = (value) => {
   console.log('changed', value);
 }
 
@@ -87,7 +87,7 @@ class Demo extends React.Component {
 :::demo 和原生的数字输入框一样，value 的精度由 step 的小数位数决定。
 
 ```js
-onChange = (value) =>{
+onChange = (value) => {
   console.log('changed', value);
 }
 
@@ -104,7 +104,7 @@ render(){
 :::demo 通过 `formatter` 格式化数字，以展示具有具体含义的数据，往往需要配合 `parser` 一起使用。
 
 ```js
-onChange = (value) =>{
+onChange = (value) => {
   console.log('changed', value);
 }
 
@@ -146,7 +146,7 @@ render(){
 | parser | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | (String) => Number | - |
 | precision | 数值精度 | Number | - |
 | size | 输入框大小 | String | - |
-| step | 每次改变步数，可以为小数 | Number\|String | 1 |
+| step | 每次改变步数，可以为小数 | Number | String | 1 |
 | value | 当前值 | Number | - |
 | onChange | 变化回调 | (value: Number \| String) =>  Void | - |
 

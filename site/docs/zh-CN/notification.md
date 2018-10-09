@@ -248,12 +248,12 @@ config 参数如下：
 | --- | --- | --- | --- |
 | btn | 自定义关闭按钮 | ReactNode | - |
 | className | 自定义 CSS class | String | - |
-| description | 通知提醒内容，必选 | String\|ReactNode | - |
+| description | 通知提醒内容，必选 | String | ReactNode | - |
 | duration | 默认 4.5 秒后自动关闭，配置为 null 则不自动关闭 | Number | 4.5 |
 | icon | 自定义图标 | ReactNode | - |
 | key | 当前通知唯一标志 | String | - |
-| message | 通知提醒标题，必选 | String\|ReactNode | - |
-| placement | 弹出位置，可选 `topLeft` `topRight` `bottomLeft` `bottomRight` | String | topRight |
+| message | 通知提醒标题，必选 | String | ReactNode | - |
+| placement | 弹出位置，可选 `'topLeft'` `'topRight'` `'bottomLeft'` `'bottomRight'` | Enum {'topLeft', 'topRight', 'bottomLeft', 'bottomRight'} | 'topRight' |
 | style | 自定义内联样式 | [React.CSSProperties](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e434515761b36830c3e58a970abf5186f005adac/types/react/index.d.ts#L794) | - |
 | onClose | 点击默认关闭按钮时触发的回调函数 | (e) => Void | - |
 
@@ -274,5 +274,5 @@ notification.config({
 | bottom | 消息从底部弹出时，距离底部的位置，单位像素。 | Number | 24 |
 | duration | 默认自动关闭延时，单位秒 | Number | 4.5 |
 | getContainer | 配置渲染节点的输出位置 | () => HTMLNode | () => document.body |
-| placement | 弹出位置，可选 `topLeft` `topRight` `bottomLeft` `bottomRight` | String | topRight |
+| placement | 弹出位置，可选 `'topLeft'` `'topRight'` `'bottomLeft'` `'bottomRight'` | Enum {'topLeft', 'topRight', 'bottomLeft', 'bottomRight'} | 'topRight' |
 | top | 消息从顶部弹出时，距离顶部的位置，单位像素。 | Number | 24 |

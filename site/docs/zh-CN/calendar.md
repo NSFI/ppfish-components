@@ -12,7 +12,7 @@
 
 
 ```js
-onPanelChange=(value, mode)=> {
+onPanelChange=(value, mode) => {
   console.log(value, mode);
 }
 
@@ -28,7 +28,7 @@ render(){
 
 ```js
 
-onPanelChange=(value, mode)=> {
+onPanelChange=(value, mode) => {
   console.log(value, mode);
 };
 
@@ -47,7 +47,7 @@ render(){
 :::demo 一个复杂的应用示例，用 `dateCellRender` 和 `monthCellRender` 函数来自定义需要渲染的数据。
 
 ```js
-getListData=(value)=> {
+getListData=(value) => {
   let listData;
   switch (value.date()) {
     case 8:
@@ -75,7 +75,7 @@ getListData=(value)=> {
   return listData || [];
 };
 
-dateCellRender=(value)=> {
+dateCellRender=(value) => {
   const listData = this.getListData(value);
   return (
     <ul className="events">
@@ -90,13 +90,13 @@ dateCellRender=(value)=> {
   );
 };
 
-getMonthData=(value)=> {
+getMonthData=(value) => {
   if (value.month() === 8) {
     return 1394;
   }
 };
 
-monthCellRender=(value)=> {
+monthCellRender=(value) => {
   const num = this.getMonthData(value);
   return num ? (
     <div className="notes-month">

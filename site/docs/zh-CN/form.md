@@ -1720,7 +1720,7 @@ const Demo = Form.create()(UnwrappedDemo);
 | --- | --- | --- | --- |
 | form | 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可。 | Object | - |
 | hideRequiredMark | 隐藏所有表单项的必选标记 | Boolean | false |
-| layout | 表单布局 | 'horizontal'\|'vertical'\|'inline' | 'horizontal' |
+| layout | 表单布局 | Enum {'horizontal', 'vertical', 'inline'} | 'horizontal' |
 | onSubmit | 数据验证成功后回调事件 | (e:Event) => Void | - |
 
 ### Form.create(options)
@@ -1740,7 +1740,7 @@ CustomizedForm = Form.create({})(CustomizedForm);
 | mapPropsToFields | 把父组件的属性映射到表单项上（如：把 Redux store 中的值读出），需要对返回值中的表单域数据用 `Form.createFormField` 标记 | (props) => Object{ fieldName: FormField { value } } |
 | validateMessages | 默认校验信息，可用于把默认错误信息改为中文等，格式与 [newMessages](https://github.com/yiminghe/async-validator/blob/master/src/messages.js) 返回值一致 | Object { [nested.path]: String } |
 | onFieldsChange | 当 `Form.Item` 子节点的值发生改变时触发，可以把对应的值转存到 Redux store | (props, fields) => Void |
-| onValuesChange | 任一表单域的值发生改变时的回调 | (props, changedValues, allValues) => void |
+| onValuesChange | 任一表单域的值发生改变时的回调 | (props, changedValues, allValues) => Void |
 
 经过 `Form.create` 之后如果要拿到 `ref`，可以使用 `wrappedComponentRef` 。
 
@@ -1770,7 +1770,7 @@ this.form // => The instance of CustomizedForm
 | isFieldTouched | 判断一个输入控件是否经历过 `getFieldDecorator` 的值收集时机 `options.trigger` | (name: String) => Boolean |
 | isFieldValidating | 判断一个输入控件是否在校验状态 | (name) => Void |
 | resetFields | 重置一组输入控件的值（为 `initialValue`）与状态，如不传入参数，则重置所有组件 | (\[names: Array<String>]) => Void |
-| setFields | 设置一组输入控件的值与 Error。 | ({ [fieldName]: { value: any, errors: [Error] } }) |
+| setFields | 设置一组输入控件的值与 Error。 | ({ [fieldName]: { value: any, errors: [Error] } }) => Void |
 | setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/ant-design/ant-design/issues/2985)） | ({ [fieldName]: value }) => Void |
 | validateFields | 校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件 | (\[fieldNames: Array<String>], [options: Object], callback: (errors, values) => Void) => Void |
 | validateFieldsAndScroll | 与 `validateFields` 相似，但校验完后，如果校验不通过的菜单域不在可见范围内，则自动滚动进可见范围 | 参考 `validateFields` |
@@ -1807,11 +1807,11 @@ this.form // => The instance of CustomizedForm
 | options.normalize | 转换默认的 value 给控件，[一个选择全部的例子](https://codepen.io/afc163/pen/JJVXzG?editors=001) | (value, prevValue, allValues) => any | - |
 | options.rules | 校验规则，参考下方文档 | Array<Object> | - |
 | options.validate | 校验方法 | Array<Object> | - |
-| options.validate[n].trigger | Event which is listened to validate. Set to falsy to only validate when call props.validateFields. | String|Array<String> | 'onChange' |
+| options.validate[n].trigger | Event which is listened to validate. Set to falsy to only validate when call props.validateFields. | String | Array<String> | 'onChange' |
 | options.validate[n].rules | Validator rules. see: [async-validator](https://github.com/yiminghe/async-validator) | Array<Object> | - |
 | options.trigger | 收集子节点的值的时机 | String | 'onChange' |
 | options.validateFirst | 当某一规则校验不通过时，是否停止剩下的规则的校验 | Boolean | false |
-| options.validateTrigger | 校验子节点值的时机 | String\|Array<String> | 'onChange' |
+| options.validateTrigger | 校验子节点值的时机 | String \| Array<String> | 'onChange' |
 | options.valuePropName | 子节点的值的属性，如 Switch 的是 'checked' | String | 'value' |
 | options.getValueProps | Get the component props according to field value. | (value): Object | (value) => ({ value }) |
 | options.hidden | Ignore current field while validating or gettting fields | Boolean | false |
@@ -1829,10 +1829,10 @@ this.form // => The instance of CustomizedForm
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | colon | 配合 label 属性使用，表示是否显示 label 后面的冒号 | Boolean | true |
-| extra | 额外的提示信息，和 help 类似，当需要错误信息和提示文案同时出现时，可以使用这个。 | String\|ReactNode | - |
+| extra | 额外的提示信息，和 help 类似，当需要错误信息和提示文案同时出现时，可以使用这个。 | String \| ReactNode | - |
 | hasFeedback | 配合 validateStatus 属性使用，展示校验状态图标，建议只配合 Input 组件使用 | Boolean | false |
-| help | 提示信息，如不设置，则会根据校验规则自动生成 | String\|ReactNode | - |
-| label | label 标签的文本 | String\|ReactNode | - |
+| help | 提示信息，如不设置，则会根据校验规则自动生成 | String \| ReactNode | - |
+| label | label 标签的文本 | String \| ReactNode | - |
 | labelCol | label 标签布局，同 `<Col>` 组件，设置 `span` `offset` 值，如 `{span: 3, offset: 12}` 或 `sm: {span: 3, offset: 12}` | [Object](https://nsfi.github.io/ppfish-components/#/components/grid/) | - |
 | required | 是否必填，如不设置，则会根据校验规则自动生成 | Boolean | false |
 | validateStatus | 校验状态，如不设置，则会根据校验规则自动生成，可选：'success' 'warning' 'error' 'validating' | String | - |
@@ -1845,14 +1845,14 @@ this.form // => The instance of CustomizedForm
 | Enum | 枚举类型 | String | - |
 | len | 字段长度 | Number | - |
 | max | 最大长度 | Number | - |
-| message | 校验文案 | String\|ReactNode | - |
+| message | 校验文案 | String \| ReactNode | - |
 | min | 最小长度 | Number | - |
 | pattern | 正则表达式校验 | RegExp | - |
-| required | 是否必选 | Boolean | `false` |
+| required | 是否必选 | Boolean | false |
 | transform | 校验前转换字段值 | (value) => transformedValue:any | - |
-| type | 内建校验类型，[可选项](https://github.com/yiminghe/async-validator#type) | String | 'string' |
+| type | 内建校验类型，[可选项](https://github.com/yiminghe/async-validator#type) | Enum | 'string' |
 | validator | 自定义校验（注意，[callback 必须被调用](https://github.com/ant-design/ant-design/issues/5155)） | (rule, value, callback) => Void | - |
-| whitespace | 必选时，空格是否会被视为错误 | Boolean | `false` |
+| whitespace | 必选时，空格是否会被视为错误 | Boolean | false |
 
 更多高级用法可研究 [async-validator](https://github.com/yiminghe/async-validator)。
 

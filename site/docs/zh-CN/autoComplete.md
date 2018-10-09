@@ -336,13 +336,13 @@
 | allowClear | 支持清除, 单选模式有效 | Boolean | false |
 | autoFocus | 自动获取焦点 | Boolean | false |
 | backfill | 使用键盘选择选项的时候把选中项回填到输入框中 | Boolean | false |
-| children (自动完成的数据源) | 自动完成的数据源 | ReactElement<OptionProps> \| Array<ReactElement<OptionProps>> | - |
-| children (自定义输入框) | 自定义输入框 | HTMLInputElement \| HTMLTextAreaElement \| ReactElement<InputProps> | `<Input />` |
+| children (自动完成的数据源) | 自动完成的数据源 | ReactNode<OptionProps> \| Array<ReactNode<OptionProps>> | - |
+| children (自定义输入框) | 自定义输入框 | HTMLInputElement \| HTMLTextAreaElement \| ReactNode<InputProps> | `<Input />` |
 | dataSource | 自动完成的数据源 | Array<DataSourceItemType(https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/index.tsx#L10)> | - |
 | defaultActiveFirstOption | 是否默认高亮第一个选项 | Boolean | true |
 | defaultValue | 指定默认选中的条目 | String \| Array<String> \| { key: String, label: String \| ReactNode } \| Array<{ key: String, label: String \| ReactNode}> | - |
 | disabled | 是否禁用 | Boolean | false |
-| filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | Boolean or (inputValue, option) => Boolean | true |
+| filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | Boolean \| (inputValue, option) => Boolean | true |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 | (triggerNode) => HTMLElement | () => document.body |
 | optionLabelProp | 回填到选择框的 Option 的属性值，默认是 Option 的子元素。比如在子元素需要高亮效果时，此值可以设为 `value` | String | `children` |
 | placeholder | 输入框提示 | String | - |

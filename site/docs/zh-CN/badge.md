@@ -260,13 +260,13 @@ render(){
 
 ## API
 
-```jsx
+```html
 <Badge count={5}>
   <a href="#" className="head-example" />
 </Badge>
 ```
 
-```jsx
+```html
 <Badge count={5} />
 ```
 

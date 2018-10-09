@@ -124,7 +124,7 @@
 | mask  | 模态框关闭的遮罩是否可见   | Boolean   | false  |
 | onCancel  | 点击遮罩层或右上角叉或取消按钮的回调   | (e) => Void   | -  |
 | afterClose  | 模态框关闭的回调    | (e) => Void   | —   |
-| width	| 设置模态框的宽度  | String|Number |  520  |
+| width	| 设置模态框的宽度  | String \| Number |  520  |
 
 更多模态框配置项，请查看 [`Modal`](https://nsfi.github.io/ppfish-components/#/components/modal)。其中title、footer不支持配置。
 

@@ -26,7 +26,7 @@
           <DatePicker
             style={{width: 300}}
             value={value1}
-            onChange={date=>{
+            onChange={date=> {
               console.debug('DatePicker1 changed: ', date)
               this.setState({value1: date})
             }}
@@ -38,7 +38,7 @@
             style={{width: 300}}
             value={value2}
             placeholder="请选择日期"
-            onChange={date=>{
+            onChange={date=> {
               console.debug('DatePicker2 changed: ', date)
               this.setState({value2: date})
             }}
@@ -126,7 +126,7 @@
             style={{width: 300}}
             value={value1}
             placeholder="请选择日期"
-            onChange={date=>{
+            onChange={date=> {
               console.debug('DatePicker1 changed: ', date)
               this.setState({value1: date})
   
@@ -141,14 +141,14 @@
             style={{width: 300}}
             value={value2}
             placeholder="请选择日期"
-            onChange={date=>{
+            onChange={date=> {
               console.debug('DatePicker2 changed: ', date)
               this.setState({value2: date})
             }}
             renderExtraFooter={() => {
               return (
                 <div style={{marginLeft: 20}}>
-                  <a onClick={()=>{
+                  <a onClick={() => {
                     this.setState({value2: new Date()})
                     this.datepicker2.togglePickerVisible()
                   }}>今天</a>
@@ -185,7 +185,7 @@ render() {
           style={{width: 300}}
           value={value1}
           placeholder="选择周"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('week DatePicker1 changed: ', date)
             this.setState({value1: date})
           }}
@@ -199,7 +199,7 @@ render() {
           style={{width: 300}}
           value={value2}
           placeholder="选择周"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('week DatePicker2 changed: ', date)
             this.setState({value2: date})
           }}
@@ -213,7 +213,7 @@ render() {
           style={{width: 300}}
           value={value3}
           placeholder="选择周"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('week DatePicker3 changed: ', date)
             this.setState({value3: date})
           }}
@@ -261,20 +261,20 @@ render() {
           ref={e=>this.datepicker1 = e}
           value={value1}
           placeholder="选择日期"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DatePicker1 changed: ', date)
             this.setState({value1: date})
 
           }}
           shortcuts={[{
             text: '今天',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               this.setState({value1: new Date()})
               this.datepicker1.togglePickerVisible()
             }
           }, {
             text: '昨天',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
               this.setState({value1: date})
@@ -282,7 +282,7 @@ render() {
             }
           }, {
             text: '一周前',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
               this.setState({value1: date})
@@ -309,20 +309,20 @@ render() {
           value={value2}
           placeholder="选择日期"
           popupAlign={popupAlign}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DatePicker2 changed: ', date)
             this.setState({value2: date})
 
           }}
           shortcuts={[{
             text: '今天',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               this.setState({value2: new Date()})
               this.datepicker2.togglePickerVisible()
             }
           }, {
             text: '昨天',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
               this.setState({value2: date})
@@ -330,7 +330,7 @@ render() {
             }
           }, {
             text: '一周前',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
               this.setState({value2: date})
@@ -381,7 +381,7 @@ render() {
           value={value1}
           isShowTime={true}
           placeholder="选择日期"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DatePicker1 changed: ', date)
             this.setState({value1: date})
           }}
@@ -395,7 +395,7 @@ render() {
           defaultTimeValue={this.defaultTimeValue}
           isShowTime={true}
           placeholder="选择日期"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DatePicker2 changed: ', date)
             this.setState({value2: date})
           }}
@@ -409,7 +409,7 @@ render() {
           isShowTimeCurrent={true}
           isShowTime={true}
           placeholder="选择日期"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DatePicker3 changed: ', date)
             this.setState({value3: date})
           }}
@@ -423,7 +423,7 @@ render() {
           timeSelectableRange="18:30:00 - 20:30:00"
           isShowTime={true}
           placeholder="选择日期"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DatePicker4 changed: ', date)
             this.setState({value4: date})
           }}
@@ -438,20 +438,20 @@ render() {
           value={value5}
           align="left"
           placeholder="选择日期"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DatePicker5 changed: ', date)
             this.setState({value5: date})
 
           }}
           shortcuts={[{
             text: '今天',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               this.setState({value5: new Date()})
               this.datepicker5.togglePickerVisible()
             }
           }, {
             text: '昨天',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24);
               this.setState({value5: date})
@@ -459,7 +459,7 @@ render() {
             }
           }, {
             text: '一周前',
-            onClick: (picker)=> {
+            onClick: (picker) => {
               const date = new Date();
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
               this.setState({value5: date})
@@ -499,7 +499,7 @@ render() {
         <DatePicker.DateRangePicker
           style={{width: 400}}
           value={value1}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
           }}
@@ -510,7 +510,7 @@ render() {
         <DatePicker.DateRangePicker
           style={{width: 400}}
           value={value2}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker2 changed: ', date)
             this.setState({value2: date})
           }}
@@ -564,7 +564,7 @@ render() {
         <DatePicker.DateRangePicker
           style={{width: 400}}
           value={value1}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
           }}
@@ -604,7 +604,7 @@ render() {
         <DatePicker.DateRangePicker
           style={{width: 400}}
           value={value1}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
           }}
@@ -622,16 +622,16 @@ render() {
         <DatePicker.DateRangePicker
           style={{width: 400}}
           value={value2}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker2 changed: ', date)
             this.setState({value2: date})
           }}
           maxDateRange={7}
           onError={(msg) => {
-            this.setState({extraFoot: ()=> msg})
+            this.setState({extraFoot: () => msg})
           }}
           renderExtraFooter={extraFoot}
-          onOpenChange={(status)=> {
+          onOpenChange={(status) => {
             this.setState({extraFoot: null})
           }}
         />
@@ -672,13 +672,13 @@ render() {
           value={value1}
           placeholder="选择日期范围"
           ref={e=>this.daterangepicker1 = e}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
           }}
           shortcuts={[{
             text: '最近一周',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
@@ -688,7 +688,7 @@ render() {
             }
           }, {
             text: '最近一个月',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
@@ -698,7 +698,7 @@ render() {
             }
           }, {
             text: '最近三个月',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
@@ -726,13 +726,13 @@ render() {
           placeholder="选择日期范围"
           popupAlign={popupAlign}
           ref={e=>this.daterangepicker2 = e}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker2 changed: ', date)
             this.setState({value2: date})
           }}
           shortcuts={[{
             text: '最近一周',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
@@ -742,7 +742,7 @@ render() {
             }
           }, {
             text: '最近一个月',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
@@ -752,7 +752,7 @@ render() {
             }
           }, {
             text: '最近三个月',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
@@ -800,7 +800,7 @@ render() {
           value={value1}
           placeholder="选择日期范围"
           isShowTime={true}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
           }}
@@ -816,7 +816,7 @@ render() {
           isShowTime={true}
           defaultStartTimeValue={this.defaultStartTimeValue}
           defaultEndTimeValue={this.defaultEndTimeValue}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker2 changed: ', date)
             this.setState({value2: date})
           }}
@@ -831,7 +831,7 @@ render() {
           placeholder="选择日期范围"
           isShowTime={true}
           isShowTimeCurrent={true}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker3 changed: ', date)
             this.setState({value3: date})
           }}
@@ -847,7 +847,7 @@ render() {
           isShowTime={true}
           startTimeSelectableRange="9:00:00 - 20:00:00"
           endTimeSelectableRange="9:00:00 - 20:00:00"
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker4 changed: ', date)
             this.setState({value4: date})
           }}
@@ -862,13 +862,13 @@ render() {
           placeholder="选择日期范围"
           align="left"
           ref={e=>this.daterangepicker5 = e}
-          onChange={date=>{
+          onChange={date=> {
             console.debug('DateRangePicker5 changed: ', date)
             this.setState({value5: date})
           }}
           shortcuts={[{
             text: '最近一周',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
@@ -878,7 +878,7 @@ render() {
             }
           }, {
             text: '最近一个月',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
@@ -888,7 +888,7 @@ render() {
             }
           }, {
             text: '最近三个月',
-            onClick: ()=> {
+            onClick: () => {
               const end = new Date();
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
@@ -945,21 +945,21 @@ render() {
 |---------- |-------------- |---------- | -------- |
 | className | 选择器的className | String | - |
 | style | 选择框的样式 | Object | - |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| ()=>ReactNode | ()=>document.body |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
 | format | 时间日期格式化,  年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | String | 'yyyy-MM-dd' |
 | popupAlign | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight'} | 'bottomLeft' |
 | isShowTrigger | 是否显示前缀图标 | Boolean | true |
 | isAllowClear | 是否显示清除按钮 | Boolean | true |
 | isDisabled | 是否禁用 | Boolean | false |
-| disabledDate | 禁用日期 | (Date, selectionMode)=>Boolean | - |
+| disabledDate | 禁用日期 | (Date, selectionMode) =>Boolean | - |
 | firstDayOfWeek | 周起始日 | Enum {0,1,2,3,4,5,6} | 0 |
 | yearCount | 可选择的年份总数 | Number | 50 |
-| shortcuts | 快捷选项 | {text: String, onClick: ()=>{}} | - |
-| renderExtraFooter | 在面板中添加额外的页脚 | ()=>ReactNode | - |
-| onFocus | 聚焦时的回调 | (e)=>{} | - |
-| onBlur | 失焦时的回调 | (e)=>{} | - |
-| onChange | 确认选定的值时触发 | (value)=>{} | - |
-| onOpenChange | 弹出或关闭日历的回调 | (status:Boolean)=>{} | - |
+| shortcuts | 快捷选项 | {text: String, onClick: () => {}} | - |
+| renderExtraFooter | 在面板中添加额外的页脚 | () =>ReactNode | - |
+| onFocus | 聚焦时的回调 | (e) => {} | - |
+| onBlur | 失焦时的回调 | (e) => {} | - |
+| onChange | 确认选定的值时触发 | (value) => {} | - |
+| onOpenChange | 弹出或关闭日历的回调 | (status:Boolean) => {} | - |
 
 ## 方法
 | 参数      | 描述          |

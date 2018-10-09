@@ -115,7 +115,7 @@
 :::demo 子菜单是弹出的形式。
 
 ```js
-handleClick=(e)=> {
+handleClick=(e) => {
   console.log('click', e);
 };
 
@@ -214,7 +214,7 @@ render(){
 
 ## 切换主题
 
-:::demo 内建了两套主题 `light|dark`，默认 `light`。
+:::demo 内建了两套主题 `light | dark`，默认 `light`。
 
 ```js
   state = {

@@ -24,7 +24,7 @@ render(){
 :::demo 改变每页显示条目数。
 
 ```js
-onShowSizeChange=(current, pageSize)=> {
+onShowSizeChange=(current, pageSize) => {
   console.log(current, pageSize);
 };
 
@@ -63,7 +63,7 @@ render(){
 :::demo 修改上一步和下一步为文字链接。
 
 ```js
-itemRender=(current, type, originalElement) =>{
+itemRender=(current, type, originalElement) => {
   if (type === 'prev') {
     return <a>上一页</a>;
   } if (type === 'next') {
@@ -98,7 +98,7 @@ render(){
 :::demo 迷你版本。
 
 ```js
-showTotal=(total)=> {
+showTotal=(total) => {
   return `共 ${total} 条数据`;
 };
 
@@ -176,7 +176,7 @@ render(){
 | defaultCurrent | 默认的当前页数 | Number | 1 |
 | defaultPageSize | 默认的每页条数 | Number | 10 |
 | hideOnSinglePage | 只有一页时是否隐藏分页器 | Boolean | false |
-| itemRender | 用于自定义页码的结构，可用于优化 SEO | (page, type: 'page' \| 'prev' \| 'next', originalElement) => React.ReactNode | - |
+| itemRender | 用于自定义页码的结构，可用于优化 SEO | (page, type: 'page' \| 'prev' \| 'next', originalElement) => ReactNode | - |
 | pageSize | 每页条数 | Number | - |
 | pageSizeOptions | 指定每页可以显示多少条 | Array<String> | ['10', '20', '30', '40'] |
 | showQuickJumper | 是否可以快速跳转至某页 | Boolean | false |

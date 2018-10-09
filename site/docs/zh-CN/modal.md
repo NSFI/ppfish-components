@@ -116,7 +116,7 @@
 :::demo 使用 `confirm()` 可以快捷地弹出确认框。
 
 ```js
-showConfirm=()=> {
+showConfirm=() => {
   const confirm = Modal.confirm;
   confirm({
     title: 'Do you want to submit this file?',
@@ -130,7 +130,7 @@ showConfirm=()=> {
   });
 };
 
-showDeleteConfirm=()=> {
+showDeleteConfirm=() => {
   const confirm = Modal.confirm;
   confirm({
     title: 'Are you sure delete this task?',
@@ -168,7 +168,7 @@ render(){
 
 ```js
 
-showConfirm=()=> {
+showConfirm=() => {
   const confirm = Modal.confirm;
   confirm({
     title: 'Do you want to submit this file?',
@@ -258,7 +258,7 @@ render(){
 
 
 ```js
-info=()=> {
+info=() => {
   Modal.info({
     title: 'This is a notification message',
     content: (
@@ -271,21 +271,21 @@ info=()=> {
   });
 }
 
-success=()=> {
+success=() => {
   Modal.success({
     title: 'This is a success message',
     content: 'some messages...some messages...',
   });
 }
 
-error=()=> {
+error=() => {
   Modal.error({
     title: 'This is an error message',
     content: 'some messages...some messages...',
   });
 }
 
-warning=()=> {
+warning=() => {
   Modal.warning({
     title: 'This is a warning message',
     content: 'some messages...some messages...',
@@ -325,7 +325,7 @@ render(){
     });
   }
   
-  confirm=()=> {
+  confirm=() => {
     Modal.confirm({
       title: 'Confirm',
       content: 'Bla bla ...',
@@ -364,7 +364,7 @@ render(){
 
 ```js
 
-success=()=> {
+success=() => {
   const modal = Modal.success({
     title: 'This is a notification message',
     content: 'This modal will be destroyed after 3 second',
@@ -537,7 +537,7 @@ render(){
 | closable | 是否显示右上角的关闭按钮 | Boolean | true |
 | confirmLoading | 确定按钮 loading | Boolean | - |
 | destroyOnClose | 关闭时销毁 Modal 里的子元素 | Boolean | false |
-| footer | 底部内容，当不需要默认底部按钮时，可以设为 `footer={null}` | String\|ReactNode | 确定取消按钮 |
+| footer | 底部内容，当不需要默认底部按钮时，可以设为 `footer={null}` | String \| ReactNode | 确定取消按钮 |
 | getContainer | 指定 Modal 挂载的 HTML 节点 | (instance) => HTMLElement | () => document.body |
 | keyboard | 是否支持键盘esc关闭 | Boolean | true |
 | mask | 是否展示遮罩 | Boolean | true |
@@ -546,9 +546,9 @@ render(){
 | okText | 确认按钮文字 | String | 确定 |
 | okType | 确认按钮类型 | String | primary |
 | style | 可用于设置浮层的样式，调整浮层位置等 | Object | - |
-| title | 标题 | String\|ReactNode | - |
+| title | 标题 | String | ReactNode | - |
 | visible | 对话框是否可见 | Boolean | - |
-| width | 宽度 | String\|Number | 520 |
+| width | 宽度 | String | Number | 520 |
 | wrapClassName | 对话框外层容器的类名 | String | - |
 | zIndex | 设置 Modal 的 `z-index` | Number | 1000 |
 | onCancel | 点击遮罩层或右上角叉或取消按钮的回调 | (e) => Void | - |
@@ -572,16 +572,16 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| cancelText | 取消按钮文字 | String | 取消 |
+| cancelText | 取消按钮文字 | String | '取消' |
 | className | 容器类名 | String | - |
-| content | 内容 | String\|ReactNode | - |
-| iconType | 图标 Icon 类型 | String | question-circle |
+| content | 内容 | String \| ReactNode | - |
+| iconType | 图标 Icon 类型 | String | 'hints-descriptions' |
 | draggable	| 模态框是否支持拖动	 | Boolean | false |
-| maskClosable | 点击蒙层是否允许关闭 | Boolean | `false` |
-| okText | 确认按钮文字 | String | 确定 |
-| okType | 确认按钮类型 | String | primary |
-| title | 标题 | String\|ReactNode | - |
-| width | 宽度 | String\|Number | 416 |
+| maskClosable | 点击蒙层是否允许关闭 | Boolean | false |
+| okText | 确认按钮文字 | String | '确定' |
+| okType | 确认按钮类型 | Enum {'default', 'primary', 'ghost', 'dashed', 'danger'} | 'primary' |
+| title | 标题 | String \| ReactNode | - |
+| width | 宽度 | String \| Number | 416 |
 | zIndex | 设置 Modal 的 `z-index` | Number | 1000 |
 | onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |
 | onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |

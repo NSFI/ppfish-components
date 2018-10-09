@@ -75,7 +75,7 @@ render(){
 | src  | 图片地址   | String   |  —   |
 | preloader  | 显示占位图的ReactNode   | () => ReactNode |  —   |
 | children  | 图片加载失败显示的node   | ReactNode   |  —   |
-| wrapper  | 图片外层容器    | React.createFactory('div'\|'span')  |  DOM.span   |
+| wrapper  | 图片外层容器    | React.createFactory('div' \| 'span')  |  DOM.span   |
 | className  | 图片外层容器class    | String   |  —   |
 | style  | 图片外层容器样式对象    | Object   |  —   |
 | imgProps  | 图片propTypes  | Object   | —   |

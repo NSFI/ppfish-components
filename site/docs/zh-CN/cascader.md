@@ -13,7 +13,7 @@
 :::demo 省市区级联。
 
 ```js
-onChange = (value)=> {
+onChange = (value) => {
   console.log(value);
 }
 
@@ -135,12 +135,12 @@ render(){
 :::demo 通过移入展开下级菜单，点击完成选择。
 
 ```js
-onChange = (value)=> {
+onChange = (value) => {
   console.log(value);
 };
 
 // Just show the latest item.
-displayRender=(label)=> {
+displayRender=(label) => {
   return label[label.length - 1];
 };
 
@@ -185,7 +185,7 @@ render(){
 
 ```js
 
-onChange=(value)=> {
+onChange=(value) => {
   console.log(value);
 };
 
@@ -225,7 +225,7 @@ render(){
 :::demo 这种交互允许只选中父级选项。
 
 ```js
-onChange = (value)=> {
+onChange = (value) => {
   console.log(value);
 };
 
@@ -264,7 +264,7 @@ render(){
 :::demo 不同大小的级联选择器。
 
 ```js
-onChange=(value) =>{
+onChange=(value) => {
   console.log(value);
 }
 
@@ -307,7 +307,7 @@ render(){
 :::demo 例如给最后一项加上邮编链接。
 
 ```js
-handleAreaClick=(e, label, option)=> {
+handleAreaClick=(e, label, option) => {
   e.stopPropagation();
   console.log('clicked', label, option);
 }
@@ -369,11 +369,11 @@ render(){
 
 ```js
 
-onChange=(value, selectedOptions) =>{
+onChange=(value, selectedOptions) => {
   console.log(value, selectedOptions);
 }
 
-filter=(inputValue, path)=> {
+filter=(inputValue, path) => {
   return (path.some(option => (option.label).toLowerCase().indexOf(inputValue.toLowerCase()) > -1));
 }
 
@@ -477,7 +477,7 @@ render(){
 
 ```js
 
-onChange=(value)=>{
+onChange=(value) => {
   console.log(value);
 };
 

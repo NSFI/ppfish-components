@@ -176,7 +176,7 @@ render(){
 
 ```js
 
-handleMenuClick=(e)=> {
+handleMenuClick=(e) => {
   console.log('click', e);
 }
 

@@ -12,7 +12,7 @@
 :::demo 简单的 checkbox。
 
 ```js
-onChange=(e)=> {
+onChange=(e) => {
   console.log(`checked = ${e.target.checked}`);
 };
 
@@ -104,7 +104,7 @@ render(){
 :::demo 方便的从数组生成 Checkbox 组。
 
 ```js
-onChange=(checkedValues)=> {
+onChange=(checkedValues) => {
   console.log('checked = ', checkedValues);
 };
 

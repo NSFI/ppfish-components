@@ -39,7 +39,7 @@
             <div className="tips">点击图片预览</div>
             <div className="pics">
               {
-                this.props.source && this.props.source.map((item, index)=>
+                this.props.source && this.props.source.map((item, index) =>
                   <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={item.src} alt={item.name} width="60px" height="60px" />
                     <div className="name">{item.name}</div>
@@ -90,7 +90,7 @@
             <div className="tips">点击图片预览</div>
             <div className="pics">
               {
-                this.props.source && this.props.source.map((item, index)=>
+                this.props.source && this.props.source.map((item, index) =>
                   <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={item.src} alt={item.name} width="60px" height="60px" />
                     <div className="name">{item.name}</div>
@@ -141,7 +141,7 @@
             <div className="tips">点击图片预览</div>
             <div className="pics">
               {
-                this.props.source && this.props.source.map((item, index)=>
+                this.props.source && this.props.source.map((item, index) =>
                   <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={item.src} alt={item.name} width="60px" height="60px" />
                     <div className="name">{item.name}</div>
@@ -193,7 +193,7 @@
             <div className="tips">点击图片预览</div>
             <div className="pics">
               {
-                this.props.source && this.props.source.map((item, index)=>
+                this.props.source && this.props.source.map((item, index) =>
                   <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={item.src} alt={item.name} width="60px" height="60px" />
                     <div className="name">{item.name}</div>
@@ -247,7 +247,7 @@
             <div className="tips">点击图片预览</div>
             <div className="pics">
               {
-                this.props.source && this.props.source.map((item, index)=>
+                this.props.source && this.props.source.map((item, index) =>
                   <div key={'demo_pic_'+index} className="item" onClick={this.handleOpen.bind(this, index)}>
                     <img src={item.src} alt={item.name} width="60px" height="60px" />
                     <div className="name">{item.name}</div>

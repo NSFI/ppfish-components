@@ -9,7 +9,7 @@
 :::demo 使用`onChange`回调获取`alpha`以及`color`值
 
 ```js
-onChangeColor=({color,alpha})=>{
+onChangeColor=({color,alpha}) => {
   console.log(`color:${color},alpha:${alpha}`);
 };
 
@@ -55,18 +55,18 @@ state={
   alpha: 100
 }
 
-onColorChange=(obj)=>{
+onColorChange=(obj) => {
   this.setState({
     color:obj.color,
     alpha:obj.alpha
   })
 };
 
-onClose=()=>{
+onClose=() => {
   console.log('close');
 };
 
-onOpen=()=>{
+onOpen=() => {
   console.log('open');
 };
 
@@ -139,6 +139,6 @@ render(){
 | defaultAlpha | 默认的opacity值                           | Number   | 100     |
 | defaultColor | 默认的的颜色值           | String   | '#ff0000' |
 | enableAlpha  | 是否开启opacity                         | Boolean  | true    | 
-| onBlur       | 失焦事件                        | ()=> Void  |      noop     |
-| onChange     | 颜色值改变事件                      | (color,alpha)=> Void  |     noop      |
-| onFocus      | 聚焦事件                      | ()=> Void  |      noop     |
+| onBlur       | 失焦事件                        | () => Void  |      noop     |
+| onChange     | 颜色值改变事件                      | (color,alpha) => Void  |     noop      |
+| onFocus      | 聚焦事件                      | () => Void  |      noop     |

@@ -219,7 +219,7 @@ export const components = {
         {
           key: 'backTop',
           type: 'markdown',
-          name: 'backTop 回到顶部',
+          name: 'BackTop 回到顶部',
         },
         {
           key: 'pagination',

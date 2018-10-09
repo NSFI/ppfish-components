@@ -12,7 +12,7 @@
 :::demo 可以同时展开多个面板，这个例子默认展开了第一个。
 
 ```js
-callback=(key)=> {
+callback=(key) => {
   console.log(key);
 };
 
@@ -81,7 +81,7 @@ render(){
 :::demo 嵌套折叠面板。
 
 ```js
-callback=(key)=> {
+callback=(key) => {
   console.log(key);
 };
 
@@ -228,7 +228,7 @@ close = (statusList) => {
   })
 }
 
-callback=(key)=> {
+callback=(key) => {
   console.log(key);
 };
 
@@ -271,7 +271,7 @@ callback = (key) => {
   console.log(key);
 };
 
-getHeader=(status)=>{
+getHeader=(status) => {
   return (
       <div><Icon className="icon" type={`${status ? 'minus-square' : 'plus-square' }`} style={{marginRight:20,marginLeft:16}}></Icon>自定义  header</div>
   )
@@ -313,7 +313,7 @@ p {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| activeKey | 当前激活 tab 面板的 key | Array<String>\|String | 默认无，accordion模式下默认第一个元素 |
+| activeKey | 当前激活 tab 面板的 key | Array<String> | String | 默认无，accordion模式下默认第一个元素 |
 | defaultActiveKey | 初始化选中面板的 key | String | - |
 | showClose | 是否开启删除功能；开启后，需传入 statusList 属性| Boolean | false |
 | bordered | 是否显示边框 | Boolean | true |
@@ -327,5 +327,5 @@ p {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | disabled | 禁用后的面板展开与否将无法通过用户交互改变 | Boolean | false |
-| header | 面板头内容 | String\|() => ReactNode\|HTMLElement | - |
+| header | 面板头内容 | String | () => ReactNode | HTMLElement | - |
 | key | 对应 activeKey | String | - |

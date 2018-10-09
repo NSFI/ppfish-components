@@ -758,7 +758,7 @@
 
 树节点可以有很多，在设置`checkable`时，将会花费更多的计算时间，因此我们缓存了一些计算结果（`this.treeNodesStates`）避免多次重复计算，以此提高性能。但这也带来了一些限制，当你异步加载树节点时，你需要这样渲染树：
 
-```jsx
+```js
 {this.state.treeData.length
   ? <Tree>{this.state.treeData.map(data => <TreeNode />)}</Tree>
   : 'loading tree'}

@@ -151,7 +151,7 @@ const columns = [{
       <Table columns={columns} dataSource={data} columnFiltrate={{
                defaultColumns:['age'],
                hideColumns:['name'],
-               hideColumnsChange:(x)=>console.log(x),
+               hideColumnsChange:(x) =>console.log(x),
       }}/>
     );
   }
@@ -2052,16 +2052,16 @@ class Demo extends React.Component {
 | expandRowByClick | 通过点击行来展开子行 | Boolean | false |
 | footer | 表格尾部 | (currentPageData) => ReactNode | - |
 | indentSize | 展示树形数据时，每层缩进的宽度，以 px 为单位 | Number | 15 |
-| loading | 页面是否加载中 | Boolean\|[Object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
+| loading | 页面是否加载中 | Boolean | [Object](https://nsfi.github.io/ppfish-components/#/components/spin/) ([更多](https://github.com/ant-design/ant-design/issues/4544#issuecomment-271533135)) | false |
 | locale | 默认文案设置，目前包括排序、过滤、空数据文案 | Object | filterConfirm: '确定' <br> filterReset: '重置' <br> emptyText: '暂无数据' <br> [默认值](https://github.com/ant-design/ant-design/issues/575#issuecomment-159169511) |
 | pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | Object | - |
 | rowClassName | 表格行的类名 | (record, index) => String | - |
-| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | String\|(record) => String | 'key' |
+| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | String | (record) => String | 'key' |
 | rowSelection | 列表项是否可选择 | Object | null |
 | scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | Object { x: Number \| true, y: Number } | - |
 | showHeader | 是否显示表头 | Boolean | true |
 | size | 正常或迷你类型，`default` or `small` | Enum {'default' ,'small'} | 'default' |
-| title | 表格标题 | (currentPageData) => String\|ReactNode | - |
+| title | 表格标题 | (currentPageData) => String \| ReactNode | - |
 | onChange | 分页、排序、筛选变化时触发 | (pagination, filters, sorter) => Void | - |
 | onExpand | 点击展开图标时触发 | (expanded, record) => Void | - |
 | onExpandedRowsChange | 展开的行变化时触发 | (expandedRows) => Void | - |
@@ -2106,14 +2106,14 @@ class Demo extends React.Component {
 | filterIcon | 自定义 fiter 图标。 | ReactNode | false |
 | filterMultiple | 是否多选 | Boolean | true |
 | filters | 表头的筛选菜单项 | Array<Object> | - |
-| fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | Enum{true,'left','right'} | false |
+| fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | Enum {true,'left','right'} | false |
 | key | React 需要的 key，如果已经设置了唯一的 `dataIndex`，可以忽略这个属性 | String | - |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并 | (text, record, index) => ReactNode | - |
-| sorter | 排序函数，本地排序使用一个函数(参考 [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的 compareFunction)，需要服务端排序可设为 true | Function\|Boolean | - |
+| sorter | 排序函数，本地排序使用一个函数(参考 [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的 compareFunction)，需要服务端排序可设为 true | Function \| Boolean | - |
 | sorterType | 排序按钮类型：默认、首字母A-Z排序 | Enum {'default' ,'firstLetter'} | 'default' |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为  | Enum {'ascend' ,'descend', false} | - |
-| title | 列头显示文字 | String\|ReactNode | - |
-| width | 列宽度 | String\|Number | - |
+| title | 列头显示文字 | String \| ReactNode | - |
+| width | 列宽度 | String \| Number | - |
 | onCell | 设置单元格属性 | (record) => Object | - |
 | onFilter | 本地模式下，确定筛选的运行函数 | () => Boolean | - |
 | onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用 | (visible) => Void | - |
@@ -2123,7 +2123,7 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| title | 列头显示文字 | String\|ReactNode | - |
+| title | 列头显示文字 | String \| ReactNode | - |
 
 ### pagination
 
@@ -2141,13 +2141,13 @@ class Demo extends React.Component {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| columnWidth | 自定义列表选择框宽度 | String\|Number | - |
-| columnTitle | 自定义列表选择框标题	 | String\|React.ReactNode | - |
+| columnWidth | 自定义列表选择框宽度 | String \| Number | - |
+| columnTitle | 自定义列表选择框标题	 | String \| ReactNode | - |
 | fixed | 把选择框列固定在左边 | Boolean | - |
 | getCheckboxProps | 选择框的默认属性配置 | (record) => Object | - |
 | hideDefaultSelections | 去掉『全选』『反选』两个默认选项 | Boolean | false |
 | selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | Array<String> | \[] |
-| selections | 自定义选择项 设为 `true` 时使用默认选择项 | Array<Object>\|Boolean | true |
+| selections | 自定义选择项 设为 `true` 时使用默认选择项 | Array<Object> \| Boolean | true |
 | type | 多选/单选，`checkbox` or `radio` | String | 'checkbox' |
 | onChange | 选中项发生变化的时的回调 | (selectedRowKeys, selectedRows) => Void | - |
 | onSelect | 用户手动选择/取消选择某列的回调 | (record, selected, selectedRows, nativeEvent) => Void | - |
@@ -2159,7 +2159,7 @@ class Demo extends React.Component {
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | key | React 需要的 key，建议设置 | String | - |
-| text | 选择项显示的文字 | String\|React.ReactNode | - |
+| text | 选择项显示的文字 | String \| ReactNode | - |
 | onSelect | 选择项点击回调 | (changeableRowKeys) => Void | - |
 
 

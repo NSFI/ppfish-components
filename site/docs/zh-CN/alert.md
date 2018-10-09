@@ -50,7 +50,7 @@ render(){
 :::demo 显示关闭按钮，点击可关闭警告提示。
 
 ```js
-onClose = (e)=> {
+onClose = (e) => {
   console.log(e, 'I was closed.');
 };
 
@@ -266,13 +266,13 @@ render() {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| afterClose | 关闭动画结束后触发的回调函数 | () => void | - |
+| afterClose | 关闭动画结束后触发的回调函数 | () => Void | - |
 | banner | 是否用作顶部公告 | Boolean | false |
-| closable | 默认不显示关闭按钮 | Boolean | - |
-| closeText | 自定义关闭按钮 | String\|ReactNode | - |
-| description | 警告提示的辅助性文字介绍 | String\|ReactNode | - |
+| closable | 默认不显示关闭按钮 | Boolean | false, `closeText` 模式下默认值为 true |
+| closeText | 自定义关闭按钮 | String \| ReactNode | - |
+| description | 警告提示的辅助性文字介绍 | String \| ReactNode | - |
 | iconType | 自定义图标类型，`showIcon` 为 `true` 时有效 | String | - |
-| message | 警告提示内容 | String\|ReactNode | - |
+| message | 警告提示内容 | String \| ReactNode | - |
 | showIcon | 是否显示辅助图标 | Boolean | false，`banner` 模式下默认值为 true |
-| type | 指定警告提示的样式，有四种选择 `success`、`info`、`warning`、`error` | String | `info`，`banner` 模式下默认值为 `warning` |
-| onClose | 关闭时触发的回调函数 | (e: MouseEvent) => void | - |
+| type | 指定警告提示的样式，有四种选择 `'success'`、`'info'`、`'warning'`、`'error'` | Enum {'success','info','warning','error'} | 'info'，`banner` 模式下默认值为 `'warning'` |
+| onClose | 关闭时触发的回调函数 | (e: MouseEvent) => Void | - |

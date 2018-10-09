@@ -116,7 +116,7 @@ render(){
 
 ## 排版
 
-:::demo 有上、下、左、右四种排版方式，`tabPosition="left|right|top|bottom"`。
+:::demo 有上、下、左、右四种排版方式，`tabPosition = "left" | "right" | "top" | "bottom"`。
 
 ```js
   state = {
@@ -193,7 +193,7 @@ render(){
 :::demo 常用于容器顶部，支持纵向排版。
 
 ```js
-callback=(key)=> {
+callback=(key) => {
   console.log(key);
 }
 
@@ -389,14 +389,14 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | activeKey | 当前激活 tab 面板的 key | String | - |
-| animated | 是否使用动画切换 Tabs，在 `tabPosition=top\|bottom` 时有效 | Boolean \| {inkBar: Boolean, tabPane: Boolean} | false, 当 type="line" 时为 true |
+| animated | 是否使用动画切换 Tabs，在 `tabPosition="top" \| "bottom"` 时有效 | Boolean \| {inkBar: Boolean, tabPane: Boolean} | false, 当 type="line" 时为 true |
 | className | 容器类名 | String | - |
 | defaultActiveKey | 初始化选中面板的 key，如果没有设置 activeKey | String | 第一个面板 |
 | hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | Boolean | false |
 | loading | 是否显示 Loading 状态，异步加载数据时可选择使用 | Boolean | false |
 | size | 大小 | Enum {'default', 'large', 'small'} | 'default' |
 | tabBarExtraContent | tab bar 上额外的元素 | ReactNode | - |
-| tabBarGutter | tabs 之间的间隙，在 `type="section"\|"borderless-section"` 时无效 | Number | - |
+| tabBarGutter | tabs 之间的间隙，在 `type="section" \| "borderless-section"` 时无效 | Number | - |
 | tabBarStyle | tab bar 的样式对象 | Object | - |
 | tabPosition | 页签位置 | Enum {'top', 'right', 'bottom', 'left'} | 'top' |
 | type | 页签的基本样式 | Enum {'line', 'card', 'editable-card', 'section', 'borderless-section'} | 'line' |

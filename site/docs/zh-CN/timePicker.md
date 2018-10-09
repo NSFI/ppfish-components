@@ -185,7 +185,7 @@
         selectableRange="18:30:00 - 20:30:00"
         placeholder="请选择时间"
         value={this.state.value}
-        onValueChange={(value)=>console.log('value changed: ', value)}
+        onValueChange={(value) =>console.log('value changed: ', value)}
         renderExtraFooter={() => '额外的页脚信息'}
         />
     )
@@ -199,7 +199,7 @@
 |---------- |-------------- |---------- | -------- |
 | className | 选择器的className | String | - |
 | style | 选择框的样式 | Object | - |
-| getPopupContainer | 弹框渲染父节点。默认渲染到 body 上，如果你遇到滚动定位问题，试试修改为滚动的区域，并相对其定位。| ()=>ReactNode | ()=>document.body |
+| getPopupContainer | 弹框渲染父节点。默认渲染到 body 上，如果你遇到滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
 | placeholder | 占位内容 | String | - |
 | format | 时间格式化, 小时 HH，分 mm，秒 ss  | String | 'HH:mm:ss' |
 | isShowTrigger | 是否显示前缀图标 | Boolean | true |

@@ -745,7 +745,7 @@ render() {
 
 ## API
 
-```jsx
+```html
 <Layout>
   <Header>header</Header>
   <Layout>

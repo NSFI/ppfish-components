@@ -283,14 +283,14 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | bordered | 是否展示边框 | Boolean | false |
-| footer | 列表底部 | String\|ReactNode | - |
+| footer | 列表底部 | String \| ReactNode | - |
 | grid | 列表栅格配置 | Object | - |
-| header | 列表头部 | String\|ReactNode | - |
+| header | 列表头部 | String \| ReactNode | - |
 | itemLayout | 设置 `List.Item` 布局, 设置成 `vertical` 则竖直样式显示, 默认横排 | String | - |
-| loading | 当卡片内容还在加载中时，可以用 `loading` 展示一个占位 | Boolean\|[Object](https://nsfi.github.io/ppfish-components/#/components/spin)  | false |
-| loadMore | 加载更多 | String\|ReactNode | - |
+| loading | 当卡片内容还在加载中时，可以用 `loading` 展示一个占位 | Boolean \| [Object](https://nsfi.github.io/ppfish-components/#/components/spin)  | false |
+| loadMore | 加载更多 | String \| ReactNode | - |
 | locale | 默认文案设置，目前包括空数据文案 | Object | {emptyText: '暂无数据'} |
-| pagination | 对应的 `pagination` 配置, 设置 `false` 不显示 | Boolean\|Object | false |
+| pagination | 对应的 `pagination` 配置, 设置 `false` 不显示 | Boolean \| Object | false |
 | size | list 的尺寸 | Enum {'default' , 'middle', 'small' }| 'default' |
 | split | 是否展示分割线 | Boolean | true |
 | striped | 是否展示斑马纹 | Boolean | false |
@@ -323,12 +323,12 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | actions | 列表操作组，根据 `itemLayout` 的不同, 位置在卡片底部或者最右侧 | Array<ReactNode> | - |
-| extra | 额外内容, 通常用在 `itemLayout` 为 `vertical` 的情况下, 展示右侧内容; `horizontal` 展示在列表元素最右侧 | String\|ReactNode | - |
+| extra | 额外内容, 通常用在 `itemLayout` 为 `vertical` 的情况下, 展示右侧内容; `horizontal` 展示在列表元素最右侧 | String \| ReactNode | - |
 
 ### List.Item.Meta
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | avatar | 列表元素的图标 | ReactNode | - |
-| description | 列表元素的描述内容 | String\|ReactNode | - |
-| title | 列表元素的标题 | String\|ReactNode | - |
+| description | 列表元素的描述内容 | String \| ReactNode | - |
+| title | 列表元素的标题 | String \| ReactNode | - |
