@@ -7,12 +7,12 @@ export default class ruleDatetime extends React.Component {
   render() {
     return (
       <div className="rule-date-time">
-        <h1>Date Time 日期时间</h1>
-        <p>产品中的日期时间。</p>
-        <h2>适用场景</h2>
-        <p>平台全局使用统一时间显示规则。</p>
-        <h2>样式</h2>
-        <h3>1.绝对时间</h3>
+        <h1 className="md-heading">Date Time 日期时间</h1>
+        <p className="md-paragraph">产品中的日期时间。</p>
+        <h2 className="md-heading">适用场景</h2>
+        <p className="md-paragraph">平台全局使用统一时间显示规则。</p>
+        <h2 className="md-heading">样式</h2>
+        <h3 className="md-heading">1.绝对时间</h3>
         <Row gutter={20}>
           <Col span={12}>
             <div className="rule-demo-block">
@@ -98,7 +98,7 @@ export default class ruleDatetime extends React.Component {
             </div>
           </Col>
         </Row>
-        <h3>2.相对时间</h3>
+        <h3 className="md-heading">2.相对时间</h3>
         <Row gutter={20}>
           <Col span={12}>
             <div className="rule-demo-block">

@@ -14,10 +14,10 @@ export default class RuleText extends React.Component {
   render() {
     return (
       <div id="typography-text">
-        <h1 className="global-title">Typography 字体</h1>
-        <p className="desc">文字色主要用于各层级的文本来使用。</p>
+        <h1 className="global-title md-heading">Typography 字体</h1>
+        <p className="desc md-paragraph">文字色主要用于各层级的文本来使用。</p>
 
-        <h3 id="text-color-title">文字色</h3>
+        <h3 id="text-color-title" className="md-heading">文字色</h3>
         <div className="text-color-container">
           <div className="text-color-item" onClick={() => {
             this.handleClick("#333333");
@@ -45,7 +45,7 @@ export default class RuleText extends React.Component {
           </div>
         </div>
 
-        <h3 id="ch-font-title">中文字体</h3>
+        <h3 id="ch-font-title" className="md-heading">中文字体</h3>
         <div className="ch-font-container">
           <div className="font-item font-PingFang">
             苹方
@@ -57,7 +57,7 @@ export default class RuleText extends React.Component {
           </div>
         </div>
 
-        <h3 id="eng-font-title">英文字体</h3>
+        <h3 id="eng-font-title" className="md-heading">英文字体</h3>
         <div className="eng-font-container">
           <div className="font-item font-Arial">
             Arial
@@ -69,7 +69,7 @@ export default class RuleText extends React.Component {
           </div>
         </div>
 
-        <h3 id="text-rule-title">字体使用规范</h3>
+        <h3 id="text-rule-title" className="md-heading">字体使用规范</h3>
         <table className="text-rule-table">
           <tbody>
           <tr>
@@ -99,7 +99,6 @@ export default class RuleText extends React.Component {
           </tr>
           </tbody>
         </table>
-
       </div>
     );
   }

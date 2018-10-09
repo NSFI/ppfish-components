@@ -7,12 +7,12 @@ export default class ruleNumber extends React.Component {
   render() {
     return (
       <div className="rule-number">
-        <h1>Number 数字</h1>
-        <p>产品中的数字。</p>
-        <h2>适用场景</h2>
-        <p>产品内统一使用的数字显示规则。</p>
-        <h2>样式</h2>
-        <h3>1.基础样式</h3>
+        <h1 className="md-heading">Number 数字</h1>
+        <p className="md-paragraph">产品中的数字。</p>
+        <h2 className="md-heading">适用场景</h2>
+        <p className="md-paragraph">产品内统一使用的数字显示规则。</p>
+        <h2 className="md-heading">样式</h2>
+        <h3 className="md-heading">1.基础样式</h3>
         <Row gutter={20}>
           <Col span={12}>
             <div className="rule-demo-block">

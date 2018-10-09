@@ -1,62 +1,58 @@
 //右侧内容区样式
 .markdown {
   position: relative;
-  > div {
-    > div {
-      > p {
-        font-size: 14px;
-        color: #5e6d82;
-      }
-      > h1 {
-        color: #0d1a26;
-        font-weight: 500;
-        margin-bottom: 20px;
-        margin-top: 8px;
-        font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 32px;
-        line-height: 38px;
-      }
-
-      > h2 {
-        font-size: 24px;
-        line-height: 45px;
-      }
-      > h2,
-      > h3,
-      > h4,
-      > h5,
-      > h6 {
-        color: #18181a;
-        font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-        margin: 1.6em 0 0.6em;
-        clear: both;
-      }
-
-      > h3 {
-        font-size: 18px;
-      }
-
-      > h4 {
-        font-size: 14px;
-      }
-
-      > h5 {
-        font-size: 12px;
-      }
-
-      > h6 {
-        font-size: 10px;
-      }
-    }
-  }
-  .listitem {
+  .md-paragraph {
     font-size: 14px;
-    color: #5e6d82;
+    color: #45454d;
+  }
+  .md-listitem {
+    font-size: 14px;
+    color: #45454d;
     margin: 4px 0 0 20px;
     list-style-type: circle;
     padding-left: 4px;
   }
+  h1.md-heading {
+    color: #0d1a26;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-top: 8px;
+    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    line-height: 38px;
+  }
 
+  h2.md-heading {
+    font-size: 24px;
+    line-height: 45px;
+  }
+
+  h2.md-heading,
+  h3.md-heading,
+  h4.md-heading,
+  h5.md-heading,
+  h6.md-heading {
+    color: #18181a;
+    font-family: Lato, Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+    margin: 1.6em 0 0.6em;
+    clear: both;
+  }
+
+  h3.md-heading {
+    font-size: 18px;
+  }
+
+  h4.md-heading {
+    font-size: 14px;
+  }
+
+  h5.md-heading {
+    font-size: 12px;
+  }
+
+  h6.md-heading {
+    font-size: 10px;
+  }
   img {
     max-width: 100%;
   }
@@ -201,7 +197,7 @@
   }
 }
 
-.owner {
+.md-owner {
   display: inline-block;
   position: relative;
   font-weight: normal;
