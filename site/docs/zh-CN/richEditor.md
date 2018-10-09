@@ -197,7 +197,10 @@
 
   render() {
     return (
-      <RichEditor toolbar={this.toolbar} />
+      <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
+        toolbar={this.toolbar}
+      />
     );
   }
 ```
