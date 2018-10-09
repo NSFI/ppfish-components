@@ -113,7 +113,7 @@ export default class Components extends React.Component {
                 });
                 return (
                   menuList.length &&
-                  <SubMenu key={this.getLocale(`misc.${type}`)} title={this.getLocale(`misc.${type}`)}>
+                  <SubMenu key={this.getLocale(`misc.${type}`)} title={<span className="misc-type">{this.getLocale(`misc.${type}`)}</span>}>
                     {
                       menuList.map(subMenu => (
                         <Menu.ItemGroup key={subMenu.title} title={subMenu.title} disabled={false}>
