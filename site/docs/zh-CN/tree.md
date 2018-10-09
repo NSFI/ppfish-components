@@ -4,7 +4,7 @@
 
 文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用`树控件`可以完整展现其中的层级关系，并具有展开收起选择等交互功能。
 
-## 基本用法
+## 单选形式
 
 :::demo 最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。
 
@@ -38,6 +38,41 @@
 ```
 :::
 
+
+## 设置为必选的单选
+
+:::demo 设置必选的单选。
+
+```js
+
+  onSelect = (selectedKeys, info) => {
+    console.log('selected', selectedKeys, info);
+  }
+
+  render() {
+    const TreeNode = Tree.TreeNode;
+    return (
+      <Tree
+        isRequired
+        defaultExpandedKeys={['0-0-0', '0-0-1']}
+        defaultSelectedKeys={['0-0-1']}
+        onSelect={this.onSelect}
+      >
+        <TreeNode title="parent 1" key="0-0">
+          <TreeNode title="parent 1-0" key="0-0-0">
+            <TreeNode title="leaf" key="0-0-0-0" disabled />
+            <TreeNode title="leaf with long title leaf with long title leaf with long title" key="0-0-0-1" />
+          </TreeNode>
+          <TreeNode title="parent 1-1" key="0-0-1">
+            <TreeNode title={<span style={{ color: '#1890ff' }}>sss</span>} key="0-0-1-0" />
+          </TreeNode>
+        </TreeNode>
+      </Tree>
+    );
+  }
+
+```
+:::
 
 ## 复选形式
 
@@ -688,6 +723,7 @@
 | selectedKeys | （受控）设置选中的树节点 | Array<String> | - |
 | showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
 | showLine | 是否展示连接线 | Boolean | false |
+| isRequired | 是否必选，单选时有效 | Boolean | false |
 | onCheck | 点击复选框触发 | (checkedKeys, e:{checked: Boolean, checkedNodes, node, event}) => Void | - |
 | onDragEnd | dragend 触发时调用 | ({event, node}) => Void | - |
 | onDragEnter | dragenter 触发时调用 | ({event, node, expandedKeys}) => Void | - |
