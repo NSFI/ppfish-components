@@ -48,23 +48,24 @@
           value={this.state.value}
           dropdownStyle={{ width: 300 }}
           treeNodeResetTitle={"请选择"}
+          treeDefaultExpandedKeys={['n4', 'n9']}
           onChange={this.onChange}
           onReset={this.onReset}
           onSelect={this.onSelect}
         >
-          <TreeNode value="n1" title="PNode1">
-            <TreeNode value="n2" title="Node1">
-              <TreeNode value="n3" title="CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title" />
-              <TreeNode value="n4" title="CNode2" />
+          <TreeNode value="n1" key="n1" title="PNode1">
+            <TreeNode value="n2" key="n2" title="Node1">
+              <TreeNode value="n3" key="n3" title="CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title" />
+              <TreeNode value="n4" key="n4" title="CNode2" />
             </TreeNode>
-            <TreeNode value="n5" title="Node2">
-              <TreeNode value="n6" disabled title="CNode3" />
+            <TreeNode value="n5" key="n5" title="Node2">
+              <TreeNode value="n6" key="n6" disabled title="CNode3" />
             </TreeNode>
           </TreeNode>
-          <TreeNode value="n7" title="PNode2">
-            <TreeNode value="n8" title="Node3">
-              <TreeNode value="n9" title="CNode4" />
-              <TreeNode value="n10" title="CNode5" />
+          <TreeNode value="n7" key="n7" title="PNode2">
+            <TreeNode value="n8" key="n8" title="Node3">
+              <TreeNode value="n9" key="n9" title="CNode4" />
+              <TreeNode value="n10" key="n10" title="CNode5" />
             </TreeNode>
           </TreeNode>
         </TreeSelect>
@@ -76,9 +77,9 @@
 ```
 :::
 
-## 无复位选项的单选
+## 设置为必选的单选
 
-:::demo 无复位选项的单选。
+:::demo 设置为必选的单选。
 
 ```js  
 
@@ -97,27 +98,28 @@
     const TreeNode = TreeSelect.TreeNode;
     return (
       <TreeSelect
+        isRequired
         showSearch
         getPopupContainer={() => document.querySelector('.content')}
-        isRequired={true}
         style={{ width: 300 }}
+        treeDefaultExpandedKeys={['n4', 'n9']}
         value={this.state.value}
         dropdownStyle={{ width: 300 }}
         onChange={this.onChange}
       >
-        <TreeNode value="n1" title="PNode1">
-          <TreeNode value="n2" title="Node1">
-            <TreeNode value="n3" title="CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title" />
-            <TreeNode value="n4" title="CNode2" />
+        <TreeNode value="n1" key="n1" title="PNode1">
+          <TreeNode value="n2" key="n2" title="Node1">
+            <TreeNode value="n3" key="n3" title="CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title-CNode1-long-title" />
+            <TreeNode value="n4" key="n4" title="CNode2" />
           </TreeNode>
-          <TreeNode value="n5" title="Node2">
-            <TreeNode value="n6" disabled title="CNode3" />
+          <TreeNode value="n5" key="n5" title="Node2">
+            <TreeNode value="n6" key="n6" disabled title="CNode3" />
           </TreeNode>
         </TreeNode>
-        <TreeNode value="n7" title="PNode2">
-          <TreeNode value="n8" title="Node3">
-            <TreeNode value="n9" title="CNode4" />
-            <TreeNode value="n10" title="CNode5" />
+        <TreeNode value="n7" key="n7" title="PNode2">
+          <TreeNode value="n8" key="n8" title="Node3">
+            <TreeNode value="n9" key="n9" title="CNode4" />
+            <TreeNode value="n10" key="n10" title="CNode5" />
           </TreeNode>
         </TreeNode>
       </TreeSelect>
@@ -167,6 +169,28 @@
         title: 'Node2',
         value: 'n4',
         key: 'k4',
+        children: [
+          {
+            title: 'CNode1',
+            value: 'n5',
+            key: 'k5',
+          }, 
+          {
+            title: 'CNode2',
+            value: 'n6',
+            key: 'k6',
+          },
+          {
+            title: 'CNode3',
+            value: 'n7',
+            key: 'k7',
+          }, 
+          {
+            title: 'CNode4',
+            value: 'n8',
+            key: 'k8',
+          }
+        ],
       }
     ];
     
@@ -177,6 +201,7 @@
         dropdownStyle={{ width: 300 }}
         getPopupContainer={() => document.querySelector('.content')}
         treeData={treeData}
+        treeDefaultExpandedKeys={['k1', 'k4']}
         onChange={this.onChange}
         onReset={this.onReset}
       />
@@ -377,6 +402,7 @@
       showSearch: true,
       getPopupContainer: () => document.querySelector('.content'),
       treeData,
+      treeDefaultExpandedKeys: ['0-0a', '0-1a'],
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
@@ -489,6 +515,7 @@
       editable: false,
       getPopupContainer: () => document.querySelector('.content'),
       treeData,
+      treeDefaultExpandedKeys: ['0-0a', '0-1a'],
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
