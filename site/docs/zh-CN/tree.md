@@ -18,8 +18,8 @@
     const TreeNode = Tree.TreeNode;
     return (
       <Tree
-        defaultExpandedKeys={['0-0-0', '0-0-1']}
-        defaultSelectedKeys={['0-0-1']}
+        defaultExpandedKeys={['0-0-1']}
+        defaultSelectedKeys={['0-0-1-0']}
         onSelect={this.onSelect}
       >
         <TreeNode title="parent 1" key="0-0">
@@ -54,8 +54,8 @@
     return (
       <Tree
         isRequired
-        defaultExpandedKeys={['0-0-0', '0-0-1']}
-        defaultSelectedKeys={['0-0-1']}
+        defaultExpandAll
+        defaultSelectedKeys={['0-0-0-1']}
         onSelect={this.onSelect}
       >
         <TreeNode title="parent 1" key="0-0">
