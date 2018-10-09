@@ -145,6 +145,8 @@ export default class Tree extends React.Component<TreeProps, any> {
 
   static defaultProps = {
     prefixCls: 'fishd-tree',
+    autoExpandParent: true,
+    defaultExpandParent: true,
     checkable: false,
     showIcon: false,
     openAnimation: {
@@ -161,7 +163,7 @@ export default class Tree extends React.Component<TreeProps, any> {
     // if (loading) {
     //   return (
     //     <Icon
-    //       type="load-line" spin={true} 
+    //       type="load-line" spin={true}
     //       className={`${prefixCls}-switcher-loading-icon`}
     //     />
     //   );
