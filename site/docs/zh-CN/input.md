@@ -382,7 +382,7 @@ render(){
 | prefix | 带有前缀图标的 input | String \| ReactNode | - |
 | size | 控件大小。注：标准表单内的输入框大小限制为 `'large'`。 | Enum {'large', 'default', 'small'} | 'default' |
 | suffix | 带有后缀图标的 input | String | ReactNode | - |
-| type | 声明 input 类型，同原生 input 标签的 type 属性，见：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input#属性)(请直接使用 `Input.TextArea` 代替 `type="textarea"`)。 | Enum | `text` |
+| type | 声明 input 类型，同原生 input 标签的 type 属性，见：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input#属性)(请直接使用 `Input.TextArea` 代替 `type="textarea"`)。 | Enum | 'text' |
 | value | 输入框内容 | String | - |
 | onPressEnter | 按下回车的回调 | (e) => Void | - |
 

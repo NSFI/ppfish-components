@@ -144,22 +144,22 @@ render(){
           {text}
         </Panel>
         <Panel header="This is panel header 4" key="4">
-          <p>{text}</p>
+          {text}
         </Panel>
         <Panel header="This is panel header 5" key="5">
-          <p>{text}</p>
+          {text}
         </Panel>
         <Panel header="This is panel header 6" key="6">
-          <p>{text}</p>
+          {text}
         </Panel>
         <Panel header="This is panel header 7" key="7">
-          <p>{text}</p>
+          {text}
         </Panel>
         <Panel header="This is panel header 8" key="8">
-          <p>{text}</p>
+          {text}
         </Panel>
         <Panel header="This is panel header 9" key="9">
-          <p>{text}</p>
+          {text}
         </Panel>
       </Collapse>
   )
