@@ -139,7 +139,7 @@
 }
 </style> 
 
-在多数业务情况下，Ant Design需要在设计区域内解决大量信息收纳的问题，因此在 12 栅格系统的基础上，我们将整个设计建议区域按照 24 等分的原则进行划分。
+在多数业务情况下，Fish Design需要在设计区域内解决大量信息收纳的问题，因此在 12 栅格系统的基础上，我们将整个设计建议区域按照 24 等分的原则进行划分。
 
 划分之后的信息区块我们称之为『盒子』。建议横向排列的盒子数量最多四个，最少一个。『盒子』在整个屏幕上占比见上图。设计部分基于盒子的单位定制盒子内部的排版规则，以保证视觉层面的舒适感。
 
@@ -160,7 +160,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 
 ## API
 
-Ant Design 的布局组件若不能满足你的需求，你也可以直接使用社区的优秀布局组件：
+若此布局组件若不能满足你的需求，你也可以直接使用社区的优秀布局组件：
 
 - [react-flexbox-grid](http://roylee0704.github.io/react-flexbox-grid/)
 - [react-blocks](https://github.com/whoisandy/react-blocks/)
@@ -169,9 +169,9 @@ Ant Design 的布局组件若不能满足你的需求，你也可以直接使用
 
 | 成员 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| align | flex 布局下的垂直对齐方式：`top` `middle` `bottom` | String | `top` |
-| gutter | 栅格间隔，可以写成像素值或支持响应式的对象写法 `{ xs: 8, sm: 16, md: 24}` | Number/Object | 0 |
-| justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | String | `start` |
+| align | flex 布局下的垂直对齐方式 | Enum {'top', 'middle', 'bottom'} | 'top' |
+| gutter | 栅格间隔，可以写成像素值或支持响应式的对象写法 `{ xs: 8, sm: 16, md: 24}` | Number \| Object | 0 |
+| justify | flex 布局下的水平排列方式 | Enum {'start', 'end', 'center', 'space-around', 'space-between'} | 'start' |
 | type | 布局模式，可选 `flex`，[现代浏览器](http://caniuse.com/#search=flex) 下有效 | String | - |
 
 ### Col
@@ -183,11 +183,11 @@ Ant Design 的布局组件若不能满足你的需求，你也可以直接使用
 | pull | 栅格向左移动格数 | Number | 0 |
 | push | 栅格向右移动格数 | Number | 0 |
 | span | 栅格占位格数，为 0 时相当于 `display: none` | Number | - |
-| xs | `<576px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
-| sm | `≥576px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
-| md | `≥768px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
-| lg | `≥992px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
-| xl | `≥1200px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
-| xxl | `≥1600px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number\|Object | - |
+| xs | `<576px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number \| Object | - |
+| sm | `≥576px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number \| Object | - |
+| md | `≥768px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number \| Object | - |
+| lg | `≥992px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number \| Object | - |
+| xl | `≥1200px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number \| Object | - |
+| xxl | `≥1600px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number \| Object | - |
 
 响应式栅格的断点扩展自 [BootStrap 4 的规则](https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints)（不包含链接里 `occasionally` 的部分)。
