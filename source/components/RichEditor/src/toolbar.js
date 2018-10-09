@@ -497,11 +497,11 @@ class CustomToolbar extends PureComponent {
           tooltip = '文字方向';
           break;
         }
-        case 'background': {
-          value = <div className="item" key={key}><select className="ql-background" /></div>;
-          tooltip = '背景色';
-          break;
-        }
+        // case 'background': {
+        //   value = <div className="item" key={key}><select className="ql-background" /></div>;
+        //   tooltip = '背景色';
+        //   break;
+        // }
         // case 'header': {
         //   if (typeof mValue === 'string' || typeof mValue === 'number') {
         //     value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
