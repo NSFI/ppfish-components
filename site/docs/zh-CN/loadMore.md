@@ -50,6 +50,61 @@ render(){
 ```
 :::
 
+## 完整示例
+
+:::demo 配合List完成列表加载功能
+
+```js
+  state = {
+    list: [{title: 'Fishd Design Title 1'},{title: 'Fishd Design Title 2'}],
+    loading: false,
+    status: 'default',
+    times:0,
+  }
+
+  loadList = () => {
+    this.setState({
+      loading: true,
+      status: 'loading',
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+        times:this.state.times + 1,
+        list: [...this.state.list, {title: `fishd Design Title ${(Math.random() * 100).toFixed(0)}`}],
+        loading: false, 
+        status: this.state.times + 1 === 3 ?'end':'default'})
+      }, 1000)
+    })
+  };
+
+  render() {
+    return (
+      <div>
+        <List
+          itemLayout="horizontal"
+          loading={this.state.loading}
+          dataSource={this.state.list}
+          loadMore={
+            <div style={{marginTop: 12}}>
+              <LoadMore status={this.state.status} onLoadMore={this.loadList}/>
+            </div>
+          }
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>}
+                title={<a href="https://qi.163.com">{item.title}</a>}
+                description="Fishd Design, a design language for background applications, is refined by Fishd UED Team"
+              />
+            </List.Item>
+          )}
+        />
+      </div>
+    )
+  }
+
+```
+:::
 
 
 ## API
