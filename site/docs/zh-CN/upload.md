@@ -541,13 +541,13 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| accept | 接受上传的文件类型，多种类型用 `,` 分隔或写成数组形式，详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String \| Array<String> | - |
+| accept | 接受上传的文件类型，多种类型用 "," 分隔或写成数组形式，详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String \| Array<String> | - |
 | action | 必选参数, 上传的地址 | String | - |
 | beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 `false` 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传。**注意：IE9 不支持该方法**。 | (file, fileList) => `Boolean \| Promise` | - |
 | className | 容器类名 | String | - |
 | customRequest | 通过覆盖默认的上传行为，可以自定义自己的上传实现 | () => Void | - |
 | data | 上传所需参数或返回上传参数的方法 | Object \| (file) => Object | - |
-| defaultFileList | 默认已经上传的文件列表 | Array<{uid, name, status, response}>[] | - |
+| defaultFileList | 默认已经上传的文件列表 | Array<{uid, name, status, response}> | - |
 | disabled | 是否禁用 | Boolean | false |
 | fileList | 已经上传的文件列表（受控） | Array<{uid, name, status, response}> | - |
 | headers | 设置上传的请求头部，IE10 以上有效 | Object | - |
@@ -556,7 +556,7 @@ render(){
 | multiple | 是否支持多选文件，IE10 以上支持。开启后按住 ctrl 可选择多个文件 | Boolean | false |
 | name | 发到后台的文件参数名 | String | 'file' |
 | showDeleteAll | 文件列表中的文件数超出 `maxFileCount` 后是否展示 `删除全部`，当 listType 为 `text` 时有效 | Boolean | true |
-| showUploadList | 是否展示 uploadList, 可设为一个对象，用于单独设定 showPreviewIcon 和 showRemoveIcon | Boolean \| { showPreviewIcon?: Boolean, showRemoveIcon?: Boolean } | true |
+| showUploadList | 是否展示 uploadList, 可设为一个对象，用于单独设定 `showPreviewIcon` 和 `showRemoveIcon` | Boolean \| { showPreviewIcon?: Boolean, showRemoveIcon?: Boolean } | true |
 | supportServerRender | 服务端渲染时需要打开这个 | Boolean | false |
 | tips | 上传提示 | String | - |
 | withCredentials | 上传请求时是否携带 cookie | Boolean | false |
