@@ -146,6 +146,7 @@
 
     td,
     th {
+      word-break: break-all;
       border: 1px solid #e6e6eb;
       padding: 10px;
       max-width: 250px;
@@ -213,18 +214,33 @@
     display: none;
     list-style: none;
     position: absolute;
-    margin-left: -49px;
     border-radius: 2px;
-    width: 110px;
+    width: 130px;
+    right: -145px;
+    bottom: -10px;
     font-size: 14px;
-    padding: 10px;
-    border: 1px solid #e1e3e6;
+    padding: 12px 0 12px 20px;
     color: #333;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    &:after {
+      left: -5px;
+      bottom: 12px;
+      width: 9px;
+      height: 9px;
+      background: #fff;
+      box-shadow: -1px 1px 4px rgba(0, 0, 0, 0.05);
+      transform: rotate(45deg);
+      position: absolute;
+      content: '';
+    }
     .item {
-      height: 30px;
-      line-height: 30px;
+      height: 12px;
+      line-height: 12px;
+      font-size: 12px;
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
     }
   }
   &:hover {

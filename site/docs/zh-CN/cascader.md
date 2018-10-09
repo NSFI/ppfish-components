@@ -537,7 +537,7 @@ render(){
 | popupPlacement | 浮层预设位置 | Enum {'bottomLeft','bottomRight','topLeft','topRight'} | 'bottomLeft' |
 | popupVisible | 控制浮层显隐 | Boolean | - |
 | showSearch | 在选择框中显示搜索框 | Boolean | false |
-| size | 输入框大小 | Enum {'large' 'default' 'small'} | 'default' |
+| size | 输入框大小 | Enum {'large','default','small'} | 'default' |
 | style | 自定义样式 | String | - |
 | value | 指定选中项 | Array<String> | - |
 | onChange | 选择完成后的回调 | (value, selectedOptions) => Void | - |
