@@ -23,8 +23,8 @@
         onSelect={this.onSelect}
       >
         <TreeNode title="parent 1" key="0-0">
-          <TreeNode title="parent 1-0" key="0-0-0" disabled>
-            <TreeNode title="leaf" key="0-0-0-0" />
+          <TreeNode title="parent 1-0" key="0-0-0">
+            <TreeNode title="leaf" key="0-0-0-0" disabled />
             <TreeNode title="leaf with long title leaf with long title leaf with long title" key="0-0-0-1" />
           </TreeNode>
           <TreeNode title="parent 1-1" key="0-0-1">
@@ -65,8 +65,8 @@
         onCheck={this.onCheck}
       >
         <TreeNode title="parent 1" key="0-0">
-          <TreeNode title="parent 1-0" key="0-0-0" disabled>
-            <TreeNode title="leaf" key="0-0-0-0" disableCheckbox />
+          <TreeNode title="parent 1-0" key="0-0-0">
+            <TreeNode title="leaf" key="0-0-0-0" disableCheckbox disabled />
             <TreeNode title="leaf" key="0-0-0-1" />
           </TreeNode>
           <TreeNode title="parent 1-1" key="0-0-1">
