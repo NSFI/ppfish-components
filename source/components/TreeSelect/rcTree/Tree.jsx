@@ -416,7 +416,7 @@ class Tree extends React.Component {
     const { selected, eventKey } = treeNode.props;
     const targetSelected = !selected;
 
-    // 必选的单选，取消选择时不处理
+    // 蹇呴�夌殑鍗曢�夛紝鍙栨秷閫夋嫨鏃朵笉澶勭悊
     if (isRequired && !multiple && !targetSelected) return;
 
     // Update selected keys
