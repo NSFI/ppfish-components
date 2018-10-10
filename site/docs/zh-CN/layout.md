@@ -745,7 +745,7 @@ render() {
 
 ## API
 
-```html
+```js
 <Layout>
   <Header>header</Header>
   <Layout>

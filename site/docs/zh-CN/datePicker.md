@@ -939,7 +939,8 @@ render() {
 | `s`  | 秒 | 不补0 | 5 |
 | `ss` | 秒 | 补0 | 05 |
 
-## API 公共参数
+## API
+### 公共参数
 
 | 参数      | 说明          | 类型      |  默认值  |
 |---------- |-------------- |---------- | -------- |
@@ -961,12 +962,7 @@ render() {
 | onChange | 确认选定的值时触发 | (value) => {} | - |
 | onOpenChange | 弹出或关闭日历的回调 | (status:Boolean) => {} | - |
 
-## 方法
-| 参数      | 描述          |
-|---------- |-------------- |
-| togglePickerVisible() | 切换日历面板的展开关闭。示范见上文示例中的 `带快捷选项的日期面板` |
-
-## DatePicker
+### DatePicker
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | placeholder | 占位内容 | String | - |
@@ -982,7 +978,7 @@ DatePicker 时间面板的参数
 | defaultTimeValue | 时间面板的默认时间 | Date | - |
 | timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 
-## DatePicker.DateRangePicker
+### DatePicker.DateRangePicker
 | 参数      | 说明          | 类型      |   默认值  |
 |---------- |-------------- |----------|-------- |
 | startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
@@ -1002,3 +998,8 @@ DateRangePicker 时间面板的参数
 | defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
 | startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 | endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+
+## 方法
+| 参数      | 描述          |
+|---------- |-------------- |
+| togglePickerVisible() | 切换日历面板的展开关闭。示范见上文示例中的 `带快捷选项的日期面板` |
