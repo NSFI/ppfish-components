@@ -10,6 +10,7 @@ import classes from 'component-classes';
 import { Item as MenuItem, ItemGroup as MenuItemGroup } from '../../Menu/src/index.js';
 import warning from 'warning';
 import Option from './Option';
+import Icon from '../../Icon';
 
 import {
   getPropValue,
@@ -1226,14 +1227,15 @@ class Select extends React.Component {
     const { prefixCls, allowClear, clearIcon } = this.props;
     const { value, inputValue } = this.state;
     const clear = (
-      <span
+      <Icon
+        type="close-circle-fill"
         key="clear"
         className={`${prefixCls}-selection__clear`}
         onMouseDown={preventDefaultEvent}
         style={UNSELECTABLE_STYLE}
         {...UNSELECTABLE_ATTRIBUTE}
         onClick={this.onClearSelection}
-      >{clearIcon || <i className={`${prefixCls}-selection__clear-icon`}>×</i>}</span>
+      />
     );
     if (!allowClear) {
       return null;
