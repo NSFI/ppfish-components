@@ -84,13 +84,13 @@ export default class Layout extends React.Component {
           <Row>
             <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
               <Link to="/home" rel="noopener noreferrer">
-                <img src={'//ysf.nosdn.127.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-disgn"/>
+                <img src={'//ysf.nosdn.127.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-design"/>
               </Link>
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
               <div id="search-box" className="search-box">
                 <img src={require('../../assets/fd-web-1.2-icon@2x.svg')} className="search-icon"/>
-                <input type="text" placeholder="在 Fish Design 中搜索" className="ant-input"/>
+                <input type="text" placeholder="在 Fish Design 中搜索" className="fishd-input"/>
               </div>
               <ul className="nav">
                 <li className="nav-item">
