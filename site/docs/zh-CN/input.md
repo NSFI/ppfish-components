@@ -182,7 +182,7 @@ render(){
             <Option value="2">Except</Option>
           </Select>
           <Input style={{ width: 120, textAlign: 'center' }} placeholder="Minimum" />
-          <Input style={{ width: 30, borderLeft: 0, pointerEvents: 'none', backgroundColor: '#fff' }} placeholder="~" disabled />
+          <Input style={{ width: 40, borderLeft: 0, pointerEvents: 'none', backgroundColor: '#fff' }} placeholder="~" disabled />
           <Input style={{ width: 120, textAlign: 'center', borderLeft: 0 }} placeholder="Maximum" />
         </InputGroup>
         <br />

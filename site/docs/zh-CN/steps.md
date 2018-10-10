@@ -90,7 +90,7 @@
     }];
     return (
       <div>
-        <Steps current={current}>
+        <Steps current={current} className="demo-step">
           {steps.map((item,i) => <Step key={item.title} title={item.title} onClick={this.handleItemChange.bind(this,i)}/>)}
         </Steps>
         <div className="steps-content">{steps[current].content}</div>
@@ -117,6 +117,16 @@
   }
 ```
 :::
+
+<style>
+.demo-step .fishd-steps-item-icon {
+  cursor: pointer;
+}
+
+.demo-step .fishd-steps-item-content {
+  cursor: pointer;
+}
+</style>
 
 ## 竖直方向的步骤条
 :::demo 简单的竖直方向的步骤条。

@@ -259,16 +259,16 @@ render(){
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| disabled | 按钮失效状态 | Boolean | `false` |
+| disabled | 按钮失效状态 | Boolean | false |
 | ghost | 幽灵属性，使按钮背景透明 | Boolean | false |
 | href | 点击跳转的地址，指定此属性 button 的行为和 a 链接一致 | String | - |
-| htmlType | 设置 `button` 原生的 `type` 值，可选值请参考 [HTML 标准](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) | String | `button` |
+| htmlType | 设置 `button` 原生的 `type` 值，可选值请参考 [HTML 标准](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) | Enum | 'button' |
 | icon | 设置按钮的图标类型 | String | - |
-| loading | 设置按钮载入状态 | Boolean \| { delay: Number } | `false` |
-| shape | 设置按钮形状，可选值为 `circle` 或者不设 | String | - |
-| size | 设置按钮大小，可选值为 `small` `large` 或者不设 | String | `default` |
+| loading | 设置按钮载入状态 | Boolean \| { delay: Number } | false |
+| shape | 设置按钮形状 | Enum {'circle', 'circle-outline'} | - |
+| size | 设置按钮大小 | Enum {'small', 'large', 'default'} | 'default' |
 | target | 相当于 a 链接的 target 属性，href 存在时生效 | String | - |
-| type | 设置按钮类型，可选值为 `primary` `dashed` `danger` 或者不设 | String | - |
+| type | 设置按钮类型 | Enum {'primary', 'dashed', 'danger', 'default'} | 'default' |
 | onClick | `click` 事件的 handler | () => Void | - |
 
 `<Button>Hello world!</Button>` 最终会被渲染为 `<button><span>Hello world!</span></button>`，并且除了上表中的属性，其它属性都会直接传到 `<button></button>`。
