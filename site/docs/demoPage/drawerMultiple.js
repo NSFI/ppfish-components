@@ -44,7 +44,7 @@ class Demo extends React.Component {
         <Drawer
           width="520"
           handler={false}
-          visible={this.state.open}
+          open={this.state.open}
           onMaskClick={this.onClick}
           level={null}
         >

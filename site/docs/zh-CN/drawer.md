@@ -628,7 +628,7 @@ render() {
 | className | 对话框外层容器的类名 | String | - |
 | width | 宽度 | String \| Number | - |
 | height | 高度 | String \| Number | - |
-| visible | Drawer 是否可见 | Boolean | false | 
+| open | 打开或关闭抽屉 | Boolean | false | 
 | placement | 抽屉的方向 | Enum {'left', 'right', 'top', 'bottom'} | 'right' |
 | getContainer | 指定Drawer挂载的HTML节点 | () => ReactNode | () => document.body |
 | style | 可用于设置 Drawer 的样式，调整浮层位置等 | Object | - |

@@ -28,12 +28,6 @@ class Demo extends React.Component {
     });
   }
 
-  customerHandlerIcon = () => {
-    return (
-      <div className="drawer-handle"><Icon type="cross-circle"/></div>
-    )
-  }
-
   render() {
     return (
       <div >
@@ -41,7 +35,6 @@ class Demo extends React.Component {
           <Drawer
             placement={this.state.placement}
             width={this.state.width}
-            //handler={this.customerHandlerIcon()}
           >
             <Menu
               style={{ height: '200%' }}

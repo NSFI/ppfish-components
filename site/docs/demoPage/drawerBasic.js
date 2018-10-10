@@ -39,7 +39,7 @@ class Demo extends React.Component {
           handler={false}
           level={null}
           width="30vw"
-          visible={this.state.open}
+          open={this.state.open}
           closed={true}
           onChange={this.onChange}
           onMaskClick={this.onTouchEnd}
