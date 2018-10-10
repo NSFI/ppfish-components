@@ -35,7 +35,7 @@ export default class Layout extends React.Component {
     this.initSearchBox();
   }
 
-  getLocale(key) {
+  getLocale = (key) => {
     const map = locales || {};
     return key.split('.').reduce((a, b) => {
       const parent = map[a];
@@ -44,9 +44,9 @@ export default class Layout extends React.Component {
       }
       return parent;
     });
-  }
+  };
 
-  setMenuHighlight() {
+  setMenuHighlight = () => {
     const current = location.hash;
     const HIGHLIGHT_CLS = 'active';
     const menuItems = document.querySelectorAll('.nav-item a');
@@ -63,9 +63,10 @@ export default class Layout extends React.Component {
     }
 
     setHighlight(menuItems, HIGHLIGHT_CLS);
-  }
+  };
 
-  initSearchBox() {
+  //初始化algolia框
+  initSearchBox = () => {
     Layout.loadSDK(() => {
       window.docsearch({
         apiKey: 'ddba94e7e0f7ae0fee63b1645548fc00',
@@ -74,74 +75,63 @@ export default class Layout extends React.Component {
         debug: false // Set debug to true if you want to inspect the dropdown
       });
     });
-  }
+  };
 
   render() {
     const {children, hideFooter} = this.props;
+    const CommonHeader = (
+      <header className="fish-header">
+        <Row>
+          <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
+            <Link to="/home" rel="noopener noreferrer">
+              <img src={'//ysf.nosdn.127.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-design"/>
+            </Link>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
+            <div id="search-box" className="search-box">
+              <img src={require('../../assets/fd-web-1.2-icon@2x.svg')} className="search-icon"/>
+              <input type="text" placeholder="在 Fish Design 中搜索" className="fishd-input"/>
+            </div>
+            <ul className="nav">
+              <li className="nav-item">
+                <Link to="/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/components">{this.getLocale('misc.component')}</Link>
+              </li>
+              <span className="nav-version">{this.getLocale('misc.version')}</span>
+            </ul>
+          </Col>
+        </Row>
+      </header>
+    );
+    const CommonFooter = (!hideFooter &&
+      <footer className="footer">
+        <div className="logo">
+          <img src={'//ysf.nosdn.127.net/cipiqsfpsbyreuwspfkybadithmnnlmc'} alt="logo"/>
+          <h3>Fish Design</h3>
+          <p className="version">- {this.getLocale('misc.version')} -</p>
+        </div>
+        <div className="link-list">
+          <Link to="/home" className="link-item">首页</Link>
+          <Link to="/components" className="link-item">组件</Link>
+          <a href="http://jira.netease.com/projects/YSFCOMP/summary" target="_blank" className="link-item">问题反馈</a>
+        </div>
+        <div className="github">
+          <a href="//github.com/NSFI/ppfish-components" target="_blank">
+            <img src={require('../../assets/fd-web-5.2-logo@2x.svg')} alt="github"/>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </footer>
+    );
     return (
       <div className="app">
-        <header className="fish-header">
-          <Row>
-            <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
-              <Link to="/home" rel="noopener noreferrer">
-                <img src={'//ysf.nosdn.127.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-design"/>
-              </Link>
-            </Col>
-            <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
-              <div id="search-box" className="search-box">
-                <img src={require('../../assets/fd-web-1.2-icon@2x.svg')} className="search-icon"/>
-                <input type="text" placeholder="在 Fish Design 中搜索" className="fishd-input"/>
-              </div>
-              <ul className="nav">
-                <li className="nav-item">
-                  <Link to="/home" rel="noopener noreferrer">{this.getLocale('misc.home')}</Link>
-                </li>
-                {/*
-                <li className="nav-item">
-                  <Link to="#/spec" rel="noopener noreferrer">{this.getLocale('misc.spec')}</Link>
-                </li>
-                */}
-                <li className="nav-item">
-                  <Link to="/components">{this.getLocale('misc.component')}</Link>
-                </li>
-                {/*
-                <li className="nav-item">
-                  <Link>{this.getLocale('misc.demo')}</Link>
-                </li>
-                */}
-                <span className="nav-version">
-                    {this.getLocale('misc.version')}
-                  </span>
-              </ul>
-            </Col>
-          </Row>
-        </header>
+        {CommonHeader}
         <div className="main">
           {children}
         </div>
-        {
-          !hideFooter &&
-          <footer className="footer">
-            <div className="logo">
-              <img src={'//ysf.nosdn.127.net/cipiqsfpsbyreuwspfkybadithmnnlmc'} alt="logo"/>
-              <h3>Fish Design</h3>
-              <p className="version">- {this.getLocale('misc.version')} -</p>
-            </div>
-            <div className="link-list">
-              <Link to="/home" className="link-item">首页</Link>
-              {/*<Link to="/home" className="link-item">设计语言</Link>*/}
-              <Link to="/components" className="link-item">组件</Link>
-              {/*<Link className="link-item">演示环境</Link>*/}
-              <a href="http://jira.netease.com/projects/YSFCOMP/summary" target="_blank" className="link-item">问题反馈</a>
-            </div>
-            <div className="github">
-              <a href="//github.com/NSFI/ppfish-components" target="_blank">
-                <img src={require('../../assets/fd-web-5.2-logo@2x.svg')} alt="github"/>
-                <span>GitHub</span>
-              </a>
-            </div>
-          </footer>
-        }
+        {CommonFooter}
       </div>
     );
   }
