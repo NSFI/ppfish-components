@@ -154,7 +154,9 @@ body {
         color: #383838;
         display: block;
         padding: 0 20px;
-        &.active {
+        transition: all ease 0.3s;
+        &.active,
+        &:hover {
           color: #4d70ff;
           &:before {
             content: "";

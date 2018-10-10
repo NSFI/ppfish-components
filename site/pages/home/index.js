@@ -58,20 +58,28 @@ export default class Home extends React.Component {
             <h2 className="title">资源中心</h2>
             <div className="resource-list">
               <div className="resource-item">
-                <img src={'//ysf.nosdn.127.net/xjupeqkvqvzvofkzalfzyfhpqmjvofrw'} alt="贡献指南"/>
-                <Link to="/components/contributing/">贡献指南</Link>
+                <Link to="/components/contributing/">
+                  <img src={'//ysf.nosdn.127.net/xjupeqkvqvzvofkzalfzyfhpqmjvofrw'} alt="贡献指南"/>
+                  贡献指南
+                </Link>
               </div>
               <div className="resource-item">
-                <img src={'//ysf.nosdn.127.net/zespbluoxdooiuwbodfuzzniuikphxzu'} alt="更新日志"/>
-                <Link to="/components/changelog/">更新日志</Link>
+                <Link to="/components/changelog/">
+                  <img src={'//ysf.nosdn.127.net/zespbluoxdooiuwbodfuzzniuikphxzu'} alt="更新日志"/>
+                  更新日志
+                </Link>
               </div>
               <div className="resource-item">
-                <img src={'//ysf.nosdn.127.net/cwknzqyaxbjnbwsldapbridnbtwqzcho'} alt="组件库"/>
-                <Link to="/components/">组件库</Link>
+                <Link to="/components/">
+                  <img src={'//ysf.nosdn.127.net/cwknzqyaxbjnbwsldapbridnbtwqzcho'} alt="组件库"/>
+                  组件库
+                </Link>
               </div>
               <div className="resource-item">
-                <img src={'//ysf.nosdn.127.net/pdkitmnnpikavbkzscsxsgoilftykxza'} alt="资源下载"/>
-                <a href="http://axure.yixin.im/view?pid=176&mid=489&id=4937" target="_blank">资源下载</a>
+                <a href="http://axure.yixin.im/view?pid=176&mid=489&id=4937" target="_blank">
+                  <img src={'//ysf.nosdn.127.net/pdkitmnnpikavbkzscsxsgoilftykxza'} alt="资源下载"/>
+                  资源下载
+                </a>
               </div>
             </div>
           </div>

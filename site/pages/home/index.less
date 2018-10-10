@@ -49,11 +49,20 @@
         color: #fff;
         font-size: 18px;
         margin-right: 8px;
+        transition: all ease 0.3s;
+      }
+      .start:hover {
+        background: #4c8eff;
       }
       .github {
         border: 1px solid #dbdbdb;
         width: 140px;
         background: url('../../assets/fd-web-2.2-github@2x.svg') center no-repeat;
+        background-size: 88px;
+      }
+      .github:hover {
+        border: 1px solid #337eff;
+        background: url('../../assets/fd-github-active.svg') center no-repeat;
         background-size: 88px;
       }
     }
@@ -125,13 +134,16 @@
         width: 100%;
         -webkit-user-drag: none;
         user-select: none;
+        margin-bottom: 12px;
       }
       a {
         font-size: 18px;
         color: #4f5059;
         text-decoration: none;
-        margin-top: 12px;
         display: inline-block;
+      }
+      a:hover {
+        color: #337eff;
       }
     }
   }
