@@ -660,7 +660,7 @@
 | style | 选择框的样式 | Object | - |
 | tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | Number | 100 |
 | treeCheckable | 显示 checkbox | Boolean | false |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（value 必须设置，且其值需在整个树范围内唯一） | Array<{value, label, children, isLeaf, [disabled, disableCheckbox, selectable]}>(如果定义了title，label会被title覆盖) | [] |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 value 必须设置，且其值需在整个树范围内唯一；key 可选，未设置时取 value 的值。 | Array<{value, title, [children, key, disabled, disableCheckbox, isLeaf]}> | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | Boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | Array | - |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |
@@ -691,6 +691,6 @@
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 是否禁用 | Boolean | false |
 | isLeaf | 是否是叶子节点 | Boolean | false |
-| key | 此项可选，若设置，其值需在整个树范围内唯一 | String | - |
+| key | 此项必须设置，且其值需在整个树范围内唯一 | String | - |
 | title | 树节点显示的内容，默认根据此属性值进行筛选 | String \| ReactNode | '---' |
 | value | 此项必须设置，且其值需在整个树范围内唯一 | String | - |
