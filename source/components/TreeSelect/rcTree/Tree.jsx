@@ -42,6 +42,7 @@ class Tree extends React.Component {
     autoExpandParent: PropTypes.bool,
     defaultExpandAll: PropTypes.bool,
     defaultExpandedKeys: PropTypes.arrayOf(PropTypes.string),
+    expandAll: PropTypes.bool,
     expandedKeys: PropTypes.arrayOf(PropTypes.string),
     defaultCheckedKeys: PropTypes.arrayOf(PropTypes.string),
     checkedKeys: PropTypes.oneOfType([
@@ -92,6 +93,7 @@ class Tree extends React.Component {
     defaultExpandedKeys: [],
     defaultCheckedKeys: [],
     defaultSelectedKeys: [],
+    expandAll: false,
     isRequired: false,
   };
 
@@ -194,7 +196,7 @@ class Tree extends React.Component {
     if (needSync('expandedKeys') || (prevProps && needSync('autoExpandParent'))) {
       newState.expandedKeys = (props.autoExpandParent || (!prevProps && props.defaultExpandParent)) ?
         conductExpandParent(props.expandedKeys, keyEntities) : props.expandedKeys;
-    } else if (!prevProps && props.defaultExpandAll) {
+    } else if ((treeNode && props.expandAll) || (!prevProps && props.defaultExpandAll)) {
       newState.expandedKeys = Object.keys(keyEntities);
     } else if (!prevProps && props.defaultExpandedKeys) {
       newState.expandedKeys = (props.autoExpandParent || props.defaultExpandParent) ?
@@ -239,6 +241,7 @@ class Tree extends React.Component {
         newState.halfCheckedKeys = halfCheckedKeys;
       }
     }
+
     // ================= loadedKeys ==================
     if (needSync('loadedKeys')) {
       newState.loadedKeys = props.loadedKeys;

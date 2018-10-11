@@ -148,6 +148,7 @@ export default class Tree extends React.Component<TreeProps, any> {
   static defaultProps = {
     autoExpandParent: true,
     checkable: false,
+    defaultExpandAll: false,
     defaultExpandParent: true,
     isRequired: false,
     openAnimation: {

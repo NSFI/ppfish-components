@@ -715,6 +715,7 @@
 | defaultSelectedKeys | 默认选中的树节点 | Array<String> | [] |
 | disabled | 将树禁用 | Boolean | false |
 | draggable | 设置节点可拖拽（IE8+） | Boolean | false |
+| expandAll | （受控）展开所有树节点 | Boolean | false |
 | expandedKeys | （受控）展开指定的树节点 | Array<String> | [] |
 | filterTreeNode | 按需筛选树节点（高亮），返回true | (node) => Boolean | - |
 | loadData | 异步加载数据 | (node) => Void | - |
