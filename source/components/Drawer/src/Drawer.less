@@ -1,3 +1,4 @@
+@import (reference) "../../../assets/css/index";
 @ease-in-out-circ: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 @duration: 0.3s;
 @drawer: drawer;
@@ -26,6 +27,7 @@
   }
   &-content {
     overflow: auto;
+    .scrollbar();
     z-index: 1;
     position: relative;
   }
