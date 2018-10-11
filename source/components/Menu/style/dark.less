@@ -93,6 +93,10 @@
     }
   }
 
+  &-dark &-submenu-open {
+    color: @menu-dark-highlight-color !important;
+  }
+
   &-dark &-item-selected {
     border-right: 0;
     color: @menu-dark-highlight-color;
@@ -107,7 +111,11 @@
 
   &&-dark &-item-selected,
   &-submenu-popup&-dark &-item-selected {
-    background-color: @menu-dark-item-selected-bg;
+    // background-color: @menu-dark-item-selected-bg;
+
+    background-color: #000;
+    color: #fff;
+    border-bottom: 2px solid @menu-highlight-color;
   }
 
   // Disabled state sets text to dark gray and nukes hover/tab effects
