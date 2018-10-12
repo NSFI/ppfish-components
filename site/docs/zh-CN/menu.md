@@ -59,7 +59,51 @@
 ```
 :::
 
-## 垂直内嵌式菜单
+## 垂直菜单
+
+:::demo 子菜单是弹出的形式。
+
+```js
+handleClick=(e) => {
+  console.log('click', e);
+};
+
+render(){
+  const SubMenu = Menu.SubMenu;
+  const MenuItemGroup = Menu.ItemGroup;
+  return(
+      <Menu onClick={this.handleClick} style={{ width: 256 }} mode="vertical">
+        <SubMenu key="sub1" title={<span>Navigation One</span>}>
+          <MenuItemGroup title="Item 1">
+            <Menu.Item key="1">Option 1</Menu.Item>
+            <Menu.Item key="2">Option 2</Menu.Item>
+          </MenuItemGroup>
+          <MenuItemGroup title="Iteom 2">
+            <Menu.Item key="3">Option 3</Menu.Item>
+            <Menu.Item key="4">Option 4</Menu.Item>
+          </MenuItemGroup>
+        </SubMenu>
+        <SubMenu key="sub2" title={<span>Navigation Two</span>}>
+          <Menu.Item key="5">Option 5</Menu.Item>
+          <Menu.Item key="6">Option 6</Menu.Item>
+          <SubMenu key="sub3" title="Submenu">
+            <Menu.Item key="7">Option 7</Menu.Item>
+            <Menu.Item key="8">Option 8</Menu.Item>
+          </SubMenu>
+        </SubMenu>
+        <SubMenu key="sub4" title={<span>Navigation Three</span>}>
+          <Menu.Item key="9">Option 9</Menu.Item>
+          <Menu.Item key="10">Option 10</Menu.Item>
+          <Menu.Item key="11">Option 11</Menu.Item>
+          <Menu.Item key="12">Option 12</Menu.Item>
+        </SubMenu>
+      </Menu>
+  )
+}
+```
+:::
+
+## 内嵌菜单
 
 :::demo 垂直菜单，子菜单内嵌在菜单区域。
 
@@ -109,50 +153,68 @@
 ```
 :::
 
+## 缩起内嵌菜单
 
-## 垂直弹出式菜单
-
-:::demo 子菜单是弹出的形式。
+:::demo 内嵌菜单可以被缩起/展开。
+你可以在 [Layout](/#/components/layout) 里查看侧边布局结合的完整示例。
 
 ```js
-handleClick=(e) => {
-  console.log('click', e);
-};
+  state = {
+    collapsed: false,
+  }
 
-render(){
-  const SubMenu = Menu.SubMenu;
-  const MenuItemGroup = Menu.ItemGroup;
-  return(
-      <Menu onClick={this.handleClick} style={{ width: 256 }} mode="vertical">
-        <SubMenu key="sub1" title={<span>Navigation One</span>}>
-          <MenuItemGroup title="Item 1">
-            <Menu.Item key="1">Option 1</Menu.Item>
-            <Menu.Item key="2">Option 2</Menu.Item>
-          </MenuItemGroup>
-          <MenuItemGroup title="Iteom 2">
-            <Menu.Item key="3">Option 3</Menu.Item>
-            <Menu.Item key="4">Option 4</Menu.Item>
-          </MenuItemGroup>
-        </SubMenu>
-        <SubMenu key="sub2" title={<span>Navigation Two</span>}>
-          <Menu.Item key="5">Option 5</Menu.Item>
-          <Menu.Item key="6">Option 6</Menu.Item>
-          <SubMenu key="sub3" title="Submenu">
+  toggleCollapsed = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  }
+
+  render() {
+    const SubMenu = Menu.SubMenu;
+    return (
+      <div style={{ width: 256 }}>
+        <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
+          <Icon type={this.state.collapsed ? 'menu-line-right' : 'menu-line'} />
+        </Button>
+        <Menu
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
+          inlineCollapsed={this.state.collapsed}
+        >
+          <Menu.Item key="1">
+            <Icon type="demo-pie" />
+            <span>Option 1</span>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Icon type="demo-note" />
+            <span>Option 2</span>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Icon type="demo-play" />
+            <span>Option 3</span>
+          </Menu.Item>
+          <SubMenu key="sub1" title={<span><Icon type="demo-mail" /><span>Navigation One</span></span>}>
+            <Menu.Item key="5">Option 5</Menu.Item>
+            <Menu.Item key="6">Option 6</Menu.Item>
             <Menu.Item key="7">Option 7</Menu.Item>
             <Menu.Item key="8">Option 8</Menu.Item>
           </SubMenu>
-        </SubMenu>
-        <SubMenu key="sub4" title={<span>Navigation Three</span>}>
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <Menu.Item key="11">Option 11</Menu.Item>
-          <Menu.Item key="12">Option 12</Menu.Item>
-        </SubMenu>
-      </Menu>
-  )
-}
+          <SubMenu key="sub2" title={<span><Icon type="demo-phone" /><span>Navigation Two</span></span>}>
+            <Menu.Item key="9">Option 9</Menu.Item>
+            <Menu.Item key="10">Option 10</Menu.Item>
+            <SubMenu key="sub3" title="Submenu">
+              <Menu.Item key="11">Option 11</Menu.Item>
+              <Menu.Item key="12">Option 12</Menu.Item>
+            </SubMenu>
+          </SubMenu>
+        </Menu>
+      </div>
+    );
+  }
 ```
 :::
+
 
 ## 只展开当前父级菜单
 
@@ -212,25 +274,26 @@ render(){
 ```
 :::
 
-## 切换主题
 
-:::demo 内建了两套主题 `light | dark`，默认 `light`。
+## 切换菜单模式和主题
+
+:::demo 展示动态切换菜单模式和主题。
 
 ```js
   state = {
-    theme: 'dark',
-    current: '1',
+    mode: 'inline',
+    theme: 'light',
   }
 
-  changeTheme = (e) => {
+  changeMode = (value) => {
     this.setState({
-      theme: e.target.value,
+      mode: value ? 'vertical' : 'inline',
     });
   }
 
-  handleClick = (e) => {
+  changeTheme = (value) => {
     this.setState({
-      current: e.key,
+      theme: value ? 'dark' : 'light',
     });
   }
 
@@ -238,37 +301,39 @@ render(){
     const SubMenu = Menu.SubMenu;
     return (
       <div>
-        <Radio.Group onChange={this.changeTheme} defaultValue="dark" style={{ marginBottom: 10 }}>
-          <Radio.Button value="dark">Dark</Radio.Button>
-          <Radio.Button value="light">Light</Radio.Button>
-        </Radio.Group>
+        <Switch onChange={this.changeMode} /> Change Mode
+        <span className="ant-divider" style={{ margin: '0 1em' }} />
+        <Switch onChange={this.changeTheme} /> Change Theme
+        <br />
+        <br />
         <Menu
-          theme={this.state.theme}
-          onClick={this.handleClick}
           style={{ width: 256 }}
+          defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
-          selectedKeys={[this.state.current]}
-          mode="inline"
+          mode={this.state.mode}
+          theme={this.state.theme}
         >
-          <SubMenu key="sub1" title={<span>Navigation One</span>}>
-            <Menu.Item key="1">Option 1</Menu.Item>
-            <Menu.Item key="2">Option 2</Menu.Item>
+          <Menu.Item key="1">
+            <Icon type="demo-mail" />
+            Navigation One
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Icon type="demo-play" />
+            Navigation Two
+          </Menu.Item>
+          <SubMenu key="sub1" title={<span><Icon type="demo-grid" /><span>Navigation Three</span></span>}>
             <Menu.Item key="3">Option 3</Menu.Item>
             <Menu.Item key="4">Option 4</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" title={<span>Navigtion Two</span>}>
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <SubMenu key="sub3" title="Submenu">
-              <Menu.Item key="7">Option 7</Menu.Item>
-              <Menu.Item key="8">Option 8</Menu.Item>
+            <SubMenu key="sub1-2" title="Submenu">
+              <Menu.Item key="5">Option 5</Menu.Item>
+              <Menu.Item key="6">Option 6</Menu.Item>
             </SubMenu>
           </SubMenu>
-          <SubMenu key="sub4" title={<span>Navigation Three</span>}>
+          <SubMenu key="sub2" title={<span><Icon type="demo-phone" /><span>Navigation Four</span></span>}>
+            <Menu.Item key="7">Option 7</Menu.Item>
+            <Menu.Item key="8">Option 8</Menu.Item>
             <Menu.Item key="9">Option 9</Menu.Item>
             <Menu.Item key="10">Option 10</Menu.Item>
-            <Menu.Item key="11">Option 11</Menu.Item>
-            <Menu.Item key="12">Option 12</Menu.Item>
           </SubMenu>
         </Menu>
       </div>
@@ -276,7 +341,6 @@ render(){
   }
 ```
 :::
-
 
 ## API
 
