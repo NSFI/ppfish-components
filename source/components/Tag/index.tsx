@@ -17,6 +17,7 @@ export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
   /** 标签是否可以关闭 */
   closable?: boolean;
   visible?: boolean;
+  autoShowClose?: boolean;
   /** 关闭时的回调 */
   onClose?: Function;
   /** 动画关闭后的回调 */
@@ -35,6 +36,7 @@ class Tag extends React.Component<TagProps, TagState> {
   static defaultProps = {
     prefixCls: 'fishd-tag',
     closable: false,
+    autoShowClose: true,
   };
 
   static getDerivedStateFromProps(nextProps: TagProps) {
@@ -113,8 +115,7 @@ class Tag extends React.Component<TagProps, TagState> {
   }
 
   render() {
-    const { prefixCls, closable, color, className, children, style, ...otherProps } = this.props;
-    const closeIcon = closable ? <Icon type="close-modal-line" onClick={this.handleIconClick} /> : '';
+    const { prefixCls, closable, color, className, children, style, autoShowClose, ...otherProps } = this.props;
     const isPresetColor = this.isPresetColor(color);
     const classString = classNames(prefixCls, {
       [`${prefixCls}-${color}`]: isPresetColor,
@@ -131,6 +132,15 @@ class Tag extends React.Component<TagProps, TagState> {
       backgroundColor: (color && !isPresetColor) ? color : null,
       ...style,
     };
+    const closeIcon = '';
+    if (closable) {
+      if (autoShowClose) {
+        closeIcon = <Icon type="close-modal-line" onClick={this.handleIconClick} />;
+      } else {
+        closeIcon = <Icon type="close-modal-line" onClick={this.handleIconClick} className="invisible" />;
+      }
+    }
+
     const tag = this.state.closed ? null : (
       <div
         data-show={!this.state.closing}

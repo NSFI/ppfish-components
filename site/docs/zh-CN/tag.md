@@ -118,9 +118,9 @@
         {!inputVisible && (
           <Tag
             onClick={this.showInput}
-            style={{ background: '#fff', borderStyle: 'dashed' }}
+            style={{ background: '#fff', border: '1px dashed #e1e3e6' }}
           >
-            <Icon type="plus" /> New Tag
+            <Icon type="upload-plus" /> New Tag
           </Tag>
         )}
       </div>
@@ -156,57 +156,18 @@
 ```
 :::
 
-## 热门标签
-:::demo 选择你感兴趣的话题。
-```js
-  constructor() {
-    super();
-    this.state = {
-      selectedTags: [],
-    }
-  }
-
-  handleChange(tag, checked) {
-    const { selectedTags } = this.state;
-    const nextSelectedTags = checked
-      ? [...selectedTags, tag]
-      : selectedTags.filter(t => t !== tag);
-    console.log('You are interested in: ', nextSelectedTags);
-    this.setState({ selectedTags: nextSelectedTags });
-  }
-
-  render() {
-    const CheckableTag = Tag.CheckableTag;
-    const tagsFromServer = ['Movies', 'Books', 'Music', 'Sports'];
-    const { selectedTags } = this.state;
-    return (
-      <div>
-        <h6 style={{ marginRight: 8, display: 'inline' }}>Categories:</h6>
-        {tagsFromServer.map(tag => (
-          <CheckableTag
-            key={tag}
-            checked={selectedTags.indexOf(tag) > -1}
-            onChange={checked => this.handleChange(tag, checked)}
-          >
-            {tag}
-          </CheckableTag>
-        ))}
-      </div>
-    );
-  }
-```
-:::
-
 ## API
 
 ### Tag
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| autoShowClose | 标签可关闭时，是否自动展示关闭按钮。设置为 false 时，需 hover 到标签上才展示。 | Boolean | true |
 | afterClose | 关闭动画完成后的回调 | () => Void | - |
 | className | 容器类名 | String | - |
 | closable | 标签是否可以关闭 | Boolean | false |
 | color | 标签色 | String | - |
+| style | 自定义内联样式 | [React.CSSProperties](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e434515761b36830c3e58a970abf5186f005adac/types/react/index.d.ts#L794) | - |
 | onClose | 关闭时的回调 | (e) => Void | - |
 | visible | 是否显示标签 | Boolean | true |
 
