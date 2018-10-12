@@ -28,9 +28,12 @@
   &&-borderless-section > &-bar &-tab {
     border: none;
     margin: 0 !important;
-    -webkit-box-shadow: @border-width-base 0 0 0 @border-color-base;
     box-shadow: @border-width-base 0 0 0 @border-color-base;
     padding: 0 16px !important;
+
+    &:last-child {
+      box-shadow: none;
+    }
   }
 
   &&-borderless-section > &-bar &-tab:first-child {
@@ -40,7 +43,6 @@
   &&-section > &-bar &-tab:first-child {
     border-left: @border-width-base @border-style-base @border-color-base;
     border-radius: @border-radius-base 0 0 @border-radius-base;
-    -webkit-box-shadow: none !important;
     box-shadow: none !important;
   }
 
@@ -54,7 +56,6 @@
     color: @tabs-card-active-color;
     padding-bottom: 1px;
 
-    -webkit-box-shadow: -@border-width-base 0 0 0 @primary-color;
     box-shadow: -@border-width-base 0 0 0 @primary-color;
     z-index: 1;
   }
