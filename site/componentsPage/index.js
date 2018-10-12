@@ -324,6 +324,11 @@ export const components = {
           name: 'Upload 上传',
           published: true,
         },
+        {
+          key: 'footerToolbar',
+          type: 'markdown',
+          name: 'FooterToolbar 底部工具栏',
+        },
       ]
     }, {
       key: '数据展示 Data Display',

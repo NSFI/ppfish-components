@@ -24,7 +24,7 @@
     "test:watch": "npm run test -- --watchAll",
     "test:debug": "node --inspect-brk ./node_modules/jest-cli/bin/jest.js --runInBand",
     "analyze": "babel-node ./tools/analyzeBundle.js",
-    "open:site": "babel-node tools/openSite.js",
+    "open:site": "babel-node --max-old-space-size=4096 tools/openSite.js",
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
     "publish:site": "tools/release.sh"

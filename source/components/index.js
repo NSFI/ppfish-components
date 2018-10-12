@@ -20,6 +20,7 @@ export { TimePicker, DatePicker} from './DatePicker';
 export { default as Drawer } from './Drawer';
 export { default as Dropdown } from './Dropdown/index.tsx';
 export { default as Divider } from './Divider/index.tsx';
+export { default as FooterToolbar } from './FooterToolbar/index.js';
 export { default as Form } from './Form/index.tsx';
 export { default as ImageLoader } from './ImageLoader';
 export { default as Layout } from './Layout/index.tsx';
