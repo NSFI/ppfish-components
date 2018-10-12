@@ -477,7 +477,7 @@ class Demo extends React.Component {
           <Header style={{ background: '#fff', padding: 0 }}>
             <Icon
               className="trigger"
-              type={this.state.collapsed ? 'menu-line' : 'menu-line-right'}
+              type={this.state.collapsed ? 'menu-line-right' : 'menu-line'}
               onClick={this.toggle}
             />
           </Header>
