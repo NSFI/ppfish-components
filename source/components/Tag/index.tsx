@@ -132,7 +132,7 @@ class Tag extends React.Component<TagProps, TagState> {
       backgroundColor: (color && !isPresetColor) ? color : null,
       ...style,
     };
-    let closeIcon = '';
+    let closeIcon = null;
     if (closable) {
       if (autoShowClose) {
         closeIcon = <Icon type="close-modal-line" onClick={this.handleIconClick} />;
