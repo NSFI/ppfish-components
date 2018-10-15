@@ -502,6 +502,11 @@ class CustomToolbar extends PureComponent {
         //   tooltip = '背景色';
         //   break;
         // }
+        case 'video': {
+          value = <button type="button" className="item ql-video" value={mValue} key={key} />;
+          tooltip = '插入视频';
+          break;
+        }
         // case 'header': {
         //   if (typeof mValue === 'string' || typeof mValue === 'number') {
         //     value = <button type="button" className="item ql-header" value={mValue} key={key}/>;

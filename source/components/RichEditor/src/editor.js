@@ -66,6 +66,7 @@ class RichEditor extends Component {
     this.state = {
       value: value || '',
       showLinkModal: false,
+      showVideoModal: false,
       showImageModal: false,
     };
     this.handlers = {
@@ -81,6 +82,13 @@ class RichEditor extends Component {
         } else {
           message.error('没有选中文本');
         }
+      },
+      video: (value) => {
+        let quill = this.getEditor();
+        this.setState({
+          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          showVideoModal: true
+        });
       },
       emoji: function(value) {
         const emojiValueDivider = '///***';
@@ -195,6 +203,40 @@ class RichEditor extends Component {
     });
   };
 
+  handleVideoModalOk = () => {
+    let el = this.videoModalInputRef.input,
+        val = el.value;
+
+    if (val) {
+      if (val.length > 1000) {
+        message.error('视频地址不得超过1000个字');
+        return;
+      }
+
+      let urlRe = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi;
+      if (!urlRe.test(val)) {
+        message.error('请输入视频地址');
+        return;
+      }
+
+      let quill = this.getEditor();
+      quill.format('video', val);
+      el.value = 'http://';
+
+      this.setState({
+        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        showVideoModal: false
+      });
+    }
+  };
+
+  handleVideoModalCancel = () => {
+    this.videoModalInputRef.input.value = 'http://';
+    this.setState({
+      showVideoModal: false
+    });
+  };
+
   handleImageModalCancel = () => {
     this.setState({
       showImageModal: false
@@ -289,7 +331,7 @@ class RichEditor extends Component {
   };
 
   render() {
-    const { value, showLinkModal, showImageModal } = this.state;
+    const { value, showLinkModal, showVideoModal, showImageModal } = this.state;
     const {
       className, prefixCls,
       value: propsValue,
@@ -313,7 +355,7 @@ class RichEditor extends Component {
           onOk={this.handleLinkModalOk}
           onCancel={this.handleLinkModalCancel}
         >
-          <span className="link-modal-text">超链接地址</span>
+          <span className="text">超链接地址</span>
           <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue="http://" />
         </Modal>
         <Modal
@@ -325,6 +367,16 @@ class RichEditor extends Component {
         >
           <Button type="primary" onClick={this.handlePickLocalImage}>选择本地图片</Button>
           <div className="image-modal-text">支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。</div>
+        </Modal>
+        <Modal
+          title="插入视频"
+          className={`${prefixCls}-video-modal`}
+          visible={showVideoModal}
+          onOk={this.handleVideoModalOk}
+          onCancel={this.handleVideoModalCancel}
+        >
+          <span className="text">视频地址</span>
+          <Input ref={el => this.videoModalInputRef = el} style={{ width: '434px' }} defaultValue="http://" />
         </Modal>
         <CustomToolbar
           ref={el => this.toolbarRef = el}
