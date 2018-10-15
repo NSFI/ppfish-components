@@ -20,7 +20,6 @@
 ```
 :::
 
-
 ## 复杂的组合
 
 :::demo 复杂的组合。
@@ -177,6 +176,7 @@
 | --- | --- | --- | --- |
 | active | 是否展示动画效果 | Boolean | false |
 | avatar | 是否显示头像占位图 | Boolean \| SkeletonAvatarProps | false |
+| className | 容器类名 | String | - |
 | loading | 为 `true` 时，显示占位图。反之则直接展示子组件 | Boolean | - |
 | paragraph | 是否显示段落占位图 | Boolean \| SkeletonParagraphProps | true |
 | title | 是否显示标题占位图 | Boolean \| SkeletonTitleProps | true |
