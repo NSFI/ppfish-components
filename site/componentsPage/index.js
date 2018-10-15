@@ -420,6 +420,10 @@ export const components = {
           type: 'markdown',
           name: 'Tree 树形控件',
           published: true,
+        }, {
+          key: 'trend',
+          type: 'markdown',
+          name: 'Trend 趋势标记',
         }
       ]
     }, {
