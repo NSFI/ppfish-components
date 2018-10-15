@@ -46,6 +46,7 @@ export { default as Slider } from './Slider/index.tsx';
 export { default as Spin } from './Spin/index.tsx';
 export { default as Steps } from './Steps';
 export { default as Icon } from './Icon/index.tsx';
+export { default as Skeleton } from './Skeleton/index.tsx';
 export { default as StickVerticalMenu } from './StickVerticalMenu';
 export { default as Switch } from './Switch/index.tsx';
 export { default as Table } from './Table/index.tsx';

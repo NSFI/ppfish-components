@@ -431,6 +431,11 @@ export const components = {
           name: 'Alert 警告提示',
         },
         {
+          key: 'skeleton',
+          type: 'markdown',
+          name: 'Skeleton 加载占位图',
+        },
+        {
           key: 'message',
           type: 'markdown',
           name: 'Message 全局提示框',
