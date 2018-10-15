@@ -217,6 +217,11 @@ export const components = {
           published: true,
         },
         {
+          key: 'anchor',
+          type: 'markdown',
+          name: 'Anchor 锚点',
+        },
+        {
           key: 'backTop',
           type: 'markdown',
           name: 'BackTop 回到顶部',
