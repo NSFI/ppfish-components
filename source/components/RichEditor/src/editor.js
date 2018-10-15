@@ -296,6 +296,23 @@ class RichEditor extends Component {
     }
   };
 
+  handleFormatBackground = (e) => {
+    let target = e.target;
+    if (target.classList.value.indexOf('background-item') > -1 && target.hasAttribute('value')) {
+      let el = this.toolbarCtner.querySelector('button.ql-background[data-role="background"]');
+      if (el == null) {
+        el = document.createElement('button');
+        this.toolbarCtner.querySelector('.custom-background').appendChild(el);
+      }
+
+      el.setAttribute('type', 'button');
+      el.setAttribute('data-role', 'background');
+      el.setAttribute('value', target.value);
+      el.classList.add('ql-background', 'hide');
+      el.click();
+    }
+  };
+
   handleFormatColor = (e) => {
     let target = e.target;
     if (target.classList.value.indexOf('color-item') > -1 && target.hasAttribute('value')) {
@@ -386,6 +403,7 @@ class RichEditor extends Component {
           customLink={customLink}
           handleInsertEmoji={this.handleInsertEmoji}
           handleFormatColor={this.handleFormatColor}
+          handleFormatBackground={this.handleFormatBackground}
           handleFormatSize={this.handleFormatSize}
           getPopupContainer={getPopupContainer}
         />

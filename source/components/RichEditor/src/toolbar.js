@@ -9,7 +9,7 @@ import Tabs from '../../Tabs/index.tsx';
 
 const TabPane = Tabs.TabPane;
 
-let defaultColors = [
+const COLORS = [
   '#E53333', '#E56600', '#FF9900',
   '#64451D', '#DFC5A4', '#FFE500',
   '#009900', '#006600', '#99BB00',
@@ -18,8 +18,21 @@ let defaultColors = [
   '#9933E5', '#CC33E5', '#EE33EE',
   '#ffffff', '#cccccc', '#999999',
   '#666666', '#333333', '#000000',
-].map(function(color, index) {
-  return (
+];
+let defaultBackgrounds = [];
+let defaultColors = [];
+COLORS.forEach(function(color, index) {
+  defaultBackgrounds.push(
+    <button
+      className="background-item"
+      key={"default_background_" + index}
+      value={color}
+      title={color}
+      style={{backgroundColor: color}}
+    />
+  );
+
+  defaultColors.push(
     <button
       className="color-item"
       key={"default_color_" + index}
@@ -129,6 +142,7 @@ class CustomToolbar extends PureComponent {
     customLink: PropTypes.object,
     getPopupContainer: PropTypes.func,
     handleInsertEmoji: PropTypes.func,
+    handleFormatBackground: PropTypes.func,
     handleFormatColor: PropTypes.func,
     handleFormatSize: PropTypes.func,
   };
@@ -156,6 +170,7 @@ class CustomToolbar extends PureComponent {
     let {
       iconPrefix,
       handleInsertEmoji,
+      handleFormatBackground,
       handleFormatColor,
       handleFormatSize,
       prefixCls,
@@ -497,11 +512,50 @@ class CustomToolbar extends PureComponent {
           tooltip = '文字方向';
           break;
         }
-        // case 'background': {
-        //   value = <div className="item" key={key}><select className="ql-background" /></div>;
-        //   tooltip = '背景色';
-        //   break;
-        // }
+        case 'background': {
+          // value = <div className="item" key={key}><select className="ql-background" /></div>;
+          const backgroundCls = classNames('item custom-background', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-fontbkcol`]: true
+          });
+          let backgroundHTML = defaultBackgrounds;
+          if (Array.isArray(mValue) && mValue.length) {
+            backgroundHTML = mValue.map(function(color, index) {
+              return (
+                <button
+                  className="background-item"
+                  key={"custom_background_" + index}
+                  value={color}
+                  title={color}
+                  style={{backgroundColor: color}}
+                />
+              );
+            });
+          }
+          let content = (
+            <div className="background-con" onClick={handleFormatBackground}>
+              {backgroundHTML}
+            </div>
+          );
+
+          value = (
+            <Popover
+              trigger="click"
+              overlayClassName={`${prefixCls}-background-popover`}
+              content={content}
+              title={null}
+              key={key}
+              getPopupContainer={getPopupContainer}
+            >
+              <div className={backgroundCls}>
+                <button type="button" data-role="background" value="" className="ql-background hide" />
+              </div>
+            </Popover>
+          );
+
+          tooltip = '背景色';
+          break;
+        }
         case 'video': {
           value = <button type="button" className="item ql-video" value={mValue} key={key} />;
           tooltip = '插入视频';
