@@ -14,7 +14,7 @@ const Trend = ({ colorful = true, reverseColor = false, flag, children, classNam
       <span className={'value'}>{children}</span>
       {flag && (
         <span className={flag}>
-          <Icon type={`caret-${flag}`} />
+          <Icon type={`${flag}-fill`} />
         </span>
       )}
     </div>
