@@ -1,6 +1,5 @@
 import React from 'react';
 import Affix from '../../source/components/Affix/index.tsx';
-import scrollIntoView from 'dom-scroll-into-view';
 import './style.less';
 
 //元素距顶部高度
@@ -43,8 +42,8 @@ export default class Slider extends React.Component {
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({anchors});
     /* eslint-enable react/no-did-mount-set-state */
-    this.scrollContainer = document.querySelector('.content').parentNode;
-    this.scrollContainer.addEventListener('scroll', this.handleSliderActiveCheck);
+    this.scrollContainer = document.documentElement;
+    window.addEventListener('scroll', this.handleSliderActiveCheck);
     this.handleSliderActiveCheck();
   }
 
@@ -53,24 +52,23 @@ export default class Slider extends React.Component {
   }
 
   componentWillUnmount() {
-    this.scrollContainer.removeEventListener('scroll', this.handleSliderActiveCheck);
+    window.removeEventListener('scroll', this.handleSliderActiveCheck);
   }
 
   handleSliderClick = (e, id) => {
     e && e.preventDefault();
-    scrollIntoView(document.getElementById(id), this.scrollContainer, {
-      offsetTop: 5,
-      alignWithTop: true
-    });
+    const fishHeaderHeight = document.querySelector('.fish-header').offsetHeight;
+    this.scrollContainer.scrollTop = document.getElementById(id).offsetTop + fishHeaderHeight;
   };
 
   handleSliderActiveCheck = () => {
     const {anchors} = this.state;
     if (anchors.length < 2) return;
+    const fishHeaderHeight = document.querySelector('.fish-header').offsetHeight;
     const result = anchors
       .map(x => ({
         id: x.id,
-        offset: Math.abs(getElementTop(x.id) - this.scrollContainer.scrollTop)
+        offset: Math.abs(getElementTop(x.id) - this.scrollContainer.scrollTop - fishHeaderHeight)
       }))
       .reduce((a, b) => a.offset < b.offset ? a : b);
     const el = this.refs[result.id];
@@ -84,7 +82,7 @@ export default class Slider extends React.Component {
         <li title={x.id} key={x.id} ref={x.id}><a onClick={(e) => this.handleSliderClick(e, x.id)}>{x.name}</a></li>) :
       null;
     return (
-      <Affix offsetTop={80} target={() => document.querySelector('.content').parentNode}>
+      <Affix offsetTop={145}>
         <ul className="u-slider-anchors" ref="menu">
           {menuList}
         </ul>

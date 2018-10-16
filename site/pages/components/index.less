@@ -28,6 +28,18 @@
 
 //左侧侧边栏，ant-menu 样式覆盖
 /* stylelint-disable */
+.affix-menu-left {
+  height: 100%;
+  > div {
+    height: 100%;
+    overflow: auto;
+    .scrollbar();
+    &.fishd-affix {
+      margin-top: 64px;
+    }
+  }
+}
+
 .side-nav {
   padding-bottom: 50px;
   padding-top: 60px;
@@ -195,11 +207,4 @@
       margin-left: 5px;
     }
   }
-}
-
-//backTop
-.u-backtop {
-  width: 100%;
-  height: 100%;
-  transform: scale(2.5);
 }

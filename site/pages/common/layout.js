@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import PropTypes from "prop-types";
 import {Row, Col} from '../../../source/components';
+import Affix from '../../../source/components/Affix/index.tsx';
 import locales from '../../locales';
 
 export default class Layout extends React.Component {
@@ -9,10 +10,12 @@ export default class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.object,
     hideFooter: PropTypes.bool,
+    fixedHeader: PropTypes.bool,
   };
 
   static defaultProps = {
-    hideFooter: false
+    hideFooter: false,
+    fixedHeader: false,
   };
 
   static loadSDK(callback) {
@@ -33,6 +36,10 @@ export default class Layout extends React.Component {
   componentDidMount() {
     this.setMenuHighlight();
     this.initSearchBox();
+  }
+
+  componentDidUpdate() {
+    document.documentElement.scrollTop = 0;
   }
 
   getLocale = (key) => {
@@ -127,7 +134,7 @@ export default class Layout extends React.Component {
     );
     return (
       <div className="app">
-        {CommonHeader}
+        {this.props.fixedHeader ? <Affix>{CommonHeader}</Affix> : CommonHeader}
         <div className="main">
           {children}
         </div>

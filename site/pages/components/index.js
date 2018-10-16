@@ -1,8 +1,8 @@
 import React from 'react';
 import {Divider, BackTop, Icon, Row, Col, Menu, Drawer} from '../../../source/components';
+import Affix from '../../../source/components/Affix/index.tsx';
 import PropTypes from 'prop-types';
 import {enquireScreen, unenquireScreen} from 'enquire-js';
-import {Scrollbars} from 'react-custom-scrollbars';
 import Layout from '../common/layout';
 import locales from '../../locales';
 import {components, plainComponents} from '../../componentsPage';
@@ -36,10 +36,6 @@ export default class Components extends React.Component {
   componentDidMount() {
     this.setActiveKey();
     this.screentRegister = this.enquireScreenRegister();
-  }
-
-  componentDidUpdate() {
-    document.querySelector('.content').parentNode.scrollTop = 0;
   }
 
   componentWillUnmount() {
@@ -163,7 +159,7 @@ export default class Components extends React.Component {
       </nav>
     );
     return (
-      <Layout className="doc" hideFooter>
+      <Layout className="doc" hideFooter fixedHeader>
         <Row className="component-container">
           {isMobile ?
             <Drawer
@@ -174,39 +170,35 @@ export default class Components extends React.Component {
               {menuChild}
             </Drawer> :
             <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="component-list">
-              <Scrollbars autoHide>
-                {menuChild}
-              </Scrollbars>
+              <Affix className="affix-menu-left">{menuChild}</Affix>
             </Col>
           }
           <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="component-content">
-            <Scrollbars autoHide>
-              <div className="content">
-                <article className="markdown">
-                  {this.props.children}
-                </article>
-                <Divider/>
-                <Row className="u-navigation-btm">
-                  <Col span={12} className="prev-page">
-                    {
-                      prevLink &&
-                      <a href={`#/components/${prevLink.key}`}>
-                        <Icon type="left" className="prev-page-icon"/>{prevLink.name}
-                      </a>
-                    }
-                  </Col>
-                  <Col span={12} className="next-page">
-                    {
-                      nextLink &&
-                      <a href={`#/components/${nextLink.key}`}>
-                        {nextLink.name}<Icon type="right" className="next-page-icon"/>
-                      </a>
-                    }
-                  </Col>
-                </Row>
-                <BackTop target={() => document.querySelector('.content').parentNode}/>
-              </div>
-            </Scrollbars>
+            <div className="content">
+              <article className="markdown">
+                {this.props.children}
+              </article>
+              <Divider/>
+              <Row className="u-navigation-btm">
+                <Col span={12} className="prev-page">
+                  {
+                    prevLink &&
+                    <a href={`#/components/${prevLink.key}`}>
+                      <Icon type="left" className="prev-page-icon"/>{prevLink.name}
+                    </a>
+                  }
+                </Col>
+                <Col span={12} className="next-page">
+                  {
+                    nextLink &&
+                    <a href={`#/components/${nextLink.key}`}>
+                      {nextLink.name}<Icon type="right" className="next-page-icon"/>
+                    </a>
+                  }
+                </Col>
+              </Row>
+              <BackTop/>
+            </div>
           </Col>
         </Row>
       </Layout>

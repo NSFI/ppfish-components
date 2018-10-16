@@ -1,4 +1,4 @@
-@import "./mixin";
+@import "../../source/assets/css/index";
 
 * {
   margin: 0;
@@ -9,15 +9,9 @@ html,
 body {
   height: 100%;
   -webkit-font-smoothing: antialiased;
+  .scrollbar();
   &::-webkit-scrollbar {
     width: 6px;
-    height: 0;
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 100px;
-    // background-color: #646566;
-    background-color: #0003;
   }
 }
 
