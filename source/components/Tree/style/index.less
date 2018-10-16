@@ -30,7 +30,7 @@
   }
 
   li {
-    padding: 4px 0;
+    // padding: 4px 0;
     margin: 0;
     list-style: none;
     white-space: nowrap;
@@ -113,7 +113,7 @@
       width: ~"calc(100% - 24px)";
       padding: 0 5px;
       border-radius: @border-radius-sm;
-      margin: 0;
+      margin: 2px 0;
       cursor: pointer;
       text-decoration: none;
       vertical-align: top;
@@ -125,7 +125,7 @@
         background-color: @item-hover-bg;
       }
       &.@{tree-prefix-cls}-node-selected {
-        background-color: #cbdeff;
+        background-color: #d9e7ff;
       }
 
       .@{spin-prefix-cls}-spinning {
@@ -135,14 +135,19 @@
     }
     span {
       &.@{tree-prefix-cls}-checkbox {
-        margin: 0 4px 0 2px;
+        margin: 2px 4px 2px 2px;
+        display: inline-flex;
+        align-items: center;
+        height: @tree-title-height;
+        line-height: @tree-title-height;
+        top: auto;
       }
       &.@{tree-prefix-cls}-switcher,
       &.@{tree-prefix-cls}-iconEle {
         color: @text-9;
-        margin: 0;
+        margin: 2px 0;
         width: 24px;
-        height: 24px;
+        height: @tree-title-height;
         line-height: @tree-title-height;
         display: inline-block;
         vertical-align: top;
