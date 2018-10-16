@@ -5,6 +5,8 @@
 @tree-showline-open-icon: "\e621";
 @tree-showline-close-icon: "\e645";
 @tree-doc-icon: "\e664";
+@treeselect-title-height: 28px;
+@treeselect-item-selected-bg: #d9e7ff;
 
 .fishdTreeSwitcherIcon(@type: "tree-default-open-icon") {
   color: @text-9;
@@ -39,11 +41,10 @@
 .@{select-tree-prefix-cls} {
   .reset-component;
   margin: 0;
-  padding: 0 4px;
-  margin-top: -4px;
+  padding: 0 12px 0 4px;
+
   li {
     padding: 0;
-    margin: 8px 0;
     list-style: none;
     white-space: nowrap;
     outline: 0;
@@ -57,10 +58,12 @@
       padding: 0 0 0 18px;
     }
     .@{select-tree-prefix-cls}-node-content-wrapper {
-      display: inline-block;
-      padding: 3px 5px;
+      display: inline-flex;
+      height: @treeselect-title-height;
+      align-items: center;
+      padding: 0 4px;
       border-radius: @border-radius-base;
-      margin: 0;
+      margin: 2px 0;
       cursor: pointer;
       text-decoration: none;
       color: @text-color;
@@ -80,8 +83,8 @@
         vertical-align: top;
       }
       &.@{select-tree-prefix-cls}-node-selected {
-        color: @primary-color;
-        background-color: @item-hover-bg;
+        // color: @primary-color;
+        background-color: @treeselect-item-selected-bg;
       }
     }
     span {
@@ -93,12 +96,12 @@
       }
       &.@{select-tree-prefix-cls}-switcher,
       &.@{select-tree-prefix-cls}-iconEle {
-        margin: 0;
-        width: 14px;
-        height: 14px;
-        line-height: 11px;
+        margin: 2px 0;
+        width: 24px;
+        height: @treeselect-title-height;
+        line-height: @treeselect-title-height;
+        float: left;
         display: inline-block;
-        vertical-align: middle;
         border: 0 none;
         cursor: pointer;
         outline: none;
@@ -159,7 +162,7 @@
   .reset-component;
   .@{select-prefix-cls}-dropdown-search {
     display: block;
-    padding: 4px;
+    padding: 10px 12px 4px 12px;
     .@{select-prefix-cls}-search__field__wrap {
       width: 100%;
     }

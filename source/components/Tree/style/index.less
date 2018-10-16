@@ -6,6 +6,7 @@
 @tree-prefix-cls: ~"@{fishd-prefix}-tree";
 @spin-prefix-cls: ~"@{fishd-prefix}-spin";
 @tree-showline-icon-color: @text-color-secondary;
+@tree-item-selected-bg: #d9e7ff;
 
 .fishdCheckboxFn(@checkbox-prefix-cls: ~"@{fishd-prefix}-tree-checkbox");
 
@@ -111,7 +112,7 @@
       display: inline-flex;
       align-items: center;
       width: ~"calc(100% - 24px)";
-      padding: 0 5px;
+      padding: 0 4px;
       border-radius: @border-radius-sm;
       margin: 2px 0;
       cursor: pointer;
@@ -125,7 +126,7 @@
         background-color: @item-hover-bg;
       }
       &.@{tree-prefix-cls}-node-selected {
-        background-color: #d9e7ff;
+        background-color: @tree-item-selected-bg;
       }
 
       .@{spin-prefix-cls}-spinning {
@@ -135,7 +136,7 @@
     }
     span {
       &.@{tree-prefix-cls}-checkbox {
-        margin: 2px 4px 2px 2px;
+        margin: 2px 4px;
         display: inline-flex;
         align-items: center;
         height: @tree-title-height;
