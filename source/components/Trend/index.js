@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from '../Icon/index.tsx';
 import classNames from 'classnames';
 import './style/index.less';
@@ -19,6 +20,14 @@ const Trend = ({ colorful = true, reverseColor = false, flag, children, classNam
       )}
     </div>
   );
+};
+
+Trend.propTypes = {
+  className: PropTypes.string,
+  flag: PropTypes.string,
+  colorful: PropTypes.bool,
+  reverseColor: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default Trend;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Skeleton from '..';
+import Skeleton from '../index.tsx';
 
 describe('Skeleton', () => {
   const genSkeleton = props => mount(
