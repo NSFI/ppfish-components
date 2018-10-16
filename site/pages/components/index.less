@@ -29,9 +29,8 @@
 //左侧侧边栏，ant-menu 样式覆盖
 /* stylelint-disable */
 .affix-menu-left {
-  height: 100%;
   > div {
-    height: 100%;
+    height: calc(~"100vh - 64px");
     overflow: auto;
     .scrollbar();
     &.fishd-affix {

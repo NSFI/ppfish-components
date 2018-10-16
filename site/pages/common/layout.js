@@ -134,7 +134,7 @@ export default class Layout extends React.Component {
     );
     return (
       <div className="app">
-        {this.props.fixedHeader ? <Affix>{CommonHeader}</Affix> : CommonHeader}
+        {this.props.fixedHeader ? <Affix className="fixed-header-layout">{CommonHeader}</Affix> : CommonHeader}
         <div className="main">
           {children}
         </div>
