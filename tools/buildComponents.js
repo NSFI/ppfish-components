@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const ora = require('ora');
 const config = require('../webpack.config.prod.components');
 const {chalkError, chalkSuccess, chalkWarning, chalkProcessing} = require('./chalkConfig');
+const copyComponentsStyle = require('./copyComponentsStyle');
 
 console.log(chalkProcessing('Components: Generating minified bundle for production via Webpack. This will take a moment...'));
 
@@ -16,20 +17,30 @@ spinner.start();
 webpack(config).run((error, stats) => {
   if (error) { // so a fatal error occurred. Stop here.
     console.log(chalkError(error));
+    process.exit(1);
     return 1;
   }
 
   const jsonStats = stats.toJson();
 
   if (jsonStats.hasErrors) {
-    return jsonStats.errors.map(error => console.log(chalkError(error)));
+    jsonStats.errors.map(error => console.log(chalkError(error)));
+    process.exit(1);
+    return;
   }
 
   if (jsonStats.hasWarnings) {
     console.log(chalkWarning('Webpack generated the following warnings: '));
     jsonStats.warnings.map(warning => console.log(chalkWarning(warning)));
   }
-
+  spinner.start('Components: Copying style files...')
+  try{
+    copyComponentsStyle();
+  }catch(e){
+    console.log(chalkError(e));
+    process.exit(1);
+    return;
+  }
   spinner.stop();
 
   console.log(stats.toString({
