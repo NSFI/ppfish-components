@@ -10,18 +10,17 @@
   }
   &&-card > &-bar &-tab {
     margin: 0;
-    border: @border-width-base @border-style-base @border-color-split;
+    border: @border-width-base @border-style-base @border-color-base;
     border-bottom: 0;
     border-radius: @border-radius-base @border-radius-base 0 0;
     background: @tabs-card-head-background;
-    margin-right: 2px;
-    padding: 0 16px;
+    margin-right: 4px;
+    padding: 0 20px;
     transition: all 0.3s @ease-in-out;
     line-height: @tabs-card-height - 2px;
   }
   &&-card > &-bar &-tab-active {
     background: @component-background;
-    border-color: @border-color-split;
     color: @tabs-card-active-color;
     padding-bottom: 1px;
   }
@@ -32,16 +31,16 @@
     margin-bottom: 0;
   }
   &&-card > &-bar &-tab .@{iconfont-prefix}-close-tag-line {
-    .iconfont-size-under-12px(8px);
+    .iconfont-size-under-12px(9px);
     color: @text-color-secondary;
     transition: all 0.3s;
-    margin-left: 4px;
-    margin-right: -5px;
+    margin-left: 8px;
+    margin-right: 0;
     overflow: hidden;
     vertical-align: middle;
 
     &:hover {
-      color: @heading-color;
+      color: @text-color;
     }
   }
 

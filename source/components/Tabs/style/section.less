@@ -14,22 +14,19 @@
   }
 
   &&-section > &-bar &-tab {
-    margin: 0 !important;
-    background: @tabs-card-head-background;
-    margin-right: 2px;
-    padding: 0 16px;
+    margin: 0;
+    padding: 0 20px;
     transition: all 0.3s @ease-in-out;
     line-height: @tabs-card-height - 2px;
-
     border: @border-width-base @border-style-base @border-color-base;
     border-left: none;
   }
 
   &&-borderless-section > &-bar &-tab {
     border: none;
-    margin: 0 !important;
+    margin: 0;
     box-shadow: @border-width-base 0 0 0 @border-color-base;
-    padding: 0 16px !important;
+    padding: 0 20px;
 
     &:last-child {
       box-shadow: none;
@@ -37,7 +34,7 @@
   }
 
   &&-borderless-section > &-bar &-tab:first-child {
-    padding-left: 0 !important;
+    padding-left: 0;
   }
 
   &&-section > &-bar &-tab:first-child {
@@ -54,8 +51,6 @@
     background: @component-background;
     border-color: @primary-color !important;
     color: @tabs-card-active-color;
-    padding-bottom: 1px;
-
     box-shadow: -@border-width-base 0 0 0 @primary-color;
     z-index: 1;
   }
