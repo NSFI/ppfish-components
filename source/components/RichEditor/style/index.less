@@ -124,7 +124,7 @@
 
     > .item {
       background: @component-background;
-      border-right: @border-width-base @border-style-base @border-color-base;
+      border-left: @border-width-base @border-style-base @border-color-base;
       border-top: @border-width-base @border-style-base @border-color-base;
       border-bottom: @border-width-base @border-style-base @border-color-base;
       color: @icon-normal-color;
@@ -168,12 +168,12 @@
     }
 
     > .item:first-child {
-      border-left: @border-width-base @border-style-base @border-color-base;
       border-top-left-radius: @border-radius-base;
       border-bottom-left-radius: @border-radius-base;
     }
 
     > .item:last-child {
+      border-right: @border-width-base @border-style-base @border-color-base;
       border-top-right-radius: @border-radius-base;
       border-bottom-right-radius: @border-radius-base;
     }

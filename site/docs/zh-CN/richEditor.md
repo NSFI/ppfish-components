@@ -159,6 +159,22 @@
 ```
 :::
 
+## 拖拽改变大小
+
+:::demo 拖拽改变大小。
+
+```js
+
+  render() {
+    return (
+      <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
+        resizable
+      />
+    );
+  }
+```
+:::
 
 ## 轻量版
 
@@ -190,8 +206,8 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [[
-      'link', 'bold', 'italic', 'underline', 'color', 'background', {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, 'size', {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video', 'clean']
+    this.toolbar = [
+      ['link', 'bold', 'italic', 'underline'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean']
     ];
   }
 
@@ -217,10 +233,9 @@
 | customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
-| maxWidth | 编辑区域的最大宽度 | String | '100%' |
-| maxHeight | 编辑区域的最大高度 | String | '100%' |
 | placeholder | 内容为空时的占位内容 | String | '请输入内容' |
-| resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | true |
+| resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | false |
+| style | 容器样式 | React.CSSProperties | - |
 | toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | onChange | 内容改变时的回调 | (content, delta, source, editor) => Void | - |

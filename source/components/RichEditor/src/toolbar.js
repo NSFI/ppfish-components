@@ -137,6 +137,7 @@ class CustomToolbar extends PureComponent {
     className: PropTypes.string,
     iconPrefix: PropTypes.string,
     prefixCls: PropTypes.string,
+    style: PropTypes.object,
     toolbar: PropTypes.array,
     customEmoji: PropTypes.array,
     customLink: PropTypes.object,
@@ -629,10 +630,10 @@ class CustomToolbar extends PureComponent {
   // };
 
   render() {
-    const { className, toolbar } = this.props;
+    const { className, style, toolbar } = this.props;
 
     return (
-      <div className={className} ref={node => this.toolbarCtner = node}>
+      <div className={className} ref={node => this.toolbarCtner = node} style={style}>
         { this.genToolbar(toolbar) }
       </div>
     );

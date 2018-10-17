@@ -25,11 +25,10 @@ class RichEditor extends Component {
     customEmoji: PropTypes.array,
     customLink: PropTypes.object,
     defaultValue: PropTypes.string,
-    maxWidth: PropTypes.string,
-    maxHeight: PropTypes.string,
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
     resizable: PropTypes.bool,
+    style: PropTypes.object,
     toolbar: PropTypes.array,
     value: PropTypes.string,
     getPopupContainer: PropTypes.func,
@@ -47,7 +46,7 @@ class RichEditor extends Component {
     customLink: {},
     placeholder: '请输入内容',
     prefixCls: 'fishd-richeditor',
-    resizable: true,
+    resizable: false,
     toolbar: [
       ['link', 'bold', 'italic', 'underline'],
       ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
@@ -354,7 +353,7 @@ class RichEditor extends Component {
       value: propsValue,
       toolbar, placeholder,
       customLink, resizable,
-      maxWidth, maxHeight,
+      style,
       getPopupContainer,
       customEmoji,
       ...restProps
@@ -364,7 +363,7 @@ class RichEditor extends Component {
     }, className);
 
     return (
-      <div className={cls} style={{maxWidth: maxWidth, maxHeight: maxHeight}}>
+      <div className={cls} style={style}>
         <Modal
           title="插入超链接"
           className={`${prefixCls}-link-modal`}
@@ -398,6 +397,7 @@ class RichEditor extends Component {
         <CustomToolbar
           ref={el => this.toolbarRef = el}
           className={'editor-head'}
+          style={resizable ? null : {height: 'auto', overflow: 'auto'}}
           toolbar={toolbar}
           customEmoji={customEmoji}
           customLink={customLink}
