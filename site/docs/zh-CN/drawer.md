@@ -48,7 +48,7 @@ drawerBaiscDemo = () => {
         handler={false}
         level={null}
         width="30vw"
-        visible={this.state.open}
+        open={this.state.open}
         close={true}
         onChange={this.onChange}
         onMaskClick={this.onTouchEnd}
@@ -494,7 +494,7 @@ render() {
           handler={false}
           level={null}
           width={this.state.width}
-          visible={this.state.open}
+          open={this.state.open}
           closed={true}
           onChange={this.onChange}
           onMaskClick={this.onTouchEnd}

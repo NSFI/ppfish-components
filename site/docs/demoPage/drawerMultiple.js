@@ -53,7 +53,7 @@ class Demo extends React.Component {
             <Drawer
               width="320"
               handler={false}
-              visible={this.state.openChild}
+              open={this.state.openChild}
               onMaskClick={this.onChildClick}
             >
               <div>
@@ -62,7 +62,7 @@ class Demo extends React.Component {
                 <Drawer
                   width="200"
                   handler={false}
-                  visible={this.state.openChildren}
+                  open={this.state.openChildren}
                   onMaskClick={this.onChildrenClick}
                 >
                   <div>
