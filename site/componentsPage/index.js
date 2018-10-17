@@ -398,6 +398,7 @@ export const components = {
           key: 'tag',
           type: 'markdown',
           name: 'Tag 标签',
+          published: true,
         },
         {
           key: 'timeline',
