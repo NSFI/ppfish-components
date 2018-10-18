@@ -33,7 +33,7 @@ class RichEditor extends Component {
     value: PropTypes.string,
     getPopupContainer: PropTypes.func,
     onChange: PropTypes.func,
-    onChangeSelection: PropTypes.func,
+    onSelectionChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onKeyPress: PropTypes.func,
