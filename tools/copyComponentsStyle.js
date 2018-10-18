@@ -3,7 +3,6 @@ const pfs = fs.promises;
 const ts = require("typescript");
 const path = require('path');
 const mkdirp = require('mkdirp');
-const less = require('less');
 
 /**
  * 源文件是tsc或者jsx格式，在代码中使用import引入less样式文件。
@@ -13,10 +12,11 @@ const less = require('less');
  *
  * 读取components/index.js
  * 解析文件，采用深度优先算法分析import的内容
- * 如果import的文件是tsc或jsx，进行深度优先分析后，使用less语法输出为less文件。如果这个文件和less文件重名，将文件后缀由 *.less 改为 *.component.less。
+ * 如果import的文件是tsc或jsx，进行深度优先分析后，使用less语法输出为less文件,将文件后缀由 *.jsx 改为 *.ref.less。
  * 如果import的是less文件，进行深度优先分析，将依赖的文件复制到新的dist文件夹对应位置，将这个less文件复制到新的位置。
  * 如果import的是css文件，直接复制到新位置
- * 将当前文件的中import的内容改为less语法，输出为新的less文件。
+ * 将当前文件的中import的内容改为less语法，输出为新的less文件,后缀为ref.less。
+ * 创建ppfish.less文件，用于加载./components/index.ref.less文件
  *
  *
  * */
@@ -43,6 +43,7 @@ const DIST_PATH_PREFIX = path.resolve(__dirname, '../', './dist');
 module.exports = function (cb) {
   try {
     digFile(path.resolve(entryFile));
+    fs.writeFileSync(path.resolve(__dirname,'../dist/ppfish.less'),'@import "./components/index.ref.less";');
   } catch (e) {
     console.error(e); //eslint-disable-line
     process.exit(1);
