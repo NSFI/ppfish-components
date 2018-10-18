@@ -76,9 +76,9 @@ export function flatToHierarchy(positionList) {
     posMap[entity.pos] = entity;
   });
 
-  parsedList.sort((a, b) => {
-    return a.fields.length - b.fields.length;
-  });
+  // parsedList.sort((a, b) => {
+  //   return a.fields.length - b.fields.length;
+  // });
 
   // Create the hierarchy
   parsedList.forEach((entity) => {
