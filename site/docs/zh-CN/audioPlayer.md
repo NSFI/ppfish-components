@@ -47,10 +47,10 @@ render() {
 ## API
 | 属性      | 说明    | 类型      | 默认值   |
 |---------- |-------- |----------   |-------- |
+| className | 设置类名 | String | '' |
 | title   | 鼠标hover之后展示的音频描述 | String | '' |
 | src |  音频元素的当前来源 | String | '' |
-| className | 设置类名 | String | '' |
-| controllVolume | 是否需要手动控制音量 | Boolean | true |
+| controlVolume | 是否需要手动控制音量 | Boolean | true |
 | download | 是否需要下载按钮 | Boolean | true |
 
 支持常用的H5 audio 标签属性和事件

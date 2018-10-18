@@ -18,7 +18,7 @@ class AudioPlayer extends React.Component {
     autoPlay: PropTypes.bool,
     muted: PropTypes.bool,
     volume: PropTypes.number,
-    controllVolume: PropTypes.bool,
+    controlVolume: PropTypes.bool,
     download: PropTypes.bool,
     onLoadedMetadata: PropTypes.func,
     onCanPlay: PropTypes.func,
@@ -41,7 +41,7 @@ class AudioPlayer extends React.Component {
     autoPlay: false,
     muted: false,
     volume: 1.0,
-    controllVolume: true,
+    controlVolume: true,
     download: true,
     onLoadedMetadata: () => {},  // 当浏览器已加载音频的元数据时的回调
     onCanPlay: () => {},         // 当浏览器能够开始播放音频时的回调
@@ -164,7 +164,7 @@ class AudioPlayer extends React.Component {
       className,
       loop,
       preload,
-      controllVolume,
+      controlVolume,
       download,
       onCanPlay,
       onLoadedMetadata,
@@ -229,7 +229,7 @@ class AudioPlayer extends React.Component {
           </span>
         </div>
         {
-          controllVolume ?
+          controlVolume ?
             <div className="box volume-box">
               <Trigger
                 action={['click']}
