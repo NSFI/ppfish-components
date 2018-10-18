@@ -49,12 +49,12 @@ export default class DateRangePanel extends React.Component {
       ),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
-      renderExtraFooter: PropTypes.func,
+      footer: PropTypes.func,
       maxDateRange: PropTypes.number,
       onError: PropTypes.func,
       // 时间面板
-      isShowTime: PropTypes.bool,
-      isShowTimeCurrent: PropTypes.bool,
+      showTime: PropTypes.bool,
+      showTimeCurrent: PropTypes.bool,
       startTimeSelectableRange: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
@@ -75,8 +75,8 @@ export default class DateRangePanel extends React.Component {
       firstDayOfWeek: 0,
       maxDateRange: null,
       onError: () => {},
-      isShowTime: false,
-      isShowTimeCurrent: false,
+      showTime: false,
+      showTimeCurrent: false,
       defaultStartTimeValue: null,
       defaultEndTimeValue: null,
     };
@@ -304,7 +304,7 @@ export default class DateRangePanel extends React.Component {
 
   // 点击日期
   handleRangePick({ minDate, maxDate }, isClose) {
-    const { isShowTime, onPick, format, maxDateRange, onError } = this.props;
+    const { showTime, onPick, format, maxDateRange, onError } = this.props;
 
     if(maxDateRange && maxDateRange > 0) {
       if(minDate && maxDate && diffDate(minDate, maxDate) + 1 > maxDateRange) {
@@ -321,7 +321,7 @@ export default class DateRangePanel extends React.Component {
     });
 
     if (!isClose) return;
-    if (!isShowTime) {
+    if (!showTime) {
       //日期范围选择的开始时间为 00：00 结束时间为 23：59
       const pickedMinTime = setTime(new Date(minDate), new Date(new Date().setHours(0,0,0,0)));
       const pickedMaxTime = setTime(new Date(maxDate), new Date(new Date().setHours(23,59,59,999)));
@@ -349,11 +349,11 @@ export default class DateRangePanel extends React.Component {
       firstDayOfWeek,
       format,
       yearCount,
-      isShowTime,
-      isShowTimeCurrent,
+      showTime,
+      showTimeCurrent,
       startTimeSelectableRange,
       endTimeSelectableRange,
-      renderExtraFooter,
+      footer,
       prefixCls
     } = this.props;
     const {
@@ -377,7 +377,7 @@ export default class DateRangePanel extends React.Component {
           `${prefixCls}-date-range-picker`,
           {
             'has-sidebar': shortcuts,
-            'has-time': isShowTime
+            'has-time': showTime
           })}
       >
         <div className={`${prefixCls}-picker-panel__body-wrapper`}>
@@ -401,7 +401,7 @@ export default class DateRangePanel extends React.Component {
           }
           <div className={`${prefixCls}-picker-panel__body`}>
             {
-              isShowTime && (
+              showTime && (
                 <div className={`${prefixCls}-date-range-picker__time-header`}>
                   <span className={`${prefixCls}-date-range-picker__editors-wrap is-left`}>
                     <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
@@ -419,12 +419,12 @@ export default class DateRangePanel extends React.Component {
                         placeholder={Locale.t('datepicker.startTime')}
                         format={timeFormat(format)}
                         getPopupContainer={(node) => node.parentNode}
-                        isShowTrigger={false}
-                        isAllowClear={false}
-                        isDisabled={this.timePickerDisable()}
+                        showTrigger={false}
+                        allowClear={false}
+                        disabled={this.timePickerDisable()}
                         value={minTime}
                         onChange={value => this.handleTimeInputChange(value, 'min')}
-                        isShowCurrent={isShowTimeCurrent}
+                        isShowCurrent={showTimeCurrent}
                         selectableRange={startTimeSelectableRange}
                       />
                     </span>
@@ -446,12 +446,12 @@ export default class DateRangePanel extends React.Component {
                         placeholder={Locale.t('datepicker.endTime')}
                         format={timeFormat(format)}
                         getPopupContainer={(node) => node.parentNode}
-                        isShowTrigger={false}
-                        isAllowClear={false}
-                        isDisabled={this.timePickerDisable()}
+                        showTrigger={false}
+                        allowClear={false}
+                        disabled={this.timePickerDisable()}
                         value={maxTime}
                         onChange={value => this.handleTimeInputChange(value, 'max')}
-                        isShowCurrent={isShowTimeCurrent}
+                        isShowCurrent={showTimeCurrent}
                         selectableRange={endTimeSelectableRange}
                       />
                     </span>
@@ -497,7 +497,7 @@ export default class DateRangePanel extends React.Component {
                 </Icon>
               </div>
               <DateTable
-                selectionMode={SELECTION_MODES.RANGE}
+                mode={SELECTION_MODES.RANGE}
                 date={leftDate}
                 value={minDate}
                 minDate={minDate}
@@ -547,7 +547,7 @@ export default class DateRangePanel extends React.Component {
                 </Icon>
               </div>
               <DateTable
-                selectionMode={SELECTION_MODES.RANGE}
+                mode={SELECTION_MODES.RANGE}
                 date={rightDate}
                 value={maxDate}
                 minDate={minDate}
@@ -562,16 +562,16 @@ export default class DateRangePanel extends React.Component {
           </div>
         </div>
         {
-          typeof renderExtraFooter === 'function' && renderExtraFooter() && (
+          typeof footer === 'function' && footer() && (
             <div
               className={`${prefixCls}-picker-panel__extra-footer`}
             >
-              {renderExtraFooter()}
+              {footer()}
             </div>
           )
         }
         {
-          isShowTime && (
+          showTime && (
             <div className={`${prefixCls}-picker-panel__footer`}>
               <Button
                 className={`${prefixCls}-picker-panel__btn cancel`}

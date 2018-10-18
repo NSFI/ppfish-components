@@ -26,14 +26,14 @@ export default class DateRangeBasePicker extends React.Component {
       className: PropTypes.string,
       startPlaceholder: PropTypes.string,
       endPlaceholder: PropTypes.string,
-      rangeSeparator: PropTypes.string,
+      separator: PropTypes.string,
       format: PropTypes.string,
       popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
       prefixCls: PropTypes.string,
       getPopupContainer: PropTypes.func,
-      isShowTrigger: PropTypes.bool,
-      isAllowClear: PropTypes.bool,
-      isDisabled: PropTypes.bool,
+      showTrigger: PropTypes.bool,
+      allowClear: PropTypes.bool,
+      disabled: PropTypes.bool,
       value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
@@ -47,12 +47,12 @@ export default class DateRangeBasePicker extends React.Component {
     return {
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
-      rangeSeparator: '至',
+      separator: '至',
       popupAlign: 'bottomLeft',
       prefixCls: 'fishd',
-      isShowTrigger: true,
-      isAllowClear: true,
-      isDisabled: false,
+      showTrigger: true,
+      allowClear: true,
+      disabled: false,
       onFocus: () => {},
       onBlur: () =>{},
       onChange: () => {},
@@ -192,10 +192,10 @@ export default class DateRangeBasePicker extends React.Component {
   // 点击清空图标
   handleClickCloseIcon = (e) => {
     e && e.stopPropagation();
-    const { isDisabled, isAllowClear } = this.props;
+    const { disabled, allowClear } = this.props;
     const { text } = this.state;
 
-    if (isDisabled || !isAllowClear) return;
+    if (disabled || !allowClear) return;
     if (!text) {
       this.togglePickerVisible();
     } else {
@@ -238,10 +238,10 @@ export default class DateRangeBasePicker extends React.Component {
     const {
       startPlaceholder,
       endPlaceholder,
-      rangeSeparator,
-      isShowTrigger,
-      isAllowClear,
-      isDisabled,
+      separator,
+      showTrigger,
+      allowClear,
+      disabled,
       className,
       popupAlign,
       prefixCls,
@@ -251,8 +251,8 @@ export default class DateRangeBasePicker extends React.Component {
     const { pickerVisible, value, text } = this.state;
 
     const calcIsShowTrigger = () => {
-      if (isShowTrigger !== null) {
-        return !!isShowTrigger;
+      if (showTrigger !== null) {
+        return !!showTrigger;
       } else {
         return haveTriggerType(this.type);
       }
@@ -278,7 +278,7 @@ export default class DateRangeBasePicker extends React.Component {
 
     // 后缀图标
     const suffixIcon = () => {
-      if(text && isAllowClear) {
+      if(text && allowClear) {
         return (
           <Icon
             className="suffix-iconfont"
@@ -304,13 +304,13 @@ export default class DateRangeBasePicker extends React.Component {
             'is-have-trigger': calcIsShowTrigger(),
             'is-active': pickerVisible,
             'is-filled': !!value,
-            'is-disable': isDisabled
+            'is-disable': disabled
           })}
           style={{...style}}
         >
-          <div className={classNames(`${prefixCls}-date-editor--${this.type}`,{'is-active': pickerVisible, 'disabled': isDisabled})}>
+          <div className={classNames(`${prefixCls}-date-editor--${this.type}`,{'is-active': pickerVisible, 'disabled': disabled})}>
             <Input
-              disabled={isDisabled}
+              disabled={disabled}
               type="text"
               placeholder={startPlaceholder}
               onFocus={this.handleFocus}
@@ -334,9 +334,9 @@ export default class DateRangeBasePicker extends React.Component {
               value={text && text.length == 2 ? text[0] : ''}
               prefix={prefixIcon()}
             />
-            <span className={classNames("range-separator", {'disabled':isDisabled})}>{rangeSeparator}</span>
+            <span className={classNames("range-separator", {'disabled':disabled})}>{separator}</span>
             <Input
-              disabled={isDisabled}
+              disabled={disabled}
               type="text"
               placeholder={endPlaceholder}
               onFocus={this.handleFocus}
@@ -366,7 +366,7 @@ export default class DateRangeBasePicker extends React.Component {
 
     return (
       <Trigger
-        action={isDisabled ? [] : ['click']}
+        action={disabled ? [] : ['click']}
         builtinPlacements={placements}
         ref={node => this.trigger = node}
         getPopupContainer={getPopupContainer}

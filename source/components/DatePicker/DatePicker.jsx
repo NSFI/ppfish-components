@@ -16,11 +16,11 @@ export default class DatePicker extends BasePicker {
       ),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
-      renderExtraFooter: PropTypes.func,
-      isShowTime: PropTypes.bool,
+      footer: PropTypes.func,
+      showTime: PropTypes.bool,
       yearCount: PropTypes.number,
       showWeekNumber: PropTypes.bool,
-      selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
+      mode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
     }, BasePicker.propTypes);
   }
 
@@ -29,8 +29,8 @@ export default class DatePicker extends BasePicker {
   }
 
   constructor(props) {
-    let type = props.isShowTime ? 'datetime' : 'date';
-    switch (props.selectionMode) {
+    let type = props.showTime ? 'datetime' : 'date';
+    switch (props.mode) {
       // case SELECTION_MODES.YEAR:
       //   type = 'year'; break;
       // case SELECTION_MODES.MONTH:

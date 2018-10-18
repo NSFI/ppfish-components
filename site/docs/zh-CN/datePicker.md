@@ -53,7 +53,7 @@
 
 ## 禁用
 
-:::demo 通过设置 `isDisabled` 为 `true` 禁用选择框 
+:::demo 通过设置 `disabled` 为 `true` 禁用选择框 
 
 ```js
   
@@ -61,7 +61,7 @@
     return (
       <DatePicker
          placeholder="请选择日期"
-         isDisabled={true}
+         disabled={true}
          style={{width: 300}}
       />
     )
@@ -131,7 +131,7 @@
               this.setState({value1: date})
   
             }}
-            renderExtraFooter={() => '额外的页脚信息'}
+            footer={() => '额外的页脚信息'}
           />
         </div>
         <div className="block">
@@ -145,7 +145,7 @@
               console.debug('DatePicker2 changed: ', date)
               this.setState({value2: date})
             }}
-            renderExtraFooter={() => {
+            footer={() => {
               return (
                 <div style={{marginLeft: 20}}>
                   <a onClick={() => {
@@ -166,7 +166,7 @@
 
 ## 选择周
 
-:::demo 通过 `selectionMode` 设置不同的日期单位
+:::demo 通过 `mode` 设置不同的日期单位
 ```js
 
 constructor(props) {
@@ -190,7 +190,7 @@ render() {
             this.setState({value1: date})
           }}
           format="yyyy 第 WW 周"
-          selectionMode="week"
+          mode="week"
           />
       </div>
       <div className="block">
@@ -204,7 +204,7 @@ render() {
             this.setState({value2: date})
           }}
           format="yyyy-MM-dd"
-          selectionMode="week"
+          mode="week"
           />
       </div>
       <div className="block">
@@ -218,7 +218,7 @@ render() {
             this.setState({value3: date})
           }}
           format="yyyy 第 WW 周"
-          selectionMode="week"
+          mode="week"
           showWeekNumber={true}
           />
       </div>
@@ -349,9 +349,9 @@ render() {
 ## 带时间的日期面板
 
 :::demo 
-通过设置`isShowTime`，即可在同一个选择器里同时进行日期和时间的选择。
+通过设置`showTime`，即可在同一个选择器里同时进行日期和时间的选择。
 `defaultTimeValue`用来设置默认时间；
-`isShowTimeCurrent`用来设置是否展示时间面板的"现在"快捷选项；
+`showTimeCurrent`用来设置是否展示时间面板的"现在"快捷选项；
 `timeSelectableRange`设置可选择的时间范围；
 
 
@@ -379,7 +379,7 @@ render() {
         <DatePicker
           style={{width: 310}}
           value={value1}
-          isShowTime={true}
+          showTime={true}
           placeholder="选择日期"
           onChange={date=> {
             console.debug('DatePicker1 changed: ', date)
@@ -393,7 +393,7 @@ render() {
           style={{width: 310}}
           value={value2}
           defaultTimeValue={this.defaultTimeValue}
-          isShowTime={true}
+          showTime={true}
           placeholder="选择日期"
           onChange={date=> {
             console.debug('DatePicker2 changed: ', date)
@@ -406,8 +406,8 @@ render() {
         <DatePicker
           style={{width: 310}}
           value={value3}
-          isShowTimeCurrent={true}
-          isShowTime={true}
+          showTimeCurrent={true}
+          showTime={true}
           placeholder="选择日期"
           onChange={date=> {
             console.debug('DatePicker3 changed: ', date)
@@ -421,7 +421,7 @@ render() {
           style={{width: 310}}
           value={value4}
           timeSelectableRange="18:30:00 - 20:30:00"
-          isShowTime={true}
+          showTime={true}
           placeholder="选择日期"
           onChange={date=> {
             console.debug('DatePicker4 changed: ', date)
@@ -434,7 +434,7 @@ render() {
         <DatePicker
           ref={e=>this.datepicker5 = e}
           style={{width: 310}}
-          isShowTime={true}
+          showTime={true}
           value={value5}
           align="left"
           placeholder="选择日期"
@@ -533,7 +533,7 @@ render() {
   return (
     <DatePicker.DateRangePicker
       style={{width: 400}}
-      isDisabled={true}
+      disabled={true}
       />
   )
 }
@@ -568,7 +568,7 @@ render() {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
           }}
-          renderExtraFooter={() => '额外的页脚信息'}
+          footer={() => '额外的页脚信息'}
         />
       </div>
     </div>
@@ -630,7 +630,7 @@ render() {
           onError={(msg) => {
             this.setState({extraFoot: () => msg})
           }}
-          renderExtraFooter={extraFoot}
+          footer={extraFoot}
           onOpenChange={(status) => {
             this.setState({extraFoot: null})
           }}
@@ -799,7 +799,7 @@ render() {
           format="yyyy-MM-dd HH:mm:ss"
           value={value1}
           placeholder="选择日期范围"
-          isShowTime={true}
+          showTime={true}
           onChange={date=> {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
@@ -813,7 +813,7 @@ render() {
           format="yyyy-MM-dd HH:mm:ss"
           value={value2}
           placeholder="选择日期范围"
-          isShowTime={true}
+          showTime={true}
           defaultStartTimeValue={this.defaultStartTimeValue}
           defaultEndTimeValue={this.defaultEndTimeValue}
           onChange={date=> {
@@ -829,8 +829,8 @@ render() {
           format="yyyy-MM-dd HH:mm:ss"
           value={value3}
           placeholder="选择日期范围"
-          isShowTime={true}
-          isShowTimeCurrent={true}
+          showTime={true}
+          showTimeCurrent={true}
           onChange={date=> {
             console.debug('DateRangePicker3 changed: ', date)
             this.setState({value3: date})
@@ -844,7 +844,7 @@ render() {
           format="yyyy-MM-dd HH:mm:ss"
           value={value4}
           placeholder="选择日期范围"
-          isShowTime={true}
+          showTime={true}
           startTimeSelectableRange="9:00:00 - 20:00:00"
           endTimeSelectableRange="9:00:00 - 20:00:00"
           onChange={date=> {
@@ -858,7 +858,7 @@ render() {
         <DatePicker.DateRangePicker
           style={{width: 400}}
           value={value5}
-          isShowTime={true}
+          showTime={true}
           placeholder="选择日期范围"
           align="left"
           ref={e=>this.daterangepicker5 = e}
@@ -949,14 +949,14 @@ render() {
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
 | format | 时间日期格式化,  年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | String | 'yyyy-MM-dd' |
 | popupAlign | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight'} | 'bottomLeft' |
-| isShowTrigger | 是否显示前缀图标 | Boolean | true |
-| isAllowClear | 是否显示清除按钮 | Boolean | true |
-| isDisabled | 是否禁用 | Boolean | false |
-| disabledDate | 禁用日期 | (Date, selectionMode) =>Boolean | - |
+| showTrigger | 是否显示前缀图标 | Boolean | true |
+| allowClear | 是否显示清除按钮 | Boolean | true |
+| disabled | 是否禁用 | Boolean | false |
+| disabledDate | 禁用日期 | (Date, mode) =>Boolean | - |
 | firstDayOfWeek | 周起始日 | Enum {0,1,2,3,4,5,6} | 0 |
 | yearCount | 可选择的年份总数 | Number | 50 |
 | shortcuts | 快捷选项 | {text: String, onClick: () => {}} | - |
-| renderExtraFooter | 在面板中添加额外的页脚 | () =>ReactNode | - |
+| footer | 在面板中添加额外的页脚 | () =>ReactNode | - |
 | onFocus | 聚焦时的回调 | (e) => {} | - |
 | onBlur | 失焦时的回调 | (e) => {} | - |
 | onChange | 确认选定的值时触发 | (value) => {} | - |
@@ -967,14 +967,14 @@ render() {
 |---------- |-------------- |---------- |-------- |
 | placeholder | 占位内容 | String | - |
 | value | 值 | Date | null |
-| selectionMode | 日期类型 | Enum {'week', 'day'} | 'day' |
+| mode | 日期类型 | Enum {'week', 'day'} | 'day' |
 
 DatePicker 时间面板的参数
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- | -------- |
-| isShowTime | 是否显示时间选择器 | Boolean | false |
-| isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
+| showTime | 是否显示时间选择器 | Boolean | false |
+| showTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
 | defaultTimeValue | 时间面板的默认时间 | Date | - |
 | timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 
@@ -984,7 +984,7 @@ DatePicker 时间面板的参数
 | startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
 | endPlaceholder | 结束日期的占位内容 | String | '结束日期' |
 | value | 值 | Array<Date> | null |
-| rangeSeparator | 分隔符 | String | ' 至 ' |
+| separator | 分隔符 | String | ' 至 ' |
 | maxDateRange  | 最大可选择的日期范围，单位 天    | Number | - |
 | onError  |  选择日期超过maxDateRange的回调   | (message) => Void | - |
 
@@ -992,8 +992,8 @@ DateRangePicker 时间面板的参数
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |--------- |
-| isShowTime | 是否显示时间选择器 | Boolean | false |
-| isShowTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
+| showTime | 是否显示时间选择器 | Boolean | false |
+| showTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
 | defaultStartTimeValue | 开始时间面板的默认时间 | Date | - |
 | defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
 | startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |

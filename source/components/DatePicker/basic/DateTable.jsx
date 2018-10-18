@@ -53,7 +53,7 @@ export default class DateTable extends React.Component {
   }
 
   getRows() {
-    const {date, disabledDate, showWeekNumber, minDate, maxDate, selectionMode, firstDayOfWeek} = this.props;
+    const {date, disabledDate, showWeekNumber, minDate, maxDate, mode, firstDayOfWeek} = this.props;
     const {tableRows} = this.state;
 
     const ndate = new Date(date.getTime());
@@ -135,7 +135,7 @@ export default class DateTable extends React.Component {
         cell.disabled = isFunction(disabledDate) && disabledDate(new Date(time), SELECTION_MODES.DAY);
       }
 
-      if (selectionMode === SELECTION_MODES.WEEK) {
+      if (mode === SELECTION_MODES.WEEK) {
         const start = showWeekNumber ? 1 : 0;
         const end = showWeekNumber ? 7 : 6;
         const isWeekActive = this.isWeekActive(row[start + 1]);
@@ -155,7 +155,7 @@ export default class DateTable extends React.Component {
 
   // calc classnames for cell
   getCellClasses(cell) {
-    const {selectionMode, date, value} = this.props;
+    const {mode, date, value} = this.props;
 
     let classes = [];
     if ((cell.type === 'normal' || cell.type === 'today') && !cell.disabled) {
@@ -167,7 +167,7 @@ export default class DateTable extends React.Component {
       classes.push(cell.type);
     }
 
-    if (selectionMode === 'day'
+    if (mode === 'day'
       && (cell.type === 'normal' || cell.type === 'today')
       && value
       && value.getFullYear() === date.getFullYear()
@@ -176,15 +176,15 @@ export default class DateTable extends React.Component {
       classes.push('current');
     }
 
-    if (cell.inRange && ((cell.type === 'normal' || cell.type === 'today') || selectionMode === 'week')) {
+    if (cell.inRange && ((cell.type === 'normal' || cell.type === 'today') || mode === 'week')) {
       classes.push('in-range');
     }
 
-    if (cell.start && (cell.type === 'normal' || cell.type === 'today' || selectionMode === 'week') && !cell.disabled) {
+    if (cell.start && (cell.type === 'normal' || cell.type === 'today' || mode === 'week') && !cell.disabled) {
       classes.push('start-date');
     }
 
-    if (cell.end && (cell.type === 'normal' || cell.type === 'today' || selectionMode === 'week') && !cell.disabled) {
+    if (cell.end && (cell.type === 'normal' || cell.type === 'today' || mode === 'week') && !cell.disabled) {
       classes.push('end-date');
     }
 
@@ -196,9 +196,9 @@ export default class DateTable extends React.Component {
   }
 
   getMarkedRangeRows() {
-    const {showWeekNumber, minDate, maxDate, selectionMode, rangeState} = this.props;
+    const {showWeekNumber, minDate, maxDate, mode, rangeState} = this.props;
     const rows = this.getRows();
-    if (!(selectionMode === SELECTION_MODES.RANGE && rangeState.selecting && rangeState.endDate instanceof Date)) return rows;
+    if (!(mode === SELECTION_MODES.RANGE && rangeState.selecting && rangeState.endDate instanceof Date)) return rows;
 
     for (let i = 0, k = rows.length; i < k; i++) {
       const row = rows[i];
@@ -219,7 +219,7 @@ export default class DateTable extends React.Component {
   }
 
   isWeekActive(cell) {
-    if (this.props.selectionMode !== SELECTION_MODES.WEEK) return false;
+    if (this.props.mode !== SELECTION_MODES.WEEK) return false;
     if (!this.props.value) return false;
 
     const newDate = new Date(this.props.date.getTime());// date view
@@ -241,14 +241,14 @@ export default class DateTable extends React.Component {
   }
 
   handleMouseMove = (event) => {
-    const {showWeekNumber, onChangeRange, rangeState, selectionMode} = this.props;
+    const {showWeekNumber, onChangeRange, rangeState, mode} = this.props;
 
     const getDateOfCell = (row, column, showWeekNumber) => {
       const startDate = this.getStartDate();
       return new Date(startDate.getTime() + (row * 7 + (column - (showWeekNumber ? 1 : 0))) * DAY_DURATION);
     }
 
-    if (!(selectionMode === SELECTION_MODES.RANGE && rangeState.selecting)) return;
+    if (!(mode === SELECTION_MODES.RANGE && rangeState.selecting)) return;
 
     const getTarget = () => {
       const tag = event.target.tagName;
@@ -295,10 +295,10 @@ export default class DateTable extends React.Component {
     if (!target || target.tagName !== 'TD') return;
     if (hasClass(target, 'disabled') || hasClass(target, 'week')) return;
 
-    const {selectionMode, showWeekNumber, date, onPick, rangeState} = this.props;
+    const {mode, showWeekNumber, date, onPick, rangeState} = this.props;
     const {year, month} = deconstructDate(date);
 
-    if (selectionMode === 'week') {
+    if (mode === 'week') {
       target = showWeekNumber ? target.parentNode.cells[1] : target.parentNode.cells[0];
     }
 
@@ -328,7 +328,7 @@ export default class DateTable extends React.Component {
     }
 
     newDate.setDate(parseInt(text, 10));
-    if (selectionMode === SELECTION_MODES.RANGE) {
+    if (mode === SELECTION_MODES.RANGE) {
       if(!rangeState.selecting) {
         rangeState.firstSelectedValue = toDate(newDate);
         onPick({ minDate: toDate(newDate), maxDate: null }, false);
@@ -341,14 +341,14 @@ export default class DateTable extends React.Component {
         );
       }
       rangeState.selecting = !rangeState.selecting;
-    } else if (selectionMode === SELECTION_MODES.DAY || selectionMode === SELECTION_MODES.WEEK) {
+    } else if (mode === SELECTION_MODES.DAY || mode === SELECTION_MODES.WEEK) {
       onPick({ date: newDate });
     }
   }
 
   render() {
     const $t = Locale.t;
-    const {selectionMode, showWeekNumber, prefixCls} = this.props;
+    const {mode, showWeekNumber, prefixCls} = this.props;
 
     return (
       <table
@@ -356,7 +356,7 @@ export default class DateTable extends React.Component {
         cellPadding="0"
         onClick={this.handleClick}
         onMouseMove={this.handleMouseMove}
-        className={classNames(`${prefixCls}-date-table`, { 'is-week-mode': selectionMode === 'week' })}
+        className={classNames(`${prefixCls}-date-table`, { 'is-week-mode': mode === 'week' })}
       >
         <tbody>
 
@@ -396,7 +396,7 @@ DateTable.propTypes = {
   //minDate, maxDate: only valid in range mode. control date's start, end info
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
-  selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
+  mode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
   // date view model, all visual view derive from this info
   date: PropTypes.instanceOf(Date).isRequired,
   // current date value, use picked.
@@ -404,12 +404,12 @@ DateTable.propTypes = {
   /*
   (data, closePannel: boolean)=>()
     data:
-      if selectionMode = range: // notify when ranges is change
+      if mode = range: // notify when ranges is change
         minDate: Date|null,
         maxDate: Date|null
-      if selectionMode = date
+      if mode = date
         date: Date
-      if selectionMode = week:
+      if mode = week:
         year: number
         week: number,
         value: string,
@@ -433,7 +433,7 @@ DateTable.propTypes = {
 };
 
 DateTable.defaultProps = {
-  selectionMode: 'day',
+  mode: 'day',
   firstDayOfWeek: 0,
   prefixCls: 'fishd'
 };

@@ -18,7 +18,7 @@ export default class TimePanel extends React.Component {
       selectableRange: TimeSpinner.propTypes.selectableRange,
       onSelectRangeChange: TimeSpinner.propTypes.onSelectRangeChange,
       isShowCurrent: PropTypes.bool,
-      renderExtraFooter: PropTypes.func,
+      footer: PropTypes.func,
       onValueChange: PropTypes.func
     };
   }
@@ -111,7 +111,7 @@ export default class TimePanel extends React.Component {
   }
 
   render() {
-    const {onSelectRangeChange, selectableRange, isShowCurrent, renderExtraFooter, prefixCls} = this.props;
+    const {onSelectRangeChange, selectableRange, isShowCurrent, footer, prefixCls} = this.props;
     const {isShowSeconds, currentDate, confirmButtonDisabled, currentButtonDisabled} = this.state;
 
     const hours = currentDate ? currentDate.getHours() : null;
@@ -138,11 +138,11 @@ export default class TimePanel extends React.Component {
           />
         </div>
         {
-          typeof renderExtraFooter == 'function' && renderExtraFooter() && (
+          typeof footer == 'function' && footer() && (
             <div
               className={`${prefixCls}-time-panel__extra-footer`}
             >
-              {renderExtraFooter()}
+              {footer()}
             </div>
           )
         }

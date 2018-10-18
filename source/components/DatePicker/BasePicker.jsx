@@ -28,9 +28,9 @@ export default class BasePicker extends React.Component {
       popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
       prefixCls: PropTypes.string,
       getPopupContainer: PropTypes.func,
-      isShowTrigger: PropTypes.bool,
-      isAllowClear: PropTypes.bool,
-      isDisabled: PropTypes.bool,
+      showTrigger: PropTypes.bool,
+      allowClear: PropTypes.bool,
+      disabled: PropTypes.bool,
       value: PropTypes.oneOfType([
         PropTypes.instanceOf(Date),
         PropTypes.arrayOf(PropTypes.instanceOf(Date))
@@ -48,9 +48,9 @@ export default class BasePicker extends React.Component {
       placeholder: '',
       popupAlign: 'bottomLeft',
       prefixCls: 'fishd',
-      isShowTrigger: true,
-      isAllowClear: true,
-      isDisabled: false,
+      showTrigger: true,
+      allowClear: true,
+      disabled: false,
       onFocus: () => {},
       onBlur: () =>{},
       onChange: () => {},
@@ -191,10 +191,10 @@ export default class BasePicker extends React.Component {
   // 点击清空图标
   handleClickCloseIcon = (e) => {
     e && e.stopPropagation();
-    const { isDisabled, isAllowClear } = this.props;
+    const { disabled, allowClear } = this.props;
     const { text } = this.state;
 
-    if (isDisabled || !isAllowClear) return;
+    if (disabled || !allowClear) return;
     if (!text) {
       this.togglePickerVisible();
     } else {
@@ -241,9 +241,9 @@ export default class BasePicker extends React.Component {
       popupAlign,
       prefixCls,
       getPopupContainer,
-      isShowTrigger,
-      isAllowClear,
-      isDisabled,
+      showTrigger,
+      allowClear,
+      disabled,
       style
     } = this.props;
     const { pickerVisible, value, text } = this.state;
@@ -253,8 +253,8 @@ export default class BasePicker extends React.Component {
     };
 
     const calcIsShowTrigger = () => {
-      if (isShowTrigger != null) {
-        return !!isShowTrigger;
+      if (showTrigger != null) {
+        return !!showTrigger;
       } else {
         return haveTriggerType(this.type);
       }
@@ -276,7 +276,7 @@ export default class BasePicker extends React.Component {
 
     // 后缀图标
     const suffixIcon = () => {
-      if(text && isAllowClear) {
+      if(text && allowClear) {
         return (
           <Icon
             className="suffix-iconfont"
@@ -305,7 +305,7 @@ export default class BasePicker extends React.Component {
               'is-have-trigger': calcIsShowTrigger(),
               'is-active': pickerVisible,
               'is-filled': !!value,
-              'is-disable': isDisabled
+              'is-disable': disabled
             }
           )}
           style={{...style}}
@@ -313,7 +313,7 @@ export default class BasePicker extends React.Component {
 
         <Input
           className={classNames(`${prefixCls}-date-editor--${this.type}`)}
-          disabled={isDisabled}
+          disabled={disabled}
           type="text"
           placeholder={placeholder}
           onFocus={this.handleFocus}
@@ -344,7 +344,7 @@ export default class BasePicker extends React.Component {
 
     return (
       <Trigger
-        action={isDisabled ? [] : ['click']}
+        action={disabled ? [] : ['click']}
         builtinPlacements={placements}
         ref={node => this.trigger = node}
         getPopupContainer={getPopupContainer}

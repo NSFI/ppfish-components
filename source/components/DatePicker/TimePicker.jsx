@@ -27,7 +27,7 @@ export default class TimePicker extends BasePicker {
         PropTypes.arrayOf(PropTypes.string)
       ]),
       isShowCurrent: PropTypes.bool,
-      renderExtraFooter: PropTypes.func,
+      footer: PropTypes.func,
       onValueChange: PropTypes.func
     }, BasePicker.propTypes);
   }

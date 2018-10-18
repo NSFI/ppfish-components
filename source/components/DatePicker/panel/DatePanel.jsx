@@ -54,13 +54,13 @@ export default class DatePanel extends React.Component {
           onClick: PropTypes.func.isRequired
         })
       ),
-      selectionMode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
+      mode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
-      renderExtraFooter: PropTypes.func,
+      footer: PropTypes.func,
       //时间面板
-      isShowTime: PropTypes.bool,
-      isShowTimeCurrent: PropTypes.bool,
+      showTime: PropTypes.bool,
+      showTimeCurrent: PropTypes.bool,
       timeSelectableRange: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
@@ -74,10 +74,10 @@ export default class DatePanel extends React.Component {
       prefixCls: 'fishd',
       yearCount: 50,
       showWeekNumber: false,
-      selectionMode: SELECTION_MODES.DAY,
+      mode: SELECTION_MODES.DAY,
       firstDayOfWeek: 0,
-      isShowTime: false,
-      isShowTimeCurrent: false,
+      showTime: false,
+      showTimeCurrent: false,
       defaultTimeValue: null
     };
   }
@@ -86,7 +86,7 @@ export default class DatePanel extends React.Component {
     super(props);
 
     let currentView = PICKER_VIEWS.DATE;
-    // switch (props.selectionMode) {
+    // switch (props.mode) {
     //   case SELECTION_MODES.MONTH:
     //     currentView = PICKER_VIEWS.MONTH; break;
     //   case SELECTION_MODES.YEAR:
@@ -113,7 +113,7 @@ export default class DatePanel extends React.Component {
 
   // 年份、月份面板先注释掉，需要时再打开
   _pickerContent() {
-    const { selectionMode, disabledDate, showWeekNumber, firstDayOfWeek } = this.props;
+    const { mode, disabledDate, showWeekNumber, firstDayOfWeek } = this.props;
     const { date, currentDate } = this.state;
     const { currentView } = this.state;
     let result = null;
@@ -125,7 +125,7 @@ export default class DatePanel extends React.Component {
             onPick={this.handleDatePick}
             date={currentDate}
             value={date}
-            selectionMode={selectionMode}
+            mode={mode}
             disabledDate={disabledDate}
             showWeekNumber={showWeekNumber}
             firstDayOfWeek={firstDayOfWeek}
@@ -255,11 +255,11 @@ export default class DatePanel extends React.Component {
 
   // 点击日期
   handleDatePick = (value) => {
-    const { selectionMode, isShowTime, onPick, format } = this.props;
+    const { mode, showTime, onPick, format } = this.props;
     const pdate = value.date;
 
-    if (selectionMode === SELECTION_MODES.DAY) {
-      if (!isShowTime) {
+    if (mode === SELECTION_MODES.DAY) {
+      if (!showTime) {
         onPick(pdate);
       }
       this.setState({
@@ -267,7 +267,7 @@ export default class DatePanel extends React.Component {
         dateInputText: formatDate(pdate, dateFormat(format)), // 点击日期，左侧日期输入框的值同步变化
         currentDate: pdate
       });
-    } else if (selectionMode === SELECTION_MODES.WEEK) {
+    } else if (mode === SELECTION_MODES.WEEK) {
       onPick(pdate);
     }
   }
@@ -289,10 +289,10 @@ export default class DatePanel extends React.Component {
       format,
       shortcuts,
       yearCount,
-      isShowTime,
-      isShowTimeCurrent,
+      showTime,
+      showTimeCurrent,
       timeSelectableRange,
-      renderExtraFooter,
+      footer,
       prefixCls
     } = this.props;
     const { currentView, currentDate, dateInputText, time } = this.state;
@@ -306,7 +306,7 @@ export default class DatePanel extends React.Component {
           `${prefixCls}-date-picker`,
           {
             'has-sidebar': shortcuts,
-            'has-time': isShowTime
+            'has-time': showTime
           })
         }
       >
@@ -331,7 +331,7 @@ export default class DatePanel extends React.Component {
           }
           <div className={`${prefixCls}-picker-panel__body`}>
             {
-              isShowTime && (
+              showTime && (
                 <div className={`${prefixCls}-date-picker__time-header`}>
                   <span className={`${prefixCls}-date-picker__editor-wrap`}>
                     <Input
@@ -347,12 +347,12 @@ export default class DatePanel extends React.Component {
                       placeholder={t('datepicker.selectTime')}
                       format={timeFormat(format)}
                       getPopupContainer={(node) => node.parentNode}
-                      isShowTrigger={false}
-                      isAllowClear={false}
-                      isDisabled={this.timePickerDisable()}
+                      showTrigger={false}
+                      allowClear={false}
+                      disabled={this.timePickerDisable()}
                       value={time}
                       onChange={this.handleTimeInputChange}
-                      isShowCurrent={isShowTimeCurrent}
+                      isShowCurrent={showTimeCurrent}
                       selectableRange={timeSelectableRange}
                     />
                   </span>
@@ -423,16 +423,16 @@ export default class DatePanel extends React.Component {
           </div>
         </div>
         {
-          typeof renderExtraFooter == 'function' && renderExtraFooter() && (
+          typeof footer == 'function' && footer() && (
             <div
               className={`${prefixCls}-picker-panel__extra-footer`}
             >
-              {renderExtraFooter()}
+              {footer()}
             </div>
           )
         }
         {
-          isShowTime && currentView === PICKER_VIEWS.DATE && (
+          showTime && currentView === PICKER_VIEWS.DATE && (
             <div
               className={`${prefixCls}-picker-panel__footer`}
             >

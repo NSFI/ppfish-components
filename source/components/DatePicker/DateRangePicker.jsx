@@ -6,7 +6,7 @@ import DateRangePanel from './panel/DateRangePanel.jsx';
 export default class DateRangePicker extends DateRangeBasePicker {
   static get propTypes() {
     return Object.assign({}, {
-      rangeSeparator: PropTypes.string,
+      separator: PropTypes.string,
       yearCount: PropTypes.number,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
@@ -16,7 +16,7 @@ export default class DateRangePicker extends DateRangeBasePicker {
       ),
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
-      renderExtraFooter: PropTypes.func,
+      footer: PropTypes.func,
       maxDateRange: PropTypes.number,
       onError: PropTypes.func
     }, DateRangeBasePicker.propTypes);
@@ -27,7 +27,7 @@ export default class DateRangePicker extends DateRangeBasePicker {
   }
 
   constructor(props) {
-    super(props, props.isShowTime ? 'datetimerange' : 'daterange', {});
+    super(props, props.showTime ? 'datetimerange' : 'daterange', {});
   }
 
   isDateValid(value) {
@@ -35,7 +35,7 @@ export default class DateRangePicker extends DateRangeBasePicker {
   }
 
   getFormatSeparator = () => {
-    return this.props.rangeSeparator;
+    return this.props.separator;
   }
 
   pickerPanel(state) {
