@@ -639,7 +639,7 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | allowClear | 支持搜索框清除操作 | Boolean | true |
-| clearableOptionWidth | 可清除选项的宽度（仅在mode = 'multiple' 且 labelClear = true 生效） | String \| Number | 100 |
+| tagWidth | 可清除选项的宽度（仅在mode = 'multiple' 且 labelClear = true 生效） | String \| Number | 100 |
 | defaultActiveFirstOption | 是否默认激活第一项 | Boolean | false |
 | defaultValue | 指定默认选中的条目 | String \| Array<String> \| Number \| Array<Number>	 | - |
 | disabled | 是否禁用 | Boolean | false |

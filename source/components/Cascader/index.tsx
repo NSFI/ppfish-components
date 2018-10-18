@@ -77,7 +77,7 @@ export interface CascaderProps {
   /** 当此项为 true 时，点选每级菜单选项值都会发生变化 */
   changeOnSelect?: boolean;
   /** 浮层可见变化时回调 */
-  onPopupVisibleChange?: (popupVisible: boolean) => void;
+  onVisibleChange?: (popupVisible: boolean) => void;
   prefixCls?: string;
   inputPrefixCls?: string;
   getPopupContainer?: (triggerNode?: HTMLElement) => HTMLElement;
@@ -199,9 +199,9 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
       });
     }
 
-    const onPopupVisibleChange = this.props.onPopupVisibleChange;
-    if (onPopupVisibleChange) {
-      onPopupVisibleChange(popupVisible);
+    const onVisibleChange = this.props.onVisibleChange;
+    if (onVisibleChange) {
+      onVisibleChange(popupVisible);
     }
   };
 
@@ -370,7 +370,7 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
       'popupPlacement',
       'transitionName',
       'displayRender',
-      'onPopupVisibleChange',
+      'onVisibleChange',
       'changeOnSelect',
       'expandTrigger',
       'popupVisible',

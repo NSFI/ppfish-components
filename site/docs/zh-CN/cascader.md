@@ -541,7 +541,7 @@ render(){
 | style | 自定义样式 | String | - |
 | value | 指定选中项 | Array<String> | - |
 | onChange | 选择完成后的回调 | (value, selectedOptions) => Void | - |
-| onPopupVisibleChange | 显示/隐藏浮层的回调 | (value) => Void | - |
+| onVisibleChange | 显示/隐藏浮层的回调 | (value) => Void | - |
 
 `showSearch` 为对象时，其中的字段：
 
