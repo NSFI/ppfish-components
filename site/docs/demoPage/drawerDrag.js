@@ -7,7 +7,7 @@ class Demo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      visible: false,
       width: 450
     };
   }
@@ -18,19 +18,19 @@ class Demo extends React.Component {
 
   onTouchEnd = () => {
     this.setState({
-      open: false,
+      visible: false,
     });
   }
 
   onSwitch = () => {
     this.setState({
-      open: !this.state.open,
+      visible: !this.state.visible,
     });
   }
 
   onCloseClick = () => {
     this.setState({
-      open: !this.state.open,
+      visible: !this.state.visible,
     });
   }
 
@@ -41,7 +41,7 @@ class Demo extends React.Component {
           handler={false}
           level={null}
           width={this.state.width}
-          open={this.state.open}
+          visible={this.state.visible}
           closed={true}
           onChange={this.onChange}
           onMaskClick={this.onTouchEnd}
@@ -112,7 +112,7 @@ class Demo extends React.Component {
             onClick={this.onSwitch}
             style={{marginLeft: 20}}
           >
-            {!this.state.open ? '打开抽屉' : '关闭抽屉'}
+            {!this.state.visible ? '打开抽屉' : '关闭抽屉'}
           </Button>
         </div>
       </div>

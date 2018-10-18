@@ -15,7 +15,7 @@
 constructor(props) {
   super(props);
   this.state = {
-    open: false
+    visible: false
   };
 }
 
@@ -25,19 +25,19 @@ onChange = (bool) => {
 
 onTouchEnd = () => {
   this.setState({
-    open: false,
+    visible: false,
   });
 }
 
 onSwitch = () => {
   this.setState({
-    open: !this.state.open,
+    visible: !this.state.visible,
   });
 }
 
 onCloseClick = () => {
   this.setState({
-    open: !this.state.open,
+    visible: !this.state.visible,
   });
 }
 
@@ -48,7 +48,7 @@ drawerBaiscDemo = () => {
         handler={false}
         level={null}
         width="30vw"
-        open={this.state.open}
+        visible={this.state.visible}
         close={true}
         onChange={this.onChange}
         onMaskClick={this.onTouchEnd}
@@ -109,7 +109,7 @@ drawerBaiscDemo = () => {
           onClick={this.onSwitch}
           style={{marginLeft: 20}}
         >
-          {!this.state.open ? '打开抽屉' : '关闭抽屉'}
+          {!this.state.visible ? '打开抽屉' : '关闭抽屉'}
         </Button>
       </div>
     </div>
@@ -368,27 +368,27 @@ render() {
 constructor(props) {
   super(props);
   this.state = {
-    open: false,
-    openChild: false,
-    openChildren: false,
+    visible: false,
+    visibleChild: false,
+    visibleChildren: false,
   }
 }
 
 onClick = () => {
   this.setState({
-    open: !this.state.open,
+    visible: !this.state.visible,
   });
 }
 
 onChildClick = () => {
   this.setState({
-    openChild: !this.state.openChild,
+    visibleChild: !this.state.visibleChild,
   })
 }
 
 onChildrenClick = () => {
   this.setState({
-    openChildren: !this.state.openChildren,
+    visibleChildren: !this.state.visibleChildren,
   });
 }
 
@@ -406,7 +406,7 @@ drawerMultipleDemo = () => {
       <Drawer
         width="520"
         handler={false}
-        visible={this.state.open}
+        visible={this.state.visible}
         onMaskClick={this.onClick}
         level={null}
       >
@@ -415,7 +415,7 @@ drawerMultipleDemo = () => {
           <Drawer
             width="320"
             handler={false}
-            visible={this.state.openChild}
+            visible={this.state.visibleChild}
             onMaskClick={this.onChildClick}
           >
             <div>
@@ -424,7 +424,7 @@ drawerMultipleDemo = () => {
               <Drawer
                 width="200"
                 handler={false}
-                visible={this.state.openChildren}
+                visible={this.state.visibleChildren}
                 onMaskClick={this.onChildrenClick}
               >
                 <div>
@@ -460,7 +460,7 @@ render() {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      visible: false,
       width: 450
     };
   }
@@ -471,19 +471,19 @@ render() {
 
   onTouchEnd = () => {
     this.setState({
-      open: false,
+      visible: false,
     });
   }
 
   onSwitch = () => {
     this.setState({
-      open: !this.state.open,
+      visible: !this.state.visible,
     });
   }
 
   onCloseClick = () => {
     this.setState({
-      open: !this.state.open,
+      visible: !this.state.visible,
     });
   }
 
@@ -494,7 +494,7 @@ render() {
           handler={false}
           level={null}
           width={this.state.width}
-          open={this.state.open}
+          visible={this.state.visible}
           closed={true}
           onChange={this.onChange}
           onMaskClick={this.onTouchEnd}
@@ -565,7 +565,7 @@ render() {
             onClick={this.onSwitch}
             style={{marginLeft: 20}}
           >
-            {!this.state.open ? '打开抽屉' : '关闭抽屉'}
+            {!this.state.visible ? '打开抽屉' : '关闭抽屉'}
           </Button>
         </div>
       </div>
@@ -628,7 +628,7 @@ render() {
 | className | 对话框外层容器的类名 | String | - |
 | width | 宽度 | String \| Number | - |
 | height | 高度 | String \| Number | - |
-| open | 打开或关闭抽屉 | Boolean | false | 
+| visible | 打开或关闭抽屉 | Boolean | false | 
 | placement | 抽屉的方向 | Enum {'left', 'right', 'top', 'bottom'} | 'right' |
 | getContainer | 指定Drawer挂载的HTML节点 | () => ReactNode | () => document.body |
 | style | 可用于设置 Drawer 的样式，调整浮层位置等 | Object | - |

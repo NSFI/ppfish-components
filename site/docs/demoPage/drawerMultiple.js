@@ -6,27 +6,27 @@ class Demo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      openChild: false,
-      openChildren: false,
+      visible: false,
+      visibleChild: false,
+      visibleChildren: false,
     }
   }
 
   onClick = () => {
     this.setState({
-      open: !this.state.open,
+      visible: !this.state.visible,
     });
   }
 
   onChildClick = () => {
     this.setState({
-      openChild: !this.state.openChild,
+      visibleChild: !this.state.visibleChild,
     })
   }
 
   onChildrenClick = () => {
     this.setState({
-      openChildren: !this.state.openChildren,
+      visibleChildren: !this.state.visibleChildren,
     });
   }
 
@@ -44,7 +44,7 @@ class Demo extends React.Component {
         <Drawer
           width="520"
           handler={false}
-          open={this.state.open}
+          visible={this.state.visible}
           onMaskClick={this.onClick}
           level={null}
         >
@@ -53,7 +53,7 @@ class Demo extends React.Component {
             <Drawer
               width="320"
               handler={false}
-              open={this.state.openChild}
+              visible={this.state.visibleChild}
               onMaskClick={this.onChildClick}
             >
               <div>
@@ -62,7 +62,7 @@ class Demo extends React.Component {
                 <Drawer
                   width="200"
                   handler={false}
-                  open={this.state.openChildren}
+                  visible={this.state.visibleChildren}
                   onMaskClick={this.onChildrenClick}
                 >
                   <div>

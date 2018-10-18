@@ -11,7 +11,7 @@ export default class Drawer extends React.Component {
     wrapperClassName: PropTypes.string,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    open: PropTypes.bool,
+    visible: PropTypes.bool,
     closed: PropTypes.bool,
     placement: PropTypes.oneOf(['left', 'right', 'bottom', 'top']),
     getContainer: PropTypes.oneOfType([
@@ -69,7 +69,7 @@ export default class Drawer extends React.Component {
       wrapperClassName,
       width,
       height,
-      open,
+      visible,
       placement,
       getContainer,
       style,
@@ -88,7 +88,7 @@ export default class Drawer extends React.Component {
         wrapperClassName={wrapperClassName}
         width={width}
         height={height}
-        open={open}
+        open={visible}
         closed={closed}
         placement={placement}
         getContainer={getContainer}
