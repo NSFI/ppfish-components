@@ -38,7 +38,7 @@ export default class DateRangeBasePicker extends React.Component {
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
       onChange: PropTypes.func,
-      onOpenChange: PropTypes.func,
+      onVisibleChange: PropTypes.func,
       style: PropTypes.object
     };
   }
@@ -56,7 +56,7 @@ export default class DateRangeBasePicker extends React.Component {
       onFocus: () => {},
       onBlur: () =>{},
       onChange: () => {},
-      onOpenChange: () => {}
+      onVisibleChange: () => {}
     };
   }
 
@@ -230,7 +230,7 @@ export default class DateRangeBasePicker extends React.Component {
       pickerVisible: visible
     },() => {
       this.checkDateValid(visible);
-      this.props.onOpenChange(visible);
+      this.props.onVisibleChange(visible);
     });
   }
 

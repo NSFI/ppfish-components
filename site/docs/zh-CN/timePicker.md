@@ -43,13 +43,13 @@
 
 ## 选择固定时间点的禁用状态
 
-:::demo 通过设置 `isDisabled` 为 `true` 禁用整个选择框
+:::demo 通过设置 `disabled` 为 `true` 禁用整个选择框
 ```js  
   render() {
     return (
       <TimePicker.TimeSelect
         style={{width: 144}}
-        isDisabled={true}
+        disabled={true}
         placeholder="请选择时间"
         />
     )
@@ -88,7 +88,7 @@
 
 ## 带快捷操作的面板
 
-:::demo 通过设置 `isShowCurrent`，控制是否显示 "此刻" 快捷操作按钮
+:::demo 通过设置 `showCurrent`，控制是否显示 "此刻" 快捷操作按钮
 ```js
   constructor(props) {
     super(props);
@@ -105,7 +105,7 @@
     return (
       <TimePicker
         style={{width: 144}}
-        isShowCurrent={true}
+        showCurrent={true}
         onChange={this.handleUpdate}
         placeholder="请选择时间"
         value={this.state.value}
@@ -117,13 +117,13 @@
 
 ## 选择任意时间点的禁用状态
 
-:::demo 通过设置 `isDisabled` 为 `true` 禁用整个选择框
+:::demo 通过设置 `disabled` 为 `true` 禁用整个选择框
 ```js  
   render() {
     return (
       <TimePicker
         style={{width: 144}}
-        isDisabled={true}
+        disabled={true}
         placeholder="请选择时间"
         />
     )
@@ -186,7 +186,7 @@
         placeholder="请选择时间"
         value={this.state.value}
         onValueChange={(value) =>console.log('value changed: ', value)}
-        renderExtraFooter={() => '额外的页脚信息'}
+        footer={() => '额外的页脚信息'}
         />
     )
   }
@@ -202,21 +202,21 @@
 | getPopupContainer | 弹框渲染父节点。默认渲染到 body 上，如果你遇到滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
 | placeholder | 占位内容 | String | - |
 | format | 时间格式化, 小时 HH，分 mm，秒 ss  | String | 'HH:mm:ss' |
-| isShowTrigger | 是否显示前缀图标 | Boolean | true |
-| isAllowClear | 是否显示清除按钮 | Boolean  | true |
-| isDisabled | 是否禁用 | Boolean | false |
+| showTrigger | 是否显示前缀图标 | Boolean | true |
+| allowClear | 是否显示清除按钮 | Boolean  | true |
+| disabled | 是否禁用 | Boolean | false |
 | onFocus | 聚焦时的回调 | (e) => Void | - |
 | onBlur | 失焦时的回调 | (e) => Void | - |
 | onChange | 确认选定的值时触发 | (value) => Void | - | - |
-| onOpenChange | 弹出或关闭弹窗的回调 | (status:Boolean) => Void | - |
+| onVisibleChange | 弹出或关闭弹窗的回调 | (status:Boolean) => Void | - |
 
 ## TimePicker
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
-| isShowCurrent | 是否显示"现在"快捷按钮 | Boolean | false |
+| showCurrent | 是否显示"现在"快捷按钮 | Boolean | false |
 | value | 值 | Date | - |
 | selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
-| renderExtraFooter | 在面板中添加额外的页脚 | () => ReactNode | - |
+| footer | 在面板中添加额外的页脚 | () => ReactNode | - |
 | onValueChange | 时、分、秒发生变化时的回调 | (date) => Void | - |
 
 ## TimePicker.TimeSelect

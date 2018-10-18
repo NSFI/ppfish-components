@@ -631,7 +631,7 @@ render() {
             this.setState({extraFoot: () => msg})
           }}
           footer={extraFoot}
-          onOpenChange={(status) => {
+          onVisibleChange={(status) => {
             this.setState({extraFoot: null})
           }}
         />
@@ -960,7 +960,7 @@ render() {
 | onFocus | 聚焦时的回调 | (e) => {} | - |
 | onBlur | 失焦时的回调 | (e) => {} | - |
 | onChange | 确认选定的值时触发 | (value) => {} | - |
-| onOpenChange | 弹出或关闭日历的回调 | (status:Boolean) => {} | - |
+| onVisibleChange | 弹出或关闭日历的回调 | (status:Boolean) => {} | - |
 
 ### DatePicker
 | 参数      | 说明          | 类型      | 默认值  |
