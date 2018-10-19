@@ -239,18 +239,18 @@ render() {
 constructor(props) {
   super(props)
   this.state = {
-    popupAlign: 'bottomLeft'
+    placement: 'bottomLeft'
   }
 }
 
 handleChange = (value) => {
   this.setState({
-    popupAlign: value
+    placement: value
   })
 }
 
 render() {
-  const {value1, value2, popupAlign} = this.state;
+  const {value1, value2, placement} = this.state;
 
   return (
     <div className="source">
@@ -308,7 +308,7 @@ render() {
           ref={e=>this.datepicker2 = e}
           value={value2}
           placeholder="选择日期"
-          popupAlign={popupAlign}
+          placement={placement}
           onChange={date=> {
             console.debug('DatePicker2 changed: ', date)
             this.setState({value2: date})
@@ -650,18 +650,18 @@ render() {
 constructor(props) {
   super(props);
   this.state = {
-    popupAlign: 'bottomLeft'
+    placement: 'bottomLeft'
   }
 }
 
 handleChange = (value) => {
   this.setState({
-    popupAlign: value
+    placement: value
   })
 }
 
 render() {
-  const {value1, value2, popupAlign} = this.state;
+  const {value1, value2, placement} = this.state;
 
   return (
     <div className="source">
@@ -724,7 +724,7 @@ render() {
           style={{width: 400}}
           value={value2}
           placeholder="选择日期范围"
-          popupAlign={popupAlign}
+          placement={placement}
           ref={e=>this.daterangepicker2 = e}
           onChange={date=> {
             console.debug('DateRangePicker2 changed: ', date)
@@ -948,7 +948,7 @@ render() {
 | style | 选择框的样式 | Object | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
 | format | 时间日期格式化,  年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | String | 'yyyy-MM-dd' |
-| popupAlign | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight'} | 'bottomLeft' |
+| placement | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight'} | 'bottomLeft' |
 | showTrigger | 是否显示前缀图标 | Boolean | true |
 | allowClear | 是否显示清除按钮 | Boolean | true |
 | disabled | 是否禁用 | Boolean | false |

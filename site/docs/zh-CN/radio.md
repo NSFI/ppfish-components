@@ -287,6 +287,7 @@ render(){
 | autoFocus | 自动获取焦点 | Boolean | false |
 | checked | 指定当前是否选中 | Boolean | false |
 | defaultChecked | 初始是否选中 | Boolean | false |
+| disabled | 失效状态 | Boolean | false |
 | value | 根据 value 进行比较，判断是否选中 | any | - |
 
 ### RadioGroup

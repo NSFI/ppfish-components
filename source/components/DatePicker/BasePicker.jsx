@@ -25,7 +25,7 @@ export default class BasePicker extends React.Component {
       className: PropTypes.string,
       placeholder: PropTypes.string,
       format: PropTypes.string,
-      popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
+      placement: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
       prefixCls: PropTypes.string,
       getPopupContainer: PropTypes.func,
       showTrigger: PropTypes.bool,
@@ -46,7 +46,7 @@ export default class BasePicker extends React.Component {
   static get defaultProps() {
     return {
       placeholder: '',
-      popupAlign: 'bottomLeft',
+      placement: 'bottomLeft',
       prefixCls: 'fishd',
       showTrigger: true,
       allowClear: true,
@@ -238,7 +238,7 @@ export default class BasePicker extends React.Component {
     const {
       className,
       placeholder,
-      popupAlign,
+      placement,
       prefixCls,
       getPopupContainer,
       showTrigger,
@@ -350,7 +350,7 @@ export default class BasePicker extends React.Component {
         getPopupContainer={getPopupContainer}
         onPopupVisibleChange={this.onVisibleChange}
         popup={getPickerPanel()}
-        popupPlacement={popupAlign}
+        popupPlacement={placement}
         popupVisible={pickerVisible}
         prefixCls={`${prefixCls}-date-time-picker-popup`}
         destroyPopupOnHide={true}

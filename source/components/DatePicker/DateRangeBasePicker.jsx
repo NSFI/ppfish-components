@@ -28,7 +28,7 @@ export default class DateRangeBasePicker extends React.Component {
       endPlaceholder: PropTypes.string,
       separator: PropTypes.string,
       format: PropTypes.string,
-      popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
+      placement: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
       prefixCls: PropTypes.string,
       getPopupContainer: PropTypes.func,
       showTrigger: PropTypes.bool,
@@ -48,7 +48,7 @@ export default class DateRangeBasePicker extends React.Component {
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
       separator: '至',
-      popupAlign: 'bottomLeft',
+      placement: 'bottomLeft',
       prefixCls: 'fishd',
       showTrigger: true,
       allowClear: true,
@@ -243,7 +243,7 @@ export default class DateRangeBasePicker extends React.Component {
       allowClear,
       disabled,
       className,
-      popupAlign,
+      placement,
       prefixCls,
       getPopupContainer,
       style
@@ -372,7 +372,7 @@ export default class DateRangeBasePicker extends React.Component {
         getPopupContainer={getPopupContainer}
         onPopupVisibleChange={this.onVisibleChange}
         popup={getPickerPanel()}
-        popupPlacement={popupAlign}
+        popupPlacement={placement}
         popupVisible={pickerVisible}
         prefixCls={`${prefixCls}-date-time-picker-popup`}
         destroyPopupOnHide={true}
