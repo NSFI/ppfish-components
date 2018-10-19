@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import { Drawer, Menu, Icon, Select } from '../../../source/components';
+import {Drawer, Menu, Icon, Select} from '../../../source/components';
 
 const Option = Select.Option;
 
@@ -12,54 +12,43 @@ class Demo extends React.Component {
     };
   }
 
-  handleDrawerChange = (status) => {
-    this.setState({
-      isOpen: status
-    });
-  }
+  handleDrawerChange = () => {
+    this.setState((prevState) => ({
+      isOpen: !prevState.isOpen
+    }));
+  };
 
   render() {
-    const customerHandler = () => {
-      const style = {
-        width: 102,
-        height: 32,
-        left: -102,
-        lineHeight: 32,
-        fontSize: 14,
-        color: '#fff',
-        backgroundColor: '#337EFF',
-        border: '1px solid #337EFF',
-        borderRadius: '2px 2px 0 0',
-      };
-
-      if(this.state.isOpen){
-        return (
-          <div className="drawer-handle" style={style}>收起</div>
-        );
-      }else{
-        return (
-          <div className="drawer-handle" style={style}>展开</div>
-        );
-      }
+    const style = {
+      width: 102,
+      height: 32,
+      left: -102,
+      lineHeight: 32,
+      fontSize: 14,
+      color: '#fff',
+      backgroundColor: '#337EFF',
+      border: '1px solid #337EFF',
+      borderRadius: '2px 2px 0 0',
     };
 
     return (
-      <div >
+      <div>
         <Drawer
           placement="right"
           width="20vw"
-          handler={customerHandler()}
-          onChange={this.handleDrawerChange}
+          visible={this.state.isOpen}
+          handler={<div className="drawer-handle" style={style}>{this.state.isOpen ? '收起' : '展开'}</div>}
+          onHandleClick={this.handleDrawerChange}
         >
           <Menu
-            style={{ height: '200%' }}
+            style={{height: '200%'}}
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             mode="inline"
           >
             <Menu.SubMenu
               key="sub1"
-              title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+              title={<span><Icon type="mail"/><span>Navigation One</span></span>}
             >
               <Menu.ItemGroup key="g1" title="Item 1">
                 <Menu.Item key="1">Option 1</Menu.Item>
@@ -72,7 +61,7 @@ class Demo extends React.Component {
             </Menu.SubMenu>
             <Menu.SubMenu
               key="sub2"
-              title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+              title={<span><Icon type="appstore"/><span>Navigation Two</span></span>}
             >
               <Menu.Item key="5">Option 5</Menu.Item>
               <Menu.Item key="6">Option 6</Menu.Item>
@@ -83,7 +72,7 @@ class Demo extends React.Component {
             </Menu.SubMenu>
             <Menu.SubMenu
               key="sub4"
-              title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+              title={<span><Icon type="setting"/><span>Navigation Three</span></span>}
             >
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
@@ -106,6 +95,6 @@ class Demo extends React.Component {
 }
 
 ReactDOM.render(
-  <Demo />,
+  <Demo/>,
   document.getElementById('app')
 );
