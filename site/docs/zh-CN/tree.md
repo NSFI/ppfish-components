@@ -53,7 +53,7 @@
     const TreeNode = Tree.TreeNode;
     return (
       <Tree
-        isRequired
+        required
         defaultExpandAll
         defaultSelectedKeys={['0-0-0-1']}
         onSelect={this.onSelect}
@@ -724,7 +724,7 @@
 | selectedKeys | （受控）设置选中的树节点 | Array<String> | - |
 | showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
 | showLine | 是否展示连接线 | Boolean | false |
-| isRequired | 是否必选，单选时有效 | Boolean | false |
+| required | 是否必选，单选时有效 | Boolean | false |
 | onCheck | 点击复选框触发 | (checkedKeys, e:{checked: Boolean, checkedNodes, node, event}) => Void | - |
 | onDragEnd | dragend 触发时调用 | ({event, node}) => Void | - |
 | onDragEnter | dragenter 触发时调用 | ({event, node, expandedKeys}) => Void | - |

@@ -138,7 +138,7 @@ export interface TreeProps {
   filterTreeNode?: (node: FishdTreeNode) => boolean;
   children?: React.ReactNode | React.ReactNode[];
   /* 单选模式下是否为必选 */
-  isRequired?: boolean;
+  required?: boolean;
 }
 
 export default class Tree extends React.Component<TreeProps, any> {
@@ -150,7 +150,7 @@ export default class Tree extends React.Component<TreeProps, any> {
     checkable: false,
     defaultExpandAll: false,
     defaultExpandParent: true,
-    isRequired: false,
+    required: false,
     openAnimation: {
       ...animation,
       appear: null,
@@ -199,7 +199,7 @@ export default class Tree extends React.Component<TreeProps, any> {
 
   render() {
     const props = this.props;
-    const { prefixCls, className, showIcon, isRequired } = props;
+    const { prefixCls, className, showIcon, required } = props;
     let checkable = props.checkable;
     return (
       <RcTree
@@ -207,7 +207,7 @@ export default class Tree extends React.Component<TreeProps, any> {
         className={classNames(!showIcon && `${prefixCls}-icon-hide`, className)}
         checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
         switcherIcon={this.renderSwitcherIcon}
-        isRequired={isRequired}
+        required={required}
       >
         {this.props.children}
       </RcTree>
