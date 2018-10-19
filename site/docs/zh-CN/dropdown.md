@@ -329,6 +329,8 @@ render(){
 | trigger | 触发下拉的行为 | Array<`click` | `hover` | `contextMenu`> | ['hover'] |
 | visible | 菜单是否显示 | Boolean | - |
 | onVisibleChange | 菜单显示状态改变时调用，参数为 visible | (visible) => Void | - |
+| className | 自定义类名 | String | - |
+| style | 自定义样式 | Object | - |
 
 `overlay` 菜单使用 [Menu](https://nsfi.github.io/ppfish-components/#/components/menu/)，还包括菜单项 `Menu.Item`，分割线 `Menu.Divider`。
 
@@ -349,6 +351,8 @@ render(){
 | visible | 菜单是否显示 | Boolean | - |
 | onClick | 点击左侧按钮的回调，和 [Button](https://nsfi.github.io/ppfish-components/#/components/button/) 一致 | () => Void | - |
 | onVisibleChange | 菜单显示状态改变时调用，参数为 visible | (visible) => Void | - |
+| className | 自定义类名 | String | - |
+| style | 自定义样式 | Object | - |
 
 
 <style>

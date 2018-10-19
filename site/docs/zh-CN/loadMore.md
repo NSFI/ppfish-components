@@ -117,5 +117,7 @@ render(){
 | errorText  | 加载失败文案    | String   | '加载失败，请重试'   |
 | endText  | 完全加载文案    | String   | '没有更多了'   |
 | buttonSize  | button大小    | Enum {'default','large','small'}  | 'default'   |
+| className | 自定义类名 | String | - |
+| style | 自定义样式 | Object | - |
 
  > 其他属性会透传到Button上

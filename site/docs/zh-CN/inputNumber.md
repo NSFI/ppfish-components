@@ -149,6 +149,8 @@ render(){
 | step | 每次改变步数，可以为小数 | Number | String | 1 |
 | value | 当前值 | Number | - |
 | onChange | 变化回调 | (value: Number \| String) =>  Void | - |
+| className | 自定义类名 | String | - |
+| style | 自定义样式 | Object | - |
 
 ## 方法
 

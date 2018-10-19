@@ -317,6 +317,8 @@ render(){
 | title | 卡片标题 | String \| ReactNode | - |
 | type | 卡片类型，可设置为 `inner` 或 不设置 | String | - |
 | onTabChange | 页签切换的回调 | (key) => Void | - |
+| className | 额外class | String | - |
+| style | 额外样式 | Object | - |
 
 ### Card.Grid
 

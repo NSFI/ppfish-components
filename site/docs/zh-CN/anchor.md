@@ -71,8 +71,8 @@ render(){
 | offsetTop | 距离窗口顶部达到指定偏移量后触发 | Number |  |
 | showInkInFixed | 固定模式是否显示小圆点 | Boolean | false |
 | onClick | `click` 事件的 handler | (e: Event, link: Object) => Void | - |
-| className | 额外class | String | false |
-| style | 额外样式 | String | - |
+| className | 额外class | String | - |
+| style | 额外样式 | Object | - |
 
 
 ### Link-Props

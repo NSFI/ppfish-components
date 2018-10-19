@@ -184,4 +184,5 @@ render(){
 children | 工具栏内容 | ReactNode | -
 target | 目标，默认window | () => HTMLElement | () => window
 className | 额外的class| String | -
+style | 自定义样式 | Object | - |
 

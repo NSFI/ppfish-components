@@ -16,6 +16,7 @@ class FooterToolbar extends React.Component {
     className: PropTypes.string,
     prefixCls: PropTypes.string,
     target: PropTypes.func,
+    style: PropTypes.object,
   };
 
   constructor(props) {
@@ -61,11 +62,16 @@ class FooterToolbar extends React.Component {
   };
 
   render() {
-    const {children, className, prefixCls} = this.props;
+    const {children, className, prefixCls, style} = this.props;
+    const toolbarStyle = {
+      ...style,
+      position: 'absolute',
+      top: this.state.offset
+    };
     return (
       <div
         className={classNames({[className]: true, [prefixCls]: true})}
-        style={{position: 'absolute', top: this.state.offset}}
+        style={{toolbarStyle}}
         ref={(wrapper) => {
           this.wrapper = wrapper;
         }}
