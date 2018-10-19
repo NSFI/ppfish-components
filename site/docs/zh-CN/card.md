@@ -308,17 +308,17 @@ render(){
 | activeTabKey | 当前激活页签的 key | String | - |
 | bodyStyle | 内容区域自定义样式 | Object | - |
 | bordered | 是否有边框 | Boolean | true |
+| className | 额外class | String | - |
 | cover | 卡片封面 | ReactNode | - |
 | defaultActiveTabKey | 初始化选中页签的 key，如果没有设置 activeTabKey | String | 第一个页签 |
 | extra | 卡片右上角的操作区域 | String \| ReactNode | - |
 | hoverable | 鼠标移过时可浮起 | Boolean | false |
 | loading | 当卡片内容还在加载中时，可以用 loading 展示一个占位 | Boolean | false |
+| onTabChange | 页签切换的回调 | (key) => Void | - |
+| style | 额外样式 | Object | - |
 | tabList | 页签标题列表 | Array<{key: String, tab: ReactNode}> | - |
 | title | 卡片标题 | String \| ReactNode | - |
 | type | 卡片类型，可设置为 `inner` 或 不设置 | String | - |
-| onTabChange | 页签切换的回调 | (key) => Void | - |
-| className | 额外class | String | - |
-| style | 额外样式 | Object | - |
 
 ### Card.Grid
 

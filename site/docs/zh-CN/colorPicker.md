@@ -116,18 +116,18 @@ render(){
 
 | 参数                 |说明                                                 | 类型                                                                      | 默认值                                               |
 |:---------------------|:------------------------------------------------------------|:--------------------------------------------------------------------------|:------------------------------------------------------|
+| alpha                | 颜色opacity值                                       |Number                                                                    | 100                                                 | 
 | children             | additional trigger appended to picker                       | ReactNode                                                                      | `<span className='react-colorpicker-trigger'></span>` |
 | className            | 额外的className                    |String                                                                    | -                                                  | 
-| alpha                | 颜色opacity值                                       |Number                                                                    | 100                                                 | 
 | color                | 取色板当前的颜色值                        |String                                                                    | '#ff0000'                                            | 
 | defaultAlpha         | 默认的opacity值                                        |Number                                                                    | 100                                                | 
 | defaultColor         | 默认的的颜色值                        |String                                                                    | '#ff0000'                                             | 
 | enableAlpha          | 是否开启opacity                                      |Boolean                                                                   | true                                                |
 | enableHistory        | 开启历史记录                                     |Boolean                                                                    |     false                                                  | 
+| getPopupContainer    | container                   |() => HTMLElement                                                        | () => document.body                   | 
 | onChange             | 颜色更改                                           |(state）=> Void                                                                  | noop                                                  | 
 | onClose              | 弹出框关闭                               |(state）=> Void                                                                  | noop                                                  | 
 | onOpen               | 弹出框打开                                |(state）=> Void                                                                   | noop                                                  |
-| getPopupContainer    | container                   |() => HTMLElement                                                        | () => document.body                   | 
 
 ### ColorPicker.Panel
 

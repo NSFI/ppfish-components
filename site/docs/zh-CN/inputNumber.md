@@ -138,19 +138,19 @@ render(){
 | 成员 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | autoFocus | 自动获取焦点 | Boolean | false |
+| className | 自定义类名 | String | - |
 | defaultValue | 初始值 | Number | - |
 | disabled | 禁用 | Boolean | false |
 | formatter | 指定输入框展示值的格式 | (value: Number \| String) => String | - |
 | max | 最大值 | Number | Infinity |
 | min | 最小值 | Number | -Infinity |
+| onChange | 变化回调 | (value: Number \| String) =>  Void | - |
 | parser | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | (String) => Number | - |
 | precision | 数值精度 | Number | - |
 | size | 输入框大小 | String | - |
 | step | 每次改变步数，可以为小数 | Number | String | 1 |
-| value | 当前值 | Number | - |
-| onChange | 变化回调 | (value: Number \| String) =>  Void | - |
-| className | 自定义类名 | String | - |
 | style | 自定义样式 | Object | - |
+| value | 当前值 | Number | - |
 
 ## 方法
 

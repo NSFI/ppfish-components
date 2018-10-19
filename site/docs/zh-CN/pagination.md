@@ -173,21 +173,21 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 自定义类名 | String | - |
-| style | 自定义样式 | Object | - |
 | current | 当前页数 | Number | - |
 | defaultCurrent | 默认的当前页数 | Number | 1 |
 | defaultPageSize | 默认的每页条数 | Number | 10 |
 | hideOnSinglePage | 只有一页时是否隐藏分页器 | Boolean | false |
 | itemRender | 用于自定义页码的结构，可用于优化 SEO | (page, type: 'page' \| 'prev' \| 'next', originalElement) => ReactNode | - |
+| onChange | 页码改变的回调，参数是改变后的页码及每页条数 | (page, pageSize) => Void | noop |
+| onShowSizeChange | pageSize 变化的回调 | (current, size) => Void | noop |
 | pageSize | 每页条数 | Number | - |
 | pageSizeOptions | 指定每页可以显示多少条 | Array<String> | ['10', '20', '30', '40'] |
+| showLessItems | 是否显示更少的Items | Boolean | false |
+| showPrevNextJumpers | 是否展示>>双箭头跳转 | Boolean | true |
 | showQuickJumper | 是否可以快速跳转至某页 | Boolean | false |
 | showSizeChanger | 是否可以改变 pageSize | Boolean | false |
-| showPrevNextJumpers | 是否展示>>双箭头跳转 | Boolean | true |
-| showLessItems | 是否显示更少的Items | Boolean | false |
 | showTotal | 用于显示数据总量和当前数据顺序 | (total, range) => Void | - |
 | simple | 当添加该属性时，显示为简单分页 | Boolean | - |
 | size | 当为「small」时，是小尺寸分页 | String | "" |
+| style | 自定义样式 | Object | - |
 | total | 数据总数 | Number | 0 |
-| onChange | 页码改变的回调，参数是改变后的页码及每页条数 | (page, pageSize) => Void | noop |
-| onShowSizeChange | pageSize 变化的回调 | (current, size) => Void | noop |

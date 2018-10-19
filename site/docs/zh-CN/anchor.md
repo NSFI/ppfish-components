@@ -66,14 +66,13 @@ render(){
 | --- | --- | --- | --- |
 | affix | 固定模式 | Boolean | true |
 | bounds | 锚点区域边界 | Number | 5(px) |
+| className | 额外class | String | - |
 | getContainer | 指定滚动的容器 | () => HTMLElement | () => window |
 | offsetBottom | 距离窗口底部达到指定偏移量后触发 | Number |  |
 | offsetTop | 距离窗口顶部达到指定偏移量后触发 | Number |  |
-| showInkInFixed | 固定模式是否显示小圆点 | Boolean | false |
 | onClick | `click` 事件的 handler | (e: Event, link: Object) => Void | - |
-| className | 额外class | String | - |
+| showInkInFixed | 固定模式是否显示小圆点 | Boolean | false |
 | style | 额外样式 | Object | - |
-
 
 ### Link-Props
 
