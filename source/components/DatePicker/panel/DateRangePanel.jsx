@@ -128,8 +128,8 @@ export default class DateRangePanel extends React.Component {
 
   // 日期时间都选择，确定按钮才可点击
   confirmBtnDisabled = () => {
-    const {minDate, maxDate, minTime, maxTime} = this.state;
-    return !(minDate && maxDate && minTime && maxTime);
+    const {minDate, maxDate, minTime, maxTime, minDateInputText, maxDateInputText} = this.state;
+    return !(minDate && maxDate && minTime && maxTime && minDateInputText && maxDateInputText);
   }
 
   // 未选择日期时，时间不可选
