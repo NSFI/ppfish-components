@@ -108,16 +108,16 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 选择器的className | String | - |
 | autoFocus | 组件自动获取焦点 | Boolean | false |
 | checked | 指定当前是否选中 | Boolean | false |
 | checkedChildren | 选中时的内容 | String \| ReactNode | - |
+| className | 选择器的className | String | - |
 | defaultChecked | 初始是否选中 | Boolean | false |
 | disabled | 是否禁用 | Boolean | false |
 | loading | 加载中的开关 | Boolean | false |
+| onChange | 变化时回调函数 | (checked:Boolean) => Void | - |
 | size | 开关大小 | Enum {'default', 'small', 'large'} | 'default' |
 | unCheckedChildren | 非选中时的内容 | String \| ReactNode | - |
-| onChange | 变化时回调函数 | (checked:Boolean) => Void | - |
 
 ## 方法
 

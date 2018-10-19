@@ -283,9 +283,9 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 选择器的className | String | - |
 | autoFocus | 自动获取焦点 | Boolean | false |
 | checked | 指定当前是否选中 | Boolean | false |
+| className | 选择器的className | String | - |
 | defaultChecked | 初始是否选中 | Boolean | false |
 | disabled | 失效状态 | Boolean | false |
 | value | 根据 value 进行比较，判断是否选中 | any | - |
@@ -298,10 +298,10 @@ render(){
 | --- | --- | --- | --- |
 | defaultValue | 默认选中的值 | any | - |
 | name | RadioGroup 下所有 `input[type="radio"]` 的 `name` 属性 | String | - |
+| onChange | 选项变化时的回调函数 | (e:Event) => Void | - |
 | options | 以配置形式设置子元素 | String \| [{ label: String, value: String, disabled?: Boolean}] | - |
 | size | 大小，只对按钮样式生效 | Enum {'large', 'default', 'small'} | 'default' |
 | value | 用于设置当前选中的值 | any | - |
-| onChange | 选项变化时的回调函数 | (e:Event) => Void | - |
 
 
 ### 方法

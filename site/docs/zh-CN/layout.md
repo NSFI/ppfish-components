@@ -737,19 +737,19 @@ render() {
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 容器 className | String | - |
 | breakpoint | 触发响应式布局的[断点](/components/grid#api) | Enum {'xs', 'sm', 'md', 'lg', 'xl', 'xxl'} | - |
+| className | 容器 className | String | - |
 | collapsed | 当前收起状态 | Boolean | false |
 | collapsedWidth | 收缩宽度，设置为 0 会出现特殊 trigger | Number | 80 |
 | collapsible | 是否可收起 | Boolean | false |
 | defaultCollapsed | 是否默认收起 | Boolean | false |
+| onBreakpoint | 触发响应式布局[断点](/components/grid#api)时的回调 | (broken) => Void | - |
+| onCollapse | 展开、收起时的回调函数，有点击 trigger 以及响应式反馈两种方式可以触发 | (collapsed, type) => Void | - |
 | reverseArrow | 翻转折叠提示箭头的方向，当 Sider 在右边时可以使用 | Boolean | false |
 | style | 指定样式 | Object | - | - |
 | theme | 主题颜色 | Enum {'light', 'dark'} | "dark" |
 | trigger | 自定义 trigger，设置为 null 时隐藏 trigger | String \| ReactNode | - |
 | width | 宽度 | Number \| String | 200 |
-| onCollapse | 展开、收起时的回调函数，有点击 trigger 以及响应式反馈两种方式可以触发 | (collapsed, type) => Void | - |
-| onBreakpoint | 触发响应式布局[断点](/components/grid#api)时的回调 | (broken) => Void | - |
 
 #### breakpoint width
 

@@ -944,60 +944,60 @@ render() {
 
 | 参数      | 说明          | 类型      |  默认值  |
 |---------- |-------------- |---------- | -------- |
-| className | 选择器的className | String | - |
-| style | 选择框的样式 | Object | - |
-| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
-| format | 时间日期格式化,  年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | String | 'yyyy-MM-dd' |
-| placement | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight'} | 'bottomLeft' |
-| showTrigger | 是否显示前缀图标 | Boolean | true |
 | allowClear | 是否显示清除按钮 | Boolean | true |
+| className | 选择器的className | String | - |
 | disabled | 是否禁用 | Boolean | false |
 | disabledDate | 禁用日期 | (Date, mode) =>Boolean | - |
 | firstDayOfWeek | 周起始日 | Enum {0,1,2,3,4,5,6} | 0 |
-| yearCount | 可选择的年份总数 | Number | 50 |
-| shortcuts | 快捷选项 | {text: String, onClick: () => {}} | - |
 | footer | 在面板中添加额外的页脚 | () =>ReactNode | - |
-| onFocus | 聚焦时的回调 | (e) => {} | - |
+| format | 时间日期格式化,  年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | String | 'yyyy-MM-dd' |
+| getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
 | onBlur | 失焦时的回调 | (e) => {} | - |
 | onChange | 确认选定的值时触发 | (value) => {} | - |
+| onFocus | 聚焦时的回调 | (e) => {} | - |
 | onVisibleChange | 弹出或关闭日历的回调 | (status:Boolean) => {} | - |
+| placement | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight'} | 'bottomLeft' |
+| shortcuts | 快捷选项 | {text: String, onClick: () => {}} | - |
+| showTrigger | 是否显示前缀图标 | Boolean | true |
+| style | 选择框的样式 | Object | - |
+| yearCount | 可选择的年份总数 | Number | 50 |
 
 ### DatePicker
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
+| mode | 日期类型 | Enum {'week', 'day'} | 'day' |
 | placeholder | 占位内容 | String | - |
 | value | 值 | Date | null |
-| mode | 日期类型 | Enum {'week', 'day'} | 'day' |
 
 DatePicker 时间面板的参数
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- | -------- |
+| defaultTimeValue | 时间面板的默认时间 | Date | - |
 | showTime | 是否显示时间选择器 | Boolean | false |
 | showTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
-| defaultTimeValue | 时间面板的默认时间 | Date | - |
 | timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 
 ### DatePicker.DateRangePicker
 | 参数      | 说明          | 类型      |   默认值  |
 |---------- |-------------- |----------|-------- |
-| startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
 | endPlaceholder | 结束日期的占位内容 | String | '结束日期' |
-| value | 值 | Array<Date> | null |
-| separator | 分隔符 | String | ' 至 ' |
 | maxDateRange  | 最大可选择的日期范围，单位 天    | Number | - |
 | onError  |  选择日期超过maxDateRange的回调   | (message) => Void | - |
+| separator | 分隔符 | String | ' 至 ' |
+| startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
+| value | 值 | Array<Date> | null |
 
 DateRangePicker 时间面板的参数
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |--------- |
+| defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
+| defaultStartTimeValue | 开始时间面板的默认时间 | Date | - |
+| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 | showTime | 是否显示时间选择器 | Boolean | false |
 | showTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
-| defaultStartTimeValue | 开始时间面板的默认时间 | Date | - |
-| defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
 | startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
-| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 
 ## 方法
 | 参数      | 描述          |

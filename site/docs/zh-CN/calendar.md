@@ -196,7 +196,7 @@ render(){
 | mode | 初始模式，`month/year` | String | month |
 | monthCellRender | 自定义渲染月单元格，返回内容会被追加到单元格 | (date: moment) => ReactNode | - |
 | monthFullCellRender | 自定义渲染月单元格，返回内容覆盖单元格 | (date: moment) => ReactNode | - |
-| validRange | 设置可以显示的日期 | \[[moment](http://momentjs.com/), [moment](http://momentjs.com/)] | - |
-| value | 展示日期 | [moment](http://momentjs.com/) | 当前日期 |
 | onPanelChange | 日期面板变化回调 | (date: moment, mode: String) => Void| - |
 | onSelect | 点击选择日期回调 | (date: moment) => Void | - |
+| validRange | 设置可以显示的日期 | \[[moment](http://momentjs.com/), [moment](http://momentjs.com/)] | - |
+| value | 展示日期 | [moment](http://momentjs.com/) | 当前日期 |

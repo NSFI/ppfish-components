@@ -626,20 +626,20 @@ render() {
 | 参数      | 说明          | 类型      |  默认值  |
 |---------- |-------------- |---------- |-------- |
 | className | 对话框外层容器的类名 | String | - |
-| width | 宽度 | String \| Number | - |
-| height | 高度 | String \| Number | - |
-| visible | 打开或关闭抽屉 | Boolean | false | 
-| placement | 抽屉的方向 | Enum {'left', 'right', 'top', 'bottom'} | 'right' |
-| getContainer | 指定Drawer挂载的HTML节点 | () => ReactNode | () => document.body |
-| style | 可用于设置 Drawer 的样式，调整浮层位置等 | Object | - |
-| mask | 是否展示遮罩 | Boolean | true |
 | closed | 是否展示关闭按钮 | Boolean | false |
-| maskStyle | 遮罩样式 | Object | - |
-| handler | 是否显示触发按钮或自定义触发按钮样式 | Boolean \| ReactNode | `<div className="drawer-handle"><i className="drawer-handle-icon" /></div>` |
-| level | 随着抽屉移动的元素 | Enum {'all',null,className,id,tagName} | 'all' |
 | duration | 过渡效果需要的时间 | String | '.3s' |  
 | ease | 过渡效果的时间曲线 | String | 'cubic-bezier(0.78, 0.14, 0.15, 0.86)' |
+| getContainer | 指定Drawer挂载的HTML节点 | () => ReactNode | () => document.body |
+| handler | 是否显示触发按钮或自定义触发按钮样式 | Boolean \| ReactNode | `<div className="drawer-handle"><i className="drawer-handle-icon" /></div>` |
+| height | 高度 | String \| Number | - |
+| level | 随着抽屉移动的元素 | Enum {'all',null,className,id,tagName} | 'all' |
+| mask | 是否展示遮罩 | Boolean | true |
+| maskStyle | 遮罩样式 | Object | - |
 | onChange | 展开或收起的回调 | (status:Boolean) => Void | - |
-| onMaskClick | 点击遮罩的回调 | (e) => Void | - |
-| onHandleClick | 点击触发按钮的回调 | (e) => Void | - |
 | onCloseClick | 点击关闭按钮的回调 | (e) => Void | - |
+| onHandleClick | 点击触发按钮的回调 | (e) => Void | - |
+| onMaskClick | 点击遮罩的回调 | (e) => Void | - |
+| placement | 抽屉的方向 | Enum {'left', 'right', 'top', 'bottom'} | 'right' |
+| style | 可用于设置 Drawer 的样式，调整浮层位置等 | Object | - |
+| visible | 打开或关闭抽屉 | Boolean | false | 
+| width | 宽度 | String \| Number | - |

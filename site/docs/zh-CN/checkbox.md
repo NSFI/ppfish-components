@@ -214,9 +214,9 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 选择器的className | String | - |
 | autoFocus | 自动获取焦点 | Boolean | false |
 | checked | 指定当前是否选中 | Boolean | false |
+| className | 选择器的className | String | - |
 | defaultChecked | 初始是否选中 | Boolean | false |
 | disabled | 失效状态 | Boolean | false |
 | indeterminate | 设置 indeterminate 状态，只负责样式控制 | Boolean | false |
@@ -228,9 +228,9 @@ render(){
 | --- | --- | --- | --- |
 | defaultValue | 默认选中的选项 | String \| Array<String> | [] |
 | disabled | 整组失效 | Boolean | false |
+| onChange | 变化时回调函数 | (checkedValue) => Void | - |
 | options | 指定可选项 | String \| Array<String> | [] |
 | value | 指定选中的选项 |  String \| Array<String> | [] |
-| onChange | 变化时回调函数 | (checkedValue) => Void | - |
 
 ### 方法
 

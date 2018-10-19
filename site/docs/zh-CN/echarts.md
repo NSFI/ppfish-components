@@ -286,10 +286,10 @@
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
 | className | 设置 chart 类名 | String | '' |
-| style | 设置样式 | Object | - |
+| events |  图表事件 | Object | - |
 | option |  图表的配置项和数据，具体见[配置项手册](http://echarts.baidu.com/option.html#title)。 | Object | - |
 | opts |  图表配置项参数，具体见[说明文档](http://echarts.baidu.com/api.html#echartsInstance.setOption) | Object | - |
-| events |  图表事件 | Object | - |
+| style | 设置样式 | Object | - |
 
 ## 方法
 
