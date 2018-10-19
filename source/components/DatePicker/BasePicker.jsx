@@ -40,7 +40,7 @@ export default class BasePicker extends React.Component {
       onChange: PropTypes.func,
       onVisibleChange: PropTypes.func,
       style: PropTypes.object
-    }
+    };
   }
 
   static get defaultProps() {

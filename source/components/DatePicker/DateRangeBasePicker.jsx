@@ -126,8 +126,8 @@ export default class DateRangeBasePicker extends React.Component {
   onCancelPicked = () => {
     this.setState({
       pickerVisible: false,
-      value: this.state.confirmValue ? new Date(this.state.confirmValue) : null,
-      text: this.state.confirmValue ? [this.dateToStr(new Date(this.state.confirmValue[0])),this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
+      value: this.state.confirmValue && this.state.confirmValue.length === 2 ? this.state.confirmValue : null,
+      text: this.state.confirmValue && this.state.confirmValue.length === 2 ? [this.dateToStr(new Date(this.state.confirmValue[0])),this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
     });
   }
 
