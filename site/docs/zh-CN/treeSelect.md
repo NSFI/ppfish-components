@@ -644,8 +644,6 @@
 | defaultValue | 指定默认选中的条目 | String \| Array<String> | - |
 | disabled | 是否禁用 | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
-| dropdownPopupAlign | 下拉菜单的对齐方式，具体配置可参考 [dom-align](https://github.com/yiminghe/dom-align) 的 alignConfig | Object | - |
-| dropdownPopupPlacement | 下拉菜单弹出的位置 | Enum {'topCenter', 'topLeft', 'topRight', 'bottomCenter', 'bottomLeft', 'bottomRight', 'leftCenter', 'leftTop', 'leftBottom', 'rightCenter', 'rightTop', 'rightBottom'} | 'bottomLeft' |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Boolean | true |
 | dropdownStyle | 下拉菜单的样式 | Object | - |
 | editable | 选中的条目是否可编辑，多选时有效 | Boolean | true |
@@ -653,6 +651,7 @@
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
+| placement | 下拉菜单弹出的位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'} | 'bottomLeft' |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
 | showSearch | 是否在下拉中显示搜索框 | Boolean | false |

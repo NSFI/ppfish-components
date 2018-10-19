@@ -31,7 +31,7 @@ interface AbstractSelectProps {
   defaultActiveFirstOption?: boolean;
   dropdownClassName?: string;
   dropdownPopupAlign?: PopupAlign;
-  dropdownPopupPlacement?: string;
+  placement?: string;
   dropdownStyle?: React.CSSProperties;
   dropdownMenuStyle?: React.CSSProperties;
   onSearch?: (value: string) => any;

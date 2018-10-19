@@ -25,7 +25,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     transitionName: 'slide-up',
     treeCheckStrictly: false,
     treeNodeResetTitle: '不选择任何分类',
-    dropdownPopupPlacement: 'bottomLeft',
+    placement: 'bottomLeft',
   };
 
   private rcTreeSelect: any;

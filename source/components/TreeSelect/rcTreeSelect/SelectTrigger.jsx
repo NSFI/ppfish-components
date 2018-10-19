@@ -83,7 +83,7 @@ class SelectTrigger extends React.Component {
     showSearch: PropTypes.bool,
     prefixCls: PropTypes.string,
     dropdownPopupAlign: PropTypes.object,
-    dropdownPopupPlacement: PropTypes.string,
+    placement: PropTypes.string,
     dropdownClassName: PropTypes.string,
     dropdownStyle: PropTypes.object,
     transitionName: PropTypes.string,
@@ -129,7 +129,7 @@ class SelectTrigger extends React.Component {
       dropdownPopupAlign, dropdownMatchSelectWidth, dropdownClassName,
       dropdownStyle, onDropdownVisibleChange, getPopupContainer,
       dropdownPrefixCls, popupElement, open,
-      children, dropdownPopupPlacement
+      children, placement
     } = this.props;
 
     // TODO: [Legacy] Use new action when trigger fixed: https://github.com/react-component/trigger/pull/86
@@ -145,7 +145,7 @@ class SelectTrigger extends React.Component {
       <Trigger
         ref={this.triggerRef}
         action={disabled ? [] : ['click']}
-        popupPlacement={dropdownPopupPlacement}
+        popupPlacement={placement}
         builtinPlacements={BUILT_IN_PLACEMENTS}
         popupAlign={dropdownPopupAlign}
         prefixCls={dropdownPrefixCls}
