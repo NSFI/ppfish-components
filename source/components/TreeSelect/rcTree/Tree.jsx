@@ -72,7 +72,7 @@ class Tree extends React.Component {
     openTransitionName: PropTypes.string,
     openAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     switcherIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-    isRequired: PropTypes.bool,
+    required: PropTypes.bool,
   };
 
   static childContextTypes = treeContextTypes;
@@ -94,7 +94,7 @@ class Tree extends React.Component {
     defaultCheckedKeys: [],
     defaultSelectedKeys: [],
     expandAll: false,
-    isRequired: false,
+    required: false,
   };
 
   state = {
@@ -415,12 +415,12 @@ class Tree extends React.Component {
   onNodeSelect = (e, treeNode) => {
     let { selectedKeys } = this.state;
     const { keyEntities } = this.state;
-    const { onSelect, multiple, isRequired } = this.props;
+    const { onSelect, multiple, required } = this.props;
     const { selected, eventKey } = treeNode.props;
     const targetSelected = !selected;
 
     // 必选的单选，取消选择时不处理
-    if (isRequired && !multiple && !targetSelected) return;
+    if (required && !multiple && !targetSelected) return;
 
     // Update selected keys
     if (!targetSelected) {

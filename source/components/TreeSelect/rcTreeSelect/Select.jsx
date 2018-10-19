@@ -58,7 +58,7 @@ class Select extends React.Component {
     value: valueProp,
     autoFocus: PropTypes.bool,
     editable: PropTypes.bool,
-    isRequired: PropTypes.bool,
+    required: PropTypes.bool,
 
     defaultOpen: PropTypes.bool,
     defaultValue: valueProp,
@@ -134,7 +134,7 @@ class Select extends React.Component {
     showArrow: true,
     showSearch: false,
     editable: true,
-    isRequired: false,
+    required: false,
     autoClearSearchValue: false,
     showCheckedStrategy: SHOW_CHILD,
 

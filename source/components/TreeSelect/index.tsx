@@ -15,7 +15,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     autoClearSearchValue: false,
     choiceTransitionName: 'zoom',
     editable: true,
-    isRequired: false,
+    required: false,
     placeholder: '请选择',
     prefixCls: 'fishd-treeselect',
     searchPlaceholder: '请输入关键字',

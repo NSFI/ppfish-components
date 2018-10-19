@@ -98,7 +98,7 @@
     const TreeNode = TreeSelect.TreeNode;
     return (
       <TreeSelect
-        isRequired
+        required
         showSearch
         getPopupContainer={() => document.querySelector('.content')}
         style={{ width: 300 }}
@@ -294,7 +294,7 @@
       treeData: this.state.treeData,
       value: this.state.value,
       onChange: this.onChange,
-      isRequired: true,
+      required: true,
       style: {
         width: 300,
       },
@@ -652,6 +652,7 @@
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | placement | 下拉菜单弹出的位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'} | 'bottomLeft' |
+| required | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
 | showSearch | 是否在下拉中显示搜索框 | Boolean | false |
@@ -664,7 +665,6 @@
 | treeDefaultExpandedKeys | 默认展开的树节点 | Array | - |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
-| isRequired | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
 | value | 指定当前选中的条目 | String \| Array<String> | - |
 | onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
