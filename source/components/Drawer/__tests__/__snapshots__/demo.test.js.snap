@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders drawer demo correctly 1`] = `
+<div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/drawerBasic.html"
+    />
+  </div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/drawerWithButton.html"
+    />
+  </div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/drawerWithCustomerButton.html"
+    />
+  </div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/drawerMultiple.html"
+    />
+  </div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/drawerDrag.html"
+    />
+  </div>
+</div>
+`;

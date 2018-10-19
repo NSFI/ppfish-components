@@ -28,16 +28,14 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          >
+            源列表
+          </span>
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              14 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            >
-              Source
-            </span>
+            0/14 
           </span>
         </div>
         <div
@@ -106,7 +104,7 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            暂无相关信息
           </div>
         </div>
       </div>
@@ -154,16 +152,14 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          >
+            目标列表
+          </span>
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              6 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            >
-              Target
-            </span>
+            0/6 
           </span>
         </div>
         <div
@@ -200,7 +196,160 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            请从左侧选择添加
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-transfer"
+    >
+      <div
+        class="fishd-transfer-list"
+      >
+        <div
+          class="fishd-transfer-list-header"
+        >
+          <span
+            class="fishd-transfer-list-header-title"
+          >
+            源列表
+          </span>
+          <span
+            class="fishd-transfer-list-header-selected"
+          >
+            14 
+          </span>
+        </div>
+        <div
+          class="fishd-transfer-list-body"
+        >
+          <ul
+            class="fishd-transfer-list-content"
+          >
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+          </ul>
+          <div
+            class="fishd-transfer-list-body-not-found"
+          >
+            暂无相关信息
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-transfer-operation"
+      >
+        &gt;
+      </div>
+      <div
+        class="fishd-transfer-list"
+      >
+        <div
+          class="fishd-transfer-list-header"
+        >
+          <span
+            class="fishd-transfer-list-header-title"
+          >
+            目标列表
+          </span>
+          <span
+            class="fishd-transfer-list-header-selected"
+          >
+            6 
+          </span>
+        </div>
+        <div
+          class="fishd-transfer-list-body"
+        >
+          <ul
+            class="fishd-transfer-list-content"
+          >
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+            <div
+              class="LazyLoad"
+              style="height:32px"
+            />
+          </ul>
+          <div
+            class="fishd-transfer-list-body-not-found"
+          >
+            请从左侧选择添加
           </div>
         </div>
       </div>
@@ -232,14 +381,12 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              0 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            />
+            0/0 
           </span>
         </div>
         <div
@@ -259,7 +406,7 @@ exports[`Renders transfer demo correctly 1`] = `
                 class="fishd-transfer-list-search-action"
               >
                 <i
-                  class="fishdicon fishdicon-search"
+                  class="fishdicon fishdicon-search-line"
                 />
               </span>
             </div>
@@ -270,7 +417,7 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            暂无相关信息
           </div>
         </div>
       </div>
@@ -318,14 +465,12 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              0 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            />
+            0/0 
           </span>
         </div>
         <div
@@ -345,7 +490,7 @@ exports[`Renders transfer demo correctly 1`] = `
                 class="fishd-transfer-list-search-action"
               >
                 <i
-                  class="fishdicon fishdicon-search"
+                  class="fishdicon fishdicon-search-line"
                 />
               </span>
             </div>
@@ -356,7 +501,112 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            请从左侧选择添加
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-transfer"
+    >
+      <div
+        class="fishd-transfer-list"
+      >
+        <div
+          class="fishd-transfer-list-header"
+        >
+          <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
+            class="fishd-transfer-list-header-selected"
+          >
+            0 
+          </span>
+        </div>
+        <div
+          class="fishd-transfer-list-body fishd-transfer-list-body-with-search"
+        >
+          <div
+            class="fishd-transfer-list-body-search-wrapper"
+          >
+            <div>
+              <input
+                class="fishd-input fishd-transfer-list-search"
+                placeholder="请输入搜索内容"
+                type="text"
+                value=""
+              />
+              <span
+                class="fishd-transfer-list-search-action"
+              >
+                <i
+                  class="fishdicon fishdicon-search-line"
+                />
+              </span>
+            </div>
+          </div>
+          <ul
+            class="fishd-transfer-list-content"
+          />
+          <div
+            class="fishd-transfer-list-body-not-found"
+          >
+            暂无相关信息
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-transfer-operation"
+      >
+        &gt;
+      </div>
+      <div
+        class="fishd-transfer-list"
+      >
+        <div
+          class="fishd-transfer-list-header"
+        >
+          <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
+            class="fishd-transfer-list-header-selected"
+          >
+            0 
+          </span>
+        </div>
+        <div
+          class="fishd-transfer-list-body fishd-transfer-list-body-with-search"
+        >
+          <div
+            class="fishd-transfer-list-body-search-wrapper"
+          >
+            <div>
+              <input
+                class="fishd-input fishd-transfer-list-search"
+                placeholder="请输入搜索内容"
+                type="text"
+                value=""
+              />
+              <span
+                class="fishd-transfer-list-search-action"
+              >
+                <i
+                  class="fishdicon fishdicon-search-line"
+                />
+              </span>
+            </div>
+          </div>
+          <ul
+            class="fishd-transfer-list-content"
+          />
+          <div
+            class="fishd-transfer-list-body-not-found"
+          >
+            请从左侧选择添加
           </div>
         </div>
       </div>
@@ -389,14 +639,12 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              0 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            />
+            0/0 
           </span>
         </div>
         <div
@@ -416,7 +664,7 @@ exports[`Renders transfer demo correctly 1`] = `
                 class="fishd-transfer-list-search-action"
               >
                 <i
-                  class="fishdicon fishdicon-search"
+                  class="fishdicon fishdicon-search-line"
                 />
               </span>
             </div>
@@ -427,7 +675,7 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            暂无相关信息
           </div>
         </div>
         <div
@@ -495,14 +743,12 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              0 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            />
+            0/0 
           </span>
         </div>
         <div
@@ -522,7 +768,7 @@ exports[`Renders transfer demo correctly 1`] = `
                 class="fishd-transfer-list-search-action"
               >
                 <i
-                  class="fishdicon fishdicon-search"
+                  class="fishdicon fishdicon-search-line"
                 />
               </span>
             </div>
@@ -533,7 +779,7 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            请从左侧选择添加
           </div>
         </div>
         <div
@@ -579,14 +825,12 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              0 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            />
+            0/0 
           </span>
         </div>
         <div
@@ -598,7 +842,7 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            暂无相关信息
           </div>
         </div>
       </div>
@@ -647,14 +891,12 @@ exports[`Renders transfer demo correctly 1`] = `
             </span>
           </label>
           <span
+            class="fishd-transfer-list-header-title"
+          />
+          <span
             class="fishd-transfer-list-header-selected"
           >
-            <span>
-              0 项
-            </span>
-            <span
-              class="fishd-transfer-list-header-title"
-            />
+            0/0 
           </span>
         </div>
         <div
@@ -666,7 +908,7 @@ exports[`Renders transfer demo correctly 1`] = `
           <div
             class="fishd-transfer-list-body-not-found"
           >
-            无匹配结果
+            请从左侧选择添加
           </div>
         </div>
       </div>

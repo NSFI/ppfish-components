@@ -609,8 +609,8 @@ exports[`Renders card demo correctly 1`] = `
                     >
                       <div
                         aria-disabled="false"
-                        aria-selected="false"
-                        class=" fishd-tabs-tab"
+                        aria-selected="true"
+                        class="fishd-tabs-tab-active fishd-tabs-tab"
                         role="tab"
                       >
                         tab1
@@ -633,11 +633,11 @@ exports[`Renders card demo correctly 1`] = `
             </div>
             <div
               class="fishd-tabs-content fishd-tabs-content-animated"
-              style="display:none"
+              style="margin-left:0%"
             >
               <div
-                aria-hidden="true"
-                class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+                aria-hidden="false"
+                class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
                 role="tabpanel"
               />
               <div

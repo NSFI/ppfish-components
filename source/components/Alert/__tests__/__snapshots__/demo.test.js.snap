@@ -331,78 +331,13 @@ exports[`Renders alert demo correctly 1`] = `
       Close Now
     </a>
   </div>
-  <div>
-    <div
-      class="fishd-alert fishd-alert-warning fishd-alert-banner"
-      data-show="true"
-    >
-      <i
-        class="fishdicon fishdicon-hints-warning fishd-alert-icon"
-      />
-      <span
-        class="fishd-alert-message"
-      >
-        Warning text
-      </span>
-      <span
-        class="fishd-alert-description"
-      />
-    </div>
-    <br />
-    <div
-      class="fishd-alert fishd-alert-warning fishd-alert-banner"
-      data-show="true"
-    >
-      <i
-        class="fishdicon fishdicon-hints-warning fishd-alert-icon"
-      />
-      <span
-        class="fishd-alert-message"
-      >
-        Very long warning text warning text text text text text text text
-      </span>
-      <span
-        class="fishd-alert-description"
-      />
-      <a
-        class="fishd-alert-close-icon"
-      >
-        <i
-          class="fishdicon fishdicon-close-modal-line"
-        />
-      </a>
-    </div>
-    <br />
-    <div
-      class="fishd-alert fishd-alert-warning fishd-alert-no-icon fishd-alert-banner"
-      data-show="true"
-    >
-      <span
-        class="fishd-alert-message"
-      >
-        Warning text without icon
-      </span>
-      <span
-        class="fishd-alert-description"
-      />
-    </div>
-    <br />
-    <div
-      class="fishd-alert fishd-alert-error fishd-alert-banner"
-      data-show="true"
-    >
-      <i
-        class="fishdicon fishdicon-hints-error fishd-alert-icon"
-      />
-      <span
-        class="fishd-alert-message"
-      >
-        Error text
-      </span>
-      <span
-        class="fishd-alert-description"
-      />
-    </div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/alertDemo.html"
+    />
   </div>
   <div>
     <div

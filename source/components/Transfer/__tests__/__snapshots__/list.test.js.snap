@@ -7,30 +7,13 @@ exports[`List should render correctly 1`] = `
   <div
     class="fishd-transfer-list-header"
   >
-    <label
-      class="fishd-checkbox-wrapper"
-    >
-      <span
-        class="fishd-checkbox fishd-checkbox-indeterminate"
-      >
-        <input
-          class="fishd-checkbox-input"
-          type="checkbox"
-        />
-        <span
-          class="fishd-checkbox-inner"
-        />
-      </span>
-    </label>
+    <span
+      class="fishd-transfer-list-header-title"
+    />
     <span
       class="fishd-transfer-list-header-selected"
     >
-      <span>
-        1/3 
-      </span>
-      <span
-        class="fishd-transfer-list-header-title"
-      />
+      3 
     </span>
   </div>
   <div
@@ -42,64 +25,29 @@ exports[`List should render correctly 1`] = `
       <li
         class="fishd-transfer-list-content-item"
       >
-        <label
-          class="fishd-checkbox-wrapper"
+        <span
+          class="fishd-transfer-list-content-item-text"
         >
-          <span
-            class="fishd-checkbox fishd-checkbox-checked"
-          >
-            <input
-              checked=""
-              class="fishd-checkbox-input"
-              type="checkbox"
-            />
-            <span
-              class="fishd-checkbox-inner"
-            />
-          </span>
-        </label>
-        <span />
+          <span />
+        </span>
       </li>
       <li
         class="fishd-transfer-list-content-item"
       >
-        <label
-          class="fishd-checkbox-wrapper"
+        <span
+          class="fishd-transfer-list-content-item-text"
         >
-          <span
-            class="fishd-checkbox"
-          >
-            <input
-              class="fishd-checkbox-input"
-              type="checkbox"
-            />
-            <span
-              class="fishd-checkbox-inner"
-            />
-          </span>
-        </label>
-        <span />
+          <span />
+        </span>
       </li>
       <li
         class="fishd-transfer-list-content-item fishd-transfer-list-content-item-disabled"
       >
-        <label
-          class="fishd-checkbox-wrapper"
+        <span
+          class="fishd-transfer-list-content-item-text"
         >
-          <span
-            class="fishd-checkbox fishd-checkbox-disabled"
-          >
-            <input
-              class="fishd-checkbox-input"
-              disabled=""
-              type="checkbox"
-            />
-            <span
-              class="fishd-checkbox-inner"
-            />
-          </span>
-        </label>
-        <span />
+          <span />
+        </span>
       </li>
     </ul>
     <div

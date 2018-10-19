@@ -73,9 +73,6 @@ exports[`Renders breadcrumb demo correctly 1`] = `
         <i
           class="fishdicon fishdicon-demo-grid"
         />
-        <span>
-          Home
-        </span>
       </a>
       <span
         class="fishd-breadcrumb-separator"

@@ -752,6 +752,225 @@ exports[`Renders tabs demo correctly 1`] = `
     class="fishd-tabs-ctner"
   >
     <div
+      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
+    >
+      <div
+        class="fishd-tabs-bar"
+        role="tablist"
+        tabindex="0"
+      >
+        <div
+          class="fishd-tabs-nav-container"
+        >
+          <span
+            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
+            <span
+              class="fishd-tabs-tab-prev-icon"
+            />
+          </span>
+          <span
+            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
+            <span
+              class="fishd-tabs-tab-next-icon"
+            />
+          </span>
+          <div
+            class="fishd-tabs-nav-wrap"
+          >
+            <div
+              class="fishd-tabs-nav-scroll"
+            >
+              <div
+                class="fishd-tabs-nav fishd-tabs-nav-animated"
+              >
+                <div
+                  aria-disabled="false"
+                  aria-selected="true"
+                  class="fishd-tabs-tab-active fishd-tabs-tab"
+                  role="tab"
+                >
+                  <span>
+                    <i
+                      class="fishdicon fishdicon-demo-phone"
+                    />
+                    Tab 1
+                  </span>
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  <span>
+                    <i
+                      class="fishdicon fishdicon-demo-mail"
+                    />
+                    Tab 2
+                  </span>
+                </div>
+                <div
+                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-tabs-content fishd-tabs-content-animated"
+        style="margin-left:0%"
+      >
+        <div
+          aria-hidden="false"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+          role="tabpanel"
+        >
+          Tab 1
+        </div>
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+      </div>
+    </div>
+    <div
+      class="fishd-spin-container"
+    >
+      <div
+        class="fishd-spin"
+      >
+        <span
+          class="fishd-spin-dot fishd-spin-dot-spin"
+        >
+          <i />
+          <i />
+          <i />
+          <i />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-tabs-ctner"
+  >
+    <div
+      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
+    >
+      <div
+        class="fishd-tabs-bar"
+        role="tablist"
+        tabindex="0"
+      >
+        <div
+          class="fishd-tabs-extra-content"
+          style="float:right"
+        >
+          <button
+            class="fishd-btn"
+            type="button"
+          >
+            <span>
+              Extra Action
+            </span>
+          </button>
+        </div>
+        <div
+          class="fishd-tabs-nav-container"
+        >
+          <span
+            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
+            <span
+              class="fishd-tabs-tab-prev-icon"
+            />
+          </span>
+          <span
+            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
+            <span
+              class="fishd-tabs-tab-next-icon"
+            />
+          </span>
+          <div
+            class="fishd-tabs-nav-wrap"
+          >
+            <div
+              class="fishd-tabs-nav-scroll"
+            >
+              <div
+                class="fishd-tabs-nav fishd-tabs-nav-animated"
+              >
+                <div
+                  aria-disabled="false"
+                  aria-selected="true"
+                  class="fishd-tabs-tab-active fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 1
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 2
+                </div>
+                <div
+                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-tabs-content fishd-tabs-content-animated"
+        style="margin-left:0%"
+      >
+        <div
+          aria-hidden="false"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+          role="tabpanel"
+        >
+          Tab 1
+        </div>
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+      </div>
+    </div>
+    <div
+      class="fishd-spin-container"
+    >
+      <div
+        class="fishd-spin"
+      >
+        <span
+          class="fishd-spin-dot fishd-spin-dot-spin"
+        >
+          <i />
+          <i />
+          <i />
+          <i />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-tabs-ctner"
+  >
+    <div
       class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-card fishd-tabs-no-animation"
     >
       <div
@@ -872,7 +1091,7 @@ exports[`Renders tabs demo correctly 1`] = `
         >
           <span>
             <i
-              class="fishdicon fishdicon-plus fishd-tabs-new-tab"
+              class="fishdicon fishdicon-upload-plus fishd-tabs-new-tab"
             />
           </span>
         </div>

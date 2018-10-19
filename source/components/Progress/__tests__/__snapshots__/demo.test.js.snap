@@ -6,113 +6,143 @@ exports[`Renders progress demo correctly 1`] = `
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:30%;height:8px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:30%;height:8px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            30%
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          30%
-        </span>
       </div>
     </div>
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-active fishd-progress-show-info fishd-progress-default"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:50%;height:8px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:50%;height:8px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            50%
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          50%
-        </span>
       </div>
     </div>
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-exception fishd-progress-show-info fishd-progress-default"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:70%;height:8px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:70%;height:8px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-error"
+            />
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          <i
-            class="fishdicon fishdicon-hints-error"
-          />
-        </span>
       </div>
     </div>
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-success fishd-progress-show-info fishd-progress-default"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:100%;height:8px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:100%;height:8px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-success"
+            />
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          <i
-            class="fishdicon fishdicon-hints-success"
-          />
-        </span>
       </div>
     </div>
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-default"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:50%;height:8px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:50%;height:8px;border-radius:100px"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -124,97 +154,121 @@ exports[`Renders progress demo correctly 1`] = `
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-small"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:30%;height:6px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:30%;height:6px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            30%
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          30%
-        </span>
       </div>
     </div>
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-active fishd-progress-show-info fishd-progress-small"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:50%;height:6px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:50%;height:6px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            50%
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          50%
-        </span>
       </div>
     </div>
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-exception fishd-progress-show-info fishd-progress-small"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:70%;height:6px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:70%;height:6px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-error"
+            />
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          <i
-            class="fishdicon fishdicon-hints-error"
-          />
-        </span>
       </div>
     </div>
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-success fishd-progress-show-info fishd-progress-small"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:100%;height:6px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:100%;height:6px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-success"
+            />
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          <i
-            class="fishdicon fishdicon-hints-success"
-          />
-        </span>
       </div>
     </div>
   </div>
@@ -252,11 +306,15 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:221.48228207808043px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          75%
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            75%
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -292,13 +350,17 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:206.7167966062084px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          <i
-            class="fishdicon fishdicon-hints-alone-error"
-          />
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-alone-error"
+            />
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -334,13 +396,17 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          <i
-            class="fishdicon fishdicon-hints-alone-success"
-          />
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-alone-success"
+            />
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -378,11 +444,15 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:88.59291283123217px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          30%
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            30%
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -418,13 +488,17 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:206.7167966062084px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          <i
-            class="fishdicon fishdicon-hints-alone-error"
-          />
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-alone-error"
+            />
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -460,13 +534,17 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          <i
-            class="fishdicon fishdicon-hints-alone-success"
-          />
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-alone-success"
+            />
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -504,11 +582,15 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:0px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          0%
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            0%
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -566,11 +648,15 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:221.48228207808043px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          75 Days
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            75 Days
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -606,11 +692,15 @@ exports[`Renders progress demo correctly 1`] = `
             style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
           />
         </svg>
-        <span
-          class="fishd-progress-text"
+        <div
+          class="fishd-progress-circle-info"
         >
-          Done
-        </span>
+          <span
+            class="fishd-progress-text"
+          >
+            Done
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -618,24 +708,30 @@ exports[`Renders progress demo correctly 1`] = `
     <div
       class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
     >
-      <div>
+      <div
+        class="fishd-progress-line-ctner"
+      >
         <div
-          class="fishd-progress-outer"
+          class="fishd-progress-basic"
         >
           <div
-            class="fishd-progress-inner"
+            class="fishd-progress-outer"
           >
             <div
-              class="fishd-progress-bg"
-              style="width:0%;height:8px;border-radius:100px"
-            />
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:0%;height:8px;border-radius:100px"
+              />
+            </div>
           </div>
+          <span
+            class="fishd-progress-text"
+          >
+            0%
+          </span>
         </div>
-        <span
-          class="fishd-progress-text"
-        >
-          0%
-        </span>
       </div>
     </div>
     <div
@@ -692,37 +788,461 @@ exports[`Renders progress demo correctly 1`] = `
           style="stroke-dasharray:165.23228207808043px 295.3097094374406px;stroke-dashoffset:-37.5px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
         />
       </svg>
-      <span
-        class="fishd-progress-text"
+      <div
+        class="fishd-progress-circle-info"
       >
-        75%
-      </span>
+        <span
+          class="fishd-progress-text"
+        >
+          75%
+        </span>
+      </div>
     </div>
   </div>
   <div
     class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
   >
-    <div>
+    <div
+      class="fishd-progress-line-ctner"
+    >
       <div
-        class="fishd-progress-outer"
+        class="fishd-progress-basic"
       >
         <div
-          class="fishd-progress-inner"
+          class="fishd-progress-outer"
         >
           <div
-            class="fishd-progress-bg"
-            style="width:60%;height:8px;border-radius:100px"
-          />
+            class="fishd-progress-inner"
+          >
+            <div
+              class="fishd-progress-bg"
+              style="width:60%;height:8px;border-radius:100px"
+            />
+            <div
+              class="fishd-progress-success-bg"
+              style="width:30%;height:8px;border-radius:100px"
+            />
+          </div>
+        </div>
+        <span
+          class="fishd-progress-text"
+        >
+          60%
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
+  >
+    <div
+      class="fishd-progress-line-ctner"
+    >
+      <div
+        class="fishd-progress-basic"
+      >
+        <div
+          class="fishd-progress-outer"
+        >
           <div
-            class="fishd-progress-success-bg"
-            style="width:30%;height:8px;border-radius:100px"
+            class="fishd-progress-inner"
+          >
+            <div
+              class="fishd-progress-bg"
+              style="width:65%;height:8px;border-radius:100px"
+            >
+              <div
+                class="fishd-progress-extra"
+              >
+                <i
+                  class="fishdicon fishdicon-demo-like"
+                  style="color:#50E3C2"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <span
+          class="fishd-progress-text"
+        >
+          65%
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-progress fishd-progress-line fishd-progress-status-exception fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-line-ctner"
+      >
+        <div
+          class="fishd-progress-basic"
+        >
+          <div
+            class="fishd-progress-outer"
+          >
+            <div
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:70%;height:8px;border-radius:100px"
+              />
+            </div>
+          </div>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-error"
+            />
+          </span>
+        </div>
+        <span
+          class="fishd-progress-msg"
+        >
+          网络错误
+        </span>
+      </div>
+    </div>
+    <div
+      class="fishd-progress fishd-progress-line fishd-progress-status-success fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-line-ctner"
+      >
+        <div
+          class="fishd-progress-basic"
+        >
+          <div
+            class="fishd-progress-outer"
+          >
+            <div
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:100%;height:8px;border-radius:100px"
+              />
+            </div>
+          </div>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-success"
+            />
+          </span>
+        </div>
+        <span
+          class="fishd-progress-msg"
+        >
+          上传成功
+        </span>
+      </div>
+    </div>
+    <div
+      class="fishd-progress fishd-progress-circle fishd-progress-status-exception fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-inner"
+        style="width:120px;height:120px;font-size:24px"
+      >
+        <svg
+          class="fishd-progress-circle "
+          viewBox="0 0 100 100"
+        >
+          <path
+            class="fishd-progress-circle-trail"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#f3f3f3"
+            stroke-width="6"
+            style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s"
           />
+          <path
+            class="fishd-progress-circle-path"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#ff5500"
+            stroke-linecap="round"
+            stroke-width="6"
+            style="stroke-dasharray:206.7167966062084px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
+          />
+        </svg>
+        <div
+          class="fishd-progress-circle-info"
+        >
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-alone-error"
+            />
+          </span>
+          <span
+            class="fishd-progress-msg"
+          >
+            网络错误
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-progress fishd-progress-circle fishd-progress-status-success fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-inner"
+        style="width:120px;height:120px;font-size:24px"
+      >
+        <svg
+          class="fishd-progress-circle "
+          viewBox="0 0 100 100"
+        >
+          <path
+            class="fishd-progress-circle-trail"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#f3f3f3"
+            stroke-width="6"
+            style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s"
+          />
+          <path
+            class="fishd-progress-circle-path"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#87d068"
+            stroke-linecap="round"
+            stroke-width="6"
+            style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
+          />
+        </svg>
+        <div
+          class="fishd-progress-circle-info"
+        >
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-alone-success"
+            />
+          </span>
+          <span
+            class="fishd-progress-msg"
+          >
+            上传成功
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-progress fishd-progress-line fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-line-ctner"
+      >
+        <div
+          class="fishd-progress-basic"
+        >
+          <div
+            class="fishd-progress-outer"
+          >
+            <div
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:30%;height:8px;border-radius:100px"
+              />
+            </div>
+          </div>
+          <span
+            class="fishd-progress-text"
+          >
+            30%
+          </span>
+        </div>
+        <span
+          class="fishd-progress-oper"
+        >
+          <button
+            class="fishd-btn fishd-progress-oper-btn fishd-btn-sm"
+            type="button"
+          >
+            <span>
+              取 消
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div
+      class="fishd-progress fishd-progress-line fishd-progress-status-exception fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-line-ctner"
+      >
+        <div
+          class="fishd-progress-basic"
+        >
+          <div
+            class="fishd-progress-outer"
+          >
+            <div
+              class="fishd-progress-inner"
+            >
+              <div
+                class="fishd-progress-bg"
+                style="width:70%;height:8px;border-radius:100px"
+              />
+            </div>
+          </div>
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-error"
+            />
+          </span>
+        </div>
+        <span
+          class="fishd-progress-oper"
+        >
+          <button
+            class="fishd-btn fishd-progress-oper-btn fishd-btn-sm"
+            type="button"
+          >
+            <span>
+              重 试
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div
+      class="fishd-progress fishd-progress-circle fishd-progress-status-normal fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-inner"
+        style="width:120px;height:120px;font-size:24px"
+      >
+        <svg
+          class="fishd-progress-circle "
+          viewBox="0 0 100 100"
+        >
+          <path
+            class="fishd-progress-circle-trail"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#f3f3f3"
+            stroke-width="6"
+            style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s"
+          />
+          <path
+            class="fishd-progress-circle-path"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#108ee9"
+            stroke-linecap="round"
+            stroke-width="6"
+            style="stroke-dasharray:88.59291283123217px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
+          />
+        </svg>
+        <div
+          class="fishd-progress-circle-info"
+        >
+          <span
+            class="fishd-progress-text"
+          >
+            30%
+          </span>
         </div>
       </div>
       <span
-        class="fishd-progress-text"
+        class="fishd-progress-oper"
       >
-        60%
+        <button
+          class="fishd-btn fishd-progress-oper-btn fishd-btn-sm"
+          type="button"
+        >
+          <span>
+            取 消
+          </span>
+        </button>
+      </span>
+    </div>
+    <div
+      class="fishd-progress fishd-progress-circle fishd-progress-status-exception fishd-progress-show-info fishd-progress-default"
+    >
+      <div
+        class="fishd-progress-inner"
+        style="width:120px;height:120px;font-size:24px"
+      >
+        <svg
+          class="fishd-progress-circle "
+          viewBox="0 0 100 100"
+        >
+          <path
+            class="fishd-progress-circle-trail"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#f3f3f3"
+            stroke-width="6"
+            style="stroke-dasharray:295.3097094374406px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s"
+          />
+          <path
+            class="fishd-progress-circle-path"
+            d="M 50,50 m 0,-47
+     a 47,47 0 1 1 0,94
+     a 47,47 0 1 1 0,-94"
+            fill-opacity="0"
+            stroke="#ff5500"
+            stroke-linecap="round"
+            stroke-width="6"
+            style="stroke-dasharray:206.7167966062084px 295.3097094374406px;stroke-dashoffset:-0px;transition:stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s"
+          />
+        </svg>
+        <div
+          class="fishd-progress-circle-info"
+        >
+          <span
+            class="fishd-progress-text"
+          >
+            <i
+              class="fishdicon fishdicon-hints-alone-error"
+            />
+          </span>
+        </div>
+      </div>
+      <span
+        class="fishd-progress-oper"
+      >
+        <button
+          class="fishd-btn fishd-progress-oper-btn fishd-btn-sm"
+          type="button"
+        >
+          <span>
+            重 试
+          </span>
+        </button>
       </span>
     </div>
   </div>

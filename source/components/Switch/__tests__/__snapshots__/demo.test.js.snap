@@ -67,7 +67,25 @@ exports[`Renders switch demo correctly 1`] = `
   </div>
   <div>
     <span
+      class="fishd-switch-small fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+    <br />
+    <span
       class="fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+    <br />
+    <span
+      class="fishd-switch-large fishd-switch fishd-switch-checked"
       tabindex="0"
     >
       <span
@@ -81,10 +99,43 @@ exports[`Renders switch demo correctly 1`] = `
     >
       <span
         class="fishd-switch-inner"
-      />
+      >
+        开
+      </span>
+    </span>
+    <br />
+    <span
+      class="fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      >
+        开
+      </span>
+    </span>
+    <br />
+    <span
+      class="fishd-switch-large fishd-switch fishd-switch-checked"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      >
+        开
+      </span>
     </span>
   </div>
   <div>
+    <span
+      class="fishd-switch-small fishd-switch-loading fishd-switch"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+    <br />
     <span
       class="fishd-switch-loading fishd-switch fishd-switch-checked"
       tabindex="0"
@@ -95,7 +146,7 @@ exports[`Renders switch demo correctly 1`] = `
     </span>
     <br />
     <span
-      class="fishd-switch-small fishd-switch-loading fishd-switch"
+      class="fishd-switch-large fishd-switch-loading fishd-switch"
       tabindex="0"
     >
       <span

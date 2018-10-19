@@ -607,7 +607,7 @@ exports[`Steps render renders status correctly 1`] = `
       class="fishd-steps-item-icon"
     >
       <span
-        class="fishd-steps-icon fishdicon fishdicon-check-line"
+        class="fishd-steps-icon fishdicon fishdicon-close-tag-line"
       />
     </div>
     <div

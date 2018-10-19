@@ -326,7 +326,7 @@ exports[`Renders layout demo correctly 1`] = `
                 >
                   <span>
                     <i
-                      class="fishdicon fishdicon-user"
+                      class="fishdicon fishdicon-demo-play"
                     />
                     subnav 1
                   </span>
@@ -381,7 +381,7 @@ exports[`Renders layout demo correctly 1`] = `
                 >
                   <span>
                     <i
-                      class="fishdicon fishdicon-laptop"
+                      class="fishdicon fishdicon-demo-play"
                     />
                     subnav 2
                   </span>
@@ -403,7 +403,7 @@ exports[`Renders layout demo correctly 1`] = `
                 >
                   <span>
                     <i
-                      class="fishdicon fishdicon-notification"
+                      class="fishdicon fishdicon-demo-play"
                     />
                     subnav 3
                   </span>
@@ -494,7 +494,7 @@ exports[`Renders layout demo correctly 1`] = `
               >
                 <span>
                   <i
-                    class="fishdicon fishdicon-user"
+                    class="fishdicon fishdicon-demo-play"
                   />
                   subnav 1
                 </span>
@@ -549,7 +549,7 @@ exports[`Renders layout demo correctly 1`] = `
               >
                 <span>
                   <i
-                    class="fishdicon fishdicon-laptop"
+                    class="fishdicon fishdicon-demo-play"
                   />
                   subnav 2
                 </span>
@@ -571,7 +571,7 @@ exports[`Renders layout demo correctly 1`] = `
               >
                 <span>
                   <i
-                    class="fishdicon fishdicon-notification"
+                    class="fishdicon fishdicon-demo-play"
                   />
                   subnav 3
                 </span>
@@ -662,7 +662,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-pie-chart"
+              class="fishdicon fishdicon-demo-play"
             />
             <span>
               Option 1
@@ -674,7 +674,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-desktop"
+              class="fishdicon fishdicon-demo-pie"
             />
             <span>
               Option 2
@@ -692,7 +692,7 @@ exports[`Renders layout demo correctly 1`] = `
             >
               <span>
                 <i
-                  class="fishdicon fishdicon-user"
+                  class="fishdicon fishdicon-demo-grid"
                 />
                 <span>
                   User
@@ -716,7 +716,7 @@ exports[`Renders layout demo correctly 1`] = `
             >
               <span>
                 <i
-                  class="fishdicon fishdicon-team"
+                  class="fishdicon fishdicon-demo-grid"
                 />
                 <span>
                   Team
@@ -734,7 +734,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-file"
+              class="fishdicon fishdicon-demo-file"
             />
             <span>
               File
@@ -829,7 +829,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-user"
+              class="fishdicon fishdicon-demo-play"
             />
             <span>
               nav 1
@@ -841,7 +841,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-video-camera"
+              class="fishdicon fishdicon-demo-play"
             />
             <span>
               nav 2
@@ -853,7 +853,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-upload"
+              class="fishdicon fishdicon-demo-play"
             />
             <span>
               nav 3
@@ -870,7 +870,7 @@ exports[`Renders layout demo correctly 1`] = `
         style="background:#fff;padding:0"
       >
         <i
-          class="fishdicon fishdicon-menu-fold trigger"
+          class="fishdicon fishdicon-menu-line trigger"
         />
       </div>
       <div
@@ -905,7 +905,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-user"
+              class="fishdicon fishdicon-demo-play"
             />
             <span
               class="nav-text"
@@ -919,7 +919,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-video-camera"
+              class="fishdicon fishdicon-demo-play"
             />
             <span
               class="nav-text"
@@ -933,7 +933,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-upload"
+              class="fishdicon fishdicon-demo-play"
             />
             <span
               class="nav-text"
@@ -947,7 +947,7 @@ exports[`Renders layout demo correctly 1`] = `
             style="padding-left:24px"
           >
             <i
-              class="fishdicon fishdicon-user"
+              class="fishdicon fishdicon-demo-play"
             />
             <span
               class="nav-text"

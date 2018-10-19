@@ -10,24 +10,10 @@ exports[`Renders upload demo correctly 1`] = `
       style="display:"
     />
     <div
-      class="fishd-upload-list fishd-upload-list-text"
-    />
-  </span>
-  <span
-    class="avatar-uploader"
-  >
-    <div
-      class="fishd-upload fishd-upload-select fishd-upload-select-picture-card"
-      style="display:"
-    />
-  </span>
-  <span
-    class=""
-  >
-    <div
-      class="fishd-upload fishd-upload-select fishd-upload-select-text"
-      style="display:"
-    />
+      class="fishd-upload-tip"
+    >
+      这里是上传提示
+    </div>
     <div
       class="fishd-upload-list fishd-upload-list-text"
     >
@@ -39,22 +25,19 @@ exports[`Renders upload demo correctly 1`] = `
         >
           <span>
             <i
-              class="fishdicon fishdicon-paper-clip"
+              class="fishdicon fishdicon-clip-line"
             />
-            <a
+            <span
               class="fishd-upload-list-item-name"
-              href="http://www.baidu.com/xxx.png"
-              rel="noopener noreferrer"
-              target="_blank"
               title="xxx.png"
             >
               xxx.png
-            </a>
+            </span>
           </span>
         </div>
         <i
-          class="fishdicon fishdicon-cross"
-          title="Remove file"
+          class="fishdicon fishdicon-hints-alone-error"
+          title="移除文件"
         />
       </div>
       <div
@@ -65,48 +48,19 @@ exports[`Renders upload demo correctly 1`] = `
         >
           <span>
             <i
-              class="fishdicon fishdicon-paper-clip"
+              class="fishdicon fishdicon-clip-line"
             />
-            <a
+            <span
               class="fishd-upload-list-item-name"
-              href="http://www.baidu.com/yyy.png"
-              rel="noopener noreferrer"
-              target="_blank"
               title="yyy.png"
             >
               yyy.png
-            </a>
+            </span>
           </span>
         </div>
         <i
-          class="fishdicon fishdicon-cross"
-          title="Remove file"
-        />
-      </div>
-      <div
-        class="fishd-upload-list-item fishd-upload-list-item-error"
-      >
-        <div
-          class="fishd-upload-list-item-info"
-        >
-          <span>
-            <i
-              class="fishdicon fishdicon-paper-clip"
-            />
-            <a
-              class="fishd-upload-list-item-name"
-              href="http://www.baidu.com/zzz.png"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="zzz.png"
-            >
-              zzz.png
-            </a>
-          </span>
-        </div>
-        <i
-          class="fishdicon fishdicon-cross"
-          title="Remove file"
+          class="fishdicon fishdicon-hints-alone-error"
+          title="移除文件"
         />
       </div>
     </div>
@@ -156,15 +110,15 @@ exports[`Renders upload demo correctly 1`] = `
               href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
               rel="noopener noreferrer"
               target="_blank"
-              title="Preview file"
+              title="预览文件"
             >
               <i
-                class="fishdicon fishdicon-eye-o"
+                class="fishdicon fishdicon-watch-line"
               />
             </a>
             <i
-              class="fishdicon fishdicon-delete"
-              title="Remove file"
+              class="fishdicon fishdicon-delete-line"
+              title="移除文件"
             />
           </span>
         </div>
@@ -173,8 +127,91 @@ exports[`Renders upload demo correctly 1`] = `
         class="fishd-upload fishd-upload-select fishd-upload-select-picture-card"
         style="display:"
       />
+      <div
+        class="fishd-upload-tip"
+      >
+        这里是上传提示
+      </div>
     </span>
+    <div
+      class="fishd-picturepreview-root fishd-picturepreview-hide"
+      data-show="false"
+    >
+      <div
+        class="fishd-picturepreview-mask"
+      />
+      <div
+        class="fishd-picturepreview fishd-picturepreview-hide"
+        data-show="false"
+      >
+        <i
+          class="fishdicon fishdicon-picture-close close"
+        />
+        <i
+          class="fishdicon fishdicon-picture-left prev fishd-picturepreview-hide"
+        />
+        <i
+          class="fishdicon fishdicon-picture-right next fishd-picturepreview-hide"
+        />
+        <div
+          class="canvas"
+        >
+          <img
+            class="img"
+            src=""
+          />
+        </div>
+        <div
+          class="toolbar fishd-picturepreview-hide"
+        >
+          <div
+            class="toolbarTitle fishd-picturepreview-hide"
+          >
+            NaN/1
+          </div>
+          <div
+            class="toolbarCon"
+          >
+            <i
+              class="fishdicon fishdicon-picture-equal icon"
+            />
+            <i
+              class="fishdicon fishdicon-picture-fullscreen icon"
+            />
+            <i
+              class="fishdicon fishdicon-picture-enlarge icon"
+            />
+            <i
+              class="fishdicon fishdicon-picture-micrify icon icon-disabled"
+            />
+            <i
+              class="fishdicon fishdicon-picture-rotate icon"
+            />
+            <a>
+              <i
+                class="fishdicon fishdicon-picture-download icon"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <span
+    class=""
+  >
+    <div
+      class="fishd-upload fishd-upload-drag"
+    />
+    <div
+      class="fishd-upload-tip"
+    >
+      这里是上传提示
+    </div>
+    <div
+      class="fishd-upload-list fishd-upload-list-text"
+    />
+  </span>
   <span
     class=""
   >
@@ -182,6 +219,217 @@ exports[`Renders upload demo correctly 1`] = `
       class="fishd-upload fishd-upload-select fishd-upload-select-text"
       style="display:"
     />
+    <div
+      class="fishd-upload-tip"
+    >
+      这里是上传提示
+    </div>
+    <div>
+      <div
+        class="fishd-upload-list-scroll-info"
+      >
+        <span>
+          已上传 7 项
+        </span>
+        <span
+          class="fishd-upload-list-scroll-delete-all"
+        >
+          全部删除
+        </span>
+      </div>
+      <div
+        class="fishd-upload-list fishd-upload-list-text fishd-upload-list-scroll"
+        style="height:132px"
+      >
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <i
+                class="fishdicon fishdicon-clip-line"
+              />
+              <span
+                class="fishd-upload-list-item-name"
+                title="xxx.png"
+              >
+                xxx.png
+              </span>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <i
+                class="fishdicon fishdicon-clip-line"
+              />
+              <span
+                class="fishd-upload-list-item-name"
+                title="yyy.png"
+              >
+                yyy.png
+              </span>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-error"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <i
+                class="fishdicon fishdicon-clip-line"
+              />
+              <span
+                class="fishd-upload-list-item-name"
+                title="zzz.png"
+              >
+                zzz.png
+              </span>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <i
+                class="fishdicon fishdicon-clip-line"
+              />
+              <span
+                class="fishd-upload-list-item-name"
+                title="xxx.png"
+              >
+                xxx.png
+              </span>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <i
+                class="fishdicon fishdicon-clip-line"
+              />
+              <span
+                class="fishd-upload-list-item-name"
+                title="yyy.png"
+              >
+                yyy.png
+              </span>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <i
+                class="fishdicon fishdicon-clip-line"
+              />
+              <span
+                class="fishd-upload-list-item-name"
+                title="xxx.png"
+              >
+                xxx.png
+              </span>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
+          />
+        </div>
+        <div
+          class="fishd-upload-list-item fishd-upload-list-item-done"
+        >
+          <div
+            class="fishd-upload-list-item-info"
+          >
+            <span>
+              <i
+                class="fishdicon fishdicon-clip-line"
+              />
+              <span
+                class="fishd-upload-list-item-name"
+                title="yyy.png"
+              >
+                yyy.png
+              </span>
+            </span>
+          </div>
+          <i
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
+          />
+        </div>
+      </div>
+    </div>
+  </span>
+  <span
+    class="avatar-uploader"
+  >
+    <div
+      class="fishd-upload fishd-upload-select fishd-upload-select-picture-card"
+      style="display:"
+    />
+    <div
+      class="fishd-upload-tip"
+    >
+      这里是上传提示
+    </div>
+  </span>
+  <span
+    class=""
+  >
+    <div
+      class="fishd-upload fishd-upload-select fishd-upload-select-text"
+      style="display:"
+    />
+    <div
+      class="fishd-upload-tip"
+    >
+      这里是上传提示
+    </div>
     <div
       class="fishd-upload-list fishd-upload-list-text"
     >
@@ -193,35 +441,22 @@ exports[`Renders upload demo correctly 1`] = `
         >
           <span>
             <i
-              class="fishdicon fishdicon-paper-clip"
+              class="fishdicon fishdicon-clip-line"
             />
-            <a
+            <span
               class="fishd-upload-list-item-name"
-              href="http://www.baidu.com/xxx.png"
-              rel="noopener noreferrer"
-              target="_blank"
               title="xxx.png"
             >
               xxx.png
-            </a>
+            </span>
           </span>
         </div>
         <i
-          class="fishdicon fishdicon-cross"
-          title="Remove file"
+          class="fishdicon fishdicon-hints-alone-error"
+          title="移除文件"
         />
       </div>
     </div>
-  </span>
-  <span
-    class=""
-  >
-    <div
-      class="fishd-upload fishd-upload-drag"
-    />
-    <div
-      class="fishd-upload-list fishd-upload-list-text"
-    />
   </span>
   <div>
     <span
@@ -231,6 +466,11 @@ exports[`Renders upload demo correctly 1`] = `
         class="fishd-upload fishd-upload-select fishd-upload-select-picture"
         style="display:"
       />
+      <div
+        class="fishd-upload-tip"
+      >
+        这里是上传提示
+      </div>
       <div
         class="fishd-upload-list fishd-upload-list-picture"
       >
@@ -264,8 +504,8 @@ exports[`Renders upload demo correctly 1`] = `
             </span>
           </div>
           <i
-            class="fishdicon fishdicon-cross"
-            title="Remove file"
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
           />
         </div>
         <div
@@ -275,31 +515,20 @@ exports[`Renders upload demo correctly 1`] = `
             class="fishd-upload-list-item-info"
           >
             <span>
-              <a
-                class="fishd-upload-list-item-thumbnail"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="yyy.png"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                />
-              </a>
-              <a
+              <i
+                class="fishdicon fishdicon-image-line fishd-upload-list-item-thumbnail"
+              />
+              <span
                 class="fishd-upload-list-item-name"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                rel="noopener noreferrer"
-                target="_blank"
                 title="yyy.png"
               >
                 yyy.png
-              </a>
+              </span>
             </span>
           </div>
           <i
-            class="fishdicon fishdicon-cross"
-            title="Remove file"
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
           />
         </div>
       </div>
@@ -314,6 +543,11 @@ exports[`Renders upload demo correctly 1`] = `
         style="display:"
       />
       <div
+        class="fishd-upload-tip"
+      >
+        这里是上传提示
+      </div>
+      <div
         class="fishd-upload-list fishd-upload-list-picture"
       >
         <div
@@ -346,8 +580,8 @@ exports[`Renders upload demo correctly 1`] = `
             </span>
           </div>
           <i
-            class="fishdicon fishdicon-cross"
-            title="Remove file"
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
           />
         </div>
         <div
@@ -357,31 +591,20 @@ exports[`Renders upload demo correctly 1`] = `
             class="fishd-upload-list-item-info"
           >
             <span>
-              <a
-                class="fishd-upload-list-item-thumbnail"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt="yyy.png"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                />
-              </a>
-              <a
+              <i
+                class="fishdicon fishdicon-image-line fishd-upload-list-item-thumbnail"
+              />
+              <span
                 class="fishd-upload-list-item-name"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                rel="noopener noreferrer"
-                target="_blank"
                 title="yyy.png"
               >
                 yyy.png
-              </a>
+              </span>
             </span>
           </div>
           <i
-            class="fishdicon fishdicon-cross"
-            title="Remove file"
+            class="fishdicon fishdicon-hints-alone-error"
+            title="移除文件"
           />
         </div>
       </div>
@@ -396,6 +619,11 @@ exports[`Renders upload demo correctly 1`] = `
         style="display:"
       />
       <div
+        class="fishd-upload-tip"
+      >
+        这里是上传提示
+      </div>
+      <div
         class="fishd-upload-list fishd-upload-list-text"
       />
     </span>
@@ -405,7 +633,7 @@ exports[`Renders upload demo correctly 1`] = `
       type="button"
     >
       <span>
-        Start Upload
+        开始上传
       </span>
     </button>
   </div>

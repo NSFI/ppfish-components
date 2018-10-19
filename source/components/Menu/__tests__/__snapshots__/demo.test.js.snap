@@ -65,6 +65,63 @@ exports[`Renders menu demo correctly 1`] = `
     </li>
   </ul>
   <ul
+    class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-vertical"
+    role="menu"
+    style="width:256px"
+  >
+    <li
+      class="fishd-menu-submenu fishd-menu-submenu-vertical"
+      role="menuitem"
+    >
+      <div
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="fishd-menu-submenu-title"
+      >
+        <span>
+          Navigation One
+        </span>
+        <i
+          class="fishd-menu-submenu-arrow"
+        />
+      </div>
+    </li>
+    <li
+      class="fishd-menu-submenu fishd-menu-submenu-vertical"
+      role="menuitem"
+    >
+      <div
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="fishd-menu-submenu-title"
+      >
+        <span>
+          Navigation Two
+        </span>
+        <i
+          class="fishd-menu-submenu-arrow"
+        />
+      </div>
+    </li>
+    <li
+      class="fishd-menu-submenu fishd-menu-submenu-vertical"
+      role="menuitem"
+    >
+      <div
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="fishd-menu-submenu-title"
+      >
+        <span>
+          Navigation Three
+        </span>
+        <i
+          class="fishd-menu-submenu-arrow"
+        />
+      </div>
+    </li>
+  </ul>
+  <ul
     class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-inline"
     role="menu"
     style="width:256px"
@@ -198,63 +255,142 @@ exports[`Renders menu demo correctly 1`] = `
       <div />
     </li>
   </ul>
-  <ul
-    class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-vertical"
-    role="menu"
+  <div
     style="width:256px"
   >
-    <li
-      class="fishd-menu-submenu fishd-menu-submenu-vertical"
-      role="menuitem"
+    <button
+      class="fishd-btn fishd-btn-primary"
+      style="margin-bottom:16px"
+      type="button"
     >
-      <div
-        aria-expanded="false"
-        aria-haspopup="true"
-        class="fishd-menu-submenu-title"
-      >
-        <span>
-          Navigation One
-        </span>
-        <i
-          class="fishd-menu-submenu-arrow"
-        />
-      </div>
-    </li>
-    <li
-      class="fishd-menu-submenu fishd-menu-submenu-vertical"
-      role="menuitem"
+      <i
+        class="fishdicon fishdicon-menu-line"
+      />
+    </button>
+    <ul
+      class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-inline"
+      role="menu"
     >
-      <div
-        aria-expanded="false"
-        aria-haspopup="true"
-        class="fishd-menu-submenu-title"
+      <li
+        class="fishd-menu-item fishd-menu-item-selected"
+        role="menuitem"
+        style="padding-left:24px"
       >
-        <span>
-          Navigation Two
-        </span>
         <i
-          class="fishd-menu-submenu-arrow"
+          class="fishdicon fishdicon-demo-pie"
         />
-      </div>
-    </li>
-    <li
-      class="fishd-menu-submenu fishd-menu-submenu-vertical"
-      role="menuitem"
-    >
-      <div
-        aria-expanded="false"
-        aria-haspopup="true"
-        class="fishd-menu-submenu-title"
+        <span>
+          Option 1
+        </span>
+      </li>
+      <li
+        class="fishd-menu-item"
+        role="menuitem"
+        style="padding-left:24px"
       >
-        <span>
-          Navigation Three
-        </span>
         <i
-          class="fishd-menu-submenu-arrow"
+          class="fishdicon fishdicon-demo-note"
         />
-      </div>
-    </li>
-  </ul>
+        <span>
+          Option 2
+        </span>
+      </li>
+      <li
+        class="fishd-menu-item"
+        role="menuitem"
+        style="padding-left:24px"
+      >
+        <i
+          class="fishdicon fishdicon-demo-play"
+        />
+        <span>
+          Option 3
+        </span>
+      </li>
+      <li
+        class="fishd-menu-submenu fishd-menu-submenu-inline fishd-menu-submenu-open"
+        role="menuitem"
+      >
+        <div
+          aria-expanded="true"
+          aria-haspopup="true"
+          aria-owns="sub1$Menu"
+          class="fishd-menu-submenu-title"
+          style="padding-left:24px"
+        >
+          <span>
+            <i
+              class="fishdicon fishdicon-demo-mail"
+            />
+            <span>
+              Navigation One
+            </span>
+          </span>
+          <i
+            class="fishd-menu-submenu-arrow"
+          />
+        </div>
+        <ul
+          class="fishd-menu  fishd-menu-sub fishd-menu-inline"
+          id="sub1$Menu"
+          role="menu"
+        >
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:48px"
+          >
+            Option 5
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:48px"
+          >
+            Option 6
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:48px"
+          >
+            Option 7
+          </li>
+          <li
+            class="fishd-menu-item"
+            role="menuitem"
+            style="padding-left:48px"
+          >
+            Option 8
+          </li>
+        </ul>
+      </li>
+      <li
+        class="fishd-menu-submenu fishd-menu-submenu-inline"
+        role="menuitem"
+      >
+        <div
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="fishd-menu-submenu-title"
+          style="padding-left:24px"
+        >
+          <span>
+            <i
+              class="fishdicon fishdicon-demo-phone"
+            />
+            <span>
+              Navigation Two
+            </span>
+          </span>
+          <i
+            class="fishd-menu-submenu-arrow"
+          />
+        </div>
+        <div />
+      </li>
+    </ul>
+  </div>
   <ul
     class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-inline"
     role="menu"
@@ -353,57 +489,57 @@ exports[`Renders menu demo correctly 1`] = `
     </li>
   </ul>
   <div>
-    <div
-      class="fishd-radio-group fishd-radio-group-outline"
-      style="margin-bottom:10px"
+    <span
+      class="fishd-switch"
+      tabindex="0"
     >
-      <label
-        class="fishd-radio-button-wrapper fishd-radio-button-wrapper-checked"
-      >
-        <span
-          class="fishd-radio-button fishd-radio-button-checked"
-        >
-          <input
-            checked=""
-            class="fishd-radio-button-input"
-            type="radio"
-            value="dark"
-          />
-          <span
-            class="fishd-radio-button-inner"
-          />
-        </span>
-        <span>
-          Dark
-        </span>
-      </label>
-      <label
-        class="fishd-radio-button-wrapper"
-      >
-        <span
-          class="fishd-radio-button"
-        >
-          <input
-            class="fishd-radio-button-input"
-            type="radio"
-            value="light"
-          />
-          <span
-            class="fishd-radio-button-inner"
-          />
-        </span>
-        <span>
-          Light
-        </span>
-      </label>
-    </div>
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+     Change Mode
+    <span
+      class="ant-divider"
+      style="margin:0 1em"
+    />
+    <span
+      class="fishd-switch"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+     Change Theme
+    <br />
+    <br />
     <ul
-      class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+      class="fishd-menu fishd-menu-light fishd-menu-root fishd-menu-inline"
       role="menu"
       style="width:256px"
     >
       <li
-        class="fishd-menu-submenu fishd-menu-submenu-inline fishd-menu-submenu-open fishd-menu-submenu-selected"
+        class="fishd-menu-item fishd-menu-item-selected"
+        role="menuitem"
+        style="padding-left:24px"
+      >
+        <i
+          class="fishdicon fishdicon-demo-mail"
+        />
+        Navigation One
+      </li>
+      <li
+        class="fishd-menu-item"
+        role="menuitem"
+        style="padding-left:24px"
+      >
+        <i
+          class="fishdicon fishdicon-demo-play"
+        />
+        Navigation Two
+      </li>
+      <li
+        class="fishd-menu-submenu fishd-menu-submenu-inline fishd-menu-submenu-open"
         role="menuitem"
       >
         <div
@@ -414,7 +550,12 @@ exports[`Renders menu demo correctly 1`] = `
           style="padding-left:24px"
         >
           <span>
-            Navigation One
+            <i
+              class="fishdicon fishdicon-demo-grid"
+            />
+            <span>
+              Navigation Three
+            </span>
           </span>
           <i
             class="fishd-menu-submenu-arrow"
@@ -425,20 +566,6 @@ exports[`Renders menu demo correctly 1`] = `
           id="sub1$Menu"
           role="menu"
         >
-          <li
-            class="fishd-menu-item fishd-menu-item-selected"
-            role="menuitem"
-            style="padding-left:48px"
-          >
-            Option 1
-          </li>
-          <li
-            class="fishd-menu-item"
-            role="menuitem"
-            style="padding-left:48px"
-          >
-            Option 2
-          </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
@@ -453,6 +580,24 @@ exports[`Renders menu demo correctly 1`] = `
           >
             Option 4
           </li>
+          <li
+            class="fishd-menu-submenu fishd-menu-submenu-inline"
+            role="menuitem"
+          >
+            <div
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="fishd-menu-submenu-title"
+              style="padding-left:48px"
+              title="Submenu"
+            >
+              Submenu
+              <i
+                class="fishd-menu-submenu-arrow"
+              />
+            </div>
+            <div />
+          </li>
         </ul>
       </li>
       <li
@@ -466,26 +611,12 @@ exports[`Renders menu demo correctly 1`] = `
           style="padding-left:24px"
         >
           <span>
-            Navigtion Two
-          </span>
-          <i
-            class="fishd-menu-submenu-arrow"
-          />
-        </div>
-        <div />
-      </li>
-      <li
-        class="fishd-menu-submenu fishd-menu-submenu-inline"
-        role="menuitem"
-      >
-        <div
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="fishd-menu-submenu-title"
-          style="padding-left:24px"
-        >
-          <span>
-            Navigation Three
+            <i
+              class="fishdicon fishdicon-demo-phone"
+            />
+            <span>
+              Navigation Four
+            </span>
           </span>
           <i
             class="fishd-menu-submenu-arrow"

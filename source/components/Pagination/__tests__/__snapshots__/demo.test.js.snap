@@ -174,11 +174,11 @@ exports[`Renders pagination demo correctly 1`] = `
               class="fishdicon fishdicon-down-fill"
             />
           </div>
-          <span
+          <div
             class="fishd-select-option-single"
           >
             10 条/页
-          </span>
+          </div>
         </div>
       </div>
     </li>
@@ -600,11 +600,11 @@ exports[`Renders pagination demo correctly 1`] = `
                 class="fishdicon fishdicon-down-fill"
               />
             </div>
-            <span
+            <div
               class="fishd-select-option-single"
             >
               10 条/页
-            </span>
+            </div>
           </div>
         </div>
         <div

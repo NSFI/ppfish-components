@@ -7,59 +7,81 @@ exports[`Renders richEditor demo correctly 1`] = `
   >
     <div
       class="editor-head"
-      id="toolbar"
+      style="height:auto;overflow:auto"
     >
       <div
         class="toolbar-grp"
       >
         <button
-          class="item ql-link"
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
         />
         <button
-          class="item ql-bold"
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
         />
         <button
-          class="item ql-italic"
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
         />
         <button
-          class="item ql-underline"
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
         />
       </div>
       <div
         class="toolbar-grp"
       >
         <div
-          class="u-color-picker-wrap "
+          class="item custom-size fishdicon fishdicon-richeditor-size"
         >
-          <div
-            class="item custom-color"
-            style="background-color:rgba(255,0,0,1)"
-            unselectable="unselectable"
-          >
-            <button
-              class="ql-customColor"
-              style="display:none"
-            />
-          </div>
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
         </div>
       </div>
       <div
         class="toolbar-grp"
       >
-        <select
-          class="item ql-align"
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+          type="button"
+          value=""
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+          type="button"
+          value="center"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+          type="button"
+          value="right"
         />
       </div>
       <div
         class="toolbar-grp"
       >
         <button
-          class="item ql-list"
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
           type="button"
           value="ordered"
         />
         <button
-          class="item ql-list"
+          class="item ql-list fishdicon fishdicon-richeditor-list"
           type="button"
           value="bullet"
         />
@@ -68,983 +90,929 @@ exports[`Renders richEditor demo correctly 1`] = `
         class="toolbar-grp"
       >
         <div
-          class="item custom-emoji iconfont icon-emoticon-smile"
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
         >
-          <div
-            class="hide custom-emoji-panel"
-          >
-            <div
-              class="custom-emoji-con"
-            >
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-01"
-                  title="[可爱]"
-                  value="[可爱]__http://ysf.space/sdk/res/portrait/emoji/emoji_01.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-00"
-                  title="[大笑]"
-                  value="[大笑]__http://ysf.space/sdk/res/portrait/emoji/emoji_00.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-02"
-                  title="[色]"
-                  value="[色]__http://ysf.space/sdk/res/portrait/emoji/emoji_02.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-03"
-                  title="[嘘]"
-                  value="[嘘]__http://ysf.space/sdk/res/portrait/emoji/emoji_03.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-04"
-                  title="[亲]"
-                  value="[亲]__http://ysf.space/sdk/res/portrait/emoji/emoji_04.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-05"
-                  title="[呆]"
-                  value="[呆]__http://ysf.space/sdk/res/portrait/emoji/emoji_05.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-06"
-                  title="[口水]"
-                  value="[口水]__http://ysf.space/sdk/res/portrait/emoji/emoji_06.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-145"
-                  title="[汗]"
-                  value="[汗]__http://ysf.space/sdk/res/portrait/emoji/emoji_145.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-07"
-                  title="[呲牙]"
-                  value="[呲牙]__http://ysf.space/sdk/res/portrait/emoji/emoji_07.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-08"
-                  title="[鬼脸]"
-                  value="[鬼脸]__http://ysf.space/sdk/res/portrait/emoji/emoji_08.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-09"
-                  title="[害羞]"
-                  value="[害羞]__http://ysf.space/sdk/res/portrait/emoji/emoji_09.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-10"
-                  title="[偷笑]"
-                  value="[偷笑]__http://ysf.space/sdk/res/portrait/emoji/emoji_10.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-11"
-                  title="[调皮]"
-                  value="[调皮]__http://ysf.space/sdk/res/portrait/emoji/emoji_11.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-12"
-                  title="[可怜]"
-                  value="[可怜]__http://ysf.space/sdk/res/portrait/emoji/emoji_12.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-13"
-                  title="[敲]"
-                  value="[敲]__http://ysf.space/sdk/res/portrait/emoji/emoji_13.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-14"
-                  title="[惊讶]"
-                  value="[惊讶]__http://ysf.space/sdk/res/portrait/emoji/emoji_14.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-15"
-                  title="[流感]"
-                  value="[流感]__http://ysf.space/sdk/res/portrait/emoji/emoji_15.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-16"
-                  title="[委屈]"
-                  value="[委屈]__http://ysf.space/sdk/res/portrait/emoji/emoji_16.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-17"
-                  title="[流泪]"
-                  value="[流泪]__http://ysf.space/sdk/res/portrait/emoji/emoji_17.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-18"
-                  title="[嚎哭]"
-                  value="[嚎哭]__http://ysf.space/sdk/res/portrait/emoji/emoji_18.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-19"
-                  title="[惊恐]"
-                  value="[惊恐]__http://ysf.space/sdk/res/portrait/emoji/emoji_19.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-20"
-                  title="[怒]"
-                  value="[怒]__http://ysf.space/sdk/res/portrait/emoji/emoji_20.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-21"
-                  title="[酷]"
-                  value="[酷]__http://ysf.space/sdk/res/portrait/emoji/emoji_21.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-22"
-                  title="[不说]"
-                  value="[不说]__http://ysf.space/sdk/res/portrait/emoji/emoji_22.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-23"
-                  title="[鄙视]"
-                  value="[鄙视]__http://ysf.space/sdk/res/portrait/emoji/emoji_23.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-24"
-                  title="[阿弥陀佛]"
-                  value="[阿弥陀佛]__http://ysf.space/sdk/res/portrait/emoji/emoji_24.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-25"
-                  title="[奸笑]"
-                  value="[奸笑]__http://ysf.space/sdk/res/portrait/emoji/emoji_25.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-26"
-                  title="[睡着]"
-                  value="[睡着]__http://ysf.space/sdk/res/portrait/emoji/emoji_26.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-27"
-                  title="[口罩]"
-                  value="[口罩]__http://ysf.space/sdk/res/portrait/emoji/emoji_27.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-28"
-                  title="[生气]"
-                  value="[生气]__http://ysf.space/sdk/res/portrait/emoji/emoji_28.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-29"
-                  title="[抠鼻孔]"
-                  value="[抠鼻孔]__http://ysf.space/sdk/res/portrait/emoji/emoji_29.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-30"
-                  title="[疑问]"
-                  value="[疑问]__http://ysf.space/sdk/res/portrait/emoji/emoji_30.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-31"
-                  title="[怒骂]"
-                  value="[怒骂]__http://ysf.space/sdk/res/portrait/emoji/emoji_31.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-32"
-                  title="[晕]"
-                  value="[晕]__http://ysf.space/sdk/res/portrait/emoji/emoji_32.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-33"
-                  title="[呕吐]"
-                  value="[呕吐]__http://ysf.space/sdk/res/portrait/emoji/emoji_33.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-160"
-                  title="[拜一拜]"
-                  value="[拜一拜]__http://ysf.space/sdk/res/portrait/emoji/emoji_160.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-161"
-                  title="[惊喜]"
-                  value="[惊喜]__http://ysf.space/sdk/res/portrait/emoji/emoji_161.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-162"
-                  title="[流汗]"
-                  value="[流汗]__http://ysf.space/sdk/res/portrait/emoji/emoji_162.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-163"
-                  title="[卖萌]"
-                  value="[卖萌]__http://ysf.space/sdk/res/portrait/emoji/emoji_163.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-164"
-                  title="[默契眨眼]"
-                  value="[默契眨眼]__http://ysf.space/sdk/res/portrait/emoji/emoji_164.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-165"
-                  title="[烧香拜佛]"
-                  value="[烧香拜佛]__http://ysf.space/sdk/res/portrait/emoji/emoji_165.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-166"
-                  title="[晚安]"
-                  value="[晚安]__http://ysf.space/sdk/res/portrait/emoji/emoji_166.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-116"
-                  title="[撇嘴]"
-                  value="[撇嘴]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_01.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-117"
-                  title="[难过]"
-                  value="[难过]__http://ysf.space/sdk/res/portrait/emoji/1f641.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-118"
-                  title="[冷汗]"
-                  value="[冷汗]__http://ysf.space/sdk/res/portrait/emoji/1f628.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-119"
-                  title="[抓狂]"
-                  value="[抓狂]__http://ysf.space/sdk/res/portrait/emoji/1f629.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-120"
-                  title="[傲慢]"
-                  value="[傲慢]__http://ysf.space/sdk/res/portrait/emoji/1f615.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-121"
-                  title="[困]"
-                  value="[困]__http://ysf.space/sdk/res/portrait/emoji/1f62a.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-123"
-                  title="[疯了]"
-                  value="[疯了]__http://ysf.space/sdk/res/portrait/emoji/1f616.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-124"
-                  title="[白眼]"
-                  value="[白眼]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_02.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-125"
-                  title="[衰]"
-                  value="[衰]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_05.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-126"
-                  title="[再见]"
-                  value="[再见]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_06.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-127"
-                  title="[哼哼]"
-                  value="[哼哼]__http://ysf.space/sdk/res/portrait/emoji/1f63e.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-129"
-                  title="[饥饿]"
-                  value="[饥饿]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_03.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-143"
-                  title="[飞吻]"
-                  value="[飞吻]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_10.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-144"
-                  title="[微笑]"
-                  value="[微笑]__http://ysf.space/sdk/res/portrait/emoji/1f642.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-145"
-                  title="[泪中带笑]"
-                  value="[泪中带笑]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_13.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-146"
-                  title="[吐舌头]"
-                  value="[吐舌头]__http://ysf.space/sdk/res/portrait/emoji/1f61d.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-147"
-                  title="[忧郁]"
-                  value="[忧郁]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_11.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-148"
-                  title="[尴尬]"
-                  value="[尴尬]__http://ysf.space/sdk/res/portrait/emoji/1f630.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-149"
-                  title="[舒适]"
-                  value="[舒适]__http://ysf.space/sdk/res/portrait/emoji/1f60c.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-150"
-                  title="[不悦]"
-                  value="[不悦]__http://ysf.space/sdk/res/portrait/emoji/1f612.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-155"
-                  title="[拍掌]"
-                  value="[拍掌]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_09.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-156"
-                  title="[糗大了]"
-                  value="[糗大了]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_07.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-122"
-                  title="[奋斗]"
-                  value="[奋斗]__http://ysf.space/sdk/res/portrait/emoji/1f4aa-1f3fc.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-130"
-                  title="[乒乓]"
-                  value="[乒乓]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_23.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-131"
-                  title="[猪头]"
-                  value="[猪头]__http://ysf.space/sdk/res/portrait/emoji/1f437.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-132"
-                  title="[玫瑰]"
-                  value="[玫瑰]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_25.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-133"
-                  title="[凋谢]"
-                  value="[凋谢]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_24.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-134"
-                  title="[瓢虫]"
-                  value="[瓢虫]__http://ysf.space/sdk/res/portrait/emoji/1f41e.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-135"
-                  title="[月亮]"
-                  value="[月亮]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_30.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-136"
-                  title="[礼物]"
-                  value="[礼物]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_28.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-137"
-                  title="[拥抱]"
-                  value="[拥抱]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_08.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-138"
-                  title="[抱拳]"
-                  value="[抱拳]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_18.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-139"
-                  title="[勾引]"
-                  value="[勾引]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_19.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-140"
-                  title="[差劲]"
-                  value="[差劲]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_20.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-141"
-                  title="[爱你]"
-                  value="[爱你]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_21.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-142"
-                  title="[NO]"
-                  value="[NO]__http://ysf.space/sdk/res/portrait/emoji/new_emoji_22.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-151"
-                  title="[幽灵]"
-                  value="[幽灵]__http://ysf.space/sdk/res/portrait/emoji/1f47b.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-152"
-                  title="[礼盒]"
-                  value="[礼盒]__http://ysf.space/sdk/res/portrait/emoji/1f49d.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-153"
-                  title="[拜托]"
-                  value="[拜托]__http://ysf.space/sdk/res/portrait/emoji/1f64f-1f3fc.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-154"
-                  title="[气球]"
-                  value="[气球]__http://ysf.space/sdk/res/portrait/emoji/1f388.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-34"
-                  title="[强]"
-                  value="[强]__http://ysf.space/sdk/res/portrait/emoji/emoji_34.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-35"
-                  title="[弱]"
-                  value="[弱]__http://ysf.space/sdk/res/portrait/emoji/emoji_35.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-36"
-                  title="[OK]"
-                  value="[OK]__http://ysf.space/sdk/res/portrait/emoji/emoji_36.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-37"
-                  title="[拳头]"
-                  value="[拳头]__http://ysf.space/sdk/res/portrait/emoji/emoji_37.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-38"
-                  title="[胜利]"
-                  value="[胜利]__http://ysf.space/sdk/res/portrait/emoji/emoji_38.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-39"
-                  title="[鼓掌]"
-                  value="[鼓掌]__http://ysf.space/sdk/res/portrait/emoji/emoji_39.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-167"
-                  title="[握手]"
-                  value="[握手]__http://ysf.space/sdk/res/portrait/emoji/emoji_167.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-40"
-                  title="[发怒]"
-                  value="[发怒]__http://ysf.space/sdk/res/portrait/emoji/emoji_40.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-41"
-                  title="[骷髅]"
-                  value="[骷髅]__http://ysf.space/sdk/res/portrait/emoji/emoji_41.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-42"
-                  title="[便便]"
-                  value="[便便]__http://ysf.space/sdk/res/portrait/emoji/emoji_42.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-43"
-                  title="[火]"
-                  value="[火]__http://ysf.space/sdk/res/portrait/emoji/emoji_43.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-44"
-                  title="[溜]"
-                  value="[溜]__http://ysf.space/sdk/res/portrait/emoji/emoji_44.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-45"
-                  title="[爱心]"
-                  value="[爱心]__http://ysf.space/sdk/res/portrait/emoji/emoji_45.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-46"
-                  title="[心碎]"
-                  value="[心碎]__http://ysf.space/sdk/res/portrait/emoji/emoji_46.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-47"
-                  title="[钟情]"
-                  value="[钟情]__http://ysf.space/sdk/res/portrait/emoji/emoji_47.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-48"
-                  title="[唇]"
-                  value="[唇]__http://ysf.space/sdk/res/portrait/emoji/emoji_48.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-49"
-                  title="[戒指]"
-                  value="[戒指]__http://ysf.space/sdk/res/portrait/emoji/emoji_49.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-50"
-                  title="[钻石]"
-                  value="[钻石]__http://ysf.space/sdk/res/portrait/emoji/emoji_50.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-51"
-                  title="[太阳]"
-                  value="[太阳]__http://ysf.space/sdk/res/portrait/emoji/emoji_51.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-52"
-                  title="[有时晴]"
-                  value="[有时晴]__http://ysf.space/sdk/res/portrait/emoji/emoji_52.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-53"
-                  title="[多云]"
-                  value="[多云]__http://ysf.space/sdk/res/portrait/emoji/emoji_53.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-54"
-                  title="[雷]"
-                  value="[雷]__http://ysf.space/sdk/res/portrait/emoji/emoji_54.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-55"
-                  title="[雨]"
-                  value="[雨]__http://ysf.space/sdk/res/portrait/emoji/emoji_55.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-56"
-                  title="[雪花]"
-                  value="[雪花]__http://ysf.space/sdk/res/portrait/emoji/emoji_56.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-57"
-                  title="[爱人]"
-                  value="[爱人]__http://ysf.space/sdk/res/portrait/emoji/emoji_57.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-58"
-                  title="[帽子]"
-                  value="[帽子]__http://ysf.space/sdk/res/portrait/emoji/emoji_58.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-59"
-                  title="[皇冠]"
-                  value="[皇冠]__http://ysf.space/sdk/res/portrait/emoji/emoji_59.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-60"
-                  title="[篮球]"
-                  value="[篮球]__http://ysf.space/sdk/res/portrait/emoji/emoji_60.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-61"
-                  title="[足球]"
-                  value="[足球]__http://ysf.space/sdk/res/portrait/emoji/emoji_61.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-62"
-                  title="[垒球]"
-                  value="[垒球]__http://ysf.space/sdk/res/portrait/emoji/emoji_62.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-63"
-                  title="[网球]"
-                  value="[网球]__http://ysf.space/sdk/res/portrait/emoji/emoji_63.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-64"
-                  title="[台球]"
-                  value="[台球]__http://ysf.space/sdk/res/portrait/emoji/emoji_64.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-65"
-                  title="[咖啡]"
-                  value="[咖啡]__http://ysf.space/sdk/res/portrait/emoji/emoji_65.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-66"
-                  title="[啤酒]"
-                  value="[啤酒]__http://ysf.space/sdk/res/portrait/emoji/emoji_66.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-67"
-                  title="[干杯]"
-                  value="[干杯]__http://ysf.space/sdk/res/portrait/emoji/emoji_67.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-68"
-                  title="[柠檬汁]"
-                  value="[柠檬汁]__http://ysf.space/sdk/res/portrait/emoji/emoji_68.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-69"
-                  title="[餐具]"
-                  value="[餐具]__http://ysf.space/sdk/res/portrait/emoji/emoji_69.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-70"
-                  title="[汉堡]"
-                  value="[汉堡]__http://ysf.space/sdk/res/portrait/emoji/emoji_70.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-71"
-                  title="[鸡腿]"
-                  value="[鸡腿]__http://ysf.space/sdk/res/portrait/emoji/emoji_71.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-72"
-                  title="[面条]"
-                  value="[面条]__http://ysf.space/sdk/res/portrait/emoji/emoji_72.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-73"
-                  title="[冰淇淋]"
-                  value="[冰淇淋]__http://ysf.space/sdk/res/portrait/emoji/emoji_73.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-74"
-                  title="[沙冰]"
-                  value="[沙冰]__http://ysf.space/sdk/res/portrait/emoji/emoji_74.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-75"
-                  title="[生日蛋糕]"
-                  value="[生日蛋糕]__http://ysf.space/sdk/res/portrait/emoji/emoji_75.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-76"
-                  title="[蛋糕]"
-                  value="[蛋糕]__http://ysf.space/sdk/res/portrait/emoji/emoji_76.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-77"
-                  title="[糖果]"
-                  value="[糖果]__http://ysf.space/sdk/res/portrait/emoji/emoji_77.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-78"
-                  title="[葡萄]"
-                  value="[葡萄]__http://ysf.space/sdk/res/portrait/emoji/emoji_78.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-79"
-                  title="[西瓜]"
-                  value="[西瓜]__http://ysf.space/sdk/res/portrait/emoji/emoji_79.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-80"
-                  title="[光碟]"
-                  value="[光碟]__http://ysf.space/sdk/res/portrait/emoji/emoji_80.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-81"
-                  title="[手机]"
-                  value="[手机]__http://ysf.space/sdk/res/portrait/emoji/emoji_81.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-82"
-                  title="[电话]"
-                  value="[电话]__http://ysf.space/sdk/res/portrait/emoji/emoji_82.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-83"
-                  title="[电视]"
-                  value="[电视]__http://ysf.space/sdk/res/portrait/emoji/emoji_83.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-84"
-                  title="[声音开启]"
-                  value="[声音开启]__http://ysf.space/sdk/res/portrait/emoji/emoji_84.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-85"
-                  title="[声音关闭]"
-                  value="[声音关闭]__http://ysf.space/sdk/res/portrait/emoji/emoji_85.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-86"
-                  title="[铃铛]"
-                  value="[铃铛]__http://ysf.space/sdk/res/portrait/emoji/emoji_86.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-87"
-                  title="[锁头]"
-                  value="[锁头]__http://ysf.space/sdk/res/portrait/emoji/emoji_87.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-88"
-                  title="[放大镜]"
-                  value="[放大镜]__http://ysf.space/sdk/res/portrait/emoji/emoji_88.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-89"
-                  title="[灯泡]"
-                  value="[灯泡]__http://ysf.space/sdk/res/portrait/emoji/emoji_89.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-90"
-                  title="[锤头]"
-                  value="[锤头]__http://ysf.space/sdk/res/portrait/emoji/emoji_90.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-91"
-                  title="[烟]"
-                  value="[烟]__http://ysf.space/sdk/res/portrait/emoji/emoji_91.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-92"
-                  title="[炸弹]"
-                  value="[炸弹]__http://ysf.space/sdk/res/portrait/emoji/emoji_92.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-93"
-                  title="[枪]"
-                  value="[枪]__http://ysf.space/sdk/res/portrait/emoji/emoji_93.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-94"
-                  title="[刀]"
-                  value="[刀]__http://ysf.space/sdk/res/portrait/emoji/emoji_94.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-95"
-                  title="[药]"
-                  value="[药]__http://ysf.space/sdk/res/portrait/emoji/emoji_95.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-96"
-                  title="[打针]"
-                  value="[打针]__http://ysf.space/sdk/res/portrait/emoji/emoji_96.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-97"
-                  title="[钱袋]"
-                  value="[钱袋]__http://ysf.space/sdk/res/portrait/emoji/emoji_97.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-98"
-                  title="[钞票]"
-                  value="[钞票]__http://ysf.space/sdk/res/portrait/emoji/emoji_98.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-99"
-                  title="[银行卡]"
-                  value="[银行卡]__http://ysf.space/sdk/res/portrait/emoji/emoji_99.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-100"
-                  title="[手柄]"
-                  value="[手柄]__http://ysf.space/sdk/res/portrait/emoji/emoji_100.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-101"
-                  title="[麻将]"
-                  value="[麻将]__http://ysf.space/sdk/res/portrait/emoji/emoji_101.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-102"
-                  title="[调色板]"
-                  value="[调色板]__http://ysf.space/sdk/res/portrait/emoji/emoji_102.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-103"
-                  title="[电影]"
-                  value="[电影]__http://ysf.space/sdk/res/portrait/emoji/emoji_103.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-104"
-                  title="[麦克风]"
-                  value="[麦克风]__http://ysf.space/sdk/res/portrait/emoji/emoji_104.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-105"
-                  title="[耳机]"
-                  value="[耳机]__http://ysf.space/sdk/res/portrait/emoji/emoji_105.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-106"
-                  title="[音乐]"
-                  value="[音乐]__http://ysf.space/sdk/res/portrait/emoji/emoji_106.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-107"
-                  title="[吉他]"
-                  value="[吉他]__http://ysf.space/sdk/res/portrait/emoji/emoji_107.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-108"
-                  title="[火箭]"
-                  value="[火箭]__http://ysf.space/sdk/res/portrait/emoji/emoji_108.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-109"
-                  title="[飞机]"
-                  value="[飞机]__http://ysf.space/sdk/res/portrait/emoji/emoji_109.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-110"
-                  title="[火车]"
-                  value="[火车]__http://ysf.space/sdk/res/portrait/emoji/emoji_110.png"
-                />
-              </div>
-              <div
-                class="emoji-row"
-              >
-                <button
-                  class="ql-emoji emoji-img emoji-111"
-                  title="[公交]"
-                  value="[公交]__http://ysf.space/sdk/res/portrait/emoji/emoji_111.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-112"
-                  title="[轿车]"
-                  value="[轿车]__http://ysf.space/sdk/res/portrait/emoji/emoji_112.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-113"
-                  title="[出租车]"
-                  value="[出租车]__http://ysf.space/sdk/res/portrait/emoji/emoji_113.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-114"
-                  title="[警车]"
-                  value="[警车]__http://ysf.space/sdk/res/portrait/emoji/emoji_114.png"
-                />
-                <button
-                  class="ql-emoji emoji-img emoji-115"
-                  title="[自行车]"
-                  value="[自行车]__http://ysf.space/sdk/res/portrait/emoji/emoji_115.png"
-                />
-              </div>
-            </div>
-          </div>
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
         </div>
       </div>
       <div
         class="toolbar-grp"
       >
         <button
-          class="item ql-image"
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
+        />
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor"
+  >
+    <div
+      class="editor-head"
+      style="height:auto;overflow:auto"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
+        />
+        <button
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
+        />
+        <button
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+        />
+        <button
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
         />
       </div>
       <div
         class="toolbar-grp"
       >
         <div
-          class="item custom-size iconfont icon-FontSize"
+          class="item custom-size fishdicon fishdicon-richeditor-size"
         >
-          <div
-            class="hide custom-size-panel"
-          >
-            <button
-              class="ql-customSize size-item"
-              style="font-size:32px"
-              type="button"
-              value="32px"
-            >
-              32px
-            </button>
-            <button
-              class="ql-customSize size-item"
-              style="font-size:24px"
-              type="button"
-              value="24px"
-            >
-              24px
-            </button>
-            <button
-              class="ql-customSize size-item"
-              style="font-size:18px"
-              type="button"
-              value="18px"
-            >
-              18px
-            </button>
-            <button
-              class="ql-customSize size-item"
-              style="font-size:16px"
-              type="button"
-              value="16px"
-            >
-              16px
-            </button>
-            <button
-              class="ql-customSize size-item"
-              style="font-size:13px"
-              type="button"
-              value="13px"
-            >
-              13px
-            </button>
-            <button
-              class="ql-customSize size-item"
-              style="font-size:12px"
-              type="button"
-              value="12px"
-            >
-              12px
-            </button>
-          </div>
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
         </div>
       </div>
       <div
         class="toolbar-grp"
       >
         <button
-          class="item ql-clean"
+          class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+          type="button"
+          value=""
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+          type="button"
+          value="center"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+          type="button"
+          value="right"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+          type="button"
+          value="ordered"
+        />
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-list"
+          type="button"
+          value="bullet"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+        >
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item custom-entry ql-mylinkEntry fishdicon fishdicon-richeditor-transfer my-link"
+        />
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor"
+  >
+    <div
+      class="editor-head"
+      style="height:auto;overflow:auto"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
+        />
+        <button
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
+        />
+        <button
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+        />
+        <button
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-size fishdicon fishdicon-richeditor-size"
+        >
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+          type="button"
+          value=""
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+          type="button"
+          value="center"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+          type="button"
+          value="right"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+          type="button"
+          value="ordered"
+        />
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-list"
+          type="button"
+          value="bullet"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+        >
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
+        />
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor"
+  >
+    <div
+      class="editor-head"
+      style="height:auto;overflow:auto"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
+        />
+        <button
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
+        />
+        <button
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+        />
+        <button
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-size fishdicon fishdicon-richeditor-size"
+        >
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+          type="button"
+          value=""
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+          type="button"
+          value="center"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+          type="button"
+          value="right"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+          type="button"
+          value="ordered"
+        />
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-list"
+          type="button"
+          value="bullet"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+        >
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
+        />
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor"
+  >
+    <div
+      class="editor-head"
+      style="height:auto;overflow:auto"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
+        />
+        <button
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
+        />
+        <button
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+        />
+        <button
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-size fishdicon fishdicon-richeditor-size"
+        >
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+          type="button"
+          value=""
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+          type="button"
+          value="center"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+          type="button"
+          value="right"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+          type="button"
+          value="ordered"
+        />
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-list"
+          type="button"
+          value="bullet"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+        >
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
+        />
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor resizable"
+  >
+    <div
+      class="editor-head"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
+        />
+        <button
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
+        />
+        <button
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+        />
+        <button
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-size fishdicon fishdicon-richeditor-size"
+        >
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+          type="button"
+          value=""
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+          type="button"
+          value="center"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+          type="button"
+          value="right"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+          type="button"
+          value="ordered"
+        />
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-list"
+          type="button"
+          value="bullet"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+        >
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
+        />
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor"
+  >
+    <div
+      class="editor-head"
+      style="height:auto;overflow:auto"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
+        />
+        <button
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
+        />
+        <button
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+        />
+        <button
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-size fishdicon fishdicon-richeditor-size"
+        >
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+          type="button"
+          value="ordered"
+        />
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-list"
+          type="button"
+          value="bullet"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+        >
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
+        />
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor"
+  >
+    <div
+      class="editor-head"
+      style="height:auto;overflow:auto"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-myLink fishdicon fishdicon-richeditor-link"
+        />
+        <button
+          class="item ql-bold fishdicon fishdicon-richeditor-bold"
+        />
+        <button
+          class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+        />
+        <button
+          class="item ql-underline fishdicon fishdicon-richeditor-underline"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-color fishdicon fishdicon-richeditor-color"
+        >
+          <button
+            class="ql-color hide"
+            data-role="color"
+            type="button"
+            value=""
+          />
+        </div>
+        <div
+          class="item custom-background fishdicon fishdicon-richeditor-fontbkcol"
+        >
+          <button
+            class="ql-background hide"
+            data-role="background"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+          type="button"
+          value=""
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+          type="button"
+          value="center"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+          type="button"
+          value="right"
+        />
+        <button
+          class="item ql-align fishdicon fishdicon-richeditor-align-all"
+          type="button"
+          value="justify"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-size fishdicon fishdicon-richeditor-size"
+        >
+          <button
+            class="ql-customSize hide"
+            data-role="customSize"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+          type="button"
+          value="ordered"
+        />
+        <button
+          class="item ql-list fishdicon fishdicon-richeditor-list"
+          type="button"
+          value="bullet"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+        >
+          <button
+            class="ql-emoji hide"
+            data-role="emoji"
+            type="button"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-image fishdicon fishdicon-richeditor-picture"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-video"
+          type="button"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-strike"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-blockquote"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-code-block"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-script"
+          type="button"
+          value="sub"
+        />
+        <button
+          class="item ql-script"
+          type="button"
+          value="super"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-indent"
+          type="button"
+          value="-1"
+        />
+        <button
+          class="item ql-indent"
+          type="button"
+          value="+1"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-direction"
+          type="button"
+          value="rtl"
+        />
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <button
+          class="item ql-clean fishdicon fishdicon-richeditor-clear"
         />
       </div>
     </div>

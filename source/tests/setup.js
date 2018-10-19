@@ -21,9 +21,9 @@ global.cancelAnimationFrame = function (cb) {
 };
 
 const Enzyme = require('enzyme');
-// let Adapter = require('enzyme-adapter-react-16');
+let Adapter = require('enzyme-adapter-react-16');
 // enzyme-adapter-react-16@1.1.0不支持React.ForwardRef，详情：https://github.com/airbnb/enzyme/issues/1604
 // 在ReactSixteenAdapter.js中部分修改了enzyme-adapter-react-16的源码支持ForwardRef
 // 如果后续enzyme-adapter-react-16更新了，可以干掉ReactSixteenAdapter.js
-let Adapter = require('./polyfills/ReactSixteenAdapter');
+// let Adapter = require('./polyfills/ReactSixteenAdapter');
 Enzyme.configure({ adapter: new Adapter() });

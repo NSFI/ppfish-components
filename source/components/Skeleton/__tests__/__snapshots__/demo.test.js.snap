@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders skeleton demo correctly 1`] = `
+<div>
+  <div
+    class="fishd-skeleton"
+  >
+    <div
+      class="fishd-skeleton-content"
+    >
+      <h3
+        class="fishd-skeleton-title"
+        style="width:38%"
+      />
+      <ul
+        class="fishd-skeleton-paragraph"
+      >
+        <li />
+        <li />
+        <li
+          style="width:61%"
+        />
+      </ul>
+    </div>
+  </div>
+  <div
+    class="fishd-skeleton fishd-skeleton-with-avatar"
+  >
+    <div
+      class="fishd-skeleton-header"
+    >
+      <span
+        class="fishd-skeleton-avatar fishd-skeleton-avatar-lg fishd-skeleton-avatar-circle"
+      />
+    </div>
+    <div
+      class="fishd-skeleton-content"
+    >
+      <h3
+        class="fishd-skeleton-title"
+        style="width:50%"
+      />
+      <ul
+        class="fishd-skeleton-paragraph"
+      >
+        <li />
+        <li />
+        <li />
+        <li />
+      </ul>
+    </div>
+  </div>
+  <div
+    class="fishd-skeleton fishd-skeleton-active"
+  >
+    <div
+      class="fishd-skeleton-content"
+    >
+      <h3
+        class="fishd-skeleton-title"
+        style="width:38%"
+      />
+      <ul
+        class="fishd-skeleton-paragraph"
+      >
+        <li />
+        <li />
+        <li
+          style="width:61%"
+        />
+      </ul>
+    </div>
+  </div>
+  <div
+    class="article"
+  >
+    <div>
+      <h4>
+        Fish Design
+      </h4>
+      <p>
+        Fish Design 是基于 React 实现的高质量的 UI 组件库，设计原则是简洁、直接、优雅和适应性。
+      </p>
+    </div>
+    <button
+      class="fishd-btn"
+      type="button"
+    >
+      <span>
+        Show Skeleton
+      </span>
+    </button>
+  </div>
+  <div>
+    <span
+      class="fishd-switch"
+      tabindex="0"
+    >
+      <span
+        class="fishd-switch-inner"
+      />
+    </span>
+    <div
+      class="fishd-list fishd-list-vertical fishd-list-lg fishd-list-split"
+    >
+      <div
+        class="fishd-spin-nested-loading"
+      >
+        <div
+          class="fishd-spin-nested"
+        >
+          <div
+            class="fishd-list-item"
+          >
+            <div
+              class="fishd-list-item-content fishd-list-item-content-single"
+            >
+              <div
+                class="fishd-skeleton fishd-skeleton-with-avatar fishd-skeleton-active"
+              >
+                <div
+                  class="fishd-skeleton-header"
+                >
+                  <span
+                    class="fishd-skeleton-avatar fishd-skeleton-avatar-lg fishd-skeleton-avatar-circle"
+                  />
+                </div>
+                <div
+                  class="fishd-skeleton-content"
+                >
+                  <h3
+                    class="fishd-skeleton-title"
+                    style="width:50%"
+                  />
+                  <ul
+                    class="fishd-skeleton-paragraph"
+                  >
+                    <li />
+                    <li />
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="fishd-list-item"
+          >
+            <div
+              class="fishd-list-item-content fishd-list-item-content-single"
+            >
+              <div
+                class="fishd-skeleton fishd-skeleton-with-avatar fishd-skeleton-active"
+              >
+                <div
+                  class="fishd-skeleton-header"
+                >
+                  <span
+                    class="fishd-skeleton-avatar fishd-skeleton-avatar-lg fishd-skeleton-avatar-circle"
+                  />
+                </div>
+                <div
+                  class="fishd-skeleton-content"
+                >
+                  <h3
+                    class="fishd-skeleton-title"
+                    style="width:50%"
+                  />
+                  <ul
+                    class="fishd-skeleton-paragraph"
+                  >
+                    <li />
+                    <li />
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="fishd-list-item"
+          >
+            <div
+              class="fishd-list-item-content fishd-list-item-content-single"
+            >
+              <div
+                class="fishd-skeleton fishd-skeleton-with-avatar fishd-skeleton-active"
+              >
+                <div
+                  class="fishd-skeleton-header"
+                >
+                  <span
+                    class="fishd-skeleton-avatar fishd-skeleton-avatar-lg fishd-skeleton-avatar-circle"
+                  />
+                </div>
+                <div
+                  class="fishd-skeleton-content"
+                >
+                  <h3
+                    class="fishd-skeleton-title"
+                    style="width:50%"
+                  />
+                  <ul
+                    class="fishd-skeleton-paragraph"
+                  >
+                    <li />
+                    <li />
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

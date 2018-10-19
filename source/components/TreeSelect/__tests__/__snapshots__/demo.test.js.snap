@@ -5,7 +5,7 @@ exports[`Renders treeSelect demo correctly 1`] = `
   <div>
     <span
       aria-haspopup="listbox"
-      class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+      class="fishd-treeselect-ctner fishd-treeselect-singleline fishd-treeselect fishd-treeselect-enabled"
       role="combobox"
       style="width:300px;margin-right:20px"
       tabindex="0"
@@ -17,23 +17,22 @@ exports[`Renders treeSelect demo correctly 1`] = `
           class="fishd-treeselect-selection__rendered"
         >
           <span
-            class="fishd-treeselect-selection__placeholder"
+            class="fishd-treeselect-selection-selected-value"
+            title="CNode2"
           >
-            请选择
+            CNode2
           </span>
         </span>
-        <span
-          class="fishd-treeselect-arrow fishdicon-down-fill"
+        <i
+          class="fishdicon fishdicon-down-fill fishd-treeselect-arrow"
           style="outline:none"
-        >
-          <b />
-        </span>
+        />
       </span>
     </span>
     <span
       aria-disabled="true"
       aria-haspopup="listbox"
-      class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-disabled"
+      class="fishd-treeselect-ctner fishd-treeselect-singleline fishd-treeselect fishd-treeselect-disabled"
       role="combobox"
       style="width:300px"
     >
@@ -49,18 +48,16 @@ exports[`Renders treeSelect demo correctly 1`] = `
             请选择
           </span>
         </span>
-        <span
-          class="fishd-treeselect-arrow fishdicon-down-fill"
+        <i
+          class="fishdicon fishdicon-down-fill fishd-treeselect-arrow"
           style="outline:none"
-        >
-          <b />
-        </span>
+        />
       </span>
     </span>
   </div>
   <span
     aria-haspopup="listbox"
-    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    class="fishd-treeselect-ctner fishd-treeselect-singleline fishd-treeselect fishd-treeselect-enabled"
     role="combobox"
     style="width:300px"
     tabindex="0"
@@ -77,17 +74,15 @@ exports[`Renders treeSelect demo correctly 1`] = `
           请选择
         </span>
       </span>
-      <span
-        class="fishd-treeselect-arrow fishdicon-down-fill"
+      <i
+        class="fishdicon fishdicon-down-fill fishd-treeselect-arrow"
         style="outline:none"
-      >
-        <b />
-      </span>
+      />
     </span>
   </span>
   <span
     aria-haspopup="listbox"
-    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    class="fishd-treeselect-ctner fishd-treeselect-singleline fishd-treeselect fishd-treeselect-enabled"
     role="combobox"
     style="width:300px"
     tabindex="0"
@@ -104,17 +99,15 @@ exports[`Renders treeSelect demo correctly 1`] = `
           请选择
         </span>
       </span>
-      <span
-        class="fishd-treeselect-arrow fishdicon-down-fill"
+      <i
+        class="fishdicon fishdicon-down-fill fishd-treeselect-arrow"
         style="outline:none"
-      >
-        <b />
-      </span>
+      />
     </span>
   </span>
   <span
     aria-haspopup="listbox"
-    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    class="fishd-treeselect-ctner fishd-treeselect-singleline fishd-treeselect fishd-treeselect-enabled"
     role="combobox"
     style="width:300px"
     tabindex="0"
@@ -131,12 +124,10 @@ exports[`Renders treeSelect demo correctly 1`] = `
           请选择
         </span>
       </span>
-      <span
-        class="fishd-treeselect-arrow fishdicon-down-fill"
+      <i
+        class="fishdicon fishdicon-down-fill fishd-treeselect-arrow"
         style="outline:none"
-      >
-        <b />
-      </span>
+      />
     </span>
   </span>
   <div>
@@ -202,7 +193,7 @@ exports[`Renders treeSelect demo correctly 1`] = `
   </div>
   <span
     aria-haspopup="listbox"
-    class="fishd-treeselect-ctner fishd-treeselect fishd-treeselect-enabled"
+    class="fishd-treeselect-ctner fishd-treeselect-singleline fishd-treeselect fishd-treeselect-enabled"
     role="combobox"
     style="width:300px"
     tabindex="-1"
@@ -213,16 +204,14 @@ exports[`Renders treeSelect demo correctly 1`] = `
       <ul
         class="fishd-treeselect-selection__rendered fishd-treeselect-multiple-readonly"
         role="menubar"
-        title="Child Node1"
+        title="CNode1"
       >
-        Child Node1
+        CNode1
       </ul>
-      <span
-        class="fishd-treeselect-arrow fishdicon-down-fill"
+      <i
+        class="fishdicon fishdicon-down-fill fishd-treeselect-arrow"
         style="outline:none"
-      >
-        <b />
-      </span>
+      />
       <span
         class="fishd-treeselect-search__field__placeholder"
         style="display:none"

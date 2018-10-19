@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders anchor demo correctly 1`] = `
+<div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/anchorDemoBasic.html"
+      width="100%"
+    />
+  </div>
+</div>
+`;

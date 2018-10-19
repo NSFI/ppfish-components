@@ -43,6 +43,7 @@
     "css-animation": "^1.4.1",
     "debug": "^3.1.0",
     "dom-closest": "^0.2.0",
+    "dom-scroll-into-view": "^1.2.1",
     "echarts": "^4.1.0",
     "echarts-wordcloud": "^1.1.3",
     "intersperse": "^1.0.0",

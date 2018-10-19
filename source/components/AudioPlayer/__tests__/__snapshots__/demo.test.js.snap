@@ -6,7 +6,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
     style="width:400px"
   >
     <div
-      class="m-audio-player-wrap "
+      class="fishd-audio-player-wrap "
       title="这是一个demo"
     >
       <div
@@ -92,7 +92,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
     style="width:350px"
   >
     <div
-      class="m-audio-player-wrap "
+      class="fishd-audio-player-wrap "
       title=""
     >
       <div
@@ -152,6 +152,13 @@ exports[`Renders audioPlayer demo correctly 1`] = `
         >
           0:00 / 0:00
         </span>
+      </div>
+      <div
+        class="box volume-box"
+      >
+        <i
+          class="iconfont icon-yingxiaoguanli"
+        />
       </div>
     </div>
   </div>

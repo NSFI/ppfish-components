@@ -3,9 +3,9 @@ const fs = require('fs');
 
 const babel = require('@babel/core');
 const babelrc = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../.babelrc')).toString());
-const babylon = require('babylon');
-const traverse = require('babel-traverse').default;
-const generate = require('babel-generator').default;
+const babelParser = require("@babel/parser");
+const traverse = require('@babel/traverse').default;
+const generate = require('@babel/generator').default;
 const crypto = require('crypto');
 
 
@@ -23,7 +23,7 @@ const w3c = [
 const DEFAULT_INJECT = ['React', 'ReactDOM', 'PropTypes'];
 const DEMO_EXPORTS_REG = /^demo/i; //检测demo代码片段中导出作为Demo测试类的 类名或者变量名称
 
-function transformCode(codes) {
+function transformCode(codes, filename) {
   // let codes = [
   //   `class Demo extends React.Component{
   //     render(){
@@ -31,7 +31,10 @@ function transformCode(codes) {
   //     }
   //   }`
   // ]
-
+  let ppfishModuleEntry = path.relative(
+    path.dirname(filename),
+    path.resolve(__dirname,'../source/components/index.js')
+  );
   let components = [];//用于存错Button, Slider, Col这样的组件类名
   let subComponents = [];//用于缓存 const Col = Grid.Col;中的 Col，避免CheckComponetVisitor再去
   // let codes = [];
@@ -189,12 +192,11 @@ function transformCode(codes) {
 
   //map=>用babylon把代码转成AST
   //map=>用MyVisitor修改类名，把用到的组件记录下来，以便按需引入.traverse以后，用generate把AST生成代码
-  let codeBodys = codes.map(code => babylon.parse(code, {
+  let codeBodys = codes.map(code => babelParser.parse(code, {
     sourceType: "module", // default: "script"
     plugins: [
       "jsx",
       'objectRestSpread',
-      'decorators',
       'classProperties',
       'exportExtensions',
       'asyncGenerators',
@@ -217,7 +219,7 @@ function transformCode(codes) {
   import ReactDOM from 'react-dom';
   import PropTypes from 'prop-types';
   ${components.length
-      ? `import {${components.join(',')}} from 'ppfish';`
+      ? `import {${components.join(',')}} from '${ppfishModuleEntry}';`
       : ''}
 
 
@@ -294,7 +296,7 @@ module.exports = {
 
 
 
-    let $code = transformCode(sourceCodes);
+    let $code = transformCode(sourceCodes, filename);
 
 
 

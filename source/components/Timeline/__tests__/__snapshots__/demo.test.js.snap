@@ -1,0 +1,471 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders timeline demo correctly 1`] = `
+<div>
+  <ul
+    class="fishd-timeline"
+  >
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Create a services site 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Solve initial network problems 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Technical testing 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-last"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Network problems being solved 2015-09-01
+      </div>
+    </li>
+  </ul>
+  <ul
+    class="fishd-timeline"
+  >
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-green"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Create a services site 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-green"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Create a services site 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-red"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        <p>
+          Solve initial network problems 1
+        </p>
+        <p>
+          Solve initial network problems 2
+        </p>
+        <p>
+          Solve initial network problems 3 2015-09-01
+        </p>
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-last"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        <p>
+          Technical testing 1
+        </p>
+        <p>
+          Technical testing 2
+        </p>
+        <p>
+          Technical testing 3 2015-09-01
+        </p>
+      </div>
+    </li>
+  </ul>
+  <div>
+    <ul
+      class="fishd-timeline fishd-timeline-pending"
+    >
+      <li
+        class="fishd-timeline-item"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+        />
+        <div
+          class="fishd-timeline-item-content"
+        >
+          Create a services site 2015-09-01
+        </div>
+      </li>
+      <li
+        class="fishd-timeline-item"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+        />
+        <div
+          class="fishd-timeline-item-content"
+        >
+          Solve initial network problems 2015-09-01
+        </div>
+      </li>
+      <li
+        class="fishd-timeline-item fishd-timeline-item-last"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+        />
+        <div
+          class="fishd-timeline-item-content"
+        >
+          Technical testing 2015-09-01
+        </div>
+      </li>
+      <li
+        class="fishd-timeline-item fishd-timeline-item-pending"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-blue"
+        >
+          <i
+            class="fishdicon fishdicon-spin fishdicon-load-line"
+          />
+        </div>
+        <div
+          class="fishd-timeline-item-content"
+        >
+          Recording...
+        </div>
+      </li>
+    </ul>
+    <button
+      class="fishd-btn fishd-btn-primary"
+      style="margin-top:16px"
+      type="button"
+    >
+      <span>
+        Toggle Reverse
+      </span>
+    </button>
+  </div>
+  <ul
+    class="fishd-timeline"
+  >
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Create a services site 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Solve initial network problems 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-red"
+      >
+        <i
+          class="fishdicon fishdicon-demo-bargraph"
+          style="font-size:16px"
+        />
+      </div>
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Technical testing 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-last"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Network problems being solved 2015-09-01
+      </div>
+    </li>
+  </ul>
+  <ul
+    class="fishd-timeline fishd-timeline-alternate"
+  >
+    <li
+      class="fishd-timeline-item fishd-timeline-item-left"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Create a services site 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-right"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-green"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Solve initial network problems 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-left"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-blue"
+      >
+        <i
+          class="fishdicon fishdicon-demo-bargraph"
+          style="font-size:16px"
+        />
+      </div>
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-right"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-red"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Network problems being solved 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-left"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Create a services site 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-last fishd-timeline-item-right"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-blue"
+      >
+        <i
+          class="fishdicon fishdicon-demo-bargraph"
+          style="font-size:16px"
+        />
+      </div>
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Technical testing 2015-09-01
+      </div>
+    </li>
+  </ul>
+  <ul
+    class="fishd-timeline fishd-timeline-right"
+  >
+    <li
+      class="fishd-timeline-item fishd-timeline-item-right"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Create a services site 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-right"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Solve initial network problems 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-right"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-red"
+      >
+        <i
+          class="fishdicon fishdicon-demo-bargraph"
+          style="font-size:16px"
+        />
+      </div>
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Technical testing 2015-09-01
+      </div>
+    </li>
+    <li
+      class="fishd-timeline-item fishd-timeline-item-last fishd-timeline-item-right"
+    >
+      <div
+        class="fishd-timeline-item-tail"
+      />
+      <div
+        class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+      />
+      <div
+        class="fishd-timeline-item-content"
+      >
+        Network problems being solved 2015-09-01
+      </div>
+    </li>
+  </ul>
+</div>
+`;

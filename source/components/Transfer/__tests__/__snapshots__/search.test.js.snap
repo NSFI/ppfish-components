@@ -28,10 +28,10 @@ exports[`Search should show cross icon when input value exists 1`] = `
       className="undefined-action"
     >
       <Icon
-        type="search"
+        type="search-line"
       >
         <i
-          className="fishdicon fishdicon-search"
+          className="fishdicon fishdicon-search-line"
         />
       </Icon>
     </span>
@@ -69,10 +69,10 @@ exports[`Search should show cross icon when input value exists 2`] = `
       onClick={[Function]}
     >
       <Icon
-        type="cross-circle"
+        type="close-circle-fill"
       >
         <i
-          className="fishdicon fishdicon-cross-circle"
+          className="fishdicon fishdicon-close-circle-fill"
         />
       </Icon>
     </a>

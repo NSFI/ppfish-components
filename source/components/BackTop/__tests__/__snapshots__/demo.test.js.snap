@@ -6,23 +6,95 @@ exports[`Renders backTop demo correctly 1`] = `
     id="components-back-top-demo-custom-2"
   >
     Scroll down to see the bottom-right
-    <strong
-      style="color:rgba(64, 64, 64, 0.6)"
-    >
-       gray 
+    <strong>
+       original 
     </strong>
     button.
   </div>
   <div
     id="components-back-top-demo-custom"
   >
-    Scroll down to see the bottom-right
-    <strong
-      style="color:#1088e9"
-    >
-       blue 
-    </strong>
-    button.
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
+    <p>
+      Scroll down to see the bottom-right
+      <strong
+        style="color:#1088e9"
+      >
+         UP 
+      </strong>
+      button.
+    </p>
   </div>
 </div>
 `;
