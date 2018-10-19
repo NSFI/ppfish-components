@@ -290,13 +290,13 @@ render(){
 | marks | 刻度标记，key 的类型必须为 `Number` 且取值在闭区间 [min, max] 内，每个标签可以单独设置样式 | Object | { Number: String \| ReactNode } \| { Number: { style: Object, label: String \| ReactNode } } |
 | max | 最大值 | Number | 100 |
 | min | 最小值 | Number | 0 |
+| onAfterChange | 与 `onmouseup` 触发时机一致，把当前值作为参数传入。 | (value) => Void | noop |
+| onChange | 当 Slider 的值发生改变时，会触发 onChange 事件，并把改变后的值作为参数传入。 | (value) => Void | noop |
 | range | 双滑块模式 | Boolean | false |
 | step | 步长，取值必须大于 0，并且可被 (max - min) 整除。当 `marks` 不为空对象时，可以设置 `step` 为 `null`，此时 Slider 的可选值仅有 marks 标出来的部分。 | Number \| null | 1 |
 | tipFormatter | Slider 会把当前值传给 `tipFormatter`，并在 Tooltip 中显示 `tipFormatter` 的返回值，若为 null，则隐藏 Tooltip。 | Function \| null | (value: Number) => value.toString() |
 | value | 设置当前取值。当 `range` 为 `false` 时，使用 `Number`，否则用 `[Number, Number]` | Number \| Array<Number> | - |
 | vertical | 值为 `true` 时，Slider 为垂直方向 | Boolean | false |
-| onAfterChange | 与 `onmouseup` 触发时机一致，把当前值作为参数传入。 | (value) => Void | noop |
-| onChange | 当 Slider 的值发生改变时，会触发 onChange 事件，并把改变后的值作为参数传入。 | (value) => Void | noop |
 
 ## 方法
 

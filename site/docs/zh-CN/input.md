@@ -379,12 +379,12 @@ render(){
 | defaultValue | 输入框默认内容 | String | - |
 | disabled | 是否禁用状态，默认为 false | Boolean | false |
 | id | 输入框的 id | String | - |
+| onPressEnter | 按下回车的回调 | (e) => Void | - |
 | prefix | 带有前缀图标的 input | String \| ReactNode | - |
 | size | 控件大小。注：标准表单内的输入框大小限制为 `'large'`。 | Enum {'large', 'default', 'small'} | 'default' |
 | suffix | 带有后缀图标的 input | String | ReactNode | - |
 | type | 声明 input 类型，同原生 input 标签的 type 属性，见：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input#属性)(请直接使用 `Input.TextArea` 代替 `type="textarea"`)。 | Enum | 'text' |
 | value | 输入框内容 | String | - |
-| onPressEnter | 按下回车的回调 | (e) => Void | - |
 
 > 如果 `Input` 在 `Form.Item` 内，并且 `Form.Item` 设置了 `id` 和 `options` 属性，则 `value` `defaultValue` 和 `id` 属性会被自动设置。
 
@@ -396,8 +396,8 @@ Input 的其他属性和 React 自带的 [input](https://facebook.github.io/reac
 | --- | --- | --- | --- |
 | autosize | 自适应内容高度，可设置为 `true \| false` 或对象：`{ minRows: 2, maxRows: 6 }` | Boolean \| {minRows: Number, maxRows: Number} | false |
 | defaultValue | 输入框默认内容 | String | - |
-| value | 输入框内容 | String | - |
 | onPressEnter | 按下回车的回调 | (e) => Void | - |
+| value | 输入框内容 | String | - |
 
 `Input.TextArea` 的其他属性和浏览器自带的 [textarea](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) 一致。
 

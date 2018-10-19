@@ -265,11 +265,11 @@ render(){
 | htmlType | 设置 `button` 原生的 `type` 值，可选值请参考 [HTML 标准](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type) | Enum | 'button' |
 | icon | 设置按钮的图标类型 | String | - |
 | loading | 设置按钮载入状态 | Boolean \| { delay: Number } | false |
+| onClick | `click` 事件的 handler | () => Void | - |
 | shape | 设置按钮形状 | Enum {'circle', 'circle-outline'} | - |
 | size | 设置按钮大小 | Enum {'small', 'large', 'default'} | 'default' |
 | target | 相当于 a 链接的 target 属性，href 存在时生效 | String | - |
 | type | 设置按钮类型 | Enum {'primary', 'dashed', 'danger', 'default'} | 'default' |
-| onClick | `click` 事件的 handler | () => Void | - |
 
 `<Button>Hello world!</Button>` 最终会被渲染为 `<button><span>Hello world!</span></button>`，并且除了上表中的属性，其它属性都会直接传到 `<button></button>`。
 

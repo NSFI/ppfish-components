@@ -543,6 +543,8 @@ render(){
 | mask | 是否展示遮罩 | Boolean | true |
 | maskClosable | 点击蒙层是否允许关闭 | Boolean | true |
 | maskStyle | 遮罩样式 | Object | {} |
+| onCancel | 点击遮罩层或右上角叉或取消按钮的回调 | (e) => Void | - |
+| onOk | 点击确定回调 | (e) => Void | - |
 | okText | 确认按钮文字 | String | 确定 |
 | okType | 确认按钮类型 | String | primary |
 | style | 可用于设置浮层的样式，调整浮层位置等 | Object | - |
@@ -551,8 +553,6 @@ render(){
 | width | 宽度 | String | Number | 520 |
 | wrapClassName | 对话框外层容器的类名 | String | - |
 | zIndex | 设置 Modal 的 `z-index` | Number | 1000 |
-| onCancel | 点击遮罩层或右上角叉或取消按钮的回调 | (e) => Void | - |
-| onOk | 点击确定回调 | (e) => Void | - |
 
 #### 注意
 
@@ -575,16 +575,16 @@ render(){
 | cancelText | 取消按钮文字 | String | '取消' |
 | className | 容器类名 | String | - |
 | content | 内容 | String \| ReactNode | - |
-| iconType | 图标 Icon 类型 | String | 'hints-descriptions' |
 | draggable	| 模态框是否支持拖动	 | Boolean | false |
+| iconType | 图标 Icon 类型 | String | 'hints-descriptions' |
 | maskClosable | 点击蒙层是否允许关闭 | Boolean | false |
+| onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |
+| onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |
 | okText | 确认按钮文字 | String | '确定' |
 | okType | 确认按钮类型 | Enum {'default', 'primary', 'ghost', 'dashed', 'danger'} | 'primary' |
 | title | 标题 | String \| ReactNode | - |
 | width | 宽度 | String \| Number | 416 |
 | zIndex | 设置 Modal 的 `z-index` | Number | 1000 |
-| onCancel | 取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |
-| onOk | 点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭 | (e) => Void | - |
 
 以上函数调用后，会返回一个引用，可以通过该引用关闭弹窗。
 

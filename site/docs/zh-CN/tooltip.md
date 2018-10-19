@@ -136,12 +136,12 @@ render(){
 | getPopupContainer | 浮层渲染父节点，默认渲染到 body 上。 | (triggerNode) => ReactNode \| HTMLElement | () => document.body |
 | mouseEnterDelay | 鼠标移入后延时多少才显示 Tooltip，单位：秒 | Number | 0 |
 | mouseLeaveDelay | 鼠标移出后延时多少才隐藏 Tooltip，单位：秒 | Number | 0.1 |
+| onVisibleChange | 显示隐藏的回调 | (visible) => Void | - |
 | overlayClassName | 卡片类名 | String | - |
 | overlayStyle | 卡片样式 | Object | - |
 | placement | 气泡框位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | top |
 | trigger | 触发行为 | Enum {'hover', 'focus', 'contextMenu'} | 'hover' |
 | visible | 用于手动控制浮层显隐 | Boolean | false |
-| onVisibleChange | 显示隐藏的回调 | (visible) => Void | - |
 
 ## 注意
 

@@ -72,12 +72,12 @@ render(){
 ## API
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| src  | 图片地址   | String   |  —   |
-| preloader  | 显示占位图的ReactNode   | () => ReactNode |  —   |
-| children  | 图片加载失败显示的node   | ReactNode   |  —   |
-| wrapper  | 图片外层容器    | React.createFactory('div' \| 'span')  |  DOM.span   |
 | className  | 图片外层容器class    | String   |  —   |
-| style  | 图片外层容器样式对象    | Object   |  —   |
+| children  | 图片加载失败显示的node   | ReactNode   |  —   |
 | imgProps  | 图片propTypes  | Object   | —   |
-| onLoad  | src图片加载成功的回调    | (e) => Void   | —   |
 | onError  | src图片加载失败的回调    | (e) => Void   | —   |
+| onLoad  | src图片加载成功的回调    | (e) => Void   | —   |
+| preloader  | 显示占位图的ReactNode   | () => ReactNode |  —   |
+| src  | 图片地址   | String   |  —   |
+| style  | 图片外层容器样式对象    | Object   |  —   |
+| wrapper  | 图片外层容器    | React.createFactory('div' \| 'span')  |  DOM.span   |

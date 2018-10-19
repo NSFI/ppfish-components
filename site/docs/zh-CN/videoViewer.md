@@ -119,11 +119,11 @@
 
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| visible | 模态框是否可见 | Boolean | false |
+| afterClose  | 模态框关闭的回调    | (e) => Void   | —   |
 | draggable  | 模态框是否支持拖动  | Boolean  |  false  |
 | mask  | 模态框关闭的遮罩是否可见   | Boolean   | false  |
 | onCancel  | 点击遮罩层或右上角叉或取消按钮的回调   | (e) => Void   | -  |
-| afterClose  | 模态框关闭的回调    | (e) => Void   | —   |
+| visible | 模态框是否可见 | Boolean | false |
 | width	| 设置模态框的宽度  | String \| Number |  520  |
 
 更多模态框配置项，请查看 [`Modal`](https://nsfi.github.io/ppfish-components/#/components/modal)。其中title、footer不支持配置。
@@ -131,7 +131,6 @@
 ### VideoViewer.Video
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| src	| 要播放的视频的 URL。 | String  |  —  |
 | autoPlay | 如果出现该属性，则视频在就绪后马上播放。 | Boolean	|  true  |
 | controls| 如果出现该属性，则向用户显示控件，比如播放按钮。 | Boolean |  true  |
 | height	| 设置视频播放器的高度。 | Number   |  —  |
@@ -139,6 +138,7 @@
 | muted	| 规定视频的音频输出应该被静音。 |  Boolean  |  —  |
 | poster	| 规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图像。 | String  |  —  |
 | preload	| 如果出现该属性，则视频在页面加载时进行加载，并预备播放。如果使用 "autoPlay"，则忽略该属性。 | Boolean  |
+| src	| 要播放的视频的 URL。 | String  |  —  |
 | width	| 设置视频播放器的宽度。 | Number |  —  |
 
 注意：

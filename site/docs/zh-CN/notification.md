@@ -253,9 +253,9 @@ config 参数如下：
 | icon | 自定义图标 | ReactNode | - |
 | key | 当前通知唯一标志 | String | - |
 | message | 通知提醒标题，必选 | String | ReactNode | - |
+| onClose | 点击默认关闭按钮时触发的回调函数 | (e) => Void | - |
 | placement | 弹出位置，可选 `'topLeft'` `'topRight'` `'bottomLeft'` `'bottomRight'` | Enum {'topLeft', 'topRight', 'bottomLeft', 'bottomRight'} | 'topRight' |
 | style | 自定义内联样式 | Object | - |
-| onClose | 点击默认关闭按钮时触发的回调函数 | (e) => Void | - |
 
 还提供了一个全局配置方法，在调用前提前配置，全局一次生效。
 
