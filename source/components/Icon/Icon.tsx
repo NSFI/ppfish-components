@@ -8,18 +8,18 @@ export interface IconProps {
   className?: string;
   title?: string;
   onClick?: React.MouseEventHandler<any>;
-  spin?: boolean;
+  spinning?: boolean;
   style?: React.CSSProperties;
 }
 
 const Icon = (props: IconProps) => {
-  const { type, className = '', spin } = props;
+  const { type, className = '', spinning } = props;
   const classString = classNames({
     fishdicon: true,
-    'fishdicon-spin': !!spin || type === 'loading',
+    'fishdicon-spin': spinning || type === 'loading',
     [`fishdicon-${type}`]: true,
   }, className);
-  return <i {...omit(props, ['type', 'spin'])} className={classString} />;
+  return <i {...omit(props, ['type', 'spinning'])} className={classString} />;
 };
 
 export default Icon;
