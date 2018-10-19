@@ -49,7 +49,7 @@ export default class Select extends React.Component {
     onSelect: PropTypes.func,
     onVisibleChange: PropTypes.func,
     placeholder: PropTypes.string,
-    popupAlign: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
+    placement: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
     prefixCls: PropTypes.string,
     searchInputProps: PropTypes.object,
     searchPlaceholder: PropTypes.string,
@@ -87,7 +87,7 @@ export default class Select extends React.Component {
     onSelect: noop,
     onVisibleChange: noop,
     placeholder: '请选择',
-    popupAlign: 'bottomLeft',
+    placement: 'bottomLeft',
     prefixCls: 'fishd-select',
     searchInputProps: {},
     searchPlaceholder: '请输入关键词',
@@ -819,7 +819,7 @@ export default class Select extends React.Component {
       disabled,
       dropdownMatchSelectWidth,
       getPopupContainer,
-      popupAlign,
+      placement,
       prefixCls,
     } = this.props;
 
@@ -837,7 +837,7 @@ export default class Select extends React.Component {
         getPopupContainer={getPopupContainer}
         onPopupVisibleChange={this.visibleChangeFromTrigger}
         popup={this.getDropdownPanel()}
-        popupPlacement={popupAlign}
+        popupPlacement={placement}
         popupVisible={popupVisible}
         prefixCls={`${prefixCls}-popup`}
         popupStyle={popupStyle}

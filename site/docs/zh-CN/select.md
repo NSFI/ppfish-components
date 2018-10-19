@@ -485,7 +485,7 @@ render(){
             <Radio.Button value="topRight">topRight</Radio.Button>
           </Radio.Group>
         </div>
-        <Select style={{width: 300}} popupAlign={this.state.align} onChange={(value) => this.setState({value})}
+        <Select style={{width: 300}} placement={this.state.align} onChange={(value) => this.setState({value})}
                 value={this.state.value} dropdownMatchSelectWidth={false}
                 dropdownStyle={{width: Number(this.state.width)}}>
           {Group.map(group =>
@@ -667,7 +667,7 @@ render(){
 | onSelect | 被选中时调用，参数为选中项的 value (或 key) 值 | (value) => Void | - |
 | onVisibleChange | 弹出框显示隐藏 | (visible) => Void | - |
 | placeholder | 选择框默认文字 | String | '请选择' |
-| popupAlign | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'}| 'bottomLeft' |
+| placement | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'}| 'bottomLeft' |
 | searchInputProps | 搜索框额外属性 | Object | {} |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键词' |
 | selectAllText | 是否显示全选/反选功能-文案 | String | '选择所有' |
