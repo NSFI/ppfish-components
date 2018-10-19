@@ -34,7 +34,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     className: '',
     disabled: false,
     supportServerRender: true,
-    tips: ''
+    tip: ''
   };
 
   recentUploadStatus: boolean | PromiseLike<any>;
@@ -257,7 +257,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       type,
       disabled,
       children,
-      tips
+      tip
     } = this.props;
 
     const rcUploadProps = {
@@ -278,9 +278,9 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       previewFile: '预览文件',
     }) : null;
 
-    const uploadTips = tips ? (
-      <div className={`${prefixCls}-tips`}>
-        {tips}
+    const uploadTips = tip ? (
+      <div className={`${prefixCls}-tip`}>
+        {tip}
       </div>
     ) : null;
 

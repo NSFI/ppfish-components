@@ -80,7 +80,7 @@ export interface UploadProps {
   locale?: UploadLocale;
   maxFileCount?: number;
   showDeleteAll?: boolean;
-  tips?: string;
+  tip?: string;
 }
 
 export interface UploadState {
