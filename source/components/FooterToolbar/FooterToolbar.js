@@ -71,7 +71,7 @@ class FooterToolbar extends React.Component {
     return (
       <div
         className={classNames({[className]: true, [prefixCls]: true})}
-        style={{toolbarStyle}}
+        style={toolbarStyle}
         ref={(wrapper) => {
           this.wrapper = wrapper;
         }}

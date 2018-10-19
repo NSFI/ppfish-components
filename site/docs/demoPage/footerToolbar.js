@@ -10,7 +10,7 @@ class Demo extends React.Component {
   render() {
     return (
       <div style={{background: '#f7f7f7'}}>
-        <div style={{padding: 24, marginBottom: 65}}>
+        <div style={{padding: 24, marginBottom: 52}}>
           <p>Content Content Content Content</p>
           <p>Content Content Content Content</p>
           <p>Content Content Content Content</p>

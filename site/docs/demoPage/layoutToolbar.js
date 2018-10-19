@@ -45,7 +45,7 @@ ReactDOM.render(
     </Sider>
     <Layout style={{marginLeft: 200, position: 'relative'}}>
       <Header style={{background: '#fff', padding: 0}}/>
-      <Content style={{margin: '24px 16px 89px', overflow: 'initial'}}>
+      <Content style={{margin: '24px 16px 76px', overflow: 'initial'}}>
         <div style={{padding: 24, background: '#fff', textAlign: 'center'}}>
           ...
           <br/>
