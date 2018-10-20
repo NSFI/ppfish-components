@@ -33,7 +33,7 @@ webpack(config).run((error, stats) => {
     console.log(chalkWarning('Webpack generated the following warnings: '));
     jsonStats.warnings.map(warning => console.log(chalkWarning(warning)));
   }
-  spinner.start('Components: Copying style files...')
+  spinner.start('Components: Copying style files...');
   try{
     copyComponentsStyle();
   }catch(e){
