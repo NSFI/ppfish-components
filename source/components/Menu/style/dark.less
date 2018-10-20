@@ -59,9 +59,9 @@
     border-right: 0;
     margin-left: 0;
     left: 0;
-    &:after {
-      border-right: 0;
-    }
+    // &:after {
+    //   border-right: 0;
+    // }
   }
 
   &-dark&-inline &-item,
@@ -101,7 +101,9 @@
     border-right: 0;
     color: @menu-dark-highlight-color;
     &:after {
-      border-right: 0;
+      border-right: 3px solid @menu-dark-highlight-color;
+      opacity: 1;
+      transform: scaleY(1);
     }
     > a,
     > a:hover {

@@ -106,6 +106,12 @@
 
   &:not(&-horizontal) &-item-selected {
     background-color: @menu-item-active-bg;
+
+    &:after {
+      border-right: 3px solid @menu-highlight-color;
+      opacity: 1;
+      transform: scaleY(1);
+    }
   }
 
   &-inline,
@@ -127,9 +133,9 @@
       border-right: 0;
       margin-left: 0;
       left: 0;
-      &:after {
-        border-right: 0;
-      }
+      // &:after {
+      //   border-right: 0;
+      // }
     }
     > .@{menu-prefix-cls}-item,
     > .@{menu-prefix-cls}-submenu {
