@@ -14,7 +14,7 @@ class TreeSelectMore extends Component {
     if ( loading ) {
       return (
         <div className="fishd-tree-select-more fishd-tree-select-more-empty">
-          <Icon type="load-line" spin={1} />
+          <Icon type="load-line" spinning={true} />
         </div>
       );
     }

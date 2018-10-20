@@ -80,7 +80,7 @@ function notice(
         style: {},
         content: (
           <div className={`${prefixCls}-custom-content ${prefixCls}-${type}`}>
-            <Icon type={iconType} spin={type === 'loading'}/>
+            <Icon type={iconType} spinning={type === 'loading'}/>
             <span>{content}</span>
           </div>
         ),

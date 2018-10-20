@@ -195,7 +195,7 @@ export default class Button extends React.Component<ButtonProps, any> {
     });
 
     const iconType = loading ? 'load-line' : icon;
-    const iconNode = iconType ? <Icon type={iconType} spin={loading} /> : null;
+    const iconNode = iconType ? <Icon type={iconType} spinning={loading} /> : null;
     const kids = (children || children === 0)
       ? React.Children.map(children, child => insertSpace(child, this.isNeedInserted())) : null;
 
