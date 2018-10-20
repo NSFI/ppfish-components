@@ -98,6 +98,7 @@ render() {
 | dots | 是否显示面板指示点 | Boolean | true |
 | easing | 动画效果 | String | 'linear' |
 | effect | 动画效果函数 | Enum {'scrollx', 'fade'} | 'scrollx' |
+| style | 容器样式 | Object | - |
 | vertical | 垂直显示 | Boolean | false |
 
 ## 方法

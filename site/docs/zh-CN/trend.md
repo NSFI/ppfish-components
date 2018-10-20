@@ -46,5 +46,6 @@
 |---|---|---|---|
 | className | 容器类名 | String | - |
 | colorful | 是否彩色标记 | Boolean | true |
-| flag | 上升下降标识 | Enum { 'up', 'down' } | - |
+| flag | 上升下降标识 | Enum {'up', 'down'} | - |
 | reverseColor | 颜色反转 | Boolean | false |
+| style | 容器样式 | Object | - |

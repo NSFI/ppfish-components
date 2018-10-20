@@ -104,6 +104,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
     let {
       prefixCls,
       className = '',
+      style,
       size,
       type,
       tabPosition,
@@ -203,7 +204,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
     );
 
     return (
-      <div className={prefixCls + '-ctner'}>
+      <div className={prefixCls + '-ctner'} style={style}>
         <RcTabs
           {...this.props}
           className={cls}

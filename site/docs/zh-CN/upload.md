@@ -555,15 +555,16 @@ render(){
 | maxFileCount | 文件列表可展示的最大文件数，超出该数值后将展示滚动条，当 listType 为 `text` 时有效 | Number | 5 |
 | multiple | 是否支持多选文件，IE10 以上支持。开启后按住 ctrl 可选择多个文件 | Boolean | false |
 | name | 发到后台的文件参数名 | String | 'file' |
+| onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | () => Void | - |
+| onDeleteAll | 点击全部删除时的回调 | () => Void | - |
+| onPreview | 点击文件链接或预览图标时的回调 | (file) => Void | - |
+| onRemove | 点击移除文件时的回调，返回值为 false 时不移除。支持返回一个 Promise 对象，Promise 对象 resolve(false) 或 reject 时不移除。 | (file) => `Boolean \| Promise` | - |
 | showDeleteAll | 文件列表中的文件数超出 `maxFileCount` 后是否展示 `删除全部`，当 listType 为 `text` 时有效 | Boolean | true |
 | showUploadList | 是否展示 uploadList, 可设为一个对象，用于单独设定 `showPreviewIcon` 和 `showRemoveIcon` | Boolean \| { showPreviewIcon?: Boolean, showRemoveIcon?: Boolean } | true |
+| style | 容器样式 | Object | - |
 | supportServerRender | 服务端渲染时需要打开这个 | Boolean | false |
 | tip | 上传提示 | String | - |
 | withCredentials | 上传请求时是否携带 cookie | Boolean | false |
-| onChange | 上传文件改变时的状态，详见下方的 onChange 小节 | () => Void | - |
-| onPreview | 点击文件链接或预览图标时的回调 | (file) => Void | - |
-| onRemove | 点击移除文件时的回调，返回值为 false 时不移除。支持返回一个 Promise 对象，Promise 对象 resolve(false) 或 reject 时不移除。 | (file) => `Boolean \| Promise` | - |
-| onDeleteAll | 点击全部删除时的回调 | () => Void | - |
 
 ### onChange
 

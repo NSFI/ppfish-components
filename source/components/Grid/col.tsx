@@ -36,6 +36,7 @@ export default class Col extends React.Component<ColProps, {}> {
     push: stringOrNumber,
     pull: stringOrNumber,
     className: PropTypes.string,
+    style: PropTypes.object,
     children: PropTypes.node,
     xs: objectOrNumber,
     sm: objectOrNumber,
@@ -47,7 +48,7 @@ export default class Col extends React.Component<ColProps, {}> {
 
   render() {
     const props: any = this.props;
-    const {span, order, offset, push, pull, className, children, prefixCls = 'fishd-col', ...others} = props;
+    const {span, order, offset, push, pull, className, style, children, prefixCls = 'fishd-col', ...others} = props;
     let sizeClassObj = {};
     ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'].forEach(size => {
       let sizeProps: ColSize = {};
@@ -76,6 +77,6 @@ export default class Col extends React.Component<ColProps, {}> {
       [`${prefixCls}-pull-${pull}`]: pull,
     }, className, sizeClassObj);
 
-    return <div {...others} className={classes}>{children}</div>;
+    return <div {...others} className={classes} style={style}>{children}</div>;
   }
 }

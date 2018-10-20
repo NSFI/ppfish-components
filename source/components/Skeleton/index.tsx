@@ -10,6 +10,7 @@ export interface SkeletonProps {
   loading?: boolean;
   prefixCls?: string;
   className?: string;
+  style?: React.CSSProperties;
   children?: React.ReactNode;
   avatar?: SkeletonAvatarProps | boolean;
   title?: SkeletonTitleProps | boolean;
@@ -71,7 +72,7 @@ class Skeleton extends React.Component<SkeletonProps, any> {
 
   render() {
     const {
-      loading, prefixCls, className, children,
+      loading, prefixCls, className, style, children,
       avatar, title, paragraph, active,
     } = this.props;
 
@@ -140,7 +141,7 @@ class Skeleton extends React.Component<SkeletonProps, any> {
       );
 
       return (
-        <div className={cls}>
+        <div className={cls} style={style}>
           {avatarNode}
           {contentNode}
         </div>

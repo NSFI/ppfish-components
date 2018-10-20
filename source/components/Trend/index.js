@@ -4,14 +4,14 @@ import Icon from '../Icon/index.tsx';
 import classNames from 'classnames';
 import './style/index.less';
 
-const Trend = ({ colorful = true, reverseColor = false, flag, children, className, ...rest }) => {
+const Trend = ({ colorful = true, reverseColor = false, flag, children, className, style, ...rest }) => {
   const classString = classNames('trendItem', {
     'trendItemGrey': !colorful,
     'reverseColor': reverseColor && colorful,
   }, className);
 
   return (
-    <div {...rest} className={classString} title={typeof children === 'string' ? children : ''}>
+    <div {...rest} className={classString} title={typeof children === 'string' ? children : ''} style={style}>
       <span className={'value'}>{children}</span>
       {flag && (
         <span className={flag}>
@@ -24,6 +24,7 @@ const Trend = ({ colorful = true, reverseColor = false, flag, children, classNam
 
 Trend.propTypes = {
   className: PropTypes.string,
+  style: PropTypes.object,
   flag: PropTypes.string,
   colorful: PropTypes.bool,
   reverseColor: PropTypes.bool,

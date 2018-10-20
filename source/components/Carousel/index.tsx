@@ -128,22 +128,20 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   }
 
   render() {
-    let props = {
-      ...this.props,
-    };
+    let { style, ...restProps} = this.props;
 
-    if (props.effect === 'fade') {
-      props.fade = true;
+    if (restProps.effect === 'fade') {
+      restProps.fade = true;
     }
 
-    let className = props.prefixCls;
-    if (props.vertical) {
+    let className = restProps.prefixCls;
+    if (restProps.vertical) {
       className = `${className} ${className}-vertical`;
     }
 
     return (
-      <div className={className}>
-        <SlickCarousel ref={this.saveSlick} {...props} />
+      <div className={className} style={style}>
+        <SlickCarousel ref={this.saveSlick} {...restProps} />
       </div>
     );
   }

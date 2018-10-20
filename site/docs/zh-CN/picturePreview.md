@@ -276,12 +276,13 @@
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | activeIndex | 当前展示第几张图片 | Number | 0 |
-| className | 容器类名 | String | - |
+| className | 图片容器类名 | String | - |
 | draggable | 是否可拖动 | Boolean | false |
-| mask | 是否展示遮罩层 | Boolean | true |
 | keyboard | 是否支持键盘esc关闭及左右键切换图片 | Boolean | true |
+| mask | 是否展示遮罩层 | Boolean | true |
+| onClose | 关闭后的回调函数 | () => Void | - |
 | progress | 是否展示图片总数和当前进度 | Boolean | false |
 | source | 设置图片的源数据，可选，格式为 `[{name: "", src: ""}]` 。当不设置 source 时可以手动构造子节点，子节点需是 `img` 标签，且包含 `name` 和 `src` 属性。若 source 与子节点同时存在，子节点将被忽略。 | Array | [] |
+| style | 图片容器样式 | Object | - |
 | toolbar | 是否展示工具栏 | Boolean | false |
 | visible | 是否展示图片查看器 | Boolean | false |
-| onClose | 关闭后的回调函数 | () => Void | - |

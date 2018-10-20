@@ -252,6 +252,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     const {
       prefixCls = '',
       className,
+      style,
       showUploadList,
       listType,
       type,
@@ -270,6 +271,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     };
 
     delete rcUploadProps.className;
+    delete rcUploadProps.style;
 
     const uploadList = showUploadList ? this.renderUploadList({
       uploading: '上传中',
@@ -292,7 +294,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
         [`${prefixCls}-disabled`]: disabled,
       });
       return (
-        <span className={className}>
+        <span className={className} style={style}>
           <div
             className={dragCls}
             onDrop={this.onFileDrop}
@@ -325,7 +327,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
 
     if (listType === 'picture-card') {
       return (
-        <span className={className}>
+        <span className={className} style={style}>
           {uploadList}
           {uploadButton}
           {uploadTips}
@@ -333,7 +335,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
       );
     } else {
       return (
-        <span className={className}>
+        <span className={className} style={style}>
           {uploadButton}
           {uploadTips}
           {uploadList}

@@ -58,6 +58,7 @@ export default class Row extends React.Component<RowProps, RowState> {
     align: PropTypes.string,
     justify: PropTypes.string,
     className: PropTypes.string,
+    style: PropTypes.object,
     children: PropTypes.node,
     gutter: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     prefixCls: PropTypes.string,

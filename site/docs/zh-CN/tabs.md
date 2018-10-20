@@ -394,17 +394,18 @@ render(){
 | defaultActiveKey | 初始化选中面板的 key，如果没有设置 activeKey | String | 第一个面板 |
 | hideAdd | 是否隐藏加号图标，在 `type="editable-card"` 时有效 | Boolean | false |
 | loading | 是否显示 Loading 状态，异步加载数据时可选择使用 | Boolean | false |
-| size | 大小 | Enum {'default', 'large', 'small'} | 'default' |
-| tabBarExtraContent | tab bar 上额外的元素 | ReactNode | - |
-| tabBarGutter | tabs 之间的间隙，在 `type="section" \| "borderless-section"` 时无效 | Number | - |
-| tabBarStyle | tab bar 的样式对象 | Object | - |
-| tabPosition | 页签位置 | Enum {'top', 'right', 'bottom', 'left'} | 'top' |
-| type | 页签的基本样式 | Enum {'line', 'card', 'editable-card', 'section', 'borderless-section'} | 'line' |
 | onChange | 切换面板的回调 | (activeKey) => Void | - |
 | onEdit | 新增和删除页签的回调，在 `type="editable-card"` 时有效 | (targetKey, action) => Void | - |
 | onNextClick | next 按钮被点击的回调 | () => Void | - |
 | onPrevClick | prev 按钮被点击的回调 | () => Void | - |
 | onTabClick | tab 被点击的回调 | () => Void | - |
+| size | 大小 | Enum {'default', 'large', 'small'} | 'default' |
+| style | 容器样式 | Object | - |
+| tabBarExtraContent | tab bar 上额外的元素 | ReactNode | - |
+| tabBarGutter | tabs 之间的间隙，在 `type="section" \| "borderless-section"` 时无效 | Number | - |
+| tabBarStyle | tab bar 的样式 | Object | - |
+| tabPosition | 页签位置 | Enum {'top', 'right', 'bottom', 'left'} | 'top' |
+| type | 页签的基本样式 | Enum {'line', 'card', 'editable-card', 'section', 'borderless-section'} | 'line' |
 
 ### Tabs.TabPane
 

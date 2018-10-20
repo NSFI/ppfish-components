@@ -199,7 +199,7 @@ export default class Tree extends React.Component<TreeProps, any> {
 
   render() {
     const props = this.props;
-    const { prefixCls, className, showIcon, required } = props;
+    const { prefixCls, className, style, showIcon, required } = props;
     let checkable = props.checkable;
     return (
       <RcTree
@@ -208,6 +208,7 @@ export default class Tree extends React.Component<TreeProps, any> {
         checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
         switcherIcon={this.renderSwitcherIcon}
         required={required}
+        style={style}
       >
         {this.props.children}
       </RcTree>

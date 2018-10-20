@@ -80,6 +80,7 @@ render() {
 | params | 路由的参数 | Object | - |
 | routes | router 的路由栈信息 | Array<{path: String, breadcrumbName: String}> | - |
 | separator | 分隔符自定义 | String \| ReactNode | '/' |
+| style | 容器样式 | Object | - |
 
 ### 和 browserHistory 配合
 

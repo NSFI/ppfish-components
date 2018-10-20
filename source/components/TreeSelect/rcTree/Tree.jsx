@@ -22,6 +22,7 @@ class Tree extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
+    style: PropTypes.object,
     tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     children: PropTypes.any,
     treeData: PropTypes.array, // Generate treeNode by children
@@ -680,7 +681,7 @@ class Tree extends React.Component {
   render() {
     const { treeNode } = this.state;
     const {
-      prefixCls, className, focusable,
+      prefixCls, className, style, focusable,
       showLine, tabIndex = 0,
     } = this.props;
     const domProps = getDataAndAria(this.props);
@@ -696,6 +697,7 @@ class Tree extends React.Component {
         className={classNames(prefixCls, className, {
           [`${prefixCls}-show-line`]: showLine,
         })}
+        style={style}
         role="tree"
         unselectable="on"
       >

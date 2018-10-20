@@ -162,13 +162,13 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| autoShowClose | 标签可关闭时，是否自动展示关闭按钮。设置为 false 时，需 hover 到标签上才展示。 | Boolean | true |
 | afterClose | 关闭动画完成后的回调 | () => Void | - |
+| autoShowClose | 标签可关闭时，是否自动展示关闭按钮。设置为 false 时，需 hover 到标签上才展示。 | Boolean | true |
 | className | 容器类名 | String | - |
 | closable | 标签是否可以关闭 | Boolean | false |
 | color | 标签色 | String | - |
-| style | 自定义内联样式 | Object | - |
 | onClose | 关闭时的回调 | (e) => Void | - |
+| style | 自定义内联样式 | Object | - |
 | visible | 是否显示标签 | Boolean | true |
 
 ### Tag.CheckableTag

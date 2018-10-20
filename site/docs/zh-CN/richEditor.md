@@ -233,18 +233,18 @@
 | customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
+| onBlur | 失去焦点时的回调 | (previousRange, source, editor) => Void | - |
+| onChange | 内容改变时的回调 | (content, delta, source, editor) => Void | - |
+| onFocus | 获取焦点时的回调 | (range, source, editor) => Void | - |
+| onKeyDown | 按键按下时的回调，对特殊按键如 `backspace` 、 `delete` 或 `enter` 无效 | (event) => Void | - |
+| onKeyPress | 按键按下并释放后的回调，对特殊按键如 `shift` 或 `enter` 无效 | (event) => Void | - |
+| onKeyUp | 按键释放后的回调 | (event) => Void | - |
+| onSelectionChange | 选区改变时的回调 | (range, source, editor) => Void | - |
 | placeholder | 内容为空时的占位内容 | String | '请输入内容' |
 | resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | false |
 | style | 容器样式 | Object | - |
 | toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
-| onChange | 内容改变时的回调 | (content, delta, source, editor) => Void | - |
-| onSelectionChange | 选区改变时的回调 | (range, source, editor) => Void | - |
-| onFocus | 获取焦点时的回调 | (range, source, editor) => Void | - |
-| onBlur | 失去焦点时的回调 | (previousRange, source, editor) => Void | - |
-| onKeyPress | 按键按下并释放后的回调，对特殊按键如 `shift` 或 `enter` 无效 | (event) => Void | - |
-| onKeyDown | 按键按下时的回调，对特殊按键如 `backspace` 、 `delete` 或 `enter` 无效 | (event) => Void | - |
-| onKeyUp | 按键释放后的回调 | (event) => Void | - |
 
 ### 方法
 
@@ -252,8 +252,8 @@
 
 |方法|说明|
 |:-|:-|
-| focus() | 使编辑器获取焦点 |
 | blur() | 使编辑器失去焦点 |
+| focus() | 使编辑器获取焦点 |
 | getEditor() | 返回 Quill 实例。请不要强制改变 Quill 实例的状态，以免造成 RichEditor 和 Quill 不同步 |
 
 #### Quill 实例

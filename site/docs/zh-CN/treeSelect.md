@@ -650,6 +650,12 @@
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
+| onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
+| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
+| onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => Void | - |
+| onReset | 点击复位选项时调用，单选时有效 | () => Void | - |
+| onSearch | 搜索框值变化时调用 | (value: String) => Void | - |
+| onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => Void | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | placement | 下拉菜单弹出的位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'} | 'bottomLeft' |
 | required | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
@@ -667,12 +673,6 @@
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
 | value | 指定当前选中的条目 | String \| Array<String> | - |
-| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
-| onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => Void | - |
-| onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
-| onReset | 点击复位选项时调用，单选时有效 | () => Void | - |
-| onSearch | 搜索框值变化时调用 | (value: String) => Void | - |
-| onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => Void | - |
 
 ### Tree 方法
 

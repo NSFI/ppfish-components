@@ -708,6 +708,7 @@
 | checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
 | checkedKeys | （受控）选中复选框的树节点（注意：父子节点有关联，如果传入父节点key，则子节点自动选中；相应当子节点key都传入，父节点也自动选中。当设置`checkable`和`checkStrictly`，它是一个有`checked`和`halfChecked`属性的对象，并且父子节点的选中与否不再关联 | Array<String> \| {checked: Array<String>, halfChecked: Array<String>} | [] |
 | checkStrictly | checkable状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false |
+| className | 容器类名 | String | - |
 | defaultCheckedKeys | 默认选中复选框的树节点 | Array<String> | [] |
 | defaultExpandAll | 默认展开所有树节点 | Boolean | false |
 | defaultExpandedKeys | 默认展开指定的树节点 | Array<String> | [] |
@@ -721,10 +722,6 @@
 | loadData | 异步加载数据 | (node) => Void | - |
 | loadedKeys | （受控）已经加载的节点，需要配合 `loadData` 使用 | Array<String> | [] |
 | multiple | 支持点选多个节点（节点本身） | Boolean | false |
-| selectedKeys | （受控）设置选中的树节点 | Array<String> | - |
-| showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
-| showLine | 是否展示连接线 | Boolean | false |
-| required | 是否必选，单选时有效 | Boolean | false |
 | onCheck | 点击复选框触发 | (checkedKeys, e:{checked: Boolean, checkedNodes, node, event}) => Void | - |
 | onDragEnd | dragend 触发时调用 | ({event, node}) => Void | - |
 | onDragEnter | dragenter 触发时调用 | ({event, node, expandedKeys}) => Void | - |
@@ -736,6 +733,11 @@
 | onLoad | 节点加载完毕时触发 | (loadedKeys, {event, node}) => Void | - |
 | onRightClick | 响应右键点击 | ({event, node}) => Void | - |
 | onSelect | 点击树节点触发 | (selectedKeys, e:{selected: Boolean, selectedNodes, node, event}) => Void | - |
+| required | 是否必选，单选时有效 | Boolean | false |
+| selectedKeys | （受控）设置选中的树节点 | Array<String> | - |
+| showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
+| showLine | 是否展示连接线 | Boolean | false |
+| style | 容器样式 | Object | - |
 
 ### TreeNode props
 

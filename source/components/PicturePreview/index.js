@@ -93,6 +93,7 @@ class PicturePreview extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
+    style: PropTypes.object,
     children: PropTypes.node,
     toolbar: PropTypes.bool,
     source: PropTypes.array,
@@ -539,7 +540,7 @@ class PicturePreview extends Component {
 
   render() {
     const { show, current, imgs, image, container } = this.state;
-    const { className, prefixCls, source, children, toolbar, draggable, mask, progress } = this.props;
+    const { className, style, prefixCls, source, children, toolbar, draggable, mask, progress } = this.props;
     let isFullscreen = container.isFull;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
@@ -586,7 +587,7 @@ class PicturePreview extends Component {
       <div
         data-show={show}
         className={ctnerClass}
-        style={container.style}
+        style={{...container.style, ...style}}
         ref={node => this.$el = node}
         onDragStart={(e) => {e.preventDefault();}}
         onMouseDown={draggable ? this.handleMouseDown : null}
