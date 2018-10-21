@@ -78,10 +78,13 @@ let genEmoji = (data) => {
       <div className="emoji-item-ctner" key={"emoji_" + grpIndex + "_" + index} >
         <button
           className={"emoji-item " + item.className}
-          value={`${item.title}${emojiValueDivider}
-                  ${resPath}${item.imgName}.png${emojiValueDivider}
-                  ${defaultEmojiWidth}${emojiValueDivider}
-                  ${defaultEmojiHeight}`}
+          value={
+            "defaultEmoji" + emojiValueDivider +
+            item.title + emojiValueDivider +
+            resPath + item.imgName + ".png" + emojiValueDivider +
+            defaultEmojiWidth + emojiValueDivider +
+            defaultEmojiHeight
+          }
           title={item.title}
         />
       </div>
@@ -118,10 +121,13 @@ let genCustomEmoji = (data) => {
       <img
         key={"emoji_extend_" + index}
         className={"emoji-extend-item " + item.className}
-        value={`${item.title}${emojiValueDivider}
-                ${item.url}${emojiValueDivider}
-                ${customEmojiWidth}${emojiValueDivider}
-                ${customEmojiHeight}`}
+        value={
+          "customEmoji" + emojiValueDivider +
+          item.title + emojiValueDivider +
+          item.url + emojiValueDivider +
+          customEmojiWidth + emojiValueDivider +
+          customEmojiHeight
+        }
         title={item.title}
         src={item.url}
         width={customEmojiWidth}

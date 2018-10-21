@@ -94,10 +94,11 @@ class RichEditor extends Component {
         let vList = value.split(emojiValueDivider);
         let range = this.quill.getSelection();
         this.quill.insertEmbed(range.index, 'emoji', {
-          alt: vList[0],
-          src: vList[1],
-          width: vList[2],
-          height: vList[3]
+          type: vList[0],
+          alt: vList[1],
+          src: vList[2],
+          width: vList[3],
+          height: vList[4]
         });
         this.quill.setSelection(range.index + 1);
       },

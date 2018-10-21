@@ -5,6 +5,7 @@ const Embed = Quill.import('blots/embed');
 class EmojiBlot extends Embed {
   static create(value) {
     let node = super.create();
+    node.setAttribute('data-type', value.type);
     node.setAttribute('alt', value.alt);
     node.setAttribute('src', value.src);
     node.setAttribute('width', value.width);
@@ -14,6 +15,7 @@ class EmojiBlot extends Embed {
 
   static formats(node) {
     return {
+      type: node.getAttribute('data-type'),
       alt: node.getAttribute('alt'),
       src: node.getAttribute('src'),
       width: node.getAttribute('width'),
@@ -23,6 +25,7 @@ class EmojiBlot extends Embed {
 
   static value(node) {
     return {
+      type: node.getAttribute('data-type'),
       alt: node.getAttribute('alt'),
       src: node.getAttribute('src'),
       width: node.getAttribute('width'),
