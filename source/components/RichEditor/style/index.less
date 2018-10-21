@@ -124,11 +124,22 @@
     margin: 0 12px 0 0;
 
     > .item {
+      position: relative;
       background: @component-background;
       border-left: @border-width-base @border-style-base @border-color-base;
       border-top: @border-width-base @border-style-base @border-color-base;
       border-bottom: @border-width-base @border-style-base @border-color-base;
       color: @icon-normal-color;
+
+      &:after {
+        position: absolute;
+        content: '';
+        top: 0;
+        right: -1px;
+        border-right: @border-width-base @border-style-base @border-color-base;
+        width: 0;
+        height: 100%;
+      }
 
       &:hover {
         color: @icon-normal-color;
