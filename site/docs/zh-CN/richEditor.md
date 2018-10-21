@@ -176,6 +176,31 @@
 ```
 :::
 
+## 自定义插入图片
+
+:::demo 自定义插入图片。
+
+```js
+  
+  getImageUrl = (callback) => {
+    setTimeout(() => {
+      let imageUrl = "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin";
+      callback(imageUrl);
+    }, 1000);
+  }
+
+  render() {
+    return (
+      <RichEditor
+        getPopupContainer={() => document.querySelector('.content')}
+        customInsertImage={this.getImageUrl}
+      />
+    );
+  }
+```
+:::
+
+
 ## 轻量版
 
 :::demo 轻量版。
@@ -230,9 +255,11 @@
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array<Object {name: String, id: Number, [className]: String, url: String, [title]: String}> | - |
+| customInsertImage | 自定义插入图片。通过此接口可以自己实现插入图片前获取图片的过程。 | (callback: (url) => Void) => Void | - |
 | customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
+| insertImageTip | 插入图片的文字提示 | String | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
 | onBlur | 失去焦点时的回调 | (previousRange, source, editor) => Void | - |
 | onChange | 内容改变时的回调 | (content, delta, source, editor) => Void | - |
 | onFocus | 获取焦点时的回调 | (range, source, editor) => Void | - |

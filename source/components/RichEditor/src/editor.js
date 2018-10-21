@@ -31,6 +31,8 @@ class RichEditor extends Component {
     style: PropTypes.object,
     toolbar: PropTypes.array,
     value: PropTypes.string,
+    insertImageTip: PropTypes.string,
+    customInsertImage: PropTypes.func,
     getPopupContainer: PropTypes.func,
     onChange: PropTypes.func,
     onSelectionChange: PropTypes.func,
@@ -44,6 +46,7 @@ class RichEditor extends Component {
   static defaultProps = {
     customEmoji: [],
     customLink: {},
+    insertImageTip: '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
     placeholder: '请输入内容',
     prefixCls: 'fishd-richeditor',
     resizable: false,
@@ -244,37 +247,47 @@ class RichEditor extends Component {
   };
 
   handlePickLocalImage = () => {
+    let { customInsertImage } = this.props;
     let quill = this.getEditor();
     let fileInput = this.toolbarCtner.querySelector('input.ql-image[type=file]');
-    if (fileInput == null) {
-      fileInput = document.createElement('input');
-      fileInput.setAttribute('type', 'file');
-      fileInput.setAttribute('accept', 'image/jpg, image/jpeg, image/png, image/gif, image/bmp');
-      fileInput.classList.add('ql-image');
-      fileInput.addEventListener('change', () => {
-        if (fileInput.files != null && fileInput.files[0] != null) {
-          let reader = new FileReader();
-          reader.onload = (e) => {
-            let range = quill.getSelection(true);
-            quill.updateContents(new Delta()
-              .retain(range.index)
-              .delete(range.length)
-              .insert({ image: e.target.result })
-            , 'user');
-            quill.setSelection(range.index + 1, 'silent');
-            fileInput.value = "";
+    const getImageCb = (url) => {
+      let range = quill.getSelection(true);
 
-            this.setState({
-              value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-              showImageModal: false
-            });
-          };
-          reader.readAsDataURL(fileInput.files[0]);
-        }
+      quill.updateContents(new Delta()
+        .retain(range.index)
+        .delete(range.length)
+        .insert({ image: url })
+      , 'user');
+      quill.setSelection(range.index + 1, 'silent');
+
+      this.setState({
+        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        showImageModal: false
       });
-      this.toolbarCtner.appendChild(fileInput);
+    };
+
+    if (customInsertImage && (typeof customInsertImage === "function")) {
+      customInsertImage(getImageCb);
+    } else {
+      if (fileInput == null) {
+        fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('accept', 'image/jpg, image/jpeg, image/png, image/gif, image/bmp');
+        fileInput.classList.add('ql-image');
+        fileInput.addEventListener('change', () => {
+          if (fileInput.files != null && fileInput.files[0] != null) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+              getImageCb(e.target.result);
+              fileInput.value = "";
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+          }
+        });
+        this.toolbarCtner.appendChild(fileInput);
+      }
+      fileInput.click();
     }
-    fileInput.click();
   };
 
   handleInsertEmoji = (e) => {
@@ -357,8 +370,10 @@ class RichEditor extends Component {
       style,
       getPopupContainer,
       customEmoji,
+      insertImageTip,
       ...restProps
     } = this.props;
+    delete restProps.customInsertImage;
     const cls = classNames(`${prefixCls}`, {
       'resizable': resizable,
     }, className);
@@ -383,7 +398,7 @@ class RichEditor extends Component {
           onCancel={this.handleImageModalCancel}
         >
           <Button type="primary" onClick={this.handlePickLocalImage}>选择本地图片</Button>
-          <div className="image-modal-text">支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。</div>
+          <div className="image-modal-text">{insertImageTip}</div>
         </Modal>
         <Modal
           title="插入视频"
