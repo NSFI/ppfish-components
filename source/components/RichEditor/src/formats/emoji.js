@@ -5,6 +5,13 @@ const Embed = Quill.import('blots/embed');
 class EmojiBlot extends Embed {
   static create(value) {
     let node = super.create();
+
+    if (value.type === 'defaultEmoji') {
+      node.setAttribute('class', 'portrait_icon');
+    } else if (value.type === 'customEmoji') {
+      node.setAttribute('class', 'custom_icon');
+    }
+
     node.setAttribute('data-type', value.type);
     node.setAttribute('alt', value.alt);
     node.setAttribute('src', value.src);

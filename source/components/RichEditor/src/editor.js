@@ -13,6 +13,7 @@ import EmojiBlot from './formats/emoji.js';
 import LinkBlot from './formats/link.js';
 import '../style/index.less';
 
+const EMOJI_VALUE_DIVIDER = '///***';
 const { delta: Delta, parchment: Parchment } = Quill.imports;
 
 Quill.register(CustomSizeBlot);
@@ -93,8 +94,7 @@ class RichEditor extends Component {
         });
       },
       emoji: function(value) {
-        const emojiValueDivider = '///***';
-        let vList = value.split(emojiValueDivider);
+        let vList = value.split(EMOJI_VALUE_DIVIDER);
         let range = this.quill.getSelection();
         this.quill.insertEmbed(range.index, 'emoji', {
           type: vList[0],

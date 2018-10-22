@@ -58,9 +58,12 @@ let defaultSizes = [
   );
 });
 
-const emojiValueDivider = '///***';
-let defaultEmojiWidth = 24;
-let defaultEmojiHeight = 24;
+const EMOJI_VALUE_DIVIDER = '///***';
+const EMOJI_DEFAULT_WIDTH = 24;
+const EMOJI_DEFAULT_HEIGHT = 24;
+const EMOJI_COSTOM_WIDTH = 74;
+const EMOJI_COSTOM_HEIGHT = 74;
+
 let genEmoji = (data) => {
   let colSize = 10,
       resPath = '//qiyukf.com/sdk/res/portrait/emoji/',
@@ -79,11 +82,11 @@ let genEmoji = (data) => {
         <button
           className={"emoji-item " + item.className}
           value={
-            "defaultEmoji" + emojiValueDivider +
-            item.title + emojiValueDivider +
-            resPath + item.imgName + ".png" + emojiValueDivider +
-            defaultEmojiWidth + emojiValueDivider +
-            defaultEmojiHeight
+            "defaultEmoji" + EMOJI_VALUE_DIVIDER +
+            item.title + EMOJI_VALUE_DIVIDER +
+            resPath + item.imgName + ".png" + EMOJI_VALUE_DIVIDER +
+            EMOJI_DEFAULT_WIDTH + EMOJI_VALUE_DIVIDER +
+            EMOJI_DEFAULT_HEIGHT
           }
           title={item.title}
         />
@@ -103,8 +106,6 @@ let genEmoji = (data) => {
 };
 let defaultEmojis = genEmoji(emojiList);
 
-let customEmojiWidth = 74;
-let customEmojiHeight = 74;
 let genCustomEmoji = (data) => {
   if (!(data && data.length)) return;
 
@@ -122,16 +123,16 @@ let genCustomEmoji = (data) => {
         key={"emoji_extend_" + index}
         className={"emoji-extend-item " + item.className}
         value={
-          "customEmoji" + emojiValueDivider +
-          item.title + emojiValueDivider +
-          item.url + emojiValueDivider +
-          customEmojiWidth + emojiValueDivider +
-          customEmojiHeight
+          "customEmoji" + EMOJI_VALUE_DIVIDER +
+          item.title + EMOJI_VALUE_DIVIDER +
+          item.url + EMOJI_VALUE_DIVIDER +
+          EMOJI_COSTOM_WIDTH + EMOJI_VALUE_DIVIDER +
+          EMOJI_COSTOM_HEIGHT
         }
         title={item.title}
         src={item.url}
-        width={customEmojiWidth}
-        height={customEmojiHeight}
+        width={EMOJI_COSTOM_WIDTH}
+        height={EMOJI_COSTOM_HEIGHT}
         alt={item.title}
       />
     );
