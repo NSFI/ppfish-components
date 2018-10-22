@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from '../Modal';
 import Icon from '../Icon';
 import Checkbox from '../Checkbox';
+import ToolTip from '../Tooltip';
 import {ColumnFiltrateProps, ColumnFiltrateState} from "./interface";
 
 const CheckboxGroup = Checkbox.Group;
@@ -123,7 +124,7 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
         //fixed /分组不能控制显示隐藏
         const disabled = !!column.fixed || !!column.children;
         return {
-          label: column.title,
+          label: <ToolTip title={column.title}>{column.title}</ToolTip>,
           value: uniqKey,
           disabled: disabled
         };
@@ -138,7 +139,7 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
     return columns
       .filter(column => defaultColumns.findIndex(key => key === getColumnKey(column)) !== -1)
       .map(column => ({
-        label: column.title,
+        label: <ToolTip title={column.title}>{column.title}</ToolTip>,
         value: getColumnKey(column),
         disabled: true
       }));
