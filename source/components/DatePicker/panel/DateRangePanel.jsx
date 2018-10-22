@@ -102,6 +102,7 @@ export default class DateRangePanel extends React.Component {
         return dateB;
       }
     };
+    const minTime = isValidValueArr(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue);
     const state = {};
     state.leftDate = isValidValueArr(props.value) ? props.value[0] : new Date();
     state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date());
@@ -109,8 +110,10 @@ export default class DateRangePanel extends React.Component {
     state.maxDate = isValidValueArr(props.value) ? toDate(props.value[1]) : null;
     state.minDateInputText = isValidValueArr(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '';
     state.maxDateInputText = isValidValueArr(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '';
-    state.minTime = isValidValueArr(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue);
+    state.minTime = minTime;
     state.maxTime = isValidValueArr(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue);
+    state.startTimeSelectableRange = props.startTimeSelectableRange;
+    state.endTimeSelectableRange = this.getEndTimeSelectableRange(minTime);
     return state;
   }
 
@@ -138,6 +141,35 @@ export default class DateRangePanel extends React.Component {
     return !(minDate && maxDate && minDateInputText && maxDateInputText);
   }
 
+  getEndTimeSelectableRange = (minTime) => {
+    const { endTimeSelectableRange } = this.props;
+
+    if(!minTime) return endTimeSelectableRange;
+
+    const timeValue = `${minTime.getHours()}:${minTime.getMinutes()}:${minTime.getSeconds()}`;
+    const timeRange = [`${timeValue} - 23:59:59`];
+
+    let rangeResult = [];
+    if(endTimeSelectableRange){
+      rangeResult = Array.isArray(endTimeSelectableRange) ? timeRange.concat(endTimeSelectableRange) : timeRange.concat([endTimeSelectableRange]);
+    }else{
+      rangeResult = timeRange;
+    }
+    return rangeResult;
+  }
+
+  // 当开始日期和结束日期为同一天时，需要控制结束时间的可选范围
+  setEndTimeRange = () => {
+    const { minDate, maxDate, minTime, maxTime } = this.state;
+    const { endTimeSelectableRange } = this.props;
+    const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
+
+    this.setState({
+      maxTime: isSameDate && minTime ? minTime : maxTime,
+      endTimeSelectableRange: isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectableRange
+    });
+  }
+
   // 开始日期或结束日期发生改变
   handleDateInputChange(e, type) {
     const {disabledDate,format} = this.props;
@@ -156,6 +188,9 @@ export default class DateRangePanel extends React.Component {
       this.setState({
         [text]: inputText,
         [value]: new Date(ndate)
+      }, () => {
+        //当开始日期和结束日期为同一天时，控制结束时间的可选范围
+        this.setEndTimeRange();
       });
     }
   }
@@ -176,16 +211,18 @@ export default class DateRangePanel extends React.Component {
 
   // 开始时间或结束时间发生改变
   handleTimeInputChange(value, type) {
+    const { minDate, maxDate, maxTime } = this.state;
     if (value) {
       if (type === 'min') {
         this.setState({
           minTime: new Date(value),
-          [`${type}TimpickerVisisble`]: false,
+        }, () => {
+          //当开始日期和结束日期为同一天时，控制结束时间的可选范围
+          this.setEndTimeRange();
         });
       } else {
         this.setState({
           maxTime: new Date(value),
-          [`${type}TimpickerVisisble`]: false
         });
       }
     }
@@ -318,6 +355,9 @@ export default class DateRangePanel extends React.Component {
       maxDate: maxDate ? new Date(maxDate) : null,
       minDateInputText: formatDate(minDate, dateFormat(format)),
       maxDateInputText: formatDate(maxDate, dateFormat(format)),
+    },()=> {
+      //当开始日期和结束日期为同一天时，控制结束时间的可选范围
+      this.setEndTimeRange();
     });
 
     if (!isClose) return;
@@ -351,8 +391,6 @@ export default class DateRangePanel extends React.Component {
       yearCount,
       showTime,
       showTimeCurrent,
-      startTimeSelectableRange,
-      endTimeSelectableRange,
       footer,
       prefixCls
     } = this.props;
@@ -365,7 +403,9 @@ export default class DateRangePanel extends React.Component {
       minDateInputText,
       maxDateInputText,
       minTime,
-      maxTime
+      maxTime,
+      startTimeSelectableRange,
+      endTimeSelectableRange
     } = this.state;
 
     const t = Locale.t;
