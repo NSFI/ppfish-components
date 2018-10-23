@@ -29,7 +29,7 @@
         ref={el => this.editorRef = el}
         getPopupContainer={() => document.querySelector('.content')}
         onChange={this.onChange}
-        value={`<div class="ql-editor" data-gramm="false" contenteditable="true"><p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p></div>`}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
       />
     );
   }
@@ -205,6 +205,23 @@
 ```
 :::
 
+## 支持使用 font 标签
+
+:::demo 将 value 中的 font 标签替换为 span 标签，并用 CSS 设定文本样式。
+
+```js
+
+  render() {
+    return (
+      <RichEditor
+        supportFontTag
+        getPopupContainer={() => document.querySelector('.content')}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><font size="16px">Fish Design</font></a><font size="16px"> 是基于 React 实现的高质量的<font size="16px" color="red"> UI 组件库</font>。</font></p><p><br></p><p><font size="16px">它的设计原则是简洁、直接、优雅和适应性。</font></p><p><br></p><p><font size="16px">欢迎使用或</font><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><font size="16px">贡献代码</font></a><font size="16px"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></font></p><p><br></p>`}
+      />
+    );
+  }
+```
+:::
 
 ## 轻量版
 
@@ -275,6 +292,7 @@
 | placeholder | 内容为空时的占位内容 | String | '请输入内容' |
 | resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | false |
 | style | 容器样式 | Object | - |
+| supportFontTag | 是否支持 font 标签。设为 true 时，编辑器会将输入的 font 标签替换为 span 标签，并用 CSS 设定文本样式。 | Boolean | false |
 | toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 
