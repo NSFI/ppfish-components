@@ -409,7 +409,6 @@ class RichEditor extends Component {
     const { value, showLinkModal, showVideoModal, showImageModal } = this.state;
     const {
       className, prefixCls,
-      value: propsValue,
       toolbar, placeholder,
       customLink, resizable,
       style,
@@ -422,6 +421,10 @@ class RichEditor extends Component {
     const cls = classNames(`${prefixCls}`, {
       'resizable': resizable,
     }, className);
+
+    if (value) {
+      restProps.value = value;
+    }
 
     return (
       <div className={cls} style={style}>
@@ -477,7 +480,6 @@ class RichEditor extends Component {
               handlers: this.handlers
             }
           }}
-          value={value}
           placeholder={placeholder}
           {...restProps}
         />
