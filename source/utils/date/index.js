@@ -46,6 +46,11 @@ export const equalDate = function (dateA, dateB) {
   return dateA === dateB || new Date(dateA).getTime() === new Date(dateB).getTime();
 };
 
+// 判断两个日期数组是否相等
+export const equalDateArr = function (arrA, arrB) {
+  return arrA === arrB || Array.isArray(arrA) && Array.isArray(arrB) && arrA.length === 2 && arrB.length === 2 && equalDate(arrA[0],arrB[0]) && equalDate(arrA[1],arrB[1]);
+};
+
 // 判断两个日期的年\月是否相等
 export const equalYearAndMonth = function (dateA, dateB) {
   return dateA.getFullYear() === dateB.getFullYear() && dateA.getMonth() === dateB.getMonth();

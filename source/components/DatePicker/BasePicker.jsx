@@ -7,7 +7,7 @@ import Trigger from 'rc-trigger';
 import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import { Errors, require_condition } from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isValidValue } from '../../utils/date';
+import { isValidValue, equalDate } from '../../utils/date';
 import placements from './placements';
 
 const haveTriggerType = (type) => {
@@ -65,7 +65,7 @@ export default class BasePicker extends React.Component {
     this.type = _type; // type need to be set first
     this.state = Object.assign({}, state, {
       pickerVisible: false,
-      confirmValue: props.value, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
+      confirmValue: this.isDateValid(props.value) ? props.value : null, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
     }, this.propsToState(props));
   }
 
@@ -161,6 +161,15 @@ export default class BasePicker extends React.Component {
     });
   }
 
+  // 保存合法的输入值
+  saveValidInputValue = () => {
+    const { value, confirmValue } = this.state;
+
+    if (this.isDateValid(value) && !equalDate(value, confirmValue)) {
+      this.onPicked(value, false, true);
+    }
+  }
+
   // 聚焦
   handleFocus = (e) => {
     this.props.onFocus(e);
@@ -168,6 +177,7 @@ export default class BasePicker extends React.Component {
 
   // 失焦
   handleBlur = (e) => {
+    this.saveValidInputValue();
     this.props.onBlur(e);
   }
 
@@ -181,10 +191,7 @@ export default class BasePicker extends React.Component {
     }
     // enter
     if (keyCode === KEYCODE.ENTER) {
-      if (this.isDateValid(this.state.value)) {
-        this.onPicked(this.state.value, false, true);
-        this.refs.inputRoot.blur();
-      }
+      this.refs.inputRoot.blur();
     }
   }
 
@@ -212,24 +219,11 @@ export default class BasePicker extends React.Component {
     }
   }
 
-  // 收起面板时检查值的合法性
-  checkDateValid = (visible) => {
-    const { value } = this.state;
-    if (visible) return;
-
-    if (this.isDateValid(value)) {
-      this.onPicked(value, false, true);
-    } else {
-      this.onCancelPicked();
-    }
-  }
-
   // 面板打开关闭的回调
   onVisibleChange = (visible) => {
     this.setState({
       pickerVisible: visible
     },() => {
-      this.checkDateValid(visible);
       this.props.onVisibleChange(visible);
     });
   }
