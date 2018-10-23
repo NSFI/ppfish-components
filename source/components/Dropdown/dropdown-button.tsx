@@ -53,7 +53,7 @@ export default class DropdownButton extends React.Component<DropdownButtonProps,
           {children}
         </Button>
         <Dropdown {...dropdownProps}>
-          <Button type={type} icon="ellipsis" />
+          <Button type={type} icon="more-point" />
         </Dropdown>
       </ButtonGroup>
     );

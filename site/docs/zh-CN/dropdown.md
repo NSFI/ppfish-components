@@ -29,7 +29,7 @@ render(){
   return(
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link">
-      Hover me
+      Hover me <Icon type="bottom" style={{fontSize:12}}/>
     </a>
   </Dropdown>
   )
@@ -137,6 +137,9 @@ render(){
     <Dropdown.Button onClick={this.handleButtonClick} overlay={menu}>
       Dropdown
     </Dropdown.Button>
+    <Dropdown.Button style={{ marginLeft: 8 }} type={"primary"} onClick={this.handleButtonClick} overlay={menu}>
+      Dropdown
+    </Dropdown.Button>
     <Dropdown.Button
       onClick={this.handleButtonClick}
       overlay={menu}
@@ -147,7 +150,12 @@ render(){
     </Dropdown.Button>
     <Dropdown overlay={menu}>
       <Button style={{ marginLeft: 8 }}>
-        Button
+        Button <Icon type="bottom" style={{fontSize:12}}/>
+      </Button>
+    </Dropdown>
+    <Dropdown overlay={menu}>
+      <Button type={"primary"} style={{ marginLeft: 8 }}>
+        Button <Icon type="bottom" style={{fontSize:12}}/>
       </Button>
     </Dropdown>
   </div>)
@@ -175,7 +183,7 @@ render(){
   return(
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link" >
-      Hover me, Click menu item
+      Hover me, Click menu item <Icon type="bottom" style={{fontSize:12}}/>
     </a>
   </Dropdown>
   )
@@ -205,7 +213,7 @@ render(){
   return (
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link" >
-      Hover me
+      Hover me <Icon type="bottom" style={{fontSize:12}}/>
     </a>
   </Dropdown>
   )
@@ -246,7 +254,7 @@ render(){
         visible={this.state.visible}
       >
         <a className="fishd-dropdown-link">
-          Hover me
+          Hover me <Icon type="bottom" style={{fontSize:12}}/>
         </a>
       </Dropdown>
     );
@@ -279,7 +287,7 @@ render(){
   return(
   <Dropdown overlay={menu}>
     <a className="fishd-dropdown-link" >
-      Cascading menu
+      Cascading menu <Icon type="bottom" style={{fontSize:12}}/>
     </a>
   </Dropdown>
   )
@@ -308,7 +316,7 @@ render(){
   return(
   <Dropdown overlay={menu} trigger={['click']}>
     <a className="fishd-dropdown-link">
-      Click me
+      Click me <Icon type="bottom" style={{fontSize:12}}/>
     </a>
   </Dropdown>
   )
