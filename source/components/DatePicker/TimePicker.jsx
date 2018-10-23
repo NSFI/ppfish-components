@@ -5,7 +5,7 @@ import TimePanel from './panel/TimePanel.jsx';
 import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import debounce from 'lodash/debounce';
 
-const converSelectRange = (props) => {
+export const converSelectRange = (props) => {
   let selectableRange = [];
   if (props.selectableRange) {
     let ranges = props.selectableRange;

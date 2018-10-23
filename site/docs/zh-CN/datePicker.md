@@ -846,7 +846,7 @@ render() {
           placeholder="选择日期范围"
           showTime={true}
           startTimeSelectableRange="9:00:00 - 20:00:00"
-          endTimeSelectableRange="9:00:00 - 20:00:00"
+          endTimeSelectableRange={["14:00:00 - 20:00:00","9:00:00 - 12:00:00"]}
           onChange={date=> {
             console.debug('DateRangePicker4 changed: ', date)
             this.setState({value4: date})

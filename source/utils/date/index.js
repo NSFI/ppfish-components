@@ -237,17 +237,12 @@ export const getRangeHours = function (ranges) {
   };
   const hours = [];
   let disabledHours = [];
-  let min = 0;
-  let max = 24;
 
   (ranges || []).forEach(range => {
     const value = range.map(date => date.getHours());
-    min = Math.max(min, value[0]);
-    max = Math.min(max, value[1]);
+
+    disabledHours = disabledHours.concat(newArray(value[0], value[1]));
   });
-  if(ranges && ranges.length > 0) {
-    disabledHours = disabledHours.concat(newArray(min, max));
-  }
 
   if (disabledHours.length) {
     for (let i = 0; i < 24; i++) {
@@ -268,45 +263,36 @@ export const limitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss')
   const len = ranges.length;
 
   date = DateUtils.parse(DateUtils.format(date, format), format);
-  let min, max = null;
   for (let i = 0; i < len; i++) {
     const range = ranges[i];
-    if(i === 0){
-      min = range[0];
-      max = range[1];
-    }else{
-      min = Math.max(min, range[0]);
-      max = Math.min(max, range[1]);
+    if (date >= range[0] && date <= range[1]) {
+      return date;
     }
   }
-  if (date >= min && date <= max) {
-    return date;
-  }
 
-  return date < min ? min : max;
+  let maxDate = ranges[0][0];
+  let minDate = ranges[0][0];
+
+  ranges.forEach(range => {
+    minDate = new Date(Math.min(range[0], minDate));
+    maxDate = new Date(Math.max(range[1], maxDate));
+  });
+
+  return date < minDate ? minDate : maxDate;
 };
 
 // 判断日期是否在范围以内
 export const isLimitRange = function(date, ranges, format = 'yyyy-MM-dd HH:mm:ss') {
-
   if (!ranges || !ranges.length) return true;
 
   const len = ranges.length;
 
   date = DateUtils.parse(DateUtils.format(date, format), format);
-  let min, max = null;
   for (let i = 0; i < len; i++) {
     const range = ranges[i];
-    if(i === 0){
-      min = range[0];
-      max = range[1];
-    }else{
-      min = Math.max(min, range[0]);
-      max = Math.min(max, range[1]);
+    if (date >= range[0] && date <= range[1]) {
+      return true;
     }
-  }
-  if (date >= min && date <= max) {
-    return true;
   }
 
   return false;

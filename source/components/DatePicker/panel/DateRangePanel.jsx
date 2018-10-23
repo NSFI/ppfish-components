@@ -5,7 +5,7 @@ import { DateTable } from '../basic';
 import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
-import TimePicker from '../TimePicker.jsx';
+import TimePicker, { converSelectRange } from '../TimePicker.jsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import {
   SELECTION_MODES,
@@ -103,17 +103,21 @@ export default class DateRangePanel extends React.Component {
       }
     };
     const minTime = isValidValueArr(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue);
+    const maxTime = isValidValueArr(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue);
+    const minDate = isValidValueArr(props.value) ? toDate(props.value[0]) : null;
+    const maxDate = isValidValueArr(props.value) ? toDate(props.value[1]) : null;
+    const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
     const state = {};
     state.leftDate = isValidValueArr(props.value) ? props.value[0] : new Date();
     state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date());
-    state.minDate = isValidValueArr(props.value) ? toDate(props.value[0]) : null;
-    state.maxDate = isValidValueArr(props.value) ? toDate(props.value[1]) : null;
+    state.minDate = minDate;
+    state.maxDate = maxDate;
     state.minDateInputText = isValidValueArr(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '';
     state.maxDateInputText = isValidValueArr(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '';
     state.minTime = minTime;
-    state.maxTime = isValidValueArr(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue);
+    state.maxTime = maxTime;
     state.startTimeSelectableRange = props.startTimeSelectableRange;
-    state.endTimeSelectableRange = this.getEndTimeSelectableRange(minTime);
+    state.endTimeSelectableRange = isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectableRange;
     return state;
   }
 
@@ -141,19 +145,28 @@ export default class DateRangePanel extends React.Component {
     return !(minDate && maxDate && minDateInputText && maxDateInputText);
   }
 
+  // 计算结束时间的可选范围
   getEndTimeSelectableRange = (minTime) => {
     const { endTimeSelectableRange } = this.props;
+    const propsTimeRangeArr = converSelectRange({selectableRange: endTimeSelectableRange});
 
     if(!minTime) return endTimeSelectableRange;
 
-    const timeValue = `${minTime.getHours()}:${minTime.getMinutes()}:${minTime.getSeconds()}`;
-    const timeRange = [`${timeValue} - 23:59:59`];
+    const getTimeString = (date) => {
+      return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    };
 
     let rangeResult = [];
-    if(endTimeSelectableRange){
-      rangeResult = Array.isArray(endTimeSelectableRange) ? timeRange.concat(endTimeSelectableRange) : timeRange.concat([endTimeSelectableRange]);
+    if(propsTimeRangeArr && propsTimeRangeArr.length > 0){
+      let min = minTime;
+      let max = setTime(new Date(minTime), new Date(new Date().setHours(23,59,59)));
+      for(let range of propsTimeRangeArr) {
+        min = Math.max(min, range[0]);
+        max = Math.min(max, range[1]);
+        rangeResult.push(`${getTimeString(new Date(min))} - ${getTimeString(new Date(max))}`);
+      }
     }else{
-      rangeResult = timeRange;
+      rangeResult = [`${getTimeString(minTime)} - 23:59:59`];
     }
     return rangeResult;
   }
