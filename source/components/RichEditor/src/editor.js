@@ -29,6 +29,7 @@ class RichEditor extends Component {
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
     resizable: PropTypes.bool,
+    supportFontTag: PropTypes.bool,
     style: PropTypes.object,
     toolbar: PropTypes.array,
     value: PropTypes.string,
@@ -63,9 +64,14 @@ class RichEditor extends Component {
   constructor(props) {
     super(props);
 
-    let { value, customLink } = this.props;
+    let { value, customLink, supportFontTag } = this.props;
 
     this.toolbarCtner = null;
+
+    if (value && supportFontTag) {
+      value = this.formatFontTag(value);
+    }
+
     this.state = {
       value: value || '',
       showLinkModal: false,
@@ -159,6 +165,45 @@ class RichEditor extends Component {
       });
     }
   }
+
+  formatFontTag = (value) => {
+    let fontTagStart = /(<\s*?)font(\s+)(.*?)(>)/gi,
+        fontTagEnd = /(<\s*?\/\s*?)font(\s*?>)/gi;
+
+    value = value.replace(fontTagStart, ($0, $1, $2, $3, $4) => {
+      let tagStyle = ' style="',
+          tagAttr = ' ';
+
+      $3.replace(/(\w+\-?\w+)\s*=\s*["']\s*(.*?)\s*["']/gi, ($0, $1, $2) => {
+        let key = $1, value = $2;
+
+        switch (key) {
+          case 'color': {
+            tagStyle += 'color:' + value + ';';
+            break;
+          }
+          case 'size': {
+            tagStyle += 'font-size:' + value + ';';
+            break;
+          }
+          case 'face': {
+            tagStyle += 'font-family:' + value + ';';
+            break;
+          }
+          default: {
+            tagAttr += key + '=' + value;
+            break;
+          }
+        }
+      });
+
+      tagStyle += '"';
+
+      return $1 + 'span' + $2 + tagStyle + tagAttr + $4;
+    });
+
+    return value.replace(fontTagEnd, '$1span$2');
+  };
 
   focus = () => {
     this.reactQuillRef.focus();
