@@ -174,7 +174,7 @@ class RichEditor extends Component {
       let tagStyle = ' style="',
           tagAttr = ' ';
 
-      $3.replace(/(\w+\-?\w+)\s*=\s*["']\s*(.*?)\s*["']/gi, ($0, $1, $2) => {
+      $3.replace(/(\w+-?\w+)\s*=\s*["']\s*(.*?)\s*["']/gi, ($0, $1, $2) => {
         let key = $1, value = $2;
 
         switch (key) {
