@@ -178,7 +178,7 @@ export default class DateRangePanel extends React.Component {
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
 
     this.setState({
-      maxTime: isSameDate && minTime ? minTime : maxTime,
+      maxTime: isSameDate && minTime ? null : maxTime,
       endTimeSelectableRange: isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectableRange
     });
   }
