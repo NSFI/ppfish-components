@@ -6,6 +6,7 @@ import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import TimePicker, { converSelectRange } from '../TimePicker.jsx';
+import TimePanel from './TimePanel.jsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import {
   SELECTION_MODES,
@@ -178,7 +179,7 @@ export default class DateRangePanel extends React.Component {
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
 
     this.setState({
-      maxTime: isSameDate && minTime ? null : maxTime,
+      maxTime: isSameDate && minTime ? (maxTime && TimePanel.isValid(maxTime, converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})) ? maxTime : null) : maxTime,
       endTimeSelectableRange: isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectableRange
     });
   }
