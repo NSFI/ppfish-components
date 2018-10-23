@@ -12,6 +12,10 @@
 
 ```js
 
+  componentDidMount() {
+    window.rEditor = this.editorRef;
+  }
+
   onChange = (content, delta, source, editor) => {
     //console.log('content: ', content);
     //console.log('delta: ', delta);
@@ -22,9 +26,10 @@
   render() {
     return (
       <RichEditor
+        ref={el => this.editorRef = el}
         getPopupContainer={() => document.querySelector('.content')}
         onChange={this.onChange}
-        value={`<div class="ql-editor" data-gramm="false" contenteditable="true"><p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p></div>`}
+        value={`<div class="ql-editor" data-gramm="false" contenteditable="true"><p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p></div>`}
       />
     );
   }
