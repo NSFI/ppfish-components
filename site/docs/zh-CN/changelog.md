@@ -46,11 +46,8 @@
         <code>2018-10-23</code>
       </p>
       <ul>
-        <li> Select、Cascader、Drawer、DatePicker、TimePicker、Table、RichEditor、TreeSelect、Tree、Upload、Icon 组件 API 变更。</li>
+        <li> Select、Cascader、Drawer、DatePicker、TimePicker、RichEditor、TreeSelect、Tree、Upload、Icon 组件<a href="https://github.com/NSFI/ppfish-components/blob/feature-1.4/site/docs/1.4%E5%8D%87%E7%BA%A7%E8%AF%B4%E6%98%8E.md"> API 变更</a>。</li>
       </ul>
     </div>
   </div>
 </section>
-
-### 其他说明
-- 1.4.0 API [变更详情](https://github.com/NSFI/ppfish-components/blob/feature-1.4/site/docs/1.4%E5%8D%87%E7%BA%A7%E8%AF%B4%E6%98%8E.md)
