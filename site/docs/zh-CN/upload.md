@@ -48,8 +48,8 @@ render() {
   };
   return (
     <Upload {...props}>
-      <Button type="primary">
-        <Icon type="upload-line" /> 上传
+      <Button type="primary" style={{display: 'inline-flex',alignItems: 'center'}}>
+        <Icon type="upload-line" style={{fontSize:'20px'}} /> 上传
       </Button>
     </Upload>
   );
@@ -222,8 +222,8 @@ render() {
   };
   return (
     <Upload {...props}>
-      <Button type="primary">
-        <Icon type="upload-line" /> 上传
+      <Button type="primary" style={{display: 'inline-flex',alignItems: 'center'}}>
+        <Icon type="upload-line" style={{fontSize:'20px'}} /> 上传
       </Button>
     </Upload>
     )
@@ -362,8 +362,8 @@ render() {
     };
     return (
       <Upload {...props} fileList={this.state.fileList}>
-        <Button type="primary">
-          <Icon type="upload-line" /> 上传
+        <Button type="primary" style={{display: 'inline-flex',alignItems: 'center'}}>
+          <Icon type="upload-line" style={{fontSize:'20px'}} /> 上传
         </Button>
       </Upload>
     );
@@ -409,15 +409,15 @@ render(){
   return (
     <div>
       <Upload {...props}>
-        <Button type="primary">
-          <Icon type="upload-line" /> 上传
+        <Button type="primary" style={{display: 'inline-flex',alignItems: 'center'}}>
+          <Icon type="upload-line" style={{fontSize:'20px'}} /> 上传
         </Button>
       </Upload>
       <br />
       <br />
       <Upload {...props2}>
-        <Button type="primary">
-          <Icon type="upload-line" /> 上传
+        <Button type="primary" style={{display: 'inline-flex',alignItems: 'center'}}>
+          <Icon type="upload-line" style={{fontSize:'20px'}} /> 上传
         </Button>
       </Upload>
     </div>
@@ -508,8 +508,8 @@ render(){
     return (
       <div>
         <Upload {...props}>
-          <Button type="primary">
-            <Icon type="upload-line" /> 选择文件
+          <Button type="primary" style={{display: 'inline-flex',alignItems: 'center'}}>
+            <Icon type="upload-line" style={{fontSize:'20px'}} /> 选择文件
           </Button>
         </Upload>
         <Button

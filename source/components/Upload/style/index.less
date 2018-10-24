@@ -11,17 +11,19 @@
 
 .@{upload-prefix-cls}-list-scroll {
   .scrollbar();
-  overflow-y: scroll;
+  overflow-y: hidden;
   border-radius: @border-radius-base;
 
   &:hover {
     background: #fafbfc;
+    overflow-y: scroll;
   }
 
   &-info {
     font-size: 12px;
     margin: 8px 0;
     color: @text-3;
+    border-radius: @border-radius-base;
   }
 
   &-delete-all {
@@ -192,6 +194,7 @@
       height: 24px;
       padding: 0 12px 0 4px;
       transition: background-color 0.3s;
+      border-radius: @border-radius-base;
 
       > span {
         position: relative;
@@ -323,6 +326,7 @@
       height: 48px;
       position: absolute;
       text-align: center;
+      background: @text-d;
     }
 
     .@{upload-item}-icon {
