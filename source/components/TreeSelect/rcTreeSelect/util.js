@@ -76,9 +76,25 @@ export function flatToHierarchy(positionList) {
     posMap[entity.pos] = entity;
   });
 
-  // parsedList.sort((a, b) => {
-  //   return a.fields.length - b.fields.length;
-  // });
+  // 按照节点的位置排序
+  parsedList.sort((a, b) => {
+    let aLen = a.fields.length,
+        bLen = b.fields.length,
+        minLen = aLen <= bLen ? aLen : bLen;
+
+    for (let i=0; i<minLen; i++) {
+      let aPos = a.fields[i],
+          bPos = b.fields[i];
+
+      if (aPos == bPos) {
+        if (i == minLen - 1) {
+          return -1;
+        }
+      } else {
+        return aPos - bPos;
+      }
+    }
+  });
 
   // Create the hierarchy
   parsedList.forEach((entity) => {
