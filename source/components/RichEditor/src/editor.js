@@ -68,7 +68,7 @@ class RichEditor extends Component {
 
     this.toolbarCtner = null;
 
-    if (value && supportFontTag) {
+    if (supportFontTag) {
       value = this.formatFontTag(value);
     }
 
@@ -160,13 +160,21 @@ class RichEditor extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.state.value) {
+      let newValue = nextProps.value;
+
+      if (this.props.supportFontTag) {
+        newValue = this.formatFontTag(nextProps.value);
+      }
+
       this.setState({
-        value: nextProps.value
+        value: newValue
       });
     }
   }
 
   formatFontTag = (value) => {
+    if (!value) return value;
+
     let fontTagStart = /(<\s*?)font(\s+)(.*?)(>)/gi,
         fontTagEnd = /(<\s*?\/\s*?)font(\s*?>)/gi;
 
