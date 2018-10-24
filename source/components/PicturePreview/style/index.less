@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   border-radius: @border-radius-base;
-  z-index: @zindex-picture-preview - 1;
+  z-index: @zindex-modal;
 }
 
 .@{picture-preview-prefix}-mask {
@@ -28,10 +28,10 @@
 
 .@{picture-preview-prefix} {
   position: absolute;
-  z-index: @zindex-picture-preview;
+  z-index: @zindex-modal;
   user-select: none;
   touch-action: none;
-  border-radius: @border-radius-base;
+  border-radius: @border-radius-lg;
   // background-color: rgba(222, 222, 222, 0.5);
   // box-shadow: 0px 2px 14px rgba(183, 183, 183, 0.5);
   background: #5c5f66;
@@ -68,13 +68,13 @@
   .img[active] {
     display: block;
     transition: all 0.3s ease-out;
+    border-radius: @border-radius-lg;
   }
 
   .icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: @zindex-picture-preview;
     cursor: pointer;
     color: #fff;
 
@@ -174,7 +174,8 @@
     align-items: center;
     height: 40px;
     background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 100px;
+    border-radius: 40px;
+    padding: 0 12px;
   }
 
   .divider {
