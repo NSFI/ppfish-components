@@ -5,21 +5,23 @@
 
 ## 基本
 
-:::demo 头像有三种尺寸，两种形状可选。
+:::demo 头像有三种尺寸，两种形状可选; 或者也可以通过`size`自定义需要的尺寸
 
 ```js
 render(){
   return(
   <div id="components-avatar-demo-basic">
     <div>
-      <Avatar size="large" icon="user" />
-      <Avatar icon="user" />
-      <Avatar size="small" icon="user" />
+      <Avatar size={64} icon="user-line" />
+      <Avatar size="large" icon="user-line" />
+      <Avatar icon="user-line" />
+      <Avatar size="small" icon="user-line" />
     </div>
     <div>
-      <Avatar shape="square" size="large" icon="user" />
-      <Avatar shape="square" icon="user" />
-      <Avatar shape="square" size="small" icon="user" />
+      <Avatar shape="square" size={64} icon="user-line" />
+      <Avatar shape="square" size="large" icon="user-line" />
+      <Avatar shape="square" icon="user-line" />
+      <Avatar shape="square" size="small" icon="user-line" />
     </div>
   </div>)
   }
@@ -41,12 +43,12 @@ render(){
 render(){
   return(
   <div id="components-avatar-demo-type">
-    <Avatar icon="user" />
+    <Avatar icon="user-line" />
     <Avatar>U</Avatar>
     <Avatar>USER</Avatar>
-    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+    <Avatar src="https://ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf" />
     <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>U</Avatar>
-    <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
+    <Avatar style={{ backgroundColor: '#87d068' }} icon="user-line" />
   </div>)
   }
 ```
@@ -107,10 +109,10 @@ render(){
   return(
   <div>
     <span style={{ marginRight: 24 }}>
-      <Badge count={1}><Avatar shape="square" icon="user" /></Badge>
+      <Badge count={1}><Avatar shape="square" icon="user-line" /></Badge>
     </span>
     <span>
-      <Badge dot><Avatar shape="square" icon="user" /></Badge>
+      <Badge dot><Avatar shape="square" icon="user-line" /></Badge>
     </span>
   </div>)
   }
@@ -126,5 +128,5 @@ render(){
 | icon | 设置头像的图标类型，参考 `Icon` 组件 | String | - |
 | onError | 图片加载失败的事件，返回 false 会关闭组件默认的 fallback 行为 | () => Boolean | - |
 | shape | 指定头像的形状 | Enum {'circle', 'square'} | 'circle' |
-| size | 设置头像的大小 | Enum {'large', 'small', 'default'} | 'default' |
+| size | 设置头像的大小 | Enum {'large', 'small', 'default'} \| Number | 'default' |
 | src | 图片类头像的资源地址 | String | - |
