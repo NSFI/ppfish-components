@@ -106,6 +106,9 @@ export default class Layout extends React.Component {
               <li className="nav-item">
                 <Link to="/components">{this.getLocale('misc.component')}</Link>
               </li>
+              <li className="nav-item">
+                <a href="//nsfi.github.io/ppfish-demo" target="_blank">{this.getLocale('misc.demo')}</a>
+              </li>
               <span className="nav-version">{this.getLocale('misc.version')}</span>
             </ul>
           </Col>
@@ -122,6 +125,7 @@ export default class Layout extends React.Component {
         <div className="link-list">
           <Link to="/home" className="link-item">首页</Link>
           <Link to="/components" className="link-item">组件</Link>
+          <a href="//nsfi.github.io/ppfish-demo" target="_blank" className="link-item">{this.getLocale('misc.demo')}</a>
           <a href="http://jira.netease.com/projects/YSFCOMP/summary" target="_blank" className="link-item">问题反馈</a>
         </div>
         <div className="github">
