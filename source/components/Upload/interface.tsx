@@ -86,6 +86,7 @@ export interface UploadProps {
 export interface UploadState {
   fileList: UploadFile[];
   dragState: string;
+  action: string | ((file: UploadFile) => PromiseLike<any>);
 }
 
 export interface UploadListProps {

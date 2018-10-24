@@ -48,7 +48,23 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     this.state = {
       fileList: props.fileList || props.defaultFileList || [],
       dragState: 'drop',
+      action: props.action || '',
     };
+  }
+
+  componentWillReceiveProps(nextProps: UploadProps) {
+    // action 受控
+    if ('action' in nextProps && this.state.action !== nextProps.action) {
+      this.setState({
+        action: nextProps.action
+      });
+    }
+
+    if ('fileList' in nextProps) {
+      this.setState({
+        fileList: nextProps.fileList || [],
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -187,14 +203,6 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
     }
   }
 
-  componentWillReceiveProps(nextProps: UploadProps) {
-    if ('fileList' in nextProps) {
-      this.setState({
-        fileList: nextProps.fileList || [],
-      });
-    }
-  }
-
   onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     this.setState({
       dragState: e.type,
@@ -272,6 +280,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
 
     delete rcUploadProps.className;
     delete rcUploadProps.style;
+    delete rcUploadProps.action;
 
     const uploadList = showUploadList ? this.renderUploadList({
       uploading: '上传中',
@@ -301,7 +310,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
             onDragOver={this.onFileDrop}
             onDragLeave={this.onFileDrop}
           >
-            <RcUpload {...rcUploadProps} ref={this.saveUpload} className={`${prefixCls}-btn`}>
+            <RcUpload {...rcUploadProps} action={this.state.action} ref={this.saveUpload} className={`${prefixCls}-btn`}>
               <div className={`${prefixCls}-drag-container`}>
                 {children}
               </div>
@@ -321,7 +330,7 @@ export default class Upload extends React.Component<UploadProps, UploadState> {
 
     const uploadButton = (
       <div className={uploadButtonCls} style={{ display: children ? '' : 'none' }}>
-        <RcUpload {...rcUploadProps} ref={this.saveUpload} />
+        <RcUpload {...rcUploadProps} action={this.state.action} ref={this.saveUpload} />
       </div>
     );
 
