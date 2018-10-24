@@ -96,6 +96,7 @@ export default class DateRangePanel extends React.Component {
   }
 
   propsToState(props) {
+    console.log(props);
     const setRightDate = (dateA, dateB) => {
       if(equalYearAndMonth(dateA,dateB)){
         return nextMonth(dateB);
@@ -310,20 +311,20 @@ export default class DateRangePanel extends React.Component {
   // 切换年份
   handleChangeYear(type, date, year) {
     this.setState({
-      [type]: new Date(date.setFullYear(year)),
+      [type]: new Date((new Date(date)).setFullYear(year)),
     }, () => {
       // 切换完年份，若左边日历小于等于右边日历，保持右边日历是左边日历的下一年
       const { leftDate, rightDate } = this.state;
       if(type === 'leftDate'){
         if(leftDate >= rightDate) {
           this.setState({
-            rightDate: new Date(rightDate.setFullYear(leftDate.getFullYear() + 1))
+            rightDate: new Date(new Date(rightDate).setFullYear(leftDate.getFullYear() + 1))
           });
         }
       }else if(type === 'rightDate') {
         if(leftDate >= rightDate) {
           this.setState({
-            leftDate: new Date(leftDate.setFullYear(rightDate.getFullYear() - 1))
+            leftDate: new Date(new Date(leftDate).setFullYear(rightDate.getFullYear() - 1))
           });
         }
       }
@@ -333,7 +334,7 @@ export default class DateRangePanel extends React.Component {
   // 切换月份
   handleChangeMonth(type, date, month){
     this.setState({
-      [type]: new Date((date.setMonth(parseInt(month.slice(0,-1)) - 1)))
+      [type]: new Date((new Date(date)).setMonth((parseInt(month.slice(0,-1)) - 1)))
     }, ()=>{
       // 切换完月份，若左边日历小于等于右边日历，保持右边日历是左边日历的下一月
       const { leftDate, rightDate } = this.state;
