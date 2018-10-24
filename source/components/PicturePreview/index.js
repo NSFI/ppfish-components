@@ -605,8 +605,8 @@ class PicturePreview extends Component {
         onWheel={this.handleWheel}
       >
         <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
-        <Icon type="picture-left" className={leftBtnClass} onClick={this.handlePrev}/>
-        <Icon type="picture-right" className={rightBtnClass} onClick={this.handleNext}/>
+        <Icon type="arrow-line-Bold" className={leftBtnClass} onClick={this.handlePrev}/>
+        <Icon type="arrow-line-Bold" className={rightBtnClass} onClick={this.handleNext}/>
 
         <div className="canvas">
           {
