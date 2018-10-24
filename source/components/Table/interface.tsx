@@ -12,6 +12,7 @@ export type ColumnFilterItem = { text: string; value: string, children?: ColumnF
 
 export interface ColumnProps<T> {
   title?: React.ReactNode;
+  filtrateTitle?: React.ReactNode;
   key?: React.Key;
   dataIndex?: string;
   render?: (text: any, record: T, index: number) => React.ReactNode;

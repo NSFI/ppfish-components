@@ -2117,6 +2117,7 @@ class Demo extends React.Component {
 | sorterType | 排序按钮类型：默认、首字母A-Z排序 | Enum {'default' ,'firstLetter'} | 'default' |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为  | Enum {'ascend' ,'descend', false} | - |
 | title | 列头显示文字 | String \| ReactNode | - |
+| filtrateTitle | 筛选Checkbox显示文字 | String \| ReactNode | - |
 | width | 列宽度 | String \| Number | - |
 
 ### ColumnGroup

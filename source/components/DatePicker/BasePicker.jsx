@@ -4,17 +4,17 @@ import classNames from 'classnames';
 import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Trigger from 'rc-trigger';
-import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
-import { Errors, require_condition } from './libs/utils';
+import {HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from './constants';
+import {Errors, require_condition} from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
-import { isValidValue, equalDate } from '../../utils/date';
+import {isValidValue, equalDate} from '../../utils/date';
 import placements from './placements';
 
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1;
 };
 const isInputValid = (text, date) => {
-  if(text.trim() === '' || !isValidValue(date)) return false;
+  if (text.trim() === '' || !isValidValue(date)) return false;
   return true;
 };
 
@@ -51,10 +51,14 @@ export default class BasePicker extends React.Component {
       showTrigger: true,
       allowClear: true,
       disabled: false,
-      onFocus: () => {},
-      onBlur: () =>{},
-      onChange: () => {},
-      onVisibleChange: () => {}
+      onFocus: () => {
+      },
+      onBlur: () => {
+      },
+      onChange: () => {
+      },
+      onVisibleChange: () => {
+      }
     };
   }
 
@@ -65,6 +69,7 @@ export default class BasePicker extends React.Component {
     this.type = _type; // type need to be set first
     this.state = Object.assign({}, state, {
       pickerVisible: false,
+      lastRightActionIsInput: false,
       confirmValue: this.isDateValid(props.value) ? props.value : null, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
     }, this.propsToState(props));
   }
@@ -105,14 +110,15 @@ export default class BasePicker extends React.Component {
    * @param value: Date|Date[]|null
    * @param isKeepPannel: boolean = false
    */
-  onPicked = (value, isKeepPannel=false, isConfirmValue=true) => {
+  onPicked = (value, isKeepPannel = false, isConfirmValue = true) => {
     this.setState({
       pickerVisible: isKeepPannel,
       value,
-      text: this.dateToStr(value)
+      text: this.dateToStr(value),
+      lastRightActionIsInput: false,
     });
 
-    if(isConfirmValue) {
+    if (isConfirmValue) {
       this.setState({
         confirmValue: value
       });
@@ -124,6 +130,7 @@ export default class BasePicker extends React.Component {
   onCancelPicked = () => {
     this.setState({
       pickerVisible: false,
+      lastRightActionIsInput: false,
       value: this.state.confirmValue ? this.state.confirmValue : null,
       text: this.state.confirmValue ? this.dateToStr(this.state.confirmValue) : ''
     });
@@ -163,7 +170,7 @@ export default class BasePicker extends React.Component {
 
   // 保存合法的输入值
   saveValidInputValue = () => {
-    const { value, confirmValue } = this.state;
+    const {value, confirmValue} = this.state;
 
     if (this.isDateValid(value) && !equalDate(value, confirmValue)) {
       this.onPicked(value, false, true);
@@ -177,7 +184,12 @@ export default class BasePicker extends React.Component {
 
   // 失焦
   handleBlur = (e) => {
-    this.saveValidInputValue();
+    if (this.state.lastRightActionIsInput) {
+      this.saveValidInputValue();
+      this.setState({
+        lastRightActionIsInput: false
+      });
+    }
     this.props.onBlur(e);
   }
 
@@ -186,7 +198,7 @@ export default class BasePicker extends React.Component {
     const keyCode = evt.keyCode;
     // tab esc
     if (keyCode === KEYCODE.TAB || keyCode === KEYCODE.ESC) {
-      this.setState({ pickerVisible: false });
+      this.setState({pickerVisible: false});
       evt.stopPropagation();
     }
     // enter
@@ -198,8 +210,8 @@ export default class BasePicker extends React.Component {
   // 点击清空图标
   handleClickCloseIcon = (e) => {
     e && e.stopPropagation();
-    const { disabled, allowClear } = this.props;
-    const { text } = this.state;
+    const {disabled, allowClear} = this.props;
+    const {text} = this.state;
 
     if (disabled || !allowClear) return;
     if (!text) {
@@ -211,7 +223,7 @@ export default class BasePicker extends React.Component {
           value: null,
           pickerVisible: false,
           confirmValue: null
-        },() => {
+        }, () => {
           this.props.onChange(null);
           this.context.form && this.context.form.onFieldChange();
         }
@@ -223,7 +235,7 @@ export default class BasePicker extends React.Component {
   onVisibleChange = (visible) => {
     this.setState({
       pickerVisible: visible
-    },() => {
+    }, () => {
       this.props.onVisibleChange(visible);
     });
   }
@@ -240,7 +252,7 @@ export default class BasePicker extends React.Component {
       disabled,
       style
     } = this.props;
-    const { pickerVisible, value, text } = this.state;
+    const {pickerVisible, value, text} = this.state;
 
     const triggerClass = () => {
       return this.type.includes('date') || this.type.includes('week') ? 'date-line' : 'time-line';
@@ -256,21 +268,21 @@ export default class BasePicker extends React.Component {
 
     // 前缀图标
     const prefixIcon = () => {
-      if(calcIsShowTrigger()) {
+      if (calcIsShowTrigger()) {
         return (
           <Icon
             className="prefix-iconfont"
             type={triggerClass()}
           />
         );
-      }else{
+      } else {
         return null;
       }
     };
 
     // 后缀图标
     const suffixIcon = () => {
-      if(text && allowClear) {
+      if (text && allowClear) {
         return (
           <Icon
             className="suffix-iconfont"
@@ -278,7 +290,7 @@ export default class BasePicker extends React.Component {
             onClick={this.handleClickCloseIcon}
           />
         );
-      }else{
+      } else {
         return null;
       }
     };
@@ -323,7 +335,8 @@ export default class BasePicker extends React.Component {
             } else {//only set value on a valid date input
               this.setState({
                 text: inputValue,
-                value: ndate
+                value: ndate,
+                lastRightActionIsInput: true
               });
             }
           }}

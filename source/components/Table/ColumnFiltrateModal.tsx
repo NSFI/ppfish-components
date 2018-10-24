@@ -9,9 +9,9 @@ const CheckboxGroup = Checkbox.Group;
 
 const getColumnKey = (column) => {
   if ('colSpan' in column) {
-    return column.title;
+    return column.filtrateTitle || column.title;
   } else {
-    return column.key || column.dataIndex || column.title;
+    return column.key || column.dataIndex || column.filtrateTitle || column.title;
   }
 };
 
@@ -66,7 +66,7 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
     columns.forEach((column, index) => {
       if ('colSpan' in column && column.colSpan !== 0) {
         this.colSpanOption.push({
-          key: column.title,
+          key: column.filtrateTitle || column.title,
           value: columns.slice(index, index + column.colSpan).map(column => column.key || column.dataIndex)
         })
       }
@@ -123,8 +123,9 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
         const uniqKey = getColumnKey(column);
         //fixed /分组不能控制显示隐藏
         const disabled = !!column.fixed || !!column.children;
+        const title = column.filtrateTitle || column.title;
         return {
-          label: <ToolTip title={column.title}>{column.title}</ToolTip>,
+          label: <ToolTip title={title}>{title}</ToolTip>,
           value: uniqKey,
           disabled: disabled
         };
@@ -139,7 +140,7 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
     return columns
       .filter(column => defaultColumns.findIndex(key => key === getColumnKey(column)) !== -1)
       .map(column => ({
-        label: <ToolTip title={column.title}>{column.title}</ToolTip>,
+        label: <ToolTip title={column.filtrateTitle || column.title}>{column.filtrateTitle || column.title}</ToolTip>,
         value: getColumnKey(column),
         disabled: true
       }));
