@@ -1,4 +1,6 @@
-@prefixClass: ~'u-color-picker';
+@import (reference) "../../../assets/css/index";
+
+@prefixClass: ~'@{fishd-prefix}-color-picker';
 
 @import "index/Layout";
 @import "index/Trigger";
@@ -17,7 +19,7 @@
   position: absolute;
   left: -9999px;
   top: -9999px;
-  z-index: 1000;
+  z-index: @zindex-popover;
   .effect() {
     animation-duration: 0.3s;
     animation-fill-mode: both;

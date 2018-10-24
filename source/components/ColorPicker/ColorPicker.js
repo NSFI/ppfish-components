@@ -262,10 +262,10 @@ ColorPicker.defaultProps = {
   onChange: noop,
   onOpen: noop,
   onClose: noop,
-  children: <span className="u-color-picker-trigger"/>,
+  children: <span className="fishd-color-picker-trigger"/>,
   className: '',
   enableAlpha: true,
   placement: 'topLeft',
-  prefixCls: 'u-color-picker',
+  prefixCls: 'fishd-color-picker',
   style: {},
 };

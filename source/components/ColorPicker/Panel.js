@@ -223,7 +223,7 @@ Panel.defaultProps = {
   onChange: noop,
   onFocus: noop,
   onMount: noop,
-  prefixCls: 'u-color-picker-panel',
+  prefixCls: 'fishd-color-picker-panel',
   style: {},
   enableHistory: false,
   maxHistory: 8,
