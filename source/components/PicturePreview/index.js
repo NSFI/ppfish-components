@@ -137,6 +137,8 @@ class PicturePreview extends Component {
       },
       shown: false, //标记是否显示过，第一次显示时居中显示
     };
+
+    this.bodyDefaultOverflow = document.body.style.overflow;
   }
 
   componentDidMount() {
@@ -163,6 +165,7 @@ class PicturePreview extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { current, show, imgs } = this.state;
+    const { mask } = this.props;
     const { activeIndex, visible, source, children } = nextProps;
 
     if (activeIndex !== current) {
@@ -176,6 +179,10 @@ class PicturePreview extends Component {
     if (visible !== show) {
       this.setState({
         show: visible
+      }, () => {
+        if (mask) {
+          document.body.style.overflow = visible ? 'hidden' : this.bodyDefaultOverflow;
+        }
       });
     }
 
@@ -311,13 +318,17 @@ class PicturePreview extends Component {
   };
 
   handleClose = () => {
-    const { onClose } = this.props;
+    const { onClose, mask } = this.props;
 
     this.state.container.isFull && exitfullscreen();
     this.setState({
       show: false,
       shown: false,
     }, () => {
+      if (mask) {
+        document.body.style.overflow = this.bodyDefaultOverflow;
+      }
+
       if (onClose && typeof onClose == "function") {
         onClose();
       }
