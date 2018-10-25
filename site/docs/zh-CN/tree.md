@@ -364,7 +364,7 @@
 
 :::demo 可以针对不同的节点定制图标。
 
-````js
+```js
 
   render() {
     const TreeNode = Tree.TreeNode;
@@ -623,7 +623,7 @@
 ## 连接线
 :::demo 带连接线的树。
 
-````js
+```js
 
   onSelect = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info);
@@ -663,7 +663,7 @@
 
 :::demo 内置的目录树，`multiple` 模式支持 `ctrl(Windows)` / `command(Mac)` 复选。
 
-````js
+```js
 
   onSelect = () => {
     console.log('Trigger Select');
