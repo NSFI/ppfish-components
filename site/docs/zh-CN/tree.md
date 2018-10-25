@@ -755,7 +755,7 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| expandAction | 目录展开逻辑 | Enum {false, 'click', 'doubleClick'} | click |
+| expandAction | 目录展开逻辑 | Enum {false, 'click', 'doubleClick'} | 'click' |
 
 ### 注意
 
