@@ -90,6 +90,8 @@ export interface TreeProps {
   defaultExpandParent?: boolean;
   /** 默认展开指定的树节点 */
   defaultExpandedKeys?: string[];
+  /** （受控）是否展开所有的树节点 */
+  expandAll?: boolean;
   /** （受控）展开指定的树节点 */
   expandedKeys?: string[];
   /** （受控）选中复选框的树节点 */
