@@ -61,7 +61,7 @@
       text-overflow: ellipsis;
       overflow: hidden;
       width: 100%;
-      padding: 0 @control-padding-horizontal;
+      padding: 0 28px 0 @control-padding-horizontal;
     }
 
     &-clear {
@@ -121,7 +121,6 @@
     font-size: @font-size-base;
     background: @component-background;
     position: absolute;
-    padding: 8px 0;
     z-index: @zindex-dropdown;
     border-radius: @border-radius-base;
     box-shadow: @box-shadow-base;
@@ -131,7 +130,7 @@
     ol {
       list-style: none;
       margin: 0;
-      padding: 0;
+      padding: 8px 0;
     }
 
     &-empty,
@@ -160,6 +159,7 @@
     display: inline-block;
     vertical-align: top;
     min-width: 111px;
+    max-width: 300px;
     height: 180px;
     list-style: none;
     margin: 0;
@@ -184,6 +184,7 @@
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.3s;
+    .ellipsis;
     &:hover {
       background: @item-hover-bg;
     }
