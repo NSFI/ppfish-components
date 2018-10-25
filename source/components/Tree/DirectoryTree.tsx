@@ -32,6 +32,7 @@ function getIcon(props: FishdTreeNodeAttribute): React.ReactNode {
 
 export default class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeState> {
   static defaultProps = {
+    autoExpandParent: false,
     prefixCls: 'fishd-tree',
     showIcon: true,
     expandAction: 'click',
