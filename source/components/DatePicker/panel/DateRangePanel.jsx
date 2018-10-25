@@ -96,7 +96,6 @@ export default class DateRangePanel extends React.Component {
   }
 
   propsToState(props) {
-    console.log(props);
     const setRightDate = (dateA, dateB) => {
       if(equalYearAndMonth(dateA,dateB)){
         return nextMonth(dateB);
