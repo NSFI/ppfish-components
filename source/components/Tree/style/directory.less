@@ -24,20 +24,20 @@
 
         &.@{tree-prefix-cls}-node-content-wrapper {
           user-select: none;
-          border-radius: 0;
+          // border-radius: 0;
 
-          &:hover {
-            background: transparent;
+          // &:hover {
+          //   background: transparent;
 
-            &:before {
-              background: @item-hover-bg;
-            }
-          }
+          //   &:before {
+          //     background: @item-hover-bg;
+          //   }
+          // }
 
-          &.@{tree-prefix-cls}-node-selected {
-            color: @tree-directory-selected-color;
-            background: transparent;
-          }
+          // &.@{tree-prefix-cls}-node-selected {
+          //   color: @tree-directory-selected-color;
+          //   background: transparent;
+          // }
 
           &:before {
             content: '';
@@ -57,9 +57,9 @@
 
       &.@{tree-prefix-cls}-treenode-selected {
         > span {
-          &.@{tree-prefix-cls}-switcher {
-            color: @tree-directory-selected-color;
-          }
+          // &.@{tree-prefix-cls}-switcher {
+          //   color: @tree-directory-selected-color;
+          // }
 
           &.@{tree-prefix-cls}-checkbox {
             .@{tree-prefix-cls}-checkbox-inner {
@@ -81,11 +81,11 @@
             }
           }
 
-          &.@{tree-prefix-cls}-node-content-wrapper {
-            &:before {
-              background: @tree-directory-selected-bg;
-            }
-          }
+          // &.@{tree-prefix-cls}-node-content-wrapper {
+          //   &:before {
+          //     background: @tree-directory-selected-bg;
+          //   }
+          // }
         }
       }
     }
