@@ -26,6 +26,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     treeCheckStrictly: false,
     treeNodeResetTitle: '不选择任何分类',
     placement: 'bottomLeft',
+    value: []
   };
 
   private rcTreeSelect: any;

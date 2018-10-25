@@ -672,7 +672,7 @@
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
-| value | 指定当前选中的条目 | String \| Array<String> | - |
+| value | 指定当前选中的条目 | String \| Array<String> | [] |
 
 ### Tree 方法
 
