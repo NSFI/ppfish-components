@@ -689,13 +689,22 @@
 
 ```js
 
+  state = {
+    expandedKeys: [],
+    autoExpandParent: true
+  }
+
   onSelect = () => {
     console.log('Trigger Select');
   };
 
-  onExpand = () => {
+  onExpand = (expandedKeys) => {
+    this.setState({
+      expandedKeys,
+      autoExpandParent: false,
+    });
     console.log('Trigger Expand');
-  };
+  }
 
   render() {
     const DirectoryTree = Tree.DirectoryTree;
@@ -704,6 +713,8 @@
       <DirectoryTree
         multiple
         defaultExpandAll
+        expandedKeys={this.state.expandedKeys}
+        autoExpandParent={this.state.autoExpandParent}
         onSelect={this.onSelect}
         onExpand={this.onExpand}
       >
