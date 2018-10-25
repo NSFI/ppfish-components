@@ -83,6 +83,7 @@ export default class BasePicker extends React.Component {
     if (this.isDateValid(props.value)) {
       state.text = this.dateToStr(props.value);
       state.value = props.value;
+      state.confirmValue = props.value;
     } else {
       state.text = '';
       state.value = null;
