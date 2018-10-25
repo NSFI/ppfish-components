@@ -71,6 +71,13 @@ export interface FishdTreeNodeMouseEvent {
   event: React.MouseEventHandler<any>;
 }
 
+export interface FishdTreeNodeDropEvent {
+  node: FishdTreeNode;
+  dragNode: FishdTreeNode;
+  dragNodesKeys: string[];
+  event: React.MouseEventHandler<any>;
+}
+
 export interface TreeProps {
   showLine?: boolean;
   className?: string;
@@ -132,7 +139,7 @@ export interface TreeProps {
   /** dragleave 触发时调用 */
   onDragLeave?: (options: FishdTreeNodeMouseEvent) => void;
   /** drop 触发时调用 */
-  onDrop?: (options: FishdTreeNodeMouseEvent) => void;
+  onDrop?: (options: FishdTreeNodeDropEvent) => void;
   style?: React.CSSProperties;
   showIcon?: boolean;
   icon?: (nodeProps: FishdTreeNodeAttribute) => React.ReactNode | React.ReactNode;
