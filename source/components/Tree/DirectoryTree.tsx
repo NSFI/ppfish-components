@@ -38,6 +38,7 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
   };
 
   state: DirectoryTreeState;
+  tree: Tree;
   onDebounceExpand: (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => void;
 
   // Shift click usage
@@ -61,7 +62,7 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     } else if (defaultExpandParent) {
       this.state.expandedKeys = conductExpandParent(expandedKeys || defaultExpandedKeys, keyEntities);
     } else {
-      this.state.expandedKeys = defaultExpandedKeys;
+      this.state.expandedKeys =  expandedKeys || defaultExpandedKeys;
     }
 
     this.onDebounceExpand = debounce(this.expandFolderNode, 200, {
@@ -158,34 +159,18 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
   }
 
   expandFolderNode = (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => {
-    const { expandedKeys = [] } = this.state;
-    const { onExpand } = this.props;
-    const { eventKey = '', expanded, isLeaf } = node.props;
+    const { isLeaf } = node.props;
 
     if (isLeaf || event.shiftKey || event.metaKey || event.ctrlKey) {
       return;
     }
 
-    let newExpandedKeys: string[] = expandedKeys.slice();
-    const index = newExpandedKeys.indexOf(eventKey);
+    // Get internal rc-tree
+    const internalTree = this.tree.tree;
 
-    if (expanded && index >= 0) {
-      newExpandedKeys.splice(index, 1);
-    } else if (!expanded && index === -1) {
-      newExpandedKeys.push(eventKey);
-    }
-
-    this.setUncontrolledState({
-      expandedKeys: newExpandedKeys,
-    });
-
-    if (onExpand) {
-      onExpand(newExpandedKeys, {
-        expanded: !expanded,
-        node,
-        nativeEvent: event.nativeEvent,
-      });
-    }
+    // Call internal rc-tree expand function
+    // https://github.com/ant-design/ant-design/issues/12567
+    internalTree.onNodeExpand(event, node);
   }
 
   setUncontrolledState = (state: DirectoryTreeState) => {
@@ -198,14 +183,13 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
   render() {
     const { prefixCls, className, ...props } = this.props;
     const { expandedKeys, selectedKeys } = this.state;
-
     const connectClassName = classNames(`${prefixCls}-directory`, className);
 
     return (
       <Tree
         icon={getIcon}
+        ref={(node: Tree) => this.tree = node}
         {...props}
-
         prefixCls={prefixCls}
         className={connectClassName}
         expandedKeys={expandedKeys}

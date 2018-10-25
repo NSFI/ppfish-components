@@ -161,6 +161,8 @@ export default class Tree extends React.Component<TreeProps, any> {
     showIcon: false,
   };
 
+  tree: any;
+
   renderSwitcherIcon = ({ isLeaf, expanded, loading }: FishdTreeNodeProps) => {
     const {
       prefixCls,
@@ -206,6 +208,7 @@ export default class Tree extends React.Component<TreeProps, any> {
     return (
       <RcTree
         {...props}
+        ref={(node: Tree) => this.tree = node}
         className={classNames(!showIcon && `${prefixCls}-icon-hide`, className)}
         checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
         switcherIcon={this.renderSwitcherIcon}
