@@ -406,13 +406,14 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
       dropdownMenuColumnStyle.width = this.input.input.offsetWidth;
     }
 
+    const label = this.getLabel();
     const input = children || (
       <span
         style={style}
         className={pickerCls}
       >
-        <span className={`${prefixCls}-picker-label`}>
-          {this.getLabel()}
+        <span className={`${prefixCls}-picker-label`} title={typeof label === 'string' ? label : ''}>
+          {label}
         </span>
         <Input
           {...inputProps}
