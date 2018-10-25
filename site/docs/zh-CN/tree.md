@@ -631,26 +631,50 @@
 
   render() {
     const TreeNode = Tree.TreeNode;
+    const treeData = [{
+      title: '0-0',
+      key: '0-0',
+      children: [{
+        title: '0-0-0',
+        key: '0-0-0',
+        children: [
+          { title: '0-0-0-0', key: '0-0-0-0', disabled: true },
+          { title: '0-0-0-1', key: '0-0-0-1', selectable: false },
+          { title: '0-0-0-2', key: '0-0-0-2' },
+          { title: '0-0-0-3', key: '0-0-0-3' },
+          { title: '0-0-0-4', key: '0-0-0-4' },
+        ],
+      }, {
+        title: '0-0-1',
+        key: '0-0-1',
+        children: [
+          { title: '0-0-1-0', key: '0-0-1-0' },
+          { title: '0-0-1-1', key: '0-0-1-1' },
+          { title: '0-0-1-2', key: '0-0-1-2' },
+        ],
+      }, {
+        title: '0-0-2',
+        key: '0-0-2',
+      }],
+    }, {
+      title: '0-1',
+      key: '0-1',
+      children: [
+        { title: '0-1-0-0', key: '0-1-0-0' },
+        { title: '0-1-0-1', key: '0-1-0-1' },
+        { title: '0-1-0-2', key: '0-1-0-2' },
+      ],
+    }, {
+      title: '0-2',
+      key: '0-2',
+    }];
     return (
       <Tree
         showLine
+        treeData={treeData}
         defaultExpandedKeys={['0-0-0']}
         onSelect={this.onSelect}
       >
-        <TreeNode title="parent 1" key="0-0">
-          <TreeNode title="parent 1-0" key="0-0-0">
-            <TreeNode title="leaf" key="0-0-0-0" />
-            <TreeNode title="leaf" key="0-0-0-1" />
-            <TreeNode title="leaf" key="0-0-0-2" />
-          </TreeNode>
-          <TreeNode title="parent 1-1" key="0-0-1">
-            <TreeNode title="leaf" key="0-0-1-0" />
-          </TreeNode>
-          <TreeNode title="parent 1-2" key="0-0-2">
-            <TreeNode title="leaf" key="0-0-2-0" />
-            <TreeNode title="leaf" key="0-0-2-1" />
-          </TreeNode>
-        </TreeNode>
       </Tree>
     );
   }
@@ -738,6 +762,7 @@
 | showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
 | showLine | 是否展示连接线 | Boolean | false |
 | style | 容器样式 | Object | - |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 key 必须设置，且其值需在整个树范围内唯一。 | Array<{key, title, [children, disabled, disableCheckbox, selectable, isLeaf]}> | [] |
 
 ### TreeNode props
 

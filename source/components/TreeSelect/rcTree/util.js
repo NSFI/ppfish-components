@@ -9,11 +9,11 @@ let onlyTreeNodeWarned = false;
 
 export function toArray(children) {
   let ret = [];
-  
+
   Children.forEach(children, function (c) {
     ret.push(c);
   });
-  
+
   return ret;
 }
 
@@ -169,7 +169,7 @@ export function convertDataToTree(treeData, processer) {
     const childrenNodes = convertDataToTree(children, processer);
 
     return (
-      <TreeNode key={"convert_data2tree_" + index} {...processProps(props)}>
+      <TreeNode key={props.key} {...processProps(props)}>
         {childrenNodes}
       </TreeNode>
     );
@@ -418,7 +418,7 @@ export function conductExpandParent(keyList, keyEntities) {
 
 /**
  * Returns only the data- and aria- key/value pairs
- * @param {object} props 
+ * @param {object} props
  */
 export function getDataAndAria(props) {
   return Object.keys(props).reduce((prev, key) => {

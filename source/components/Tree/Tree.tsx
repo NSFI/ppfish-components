@@ -78,6 +78,16 @@ export interface FishdTreeNodeDropEvent {
   event: React.MouseEventHandler<any>;
 }
 
+export interface TreeData {
+  key: string;
+  title: React.ReactNode;
+  children?: TreeData[];
+  disabled?: boolean;
+  selectable?: boolean;
+  disableCheckbox?: boolean;
+  isLeaf?: boolean;
+}
+
 export interface TreeProps {
   showLine?: boolean;
   className?: string;
@@ -107,6 +117,7 @@ export interface TreeProps {
   defaultCheckedKeys?: string[];
   /** （受控）设置选中的树节点 */
   selectedKeys?: string[];
+  treeData?: Array<TreeData>;
   /** 默认选中的树节点 */
   defaultSelectedKeys?: string[];
   selectable?: boolean;
