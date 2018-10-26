@@ -40,7 +40,6 @@
       <div>
         <TreeSelect
           showSearch
-          getPopupContainer={() => document.querySelector('.content')}
           style={{ 
             width: 300,
             marginRight: '20px'
@@ -100,7 +99,6 @@
       <TreeSelect
         required
         showSearch
-        getPopupContainer={() => document.querySelector('.content')}
         style={{ width: 300 }}
         treeDefaultExpandedKeys={['n4', 'n9']}
         value={this.state.value}
@@ -199,7 +197,6 @@
         style={{ width: 300 }}
         value={this.state.value}
         dropdownStyle={{ width: 300 }}
-        getPopupContainer={() => document.querySelector('.content')}
         treeData={treeData}
         treeDefaultExpandedKeys={['k1', 'k4']}
         onChange={this.onChange}
@@ -290,7 +287,6 @@
   render() {
     const tProps = {
       showSearch: true,
-      getPopupContainer: () => document.querySelector('.content'),
       treeData: this.state.treeData,
       value: this.state.value,
       onChange: this.onChange,
@@ -400,7 +396,6 @@
     }];
     const tProps = {
       showSearch: true,
-      getPopupContainer: () => document.querySelector('.content'),
       treeData,
       treeDefaultExpandedKeys: ['0-0a', '0-1a'],
       value: this.state.value,
@@ -513,7 +508,6 @@
     const tProps = {
       showSearch: true,
       editable: false,
-      getPopupContainer: () => document.querySelector('.content'),
       treeData,
       treeDefaultExpandedKeys: ['0-0a', '0-1a'],
       value: this.state.value,
@@ -613,7 +607,6 @@
   render() {
     const tProps = {
       showSearch: true,
-      getPopupContainer: () => document.querySelector('.content'),
       treeData: this.state.treeData,
       value: this.state.value,
       onConfirm: this.onConfirm,

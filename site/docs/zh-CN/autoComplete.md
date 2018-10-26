@@ -38,7 +38,6 @@
         onSelect={this.onSelect}
         onSearch={this.handleSearch}
         placeholder="input here"
-        getPopupContainer={() => document.querySelector('.content')}
       />
     );
   }
@@ -74,7 +73,6 @@
         style={{ width: 200 }}
         onSearch={this.handleSearch}
         placeholder="input here"
-        getPopupContainer={() => document.querySelector('.content')}
       >
         {children}
       </AutoComplete>
@@ -98,7 +96,6 @@
         dataSource={dataSource}
         placeholder="try to type `b`"
         filterOption={(inputValue, option) => option.props.children.toUpperCase && option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-        getPopupContainer={() => document.querySelector('.content')}
       />
     );
   }
@@ -141,7 +138,6 @@
         style={{ width: 200 }}
         onSelect={this.onSelect}
         onSearch={this.handleSearch}
-        getPopupContainer={() => document.querySelector('.content')}
       >
         <TextArea
           placeholder="input here"
@@ -242,7 +238,6 @@
           dataSource={this.options}
           placeholder="input here"
           optionLabelProp="value"
-          getPopupContainer={() => document.querySelector('.content')}
         >
           <Input suffix={<Icon type="search-line" className="certain-category-icon" />} />
         </AutoComplete>
@@ -319,7 +314,6 @@
           onSearch={this.handleSearch}
           placeholder="input here"
           optionLabelProp="text"
-          getPopupContainer={() => document.querySelector('.content')}
         >
           <Input suffix={<Icon type="search-line" />} />
         </AutoComplete>
