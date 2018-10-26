@@ -465,6 +465,7 @@ class PicturePreview extends Component {
   };
 
   handleMouseDown = (e) => {
+    if (!this.state.show) return;
     e.preventDefault();
 
     let con = {},
@@ -496,9 +497,8 @@ class PicturePreview extends Component {
   };
 
   handleMouseMove = (e) => {
+    if (!this.moving || !this.state.show) return;
     e.preventDefault();
-
-    if (!this.moving) return;
 
     let con = this.state.container,
       image = this.state.image,
@@ -520,11 +520,15 @@ class PicturePreview extends Component {
   };
 
   handleMouseUp = (e) => {
+    if (!this.state.show) return;
     e.preventDefault();
     this.moving = '';
   };
 
   handleWheel = (e) => {
+    if (!this.state.show) return;
+    e.preventDefault();
+
     let { deltaY, wheelDelta, detail } = e,
       delta = 1;
 
@@ -540,6 +544,9 @@ class PicturePreview extends Component {
   };
 
   handleKeyDown = (e) => {
+    if (!this.state.show) return;
+    e.preventDefault();
+
     if (!this.state.container.isFull && e.keyCode === KeyCode.ESC) {
       this.handleClose();
     } else if (e.keyCode === KeyCode.LEFT) {
