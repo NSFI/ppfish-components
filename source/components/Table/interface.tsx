@@ -81,6 +81,7 @@ export interface TableRowSelection<T> {
   fixed?: boolean;
   columnWidth?: string | number;
   selectWay?: TableSelectWay;
+  showSelectAll?: boolean;
   columnTitle?: string | React.ReactNode;
 }
 

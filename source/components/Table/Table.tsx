@@ -752,7 +752,8 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
         width: rowSelection.columnWidth,
         title: rowSelection.columnTitle,
       };
-      if (rowSelection.type !== 'radio') {
+      const {showSelectAll = true} = rowSelection;
+      if (rowSelection.type !== 'radio' && showSelectAll) {
         const checkboxAllDisabled = data.every((item, index) => this.getCheckboxPropsByItem(item, index).disabled);
         selectionColumn.title = (
           <SelectionCheckboxAll

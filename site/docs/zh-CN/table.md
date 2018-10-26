@@ -2153,6 +2153,7 @@ class Demo extends React.Component {
 | onSelectInvert | 用户手动选择反选的回调 | (selectedRows) => Void | - |
 | selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | Array<String> | \[] |
 | selections | 自定义选择项 设为 `true` 时使用默认选择项 | Array<Object> \| Boolean | true |
+| showSelectAll | 是否展示全选按钮，多选情况下生效 | Boolean | true |
 | type | 多选/单选，`checkbox` or `radio` | String | 'checkbox' |
 
 ### selection
