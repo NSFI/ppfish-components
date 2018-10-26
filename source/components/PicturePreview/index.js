@@ -270,6 +270,11 @@ class PicturePreview extends Component {
           top: num2px((window.innerHeight - height) / 2)
         };
 
+        if (!this.props.mask) {
+          css.left = num2px((window.innerWidth - width) / 2 + window.pageXOffset);
+          css.top = num2px((window.innerHeight - height) / 2 + window.pageYOffset);
+        }
+
         this.setState({
           container: {
             style: css,
@@ -485,9 +490,22 @@ class PicturePreview extends Component {
       });
     } else if (!this.state.container.isFull) {
       //非全屏模式下，移动容器
-      con.rect = this.$el.getBoundingClientRect();
-      con.startX = e.clientX;
-      con.startY = e.clientY;
+      let elPos = this.$el.getBoundingClientRect();
+
+      if (this.props.mask) {
+        con.rect = {
+          left: elPos.left,
+          top: elPos.top,
+        };
+      } else {
+        con.rect = {
+          left: elPos.left + window.pageXOffset,
+          top: elPos.top + window.pageYOffset,
+        };
+      }
+
+      con.startX = e.pageX;
+      con.startY = e.pageY;
 
       this.moving = 'con';
       this.setState({
