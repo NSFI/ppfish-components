@@ -104,6 +104,8 @@ export default class Modal extends React.Component<ModalProps, {}> {
     okButtonDisabled: false,
     cancelButtonDisabled: false,
     draggable: false,
+    maskClosable: false,
+    keyboard: false,
     okText: '确定',
     cancelText: '取消',
     justOkText: '知道了'
