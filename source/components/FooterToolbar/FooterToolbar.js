@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {addEventListener} from '../../utils';
-import './FooterToolbar.less';
 
 class FooterToolbar extends React.Component {
   static defaultProps = {
