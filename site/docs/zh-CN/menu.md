@@ -383,6 +383,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| className | 容器类名 | String | - |
 | disabled | 是否禁用 | Boolean | false |
 | key | item 的唯一标志 | String | - |
 
@@ -391,6 +392,7 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | children | 子菜单的菜单项 | Array<MenuItem \| SubMenu> | - |
+| className | 容器类名 | String | - |
 | disabled | 是否禁用 | Boolean | false |
 | key | 唯一标志 | String | - |
 | title | 子菜单项值 | String \| ReactNode | - |
@@ -401,6 +403,7 @@ render(){
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | children | 分组的菜单项 | Array<MenuItem> | - |
+| className | 容器类名 | String | - |
 | title | 分组标题 | String \| ReactNode | - |
 
 ### Menu.Divider
