@@ -74,3 +74,10 @@ npm install typescript awesome-typescript-loader@^4.0.1 @types/node @types/react
   }
 }
 ```
+
+
+# 使用CDN上的ppfish组件库
+
+请先将组件库上传至CDN上。从CDN上引入ppfish组件库与使用CDN上的React库文件的方式是一样的，直接在html文件中加入一个script标签，这个标签地址是CDN上的ppfish组件库地址。由于ppfish组件库依赖于react、react-dom、react-dom/server这三个库文件，所以请确保这三个文件在组件库的script的标签之前就已经加载了。可能还需要手动引入组件库的样式。
+
+使用CDN上的组件库时，如果需要自定义主题，需要在项目中安装ppfish组件库作为依赖，然后在代码中引入 `ppfish/dist/style.less` 这个样式文件。具体细节，可参考**开发指南 - 定制主题**。
