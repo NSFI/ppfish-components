@@ -344,9 +344,11 @@ render(){
 
 > 注意： Menu.Item 必须设置唯一的 key 属性。
 >
+> Dropdown在单个数据过长、数量过多的极端情况下可能会出现屏幕显示不下的情况，可以考虑设置`overflow:auto`,`maxWidth(maxHeight):100vw`等方式处理
+>
 > Dropdown 下的 Menu 默认不可选中。如果需要菜单可选中，可以指定 `<Menu selectable>`.
 
-## Dropdown.Button
+### Dropdown.Button
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
