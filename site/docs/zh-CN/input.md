@@ -285,12 +285,12 @@ render(){
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      value: '这是一段默认文本',
     };
   }
 
   onChange = (e) => {
-    this.setState({ name: e.target.value });
+    this.setState({ value: e.target.value });
   }
   render(){
     const { Counter } = Input;
@@ -299,7 +299,7 @@ render(){
           <Counter 
             placeholder="Autosize height based on content lines" 
             limit={50} 
-            value={this.state.name}
+            value={this.state.value}
             autosize 
             onChange={this.onChange}
           />
@@ -406,6 +406,7 @@ Input 的其他属性和 React 自带的 [input](https://facebook.github.io/reac
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | limit | 输入框字符限制数量 | Number | - |
+| count | 计数方法，可以通过更改计数方法实现如中文字算两个字等需求 | (value) => Number | (value: String) => value.length |
 
 `Input.Counter` 的其他属性和`Input.TextArea`一致。
 

@@ -12,6 +12,8 @@ export interface CounterProps extends TextAreaProps {
   prefixCls?: string;
   limit: number;
   count?: (value: string) => number;
+  value: any;
+  defaultValue: any;
 }
 
 export default class Counter extends React.Component<CounterProps, any> {
@@ -20,9 +22,19 @@ export default class Counter extends React.Component<CounterProps, any> {
     prefixCls: 'fishd-input-counter',
   };
 
-  state = {
-    total: 0,
-  };
+  constructor(props) {
+    super(props);
+    const { defaultValue, value } = props;
+    let total = 0;
+    if ( 'defaultValue' in props ) {
+      total = this.getCount(defaultValue);
+    } else if ( 'value' in props ) {
+      total = this.getCount(value);
+    }
+    this.state = {
+      total,
+    };
+  }
 
   private textarea: TextArea;
 
@@ -51,25 +63,26 @@ export default class Counter extends React.Component<CounterProps, any> {
 
   handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { onChange } = this.props;
+    const textareaValue = this.textarea && this.textarea.textAreaRef.value;
     this.setState({
-      total: this.getCount()
-    })
+      total: this.getCount(textareaValue)
+    });
     if (onChange) {
       onChange(e);
     }
-  }
+  };
 
-  getCount = () => {
+  getCount = (value) => {
     const { count } = this.props;
-    const value = this.textarea && this.textarea.textAreaRef.value;
     if (!value) {
       return 0;
     }
+    // 自定义计数方法
     if (count) {
       return count(value);
     }
     return countValue(value);
-  }
+  };
 
   render() {
     const { className, prefixCls, limit } = this.props;
