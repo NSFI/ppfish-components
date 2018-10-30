@@ -19,8 +19,12 @@
     console.log('time-select focus: ', value)
   }
   
-  onBlur = (value) => {
+  handleBlur = (value) => {
     console.log('time-select blur: ', value)
+  }
+  
+  handleVisibleChange = (status) => {
+    console.log('time-select visible change: ', status)
   }
   
   render() {
@@ -35,6 +39,7 @@
         onChange={this.handleUpdate}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
+        onVisibleChange={this.handleVisibleChange}
         />
     )
   }

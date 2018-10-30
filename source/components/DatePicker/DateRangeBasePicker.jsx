@@ -53,14 +53,10 @@ export default class DateRangeBasePicker extends React.Component {
       showTrigger: true,
       allowClear: true,
       disabled: false,
-      onFocus: () => {
-      },
-      onBlur: () => {
-      },
-      onChange: () => {
-      },
-      onVisibleChange: () => {
-      }
+      onFocus: () => {},
+      onBlur: () => {},
+      onChange: () => {},
+      onVisibleChange: () => {}
     };
   }
 
@@ -71,8 +67,6 @@ export default class DateRangeBasePicker extends React.Component {
     this.type = _type; // type need to be set first
     this.state = Object.assign({}, state, {
       pickerVisible: false,
-      lastRightActionIsInput: false,
-      confirmValue: this.isDateValid(props.value) ? props.value : null, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
     }, this.propsToState(props));
   }
 
@@ -86,7 +80,7 @@ export default class DateRangeBasePicker extends React.Component {
     if (this.isDateValid(value)) {
       state.text = value && value.length === 2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '';
       state.value = props.value;
-      state.confirmValue = value;
+      state.confirmValue = this.isDateValid(props.value) ? props.value : null; // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
     } else {
       state.text = '';
       state.value = null;
@@ -118,7 +112,6 @@ export default class DateRangeBasePicker extends React.Component {
       pickerVisible: isKeepPannel,
       value,
       text: value && value.length === 2 ? [this.dateToStr(value[0], this.dateToStr(value[1]))] : '',
-      lastRightActionIsInput: false,
     });
 
     if (isConfirmValue) {
@@ -133,7 +126,6 @@ export default class DateRangeBasePicker extends React.Component {
   onCancelPicked = () => {
     this.setState({
       pickerVisible: false,
-      lastRightActionIsInput: false,
       value: this.state.confirmValue && this.state.confirmValue.length === 2 ? this.state.confirmValue : null,
       text: this.state.confirmValue && this.state.confirmValue.length === 2 ? [this.dateToStr(new Date(this.state.confirmValue[0])), this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
     });
@@ -168,15 +160,6 @@ export default class DateRangeBasePicker extends React.Component {
     });
   }
 
-  // 保存合法的输入值
-  saveValidInputValue = () => {
-    const {value, confirmValue} = this.state;
-
-    if (this.isDateValid(value) && !equalDateArr(value, confirmValue)) {
-      this.onPicked(value, false, true);
-    }
-  }
-
   // 聚焦
   handleFocus = (e) => {
     this.props.onFocus(e);
@@ -184,12 +167,6 @@ export default class DateRangeBasePicker extends React.Component {
 
   // 失焦
   handleBlur = (e) => {
-    if (this.state.lastRightActionIsInput) {
-      this.saveValidInputValue();
-      this.setState({
-        lastRightActionIsInput: false
-      });
-    }
     this.props.onBlur(e);
   }
 
@@ -198,11 +175,19 @@ export default class DateRangeBasePicker extends React.Component {
     const keyCode = evt.keyCode;
     // tab esc
     if (keyCode === KEYCODE.TAB || keyCode === KEYCODE.ESC) {
-      this.setState({pickerVisible: false});
+      this.setState({
+        pickerVisible: false
+      });
+      this.refs.inputRoot.blur();
       evt.stopPropagation();
     }
     // enter
     if (keyCode === KEYCODE.ENTER) {
+      this.setState({
+        pickerVisible: false
+      }, ()=>{
+        this.saveValidInputValue();
+      });
       this.refs.inputRoot.blur();
     }
   }
@@ -230,13 +215,28 @@ export default class DateRangeBasePicker extends React.Component {
     }
   }
 
-  // 面板打开关闭的回调
+  // 面板打开或关闭的回调
   onVisibleChange = (visible) => {
+    if(!visible) {
+      this.saveValidInputValue();
+    }
+
     this.setState({
-      pickerVisible: visible
+      pickerVisible: visible,
     }, () => {
       this.props.onVisibleChange(visible);
     });
+  }
+
+  // 保存合法的输入值
+  saveValidInputValue = () => {
+    const {value, confirmValue} = this.state;
+
+    if (this.isDateValid(value) && !equalDateArr(value, confirmValue)) {
+      this.onPicked(value, false, true);
+    }else{
+      this.onCancelPicked();
+    }
   }
 
   render() {
@@ -330,12 +330,13 @@ export default class DateRangeBasePicker extends React.Component {
                 if (!isInputValid(inputValue, ndate)) {
                   this.setState({
                     text: [inputValue, this.state.text[1]],
+                    pickerVisible: true
                   });
                 } else {//only set value on a valid date input
                   this.setState({
                     text: [inputValue, this.state.text[1]],
                     value: [ndate, this.state.value[1]],
-                    lastRightActionIsInput: true
+                    pickerVisible: true
                   });
                 }
               }}
@@ -357,12 +358,13 @@ export default class DateRangeBasePicker extends React.Component {
                 if (!isInputValid(inputValue, ndate)) {
                   this.setState({
                     text: [this.state.text[0], inputValue],
+                    pickerVisible: true
                   });
                 } else {//only set value on a valid date input
                   this.setState({
                     text: [this.state.text[0], inputValue],
                     value: [this.state.value[0], ndate],
-                    lastRightActionIsInput: true
+                    pickerVisible: true
                   });
                 }
               }}

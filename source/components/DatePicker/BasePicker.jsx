@@ -51,14 +51,10 @@ export default class BasePicker extends React.Component {
       showTrigger: true,
       allowClear: true,
       disabled: false,
-      onFocus: () => {
-      },
-      onBlur: () => {
-      },
-      onChange: () => {
-      },
-      onVisibleChange: () => {
-      }
+      onFocus: () => {},
+      onBlur: () => {},
+      onChange: () => {},
+      onVisibleChange: () => {}
     };
   }
 
@@ -69,8 +65,6 @@ export default class BasePicker extends React.Component {
     this.type = _type; // type need to be set first
     this.state = Object.assign({}, state, {
       pickerVisible: false,
-      lastRightActionIsInput: false,
-      confirmValue: this.isDateValid(props.value) ? props.value : null, // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
     }, this.propsToState(props));
   }
 
@@ -83,7 +77,7 @@ export default class BasePicker extends React.Component {
     if (this.isDateValid(props.value)) {
       state.text = this.dateToStr(props.value);
       state.value = props.value;
-      state.confirmValue = props.value;
+      state.confirmValue = this.isDateValid(props.value) ? props.value : null; // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
     } else {
       state.text = '';
       state.value = null;
@@ -116,7 +110,6 @@ export default class BasePicker extends React.Component {
       pickerVisible: isKeepPannel,
       value,
       text: this.dateToStr(value),
-      lastRightActionIsInput: false,
     });
 
     if (isConfirmValue) {
@@ -131,7 +124,6 @@ export default class BasePicker extends React.Component {
   onCancelPicked = () => {
     this.setState({
       pickerVisible: false,
-      lastRightActionIsInput: false,
       value: this.state.confirmValue ? this.state.confirmValue : null,
       text: this.state.confirmValue ? this.dateToStr(this.state.confirmValue) : ''
     });
@@ -169,15 +161,6 @@ export default class BasePicker extends React.Component {
     });
   }
 
-  // 保存合法的输入值
-  saveValidInputValue = () => {
-    const {value, confirmValue} = this.state;
-
-    if (this.isDateValid(value) && !equalDate(value, confirmValue)) {
-      this.onPicked(value, false, true);
-    }
-  }
-
   // 聚焦
   handleFocus = (e) => {
     this.props.onFocus(e);
@@ -185,12 +168,6 @@ export default class BasePicker extends React.Component {
 
   // 失焦
   handleBlur = (e) => {
-    if (this.state.lastRightActionIsInput) {
-      this.saveValidInputValue();
-      this.setState({
-        lastRightActionIsInput: false
-      });
-    }
     this.props.onBlur(e);
   }
 
@@ -199,11 +176,19 @@ export default class BasePicker extends React.Component {
     const keyCode = evt.keyCode;
     // tab esc
     if (keyCode === KEYCODE.TAB || keyCode === KEYCODE.ESC) {
-      this.setState({pickerVisible: false});
+      this.setState({
+        pickerVisible: false
+      });
+      this.refs.inputRoot.blur();
       evt.stopPropagation();
     }
     // enter
     if (keyCode === KEYCODE.ENTER) {
+      this.setState({
+        pickerVisible: false
+      }, ()=>{
+        this.saveValidInputValue();
+      });
       this.refs.inputRoot.blur();
     }
   }
@@ -232,13 +217,28 @@ export default class BasePicker extends React.Component {
     }
   }
 
-  // 面板打开关闭的回调
+  // 面板打开或关闭的回调
   onVisibleChange = (visible) => {
+    if(!visible) {
+      this.saveValidInputValue();
+    }
+
     this.setState({
-      pickerVisible: visible
+      pickerVisible: visible,
     }, () => {
       this.props.onVisibleChange(visible);
     });
+  }
+
+  // 保存合法的输入值
+  saveValidInputValue = () => {
+    const {value, confirmValue} = this.state;
+
+    if (this.isDateValid(value) && !equalDate(value, confirmValue)) {
+      this.onPicked(value, false, true);
+    }else{
+      this.onCancelPicked();
+    }
   }
 
   render() {
@@ -331,13 +331,14 @@ export default class BasePicker extends React.Component {
             const ndate = this.parseDate(inputValue);
             if (!isInputValid(inputValue, ndate)) {
               this.setState({
-                text: inputValue
+                text: inputValue,
+                pickerVisible: true
               });
             } else {//only set value on a valid date input
               this.setState({
                 text: inputValue,
                 value: ndate,
-                lastRightActionIsInput: true
+                pickerVisible: true
               });
             }
           }}
