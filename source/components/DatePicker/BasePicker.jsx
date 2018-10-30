@@ -63,6 +63,7 @@ export default class BasePicker extends React.Component {
     super(props);
 
     this.type = _type; // type need to be set first
+    this.inputClick = false;
     this.state = Object.assign({}, state, {
       pickerVisible: false,
     }, this.propsToState(props));
@@ -110,6 +111,8 @@ export default class BasePicker extends React.Component {
       pickerVisible: isKeepPannel,
       value,
       text: this.dateToStr(value),
+    }, ()=> {
+      this.props.onVisibleChange(isKeepPannel)
     });
 
     if (isConfirmValue) {
@@ -126,6 +129,8 @@ export default class BasePicker extends React.Component {
       pickerVisible: false,
       value: this.state.confirmValue ? this.state.confirmValue : null,
       text: this.state.confirmValue ? this.dateToStr(this.state.confirmValue) : ''
+    }, ()=> {
+      this.props.onVisibleChange(false);
     });
   }
 
@@ -158,6 +163,8 @@ export default class BasePicker extends React.Component {
   togglePickerVisible() {
     this.setState({
       pickerVisible: !this.state.pickerVisible
+    }, ()=> {
+      this.props.onVisibleChange(!this.state.pickerVisible)
     });
   }
 
@@ -178,6 +185,8 @@ export default class BasePicker extends React.Component {
     if (keyCode === KEYCODE.TAB || keyCode === KEYCODE.ESC) {
       this.setState({
         pickerVisible: false
+      }, ()=> {
+        this.props.onVisibleChange(false);
       });
       this.refs.inputRoot.blur();
       evt.stopPropagation();
@@ -210,6 +219,7 @@ export default class BasePicker extends React.Component {
           pickerVisible: false,
           confirmValue: null
         }, () => {
+          this.props.onVisibleChange(false);
           this.props.onChange(null);
           this.context.form && this.context.form.onFieldChange();
         }
@@ -219,14 +229,20 @@ export default class BasePicker extends React.Component {
 
   // 面板打开或关闭的回调
   onVisibleChange = (visible) => {
-    if(!visible) {
-      this.saveValidInputValue();
+    if(this.inputClick && !visible){
+      this.inputClick = false;
+      return;
     }
+    this.inputClick = false;
 
     this.setState({
       pickerVisible: visible,
     }, () => {
-      this.props.onVisibleChange(visible);
+      if(!visible) {
+        this.saveValidInputValue();
+      }else{
+        this.props.onVisibleChange(visible);
+      }
     });
   }
 
@@ -316,6 +332,7 @@ export default class BasePicker extends React.Component {
             }
           )}
           style={{...style}}
+          onClick={() => this.inputClick = true}
         >
           <div className={classNames(`${prefixCls}-date-editor--${this.type}`, {
             'is-active': pickerVisible,

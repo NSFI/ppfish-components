@@ -65,6 +65,7 @@ export default class DateRangeBasePicker extends React.Component {
     super(props);
 
     this.type = _type; // type need to be set first
+    this.inputClick = false;
     this.state = Object.assign({}, state, {
       pickerVisible: false,
     }, this.propsToState(props));
@@ -112,6 +113,8 @@ export default class DateRangeBasePicker extends React.Component {
       pickerVisible: isKeepPannel,
       value,
       text: value && value.length === 2 ? [this.dateToStr(value[0], this.dateToStr(value[1]))] : '',
+    }, ()=> {
+      this.props.onVisibleChange(isKeepPannel)
     });
 
     if (isConfirmValue) {
@@ -128,6 +131,8 @@ export default class DateRangeBasePicker extends React.Component {
       pickerVisible: false,
       value: this.state.confirmValue && this.state.confirmValue.length === 2 ? this.state.confirmValue : null,
       text: this.state.confirmValue && this.state.confirmValue.length === 2 ? [this.dateToStr(new Date(this.state.confirmValue[0])), this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
+    }, ()=> {
+      this.props.onVisibleChange(false);
     });
   }
 
@@ -157,6 +162,8 @@ export default class DateRangeBasePicker extends React.Component {
   togglePickerVisible() {
     this.setState({
       pickerVisible: !this.state.pickerVisible
+    }, ()=> {
+      this.props.onVisibleChange(!this.state.pickerVisible)
     });
   }
 
@@ -177,6 +184,8 @@ export default class DateRangeBasePicker extends React.Component {
     if (keyCode === KEYCODE.TAB || keyCode === KEYCODE.ESC) {
       this.setState({
         pickerVisible: false
+      }, ()=> {
+        this.props.onVisibleChange(false);
       });
       this.refs.inputRoot.blur();
       evt.stopPropagation();
@@ -202,29 +211,35 @@ export default class DateRangeBasePicker extends React.Component {
     if (!text) {
       this.togglePickerVisible();
     } else {
-      this.setState(
-        {
+      this.setState({
           text: '',
           value: null,
           pickerVisible: false,
           confirmValue: null
-        }
-      );
-      this.props.onChange(null);
-      this.context.form && this.context.form.onFieldChange();
+      },()=> {
+        this.props.onVisibleChange(false);
+        this.props.onChange(null);
+        this.context.form && this.context.form.onFieldChange();
+      });
     }
   }
 
   // 面板打开或关闭的回调
   onVisibleChange = (visible) => {
-    if(!visible) {
-      this.saveValidInputValue();
+    if(this.inputClick && !visible){
+      this.inputClick = false;
+      return;
     }
+    this.inputClick = false;
 
     this.setState({
       pickerVisible: visible,
     }, () => {
-      this.props.onVisibleChange(visible);
+      if(!visible) {
+        this.saveValidInputValue();
+      }else{
+        this.props.onVisibleChange(visible);
+      }
     });
   }
 
@@ -312,6 +327,7 @@ export default class DateRangeBasePicker extends React.Component {
             'is-disable': disabled
           })}
           style={{...style}}
+          onClick={() => this.inputClick = true}
         >
           <div className={classNames(`${prefixCls}-date-editor--${this.type}`, {
             'is-active': pickerVisible,
