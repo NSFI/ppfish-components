@@ -38,7 +38,7 @@ render() {
 
 render() {
   return (
-    <Carousel vertical>
+    <Carousel dotsPosition="right" >
       <div><h3>1</h3></div>
       <div><h3>2</h3></div>
       <div><h3>3</h3></div>
@@ -87,19 +87,42 @@ render() {
 ```
 :::
 
+## 手动切换
+
+:::demo 手动切换。
+
+```js
+render() {
+  return (
+    <Carousel arrows>
+      <div><h3>1</h3></div>
+      <div><h3>2</h3></div>
+      <div><h3>3</h3></div>
+      <div><h3>4</h3></div>
+    </Carousel>
+  );
+}
+```
+:::
+
+
 ## API
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | afterChange | 切换面板的回调 | (current) => Void | - |
+| arrows | 是否显示切换箭头 | Boolean | false |
 | autoplay | 是否自动切换 | Boolean | false |
+| autoplaySpeed | 每次切换的间隔时间，单位毫秒 | Number | 3000 |
 | beforeChange | 切换面板的回调 | (from, to) => Void | - |
 | className | 容器类名 | String | - |
 | dots | 是否显示面板指示点 | Boolean | true |
+| dotsPosition | 面板指示点的显示位置 | Enum {'top', 'right', 'bottom', 'left'} | 'bottom' |
 | easing | 动画效果 | String | 'linear' |
 | effect | 动画效果函数 | Enum {'scrollx', 'fade'} | 'scrollx' |
+| nextArrow | 自定义“切换到下一个”按钮 | HTMLElement | - |
+| prevArrow | 自定义“切换到上一个”按钮 | HTMLElement | - |
 | style | 容器样式 | Object | - |
-| vertical | 垂直显示 | Boolean | false |
 
 ## 方法
 

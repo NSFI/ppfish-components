@@ -24,11 +24,12 @@ if (typeof window !== 'undefined') {
 const SlickCarousel = require('react-slick').default;
 
 export type CarouselEffect = 'scrollx' | 'fade';
+export type DotsPosition = 'top' | 'right' | 'bottom' | 'left';
+
 // Carousel
 export interface CarouselProps {
   effect?: CarouselEffect;
   dots?: boolean;
-  vertical?: boolean;
   autoplay?: boolean;
   easing?: string;
   beforeChange?: (from: number, to: number) => void;
@@ -36,6 +37,7 @@ export interface CarouselProps {
   style?: React.CSSProperties;
   prefixCls?: string;
   accessibility?: boolean;
+  dotsPosition?: DotsPosition;
   nextArrow?: HTMLElement | any;
   prevArrow?: HTMLElement | any;
   pauseOnHover?: boolean;
@@ -67,12 +69,25 @@ export interface CarouselProps {
   slickGoTo?: number;
 }
 
+function CustomArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "flex" }}
+      onClick={onClick}
+    />
+  );
+}
+
 export default class Carousel extends React.Component<CarouselProps, {}> {
   static defaultProps = {
     dots: true,
     arrows: false,
     prefixCls: 'fishd-carousel',
     draggable: false,
+    autoplaySpeed: 3000,
+    dotsPosition: 'bottom'
   };
 
   innerSlider: any;
@@ -128,20 +143,29 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   }
 
   render() {
-    let { style, ...restProps} = this.props;
+    let {
+      dotsPosition,
+      style,
+      nextArrow,
+      prevArrow,
+      ...restProps
+    } = this.props;
 
     if (restProps.effect === 'fade') {
       restProps.fade = true;
     }
 
     let className = restProps.prefixCls;
-    if (restProps.vertical) {
-      className = `${className} ${className}-vertical`;
-    }
+    className = `${className} ${className}-${dotsPosition}`;
 
     return (
       <div className={className} style={style}>
-        <SlickCarousel ref={this.saveSlick} {...restProps} />
+        <SlickCarousel
+          ref={this.saveSlick}
+          nextArrow={nextArrow ? nextArrow : <CustomArrow className="slick-prev" onClick={this.next}/>}
+          prevArrow={prevArrow ? prevArrow : <CustomArrow className="slick-next" onClick={this.prev}/>}
+          {...restProps}
+        />
       </div>
     );
   }
