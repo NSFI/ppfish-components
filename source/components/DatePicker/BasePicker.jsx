@@ -317,36 +317,39 @@ export default class BasePicker extends React.Component {
           )}
           style={{...style}}
         >
-
-        <Input
-          className={classNames(`${prefixCls}-date-editor--${this.type}`)}
-          disabled={disabled}
-          type="text"
-          placeholder={placeholder}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeydown}
-          onChange={e => {
-            const inputValue = e.target.value;
-            const ndate = this.parseDate(inputValue);
-            if (!isInputValid(inputValue, ndate)) {
-              this.setState({
-                text: inputValue,
-                pickerVisible: true
-              });
-            } else {//only set value on a valid date input
-              this.setState({
-                text: inputValue,
-                value: ndate,
-                pickerVisible: true
-              });
-            }
-          }}
-          ref="inputRoot"
-          value={text}
-          prefix={prefixIcon()}
-          suffix={suffixIcon()}
-        />
+          <div className={classNames(`${prefixCls}-date-editor--${this.type}`, {
+            'is-active': pickerVisible,
+            'disabled': disabled
+          })}>
+            <Input
+              disabled={disabled}
+              type="text"
+              placeholder={placeholder}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
+              onKeyDown={this.handleKeydown}
+              onChange={e => {
+                const inputValue = e.target.value;
+                const ndate = this.parseDate(inputValue);
+                if (!isInputValid(inputValue, ndate)) {
+                  this.setState({
+                    text: inputValue,
+                    pickerVisible: true
+                  });
+                } else {//only set value on a valid date input
+                  this.setState({
+                    text: inputValue,
+                    value: ndate,
+                    pickerVisible: true
+                  });
+                }
+              }}
+              ref="inputRoot"
+              value={text}
+              prefix={prefixIcon()}
+              suffix={suffixIcon()}
+            />
+          </div>
         </span>
       );
     };
