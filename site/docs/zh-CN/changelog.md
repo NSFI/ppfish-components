@@ -39,6 +39,22 @@
       <div class="timeline-item-tail"></div>
       <div class="timeline-item-head timeline-item-head-blue"></div>
       <div class="timeline-item-content">
+      <h2 id="1.4.0">
+        <span>1.4.0</span>
+      </h2>
+      <p>
+        <code>2018-10-23</code>
+      </p>
+      <ul>
+        <li> Select、Cascader、Drawer、DatePicker、TimePicker、RichEditor、TreeSelect、Tree、Upload、Icon 组件<a href="https://github.com/NSFI/ppfish-components/blob/feature-1.4/site/docs/1.4%E5%8D%87%E7%BA%A7%E8%AF%B4%E6%98%8E.md"> API 变更</a>。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-item-tail"></div>
+      <div class="timeline-item-head timeline-item-head-blue"></div>
+      <div class="timeline-item-content">
       <h2 id="1.4.3">
         <span>1.4.3</span>
       </h2>
