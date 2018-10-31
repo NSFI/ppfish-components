@@ -199,11 +199,9 @@ form {
       }
     }
 
-    // Fix issue: https://github.com/ant-design/ant-design/issues/4783
-    .@{fishd-prefix}-calendar-picker,
-    .@{fishd-prefix}-time-picker {
-      &-icon,
-      &-clear {
+    // Fix 校验样式覆盖suffix icon
+    .@{fishd-prefix}-date-editor {
+      .@{fishd-prefix}-input-suffix {
         right: 28px;
       }
     }
@@ -467,9 +465,8 @@ form {
     color: @warning-color;
   }
 
-  //input-number, DateRangePicker
-  .@{fishd-prefix}-input-number,
-  .@{fishd-prefix}-date-editor--daterange {
+  //input-number
+  .@{fishd-prefix}-input-number {
     border-color: @warning-color;
     &-focused,
     &:focus {
@@ -477,6 +474,46 @@ form {
     }
     &:not([disabled]):hover {
       border-color: @warning-color;
+    }
+  }
+
+  // TimePicker, DatePicker, DateRangePicker
+  .@{fishd-prefix}-date-editor {
+    .@{fishd-prefix}-date-picker-icon {
+      color: @warning-color;
+    }
+    .suffix-iconfont {
+      &:hover {
+        color: @warning-color;
+      }
+    }
+    &:not(.is-disable):hover,&:focus {
+      .prefix-iconfont {
+        color: @warning-color;
+      }
+    }
+    &.is-active {
+      .prefix-iconfont {
+        color: @warning-color;
+      }
+    }
+    &--daterange,&--datetimerange {
+      border-color: @warning-color;
+      // 清除2个Input的样式
+      .@{fishd-prefix}-input {
+        border: 0;
+        &:hover,&:focus {
+          box-shadow: none;
+          border: none;
+        }
+      }
+      &.is-active {
+        border-color: @warning-color;
+        box-shadow: @box-shadow-base;
+      }
+      &:hover:not(.disabled) {
+        border-color: @warning-color;
+      }
     }
   }
 
@@ -524,9 +561,8 @@ form {
     color: @error-color;
   }
 
-  //input-number, DateRangePicker
-  .@{fishd-prefix}-input-number,
-  .@{fishd-prefix}-date-editor--daterange {
+  //input-number
+  .@{fishd-prefix}-input-number {
     border-color: @error-color;
     &-focused,
     &:focus {
@@ -536,6 +572,47 @@ form {
       border-color: @error-color;
     }
   }
+
+  // TimePicker, DatePicker, DateRangePicker
+  .@{fishd-prefix}-date-editor {
+    .@{fishd-prefix}-date-picker-icon {
+      color: @error-color;
+    }
+    .suffix-iconfont {
+      &:hover {
+        color: @error-color;
+      }
+    }
+    &:not(.is-disable):hover,&:focus {
+      .prefix-iconfont {
+        color: @error-color;
+      }
+    }
+    &.is-active {
+      .prefix-iconfont {
+        color: @error-color;
+      }
+    }
+    &--daterange,&--datetimerange {
+      border-color: @error-color;
+      // 清除2个Input的样式
+      .@{fishd-prefix}-input {
+        border: 0;
+        &:hover,&:focus {
+          box-shadow: none;
+          border: none;
+        }
+      }
+      &.is-active {
+        border-color: @error-color;
+        box-shadow: @box-shadow-base;
+      }
+      &:hover:not(.disabled) {
+        border-color: @error-color;
+      }
+    }
+  }
+
   .@{fishd-prefix}-mention-wrapper {
     .@{fishd-prefix}-mention-editor {
       &,

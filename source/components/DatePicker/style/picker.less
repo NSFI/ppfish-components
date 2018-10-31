@@ -6,7 +6,7 @@
     width: 100%;
     height: @datepicker-height;
 
-    .prefix-iconfont,.suffix-iconfont {
+    .@{prefixClass}-date-picker-icon {
       color: @text-c;
     }
 
@@ -38,7 +38,7 @@
       }
     }
 
-    &--datetime,&--daterange,&--datetimerange {
+    &--daterange,&--datetimerange {
       border: 1px solid @datepicker-border-color;
       border-radius: @border-radius-base;
       display: flex;

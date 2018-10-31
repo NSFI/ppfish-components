@@ -287,7 +287,7 @@ export default class DateRangeBasePicker extends React.Component {
       if (calcIsShowTrigger()) {
         return (
           <Icon
-            className="prefix-iconfont"
+            className={classNames(`${prefixCls}-date-picker-icon`, 'prefix-iconfont')}
             type={triggerClass()}
           />
         );
@@ -301,7 +301,7 @@ export default class DateRangeBasePicker extends React.Component {
       if (text && allowClear) {
         return (
           <Icon
-            className="suffix-iconfont"
+            className={classNames(`${prefixCls}-date-picker-icon`, 'suffix-iconfont')}
             type="close-circle-fill"
             onClick={this.handleClickCloseIcon}
           />
