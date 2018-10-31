@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import marked from 'marked';
-import {transform} from 'babel-standalone';
+import Babel from './babelBrowser';
 import Editor from '../editor';
 
 //代码展示容器
@@ -61,24 +61,20 @@ export default class Canvas extends React.Component {
       let code;
       //多个class写法,需要return一个Demo对象
       if (/class.*extends React.Component/.test(value)) {
-        code = transform(`
+        code = Babel.transform(`
         ${value}
         ReactDOM.render(<Demo {...context.props} />, 
         document.getElementById('${this.playerId}'))
-      `, {
-          presets: ['react', 'stage-1']
-        }).code;
+      `, Babel.setting).code;
       } else {
         //单个class写关键部分内容
-        code = transform(`
+        code = Babel.transform(`
         class Demo extends React.Component {
           ${value}
         }
         ReactDOM.render(<Demo {...context.props} />, 
         document.getElementById('${this.playerId}'))
-      `, {
-          presets: ['react', 'stage-1']
-        }).code;
+      `, Babel.setting).code;
       }
       args.push(code);
       //render to playrId div

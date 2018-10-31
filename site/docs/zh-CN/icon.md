@@ -27,7 +27,7 @@ render(){
 ```js
 render(){
   return(<div className="code-box-demo">
-    <Icon type="load-line" spin={true} />
+    <Icon type="load-line" spinning={true} />
   </div>)
 }
 ```
@@ -43,7 +43,7 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| spin | 是否有旋转动画 | Boolean | false |
+| spinning | 是否有旋转动画 | Boolean | false |
 | style | 设置图标的样式，例如 fontSize 和 color | Object | - |
 | type | 图标类型 | String | - |
 

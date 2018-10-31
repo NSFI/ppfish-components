@@ -3,18 +3,18 @@ const webpack = require('webpack');
 const path = require('path');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { parseDir } = require('./tools/helps');
+const {parseDir} = require('./tools/helps');
 
 const demoPath = './site/docs/demoPage/';
 const getHtmlWebpackPlugin = () => {
   const demoNameArr = [];
   parseDir(demoPath, demoNameArr);
   const htmlWebpackPlugin = demoNameArr
-    .filter((name)=>{
+    .filter((name) => {
       return name.slice(-3) === '.js';
     })
     .map((name) => {
-      const demoName = name.slice(0,-3);
+      const demoName = name.slice(0, -3);
       return new HtmlWebpackPlugin({
         filename: 'demo/' + demoName + '.html',
         template: path.join(__dirname, demoPath + 'demo.html'),
@@ -28,12 +28,12 @@ const getDemoEntries = () => {
   const entries = {};
   const demoNameArr = [];
   parseDir(demoPath, demoNameArr);
-  const arr = demoNameArr.filter((name)=>{
+  const arr = demoNameArr.filter((name) => {
       return name.slice(-3) === '.js';
     }
   );
-  for(let each of arr) {
-    entries[each.slice(0,-3)] = [demoPath + each];
+  for (let each of arr) {
+    entries[each.slice(0, -3)] = [demoPath + each];
   }
   return entries;
 };
@@ -67,6 +67,9 @@ module.exports = {
     })].concat(getHtmlWebpackPlugin()),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
+  },
+  node: {
+    fs: 'empty'
   },
   module: {
     rules: [
