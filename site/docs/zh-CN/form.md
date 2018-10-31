@@ -1293,6 +1293,19 @@ render(){
         >
           <InputNumber style={{ width: '100%' }} />
         </FormItem>
+        
+        <FormItem
+          {...formItemLayout}
+          label="Success"
+          hasFeedback
+          validateStatus="success"
+        >
+          <Input
+            placeholder="Enter your username"
+            prefix={<Icon type="date-line" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            suffix={<Icon type="close-circle-fill" style={{ color: 'rgba(0,0,0,.25)' }} />}
+          />
+        </FormItem>
       </Form>
   )
 }
