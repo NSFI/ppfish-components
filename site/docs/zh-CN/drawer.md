@@ -49,7 +49,7 @@ drawerBaiscDemo = () => {
         level={null}
         width="30vw"
         visible={this.state.visible}
-        close={true}
+        closed={true}
         onChange={this.onChange}
         onMaskClick={this.onTouchEnd}
         onCloseClick={this.onCloseClick}
