@@ -162,8 +162,8 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
       <div className={className} style={style}>
         <SlickCarousel
           ref={this.saveSlick}
-          nextArrow={nextArrow ? nextArrow : <CustomArrow className="slick-prev" onClick={this.next}/>}
-          prevArrow={prevArrow ? prevArrow : <CustomArrow className="slick-next" onClick={this.prev}/>}
+          nextArrow={nextArrow ? nextArrow : <CustomArrow className="slick-next" onClick={this.next}/>}
+          prevArrow={prevArrow ? prevArrow : <CustomArrow className="slick-prev" onClick={this.prev}/>}
           {...restProps}
         />
       </div>
