@@ -65,7 +65,9 @@ export default class DatePanel extends React.Component {
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
       ]),
-      defaultTimeValue: PropTypes.instanceOf(Date)
+      defaultTimeValue: PropTypes.instanceOf(Date),
+      timeSelectMode: PropTypes.oneOf(['TimePicker','TimeSelect']),
+      timeSelectModeProps: PropTypes.object
     };
   }
 
@@ -78,7 +80,15 @@ export default class DatePanel extends React.Component {
       firstDayOfWeek: 0,
       showTime: false,
       showTimeCurrent: false,
-      defaultTimeValue: null
+      defaultTimeValue: null,
+      timeSelectMode: 'TimePicker',
+      timeSelectModeProps: {
+        start: '09:00',
+        end: '18:00',
+        step: '00:30',
+        minTime: '',
+        maxTime: '',
+      }
     };
   }
 
@@ -293,7 +303,9 @@ export default class DatePanel extends React.Component {
       showTimeCurrent,
       timeSelectableRange,
       footer,
-      prefixCls
+      prefixCls,
+      timeSelectMode,
+      timeSelectModeProps
     } = this.props;
     const { currentView, currentDate, dateInputText, time } = this.state;
     const { month } = deconstructDate(currentDate);
@@ -342,19 +354,38 @@ export default class DatePanel extends React.Component {
                     />
                   </span>
                   <span className={`${prefixCls}-date-picker__editor-wrap`}>
-                    <TimePicker
-                      className={`${prefixCls}-date-picker-time__editor`}
-                      placeholder={t('datepicker.selectTime')}
-                      format={timeFormat(format)}
-                      getPopupContainer={(node) => node.parentNode}
-                      showTrigger={false}
-                      allowClear={false}
-                      disabled={this.timePickerDisable()}
-                      value={time}
-                      onChange={this.handleTimeInputChange}
-                      isShowCurrent={showTimeCurrent}
-                      selectableRange={timeSelectableRange}
-                    />
+                    {
+                      timeSelectMode === 'TimePicker' ?
+                      <TimePicker
+                        className={`${prefixCls}-date-picker-time__editor`}
+                        placeholder={t('datepicker.selectTime')}
+                        format={timeFormat(format)}
+                        getPopupContainer={(node) => node.parentNode}
+                        showTrigger={false}
+                        allowClear={false}
+                        disabled={this.timePickerDisable()}
+                        value={time}
+                        onChange={this.handleTimeInputChange}
+                        isShowCurrent={showTimeCurrent}
+                        selectableRange={timeSelectableRange}
+                      />
+                      :
+                      <TimePicker.TimeSelect
+                        className={`${prefixCls}-date-picker-time__editor`}
+                        placeholder={t('datepicker.selectTime')}
+                        getPopupContainer={(node) => node.parentNode}
+                        showTrigger={false}
+                        allowClear={false}
+                        disabled={this.timePickerDisable()}
+                        value={time}
+                        onChange={this.handleTimeInputChange}
+                        start={timeSelectModeProps.start}
+                        step={timeSelectModeProps.step}
+                        end={timeSelectModeProps.end}
+                        maxTime={timeSelectModeProps.maxTime}
+                        minTime={timeSelectModeProps.minTime}
+                      />
+                    }
                   </span>
                 </div>
               )

@@ -66,6 +66,10 @@ export default class DateRangePanel extends React.Component {
       ]),
       defaultStartTimeValue: PropTypes.instanceOf(Date),
       defaultEndTimeValue: PropTypes.instanceOf(Date),
+      startTimeSelectMode: PropTypes.oneOf(['TimePicker','TimeSelect']),
+      startTimeSelectModeProps: PropTypes.object,
+      endTimeSelectMode: PropTypes.oneOf(['TimePicker','TimeSelect']),
+      endTimeSelectModeProps: PropTypes.object
     };
   }
 
@@ -80,6 +84,22 @@ export default class DateRangePanel extends React.Component {
       showTimeCurrent: false,
       defaultStartTimeValue: null,
       defaultEndTimeValue: null,
+      startTimeSelectMode: 'TimePicker',
+      startTimeSelectModeProps: {
+        start: '09:00',
+        end: '18:00',
+        step: '00:30',
+        minTime: '',
+        maxTime: '',
+      },
+      endTimeSelectMode: 'TimePicker',
+      endTimeSelectModeProps: {
+        start: '09:00',
+        end: '18:00',
+        step: '00:30',
+        minTime: '',
+        maxTime: '',
+      }
     };
   }
 
@@ -406,7 +426,11 @@ export default class DateRangePanel extends React.Component {
       showTime,
       showTimeCurrent,
       footer,
-      prefixCls
+      prefixCls,
+      startTimeSelectMode,
+      startTimeSelectModeProps,
+      endTimeSelectMode,
+      endTimeSelectModeProps
     } = this.props;
     const {
       rangeState,
@@ -468,19 +492,38 @@ export default class DateRangePanel extends React.Component {
                       />
                     </span>
                     <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
-                      <TimePicker
-                        className={`${prefixCls}-date-range-picker__editor`}
-                        placeholder={Locale.t('datepicker.startTime')}
-                        format={timeFormat(format)}
-                        getPopupContainer={(node) => node.parentNode}
-                        showTrigger={false}
-                        allowClear={false}
-                        disabled={this.timePickerDisable()}
-                        value={minTime}
-                        onChange={value => this.handleTimeInputChange(value, 'min')}
-                        isShowCurrent={showTimeCurrent}
-                        selectableRange={startTimeSelectableRange}
-                      />
+                      {
+                        startTimeSelectMode === 'TimePicker' ?
+                          <TimePicker
+                            className={`${prefixCls}-date-range-picker__editor`}
+                            placeholder={Locale.t('datepicker.startTime')}
+                            format={timeFormat(format)}
+                            getPopupContainer={(node) => node.parentNode}
+                            showTrigger={false}
+                            allowClear={false}
+                            disabled={this.timePickerDisable()}
+                            value={minTime}
+                            onChange={value => this.handleTimeInputChange(value, 'min')}
+                            isShowCurrent={showTimeCurrent}
+                            selectableRange={startTimeSelectableRange}
+                          />
+                          :
+                          <TimePicker.TimeSelect
+                            className={`${prefixCls}-date-range-picker__editor`}
+                            placeholder={Locale.t('datepicker.startTime')}
+                            getPopupContainer={(node) => node.parentNode}
+                            showTrigger={false}
+                            allowClear={false}
+                            disabled={this.timePickerDisable()}
+                            value={minTime}
+                            onChange={value => this.handleTimeInputChange(value, 'min')}
+                            start={startTimeSelectModeProps.start}
+                            step={startTimeSelectModeProps.step}
+                            end={startTimeSelectModeProps.end}
+                            maxTime={startTimeSelectModeProps.maxTime}
+                            minTime={startTimeSelectModeProps.minTime}
+                          />
+                      }
                     </span>
                   </span>
                   <span className={`${prefixCls}-date-range-picker__editors-wrap is-right`}>
@@ -495,19 +538,38 @@ export default class DateRangePanel extends React.Component {
                       />
                     </span>
                     <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
-                      <TimePicker
-                        className={`${prefixCls}-date-range-picker__editor`}
-                        placeholder={Locale.t('datepicker.endTime')}
-                        format={timeFormat(format)}
-                        getPopupContainer={(node) => node.parentNode}
-                        showTrigger={false}
-                        allowClear={false}
-                        disabled={this.timePickerDisable()}
-                        value={maxTime}
-                        onChange={value => this.handleTimeInputChange(value, 'max')}
-                        isShowCurrent={showTimeCurrent}
-                        selectableRange={endTimeSelectableRange}
-                      />
+                      {
+                        endTimeSelectMode === 'TimePicker' ?
+                          <TimePicker
+                            className={`${prefixCls}-date-range-picker__editor`}
+                            placeholder={Locale.t('datepicker.endTime')}
+                            format={timeFormat(format)}
+                            getPopupContainer={(node) => node.parentNode}
+                            showTrigger={false}
+                            allowClear={false}
+                            disabled={this.timePickerDisable()}
+                            value={maxTime}
+                            onChange={value => this.handleTimeInputChange(value, 'max')}
+                            isShowCurrent={showTimeCurrent}
+                            selectableRange={endTimeSelectableRange}
+                          />
+                          :
+                          <TimePicker.TimeSelect
+                            className={`${prefixCls}-date-range-picker__editor`}
+                            placeholder={Locale.t('datepicker.endTime')}
+                            getPopupContainer={(node) => node.parentNode}
+                            showTrigger={false}
+                            allowClear={false}
+                            disabled={this.timePickerDisable()}
+                            value={maxTime}
+                            onChange={value => this.handleTimeInputChange(value, 'max')}
+                            start={endTimeSelectModeProps.start}
+                            step={endTimeSelectModeProps.step}
+                            end={endTimeSelectModeProps.end}
+                            maxTime={endTimeSelectModeProps.maxTime}
+                            minTime={endTimeSelectModeProps.minTime}
+                          />
+                      }
                     </span>
                   </span>
                 </div>

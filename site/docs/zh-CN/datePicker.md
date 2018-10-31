@@ -365,12 +365,13 @@ constructor(props) {
     value3: null,
     value4: null,
     value5: null,
+    value6: null
   }
   this.defaultTimeValue = new Date(new Date().setHours(0,0,0,0))
 }
 
 render() {
-  const {value1, value2, value3, value4, value5} = this.state;
+  const {value1, value2, value3, value4, value5, value6} = this.state;
 
   return (
     <div className="source">
@@ -385,6 +386,20 @@ render() {
             console.debug('DatePicker1 changed: ', date)
             this.setState({value1: date})
           }}
+          />
+      </div>
+      <div className="block">
+        <span className="demonstration">时间面板为固定时间段模式</span>
+        <DatePicker
+          style={{width: 310}}
+          value={value6}
+          showTime={true}
+          placeholder="选择日期"
+          onChange={date=> {
+            console.debug('DatePicker6 changed: ', date)
+            this.setState({value6: date})
+          }}
+          timeSelectMode="TimeSelect"
           />
       </div>
       <div className="block">
@@ -781,14 +796,15 @@ constructor(props) {
     value2: null,
     value3: null, 
     value4: null,
-    value5: null
+    value5: null,
+    value6: null
   }
   this.defaultStartTimeValue = new Date(new Date().setHours(0,0,0,0));
   this.defaultEndTimeValue = new Date(new Date().setHours(23,59,59,59));
 }
 
 render() {
-  const {value1, value2, value3, value4, value5} = this.state;
+  const {value1, value2, value3, value4, value5, value6} = this.state;
 
   return (
     <div className="source">
@@ -898,6 +914,27 @@ render() {
           }]}
           />
       </div>
+      <div className="block">
+        <span className="demonstration">时间面板为固定时间段模式</span>
+        <DatePicker.DateRangePicker
+          style={{width: 400}}
+          format="yyyy-MM-dd HH:mm"
+          value={value6}
+          placeholder="选择日期范围"
+          showTime={true}
+          onChange={date=> {
+            console.debug('DateRangePicker6 changed: ', date)
+            this.setState({value6: date})
+          }}
+          startTimeSelectMode="TimeSelect"
+          startTimeSelectModeProps={{
+            start:"08:30",
+            step:"00:15",
+            end:"18:30",
+            maxTime:"12:30"
+          }}
+          />
+      </div>
     </div>
   )
 }
@@ -975,8 +1012,10 @@ DatePicker 时间面板的参数
 |---------- |-------------- |---------- | -------- |
 | defaultTimeValue | 时间面板的默认时间 | Date | - |
 | showTime | 是否显示时间选择器 | Boolean | false |
-| showTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
-| timeSelectableRange | 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| showTimeCurrent | 当`timeSelectMode`模式为 "TimePicker" 时, 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
+| timeSelectMode | 带时间的日期选择中，时间面板的模式 | Enum {'TimePicker','TimeSelect'} | 'TimePicker' |
+| timeSelectableRange | 当`timeSelectMode`模式为 "TimePicker" 时, 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| timeSelectModeProps | 当`timeSelectMode`模式为 "TimeSelect" 时的参数， 具体参见组件 [TimePicker.TimeSelect API](https://nsfi.github.io/ppfish-components/#/components/timePicker) | - |
 
 ### DatePicker.DateRangePicker
 | 参数      | 说明          | 类型      |   默认值  |
@@ -992,12 +1031,16 @@ DateRangePicker 时间面板的参数
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |--------- |
-| defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
-| defaultStartTimeValue | 开始时间面板的默认时间 | Date | - |
-| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
 | showTime | 是否显示时间选择器 | Boolean | false |
 | showTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
+| defaultStartTimeValue | 开始时间面板的默认时间 | Date | - |
+| defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
 | startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| startTimeSelectMode | 带时间的日期选择中，开始时间面板的模式 | Enum {'TimePicker','TimeSelect'} | 'TimePicker' |
+| endTimeSelectMode | 带时间的日期选择中，结束时间面板的模式 | Enum {'TimePicker','TimeSelect'} | 'TimePicker' |
+| startTimeSelectModeProps | 当`startTimeSelectMode`模式为 "TimeSelect" 时的参数， 具体参见组件 [TimePicker.TimeSelect API](https://nsfi.github.io/ppfish-components/#/components/timePicker) | - |
+| endTimeSelectModeProps | 当`endTimeSelectMode`模式为 "TimeSelect" 时的参数， 具体参见组件 [TimePicker.TimeSelect API](https://nsfi.github.io/ppfish-components/#/components/timePicker) | - |
 
 ## 方法
 | 参数      | 描述          |
