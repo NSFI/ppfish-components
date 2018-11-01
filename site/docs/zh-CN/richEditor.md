@@ -191,8 +191,8 @@
         width: 200,
         height: 200,
         'data-url': imageUrl,
-        'data-size': 234,
-        'data-group': 'ysf',
+        'data-size': 123,
+        'data-group': 'abc',
       });
     }, 1000);
   }
@@ -276,7 +276,7 @@
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array<Object {name: String, id: Number, [className]: String, url: String, [title]: String}> | - |
-| customInsertImage | 自定义插入图片。通过此接口可以自己实现插入图片前获取图片的过程。 | (callback: (attrs: Object) => Void) => Void | - |
+| customInsertImage | 自定义插入图片。通过此接口可以自己实现插入图片前获取图片的过程。 | (callback: (attrs: Object {src: String, [otherAttr]: String \| Number}) => Void) => Void | - |
 | customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |

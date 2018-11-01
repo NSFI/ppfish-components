@@ -22,6 +22,15 @@ Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
 Quill.register(ImageBlot);
 
+const getImageSize = function(url, callback) {
+  let newImage;
+  newImage = document.createElement('img');
+  newImage.onload = function() {
+    callback(this.width, this.height);
+  };
+  newImage.src = url;
+};
+
 class RichEditor extends Component {
   static propTypes = {
     className: PropTypes.string,
@@ -307,6 +316,11 @@ class RichEditor extends Component {
     let quill = this.getEditor();
     let fileInput = this.toolbarCtner.querySelector('input.ql-image[type=file]');
     const getImageCb = (attrs) => {
+      if (attrs.src == undefined) {
+        message.error('请设置所插入图片的 src 属性');
+        return;
+      }
+
       let range = quill.getSelection(true);
 
       // quill.updateContents(new Delta()
@@ -315,13 +329,28 @@ class RichEditor extends Component {
       //   .insert({ image: url })
       // , 'user');
 
-      quill.insertEmbed(range.index, 'myImage', attrs);
-      quill.setSelection(range.index + 1, 'silent');
+      if (attrs.width == undefined || attrs.height == undefined) {
+        getImageSize(attrs.src, (naturalWidth, naturalHeight) => {
+          attrs.width = naturalWidth;
+          attrs.height = naturalHeight;
 
-      this.setState({
-        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-        showImageModal: false
-      });
+          quill.insertEmbed(range.index, 'myImage', attrs);
+          quill.setSelection(range.index + 1, 'silent');
+
+          this.setState({
+            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+            showImageModal: false
+          });
+        });
+      } else {
+        quill.insertEmbed(range.index, 'myImage', attrs);
+        quill.setSelection(range.index + 1, 'silent');
+
+        this.setState({
+          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          showImageModal: false
+        });
+      }
     };
 
     if (customInsertImage && (typeof customInsertImage === "function")) {
@@ -336,7 +365,7 @@ class RichEditor extends Component {
           if (fileInput.files != null && fileInput.files[0] != null) {
             let reader = new FileReader();
             reader.onload = (e) => {
-              getImageCb(e.target.result);
+              getImageCb({src: e.target.result});
               fileInput.value = "";
             };
             reader.readAsDataURL(fileInput.files[0]);
