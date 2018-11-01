@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    // "outDir": "./dist/",
+    "sourceMap": false,
+    "experimentalDecorators": true,
+    // "module": "commonjs",
+    "target": "es2016",
+    "jsx": "react",
+    "lib": [
+      "es5",
+      "dom",
+      "dom.iterable",
+      "es2016"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "baseUrl": "../../es6/",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "../../es6/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

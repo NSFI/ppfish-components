@@ -27,12 +27,15 @@
     "open:site": "babel-node --max-old-space-size=4096 tools/openSite.js",
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
-    "publish:site": "tools/release.sh"
+    "publish:site": "tools/release.sh",
+    "es6:cancelTs":"node tools/es6Tools/cancelTs.js",
+    "es6:change":"node tools/es6Tools/change.js",
+    "es:transform":"tools/change.sh"
   },
   "engines": {
     "node": ">=6.11.5"
   },
-  "module": "source/components/index.js",
+  "module": "es6/components/index.js",
   "main": "dist/ppfish.js",
   "dependencies": {
     "array-tree-filter": "^2.1.0",
