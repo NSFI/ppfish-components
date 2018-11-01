@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.4.3",
+  "version": "1.4.4-alpha.1",
   "description": "qiyu and prophet ui components",
   "scripts": {
     "precommit": "lint-staged",
@@ -28,9 +28,9 @@
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
     "publish:site": "tools/release.sh",
-    "es6:cancelTs":"node tools/es6Tools/cancelTs.js",
-    "es6:change":"node tools/es6Tools/change.js",
-    "es:transform":"tools/change.sh"
+    "es6:cancelTs": "node tools/es6Tools/cancelTs.js",
+    "es6:change": "node tools/es6Tools/change.js",
+    "es:transform": "tools/change.sh"
   },
   "engines": {
     "node": ">=6.11.5"
