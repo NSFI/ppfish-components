@@ -11,6 +11,7 @@ import CustomToolbar from './toolbar.js';
 import CustomSizeBlot from './formats/size.js';
 import EmojiBlot from './formats/emoji.js';
 import LinkBlot from './formats/link.js';
+import ImageBlot from './formats/image.js';
 import '../style/index.less';
 
 const EMOJI_VALUE_DIVIDER = '///***';
@@ -19,6 +20,7 @@ const { delta: Delta, parchment: Parchment } = Quill.imports;
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
+Quill.register(ImageBlot);
 
 class RichEditor extends Component {
   static propTypes = {
@@ -304,14 +306,16 @@ class RichEditor extends Component {
     let { customInsertImage } = this.props;
     let quill = this.getEditor();
     let fileInput = this.toolbarCtner.querySelector('input.ql-image[type=file]');
-    const getImageCb = (url) => {
+    const getImageCb = (attrs) => {
       let range = quill.getSelection(true);
 
-      quill.updateContents(new Delta()
-        .retain(range.index)
-        .delete(range.length)
-        .insert({ image: url })
-      , 'user');
+      // quill.updateContents(new Delta()
+      //   .retain(range.index)
+      //   .delete(range.length)
+      //   .insert({ image: url })
+      // , 'user');
+
+      quill.insertEmbed(range.index, 'myImage', attrs);
       quill.setSelection(range.index + 1, 'silent');
 
       this.setState({
