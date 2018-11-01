@@ -107,7 +107,8 @@ class RichEditor extends Component {
           alt: vList[1],
           src: vList[2],
           width: vList[3],
-          height: vList[4]
+          height: vList[4],
+          id: vList[5]
         });
         this.quill.setSelection(range.index + 1);
       },

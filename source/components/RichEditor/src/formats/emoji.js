@@ -8,6 +8,7 @@ class EmojiBlot extends Embed {
 
     if (value.type === 'defaultEmoji') {
       node.setAttribute('class', 'portrait_icon');
+      node.setAttribute('data-id', value.id);
     } else if (value.type === 'customEmoji') {
       node.setAttribute('class', 'custom_icon');
     }
@@ -22,6 +23,7 @@ class EmojiBlot extends Embed {
 
   static formats(node) {
     return {
+      id: node.getAttribute('data-id'),
       type: node.getAttribute('data-type'),
       alt: node.getAttribute('alt'),
       src: node.getAttribute('src'),
@@ -32,6 +34,7 @@ class EmojiBlot extends Embed {
 
   static value(node) {
     return {
+      id: node.getAttribute('data-id'),
       type: node.getAttribute('data-type'),
       alt: node.getAttribute('alt'),
       src: node.getAttribute('src'),

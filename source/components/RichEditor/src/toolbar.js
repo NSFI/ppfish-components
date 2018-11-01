@@ -86,7 +86,8 @@ let genEmoji = (data) => {
             item.title + EMOJI_VALUE_DIVIDER +
             resPath + item.imgName + ".png" + EMOJI_VALUE_DIVIDER +
             EMOJI_DEFAULT_WIDTH + EMOJI_VALUE_DIVIDER +
-            EMOJI_DEFAULT_HEIGHT
+            EMOJI_DEFAULT_HEIGHT + EMOJI_VALUE_DIVIDER +
+            "emoticon_" + item.className.replace('-', '_')
           }
           title={item.title}
         />
