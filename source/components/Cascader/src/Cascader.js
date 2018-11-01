@@ -5,41 +5,7 @@ import warning from 'warning';
 import Menus from './Menus';
 import {KeyCode, shallowEqualArrays} from '../../../utils';
 import arrayTreeFilter from 'array-tree-filter';
-
-const BUILT_IN_PLACEMENTS = {
-  bottomLeft: {
-    points: ['tl', 'bl'],
-    offset: [0, 8],
-    overflow: {
-      adjustX: 1,
-      adjustY: 1,
-    },
-  },
-  topLeft: {
-    points: ['bl', 'tl'],
-    offset: [0, -8],
-    overflow: {
-      adjustX: 1,
-      adjustY: 1,
-    },
-  },
-  bottomRight: {
-    points: ['tr', 'br'],
-    offset: [0, 8],
-    overflow: {
-      adjustX: 1,
-      adjustY: 1,
-    },
-  },
-  topRight: {
-    points: ['br', 'tr'],
-    offset: [0, -8],
-    overflow: {
-      adjustX: 1,
-      adjustY: 1,
-    },
-  },
-};
+import BUILT_IN_PLACEMENTS from './placements';
 
 class Cascader extends Component {
   constructor(props) {

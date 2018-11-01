@@ -537,7 +537,7 @@ render(){
 | options | 可选项数据源 | Object | - |
 | placeholder | 输入框占位文本 | String | '请选择' |
 | popupClassName | 自定义浮层类名 | String | - |
-| popupPlacement | 浮层预设位置 | Enum {'bottomLeft','bottomRight','topLeft','topRight'} | 'bottomLeft' |
+| popupPlacement | 浮层预设位置 | Enum {'bottomLeft','bottomCenter','bottomRight','topLeft','topCenter','topRight'} | 'bottomLeft' |
 | popupVisible | 控制浮层显隐 | Boolean | - |
 | showSearch | 在选择框中显示搜索框 | Boolean | false |
 | size | 输入框大小 | Enum {'large','default','small'} | 'default' |
