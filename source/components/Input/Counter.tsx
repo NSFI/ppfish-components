@@ -24,16 +24,23 @@ export default class Counter extends React.Component<CounterProps, any> {
 
   constructor(props) {
     super(props);
-    const { defaultValue, value } = props;
-    let total = 0;
-    if ( 'defaultValue' in props ) {
-      total = this.getCount(defaultValue);
-    } else if ( 'value' in props ) {
-      total = this.getCount(value);
+    let value = '';
+    if ( 'value' in props ) {
+      value = props.value;
+    } else if ( 'defaultValue' in props ) {
+      value = props.defaultValue;
     }
     this.state = {
-      total,
+      value,
     };
+  }
+
+  componentWillReceiveProps(nextProps: CounterProps) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({
+        value: nextProps.value,
+      });
+    }
   }
 
   private textarea: TextArea;
@@ -65,23 +72,24 @@ export default class Counter extends React.Component<CounterProps, any> {
     const { onChange } = this.props;
     const textareaValue = this.textarea && this.textarea.textAreaRef.value;
     this.setState({
-      total: this.getCount(textareaValue)
+      value: textareaValue,
     });
     if (onChange) {
       onChange(e);
     }
   };
 
-  getCount = (value) => {
+  getCount = () => {
     const { count } = this.props;
+    const value = this.state.value;
     if (!value) {
       return 0;
     }
     // 自定义计数方法
     if (count) {
-      return count(value);
+      return count(String(value));
     }
-    return countValue(value);
+    return countValue(String(value));
   };
 
   render() {
@@ -94,7 +102,10 @@ export default class Counter extends React.Component<CounterProps, any> {
       'prefixCls',
       'limit',
       'count',
+      'value',
+      'onChange'
     ]);
+    const total = this.getCount();
     return (
       <div className={inputClassName} onClick={this.handleClick}>
         <TextArea
@@ -102,10 +113,11 @@ export default class Counter extends React.Component<CounterProps, any> {
           className={this.getTextAreaClassName()}
           maxLength={limit}
           onChange={this.handleTextareaChange}
+          value={this.state.value}
           ref={this.saveTextarea}
         />
         <div className={`${prefixCls}-footer`}>
-          <span className={`${prefixCls}-indicator`}>{this.state.total}/{limit}</span>
+          <span className={`${prefixCls}-indicator`}>{total}/{limit}</span>
         </div>
       </div>
     );
