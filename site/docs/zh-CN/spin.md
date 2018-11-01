@@ -136,7 +136,7 @@ render(){
 ```js
 render(){
   return(
-    <Spin indicator={<Icon type="load-line" style={{ fontSize: 24 }} spin />} />
+    <Spin indicator={<Icon type="load-line" style={{ fontSize: 24 }} spinning />} />
   )
 }
 ```

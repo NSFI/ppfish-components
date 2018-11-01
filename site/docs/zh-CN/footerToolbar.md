@@ -61,7 +61,7 @@ render() {
       <div className="logo"/>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
         <Menu.Item key="1">
-          <Icon type="demo-pie"/>
+          <img className="img-icon-14" src="../static/icons/demo-pie.svg" />
           <span className="nav-text">nav 1</span>
         </Menu.Item>
         <Menu.Item key="2">
@@ -77,15 +77,15 @@ render() {
           <span className="nav-text">nav 4</span>
         </Menu.Item>
         <Menu.Item key="5">
-          <Icon type="demo-grid"/>
+          <img className="img-icon-14" src="../static/icons/demo-grid.svg" />
           <span className="nav-text">nav 5</span>
         </Menu.Item>
         <Menu.Item key="6">
-          <Icon type="demo-bargraph"/>
+          <img className="img-icon-14" src="../static/icons/demo-bargraph.svg" />
           <span className="nav-text">nav 6</span>
         </Menu.Item>
         <Menu.Item key="7">
-          <Icon type="demo-play"/>
+          <img className="img-icon-14" src="../static/icons/demo-play.svg" />
           <span className="nav-text">nav 7</span>
         </Menu.Item>
         <Menu.Item key="8">
@@ -124,7 +124,7 @@ render() {
   //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的layoutToolbar
   return(
     <div className="browser-mockup">
-      <iframe src="./demo/layoutToolbar.html" height={350}></iframe>
+      <iframe src="../demo/layoutToolbar.html" height={350}></iframe>
     </div>
   )
 }

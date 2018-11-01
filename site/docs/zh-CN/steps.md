@@ -42,10 +42,10 @@
   render() {
     return (
       <Steps>
-        <Steps.Step status="finish" title="Finished" icon={<Icon type="demo-play" />} />
-        <Steps.Step status="finish" title="Finished" icon={<Icon type="demo-trash" />} />
-        <Steps.Step status="process" title="In Progress" icon={<Icon type="demo-pie" />} />
-        <Steps.Step status="wait" title="Waiting" icon={<Icon type="demo-note" />} />
+        <Steps.Step status="finish" title="Finished" icon={<img className="img-icon-14 fishdicon" src="./static/icons/demo-play.svg" />} />
+        <Steps.Step status="finish" title="Finished" icon={<img className="img-icon-14 fishdicon" src="./static/icons/demo-trash.svg" />} />
+        <Steps.Step status="process" title="In Progress" icon={<img className="img-icon-14 fishdicon" src="./static/icons/demo-pie.svg" />} />
+        <Steps.Step status="wait" title="Waiting" icon={<img className="img-icon-14 fishdicon" src="./static/icons/demo-note.svg" />} />
       </Steps>
     )
   }

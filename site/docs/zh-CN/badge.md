@@ -82,10 +82,10 @@ render(){
   return(
     <div>
       <Badge dot>
-        <Icon type="demo-phone" />
+        <img className="img-icon-14" src="./static/icons/demo-phone.svg" />
       </Badge>
       <Badge count={0} dot>
-        <Icon type="demo-phone" />
+        <img className="img-icon-14" src="./static/icons/demo-phone.svg" />
       </Badge>
       <Badge dot>
         <a href="#">Link something</a>

@@ -233,3 +233,16 @@ body {
     }
   }
 }
+
+.img-icon-gen(@size){
+  .img-icon-@{size} {
+    display: inline-block;
+    vertical-align: baseline;
+    width: ~'@{size}px';
+    height:~'@{size}px';
+  }
+}
+.img-icon-gen(18);
+.img-icon-gen(16);
+.img-icon-gen(14);
+.img-icon-gen(12);

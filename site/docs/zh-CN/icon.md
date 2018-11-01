@@ -12,10 +12,10 @@
 ```js
 render(){
   return(<div className="code-box-demo">
-    <Icon type="demo-play" />
-    <Icon type="demo-trash" />
-    <Icon type="demo-pie" />
-    <Icon type="demo-note" />
+    <Icon type="setting" />
+    <Icon type="download-line" />
+    <Icon type="search-line" className="foobar" />
+    <Icon type="bottom" style={{fontSize:12}}/>
   </div>)
 }
 ```

@@ -374,8 +374,8 @@
         defaultExpandAll
         defaultSelectedKeys={['0-0-0']}
       >
-        <TreeNode icon={<Icon type="demo-grid" />} title="parent 1" key="0-0">
-          <TreeNode icon={<Icon type="demo-image" />} title="leaf" key="0-0-0" />
+        <TreeNode icon={<img className="img-icon-14" src="./static/icons/demo-grid.svg" />} title="parent 1" key="0-0">
+          <TreeNode icon={<img className="img-icon-14" src="./static/icons/demo-image.svg" />} title="leaf" key="0-0-0" />
           <TreeNode
             icon={({ selected }) => (
               <Icon type={selected ? 'demo-mail' : 'demo-folder'} />

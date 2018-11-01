@@ -2,7 +2,8 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const {parseDir} = require('./tools/helps');
+const { parseDir } = require('./tools/helps');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const demoPath = './site/docs/demoPage/';
 const getHtmlWebpackPlugin = () => {
@@ -71,6 +72,10 @@ module.exports = {
     new ExtractTextPlugin({
       filename: '[chunkhash:12].css'
     }),
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, './site/static'),
+      to: 'static'
+    }]),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'site/index.html'),
       favicon: path.join(__dirname, 'site/assets/favicon.ico'),

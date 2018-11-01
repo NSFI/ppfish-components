@@ -114,9 +114,7 @@
     const nextColor = value >= mid ? 'rgba(0, 0, 0, .45)' : '';
     return (
       <div className="icon-wrapper">
-        <Icon style={{ color: preColor }} type="demo-like" />
-        <Slider max={20} min={0} onChange={this.handleChange} value={value} />
-        <Icon style={{ color: nextColor }} type="demo-play" />
+        <img className="img-icon-14 fishdicon" src="./static/icons/demo-like.svg" /><Slider max={20} min={0} onChange={this.handleChange} value={value} /><img className="img-icon-14 fishdicon" src="./static/icons/demo-like.svg" />
       </div>
     );
   }

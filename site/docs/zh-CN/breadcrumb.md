@@ -36,14 +36,14 @@ render() {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="">
-        <Icon type="demo-grid" />
+        <img className="img-icon-14 fishdicon" src="./static/icons/demo-grid.svg" />
       </Breadcrumb.Item>
       <Breadcrumb.Item href="">
-        <Icon type="demo-pie" />
+        <img className="img-icon-14 fishdicon" src="./static/icons/demo-pie.svg" />
         <span>Application List</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <Icon type="demo-mail" />
+        <img className="img-icon-14 fishdicon" src="./static/icons/demo-mail.svg" />
         <span>Application</span>
       </Breadcrumb.Item>
     </Breadcrumb>

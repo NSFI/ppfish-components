@@ -10,11 +10,11 @@ ReactDOM.render(
       <div className="logo" />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
         <Menu.Item key="1">
-          <Icon type="demo-pie" />
+          <img className="img-icon-14 fishdicon" src="../static/icons/demo-pie.svg" />
           <span className="nav-text">nav 1</span>
         </Menu.Item>
         <Menu.Item key="2">
-          <Icon type="demo-play" />
+          <img className="img-icon-14 fishdicon" src="../static/icons/demo-play.svg" />
           <span className="nav-text">nav 2</span>
         </Menu.Item>
         <Menu.Item key="3">
@@ -22,19 +22,19 @@ ReactDOM.render(
           <span className="nav-text">nav 3</span>
         </Menu.Item>
         <Menu.Item key="4">
-          <Icon type="demo-image" />
+          <img className="img-icon-14 fishdicon" src="../static/icons/demo-image.svg" />
           <span className="nav-text">nav 4</span>
         </Menu.Item>
         <Menu.Item key="5">
-          <Icon type="demo-grid" />
+          <img className="img-icon-14 fishdicon" src="../static/icons/demo-grid.svg" />
           <span className="nav-text">nav 5</span>
         </Menu.Item>
         <Menu.Item key="6">
-          <Icon type="demo-bargraph" />
+          <img className="img-icon-14 fishdicon" src="../static/icons/demo-bargraph.svg" />
           <span className="nav-text">nav 6</span>
         </Menu.Item>
         <Menu.Item key="7">
-          <Icon type="demo-play" />
+          <img className="img-icon-14 fishdicon" src="../static/icons/demo-play.svg" />
           <span className="nav-text">nav 7</span>
         </Menu.Item>
         <Menu.Item key="8">

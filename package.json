@@ -111,7 +111,7 @@
     "chalk": "^1.1.3",
     "codemirror": "^5.38.0",
     "copy-to-clipboard": "^3.0.8",
-    "copy-webpack-plugin": "^3.0.1",
+    "copy-webpack-plugin": "^4.5.4",
     "coveralls": "^2.13.1",
     "create-react-context": "^0.2.3",
     "cross-env": "^5.2.0",
