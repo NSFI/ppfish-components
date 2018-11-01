@@ -629,10 +629,6 @@ class PicturePreview extends Component {
         onMouseDown={draggable ? this.handleMouseDown : null}
         onWheel={this.handleWheel}
       >
-        <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
-        <Icon type="arrow-line-Bold" className={leftBtnClass} onClick={this.handlePrev}/>
-        <Icon type="arrow-line-Bold" className={rightBtnClass} onClick={this.handleNext}/>
-
         <div className="canvas">
           {
             imgs.map((item, index) => {
@@ -658,7 +654,9 @@ class PicturePreview extends Component {
             })
           }
         </div>
-
+        <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
+        <Icon type="arrow-line-Bold" className={leftBtnClass} onClick={this.handlePrev}/>
+        <Icon type="arrow-line-Bold" className={rightBtnClass} onClick={this.handleNext}/>
         <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
           <div className={progressClass}>{current+1}/{imgs.length}</div>
           <div className="toolbarCon">
