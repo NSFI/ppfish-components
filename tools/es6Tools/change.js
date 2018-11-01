@@ -16,7 +16,7 @@ var copy = function(src,dst){
                   if(stats.isFile()){
                       //创建读取流
                       readable = fs.createReadStream(url);
-                      //创建写入流 
+                      //创建写入流
                       writable = fs.createWriteStream(dest,{ encoding: "utf8" });
                       // 通过管道来传输流
                       readable.pipe(writable);
@@ -29,7 +29,7 @@ var copy = function(src,dst){
           });
       });
   }else{
-      console.log("给定的目录不存，读取不到文件");
+      console.log("给定的目录不存在，读取不到文件");
       return;
   }
 }
