@@ -7,6 +7,7 @@ import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import TimePicker, { converSelectRange } from '../TimePicker.jsx';
 import TimePanel from './TimePanel.jsx';
+import TimeSelect from './TimeSelectPanel.jsx'
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import {
   SELECTION_MODES,
@@ -21,16 +22,28 @@ import {
   parseDate,
   MONTH_ARRRY,
   YEARS_ARRAY,
+  isValidValue,
   isValidValueArr,
   setTime,
   equalYearAndMonth,
   diffDate
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
+import {TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from '../constants';
 
 const isInputValid = (text, date, disabledDate) => {
   if(text.trim() === '' || !isValidValueArr(date) || !DateRangePanel.isValid(date, disabledDate)) return false;
   return true;
+};
+
+const dateToStr = (date) => {
+  if (!date || !isValidValue(date)) return '';
+  const tdate = date;
+  const formatter = (
+    TYPE_VALUE_RESOLVER_MAP['timeselect']
+  ).formatter;
+  const result = formatter(tdate, DEFAULT_FORMATS['timeselect']);
+  return result;
 };
 
 export default class DateRangePanel extends React.Component {
@@ -138,7 +151,8 @@ export default class DateRangePanel extends React.Component {
     state.minTime = minTime;
     state.maxTime = maxTime;
     state.startTimeSelectableRange = props.startTimeSelectableRange;
-    state.endTimeSelectableRange = isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectableRange;
+    state.endTimeSelectableRange = props.endTimeSelectMode === 'TimePicker' && isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectableRange;
+    state.endTimeSelectModeProps = props.endTimeSelectMode === 'TimeSelect' && isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectModeProps;
     return state;
   }
 
@@ -168,39 +182,58 @@ export default class DateRangePanel extends React.Component {
 
   // 计算结束时间的可选范围
   getEndTimeSelectableRange = (minTime) => {
-    const { endTimeSelectableRange } = this.props;
-    const propsTimeRangeArr = converSelectRange({selectableRange: endTimeSelectableRange});
+    const { endTimeSelectableRange, endTimeSelectMode, endTimeSelectModeProps } = this.props;
+    //TimePicker模式下返回endTimeSelectableRange
+    if(endTimeSelectMode === 'TimePicker') {
+      const propsTimeRangeArr = converSelectRange({selectableRange: endTimeSelectableRange});
 
-    if(!minTime) return endTimeSelectableRange;
+      if(!minTime) return endTimeSelectableRange;
 
-    const getTimeString = (date) => {
-      return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    };
+      const getTimeString = (date) => {
+        return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      };
 
-    let rangeResult = [];
-    if(propsTimeRangeArr && propsTimeRangeArr.length > 0){
-      let min = minTime;
-      let max = setTime(new Date(minTime), new Date(new Date().setHours(23,59,59)));
-      for(let range of propsTimeRangeArr) {
-        min = Math.max(min, range[0]);
-        max = Math.min(max, range[1]);
-        rangeResult.push(`${getTimeString(new Date(min))} - ${getTimeString(new Date(max))}`);
+      let rangeResult = [];
+      if(propsTimeRangeArr && propsTimeRangeArr.length > 0){
+        let min = minTime;
+        let max = setTime(new Date(minTime), new Date(new Date().setHours(23,59,59)));
+        for(let range of propsTimeRangeArr) {
+          min = Math.max(min, range[0]);
+          max = Math.min(max, range[1]);
+          rangeResult.push(`${getTimeString(new Date(min))} - ${getTimeString(new Date(max))}`);
+        }
+      }else{
+        rangeResult = [`${getTimeString(minTime)} - 23:59:59`];
       }
+      return rangeResult;
+      //TimeSelect模式下返回endTimeSelectModeProps
     }else{
-      rangeResult = [`${getTimeString(minTime)} - 23:59:59`];
+      let propsResult = endTimeSelectModeProps;
+      propsResult.start = dateToStr(minTime);
+      return propsResult;
     }
-    return rangeResult;
+  }
+
+  // 计算最大时间
+  getMaxTime = (maxTime, minTime) => {
+    const { endTimeSelectMode } = this.props;
+    if(endTimeSelectMode === 'TimePicker') {
+      return maxTime && TimePanel.isValid(maxTime, converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})) ? maxTime : null
+    }else{
+      return maxTime && TimeSelect.isValid(`${maxTime.getHours()}:${maxTime.getMinutes()}`, this.getEndTimeSelectableRange(minTime)) ? maxTime : null
+    }
   }
 
   // 当开始日期和结束日期为同一天时，需要控制结束时间的可选范围
   setEndTimeRange = () => {
     const { minDate, maxDate, minTime, maxTime } = this.state;
-    const { endTimeSelectableRange } = this.props;
+    const { endTimeSelectableRange, endTimeSelectMode, endTimeSelectModeProps } = this.props;
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
 
     this.setState({
-      maxTime: isSameDate && minTime ? (maxTime && TimePanel.isValid(maxTime, converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})) ? maxTime : null) : maxTime,
-      endTimeSelectableRange: isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectableRange
+      maxTime: isSameDate && minTime ? this.getMaxTime(maxTime, minTime) : maxTime,
+      endTimeSelectableRange: endTimeSelectMode === 'TimePicker' && isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectableRange,
+      endTimeSelectModeProps: endTimeSelectMode === 'TimeSelect' && isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectModeProps
     });
   }
 
@@ -245,7 +278,6 @@ export default class DateRangePanel extends React.Component {
 
   // 开始时间或结束时间发生改变
   handleTimeInputChange(value, type) {
-    const { minDate, maxDate, maxTime } = this.state;
     if (value) {
       if (type === 'min') {
         this.setState({
