@@ -41,7 +41,7 @@ function exists(url, dest, callback) {
 			callback && callback(url, dest);
 		} else {
 			//第二个参数目录权限 ，默认0777(读写权限)
-			fs.mkdir(dest, 0777, function (err) {
+			fs.mkdir(dest, PER, function (err) {
 				if (err) throw err;
 				callback && callback(url, dest);
 			});
