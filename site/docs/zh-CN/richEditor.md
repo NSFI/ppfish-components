@@ -183,6 +183,7 @@
 ```js
   
   getImageUrl = (callback) => {
+    // 模拟调用接口的异步过程
     setTimeout(() => {
       let imageUrl = "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin";
       callback({
@@ -271,6 +272,8 @@
 
 ## API
 
+__使用编辑器内置的插入图片模块时，图片数据将以 base64 字符串格式嵌入到编辑器内，后端保存该图片数据时会占用较大空间，因此推荐使用自定义插入图片的方式。详情可参考 API `customInsertImage` 和 “自定义插入图片”的 demo。__
+
 ### 属性
 
 |属性|说明|类型|默认值|
@@ -313,9 +316,9 @@
 | getBounds() | 返回给定位置处的相对于编辑器容器的像素位置和选区的尺寸 |
 | getContents() | 返回 [Quill Delta](https://quilljs.com/docs/delta/) 格式的完整内容 |
 | getHTML() | 返回编辑器的完整 HTML 内容 |
-| getLength() | 返回编辑器内容的长度，以字符为单位，不包括 HTML 标签 |
+| getLength() | 返回编辑器内容的长度，以字符为单位，不包括 HTML 标签。默认会多加一个回车符的长度。 |
 | getSelection() | 返回当前选区的范围，如果编辑器处于 unfocus 状态，则返回 null |
-| getText() | 返回编辑器的字符串内容，不包括 HTML 标签 |
+| getText() | 返回编辑器的字符串内容，不包括 HTML 标签。默认会在末尾包含一个回车符。 |
 | isRichContents() | 判断编辑器的内容是否为富文本，如果是则返回 true，否则返回 false。判断依据为，若编辑器内容仅包含文本，且该文本为默认格式（大小为 '14px'，颜色为 '#000000'），则不是富文本。 |
 
 ### 参考文档
