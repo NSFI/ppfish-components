@@ -21,6 +21,7 @@
     //console.log('delta: ', delta);
     //console.log('source: ', source);
     //console.log('editor: ', editor);
+    console.log('isRich: ', editor.isRichContents());
   }
 
   render() {
@@ -315,6 +316,7 @@
 | getLength() | 返回编辑器内容的长度，以字符为单位，不包括 HTML 标签 |
 | getSelection() | 返回当前选区的范围，如果编辑器处于 unfocus 状态，则返回 null |
 | getText() | 返回编辑器的字符串内容，不包括 HTML 标签 |
+| isRichContents() | 判断编辑器的内容是否为富文本，如果是则返回 true，否则返回 false。判断依据为，若编辑器内容仅包含文本，且该文本为默认格式（大小为 '14px'，颜色为 '#000000'），则不是富文本。 |
 
 ### 参考文档
 
