@@ -1,14 +1,14 @@
 
-var fs = require('fs');
+const fs = require('fs');
 // var pfs = fs.promises;
-var path = require('path');
-
+const path = require('path');
+/* eslint-disable no-console */
 function del(p) {
-  var arr = fs.readdirSync(p);
-  for (var i in arr) {
+  let arr = fs.readdirSync(p);
+  for (let i in arr) {
     //读取文件信息，以便于判断是否是一个文件或目录
-    var stats = fs.statSync(p + '/' + arr[i]);
-    var ext = path.extname(p + '/' + arr[i]);
+    let stats = fs.statSync(p + '/' + arr[i]);
+    let ext = path.extname(p + '/' + arr[i]);
 
     if (stats.isFile()) {
       if (ext === '.tsx' || ext === '.ts') {
@@ -25,27 +25,27 @@ function fileDisplay(filePath) {
   //根据文件路径读取文件，返回文件列表
   fs.readdir(filePath, function (err, files) {
     if (err) {
-      console.warn(err)
+      console.log(err);
     } else {
       //遍历读取到的文件列表
       files.forEach(function (filename) {
         //获取当前文件的绝对路径
-        var filedir = path.join(filePath, filename);
+        let filedir = path.join(filePath, filename);
         //根据文件路径获取文件信息，返回一个fs.Stats对象
-        var stats = fs.statSync(filedir);
-        var isFile = stats.isFile();//是文件
-        var isDir = stats.isDirectory();//是文件夹
-        var ext = path.extname(filedir);
+        let stats = fs.statSync(filedir);
+        let isFile = stats.isFile();//是文件
+        let isDir = stats.isDirectory();//是文件夹
+        let ext = path.extname(filedir);
         if (isFile) {
           if (ext === '.js' || ext === '.jsx') {
             fs.readFile(filedir, 'utf-8', function (err, data) {
               if (err) {
-                console.log(err)
+                console.log(err);
               }
               let newData = data.replace(/.tsx/g, '.js');
               fs.writeFile(filedir, newData, 'utf-8', function (err) {
                 if (err) {
-                  console.log(err)
+                  console.log(err);
                 }
               });
             });
@@ -66,13 +66,13 @@ function fileDisplay(filePath) {
 function delTest(path) {
   let files = fs.readdirSync(path);
   files.forEach(function (file) {
-    var curPath = path + "/" + file;
+    let curPath = path + "/" + file;
     if (fs.statSync(curPath).isDirectory()) { // recurse
       delTest(curPath);
     } else { // delete file
       fs.unlinkSync(curPath);
     }
-  })
+  });
   fs.rmdirSync(path);
 }
 del(path.resolve(__dirname, '../../es6'));

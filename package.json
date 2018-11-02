@@ -7,7 +7,7 @@
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message remove-dist",
     "start": "npm-run-all --parallel test:watch open:site lint:watch",
-    "build": "npm-run-all --parallel build:site build:components",
+    "build": "npm-run-all --parallel build:site build:components es:transform",
     "stylelint": "stylelint \"source/**/*.less\"",
     "lint": "esw webpack.config.* source tools",
     "lint:watch": "npm run lint -- --watch",
