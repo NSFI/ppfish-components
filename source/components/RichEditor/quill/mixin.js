@@ -2,6 +2,53 @@
 
 let Quill = require('quill');
 
+let isRichContents = function(editor){
+	const delta = editor.getContents.apply(editor, arguments),
+				defaultSize = '14px',
+				defaultColor = '#000000';
+	let	isRich = false;
+
+	if (delta && delta.ops && delta.ops.length) {
+		let deltaOps = delta.ops;
+
+		for (let i=0, len=deltaOps.length; i<len; i++) {
+			let item = deltaOps[i];
+
+			if ('insert' in item && typeof(item['insert'])!='string') {
+				isRich = true;
+				break;
+			}
+
+			if ('attributes' in item) {
+				let attrObj = item['attributes'],
+						attrNames = Object.keys(attrObj);
+
+				for (let j=0,attrLen=attrNames.length; j<attrLen; j++) {
+					let attr = attrNames[j];
+					if (attr != 'customSize' && attr != 'color') {
+						isRich = true;
+						break;
+					} else {
+						if (attr == 'customSize' && attrObj['customSize'] &&
+								attrObj['customSize'] != defaultSize) {
+							isRich = true;
+							break;
+						}
+
+						if (attr == 'color' && attrObj['color'] &&
+								attrObj['color'] != defaultColor) {
+							isRich = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return isRich;
+};
+
 let QuillMixin = {
 
 	/**
@@ -11,6 +58,7 @@ let QuillMixin = {
 	createEditor: function($el, config) {
 		let editor = new Quill($el, config);
 		editor.getHTML = function(){ return editor.root.innerHTML; };
+		editor.isRichContents = function(){ return isRichContents(editor);};
 
 		if (config.tabIndex !== undefined) {
 			this.setEditorTabIndex(editor, config.tabIndex);
@@ -109,52 +157,7 @@ let QuillMixin = {
 			getContents:  	function(){ return e.getContents.apply(e, arguments); },
 			getSelection: 	function(){ return e.getSelection.apply(e, arguments); },
 			getBounds:   		function(){ return e.getBounds.apply(e, arguments); },
-			isRichContents: function(){
-				const delta = e.getContents.apply(e, arguments),
-							defaultSize = '14px',
-							defaultColor = '#000000';
-				let	isRich = false;
-
-				if (delta && delta.ops && delta.ops.length) {
-					let deltaOps = delta.ops;
-
-					for (let i=0, len=deltaOps.length; i<len; i++) {
-						let item = deltaOps[i];
-
-						if ('insert' in item && typeof(item['insert'])!='string') {
-							isRich = true;
-							break;
-						}
-
-						if ('attributes' in item) {
-							let attrObj = item['attributes'],
-									attrNames = Object.keys(attrObj);
-
-							for (let j=0,attrLen=attrNames.length; j<attrLen; j++) {
-								let attr = attrNames[j];
-								if (attr != 'customSize' && attr != 'color') {
-									isRich = true;
-									break;
-								} else {
-									if (attr == 'customSize' && attrObj['customSize'] &&
-											attrObj['customSize'] != defaultSize) {
-										isRich = true;
-										break;
-									}
-
-									if (attr == 'color' && attrObj['color'] &&
-											attrObj['color'] != defaultColor) {
-										isRich = true;
-										break;
-									}
-								}
-							}
-						}
-					}
-				}
-
-				return isRich;
-			}
+			isRichContents: function(){ return isRichContents(e);}
 		};
 	}
 
