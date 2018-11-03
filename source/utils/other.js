@@ -126,3 +126,38 @@ export function getScroll(target, top) {
 
   return ret;
 }
+
+
+const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
+const MOZ_HACK_REGEXP = /^moz([A-Z])/;
+const camelCase = function(name) {
+  return name.replace(
+    SPECIAL_CHARS_REGEXP, (_, separator, letter, offset) => offset
+    ? letter.toUpperCase()
+    : letter).replace(MOZ_HACK_REGEXP, 'Moz$1');
+};
+
+/**
+ * 获取元素的样式
+ * @param  {[type]} element   [description] 元素标签
+ * @param  {[type]} styleName [description] 样式名
+ * @return {[type]}           [description]
+ */
+export function getStyle(element, styleName) {
+  if (!element || !styleName)
+    return null;
+
+  styleName = camelCase(styleName);
+
+  if (styleName === 'float')
+    styleName = 'cssFloat';
+
+  try {
+    const computed = document.defaultView.getComputedStyle(element, '');
+    return element.style[styleName] || computed
+      ? computed[styleName]
+      : null;
+  } catch (e) {
+    return element.style[styleName];
+  }
+};

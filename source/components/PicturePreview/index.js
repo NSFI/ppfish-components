@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
 import Icon from '../Icon/index.tsx';
-import { fullscreen, exitfullscreen, addFullscreenchangeEvent, checkFullscreen, KeyCode } from '../../utils';
+import {
+  fullscreen,
+  exitfullscreen,
+  addFullscreenchangeEvent,
+  checkFullscreen,
+  KeyCode,
+  getStyle
+} from '../../utils';
 import './style/index.less';
 
 const CON_MAX_WIDTH = 1024, //容器最大宽度
@@ -53,40 +60,6 @@ const getImageSize = function(image, callback, scope) {
     callback.call(scope, this.width, this.height);
   };
   newImage.src = image.src;
-};
-
-const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
-const MOZ_HACK_REGEXP = /^moz([A-Z])/;
-const camelCase = function(name) {
-  return name.replace(
-    SPECIAL_CHARS_REGEXP, (_, separator, letter, offset) => offset
-    ? letter.toUpperCase()
-    : letter).replace(MOZ_HACK_REGEXP, 'Moz$1');
-};
-
-/**
- * 获取元素的样式
- * @param  {[type]} element   [description] 元素标签
- * @param  {[type]} styleName [description] 样式名
- * @return {[type]}           [description]
- */
-const getStyle = function(element, styleName) {
-  if (!element || !styleName)
-    return null;
-
-  styleName = camelCase(styleName);
-
-  if (styleName === 'float')
-    styleName = 'cssFloat';
-
-  try {
-    const computed = document.defaultView.getComputedStyle(element, '');
-    return element.style[styleName] || computed
-      ? computed[styleName]
-      : null;
-  } catch (e) {
-    return element.style[styleName];
-  }
 };
 
 class PicturePreview extends Component {
