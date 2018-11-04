@@ -503,7 +503,6 @@ class RichEditor extends Component {
         <CustomToolbar
           ref={el => this.toolbarRef = el}
           className={'editor-head'}
-          style={resizable ? null : {height: 'auto', overflow: 'auto'}}
           toolbar={toolbar}
           customEmoji={customEmoji}
           customLink={customLink}
