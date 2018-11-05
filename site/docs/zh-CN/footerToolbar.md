@@ -73,7 +73,7 @@ render() {
           <span className="nav-text">nav 3</span>
         </Menu.Item>
         <Menu.Item key="4">
-          <Icon type="bar-chart"/>
+          <img className="img-icon-14 fishdicon" src="../static/icons/demo-bar-chart.svg" />
           <span className="nav-text">nav 4</span>
         </Menu.Item>
         <Menu.Item key="5">
