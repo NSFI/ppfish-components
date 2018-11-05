@@ -644,7 +644,7 @@
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
-| onChange | 选中树节点时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
+| onChange | 选中的树节点改变时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
 | onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => Void | - |
 | onReset | 点击复位选项时调用，单选时有效 | () => Void | - |
 | onSearch | 搜索框值变化时调用 | (value: String) => Void | - |
