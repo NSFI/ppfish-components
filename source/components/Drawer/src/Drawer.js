@@ -312,7 +312,7 @@ class Drawer extends React.PureComponent {
                 this.dom.style.transform = `translateX(${right}px)`;
                 this.dom.style.msTransform = `translateX(${right}px)`;
                 this.dom.style.width = '100%';
-                widthTransition = `width 0s ${ease} ${duration}`
+                widthTransition = `width 0s ${ease} ${duration}`;
                 if (this.maskDom) {
                   this.maskDom.style.left = `-${right}px`;
                   this.maskDom.style.width = `calc(100% + ${right}px)`;
@@ -324,7 +324,7 @@ class Drawer extends React.PureComponent {
                 this.dom.style.width = `calc(100% + ${right}px)`;
                 this.dom.style.height = '100%';
                 this.dom.style.transform = 'translateZ(0)';
-                heightTransition = `height 0s ${ease} ${duration}`
+                heightTransition = `height 0s ${ease} ${duration}`;
                 break;
               }
               default:

@@ -160,4 +160,4 @@ export function getStyle(element, styleName) {
   } catch (e) {
     return element.style[styleName];
   }
-};
+}
