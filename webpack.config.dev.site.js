@@ -3,37 +3,50 @@ const webpack = require('webpack');
 const path = require('path');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {parseDir} = require('./tools/helps');
+const { parseDir, getReplParams } = require('./tools/helps');
+
+// demo中嵌入的iframe页面打包开关，默认关闭，通过REPL运行npm run open:site -- --iframe=true来开启
+let iframe = false;
+let replIframe = getReplParams('iframe');
+if (replIframe) {
+  iframe = JSON.parse(replIframe[0]);
+}
 
 const demoPath = './site/docs/demoPage/';
 const getHtmlWebpackPlugin = () => {
-  const demoNameArr = [];
-  parseDir(demoPath, demoNameArr);
-  const htmlWebpackPlugin = demoNameArr
-    .filter((name) => {
-      return name.slice(-3) === '.js';
-    })
-    .map((name) => {
-      const demoName = name.slice(0, -3);
-      return new HtmlWebpackPlugin({
-        filename: 'demo/' + demoName + '.html',
-        template: path.join(__dirname, demoPath + 'demo.html'),
-        chunks: [demoName]
+  if(iframe){
+    const demoNameArr = [];
+    parseDir(demoPath, demoNameArr);
+    const htmlWebpackPlugin = demoNameArr
+      .filter((name) => {
+        return name.slice(-3) === '.js';
+      })
+      .map((name) => {
+        const demoName = name.slice(0, -3);
+        return new HtmlWebpackPlugin({
+          filename: 'demo/' + demoName + '.html',
+          template: path.join(__dirname, demoPath + 'demo.html'),
+          chunks: [demoName]
+        });
       });
-    });
-  return htmlWebpackPlugin;
+    return htmlWebpackPlugin;
+  }else{
+    return [];
+  }
 };
 
 const getDemoEntries = () => {
   const entries = {};
-  const demoNameArr = [];
-  parseDir(demoPath, demoNameArr);
-  const arr = demoNameArr.filter((name) => {
-      return name.slice(-3) === '.js';
+  if (iframe) {
+    const demoNameArr = [];
+    parseDir(demoPath, demoNameArr);
+    const arr = demoNameArr.filter((name) => {
+        return name.slice(-3) === '.js';
+      }
+    );
+    for (let each of arr) {
+      entries[each.slice(0, -3)] = [demoPath + each];
     }
-  );
-  for (let each of arr) {
-    entries[each.slice(0, -3)] = [demoPath + each];
   }
   return entries;
 };
