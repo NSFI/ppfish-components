@@ -505,7 +505,7 @@ render(){
 
 ## 后端搜索-单选
 
-:::demo 使用`showSeach`、`labelInValue`、`onSearch`配合进行后端搜索操作，`notFoundContent`可以定制搜索文案
+:::demo 使用`showSearch`、`labelInValue`、`onSearch`配合进行后端搜索操作，`notFoundContent`可以定制搜索文案
 ```js
   constructor(props) {
     super(props);
@@ -567,7 +567,7 @@ render(){
 
 ## 后端搜索-多选
 
-:::demo 使用`showSeach`、`labelInValue`、`onSearch`配合进行后端搜索操作，`notFoundContent`可以定制搜索文案
+:::demo 使用`showSearch`、`labelInValue`、`onSearch`配合进行后端搜索操作，`notFoundContent`可以定制搜索文案
 ```js
   constructor(props) {
     super(props);
