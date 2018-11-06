@@ -1,42 +1,53 @@
 import React from 'react';
-import Loadable from 'react-loadable';
-import {Spin} from '../../../source/components';
+import PropTypes from 'prop-types';
+import ReactMDTranslator from 'react-md-translator';
 import {plainComponents} from '../../componentsPage';
+import renderer from './renderer';
+import * as source from './source.js';
+import Slider from './slider/index.js';
+import 'react-md-translator/style/index.less';
 
-export default Loadable({
-  loader: () => import('../../../libs/markdown/index').then(object => object.default),
-  render(Markdown, props) {
-    const menuItem = plainComponents.find(itm => itm.key === props.params.demo);
-    if (menuItem || !props.params.demo) {
-      //import react/demo
+export default class Loadable extends React.Component {
+
+  static  propTypes = {
+    params: PropTypes.object
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const menuItem = plainComponents.find(itm => itm.key === this.props.params.demo);
+    if (menuItem || !this.props.params.demo) {
       if (menuItem && menuItem.type === 'react') {
         const Demo = menuItem.component.default;
-        return <div><Demo {...props}/></div>;
+        return (<Demo {...this.props}/>);
       } else {
-        class Demo extends Markdown {
-          static defaultProps = menuItem && menuItem.props ? menuItem.props : {};
-
-          document() {
-            let markdown;
-            try {
-              markdown = require(`../../docs/zh-CN/${props.params.demo}.md`);
-            } catch (e) {
-              markdown = require(`../../docs/zh-CN/quickStart.md`);
-            }
-            return markdown;
-          }
+        const mdProps = menuItem && menuItem.props ? menuItem.props : {};
+        let markdown;
+        try {
+          markdown = require(`../../docs/zh-CN/${this.props.params.demo}.md`);
+        } catch (e) {
+          markdown = require(`../../docs/zh-CN/quickStart.md`);
         }
-
-        return <Demo {...props}/>;
+        return (
+          <div>
+            <ReactMDTranslator
+              dependencies={source}
+              renderer={renderer}
+              {...mdProps}>
+              {markdown}
+            </ReactMDTranslator>
+            <div className="slider-container">
+              <Slider title={this.props.params.demo}/>
+            </div>
+          </div>
+        );
       }
     } else {
       location.assign('/#/home');
       return null;
     }
-  },
-  loading: () => (
-    <Spin.Container style={{height: 540}}>
-      <Spin tip="组件正在加载..."/>
-    </Spin.Container>
-  )
-});
+  }
+}

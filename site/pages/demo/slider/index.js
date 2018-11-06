@@ -1,11 +1,12 @@
 import React from 'react';
-import Affix from '../../source/components/Affix/index.tsx';
+import PropTypes from 'prop-types';
+import Affix from '../../../../source/components/Affix/index.tsx';
 import './style.less';
 
 //元素距顶部高度
 const getElementTop = (element) => {
   element = document.getElementById(element);
-  // if (!element) return;
+  if (!element) return;
   let actualTop = element.offsetTop;
   let current = element.offsetParent;
   while (current !== null) {
@@ -27,33 +28,48 @@ const getSiblings = (elem) => {
 
 export default class Slider extends React.Component {
 
+  static propTypes = {
+    title: PropTypes.string
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      anchors: []
+      anchors: [],
+      title: undefined,
     };
   }
 
   componentDidMount() {
-    const anchors = Array.from(document.querySelectorAll('h2')).map(h2Item => ({
-      id: h2Item.id,
-      name: h2Item.innerText
-    }));
-    /* eslint-disable react/no-did-mount-set-state */
-    this.setState({anchors});
-    /* eslint-enable react/no-did-mount-set-state */
     this.scrollContainer = document.documentElement;
+    this.setAnchors();
     window.addEventListener('scroll', this.handleSliderActiveCheck);
     this.handleSliderActiveCheck();
   }
 
-  componentDidUpdate() {
-    this.handleSliderActiveCheck();
+  componentWillReceiveProps(nextProps, nextState) {
+    if (nextProps.title !== this.state.title) {
+      this.setState({
+        title: nextProps.title
+      });
+      setTimeout(() => {
+        this.setAnchors();
+        this.handleSliderActiveCheck();
+      });
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleSliderActiveCheck);
   }
+
+  setAnchors = () => {
+    const anchors = Array.from(document.querySelectorAll('h2')).map(h2Item => ({
+      id: h2Item.id,
+      name: h2Item.innerText
+    }));
+    this.setState({anchors});
+  };
 
   handleSliderClick = (e, id) => {
     e && e.preventDefault();

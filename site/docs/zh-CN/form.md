@@ -91,6 +91,8 @@ class HorizontalLoginForm extends React.Component {
 }
 
 const Demo = Form.create()(HorizontalLoginForm);
+
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
@@ -148,7 +150,7 @@ class NormalLoginForm extends React.Component {
 }
 
 const Demo = Form.create()(NormalLoginForm);
-
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
@@ -415,6 +417,7 @@ class RegistrationForm extends React.Component {
 }
 
 const Demo = Form.create()(RegistrationForm);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
@@ -498,6 +501,7 @@ class AdvancedSearchForm extends React.Component {
 }
 
 const Demo = Form.create()(AdvancedSearchForm);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
@@ -625,6 +629,7 @@ class Demo extends React.Component {
     );
   }
 }
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
@@ -746,6 +751,7 @@ class DynamicFieldSet extends React.Component {
 }
 
 const Demo = Form.create()(DynamicFieldSet);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
@@ -876,6 +882,7 @@ class TimeRelatedForm extends React.Component {
 }
 
 const Demo = Form.create()(TimeRelatedForm);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 
 ```
 :::
@@ -999,6 +1006,8 @@ class UnWrappedDemo extends React.Component {
 }
 
 const Demo = Form.create()(UnWrappedDemo);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+
 ```
 :::
 
@@ -1066,6 +1075,8 @@ class Demo extends React.Component {
     );
   }
 }
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+
 ```
 :::
 
@@ -1139,6 +1150,8 @@ class Demo extends React.Component {
     );
   }
 }
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+
 ```
 :::
 
@@ -1382,6 +1395,8 @@ class App extends React.Component {
 }
 
 const Demo = Form.create()(App);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+
 ```
 :::
 
@@ -1444,6 +1459,8 @@ class Demo extends React.Component {
     );
   }
 }
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+
 ```
 :::
 <style>
@@ -1533,7 +1550,7 @@ class DynamicRule extends React.Component {
 }
 
 const Demo = Form.create()(DynamicRule);
-
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
@@ -1715,6 +1732,8 @@ class UnwrappedDemo extends React.Component {
 }
 
 const Demo = Form.create()(UnwrappedDemo);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+
 ```
 :::
 
