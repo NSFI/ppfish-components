@@ -21,11 +21,13 @@ body {
   }
 }
 
+//小屏下的drawer按钮位置调整
 .drawer-handle {
   /* stylelint-disable-next-line */
   top: 144px !important;
 }
 
+//主站样式
 .app {
   //顶部fixed
   .fixed-header-layout {
@@ -234,14 +236,16 @@ body {
   }
 }
 
-.img-icon-gen(@size){
+//img-icon-gen
+.img-icon-gen(@size) {
   .img-icon-@{size} {
     display: inline-block;
     vertical-align: baseline;
     width: ~'@{size}px';
-    height:~'@{size}px';
+    height: ~'@{size}px';
   }
 }
+
 .img-icon-gen(18);
 .img-icon-gen(16);
 .img-icon-gen(14);
