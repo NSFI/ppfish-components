@@ -8,7 +8,11 @@ class ImageBlot extends Embed {
 
     if (typeof value == 'object') {
       Object.keys(value).forEach((key) => {
-        node.setAttribute(key, value[key]);
+        try {
+          node.setAttribute(key, value[key]);
+        } catch(e) {
+          console.error(e);
+        }
       });
     }
 
