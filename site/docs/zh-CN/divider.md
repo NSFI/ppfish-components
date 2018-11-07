@@ -71,6 +71,6 @@ render(){
 | --- | --- | --- | --- |
 | className | 分割线样式类 | String | - |
 | dashed | 是否虚线 | Boolean | false |
-| orientation | 分割线标题的位置 | Enum {'left','right'} | `center` |
+| orientation | 分割线标题的位置 | Enum {'left','right','center'} | `center` |
 | style | 分割线样式对象 | Object | - |
 | type | 水平还是垂直类型 | Enum: {'horizontal', 'vertical'} | `horizontal` |

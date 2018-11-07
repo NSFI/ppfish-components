@@ -146,7 +146,7 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
     options: [],
     disabled: false,
     allowClear: true,
-    notFoundContent: '无搜索结果',
+    notFoundContent: '无匹配结果',
   };
 
   cachedOptions: CascaderOptionType[];
