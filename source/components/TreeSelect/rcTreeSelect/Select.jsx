@@ -104,7 +104,10 @@ class Select extends React.Component {
     loadData: PropTypes.func,
     filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 
-    notFoundContent: PropTypes.string,
+    notFoundContent: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+    ]),
 
     onSearch: PropTypes.func,
     onSelect: PropTypes.func,
@@ -145,7 +148,7 @@ class Select extends React.Component {
     treeNodeLabelProp: 'title',
     treeNodeResetTitle: '不选择任何分类',
     treeIcon: false,
-    notFoundContent: '未搜索到内容',
+    notFoundContent: '无匹配结果',
   };
 
   constructor(props) {
@@ -1013,7 +1016,7 @@ class Select extends React.Component {
       treeNodes, filteredTreeNodes,
       curValueList
     } = this.state;
-    const { prefixCls } = this.props;
+    const { prefixCls, loadData } = this.props;
     const isMultiple = this.isMultiple();
     let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
 
@@ -1052,10 +1055,13 @@ class Select extends React.Component {
       passProps['resetSelect'] = this.resetSelect;
     }
 
+    delete passProps.loadData;
+
     const Popup = isMultiple ? MultiplePopup : SinglePopup;
     const $popup = (
       <Popup
         {...passProps}
+        loadData={searchValue ? null : loadData}  // 有搜索内容时不触发异步加载
         onTreeExpanded={this.delayForcePopupAlign}
         treeNodes={treeNodes}
         filteredTreeNodes={filteredTreeNodes}

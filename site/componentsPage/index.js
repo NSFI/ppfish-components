@@ -317,6 +317,9 @@ export const components = {
           key: 'treeSelect',
           type: 'markdown',
           name: 'TreeSelect 树选择',
+          props: {
+            debounce: require('lodash/debounce')
+          },
           published: true,
         },
 //  {
@@ -421,6 +424,9 @@ export const components = {
           key: 'tree',
           type: 'markdown',
           name: 'Tree 树形控件',
+          props: {
+            debounce: require('lodash/debounce')
+          },
           published: true,
         },
         {

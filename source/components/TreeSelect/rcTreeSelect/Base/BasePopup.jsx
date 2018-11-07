@@ -31,7 +31,10 @@ class BasePopup extends React.Component {
 
     treeNodes: PropTypes.node,
     filteredTreeNodes: PropTypes.node,
-    notFoundContent: PropTypes.string,
+    notFoundContent: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+    ]),
 
     ariaId: PropTypes.string,
 
@@ -74,7 +77,7 @@ class BasePopup extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps = {}, loadedKeys } = prevState || {};
-    const { valueList, valueEntities, keyEntities, filteredTreeNodes } = nextProps;
+    const { valueList, valueEntities, keyEntities, filteredTreeNodes, upperSearchValue } = nextProps;
 
     const newState = {
       prevProps: nextProps,
@@ -86,6 +89,17 @@ class BasePopup extends React.Component {
         .map(({ value }) => valueEntities[value])
         .filter(entity => entity)
         .map(({ key }) => key);
+    }
+
+    // 清空搜索内容后恢复搜索前的展开状态
+    if (upperSearchValue && !prevState.savedExpandedKeyList) {
+      // 保存搜索前展开的节点
+      newState.prevExpandedKeyList = Array.isArray(prevState.expandedKeyList) ? [...prevState.expandedKeyList] : [];
+      newState.savedExpandedKeyList = true;
+    } else if (!upperSearchValue && prevState.savedExpandedKeyList) {
+      // 恢复搜索前展开的节点
+      newState.expandedKeyList = Array.isArray(prevState.prevExpandedKeyList) ? [...prevState.prevExpandedKeyList] : [];
+      newState.savedExpandedKeyList = false;
     }
 
     // Show all when tree is in filter mode

@@ -611,6 +611,7 @@
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
+      loadData: this.onLoadData,
       treeCheckable: true,
       style: {
         width: 300,
@@ -620,7 +621,140 @@
       }
     };
     return (
-      <TreeSelect {...tProps} loadData={this.onLoadData}/>
+      <TreeSelect {...tProps} />
+    );
+  }
+```
+:::
+
+
+## 后端搜索
+
+:::demo 异步加载数据的多选。
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.lastSearchId = 1;
+    this.onSearch = this.props.debounce(this.onSearch, 500);
+    this.state = {
+      value: [],
+      treeData: [
+        { title: 'Node1', key: 'k1', value: 'n1' },
+        { title: 'Node2', key: 'k2', value: 'n2' },
+        { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
+      ],
+      loading: false
+    };
+  }
+
+  onConfirm = (value) => {
+    this.setState({ value });
+  }
+  
+  onCancel = (value) => {
+    this.setState({ value });
+  }
+
+  onSearch = (value) => {
+    if(!value) return;
+    let oldTreeData = [...this.state.treeData];
+    this.setState({treeData: [], loading: true});
+    setTimeout(() => {
+      this.setState({
+        treeData: [
+          ...oldTreeData,
+          {
+            title: 'New Node' + this.lastSearchId + ': ' + value,
+            key: 'new_key_' + this.lastSearchId,
+            value: 'new_value_' + this.lastSearchId
+          }
+        ],
+        loading: false
+      }, () => {
+        this.lastSearchId++;
+      });
+    }, 1000);
+  }
+
+  generateTreeNodes = (treeNode) => {
+    const arr = [];
+    const key = treeNode.props.eventKey;
+    for (let i = 0; i < 3; i++) {
+      arr.push({ title: `CNode${i+1}`, key: `${key}-${i}`, value: `${key}-${i}` });
+    }
+    return arr;
+  }
+
+  setLeaf = (treeData, curKey, level) => {
+    const loopLeaf = (data, lev) => {
+      const l = lev - 1;
+      data.forEach((item) => {
+        if ((item.key.length > curKey.length) ? item.key.indexOf(curKey) !== 0 :
+          curKey.indexOf(item.key) !== 0) {
+          return;
+        }
+        if (item.children) {
+          loopLeaf(item.children, l);
+        } else if (l < 1) {
+          item.isLeaf = true;
+        }
+      });
+    };
+    loopLeaf(treeData, level + 1);
+  }
+
+  getNewTreeData = (treeData, curKey, child, level) => {
+    const loop = (data) => {
+      if (level < 1 || curKey.length - 3 > level * 2) return;
+      data.forEach((item) => {
+        if (curKey.indexOf(item.key) === 0) {
+          if (item.children) {
+            loop(item.children);
+          } else {
+            item.children = child;
+          }
+        }
+      });
+    };
+    loop(treeData);
+    this.setLeaf(treeData, curKey, level);
+  }
+
+  onLoadData = (treeNode) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const treeData = [...this.state.treeData];
+        this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateTreeNodes(treeNode), 1);
+        this.setState({ 
+          treeData 
+        });
+        resolve();
+      }, 1000);
+    });
+  }
+
+  render() {
+    const tProps = {
+      showSearch: true,
+      treeData: this.state.treeData,
+      value: this.state.value,
+      onConfirm: this.onConfirm,
+      onCancel: this.onCancel,
+      onSearch: this.onSearch,
+      loadData: this.onLoadData,
+      notFoundContent: this.state.loading ? <Spin size="small"/> : null,
+      treeCheckable: true,
+      style: {
+        width: 300,
+      },
+      dropdownStyle: {
+        width: 300,
+      }
+    };
+    return (
+      <TreeSelect {...tProps}/>
     );
   }
 ```
@@ -643,6 +777,7 @@
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
+| notFoundContent | 当下拉列表为空时显示的内容 | String \| ReactNode | '无匹配结果' |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
 | onChange | 选中的树节点改变时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
 | onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => Void | - |
@@ -654,14 +789,14 @@
 | required | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
-| showSearch | 是否在下拉中显示搜索框 | Boolean | false |
+| showSearch | 是否在下拉中显示搜索框。默认提供实时前端搜索，可以配合 `onSearch` 实现后端搜索。 | Boolean | false |
 | size | 选择框大小 | Enum {'default', 'large', 'small'} | 'default' |
 | style | 选择框的样式 | Object | - |
 | tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | Number | 100 |
 | treeCheckable | 显示 checkbox | Boolean | false |
 | treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 value 必须设置，且其值需在整个树范围内唯一；key 可选，未设置时取 value 的值。 | Array<{value, title, [children, key, disabled, disableCheckbox, selectable, isLeaf]}> | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | Boolean | false |
-| treeDefaultExpandedKeys | 默认展开的树节点 | Array | - |
+| treeDefaultExpandedKeys | 默认展开的树节点 | Array | [] |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
