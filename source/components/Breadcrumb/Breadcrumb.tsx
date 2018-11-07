@@ -4,6 +4,7 @@ import { cloneElement } from 'react';
 import warning from 'warning';
 import BreadcrumbItem from './BreadcrumbItem';
 import classNames from 'classnames';
+import Icon from '../Icon';
 
 export interface Route {
   path: string;
@@ -18,6 +19,7 @@ export interface BreadcrumbProps {
   itemRender?: (route: any, params: any, routes: Array<any>, paths: Array<string>) => React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
+  size?: string;
   maxWidth?: number;
 }
 
@@ -46,11 +48,13 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
 
   static defaultProps = {
     prefixCls: 'fishd-breadcrumb',
-    separator: '/',
+    separator: <Icon type="arrow-line-regular" />,
+    size: 'default'
   };
 
   static propTypes = {
     prefixCls: PropTypes.string,
+    size: PropTypes.string,
     separator: PropTypes.node,
     routes: PropTypes.array,
     params: PropTypes.object,
@@ -71,8 +75,9 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
     let crumbs;
     const {
       separator, prefixCls, style, className, routes, params = {},
-      children, itemRender = defaultItemRender, maxWidth
+      children, itemRender = defaultItemRender, maxWidth, size
     } = this.props;
+
     if (routes && routes.length > 0) {
       const paths: string[] = [];
       crumbs = routes.map((route) => {
@@ -106,8 +111,13 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
         });
       });
     }
+
+    let cls = classNames(className, prefixCls, {
+      'small': size === 'small'
+    });
+
     return (
-      <div className={classNames(className, prefixCls)} style={style}>
+      <div className={cls} style={style}>
         {crumbs}
       </div>
     );

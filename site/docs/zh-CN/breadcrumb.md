@@ -8,7 +8,7 @@
 - 当需要告知用户『你在哪里』时；
 - 当需要向上导航的功能时。
 
-## 基本
+## 基本使用
 
 :::demo 最简单的用法。
 
@@ -17,9 +17,9 @@
 render() {
   return (
     <Breadcrumb>
-      <Breadcrumb.Item>Home</Breadcrumb.Item>
-      <Breadcrumb.Item><a href="">Application Center</a></Breadcrumb.Item>
-      <Breadcrumb.Item><a href="">Application List</a></Breadcrumb.Item>
+      <Breadcrumb.Item href="">Home</Breadcrumb.Item>
+      <Breadcrumb.Item href="">APP Center</Breadcrumb.Item>
+      <Breadcrumb.Item href="">APP List</Breadcrumb.Item>
       <Breadcrumb.Item>An Application</Breadcrumb.Item>
     </Breadcrumb>
   );
@@ -27,7 +27,7 @@ render() {
 ```
 :::
 
-## 带有图标的
+## 前方带图标
 
 :::demo 图标放在文字前面。
 
@@ -37,10 +37,11 @@ render() {
     <Breadcrumb>
       <Breadcrumb.Item href="">
         <img className="img-icon-14 fishdicon" src="./static/icons/demo-grid.svg" />
+        <span>Home</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item href="">
         <img className="img-icon-14 fishdicon" src="./static/icons/demo-pie.svg" />
-        <span>Application List</span>
+        <span>APP List</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         <img className="img-icon-14 fishdicon" src="./static/icons/demo-mail.svg" />
@@ -52,17 +53,17 @@ render() {
 ```
 :::
 
-## 分隔符
+## 自定义分隔符
 
 :::demo 使用 `separator=">"` 可以自定义分隔符。
 
 ```js
 render() {
   return (
-    <Breadcrumb separator=">">
-      <Breadcrumb.Item>Home</Breadcrumb.Item>
-      <Breadcrumb.Item href="">Application Center</Breadcrumb.Item>
-      <Breadcrumb.Item href="">Application List</Breadcrumb.Item>
+    <Breadcrumb separator="/">
+      <Breadcrumb.Item href="">Home</Breadcrumb.Item>
+      <Breadcrumb.Item href="">APP Center</Breadcrumb.Item>
+      <Breadcrumb.Item href="">APP List</Breadcrumb.Item>
       <Breadcrumb.Item>An Application</Breadcrumb.Item>
     </Breadcrumb>
   );
@@ -79,7 +80,8 @@ render() {
 | maxWidth | Breadcrumb Item 的最大宽度，超出后显示省略号。默认展示全部内容 | Number | - |
 | params | 路由的参数 | Object | - |
 | routes | router 的路由栈信息 | Array<{path: String, breadcrumbName: String}> | - |
-| separator | 分隔符自定义 | String \| ReactNode | '/' |
+| separator | 自定义分隔符 | String \| ReactNode | `<Icon type="arrow-line-regular" />` |
+| size | 自定义大小 | Enum {'default', 'small'} | 'default' |
 | style | 容器样式 | Object | - |
 
 ### 和 browserHistory 配合

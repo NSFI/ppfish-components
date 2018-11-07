@@ -20,7 +20,7 @@
     // transition: color 0.3s;
 
     &:hover {
-      color: @primary-color;
+      color: @breadcrumb-link-color-hover;
     }
   }
 
@@ -38,7 +38,8 @@
   }
 
   &-link {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -50,5 +51,17 @@
     > .@{iconfont-prefix} + span {
       margin-left: 4px;
     }
+  }
+}
+
+.@{breadcrumb-prefix-cls}.small {
+  font-size: @breadcrumb-font-size-sm;
+
+  .@{iconfont-prefix} {
+    font-size: @breadcrumb-icon-font-size-sm;
+  }
+
+  .@{breadcrumb-prefix-cls}-separator {
+    margin: @breadcrumb-separator-margin-sm;
   }
 }
