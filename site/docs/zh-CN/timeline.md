@@ -76,6 +76,48 @@
 ```
 :::
 
+## 加载节点
+:::demo 时间轴部分加载
+```js
+  constructor(props){
+    super(props);
+    this.state = {
+      loaded:false,
+      loading: false,
+      content:[
+        'Create a services site 2015-09-01',
+        'Create a services site 2015-09-02',
+        'Create a services site 2015-09-03',
+      ]
+    };    
+  }
+
+  handleClick = () => {
+    this.setState({ loading: true },()=>{
+      setTimeout(()=>{
+        this.setState({
+        loading:false,
+        loaded:true,
+        content:[...this.state.content,'Create a services site 2015-09-04','Create a services site 2015-09-05','Create a services site 2015-09-06']
+        })
+      },2000)
+    });
+  }
+
+  render() {
+  const {content,loaded,loading}=this.state;
+    return (
+      <div>
+        <Timeline>
+          {content.map((item,i)=><Timeline.Item key={i}>{item}</Timeline.Item>)}
+          {!loaded && <Timeline.Item dot={loading && <Icon type="load-line" spinning />}><a onClick={this.handleClick}>加载更多</a></Timeline.Item>}
+        </Timeline>
+      </div>
+    );
+  }
+```
+:::
+
 ## 自定义时间轴点
 :::demo 可以设置为图标或其他自定义元素。
 ```js
