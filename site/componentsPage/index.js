@@ -24,9 +24,9 @@ export const components = {
     },
     {
       key: 'changelog',
-      type: 'markdown',
+      type: 'react',
       name: '更新日志',
-      style: require('./changeLog/index.less'),
+      component: require('./changeLog'),
       published: true,
     }, {
       key: 'contributing',

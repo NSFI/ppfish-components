@@ -74,7 +74,7 @@ export default class Slider extends React.Component {
   handleSliderClick = (e, id) => {
     e && e.preventDefault();
     const fishHeaderHeight = document.querySelector('.fish-header').offsetHeight;
-    this.scrollContainer.scrollTop = document.getElementById(id).offsetTop + fishHeaderHeight;
+    this.scrollContainer.scrollTop = getElementTop(id) - fishHeaderHeight;
   };
 
   handleSliderActiveCheck = () => {

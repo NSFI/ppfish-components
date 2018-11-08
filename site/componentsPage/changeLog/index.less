@@ -1,106 +1,45 @@
-.timeline {
-  font-family: Monospaced Number, Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 0.65);
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-  ul > li {
-    margin-left: 20px;
-    padding-left: 4px;
+.changelog {
+  color: #45454d;
+  &-title {
+    font-size: 32px;
+    color: #18181a;
   }
-  ol > li {
-    list-style-type: decimal;
-    margin-left: 20px;
-    padding-left: 4px;
+  &-timeline {
+    li {
+      list-style-type: initial;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    ul > li {
+      margin-left: 20px;
+      padding-left: 4px;
+    }
+    ol > li {
+      margin-left: 20px;
+      padding-left: 4px;
+    }
+    ul > li:empty {
+      display: none;
+    }
+    ol > li > p,
+    ul > li > p {
+      margin: 0.2em 0;
+    }
   }
-  .icon-list > li {
+
+  .fishd-timeline-item {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding-bottom: 36px;
   }
-  ul > li:empty {
-    display: none;
+  .fishd-timeline-item-content {
+    p {
+      code {
+        display: inline-block;
+        background: #f2f2f5;
+        padding: 3px 10px;
+        border-radius: 2px;
+        margin-bottom: 10px;
+      }
+    }
   }
-  ol > li > p,
-  ul > li > p {
-    margin: 0.2em 0;
-  }
-}
-
-.timeline,
-.timeline-item {
-  font-size: 14px;
-  list-style: none;
-  margin: 0;
-}
-
-.timeline-item {
-  position: relative;
-  padding: 0 0 20px;
-}
-
-.timeline-item-tail {
-  position: absolute;
-  left: 4px;
-  top: 0.75em;
-  height: 100%;
-  border-left: 2px dashed #ccd6ff;
-}
-
-.timeline-item-head {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  border-radius: 100px;
-  border: 2px solid transparent;
-}
-
-.timeline-item-pending .timeline-item-head {
-  font-size: 12px;
-}
-
-.timeline-item-pending .timeline-item-tail {
-  display: none;
-}
-
-.timeline-item-head-blue {
-  border-color: #4d70ff;
-  color: #4d70ff;
-  background-color: #4d70ff;
-}
-
-.timeline-item-content {
-  padding: 0 0 0 18px;
-  position: relative;
-  top: -6px;
-}
-
-code[class*=language-],
-pre[class*=language-],
-pre code {
-  white-space: pre;
-  font-family: Lucida Console, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
-}
-
-.timeline-item-content p code {
-  display: block;
-  width: 110px;
-  text-align: center;
-  border-radius: 2px;
-  background: #f2f4f5;
-}
-
-.timeline-item-last .timeline-item-tail {
-  display: none;
-}
-
-.timeline-item-last .timeline-item-content {
-  min-height: 48px;
-}
-
-.timeline.timeline-pending .timeline-item-last .timeline-item-tail {
-  border-left: 2px dotted #e8e8e8;
-  display: block;
 }
