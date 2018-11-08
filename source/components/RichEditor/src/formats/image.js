@@ -1,6 +1,19 @@
 import Quill from 'quill';
 
 const Embed = Quill.import('blots/embed');
+const getAttrs = (node) => {
+  let value = {};
+
+  if (node.hasAttributes()) {
+    let attrs = node.attributes;
+
+    for (let i=attrs.length-1; i>=0; i--) {
+      value[attrs[i].name] = attrs[i].value;
+    }
+  }
+
+  return value;
+};
 
 class ImageBlot extends Embed {
   static create(value) {
@@ -11,7 +24,7 @@ class ImageBlot extends Embed {
         try {
           node.setAttribute(key, value[key]);
         } catch(e) {
-          console.error(e);
+          console.error(e); // eslint-disable-line
         }
       });
     }
@@ -20,25 +33,11 @@ class ImageBlot extends Embed {
   }
 
   static formats(node) {
-    let attrs = node.getAttributeNames(),
-        value = {};
-
-    attrs.forEach((attr) => {
-      value[attr] = node.getAttribute(attr);
-    });
-
-    return value;
+    return getAttrs(node);
   }
 
   static value(node) {
-    let attrs = node.getAttributeNames(),
-        value = {};
-
-    attrs.forEach((attr) => {
-      value[attr] = node.getAttribute(attr);
-    });
-
-    return value;
+    return getAttrs(node);
   }
 
   format(name, value) {
