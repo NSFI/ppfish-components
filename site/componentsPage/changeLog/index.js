@@ -8,7 +8,6 @@ export default class ChangeLog extends React.Component {
 
   constructor(props) {
     super(props);
-    this.renderer = new marked.Renderer();
   }
 
   render() {
