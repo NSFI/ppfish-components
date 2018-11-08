@@ -22,7 +22,14 @@ export default class Loadable extends React.Component {
     if (menuItem || !this.props.params.demo) {
       if (menuItem && menuItem.type === 'react') {
         const Demo = menuItem.component.default;
-        return (<Demo {...this.props}/>);
+        return (
+          <div>
+            <Demo {...this.props}/>
+            <div className="slider-container">
+              <Slider title={this.props.params.demo}/>
+            </div>
+          </div>
+        );
       } else {
         const mdProps = menuItem && menuItem.props ? menuItem.props : {};
         let markdown;

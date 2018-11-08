@@ -9,9 +9,9 @@ export default class ruleNumber extends React.Component {
       <div className="rule-number">
         <h1 className="md-heading">Number 数字</h1>
         <p className="md-paragraph">产品中的数字。</p>
-        <h2 className="md-heading">适用场景</h2>
+        <h2 className="md-heading" id="适用场景">适用场景</h2>
         <p className="md-paragraph">产品内统一使用的数字显示规则。</p>
-        <h2 className="md-heading">样式</h2>
+        <h2 className="md-heading" id="样式">样式</h2>
         <h3 className="md-heading">1.基础样式</h3>
         <Row gutter={20}>
           <Col span={12}>

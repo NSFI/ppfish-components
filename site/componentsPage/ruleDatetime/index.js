@@ -9,9 +9,9 @@ export default class ruleDatetime extends React.Component {
       <div className="rule-date-time">
         <h1 className="md-heading">Date Time 日期时间</h1>
         <p className="md-paragraph">产品中的日期时间。</p>
-        <h2 className="md-heading">适用场景</h2>
+        <h2 className="md-heading" id="适用场景">适用场景</h2>
         <p className="md-paragraph">平台全局使用统一时间显示规则。</p>
-        <h2 className="md-heading">样式</h2>
+        <h2 className="md-heading" id="样式">样式</h2>
         <h3 className="md-heading">1.绝对时间</h3>
         <Row gutter={20}>
           <Col span={12}>
