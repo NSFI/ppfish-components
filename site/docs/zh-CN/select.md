@@ -30,6 +30,12 @@
     )
   }
 ```
+
+```less
+.fishd-select{
+   margin-bottom: 10px;
+ }
+```
 :::
 
 ## 限制多选个数
@@ -265,9 +271,7 @@
   }
 ```
 
-:::
-
-<style>
+```css
 .demo-select-label{
  margin-bottom:10px;
 }
@@ -282,7 +286,10 @@
   display:inline-block;
   width:40px;
 }
-</style>
+```
+
+:::
+
 ## 联动
 
 :::demo  省市联动是典型的例子。但推荐使用 Cascader 组件。
@@ -347,7 +354,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
     console.log('newState: ', value);
   };
 
-  render() {``
+  render() {
     const Group = this.props.utils.listConvertToGroup([{key: "6", label: "选项6"}, {
       key: "1",
       label: '选项1'
@@ -376,6 +383,13 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
     );
   }
 ```
+
+```less
+.fishd-select{
+   margin-bottom: 10px;
+ }
+```
+
 :::
 
 ## 支持搜索
@@ -428,6 +442,13 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
     );
   }
 ```
+
+```less
+.fishd-select{
+   margin-bottom: 10px;
+ }
+```
+
 :::
 
 ## 加载状态
@@ -446,6 +467,13 @@ render(){
   )
 }
 ```
+
+```less
+.fishd-select{
+   margin-bottom: 10px;
+ }
+```
+
 :::
 
 ## 宽度及位置自定义
@@ -708,10 +736,3 @@ render(){
 | --- | --- | --- | --- |
 | key | - | String | - |
 | label | 组名 | String \| ReactNode | - |
-
-
-<style>
- .demo-select .fishd-select{
-   margin-bottom: 10px;
- }
-</style>
