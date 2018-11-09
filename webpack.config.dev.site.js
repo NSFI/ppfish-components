@@ -80,7 +80,8 @@ module.exports = {
     new CaseSensitivePathsPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'site/index.html'),
-      chunks: ['site']
+      chunks: ['site'],
+      favicon: 'site/assets/favicon.ico'
     })].concat(getHtmlWebpackPlugin()),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']

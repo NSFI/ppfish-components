@@ -63,7 +63,7 @@ class HorizontalLoginForm extends React.Component {
           {getFieldDecorator('userName1', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user-line" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
           )}
         </FormItem>
         <FormItem
@@ -73,7 +73,7 @@ class HorizontalLoginForm extends React.Component {
           {getFieldDecorator('password1', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+            <Input prefix={<Icon type="lock-line" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
         <FormItem>
@@ -121,14 +121,14 @@ class NormalLoginForm extends React.Component {
           {getFieldDecorator('userName2', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user-line" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
           )}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password2', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+            <Input prefix={<Icon type="lock-line" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}
         </FormItem>
         <FormItem>
@@ -335,7 +335,7 @@ class RegistrationForm extends React.Component {
             <span>
               Nickname&nbsp;
               <Tooltip title="What do you want others to call you?">
-                <Icon type="question-circle-o" />
+                <Icon type="tip" />
               </Tooltip>
             </span>
           )}
@@ -491,7 +491,7 @@ class AdvancedSearchForm extends React.Component {
               Clear
             </Button>
             <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
-              Collapse <Icon type={this.state.expand ? 'up' : 'down'} />
+              Collapse <Icon type={this.state.expand ? 'top' : 'bottom'} />
             </a>
           </Col>
         </Row>
@@ -726,7 +726,7 @@ class DynamicFieldSet extends React.Component {
           {keys.length > 1 ? (
             <Icon
               className="dynamic-delete-button"
-              type="minus-circle-o"
+              type="form-minus"
               disabled={keys.length === 1}
               onClick={() => this.remove(k)}
             />
@@ -739,7 +739,7 @@ class DynamicFieldSet extends React.Component {
         {formItems}
         <FormItem {...formItemLayoutWithOutLabel}>
           <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-            <Icon type="plus" /> Add field
+            <Icon type="upload-plus" /> Add field
           </Button>
         </FormItem>
         <FormItem {...formItemLayoutWithOutLabel}>
@@ -759,13 +759,13 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 .dynamic-delete-button {
   cursor: pointer;
   position: relative;
-  top: 4px;
-  font-size: 24px;
+  top: 1px;
+  font-size: 16px;
   color: #999;
   transition: all .3s;
 }
 .dynamic-delete-button:hover {
-  color: #777;
+  color: #c5c5c5;
 }
 .dynamic-delete-button[disabled] {
   cursor: not-allowed;
@@ -1695,7 +1695,7 @@ class UnwrappedDemo extends React.Component {
           })(
             <Upload name="logo" action="/upload.do" listType="picture">
               <Button>
-                <Icon type="upload" /> Click to upload
+                <Icon type="upload-line" /> Click to upload
               </Button>
             </Upload>
           )}
@@ -1712,7 +1712,7 @@ class UnwrappedDemo extends React.Component {
             })(
               <Upload.Dragger name="files" action="/upload.do">
                 <p className="fishd-upload-drag-icon">
-                  <Icon type="inbox" />
+                  <Icon type="upload-cloud" />
                 </p>
                 <p className="fishd-upload-text">Click or drag file to this area to upload</p>
                 <p className="fishd-upload-hint">Support for a single or bulk upload.</p>
