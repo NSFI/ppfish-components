@@ -611,7 +611,13 @@ export default class Select extends React.Component {
         {
           loading ?
             <div className={`${dropdownCls}-loading`}>
-              <div><Spin size="small" style={{marginRight: 5}}/>加载中...</div>
+              <div>
+                <div>
+                  <Spin.Container style={{height: 32, justifyContent: 'left'}}>
+                    <Spin size="small" tip="加载中..." />
+                  </Spin.Container>
+                </div>
+              </div>
             </div> :
             <div className={`${dropdownCls}-content`}>
               {
@@ -741,7 +747,11 @@ export default class Select extends React.Component {
         {
           loading ?
             <div className={`${selectionCls}-loading`}>
-              <div><Spin size="small" style={{marginRight: 5}}/>加载中...</div>
+              <div>
+                <Spin.Container style={{height: 32, justifyContent: 'left'}}>
+                  <Spin size="small" tip="加载中..." />
+                </Spin.Container>
+              </div>
             </div> :
             <div className={`${selectionCls}-content`}>
               {
