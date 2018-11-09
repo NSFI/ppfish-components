@@ -54,6 +54,7 @@ export interface TreeSelectProps extends AbstractSelectProps {
   editable?: boolean;
   required?: boolean;
   labelInValue?: boolean;
+  loading?: boolean;
   multiple?: boolean;
   searchPlaceholder?: string;
   showCheckedStrategy?: 'SHOW_ALL' | 'SHOW_PARENT' | 'SHOW_CHILD';

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
 import Tree from '../../rcTree';
+import Spin from '../../../Spin/index.tsx';
 
 export const popupContextTypes = {
   onPopupKeyDown: PropTypes.func.isRequired,
@@ -27,6 +28,7 @@ class BasePopup extends React.Component {
     treeDefaultExpandAll: PropTypes.bool,
     treeDefaultExpandedKeys: PropTypes.array,
     loadData: PropTypes.func,
+    loading: PropTypes.bool,
     multiple: PropTypes.bool,
 
     treeNodes: PropTypes.node,
@@ -140,11 +142,11 @@ class BasePopup extends React.Component {
   };
 
   renderNotFound = () => {
-    const { prefixCls, notFoundContent } = this.props;
+    const { prefixCls, notFoundContent, loading } = this.props;
 
     return (
       <span className={`${prefixCls}-not-found`}>
-        {notFoundContent}
+        { loading ? <Spin size="small"/> : notFoundContent }
       </span>
     );
   };
@@ -156,6 +158,7 @@ class BasePopup extends React.Component {
       treeNodes, filteredTreeNodes,
       treeIcon, treeLine, treeCheckable, treeCheckStrictly, multiple,
       loadData,
+      loading,
       ariaId,
       renderSearch,
       renderResetItem
@@ -176,15 +179,16 @@ class BasePopup extends React.Component {
 
     let $notFound;
     let $treeNodes;
-    if (filteredTreeNodes) {
+
+    if (!treeNodes.length || loading) {
+      $notFound = this.renderNotFound();
+    } else if (filteredTreeNodes) {
       if (filteredTreeNodes.length) {
         treeProps.checkStrictly = true;
         $treeNodes = filteredTreeNodes;
       } else {
         $notFound = this.renderNotFound();
       }
-    } else if (!treeNodes.length) {
-      $notFound = this.renderNotFound();
     } else {
       $treeNodes = treeNodes;
     }

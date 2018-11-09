@@ -102,6 +102,7 @@ class Select extends React.Component {
     treeDefaultExpandAll: PropTypes.bool,
     treeDefaultExpandedKeys: PropTypes.array,
     loadData: PropTypes.func,
+    loading: PropTypes.bool,
     filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 
     notFoundContent: PropTypes.oneOfType([
@@ -138,6 +139,7 @@ class Select extends React.Component {
     showSearch: false,
     editable: true,
     required: false,
+    loading: false,
     autoClearSearchValue: false,
     showCheckedStrategy: SHOW_CHILD,
 
@@ -567,7 +569,7 @@ class Select extends React.Component {
 
     const { node } = nodeEventInfo;
     const { value } = node.props;
-    const { missValueList, valueEntities, keyEntities, treeNodes } = this.state;
+    const { missValueList, valueEntities, keyEntities, treeNodes, searchValue } = this.state;
     const {
       disabled, inputValue,
       treeNodeLabelProp, onSelect,
@@ -611,7 +613,7 @@ class Select extends React.Component {
 
     // When is `treeCheckable` and with `searchValue`, `valueList` is not full filled.
     // We need calculate the missing nodes.
-    if (treeCheckable && !treeCheckStrictly) {
+    if (treeCheckable && !treeCheckStrictly && !searchValue) {
       let keyList = newValueList.map(({ value: val }) => valueEntities[val].key);
       if (isAdd) {
         keyList = conductCheck(
@@ -1016,11 +1018,12 @@ class Select extends React.Component {
       treeNodes, filteredTreeNodes,
       curValueList
     } = this.state;
-    const { prefixCls, loadData } = this.props;
+    const { prefixCls, loadData, treeCheckStrictly, loading } = this.props;
     const isMultiple = this.isMultiple();
     let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
 
-    if (isMultiple) {
+    // treeCheckStrictly 或搜索模式下，选中节点后上下级不联动
+    if (isMultiple && !treeCheckStrictly && !searchValue) {
       let keyList = [];
       rtValueList.forEach(value => {
         if (valueEntities[value] != undefined) {
@@ -1062,6 +1065,7 @@ class Select extends React.Component {
       <Popup
         {...passProps}
         loadData={searchValue ? null : loadData}  // 有搜索内容时不触发异步加载
+        loading={loading}
         onTreeExpanded={this.delayForcePopupAlign}
         treeNodes={treeNodes}
         filteredTreeNodes={filteredTreeNodes}

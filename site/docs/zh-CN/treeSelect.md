@@ -660,7 +660,7 @@
   onSearch = (value) => {
     if(!value) return;
     let oldTreeData = [...this.state.treeData];
-    this.setState({treeData: [], loading: true});
+    this.setState({loading: true});
     setTimeout(() => {
       this.setState({
         treeData: [
@@ -738,13 +738,14 @@
   render() {
     const tProps = {
       showSearch: true,
+      editable: false,
       treeData: this.state.treeData,
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
       onSearch: this.onSearch,
       loadData: this.onLoadData,
-      notFoundContent: this.state.loading ? <Spin size="small"/> : null,
+      loading: this.state.loading,
       treeCheckable: true,
       style: {
         width: 300,
@@ -777,12 +778,13 @@
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
+| loading | 是否显示 loading 状态。可以配合实现后端搜索。 | Boolean | false |
 | notFoundContent | 当下拉列表为空时显示的内容 | String \| ReactNode | '无匹配结果' |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
 | onChange | 选中的树节点改变时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
 | onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => Void | - |
 | onReset | 点击复位选项时调用，单选时有效 | () => Void | - |
-| onSearch | 搜索框值变化时调用 | (value: String) => Void | - |
+| onSearch | 搜索框值变化时调用。可以配合实现后端搜索。 | (value: String) => Void | - |
 | onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => Void | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | placement | 下拉菜单弹出的位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'} | 'bottomLeft' |
