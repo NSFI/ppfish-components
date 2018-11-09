@@ -5,6 +5,10 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { parseDir, getReplParams } = require('./tools/helps');
 
+console.log('----------------------------------------------------------------------------------------------------------');
+console.log('开发环境默认关闭demo中嵌入的iframe页面的打包，如果需要调试iframe demo, 运行npm run open:site -- --iframe=true来开启');
+console.log('----------------------------------------------------------------------------------------------------------\n');
+
 // demo中嵌入的iframe页面打包开关，默认关闭，通过REPL运行npm run open:site -- --iframe=true来开启
 let iframe = false;
 let replIframe = getReplParams('iframe');
