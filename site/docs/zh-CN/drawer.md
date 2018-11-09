@@ -63,7 +63,7 @@ drawerBaiscDemo = () => {
           >
             <Menu.SubMenu
               key="sub1"
-              title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+              title={<span>Navigation One</span>}
             >
               <Menu.ItemGroup key="g1" title="Item 1">
                 <Menu.Item key="1">Option 1</Menu.Item>
@@ -76,7 +76,7 @@ drawerBaiscDemo = () => {
             </Menu.SubMenu>
             <Menu.SubMenu
               key="sub2"
-              title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+              title={<span>Navigation Two</span>}
             >
               <Menu.Item key="5">Option 5</Menu.Item>
               <Menu.Item key="6">Option 6</Menu.Item>
@@ -87,7 +87,7 @@ drawerBaiscDemo = () => {
             </Menu.SubMenu>
             <Menu.SubMenu
               key="sub4"
-              title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+              title={<span>Navigation Three</span>}
             >
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
@@ -172,7 +172,7 @@ render() {
             >
               <Menu.SubMenu
                 key="sub1"
-                title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+                title={<span>Navigation One</span>}
               >
                 <Menu.ItemGroup key="g1" title="Item 1">
                   <Menu.Item key="1">Option 1</Menu.Item>
@@ -185,7 +185,7 @@ render() {
               </Menu.SubMenu>
               <Menu.SubMenu
                 key="sub2"
-                title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+                title={<span>Navigation Two</span>}
               >
                 <Menu.Item key="5">Option 5</Menu.Item>
                 <Menu.Item key="6">Option 6</Menu.Item>
@@ -196,7 +196,7 @@ render() {
               </Menu.SubMenu>
               <Menu.SubMenu
                 key="sub4"
-                title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+                title={<span>Navigation Three</span>}
               >
                 <Menu.Item key="9">Option 9</Menu.Item>
                 <Menu.Item key="10">Option 10</Menu.Item>
@@ -287,7 +287,7 @@ render() {
           >
             <Menu.SubMenu
               key="sub1"
-              title={<span><Icon type="mail"/><span>Navigation One</span></span>}
+              title={<span>Navigation One</span>}
             >
               <Menu.ItemGroup key="g1" title="Item 1">
                 <Menu.Item key="1">Option 1</Menu.Item>
@@ -300,7 +300,7 @@ render() {
             </Menu.SubMenu>
             <Menu.SubMenu
               key="sub2"
-              title={<span><Icon type="appstore"/><span>Navigation Two</span></span>}
+              title={<span>Navigation Two</span>}
             >
               <Menu.Item key="5">Option 5</Menu.Item>
               <Menu.Item key="6">Option 6</Menu.Item>
@@ -311,7 +311,7 @@ render() {
             </Menu.SubMenu>
             <Menu.SubMenu
               key="sub4"
-              title={<span><Icon type="setting"/><span>Navigation Three</span></span>}
+              title={<span>Navigation Three</span>}
             >
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
@@ -501,7 +501,7 @@ render() {
               >
                 <Menu.SubMenu
                   key="sub1"
-                  title={<span><Icon type="mail" /><span>Navigation One</span></span>}
+                  title={<span>Navigation One</span>}
                 >
                   <Menu.ItemGroup key="g1" title="Item 1">
                     <Menu.Item key="1">Option 1</Menu.Item>
@@ -514,7 +514,7 @@ render() {
                 </Menu.SubMenu>
                 <Menu.SubMenu
                   key="sub2"
-                  title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}
+                  title={<span>Navigation Two</span>}
                 >
                   <Menu.Item key="5">Option 5</Menu.Item>
                   <Menu.Item key="6">Option 6</Menu.Item>
@@ -525,7 +525,7 @@ render() {
                 </Menu.SubMenu>
                 <Menu.SubMenu
                   key="sub4"
-                  title={<span><Icon type="setting" /><span>Navigation Three</span></span>}
+                  title={<span>Navigation Three</span>}
                 >
                   <Menu.Item key="9">Option 9</Menu.Item>
                   <Menu.Item key="10">Option 10</Menu.Item>
