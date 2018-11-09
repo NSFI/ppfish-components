@@ -34,3 +34,5 @@
 - ~~spin demo~~
 
 ## ~~发布的npm包太大，site/assets占了一半大小，可以去掉~~
+
+## Icon 组件中列出支持的 icon 类型
