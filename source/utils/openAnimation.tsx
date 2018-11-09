@@ -4,7 +4,7 @@ import raf from 'raf';
 function animate(node: HTMLElement, show: boolean, done: () => void) {
   let height: number;
   let requestAnimationFrameId: number;
-  return cssAnimation(node, 'ant-motion-collapse', {
+  return cssAnimation(node, 'fishd-motion-collapse', {
     start() {
       if (!show) {
         node.style.height = `${node.offsetHeight}px`;
