@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Animate from 'rc-animate';
 import omit from 'omit.js';
 import Container from './Container';
+import TextLoading from './TextLoading';
 
 import './style/index.less';
 
@@ -57,6 +58,7 @@ function renderIndicator(props: SpinProps): React.ReactNode {
 
 class Spin extends React.Component<SpinProps, SpinState> {
   static Container: typeof Container;
+  static TextLoading: typeof TextLoading;
 
   static defaultProps = {
     prefixCls: 'fishd-spin',
@@ -156,7 +158,7 @@ class Spin extends React.Component<SpinProps, SpinState> {
     const spinElement = (
       <div {...divProps} className={spinClassName}>
         {renderIndicator(this.props)}
-        {tip ? <div className={`${prefixCls}-text`}>{tip}</div> : null}
+        {tip ? <span className={`${prefixCls}-text`}>{tip}</span> : null}
       </div>
     );
     if (this.isNestedPattern()) {

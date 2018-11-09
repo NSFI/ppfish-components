@@ -6,8 +6,6 @@
 .@{spin-prefix-cls} {
   .reset-component;
   color: @primary-color;
-  vertical-align: middle;
-  text-align: center;
   opacity: 0;
   position: absolute;
   transition: transform 0.3s @ease-in-out-circ;
@@ -20,60 +18,44 @@
     align-items: center;
   }
 
+  &-text-loading {
+    color: @text-9;
+    text-align: center;
+  }
+
+  &-text-loading-dot {
+    i {
+      animation: fishdDot 2s steps(1, end) infinite;
+    }
+  }
+
   &-spinning {
     opacity: 1;
     position: static;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &-nested-loading {
     position: relative;
     > div > .@{spin-prefix-cls} {
-      display: block;
       position: absolute;
       height: 100%;
       max-height: 320px;
       width: 100%;
       z-index: 4;
-      .@{spin-prefix-cls}-dot {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -@spin-dot-size / 2;
-      }
-      .@{spin-prefix-cls}-text {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        padding-top: (@spin-dot-size - @font-size-base) / 2 + 2px;
-        text-shadow: 0 1px 2px #fff;
-      }
-      &.@{spin-prefix-cls}-show-text .@{spin-prefix-cls}-dot {
-        margin-top: -@spin-dot-size / 2 - 10px;
-      }
     }
 
     > div > .@{spin-prefix-cls}-sm {
-      .@{spin-prefix-cls}-dot {
-        margin: -@spin-dot-size-sm / 2;
-      }
       .@{spin-prefix-cls}-text {
-        padding-top: (@spin-dot-size-sm - @font-size-base) / 2 + 2px;
-      }
-      &.@{spin-prefix-cls}-show-text .@{spin-prefix-cls}-dot {
-        margin-top: -@spin-dot-size-sm / 2 - 10px;
+        font-size: 12px;
       }
     }
 
     > div > .@{spin-prefix-cls}-lg {
-      .@{spin-prefix-cls}-dot {
-        margin: -@spin-dot-size-lg / 2;
-      }
       .@{spin-prefix-cls}-text {
-        padding-top: (@spin-dot-size-lg - @font-size-base) / 2 + 2px;
-      }
-      &.@{spin-prefix-cls}-show-text .@{spin-prefix-cls}-dot {
-        margin-top: -@spin-dot-size-lg / 2 - 10px;
+        font-size: 18px;
       }
     }
   }
@@ -133,7 +115,7 @@
       display: block;
       position: absolute;
       opacity: 0.3;
-      animation: antSpinMove 1s infinite linear alternate;
+      animation: fishdSpinMove 1s infinite linear alternate;
       transform-origin: 50% 50%;
       &:nth-child(1) {
         left: 0;
@@ -158,7 +140,7 @@
 
     &-spin {
       transform: rotate(45deg);
-      animation: antRotate 1.2s infinite linear;
+      animation: fishdRotate 1.2s infinite linear;
     }
   }
 
@@ -188,7 +170,9 @@
   }
 
   &&-show-text &-text {
-    display: block;
+    display: inline-block;
+    margin-left: 10px;
+    color: @text-9;
   }
 }
 
@@ -200,13 +184,27 @@
   }
 }
 
-@keyframes antSpinMove {
+@keyframes fishdDot {
+  0%, 20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    text-shadow: .5em 0;
+  }
+  80%, 100% {
+    text-shadow: .5em 0, 1em 0;
+  }
+}
+@keyframes fishdSpinMove {
   to {
     opacity: 1;
   }
 }
 
-@keyframes antRotate {
+@keyframes fishdRotate {
   to {
     transform: rotate(405deg);
   }

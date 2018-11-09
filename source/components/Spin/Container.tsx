@@ -9,12 +9,12 @@ export interface ContainerProps {
 }
 
 const Container = (props: ContainerProps) => {
-  const { children, className = '', prefixCls = 'fishd-spin-container' } = props;
+  const { children, className = '', prefixCls = 'fishd-spin' } = props;
   const otherProps = omit(props, [
     'className',
     'prefixCls',
   ]);
-  const classString = classNames(prefixCls, className);
+  const classString = classNames(`${prefixCls}-container`, className);
   return (
     <div {...otherProps} className={classString}>
       {children}
