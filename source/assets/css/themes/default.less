@@ -152,9 +152,8 @@
 
 // -------- 禁用状态 -----------
 // 按钮、分页符、时间、日期等组件禁用时状态
-// ？？需要视觉定义
 // 禁用时文字的颜色
-@disabled-color         : fade(#000, 25%);
+@disabled-color         : @text-9;
 // 禁用时背景颜色
 @disabled-bg            : @background-color-base;
 // ？？需要视觉定义
@@ -499,16 +498,16 @@
 @slider-margin:                       14px 6px 10px;
 @slider-border-radius-base:           4px;
 @slider-rail-background-color:        @background-color-base;
-@slider-rail-background-color-hover:  #e1e1e1;
-@slider-track-background-color:       @primary-3;
-@slider-track-background-color-hover: @primary-4;
-@slider-handle-color:                 @primary-3;
-@slider-handle-color-hover:           @primary-4;
-@slider-handle-color-focus:           tint(@primary-color, 20%);
-@slider-handle-color-focus-shadow:    tint(@primary-color, 50%);
+@slider-rail-background-color-hover:  #e1e3e6;
+@slider-track-background-color:       fade(@primary-color, 80%);
+@slider-track-background-color-hover: @primary-color;
+@slider-handle-color:                 fade(@primary-color, 80%);
+@slider-handle-color-hover:           @primary-color;
+@slider-handle-color-focus:           @primary-color;
+@slider-handle-color-focus-shadow:    fade(@primary-color, 30%);
 @slider-handle-color-tooltip-open:    @primary-color;
 @slider-dot-border-color:             @border-color-split;
-@slider-dot-border-color-active:      tint(@primary-color, 50%);
+@slider-dot-border-color-active:      fade(@primary-color, 80%);
 @slider-disabled-color:               @disabled-color;
 @slider-disabled-background-color:    @component-background;
 
@@ -530,7 +529,7 @@
 // Table
 @table-row-hover-bg: @item-hover-bg;
 @table-selected-row-bg: @primary-1;
-@table-header-bg: #f2f3f5;
+@table-header-bg: @text-d;
 @table-header-sort-bg: @background-color-base;
 @table-expanded-row-bg: #fbfbfb;
 @table-padding-vertical: 16px;
@@ -579,5 +578,5 @@
 @tree-directory-selected-bg:          @primary-color;
 
 // RichEditor
-@richeditor-icon-hover-bg: #f2f3f5;
+@richeditor-icon-hover-bg: @text-d;
 
