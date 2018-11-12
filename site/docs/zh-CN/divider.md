@@ -28,24 +28,64 @@ render(){
 ```
 :::
 
-## 垂直分割线
+## 垂直分割符
 
-:::demo 使用 `type="vertical"` 设置为行内的垂直分割线。
+:::demo 使用 `type="split"` 设置为行内的垂直分割符。
 
 ```js
 render(){
   return(
     <div>
         Text
-        <Divider type="vertical" />
+        <Divider type="split" />
         <a href="#">Link</a>
-        <Divider type="vertical" />
+        <Divider type="split" />
         <a href="#">Link</a>
       </div>
   )
 }
 ```
 :::
+
+## 垂直分割线
+
+:::demo 使用 `type="vertical"` 设置为块内的垂直分割线,父容器需指定高度；背景色更改需要同样样式覆盖text的背景色
+
+```js
+render(){
+  return(
+      <div className="demo-vertical clearfix">
+        <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
+        <Divider type="vertical" orientation="top">上</Divider>
+        <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
+        <Divider type="vertical" >中</Divider>
+        <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
+        <Divider type="vertical" orientation="bottom">下</Divider>
+        <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
+      </div>
+  )
+}
+```
+
+```less
+.demo-vertical{
+  height: 150px;
+  width:100%;
+ }
+
+.demo-content{
+  width:110px;
+  height:100%;
+  overflow: auto;
+  float: left;
+}
+
+.fishd-divider{
+  float:left;
+}
+```
+:::
+
 
 ## 标题位置
 
@@ -71,6 +111,7 @@ render(){
 | --- | --- | --- | --- |
 | className | 分割线样式类 | String | - |
 | dashed | 是否虚线 | Boolean | false |
-| orientation | 分割线标题的位置 | Enum {'left','right','center'} | `center` |
+| orientation | 分割线标题的位置,其中`left`/`right`横向类型生效，`top`/`bottom`纵向类型生效 | Enum {'left','right','center','top','bottom'} | `center` |
 | style | 分割线样式对象 | Object | - |
-| type | 水平还是垂直类型 | Enum: {'horizontal', 'vertical'} | `horizontal` |
+| type | 水平、分隔符、垂直类型 | Enum: {'horizontal', 'split' , 'vertical'} | `horizontal` |
+| children | 文本内容，竖向仅支持String | String\| ReactNode | - |
