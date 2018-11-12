@@ -263,9 +263,10 @@ export function parseCheckedKeys(keys) {
  * @param checkStatus   Can pass current checked status for process (usually for uncheck operation)
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
-export function conductCheck(keyList, isCheck, keyEntities, checkStatus = {}) {
+export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys) {
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
+  let checkStatus = status || {};
 
   (checkStatus.checkedKeys || []).forEach((key) => {
     checkedKeys[key] = true;
@@ -292,12 +293,15 @@ export function conductCheck(keyList, isCheck, keyEntities, checkStatus = {}) {
 
     (children || [])
       .filter(child => !isCheckDisabled(child.node))
-      .forEach(({ key: childKey }) => {
+      .forEach((child) => {
+        let childKey = child.key;
         const childChecked = checkedKeys[childKey];
         const childHalfChecked = halfCheckedKeys[childKey];
 
         if (childChecked || childHalfChecked) someChildChecked = true;
-        if (!childChecked) everyChildChecked = false;
+        if (!childChecked || (loadData && (!loadedKeys || loadedKeys.indexOf(key) == -1))) {
+          everyChildChecked = false;
+        }
       });
 
     // Update checked status
@@ -354,6 +358,121 @@ export function conductCheck(keyList, isCheck, keyEntities, checkStatus = {}) {
     // Conduct up
     if (parent) {
       conductUp(parent.key);
+    }
+  }
+
+  (keyList || []).forEach((key) => {
+    conduct(key);
+  });
+
+  const checkedKeyList = [];
+  const halfCheckedKeyList = [];
+
+  // Fill checked list
+  Object.keys(checkedKeys).forEach((key) => {
+    if (checkedKeys[key]) {
+      checkedKeyList.push(key);
+    }
+  });
+
+  // Fill half checked list
+  Object.keys(halfCheckedKeys).forEach((key) => {
+    if (!checkedKeys[key] && halfCheckedKeys[key]) {
+      halfCheckedKeyList.push(key);
+    }
+  });
+
+  return {
+    checkedKeys: checkedKeyList,
+    halfCheckedKeys: halfCheckedKeyList,
+  };
+}
+
+export function conductLoad(keyList, isCheck, keyEntities, status) {
+  const checkedKeys = {};
+  const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
+  let checkStatus = status || {},
+      oriCheckedKeys = checkStatus.checkedKeys || [],
+      oriHalfCheckedKeys = checkStatus.halfCheckedKeys || [];
+
+  oriCheckedKeys.forEach((key) => {
+    checkedKeys[key] = true;
+  });
+
+  oriHalfCheckedKeys.forEach((key) => {
+    halfCheckedKeys[key] = true;
+  });
+
+  // Conduct up
+  function conductUp(key) {
+    if (checkedKeys[key] === isCheck) return;
+
+    const entity = keyEntities[key];
+    if (!entity) return;
+
+    const { children, parent, node } = entity;
+
+    if (isCheckDisabled(node)) return;
+
+    // Check child node checked status
+    let everyChildChecked = true;
+    (children || [])
+      .filter(child => !isCheckDisabled(child.node))
+      .forEach((child) => {
+        let childKey = child.key;
+        if (!checkedKeys[childKey]) {
+          everyChildChecked = false;
+        }
+      });
+
+    // Update checked status
+    if (everyChildChecked) {
+      checkedKeys[key] = true;
+      if (parent) {
+        conductUp(parent.key);
+      }
+    }
+  }
+
+  function conduct(key) {
+    const entity = keyEntities[key];
+
+    if (!entity) {
+      warning(false, `'${key}' does not exist in the tree.`);
+      return;
+    }
+
+    const { children, parent, node } = entity;
+    checkedKeys[key] = isCheck;
+
+    if (isCheckDisabled(node)) return;
+
+    let everyChildChecked = true;
+    // Conduct down
+    (children || [])
+      .filter(child => !isCheckDisabled(child.node))
+      .forEach((child) => {
+        let childKey = child.key;
+        const entity = keyEntities[childKey];
+        if (!entity) return;
+
+        const { children, node } = entity;
+
+        if (isCheckDisabled(node)) return;
+
+        if(!checkedKeys[childKey]) {
+          everyChildChecked = false;
+        }
+      });
+
+    // Update checked status
+    if (everyChildChecked) {
+      checkedKeys[key] = true;
+
+      // Conduct up
+      if (parent) {
+        conductUp(parent.key);
+      }
     }
   }
 

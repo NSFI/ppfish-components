@@ -14,7 +14,7 @@ import {
   conductExpandParent, calcSelectedKeys,
   calcDropPosition,
   arrAdd, arrDel, posToArr,
-  mapChildren, conductCheck,
+  mapChildren, conductCheck, conductLoad,
   warnOnlyTreeNode,
 } from './util';
 
@@ -233,7 +233,8 @@ class Tree extends React.Component {
         let { checkedKeys = [], halfCheckedKeys = [] } = checkedKeyEntity;
 
         if (!props.checkStrictly) {
-          const conductKeys = conductCheck(checkedKeys, true, keyEntities);
+          const conductKeys = conductCheck(checkedKeys, true, keyEntities,
+          null, props.loadData, props.loadedKeys);
           checkedKeys = conductKeys.checkedKeys;
           halfCheckedKeys = conductKeys.halfCheckedKeys;
         }
@@ -459,8 +460,13 @@ class Tree extends React.Component {
   };
 
   onNodeCheck = (e, treeNode, checked) => {
-    const { keyEntities, checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys } = this.state;
-    const { checkStrictly, onCheck } = this.props;
+    const {
+      keyEntities,
+      checkedKeys: oriCheckedKeys,
+      halfCheckedKeys: oriHalfCheckedKeys,
+      loadedKeys
+    } = this.state;
+    const { checkStrictly, onCheck, loadData } = this.props;
     const { props: { eventKey } } = treeNode;
 
     // Prepare trigger arguments
@@ -486,7 +492,7 @@ class Tree extends React.Component {
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
-      });
+      }, loadData, loadedKeys);
 
       checkedObj = checkedKeys;
 
@@ -518,9 +524,15 @@ class Tree extends React.Component {
 
   onNodeLoad = treeNode => (
     new Promise((resolve) => {
+      const {
+        keyEntities,
+        checkedKeys: oriCheckedKeys,
+        halfCheckedKeys: oriHalfCheckedKeys
+      } = this.state;
+
       // We need to get the latest state of loading/loaded keys
       this.setState(({ loadedKeys = [], loadingKeys = [] }) => {
-        const { loadData, onLoad } = this.props;
+        const { loadData, onLoad, onCheck } = this.props;
         const { eventKey } = treeNode.props;
 
         if (!loadData || loadedKeys.indexOf(eventKey) !== -1 || loadingKeys.indexOf(eventKey) !== -1) {
@@ -544,11 +556,55 @@ class Tree extends React.Component {
             onLoad(newLoadedKeys, eventObj);
           }
 
+          // 半选状态下的节点异步加载完成后，根据其子节点的状态更新该节点及其祖先节点的选择状态
+          if (treeNode.props.halfChecked) {
+            const { checkedKeys, halfCheckedKeys } = conductLoad(
+              [eventKey],
+              treeNode.props.checked,
+              keyEntities,
+              { checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys }
+            );
+
+            let checkedObj = checkedKeys;
+            const eventObj = {
+              event: 'load',
+              node: treeNode,
+              checked: checkedKeys.indexOf(eventKey),
+              // nativeEvent: e.nativeEvent,
+            };
+
+            // [Legacy] This is used for `rc-tree-select`
+            eventObj.checkedNodes = [];
+            eventObj.checkedNodesPositions = [];
+            eventObj.halfCheckedKeys = halfCheckedKeys;
+
+            checkedKeys.forEach((key) => {
+              const entity = keyEntities[key];
+              if (!entity) return;
+
+              const { node, pos } = entity;
+
+              eventObj.checkedNodes.push(node);
+              eventObj.checkedNodesPositions.push({ node, pos });
+            });
+
+            // checkedKeys 改变后触发勾选事件
+            if (onCheck) {
+              onCheck(checkedObj, eventObj);
+            }
+
+            this.setState({
+              checkedKeys,
+              halfCheckedKeys,
+            });
+          }
+
           this.setUncontrolledState({
             loadedKeys: newLoadedKeys,
           });
+
           this.setState({
-            loadingKeys: newLoadingKeys,
+            loadingKeys: newLoadingKeys
           });
 
           resolve();

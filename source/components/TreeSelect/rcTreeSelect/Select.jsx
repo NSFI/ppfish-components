@@ -213,6 +213,7 @@ class Select extends React.Component {
       treeCheckable, treeCheckStrictly,
       filterTreeNode, treeNodeFilterProp,
       treeDataSimpleMode,
+      loadData
     } = nextProps;
     const newState = {
       prevProps: nextProps,
@@ -346,6 +347,8 @@ class Select extends React.Component {
           keyList,
           true,
           newState.keyEntities || prevState.keyEntities,
+          null,
+          loadData
         );
 
         // Format value list again for internal usage
@@ -574,6 +577,7 @@ class Select extends React.Component {
       disabled, inputValue,
       treeNodeLabelProp, onSelect,
       treeCheckable, treeCheckStrictly, autoClearSearchValue,
+      loadData,
     } = this.props;
     const label = node.props[treeNodeLabelProp];
 
@@ -620,6 +624,8 @@ class Select extends React.Component {
           keyList,
           true,
           keyEntities,
+          null,
+          loadData
         ).checkedKeys;
       } else {
         keyList = conductCheck(
@@ -627,6 +633,7 @@ class Select extends React.Component {
           false,
           keyEntities,
           { checkedKeys: keyList },
+          loadData
         ).checkedKeys;
       }
       newValueList = keyList.map(key => {
@@ -675,7 +682,7 @@ class Select extends React.Component {
 
   onTreeNodeCheck = (_, nodeEventInfo) => {
     const { searchValue, keyEntities, valueEntities, curValueList } = this.state;
-    const { treeCheckStrictly } = this.props;
+    const { treeCheckStrictly, loadData } = this.props;
 
     const { checkedNodes, checkedNodesPositions } = nodeEventInfo;
     const isAdd = nodeEventInfo.checked;
@@ -711,13 +718,16 @@ class Select extends React.Component {
         let oriCheckedKeys = conductCheck(
           oriKeyList,
           true,
-          keyEntities
+          keyEntities,
+          null,
+          loadData
         ).checkedKeys;
         keyList = conductCheck(
           [nodeEventInfo.node.props.eventKey],
           false,
           keyEntities,
           { checkedKeys: oriCheckedKeys },
+          loadData
         ).checkedKeys;
       }
 
@@ -1031,7 +1041,7 @@ class Select extends React.Component {
         }
       });
 
-      let checkedKeys = conductCheck(keyList, true, keyEntities).checkedKeys;
+      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData).checkedKeys;
       rtValueList = checkedKeys.map(key => {
         return keyEntities[key] && keyEntities[key].value;
       });
