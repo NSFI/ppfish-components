@@ -29,32 +29,32 @@
   }
 
   &-success {
-    border: @border-width-base @border-style-base tint(@success-color, 70%);
-    background-color: tint(@success-color, 90%);
+    border: @border-width-base @border-style-base @success-color;
+    background-color: fade(@success-color, 10%);
     .@{alert-prefix-cls}-icon {
       color: @success-color;
     }
   }
 
   &-info {
-    border: @border-width-base @border-style-base tint(@info-color, 70%);
-    background-color: tint(@info-color, 90%);
+    border: @border-width-base @border-style-base @info-color;
+    background-color: fade(@info-color, 10%);
     .@{alert-prefix-cls}-icon {
       color: @info-color;
     }
   }
 
   &-warning {
-    border: @border-width-base @border-style-base tint(@warning-color, 70%);
-    background-color: tint(@warning-color, 90%);
+    border: @border-width-base @border-style-base @warning-color;
+    background-color: fade(@warning-color, 10%);
     .@{alert-prefix-cls}-icon {
       color: @warning-color;
     }
   }
 
   &-error {
-    border: @border-width-base @border-style-base tint(@error-color, 70%);
-    background-color: tint(@error-color, 90%);
+    border: @border-width-base @border-style-base @error-color;
+    background-color: fade(@error-color, 10%);
     .@{alert-prefix-cls}-icon {
       color: @error-color;
     }

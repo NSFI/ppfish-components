@@ -47,10 +47,10 @@ export default class RuleColor extends React.Component {
             <div className="value">#FFAF0F</div>
           </div>
           <div className="aux-color-item" onClick={() => {
-            this.handleClick("#8875FF");
+            this.handleClick("#337EFF");
           }}>
             Info
-            <div className="value">#8875FF</div>
+            <div className="value">#337EFF</div>
           </div>
         </div>
 

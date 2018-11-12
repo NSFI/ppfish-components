@@ -10,14 +10,96 @@
 
 :::demo 最基础的使用方式。
 ```js
-render(){
-  return(<div className="code-box-demo">
-    <Icon type="setting" />
-    <Icon type="download-line" />
-    <Icon type="search-line" className="foobar" />
-    <Icon type="bottom" style={{fontSize:12}}/>
-  </div>)
+
+class Demo extends React.Component{
+
+  handleClick = (e) => {
+    const target = e.target;
+    if ( target.tagName === 'I' ) {
+      const lastCls = Array.from(target.classList).pop().replace('fishdicon-', '');
+      const copyText = `<Icon type="${lastCls}" />`;
+      copy(copyText);
+      message.success("copied:" + copyText);
+    }
+  };
+  
+  render(){
+    return(<div className="code-box-demo" onClick={this.handleClick}>
+      <Icon type="tip" />
+      <Icon type="lock-line" />
+      <Icon type="more-point" />
+      <Icon type="arrow-double-line-re" />
+      <Icon type="arrow-line-regular" />
+      <Icon type="arrow-line-Bold" />
+      <Icon type="menu-line-right" />
+      <Icon type="empty-basis" />
+      <Icon type="hints-descriptions-o" />
+      <Icon type="hints-notification-o" />
+      <Icon type="hints-error-o" />
+      <Icon type="hints-warning-o" />
+      <Icon type="hints-success-o" />
+      <Icon type="form-minus" />
+      <Icon type="arrow-line" />
+      <Icon type="drag-drawer" />
+      <Icon type="drag" />
+      <Icon type="folder-open-line" />
+      <Icon type="folder-close-line" />
+      <Icon type="plus-square" />
+      <Icon type="minus-square" />
+      <Icon type="file-line" />
+      <Icon type="image-line" />
+      <Icon type="home-line" />
+      <Icon type="user-line" />
+      <Icon type="steps-hook" />
+      <Icon type="left-fill" />
+      <Icon type="upload-plus" />
+      <Icon type="upload-cloud" />
+      <Icon type="upload-line" />
+      <Icon type="delete-line" />
+      <Icon type="clip-line" />
+      <Icon type="watch-line" />
+      <Icon type="hints-alone-success" />
+      <Icon type="hints-alone-error" />
+      <Icon type="hints-warning" />
+      <Icon type="hints-success" />
+      <Icon type="hints-error" />
+      <Icon type="hints-notification" />
+      <Icon type="hints-descriptions" />
+      <Icon type="Settingx" />
+      <Icon type="bottom" />
+      <Icon type="top" />
+      <Icon type="menu-line" />
+      <Icon type="search-line" />
+      <Icon type="load-line" />
+      <Icon type="download-line" />
+      <Icon type="stop-line" />
+      <Icon type="right-fill" />
+      <Icon type="up-fill" />
+      <Icon type="down-fill" />
+      <Icon type="down-bolder" />
+      <Icon type="left" />
+      <Icon type="right" />
+      <Icon type="time-line" />
+      <Icon type="date-line" />
+      <Icon type="z-a" />
+      <Icon type="a-z" />
+      <Icon type="up-double" />
+      <Icon type="filter" />
+      <Icon type="right-double" />
+      <Icon type="left-double" />
+      <Icon type="check-half" />
+      <Icon type="down-double" />
+      <Icon type="close-tag-line" />
+      <Icon type="close-modal-line" />
+      <Icon type="close-circle-fill" />
+      <Icon type="check-line" />
+      <Icon type="check-full" />
+      <Icon type="check-empty" />
+    </div>)
+  }
 }
+
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 

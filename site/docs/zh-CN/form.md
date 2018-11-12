@@ -335,7 +335,7 @@ class RegistrationForm extends React.Component {
             <span>
               Nickname&nbsp;
               <Tooltip title="What do you want others to call you?">
-                <Icon type="tip" />
+                <Icon type="tip" style={{color: '#cccccc'}}/>
               </Tooltip>
             </span>
           )}
