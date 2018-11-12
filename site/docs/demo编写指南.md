@@ -14,6 +14,13 @@ render(){
 }
 ```
 
+```css
+h4{
+  font-size: 32px;
+}
+```
+:::
+
 ## 组件Demo编写方式2
 
 :::demo 组件Demo的介绍2
@@ -29,5 +36,13 @@ class Demo extends React.Component{
 
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
+
+```less
+h4{
+  font-size: 32px;
+}
+```
+
+:::
 
 > 注意：所有二级标题都将会被渲染成右侧的`Anchor导航`
