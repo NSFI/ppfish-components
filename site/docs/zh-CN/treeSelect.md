@@ -637,7 +637,8 @@
   constructor(props) {
     super(props);
     this.lastSearchId = 1;
-    this.onSearch = this.props.debounce(this.onSearch, 500);
+    this.loadDataTimes = 1;
+    this.onSearch = this.props.debounce(this.onSearch, 300);
     this.state = {
       value: [],
       treeData: [
@@ -723,15 +724,18 @@
   }
 
   onLoadData = (treeNode) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const treeData = [...this.state.treeData];
-        this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateTreeNodes(treeNode), 1);
-        this.setState({ 
-          treeData 
-        });
-        resolve();
-      }, 1000);
+        if (this.loadDataTimes % 3 == 0) {
+          reject();
+        } else {
+          const treeData = [...this.state.treeData];
+          this.getNewTreeData(treeData, treeNode.props.eventKey, this.generateTreeNodes(treeNode), 1);
+          this.setState({ treeData });
+          resolve();
+        }
+        this.loadDataTimes++;
+      }, 500);
     });
   }
 

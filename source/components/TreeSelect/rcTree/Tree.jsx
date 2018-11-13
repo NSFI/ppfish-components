@@ -622,12 +622,12 @@ class Tree extends React.Component {
   );
 
   onNodeExpand = (e, treeNode) => {
-    let { expandedKeys } = this.state;
+    let { expandedKeys: oriExpandedKeys, loadingKeys: oriLoadingKeys } = this.state;
     const { onExpand, loadData } = this.props;
     const { eventKey, expanded } = treeNode.props;
 
     // Update selected keys
-    const index = expandedKeys.indexOf(eventKey);
+    const index = oriExpandedKeys.indexOf(eventKey);
     const targetExpanded = !expanded;
 
     warning(
@@ -635,10 +635,11 @@ class Tree extends React.Component {
       'Expand state not sync with index check',
     );
 
+    let expandedKeys = [];
     if (targetExpanded) {
-      expandedKeys = arrAdd(expandedKeys, eventKey);
+      expandedKeys = arrAdd(oriExpandedKeys, eventKey);
     } else {
-      expandedKeys = arrDel(expandedKeys, eventKey);
+      expandedKeys = arrDel(oriExpandedKeys, eventKey);
     }
 
     this.setUncontrolledState({ expandedKeys });
@@ -657,6 +658,11 @@ class Tree extends React.Component {
       return loadPromise ? loadPromise.then(() => {
         // [Legacy] Refresh logic
         this.setUncontrolledState({ expandedKeys });
+      }, () => {
+        this.setState({
+          expandedKeys: oriExpandedKeys,
+          loadingKeys: oriLoadingKeys,
+        });
       }) : null;
     }
 
