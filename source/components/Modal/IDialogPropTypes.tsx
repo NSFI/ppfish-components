@@ -23,8 +23,6 @@ interface IDialogPropTypes {
   footer?: React.ReactNode;
   transitionName?: string;
   maskTransitionName?: string;
-  animation?: any;
-  maskAnimation?: any;
   wrapStyle?: {};
   bodyStyle?: {};
   maskStyle?: {};

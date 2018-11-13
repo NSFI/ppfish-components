@@ -224,7 +224,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     }
 
     const style = {...props.style, ...dest};
-    const transitionName = this.getTransitionName();
+    const transitionName = props.transitionName;
     const dialog = (
       <div className={classNames(`${prefixCls}-dialog`, {
         'draggable': props.draggable
@@ -297,7 +297,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     const props = this.props;
     let maskElement;
     if (props.mask) {
-      const maskTransition = this.getMaskTransitionName();
+      const maskTransition = props.maskTransitionName;
       maskElement = (
         <LazyRenderBox
           style={this.getMaskStyle()}
@@ -323,24 +323,6 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       }
     }
     return maskElement;
-  };
-  getMaskTransitionName = () => {
-    const props = this.props;
-    let transitionName = props.maskTransitionName;
-    const animation = props.maskAnimation;
-    if (!transitionName && animation) {
-      transitionName = `${props.prefixCls}-${animation}`;
-    }
-    return transitionName;
-  };
-  getTransitionName = () => {
-    const props = this.props;
-    let transitionName = props.transitionName;
-    const animation = props.animation;
-    if (!transitionName && animation) {
-      transitionName = `${props.prefixCls}-${animation}`;
-    }
-    return transitionName;
   };
   setScrollbar = () => {
     if (this.bodyIsOverflowing && this.scrollbarWidth !== undefined) {

@@ -96,8 +96,8 @@ export default class Modal extends React.Component<ModalProps, {}> {
   static defaultProps = {
     prefixCls: 'fishd-modal',
     width: 560,
-    transitionName: 'zoom',
-    maskTransitionName: 'fade',
+    transitionName: 'fishd-modal-zoom',
+    maskTransitionName: '',
     confirmLoading: false,
     visible: false,
     okType: 'primary' as ButtonType,

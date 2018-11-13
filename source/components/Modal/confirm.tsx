@@ -44,9 +44,9 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
       onCancel={close.bind(this, { triggerCancel: true })}
       visible={visible}
       title=""
-      transitionName="zoom"
+      transitionName="fishd-modal-zoom"
       footer=""
-      maskTransitionName="fade"
+      maskTransitionName=""
       maskClosable={maskClosable}
       style={style}
       width={width}
