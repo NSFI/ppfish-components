@@ -60,6 +60,8 @@ render(){
 
 ## API
 
+> 注意：该组件不支持`hashHistory` ,[详情](https://github.com/ReactTraining/react-router/issues/394#issuecomment-220221604)
+
 ### Anchor-Props
 
 | 成员 | 说明 | 类型 | 默认值 |
