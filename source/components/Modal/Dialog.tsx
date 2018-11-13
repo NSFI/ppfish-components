@@ -4,7 +4,7 @@ import Animate from 'rc-animate';
 import Draggable from 'react-draggable';
 import classNames from 'classnames';
 import Icon from '../Icon';
-import { contains, getScrollBarSize, KeyCode } from '../../utils/index';
+import {contains, getScrollBarSize, KeyCode} from '../../utils/index';
 import IDialogPropTypes from './IDialogPropTypes';
 import LazyRenderBox from './LazyRenderBox';
 
@@ -66,6 +66,9 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
   private lastOutSideFocusNode: HTMLElement | null;
   private wrap: HTMLElement;
   private dialog: any;
+  private header: any;
+  private body: any;
+  private footer: any;
   private sentinel: HTMLElement;
   private bodyIsOverflowing: boolean;
   private scrollbarWidth: number;
@@ -74,9 +77,14 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     this.inTransition = false;
     this.titleId = `rcDialogTitle${uuid++}`;
   }
+
   componentDidMount() {
     this.componentDidUpdate({});
+    if (this.body) {
+      this.body.style.maxHeight = `calc(100vh - ${this.getBodyMaxHeight()}px)`;
+    }
   }
+
   componentDidUpdate(prevProps: IDialogPropTypes) {
     const props = this.props;
     const mousePosition = this.props.mousePosition;
@@ -107,6 +115,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       }
     }
   }
+
   componentWillUnmount() {
     if (this.props.visible || this.inTransition) {
       this.removeScrollingEffect();
@@ -120,8 +129,16 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     }
   }
 
+  getBodyMaxHeight = () => {
+    const dialog = ReactDOM.findDOMNode(this.dialog) as HTMLElement;
+    const offsetTop = Math.max(0, parseInt(getComputedStyle(dialog).top));
+    let difference = 2 * offsetTop;
+    if (this.header) difference += this.header.offsetHeight;
+    if (this.footer) difference += this.footer.offsetHeight;
+    return difference;
+  };
   onAnimateLeave = () => {
-    const { afterClose } = this.props;
+    const {afterClose} = this.props;
     // need demo?
     // https://github.com/react-component/dialog/pull/28
     if (this.wrap) {
@@ -132,7 +149,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     if (afterClose) {
       afterClose();
     }
-  }
+  };
   onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // android trigger click on open (fastclick??)
     if (Date.now() - this.openTime < 300) {
@@ -141,7 +158,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     if (e.target === e.currentTarget) {
       this.close(e);
     }
-  }
+  };
   onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const props = this.props;
     if (props.keyboard && e.keyCode === KeyCode.ESC) {
@@ -161,7 +178,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
         }
       }
     }
-  }
+  };
   getDialogElement = () => {
     const props = this.props;
     const closable = props.closable;
@@ -202,16 +219,17 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
           aria-label="Close"
           className={`${prefixCls}-close`}
         >
-          <Icon type="close-modal-line" />
+          <Icon type="close-modal-line"/>
         </button>);
     }
 
-    const style = { ... props.style, ...dest };
+    const style = {...props.style, ...dest};
     const transitionName = this.getTransitionName();
     const dialog = (
       <div className={classNames(`${prefixCls}-dialog`, {
         'draggable': props.draggable
-      })}>
+      })}
+      >
         <div className={`${prefixCls}-content`}>
           {closer}
           {header}
@@ -225,27 +243,27 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
           </div>
           {footer}
         </div>
-        <div tabIndex={0} ref={this.saveRef('sentinel')} style={{ width: 0, height: 0, overflow: 'hidden' }}>
+        <div tabIndex={0} ref={this.saveRef('sentinel')} style={{width: 0, height: 0, overflow: 'hidden'}}>
           sentinel
         </div>
       </div>
     );
     const dialogElement = (
-        <LazyRenderBox
-          key="dialog-element"
-          role="document"
-          ref={this.saveRef('dialog')}
-          style={style}
-          className={`${prefixCls} ${props.className || ''}`}
-          visible={props.visible}
-        >
-          {props.draggable ? (
-            <Draggable>
-              {dialog}
-            </Draggable>
-          ) : dialog}
+      <LazyRenderBox
+        key="dialog-element"
+        role="document"
+        ref={this.saveRef('dialog')}
+        style={style}
+        className={`${prefixCls} ${props.className || ''}`}
+        visible={props.visible}
+      >
+        {props.draggable ? (
+          <Draggable>
+            {dialog}
+          </Draggable>
+        ) : dialog}
 
-        </LazyRenderBox>
+      </LazyRenderBox>
     );
     return (
       <Animate
@@ -260,7 +278,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
         {(props.visible || !props.destroyOnClose) ? dialogElement : null}
       </Animate>
     );
-  }
+  };
   getZIndexStyle = () => {
     const style: any = {};
     const props = this.props;
@@ -268,13 +286,13 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       style.zIndex = props.zIndex;
     }
     return style;
-  }
-  getWrapStyle = () : any => {
-    return { ...this.getZIndexStyle(), ...this.props.wrapStyle };
-  }
+  };
+  getWrapStyle = (): any => {
+    return {...this.getZIndexStyle(), ...this.props.wrapStyle};
+  };
   getMaskStyle = () => {
-    return { ...this.getZIndexStyle(), ...this.props.maskStyle };
-  }
+    return {...this.getZIndexStyle(), ...this.props.maskStyle};
+  };
   getMaskElement = () => {
     const props = this.props;
     let maskElement;
@@ -305,7 +323,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       }
     }
     return maskElement;
-  }
+  };
   getMaskTransitionName = () => {
     const props = this.props;
     let transitionName = props.maskTransitionName;
@@ -314,7 +332,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       transitionName = `${props.prefixCls}-${animation}`;
     }
     return transitionName;
-  }
+  };
   getTransitionName = () => {
     const props = this.props;
     let transitionName = props.transitionName;
@@ -323,12 +341,12 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       transitionName = `${props.prefixCls}-${animation}`;
     }
     return transitionName;
-  }
+  };
   setScrollbar = () => {
     if (this.bodyIsOverflowing && this.scrollbarWidth !== undefined) {
       document.body.style.paddingRight = `${this.scrollbarWidth}px`;
     }
-  }
+  };
   addScrollingEffect = () => {
     openCount++;
     if (openCount !== 1) {
@@ -338,7 +356,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     this.setScrollbar();
     document.body.style.overflow = 'hidden';
     // this.adjustDialog();
-  }
+  };
   removeScrollingEffect = () => {
     openCount--;
     if (openCount !== 0) {
@@ -347,13 +365,13 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     document.body.style.overflow = '';
     this.resetScrollbar();
     // this.resetAdjustments();
-  }
+  };
   close = (e: any) => {
-    const { onClose } = this.props;
+    const {onClose} = this.props;
     if (onClose) {
       onClose(e);
     }
-  }
+  };
   checkScrollbar = () => {
     let fullWindowWidth = window.innerWidth;
     if (!fullWindowWidth) { // workaround for missing window.innerWidth in IE8
@@ -364,10 +382,10 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     if (this.bodyIsOverflowing) {
       this.scrollbarWidth = getScrollBarSize();
     }
-  }
+  };
   resetScrollbar = () => {
     document.body.style.paddingRight = '';
-  }
+  };
   adjustDialog = () => {
     if (this.wrap && this.scrollbarWidth !== undefined) {
       const modalIsOverflowing =
@@ -377,20 +395,20 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       this.wrap.style.paddingRight =
         `${this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : ''}px`;
     }
-  }
+  };
   resetAdjustments = () => {
     if (this.wrap) {
       this.wrap.style.paddingLeft = this.wrap.style.paddingLeft = '';
     }
-  }
+  };
 
   saveRef = (name: string) => (node: any) => {
     (this as any)[name] = node;
-  }
+  };
 
   render() {
-    const { props } = this;
-    const { prefixCls, maskClosable } = props;
+    const {props} = this;
+    const {prefixCls, maskClosable} = props;
     const style = this.getWrapStyle();
     // clear hide display
     // and only set display after async anim, not here for hide
