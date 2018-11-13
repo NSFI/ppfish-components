@@ -313,6 +313,7 @@ export const components = {
           key: 'transfer',
           type: 'markdown',
           name: 'Transfer 穿梭框',
+          published: true,
         }, {
           key: 'treeSelect',
           type: 'markdown',
@@ -337,6 +338,7 @@ export const components = {
           key: 'footerToolbar',
           type: 'markdown',
           name: 'FooterToolbar 底部工具栏',
+          published: true,
         },
       ]
     }, {
@@ -346,6 +348,7 @@ export const components = {
           key: 'avatar',
           type: 'markdown',
           name: 'Avatar 头像',
+          published: true,
         },
         {
           key: 'badge',
@@ -367,6 +370,7 @@ export const components = {
           key: 'carousel',
           type: 'markdown',
           name: 'Carousel 走马灯',
+          published: true,
         },
         {
           key: 'collapse',
