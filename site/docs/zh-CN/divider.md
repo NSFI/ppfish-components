@@ -1,4 +1,4 @@
-# Divider 分割线 【交互：缺失 | 视觉：徐剑杰 |开发：卿泽】
+# Divider 分割线 【交互：李东岳 | 视觉：徐剑杰 |开发：卿泽】
 
 区隔内容的分割线。
 
@@ -55,6 +55,7 @@ render(){
 render(){
   return(
       <div className="demo-vertical clearfix">
+        <Divider type="vertical"/>
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
         <Divider type="vertical" orientation="top">上</Divider>
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
@@ -62,6 +63,7 @@ render(){
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
         <Divider type="vertical" orientation="bottom">下</Divider>
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
+        <Divider type="vertical"/>
       </div>
   )
 }
@@ -69,8 +71,7 @@ render(){
 
 ```less
 .demo-vertical{
-  height: 150px;
-  width:100%;
+  height: 300px;
  }
 
 .demo-content{
