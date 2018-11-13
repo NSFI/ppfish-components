@@ -565,38 +565,40 @@ class Tree extends React.Component {
               { checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys }
             );
 
-            let checkedObj = checkedKeys;
-            const eventObj = {
-              event: 'load',
-              node: treeNode,
-              checked: checkedKeys.indexOf(eventKey),
-              // nativeEvent: e.nativeEvent,
-            };
+            if (checkedKeys.indexOf(eventKey) != -1) {
+              let checkedObj = checkedKeys;
+              const evtObj = {
+                event: 'check',
+                node: treeNode,
+                checked: true,
+                // nativeEvent: e.nativeEvent,
+              };
 
-            // [Legacy] This is used for `rc-tree-select`
-            eventObj.checkedNodes = [];
-            eventObj.checkedNodesPositions = [];
-            eventObj.halfCheckedKeys = halfCheckedKeys;
+              // [Legacy] This is used for `rc-tree-select`
+              evtObj.checkedNodes = [];
+              evtObj.checkedNodesPositions = [];
+              evtObj.halfCheckedKeys = halfCheckedKeys;
 
-            checkedKeys.forEach((key) => {
-              const entity = keyEntities[key];
-              if (!entity) return;
+              checkedKeys.forEach((key) => {
+                const entity = keyEntities[key];
+                if (!entity) return;
 
-              const { node, pos } = entity;
+                const { node, pos } = entity;
 
-              eventObj.checkedNodes.push(node);
-              eventObj.checkedNodesPositions.push({ node, pos });
-            });
+                evtObj.checkedNodes.push(node);
+                evtObj.checkedNodesPositions.push({ node, pos });
+              });
 
-            // checkedKeys 改变后触发勾选事件
-            if (onCheck) {
-              onCheck(checkedObj, eventObj);
+              // checkedKeys 改变后触发勾选事件
+              if (onCheck) {
+                onCheck(checkedObj, evtObj);
+              }
+
+              this.setState({
+                checkedKeys,
+                halfCheckedKeys,
+              });
             }
-
-            this.setState({
-              checkedKeys,
-              halfCheckedKeys,
-            });
           }
 
           this.setUncontrolledState({
