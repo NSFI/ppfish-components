@@ -523,13 +523,7 @@ class Tree extends React.Component {
   };
 
   onNodeLoad = treeNode => (
-    new Promise((resolve) => {
-      const {
-        keyEntities,
-        checkedKeys: oriCheckedKeys,
-        halfCheckedKeys: oriHalfCheckedKeys
-      } = this.state;
-
+    new Promise((resolve, reject) => {
       // We need to get the latest state of loading/loaded keys
       this.setState(({ loadedKeys = [], loadingKeys = [] }) => {
         const { loadData, onLoad, onCheck } = this.props;
@@ -543,6 +537,12 @@ class Tree extends React.Component {
         // Process load data
         const promise = loadData(treeNode);
         promise.then(() => {
+          const {
+            keyEntities,
+            checkedKeys: oriCheckedKeys,
+            halfCheckedKeys: oriHalfCheckedKeys
+          } = this.state;
+
           const newLoadedKeys = arrAdd(this.state.loadedKeys, eventKey);
           const newLoadingKeys = arrDel(this.state.loadingKeys, eventKey);
 
@@ -610,6 +610,8 @@ class Tree extends React.Component {
           });
 
           resolve();
+        }, () => {
+          reject();
         });
 
         return {
