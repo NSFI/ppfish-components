@@ -180,7 +180,7 @@ class BasePopup extends React.Component {
     let $notFound;
     let $treeNodes;
 
-    if (!treeNodes.length || loading) {
+    if (!treeNodes || !treeNodes.length || loading) {
       $notFound = this.renderNotFound();
     } else if (filteredTreeNodes) {
       if (filteredTreeNodes.length) {

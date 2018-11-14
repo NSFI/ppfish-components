@@ -162,7 +162,7 @@ class Select extends React.Component {
     } = props;
 
     this.state = {
-      open: open || defaultOpen,
+      open: !!open || !!defaultOpen,
       valueList: [],
       missValueList: [], // Contains the value not in the tree
       selectorValueList: [], // Used for multiple selector
@@ -233,7 +233,7 @@ class Select extends React.Component {
 
     // Open
     processState('open', (propValue) => {
-      newState.open = propValue;
+      newState.open = !!propValue;
     });
 
     // Tree Nodes
@@ -826,6 +826,9 @@ class Select extends React.Component {
   // `documentClickClose` is not accurate anymore. Let's just keep the key word.
   setOpenState = (open, byTrigger = false) => {
     const { onDropdownVisibleChange } = this.props;
+    if (onDropdownVisibleChange && onDropdownVisibleChange(open, { documentClickClose: !open && byTrigger }) === false) {
+      return;
+    }
 
     // 关闭 Popup 时，若有已选择项，则执行取消操作
     if (!open) {
@@ -839,12 +842,6 @@ class Select extends React.Component {
       }
     }
 
-    if (
-      onDropdownVisibleChange &&
-      onDropdownVisibleChange(open, { documentClickClose: !open && byTrigger }) === false
-    ) {
-      return;
-    }
 
     this.setUncontrolledState({ open });
   };
@@ -1093,16 +1090,25 @@ class Select extends React.Component {
       />
     );
 
+    const triggerProps = {
+      disabled: passProps.disabled,
+      dropdownPopupAlign: passProps.dropdownPopupAlign,
+      dropdownMatchSelectWidth: passProps.dropdownMatchSelectWidth,
+      dropdownClassName: passProps.dropdownClassName,
+      dropdownStyle: passProps.dropdownStyle,
+      getPopupContainer: passProps.getPopupContainer,
+      placement: passProps.placement,
+      transitionName: passProps.transitionName,
+      animation: passProps.animation,
+      isMultiple: passProps.isMultiple,
+      dropdownPrefixCls: passProps.dropdownPrefixCls,
+      onDropdownVisibleChange: this.onDropdownVisibleChange,
+      popupElement: $popup,
+      open: passProps.open,
+    };
+
     return (
-      <SelectTrigger
-        {...passProps}
-
-        ref={this.selectTriggerRef}
-        popupElement={$popup}
-
-        onKeyDown={this.onKeyDown}
-        onDropdownVisibleChange={this.onDropdownVisibleChange}
-      >
+      <SelectTrigger {...triggerProps} ref={this.selectTriggerRef} >
         {$selector}
       </SelectTrigger>
     );

@@ -80,18 +80,15 @@ class SelectTrigger extends React.Component {
   static propTypes = {
     // Pass by outside user props
     disabled: PropTypes.bool,
-    showSearch: PropTypes.bool,
-    prefixCls: PropTypes.string,
     dropdownPopupAlign: PropTypes.object,
     placement: PropTypes.string,
     dropdownClassName: PropTypes.string,
     dropdownStyle: PropTypes.object,
-    transitionName: PropTypes.string,
-    animation: PropTypes.string,
     getPopupContainer: PropTypes.func,
     children: PropTypes.node,
-
     dropdownMatchSelectWidth: PropTypes.bool,
+    transitionName: PropTypes.string,
+    animation: PropTypes.string,
 
     // Pass by Select
     isMultiple: PropTypes.bool,
@@ -99,6 +96,10 @@ class SelectTrigger extends React.Component {
     onDropdownVisibleChange: PropTypes.func,
     popupElement: PropTypes.node,
     open: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    open: false,
   };
 
   constructor() {
@@ -146,6 +147,7 @@ class SelectTrigger extends React.Component {
         ref={this.triggerRef}
         action={disabled ? [] : ['click']}
         popupPlacement={placement}
+        forceRender
         builtinPlacements={BUILT_IN_PLACEMENTS}
         popupAlign={dropdownPopupAlign}
         prefixCls={dropdownPrefixCls}
