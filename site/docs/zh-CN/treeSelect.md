@@ -783,6 +783,7 @@
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
 | loading | 是否显示 loading 状态。可以配合实现后端搜索。 | Boolean | false |
+| multiple | 支持多选（当设置 treeCheckable 时自动变为true） | Boolean | false |
 | notFoundContent | 当下拉列表为空时显示的内容 | String \| ReactNode | '无匹配结果' |
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
 | onChange | 选中的树节点改变时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
