@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Tooltip from '../Tooltip/index.tsx';
-
+import {addEventListener} from "../../utils";
 /* eslint react/no-did-mount-set-state: 0 */
 /* eslint no-param-reassign: 0 */
 
@@ -38,7 +38,7 @@ export const cutStrByFullLength = (str = '', maxLength) => {
   }, '');
 };
 
-const EllipsisText = ({text, length, tooltip, fullWidthRecognition, ...other}) => {
+const EllipsisText = ({text, length, tooltip, fullWidthRecognition, tooltipProps, ...other}) => {
   if (typeof text !== 'string') {
     throw new Error('Ellipsis children must be string.');
   }
@@ -56,7 +56,7 @@ const EllipsisText = ({text, length, tooltip, fullWidthRecognition, ...other}) =
 
   if (tooltip) {
     return (
-      <Tooltip overlayStyle={TooltipOverlayStyle} title={text}>
+      <Tooltip {...tooltipProps} overlayStyle={TooltipOverlayStyle} title={text}>
         <span>
           {displayText}
           {tail}
@@ -77,7 +77,8 @@ EllipsisText.propTypes = {
   text: PropTypes.string,
   length: PropTypes.number,
   tooltip: PropTypes.bool,
-  fullWidthRecognition: PropTypes.bool
+  fullWidthRecognition: PropTypes.bool,
+  tooltipProps: PropTypes.object,
 };
 
 
@@ -87,6 +88,7 @@ export default class Ellipsis extends Component {
     prefix: 'fishd-ellipsis',
     fullWidthRecognition: false,
     tooltip: false,
+    tooltipProps: {},
   };
 
   static propTypes = {
@@ -98,6 +100,7 @@ export default class Ellipsis extends Component {
     ]),
     length: PropTypes.number,
     tooltip: PropTypes.bool,
+    tooltipProps: PropTypes.object,
     fullWidthRecognition: PropTypes.bool,
     className: PropTypes.string,
     style: PropTypes.object,
@@ -107,11 +110,27 @@ export default class Ellipsis extends Component {
   state = {
     text: '',
     targetCount: 0,
+    isEllipsisActive: false,
   };
 
   componentDidMount() {
     if (this.node) {
       this.computeLine();
+    }
+    // detect ellipsis active in width/lines mode
+    if (this.props.width || this.props.lines) {
+      let target;
+      if (this.props.width) {
+        target = this.widthNode;
+      } else if (this.props.lines && isSupportLineClamp) {
+        target = this.lineClampNode;
+      } else {
+        return;
+      }
+      this.detectEllipsisActive(target);
+      this.detectListner = addEventListener(window, 'resize', () => {
+        this.detectEllipsisActive(target);
+      });
     }
   }
 
@@ -121,6 +140,30 @@ export default class Ellipsis extends Component {
       this.computeLine();
     }
   }
+
+  componentWillUnmount() {
+    this.detectListner && this.detectListner.remove();
+  }
+
+  resetEllipsisActive = () => {
+    if (this.props.width || this.props.lines) {
+      let target;
+      if (this.props.width) {
+        target = this.widthNode;
+      } else if (this.props.lines && isSupportLineClamp) {
+        target = this.lineClampNode;
+      } else {
+        return;
+      }
+      this.detectEllipsisActive(target);
+    }
+  };
+
+  detectEllipsisActive = (node) => {
+    this.setState({
+      isEllipsisActive: node.offsetHeight < node.scrollHeight || node.offsetWidth < node.scrollWidth
+    });
+  };
 
   computeLine = () => {
     const {lines} = this.props;
@@ -209,7 +252,7 @@ export default class Ellipsis extends Component {
   };
 
   render() {
-    const {text, targetCount} = this.state;
+    const {text, targetCount, isEllipsisActive} = this.state;
     const {
       children,
       lines,
@@ -219,6 +262,7 @@ export default class Ellipsis extends Component {
       tooltip,
       fullWidthRecognition,
       prefix,
+      tooltipProps,
       ...restProps
     } = this.props;
 
@@ -228,6 +272,7 @@ export default class Ellipsis extends Component {
       [`${prefix}-lineClamp`]: lines && isSupportLineClamp,
     });
 
+    // 一种限制都没有返回原值
     if (!lines && !length && !width) {
       return (
         <span className={cls} {...restProps}>
@@ -236,15 +281,15 @@ export default class Ellipsis extends Component {
       );
     }
 
-    //width
+    // 宽度限制
     if (width) {
       const node = (
-        <span className={cls} {...restProps} style={{maxWidth: width}}>
+        <span ref={node => this.widthNode = node} className={cls} {...restProps} style={{maxWidth: width}}>
           {children}
         </span>
       );
       return tooltip ? (
-        <Tooltip overlayStyle={TooltipOverlayStyle} title={children}>
+        <Tooltip {...tooltipProps} overlayStyle={TooltipOverlayStyle} title={isEllipsisActive ? children : null}>
           {node}
         </Tooltip>
       ) : (
@@ -252,11 +297,12 @@ export default class Ellipsis extends Component {
       );
     }
 
-    // length
+    // 字数限制
     if (length) {
       return (
         <EllipsisText
           className={cls}
+          tooltipProps={tooltipProps}
           length={length}
           text={children || ''}
           tooltip={tooltip}
@@ -266,6 +312,7 @@ export default class Ellipsis extends Component {
       );
     }
 
+    //行数限制
     const id = `fishd-ellipsis-${`${new Date().getTime()}${Math.floor(Math.random() * 100)}`}`;
 
     // support document.body.style.webkitLineClamp
@@ -273,14 +320,14 @@ export default class Ellipsis extends Component {
       const style = `#${id}{-webkit-line-clamp:${lines};-webkit-box-orient: vertical;}`;
 
       const node = (
-        <div id={id} className={cls} {...restProps}>
+        <div ref={node => this.lineClampNode = node} id={id} className={cls} {...restProps}>
           <style>{style}</style>
           {children}
         </div>
       );
 
       return tooltip ? (
-        <Tooltip overlayStyle={TooltipOverlayStyle} title={children}>
+        <Tooltip {...tooltipProps} overlayStyle={TooltipOverlayStyle} title={isEllipsisActive ? children : null}>
           {node}
         </Tooltip>
       ) : (
