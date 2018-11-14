@@ -7,7 +7,7 @@ describe('<AudioPlayer />', () => {
   const props = {
     prefixCls: 'audio-player',
     source: "https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav",
-    controllVolume: true,
+    controlVolume: true,
     download: true,
   };
 
@@ -34,7 +34,7 @@ describe('<AudioPlayer />', () => {
   });
 
   test('AudioPlayer组件能够隐藏控制音量按钮', () => {
-    wrapper.setProps({controllVolume: false});
+    wrapper.setProps({controlVolume: false});
     expect(wrapper.find('.volume-box').exists()).toBe(false);
   });
 

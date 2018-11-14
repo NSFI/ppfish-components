@@ -1,8 +1,9 @@
 import React from 'react';
-import Slider from '../Slider/index.tsx';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Trigger from 'rc-trigger';
+import Slider from '../Slider/index.tsx';
+import Icon from '../Icon/index.tsx';
 import placements from './placements';
 
 import './style/AudioPlayer.less';
@@ -42,7 +43,7 @@ class AudioPlayer extends React.Component {
     muted: false,
     volume: 1.0,
     controlVolume: true,
-    download: true,
+    download: false,
     onLoadedMetadata: () => {},  // 当浏览器已加载音频的元数据时的回调
     onCanPlay: () => {},         // 当浏览器能够开始播放音频时的回调
     onCanPlayThrough: () => {},  // 当浏览器可在不因缓冲而停顿的情况下进行播放时的回调
@@ -57,12 +58,12 @@ class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPlay: this.props.autoPlay, // 是否随即播放
-      isMuted: this.props.muted,  // 是否静音
+      isPlay: this.props.autoPlay,                     // 是否随即播放
+      isMuted: this.props.muted,                       // 是否静音
       currentVolume: parseInt(this.props.volume * 10), // 当前音量
+      volumeOpen: false,                               // 是否打开音量控制
       allTime: 0,
       currentTime: 0,
-      volumeChangeOpen: false // 是否打开音量控制
     };
     this.audioInstance = null;
   }
@@ -131,7 +132,7 @@ class AudioPlayer extends React.Component {
     return `${minute}:${second >= 10 ? second : `0${second}`}`;
   }
 
-  getChangeVolumeElement = () => {
+  getVolumePopupContent = () => {
     const { currentVolume } = this.state;
     return (
       <div className="change-audio-volume-box">
@@ -151,12 +152,12 @@ class AudioPlayer extends React.Component {
   // 调节音量面板状态变化
   onVolumeVisibleChange = (state) => {
     this.setState({
-      volumeChangeOpen: state
+      volumeOpen: state
     });
   }
 
   render() {
-    const { isPlay, isMuted, allTime, currentTime, volume, volumeChangeOpen } = this.state;
+    const { isPlay, isMuted, allTime, currentTime, volume, volumeOpen } = this.state;
     const {
       prefixCls,
       title,
@@ -171,92 +172,92 @@ class AudioPlayer extends React.Component {
       onCanPlayThrough,
       onAbort,onEnded, onError, onPause, onPlay, onSeeked, ...otherProps } = this.props;
 
-    const wrapClass = [`${prefixCls}-wrap`, className];
-    const pausePlayClass = classNames({
-      'iconfont': true,
-      'icon-youjiantou1': !isPlay,
-      'icon-guanbi': isPlay
-    });
-    const volumeClass = classNames({
-      'iconfont': true,
-      'icon-yingxiaoguanli': !isMuted,
-      'icon-guanbi': isMuted
-    });
+    const wrapClass = classNames(`${prefixCls}-wrap`, className);
+    const pausePlayIcon = isPlay ? 'close-tag-line' : 'right-fill';
+    const volumeIcon = isMuted ? 'close-tag-line' : 'richeditor-align-rig';
 
     return (
-      <div className={wrapClass.join(' ')} title={title}>
-        <div className="audio-box">
-          <audio
-            ref={instance => this.audioInstance = instance}
-            src={src}
-            preload={preload}
-            loop={loop}
-            volume={volume}
-            onCanPlay={() => this.controlAudio('allTime')}
-            onTimeUpdate={(e) => this.controlAudio('getCurrentTime')}
-            onLoadedMetadata={onLoadedMetadata}
-            onCanPlayThrough={onCanPlayThrough}
-            onAbort={onAbort}
-            onEnded={onEnded}
-            onError={onError}
-            onPause={onPause}
-            onPlay={onPlay}
-            onSeeked={onSeeked}
-            {...otherProps}
-          >
-            您的浏览器不支持 audio 标签。
-          </audio>
-        </div>
-        <div className="box pause-play-box">
-          <i
-            className={pausePlayClass}
-            onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}
-          />
-        </div>
-        <div className="box step-box">
-          <Slider
-            step={1}
-            min={0}
-            max={allTime}
-            value={currentTime}
-            tipFormatter={value => this.millisecondToDate(value)}
-            onChange={(value) => this.controlAudio('changeCurrentTime', value)}
-          />
-        </div>
-        <div className="box time-box">
+      <div className={prefixCls}>
+        <div className={classNames(wrapClass)} title={title}>
+          <div className="audio-box">
+            <audio
+              ref={instance => this.audioInstance = instance}
+              src={src}
+              preload={preload}
+              loop={loop}
+              volume={volume}
+              onCanPlay={() => this.controlAudio('allTime')}
+              onTimeUpdate={(e) => this.controlAudio('getCurrentTime')}
+              onLoadedMetadata={onLoadedMetadata}
+              onCanPlayThrough={onCanPlayThrough}
+              onAbort={onAbort}
+              onEnded={onEnded}
+              onError={onError}
+              onPause={onPause}
+              onPlay={onPlay}
+              onSeeked={onSeeked}
+              {...otherProps}
+            >
+              您的浏览器不支持 audio 标签。
+            </audio>
+          </div>
+
+          <div className="box pause-play-box">
+            <Icon
+              className="handle-audio-icon pause-play"
+              type={pausePlayIcon}
+              onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}
+            />
+          </div>
+
+          <div className="box step-box">
+            <Slider
+              step={1}
+              min={0}
+              max={allTime}
+              value={currentTime}
+              tipFormatter={value => this.millisecondToDate(value)}
+              onChange={(value) => this.controlAudio('changeCurrentTime', value)}
+            />
+          </div>
+
+          <div className="box time-box">
           <span className="current">
             {this.millisecondToDate(currentTime)+' / '+this.millisecondToDate(allTime)}
           </span>
+          </div>
+
+          {
+            controlVolume ?
+              <div className="box volume-box">
+                <Trigger
+                  action={['click']}
+                  prefixCls="change-audio-volume"
+                  builtinPlacements={placements}
+                  popupPlacement="topLeft"
+                  popup={this.getVolumePopupContent()}
+                  popupVisible={volumeOpen}
+                  onPopupVisibleChange={this.onVolumeVisibleChange}
+                  getPopupContainer={(node)=>node.parentNode}
+                  destroyPopupOnHide
+                >
+                  <Icon className="handle-audio-icon control-volume" type={volumeIcon}/>
+                </Trigger>
+              </div>
+              :
+              null
+          }
+          {
+            download ?
+              <div className="box download-box">
+                <a download="audio" href={src}>
+                  <Icon className="handle-audio-icon download" type="download-line" />
+                </a>
+              </div>
+              :
+              null
+          }
         </div>
-        {
-          controlVolume ?
-            <div className="box volume-box">
-              <Trigger
-                action={['click']}
-                prefixCls="change-audio-volume"
-                builtinPlacements={placements}
-                popupPlacement="topLeft"
-                popup={this.getChangeVolumeElement()}
-                popupVisible={volumeChangeOpen}
-                onPopupVisibleChange={this.onVolumeVisibleChange}
-                destroyPopupOnHide
-              >
-                <i className={volumeClass}/>
-              </Trigger>
-            </div>
-            :
-            null
-        }
-        {
-          download ?
-            <div className="box download-box">
-              <a download="audio" href={src}>
-                <i className="iconfont icon-xiajiantou" />
-              </a>
-            </div>
-            :
-            null
-        }
       </div>
     );
   }

@@ -1,4 +1,4 @@
-# AudioPlayer 音频播放器 【交互：翁宇宇 | 视觉：徐剑杰 |开发：王晓玲】
+# AudioPlayer 音频播放器 【交互：翁宇宇 | 视觉：徐剑杰 | 开发：王晓玲】
 
 提供音频文件的播放、控制等
 
@@ -26,7 +26,7 @@ render() {
 :::
 
 ## 简洁版
-:::demo 通过设置 `controllVolume=false` 去掉音量控制按钮; 设置 `download=false` 去掉下载按钮。
+:::demo 通过设置 `controlVolume=false` 去掉音量控制按钮
 
 ```js
 render() {
@@ -34,8 +34,25 @@ render() {
     <div style={{width:350}}>
       <AudioPlayer
         src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
-        controllVolume={false}
-        download={false}
+        controlVolume={false}
+      />
+    </div>
+    
+  )
+}
+```
+:::
+
+## 支持下载
+:::demo 通过设置 `download=true` 设置音频可下载
+
+```js
+render() {
+  return(
+    <div style={{width:350}}>
+      <AudioPlayer
+        src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+        download={true}
       />
     </div>
     
@@ -49,7 +66,7 @@ render() {
 |---------- |-------- |----------   |-------- |
 | className | 设置类名 | String | '' |
 | controlVolume | 是否需要手动控制音量 | Boolean | true |
-| download | 是否需要下载按钮 | Boolean | true |
+| download | 是否需要下载按钮 | Boolean | false |
 | src |  音频元素的当前来源 | String | '' |
 | title   | 鼠标hover之后展示的音频描述 | String | '' |
 

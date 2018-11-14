@@ -2,6 +2,8 @@
 @prefixClass: ~'@{fishd-prefix}-audio-player';
 
 .@{prefixClass} {
+  position: relative;
+  width: 100%;
   &-wrap {
     display: flex;
     padding: 2px;
@@ -22,7 +24,7 @@
     }
     //时间展示区
     .time-box {
-      min-width: 80px;
+      width: 80px;
     }
     //音量调节区
     .volume-box {
@@ -32,19 +34,21 @@
     .download-box {
       width: 30px;
     }
+    .handle-audio-icon {
+      cursor: pointer;
+    }
   }
-}
-
-.change-audio-volume-box {
-  width: 30px;
-  height: 80px;
-  background-color: @component-background;
-  box-sizing: border-box;
-  outline: none;
-  z-index: 9;
-  border-radius: @border-radius-base;
-  user-select: none;
-  * {
+  .change-audio-volume-box {
+    width: 30px;
+    height: 80px;
+    background-color: @component-background;
     box-sizing: border-box;
+    outline: none;
+    z-index: 9;
+    border-radius: @border-radius-base;
+    user-select: none;
+    * {
+      box-sizing: border-box;
+    }
   }
 }
