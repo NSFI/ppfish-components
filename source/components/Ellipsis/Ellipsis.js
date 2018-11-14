@@ -87,7 +87,7 @@ export default class Ellipsis extends Component {
   static defaultProps = {
     prefix: 'fishd-ellipsis',
     fullWidthRecognition: false,
-    tooltip: false,
+    tooltip: true,
     tooltipProps: {},
   };
 

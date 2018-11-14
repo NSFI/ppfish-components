@@ -9,13 +9,7 @@
 ```js
 render(){
   const article = 'There were injuries alleged in three cases in 2015, and a fourth incident in September, according to the safety recall report. After meeting with US regulators in October, the firm decided to issue a voluntary recall.';
-  return(
-      <div>
-        <h4>限制字数</h4>
-        <Ellipsis length={100}>{article}</Ellipsis>
-        <h4 style={{ marginTop: 24 }}>显示ToolTip</h4>
-        <Ellipsis length={100} tooltip>{article}</Ellipsis>
-      </div>
+  return(<Ellipsis length={100}>{article}</Ellipsis>
   )
 }
 ```
@@ -27,15 +21,8 @@ render(){
 
 ```js
 render(){
-  const article = 'There were injuries alleged in three cases in 2015, and a fourth incident in September, according to the safety recall report. After meeting with US regulators in October, the firm decided to issue a voluntary recall.';
-  return(
-      <div>
-        <h4>限制宽度</h4>
-        <Ellipsis width={"100%"}>{article}</Ellipsis>
-        <h4 style={{ marginTop: 24 }}>显示ToolTip</h4>
-        <Ellipsis width={"100%"} tooltip>{article}</Ellipsis>
-      </div>
-  )
+  const article = 'There were injuries alleged in three cases in 2015, and a fourth incident in September, according to the safety recall report.';
+  return(<Ellipsis width={"100%"}>{article}</Ellipsis>)
 }
 ```
 :::
@@ -48,11 +35,8 @@ render(){
 render(){
   const article = 'There were injuries alleged in three cases in 2015, and a fourth incident in September, according to the safety recall report. After meeting with US regulators in October, the firm decided to issue a voluntary recall.';
   return(
-      <div style={{width:300}}>
-        <h4>限制行数</h4>
+      <div style={{width:"100%"}}>
         <Ellipsis lines={3}>{article}</Ellipsis>
-        <h4 style={{ marginTop: 24 }}>显示ToolTip</h4>
-        <Ellipsis lines={3} tooltip>{article}</Ellipsis>
       </div>
   )
 }
@@ -69,7 +53,7 @@ render(){
 
 参数 | 说明 | 类型 | 默认值
 ----|------|-----|------
-tooltip | 移动到文本展示完整内容的提示 | Boolean | false
+tooltip | 移动到文本展示完整内容的提示 | Boolean | true
 tooltipProps | tooltip的属性 | Object | {}
 length | 在按照长度截取下的文本最大字符数，超过则截取省略 | Number | -
 lines | 在按照行数截取下最大的行数，超过则截取省略 | Number | `1`
