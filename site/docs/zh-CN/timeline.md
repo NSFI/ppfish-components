@@ -84,15 +84,16 @@
     this.state = {
       loaded:false,
       loading: false,
-      content:[
+      content:[  
         'Create a services site 2015-09-01',
         'Create a services site 2015-09-02',
         'Create a services site 2015-09-03',
       ]
     };    
-  }
+  } 
 
   handleClick = () => {
+  if(this.state.loading) return;
     this.setState({ loading: true },()=>{
       setTimeout(()=>{
         this.setState({
@@ -102,15 +103,21 @@
         })
       },2000)
     });
-  }
+  };
 
   render() {
   const {content,loaded,loading}=this.state;
+    const props ={};
+    if(!loading){
+      props.pendingDot = <div className={"fishd-timeline-item-head fishd-timeline-item-head-blue"} style={{left:'-4px',top:'-4px'}}/>;
+    }
+    if(!loaded){
+      props.pending = <a onClick={this.handleClick}>{loading ? '加载中...' : '加载更多'}</a>
+    }
     return (
       <div>
-        <Timeline>
+        <Timeline {...props}>
           {content.map((item,i)=><Timeline.Item key={i}>{item}</Timeline.Item>)}
-          {!loaded && <Timeline.Item dot={loading && <Icon type="load-line" spinning />}><a onClick={this.handleClick}>加载更多</a></Timeline.Item>}
         </Timeline>
       </div>
     );
