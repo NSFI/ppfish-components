@@ -226,6 +226,7 @@ export const components = {
           key: 'backTop',
           type: 'markdown',
           name: 'BackTop 回到顶部',
+          published: true,
         },
         {
           key: 'pagination',
@@ -297,6 +298,7 @@ export const components = {
           key: 'slider',
           type: 'markdown',
           name: 'Slider 滑动输入条',
+          published: true,
         },
         {
           key: 'switch',
@@ -412,6 +414,7 @@ export const components = {
           key: 'timeline',
           type: 'markdown',
           name: 'Timeline 时间轴',
+          published: true,
         },
         {
           key: 'popover',
@@ -442,6 +445,7 @@ export const components = {
           key: 'ellipsis',
           type: 'markdown',
           name: 'Ellipsis 文本自动省略号',
+          published: true,
         }
       ]
     }, {
@@ -451,6 +455,7 @@ export const components = {
           key: 'alert',
           type: 'markdown',
           name: 'Alert 警告提示',
+          published: true,
         },
         {
           key: 'skeleton',

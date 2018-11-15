@@ -1,4 +1,4 @@
-# BackTop 回到顶部 【交互：缺失 | 视觉：徐剑杰 |开发：卿泽】
+# BackTop 回到顶部 【交互：叶婧婕 | 视觉：徐剑杰 |开发：卿泽】
 
 返回页面顶部的操作按钮。
 
@@ -13,8 +13,8 @@
 
 ```js
   render(){
-  return(<div id="components-back-top-demo-custom-2">
-    <BackTop target={() => document.querySelector('.content').parentNode} />
+  return(<div>
+    <BackTop/>
     Scroll down to see the bottom-right
     <strong> original </strong>
     button.
@@ -31,41 +31,9 @@
 render(){
   return(
     <div id="components-back-top-demo-custom">
-      <BackTop target={() => document.querySelector('.content').parentNode}>
+      <BackTop>
         <div className="fishd-back-top-inner">UP</div>
       </BackTop>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
-      <p>Scroll down to see the bottom-right
-      <strong style={{ color: '#1088e9' }}> UP </strong>
-      button.
-      </p>
       <p>Scroll down to see the bottom-right
       <strong style={{ color: '#1088e9' }}> UP </strong>
       button.
@@ -74,24 +42,25 @@ render(){
   )
 }
 ```
+
+```less
+#components-back-top-demo-custom {
+  .fishd-back-top {
+   bottom: 110px;
+  }
+  .fishd-back-top-inner {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    background-color: #1088e9;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+  }
+}
+```
 :::
-
-<style>
-#components-back-top-demo-custom .fishd-back-top {
-  bottom: 110px;
-}
-#components-back-top-demo-custom .fishd-back-top-inner {
-  height: 40px;
-  width: 40px;
-  line-height: 40px;
-  border-radius: 4px;
-  background-color: #1088e9;
-  color: #fff;
-  text-align: center;
-  font-size: 20px;
-}
-</style>
-
 
 ## API
 
