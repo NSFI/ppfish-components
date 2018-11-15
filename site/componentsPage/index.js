@@ -363,11 +363,11 @@ export const components = {
         //   type: 'markdown',
         //   name: 'Calendar 日历',
         // },
-        {
-          key: 'card',
-          type: 'markdown',
-          name: 'Card 卡片',
-        },
+        // {
+        //   key: 'card',
+        //   type: 'markdown',
+        //   name: 'Card 卡片',
+        // },
         {
           key: 'carousel',
           type: 'markdown',
@@ -457,11 +457,11 @@ export const components = {
           name: 'Alert 警告提示',
           published: true,
         },
-        {
-          key: 'skeleton',
-          type: 'markdown',
-          name: 'Skeleton 加载占位图',
-        },
+        // {
+        //   key: 'skeleton',
+        //   type: 'markdown',
+        //   name: 'Skeleton 加载占位图',
+        // },
         {
           key: 'message',
           type: 'markdown',
