@@ -5,3 +5,5 @@ export copy from 'copy-to-clipboard';
 export TreePane from '../../../source/components/TreePane';
 // ppfish发布的组件
 export * from '../../../source/components';
+// demo 中使用的card
+export Card from '../../../source/components/Card/index.tsx';
