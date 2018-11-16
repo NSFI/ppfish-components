@@ -124,7 +124,7 @@ render() {
   //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的layoutToolbar
   return(
     <div className="browser-mockup">
-      <iframe src="../demo/layoutToolbar.html" height={350}></iframe>
+      <iframe src="./demo/layoutToolbar.html" height={350}></iframe>
     </div>
   )
 }
