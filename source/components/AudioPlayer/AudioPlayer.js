@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Trigger from 'rc-trigger';
 import Slider from '../Slider/index.tsx';
 import Icon from '../Icon/index.tsx';
-import placements from './placements';
+import Popover from '../Popover/index.tsx';
 
 import './style/AudioPlayer.less';
 
@@ -58,10 +57,10 @@ class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPlay: this.props.autoPlay,                     // 是否随即播放
-      isMuted: this.props.muted,                       // 是否静音
-      currentVolume: parseInt(this.props.volume * 10), // 当前音量
-      volumeOpen: false,                               // 是否打开音量控制
+      isPlay: this.props.autoPlay,                      // 是否随即播放
+      isMuted: this.props.muted,                        // 是否静音
+      currentVolume: parseInt(this.props.volume * 100), // 当前音量
+      volumeOpen: false,                                // 是否打开音量控制
       allTime: 0,
       currentTime: 0,
     };
@@ -111,7 +110,7 @@ class AudioPlayer extends React.Component {
         }
         break;
       case 'changeVolume':
-        audio.volume = value / 10;
+        audio.volume = value / 100;
         this.setState({
           currentVolume: value,
           isMuted: !value
@@ -139,10 +138,9 @@ class AudioPlayer extends React.Component {
         <Slider
           vertical
           min={0}
-          max={10}
+          max={100}
           step={1}
           defaultValue={currentVolume}
-          tipFormatter={value => value == 0 ? '0.0' : value / 10}
           onChange={(value) => this.controlAudio('changeVolume', value)}
         />
       </div>
@@ -157,7 +155,7 @@ class AudioPlayer extends React.Component {
   }
 
   render() {
-    const { isPlay, isMuted, allTime, currentTime, volume, volumeOpen } = this.state;
+    const { isPlay, isMuted, allTime, currentTime, currentVolume, volumeOpen } = this.state;
     const {
       prefixCls,
       title,
@@ -173,8 +171,16 @@ class AudioPlayer extends React.Component {
       onAbort,onEnded, onError, onPause, onPlay, onSeeked, ...otherProps } = this.props;
 
     const wrapClass = classNames(`${prefixCls}-wrap`, className);
-    const pausePlayIcon = isPlay ? 'close-tag-line' : 'right-fill';
-    const volumeIcon = isMuted ? 'close-tag-line' : 'richeditor-align-rig';
+    const pausePlayIcon = !isPlay ? 'play' : 'stop';
+    const volumeIcon = () => {
+      if (isMuted || currentVolume === 0) {
+        return 'sound-mute';
+      } else if (currentVolume > 0 && currentVolume <= 50) {
+        return 'sound-medium';
+      } else {
+        return 'sound-loud';
+      }
+    };
 
     return (
       <div className={prefixCls}>
@@ -185,7 +191,7 @@ class AudioPlayer extends React.Component {
               src={src}
               preload={preload}
               loop={loop}
-              volume={volume}
+              volume={currentVolume / 100}
               onCanPlay={() => this.controlAudio('allTime')}
               onTimeUpdate={(e) => this.controlAudio('getCurrentTime')}
               onLoadedMetadata={onLoadedMetadata}
@@ -230,19 +236,17 @@ class AudioPlayer extends React.Component {
           {
             controlVolume ?
               <div className="box volume-box">
-                <Trigger
-                  action={['click']}
-                  prefixCls="change-audio-volume"
-                  builtinPlacements={placements}
-                  popupPlacement="topLeft"
-                  popup={this.getVolumePopupContent()}
-                  popupVisible={volumeOpen}
-                  onPopupVisibleChange={this.onVolumeVisibleChange}
+                <Popover
+                  overlayClassName="change-audio-volume"
+                  trigger="click"
+                  placement="top"
+                  content={this.getVolumePopupContent()}
+                  visible={volumeOpen}
+                  onVisibleChange={this.onVolumeVisibleChange}
                   getPopupContainer={(node)=>node.parentNode}
-                  destroyPopupOnHide
                 >
-                  <Icon className="handle-audio-icon control-volume" type={volumeIcon}/>
-                </Trigger>
+                  <Icon className="handle-audio-icon control-volume" type={volumeIcon()}/>
+                </Popover>
               </div>
               :
               null

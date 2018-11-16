@@ -1,54 +1,101 @@
 @import (reference) "../../../assets/css/index";
 @prefixClass: ~'@{fishd-prefix}-audio-player';
+@sliderPrefixClass: ~"@{fishd-prefix}-slider";
+
+@slider-rail-background-color:        @background-color-base;
+@slider-rail-background-color-hover:  #e1e3e6;
+@slider-track-background-color:       fade(#666, 80%);
+@slider-track-background-color-hover: #666;
+@slider-handle-color:                 fade(#666, 80%);
+@slider-handle-color-hover:           #666;
+@slider-handle-color-focus:           #666;
+@slider-handle-color-focus-shadow:    fade(#666, 30%);
+@slider-handle-color-tooltip-open:    #666;
+@slider-dot-border-color:             @border-color-split;
+@slider-dot-border-color-active:      fade(#666, 80%);
 
 .@{prefixClass} {
   position: relative;
   width: 100%;
   &-wrap {
     display: flex;
-    padding: 2px;
     align-items: center;
     border: @border-width-base @border-style-base @border-color-base;
     border-radius: @border-radius-base;
+    padding: 0 20px;
     .box {
       text-align: center;
-    }
-    //暂停、启动区
-    .pause-play-box {
-      width: 30px;
     }
     //进度区
     .step-box {
       flex: 1;
-      margin: 0 4px;
-    }
-    //时间展示区
-    .time-box {
-      width: 80px;
+      padding: 0 20px;
     }
     //音量调节区
     .volume-box {
-      width: 30px;
+      width: 18px;
+      margin-left: 16px;
     }
     //下载区
     .download-box {
-      width: 30px;
+      margin-left: 16px;
+      a {
+        color: @text-6;
+      }
     }
     .handle-audio-icon {
       cursor: pointer;
+      color: @text-6;
+      &:hover {
+        color: @text-3;
+      }
     }
   }
-  .change-audio-volume-box {
-    width: 30px;
-    height: 80px;
-    background-color: @component-background;
-    box-sizing: border-box;
-    outline: none;
-    z-index: 9;
-    border-radius: @border-radius-base;
-    user-select: none;
-    * {
-      box-sizing: border-box;
+  .change-audio-volume {
+    .change-audio-volume-box {
+      width: 30px;
+      height: 120px;
+    }
+    // Popover样式覆盖
+    .fishd-popover-inner-content {
+      padding: 12px 4px;
+    }
+  }
+  //Slider样式覆盖
+  .@{sliderPrefixClass} {
+    &-track {
+      background-color: @slider-track-background-color;
+    }
+
+    &-handle {
+      border: solid 2px @slider-handle-color;
+
+      &:focus {
+        border-color: @slider-handle-color-focus;
+        box-shadow: none;
+      }
+
+      &.@{fishd-prefix}-tooltip-open {
+        border-color: @slider-handle-color-tooltip-open;
+      }
+    }
+
+    &:hover {
+      .@{sliderPrefixClass}-rail {
+        background-color: @slider-rail-background-color-hover;
+      }
+      .@{sliderPrefixClass}-track {
+        background-color: @slider-track-background-color-hover;
+      }
+      .@{sliderPrefixClass}-handle:not(.@{fishd-prefix}-tooltip-open) {
+        border-color: @slider-handle-color-hover;
+      }
+    }
+    &-dot {
+      border: 2px solid @slider-dot-border-color;
+      &-active {
+        border-color: @slider-dot-border-color-active;
+      }
     }
   }
 }
