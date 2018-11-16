@@ -69,6 +69,7 @@ export interface TreeSelectProps extends AbstractSelectProps {
   treeNodeLabelProp?: string;
   treeNodeResetTitle?: string;
   value?: string | Array<any>;
+  uniqueTreeNodeByLabel?: boolean;
   filterTreeNode?: (inputValue: string, treeNode: any) => boolean | boolean;
   getPopupContainer?: (triggerNode: Element) => HTMLElement;
   loadData?: (node: any) => void;

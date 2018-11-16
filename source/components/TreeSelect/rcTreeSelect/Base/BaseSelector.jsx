@@ -21,6 +21,7 @@ export const selectorPropTypes = {
   valueList: PropTypes.array, // Name as valueList to diff the single value
   allowClear: PropTypes.bool,
   showArrow: PropTypes.bool,
+  uniqueTreeNodeByLabel: PropTypes.bool,
   onClick: PropTypes.func,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,

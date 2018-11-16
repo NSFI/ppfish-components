@@ -103,6 +103,7 @@ class Select extends React.Component {
     treeDefaultExpandedKeys: PropTypes.array,
     loadData: PropTypes.func,
     loading: PropTypes.bool,
+    uniqueTreeNodeByLabel: PropTypes.bool,
     filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 
     notFoundContent: PropTypes.oneOfType([
@@ -151,6 +152,7 @@ class Select extends React.Component {
     treeNodeResetTitle: '不选择任何分类',
     treeIcon: false,
     notFoundContent: '无匹配结果',
+    uniqueTreeNodeByLabel: false,
   };
 
   constructor(props) {

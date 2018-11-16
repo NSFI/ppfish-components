@@ -90,7 +90,7 @@ class MultipleSelector extends React.Component {
       selectorValueList, choiceTransitionName, prefixCls,
       onChoiceAnimationLeave,
       labelInValue, maxTagCount, maxTagPlaceholder,
-      editable
+      editable, uniqueTreeNodeByLabel
     } = this.props;
     const { rcTreeSelect: { onMultipleSelectorRemove } } = this.context;
 
@@ -141,11 +141,15 @@ class MultipleSelector extends React.Component {
     //   </li>
     // );
 
-    // Handle readonly selected items
+    // 处理不可编辑的多选
     if (!editable) {
       let labelList = selectedValueNodes.map((item) => {
         return item.props.label;
       });
+
+      // 相同 label 去重
+      uniqueTreeNodeByLabel && (labelList = [...new Set(labelList)]);
+
       selectedValueNodes = labelList.join('、');
     }
 

@@ -467,10 +467,9 @@
         value: '0-1-0',
         key: '0-1a-0',
       }, {
-        title: 'CNode4',
+        title: 'CNode3',
         value: '0-1-1',
         key: '0-1a-1',
-        disabled: true
       }, {
         title: 'CNode5',
         value: '0-1-2',
@@ -503,9 +502,11 @@
         title: 'CNode12',
         value: '0-1-9',
         key: '0-1a-9',
+        disabled: true
       }],
     }];
     const tProps = {
+      uniqueTreeNodeByLabel: true,
       showSearch: true,
       editable: false,
       treeData,
@@ -514,6 +515,7 @@
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
       treeCheckable: true,
+      showCheckedStrategy: TreeSelect.SHOW_CHILD,
       style: {
         width: 300,
       },
@@ -807,7 +809,8 @@
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
-| value | 受控属性，指定当前选中的条目 | String \| Array<String> | - |
+| uniqueTreeNodeByLabel | 是否对选择框中展示的树节点以 Label 去重， `editable` 为 false 时有效 | Boolean | false |
+| value | 受控属性，指定当前选中的树节点 | String \| Array<String> | - |
 
 ### Tree 方法
 
