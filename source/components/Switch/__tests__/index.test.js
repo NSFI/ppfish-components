@@ -1,5 +1,5 @@
 import Switch from '../index.tsx';
-import focusTest from '../../../tests/focusTest';
+import focusTest from '../../../../tools/tests/focusTest';
 
 describe('Switch', () => {
   focusTest(Switch);

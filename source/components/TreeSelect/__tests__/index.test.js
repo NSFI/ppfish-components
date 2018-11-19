@@ -1,5 +1,5 @@
 import TreeSelect from '../index.tsx';
-import focusTest from '../../../tests/focusTest';
+import focusTest from '../../../../tools/tests/focusTest';
 
 describe('TreeSelect', () => {
   focusTest(TreeSelect);

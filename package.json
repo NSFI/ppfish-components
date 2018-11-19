@@ -35,7 +35,8 @@
   "engines": {
     "node": ">=6.11.5"
   },
-  "module": "source/components/index.js",
+  "types": "source/components/index.js",
+  "module": "es6/components/index.js",
   "main": "dist/ppfish.js",
   "dependencies": {
     "array-tree-filter": "^2.1.0",

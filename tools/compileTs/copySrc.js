@@ -16,7 +16,6 @@ const copy = function (src, dst) {
 					dest = path.join(dst, filename);
 				fs.stat(path.join(src, filename), function (err, stats) {
 					if (err) throw err;
-					//是文件
 					if (stats.isFile()) {
 						//创建读取流
 						let readable = fs.createReadStream(url);

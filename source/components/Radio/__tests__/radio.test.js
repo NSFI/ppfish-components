@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
 import Radio from '../Radio.tsx';
-import focusTest from '../../../tests/focusTest';
+import focusTest from '../../../../tools/tests/focusTest';
 
 describe('Radio', () => {
   focusTest(Radio);
