@@ -1,15 +1,17 @@
 /* eslint-disable no-console */
 const fs = require("fs");
 const path = require("path");
-const filePath = path.resolve(__dirname, '../../es5');
+const esType = process.argv[process.argv.length-1].trim();
+const filePath = path.resolve(__dirname, '..', '..', esType);
 const PER = '0777';
+
 const copy = function (src, dst) {
 	//判断文件需要时间，则必须同步
 	if (fs.existsSync(src)) {
 		fs.readdir(src, function (err, files) {
 			if (err) { console.log(err); return; }
 			files.forEach(function (filename) {
-				//url+"/"+filename不能用/直接连接，Unix系统是”/“，Windows系统是”\“
+				//url+"/"+filename不能用/直接连接，Unix系统是'/'，Windows系统是'\'
 				let url = path.join(src, filename),
 					dest = path.join(dst, filename);
 				fs.stat(path.join(src, filename), function (err, stats) {
@@ -48,5 +50,5 @@ function exists(url, dest, callback) {
 		}
 	});
 }
-exports.copy = copy;
-copy("./es6", filePath);
+
+copy(path.resolve(__dirname, '..', '..', esType === 'es5' ? 'es6' : 'source'), filePath);

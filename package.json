@@ -28,11 +28,9 @@
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
     "publish:site": "tools/release.sh",
-    "es6:cleanFolder": "node tools/transFormEsTools/cleanEs6Folder.js",
-    "es5:cleanFolder": "node tools/transFormEsTools/cleanEs5Folder.js",
-    "es6:copyFileToEs6": "node tools/transFormEsTools/copyFileToEs6.js",
-    "es5:copyFileToEs5": "node tools/transFormEsTools/copyFileToEs5.js",
-    "es:transform": "tools/transform.sh"
+    "es:copySrc": "node tools/compileTs/copySrc.js",
+    "es:compileTs": "tools/compileTs.sh",
+    "es:clean": "node tools/compileTs/clean.js"
   },
   "engines": {
     "node": ">=6.11.5"
@@ -159,11 +157,11 @@
     "react-dom": "^16.1.1",
     "react-hot-loader": "^4.3.2",
     "react-markdown": "^3.3.0",
+    "react-md-translator": "^0.0.17",
     "react-reconciler": "^0.15.0",
     "react-resizable": "^1.7.5",
     "react-router": "^3.2.1",
     "react-test-renderer": "^16.2.0",
-    "react-md-translator": "^0.0.17",
     "report-url": "^1.0.0",
     "rimraf": "2.5.4",
     "style-loader": "^0.22.1",

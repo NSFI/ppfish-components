@@ -4,13 +4,13 @@
     "sourceMap": false,
     "experimentalDecorators": true,
     // "module": "commonjs",
-    "target": "es2016",
+    "target": "ES6",
     "jsx": "react",
     "lib": [
       "es5",
       "dom",
       "dom.iterable",
-      "es2016"
+      "es2015"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

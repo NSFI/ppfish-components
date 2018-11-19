@@ -1,23 +1,28 @@
-
-const fs = require('fs');
-// var pfs = fs.promises;
-const path = require('path');
 /* eslint-disable no-console */
+const fs = require('fs');
+const path = require('path');
+const esType = process.argv[process.argv.length-1].trim();
+let pathSep = '/';
+if (process.platform === "win32") {
+  pathSep = '\\';
+}
+
 function del(p) {
   let arr = fs.readdirSync(p);
   for (let i in arr) {
+    let fullPath = path.join(p, arr[i]);
     //读取文件信息，以便于判断是否是一个文件或目录
-    let stats = fs.statSync(p + '/' + arr[i]);
-    let ext = path.extname(p + '/' + arr[i]);
+    let stats = fs.statSync(fullPath);
+    let ext = path.extname(fullPath);
+    let isInvaildFile = (esType === 'es5' && ext === '.jsx') ||
+                        (esType === 'es6' && (ext === '.tsx' || ext === '.ts'));
 
     if (stats.isFile()) {
-      if (ext === '.jsx') {
-        //判断为真，是文件.tsx则执行删除文件
-        fs.unlinkSync(p + '/' + arr[i]);
+      if (isInvaildFile) {
+        fs.unlinkSync(fullPath);
       }
     } else {
-      //判断为假就是文件夹，就调用自己，递归的入口
-      del(p + '/' + arr[i]);
+      del(fullPath);
     }
   }
 }
@@ -37,12 +42,12 @@ function fileDisplay(filePath) {
         let isDir = stats.isDirectory();//是文件夹
         let ext = path.extname(filedir);
         if (isFile) {
-          if (ext === '.js') {
+          if ((esType === 'es5' && ext === '.js') || (esType === 'es6' && (ext === '.js' || ext === '.jsx'))) {
             fs.readFile(filedir, 'utf-8', function (err, data) {
               if (err) {
                 console.log(err);
               }
-              let newData = data.replace(/.jsx/g, '.js');
+              let newData = data.replace(esType === 'es5' ? /.jsx/g : /.tsx/g, '.js');
               fs.writeFile(filedir, newData, 'utf-8', function (err) {
                 if (err) {
                   console.log(err);
@@ -52,7 +57,7 @@ function fileDisplay(filePath) {
           }
         }
         if (isDir) {
-          let dirArr = filedir.split('/');
+          let dirArr = filedir.split(pathSep);
           if (dirArr[dirArr.length - 1] === '__tests__') {
             delTest(filedir);
           } else {
@@ -63,17 +68,17 @@ function fileDisplay(filePath) {
     }
   });
 }
-function delTest(path) {
-  let files = fs.readdirSync(path);
+function delTest(dirPath) {
+  let files = fs.readdirSync(dirPath);
   files.forEach(function (file) {
-    let curPath = path + "/" + file;
-    if (fs.statSync(curPath).isDirectory()) { // recurse
+    let curPath = path.join(dirPath, file);
+    if (fs.statSync(curPath).isDirectory()) {
       delTest(curPath);
-    } else { // delete file
+    } else {
       fs.unlinkSync(curPath);
     }
   });
-  fs.rmdirSync(path);
+  fs.rmdirSync(dirPath);
 }
-del(path.resolve(__dirname, '../../es5'));
-fileDisplay(path.resolve(__dirname, '../../es5'));
+del(path.resolve(__dirname, '..', '..', esType));
+fileDisplay(path.resolve(__dirname, '..', '..', esType));

@@ -12,6 +12,7 @@ node_modules
 dist
 es6
 es5
+
 #Webstorm metadata
 .idea
 
