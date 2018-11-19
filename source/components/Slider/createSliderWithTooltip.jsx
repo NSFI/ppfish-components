@@ -26,7 +26,7 @@ export default function createSliderWithTooltip(Component) {
           },
         };
       });
-    }
+    };
     handleWithTooltip = ({ value, dragging, index, disabled, ...restProps }) => {
       const {
         tipProps,
@@ -67,7 +67,7 @@ export default function createSliderWithTooltip(Component) {
           />
         </Tooltip>
       );
-    }
+    };
     render() {
       return <Component {...this.props} handle={this.handleWithTooltip} />;
     }

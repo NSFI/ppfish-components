@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addEventListener } from '../../../utils';
+import {addEventListener} from '../../../utils';
 import classNames from 'classnames';
 import warning from 'warning';
 import Steps from './Steps';
 import Marks from './Marks';
 import Handle from '../RcHandle';
 import * as utils from '../utils';
+import Tip from "./Tip";
 
-function noop() {}
+function noop() {
+}
 
 export default function createSlider(Component) {
   return class ComponentEnhancer extends Component {
@@ -51,9 +53,9 @@ export default function createSlider(Component) {
       max: 100,
       step: 1,
       marks: {},
-      handle({ index, ...restProps }) {
+      handle({index, ...restProps}) {
         delete restProps.dragging;
-        return <Handle {...restProps} key={index} />;
+        return <Handle {...restProps} key={index}/>;
       },
       onBeforeChange: noop,
       onChange: noop,
@@ -73,7 +75,7 @@ export default function createSlider(Component) {
       super(props);
 
       if (process.env.NODE_ENV !== 'production') {
-        const { step, max, min } = props;
+        const {step, max, min} = props;
         warning(
           step && Math.floor(step) === step ? (max - min) % step === 0 : true,
           'Slider[max] - Slider[min] (%s) should be a multiple of Slider[step] (%s)',
@@ -82,6 +84,8 @@ export default function createSlider(Component) {
         );
       }
       this.handlesRefs = {};
+      this.tipPercent = 0;
+
     }
 
     componentWillUnmount() {
@@ -95,7 +99,9 @@ export default function createSlider(Component) {
     }
 
     onMouseDown = (e) => {
-      if (e.button !== 0) { return; }
+      if (e.button !== 0) {
+        return;
+      }
 
       const isVertical = this.props.vertical;
       let position = utils.getMousePosition(isVertical, e);
@@ -109,7 +115,7 @@ export default function createSlider(Component) {
       this.removeDocumentEvents();
       this.onStart(position);
       this.addDocumentMouseEvents();
-    }
+    };
 
     onTouchStart = (e) => {
       if (utils.isNotTouchEvent(e)) return;
@@ -126,10 +132,10 @@ export default function createSlider(Component) {
       this.onStart(position);
       this.addDocumentTouchEvents();
       utils.pauseEvent(e);
-    }
+    };
 
     onFocus = (e) => {
-      const { onFocus, vertical } = this.props;
+      const {onFocus, vertical} = this.props;
       if (utils.isEventFromHandle(e, this.handlesRefs)) {
         const handlePosition = utils.getHandleCenterPosition(vertical, e.target);
         this.dragOffset = 0;
@@ -139,10 +145,10 @@ export default function createSlider(Component) {
           onFocus(e);
         }
       }
-    }
+    };
 
     onBlur = (e) => {
-      const { onBlur } = this.props;
+      const {onBlur} = this.props;
       this.onEnd(e);
       if (onBlur) {
         onBlur(e);
@@ -174,7 +180,24 @@ export default function createSlider(Component) {
       if (this.handlesRefs[this.prevMovedHandleIndex]) {
         this.handlesRefs[this.prevMovedHandleIndex].clickFocus();
       }
-    }
+    };
+
+    onMouseMoveTooltip = (e) => {
+      this.tipOffset = utils.getMousePosition(this.props.vertical, e) - this.getSliderStart();
+      this.tipPercent = this.calcValueByPos(utils.getMousePosition(this.props.vertical, e));
+      this.tipVisible = !(this.tipOffset > this.getSliderLength() || this.tipOffset < 0);
+      this.forceUpdate();
+    };
+
+    onMouseLeaveTooltip = () => {
+      this.tipVisible = false;
+      this.forceUpdate();
+    };
+
+    onMouseEnterTooltip = () => {
+      this.tipVisible = true;
+      this.forceUpdate();
+    };
 
     onMouseMove = (e) => {
       if (!this.sliderRef) {
@@ -183,7 +206,7 @@ export default function createSlider(Component) {
       }
       const position = utils.getMousePosition(this.props.vertical, e);
       this.onMove(e, position - this.dragOffset);
-    }
+    };
 
     onTouchMove = (e) => {
       if (utils.isNotTouchEvent(e) || !this.sliderRef) {
@@ -193,13 +216,13 @@ export default function createSlider(Component) {
 
       const position = utils.getTouchPosition(this.props.vertical, e);
       this.onMove(e, position - this.dragOffset);
-    }
+    };
 
     onKeyDown = (e) => {
       if (this.sliderRef && utils.isEventFromHandle(e, this.handlesRefs)) {
         this.onKeyboard(e);
       }
-    }
+    };
 
     focus() {
       if (!this.props.disabled) {
@@ -231,7 +254,7 @@ export default function createSlider(Component) {
     }
 
     calcValue(offset) {
-      const { vertical, min, max } = this.props;
+      const {vertical, min, max} = this.props;
       const ratio = Math.abs(Math.max(offset, 0) / this.getSliderLength());
       const value = vertical ? (1 - ratio) * (max - min) + min : ratio * (max - min) + min;
       return value;
@@ -244,14 +267,14 @@ export default function createSlider(Component) {
     }
 
     calcOffset(value) {
-      const { min, max } = this.props;
+      const {min, max} = this.props;
       const ratio = (value - min) / (max - min);
       return ratio * 100;
     }
 
     saveSlider = (slider) => {
       this.sliderRef = slider;
-    }
+    };
 
     saveHandle(index, handle) {
       this.handlesRefs[index] = handle;
@@ -259,8 +282,8 @@ export default function createSlider(Component) {
 
     onClickMarkLabel = (e, value) => {
       e.stopPropagation();
-      this.onChange({ value });
-    }
+      this.onChange({value});
+    };
 
     render() {
       const {
@@ -280,9 +303,19 @@ export default function createSlider(Component) {
         railStyle,
         dotStyle,
         activeDotStyle,
+        tipMode,
+        tipFormatter
       } = this.props;
-      const { tracks, handles } = super.render();
-
+      const {tracks, handles} = super.render();
+      const showTipComponent = !disabled && tipMode === 'all';
+      let tipComponentListener = {};
+      if (showTipComponent) {
+        tipComponentListener = {
+          onMouseMove: disabled ? noop : this.onMouseMoveTooltip,
+          onMouseLeave: disabled ? noop : this.onMouseLeaveTooltip,
+          onMouseEnter: disabled ? noop : this.onMouseEnterTooltip,
+        };
+      }
       const sliderClassName = classNames(prefixCls, {
         [`${prefixCls}-with-marks`]: Object.keys(marks).length,
         [`${prefixCls}-disabled`]: disabled,
@@ -293,6 +326,7 @@ export default function createSlider(Component) {
         <div
           ref={this.saveSlider}
           className={sliderClassName}
+          {...tipComponentListener}
           onTouchStart={disabled ? noop : this.onTouchStart}
           onMouseDown={disabled ? noop : this.onMouseDown}
           onMouseUp={disabled ? noop : this.onMouseUp}
@@ -301,6 +335,17 @@ export default function createSlider(Component) {
           onBlur={disabled ? noop : this.onBlur}
           style={style}
         >
+          {
+            // 添加滚动条tooltip功能，tipMode="all"
+            showTipComponent &&
+            <Tip
+              prefixCls={prefixCls}
+              title={tipFormatter ? tipFormatter(this.tipPercent) : ''}
+              position={this.tipOffset}
+              visible={this.tipVisible}
+              vertical={this.props.vertical}
+            />
+          }
           <div
             className={`${prefixCls}-rail`}
             style={{

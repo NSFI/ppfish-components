@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { addEventListener } from '../../utils';
+import {addEventListener} from '../../utils';
 
 export default class Handle extends React.Component {
   state = {
     clickFocused: false,
-  }
+  };
 
   componentDidMount() {
     // mouseup won't trigger if mouse moved out of handle,
@@ -21,22 +21,22 @@ export default class Handle extends React.Component {
   }
 
   setClickFocus(focused) {
-    this.setState({ clickFocused: focused });
+    this.setState({clickFocused: focused});
   }
 
   handleMouseUp = () => {
     if (document.activeElement === this.handle) {
       this.setClickFocus(true);
     }
-  }
+  };
 
   handleBlur = () => {
     this.setClickFocus(false);
-  }
+  };
 
   handleKeyDown = () => {
     this.setClickFocus(false);
-  }
+  };
 
   clickFocus() {
     this.setClickFocus(true);
@@ -53,17 +53,16 @@ export default class Handle extends React.Component {
 
   render() {
     const {
-      prefixCls, vertical, offset, style, disabled, min, max, value, tabIndex, ...restProps
+      prefixCls, vertical, offset, style, disabled, min, max, value, tabIndex, handle, ...restProps
     } = this.props;
 
-    const className = classNames(
-      this.props.className,
-      {
-        [`${prefixCls}-handle-click-focused`]: this.state.clickFocused,
-      }
-    );
+    const elClassName = classNames({
+      [this.props.className]: true,
+      [`${prefixCls}-handle-custom`]: !!this.props.handle,
+      [`${prefixCls}-handle-click-focused`]: this.state.clickFocused,
+    });
 
-    const postionStyle = vertical ? { bottom: `${offset}%` } : { left: `${offset}%` };
+    const postionStyle = vertical ? {bottom: `${offset}%`} : {left: `${offset}%`};
     const elStyle = {
       ...style,
       ...postionStyle,
@@ -83,14 +82,16 @@ export default class Handle extends React.Component {
       <div
         ref={node => (this.handle = node)}
         role="slider"
-        tabIndex= {disabled ? null : (tabIndex || 0)}
+        tabIndex={disabled ? null : (tabIndex || 0)}
         {...ariaProps}
         {...restProps}
-        className={className}
+        className={elClassName}
         style={elStyle}
         onBlur={this.handleBlur}
         onKeyDown={this.handleKeyDown}
-      />
+      >
+        {!!handle && handle}
+      </div>
     );
   }
 }
@@ -106,4 +107,5 @@ Handle.propTypes = {
   max: PropTypes.number,
   value: PropTypes.number,
   tabIndex: PropTypes.number,
+  handle: PropTypes.node,
 };

@@ -2,8 +2,8 @@
 
 @prefixClass: ~"@{fishd-prefix}-slider";
 
-@ease-out-quint      : cubic-bezier(0.23, 1, 0.32, 1);
-@ease-in-quint       : cubic-bezier(0.755, 0.05, 0.855, 0.06);
+@ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+@ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
 
 .borderBox() {
   box-sizing: border-box;
@@ -60,7 +60,16 @@
     transition: border-color 0.3s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     touch-action: pan-x;
 
-    &:focus {
+    &-custom {
+      border-radius: initial;
+      border-width: 0;
+      outline: 0;
+      width: initial;
+      height: initial;
+      box-shadow: unset;
+    }
+
+    &:not(&-custom):focus {
       border-color: @slider-handle-color-focus;
       box-shadow: 0 0 0 2px @slider-handle-color-focus-shadow;
       outline: none;

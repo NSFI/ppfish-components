@@ -119,7 +119,7 @@ class Range extends React.Component {
     this.setState({
       handle: null,
     });
-  }
+  };
 
   onMove(e, position) {
     utils.pauseEvent(e);
