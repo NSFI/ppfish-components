@@ -447,6 +447,14 @@ class RichEditor extends Component {
     }
   };
 
+  handleChange = (value, delta, source, editor) => {
+    const { onChange } = this.props;
+
+    if (onChange) {
+      onChange(value, delta, source, editor);
+    }
+  };
+
   render() {
     const { value, showLinkModal, showVideoModal, showImageModal } = this.state;
     const {
@@ -457,6 +465,8 @@ class RichEditor extends Component {
       getPopupContainer,
       customEmoji,
       insertImageTip,
+      onChange,
+      onSelectionChange,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -513,6 +523,7 @@ class RichEditor extends Component {
           getPopupContainer={getPopupContainer}
         />
         <ReactQuill
+          {...restProps}
           ref={el => this.reactQuillRef = el}
           className={'editor-body'}
           modules={{
@@ -522,7 +533,8 @@ class RichEditor extends Component {
             }
           }}
           placeholder={placeholder}
-          {...restProps}
+          onChange={this.handleChange}
+          onSelectionChange={onSelectionChange}
         />
       </div>
     );

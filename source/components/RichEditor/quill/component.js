@@ -27,7 +27,7 @@ let QuillComponent = createClass({
 		bounds: T.oneOfType([T.string, T.element]),
 		scrollingContainer: T.node,
 		onChange: T.func,
-		onChangeSelection: T.func,
+		onSelectionChange: T.func,
 		onFocus: T.func,
 		onBlur: T.func,
 		onKeyPress: T.func,
@@ -120,17 +120,15 @@ let QuillComponent = createClass({
 			this.getEditingArea(),
 			this.getEditorConfig()
 		);
+
 		// Restore editor from Quill's native formats in regeneration scenario
 		if (this.quillDelta) {
 			this.editor.setContents(this.quillDelta);
 			this.editor.setSelection(this.quillSelection);
 			// this.editor.focus();
 			this.quillDelta = this.quillSelection = null;
-			return;
-		}
-		if (this.state.value) {
+		} else if (this.state.value) {
 			this.setEditorContents(this.editor, this.state.value);
-			return;
 		}
 	},
 
@@ -242,7 +240,7 @@ let QuillComponent = createClass({
 		'placeholder',
 		'tabIndex',
 		'onChange',
-		'onChangeSelection',
+		'onSelectionChange',
 		'onFocus',
 		'onBlur',
 		'onKeyPress',
@@ -384,8 +382,8 @@ let QuillComponent = createClass({
 
 		this.setState({ selection: nextSelection });
 
-		if (this.props.onChangeSelection) {
-			this.props.onChangeSelection(nextSelection, source, editor);
+		if (this.props.onSelectionChange) {
+			this.props.onSelectionChange(nextSelection, source, editor);
 		}
 
 		if (hasGainedFocus && this.props.onFocus) {
