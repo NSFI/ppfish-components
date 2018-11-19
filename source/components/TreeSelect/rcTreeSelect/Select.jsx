@@ -153,6 +153,7 @@ class Select extends React.Component {
     treeIcon: false,
     notFoundContent: '无匹配结果',
     uniqueTreeNodeByLabel: false,
+    autoExpandParent: true,
   };
 
   constructor(props) {

@@ -774,6 +774,7 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | autoClearSearchValue | 当树节点被选择时，是否自动清空搜索框 | Boolean | false |
+| autoExpandParent | 是否自动展开父节点 | Boolean | true |
 | className | 容器类名 | String | - |
 | defaultValue | 指定默认选中的条目 | String \| Array<String> | - |
 | disabled | 是否禁用 | Boolean | false |

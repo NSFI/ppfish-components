@@ -30,6 +30,7 @@ class BasePopup extends React.Component {
     loadData: PropTypes.func,
     loading: PropTypes.bool,
     multiple: PropTypes.bool,
+    autoExpandParent: PropTypes.bool,
 
     treeNodes: PropTypes.node,
     filteredTreeNodes: PropTypes.node,
@@ -161,7 +162,8 @@ class BasePopup extends React.Component {
       loading,
       ariaId,
       renderSearch,
-      renderResetItem
+      renderResetItem,
+      autoExpandParent
     } = this.props;
     const { rcTreeSelect: {
       onPopupKeyDown,
@@ -201,6 +203,7 @@ class BasePopup extends React.Component {
     } else {
       $tree = (
         <Tree
+          autoExpandParent={autoExpandParent}
           prefixCls={`${prefixCls}-tree`}
           showIcon={treeIcon}
           showLine={treeLine}
