@@ -104,7 +104,6 @@ export default class Tabs extends React.Component<TabsProps, any> {
     let {
       prefixCls,
       className = '',
-      style,
       size,
       type,
       tabPosition,
@@ -203,10 +202,15 @@ export default class Tabs extends React.Component<TabsProps, any> {
       />
     );
 
+    let {
+      style: ctnerStyle,
+      ...restProps
+    } = this.props;
+
     return (
-      <div className={prefixCls + '-ctner'} style={style}>
+      <div className={prefixCls + '-ctner'} style={ctnerStyle}>
         <RcTabs
-          {...this.props}
+          {...restProps}
           className={cls}
           tabBarPosition={tabPosition}
           renderTabBar={renderTabBar}
