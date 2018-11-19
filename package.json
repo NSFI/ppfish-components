@@ -28,9 +28,11 @@
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
     "publish:site": "tools/release.sh",
-    "es6:cancelTs": "node tools/es6Tools/cancelTs.js",
-    "es6:change": "node tools/es6Tools/change.js",
-    "es:transform": "tools/change.sh"
+    "es6:cleanFolder": "node tools/transFormEsTools/cleanEs6Folder.js",
+    "es5:cleanFolder": "node tools/transFormEsTools/cleanEs5Folder.js",
+    "es6:copyFileToEs6": "node tools/transFormEsTools/copyFileToEs6.js",
+    "es5:copyFileToEs5": "node tools/transFormEsTools/copyFileToEs5.js",
+    "es:transform": "tools/transform.sh"
   },
   "engines": {
     "node": ">=6.11.5"
@@ -102,11 +104,15 @@
     "@types/react-dom": "16.0.7",
     "autoprefixer": "^6.4.0",
     "awesome-typescript-loader": "^5.2.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.4",
     "babel-plugin-dynamic-import-node": "^2.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "chalk": "^1.1.3",
     "codemirror": "^5.38.0",
