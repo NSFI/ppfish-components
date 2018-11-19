@@ -25,6 +25,12 @@ class Demo extends React.Component{
   
   render(){
     return(<div className="code-box-demo" onClick={this.handleClick}>
+      <Icon type="play" />
+      <Icon type="stop" />
+      <Icon type="sound-mute"/>
+      <Icon type="sound-medium" />
+      <Icon type="sound-loud"/>
+      <Icon type="sound-drag" />
       <Icon type="tip" />
       <Icon type="lock-line" />
       <Icon type="more-point" />
