@@ -140,6 +140,8 @@ class AudioPlayer extends React.Component {
           min={0}
           max={100}
           step={1}
+          handle={<div className="change-audio-volume-customer-handle"><Icon type="sound-drag"/></div>}
+          tipFormatter={null}
           defaultValue={currentVolume}
           onChange={(value) => this.controlAudio('changeVolume', value)}
         />
@@ -222,6 +224,7 @@ class AudioPlayer extends React.Component {
               min={0}
               max={allTime}
               value={currentTime}
+              tipMode="all"
               tipFormatter={value => this.millisecondToDate(value)}
               onChange={(value) => this.controlAudio('changeCurrentTime', value)}
             />

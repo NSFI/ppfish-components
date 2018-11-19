@@ -60,7 +60,30 @@
     .fishd-popover-inner-content {
       padding: 12px 4px;
     }
+
+    //Slider样式覆盖
+    .@{sliderPrefixClass} {
+      &-handle {
+        border: none;
+        margin-left: -8px;
+      }
+    }
+    &-customer-handle {
+      width: 20px;
+      height: 12px;
+      background-color: #666;
+      border-radius: 2px;
+      line-height: 10px;
+      text-align: center;
+      border: 1px solid #fff;
+      i {
+        color: #fff;
+        font-size: 12px;
+        transform: scale(0.83);
+      }
+    }
   }
+
   //Slider样式覆盖
   .@{sliderPrefixClass} {
     &-track {
