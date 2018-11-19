@@ -1032,8 +1032,8 @@ class Select extends React.Component {
     const isMultiple = this.isMultiple();
     let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
 
-    // treeCheckStrictly 或搜索模式下，选中节点后上下级不联动
-    if (isMultiple && !treeCheckStrictly && !searchValue) {
+    // 非 treeCheckStrictly 下的多选，在选中节点后有父子层级的联动
+    if (isMultiple && !treeCheckStrictly) {
       let keyList = [];
       rtValueList.forEach(value => {
         if (valueEntities[value] != undefined) {
