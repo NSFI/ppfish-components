@@ -112,7 +112,7 @@ export default class DateRangeBasePicker extends React.Component {
     this.setState({
       pickerVisible: isKeepPannel,
       value,
-      text: value && value.length === 2 ? [this.dateToStr(value[0], this.dateToStr(value[1]))] : '',
+      text: value && value.length === 2 ? [this.dateToStr(value[0]), this.dateToStr(value[1])] : '',
     }, ()=> {
       this.props.onVisibleChange(isKeepPannel)
     });
