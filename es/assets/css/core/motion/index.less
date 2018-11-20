@@ -1,0 +1,15 @@
+@import "../mixin";
+@import "./fade";
+@import "./move";
+@import "./other";
+@import "./slide";
+@import "./swing";
+@import "./zoom";
+
+// For utils/openAnimation
+.fishd-motion-collapse {
+  overflow: hidden;
+  &-active {
+    transition: height 0.15s @ease-in-out, opacity 0.15s @ease-in-out !important;
+  }
+}

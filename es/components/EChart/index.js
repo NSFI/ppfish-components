@@ -1,0 +1,98 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import * as echarts from 'echarts';
+import debounce from 'lodash/debounce';
+import theme from './theme-prophet';
+import './map-china2';
+import 'echarts-wordcloud';
+
+/**
+ * props暴露了如下参数：
+ * @param {String} className  设置 chart 类名
+ * @param {Object} style      设置样式
+ * @param {Object} option     图表参数
+ * @param {Object} events     图表事件
+ */
+export default class EChart extends Component {
+  static propTypes = {
+    option: PropTypes.object,
+    opts: PropTypes.object,
+    events: PropTypes.object,
+    className: PropTypes.string,
+    style: PropTypes.object,
+  };
+
+  componentDidMount() {
+    this.chart = echarts.init(this.node, theme);
+    this.props.option && this.chart.setOption(this.props.option);
+    this.bindEvents();
+    this.bindToWindowResize();
+    this.chart && this.chart.resize();
+  }
+
+  /**http://echarts.baidu.com/api.html#echartsInstance.setOption
+   * chart.setOption(option, {
+   *   notMerge: ...,
+   *   lazyUpdate: ...,
+   *   silent: ...
+   *   });
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.option && nextProps.option != this.props.option) {
+      this.chart.setOption(nextProps.option, nextProps.opts);
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
+  componentWillUnmount() {
+    this.chart.dispose();
+    this.unbindToWindowResize();
+  }
+
+  bindEvents() {
+    let events = this.props.events || {};
+    for (let [event, handler] of Object.entries(events)) {
+      this.chart.on(event, params => {
+        handler && handler(params, this.chart);
+      });
+    }
+  }
+
+  handleWindowResize = debounce(() => {
+    this.chart && this.chart.resize();
+  }, 100);
+
+  bindToWindowResize() {
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  unbindToWindowResize() {
+    window.removeEventListener('resize', this.handleWindowResize);
+  }
+
+  getInstance() {
+    return this.chart;
+  }
+
+  getEcharts() {
+    return echarts;
+  }
+
+  render() {
+    let className = 'fishd-chart';
+    let domProps = {
+      className: this.props.className,
+      style: this.props.style,
+    };
+    if (domProps.className) {
+      className += ' ' + domProps.className;
+    }
+    domProps.className = className;
+    return (
+      <div ref={node => this.node = node} {...domProps} />
+    );
+  }
+}

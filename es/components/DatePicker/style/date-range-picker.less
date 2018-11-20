@@ -1,0 +1,131 @@
+.@{prefixClass} {
+  &-date-range-picker {
+    width: 600px;
+
+    &.has-time {
+      width: 610px;
+    }
+
+    &.has-sidebar {
+      width: 700px;
+    }
+
+    &.has-sidebar.has-time {
+      width: 720px;
+    }
+
+    &.has-time,&.has-sidebar {
+      .@{prefixClass}-picker-panel__body-wrapper {
+        position: relative;
+      }
+    }
+
+    table {
+      table-layout: fixed;
+      width: 100%;
+    }
+
+    .@{prefixClass}-picker-panel__body {
+      min-width: 513px;
+    }
+
+    .@{prefixClass}-picker-panel__content {
+      margin: 0;
+    }
+
+    &__header {
+      margin: 12px;
+      text-align: center;
+      .clearfix;
+      // 样式覆盖
+      .@{prefixClass}-popover-inner-content {
+        padding: 8px 0;
+      }
+      .fishdicon {
+        line-height: 1.5;
+      }
+    }
+
+    &__header-label {
+      font-size: @font-size-base;
+      padding: 0 5px;
+      line-height: 22px;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        color: @primary-5;
+      }
+
+      &.active {
+        color: @primary-color;
+      }
+    }
+
+    &__prev-btn {
+      float: left;
+    }
+
+    &__prev-btn + &__prev-btn {
+      margin-left: 8px;
+    }
+
+    &__next-btn {
+      float: right;
+    }
+
+    &__next-btn + &__next-btn {
+      margin-right: 8px;
+    }
+
+    &__content {
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 16px;
+
+      .is-left {
+        border-right: 1px solid @datepicker-border-color;
+      }
+
+      .is-right {
+        .@{prefixClass}-date-range-picker__header {
+          button {
+            float: right;
+          }
+
+          div {
+            margin-left: 50px;
+            margin-right: 50px;
+          }
+        }
+      }
+    }
+
+    &__editors-wrap {
+      box-sizing: border-box;
+      display: table-cell;
+
+    .is-right {
+      text-align: right;
+    }
+    }
+
+    &__time-header {
+      position: relative;
+      border-bottom: 1px solid @datepicker-border-color;
+      font-size: @font-size-sm;
+      padding: 8px 5px 5px 5px;
+      display: table;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    &__time-picker-wrap {
+      position: relative;
+      display: table-cell;
+      padding: 0 5px;
+    }
+  }
+}

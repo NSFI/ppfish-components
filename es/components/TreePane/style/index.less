@@ -1,0 +1,49 @@
+@import (reference) "../../../assets/css/index";
+
+@borderColor: #f0f1f5;
+@tree-select-prefix: fishd-tree-select;
+.@{tree-select-prefix} {
+  &-container {
+    display: flex;
+    border-top: 1px solid @borderColor;
+    border-right: 1px solid @borderColor;
+    border-bottom: 1px solid @borderColor;
+    max-height: 400px;
+  }
+  &-depth {
+    flex: 1;
+    margin-left: -1px;
+    overflow-y: auto;
+  }
+  &-depth.z-without-scrollbar {
+    border-left: 1px solid @borderColor;
+  }
+  &-item {
+    display: flex;
+    padding: 0 20px;
+    height: 50px;
+    line-height: 50px;
+    border-left: 1px solid @borderColor;
+    border-right: 1px solid @borderColor;
+    cursor: pointer;
+  }
+  &-item.current {
+    background-color: #f7f8fa;
+  }
+  &-depth.z-without-scrollbar .fishd-tree-select-item {
+    border-left: none;
+    border-right: none;
+  }
+  &-text {
+    margin-left: 8px;
+    flex: 1;
+    .ellipsis();
+  }
+  &-more {
+    .arrow-right {
+      vertical-align: middle;
+      font-size: 8px;
+      color: #999;
+    }
+  }
+}

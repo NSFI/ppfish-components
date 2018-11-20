@@ -1,0 +1,30 @@
+@import (reference) "../../../assets/css/index";
+
+@prefixClass: ~'@{fishd-prefix}-color-picker';
+
+@import "index/Layout";
+@import "index/Trigger";
+@import "index/Panel";
+@import "index/Preview";
+@import "index/Board";
+@import "index/Ribbon";
+@import "index/Alpha";
+@import "index/Params";
+@import "index/History";
+
+.@{prefixClass} {
+  &-wrap {
+    display: inline-block;
+  }
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  z-index: @zindex-popover;
+  .effect() {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    transform-origin: 0 0;
+    /* stylelint-disable-next-line */
+    display: block !important;
+  }
+}

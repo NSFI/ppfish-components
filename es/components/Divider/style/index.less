@@ -1,0 +1,137 @@
+@import (reference) "../../../assets/css/index";
+
+@divider-prefix-cls: ~"@{fishd-prefix}-divider";
+
+.@{divider-prefix-cls} {
+  .reset-component;
+  background: @border-color-split;
+
+  &,
+  &-split {
+    margin: 0 8px;
+    display: inline-block;
+    height: 0.9em;
+    width: 1px;
+    vertical-align: middle;
+    position: relative;
+    top: -0.06em;
+  }
+  &-vertical {
+    margin: 0 16px;
+    height: 100%;
+    background: transparent;
+    border-right: 1px solid @border-color-split;
+    .@{divider-prefix-cls}-inner-text {
+      width: 1em;
+      padding: 10px 0;
+      word-break: break-all;
+      position: absolute;
+      margin-left: -0.5em;
+      text-align: center;
+      background: #fff;
+      top: 50%;
+      transform: translateY(-50%);
+      line-height: 1em;
+      font-weight: 500;
+      color: @heading-color;
+      font-size: @font-size-lg;
+    }
+    &-child {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+  &-vertical&-dashed {
+    border-right: 1px dashed @border-color-split;
+  }
+  &-vertical&-with-text-top {
+    .@{divider-prefix-cls}-inner-text {
+      top: 25%;
+    }
+  }
+  &-vertical&-with-text-bottom {
+    .@{divider-prefix-cls}-inner-text {
+      top: 75%;
+    }
+  }
+
+  &-horizontal {
+    display: block;
+    height: 1px;
+    width: 100%;
+    margin: 24px 0;
+    clear: both;
+  }
+
+  &-horizontal&-with-text,
+  &-horizontal&-with-text-left,
+  &-horizontal&-with-text-right {
+    display: table;
+    white-space: nowrap;
+    text-align: center;
+    background: transparent;
+    font-weight: 500;
+    color: @heading-color;
+    font-size: @font-size-lg;
+    margin: 16px 0;
+    &:before,
+    &:after {
+      content: '';
+      display: table-cell;
+      position: relative;
+      top: 50%;
+      width: 50%;
+      border-top: 1px solid @border-color-split;
+      transform: translateY(50%);
+    }
+  }
+
+  &-horizontal&-with-text-left,
+  &-horizontal&-with-text-right {
+    .@{divider-prefix-cls}-inner-text {
+      display: inline-block;
+      padding: 0 10px;
+    }
+  }
+
+  &-horizontal&-with-text-left {
+    &:before {
+      top: 50%;
+      width: 5%;
+    }
+    &:after {
+      top: 50%;
+      width: 95%;
+    }
+  }
+
+  &-horizontal&-with-text-right {
+    &:before {
+      top: 50%;
+      width: 95%;
+    }
+    &:after {
+      top: 50%;
+      width: 5%;
+    }
+  }
+
+  &-inner-text {
+    display: inline-block;
+    padding: 0 24px;
+  }
+
+  &-dashed {
+    background: none;
+    border-top: 1px dashed @border-color-split;
+  }
+  &-horizontal&-with-text&-dashed,
+  &-horizontal&-with-text-left&-dashed,
+  &-horizontal&-with-text-right&-dashed {
+    border-top: 0;
+    &:before,
+    &:after {
+      border-style: dashed none none;
+    }
+  }
+}

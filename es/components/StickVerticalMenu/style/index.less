@@ -1,0 +1,12 @@
+@import (reference) "../../../assets/css/index";
+
+@stick-v-menu-prefix-cls: ~"@{fishd-prefix}-stick-v-menu";
+@active-bg-color: #f7f7f7;
+.@{stick-v-menu-prefix-cls} {
+  &-item {
+    color: @primary-color;
+  }
+  &-item.z-active {
+    background-color: @active-bg-color;
+  }
+}

@@ -1,0 +1,48 @@
+@import (reference) "../../../assets/css/index";
+
+@day-time-select: day-time-select;
+
+.@{day-time-select} {
+  margin: 20px;
+  ul {
+    height: 22px;
+    width: auto;
+    display: inline-block;
+    border: @border-color-base;
+    border-radius: @border-radius-base;
+    box-sizing: border-box;
+  }
+  li {
+    height: 100%;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    span {
+      position: absolute;
+      top: 20px;
+      font-size: 10px;
+      display: block;
+      width: 32px;
+      left: -10px;
+    }
+  }
+  //li:last-child {
+  //  height: 0;
+  //  width: 0;
+  //}
+  li:not(:last-child):after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 7px;
+    width: 1px;
+    background-color: @normal-color;
+  }
+  .checked {
+    background-color: @success-color;
+  }
+  .disabled {
+    cursor: not-allowed;
+  }
+}
