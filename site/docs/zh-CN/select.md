@@ -194,7 +194,7 @@
 
 ## 分组
 
-:::demo 可以使用`Select.OptGroup`进行分组，提供了`utils.listConvertToGroup`首字母分组方法
+:::demo 可以使用`Select.OptGroup`进行分组
 ```js
   state = {
     value: "1"
@@ -207,18 +207,16 @@
 
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '张三-选项1'}, {key: "2", label: '李四-选项2'}, {
-      key: "3",
-      label: '默认-选项3'
-    }, {key: "4", label: '默认-选项4'}]);
     return (
       <div className="demo-select">
         <Select style={{width: 300}} showSingleClear onChange={this.handleChange} value={this.state.value}>
-          {Group.map(group =>
-            <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
-            </Select.OptGroup>
-          )}
+          <Select.OptGroup label="Manager">
+            <Select.Option value="fish">Fish</Select.Option>
+            <Select.Option value="alen">Alen</Select.Option>
+          </Select.OptGroup>
+          <Select.OptGroup label="Engineer">
+            <Select.Option value="ccc">ccc</Select.Option>
+          </Select.OptGroup>
         </Select>
       </div>
     );
@@ -232,7 +230,7 @@
 :::demo `labelInValue`会返回`key`、`label`值，建议远程搜索采用此方案。
 ```js
   state = {
-    value: {key: "1",label:"选项1"}
+    value: {key: "fish",label:"Fish"}
   };
 
   handleChange = (value) => {
@@ -241,10 +239,6 @@
   };
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
-      key: "3",
-      label: '选项3'
-    }, {key: "4", label: '选项4'}]);
     return (
         <div className="demo-select">
           <div className="demo-select-label">
@@ -259,12 +253,13 @@
           </div>
           <Select style={{width: 300}} showSingleClear labelInValue onChange={this.handleChange}
                   value={this.state.value}>
-            {Group.map(group =>
-              <Select.OptGroup label={group.label} key={group.key}>
-                {group.list && group.list.map(item => <Select.Option title={item.label}
-                                                                     key={item.key}>{item.label}</Select.Option>)}
-              </Select.OptGroup>
-            )}
+          <Select.OptGroup label="Manager">
+            <Select.Option value="fish">Fish</Select.Option>
+            <Select.Option value="alen">Alen</Select.Option>
+          </Select.OptGroup>
+          <Select.OptGroup label="Engineer">
+            <Select.Option value="ccc">ccc</Select.Option>
+          </Select.OptGroup>
           </Select>
         </div>
     );
@@ -346,7 +341,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 :::demo  `labelClear`参数可以使label在可删除状态
 ```js
   state = {
-    value: ["1", "2", "3", "6", '失效的id']
+    value: ["fish", "ccc"]
   };
 
   handleChange = (value) => {
@@ -355,28 +350,28 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
   };
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "6", label: "选项6"}, {
-      key: "1",
-      label: '选项1'
-    }, {key: "2", label: '选项2'}, {key: "3", label: '选项3'}, {key: "4", label: '选项4'}, {key: "5", label: '选项5'}]);
     return (
       <div className="demo-select">
         <Select style={{width: 300}} disabled={false} onChange={this.handleChange} value={this.state.value}
                 showSelectAll={true} mode={'multiple'}>
-          {Group.map(group =>
-            <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
-            </Select.OptGroup>
-          )}
+          <Select.OptGroup label="Manager">
+            <Select.Option value="fish">Fish</Select.Option>
+            <Select.Option value="alen">Alen</Select.Option>
+          </Select.OptGroup>
+          <Select.OptGroup label="Engineer">
+            <Select.Option value="ccc">ccc</Select.Option>
+          </Select.OptGroup>
         </Select>
         <br/>
         <Select style={{width: 300}} disabled={false} labelClear onChange={this.handleChange} value={this.state.value}
                 showSelectAll={true} mode={'multiple'}>
-          {Group.map(group =>
-            <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option title={item.label} key={item.key}>{item.label}</Select.Option>)}
-            </Select.OptGroup>
-          )}
+          <Select.OptGroup label="Manager">
+            <Select.Option value="fish">Fish</Select.Option>
+            <Select.Option value="alen">Alen</Select.Option>
+          </Select.OptGroup>
+          <Select.OptGroup label="Engineer">
+            <Select.Option value="ccc">ccc</Select.Option>
+          </Select.OptGroup>
         </Select>
 
       </div>
@@ -413,30 +408,19 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
-      key: "3",
-      label: '选项3'
-    }, {key: "4", label: '选项4'}]);
+    const list = [{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {key: "3",label: '选项3'}, {key: "4", label: '选项4'}];
     return (
       <div className="demo-select">
         <Select style={{width: 300}} showSingleClear showSearch
                 filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 onChange={this.handleChange} value={this.state.value}>
-          {Group.map(group =>
-            <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
-            </Select.OptGroup>
-          )}
+              {list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
         </Select>
         <br/>
         <Select style={{width: 300}} mode={'multiple'} showSearch showSelectAll
                 filterOption={(input, option) => option.props.children.toString().toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 onChange={this.handleChangeMultiple} value={this.state.mValue}>
-          {Group.map(group =>
-            <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
-            </Select.OptGroup>
-          )}
+              {list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
         </Select>
       </div>
     );
@@ -496,10 +480,7 @@ render(){
 
 
   render() {
-    const Group = this.props.utils.listConvertToGroup([{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {
-      key: "3",
-      label: '选项3'
-    }, {key: "4", label: '选项4'}]);
+    const list = [{key: "1", label: '选项1'}, {key: "2", label: '选项2'}, {key: "3",label: '选项3'}, {key: "4", label: '选项4'}];
     return (
       <div className="demo-select">
         <Input style={{marginBottom: 20, width: 200}} placeholder="输入宽度" value={this.state.width}
@@ -517,11 +498,7 @@ render(){
         <Select style={{width: 300}} placement={this.state.align} onChange={(value) => this.setState({value})}
                 value={this.state.value} dropdownMatchSelectWidth={false}
                 dropdownStyle={{width: Number(this.state.width)}}>
-          {Group.map(group =>
-            <Select.OptGroup label={group.label} key={group.key}>
-              {group.list && group.list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
-            </Select.OptGroup>
-          )}
+              {list.map(item => <Select.Option key={item.key}>{item.label}</Select.Option>)}
         </Select>
       </div>
     );
@@ -659,7 +636,7 @@ render(){
 
 ```html
 <Select>
-  <Select.Option value="lucy">lucy</Select.Option>
+  <Select.Option value="alen">alen</Select.Option>
 </Select>
 ```
 
