@@ -1,5 +1,6 @@
 'use strict';
 
+/* eslint-disable react/prefer-es6-class */
 let React = require('react');
 let ReactDOM = require('react-dom');
 let createClass = require('create-react-class');
