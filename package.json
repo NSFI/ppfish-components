@@ -28,9 +28,7 @@
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
     "publish:site": "tools/release.sh",
-    "es:copySrc": "node tools/compileTs/copySrc.js",
-    "es:compileTs": "tools/compileTs.sh",
-    "es:clean": "node tools/compileTs/clean.js"
+    "compile": "tools/compile.sh"
   },
   "engines": {
     "node": ">=6.11.5"

@@ -37,7 +37,7 @@ export default function createSliderWithTooltip(Component) {
         prefixCls = 'rc-slider-tooltip',
         placement = 'top',
         visible = visible || false,
-        ...restTooltipProps,
+        ...restTooltipProps
       } = tipProps;
 
       let handleStyleWithIndex;

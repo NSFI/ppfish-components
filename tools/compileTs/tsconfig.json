@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    // "outDir": "./dist/",
     "sourceMap": false,
     "experimentalDecorators": true,
-    // "module": "commonjs",
     "target": "ES6",
     "jsx": "react",
     "lib": [
       "es5",
       "dom",
       "dom.iterable",
-      "es2015"
+      "es2016"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
