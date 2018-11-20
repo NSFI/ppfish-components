@@ -1,8 +1,8 @@
 /__mocks__
 /coverage
 /dist/site
-/libs
 /site
+/source
 /tools
 .babelrc
 .editorconfig

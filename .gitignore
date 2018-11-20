@@ -10,8 +10,6 @@ node_modules
 
 #dist folder
 dist
-es6
-es5
 
 #Webstorm metadata
 .idea

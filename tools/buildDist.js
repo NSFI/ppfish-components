@@ -5,13 +5,13 @@ process.env.NODE_ENV = 'production'; // this assures React is built in prod mode
 
 const webpack = require('webpack');
 const ora = require('ora');
-const config = require('../webpack.config.prod.components');
+const config = require('../webpack.config.prod.dist');
 const {chalkError, chalkSuccess, chalkWarning, chalkProcessing} = require('./chalkConfig');
 const copyComponentsStyle = require('./copyComponentsStyle');
 
-console.log(chalkProcessing('Components: Generating minified bundle for production via Webpack. This will take a moment...'));
+console.log(chalkProcessing('dist: Generating minified bundle for production via Webpack. This will take a moment...'));
 
-const spinner = ora('building components for production...');
+const spinner = ora('building dist for production...');
 spinner.start();
 
 webpack(config).run((error, stats) => {
@@ -33,7 +33,7 @@ webpack(config).run((error, stats) => {
     console.log(chalkWarning('Webpack generated the following warnings: '));
     jsonStats.warnings.map(warning => console.log(chalkWarning(warning)));
   }
-  spinner.start('Components: Copying style files...');
+  spinner.start('dist: Copying style files...');
   try{
     copyComponentsStyle();
   }catch(e){

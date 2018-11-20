@@ -7,14 +7,15 @@
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message remove-dist",
     "start": "npm-run-all --parallel test:watch open:site lint:watch",
-    "build": "npm-run-all --parallel build:site build:components",
+    "build": "npm-run-all --parallel build:site build:dist build:es",
+    "build:dist": "babel-node tools/buildDist.js",
+    "build:es": "tools/buildES.sh",
     "stylelint": "stylelint \"source/**/*.less\"",
     "lint": "esw webpack.config.* source tools",
     "lint:watch": "npm run lint -- --watch",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "rimraf ./dist",
     "prebuild": "npm run clean-dist",
-    "build:components": "babel-node tools/buildComponents.js",
     "test": "cross-env BABEL_ENV=test jest",
     "test:update": "jest --updateSnapshot",
     "test:CI": "babel-node tools/testCi.js",
@@ -27,15 +28,12 @@
     "open:site": "babel-node --max-old-space-size=4096 tools/openSite.js",
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
-    "publish:site": "tools/release.sh",
-    "es:copySrc": "node tools/compileTs/copySrc.js",
-    "es:compileTs": "tools/compileTs.sh",
-    "es:clean": "node tools/compileTs/clean.js"
+    "publish:site": "tools/release.sh"
   },
   "engines": {
     "node": ">=6.11.5"
   },
-  "module": "source/components/index.js",
+  "module": "es/components/index.js",
   "main": "dist/ppfish.js",
   "dependencies": {
     "array-tree-filter": "^2.1.0",
@@ -72,11 +70,10 @@
   },
   "peerDependencies": {
     "prop-types": "> 15.5.10",
-    "react": ">= 16.1.1",
-    "react-dom": ">= 16.1.1"
+    "react": ">= 16.3.0",
+    "react-dom": ">= 16.3.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",

@@ -13,12 +13,6 @@ const externals = {
     commonjs2: 'react-dom',
     commonjs: 'react-dom',
     amd: 'react-dom',
-  },
-  'react-dom/server': {
-    root: ['ReactDOM', 'server'],
-    commonjs2: 'react-dom/server',
-    commonjs: 'react-dom/server',
-    amd: 'react-dom/server',
   }
 };
 const lessStyle = new ExtractTextPlugin({
@@ -33,7 +27,7 @@ module.exports = {
     minimize: true,
     minimizer: [
       new UglifyJsPlugin({
-        sourceMap: false,
+        sourceMap: true,
         uglifyOptions: {
           compress: {
             warnings: false
@@ -56,7 +50,7 @@ module.exports = {
   output: {
     library: 'ppfish',
     libraryTarget: 'umd',
-    path: `${__dirname}/dist`,
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
     chunkFilename: '[id].js',
   },
