@@ -13,7 +13,7 @@ jest.config.js
 postcss.config.js
 tsconfig.json
 webpack.config.dev.site.js
-webpack.config.prod.components.js
+webpack.config.prod.dist.js
 webpack.config.prod.site.js
 
 .DS_Store
