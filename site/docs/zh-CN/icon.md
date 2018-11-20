@@ -6,9 +6,11 @@
 
 显示矢量图标的地方。
 
-## 基本
+## 图表列表
 
-:::demo 最基础的使用方式。
+> 点击图标即可复制代码。
+  
+:::display 最基础的使用方式。
 ```js
 
 class Demo extends React.Component{
