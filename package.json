@@ -28,7 +28,8 @@
     "open:site": "babel-node --max-old-space-size=4096 tools/openSite.js",
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
-    "publish:site": "tools/release.sh"
+    "publish:site": "tools/release.sh",
+    "compile": "tools/compile.sh"
   },
   "engines": {
     "node": ">=6.11.5"

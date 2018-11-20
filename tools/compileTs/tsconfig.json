@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    // "outDir": "./dist/",
     "sourceMap": false,
     "experimentalDecorators": true,
     // "module": "none",
@@ -10,11 +9,11 @@
       "es5",
       "dom",
       "dom.iterable",
-      "es2015"
+      "es2016"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": "../../es6/",
+    "baseUrl": "../../es/",
     "moduleResolution": "node",
     "typeRoots": [
       "../../es/typings",
