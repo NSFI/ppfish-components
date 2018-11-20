@@ -61,7 +61,10 @@ v1.3.2
 $ npm version 1.3.2-alpha.1
 
 # 打包dist（可选，提供umd规范的包）
-$ npm run build:components
+$ npm run build:dist
+
+# 编译 es 和 lib
+$ npm run build:es
 
 # 在本地测试打包，检查打包后的文件是否完整，测试该包
 $ npm pack
