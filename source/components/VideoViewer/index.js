@@ -1,1 +1,1 @@
-export {default} from './VideoViewer';
+export default from './VideoViewer';
