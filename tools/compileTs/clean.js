@@ -14,8 +14,8 @@ function del(p) {
     //读取文件信息，以便于判断是否是一个文件或目录
     let stats = fs.statSync(fullPath);
     let ext = path.extname(fullPath);
-    let isInvaildFile = (esType === 'es5' && ext === '.jsx') ||
-                        (esType === 'es6' && (ext === '.tsx' || ext === '.ts'));
+    let isInvaildFile = (esType === 'lib' && ext === '.jsx') ||
+                        (esType === 'es' && (ext === '.tsx' || ext === '.ts'));
 
     if (stats.isFile()) {
       if (isInvaildFile) {
@@ -42,12 +42,12 @@ function fileDisplay(filePath) {
         let isDir = stats.isDirectory();//是文件夹
         let ext = path.extname(filedir);
         if (isFile) {
-          if ((esType === 'es5' && ext === '.js') || (esType === 'es6' && (ext === '.js' || ext === '.jsx'))) {
+          if ((esType === 'lib' && ext === '.js') || (esType === 'es' && (ext === '.js' || ext === '.jsx'))) {
             fs.readFile(filedir, 'utf-8', function (err, data) {
               if (err) {
                 console.log(err);
               }
-              let newData = data.replace(esType === 'es5' ? /.jsx/g : /.tsx/g, '.js');
+              let newData = data.replace(esType === 'lib' ? /.jsx/g : /.tsx/g, '.js');
               fs.writeFile(filedir, newData, 'utf-8', function (err) {
                 if (err) {
                   console.log(err);

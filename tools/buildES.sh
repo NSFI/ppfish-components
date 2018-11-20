@@ -1,17 +1,17 @@
 #!/bin/bash
 
-rm -rf es6
-mkdir es6
-rm -rf es5
-mkdir es5
+rm -rf es
+mkdir es
+rm -rf lib
+mkdir lib
 
 # 将 typescript 编译为 es6
 cd tools/compileTs/
-node copy.js es6
+node copy.js es
 tsc --strict
-node clean.js es6
+node clean.js es
 
-# 将 es6 编译为 es5
-node copy.js es5
+# 将 es6 编译为 CommonJS 代码
+node copy.js lib
 cd ../../
-babel ./es6/ --out-dir ./es5/
+babel ./es/ --out-dir ./lib/
