@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import ContainerRender from 'rc-util/lib/ContainerRender';
-import getScrollBarSize from 'rc-util/lib/getScrollBarSize';
+import { ContainerRender, getScrollBarSize } from '../../../utils';
 import {
   dataToArray,
   transitionEnd,
