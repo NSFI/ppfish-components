@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.4.4-alpha.3",
+  "version": "1.5.0-alpha.1",
   "description": "qiyu and prophet ui components",
   "scripts": {
     "precommit": "lint-staged",
