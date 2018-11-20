@@ -155,6 +155,7 @@ export const components = {
           key: 'audioPlayer',
           type: 'markdown',
           name: 'AudioPlayer 音频播放器',
+          published: true,
         },
         {
           key: 'videoViewer',
@@ -325,11 +326,6 @@ export const components = {
           },
           published: true,
         },
-//  {
-//   key:'treePane',
-//   type: 'markdown',
-//   name: 'TreePane 树形组件 Alpha',
-// },
         {
           key: 'upload',
           type: 'markdown',
@@ -362,11 +358,6 @@ export const components = {
         //   key: 'calendar',
         //   type: 'markdown',
         //   name: 'Calendar 日历',
-        // },
-        // {
-        //   key: 'card',
-        //   type: 'markdown',
-        //   name: 'Card 卡片',
         // },
         {
           key: 'carousel',
@@ -457,11 +448,6 @@ export const components = {
           name: 'Alert 警告提示',
           published: true,
         },
-        // {
-        //   key: 'skeleton',
-        //   type: 'markdown',
-        //   name: 'Skeleton 加载占位图',
-        // },
         {
           key: 'message',
           type: 'markdown',
