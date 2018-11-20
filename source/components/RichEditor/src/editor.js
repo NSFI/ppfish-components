@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import Modal from '../../Modal/index.tsx';
 import Input from '../../Input/index.tsx';
 import Button from '../../Button/index.tsx';
-import message from '../../Message/index.tsx';
+import message from '../../message/index.tsx';
 import CustomToolbar from './toolbar.js';
 import CustomSizeBlot from './formats/size.js';
 import EmojiBlot from './formats/emoji.js';

@@ -29,7 +29,7 @@ export {default as List} from './List/index.tsx';
 export {default as Input} from './Input/index.tsx';
 export {default as InputNumber} from './InputNumber/index.tsx';
 export {default as Menu} from './Menu/index.tsx';
-export {default as message} from './Message/index.tsx';
+export {default as message} from './message/index.tsx';
 export {default as Modal} from './Modal/index.tsx';
 export {default as notification} from './Notification/index.tsx';
 export {default as Pagination} from './Pagination/index.tsx';
