@@ -28,13 +28,12 @@
     "open:site": "babel-node --max-old-space-size=4096 tools/openSite.js",
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
     "prepublish:site": "tools/prepare.sh",
-    "publish:site": "tools/release.sh",
-    "compile": "tools/compile.sh"
+    "publish:site": "tools/release.sh"
   },
   "engines": {
     "node": ">=6.11.5"
   },
-  "module": "es/components/index.js",
+  "module": "es6/components/index.js",
   "main": "dist/ppfish.js",
   "dependencies": {
     "array-tree-filter": "^2.1.0",
@@ -75,6 +74,7 @@
     "react-dom": ">= 16.3.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",

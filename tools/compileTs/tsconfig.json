@@ -13,14 +13,14 @@
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": "../../es/",
+    "baseUrl": "../../es6/",
     "moduleResolution": "node",
     "typeRoots": [
-      "../../es/typings",
+      "../../source/typings",
       "../../node_modules/@types"
     ]
   },
   "include": [
-    "../../es/**/*"
+    "../../es6/**/*"
   ]
 }

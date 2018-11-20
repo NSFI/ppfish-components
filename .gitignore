@@ -10,7 +10,8 @@ node_modules
 
 #dist folder
 dist
-es
+es5
+es6
 lib
 
 #Webstorm metadata
