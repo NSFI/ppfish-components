@@ -44,7 +44,7 @@ PR 标题规则：[ bug fix / breaking change / new feature ] 组件名字（英
 - 通过`npm run lint`
 - 提供测试用例，并通过`npm run test`
 - 组件classname使用统一的ppfish class前缀及模块classname命名空间
-- 依赖模块统一，不允许同时引入模块A及其子模块"lodash": "4.0.8","lodash.debounce": "4.0.8"
+- 为了支持按需加载，需要确保`source/components/{组件名}/index.js`可以读取到组件。
 
 ## changelog
 
