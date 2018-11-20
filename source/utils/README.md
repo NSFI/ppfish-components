@@ -1,5 +1,7 @@
 ## Introduction
 
+fish-design内部工具库，不对外暴露
+
 ### bom
 新增
 
@@ -14,33 +16,3 @@
 
 ### upload
 新增
-
-## 建议export配置
-```js
-import * as bom from '../utils/bom';
-
-import * as dom from '../utils/dom';
-
-import * as number from '../utils/number';
-
-import * as other from '../utils/other';
-
-import * as upload from '../utils/upload';
-
-import {iframeC} from './src/utils/iframeC';
-
-const util = {
-  bom, dom, number, other, upload, iframeC
-}
-
-export {util};
-```
-## Usage
-
-```js
-import {util} from 'ppfish';
-
-util.dom.getSiblings(e);
-util.iframeC.openNumberInput();
-
-```

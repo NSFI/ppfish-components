@@ -4,11 +4,9 @@
 // util.dom.getSiblings(e);
 import * as bom from './bom';
 import * as dom from './dom';
-import * as number from './number';
 import * as other from './other';
 import * as upload from './upload';
-import { iframeC } from './iframeC';
 
 export default {
-  bom, dom, number, other, upload, iframeC
+  bom, dom, other, upload
 };

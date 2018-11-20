@@ -1,5 +1,3 @@
-import pinyin from 'pinyin';
-
 /**
  * 以浅拷贝的方式判断两个对象是否相等
  * @param objA
@@ -63,34 +61,6 @@ export const decodeHTML = (htmlFragment) => {
   let output = temp.innerText || temp.textContent;
   temp = null;
   return output;
-};
-
-
-export const listConvertToGroup = (list) => {
-  let groupitem = {};
-  let group = [];
-  if (!list || list.length <= 0) {
-    return [];
-  }
-  list.forEach((item) => {
-    let fletter = (pinyin(item.label, {
-      style: pinyin.STYLE_NORMAL
-    }) || []).join("").toUpperCase()[0];
-    fletter = (fletter && fletter >= 'A' && fletter <= 'Z') ? fletter : '#';
-    groupitem[fletter] = groupitem[fletter] || [];
-    groupitem[fletter].push(item);
-  });
-  Object.keys(groupitem).forEach(i => {
-    group.push({
-      label: i,
-      list: groupitem[i],
-      key: i
-    });
-  });
-  group.sort(function (a, b) {
-    return a.label > b.label ? 1 : -1;
-  });
-  return group;
 };
 
 export function createChainedFunction() {
