@@ -216,7 +216,7 @@
 | allowClear | 支持清除, 单选模式有效 | Boolean | false |
 | autoFocus | 自动获取焦点 | Boolean | false |
 | backfill | 使用键盘选择选项的时候把选中项回填到输入框中 | Boolean | false |
-| children (数据源) | 自动完成的数据源 | ReactNode< [OptionProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L63) > \|<br> Array< ReactNode< [OptionProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L63) > > \|<br> ReactNode< [OptGroupProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L70) > \|<br> Array< ReactNode< [OptGroupProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L70) > > | - |
+| children (数据源) | 自动完成的数据源。<br>AutoComplete.Option：选择项<br>AutoComplete.OptGroup：选择组 | ReactNode< [OptionProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L63) > \|<br> Array< ReactNode< [OptionProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L63) > > \|<br> ReactNode< [OptGroupProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L70) > \|<br> Array< ReactNode< [OptGroupProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/Select.tsx#L70) > > | - |
 | children (自定义输入框) | 自定义输入框 | HTMLInputElement \|<br> HTMLTextAreaElement \|<br> ReactNode< InputProps > | `<Input />` |
 | className | 容器类名 | String | - |
 | dataSource | 自动完成的数据源 | Array< [DataSourceItemType](https://github.com/NSFI/ppfish-components/blob/master/source/components/AutoComplete/index.tsx#L10) >| - |
