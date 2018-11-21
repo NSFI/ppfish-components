@@ -198,7 +198,7 @@
           placeholder="input here"
           optionLabelProp="text"
         >
-          <Input.Search enterButton />
+          <Input.Search enterButton maxLength={20} />
         </AutoComplete>
       </div>
     );
