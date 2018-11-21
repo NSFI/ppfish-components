@@ -126,9 +126,9 @@
 :::
 
 
-## 查询模式 - 不确定类目
+## 查询模式
 
-:::demo 查询模式 - 不确定类目。
+:::demo 查询模式。
 
 ```js
 
@@ -191,7 +191,6 @@
       <div className="global-search-wrapper" style={{ width: 300 }}>
         <AutoComplete
           className="global-search"
-          size="large"
           style={{ width: '100%' }}
           dataSource={dataSource.map(this.renderOption)}
           onSelect={this.onSelect}
@@ -199,175 +198,9 @@
           placeholder="input here"
           optionLabelProp="text"
         >
-          <Input suffix={<Icon type="search-line" />} />
+          <Input.Search enterButton />
         </AutoComplete>
       </div>
-    );
-  }
-```
-:::
-
-
-## 查询模式 - 确定类目
-
-:::demo 查询模式 - 确定类目。
-
-```js
-
-  constructor() {
-    super();
-    const Option = AutoComplete.Option;
-    const OptGroup = AutoComplete.OptGroup;
-    const dataSource = [{
-      title: '话题类',
-      children: [{
-        title: '话题1',
-        count: 7000,
-      }, {
-        title: '话题2',
-        count: 6000,
-      }],
-    }, {
-      title: '问题类',
-      children: [{
-        title: '问题1',
-        count: 1000,
-      }, {
-        title: '问题2',
-        count: 3000,
-      }],
-    }, {
-      title: '文章类',
-      children: [{
-        title: '文章1',
-        count: 5000,
-      }],
-    }];
-    function renderTitle(title) {
-      return (
-        <span>
-          {title}
-          <a
-            style={{ float: 'right' }}
-            href="https://www.baidu.com/s?wd=ppfish"
-            target="_blank"
-            rel="noopener noreferrer"
-          >更多
-          </a>
-        </span>
-      );
-    }
-    this.options = dataSource.map(group => (
-      <OptGroup
-        key={group.title}
-        label={renderTitle(group.title)}
-      >
-        {group.children.map(opt => (
-          <Option key={opt.title} value={opt.title}>
-            {opt.title}
-            <span className="certain-search-item-count"> 共 {opt.count} 人关注</span>
-          </Option>
-        ))}
-      </OptGroup>
-    )).concat([
-      <Option disabled key="all" className="show-all">
-        <a
-          href="https://www.baidu.com/s?wd=ppfish"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          查看所有结果
-        </a>
-      </Option>,
-    ]);
-  }
-
-  render() {
-    return (
-      <div className="certain-category-search-wrapper" style={{ width: 250 }}>
-        <AutoComplete
-          className="certain-category-search"
-          dropdownClassName="certain-category-search-dropdown"
-          dropdownMatchSelectWidth={false}
-          dropdownStyle={{ width: 300 }}
-          size="large"
-          style={{ width: '100%' }}
-          dataSource={this.options}
-          placeholder="input here"
-          optionLabelProp="value"
-        >
-          <Input suffix={<Icon type="search-line" className="certain-category-icon" />} />
-        </AutoComplete>
-      </div>
-    );
-  }
-```
-:::
-
-## 不区分大小写
-
-:::demo 不区分大小写的 AutoComplete。
-
-```js
-
-  render() {
-    const dataSource = ['aaa', 'BBB', 'bbb', 'ABC'];
-    return (
-      <AutoComplete
-        style={{ width: 200 }}
-        dataSource={dataSource}
-        placeholder="try to type `b`"
-        filterOption={(inputValue, option) => option.props.children.toUpperCase && option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-      />
-    );
-  }
-```
-:::
-
-## 自定义输入组件
-
-:::demo 自定义输入组件。
-
-```js
-  state = {
-    dataSource: [],
-  }
-
-  onSelect = (value) => {
-    console.log('onSelect', value);
-  }
-
-  handleSearch = (value) => {
-    this.setState({
-      dataSource: !value ? [] : [
-        value,
-        value + value,
-        value + value + value,
-      ],
-    });
-  }
-
-  handleKeyPress = (ev) => {
-    console.log('handleKeyPress', ev);
-  }
-
-  render() {
-    const { dataSource } = this.state;
-    const { TextArea } = Input;
-    return (
-      <AutoComplete
-        dataSource={dataSource}
-        style={{ width: 200 }}
-        onSelect={this.onSelect}
-        onSearch={this.handleSearch}
-      >
-        <TextArea
-          placeholder="input here"
-          className="custom"
-          style={{ height: 50 }}
-          onKeyPress={this.handleKeyPress}
-        />
-      </AutoComplete>
     );
   }
 ```
