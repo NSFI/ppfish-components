@@ -93,6 +93,7 @@ export interface AnchorProps {
   bounds?: number;
   affix?: boolean;
   showInkInFixed?: boolean;
+  inkPosition?: 'left' | 'right';
   getContainer?: () => AnchorContainer;
   onClick?: (e: React.MouseEvent<HTMLElement>, link: { title: React.ReactNode, href: string }) => void;
 }
@@ -121,6 +122,7 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
 
   static defaultProps = {
     prefixCls: 'fishd-anchor',
+    inkPosition: 'left',
     affix: true,
     showInkInFixed: false,
     getContainer: getDefaultContainer,
@@ -234,15 +236,16 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
     }
     const {prefixCls} = this.props;
     const anchorNode = ReactDOM.findDOMNode(this) as Element;
-    const linkNode = anchorNode.getElementsByClassName(`${prefixCls}-link-title-active`)[0];
-    if (linkNode) {
-      this.inkNode.style.top = `${(linkNode as any).offsetTop + linkNode.clientHeight / 2 - 4.5}px`;
+    const activeLinkNode = anchorNode.getElementsByClassName(`${prefixCls}-link-active`)[0];
+    if (activeLinkNode) {
+      this.inkNode.style.top = `${(activeLinkNode as any).offsetTop}px`;
+      this.inkNode.style.height = `${(activeLinkNode as any).offsetHeight}px`
     }
   };
 
   saveInkNode = (node: HTMLSpanElement) => {
     this.inkNode = node;
-  }
+  };
 
   render() {
     const {
@@ -254,11 +257,14 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
       showInkInFixed,
       children,
       getContainer,
+      inkPosition,
     } = this.props;
     const {activeLink} = this.state;
 
     const inkClass = classNames(`${prefixCls}-ink-ball`, {
       visible: activeLink,
+      left: inkPosition === 'left',
+      right: inkPosition === 'right'
     });
 
     const wrapperClass = classNames(className, `${prefixCls}-wrapper`);
@@ -272,13 +278,19 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
       ...style,
     };
 
+    const inkNodeClass = classNames({
+      [`${prefixCls}-ink`]: true,
+      [`${prefixCls}-ink-left`]: inkPosition === 'left',
+      [`${prefixCls}-ink-right`]: inkPosition === 'right'
+    });
+
     const anchorContent = (
       <div
         className={wrapperClass}
         style={wrapperStyle}
       >
         <div className={anchorClass}>
-          <div className={`${prefixCls}-ink`}>
+          <div className={inkNodeClass}>
             <span className={inkClass} ref={this.saveInkNode}/>
           </div>
           {children}

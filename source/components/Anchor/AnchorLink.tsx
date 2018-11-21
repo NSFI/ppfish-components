@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FishdAnchor } from './Anchor';
+import {FishdAnchor} from './Anchor';
 
 export interface AnchorLinkProps {
   prefixCls?: string;
@@ -29,7 +29,7 @@ export default class AnchorLink extends React.Component<AnchorLinkProps, any> {
   }
 
   componentWillReceiveProps(nextProps: AnchorLinkProps) {
-    const { href } = nextProps;
+    const {href} = nextProps;
     if (this.props.href !== href) {
       this.context.fishdAnchor.unregisterLink(this.props.href);
       this.context.fishdAnchor.registerLink(href);
@@ -41,10 +41,10 @@ export default class AnchorLink extends React.Component<AnchorLinkProps, any> {
   }
 
   handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    const { scrollTo, onClick } = this.context.fishdAnchor;
-    const { href, title } = this.props;
+    const {scrollTo, onClick} = this.context.fishdAnchor;
+    const {href, title} = this.props;
     if (onClick) {
-      onClick(e, { title, href });
+      onClick(e, {title, href});
     }
     scrollTo(href);
   };
@@ -63,6 +63,25 @@ export default class AnchorLink extends React.Component<AnchorLinkProps, any> {
     const titleClassName = classNames(`${prefixCls}-link-title`, {
       [`${prefixCls}-link-title-active`]: active,
     });
+    if (children) {
+      return (
+        <div className={`${prefixCls}-link-group`}>
+          <div className={wrapperClassName}>
+            <a
+              className={titleClassName}
+              href={href}
+              title={typeof title === 'string' ? title : ''}
+              onClick={this.handleClick}
+            >
+              {title}
+            </a>
+          </div>
+          <div className={`${prefixCls}-children`}>
+            {children}
+          </div>
+        </div>
+      );
+    }
     return (
       <div className={wrapperClassName}>
         <a
@@ -73,7 +92,6 @@ export default class AnchorLink extends React.Component<AnchorLinkProps, any> {
         >
           {title}
         </a>
-        {children}
       </div>
     );
   }

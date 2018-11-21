@@ -5,20 +5,21 @@
 .@{fishd-prefix}-anchor {
   .reset-component;
   position: relative;
-  padding-left: @anchor-border-width;
-
   &-wrapper {
     background-color: @component-background;
     overflow: auto;
-    padding-left: 4px;
-    margin-left: -4px;
   }
 
   &-ink {
     position: absolute;
     height: 100%;
-    left: 0;
     top: 0;
+    &&-left {
+      left: 0;
+    }
+    &&-right {
+      right: 0;
+    }
     &:before {
       content: ' ';
       position: relative;
@@ -31,14 +32,17 @@
     &-ball {
       display: none;
       position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 8px;
+      width: 0;
       border: 2px solid @primary-color;
       background-color: @component-background;
-      left: 50%;
       transition: top 0.3s ease-in-out;
       transform: translateX(-50%);
+      &.left {
+        left: 3px;
+      }
+      &.right {
+        left: 0;
+      }
       &.visible {
         display: inline-block;
       }
@@ -62,19 +66,25 @@
       overflow: hidden;
       text-overflow: ellipsis;
       margin-bottom: 8px;
-
+      &-active {
+        color: @primary-color;
+      }
       &:only-child {
         margin-bottom: 0;
       }
     }
 
-    &-active > &-title {
-      color: @primary-color;
+    &-active {
+      background: @primary-1;
+      transition: background 0.3s ease-in-out;
     }
   }
 
-  &-link &-link {
-    padding-top: 6px;
-    padding-bottom: 6px;
+  &-link-group {
+    > .@{fishd-prefix}-anchor-children {
+      > .@{fishd-prefix}-anchor-link {
+        padding: 6px 0 6px 32px;
+      }
+    }
   }
 }
