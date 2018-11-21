@@ -242,7 +242,11 @@ export const components = {
         {
           key: 'autoComplete',
           type: 'markdown',
-          name: 'AutoComplete 自动完成'
+          name: 'AutoComplete 自动完成',
+          props: {
+            debounce: require('lodash/debounce')
+          },
+          published: true,
         },
         {
           key: 'cascader',
