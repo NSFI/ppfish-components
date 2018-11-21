@@ -73,7 +73,7 @@ export default class InputNumber extends React.Component {
     precision: PropTypes.number,
     required: PropTypes.bool,
     pattern: PropTypes.string,
-  }
+  };
 
   static defaultProps = {
     focusOnUpDown: true,
@@ -88,7 +88,7 @@ export default class InputNumber extends React.Component {
     onBlur: noop,
     parser: defaultParser,
     required: false,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -208,7 +208,7 @@ export default class InputNumber extends React.Component {
     if (onKeyDown) {
       onKeyDown(e, ...args);
     }
-  }
+  };
 
   onKeyUp = (e, ...args) => {
     const {onKeyUp} = this.props;
@@ -221,7 +221,7 @@ export default class InputNumber extends React.Component {
     if (onKeyUp) {
       onKeyUp(e, ...args);
     }
-  }
+  };
 
   onChange = (e) => {
     if (this.state.focused) {
@@ -230,7 +230,7 @@ export default class InputNumber extends React.Component {
     const input = this.props.parser(this.getValueFromEvent(e));
     this.setState({inputValue: input});
     this.props.onChange(this.toNumberWhenUserInput(input)); // valid number or invalid string
-  }
+  };
 
   onMouseUp = (...args) => {
     const {onMouseUp} = this.props;
@@ -247,7 +247,7 @@ export default class InputNumber extends React.Component {
       focused: true,
     });
     this.props.onFocus(...args);
-  }
+  };
 
   onBlur = (e, ...args) => {
     this.inputting = false;
@@ -259,7 +259,7 @@ export default class InputNumber extends React.Component {
     this.setValue(value, () => {
       this.props.onBlur(e, ...args);
     });
-  }
+  };
 
   getCurrentValidValue(value) {
     let val = value;
@@ -575,29 +575,29 @@ export default class InputNumber extends React.Component {
     if (this.autoStepTimer) {
       clearTimeout(this.autoStepTimer);
     }
-  }
+  };
 
   down = (e, ratio, recursive) => {
     this.pressingUpOrDown = true;
     this.step('down', e, ratio, recursive);
-  }
+  };
 
   up = (e, ratio, recursive) => {
     this.pressingUpOrDown = true;
     this.step('up', e, ratio, recursive);
-  }
+  };
 
   saveUp = (node) => {
     this.upHandler = node;
-  }
+  };
 
   saveDown = (node) => {
     this.downHandler = node;
-  }
+  };
 
   saveInput = (node) => {
     this.input = node;
-  }
+  };
 
   render() {
     const props = {...this.props};
