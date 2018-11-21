@@ -49,6 +49,8 @@ render(){
 
 ## 垂直分割线
 
+> 在背景色不为`#fff`的情况下需要使用`textStyle`进行背景色重置
+
 :::demo 使用 `type="vertical"` 设置为块内的垂直分割线,父容器需指定高度；背景色更改需要同样样式覆盖text的背景色
 
 ```js
@@ -114,5 +116,6 @@ render(){
 | dashed | 是否虚线 | Boolean | false |
 | orientation | 分割线标题的位置,其中`left`/`right`横向类型生效，`top`/`bottom`纵向类型生效 | Enum {'left','right','center','top','bottom'} | `center` |
 | style | 分割线样式对象 | Object | - |
+| textStyle | 文字区域的样式 | Object | - |
 | type | 水平、分隔符、垂直类型 | Enum: {'horizontal', 'split' , 'vertical'} | `horizontal` |
 | children | 文本内容，竖向仅支持String | String\| ReactNode | - |
