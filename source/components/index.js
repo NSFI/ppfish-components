@@ -57,5 +57,5 @@ export {default as TreeSelect} from './TreeSelect/index.tsx';
 export {default as Trend} from './Trend';
 export {default as Upload} from './Upload/index.tsx';
 export {default as VideoViewer} from './VideoViewer';
-export {default as Echart} from './EChart';
+export {default as Echart} from './Echart';
 export {default as Ellipsis} from './Ellipsis';

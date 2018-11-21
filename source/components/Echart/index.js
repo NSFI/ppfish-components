@@ -13,7 +13,7 @@ import 'echarts-wordcloud';
  * @param {Object} option     图表参数
  * @param {Object} events     图表事件
  */
-export default class EChart extends Component {
+export default class Echart extends Component {
   static propTypes = {
     option: PropTypes.object,
     opts: PropTypes.object,
