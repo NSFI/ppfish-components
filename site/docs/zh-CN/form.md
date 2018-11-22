@@ -1795,16 +1795,16 @@ this.form // => The instance of CustomizedForm
 | ------- | -------------------------------------- | -------- |
 | getFieldDecorator | 用于和表单进行双向绑定，详见下方描述 | - |
 | getFieldError | 获取某个输入控件的 Error | (name) => Void |
-| getFieldsError | 获取一组输入控件的 Error ，如不传入参数，则获取全部组件的 Error | (\[names: Array<String>]) => Void |
-| getFieldsValue | 获取一组输入控件的值，如不传入参数，则获取全部组件的值 | (\[fieldNames: Array<String>]) => Void |
+| getFieldsError | 获取一组输入控件的 Error ，如不传入参数，则获取全部组件的 Error | (\[names: Array< String >]) => Void |
+| getFieldsValue | 获取一组输入控件的值，如不传入参数，则获取全部组件的值 | (\[fieldNames: Array< String >]) => Void |
 | getFieldValue | 获取一个输入控件的值 | (fieldName: String) => Void |
-| isFieldsTouched | 判断是否任一输入控件经历过 `getFieldDecorator` 的值收集时机 `options.trigger` | (names?: Array<String>) => Boolean |
+| isFieldsTouched | 判断是否任一输入控件经历过 `getFieldDecorator` 的值收集时机 `options.trigger` | (names?: Array< String >) => Boolean |
 | isFieldTouched | 判断一个输入控件是否经历过 `getFieldDecorator` 的值收集时机 `options.trigger` | (name: String) => Boolean |
 | isFieldValidating | 判断一个输入控件是否在校验状态 | (name) => Void |
-| resetFields | 重置一组输入控件的值（为 `initialValue`）与状态，如不传入参数，则重置所有组件 | (\[names: Array<String>]) => Void |
+| resetFields | 重置一组输入控件的值（为 `initialValue`）与状态，如不传入参数，则重置所有组件 | (\[names: Array< String >]) => Void |
 | setFields | 设置一组输入控件的值与 Error。 | ({ [fieldName]: { value: any, errors: [Error] } }) => Void |
 | setFieldsValue | 设置一组输入控件的值（注意：不要在 `componentWillReceiveProps` 内使用，否则会导致死循环，[更多](https://github.com/ant-design/ant-design/issues/2985)） | ({ [fieldName]: value }) => Void |
-| validateFields | 校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件 | (\[fieldNames: Array<String>], [options: Object], callback: (errors, values) => Void) => Void |
+| validateFields | 校验并获取一组输入域的值与 Error，若 fieldNames 参数为空，则校验全部组件 | (\[fieldNames: Array< String >], [options: Object], callback: (errors, values) => Void) => Void |
 | validateFieldsAndScroll | 与 `validateFields` 相似，但校验完后，如果校验不通过的菜单域不在可见范围内，则自动滚动进可见范围 | 参考 `validateFields` |
 
 #### `this.props.form.validateFields/validateFieldsAndScroll(fieldNames, options, callback)` 的参数`options`的配置项
@@ -1812,7 +1812,7 @@ this.form // => The instance of CustomizedForm
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | options.first | 若为 true，则每一表单域的都会在碰到第一个失败了的校验规则后停止校验 | Boolean | false |
-| options.firstFields | 指定表单域会在碰到第一个失败了的校验规则后停止校验 | Array<String> | \[] |
+| options.firstFields | 指定表单域会在碰到第一个失败了的校验规则后停止校验 | Array< String > | \[] |
 | options.force | 对已经校验过的表单域，在 validateTrigger 再次被触发时是否再次校验 | Boolean | false |
 | options.scroll | 定义 validateFieldsAndScroll 的滚动行为，详细配置见 [dom-scroll-into-view config](https://github.com/yiminghe/dom-scroll-into-view#function-parameter) | Object | {} |
 
@@ -1837,13 +1837,13 @@ this.form // => The instance of CustomizedForm
 | options.getValueFromEvent | 可以把 onChange 的参数（如 event）转化为控件的值 | (..args) => Void | [reference](https://github.com/react-component/form#option-object) |
 | options.initialValue | 子节点的初始值，类型、可选值均由子节点决定(注意：由于内部校验时使用 `===` 判断是否变化，建议使用变量缓存所需设置的值而非直接使用字面量)) | any | - |
 | options.normalize | 转换默认的 value 给控件，[一个选择全部的例子](https://codepen.io/afc163/pen/JJVXzG?editors=001) | (value, prevValue, allValues) => any | - |
-| options.rules | 校验规则，参考下方文档 | Array<Object> | - |
-| options.validate | 校验方法 | Array<Object> | - |
-| options.validate[n].trigger | Event which is listened to validate. Set to falsy to only validate when call props.validateFields. | String | Array<String> | 'onChange' |
-| options.validate[n].rules | Validator rules. see: [async-validator](https://github.com/yiminghe/async-validator) | Array<Object> | - |
+| options.rules | 校验规则，参考下方文档 | Array< Object > | - |
+| options.validate | 校验方法 | Array< Object > | - |
+| options.validate[n].trigger | Event which is listened to validate. Set to falsy to only validate when call props.validateFields. | String | Array< String > | 'onChange' |
+| options.validate[n].rules | Validator rules. see: [async-validator](https://github.com/yiminghe/async-validator) | Array< Object > | - |
 | options.trigger | 收集子节点的值的时机 | String | 'onChange' |
 | options.validateFirst | 当某一规则校验不通过时，是否停止剩下的规则的校验 | Boolean | false |
-| options.validateTrigger | 校验子节点值的时机 | String \| Array<String> | 'onChange' |
+| options.validateTrigger | 校验子节点值的时机 | String \| Array< String > | 'onChange' |
 | options.valuePropName | 子节点的值的属性，如 Switch 的是 'checked' | String | 'value' |
 | options.getValueProps | Get the component props according to field value. | (value): Object | (value) => ({ value }) |
 | options.hidden | Ignore current field while validating or gettting fields | Boolean | false |

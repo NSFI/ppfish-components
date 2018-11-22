@@ -541,15 +541,15 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| accept | 接受上传的文件类型，多种类型用 "," 分隔或写成数组形式，详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String \| Array<String> | - |
+| accept | 接受上传的文件类型，多种类型用 "," 分隔或写成数组形式，详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept) | String \| Array< String > | - |
 | action | 必选参数，上传的地址（受控） | String \| (file) => Promise | - |
 | beforeUpload | 上传文件之前的钩子，参数为上传的文件，若返回 `false` 则停止上传。支持返回一个 Promise 对象，Promise 对象 reject 时则停止上传，resolve 时开始上传。**注意：IE9 不支持该方法**。 | (file, fileList) => `Boolean \| Promise` | - |
 | className | 容器类名 | String | - |
 | customRequest | 通过覆盖默认的上传行为，可以自定义自己的上传实现 | () => Void | - |
 | data | 上传所需参数或返回上传参数的方法 | Object \| (file) => Object | - |
-| defaultFileList | 默认已经上传的文件列表 | Array<{uid, name, status, response}> | - |
+| defaultFileList | 默认已经上传的文件列表 | Array< {uid, name, status, response} > | - |
 | disabled | 是否禁用 | Boolean | false |
-| fileList | 已经上传的文件列表（受控） | Array<{uid, name, status, response}> | - |
+| fileList | 已经上传的文件列表（受控） | Array< {uid, name, status, response} > | - |
 | headers | 设置上传的请求头部，IE10 以上有效 | Object | - |
 | listType | 上传列表的内建样式 | Enum {'text', 'picture', 'picture-card'} | 'text' |
 | maxFileCount | 文件列表可展示的最大文件数，超出该数值后将展示滚动条，当 listType 为 `text` 时有效 | Number | 5 |

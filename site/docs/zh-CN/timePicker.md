@@ -220,7 +220,7 @@
 |---------- |-------------- |---------- |-------- |
 | footer | 在面板中添加额外的页脚 | () => ReactNode | - |
 | onValueChange | 时、分、秒发生变化时的回调 | (date) => Void | - |
-| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| selectableRange | 可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array< String > | - |
 | showCurrent | 是否显示"现在"快捷按钮 | Boolean | false |
 | value | 值 | Date | - |
 

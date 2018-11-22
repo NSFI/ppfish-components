@@ -181,7 +181,7 @@ render(){
 | onChange | 页码改变的回调，参数是改变后的页码及每页条数 | (page, pageSize) => Void | noop |
 | onShowSizeChange | pageSize 变化的回调 | (current, size) => Void | noop |
 | pageSize | 每页条数 | Number | - |
-| pageSizeOptions | 指定每页可以显示多少条 | Array<String> | ['10', '20', '30', '40'] |
+| pageSizeOptions | 指定每页可以显示多少条 | Array< String > | ['10', '20', '30', '40'] |
 | showLessItems | 是否显示更少的Items | Boolean | false |
 | showPrevNextJumpers | 是否展示>>双箭头跳转 | Boolean | true |
 | showQuickJumper | 是否可以快速跳转至某页 | Boolean | false |

@@ -2044,14 +2044,14 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | --- | --- | --- | --- |
 | activeRowByClick | 点击后激活Row的激活态样式 | Boolean | false |
 | bordered | 是否展示外边框和列边框 | Boolean | false |
-| childrenColumnName | 指定树形结构的列名 | Array<String> | children |
+| childrenColumnName | 指定树形结构的列名 | Array< String > | children |
 | columnFiltrate | 列表筛选显示功能 | Object\| Boolean | false |
 | columns | 表格列的配置描述，具体项见下表 | [ColumnProps](https://git.io/vMMXC)\[] | - |
 | components | 覆盖默认的 table 元素 | Object | - |
-| dataSource | 数据数组 | Array<Object> | - |
+| dataSource | 数据数组 | Array< Object > | - |
 | defaultExpandAllRows | 初始时，是否展开所有行 | Boolean | false |
-| defaultExpandedRowKeys | 默认展开的行 | Array<String> | - |
-| expandedRowKeys | 展开的行，控制属性 | Array<String> | - |
+| defaultExpandedRowKeys | 默认展开的行 | Array< String > | - |
+| expandedRowKeys | 展开的行，控制属性 | Array< String > | - |
 | expandedRowRender | 额外的展开行 | (record) => ReactNode | - |
 | expandRowByClick | 通过点击行来展开子行 | Boolean | false |
 | footer | 表格尾部 | (currentPageData) => ReactNode | - |
@@ -2106,10 +2106,10 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | filterDropdown | 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互 | ReactNode | - |
 | filterDropdownVisible | 用于控制自定义筛选菜单是否可见 | Boolean | - |
 | filtered | 标识数据是否经过过滤，筛选图标会高亮 | bBoolean | false |
-| filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | Array<String> | - |
+| filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | Array< String > | - |
 | filterIcon | 自定义 fiter 图标。 | ReactNode | false |
 | filterMultiple | 是否多选 | Boolean | true |
-| filters | 表头的筛选菜单项 | Array<Object> | - |
+| filters | 表头的筛选菜单项 | Array< Object > | - |
 | fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | Enum {true,'left','right'} | false |
 | key | React 需要的 key，如果已经设置了唯一的 `dataIndex`，可以忽略这个属性 | String | - |
 | onCell | 设置单元格属性 | (record) => Object | - |
@@ -2155,8 +2155,8 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | onSelect | 用户手动选择/取消选择某列的回调 | (record, selected, selectedRows, nativeEvent) => Void | - |
 | onSelectAll | 用户手动选择/取消选择所有列的回调 | (selected, selectedRows, changeRows) => Void | - |
 | onSelectInvert | 用户手动选择反选的回调 | (selectedRows) => Void | - |
-| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | Array<String> | \[] |
-| selections | 自定义选择项 设为 `true` 时使用默认选择项 | Array<Object> \| Boolean | true |
+| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | Array< String > | \[] |
+| selections | 自定义选择项 设为 `true` 时使用默认选择项 | Array< Object > \| Boolean | true |
 | showSelectAll | 是否展示全选按钮，多选情况下生效 | Boolean | true |
 | type | 多选/单选，`checkbox` or `radio` | String | 'checkbox' |
 
@@ -2173,10 +2173,10 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| defaultColumns | 默认需要显示的不能调整的列的key[] | Array<String> | - |
+| defaultColumns | 默认需要显示的不能调整的列的key[] | Array< String > | - |
 | fixed | 是否fixed | Enum {'left','right'} | - |
-| hideColumns | 初始化组件时需要隐藏的columns的key[] | Array<String> | - |
-| hideColumnsChange | 选择隐藏的列后的回调 | (hideColumns:Array<String>) => Void | - |
+| hideColumns | 初始化组件时需要隐藏的columns的key[] | Array< String > | - |
+| hideColumnsChange | 选择隐藏的列后的回调 | (hideColumns:Array< String >) => Void | - |
 
 > 隐藏列表项有以下限制：
 

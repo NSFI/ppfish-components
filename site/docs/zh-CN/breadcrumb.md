@@ -79,7 +79,7 @@ render() {
 | itemRender | 自定义链接函数，和 react-router 配置使用 | (route, params, routes, paths) => ReactNode | - |
 | maxWidth | Breadcrumb Item 的最大宽度，超出后显示省略号。默认展示全部内容 | Number | - |
 | params | 路由的参数 | Object | - |
-| routes | router 的路由栈信息 | Array<{path: String, breadcrumbName: String}> | - |
+| routes | router 的路由栈信息 | Array< {path: String, breadcrumbName: String} > | - |
 | separator | 自定义分隔符 | String \| ReactNode | `<Icon type="arrow-line-regular" />` |
 | size | 自定义大小 | Enum {'default', 'small'} | 'default' |
 | style | 容器样式 | Object | - |

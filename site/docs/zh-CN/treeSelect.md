@@ -776,7 +776,7 @@
 | autoClearSearchValue | 当树节点被选择时，是否自动清空搜索框 | Boolean | false |
 | autoExpandParent | 是否自动展开父节点 | Boolean | true |
 | className | 容器类名 | String | - |
-| defaultValue | 指定默认选中的条目 | String \| Array<String> | - |
+| defaultValue | 指定默认选中的条目 | String \| Array< String > | - |
 | disabled | 是否禁用 | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Boolean | true |
@@ -804,7 +804,7 @@
 | style | 选择框的样式 | Object | - |
 | tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | Number | 100 |
 | treeCheckable | 显示 checkbox | Boolean | false |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 value 必须设置，且其值需在整个树范围内唯一；key 可选，未设置时取 value 的值。 | Array<{value, title, [children, key, disabled, disableCheckbox, selectable, isLeaf]}> | [] |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 value 必须设置，且其值需在整个树范围内唯一；key 可选，未设置时取 value 的值。 | Array< {value, title, [children, key, disabled, disableCheckbox, selectable, isLeaf]} > | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | Boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | Array | [] |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |

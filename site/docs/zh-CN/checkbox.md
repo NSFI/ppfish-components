@@ -226,11 +226,11 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| defaultValue | 默认选中的选项 | String \| Array<String> | [] |
+| defaultValue | 默认选中的选项 | String \| Array< String > | [] |
 | disabled | 整组失效 | Boolean | false |
 | onChange | 变化时回调函数 | (checkedValue) => Void | - |
-| options | 指定可选项 | String \| Array<String> | [] |
-| value | 指定选中的选项 |  String \| Array<String> | [] |
+| options | 指定可选项 | String \| Array< String > | [] |
+| value | 指定选中的选项 |  String \| Array< String > | [] |
 
 ### 方法
 

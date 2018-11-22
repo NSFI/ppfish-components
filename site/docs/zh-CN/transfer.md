@@ -394,16 +394,16 @@
 | render | 每行数据渲染函数，该函数的入参为 `dataSource` 中的项，返回值为 ReactNode。或者返回一个普通对象，其中 `label` 字段为 ReactNode，`value` 字段为 title | (record) => {} | - |
 | searchPlaceholder | 搜索框的默认值 | String | '请输入搜索内容' |
 | showSearch | 是否显示搜索框 | Boolean | false |
-| targetKeys | 显示在右侧框数据的key集合 | Array<String> | [] |
-| titles | 标题集合，顺序从左至右 | Array<String> | ['', ''] |
+| targetKeys | 显示在右侧框数据的key集合 | Array< String > | [] |
+| titles | 标题集合，顺序从左至右 | Array< String > | ['', ''] |
 
 ## 多选模式
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | onSelectChange | 选中项发生改变时的回调函数 | (sourceSelectedKeys, targetSelectedKeys) => Void | - |
-| operations | 操作文案集合，顺序从下至上 | Array<String> | ['>', '<'] |
-| selectedKeys | 设置哪些项应该被选中 | Array<String> | [] |
+| operations | 操作文案集合，顺序从下至上 | Array< String > | ['>', '<'] |
+| selectedKeys | 设置哪些项应该被选中 | Array< String > | [] |
 
 ## 单选模式
 

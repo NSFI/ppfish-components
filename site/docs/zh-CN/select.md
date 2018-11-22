@@ -646,7 +646,7 @@ render(){
 | --- | --- | --- | --- |
 | allowClear | 支持搜索框清除操作 | Boolean | true |
 | defaultActiveFirstOption | 是否默认激活第一项 | Boolean | false |
-| defaultValue | 指定默认选中的条目 | String \| Array<String> \| Number \| Array<Number>	 | - |
+| defaultValue | 指定默认选中的条目 | String \| Array< String > \| Number \| Array< Number >	 | - |
 | disabled | 是否禁用 | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Bolean | true |
@@ -684,7 +684,7 @@ render(){
 | showSingleClear | 是否显示清除选择功能（仅在mode='single'生效） | Boolean | false |
 | size | 选择框大小，可选 `large` `small` | Enum {'large','small'} | default |
 | tagWidth | 可清除选项的宽度（仅在mode = 'multiple' 且 labelClear = true 生效） | String \| Number | 100 |
-| value | 指定当前选中的条目 | String \| Array<String> \| Number \| Array<Number> | - |
+| value | 指定当前选中的条目 | String \| Array< String > \| Number \| Array< Number > | - |
 | visible | 下拉选择框显示隐藏 | Boolean | - |
 
 > 注意，如果发现下拉菜单跟随页面滚动，或者需要在其他弹层中触发 Select，请尝试使用 getPopupContainer={triggerNode => triggerNode.parentNode} 将下拉弹层渲染节点固定在触发器的父元素中。

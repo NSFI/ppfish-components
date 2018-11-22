@@ -278,7 +278,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
-| customEmoji | 定制表情包 | Array<Object {name: String, id: Number, [className]: String, url: String, [title]: String}> | - |
+| customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
 | customInsertImage | 自定义插入图片。通过此接口可以自己实现插入图片前获取图片的过程。 | (callback: (attrs: Object {src: String, [otherAttr]: String \| Number}) => Void) => Void | - |
 | customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |

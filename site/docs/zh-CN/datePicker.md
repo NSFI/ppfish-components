@@ -1014,7 +1014,7 @@ DatePicker 时间面板的参数
 | showTime | 是否显示时间选择器 | Boolean | false |
 | showTimeCurrent | 当`timeSelectMode`模式为 "TimePicker" 时, 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
 | timeSelectMode | 带时间的日期选择中，时间面板的模式 | Enum {'TimePicker','TimeSelect'} | 'TimePicker' |
-| timeSelectableRange | 当`timeSelectMode`模式为 "TimePicker" 时, 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| timeSelectableRange | 当`timeSelectMode`模式为 "TimePicker" 时, 时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array< String > | - |
 | timeSelectModeProps | 当`timeSelectMode`模式为 "TimeSelect" 时的参数， 具体参见组件 [TimePicker.TimeSelect API](https://nsfi.github.io/ppfish-components/#/components/timePicker) | - |
 
 ### DatePicker.DateRangePicker
@@ -1025,7 +1025,7 @@ DatePicker 时间面板的参数
 | onError  |  选择日期超过maxDateRange的回调   | (message) => Void | - |
 | separator | 分隔符 | String | ' 至 ' |
 | startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
-| value | 值 | Array<Date> | null |
+| value | 值 | Array< Date > | null |
 
 DateRangePicker 时间面板的参数
 
@@ -1035,8 +1035,8 @@ DateRangePicker 时间面板的参数
 | showTimeCurrent | 是否显示时间面板的"现在"快捷按钮 | Boolean | false |
 | defaultStartTimeValue | 开始时间面板的默认时间 | Date | - |
 | defaultEndTimeValue | 结束时间面板的默认时间 | Date | - |
-| startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
-| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array<String> | - |
+| startTimeSelectableRange | 开始时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array< String > | - |
+| endTimeSelectableRange | 结束时间面板的可选时间段，例如<br>`'18:30:00 - 20:30:00'`<br>或者传入数组<br>`['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']` | String \| Array< String > | - |
 | startTimeSelectMode | 带时间的日期选择中，开始时间面板的模式 | Enum {'TimePicker','TimeSelect'} | 'TimePicker' |
 | endTimeSelectMode | 带时间的日期选择中，结束时间面板的模式 | Enum {'TimePicker','TimeSelect'} | 'TimePicker' |
 | startTimeSelectModeProps | 当`startTimeSelectMode`模式为 "TimeSelect" 时的参数， 具体参见组件 [TimePicker.TimeSelect API](https://nsfi.github.io/ppfish-components/#/components/timePicker) | - |

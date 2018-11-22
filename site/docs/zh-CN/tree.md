@@ -741,21 +741,21 @@
 | --- | --- | --- | --- |
 | autoExpandParent | 是否自动展开父节点 | Boolean | true |
 | checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
-| checkedKeys | （受控）选中复选框的树节点（注意：父子节点有关联，如果传入父节点key，则子节点自动选中；相应当子节点key都传入，父节点也自动选中。当设置`checkable`和`checkStrictly`，它是一个有`checked`和`halfChecked`属性的对象，并且父子节点的选中与否不再关联 | Array<String> \| {checked: Array<String>, halfChecked: Array<String>} | [] |
+| checkedKeys | （受控）选中复选框的树节点（注意：父子节点有关联，如果传入父节点key，则子节点自动选中；相应当子节点key都传入，父节点也自动选中。当设置`checkable`和`checkStrictly`，它是一个有`checked`和`halfChecked`属性的对象，并且父子节点的选中与否不再关联 | Array< String > \| {checked: Array< String >, halfChecked: Array< String >} | [] |
 | checkStrictly | checkable状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false |
 | className | 容器类名 | String | - |
-| defaultCheckedKeys | 默认选中复选框的树节点 | Array<String> | [] |
+| defaultCheckedKeys | 默认选中复选框的树节点 | Array< String > | [] |
 | defaultExpandAll | 默认展开所有树节点 | Boolean | false |
-| defaultExpandedKeys | 默认展开指定的树节点 | Array<String> | [] |
+| defaultExpandedKeys | 默认展开指定的树节点 | Array< String > | [] |
 | defaultExpandParent | 默认展开父节点 | Boolean | true |
-| defaultSelectedKeys | 默认选中的树节点 | Array<String> | [] |
+| defaultSelectedKeys | 默认选中的树节点 | Array< String > | [] |
 | disabled | 将树禁用 | Boolean | false |
 | draggable | 设置节点可拖拽（IE8+） | Boolean | false |
 | expandAll | （受控）是否展开所有的树节点 | Boolean | false |
-| expandedKeys | （受控）展开指定的树节点 | Array<String> | [] |
+| expandedKeys | （受控）展开指定的树节点 | Array< String > | [] |
 | filterTreeNode | 按需筛选树节点（高亮），返回true | (node) => Boolean | - |
 | loadData | 异步加载数据 | (node) => Void | - |
-| loadedKeys | （受控）已经加载的节点，需要配合 `loadData` 使用 | Array<String> | [] |
+| loadedKeys | （受控）已经加载的节点，需要配合 `loadData` 使用 | Array< String > | [] |
 | multiple | 支持点选多个节点（节点本身） | Boolean | false |
 | onCheck | 点击复选框触发 | (checkedKeys, e:{checked: Boolean, checkedNodes, node, event}) => Void | - |
 | onDragEnd | dragend 触发时调用 | ({event, node}) => Void | - |
@@ -769,11 +769,11 @@
 | onRightClick | 响应右键点击 | ({event, node}) => Void | - |
 | onSelect | 点击树节点触发 | (selectedKeys, e:{selected: Boolean, selectedNodes, node, event}) => Void | - |
 | required | 是否必选，单选时有效 | Boolean | false |
-| selectedKeys | （受控）设置选中的树节点 | Array<String> | - |
+| selectedKeys | （受控）设置选中的树节点 | Array< String > | - |
 | showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
 | showLine | 是否展示连接线 | Boolean | false |
 | style | 容器样式 | Object | - |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 key 必须设置，且其值需在整个树范围内唯一。 | Array<{key, title, [children, disabled, disableCheckbox, selectable, isLeaf]}> | [] |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 key 必须设置，且其值需在整个树范围内唯一。 | Array< {key, title, [children, disabled, disableCheckbox, selectable, isLeaf]} > | [] |
 
 ### TreeNode props
 
