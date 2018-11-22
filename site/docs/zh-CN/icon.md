@@ -13,96 +13,105 @@
 :::display 最基础的使用方式。
 ```js
 
-class Demo extends React.Component{
-
-  handleClick = (e) => {
-    const target = e.target;
-    if ( target.tagName === 'I' ) {
-      const lastCls = Array.from(target.classList).pop().replace('fishdicon-', '');
-      const copyText = `<Icon type="${lastCls}" />`;
+class IconItem extends React.Component{
+  
+    handleClick = () => {
+      const copyText = `<Icon type="${this.props.type}" />`;
       copy(copyText);
       message.success("copied:" + copyText);
+    };
+    
+    render(){
+      return(
+        <div className="demo-icon-item" onClick={this.handleClick}>
+        <Icon type={this.props.type}/>
+        <p>{this.props.type}</p>
+        </div>
+      )
     }
-  };
+}
+
+
+class Demo extends React.Component{
   
   render(){
-    return(<div className="code-box-demo" onClick={this.handleClick}>
-      <Icon type="play" />
-      <Icon type="stop" />
-      <Icon type="sound-mute"/>
-      <Icon type="sound-medium" />
-      <Icon type="sound-loud"/>
-      <Icon type="sound-drag" />
-      <Icon type="tip" />
-      <Icon type="lock-line" />
-      <Icon type="more-point" />
-      <Icon type="arrow-double-line-re" />
-      <Icon type="arrow-line-regular" />
-      <Icon type="arrow-line-Bold" />
-      <Icon type="menu-line-right" />
-      <Icon type="empty-basis" />
-      <Icon type="hints-descriptions-o" />
-      <Icon type="hints-notification-o" />
-      <Icon type="hints-error-o" />
-      <Icon type="hints-warning-o" />
-      <Icon type="hints-success-o" />
-      <Icon type="form-minus" />
-      <Icon type="arrow-line" />
-      <Icon type="drag-drawer" />
-      <Icon type="drag" />
-      <Icon type="folder-open-line" />
-      <Icon type="folder-close-line" />
-      <Icon type="plus-square" />
-      <Icon type="minus-square" />
-      <Icon type="file-line" />
-      <Icon type="image-line" />
-      <Icon type="home-line" />
-      <Icon type="user-line" />
-      <Icon type="steps-hook" />
-      <Icon type="left-fill" />
-      <Icon type="upload-plus" />
-      <Icon type="upload-cloud" />
-      <Icon type="upload-line" />
-      <Icon type="delete-line" />
-      <Icon type="clip-line" />
-      <Icon type="watch-line" />
-      <Icon type="hints-alone-success" />
-      <Icon type="hints-alone-error" />
-      <Icon type="hints-warning" />
-      <Icon type="hints-success" />
-      <Icon type="hints-error" />
-      <Icon type="hints-notification" />
-      <Icon type="hints-descriptions" />
-      <Icon type="Settingx" />
-      <Icon type="bottom" />
-      <Icon type="top" />
-      <Icon type="menu-line" />
-      <Icon type="search-line" />
-      <Icon type="load-line" />
-      <Icon type="download-line" />
-      <Icon type="stop-line" />
-      <Icon type="right-fill" />
-      <Icon type="up-fill" />
-      <Icon type="down-fill" />
-      <Icon type="down-bolder" />
-      <Icon type="left" />
-      <Icon type="right" />
-      <Icon type="time-line" />
-      <Icon type="date-line" />
-      <Icon type="z-a" />
-      <Icon type="a-z" />
-      <Icon type="up-double" />
-      <Icon type="filter" />
-      <Icon type="right-double" />
-      <Icon type="left-double" />
-      <Icon type="check-half" />
-      <Icon type="down-double" />
-      <Icon type="close-tag-line" />
-      <Icon type="close-modal-line" />
-      <Icon type="close-circle-fill" />
-      <Icon type="check-line" />
-      <Icon type="check-full" />
-      <Icon type="check-empty" />
+    return(<div className="code-box-demo" >
+      <IconItem type="play" />
+      <IconItem type="stop" />
+      <IconItem type="sound-mute"/>
+      <IconItem type="sound-medium" />
+      <IconItem type="sound-loud"/>
+      <IconItem type="sound-drag" />
+      <IconItem type="tip" />
+      <IconItem type="lock-line" />
+      <IconItem type="more-point" />
+      <IconItem type="arrow-double-line-re" />
+      <IconItem type="arrow-line-regular" />
+      <IconItem type="arrow-line-Bold" />
+      <IconItem type="menu-line-right" />
+      <IconItem type="empty-basis" />
+      <IconItem type="hints-descriptions-o" />
+      <IconItem type="hints-notification-o" />
+      <IconItem type="hints-error-o" />
+      <IconItem type="hints-warning-o" />
+      <IconItem type="hints-success-o" />
+      <IconItem type="form-minus" />
+      <IconItem type="arrow-line" />
+      <IconItem type="drag-drawer" />
+      <IconItem type="drag" />
+      <IconItem type="folder-open-line" />
+      <IconItem type="folder-close-line" />
+      <IconItem type="plus-square" />
+      <IconItem type="minus-square" />
+      <IconItem type="file-line" />
+      <IconItem type="image-line" />
+      <IconItem type="home-line" />
+      <IconItem type="user-line" />
+      <IconItem type="steps-hook" />
+      <IconItem type="left-fill" />
+      <IconItem type="upload-plus" />
+      <IconItem type="upload-cloud" />
+      <IconItem type="upload-line" />
+      <IconItem type="delete-line" />
+      <IconItem type="clip-line" />
+      <IconItem type="watch-line" />
+      <IconItem type="hints-alone-success" />
+      <IconItem type="hints-alone-error" />
+      <IconItem type="hints-warning" />
+      <IconItem type="hints-success" />
+      <IconItem type="hints-error" />
+      <IconItem type="hints-notification" />
+      <IconItem type="hints-descriptions" />
+      <IconItem type="Settingx" />
+      <IconItem type="bottom" />
+      <IconItem type="top" />
+      <IconItem type="menu-line" />
+      <IconItem type="search-line" />
+      <IconItem type="load-line" />
+      <IconItem type="download-line" />
+      <IconItem type="stop-line" />
+      <IconItem type="right-fill" />
+      <IconItem type="up-fill" />
+      <IconItem type="down-fill" />
+      <IconItem type="down-bolder" />
+      <IconItem type="left" />
+      <IconItem type="right" />
+      <IconItem type="time-line" />
+      <IconItem type="date-line" />
+      <IconItem type="z-a" />
+      <IconItem type="a-z" />
+      <IconItem type="up-double" />
+      <IconItem type="filter" />
+      <IconItem type="right-double" />
+      <IconItem type="left-double" />
+      <IconItem type="check-half" />
+      <IconItem type="down-double" />
+      <IconItem type="close-tag-line" />
+      <IconItem type="close-modal-line" />
+      <IconItem type="close-circle-fill" />
+      <IconItem type="check-line" />
+      <IconItem type="check-full" />
+      <IconItem type="check-empty" />
     </div>)
   }
 }
@@ -140,6 +149,22 @@ render(){
 <style>
 .code-box-demo .fishdicon {
   font-size: 24px;
-  margin: 12px 0 16px 30px;
+}
+
+.demo-icon-item{
+  display:inline-block;
+  width:150px;
+  padding-top:30px;
+  text-align:center;
+  transition: background 0.3s ease-in-out;
+  cursor:pointer;
+}
+
+.demo-icon-item p{
+  margin-top:20px;
+}
+
+.demo-icon-item:hover{
+  background:#ebf2ff;
 }
 </style>
