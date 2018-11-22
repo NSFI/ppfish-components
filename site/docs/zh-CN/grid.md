@@ -53,7 +53,7 @@
 </div>
 </div>
 
-在多数业务情况下，Fish Design需要在设计区域内解决大量信息收纳的问题，因此在 12 栅格系统的基础上，我们将整个设计建议区域按照 24 等分的原则进行划分。
+在多数业务情况下，Fish Design 需要在设计区域内解决大量信息收纳的问题，因此在 12 栅格系统的基础上，我们将整个设计建议区域按照 24 等分的原则进行划分。
 
 划分之后的信息区块我们称之为『盒子』。建议横向排列的盒子数量最多四个，最少一个。『盒子』在整个屏幕上占比见上图。设计部分基于盒子的单位定制盒子内部的排版规则，以保证视觉层面的舒适感。
 
@@ -71,7 +71,7 @@
 Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排版则不拘泥于栅格。
 
 
-## 基础栅格
+## 基本使用
 
 :::demo 从堆叠到水平排列。使用单一的一组 `Row` 和 `Col` 栅格组件，就可以创建一个基本的栅格系统，所有列（Col）必须放在 `Row` 内。
 
@@ -171,7 +171,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ```
 :::
 
-## 栅格排序
+## 列排序
 
 :::demo 列排序。
 通过使用 `push` 和 `pull` 类就可以很容易的改变列（column）的顺序。
@@ -191,9 +191,9 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ```
 :::
 
-## Flex 布局
+## 弹性布局-水平对齐
 
-:::demo Flex 布局基础。
+:::demo 弹性布局-水平对齐。
 
 使用 `row-flex` 定义 `flex` 布局，其子元素根据不同的值 `start`,`center`,`end`,`space-between`,`space-around`，分别定义其在父节点里面的排版方式。
 
@@ -203,7 +203,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
   render() {
     return (
       <div className="grid-demo">
-        <p>sub-element align left</p>
+        <p>左边对齐-Align Left</p>
         <Row type="flex" justify="start">
           <Col span={4}>col-4</Col>
           <Col span={4}>col-4</Col>
@@ -211,7 +211,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
           <Col span={4}>col-4</Col>
         </Row>
 
-        <p>sub-element align center</p>
+        <p>居中对齐-Align Center</p>
         <Row type="flex" justify="center">
           <Col span={4}>col-4</Col>
           <Col span={4}>col-4</Col>
@@ -219,7 +219,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
           <Col span={4}>col-4</Col>
         </Row>
 
-        <p>sub-element align right</p>
+        <p>右边对齐-Align Right</p>
         <Row type="flex" justify="end">
           <Col span={4}>col-4</Col>
           <Col span={4}>col-4</Col>
@@ -227,7 +227,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
           <Col span={4}>col-4</Col>
         </Row>
 
-        <p>sub-element monospaced arrangement</p>
+        <p>等宽分布-Monospaced Arrangement</p>
         <Row type="flex" justify="space-between">
           <Col span={4}>col-4</Col>
           <Col span={4}>col-4</Col>
@@ -235,7 +235,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
           <Col span={4}>col-4</Col>
         </Row>
 
-        <p>sub-element align full</p>
+        <p>横向充满-Align Full</p>
         <Row type="flex" justify="space-around">
           <Col span={4}>col-4</Col>
           <Col span={4}>col-4</Col>
@@ -249,7 +249,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 :::
 
 
-## Flex 对齐
+## 弹性布局-垂直对齐
 
 :::demo Flex 子元素垂直对齐。
 
@@ -259,7 +259,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
     const DemoBox = props => <p className={`height-${props.value}`}>{props.children}</p>;
     return (
       <div className="grid-demo">
-        <p>Align Top</p>
+        <p>顶部对齐-Align Top</p>
         <Row type="flex" justify="center" align="top">
           <Col span={4}><DemoBox value={100}>col-4</DemoBox></Col>
           <Col span={4}><DemoBox value={50}>col-4</DemoBox></Col>
@@ -267,7 +267,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
           <Col span={4}><DemoBox value={80}>col-4</DemoBox></Col>
         </Row>
 
-        <p>Align Center</p>
+        <p>居中对齐-Align Middle</p>
         <Row type="flex" justify="space-around" align="middle">
           <Col span={4}><DemoBox value={100}>col-4</DemoBox></Col>
           <Col span={4}><DemoBox value={50}>col-4</DemoBox></Col>
@@ -275,7 +275,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
           <Col span={4}><DemoBox value={80}>col-4</DemoBox></Col>
         </Row>
 
-        <p>Align Bottom</p>
+        <p>底部对齐-Align Bottom</p>
         <Row type="flex" justify="space-between" align="bottom">
           <Col span={4}><DemoBox value={100}>col-4</DemoBox></Col>
           <Col span={4}><DemoBox value={50}>col-4</DemoBox></Col>
@@ -289,7 +289,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 :::
 
 
-## Flex 排序
+## 弹性布局-排序
 
 :::demo 通过 Flex 布局的 Order 来改变元素的排序。
 
@@ -313,7 +313,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 
 ## 响应式布局
 
-:::demo 参照 Bootstrap 的 [响应式设计](http://getbootstrap.com/css/#grid-media-queries)，预设六个响应尺寸：`xs` `sm` `md` `lg` `xl`  `xxl`。
+:::demo 参照 Bootstrap 的 [响应式设计](https://getbootstrap.com/docs/3.3/css/#grid-media-queries)，预设六个响应尺寸：`xs` 、 `sm` 、 `md` 、 `lg` 、 `xl` 、 `xxl`。
 
 ```js
 
@@ -333,7 +333,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 
 ## 其他属性的响应式
 
-:::demo `span` `pull` `push` `offset` `order` 属性可以通过内嵌到 `xs` `sm` `md` `lg` `xl` `xxl` 属性中来使用。
+:::demo `span` 、 `pull` 、 `push` 、 `offset` 、 `order` 属性可以通过内嵌到 `xs` 、 `sm` 、 `md` 、 `lg` 、 `xl` 、 `xxl` 属性中来使用。
 
 其中 `xs={6}` 相当于 `xs={{ span: 6 }}`。
 
@@ -531,7 +531,7 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 若此布局组件不能满足你的需求，你也可以直接使用社区的优秀布局组件：
 
 - [react-flexbox-grid](http://roylee0704.github.io/react-flexbox-grid/)
-- [react-blocks](https://github.com/whoisandy/react-blocks/)
+- [react-blocks](http://whoisandy.github.io/react-blocks/)
 
 ### Row
 
