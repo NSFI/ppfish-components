@@ -419,7 +419,7 @@ class Drawer extends React.PureComponent {
     return (
       <div
         className={wrapperClassname}
-        style={style}
+        style={Object.assign({}, style, {width: showMask ? "100%" : "0%"})}
         ref={c => { this.dom = c; }}
         onTransitionEnd={this.onWrapperTransitionEnd}
       >

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import { Drawer, Menu, Icon, Button } from '../../../source/components';
+import { Drawer, Menu, Button } from '../../../source/components';
 
 class Demo extends React.Component {
   constructor(props) {
@@ -12,12 +12,6 @@ class Demo extends React.Component {
 
   onChange = (bool) => {
     console.log(bool);
-  }
-
-  onTouchEnd = () => {
-    this.setState({
-      visible: false,
-    });
   }
 
   onSwitch = () => {
@@ -41,8 +35,8 @@ class Demo extends React.Component {
           width="30vw"
           visible={this.state.visible}
           closed={true}
+          mask={false}
           onChange={this.onChange}
-          onMaskClick={this.onTouchEnd}
           onCloseClick={this.onCloseClick}
         >
           <div>

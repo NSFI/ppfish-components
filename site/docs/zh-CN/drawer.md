@@ -23,12 +23,6 @@ onChange = (bool) => {
   console.log(bool);
 }
 
-onTouchEnd = () => {
-  this.setState({
-    visible: false,
-  });
-}
-
 onSwitch = () => {
   this.setState({
     visible: !this.state.visible,
@@ -50,8 +44,8 @@ drawerBaiscDemo = () => {
         width="30vw"
         visible={this.state.visible}
         closed={true}
+        mask={false}
         onChange={this.onChange}
-        onMaskClick={this.onTouchEnd}
         onCloseClick={this.onCloseClick}
       >
         <div>
