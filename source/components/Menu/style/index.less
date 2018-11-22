@@ -3,6 +3,14 @@
 @menu-prefix-cls: ~"@{fishd-prefix}-menu";
 
 // default theme
+.@{menu-prefix-cls}.@{menu-prefix-cls}-sub.@{menu-prefix-cls}-vertical {
+  padding: 10px 0;
+}
+
+.@{menu-prefix-cls}.@{menu-prefix-cls}-sub.@{menu-prefix-cls}-inline {
+  padding-bottom: 10px;
+}
+
 .@{menu-prefix-cls} {
   .reset-component;
   outline: none;
@@ -27,10 +35,19 @@
     display: none;
   }
 
+  &-item-group {
+    margin-bottom: 10px;
+  }
+
+  &-item-group:last-child {
+    margin-bottom: 0;
+  }
+
   &-item-group-title {
     color: @menu-item-group-title-color;
     font-size: @font-size-base;
-    line-height: @line-height-base;
+    line-height: @menu-item-height - 16;
+    height: @menu-item-height;
     padding: 8px 16px;
     transition: all 00.3s;
   }
@@ -341,8 +358,8 @@
       font-size: @font-size-base;
       line-height: @menu-item-height;
       height: @menu-item-height;
-      margin-top: 4px;
-      margin-bottom: 4px;
+      // margin-top: 4px;
+      // margin-bottom: 4px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -352,9 +369,9 @@
       padding-bottom: 0.01px;
     }
 
-    .@{menu-prefix-cls}-item:not(:last-child) {
-      margin-bottom: 8px;
-    }
+    // .@{menu-prefix-cls}-item:not(:last-child) {
+    //   margin-bottom: 8px;
+    // }
 
     > .@{menu-prefix-cls}-item,
     > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title {
