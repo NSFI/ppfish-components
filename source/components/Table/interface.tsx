@@ -94,7 +94,7 @@ export interface SorterResult<T> {
   columnKey: string;
 }
 
-export type TableSize = 'default' | 'middle' | 'small';
+export type TableSize = 'default' | 'large' | 'small';
 
 export interface TableProps<T> {
   prefixCls?: string;

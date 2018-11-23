@@ -1,7 +1,7 @@
-.@{table-prefix-cls}-middle {
+.@{table-prefix-cls}-large {
   > .@{table-prefix-cls}-title,
   > .@{table-prefix-cls}-footer {
-    padding: @table-padding-vertical*3/4 @table-padding-horizontal/2;
+    padding: @table-padding-vertical/3*4 @table-padding-horizontal*2;
   }
   > .@{table-prefix-cls}-content {
     > .@{table-prefix-cls}-header > table,
@@ -14,8 +14,12 @@
     > .@{table-prefix-cls}-fixed-right > .@{table-prefix-cls}-body-outer > .@{table-prefix-cls}-body-inner > table {
       > .@{table-prefix-cls}-thead > tr > th,
       > .@{table-prefix-cls}-tbody > tr > td {
-        padding: @table-padding-vertical*3/4 @table-padding-horizontal/2;
+        padding: @table-padding-vertical/3*4 @table-padding-horizontal*2;
       }
+    }
+
+    .@{table-prefix-cls}-placeholder {
+      padding: @table-padding-vertical/3*4 @table-padding-horizontal*2;
     }
   }
 }
@@ -26,7 +30,7 @@
 
   > .@{table-prefix-cls}-title,
   > .@{table-prefix-cls}-footer {
-    padding: @table-padding-vertical/2 @table-padding-horizontal/2;
+    padding: @table-padding-vertical/3*2 @table-padding-horizontal;
   }
 
   > .@{table-prefix-cls}-title {
@@ -44,10 +48,10 @@
     > .@{table-prefix-cls}-fixed-left > .@{table-prefix-cls}-body-outer > .@{table-prefix-cls}-body-inner > table,
     > .@{table-prefix-cls}-fixed-right > .@{table-prefix-cls}-body-outer > .@{table-prefix-cls}-body-inner > table {
       border: 0;
-      padding: 0 @table-padding-horizontal/2;
+      padding: 0 @table-padding-horizontal;
       > .@{table-prefix-cls}-thead > tr > th,
       > .@{table-prefix-cls}-tbody > tr > td {
-        padding: @table-padding-vertical/2 @table-padding-horizontal/2;
+        padding: @table-padding-vertical/3*2 @table-padding-horizontal;
       }
       > .@{table-prefix-cls}-thead > tr > th {
         background: @component-background;

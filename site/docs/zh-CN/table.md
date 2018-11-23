@@ -2009,8 +2009,8 @@ class Demo extends React.Component {
             </FormItem>
             <FormItem label="Size">
               <Radio.Group size="default" value={state.size} onChange={this.handleSizeChange}>
+                <Radio.Button value="large">Large</Radio.Button>
                 <Radio.Button value="default">Default</Radio.Button>
-                <Radio.Button value="middle">Middle</Radio.Button>
                 <Radio.Button value="small">Small</Radio.Button>
               </Radio.Group>
             </FormItem>
@@ -2069,7 +2069,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | rowSelection | 列表项是否可选择 | Object | null |
 | scroll | 设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 `x` 设置一个数字，如果要设置为 `true`，需要配合样式 `.fishd-table td { white-space: nowrap; }` | Object { x: Number \| true, y: Number } | - |
 | showHeader | 是否显示表头 | Boolean | true |
-| size | 正常或迷你类型，`default` or `small` | Enum {'default' ,'small'} | 'default' |
+| size | 默认、大或迷你类型，`large` or `default`、`small` | Enum {'large' 'default','small'} | 'default' |
 | title | 表格标题 | (currentPageData) => String \| ReactNode | - |
 
 #### onRow 用法

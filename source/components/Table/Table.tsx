@@ -976,7 +976,7 @@ export default class Table<T> extends React.Component<TableProps<T>, TableState<
     const {pagination} = this.state;
     if (pagination.size) {
       size = pagination.size;
-    } else if (this.props.size as string === 'middle' || this.props.size === 'small') {
+    } else if (this.props.size as string === 'small') {
       size = 'small';
     }
     let position = pagination.position || 'bottom';
