@@ -57,14 +57,28 @@
   render() {
     const { dataSource } = this.state;
     return (
-      <AutoComplete
-        dataSource={dataSource}
-        style={{ width: 200 }}
-        onSelect={this.onSelect}
-        onSearch={this.handleSearch}
-        placeholder="input here"
-        optionLabelProp="text"
-      />
+      <div>
+        <AutoComplete
+          allowClear
+          dataSource={dataSource}
+          style={{ width: 300 }}
+          onSelect={this.onSelect}
+          onSearch={this.handleSearch}
+          placeholder="input here"
+          optionLabelProp="text"
+        />
+        <br/>
+        <AutoComplete
+          allowClear
+          disabled
+          dataSource={dataSource}
+          style={{ width: 300, marginTop: 10 }}
+          onSelect={this.onSelect}
+          onSearch={this.handleSearch}
+          placeholder="input here"
+          optionLabelProp="text"
+        />
+      </div>
     );
   }
 ```
@@ -112,7 +126,7 @@
     });
     return (
       <AutoComplete
-        style={{ width: 200 }}
+        style={{ width: 300 }}
         onSelect={this.onSelect}
         onSearch={this.handleSearch}
         placeholder="input here"
@@ -192,6 +206,7 @@
         <AutoComplete
           className="global-search"
           style={{ width: '100%' }}
+          highlightSelected={false}
           dataSource={dataSource.map(this.renderOption)}
           onSelect={this.onSelect}
           onSearch={this.props.debounce(this.handleSearch, 300)}
@@ -225,6 +240,7 @@
 | disabled | 是否禁用 | Boolean | false |
 | filterOption | 是否根据输入项进行筛选。当其为一个函数时，会接收 `inputValue` 和 `option` 两个参数，当 `option` 符合筛选条件时，应返回 `true`，反之则返回 `false`。 | Boolean \| (inputValue, option) => Boolean | true |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位 | (triggerNode) => HTMLElement | () => document.body |
+| highlightSelected | 是否用主色调高亮选中的选项。当选项中包含超链接时，可以通过此接口取消高亮色以免无法区分文本和超链接。 | Boolean | true |
 | onBlur | 失去焦点时的回调 | () => Void | - |
 | onChange | 选中 option，或 input 的 value 变化时，调用此函数 | (value) => Void | - |
 | onFocus | 获得焦点时的回调 | () => Void | - |

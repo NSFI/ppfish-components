@@ -29,6 +29,7 @@ export interface AutoCompleteProps extends AbstractSelectProps {
   dataSource?: DataSourceItemType[];
   autoFocus?: boolean;
   backfill?: boolean;
+  highlightSelected?: boolean;
   optionLabelProp?: string;
   getPopupContainer?: (triggerNode: Element) => HTMLElement;
   onChange?: (value: SelectValue) => void;
@@ -53,6 +54,7 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
     choiceTransitionName: 'zoom',
     showSearch: false,
     filterOption: false,
+    highlightSelected: true,
   };
 
   private select: any;
@@ -83,7 +85,8 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
 
   render() {
     let {
-      size, className = '', notFoundContent, prefixCls, optionLabelProp, dataSource, children,
+      size, className = '', notFoundContent, prefixCls,
+      optionLabelProp, dataSource, children, highlightSelected
     } = this.props;
 
     const cls = classNames({
@@ -124,6 +127,7 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
       <Select
         {...this.props}
         className={cls}
+        dropdownClassName={highlightSelected ? null : `${prefixCls}-nohighlight`}
         mode={Select.SECRET_COMBOBOX_MODE_DO_NOT_USE}
         optionLabelProp={optionLabelProp}
         getInputElement={this.getInputElement}

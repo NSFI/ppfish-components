@@ -13,12 +13,12 @@
   z-index: 1;
   background: @component-background;
   top: 50%;
-  font-size: @font-size-sm;
-  color: @disabled-color;
-  width: 12px;
-  height: 12px;
-  margin-top: -6px;
-  line-height: 12px;
+  font-size: 15px;
+  color: @text-c;
+  width: 15px;
+  height: 15px;
+  transform: translateY(-50%);
+  line-height: 15px;
   cursor: pointer;
   transition: color 0.3s ease, opacity 0.15s ease;
   &:before {
@@ -128,7 +128,7 @@
     &:focus,
     &:active {
       border-color: @border-color-base;
-      box-shadow: none;
+      box-shadow: @input-outline-offset @outline-blur-size @outline-width fade(@primary-color, 20%);
     }
 
     &__clear {
@@ -408,7 +408,7 @@
       position: relative;
       z-index: 1;
       transition: all 0.3s @ease-in-out;
-      box-shadow: none;
+      // box-shadow: none;
     }
   }
   &-combobox&-allow-clear &-selection:hover &-selection__rendered {
@@ -418,6 +418,8 @@
 
 .@{select-prefix-cls}-dropdown {
   .reset-component;
+
+  padding: 8px 0;
 
   &-menu {
     .scrollbar();
@@ -526,8 +528,8 @@
         &,
         &:hover {
           background-color: @background-color-light;
-          font-weight: 600;
-          color: @text-color;
+          // font-weight: 600;
+          color: @primary-color;
         }
       }
 

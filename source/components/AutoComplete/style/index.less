@@ -6,8 +6,15 @@
 @select-prefix-cls: ~"@{fishd-prefix}-autocomplete-select";
 @autocomplete-prefix-cls: ~"@{select-prefix-cls}-auto-complete";
 
+.@{select-prefix-cls}-nohighlight {
+  .@{select-prefix-cls}-dropdown-menu-item-selected {
+    color: @text-color;
+  }
+}
+
 .@{autocomplete-prefix-cls} {
   .reset-component;
+  border-radius: @border-radius-base;
 
   &.@{select-prefix-cls} {
     .@{select-prefix-cls} {
@@ -49,7 +56,7 @@
       line-height: @line-height-base;
       height: @input-height-base;
       &:focus,
-      &:hover {
+      &:hover:not(&-disabled) {
         .hover;
       }
     }
