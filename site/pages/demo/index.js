@@ -43,6 +43,7 @@ export default class Loadable extends React.Component {
             <ReactMDTranslator
               dependencies={source}
               renderer={renderer}
+              progress
               {...mdProps}>
               {markdown}
             </ReactMDTranslator>
