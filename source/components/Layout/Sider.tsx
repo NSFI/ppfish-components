@@ -75,8 +75,8 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
     collapsible: false,
     defaultCollapsed: false,
     reverseArrow: false,
-    width: 200,
-    collapsedWidth: 80,
+    width: 160,
+    collapsedWidth: 64,
     style: {},
     theme: 'dark' as SiderTheme,
   };
