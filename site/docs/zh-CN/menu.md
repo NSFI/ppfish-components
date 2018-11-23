@@ -184,27 +184,20 @@ render(){
           inlineCollapsed={this.state.collapsed}
         >
           <MenuItemGroup key="g1" title="MenuItemGroup 1">
-            <Menu.Item key="1">
-              <img className="img-icon-12 fishdicon" src="./static/icons/demo-pie.svg" />
-              <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <img className="img-icon-12 fishdicon" src="./static/icons/demo-note.svg" />
-              <span>Option 2</span>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <img className="img-icon-12 fishdicon" src="./static/icons/demo-play.svg" />
-              <span>Option 3</span>
-            </Menu.Item>
+            <SubMenu key="sub1" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-pie.svg" /><span>Navigation One</span></span>}>
+              <Menu.Item key="1">Option 1</Menu.Item>
+              <Menu.Item key="2">Option 2</Menu.Item>
+              <Menu.Item key="3">Option 3</Menu.Item>
+            </SubMenu>
           </MenuItemGroup>
           <MenuItemGroup key="g2" title="MenuItemGroup 2">
-            <SubMenu key="sub1" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-mail.svg" /><span>Navigation One</span></span>}>
+            <SubMenu key="sub1" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-mail.svg" /><span>Navigation Two</span></span>}>
               <Menu.Item key="5">Option 5</Menu.Item>
               <Menu.Item key="6">Option 6</Menu.Item>
               <Menu.Item key="7">Option 7</Menu.Item>
               <Menu.Item key="8">Option 8</Menu.Item>
             </SubMenu>
-            <SubMenu key="sub2" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-phone.svg" /><span>Navigation Two</span></span>}>
+            <SubMenu key="sub2" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-phone.svg" /><span>Navigation Three</span></span>}>
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
               <SubMenu key="sub3" title="Submenu">
