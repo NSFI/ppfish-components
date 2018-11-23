@@ -185,7 +185,7 @@ export default class Select extends React.Component<SelectProps, {}> {
   render() {
     return (
       this.renderSelect({
-        notFoundContent: 'Not Found',
+        notFoundContent: '无匹配结果',
       })
     );
   }
