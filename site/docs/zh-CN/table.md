@@ -728,7 +728,7 @@ const columns = [{
 :::
 
 ## 三种大小
-:::demo 两种紧凑型的列表，小型列表只用于对话框内。
+:::demo 三种大小的列表，小型列表只用于对话框内。
 ```js
   render() {
     const columns = [{
