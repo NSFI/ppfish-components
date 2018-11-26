@@ -50,10 +50,8 @@
   }
 
   &-dark > &-item-group > &-item-group-title {
-    background: #000;
-    opacity: 0.9;
     height: @menu-inline-toplevel-item-group-height;
-    line-height: @menu-inline-toplevel-item-group-height - 16px;
+    line-height: @menu-inline-toplevel-item-group-height - 20px;
   }
 
   &-dark&-inline,
@@ -104,6 +102,10 @@
     }
   }
 
+  &-dark &-item:hover {
+    background: #000;
+  }
+
   &-dark &-submenu-open {
     color: @menu-dark-highlight-color !important;
   }
@@ -124,8 +126,6 @@
 
   &&-dark &-item-selected,
   &-submenu-popup&-dark &-item-selected {
-    // background-color: @menu-dark-item-selected-bg;
-
     background-color: #000;
     // color: #fff;
     // border-bottom: 2px solid @menu-highlight-color;

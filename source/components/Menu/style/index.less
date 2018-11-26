@@ -45,10 +45,10 @@
 
   &-item-group-title {
     color: @menu-item-group-title-color;
-    font-size: @font-size-base;
-    line-height: @menu-item-height - 16;
+    font-size: @font-size-sm;
+    line-height: @menu-item-height - 20;
     height: @menu-item-height;
-    padding: 8px 16px;
+    padding: 16px 16px 4px 16px;
     transition: all 0.3s;
   }
 
@@ -58,7 +58,7 @@
 
   & > &-item-group > &-item-group-title {
     height: @menu-inline-toplevel-item-group-height;
-    line-height: @menu-inline-toplevel-item-group-height - 16px;
+    line-height: @menu-inline-toplevel-item-group-height - 20px;
   }
 
   &-submenu,
@@ -195,6 +195,11 @@
         opacity: 1;
       }
     }
+  }
+
+  &-item:hover {
+    color: @menu-highlight-color;
+    background-color: @menu-item-active-bg;
   }
 
   & > &-item-divider {
