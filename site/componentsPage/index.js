@@ -246,7 +246,7 @@ export const components = {
           props: {
             debounce: require('lodash/debounce')
           },
-          published: false,
+          published: true,
         },
         {
           key: 'cascader',
