@@ -309,6 +309,7 @@ class Demo extends React.Component {
               type={this.state.collapsed ? 'menu-line-right' : 'menu-line'}
               onClick={this.toggle}
             />
+            <span className="trigger-split-line"/>
           </Header>
           <Content>
             <div className="components-layout-demo-custom-trigger-content">
@@ -348,14 +349,23 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
     min-height: 280px;
   }
   .trigger {
-    font-size: 18px;
+    font-size: 16px;
+    color: #999;
     line-height: 64px;
-    padding: 0 24px;
+    padding: 0 22px;
     cursor: pointer;
     transition: color .3s;
     &:hover {
       color: #1890ff;
     }
+  }
+  .trigger-split-line {
+    display: inline-block;
+    width: 1px;
+    height: 30px;
+    background: #EBEDF0;
+    position: relative;
+    top: 8px;
   }
 }
 ```
