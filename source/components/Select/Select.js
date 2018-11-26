@@ -367,11 +367,10 @@ export default class Select extends React.Component {
       this.setState(changedObj);
       if (clickInLabel) {
         //click on label will trigger the onchange event.
-        const {selectValue} = this.state;
         if (labelInValue) {
-          onChange(selectValue);
+          onChange(changedValue);
         } else {
-          onChange(selectValue.map(selected => selected.key));
+          onChange(changedValue.map(selected => selected.key));
         }
       }
     }
