@@ -307,6 +307,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 | blur() | 使编辑器失去焦点 |
 | focus() | 使编辑器获取焦点 |
 | getEditor() | 返回 Quill 实例。请不要强制改变 Quill 实例的状态，以免造成 RichEditor 和 Quill 不同步 |
+| isEmptyContents() | 检查输入的内容是否全部为空字符（空格、回车符和制表符） |
 
 #### Quill 实例
 
