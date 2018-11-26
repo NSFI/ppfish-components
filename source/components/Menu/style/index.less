@@ -478,7 +478,9 @@
     box-shadow: none;
 
     & > .@{menu-prefix-cls}-item,
-    & > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title {
+    & > .@{menu-prefix-cls}-item-group > .@{menu-prefix-cls}-item-group-list > .@{menu-prefix-cls}-item,
+    & > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title,
+    & > .@{menu-prefix-cls}-item-group > .@{menu-prefix-cls}-item-group-list > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title {
       line-height: @menu-inline-toplevel-item-height;
       height: @menu-inline-toplevel-item-height;
     }
