@@ -17,6 +17,7 @@
 .@{prefixClass} {
   position: relative;
   width: 100%;
+  height: 36px;
   &-wrap {
     display: flex;
     align-items: center;
@@ -63,6 +64,7 @@
 
     //Slider样式覆盖
     .@{sliderPrefixClass} {
+      margin: 6px 10px;
       &-handle {
         border: none;
         margin-left: -8px;
@@ -79,13 +81,14 @@
       i {
         color: #fff;
         font-size: 12px;
-        transform: scale(0.83);
+        transform: scale(0.84);
       }
     }
   }
 
   //Slider样式覆盖
   .@{sliderPrefixClass} {
+    margin: 10px 6px;
     &-track {
       background-color: @slider-track-background-color;
     }
