@@ -727,7 +727,7 @@ const columns = [{
 ```
 :::
 
-## 紧凑型
+## 三种大小
 :::demo 两种紧凑型的列表，小型列表只用于对话框内。
 ```js
   render() {
@@ -759,8 +759,10 @@ const columns = [{
     }];
     return (
       <div>
-        <h4>Middle size table</h4>
-        <Table columns={columns} dataSource={data} size="middle" />
+        <h4>Large size table</h4>
+        <Table columns={columns} dataSource={data} size="large" />
+        <h4>Default size table</h4>
+        <Table columns={columns} dataSource={data} size="default" />
         <h4>Small size table</h4>
         <Table columns={columns} dataSource={data} size="small" />
       </div>
