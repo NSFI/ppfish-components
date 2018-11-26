@@ -40,10 +40,7 @@
       <div>
         <TreeSelect
           showSearch
-          style={{ 
-            width: 300,
-            marginRight: '20px'
-          }}
+          style={{ width: 300 }}
           value={this.state.value}
           dropdownStyle={{ width: 300 }}
           treeNodeResetTitle={"请选择"}
@@ -68,7 +65,8 @@
             </TreeNode>
           </TreeNode>
         </TreeSelect>
-        <TreeSelect disabled style={{ width: 300 }}></TreeSelect>
+        <br/>
+        <TreeSelect disabled style={{ width: 300, marginTop: '10px' }}></TreeSelect>
       </div>
     );
   }
@@ -403,20 +401,18 @@
       onCancel: this.onCancel,
       onSelect: this.onSelect,
       treeCheckable: true,
-      style: {
-        width: 300,
-        marginRight: '20px'
-      },
+      style: { width: 300 },
       dropdownStyle: { width: 300 }
     };
     const tPropsDisabled = {
       disabled: true,
       treeCheckable: true,
-      style: { width: 300 }
+      style: { width: 300, marginTop: '10px' }
     };
     return (
       <div>
         <TreeSelect {...tProps} />
+        <br/>
         <TreeSelect {...tPropsDisabled} />
       </div>
     );
