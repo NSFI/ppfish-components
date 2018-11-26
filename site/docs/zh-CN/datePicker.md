@@ -1021,6 +1021,7 @@ DatePicker 时间面板的参数
 | 参数      | 说明          | 类型      |   默认值  |
 |---------- |-------------- |----------|-------- |
 | endPlaceholder | 结束日期的占位内容 | String | '结束日期' |
+| leftPanelMonth | 左侧面板的月份（设置之后右侧面板月份会自动为左侧面板的下一月）| Date | new Date() |
 | maxDateRange  | 最大可选择的日期范围，单位 天    | Number | - |
 | onError  |  选择日期超过maxDateRange的回调   | (message) => Void | - |
 | separator | 分隔符 | String | ' 至 ' |

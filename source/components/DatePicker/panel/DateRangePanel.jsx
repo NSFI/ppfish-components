@@ -66,6 +66,7 @@ export default class DateRangePanel extends React.Component {
       footer: PropTypes.func,
       maxDateRange: PropTypes.number,
       onError: PropTypes.func,
+      leftPanelMonth: PropTypes.instanceOf(Date),
       // 时间面板
       showTime: PropTypes.bool,
       showTimeCurrent: PropTypes.bool,
@@ -93,6 +94,7 @@ export default class DateRangePanel extends React.Component {
       firstDayOfWeek: 0,
       maxDateRange: null,
       onError: () => {},
+      leftPanelMonth: new Date(),
       showTime: false,
       showTimeCurrent: false,
       defaultStartTimeValue: null,
@@ -142,8 +144,8 @@ export default class DateRangePanel extends React.Component {
     const maxDate = isValidValueArr(props.value) ? toDate(props.value[1]) : null;
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
     const state = {};
-    state.leftDate = isValidValueArr(props.value) ? props.value[0] : new Date();
-    state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(new Date());
+    state.leftDate = isValidValueArr(props.value) ? props.value[0] : props.leftPanelMonth;
+    state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(props.leftPanelMonth);
     state.minDate = minDate;
     state.maxDate = maxDate;
     state.minDateInputText = isValidValueArr(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '';
