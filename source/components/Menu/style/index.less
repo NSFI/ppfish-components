@@ -21,7 +21,7 @@
   color: @menu-item-color;
   background: @menu-bg;
   line-height: 0; // Fix display inline-block gap
-  transition: background 00.3s, width 0.2s;
+  transition: background 0.3s, width 0.2s;
   .clearfix;
 
   ul,
@@ -49,12 +49,21 @@
     line-height: @menu-item-height - 16;
     height: @menu-item-height;
     padding: 8px 16px;
-    transition: all 00.3s;
+    transition: all 0.3s;
+  }
+
+  & > &-item-group {
+    margin-bottom: 0;
+  }
+
+  & > &-item-group > &-item-group-title {
+    height: @menu-inline-toplevel-item-group-height;
+    line-height: @menu-inline-toplevel-item-group-height - 16px;
   }
 
   &-submenu,
   &-submenu-inline {
-    transition: border-color 00.3s @ease-in-out, background 00.3s @ease-in-out, padding 0.15s @ease-in-out;
+    transition: border-color 0.3s @ease-in-out, background 0.3s @ease-in-out, padding 0.15s @ease-in-out;
   }
 
   &-item:active,
@@ -64,7 +73,7 @@
 
   &-submenu &-sub {
     cursor: initial;
-    transition: background 00.3s @ease-in-out, padding 00.3s @ease-in-out;
+    transition: background 0.3s @ease-in-out, padding 0.3s @ease-in-out;
   }
 
   &-item > a {
@@ -175,7 +184,7 @@
     position: relative;
     display: block;
     white-space: nowrap;
-    transition: color 00.3s @ease-in-out, border-color 0.3s @ease-in-out, background 0.3s @ease-in-out, padding 0.15s @ease-in-out;
+    transition: color 0.3s @ease-in-out, border-color 0.3s @ease-in-out, background 0.3s @ease-in-out, padding 0.15s @ease-in-out;
     .@{iconfont-prefix} {
       min-width: 14px;
       margin-right: 10px;
@@ -372,12 +381,6 @@
     // .@{menu-prefix-cls}-item:not(:last-child) {
     //   margin-bottom: 8px;
     // }
-
-    > .@{menu-prefix-cls}-item,
-    > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title {
-      line-height: @menu-inline-toplevel-item-height;
-      height: @menu-inline-toplevel-item-height;
-    }
   }
 
   &-inline {
@@ -437,11 +440,25 @@
     }
 
     .@{menu-prefix-cls}-item-group-title {
+      position: relative;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       padding-left: 4px;
       padding-right: 4px;
+      font-size: 0;
+      transition: all 0s;
+
+      &:after {
+        position: absolute;
+        content: '';
+        width: 16px;
+        height: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-bottom: 1px solid #626368;
+      }
     }
   }
 
@@ -459,6 +476,12 @@
   &-root&-vertical-right,
   &-root&-inline {
     box-shadow: none;
+
+    & > .@{menu-prefix-cls}-item,
+    & > .@{menu-prefix-cls}-submenu > .@{menu-prefix-cls}-submenu-title {
+      line-height: @menu-inline-toplevel-item-height;
+      height: @menu-inline-toplevel-item-height;
+    }
   }
 
   &-sub&-inline {

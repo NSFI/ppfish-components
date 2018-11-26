@@ -45,6 +45,17 @@
     color: @menu-dark-color;
   }
 
+  &-dark > &-item-group {
+    margin-bottom: 0;
+  }
+
+  &-dark > &-item-group > &-item-group-title {
+    background: #000;
+    opacity: 0.9;
+    height: @menu-inline-toplevel-item-group-height;
+    line-height: @menu-inline-toplevel-item-group-height - 16px;
+  }
+
   &-dark&-inline,
   &-dark&-vertical,
   &-dark&-vertical-left,

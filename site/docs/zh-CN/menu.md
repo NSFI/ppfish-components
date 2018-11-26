@@ -161,6 +161,7 @@ render(){
 ```js
   state = {
     collapsed: false,
+    theme: 'light'
   }
 
   toggleCollapsed = () => {
@@ -169,18 +170,26 @@ render(){
     });
   }
 
+  changeTheme = (value) => {
+    this.setState({
+      theme: value ? 'dark' : 'light',
+    });
+  }
+
   render() {
     const SubMenu = Menu.SubMenu;
     const MenuItemGroup = Menu.ItemGroup;
     return (
       <div style={{ width: 256 }}>
-        <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
+        <Button type="primary" onClick={this.toggleCollapsed} style={{ margin: '0 20px 20px 0' }}>
           <Icon type={this.state.collapsed ? 'menu-line-right' : 'menu-line'} />
         </Button>
+        <Switch onChange={this.changeTheme} /> Change Theme
         <Menu
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
+          theme={this.state.theme}
           inlineCollapsed={this.state.collapsed}
         >
           <MenuItemGroup key="g1" title="MenuItemGroup 1">
@@ -191,13 +200,13 @@ render(){
             </SubMenu>
           </MenuItemGroup>
           <MenuItemGroup key="g2" title="MenuItemGroup 2">
-            <SubMenu key="sub1" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-mail.svg" /><span>Navigation Two</span></span>}>
+            <SubMenu key="sub2" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-mail.svg" /><span>Navigation Two</span></span>}>
               <Menu.Item key="5">Option 5</Menu.Item>
               <Menu.Item key="6">Option 6</Menu.Item>
               <Menu.Item key="7">Option 7</Menu.Item>
               <Menu.Item key="8">Option 8</Menu.Item>
             </SubMenu>
-            <SubMenu key="sub2" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-phone.svg" /><span>Navigation Three</span></span>}>
+            <SubMenu key="sub3" title={<span><img className="img-icon-12 fishdicon" src="./static/icons/demo-phone.svg" /><span>Navigation Three</span></span>}>
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
               <SubMenu key="sub3" title="Submenu">
@@ -300,7 +309,7 @@ render(){
     return (
       <div>
         <Switch onChange={this.changeMode} /> Change Mode
-        <span className="ant-divider" style={{ margin: '0 1em' }} />
+        <span className="fishd-divider" style={{ margin: '0 1em' }} />
         <Switch onChange={this.changeTheme} /> Change Theme
         <br />
         <br />
@@ -361,7 +370,7 @@ render(){
 | forceSubMenuRender | 在子菜单展示之前就渲染进 DOM | Boolean | false |
 | inlineCollapsed | inline 时菜单是否收起状态 | Boolean | - |
 | inlineIndent | inline 模式的菜单缩进宽度 | Number | 24 |
-| mode | 菜单类型 | Enum {'vertical', 'vertical-right', 'horizontal', 'inline'} | 'vertical' |
+| mode | 菜单类型 | Enum {'vertical', 'vertical-left', 'vertical-right', 'horizontal', 'inline'} | 'vertical' |
 | multiple | 是否允许多选 | Boolean | false |
 | openKeys | 当前展开的 SubMenu 菜单项 key 数组 | Array< String > | - |
 | selectable | 是否允许选中 | Boolean | true |
