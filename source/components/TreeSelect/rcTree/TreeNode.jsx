@@ -240,9 +240,9 @@ class TreeNode extends React.Component {
 
     const hasChildren = this.getNodeChildren().length !== 0;
 
-    if (isLeaf === true) {
-      return true;
-    }
+    // if (isLeaf === false) {
+    //   return false;
+    // }
 
     return (
       isLeaf ||
