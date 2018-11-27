@@ -20,17 +20,6 @@
   }
 }
 
-// .fishdTreeShowLineIcon(@type) {
-//   &:after {
-//     .iconfont-size-under-12px(12px);
-//     display: inline-block;
-//     .iconfont-font(@@type);
-//     vertical-align: baseline;
-//     font-weight: normal;
-//     transition: transform 0.3s;
-//   }
-// }
-
 .fishdCheckboxFn(@checkbox-prefix-cls: ~"@{fishd-prefix}-treeselect-tree-checkbox");
 
 .@{select-tree-prefix-cls}-spinning {
@@ -41,7 +30,7 @@
 .@{select-tree-prefix-cls} {
   .reset-component;
   margin: 0;
-  padding: 0 12px 0 4px;
+  padding: 0 12px;
 
   li {
     padding: 0;
@@ -62,6 +51,7 @@
       height: @treeselect-title-height;
       align-items: center;
       padding: 0 4px;
+      vertical-align: top;
       border-radius: @border-radius-base;
       margin: 2px 0;
       cursor: pointer;
@@ -76,7 +66,7 @@
       .@{select-tree-prefix-cls}-title {
         display: inline-block;
         width: 100%;
-        // line-height: 1;
+        line-height: 1;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -87,21 +77,32 @@
         background-color: @treeselect-item-selected-bg;
       }
     }
+    .@{select-tree-prefix-cls}-iconCtner {
+      display: inline-flex;
+      align-items: center;
+    }
     span {
       &.@{select-tree-prefix-cls}-checkbox {
-        margin: 0 4px;
+        margin: 2px 4px;
+        display: inline-flex;
+        align-items: center;
+        height: 28px;
+        line-height: 28px;
+        top: auto;
+
         + .@{select-tree-prefix-cls}-node-content-wrapper {
           width: ~"calc(100% - 46px)";
         }
       }
       &.@{select-tree-prefix-cls}-switcher,
       &.@{select-tree-prefix-cls}-iconEle {
-        margin: 2px 0;
-        width: 24px;
+        margin: 2px 8px 2px 0;
+        width: 14px;
         height: @treeselect-title-height;
         line-height: @treeselect-title-height;
-        float: left;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        vertical-align: top;
         border: 0 none;
         cursor: pointer;
         outline: none;
@@ -116,6 +117,9 @@
         }
       }
       &.@{select-tree-prefix-cls}-switcher {
+        position: relative;
+        width: 12px;
+
         &.@{select-tree-prefix-cls}-switcher-noop {
           cursor: auto;
         }

@@ -97,7 +97,11 @@ class Select extends React.Component {
       PropTypes.node,
     ]),
     treeCheckStrictly: PropTypes.bool,
-    treeIcon: PropTypes.bool,
+    showIcon: PropTypes.bool,
+    icon: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.node,
+    ]),
     treeLine: PropTypes.bool,
     treeDefaultExpandAll: PropTypes.bool,
     treeDefaultExpandedKeys: PropTypes.array,
@@ -105,12 +109,10 @@ class Select extends React.Component {
     loading: PropTypes.bool,
     uniqueTreeNodeByLabel: PropTypes.bool,
     filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-
     notFoundContent: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.node,
     ]),
-
     onSearch: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
@@ -150,7 +152,7 @@ class Select extends React.Component {
     treeNodeFilterProp: 'title',
     treeNodeLabelProp: 'title',
     treeNodeResetTitle: '不选择任何分类',
-    treeIcon: false,
+    showIcon: false,
     notFoundContent: '无匹配结果',
     uniqueTreeNodeByLabel: false,
     autoExpandParent: true,

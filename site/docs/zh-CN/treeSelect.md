@@ -628,7 +628,7 @@
 
 ## 后端搜索
 
-:::demo 异步加载数据的多选。
+:::demo 后端搜索。
 
 ```js
 
@@ -763,6 +763,86 @@
 ```
 :::
 
+## 自定义图标
+
+:::demo 自定义图标。
+
+```js
+
+  state = {
+    value: ['0-0-0'],
+  }
+
+  onConfirm = (value, infoList, extra) => {
+    console.log('选中节点：', value);
+    console.log('详细信息：', infoList);
+    console.log('额外信息：', extra);
+    this.setState({ value });
+  }
+
+  onCancel = (value) => {
+    this.setState({ value });
+  }
+
+  onSelect = (value, valueList, infoList, extra) => {
+    console.log('选中：', value);
+    console.log('已选择：', valueList);
+  }
+
+  render() {
+    const treeData = [{
+      title: 'Node1',
+      value: '0-0',
+      key: '0-0a',
+      icon: <img className="img-icon-14" src="./static/icons/demo-image.svg" />,
+      children: [{
+        title: 'CNode1',
+        value: '0-0-0',
+        key: '0-0a-0',
+      }],
+    }, {
+      title: 'Node2',
+      value: '0-1',
+      key: '0-1a',
+      icon: <img className="img-icon-14" src="./static/icons/demo-image.svg" />,
+      children: [{
+        title: 'CNode2',
+        value: '0-1-0',
+        key: '0-1a-0',
+      }, {
+        title: 'CNode3',
+        value: '0-1-1',
+        key: '0-1a-1',
+      }, {
+        title: 'CNode4',
+        value: '0-1-2',
+        key: '0-1a-2',
+        disabled: true
+      }],
+    }];
+
+    const tProps = {
+      showIcon: true,
+      showSearch: true,
+      treeData,
+      treeDefaultExpandedKeys: ['0-0a', '0-1a'],
+      value: this.state.value,
+      onConfirm: this.onConfirm,
+      onCancel: this.onCancel,
+      onSelect: this.onSelect,
+      treeCheckable: true,
+      style: { width: 300 },
+      dropdownStyle: { width: 300 }
+    };
+
+    return (
+      <TreeSelect {...tProps} icon={<img className="img-icon-14" src="./static/icons/demo-pie.svg" />}/>
+    );
+  }
+```
+:::
+
+
 ## API
 
 ### Tree props
@@ -780,6 +860,7 @@
 | editable | 选中的条目是否可编辑，多选时有效 | Boolean | true |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
+| icon | 自定义所有子节点 title 前的图标。可接收组件，props 为当前树的 props。若某子节点上同时自定义了图标，则被其覆盖。 | ReactNode \| (props) => ReactNode | - |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
 | loading | 是否显示 loading 状态。可以配合实现后端搜索。 | Boolean | false |
 | multiple | 支持多选（当设置 treeCheckable 时自动变为true） | Boolean | false |
@@ -795,12 +876,13 @@
 | required | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
+| showIcon | 是否展示 TreeNode title 前的图标，无默认图标，若设置为 true，则需要自定义图标相关样式 | Boolean | false |
 | showSearch | 是否在下拉中显示搜索框。默认提供实时前端搜索，可以配合 `onSearch` 实现后端搜索。 | Boolean | false |
 | size | 选择框大小 | Enum {'default', 'large', 'small'} | 'default' |
 | style | 选择框的样式 | Object | - |
 | tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | Number | 100 |
 | treeCheckable | 显示 checkbox | Boolean | false |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 value 必须设置，且其值需在整个树范围内唯一；key 可选，未设置时取 value 的值。 | Array< {value, title, [children, key, disabled, disableCheckbox, selectable, isLeaf]} > | [] |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 value 必须设置，且其值需在整个树范围内唯一；key 可选，未设置时取 value 的值。 | Array< {value, title, [children, key, icon, disabled, disableCheckbox, selectable, isLeaf]} > | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | Boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | Array | [] |
 | treeNodeFilterProp | 输入项过滤对应的 treeNode 属性 | String | 'title' |
@@ -824,6 +906,7 @@
 | --- | --- | --- | --- |
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 是否禁用 | Boolean | false |
+| icon | 自定义当前节点 title 前的图标。可接收组件，props 为当前节点的 props | ReactNode \| (props) => ReactNode | - |
 | isLeaf | 是否是叶子节点 | Boolean | false |
 | key | 此项必须设置，且其值需在整个树范围内唯一 | String | - |
 | title | 树节点显示的内容，默认根据此属性值进行筛选 | String \| ReactNode | '---' |

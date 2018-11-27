@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { polyfill } from 'react-lifecycles-compat';
 import Tree from '../../rcTree';
 import Spin from '../../../Spin/index.tsx';
@@ -17,7 +18,11 @@ class BasePopup extends React.Component {
     valueList: PropTypes.array,
     valueEntities: PropTypes.object,
     keyEntities: PropTypes.object,
-    treeIcon: PropTypes.bool,
+    showIcon: PropTypes.bool,
+    icon: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.node,
+    ]),
     treeLine: PropTypes.bool,
     treeNodeFilterProp: PropTypes.string,
     treeCheckable: PropTypes.oneOfType([
@@ -157,13 +162,14 @@ class BasePopup extends React.Component {
     const {
       prefixCls,
       treeNodes, filteredTreeNodes,
-      treeIcon, treeLine, treeCheckable, treeCheckStrictly, multiple,
+      showIcon, treeLine, treeCheckable, treeCheckStrictly, multiple,
       loadData,
       loading,
       ariaId,
       renderSearch,
       renderResetItem,
-      autoExpandParent
+      autoExpandParent,
+      icon
     } = this.props;
     const { rcTreeSelect: {
       onPopupKeyDown,
@@ -205,7 +211,9 @@ class BasePopup extends React.Component {
         <Tree
           autoExpandParent={autoExpandParent}
           prefixCls={`${prefixCls}-tree`}
-          showIcon={treeIcon}
+          className={classNames(!showIcon && `${prefixCls}-tree-icon-hide`)}
+          icon={icon}
+          showIcon={showIcon}
           showLine={treeLine}
           selectable={!treeCheckable}
           checkable={treeCheckable}

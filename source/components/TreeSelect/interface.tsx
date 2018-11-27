@@ -54,6 +54,8 @@ export interface TreeSelectProps extends AbstractSelectProps {
   dropdownMatchSelectWidth?: boolean;
   editable?: boolean;
   required?: boolean;
+  showIcon?: boolean;
+  icon?: ((nodeProps: any) => React.ReactNode) | React.ReactNode;
   labelInValue?: boolean;
   loading?: boolean;
   multiple?: boolean;
