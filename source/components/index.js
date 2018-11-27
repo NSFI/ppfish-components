@@ -1,6 +1,7 @@
 // 方便控制打包时该资源放在最顶部
 import '../assets/css/index.less';
 
+export {default as Affix} from './Affix/index.tsx';
 export {default as Alert} from './Alert/index.tsx';
 export {default as Anchor} from './Anchor/index.tsx';
 export {default as AudioPlayer} from './AudioPlayer';

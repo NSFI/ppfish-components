@@ -183,6 +183,11 @@ export const components = {
       key: '导航 Navigation',
       children: [
         {
+          key: 'affix',
+          type: 'markdown',
+          name: 'Affix 固钉',
+        },
+        {
           key: 'menu',
           type: 'markdown',
           name: 'Menu 导航菜单',
