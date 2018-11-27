@@ -149,42 +149,42 @@ class Demo extends React.Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-logo.png" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-logo.png" />
             {
               !this.state.collapsed ? <span className="logo-text">Fish Design</span> : null
             }
           </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']}>
             <Menu.Item key="1">
-              <img className="img-icon-14 fishdicon" src="../../static/icons/demo-bargraph.svg" />
+              <img className="img-icon-14 fishdicon" src="./static/icons/demo-bargraph.svg" />
               <span>功能项一</span>
             </Menu.Item>
             <Menu.Item key="2">
-              <img className="img-icon-14 fishdicon" src="../../static/icons/demo-grid.svg" />
+              <img className="img-icon-14 fishdicon" src="./static/icons/demo-grid.svg" />
               <span>功能项二</span>
             </Menu.Item>
             <Menu.Item key="3">
-              <img className="img-icon-14 fishdicon" src="../../static/icons/demo-folder.svg" />
+              <img className="img-icon-14 fishdicon" src="./static/icons/demo-folder.svg" />
               <span>功能项三</span>
             </Menu.Item>
             <Menu.Item key="4">
-              <img className="img-icon-14 fishdicon" src="../../static/icons/demo-bookmark.svg" />
+              <img className="img-icon-14 fishdicon" src="./static/icons/demo-bookmark.svg" />
               <span>功能项四</span>
             </Menu.Item>
             <SubMenu
               key="sub1"
-              title={<span><img className="img-icon-14 fishdicon" src="../../static/icons/demo-bookmark.svg" /><span>功能项四</span></span>}
+              title={<span><img className="img-icon-14 fishdicon" src="./static/icons/demo-bookmark.svg" /><span>功能项四</span></span>}
             >
               <Menu.Item key="5">子功能01</Menu.Item>
               <Menu.Item key="6">子功能02</Menu.Item>
               <Menu.Item key="7">子功能03</Menu.Item>
             </SubMenu>
             <Menu.Item key="8">
-              <img className="img-icon-14 fishdicon" src="../../static/icons/demo-pie.svg" />
+              <img className="img-icon-14 fishdicon" src="./static/icons/demo-pie.svg" />
               <span>功能项五</span>
             </Menu.Item>
             <Menu.Item key="9">
-              <img className="img-icon-14 fishdicon" src="../../static/icons/demo-file.svg" />
+              <img className="img-icon-14 fishdicon" src="./static/icons/demo-file.svg" />
               <span>功能项六</span>
             </Menu.Item>
           </Menu>
@@ -266,7 +266,7 @@ class Demo extends React.Component {
           collapsed={this.state.collapsed}
         >
           <div className="logo">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-logo.png" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-logo.png" />
             {
               !this.state.collapsed ? <span className="logo-text">Fish Design</span> : null
             }
@@ -274,29 +274,29 @@ class Demo extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']}>
             <MenuItemGroup key="g1" title="功能分类1">
               <Menu.Item key="1">
-                <img className="img-icon-14 fishdicon" src="../../static/icons/demo-bargraph.svg" />
+                <img className="img-icon-14 fishdicon" src="./static/icons/demo-bargraph.svg" />
                 <span>功能项一</span>
               </Menu.Item>
               <Menu.Item key="2">
-                <img className="img-icon-14 fishdicon" src="../../static/icons/demo-grid.svg" />
+                <img className="img-icon-14 fishdicon" src="./static/icons/demo-grid.svg" />
                 <span>功能项二</span>
               </Menu.Item>
             </MenuItemGroup>
             <MenuItemGroup key="g2" title="功能分类2">
               <Menu.Item key="3">
-                <img className="img-icon-14 fishdicon" src="../../static/icons/demo-folder.svg" />
+                <img className="img-icon-14 fishdicon" src="./static/icons/demo-folder.svg" />
                 <span>功能项三</span>
               </Menu.Item>
               <Menu.Item key="4">
-                <img className="img-icon-14 fishdicon" src="../../static/icons/demo-bookmark.svg" />
+                <img className="img-icon-14 fishdicon" src="./static/icons/demo-bookmark.svg" />
                 <span>功能项四</span>
               </Menu.Item>
               <Menu.Item key="5">
-                <img className="img-icon-14 fishdicon" src="../../static/icons/demo-pie.svg" />
+                <img className="img-icon-14 fishdicon" src="./static/icons/demo-pie.svg" />
                 <span>功能项五</span>
               </Menu.Item>
               <Menu.Item key="6">
-                <img className="img-icon-14 fishdicon" src="../../static/icons/demo-file.svg" />
+                <img className="img-icon-14 fishdicon" src="./static/icons/demo-file.svg" />
                 <span>功能项六</span>
               </Menu.Item>
             </MenuItemGroup>
@@ -388,32 +388,32 @@ render(){
         onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
       >
         <div className="logo">
-          <img className="img-icon-14 fishdicon" src="../../static/icons/demo-logo.png" />
+          <img className="img-icon-14 fishdicon" src="./static/icons/demo-logo.png" />
           <span className="logo-text">Fish Design</span>
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']}>
           <Menu.Item key="1">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-bargraph.svg" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-bargraph.svg" />
             <span>功能项一</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-grid.svg" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-grid.svg" />
             <span>功能项二</span>
           </Menu.Item>
           <Menu.Item key="3">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-folder.svg" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-folder.svg" />
             <span>功能项三</span>
           </Menu.Item>
           <Menu.Item key="4">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-bookmark.svg" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-bookmark.svg" />
             <span>功能项四</span>
           </Menu.Item>
           <Menu.Item key="5">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-pie.svg" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-pie.svg" />
             <span>功能项五</span>
           </Menu.Item>
           <Menu.Item key="6">
-            <img className="img-icon-14 fishdicon" src="../../static/icons/demo-file.svg" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-file.svg" />
             <span>功能项六</span>
           </Menu.Item>
         </Menu>
