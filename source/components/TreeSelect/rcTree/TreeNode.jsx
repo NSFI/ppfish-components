@@ -353,14 +353,36 @@ class TreeNode extends React.Component {
   };
 
   renderIcon = () => {
-    const { loading } = this.props;
-    const { rcTree: { prefixCls } } = this.context;
+    const { loading, icon } = this.props;
+    const { rcTree: { prefixCls, showIcon, icon: treeIcon, loadData } } = this.context;
+    const currentIcon = icon || treeIcon;
+    let customIcon = null, loadingIcon = null;
+
+    if (showIcon && currentIcon) {
+      customIcon = (
+        <span
+          className={classNames(
+            `${prefixCls}-iconEle`,
+            `${prefixCls}-icon__customize`,
+          )}
+        >
+          {typeof currentIcon === 'function' ?
+            React.createElement(currentIcon, {
+              ...this.props,
+            }) : currentIcon}
+        </span>
+      );
+    }
+
+    if (loadData && loading) {
+      loadingIcon = <Spin className={prefixCls + '-spinning'} size="small" />;
+    }
 
     return (
-      <Spin className={prefixCls + '-spinning'} size="small" />
+      <span className={`${prefixCls}-iconCtner`}>{loadingIcon}{customIcon}</span>
     );
 
-    /* Deprecated loading icon.
+    /* 废弃的 loading icon
     return (
       <span
         className={classNames(
@@ -379,33 +401,8 @@ class TreeNode extends React.Component {
     const { title, selected, icon, loading } = this.props;
     const { rcTree: { prefixCls, showIcon, icon: treeIcon, draggable, loadData } } = this.context;
     const disabled = this.isDisabled();
-
     const wrapClass = `${prefixCls}-node-content-wrapper`;
-
-    // Icon - Still show loading icon when loading without showIcon
-    let $icon;
-
-    if (showIcon) {
-      const currentIcon = icon || treeIcon;
-
-      $icon = currentIcon ? (
-        <span
-          className={classNames(
-            `${prefixCls}-iconEle`,
-            `${prefixCls}-icon__customize`,
-          )}
-        >
-          {typeof currentIcon === 'function' ?
-            React.createElement(currentIcon, {
-              ...this.props,
-            }) : currentIcon}
-        </span>
-      ) : this.renderIcon();
-    } else if (loadData && loading) {
-      $icon = this.renderIcon();
-    }
-
-    // Title
+    const $icon = this.renderIcon();
     const $title = <span className={`${prefixCls}-title`}>{title}</span>;
 
     return (

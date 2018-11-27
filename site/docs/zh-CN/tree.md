@@ -308,9 +308,9 @@
     super(props);
     this.state = {
       treeData: [
-        { title: 'Expand to load', key: '0' },
-        { title: 'Expand to load', key: '1' },
-        { title: 'Tree Node', key: '2', isLeaf: true },
+        { title: 'Expand to load', key: '0', icon:<img className="img-icon-14" src="./static/icons/demo-grid.svg" /> },
+        { title: 'Expand to load', key: '1', icon:<img className="img-icon-14" src="./static/icons/demo-image.svg" /> },
+        { title: 'Tree Node', key: '2', isLeaf: true, icon:<img className="img-icon-14" src="./static/icons/demo-pie.svg" /> },
       ],
     }
   }
@@ -323,8 +323,8 @@
       }
       setTimeout(() => {
         treeNode.props.dataRef.children = [
-          { title: 'Child Node', key: `${treeNode.props.eventKey}-0` },
-          { title: 'Child Node', key: `${treeNode.props.eventKey}-1` },
+          { title: 'Child Node', key: `${treeNode.props.eventKey}-0`, icon:<img className="img-icon-14" src="./static/icons/demo-grid.svg" /> },
+          { title: 'Child Node', key: `${treeNode.props.eventKey}-1`, icon:<img className="img-icon-14" src="./static/icons/demo-image.svg" /> },
         ];
         this.setState({
           treeData: [...this.state.treeData],
@@ -339,7 +339,7 @@
     return data.map((item) => {
       if (item.children) {
         return (
-          <TreeNode title={item.title} key={item.key} dataRef={item}>
+          <TreeNode title={item.title} key={item.key} dataRef={item} icon={item.icon}>
             {this.renderTreeNodes(item.children)}
           </TreeNode>
         );
@@ -351,7 +351,7 @@
   render() {
     const TreeNode = Tree.TreeNode;
     return (
-      <Tree loadData={this.onLoadData}>
+      <Tree loadData={this.onLoadData} showIcon>
         {this.renderTreeNodes(this.state.treeData)}
       </Tree>
     );
@@ -770,7 +770,7 @@
 | onSelect | 点击树节点触发 | (selectedKeys, e:{selected: Boolean, selectedNodes, node, event}) => Void | - |
 | required | 是否必选，单选时有效 | Boolean | false |
 | selectedKeys | （受控）设置选中的树节点 | Array< String > | - |
-| showIcon | 是否展示 TreeNode title 前的图标，没有默认样式，如设置为 true，需要自行定义图标相关样式 | Boolean | false |
+| showIcon | 是否展示 TreeNode title 前的图标，无默认图标，若设置为 true，则需要自定义图标相关样式。特殊情况：Tree.DirectoryTree 的 `showIcon` 默认为 true，默认显示的图标为文件夹和文件。 | Boolean | false |
 | showLine | 是否展示连接线 | Boolean | false |
 | style | 容器样式 | Object | - |
 | treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 key 必须设置，且其值需在整个树范围内唯一。 | Array< {key, title, [children, disabled, disableCheckbox, selectable, isLeaf]} > | [] |
@@ -781,7 +781,7 @@
 | --- | --- | --- | --- |
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 禁掉响应 | Boolean | false |
-| icon | 自定义图标。可接收组件，props 为当前节点 props | ReactNode \| Function(props):ReactNode | - |
+| icon | 自定义图标。可接收组件，props 为当前节点的 props | ReactNode \| Function(props):ReactNode | - |
 | isLeaf | 设置为叶子节点(设置了`loadData`时有效) | Boolean | false |
 | key | 被树的 (default)ExpandedKeys \| (default)CheckedKeys \| (default)SelectedKeys 属性所用。注意：整个树范围内的所有节点的 key 值不能重复 | String | 内部计算出的节点位置 |
 | selectable | 设置节点是否可被选中 | Boolean | true |
