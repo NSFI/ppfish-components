@@ -377,9 +377,13 @@
         <TreeNode icon={<img className="img-icon-14" src="./static/icons/demo-grid.svg" />} title="parent 1" key="0-0">
           <TreeNode icon={<img className="img-icon-14" src="./static/icons/demo-image.svg" />} title="leaf" key="0-0-0" />
           <TreeNode
-            icon={({ selected }) => (
-              <Icon type={selected ? 'demo-mail' : 'demo-folder'} />
-            )}
+            icon={({ selected }) => {
+              if (selected) {
+                return <img className="img-icon-14" src="./static/icons/demo-grid.svg" />;
+              } else {
+                return <img className="img-icon-14" src="./static/icons/demo-image.svg" />;
+              }
+            }}
             title="leaf"
             key="0-0-1"
           />
@@ -754,6 +758,7 @@
 | expandAll | （受控）是否展开所有的树节点 | Boolean | false |
 | expandedKeys | （受控）展开指定的树节点 | Array< String > | [] |
 | filterTreeNode | 按需筛选树节点（高亮），返回true | (node) => Boolean | - |
+| icon | 自定义所有子节点的图标。可接收组件，props 为当前树的 props。若某子节点上同时自定义了图标，则被其覆盖。 | ReactNode \| (props) => ReactNode | - |
 | loadData | 异步加载数据 | (node) => Void | - |
 | loadedKeys | （受控）已经加载的节点，需要配合 `loadData` 使用 | Array< String > | [] |
 | multiple | 支持点选多个节点（节点本身） | Boolean | false |
@@ -781,7 +786,7 @@
 | --- | --- | --- | --- |
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 禁掉响应 | Boolean | false |
-| icon | 自定义图标。可接收组件，props 为当前节点的 props | ReactNode \| Function(props):ReactNode | - |
+| icon | 自定义当前节点 title 前的图标。可接收组件，props 为当前节点的 props | ReactNode \| (props) => ReactNode | - |
 | isLeaf | 设置为叶子节点(设置了`loadData`时有效) | Boolean | false |
 | key | 被树的 (default)ExpandedKeys \| (default)CheckedKeys \| (default)SelectedKeys 属性所用。注意：整个树范围内的所有节点的 key 值不能重复 | String | 内部计算出的节点位置 |
 | selectable | 设置节点是否可被选中 | Boolean | true |
