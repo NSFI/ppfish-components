@@ -398,8 +398,8 @@ class TreeNode extends React.Component {
   // Icon + Title
   renderSelector = () => {
     const { dragNodeHighlight } = this.state;
-    const { title, selected, icon, loading } = this.props;
-    const { rcTree: { prefixCls, showIcon, icon: treeIcon, draggable, loadData } } = this.context;
+    const { title, selected } = this.props;
+    const { rcTree: { prefixCls, draggable } } = this.context;
     const disabled = this.isDisabled();
     const wrapClass = `${prefixCls}-node-content-wrapper`;
     const $icon = this.renderIcon();
