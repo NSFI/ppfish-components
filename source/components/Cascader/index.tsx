@@ -93,6 +93,7 @@ export interface CascaderState {
   flattenOptions: CascaderOptionType[][] | undefined;
 }
 
+//搜索项高亮-String类型支持
 function highlightKeyword(str: string, keyword: string, prefixCls: string | undefined) {
   return str.split(keyword)
     .map((node: string, index: number) => index === 0 ? node : [
@@ -101,10 +102,12 @@ function highlightKeyword(str: string, keyword: string, prefixCls: string | unde
     ]);
 }
 
+//默认filterOption
 function defaultFilterOption(inputValue: string, path: CascaderOptionType[], names: FilledFieldNamesType) {
   return path.some(option => (option[names.label] as string).indexOf(inputValue) > -1);
 }
 
+//默认的搜索后的option渲染方法
 function defaultRenderFilteredOption(inputValue: string,
                                      path: CascaderOptionType[],
                                      prefixCls: string | undefined,
@@ -117,6 +120,7 @@ function defaultRenderFilteredOption(inputValue: string,
   });
 }
 
+//默认搜索后的option排序方案
 function defaultSortFilteredOption(a: CascaderOptionType[], b: CascaderOptionType[], inputValue: string, names: FilledFieldNamesType,) {
   function callback(elem: CascaderOptionType) {
     return (elem[names.label] as string).indexOf(inputValue) > -1;
@@ -125,6 +129,7 @@ function defaultSortFilteredOption(a: CascaderOptionType[], b: CascaderOptionTyp
   return a.findIndex(callback) - b.findIndex(callback);
 }
 
+//自定义option参数的名字
 function getFilledFieldNames(fieldNames: FieldNamesType = {}) {
   const names: FilledFieldNamesType = {
     children: fieldNames.children || 'children',

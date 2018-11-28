@@ -409,7 +409,9 @@ render(){
   <Cascader
     options={options}
     onChange={this.onChange}
-    showSearch={this.filter}
+    showSearch={{
+      filter:this.filter
+    }}
   />)
 }
 ```
@@ -522,7 +524,6 @@ render(){
 | allowClear | 是否支持清除 | Boolean | true |
 | autoFocus | 自动获取焦点 | Boolean | false |
 | changeOnSelect | 当此项为 true 时，点选每级菜单选项值都会发生变化，具体见上面的演示 | Boolean | false |
-| className | 自定义类名 | String | - |
 | className | 自定义类名 | String | - |
 | defaultValue | 默认的选中项 | Array< String > | \[] |
 | disabled | 禁用 | Boolean | false |
