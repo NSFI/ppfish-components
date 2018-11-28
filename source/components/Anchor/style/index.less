@@ -1,6 +1,7 @@
 @import (reference) "../../../assets/css/index";
 
 @anchor-border-width: 2px;
+@anchor-border-color: #f2f2f5;
 
 .@{fishd-prefix}-anchor {
   .reset-component;
@@ -14,6 +15,7 @@
     position: absolute;
     height: 100%;
     top: 0;
+    width: 6px;
     &&-left {
       left: 0;
     }
@@ -26,23 +28,18 @@
       width: @anchor-border-width;
       height: 100%;
       display: block;
-      background-color: @border-color-split;
+      background-color: @anchor-border-color;
       margin: 0 auto;
     }
     &-ball {
       display: none;
       position: absolute;
       width: 0;
-      border: 2px solid @primary-color;
+      left: 3px;
+      border: 1px solid @primary-color;
       background-color: @component-background;
       transition: top 0.3s ease-in-out;
       transform: translateX(-50%);
-      &.left {
-        left: 3px;
-      }
-      &.right {
-        left: 0;
-      }
       &.visible {
         display: inline-block;
       }
@@ -54,7 +51,7 @@
   }
 
   &-link {
-    padding: 8px 0 8px 16px;
+    padding: 9px 0 9px 16px;
     line-height: 1;
 
     &-title {
@@ -75,15 +72,15 @@
     }
 
     &-active {
-      background: @primary-1;
       transition: background 0.3s ease-in-out;
     }
   }
 
   &-link-group {
     > .@{fishd-prefix}-anchor-children {
+      margin-bottom: 4px;
       > .@{fishd-prefix}-anchor-link {
-        padding: 6px 0 6px 32px;
+        padding-left: 28px;
       }
     }
   }
