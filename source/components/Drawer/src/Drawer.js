@@ -421,7 +421,7 @@ class Drawer extends React.PureComponent {
       if(!showMask && open) {
         return { width: "0%" };
       }
-      return {}
+      return {};
     };
     return (
       <div
