@@ -1,7 +1,6 @@
 import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
-import warning from 'warning';
 import Menus from './Menus';
 import {KeyCode, shallowEqualArrays} from '../../../utils';
 import arrayTreeFilter from 'array-tree-filter';
@@ -16,9 +15,6 @@ class Cascader extends Component {
     } else if ('defaultValue' in props) {
       initialValue = props.defaultValue || [];
     }
-
-    warning(!('filedNames' in props),
-      '`filedNames` of Cascader is a typo usage and deprecated, please use `fieldNames` intead.');
 
     this.state = {
       popupVisible: props.popupVisible,
@@ -53,20 +49,11 @@ class Cascader extends Component {
   }
 
   getFieldName(name) {
-    const {defaultFieldNames} = this;
-    const {fieldNames, filedNames} = this.props;
-    if ('filedNames' in this.props) {
-      return filedNames[name] || defaultFieldNames[name]; // For old compatibility
-    }
-    return fieldNames[name] || defaultFieldNames[name];
+    return this.props.fieldNames[name] || this.defaultFieldNames[name];
   }
 
   getFieldNames() {
-    const {fieldNames, filedNames} = this.props;
-    if ('filedNames' in this.props) {
-      return filedNames; // For old compatibility
-    }
-    return fieldNames;
+    return this.props.fieldNames;
   }
 
   getCurrentLevelOptions() {
@@ -315,7 +302,6 @@ Cascader.propTypes = {
   onKeyDown: PropTypes.func,
   expandTrigger: PropTypes.string,
   fieldNames: PropTypes.object,
-  filedNames: PropTypes.object, // typo but for compatibility
   expandIcon: PropTypes.node,
 };
 
