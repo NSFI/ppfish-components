@@ -416,10 +416,17 @@ class Drawer extends React.PureComponent {
         this.handleOnClosed(e);
       }
     });
+    // 当没有遮罩时，抽屉下面的内容需要可点击
+    const noMaskWidth = () => {
+      if(!showMask && open) {
+        return { width: "0%" };
+      }
+      return {}
+    };
     return (
       <div
         className={wrapperClassname}
-        style={Object.assign({}, style, {width: showMask ? "100%" : "0%"})}
+        style={Object.assign({}, style, noMaskWidth())}
         ref={c => { this.dom = c; }}
         onTransitionEnd={this.onWrapperTransitionEnd}
       >
