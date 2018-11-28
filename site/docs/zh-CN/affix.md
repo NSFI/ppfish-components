@@ -9,16 +9,14 @@
 页面可视范围过小时，慎用此功能以免遮挡页面内容。
 
 
-## 基本用法
+## 固定在顶部
 :::demo
 ```js
   state = {
-    top: 100,
-    bottom: 100,
+    top: 10,
   }
   render() {
     return (
-      <div>
         <Affix offsetTop={this.state.top}>
           <Button
             type="primary"
@@ -31,35 +29,25 @@
             Affix top
           </Button>
         </Affix>
-        <br />
-        <Affix offsetBottom={this.state.bottom}>
-          <Button
-            type="primary"
-            onClick={() => {
-              this.setState({
-                bottom: this.state.bottom + 10,
-              });
-            }}
-          >
-            Affix bottom
-          </Button>
-        </Affix>
-      </div>
     );
   }
 ```
 :::
 
-## 固定状态改变的回调
+## 自定义固钉触发距离及回调监听
 
 :::demo 可以获得是否固定的状态。
 
 ```js
 
+state={
+  message:'未固定'
+}
+
 render(){
   return(
-  <Affix offsetTop={120} onChange={affixed => console.log(affixed)}>
-    <Button>120px to affix top</Button>
+  <Affix offsetTop={120} onChange={affixed => this.setState({message:affixed ? '固定中...':'未固定'})}>
+    <Button type={this.state.message === '未固定'?'danger':'primary'}>{this.state.message}</Button>
   </Affix>)
 }
 ```
@@ -97,9 +85,34 @@ render(){
 .components-affix-demo-target .background {
   padding-top: 60px;
   height: 300px;
-  background-image: url('https://zos.alipayobjects.com/rmsportal/RmjwQiJorKyobvI.jpg');
+  background:#F7F8FA;
 }
 
+```
+:::
+
+## 固定在底部
+:::demo
+```js
+  state = {
+    bottom: 10,
+  }
+  render() {
+    return (
+        <Affix offsetBottom={this.state.bottom}>
+          <Button
+            type="primary"
+            onClick={() => {
+              this.setState({
+                bottom: this.state.bottom + 10,
+              });
+            }}
+          >
+            Affix bottom
+          </Button>
+        </Affix>
+    );
+  }
 ```
 :::
 

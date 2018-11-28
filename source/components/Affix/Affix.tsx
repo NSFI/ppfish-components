@@ -1,20 +1,22 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { addEventListener } from '../../utils';
+import {addEventListener} from '../../utils';
 import classNames from 'classnames';
 import shallowequal from 'shallowequal';
 import omit from 'omit.js';
-import { throttleByAnimationFrameDecorator } from '../../utils/throttleByAnimationFrame';
+import {throttleByAnimationFrameDecorator} from '../../utils/throttleByAnimationFrame';
 
 import './style/index.less';
 
+//获取target在屏幕上的绝对定位
 function getTargetRect(target: HTMLElement | Window | null): ClientRect {
   return target !== window ?
     (target as HTMLElement).getBoundingClientRect() :
-    { top: 0, left: 0, bottom: 0 } as ClientRect;
+    {top: 0, left: 0, bottom: 0} as ClientRect;
 }
 
+//获取target的滚动距离
 function getScroll(target: any, top: boolean): number {
   if (typeof window === 'undefined') {
     return 0;
@@ -33,6 +35,7 @@ function getScroll(target: any, top: boolean): number {
   return ret;
 }
 
+//获取elem的宽高以及在target节点的的top、left距离值
 function getOffset(element: HTMLElement, target: HTMLElement | Window | null) {
   const elemRect = element.getBoundingClientRect();
   const targetRect = getTargetRect(target);
@@ -54,7 +57,8 @@ function getOffset(element: HTMLElement, target: HTMLElement | Window | null) {
   };
 }
 
-function noop() {}
+function noop() {
+}
 
 function getDefaultTarget() {
   return typeof window !== 'undefined' ? window : null;
@@ -115,8 +119,9 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
   private fixedNode: HTMLElement;
   private placeholderNode: HTMLElement;
 
+  //设置fixed的元素的样式
   setAffixStyle(e: any, affixStyle: React.CSSProperties | null) {
-    const { onChange = noop, target = getDefaultTarget } = this.props;
+    const {onChange = noop, target = getDefaultTarget} = this.props;
     const originalAffixStyle = this.state.affixStyle;
     const isWindow = target() === window;
     if (e.type === 'scroll' && originalAffixStyle && affixStyle && isWindow) {
@@ -125,7 +130,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     if (shallowequal(affixStyle, originalAffixStyle)) {
       return;
     }
-    this.setState({ affixStyle: affixStyle as React.CSSProperties }, () => {
+    this.setState({affixStyle: affixStyle as React.CSSProperties}, () => {
       const affixed = !!this.state.affixStyle;
       if ((affixStyle && !originalAffixStyle) ||
         (!affixStyle && originalAffixStyle)) {
@@ -134,16 +139,18 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     });
   }
 
+  //设置占位元素的样式
   setPlaceholderStyle(placeholderStyle: React.CSSProperties | null) {
     const originalPlaceholderStyle = this.state.placeholderStyle;
     if (shallowequal(placeholderStyle, originalPlaceholderStyle)) {
       return;
     }
-    this.setState({ placeholderStyle: placeholderStyle as React.CSSProperties });
+    this.setState({placeholderStyle: placeholderStyle as React.CSSProperties});
   }
 
+  //同步占位元素的样式
   syncPlaceholderStyle(e: any) {
-    const { affixStyle } = this.state;
+    const {affixStyle} = this.state;
     if (!affixStyle) {
       return;
     }
@@ -157,9 +164,10 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     });
   }
 
+  //滚动以及window.resize监听处理方法
   @throttleByAnimationFrameDecorator()
   updatePosition(e: any) {
-    let { offsetTop, offsetBottom, offset, target = getDefaultTarget } = this.props;
+    let {offsetTop, offsetBottom, offset, target = getDefaultTarget} = this.props;
     const targetNode = target();
 
     // Backwards support
@@ -222,9 +230,9 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
         height: elemOffset.height,
       });
     } else {
-      const { affixStyle } = this.state;
+      const {affixStyle} = this.state;
       if (e.type === 'resize' && affixStyle && affixStyle.position === 'fixed' && affixNode.offsetWidth) {
-        this.setAffixStyle(e, { ...affixStyle, width: affixNode.offsetWidth });
+        this.setAffixStyle(e, {...affixStyle, width: affixNode.offsetWidth});
       } else {
         this.setAffixStyle(e, null);
       }
@@ -289,11 +297,11 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
 
   saveFixedNode = (node: HTMLDivElement) => {
     this.fixedNode = node;
-  }
+  };
 
   savePlaceholderNode = (node: HTMLDivElement) => {
     this.placeholderNode = node;
-  }
+  };
 
   render() {
     const className = classNames({
@@ -301,7 +309,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     });
 
     const props = omit(this.props, ['prefixCls', 'offsetTop', 'offsetBottom', 'target', 'onChange']);
-    const placeholderStyle = { ...this.state.placeholderStyle, ...this.props.style };
+    const placeholderStyle = {...this.state.placeholderStyle, ...this.props.style};
     return (
       <div {...props} style={placeholderStyle} ref={this.savePlaceholderNode}>
         <div className={className} ref={this.saveFixedNode} style={this.state.affixStyle}>
