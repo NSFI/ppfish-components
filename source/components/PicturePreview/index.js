@@ -6,8 +6,6 @@ import Icon from '../Icon/index.tsx';
 import {
   fullscreen,
   exitfullscreen,
-  addFullscreenchangeEvent,
-  checkFullscreen,
   KeyCode,
   getStyle
 } from '../../utils';
@@ -48,18 +46,17 @@ const setStyle = (el, css) => {
 
 const getImageSize = function(image, callback, scope) {
   let newImage;
-
-  // Modern browsers
-  if (image.naturalWidth) {
-    return callback.call(scope, image.naturalWidth, image.naturalHeight);
+  if (!image.src) {
+    callback.call(scope, 0, 0);
+  } else if (image.naturalWidth) {    // 现代浏览器
+    callback.call(scope, image.naturalWidth, image.naturalHeight);
+  } else {    // 低版本浏览器
+    newImage = document.createElement('img');
+    newImage.onload = function() {
+      callback.call(scope, this.width, this.height);
+    };
+    newImage.src = image.src;
   }
-
-  // IE8: Don't use `new Image()` here
-  newImage = document.createElement('img');
-  newImage.onload = function() {
-    callback.call(scope, this.width, this.height);
-  };
-  newImage.src = image.src;
 };
 
 class PicturePreview extends Component {
@@ -141,14 +138,6 @@ class PicturePreview extends Component {
     const { mask } = this.props;
     const { activeIndex, visible, source, children } = nextProps;
 
-    if (activeIndex !== current) {
-      this.setState({
-        current: activeIndex
-      }, () => {
-        this.setContainerStyle();
-      });
-    }
-
     if (visible !== show) {
       this.setState({
         show: visible
@@ -159,20 +148,23 @@ class PicturePreview extends Component {
       });
     }
 
+    if (!visible) return;
+
+    let newState = {};
+    if (activeIndex !== current) {
+      newState['current'] = activeIndex;
+    }
+
     if (source && source.length) {
       let sourceStr = JSON.stringify(source);
 
       if (sourceStr !== JSON.stringify(imgs)) {
-        this.setState({
-          imgs: JSON.parse(sourceStr)
-        }, () => {
-          this.setContainerStyle();
-        });
+        newState['imgs'] = JSON.parse(sourceStr);
       }
     } else if (children) {
       let imgList = [];
 
-      imgList = React.Children.map(children, (child, index) => {
+      imgList = React.Children.map(children, (child) => {
         let img = {};
 
         if (child.type === 'img') {
@@ -183,9 +175,11 @@ class PicturePreview extends Component {
         return img;
       }).filter((item) => item);
 
-      this.setState({
-        imgs: imgList
-      }, () => {
+      newState['imgs'] = imgList;
+    }
+
+    if (Object.keys(newState).length) {
+      this.setState(newState, () => {
         this.setContainerStyle();
       });
     }
@@ -214,24 +208,31 @@ class PicturePreview extends Component {
     if (!this.imgEl) return;
 
     getImageSize(this.imgEl, (naturalWidth, naturalHeight) => {
-      //计算容器的宽度
-      let width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
-      if (width > CON_MAX_WIDTH) {
-        width = CON_MAX_WIDTH;
-      } else if (width < CON_MIN_WIDTH) {
+      let width, height, imgRatio;
+
+      if (naturalWidth == 0 || naturalHeight == 0) {
         width = CON_MIN_WIDTH;
-      }
-
-      //计算图片的缩放比例
-      // this.state.image.ratio = width / naturalWidth;
-      let imgRatio = (width / naturalWidth) || 0;
-
-      //计算容器的高度
-      let height = naturalHeight * imgRatio;
-      if (height > CON_MAX_HEIGHT) {
-        height = CON_MAX_HEIGHT;
-      } else if (height < CON_MIN_HEIGHT) {
         height = CON_MIN_HEIGHT;
+        imgRatio = 0;
+      } else {
+        //计算容器的宽度
+        width = naturalWidth * DEFAULT_RATIO; //默认0.8倍显示图片
+        if (width > CON_MAX_WIDTH) {
+          width = CON_MAX_WIDTH;
+        } else if (width < CON_MIN_WIDTH) {
+          width = CON_MIN_WIDTH;
+        }
+
+        //计算图片的缩放比例
+        imgRatio = (naturalWidth && (width / naturalWidth)) || 0;
+
+        //计算容器的高度
+        height = naturalHeight * imgRatio;
+        if (height > CON_MAX_HEIGHT) {
+          height = CON_MAX_HEIGHT;
+        } else if (height < CON_MIN_HEIGHT) {
+          height = CON_MIN_HEIGHT;
+        }
       }
 
       let css = '';
@@ -281,7 +282,7 @@ class PicturePreview extends Component {
           ratio: imgRatio
         })
       }, () => {
-        //等视图更新后，再缩放，要用到con的尺寸
+        //待视图更新后再缩放，需要用到con的尺寸
         this.handleZoom(imgRatio);
       });
     });
@@ -580,7 +581,6 @@ class PicturePreview extends Component {
       'icon-disabled': image.ratio <= MIN_RATIO
     });
     let screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
-    // let ctnerStyle = isFullscreen ? Object.assign({}, container.style, {background: 'rgba(0,0,0,0.8)'}) : container.style;
     let rootClass = classNames({
       [`${prefixCls}-root`]: mask,
       [`${prefixCls}-hide`]: !show
@@ -609,8 +609,8 @@ class PicturePreview extends Component {
                 return (
                   <img key={'pic_'+index}
                     className="img"
-                    src={item.src}
-                    alt={item.name}
+                    src={item.src ? item.src : null}
+                    alt={item.name ? item.name : null}
                     active="true"
                     ref={node => this.imgEl = node}
                   />
@@ -619,8 +619,8 @@ class PicturePreview extends Component {
                 return (
                   <img key={'pic_'+index}
                     className="img"
-                    src={item.src}
-                    alt={item.name}
+                    src={item.src ? item.src : null}
+                    alt={item.name ? item.name : null}
                   />
                 );
               }
