@@ -186,6 +186,7 @@ export const components = {
           key: 'affix',
           type: 'markdown',
           name: 'Affix 固钉',
+          published: true,
         },
         {
           key: 'menu',
@@ -227,6 +228,7 @@ export const components = {
           key: 'anchor',
           type: 'markdown',
           name: 'Anchor 锚点',
+          published: true,
         },
         {
           key: 'backTop',
