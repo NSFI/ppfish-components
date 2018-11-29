@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const ora = require('ora');
 const config = require('../webpack.config.prod.dist');
 const {chalkError, chalkSuccess, chalkWarning, chalkProcessing} = require('./chalkConfig');
-const copyComponentsStyle = require('./copyComponentsStyle');
+// const copyComponentsStyle = require('./copyComponentsStyle');
 
 console.log(chalkProcessing('dist: Generating minified bundle for production via Webpack. This will take a moment...'));
 
@@ -34,13 +34,13 @@ webpack(config).run((error, stats) => {
     jsonStats.warnings.map(warning => console.log(chalkWarning(warning)));
   }
   spinner.start('dist: Copying style files...');
-  try{
-    copyComponentsStyle();
-  }catch(e){
-    console.log(chalkError(e));
-    process.exit(1);
-    return;
-  }
+  // try{
+  //   copyComponentsStyle();
+  // }catch(e){
+  //   console.log(chalkError(e));
+  //   process.exit(1);
+  //   return;
+  // }
   spinner.stop();
 
   console.log(stats.toString({
