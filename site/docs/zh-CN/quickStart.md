@@ -21,9 +21,33 @@ ReactDOM.render(
 
 ```
 
+## 按需打包
+
+通常情况下可能只使用了部分组件，如果你使用 import { Button } from 'ppfish'，babel通常会把整个ppfish打包出来。
+你可以使用babel插件，比如[babel-plugin-transform-imports](https://www.npmjs.com/package/babel-plugin-transform-imports)，将这种写法在编译时自动转换成 import Button from 'ppfish/es/components/Button'; 
+不过你需要告诉babel-plugin-transform-imports插件ppfish组件的路径名规则。
+
+```js
+// 列举babel7支持的babel.config.js配置写法：
+module.exports = function (api) {
+  // Cache the returned value forever and don't call this function again.
+  api.cache(true);
+  return {
+    plugins: [
+      "transform-imports", {
+        "ppfish": {
+          "transform": "ppfish/es/components/${member}"
+        },
+      }
+    ]
+  };
+};
+
+```
+
 ## 使用CDN上的ppfish组件库
 
-请先将组件库上传至CDN上。从CDN上引入ppfish组件库与使用CDN上的React库文件的方式是一样的，直接在html文件中加入一个script标签，这个标签地址是CDN上的ppfish组件库地址。由于ppfish组件库依赖于react、react-dom、react-dom/server这三个库文件，所以请确保这三个文件在组件库的script的标签之前就已经加载了。可能还需要手动引入组件库的样式。
+请使用已经存在的CDN资源或自行打包并上传至CDN上。从CDN上引入ppfish组件库与使用CDN上的React库文件的方式是一样的，都是在html文件中使用script标签引用CDN资源。由于ppfish组件库依赖于react、react-dom这两个库文件，所以请确保这两个文件的位置在组件库的CDN资源之前。另外还需要手动引入组件库的样式CDN资源。
 
 使用CDN上的组件库时，如果需要自定义主题，需要在项目中安装ppfish组件库作为依赖，然后在代码中引入 `ppfish/dist/style.less` 这个样式文件。具体细节，可参考**开发指南 - 定制主题**。
 ```html
