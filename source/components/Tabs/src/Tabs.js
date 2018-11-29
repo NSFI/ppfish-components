@@ -74,15 +74,9 @@ export default class Tabs extends React.Component {
     }
   }
 
-  // Prevent focus to make the Tabs scroll offset
-  // https://github.com/ant-design/ant-design/issues/11261
-  onScroll = ({ target }) => {
-    if (target.scrollLeft > 0) {
+  onScroll = ({ target, currentTarget }) => {
+    if (target === currentTarget && target.scrollLeft > 0) {
       target.scrollLeft = 0;
-
-      if (document.activeElement) {
-        document.activeElement.blur();
-      }
     }
   };
 
