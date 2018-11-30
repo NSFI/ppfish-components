@@ -95,7 +95,7 @@ class RichEditor extends Component {
 
         if (range.length !== 0) {
           this.setState({
-            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+            // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
             showLinkModal: true
           });
         } else {
@@ -103,9 +103,9 @@ class RichEditor extends Component {
         }
       },
       video: (value) => {
-        let quill = this.getEditor();
+        // let quill = this.getEditor();
         this.setState({
-          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
           showVideoModal: true
         });
       },
@@ -129,9 +129,9 @@ class RichEditor extends Component {
         }
       },
       image: () => {
-        let quill = this.getEditor();
+        // let quill = this.getEditor();
         this.setState({
-          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
           showImageModal: true
         });
       },
@@ -261,7 +261,7 @@ class RichEditor extends Component {
       el.value = 'http://';
 
       this.setState({
-        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
         showLinkModal: false
       });
     }
@@ -295,7 +295,7 @@ class RichEditor extends Component {
       el.value = 'http://';
 
       this.setState({
-        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
         showVideoModal: false
       });
     }
@@ -342,7 +342,7 @@ class RichEditor extends Component {
           quill.setSelection(range.index + 1, 'silent');
 
           this.setState({
-            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+            // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
             showImageModal: false
           });
         });
@@ -351,7 +351,7 @@ class RichEditor extends Component {
         quill.setSelection(range.index + 1, 'silent');
 
         this.setState({
-          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
           showImageModal: false
         });
       }
@@ -456,6 +456,10 @@ class RichEditor extends Component {
   };
 
   handleChange = (value, delta, source, editor) => {
+    this.setState({
+      value: value
+    });
+
     const { onChange } = this.props;
 
     if (onChange) {
