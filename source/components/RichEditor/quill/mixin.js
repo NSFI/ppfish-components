@@ -127,7 +127,6 @@ let QuillMixin = {
   /* 检查输入的内容是否全部为空字符（空格、回车符、制表符）*/
   isEmptyContents: function(editor){
     let delta = editor.getContents();
-    console.log('>> judge delta: ', delta);
     if (delta && delta.ops && delta.ops.length == 1) {
       let obj = delta.ops[0];
       if (obj.hasOwnProperty('attributes') || !obj.hasOwnProperty('insert')) {
