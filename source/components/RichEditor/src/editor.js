@@ -77,8 +77,6 @@ class RichEditor extends Component {
 
     let { value, customLink, supportFontTag } = this.props;
 
-    this.toolbarCtner = null;
-
     if (supportFontTag) {
       value = this.formatFontTag(value);
     }
@@ -88,6 +86,7 @@ class RichEditor extends Component {
       showLinkModal: false,
       showVideoModal: false,
       showImageModal: false,
+      toolbarCtner: null,
     };
     this.handlers = {
       myLink: (value) => {
@@ -166,8 +165,9 @@ class RichEditor extends Component {
   }
 
   componentDidMount() {
-    this.toolbarCtner = findDOMNode(this.toolbarRef);
-    this.forceUpdate();
+    this.setState({
+      toolbarCtner: findDOMNode(this.toolbarRef)
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -226,14 +226,17 @@ class RichEditor extends Component {
   };
 
   focus = () => {
+    if (!this.reactQuillRef) return;
     this.reactQuillRef.focus();
   };
 
   blur = () => {
+    if (!this.reactQuillRef) return;
     this.reactQuillRef.blur();
   };
 
   getEditor = () => {
+    if (!this.reactQuillRef) return;
     return this.reactQuillRef.getEditor();
   };
 
@@ -335,8 +338,9 @@ class RichEditor extends Component {
 
   handlePickLocalImage = () => {
     let { customInsertImage } = this.props;
+    let { toolbarCtner } = this.state;
     let quill = this.getEditor();
-    let fileInput = this.toolbarCtner.querySelector('input.ql-image[type=file]');
+    let fileInput = toolbarCtner.querySelector('input.ql-image[type=file]');
     const getImageCb = (attrs) => {
       if (attrs.src == undefined) {
         message.error('请设置所插入图片的 src 属性');
@@ -393,21 +397,22 @@ class RichEditor extends Component {
             reader.readAsDataURL(fileInput.files[0]);
           }
         });
-        this.toolbarCtner.appendChild(fileInput);
+        toolbarCtner.appendChild(fileInput);
       }
       fileInput.click();
     }
   };
 
   handleInsertEmoji = (e) => {
+    let { toolbarCtner } = this.state;
     let target = e.target,
         clsList = target.classList.value;
 
     if ((clsList.indexOf('emoji-item') > -1 || clsList.indexOf('emoji-extend-item') > -1) && target.hasAttribute('value')) {
-      let el = this.toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
+      let el = toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
       if (el == null) {
         el = document.createElement('button');
-        this.toolbarCtner.querySelector('.custom-emoji').appendChild(el);
+        toolbarCtner.querySelector('.custom-emoji').appendChild(el);
       }
 
       el.setAttribute('type', 'button');
@@ -419,12 +424,13 @@ class RichEditor extends Component {
   };
 
   handleFormatBackground = (e) => {
+    let { toolbarCtner } = this.state;
     let target = e.target;
     if (target.classList.value.indexOf('background-item') > -1 && target.hasAttribute('value')) {
-      let el = this.toolbarCtner.querySelector('button.ql-background[data-role="background"]');
+      let el = toolbarCtner.querySelector('button.ql-background[data-role="background"]');
       if (el == null) {
         el = document.createElement('button');
-        this.toolbarCtner.querySelector('.custom-background').appendChild(el);
+        toolbarCtner.querySelector('.custom-background').appendChild(el);
       }
 
       el.setAttribute('type', 'button');
@@ -436,12 +442,13 @@ class RichEditor extends Component {
   };
 
   handleFormatColor = (e) => {
+    let { toolbarCtner } = this.state;
     let target = e.target;
     if (target.classList.value.indexOf('color-item') > -1 && target.hasAttribute('value')) {
-      let el = this.toolbarCtner.querySelector('button.ql-color[data-role="color"]');
+      let el = toolbarCtner.querySelector('button.ql-color[data-role="color"]');
       if (el == null) {
         el = document.createElement('button');
-        this.toolbarCtner.querySelector('.custom-color').appendChild(el);
+        toolbarCtner.querySelector('.custom-color').appendChild(el);
       }
 
       el.setAttribute('type', 'button');
@@ -453,12 +460,13 @@ class RichEditor extends Component {
   };
 
   handleFormatSize = (e) => {
+    let { toolbarCtner } = this.state;
     let target = e.target;
     if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
-      let el = this.toolbarCtner.querySelector('button.ql-customSize[data-role="customSize"]');
+      let el = toolbarCtner.querySelector('button.ql-customSize[data-role="customSize"]');
       if (el == null) {
         el = document.createElement('button');
-        this.toolbarCtner.querySelector('.custom-size').appendChild(el);
+        toolbarCtner.querySelector('.custom-size').appendChild(el);
       }
 
       el.setAttribute('type', 'button');
@@ -478,7 +486,7 @@ class RichEditor extends Component {
   };
 
   render() {
-    const { value, showLinkModal, showVideoModal, showImageModal } = this.state;
+    const { value, showLinkModal, showVideoModal, showImageModal, toolbarCtner } = this.state;
     const {
       className, prefixCls,
       toolbar, placeholder,
@@ -550,7 +558,7 @@ class RichEditor extends Component {
           className={'editor-body'}
           modules={{
             toolbar: {
-              container: this.toolbarCtner,
+              container: toolbarCtner,
               handlers: this.handlers
             }
           }}
