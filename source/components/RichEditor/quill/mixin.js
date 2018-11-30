@@ -9,8 +9,11 @@ let QuillMixin = {
   be passed the configuration, have its events bound,
   */
   createEditor: function($el, config) {
-    let editor = new Quill($el, config);
+    let editor = new Quill($el, config), _this = this;
+
+    // 添加与 unprivilegedEditor 相同的方法
     editor.getHTML = function(){ return editor.root.innerHTML; };
+    editor.isEmptyContents = function(){ return _this.isEmptyContents(editor); };
 
     if (config.tabIndex !== undefined) {
       this.setEditorTabIndex(editor, config.tabIndex);
@@ -109,7 +112,7 @@ let QuillMixin = {
   without any state-modificating methods.
   */
   makeUnprivilegedEditor: function(editor) {
-    let e = editor;
+    let e = editor, _this = this;
     return {
       getLength:      function(){ return e.getLength.apply(e, arguments); },
       getText:        function(){ return e.getText.apply(e, arguments); },
@@ -117,9 +120,27 @@ let QuillMixin = {
       getContents:    function(){ return e.getContents.apply(e, arguments); },
       getSelection:   function(){ return e.getSelection.apply(e, arguments); },
       getBounds:      function(){ return e.getBounds.apply(e, arguments); },
-    };
-  }
+      isEmptyContents: function(){ return _this.isEmptyContents(e); }
+    }
+  },
 
+  /* 检查输入的内容是否全部为空字符（空格、回车符、制表符）*/
+  isEmptyContents: function(editor){
+    let delta = editor.getContents();
+    console.log('>> judge delta: ', delta);
+    if (delta && delta.ops && delta.ops.length == 1) {
+      let obj = delta.ops[0];
+      if (obj.hasOwnProperty('attributes') || !obj.hasOwnProperty('insert')) {
+        return false;
+      }
+      let inputChars = [...obj['insert']];
+      let notEmpty = inputChars.some((val) => {
+        return val!==' ' && val!=='\t' && val!=='\n';
+      });
+      return !notEmpty;
+    }
+    return false;
+  }
 };
 
 module.exports = QuillMixin;

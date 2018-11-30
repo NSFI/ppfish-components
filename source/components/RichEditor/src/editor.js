@@ -240,28 +240,6 @@ class RichEditor extends Component {
     return this.reactQuillRef.getEditor();
   };
 
-  // 检查输入的内容是否全部为空字符（空格、回车符、制表符）
-  isEmptyContents = () => {
-    let quill = this.reactQuillRef.getEditor(),
-      delta = quill.getContents();
-
-    if (delta && delta.ops && delta.ops.length == 1) {
-      let obj = delta.ops[0];
-      if (obj.hasOwnProperty('attributes') || !obj.hasOwnProperty('insert')) {
-        return false;
-      }
-
-      let inputChars = [...obj['insert']];
-      let notEmpty = inputChars.some((val) => {
-        return val!==' ' && val!=='\t' && val!=='\n';
-      });
-
-      return !notEmpty;
-    }
-
-    return false;
-  }
-
   handleLinkModalOk = () => {
     let el = this.linkModalInputRef.input,
         val = el.value;
