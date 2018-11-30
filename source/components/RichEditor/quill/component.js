@@ -366,7 +366,8 @@ let QuillComponent = createClass({
 
 			this.setState({ value: nextContents });
 
-			if (this.props.onChange) {
+			// 初次生成ReactQuill时toolbar未完成，需要再次生成ReactQuill，避免onChange多次调用
+			if (this.props.onChange && this.state.generation!=0) {
 				this.props.onChange(value, delta, source, editor);
 			}
 		}
