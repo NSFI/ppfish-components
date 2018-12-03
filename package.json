@@ -8,7 +8,7 @@
     "prestart": "npm-run-all --parallel start-message remove-dist",
     "start": "npm-run-all --parallel test:watch open:site lint:watch",
     "build": "npm-run-all --parallel build:site build:dist build:es",
-    "build:dist": "babel-node tools/buildDist.js",
+    "build:dist": "rimraf dist && babel-node tools/buildDist.js",
     "build:es": "tools/buildES.sh",
     "stylelint": "stylelint \"source/**/*.less\"",
     "lint": "esw webpack.config.* source tools",
@@ -156,7 +156,7 @@
     "react-router": "^3.2.1",
     "react-test-renderer": "^16.2.0",
     "report-url": "^1.0.0",
-    "rimraf": "2.5.4",
+    "rimraf": "^2.5.4",
     "style-loader": "^0.22.1",
     "stylelint": "^9.5.0",
     "stylelint-config-standard": "^18.0.0",
@@ -212,5 +212,5 @@
   "bugs": {
     "url": "https://github.com/NSFI/ppfish-components/issues"
   },
-  "homepage": "https://github.com/NSFI/ppfish-components#readme"
+  "homepage": "https://nsfi.github.io/ppfish-components/#/home"
 }
