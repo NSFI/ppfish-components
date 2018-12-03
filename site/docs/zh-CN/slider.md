@@ -129,7 +129,7 @@
     const nextColor = value >= mid ? 'rgba(0, 0, 0, .45)' : '';
     return (
       <div className="icon-wrapper">
-        <img className="img-icon-14 fishdicon" src="./static/icons/demo-like.svg" /><Slider max={20} min={0} onChange={this.handleChange} value={value} /><img className="img-icon-14 fishdicon" src="./static/icons/demo-like.svg" />
+        <IconLike className="img-icon-14 fishdicon" /><Slider max={20} min={0} onChange={this.handleChange} value={value} /><IconLike className="img-icon-14 fishdicon" />
       </div>
     );
   }

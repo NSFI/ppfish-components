@@ -36,15 +36,15 @@ render() {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="">
-        <img className="img-icon-14 fishdicon" src="./static/icons/demo-grid.svg" />
+        <IconGrid />
         <span>Home</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item href="">
-        <img className="img-icon-14 fishdicon" src="./static/icons/demo-pie.svg" />
+        <IconPie />
         <span>APP List</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <img className="img-icon-14 fishdicon" src="./static/icons/demo-mail.svg" />
+        <IconMail />
         <span>Application</span>
       </Breadcrumb.Item>
     </Breadcrumb>

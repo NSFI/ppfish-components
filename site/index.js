@@ -6,6 +6,7 @@ import './styles/index.less';
 import Components from './pages/components';
 import Home from './pages/home';
 import Demo from './pages/demo';
+import './static/Icons';
 
 const App = (Components) => (
   <AppContainer>

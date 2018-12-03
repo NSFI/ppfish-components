@@ -794,7 +794,7 @@
       title: 'Node1',
       value: '0-0',
       key: '0-0a',
-      icon: <img className="img-icon-14" src="./static/icons/demo-image.svg" />,
+      icon: <IconImage className="img-icon-14" />,
       children: [{
         title: 'CNode1',
         value: '0-0-0',
@@ -804,7 +804,7 @@
       title: 'Node2',
       value: '0-1',
       key: '0-1a',
-      icon: <img className="img-icon-14" src="./static/icons/demo-image.svg" />,
+      icon: <IconImage className="img-icon-14" />,
       children: [{
         title: 'CNode2',
         value: '0-1-0',
@@ -836,7 +836,7 @@
     };
 
     return (
-      <TreeSelect {...tProps} icon={<img className="img-icon-14" src="./static/icons/demo-pie.svg" />}/>
+      <TreeSelect {...tProps} icon={<IconPie className="img-icon-14"/>}/>
     );
   }
 ```

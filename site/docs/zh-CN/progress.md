@@ -231,7 +231,7 @@ render() {
     <Progress
       type="line"
       percent={65}
-      extraContent={<img className="img-icon-14" src="./static/icons/demo-like.svg" />}
+      extraContent={<IconLike className="img-icon-14" />}
     />
   );
 }

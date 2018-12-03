@@ -29,8 +29,8 @@ const getDemoEntries = () => {
   const demoNameArr = [];
   parseDir(demoPath, demoNameArr);
   const arr = demoNameArr.filter((name) => {
-      return name.slice(-3) === '.js';
-    }
+    return name.slice(-3) === '.js';
+  }
   );
   for (let each of arr) {
     entries[each.slice(0, -3)] = [demoPath + each];
@@ -116,7 +116,41 @@ module.exports = {
         }]
       },
       {
-        test: /\.(ttf|eot|svg|woff|woff2)(\?.+)?$/,
+        test: /\.svg$/,
+        oneOf: [
+          // oneOf uses the first matching rule. So for your use case put the 
+          // resourceQuery: /module/ into the first entry and no resourceQuery 
+          // at all into the second. – Daniel Jul 5 '17 at 15:52 
+          {
+            test: /static\/icons/,
+            use: [
+              "babel-loader",
+              {
+                loader: "react-svg-loader",
+                options: {
+                  svgo: {
+                    plugins: [{
+                      addAttributesToSVGElement: {
+                        attribute: [
+                          'fill="currentColor"'
+                        ]
+                      },
+                    }, {
+                      removeAttrs: {
+                        attrs: 'path:fill'
+                      }
+                    }]
+                  }
+                }
+              }]
+          },
+          {
+            use: 'file-loader?name=[hash:12].[ext]'
+          },
+        ],
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)(\?.+)?$/,
         loader: 'file-loader?name=[hash:12].[ext]'
       },
       {

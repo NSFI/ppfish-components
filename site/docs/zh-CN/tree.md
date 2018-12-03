@@ -308,9 +308,9 @@
     super(props);
     this.state = {
       treeData: [
-        { title: 'Expand to load', key: '0', icon:<img className="img-icon-14" src="./static/icons/demo-grid.svg" /> },
-        { title: 'Expand to load', key: '1', icon:<img className="img-icon-14" src="./static/icons/demo-image.svg" /> },
-        { title: 'Tree Node', key: '2', isLeaf: true, icon:<img className="img-icon-14" src="./static/icons/demo-pie.svg" /> },
+        { title: 'Expand to load', key: '0', icon:<IconGrid className="img-icon-14" /> },
+        { title: 'Expand to load', key: '1', icon:<IconImage className="img-icon-14" /> },
+        { title: 'Tree Node', key: '2', isLeaf: true, icon:<IconPie className="img-icon-14"/> },
       ],
     }
   }
@@ -323,8 +323,8 @@
       }
       setTimeout(() => {
         treeNode.props.dataRef.children = [
-          { title: 'Child Node', key: `${treeNode.props.eventKey}-0`, icon:<img className="img-icon-14" src="./static/icons/demo-grid.svg" /> },
-          { title: 'Child Node', key: `${treeNode.props.eventKey}-1`, icon:<img className="img-icon-14" src="./static/icons/demo-image.svg" /> },
+          { title: 'Child Node', key: `${treeNode.props.eventKey}-0`, icon:<IconGrid className="img-icon-14" /> },
+          { title: 'Child Node', key: `${treeNode.props.eventKey}-1`, icon:<IconImage className="img-icon-14" /> },
         ];
         this.setState({
           treeData: [...this.state.treeData],
@@ -374,14 +374,14 @@
         defaultExpandAll
         defaultSelectedKeys={['0-0-0']}
       >
-        <TreeNode icon={<img className="img-icon-14" src="./static/icons/demo-grid.svg" />} title="parent 1" key="0-0">
-          <TreeNode icon={<img className="img-icon-14" src="./static/icons/demo-image.svg" />} title="leaf" key="0-0-0" />
+        <TreeNode icon={<IconGrid className="img-icon-14" />} title="parent 1" key="0-0">
+          <TreeNode icon={<IconImage className="img-icon-14"/>} title="leaf" key="0-0-0" />
           <TreeNode
             icon={({ selected }) => {
               if (selected) {
-                return <img className="img-icon-14" src="./static/icons/demo-grid.svg" />;
+                return <IconGrid className="img-icon-14"/>;
               } else {
-                return <img className="img-icon-14" src="./static/icons/demo-image.svg" />;
+                return <IconImage className="img-icon-14"/>;
               }
             }}
             title="leaf"

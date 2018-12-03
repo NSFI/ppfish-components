@@ -18,7 +18,7 @@ if (replIframe) {
 
 const demoPath = './site/docs/demoPage/';
 const getHtmlWebpackPlugin = () => {
-  if(iframe){
+  if (iframe) {
     const demoNameArr = [];
     parseDir(demoPath, demoNameArr);
     const htmlWebpackPlugin = demoNameArr
@@ -34,7 +34,7 @@ const getHtmlWebpackPlugin = () => {
         });
       });
     return htmlWebpackPlugin;
-  }else{
+  } else {
     return [];
   }
 };
@@ -45,8 +45,8 @@ const getDemoEntries = () => {
     const demoNameArr = [];
     parseDir(demoPath, demoNameArr);
     const arr = demoNameArr.filter((name) => {
-        return name.slice(-3) === '.js';
-      }
+      return name.slice(-3) === '.js';
+    }
     );
     for (let each of arr) {
       entries[each.slice(0, -3)] = [demoPath + each];
@@ -112,8 +112,46 @@ module.exports = {
         }]
       },
       {
-        test: /\.(ttf|eot|svg|woff|woff2)(\?.+)?$/,
-        loader: 'file-loader'
+        test: /\.svg$/,
+        oneOf: [
+          // oneOf uses the first matching rule. So for your use case put the 
+          // resourceQuery: /module/ into the first entry and no resourceQuery 
+          // at all into the second. – Daniel Jul 5 '17 at 15:52 
+          {
+            test: /static\/icons/,
+            use: [
+              "babel-loader",
+              {
+                loader: "react-svg-loader",
+                options: {
+                  svgo: {
+                    plugins: [
+                      { removeDimensions: true },
+                      {
+                        addAttributesToSVGElement: {
+                          attributes: [
+                            'fill="currentColor"',
+                            'height="16"',
+                            'width="16"'
+                          ]
+                        },
+                      }, {
+                        removeAttrs: {
+                          attrs: 'path:fill'
+                        }
+                      }]
+                  }
+                }
+              }]
+          },
+          {
+            use: 'file-loader'
+          },
+        ],
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)(\?.+)?$/,
+        loader: 'file-loader',
       },
       {
         test: /\.(jpe?g|png|gif)(\?.+)?$/,

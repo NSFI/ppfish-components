@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import {Layout, Menu, Icon, FooterToolbar, Button} from '../../../source/components';
-
+import '../../static/Icons';
 const {Header, Content, Sider} = Layout;
 const DEMOIconProps = {
   className:"img-icon-14 fishdicon",
@@ -14,7 +14,7 @@ ReactDOM.render(
       <div className="logo"/>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
         <Menu.Item key="1">
-          <img {...DEMOIconProps} src="../static/icons/demo-pie.svg" />
+          <window.IconPie {...DEMOIconProps} />
           <span className="nav-text">nav 1</span>
         </Menu.Item>
         <Menu.Item key="2">
@@ -26,19 +26,19 @@ ReactDOM.render(
           <span className="nav-text">nav 3</span>
         </Menu.Item>
         <Menu.Item key="4">
-          <img {...DEMOIconProps} src="../static/icons/demo-bar-chart.svg" />
+          <window.IconChart  {...DEMOIconProps} />
           <span className="nav-text">nav 4</span>
         </Menu.Item>
         <Menu.Item key="5">
-          <img {...DEMOIconProps}  src="../static/icons/demo-grid.svg" />
+          <window.IconGrid {...DEMOIconProps}  />
           <span className="nav-text">nav 5</span>
         </Menu.Item>
         <Menu.Item key="6">
-          <img {...DEMOIconProps}  src="../static/icons/demo-bargraph.svg" />
+          <window.IconBargraph {...DEMOIconProps}  />
           <span className="nav-text">nav 6</span>
         </Menu.Item>
         <Menu.Item key="7">
-          <img {...DEMOIconProps}  src="../static/icons/demo-play.svg" />
+          <window.IconPlay {...DEMOIconProps}/>
           <span className="nav-text">nav 7</span>
         </Menu.Item>
         <Menu.Item key="8">
