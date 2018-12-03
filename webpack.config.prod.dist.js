@@ -16,7 +16,7 @@ const externals = {
   }
 };
 const lessStyle = new ExtractTextPlugin({
-  filename: '[name].css',
+  filename: '[name].min.css',
   allChunks: true
 });
 
@@ -51,8 +51,8 @@ module.exports = {
     library: 'ppfish',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
-    chunkFilename: '[id].js',
+    filename: '[name].min.js',
+    chunkFilename: '[id].min.js',
   },
   externals: externals,
   plugins: [
