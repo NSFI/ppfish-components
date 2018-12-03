@@ -66,7 +66,7 @@ class Demo extends React.Component {
           >
             <div>
               <Menu
-                style={{ height: '200%' }}
+                style={{ height: '100%' }}
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 mode="inline"

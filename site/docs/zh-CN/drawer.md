@@ -568,7 +568,6 @@ render() {
 ```less
 .react-resizable {
   position: relative;
-  height: 100%;
 }
 
 .react-resizable-handle {
@@ -722,7 +721,6 @@ render() {
 ```less
 .react-resizable {
   position: relative;
-  height: 100%;
 }
 
 .react-resizable-handle {
