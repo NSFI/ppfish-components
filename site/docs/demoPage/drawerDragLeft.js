@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import { Drawer, Menu, Icon, Button } from '../../../source/components';
-import Resizable from 're-resizable';
+import { Drawer, Menu, Button } from '../../../source/components';
+import { Resizable } from 'react-resizable';
+import './drawerDragLeft.less';
 
 class Demo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      width: 450
+      width: 450,
     };
   }
 
@@ -34,6 +35,12 @@ class Demo extends React.Component {
     });
   }
 
+  onResize = (e, { size }) => {
+    this.setState({
+      width: size.width,
+    })
+  }
+
   render() {
     return (
       <div>
@@ -46,15 +53,13 @@ class Demo extends React.Component {
           onChange={this.onChange}
           onMaskClick={this.onTouchEnd}
           onCloseClick={this.onCloseClick}
+          placement="left"
+          mask={false}
         >
           <Resizable
-            maxWidth={900}
-            size={{ width: this.state.width }}
-            onResizeStop={(e, direction, ref, d) => {
-              this.setState({
-                width: this.state.width + d.width,
-              });
-            }}
+            width={this.state.width}
+            height={0}
+            onResize={this.onResize}
           >
             <div>
               <Menu

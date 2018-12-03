@@ -429,7 +429,10 @@ render() {
 ## 加入拖拽功能
 
 - 抽屉组件可以与其他组件配合使用，实现复杂的功能；
-- 下面示例中使用的拖拽组件文档链接请参考：https://github.com/bokuweb/re-resizable
+- 下面示例中使用的拖拽组件文档链接请参考：https://github.com/STRML/react-resizable
+- 注意：从左、右两边弹出时，拖拽的实现会有些差别，详情见下面的示例
+
+### 从左边弹出
 
 :::demo
 
@@ -438,7 +441,7 @@ render() {
     super(props);
     this.state = {
       visible: false,
-      width: 450
+      width: 450,
     };
   }
 
@@ -464,6 +467,12 @@ render() {
     });
   }
 
+  onResize = (e, { size }) => {
+    this.setState({
+      width: size.width,
+    })
+  }
+
   drawerDrag = () => {
     return (
       <div>
@@ -476,19 +485,16 @@ render() {
           onChange={this.onChange}
           onMaskClick={this.onTouchEnd}
           onCloseClick={this.onCloseClick}
+          placement="left"
         >
           <Resizable
-            maxWidth={900}
-            size={{ width: this.state.width }}
-            onResizeStop={(e, direction, ref, d) => {
-              this.setState({
-                width: this.state.width + d.width,
-              });
-            }}
+            width={this.state.width}
+            height={0}
+            onResize={this.onResize}
           >
             <div>
               <Menu
-                style={{ height: '200%' }}
+                style={{ height: '100%' }}
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 mode="inline"
@@ -553,10 +559,180 @@ render() {
     //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerDrag
     return(
       <div className="browser-mockup">
-        <iframe src="./demo/drawerDrag.html" height={450}></iframe>
+        <iframe src="./demo/drawerDragLeft.html" height={450}></iframe>
       </div>
     )
   }
+```
+
+```less
+.react-resizable {
+  position: relative;
+  height: 100%;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  bottom: 0;
+  right: -5px;
+  cursor: col-resize;
+}
+```
+:::
+
+### 从右边弹出
+
+:::demo
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      drawerWidth: 450,
+      resizeWidth: document.body.offsetWidth - 450
+    };
+  }
+
+  onChange = (bool) => {
+    console.log(bool);
+  }
+
+  onTouchEnd = () => {
+    this.setState({
+      visible: false,
+    });
+  }
+
+  onSwitch = () => {
+    this.setState({
+      visible: !this.state.visible,
+    });
+  }
+
+  onCloseClick = () => {
+    this.setState({
+      visible: !this.state.visible,
+    });
+  }
+
+  onResize = (e, { size }) => {
+    this.setState({
+      resizeWidth: size.width,
+      drawerWidth: document.body.offsetWidth - size.width
+    })
+  }
+
+  drawerDrag = () => {
+    return (
+      <div>
+        <Drawer
+          handler={false}
+          level={null}
+          width={this.state.drawerWidth}
+          visible={this.state.visible}
+          closed={true}
+          onChange={this.onChange}
+          onMaskClick={this.onTouchEnd}
+          onCloseClick={this.onCloseClick}
+        >
+          <Resizable
+            width={this.state.resizeWidth}
+            height={0}
+            onResize={this.onResize}
+            draggableOpts={{
+              offsetParent: document.body
+            }}
+          >
+            <div>
+              <Menu
+                style={{ height: '100%' }}
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                mode="inline"
+              >
+                <Menu.SubMenu
+                  key="sub1"
+                  title={<span>Navigation One</span>}
+                >
+                  <Menu.ItemGroup key="g1" title="Item 1">
+                    <Menu.Item key="1">Option 1</Menu.Item>
+                    <Menu.Item key="2">Option 2</Menu.Item>
+                  </Menu.ItemGroup>
+                  <Menu.ItemGroup key="g2" title="Item 2">
+                    <Menu.Item key="3">Option 3</Menu.Item>
+                    <Menu.Item key="4">Option 4</Menu.Item>
+                  </Menu.ItemGroup>
+                </Menu.SubMenu>
+                <Menu.SubMenu
+                  key="sub2"
+                  title={<span>Navigation Two</span>}
+                >
+                  <Menu.Item key="5">Option 5</Menu.Item>
+                  <Menu.Item key="6">Option 6</Menu.Item>
+                  <Menu.SubMenu key="sub3" title="Submenu">
+                    <Menu.Item key="7">Option 7</Menu.Item>
+                    <Menu.Item key="8">Option 8</Menu.Item>
+                  </Menu.SubMenu>
+                </Menu.SubMenu>
+                <Menu.SubMenu
+                  key="sub4"
+                  title={<span>Navigation Three</span>}
+                >
+                  <Menu.Item key="9">Option 9</Menu.Item>
+                  <Menu.Item key="10">Option 10</Menu.Item>
+                  <Menu.Item key="11">Option 11</Menu.Item>
+                  <Menu.Item key="12">Option 12</Menu.Item>
+                </Menu.SubMenu>
+              </Menu>
+            </div>
+          </Resizable>
+        </Drawer>
+        <div
+          style={{
+            width: '100%', height: 450,
+            textAlign: 'center', lineHeight: '450px',
+          }}
+        >
+          内容区块
+          <Button
+            type="primary"
+            onClick={this.onSwitch}
+            style={{marginLeft: 20}}
+          >
+            {!this.state.visible ? '打开抽屉' : '关闭抽屉'}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  
+  render() {
+    //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考上面的 drawerDrag
+    return(
+      <div className="browser-mockup">
+        <iframe src="./demo/drawerDragRight.html" height={450}></iframe>
+      </div>
+    )
+  }
+```
+
+```less
+.react-resizable {
+  position: relative;
+  height: 100%;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  bottom: 0;
+  left: -5px;
+  cursor: col-resize;
+}
 ```
 :::
 
