@@ -3,7 +3,6 @@ import { findDOMNode } from 'react-dom';
 import RcTabs, { TabPane, TabContent, ScrollableInkTabBar } from './src/index.js';
 import classNames from 'classnames';
 import Icon from '../Icon';
-import Spin from '../Spin';
 import warning from 'warning';
 import './style/index.less';
 
@@ -202,25 +201,17 @@ export default class Tabs extends React.Component<TabsProps, any> {
       />
     );
 
-    let {
-      style: ctnerStyle,
-      ...restProps
-    } = this.props;
-
     return (
-      <div className={prefixCls + '-ctner'} style={ctnerStyle}>
-        <RcTabs
-          {...restProps}
-          className={cls}
-          tabBarPosition={tabPosition}
-          renderTabBar={renderTabBar}
-          renderTabContent={() => <TabContent animated={tabPaneAnimated} animatedWithMargin />}
-          onChange={this.handleChange}
-        >
-          {childrenWithClose.length > 0 ? childrenWithClose : children}
-        </RcTabs>
-        <Spin.Container><Spin spinning={loading}/></Spin.Container>
-      </div>
+      <RcTabs
+        {...this.props}
+        className={cls}
+        tabBarPosition={tabPosition}
+        renderTabBar={renderTabBar}
+        renderTabContent={() => <TabContent animated={tabPaneAnimated} animatedWithMargin loading={loading}/>}
+        onChange={this.handleChange}
+      >
+        {childrenWithClose.length > 0 ? childrenWithClose : children}
+      </RcTabs>
     );
   }
 }

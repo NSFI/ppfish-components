@@ -7,6 +7,7 @@ import {
   getTransformPropValue,
   getMarginStyle,
 } from './utils';
+import Spin from '../../Spin';
 
 export default class TabContent extends React.Component {
   getTabPanes() {
@@ -14,6 +15,10 @@ export default class TabContent extends React.Component {
     const activeKey = props.activeKey;
     const children = props.children;
     const newChildren = [];
+
+    if (props.loading) {
+      return <Spin.Container style={{height: '100%', width: '100%'}}><Spin spinning={true}/></Spin.Container>;
+    }
 
     React.Children.forEach(children, (child) => {
       if (!child) {
