@@ -9,7 +9,7 @@ const demoPath = './site/docs/demoPage/';
 const os = require('os');
 const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 let happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 // WSL下这个uglifyJS有问题。
