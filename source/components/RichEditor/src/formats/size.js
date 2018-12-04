@@ -17,20 +17,11 @@ class CustomSizeBlot extends Inline {
     return node.style.fontSize;
   }
 
-  constructor(props) {
-    super(props);
-    this.defaultValue = '14px';
-  }
-
   format(name, value) {
-    if (name === 'customSize') {
-      if (value) {
-        this.domNode.style.fontSize = value;
-      } else {
-        this.domNode.style.fontSize = this.defaultValue;
-      }
-    } else {
+    if (name !== this.statics.blotName || !value) {
       super.format(name, value);
+    } else {
+      this.domNode.style.fontSize = value;
     }
   }
 }
