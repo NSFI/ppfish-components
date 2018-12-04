@@ -165,9 +165,11 @@ class RichEditor extends Component {
   }
 
   componentDidMount() {
+    /* eslint-disable react/no-did-mount-set-state */
     this.setState({
       toolbarCtner: findDOMNode(this.toolbarRef)
     });
+    /* eslint-enable react/no-did-mount-set-state */
   }
 
   componentWillReceiveProps(nextProps) {

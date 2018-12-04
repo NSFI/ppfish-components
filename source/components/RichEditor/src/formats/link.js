@@ -16,7 +16,7 @@ class Link extends Inline {
     // let containsCursor = /<\s*span\s*class\s*=\s*['"]\s*ql-cursor\s*['"]\s*>\s*\ufeff\s*<\s*\/\s*span\s*>/gi;
     if (!this.formatCursor && domChildren && domChildren.length==1 && domChildren[0].innerText=="\ufeff") {
       return;
-    };
+    }
 
     return node.getAttribute('href');
   }

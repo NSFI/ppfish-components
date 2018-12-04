@@ -121,7 +121,7 @@ let QuillMixin = {
       getSelection:   function(){ return e.getSelection.apply(e, arguments); },
       getBounds:      function(){ return e.getBounds.apply(e, arguments); },
       isEmptyContents: function(){ return _this.isEmptyContents(e); }
-    }
+    };
   },
 
   /* 检查输入的内容是否全部为空字符（空格、回车符、制表符）*/

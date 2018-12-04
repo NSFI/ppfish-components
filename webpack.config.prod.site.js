@@ -122,7 +122,7 @@ module.exports = {
           // resourceQuery: /module/ into the first entry and no resourceQuery 
           // at all into the second. – Daniel Jul 5 '17 at 15:52 
           {
-            test: /static[\/\\]icons/,
+            test: /static[/\\]icons/,
             use: [
               "babel-loader",
               {
