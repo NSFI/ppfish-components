@@ -26,7 +26,7 @@ ReactDOM.render(
           <span className="nav-text">nav 3</span>
         </Menu.Item>
         <Menu.Item key="4">
-          <window.IconChart  {...DEMOIconProps} />
+          <window.IconBarChart  {...DEMOIconProps} />
           <span className="nav-text">nav 4</span>
         </Menu.Item>
         <Menu.Item key="5">
