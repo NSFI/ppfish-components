@@ -15,7 +15,7 @@ import ImageBlot from './formats/image.js';
 import '../style/index.less';
 
 const EMOJI_VALUE_DIVIDER = '///***';
-const { delta: Delta, parchment: Parchment } = Quill.imports;
+const { parchment: Parchment } = Quill.imports;
 
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
@@ -156,7 +156,10 @@ class RichEditor extends Component {
       this.handlers[`${name}Entry`] = function() {
         let range = this.quill.getSelection();
         if (range.length !== 0) {
-          this.quill.format('myLink', customLink[name].url);
+          this.quill.format('myLink', {
+            type: `${name}Entry`,
+            url: customLink[name].url
+          });
         } else {
           message.error('没有选中文本');
         }
@@ -259,7 +262,10 @@ class RichEditor extends Component {
       }
 
       let quill = this.getEditor();
-      quill.format('myLink', val);
+      quill.format('myLink', {
+        type: 'default',
+        url: val
+      });
       el.value = 'http://';
 
       this.setState({
@@ -328,12 +334,6 @@ class RichEditor extends Component {
       }
 
       let range = quill.getSelection(true);
-
-      // quill.updateContents(new Delta()
-      //   .retain(range.index)
-      //   .delete(range.length)
-      //   .insert({ image: url })
-      // , 'user');
 
       if (attrs.width == undefined || attrs.height == undefined) {
         getImageSize(attrs.src, (naturalWidth, naturalHeight) => {
@@ -469,6 +469,33 @@ class RichEditor extends Component {
     }
   };
 
+  handleSelectionChange = (nextSelection, source, editor) => {
+    let { toolbarCtner } = this.state;
+    let quill = this.getEditor();
+
+    if (nextSelection) {
+      let curFormat;
+			if (nextSelection.index > 0 && quill.getText(nextSelection.index - 1, 1)!='\n') {
+				curFormat = quill.getFormat(nextSelection.index - 1, 1);
+			} else {
+				curFormat = quill.getFormat(nextSelection.index, 1);
+			}
+
+      toolbarCtner.querySelector('.link-active') && toolbarCtner.querySelector('.link-active').classList.remove('link-active');
+      if ('myLink' in curFormat) {
+        let linkType = curFormat['myLink'].type || 'default';
+        if (linkType == 'default') {
+          toolbarCtner.querySelector('.ql-myLink') && toolbarCtner.querySelector('.ql-myLink').classList.add('link-active');
+        } else {
+          toolbarCtner.querySelector(`.ql-${linkType}`) && toolbarCtner.querySelector(`.ql-${linkType}`).classList.add('link-active');
+        }
+			}
+    }
+
+    const { onSelectionChange } = this.props;
+    onSelectionChange && onSelectionChange(nextSelection, source, editor);
+  };
+
   render() {
     const { value, showLinkModal, showVideoModal, showImageModal, toolbarCtner } = this.state;
     const {
@@ -548,7 +575,7 @@ class RichEditor extends Component {
           }}
           placeholder={placeholder}
           onChange={this.handleChange}
-          onSelectionChange={onSelectionChange}
+          onSelectionChange={this.handleSelectionChange}
         />
       </div>
     );

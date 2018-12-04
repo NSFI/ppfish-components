@@ -108,17 +108,18 @@
   }
 
   .item.@{popover-prefix}-open,
-  .ql-active {
-    background: @primary-color !important;
-    border-color: @primary-color !important;
-    color: #fff !important;
+  .ql-active:not(.ql-myLink):not(.custom-entry),
+  .link-active {
+    background: @primary-color!important;
+    border-color: @primary-color!important;
+    color: #fff!important;
 
     .ql-stroke {
-      stroke: #fff !important;
+      stroke: #fff!important;
     }
 
     .ql-fill {
-      fill: #fff !important;
+      fill: #fff!important;
     }
   }
 
