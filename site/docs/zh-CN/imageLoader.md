@@ -8,7 +8,7 @@
 
 ## 基本使用
 
-:::demo 基本使用方式。
+:::demo 基本使用方式。图片请求过程中展示预加载占位图，展示时间取决于图片请求耗时。
 
 ```js
 render(){
@@ -23,7 +23,7 @@ render(){
 
 ## 图片加载的四种状态
 
-:::display 展示图片加载的四种状态。
+:::display demo仅作为演示使用，展示图片加载的四种状态。
 
 ```js
   constructor(props){
@@ -89,7 +89,7 @@ render(){
 
 ## 自定义占位图尺寸
 
-:::demo 占位图尺寸，只对准备、加载中、加载失败三种状态有效。预置了三种大小，'large'=240*160、'default'=150*100、'small'=90*60，也可以自定义{width: 200, height: 200}。
+:::demo 占位图尺寸，只对准备、加载中、加载失败三种状态有效。预置了三种大小，'large'代表240\*160、'default'代表150\*100、'small'代表90\*60，也可以自定义成{width: 200, height: 200}。
 
 ```js
 render(){
@@ -105,7 +105,7 @@ render(){
 
 ## 设置图片
 
-:::demo 占位图只在图片请求未完成时可见，图片请求成功后会显示真实图片。除了src以外的其他图片属性，包括图片大小等，可以通过imgProps设置。
+:::demo 占位图只在图片请求未完成时可见，图片请求成功后会显示实际图片。除了src以外的其他图片属性，包括图片大小等，可以通过imgProps设置。
 
 ```js
 render(){
@@ -124,7 +124,7 @@ render(){
 
 ## 图片加载失败
 
-:::demo 图片加载失败。
+:::demo 图片加载失败显示组件提供的加载失败图，也可以通过failedloader自行设置加载失败图，设置方法同下方demo：自行设置预加载图片。
 
 ```js
 render(){
@@ -140,7 +140,7 @@ render(){
 
 ## 自行设置预加载图片
 
-:::demo 图片加载失败。
+:::demo 自行设置预加载图片，建议使用小图，使用base64作为图片地址。
 
 ```js
 render(){
@@ -171,9 +171,9 @@ render(){
 | className  | 图片外层容器class    | String   | - |
 | src  | 图片地址   | String   |  —   |
 | imgProps  | 除图片地址以外的其他图片属性，同原生 image 标签的属性，见：[MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)  | Object   | —   |
-| placeholderSize  | 占位图尺寸，预置了三种大小，'large'=240*160、'default'=150*100、'small'=90*60，也可以自定义{width: 200, height: 200}  | Enum {'large', 'default', 'small'}|Object   | 'default'   |
+| placeholderSize  | 占位图尺寸，预置了三种大小，'large'代表240\*160、'default'代表150\*100、'small'代表90\*60，也可以自定义成{width: 200, height: 200}  | Enum {'large', 'default', 'small'}\|Object   | 'default'   |
 | onError  | 图片加载失败的回调    | (e) => Void   | - |
 | onLoad  | 图片加载成功的回调    | (e) => Void   | -  |
-| preLoader  | 自定义请求中占位图   | ReactNode|() => ReactNode |  -  |
-| failedloader  | 自定义加载失败占位图   | ReactNode|() => ReactNode |  -  |
+| preLoader  | 自定义请求中占位图   | ReactNode\|() => ReactNode |  -  |
+| failedloader  | 自定义加载失败占位图   | ReactNode\|() => ReactNode |  -  |
 | style  | 图片外层容器样式对象    | Object   |  —   |
