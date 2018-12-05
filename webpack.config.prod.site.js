@@ -120,8 +120,9 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        libs: {
-          name: 'libs', //不怎么变的基础库 包括项目React 组件库依赖的Echarts 依赖的quill
+        default: false,
+        vendors: {
+          name: 'vendors', //不怎么变的基础库 包括项目React 组件库依赖的Echarts 依赖的quill
           // 目前组件库没有按需加载 导致每个页面都需要加载相同的库若干次echarts|quill|pinyin等库。等按需加载做好了，再从这里去掉
           test: /node_modules[\\/](babel-polyfill|react|react-dom|axios|react-router|redux|react-redux|react-router-redux|lodash|core-js|pinyin|echarts|zrender|quill|history|rc-animate|buffer|tinycolor2)/,
           chunks: 'all',
@@ -160,7 +161,8 @@ module.exports = {
       console.log(`${(percentage * 100).toFixed(2)}%`, message, ...args);
     }),
     new ExtractTextPlugin({
-      filename: '[chunkhash:12].css'
+      filename: '[chunkhash:12].css',
+      allChunks: true,
     }),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, './site/static'),
