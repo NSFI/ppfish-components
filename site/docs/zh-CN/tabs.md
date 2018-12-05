@@ -161,8 +161,8 @@ render(){
     const TabPane = Tabs.TabPane;
     return (
       <Tabs defaultActiveKey="1">
-        <TabPane tab={<span><IconPhone className="img-icon-14" />Tab 1</span>} key="1">Tab 1</TabPane>
-        <TabPane tab={<span><IconMail className="img-icon-14" />Tab 2</span>} key="2">Tab 2</TabPane>
+        <TabPane tab={<span><IconPhone className="img-icon-14" style={{ marginRight: 8 }}/>Tab 1</span>} key="1">Tab 1</TabPane>
+        <TabPane tab={<span><IconMail className="img-icon-14" style={{ marginRight: 8 }}/>Tab 2</span>} key="2">Tab 2</TabPane>
       </Tabs>
     );
   }

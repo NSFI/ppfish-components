@@ -9,6 +9,8 @@
   .reset-component;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   .clearfix;
 
   &-ink-bar {
@@ -203,6 +205,11 @@
       .@{iconfont-prefix} {
         margin-right: 8px;
       }
+
+      > span {
+        display: inline-flex;
+        align-items: center;
+      }
     }
 
     .@{tab-prefix-cls}-tab-active {
@@ -247,6 +254,13 @@
     }
   }
 
+  > .@{tab-prefix-cls}-content {
+    flex: 1;
+    min-height: 24px; // 完整显示 loading 图标的最小高度
+    overflow-y: scroll;
+    .scrollbar();
+  }
+
   &:not(&-vertical) {
     > .@{tab-prefix-cls}-content {
       width: 100%;
@@ -274,6 +288,8 @@
   }
 
   &-vertical {
+    display: flex;
+    flex-direction: row;
     > .@{tab-prefix-cls}-bar {
       border-bottom: 0;
       height: 100%;
@@ -364,7 +380,7 @@
     }
 
     > .@{tab-prefix-cls}-content {
-      overflow: hidden;
+      // overflow: hidden;
       width: auto;
       margin-top: 0 !important;
     }
