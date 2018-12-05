@@ -128,8 +128,7 @@ module.exports = {
           chunks: 'all'
         },
         sources: {
-          name: 'sources', //不怎么变的基础库 包括项目React 组件库依赖的Echarts 依赖的quill
-          // 目前组件库没有按需加载 导致每个页面都需要加载相同的库若干次echarts|quill|pinyin等库。等按需加载做好了，再从这里去掉
+          name: 'sources',
           test: /source/,
           chunks: 'all'
         },
