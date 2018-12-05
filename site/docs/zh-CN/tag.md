@@ -120,7 +120,7 @@
             onClick={this.showInput}
             style={{ background: '#fff', border: '1px dashed #e1e3e6' }}
           >
-            <Icon type="upload-plus" /> New Tag
+            <IconUploadPlus type="upload-plus" /> New Tag
           </Tag>
         )}
       </div>

@@ -65,11 +65,11 @@ render() {
           <span className="nav-text">nav 1</span>
         </Menu.Item>
         <Menu.Item key="2">
-          <Icon type="video-camera"/>
+          <IconVideoCamera className="img-icon-14"/>
           <span className="nav-text">nav 2</span>
         </Menu.Item>
         <Menu.Item key="3">
-          <Icon type="download-line"/>
+          <IconDownloadLine className="img-icon-14"/>
           <span className="nav-text">nav 3</span>
         </Menu.Item>
         <Menu.Item key="4">
@@ -89,7 +89,7 @@ render() {
           <span className="nav-text">nav 7</span>
         </Menu.Item>
         <Menu.Item key="8">
-          <Icon type="Settingx"/>
+          <IconSetting className="img-icon-14"  />
           <span className="nav-text">nav 8</span>
         </Menu.Item>
       </Menu>

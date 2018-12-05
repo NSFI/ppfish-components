@@ -49,7 +49,7 @@ render() {
   return (
     <Upload {...props}>
       <Button type="primary" style={{display: 'inline-flex',alignItems: 'center'}}>
-        <Icon type="upload-line" style={{fontSize:'20px'}} /> 上传
+        <IconUploadLine type="upload-line" style={{fontSize:'20px'}} /> 上传
       </Button>
     </Upload>
   );
@@ -275,7 +275,7 @@ render() {
     }
     const uploadButton = (
       <div>
-        { this.state.loading ?  <Spin /> : <Icon type="upload-plus"/> }
+        { this.state.loading ?  <Spin /> : <IconUploadPlus type="upload-plus"/> }
         <div className="fishd-upload-text">上传图片</div>
       </div>
     );
