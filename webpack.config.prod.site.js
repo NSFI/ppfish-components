@@ -2,16 +2,16 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { parseDir } = require('./tools/helps');
+const {parseDir} = require('./tools/helps');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const demoPath = './site/docs/demoPage/';
 const os = require('os');
 const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
-let happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+let happyThreadPool = HappyPack.ThreadPool({size: os.cpus().length});
 // WSL下这个uglifyJS有问题。
 let uglifyJSRunParallel = (os.platform() === 'linux' && os.release().toLowerCase().includes('microsoft')) ? false : true; //https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/302
 
@@ -22,7 +22,7 @@ const getHappyPackPlugin = () => [
     loaders: [
       {
         loader: 'ts-loader',
-        options: { happyPackMode: true }
+        options: {happyPackMode: true}
       }
     ],
     threadPool: happyThreadPool,
@@ -61,7 +61,7 @@ const getHappyPackPlugin = () => [
     threadPool: happyThreadPool,
     verbose: true,
   }),
-  new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })
+  new ForkTsCheckerWebpackPlugin({checkSyntacticErrors: true})
 ];
 
 
@@ -77,7 +77,7 @@ const getHtmlWebpackPlugin = () => {
       return new HtmlWebpackPlugin({
         filename: 'demo/' + demoName + '.html',
         template: path.join(__dirname, demoPath + 'demo.html'),
-        chunks: [demoName, 'vendors', 'sources']
+        chunks: [demoName, 'commons', 'sources']
       });
     });
   return htmlWebpackPlugin;
@@ -88,8 +88,8 @@ const getDemoEntries = () => {
   const demoNameArr = [];
   parseDir(demoPath, demoNameArr);
   const arr = demoNameArr.filter((name) => {
-    return name.slice(-3) === '.js';
-  }
+      return name.slice(-3) === '.js';
+    }
   );
   for (let each of arr) {
     entries[each.slice(0, -3)] = [demoPath + each];
@@ -120,21 +120,18 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        default: false,
-        vendors: {
-          name: 'vendors', //不怎么变的基础库 包括项目React 组件库依赖的Echarts 依赖的quill
-          // 目前组件库没有按需加载 导致每个页面都需要加载相同的库若干次echarts|quill|pinyin等库。等按需加载做好了，再从这里去掉
-          test: /node_modules[\\/](babel-polyfill|react|react-dom|axios|react-router|redux|react-redux|react-router-redux|lodash|core-js|pinyin|echarts|zrender|quill|history|rc-animate|buffer|tinycolor2)/,
-          chunks: 'all',
-          priority: 3
+        commons: {
+          minChunks: 2,
+          maxInitialRequests: 5,
+          minSize: 2,
+          name: 'commons',
+          chunks: 'all'
         },
         sources: {
           name: 'sources', //不怎么变的基础库 包括项目React 组件库依赖的Echarts 依赖的quill
           // 目前组件库没有按需加载 导致每个页面都需要加载相同的库若干次echarts|quill|pinyin等库。等按需加载做好了，再从这里去掉
           test: /source/,
-          chunks: 'all',
-          // enforce: true,
-          priority: 1
+          chunks: 'all'
         },
       }
     }
@@ -171,7 +168,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'site/index.html'),
       favicon: path.join(__dirname, 'site/assets/favicon.ico'),
-      chunks: ['site', 'vendors', 'sources']
+      chunks: ['site', 'commons', 'sources']
     })
   ].concat(getHtmlWebpackPlugin())
     .concat(getHappyPackPlugin()),
@@ -209,9 +206,9 @@ module.exports = {
       {
         test: /\.svg$/,
         oneOf: [
-          // oneOf uses the first matching rule. So for your use case put the 
-          // resourceQuery: /module/ into the first entry and no resourceQuery 
-          // at all into the second. – Daniel Jul 5 '17 at 15:52 
+          // oneOf uses the first matching rule. So for your use case put the
+          // resourceQuery: /module/ into the first entry and no resourceQuery
+          // at all into the second. – Daniel Jul 5 '17 at 15:52
           {
             test: /static[/\\]icons/,
             use: [
