@@ -591,6 +591,9 @@
     overflow: scroll;
     padding-bottom: 20px;
     margin-bottom: -20px;
+    // Workaround for additional scroll bar on the table header
+    // https://github.com/ant-design/ant-design/issues/6515#issuecomment-419634369
+    opacity: 0.9999;
   }
 
   &-fixed-left,
@@ -631,6 +634,14 @@
     }
     .fishd-table-thead > tr > th:last-child {
       border-top-right-radius: 0;
+    }
+    .@{table-prefix-cls}-body-outer {
+      // Workaround for additional scroll bar on the left fixed column(s)
+      // https://github.com/ant-design/ant-design/issues/6515#issuecomment-419634369
+      // FIX https://github.com/ant-design/ant-design/issues/6515#issuecomment-419760742
+      // this would trigger GPU acceleration and the additional scroll bar magically disappearred
+      // (3D transform would also work here)
+      opacity: 0.9999;
     }
   }
 
