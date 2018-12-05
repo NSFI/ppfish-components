@@ -77,7 +77,7 @@ const getHtmlWebpackPlugin = () => {
       return new HtmlWebpackPlugin({
         filename: 'demo/' + demoName + '.html',
         template: path.join(__dirname, demoPath + 'demo.html'),
-        chunks: [demoName, 'libs', 'sources']
+        chunks: [demoName, 'vendors', 'sources']
       });
     });
   return htmlWebpackPlugin;
@@ -171,7 +171,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'site/index.html'),
       favicon: path.join(__dirname, 'site/assets/favicon.ico'),
-      chunks: ['site', 'libs', 'sources']
+      chunks: ['site', 'vendors', 'sources']
     })
   ].concat(getHtmlWebpackPlugin())
     .concat(getHappyPackPlugin()),
