@@ -1,12 +1,9 @@
 @import (reference) "../../../assets/css/index";
 
-@assistant-danger: #f5222d;
-@assistant-success: #52c41a;
-
 .trend-item {
   display: inline-block;
-  font-size: @font-size-base;
-  line-height: 22px;
+  font-size: @trend-title-font-size-sm;
+  line-height: @trend-title-line-height-sm;
 
   .up,
   .down {
@@ -18,7 +15,7 @@
     transform: scale(0.8333);
 
     i {
-      transform: scale(0.7999);
+      transform: scale(0.6, 0.8);
     }
   }
   .up {
@@ -39,5 +36,35 @@
   }
   &.reverse-color .down {
     color: @assistant-danger;
+  }
+
+  &.normal {
+    font-size: @trend-title-font-size;
+    line-height: @trend-title-line-height;
+
+    .up,
+    .down {
+      font-size: 12px;
+      transform: scale(1);
+
+      i {
+        transform: scale(0.6667, 0.8333);
+      }
+    }
+  }
+
+  &.large {
+    font-size: @trend-title-font-size-lg;
+    line-height: @trend-title-line-height-lg;
+
+    .up,
+    .down {
+      font-size: 20px;
+      transform: scale(1);
+
+      i {
+        transform: scale(0.6, 0.8);
+      }
+    }
   }
 }

@@ -44,6 +44,38 @@
 ```
 :::
 
+## 大小
+
+:::demo 设置标识的大小。
+
+```js
+  state = { size: 'small' };
+
+  onChange = (e) => {
+    this.setState({ size: e.target.value });
+  }
+
+  render() {
+    const { size } = this.state;
+    return (
+      <div>
+        <Radio.Group value={size} onChange={this.onChange} style={{ marginBottom: 20 }}>
+          <Radio.Button value="small">Small</Radio.Button>
+          <Radio.Button value="normal">Normal</Radio.Button>
+          <Radio.Button value="large">Large</Radio.Button>
+        </Radio.Group>
+        <br/>
+        <Trend flag="up" size={size}>88万</Trend>
+        <Trend flag="down" style={{ marginLeft: 20 }} size={size}>88万</Trend>
+        <Trend flag="up" style={{ marginLeft: 20 }} value={'5%'} size={size}>88万</Trend>
+        <Trend flag="down" style={{ marginLeft: 20 }} value={'5%'} size={size}>88万</Trend>
+      </div>
+    );
+  }
+
+```
+:::
+
 ## API
 
 | 参数 | 说明 | 类型 | 默认值 |
@@ -52,5 +84,6 @@
 | colorful | 是否使用彩色标记 | Boolean | true |
 | flag | 上升或下降的标识 | Enum {'up', 'down'} | - |
 | reverseColor | 颜色反转 | Boolean | false |
+| size | 标识的大小 | Enum {'small', 'normal', 'large'} | 'small' |
 | style | 容器样式 | Object | - |
 | value | 上升或下降的值 | String | - |

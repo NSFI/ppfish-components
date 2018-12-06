@@ -11,13 +11,16 @@ const Trend = (props) => {
     flag,
     children,
     className,
+    size = 'small',
     style,
     value,
     ...restProps
   } = props;
-  const classString = classNames('trend-item', {
+  const cls = classNames('trend-item', {
     'trend-item-grey': !colorful,
     'reverse-color': reverseColor && colorful,
+    'normal': size=='normal',
+    'large': size=='large'
   }, className);
 
   const renderFlag = () => {
@@ -40,7 +43,7 @@ const Trend = (props) => {
   };
 
   return (
-    <div {...restProps} className={classString} title={typeof children === 'string' ? children : ''} style={style}>
+    <div {...restProps} className={cls} title={typeof children === 'string' ? children : ''} style={style}>
       <span className="value">{children}</span>
       {renderFlag()}
     </div>
@@ -51,6 +54,7 @@ Trend.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   flag: PropTypes.string,
+  size: PropTypes.string,
   value: PropTypes.string,
   colorful: PropTypes.bool,
   reverseColor: PropTypes.bool,
