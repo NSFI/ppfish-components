@@ -56,8 +56,6 @@ class Demo extends React.Component{
       <IconItem type="hints-warning-o" />
       <IconItem type="hints-success-o" />
       <IconItem type="form-minus" />
-      <IconItem type="arrow-line" />
-      <IconItem type="drag-drawer" />
       <IconItem type="drag" />
       <IconItem type="folder-open-line" />
       <IconItem type="folder-close-line" />
@@ -65,10 +63,8 @@ class Demo extends React.Component{
       <IconItem type="minus-square" />
       <IconItem type="file-line" />
       <IconItem type="image-line" />
-      <IconItem type="home-line" />
       <IconItem type="user-line" />
       <IconItem type="steps-hook" />
-      <IconItem type="left-fill" />
       <IconItem type="upload-plus" />
       <IconItem type="upload-cloud" />
       <IconItem type="upload-line" />
@@ -89,8 +85,6 @@ class Demo extends React.Component{
       <IconItem type="search-line" />
       <IconItem type="load-line" />
       <IconItem type="download-line" />
-      <IconItem type="stop-line" />
-      <IconItem type="right-fill" />
       <IconItem type="up-fill" />
       <IconItem type="down-fill" />
       <IconItem type="down-bolder" />
@@ -100,18 +94,13 @@ class Demo extends React.Component{
       <IconItem type="date-line" />
       <IconItem type="z-a" />
       <IconItem type="a-z" />
-      <IconItem type="up-double" />
       <IconItem type="filter" />
       <IconItem type="right-double" />
       <IconItem type="left-double" />
-      <IconItem type="check-half" />
-      <IconItem type="down-double" />
       <IconItem type="close-tag-line" />
       <IconItem type="close-modal-line" />
       <IconItem type="close-circle-fill" />
       <IconItem type="check-line" />
-      <IconItem type="check-full" />
-      <IconItem type="check-empty" />
     </div>)
   }
 }
