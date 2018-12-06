@@ -662,7 +662,7 @@ render(){
 | maxLabelClearPanelHeight | 可删除label模式下面板的最大高度( mode='multiple' & labelClear) | Number \| String | '三行的高度' |
 | maxScrollHeight | 列表滚动区高度 | Number | 250 |
 | mode | 设置 Select 的模式 |  Enum {'multiple' , 'single' } | - |
-| multipleSelectAllText | 多选模式下全部选中的文案 | String | '全部选中' |
+| multipleSelectAllText | 在多选模式下选项全部选中时，在已选框中显示的特定的文案 | String | '全部选中' |
 | notFoundContent | 当下拉列表为空时显示的内容 | String \| ReactNode | '无匹配结果' |
 | onChange | 选中 option时，调用此函数 | (value) => Void | - |
 | onMouseEnter | 鼠标移入时回调 | (value) => Void | - |
@@ -677,7 +677,7 @@ render(){
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键词' |
 | selectAllText | 是否显示全选/反选功能-文案 | String | '选择所有' |
 | showArrow | 是否显示下拉小箭头 | Boolean | true |
-| showMultipleSelectAll | 多选模式下全部选中是否显示特殊文案 | Boolean | false |
+| showMultipleSelectAll | 设置在多选模式下选项全部选中时，是否在已选框中显示特定的文案，而不是显示“选项1、选项2、选项3...” | Boolean | false |
 | showOptionCheckedIcon | 是否显示option选中的√ | Boolean | true |
 | showSearch | 是否可搜索，需要配合filterOption或者后端搜索使用 | Boolean | false |
 | showSelectAll | 是否显示全选/反选功能（仅在mode='multiple'生效） | Boolean | true |
