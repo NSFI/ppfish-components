@@ -72,7 +72,7 @@ render(){
           <Input addonBefore={selectBefore} addonAfter={selectAfter} defaultValue="mysite" />
         </div>
         <div style={{ marginBottom: 16 }}>
-          <Input addonAfter={<Icon type="stop-line" />} defaultValue="mysite" />
+          <Input addonAfter={<Icon type="search-line" />} defaultValue="mysite" />
         </div>
     </div>
   )
