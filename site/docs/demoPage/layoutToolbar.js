@@ -18,7 +18,7 @@ ReactDOM.render(
           <span className="nav-text">nav 1</span>
         </Menu.Item>
         <Menu.Item key="2">
-          <Icon type="video-camera"/>
+          <window.IconVideoCamera {...DEMOIconProps}  />
           <span className="nav-text">nav 2</span>
         </Menu.Item>
         <Menu.Item key="3">

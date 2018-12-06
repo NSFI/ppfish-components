@@ -65,7 +65,7 @@ render() {
           <span className="nav-text">nav 1</span>
         </Menu.Item>
         <Menu.Item key="2">
-          <Icon type="video-camera"/>
+          <IconVideoCamera className="img-icon-14"/>
           <span className="nav-text">nav 2</span>
         </Menu.Item>
         <Menu.Item key="3">
