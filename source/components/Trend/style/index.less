@@ -1,40 +1,43 @@
 @import (reference) "../../../assets/css/index";
 
-@red-6: #f5222d;
-@green-6: #52c41a;
+@assistant-danger: #f5222d;
+@assistant-success: #52c41a;
 
-.trendItem {
+.trend-item {
   display: inline-block;
   font-size: @font-size-base;
   line-height: 22px;
 
   .up,
   .down {
-    margin-left: 4px;
     position: relative;
+    display: inline-block;
     top: 1px;
+    margin-left: 1px;
+    font-size: 12px;
+    transform: scale(0.8333);
+
     i {
-      font-size: 12px;
-      transform: scale(0.83);
+      transform: scale(0.7999);
     }
   }
   .up {
-    color: @red-6;
+    color: @assistant-danger;
   }
   .down {
-    color: @green-6;
-    top: -1px;
+    color: @assistant-success;
+    // top: -1px;
   }
 
-  &.trendItemGrey .up,
-  &.trendItemGrey .down {
+  &.trend-item-grey .up,
+  &.trend-item-grey .down {
     color: @text-color;
   }
 
-  &.reverseColor .up {
-    color: @green-6;
+  &.reverse-color .up {
+    color: @assistant-success;
   }
-  &.reverseColor .down {
-    color: @red-6;
+  &.reverse-color .down {
+    color: @assistant-danger;
   }
 }
