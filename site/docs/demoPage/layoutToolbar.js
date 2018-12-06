@@ -18,11 +18,11 @@ ReactDOM.render(
           <span className="nav-text">nav 1</span>
         </Menu.Item>
         <Menu.Item key="2">
-          <window.IconVideoCamera {...DEMOIconProps}  />
+          <Icon type="video-camera"/>
           <span className="nav-text">nav 2</span>
         </Menu.Item>
         <Menu.Item key="3">
-          <window.IconDownloadLine {...DEMOIconProps}/>
+          <Icon type="download-line"/>
           <span className="nav-text">nav 3</span>
         </Menu.Item>
         <Menu.Item key="4">
@@ -42,7 +42,7 @@ ReactDOM.render(
           <span className="nav-text">nav 7</span>
         </Menu.Item>
         <Menu.Item key="8">
-          <window.IconSetting {...DEMOIconProps}/>
+          <Icon type="Settingx"/>
           <span className="nav-text">nav 8</span>
         </Menu.Item>
       </Menu>

@@ -72,7 +72,7 @@ render(){
           <Input addonBefore={selectBefore} addonAfter={selectAfter} defaultValue="mysite" />
         </div>
         <div style={{ marginBottom: 16 }}>
-          <Input addonAfter={<IconStopLine type="stop-line" />} defaultValue="mysite" />
+          <Input addonAfter={<Icon type="stop-line" />} defaultValue="mysite" />
         </div>
     </div>
   )
@@ -338,11 +338,11 @@ render(){
 
   render() {
     const { userName } = this.state;
-    const suffix = userName ? <IconCloseCircleFill  style={{ color: 'rgba(0,0,0,.25)' }} onClick={this.emitEmpty} /> : null;
+    const suffix = userName ? <Icon type="close-circle-fill" onClick={this.emitEmpty} /> : null;
     return (
       <Input
         placeholder="Enter your username"
-        prefix={<IconDateLine  style={{ color: 'rgba(0,0,0,.25)' }} />}
+        prefix={<Icon type="date-line" style={{ color: 'rgba(0,0,0,.25)' }} />}
         suffix={suffix}
         value={userName}
         onChange={this.onChangeUserName}

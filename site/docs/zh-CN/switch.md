@@ -57,7 +57,7 @@
         <br />
         <Switch checkedChildren="1" unCheckedChildren="0" />
         <br />
-        <Switch checkedChildren={<IconCheck type="check" />} unCheckedChildren={<IconCross type="cross" />} defaultChecked />
+        <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="cross" />} defaultChecked />
       </div>
     );
   }

@@ -213,7 +213,7 @@
   render() {
     const TreeNode = Tree.TreeNode;
     const { searchValue, expandedKeys, autoExpandParent } = this.state;
-    const suffix = searchValue ? <IconCloseCircleFill type="close-circle-fill" onClick={this.emitEmpty} /> : <Icon type="search-line" />;
+    const suffix = searchValue ? <Icon type="close-circle-fill" onClick={this.emitEmpty} /> : <Icon type="search-line" />;
     let notFound = true;
     const loop = data => data.map((item) => {
       const index = item.title.indexOf(searchValue);
