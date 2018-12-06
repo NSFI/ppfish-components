@@ -289,6 +289,7 @@ export const components = {
           key: 'inputNumber',
           type: 'markdown',
           name: 'InputNumber 数字输入框',
+          published: true,
         },
         {
           key: 'radio',
