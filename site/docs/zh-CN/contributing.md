@@ -19,12 +19,11 @@
 1.  记录需求：将jira提出需求拆分成需要组件实现的关键点并记录
 1.  待交互稿交付后进行组件API设计: 基于需求设计出组件参数调整及响应的变化, 及实现思路。目前使用组件API使用文档替代组件API设计文档。
 1.  组件API设计: 基于需求设计出组件参数调整及响应的变化, 及实现思路。目前使用组件API使用文档替代组件API设计文档,你需要做以下步骤：
-  - 在`site/docs/zh-CN`路径下添加markdown文件，添加：组件名、使用场景、demo位置、API使用文档
-  - 在`site/pages`中新增组件文件夹，引入编译后的markdown文件，并在`site/pages/index.js`中编辑菜单项
-  - 在`site/locales/zh-CN.js`中添加左侧菜单栏项的中文命名，在网站侧边栏添加你的组件
+  - 在`site/docs/zh-CN`路径下添加markdown文件，添加：组件名、使用场景、组件demo、API使用文档
+  - 在`site/componentsPage/index.js`中新增组件文件描述对象，设置类型和状态
 1.  组件API设计文档Review / 讨论
 1.  组件API设计文档Review通过后，基于组件的API编写组件测试用例
-1.  在`source/components`路径下新增组件文件夹，并在`libs/markdown/source/index.js`引入，开始组件编码、完善demo
+1.  在`source/components`路径下新增组件文件夹，并在`source/components/index.js`引入，开始组件编码、完善demo内容
 1.  组件Code Review，代码编写完后，发起Pull Request进行Code Review
 1.  代码合并后发布一个beta版本, 更新演示环境并通知测试
 1.  Publish
