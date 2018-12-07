@@ -5,6 +5,8 @@ import Trigger from 'rc-trigger';
 import ColorPickerPanel from './Panel';
 import placements from './placements';
 import Color from './helpers/color';
+import QuickPanel from './QuickPanel';
+
 
 function refFn(field, component) {
   this[field] = component;
@@ -18,6 +20,45 @@ function noop() {
 }
 
 export default class ColorPicker extends React.Component {
+
+  static propTypes = {
+    defaultColor: PropTypes.string,
+    defaultAlpha: PropTypes.number,
+    // can custom
+    alpha: PropTypes.number,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    color: PropTypes.string,
+    enableAlpha: PropTypes.bool,
+    mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
+    onChange: PropTypes.func,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func,
+    prefixCls: PropTypes.string.isRequired,
+    style: PropTypes.object,
+    enableHistory: PropTypes.bool,
+    maxHistory: PropTypes.number,
+    quickMode: PropTypes.bool,
+    colorMap: PropTypes.array,
+  };
+
+  static defaultProps = {
+    defaultColor: '#e93334',
+    defaultAlpha: 100,
+    enableHistory: false,
+    maxHistory: 8,
+    onChange: noop,
+    onOpen: noop,
+    onClose: noop,
+    children: <span className="fishd-color-picker-trigger"/>,
+    className: '',
+    enableAlpha: false,
+    prefixCls: 'fishd-color-picker',
+    style: {},
+    quickMode: false,
+    colorMap: ['#e93334', '#e86819', '#ff9b25', '#654520', '#e0c5a6', '#ffe637', '#009a20', '#006812', '#97bb2a', '#b6d130'],
+  };
+
   constructor(props) {
     super(props);
 
@@ -29,27 +70,8 @@ export default class ColorPicker extends React.Component {
       color: props.color || props.defaultColor,
       alpha,
       open: false,
-      colors: []
+      colorHistory: []
     };
-
-    const events = [
-      'onTriggerClick',
-      'onChange',
-      'onBlur',
-      'getPickerElement',
-      'getRootDOMNode',
-      'getTriggerDOMNode',
-      'onVisibleChange',
-      'onPanelMount',
-      'setOpen',
-      'open',
-      'close',
-      'focus',
-    ];
-
-    events.forEach(e => {
-      this[e] = this[e].bind(this);
-    });
 
     this.saveTriggerRef = refFn.bind(this, 'triggerInstance');
   }
@@ -67,45 +89,39 @@ export default class ColorPicker extends React.Component {
     }
   }
 
-  onTriggerClick() {
+  onTriggerClick = () => {
     this.setState({
       open: !this.state.open,
     });
-  }
+  };
 
-  onChange(colors) {
-    this.setState(
-      {
-        ...colors,
-      },
+  onChange = (colors) => {
+    this.setState({...colors},
       () => {
         this.props.onChange(this.state);
       },
     );
-  }
+  };
 
-  onBlur() {
+  onBlur = () => {
     this.setOpen(false);
-  }
+  };
 
-  onVisibleChange(open) {
+  onVisibleChange = (open) => {
     this.setOpen(open);
-  }
+  };
 
-  onPanelMount(panelDOMRef) {
+  onPanelMount = (panelDOMRef) => {
     if (this.state.open) {
       setTimeout(() => {
         panelDOMRef.focus();
       }, 1);
     }
-  }
+  };
 
-  setOpen(open, callback) {
+  setOpen = (open, callback) => {
     if (this.state.open !== open) {
-      this.setState(
-        {
-          open,
-        },
+      this.setState({open},
         () => {
           if (typeof callback === 'function') callback();
           const {onOpen, onClose, enableHistory, maxHistory} = this.props;
@@ -114,11 +130,11 @@ export default class ColorPicker extends React.Component {
           } else {
             // history record
             if (enableHistory) {
-              const {color, alpha, colors} = this.state;
-              if (colors.length && color === colors[0].color && alpha === colors[0].alpha) return;
+              const {color, alpha, colorHistory} = this.state;
+              if (colorHistory.length && color === colorHistory[0].color && alpha === colorHistory[0].alpha) return;
               this.setState({
-                colors: colors.length >= maxHistory ?
-                  [{color, alpha}, ...colors.slice(0, -1)] : [{color, alpha}, ...colors]
+                colorHistory: colorHistory.length >= maxHistory ?
+                  [{color, alpha}, ...colorHistory.slice(0, -1)] : [{color, alpha}, ...colorHistory]
               }, () => {
                 onClose(this.state);
               });
@@ -129,17 +145,31 @@ export default class ColorPicker extends React.Component {
         },
       );
     }
-  }
+  };
 
-  getRootDOMNode() {
+  getRootDOMNode = () => {
     return findDOMNode(this);
-  }
+  };
 
-  getTriggerDOMNode() {
+  getTriggerDOMNode = () => {
     return findDOMNode(this.triggerInstance);
-  }
+  };
 
-  getPickerElement() {
+  getPickerElement = () => {
+    if (this.props.quickMode) {
+      return (
+        <QuickPanel
+          onMount={this.onPanelMount}
+          defaultColor={this.state.color}
+          color={this.state.color}
+          onChange={this.onChange}
+          onBlur={this.onBlur}
+          colorMap={this.props.colorMap}
+          className={this.props.className}
+          quickModeCustom={false}
+        />
+      );
+    }
     return (
       <ColorPickerPanel
         onMount={this.onPanelMount}
@@ -151,26 +181,26 @@ export default class ColorPicker extends React.Component {
         onBlur={this.onBlur}
         mode={this.props.mode}
         className={this.props.className}
-        colors={this.state.colors}
+        colorHistory={this.state.colorHistory}
         enableHistory={this.props.enableHistory}
         maxHistory={this.props.maxHistory}
       />
     );
-  }
+  };
 
-  open(callback) {
+  open = (callback) => {
     this.setOpen(true, callback);
-  }
+  };
 
-  close(callback) {
+  close = (callback) => {
     this.setOpen(false, callback);
-  }
+  };
 
-  focus() {
+  focus = () => {
     if (!this.state.open) {
       findDOMNode(this).focus();
     }
-  }
+  };
 
   render() {
     const props = this.props;
@@ -201,13 +231,13 @@ export default class ColorPicker extends React.Component {
 
     const {
       prefixCls,
-      placement,
       style,
       getPopupContainer,
       align,
       animation,
       disabled,
       transitionName,
+      quickMode
     } = props;
 
     return (
@@ -216,7 +246,7 @@ export default class ColorPicker extends React.Component {
           popup={this.getPickerElement()}
           popupAlign={align}
           builtinPlacements={placements}
-          popupPlacement={placement}
+          popupPlacement={quickMode ? 'topCenter' : 'topLeft'}
           action={disabled ? [] : ['click']}
           destroyPopupOnHide
           getPopupContainer={getPopupContainer}
@@ -233,39 +263,3 @@ export default class ColorPicker extends React.Component {
     );
   }
 }
-
-ColorPicker.propTypes = {
-  defaultColor: PropTypes.string,
-  defaultAlpha: PropTypes.number,
-  // can custom
-  alpha: PropTypes.number,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  color: PropTypes.string,
-  enableAlpha: PropTypes.bool,
-  mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
-  onChange: PropTypes.func,
-  onClose: PropTypes.func,
-  onOpen: PropTypes.func,
-  placement: PropTypes.oneOf(['topLeft', 'topRight', 'bottomLeft', 'bottomRight']),
-  prefixCls: PropTypes.string.isRequired,
-  style: PropTypes.object,
-  enableHistory: PropTypes.bool,
-  maxHistory: PropTypes.number
-};
-
-ColorPicker.defaultProps = {
-  defaultColor: '#F00',
-  defaultAlpha: 100,
-  enableHistory: false,
-  maxHistory: 8,
-  onChange: noop,
-  onOpen: noop,
-  onClose: noop,
-  children: <span className="fishd-color-picker-trigger"/>,
-  className: '',
-  enableAlpha: true,
-  placement: 'topLeft',
-  prefixCls: 'fishd-color-picker',
-  style: {},
-};

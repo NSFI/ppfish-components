@@ -7,6 +7,14 @@ function rgbaColor(r, g, b, a) {
 }
 
 export default class Alpha extends React.Component {
+
+  static propTypes = {
+    color: PropTypes.object,
+    onChange: PropTypes.func,
+    rootPrefixCls: PropTypes.string,
+    alpha: PropTypes.number,
+  };
+
   constructor(props) {
     super(props);
   }
@@ -86,10 +94,3 @@ export default class Alpha extends React.Component {
     );
   }
 }
-
-Alpha.propTypes = {
-  color: PropTypes.object,
-  onChange: PropTypes.func,
-  rootPrefixCls: PropTypes.string,
-  alpha: PropTypes.number,
-};

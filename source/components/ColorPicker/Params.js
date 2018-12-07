@@ -8,6 +8,22 @@ import percentage from './helpers/percentage';
 const modesMap = ['RGB', 'HSB'];
 
 export default class Params extends React.Component {
+
+  static propTypes = {
+    alpha: PropTypes.number,
+    enableAlpha: PropTypes.bool,
+    color: PropTypes.object.isRequired,
+    mode: PropTypes.oneOf(modesMap),
+    onAlphaChange: PropTypes.func,
+    onChange: PropTypes.func,
+    rootPrefixCls: PropTypes.string,
+  };
+
+  static defaultProps = {
+    mode: modesMap[0],
+    enableAlpha: true,
+  };
+
   constructor(props) {
     super(props);
 
@@ -20,7 +36,7 @@ export default class Params extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { color: nextColor } = nextProps;
+    const {color: nextColor} = nextProps;
 
     this.setState({
       color: nextColor,
@@ -118,8 +134,8 @@ export default class Params extends React.Component {
   };
 
   updateColorByChanel = (channel, value) => {
-    const { color } = this.props;
-    const { mode } = this.state;
+    const {color} = this.props;
+    const {mode} = this.state;
 
     if (mode === 'HSB') {
       if (channel === 'H') {
@@ -144,7 +160,7 @@ export default class Params extends React.Component {
 
   handleColorChannelChange = (index, event) => {
     const value = this.getChannelInRange(event.target.value, index);
-    const { mode } = this.state;
+    const {mode} = this.state;
     const channel = mode[index];
 
     const color = this.updateColorByChanel(channel, value);
@@ -163,8 +179,8 @@ export default class Params extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
 
-    const { enableAlpha } = this.props;
-    const { mode, color } = this.state;
+    const {enableAlpha} = this.props;
+    const {mode, color} = this.state;
     const colorChannel = color[mode];
 
     if (mode === 'HSB') {
@@ -233,18 +249,3 @@ export default class Params extends React.Component {
     );
   }
 }
-
-Params.propTypes = {
-  alpha: PropTypes.number,
-  enableAlpha: PropTypes.bool,
-  color: PropTypes.object.isRequired,
-  mode: PropTypes.oneOf(modesMap),
-  onAlphaChange: PropTypes.func,
-  onChange: PropTypes.func,
-  rootPrefixCls: PropTypes.string,
-};
-
-Params.defaultProps = {
-  mode: modesMap[0],
-  enableAlpha: true,
-};

@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 export default class Ribbon extends React.Component {
+
+  static propTypes = {
+    rootPrefixCls: PropTypes.string,
+    color: PropTypes.object,
+    onChange: PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
   }
@@ -82,9 +89,3 @@ export default class Ribbon extends React.Component {
     );
   }
 }
-
-Ribbon.propTypes = {
-  rootPrefixCls: PropTypes.string,
-  color: PropTypes.object,
-  onChange: PropTypes.func,
-};

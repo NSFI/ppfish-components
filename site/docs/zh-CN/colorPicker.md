@@ -1,4 +1,4 @@
-# ColorPicker 颜色选择器 【交互：缺失 | 视觉：徐剑杰 |开发：卿泽】
+# ColorPicker 颜色选择器 【交互：李东岳 | 视觉：徐剑杰 |开发：卿泽】
 
 ## 何时使用
 
@@ -14,101 +14,48 @@ onChangeColor=({color,alpha}) => {
 };
 
 render(){
-  return(<ColorPicker onChange={this.onChangeColor}/>)
+  return(<ColorPicker enableHistory onChange={this.onChangeColor}/>)
 }
 ```
 :::
 
-## 关闭透明度
+## 快捷入口
 
-:::demo alpha值默认勾选，可使用`enableAlpha`关闭
+:::demo 使用`onChange`回调获取`alpha`以及`color`值
 
 ```js
+onChangeColor=({color,alpha}) => {
+  console.log(`color:${color},alpha:${alpha}`);
+};
+
 render(){
-  return(<ColorPicker enableAlpha={false}/>)
+  return(<ColorPicker quickMode onChange={this.onChangeColor}/>)
 }
 ```
 :::
 
-## 自定义Children
+## 快捷入口+自定义方案
 
-:::demo 可以自定义Children的显示,会自动给子元素添加对应的`background-color`
-
-```js
-render(){
-  return(
-    <ColorPicker defaultColor="#1890ff">
-      <Button>COLOR</Button>
-    </ColorPicker>
-  )
-}
-```
-:::
-
-## 受控的组件
-
-:::demo 受控的组件，组件显示受`alpha`、`color`控制
+:::demo 使用`onChange`回调获取`alpha`以及`color`值
 
 ```js
+
 state={
-  color:'#1890ff',
-  alpha: 100
+  color:'#ff9b24',
 }
 
-onColorChange=(obj) => {
+onChangeColor=({color}) => {
+  console.log(`color:${color}`);
   this.setState({
-    color:obj.color,
-    alpha:obj.alpha
+    color
   })
 };
 
-onClose=() => {
-  console.log('close');
-};
-
-onOpen=() => {
-  console.log('open');
-};
-
 render(){
-  return(<ColorPicker  onChange={this.onColorChange} onClose={this.onClose} onOpen={this.onOpen} color={this.state.color} alpha={this.state.alpha}/>  )
+  return(<ColorPicker.QuickPanel color={this.state.color} colorHistory={['#ff9b24']} onChange={this.onChangeColor}/>)
 }
 ```
 :::
-
-## 历史记录
-
-:::demo 可以使用`enableHistory`开启历史记录功能，默认关闭
-
-```js
-render(){
-  return(<ColorPicker enableHistory={true}  defaultColor="#1890ff"/>)
-}
-```
-:::
-
-## 取色器面板单独使用
-
-:::demo 需要单独使用取色器面板的场景
-```js
-render(){
-  const ColorPickerPanel =ColorPicker.Panel;
-  return(
-    <div className="panel-demo"> 
-        <ColorPickerPanel enableAlpha={false} color={'#345679'}/>
-        <ColorPickerPanel alpha={80} color={'#477898'}/>
-    </div>
-  )
-}
-```
-:::
-
-<style>
-.panel-demo .u-color-picker-panel{
-   display:inline-block;
-   margin-right:20px;
-}
-</style>
 
 ## API
 
@@ -117,28 +64,16 @@ render(){
 | 参数                 |说明                                                 | 类型                                                                      | 默认值                                               |
 |:---------------------|:------------------------------------------------------------|:--------------------------------------------------------------------------|:------------------------------------------------------|
 | alpha                | 颜色opacity值                                       |Number                                                                    | 100                                                 | 
-| children             | additional trigger appended to picker                       | ReactNode                                                                      | `<span className='react-colorpicker-trigger'></span>` |
+| children             | additional trigger appended to picker                       | ReactNode                                                                      | `<span className='fishd-colorpicker-trigger'></span>` |
 | className            | 额外的className                    |String                                                                    | -                                                  | 
-| color                | 取色板当前的颜色值                        |String                                                                    | '#ff0000'                                            | 
+| color                | 取色板当前的颜色值                        |String                                                                    | '#e93334'                                            | 
 | defaultAlpha         | 默认的opacity值                                        |Number                                                                    | 100                                                | 
-| defaultColor         | 默认的的颜色值                        |String                                                                    | '#ff0000'                                             | 
-| enableAlpha          | 是否开启opacity                                      |Boolean                                                                   | true                                                |
+| defaultColor         | 默认的的颜色值                        |String                                                                    | '#e93334'                                             | 
+| enableAlpha          | 是否开启opacity                                      |Boolean                                                                   | false                                                |
 | enableHistory        | 开启历史记录                                     |Boolean                                                                    |     false                                                  | 
-| getPopupContainer    | container                   |() => HTMLElement                                                        | () => document.body                   | 
+| getPopupContainer    | 选定弹出框的相对位置节点，QuickPanel默认为parentNode                   |() => HTMLElement                                                        | () => document.body                   | 
 | onChange             | 颜色更改                                           |(state）=> Void                                                                  | noop                                                  | 
 | onClose              | 弹出框关闭                               |(state）=> Void                                                                  | noop                                                  | 
 | onOpen               | 弹出框打开                                |(state）=> Void                                                                   | noop                                                  |
-
-### ColorPicker.Panel
-
-| 参数         |  说明                                    |类型      | 默认值      |
-|:-------------|:-----------------------------------------------|:---------|:----------|
-| alpha        | 颜色opacity值                           | Number   | 100     | 
-| className    | 额外的className       | String   | -   |
-| color        | 取色板当前的颜色值           | String   | '#ff0000' |
-| defaultAlpha | 默认的opacity值                           | Number   | 100     |
-| defaultColor | 默认的的颜色值           | String   | '#ff0000' |
-| enableAlpha  | 是否开启opacity                         | Boolean  | true    | 
-| onBlur       | 失焦事件                        | () => Void  |      noop     |
-| onChange     | 颜色值改变事件                      | (color,alpha) => Void  |     noop      |
-| onFocus      | 聚焦事件                      | () => Void  |      noop     |
+| colorHistory         | 颜色选择历史记录,组件初始化的时候会进行同步                              |Array< {color,alpha}\|String >                                                               | []                                                  |
+| colorMap             | 快捷入口的颜色列表                                |Array< String >                                                               | []                                                  |

@@ -14,6 +14,43 @@ function noop() {
 }
 
 export default class Panel extends React.Component {
+
+  static propTypes = {
+    alpha: PropTypes.number,
+    className: PropTypes.string,
+    color: typeColor, // Hex string
+    defaultAlpha: PropTypes.number,
+    defaultColor: typeColor, // Hex string
+    enableAlpha: PropTypes.bool,
+    mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onMount: PropTypes.func,
+    prefixCls: PropTypes.string,
+    style: PropTypes.object,
+    enableHistory: PropTypes.bool,
+    maxHistory: PropTypes.number,
+    colorHistory: PropTypes.array
+  };
+
+  static defaultProps = {
+    className: '',
+    defaultAlpha: 100,
+    defaultColor: '#e93334',
+    enableAlpha: false,
+    mode: 'RGB',
+    onBlur: noop,
+    onChange: noop,
+    onFocus: noop,
+    onMount: noop,
+    prefixCls: 'fishd-color-picker-panel',
+    style: {},
+    enableHistory: false,
+    maxHistory: 8,
+    colorHistory: []
+  };
+
   constructor(props) {
     super(props);
 
@@ -127,7 +164,7 @@ export default class Panel extends React.Component {
   };
 
   render() {
-    const {prefixCls, enableAlpha, enableHistory, colors} = this.props;
+    const {prefixCls, enableAlpha, enableHistory, colorHistory} = this.props;
     const {color, alpha} = this.state;
 
     const wrapClasses = classNames({
@@ -183,7 +220,7 @@ export default class Panel extends React.Component {
           {enableHistory && <div className={`${prefixCls}-wrap-history`}>
             <History
               prefixCls={prefixCls}
-              colors={colors}
+              colorHistory={colorHistory}
               onHistoryClick={this.handleHistoryClick}
               maxHistory={this.props.maxHistory}
             />
@@ -193,39 +230,3 @@ export default class Panel extends React.Component {
     );
   }
 }
-
-Panel.propTypes = {
-  alpha: PropTypes.number,
-  className: PropTypes.string,
-  color: typeColor, // Hex string
-  defaultAlpha: PropTypes.number,
-  defaultColor: typeColor, // Hex string
-  enableAlpha: PropTypes.bool,
-  mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onMount: PropTypes.func,
-  prefixCls: PropTypes.string,
-  style: PropTypes.object,
-  enableHistory: PropTypes.bool,
-  maxHistory: PropTypes.number,
-  colors: PropTypes.array
-};
-
-Panel.defaultProps = {
-  className: '',
-  defaultAlpha: 100,
-  defaultColor: '#ff0000',
-  enableAlpha: true,
-  mode: 'RGB',
-  onBlur: noop,
-  onChange: noop,
-  onFocus: noop,
-  onMount: noop,
-  prefixCls: 'fishd-color-picker-panel',
-  style: {},
-  enableHistory: false,
-  maxHistory: 8,
-  colors: []
-};

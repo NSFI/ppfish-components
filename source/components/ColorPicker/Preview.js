@@ -4,6 +4,15 @@ import PropTypes from 'prop-types';
 import Color from './helpers/color';
 
 export default class Preview extends React.Component {
+
+  static propTypes = {
+    rootPrefixCls: PropTypes.string,
+    color: PropTypes.object,
+    alpha: PropTypes.number,
+    onChange: PropTypes.func,
+    onInputClick: PropTypes.func,
+  };
+
   onChange = e => {
     const value = e.target.value;
     const color = new Color(value);
@@ -36,11 +45,3 @@ export default class Preview extends React.Component {
     );
   }
 }
-
-Preview.propTypes = {
-  rootPrefixCls: PropTypes.string,
-  color: PropTypes.object,
-  alpha: PropTypes.number,
-  onChange: PropTypes.func,
-  onInputClick: PropTypes.func,
-};

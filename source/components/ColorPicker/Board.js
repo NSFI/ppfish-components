@@ -8,6 +8,13 @@ const WIDTH = 200;
 const HEIGHT = 150;
 
 export default class Board extends React.Component {
+
+  static propTypes = {
+    color: PropTypes.object,
+    onChange: PropTypes.func,
+    rootPrefixCls: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
   }
@@ -151,16 +158,3 @@ export default class Board extends React.Component {
     );
   }
 }
-
-/**
- * hsv
- * h: range(0, 359)
- * s: range(0, 1)
- * v: range(0, 1)
- */
-
-Board.propTypes = {
-  color: PropTypes.object,
-  onChange: PropTypes.func,
-  rootPrefixCls: PropTypes.string,
-};

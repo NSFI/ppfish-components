@@ -1,0 +1,75 @@
+.@{prefixClass}-quick-panel {
+  width: 200px;
+  background-color: #fff;
+  box-sizing: border-box;
+  outline: none;
+  z-index: 9;
+  border-radius: 4px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 8px;
+  text-align: center;
+  border: @border-width-base @border-style-base @border-color-base;
+  * {
+    box-sizing: border-box;
+  }
+  &-open {
+    display: block;
+  }
+  &-close {
+    display: none;
+  }
+
+  &-color-spn {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 3px;
+    cursor: pointer;
+  }
+
+  &-color-spn-active {
+    .iconfont-mixin();
+    vertical-align: top;
+    &:before {
+      content: "\e671";
+      line-height: 30px;
+      color: #fff;
+    }
+  }
+  &-inner {
+    .clearfix();
+  }
+  &-custom-btn {
+    margin: 3px;
+    cursor: pointer;
+    float: left;
+    text-align: center;
+    background: #fff;
+    font-size: 12px;
+    .clearfix();
+    &-color {
+      width: 30px;
+      height: 30px;
+      float: left;
+      .iconfont-mixin();
+      vertical-align: top;
+      &:before {
+        line-height: 30px;
+        color: #fff;
+        content: "\e671";
+      }
+    }
+    &-text {
+      height: 30px;
+      border: @border-width-base @border-style-base @border-color-base;
+      float: left;
+      display: inline-block;
+      width: 60px;
+      line-height: 30px;
+      text-align: center;
+    }
+  }
+}
