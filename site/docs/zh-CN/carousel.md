@@ -105,6 +105,24 @@ render() {
 ```
 :::
 
+## 提供帧剩余时间效果
+
+:::demo 提供帧剩余时间效果。
+
+```js
+render() {
+  return (
+    <Carousel autoplay dotsTimer>
+      <div><h3>1</h3></div>
+      <div><h3>2</h3></div>
+      <div><h3>3</h3></div>
+      <div><h3>4</h3></div>
+    </Carousel>
+  );
+}
+```
+:::
+
 
 ## API
 
@@ -118,6 +136,7 @@ render() {
 | className | 容器类名 | String | - |
 | dots | 是否显示面板指示点 | Boolean | true |
 | dotsPosition | 面板指示点的显示位置 | Enum {'top', 'right', 'bottom', 'left'} | 'bottom' |
+| dotsTimer | 是否在面板指示点提供帧剩余时间效果，开启自动切换时有效 | Boolean | false |
 | easing | 动画效果 | String | 'linear' |
 | effect | 动画效果函数 | Enum {'scrollx', 'fade'} | 'scrollx' |
 | nextArrow | 自定义“切换到下一个”按钮 | HTMLElement | - |

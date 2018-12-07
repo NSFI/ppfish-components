@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { findDOMNode } from 'react-dom';
 import debounce from 'lodash/debounce';
+import classNames from 'classnames';
 import './style/index.less';
 
 // matchMedia polyfill for
@@ -37,6 +39,7 @@ export interface CarouselProps {
   style?: React.CSSProperties;
   prefixCls?: string;
   accessibility?: boolean;
+  dotsTimer?: boolean;
   dotsPosition?: DotsPosition;
   nextArrow?: HTMLElement | any;
   prevArrow?: HTMLElement | any;
@@ -86,6 +89,7 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
     arrows: false,
     prefixCls: 'fishd-carousel',
     draggable: false,
+    dotsTimer: false,
     autoplaySpeed: 3000,
     dotsPosition: 'bottom'
   };
@@ -93,6 +97,7 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   innerSlider: any;
 
   private slick: any;
+  private slickDOM: any;
 
   constructor(props: CarouselProps) {
     super(props);
@@ -102,12 +107,18 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   }
 
   componentDidMount() {
-    const { autoplay } = this.props;
+    const { autoplay, autoplaySpeed, dotsPosition, dotsTimer } = this.props;
     if (autoplay) {
       window.addEventListener('resize', this.onWindowResized);
     }
     // https://github.com/ant-design/ant-design/issues/7191
     this.innerSlider = this.slick && this.slick.innerSlider;
+
+    this.slickDOM = findDOMNode(this.slick);
+    if (autoplay && dotsTimer) {
+      let aniName = (dotsPosition=='left' || dotsPosition=='right') ? 'dotsAniVertical' : 'dotsAni';
+      this.slickDOM.querySelector('.timer').style.setProperty("--dots-ani", `${aniName} ${autoplaySpeed/1000}s infinite`);
+    }
   }
 
   componentWillUnmount() {
@@ -145,6 +156,7 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   render() {
     let {
       dotsPosition,
+      dotsTimer,
       style,
       nextArrow,
       prevArrow,
@@ -155,16 +167,21 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
       restProps.fade = true;
     }
 
-    let className = restProps.prefixCls;
-    className = `${className} ${className}-${dotsPosition}`;
+    let cls = classNames(restProps.prefixCls, `${restProps.prefixCls}-${dotsPosition}`);
+    let dotsCls = classNames({
+      'slick-dots': dotsPosition=='bottom' || dotsPosition=='top',
+      'slick-dots-vertical': dotsPosition=='left' || dotsPosition=='right',
+      'timer': restProps.autoplay && dotsTimer
+    });
 
     return (
-      <div className={className} style={style}>
+      <div className={cls} style={style}>
         <SlickCarousel
+          {...restProps}
           ref={this.saveSlick}
           nextArrow={nextArrow ? nextArrow : <CustomArrow className="slick-next" onClick={this.next}/>}
           prevArrow={prevArrow ? prevArrow : <CustomArrow className="slick-prev" onClick={this.prev}/>}
-          {...restProps}
+          dotsClass={dotsCls}
         />
       </div>
     );

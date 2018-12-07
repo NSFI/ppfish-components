@@ -150,10 +150,8 @@
   }
 }
 
-// Dots
 .slick-dots {
   position: absolute;
-  // bottom: 12px;
   list-style: none;
   display: block;
   text-align: center;
@@ -200,16 +198,15 @@
 }
 
 .slick-dots-vertical {
+  .slick-dots;
   width: @carousel-dot-height;
   bottom: auto;
-  // right: 12px;
   top: 50%;
   transform: translateY(-50%);
   height: auto;
   li {
     display: block;
     margin: 4px 0;
-    vertical-align: baseline;
     button {
       width: @carousel-dot-height;
       height: @carousel-dot-width;
@@ -236,15 +233,61 @@
 }
 
 .@{fishd-prefix}-carousel-right {
-  .slick-dots {
+  .slick-dots-vertical {
     .slick-dots-vertical;
     right: 12px;
   }
 }
 
 .@{fishd-prefix}-carousel-left {
-  .slick-dots {
+  .slick-dots-vertical {
     .slick-dots-vertical;
     left: 12px;
   }
+}
+
+.slick-dots.timer {
+  li {
+    &.slick-active button {
+      background: rgba(255,255,255,0.3);
+
+      &:after {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #fff;
+        animation: var(--dots-ani, dotsAni 3s infinite);
+      }
+    }
+  }
+}
+
+.slick-dots-vertical.timer {
+  li {
+    &.slick-active button {
+      background: rgba(255,255,255,0.3);
+
+      &:after {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        animation: var(--dots-ani, dotsAniVertical 3s infinite);
+      }
+    }
+  }
+}
+
+@keyframes dotsAni {
+  from {width: 0;}
+  to {width: 100%;}
+}
+
+@keyframes dotsAniVertical {
+  from {height: 0;}
+  to {height: 100%;}
 }
