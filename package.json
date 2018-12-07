@@ -33,8 +33,9 @@
   "engines": {
     "node": ">=6.11.5"
   },
-  "module": "es/components/index.js",
   "main": "dist/ppfish.js",
+  "module": "es/components/index.js",
+  "jsnext:main": "es/components/index.js",
   "dependencies": {
     "array-tree-filter": "^2.1.0",
     "async-validator": "^1.8.5",
