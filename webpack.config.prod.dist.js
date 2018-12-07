@@ -66,11 +66,8 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [{
-          loader: 'awesome-typescript-loader'
-        }],
-        include: [
-          path.join(__dirname, './source'),
-        ]
+          loader: 'ts-loader'
+        }]
       },
       {
         test: /\.jsx?$/,
