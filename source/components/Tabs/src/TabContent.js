@@ -7,7 +7,7 @@ import {
   getTransformPropValue,
   getMarginStyle,
 } from './utils';
-import Spin from '../../Spin';
+import Spin from '../../Spin/index.tsx';
 
 export default class TabContent extends React.Component {
   getTabPanes() {

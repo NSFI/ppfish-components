@@ -154,7 +154,7 @@ module.exports = {
     //   analyzerMode: 'static'
     // }),
     new webpack.ProgressPlugin((percentage, message, ...args) => {
-      console.log(`${(percentage * 100).toFixed(2)}%`, message, ...args);
+      console.log(`${(percentage * 100).toFixed(2)}%`, message, ...args); // eslint-disable-line
     }),
     new ExtractTextPlugin({
       filename: '[chunkhash:12].css',
