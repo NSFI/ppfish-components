@@ -33,6 +33,7 @@ export default class QuickPanel extends React.Component {
     onClose: PropTypes.func,
     mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
     colorHistory: PropTypes.array,
+    getPopupContainer: PropTypes.func,
   };
 
   static defaultProps = {
@@ -47,7 +48,6 @@ export default class QuickPanel extends React.Component {
     defaultAlpha: 100,
     prefixCls: 'fishd-color-picker-quick-panel',
     quickModeCustom: true,
-    enableHistory: true,
     enableAlpha: false,
     maxHistory: 8,
     defaultColor: '#e93334',
@@ -67,7 +67,7 @@ export default class QuickPanel extends React.Component {
     this.state = {
       color: props.color || props.defaultColor,
       alpha,
-      customPanelOpen: false,
+      open: false,
       colorHistory: props.colorHistory
     };
   }
@@ -131,14 +131,14 @@ export default class QuickPanel extends React.Component {
   };
 
   setOpen = (open, callback) => {
-    if (this.state.customPanelOpen !== open) {
+    if (this.state.open !== open) {
       this.setState({
-          customPanelOpen: open
+          open: open
         },
         () => {
           if (typeof callback === 'function') callback();
           const {enableHistory, maxHistory, onOpen, onClose, onChange} = this.props;
-          if (this.state.customPanelOpen) {
+          if (this.state.open) {
             onOpen(this.state);
           } else {
             // history record
@@ -182,7 +182,7 @@ export default class QuickPanel extends React.Component {
   };
 
   render() {
-    const {prefixCls, colorMap, quickModeCustom} = this.props;
+    const {prefixCls, colorMap, quickModeCustom, getPopupContainer} = this.props;
     const [r, g, b] = new Color(this.state.color).RGB;
     const RGBA = [r, g, b];
 
@@ -221,8 +221,8 @@ export default class QuickPanel extends React.Component {
               popupPlacement={'rightTop'}
               action={['click']}
               destroyPopupOnHide
-              getPopupContainer={(node) => node.parentNode}
-              popupVisible={this.state.customPanelOpen}
+              getPopupContainer={getPopupContainer}
+              popupVisible={this.state.open}
               onPopupVisibleChange={this.onVisibleChange}
               prefixCls={`fishd-color-picker-panel`}
             >

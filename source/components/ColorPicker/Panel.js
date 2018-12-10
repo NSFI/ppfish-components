@@ -46,7 +46,7 @@ export default class Panel extends React.Component {
     onMount: noop,
     prefixCls: 'fishd-color-picker-panel',
     style: {},
-    enableHistory: false,
+    enableHistory: true,
     maxHistory: 8,
     colorHistory: []
   };
