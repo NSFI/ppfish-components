@@ -4,6 +4,7 @@ const path = require('path');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { parseDir, getReplParams } = require('./tools/helps');
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 console.log('----------------------------------------------------------------------------------------------------------');
 console.log('开发环境默认关闭demo中嵌入的iframe页面的打包，如果需要调试iframe demo, 运行npm run open:site -- --iframe=true来开启');
@@ -76,6 +77,9 @@ module.exports = {
     filename: '[name].js'
   },
   plugins: [
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static'
+    // }),
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
     new HtmlWebpackPlugin({
@@ -113,9 +117,9 @@ module.exports = {
       {
         test: /\.svg$/,
         oneOf: [
-          // oneOf uses the first matching rule. So for your use case put the 
-          // resourceQuery: /module/ into the first entry and no resourceQuery 
-          // at all into the second. – Daniel Jul 5 '17 at 15:52 
+          // oneOf uses the first matching rule. So for your use case put the
+          // resourceQuery: /module/ into the first entry and no resourceQuery
+          // at all into the second. – Daniel Jul 5 '17 at 15:52
           {
             test: /static[/\\]icons/,
             use: [

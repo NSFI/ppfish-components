@@ -1,12 +1,14 @@
 # Echart 图表 【视觉: 徐剑杰 |开发: 王晓玲】
+
 可视化图表组件。
 
 ## 何时使用
+
 当需要可视化图表展示时。
 
 ## 基本使用
 
-:::demo 通过option传入图表配置项。
+:::demo 通过`option`传入图表配置项。
 ```js
   
   render() {
@@ -57,7 +59,7 @@
     
     return (
       <Echart
-        className="echarts"
+        className="my-echarts"
         option={option}
         style={{width:500,height:500}}
       />
@@ -68,7 +70,7 @@
 
 ## 图表参数
 
-:::demo 通过option传入图表配置项。
+:::demo 通过`option`传入图表配置项，`opts`传入图表初始化参数。
 ```js
   
   render() {
@@ -113,9 +115,10 @@
     
     return (
       <Echart
-        className="echarts"
+        className="my-echarts"
         option={option}
         style={{width:500,height:500}}
+        opts={{renderer:'svg'}} // 使用svg渲染
       />
     );
   }
@@ -279,21 +282,173 @@
 ```
 :::
 
+## 按需引入
+
+:::demo
+```js
+  render() {
+    //为了演示效果，该demo已打包为单独的页面嵌入iframe，核心代码可参考 https://github.com/NSFI/ppfish-components/blob/master/site/docs/demoPage/echartRequired.js
+    return(
+      <div className="browser-mockup">
+        <iframe src="./demo/echartRequired.html" height={500}></iframe>
+      </div>
+    )
+  }
+```
+:::
+
+<style>
+.browser-mockup {
+    border-top: 2em solid rgba(230, 230, 230, 0.7);
+    -webkit-box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
+    position: relative;
+    border-radius: 3px 3px 0 0;
+}
+.browser-mockup:before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.25em;
+    left: 1em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background-color: #f44;
+    -webkit-box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+    box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+}
+.browser-mockup:after {
+    display: block;
+    position: absolute;
+    content: '';
+    top: -1.6em;
+    left: 5.5em;
+    width: calc(100% - 6em);
+    height: 1.2em;
+    border-radius: 2px;
+    background-color: white;
+}
+.browser-mockup iframe {
+    width: 100%;
+    border: 0;
+}
+</style>
+
 ## API
-注：仅提供基本的框架封装，Echarts配置项和API设置请参考 [Echarts文档](http://echarts.baidu.com/option.html#title)。
-目前的Echarts支持v4.x版本。
+
+> 注意：
+ - Echarts配置项和API设置请参考 [Echarts文档](http://echarts.baidu.com/option.html#title)。
+ - 目前支持Echarts v4.x版本。
 
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| className | 设置 chart 类名 | String | '' |
-| events |  图表事件 | Object | - |
+| className | 设置类名 | String | '' |
+| style | 设置样式，默认高度为300px | Object | {height: '300px'} |
 | option |  图表的配置项和数据，具体见[配置项手册](http://echarts.baidu.com/option.html#title)。 | Object | - |
-| opts |  图表配置项参数，具体见[说明文档](http://echarts.baidu.com/api.html#echartsInstance.setOption) | Object | - |
-| style | 设置样式 | Object | - |
+| opts |  图表初始化配置项参数，具体见[说明文档](http://echarts.baidu.com/api.html#echarts.init) | Object | - |
+| events |  图表事件, 具体见[说明文档](http://echarts.baidu.com/api.html#events) | Object | - |
+| theme | 图表主题, 传入前请确保已经用 `registerTheme` 注册过，详情见下面说明中的`设置主题` | String | [默认主题] |
+| notMerge | 是否不跟之前设置的option进行合并, 具体见[说明文档](http://echarts.baidu.com/api.html#echartsInstance.setOption) | Boolean | false |
+| lazyUpdate | 在设置完option后是否不立即更新图表, 具体见[说明文档](http://echarts.baidu.com/api.html#echartsInstance.setOption) | Boolean | false |
+| onChartReady | 图表准备好后的回调函数 | (obj) => Void | - | 
+| loadingOption | 图表加载配置, 具体见[说明文档](http://echarts.baidu.com/api.html#echartsInstance.showLoading) | Object | - |
+| showLoading | 是否显示加载中蒙层 | Boolean | false |
+| echarts | 使用按需引入方式，手动导入echart模块，详情见[按需引入示例](https://github.com/NSFI/ppfish-components/blob/master/site/docs/demoPage/echartRequired.js)| Object | {} |
 
 ## 方法
 
 | 名称 | 描述 |
 | --- | --- |
-| getInstance() | 获取创建的实例 |
-| getEcharts() | 获取全局echarts对象 |
+| getInstance() | 获取图表实例 |
+
+## 说明
+
+### 按需引入
+
+为了解决echarts包比较大的问题，我们提供了按需引入方案，可根据业务需要自行选择。示例代码如下，完整示例请见[按需引入示例](https://github.com/NSFI/ppfish-components/blob/master/site/docs/demoPage/echartRequired.js)
+
+```js
+import React from 'react';
+// 导入core library
+import EchartCore from 'ppfish/source/component/Echart/core';
+// 按需导入echarts模块
+import echarts from 'echarts/lib/echarts'; //必须
+import 'echarts/lib/chart/line';
+// import 'echarts/lib/chart/bar';
+// import 'echarts/lib/chart/pie';
+// import 'echarts/lib/chart/scatter';
+// import 'echarts/lib/chart/radar';
+
+// import 'echarts/lib/chart/map';
+// import 'echarts/lib/chart/treemap';
+// import 'echarts/lib/chart/graph';
+// import 'echarts/lib/chart/gauge';
+// import 'echarts/lib/chart/funnel';
+// import 'echarts/lib/chart/parallel';
+// import 'echarts/lib/chart/sankey';
+// import 'echarts/lib/chart/boxplot';
+// import 'echarts/lib/chart/candlestick';
+// import 'echarts/lib/chart/effectScatter';
+// import 'echarts/lib/chart/lines';
+// import 'echarts/lib/chart/heatmap';
+
+// import 'echarts/lib/component/graphic';
+// import 'echarts/lib/component/grid';
+// import 'echarts/lib/component/legend';
+import 'echarts/lib/component/tooltip';
+// import 'echarts/lib/component/polar';
+// import 'echarts/lib/component/geo';
+// import 'echarts/lib/component/parallel';
+// import 'echarts/lib/component/singleAxis';
+// import 'echarts/lib/component/brush';
+
+import 'echarts/lib/component/title';
+
+// import 'echarts/lib/component/dataZoom';
+// import 'echarts/lib/component/visualMap';
+
+// import 'echarts/lib/component/markPoint';
+// import 'echarts/lib/component/markLine';
+// import 'echarts/lib/component/markArea';
+
+// import 'echarts/lib/component/timeline';
+// import 'echarts/lib/component/toolbox';
+
+// import 'zrender/lib/vml/vml';
+
+// API与上面的Echart相同
+<EchartCore
+  echarts={echarts}
+  option={this.getOption()}
+  notMerge={true}
+  lazyUpdate={true}
+  theme={"theme_name"}
+  onChartReady={this.onChartReadyCallback}
+  events={events}
+  opts={}
+/>
+```
+
+### 设置主题
+
+使用`theme`API之前，请确保已经通过`registerTheme`注册过。
+
+```js
+// 引入echart
+import echarts from 'echarts/lib/echarts';
+...
+// 注册主题
+echarts.registerTheme('my_theme', {
+  backgroundColor: '#f4cccc'
+});
+...
+// 传入`theme` 渲染主题
+<Echart
+  option={this.getOption()}
+  style={{height: '300px', width: '100%'}}
+  className='echarts-for-echarts'
+  theme='my_theme' 
+/>
+```
+

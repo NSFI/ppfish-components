@@ -390,9 +390,9 @@ export const components = {
           published: true,
         },
         {
-          key: 'echarts',
+          key: 'echart',
           type: 'markdown',
-          name: 'Echarts 图表',
+          name: 'Echart 图表',
           published: true,
         },
         {

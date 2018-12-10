@@ -46,7 +46,7 @@
     "dom-closest": "^0.2.0",
     "dom-scroll-into-view": "^1.2.1",
     "echarts": "^4.1.0",
-    "echarts-wordcloud": "^1.1.3",
+    "echarts-for-react": "^2.0.15-beta.0",
     "enquire.js": "^2.1.1",
     "intersperse": "^1.0.0",
     "is-negative-zero": "^2.0.0",

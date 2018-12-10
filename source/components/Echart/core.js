@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import ReactEcharts from 'echarts-for-react';
+import ReactEchartsCore from 'echarts-for-react/lib/core';
 import defaultTheme from './default-theme';
 
-export default class Echart extends Component {
+export default class EchartCore extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     option: PropTypes.object,
@@ -17,12 +17,14 @@ export default class Echart extends Component {
     lazyUpdate: PropTypes.bool,
     onChartReady: PropTypes.func,
     loadingOption: PropTypes.object,
-    showLoading: PropTypes.bool
+    showLoading: PropTypes.bool,
+    echarts: PropTypes.object
   };
 
   static defaultProps = {
     prefixCls: 'fishd-chart',
     theme: defaultTheme,
+    echarts: {},
     notMerge: false,
     lazyUpdate: false,
     style: {height: '300px'},
@@ -57,10 +59,12 @@ export default class Echart extends Component {
       onChartReady,
       loadingOption,
       showLoading,
+      echarts
     } = this.props;
     return (
-      <ReactEcharts
+      <ReactEchartsCore
         ref={(e) => this.echarts_react = e}
+        echarts={echarts}
         className={classNames(prefixCls, className)}
         style={style}
         option={option}
@@ -76,3 +80,4 @@ export default class Echart extends Component {
     );
   }
 }
+
