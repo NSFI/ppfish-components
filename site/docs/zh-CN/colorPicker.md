@@ -14,7 +14,7 @@ onChangeColor=({color,alpha}) => {
 };
 
 render(){
-  return(<ColorPicker enableHistory onChange={this.onChangeColor}/>)
+  return(<ColorPicker onChange={this.onChangeColor}/>)
 }
 ```
 :::
@@ -52,7 +52,10 @@ onChangeColor=({color}) => {
 };
 
 render(){
-  return(<ColorPicker.QuickPanel color={this.state.color} colorHistory={['#ff9b24']} onChange={this.onChangeColor}/>)
+  return(<div>
+  <ColorPicker.QuickPanel color={this.state.color} colorHistory={['#ff9b24']} onChange={this.onChangeColor}/>
+  <div style={{width:100,height:100,display:'inline-block',lineHeight:'100px',textAlign:'center',margin:'10px 0',background:this.state.color}}>已选中颜色</div>
+</div>)
 }
 ```
 :::
@@ -70,8 +73,8 @@ render(){
 | defaultAlpha         | 默认的opacity值                                        |Number                                                                    | 100                                                | 
 | defaultColor         | 默认的的颜色值                        |String                                                                    | '#e93334'                                             | 
 | enableAlpha          | 是否开启opacity                                      |Boolean                                                                   | false                                                |
-| enableHistory        | 开启历史记录                                     |Boolean                                                                    |     false                                                  | 
-| getPopupContainer    | 选定弹出框的相对位置节点，QuickPanel默认为parentNode                   |() => HTMLElement                                                        | () => document.body                   | 
+| enableHistory        | 开启历史记录                                     |Boolean                                                                    |     true                                                  | 
+| getPopupContainer    | 选定弹出框的相对位置节点                   |() => HTMLElement                                                        | () => document.body                   | 
 | onChange             | 颜色更改                                           |(state）=> Void                                                                  | noop                                                  | 
 | onClose              | 弹出框关闭                               |(state）=> Void                                                                  | noop                                                  | 
 | onOpen               | 弹出框打开                                |(state）=> Void                                                                   | noop                                                  |

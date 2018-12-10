@@ -45,7 +45,7 @@ export default class ColorPicker extends React.Component {
   static defaultProps = {
     defaultColor: '#e93334',
     defaultAlpha: 100,
-    enableHistory: false,
+    enableHistory: true,
     maxHistory: 8,
     onChange: noop,
     onOpen: noop,
