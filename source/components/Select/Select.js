@@ -462,15 +462,21 @@ export default class Select extends React.Component {
   };
 
   //判断是否全选
-  isSelectAll = (countSelectValueForMultiplePanel = false) => {
+  isSelectAll = (isMultiplePanel = false) => {
     const {selectValueForMultiplePanel, selectValue} = this.state;
     const optionList = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
-    // 全选判断来源是 ：false-下拉面板内容区，true-显示面板内容区
-    const selectedList = countSelectValueForMultiplePanel ? selectValueForMultiplePanel : selectValue;
     //全选判断逻辑：option中每一项都能在selected中找到（兼容后端搜索的全选判断）
-    return optionList.every(selected => {
-      return !!selectedList.find(option => option.key === selected.key);
-    });
+    if (isMultiplePanel) {
+      return (
+        optionList.length && optionList.every(selected => {
+          return !!selectValueForMultiplePanel.find(option => option.key === selected.key);
+        })
+      );
+    } else {
+      return optionList.every(selected => {
+        return !!selectValue.find(option => option.key === selected.key);
+      });
+    }
   };
 
   //处理tab上下active切换功能
@@ -613,7 +619,7 @@ export default class Select extends React.Component {
               <div>
                 <div>
                   <Spin.Container style={{height: 32, justifyContent: 'left'}}>
-                    <Spin size="small" tip="加载中..." />
+                    <Spin size="small" tip="加载中..."/>
                   </Spin.Container>
                 </div>
               </div>
@@ -748,7 +754,7 @@ export default class Select extends React.Component {
             <div className={`${selectionCls}-loading`}>
               <div>
                 <Spin.Container style={{height: 32, justifyContent: 'left'}}>
-                  <Spin size="small" tip="加载中..." />
+                  <Spin size="small" tip="加载中..."/>
                 </Spin.Container>
               </div>
             </div> :
