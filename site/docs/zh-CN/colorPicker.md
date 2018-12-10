@@ -10,7 +10,7 @@
 
 ```js
 onChangeColor=({color,alpha}) => {
-  console.log(`color:${color},alpha:${alpha}`);
+  console.log(`color:${color}`);
 };
 
 render(){
@@ -25,7 +25,7 @@ render(){
 
 ```js
 onChangeColor=({color,alpha}) => {
-  console.log(`color:${color},alpha:${alpha}`);
+  console.log(`color:${color}`);
 };
 
 render(){
