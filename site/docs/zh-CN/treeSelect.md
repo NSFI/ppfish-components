@@ -860,7 +860,7 @@
 | editable | 选中的条目是否可编辑，多选时有效 | Boolean | true |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
-| icon | 自定义所有子节点 title 前的图标。可接收组件，props 为当前树的 props。若某子节点上同时自定义了图标，则被其覆盖。 | ReactNode \| (props) => ReactNode | - |
+| icon | 自定义所有子节点 title 前的图标。可接收组件，props 为当前树的 props。若某子节点上同时自定义了图标，则被其覆盖。`showIcon` 为 true 时有效。 | ReactNode \| (props) => ReactNode | - |
 | loadData | 异步加载数据，返回值应该是一个 promise | (treeNode: TreeNode) => Void | - |
 | loading | 是否显示 loading 状态。可以配合实现后端搜索。 | Boolean | false |
 | multiple | 支持多选（当设置 treeCheckable 时自动变为true） | Boolean | false |
@@ -906,7 +906,7 @@
 | --- | --- | --- | --- |
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 是否禁用 | Boolean | false |
-| icon | 自定义当前节点 title 前的图标。可接收组件，props 为当前节点的 props | ReactNode \| (props) => ReactNode | - |
+| icon | 自定义当前节点 title 前的图标。可接收组件，props 为当前节点的 props。Tree props 中 `showIcon` 为 true 时有效。 | ReactNode \| (props) => ReactNode | - |
 | isLeaf | 是否是叶子节点 | Boolean | false |
 | key | 此项必须设置，且其值需在整个树范围内唯一 | String | - |
 | title | 树节点显示的内容，默认根据此属性值进行筛选 | String \| ReactNode | '---' |
