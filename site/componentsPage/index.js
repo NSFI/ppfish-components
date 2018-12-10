@@ -140,6 +140,7 @@ export const components = {
           key: 'imageLoader',
           type: 'markdown',
           name: 'ImageLoader 图片加载器',
+          published: true,
         },
         {
           key: 'colorPicker',
@@ -443,6 +444,7 @@ export const components = {
           key: 'trend',
           type: 'markdown',
           name: 'Trend 趋势标记',
+          published: true,
         },
         {
           key: 'ellipsis',
@@ -476,6 +478,7 @@ export const components = {
           key: 'notification',
           type: 'markdown',
           name: 'Notification 通知提醒框',
+          published: true,
         },
         {
           key: 'progress',
