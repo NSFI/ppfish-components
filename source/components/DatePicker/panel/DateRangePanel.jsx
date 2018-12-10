@@ -144,15 +144,25 @@ export default class DateRangePanel extends React.Component {
     const maxDate = isValidValueArr(props.value) ? toDate(props.value[1]) : null;
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
     const state = {};
-    state.leftDate = isValidValueArr(props.value) ? props.value[0] : props.leftPanelMonth;
+    // 左侧日历月份
+    state.leftDate = isValidValueArr(props.value) ? setLeftDate(props.value[0], props.value[1]) : props.leftPanelMonth;
+    // 右侧日历月份
     state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(props.leftPanelMonth);
+    // 开始日期
     state.minDate = minDate;
+    // 结束日期
     state.maxDate = maxDate;
+    // 开始日期输入框中的值
     state.minDateInputText = isValidValueArr(props.value) ? formatDate(props.value[0], dateFormat(props.format)) : '';
+    // 结束日期输入框中的值
     state.maxDateInputText = isValidValueArr(props.value) ? formatDate(props.value[1], dateFormat(props.format)) : '';
+    // 开始时间
     state.minTime = minTime;
+    // 结束时间
     state.maxTime = maxTime;
+    // 开始时间可选范围
     state.startTimeSelectableRange = props.startTimeSelectableRange;
+    // 结束时间可选范围
     state.endTimeSelectableRange = props.endTimeSelectMode === 'TimePicker' && isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectableRange;
     state.endTimeSelectModeProps = props.endTimeSelectMode === 'TimeSelect' && isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectModeProps;
     return state;
