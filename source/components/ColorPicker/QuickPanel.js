@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Trigger from 'rc-trigger';
+import classNames from 'classnames';
+
 import typeColor from './utils/validationColor';
 import ColorPickerPanel from './Panel';
-import Trigger from 'rc-trigger';
 import placements from "./placements";
 import Color from "./helpers/color";
-import classNames from 'classnames';
 
 function noop() {
 }

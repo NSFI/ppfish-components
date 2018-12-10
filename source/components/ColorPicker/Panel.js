@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 import Color from './helpers/color';
 import typeColor from './utils/validationColor';
 import Board from './Board';
@@ -8,7 +10,6 @@ import Ribbon from './Ribbon';
 import Alpha from './Alpha';
 import Params from './Params';
 import History from './History';
-import classNames from 'classnames';
 
 function noop() {
 }
