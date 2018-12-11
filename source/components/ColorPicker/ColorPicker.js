@@ -2,11 +2,12 @@ import React from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
+import classNames from 'classnames';
+
 import ColorPickerPanel from './Panel';
 import placements from './placements';
 import Color from './helpers/color';
 import QuickPanel from './QuickPanel';
-
 
 function refFn(field, component) {
   this[field] = component;
@@ -56,7 +57,7 @@ export default class ColorPicker extends React.Component {
     prefixCls: 'fishd-color-picker',
     style: {},
     quickMode: false,
-    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00','#26bf40','#3dd9af'],
+    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af'],
   };
 
   constructor(props) {
@@ -237,14 +238,20 @@ export default class ColorPicker extends React.Component {
       animation,
       disabled,
       transitionName,
+      quickMode,
     } = props;
+
+    const arrowCls = classNames({
+      [`${prefixCls}-arrow`]: true,
+      'quick': quickMode
+    });
 
     return (
       <div className={classes.join(' ')}>
         <Trigger
           popup={
             <div className={`${prefixCls}-content`}>
-              <div className={`${prefixCls}-arrow`}/>
+              <div className={arrowCls}/>
               <div className={`${prefixCls}-inner`}>
                 {this.getPickerElement()}
               </div>
