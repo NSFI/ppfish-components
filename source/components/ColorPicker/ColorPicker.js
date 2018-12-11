@@ -43,7 +43,7 @@ export default class ColorPicker extends React.Component {
   };
 
   static defaultProps = {
-    defaultColor: '#e93334',
+    defaultColor: '#33bbff',
     defaultAlpha: 100,
     enableHistory: true,
     maxHistory: 8,
@@ -56,7 +56,7 @@ export default class ColorPicker extends React.Component {
     prefixCls: 'fishd-color-picker',
     style: {},
     quickMode: false,
-    colorMap: ['#e93334', '#e86819', '#ff9b25', '#654520', '#e0c5a6', '#ffe637', '#009a20', '#006812', '#97bb2a', '#b6d130'],
+    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00','#26bf40','#3dd9af'],
   };
 
   constructor(props) {
@@ -237,16 +237,22 @@ export default class ColorPicker extends React.Component {
       animation,
       disabled,
       transitionName,
-      quickMode
     } = props;
 
     return (
       <div className={classes.join(' ')}>
         <Trigger
-          popup={this.getPickerElement()}
+          popup={
+            <div className={`${prefixCls}-content`}>
+              <div className={`${prefixCls}-arrow`}/>
+              <div className={`${prefixCls}-inner`}>
+                {this.getPickerElement()}
+              </div>
+            </div>
+          }
           popupAlign={align}
           builtinPlacements={placements}
-          popupPlacement={quickMode ? 'topCenter' : 'topLeft'}
+          popupPlacement={'topCenter'}
           action={disabled ? [] : ['click']}
           destroyPopupOnHide
           getPopupContainer={getPopupContainer}

@@ -1,19 +1,20 @@
 .@{prefixClass}-panel-ribbon {
   position: relative;
   height: 100%;
-  border-radius: 2px;
+  border-radius: 4px;
   box-shadow: 0 0 2px #808080 inset;
   background-image: linear-gradient(to right, #ff0 0%, #f90 10%, #cdff00 20%, #35ff00 30%, #0f6 40%, #00fffd 50%, #06f 60%, #3200ff 70%, #cd00ff 80%, #f09 90%, #f00 100%);
   span {
     position: absolute;
     top: 0;
-    height: 100%;
-    width: 4px;
-    border: 1px solid #000;
+    height: calc(~"100% + 4px");
+    width: 8px;
+    border-radius: 4px;
+    border: 1px solid #999;
     padding: 1px 0;
-    margin-left: -2px;
+    margin-left: -4px;
+    margin-top: -2px;
     background-color: #fff;
-    border-radius: 3px;
   }
   &-handler {
     position: absolute;

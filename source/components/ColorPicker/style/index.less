@@ -28,4 +28,28 @@
     /* stylelint-disable-next-line */
     display: block !important;
   }
+
+  &-arrow {
+    background: @popover-bg;
+    width: sqrt(@popover-arrow-width * @popover-arrow-width * 2);
+    height: sqrt(@popover-arrow-width * @popover-arrow-width * 2);
+    transform: rotate(45deg);
+    position: absolute;
+    display: block;
+    border-color: transparent;
+    border-style: solid;
+    z-index: 1;
+  }
+
+  &-placement-topCenter > &-content > &-arrow {
+    bottom: -4px;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  &-placement-topCenter &-quick-panel {
+    border-radius: @border-radius-lg;
+    box-shadow: @box-shadow-base;
+  }
 }

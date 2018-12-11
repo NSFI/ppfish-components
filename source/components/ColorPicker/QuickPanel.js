@@ -7,6 +7,7 @@ import typeColor from './utils/validationColor';
 import ColorPickerPanel from './Panel';
 import placements from "./placements";
 import Color from "./helpers/color";
+import Icon from '../Icon/index.tsx';
 
 function noop() {
 }
@@ -51,10 +52,10 @@ export default class QuickPanel extends React.Component {
     quickModeCustom: true,
     enableAlpha: false,
     maxHistory: 8,
-    defaultColor: '#e93334',
+    defaultColor: '#33bbff',
     style: {},
     colorHistory: [],
-    colorMap: ['#e93334', '#e86819', '#ff9b25', '#654520', '#e0c5a6', '#ffe637', '#009a20'],
+    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af', '#333333', '#666666', '#999999', '#cccccc'],
   };
 
   constructor(props) {
@@ -217,9 +218,16 @@ export default class QuickPanel extends React.Component {
           {
             quickModeCustom &&
             <Trigger
-              popup={this.getPickerElement()}
+              popup={
+                <div className={`${prefixCls}-content`}>
+                  <div className={`${prefixCls}-arrow`}/>
+                  <div className={`${prefixCls}-inner`}>
+                    {this.getPickerElement()}
+                  </div>
+                </div>
+              }
               builtinPlacements={placements}
-              popupPlacement={'rightTop'}
+              popupPlacement={'topCenter'}
               action={['click']}
               destroyPopupOnHide
               getPopupContainer={getPopupContainer}
@@ -235,7 +243,9 @@ export default class QuickPanel extends React.Component {
                   }}
                   />
                 }
-                <span className={`${prefixCls}-custom-btn-text`}>自定义</span>
+                <span className={`${prefixCls}-custom-btn-text`} style={customChecked ? {
+                  backgroundColor: `rgba(${RGBA.join(',')})`, color: '#fff'
+                } : {}}>{customChecked && <Icon type="check-line-bold"/>}自定义</span>
               </span>
             </Trigger>
           }
