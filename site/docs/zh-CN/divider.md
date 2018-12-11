@@ -59,11 +59,11 @@ render(){
       <div className="demo-vertical clearfix">
         <Divider type="vertical"/>
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
-        <Divider type="vertical" orientation="top">上</Divider>
+        <Divider type="vertical" orientation="top">文字居上</Divider>
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
-        <Divider type="vertical" >中</Divider>
+        <Divider type="vertical" >文字居中</Divider>
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
-        <Divider type="vertical" orientation="bottom">下</Divider>
+        <Divider type="vertical" orientation="bottom">文字居下</Divider>
         <div className="demo-content">Fishd Design, a design language for background applications, is refined by Fishd UED Team</div>
         <Divider type="vertical"/>
       </div>
@@ -98,9 +98,11 @@ render(){
 render(){
   return(
       <div>
-        <Divider orientation="left">Left Text</Divider>
+        <Divider orientation="left">文字居左</Divider>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.</p>
-        <Divider orientation="right">Right Text</Divider>
+        <Divider >文字居中</Divider>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.</p>
+        <Divider orientation="right">文字居右</Divider>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.</p>
       </div>
   )
