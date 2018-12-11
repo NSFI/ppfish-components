@@ -51,6 +51,7 @@ export default class QuickPanel extends React.Component {
     prefixCls: 'fishd-color-picker-quick-panel',
     quickModeCustom: true,
     enableAlpha: false,
+    enableHistory: true,
     maxHistory: 8,
     defaultColor: '#33bbff',
     style: {},

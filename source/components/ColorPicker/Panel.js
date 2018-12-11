@@ -216,6 +216,7 @@ export default class Panel extends React.Component {
               onChange={this.handleChange}
               mode={this.props.mode}
               enableAlpha={this.props.enableAlpha}
+              enableHistory={this.props.enableHistory}
             />
           </div>
           {enableHistory && <div className={`${prefixCls}-wrap-history`}>

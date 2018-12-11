@@ -41,7 +41,7 @@ render(){
 ```js
 
 state={
-  color:'#ff9b24',
+  color:'#33bbff',
 }
 
 onChangeColor=({color}) => {
@@ -53,8 +53,8 @@ onChangeColor=({color}) => {
 
 render(){
   return(<div>
-  <ColorPicker.QuickPanel color={this.state.color} colorHistory={['#ff9b24']} onChange={this.onChangeColor}/>
-  <div style={{width:100,height:100,display:'inline-block',lineHeight:'100px',textAlign:'center',margin:'10px 0',background:this.state.color}}>已选中颜色</div>
+  <ColorPicker.QuickPanel color={this.state.color} colorHistory={['#33bbff']} onChange={this.onChangeColor}/>
+  <div style={{width:100,height:100,color:'#fff',lineHeight:'100px',textAlign:'center',margin:'10px 0',background:this.state.color}}>已选中颜色</div>
 </div>)
 }
 ```
@@ -69,9 +69,9 @@ render(){
 | alpha                | 颜色opacity值                                       |Number                                                                    | 100                                                 | 
 | children             | additional trigger appended to picker                       | ReactNode                                                                      | `<span className='fishd-colorpicker-trigger'></span>` |
 | className            | 额外的className                    |String                                                                    | -                                                  | 
-| color                | 取色板当前的颜色值                        |String                                                                    | '#e93334'                                            | 
+| color                | 取色板当前的颜色值                        |String                                                                    | '#33bbff'                                            | 
 | defaultAlpha         | 默认的opacity值                                        |Number                                                                    | 100                                                | 
-| defaultColor         | 默认的的颜色值                        |String                                                                    | '#e93334'                                             | 
+| defaultColor         | 默认的的颜色值                        |String                                                                    | '#33bbff'                                             | 
 | enableAlpha          | 是否开启opacity                                      |Boolean                                                                   | false                                                |
 | enableHistory        | 开启历史记录                                     |Boolean                                                                    |     true                                                  | 
 | getPopupContainer    | 选定弹出框的相对位置节点                   |() => HTMLElement                                                        | () => document.body                   | 

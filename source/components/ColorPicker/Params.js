@@ -12,6 +12,7 @@ export default class Params extends React.Component {
   static propTypes = {
     alpha: PropTypes.number,
     enableAlpha: PropTypes.bool,
+    enableHistory: PropTypes.bool,
     color: PropTypes.object.isRequired,
     mode: PropTypes.oneOf(modesMap),
     onAlphaChange: PropTypes.func,
@@ -179,7 +180,7 @@ export default class Params extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
 
-    const {enableAlpha} = this.props;
+    const {enableAlpha, enableHistory} = this.props;
     const {mode, color} = this.state;
     const colorChannel = color[mode];
 
@@ -191,6 +192,7 @@ export default class Params extends React.Component {
 
     const paramsClasses = classNames({
       [prefixCls]: true,
+      [`${prefixCls}-has-history`]: enableHistory,
       [`${prefixCls}-has-alpha`]: enableAlpha,
     });
 
