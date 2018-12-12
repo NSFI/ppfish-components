@@ -237,7 +237,7 @@ export default class QuickPanel extends React.Component {
             >
             <span className={`${prefixCls}-custom-btn`}>
             <span className={`${prefixCls}-custom-btn-text`} style={customChecked ? {
-              backgroundColor: `rgba(${RGBA.join(',')})`, color: '#fff'
+              backgroundColor: `rgba(${RGBA.join(',')})`, color: '#fff', textShadow: '0 0.5px 0.5px rgba(0,0,0,50%)'
             } : {}}>{customChecked && <Icon type="check-line-bold"/>}自定义</span>
             </span>
             </Trigger>
