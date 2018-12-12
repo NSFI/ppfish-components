@@ -55,8 +55,8 @@ render(){
       </Button>
     </ButtonGroup>
     <ButtonGroup>
-      <Button type="primary" icon="demo-mail" />
-      <Button type="primary" icon="demo-image" />
+      <Button type="primary" icon="upload-cloud" />
+      <Button type="primary" icon="download-line" />
     </ButtonGroup>
   </div>)
 }
@@ -157,7 +157,7 @@ render(){
         <Button type="primary" loading={this.state.loading} onClick={this.enterLoading}>
           Click me!
         </Button>
-        <Button type="primary" icon="poweroff" loading={this.state.iconLoading} onClick={this.enterIconLoading}>
+        <Button type="primary" icon="download-line" loading={this.state.iconLoading} onClick={this.enterIconLoading}>
           Click me!
         </Button>
         <br />
@@ -234,8 +234,8 @@ render(){
         <Button size={size}>Normal</Button>
         <Button type="danger" size={size}>Danger</Button>
         <br />
-        <Button type="primary" shape="circle" icon="demo-mail" size={size} />
-        <Button type="primary" icon="demo-phone" size={size}>拨号</Button>
+        <Button type="primary" shape="circle" icon="download-line" size={size} />
+        <Button type="primary" icon="download-line" size={size}>下载</Button>
         <br />
         <Button.Group size={size}>
           <Button type="primary">
