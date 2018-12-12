@@ -145,7 +145,7 @@ export default class DateRangePanel extends React.Component {
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
     const state = {};
     // 左侧日历月份
-    state.leftDate = isValidValueArr(props.value) ? setLeftDate(props.value[0], props.value[1]) : props.leftPanelMonth;
+    state.leftDate = isValidValueArr(props.value) ? props.value[0] : props.leftPanelMonth;
     // 右侧日历月份
     state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(props.leftPanelMonth);
     // 开始日期
