@@ -6,11 +6,11 @@ import Color from './helpers/color';
 export default class Preview extends React.Component {
 
   static propTypes = {
-    rootPrefixCls: PropTypes.string,
-    color: PropTypes.object,
     alpha: PropTypes.number,
+    color: PropTypes.object,
     onChange: PropTypes.func,
     onInputClick: PropTypes.func,
+    rootPrefixCls: PropTypes.string,
   };
 
   onChange = e => {

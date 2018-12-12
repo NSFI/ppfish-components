@@ -20,9 +20,12 @@ export default class Panel extends React.Component {
     alpha: PropTypes.number,
     className: PropTypes.string,
     color: typeColor, // Hex string
+    colorHistory: PropTypes.array,
     defaultAlpha: PropTypes.number,
     defaultColor: typeColor, // Hex string
     enableAlpha: PropTypes.bool,
+    enableHistory: PropTypes.bool,
+    maxHistory: PropTypes.number,
     mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
@@ -30,16 +33,16 @@ export default class Panel extends React.Component {
     onMount: PropTypes.func,
     prefixCls: PropTypes.string,
     style: PropTypes.object,
-    enableHistory: PropTypes.bool,
-    maxHistory: PropTypes.number,
-    colorHistory: PropTypes.array
   };
 
   static defaultProps = {
     className: '',
+    colorHistory: [],
     defaultAlpha: 100,
     defaultColor: '#e93334',
     enableAlpha: false,
+    enableHistory: true,
+    maxHistory: 8,
     mode: 'RGB',
     onBlur: noop,
     onChange: noop,
@@ -47,9 +50,6 @@ export default class Panel extends React.Component {
     onMount: noop,
     prefixCls: 'fishd-color-picker-panel',
     style: {},
-    enableHistory: true,
-    maxHistory: 8,
-    colorHistory: []
   };
 
   constructor(props) {

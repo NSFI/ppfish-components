@@ -23,41 +23,42 @@ function noop() {
 export default class ColorPicker extends React.Component {
 
   static propTypes = {
-    defaultColor: PropTypes.string,
-    defaultAlpha: PropTypes.number,
-    // can custom
     alpha: PropTypes.number,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     color: PropTypes.string,
+    colorMap: PropTypes.array,
+    defaultAlpha: PropTypes.number,
+    defaultColor: PropTypes.string,
+    disabled: PropTypes.bool,
     enableAlpha: PropTypes.bool,
-    mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
-    onChange: PropTypes.func,
-    onClose: PropTypes.func,
-    onOpen: PropTypes.func,
-    prefixCls: PropTypes.string.isRequired,
-    style: PropTypes.object,
     enableHistory: PropTypes.bool,
     maxHistory: PropTypes.number,
+    mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
+    onChange: PropTypes.func,
+    onVisibleChange: PropTypes.func,
+    prefixCls: PropTypes.string.isRequired,
     quickMode: PropTypes.bool,
-    colorMap: PropTypes.array,
+    style: PropTypes.object,
+    popupStyle: PropTypes.object,
   };
 
   static defaultProps = {
-    defaultColor: '#33bbff',
+    children: <span className="fishd-color-picker-trigger"/>,
+    className: '',
+    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af'],
     defaultAlpha: 100,
+    defaultColor: '#33bbff',
+    disabled: false,
+    enableAlpha: false,
     enableHistory: true,
     maxHistory: 8,
     onChange: noop,
-    onOpen: noop,
-    onClose: noop,
-    children: <span className="fishd-color-picker-trigger"/>,
-    className: '',
-    enableAlpha: false,
+    onVisibleChange: noop,
     prefixCls: 'fishd-color-picker',
-    style: {},
     quickMode: false,
-    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af'],
+    style: {},
+    popupStyle: {}
   };
 
   constructor(props) {
@@ -70,7 +71,7 @@ export default class ColorPicker extends React.Component {
     this.state = {
       color: props.color || props.defaultColor,
       alpha,
-      open: false,
+      visible: false,
       colorHistory: []
     };
 
@@ -90,58 +91,43 @@ export default class ColorPicker extends React.Component {
     }
   }
 
-  onTriggerClick = () => {
-    this.setState({
-      open: !this.state.open,
-    });
-  };
-
   onChange = (colors) => {
-    this.setState({...colors},
-      () => {
+    this.setState({...colors}, () => {
         this.props.onChange(this.state);
       },
     );
   };
 
   onBlur = () => {
-    this.setOpen(false);
+    this.setVisible(false);
   };
 
-  onVisibleChange = (open) => {
-    this.setOpen(open);
+  onVisibleChangeFromTrigger = (visible) => {
+    this.setVisible(visible);
   };
 
   onPanelMount = (panelDOMRef) => {
-    if (this.state.open) {
+    if (this.state.visible) {
       setTimeout(() => {
         panelDOMRef.focus();
       }, 1);
     }
   };
 
-  setOpen = (open, callback) => {
-    if (this.state.open !== open) {
-      this.setState({open},
-        () => {
+  setVisible = (visible, callback) => {
+    if (this.state.visible !== visible) {
+      this.setState({visible}, () => {
           if (typeof callback === 'function') callback();
-          const {onOpen, onClose, enableHistory, maxHistory} = this.props;
-          if (this.state.open) {
-            onOpen(this.state);
-          } else {
-            // history record
-            if (enableHistory) {
-              const {color, alpha, colorHistory} = this.state;
-              if (colorHistory.length && color === colorHistory[0].color && alpha === colorHistory[0].alpha) return;
-              this.setState({
-                colorHistory: colorHistory.length >= maxHistory ?
-                  [{color, alpha}, ...colorHistory.slice(0, -1)] : [{color, alpha}, ...colorHistory]
-              }, () => {
-                onClose(this.state);
-              });
-            } else {
-              onClose(this.state);
-            }
+          const {onVisibleChange, enableHistory, maxHistory} = this.props;
+          onVisibleChange(this.state.visible);
+          //关闭时记录历史记录
+          if (!this.state.visible && enableHistory) {
+            const {color, alpha, colorHistory} = this.state;
+            if (colorHistory.length && color === colorHistory[0].color && alpha === colorHistory[0].alpha) return;
+            this.setState({
+              colorHistory: colorHistory.length >= maxHistory ?
+                [{color, alpha}, ...colorHistory.slice(0, -1)] : [{color, alpha}, ...colorHistory]
+            });
           }
         },
       );
@@ -160,14 +146,16 @@ export default class ColorPicker extends React.Component {
     if (this.props.quickMode) {
       return (
         <QuickPanel
+          __useInComponent
           onMount={this.onPanelMount}
           defaultColor={this.state.color}
           color={this.state.color}
           onChange={this.onChange}
+          onVisibleChange={this.setVisible}
           onBlur={this.onBlur}
           colorMap={this.props.colorMap}
           className={this.props.className}
-          quickModeCustom={false}
+          userSelectColor={false}
         />
       );
     }
@@ -189,16 +177,8 @@ export default class ColorPicker extends React.Component {
     );
   };
 
-  open = (callback) => {
-    this.setOpen(true, callback);
-  };
-
-  close = (callback) => {
-    this.setOpen(false, callback);
-  };
-
   focus = () => {
-    if (!this.state.open) {
+    if (!this.state.visible) {
       findDOMNode(this).focus();
     }
   };
@@ -207,7 +187,7 @@ export default class ColorPicker extends React.Component {
     const props = this.props;
     const state = this.state;
     const classes = [`${props.prefixCls}-wrap`, props.className];
-    if (state.open) {
+    if (state.visible) {
       classes.push(`${props.prefixCls}-open`);
     }
 
@@ -223,16 +203,16 @@ export default class ColorPicker extends React.Component {
         ref: this.saveTriggerRef,
         unselectable: 'unselectable',
         style: {
+          ...props.style,
           backgroundColor: `rgba(${RGBA.join(',')})`,
         },
-        onClick: this.onTriggerClick,
         onMouseDown: prevent,
       });
     }
 
     const {
       prefixCls,
-      style,
+      popupStyle,
       getPopupContainer,
       align,
       animation,
@@ -263,11 +243,11 @@ export default class ColorPicker extends React.Component {
           action={disabled ? [] : ['click']}
           destroyPopupOnHide
           getPopupContainer={getPopupContainer}
-          popupStyle={style}
+          popupStyle={popupStyle}
           popupAnimation={animation}
           popupTransitionName={transitionName}
-          popupVisible={state.open}
-          onPopupVisibleChange={this.onVisibleChange}
+          popupVisible={state.visible}
+          onPopupVisibleChange={this.onVisibleChangeFromTrigger}
           prefixCls={prefixCls}
         >
           {children}

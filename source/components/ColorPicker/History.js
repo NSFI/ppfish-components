@@ -5,10 +5,10 @@ import Color from "./helpers/color";
 export default class History extends React.Component {
 
   static propTypes = {
-    prefixCls: PropTypes.string,
     colorHistory: PropTypes.array,
     maxHistory: PropTypes.number,
     onHistoryClick: PropTypes.func,
+    prefixCls: PropTypes.string,
   };
 
   render() {

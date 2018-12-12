@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 export default class Ribbon extends React.Component {
 
   static propTypes = {
-    rootPrefixCls: PropTypes.string,
     color: PropTypes.object,
     onChange: PropTypes.func,
+    rootPrefixCls: PropTypes.string,
   };
 
   constructor(props) {

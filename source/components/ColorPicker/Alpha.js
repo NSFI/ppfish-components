@@ -9,10 +9,10 @@ function rgbaColor(r, g, b, a) {
 export default class Alpha extends React.Component {
 
   static propTypes = {
+    alpha: PropTypes.number,
     color: PropTypes.object,
     onChange: PropTypes.func,
     rootPrefixCls: PropTypes.string,
-    alpha: PropTypes.number,
   };
 
   constructor(props) {

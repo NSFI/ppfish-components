@@ -11,9 +11,9 @@ export default class Params extends React.Component {
 
   static propTypes = {
     alpha: PropTypes.number,
+    color: PropTypes.object.isRequired,
     enableAlpha: PropTypes.bool,
     enableHistory: PropTypes.bool,
-    color: PropTypes.object.isRequired,
     mode: PropTypes.oneOf(modesMap),
     onAlphaChange: PropTypes.func,
     onChange: PropTypes.func,

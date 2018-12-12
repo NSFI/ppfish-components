@@ -15,48 +15,51 @@ function noop() {
 export default class QuickPanel extends React.Component {
 
   static propTypes = {
+    __useInComponent: PropTypes.bool,
+    alpha: PropTypes.number,
     className: PropTypes.string,
     color: typeColor, // Hex string
+    colorHistory: PropTypes.array,
+    colorMap: PropTypes.array,
+    defaultAlpha: PropTypes.number,
     defaultColor: typeColor, // Hex string
+    disabled: PropTypes.bool,
+    enableAlpha: PropTypes.bool,
+    enableHistory: PropTypes.bool,
+    getPopupContainer: PropTypes.func,
+    maxHistory: PropTypes.number,
+    mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onMount: PropTypes.func,
+    onVisibleChange: PropTypes.func,
     prefixCls: PropTypes.string,
+    userSelectColor: PropTypes.bool,
     style: PropTypes.object,
-    colorMap: PropTypes.array,
-    quickModeCustom: PropTypes.bool,
-    enableHistory: PropTypes.bool,
-    maxHistory: PropTypes.number,
-    enableAlpha: PropTypes.bool,
-    defaultAlpha: PropTypes.number,
-    alpha: PropTypes.number,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func,
-    mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
-    colorHistory: PropTypes.array,
-    getPopupContainer: PropTypes.func,
+    popupStyle: PropTypes.object
   };
 
   static defaultProps = {
+    __useInComponent: false,
     className: '',
+    colorHistory: [],
+    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af', '#333333', '#666666', '#999999', '#cccccc'],
+    defaultAlpha: 100,
+    defaultColor: '#33bbff',
+    enableAlpha: false,
+    enableHistory: true,
+    maxHistory: 8,
     mode: 'RGB',
     onBlur: noop,
     onChange: noop,
     onFocus: noop,
     onMount: noop,
-    onOpen: noop,
-    onClose: noop,
-    defaultAlpha: 100,
+    onVisibleChange: noop,
     prefixCls: 'fishd-color-picker-quick-panel',
-    quickModeCustom: true,
-    enableAlpha: false,
-    enableHistory: true,
-    maxHistory: 8,
-    defaultColor: '#33bbff',
+    userSelectColor: true,
     style: {},
-    colorHistory: [],
-    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af', '#333333', '#666666', '#999999', '#cccccc'],
+    popupStyle: {},
   };
 
   constructor(props) {
@@ -70,7 +73,7 @@ export default class QuickPanel extends React.Component {
     this.state = {
       color: props.color || props.defaultColor,
       alpha,
-      open: false,
+      visible: false,
       colorHistory: props.colorHistory
     };
   }
@@ -117,47 +120,42 @@ export default class QuickPanel extends React.Component {
   };
 
   handleChange = (color, alpha) => {
+    const {disabled, onChange, onVisibleChange, __useInComponent} = this.props;
+    if (disabled) return;
     this.setState({color});
-    this.props.onChange({
-      color: color,
-      alpha: alpha,
-      open: false
-    });
+    onChange({color: color, alpha: alpha});
+    // colorPicker弹层中使用，点击时触发visibleChange
+    if (__useInComponent) {
+      onVisibleChange(false);
+    }
   };
 
   onChange = (colors) => {
     this.setState({...colors});
   };
 
-  onVisibleChange = (open) => {
-    this.setOpen(open);
+  onVisibleChangeFromTrigger = (visible) => {
+    this.setVisible(visible);
+    //自定义选择颜色弹层关闭时才颜色改变确认
+    if (!visible) {
+      this.props.onChange(this.state);
+    }
   };
 
-  setOpen = (open, callback) => {
-    if (this.state.open !== open) {
-      this.setState({
-          open: open
-        },
-        () => {
+  setVisible = (visible, callback) => {
+    if (this.state.visible !== visible) {
+      this.setState({visible}, () => {
           if (typeof callback === 'function') callback();
-          const {enableHistory, maxHistory, onOpen, onClose, onChange} = this.props;
-          if (this.state.open) {
-            onOpen(this.state);
-          } else {
-            // history record
-            if (enableHistory) {
-              const {color, alpha, colorHistory} = this.state;
-              if (colorHistory.length && color === colorHistory[0].color && alpha === colorHistory[0].alpha) return;
-              this.setState({
-                colorHistory: colorHistory.length >= maxHistory ?
-                  [{color, alpha}, ...colorHistory.slice(0, -1)] : [{color, alpha}, ...colorHistory]
-              }, () => {
-                onClose(this.state);
-              });
-            } else {
-              onClose(this.state);
-            }
-            onChange(this.state);
+          const {onVisibleChange, enableHistory, maxHistory} = this.props;
+          onVisibleChange(this.state.visible);
+          //关闭时记录历史记录
+          if (!this.state.visible && enableHistory) {
+            const {color, alpha, colorHistory} = this.state;
+            if (colorHistory.length && color === colorHistory[0].color && alpha === colorHistory[0].alpha) return;
+            this.setState({
+              colorHistory: colorHistory.length >= maxHistory ?
+                [{color, alpha}, ...colorHistory.slice(0, -1)] : [{color, alpha}, ...colorHistory]
+            });
           }
         },
       );
@@ -185,7 +183,7 @@ export default class QuickPanel extends React.Component {
   };
 
   render() {
-    const {prefixCls, colorMap, quickModeCustom, getPopupContainer} = this.props;
+    const {prefixCls, colorMap, userSelectColor, getPopupContainer, disabled, __useInComponent, popupStyle} = this.props;
     const [r, g, b] = new Color(this.state.color).RGB;
     const RGBA = [r, g, b];
 
@@ -217,8 +215,8 @@ export default class QuickPanel extends React.Component {
             }
           )}
           {
-            quickModeCustom &&
-            <Trigger
+            userSelectColor && !__useInComponent &&
+            < Trigger
               popup={
                 <div className={`${prefixCls}-content`}>
                   <div className={`${prefixCls}-arrow`}/>
@@ -229,25 +227,19 @@ export default class QuickPanel extends React.Component {
               }
               builtinPlacements={placements}
               popupPlacement={'topCenter'}
-              action={['click']}
+              action={disabled ? [] : ['click']}
               destroyPopupOnHide
+              popupStyle={popupStyle}
               getPopupContainer={getPopupContainer}
-              popupVisible={this.state.open}
-              onPopupVisibleChange={this.onVisibleChange}
+              popupVisible={this.state.visible}
+              onPopupVisibleChange={this.onVisibleChangeFromTrigger}
               prefixCls={`fishd-color-picker-panel`}
             >
-              <span className={`${prefixCls}-custom-btn`}>
-                {
-                  customChecked &&
-                  <span className={`${prefixCls}-custom-btn-color`} style={{
-                    backgroundColor: `rgba(${RGBA.join(',')})`
-                  }}
-                  />
-                }
-                <span className={`${prefixCls}-custom-btn-text`} style={customChecked ? {
-                  backgroundColor: `rgba(${RGBA.join(',')})`, color: '#fff'
-                } : {}}>{customChecked && <Icon type="check-line-bold"/>}自定义</span>
-              </span>
+            <span className={`${prefixCls}-custom-btn`}>
+            <span className={`${prefixCls}-custom-btn-text`} style={customChecked ? {
+              backgroundColor: `rgba(${RGBA.join(',')})`, color: '#fff'
+            } : {}}>{customChecked && <Icon type="check-line-bold"/>}自定义</span>
+            </span>
             </Trigger>
           }
         </div>
