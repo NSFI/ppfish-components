@@ -124,7 +124,7 @@ render(){
 
 ## 图片加载失败
 
-:::demo 图片加载失败显示组件提供的加载失败图，也可以通过failedloader自行设置加载失败图，设置方法同下方demo：自行设置预加载图片。
+:::demo 图片加载失败显示组件提供的加载失败图，也可以通过failedLoader自行设置加载失败图，设置方法同下方demo：自行设置预加载图片。
 
 ```js
 render(){
@@ -175,5 +175,5 @@ render(){
 | onError  | 图片加载失败的回调    | (e) => Void   | - |
 | onLoad  | 图片加载成功的回调    | (e) => Void   | -  |
 | preLoader  | 自定义请求中占位图   | ReactNode\|() => ReactNode |  -  |
-| failedloader  | 自定义加载失败占位图   | ReactNode\|() => ReactNode |  -  |
+| failedLoader  | 自定义加载失败占位图   | ReactNode\|() => ReactNode |  -  |
 | style  | 图片外层容器样式对象    | Object   |  —   |
