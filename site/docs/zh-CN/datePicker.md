@@ -1020,13 +1020,14 @@ DatePicker 时间面板的参数
 ### DatePicker.DateRangePicker
 | 参数      | 说明          | 类型      |   默认值  |
 |---------- |-------------- |----------|-------- |
+| startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
 | endPlaceholder | 结束日期的占位内容 | String | '结束日期' |
-| leftPanelMonth | 左侧面板的月份（设置之后右侧面板月份会自动为左侧面板的下一月）| Date | new Date() |
 | maxDateRange  | 最大可选择的日期范围，单位 天    | Number | - |
 | onError  |  选择日期超过maxDateRange的回调   | (message) => Void | - |
 | separator | 分隔符 | String | ' 至 ' |
-| startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
 | value | 值 | Array< Date > | null |
+| scene | 设置日历选择场景(根据不同的业务场景设置这个值时，面板会有较好的交互体验)| Enum {'past', 'future'} | 'future' |
+| defaultPanelMonth | 默认面板的月份，与`scene`配合使用，当`scene`为'past', 这个默认面板会展示在右边面板；当`scene`为'future', 这个默认面板会展示在左边面板| Date | new Date() |
 
 DateRangePicker 时间面板的参数
 

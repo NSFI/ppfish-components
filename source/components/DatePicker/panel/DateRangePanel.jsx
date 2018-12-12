@@ -66,7 +66,8 @@ export default class DateRangePanel extends React.Component {
       footer: PropTypes.func,
       maxDateRange: PropTypes.number,
       onError: PropTypes.func,
-      leftPanelMonth: PropTypes.instanceOf(Date),
+      defaultPanelMonth: PropTypes.instanceOf(Date),
+      scene: PropTypes.oneOf(['past', 'future']),
       // 时间面板
       showTime: PropTypes.bool,
       showTimeCurrent: PropTypes.bool,
@@ -94,7 +95,8 @@ export default class DateRangePanel extends React.Component {
       firstDayOfWeek: 0,
       maxDateRange: null,
       onError: () => {},
-      leftPanelMonth: new Date(),
+      defaultPanelMonth: new Date(),
+      scene: 'future',
       showTime: false,
       showTimeCurrent: false,
       defaultStartTimeValue: null,
@@ -131,12 +133,41 @@ export default class DateRangePanel extends React.Component {
   }
 
   propsToState(props) {
-    const setRightDate = (dateA, dateB) => {
-      if(equalYearAndMonth(dateA,dateB)){
-        return nextMonth(dateB);
-      }else{
-        return dateB;
+    const setDate = (start, end) => {
+      let result = {
+        left: start,
+        right: end
+      };
+      // 当开始日期和结束日期在同一个月，根据不同的业务场景设置左右日历
+      if(equalYearAndMonth(start, end)){
+        if(props.scene === 'past') {
+          result = {
+            left: prevMonth(end),
+            right: end
+          }
+        }else{
+          result = {
+            left: start,
+            right: nextMonth(start)
+          }
+        }
       }
+      return result;
+    };
+    const setDefaultDate = (defaultPanelMonth) => {
+      let result = {};
+      if(props.scene === 'past') {
+        result = {
+          left: prevMonth(defaultPanelMonth),
+          right: defaultPanelMonth
+        }
+      }else{
+        result = {
+          left: defaultPanelMonth,
+          right: nextMonth(defaultPanelMonth)
+        }
+      }
+      return result;
     };
     const minTime = isValidValueArr(props.value) ? toDate(props.value[0]) : toDate(props.defaultStartTimeValue);
     const maxTime = isValidValueArr(props.value) ? toDate(props.value[1]) : toDate(props.defaultEndTimeValue);
@@ -145,9 +176,10 @@ export default class DateRangePanel extends React.Component {
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
     const state = {};
     // 左侧日历月份
-    state.leftDate = isValidValueArr(props.value) ? props.value[0] : props.leftPanelMonth;
+    console.log(props);
+    state.leftDate = isValidValueArr(props.value) ? setDate(props.value[0], props.value[1])['left'] : setDefaultDate(props.defaultPanelMonth)['left'];
     // 右侧日历月份
-    state.rightDate = isValidValueArr(props.value) ? setRightDate(props.value[0], props.value[1]) : nextMonth(props.leftPanelMonth);
+    state.rightDate = isValidValueArr(props.value) ? setDate(props.value[0], props.value[1])['right'] : setDefaultDate(props.defaultPanelMonth)['right'];
     // 开始日期
     state.minDate = minDate;
     // 结束日期
