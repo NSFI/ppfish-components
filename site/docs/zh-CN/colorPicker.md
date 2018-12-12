@@ -10,7 +10,7 @@
 
 ```js
 onChangeColor=({color,alpha}) => {
-  console.log(`color:${color}`);
+  console.log(`color:${color}`,`alpha:${alpha}`);
 };
 
 render(){
@@ -19,9 +19,9 @@ render(){
 ```
 :::
 
-## 快捷入口
+## 快速选择
 
-:::demo 使用`onChange`回调获取`alpha`以及`color`值
+:::demo 弹出层快捷选择颜色，使用`onChange`回调获取color`值
 
 ```js
 onChangeColor=({color,alpha}) => {
@@ -34,9 +34,9 @@ render(){
 ```
 :::
 
-## 快捷入口+自定义方案
+## 面板选择
 
-:::demo 使用`onChange`回调获取`alpha`以及`color`值
+:::demo 颜色选择面板组件、可选择默认配置颜色以及自定义颜色
 
 ```js
 
