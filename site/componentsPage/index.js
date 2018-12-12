@@ -104,6 +104,7 @@ export const components = {
           key: 'divider',
           type: 'markdown',
           name: 'Divider 分割线',
+          published: true,
         },
         {
           key: 'picturePreview',
@@ -146,6 +147,7 @@ export const components = {
           key: 'colorPicker',
           type: 'markdown',
           name: 'ColorPicker 颜色选择器',
+          published: true,
         }, {
           key: 'richEditor',
           type: 'markdown',
