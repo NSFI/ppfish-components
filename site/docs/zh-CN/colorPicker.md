@@ -14,8 +14,23 @@ onChangeColor=({color,alpha}) => {
 };
 
 render(){
-  return(<ColorPicker onChange={this.onChangeColor}/>)
+  return(
+    <div>
+      <h3>默认设置</h3>
+      <ColorPicker onChange={this.onChangeColor} className="demo-color-picker"/>
+      <h3>开启透明度设置</h3>
+      <ColorPicker enableAlpha onChange={this.onChangeColor}/>
+    </div>
+)
 }
+```
+
+```less
+.demo-color-picker{
+  margin-bottom: 30px;
+}
+
+
 ```
 :::
 
