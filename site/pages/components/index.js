@@ -1,8 +1,8 @@
 import React from 'react';
-import {Divider, BackTop, Icon, Row, Col, Menu, Drawer} from '../../../source/components';
-import Affix from '../../../source/components/Affix/index.tsx';
 import PropTypes from 'prop-types';
 import {enquireScreen, unenquireScreen} from 'enquire-js';
+
+import {Divider, BackTop, Icon, Row, Col, Menu, Drawer, Affix} from '../../../source/components';
 import Layout from '../common/layout';
 import locales from '../../locales';
 import {components, plainComponents} from '../../componentsPage';

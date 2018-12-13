@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Affix from '../../../../source/components/Affix/index.tsx';
 import './style.less';
 

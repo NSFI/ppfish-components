@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+
 import Layout from '../common/layout';
 import './index.less';
 
