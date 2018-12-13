@@ -7,6 +7,8 @@ import Components from './pages/components';
 import Home from './pages/home';
 import Demo from './pages/demo';
 import './static/Icons';
+import logoUrl from './assets/logo.png';
+window.LOGOURL = logoUrl;
 
 const App = (Components) => (
   <AppContainer>
