@@ -149,7 +149,7 @@ class Demo extends React.Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo">
-            <Icon type="logo"  className="img-icon-14 fishdicon" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-logo.png" />
             {
               !this.state.collapsed ? <span className="logo-text">Fish Design</span> : null
             }
@@ -266,7 +266,7 @@ class Demo extends React.Component {
           collapsed={this.state.collapsed}
         >
           <div className="logo">
-            <Icon type="logo"  className="img-icon-14 fishdicon" />
+            <img className="img-icon-14 fishdicon" src="./static/icons/demo-logo.png" />
             {
               !this.state.collapsed ? <span className="logo-text">Fish Design</span> : null
             }
@@ -388,7 +388,7 @@ render(){
         onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
       >
         <div className="logo">
-          <Icon type="logo"  className="img-icon-14 fishdicon" />
+          <img className="img-icon-14 fishdicon" src="./static/icons/demo-logo.png" />
           <span className="logo-text">Fish Design</span>
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['2']}>
