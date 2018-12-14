@@ -59,6 +59,7 @@ class VideoViewer extends Component {
         player.play();
       }
     });
+    this.props.onThumbClick && this.props.onThumbClick();
   }
 
   // 模态框关闭的回调
@@ -133,7 +134,8 @@ class VideoViewer extends Component {
           <Video
             {...otherVideoProps}
             ref={this.video}
-            autoPlay={true}
+            autoplay={true}
+            bigPlayButton={false}
           />
         </VideoModal>
       </div>

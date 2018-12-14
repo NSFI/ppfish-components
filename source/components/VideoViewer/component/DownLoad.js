@@ -6,7 +6,7 @@ export default class DownLoad extends Component {
     const src = this.props.vjsComponent.options_.playerOptions.downloadSrc;
     return (
       <div className="fishd-video-js-download">
-        <a download href={src}>
+        <a download href={src} title="下载">
           <Icon type="sound-download" />
         </a>
       </div>

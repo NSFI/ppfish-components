@@ -111,6 +111,12 @@
   open = () => {
     this.setState({
       visible: true,
+    },() => {
+      const video = this.video && this.video.current;
+      const player = video && video.getVideoPlayer();
+      if (player && typeof player.play === 'function') {
+         player.play();
+      }
     });
   }
   
@@ -143,7 +149,8 @@
         >
           <VideoViewer.Video
             ref={this.video}
-            autoPlay={true}
+            autoplay={true}
+            bigPlayButton={false}
             sources={[{
               src: 'http://vjs.zencdn.net/v/oceans.mp4',
               type: 'video/mp4'
