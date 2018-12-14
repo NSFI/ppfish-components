@@ -18,6 +18,21 @@ render(){
   </div>)
 }
 ```
+
+```less
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
+}
+```
 :::
 
 ## 按钮组合
@@ -61,6 +76,35 @@ render(){
   </div>)
 }
 ```
+```less
+.components-button-demo-button-group {
+  h4 {
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: normal;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  .fishd-btn-group {
+    margin-right: 8px;
+  }
+}
+
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
+}
+```
 :::
 
 
@@ -84,6 +128,21 @@ render(){
   </div>)
 }
 ```
+```less
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
+}
+```
+
 :::
 
 
@@ -99,6 +158,20 @@ render(){
     <Button ghost>Default</Button>
     <Button type="danger" ghost>danger</Button>
   </div>);
+}
+```
+```less
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
 }
 ```
 
@@ -120,6 +193,21 @@ render(){
   </div>)
 }
 ```
+```less
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
+}
+```
+
 :::
 
 
@@ -167,6 +255,20 @@ render(){
     );
   }
 ```
+```less
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
+}
+```
 :::
 
 ## 多个按钮组合
@@ -198,6 +300,20 @@ render(){
       </Button>
     </Dropdown>
   </div>)
+}
+```
+```less
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
 }
 ```
 :::
@@ -249,6 +365,20 @@ render(){
     );
   }
 ```
+```less
+[class^="components-button-demo-"] .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group {
+  margin-right: 8px;
+}
+
+[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
+  margin-right: 0;
+}
+```
 :::
 
 ## API
@@ -274,34 +404,3 @@ render(){
 `<Button>Hello world!</Button>` 最终会被渲染为 `<button><span>Hello world!</span></button>`，并且除了上表中的属性，其它属性都会直接传到 `<button></button>`。
 
 `<Button href="http://example.com">Hello world!</Button>` 则会渲染为 `<a href="http://example.com"><span>Hello world!</span></a>`。
-
-
-<style>
-.components-button-demo-button-group {
-  h4 {
-    margin: 16px 0;
-    font-size: 14px;
-    line-height: 1;
-    font-weight: normal;
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-  .fishd-btn-group {
-    margin-right: 8px;
-  }
-}
-
-[class^="components-button-demo-"] .fishd-btn {
-  margin-right: 8px;
-  margin-bottom: 12px;
-}
-
-[class^="components-button-demo-"] .fishd-btn-group {
-  margin-right: 8px;
-}
-
-[class^="components-button-demo-"] .fishd-btn-group > .fishd-btn {
-  margin-right: 0;
-}
-</style>

@@ -119,6 +119,11 @@ render(){
   </div>)
 }
 ```
+```less
+.fishdicon {
+  font-size: 24px;
+}
+```
 :::
 
 ## API
