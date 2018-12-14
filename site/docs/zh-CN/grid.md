@@ -130,9 +130,8 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
     );
   }
 ```
-:::
 
-<style>
+```less
   .gutter-example .fishd-row > div {
     background: transparent;
     border: 0;
@@ -141,8 +140,8 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
     background: #00A0E9;
     padding: 5px 0;
   }
-</style>
-
+```
+:::
 
 ## 左右偏移
 
@@ -286,6 +285,28 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
     );
   }
 ```
+
+```less
+.grid-demo .height-100 {
+  height: 100px;
+  line-height: 100px
+}
+
+.grid-demo .height-50 {
+  height: 50px;
+  line-height: 50px
+}
+
+.grid-demo .height-120 {
+  height: 120px;
+  line-height: 120px
+}
+
+.grid-demo .height-80 {
+  height: 80px;
+  line-height: 80px
+}
+```
 :::
 
 
@@ -426,106 +447,6 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 ```
 :::
 
-<style>
-.grid-demo [class^="fishd-col-"] {
-  background: transparent;
-  border: 0;
-}
-.grid-demo [class^="fishd-col-"] > div {
-  background: #00A0E9;
-  height: 120px;
-  line-height: 120px;
-  font-size: 13px;
-}
-.grid-demo pre {
-  background: #f9f9f9;
-  border-radius: 6px;
-  font-size: 13px;
-  padding: 8px 16px;
-}
-
-.grid-demo .fishd-row {
-  overflow: hidden;
-  margin-bottom: 8px
-}
-
-.grid-demo .fishd-row-flex {
-  background: #f5f5f5
-}
-
-.grid-demo .fishd-row-flex>div,.grid-demo .fishd-row>div {
-  padding: 5px 0;
-  text-align: center;
-  border-radius: 0;
-  min-height: 30px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  color: #fff
-}
-
-.grid-demo .fishd-row-flex>div:not(.gutter-row),.grid-demo .fishd-row>div:not(.gutter-row) {
-  background: #00a0e9;
-  padding: 16px 0
-}
-
-.grid-demo .fishd-row-flex>div:not(.gutter-row):nth-child(odd),.grid-demo .fishd-row>div:not(.gutter-row):nth-child(odd) {
-  background: rgba(0,160,233,.7)
-}
-
-.grid-demo .fishd-row .fishd-col,.grid-demo .code-box-demo .fishd-row .fishd-col {
-  text-align: center;
-  padding: 30px 0;
-  color: #fff;
-  font-size: 18px;
-  border: none;
-  margin-top: 0;
-  margin-bottom: 0
-}
-
-.grid-demo .fishd-row .fishd-col-1 {
-  background: rgba(0,160,233,.7)
-}
-
-.grid-demo .fishd-row .fishd-col-2,.grid-demo .code-box-demo .fishd-row .fishd-col-2 {
-  background: rgba(0,160,233,.5)
-}
-
-.grid-demo .fishd-row .fishd-col-3,.grid-demo .code-box-demo .fishd-row .fishd-col-3 {
-  background: hsla(0,0%,100%,.2);
-  color: #999
-}
-
-.grid-demo .fishd-row .fishd-col-4,.grid-demo .code-box-demo .fishd-row .fishd-col-4 {
-  background: rgba(0,160,233,.6)
-}
-
-.grid-demo .fishd-row .fishd-col-5,.grid-demo .code-box-demo .fishd-row .fishd-col-5 {
-  background: hsla(0,0%,100%,.5);
-  color: #999
-}
-
-.grid-demo .code-box-demo .height-100 {
-  height: 100px;
-  line-height: 100px
-}
-
-.grid-demo .code-box-demo .height-50 {
-  height: 50px;
-  line-height: 50px
-}
-
-.grid-demo .code-box-demo .height-120 {
-  height: 120px;
-  line-height: 120px
-}
-
-.grid-demo .code-box-demo .height-80 {
-  height: 80px;
-  line-height: 80px
-}
-</style>
-
-
 ## API
 
 若此布局组件不能满足你的需求，你也可以直接使用社区的优秀布局组件：
@@ -563,3 +484,53 @@ Flex 布局是基于 24 栅格来定义每一个『盒子』的宽度，但排�
 | xxl | `≥1600px` 响应式栅格，可为栅格数或一个包含其他属性的对象 | Number \| Object | - |
 
 响应式栅格的断点扩展自 [BootStrap 4 的规则](https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints)（不包含链接里 `occasionally` 的部分)。
+
+<style>
+.grid-demo [class^="fishd-col-"] {
+  background: transparent;
+  border: 0;
+}
+.grid-demo [class^="fishd-col-"] > div {
+  background: #00A0E9;
+  height: 120px;
+  line-height: 120px;
+  font-size: 13px;
+}
+.grid-demo pre {
+  background: #f9f9f9;
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 8px 16px;
+}
+
+.grid-demo .fishd-row {
+  overflow: hidden;
+  margin-bottom: 8px
+}
+
+.grid-demo .fishd-row-flex {
+  background: #f5f5f5
+}
+
+.grid-demo .fishd-row-flex>div,
+.grid-demo .fishd-row>div {
+  padding: 5px 0;
+  text-align: center;
+  border-radius: 0;
+  min-height: 30px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: #fff
+}
+
+.grid-demo .fishd-row-flex>div:not(.gutter-row),
+.grid-demo .fishd-row>div:not(.gutter-row) {
+  background: #00a0e9;
+  padding: 16px 0
+}
+
+.grid-demo .fishd-row-flex>div:not(.gutter-row):nth-child(odd),
+.grid-demo .fishd-row>div:not(.gutter-row):nth-child(odd) {
+  background: rgba(0,160,233,.7)
+}
+</style>

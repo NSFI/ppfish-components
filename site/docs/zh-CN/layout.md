@@ -86,9 +86,7 @@ render(){
   )
 }
 ```
-:::
-
-<style>
+```less
 #components-layout-demo-basic {
   text-align: center;
 }
@@ -118,7 +116,8 @@ render(){
 #components-layout-demo-basic > .fishd-layout:last-child {
   margin: 0;
 }
-</style>
+```
+:::
 
 ## 侧边布局
 
