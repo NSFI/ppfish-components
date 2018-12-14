@@ -1,0 +1,161 @@
+/* 去掉chrome下的蓝色边框 */
+.video-js button {
+   outline: none;
+ }
+.video-js button:hover {
+  color: #ffaf0f;
+}
+
+/*!* 去掉视频的黑色边框 *!*/
+/*.video-js .vjs-tech {*/
+  /*width: 100%;*/
+  /*height: 100%;*/
+  /*object-fit: fill;*/
+/*}*/
+
+/* 居中大按钮 */
+.video-js .vjs-big-play-button {
+  height: 1.6666em;
+  width: 1.6666em;
+  left: 50%;
+  top: 50%;
+  margin-left: -0.8333em;
+  margin-top: -0.75em;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+
+/* controllBar样式自定义 */
+.video-js .vjs-control-bar {
+  display: none;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+}
+.vjs-has-started .vjs-control-bar {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.1s, opacity 0.1s;
+  background-color: rgba(0,0,0,0);
+}
+.video-js .vjs-control {
+  outline: none;
+  position: relative;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 4em;
+  float: left;
+}
+.vjs-button > .vjs-icon-placeholder:before {
+  font-size: 2.2em;
+  line-height: 2.3;
+}
+
+/* 播放按钮 */
+.video-js .vjs-play-control {
+  width: 5em;
+}
+
+/* 时间 */
+.video-js .vjs-time-control {
+  flex: none;
+  font-size: 1.4em;
+  line-height: 3.8em;
+  min-width: unset;
+  width: auto;
+  padding: 0 0.2em;
+}
+
+/* 当前时间 */
+.video-js .vjs-current-time,
+.vjs-no-flex .vjs-current-time {
+  display: block;
+}
+
+/* 时间分割线 */
+.vjs-time-divider {
+  display: block;
+  float: left;
+  line-height: 3em;
+  color: rgba(255,255,255,0.6);
+}
+
+/* 总时间 */
+.video-js .vjs-duration,
+.vjs-no-flex .vjs-duration {
+  display: block;
+  color: rgba(255,255,255,0.6);
+}
+
+/* 声音按钮 */
+.video-js .vjs-volume-panel {
+  width: 3.5em;
+  float: right;
+}
+
+/* 下载按钮 */
+.video-js .vjs-download {
+  width: 3.5em;
+  float: right;
+}
+.video-js .vjs-download .fishd-video-js-download {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.video-js .vjs-download .fishd-video-js-download a {
+  color: #fff;
+}
+.video-js .vjs-download .fishd-video-js-download a:hover {
+  color: #ffaf0f;
+}
+
+/* 全屏按钮 */
+.video-js .vjs-fullscreen-control {
+  width: 3.5em;
+  cursor: pointer;
+  float: right;
+  margin-right: 12px;
+}
+
+/* 播放进度条 */
+.video-js .vjs-progress-control {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: auto;
+  font-size: 0.3em;
+  height: 1em;
+}
+.video-js .vjs-progress-control .vjs-progress-holder {
+  margin: 0;
+}
+.video-js .vjs-play-progress {
+  background-color: #ffaf0f;
+  border-radius: 2px;
+}
+.video-js .vjs-load-progress div {
+  opacity: 0.8;
+  background: rgba(255,255,255,0.8);
+  border-radius: 2px;
+}
+
+/* Tooltip */
+.vjs-mouse-display .vjs-time-tooltip {
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 2px;
+}
+.video-js .vjs-time-tooltip {
+  top: -3.1em;
+}

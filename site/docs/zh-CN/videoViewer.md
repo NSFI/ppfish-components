@@ -1,53 +1,96 @@
-# VideoViewer 视频查看器 【交互: 缺失 |视觉: 徐剑杰 |开发: 吴圣筑】
+# VideoViewer 视频播放器 【交互:蒋蕊遥 |视觉: 徐剑杰 |开发: 吴圣筑】
 
 播放视频
 
 ## 何时使用
 
-当需要在浮出层的独立区域内播放视频时
+适用于在系统中播放视频内容。
 
 ## 基本使用
 
-:::demo 最简单的用法。
+:::demo `modalOption` 传入VideoModal参数；`videoOption`传入Video参数
 
 ```js
-  constructor(props) {
-    super(props);
-    this.state = { visible: false };
+  render() {
+    return(
+      <VideoViewer
+        poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+        modalOption={{
+          mask: true,
+          maskClosable: false,
+          width: 640
+        }}
+        videoOption={{
+          sources:[{
+            src:'http://vjs.zencdn.net/v/oceans.mp4',
+            type:'video/mp4'
+          }],
+          download: true,
+          downloadSrc: "http://vjs.zencdn.net/v/oceans.mp4"
+        }}
+      />
+    )
   }
+```
+:::
 
-  open = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-  
-  onClose = () => {
-    console.log('closed');
-  };
+## 缩略图的其他状态
 
-  handleCancel = (e) => {
-    this.setState({
-      visible: false,
-    });
-  };
+:::demo 当视频由于某些原因无法播放时，通过 `failedMessage` 展示缩略图的其他状态, 当设置了`failedMessage`时，缩略图将不可点击并播放
 
+```js
+  render() {
+    return(
+      <div className="source">
+        <div className="block">
+          <VideoViewer
+            failedMessage="已过期"
+            poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            modalOption={{
+              mask: true,
+              draggable: true,
+              maskClosable: false,
+              width: 800,
+              height: 500
+            }}
+            videoOption={{
+              sources:[{
+                src: 'http://vjs.zencdn.net/v/oceans.mp4',
+                type: 'video/mp4'
+              }],
+              width:800,
+              height: 500        
+            }}
+          />
+        </div>
+        <div className="block">
+          <VideoViewer
+            failedMessage="状态描述"
+            poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+          />
+        </div>
+      </div>
+    )
+  }
+```
+:::
+
+## 播放器单独使用
+
+:::demo 直接使用播放器 `VideoViewer.Video`。
+
+```js
   render() {
     return(
       <div>
-        <Button type="primary" onClick={this.open}>Play</Button>
-        <VideoViewer
-          maskClosable={false}
-          visible={this.state.visible}
-          mask={true}
-          draggable={true}
-          afterClose={this.onClose}
-          onCancel={this.handleCancel}
-        >
-          <VideoViewer.Video
-            src="http://www.w3school.com.cn/i/movie.ogg"
-          />
-        </VideoViewer>
+        <VideoViewer.Video
+          poster='http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf'
+          sources={[{
+            src: 'http://vjs.zencdn.net/v/oceans.mp4',
+            type: 'video/mp4'
+          }]}
+          width={600}
+        />
       </div>
     )
   }
@@ -56,7 +99,7 @@
 
 ## 自行控制视频
 
-:::demo 自行控制模态框打开和关闭后的视频播放及暂停。
+:::demo 可以用自定义的按钮等组件，和播放器模态框`VideoViewer.VideoModal`及播放器`VideoViewer.Video`配合使用，自行控制视频。
 
 ```js
   constructor(props) {
@@ -69,17 +112,13 @@
     this.setState({
       visible: true,
     });
-    const video = this.video && this.video.current;
-    if (video && video.paused) {
-        video.play();
-    }
   }
   
   onClose = () => {
-    console.log('closed');
     const video = this.video && this.video.current;
-    if (video && !video.paused) {
-        video.pause();
+    const player = video.getVideoPlayer();
+    if (player && typeof player.paused === 'function') {
+       player.pause();
     }
   };
 
@@ -92,26 +131,41 @@
   render() {
     return(
       <div>
-        <Button type="primary" onClick={this.open}>Play</Button>
-        <VideoViewer
-          maskClosable={false}
-          visible={this.state.visible}
+        <Button type="primary" onClick={this.open}>点击播放视频</Button>
+        <VideoViewer.VideoModal
           mask={true}
           draggable={true}
+          maskClosable={false}
+          visible={this.state.visible}
           afterClose={this.onClose}
           onCancel={this.handleCancel}
           width={600}
         >
           <VideoViewer.Video
             ref={this.video}
-            src="http://pic.qiantucdn.com/58pic/shipin/13/38/13/13381368.mp4"
+            autoPlay={true}
+            sources={[{
+              src: 'http://vjs.zencdn.net/v/oceans.mp4',
+              type: 'video/mp4'
+            }]}
+            width={600}
           />
-        </VideoViewer>
+        </VideoViewer.VideoModal>
       </div>
     )
   }
 ```
 :::
+
+<style>
+.source {
+  display: flex
+}
+
+.block + .block {
+  margin-left: 20px;
+}
+</style>
 
 ## API
 
