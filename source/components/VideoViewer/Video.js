@@ -15,6 +15,23 @@ export default class VideoViewer extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
+    width: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    height: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    poster: PropTypes.string,
+    sources: PropTypes.array,
+    autoplay: PropTypes.bool,
+    loop: PropTypes.bool,
+    muted: PropTypes.bool,
+    preload: PropTypes.oneOf(['auto', 'none', 'metadata']),
+    controls: PropTypes.bool,
+    download: PropTypes.bool,
+    bigPlayButton: PropTypes.bool
   }
 
   static defaultProps = {
@@ -23,7 +40,7 @@ export default class VideoViewer extends React.Component {
     width: 640,                   // 视频容器的宽度
     height: 360,                  // 视频容器的高度
     poster: '',                   // 播放前显示的视频画面，播放开始之后自动移除。通常传入一个URL
-    sources: [],                  // 资源文件，
+    sources: [],                  // 资源文件
     autoplay: false,              // 播放器准备好之后，是否自动播放
     loop: false,                  // 视频播放结束后，是否循环播放
     muted: false,                 // 是否静音
@@ -95,14 +112,14 @@ export default class VideoViewer extends React.Component {
 
     // instantiate video.js
     this.player = videojs(this.videoNode, option, function onPlayerReady() {
-      console.log('onPlayerReady', this)
+      //console.log('onPlayerReady', this);
     });
   }
 
   // destroy player on unmount
   componentWillUnmount () {
     if (this.player) {
-      this.player.dispose()
+      this.player.dispose();
     }
   }
 
@@ -128,6 +145,6 @@ export default class VideoViewer extends React.Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }

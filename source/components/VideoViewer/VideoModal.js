@@ -29,7 +29,8 @@ class VideoModal extends Component {
     visible: false,
     draggable: false,
     closable: true,
-    mask: false
+    mask: false,
+    width: 640
   };
 
   constructor(props) {
@@ -48,7 +49,9 @@ class VideoModal extends Component {
       wrapClassName = '',
       maskStyle
     } = this.props;
+
     const MODAL_WRAP = `${prefixCls}-modal-wrap`;
+
     const otherProps = omit(this.props, [
       'prefixCls',
       'wrapClassName',
@@ -57,6 +60,7 @@ class VideoModal extends Component {
       'maskStyle',
       'closable',
     ]);
+
     const modalProps = {
       ...otherProps,
       wrapClassName: `${wrapClassName} ${MODAL_WRAP}`,
@@ -67,6 +71,7 @@ class VideoModal extends Component {
       title: null,
       footer: null,
     };
+
     const content = (
       <div className={`${prefixCls}-content`}>
         {children}
@@ -77,6 +82,7 @@ class VideoModal extends Component {
         }
       </div>
     );
+
     return (
       <Modal {...modalProps}>
         <div className={`${prefixCls}-inner`}>

@@ -20,7 +20,7 @@ class vjsDownLoad extends vjsComponent {
 
     /* Remove React root when component is destroyed */
     this.on("dispose", () => {
-      ReactDOM.unmountComponentAtNode(this.el())
+      ReactDOM.unmountComponentAtNode(this.el());
     });
   }
 

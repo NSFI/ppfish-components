@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames'
+import classnames from 'classnames';
 import omit from 'omit.js';
 import Video from './Video';
 import VideoModal from  './VideoModal';
@@ -20,9 +20,10 @@ class VideoViewer extends Component {
       PropTypes.string
     ]),
     poster: PropTypes.string,
-    modalOption: PropTypes.object,
-    videoOption: PropTypes.object,
-    failedMessage: PropTypes.string
+    modalProps: PropTypes.object,
+    videoProps: PropTypes.object,
+    failedMessage: PropTypes.string,
+    onThumbClick: PropTypes.func
   }
 
   static defaultProps = {
@@ -46,7 +47,7 @@ class VideoViewer extends Component {
   }
 
   // 点击缩略图
-  handleThumbClick = () => {
+  handleThumbClick = (e) => {
 
     if(this.props.failedMessage !== null) return;
 
@@ -59,7 +60,7 @@ class VideoViewer extends Component {
         player.play();
       }
     });
-    this.props.onThumbClick && this.props.onThumbClick();
+    this.props.onThumbClick && this.props.onThumbClick(e);
   }
 
   // 模态框关闭的回调
@@ -69,7 +70,7 @@ class VideoViewer extends Component {
     if (player && typeof player.pause === 'function') {
       player.pause();
     }
-    this.props.modalOption.afterClose && this.props.modalOption.afterClose();
+    this.props.modalProps.afterClose && this.props.modalProps.afterClose();
   };
 
   // 点击模态框关闭按钮
@@ -77,7 +78,7 @@ class VideoViewer extends Component {
     this.setState({
       videoModalVisible: false
     });
-    this.props.modalOption.onCancel && this.props.modalOption.onCancel();
+    this.props.modalProps.onCancel && this.props.modalProps.onCancel();
   };
 
   render() {
@@ -87,18 +88,18 @@ class VideoViewer extends Component {
       width,
       height,
       poster,
-      modalOption,
-      videoOption,
+      modalProps,
+      videoProps,
       failedMessage
     } = this.props;
 
-    const otherModalProps = omit(modalOption, [
+    const otherModalProps = omit(modalProps, [
       'visible',
       'afterClose',
       'onCancel'
     ]);
 
-    const otherVideoProps = omit(videoOption, [
+    const otherVideoProps = omit(videoProps, [
       'autoPlay'
     ]);
 

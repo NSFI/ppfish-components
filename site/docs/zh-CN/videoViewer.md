@@ -99,7 +99,7 @@
 
 ## 自行控制视频
 
-:::demo 可以用自定义的按钮等组件，和播放器模态框`VideoViewer.VideoModal`及播放器`VideoViewer.Video`配合使用，自行控制视频。
+:::demo 可以用自定义的等组件，将播放器模态框`VideoViewer.VideoModal`和播放器`VideoViewer.Video`配合使用，自行控制视频。
 
 ```js
   constructor(props) {
@@ -180,33 +180,50 @@
 
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| afterClose  | 模态框关闭的回调    | (e) => Void   | —   |
-| draggable  | 模态框是否支持拖动  | Boolean  |  false  |
-| mask  | 模态框关闭的遮罩是否可见   | Boolean   | false  |
+| width	  | 缩略图的宽度 | String \| Number |  240  |
+| height	| 缩略图的高度 | String \| Number |  135  |
+| poster  | 缩略图背景画面。通常传入一个URL | String	|  ''  |
+| failedMessage	| 当视频不能正常播放的描述信息。注意：当值为null时，缩略图可以正常点击并播放视频，传入其他值则不可点击并播放视频  | String |  null  |
+| modalProps   | `VideoViewer.VideoModal`参数对象  | Object   | -  |
+| videoProps   | `VideoViewer.Video`参数对象 | Object | - |
+| onThumbClick | 点击缩略图的回调 | (e) => Void | - |
+
+### VideoViewer.VideoModal
+
+| 属性      | 说明    | 类型      |  默认值   |
+|---------- |-------- |---------- |-------- |
+| width	    | 设置模态框的宽度  | String \| Number |  640 |
+| afterClose| 模态框关闭的回调    | (e) => Void   | —   |
+| draggable | 模态框是否支持拖动  | Boolean  |  false  |
+| mask      | 模态框关闭的遮罩是否可见   | Boolean   | false  |
 | onCancel  | 点击遮罩层或右上角叉或取消按钮的回调   | (e) => Void   | -  |
-| visible | 模态框是否可见 | Boolean | false |
-| width	| 设置模态框的宽度  | String \| Number |  520  |
+| visible   | 模态框是否可见 | Boolean | false |
 
 更多模态框配置项，请查看 [`Modal`](https://nsfi.github.io/ppfish-components/#/components/modal)。其中title、footer不支持配置。
 
 ### VideoViewer.Video
+
 | 属性      | 说明    | 类型      |  默认值   |
 |---------- |-------- |---------- |-------- |
-| autoPlay | 如果出现该属性，则视频在就绪后马上播放。 | Boolean	|  true  |
-| controls| 如果出现该属性，则向用户显示控件，比如播放按钮。 | Boolean |  true  |
-| height	| 设置视频播放器的高度。 | Number   |  —  |
-| loop 	| 如果出现该属性，则当媒介文件完成播放后再次开始播放。 | Boolean |  —  |
-| muted	| 规定视频的音频输出应该被静音。 |  Boolean  |  —  |
-| poster	| 规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图像。 | String  |  —  |
-| preload	| 如果出现该属性，则视频在页面加载时进行加载，并预备播放。如果使用 "autoPlay"，则忽略该属性。 | Boolean  |
-| src	| 要播放的视频的 URL。 | String  |  —  |
-| width	| 设置视频播放器的宽度。 | Number |  —  |
+| width	    | 设置视频播放器的宽度 | String \| Number |  640  |
+| height	  | 设置视频播放器的高度 | String \| Number |  360  |
+| poster    | 播放前显示的视频画面，播放开始之后自动移除。通常传入一个URL | String	|  ''  |
+| source    | 资源文件，详情见 [videojs](https://docs.videojs.com/tutorial-options.html#sources) | Array |  []  |
+| autoplay  | 播放器准备好之后，是否自动播放 | Boolean | false  |
+| loop	    | 是否循环播放 | Boolean   |  false  |
+| muted	    | 是否静音 |  Boolean  |  false  |
+| preload  	| 预加载('auto':自动; 'metadata':元数据信息,比如视频长度，尺寸等; 'none':不预加载任何数据，直到用户开始播放才开始下载) | Enum {'auto', 'none', 'metadata'}  | 'none' |
+| download	| 是否显示下载按钮 | Boolean  |  false  |
+| bigPlayButton	| 是否显示开始大按钮 | Boolean  |  true  |
 
-注意：
-1. VideoViewer.Video是使用H5原生video标签封装的，可以使用video标签支持的所有属性，但类型有所不同。由于React中DOM属性需要写成驼峰风格，autoplay需要写成`autoPlay`。
-1. 如果有特殊需求，也可以使用原生video标签或者第三方视频组件代替VideoViewer.Video作为模态框内容。
-```
-<VideoViewer.Video src="http://www.w3school.com.cn/i/movie.ogg" />
-<video src="http://www.w3school.com.cn/i/movie.ogg" controls autoPlay />
-```
+#### 方法
+| 名称     | 描述    |
+|---------- |-------- |
+| getVideoPlayer | 获取视频播放器对象 |
+
+更多videojs配置项及配置项详情，请查看 [`videojs配置`](https://docs.videojs.com/tutorial-options.html#standard-video-element-options)。
+
+> 注意：
+1. VideoViewer.Video 是基于 [videojs](https://docs.videojs.com/)实现, 如有配置疑问，请参考[videojs文档](https://docs.videojs.com/)
+2. 如果有特殊需求，也可以使用原生video标签或者第三方视频组件代替VideoViewer.Video作为模态框内容。
 
