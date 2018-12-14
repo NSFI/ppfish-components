@@ -116,9 +116,7 @@
     );
   }
 ```
-:::
-
-<style>
+```less
 .demo-step .fishd-steps-item-icon {
   cursor: pointer;
 }
@@ -126,7 +124,22 @@
 .demo-step .fishd-steps-item-content {
   cursor: pointer;
 }
-</style>
+
+.steps-content {
+  margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.steps-action {
+  margin-top: 24px;
+}
+```
+:::
 
 ## 竖直方向的步骤条
 :::demo 简单的竖直方向的步骤条。
@@ -246,20 +259,3 @@
 | icon | 步骤图标的类型，可选 | String \| ReactNode | - |
 | status | 指定状态。当不配置该属性时，会使用 Steps 的 `current` 来自动指定状态。可选：`'wait'` `'process'` `'finish'` `'error'` | Enum {'wait', 'process', 'finish', 'error'} | 'wait' |
 | title | 标题 | String \| ReactNode | - |
-
-
-<style>
-.steps-content {
-  margin-top: 16px;
-  border: 1px dashed #e9e9e9;
-  border-radius: 6px;
-  background-color: #fafafa;
-  min-height: 200px;
-  text-align: center;
-  padding-top: 80px;
-}
-
-.steps-action {
-  margin-top: 24px;
-}
-</style>

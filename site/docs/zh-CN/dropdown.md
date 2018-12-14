@@ -83,6 +83,12 @@ render(){
   )
 }
 ```
+```less
+.components-dropdown-demo-placement .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+```
 :::
 
 ## 右键菜单
@@ -364,9 +370,3 @@ render(){
 | type | 按钮类型，和 [Button](https://nsfi.github.io/ppfish-components/#/components/button/) 一致 | String | 'default' |
 | visible | 菜单是否显示 | Boolean | - |
 
-<style>
-.components-dropdown-demo-placement .fishd-btn {
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
-</style>
