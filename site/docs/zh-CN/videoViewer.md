@@ -15,12 +15,12 @@
     return(
       <VideoViewer
         poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-        modalOption={{
+        modalProps={{
           mask: true,
           maskClosable: false,
           width: 640
         }}
-        videoOption={{
+        videoProps={{
           sources:[{
             src:'http://vjs.zencdn.net/v/oceans.mp4',
             type:'video/mp4'
@@ -46,14 +46,14 @@
           <VideoViewer
             failedMessage="已过期"
             poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-            modalOption={{
+            modalProps={{
               mask: true,
               draggable: true,
               maskClosable: false,
               width: 800,
               height: 500
             }}
-            videoOption={{
+            videoProps={{
               sources:[{
                 src: 'http://vjs.zencdn.net/v/oceans.mp4',
                 type: 'video/mp4'
