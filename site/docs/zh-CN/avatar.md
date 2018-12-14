@@ -26,14 +26,14 @@ render(){
   </div>)
   }
 ```
-:::
 
-<style>
+```less
 #components-avatar-demo-basic .fishd-avatar {
   margin-top: 16px;
   margin-right: 16px;
 }
-</style>
+```
+:::
 
 ## 类型
 
@@ -52,14 +52,14 @@ render(){
   </div>)
   }
 ```
-:::
 
-<style>
+```less
 #components-avatar-demo-type .fishd-avatar {
   margin-top: 16px;
   margin-right: 16px;
 }
-</style>
+```
+:::
 
 ## 自动调整字符大小
 

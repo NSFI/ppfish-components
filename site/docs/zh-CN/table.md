@@ -558,6 +558,16 @@ const columns = [{
     );
   }
 ```
+
+```less
+.table-operations {
+  margin-bottom: 16px;
+}
+
+.table-operations > button {
+  margin-right: 8px;
+}
+```
 :::
 
 ## 筛选和排序
@@ -814,6 +824,13 @@ const columns = [{
       />
     );
   }
+```
+
+```less
+th.column-money,
+td.column-money {
+  text-align: right !importfishd;
+}
 ```
 :::
 
@@ -1461,6 +1478,35 @@ class Demo extends React.Component {
 }
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
+
+```less
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-icon,
+.editable-cell-icon-check {
+  cursor: pointer;
+}
+
+.editable-cell-icon {
+  line-height: 14px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -7px;
+  display: none;
+}
+
+td:hover .editable-cell-icon {
+  display: inline-block;
+}
+
+.editable-cell-icon:hover,
+.editable-cell-icon-check:hover {
+  color: #108ee9;
+}
+```
 :::
 
 ## 可编辑行
@@ -1654,6 +1700,14 @@ class Demo extends React.Component {
 }
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
+
+```less
+.editable-row .fishd-form-explain {
+  position: absolute;
+  font-size: 12px;
+  margin-top: -4px;
+}
+```
 :::
 
 ## 嵌套子表格
@@ -1744,6 +1798,40 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
       />
     );
   }
+```
+
+```less
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child {
+  padding: 0 48px 0 8px;
+}
+
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-thead th {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-thead th:first-child {
+  padding-left: 0;
+}
+
+.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-row td:first-child {
+  padding-left: 0;
+}
+
+.components-table-demo-nested .fishd-table-expanded-row .fishd-table-row:last-child td {
+  border: none;
+}
+
+.components-table-demo-nested .fishd-table-expanded-row .fishd-table-thead > tr > th {
+  background: none;
+}
+
+.components-table-demo-nested .table-operation a:not(:last-child) {
+  margin-right: 24px;
+}
+
+.components-table-demo-nested .fishd-table-expanded-row:hover > td {
+  background: #fbfbfb;
+}
 ```
 :::
 
@@ -1852,9 +1940,8 @@ class Demo extends React.Component {
 }
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
-:::
 
-<style>
+```less
 #components-table-demo-resizable-column .react-resizable {
   position: relative;
 }
@@ -1867,8 +1954,9 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
   right: -5px;
   cursor: col-resize;
 }
+```
+:::
 
-</style>
 ## 动态控制表格属性
 :::demo 选择不同配置组合查看效果。
 ```js
@@ -2036,6 +2124,16 @@ class Demo extends React.Component {
 }
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
+
+```less
+.components-table-demo-control-bar {
+    margin-bottom: 10px;
+  } 
+.components-table-demo-control-bar .fishd-form-item {
+   margin-right: 16px; 
+   margin-bottom: 8px; 
+ } 
+```
 :::
 
 ## API
@@ -2063,8 +2161,8 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | onChange | 分页、排序、筛选变化时触发 | (pagination, filters, sorter) => Void | - |
 | onExpand | 点击展开图标时触发 | (expanded, record) => Void | - |
 | onExpandedRowsChange | 展开的行变化时触发 | (expandedRows) => Void | - |
-| onHeaderRow | 设置头部行属性,参考onRow | (column, index) => Object| - |
-| onRow | 设置行属性 | (record, index) => Object | - |
+| onHeaderRow | 设置头部行属性，参考onRow 用法 | (column, index) => Object| - |
+| onRow | 设置行属性，参考onRow 用法 | (record, index) => Object | - |
 | pagination | 分页器，参考 [pagination](https://nsfi.github.io/ppfish-components/#/components/pagination/)，设为 false 时不展示和进行分页 | Object | - |
 | rowClassName | 表格行的类名 | (record, index) => String | - |
 | rowKey | 表格行 key 的取值，可以是字符串或一个函数 | String | (record) => String | 'key' |
@@ -2114,10 +2212,10 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | filters | 表头的筛选菜单项 | Array< Object > | - |
 | fixed | 列是否固定，可选 `true`(等效于 left) `'left'` `'right'` | Enum {true,'left','right'} | false |
 | key | React 需要的 key，如果已经设置了唯一的 `dataIndex`，可以忽略这个属性 | String | - |
-| onCell | 设置单元格属性 | (record) => Object | - |
+| onCell | 设置单元格属性,参考onRow 用法 | (record) => Object | - |
 | onFilter | 本地模式下，确定筛选的运行函数 | () => Boolean | - |
 | onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时调用 | (visible) => Void | - |
-| onHeaderCell | 设置头部单元格属性 | (column) => Object | - |
+| onHeaderCell | 设置头部单元格属性,参考onRow 用法 | (column) => Object | - |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return里面可以设置表格行/列合并 | (text, record, index) => ReactNode | - |
 | sorter | 排序函数，本地排序使用一个函数(参考 [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 的 compareFunction)，需要服务端排序可设为 true | Function \| Boolean | - |
 | sorterType | 排序按钮类型：默认、首字母A-Z排序 | Enum {'default' ,'firstLetter'} | 'default' |
@@ -2235,92 +2333,3 @@ return <Table rowKey="uid" />;
 // 或
 return <Table rowKey={record => record.uid} />;
 ```
-
-
-<style>
-th.column-money,
-td.column-money {
-  text-align: right !importfishd;
-}
-.table-operations {
-  margin-bottom: 16px;
-}
-
-.table-operations > button {
-  margin-right: 8px;
-}
-.components-table-demo-nested .fishd-table-expanded-row > td:last-child {
-  padding: 0 48px 0 8px;
-}
-
-.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-thead th {
-  border-bottom: 1px solid #e9e9e9;
-}
-
-.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-thead th:first-child {
-  padding-left: 0;
-}
-
-.components-table-demo-nested .fishd-table-expanded-row > td:last-child .fishd-table-row td:first-child {
-  padding-left: 0;
-}
-
-.components-table-demo-nested .fishd-table-expanded-row .fishd-table-row:last-child td {
-  border: none;
-}
-
-.components-table-demo-nested .fishd-table-expanded-row .fishd-table-thead > tr > th {
-  background: none;
-}
-
-.components-table-demo-nested .table-operation a:not(:last-child) {
-  margin-right: 24px;
-}
-
-.components-table-demo-nested .fishd-table-expanded-row:hover > td {
-  background: #fbfbfb;
-}
-
-.editable-cell {
-  position: relative;
-}
-
-.editable-cell-icon,
-.editable-cell-icon-check {
-  cursor: pointer;
-}
-
-.editable-cell-icon {
-  line-height: 14px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  margin-top: -7px;
-  display: none;
-}
-
-td:hover .editable-cell-icon {
-  display: inline-block;
-}
-
-.editable-cell-icon:hover,
-.editable-cell-icon-check:hover {
-  color: #108ee9;
-}
-
-.editable-row .fishd-form-explain {
-  position: absolute;
-  font-size: 12px;
-  margin-top: -4px;
-}
-
-#components-table-demo-drag-sorting tr.drop-over-downward td {
-  border-bottom: 2px dashed #1890ff;
-}
-
-#components-table-demo-drag-sorting tr.drop-over-upward td {
-  border-top: 2px dashed #1890ff;
-}
-
-.components-table-demo-control-bar { margin-bottom: 10px; } .components-table-demo-control-bar .fishd-form-item { margin-right: 16px; margin-bottom: 8px; } 
-</style>

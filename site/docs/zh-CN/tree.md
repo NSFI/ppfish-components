@@ -271,9 +271,8 @@
     );
   }
 ```
-:::
 
-<style>
+```less
 .fishdicon-search-line,
 .fishdicon-close-circle-fill {
   cursor: pointer;
@@ -295,8 +294,8 @@
   line-height: 32px;
   margin-left: 12px;
 }
-</style>
-
+```
+:::
 
 ## 异步数据加载
 
@@ -618,11 +617,6 @@
 ```
 :::
 
-<style>
-#components-tree-demo-draggable .draggable-tree .fishd-tree-node-content-wrapper {
-  width: calc(100% - 18px);
-}
-</style>
 
 ## 连接线
 :::demo 带连接线的树。

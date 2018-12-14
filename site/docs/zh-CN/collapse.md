@@ -38,13 +38,13 @@ render(){
   )
 }
 ```
-:::
 
-<style>
+```less
 p {
   margin: 0;
 }
-</style>
+```
+:::
  
 ## 手风琴
 
@@ -72,7 +72,12 @@ render(){
    </Collapse>
   )
 }
+```
 
+```less
+p {
+  margin: 0;
+}
 ```
 :::
 
@@ -109,6 +114,12 @@ render(){
         </Panel>
       </Collapse>
   )
+}
+```
+
+```less
+p {
+  margin: 0;
 }
 ```
 :::
@@ -165,13 +176,12 @@ render(){
   )
 }
 ```
-:::
-
-<style>
+```less
 .collapse-demo {
   height: 260px;
 }
-</style>
+```
+:::
 
 ## 自定义面板
 
@@ -206,6 +216,13 @@ render(){
   </Collapse>)
   }
 ```
+
+```less
+.p {
+  margin: 0;
+}
+```
+
 :::
 
 
@@ -254,13 +271,13 @@ render(){
   )
 }
 ```
-:::
 
-<style>
-p {
+```less
+.p {
   margin: 0;
 }
-</style>
+```
+:::
 
 ## 定制 header
 
@@ -299,13 +316,13 @@ render(){
   )
 }
 ```
-:::
 
-<style>
-p {
+```less
+.p {
   margin: 0;
 }
-</style>
+```
+:::
 
 ## API
 

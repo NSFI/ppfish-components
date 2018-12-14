@@ -143,7 +143,7 @@ render() {
 | prevArrow | 自定义“切换到上一个”按钮 | HTMLElement | - |
 | style | 容器样式 | Object | - |
 
-## 方法
+### 方法
 
 | 名称 | 描述 |
 | --- | --- |

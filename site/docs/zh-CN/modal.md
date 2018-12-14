@@ -53,6 +53,13 @@
     );
   }
 ```
+
+```less
+.fishd-modal p {
+  margin: 0;
+}
+```
+
 :::
 
 ## 异步关闭
@@ -109,6 +116,11 @@
     );
   }
 ```
+```less
+.fishd-modal p {
+  margin: 0;
+}
+```
 :::
 
 ## 确认对话框
@@ -160,6 +172,13 @@ render(){
   )
 }
 ```
+
+```less
+.demo-modal-btn-group .fishd-btn{
+ margin-right:8px;
+}
+```
+
 :::
 
 ## 确认对话框Promise
@@ -250,6 +269,13 @@ render(){
     );
   }
 ```
+
+```less
+.fishd-modal p {
+  margin: 0;
+}
+```
+
 :::
 
 ## 信息提示
@@ -304,6 +330,16 @@ render(){
 }
 
 ```
+
+```less
+.fishd-modal p {
+  margin: 0;
+}
+.demo-modal-btn-group .fishd-btn{
+ margin-right:8px;
+}
+```
+
 :::
 
 ## 国际化
@@ -354,7 +390,15 @@ render(){
       </div>
     );
   }
-  
+```
+
+```less
+.fishd-modal p {
+  margin: 0;
+}
+.demo-modal-btn-group .fishd-btn{
+ margin-right:8px;
+}
 ```
 :::
 
@@ -413,16 +457,13 @@ render(){
     );
   }
 ```
-:::
 
-<style>
+```less
 .fishd-modal p {
   margin: 0;
 }
-.demo-modal-btn-group .fishd-btn{
- margin-right:8px;
-}
-</style>
+```
+:::
 
 ## 拖动支持
 
@@ -469,6 +510,12 @@ render(){
       </div>
     );
   }
+```
+
+```less
+.fishd-modal p {
+  margin: 0;
+}
 ```
 :::
 
@@ -537,9 +584,3 @@ render(){
 const ref = Modal.info();
 ref.destroy();
 ```
-
-<style>
-.code-box-demo .fishd-btn {
-  margin-right: 8px;
-}
-</style>

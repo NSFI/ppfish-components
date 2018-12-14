@@ -50,6 +50,12 @@ render(){
   </div>);
 }
 ```
+
+```less
+.components-message-demo-other .fishd-btn {
+  margin-right: 8px;
+}
+```
 :::
 
 
@@ -133,7 +139,7 @@ render(){
 
 其中`message[level]` 是组件已经提供的静态方法。`then` 接口返回值是 Promise 。
 
-## message.config
+### message.config
 
 ```js
 message.config({
@@ -149,10 +155,3 @@ message.config({
 | getContainer | 配置渲染节点的输出位置 | () => HTMLElement | () => document.body |
 | maxCount | 最大显示数, 超过限制时，最早的消息会被自动关闭 | Number | - |
 | top | 消息距离顶部的位置 | Number | 24 |
-
-
-<style>
-.components-message-demo-other .fishd-btn {
-  margin-right: 8px;
-}
-</style>

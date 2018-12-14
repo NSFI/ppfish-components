@@ -40,10 +40,14 @@ render () {
 	)
 }
 ```
+
+```less
+ .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+```
 :::
-<style> 
-.code-box-demo .fishd-btn { margin-right: 1em; margin-bottom: 1em; } 
-</style>
 
 ## 位置
 
@@ -102,21 +106,22 @@ render(){
 	)
   }
 ```
-:::
-<style>
-.demo-block .demo {
+
+```less
+ .demo {
   overflow: auto;
 }
-.demo-block .fishd-btn {
+ .fishd-btn {
   margin-right: 8px;
   margin-bottom: 8px;
 }
-.demo-block .demo .fishd-btn {
+ .demo .fishd-btn {
   width: 70px;
   text-align: center;
   padding: 0;
 }
-</style>
+```
+:::
 
 ## API
 
@@ -124,7 +129,7 @@ render(){
 | --- | --- | --- | --- |
 | title | 提示文字 | String \| ReactNode | () => ReactNode | - |
 
-### 共同的 API
+### 公共API
 
 以下 API 为 Tooltip、Popover 共享的 API。
 
@@ -143,6 +148,6 @@ render(){
 | trigger | 触发行为 | Enum {'hover', 'focus', 'contextMenu'} | 'hover' |
 | visible | 用于手动控制浮层显隐 | Boolean | false |
 
-## 注意
+### 注意
 
 请确保 `Tooltip` 的子元素能接受 `onMouseEnter`、`onMouseLeave`、`onFocus`、`onClick` 事件。

@@ -1,4 +1,4 @@
-# Echart 图表 【视觉: 徐剑杰 |开发: 王晓玲】
+# Echart 图表 【交互: 无 | 视觉: 徐剑杰 |开发: 王晓玲】
 
 可视化图表组件。
 
@@ -297,44 +297,6 @@
 ```
 :::
 
-<style>
-.browser-mockup {
-    border-top: 2em solid rgba(230, 230, 230, 0.7);
-    -webkit-box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
-    box-shadow: 0 0.1em 0.5em 0 rgba(0, 0, 0, 0.28);
-    position: relative;
-    border-radius: 3px 3px 0 0;
-}
-.browser-mockup:before {
-    display: block;
-    position: absolute;
-    content: '';
-    top: -1.25em;
-    left: 1em;
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: 50%;
-    background-color: #f44;
-    -webkit-box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
-    box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
-}
-.browser-mockup:after {
-    display: block;
-    position: absolute;
-    content: '';
-    top: -1.6em;
-    left: 5.5em;
-    width: calc(100% - 6em);
-    height: 1.2em;
-    border-radius: 2px;
-    background-color: white;
-}
-.browser-mockup iframe {
-    width: 100%;
-    border: 0;
-}
-</style>
-
 ## API
 
 > 注意：
@@ -356,15 +318,15 @@
 | showLoading | 是否显示加载中蒙层 | Boolean | false |
 | echarts | 使用按需引入方式，手动导入echart模块，详情见[按需引入示例](https://github.com/NSFI/ppfish-components/blob/master/site/docs/demoPage/echartRequired.js)| Object | {} |
 
-## 方法
+### 方法
 
 | 名称 | 描述 |
 | --- | --- |
 | getInstance() | 获取图表实例 |
 
-## 说明
+### 说明
 
-### 按需引入
+#### 按需引入
 
 为了解决echarts包比较大的问题，我们提供了按需引入方案，可根据业务需要自行选择。示例代码如下，完整示例请见[按需引入示例](https://github.com/NSFI/ppfish-components/blob/master/site/docs/demoPage/echartRequired.js)
 
@@ -430,7 +392,7 @@ import 'echarts/lib/component/title';
 />
 ```
 
-### 设置主题
+#### 设置主题
 
 使用`theme`API之前，请确保已经通过`registerTheme`注册过。
 

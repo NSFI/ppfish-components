@@ -27,13 +27,13 @@ render(){
   )
 }
 ```
-:::
 
-<style>
+```less
 p {
   margin: 0;
 }
-</style>
+```
+:::
 
 ## 三种触发方式
 
@@ -60,6 +60,13 @@ render(){
       </Popover>
     </div>
   )
+}
+```
+
+```less
+ .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
 }
 ```
 :::
@@ -129,22 +136,22 @@ render(){
   )
 }
 ```
-:::
 
-<style>
-.demo-block .demo {
+```less
+.demo {
   overflow: auto;
 }
-.demo-block .fishd-btn {
+ .fishd-btn {
   margin-right: 8px;
   margin-bottom: 8px;
 }
-.demo-block .demo .fishd-btn {
+.demo .fishd-btn {
   width: 70px;
   text-align: center;
   padding: 0;
 }
-</style>
+```
+:::
 
 ## 从浮层内关闭
 
@@ -205,6 +212,14 @@ render() {
   )
 }
 ```
+
+```less
+ .fishd-btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+```
+
 :::
 
 ## API
@@ -216,7 +231,7 @@ render() {
 
 更多属性请参考 [Tooltip](https://nsfi.github.io/ppfish-components/#/components/tooltip)。
 
-## 注意
+### 注意
 
 请确保 `Popover` 的子元素能接受 `onMouseEnter`、`onMouseLeave`、`onFocus`、`onClick` 事件。
 

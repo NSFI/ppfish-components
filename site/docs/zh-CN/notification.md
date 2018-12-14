@@ -75,13 +75,13 @@ render(){
   )
 }
 ```
-:::
 
-<style>
+```less
 .code-notification-demo .fishd-btn {
   margin-right: 1em;
 }
-</style>
+```
+:::
 
 ## 自定义按钮
 

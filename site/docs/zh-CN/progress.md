@@ -61,15 +61,15 @@ render() {
   );
 }
 ```
-:::
 
-<style>
+```less
   .fishd-progress-circle-wrap,
   .fishd-progress-line-wrap {
     margin-right: 8px;
     margin-bottom: 5px;
   }
-</style>
+```
+:::
 
 ## 小型进度圈
 
@@ -142,15 +142,15 @@ render() {
   );
 }
 ```
-:::
 
-<style>
+```less
   div.fishd-progress-circle,
   div.fishd-progress-line {
     margin-right: 8px;
     margin-bottom: 8px;
   }
-</style>
+```
+:::
 
 ## 动态展示
 
@@ -272,15 +272,14 @@ render() {
   );
 }
 ```
-:::
 
-<style>
+```less
 .fishd-progress-oper-btn {
   border: none;
   color: #337eff;
 }
-</style>
-
+```
+:::
 
 ## API
 

@@ -26,9 +26,7 @@ render(){
   }
 ```
 
-:::
-
-<style>
+```less
 .fishd-badge:not(.fishd-badge-status) {
   margin-right: 20px;
 }
@@ -39,8 +37,8 @@ render(){
   background: #eee;
   display: inline-block;
 }
-</style>
-
+```
+:::
 
 ## 极限状态
 
@@ -71,6 +69,19 @@ render(){
   </div>)
  }
 ```
+
+```less
+.fishd-badge:not(.fishd-badge-status) {
+  margin-right: 20px;
+}
+.head-example {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background: #eee;
+  display: inline-block;
+}
+```
 :::
 
 ## 弱提醒小红点
@@ -94,16 +105,16 @@ render(){
   )
  }
 ```
-:::
 
-<style>
+```less
 .fishdicon-notification {
   width: 16px;
   height: 16px;
   line-height: 16px;
   font-size: 16px;
 }
-</style>
+```
+:::
 
 
 ## 状态提醒
@@ -132,6 +143,20 @@ render(){
   </div>)
  }
 ```
+
+```less
+.fishd-badge:not(.fishd-badge-status) {
+  margin-right: 20px;
+}
+.head-example {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background: #eee;
+  display: inline-block;
+}
+```
+
 :::
 
 
@@ -150,6 +175,20 @@ render(){
   </div>)
 }
 ```
+
+```less
+.fishd-badge:not(.fishd-badge-status) {
+  margin-right: 20px;
+}
+.head-example {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background: #eee;
+  display: inline-block;
+}
+```
+
 :::
 
 ## 可点击
@@ -167,6 +206,20 @@ render(){
   </a>)
 }
 ```
+
+```less
+.fishd-badge:not(.fishd-badge-status) {
+  margin-right: 20px;
+}
+.head-example {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background: #eee;
+  display: inline-block;
+}
+```
+
 :::
 
 ## 动态
@@ -223,6 +276,19 @@ render(){
     );
   }
 ```
+
+```less
+.fishd-badge:not(.fishd-badge-status) {
+  margin-right: 20px;
+}
+.head-example {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background: #eee;
+  display: inline-block;
+}
+```
 :::
 
 ## 自定义标题
@@ -241,9 +307,8 @@ render(){
   </div>)
   }
 ```
-:::
 
-<style>
+```less
 .fishd-badge:not(.fishd-badge-status) {
   margin-right: 20px;
 }
@@ -251,12 +316,11 @@ render(){
   width: 42px;
   height: 42px;
   border-radius: 4px;
-  background: #eee !important;
+  background: #eee;
   display: inline-block;
 }
-
-
-</style>
+```
+:::
 
 ## API
 

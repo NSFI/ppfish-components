@@ -75,9 +75,8 @@ render(){
   )
 }
 ```
-:::
 
-<style>
+```less
 .example {
   text-align: center;
   background: rgba(0,0,0,0.05);
@@ -86,8 +85,8 @@ render(){
   padding: 30px 50px;
   margin: 20px 0;
 }
-</style>
-
+```
+:::
 
 ## 作为容器
 
@@ -160,14 +159,14 @@ render(){
 | tip | 当作为包裹元素时，可以自定义描述文案 | String | - |
 | wrapperClassName | 包装器的类属性 | String | - |
 
-## Spin.TextLoading
+### Spin.TextLoading
 
 提供带动效的文字加载中样式，用法:
 ```js
 <Spin.TextLoading />
 ```
 
-## Spin.Container
+### Spin.Container
 
 提供居中的容器，用法:
 ```js
@@ -177,6 +176,6 @@ render(){
 ```
 
 
-## 静态方法
+### 静态方法
 `Spin.setDefaultIndicator(indicator: ReactNode)`
 同上 `indicator`，你可以自定义全局默认元素
