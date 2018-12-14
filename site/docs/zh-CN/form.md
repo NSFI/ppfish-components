@@ -152,9 +152,8 @@ class NormalLoginForm extends React.Component {
 const Demo = Form.create()(NormalLoginForm);
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
-:::
 
-<style>
+```less
 #components-form-demo-normal-login .login-form {
   max-width: 300px;
 }
@@ -164,7 +163,8 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 #components-form-demo-normal-login .login-form-button {
   width: 100%;
 }
-</style>
+```
+:::
 
 ## 注册新用户
 
@@ -503,9 +503,8 @@ class AdvancedSearchForm extends React.Component {
 const Demo = Form.create()(AdvancedSearchForm);
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
-:::
 
-<style>
+```less
 .fishd-advanced-search-form {
   padding: 24px;
   background: #fbfbfb;
@@ -520,9 +519,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 .fishd-advanced-search-form .fishd-form-item-control-wrapper {
   flex: 1;
 }
-</style>
 
-<style>
 #components-form-demo-advanced-search .fishd-form {
   max-width: none;
 }
@@ -535,7 +532,8 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
   text-align: center;
   padding-top: 80px;
 }
-</style>
+```
+:::
 
 ## 弹出层中的新建表单
 
@@ -631,13 +629,13 @@ class Demo extends React.Component {
 }
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
-:::
 
-<style>
+```less
 .collection-create-form_last-form-item {
   margin-bottom: 0;
 }
-</style>
+```
+:::
 
 ## 动态增减表单项
 
@@ -753,9 +751,8 @@ class DynamicFieldSet extends React.Component {
 const Demo = Form.create()(DynamicFieldSet);
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
-:::
 
-<style>
+```less
 .dynamic-delete-button {
   cursor: pointer;
   position: relative;
@@ -771,7 +768,8 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
   cursor: not-allowed;
   opacity: 0.5;
 }
-</style>
+```
+:::
 
 ## 时间类控件
 
@@ -1076,17 +1074,16 @@ class Demo extends React.Component {
   }
 }
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
-
 ```
-:::
 
-<style>
+```less
 #components-form-demo-global-state .language-bash {
   max-width: 400px;
   border-radius: 6px;
   margin-top: 24px;
 }
-</style>
+```
+:::
 
 ## 自行处理表单数据
 
@@ -1460,14 +1457,13 @@ class Demo extends React.Component {
   }
 }
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
-
 ```
-:::
-<style>
+```less
 .demo-layout-head {
   margin-bottom: 20px;
 }
-</style>
+```
+:::
 
 ## 动态校验规则
 
@@ -1733,16 +1729,14 @@ class UnwrappedDemo extends React.Component {
 
 const Demo = Form.create()(UnwrappedDemo);
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
-
 ```
-:::
-
-<style>
+```less
 #components-form-demo-validate-other .dropbox {
   height: 180px;
   line-height: 1.5;
 }
-</style>
+```
+:::
 
 ## API
 
@@ -1887,9 +1881,3 @@ this.form // => The instance of CustomizedForm
 | whitespace | 必选时，空格是否会被视为错误 | Boolean | false |
 
 更多高级用法可研究 [async-validator](https://github.com/yiminghe/async-validator)。
-
-<style>
-.code-box-demo .fishd-form:not(.fishd-form-inline):not(.fishd-form-vertical) {
-  max-width: 600px;
-}
-</style>

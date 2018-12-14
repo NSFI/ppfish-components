@@ -49,6 +49,17 @@
   }
 
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
 :::
 
 ## 禁用
@@ -162,6 +173,18 @@
   }
 
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
+
 :::
 
 ## 选择周
@@ -226,6 +249,18 @@ render() {
   )
 }
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
+
 :::
 
 ## 带快捷选项的日期面板
@@ -344,6 +379,18 @@ render() {
 }
 
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
+
 :::
 
 ## 带时间的日期面板
@@ -488,6 +535,18 @@ render() {
 }
 
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
+
 :::
 
 ## 日期范围选择器
@@ -536,6 +595,18 @@ render() {
 }
 
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
+
 :::
 
 ## 禁用日期范围选择器
@@ -656,6 +727,18 @@ render() {
 }
 
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
+
 :::
 
 ## 带快捷选项的日期范围面板
@@ -782,6 +865,18 @@ render() {
 }
 
 ```
+
+```less
+.block + .block {
+  margin-top: 20px;
+}
+
+.demonstration {
+  display: inline-block;
+  margin-right: 20px;
+}
+```
+
 :::
 
 ## 带时间的日期范围面板
@@ -940,9 +1035,8 @@ render() {
 }
 
 ```
-:::
 
-<style>
+```less
 .block + .block {
   margin-top: 20px;
 }
@@ -951,7 +1045,9 @@ render() {
   display: inline-block;
   margin-right: 20px;
 }
-</style>
+```
+
+:::
 
 ##  日期格式
 
@@ -977,6 +1073,7 @@ render() {
 | `ss` | 秒 | 补0 | 05 |
 
 ## API
+
 ### 公共参数
 
 | 参数      | 说明          | 类型      |  默认值  |
@@ -1006,7 +1103,7 @@ render() {
 | placeholder | 占位内容 | String | - |
 | value | 值 | Date | null |
 
-DatePicker 时间面板的参数
+#### DatePicker 时间面板
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- | -------- |
@@ -1029,7 +1126,7 @@ DatePicker 时间面板的参数
 | scene | 设置日历选择场景(根据不同的业务场景设置这个值时，面板会有较好的交互体验)| Enum {'past', 'future'} | 'future' |
 | defaultPanelMonth | 默认面板的月份，与`scene`配合使用，当`scene`为'past', 这个默认面板会展示在右边面板；当`scene`为'future', 这个默认面板会展示在左边面板| Date | new Date() |
 
-DateRangePicker 时间面板的参数
+#### DateRangePicker 时间面板
 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |--------- |

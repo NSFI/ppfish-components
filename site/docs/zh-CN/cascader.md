@@ -45,6 +45,11 @@ render(){
 }
 ```
 
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
+```
 :::
 
 ## 默认值
@@ -83,6 +88,11 @@ render(){
   return(
   <Cascader defaultValue={['zhejiang', 'hangzhou', 'xihu']} options={options} onChange={this.onChange} />);
   }
+```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
 ```
 :::
 
@@ -127,6 +137,11 @@ render(){
       </span>
     );
   }
+```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
 ```
 :::
 
@@ -177,6 +192,11 @@ render(){
     />);
   }
 ```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
+```
 :::
 
 ## 禁用选项
@@ -218,6 +238,11 @@ render(){
     <Cascader options={options} onChange={this.onChange} />);
   }
 ```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
+```
 :::
 
 ## 选择即改变
@@ -256,6 +281,11 @@ render(){
   return(
     <Cascader options={options} onChange={this.onChange} changeOnSelect />)
   }
+```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
 ```
 :::
 
@@ -299,6 +329,11 @@ render(){
       <Cascader size="small" options={options} onChange={this.onChange} /><br /><br />
     </div>)
   }
+```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
 ```
 :::
 
@@ -359,6 +394,11 @@ render(){
   />)
 }
 ```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
+```
 :::
 
 ## 搜索
@@ -413,6 +453,11 @@ render(){
       filter:this.filter
     }}
   />)
+}
+```
+```less
+.fishd-cascader-picker{
+  width:300px;
 }
 ```
 :::
@@ -471,6 +516,11 @@ render(){
     );
   }
 ```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
+```
 :::
 
 ## 自定义字段名
@@ -510,6 +560,11 @@ render(){
   return(
   <Cascader fieldNames={{ label: 'name', value: 'code', children: 'items' }} options={options} onChange={this.onChange} />);
   }
+```
+```less
+.fishd-cascader-picker{
+  width:300px;
+}
 ```
 :::
 
@@ -560,11 +615,5 @@ render(){
 | --- | --- |
 | blur() | 移除焦点 |
 | focus() | 获取焦点 |
-
-<style>
-.fishd-cascader-picker {
-  width: 300px;
-}
-</style>
 
 > 注意，如果需要获得中国省市区数据，可以参考 [china-division](https://gist.github.com/afc163/7582f35654fd03d5be7009444345ea17)。

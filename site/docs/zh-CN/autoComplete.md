@@ -224,8 +224,6 @@
 
 ## API
 
-### Props
-
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | allowClear | 支持清除, 单选模式有效 | Boolean | false |
@@ -251,7 +249,7 @@
 | style | 容器样式 | Object | - |
 | value | 指定当前选中的条目 | String \|<br> Array< String > \|<br> { key: String, label: String \| ReactNode } \|<br> Array< { key: String, label: String \| ReactNode } > | - |
 
-### 方法
+## 方法
 
 | 名称 | 描述 |
 | --- | --- |

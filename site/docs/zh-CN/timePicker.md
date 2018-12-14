@@ -198,8 +198,9 @@
 ```
 :::
 
+## API
 
-## API 公共参数
+### 公共参数 
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- | -------- |
 | allowClear | 是否显示清除按钮 | Boolean  | true |
@@ -215,7 +216,7 @@
 | showTrigger | 是否显示前缀图标 | Boolean | true |
 | style | 选择框的样式 | Object | - |
 
-## TimePicker
+### TimePicker
 | 参数      | 说明          | 类型      | 默认值  |
 |---------- |-------------- |---------- |-------- |
 | footer | 在面板中添加额外的页脚 | () => ReactNode | - |
@@ -224,7 +225,7 @@
 | showCurrent | 是否显示"现在"快捷按钮 | Boolean | false |
 | value | 值 | Date | - |
 
-## TimePicker.TimeSelect
+### TimePicker.TimeSelect
 | 参数      | 说明          | 类型      |  默认值  |
 |---------- |-------------- |---------- |-------- |
 | end | 结束时间 | String | '18:00' |

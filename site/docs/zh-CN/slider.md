@@ -30,6 +30,11 @@
     );
   }
 ```
+```less
+.code-box-demo .fishd-slider {
+  margin-bottom: 16px;
+}
+```
 :::
 
 ## 进度条提示
@@ -44,6 +49,11 @@
       </div>
     );
   }
+```
+```less
+.code-box-demo .fishd-slider {
+  margin-bottom: 16px;
+}
 ```
 :::
 
@@ -134,9 +144,8 @@
     );
   }
 ```
-:::
 
-<style>
+```less
 .icon-wrapper {
   position: relative;
   padding: 0px 30px;
@@ -159,7 +168,8 @@
 .icon-wrapper .fishdicon:last-child {
   right: 0;
 }
-</style>
+```
+:::
 
 ## 自定义提示
 
@@ -240,17 +250,16 @@ render(){
   </div>)
   }
 ```
-:::
 
-
-<style>
+```less
 #components-slider-demo-mark h4 {
   margin: 0 0 16px;
 }
 #components-slider-demo-mark .fishd-slider-with-marks {
   margin-bottom: 44px;
 }
-</style>
+```
+:::
 
 ## 垂直
 
@@ -319,9 +328,3 @@ render(){
 | --- | --- |
 | blur() | 移除焦点 |
 | focus() | 获取焦点 |
-
-<style>
-.code-box-demo .fishd-slider {
-  margin-bottom: 16px;
-}
-</style>

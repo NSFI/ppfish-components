@@ -33,14 +33,13 @@ render(){
   )
 }
 ```
-:::
-
-<style>
+```less
 .example-input .fishd-input {
   width: 200px;
   margin: 0 8px 8px 0;
 }
-</style>
+```
+:::
 
 ## 前置/后置标签
 
@@ -351,9 +350,7 @@ render(){
     );
   }
 ```
-:::
-
-<style>
+```less
 .fishdicon-close-circle-fill {
   cursor: pointer;
   color: #ccc;
@@ -366,7 +363,8 @@ render(){
 .fishdicon-close-circle-fill:active {
   color: #666;
 }
-</style>
+```
+:::
 
 ## API
 
@@ -410,7 +408,7 @@ Input 的其他属性和 React 自带的 [input](https://facebook.github.io/reac
 
 `Input.Counter` 的其他属性和`Input.TextArea`一致。
 
-#### Input.Search
+### Input.Search
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -419,7 +417,7 @@ Input 的其他属性和 React 自带的 [input](https://facebook.github.io/reac
 
 其余属性和 Input 一致。
 
-#### Input.Group
+### Input.Group
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |

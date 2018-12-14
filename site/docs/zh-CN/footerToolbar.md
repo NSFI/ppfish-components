@@ -167,9 +167,8 @@ render(){
  )
 }
 ```
-:::
 
-<style>
+```less
 #demo-footertoolbar .fishd-footer-toolbar-inner{
   text-align:right;
 }
@@ -177,7 +176,8 @@ render(){
 #demo-footertoolbar .fishd-footer-toolbar-inner button + button {
   margin-left: 8px;
 }
-</style>
+```
+:::
 
 ## API
 

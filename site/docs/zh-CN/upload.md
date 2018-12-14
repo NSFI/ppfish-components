@@ -112,9 +112,8 @@ render() {
     );
   }
 ```
-:::
 
-<style>
+```less
 /* you can make up upload button and sample style by using stylesheets */
 .fishd-upload-select-picture-card i {
   font-size: 32px;
@@ -124,7 +123,8 @@ render() {
   margin-top: 8px;
   color: #666;
 }
-</style>
+```
+:::
 
 
 ## 拖拽上传
@@ -296,14 +296,14 @@ render() {
     );
   }
 ```
-:::
 
-<style>
+```less
 .avatar-uploader > .fishd-upload {
   width: 100px;
   height: 100px;
 }
-</style>
+```
+:::
 
 
 ## 完全控制的上传列表
@@ -425,9 +425,8 @@ render(){
 }
 
 ```
-:::
 
-<style>
+```less
 /* tile uploaded pictures */
 .upload-list-inline .fishd-upload-list-item {
   float: left;
@@ -440,7 +439,8 @@ render(){
 .upload-list-inline .fishd-upload-animate-leave {
   animation-name: uploadAnimateInlineOut;
 }
-</style>
+```
+:::
 
 ## 手动上传
 
@@ -526,12 +526,13 @@ render(){
   }
 
 ```
-:::
-<style>
+
+```less
 .upload-demo-start {
   margin-top: 16px;
 }
-</style>
+```
+:::
 
 ## API
 

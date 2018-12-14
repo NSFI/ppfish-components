@@ -397,7 +397,7 @@
 | targetKeys | 显示在右侧框数据的key集合 | Array< String > | [] |
 | titles | 标题集合，顺序从左至右 | Array< String > | ['', ''] |
 
-## 多选模式
+### 多选模式
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -405,13 +405,13 @@
 | operations | 操作文案集合，顺序从下至上 | Array< String > | ['>', '<'] |
 | selectedKeys | 设置哪些项应该被选中 | Array< String > | [] |
 
-## 单选模式
+### 单选模式
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | operation | 操作文案 | String | '<' |
 
-## 注意
+### 注意
 
 按照 React 的[规范](http://facebook.github.io/react/docs/lists-and-keys.html#keys)，所有的组件数组必须绑定 key。在 Transfer 中，`dataSource`里的数据值需要指定 `key` 值。对于 `dataSource` 默认将每列数据的 `key` 属性作为唯一的标识。
 

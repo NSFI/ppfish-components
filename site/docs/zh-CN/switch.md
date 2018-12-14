@@ -45,6 +45,12 @@
     );
   }
 ```
+
+```less
+.fishd-switch{
+  margin-bottom: 8px;
+}
+```
 :::
 
 ## 文字和图标
@@ -61,6 +67,11 @@
       </div>
     );
   }
+```
+```less
+.fishd-switch{
+  margin-bottom: 8px;
+}
 ```
 :::
 
@@ -85,6 +96,11 @@
     );
   }
 ```
+```less
+.fishd-switch{
+  margin-bottom: 8px;
+}
+```
 :::
 
 ## 加载中
@@ -101,6 +117,11 @@
       </div>
     );
   }
+```
+```less
+.fishd-switch{
+  margin-bottom: 8px;
+}
 ```
 :::
 
@@ -125,7 +146,3 @@
 | --- | --- |
 | blur() | 移除焦点 |
 | focus() | 获取焦点 |
-
-<style> 
-.fishd-switch { margin-bottom: 8px; } 
-</style>
