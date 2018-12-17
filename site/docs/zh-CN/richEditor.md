@@ -318,8 +318,3 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 | getSelection() | 返回当前选区的范围，如果编辑器处于 unfocus 状态，则返回 null |
 | getText() | 返回编辑器的字符串内容，不包括 HTML 标签。默认会在末尾包含一个回车符。 |
 | isEmptyContents() | 检查输入的内容是否全部为空字符（空格、回车符和制表符） |
-
-### 参考文档
-
-1. [ReactQuill](https://github.com/zenoamaro/react-quill)  
-2. [Quill API](https://quilljs.com/docs/api)
