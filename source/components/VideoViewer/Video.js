@@ -70,6 +70,7 @@ export default class VideoViewer extends React.Component {
       //liveui: true,
       //notSupportedMessage: '',
       //responsive: true,
+      loadingSpinner: true,
       bigPlayButton: bigPlayButton,
       controlBar: {
         children: [

@@ -21,6 +21,8 @@
     .@{fishd-prefix}-modal-body {
       padding: 0;
       height: 100%;
+      overflow-y: hidden;
+      overflow-x: hidden;
     }
   }
   &-modal-wrap:before {
@@ -46,6 +48,9 @@
       font-size: 20px;
       color: #fff;
       cursor: pointer;
+      &:hover {
+        color: #ffaf0f;
+      }
     }
   }
 }
