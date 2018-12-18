@@ -16,8 +16,7 @@
       <VideoViewer
         poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
         modalProps={{
-          mask: true,
-          maskClosable: false,
+          draggable: true,
           width: 640
         }}
         videoProps={{

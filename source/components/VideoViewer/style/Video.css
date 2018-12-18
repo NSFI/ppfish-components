@@ -2,9 +2,6 @@
 .video-js button {
    outline: none;
  }
-.video-js button:hover {
-  color: #ffaf0f;
-}
 
 /*!* 去掉视频的黑色边框 *!*/
 /*.video-js .vjs-tech {*/
@@ -52,6 +49,9 @@
   height: 100%;
   width: 4em;
   float: left;
+}
+.video-js .vjs-control.vjs-button:hover {
+  color: #ffaf0f;
 }
 .vjs-button > .vjs-icon-placeholder:before {
   font-size: 2.2em;
