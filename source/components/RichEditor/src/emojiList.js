@@ -337,7 +337,7 @@ let emojiList = [
   },
   {
     id: 56,
-    className: 'emoji-145',
+    className: 'emoji-168',
     imgName: 'new_emoji_13',
     title: '[泪中带笑]'
   },
