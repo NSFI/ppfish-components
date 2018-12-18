@@ -421,10 +421,6 @@
 
   padding: 8px 0;
 
-  &-menu {
-    .scrollbar();
-  }
-
   &.slide-up-enter.slide-up-enter-active&-placement-bottomLeft,
   &.slide-up-appear.slide-up-appear-active&-placement-bottomLeft {
     animation-name: fishdSlideUpIn;
@@ -459,6 +455,7 @@
   font-size: @font-size-base;
 
   &-menu {
+    .scrollbar();
     outline: none;
     margin-bottom: 0;
     padding-left: 0; // Override default ul/ol
