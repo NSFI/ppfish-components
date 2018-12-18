@@ -32,7 +32,6 @@
   }
 
   li {
-    // padding: 4px 0;
     margin: 0;
     list-style: none;
     white-space: nowrap;
@@ -48,59 +47,50 @@
 
       line-height: @tree-title-height - 4px;
     }
-    &.drag-over {
-      > span[draggable] {
-        background-color: @primary-color;
-        color: white;
-        opacity: 0.8;
-      }
+    &.drag-over > span[draggable] {
+      background-color: @primary-color;
+      color: white;
+      opacity: 0.8;
     }
-    &.drag-over-gap-top {
-      > span[draggable] {
-        border-top-color: @primary-color;
-      }
+    &.drag-over-gap-top > span[draggable] {
+      border-top-color: @primary-color;
     }
-    &.drag-over-gap-bottom {
-      > span[draggable] {
-        border-bottom-color: @primary-color;
-      }
+    &.drag-over-gap-bottom > span[draggable] {
+      border-bottom-color: @primary-color;
     }
-    &.filter-node {
-      > span {
-        color: @highlight-color !important;
-        font-weight: 500 !important;
-      }
+    &.filter-node > span {
+      /* stylelint-disable-next-line declaration-no-important */
+      color: @highlight-color !important;
+      /* stylelint-disable-next-line declaration-no-important */
+      font-weight: 500 !important;
     }
 
     // When node is loading
-    &.@{tree-prefix-cls}-treenode-loading {
-      span {
-        &.@{tree-prefix-cls}-switcher {
-          &.@{tree-prefix-cls}-switcher_open,
-          &.@{tree-prefix-cls}-switcher_close {
-            .@{tree-prefix-cls}-switcher-loading-icon {
-              display: inline-block;
-              position: absolute;
-              left: 0;
-              width: 24px;
-              height: 24px;
-              color: @primary-color;
-              transform: none;
-              font-size: 14px;
-              svg {
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                margin: auto;
-              }
-            }
+    &.@{tree-prefix-cls}-treenode-loading span.@{tree-prefix-cls}-switcher {
+      &.@{tree-prefix-cls}-switcher_open,
+      &.@{tree-prefix-cls}-switcher_close {
+        .@{tree-prefix-cls}-switcher-loading-icon {
+          display: inline-block;
+          position: absolute;
+          left: 0;
+          width: 24px;
+          height: 24px;
+          color: @primary-color;
+          transform: none;
+          font-size: 14px;
+        }
 
-            :root &:after {
-              opacity: 0;
-            }
-          }
+        .@{tree-prefix-cls}-switcher-loading-icon svg {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          margin: auto;
+        }
+
+        :root &:after {
+          opacity: 0;
         }
       }
     }
@@ -139,55 +129,57 @@
       display: inline-flex;
       align-items: center;
     }
-    span {
-      &.@{tree-prefix-cls}-checkbox {
-        margin: 2px 4px;
-        display: inline-flex;
-        align-items: center;
-        height: @tree-title-height;
-        line-height: @tree-title-height;
-        top: auto;
-      }
-      &.@{tree-prefix-cls}-switcher,
-      &.@{tree-prefix-cls}-iconEle {
-        color: @text-9;
-        margin: 2px 8px 2px 0;
-        width: 14px;
-        height: @tree-title-height;
-        line-height: @tree-title-height;
-        display: inline-flex;
-        align-items: center;
-        vertical-align: top;
-        border: 0 none;
-        cursor: pointer;
-        outline: none;
-        text-align: center;
-      }
+  }
 
-      &.@{tree-prefix-cls}-switcher {
-        position: relative;
-        width: 12px;
+  li span {
+    &.@{tree-prefix-cls}-checkbox {
+      margin: 2px 4px;
+      display: inline-flex;
+      align-items: center;
+      height: @tree-title-height;
+      line-height: @tree-title-height;
+      top: auto;
+    }
+    &.@{tree-prefix-cls}-switcher,
+    &.@{tree-prefix-cls}-iconEle {
+      color: @text-9;
+      margin: 2px 8px 2px 0;
+      width: 14px;
+      height: @tree-title-height;
+      line-height: @tree-title-height;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: top;
+      border: 0 none;
+      cursor: pointer;
+      outline: none;
+      text-align: center;
+    }
 
-        &.@{tree-prefix-cls}-switcher-noop {
-          cursor: default;
-        }
-        &.@{tree-prefix-cls}-switcher_open {
-          .fishdTreeSwitcherIcon();
-        }
-        &.@{tree-prefix-cls}-switcher_close {
-          .fishdTreeSwitcherIcon();
-          .@{tree-prefix-cls}-switcher-icon {
-            transform: rotate(-90deg) scale(0.666);
-          }
+    &.@{tree-prefix-cls}-switcher {
+      position: relative;
+      width: 12px;
+
+      &.@{tree-prefix-cls}-switcher-noop {
+        cursor: default;
+      }
+      &.@{tree-prefix-cls}-switcher_open {
+        .fishdTreeSwitcherIcon();
+      }
+      &.@{tree-prefix-cls}-switcher_close {
+        .fishdTreeSwitcherIcon();
+        .@{tree-prefix-cls}-switcher-icon {
+          transform: rotate(-90deg) scale(0.666);
         }
       }
     }
-    &:last-child > span {
-      &.@{tree-prefix-cls}-switcher,
-      &.@{tree-prefix-cls}-iconEle {
-        &:before {
-          display: none;
-        }
+  }
+
+  li:last-child > span {
+    &.@{tree-prefix-cls}-switcher,
+    &.@{tree-prefix-cls}-iconEle {
+      &:before {
+        display: none;
       }
     }
   }
@@ -225,35 +217,34 @@
     margin-right: 2px;
     vertical-align: top;
   }
+
   // Tree with line
-  &&-show-line {
-    li {
-      position: relative;
-      span {
-        &.@{tree-prefix-cls}-switcher {
-          background: @component-background;
-          color: @tree-showline-icon-color;
-          &.@{tree-prefix-cls}-switcher-noop {
-            .fishdTreeShowLineIcon("tree-doc-icon");
-          }
-          &.@{tree-prefix-cls}-switcher_open {
-            .fishdTreeShowLineIcon("tree-showline-open-icon");
-          }
-          &.@{tree-prefix-cls}-switcher_close {
-            .fishdTreeShowLineIcon("tree-showline-close-icon");
-          }
-        }
+  &&-show-line li {
+    position: relative;
+
+    span.@{tree-prefix-cls}-switcher {
+      background: @component-background;
+      color: @tree-showline-icon-color;
+      &.@{tree-prefix-cls}-switcher-noop {
+        .fishdTreeShowLineIcon("tree-doc-icon");
+      }
+      &.@{tree-prefix-cls}-switcher_open {
+        .fishdTreeShowLineIcon("tree-showline-open-icon");
+      }
+      &.@{tree-prefix-cls}-switcher_close {
+        .fishdTreeShowLineIcon("tree-showline-close-icon");
       }
     }
-    li:not(:last-child):before {
-      content: ' ';
-      width: 1px;
-      border-left: 1px solid @border-color-base;
-      height: 100%;
-      position: absolute;
-      left: 6px;
-      margin: 22px 0;
-    }
+  }
+
+  &&-show-line li:not(:last-child):before {
+    content: ' ';
+    width: 1px;
+    border-left: 1px solid @border-color-base;
+    height: 100%;
+    position: absolute;
+    left: 6px;
+    margin: 22px 0;
   }
 
   &.@{tree-prefix-cls}-icon-hide {
