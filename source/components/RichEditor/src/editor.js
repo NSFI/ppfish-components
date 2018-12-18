@@ -14,6 +14,7 @@ import LinkBlot from './formats/link.js';
 import ImageBlot from './formats/image.js';
 import '../style/index.less';
 
+const urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi;
 const EMOJI_VALUE_DIVIDER = '///***';
 const { parchment: Parchment } = Quill.imports;
 
@@ -255,8 +256,7 @@ class RichEditor extends Component {
         return;
       }
 
-      let urlRe = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi;
-      if (!urlRe.test(val)) {
+      if (!urlValidator.test(val)) {
         message.error('请输入链接地址');
         return;
       }
@@ -292,8 +292,7 @@ class RichEditor extends Component {
         return;
       }
 
-      let urlRe = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi;
-      if (!urlRe.test(val)) {
+      if (!urlValidator.test(val)) {
         message.error('请输入视频地址');
         return;
       }
