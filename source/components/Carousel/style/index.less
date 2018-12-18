@@ -55,7 +55,6 @@
   .slick-slide {
     display: none;
     float: left;
-    height: 100%;
     min-height: 1px;
     text-align: center;
     height: 160px;
@@ -166,118 +165,114 @@
     text-align: center;
     margin: 0 2px;
     padding: 0;
-    button {
-      border: 0;
-      cursor: pointer;
-      background: #fff;
-      opacity: 0.3;
-      display: block;
-      width: @carousel-dot-width;
-      height: @carousel-dot-height;
-      border-radius: 1px;
-      outline: none;
-      font-size: 0;
-      color: transparent;
-      transition: all 0.5s;
-      padding: 0;
-      &:hover,
-      &:focus {
-        opacity: 0.75;
-      }
+  }
+
+  li button {
+    border: 0;
+    cursor: pointer;
+    background: #fff;
+    opacity: 0.3;
+    display: block;
+    width: @carousel-dot-width;
+    height: @carousel-dot-height;
+    border-radius: 1px;
+    outline: none;
+    font-size: 0;
+    color: transparent;
+    transition: all 0.5s;
+    padding: 0;
+    &:hover,
+    &:focus {
+      opacity: 0.75;
     }
-    &.slick-active button {
-      background: #fff;
+  }
+
+  li.slick-active button {
+    background: #fff;
+    opacity: 1;
+    width: @carousel-dot-active-width;
+    &:hover,
+    &:focus {
       opacity: 1;
-      width: @carousel-dot-active-width;
-      &:hover,
-      &:focus {
-        opacity: 1;
-      }
     }
   }
 }
 
-.slick-dots-vertical {
-  .slick-dots;
+.slick-dots.slick-dots-vertical {
   width: @carousel-dot-height;
   bottom: auto;
   top: 50%;
   transform: translateY(-50%);
   height: auto;
+
   li {
     display: block;
     margin: 4px 0;
-    button {
-      width: @carousel-dot-height;
-      height: @carousel-dot-width;
-    }
-    &.slick-active button {
-      width: @carousel-dot-height;
-      height: @carousel-dot-active-width;
-    }
+  }
+
+  li button {
+    width: @carousel-dot-height;
+    height: @carousel-dot-width;
+  }
+
+  li.slick-active button {
+    width: @carousel-dot-height;
+    height: @carousel-dot-active-width;
   }
 }
 
 .@{fishd-prefix}-carousel-top {
   .slick-dots {
-    .slick-dots;
     top: 12px;
   }
 }
 
 .@{fishd-prefix}-carousel-bottom {
   .slick-dots {
-    .slick-dots;
     bottom: 12px;
   }
 }
 
 .@{fishd-prefix}-carousel-right {
   .slick-dots-vertical {
-    .slick-dots-vertical;
     right: 12px;
   }
 }
 
 .@{fishd-prefix}-carousel-left {
   .slick-dots-vertical {
-    .slick-dots-vertical;
     left: 12px;
   }
 }
 
-.slick-dots.timer {
-  li {
-    &.slick-active button {
-      background: rgba(255,255,255,0.3);
+.slick-dots.timer li {
+  &.slick-active button {
+    background: rgba(255,255,255,0.3);
 
-      &:after {
-        position: absolute;
-        content: '';
-        top: 0;
-        left: 0;
-        height: 100%;
-        background: #fff;
-        animation: var(--dots-ani, dotsAni 3s infinite);
-      }
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: #fff;
+      animation: var(--dots-ani, dotsAni 3s infinite);
     }
   }
 }
 
-.slick-dots-vertical.timer {
-  li {
-    &.slick-active button {
-      background: rgba(255,255,255,0.3);
+.slick-dots-vertical.timer li {
+  &.slick-active button {
+    background: rgba(255,255,255,0.3);
 
-      &:after {
-        position: absolute;
-        content: '';
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #fff;
-        animation: var(--dots-ani, dotsAniVertical 3s infinite);
-      }
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      animation: var(--dots-ani, dotsAniVertical 3s infinite);
     }
   }
 }
