@@ -21,7 +21,8 @@
       display: none;
     }
 
-    &:not(.is-disable):hover,&:focus {
+    &:not(.is-disable):hover,
+    &:focus {
       .@{prefixClass}-input-suffix {
         display: inline;
       }
@@ -38,7 +39,8 @@
       }
     }
 
-    &--daterange,&--datetimerange {
+    &--daterange,
+    &--datetimerange {
       border: 1px solid @datepicker-border-color;
       border-radius: @border-radius-base;
       display: flex;
@@ -47,7 +49,8 @@
       .@{prefixClass}-input {
         border: 0;
         height: @datepicker-height - 2px;
-        &:hover,&:focus {
+        &:hover,
+        &:focus {
           box-shadow: none;
           border: none;
         }

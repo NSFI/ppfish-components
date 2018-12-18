@@ -32,15 +32,20 @@
 }
 
 .float-grid-columns(@class) {
-  .col(@index) { // initial
+  // initial
+  .col(@index) {
     @item: ~".@{fishd-prefix}-col@{class}-@{index}";
     .col((@index + 1), @item);
   }
-  .col(@index, @list) when (@index =< @grid-columns) { // general
+
+  // general
+  .col(@index, @list) when (@index =< @grid-columns) {
     @item: ~".@{fishd-prefix}-col@{class}-@{index}";
     .col((@index + 1), ~"@{list}, @{item}");
   }
-  .col(@index, @list) when (@index > @grid-columns) { // terminal
+
+  // terminal
+  .col(@index, @list) when (@index > @grid-columns) {
     @{list} {
       float: left;
       flex: 0 0 auto;

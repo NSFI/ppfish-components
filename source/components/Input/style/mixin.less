@@ -20,12 +20,14 @@
   border-color: tint(@color, 20%);
   outline: 0;
   box-shadow: @input-outline-offset @outline-blur-size @outline-width fade(@color, 20%);
+  /* stylelint-disable-next-line declaration-no-important */
   border-right-width: 1px !important;
 }
 
 // == when hoverd
 .hover(@color: @input-hover-border-color) {
   border-color: tint(@color, 20%);
+  /* stylelint-disable-next-line declaration-no-important */
   border-right-width: 1px !important;
 }
 
@@ -159,6 +161,7 @@
   }
 
   &-wrap > * {
+    /* stylelint-disable-next-line declaration-no-important */
     display: block !important;
   }
 

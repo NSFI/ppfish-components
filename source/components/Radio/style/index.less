@@ -113,6 +113,7 @@
 
 .@{radio-prefix-cls}-disabled {
   .@{radio-inner-prefix-cls} {
+    /* stylelint-disable-next-line declaration-no-important */
     border-color: @border-color-base !important;
     background-color: @input-disabled-bg;
     &:after {
@@ -221,11 +222,13 @@ span.@{radio-prefix-cls} + * {
     box-shadow: -1px 0 0 0 @radio-dot-color;
     z-index: 1;
     &::before {
+      /* stylelint-disable-next-line declaration-no-important */
       background-color: @radio-dot-color !important;
       opacity: 0.1;
     }
     &:first-child {
       border-color: @radio-dot-color;
+      /* stylelint-disable-next-line declaration-no-important */
       box-shadow: none !important;
     }
 
