@@ -150,37 +150,35 @@
         height: 100%;
       }
 
-      &:hover {
-        color: @icon-normal-color;
-        background: @richeditor-icon-hover-bg;
-
-        .ql-picker-options,
-        .ql-picker-label {
-          color: @icon-normal-color;
-        }
-
-        .ql-stroke {
-          stroke: @icon-normal-color;
-        }
-
-        .ql-fill {
-          fill: @icon-normal-color;
-        }
-      }
-
-      .ql-picker-options {
-        .ql-stroke {
-          stroke: @icon-normal-color;
-        }
+      .ql-picker-options .ql-stroke {
+        stroke: @icon-normal-color;
       }
 
       .ql-picker-item:hover {
         color: @primary-color;
         background-color: @background-color-base;
+      }
 
-        .ql-stroke {
-          stroke: @primary-color;
-        }
+      .ql-picker-item:hover .ql-stroke {
+        stroke: @primary-color;
+      }
+
+      .ql-fill {
+        fill: @icon-normal-color;
+      }
+    }
+
+    > .item:hover {
+      color: @icon-normal-color;
+      background: @richeditor-icon-hover-bg;
+
+      .ql-picker-options,
+      .ql-picker-label {
+        color: @icon-normal-color;
+      }
+
+      .ql-stroke {
+        stroke: @icon-normal-color;
       }
 
       .ql-fill {
@@ -238,39 +236,31 @@
     display: none;
   }
 
-  .ql-align {
-    .ql-picker-label,
-    .ql-picker-item {
-      .iconfont-mixin();
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  .ql-align .ql-picker-label,
+  .ql-align .ql-picker-item {
+    .iconfont-mixin();
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-      &:before {
-        content: "\e6c2";
-      }
+    &:before {
+      content: "\e6c2";
+    }
 
-      &[data-value='center'] {
-        &:before {
-          content: "\e6c7";
-        }
-      }
+    &[data-value='center']:before {
+      content: "\e6c7";
+    }
 
-      &[data-value='right'] {
-        &:before {
-          content: "\e6c9";
-        }
-      }
+    &[data-value='right']:before {
+      content: "\e6c9";
+    }
 
-      &[data-value='justify'] {
-        &:before {
-          content: "\e6cf";
-        }
-      }
+    &[data-value='justify']:before {
+      content: "\e6cf";
+    }
 
-      svg {
-        display: none;
-      }
+    svg {
+      display: none;
     }
   }
 }

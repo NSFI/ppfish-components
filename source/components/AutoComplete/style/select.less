@@ -179,11 +179,9 @@
     }
     .@{select-prefix-cls}-selection--multiple {
       min-height: @input-height-lg;
-      .@{select-prefix-cls}-selection__rendered {
-        li {
-          height: @input-height-lg - 8px;
-          line-height: @input-height-lg - 8px;
-        }
+      .@{select-prefix-cls}-selection__rendered li {
+        height: @input-height-lg - 8px;
+        line-height: @input-height-lg - 8px;
       }
       .@{select-prefix-cls}-selection__clear {
         top: @input-height-lg / 2;
@@ -201,11 +199,9 @@
     }
     .@{select-prefix-cls}-selection--multiple {
       min-height: @input-height-sm;
-      .@{select-prefix-cls}-selection__rendered {
-        li {
-          height: @input-height-sm - 8px;
-          line-height: @input-height-sm - 10px;
-        }
+      .@{select-prefix-cls}-selection__rendered li {
+        height: @input-height-sm - 8px;
+        line-height: @input-height-sm - 10px;
       }
       .@{select-prefix-cls}-selection__clear {
         top: @input-height-sm / 2;
@@ -513,21 +509,18 @@
       &-disabled {
         color: @disabled-color;
         cursor: not-allowed;
-
-        &:hover {
-          color: @disabled-color;
-          background-color: @component-background;
-          cursor: not-allowed;
-        }
       }
 
-      &-selected {
-        &,
-        &:hover {
-          background-color: @background-color-light;
-          // font-weight: 600;
-          color: @primary-color;
-        }
+      &-disabled:hover {
+        color: @disabled-color;
+        background-color: @component-background;
+        cursor: not-allowed;
+      }
+
+      &-selected,
+      &-selected:hover {
+        background-color: @background-color-light;
+        color: @primary-color;
       }
 
       &-active {
@@ -544,34 +537,32 @@
     }
   }
 
-  &&--multiple {
-    .@{select-prefix-cls}-dropdown-menu-item {
-      &:after {
-        .iconfont-font("\e632");
-        color: transparent;
-        .iconfont-size-under-12px(10px);
-        transition: all 0.2s ease;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: @control-padding-horizontal;
-        font-weight: bold;
-        text-shadow: 0 0.1px 0, 0.1px 0 0, 0 -0.1px 0, -0.1px 0;
-      }
+  &&--multiple .@{select-prefix-cls}-dropdown-menu-item {
+    &:after {
+      .iconfont-font("\e632");
+      color: transparent;
+      .iconfont-size-under-12px(10px);
+      transition: all 0.2s ease;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: @control-padding-horizontal;
+      font-weight: bold;
+      text-shadow: 0 0.1px 0, 0.1px 0 0, 0 -0.1px 0, -0.1px 0;
+    }
 
-      &:hover:after {
-        color: #ddd;
-      }
+    &:hover:after {
+      color: #ddd;
+    }
 
-      &-disabled:after {
-        display: none;
-      }
+    &-disabled:after {
+      display: none;
+    }
 
-      &-selected:after,
-      &-selected:hover:after {
-        color: @primary-color;
-        display: inline-block;
-      }
+    &-selected:after,
+    &-selected:hover:after {
+      color: @primary-color;
+      display: inline-block;
     }
   }
 
