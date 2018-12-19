@@ -164,6 +164,7 @@ export const components = {
           key: 'videoViewer',
           type: 'markdown',
           name: 'VideoViewer 视频查看器',
+          published: true,
         }
       ]
     }, {

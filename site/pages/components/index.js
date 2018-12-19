@@ -8,7 +8,7 @@ import locales from '../../locales';
 import {components, plainComponents} from '../../componentsPage';
 import './index.less';
 
-const isShowAllComponents = true;
+const isShowAllComponents = false;
 
 export default class Components extends React.Component {
   static propTypes = {
