@@ -1,14 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-
 const babel = require('@babel/core');
-const babelrc = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../.babelrc')).toString());
+const babelrc = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '.babelrc')).toString());
 const babelParser = require("@babel/parser");
 const traverse = require('@babel/traverse').default;
 const generate = require('@babel/generator').default;
 const crypto = require('crypto');
-
-
 const w3c = [
   'a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'blockquote', 'body', 'br',
   'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'command', 'datalist', 'dd', 'del', 'details', 'dfn',
@@ -19,7 +16,6 @@ const w3c = [
   'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td',
   'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr',
 ];
-
 const DEFAULT_INJECT = ['React', 'ReactDOM', 'PropTypes'];
 const DEMO_EXPORTS_REG = /^demo/i; //检测demo代码片段中导出作为Demo测试类的 类名或者变量名称
 
@@ -33,14 +29,13 @@ function transformCode(codes, filename) {
   // ]
   let ppfishModuleEntry = path.relative(
     path.dirname(filename),
-    path.resolve(__dirname,'../source/components/index.js')
+    path.resolve(__dirname, '..', 'source', 'components' , 'index.js')
   );
   let components = [];//用于存错Button, Slider, Col这样的组件类名
   let subComponents = [];//用于缓存 const Col = Grid.Col;中的 Col，避免CheckComponetVisitor再去
   // let codes = [];
   let classNames = [];  //Demo Demo2 Demo3 Demo4
   let classNameIndex = 2;
-
 
   // MyVisitor 主要做两件事,1，找到用了哪些组件，2:修改重名demo名，加上序号
   let MyVisitor = {
@@ -215,27 +210,24 @@ function transformCode(codes, filename) {
   classNames = classNames.filter(classname => DEMO_EXPORTS_REG.test(classname));  //一个demo 需要导出一个demo开头的名字以便测试
   //拼成一份模块的代码，用babel转成nodejs能够运行的代码。
   let composedCode = `
-  import React from 'react';
-  import ReactDOM from 'react-dom';
-  import PropTypes from 'prop-types';
-  ${components.length
-      ? `import {${components.join(',')}} from '${ppfishModuleEntry}';`
-      : ''}
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import PropTypes from 'prop-types';
+    ${components.length ? `import {${components.join(',')}} from '${ppfishModuleEntry}';` : ''}
 
+    const [ ${classNames.join(',')} ]  = [${codeBodys.map((demoCode, demoIndex) => `(()=>{
+      ${demoCode}
+      return ${classNames[demoIndex]}
+    })()
+    `).join(',\n')}]
 
- const [ ${classNames.join(',')} ]  = [${codeBodys.map((demoCode, demoIndex) => `(()=>{
-    ${demoCode}
-    return ${classNames[demoIndex]}
-  })()
-  `).join(',\n')}]
-
-  export default function TestDemoContainer(props){
-    return (
-      <div>
-        ${classNames.map(classname => '<' + classname + ' />').join('\n')}
-      </div>
-    )
-  }
+    export default function TestDemoContainer(props){
+      return (
+        <div>
+          ${classNames.map(classname => '<' + classname + ' />').join('\n')}
+        </div>
+      )
+    }
   `;
 
   let transformed = babel.transform(composedCode, babelrc);
@@ -294,12 +286,7 @@ module.exports = {
       }
     });
 
-
-
     let $code = transformCode(sourceCodes, filename);
-
-
-
     $code = `${$code}\nglobal.__PREPROCESSED__ = true;`;
     if (options.instrument) {
       $code = `${$code}\nglobal.__INSTRUMENTED__ = true;`;
