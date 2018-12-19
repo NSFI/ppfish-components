@@ -19,7 +19,7 @@
     "test": "cross-env BABEL_ENV=test jest",
     "test:update": "jest --updateSnapshot",
     "test:CI": "babel-node tools/testCi.js",
-    "test:cover": "npm run test -- --coverage ",
+    "test:cover": "npm run test -- --coverage",
     "test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
     "test:watch": "npm run test -- --watchAll",
