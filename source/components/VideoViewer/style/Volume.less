@@ -1,0 +1,53 @@
+@import (reference) "../../../assets/css/index";
+@videoVolumePrefix: ~"@{fishd-prefix}-video-viewer-volume";
+@sliderPrefixClass: ~"@{fishd-prefix}-slider";
+
+.@{videoVolumePrefix} {
+  &-volume-box {
+    width: 30px;
+    height: 120px;
+  }
+
+  // 音量图标
+  &-customer-handle {
+    width: 20px;
+    height: 13px;
+    background-color: #fff;
+    border-radius: 2px;
+    line-height: 10px;
+    text-align: center;
+    border: 1px solid #fff;
+    i {
+      color: #000;
+      font-size: 12px;
+    }
+  }
+
+  // Popover样式覆盖
+  .fishd-popover-arrow {
+    background: #333;
+  }
+  .fishd-popover-inner {
+    background: #333;
+  }
+  .fishd-popover-inner-content {
+    padding: 11px 4px 15px 4px;
+  }
+
+  // Slider样式覆盖
+  .@{sliderPrefixClass} {
+    margin: 6px 10px;
+    &-handle {
+      border: none;
+      margin-left: -8px;
+    }
+    &-track {
+      background-color: @video-viewer-primary-color;
+    }
+    &:hover {
+      .@{sliderPrefixClass}-track {
+        background-color: @video-viewer-primary-color;
+      }
+    }
+  }
+}
