@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import videojs from 'video.js';
-import DownLoad from './DownLoad';
+import FullScreen from './FullScreen';
 
 const vjsComponent = videojs.getComponent('Component');
 
-class vjsDownLoad extends vjsComponent {
+class vjsFullScreen extends vjsComponent {
 
   constructor(player, options) {
     super(player, options);
@@ -33,14 +33,14 @@ class vjsDownLoad extends vjsComponent {
    */
   mount() {
     const el = this.el();
-    el.className = "vjs-control vjs-button vjs-customer-button vjs-download";
-    ReactDOM.render(<DownLoad vjsComponent={this} />, el);
+    el.className = "vjs-control vjs-button vjs-customer-button vjs-fullscreen";
+    ReactDOM.render(<FullScreen vjsComponent={this} />, el);
   }
 }
 
 /**
  * Make sure to register the vjsComponent so Video JS knows it exists
  */
-vjsComponent.registerComponent('vjsDownLoad', vjsDownLoad);
+vjsComponent.registerComponent('vjsFullScreen', vjsFullScreen);
 
-export default vjsDownLoad;
+export default vjsFullScreen;

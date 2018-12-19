@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import videojs from 'video.js';
-import ResizeObserverPoylfill from "resize-observer-polyfill";
 import vjsDownLoad from './component/vjsDownLoad';
+import vjsFullScreen from './component/vjsFullScreen';
 import { zh_CN } from './lang/zh-CN';
 
 videojs.addLanguage("zh-CN",zh_CN);
@@ -92,7 +92,7 @@ export default class VideoViewer extends React.Component {
             name: 'durationDisplay'
           },
           {
-            name: 'fullscreenToggle'
+            name: 'vjsFullScreen'
           },
           {
             name: download ? 'vjsDownLoad' : ''
@@ -103,10 +103,7 @@ export default class VideoViewer extends React.Component {
           },
         ]
       },
-      errorDisplay: true,
-      resizeManager: {
-        ResizeObserver: ResizeObserverPoylfill
-      }
+      errorDisplay: true
     };
 
     const option = Object.assign({}, initOptions, otherProps);

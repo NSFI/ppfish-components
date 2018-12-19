@@ -100,12 +100,12 @@
   float: right;
 }
 
-/* 下载按钮 */
-.video-js .vjs-download {
+/* 自定义的按钮样式 */
+.video-js .vjs-customer-button {
   width: 3.5em;
   float: right;
 }
-.video-js .vjs-download .fishd-video-js-download {
+.video-js .fishd-video-js-customer-button {
   width: 100%;
   height: 100%;
   display: flex;
@@ -113,18 +113,15 @@
   justify-content: center;
   font-size: 16px;
 }
-.video-js .vjs-download .fishd-video-js-download a {
+.video-js .fishd-video-js-customer-button a {
   color: #fff;
 }
-.video-js .vjs-download .fishd-video-js-download a:hover {
+.video-js .fishd-video-js-customer-button a:hover {
   color: #ffaf0f;
 }
 
 /* 全屏按钮 */
-.video-js .vjs-fullscreen-control {
-  width: 3.5em;
-  cursor: pointer;
-  float: right;
+.video-js .vjs-fullscreen {
   margin-right: 12px;
 }
 
@@ -144,6 +141,9 @@
 .video-js .vjs-play-progress {
   background-color: #ffaf0f;
   border-radius: 2px;
+}
+.video-js .vjs-play-progress .vjs-time-tooltip {
+  display: none;
 }
 .video-js .vjs-play-progress:before {
   right: -0.2em;
