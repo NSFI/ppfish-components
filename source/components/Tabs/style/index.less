@@ -172,10 +172,11 @@
       clear: both;
     }
 
-    .@{tab-prefix-cls}-tab-disabled {
+    .@{tab-prefix-cls}-tab-disabled,
+    .@{tab-prefix-cls}-tab-disabled a {
       pointer-events: none;
       cursor: default;
-      color: @disabled-color;
+      color: @disabled-color !important;
     }
 
     .@{tab-prefix-cls}-tab {
@@ -211,11 +212,19 @@
         display: inline-flex;
         align-items: center;
       }
+
+      a {
+        color: @text-color;
+      }
     }
 
     .@{tab-prefix-cls}-tab-active {
       color: @tabs-highlight-color;
       font-weight: 500;
+
+      a {
+        color: @tabs-highlight-color;
+      }
     }
   }
 
