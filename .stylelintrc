@@ -15,7 +15,7 @@
     "function-parentheses-newline-inside": null,
     "function-max-empty-lines": null,
     "indentation": null,
-    "max-nesting-depth": 4,
+    "max-nesting-depth": 3,
     "no-descending-specificity": null,
     "rule-empty-line-before": null,
     "selector-descendant-combinator-no-non-space": null,
