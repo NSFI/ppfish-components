@@ -1,8 +1,8 @@
 module.exports = {
   setupFiles: [
-    '<rootDir>/source/tests/setup.js',
+    '<rootDir>/tools/tests/setup.js',
   ],
-  "snapshotSerializers": ["enzyme-to-json/serializer"],
+  snapshotSerializers: ["enzyme-to-json/serializer"],
 	moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
     "\\.(css|less)$": "<rootDir>/tools/assetsTransformer.js"
@@ -15,7 +15,14 @@ module.exports = {
     "**/__tests__/**/*.(js|jsx|ts|tsx)",
     "**/?(*.)+(test).(js|jsx|ts|tsx)"
   ],
-  testPathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/node_modules/"],
+  testPathIgnorePatterns: [
+    "<rootDir>/node_modules/",
+    "<rootDir>/tools/",
+    "<rootDir>/dist/",
+    "<rootDir>/es/",
+    "<rootDir>/lib/",
+    "<rootDir>/site/"
+  ],
   transform:{
     "^.+\\.tsx?$": "ts-jest",
     "^.+\\.jsx?$": "babel-jest",
@@ -32,11 +39,12 @@ module.exports = {
   collectCoverage: false,
   collectCoverageFrom: [
     "<rootDir>/source/components/**/*.js",
-    "!<rootDir>/source/components/**/demo/*.js",
-    "!<rootDir>/source/components/ReactAmap/components/utils/*.js",
     "!<rootDir>/node_modules/**",
     "!<rootDir>/tools/*",
-    "!<rootDir>/doc/*"
+    "!<rootDir>/dist/*",
+    "!<rootDir>/es/*",
+    "!<rootDir>/lib/*",
+    "!<rootDir>/site/*"
   ],
   coverageDirectory: '<rootDir>/coverage',
 };
