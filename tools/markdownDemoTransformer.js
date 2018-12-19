@@ -17,7 +17,7 @@ const w3c = [
   'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr',
 ];
 const DEFAULT_INJECT = ['React', 'ReactDOM', 'PropTypes'];
-const DEMO_EXPORTS_REG = /^demo/i; //检测demo代码片段中导出作为Demo测试类的 类名或者变量名称
+const DEMO_EXPORTS_REG = /^demo/i; //检测demo代码片段中导出作为Demo测试类的类名或者变量名称
 
 function transformCode(codes, filename) {
   // let codes = [
@@ -237,14 +237,8 @@ function transformCode(codes, filename) {
 
 module.exports = {
   canInstrument: true,
-  getCacheKey(
-    fileData,
-    filename,
-    configString,
-    options,
-  ) {
+  getCacheKey(fileData, filename, configString, options) {
     const { instrument, rootDir } = options;
-
     return crypto
       .createHash('md5')
       .update(fileData)
@@ -261,14 +255,11 @@ module.exports = {
       .digest('hex');
   },
   process(src, filename, config, options) {
-
     //截取出demo的那段js代码
     let sourceCodes = [];
     src.replace(/:::\s?demo\s?([^]+?):::/g, (match, p1, offset) => {
-
       let document = p1.match(/(?:[^]*)\n?(?:```(?:.*)\n?([^]+)```)/);
       let source = document[1];
-
       sourceCodes.push(source);
     });
 
@@ -279,10 +270,10 @@ module.exports = {
       } else {
         //单个class写关键部分内容
         return `
-              class Demo extends React.Component {
-                ${sourceCode}
-              };
-          `;
+          class Demo extends React.Component {
+            ${sourceCode}
+          };
+        `;
       }
     });
 
