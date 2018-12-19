@@ -45,18 +45,16 @@
         border-color: @primary-color;
       }
 
-      &.@{tree-prefix-cls}-checkbox.@{tree-prefix-cls}-checkbox-checked {
-        &:after {
-          border-color: @checkbox-check-color;
-        }
+      &.@{tree-prefix-cls}-checkbox.@{tree-prefix-cls}-checkbox-checked:after {
+        border-color: @checkbox-check-color;
+      }
 
-        .@{tree-prefix-cls}-checkbox-inner {
-          background: @checkbox-check-color;
-        }
+      &.@{tree-prefix-cls}-checkbox.@{tree-prefix-cls}-checkbox-checked .@{tree-prefix-cls}-checkbox-inner {
+        background: @checkbox-check-color;
+      }
 
-        .@{tree-prefix-cls}-checkbox-inner:after {
-          border-color: @primary-color;
-        }
+      &.@{tree-prefix-cls}-checkbox.@{tree-prefix-cls}-checkbox-checked .@{tree-prefix-cls}-checkbox-inner:after {
+        border-color: @primary-color;
       }
     }
   }

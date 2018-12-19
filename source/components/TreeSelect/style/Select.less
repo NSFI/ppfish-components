@@ -196,11 +196,9 @@
     }
     .@{select-prefix-cls}-selection--multiple {
       min-height: @input-height-lg - 2px;
-      .@{select-prefix-cls}-selection__rendered {
-        li {
-          height: @input-height-lg - 8px;
-          line-height: @input-height-lg - 8px;
-        }
+      .@{select-prefix-cls}-selection__rendered li {
+        height: @input-height-lg - 8px;
+        line-height: @input-height-lg - 8px;
       }
       .@{select-prefix-cls}-selection__clear {
         top: @input-height-lg / 2;
@@ -218,11 +216,9 @@
     }
     .@{select-prefix-cls}-selection--multiple {
       min-height: @input-height-sm - 2px;
-      .@{select-prefix-cls}-selection__rendered {
-        li {
-          height: @input-height-sm - 8px;
-          line-height: @input-height-sm - 10px;
-        }
+      .@{select-prefix-cls}-selection__rendered li {
+        height: @input-height-sm - 8px;
+        line-height: @input-height-sm - 10px;
       }
       .@{select-prefix-cls}-selection__clear {
         top: @input-height-sm / 2;
@@ -528,21 +524,19 @@
       &-disabled {
         color: @disabled-color;
         cursor: not-allowed;
-
-        &:hover {
-          color: @disabled-color;
-          background-color: @component-background;
-          cursor: not-allowed;
-        }
       }
 
-      &-selected {
-        &,
-        &:hover {
-          background-color: @background-color-light;
-          font-weight: 600;
-          color: @text-color;
-        }
+      &-disabled:hover {
+        color: @disabled-color;
+        background-color: @component-background;
+        cursor: not-allowed;
+      }
+
+      &-selected,
+      &-selected:hover {
+        background-color: @background-color-light;
+        font-weight: 600;
+        color: @text-color;
       }
 
       &-active {

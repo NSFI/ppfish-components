@@ -66,32 +66,30 @@
     }
 
     // When node is loading
-    &.@{tree-prefix-cls}-treenode-loading span.@{tree-prefix-cls}-switcher {
-      &.@{tree-prefix-cls}-switcher_open,
-      &.@{tree-prefix-cls}-switcher_close {
-        .@{tree-prefix-cls}-switcher-loading-icon {
-          display: inline-block;
-          position: absolute;
-          left: 0;
-          width: 24px;
-          height: 24px;
-          color: @primary-color;
-          transform: none;
-          font-size: 14px;
-        }
+    &.@{tree-prefix-cls}-treenode-loading span.@{tree-prefix-cls}-switcher.@{tree-prefix-cls}-switcher_open,
+    &.@{tree-prefix-cls}-treenode-loading span.@{tree-prefix-cls}-switcher.@{tree-prefix-cls}-switcher_close {
+      .@{tree-prefix-cls}-switcher-loading-icon {
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        color: @primary-color;
+        transform: none;
+        font-size: 14px;
+      }
 
-        .@{tree-prefix-cls}-switcher-loading-icon svg {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          margin: auto;
-        }
+      .@{tree-prefix-cls}-switcher-loading-icon svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
 
-        :root &:after {
-          opacity: 0;
-        }
+      :root &:after {
+        opacity: 0;
       }
     }
 
@@ -168,9 +166,9 @@
       }
       &.@{tree-prefix-cls}-switcher_close {
         .fishdTreeSwitcherIcon();
-        .@{tree-prefix-cls}-switcher-icon {
-          transform: rotate(-90deg) scale(0.666);
-        }
+      }
+      &.@{tree-prefix-cls}-switcher_close .@{tree-prefix-cls}-switcher-icon {
+        transform: rotate(-90deg) scale(0.666);
       }
     }
   }

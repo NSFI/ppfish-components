@@ -304,6 +304,7 @@
   }
 
   &-dropdown {
+    position: absolute;
     background-color: white;
     border: 1px solid #d9d9d9;
     box-shadow: 0 0 4px #d9d9d9;
@@ -312,10 +313,6 @@
     z-index: 100;
     left: -9999px;
     top: -9999px;
-    //border-top: none;
-    //border-top-left-radius: 0;
-    //border-top-right-radius: 0;
-    position: absolute;
     outline: none;
 
     &-hidden {
@@ -337,10 +334,10 @@
       &-item-group-list {
         margin: 0;
         padding: 0;
+      }
 
-        > li.@{selectPrefixCls}-menu-item {
-          padding-left: 20px;
-        }
+      &-item-group-list > li.@{selectPrefixCls}-menu-item {
+        padding-left: 20px;
       }
 
       &-item-group-title {
@@ -349,38 +346,38 @@
         padding: 8px 10px;
         border-bottom: 1px solid #dedede;
       }
+    }
 
-      li&-item {
-        margin: 0;
-        position: relative;
-        display: block;
-        padding: 7px 10px;
-        font-weight: normal;
-        color: #666;
-        white-space: nowrap;
+    &-menu li&-menu-item {
+      margin: 0;
+      position: relative;
+      display: block;
+      padding: 7px 10px;
+      font-weight: normal;
+      color: #666;
+      white-space: nowrap;
 
-        &-selected {
-          background-color: #ddd;
-        }
+      &-selected {
+        background-color: #ddd;
+      }
 
-        &-active {
-          background-color: #5897fb;
-          color: white;
-          cursor: pointer;
-        }
+      &-active {
+        background-color: #5897fb;
+        color: white;
+        cursor: pointer;
+      }
 
-        &-disabled {
-          color: #ccc;
-          cursor: not-allowed;
-        }
+      &-disabled {
+        color: #ccc;
+        cursor: not-allowed;
+      }
 
-        &-divider {
-          height: 1px;
-          margin: 1px 0;
-          overflow: hidden;
-          background-color: #e5e5e5;
-          line-height: 0;
-        }
+      &-divider {
+        height: 1px;
+        margin: 1px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+        line-height: 0;
       }
     }
 

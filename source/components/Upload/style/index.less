@@ -441,9 +441,11 @@
         width: 16px;
         color: @text-color-dark;
         margin: 0 4px;
-        &:hover {
-          color: #fff;
-        }
+      }
+
+      .@{iconfont-prefix}-watch-line:hover,
+      .@{iconfont-prefix}-delete-line:hover {
+        color: #fff;
       }
     }
 
@@ -479,11 +481,12 @@
 
       .@{upload-item}-info {
         height: auto;
-        &:before,
-        .@{iconfont-prefix}-watch-line,
-        .@{iconfont-prefix}-delete-line {
-          display: none;
-        }
+      }
+
+      .@{upload-item}-info:before,
+      .@{upload-item}-info .@{iconfont-prefix}-watch-line,
+      .@{upload-item}-info .@{iconfont-prefix}-delete-line {
+        display: none;
       }
 
       &-text {
