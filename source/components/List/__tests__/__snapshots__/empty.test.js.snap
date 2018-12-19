@@ -10,7 +10,13 @@ exports[`List renders empty list 1`] = `
     <div
       class="fishd-spin-nested"
     >
-      <div />
+      <div>
+        <div
+          class="fishd-list-empty-text"
+        >
+          暂无数据
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -371,6 +371,20 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                   allowClear={true}
                   builtinPlacements={
                     Object {
+                      "bottomCenter": Object {
+                        "offset": Array [
+                          0,
+                          8,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tc",
+                          "bc",
+                        ],
+                      },
                       "bottomLeft": Object {
                         "offset": Array [
                           0,
@@ -397,6 +411,20 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                         "points": Array [
                           "tr",
                           "br",
+                        ],
+                      },
+                      "topCenter": Object {
+                        "offset": Array [
+                          0,
+                          -8,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bc",
+                          "tc",
                         ],
                       },
                       "topLeft": Object {
@@ -452,7 +480,7 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                     }
                   }
                   inputPrefixCls="fishd-input"
-                  notFoundContent="无搜索结果"
+                  notFoundContent="无匹配结果"
                   onChange={[Function]}
                   onPopupVisibleChange={[Function]}
                   onSelect={[Function]}
@@ -756,6 +784,20 @@ exports[`Cascader should render not found content 1`] = `
                   allowClear={true}
                   builtinPlacements={
                     Object {
+                      "bottomCenter": Object {
+                        "offset": Array [
+                          0,
+                          8,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tc",
+                          "bc",
+                        ],
+                      },
                       "bottomLeft": Object {
                         "offset": Array [
                           0,
@@ -782,6 +824,20 @@ exports[`Cascader should render not found content 1`] = `
                         "points": Array [
                           "tr",
                           "br",
+                        ],
+                      },
+                      "topCenter": Object {
+                        "offset": Array [
+                          0,
+                          -8,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bc",
+                          "tc",
                         ],
                       },
                       "topLeft": Object {
@@ -838,7 +894,7 @@ exports[`Cascader should render not found content 1`] = `
                     }
                   }
                   inputPrefixCls="fishd-input"
-                  notFoundContent="无搜索结果"
+                  notFoundContent="无匹配结果"
                   onChange={[Function]}
                   onPopupVisibleChange={[Function]}
                   onSelect={[Function]}
@@ -846,7 +902,7 @@ exports[`Cascader should render not found content 1`] = `
                     Array [
                       Object {
                         "disabled": true,
-                        "label": "无搜索结果",
+                        "label": "无匹配结果",
                         "value": "FISHD_CASCADER_NOT_FOUND",
                       },
                     ]
@@ -880,9 +936,9 @@ exports[`Cascader should render not found content 1`] = `
                         className="fishd-cascader-menu-item fishd-cascader-menu-item-disabled"
                         key="FISHD_CASCADER_NOT_FOUND"
                         onClick={[Function]}
-                        title="无搜索结果"
+                        title="无匹配结果"
                       >
-                        无搜索结果
+                        无匹配结果
                       </li>
                     </ul>
                   </div>
@@ -904,6 +960,7 @@ exports[`Cascader support controlled mode 1`] = `
 >
   <span
     class="fishd-cascader-picker-label"
+    title="Zhejiang / Hangzhou / West Lake"
   >
     Zhejiang / Hangzhou / West Lake
   </span>

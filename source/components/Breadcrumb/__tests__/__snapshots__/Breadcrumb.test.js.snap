@@ -13,7 +13,9 @@ exports[`Breadcrumb should allow Breadcrumb.Item is null or undefined 1`] = `
     <span
       class="fishd-breadcrumb-separator"
     >
-      /
+      <i
+        class="fishdicon fishdicon-arrow-line-regular"
+      />
     </span>
   </span>
 </div>
@@ -32,7 +34,9 @@ exports[`Breadcrumb should not display Breadcrumb Item when its children is fals
     <span
       class="fishd-breadcrumb-separator"
     >
-      /
+      <i
+        class="fishdicon fishdicon-arrow-line-regular"
+      />
     </span>
   </span>
   <span>
@@ -44,7 +48,9 @@ exports[`Breadcrumb should not display Breadcrumb Item when its children is fals
     <span
       class="fishd-breadcrumb-separator"
     >
-      /
+      <i
+        class="fishdicon fishdicon-arrow-line-regular"
+      />
     </span>
   </span>
 </div>
