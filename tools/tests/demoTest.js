@@ -24,9 +24,10 @@ const getDemoContainer = (demoName) => {
 
 export default function demoTest(compName, options = {}) {
   let demoName = compName.substr(0, 1).toLowerCase() + compName.substr(1);
-  let testMethod = options.skip === true ? test.skip : test;
+  // let testMethod = options.skip === true ? test.skip : test;
+  let testMethod = test.skip;
 
-  const menuItem = plainComponents.find(item => item.key === demoName);
+  // const menuItem = plainComponents.find(item => item.key === demoName);
   testMethod(`Renders ${compName} demo correctly`, () => {
     const Container = getDemoContainer(demoName);
 
