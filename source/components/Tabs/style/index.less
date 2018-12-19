@@ -306,13 +306,12 @@
 
       .@{tab-prefix-cls}-tab {
         float: none;
-        // margin: @tabs-vertical-margin;
         padding: @tabs-vertical-padding;
         display: block;
+      }
 
-        &:last-child {
-          margin-bottom: 0;
-        }
+      .@{tab-prefix-cls}-tab:last-child {
+        margin-bottom: 0;
       }
 
       .@{tab-prefix-cls}-extra-content {
@@ -330,10 +329,10 @@
 
       .@{tab-prefix-cls}-nav-container {
         margin-bottom: 0;
+      }
 
-        &.@{tab-prefix-cls}-nav-container-scrolling {
-          padding: @tabs-scrolling-size 0;
-        }
+      .@{tab-prefix-cls}-nav-container.@{tab-prefix-cls}-nav-container-scrolling {
+        padding: @tabs-scrolling-size 0;
       }
 
       .@{tab-prefix-cls}-nav-wrap {
@@ -355,29 +354,26 @@
         width: 100%;
         bottom: 0;
         height: @tabs-scrolling-size;
+      }
 
-        // fishdicon-bottom
-        &-icon:before {
-          // content: "\e61d";
-          content: "\e6ad";
-        }
+      // fishdicon-bottom
+      .@{tab-prefix-cls}-tab-next-icon:before {
+        content: "\e6ad";
       }
 
       .@{tab-prefix-cls}-tab-prev {
         top: 0;
         width: 100%;
         height: @tabs-scrolling-size;
+      }
 
-        // fishdicon-top
-        &-icon:before {
-          // content: "\e61e";
-          content: "\e6ac";
-        }
+      // fishdicon-top
+      .@{tab-prefix-cls}-tab-prev-icon:before {
+        content: "\e6ac";
       }
     }
 
     > .@{tab-prefix-cls}-content {
-      // overflow: hidden;
       width: auto;
       margin-top: 0 !important;
     }
@@ -402,6 +398,7 @@
         right: 1px;
       }
     }
+
     > .@{tab-prefix-cls}-content {
       padding-left: 24px;
       border-left: @border-width-base @border-style-base @border-color-split;
@@ -424,6 +421,7 @@
         left: 1px;
       }
     }
+
     > .@{tab-prefix-cls}-content {
       padding-right: 24px;
       border-right: @border-width-base @border-style-base @border-color-split;
