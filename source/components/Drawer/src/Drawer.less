@@ -128,10 +128,8 @@
       }
     }
     &.@{drawer}-open {
-      .@{drawer} {
-        &-content-wrapper {
-          box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-        }
+      .@{drawer}-content-wrapper {
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
       }
     }
   }
@@ -153,10 +151,8 @@
       }
     }
     &.@{drawer}-open {
-      & .@{drawer} {
-        &-content-wrapper {
-          box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
-        }
+      & .@{drawer}-content-wrapper {
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
       }
     }
   }
@@ -198,10 +194,8 @@
       }
     }
     &.@{drawer}-open {
-      .@{drawer} {
-        &-wrapper {
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
+      .@{drawer}-wrapper {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
       }
     }
   }
@@ -217,10 +211,8 @@
       }
     }
     &.@{drawer}-open {
-      .@{drawer} {
-        &-content-wrapper {
-          box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
-        }
+      .@{drawer}-content-wrapper {
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
       }
     }
   }
@@ -235,11 +227,14 @@
       }
       &-close,
       &-handle {
+        /* stylelint-disable-next-line */
         &-icon {
           background: transparent;
+          /* stylelint-disable-next-line */
           &:before {
             transform: translateY(5px) rotate(45deg);
           }
+          /* stylelint-disable-next-line */
           &:after {
             transform: translateY(-5px) rotate(-45deg);
           }
