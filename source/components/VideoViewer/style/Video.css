@@ -113,6 +113,11 @@
 .video-js .fishd-video-js-customer-button a:hover {
   color: #ffaf0f;
 }
+/* 播放按钮 */
+.video-js .vjs-customer-button.vjs-play {
+  width: 5em;
+  float: left;
+}
 /* 全屏按钮 */
 .video-js .vjs-fullscreen {
   margin-right: 12px;

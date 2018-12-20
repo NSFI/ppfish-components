@@ -4,6 +4,7 @@ import videojs from 'video.js';
 import vjsDownLoad from './component/vjsDownLoad';
 import vjsFullScreen from './component/vjsFullScreen';
 import vjsVolume from './component/vjsVolume';
+import vjsPlay from './component/vjsPlay';
 import { zh_CN } from './lang/zh-CN';
 
 videojs.addLanguage("zh-CN",zh_CN);
@@ -79,8 +80,7 @@ export default class VideoViewer extends React.Component {
             name: 'progressControl'
           },
           {
-            name: 'playToggle',
-            replay: false
+            name: 'vjsPlay',
           },
           {
             name: 'currentTimeDisplay',

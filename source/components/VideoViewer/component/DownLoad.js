@@ -4,8 +4,6 @@ import classnames from 'classnames';
 import Icon from '../../Icon/index.tsx';
 import Tooltip from '../../Tooltip/index.tsx';
 
-import '../style/DownLoad.less';
-
 export default class DownLoad extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,

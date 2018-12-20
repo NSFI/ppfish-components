@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Icon from '../../Icon/index.tsx';
 import Tooltip from '../../Tooltip/index.tsx';
 
 export default class FullScreen extends Component {
   static propTypes = {
+    prefixCls: PropTypes.string,
     vjsComponent: PropTypes.object
   };
+
+  static defaultProps = {
+    prefixCls: 'fishd-video-viewer-fullscreen'
+  }
 
   constructor(props) {
     super(props);
@@ -70,11 +76,12 @@ export default class FullScreen extends Component {
   }
 
   render() {
+    const { prefixCls } = this.props;
     const { isFullScreen } = this.state;
     const title = !isFullScreen ? '全屏' : '取消全屏';
 
     return (
-      <div className="fishd-video-js-customer-button fullscreen">
+      <div className={classnames(prefixCls, "fishd-video-js-customer-button")}>
         <Tooltip title={title} getPopupContainer={(e) => e.parentNode}>
           <a onClick={()=>this.handleClick()}>
             {
