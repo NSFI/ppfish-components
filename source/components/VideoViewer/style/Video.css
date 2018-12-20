@@ -1,14 +1,11 @@
+.fishd-video-js-wrap {
+  position: relative;
+}
+
 /* 去掉chrome下的蓝色边框 */
 .video-js button {
    outline: none;
  }
-
-/*!* 去掉视频的黑色边框 *!*/
-/*.video-js .vjs-tech {*/
-  /*width: 100%;*/
-  /*height: 100%;*/
-  /*object-fit: fill;*/
-/*}*/
 
 /* 居中大按钮 */
 .video-js .vjs-big-play-button {

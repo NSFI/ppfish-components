@@ -16,21 +16,33 @@ export default class Play extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props.vjsComponent.player_.paused())
+
+    // 获取播放器实例
+    this.player = props.vjsComponent.player_;
+
     this.state = {
-      isPlay: !props.vjsComponent.player_.paused()
+      isPlay: false
     }
   }
 
+  componentDidMount() {
+    this.player.on('play', this.setPlay(true));
+    this.player.on('ended', this.setPlay(false));
+  }
+
+  componentWillUnmount() {
+    this.player.off('play', this.setPlay(true));
+    this.player.off('ended', this.setPlay(false));
+  }
+
   handleClick = () => {
-    const { vjsComponent } = this.props;
     const { isPlay } = this.state;
 
     if(!isPlay) {
-      vjsComponent.player_.play();
+      this.player.play();
 
     }else{
-      vjsComponent.player_.pause();
+      this.player.pause();
     }
 
     this.setState({
@@ -38,8 +50,16 @@ export default class Play extends Component {
     })
   }
 
+  setPlay = (isPlay) => {
+    return () => {
+      this.setState({
+        isPlay: isPlay
+      })
+    }
+  }
+
   render() {
-    const { vjsComponent, prefixCls } = this.props;
+    const { prefixCls } = this.props;
     const { isPlay } = this.state;
 
     const pausePlayIcon = !isPlay ? 'play' : 'stop';

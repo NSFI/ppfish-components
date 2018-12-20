@@ -16,58 +16,37 @@ export default class FullScreen extends Component {
 
   constructor(props) {
     super(props);
+
+    // 获取播放器实例
+    this.player = props.vjsComponent.player_;
+
     this.state = {
-      isFullScreen: props.vjsComponent.player_.isFullscreen()
+      isFullScreen: this.player.isFullscreen()
     }
   }
 
   componentDidMount() {
-    this.watchFullScreen();
+    this.player.on('fullscreenchange', this.setFullScreen);
   }
 
-  // 监听fullscreenchange事件
-  watchFullScreen = () => {
-    const _self = this;
-    document.addEventListener(
-      "fullscreenchange",
-      function() {
-        _self.setState({
-          isFullScreen: document.fullscreen
-        });
-      },
-      false
-    );
+  componentWillUnmount() {
+    this.player.off('fullscreenchange', this.setFullScreen);
+  }
 
-    document.addEventListener(
-      "mozfullscreenchange",
-      function() {
-        _self.setState({
-          isFullScreen: document.mozFullScreen
-        });
-      },
-      false
-    );
-
-    document.addEventListener(
-      "webkitfullscreenchange",
-      function() {
-        _self.setState({
-          isFullScreen: document.webkitIsFullScreen
-        });
-      },
-      false
-    );
+  setFullScreen = () => {
+    this.setState({
+      isFullScreen: this.player.isFullscreen()
+    })
   }
 
   handleClick = () => {
-    const { vjsComponent } = this.props;
     const { isFullScreen } = this.state;
 
     if(!isFullScreen) {
-      vjsComponent.player_.requestFullscreen();
+      this.player.requestFullscreen();
 
     }else{
-      vjsComponent.player_.exitFullscreen();
+      this.player.exitFullscreen();
     }
 
     this.setState({
@@ -82,7 +61,7 @@ export default class FullScreen extends Component {
 
     return (
       <div className={classnames(prefixCls, "fishd-video-js-customer-button")}>
-        <Tooltip title={title} getPopupContainer={(e) => e.parentNode}>
+        <Tooltip title={title} getPopupContainer={(e) => e.parentNode} >
           <a onClick={()=>this.handleClick()}>
             {
               !!isFullScreen ? <Icon type="video-shrink"/> : <Icon type="video-fullscreen"/>
