@@ -20,6 +20,7 @@ class MultipleSelector extends React.Component {
     ...selectorPropTypes,
     selectorValueList: PropTypes.array,
     disabled: PropTypes.bool,
+    disableCloseTag: PropTypes.bool,
     editable: PropTypes.bool,
     searchValue: PropTypes.string,
     labelInValue: PropTypes.bool,

@@ -232,9 +232,10 @@
 
   &-disabled &-selection__choice__remove {
     color: @disabled-color;
-    cursor: default;
+    cursor: not-allowed;
     &:hover {
       color: @disabled-color;
+      cursor: not-allowed;
     }
   }
 
@@ -382,6 +383,16 @@
       // &:before {
       //   content: "\e633";
       // }
+    }
+
+    .@{select-prefix-cls}-selection__choice__remove__disabled {
+      cursor: not-allowed;
+      color: @disabled-color;
+
+      &:hover {
+        cursor: not-allowed;
+        color: @disabled-color;
+      }
     }
 
     .@{select-prefix-cls}-selection__clear {

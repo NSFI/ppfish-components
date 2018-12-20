@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import {
   toTitle,
   UNSELECTABLE_ATTRIBUTE, UNSELECTABLE_STYLE,
@@ -7,6 +8,7 @@ import {
 
 class Selection extends React.Component {
   static propTypes = {
+    disableCloseTag: PropTypes.bool,
     editable: PropTypes.bool,
     prefixCls: PropTypes.string,
     maxTagTextLength: PropTypes.number,
@@ -27,8 +29,8 @@ class Selection extends React.Component {
   render() {
     const {
       prefixCls, maxTagTextLength,
-      label, value, onRemove,
-      tagWidth
+      label, value, tagWidth,
+      disableCloseTag, iconPrefix
     } = this.props;
 
     let content = label || value;
@@ -40,6 +42,12 @@ class Selection extends React.Component {
       width: tagWidth + 'px'
     }, UNSELECTABLE_STYLE);
 
+    const removeCls = classNames({
+      [`${prefixCls}-selection__choice__remove`]: true,
+      [`${iconPrefix}-close-modal-line`]: true,
+      [`${prefixCls}-selection__choice__remove__disabled`]: disableCloseTag
+    });
+
     return (
       <li
         style={tagStyle}
@@ -49,8 +57,8 @@ class Selection extends React.Component {
         title={toTitle(label)}
       >
         <span
-          className={`${prefixCls}-selection__choice__remove fishdicon-close-modal-line`}
-          onClick={this.onRemove}
+          className={removeCls}
+          onClick={disableCloseTag ? null : this.onRemove}
         />
         <span className={`${prefixCls}-selection__choice__content`}>
           {content}

@@ -51,6 +51,7 @@ import SelectNode from './SelectNode';
 class Select extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string,
+    iconPrefix: PropTypes.string,
     prefixAria: PropTypes.string,
     multiple: PropTypes.bool,
     showArrow: PropTypes.bool,
@@ -137,6 +138,7 @@ class Select extends React.Component {
   static defaultProps = {
     placeholder: '请选择',
     prefixCls: 'fishd-rc-tree-select',
+    iconPrefix: 'fishdicon',
     prefixAria: 'fishd-rc-tree-select',
     showArrow: true,
     showSearch: false,
@@ -163,8 +165,21 @@ class Select extends React.Component {
 
     const {
       prefixAria,
-      defaultOpen, open,
+      defaultOpen,
+      open,
+      required,
+      editable,
+      defaultValue,
+      value
     } = props;
+
+    let disableCloseTag = false;
+    if (required && editable) {
+      let initValue = value || defaultValue;
+      if (typeof initValue == "string" || (Array.isArray(initValue) && initValue.length==1)) {
+        disableCloseTag = true;
+      }
+    }
 
     this.state = {
       open: !!open || !!defaultOpen,
@@ -182,7 +197,9 @@ class Select extends React.Component {
       // onChange 和 onConfirm 回调函数的回传参数
       returnValue: [],
       connectValueList: [],
-      extra: {}
+      extra: {},
+
+      disableCloseTag
     };
 
     this.selectorRef = createRef();
@@ -1004,13 +1021,16 @@ class Select extends React.Component {
 
   handleConfirm = () => {
     const { curValueList, connectValueList, extra } = this.state;
-    const { onConfirm, onChange } = this.props;
+    const { onConfirm, onChange, required, editable } = this.props;
 
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
     onConfirm && onConfirm(curValueList, connectValueList, extra);
     onChange && onChange(curValueList, connectValueList, extra);
 
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      disableCloseTag: !!(required && editable && curValueList.length==1)
+    });
   };
 
   resetSelect = () => {
@@ -1028,9 +1048,10 @@ class Select extends React.Component {
       searchValue,
       open, focused,
       treeNodes, filteredTreeNodes,
-      curValueList
+      curValueList,
+      disableCloseTag
     } = this.state;
-    const { prefixCls, loadData, treeCheckStrictly, loading } = this.props;
+    const { prefixCls, loadData, treeCheckStrictly, loading, required, editable } = this.props;
     const isMultiple = this.isMultiple();
     let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
 
@@ -1068,6 +1089,9 @@ class Select extends React.Component {
 
     if (!isMultiple) {
       passProps['resetSelect'] = this.resetSelect;
+    } else {
+      required && (passProps['disableConfirm'] = !passProps.valueList.length);
+      required && editable && (passProps['disableCloseTag'] = disableCloseTag);
     }
 
     delete passProps.loadData;

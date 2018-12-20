@@ -12,6 +12,7 @@ class MultiplePopup extends React.Component {
     showSearch: PropTypes.bool,
     dropdownPrefixCls: PropTypes.string,
     disabled: PropTypes.bool,
+    disableConfirm: PropTypes.bool,
     searchPlaceholder: PropTypes.string,
   };
 
@@ -65,12 +66,12 @@ class MultiplePopup extends React.Component {
   };
 
   renderConfirmBtn = () => {
-    const { onCancel, onConfirm } = this.props;
+    const { onCancel, onConfirm, disableConfirm } = this.props;
 
     return (
       <div className="dropdown-confirm">
         <Button onClick={onCancel}>取消</Button>
-        <Button type="primary" onClick={onConfirm}>确定</Button>
+        <Button type="primary" onClick={onConfirm} disabled={disableConfirm}>确定</Button>
       </div>
     );
   };

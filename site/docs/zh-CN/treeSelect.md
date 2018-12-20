@@ -421,6 +421,115 @@
 :::
 
 
+## 设置为必选的多选
+
+:::demo 设置为必选的多选。
+
+
+```js
+
+  state = {
+    value: ['0-0-0'],
+  }
+
+  onConfirm = (value, infoList, extra) => {
+    console.log('选中节点：', value);
+    console.log('详细信息：', infoList);
+    console.log('额外信息：', extra);
+    this.setState({ value });
+  }
+
+  onCancel = (value) => {
+    this.setState({ value });
+  }
+
+  onSelect = (value, valueList, infoList, extra) => {
+    console.log('选中：', value);
+    console.log('已选择：', valueList);
+  }
+
+  render() {
+    const treeData = [{
+      title: 'Node1',
+      value: '0-0',
+      key: '0-0a',
+      children: [{
+        title: 'CNode1',
+        value: '0-0-0',
+        key: '0-0a-0',
+      }, {
+        title: 'CNode2-long-title-CNode2-long-title-CNode2-long-title-CNode2-long-title',
+        value: '0-0-1',
+        key: '0-0a-1',
+      }],
+    }, {
+      title: 'Node2',
+      value: '0-1',
+      key: '0-1a',
+      children: [{
+        title: 'CNode3',
+        value: '0-1-0',
+        key: '0-1a-0',
+      }, {
+        title: 'CNode4',
+        value: '0-1-1',
+        key: '0-1a-1',
+        disabled: true
+      }, {
+        title: 'CNode5',
+        value: '0-1-2',
+        key: '0-1a-2',
+      }, {
+        title: 'CNode6',
+        value: '0-1-3',
+        key: '0-1a-3',
+      }, {
+        title: 'CNode7',
+        value: '0-1-4',
+        key: '0-1a-4',
+      }, {
+        title: 'CNode8',
+        value: '0-1-5',
+        key: '0-1a-5',
+      }, {
+        title: 'CNode9',
+        value: '0-1-6',
+        key: '0-1a-6',
+      }, {
+        title: 'CNode10',
+        value: '0-1-7',
+        key: '0-1a-7',
+      }, {
+        title: 'CNode11',
+        value: '0-1-8',
+        key: '0-1a-8',
+      }, {
+        title: 'CNode12',
+        value: '0-1-9',
+        key: '0-1a-9',
+      }],
+    }];
+    const tProps = {
+      required: true,
+      showSearch: true,
+      treeData,
+      treeDefaultExpandedKeys: ['0-0a', '0-1a'],
+      value: this.state.value,
+      onConfirm: this.onConfirm,
+      onCancel: this.onCancel,
+      onSelect: this.onSelect,
+      treeCheckable: true,
+      style: { width: 300 },
+      dropdownStyle: { width: 300 }
+    };
+    return (
+      <TreeSelect {...tProps} />
+    );
+  }
+```
+:::
+
+
 ## 不可编辑的多选
 
 :::demo 使用勾选框实现多选功能，选中项不可编辑。
@@ -523,6 +632,112 @@
   }
 ```
 :::
+
+
+## 设置为必选且不可编辑的多选
+
+:::demo 设置为必选且不可编辑的多选。
+
+
+```js
+
+  state = {
+    value: ['0-0-0'],
+  }
+
+  onConfirm = (value) => {
+    this.setState({ value });
+  }
+  
+  onCancel = (value) => {
+    this.setState({ value });
+  }
+
+  render() {
+    const treeData = [{
+      title: 'Node1',
+      value: '0-0',
+      key: '0-0a',
+      children: [{
+        title: 'CNode1',
+        value: '0-0-0',
+        key: '0-0a-0',
+      }, {
+        title: 'CNode2-long-title-CNode2-long-title-CNode2-long-title-CNode2-long-title',
+        value: '0-0-1',
+        key: '0-0a-1',
+      }],
+    }, {
+      title: 'Node2',
+      value: '0-1',
+      key: '0-1a',
+      children: [{
+        title: 'CNode3',
+        value: '0-1-0',
+        key: '0-1a-0',
+      }, {
+        title: 'CNode3',
+        value: '0-1-1',
+        key: '0-1a-1',
+      }, {
+        title: 'CNode5',
+        value: '0-1-2',
+        key: '0-1a-2',
+      }, {
+        title: 'CNode6',
+        value: '0-1-3',
+        key: '0-1a-3',
+      }, {
+        title: 'CNode7',
+        value: '0-1-4',
+        key: '0-1a-4',
+      }, {
+        title: 'CNode8',
+        value: '0-1-5',
+        key: '0-1a-5',
+      }, {
+        title: 'CNode9',
+        value: '0-1-6',
+        key: '0-1a-6',
+      }, {
+        title: 'CNode10',
+        value: '0-1-7',
+        key: '0-1a-7',
+      }, {
+        title: 'CNode11',
+        value: '0-1-8',
+        key: '0-1a-8',
+      }, {
+        title: 'CNode12',
+        value: '0-1-9',
+        key: '0-1a-9',
+        disabled: true
+      }],
+    }];
+    const tProps = {
+      required: true,
+      uniqueTreeNodeByLabel: true,
+      showSearch: true,
+      editable: false,
+      treeData,
+      treeDefaultExpandedKeys: ['0-0a', '0-1a'],
+      value: this.state.value,
+      onConfirm: this.onConfirm,
+      onCancel: this.onCancel,
+      treeCheckable: true,
+      showCheckedStrategy: TreeSelect.SHOW_CHILD,
+      style: {
+        width: 300,
+      },
+      dropdownStyle: {
+        width: 300,
+      }
+    };
+    return <TreeSelect {...tProps} />;
+  }
+```
+:::
+
 
 ## 异步加载数据的多选
 
@@ -873,7 +1088,7 @@
 | onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => Void | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | placement | 下拉菜单弹出的位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'} | 'bottomLeft' |
-| required | 是否必选，不为必选时会显示复位选项，单选时有效 | Boolean | false |
+| required | 设置是否为必选。<br/>在单选模式下设置为 true 后，隐藏复位选项；<br/>在可编辑多选模式下设置为 true 后，禁止关闭最后一个 tag，且当前选择项为空时禁用确认按钮；<br/>不可编辑多选模式下设置为 true 后，当前选择项为空时禁用确认按钮。 | Boolean | false |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
 | showIcon | 是否展示 TreeNode title 前的图标，无默认图标，若设置为 true，则需要自定义图标相关样式 | Boolean | false |
