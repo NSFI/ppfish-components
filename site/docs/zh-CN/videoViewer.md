@@ -6,33 +6,102 @@
 
 适用于在系统中播放视频内容。
 
-## 基本使用
+## 播放器
 
-:::demo `modalOption` 传入VideoModal参数；`videoOption`传入Video参数
+### 带封面的播放器
+
+:::demo 播放器组件`VideoViewer.Video`，`poster`指定播放器封面。
 
 ```js
   render() {
     return(
-      <VideoViewer
-        poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-        modalProps={{
-          width: 640
-        }}
-        videoProps={{
-          sources:[{
-            src:'http://vjs.zencdn.net/v/oceans.mp4',
-            type:'video/mp4'
-          }],
-          download: true,
-          downloadSrc: "http://vjs.zencdn.net/v/oceans.mp4"
-        }}
+      <VideoViewer.Video
+        poster='http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf'
+        sources={[{
+          src: "http://vjs.zencdn.net/v/oceans.mp4",
+          type:'video/mp4'
+        }]}
+        download={true}
+        downloadSrc="http://vjs.zencdn.net/v/oceans.mp4"
+        width={600}
       />
     )
   }
 ```
 :::
 
-## 缩略图的其他状态
+### 不带封面的播放器
+
+:::demo 播放器组件`VideoViewer.Video`。不指定封面时，默认展示视频第一帧。
+
+```js
+  render() {
+    return(
+      <VideoViewer.Video
+        sources={[{
+          src: "http://www.w3school.com.cn/i/movie.ogg",
+          type:'video/ogg'
+        }]}
+        download={true}
+        downloadSrc="http://www.w3school.com.cn/i/movie.ogg"
+        width={600}
+       />
+    )
+  }
+```
+:::
+
+## 缩略图
+
+### 正常状态
+
+:::demo `VideoViewer`组件封装了`VideoViewer.VideoModal`和`VideoViewer.Video`，实现了点击缩略图在模态框中播放视频。
+`modalProps` 传入`VideoViewer.VideoModal`的参数；`videoProps`传入`VideoViewer.Video`的参数
+
+```js
+  render() {
+    return(
+      <div className="source">
+        <div className="block">
+          <VideoViewer
+            poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            modalProps={{
+              width: 640
+            }}
+            videoProps={{
+              sources:[{
+                src:'http://vjs.zencdn.net/v/oceans.mp4',
+                type:'video/mp4'
+              }],
+              download: true,
+              downloadSrc: "http://vjs.zencdn.net/v/oceans.mp4",
+              width:640
+            }}
+          />
+        </div>
+        <div className="block">
+          <VideoViewer
+            modalProps={{
+              width: 600
+            }}
+            videoProps={{
+              sources:[{
+                src: "http://www.w3school.com.cn/i/movie.ogg",
+                type:'video/ogg'
+              }],
+              download: true,
+              downloadSrc: "http://www.w3school.com.cn/i/movie.ogg",
+              width: 600
+            }}
+          />
+        </div>
+      </div>
+    )
+  }
+```
+:::
+
+### 其他状态
 
 :::demo 当视频由于某些原因无法播放时，通过 `failedMessage` 展示缩略图的其他状态, 当设置了`failedMessage`时，缩略图将不可点击并播放
 
@@ -44,51 +113,13 @@
           <VideoViewer
             failedMessage="已过期"
             poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-            modalProps={{
-              mask: true,
-              draggable: true,
-              maskClosable: false,
-              width: 800,
-              height: 500
-            }}
-            videoProps={{
-              sources:[{
-                src: 'http://vjs.zencdn.net/v/oceans.mp4',
-                type: 'video/mp4'
-              }],
-              width:800,
-              height: 500        
-            }}
           />
         </div>
         <div className="block">
           <VideoViewer
             failedMessage="状态描述"
-            poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
           />
         </div>
-      </div>
-    )
-  }
-```
-:::
-
-## 播放器单独使用
-
-:::demo 直接使用播放器 `VideoViewer.Video`。
-
-```js
-  render() {
-    return(
-      <div>
-        <VideoViewer.Video
-          poster='http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf'
-          sources={[{
-            src: 'http://vjs.zencdn.net/v/oceans.mp4',
-            type: 'video/mp4'
-          }]}
-          width={600}
-        />
       </div>
     )
   }
@@ -205,13 +236,14 @@
 |---------- |-------- |---------- |-------- |
 | width	    | 设置视频播放器的宽度 | String \| Number |  640  |
 | height	  | 设置视频播放器的高度 | String \| Number |  360  |
-| poster    | 播放前显示的视频画面，播放开始之后自动移除。通常传入一个URL | String	|  ''  |
+| poster    | 播放前显示的视频画面，播放开始之后自动移除。通常传入一个URL（如果未设置该属性，将使用视频的第一帧来代替） | String	|  ''  |
 | source    | 资源文件，详情见 [videojs](https://docs.videojs.com/tutorial-options.html#sources) | Array |  []  |
 | autoplay  | 播放器准备好之后，是否自动播放 | Boolean | false  |
 | loop	    | 是否循环播放 | Boolean   |  false  |
 | muted	    | 是否静音 |  Boolean  |  false  |
-| preload  	| 预加载('auto':自动; 'metadata':元数据信息,比如视频长度，尺寸等; 'none':不预加载任何数据，直到用户开始播放才开始下载) | Enum {'auto', 'none', 'metadata'}  | 'none' |
+| preload  	| 预加载('auto':自动; 'metadata':元数据信息,比如视频长度，尺寸等; 'none':不预加载任何数据，直到用户开始播放才开始下载) | Enum {'auto', 'none', 'metadata'}  | 'auto' |
 | download	| 是否显示下载按钮 | Boolean  |  false  |
+| downloadSrc | 下载地址 | String | '' |
 | bigPlayButton	| 是否显示开始大按钮 | Boolean  |  true  |
 
 #### 方法

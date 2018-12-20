@@ -46,7 +46,7 @@ export default class VideoViewer extends React.Component {
     autoplay: false,              // 播放器准备好之后，是否自动播放
     loop: false,                  // 视频播放结束后，是否循环播放
     muted: false,                 // 是否静音
-    preload: 'none',              // 预加载('auto' 自动 ’metadata' 元数据信息 ，比如视频长度，尺寸等 'none'  不预加载任何数据，直到用户开始播放才开始下载)
+    preload: 'auto',              // 预加载('auto' 自动 ’metadata' 元数据信息 ，比如视频长度，尺寸等 'none'  不预加载任何数据，直到用户开始播放才开始下载)
     controls: true,               // 是否显示控制条
     download: false,              // 是否显示下载按钮
     bigPlayButton: true           // 是否显示大按钮

@@ -96,6 +96,9 @@
   width: 3.5em;
   float: right;
 }
+.video-js .vjs-customer-button:hover {
+  cursor: pointer;
+}
 .video-js .fishd-video-js-customer-button {
   width: 100%;
   height: 100%;
