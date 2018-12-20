@@ -74,16 +74,19 @@ export default class FullScreen extends Component {
     const getVolumePopupContent = () => {
       return (
         <div className={`${prefixCls}-volume-box`}>
-          <Slider
-            vertical
-            min={0}
-            max={100}
-            step={1}
-            handle={<div className={`${prefixCls}-customer-handle`}><Icon type="sound-drag"/></div>}
-            tipFormatter={null}
-            value={currentVolume}
-            onChange={(value) => this.handleChangeVolume(value)}
-          />
+          <div className={`${prefixCls}-volume-value`}>{currentVolume}%</div>
+          <div className={`${prefixCls}-volume-slider`}>
+            <Slider
+              vertical
+              min={0}
+              max={100}
+              step={1}
+              handle={<div className={`${prefixCls}-customer-handle`}><Icon type="sound-drag"/></div>}
+              tipFormatter={null}
+              value={currentVolume}
+              onChange={(value) => this.handleChangeVolume(value)}
+            />
+          </div>
         </div>
       );
     };

@@ -19,7 +19,7 @@ export default class DownLoad extends Component {
     const src = vjsComponent.options_.playerOptions.downloadSrc;
     return (
       <div className={classnames(prefixCls, "fishd-video-js-customer-button")}>
-        <Tooltip title="下载" getPopupContainer={(e) => e.parentNode}>
+        <Tooltip title={<span style={{wordBreak:'keep-all'}}>下载</span>} getPopupContainer={(e) => e.parentNode}>
           <a download href={src} target="_blank">
             <Icon type="sound-download"/>
           </a>
