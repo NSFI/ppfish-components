@@ -94,12 +94,6 @@
   color: rgba(255,255,255,0.6);
 }
 
-/* 声音按钮 */
-.video-js .vjs-volume-panel {
-  width: 3.5em;
-  float: right;
-}
-
 /* 自定义的按钮样式 */
 .video-js .vjs-customer-button {
   width: 3.5em;
@@ -119,7 +113,6 @@
 .video-js .fishd-video-js-customer-button a:hover {
   color: #ffaf0f;
 }
-
 /* 全屏按钮 */
 .video-js .vjs-fullscreen {
   margin-right: 12px;
@@ -161,4 +154,7 @@
 }
 .video-js .vjs-time-tooltip {
   top: -3.1em;
+}
+.video-js .vjs-progress-control:hover .vjs-play-progress .vjs-time-tooltip {
+  display: none;
 }
