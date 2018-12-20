@@ -112,7 +112,6 @@ class VideoViewer extends Component {
       <div className={`${prefixCls}-wrap`} style={{width:width, height:height}}>
         <div
           className={thumbCls}
-          style={{backgroundImage:`url(${poster})`}}
           onClick={this.handleThumbClick}
         >
           {
@@ -125,6 +124,13 @@ class VideoViewer extends Component {
                 <span>{failedMessage}</span>
               </div>
           }
+          <Video
+            width={width}
+            height={height}
+            poster={poster}
+            sources={otherVideoProps.sources}
+            controls={false}
+          />
         </div>
         <VideoModal
           {...otherModalProps}

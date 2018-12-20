@@ -113,11 +113,35 @@
           <VideoViewer
             failedMessage="已过期"
             poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            modalProps={{
+              width: 640
+            }}
+            videoProps={{
+              sources:[{
+                src:'http://vjs.zencdn.net/v/oceans.mp4',
+                type:'video/mp4'
+              }],
+              download: true,
+              downloadSrc: "http://vjs.zencdn.net/v/oceans.mp4",
+              width:640
+            }}
           />
         </div>
         <div className="block">
           <VideoViewer
             failedMessage="状态描述"
+            modalProps={{
+              width: 600
+            }}
+            videoProps={{
+              sources:[{
+                src: "http://www.w3school.com.cn/i/movie.ogg",
+                type:'video/ogg'
+              }],
+              download: true,
+              downloadSrc: "http://www.w3school.com.cn/i/movie.ogg",
+              width: 600
+            }}
           />
         </div>
       </div>
@@ -165,28 +189,30 @@
 
   render() {
     return(
-      <div>
-        <Button type="primary" onClick={this.open}>点击播放视频</Button>
-        <VideoViewer.VideoModal
-          mask={true}
-          draggable={true}
-          maskClosable={false}
-          visible={this.state.visible}
-          afterClose={this.onClose}
-          onCancel={this.handleCancel}
-          width={600}
-        >
-          <VideoViewer.Video
-            ref={this.video}
-            autoplay={true}
-            bigPlayButton={false}
-            sources={[{
-              src: 'http://vjs.zencdn.net/v/oceans.mp4',
-              type: 'video/mp4'
-            }]}
+      <div className="source">
+        <div className="block">
+          <Button type="primary" onClick={this.open}>点击播放视频</Button>
+          <VideoViewer.VideoModal
+            mask={true}
+            draggable={true}
+            maskClosable={false}
+            visible={this.state.visible}
+            afterClose={this.onClose}
+            onCancel={this.handleCancel}
             width={600}
-          />
-        </VideoViewer.VideoModal>
+          >
+            <VideoViewer.Video
+              ref={this.video}
+              autoplay={true}
+              bigPlayButton={false}
+              sources={[{
+                src: 'http://vjs.zencdn.net/v/oceans.mp4',
+                type: 'video/mp4'
+              }]}
+              width={600}
+            />
+          </VideoViewer.VideoModal>
+        </div>
       </div>
     )
   }

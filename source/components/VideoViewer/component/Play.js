@@ -22,7 +22,7 @@ export default class Play extends Component {
 
     this.state = {
       isPlay: false
-    }
+    };
   }
 
   componentDidMount() {
@@ -49,15 +49,15 @@ export default class Play extends Component {
 
     this.setState({
       isPlay: !isPlay
-    })
+    });
   }
 
   setPlay = (isPlay) => {
     return () => {
       this.setState({
         isPlay: isPlay
-      })
-    }
+      });
+    };
   }
 
   render() {

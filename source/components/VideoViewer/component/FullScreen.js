@@ -22,7 +22,7 @@ export default class FullScreen extends Component {
 
     this.state = {
       isFullScreen: this.player.isFullscreen()
-    }
+    };
   }
 
   componentDidMount() {
@@ -36,7 +36,7 @@ export default class FullScreen extends Component {
   setFullScreen = () => {
     this.setState({
       isFullScreen: this.player.isFullscreen()
-    })
+    });
   }
 
   handleClick = () => {
@@ -51,7 +51,7 @@ export default class FullScreen extends Component {
 
     this.setState({
       isFullScreen: !isFullScreen
-    })
+    });
   }
 
   render() {
@@ -64,7 +64,7 @@ export default class FullScreen extends Component {
         <Tooltip title={<span style={{wordBreak:'keep-all'}}>{title}</span>} getPopupContainer={(e) => e.parentNode} >
           <a onClick={()=>this.handleClick()}>
             {
-              !!isFullScreen ? <Icon type="video-shrink"/> : <Icon type="video-fullscreen"/>
+              !isFullScreen ? <Icon type="video-fullscreen"/> : <Icon type="video-shrink"/>
             }
           </a>
         </Tooltip>
