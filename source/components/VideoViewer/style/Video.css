@@ -163,3 +163,14 @@
 .video-js .vjs-progress-control:hover .vjs-play-progress .vjs-time-tooltip {
   display: none;
 }
+
+/* error */
+.vjs-error .vjs-error-display:before {
+  display: none;
+}
+.vjs-modal-dialog .vjs-modal-dialog-content {
+  font-size: 1.2em;
+  line-height: 1.5;
+  padding: 28px 24px;
+  z-index: 0;
+}
