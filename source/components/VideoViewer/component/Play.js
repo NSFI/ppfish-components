@@ -27,11 +27,13 @@ export default class Play extends Component {
 
   componentDidMount() {
     this.player.on('play', this.setPlay(true));
+    this.player.on('pause', this.setPlay(false));
     this.player.on('ended', this.setPlay(false));
   }
 
   componentWillUnmount() {
     this.player.off('play', this.setPlay(true));
+    this.player.off('pause', this.setPlay(false));
     this.player.off('ended', this.setPlay(false));
   }
 
