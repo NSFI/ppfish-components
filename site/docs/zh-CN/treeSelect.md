@@ -1088,7 +1088,7 @@
 | onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => Void | - |
 | placeholder | 选择框默认提示文字 | String | '请选择' |
 | placement | 下拉菜单弹出的位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'} | 'bottomLeft' |
-| required | 设置是否为必选。<br/>在单选模式下设置为 true 后，隐藏复位选项；<br/>在可编辑多选模式下设置为 true 后，禁止关闭最后一个 tag，且当前选择项为空时禁用确认按钮；<br/>不可编辑多选模式下设置为 true 后，当前选择项为空时禁用确认按钮。 | Boolean | false |
+| required | 是否设置为必选。<br/>在单选模式下设置为 true 后，隐藏复位选项；<br/>在可编辑多选模式下设置为 true 后，禁止关闭最后一个 tag，且当前选择项为空时禁用确认按钮；<br/>不可编辑多选模式下设置为 true 后，当前选择项为空时禁用确认按钮。 | Boolean | false |
 | searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | showCheckedStrategy | 定义选中项回填的方式。<br/>TreeSelect.SHOW_ALL：显示所有选中节点（包括父节点）<br/>TreeSelect.SHOW_PARENT：当父节点下所有子节点都选中时，只显示父节点<br/>TreeSelect.SHOW_CHILD：只显示子节点 | Enum {TreeSelect.SHOW_ALL, TreeSelect.SHOW_PARENT, TreeSelect.SHOW_CHILD } | TreeSelect.SHOW_PARENT |
 | showIcon | 是否展示 TreeNode title 前的图标，无默认图标，若设置为 true，则需要自定义图标相关样式 | Boolean | false |
