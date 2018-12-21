@@ -47,7 +47,7 @@ ReactDOM.render(
         </Menu.Item>
       </Menu>
     </Sider>
-    <Layout style={{marginLeft: 200, position: 'relative'}}>
+    <Layout style={{marginLeft: 160, position: 'relative'}}>
       <Header style={{background: '#fff', padding: 0}}/>
       <Content style={{margin: '24px 16px 76px', overflow: 'initial'}}>
         <div style={{padding: 24, background: '#fff', textAlign: 'center'}}>
