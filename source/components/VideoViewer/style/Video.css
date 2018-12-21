@@ -1,5 +1,6 @@
 .fishd-video-js-wrap {
   position: relative;
+  cursor: pointer;
 }
 
 /* 去掉chrome下的蓝色边框 */

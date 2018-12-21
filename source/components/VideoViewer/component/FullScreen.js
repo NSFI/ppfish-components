@@ -60,9 +60,9 @@ export default class FullScreen extends Component {
     const title = !isFullScreen ? '全屏' : '取消全屏';
 
     return (
-      <div className={classnames(prefixCls, "fishd-video-js-customer-button")}>
+      <div className={classnames(prefixCls, "fishd-video-js-customer-button")} onClick={()=>this.handleClick()}>
         <Tooltip title={<span style={{wordBreak:'keep-all'}}>{title}</span>} getPopupContainer={(e) => e.parentNode} >
-          <a onClick={()=>this.handleClick()}>
+          <a>
             {
               !isFullScreen ? <Icon type="video-fullscreen"/> : <Icon type="video-shrink"/>
             }

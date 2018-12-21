@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Icon from '../../Icon/index.tsx';
-import Tooltip from '../../Tooltip/index.tsx';
 
 export default class Play extends Component {
   static propTypes = {
@@ -65,18 +64,15 @@ export default class Play extends Component {
     const { isPlay } = this.state;
 
     const pausePlayIcon = !isPlay ? 'play' : 'stop';
-    const title = !isPlay ? '播放' : '暂停';
 
     return (
-      <div className={classnames(prefixCls, "fishd-video-js-customer-button")}>
-        <Tooltip title={title} getPopupContainer={(e) => e.parentNode}>
-          <a onClick={()=>this.handleClick()}>
-            <Icon
-              className={`${prefixCls}-customer-handle`}
-              type={pausePlayIcon}
-            />
-          </a>
-        </Tooltip>
+      <div className={classnames(prefixCls, "fishd-video-js-customer-button")} onClick={()=>this.handleClick()}>
+        <a>
+          <Icon
+            className={`${prefixCls}-customer-handle`}
+            type={pausePlayIcon}
+          />
+        </a>
       </div>
     );
   }
