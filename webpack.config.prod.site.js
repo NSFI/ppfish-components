@@ -2,7 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const {parseDir} = require('./tools/helps');
+const { parseDir } = require('./tools/helps');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const demoPath = './site/docs/demoPage/';
@@ -11,7 +11,7 @@ const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 // import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
-let happyThreadPool = HappyPack.ThreadPool({size: os.cpus().length});
+let happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 // WSL下这个uglifyJS有问题。
 let uglifyJSRunParallel = (os.platform() === 'linux' && os.release().toLowerCase().includes('microsoft')) ? false : true; //https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/302
 
@@ -22,7 +22,7 @@ const getHappyPackPlugin = () => [
     loaders: [
       {
         loader: 'ts-loader',
-        options: {happyPackMode: true}
+        options: { happyPackMode: true }
       }
     ],
     threadPool: happyThreadPool,
@@ -61,7 +61,7 @@ const getHappyPackPlugin = () => [
     threadPool: happyThreadPool,
     verbose: true,
   }),
-  new ForkTsCheckerWebpackPlugin({checkSyntacticErrors: true})
+  new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })
 ];
 
 
@@ -88,8 +88,8 @@ const getDemoEntries = () => {
   const demoNameArr = [];
   parseDir(demoPath, demoNameArr);
   const arr = demoNameArr.filter((name) => {
-      return name.slice(-3) === '.js';
-    }
+    return name.slice(-3) === '.js';
+  }
   );
   for (let each of arr) {
     entries[each.slice(0, -3)] = [demoPath + each];
@@ -224,17 +224,21 @@ module.exports = {
                 loader: "react-svg-loader",
                 options: {
                   svgo: {
-                    plugins: [{
-                      addAttributesToSVGElement: {
-                        attribute: [
-                          'fill="currentColor"'
-                        ]
-                      },
-                    }, {
-                      removeAttrs: {
-                        attrs: 'path:fill'
-                      }
-                    }]
+                    plugins: [
+                      { removeDimensions: true },
+                      {
+                        addAttributesToSVGElement: {
+                          attribute: [
+                            'fill="currentColor"',
+                            'height="16"',
+                            'width="16"'
+                          ]
+                        },
+                      }, {
+                        removeAttrs: {
+                          attrs: 'path:fill'
+                        }
+                      }]
                   }
                 }
               }]
