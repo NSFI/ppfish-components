@@ -36,15 +36,15 @@ render() {
   return (
     <Breadcrumb>
       <Breadcrumb.Item href="">
-        <IconGrid />
+        <IconGrid style={{ marginRight: 4 }}/>
         <span>Home</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item href="">
-        <IconPie />
+        <IconPie style={{ marginRight: 4 }}/>
         <span>APP List</span>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <IconMail />
+        <IconMail style={{ marginRight: 4 }}/>
         <span>Application</span>
       </Breadcrumb.Item>
     </Breadcrumb>
