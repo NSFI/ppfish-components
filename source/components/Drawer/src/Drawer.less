@@ -6,6 +6,8 @@
   position: fixed;
   top: 0;
   z-index: @zindex-modal;
+  //防止拖动时,选中区域
+  user-select: none;
   > * {
     transition: transform @duration @ease-in-out-circ, opacity @duration @ease-in-out-circ, box-shaow @duration @ease-in-out-circ;
   }
