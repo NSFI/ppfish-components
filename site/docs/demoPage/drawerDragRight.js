@@ -64,7 +64,7 @@ class Demo extends React.Component {
               offsetParent: document.body
             }}
           >
-            <div>
+            <div style={{ height: '100%' }}>
               <Menu
                 style={{ height: '100%' }}
                 defaultSelectedKeys={['1']}

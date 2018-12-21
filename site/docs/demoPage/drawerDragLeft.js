@@ -61,7 +61,7 @@ class Demo extends React.Component {
             height={0}
             onResize={this.onResize}
           >
-            <div>
+            <div style={{ height: '100%' }}>
               <Menu
                 style={{ height: '100%' }}
                 defaultSelectedKeys={['1']}
