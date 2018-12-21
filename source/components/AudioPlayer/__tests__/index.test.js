@@ -5,7 +5,6 @@ import AudioPlayer from '../index';
 describe('<AudioPlayer />', () => {
   let wrapper;
   const props = {
-    prefixCls: 'audio-player',
     source: "https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav",
     controlVolume: true,
     download: true,
@@ -28,7 +27,7 @@ describe('<AudioPlayer />', () => {
   test('AudioPlayer组件能够被正确渲染', () => {
     const inst = wrapper.instance();
     expect(inst).toBeInstanceOf(AudioPlayer);
-    expect(wrapper.find('.m-audio-player-wrap').exists()).toBe(true);
+    expect(wrapper.find('.fishd-audio-player-wrap').exists()).toBe(true);
     expect(wrapper.find('.volume-box').exists()).toBe(true);
     expect(wrapper.find('.download-box').exists()).toBe(true);
   });
