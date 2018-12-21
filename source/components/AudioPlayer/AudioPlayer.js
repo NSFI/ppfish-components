@@ -135,16 +135,19 @@ class AudioPlayer extends React.Component {
     const { currentVolume } = this.state;
     return (
       <div className="change-audio-volume-box">
-        <Slider
-          vertical
-          min={0}
-          max={100}
-          step={1}
-          handle={<div className="change-audio-volume-customer-handle"><Icon type="sound-drag"/></div>}
-          tipFormatter={null}
-          defaultValue={currentVolume}
-          onChange={(value) => this.controlAudio('changeVolume', value)}
-        />
+        <div className="change-audio-volume-value">{currentVolume}%</div>
+        <div className="change-audio-volume-slider">
+          <Slider
+            vertical
+            min={0}
+            max={100}
+            step={1}
+            handle={<div className="change-audio-volume-customer-handle"><Icon type="sound-drag"/></div>}
+            tipFormatter={null}
+            defaultValue={currentVolume}
+            onChange={(value) => this.controlAudio('changeVolume', value)}
+          />
+        </div>
       </div>
     );
   }

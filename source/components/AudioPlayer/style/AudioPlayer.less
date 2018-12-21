@@ -41,22 +41,18 @@
     }
   }
   .change-audio-volume {
-    .change-audio-volume-box {
+    &-box {
       width: 30px;
+      height: 150px;
+    }
+    &-slider {
       height: 120px;
+      text-align: center;
     }
-    // Popover样式覆盖
-    .fishd-popover-inner-content {
-      padding: 11px 4px 15px 4px;
-    }
-
-    //Slider样式覆盖
-    .@{sliderPrefixClass} {
-      margin: 6px 10px;
-      &-handle {
-        border: none;
-        margin-left: -8px;
-      }
+    &-value {
+      font-size: 12px;
+      letter-spacing: 0;
+      text-align: center;
     }
     &-customer-handle {
       width: 20px;
@@ -69,6 +65,20 @@
       i {
         color: #fff;
         font-size: 12px;
+      }
+    }
+
+    // Popover样式覆盖
+    .fishd-popover-inner-content {
+      padding: 11px 4px;
+    }
+
+    //Slider样式覆盖
+    .@{sliderPrefixClass} {
+      margin: 6px 10px;
+      &-handle {
+        border: none;
+        margin-left: -8px;
       }
     }
   }
