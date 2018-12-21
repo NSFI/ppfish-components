@@ -228,7 +228,7 @@ module.exports = {
                       { removeDimensions: true },
                       {
                         addAttributesToSVGElement: {
-                          attribute: [
+                          attributes: [
                             'fill="currentColor"',
                             'height="16"',
                             'width="16"'
