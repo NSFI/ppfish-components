@@ -1,3 +1,5 @@
+@import "../../../../source/assets/css/themes/default.less";
+
 .slider-container {
   position: absolute;
   top: 110px;
@@ -26,9 +28,9 @@
       margin-bottom: 4px;
     }
     &.active {
-      border-left: 1px solid #3d8fd1;
+      border-left: 1px solid @primary-color;
       a {
-        color: #3d8fd1;
+        color: @primary-color;
       }
     }
     position: relative;
