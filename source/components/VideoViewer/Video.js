@@ -9,8 +9,8 @@ import { zh_CN } from './lang/zh-CN';
 
 videojs.addLanguage("zh-CN",zh_CN);
 
-require('!style-loader!css-loader!video.js/dist/video-js.css');
-require('!style-loader!css-loader!./style/Video.css');
+import 'video.js/dist/video-js.css';
+import './style/Video.css';
 
 export default class VideoViewer extends React.Component {
 

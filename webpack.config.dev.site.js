@@ -115,6 +115,14 @@ module.exports = {
         }]
       },
       {
+        test: /\.css/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader'
+        }]
+      },
+      {
         test: /\.svg$/,
         oneOf: [
           // oneOf uses the first matching rule. So for your use case put the
