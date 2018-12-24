@@ -418,7 +418,7 @@ class PicturePreview extends Component {
         dLink.click();
       });
     };
-    // 在URL后添加随机数清空浏览器缓存使crossOrigin生效
+    // 在URL后添加随机数以避免浏览器缓存，使crossOrigin生效
     img.src = this.imgEl.src + '?' + +new Date();
   };
 
