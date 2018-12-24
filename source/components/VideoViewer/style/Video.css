@@ -1,6 +1,5 @@
 .fishd-video-js-wrap {
   position: relative;
-  cursor: pointer;
 }
 
 /* 去掉chrome下的蓝色边框 */
@@ -54,11 +53,6 @@
 .vjs-button > .vjs-icon-placeholder:before {
   font-size: 2.2em;
   line-height: 2.3;
-}
-
-/* 播放按钮 */
-.video-js .vjs-play-control {
-  width: 5em;
 }
 
 /* 时间 */
@@ -121,7 +115,6 @@
 .video-js .vjs-fullscreen {
   margin-right: 12px;
 }
-
 /* 播放进度条 */
 .video-js .vjs-progress-control {
   display: block;

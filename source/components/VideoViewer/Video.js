@@ -129,10 +129,7 @@ export default class VideoViewer extends React.Component {
   // so videojs won't create additional wrapper in the DOM
   // see https://github.com/videojs/ video.js /pull/3856
   render () {
-    const {
-      prefixCls,
-      className,
-    } = this.props;
+    const { prefixCls, className } = this.props;
 
     return (
       <div className={`${prefixCls}-wrap`}>
