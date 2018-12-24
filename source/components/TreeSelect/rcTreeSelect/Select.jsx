@@ -517,7 +517,7 @@ class Select extends React.Component {
 
     const { valueList, missValueList, valueEntities } = this.state;
 
-    const { treeCheckable, treeCheckStrictly, treeNodeLabelProp, disabled } = this.props;
+    const { treeCheckable, treeCheckStrictly, treeNodeLabelProp, disabled, required, editable } = this.props;
     if (disabled) return;
 
     // Find trigger entity
@@ -582,6 +582,10 @@ class Select extends React.Component {
     } else {
       wrappedValue = removeValue;
     }
+
+    this.setState({
+      disableCloseTag: !!(required && editable && newValueList.length==1)
+    });
 
     this.onDeselect(wrappedValue, triggerNode, deselectInfo);
     this.triggerChange(newMissValueList, newValueList, extraInfo, true);
