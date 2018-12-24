@@ -40,13 +40,13 @@ describe('Cascader', () => {
   });
 
   it('popup correctly when panel is open', () => {
-    const onPopupVisibleChange = jest.fn();
+    const onVisibleChange = jest.fn();
     const wrapper = mount(
-      <Cascader options={options} onPopupVisibleChange={onPopupVisibleChange} />
+      <Cascader options={options} onVisibleChange={onVisibleChange} />
     );
     wrapper.find('input').simulate('click');
     expect(render(wrapper.find('Trigger').instance().getComponent())).toMatchSnapshot();
-    expect(onPopupVisibleChange).toHaveBeenCalledWith(true);
+    expect(onVisibleChange).toHaveBeenCalledWith(true);
   });
 
   it('support controlled mode', () => {
@@ -130,17 +130,17 @@ describe('Cascader', () => {
   });
 
   it('should close popup when clear selection', () => {
-    const onPopupVisibleChange = jest.fn();
+    const onVisibleChange = jest.fn();
     const wrapper = mount(
       <Cascader
         options={options}
         popupVisible
         defaultValue={['zhejiang', 'hangzhou']}
-        onPopupVisibleChange={onPopupVisibleChange}
+        onVisibleChange={onVisibleChange}
       />
     );
     wrapper.find('.fishd-cascader-picker-clear').at(0).simulate('click');
-    expect(onPopupVisibleChange).toHaveBeenCalledWith(false);
+    expect(onVisibleChange).toHaveBeenCalledWith(false);
   });
 
   it('should clear search input when clear selection', () => {
@@ -159,24 +159,24 @@ describe('Cascader', () => {
   });
 
   it('should not trigger visible change when click search input', () => {
-    const onPopupVisibleChange = jest.fn();
+    const onVisibleChange = jest.fn();
     const wrapper = mount(
       <Cascader
         options={options}
         showSearch
-        onPopupVisibleChange={onPopupVisibleChange}
+        onVisibleChange={onVisibleChange}
       />
     );
     wrapper.find('input').simulate('focus');
-    expect(onPopupVisibleChange).toHaveBeenCalledTimes(0);
+    expect(onVisibleChange).toHaveBeenCalledTimes(0);
     wrapper.find('input').simulate('click');
-    expect(onPopupVisibleChange).toHaveBeenCalledTimes(1);
+    expect(onVisibleChange).toHaveBeenCalledTimes(1);
     wrapper.find('input').simulate('click');
-    expect(onPopupVisibleChange).toHaveBeenCalledTimes(1);
+    expect(onVisibleChange).toHaveBeenCalledTimes(1);
     wrapper.find('input').simulate('blur');
     wrapper.setState({ popupVisible: false });
     wrapper.find('input').simulate('click');
-    expect(onPopupVisibleChange).toHaveBeenCalledTimes(2);
+    expect(onVisibleChange).toHaveBeenCalledTimes(2);
   });
 
   it('should change filtered item when options are changed', () => {

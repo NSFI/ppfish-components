@@ -90,11 +90,18 @@ describe('Anchor Render', () => {
 
   it('should update links when link href update', async () => {
     let anchorInstance = null;
-    const wrapper = mount(
-      <Anchor ref={c => anchorInstance = c}>
-        <Link href="#API" title="API" />
-      </Anchor>
-    );
+    function AnchorUpdate({ href }) {
+      return (
+        <Anchor
+          ref={c => {
+            anchorInstance = c;
+          }}
+        >
+          <Link href={href} title="API" />
+        </Anchor>
+      );
+    }
+    const wrapper = mount(<AnchorUpdate href="#API" />);
 
     expect(anchorInstance.links).toEqual(['#API']);
     wrapper.setProps({ href: '#API_1' });
