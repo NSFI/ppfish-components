@@ -41,6 +41,14 @@ class Demo extends React.Component {
     })
   }
 
+  onResizeStart = () => {
+    document.querySelector('.drawer').style['user-select'] = 'none';
+  }
+
+  onResizeStop = () => {
+    document.querySelector('.drawer').style['user-select'] = 'auto';
+  }
+
   render() {
     return (
       <div>
@@ -60,6 +68,8 @@ class Demo extends React.Component {
             width={this.state.width}
             height={0}
             onResize={this.onResize}
+            onResizeStart={this.onResizeStart}
+            onResizeStop={this.onResizeStop}
           >
             <div style={{ height: '100%' }}>
               <Menu

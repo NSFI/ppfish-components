@@ -430,7 +430,9 @@ render() {
 
 - 抽屉组件可以与其他组件配合使用，实现复杂的功能；
 - 下面示例中使用的拖拽组件文档链接请参考：https://github.com/STRML/react-resizable
-- 注意：从左、右两边弹出时，拖拽的实现会有些差别，详情见下面的示例
+- 注意：
+  - 从左、右两边弹出时，拖拽的实现会有些差别，详情见下面的示例;
+  - 拖拽时为了避免内容被选中，抽屉组件增加了禁止选中的样式，如果你需要选中里面的内容，请参考下面的`onResizeStart`和`onResizeStop`方法
 
 ### 从左边弹出
 
@@ -472,6 +474,14 @@ render() {
       width: size.width,
     })
   }
+  
+  onResizeStart = () => {
+    document.querySelector('.drawer').style['user-select'] = 'none';
+  }
+
+  onResizeStop = () => {
+    document.querySelector('.drawer').style['user-select'] = 'auto';
+  }
 
   drawerDrag = () => {
     return (
@@ -491,6 +501,8 @@ render() {
             width={this.state.width}
             height={0}
             onResize={this.onResize}
+            onResizeStart={this.onResizeStart}
+            onResizeStop={this.onResizeStop}
           >
             <div>
               <Menu
