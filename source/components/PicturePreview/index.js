@@ -93,6 +93,7 @@ class PicturePreview extends Component {
     super(props);
 
     this.imgEl = null;
+    this.downloadImgUrl = null;
     this.moving = ''; //'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
     this.state = {
       show: props.visible || false,
@@ -385,28 +386,40 @@ class PicturePreview extends Component {
   };
 
   handleSave = () => {
-    if (!this.imgEl) return;
+    if (!(this.imgEl && this.imgEl.src)) return;
 
-    // for IE10+
-    if (window.navigator.msSaveBlob) {
-      let xhr = new XMLHttpRequest();
-      xhr.open('GET', this.imgEl.src, true);
-      xhr.responseType = 'blob';
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == xhr.DONE) {
-          window.navigator.msSaveBlob(xhr.response);
-        }
-      };
-      xhr.send();
-    }
-    //  else {
-    //   let a = document.createElement('a');
-    //   // a.download = '';
-    //   // a.href = this.imgEl.src;
-    //   a.setAttribute('download', '');
-    //   a.setAttribute('href', this.imgEl.src);
-    //   a.click();
-    // }
+    let getBlobImage = (img) => {
+      let canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      return new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+          resolve(blob);
+        });
+      });
+    };
+
+    let img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      let promise = getBlobImage(img);
+      promise.then((blob) => {
+        let dLink = document.createElement('a');
+        dLink.download = this.imgEl.alt || '';
+        this.downloadImgUrl = window.URL.createObjectURL(blob);
+        dLink.href = this.downloadImgUrl;
+        dLink.onclick = () => {
+          window.requestAnimationFrame(() => {
+            window.URL.revokeObjectURL(this.downloadImgUrl);
+            this.downloadImgUrl = null;
+          });
+        };
+        dLink.click();
+      });
+    };
+    // 在URL后添加随机数清空浏览器缓存使crossOrigin生效
+    img.src = this.imgEl.src + '?' + +new Date();
   };
 
   handleFullChange = (e) => {
@@ -638,9 +651,7 @@ class PicturePreview extends Component {
             <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
             <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
             <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
-            <a download={imgs[current] && imgs[current].name} href={imgs[current] && imgs[current].src}>
-              <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
-            </a>
+            <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
           </div>
         </div>
       </div>
