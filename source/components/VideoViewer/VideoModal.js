@@ -75,11 +75,13 @@ class VideoModal extends Component {
     const content = (
       <div className={`${prefixCls}-content`}>
         {children}
+        <div className={`${prefixCls}-header`}>
         {
           closable ?
-            <Icon type="picture-close" className="icon-close" onClick={this.handleOnClose} />
-            : null
+          <Icon type="picture-close" className="icon-close" onClick={this.handleOnClose} />
+          : null
         }
+        </div>
       </div>
     );
 
