@@ -1,3 +1,4 @@
+/* stylelint-disable declaration-no-important */
 @import (reference) "../../../assets/css/index";
 @import "../../Input/style/mixin";
 @import "../../Button/style/mixin";
@@ -125,6 +126,7 @@ input[type="checkbox"] {
   display: inline-block;
   margin-right: 4px;
   content: "*";
+  /* stylelint-disable font-family-no-missing-generic-family-keyword */
   font-family: SimSun;
   line-height: 1;
   font-size: @font-size-base;
@@ -168,7 +170,7 @@ form {
       right: 28px;
     }
 
-    // Fix overlapping between feedback icon and <Select>'s arrow.
+    // Fix overlapping between feedback icon and <Select> arrow.
     // https://github.com/ant-design/ant-design/issues/4431
     > .@{fishd-prefix}-select .@{fishd-prefix}-select-caret,
     :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-caret i {
@@ -255,7 +257,7 @@ form {
     width: 100%;
   }
 
-  // Don't impact select inside input group
+  // Do not impact select inside input group
   .@{fishd-prefix}-input-group .@{fishd-prefix}-select,
   .@{fishd-prefix}-input-group .@{fishd-prefix}-cascader-picker {
     width: auto;
@@ -323,8 +325,8 @@ form {
   }
 }
 
+// when labelCol is 24, it is a vertical form
 .@{form-prefix-cls}-vertical .@{form-prefix-cls}-item-label,
-  // when labelCol is 24, it is a vertical form
 .@{fishd-prefix}-col-24.@{form-prefix-cls}-item-label,
 .@{fishd-prefix}-col-xl-24.@{form-prefix-cls}-item-label {
   .make-vertical-layout-label();
@@ -386,7 +388,8 @@ form {
       margin-bottom: 24px;
     }
 
-    > .@{form-prefix-cls}-item-control-wrapper, > .@{form-prefix-cls}-item-label {
+    > .@{form-prefix-cls}-item-control-wrapper,
+    > .@{form-prefix-cls}-item-label {
       display: inline-block;
       vertical-align: middle;
     }
@@ -487,7 +490,8 @@ form {
         color: @warning-color;
       }
     }
-    &:not(.is-disable):hover,&:focus {
+    &:not(.is-disable):hover,
+    &:focus {
       .prefix-iconfont {
         color: @warning-color;
       }
@@ -497,12 +501,15 @@ form {
         color: @warning-color;
       }
     }
-    &--daterange,&--datetimerange {
+    &--daterange,
+    &--datetimerange {
       border-color: @warning-color;
       // 清除2个Input的样式
       .@{fishd-prefix}-input {
         border: 0;
-        &:hover,&:focus {
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:hover,
+        &:focus {
           box-shadow: none;
           border: none;
         }
@@ -583,7 +590,8 @@ form {
         color: @error-color;
       }
     }
-    &:not(.is-disable):hover,&:focus {
+    &:not(.is-disable):hover,
+    &:focus {
       .prefix-iconfont {
         color: @error-color;
       }
@@ -593,12 +601,15 @@ form {
         color: @error-color;
       }
     }
-    &--daterange,&--datetimerange {
+    &--daterange,
+    &--datetimerange {
       border-color: @error-color;
       // 清除2个Input的样式
       .@{fishd-prefix}-input {
         border: 0;
-        &:hover,&:focus {
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:hover,
+        &:focus {
           box-shadow: none;
           border: none;
         }
@@ -683,7 +694,7 @@ form {
 }
 
 // need there different zoom animation
-// otherwise won't trigger anim
+// otherwise would not trigger anim
 @keyframes diffZoomIn1 {
   0% {
     transform: scale(0);

@@ -37,6 +37,7 @@
     .@{btn-prefix-cls}-group &:first-child {
       &:not(:last-child) {
         border-right-color: @btn-group-border;
+        /* stylelint-disable-next-line max-nesting-depth */
         &[disabled] {
           border-right-color: @btn-default-border;
         }
