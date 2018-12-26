@@ -1,0 +1,27 @@
+@import (reference) "../../../assets/css/index";
+
+@video-error-prefix: ~"@{fishd-prefix}-video-error";
+
+.@{video-error-prefix} {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &-msg {
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 0;
+    line-height: 14px;
+  }
+  &-retry {
+    margin-left: 8px;
+    color: @primary-color;
+    &:hover {
+      cursor: pointer;
+    }
+    i {
+      margin-right: 4px;
+    }
+  }
+}

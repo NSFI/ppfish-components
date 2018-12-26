@@ -5,6 +5,7 @@ import vjsDownLoad from './component/vjsDownLoad';
 import vjsFullScreen from './component/vjsFullScreen';
 import vjsVolume from './component/vjsVolume';
 import vjsPlay from './component/vjsPlay';
+import vjsErrorDisplay from  './component/vjsErrorDisplay';
 import { zh_CN } from './lang/zh-CN';
 
 videojs.addLanguage("zh-CN",zh_CN);
@@ -103,7 +104,13 @@ export default class VideoViewer extends React.Component {
           },
         ]
       },
-      errorDisplay: true
+      errorDisplay: {
+        children: [
+          {
+            name: 'vjsErrorDisplay'
+          }
+        ]
+      }
     };
 
     const option = Object.assign({}, initOptions, otherProps);

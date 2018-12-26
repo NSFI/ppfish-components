@@ -169,8 +169,16 @@
   display: none;
 }
 .vjs-modal-dialog .vjs-modal-dialog-content {
-  font-size: 1.2em;
-  line-height: 1.5;
-  padding: 28px 24px;
-  z-index: 0;
+  display: none;
+}
+.video-js .vjs-modal-dialog {
+  overflow: hidden;
+}
+.vjs-customer-error-display {
+  width: 246px;
+  height: 32px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  margin-left: -123px;
 }

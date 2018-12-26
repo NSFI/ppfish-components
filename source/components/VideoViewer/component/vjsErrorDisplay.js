@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import videojs from 'video.js';
-import Volume from './Volume';
+import ErrorDisplay from './ErrorDisplay';
 
 const vjsComponent = videojs.getComponent('Component');
 
-class vjsVolume extends vjsComponent {
+class vjsErrorDisplay extends vjsComponent {
 
   constructor(player, options) {
     super(player, options);
@@ -25,7 +25,7 @@ class vjsVolume extends vjsComponent {
   }
 
   /**
-   * We will render out the React component into the DOM element
+   * We will render out the React EpisodeList component into the DOM element
    * generated automatically by the VideoJS createEl() method.
    *
    * We fetch that generated element using `this.el()`, a method provided by the
@@ -33,14 +33,14 @@ class vjsVolume extends vjsComponent {
    */
   mount() {
     const el = this.el();
-    el.className = "vjs-control vjs-button vjs-customer-button vjs-volume";
-    ReactDOM.render(<Volume vjsComponent={this} />, el);
+    el.className = "vjs-customer-error-display";
+    ReactDOM.render(<ErrorDisplay vjsComponent={this} />, el);
   }
 }
 
 /**
  * Make sure to register the vjsComponent so Video JS knows it exists
  */
-vjsComponent.registerComponent('vjsVolume', vjsVolume);
+vjsComponent.registerComponent('vjsErrorDisplay', vjsErrorDisplay);
 
-export default vjsVolume;
+export default vjsErrorDisplay;
