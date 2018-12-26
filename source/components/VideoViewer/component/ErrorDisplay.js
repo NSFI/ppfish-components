@@ -24,7 +24,7 @@ export default class ErrorDisplay extends Component {
     this.state = {
       // MediaError对象, 包含了音频/视频的错误状态。http://www.w3school.com.cn/tags/av_prop_error.asp
       mediaError: null
-    }
+    };
   }
 
   componentDidMount() {
