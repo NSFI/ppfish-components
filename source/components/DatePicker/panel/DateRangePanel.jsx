@@ -176,7 +176,6 @@ export default class DateRangePanel extends React.Component {
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
     const state = {};
     // 左侧日历月份
-    console.log(props);
     state.leftDate = isValidValueArr(props.value) ? setDate(props.value[0], props.value[1])['left'] : setDefaultDate(props.defaultPanelMonth)['left'];
     // 右侧日历月份
     state.rightDate = isValidValueArr(props.value) ? setDate(props.value[0], props.value[1])['right'] : setDefaultDate(props.defaultPanelMonth)['right'];
