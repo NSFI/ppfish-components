@@ -9,6 +9,7 @@ import {Errors, require_condition} from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
 import {isValidValue, equalDate} from '../../utils/date';
 import placements from './placements';
+import isEqual from 'lodash/isEqual';
 
 const haveTriggerType = (type) => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1;
@@ -31,10 +32,7 @@ export default class BasePicker extends React.Component {
       showTrigger: PropTypes.bool,
       allowClear: PropTypes.bool,
       disabled: PropTypes.bool,
-      value: PropTypes.oneOfType([
-        PropTypes.instanceOf(Date),
-        PropTypes.arrayOf(PropTypes.instanceOf(Date))
-      ]),
+      value: PropTypes.instanceOf(Date),
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
       onChange: PropTypes.func,
@@ -70,7 +68,10 @@ export default class BasePicker extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps));
+    // 只 value 受控
+    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
+      this.setState(this.propsToState(nextProps));
+    }
   }
 
   propsToState(props) {

@@ -9,6 +9,7 @@ import TimePicker, { converSelectRange } from '../TimePicker.jsx';
 import TimePanel from './TimePanel.jsx';
 import TimeSelect from './TimeSelectPanel.jsx'
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
+import isEqual from 'lodash/isEqual';
 import {
   SELECTION_MODES,
   toDate,
@@ -95,7 +96,7 @@ export default class DateRangePanel extends React.Component {
       firstDayOfWeek: 0,
       maxDateRange: null,
       onError: () => {},
-      defaultPanelMonth: new Date(),
+      defaultPanelMonth: new Date(new Date().setHours(0,0,0,0)),
       scene: 'future',
       showTime: false,
       showTimeCurrent: false,
@@ -200,7 +201,10 @@ export default class DateRangePanel extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps));
+    // 只 value 受控
+    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
+      this.setState(this.propsToState(nextProps));
+    }
   }
 
   // 鼠标移动选择结束时间的回调

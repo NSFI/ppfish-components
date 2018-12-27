@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
 import scrollIntoView from 'dom-scroll-into-view';
+import isEqual from 'lodash/isEqual';
 
 export default class TimeSelectPanel extends React.Component {
 
@@ -42,7 +43,7 @@ export default class TimeSelectPanel extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     clearTimeout(this._timer);
-    if (nextProps.value !== this.props.value) {
+    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
       this._timer = setTimeout(() => this.scrollToOption(), 0);
     }
   }

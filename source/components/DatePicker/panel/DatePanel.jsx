@@ -7,6 +7,7 @@ import Button from '../../Button/index.tsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import TimePicker from '../TimePicker.jsx';
 import { DateTable } from '../basic';
+import isEqual from 'lodash/isEqual';
 import {
   SELECTION_MODES,
   deconstructDate,
@@ -109,7 +110,10 @@ export default class DatePanel extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.propsToState(nextProps));
+    // 只 value 受控
+    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
+      this.setState(this.propsToState(nextProps));
+    }
   }
 
   propsToState(props) {

@@ -5,6 +5,7 @@ import TimeSpinner from '../basic/TimeSpinner.jsx';
 import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
 import { DEFAULT_FORMATS } from '../constants';
 import Locale from '../../../utils/date/locale';
+import isEqual from 'lodash/isEqual';
 
 export default class TimePanel extends React.Component {
 
@@ -37,7 +38,10 @@ export default class TimePanel extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.mapPropsToState(nextProps));
+    // 只 value 受控
+    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
+      this.setState(this.mapPropsToState(nextProps));
+    }
   }
 
   mapPropsToState = (props) => {
