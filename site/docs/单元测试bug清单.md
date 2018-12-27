@@ -12,3 +12,5 @@
 
 ## Bug 列表
 
+- Tabs
+  - 修复 PropType 校验警告：Invalid prop `panels` of type `object` supplied to `TabBarTabsNode`, expected an array.
