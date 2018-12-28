@@ -8,6 +8,7 @@
 .editorconfig
 .eslintignore
 .eslintrc
+.stylelintignore
 .stylelintrc
 jest.config.js
 postcss.config.js
