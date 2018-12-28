@@ -78,6 +78,8 @@ class RichEditor extends Component {
       value = this.formatFontTag(value);
     }
 
+    value = this.removePlainSpan(value);
+
     this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.state = {
       value: value || '',
@@ -183,10 +185,19 @@ class RichEditor extends Component {
         newValue = this.formatFontTag(nextProps.value);
       }
 
+      newValue = this.removePlainSpan(newValue);
+
       this.setState({
         value: newValue
       });
     }
+  }
+
+  // Fix bug: Cannot read property 'mutations' of undefined
+  removePlainSpan(value) {
+    if (!value) return value;
+    // 将无样式的 span 替换为带有默认字体大小的 span
+    return value.replace(/<\s*?span\s*?>(.*?)<\s*?\/\s*?span\s*?>/gi, '<span style="font-size: 14px;">$1</span>');
   }
 
   formatFontTag = (value) => {
@@ -457,7 +468,7 @@ class RichEditor extends Component {
 
   handleChange = (value, delta, source, editor) => {
     this.setState({
-      value: value
+      value: this.removePlainSpan(value)
     });
 
     const { onChange } = this.props;
