@@ -14,10 +14,6 @@ import LinkBlot from './formats/link.js';
 import ImageBlot from './formats/image.js';
 import '../style/index.less';
 
-const urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi;
-const EMOJI_VALUE_DIVIDER = '///***';
-const { parchment: Parchment } = Quill.imports;
-
 Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
@@ -82,6 +78,7 @@ class RichEditor extends Component {
       value = this.formatFontTag(value);
     }
 
+    this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.state = {
       value: value || '',
       showLinkModal: false,
@@ -111,6 +108,7 @@ class RichEditor extends Component {
         });
       },
       emoji: function(value) {
+        const EMOJI_VALUE_DIVIDER = '///***';
         let vList = value.split(EMOJI_VALUE_DIVIDER);
         let range = this.quill.getSelection();
         this.quill.insertEmbed(range.index, 'emoji', {
@@ -137,6 +135,7 @@ class RichEditor extends Component {
         });
       },
       clean: function() {
+        const { parchment: Parchment } = Quill.imports;
         let range = this.quill.getSelection();
         if (range == null) return;
         if (range.length == 0) {
@@ -256,7 +255,7 @@ class RichEditor extends Component {
         return;
       }
 
-      if (!urlValidator.test(val)) {
+      if (!this.urlValidator.test(val)) {
         message.error('请输入链接地址');
         return;
       }
@@ -292,7 +291,7 @@ class RichEditor extends Component {
         return;
       }
 
-      if (!urlValidator.test(val)) {
+      if (!this.urlValidator.test(val)) {
         message.error('请输入视频地址');
         return;
       }
