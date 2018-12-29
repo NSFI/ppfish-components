@@ -33,7 +33,7 @@ const DELAY = 600;
  */
 const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 
-export default class InputNumber extends React.Component {
+export default class RcInputNumber extends React.Component {
   static propTypes = {
     value: PropTypes.oneOfType([
       PropTypes.number,
