@@ -17,7 +17,7 @@ export default class TabContent extends React.Component {
     const newChildren = [];
 
     if (props.loading) {
-      return <Spin.Container style={{height: '100%', width: '100%'}}><Spin spinning={true}/></Spin.Container>;
+      return <Spin.Container style={{height: '100%', width: '100%', minHeight: '28px'}}><Spin spinning={true}/></Spin.Container>;
     }
 
     React.Children.forEach(children, (child) => {
