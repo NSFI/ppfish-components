@@ -228,8 +228,10 @@ export default class RcInputNumber extends React.Component {
       this.inputting = true;
     }
     const input = this.props.parser(this.getValueFromEvent(e));
-    this.setState({inputValue: input});
-    this.props.onChange(this.toNumberWhenUserInput(input)); // valid number or invalid string
+    // valid number or invalid string
+    const newInputValue = this.toNumberWhenUserInput(input);
+    this.setState({inputValue: newInputValue});
+    this.props.onChange(newInputValue);
   };
 
   onMouseUp = (...args) => {
