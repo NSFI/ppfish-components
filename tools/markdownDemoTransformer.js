@@ -27,57 +27,51 @@ function transformCode(codes, filename) {
   //     }
   //   }`
   // ]
-  let ppfishModuleEntry = path.relative(
-    path.dirname(filename),
-    path.resolve(__dirname, '..', 'source', 'components' , 'index.js')
-  );
-  let components = [];//用于存错Button, Slider, Col这样的组件类名
-  let subComponents = [];//用于缓存 const Col = Grid.Col;中的 Col，避免CheckComponetVisitor再去
-  // let codes = [];
+  let components = [];//用于存Button, Slider, Col这样的组件类名
+  let subComponents = [];//用于缓存 const Col = Grid.Col;中的 Col，避免CheckComponentVisitor再去
   let classNames = [];  //Demo Demo2 Demo3 Demo4
   let classNameIndex = 2;
 
-  // MyVisitor 主要做两件事,1，找到用了哪些组件，2:修改重名demo名，加上序号
+  // MyVisitor 主要做两件事，1:找到用了哪些组件，2:修改重名demo名加上序号
   let MyVisitor = {
     Identifier: (path) => {
-
       const scope = path.scope;
       if (scope.parent === undefined) {
-        //  保证这个变量是在最外层
+        // 保证这个变量是在最外层
         Object.keys(scope.bindings)
-          .filter(name => DEMO_EXPORTS_REG.test(name))
-          .reduce((classNames, demoname) => {
-
-            /* 这是第几个demo,收集的导出类名是不是已经够了
-                主要是一个demo里面 的全局变量有很多，所以这里的reduce可能会跑几次，为了排除掉已经添加过的demo类，可以判断全局scope的uid是否相同
-                这里是判断demo的个数和已经收集了的类名的个数
-            */
-            if (classNames.length == MyVisitor.__demoIndex) {
-              if (classNames.includes(demoname)) {
-                //说明重名了，需要使用
-                let id = scope.getBinding(demoname).identifier;
-                id.name += classNameIndex++;
-                classNames.push(id.name);
-              } else {
-                classNames.push(demoname);
-              }
+        .filter(name => DEMO_EXPORTS_REG.test(name))
+        .reduce((classNames, demoname) => {
+          /* 这是第几个demo,收集的导出类名是不是已经够了
+            主要是一个demo里面的全局变量有很多，所以这里的reduce可能会跑几次，为了排除掉已经添加过的demo类，
+            可以判断全局scope的uid是否相同。这里是判断demo的个数和已经收集了的类名的个数。
+          */
+          if (classNames.length == MyVisitor.__demoIndex) {
+            if (classNames.includes(demoname)) {
+              //说明重名了，需要使用
+              let id = scope.getBinding(demoname).identifier;
+              id.name += classNameIndex++;
+              classNames.push(id.name);
+            } else {
+              classNames.push(demoname);
             }
-          }, classNames);
+          }
+        }, classNames);
       }
     },
     JSXOpeningElement: (path) => {
       let node = path.node;
       let tagName;
+
       if (node.name.type === "JSXMemberExpression") {
         //这个是 Radio.Grop这种特殊情况
         tagName = node.name.object.name;
       } else if (node.name.type === "JSXIdentifier") {
         //这种是一般的标签
-        tagName = path.node.name.name;
+        tagName = node.name.name;
       }
+
       if (tagName && !w3c.includes(tagName)) {
         if (!components.includes(tagName) && !subComponents.includes(tagName)) {
-
           /*
           已经筛选出JSX Element使用的组件了
           接下来就要解决 const Col = Grid.Col的这种情况。
@@ -98,18 +92,11 @@ function transformCode(codes, filename) {
             const PureComponent = function(props){return <div>{props.children}</div>};
             这种情况，只把PureCompoent加入subCompoents数组里
           */
-
           if (path.scope.hasBinding(tagName)) {
             //第二种情况 需要回溯到父组件
-
             //根据path得到绑定
-
-            let topTagName,
-              noNeedInject = false//子类元素,情况3,无需依赖注入
-              ;
-
+            let topTagName, noNeedInject = false; //子类元素,情况3,无需依赖注入
             const recursionToTopClass = (tagName) => {
-
               let tagNameBinding = path.scope.getBinding(tagName);
               //首先对声明进行检测
               if (tagNameBinding.path.type === "VariableDeclarator") {
@@ -184,19 +171,20 @@ function transformCode(codes, filename) {
     }
   };
 
-  //map=>用babylon把代码转成AST
-  //map=>用MyVisitor修改类名，把用到的组件记录下来，以便按需引入.traverse以后，用generate把AST生成代码
+  //map=>用babel parser把代码转成AST
+  //map=>用MyVisitor修改类名，把用到的组件记录下来，以便按需引入traverse以后，用generate把AST生成代码
   let codeBodys = codes.map(code => babelParser.parse(code, {
     sourceType: "module", // default: "script"
     plugins: [
       "jsx",
-      'objectRestSpread',
-      'classProperties',
-      'exportExtensions',
       'asyncGenerators',
+      'classProperties',
+      'dynamicImport',
+      'exportDefaultFrom',
+      'exportNamespaceFrom',
       'functionBind',
       'functionSent',
-      'dynamicImport',
+      'objectRestSpread',
     ] // default: []
   })).map((ast, index) => {
     MyVisitor.__demoIndex = index;
@@ -206,27 +194,24 @@ function transformCode(codes, filename) {
 
   //2018-08-16 排除 React
   components = components.filter(ele => !DEFAULT_INJECT.includes(ele)); //排除 React
-  classNames = classNames.filter(classname => DEMO_EXPORTS_REG.test(classname));  //一个demo 需要导出一个demo开头的名字以便测试
+  classNames = classNames.filter(classname => DEMO_EXPORTS_REG.test(classname));  //一个demo需要导出一个demo开头的名字以便测试
   //拼成一份模块的代码，用babel转成nodejs能够运行的代码。
+
   let composedCode = `
     import React from 'react';
     import ReactDOM from 'react-dom';
     import PropTypes from 'prop-types';
-    ${components.length ? `import {${components.join(',')}} from '${ppfishModuleEntry}';` : ''}
+    ${components.length ? `import {${components.join(',')}} from '../../../source/components/index.js';` : ''}
 
-    const [ ${classNames.join(',')} ]  = [${codeBodys.map((demoCode, demoIndex) => `(()=>{
-      ${demoCode}
-      return ${classNames[demoIndex]}
-    })()
-    `).join(',\n')}]
+    ${codeBodys.join('\n')}
 
-    export default function TestDemoContainer(props){
+    export default function TestDemoContainer(props) {
       return (
         <div>
-          ${classNames.map(classname => '<' + classname + ' />').join('\n')}
+          ${classNames.map(classname => `<${classname}/>`).join('\n')}
         </div>
-      )
-    }
+      );
+    };
   `;
 
   let transformed = babel.transform(composedCode, babelrc);
@@ -254,12 +239,16 @@ module.exports = {
       .digest('hex');
   },
   process(src, filename, config, options) {
-    //截取出demo的那段js代码
+    //截取出demo中的js代码
     let sourceCodes = [];
-    src.replace(/:::\s?demo\s?([^]+?):::/g, (match, p1, offset) => {
-      let document = p1.match(/(?:[^]*)\n?(?:```(?:.*)\n?([^]+)```)/);
-      let source = document[1];
-      sourceCodes.push(source);
+    src.replace(/:::\s?(demo|display)\s?([^]+?):::/g, (match, demoType, demoContent, offset) => {
+      demoContent.replace(/(`{3})([^`]|[^`][\s\S]*?[^`])\1(?!`)/ig, (codeContent) => {
+        let [all, type, code] = codeContent.match(/```(.*)\n?([^]+)```/);
+        type = type.trim();
+        if (type == 'js' || type == 'jsx') {
+          sourceCodes.push(code);
+        }
+      });
     });
 
     //把demo源代码加上class Demo extends React.Component
@@ -271,7 +260,7 @@ module.exports = {
         return `
           class Demo extends React.Component {
             ${sourceCode}
-          };
+          }
         `;
       }
     });
@@ -281,6 +270,7 @@ module.exports = {
     if (options.instrument) {
       $code = `${$code}\nglobal.__INSTRUMENTED__ = true;`;
     }
+
     return $code;
     // return 'module.exports = ' + JSON.stringify(src);
   },
