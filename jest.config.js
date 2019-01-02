@@ -23,7 +23,7 @@ module.exports = {
     "<rootDir>/lib/",
     "<rootDir>/site/"
   ],
-  transform:{
+  transform: {
     "^.+\\.tsx?$": "ts-jest",
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.md$": "<rootDir>/tools/markdownDemoTransformer.js"
@@ -38,8 +38,8 @@ module.exports = {
   notify: false,
   collectCoverage: false,
   collectCoverageFrom: [
-    "<rootDir>/source/components/**/*.js",
-    "!<rootDir>/node_modules/**",
+    "<rootDir>/source/components/*",
+    "!**/node_modules/**",
     "!<rootDir>/tools/*",
     "!<rootDir>/dist/*",
     "!<rootDir>/es/*",
