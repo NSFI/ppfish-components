@@ -286,10 +286,14 @@ class CustomToolbar extends PureComponent {
           );
 
           // value = <div className="item"><select className="ql-color" /></div>;
-
           // value = (
           //   <div className="item custom-color" key={key}>
-          //     <ColorPicker className={"custom-color-picker"} enableHistory={true} enableAlpha={false} onClose={this.handleColorSelect.bind(this)} >
+          //     <ColorPicker
+          //       className={"custom-color-picker"}
+          //       enableHistory={true}
+          //       enableAlpha={false}
+          //       onClose={this.handleColorSelect.bind(this)}
+          //     >
           //       <button className="ql-customColor" />
           //     </ColorPicker>
           //   </div>

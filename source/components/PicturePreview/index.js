@@ -290,7 +290,12 @@ class PicturePreview extends Component {
   };
 
   isFullEnabled = () => {
-    return document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled;
+    return (
+      document.fullscreenEnabled ||
+      document.mozFullScreenEnabled ||
+      document.webkitFullscreenEnabled ||
+      document.msFullscreenEnabled
+    );
   };
 
   isOne2One = () => {
@@ -648,8 +653,16 @@ class PicturePreview extends Component {
           <div className="toolbarCon">
             <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
             <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
-            <Icon type="picture-enlarge" className={zoomInClass} onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}/>
-            <Icon type="picture-micrify" className={zoomOutClass} onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}/>
+            <Icon
+              type="picture-enlarge"
+              className={zoomInClass}
+              onClick={this.handleZoom.bind(this, image.ratio + STEP_RATIO)}
+            />
+            <Icon
+              type="picture-micrify"
+              className={zoomOutClass}
+              onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}
+            />
             <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
             <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
           </div>

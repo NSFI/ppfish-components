@@ -257,7 +257,8 @@ export default class Select extends React.Component {
   //全选操作
   selectAllOption = () => {
     this.setState({
-      selectValue: this.isSelectAll() ? [] : Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled),
+      selectValue: this.isSelectAll() ? [] : 
+      Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled),
     });
   };
 
@@ -280,7 +281,9 @@ export default class Select extends React.Component {
     if (visible) {
       // 打开弹出框时，开启激活第一个选项
       if (defaultActiveFirstOption) {
-        const firstOption = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled)[0] || {};
+        const firstOption = Select.getOptionFromChildren(
+          this.props.children, [], (child) => !child.props.disabled
+        )[0] || {};
         changedState.activeKey = firstOption.key;
       }
     } else {
@@ -352,14 +355,18 @@ export default class Select extends React.Component {
       if (clickInLabel) {
         const {selectValueForMultiplePanel} = this.state;
         const indexInMultiple = selectValueForMultiplePanel.findIndex(selected => selected.key === obj.key);
-        changedValue = [...selectValueForMultiplePanel.slice(0, indexInMultiple), ...selectValueForMultiplePanel.slice(indexInMultiple + 1)];
+        changedValue = [
+          ...selectValueForMultiplePanel.slice(0, indexInMultiple),
+          ...selectValueForMultiplePanel.slice(indexInMultiple + 1)
+        ];
         changedObj = {
           selectValue: changedValue,
           selectValueForMultiplePanel: changedValue
         };
       } else {
         //option 点击
-        changedValue = index === -1 ? [...selectValue, obj] : [...selectValue.slice(0, index), ...selectValue.slice(index + 1)];
+        changedValue = index === -1 ? [...selectValue, obj] : 
+        [...selectValue.slice(0, index), ...selectValue.slice(index + 1)];
         changedObj = {
           selectValue: changedValue,
         };
@@ -603,7 +610,8 @@ export default class Select extends React.Component {
     } = this.props;
     const {searchValue, selectValue} = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
-    const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls)); //获取筛选后的children
+    //获取筛选后的children
+    const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls));
     const showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
     const maxCountError = 'maxCount' in this.props && selectValue.length > maxCount; // maxCount值存在且小于选择数量
     const dropdownPanelCls = classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName});
@@ -647,7 +655,12 @@ export default class Select extends React.Component {
                   //全选按钮-多选未搜索的情况下存在
                   !searchValue && showSelectAll && mode === 'multiple' &&
                   <li
-                    className={classNames({[`${dropdownCls}-option-item`]: true}, {['checked checked-icon']: this.isSelectAll()})}
+                    className={
+                      classNames(
+                        {[`${dropdownCls}-option-item`]: true},
+                        {['checked checked-icon']: this.isSelectAll()}
+                      )
+                    }
                     onClick={this.selectAllOption}>
                     {selectAllText}
                   </li>
@@ -768,7 +781,8 @@ export default class Select extends React.Component {
               }
               {
                 // 没有值的情况下显示placeholder
-                ((!selectValue.length && mode === 'single') || (!selectValueForMultiplePanel.length && mode === 'multiple')) &&
+                ((!selectValue.length && mode === 'single') ||
+                (!selectValueForMultiplePanel.length && mode === 'multiple')) &&
                 <div unselectable="on" className={`${selectionCls}-placeholder`}>{placeholder}</div>
               }
               {

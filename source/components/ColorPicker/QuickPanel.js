@@ -44,7 +44,10 @@ export default class QuickPanel extends React.Component {
     __useInComponent: false,
     className: '',
     colorHistory: [],
-    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af', '#333333', '#666666', '#999999', '#cccccc'],
+    colorMap: [
+      '#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702',
+      '#ffe500', '#aacc00', '#26bf40', '#3dd9af', '#333333', '#666666', '#999999', '#cccccc'
+    ],
     defaultAlpha: 100,
     defaultColor: '#33bbff',
     enableAlpha: false,

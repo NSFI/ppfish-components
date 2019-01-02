@@ -199,7 +199,10 @@ class RichEditor extends Component {
   removePlainSpan = (value) => {
     if (!value) return value;
     // 将无样式的 span 替换为带有默认字体大小的 span
-    return value.replace(/<\s*?span\s*?>(.*?)<\s*?\/\s*?span\s*?>/gi, `<span style="font-size: ${this.defaultFontSize}px;">$1</span>`);
+    return value.replace(
+      /<\s*?span\s*?>(.*?)<\s*?\/\s*?span\s*?>/gi,
+      `<span style="font-size: ${this.defaultFontSize}px;">$1</span>`
+    );
   };
 
   formatFontTag = (value) => {
@@ -399,7 +402,10 @@ class RichEditor extends Component {
     let target = e.target,
         clsList = target.classList.value;
 
-    if ((clsList.indexOf('emoji-item') > -1 || clsList.indexOf('emoji-extend-item') > -1) && target.hasAttribute('value')) {
+    if (
+      (clsList.indexOf('emoji-item') > -1 || clsList.indexOf('emoji-extend-item') > -1)
+      && target.hasAttribute('value')
+    ) {
       let el = toolbarCtner.querySelector('button.ql-emoji[data-role="emoji"]');
       if (el == null) {
         el = document.createElement('button');
@@ -492,13 +498,17 @@ class RichEditor extends Component {
 				curFormat = quill.getFormat(nextSelection.index, 1);
 			}
 
-      toolbarCtner.querySelector('.link-active') && toolbarCtner.querySelector('.link-active').classList.remove('link-active');
+      toolbarCtner.querySelector('.link-active')
+      && toolbarCtner.querySelector('.link-active').classList.remove('link-active');
+
       if ('myLink' in curFormat) {
         let linkType = curFormat['myLink'].type || 'default';
         if (linkType == 'default') {
-          toolbarCtner.querySelector('.ql-myLink') && toolbarCtner.querySelector('.ql-myLink').classList.add('link-active');
+          toolbarCtner.querySelector('.ql-myLink')
+          && toolbarCtner.querySelector('.ql-myLink').classList.add('link-active');
         } else {
-          toolbarCtner.querySelector(`.ql-${linkType}`) && toolbarCtner.querySelector(`.ql-${linkType}`).classList.add('link-active');
+          toolbarCtner.querySelector(`.ql-${linkType}`)
+          && toolbarCtner.querySelector(`.ql-${linkType}`).classList.add('link-active');
         }
 			}
     }

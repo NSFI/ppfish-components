@@ -35,7 +35,10 @@ export default class LoadMore extends React.Component {
   }
 
   render() {
-    const {defaultText, onLoadMore, status, buttonSize, loadingText, errorText, endText, extraCls, ...otherProps} = this.props;
+    const {
+      defaultText, onLoadMore, status, buttonSize, loadingText,
+      errorText, endText, extraCls, ...otherProps
+    } = this.props;
     let buttonText;
     switch (status) {
       case 'default':

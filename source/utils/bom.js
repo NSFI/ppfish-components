@@ -4,7 +4,12 @@
  * @return {[type]}         [description]
  */
 export const fullscreen = function(element) {
-  let func = element.requestFullscreen || element.msRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullScreen;
+  let func = (
+    element.requestFullscreen ||
+    element.msRequestFullscreen ||
+    element.mozRequestFullScreen ||
+    element.webkitRequestFullScreen
+  );
 
   if (Object.prototype.toString.call(func) == "[object Function]") {
     func.call(element);
@@ -44,7 +49,12 @@ export const addFullscreenchangeEvent = function(element, fn) {
  * @return {[Boolean]} [description]
  */
 export const checkFullscreen = function() {
-  return !!(document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled);
+  return !!(
+    document.fullscreenEnabled ||
+    window.fullScreen ||
+    document.webkitIsFullScreen ||
+    document.msFullscreenEnabled
+  );
 };
 
 let cached;

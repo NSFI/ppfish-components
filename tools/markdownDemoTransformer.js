@@ -122,7 +122,8 @@ function transformCode(codes, filename) {
                   topTagName = declarator.init.object.name;
                 } else if (initType === "CallExpression") { // EditableContext = React.createContext()
                   let callee = declarator.init.callee;
-                  while (callee.type !== 'MemberExpression') { callee = callee.callee; }// const CollectionCreateForm = Form.create()(class extends React.Component {})
+                  while (callee.type !== 'MemberExpression') { callee = callee.callee; }
+                  // const CollectionCreateForm = Form.create()(class extends React.Component {})
                   topTagName = callee.object.name;
                 } else if (
                   initType === "ArrowFunctionExpression" ||
@@ -134,7 +135,6 @@ function transformCode(codes, filename) {
                 //function NewElement(props){}
                 noNeedInject = true;
               }
-
 
               if (!topTagName && !noNeedInject) {
                 //没有tagName，说明先初始化为undefined，然后才对其赋值。
@@ -161,7 +161,6 @@ function transformCode(codes, filename) {
                 components.push(topTagName);
               }
             }
-
           } else {
             //第一种情况
             components.push(tagName);//把自定义的组件加入components，以便按需引入

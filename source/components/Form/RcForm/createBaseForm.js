@@ -56,11 +56,11 @@ function createBaseForm(option = {}, mixins = []) {
          'isFieldsTouched',
          'isFieldTouched'].forEach(key => this[key] = (...args) => {
            if (process.env.NODE_ENV !== 'production') {
-             warning(
-               false,
-               'you should not use `ref` on enhanced form, please use `wrappedComponentRef`. ' +
-                 'See: https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140'
-             );
+              warning(
+                false,
+                'you should not use `ref` on enhanced form, please use `wrappedComponentRef`. See: ' +
+'https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140'
+              );
            }
            return this.fieldsStore[key](...args);
          });
@@ -504,8 +504,8 @@ function createBaseForm(option = {}, mixins = []) {
           if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
             warning(
               false,
-              '`withRef` is deprecated, please use `wrappedComponentRef` instead. ' +
-                'See: https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140'
+              '`withRef` is deprecated, please use `wrappedComponentRef` instead. See: ' +
+              'https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140'
             );
           }
           formProps.ref = 'wrappedComponent';

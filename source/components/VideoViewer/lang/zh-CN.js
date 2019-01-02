@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export const zh_CN = {
   "Play": "播放",
   "Pause": "暂停",
@@ -81,3 +82,4 @@ export const zh_CN = {
   "Beginning of dialog window. Escape will cancel and close the window.": "开始对话视窗。离开会取消及关闭视窗",
   "End of dialog window.": "结束对话视窗"
 };
+/* eslint-enable max-len */

@@ -29,7 +29,8 @@ export function valueProp(...args) {
     if (err) {
       return new Error(
         `Invalid prop \`${propName}\` supplied to \`${Component}\`. ` +
-        `You should use { label: string, value: string | number } or [{ label: string, value: string | number }] instead.`
+        `You should use { label: string, value: string | number } 
+         or [{ label: string, value: string | number }] instead.`
       );
     }
     return null;

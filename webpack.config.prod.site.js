@@ -13,8 +13,8 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 let happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 // WSL下这个uglifyJS有问题。
-let uglifyJSRunParallel = (os.platform() === 'linux' && os.release().toLowerCase().includes('microsoft')) ? false : true; //https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/302
-
+// https://github.com/webpack-contrib/uglifyjs-webpack-plugin/issues/302
+let uglifyJSRunParallel = (os.platform() === 'linux' && os.release().toLowerCase().includes('microsoft')) ? false : true;
 
 const getHappyPackPlugin = () => [
   new HappyPack({

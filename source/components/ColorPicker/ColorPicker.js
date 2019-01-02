@@ -46,7 +46,10 @@ export default class ColorPicker extends React.Component {
   static defaultProps = {
     children: <span className="fishd-color-picker-trigger"/>,
     className: '',
-    colorMap: ['#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957', '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af'],
+    colorMap: [
+      '#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957',
+      '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af'
+    ],
     defaultAlpha: 100,
     defaultColor: '#33bbff',
     disabled: false,
