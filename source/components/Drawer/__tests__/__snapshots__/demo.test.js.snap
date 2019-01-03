@@ -39,7 +39,15 @@ exports[`Renders drawer demo correctly 1`] = `
   >
     <iframe
       height="450"
-      src="./demo/drawerDrag.html"
+      src="./demo/drawerDragLeft.html"
+    />
+  </div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/drawerDragRight.html"
     />
   </div>
 </div>

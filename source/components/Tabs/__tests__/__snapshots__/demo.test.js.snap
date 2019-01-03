@@ -3,114 +3,94 @@
 exports[`Renders tabs demo correctly 1`] = `
 <div>
   <div
-    class="fishd-tabs-ctner"
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
   >
     <div
-      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
     >
       <div
-        class="fishd-tabs-bar"
-        role="tablist"
-        tabindex="0"
+        class="fishd-tabs-nav-container"
       >
-        <div
-          class="fishd-tabs-nav-container"
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
         >
           <span
-            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-prev-icon"
-            />
-          </span>
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
           <span
-            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-next-icon"
-            />
-          </span>
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
           <div
-            class="fishd-tabs-nav-wrap"
+            class="fishd-tabs-nav-scroll"
           >
             <div
-              class="fishd-tabs-nav-scroll"
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
             >
               <div
-                class="fishd-tabs-nav fishd-tabs-nav-animated"
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
               >
-                <div
-                  aria-disabled="false"
-                  aria-selected="true"
-                  class="fishd-tabs-tab-active fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 1
-                </div>
-                <div
-                  aria-disabled="true"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab fishd-tabs-tab-disabled"
-                  role="tab"
-                >
-                  Tab 2
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 3
-                </div>
-                <div
-                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
-                />
+                Tab 1
               </div>
+              <div
+                aria-disabled="true"
+                aria-selected="false"
+                class=" fishd-tabs-tab fishd-tabs-tab-disabled"
+                role="tab"
+              >
+                Tab 2
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 3
+              </div>
+              <div
+                class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+              />
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="fishd-tabs-content fishd-tabs-content-animated"
-        style="margin-left:0%"
-      >
-        <div
-          aria-hidden="false"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-          role="tabpanel"
-        >
-          Tab 1
-        </div>
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-      </div>
     </div>
     <div
-      class="fishd-spin-container"
+      class="fishd-tabs-content fishd-tabs-content-animated"
+      style="margin-left:0%"
     >
       <div
-        class="fishd-spin"
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
       >
-        <span
-          class="fishd-spin-dot fishd-spin-dot-spin"
-        >
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
+        Tab 1
       </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
     </div>
   </div>
   <div>
@@ -159,219 +139,199 @@ exports[`Renders tabs demo correctly 1`] = `
       </label>
     </div>
     <div
-      class="fishd-tabs-ctner"
+      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
+      style="height:220px"
     >
       <div
-        class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
-        style="height:220px"
+        class="fishd-tabs-bar"
+        role="tablist"
+        tabindex="0"
       >
         <div
-          class="fishd-tabs-bar"
-          role="tablist"
-          tabindex="0"
+          class="fishd-tabs-nav-container"
         >
-          <div
-            class="fishd-tabs-nav-container"
+          <span
+            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
           >
             <span
-              class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-prev-icon"
-              />
-            </span>
+              class="fishd-tabs-tab-prev-icon"
+            />
+          </span>
+          <span
+            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
             <span
-              class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-next-icon"
-              />
-            </span>
+              class="fishd-tabs-tab-next-icon"
+            />
+          </span>
+          <div
+            class="fishd-tabs-nav-wrap"
+          >
             <div
-              class="fishd-tabs-nav-wrap"
+              class="fishd-tabs-nav-scroll"
             >
               <div
-                class="fishd-tabs-nav-scroll"
+                class="fishd-tabs-nav fishd-tabs-nav-animated"
               >
                 <div
-                  class="fishd-tabs-nav fishd-tabs-nav-animated"
+                  aria-disabled="false"
+                  aria-selected="true"
+                  class="fishd-tabs-tab-active fishd-tabs-tab"
+                  role="tab"
                 >
-                  <div
-                    aria-disabled="false"
-                    aria-selected="true"
-                    class="fishd-tabs-tab-active fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 1
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 2
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 3
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 4
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 5
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 6
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 7
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 8
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 9
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 10
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 11
-                  </div>
-                  <div
-                    class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
-                  />
+                  Tab 1
                 </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 2
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 3
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 4
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 5
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 6
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 7
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 8
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 9
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 10
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 11
+                </div>
+                <div
+                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+                />
               </div>
             </div>
           </div>
         </div>
-        <div
-          class="fishd-tabs-content fishd-tabs-content-animated"
-          style="margin-left:0%"
-        >
-          <div
-            aria-hidden="false"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-            role="tabpanel"
-          >
-            Content of tab 1
-          </div>
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-        </div>
       </div>
       <div
-        class="fishd-spin-container"
+        class="fishd-tabs-content fishd-tabs-content-animated"
+        style="margin-left:0%"
       >
         <div
-          class="fishd-spin"
+          aria-hidden="false"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+          role="tabpanel"
         >
-          <span
-            class="fishd-spin-dot fishd-spin-dot-spin"
-          >
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
+          Content of tab 1
         </div>
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
       </div>
     </div>
   </div>
@@ -440,114 +400,94 @@ exports[`Renders tabs demo correctly 1`] = `
       </label>
     </div>
     <div
-      class="fishd-tabs-ctner"
+      class="fishd-tabs fishd-tabs-top fishd-tabs-small fishd-tabs-line fishd-tabs-no-animation"
     >
       <div
-        class="fishd-tabs fishd-tabs-top fishd-tabs-small fishd-tabs-line fishd-tabs-no-animation"
+        class="fishd-tabs-bar"
+        role="tablist"
+        tabindex="0"
       >
         <div
-          class="fishd-tabs-bar"
-          role="tablist"
-          tabindex="0"
+          class="fishd-tabs-nav-container"
         >
-          <div
-            class="fishd-tabs-nav-container"
+          <span
+            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
           >
             <span
-              class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-prev-icon"
-              />
-            </span>
+              class="fishd-tabs-tab-prev-icon"
+            />
+          </span>
+          <span
+            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
             <span
-              class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-next-icon"
-              />
-            </span>
+              class="fishd-tabs-tab-next-icon"
+            />
+          </span>
+          <div
+            class="fishd-tabs-nav-wrap"
+          >
             <div
-              class="fishd-tabs-nav-wrap"
+              class="fishd-tabs-nav-scroll"
             >
               <div
-                class="fishd-tabs-nav-scroll"
+                class="fishd-tabs-nav fishd-tabs-nav-animated"
               >
                 <div
-                  class="fishd-tabs-nav fishd-tabs-nav-animated"
+                  aria-disabled="false"
+                  aria-selected="true"
+                  class="fishd-tabs-tab-active fishd-tabs-tab"
+                  role="tab"
                 >
-                  <div
-                    aria-disabled="false"
-                    aria-selected="true"
-                    class="fishd-tabs-tab-active fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 1
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 2
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 3
-                  </div>
-                  <div
-                    class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
-                  />
+                  Tab 1
                 </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 2
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  Tab 3
+                </div>
+                <div
+                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+                />
               </div>
             </div>
           </div>
         </div>
-        <div
-          class="fishd-tabs-content fishd-tabs-content-animated"
-          style="margin-left:0%"
-        >
-          <div
-            aria-hidden="false"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-            role="tabpanel"
-          >
-            Content of tab 1
-          </div>
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-        </div>
       </div>
       <div
-        class="fishd-spin-container"
+        class="fishd-tabs-content fishd-tabs-content-animated"
+        style="margin-left:0%"
       >
         <div
-          class="fishd-spin"
+          aria-hidden="false"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+          role="tabpanel"
         >
-          <span
-            class="fishd-spin-dot fishd-spin-dot-spin"
-          >
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
+          Content of tab 1
         </div>
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
       </div>
     </div>
   </div>
@@ -637,341 +577,7 @@ exports[`Renders tabs demo correctly 1`] = `
       </div>
     </div>
     <div
-      class="fishd-tabs-ctner"
-    >
-      <div
-        class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
-      >
-        <div
-          class="fishd-tabs-bar"
-          role="tablist"
-          tabindex="0"
-        >
-          <div
-            class="fishd-tabs-nav-container"
-          >
-            <span
-              class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-prev-icon"
-              />
-            </span>
-            <span
-              class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-next-icon"
-              />
-            </span>
-            <div
-              class="fishd-tabs-nav-wrap"
-            >
-              <div
-                class="fishd-tabs-nav-scroll"
-              >
-                <div
-                  class="fishd-tabs-nav fishd-tabs-nav-animated"
-                >
-                  <div
-                    aria-disabled="false"
-                    aria-selected="true"
-                    class="fishd-tabs-tab-active fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 1
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 2
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    Tab 3
-                  </div>
-                  <div
-                    class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="fishd-tabs-content fishd-tabs-content-animated"
-          style="margin-left:0%"
-        >
-          <div
-            aria-hidden="false"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-            role="tabpanel"
-          >
-            Content of Tab 1
-          </div>
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
-          />
-        </div>
-      </div>
-      <div
-        class="fishd-spin-container"
-      >
-        <div
-          class="fishd-spin"
-        >
-          <span
-            class="fishd-spin-dot fishd-spin-dot-spin"
-          >
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="fishd-tabs-ctner"
-  >
-    <div
       class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
-    >
-      <div
-        class="fishd-tabs-bar"
-        role="tablist"
-        tabindex="0"
-      >
-        <div
-          class="fishd-tabs-nav-container"
-        >
-          <span
-            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-prev-icon"
-            />
-          </span>
-          <span
-            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-next-icon"
-            />
-          </span>
-          <div
-            class="fishd-tabs-nav-wrap"
-          >
-            <div
-              class="fishd-tabs-nav-scroll"
-            >
-              <div
-                class="fishd-tabs-nav fishd-tabs-nav-animated"
-              >
-                <div
-                  aria-disabled="false"
-                  aria-selected="true"
-                  class="fishd-tabs-tab-active fishd-tabs-tab"
-                  role="tab"
-                >
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-demo-phone"
-                    />
-                    Tab 1
-                  </span>
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-demo-mail"
-                    />
-                    Tab 2
-                  </span>
-                </div>
-                <div
-                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="fishd-tabs-content fishd-tabs-content-animated"
-        style="margin-left:0%"
-      >
-        <div
-          aria-hidden="false"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-          role="tabpanel"
-        >
-          Tab 1
-        </div>
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-      </div>
-    </div>
-    <div
-      class="fishd-spin-container"
-    >
-      <div
-        class="fishd-spin"
-      >
-        <span
-          class="fishd-spin-dot fishd-spin-dot-spin"
-        >
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
-      </div>
-    </div>
-  </div>
-  <div
-    class="fishd-tabs-ctner"
-  >
-    <div
-      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
-    >
-      <div
-        class="fishd-tabs-bar"
-        role="tablist"
-        tabindex="0"
-      >
-        <div
-          class="fishd-tabs-extra-content"
-          style="float:right"
-        >
-          <button
-            class="fishd-btn"
-            type="button"
-          >
-            <span>
-              Extra Action
-            </span>
-          </button>
-        </div>
-        <div
-          class="fishd-tabs-nav-container"
-        >
-          <span
-            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-prev-icon"
-            />
-          </span>
-          <span
-            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-next-icon"
-            />
-          </span>
-          <div
-            class="fishd-tabs-nav-wrap"
-          >
-            <div
-              class="fishd-tabs-nav-scroll"
-            >
-              <div
-                class="fishd-tabs-nav fishd-tabs-nav-animated"
-              >
-                <div
-                  aria-disabled="false"
-                  aria-selected="true"
-                  class="fishd-tabs-tab-active fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 1
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 2
-                </div>
-                <div
-                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="fishd-tabs-content fishd-tabs-content-animated"
-        style="margin-left:0%"
-      >
-        <div
-          aria-hidden="false"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-          role="tabpanel"
-        >
-          Tab 1
-        </div>
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-      </div>
-    </div>
-    <div
-      class="fishd-spin-container"
-    >
-      <div
-        class="fishd-spin"
-      >
-        <span
-          class="fishd-spin-dot fishd-spin-dot-spin"
-        >
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
-      </div>
-    </div>
-  </div>
-  <div
-    class="fishd-tabs-ctner"
-  >
-    <div
-      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-card fishd-tabs-no-animation"
     >
       <div
         class="fishd-tabs-bar"
@@ -1029,6 +635,492 @@ exports[`Renders tabs demo correctly 1`] = `
                   role="tab"
                 >
                   Tab 3
+                </div>
+                <div
+                  class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-tabs-content fishd-tabs-content-animated"
+        style="margin-left:0%"
+      >
+        <div
+          aria-hidden="false"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+          role="tabpanel"
+        >
+          Content of Tab 1
+        </div>
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+        <div
+          aria-hidden="true"
+          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+          role="tabpanel"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
+  >
+    <div
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
+    >
+      <div
+        class="fishd-tabs-nav-container"
+      >
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
+          <div
+            class="fishd-tabs-nav-scroll"
+          >
+            <div
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
+            >
+              <div
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
+              >
+                <span>
+                  <div
+                    class="img-icon-14"
+                    style="margin-right:8px"
+                  />
+                  Tab 1
+                </span>
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                <span>
+                  <div
+                    class="img-icon-14"
+                    style="margin-right:8px"
+                  />
+                  Tab 2
+                </span>
+              </div>
+              <div
+                class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-tabs-content fishd-tabs-content-animated"
+      style="margin-left:0%"
+    >
+      <div
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
+      >
+        Tab 1
+      </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+    </div>
+  </div>
+  <div
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-line fishd-tabs-no-animation"
+  >
+    <div
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
+    >
+      <div
+        class="fishd-tabs-extra-content"
+        style="float:right"
+      >
+        <button
+          class="fishd-btn"
+          type="button"
+        >
+          <span>
+            Extra Action
+          </span>
+        </button>
+      </div>
+      <div
+        class="fishd-tabs-nav-container"
+      >
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
+          <div
+            class="fishd-tabs-nav-scroll"
+          >
+            <div
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
+            >
+              <div
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 1
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 2
+              </div>
+              <div
+                class="fishd-tabs-ink-bar fishd-tabs-ink-bar-animated"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-tabs-content fishd-tabs-content-animated"
+      style="margin-left:0%"
+    >
+      <div
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
+      >
+        Tab 1
+      </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+    </div>
+  </div>
+  <div
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-card fishd-tabs-no-animation"
+  >
+    <div
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
+    >
+      <div
+        class="fishd-tabs-nav-container"
+      >
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
+          <div
+            class="fishd-tabs-nav-scroll"
+          >
+            <div
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
+            >
+              <div
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 1
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 2
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 3
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-tabs-content fishd-tabs-content-no-animated"
+    >
+      <div
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
+      >
+        Content of Tab Pane 1
+      </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+    </div>
+  </div>
+  <div
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-card fishd-tabs-editable-card fishd-tabs-no-animation"
+  >
+    <div
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
+    >
+      <div
+        class="fishd-tabs-extra-content"
+        style="float:right"
+      >
+        <span>
+          <i
+            class="fishdicon fishdicon-upload-plus fishd-tabs-new-tab"
+          />
+        </span>
+      </div>
+      <div
+        class="fishd-tabs-nav-container"
+      >
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
+          <div
+            class="fishd-tabs-nav-scroll"
+          >
+            <div
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
+            >
+              <div
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
+              >
+                <div>
+                  Tab 1
+                  <i
+                    class="fishdicon fishdicon-close-tag-line"
+                  />
+                </div>
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                <div>
+                  Tab 2
+                  <i
+                    class="fishdicon fishdicon-close-tag-line"
+                  />
+                </div>
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                <div
+                  class="fishd-tabs-tab-unclosable"
+                >
+                  Tab 3
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-tabs-content fishd-tabs-content-no-animated"
+    >
+      <div
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
+      >
+        Content of Tab 1
+      </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      style="margin-bottom:16px"
+    >
+      <button
+        class="fishd-btn"
+        type="button"
+      >
+        <span>
+          ADD
+        </span>
+      </button>
+    </div>
+    <div
+      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-card fishd-tabs-editable-card fishd-tabs-no-animation"
+    >
+      <div
+        class="fishd-tabs-bar"
+        role="tablist"
+        tabindex="0"
+      >
+        <div
+          class="fishd-tabs-nav-container"
+        >
+          <span
+            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
+            <span
+              class="fishd-tabs-tab-prev-icon"
+            />
+          </span>
+          <span
+            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+            unselectable="unselectable"
+          >
+            <span
+              class="fishd-tabs-tab-next-icon"
+            />
+          </span>
+          <div
+            class="fishd-tabs-nav-wrap"
+          >
+            <div
+              class="fishd-tabs-nav-scroll"
+            >
+              <div
+                class="fishd-tabs-nav fishd-tabs-nav-animated"
+              >
+                <div
+                  aria-disabled="false"
+                  aria-selected="true"
+                  class="fishd-tabs-tab-active fishd-tabs-tab"
+                  role="tab"
+                >
+                  <div>
+                    Tab 1
+                    <i
+                      class="fishdicon fishdicon-close-tag-line"
+                    />
+                  </div>
+                </div>
+                <div
+                  aria-disabled="false"
+                  aria-selected="false"
+                  class=" fishd-tabs-tab"
+                  role="tab"
+                >
+                  <div>
+                    Tab 2
+                    <i
+                      class="fishdicon fishdicon-close-tag-line"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -1050,491 +1142,181 @@ exports[`Renders tabs demo correctly 1`] = `
           class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
           role="tabpanel"
         />
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-      </div>
-    </div>
-    <div
-      class="fishd-spin-container"
-    >
-      <div
-        class="fishd-spin"
-      >
-        <span
-          class="fishd-spin-dot fishd-spin-dot-spin"
-        >
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
       </div>
     </div>
   </div>
   <div
-    class="fishd-tabs-ctner"
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-section fishd-tabs-no-animation"
   >
     <div
-      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-card fishd-tabs-editable-card fishd-tabs-no-animation"
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
     >
       <div
-        class="fishd-tabs-bar"
-        role="tablist"
-        tabindex="0"
-      >
-        <div
-          class="fishd-tabs-extra-content"
-          style="float:right"
-        >
-          <span>
-            <i
-              class="fishdicon fishdicon-upload-plus fishd-tabs-new-tab"
-            />
-          </span>
-        </div>
-        <div
-          class="fishd-tabs-nav-container"
-        >
-          <span
-            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-prev-icon"
-            />
-          </span>
-          <span
-            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-next-icon"
-            />
-          </span>
-          <div
-            class="fishd-tabs-nav-wrap"
-          >
-            <div
-              class="fishd-tabs-nav-scroll"
-            >
-              <div
-                class="fishd-tabs-nav fishd-tabs-nav-animated"
-              >
-                <div
-                  aria-disabled="false"
-                  aria-selected="true"
-                  class="fishd-tabs-tab-active fishd-tabs-tab"
-                  role="tab"
-                >
-                  <div>
-                    Tab 1
-                    <i
-                      class="fishdicon fishdicon-close-tag-line"
-                    />
-                  </div>
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  <div>
-                    Tab 2
-                    <i
-                      class="fishdicon fishdicon-close-tag-line"
-                    />
-                  </div>
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  <div
-                    class="fishd-tabs-tab-unclosable"
-                  >
-                    Tab 3
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="fishd-tabs-content fishd-tabs-content-no-animated"
-      >
-        <div
-          aria-hidden="false"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-          role="tabpanel"
-        >
-          Content of Tab 1
-        </div>
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-      </div>
-    </div>
-    <div
-      class="fishd-spin-container"
-    >
-      <div
-        class="fishd-spin"
+        class="fishd-tabs-nav-container"
       >
         <span
-          class="fishd-spin-dot fishd-spin-dot-spin"
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
         >
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
-      </div>
-    </div>
-  </div>
-  <div>
-    <div
-      style="margin-bottom:16px"
-    >
-      <button
-        class="fishd-btn"
-        type="button"
-      >
-        <span>
-          ADD
-        </span>
-      </button>
-    </div>
-    <div
-      class="fishd-tabs-ctner"
-    >
-      <div
-        class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-card fishd-tabs-editable-card fishd-tabs-no-animation"
-      >
-        <div
-          class="fishd-tabs-bar"
-          role="tablist"
-          tabindex="0"
-        >
-          <div
-            class="fishd-tabs-nav-container"
-          >
-            <span
-              class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-prev-icon"
-              />
-            </span>
-            <span
-              class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-              unselectable="unselectable"
-            >
-              <span
-                class="fishd-tabs-tab-next-icon"
-              />
-            </span>
-            <div
-              class="fishd-tabs-nav-wrap"
-            >
-              <div
-                class="fishd-tabs-nav-scroll"
-              >
-                <div
-                  class="fishd-tabs-nav fishd-tabs-nav-animated"
-                >
-                  <div
-                    aria-disabled="false"
-                    aria-selected="true"
-                    class="fishd-tabs-tab-active fishd-tabs-tab"
-                    role="tab"
-                  >
-                    <div>
-                      Tab 1
-                      <i
-                        class="fishdicon fishdicon-close-tag-line"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    aria-disabled="false"
-                    aria-selected="false"
-                    class=" fishd-tabs-tab"
-                    role="tab"
-                  >
-                    <div>
-                      Tab 2
-                      <i
-                        class="fishdicon fishdicon-close-tag-line"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="fishd-tabs-content fishd-tabs-content-no-animated"
-        >
-          <div
-            aria-hidden="false"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-            role="tabpanel"
-          >
-            Content of Tab Pane 1
-          </div>
-          <div
-            aria-hidden="true"
-            class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-            role="tabpanel"
+          <span
+            class="fishd-tabs-tab-prev-icon"
           />
-        </div>
-      </div>
-      <div
-        class="fishd-spin-container"
-      >
-        <div
-          class="fishd-spin"
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
         >
           <span
-            class="fishd-spin-dot fishd-spin-dot-spin"
-          >
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="fishd-tabs-ctner"
-  >
-    <div
-      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-section fishd-tabs-no-animation"
-    >
-      <div
-        class="fishd-tabs-bar"
-        role="tablist"
-        tabindex="0"
-      >
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
         <div
-          class="fishd-tabs-nav-container"
+          class="fishd-tabs-nav-wrap"
         >
-          <span
-            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-prev-icon"
-            />
-          </span>
-          <span
-            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-next-icon"
-            />
-          </span>
           <div
-            class="fishd-tabs-nav-wrap"
+            class="fishd-tabs-nav-scroll"
           >
             <div
-              class="fishd-tabs-nav-scroll"
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
             >
               <div
-                class="fishd-tabs-nav fishd-tabs-nav-animated"
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
               >
-                <div
-                  aria-disabled="false"
-                  aria-selected="true"
-                  class="fishd-tabs-tab-active fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 1
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 2
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 3
-                </div>
+                Tab 1
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 2
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 3
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="fishd-tabs-content fishd-tabs-content-no-animated"
-      >
-        <div
-          aria-hidden="false"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-          role="tabpanel"
-        >
-          Tab 1
-        </div>
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-      </div>
     </div>
     <div
-      class="fishd-spin-container"
+      class="fishd-tabs-content fishd-tabs-content-no-animated"
     >
       <div
-        class="fishd-spin"
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
       >
-        <span
-          class="fishd-spin-dot fishd-spin-dot-spin"
-        >
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
+        Tab 1
       </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
     </div>
   </div>
   <div
-    class="fishd-tabs-ctner"
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-borderless-section fishd-tabs-no-animation"
   >
     <div
-      class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-borderless-section fishd-tabs-no-animation"
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
     >
       <div
-        class="fishd-tabs-bar"
-        role="tablist"
-        tabindex="0"
+        class="fishd-tabs-nav-container"
       >
-        <div
-          class="fishd-tabs-nav-container"
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
         >
           <span
-            class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-prev-icon"
-            />
-          </span>
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
           <span
-            class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
-            unselectable="unselectable"
-          >
-            <span
-              class="fishd-tabs-tab-next-icon"
-            />
-          </span>
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
           <div
-            class="fishd-tabs-nav-wrap"
+            class="fishd-tabs-nav-scroll"
           >
             <div
-              class="fishd-tabs-nav-scroll"
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
             >
               <div
-                class="fishd-tabs-nav fishd-tabs-nav-animated"
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
               >
-                <div
-                  aria-disabled="false"
-                  aria-selected="true"
-                  class="fishd-tabs-tab-active fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 1
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 2
-                </div>
-                <div
-                  aria-disabled="false"
-                  aria-selected="false"
-                  class=" fishd-tabs-tab"
-                  role="tab"
-                >
-                  Tab 3
-                </div>
+                Tab 1
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 2
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 3
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="fishd-tabs-content fishd-tabs-content-no-animated"
-      >
-        <div
-          aria-hidden="false"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
-          role="tabpanel"
-        >
-          Tab 1
-        </div>
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-        <div
-          aria-hidden="true"
-          class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
-          role="tabpanel"
-        />
-      </div>
     </div>
     <div
-      class="fishd-spin-container"
+      class="fishd-tabs-content fishd-tabs-content-no-animated"
     >
       <div
-        class="fishd-spin"
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
       >
-        <span
-          class="fishd-spin-dot fishd-spin-dot-spin"
-        >
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
+        Tab 1
       </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
     </div>
   </div>
 </div>

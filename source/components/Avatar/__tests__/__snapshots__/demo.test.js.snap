@@ -7,47 +7,63 @@ exports[`Renders avatar demo correctly 1`] = `
   >
     <div>
       <span
+        class="fishd-avatar fishd-avatar-circle fishd-avatar-icon"
+        style="width:64px;height:64px;line-height:64px;font-size:32px"
+      >
+        <i
+          class="fishdicon fishdicon-user-line"
+        />
+      </span>
+      <span
         class="fishd-avatar fishd-avatar-lg fishd-avatar-circle fishd-avatar-icon"
       >
         <i
-          class="fishdicon fishdicon-user"
+          class="fishdicon fishdicon-user-line"
         />
       </span>
       <span
         class="fishd-avatar fishd-avatar-circle fishd-avatar-icon"
       >
         <i
-          class="fishdicon fishdicon-user"
+          class="fishdicon fishdicon-user-line"
         />
       </span>
       <span
         class="fishd-avatar fishd-avatar-sm fishd-avatar-circle fishd-avatar-icon"
       >
         <i
-          class="fishdicon fishdicon-user"
+          class="fishdicon fishdicon-user-line"
         />
       </span>
     </div>
     <div>
       <span
+        class="fishd-avatar fishd-avatar-square fishd-avatar-icon"
+        style="width:64px;height:64px;line-height:64px;font-size:32px"
+      >
+        <i
+          class="fishdicon fishdicon-user-line"
+        />
+      </span>
+      <span
         class="fishd-avatar fishd-avatar-lg fishd-avatar-square fishd-avatar-icon"
       >
         <i
-          class="fishdicon fishdicon-user"
+          class="fishdicon fishdicon-user-line"
         />
       </span>
       <span
         class="fishd-avatar fishd-avatar-square fishd-avatar-icon"
       >
         <i
-          class="fishdicon fishdicon-user"
+          class="fishdicon fishdicon-user-line"
         />
       </span>
       <span
         class="fishd-avatar fishd-avatar-sm fishd-avatar-square fishd-avatar-icon"
       >
         <i
-          class="fishdicon fishdicon-user"
+          class="fishdicon fishdicon-user-line"
         />
       </span>
     </div>
@@ -59,7 +75,7 @@ exports[`Renders avatar demo correctly 1`] = `
       class="fishd-avatar fishd-avatar-circle fishd-avatar-icon"
     >
       <i
-        class="fishdicon fishdicon-user"
+        class="fishdicon fishdicon-user-line"
       />
     </span>
     <span
@@ -84,7 +100,7 @@ exports[`Renders avatar demo correctly 1`] = `
       class="fishd-avatar fishd-avatar-circle fishd-avatar-image"
     >
       <img
-        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+        src="https://ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
       />
     </span>
     <span
@@ -102,7 +118,7 @@ exports[`Renders avatar demo correctly 1`] = `
       style="background-color:#87d068"
     >
       <i
-        class="fishdicon fishdicon-user"
+        class="fishdicon fishdicon-user-line"
       />
     </span>
   </div>
@@ -138,7 +154,7 @@ exports[`Renders avatar demo correctly 1`] = `
           class="fishd-avatar fishd-avatar-square fishd-avatar-icon"
         >
           <i
-            class="fishdicon fishdicon-user"
+            class="fishdicon fishdicon-user-line"
           />
         </span>
         <sup
@@ -312,7 +328,7 @@ exports[`Renders avatar demo correctly 1`] = `
           class="fishd-avatar fishd-avatar-square fishd-avatar-icon"
         >
           <i
-            class="fishdicon fishdicon-user"
+            class="fishdicon fishdicon-user-line"
           />
         </span>
         <sup

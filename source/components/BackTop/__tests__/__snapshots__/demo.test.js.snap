@@ -2,9 +2,7 @@
 
 exports[`Renders backTop demo correctly 1`] = `
 <div>
-  <div
-    id="components-back-top-demo-custom-2"
-  >
+  <div>
     Scroll down to see the bottom-right
     <strong>
        original 
@@ -14,78 +12,6 @@ exports[`Renders backTop demo correctly 1`] = `
   <div
     id="components-back-top-demo-custom"
   >
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
-    <p>
-      Scroll down to see the bottom-right
-      <strong
-        style="color:#1088e9"
-      >
-         UP 
-      </strong>
-      button.
-    </p>
     <p>
       Scroll down to see the bottom-right
       <strong

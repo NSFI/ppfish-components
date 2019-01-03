@@ -6,47 +6,48 @@ exports[`Renders breadcrumb demo correctly 1`] = `
     class="fishd-breadcrumb"
   >
     <span>
-      <span
+      <a
         class="fishd-breadcrumb-link"
+        href=""
       >
         Home
-      </span>
+      </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        /
+        <i
+          class="fishdicon fishdicon-arrow-line-regular"
+        />
       </span>
     </span>
     <span>
-      <span
+      <a
         class="fishd-breadcrumb-link"
+        href=""
       >
-        <a
-          href=""
-        >
-          Application Center
-        </a>
-      </span>
+        APP Center
+      </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        /
+        <i
+          class="fishdicon fishdicon-arrow-line-regular"
+        />
       </span>
     </span>
     <span>
-      <span
+      <a
         class="fishd-breadcrumb-link"
+        href=""
       >
-        <a
-          href=""
-        >
-          Application List
-        </a>
-      </span>
+        APP List
+      </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        /
+        <i
+          class="fishdicon fishdicon-arrow-line-regular"
+        />
       </span>
     </span>
     <span>
@@ -58,7 +59,9 @@ exports[`Renders breadcrumb demo correctly 1`] = `
       <span
         class="fishd-breadcrumb-separator"
       >
-        /
+        <i
+          class="fishdicon fishdicon-arrow-line-regular"
+        />
       </span>
     </span>
   </div>
@@ -70,14 +73,19 @@ exports[`Renders breadcrumb demo correctly 1`] = `
         class="fishd-breadcrumb-link"
         href=""
       >
-        <i
-          class="fishdicon fishdicon-demo-grid"
+        <div
+          style="margin-right:4px"
         />
+        <span>
+          Home
+        </span>
       </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        /
+        <i
+          class="fishdicon fishdicon-arrow-line-regular"
+        />
       </span>
     </span>
     <span>
@@ -85,25 +93,27 @@ exports[`Renders breadcrumb demo correctly 1`] = `
         class="fishd-breadcrumb-link"
         href=""
       >
-        <i
-          class="fishdicon fishdicon-demo-pie"
+        <div
+          style="margin-right:4px"
         />
         <span>
-          Application List
+          APP List
         </span>
       </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        /
+        <i
+          class="fishdicon fishdicon-arrow-line-regular"
+        />
       </span>
     </span>
     <span>
       <span
         class="fishd-breadcrumb-link"
       >
-        <i
-          class="fishdicon fishdicon-demo-mail"
+        <div
+          style="margin-right:4px"
         />
         <span>
           Application
@@ -112,7 +122,9 @@ exports[`Renders breadcrumb demo correctly 1`] = `
       <span
         class="fishd-breadcrumb-separator"
       >
-        /
+        <i
+          class="fishdicon fishdicon-arrow-line-regular"
+        />
       </span>
     </span>
   </div>
@@ -120,15 +132,16 @@ exports[`Renders breadcrumb demo correctly 1`] = `
     class="fishd-breadcrumb"
   >
     <span>
-      <span
+      <a
         class="fishd-breadcrumb-link"
+        href=""
       >
         Home
-      </span>
+      </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        &gt;
+        /
       </span>
     </span>
     <span>
@@ -136,12 +149,12 @@ exports[`Renders breadcrumb demo correctly 1`] = `
         class="fishd-breadcrumb-link"
         href=""
       >
-        Application Center
+        APP Center
       </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        &gt;
+        /
       </span>
     </span>
     <span>
@@ -149,12 +162,12 @@ exports[`Renders breadcrumb demo correctly 1`] = `
         class="fishd-breadcrumb-link"
         href=""
       >
-        Application List
+        APP List
       </a>
       <span
         class="fishd-breadcrumb-separator"
       >
-        &gt;
+        /
       </span>
     </span>
     <span>
@@ -166,7 +179,7 @@ exports[`Renders breadcrumb demo correctly 1`] = `
       <span
         class="fishd-breadcrumb-separator"
       >
-        &gt;
+        /
       </span>
     </span>
   </div>

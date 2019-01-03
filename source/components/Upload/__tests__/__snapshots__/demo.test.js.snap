@@ -144,23 +144,22 @@ exports[`Renders upload demo correctly 1`] = `
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
       >
-        <i
-          class="fishdicon fishdicon-picture-close close"
-        />
-        <i
-          class="fishdicon fishdicon-picture-left prev fishd-picturepreview-hide"
-        />
-        <i
-          class="fishdicon fishdicon-picture-right next fishd-picturepreview-hide"
-        />
         <div
           class="canvas"
         >
           <img
             class="img"
-            src=""
           />
         </div>
+        <i
+          class="fishdicon fishdicon-picture-close close"
+        />
+        <i
+          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
+        />
+        <i
+          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
+        />
         <div
           class="toolbar fishd-picturepreview-hide"
         >
@@ -187,11 +186,9 @@ exports[`Renders upload demo correctly 1`] = `
             <i
               class="fishdicon fishdicon-picture-rotate icon"
             />
-            <a>
-              <i
-                class="fishdicon fishdicon-picture-download icon"
-              />
-            </a>
+            <i
+              class="fishdicon fishdicon-picture-download icon"
+            />
           </div>
         </div>
       </div>

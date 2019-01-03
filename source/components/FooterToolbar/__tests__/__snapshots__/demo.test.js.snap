@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders footerToolbar demo correctly 1`] = `
+<div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="450"
+      src="./demo/footerToolbar.html"
+      width="100%"
+    />
+  </div>
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="350"
+      src="./demo/layoutToolbar.html"
+    />
+  </div>
+  <div
+    id="demo-footertoolbar"
+    style="position:relative;border:1px solid #ccc"
+  >
+    <div
+      style="height:300px;overflow:auto;background:#f7f7f7;padding:24px;margin-bottom:52px"
+    >
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+      <p>
+        Content Content Content Content
+      </p>
+    </div>
+    <div
+      class=" fishd-footer-toolbar"
+      style="position:absolute;top:0"
+    >
+      <div
+        class="fishd-footer-toolbar-inner"
+      >
+        <button
+          class="fishd-btn"
+          type="button"
+        >
+          <span>
+            取 消
+          </span>
+        </button>
+        <button
+          class="fishd-btn fishd-btn-primary"
+          type="button"
+        >
+          <span>
+            保 存
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -152,7 +152,7 @@ exports[`Renders button demo correctly 1`] = `
         type="button"
       >
         <i
-          class="fishdicon fishdicon-demo-mail"
+          class="fishdicon fishdicon-upload-cloud"
         />
       </button>
       <button
@@ -160,7 +160,7 @@ exports[`Renders button demo correctly 1`] = `
         type="button"
       >
         <i
-          class="fishdicon fishdicon-demo-image"
+          class="fishdicon fishdicon-download-line"
         />
       </button>
     </div>
@@ -336,7 +336,7 @@ exports[`Renders button demo correctly 1`] = `
       type="button"
     >
       <i
-        class="fishdicon fishdicon-poweroff"
+        class="fishdicon fishdicon-download-line"
       />
       <span>
         Click me!
@@ -488,7 +488,7 @@ exports[`Renders button demo correctly 1`] = `
       type="button"
     >
       <i
-        class="fishdicon fishdicon-demo-mail"
+        class="fishdicon fishdicon-download-line"
       />
     </button>
     <button
@@ -496,10 +496,10 @@ exports[`Renders button demo correctly 1`] = `
       type="button"
     >
       <i
-        class="fishdicon fishdicon-demo-phone"
+        class="fishdicon fishdicon-download-line"
       />
       <span>
-        拨号
+        下载
       </span>
     </button>
     <br />

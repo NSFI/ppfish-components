@@ -854,9 +854,8 @@ exports[`Renders progress demo correctly 1`] = `
               <div
                 class="fishd-progress-extra"
               >
-                <i
-                  class="fishdicon fishdicon-demo-like"
-                  style="color:#50E3C2"
+                <div
+                  class="img-icon-14"
                 />
               </div>
             </div>

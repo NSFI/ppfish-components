@@ -3,7 +3,7 @@
 exports[`Renders carousel demo correctly 1`] = `
 <div>
   <div
-    class="fishd-carousel"
+    class="fishd-carousel fishd-carousel-bottom"
   >
     <div
       class="slick-slider slick-initialized"
@@ -216,10 +216,10 @@ exports[`Renders carousel demo correctly 1`] = `
     </div>
   </div>
   <div
-    class="fishd-carousel fishd-carousel-vertical"
+    class="fishd-carousel fishd-carousel-right"
   >
     <div
-      class="slick-slider slick-vertical slick-initialized"
+      class="slick-slider slick-initialized"
       dir="ltr"
     >
       <div
@@ -394,7 +394,7 @@ exports[`Renders carousel demo correctly 1`] = `
         </div>
       </div>
       <ul
-        class="slick-dots"
+        class="slick-dots slick-dots-vertical"
         style="display:block"
       >
         <li
@@ -429,7 +429,7 @@ exports[`Renders carousel demo correctly 1`] = `
     </div>
   </div>
   <div
-    class="fishd-carousel"
+    class="fishd-carousel fishd-carousel-bottom"
   >
     <div
       class="slick-slider slick-initialized"
@@ -552,7 +552,7 @@ exports[`Renders carousel demo correctly 1`] = `
     </div>
   </div>
   <div
-    class="fishd-carousel"
+    class="fishd-carousel fishd-carousel-bottom"
   >
     <div
       class="slick-slider slick-initialized"
@@ -731,6 +731,440 @@ exports[`Renders carousel demo correctly 1`] = `
       </div>
       <ul
         class="slick-dots"
+        style="display:block"
+      >
+        <li
+          class="slick-active"
+        >
+          <button>
+            1
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            2
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            3
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            4
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="fishd-carousel fishd-carousel-bottom"
+  >
+    <div
+      class="slick-slider slick-initialized"
+      dir="ltr"
+    >
+      <div
+        class="slick-arrow slick-prev"
+        style="display:flex"
+      />
+      <div
+        class="slick-list"
+      >
+        <div
+          class="slick-track"
+          style="width:900%;left:-100%"
+        >
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="-1"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  4
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="false"
+            class="slick-slide slick-active slick-current"
+            data-index="0"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  1
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="1"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  2
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="2"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  3
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="3"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  4
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="4"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  1
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="5"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  2
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="6"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  3
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="7"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  4
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="slick-arrow slick-next"
+        style="display:flex"
+      />
+      <ul
+        class="slick-dots"
+        style="display:block"
+      >
+        <li
+          class="slick-active"
+        >
+          <button>
+            1
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            2
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            3
+          </button>
+        </li>
+        <li
+          class=""
+        >
+          <button>
+            4
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="fishd-carousel fishd-carousel-bottom"
+  >
+    <div
+      class="slick-slider slick-initialized"
+      dir="ltr"
+    >
+      <div
+        class="slick-list"
+      >
+        <div
+          class="slick-track"
+          style="width:900%;left:-100%"
+        >
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="-1"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  4
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="false"
+            class="slick-slide slick-active slick-current"
+            data-index="0"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  1
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="1"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  2
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="2"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  3
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide"
+            data-index="3"
+            style="outline:none;width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  4
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="4"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  1
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="5"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  2
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="6"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  3
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            class="slick-slide slick-cloned"
+            data-index="7"
+            style="width:11.11111111111111%"
+            tabindex="-1"
+          >
+            <div>
+              <div
+                style="width:100%;display:inline-block"
+                tabindex="-1"
+              >
+                <h3>
+                  4
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul
+        class="slick-dots timer"
         style="display:block"
       >
         <li

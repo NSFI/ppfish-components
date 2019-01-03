@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders affix demo correctly 1`] = `
+<div>
+  <div>
+    <div
+      class=""
+    >
+      <button
+        class="fishd-btn fishd-btn-primary"
+        type="button"
+      >
+        <span>
+          Affix top
+        </span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div
+      class=""
+    >
+      <button
+        class="fishd-btn fishd-btn-danger"
+        type="button"
+      >
+        <span>
+          未固定
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="components-affix-demo-target"
+  >
+    <div
+      class="scrollable-container"
+    >
+      <div
+        class="background"
+      >
+        <div>
+          <div
+            class=""
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="button"
+            >
+              <span>
+                Fixed at the top of container
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      class=""
+    >
+      <button
+        class="fishd-btn fishd-btn-primary"
+        type="button"
+      >
+        <span>
+          Affix bottom
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -225,6 +225,79 @@ exports[`Renders timeline demo correctly 1`] = `
       </span>
     </button>
   </div>
+  <div>
+    <ul
+      class="fishd-timeline fishd-timeline-pending"
+    >
+      <li
+        class="fishd-timeline-item"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+        />
+        <div
+          class="fishd-timeline-item-content"
+        >
+          Create a services site 2015-09-01
+        </div>
+      </li>
+      <li
+        class="fishd-timeline-item"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+        />
+        <div
+          class="fishd-timeline-item-content"
+        >
+          Create a services site 2015-09-02
+        </div>
+      </li>
+      <li
+        class="fishd-timeline-item fishd-timeline-item-last"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+        />
+        <div
+          class="fishd-timeline-item-content"
+        >
+          Create a services site 2015-09-03
+        </div>
+      </li>
+      <li
+        class="fishd-timeline-item fishd-timeline-item-pending"
+      >
+        <div
+          class="fishd-timeline-item-tail"
+        />
+        <div
+          class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-blue"
+        >
+          <div
+            class="fishd-timeline-item-head fishd-timeline-item-head-blue"
+            style="left:-4px;top:-4px"
+          />
+        </div>
+        <div
+          class="fishd-timeline-item-content"
+        >
+          <a>
+            加载更多
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
   <ul
     class="fishd-timeline"
   >
@@ -268,7 +341,7 @@ exports[`Renders timeline demo correctly 1`] = `
         class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-red"
       >
         <i
-          class="fishdicon fishdicon-demo-bargraph"
+          class="fishdicon fishdicon-delete-line"
           style="font-size:16px"
         />
       </div>
@@ -337,7 +410,7 @@ exports[`Renders timeline demo correctly 1`] = `
         class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-blue"
       >
         <i
-          class="fishdicon fishdicon-demo-bargraph"
+          class="fishdicon fishdicon-delete-line"
           style="font-size:16px"
         />
       </div>
@@ -387,7 +460,7 @@ exports[`Renders timeline demo correctly 1`] = `
         class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-blue"
       >
         <i
-          class="fishdicon fishdicon-demo-bargraph"
+          class="fishdicon fishdicon-delete-line"
           style="font-size:16px"
         />
       </div>
@@ -441,7 +514,7 @@ exports[`Renders timeline demo correctly 1`] = `
         class="fishd-timeline-item-head fishd-timeline-item-head-custom fishd-timeline-item-head-red"
       >
         <i
-          class="fishdicon fishdicon-demo-bargraph"
+          class="fishdicon fishdicon-delete-line"
           style="font-size:16px"
         />
       </div>

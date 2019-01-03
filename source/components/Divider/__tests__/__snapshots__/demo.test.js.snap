@@ -34,7 +34,7 @@ exports[`Renders divider demo correctly 1`] = `
   <div>
     Text
     <div
-      class="fishd-divider fishd-divider-vertical"
+      class="fishd-divider fishd-divider-split"
     />
     <a
       href="#"
@@ -42,13 +42,127 @@ exports[`Renders divider demo correctly 1`] = `
       Link
     </a>
     <div
-      class="fishd-divider fishd-divider-vertical"
+      class="fishd-divider fishd-divider-split"
     />
     <a
       href="#"
     >
       Link
     </a>
+  </div>
+  <div
+    class="demo-vertical clearfix"
+  >
+    <div
+      class="fishd-divider fishd-divider-vertical"
+    />
+    <div
+      class="demo-content"
+    >
+      Fishd Design, a design language for background applications, is refined by Fishd UED Team
+    </div>
+    <div
+      class="fishd-divider fishd-divider-vertical fishd-divider-with-text-top"
+    >
+      <span
+        class="fishd-divider-inner-text"
+      >
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          文
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          字
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          居
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          上
+        </span>
+      </span>
+    </div>
+    <div
+      class="demo-content"
+    >
+      Fishd Design, a design language for background applications, is refined by Fishd UED Team
+    </div>
+    <div
+      class="fishd-divider fishd-divider-vertical fishd-divider-with-text"
+    >
+      <span
+        class="fishd-divider-inner-text"
+      >
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          文
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          字
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          居
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          中
+        </span>
+      </span>
+    </div>
+    <div
+      class="demo-content"
+    >
+      Fishd Design, a design language for background applications, is refined by Fishd UED Team
+    </div>
+    <div
+      class="fishd-divider fishd-divider-vertical fishd-divider-with-text-bottom"
+    >
+      <span
+        class="fishd-divider-inner-text"
+      >
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          文
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          字
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          居
+        </span>
+        <span
+          class="fishd-divider-vertical-child"
+        >
+          下
+        </span>
+      </span>
+    </div>
+    <div
+      class="demo-content"
+    >
+      Fishd Design, a design language for background applications, is refined by Fishd UED Team
+    </div>
+    <div
+      class="fishd-divider fishd-divider-vertical"
+    />
   </div>
   <div>
     <div
@@ -57,7 +171,19 @@ exports[`Renders divider demo correctly 1`] = `
       <span
         class="fishd-divider-inner-text"
       >
-        Left Text
+        文字居左
+      </span>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+    <div
+      class="fishd-divider fishd-divider-horizontal fishd-divider-with-text"
+    >
+      <span
+        class="fishd-divider-inner-text"
+      >
+        文字居中
       </span>
     </div>
     <p>
@@ -69,7 +195,7 @@ exports[`Renders divider demo correctly 1`] = `
       <span
         class="fishd-divider-inner-text"
       >
-        Right Text
+        文字居右
       </span>
     </div>
     <p>

@@ -23,6 +23,9 @@ exports[`Renders tree demo correctly 1`] = `
         title="parent 1"
       >
         <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
           class="fishd-tree-title"
         >
           parent 1
@@ -49,6 +52,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="parent 1-0"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               parent 1-0
@@ -71,6 +77,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="parent 1-1"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               parent 1-1
@@ -92,6 +101,9 @@ exports[`Renders tree demo correctly 1`] = `
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal fishd-tree-node-selected"
                 title=""
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -129,6 +141,9 @@ exports[`Renders tree demo correctly 1`] = `
         title="parent 1"
       >
         <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
           class="fishd-tree-title"
         >
           parent 1
@@ -155,6 +170,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="parent 1-0"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               parent 1-0
@@ -177,6 +195,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="leaf"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   leaf
@@ -194,6 +215,9 @@ exports[`Renders tree demo correctly 1`] = `
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal fishd-tree-node-selected"
                 title="leaf with long title leaf with long title leaf with long title"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -219,6 +243,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="parent 1-1"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               parent 1-1
@@ -240,6 +267,9 @@ exports[`Renders tree demo correctly 1`] = `
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
                 title=""
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -284,6 +314,9 @@ exports[`Renders tree demo correctly 1`] = `
         title="parent 1"
       >
         <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
           class="fishd-tree-title"
         >
           parent 1
@@ -317,6 +350,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="parent 1-0"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               parent 1-0
@@ -346,6 +382,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="leaf"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   leaf
@@ -370,6 +409,9 @@ exports[`Renders tree demo correctly 1`] = `
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
                 title="leaf"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -402,6 +444,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="parent 1-1"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               parent 1-1
@@ -430,6 +475,9 @@ exports[`Renders tree demo correctly 1`] = `
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
                 title=""
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -486,6 +534,9 @@ exports[`Renders tree demo correctly 1`] = `
           title=""
         >
           <span
+            class="fishd-tree-iconCtner"
+          />
+          <span
             class="fishd-tree-title"
           >
             <span>
@@ -513,6 +564,9 @@ exports[`Renders tree demo correctly 1`] = `
           title=""
         >
           <span
+            class="fishd-tree-iconCtner"
+          />
+          <span
             class="fishd-tree-title"
           >
             <span>
@@ -536,6 +590,9 @@ exports[`Renders tree demo correctly 1`] = `
           title=""
         >
           <span
+            class="fishd-tree-iconCtner"
+          />
+          <span
             class="fishd-tree-title"
           >
             <span>
@@ -550,7 +607,7 @@ exports[`Renders tree demo correctly 1`] = `
     </ul>
   </div>
   <ul
-    class="fishd-tree fishd-tree-icon-hide"
+    class="fishd-tree"
     role="tree"
     unselectable="on"
   >
@@ -570,6 +627,17 @@ exports[`Renders tree demo correctly 1`] = `
         title="Expand to load"
       >
         <span
+          class="fishd-tree-iconCtner"
+        >
+          <span
+            class="fishd-tree-iconEle fishd-tree-icon__customize"
+          >
+            <div
+              class="img-icon-14"
+            />
+          </span>
+        </span>
+        <span
           class="fishd-tree-title"
         >
           Expand to load
@@ -592,6 +660,17 @@ exports[`Renders tree demo correctly 1`] = `
         title="Expand to load"
       >
         <span
+          class="fishd-tree-iconCtner"
+        >
+          <span
+            class="fishd-tree-iconEle fishd-tree-icon__customize"
+          >
+            <div
+              class="img-icon-14"
+            />
+          </span>
+        </span>
+        <span
           class="fishd-tree-title"
         >
           Expand to load
@@ -609,6 +688,17 @@ exports[`Renders tree demo correctly 1`] = `
         class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
         title="Tree Node"
       >
+        <span
+          class="fishd-tree-iconCtner"
+        >
+          <span
+            class="fishd-tree-iconEle fishd-tree-icon__customize"
+          >
+            <div
+              class="img-icon-14"
+            />
+          </span>
+        </span>
         <span
           class="fishd-tree-title"
         >
@@ -638,11 +728,15 @@ exports[`Renders tree demo correctly 1`] = `
         title="parent 1"
       >
         <span
-          class="fishd-tree-iconEle fishd-tree-icon__customize"
+          class="fishd-tree-iconCtner"
         >
-          <i
-            class="fishdicon fishdicon-demo-grid"
-          />
+          <span
+            class="fishd-tree-iconEle fishd-tree-icon__customize"
+          >
+            <div
+              class="img-icon-14"
+            />
+          </span>
         </span>
         <span
           class="fishd-tree-title"
@@ -667,11 +761,15 @@ exports[`Renders tree demo correctly 1`] = `
             title="leaf"
           >
             <span
-              class="fishd-tree-iconEle fishd-tree-icon__customize"
+              class="fishd-tree-iconCtner"
             >
-              <i
-                class="fishdicon fishdicon-demo-image"
-              />
+              <span
+                class="fishd-tree-iconEle fishd-tree-icon__customize"
+              >
+                <div
+                  class="img-icon-14"
+                />
+              </span>
             </span>
             <span
               class="fishd-tree-title"
@@ -692,11 +790,15 @@ exports[`Renders tree demo correctly 1`] = `
             title="leaf"
           >
             <span
-              class="fishd-tree-iconEle fishd-tree-icon__customize"
+              class="fishd-tree-iconCtner"
             >
-              <i
-                class="fishdicon fishdicon-demo-folder"
-              />
+              <span
+                class="fishd-tree-iconEle fishd-tree-icon__customize"
+              >
+                <div
+                  class="img-icon-14"
+                />
+              </span>
             </span>
             <span
               class="fishd-tree-title"
@@ -736,6 +838,9 @@ exports[`Renders tree demo correctly 1`] = `
         title="0-0"
       >
         <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
           class="fishd-tree-title"
         >
           0-0
@@ -769,6 +874,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="0-0-0"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               0-0-0
@@ -798,6 +906,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="0-0-0-0"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   0-0-0-0
@@ -823,6 +934,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="0-0-0-1"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   0-0-0-1
@@ -847,6 +961,9 @@ exports[`Renders tree demo correctly 1`] = `
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
                 title="0-0-0-2"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -879,6 +996,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="0-0-1"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               0-0-1
@@ -908,6 +1028,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="0-0-1-0"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   0-0-1-0
@@ -933,6 +1056,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="0-0-1-1"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   0-0-1-1
@@ -957,6 +1083,9 @@ exports[`Renders tree demo correctly 1`] = `
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
                 title="0-0-1-2"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -984,6 +1113,9 @@ exports[`Renders tree demo correctly 1`] = `
             class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
             title="0-0-2"
           >
+            <span
+              class="fishd-tree-iconCtner"
+            />
             <span
               class="fishd-tree-title"
             >
@@ -1016,6 +1148,9 @@ exports[`Renders tree demo correctly 1`] = `
         title="0-1"
       >
         <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
           class="fishd-tree-title"
         >
           0-1
@@ -1040,6 +1175,9 @@ exports[`Renders tree demo correctly 1`] = `
         class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
         title="0-2"
       >
+        <span
+          class="fishd-tree-iconCtner"
+        />
         <span
           class="fishd-tree-title"
         >
@@ -1071,6 +1209,9 @@ exports[`Renders tree demo correctly 1`] = `
         title="0-0"
       >
         <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
           class="fishd-tree-title"
         >
           0-0
@@ -1099,6 +1240,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="0-0-0"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               0-0-0
@@ -1123,6 +1267,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="0-0-0-0"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   0-0-0-0
@@ -1143,6 +1290,9 @@ exports[`Renders tree demo correctly 1`] = `
                 title="0-0-0-1"
               >
                 <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
                   class="fishd-tree-title"
                 >
                   0-0-0-1
@@ -1162,6 +1312,9 @@ exports[`Renders tree demo correctly 1`] = `
                 draggable="true"
                 title="0-0-0-2"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
@@ -1189,6 +1342,9 @@ exports[`Renders tree demo correctly 1`] = `
             title="0-0-1"
           >
             <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
               class="fishd-tree-title"
             >
               0-0-1
@@ -1208,6 +1364,9 @@ exports[`Renders tree demo correctly 1`] = `
             draggable="true"
             title="0-0-2"
           >
+            <span
+              class="fishd-tree-iconCtner"
+            />
             <span
               class="fishd-tree-title"
             >
@@ -1235,6 +1394,9 @@ exports[`Renders tree demo correctly 1`] = `
         title="0-1"
       >
         <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
           class="fishd-tree-title"
         >
           0-1
@@ -1254,6 +1416,9 @@ exports[`Renders tree demo correctly 1`] = `
         draggable="true"
         title="0-2"
       >
+        <span
+          class="fishd-tree-iconCtner"
+        />
         <span
           class="fishd-tree-title"
         >
@@ -1280,12 +1445,15 @@ exports[`Renders tree demo correctly 1`] = `
       </span>
       <span
         class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-open"
-        title="parent 1"
+        title="0-0"
       >
+        <span
+          class="fishd-tree-iconCtner"
+        />
         <span
           class="fishd-tree-title"
         >
-          parent 1
+          0-0
         </span>
       </span>
       <ul
@@ -1306,12 +1474,15 @@ exports[`Renders tree demo correctly 1`] = `
           </span>
           <span
             class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-open"
-            title="parent 1-0"
+            title="0-0-0"
           >
+            <span
+              class="fishd-tree-iconCtner"
+            />
             <span
               class="fishd-tree-title"
             >
-              parent 1-0
+              0-0-0
             </span>
           </span>
           <ul
@@ -1320,7 +1491,7 @@ exports[`Renders tree demo correctly 1`] = `
             role="group"
           >
             <li
-              class="fishd-tree-treenode-switcher-close"
+              class="fishd-tree-treenode-disabled fishd-tree-treenode-switcher-close"
               role="treeitem"
             >
               <span
@@ -1332,12 +1503,15 @@ exports[`Renders tree demo correctly 1`] = `
               </span>
               <span
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
-                title="leaf"
+                title="0-0-0-0"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
-                  leaf
+                  0-0-0-0
                 </span>
               </span>
             </li>
@@ -1354,12 +1528,15 @@ exports[`Renders tree demo correctly 1`] = `
               </span>
               <span
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
-                title="leaf"
+                title="0-0-0-1"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
-                  leaf
+                  0-0-0-1
                 </span>
               </span>
             </li>
@@ -1376,12 +1553,65 @@ exports[`Renders tree demo correctly 1`] = `
               </span>
               <span
                 class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
-                title="leaf"
+                title="0-0-0-2"
               >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
                 <span
                   class="fishd-tree-title"
                 >
-                  leaf
+                  0-0-0-2
+                </span>
+              </span>
+            </li>
+            <li
+              class="fishd-tree-treenode-switcher-close"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              >
+                <i
+                  class="fishdicon fishdicon-file-line fishd-tree-switcher-line-icon"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-0-3"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-0-3
+                </span>
+              </span>
+            </li>
+            <li
+              class="fishd-tree-treenode-switcher-close"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              >
+                <i
+                  class="fishdicon fishdicon-file-line fishd-tree-switcher-line-icon"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-0-4"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-0-4
                 </span>
               </span>
             </li>
@@ -1400,12 +1630,15 @@ exports[`Renders tree demo correctly 1`] = `
           </span>
           <span
             class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-close"
-            title="parent 1-1"
+            title="0-0-1"
           >
+            <span
+              class="fishd-tree-iconCtner"
+            />
             <span
               class="fishd-tree-title"
             >
-              parent 1-1
+              0-0-1
             </span>
           </span>
         </li>
@@ -1414,24 +1647,77 @@ exports[`Renders tree demo correctly 1`] = `
           role="treeitem"
         >
           <span
-            class="fishd-tree-switcher fishd-tree-switcher_close"
+            class="fishd-tree-switcher fishd-tree-switcher-noop"
           >
             <i
-              class="fishdicon fishdicon-plus-square fishd-tree-switcher-line-icon"
+              class="fishdicon fishdicon-file-line fishd-tree-switcher-line-icon"
             />
           </span>
           <span
-            class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-close"
-            title="parent 1-2"
+            class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+            title="0-0-2"
           >
+            <span
+              class="fishd-tree-iconCtner"
+            />
             <span
               class="fishd-tree-title"
             >
-              parent 1-2
+              0-0-2
             </span>
           </span>
         </li>
       </ul>
+    </li>
+    <li
+      class="fishd-tree-treenode-switcher-close"
+      role="treeitem"
+    >
+      <span
+        class="fishd-tree-switcher fishd-tree-switcher_close"
+      >
+        <i
+          class="fishdicon fishdicon-plus-square fishd-tree-switcher-line-icon"
+        />
+      </span>
+      <span
+        class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-close"
+        title="0-1"
+      >
+        <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
+          class="fishd-tree-title"
+        >
+          0-1
+        </span>
+      </span>
+    </li>
+    <li
+      class="fishd-tree-treenode-switcher-close"
+      role="treeitem"
+    >
+      <span
+        class="fishd-tree-switcher fishd-tree-switcher-noop"
+      >
+        <i
+          class="fishdicon fishdicon-file-line fishd-tree-switcher-line-icon"
+        />
+      </span>
+      <span
+        class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+        title="0-2"
+      >
+        <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
+          class="fishd-tree-title"
+        >
+          0-2
+        </span>
+      </span>
     </li>
   </ul>
   <ul
@@ -1455,11 +1741,15 @@ exports[`Renders tree demo correctly 1`] = `
         title="parent 0"
       >
         <span
-          class="fishd-tree-iconEle fishd-tree-icon__customize"
+          class="fishd-tree-iconCtner"
         >
-          <i
-            class="fishdicon fishdicon-folder-open-line"
-          />
+          <span
+            class="fishd-tree-iconEle fishd-tree-icon__customize"
+          >
+            <i
+              class="fishdicon fishdicon-folder-open-line"
+            />
+          </span>
         </span>
         <span
           class="fishd-tree-title"
@@ -1484,11 +1774,15 @@ exports[`Renders tree demo correctly 1`] = `
             title="leaf 0-0"
           >
             <span
-              class="fishd-tree-iconEle fishd-tree-icon__customize"
+              class="fishd-tree-iconCtner"
             >
-              <i
-                class="fishdicon fishdicon-file-line"
-              />
+              <span
+                class="fishd-tree-iconEle fishd-tree-icon__customize"
+              >
+                <i
+                  class="fishdicon fishdicon-file-line"
+                />
+              </span>
             </span>
             <span
               class="fishd-tree-title"
@@ -1509,11 +1803,15 @@ exports[`Renders tree demo correctly 1`] = `
             title="leaf 0-1"
           >
             <span
-              class="fishd-tree-iconEle fishd-tree-icon__customize"
+              class="fishd-tree-iconCtner"
             >
-              <i
-                class="fishdicon fishdicon-file-line"
-              />
+              <span
+                class="fishd-tree-iconEle fishd-tree-icon__customize"
+              >
+                <i
+                  class="fishdicon fishdicon-file-line"
+                />
+              </span>
             </span>
             <span
               class="fishd-tree-title"
@@ -1540,11 +1838,15 @@ exports[`Renders tree demo correctly 1`] = `
         title="parent 1"
       >
         <span
-          class="fishd-tree-iconEle fishd-tree-icon__customize"
+          class="fishd-tree-iconCtner"
         >
-          <i
-            class="fishdicon fishdicon-folder-open-line"
-          />
+          <span
+            class="fishd-tree-iconEle fishd-tree-icon__customize"
+          >
+            <i
+              class="fishdicon fishdicon-folder-open-line"
+            />
+          </span>
         </span>
         <span
           class="fishd-tree-title"
@@ -1569,11 +1871,15 @@ exports[`Renders tree demo correctly 1`] = `
             title="leaf 1-0"
           >
             <span
-              class="fishd-tree-iconEle fishd-tree-icon__customize"
+              class="fishd-tree-iconCtner"
             >
-              <i
-                class="fishdicon fishdicon-file-line"
-              />
+              <span
+                class="fishd-tree-iconEle fishd-tree-icon__customize"
+              >
+                <i
+                  class="fishdicon fishdicon-file-line"
+                />
+              </span>
             </span>
             <span
               class="fishd-tree-title"
@@ -1594,11 +1900,15 @@ exports[`Renders tree demo correctly 1`] = `
             title="leaf 1-1"
           >
             <span
-              class="fishd-tree-iconEle fishd-tree-icon__customize"
+              class="fishd-tree-iconCtner"
             >
-              <i
-                class="fishdicon fishdicon-file-line"
-              />
+              <span
+                class="fishd-tree-iconEle fishd-tree-icon__customize"
+              >
+                <i
+                  class="fishdicon fishdicon-file-line"
+                />
+              </span>
             </span>
             <span
               class="fishd-tree-title"

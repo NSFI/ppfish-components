@@ -26,17 +26,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
       >
+        <div
+          class="canvas"
+        />
         <i
           class="fishdicon fishdicon-picture-close close"
         />
         <i
-          class="fishdicon fishdicon-picture-left prev fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
         />
         <i
-          class="fishdicon fishdicon-picture-right next fishd-picturepreview-hide"
-        />
-        <div
-          class="canvas"
+          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
         />
         <div
           class="toolbar fishd-picturepreview-hide"
@@ -64,11 +64,9 @@ exports[`Renders picturePreview demo correctly 1`] = `
             <i
               class="fishdicon fishdicon-picture-rotate icon"
             />
-            <a>
-              <i
-                class="fishdicon fishdicon-picture-download icon"
-              />
-            </a>
+            <i
+              class="fishdicon fishdicon-picture-download icon"
+            />
           </div>
         </div>
       </div>
@@ -98,17 +96,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
       >
+        <div
+          class="canvas"
+        />
         <i
           class="fishdicon fishdicon-picture-close close"
         />
         <i
-          class="fishdicon fishdicon-picture-left prev fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
         />
         <i
-          class="fishdicon fishdicon-picture-right next fishd-picturepreview-hide"
-        />
-        <div
-          class="canvas"
+          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
         />
         <div
           class="toolbar"
@@ -136,11 +134,9 @@ exports[`Renders picturePreview demo correctly 1`] = `
             <i
               class="fishdicon fishdicon-picture-rotate icon"
             />
-            <a>
-              <i
-                class="fishdicon fishdicon-picture-download icon"
-              />
-            </a>
+            <i
+              class="fishdicon fishdicon-picture-download icon"
+            />
           </div>
         </div>
       </div>
@@ -170,17 +166,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
         class="fishd-picturepreview draggable fishd-picturepreview-hide"
         data-show="false"
       >
+        <div
+          class="canvas"
+        />
         <i
           class="fishdicon fishdicon-picture-close close"
         />
         <i
-          class="fishdicon fishdicon-picture-left prev fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
         />
         <i
-          class="fishdicon fishdicon-picture-right next fishd-picturepreview-hide"
-        />
-        <div
-          class="canvas"
+          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
         />
         <div
           class="toolbar"
@@ -208,11 +204,9 @@ exports[`Renders picturePreview demo correctly 1`] = `
             <i
               class="fishdicon fishdicon-picture-rotate icon"
             />
-            <a>
-              <i
-                class="fishdicon fishdicon-picture-download icon"
-              />
-            </a>
+            <i
+              class="fishdicon fishdicon-picture-download icon"
+            />
           </div>
         </div>
       </div>
@@ -235,17 +229,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
       class="fishd-picturepreview draggable fishd-picturepreview-hide"
       data-show="false"
     >
+      <div
+        class="canvas"
+      />
       <i
         class="fishdicon fishdicon-picture-close close"
       />
       <i
-        class="fishdicon fishdicon-picture-left prev fishd-picturepreview-hide"
+        class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
       />
       <i
-        class="fishdicon fishdicon-picture-right next fishd-picturepreview-hide"
-      />
-      <div
-        class="canvas"
+        class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
       />
       <div
         class="toolbar"
@@ -273,11 +267,9 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <i
             class="fishdicon fishdicon-picture-rotate icon"
           />
-          <a>
-            <i
-              class="fishdicon fishdicon-picture-download icon"
-            />
-          </a>
+          <i
+            class="fishdicon fishdicon-picture-download icon"
+          />
         </div>
       </div>
     </div>
@@ -306,17 +298,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
       >
+        <div
+          class="canvas"
+        />
         <i
           class="fishdicon fishdicon-picture-close close"
         />
         <i
-          class="fishdicon fishdicon-picture-left prev"
+          class="fishdicon fishdicon-arrow-line-Bold prev"
         />
         <i
-          class="fishdicon fishdicon-picture-right next"
-        />
-        <div
-          class="canvas"
+          class="fishdicon fishdicon-arrow-line-Bold next"
         />
         <div
           class="toolbar fishd-picturepreview-hide"
@@ -344,11 +336,9 @@ exports[`Renders picturePreview demo correctly 1`] = `
             <i
               class="fishdicon fishdicon-picture-rotate icon"
             />
-            <a>
-              <i
-                class="fishdicon fishdicon-picture-download icon"
-              />
-            </a>
+            <i
+              class="fishdicon fishdicon-picture-download icon"
+            />
           </div>
         </div>
       </div>

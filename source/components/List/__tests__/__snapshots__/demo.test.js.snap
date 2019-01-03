@@ -701,390 +701,6 @@ exports[`Renders list demo correctly 1`] = `
     </div>
   </div>
   <div
-    class="fishd-list fishd-list-split fishd-list-grid"
-  >
-    <div
-      class="fishd-spin-nested-loading"
-    >
-      <div
-        class="fishd-spin-nested"
-      >
-        <div
-          class="fishd-row"
-          style="margin-left:-8px;margin-right:-8px"
-        >
-          <div
-            class="fishd-col-6"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 1
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-6"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 2
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-6"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 3
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-6"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 4
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="fishd-list fishd-list-split fishd-list-grid"
-  >
-    <div
-      class="fishd-spin-nested-loading"
-    >
-      <div
-        class="fishd-spin-nested"
-      >
-        <div
-          class="fishd-row"
-          style="margin-left:-8px;margin-right:-8px"
-        >
-          <div
-            class="fishd-col-xs-24 fishd-col-sm-12 fishd-col-md-6 fishd-col-lg-6 fishd-col-xl-4 fishd-col-xxl-8"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 1
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-xs-24 fishd-col-sm-12 fishd-col-md-6 fishd-col-lg-6 fishd-col-xl-4 fishd-col-xxl-8"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 2
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-xs-24 fishd-col-sm-12 fishd-col-md-6 fishd-col-lg-6 fishd-col-xl-4 fishd-col-xxl-8"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 3
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-xs-24 fishd-col-sm-12 fishd-col-md-6 fishd-col-lg-6 fishd-col-xl-4 fishd-col-xxl-8"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 4
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-xs-24 fishd-col-sm-12 fishd-col-md-6 fishd-col-lg-6 fishd-col-xl-4 fishd-col-xxl-8"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 5
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="fishd-col-xs-24 fishd-col-sm-12 fishd-col-md-6 fishd-col-lg-6 fishd-col-xl-4 fishd-col-xxl-8"
-          >
-            <div
-              class="fishd-list-item"
-              style="padding-left:8px;padding-right:8px"
-            >
-              <div
-                class="fishd-list-item-content fishd-list-item-content-single"
-              >
-                <div
-                  class="fishd-card fishd-card-bordered"
-                >
-                  <div
-                    class="fishd-card-head"
-                  >
-                    <div
-                      class="fishd-card-head-wrapper"
-                    >
-                      <div
-                        class="fishd-card-head-title"
-                      >
-                        Title 6
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="fishd-card-body"
-                  >
-                    Card content
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
     class="fishd-list fishd-list-vertical fishd-list-lg fishd-list-split fishd-list-something-after-last-item"
   >
     <div
@@ -1144,37 +760,28 @@ exports[`Renders list demo correctly 1`] = `
                 class="fishd-list-item-action"
               >
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-star-o"
-                      style="margin-right:8px"
-                    />
-                    156
-                  </span>
+                  <div
+                    text="156"
+                    type="star-o"
+                  />
                   <em
                     class="fishd-list-item-action-split"
                   />
                 </li>
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-like-o"
-                      style="margin-right:8px"
-                    />
-                    156
-                  </span>
+                  <div
+                    text="156"
+                    type="like-o"
+                  />
                   <em
                     class="fishd-list-item-action-split"
                   />
                 </li>
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-message"
-                      style="margin-right:8px"
-                    />
-                    2
-                  </span>
+                  <div
+                    text="2"
+                    type="message"
+                  />
                 </li>
               </ul>
             </div>
@@ -1240,37 +847,28 @@ exports[`Renders list demo correctly 1`] = `
                 class="fishd-list-item-action"
               >
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-star-o"
-                      style="margin-right:8px"
-                    />
-                    156
-                  </span>
+                  <div
+                    text="156"
+                    type="star-o"
+                  />
                   <em
                     class="fishd-list-item-action-split"
                   />
                 </li>
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-like-o"
-                      style="margin-right:8px"
-                    />
-                    156
-                  </span>
+                  <div
+                    text="156"
+                    type="like-o"
+                  />
                   <em
                     class="fishd-list-item-action-split"
                   />
                 </li>
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-message"
-                      style="margin-right:8px"
-                    />
-                    2
-                  </span>
+                  <div
+                    text="2"
+                    type="message"
+                  />
                 </li>
               </ul>
             </div>
@@ -1336,37 +934,28 @@ exports[`Renders list demo correctly 1`] = `
                 class="fishd-list-item-action"
               >
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-star-o"
-                      style="margin-right:8px"
-                    />
-                    156
-                  </span>
+                  <div
+                    text="156"
+                    type="star-o"
+                  />
                   <em
                     class="fishd-list-item-action-split"
                   />
                 </li>
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-like-o"
-                      style="margin-right:8px"
-                    />
-                    156
-                  </span>
+                  <div
+                    text="156"
+                    type="like-o"
+                  />
                   <em
                     class="fishd-list-item-action-split"
                   />
                 </li>
                 <li>
-                  <span>
-                    <i
-                      class="fishdicon fishdicon-message"
-                      style="margin-right:8px"
-                    />
-                    2
-                  </span>
+                  <div
+                    text="2"
+                    type="message"
+                  />
                 </li>
               </ul>
             </div>

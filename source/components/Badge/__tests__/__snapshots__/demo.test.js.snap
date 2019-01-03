@@ -578,9 +578,7 @@ exports[`Renders badge demo correctly 1`] = `
     <span
       class="fishd-badge"
     >
-      <i
-        class="fishdicon fishdicon-demo-phone"
-      />
+      <div />
       <sup
         class="fishd-scroll-number fishd-badge-dot"
         data-show="true"
@@ -589,9 +587,7 @@ exports[`Renders badge demo correctly 1`] = `
     <span
       class="fishd-badge"
     >
-      <i
-        class="fishdicon fishdicon-demo-phone"
-      />
+      <div />
     </span>
     <span
       class="fishd-badge"

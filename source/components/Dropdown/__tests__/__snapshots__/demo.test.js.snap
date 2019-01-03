@@ -5,7 +5,11 @@ exports[`Renders dropdown demo correctly 1`] = `
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me
+    Hover me 
+    <i
+      class="fishdicon fishdicon-bottom"
+      style="font-size:12px"
+    />
   </a>
   <div
     class="components-dropdown-demo-placement"
@@ -83,7 +87,28 @@ exports[`Renders dropdown demo correctly 1`] = `
         type="button"
       >
         <i
-          class="fishdicon fishdicon-ellipsis"
+          class="fishdicon fishdicon-more-point"
+        />
+      </button>
+    </div>
+    <div
+      class="fishd-btn-group fishd-dropdown-button"
+      style="margin-left:8px"
+    >
+      <button
+        class="fishd-btn fishd-btn-primary"
+        type="button"
+      >
+        <span>
+          Dropdown
+        </span>
+      </button>
+      <button
+        class="fishd-btn fishd-dropdown-trigger fishd-btn-primary fishd-btn-icon-only"
+        type="button"
+      >
+        <i
+          class="fishdicon fishdicon-more-point"
         />
       </button>
     </div>
@@ -106,7 +131,7 @@ exports[`Renders dropdown demo correctly 1`] = `
         type="button"
       >
         <i
-          class="fishdicon fishdicon-ellipsis"
+          class="fishdicon fishdicon-more-point"
         />
       </button>
     </div>
@@ -116,34 +141,71 @@ exports[`Renders dropdown demo correctly 1`] = `
       type="button"
     >
       <span>
-        Button
+        Button 
       </span>
+      <i
+        class="fishdicon fishdicon-bottom"
+        style="font-size:12px"
+      />
+    </button>
+    <button
+      class="fishd-btn fishd-dropdown-trigger fishd-btn-primary"
+      style="margin-left:8px"
+      type="button"
+    >
+      <span>
+        Button 
+      </span>
+      <i
+        class="fishdicon fishdicon-bottom"
+        style="font-size:12px"
+      />
     </button>
   </div>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me, Click menu item
+    Hover me, Click menu item 
+    <i
+      class="fishdicon fishdicon-bottom"
+      style="font-size:12px"
+    />
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me
+    Hover me 
+    <i
+      class="fishdicon fishdicon-bottom"
+      style="font-size:12px"
+    />
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Hover me
+    Hover me 
+    <i
+      class="fishdicon fishdicon-bottom"
+      style="font-size:12px"
+    />
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Cascading menu
+    Cascading menu 
+    <i
+      class="fishdicon fishdicon-bottom"
+      style="font-size:12px"
+    />
   </a>
   <a
     class="fishd-dropdown-link fishd-dropdown-trigger"
   >
-    Click me
+    Click me 
+    <i
+      class="fishdicon fishdicon-bottom"
+      style="font-size:12px"
+    />
   </a>
 </div>
 `;
