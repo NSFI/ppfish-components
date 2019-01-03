@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import scrollIntoView from 'dom-scroll-into-view';
 
 import Affix from '../../../../source/components/Affix/index.tsx';
 import './style.less';
@@ -91,6 +92,9 @@ export default class Slider extends React.Component {
     const el = this.refs[result.id];
     el.classList.add('active');
     getSiblings(el).map((i) => i.classList.remove('active'));
+    scrollIntoView(this.refs[result.id], this.refs.menu, {
+      onlyScrollIfNeeded: true
+    });
   };
 
   render() {
