@@ -1,4 +1,4 @@
-@import "../../../../source/assets/css/themes/default.less";
+@import "../../../../source/assets/css/index.less";
 
 .slider-container {
   position: absolute;
@@ -11,6 +11,9 @@
   font-size: 12px;
   margin: 0 0 16px 30px;
   border-left: 1px solid #ebedf0;
+  max-height: calc(~"100vh - 300px");
+  overflow: auto;
+  .scrollbar;
   a {
     padding-left: 16px;
     display: block;
