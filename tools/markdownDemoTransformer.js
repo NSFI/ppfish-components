@@ -68,6 +68,11 @@ function transformCode(codes, filename) {
       } else if (node.name.type === "JSXIdentifier") {
         //这种是一般的标签
         tagName = node.name.name;
+
+        // 将 SVG ICON 组件 mock 为 div 节点
+        if (tagName.startsWith('Icon') && tagName != 'Icon') {
+          tagName = node.name.name = 'div';
+        }
       }
 
       if (tagName && !w3c.includes(tagName)) {
