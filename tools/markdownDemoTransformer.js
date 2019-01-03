@@ -213,7 +213,7 @@ function transformCode(codes, filename) {
     export default function TestDemoContainer(props) {
       return (
         <div>
-          ${classNames.map(classname => `<${classname}/>`).join('\n')}
+          ${classNames.map(classname => `<${classname} {...props}/>`).join('\n')}
         </div>
       );
     };
