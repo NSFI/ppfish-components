@@ -13,7 +13,83 @@ exports[`Renders picturePreview demo correctly 1`] = `
       </div>
       <div
         class="pics"
-      />
+      >
+        <div
+          class="item"
+        >
+          <img
+            alt="pic1"
+            height="60px"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic1
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic2"
+            height="60px"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic2
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic3"
+            height="60px"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic3
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic4"
+            height="60px"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic4
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic5"
+            height="60px"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic5
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="fishd-picturepreview-root fishd-picturepreview-hide"
@@ -28,15 +104,41 @@ exports[`Renders picturePreview demo correctly 1`] = `
       >
         <div
           class="canvas"
-        />
+        >
+          <img
+            alt="pic1"
+            class="img"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+          />
+          <img
+            alt="pic2"
+            class="img"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+          />
+          <img
+            alt="pic3"
+            class="img"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+          />
+          <img
+            alt="pic4"
+            class="img"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+          />
+          <img
+            alt="pic5"
+            class="img"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+          />
+        </div>
         <i
           class="fishdicon fishdicon-picture-close close"
         />
         <i
-          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold prev"
         />
         <i
-          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold next"
         />
         <div
           class="toolbar fishd-picturepreview-hide"
@@ -44,7 +146,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            NaN/0
+            NaN/5
           </div>
           <div
             class="toolbarCon"
@@ -83,7 +185,83 @@ exports[`Renders picturePreview demo correctly 1`] = `
       </div>
       <div
         class="pics"
-      />
+      >
+        <div
+          class="item"
+        >
+          <img
+            alt="pic1"
+            height="60px"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic1
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic2"
+            height="60px"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic2
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic3"
+            height="60px"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic3
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic4"
+            height="60px"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic4
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic5"
+            height="60px"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic5
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="fishd-picturepreview-root fishd-picturepreview-hide"
@@ -98,15 +276,41 @@ exports[`Renders picturePreview demo correctly 1`] = `
       >
         <div
           class="canvas"
-        />
+        >
+          <img
+            alt="pic1"
+            class="img"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+          />
+          <img
+            alt="pic2"
+            class="img"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+          />
+          <img
+            alt="pic3"
+            class="img"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+          />
+          <img
+            alt="pic4"
+            class="img"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+          />
+          <img
+            alt="pic5"
+            class="img"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+          />
+        </div>
         <i
           class="fishdicon fishdicon-picture-close close"
         />
         <i
-          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold prev"
         />
         <i
-          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold next"
         />
         <div
           class="toolbar"
@@ -114,7 +318,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            NaN/0
+            NaN/5
           </div>
           <div
             class="toolbarCon"
@@ -153,7 +357,83 @@ exports[`Renders picturePreview demo correctly 1`] = `
       </div>
       <div
         class="pics"
-      />
+      >
+        <div
+          class="item"
+        >
+          <img
+            alt="pic1"
+            height="60px"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic1
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic2"
+            height="60px"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic2
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic3"
+            height="60px"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic3
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic4"
+            height="60px"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic4
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic5"
+            height="60px"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic5
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="fishd-picturepreview-root fishd-picturepreview-hide"
@@ -168,15 +448,41 @@ exports[`Renders picturePreview demo correctly 1`] = `
       >
         <div
           class="canvas"
-        />
+        >
+          <img
+            alt="pic1"
+            class="img"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+          />
+          <img
+            alt="pic2"
+            class="img"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+          />
+          <img
+            alt="pic3"
+            class="img"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+          />
+          <img
+            alt="pic4"
+            class="img"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+          />
+          <img
+            alt="pic5"
+            class="img"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+          />
+        </div>
         <i
           class="fishdicon fishdicon-picture-close close"
         />
         <i
-          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold prev"
         />
         <i
-          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
+          class="fishdicon fishdicon-arrow-line-Bold next"
         />
         <div
           class="toolbar"
@@ -184,7 +490,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            NaN/0
+            NaN/5
           </div>
           <div
             class="toolbarCon"
@@ -223,7 +529,83 @@ exports[`Renders picturePreview demo correctly 1`] = `
       </div>
       <div
         class="pics"
-      />
+      >
+        <div
+          class="item"
+        >
+          <img
+            alt="pic1"
+            height="60px"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic1
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic2"
+            height="60px"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic2
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic3"
+            height="60px"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic3
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic4"
+            height="60px"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic4
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic5"
+            height="60px"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic5
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="fishd-picturepreview draggable fishd-picturepreview-hide"
@@ -231,15 +613,41 @@ exports[`Renders picturePreview demo correctly 1`] = `
     >
       <div
         class="canvas"
-      />
+      >
+        <img
+          alt="pic1"
+          class="img"
+          src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+        />
+        <img
+          alt="pic2"
+          class="img"
+          src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+        />
+        <img
+          alt="pic3"
+          class="img"
+          src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+        />
+        <img
+          alt="pic4"
+          class="img"
+          src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+        />
+        <img
+          alt="pic5"
+          class="img"
+          src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+        />
+      </div>
       <i
         class="fishdicon fishdicon-picture-close close"
       />
       <i
-        class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
+        class="fishdicon fishdicon-arrow-line-Bold prev"
       />
       <i
-        class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
+        class="fishdicon fishdicon-arrow-line-Bold next"
       />
       <div
         class="toolbar"
@@ -247,7 +655,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
         <div
           class="toolbarTitle fishd-picturepreview-hide"
         >
-          NaN/0
+          NaN/5
         </div>
         <div
           class="toolbarCon"
@@ -285,7 +693,83 @@ exports[`Renders picturePreview demo correctly 1`] = `
       </div>
       <div
         class="pics"
-      />
+      >
+        <div
+          class="item"
+        >
+          <img
+            alt="pic1"
+            height="60px"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic1
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic2"
+            height="60px"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic2
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic3"
+            height="60px"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic3
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic4"
+            height="60px"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic4
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <img
+            alt="pic5"
+            height="60px"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            width="60px"
+          />
+          <div
+            class="name"
+          >
+            pic5
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="fishd-picturepreview-root fishd-picturepreview-hide"
