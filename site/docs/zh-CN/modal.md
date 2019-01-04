@@ -531,9 +531,9 @@ render(){
 | destroyOnClose | 关闭时销毁 Modal 里的子元素 | Boolean | false |
 | footer | 底部内容，当不需要默认底部按钮时，可以设为 `footer={null}` | String \| ReactNode | 确定取消按钮 |
 | getContainer | 指定 Modal 挂载的 HTML 节点 | (instance) => HTMLElement | () => document.body |
-| keyboard | 是否支持键盘esc关闭 | Boolean | true |
+| keyboard | 是否支持键盘esc关闭 | Boolean | false |
 | mask | 是否展示遮罩 | Boolean | true |
-| maskClosable | 点击蒙层是否允许关闭 | Boolean | true |
+| maskClosable | 点击蒙层是否允许关闭 | Boolean | false |
 | maskStyle | 遮罩样式 | Object | {} |
 | onCancel | 点击遮罩层或右上角叉或取消按钮的回调 | (e) => Void | - |
 | onOk | 点击确定回调 | (e) => Void | - |

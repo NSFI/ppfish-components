@@ -29,7 +29,7 @@ describe('List', () => {
   });
 
   it('renders object loading with indicator', () => {
-    const antIcon = <Icon type="loading" style={{fontSize: 24}} spin/>;
+    const antIcon = <Icon type="loading" style={{fontSize: 24}} spin={true}/>;
 
     const loading = {
       spinning: true,

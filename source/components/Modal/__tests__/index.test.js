@@ -27,6 +27,7 @@ describe('<Modal />', () => {
     state = {
       visible: false,
       maskClosable: true,
+      keyboard: true,
     };
     render() {
       return (
@@ -34,6 +35,7 @@ describe('<Modal />', () => {
           {...this.props}
           visible={this.state.visible}
           maskClosable={this.state.maskClosable}
+          keyboard={this.state.keyboard}
         />
       );
     }
