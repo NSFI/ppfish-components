@@ -14,3 +14,5 @@
 
 - Tabs
   - 修复 PropType 校验警告：Invalid prop `panels` of type `object` supplied to `TabBarTabsNode`, expected an array.
+- Modal
+  - 修复 keyboard 初始值问题
