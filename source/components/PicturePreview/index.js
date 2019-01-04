@@ -11,9 +11,10 @@ import {
 } from '../../utils';
 import './style/index.less';
 
-const CON_MAX_WIDTH = 1024, //容器最大宽度
+let conMaxWidth = 1024, conMaxHeight = 768;
+const CON_MAX_WIDTH = conMaxWidth > window.innerWidth ? window.innerWidth : conMaxWidth, //容器最大宽度
   CON_MIN_WIDTH = 360, //容器最小宽度
-  CON_MAX_HEIGHT = 768, //容器最大高度
+  CON_MAX_HEIGHT = conMaxHeight > window.innerHeight ? window.innerHeight : conMaxHeight, //容器最大高度
   CON_MIN_HEIGHT = 360, //容器最小高度
   MAX_RATIO = 2, //最大的图片显示比例
   MIN_RATIO = 0.1, //最小的图片显示比例
