@@ -206,6 +206,7 @@
 | allowClear | 是否显示清除按钮 | Boolean  | true |
 | className | 选择器的className | String | - |
 | disabled | 是否禁用 | Boolean | false |
+| esc | 是否支持键盘esc关闭 | Boolean | true |
 | format | 时间格式化, 小时 HH，分 mm，秒 ss  | String | 'HH:mm:ss' |
 | getPopupContainer | 弹框渲染父节点。默认渲染到 body 上，如果你遇到滚动定位问题，试试修改为滚动的区域，并相对其定位。| () =>ReactNode | () =>document.body |
 | onBlur | 失焦时的回调 | (e) => Void | - |

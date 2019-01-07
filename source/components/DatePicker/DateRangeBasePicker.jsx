@@ -35,6 +35,7 @@ export default class DateRangeBasePicker extends React.Component {
       showTrigger: PropTypes.bool,
       allowClear: PropTypes.bool,
       disabled: PropTypes.bool,
+      esc: PropTypes.bool,
       value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
       onFocus: PropTypes.func,
       onBlur: PropTypes.func,
@@ -54,6 +55,7 @@ export default class DateRangeBasePicker extends React.Component {
       showTrigger: true,
       allowClear: true,
       disabled: false,
+      esc: true,
       onFocus: () => {},
       onBlur: () => {},
       onChange: () => {},
@@ -184,8 +186,8 @@ export default class DateRangeBasePicker extends React.Component {
   // 键盘事件
   handleKeydown = (evt) => {
     const keyCode = evt.keyCode;
-    // tab esc
-    if (keyCode === KEYCODE.TAB || keyCode === KEYCODE.ESC) {
+    // esc
+    if (this.props.esc && keyCode === KEYCODE.ESC) {
       this.setState({
         pickerVisible: false
       }, ()=> {
