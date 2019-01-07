@@ -2,7 +2,7 @@ import { render, mount, shallow } from 'enzyme';
 import React from 'react';
 import { plainComponents } from "../../site/componentsPage/index.js";
 
-const disableDemoTest = true;
+const disableDemoTest = false;
 const getDemoContainer = (demoName) => {
   if (!demoName) return null;
   let demoContainerClass = require(`../../site/docs/zh-CN/${demoName}.md`);

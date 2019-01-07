@@ -3,6 +3,7 @@ const fs = require('fs');
 const babel = require('@babel/core');
 const babelrc = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '.babelrc')).toString());
 const babelParser = require("@babel/parser");
+const t = require("@babel/types");
 const traverse = require('@babel/traverse').default;
 const generate = require('@babel/generator').default;
 const crypto = require('crypto');
@@ -16,7 +17,7 @@ const w3c = [
   'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td',
   'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr',
 ];
-const DEFAULT_INJECT = ['React', 'ReactDOM', 'PropTypes'];
+const DEFAULT_INJECT = ['React', 'ReactDOM', 'PropTypes', 'Resizable'];
 const DEMO_EXPORTS_REG = /^demo/i; //检测demo代码片段中导出作为Demo测试类的类名或者变量名称
 
 function transformCode(codes, filename) {
@@ -36,7 +37,11 @@ function transformCode(codes, filename) {
   let MyVisitor = {
     Identifier: (path) => {
       const scope = path.scope;
-      if (scope.parent === undefined) {
+
+      if (path.node.name == 'ReactDOM') {
+        // 删除单行代码：`ReactDOM.render(<Demo {...context.props} />, mountNode);`
+        path.parentPath.parentPath.remove();
+      } else if (scope.parent === undefined) {
         // 保证这个变量是在最外层
         Object.keys(scope.bindings)
         .filter(name => DEMO_EXPORTS_REG.test(name))
@@ -160,6 +165,14 @@ function transformCode(codes, filename) {
         }
       }
     },
+    VariableDeclarator: (path) => {
+      // 转换 Form 组件 Demo 中的 Demo 变量定义
+      if (path.node.id.name == 'Demo') {
+        path.parentPath.replaceWith(
+          t.returnStatement(t.callExpression(path.node.init.callee, path.node.init.arguments))
+        );
+      }
+    },
     ClassDeclaration: (path) => {
       let id = path.node.id;
       if (DEMO_EXPORTS_REG.test(id.name)) {
@@ -197,23 +210,42 @@ function transformCode(codes, filename) {
     return generate(ast).code;
   });
 
-  //2018-08-16 排除 React
-  components = components.filter(ele => !DEFAULT_INJECT.includes(ele)); //排除 React
-  classNames = classNames.filter(classname => DEMO_EXPORTS_REG.test(classname));  //一个demo需要导出一个demo开头的名字以便测试
-  //拼成一份模块的代码，用babel转成nodejs能够运行的代码。
+  // 排除默认导入的模块
+  components = components.filter(ele => !DEFAULT_INJECT.includes(ele));
 
+  // 一个 demo 导出一个 Demo 开头的名字
+  classNames = classNames.filter(classname => DEMO_EXPORTS_REG.test(classname));
+
+  if (classNames.length < classNameIndex) {
+    let newClsNames = [];
+    for (let i=1; i<classNameIndex; i++) {
+      if (i == 1) {
+        newClsNames.push('Demo');
+      } else {
+        newClsNames.push('Demo' + i);
+      }
+    }
+    classNames = newClsNames;
+  }
+
+  //拼成一份模块的代码，用babel转成nodejs能够运行的代码。
   let composedCode = `
     import React from 'react';
     import ReactDOM from 'react-dom';
     import PropTypes from 'prop-types';
+    // Table 组件的“可伸缩列” Demo 使用
+    ${components.includes('Table') ? `import { Resizable } from 'react-resizable'` : ''};
     ${components.length ? `import {${components.join(',')}} from '../../../source/components/index.js';` : ''}
 
-    ${codeBodys.join('\n')}
+    ${classNames.map((classname, index) => `let ${classname} = (() => {
+      ${codeBodys[index]}
+      return ${classname};
+    })();`).join('\n')}
 
     export default function TestDemoContainer(props) {
       return (
         <div>
-          ${classNames.map(classname => `<${classname} {...props}/>`).join('\n')}
+          ${classNames.map(classname => `{ ${classname} ? <${classname} {...props}/> : null }`).join('\n')}
         </div>
       );
     };
