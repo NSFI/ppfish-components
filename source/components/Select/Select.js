@@ -64,6 +64,7 @@ export default class Select extends React.Component {
     style: PropTypes.object,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
     visible: PropTypes.bool,
+    keyboard: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -101,6 +102,7 @@ export default class Select extends React.Component {
     size: 'default',
     style: {},
     visible: false,
+    keyboard: true,
   };
 
   //获取所有option的[{label,key,title}]
@@ -257,8 +259,8 @@ export default class Select extends React.Component {
   //全选操作
   selectAllOption = () => {
     this.setState({
-      selectValue: this.isSelectAll() ? [] : 
-      Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled),
+      selectValue: this.isSelectAll() ? [] :
+        Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled),
     });
   };
 
@@ -365,8 +367,8 @@ export default class Select extends React.Component {
         };
       } else {
         //option 点击
-        changedValue = index === -1 ? [...selectValue, obj] : 
-        [...selectValue.slice(0, index), ...selectValue.slice(index + 1)];
+        changedValue = index === -1 ? [...selectValue, obj] :
+          [...selectValue.slice(0, index), ...selectValue.slice(index + 1)];
         changedObj = {
           selectValue: changedValue,
         };
@@ -486,9 +488,13 @@ export default class Select extends React.Component {
     }
   };
 
-  //处理tab上下active切换功能
-  handleActiveTabChange = (e) => {
+  //处理键盘事件：ENTER/ESC/UP/DOWN
+  handleKeyboardEvent = (e) => {
     const keyCode = e.keyCode;
+    if (keyCode === KeyCode.ESC && this.props.keyboard) {
+      this.changeVisibleState(false);
+      return;
+    }
     if (keyCode === KeyCode.ENTER || keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
       e.preventDefault();
       const {children, mode, labelInValue, onChange} = this.props;
@@ -617,7 +623,7 @@ export default class Select extends React.Component {
     const dropdownPanelCls = classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName});
     return (
       <div className={dropdownPanelCls}
-           onKeyDown={this.handleActiveTabChange}
+           onKeyDown={this.handleKeyboardEvent}
            ref={selection => this.selection = selection}
            style={dropdownStyle}
            tabIndex="0">
@@ -782,7 +788,7 @@ export default class Select extends React.Component {
               {
                 // 没有值的情况下显示placeholder
                 ((!selectValue.length && mode === 'single') ||
-                (!selectValueForMultiplePanel.length && mode === 'multiple')) &&
+                  (!selectValueForMultiplePanel.length && mode === 'multiple')) &&
                 <div unselectable="on" className={`${selectionCls}-placeholder`}>{placeholder}</div>
               }
               {
