@@ -1082,7 +1082,7 @@ render() {
 | className | 选择器的className | String | - |
 | disabled | 是否禁用 | Boolean | false |
 | disabledDate | 禁用日期 | (Date, mode) =>Boolean | - |
-| esc | 是否支持键盘esc关闭 | Boolean | true |
+| esc | 是否支持按ESC键关闭弹窗 | Boolean | true |
 | firstDayOfWeek | 周起始日 | Enum {0,1,2,3,4,5,6} | 0 |
 | footer | 在面板中添加额外的页脚 | () =>ReactNode | - |
 | format | 时间日期格式化,  年 `yyyy`，月 `MM`，日 `dd`，小时 `HH`，分 `mm`，秒 `ss`, 详情见 `日期格式` | String | 'yyyy-MM-dd' |
