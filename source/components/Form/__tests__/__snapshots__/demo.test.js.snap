@@ -1,3 +1,108 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Renders form demo correctly 1`] = `<div />`;
+exports[`Renders form demo correctly 1`] = `
+<div>
+  <form
+    class="fishd-form fishd-form-inline"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-input-affix-wrapper"
+            >
+              <span
+                class="fishd-input-prefix"
+              >
+                <i
+                  class="fishdicon fishdicon-user-line"
+                  style="color:rgba(0,0,0,.25)"
+                />
+              </span>
+              <input
+                class="fishd-input"
+                data-__field="[object Object]"
+                data-__meta="[object Object]"
+                id="userName1"
+                placeholder="Username"
+                type="text"
+                value=""
+              />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-input-affix-wrapper"
+            >
+              <span
+                class="fishd-input-prefix"
+              >
+                <i
+                  class="fishdicon fishdicon-lock-line"
+                  style="color:rgba(0,0,0,.25)"
+                />
+              </span>
+              <input
+                class="fishd-input"
+                data-__field="[object Object]"
+                data-__meta="[object Object]"
+                id="password1"
+                placeholder="Password"
+                type="password"
+                value=""
+              />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Log in
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
