@@ -59,6 +59,7 @@ class Select extends React.Component {
     value: valueProp,
     autoFocus: PropTypes.bool,
     editable: PropTypes.bool,
+    esc: PropTypes.bool,
     required: PropTypes.bool,
 
     defaultOpen: PropTypes.bool,
@@ -475,6 +476,7 @@ class Select extends React.Component {
   // Handle key board event in both Selector and Popup
   onComponentKeyDown = (event) => {
     const { open } = this.state;
+    const { esc } = this.props;
     const { keyCode } = event;
 
     if (!open) {
@@ -482,7 +484,7 @@ class Select extends React.Component {
         this.setOpenState(true);
       }
     } else if (KeyCode.ESC === keyCode) {
-      this.setOpenState(false);
+      esc && this.setOpenState(false);
     } else if ([KeyCode.UP, KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT].indexOf(keyCode) !== -1) {
       // TODO: Handle `open` state
       event.stopPropagation();

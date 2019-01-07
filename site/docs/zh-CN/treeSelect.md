@@ -1073,6 +1073,7 @@
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Boolean | true |
 | dropdownStyle | 下拉菜单的样式 | Object | - |
 | editable | 选中的条目是否可编辑，多选时有效 | Boolean | true |
+| esc | 是否开启按 ESC 键关闭弹层 | Boolean | true |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | (inputValue: String, treeNode: TreeNode) => Boolean | - |
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | (triggerNode: TreeNode) => HTMLElement | () => document.body |
 | icon | 自定义所有子节点 title 前的图标。可接收组件，props 为当前树的 props。若某子节点上同时自定义了图标，则被其覆盖。`showIcon` 为 true 时有效。 | ReactNode \| (props) => ReactNode | - |
