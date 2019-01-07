@@ -93,6 +93,10 @@ class PicturePreview extends Component {
   constructor(props) {
     super(props);
 
+    if ('keyboard' in this.props) {
+      throw new Error(`API 'keyboard' is deprecated. Use 'esc' instead.`);
+    }
+
     this.imgEl = null;
     this.downloadImgUrl = null;
     this.moving = ''; //'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
