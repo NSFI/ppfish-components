@@ -83,6 +83,7 @@ export interface CascaderProps {
   getPopupContainer?: (triggerNode?: HTMLElement) => HTMLElement;
   popupVisible?: boolean;
   fieldNames?: FieldNamesType;
+  esc?: boolean;
 }
 
 export interface CascaderState {
@@ -387,6 +388,7 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
       'sortFilteredOption',
       'notFoundContent',
       'fieldNames',
+      'esc',
     ]);
 
     let options = props.options;

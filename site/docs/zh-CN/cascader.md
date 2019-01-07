@@ -599,6 +599,7 @@ render(){
 | size | 输入框大小 | Enum {'large','default','small'} | 'default' |
 | style | 自定义样式 | Object | - |
 | value | 指定选中项 | Array< String > | - |
+| esc | 是否开启ESC关闭弹层 | Boolean | true |
 
 `showSearch` 为对象时，其中的字段：
 

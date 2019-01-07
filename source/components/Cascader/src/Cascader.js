@@ -199,7 +199,7 @@ class Cascader extends Component {
         activeValue.push(currentOptions[currentIndex][this.getFieldName('children')][0][this.getFieldName('value')]);
       }
     } else if (e.keyCode === KeyCode.ESC) {
-      this.setPopupVisible(false);
+      this.props.esc && this.setPopupVisible(false);
       return;
     }
     if (!activeValue || activeValue.length === 0) {
