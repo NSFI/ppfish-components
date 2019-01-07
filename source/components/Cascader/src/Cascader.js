@@ -280,6 +280,7 @@ Cascader.defaultProps = {
   expandTrigger: 'click',
   fieldNames: {label: 'label', value: 'value', children: 'children'},
   expandIcon: '',
+  esc: true,
 };
 
 Cascader.propTypes = {
@@ -303,6 +304,7 @@ Cascader.propTypes = {
   expandTrigger: PropTypes.string,
   fieldNames: PropTypes.object,
   expandIcon: PropTypes.node,
+  esc: PropTypes.bool,
 };
 
 export default Cascader;

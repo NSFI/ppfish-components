@@ -97,6 +97,7 @@ render(){
 | quickMode            | 是否使用快捷入口模式                                |Boolean                                                               | false                                                  |
 | style                | 自定义样式                                |Object                                                               | {}                                                  |
 | popupStyle           | 弹出层自定义样式                                |Object                                                               | {}                                                  |
+| esc                  | 是否ESC关闭弹出框 | Boolean | true |
 
 ### ColorPicker.QuickPanel
 
@@ -118,3 +119,4 @@ render(){
 | userSelectColor      | 提供用户使用自定义颜色选择                                |Boolean                                                               | true                                                  |
 | style                | 自定义样式                                |Object                                                               | {}                                                  |
 | popupStyle           | 弹出层自定义样式                                |Object                                                               | {}                                                  |
+| esc                  | 是否ESC关闭弹出框 | Boolean | true |

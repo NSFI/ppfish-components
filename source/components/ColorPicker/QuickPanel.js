@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
 
+import {KeyCode} from "../../utils";
 import typeColor from './utils/validationColor';
 import ColorPickerPanel from './Panel';
 import placements from "./placements";
@@ -37,7 +38,8 @@ export default class QuickPanel extends React.Component {
     prefixCls: PropTypes.string,
     userSelectColor: PropTypes.bool,
     style: PropTypes.object,
-    popupStyle: PropTypes.object
+    popupStyle: PropTypes.object,
+    esc: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -63,6 +65,7 @@ export default class QuickPanel extends React.Component {
     userSelectColor: true,
     style: {},
     popupStyle: {},
+    esc: true,
   };
 
   constructor(props) {
@@ -122,13 +125,13 @@ export default class QuickPanel extends React.Component {
     }, 100);
   };
 
-  handleChange = (color, alpha) => {
+  handleChange = (color, alpha, fireChange = true) => {
     const {disabled, onChange, onVisibleChange, __useInComponent} = this.props;
     if (disabled) return;
     this.setState({color});
     onChange({color: color, alpha: alpha});
     // colorPicker弹层中使用，点击时触发visibleChange
-    if (__useInComponent) {
+    if (__useInComponent && fireChange) {
       onVisibleChange(false);
     }
   };
@@ -142,6 +145,38 @@ export default class QuickPanel extends React.Component {
     //自定义选择颜色弹层关闭时才颜色改变确认
     if (!visible) {
       this.props.onChange(this.state);
+    }
+  };
+
+  onPanelMount = (panelDOMRef) => {
+    if (this.state.visible) {
+      setTimeout(() => {
+        panelDOMRef.focus();
+      }, 0);
+    }
+  };
+
+  handleKeyDown = (e) => {
+    const keyCode = e.keyCode;
+    if ((keyCode === KeyCode.ESC && this.props.esc) || keyCode === KeyCode.ENTER) {
+      this.setVisible(false, () => {
+        this.props.onChange(this.state);
+      });
+    }
+  };
+
+  handleSpnKeyDown = (e) => {
+    const keyCode = e.keyCode;
+    const {colorMap} = this.props;
+    const {color, visible} = this.state;
+    const activeIndex = colorMap.indexOf(color);
+    if (activeIndex === -1 || visible) return;
+    // LEFT/RIGHT触发选择
+    if (keyCode === KeyCode.LEFT) {
+      this.handleChange(colorMap[activeIndex - 1 === -1 ? colorMap.length - 1 : activeIndex - 1], 100, false);
+    }
+    if (keyCode === KeyCode.RIGHT) {
+      this.handleChange(colorMap[activeIndex + 1 === colorMap.length ? 0 : activeIndex + 1], 100, false);
     }
   };
 
@@ -200,6 +235,7 @@ export default class QuickPanel extends React.Component {
         className={[prefixCls, this.props.className].join(' ')}
         style={this.props.style}
         onFocus={this.onFocus}
+        onKeyDown={this.handleSpnKeyDown}
         onBlur={this.onBlur}
         tabIndex="0"
       >
@@ -221,7 +257,7 @@ export default class QuickPanel extends React.Component {
             userSelectColor && !__useInComponent &&
             < Trigger
               popup={
-                <div className={`${prefixCls}-content`}>
+                <div className={`${prefixCls}-content`} onKeyDown={this.handleKeyDown}>
                   <div className={`${prefixCls}-arrow`}/>
                   <div className={`${prefixCls}-inner`}>
                     {this.getPickerElement()}

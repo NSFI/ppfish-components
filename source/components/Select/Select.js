@@ -64,7 +64,7 @@ export default class Select extends React.Component {
     style: PropTypes.object,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
     visible: PropTypes.bool,
-    keyboard: PropTypes.bool,
+    esc: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -102,7 +102,7 @@ export default class Select extends React.Component {
     size: 'default',
     style: {},
     visible: false,
-    keyboard: true,
+    esc: true,
   };
 
   //获取所有option的[{label,key,title}]
@@ -491,7 +491,7 @@ export default class Select extends React.Component {
   //处理键盘事件：ENTER/ESC/UP/DOWN
   handleKeyboardEvent = (e) => {
     const keyCode = e.keyCode;
-    if (keyCode === KeyCode.ESC && this.props.keyboard) {
+    if (keyCode === KeyCode.ESC && this.props.esc) {
       this.changeVisibleState(false);
       return;
     }

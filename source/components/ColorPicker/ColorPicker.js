@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
 
+import {KeyCode} from "../../utils";
 import ColorPickerPanel from './Panel';
 import placements from './placements';
 import Color from './helpers/color';
@@ -41,6 +42,7 @@ export default class ColorPicker extends React.Component {
     quickMode: PropTypes.bool,
     style: PropTypes.object,
     popupStyle: PropTypes.object,
+    esc: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -61,7 +63,8 @@ export default class ColorPicker extends React.Component {
     prefixCls: 'fishd-color-picker',
     quickMode: false,
     style: {},
-    popupStyle: {}
+    popupStyle: {},
+    esc: true,
   };
 
   constructor(props) {
@@ -113,7 +116,7 @@ export default class ColorPicker extends React.Component {
     if (this.state.visible) {
       setTimeout(() => {
         panelDOMRef.focus();
-      }, 1);
+      }, 0);
     }
   };
 
@@ -159,6 +162,7 @@ export default class ColorPicker extends React.Component {
           colorMap={this.props.colorMap}
           className={this.props.className}
           userSelectColor={false}
+          esc={this.props.esc}
         />
       );
     }
@@ -183,6 +187,13 @@ export default class ColorPicker extends React.Component {
   focus = () => {
     if (!this.state.visible) {
       findDOMNode(this).focus();
+    }
+  };
+
+  handleKeyDown = (e) => {
+    const keyCode = e.keyCode;
+    if ((keyCode === KeyCode.ESC && this.props.esc) || keyCode === KeyCode.ENTER) {
+      this.setVisible(false);
     }
   };
 
@@ -233,7 +244,7 @@ export default class ColorPicker extends React.Component {
       <div className={classes.join(' ')}>
         <Trigger
           popup={
-            <div className={`${prefixCls}-content`}>
+            <div className={`${prefixCls}-content`} onKeyDown={this.handleKeyDown}>
               <div className={arrowCls}/>
               <div className={`${prefixCls}-inner`}>
                 {this.getPickerElement()}
