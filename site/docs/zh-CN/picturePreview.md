@@ -278,7 +278,7 @@
 | activeIndex | 当前展示第几张图片 | Number | 0 |
 | className | 图片容器类名 | String | - |
 | draggable | 是否可拖动 | Boolean | false |
-| keyboard | 是否支持键盘esc关闭及左右键切换图片 | Boolean | true |
+| esc | 是否开启按 ESC 键关闭图片查看器 | Boolean | true |
 | mask | 是否展示遮罩层 | Boolean | true |
 | onClose | 关闭后的回调函数 | () => Void | - |
 | progress | 是否展示图片总数和当前进度 | Boolean | false |

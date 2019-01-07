@@ -69,7 +69,7 @@ class PicturePreview extends Component {
     toolbar: PropTypes.bool,
     source: PropTypes.array,
     draggable: PropTypes.bool,
-    keyboard: PropTypes.bool,
+    esc: PropTypes.bool,
     mask: PropTypes.bool,
     progress: PropTypes.bool,
     visible: PropTypes.bool,
@@ -82,7 +82,7 @@ class PicturePreview extends Component {
     toolbar: false,
     source: [], // [{name: '', src: ''}]
     draggable: false,
-    keyboard: true,
+    esc: true,
     mask: true,
     progress: false,
     visible: false,
@@ -114,7 +114,7 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
-    const { draggable, toolbar, mask, keyboard } = this.props;
+    const { draggable, toolbar, mask } = this.props;
 
     document.body.appendChild(mask ? this.$root : this.$el);
     this.setContainerStyle();
@@ -132,7 +132,7 @@ class PicturePreview extends Component {
       document.addEventListener("mouseup", this.handleMouseUp);
     }
 
-    keyboard && document.addEventListener("keydown", this.handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -188,7 +188,7 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    const { draggable, mask, keyboard } = this.props;
+    const { draggable, mask } = this.props;
     let el = mask ? this.$root : this.$el;
 
     if (el && el.parentNode === document.body) {
@@ -200,7 +200,7 @@ class PicturePreview extends Component {
       document.removeEventListener("mouseup", this.handleMouseUp);
     }
 
-    keyboard && document.removeEventListener("keydown", this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   /**
@@ -557,8 +557,9 @@ class PicturePreview extends Component {
   handleKeyDown = (e) => {
     if (!this.state.show) return;
     e.preventDefault();
+    const { esc } = this.props;
 
-    if (!this.state.container.isFull && e.keyCode === KeyCode.ESC) {
+    if (esc && !this.state.container.isFull && e.keyCode === KeyCode.ESC) {
       this.handleClose();
     } else if (e.keyCode === KeyCode.LEFT) {
       this.handlePrev();
