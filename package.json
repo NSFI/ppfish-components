@@ -33,7 +33,7 @@
   "engines": {
     "node": ">=6.11.5"
   },
-  "main": "dist/ppfish.js",
+  "main": "dist/ppfish.min.js",
   "module": "es/components/index.js",
   "jsnext:main": "es/components/index.js",
   "dependencies": {
