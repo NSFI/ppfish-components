@@ -2,7 +2,7 @@
 
 ## 安装
 推荐使用 npm 的方式安装，它能更好地和`webpack`打包工具配合使用。
-若安装缓慢报错，可尝试用 cnpm 或别的镜像源自行安装：rm -rf node_modules && cnpm install。
+若安装缓慢报错，可尝试用 cnpm 或别的镜像源自行安装：`rm -rf node_modules && cnpm install`。
 
 ```shell
 npm i ppfish --save
@@ -21,11 +21,11 @@ ReactDOM.render(
 
 ```
 
-## 按需打包
+## 按需加载
 
-通常情况下可能只使用了部分组件，如果你使用 import { Button } from 'ppfish'，babel通常会把整个ppfish打包出来。
-你可以使用babel插件，比如[babel-plugin-transform-imports](https://www.npmjs.com/package/babel-plugin-transform-imports)，将这种写法在编译时自动转换成 import Button from 'ppfish/es/components/Button'; 
-不过你需要告诉babel-plugin-transform-imports插件ppfish组件的路径名规则。
+通常情况下可能只使用了部分组件，如果你使用 `import { Button } from 'ppfish'`，babel通常会把整个ppfish打包出来。
+你可以使用babel插件，比如 [babel-plugin-transform-imports](https://www.npmjs.com/package/babel-plugin-transform-imports)，将这种写法在编译时自动转换成 `import Button from 'ppfish/es/components/Button'`; 
+不过你需要告诉 [babel-plugin-transform-imports]((https://www.npmjs.com/package/babel-plugin-transform-imports)) 插件ppfish组件的路径名规则。
 
 ```js
 // 列举babel7支持的babel.config.js配置写法：
