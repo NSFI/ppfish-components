@@ -129,10 +129,25 @@ let QuillMixin = {
     let delta = editor.getContents();
     if (delta && delta.ops && delta.ops.length == 1) {
       let obj = delta.ops[0];
-      if (obj.hasOwnProperty('attributes') || !obj.hasOwnProperty('insert')) {
-        return false;
+
+      if (!obj.hasOwnProperty('insert')) return false;
+
+      // 输入的全部为空字符且只设置了对齐方式时也判为空内容
+      if (obj.hasOwnProperty('attributes')) {
+        let attrs = obj['attributes'] || {},
+            attrLen = Object.keys(attrs).length;
+
+        if (attrLen > 1) return false;
+        if (attrLen == 1) {
+          let align = attrs['align'],
+              alignTypes = ['center', 'right', 'justify'];
+          if (!align || (alignTypes.indexOf(align) < 0)) {
+            return false;
+          }
+        }
       }
-      let inputChars = [...obj['insert']];
+
+      let inputChars = [...(obj['insert'] || '')];
       let notEmpty = inputChars.some((val) => {
         return val!==' ' && val!=='\t' && val!=='\n';
       });
