@@ -45,6 +45,9 @@ module.exports = function (api) {
 
 ```
 
+__注意：由于组件引入公共样式时使用的是 reference 方式，按需加载时公共的样式不会打包出去，需要使用 `import 'ppfish/es/assets/css/index.less'` 手动引入。__
+
+
 ## 使用CDN上的ppfish组件库
 
 请使用已经存在的CDN资源或自行打包并上传至CDN上。从CDN上引入ppfish组件库与使用CDN上的React库文件的方式是一样的，都是在html文件中使用script标签引用CDN资源。由于ppfish组件库依赖于react、react-dom这两个库文件，所以请确保这两个文件的位置在组件库的CDN资源之前。另外还需要手动引入组件库的样式CDN资源。
