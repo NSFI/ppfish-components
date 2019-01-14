@@ -333,7 +333,7 @@
 ```js
 import React from 'react';
 // 导入core library
-import EchartCore from 'ppfish/source/component/Echart/core';
+import EchartCore from 'ppfish/lib/component/Echart/core';
 // 按需导入echarts模块
 import echarts from 'echarts/lib/echarts'; //必须
 import 'echarts/lib/chart/line';
