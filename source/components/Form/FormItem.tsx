@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import intersperse from 'intersperse';
 import Animate from 'rc-animate';
-import Row from '../Grid/row';
-import Col, { ColProps } from '../Grid/col';
+import { Row, Col, ColProps } from '../Grid';
 import warning from '../../utils/warning';
 import { FIELD_META_PROP, FIELD_DATA_PROP } from './constants';
 
