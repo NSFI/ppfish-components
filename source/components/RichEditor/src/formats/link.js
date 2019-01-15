@@ -5,9 +5,9 @@ class Link extends Inline {
   static create(value) {
     this.formatCursor = false;
     const node = super.create(value);
-    node.setAttribute('data-type', value && value.type || 'default');
-    node.setAttribute('href', value && value.url);
     node.setAttribute('target', '_blank');
+    node.setAttribute('href', value && value.url);
+    node.setAttribute('data-type', value && value.type || 'default');
     return node;
   }
 
@@ -35,8 +35,8 @@ class Link extends Inline {
     } else {
       // 在超链接内输入回车时需要为光标添加超链接
       this.statics.formatCursor = true;
-      this.domNode.setAttribute('data-type', value && value.type || 'default');
       this.domNode.setAttribute('href', value && value.url);
+      this.domNode.setAttribute('data-type', value && value.type || 'default');
     }
   }
 }
