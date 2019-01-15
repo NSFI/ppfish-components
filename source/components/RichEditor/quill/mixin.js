@@ -128,8 +128,6 @@ let QuillMixin = {
   isEmptyContents: function(editor){
     let delta = editor.getContents();
     if (delta && delta.ops && Array.isArray(delta.ops)) {
-      let notEmpty = true;
-
       for (let i=0; i < delta.ops.length; i++) {
         let obj = delta.ops[i];
         if (!obj.hasOwnProperty('insert')) return false;
@@ -148,14 +146,15 @@ let QuillMixin = {
             }
           }
         }
-  
-        let inputChars = [...(obj['insert'] || '')];
+
+        let notEmpty = true,
+            inputChars = [...(obj['insert'] || '')];
         notEmpty = inputChars.some((val) => {
           return val!==' ' && val!=='\t' && val!=='\n';
         });
+        if(notEmpty) return false;
       }
-
-      return !notEmpty;
+      return true;
     }
     return false;
   }
