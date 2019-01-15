@@ -132,25 +132,21 @@ let QuillMixin = {
         let obj = delta.ops[i];
         if (!obj.hasOwnProperty('insert')) return false;
 
-        // 输入的全部为空字符且只设置了对齐方式时也判为空内容
+        // 设置了项目符号时判为非空
         if (obj.hasOwnProperty('attributes')) {
-          let attrs = obj['attributes'] || {},
-              attrLen = Object.keys(attrs).length;
-  
-          if (attrLen > 1) return false;
-          if (attrLen == 1) {
-            let align = attrs['align'],
-                alignTypes = ['center', 'right', 'justify'];
-            if (!align || (alignTypes.indexOf(align) < 0)) {
-              return false;
-            }
-          }
+          let attrs = obj['attributes'] || {}, list = attrs['list'];
+          if (list) return false;
         }
 
-        let notEmpty = true,
-            inputChars = [...(obj['insert'] || '')];
-        notEmpty = inputChars.some((val) => {
-          return val!==' ' && val!=='\t' && val!=='\n';
+        // 输入内容包含非空字符时判为非空
+        let notEmpty = true, insert = obj['insert'];
+        if (typeof insert != 'string') return false;
+
+        let insertChars = [...insert];
+        if (!insertChars.length) continue;
+
+        notEmpty = insertChars.some((val) => {
+          return val!=='' && val!==' ' && val!=='\t' && val!=='\n' && val!=='\ufeff';
         });
         if(notEmpty) return false;
       }
