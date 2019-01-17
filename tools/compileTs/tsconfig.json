@@ -13,7 +13,7 @@
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": "../../es/",
+    "baseUrl": "../../temp/",
     "moduleResolution": "node",
     "typeRoots": [
       "../../source/typings",
@@ -21,6 +21,6 @@
     ]
   },
   "include": [
-    "../../es/**/*"
+    "../../temp/**/*"
   ]
 }

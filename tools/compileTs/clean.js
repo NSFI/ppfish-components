@@ -15,7 +15,7 @@ function del(p) {
     let stats = fs.statSync(fullPath);
     let ext = path.extname(fullPath);
     let isInvaildFile = (esType === 'lib' && ext === '.jsx') ||
-                        (esType === 'es' && (ext === '.tsx' || ext === '.ts'));
+                        (esType === 'temp' && (ext === '.tsx' || ext === '.ts'));
 
     if (stats.isFile()) {
       if (isInvaildFile) {
@@ -42,7 +42,7 @@ function fileDisplay(filePath) {
         let isDir = stats.isDirectory();//是文件夹
         let ext = path.extname(filedir);
         if (isFile) {
-          if ((esType === 'lib' && ext === '.js') || (esType === 'es' && (ext === '.js' || ext === '.jsx'))) {
+          if ((esType === 'lib' && ext === '.js') || (esType === 'temp' && (ext === '.js' || ext === '.jsx'))) {
             fs.readFile(filedir, 'utf-8', function (err, data) {
               if (err) {
                 console.log(err);

@@ -50,4 +50,4 @@ function exists(url, dest, callback) {
 	});
 }
 
-copy(path.resolve(__dirname, '..', '..', esType === 'lib' ? 'es' : 'source'), filePath);
+copy(path.resolve(__dirname, '..', '..', esType === 'temp' ? 'source' : 'temp'), filePath);
