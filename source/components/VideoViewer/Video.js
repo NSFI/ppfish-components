@@ -117,7 +117,7 @@ export default class VideoViewer extends React.Component {
 
     // instantiate video.js
     this.player = videojs(this.videoNode, option, () => {
-      this.player.on('play', (e) => {
+      this.player.on('timeupdate', (e) => {
         // 控制焦点
         this.videoPlayerRef.focus();
       })
