@@ -7,6 +7,7 @@ import vjsVolume from './component/vjsVolume';
 import vjsPlay from './component/vjsPlay';
 import vjsErrorDisplay from  './component/vjsErrorDisplay';
 import { zh_CN } from './lang/zh-CN';
+import KEYCODE from '../../utils/KeyCode';
 
 videojs.addLanguage("zh-CN",zh_CN);
 
@@ -59,7 +60,6 @@ export default class VideoViewer extends React.Component {
 
   componentDidMount () {
     const {
-      className,
       download,
       bigPlayButton,
       ...otherProps
@@ -116,8 +116,11 @@ export default class VideoViewer extends React.Component {
     const option = Object.assign({}, initOptions, otherProps);
 
     // instantiate video.js
-    this.player = videojs(this.videoNode, option, function onPlayerReady() {
-      //console.log('onPlayerReady', this);
+    this.player = videojs(this.videoNode, option, () => {
+      this.player.on('play', (e) => {
+        // 控制焦点
+        this.videoPlayerRef.focus();
+      })
     });
   }
 
@@ -132,6 +135,20 @@ export default class VideoViewer extends React.Component {
     return this.player;
   }
 
+  // 空格键控制 暂停、播放
+  handleSpaceKeyDown = (e) => {
+    if(e.which === KEYCODE.SPACE) {
+      e.preventDefault();
+      if(this.player) {
+        if(this.player.paused()) {
+          this.player.play();
+        }else{
+          this.player.pause();
+        }
+      }
+    }
+  }
+
   // wrap the player in a div with a `data-vjs-player` attribute
   // so videojs won't create additional wrapper in the DOM
   // see https://github.com/videojs/ video.js /pull/3856
@@ -140,7 +157,11 @@ export default class VideoViewer extends React.Component {
 
     return (
       <div className={`${prefixCls}-wrap`}>
-        <div data-vjs-player>
+        <div
+          data-vjs-player
+          ref={node => this.videoPlayerRef = node}
+          onKeyDown={this.handleSpaceKeyDown}
+        >
           <video
             ref={node => this.videoNode = node}
             className={className}
