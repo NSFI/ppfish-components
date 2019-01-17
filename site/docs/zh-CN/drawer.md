@@ -652,6 +652,8 @@ render() {
           <Resizable
             width={this.state.resizeWidth}
             height={0}
+            minConstraints={[document.body.offsetWidth - 1000, 0]}
+            maxConstraints={[document.body.offsetWidth - 300, 0]}
             onResize={this.onResize}
             draggableOpts={{
               offsetParent: document.body
