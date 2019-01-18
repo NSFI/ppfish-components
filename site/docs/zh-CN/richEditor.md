@@ -226,6 +226,58 @@
 ```
 :::
 
+
+## 插入不可编辑的文本
+
+:::demo 在指定位置插入文本，同时可以设置该文本不可编辑，不可编辑的文本只能被整体删除。
+单击按钮可在光标位置处插入自定义的不可编辑文本。
+
+```js
+  componentDidMount() {
+    window.rEditor2 = this.rEditor = this.editorRef;
+  }
+
+  handleInsertText = () => {
+    let quill = this.rEditor.getEditor();
+    if (!quill) return;
+
+    let range = quill.getSelection();
+
+    if (!range) {
+      message.warning('编辑器处于 unfocus 状态');
+      return;
+    }
+
+    if (range.length > 0) {
+      quill.deleteText(range.index, range.length);
+    }
+
+    quill.insertText(range.index, '【自定义文本】', {
+      customAttr: {editable: false}
+    });
+  };
+
+  render() {
+    return (
+      <div>
+      <Button style={{marginBottom: 10}} onClick={this.handleInsertText}>插入文本</Button>
+      <RichEditor
+        ref={el => this.editorRef = el}
+        value={`
+          <p>
+            <span>此文本可编辑</span><br>
+            <span style="color:red;font-size:16px" contenteditable="false">此文本不可编辑</span><br>
+            <span contenteditable="true">此文本可编辑</span>
+          </p>
+        `}
+      />
+      </div>
+    );
+  }
+```
+:::
+
+
 ## 轻量版
 
 :::demo 轻量版。
@@ -311,10 +363,12 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 
 |方法|说明|
 |:-|:-|
+| deleteText(index: Number, length: Number) | 删除指定位置的文本，[详情](https://quilljs.com/docs/api/#deletetext) |
 | getBounds() | 返回给定位置处的相对于编辑器容器的像素位置和选区的尺寸 |
 | getContents() | 返回 [Quill Delta](https://quilljs.com/docs/delta/) 格式的完整内容 |
 | getHTML() | 返回编辑器的完整 HTML 内容 |
 | getLength() | 返回编辑器内容的长度，以字符为单位，不包括 HTML 标签。默认会多加一个回车符的长度。 |
 | getSelection() | 返回当前选区的范围，如果编辑器处于 unfocus 状态，则返回 null |
 | getText() | 返回编辑器的字符串内容，不包括 HTML 标签。默认会在末尾包含一个回车符。 |
+| insertText(index: Number, text: String, formats: { [String]: any }) | 在指定位置插入文本，[详情](https://quilljs.com/docs/api/#inserttext) |
 | isEmptyContents() | 检查输入的内容是否全部为空字符（空格、回车符和制表符） |
