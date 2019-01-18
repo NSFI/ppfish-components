@@ -120,7 +120,7 @@ export default class VideoViewer extends React.Component {
       this.player.on('timeupdate', (e) => {
         // 控制焦点
         this.videoPlayerRef.focus();
-      })
+      });
     });
   }
 
