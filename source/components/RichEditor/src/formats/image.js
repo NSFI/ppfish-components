@@ -19,7 +19,7 @@ class ImageBlot extends Embed {
   static create(value) {
     let node = super.create();
 
-    if (typeof value == 'object') {
+    if (Object.prototype.toString.call(value) == "[object Object]") {
       Object.keys(value).forEach((key) => {
         try {
           node.setAttribute(key, value[key]);
