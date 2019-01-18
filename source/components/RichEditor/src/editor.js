@@ -14,10 +14,10 @@ import LinkBlot from './formats/link.js';
 import ImageBlot from './formats/image.js';
 import '../style/index.less';
 
-Quill.register(CustomSizeBlot);
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
 Quill.register(ImageBlot);
+Quill.register(CustomSizeBlot);
 
 const getImageSize = function(url, callback) {
   let newImage;
@@ -460,7 +460,7 @@ class RichEditor extends Component {
     let { toolbarCtner } = this.state;
     let target = e.target;
     if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
-      let el = toolbarCtner.querySelector('button.ql-customSize[data-role="customSize"]');
+      let el = toolbarCtner.querySelector('button.ql-customAttr[data-role="customSize"]');
       if (el == null) {
         el = document.createElement('button');
         toolbarCtner.querySelector('.custom-size').appendChild(el);
@@ -469,7 +469,7 @@ class RichEditor extends Component {
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'customSize');
       el.setAttribute('value', target.value);
-      el.classList.add('ql-customSize', 'hide');
+      el.classList.add('ql-customAttr', 'hide');
       el.click();
     }
   };
@@ -603,4 +603,5 @@ class RichEditor extends Component {
   }
 }
 
+export { Quill };
 export default RichEditor;

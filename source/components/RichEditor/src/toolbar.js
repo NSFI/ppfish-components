@@ -465,7 +465,7 @@ class CustomToolbar extends PureComponent {
               getPopupContainer={getPopupContainer}
             >
               <div className={sizeCls} >
-                <button type="button" data-role="customSize" value="" className="ql-customSize hide" />
+                <button type="button" data-role="customSize" value="" className="ql-customAttr hide" />
               </div>
             </Popover>
           );
