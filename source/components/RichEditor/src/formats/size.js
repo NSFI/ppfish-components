@@ -4,8 +4,10 @@ const setAttr = (node, value) => {
   if (typeof value == 'string' || typeof value == 'number') {
     node.style.fontSize = value;
   } else if (Object.prototype.toString.call(value) == "[object Object]") {
-    if (value.editable != undefined) {
+    if (value.editable != null) {
       node.setAttribute('contenteditable', value.editable);
+    } else {
+      node.setAttribute('contenteditable', true);
     }
     node.style.fontSize = value.fontSize;
   }
