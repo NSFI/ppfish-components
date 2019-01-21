@@ -62,11 +62,15 @@ export default class BasePicker extends React.Component {
     require_condition(typeof _type === 'string');
     super(props);
 
-    this.type = _type; // type need to be set first
+    this.type = _type;
     this.inputClick = false;
-    this.state = Object.assign({}, state, {
+
+    this.state = {
       pickerVisible: false,
-    }, this.propsToState(props));
+      value: props.value && isValidValue(props.value) ? props.value : null,
+      text: props.value && isValidValue(props.value) ? this.dateToStr(props.value) : '',
+      confirmValue: props.value && isValidValue(props.value) ? props.value : null // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,7 +85,7 @@ export default class BasePicker extends React.Component {
     if (this.isDateValid(props.value)) {
       state.text = this.dateToStr(props.value);
       state.value = props.value;
-      state.confirmValue = this.isDateValid(props.value) ? props.value : null; // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
+      state.confirmValue = props.value;
     } else {
       state.text = '';
       state.value = null;
@@ -102,13 +106,6 @@ export default class BasePicker extends React.Component {
     return undefined;
   }
 
-  /**
-   * onPicked should only be called from picker pannel instance
-   * and should never return a null date instance
-   *
-   * @param value: Date|Date[]|null
-   * @param isKeepPannel: boolean = false
-   */
   onPicked = (value, isKeepPannel = false, isConfirmValue = true) => {
     this.setState({
       pickerVisible: isKeepPannel,
@@ -123,7 +120,6 @@ export default class BasePicker extends React.Component {
         confirmValue: value
       });
       this.props.onChange(value);
-      this.context.form && this.context.form.onFieldChange();
     }
   }
 
@@ -224,7 +220,6 @@ export default class BasePicker extends React.Component {
         }, () => {
           this.props.onVisibleChange(false);
           this.props.onChange(null);
-          this.context.form && this.context.form.onFieldChange();
         }
       );
     }
@@ -392,7 +387,3 @@ export default class BasePicker extends React.Component {
     );
   }
 }
-
-BasePicker.contextTypes = {
-  form: PropTypes.any
-};

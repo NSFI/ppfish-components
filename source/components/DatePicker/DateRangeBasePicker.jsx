@@ -67,11 +67,14 @@ export default class DateRangeBasePicker extends React.Component {
     require_condition(typeof _type === 'string');
     super(props);
 
-    this.type = _type; // type need to be set first
+    this.type = _type;
     this.inputClick = false;
-    this.state = Object.assign({}, state, {
+    this.state = {
       pickerVisible: false,
-    }, this.propsToState(props));
+      value: props.value && isValidValueArr(props.value) ? props.value : null,
+      text: props.value && isValidValueArr(props.value) ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '',
+      confirmValue: props.value && isValidValueArr(props.value) ? props.value : null // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,7 +90,7 @@ export default class DateRangeBasePicker extends React.Component {
     if (this.isDateValid(value)) {
       state.text = value && value.length === 2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '';
       state.value = props.value;
-      state.confirmValue = this.isDateValid(props.value) ? props.value : null; // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
+      state.confirmValue = props.value;
     } else {
       state.text = '';
       state.value = null;
@@ -107,13 +110,6 @@ export default class DateRangeBasePicker extends React.Component {
     return undefined;
   }
 
-  /**
-   * onPicked should only be called from picker pannel instance
-   * and should never return a null date instance
-   *
-   * @param value: Date|Date[]|null
-   * @param isKeepPannel: boolean = false
-   */
   onPicked = (value, isKeepPannel = false, isConfirmValue = true) => {
     this.setState({
       pickerVisible: isKeepPannel,
@@ -128,7 +124,6 @@ export default class DateRangeBasePicker extends React.Component {
         confirmValue: value
       });
       this.props.onChange(value);
-      this.context.form && this.context.form.onFieldChange();
     }
   }
 
@@ -225,7 +220,6 @@ export default class DateRangeBasePicker extends React.Component {
       },()=> {
         this.props.onVisibleChange(false);
         this.props.onChange(null);
-        this.context.form && this.context.form.onFieldChange();
       });
     }
   }
@@ -416,7 +410,3 @@ export default class DateRangeBasePicker extends React.Component {
     );
   }
 }
-
-DateRangeBasePicker.contextTypes = {
-  form: PropTypes.any
-};
