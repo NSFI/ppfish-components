@@ -39,10 +39,10 @@ export default class Option extends React.Component {
     const optionCls =
       classNames(
         {[`${prefixCls}-item`]: true},
-        {[`${prefixCls}-item-disabled`]: !!disabled},
         {[`checked`]: !!checked},
         {[`checked-icon`]: !!checked && showOptionCheckedIcon},
-        {[`active`]: 'activeKey' in this.props && activeKey === value}
+        {[`active`]: 'activeKey' in this.props && activeKey === value},
+        {[`${prefixCls}-item-disabled`]: !!disabled},
       );
     return (
       <li

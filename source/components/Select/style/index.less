@@ -309,10 +309,13 @@
         font-size: 12px;
       }
     }
-  }
-  &-option-item-disabled {
-    color: @disabled-color;
-    cursor: not-allowed;
+    &&-disabled {
+      color: @disabled-color;
+      cursor: not-allowed;
+      &::after {
+        color: @disabled-color;
+      }
+    }
   }
   //空状态框
   &-not-found {
