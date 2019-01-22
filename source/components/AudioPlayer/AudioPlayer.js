@@ -19,6 +19,8 @@ class AudioPlayer extends React.Component {
     muted: PropTypes.bool,
     volume: PropTypes.number,
     controlVolume: PropTypes.bool,
+    controlProgress: PropTypes.bool,
+    displayTime: PropTypes.bool,
     download: PropTypes.bool,
     onLoadedMetadata: PropTypes.func,
     onCanPlay: PropTypes.func,
@@ -42,6 +44,8 @@ class AudioPlayer extends React.Component {
     muted: false,
     volume: 1.0,
     controlVolume: true,
+    controlProgress: true,
+    displayTime: true,
     download: false,
     onLoadedMetadata: () => {},  // 当浏览器已加载音频的元数据时的回调
     onCanPlay: () => {},         // 当浏览器能够开始播放音频时的回调
@@ -169,6 +173,8 @@ class AudioPlayer extends React.Component {
       loop,
       preload,
       controlVolume,
+      controlProgress,
+      displayTime,
       download,
       onCanPlay,
       onLoadedMetadata,
@@ -213,47 +219,56 @@ class AudioPlayer extends React.Component {
             </audio>
           </div>
 
-          <div className="box pause-play-box">
+          <div className="box pause-play-box" onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}>
             <Icon
               className="handle-audio-icon pause-play"
               type={pausePlayIcon}
-              onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}
             />
-          </div>
-
-          <div className="box step-box">
-            <Slider
-              step={1}
-              min={0}
-              max={allTime}
-              value={currentTime}
-              tipMode="all"
-              tipFormatter={value => this.millisecondToDate(value)}
-              onChange={(value) => this.controlAudio('changeCurrentTime', value)}
-            />
-          </div>
-
-          <div className="box time-box">
-          <span className="current">
-            {this.millisecondToDate(currentTime)+' / '+this.millisecondToDate(allTime)}
-          </span>
           </div>
 
           {
-            controlVolume ?
-              <div className="box volume-box">
-                <Popover
-                  overlayClassName="change-audio-volume"
-                  trigger="click"
-                  placement="top"
-                  content={this.getVolumePopupContent()}
-                  visible={volumeOpen}
-                  onVisibleChange={this.onVolumeVisibleChange}
-                  getPopupContainer={(node)=>node.parentNode}
-                >
-                  <Icon className="handle-audio-icon control-volume" type={volumeIcon()}/>
-                </Popover>
+            controlProgress ?
+              <div className="box step-box">
+                <Slider
+                  step={1}
+                  min={0}
+                  max={allTime}
+                  value={currentTime}
+                  tipMode="all"
+                  tipFormatter={value => this.millisecondToDate(value)}
+                  onChange={(value) => this.controlAudio('changeCurrentTime', value)}
+                />
               </div>
+              :
+              null
+          }
+
+          {
+            displayTime ?
+              <div className="box time-box">
+                <span className="current">
+                  {this.millisecondToDate(currentTime)+' / '+this.millisecondToDate(allTime)}
+                </span>
+              </div>
+              :
+              null
+          }
+
+          {
+            controlVolume ?
+              <Popover
+                overlayClassName="change-audio-volume"
+                trigger="click"
+                placement="top"
+                content={this.getVolumePopupContent()}
+                visible={volumeOpen}
+                onVisibleChange={this.onVolumeVisibleChange}
+                getPopupContainer={(node)=>node.parentNode}
+              >
+                <div className="box volume-box">
+                  <Icon className="handle-audio-icon control-volume" type={volumeIcon()}/>
+                </div>
+              </Popover>
               :
               null
           }

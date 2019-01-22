@@ -25,16 +25,18 @@ render() {
 ```
 :::
 
-## 简洁版
-:::demo 通过设置 `controlVolume=false` 去掉音量控制按钮
+## 最简洁版
+:::demo 通过设置 `controlVolume=false` 去掉音量控制按钮；`controlProgress=false` 去掉进度控制；`displayTime=false` 去掉时间
 
 ```js
 render() {
   return(
-    <div style={{width:350}}>
+    <div style={{width:56}}>
       <AudioPlayer
         src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
         controlVolume={false}
+        controlProgress={false}
+        displayTime={false}
       />
     </div>
     
@@ -66,6 +68,8 @@ render() {
 |---------- |-------- |----------   |-------- |
 | className | 设置类名 | String | '' |
 | controlVolume | 是否需要手动控制音量 | Boolean | true |
+| controlProgress | 是否需要手动控制播放进度 | Boolean | true |
+| displayTime | 是否显示时间 | Boolean | true |
 | download | 是否需要下载按钮 | Boolean | false |
 | src |  音频元素的当前来源 | String | '' |
 | title   | 鼠标hover之后展示的音频描述 | String | '' |

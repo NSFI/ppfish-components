@@ -11,23 +11,36 @@
     align-items: center;
     border: @border-width-base @border-style-base @border-color-base;
     border-radius: @border-radius-base;
-    padding: 0 20px;
+    padding: 0 10px;
+    height: 100%;
     .box {
       text-align: center;
+    }
+    // 播放区
+    .pause-play-box {
+      width: 36px;
+      height: 100%;
+      line-height: 36px;
     }
     //进度区
     .step-box {
       flex: 1;
-      padding: 0 20px;
+      padding: 0 10px;
+    }
+    .time-box {
+      padding: 0 10px;
     }
     //音量调节区
     .volume-box {
-      width: 18px;
-      margin-left: 16px;
+      width: 30px;
+      height: 100%;
+      line-height: 36px;
     }
     //下载区
     .download-box {
-      margin-left: 16px;
+      width: 30px;
+      height: 100%;
+      line-height: 36px;
       a {
         color: @text-6;
       }
