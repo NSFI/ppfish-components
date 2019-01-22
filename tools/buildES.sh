@@ -17,13 +17,31 @@ node copy.js es
 node copy.js lib
 cd ../../
 
-# es6 编译为 CommonJS
+setBabelModules() {
+  sysOS=`uname -s`
+
+  if [ $sysOS == "Darwin" ];then
+    if [[ "$1" == "false" ]]; then
+      sed -i "" "s/\"modules\": \"commonjs\"/\"modules\": false/" .babelrc
+    else
+      sed -i "" "s/\"modules\": false/\"modules\": \"commonjs\"/" .babelrc
+    fi
+  else
+    if [[ "$1" == "false" ]]; then
+      sed -i "s/\"modules\": \"commonjs\"/\"modules\": false/" .babelrc
+    else
+      sed -i "s/\"modules\": false/\"modules\": \"commonjs\"/" .babelrc
+    fi
+  fi
+}
+
+# CommonJS
 babel ./temp/ --out-dir ./lib/
 
-# es6 语法编译为 es5
-sed -i '' 's/\["@babel\/preset-env", { "modules": "auto" }\],/["@babel\/preset-env", { "modules": false }],/' .babelrc
+# ES6
+setBabelModules false
 babel ./temp/ --out-dir ./es/
 
 # 清理、还原
 rm -rf temp
-sed -i '' 's/\["@babel\/preset-env", { "modules": false }\],/["@babel\/preset-env", { "modules": "auto" }],/' .babelrc
+setBabelModules commonjs

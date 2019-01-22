@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["@babel/preset-env", { "modules": "auto" }],
+    ["@babel/preset-env", { "modules": "commonjs" }],
     "@babel/preset-react"
   ],
   "plugins": [
