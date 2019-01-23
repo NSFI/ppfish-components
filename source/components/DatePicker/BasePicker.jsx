@@ -76,23 +76,13 @@ export default class BasePicker extends React.Component {
   componentWillReceiveProps(nextProps) {
     // 只 value 受控
     if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this.setState(this.propsToState(nextProps));
+      this.setState({
+        value: nextProps.value && isValidValue(nextProps.value) ? nextProps.value : null,
+        text: nextProps.value && isValidValue(nextProps.value) ? this.dateToStr(nextProps.value) : '',
+        confirmValue: nextProps.value && isValidValue(nextProps.value) ? nextProps.value : null
+      });
     }
   }
-
-  propsToState(props) {
-    const state = {};
-    if (this.isDateValid(props.value)) {
-      state.text = this.dateToStr(props.value);
-      state.value = props.value;
-      state.confirmValue = props.value;
-    } else {
-      state.text = '';
-      state.value = null;
-    }
-    return state;
-  }
-
 
   isDateValid(date) {
     return date === null || isValidValue(date);

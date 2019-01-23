@@ -80,22 +80,12 @@ export default class DateRangeBasePicker extends React.Component {
   componentWillReceiveProps(nextProps) {
     // 只 value 受控
     if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this.setState(this.propsToState(nextProps));
+      this.setState({
+        value: nextProps.value && isValidValueArr(nextProps.value) ? nextProps.value : null,
+        text: nextProps.value && isValidValueArr(nextProps.value) ? [this.dateToStr(nextProps.value[0]), this.dateToStr(nextProps.value[1])] : '',
+        confirmValue: nextProps.value && isValidValueArr(nextProps.value) ? nextProps.value : null
+      });
     }
-  }
-
-  propsToState(props) {
-    const state = {};
-    const {value} = props;
-    if (this.isDateValid(value)) {
-      state.text = value && value.length === 2 ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '';
-      state.value = props.value;
-      state.confirmValue = props.value;
-    } else {
-      state.text = '';
-      state.value = null;
-    }
-    return state;
   }
 
   isDateValid(date) {
