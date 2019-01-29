@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Tooltip from '../Tooltip/index.tsx';
-import {addEventListener} from "../../utils";
+import ResizeObserver from 'resize-observer-polyfill';
+
 /* eslint react/no-did-mount-set-state: 0 */
 /* eslint no-param-reassign: 0 */
 
@@ -128,9 +129,14 @@ export default class Ellipsis extends Component {
         return;
       }
       this.detectEllipsisActive(target);
-      this.detectListner = addEventListener(window, 'resize', () => {
-        this.detectEllipsisActive(target);
+      this.resizeObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.target === target) {
+            this.detectEllipsisActive(target);
+          }
+        });
       });
+      this.resizeObserver.observe(target);
     }
   }
 
@@ -142,22 +148,8 @@ export default class Ellipsis extends Component {
   }
 
   componentWillUnmount() {
-    this.detectListner && this.detectListner.remove();
+    this.resizeObserver && this.resizeObserver.disconnect();
   }
-
-  resetEllipsisActive = () => {
-    if (this.props.width || this.props.lines) {
-      let target;
-      if (this.props.width) {
-        target = this.widthNode;
-      } else if (this.props.lines && isSupportLineClamp) {
-        target = this.lineClampNode;
-      } else {
-        return;
-      }
-      this.detectEllipsisActive(target);
-    }
-  };
 
   detectEllipsisActive = (node) => {
     this.setState({

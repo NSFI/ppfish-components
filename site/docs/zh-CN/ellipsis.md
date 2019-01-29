@@ -47,8 +47,6 @@ render(){
 
 > 注意： length/width/lines 属性代表三种模式：限制字数、限制宽度、限制行数 ，使用时三选一
 
-> 特殊情况下，如需要重置`Ellipsis`组件tooltip的判断，可以使用`ref.resetEllipsisActive()`
-
 > Tooltip 仅在文字不能完全显示的时候生效。
 
 参数 | 说明 | 类型 | 默认值
