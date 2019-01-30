@@ -96,12 +96,18 @@
   border: @border-width-base @border-style-base @input-border-color;
   border-radius: @border-radius-base;
   transition: all 0.3s;
+  background-color: @input-bg;
+
+  &.@{inputClass}-disabled {
+    .disabled();
+  }
   &:focus-within {
     .active();
   }
   textarea {
     //resize: none; // prevent textarea resize from coming out of its container
     border: transparent;
+    background-color: inherit;
   }
   textarea:focus {
     border-color: transparent;
@@ -110,7 +116,6 @@
   &-footer {
     position: relative;
     height: 22px;
-    background-color: @input-bg;
   }
   &-indicator {
     position: absolute;

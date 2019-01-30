@@ -93,10 +93,12 @@ export default class Counter extends React.Component<CounterProps, any> {
   };
 
   render() {
-    const { className, prefixCls, limit } = this.props;
+    const { inputPrefixCls, className, prefixCls, disabled, limit } = this.props;
     const inputClassName = classNames(className, {
       [`${prefixCls}`]: true,
+      [`${inputPrefixCls}-disabled`]: disabled,
     });
+    const textareaClassName = classNames(inputPrefixCls, className);
     const otherProps = omit(this.props, [
       'inputPrefixCls',
       'prefixCls',
@@ -110,7 +112,7 @@ export default class Counter extends React.Component<CounterProps, any> {
       <div className={inputClassName} onClick={this.handleClick}>
         <TextArea
           {...otherProps}
-          className={this.getTextAreaClassName()}
+          className={textareaClassName}
           maxLength={limit}
           onChange={this.handleTextareaChange}
           value={this.state.value}
