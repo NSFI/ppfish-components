@@ -49,7 +49,7 @@ export interface ModalProps {
   bodyStyle?: React.CSSProperties;
   maskStyle?: React.CSSProperties;
   mask?: boolean;
-  keyboard?: boolean;
+  esc?: boolean;
   wrapProps?: any;
 }
 
@@ -72,7 +72,7 @@ export interface ModalFuncProps {
   okCancel?: boolean;
   style?: React.CSSProperties;
   type?: string;
-  keyboard?: boolean;
+  esc?: boolean;
 }
 
 export type ModalFunc = (props: ModalFuncProps) => {
@@ -105,7 +105,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     cancelButtonDisabled: false,
     draggable: false,
     maskClosable: false,
-    keyboard: false,
+    esc: false,
     okText: '确定',
     cancelText: '取消',
     justOkText: '知道了'

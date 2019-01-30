@@ -6,7 +6,7 @@ interface IDialogPropTypes {
   /** 标题*/
   title?: React.ReactNode | string;
   className?: string;
-  keyboard?: boolean;
+  esc?: boolean;
   style?: CSSProperties;
   mask?: boolean;
   children?: any;

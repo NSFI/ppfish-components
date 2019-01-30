@@ -470,6 +470,7 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                       "width": 0,
                     }
                   }
+                  esc={true}
                   expandIcon=""
                   expandTrigger="click"
                   fieldNames={
@@ -884,6 +885,7 @@ exports[`Cascader should render not found content 1`] = `
                       "width": 0,
                     }
                   }
+                  esc={true}
                   expandIcon=""
                   expandTrigger="click"
                   fieldNames={

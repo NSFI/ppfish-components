@@ -31,7 +31,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -149,7 +149,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -274,7 +274,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -392,7 +392,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -510,7 +510,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -628,7 +628,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -746,7 +746,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -864,7 +864,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -953,6 +953,135 @@ exports[`Renders richEditor demo correctly 1`] = `
       <div />
     </div>
   </div>
+  <div>
+    <button
+      class="fishd-btn"
+      style="margin-bottom:10px"
+      type="button"
+    >
+      <span>
+        插入文本
+      </span>
+    </button>
+    <div
+      class="fishd-richeditor"
+    >
+      <div
+        class="editor-head"
+      >
+        <div
+          class="toolbar-grp"
+        >
+          <button
+            class="item ql-myLink fishdicon fishdicon-richeditor-link"
+          />
+          <button
+            class="item ql-bold fishdicon fishdicon-richeditor-bold"
+          />
+          <button
+            class="item ql-italic fishdicon fishdicon-richeditor-tilt"
+          />
+          <button
+            class="item ql-underline fishdicon fishdicon-richeditor-underline"
+          />
+        </div>
+        <div
+          class="toolbar-grp"
+        >
+          <div
+            class="item custom-size fishdicon fishdicon-richeditor-size"
+          >
+            <button
+              class="ql-customAttr hide"
+              data-role="customSize"
+              type="button"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="toolbar-grp"
+        >
+          <div
+            class="item custom-color fishdicon fishdicon-richeditor-color"
+          >
+            <button
+              class="ql-color hide"
+              data-role="color"
+              type="button"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="toolbar-grp"
+        >
+          <button
+            class="item ql-align fishdicon fishdicon-richeditor-align-lef"
+            type="button"
+            value=""
+          />
+          <button
+            class="item ql-align fishdicon fishdicon-richeditor-align-mid"
+            type="button"
+            value="center"
+          />
+          <button
+            class="item ql-align fishdicon fishdicon-richeditor-align-rig"
+            type="button"
+            value="right"
+          />
+        </div>
+        <div
+          class="toolbar-grp"
+        >
+          <button
+            class="item ql-list fishdicon fishdicon-richeditor-numberlis"
+            type="button"
+            value="ordered"
+          />
+          <button
+            class="item ql-list fishdicon fishdicon-richeditor-list"
+            type="button"
+            value="bullet"
+          />
+        </div>
+        <div
+          class="toolbar-grp"
+        >
+          <div
+            class="item custom-emoji fishdicon fishdicon-richeditor-expressio"
+          >
+            <button
+              class="ql-emoji hide"
+              data-role="emoji"
+              type="button"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="toolbar-grp"
+        >
+          <button
+            class="item ql-image fishdicon fishdicon-richeditor-picture"
+          />
+        </div>
+        <div
+          class="toolbar-grp"
+        >
+          <button
+            class="item ql-clean fishdicon fishdicon-richeditor-clear"
+          />
+        </div>
+      </div>
+      <div
+        class="quill editor-body"
+      >
+        <div />
+      </div>
+    </div>
+  </div>
   <div
     class="fishd-richeditor"
   >
@@ -982,7 +1111,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""
@@ -1129,7 +1258,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item custom-size fishdicon fishdicon-richeditor-size"
         >
           <button
-            class="ql-customSize hide"
+            class="ql-customAttr hide"
             data-role="customSize"
             type="button"
             value=""

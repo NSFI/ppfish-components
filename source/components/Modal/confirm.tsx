@@ -13,7 +13,7 @@ interface ConfirmDialogProps extends ModalFuncProps {
 const IS_REACT_16 = !!ReactDOM.createPortal;
 
 const ConfirmDialog = (props: ConfirmDialogProps) => {
-  const { onCancel, onOk, close, zIndex, afterClose, visible, keyboard } = props;
+  const { onCancel, onOk, close, zIndex, afterClose, visible, esc } = props;
   const iconType = props.iconType || 'hints-descriptions';
   const okType = props.okType || 'primary';
   const prefixCls = props.prefixCls || 'fishd-confirm';
@@ -52,7 +52,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
       width={width}
       zIndex={zIndex}
       afterClose={afterClose}
-      keyboard={keyboard}
+      esc={esc}
     >
       <div className={`${prefixCls}-body-wrapper`}>
         <div className={`${prefixCls}-body`}>

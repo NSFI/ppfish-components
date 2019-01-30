@@ -52,7 +52,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     className: '',
     mask: true,
     visible: false,
-    keyboard: true,
+    esc: true,
     closable: true,
     maskClosable: true,
     destroyOnClose: false,
@@ -72,6 +72,13 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
   private sentinel: HTMLElement;
   private bodyIsOverflowing: boolean;
   private scrollbarWidth: number;
+
+  constructor(props: IDialogPropTypes) {
+    super(props);
+    if ('keyboard' in props) {
+      throw new Error(`API 'keyboard' is deprecated. Use 'esc' instead.`);
+    }
+  }
 
   componentWillMount() {
     this.inTransition = false;
@@ -161,7 +168,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
   };
   onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const props = this.props;
-    if (props.keyboard && e.keyCode === KeyCode.ESC) {
+    if (props.esc && e.keyCode === KeyCode.ESC) {
       this.close(e);
     }
     // keep focus inside dialog

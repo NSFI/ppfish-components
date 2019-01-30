@@ -85,7 +85,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
     </div>
   </div>
   <div
-    style="width:350px"
+    style="width:56px"
   >
     <div
       class="fishd-audio-player"
@@ -111,50 +111,6 @@ exports[`Renders audioPlayer demo correctly 1`] = `
           <i
             class="fishdicon fishdicon-play handle-audio-icon pause-play"
           />
-        </div>
-        <div
-          class="box step-box"
-        >
-          <div
-            class="fishd-slider"
-          >
-            <div
-              class="fishd-slider-all-handle"
-              style="position:absolute"
-            />
-            <div
-              class="fishd-slider-rail"
-            />
-            <div
-              class="fishd-slider-track"
-              style="left:0%;width:NaN%"
-            />
-            <div
-              class="fishd-slider-step"
-            />
-            <div
-              aria-disabled="false"
-              aria-valuemax="0"
-              aria-valuemin="0"
-              aria-valuenow="0"
-              class="fishd-slider-handle"
-              role="slider"
-              style="left:NaN%"
-              tabindex="0"
-            />
-            <div
-              class="fishd-slider-mark"
-            />
-          </div>
-        </div>
-        <div
-          class="box time-box"
-        >
-          <span
-            class="current"
-          >
-            0:00 / 0:00
-          </span>
         </div>
       </div>
     </div>
