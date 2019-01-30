@@ -140,6 +140,7 @@ render(){
   );
   return(
       <Collapse 
+        accordion={true}
         onChange={this.callback}
         isScrollToHeader
         defaultActiveKey={['1']}
@@ -330,14 +331,15 @@ render(){
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| activeKey | 当前激活 tab 面板的 key | Array< String > | String | 默认无，accordion模式下默认第一个元素 |
+| accordion | 手风琴，每次只打开一个tab。默认打开第一个。 | Boolean | false |
+| activeKey | 受控属性，控制当前激活的面板 | Array< String > \| String | 默认无，accordion模式下默认第一个元素 |
 | bordered | 是否显示边框 | Boolean | true |
 | close | 删除面板的回调 | (statusList: Array) => Void | - |
 | defaultActiveKey | 初始化选中面板的 key | String | - |
 | isScrollToHeader | 激活后将激活的面板置顶 | Boolean | - |
 | onChange | 切换面板的回调 | (key) => Void | - |
 | showClose | 是否开启删除功能；开启后，需传入 statusList 属性| Boolean | false |
-| statusList | 面板是否显示的状态数组 | Array< Boolean > | [true, true, ...] |
+| statusList | 受控属性，控制每一个面板是否显示的数组 | Array< Boolean > | [true, true, ...] |
 
 ### Collapse.Panel
 
