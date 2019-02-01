@@ -343,6 +343,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 | onKeyUp | 按键释放后的回调 | (event) => Void | - |
 | onSelectionChange | 选区改变时的回调 | (range, source, editor) => Void | - |
 | placeholder | 内容为空时的占位内容 | String | '请输入内容' |
+| popoverPlacement | 气泡框位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'top' |
 | resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | false |
 | style | 容器样式 | Object | - |
 | supportFontTag | 是否支持 font 标签。设为 true 时，编辑器会将输入的 font 标签替换为 span 标签，并用 CSS 设定文本样式。 | Boolean | false |

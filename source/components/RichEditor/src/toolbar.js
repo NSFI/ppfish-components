@@ -145,6 +145,7 @@ class CustomToolbar extends PureComponent {
     className: PropTypes.string,
     iconPrefix: PropTypes.string,
     prefixCls: PropTypes.string,
+    popoverPlacement: PropTypes.string,
     style: PropTypes.object,
     toolbar: PropTypes.array,
     customEmoji: PropTypes.array,
@@ -163,6 +164,7 @@ class CustomToolbar extends PureComponent {
     customEmoji: [],
     customLink: {},
     prefixCls: 'fishd-richeditor',
+    popoverPlacement: 'top',
     getPopupContainer: () => document.body
   };
 
@@ -185,6 +187,7 @@ class CustomToolbar extends PureComponent {
       prefixCls,
       customEmoji,
       customLink,
+      popoverPlacement,
       getPopupContainer
     } = this.props;
     let mValue = null,
@@ -277,6 +280,7 @@ class CustomToolbar extends PureComponent {
               content={content}
               title={null}
               key={key}
+              placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
               <div className={colorCls}>
@@ -410,6 +414,7 @@ class CustomToolbar extends PureComponent {
               content={content}
               title={null}
               key={key}
+              placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
               <div className={emojiCls}>
@@ -462,6 +467,7 @@ class CustomToolbar extends PureComponent {
               content={content}
               title={null}
               key={key}
+              placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
               <div className={sizeCls} >
@@ -558,6 +564,7 @@ class CustomToolbar extends PureComponent {
               content={content}
               title={null}
               key={key}
+              placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
               <div className={backgroundCls}>
