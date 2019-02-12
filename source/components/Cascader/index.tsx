@@ -1,8 +1,10 @@
 import * as React from 'react';
 import RcCascader from './src';
 import arrayTreeFilter from 'array-tree-filter';
+import {polyfill} from 'react-lifecycles-compat';
 import classNames from 'classnames';
 import omit from 'omit.js';
+import warning from 'warning';
 import {KeyCode} from '../../utils';
 import Input from '../Input';
 import Icon from '../Icon';
@@ -40,6 +42,7 @@ export interface ShowSearchType {
             names: FilledFieldNamesType,) => React.ReactNode;
   sort?: (a: CascaderOptionType[], b: CascaderOptionType[], inputValue: string, names: FilledFieldNamesType) => number;
   matchInputWidth?: boolean;
+  limit?: number | false;
 }
 
 export interface CascaderProps {
@@ -92,7 +95,11 @@ export interface CascaderState {
   value: string[];
   popupVisible: boolean | undefined;
   flattenOptions: CascaderOptionType[][] | undefined;
+  prevProps: CascaderProps;
 }
+
+// We limit the filtered item count by default
+const defaultLimit = 50;
 
 //搜索项高亮-String类型支持
 function highlightKeyword(str: string, keyword: string, prefixCls: string | undefined) {
@@ -131,7 +138,8 @@ function defaultSortFilteredOption(a: CascaderOptionType[], b: CascaderOptionTyp
 }
 
 //自定义option参数的名字
-function getFilledFieldNames(fieldNames: FieldNamesType = {}) {
+function getFilledFieldNames(props: CascaderProps) {
+  const fieldNames = props.fieldNames || {};
   const names: FilledFieldNamesType = {
     children: fieldNames.children || 'children',
     label: fieldNames.label || 'label',
@@ -140,9 +148,28 @@ function getFilledFieldNames(fieldNames: FieldNamesType = {}) {
   return names;
 }
 
+
+function flattenTree(options: CascaderOptionType[],
+                     props: CascaderProps,
+                     ancestor: CascaderOptionType[] = [],) {
+  const names: FilledFieldNamesType = getFilledFieldNames(props);
+  let flattenOptions = [] as CascaderOptionType[][];
+  const childrenName = names.children;
+  options.forEach(option => {
+    const path = ancestor.concat(option);
+    if (props.changeOnSelect || !option[childrenName] || !option[childrenName].length) {
+      flattenOptions.push(path);
+    }
+    if (option[childrenName]) {
+      flattenOptions = flattenOptions.concat(flattenTree(option[childrenName], props, path));
+    }
+  });
+  return flattenOptions;
+}
+
 const defaultDisplayRender = (label: string[]) => label.join(' / ');
 
-export default class Cascader extends React.Component<CascaderProps, CascaderState> {
+class Cascader extends React.Component<CascaderProps, CascaderState> {
   static defaultProps = {
     prefixCls: 'fishd-cascader',
     inputPrefixCls: 'fishd-input',
@@ -155,6 +182,25 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
     notFoundContent: '无匹配结果',
   };
 
+
+  static getDerivedStateFromProps(nextProps: CascaderProps, {prevProps}: CascaderState) {
+    const newState: Partial<CascaderState> = {
+      prevProps: nextProps,
+    };
+
+    if ('value' in nextProps) {
+      newState.value = nextProps.value || [];
+    }
+    if ('popupVisible' in nextProps) {
+      newState.popupVisible = nextProps.popupVisible;
+    }
+    if (nextProps.showSearch && prevProps.options !== nextProps.options) {
+      newState.flattenOptions = flattenTree(nextProps.options, nextProps);
+    }
+
+    return newState;
+  }
+
   cachedOptions: CascaderOptionType[];
 
   private input: Input;
@@ -166,23 +212,9 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
       inputValue: '',
       inputFocused: false,
       popupVisible: props.popupVisible,
-      flattenOptions:
-        props.showSearch ? this.flattenTree(props.options, props.changeOnSelect, props.fieldNames) : undefined,
+      flattenOptions: props.showSearch ? flattenTree(props.options, props) : undefined,
+      prevProps: props,
     };
-  }
-
-  componentWillReceiveProps(nextProps: CascaderProps) {
-    if ('value' in nextProps) {
-      this.setState({value: nextProps.value || []});
-    }
-    if ('popupVisible' in nextProps) {
-      this.setState({popupVisible: nextProps.popupVisible});
-    }
-    if (nextProps.showSearch && this.props.options !== nextProps.options) {
-      this.setState({
-        flattenOptions: this.flattenTree(nextProps.options, nextProps.changeOnSelect, nextProps.fieldNames),
-      });
-    }
   }
 
   handleChange = (value: any, selectedOptions: CascaderOptionType[]) => {
@@ -250,8 +282,8 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
   };
 
   getLabel() {
-    const {options, displayRender = defaultDisplayRender as Function, fieldNames} = this.props;
-    const names = getFilledFieldNames(fieldNames);
+    const {options, displayRender = defaultDisplayRender as Function} = this.props;
+    const names = getFilledFieldNames(this.props);
     const value = this.state.value;
     const unwrappedValue = Array.isArray(value[0]) ? value[0] : value;
     const selectedOptions: CascaderOptionType[] = arrayTreeFilter(options,
@@ -272,44 +304,38 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
     }
   };
 
-  flattenTree(options: CascaderOptionType[],
-              changeOnSelect: boolean | undefined,
-              fieldNames: FieldNamesType | undefined,
-              ancestor: CascaderOptionType[] = [],) {
-    const names: FilledFieldNamesType = getFilledFieldNames(fieldNames);
-    let flattenOptions = [] as CascaderOptionType[][];
-    let childrenName = names.children;
-    options.forEach((option) => {
-      const path = ancestor.concat(option);
-      if (changeOnSelect || !option[childrenName] || !option[childrenName].length) {
-        flattenOptions.push(path);
-      }
-      if (option[childrenName]) {
-        flattenOptions = flattenOptions.concat(
-          this.flattenTree(
-            option[childrenName],
-            changeOnSelect,
-            fieldNames,
-            path,
-          ),
-        );
-      }
-    });
-    return flattenOptions;
-  }
-
   generateFilteredOptions(prefixCls: string | undefined) {
-    const {showSearch, notFoundContent, fieldNames} = this.props;
-    const names: FilledFieldNamesType = getFilledFieldNames(fieldNames);
+    const {showSearch, notFoundContent} = this.props;
+    const names: FilledFieldNamesType = getFilledFieldNames(this.props);
     const {
       filter = defaultFilterOption,
       render = defaultRenderFilteredOption,
       sort = defaultSortFilteredOption,
+      limit = defaultLimit,
     } = showSearch as ShowSearchType;
     const {flattenOptions = [], inputValue} = this.state;
-    const filtered = flattenOptions.filter((path) => filter(this.state.inputValue, path, names))
-      .sort((a, b) => sort(a, b, inputValue, names));
-
+    // Limit the filter if needed
+    let filtered: Array<CascaderOptionType[]>;
+    if (limit > 0) {
+      filtered = [];
+      let matchCount = 0;
+      // Perf optimization to filter items only below the limit
+      flattenOptions.some(path => {
+        const match = filter(this.state.inputValue, path, names);
+        if (match) {
+          filtered.push(path);
+          matchCount += 1;
+        }
+        return matchCount >= limit;
+      });
+    } else {
+      warning(
+        typeof limit !== 'number',
+        "'limit' of showSearch in Cascader should be positive number or false.",
+      );
+      filtered = flattenOptions.filter(path => filter(this.state.inputValue, path, names));
+    }
+    filtered.sort((a, b) => sort(a, b, inputValue, names));
     if (filtered.length > 0) {
       return filtered.map((path: CascaderOptionType[]) => {
         return {
@@ -321,7 +347,9 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
         } as CascaderOptionType;
       });
     }
-    return [{[names.label]: notFoundContent, [names.value]: 'FISHD_CASCADER_NOT_FOUND', disabled: true}];
+    return [
+      {[names.label]: notFoundContent, [names.value]: 'ANT_CASCADER_NOT_FOUND', disabled: true},
+    ];
   }
 
   focus() {
@@ -457,3 +485,7 @@ export default class Cascader extends React.Component<CascaderProps, CascaderSta
     );
   }
 }
+
+polyfill(Cascader);
+
+export default Cascader;

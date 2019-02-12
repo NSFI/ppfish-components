@@ -36,3 +36,5 @@
 ## ~~发布的npm包太大，site/assets占了一半大小，可以去掉~~
 
 ## Icon 组件中列出支持的 icon 类型
+
+## 更新React即将__UNSAFE的生命周期函数，使用新的生命周期函数做替换。[详情见](https://reactjs.org/docs/react-component.html#the-component-lifecycle)

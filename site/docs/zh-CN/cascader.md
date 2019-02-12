@@ -609,6 +609,7 @@ render(){
 | matchInputWidth | 搜索结果列表是否与输入框同宽 | Boolean | - |
 | render | 用于渲染 filter 后的选项 | (inputValue, path) => ReactNode | - |
 | sort | 用于排序 filter 后的选项 | (a, b, inputValue) => Boolean | - |
+| limit | 搜索结果展示数量	 | Number \| false	 | 50 |
 
 ## 方法
 

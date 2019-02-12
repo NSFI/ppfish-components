@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import Animate from 'rc-animate';
 import scrollIntoView from 'dom-scroll-into-view';
+import {polyfill} from 'react-lifecycles-compat';
 import classNames from 'classnames';
 import Button from '../Button/index.tsx';
 import Spin from '../Spin/index.tsx';
@@ -16,7 +17,7 @@ import isEqual from 'lodash/isEqual';
 const noop = () => {
 };
 
-export default class Select extends React.Component {
+class Select extends React.Component {
   static propTypes = {
     allowClear: PropTypes.bool,
     children: PropTypes.node,
@@ -174,6 +175,28 @@ export default class Select extends React.Component {
     }
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {prevProps = {}} = prevState;
+    const newState = {
+      prevProps: nextProps,
+    };
+    if ('visible' in nextProps && !isEqual(nextProps.visible, prevProps.visible)) {
+      newState.popupVisible = nextProps.visible;
+    }
+    if ('value' in nextProps) {
+      const changedValue = Select.getValueFromProps(nextProps.value, nextProps.labelInValue, nextProps.children);
+      const prevValue = Select.getValueFromProps(prevProps.value, prevProps.labelInValue, prevProps.children);
+      if (!isEqual(changedValue, prevValue)) {
+        newState.selectValue = changedValue;
+        if (nextProps.mode === 'multiple') {
+          newState.selectValueForMultiplePanel = changedValue;
+        }
+      }
+    }
+
+    return newState;
+  }
+
   constructor(props) {
     super(props);
     const {value, defaultValue, labelInValue, children, visible} = this.props;
@@ -191,39 +214,12 @@ export default class Select extends React.Component {
       popupVisible: visible,
       activeKey: undefined,
       dropdownWidth: null,
+      prevProps: props,
     };
   }
 
   componentDidMount() {
     this.setDropdownWidth();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if ('visible' in nextProps && !isEqual(nextProps.visible, this.props.visible)) {
-      this.setState({
-        popupVisible: nextProps.visible
-      });
-    }
-
-    if ('value' in nextProps) {
-      const {value, labelInValue, children, mode} = nextProps;
-      const changedValue = Select.getValueFromProps(value, labelInValue, children);
-      const {selectValue, selectValueForMultiplePanel} = this.state;
-      if (mode === 'single') {
-        if (!isEqual(changedValue, selectValue)) {
-          this.setState({
-            selectValue: changedValue,
-          });
-        }
-      } else if (mode === 'multiple') {
-        if (!isEqual(changedValue, selectValueForMultiplePanel) || !isEqual(changedValue, selectValue)) {
-          this.setState({
-            selectValue: changedValue,
-            selectValueForMultiplePanel: changedValue,
-          });
-        }
-      }
-    }
   }
 
   componentDidUpdate() {
@@ -882,3 +878,7 @@ export default class Select extends React.Component {
     );
   }
 }
+
+polyfill(Select);
+
+export default Select;

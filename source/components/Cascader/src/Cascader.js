@@ -1,6 +1,8 @@
 import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
+import {polyfill} from 'react-lifecycles-compat';
+
 import Menus from './Menus';
 import {KeyCode, shallowEqualArrays} from '../../../utils';
 import arrayTreeFilter from 'array-tree-filter';
@@ -20,28 +22,31 @@ class Cascader extends Component {
       popupVisible: props.popupVisible,
       activeValue: initialValue,
       value: initialValue,
+      prevProps: props,
     };
     this.defaultFieldNames = {label: 'label', value: 'value', children: 'children'};
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps && !shallowEqualArrays(this.props.value, nextProps.value)) {
-      const newValues = {
-        value: nextProps.value || [],
-        activeValue: nextProps.value || [],
-      };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {prevProps = {}} = prevState;
+    const newState = {
+      prevProps: nextProps,
+    };
+
+    if ('value' in nextProps && !shallowEqualArrays(prevProps.value, nextProps.value)) {
+      newState.value = nextProps.value || [];
+
       // allow activeValue diff from value
       // https://github.com/ant-design/ant-design/issues/2767
-      if ('loadData' in nextProps) {
-        delete newValues.activeValue;
+      if (!('loadData' in nextProps)) {
+        newState.activeValue = nextProps.value || [];
       }
-      this.setState(newValues);
     }
     if ('popupVisible' in nextProps) {
-      this.setState({
-        popupVisible: nextProps.popupVisible,
-      });
+      newState.popupVisible = nextProps.popupVisible;
     }
+
+    return newState;
   }
 
   getPopupDOMNode() {
@@ -57,11 +62,13 @@ class Cascader extends Component {
   }
 
   getCurrentLevelOptions() {
-    const {options} = this.props;
+    const {options = []} = this.props;
     const {activeValue = []} = this.state;
-    const result = arrayTreeFilter(options,
+    const result = arrayTreeFilter(
+      options,
       (o, level) => o[this.getFieldName('value')] === activeValue[level],
-      {childrenKeyName: this.getFieldName('children')});
+      {childrenKeyName: this.getFieldName('children')}
+    );
     if (result[result.length - 2]) {
       return result[result.length - 2][this.getFieldName('children')];
     }
@@ -69,12 +76,14 @@ class Cascader extends Component {
   }
 
   getActiveOptions(activeValue) {
-    return arrayTreeFilter(this.props.options,
+    return arrayTreeFilter(
+      this.props.options || [],
       (o, level) => o[this.getFieldName('value')] === activeValue[level],
-      {childrenKeyName: this.getFieldName('children')});
+      {childrenKeyName: this.getFieldName('children')}
+    );
   }
 
-  setPopupVisible = (popupVisible) => {
+  setPopupVisible = popupVisible => {
     if (!('popupVisible' in this.props)) {
       this.setState({popupVisible});
     }
@@ -214,7 +223,7 @@ class Cascader extends Component {
     }
   };
 
-  saveTrigger = (node) => {
+  saveTrigger = node => {
     this.trigger = node;
   };
 
@@ -306,5 +315,7 @@ Cascader.propTypes = {
   expandIcon: PropTypes.node,
   esc: PropTypes.bool,
 };
+
+polyfill(Cascader);
 
 export default Cascader;
