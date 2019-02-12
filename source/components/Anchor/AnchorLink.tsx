@@ -30,8 +30,8 @@ export default class AnchorLink extends React.Component<AnchorLinkProps, any> {
 
   componentDidUpdate(prevProps: AnchorLinkProps) {
     if (this.props.href !== prevProps.href) {
-      this.context.fishdAnchor.unregisterLink(this.props.href);
-      this.context.fishdAnchor.registerLink(prevProps.href);
+      this.context.fishdAnchor.unregisterLink(prevProps.href);
+      this.context.fishdAnchor.registerLink(this.props.href);
     }
   }
 
