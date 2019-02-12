@@ -17,7 +17,6 @@ export default class DateRangePicker extends DateRangeBasePicker {
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
       footer: PropTypes.func,
-      maxDateRange: PropTypes.number,
       onError: PropTypes.func
     }, DateRangeBasePicker.propTypes);
   }

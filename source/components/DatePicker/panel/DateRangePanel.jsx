@@ -65,7 +65,6 @@ export default class DateRangePanel extends React.Component {
       disabledDate: PropTypes.func,
       firstDayOfWeek: PropTypes.number,
       footer: PropTypes.func,
-      maxDateRange: PropTypes.number,
       onError: PropTypes.func,
       defaultPanelMonth: PropTypes.instanceOf(Date),
       scene: PropTypes.oneOf(['past', 'future']),
@@ -94,7 +93,6 @@ export default class DateRangePanel extends React.Component {
       prefixCls: 'fishd',
       yearCount: 50,
       firstDayOfWeek: 0,
-      maxDateRange: null,
       onError: () => {},
       defaultPanelMonth: new Date(new Date().setHours(0,0,0,0)),
       scene: 'future',
@@ -454,13 +452,10 @@ export default class DateRangePanel extends React.Component {
 
   // 点击日期
   handleRangePick({ minDate, maxDate }, isClose) {
-    const { showTime, onPick, format, maxDateRange, onError } = this.props;
+    const { showTime, onPick, format, onError } = this.props;
 
-    if(maxDateRange && maxDateRange > 0) {
-      if(minDate && maxDate && diffDate(minDate, maxDate) + 1 > maxDateRange) {
-        onError('最大选择范围不能超过'+maxDateRange+'天');
-        return;
-      }
+    if(minDate && maxDate && onError && onError([minDate, maxDate])) {
+      return;
     }
 
     this.setState({

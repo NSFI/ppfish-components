@@ -664,10 +664,10 @@ render() {
 ```
 :::
 
-## 设置最大可选时间范围
+## 自定义日期范围组件的错误信息
 
-- 根据不同的业务需求，设置最大可选的时间范围
-- 超过最大范围的错误信息展示形式可以自定义，如Message或额外的页脚
+- 根据不同的业务需求，可以自定义错误逻辑和信息展示，如设置最大可选的时间范围等
+- 错误信息展示形式可以自定义，如Message或额外的页脚
 
 :::demo
 ```js
@@ -682,6 +682,12 @@ constructor(props) {
 
 render() {
   const {value1, value2, extraFoot} = this.state;
+  
+  const diffDate = (dateA, dateB) => {
+    const time = dateB.getTime() - dateA.getTime();
+    const days = parseInt(time / (1000 * 60 * 60 * 24));
+    return days;
+  };
 
   return (
     <div className="source">
@@ -694,13 +700,12 @@ render() {
             console.debug('DateRangePicker1 changed: ', date)
             this.setState({value1: date})
           }}
-          maxDateRange={7}
-          onError={(msg) => {
-            if(msg){
-              message.error(msg)
-              }
+          onError={(value) => {
+            if(diffDate(value[0],value[1])+1 > 7){
+              message.error('最大选择范围不能超过7天');
+              
             }
-          }
+          }}
         />
       </div>
       <div className="block">
@@ -712,9 +717,11 @@ render() {
             console.debug('DateRangePicker2 changed: ', date)
             this.setState({value2: date})
           }}
-          maxDateRange={7}
-          onError={(msg) => {
-            this.setState({extraFoot: () => msg})
+          onError={(value) => {
+            if(diffDate(value[0],value[1])+1 > 7) {
+              this.setState({extraFoot: () => '最大选择范围不能超过7天'})
+              return true;
+            }
           }}
           footer={extraFoot}
           onVisibleChange={(status) => {
@@ -1120,8 +1127,7 @@ render() {
 |---------- |-------------- |----------|-------- |
 | startPlaceholder | 开始日期的占位内容 | String | '开始日期' |
 | endPlaceholder | 结束日期的占位内容 | String | '结束日期' |
-| maxDateRange  | 最大可选择的日期范围，单位 天    | Number | - |
-| onError  |  选择日期超过maxDateRange的回调   | (message) => Void | - |
+| onError  |  自定义日期范围选择的错误逻辑（如最大可选择的日期范围等），当返回值为`true`时，将不会收起面板；返回值为`false`时，正常收起面板 | (value) => Boolean | - |
 | separator | 分隔符 | String | ' 至 ' |
 | value | 值 | Array< Date > | null |
 | scene | 设置日历选择场景(根据不同的业务场景设置这个值时，面板会有较好的交互体验)| Enum {'past', 'future'} | 'future' |
