@@ -703,7 +703,7 @@ render() {
           onError={(value) => {
             if(diffDate(value[0],value[1])+1 > 7){
               message.error('最大选择范围不能超过7天');
-              
+              return true;
             }
           }}
         />
