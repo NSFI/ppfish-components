@@ -348,7 +348,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       });
     }
     return [
-      {[names.label]: notFoundContent, [names.value]: 'ANT_CASCADER_NOT_FOUND', disabled: true},
+      {[names.label]: notFoundContent, [names.value]: 'FISHD_CASCADER_NOT_FOUND', disabled: true},
     ];
   }
 
