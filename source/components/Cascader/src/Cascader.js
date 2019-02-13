@@ -9,23 +9,6 @@ import arrayTreeFilter from 'array-tree-filter';
 import BUILT_IN_PLACEMENTS from './placements';
 
 class Cascader extends Component {
-  constructor(props) {
-    super(props);
-    let initialValue = [];
-    if ('value' in props) {
-      initialValue = props.value || [];
-    } else if ('defaultValue' in props) {
-      initialValue = props.defaultValue || [];
-    }
-
-    this.state = {
-      popupVisible: props.popupVisible,
-      activeValue: initialValue,
-      value: initialValue,
-      prevProps: props,
-    };
-    this.defaultFieldNames = {label: 'label', value: 'value', children: 'children'};
-  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {prevProps = {}} = prevState;
@@ -47,6 +30,24 @@ class Cascader extends Component {
     }
 
     return newState;
+  }
+
+  constructor(props) {
+    super(props);
+    let initialValue = [];
+    if ('value' in props) {
+      initialValue = props.value || [];
+    } else if ('defaultValue' in props) {
+      initialValue = props.defaultValue || [];
+    }
+
+    this.state = {
+      popupVisible: props.popupVisible,
+      activeValue: initialValue,
+      value: initialValue,
+      prevProps: props,
+    };
+    this.defaultFieldNames = {label: 'label', value: 'value', children: 'children'};
   }
 
   getPopupDOMNode() {
