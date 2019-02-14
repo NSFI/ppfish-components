@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
+import {findDOMNode} from 'react-dom';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
 import Icon from '../Icon/index';
 import Group from './ButtonGroup';
 import './style/index.less';
 
 const rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/;
 const isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar);
+
 function isString(str: any) {
   return typeof str === 'string';
 }
@@ -63,7 +65,13 @@ export type NativeButtonProps = {
 
 export type ButtonProps = AnchorButtonProps | NativeButtonProps;
 
-export default class Button extends React.Component<ButtonProps, any> {
+interface ButtonState {
+  loading?: boolean | { delay?: number };
+  hasTwoCNChar: boolean;
+  clicked?: boolean;
+}
+
+class Button extends React.Component<ButtonProps, any> {
   static Group: typeof Group;
   static __FISHD_BUTTON = true;
 
@@ -88,6 +96,16 @@ export default class Button extends React.Component<ButtonProps, any> {
   timeout: number;
   delayTimeout: number;
 
+  static getDerivedStateFromProps(nextProps: ButtonProps, prevState: ButtonState) {
+    if (nextProps.loading instanceof Boolean) {
+      return {
+        ...prevState,
+        loading: nextProps.loading,
+      };
+    }
+    return null;
+  }
+
   constructor(props: ButtonProps) {
     super(props);
     this.state = {
@@ -101,23 +119,21 @@ export default class Button extends React.Component<ButtonProps, any> {
     this.fixTwoCNChar();
   }
 
-  componentWillReceiveProps(nextProps: ButtonProps) {
-    const currentLoading = this.props.loading;
-    const loading = nextProps.loading;
+  componentDidUpdate(prevProps: ButtonProps) {
+    this.fixTwoCNChar();
 
-    if (currentLoading) {
+    if (prevProps.loading && typeof prevProps.loading !== 'boolean') {
       clearTimeout(this.delayTimeout);
     }
 
-    if (typeof loading !== 'boolean' && loading && loading.delay) {
-      this.delayTimeout = window.setTimeout(() => this.setState({ loading }), loading.delay);
+    const {loading} = this.props;
+    if (loading && typeof loading !== 'boolean' && loading.delay) {
+      this.delayTimeout = window.setTimeout(() => this.setState({loading}), loading.delay);
+    } else if (prevProps.loading === this.props.loading) {
+      return;
     } else {
-      this.setState({ loading });
+      this.setState({loading});
     }
-  }
-
-  componentDidUpdate() {
-    this.fixTwoCNChar();
   }
 
   componentWillUnmount() {
@@ -148,18 +164,18 @@ export default class Button extends React.Component<ButtonProps, any> {
 
   handleClick: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement> = e => {
     // Add click effect
-    this.setState({ clicked: true });
+    this.setState({clicked: true});
     clearTimeout(this.timeout);
-    this.timeout = window.setTimeout(() => this.setState({ clicked: false }), 500);
+    this.timeout = window.setTimeout(() => this.setState({clicked: false}), 500);
 
     const onClick = this.props.onClick;
     if (onClick) {
       (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)(e);
     }
-  }
+  };
 
   isNeedInserted() {
-    const { icon, children } = this.props;
+    const {icon, children} = this.props;
     return React.Children.count(children) === 1 && !icon;
   }
 
@@ -168,7 +184,7 @@ export default class Button extends React.Component<ButtonProps, any> {
       type, shape, size, className, children, icon, prefixCls, ghost, loading: _loadingProp, ...rest
     } = this.props;
 
-    const { loading, clicked, hasTwoCNChar } = this.state;
+    const {loading, clicked, hasTwoCNChar} = this.state;
 
     // large => lg
     // small => sm
@@ -179,6 +195,7 @@ export default class Button extends React.Component<ButtonProps, any> {
         break;
       case 'small':
         sizeCls = 'sm';
+        break;
       default:
         break;
     }
@@ -195,7 +212,7 @@ export default class Button extends React.Component<ButtonProps, any> {
     });
 
     const iconType = loading ? 'load-line' : icon;
-    const iconNode = iconType ? <Icon type={iconType} spinning={loading} /> : null;
+    const iconNode = iconType ? <Icon type={iconType} spinning={loading}/> : null;
     const kids = (children || children === 0)
       ? React.Children.map(children, child => insertSpace(child, this.isNeedInserted())) : null;
 
@@ -206,12 +223,12 @@ export default class Button extends React.Component<ButtonProps, any> {
           className={classes}
           onClick={this.handleClick}
         >
-        {iconNode}{kids}
+          {iconNode}{kids}
         </a>
       );
     } else {
       // React does not recognize the `htmlType` prop on a DOM element. Here we pick it out of `rest`.
-      const { htmlType, ...otherProps } = rest;
+      const {htmlType, ...otherProps} = rest;
 
       return (
         <button
@@ -220,9 +237,13 @@ export default class Button extends React.Component<ButtonProps, any> {
           className={classes}
           onClick={this.handleClick}
         >
-        {iconNode}{kids}
+          {iconNode}{kids}
         </button>
       );
     }
   }
 }
+
+polyfill(Button);
+
+export default Button;

@@ -252,17 +252,17 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     });
   }
 
-  componentWillReceiveProps(nextProps: AffixProps) {
-    if (this.props.target !== nextProps.target) {
+  componentDidUpdate(prevProps: AffixProps) {
+    if (this.props.target !== prevProps.target) {
       this.clearEventListeners();
-      this.setTargetEventListeners(nextProps.target!);
+      this.setTargetEventListeners(this.props.target!);
 
       // Mock Event object.
       this.updatePosition({});
     }
     if (
-      this.props.offsetTop !== nextProps.offsetTop ||
-      this.props.offsetBottom !== nextProps.offsetBottom
+      this.props.offsetTop !== prevProps.offsetTop ||
+      this.props.offsetBottom !== prevProps.offsetBottom
     ) {
       this.updatePosition({});
     }
