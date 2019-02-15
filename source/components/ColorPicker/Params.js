@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
 
 import Color from './helpers/color';
 import percentage from './helpers/percentage';
 
 const modesMap = ['RGB', 'HSB'];
 
-export default class Params extends React.Component {
+class Params extends React.Component {
 
   static propTypes = {
     alpha: PropTypes.number,
@@ -25,6 +26,15 @@ export default class Params extends React.Component {
     enableAlpha: true,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {};
+    if ('color' in nextProps) {
+      newState.color = nextProps.color;
+      newState.hex = nextProps.color.hex;
+    }
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -34,15 +44,6 @@ export default class Params extends React.Component {
       hex: props.color.hex,
       color: props.color, // instanceof tinycolor
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {color: nextColor} = nextProps;
-
-    this.setState({
-      color: nextColor,
-      hex: nextColor.hex,
-    });
   }
 
   getChannelInRange = (value, index) => {
@@ -251,3 +252,7 @@ export default class Params extends React.Component {
     );
   }
 }
+
+polyfill(Params);
+
+export default Params;

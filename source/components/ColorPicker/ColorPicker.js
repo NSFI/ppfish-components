@@ -3,6 +3,7 @@ import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
 
 import {KeyCode} from "../../utils";
 import ColorPickerPanel from './Panel';
@@ -21,7 +22,7 @@ function prevent(e) {
 function noop() {
 }
 
-export default class ColorPicker extends React.Component {
+class ColorPicker extends React.Component {
 
   static propTypes = {
     alpha: PropTypes.number,
@@ -67,6 +68,17 @@ export default class ColorPicker extends React.Component {
     esc: true,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {};
+    if ('color' in nextProps) {
+      newState.color = nextProps.color;
+    }
+    if ('alpha' in nextProps && nextProps.alpha !== undefined && nextProps.alpha !== null) {
+      newState.alpha = nextProps.alpha;
+    }
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -82,19 +94,6 @@ export default class ColorPicker extends React.Component {
     };
 
     this.saveTriggerRef = refFn.bind(this, 'triggerInstance');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.color) {
-      this.setState({
-        color: nextProps.color,
-      });
-    }
-    if (nextProps.alpha !== null && nextProps.alpha !== undefined) {
-      this.setState({
-        alpha: nextProps.alpha,
-      });
-    }
   }
 
   onChange = (colors) => {
@@ -270,3 +269,7 @@ export default class ColorPicker extends React.Component {
     );
   }
 }
+
+polyfill(ColorPicker);
+
+export default ColorPicker;

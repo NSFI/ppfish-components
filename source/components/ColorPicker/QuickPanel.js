@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
 
 import {KeyCode} from "../../utils";
 import typeColor from './utils/validationColor';
@@ -13,7 +14,7 @@ import Icon from '../Icon/index.tsx';
 function noop() {
 }
 
-export default class QuickPanel extends React.Component {
+class QuickPanel extends React.Component {
 
   static propTypes = {
     __useInComponent: PropTypes.bool,
@@ -68,6 +69,17 @@ export default class QuickPanel extends React.Component {
     esc: true,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {};
+    if ('color' in nextProps) {
+      newState.color = nextProps.color;
+    }
+    if ('alpha' in nextProps && nextProps.alpha !== undefined) {
+      newState.alpha = nextProps.alpha;
+    }
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -86,19 +98,6 @@ export default class QuickPanel extends React.Component {
 
   componentDidMount() {
     this.props.onMount(this.ref);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.color) {
-      this.setState({
-        color: nextProps.color,
-      });
-    }
-    if (nextProps.alpha !== undefined) {
-      this.setState({
-        alpha: nextProps.alpha,
-      });
-    }
   }
 
   onFocus = () => {
@@ -286,3 +285,7 @@ export default class QuickPanel extends React.Component {
     );
   }
 }
+
+polyfill(QuickPanel);
+
+export default QuickPanel;

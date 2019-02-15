@@ -1,6 +1,8 @@
 import React, { Component, Children } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import {polyfill} from 'react-lifecycles-compat';
+
 import CollapsePanel from "./Panel";
 import "./style/index.less";
 
@@ -50,6 +52,20 @@ class Collapse extends Component {
 
   static Panel = CollapsePanel;
 
+  static getDerivedStateFromProps(nextProps,prevState){
+    const {prevProps = {}}=prevState;
+    const newState={
+      prevProps:nextProps,
+    };
+    if('activeKey' in nextProps){
+      newState.activeKey = toArray(nextProps.activeKey);
+    }
+    if(nextProps.statusList !== prevProps.statusList){
+      newState.statusList = nextProps.statusList;
+    }
+    return newState;
+  }
+
   constructor(props) {
     super(props);
     const { activeKey, defaultActiveKey, statusList } = props;
@@ -60,23 +76,11 @@ class Collapse extends Component {
     this.state = {
       // 已激活面板的key
       activeKey: toArray(currentActiveKey),
-      statusList: statusList || new Array(this.props.children.length).fill(true)
+      statusList: statusList || new Array(this.props.children.length).fill(true),
+      prevProps:props,
     };
     // 当前点击的key
     this.currentKey = null;
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if ("activeKey" in nextProps) {
-      this.setState({
-        activeKey: toArray(nextProps.activeKey)
-      });
-    }
-    if (nextProps.statusList != this.props.statusList) {
-      this.setState({
-        statusList: nextProps.statusList
-      });
-    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -207,5 +211,7 @@ class Collapse extends Component {
     );
   }
 }
+
+polyfill(Collapse);
 
 export default Collapse;

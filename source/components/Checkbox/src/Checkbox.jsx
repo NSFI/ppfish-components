@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
+
 import PureRenderMixin from './PureRenderMixin';
 
-export default class Checkbox extends React.Component {
+class Checkbox extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
@@ -29,10 +31,23 @@ export default class Checkbox extends React.Component {
     style: {},
     type: 'checkbox',
     defaultChecked: false,
-    onFocus() {},
-    onBlur() {},
-    onChange() {},
+    onFocus() {
+    },
+    onBlur() {
+    },
+    onChange() {
+    },
   };
+
+  static getDerivedStateFromProps(nextProps) {
+    if ('checked' in nextProps) {
+      return {
+        checked: nextProps.checked,
+      };
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
@@ -41,14 +56,6 @@ export default class Checkbox extends React.Component {
     this.state = {
       checked,
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if ('checked' in nextProps) {
-      this.setState({
-        checked: nextProps.checked,
-      });
-    }
   }
 
   shouldComponentUpdate(...args) {
@@ -64,7 +71,7 @@ export default class Checkbox extends React.Component {
   }
 
   handleChange = (e) => {
-    const { props } = this;
+    const {props} = this;
     if (props.disabled) {
       return;
     }
@@ -118,7 +125,7 @@ export default class Checkbox extends React.Component {
       return prev;
     }, {});
 
-    const { checked } = this.state;
+    const {checked} = this.state;
     const classString = classNames(prefixCls, className, {
       [`${prefixCls}-checked`]: checked,
       [`${prefixCls}-disabled`]: disabled,
@@ -144,8 +151,12 @@ export default class Checkbox extends React.Component {
           value={value}
           {...globalProps}
         />
-        <span className={`${prefixCls}-inner`} />
+        <span className={`${prefixCls}-inner`}/>
       </span>
     );
   }
 }
+
+polyfill(Checkbox);
+
+export default Checkbox;

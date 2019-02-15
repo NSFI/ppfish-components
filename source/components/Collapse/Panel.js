@@ -41,17 +41,8 @@ class CollapsePanel extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
     this.handleItemClose = this.handleItemClose.bind(this);
     this.state = {
-      isCustom: false, //是否显示箭头,不可关闭时不显示
+      isCustom: typeof this.props.header === 'function', //是否显示箭头,不可关闭时不显示
     };
-  }
-
-  componentWillMount() {
-    const { header } = this.props;
-    if (typeof header === 'function') {
-      this.setState({
-        isCustom: true, // 是否自定义 header
-      });
-    }
   }
 
   handleItemClick() {
@@ -73,7 +64,7 @@ class CollapsePanel extends Component {
     const { header } = this.props;
 
     if (typeof header === 'function') {
-      
+
       return header(status);
     } else {
       return header;

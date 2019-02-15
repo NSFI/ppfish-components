@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
 
 import Color from './helpers/color';
 import typeColor from './utils/validationColor';
@@ -14,7 +15,7 @@ import History from './History';
 function noop() {
 }
 
-export default class Panel extends React.Component {
+class Panel extends React.Component {
 
   static propTypes = {
     alpha: PropTypes.number,
@@ -52,6 +53,17 @@ export default class Panel extends React.Component {
     style: {},
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {};
+    if ('color' in nextProps) {
+      newState.color = new Color(nextProps.color);
+    }
+    if ('alpha' in nextProps && nextProps.alpha !== undefined) {
+      newState.alpha = nextProps.alpha;
+    }
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -69,20 +81,6 @@ export default class Panel extends React.Component {
 
   componentDidMount() {
     this.props.onMount(this.ref);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.color) {
-      const color = new Color(nextProps.color);
-      this.setState({
-        color,
-      });
-    }
-    if (nextProps.alpha !== undefined) {
-      this.setState({
-        alpha: nextProps.alpha,
-      });
-    }
   }
 
   onSystemColorPickerOpen = e => {
@@ -232,3 +230,7 @@ export default class Panel extends React.Component {
     );
   }
 }
+
+polyfill(Panel);
+
+export default Panel;

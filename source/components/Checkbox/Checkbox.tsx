@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import RcCheckbox from './src/Checkbox';
 import CheckboxGroup, { CheckboxGroupContext } from './Group';
-import { shallowEqual } from '../../utils/other.js';
+import { shallowEqual } from '../../utils';
 
 export interface AbstractCheckboxProps<T> {
   prefixCls?: string;
