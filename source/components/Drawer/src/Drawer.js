@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { ContainerRender, getScrollBarSize } from '../../../utils';
+import {polyfill} from 'react-lifecycles-compat';
+
+import {ContainerRender, getScrollBarSize} from '../../../utils';
 import {
   dataToArray,
   transitionEnd,
@@ -27,13 +29,13 @@ class Drawer extends React.PureComponent {
     level: 'all',
     duration: '.3s',
     ease: 'cubic-bezier(0.78, 0.14, 0.15, 0.86)',
-    onChange: () => { },
-    onMaskClick: () => { },
-    onHandleClick: () => { },
-    onCloseClick: () => { },
+    onChange: () => {},
+    onMaskClick: () => {},
+    onHandleClick: () => {},
+    onCloseClick: () => {},
     handler: (
       <div className="drawer-handle">
-        <i className="drawer-handle-icon" />
+        <i className="drawer-handle-icon"/>
       </div>
     ),
     closed: false,
@@ -43,6 +45,21 @@ class Drawer extends React.PureComponent {
     wrapperClassName: '',
     className: '',
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {prevProps = {}} = prevState;
+    const newState = {
+      prevProps: nextProps,
+    };
+    if (nextProps.open !== undefined && nextProps.open !== prevProps.open) {
+      return {
+        ...newState,
+        open: nextProps.open
+      };
+    }
+
+    return newState;
+  }
 
   constructor(props) {
     super(props);
@@ -59,8 +76,10 @@ class Drawer extends React.PureComponent {
     currentDrawer[this.drawerId] = open;
     this.state = {
       open,
+      prevProps: props
     };
   }
+
   componentDidMount() {
     if (!windowIsUndefined) {
       let passiveSupported = false;
@@ -74,7 +93,7 @@ class Drawer extends React.PureComponent {
           },
         })
       );
-      this.passive = passiveSupported ? { passive: false } : false;
+      this.passive = passiveSupported ? {passive: false} : false;
     }
     const open = this.getOpen();
     if (this.props.handler || open || this.firstEnter) {
@@ -86,32 +105,25 @@ class Drawer extends React.PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { open, placement } = nextProps;
-    if (open !== undefined && open !== this.props.open) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.open !== undefined && this.props.open !== prevProps.open) {
       this.isOpenChange = true;
       // 没渲染 dom 时，获取默认数据;
       if (!this.container) {
-        this.getDefault(nextProps);
+        this.getDefault(this.props);
       }
-      this.setState({
-        open,
-      });
     }
-    if (placement !== this.props.placement) {
-      // test 的 bug, 有动画过场，删除 dom
-      this.contentDom = null;
-    }
-    if (this.props.level !== nextProps.level) {
-      this.getParentAndLevelDom(nextProps);
-    }
-  }
-
-  componentDidUpdate() {
     // dom 没渲染时，重走一遍。
     if (!this.firstEnter && this.container) {
       this.forceUpdate();
       this.firstEnter = true;
+    }
+    if (prevProps.placement !== this.props.placement) {
+      // test 的 bug, 有动画过场，删除 dom
+      this.contentDom = null;
+    }
+    if (this.props.level !== prevProps.level) {
+      this.getParentAndLevelDom(this.props.level);
     }
   }
 
@@ -135,7 +147,8 @@ class Drawer extends React.PureComponent {
     if (this.renderComponent && !IS_REACT_16) {
       this.renderComponent({
         afterClose: this.removeContainer,
-        onClose() { },
+        onClose() {
+        },
         visible: false,
       });
     }
@@ -177,7 +190,7 @@ class Drawer extends React.PureComponent {
         }
       }
     }
-  }
+  };
 
   getDefault = props => {
     this.getParentAndLevelDom(props);
@@ -195,7 +208,7 @@ class Drawer extends React.PureComponent {
     if (windowIsUndefined) {
       return;
     }
-    const { level, getContainer } = props;
+    const {level, getContainer} = props;
     this.levelDom = [];
     if (getContainer) {
       if (typeof getContainer === 'string') {
@@ -230,7 +243,7 @@ class Drawer extends React.PureComponent {
   };
 
   setLevelDomTransform = (open, openTransition, placementName, value) => {
-    const { placement, levelMove, duration, ease, onChange, getContainer } = this.props;
+    const {placement, levelMove, duration, ease, onChange, getContainer} = this.props;
     if (!windowIsUndefined) {
       this.levelDom.forEach(dom => {
         if (this.isOpenChange || openTransition) {
@@ -239,7 +252,7 @@ class Drawer extends React.PureComponent {
           addEventListener(dom, transitionEnd, this.trnasitionEnd);
           let levelValue = open ? value : 0;
           if (levelMove) {
-            const $levelMove = transformArguments(levelMove, { target: dom, open });
+            const $levelMove = transformArguments(levelMove, {target: dom, open});
             levelValue = open ? $levelMove[0] : $levelMove[1] || 0;
           }
           const $value = typeof levelValue === 'number' ? `${levelValue}px` : levelValue;
@@ -407,7 +420,7 @@ class Drawer extends React.PureComponent {
     const closedElement = () => {
       return (
         <div className="drawer-close">
-          <i className="drawer-close-icon" />
+          <i className="drawer-close-icon"/>
         </div>
       );
     };
@@ -418,8 +431,8 @@ class Drawer extends React.PureComponent {
     });
     // 当没有遮罩时，抽屉下面的内容需要可点击
     const noMaskWidth = () => {
-      if(!showMask && open) {
-        return { width: "0%" };
+      if (!showMask && open) {
+        return {width: "0%"};
       }
       return {};
     };
@@ -427,7 +440,9 @@ class Drawer extends React.PureComponent {
       <div
         className={wrapperClassname}
         style={Object.assign({}, style, noMaskWidth())}
-        ref={c => { this.dom = c; }}
+        ref={c => {
+          this.dom = c;
+        }}
         onTransitionEnd={this.onWrapperTransitionEnd}
       >
         {showMask && (
@@ -471,7 +486,7 @@ class Drawer extends React.PureComponent {
 
   getOpen = () => (
     this.props.open !== undefined ? this.props.open : this.state.open
-  )
+  );
 
   getTouchParentScroll = (root, currentTarget, differX, differY) => {
     /**
@@ -498,7 +513,7 @@ class Drawer extends React.PureComponent {
         this.getTouchParentScroll(root, currentTarget.parentNode, differX, differY);
     }
     return false;
-  }
+  };
 
   removeStartHandler = e => {
     if (e.touches.length > 1) {
@@ -545,7 +560,7 @@ class Drawer extends React.PureComponent {
   };
 
   render() {
-    const { getContainer, wrapperClassName } = this.props;
+    const {getContainer, wrapperClassName} = this.props;
     const open = this.getOpen();
     currentDrawer[this.drawerId] = open ? this.container : open;
     const children = this.getChildToRender(this.firstEnter ? open : false);
@@ -575,7 +590,7 @@ class Drawer extends React.PureComponent {
           getComponent={() => children}
           getContainer={this.getContainer}
         >
-          {({ renderComponent, removeContainer }) => {
+          {({renderComponent, removeContainer}) => {
             this.renderComponent = renderComponent;
             this.removeContainer = removeContainer;
             return null;
@@ -613,5 +628,7 @@ Drawer.propTypes = {
   maskStyle: PropTypes.object,
   closed: PropTypes.bool
 };
+
+polyfill(Drawer);
 
 export default Drawer;

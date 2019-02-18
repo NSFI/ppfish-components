@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'omit.js';
+import {polyfill} from 'react-lifecycles-compat';
+
 import './style/index.less';
 
 const defaultSizeMap = {
@@ -24,7 +26,8 @@ const Status = {
   LOADED: 'loaded',
   FAILED: 'failed',
 };
-const noop = () => {};
+const noop = () => {
+};
 
 class ImageLoader extends React.Component {
   static propTypes = {
@@ -53,22 +56,24 @@ class ImageLoader extends React.Component {
     onError: noop,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {prevProps = {}} = prevState;
+    const newState = {prevProps: nextProps};
+    if (prevProps.src !== nextProps.src) {
+      newState.status = nextProps.src ? Status.LOADING : Status.PENDING;
+    }
+
+    return newState;
+  }
+
   constructor(props) {
     super(props);
-    this.state = {status: props.src ? Status.LOADING : Status.PENDING};
+    this.state = {status: props.src ? Status.LOADING : Status.PENDING, prevProps: props};
   }
 
   componentDidMount() {
     if (this.state.status === Status.LOADING) {
       this.createLoader();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.src !== nextProps.src) {
-      this.setState({
-        status: nextProps.src ? Status.LOADING : Status.PENDING,
-      });
     }
   }
 
@@ -83,7 +88,7 @@ class ImageLoader extends React.Component {
   }
 
   getClassName() {
-    const { prefixCls } = this.props;
+    const {prefixCls} = this.props;
     let className = `${prefixCls} ${prefixCls}-${this.state.status}`;
     if (this.props.className) {
       className = `${className} ${this.props.className}`;
@@ -92,17 +97,17 @@ class ImageLoader extends React.Component {
   }
 
   base64Img = (cls) => {
-    const { placeholderSize } = this.props;
+    const {placeholderSize} = this.props;
     let sizeProps = {
       width: '100%'
     };
-    if ( typeof placeholderSize === 'object' ) {
+    if (typeof placeholderSize === 'object') {
       sizeProps = Object.assign({}, sizeProps, placeholderSize);
-    } else if ( ['small', 'default', 'large'].indexOf(placeholderSize) > -1 ) {
+    } else if (['small', 'default', 'large'].indexOf(placeholderSize) > -1) {
       sizeProps = Object.assign({}, sizeProps, defaultSizeMap[placeholderSize]);
     }
     return (
-      <div className={cls} style={{...sizeProps}} />
+      <div className={cls} style={{...sizeProps}}/>
     );
   }
 
@@ -147,7 +152,7 @@ class ImageLoader extends React.Component {
   }
 
   render() {
-    const { style, preLoader, failedLoader } = this.props;
+    const {style, preLoader, failedLoader} = this.props;
     let wrapperProps = {
       className: this.getClassName(),
     };
@@ -167,12 +172,12 @@ class ImageLoader extends React.Component {
       case Status.FAILED:
         // 使用自定义加载失败图片
         if (failedLoader) {
-          if ( typeof failedLoader === 'function' ) {
+          if (typeof failedLoader === 'function') {
             content = failedLoader();
           } else {
             content = failedLoader;
           }
-        // 使用系统预置加载失败图片
+          // 使用系统预置加载失败图片
         } else {
           content = this.base64Img('failed-img');
         }
@@ -181,12 +186,12 @@ class ImageLoader extends React.Component {
       default:
         // 使用自定义占位图片
         if (preLoader) {
-          if ( typeof preLoader === 'function' ) {
+          if (typeof preLoader === 'function') {
             content = preLoader();
           } else {
             content = preLoader;
           }
-        // 使用系统预置占位图片
+          // 使用系统预置占位图片
         } else {
           content = this.base64Img('preload-img');
         }
@@ -197,5 +202,7 @@ class ImageLoader extends React.Component {
 
   }
 }
+
+polyfill(ImageLoader);
 
 export default ImageLoader;

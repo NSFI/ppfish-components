@@ -52,9 +52,9 @@ export default class TextArea extends React.Component<TextAreaProps & HTMLTextar
     this.resizeTextarea();
   }
 
-  componentWillReceiveProps(nextProps: TextAreaProps) {
+  componentDidUpdate(prevProps: TextAreaProps) {
     // Re-render with the new content then recalculate the height as required.
-    if (this.props.value !== nextProps.value) {
+    if (this.props.value !== prevProps.value) {
       if (this.nextFrameActionId) {
         clearNextFrameAction(this.nextFrameActionId);
       }
@@ -71,18 +71,18 @@ export default class TextArea extends React.Component<TextAreaProps & HTMLTextar
   }
 
   resizeTextarea = () => {
-    const { autosize } = this.props;
+    const {autosize} = this.props;
     if (!autosize || !this.textAreaRef) {
       return;
     }
     const minRows = autosize ? (autosize as AutoSizeType).minRows : null;
     const maxRows = autosize ? (autosize as AutoSizeType).maxRows : null;
     const textareaStyles = calculateNodeHeight(this.textAreaRef, false, minRows, maxRows);
-    this.setState({ textareaStyles });
-  }
+    this.setState({textareaStyles});
+  };
 
   getTextAreaClassName() {
-    const { prefixCls, className, disabled } = this.props;
+    const {prefixCls, className, disabled} = this.props;
     return classNames(prefixCls, className, {
       [`${prefixCls}-disabled`]: disabled,
     });
@@ -92,25 +92,25 @@ export default class TextArea extends React.Component<TextAreaProps & HTMLTextar
     if (!('value' in this.props)) {
       this.resizeTextarea();
     }
-    const { onChange } = this.props;
+    const {onChange} = this.props;
     if (onChange) {
       onChange(e);
     }
-  }
+  };
 
   handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    const { onPressEnter, onKeyDown } = this.props;
+    const {onPressEnter, onKeyDown} = this.props;
     if (e.keyCode === 13 && onPressEnter) {
       onPressEnter(e);
     }
     if (onKeyDown) {
       onKeyDown(e);
     }
-  }
+  };
 
   saveTextAreaRef = (textArea: HTMLTextAreaElement) => {
     this.textAreaRef = textArea;
-  }
+  };
 
   render() {
     const props = this.props;

@@ -2,8 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
+import {polyfill} from 'react-lifecycles-compat';
+
 import Radio from './Radio';
-import { RadioGroupProps, RadioGroupState, RadioChangeEvent } from './interface';
+import {RadioGroupProps, RadioGroupState, RadioChangeEvent} from './interface';
+
 // case sensitive
 function getCheckedValue(children: React.ReactNode) {
   let value = null;
@@ -14,10 +17,10 @@ function getCheckedValue(children: React.ReactNode) {
       matched = true;
     }
   });
-  return matched ? { value } : undefined;
+  return matched ? {value} : undefined;
 }
 
-export default class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
+class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
   static defaultProps = {
     disabled: false,
     prefixCls: 'fishd-radio',
@@ -27,6 +30,22 @@ export default class RadioGroup extends React.Component<RadioGroupProps, RadioGr
   static childContextTypes = {
     radioGroup: PropTypes.any,
   };
+
+  static getDerivedStateFromProps(nextProps: RadioGroupProps) {
+    if ('value' in nextProps) {
+      return {
+        value: nextProps.value,
+      };
+    } else {
+      const checkedValue = getCheckedValue(nextProps.children);
+      if (checkedValue) {
+        return {
+          value: checkedValue.value,
+        };
+      }
+    }
+    return null;
+  }
 
   constructor(props: RadioGroupProps) {
     super(props);
@@ -55,21 +74,6 @@ export default class RadioGroup extends React.Component<RadioGroupProps, RadioGr
     };
   }
 
-  componentWillReceiveProps(nextProps: RadioGroupProps) {
-    if ('value' in nextProps) {
-      this.setState({
-        value: nextProps.value,
-      });
-    } else {
-      const checkedValue = getCheckedValue(nextProps.children);
-      if (checkedValue) {
-        this.setState({
-          value: checkedValue.value,
-        });
-      }
-    }
-  }
-
   shouldComponentUpdate(nextProps: RadioGroupProps, nextState: RadioGroupState) {
     return !shallowEqual(this.props, nextProps) ||
       !shallowEqual(this.state, nextState);
@@ -77,7 +81,7 @@ export default class RadioGroup extends React.Component<RadioGroupProps, RadioGr
 
   onRadioChange = (ev: RadioChangeEvent) => {
     const lastValue = this.state.value;
-    const { value } = ev.target;
+    const {value} = ev.target;
     if (!('value' in this.props)) {
       this.setState({
         value,
@@ -88,10 +92,11 @@ export default class RadioGroup extends React.Component<RadioGroupProps, RadioGr
     if (onChange && value !== lastValue) {
       onChange(ev);
     }
-  }
+  };
+
   render() {
     const props = this.props;
-    const { prefixCls, className = '', options, buttonStyle } = props;
+    const {prefixCls, className = '', options, buttonStyle} = props;
     const groupPrefixCls = `${prefixCls}-group`;
     const classString = classNames(groupPrefixCls, `${groupPrefixCls}-${buttonStyle}`, {
       [`${groupPrefixCls}-${props.size}`]: props.size,
@@ -145,3 +150,7 @@ export default class RadioGroup extends React.Component<RadioGroupProps, RadioGr
     );
   }
 }
+
+polyfill(RadioGroup);
+
+export default RadioGroup;

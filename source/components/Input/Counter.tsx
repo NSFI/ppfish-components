@@ -1,7 +1,9 @@
 import * as React from 'react';
 import omit from 'omit.js';
 import classNames from 'classnames';
-import TextArea, { TextAreaProps } from './TextArea';
+import {polyfill} from 'react-lifecycles-compat';
+
+import TextArea, {TextAreaProps} from './TextArea';
 
 function countValue(value: string) {
   return value.length;
@@ -16,31 +18,39 @@ export interface CounterProps extends TextAreaProps {
   defaultValue: any;
 }
 
-export default class Counter extends React.Component<CounterProps, any> {
+export interface CounterState {
+  value?: any;
+  prevProps: CounterProps;
+}
+
+class Counter extends React.Component<CounterProps, CounterState> {
   static defaultProps = {
     inputPrefixCls: 'fishd-input',
     prefixCls: 'fishd-input-counter',
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {prevProps = {}} = prevState;
+    const newState: CounterState = {prevProps: nextProps};
+    if (prevProps.value !== nextProps.value) {
+      newState.value = nextProps.value;
+    }
+
+    return newState;
+  }
+
   constructor(props) {
     super(props);
     let value = '';
-    if ( 'value' in props ) {
+    if ('value' in props) {
       value = props.value;
-    } else if ( 'defaultValue' in props ) {
+    } else if ('defaultValue' in props) {
       value = props.defaultValue;
     }
     this.state = {
       value,
+      prevProps: props,
     };
-  }
-
-  componentWillReceiveProps(nextProps: CounterProps) {
-    if (this.props.value !== nextProps.value) {
-      this.setState({
-        value: nextProps.value,
-      });
-    }
   }
 
   private textarea: TextArea;
@@ -55,10 +65,10 @@ export default class Counter extends React.Component<CounterProps, any> {
 
   saveTextarea = (node: TextArea) => {
     this.textarea = node;
-  }
+  };
 
   getTextAreaClassName() {
-    const { inputPrefixCls, className, disabled } = this.props;
+    const {inputPrefixCls, className, disabled} = this.props;
     return classNames(inputPrefixCls, className, {
       [`${inputPrefixCls}-disabled`]: disabled,
     });
@@ -66,10 +76,10 @@ export default class Counter extends React.Component<CounterProps, any> {
 
   handleClick = () => {
     this.focus();
-  }
+  };
 
   handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { onChange } = this.props;
+    const {onChange} = this.props;
     const textareaValue = this.textarea && this.textarea.textAreaRef.value;
     this.setState({
       value: textareaValue,
@@ -80,7 +90,7 @@ export default class Counter extends React.Component<CounterProps, any> {
   };
 
   getCount = () => {
-    const { count } = this.props;
+    const {count} = this.props;
     const value = this.state.value;
     if (!value) {
       return 0;
@@ -93,7 +103,7 @@ export default class Counter extends React.Component<CounterProps, any> {
   };
 
   render() {
-    const { inputPrefixCls, className, prefixCls, disabled, limit } = this.props;
+    const {inputPrefixCls, className, prefixCls, disabled, limit} = this.props;
     const inputClassName = classNames(className, {
       [`${prefixCls}`]: true,
       [`${inputPrefixCls}-disabled`]: disabled,
@@ -125,3 +135,7 @@ export default class Counter extends React.Component<CounterProps, any> {
     );
   }
 }
+
+polyfill(Counter);
+
+export default Counter;

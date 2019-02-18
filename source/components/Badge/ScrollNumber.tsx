@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { createElement, Component } from 'react';
+import {createElement, Component} from 'react';
 import omit from 'omit.js';
+import {polyfill} from 'react-lifecycles-compat';
 import classNames from 'classnames';
 
 function getNumberArray(num: string | number | undefined | null) {
@@ -24,9 +25,12 @@ export interface ScrollNumberProps {
 export interface ScrollNumberState {
   animateStarted?: boolean;
   count?: string | number | null;
+  prevProps: ScrollNumberProps,
+  lastCount?: string | number | null;
+  nextCount?: string | number | null;
 }
 
-export default class ScrollNumber extends Component<ScrollNumberProps, ScrollNumberState> {
+class ScrollNumber extends Component<ScrollNumberProps, ScrollNumberState> {
   static defaultProps = {
     prefixCls: 'fishd-scroll-number',
     count: null,
@@ -34,14 +38,49 @@ export default class ScrollNumber extends Component<ScrollNumberProps, ScrollNum
     },
   };
 
-  lastCount: any;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {prevProps: nextProps};
+    const {prevProps = {}} = prevState;
+    if ('count' in nextProps) {
+      if (prevProps.count === nextProps.count) {
+        return newState;
+      }
+      return {
+        ...newState,
+        animateStarted: true,
+        lastCount: prevProps.count,
+        nextCount: nextProps.count,
+      }
+    }
+  }
 
   constructor(props: ScrollNumberProps) {
     super(props);
     this.state = {
-      animateStarted: true,
+      prevProps: props,
+      animateStarted: false,
       count: props.count,
+      lastCount: props.count,
+      nextCount: undefined,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if ('count' in this.props) {
+      if (prevState.animateStarted === false && this.state.animateStarted === true) {
+        setTimeout(() => {
+          this.setState({
+            animateStarted: false,
+            count: this.state.nextCount,
+          }, () => {
+            const onAnimated = this.props.onAnimated;
+            if (onAnimated) {
+              onAnimated();
+            }
+          });
+        }, 5)
+      }
+    }
   }
 
   getPositionByNum(num: number, i: number) {
@@ -49,9 +88,9 @@ export default class ScrollNumber extends Component<ScrollNumberProps, ScrollNum
       return 10 + num;
     }
     const currentDigit = getNumberArray(this.state.count)[i];
-    const lastDigit = getNumberArray(this.lastCount)[i];
+    const lastDigit = getNumberArray(this.state.lastCount)[i];
     // 同方向则在同一侧切换数字
-    if (this.state.count! > this.lastCount) {
+    if (this.state.count! > this.state.lastCount) {
       if (currentDigit >= lastDigit) {
         return 10 + num;
       }
@@ -61,33 +100,6 @@ export default class ScrollNumber extends Component<ScrollNumberProps, ScrollNum
       return 10 + num;
     }
     return num;
-  }
-
-  componentWillReceiveProps(nextProps: ScrollNumberProps) {
-    if ('count' in nextProps) {
-      if (this.state.count === nextProps.count) {
-        return;
-      }
-      this.lastCount = this.state.count;
-      // 复原数字初始位置
-      this.setState({
-        animateStarted: true,
-      }, () => {
-        // 等待数字位置复原完毕
-        // 开始设置完整的数字
-        setTimeout(() => {
-          this.setState({
-            animateStarted: false,
-            count: nextProps.count,
-          }, () => {
-            const onAnimated = this.props.onAnimated;
-            if (onAnimated) {
-              onAnimated();
-            }
-          });
-        }, 5);
-      });
-    }
   }
 
   renderNumberList(position: number) {
@@ -102,7 +114,7 @@ export default class ScrollNumber extends Component<ScrollNumberProps, ScrollNum
   renderCurrentNumber(num: number, i: number) {
     const position = this.getPositionByNum(num, i);
     const removeTransition = this.state.animateStarted ||
-      (getNumberArray(this.lastCount)[i] === undefined);
+      (getNumberArray(this.state.lastCount)[i] === undefined);
     return createElement('span', {
       className: `${this.props.prefixCls}-only`,
       style: {
@@ -125,7 +137,7 @@ export default class ScrollNumber extends Component<ScrollNumberProps, ScrollNum
   }
 
   render() {
-    const { prefixCls, className, style, title, component = 'sup' } = this.props;
+    const {prefixCls, className, style, title, component = 'sup'} = this.props;
     // fix https://fb.me/react-unknown-prop
     const restProps = omit(this.props, [
       'count',
@@ -151,3 +163,7 @@ export default class ScrollNumber extends Component<ScrollNumberProps, ScrollNum
     );
   }
 }
+
+polyfill(ScrollNumber);
+
+export default ScrollNumber;

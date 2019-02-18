@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
 
 function noop() {
 }
 
 class Switch extends Component {
+
+  static getDerivedStateFromProps(nextProps) {
+    const newState = {};
+    const { checked } = nextProps;
+
+    if ('checked' in nextProps) {
+      newState.checked = !!checked;
+    }
+
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -22,14 +35,6 @@ class Switch extends Component {
     const { autoFocus, disabled } = this.props;
     if (autoFocus && !disabled) {
       this.focus();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if ('checked' in nextProps) {
-      this.setState({
-        checked: !!nextProps.checked,
-      });
     }
   }
 
@@ -139,5 +144,7 @@ Switch.defaultProps = {
   onChange: noop,
   onClick: noop,
 };
+
+polyfill(Switch);
 
 export default Switch;
