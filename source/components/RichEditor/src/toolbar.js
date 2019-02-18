@@ -202,7 +202,7 @@ class CustomToolbar extends PureComponent {
 
     // 处理扩展的链接模块
     if (mType in customLink) {
-      let entryClass = classNames('item custom-entry', {
+      let entryClass = classNames('action custom-entry', {
         [`ql-${mType}Entry`]: true,
         [`${iconPrefix}`]: true,
         [`${iconPrefix}-richeditor-transfer`]: true
@@ -213,7 +213,7 @@ class CustomToolbar extends PureComponent {
     } else {
       switch(mType) {
         case 'link': {
-          const linkCls = classNames('item ql-myLink', {
+          const linkCls = classNames('action ql-myLink', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-link`]: true
           });
@@ -222,7 +222,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'bold': {
-          const boldCls = classNames('item ql-bold', {
+          const boldCls = classNames('action ql-bold', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-bold`]: true
           });
@@ -231,7 +231,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'italic': {
-          const italicCls = classNames('item ql-italic', {
+          const italicCls = classNames('action ql-italic', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-tilt`]: true
           });
@@ -240,7 +240,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'underline': {
-          const underlineCls = classNames('item ql-underline', {
+          const underlineCls = classNames('action ql-underline', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-underline`]: true
           });
@@ -249,7 +249,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'color': {
-          const colorCls = classNames('item custom-color', {
+          const colorCls = classNames('action custom-color', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-color`]: true
           });
@@ -291,7 +291,7 @@ class CustomToolbar extends PureComponent {
 
           // value = <div className="item"><select className="ql-color" /></div>;
           // value = (
-          //   <div className="item custom-color" key={key}>
+          //   <div className="custom-color" key={key}>
           //     <ColorPicker
           //       className={"custom-color-picker"}
           //       enableHistory={true}
@@ -321,7 +321,7 @@ class CustomToolbar extends PureComponent {
               tooltip = '两端对齐';
             }
 
-            const alignCls = classNames('item ql-align', {
+            const alignCls = classNames('action ql-align', {
               [`${iconPrefix}`]: true,
               [`${iconPrefix}-${alignIconType}`]: true
             });
@@ -356,7 +356,7 @@ class CustomToolbar extends PureComponent {
             tooltip = '有序列表';
           }
 
-          const listCls = classNames('item ql-list', {
+          const listCls = classNames('action ql-list', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-${listIconType}`]: true
           });
@@ -365,7 +365,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'emoji': {
-          const emojiCls = classNames('item custom-emoji', {
+          const emojiCls = classNames('action custom-emoji', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-expressio`]: true
           });
@@ -426,7 +426,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'image': {
-          const imageCls = classNames('item ql-image', {
+          const imageCls = classNames('action ql-image', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-picture`]: true
           });
@@ -435,7 +435,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'size': {
-          const sizeCls = classNames('item custom-size', {
+          const sizeCls = classNames('action custom-size', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-size`]: true
           });
@@ -481,7 +481,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'clean': {
-          const cleanCls = classNames('item ql-clean', {
+          const cleanCls = classNames('action ql-clean', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-clear`]: true
           });
@@ -491,22 +491,22 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'strike': {
-          value = <button className="item ql-strike" key={key}/>;
+          value = <button className="action ql-strike" key={key}/>;
           tooltip = '删除线';
           break;
         }
         case 'blockquote': {
-          value = <button className="item ql-blockquote" key={key}/>;
+          value = <button className="action ql-blockquote" key={key}/>;
           tooltip = '块引用';
           break;
         }
         case 'code-block': {
-          value = <button className="item ql-code-block" key={key}/>;
+          value = <button className="action ql-code-block" key={key}/>;
           tooltip = '代码块';
           break;
         }
         case 'script': {
-          value = <button type="button" className="item ql-script" value={mValue} key={key}/>;
+          value = <button type="button" className="action ql-script" value={mValue} key={key}/>;
           if (mValue == 'super') {
             tooltip = '上脚标';
           } else {
@@ -516,7 +516,7 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'indent': {
-          value = <button type="button" className="item ql-indent" value={mValue} key={key}/>;
+          value = <button type="button" className="action ql-indent" value={mValue} key={key}/>;
 
           if (mValue == '-1') {
             tooltip = '减少缩进';
@@ -527,13 +527,13 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'direction': {
-          value = <button type="button" className="item ql-direction" value={mValue} key={key} />;
+          value = <button type="button" className="action ql-direction" value={mValue} key={key} />;
           tooltip = '文字方向';
           break;
         }
         case 'background': {
           // value = <div className="item" key={key}><select className="ql-background" /></div>;
-          const backgroundCls = classNames('item custom-background', {
+          const backgroundCls = classNames('action custom-background', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-fontbkcol`]: true
           });
@@ -577,17 +577,17 @@ class CustomToolbar extends PureComponent {
           break;
         }
         case 'video': {
-          value = <button type="button" className="item ql-video" value={mValue} key={key} />;
+          value = <button type="button" className="action ql-video" value={mValue} key={key} />;
           tooltip = '插入视频';
           break;
         }
         // case 'header': {
         //   if (typeof mValue === 'string' || typeof mValue === 'number') {
-        //     value = <button type="button" className="item ql-header" value={mValue} key={key}/>;
+        //     value = <button type="button" className="ql-header" value={mValue} key={key}/>;
         //   } else if (mValue instanceof Array && mValue.length){
         //     value = (
         //       // <div className="item" key={key}>
-        //         <select className="item ql-header" defaultValue="normal">
+        //         <select className="ql-header" defaultValue="normal">
         //           {
         //             mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
         //           }
@@ -600,7 +600,7 @@ class CustomToolbar extends PureComponent {
         //   break;
         // }
         // case 'font': {
-        //   value = <select className="item ql-font" />;
+        //   value = <select className="ql-font" />;
         //   tooltip = '字体';
         //   break;
         // }
@@ -611,7 +611,17 @@ class CustomToolbar extends PureComponent {
     }
 
     if (value) {
-      value = <Tooltip key={key} placement="bottom" title={tooltip} mouseEnterDelay={0.3}>{value}</Tooltip>;
+      value = (
+        <Tooltip
+          key={key}
+          trigger="hover"
+          placement="bottom"
+          title={tooltip}
+          mouseEnterDelay={0.3}
+        >
+          <div className="item">{value}</div>
+        </Tooltip>
+      );
     }
 
     return value;
