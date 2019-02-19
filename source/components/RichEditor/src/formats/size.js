@@ -24,13 +24,7 @@ class CustomAttrBlot extends Inline {
   }
 
   static formats(node) {
-    return {
-      fontSize: node.style.fontSize,
-      editable: node.getAttribute('contenteditable')
-    };
-  }
-
-  static value(node) {
+    // 返回值不能为 null（Fix bug: Cannot read property 'mutations' of undefined）
     return {
       fontSize: node.style.fontSize,
       editable: node.getAttribute('contenteditable')

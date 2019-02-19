@@ -76,14 +76,11 @@ class RichEditor extends Component {
 
     let { value, customLink, supportFontTag } = this.props;
 
-    this.defaultFontSize = 14;
     this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
 
     if (supportFontTag) {
       value = this.formatFontTag(value);
     }
-
-    value = this.removePlainSpan(value);
 
     this.state = {
       value: value || '',
@@ -99,7 +96,7 @@ class RichEditor extends Component {
 
         if (range.length !== 0) {
           this.setState({
-            // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
             showLinkModal: true
           });
         } else {
@@ -107,9 +104,9 @@ class RichEditor extends Component {
         }
       },
       video: (value) => {
-        // let quill = this.getEditor();
+        let quill = this.getEditor();
         this.setState({
-          // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
           showVideoModal: true
         });
       },
@@ -134,9 +131,9 @@ class RichEditor extends Component {
         }
       },
       image: () => {
-        // let quill = this.getEditor();
+        let quill = this.getEditor();
         this.setState({
-          // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
           showImageModal: true
         });
       },
@@ -189,23 +186,11 @@ class RichEditor extends Component {
         newValue = this.formatFontTag(nextProps.value);
       }
 
-      newValue = this.removePlainSpan(newValue);
-
       this.setState({
         value: newValue
       });
     }
   }
-
-  // Fix bug: Cannot read property 'mutations' of undefined
-  removePlainSpan = (value) => {
-    if (!value) return value;
-    // 将无样式的 span 替换为带有默认字体大小的 span
-    return value.replace(
-      /<\s*?span\s*?>(.*?)<\s*?\/\s*?span\s*?>/gi,
-      `<span style="font-size: ${this.defaultFontSize}px;">$1</span>`
-    );
-  };
 
   formatFontTag = (value) => {
     if (!value) return value;
@@ -286,7 +271,7 @@ class RichEditor extends Component {
       el.value = 'http://';
 
       this.setState({
-        // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
         showLinkModal: false
       });
     }
@@ -319,7 +304,7 @@ class RichEditor extends Component {
       el.value = 'http://';
 
       this.setState({
-        // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
         showVideoModal: false
       });
     }
@@ -360,7 +345,7 @@ class RichEditor extends Component {
           quill.setSelection(range.index + 1, 'silent');
 
           this.setState({
-            // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
             showImageModal: false
           });
         });
@@ -369,7 +354,7 @@ class RichEditor extends Component {
         quill.setSelection(range.index + 1, 'silent');
 
         this.setState({
-          // value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
           showImageModal: false
         });
       }
@@ -477,10 +462,6 @@ class RichEditor extends Component {
   };
 
   handleChange = (value, delta, source, editor) => {
-    this.setState({
-      value: this.removePlainSpan(value)
-    });
-
     const { onChange } = this.props;
 
     if (onChange) {
