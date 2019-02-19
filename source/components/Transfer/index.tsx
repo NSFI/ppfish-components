@@ -376,7 +376,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
       notFoundContent: '无匹配结果',
       sourceNotFoundContent: '暂无相关信息',
       targetNotFonudContent: '请从左侧选择添加',
-      searchPlaceholder: '请输入搜索内容',
+      searchPlaceholder: '请输入关键字',
       itemUnit: '',
       itemsUnit: '',
     };

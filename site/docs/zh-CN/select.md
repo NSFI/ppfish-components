@@ -674,7 +674,7 @@ render(){
 | placeholder | 选择框默认文字 | String | '请选择' |
 | placement | 弹窗位置 | Enum {'bottomLeft', 'bottomCenter', 'bottomRight','topLeft','topCenter', 'topRight'}| 'bottomLeft' |
 | searchInputProps | 搜索框额外属性 | Object | {} |
-| searchPlaceholder | 搜索框默认文字 | String | '请输入关键词' |
+| searchPlaceholder | 搜索框默认文字 | String | '请输入关键字' |
 | selectAllText | 是否显示全选/反选功能-文案 | String | '选择所有' |
 | showArrow | 是否显示下拉小箭头 | Boolean | true |
 | showMultipleSelectAll | 设置在多选模式下选项全部选中时，是否在已选框中显示特定的文案，而不是显示“选项1、选项2、选项3...” | Boolean | false |

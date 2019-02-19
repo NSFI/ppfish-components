@@ -398,7 +398,7 @@ exports[`Renders transfer demo correctly 1`] = `
             <div>
               <input
                 class="fishd-input fishd-transfer-list-search"
-                placeholder="请输入搜索内容"
+                placeholder="请输入关键字"
                 type="text"
                 value=""
               />
@@ -482,7 +482,7 @@ exports[`Renders transfer demo correctly 1`] = `
             <div>
               <input
                 class="fishd-input fishd-transfer-list-search"
-                placeholder="请输入搜索内容"
+                placeholder="请输入关键字"
                 type="text"
                 value=""
               />
@@ -535,7 +535,7 @@ exports[`Renders transfer demo correctly 1`] = `
             <div>
               <input
                 class="fishd-input fishd-transfer-list-search"
-                placeholder="请输入搜索内容"
+                placeholder="请输入关键字"
                 type="text"
                 value=""
               />
@@ -587,7 +587,7 @@ exports[`Renders transfer demo correctly 1`] = `
             <div>
               <input
                 class="fishd-input fishd-transfer-list-search"
-                placeholder="请输入搜索内容"
+                placeholder="请输入关键字"
                 type="text"
                 value=""
               />
@@ -656,7 +656,7 @@ exports[`Renders transfer demo correctly 1`] = `
             <div>
               <input
                 class="fishd-input fishd-transfer-list-search"
-                placeholder="请输入搜索内容"
+                placeholder="请输入关键字"
                 type="text"
                 value=""
               />
@@ -760,7 +760,7 @@ exports[`Renders transfer demo correctly 1`] = `
             <div>
               <input
                 class="fishd-input fishd-transfer-list-search"
-                placeholder="请输入搜索内容"
+                placeholder="请输入关键字"
                 type="text"
                 value=""
               />

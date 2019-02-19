@@ -92,7 +92,7 @@ class Select extends React.Component {
     placement: 'bottomLeft',
     prefixCls: 'fishd-select',
     searchInputProps: {},
-    searchPlaceholder: '请输入关键词',
+    searchPlaceholder: '请输入关键字',
     selectAllText: '选择所有',
     showArrow: true,
     showMultipleSelectAll: false,
