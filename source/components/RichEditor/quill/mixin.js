@@ -2,8 +2,14 @@
 
 let Quill = require('quill');
 
-let QuillMixin = {
+function formatOutputHTML(value) {
+  if (!value) return value;
 
+  // 移除contenteditable属性
+  return value.replace(/contenteditable\s*=\s*['"]\w*['"]/gi, '');
+}
+
+let QuillMixin = {
   /**
   Creates an editor on the given element. The editor will
   be passed the configuration, have its events bound,
@@ -12,7 +18,8 @@ let QuillMixin = {
     let editor = new Quill($el, config), _this = this;
 
     // 添加与 unprivilegedEditor 相同的方法
-    editor.getHTML = function(){ return editor.root.innerHTML; };
+    editor.getHTML = function(){ return formatOutputHTML(editor.root.innerHTML); };
+    editor.getRawHTML = function(){ return editor.root.innerHTML; };
     editor.isEmptyContents = function(){ return _this.isEmptyContents(editor); };
 
     if (config.tabIndex !== undefined) {
@@ -116,7 +123,8 @@ let QuillMixin = {
     return {
       getLength:      function(){ return e.getLength.apply(e, arguments); },
       getText:        function(){ return e.getText.apply(e, arguments); },
-      getHTML:        function(){ return e.root.innerHTML; },
+      getHTML:        function(){ return formatOutputHTML(e.root.innerHTML); },
+      getRawHTML:     function(){ return e.root.innerHTML; },
       getContents:    function(){ return e.getContents.apply(e, arguments); },
       getSelection:   function(){ return e.getSelection.apply(e, arguments); },
       getBounds:      function(){ return e.getBounds.apply(e, arguments); },

@@ -357,7 +357,7 @@ let QuillComponent = createClass({
 		// so that value comparisons will be more stable and predictable.
 		let nextContents = this.isDelta(currentContents)
 			? editor.getContents()
-			: editor.getHTML();
+			: editor.getRawHTML();
 
 		if (!this.isEqualValue(nextContents, currentContents)) {
 			// Taint this `delta` object, so we can recognize whether the user
