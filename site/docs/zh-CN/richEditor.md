@@ -358,7 +358,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 |:-|:-|
 | blur() | 使编辑器失去焦点 |
 | focus() | 使编辑器获取焦点 |
-| getEditor() | 返回 Quill 实例。请不要强制改变 Quill 实例的状态，以免造成 RichEditor 和 Quill 不同步 |
+| getEditor() | 返回 Quill 实例。请不要强制改变 Quill 实例的状态，以免造成 RichEditor 和 Quill 不同步。请不要缓存 Quill 实例，否则通过该实例获取的内容可能不是最新的。 |
 
 ### Quill
 
@@ -367,7 +367,8 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 | deleteText(index: Number, length: Number) | 删除指定位置的文本，[详情](https://quilljs.com/docs/api/#deletetext) |
 | getBounds() | 返回给定位置处的相对于编辑器容器的像素位置和选区的尺寸 |
 | getContents() | 返回 [Quill Delta](https://quilljs.com/docs/delta/) 格式的完整内容 |
-| getHTML() | 返回编辑器的完整 HTML 内容 |
+| getHTML() | 返回编辑器的完整 HTML 内容，不包含标签中的 contenteditable 属性，保存富文本数据时应使用此 API |
+| getRawHTML() | 返回编辑器的完整 HTML 内容，包含标签中的 contenteditable 属性 |
 | getLength() | 返回编辑器内容的长度，以字符为单位，不包括 HTML 标签。默认会多加一个回车符的长度。 |
 | getSelection() | 返回当前选区的范围，如果编辑器处于 unfocus 状态，则返回 null |
 | getText() | 返回编辑器的字符串内容，不包括 HTML 标签。默认会在末尾包含一个回车符。 |
