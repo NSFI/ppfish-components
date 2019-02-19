@@ -67,7 +67,7 @@ class AudioPlayer extends React.Component {
       volumeOpen: false,                                // 是否打开音量控制
       allTime: 0,
       currentTime: 0,
-      disabled: !!this.props.src                        // 初始src为空时禁用组件
+      disabled: !this.props.src                        // 初始src为空时禁用组件
     };
     this.audioInstance = null;
   }
