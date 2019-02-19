@@ -280,7 +280,7 @@ class RichEditor extends Component {
 
       let quill = this.getEditor();
       quill.format('myLink', {
-        type: 'default',
+        // type: 'default',
         url: val
       });
       el.value = 'http://';
@@ -489,31 +489,34 @@ class RichEditor extends Component {
   };
 
   handleSelectionChange = (nextSelection, source, editor) => {
-    let { toolbarCtner } = this.state;
-    let quill = this.getEditor();
+    // let { toolbarCtner } = this.state;
+    // let quill = this.getEditor();
 
-    if (nextSelection) {
-      let curFormat;
-			if (nextSelection.index > 0 && quill.getText(nextSelection.index - 1, 1)!='\n') {
-				curFormat = quill.getFormat(nextSelection.index - 1, 1);
-			} else {
-				curFormat = quill.getFormat(nextSelection.index, 1);
-			}
+    // FixBug: 取消高亮区分。a标签添加自定义属性后接带自定义属性的img标签时，在MAC和安卓版的微信公众号中超链接会异常显示出HTML标签。
+    // 区分默认的超链接和自定义超链接的高亮
+    // if (nextSelection) {
+    //   let curFormat;
+		// 	if (nextSelection.index > 0 && quill.getText(nextSelection.index - 1, 1)!='\n') {
+		// 		curFormat = quill.getFormat(nextSelection.index - 1, 1);
+		// 	} else {
+		// 		curFormat = quill.getFormat(nextSelection.index, 1);
+		// 	}
 
-      toolbarCtner.querySelector('.link-active')
-      && toolbarCtner.querySelector('.link-active').classList.remove('link-active');
+    //   toolbarCtner.querySelector('.link-active')
+    //   && toolbarCtner.querySelector('.link-active').classList.remove('link-active');
 
-      if ('myLink' in curFormat) {
-        let linkType = curFormat['myLink'].type || 'default';
-        if (linkType == 'default') {
-          toolbarCtner.querySelector('.ql-myLink')
-          && toolbarCtner.querySelector('.ql-myLink').classList.add('link-active');
-        } else {
-          toolbarCtner.querySelector(`.ql-${linkType}`)
-          && toolbarCtner.querySelector(`.ql-${linkType}`).classList.add('link-active');
-        }
-			}
-    }
+
+    //   if ('myLink' in curFormat) {
+    //     let linkType = curFormat['myLink'].type || 'default';
+    //     if (linkType == 'default') {
+    //       toolbarCtner.querySelector('.ql-myLink')
+    //       && toolbarCtner.querySelector('.ql-myLink').classList.add('link-active');
+    //     } else {
+    //       toolbarCtner.querySelector(`.ql-${linkType}`)
+    //       && toolbarCtner.querySelector(`.ql-${linkType}`).classList.add('link-active');
+    //     }
+		// 	}
+    // }
 
     const { onSelectionChange } = this.props;
     onSelectionChange && onSelectionChange(nextSelection, source, editor);

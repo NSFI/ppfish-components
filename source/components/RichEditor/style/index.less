@@ -109,8 +109,7 @@
   }
 
   .item.@{popover-prefix}-open,
-  .ql-active:not(.ql-myLink):not(.custom-entry),
-  .link-active {
+  .ql-active {
     background: @primary-color !important;
     border-color: @primary-color !important;
     color: #fff !important;
@@ -123,6 +122,23 @@
       fill: #fff !important;
     }
   }
+
+  // 区分默认的超链接和自定义超链接的高亮
+  // .item.@{popover-prefix}-open,
+  // .ql-active:not(.ql-myLink):not(.custom-entry),
+  // .link-active {
+  //   background: @primary-color !important;
+  //   border-color: @primary-color !important;
+  //   color: #fff !important;
+
+  //   .ql-stroke {
+  //     stroke: #fff !important;
+  //   }
+
+  //   .ql-fill {
+  //     fill: #fff !important;
+  //   }
+  // }
 
   .ql-tooltip {
     display: none;

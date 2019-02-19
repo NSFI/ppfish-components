@@ -7,7 +7,7 @@ class Link extends Inline {
     const node = super.create(value);
     node.setAttribute('target', '_blank');
     node.setAttribute('href', value && value.url);
-    node.setAttribute('data-type', value && value.type || 'default');
+    // node.setAttribute('data-type', value && value.type || 'default');
     return node;
   }
 
@@ -20,7 +20,7 @@ class Link extends Inline {
     }
 
     return {
-      type: node.getAttribute('data-type') || 'default',
+      // type: node.getAttribute('data-type') || 'default',
       url: node.getAttribute('href')
     };
   }
@@ -36,7 +36,7 @@ class Link extends Inline {
       // 在超链接内输入回车时需要为光标添加超链接
       this.statics.formatCursor = true;
       this.domNode.setAttribute('href', value && value.url);
-      this.domNode.setAttribute('data-type', value && value.type || 'default');
+      // this.domNode.setAttribute('data-type', value && value.type || 'default');
     }
   }
 }
