@@ -67,6 +67,7 @@ class AudioPlayer extends React.Component {
       volumeOpen: false,                                // 是否打开音量控制
       allTime: 0,
       currentTime: 0,
+      disabled: !!this.props.src                        // 初始src为空时禁用组件
     };
     this.audioInstance = null;
   }
@@ -76,17 +77,25 @@ class AudioPlayer extends React.Component {
     switch(type) {
       case 'allTime':
         this.setState({
-          allTime: audio.duration
+          allTime: audio.duration,
+          // 音频总时长为0时禁用组件
+          disabled: parseInt(audio.duration) === 0
         });
         this.props.onCanPlay();
         break;
       case 'play':
+        if(this.state.disabled) {
+          return;
+        }
         audio.play();
         this.setState({
           isPlay: true
         });
         break;
       case 'pause':
+        if(this.state.disabled) {
+          return;
+        }
         audio.pause();
         this.setState({
           isPlay: false
@@ -164,7 +173,7 @@ class AudioPlayer extends React.Component {
   }
 
   render() {
-    const { isPlay, isMuted, allTime, currentTime, currentVolume, volumeOpen } = this.state;
+    const { isPlay, isMuted, allTime, currentTime, currentVolume, volumeOpen, disabled } = this.state;
     const {
       prefixCls,
       title,
@@ -219,7 +228,7 @@ class AudioPlayer extends React.Component {
             </audio>
           </div>
 
-          <div className="box pause-play-box" onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}>
+          <div className={`box pause-play-box pause-play-box-${disabled ? 'disabled': 'enable'}`} onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}>
             <Icon
               className="handle-audio-icon pause-play"
               type={pausePlayIcon}
@@ -234,6 +243,7 @@ class AudioPlayer extends React.Component {
                   min={0}
                   max={allTime}
                   value={currentTime}
+                  disabled={disabled}
                   tipMode="all"
                   tipFormatter={value => this.millisecondToDate(value)}
                   onChange={(value) => this.controlAudio('changeCurrentTime', value)}
