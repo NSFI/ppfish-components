@@ -7,8 +7,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { polyfill } from 'react-lifecycles-compat';
-import { createRef } from './util';
+import {polyfill} from 'react-lifecycles-compat';
+import {createRef} from './util';
 import classNames from 'classnames';
 
 export const searchContextTypes = {
@@ -32,6 +32,15 @@ class SearchInput extends React.Component {
     }),
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {prevProps: nextProps};
+    const {prevProps = {}} = prevState;
+    if (nextProps.searchValue != prevProps.searchValue) {
+      newState.showClear = !!nextProps.searchValue;
+    }
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -43,7 +52,7 @@ class SearchInput extends React.Component {
   }
 
   componentDidMount() {
-    const { open, needAlign } = this.props;
+    const {open, needAlign} = this.props;
     if (needAlign) {
       this.alignInputWidth();
     }
@@ -53,22 +62,8 @@ class SearchInput extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.searchValue != this.props.searchValue) {
-      if (nextProps.searchValue) {
-        this.setState({
-          showClear: true
-        });
-      } else {
-        this.setState({
-          showClear: false
-        });
-      }
-    }
-  }
-
   componentDidUpdate(prevProps) {
-    const { open, searchValue, needAlign } = this.props;
+    const {open, searchValue, needAlign} = this.props;
 
     if (open && prevProps.open !== open) {
       this.focus();
@@ -112,12 +107,12 @@ class SearchInput extends React.Component {
     let r = this.inputRef;
     r.current.value = '';
 
-    this.handleInputChange({ target: { value: '' } });
+    this.handleInputChange({target: {value: ''}});
   };
 
   handleInputChange = (e) => {
-    const { rcTreeSelect: { onSearchInputChange, onSearchInputKeyDown } } = this.context;
-    let { target: { value } } = e;
+    const {rcTreeSelect: {onSearchInputChange, onSearchInputKeyDown}} = this.context;
+    let {target: {value}} = e;
 
     if (value) {
       this.setState({showClear: true});
@@ -129,16 +124,18 @@ class SearchInput extends React.Component {
   };
 
   render() {
-    const { searchValue, prefixCls, disabled, renderPlaceholder, open, ariaId } = this.props;
-    const { rcTreeSelect: {
-      onSearchInputChange, onSearchInputKeyDown,
-    } } = this.context;
-    const { showClear } = this.state;
+    const {searchValue, prefixCls, disabled, renderPlaceholder, open, ariaId} = this.props;
+    const {
+      rcTreeSelect: {
+        onSearchInputChange, onSearchInputKeyDown,
+      }
+    } = this.context;
+    const {showClear} = this.state;
 
     let clearIconClass = classNames({
-        'hide': !showClear,
-        'select-clear-icon': true,
-        [`${prefixCls}-selection__clear`]: true
+      'hide': !showClear,
+      'select-clear-icon': true,
+      [`${prefixCls}-selection__clear`]: true
     });
 
     return (

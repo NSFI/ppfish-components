@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {polyfill} from 'react-lifecycles-compat';
+
 import KeyCode from './KeyCode';
 import TabPane from './TabPane';
 import classnames from 'classnames';
-import { getDataAttr } from './utils';
+import {getDataAttr} from './utils';
 
 function noop() {
 }
@@ -23,7 +25,18 @@ function activeKeyIsValid(props, key) {
   return keys.indexOf(key) >= 0;
 }
 
-export default class Tabs extends React.Component {
+class Tabs extends React.Component {
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {};
+    if ('activeKey' in nextProps) {
+      newState.activeKey = nextProps.activeKey;
+    } else if (!activeKeyIsValid(nextProps, prevState.activeKey)) {
+      // https://github.com/ant-design/ant-design/issues/7093
+      newState.activeKey = getDefaultActiveKey(nextProps);
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -41,25 +54,12 @@ export default class Tabs extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ('activeKey' in nextProps) {
-      this.setState({
-        activeKey: nextProps.activeKey,
-      });
-    } else if (!activeKeyIsValid(nextProps, this.state.activeKey)) {
-      // https://github.com/ant-design/ant-design/issues/7093
-      this.setState({
-        activeKey: getDefaultActiveKey(nextProps),
-      });
-    }
-  }
-
   onTabClick = (activeKey, e) => {
     if (this.tabBar.props.onTabClick) {
       this.tabBar.props.onTabClick(activeKey, e);
     }
     this.setActiveKey(activeKey);
-  }
+  };
 
   onNavKeyDown = (e) => {
     const eventKeyCode = e.keyCode;
@@ -72,9 +72,9 @@ export default class Tabs extends React.Component {
       const previousKey = this.getNextActiveKey(false);
       this.onTabClick(previousKey);
     }
-  }
+  };
 
-  onScroll = ({ target, currentTarget }) => {
+  onScroll = ({target, currentTarget}) => {
     if (target === currentTarget && target.scrollLeft > 0) {
       target.scrollLeft = 0;
     }
@@ -89,7 +89,7 @@ export default class Tabs extends React.Component {
       }
       this.props.onChange(activeKey);
     }
-  }
+  };
 
   getNextActiveKey = (next) => {
     const activeKey = this.state.activeKey;
@@ -115,7 +115,7 @@ export default class Tabs extends React.Component {
       }
     });
     return ret;
-  }
+  };
 
   render() {
     const props = this.props;
@@ -198,3 +198,7 @@ Tabs.defaultProps = {
 };
 
 Tabs.TabPane = TabPane;
+
+polyfill(Tabs);
+
+export default Tabs;

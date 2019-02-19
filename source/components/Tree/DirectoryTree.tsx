@@ -2,13 +2,14 @@ import * as React from 'react';
 import classNames from 'classnames';
 import omit from 'omit.js';
 import debounce from 'lodash/debounce';
-import { conductExpandParent, convertTreeToEntities } from '../TreeSelect/rcTree/util';
+import {polyfill} from 'react-lifecycles-compat';
+import {conductExpandParent, convertTreeToEntities} from '../TreeSelect/rcTree/util';
 
 import Tree, {
   TreeProps, FishdTreeNodeAttribute,
   FishdTreeNodeExpandedEvent, FishdTreeNodeSelectedEvent, FishdTreeNode,
 } from './Tree';
-import { calcRangeKeys, getFullKeyList } from './util';
+import {calcRangeKeys, getFullKeyList} from './util';
 import Icon from '../Icon';
 
 export type ExpandAction = false | 'click' | 'doubleClick';
@@ -23,14 +24,14 @@ export interface DirectoryTreeState {
 }
 
 function getIcon(props: FishdTreeNodeAttribute): React.ReactNode {
-  const { isLeaf, expanded } = props;
+  const {isLeaf, expanded} = props;
   if (isLeaf) {
-    return <Icon type="file-line" />;
+    return <Icon type="file-line"/>;
   }
-  return <Icon type={expanded ? 'folder-open-line' : 'folder-close-line'} />;
+  return <Icon type={expanded ? 'folder-open-line' : 'folder-close-line'}/>;
 }
 
-export default class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeState> {
+class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeState> {
   static defaultProps = {
     prefixCls: 'fishd-tree',
     showIcon: true,
@@ -45,11 +46,22 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
   lastSelectedKey?: string;
   cachedSelectedKeys?: string[];
 
+  static getDerivedStateFromProps(nextProps: DirectoryTreeProps) {
+    const newState: DirectoryTreeState = {};
+    if ('expandedKeys' in nextProps) {
+      newState.expandedKeys = nextProps.expandedKeys;
+    }
+    if ('selectedKeys' in nextProps) {
+      newState.selectedKeys = nextProps.selectedKeys;
+    }
+    return newState;
+  }
+
   constructor(props: DirectoryTreeProps) {
     super(props);
 
-    const { defaultExpandAll, defaultExpandParent, expandedKeys, defaultExpandedKeys, children } = props;
-    const { keyEntities } = convertTreeToEntities(children);
+    const {defaultExpandAll, defaultExpandParent, expandedKeys, defaultExpandedKeys, children} = props;
+    const {keyEntities} = convertTreeToEntities(children);
 
     // Selected keys
     this.state = {
@@ -62,7 +74,7 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     } else if (defaultExpandParent) {
       this.state.expandedKeys = conductExpandParent(expandedKeys || defaultExpandedKeys, keyEntities);
     } else {
-      this.state.expandedKeys =  expandedKeys || defaultExpandedKeys;
+      this.state.expandedKeys = expandedKeys || defaultExpandedKeys;
     }
 
     this.onDebounceExpand = debounce(this.expandFolderNode, 200, {
@@ -70,19 +82,10 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     });
   }
 
-  componentWillReceiveProps(nextProps: DirectoryTreeProps) {
-    if ('expandedKeys' in nextProps) {
-      this.setState({ expandedKeys: nextProps.expandedKeys });
-    }
-    if ('selectedKeys' in nextProps) {
-      this.setState({ selectedKeys: nextProps.selectedKeys });
-    }
-  }
-
   onExpand = (expandedKeys: string[], info: FishdTreeNodeExpandedEvent) => {
-    const { onExpand } = this.props;
+    const {onExpand} = this.props;
 
-    this.setUncontrolledState({ expandedKeys });
+    this.setUncontrolledState({expandedKeys});
 
     // Call origin function
     if (onExpand) {
@@ -90,10 +93,10 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     }
 
     return undefined;
-  }
+  };
 
   onClick = (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => {
-    const { onClick, expandAction } = this.props;
+    const {onClick, expandAction} = this.props;
 
     // Expand the tree
     if (expandAction === 'click') {
@@ -103,10 +106,10 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     if (onClick) {
       onClick(event, node);
     }
-  }
+  };
 
   onDoubleClick = (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => {
-    const { onDoubleClick, expandAction } = this.props;
+    const {onDoubleClick, expandAction} = this.props;
 
     // Expand the tree
     if (expandAction === 'doubleClick') {
@@ -116,13 +119,13 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     if (onDoubleClick) {
       onDoubleClick(event, node);
     }
-  }
+  };
 
   onSelect = (keys: string[], event: FishdTreeNodeSelectedEvent) => {
-    const { onSelect, multiple, children } = this.props;
-    const { expandedKeys = [], selectedKeys = [] } = this.state;
-    const { node, nativeEvent } = event;
-    const { eventKey = '' } = node.props;
+    const {onSelect, multiple, children} = this.props;
+    const {expandedKeys = [], selectedKeys = []} = this.state;
+    const {node, nativeEvent} = event;
+    const {eventKey = ''} = node.props;
 
     const newState: DirectoryTreeState = {};
 
@@ -156,10 +159,10 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     }
 
     this.setUncontrolledState(newState);
-  }
+  };
 
   expandFolderNode = (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => {
-    const { isLeaf } = node.props;
+    const {isLeaf} = node.props;
 
     if (isLeaf || event.shiftKey || event.metaKey || event.ctrlKey) {
       return;
@@ -171,18 +174,18 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     // Call internal rc-tree expand function
     // https://github.com/ant-design/ant-design/issues/12567
     internalTree.onNodeExpand(event, node);
-  }
+  };
 
   setUncontrolledState = (state: DirectoryTreeState) => {
     const newState = omit(state, Object.keys(this.props));
     if (Object.keys(newState).length) {
       this.setState(newState);
     }
-  }
+  };
 
   render() {
-    const { prefixCls, className, ...props } = this.props;
-    const { expandedKeys, selectedKeys } = this.state;
+    const {prefixCls, className, ...props} = this.props;
+    const {expandedKeys, selectedKeys} = this.state;
     const connectClassName = classNames(`${prefixCls}-directory`, className);
 
     return (
@@ -202,3 +205,7 @@ export default class DirectoryTree extends React.Component<DirectoryTreeProps, D
     );
   }
 }
+
+polyfill(DirectoryTree);
+
+export default DirectoryTree;

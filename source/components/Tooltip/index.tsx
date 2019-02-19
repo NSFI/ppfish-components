@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { cloneElement } from 'react';
+import {cloneElement} from 'react';
 import RcTooltip from './RcTooltip';
 import classNames from 'classnames';
-import getPlacements, { AdjustOverflow, PlacementsConfig } from './placements';
+import {polyfill} from 'react-lifecycles-compat';
+import getPlacements, {AdjustOverflow, PlacementsConfig} from './placements';
 import Button from '../Button';
 
-export { AdjustOverflow, PlacementsConfig };
+export {AdjustOverflow, PlacementsConfig};
 
 export type TooltipPlacement =
   'top' | 'left' | 'right' | 'bottom' |
@@ -47,17 +48,17 @@ export interface TooltipProps extends AbstractTooltipProps {
 
 const splitObject = (obj: any, keys: string[]) => {
   const picked: any = {};
-  const omitted: any = { ...obj };
+  const omitted: any = {...obj};
   keys.forEach(key => {
     if (obj && key in obj) {
       picked[key] = obj[key];
       delete omitted[key];
     }
   });
-  return { picked, omitted };
+  return {picked, omitted};
 };
 
-export default class Tooltip extends React.Component<TooltipProps, any> {
+class Tooltip extends React.Component<TooltipProps, any> {
   static defaultProps = {
     prefixCls: 'fishd-tooltip',
     placement: 'top' as TooltipPlacement,
@@ -70,6 +71,13 @@ export default class Tooltip extends React.Component<TooltipProps, any> {
 
   private tooltip: typeof RcTooltip;
 
+  static getDerivedStateFromProps(nextProps: TooltipProps) {
+    if ('visible' in nextProps) {
+      return {visible: nextProps.visible}
+    }
+    return null;
+  }
+
   constructor(props: TooltipProps) {
     super(props);
 
@@ -78,28 +86,22 @@ export default class Tooltip extends React.Component<TooltipProps, any> {
     };
   }
 
-  componentWillReceiveProps(nextProps: TooltipProps) {
-    if ('visible' in nextProps) {
-      this.setState({ visible: nextProps.visible });
-    }
-  }
-
   onVisibleChange = (visible: boolean) => {
-    const { onVisibleChange } = this.props;
+    const {onVisibleChange} = this.props;
     if (!('visible' in this.props)) {
-      this.setState({ visible: this.isNoTitle() ? false : visible });
+      this.setState({visible: this.isNoTitle() ? false : visible});
     }
     if (onVisibleChange && !this.isNoTitle()) {
       onVisibleChange(visible);
     }
-  }
+  };
 
   getPopupDomNode() {
     return this.tooltip.getPopupDomNode();
   }
 
   getPlacements() {
-    const { builtinPlacements, arrowPointAtCenter, autoAdjustOverflow } = this.props;
+    const {builtinPlacements, arrowPointAtCenter, autoAdjustOverflow} = this.props;
     return builtinPlacements || getPlacements({
       arrowPointAtCenter,
       verticalArrowShift: 8,
@@ -108,7 +110,7 @@ export default class Tooltip extends React.Component<TooltipProps, any> {
   }
 
   isHoverTrigger() {
-    const { trigger } = this.props;
+    const {trigger} = this.props;
     if (!trigger || trigger === 'hover') {
       return true;
     }
@@ -123,10 +125,10 @@ export default class Tooltip extends React.Component<TooltipProps, any> {
   // https://github.com/react-component/tooltip/issues/18
   getDisabledCompatibleChildren(element: React.ReactElement<any>) {
     if (((element.type as typeof Button).__FISHD_BUTTON || element.type === 'button') &&
-        element.props.disabled && this.isHoverTrigger()) {
+      element.props.disabled && this.isHoverTrigger()) {
       // Pick some layout related style properties up to span
       // Prevent layout bugs like https://github.com/ant-design/ant-design/issues/5254
-      const { picked, omitted } = splitObject(
+      const {picked, omitted} = splitObject(
         element.props.style,
         ['position', 'left', 'right', 'top', 'bottom', 'float', 'display', 'zIndex'],
       );
@@ -153,7 +155,7 @@ export default class Tooltip extends React.Component<TooltipProps, any> {
   }
 
   isNoTitle() {
-    const { title, overlay } = this.props;
+    const {title, overlay} = this.props;
     return !title && !overlay;  // overlay for old version compatibility
   }
 
@@ -187,15 +189,15 @@ export default class Tooltip extends React.Component<TooltipProps, any> {
       transformOrigin.left = `${-align.offset[0]}px`;
     }
     domNode.style.transformOrigin = `${transformOrigin.left} ${transformOrigin.top}`;
-  }
+  };
 
   saveTooltip = (node: typeof RcTooltip) => {
     this.tooltip = node;
-  }
+  };
 
   render() {
-    const { props, state } = this;
-    const { prefixCls, title, overlay, openClassName, getPopupContainer, getTooltipContainer } = props;
+    const {props, state} = this;
+    const {prefixCls, title, overlay, openClassName, getPopupContainer, getTooltipContainer} = props;
     const children = props.children as React.ReactElement<any>;
     let visible = state.visible;
     // Hide tooltip when there is no title
@@ -222,8 +224,12 @@ export default class Tooltip extends React.Component<TooltipProps, any> {
         onVisibleChange={this.onVisibleChange}
         onPopupAlign={this.onPopupAlign}
       >
-        {visible ? cloneElement(child, { className: childCls }) : child}
+        {visible ? cloneElement(child, {className: childCls}) : child}
       </RcTooltip>
     );
   }
 }
+
+polyfill(Tooltip);
+
+export default Tooltip;
