@@ -115,6 +115,7 @@ class Select extends React.Component {
       PropTypes.string,
       PropTypes.node,
     ]),
+    getPopupContainer: PropTypes.func,
     onSearch: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
@@ -160,6 +161,7 @@ class Select extends React.Component {
     notFoundContent: '无匹配结果',
     uniqueTreeNodeByLabel: false,
     autoExpandParent: true,
+    getPopupContainer: () => document.body,
   };
 
   constructor(props) {
@@ -1126,13 +1128,18 @@ class Select extends React.Component {
       />
     );
 
+    let triggerGetPopupContainer = passProps.getPopupContainer;
+    if (!triggerGetPopupContainer || !triggerGetPopupContainer()) {
+      triggerGetPopupContainer = this.__proto__.constructor.defaultProps.getPopupContainer;
+    }
+
     const triggerProps = {
       disabled: passProps.disabled,
       dropdownPopupAlign: passProps.dropdownPopupAlign,
       dropdownMatchSelectWidth: passProps.dropdownMatchSelectWidth,
       dropdownClassName: passProps.dropdownClassName,
       dropdownStyle: passProps.dropdownStyle,
-      getPopupContainer: passProps.getPopupContainer,
+      getPopupContainer: triggerGetPopupContainer,
       placement: passProps.placement,
       transitionName: passProps.transitionName,
       animation: passProps.animation,

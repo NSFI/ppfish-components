@@ -29,6 +29,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     treeNodeResetTitle: '不选择任何分类',
     placement: 'bottomLeft',
     uniqueTreeNodeByLabel: false,
+    getPopupContainer: () => document.body
   };
 
   private rcTreeSelect: any;
