@@ -549,6 +549,11 @@
     this.setState({ value });
   }
 
+  onExpand = (expandedKeyList, extra) => {
+    console.log('expandedKeyList: ', expandedKeyList);
+    console.log('extra info: ', extra);
+  };
+
   render() {
     const treeData = [{
       title: 'Node1',
@@ -619,6 +624,7 @@
       value: this.state.value,
       onConfirm: this.onConfirm,
       onCancel: this.onCancel,
+      onExpand: this.onExpand,
       treeCheckable: true,
       showCheckedStrategy: TreeSelect.SHOW_CHILD,
       style: {
@@ -1084,6 +1090,7 @@
 | onCancel | 取消选中树节点时调用此函数，参数 value 为原始选中的条目 | (value) => Void | - |
 | onChange | 选中的树节点改变时调用此函数。函数参数 value 为已选择的树节点值或值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, infoList, extra) => Void | - |
 | onConfirm | 确认选中树节点时调用此函数。函数参数 valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (valueList, infoList, extra) => Void | - |
+| onExpand | 展开或收起树节点时调用此函数。函数参数 expandedKeyList 为当前展开的树节点值的列表，extra 为额外的相关信息 | (expandedKeyList, extra) => Void | - |
 | onReset | 点击复位选项时调用，单选时有效 | () => Void | - |
 | onSearch | 搜索框值变化时调用。可以配合实现后端搜索。 | (value: String) => Void | - |
 | onSelect | 选中某一选项时调用。函数参数 value 为选中的树节点值，valueList 为已选择的树节点值的列表，infoList 为已选择的树节点对象的列表，extra 为额外的相关信息 | (value, valueList, infoList, extra) => Void | - |

@@ -121,6 +121,7 @@ class Select extends React.Component {
     onChange: PropTypes.func,
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
+    onExpand: PropTypes.func,
     onReset: PropTypes.func,
     onDropdownVisibleChange: PropTypes.func,
   };

@@ -54,6 +54,7 @@ class BasePopup extends React.Component {
     // 确定或取消选择
     onCancel: PropTypes.func,
     onConfirm: PropTypes.func,
+    onExpand: PropTypes.func, // 节点展开时的回调
   };
 
   static contextTypes = {
@@ -123,9 +124,12 @@ class BasePopup extends React.Component {
     return newState;
   }
 
-  onTreeExpand = (expandedKeyList) => {
-    const { onTreeExpanded } = this.props;
+  onTreeExpand = (expandedKeyList, extra) => {
+    const { onTreeExpanded, onExpand } = this.props;
+
     this.setState({ expandedKeyList }, onTreeExpanded);
+
+    onExpand && onExpand(expandedKeyList, extra);
   };
 
   onLoad = (loadedKeys) => {
