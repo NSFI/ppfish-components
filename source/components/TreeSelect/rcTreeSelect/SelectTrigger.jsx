@@ -147,7 +147,7 @@ class SelectTrigger extends React.Component {
         ref={this.triggerRef}
         action={disabled ? [] : ['click']}
         popupPlacement={placement}
-        // forceRender
+        forceRender
         builtinPlacements={BUILT_IN_PLACEMENTS}
         popupAlign={dropdownPopupAlign}
         prefixCls={dropdownPrefixCls}
