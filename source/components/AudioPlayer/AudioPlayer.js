@@ -228,7 +228,10 @@ class AudioPlayer extends React.Component {
             </audio>
           </div>
 
-          <div className={`box pause-play-box pause-play-box-${disabled ? 'disabled': 'enable'}`} onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}>
+          <div
+            className={`box pause-play-box pause-play-box-${disabled ? 'disabled': 'enable'}`}
+            onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}
+          >
             <Icon
               className="handle-audio-icon pause-play"
               type={pausePlayIcon}
