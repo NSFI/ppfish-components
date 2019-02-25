@@ -1,15 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import List, { TransferListProps } from './List';
+import {polyfill} from 'react-lifecycles-compat';
+
+import List, {TransferListProps} from './List';
 import Operation from './Operation';
 import Search from './Search';
 
 import './style/index.less';
 
-export { TransferListProps } from './List';
-export { TransferOperationProps } from './Operation';
-export { TransferSearchProps } from './Search';
+export {TransferListProps} from './List';
+export {TransferOperationProps} from './Operation';
+export {TransferSearchProps} from './Search';
 
 function noop() {
 }
@@ -59,7 +61,7 @@ export interface TransferLocale {
   itemsUnit: string;
 }
 
-export default class Transfer extends React.Component<TransferProps, any> {
+class Transfer extends React.Component<TransferProps, any> {
   // For high-level customized Transfer @dqaria
   static List = List;
   static Operation = Operation;
@@ -97,6 +99,44 @@ export default class Transfer extends React.Component<TransferProps, any> {
     lazy: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   };
 
+  static getDerivedStateFromProps(nextProps: TransferProps, prevState) {
+    const {prevProps = {}} = prevState;
+    const newState: any = {prevProps: nextProps};
+
+    const {sourceSelectedKeys, targetSelectedKeys} = prevState;
+
+    if (nextProps.targetKeys !== prevProps.targetKeys ||
+      nextProps.dataSource !== prevProps.dataSource) {
+
+      if (!nextProps.selectedKeys || !nextProps.selectedKeys.length) {
+        // clear key no longer existed
+        // clear checkedKeys according to targetKeys
+        const {dataSource, targetKeys = []} = nextProps;
+
+        const newSourceSelectedKeys: String[] = [];
+        const newTargetSelectedKeys: String[] = [];
+        dataSource.forEach(({key}) => {
+          if (sourceSelectedKeys.includes(key) && !targetKeys.includes(key)) {
+            newSourceSelectedKeys.push(key);
+          }
+          if (targetSelectedKeys.includes(key) && targetKeys.includes(key)) {
+            newTargetSelectedKeys.push(key);
+          }
+        });
+        newState.sourceSelectedKeys = newSourceSelectedKeys;
+        newState.targetSelectedKeys = newTargetSelectedKeys;
+      }
+    }
+
+    if (nextProps.selectedKeys && nextProps.selectedKeys.length > 0) {
+      const targetKeys = nextProps.targetKeys || [];
+      newState.sourceSelectedKeys = nextProps.selectedKeys.filter(key => !targetKeys.includes(key));
+      newState.targetSelectedKeys = nextProps.selectedKeys.filter(key => targetKeys.includes(key));
+    }
+
+    return newState;
+  }
+
   separatedDataSource: {
     leftDataSource: TransferItem[],
     rightDataSource: TransferItem[],
@@ -105,51 +145,22 @@ export default class Transfer extends React.Component<TransferProps, any> {
   constructor(props: TransferProps) {
     super(props);
 
-    const { selectedKeys = [], targetKeys = [] } = props;
+    const {selectedKeys = [], targetKeys = []} = props;
     this.state = {
       leftFilter: '',
       rightFilter: '',
       sourceSelectedKeys: selectedKeys.filter(key => targetKeys.indexOf(key) === -1),
       targetSelectedKeys: selectedKeys.filter(key => targetKeys.indexOf(key) > -1),
+      prevProps: props,
     };
   }
 
-  componentWillReceiveProps(nextProps: TransferProps) {
-    const { sourceSelectedKeys, targetSelectedKeys } = this.state;
-
-    if (nextProps.targetKeys !== this.props.targetKeys ||
-      nextProps.dataSource !== this.props.dataSource) {
+  componentDidUpdate(prevProps: TransferProps) {
+    if (prevProps.targetKeys !== this.props.targetKeys ||
+      prevProps.dataSource !== this.props.dataSource) {
       // clear cached separated dataSource
       this.separatedDataSource = null;
-
-      if (!nextProps.selectedKeys) {
-        // clear key no longer existed
-        // clear checkedKeys according to targetKeys
-        const { dataSource, targetKeys = [] } = nextProps;
-
-        const newSourceSelectedKeys: String[] = [];
-        const newTargetSelectedKeys: String[] = [];
-        dataSource.forEach(({ key }) => {
-          if (sourceSelectedKeys.includes(key) && !targetKeys.includes(key)) {
-            newSourceSelectedKeys.push(key);
-          }
-          if (targetSelectedKeys.includes(key) && targetKeys.includes(key)) {
-            newTargetSelectedKeys.push(key);
-          }
-        });
-        this.setState({
-          sourceSelectedKeys: newSourceSelectedKeys,
-          targetSelectedKeys: newTargetSelectedKeys,
-        });
-      }
-    }
-
-    if (nextProps.selectedKeys) {
-      const targetKeys = nextProps.targetKeys || [];
-      this.setState({
-        sourceSelectedKeys: nextProps.selectedKeys.filter(key => !targetKeys.includes(key)),
-        targetSelectedKeys: nextProps.selectedKeys.filter(key => targetKeys.includes(key)),
-      });
+      this.forceUpdate();
     }
   }
 
@@ -158,7 +169,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
       return this.separatedDataSource;
     }
 
-    const { dataSource, rowKey, targetKeys = [] } = props;
+    const {dataSource, rowKey, targetKeys = []} = props;
 
     const leftDataSource: TransferItem[] = [];
     const rightDataSource: TransferItem[] = new Array(targetKeys.length);
@@ -186,8 +197,8 @@ export default class Transfer extends React.Component<TransferProps, any> {
   }
 
   moveTo = (direction: TransferDirection) => {
-    const { targetKeys = [], dataSource = [], onChange } = this.props;
-    const { sourceSelectedKeys, targetSelectedKeys } = this.state;
+    const {targetKeys = [], dataSource = [], onChange} = this.props;
+    const {sourceSelectedKeys, targetSelectedKeys} = this.state;
     const moveKeys = direction === 'right' ? sourceSelectedKeys : targetSelectedKeys;
     // filter the disabled options
     const newMoveKeys = moveKeys.filter((key: string) =>
@@ -208,12 +219,14 @@ export default class Transfer extends React.Component<TransferProps, any> {
     if (onChange) {
       onChange(newTargetKeys, direction, newMoveKeys);
     }
-  }
+  };
+
   moveToLeft = () => this.moveTo('left');
+
   moveToRight = () => this.moveTo('right');
 
   handleSelectChange(direction: TransferDirection, holder: string[]) {
-    const { sourceSelectedKeys, targetSelectedKeys } = this.state;
+    const {sourceSelectedKeys, targetSelectedKeys} = this.state;
     const onSelectChange = this.props.onSelectChange;
     if (!onSelectChange) {
       return;
@@ -245,13 +258,15 @@ export default class Transfer extends React.Component<TransferProps, any> {
         [this.getSelectedKeysName(direction)]: holder,
       });
     }
-  }
+  };
+
   handleLeftSelectAll = (filteredDataSource: TransferItem[], checkAll: boolean) => (
     this.handleSelectAll('left', filteredDataSource, checkAll)
-  )
+  );
+
   handleRightSelectAll = (filteredDataSource: TransferItem[], checkAll: boolean) => (
     this.handleSelectAll('right', filteredDataSource, checkAll)
-  )
+  );
 
   handleFilter = (direction: TransferDirection, e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
@@ -261,44 +276,48 @@ export default class Transfer extends React.Component<TransferProps, any> {
     if (this.props.onSearchChange) {
       this.props.onSearchChange(direction, e);
     }
-  }
+  };
+
   handleLeftFilter = (e: React.ChangeEvent<HTMLInputElement>) => this.handleFilter('left', e);
+
   handleRightFilter = (e: React.ChangeEvent<HTMLInputElement>) => this.handleFilter('right', e);
 
   handleClear = (direction: string) => {
     this.setState({
       [`${direction}Filter`]: '',
     });
-  }
+  };
+
   handleLeftClear = () => this.handleClear('left');
+
   handleRightClear = () => this.handleClear('right');
 
   // 只单选模式下的目标列表
   handleClose = (selectedItem: TransferItem) => {
-    if(this.props.mode === 'single') {
-      const { targetKeys = [], onChange } = this.props;
+    if (this.props.mode === 'single') {
+      const {targetKeys = [], onChange} = this.props;
       const newMoveKeys = [selectedItem.key];
       const newTargetKeys = targetKeys.filter(key => key !== selectedItem.key);
       if (onChange) {
         onChange(newTargetKeys, 'left', newMoveKeys);
       }
     }
-  }
+  };
 
   handleSelect = (direction: TransferDirection, selectedItem: TransferItem, checked: boolean) => {
     // 单选模式下，点击直接move
-    if(this.props.mode === 'single') {
-      if(direction === 'right'){
+    if (this.props.mode === 'single') {
+      if (direction === 'right') {
         return;
       }
-      const { targetKeys = [], onChange } = this.props;
+      const {targetKeys = [], onChange} = this.props;
       const newMoveKeys = [selectedItem.key];
       const newTargetKeys = targetKeys.concat(newMoveKeys);
       if (onChange) {
         onChange(newTargetKeys, 'right', newMoveKeys);
       }
-    }else{
-      const { sourceSelectedKeys, targetSelectedKeys } = this.state;
+    } else {
+      const {sourceSelectedKeys, targetSelectedKeys} = this.state;
       const holder = direction === 'left' ? [...sourceSelectedKeys] : [...targetSelectedKeys];
       const index = holder.indexOf(selectedItem.key);
       if (index > -1) {
@@ -315,34 +334,38 @@ export default class Transfer extends React.Component<TransferProps, any> {
         });
       }
     }
-  }
+  };
+
   handleLeftSelect = (selectedItem: TransferItem, checked: boolean) => {
     return this.handleSelect('left', selectedItem, checked);
-  }
+  };
+
   handleRightSelect = (selectedItem: TransferItem, checked: boolean) => {
     return this.handleSelect('right', selectedItem, checked);
-  }
+  };
 
   handleScroll = (direction: TransferDirection, e: React.SyntheticEvent<HTMLDivElement>) => {
-    const { onScroll } = this.props;
+    const {onScroll} = this.props;
     if (onScroll) {
       onScroll(direction, e);
     }
-  }
+  };
+
   handleLeftScroll = (e: React.SyntheticEvent<HTMLDivElement>) => this.handleScroll('left', e);
+
   handleRightScroll = (e: React.SyntheticEvent<HTMLDivElement>) => this.handleScroll('right', e);
 
   getTitles = (transferLocale: TransferLocale) => {
-    const { props } = this;
+    const {props} = this;
     if (props.titles) {
       return props.titles;
     }
     return transferLocale.titles;
-  }
+  };
 
   getSelectedKeysName = (direction: TransferDirection) => {
     return direction === 'left' ? 'sourceSelectedKeys' : 'targetSelectedKeys';
-  }
+  };
 
   renderTransfer = () => {
     const {
@@ -363,9 +386,9 @@ export default class Transfer extends React.Component<TransferProps, any> {
       render,
       lazy,
     } = this.props;
-    const { leftFilter, rightFilter, sourceSelectedKeys, targetSelectedKeys } = this.state;
+    const {leftFilter, rightFilter, sourceSelectedKeys, targetSelectedKeys} = this.state;
 
-    const { leftDataSource, rightDataSource } = this.separateDataSource(this.props);
+    const {leftDataSource, rightDataSource} = this.separateDataSource(this.props);
     const leftActive = targetSelectedKeys.length > 0;
     const rightActive = sourceSelectedKeys.length > 0;
 
@@ -450,7 +473,8 @@ export default class Transfer extends React.Component<TransferProps, any> {
         />
       </div>
     );
-  }
+  };
+
   render() {
     return (
       <div>
@@ -459,3 +483,7 @@ export default class Transfer extends React.Component<TransferProps, any> {
     );
   }
 }
+
+polyfill(Transfer);
+
+export default Transfer;
