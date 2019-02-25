@@ -103,44 +103,37 @@ class Spin extends React.Component<SpinProps, SpinState> {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if ('spinning' in this.props) {
-      const spinning = this.props.spinning;
-      const prevSpinning = prevProps.spinning;
-      const {delay} = this.props;
-
-      if (this.debounceTimeout) {
-        clearTimeout(this.debounceTimeout);
-      }
-
-      // 关闭loading状态
-      if (prevSpinning && !spinning) {
-        this.debounceTimeout = window.setTimeout(() => this.setState({spinning}), 200);
-        if (this.delayTimeout) {
-          clearTimeout(this.delayTimeout);
-        }
-      }
-
-      // 开启loading状态
-      if (!prevSpinning && spinning) {
-        if (delay && !isNaN(Number(delay))) {
-          if (this.delayTimeout) {
-            clearTimeout(this.delayTimeout);
-          }
-          this.delayTimeout = window.setTimeout(() => this.setState({spinning}), delay);
-        } else {
-          this.setState({spinning});
-        }
-      }
-    }
-  }
-
   componentWillUnmount() {
     if (this.debounceTimeout) {
       clearTimeout(this.debounceTimeout);
     }
     if (this.delayTimeout) {
       clearTimeout(this.delayTimeout);
+    }
+  }
+
+  componentWillReceiveProps(nextProps: SpinProps) {
+    const currentSpinning = this.props.spinning;
+    const spinning = nextProps.spinning;
+    const {delay} = this.props;
+
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+    }
+    if (currentSpinning && !spinning) {
+      this.debounceTimeout = window.setTimeout(() => this.setState({spinning}), 200);
+      if (this.delayTimeout) {
+        clearTimeout(this.delayTimeout);
+      }
+    } else {
+      if (spinning && delay && !isNaN(Number(delay))) {
+        if (this.delayTimeout) {
+          clearTimeout(this.delayTimeout);
+        }
+        this.delayTimeout = window.setTimeout(() => this.setState({spinning}), delay);
+      } else {
+        this.setState({spinning});
+      }
     }
   }
 
