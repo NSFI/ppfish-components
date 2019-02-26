@@ -254,7 +254,7 @@ export default class DateRangePanel extends React.Component {
       //TimeSelect模式下返回endTimeSelectModeProps
     }else{
       let propsResult = endTimeSelectModeProps;
-      propsResult.start = dateToStr(minTime);
+      propsResult.minTime = dateToStr(minTime);
       return propsResult;
     }
   }

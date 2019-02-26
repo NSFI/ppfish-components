@@ -1035,6 +1035,12 @@ render() {
             end:"18:30",
             maxTime:"12:30"
           }}
+          endTimeSelectMode="TimeSelect"
+          endTimeSelectModeProps={{
+            start:"00:59",
+            step:"01:00",
+            end:"23:59",
+          }}
           />
       </div>
     </div>
