@@ -63,7 +63,20 @@
     border-radius: 100px;
     // -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
     // background-color: #646566;
-    background-color: rgba(100, 101, 102, 0.2);
+    background-color: rgba(153, 153, 153, 0.8);
+  }
+}
+
+.table-scrollbar() {
+  &::-webkit-scrollbar {
+    background-color: #fcfcfc;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(153, 153, 153, 0.8);
+    border-radius: 100px;
+    border: 4px solid transparent;
+    background-clip: content-box;
   }
 }
 
