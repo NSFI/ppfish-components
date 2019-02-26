@@ -35,6 +35,7 @@ class Tabs extends React.Component {
       // https://github.com/ant-design/ant-design/issues/7093
       newState.activeKey = getDefaultActiveKey(nextProps);
     }
+    return newState;
   }
 
   constructor(props) {
