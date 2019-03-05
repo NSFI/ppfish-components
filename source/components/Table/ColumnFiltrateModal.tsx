@@ -1,4 +1,6 @@
 import React from 'react';
+import {polyfill} from 'react-lifecycles-compat';
+
 import Modal from '../Modal';
 import Icon from '../Icon';
 import Checkbox from '../Checkbox';
@@ -17,63 +19,66 @@ const getColumnKey = (column) => {
 
 const flatten = (arr) => {
   return arr.reduce(function (prev, next) {
-    return prev.concat(Array.isArray(next) ? flatten(next) : next)
-  }, [])
+    return prev.concat(Array.isArray(next) ? flatten(next) : next);
+  }, []);
 };
 
-export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, ColumnFiltrateState> {
+const getCheckedOptions = (columns, hideColumns) => {
+  return columns
+  // 去除表头合并不显示的列
+    .filter(column => column.colSpan !== 0)
+    // 去除初始化就被隐藏的列
+    .filter(column => hideColumns.findIndex(key => key === getColumnKey(column)) === -1)
+    // 只留uniqueId
+    .map(column => getColumnKey(column));
+};
 
-  colSpanOption: { key: string | React.ReactNode, value: React.ReactText[] | string[] }[];
+const getColSpanOption = (columns) => {
+  const colSpanOption = [];
+  columns.forEach((column, index) => {
+    if ('colSpan' in column && column.colSpan !== 0) {
+      colSpanOption.push({
+        key: column.filtrateTitle || column.title,
+        value: columns.slice(index, index + column.colSpan).map(column => column.key || column.dataIndex)
+      });
+    }
+  });
+  return colSpanOption;
+};
+
+class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, ColumnFiltrateState> {
 
   static defaultProps = {
     defaultColumns: [],
     hideColumns: [],
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {prevProps = {}} = prevState;
+    const newState: any = {prevProps: nextProps};
+    //监听column个数变化，重新初始化checkedOption
+    if ('columns' in nextProps && nextProps.columns.length !== prevProps.columns.length) {
+      const {columns, hideColumns} = nextProps;
+      const option = getCheckedOptions(columns, hideColumns);
+      newState.checkedOption = option;
+      newState.checkedOptionConfirm = option;
+      newState.colSpanOption = getColSpanOption(columns);
+    }
+    return newState;
+  }
+
   constructor(props: ColumnFiltrateProps<T>) {
     super(props);
     const {columns, hideColumns} = this.props;
-    const option = this.getCheckedOptions(columns, hideColumns);
+    const option = getCheckedOptions(columns, hideColumns);
     this.state = {
       visible: false,
       checkedOption: option,
       checkedOptionConfirm: option,
+      prevProps: props,
+      colSpanOption: getColSpanOption(columns),
     };
   }
-
-  componentWillReceiveProps(nextProps) {
-    //监听column个数变化，重新初始化checkedOption
-    if ('columns' in nextProps && nextProps.columns.length !== this.props.columns.length) {
-      const {columns, hideColumns} = nextProps;
-      const option = this.getCheckedOptions(columns, hideColumns);
-      this.setState({
-        checkedOption: option,
-        checkedOptionConfirm: option,
-      })
-    }
-  }
-
-  getCheckedOptions = (columns, hideColumns) => {
-    const option = columns
-    // 去除表头合并不显示的列
-      .filter(column => column.colSpan !== 0)
-      // 去除初始化就被隐藏的列
-      .filter(column => hideColumns.findIndex(key => key === getColumnKey(column)) === -1)
-      // 只留uniqueId
-      .map(column => getColumnKey(column));
-
-    this.colSpanOption = [];
-    columns.forEach((column, index) => {
-      if ('colSpan' in column && column.colSpan !== 0) {
-        this.colSpanOption.push({
-          key: column.filtrateTitle || column.title,
-          value: columns.slice(index, index + column.colSpan).map(column => column.key || column.dataIndex)
-        })
-      }
-    });
-    return option;
-  };
-
 
   showModal = () => {
     this.setState({
@@ -91,9 +96,9 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
         this.getOptions()
           .filter(column => this.state.checkedOptionConfirm.indexOf(column.value) === -1)
           .map(column => {
-            const indexOfColSpan = this.colSpanOption.findIndex(option => option.key === column.value);
+            const indexOfColSpan = this.state.colSpanOption.findIndex(option => option.key === column.value);
             if (indexOfColSpan !== -1) {
-              return this.colSpanOption[indexOfColSpan].value;
+              return this.state.colSpanOption[indexOfColSpan].value;
             } else {
               return column.value;
             }
@@ -173,6 +178,10 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
           }
         </Modal>
       </div>
-    )
+    );
   }
 }
+
+polyfill(ColumnFiltrateModal);
+
+export default ColumnFiltrateModal;
