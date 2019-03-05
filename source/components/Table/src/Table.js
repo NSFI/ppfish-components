@@ -5,7 +5,7 @@ import {Provider, create} from 'mini-store';
 import merge from 'lodash/merge';
 import classes from 'component-classes';
 import {polyfill} from 'react-lifecycles-compat';
-import {debounce, warningOnce} from './utils';
+import {debounce, warningOnce, getDataAndAriaProps} from './utils';
 import ColumnManager from './ColumnManager';
 import HeadTable from './HeadTable';
 import BodyTable from './BodyTable';
@@ -155,6 +155,14 @@ class Table extends React.Component {
       this.handleWindowResize();
       this.resizeEvent = addEventListener(window, 'resize', this.debouncedWindowResize);
     }
+
+    // https://github.com/ant-design/ant-design/issues/11635
+    if (this.headTable) {
+      this.headTable.scrollLeft = 0;
+    }
+    if (this.bodyTable) {
+      this.bodyTable.scrollLeft = 0;
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -245,17 +253,18 @@ class Table extends React.Component {
       headRows,
       row => row.getBoundingClientRect().height || 'auto',
     );
+    const state = this.store.getState();
     const fixedColumnsBodyRowsHeight = [].reduce.call(
       bodyRows,
       (acc, row) => {
         const rowKey = row.getAttribute('data-row-key');
-        const height = row.getBoundingClientRect().height || 'auto';
+        const height =
+          row.getBoundingClientRect().height || state.fixedColumnsBodyRowsHeight[rowKey] || 'auto';
         acc[rowKey] = height;
         return acc;
       },
       {},
     );
-    const state = this.store.getState();
     if (
       shallowEqual(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) &&
       shallowEqual(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)
@@ -494,6 +503,7 @@ class Table extends React.Component {
     }
     const hasLeftFixed = this.columnManager.isAnyColumnsLeftFixed();
     const hasRightFixed = this.columnManager.isAnyColumnsRightFixed();
+    const dataAndAriaProps = getDataAndAriaProps(props);
 
     return (
       <Provider store={this.store}>
@@ -506,6 +516,7 @@ class Table extends React.Component {
                 className={className}
                 style={props.style}
                 id={props.id}
+                {...dataAndAriaProps}
               >
                 {this.renderTitle()}
                 <div className={`${prefixCls}-content`}>
