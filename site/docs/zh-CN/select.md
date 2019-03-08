@@ -687,6 +687,7 @@ render(){
 | value | 指定当前选中的条目 | String \| Array< String > \| Number \| Array< Number > | - |
 | visible | 下拉选择框显示隐藏 | Boolean | - |
 | esc | 是否ESC关闭弹出框 | Boolean | true |
+| required | 限定多选模式下至少需要选择一项选项 | Boolean | false |
 
 > 注意，如果发现下拉菜单跟随页面滚动，或者需要在其他弹层中触发 Select，请尝试使用 getPopupContainer={triggerNode => triggerNode.parentNode} 将下拉弹层渲染节点固定在触发器的父元素中。
 

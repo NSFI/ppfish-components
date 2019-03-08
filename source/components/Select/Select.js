@@ -66,6 +66,7 @@ class Select extends React.Component {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
     visible: PropTypes.bool,
     esc: PropTypes.bool,
+    required: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -104,6 +105,7 @@ class Select extends React.Component {
     style: {},
     visible: false,
     esc: true,
+    required: false,
   };
 
   //获取所有option的[{label,key,title}]
@@ -609,6 +611,7 @@ class Select extends React.Component {
       showSearch,
       showSelectAll,
       showSingleClear,
+      required,
     } = this.props;
     const {searchValue, selectValue} = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
@@ -616,6 +619,8 @@ class Select extends React.Component {
     const optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls));
     const showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
     const maxCountError = 'maxCount' in this.props && selectValue.length > maxCount; // maxCount值存在且小于选择数量
+    const requiredError = mode === 'multiple' && required && !selectValue.length;  // required模式下，必须要有option选择
+    const multipleConfirmDisabled = maxCountError || requiredError;
     const dropdownPanelCls = classNames(dropdownCls, {[dropdownClassName]: !!dropdownClassName});
     return (
       <div className={dropdownPanelCls}
@@ -702,7 +707,7 @@ class Select extends React.Component {
                   <div className={`${dropdownCls}-footer`}>
                     <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleCancelSelect}>取消</Button>
                     <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleConfirmSelect}
-                            disabled={maxCountError} type="primary">确定</Button>
+                            disabled={multipleConfirmDisabled} type="primary">确定</Button>
                   </div>
                 </div>
               }
