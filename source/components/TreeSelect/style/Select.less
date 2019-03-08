@@ -53,7 +53,7 @@
     .iconfont-mixin();
     position: absolute;
     top: 50%;
-    right: @control-padding-horizontal - 1px;
+    right: @control-padding-horizontal-lg;
     line-height: 1;
     margin-top: -12px / 2;
     font-size: 12px;
@@ -171,8 +171,8 @@
   &-selection__rendered {
     display: block;
     cursor: inherit;
-    margin-left: @control-padding-horizontal - 1px;
-    margin-right: @control-padding-horizontal - 1px;
+    margin-left: @control-padding-horizontal;
+    margin-right: @control-padding-horizontal;
     position: relative;
     line-height: @input-height-base - 2px;
     // line-height: @input-height-base;  // modified
@@ -212,7 +212,7 @@
     }
     .@{select-prefix-cls}-selection__rendered {
       line-height: @input-height-sm - 2px;
-      margin: 0 @control-padding-horizontal-sm - 1px;
+      // margin: 0 @control-padding-horizontal-sm;
     }
     .@{select-prefix-cls}-selection--multiple {
       min-height: @input-height-sm - 2px;
@@ -224,10 +224,16 @@
         top: @input-height-sm / 2;
       }
     }
-    .@{select-prefix-cls}-selection__clear,
-    .@{select-prefix-cls}-arrow {
-      right: @control-padding-horizontal-sm;
-    }
+    // .@{select-prefix-cls}-selection__clear,
+    // .@{select-prefix-cls}-arrow {
+    //   right: @control-padding-horizontal;
+    // }
+    // .@{select-prefix}-multiple-readonly {
+    //   margin-left: @control-padding-horizontal-sm !important;
+    // }
+    // .@{select-prefix}-search__field__placeholder {
+    //   left: @control-padding-horizontal-sm;
+    // }
   }
 
   &-disabled &-selection__choice__remove {
