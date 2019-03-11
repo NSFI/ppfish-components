@@ -775,7 +775,6 @@ class Select extends React.Component {
   };
 
   // ==================== Trigger =====================
-
   onDropdownVisibleChange = (open) => {
     this.setOpenState(open, true);
   };
@@ -872,7 +871,6 @@ class Select extends React.Component {
         onCancel && onCancel(oriValueList);
       }
     }
-
 
     this.setUncontrolledState({ open });
   };
@@ -1128,10 +1126,10 @@ class Select extends React.Component {
       />
     );
 
-    let triggerGetPopupContainer = passProps.getPopupContainer;
-    if (!triggerGetPopupContainer || !triggerGetPopupContainer()) {
-      triggerGetPopupContainer = this.__proto__.constructor.defaultProps.getPopupContainer;
-    }
+    // let triggerGetPopupContainer = passProps.getPopupContainer;
+    // if (!triggerGetPopupContainer || !triggerGetPopupContainer()) {
+    //   triggerGetPopupContainer = this.__proto__.constructor.defaultProps.getPopupContainer;
+    // }
 
     const triggerProps = {
       disabled: passProps.disabled,
@@ -1139,7 +1137,7 @@ class Select extends React.Component {
       dropdownMatchSelectWidth: passProps.dropdownMatchSelectWidth,
       dropdownClassName: passProps.dropdownClassName,
       dropdownStyle: passProps.dropdownStyle,
-      getPopupContainer: triggerGetPopupContainer,
+      getPopupContainer: passProps.getPopupContainer,
       placement: passProps.placement,
       transitionName: passProps.transitionName,
       animation: passProps.animation,

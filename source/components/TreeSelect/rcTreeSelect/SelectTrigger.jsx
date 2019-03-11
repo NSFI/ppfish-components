@@ -102,8 +102,8 @@ class SelectTrigger extends React.Component {
     open: false,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.triggerRef = createRef();
   }
@@ -147,7 +147,7 @@ class SelectTrigger extends React.Component {
         ref={this.triggerRef}
         action={disabled ? [] : ['click']}
         popupPlacement={placement}
-        forceRender
+        // forceRender
         builtinPlacements={BUILT_IN_PLACEMENTS}
         popupAlign={dropdownPopupAlign}
         prefixCls={dropdownPrefixCls}
@@ -165,6 +165,7 @@ class SelectTrigger extends React.Component {
           },
         )}
         popupStyle={dropdownStyle}
+        // destroyPopupOnHide
       >
         {children}
       </Trigger>
