@@ -66,7 +66,7 @@
       .@{select-tree-prefix-cls}-title {
         display: inline-block;
         width: 100%;
-        line-height: 1;
+        line-height: @treeselect-title-height;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -88,8 +88,8 @@
       margin: 2px 4px;
       display: inline-flex;
       align-items: center;
-      height: 28px;
-      line-height: 28px;
+      height: @treeselect-title-height;
+      line-height: @treeselect-title-height;
       top: auto;
 
       + .@{select-tree-prefix-cls}-node-content-wrapper {
