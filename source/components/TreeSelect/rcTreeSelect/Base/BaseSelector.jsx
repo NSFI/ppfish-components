@@ -144,7 +144,9 @@ export default function (modeName) {
       return (
         <span
           style={style}
-          onClick={onClick}
+          // 用 onMouseDown 代替 onClick，修复加载页面后点击弹层，RcTrigger v2.6.2 中
+          // onDocumentClick 先于 onPopupMouseDown 执行，导致的弹层异常关闭的问题 
+          onMouseDown={onClick}
           className={classNames(
             className,
             prefixCls,

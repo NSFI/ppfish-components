@@ -20,10 +20,11 @@ class Selection extends React.Component {
   };
 
   onRemove = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+
     const { onRemove, value } = this.props;
     onRemove(event, value);
-
-    event.stopPropagation();
   };
 
   render() {
@@ -58,7 +59,7 @@ class Selection extends React.Component {
       >
         <span
           className={removeCls}
-          onClick={disableCloseTag ? null : this.onRemove}
+          onMouseDown={disableCloseTag ? null : this.onRemove}
         />
         <span className={`${prefixCls}-selection__choice__content`}>
           {content}
