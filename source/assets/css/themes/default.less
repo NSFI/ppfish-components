@@ -175,8 +175,9 @@
 @outline-blur-size      : 0;
 @outline-width          : 2px;
 @outline-color          : @primary-color;
+@outline-offset         : 0 0;
 
-@box-shadow-active      : @input-outline-offset @outline-blur-size @outline-width fade(@primary-color, 20%);
+@box-shadow-active      : @outline-offset @outline-blur-size @outline-width fade(@primary-color, 20%);
 
 // -------- iconfont图标库 -----------
 @iconfont-prefix        : fishdicon;
@@ -381,7 +382,7 @@
 @input-addon-bg                  : #eee;
 @input-hover-border-color        : @primary-color;
 @input-disabled-bg               : @disabled-bg;
-@input-outline-offset            : 0 0;
+@input-outline-offset            : @outline-offset;
 
 // Layout
 @layout-body-background         : #f0f2f5;
