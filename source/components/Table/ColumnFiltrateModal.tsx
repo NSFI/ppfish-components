@@ -158,6 +158,7 @@ export default class ColumnFiltrateModal<T> extends React.Component<ColumnFiltra
           title="选择需要展示的数据项"
           wrapClassName={`${prefixCls}-filtrate-modal`}
           visible={visible}
+          width={680}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
