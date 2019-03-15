@@ -17,7 +17,7 @@ function isFlexSupported() {
   return false;
 }
 
-export type TabsType = 'line' | 'card' | 'editable-card' | 'section' | 'borderless-section';
+export type TabsType = 'line' | 'card' | 'editable-card' | 'section' | 'borderless-section' | 'highlighted-section';
 export type TabsPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface TabsProps {

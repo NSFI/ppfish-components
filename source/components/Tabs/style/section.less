@@ -3,17 +3,20 @@
 /* stylelint-disable declaration-no-important */
 .@{tab-prefix-cls} {
   &&-section > &-bar,
+  &&-highlighted-section > &-bar,
   &&-borderless-section > &-bar {
     border-bottom: none;
   }
 
   &&-section > &-bar &-nav-container,
+  &&-highlighted-section > &-bar &-nav-container,
   &&-borderless-section > &-bar &-nav-container {
     height: @tabs-card-height;
     overflow: visible;
   }
 
-  &&-section > &-bar &-tab {
+  &&-section > &-bar &-tab,
+  &&-highlighted-section > &-bar &-tab {
     margin: 0;
     padding: 0 20px;
     transition: all 0.3s @ease-in-out;
@@ -37,13 +40,15 @@
     padding-left: 0;
   }
 
-  &&-section > &-bar &-tab:first-child {
+  &&-section > &-bar &-tab:first-child,
+  &&-highlighted-section > &-bar &-tab:first-child {
     border-left: @border-width-base @border-style-base @border-color-base;
     border-radius: @border-radius-base 0 0 @border-radius-base;
     box-shadow: none !important;
   }
 
-  &&-section > &-bar &-tab:last-child {
+  &&-section > &-bar &-tab:last-child,
+  &&-highlighted-section > &-bar &-tab:last-child {
     border-radius: 0 @border-radius-base @border-radius-base 0;
   }
 
@@ -54,13 +59,23 @@
     box-shadow: -@border-width-base 0 0 0 @primary-color;
     z-index: 1;
   }
-  &&-section > &-bar &-tab-inactive {
+  &&-highlighted-section > &-bar &-tab-active {
+    background: @tabs-card-active-color;
+    border-color: @primary-color !important;
+    color: @component-background;
+    box-shadow: -@border-width-base 0 0 0 @primary-color;
+    z-index: 1;
+  }
+  &&-section > &-bar &-tab-inactive,
+  &&-highlighted-section > &-bar &-tab-inactive {
     padding: 0;
   }
-  &&-section > &-bar &-nav-wrap {
+  &&-section > &-bar &-nav-wrap,
+  &&-highlighted-section > &-bar &-nav-wrap {
     margin-bottom: 0;
   }
-  &&-section > &-bar &-tab .@{iconfont-prefix}-close-tag-line {
+  &&-section > &-bar &-tab .@{iconfont-prefix}-close-tag-line,
+  &&-highlighted-section > &-bar &-tab .@{iconfont-prefix}-close-tag-line {
     color: @text-color-secondary;
     transition: all 0.3s;
     font-size: @font-size-sm;
@@ -77,6 +92,7 @@
   }
 
   &&-section &-content > &-tabpane,
+  &&-highlighted-section &-content > &-tabpane,
   &&-editable-card &-content > &-tabpane {
     transition: none !important;
     &-inactive {
@@ -84,7 +100,8 @@
     }
   }
 
-  &&-section > &-bar &-tab:hover .@{iconfont-prefix}-close-tag-line {
+  &&-section > &-bar &-tab:hover .@{iconfont-prefix}-close-tag-line,
+  &&-highlighted-section > &-bar &-tab:hover .@{iconfont-prefix}-close-tag-line {
     opacity: 1;
   }
 
@@ -110,13 +127,15 @@
   }
 
   // https://github.com/ant-design/ant-design/issues/9104
-  &&-section&-bottom > &-bar &-tab {
+  &&-section&-bottom > &-bar &-tab,
+  &&-highlighted-section&-bottom > &-bar &-tab {
     border-bottom: @border-width-base @border-style-base @border-color-split;
     border-top: 0;
     border-radius: 0 0 @border-radius-base @border-radius-base;
   }
 
-  &&-section&-bottom > &-bar &-tab-active {
+  &&-section&-bottom > &-bar &-tab-active,
+  &&-highlighted-section&-bottom > &-bar &-tab-active {
     color: @primary-color;
     padding-bottom: 0;
     padding-top: 1px;

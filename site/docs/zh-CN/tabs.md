@@ -364,7 +364,25 @@ render(){
 ```
 :::
 
-## 无边框分段式页签
+## 高亮的分段式页签
+
+:::demo 分段式页签，不适用于纵向排版。
+
+```js
+render(){
+  const TabPane = Tabs.TabPane;
+  return(
+    <Tabs defaultActiveKey="1" type="highlighted-section">
+      <TabPane tab="Tab 1" key="1">Tab 1</TabPane>
+      <TabPane tab="Tab 2" key="2">Tab 2</TabPane>
+      <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
+    </Tabs>
+  )
+}
+```
+:::
+
+## 无边框的分段式页签
 
 :::demo 无边框分段式页签，不适用于纵向排版。
 
@@ -402,10 +420,10 @@ render(){
 | size | 大小 | Enum {'default', 'large', 'small'} | 'default' |
 | style | 容器样式 | Object | - |
 | tabBarExtraContent | tab bar 上额外的元素 | ReactNode | - |
-| tabBarGutter | tabs 之间的间隙，在 `type="section" \| "borderless-section"` 时无效 | Number | - |
+| tabBarGutter | tabs 之间的间隙，在 `type="section" \| "borderless-section" \| "highlighted-section"` 时无效 | Number | - |
 | tabBarStyle | tab bar 的样式 | Object | - |
 | tabPosition | 页签位置 | Enum {'top', 'right', 'bottom', 'left'} | 'top' |
-| type | 页签的基本样式 | Enum {'line', 'card', 'editable-card', 'section', 'borderless-section'} | 'line' |
+| type | 页签的基本样式 | Enum {'line', 'card', 'editable-card', 'section', 'borderless-section', 'highlighted-section'} | 'line' |
 
 ### Tabs.TabPane
 
