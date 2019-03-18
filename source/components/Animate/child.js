@@ -26,9 +26,8 @@ function on(node, eventName, callback, useCapture) {
   };
 }
 
-const prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
-
 function getStyleProperty(node, name) {
+  const prefixes = ['-webkit-', '-moz-', '-o-', 'ms-', ''];
   const style = window.getComputedStyle(node);
   let ret = '';
   for (let i = 0; i < prefixes.length; i++) {
@@ -135,22 +134,19 @@ export default class AnimateChild extends Component {
         const transitionDelay =
           parseFloat(getStyleProperty(node, 'transition-delay')) || 0;
         const transitionDuration =
-          parseFloat(getStyleProperty(node, 'transition-duration')) ||
-          0;
+          parseFloat(getStyleProperty(node, 'transition-duration')) || 0;
         const animationDelay =
           parseFloat(getStyleProperty(node, 'animation-delay')) || 0;
         const animationDuration =
-          parseFloat(getStyleProperty(node, 'animation-duration')) ||
-          0;
+          parseFloat(getStyleProperty(node, 'animation-duration')) || 0;
         const time = Math.max(
           transitionDuration + transitionDelay,
           animationDuration + animationDelay
         );
-        if (time) {
-          this.timeoutMap[id] = setTimeout(() => {
-            done();
-          }, time * 1000 + 200);
-        }
+
+        this.timeoutMap[id] = setTimeout(() => {
+          done();
+        }, time * 1000 + 200);
       }, 15);
     } else {
       done();
