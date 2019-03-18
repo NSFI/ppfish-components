@@ -254,7 +254,6 @@ export default class AnimateChild extends Component {
   };
 
   render() {
-    /* eslint-disable no-unused-vars */
     const {
       names,
       onAppear,
@@ -268,34 +267,17 @@ export default class AnimateChild extends Component {
       onExited,
       ...others
     } = this.props;
-    /* eslint-enable no-unused-vars */
 
     return (
       <Transition
-        {
-          ...others
-        }
-        onEnter = {
-          this.handleEnter
-        }
-        onEntering = {
-          this.handleEntering
-        }
-        onEntered = {
-          this.handleEntered
-        }
-        onExit = {
-          this.handleExit
-        }
-        onExiting = {
-          this.handleExiting
-        }
-        onExited = {
-          this.handleExited
-        }
-        addEndListener = {
-          this.addEndListener
-        }
+        {...others}
+        onEnter={this.handleEnter}
+        onEntering={this.handleEntering}
+        onEntered={this.handleEntered}
+        onExit={this.handleExit}
+        onExiting={this.handleExiting}
+        onExited={this.handleExited}
+        addEndListener={this.addEndListener}
       />
     );
   }

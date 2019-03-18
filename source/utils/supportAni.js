@@ -43,11 +43,16 @@ function _supportEnd(names) {
  * @type {Object|false}
  * @property {String} end 动画结束事件名
  */
-export const animation = _supportEnd(animationEndEventNames);
+const animation = _supportEnd(animationEndEventNames);
 
 /**
  * 是否支持transition以及过滤效果结束事件名
  * @type {Object|false}
  * @property {String} end 过渡效果结束事件名
  */
-export const transition = _supportEnd(transitionEventNames);
+const transition = _supportEnd(transitionEventNames);
+
+export default {
+  animation,
+  transition
+};

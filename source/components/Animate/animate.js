@@ -95,60 +95,30 @@ class Animate extends Component {
     const animateChildren = Children.map(children, child => {
       return (
         <AnimateChild
-          key = {
-            child.key
-          }
-          names = {
-            this.normalizeNames(animation)
-          }
-          onAppear = {
-            beforeAppear
-          }
-          onAppearing = {
-            onAppear
-          }
-          onAppeared = {
-            afterAppear
-          }
-          onEnter = {
-            beforeEnter
-          }
-          onEntering = {
-            onEnter
-          }
-          onEntered = {
-            afterEnter
-          }
-          onExit = {
-            beforeLeave
-          }
-          onExiting = {
-            onLeave
-          }
-          onExited = {
-            afterLeave
-          } > {
-            child
-          }
+          key={child.key}
+          names={this.normalizeNames(animation)}
+          onAppear={beforeAppear}
+          onAppearing={onAppear}
+          onAppeared={afterAppear}
+          onEnter={beforeEnter}
+          onEntering={onEnter}
+          onEntered={afterEnter}
+          onExit={beforeLeave}
+          onExiting={onLeave}
+          onExited={afterLeave}
+        >
+          {child}
         </AnimateChild>
       );
     });
 
     return ( 
       <TransitionGroup
-        appear = {
-          animationAppear
-        }
-        component = {
-          singleMode ? FirstChild : component
-        }
-        {
-          ...others
-        } 
+        appear={animationAppear}
+        component={singleMode ? FirstChild : component}
+        {...others}
       >
-        {
-          animateChildren
-        } 
+        {animateChildren}
       </TransitionGroup>
     );
   }

@@ -89,6 +89,12 @@ export const components = {
       key: '基础组件 General',
       children: [
         {
+          key: 'animate',
+          type: 'markdown',
+          name: 'Animate 动画',
+          published: true,
+        },
+        {
           key: 'button',
           type: 'markdown',
           name: 'Button 按钮',
