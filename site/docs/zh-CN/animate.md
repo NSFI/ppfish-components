@@ -1,10 +1,10 @@
 # Animate 动画 【交互：- | 视觉：- |开发：高志友】
 
-添加动效。
+添加动画。
 
 ## 何时使用
 
-需要自定义动效时。
+需要自定义动画时。
 
 
 ## 基本
@@ -27,13 +27,13 @@
   render() {
     return (
       <div>
-        <Button onClick={this.handleToggle}>Toggle visible</Button>
+        <Button onClick={this.handleToggle}>展示/隐藏</Button>
         <Animate animation={{
           enter: 'my-zoom-in',
           leave: 'my-zoom-out'
         }}>
           {this.state.visible ?
-            <div className="basic-demo">Next Animate</div> :
+            <div className="basic-demo">自定义动画</div> :
             null}
         </Animate>
       </div>
@@ -43,7 +43,7 @@
 
 ```less
 .basic-demo {
-    font-size: 96px;
+    font-size: 32px;
     text-align: center;
 }
 
@@ -143,7 +143,7 @@
     render() {
         return (
             <div>
-                <Button onClick={this.handleToggle}>Toggle expand</Button>
+                <Button onClick={this.handleToggle}>展开/收起</Button>
                 <Animate animation="expand"
                     beforeEnter={this.beforeEnter}
                     onEnter={this.onEnter}
@@ -182,6 +182,7 @@
     height: 100px;
     margin-top: 20px;
     border: 1px solid #ccc;
+    background: #eee;
 }
 ```
 :::
@@ -201,7 +202,6 @@
         this.setState({
             items: [
                 ...this.state.items,
-                // eslint-disable-next-line
                 prompt('Enter some text')
             ]
         });
@@ -235,7 +235,7 @@
                         </div>
                     ))}
                 </Animate>
-                <Button onClick={() => this.handleAdd()}>Add Item</Button>
+                <Button onClick={() => this.handleAdd()}>添加</Button>
             </div>
         );
     }
@@ -301,19 +301,19 @@
 
 ## API
 
-| 属性              | 说明                                                                                                                                                | 类型                                  | 默认值      |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | -------- |
-| animation       | 动画 className                                                                                                                                      | String/Object                       | -        |
-| animationAppear | 子元素第一次挂载时是否执行动画                                                                                                                                   | Boolean                             | true     |
-| component       | 包裹子元素的标签                                                                                                                                          | any                                 | 'div'    |
-| singleMode      | 是否只有单个子元素，如果有多个子元素，请设置为 false                                                                                                                     | Boolean                             | true     |
-| children        | 子元素                                                                                                                                               | ReactElement/Array&lt;ReactElement> | -        |
-| beforeAppear    | 执行第一次挂载动画前触发的回调函数<br><br>**签名**:<br>Function() => void                                                                                            | Function                            | () => {} |
-| onAppear        | 执行第一次挂载动画，添加 xxx-appear-active 类名后触发的回调函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素 | Function                            | () => {} |
-| afterAppear     | 执行完第一次挂载动画后触发的函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素                          | Function                            | () => {} |
-| beforeEnter     | 执行进场动画前触发的回调函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素                            | Function                            | () => {} |
-| onEnter         | 执行进场动画，添加 xxx-enter-active 类名后触发的回调函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素     | Function                            | () => {} |
-| afterEnter      | 执行完进场动画后触发的回调函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素                           | Function                            | () => {} |
-| beforeLeave     | 执行离场动画前触发的回调函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素                            | Function                            | () => {} |
-| onLeave         | 执行离场动画，添加 xxx-leave-active 类名后触发的回调函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素     | Function                            | () => {} |
-| afterLeave      | 执行完离场动画后触发的回调函数<br><br>**签名**:<br>Function(node: HTMLElement) => void<br>**参数**:<br>_node_: {HTMLElement} 执行动画的 dom 元素                           | Function                            | () => {} |
+| 属性 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ---- |
+| animation       | 动画 className | String \| Object | - |
+| animationAppear | 子元素第一次挂载时是否执行动画 | Boolean | true |
+| component       | 包裹子元素的标签 | String | 'div' |
+| singleMode      | 是否只有单个子元素，如果有多个子元素，请设置为 false | Boolean | true |
+| children        | 子元素 | ReactElement \| Array< ReactElement > | - |
+| beforeAppear    | 执行第一次挂载动画前触发的回调函数 | () => Void | () => {} |
+| onAppear        | 执行第一次挂载动画，添加 'xxx-appear-active' 类名后触发的回调函数 | (node: HTMLElement) => Void | () => {} |
+| afterAppear     | 执行完第一次挂载动画后触发的函数 | (node: HTMLElement) => Void | () => {} |
+| beforeEnter     | 执行进场动画前触发的回调函数 | (node: HTMLElement) => Void | () => {} |
+| onEnter         | 执行进场动画，添加 'xxx-enter-active' 类名后触发的回调函数 | (node: HTMLElement) => Void | () => {} |
+| afterEnter      | 执行完进场动画后触发的回调函数 | (node: HTMLElement) => Void | () => {} |
+| beforeLeave     | 执行离场动画前触发的回调函数 | (node: HTMLElement) => Void | () => {} |
+| onLeave         | 执行离场动画，添加 'xxx-leave-active' 类名后触发的回调函数 | (node: HTMLElement) => Void | () => {} |
+| afterLeave      | 执行完离场动画后触发的回调函数 | (node: HTMLElement) => Void | () => {} |
