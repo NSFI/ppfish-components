@@ -37,7 +37,7 @@ class Animate extends Component {
 
   static defaultProps = {
     animationAppear: true,
-    component: 'div',
+    component: 'span',
     singleMode: true,
     beforeAppear: noop,
     onAppear: noop,

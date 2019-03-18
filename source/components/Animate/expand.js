@@ -126,28 +126,14 @@ export default class Expand extends Component {
 
     return (
       <Animate
-        { ...others }
-        animation = {
-          newAnimation
-        }
-        beforeEnter = {
-          this.beforeEnter
-        }
-        onEnter = {
-          this.onEnter
-        }
-        afterEnter = {
-          this.afterEnter
-        }
-        beforeLeave = {
-          this.beforeLeave
-        }
-        onLeave = {
-          this.onLeave
-        }
-        afterLeave = {
-          this.afterLeave
-        }
+        {...others}
+        animation={newAnimation}
+        beforeEnter={this.beforeEnter}
+        onEnter={this.onEnter}
+        afterEnter={this.afterEnter}
+        beforeLeave={this.beforeLeave}
+        onLeave={this.onLeave}
+        afterLeave={this.afterLeave}
       />
     );
   }

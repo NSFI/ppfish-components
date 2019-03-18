@@ -339,9 +339,9 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | ---- | ---- | ---- | ---- |
-| animation       | 动画 className | String \| Object | - |
+| animation       | 动画 className | String \| Object { appear, enter, leave } | - |
 | animationAppear | 子元素第一次挂载时是否执行动画 | Boolean | true |
-| component       | 包裹子元素的标签 | String | 'div' |
+| component       | 包裹子元素的标签 | String | 'span' |
 | singleMode      | 是否只有单个子元素，如果有多个子元素，请设置为 false | Boolean | true |
 | children        | 子元素 | ReactElement \| Array< ReactElement > | - |
 | beforeAppear    | 执行第一次挂载动画前触发的回调函数 | () => Void | () => {} |
