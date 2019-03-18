@@ -243,7 +243,7 @@
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <Input placeholder="请输入名称" onChange={this.handleInputChange} />
+          <Input placeholder="请输入名称" value={this.state.value} onChange={this.handleInputChange} />
         </Modal>
         <Animate animationAppear animation="fade" className="todo-list" singleMode={false}
           beforeAppear={() => console.log('before appear')}
