@@ -100,64 +100,59 @@
 :::demo 展示单个子元素的展开收起动画。
 
 ```js
-    constructor(props) {
-        super(props);
-        this.state = { expand: true };
-        ['beforeEnter', 'onEnter', 'afterEnter', 'beforeLeave', 'onLeave', 'afterLeave', 'handleToggle'].forEach(method => {
-            this[method] = this[method].bind(this);
-        });
-    }
+  constructor(props) {
+    super(props);
+    this.state = { expand: true };
+  }
 
-    handleToggle() {
-        this.setState({
-            expand: !this.state.expand
-        });
-    }
+  handleToggle = () => {
+    this.setState({
+      expand: !this.state.expand
+    });
+  };
 
-    beforeEnter(node) {
-        this.height = node.offsetHeight;
-        node.style.height = '0px';
-    }
+  beforeEnter = (node) => {
+    this.height = node.offsetHeight;
+    node.style.height = '0px';
+  };
 
-    onEnter(node) {
-        node.style.height = `${this.height}px`;
-    }
+  onEnter = (node) => {
+    node.style.height = `${this.height}px`;
+  };
 
-    afterEnter(node) {
-        this.height = null;
-        node.style.height = null;
-    }
+  afterEnter = (node) => {
+    this.height = null;
+    node.style.height = null;
+  };
 
-    beforeLeave(node) {
-        node.style.height = `${this.height}px`;
-    }
+  beforeLeave = (node) => {
+    node.style.height = `${this.height}px`;
+  };
 
-    onLeave(node) {
-        node.style.height = '0px';
-    }
+  onLeave = (node) => {
+    node.style.height = '0px';
+  };
 
-    afterLeave(node) {
-        node.style.height = null;
-    }
+  afterLeave = (node) => {
+    node.style.height = null;
+  };
 
-    render() {
-        return (
-            <div>
-                <Button onClick={this.handleToggle}>展开/收起</Button>
-                <Animate animation="expand"
-                    beforeEnter={this.beforeEnter}
-                    onEnter={this.onEnter}
-                    afterEnter={this.afterEnter}
-                    beforeLeave={this.beforeLeave}
-                    onLeave={this.onLeave}
-                    afterLeave={this.afterLeave}>
-                    {this.state.expand ?
-                        <div className="notice"></div> :
-                        null}
-                </Animate>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Button onClick={this.handleToggle}>展开/收起</Button>
+        <Animate animation="expand"
+          beforeEnter={this.beforeEnter}
+          onEnter={this.onEnter}
+          afterEnter={this.afterEnter}
+          beforeLeave={this.beforeLeave}
+          onLeave={this.onLeave}
+          afterLeave={this.afterLeave}>
+          {this.state.expand ? <div className="notice"></div> : null}
+        </Animate>
+      </div>
+    );
+  }
 ```
 
 ```less
