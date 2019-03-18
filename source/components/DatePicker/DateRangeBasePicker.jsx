@@ -352,6 +352,7 @@ export default class DateRangeBasePicker extends React.Component {
             />
             <span className={classNames("range-separator", {'disabled': disabled})}>{separator}</span>
             <Input
+              className={`${prefixCls}-date-range-picker-second-input`}
               disabled={disabled}
               type="text"
               placeholder={endPlaceholder}
