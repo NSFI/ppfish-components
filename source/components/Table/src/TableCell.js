@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
+import Ellipsis from '../../Ellipsis';
 
 function isInvalidRenderCellText(text) {
   return (
@@ -91,6 +92,10 @@ export default class TableCell extends React.Component {
 
     if (column.align) {
       tdProps.style = {...tdProps.style, textAlign: column.align};
+    }
+
+    if (column.ellipsis) {
+      text = <Ellipsis width={'100%'} style={{position: 'relative', top: '3px'}}>{text}</Ellipsis>;
     }
 
     return (

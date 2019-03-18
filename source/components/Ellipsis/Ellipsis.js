@@ -252,6 +252,7 @@ export default class Ellipsis extends Component {
       width,
       className,
       tooltip,
+      style,
       fullWidthRecognition,
       prefix,
       tooltipProps,
@@ -276,7 +277,7 @@ export default class Ellipsis extends Component {
     // 宽度限制
     if (width) {
       const node = (
-        <span ref={node => this.widthNode = node} className={cls} {...restProps} style={{maxWidth: width}}>
+        <span ref={node => this.widthNode = node} className={cls} {...restProps} style={{...style, maxWidth: width}}>
           {children}
         </span>
       );

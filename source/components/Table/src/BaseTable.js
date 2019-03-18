@@ -164,6 +164,10 @@ class BaseTable extends React.Component {
 
     const columns = this.getColumns();
 
+    if (columns.some(column => column.ellipsis)) {
+      tableStyle.tableLayout = 'fixed';
+    }
+
     return (
       <Table className={tableClassName} style={tableStyle} key="table">
         <ColGroup columns={columns} fixed={fixed}/>

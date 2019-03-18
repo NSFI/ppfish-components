@@ -2223,6 +2223,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | title | 列头显示文字 | String \| ReactNode | - |
 | filtrateTitle | 筛选Checkbox显示文字 | String \| ReactNode | - |
 | width | 列宽度 | String \| Number | - |
+| ellipsis | 该列是否使用ellipsis属性 | Boolean | false |
 
 ### ColumnGroup
 

@@ -37,6 +37,7 @@ export interface ColumnProps<T> {
   onCellClick?: (record: T, event: any) => void;
   onCell?: (record: T) => any;
   onHeaderCell?: (props: ColumnProps<T>) => any;
+  ellipsis?: boolean;
 }
 
 export interface TableComponents {
