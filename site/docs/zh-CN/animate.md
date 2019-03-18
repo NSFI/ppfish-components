@@ -28,13 +28,13 @@
     return (
       <div>
         <Button onClick={this.handleToggle}>展示/隐藏</Button>
-        <Animate animation={{
-          enter: 'my-zoom-in',
-          leave: 'my-zoom-out'
-        }}>
-          {this.state.visible ?
-            <div className="basic-demo">自定义动画</div> :
-            null}
+        <Animate
+          animation={{
+            enter: 'my-zoom-in',
+            leave: 'my-zoom-out'
+          }}
+        >
+          {this.state.visible ? <div className="basic-demo">自定义动画</div> : null}
         </Animate>
       </div>
     );
@@ -141,7 +141,8 @@
     return (
       <div>
         <Button onClick={this.handleToggle}>展开/收起</Button>
-        <Animate animation="expand"
+        <Animate
+          animation="expand"
           beforeEnter={this.beforeEnter}
           onEnter={this.onEnter}
           afterEnter={this.afterEnter}
@@ -245,7 +246,11 @@
         >
           <Input placeholder="请输入名称" value={this.state.value} onChange={this.handleInputChange} />
         </Modal>
-        <Animate animationAppear animation="fade" className="todo-list" singleMode={false}
+        <Animate
+          animationAppear
+          animation="fade"
+          className="todo-list"
+          singleMode={false}
           beforeAppear={() => console.log('before appear')}
           onAppear={() => console.log('appear')}
           afterAppear={() => console.log('after appear')}
