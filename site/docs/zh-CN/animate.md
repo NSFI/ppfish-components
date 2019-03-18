@@ -193,52 +193,86 @@
 :::demo 展示多个子元素的进场离场动画。
 
 ```js
-    constructor(props) {
-        super(props);
-        this.state = { items: ['Item 1', 'Item 2', 'Item 3'] };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: ['Item 1', 'Item 2', 'Item 3'],
+      visible: false,
+      value: ''
+    };
+  }
 
-    handleAdd() {
-        this.setState({
-            items: [
-                ...this.state.items,
-                prompt('Enter some text')
-            ]
-        });
-    }
+  handleAdd = () => {
+    this.setState({
+      visible: true,
+      value: ''
+    });
+  };
 
-    handleRemove(i) {
-        const newItems = this.state.items.slice();
-        newItems.splice(i, 1);
-        this.setState({ items: newItems });
-    }
+  handleOk = () => {
+    let { items, value } = this.state;
+    if (!value) return;
 
-    render() {
-        return (
-            <div className="totolist-container">
-                <Animate animationAppear animation="fade" className="todo-list" singleMode={false}
-                    beforeAppear={() => console.log('before appear')}
-                    onAppear={() => console.log('appear')}
-                    afterAppear={() => console.log('after appear')}
-                    beforeEnter={() => console.log('before enter')}
-                    onEnter={() => console.log('enter')}
-                    afterEnter={() => console.log('after enter')}
-                    beforeLeave={() => console.log('before leave')}
-                    onLeave={() => console.log('leave')}
-                    afterLeave={() => console.log('after leave')}>
-                    {this.state.items.map((item, i) => (
-                        <div key={item}>
-                            {item}
-                            <Button onClick={() => this.handleRemove(i)}>
-                                &times;
-                            </Button>
-                        </div>
-                    ))}
-                </Animate>
-                <Button onClick={() => this.handleAdd()}>添加</Button>
+    this.setState({
+      items: [
+        ...items,
+        value
+      ],
+      visible: false
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+      value: ''
+    });
+  };
+
+  handleRemove = (i) => {
+    const newItems = this.state.items.slice();
+    newItems.splice(i, 1);
+    this.setState({ items: newItems });
+  };
+
+  handleInputChange = (e) => {
+    this.setState({ value: e.target.value });
+  };
+
+  render() {
+    return (
+      <div className="totolist-container">
+        <Modal
+          title="请输入名称"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <Input placeholder="请输入名称" onChange={this.handleInputChange} />
+        </Modal>
+        <Animate animationAppear animation="fade" className="todo-list" singleMode={false}
+          beforeAppear={() => console.log('before appear')}
+          onAppear={() => console.log('appear')}
+          afterAppear={() => console.log('after appear')}
+          beforeEnter={() => console.log('before enter')}
+          onEnter={() => console.log('enter')}
+          afterEnter={() => console.log('after enter')}
+          beforeLeave={() => console.log('before leave')}
+          onLeave={() => console.log('leave')}
+          afterLeave={() => console.log('after leave')}>
+          {this.state.items.map((item, i) => (
+            <div key={item}>
+              {item}
+              <Button onClick={() => this.handleRemove(i)}>
+                &times;
+              </Button>
             </div>
-        );
-    }
+          ))}
+        </Animate>
+        <Button onClick={() => this.handleAdd()}>添加</Button>
+      </div>
+    );
+  }
 ```
 
 ```less
@@ -280,6 +314,8 @@
   position: relative;
   width: 100%;
   height: 45px;
+  display: flex;
+  align-items: center;
   margin: 5px 0;
   padding: 5px 0;
   border-bottom: 1px solid #ccc;
