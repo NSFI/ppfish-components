@@ -299,17 +299,31 @@ class Table extends React.Component {
     }
     const target = e.target;
     const {scroll = {}} = this.props;
-    const {headTable, bodyTable} = this;
-    if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-      if (target === bodyTable && headTable) {
-        headTable.scrollLeft = target.scrollLeft;
-      } else if (target === headTable && bodyTable) {
-        bodyTable.scrollLeft = target.scrollLeft;
+    const {headTable, bodyTable, fixedColumnsBodyLeft, fixedColumnsBodyRight} = this;
+    const scrollLeft = target.scrollLeft;
+
+    if (target === fixedColumnsBodyLeft) { // left fixed column
+      if (scrollLeft !== this.lastLeftScrollLeft && scroll.x) {
+        this.setScrollPositionClassName();
       }
-      this.setScrollPositionClassName();
+      this.lastLeftScrollLeft = scrollLeft;
+    } else if (target === fixedColumnsBodyRight) { // right fixed column
+      if (scrollLeft !== this.lastRightScrollLeft && scroll.x) {
+        this.setScrollPositionClassName();
+      }
+      this.lastRightScrollLeft = scrollLeft;
+    } else { // table column
+      if (scrollLeft !== this.lastScrollLeft && scroll.x) {
+        if (target === bodyTable && headTable) {
+          headTable.scrollLeft = scrollLeft;
+        } else if (target === headTable && bodyTable) {
+          bodyTable.scrollLeft = scrollLeft;
+        }
+        this.setScrollPositionClassName();
+      }
+      // Remember last scrollLeft for scroll direction detecting.
+      this.lastScrollLeft = scrollLeft;
     }
-    // Remember last scrollLeft for scroll direction detecting.
-    this.lastScrollLeft = target.scrollLeft;
   };
 
   handleBodyScrollTop = e => {
@@ -320,8 +334,8 @@ class Table extends React.Component {
     }
     const {scroll = {}} = this.props;
     const {headTable, bodyTable, fixedColumnsBodyLeft, fixedColumnsBodyRight} = this;
-    if (target.scrollTop !== this.lastScrollTop && scroll.y && target !== headTable) {
-      const scrollTop = target.scrollTop;
+    const scrollTop = target.scrollTop;
+    if (scrollTop !== this.lastScrollTop && scroll.y && target !== headTable) {
       if (fixedColumnsBodyLeft && target !== fixedColumnsBodyLeft) {
         fixedColumnsBodyLeft.scrollTop = scrollTop;
       }
@@ -333,7 +347,7 @@ class Table extends React.Component {
       }
     }
     // Remember last scrollTop for scroll direction detecting.
-    this.lastScrollTop = target.scrollTop;
+    this.lastScrollTop = scrollTop;
   };
 
   handleBodyScroll = e => {
