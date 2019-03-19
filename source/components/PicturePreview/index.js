@@ -90,6 +90,57 @@ class PicturePreview extends Component {
     onClose: () => {},
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      current, imgs,
+      lastActiveIndex,
+      lastVisible
+    } = prevState;
+    const {
+      activeIndex,
+      visible,
+      source,
+      children
+    } = nextProps;
+    let newState = {};
+
+    if (visible !== lastVisible) {
+      newState['show'] = newState['lastVisible'] = visible;
+    }
+
+    if (visible) {
+      if (activeIndex !== lastActiveIndex) {
+        newState['current'] = newState['lastActiveIndex'] = activeIndex;
+      } else {
+        newState['current'] = current;
+      }
+  
+      if (source && source.length) {
+        let sourceStr = JSON.stringify(source);
+        if (sourceStr !== JSON.stringify(imgs)) {
+          newState['imgs'] = JSON.parse(sourceStr);
+        }
+      } else if (children) {
+        let imgList = [];
+  
+        imgList = React.Children.map(children, (child) => {
+          let img = {};
+  
+          if (child.type === 'img') {
+            img.name = child.props.name || child.props.alt;
+            img.src = child.props.src;
+          }
+  
+          return img;
+        }).filter((item) => item);
+  
+        newState['imgs'] = imgList;
+      }
+    }
+
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -101,6 +152,9 @@ class PicturePreview extends Component {
     this.downloadImgUrl = null;
     this.moving = ''; //'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
     this.state = {
+      lastActiveIndex: props.activeIndex || 0,  // 初始展示的图片的index
+      current: props.activeIndex || 0,          // 当前浏览的图片的index
+      lastVisible: props.visible || false,      // 初始显示/隐藏状态
       show: props.visible || false,
       imgs: props.source || [],
       container: {
@@ -139,55 +193,30 @@ class PicturePreview extends Component {
     document.addEventListener("keydown", this.handleKeyDown);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { current, show, imgs } = this.state;
-    const { mask } = this.props;
-    const { activeIndex, visible, source, children } = nextProps;
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    let { mask, visible } = this.props;
 
-    if (visible !== show) {
-      this.setState({
-        show: visible
-      }, () => {
-        if (mask) {
-          document.body.style.overflow = visible ? 'hidden' : this.bodyDefaultOverflow;
-        }
-      });
+    // 从隐藏状态到展示状态时重新设置容器的样式
+    if (visible && !prevProps.visible) {
+      this.setContainerStyle();
     }
 
-    if (!visible) return;
-
-    let newState = {};
-    if (activeIndex !== current) {
-      newState['current'] = activeIndex;
+    if (mask) {
+      return visible ? 'hidden' : this.bodyDefaultOverflow;
     }
 
-    if (source && source.length) {
-      let sourceStr = JSON.stringify(source);
+    return null;
+  }
 
-      if (sourceStr !== JSON.stringify(imgs)) {
-        newState['imgs'] = JSON.parse(sourceStr);
-      }
-    } else if (children) {
-      let imgList = [];
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    let { current } = this.state;
 
-      imgList = React.Children.map(children, (child) => {
-        let img = {};
-
-        if (child.type === 'img') {
-          img.name = child.props.name || child.props.alt;
-          img.src = child.props.src;
-        }
-
-        return img;
-      }).filter((item) => item);
-
-      newState['imgs'] = imgList;
+    if (snapshot) {
+      document.body.style.overflow = snapshot;
     }
-
-    if (Object.keys(newState).length) {
-      this.setState(newState, () => {
-        this.setContainerStyle();
-      });
+    
+    if (prevState.current != current) {
+      this.setContainerStyle();
     }
   }
 
@@ -208,7 +237,7 @@ class PicturePreview extends Component {
   }
 
   /**
-   * 设置容器的样式，用于切换图片时，根据图片大小，确定容器的尺寸以及位置
+   * 切换图片时，根据图片大小确定容器的尺寸及位置
    */
   setContainerStyle = () => {
     if (!this.imgEl) return;
@@ -326,8 +355,9 @@ class PicturePreview extends Component {
   };
 
   handlePrev = () => {
+    let { current, imgs } = this.state;
     this.setState({
-      current: this.state.current <= 0 ? (this.state.imgs.length - 1) : (this.state.current - 1),
+      current: current <= 0 ? (imgs.length - 1) : (current - 1),
       shown: true
     }, () => {
       this.setContainerStyle();
@@ -335,8 +365,9 @@ class PicturePreview extends Component {
   };
 
   handleNext = () => {
+    let { current, imgs } = this.state;
     this.setState({
-      current: this.state.current >= (this.state.imgs.length - 1) ? 0 : (this.state.current + 1),
+      current: current >= (imgs.length - 1) ? 0 : (current + 1),
       shown: true
     }, () => {
       this.setContainerStyle();
