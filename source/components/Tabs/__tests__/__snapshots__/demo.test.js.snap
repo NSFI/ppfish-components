@@ -1233,6 +1233,93 @@ exports[`Renders tabs demo correctly 1`] = `
     </div>
   </div>
   <div
+    class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-highlighted-section fishd-tabs-no-animation"
+  >
+    <div
+      class="fishd-tabs-bar"
+      role="tablist"
+      tabindex="0"
+    >
+      <div
+        class="fishd-tabs-nav-container"
+      >
+        <span
+          class="fishd-tabs-tab-prev fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-prev-icon"
+          />
+        </span>
+        <span
+          class="fishd-tabs-tab-next fishd-tabs-tab-btn-disabled"
+          unselectable="unselectable"
+        >
+          <span
+            class="fishd-tabs-tab-next-icon"
+          />
+        </span>
+        <div
+          class="fishd-tabs-nav-wrap"
+        >
+          <div
+            class="fishd-tabs-nav-scroll"
+          >
+            <div
+              class="fishd-tabs-nav fishd-tabs-nav-animated"
+            >
+              <div
+                aria-disabled="false"
+                aria-selected="true"
+                class="fishd-tabs-tab-active fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 1
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 2
+              </div>
+              <div
+                aria-disabled="false"
+                aria-selected="false"
+                class=" fishd-tabs-tab"
+                role="tab"
+              >
+                Tab 3
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-tabs-content fishd-tabs-content-no-animated"
+    >
+      <div
+        aria-hidden="false"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-active"
+        role="tabpanel"
+      >
+        Tab 1
+      </div>
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+      <div
+        aria-hidden="true"
+        class="fishd-tabs-tabpane fishd-tabs-tabpane-inactive"
+        role="tabpanel"
+      />
+    </div>
+  </div>
+  <div
     class="fishd-tabs fishd-tabs-top fishd-tabs-default fishd-tabs-borderless-section fishd-tabs-no-animation"
   >
     <div

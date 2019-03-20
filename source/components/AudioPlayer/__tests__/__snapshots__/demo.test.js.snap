@@ -24,7 +24,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
           </audio>
         </div>
         <div
-          class="box pause-play-box"
+          class="box pause-play-box pause-play-box-enable"
         >
           <i
             class="fishdicon fishdicon-play handle-audio-icon pause-play"
@@ -106,7 +106,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
           </audio>
         </div>
         <div
-          class="box pause-play-box"
+          class="box pause-play-box pause-play-box-enable"
         >
           <i
             class="fishdicon fishdicon-play handle-audio-icon pause-play"
@@ -137,7 +137,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
           </audio>
         </div>
         <div
-          class="box pause-play-box"
+          class="box pause-play-box pause-play-box-enable"
         >
           <i
             class="fishdicon fishdicon-play handle-audio-icon pause-play"
@@ -200,6 +200,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
           <a
             download=""
             href="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+            target="_blank"
           >
             <i
               class="fishdicon fishdicon-sound-download handle-audio-icon download"

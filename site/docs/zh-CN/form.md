@@ -1316,6 +1316,28 @@ render(){
             suffix={<Icon type="close-circle-fill" style={{ color: 'rgba(0,0,0,.25)' }} />}
           />
         </FormItem>
+        
+        <FormItem
+          {...formItemLayout}
+          label="Success"
+          hasFeedback
+          validateStatus="success"
+        >
+          <Input.TextArea rows={4} />
+        </FormItem>
+        
+        <FormItem
+          {...formItemLayout}
+          label="Success"
+          hasFeedback
+          validateStatus="error"
+        >
+          <Input.Counter
+            placeholder="Autosize height with minimum and maximum number of lines" 
+            limit={500} 
+            autosize={{ minRows: 2, maxRows: 6 }} 
+          />
+        </FormItem>
       </Form>
   )
 }

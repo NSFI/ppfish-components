@@ -12,7 +12,7 @@ exports[`Badge should be compatible with borderColor style 1`] = `
   >
     <span
       class="fishd-scroll-number-only"
-      style="transition:none;-ms-transform:translateY(-1400%);-webkit-transform:translateY(-1400%);transform:translateY(-1400%)"
+      style="-ms-transform:translateY(-1400%);-webkit-transform:translateY(-1400%);transform:translateY(-1400%)"
     >
       <p
         class=""

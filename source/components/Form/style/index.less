@@ -468,7 +468,9 @@ form {
     color: @warning-color;
   }
 
-  //input-number
+  // input-counter
+  // input-number
+  .@{fishd-prefix}-input-counter,
   .@{fishd-prefix}-input-number {
     border-color: @warning-color;
     &-focused,
@@ -477,6 +479,15 @@ form {
     }
     &:not([disabled]):hover {
       border-color: @warning-color;
+    }
+  }
+
+  .@{fishd-prefix}-input-counter {
+    .@{fishd-prefix}-input:focus {
+      box-shadow: none;
+    }
+    &:focus-within {
+      box-shadow: @input-outline-offset @outline-blur-size @outline-width fade(@warning-color, 20%);
     }
   }
 
@@ -568,7 +579,9 @@ form {
     color: @error-color;
   }
 
+  //input-counter
   //input-number
+  .@{fishd-prefix}-input-counter,
   .@{fishd-prefix}-input-number {
     border-color: @error-color;
     &-focused,
@@ -577,6 +590,15 @@ form {
     }
     &:not([disabled]):hover {
       border-color: @error-color;
+    }
+  }
+
+  .@{fishd-prefix}-input-counter {
+    .@{fishd-prefix}-input:focus {
+      box-shadow: none;
+    }
+    &:focus-within {
+      box-shadow: @input-outline-offset @outline-blur-size @outline-width fade(@error-color, 20%);
     }
   }
 

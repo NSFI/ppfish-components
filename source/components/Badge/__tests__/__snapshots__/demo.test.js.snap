@@ -17,7 +17,7 @@ exports[`Renders badge demo correctly 1`] = `
       >
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
+          style="-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
         >
           <p
             class=""
@@ -203,7 +203,7 @@ exports[`Renders badge demo correctly 1`] = `
       >
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1900%);-webkit-transform:translateY(-1900%);transform:translateY(-1900%)"
+          style="-ms-transform:translateY(-1900%);-webkit-transform:translateY(-1900%);transform:translateY(-1900%)"
         >
           <p
             class=""
@@ -358,7 +358,7 @@ exports[`Renders badge demo correctly 1`] = `
         </span>
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1900%);-webkit-transform:translateY(-1900%);transform:translateY(-1900%)"
+          style="-ms-transform:translateY(-1900%);-webkit-transform:translateY(-1900%);transform:translateY(-1900%)"
         >
           <p
             class=""
@@ -731,7 +731,7 @@ exports[`Renders badge demo correctly 1`] = `
       >
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1200%);-webkit-transform:translateY(-1200%);transform:translateY(-1200%)"
+          style="-ms-transform:translateY(-1200%);-webkit-transform:translateY(-1200%);transform:translateY(-1200%)"
         >
           <p
             class=""
@@ -886,7 +886,7 @@ exports[`Renders badge demo correctly 1`] = `
         </span>
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
+          style="-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
         >
           <p
             class=""
@@ -1052,7 +1052,7 @@ exports[`Renders badge demo correctly 1`] = `
       >
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1400%);-webkit-transform:translateY(-1400%);transform:translateY(-1400%)"
+          style="-ms-transform:translateY(-1400%);-webkit-transform:translateY(-1400%);transform:translateY(-1400%)"
         >
           <p
             class=""
@@ -1236,7 +1236,7 @@ exports[`Renders badge demo correctly 1`] = `
       >
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
+          style="-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
         >
           <p
             class=""
@@ -1408,7 +1408,7 @@ exports[`Renders badge demo correctly 1`] = `
         >
           <span
             class="fishd-scroll-number-only"
-            style="transition:none;-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
+            style="-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
           >
             <p
               class=""
@@ -1625,7 +1625,7 @@ exports[`Renders badge demo correctly 1`] = `
       >
         <span
           class="fishd-scroll-number-only"
-          style="transition:none;-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
+          style="-ms-transform:translateY(-1500%);-webkit-transform:translateY(-1500%);transform:translateY(-1500%)"
         >
           <p
             class=""

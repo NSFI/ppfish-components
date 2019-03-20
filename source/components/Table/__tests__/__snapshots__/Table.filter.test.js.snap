@@ -109,7 +109,7 @@ exports[`Table.filter renders filter correctly 1`] = `
                   class="fishd-table-tbody"
                 >
                   <tr
-                    class="fishd-table-row  fishd-table-row-level-0"
+                    class="fishd-table-row fishd-table-row-level-0"
                     data-row-key="0"
                   >
                     <td
@@ -123,7 +123,7 @@ exports[`Table.filter renders filter correctly 1`] = `
                     </td>
                   </tr>
                   <tr
-                    class="fishd-table-row  fishd-table-row-level-0"
+                    class="fishd-table-row fishd-table-row-level-0"
                     data-row-key="1"
                   >
                     <td
@@ -137,7 +137,7 @@ exports[`Table.filter renders filter correctly 1`] = `
                     </td>
                   </tr>
                   <tr
-                    class="fishd-table-row  fishd-table-row-level-0"
+                    class="fishd-table-row fishd-table-row-level-0"
                     data-row-key="2"
                   >
                     <td
@@ -151,7 +151,7 @@ exports[`Table.filter renders filter correctly 1`] = `
                     </td>
                   </tr>
                   <tr
-                    class="fishd-table-row  fishd-table-row-level-0"
+                    class="fishd-table-row fishd-table-row-level-0"
                     data-row-key="3"
                   >
                     <td

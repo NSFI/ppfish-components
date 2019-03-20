@@ -119,7 +119,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
     ]);
     const total = this.getCount();
     return (
-      <div className={inputClassName} onClick={this.handleClick}>
+      <span className={inputClassName} onClick={this.handleClick}>
         <TextArea
           {...otherProps}
           className={textareaClassName}
@@ -128,10 +128,10 @@ class Counter extends React.Component<CounterProps, CounterState> {
           value={this.state.value}
           ref={this.saveTextarea}
         />
-        <div className={`${prefixCls}-footer`}>
+        <span className={`${prefixCls}-footer`}>
           <span className={`${prefixCls}-indicator`}>{total}/{limit}</span>
-        </div>
-      </div>
+        </span>
+      </span>
     );
   }
 }
