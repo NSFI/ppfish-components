@@ -5,7 +5,6 @@ let React = require('react');
 let ReactDOM = require('react-dom');
 let createClass = require('create-react-class');
 let QuillMixin = require('./mixin');
-let find = require('lodash/find');
 let some = require('lodash/some');
 let isEqual = require('lodash/isEqual');
 let T = require('prop-types');
@@ -376,7 +375,7 @@ let QuillComponent = createClass({
 	onEditorChangeSelection: function(nextSelection, source, editor) {
 		let currentSelection = this.getEditorSelection();
 		let hasGainedFocus = !currentSelection && nextSelection;
-		let hasLostFocus = currentSelection && !nextSelection;
+		// let hasLostFocus = currentSelection && !nextSelection;
 
 		if (isEqual(nextSelection, currentSelection)) {
 			return;
@@ -390,9 +389,11 @@ let QuillComponent = createClass({
 
 		if (hasGainedFocus && this.props.onFocus) {
 			this.props.onFocus(nextSelection, source, editor);
-		} else if (hasLostFocus && this.props.onBlur) {
-			this.props.onBlur(currentSelection, source, editor);
 		}
+		// 此种方式无法监听到焦点转义到 Select 时失焦的情况，改为直接监听 ql-editor 的 blur 事件
+		// else if (hasLostFocus && this.props.onBlur) {
+		// 	this.props.onBlur(currentSelection, source, editor);
+		// }
 	},
 
 	focus: function() {

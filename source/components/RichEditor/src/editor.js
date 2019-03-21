@@ -1,8 +1,9 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import ReactQuill, { Quill } from '../quill/index.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { addEventListener } from '../../../utils'; 
 import Modal from '../../Modal/index.tsx';
 import Input from '../../Input/index.tsx';
 import Button from '../../Button/index.tsx';
@@ -77,6 +78,7 @@ class RichEditor extends Component {
     let { value, customLink, supportFontTag } = this.props;
 
     this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
+    this.onBlurHandler = null;
 
     if (supportFontTag) {
       value = this.formatFontTag(value);
@@ -174,6 +176,21 @@ class RichEditor extends Component {
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({
       toolbarCtner: findDOMNode(this.toolbarRef)
+    }, () => {
+      if (!this.reactQuillRef) return;
+
+      this.onBlurHandler = addEventListener(
+        findDOMNode(this.reactQuillRef).querySelector('.ql-editor'),
+        'blur',
+        () => {
+          let editor = this.reactQuillRef.getEditor(),
+            range = editor.getSelection();
+
+          if (typeof this.props.onBlur == "function") {
+            this.props.onBlur(range, 'user', editor);
+          }
+        }
+      );
     });
     /* eslint-enable react/no-did-mount-set-state */
   }
@@ -189,6 +206,12 @@ class RichEditor extends Component {
       this.setState({
         value: newValue
       });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.onBlurHandler) {
+      this.onBlurHandler.remove();
     }
   }
 
