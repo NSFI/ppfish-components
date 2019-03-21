@@ -5,7 +5,6 @@ let React = require('react');
 let ReactDOM = require('react-dom');
 let createClass = require('create-react-class');
 let QuillMixin = require('./mixin');
-let find = require('lodash/find');
 let some = require('lodash/some');
 let isEqual = require('lodash/isEqual');
 let T = require('prop-types');
