@@ -91,6 +91,22 @@ class Spin extends React.Component<SpinProps, SpinState> {
     };
   }
 
+  static getDerivedStateFromProps(nextProps: SpinProps, prevState: SpinState) {
+    let { spinning, delay } = nextProps;
+    if (prevState.spinning !== spinning) {
+      if (spinning == false || isNaN(Number(delay)) || delay === 0) {
+        // spinning -> false
+        // spinning -> true && delay -> falsy
+        return {
+          ...prevState,
+          spinning
+        }
+      }
+    }
+    return null;
+  }
+
+
   isNestedPattern() {
     return !!(this.props && this.props.children);
   }
@@ -112,15 +128,15 @@ class Spin extends React.Component<SpinProps, SpinState> {
     }
   }
 
-  componentWillReceiveProps(nextProps: SpinProps) {
-    const currentSpinning = this.props.spinning;
-    const spinning = nextProps.spinning;
+  componentDidUpdate(prevProps: SpinProps) {
+    const spinning = this.props.spinning;
+    const prevSpinning = prevProps.spinning;
     const {delay} = this.props;
 
     if (this.debounceTimeout) {
       clearTimeout(this.debounceTimeout);
     }
-    if (currentSpinning && !spinning) {
+    if (prevSpinning && !spinning) {
       this.debounceTimeout = window.setTimeout(() => this.setState({spinning}), 200);
       if (this.delayTimeout) {
         clearTimeout(this.delayTimeout);
@@ -131,10 +147,10 @@ class Spin extends React.Component<SpinProps, SpinState> {
           clearTimeout(this.delayTimeout);
         }
         this.delayTimeout = window.setTimeout(() => this.setState({spinning}), delay);
-      } else {
+      } else if(spinning !== this.state.spinning){
         this.setState({spinning});
       }
-    }
+     }
   }
 
   render() {
