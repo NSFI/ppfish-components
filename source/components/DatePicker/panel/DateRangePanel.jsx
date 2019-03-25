@@ -5,9 +5,9 @@ import { DateTable } from '../basic';
 import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
-import TimePicker, { converSelectRange } from '../TimePicker.jsx';
+import TimePicker  from '../../TimePicker/index.js';
+import { converSelectRange } from '../TimePicker.jsx';
 import TimePanel from './TimePanel.jsx';
-import TimeSelect from './TimeSelectPanel.jsx'
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import isEqual from 'lodash/isEqual';
 import {
@@ -31,6 +31,8 @@ import {
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
 import {TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from '../constants';
+
+const TimeSelect = TimePicker.TimeSelect;
 
 const isInputValid = (text, date, disabledDate) => {
   if(text.trim() === '' || !isValidValueArr(date) || !DateRangePanel.isValid(date, disabledDate)) return false;

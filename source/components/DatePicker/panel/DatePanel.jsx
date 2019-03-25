@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
+import TimePicker  from '../../TimePicker/index.js';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
-import TimePicker from '../TimePicker.jsx';
 import { DateTable } from '../basic';
 import isEqual from 'lodash/isEqual';
 import {
