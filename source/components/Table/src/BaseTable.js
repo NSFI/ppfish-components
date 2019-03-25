@@ -164,8 +164,14 @@ class BaseTable extends React.Component {
 
     const columns = this.getColumns();
 
+    // ellipsis-column 添加 fixed支持
     if (columns.some(column => column.ellipsis)) {
       tableStyle.tableLayout = 'fixed';
+      // 左右 fixed Table 添加宽度
+      if (fixed) {
+        const columnsWidthTotal = columns.reduce((a, b) => a + parseInt(b.width), 0);
+        columnsWidthTotal && (tableStyle.width = columnsWidthTotal);
+      }
     }
 
     return (
