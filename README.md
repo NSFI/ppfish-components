@@ -87,23 +87,24 @@ Open your browser and visit http://127.0.0.1:5000
 ```
 .
 ├── /coverage/                        # 运行npm run test:cover输出的测试覆盖率文件
-├── /dist/                            # 构建输出的文件会在这里
+├── /dist/                            # 构建输出的文件，使用全局变量方式引用，可用于发布到CDN
+├── /es/                              # 构建输出的文件，使用ES Module规范引用，可用于tree shaking优化
+├── /lib/                             # 构建输出的文件，使用commonjs规范引用
 ├── /node_modules/                    # 第三方类库和工具
 ├── /site/                            # 页面入口文件
 | ├── /assets                         # css、images等资源
 | ├── /componentsPage                 # 组件库官网markdown
 | ├── /docs                           # 组件库官网markdown
-| ├── /localse                        # 本地化文案
+| ├── /locales                        # 本地化文案
 | ├── /pages                          # 组件库官网页面入口
+| ├── /static                         # 组件库官网Demo使用的icon
 | ├── /styles                         # 组件库官网页面样式
-| ├── /utils                          # 组件库官网页面样式
 | ├── /index.html                     # 组件库官网html模板
 | └── /index.js                       # 组件库官网入口文件
 ├── /source/                          # 应用源码
 │ ├── /assets/                        # 可编译静态资源文件
 │ ├── /components/                    # React components
 │ ├── /constants/                     # 常量配置文件
-│ ├── /tests/                         # 单元测试用例
 │ └── /utils/                         # 工具函数
 ├── /tools/                           # 项目运行脚本
 ├── .babelrc                          # babel配置文件, https://babeljs.io/docs/usage/babelrc/
@@ -111,6 +112,8 @@ Open your browser and visit http://127.0.0.1:5000
 ├── .eslintignore                     # eslint配置文件, http://eslint.cn/docs/user-guide/configuring
 ├── .eslintrc                         # eslint配置文件, http://eslint.cn/docs/user-guide/configuring
 ├── .gitignore                        # git配置文件, https://help.github.com/articles/ignoring-files/
+├── .npmignore                        # npm配置文件，配置不需要发布到npm仓库的文件黑名单列表
+├── .stylelintignore                  # stylelint配置文件
 ├── .stylelintrc                      # stylelint配置文件
 ├── jets.config.js                    # jest配置文件
 ├── package.json                      # 配置入口文件地址、依赖和 scripts
@@ -123,8 +126,8 @@ Open your browser and visit http://127.0.0.1:5000
 ```
 
 ## Coding styles
-- javascript: use eslint:recommended, see https://eslint.org/docs/rules/ and .eslintrc file for more details
+- javascript: use eslint:recommended, see https://eslint.org/docs/rules/ and /site/docs/ESLint规则清单.md  for more details
 - directory、html、css、js: named using hump form
 - react component and react container: named using hump form and uppercase characters at the beginning
 - test file: named with Component + .test + .js format
-- css: https://nsfi.github.io/blog/2017/12/06/Less%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/
+- Less:  use stylelint:recommended，see /site/docs/LESS代码规范.md for more details
