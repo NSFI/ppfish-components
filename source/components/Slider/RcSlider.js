@@ -15,6 +15,21 @@ class Slider extends React.Component {
     tabIndex: PropTypes.number,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (!('value' in nextProps || 'min' in nextProps || 'max' in nextProps)) return null;
+
+    const prevValue = prevState.value;
+    const value = nextProps.value !== undefined
+      ? nextProps.value
+      : prevValue;
+    const val = utils.ensureValueInRange(value, nextProps);
+    const nextValue = utils.ensureValuePrecision(val, nextProps);
+    if (nextValue === prevValue) return null;
+
+    return ({ value: nextValue });
+  }
+
   constructor(props) {
     super(props);
 
@@ -46,18 +61,14 @@ class Slider extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!('value' in nextProps || 'min' in nextProps || 'max' in nextProps)) return;
-
-    const prevValue = this.state.value;
-    const value = nextProps.value !== undefined ?
-            nextProps.value : prevValue;
-    const nextValue = this.trimAlignValue(value, nextProps);
-    if (nextValue === prevValue) return;
-
-    this.setState({ value: nextValue });
-    if (utils.isValueOutOfRange(value, nextProps)) {
-      this.props.onChange(nextValue);
+  componentDidUpdate(prevProps, prevState) {
+    let prevValue = prevState.value;
+    let currentValue = this.state.value;
+    const {onChange} = this.props;
+    if (prevValue !== currentValue) {
+      if (onChange && utils.isValueOutOfRange(currentValue, this.props)) {
+         onChange(currentValue);
+      }
     }
   }
 
