@@ -10,6 +10,16 @@ let isEqual = require('lodash/isEqual');
 let T = require('prop-types');
 let DOM = require('react-dom-factories');
 
+/*
+Changing one of these props should cause a full re-render.
+*/
+const quillDirtyProps = [
+	'modules',
+	'formats',
+	'bounds',
+	'theme',
+	'children',
+];
 let QuillComponent = createClass({
 
 	displayName: 'Quill',
@@ -108,6 +118,10 @@ let QuillComponent = createClass({
 
 	getInitialState: function() {
 		return {
+			editor: null,
+			lastDeltaChangeSet: null,
+			isEqualContents: false,
+			readOnly: this.props.readOnly,
 			generation: 0,
 			value: this.isControlled()
 				? this.props.value
@@ -116,67 +130,24 @@ let QuillComponent = createClass({
 	},
 
 	componentDidMount: function() {
-		this.editor = this.createEditor(
+		let editor = this.createEditor(
 			this.getEditingArea(),
 			this.getEditorConfig()
 		);
 
-		// Restore editor from Quill's native formats in regeneration scenario
-		if (this.quillDelta) {
-			this.editor.setContents(this.quillDelta);
-			this.editor.setSelection(this.quillSelection);
-			// this.editor.focus();
-			this.quillDelta = this.quillSelection = null;
-		} else if (this.state.value) {
-			this.setEditorContents(this.editor, this.state.value);
-		}
-	},
-
-	componentWillReceiveProps: function(nextProps, nextState) {
-		let editor = this.editor;
-
-		// If the component is unmounted and mounted too quickly
-		// an error is thrown in setEditorContents since editor is
-		// still undefined. Must check if editor is undefined
-		// before performing this call.
-		if (!editor) return;
-
-		// Update only if we've been passed a new `value`.
-		// This leaves components using `defaultValue` alone.
-		if ('value' in nextProps) {
-			let currentContents = this.getEditorContents();
-			let nextContents = nextProps.value;
-
-			if (nextContents === this.lastDeltaChangeSet) throw new Error(
-				'You are passing the `delta` object from the `onChange` event back ' +
-				'as `value`. You most probably want `editor.getContents()` instead. ' +
-				'See: https://github.com/zenoamaro/react-quill#using-deltas'
-			);
-
-			// NOTE: Seeing that Quill is missing a way to prevent
-			//       edits, we have to settle for a hybrid between
-			//       controlled and uncontrolled mode. We can't prevent
-			//       the change, but we'll still override content
-			//       whenever `value` differs from current state.
-			// NOTE: Comparing an HTML string and a Quill Delta will always trigger
-			//       a change, regardless of whether they represent the same document.
-			if (!this.isEqualValue(nextContents, currentContents)) {
-				this.setEditorContents(editor, nextContents);
+		this.setState({
+			editor
+		}, () => {
+			// Restore editor from Quill's native formats in regeneration scenario
+			if (this.quillDelta) {
+				this.state.editor.setContents(this.quillDelta);
+				this.state.editor.setSelection(this.quillSelection);
+				// this.state.editor.focus();
+				this.quillDelta = this.quillSelection = null;
+			} else if (this.state.value) {
+				this.setEditorContents(this.state.editor, this.state.value);
 			}
-		}
-
-		// We can update readOnly state in-place.
-		if ('readOnly' in nextProps) {
-			if (nextProps.readOnly !== this.props.readOnly) {
-				this.setEditorReadOnly(editor, nextProps.readOnly);
-			}
-		}
-
-		// If we need to regenerate the component, we can avoid a detailed
-		// in-place update step, and just let everything rerender.
-		if (this.shouldComponentRegenerate(nextProps, nextState)) {
-			return this.regenerate();
-		}
+		});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -195,19 +166,23 @@ let QuillComponent = createClass({
 		});
 	},
 
-	/*
-	If we could not update settings from the new props in-place, we have to tear
-	down everything and re-render from scratch.
-	*/
-	componentWillUpdate: function(nextProps, nextState) {
-		if (this.state.generation !== nextState.generation) {
-			this.componentWillUnmount();
-		}
-	},
-
 	componentDidUpdate: function(prevProps, prevState) {
+		let { editor, isEqualContents } = this.state,
+			{ readOnly, value } = this.props;
+
+		if (!isEqualContents) {
+			this.setEditorContents(editor, value);
+		}
+
+		// We can update readOnly state in-place.
+		if ('readOnly' in this.props) {
+			if (readOnly !== prevState.readOnly) {
+				readOnly ? editor.disable() : editor.enable();
+			}
+		}
+
 		if (this.state.generation !== prevState.generation) {
-			this.componentDidMount();
+			this.regenerate();
 		}
 	},
 
@@ -215,20 +190,11 @@ let QuillComponent = createClass({
 		let editor;
 		if ((editor = this.getEditor())) {
 			this.unhookEditor(editor);
-			this.editor = null;
+			this.setState({
+				editor: null
+			});
 		}
 	},
-
-	/*
-	Changing one of these props should cause a full re-render.
-	*/
-	dirtyProps: [
-		'modules',
-		'formats',
-		'bounds',
-		'theme',
-		'children',
-	],
 
 	/*
 	Changing one of these props should cause a regular update.
@@ -245,7 +211,7 @@ let QuillComponent = createClass({
 		'onBlur',
 		'onKeyPress',
 		'onKeyDown',
-		'onKeyUp',
+		'onKeyUp'
 	],
 
 	/*
@@ -253,16 +219,6 @@ let QuillComponent = createClass({
 	*/
 	isControlled: function() {
 		return 'value' in this.props;
-	},
-
-	shouldComponentRegenerate: function(nextProps, nextState) {
-		let self = this;
-		// Whenever a `dirtyProp` changes, the editor needs reinstantiation.
-		return some(this.dirtyProps, function(prop) {
-			// Note that `isEqual` compares deeply, making it safe to perform
-			// non-immutable updates, at the cost of performance.
-			return !isEqual(nextProps[prop], self.props[prop]);
-		});
 	},
 
 	getEditorConfig: function() {
@@ -279,7 +235,7 @@ let QuillComponent = createClass({
 	},
 
 	getEditor: function() {
-		return this.editor;
+		return this.state.editor;
 	},
 
 	getEditingArea: function () {
@@ -318,11 +274,10 @@ let QuillComponent = createClass({
 	*/
 	regenerate: function() {
 		// Cache selection and contents in Quill's native format to be restored later
-		this.quillDelta = this.editor.getContents();
-		this.quillSelection = this.editor.getSelection();
-		this.setState({
-			generation: this.state.generation + 1,
-		});
+		this.quillDelta = this.state.editor.getContents();
+		this.quillSelection = this.state.editor.getSelection();
+		this.componentWillUnmount();
+		this.componentDidMount();
 	},
 
 	/*
@@ -361,9 +316,10 @@ let QuillComponent = createClass({
 		if (!this.isEqualValue(nextContents, currentContents)) {
 			// Taint this `delta` object, so we can recognize whether the user
 			// is trying to send it back as `value`, preventing a likely loop.
-			this.lastDeltaChangeSet = delta;
-
-			this.setState({ value: nextContents });
+			this.setState({
+				value: nextContents,
+				lastDeltaChangeSet: delta
+			});
 
 			// 初次生成ReactQuill时toolbar未完成，需要再次生成ReactQuill，避免onChange多次调用
 			if (this.props.onChange && this.state.generation!=0) {
@@ -397,11 +353,11 @@ let QuillComponent = createClass({
 	},
 
 	focus: function() {
-		this.editor.focus();
+		this.state.editor.focus();
 	},
 
 	blur: function() {
-		this.setEditorSelection(this.editor, null);
+		this.setEditorSelection(this.state.editor, null);
 	},
 
 	render: function() {
@@ -417,5 +373,56 @@ let QuillComponent = createClass({
 		);
 	},
 });
+
+QuillComponent.getDerivedStateFromProps = function(nextProps, prevState) {
+	const { prevProps = {}, editor } = prevState;
+	const newState = {
+		prevProps: nextProps
+	};
+
+	// If the component is unmounted and mounted too quickly
+	// an error is thrown in setEditorContents since editor is
+	// still undefined. Must check if editor is undefined
+	// before performing this call.
+	if (!editor) return null;
+
+	// Update only if we've been passed a new `value`.
+	// This leaves components using `defaultValue` alone.
+	if ('value' in nextProps) {
+		let currentContents = prevState.value;
+		let nextContents = nextProps.value;
+
+		if (nextContents === prevState.lastDeltaChangeSet) throw new Error(
+			'You are passing the `delta` object from the `onChange` event back ' +
+			'as `value`. You most probably want `editor.getContents()` instead. ' +
+			'See: https://github.com/zenoamaro/react-quill#using-deltas'
+		);
+
+		// NOTE: Seeing that Quill is missing a way to prevent
+		//       edits, we have to settle for a hybrid between
+		//       controlled and uncontrolled mode. We can't prevent
+		//       the change, but we'll still override content
+		//       whenever `value` differs from current state.
+		// NOTE: Comparing an HTML string and a Quill Delta will always trigger
+		//       a change, regardless of whether they represent the same document.
+		let isEqualContents = isEqual(nextContents, currentContents);
+		if (nextContents && currentContents && nextContents.ops && currentContents.ops) {
+			isEqualContents = isEqual(nextContents.ops, nextValue.ops);
+		}
+
+		newState['isEqualContents'] = isEqualContents;
+	}
+
+	// Whenever a `dirtyProp` changes, the editor needs reinstantiation.
+	let shouldRegenerate = some(quillDirtyProps, function(prop) {
+		return !isEqual(nextProps[prop], prevProps[prop]);
+	});
+
+	if (shouldRegenerate) {
+		newState['generation'] = prevState.generation + 1;
+	}
+
+	return newState;
+};
 
 module.exports = QuillComponent;
