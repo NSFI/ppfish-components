@@ -34,6 +34,15 @@ function createBaseForm(option = {}, mixins = []) {
     withRef,
   } = option;
 
+
+  const staticGetDerivedStateFromProps = (nextProps, prevState) =>{
+      if (mapPropsToFields) {
+        prevState.__fieldsStore.updateFields(mapPropsToFields(nextProps));
+      }
+      return null;
+  };
+
+
   return function decorate(WrappedComponent) {
     const Form = createReactClass({
       mixins,
@@ -66,14 +75,9 @@ function createBaseForm(option = {}, mixins = []) {
          });
 
         return {
+          __fieldsStore: this.fieldsStore,
           submitting: false,
         };
-      },
-
-      componentWillReceiveProps(nextProps) {
-        if (mapPropsToFields) {
-          this.fieldsStore.updateFields(mapPropsToFields(nextProps));
-        }
       },
 
       onCollectCommon(name, action, args) {
@@ -519,6 +523,8 @@ function createBaseForm(option = {}, mixins = []) {
         return <WrappedComponent {...props}/>;
       },
     });
+
+    Form.getDerivedStateFromProps = staticGetDerivedStateFromProps;
 
     return argumentContainer(Form, WrappedComponent);
   };
