@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'mini-store';
-import { polyfill } from 'react-lifecycles-compat';
+import {connect} from 'mini-store';
+import {polyfill} from 'react-lifecycles-compat';
 import shallowEqual from 'shallowequal';
 import TableRow from './TableRow';
-import { remove } from './utils';
+import {remove} from './utils';
 
 class ExpandableTable extends React.Component {
   static propTypes = {
@@ -88,7 +88,8 @@ class ExpandableTable extends React.Component {
   }
 
   handleUpdated() {
-    // We should record latest expanded rows to avoid multiple rows remove cause `onExpandedRowsChange` trigger many times
+    // We should record latest expanded rows to avoid multiple rows remove
+    // cause `onExpandedRowsChange` trigger many times
     this.latestExpandedRows = null;
   }
 
@@ -98,8 +99,8 @@ class ExpandableTable extends React.Component {
       event.stopPropagation();
     }
 
-    const { onExpandedRowsChange, onExpand } = this.props;
-    let { expandedRowKeys } = this.store.getState();
+    const {onExpandedRowsChange, onExpand} = this.props;
+    let {expandedRowKeys} = this.store.getState();
 
     if (expanded) {
       // row was expanded
@@ -113,7 +114,7 @@ class ExpandableTable extends React.Component {
     }
 
     if (!this.props.expandedRowKeys) {
-      this.store.setState({ expandedRowKeys });
+      this.store.setState({expandedRowKeys});
     }
 
     // De-dup of repeat call
@@ -127,7 +128,7 @@ class ExpandableTable extends React.Component {
   };
 
   renderExpandIndentCell = (rows, fixed) => {
-    const { prefixCls, expandIconAsCell } = this.props;
+    const {prefixCls, expandIconAsCell} = this.props;
     if (!expandIconAsCell || fixed === 'right' || !rows.length) {
       return;
     }
@@ -139,11 +140,11 @@ class ExpandableTable extends React.Component {
       rowSpan: rows.length,
     };
 
-    rows[0].unshift({ ...iconColumn, column: iconColumn });
+    rows[0].unshift({...iconColumn, column: iconColumn});
   };
 
   renderExpandedRow(record, index, render, className, ancestorKeys, indent, fixed) {
-    const { prefixCls, expandIconAsCell, indentSize } = this.props;
+    const {prefixCls, expandIconAsCell, indentSize} = this.props;
     const parentKey = ancestorKeys[ancestorKeys.length - 1];
     const rowKey = `${parentKey}-extra-row`;
     const components = {
@@ -164,7 +165,7 @@ class ExpandableTable extends React.Component {
       {
         key: 'extra-row',
         render: () => {
-          const { expandedRowKeys } = this.store.getState();
+          const {expandedRowKeys} = this.store.getState();
           const expanded = !!~expandedRowKeys.indexOf(parentKey);
           return {
             props: {
@@ -200,7 +201,7 @@ class ExpandableTable extends React.Component {
   }
 
   renderRows = (renderRows, rows, record, index, indent, fixed, parentKey, ancestorKeys) => {
-    const { expandedRowClassName, expandedRowRender, childrenColumnName } = this.props;
+    const {expandedRowClassName, expandedRowRender, childrenColumnName} = this.props;
     const childrenData = record[childrenColumnName];
     const nextAncestorKeys = [...ancestorKeys, parentKey];
     const nextIndent = indent + 1;
@@ -225,7 +226,7 @@ class ExpandableTable extends React.Component {
   };
 
   render() {
-    const { data, childrenColumnName, children } = this.props;
+    const {data, childrenColumnName, children} = this.props;
     const needIndentSpaced = data.some(record => record[childrenColumnName]);
 
     return children({
