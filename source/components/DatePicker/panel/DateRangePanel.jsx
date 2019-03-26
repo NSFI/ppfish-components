@@ -7,7 +7,7 @@ import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import TimePicker, { converSelectRange } from '../TimePicker.jsx';
 import TimePanel from './TimePanel.jsx';
-import TimeSelect from './TimeSelectPanel.jsx'
+import TimeSelect from './TimeSelectPanel.jsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import isEqual from 'lodash/isEqual';
 import {
@@ -119,19 +119,7 @@ export default class DateRangePanel extends React.Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = Object.assign({}, {
-      rangeState: {
-        firstSelectedValue: null,
-        endDate: null,
-        selecting: false,
-      },
-    }, this.propsToState(props));
-  }
-
-  propsToState(props) {
+  static propsToState(props) {
     const setDate = (start, end) => {
       let result = {
         left: start,
@@ -143,12 +131,12 @@ export default class DateRangePanel extends React.Component {
           result = {
             left: prevMonth(end),
             right: end
-          }
+          };
         }else{
           result = {
             left: start,
             right: nextMonth(start)
-          }
+          };
         }
       }
       return result;
@@ -159,12 +147,12 @@ export default class DateRangePanel extends React.Component {
         result = {
           left: prevMonth(defaultPanelMonth),
           right: defaultPanelMonth
-        }
+        };
       }else{
         result = {
           left: defaultPanelMonth,
           right: nextMonth(defaultPanelMonth)
-        }
+        };
       }
       return result;
     };
@@ -173,11 +161,23 @@ export default class DateRangePanel extends React.Component {
     const minDate = isValidValueArr(props.value) ? toDate(props.value[0]) : null;
     const maxDate = isValidValueArr(props.value) ? toDate(props.value[1]) : null;
     const isSameDate = minDate && maxDate && diffDate(minDate, maxDate) === 0;
+
+    const getTimeRangeOption = {
+      minTime: minTime,
+      endTimeSelectableRange: props.endTimeSelectableRange,
+      endTimeSelectMode: props.endTimeSelectMode,
+      endTimeSelectModeProps: props.endTimeSelectModeProps
+    };
+
     const state = {};
     // 左侧日历月份
-    state.leftDate = isValidValueArr(props.value) ? setDate(props.value[0], props.value[1])['left'] : setDefaultDate(props.defaultPanelMonth)['left'];
+    state.leftDate = isValidValueArr(props.value)
+      ? setDate(props.value[0], props.value[1])["left"]
+      : setDefaultDate(props.defaultPanelMonth)["left"];
     // 右侧日历月份
-    state.rightDate = isValidValueArr(props.value) ? setDate(props.value[0], props.value[1])['right'] : setDefaultDate(props.defaultPanelMonth)['right'];
+    state.rightDate = isValidValueArr(props.value)
+      ? setDate(props.value[0], props.value[1])["right"]
+      : setDefaultDate(props.defaultPanelMonth)["right"];
     // 开始日期
     state.minDate = minDate;
     // 结束日期
@@ -193,41 +193,24 @@ export default class DateRangePanel extends React.Component {
     // 开始时间可选范围
     state.startTimeSelectableRange = props.startTimeSelectableRange;
     // 结束时间可选范围
-    state.endTimeSelectableRange = props.endTimeSelectMode === 'TimePicker' && isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectableRange;
-    state.endTimeSelectModeProps = props.endTimeSelectMode === 'TimeSelect' && isSameDate ? this.getEndTimeSelectableRange(minTime) : props.endTimeSelectModeProps;
+    state.endTimeSelectableRange =
+      props.endTimeSelectMode === "TimePicker" && isSameDate
+        ? DateRangePanel.getEndTimeSelectableRange(getTimeRangeOption)
+        : props.endTimeSelectableRange;
+    state.endTimeSelectModeProps =
+      props.endTimeSelectMode === "TimeSelect" && isSameDate
+        ? DateRangePanel.getEndTimeSelectableRange(getTimeRangeOption)
+        : props.endTimeSelectModeProps;
     return state;
   }
 
-  componentWillReceiveProps(nextProps) {
-    // 只 value 受控
-    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this.setState(this.propsToState(nextProps));
-    }
-  }
-
-  // 鼠标移动选择结束时间的回调
-  handleChangeRange(rangeState) {
-    this.setState({
-      minDate: new Date(Math.min(rangeState.firstSelectedValue, rangeState.endDate)),
-      maxDate: new Date(Math.max(rangeState.firstSelectedValue, rangeState.endDate))
-    });
-  }
-
-  // 日期时间都选择，确定按钮才可点击
-  confirmBtnDisabled = () => {
-    const {minDate, maxDate, minTime, maxTime, minDateInputText, maxDateInputText} = this.state;
-    return !(minDate && maxDate && minTime && maxTime && minDateInputText && maxDateInputText);
-  }
-
-  // 未选择日期时，时间不可选
-  timePickerDisable = () => {
-    const {minDate, maxDate, minDateInputText, maxDateInputText} = this.state;
-    return !(minDate && maxDate && minDateInputText && maxDateInputText);
-  }
-
   // 计算结束时间的可选范围
-  getEndTimeSelectableRange = (minTime) => {
-    const { endTimeSelectableRange, endTimeSelectMode, endTimeSelectModeProps } = this.props;
+  static getEndTimeSelectableRange = ({
+    minTime,
+    endTimeSelectableRange,
+    endTimeSelectMode,
+    endTimeSelectModeProps
+  }) => {
     //TimePicker模式下返回endTimeSelectableRange
     if(endTimeSelectMode === 'TimePicker') {
       const propsTimeRangeArr = converSelectRange({selectableRange: endTimeSelectableRange});
@@ -259,13 +242,65 @@ export default class DateRangePanel extends React.Component {
     }
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    // 只 value 受控
+    if ('value' in nextProps && !isEqual(prevState.prevPropValue, nextProps.value)) {
+      let state = DateRangePanel.propsToState(nextProps);
+      state.prevPropValue = nextProps.value;
+      return state;
+    }
+    return null;
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = Object.assign({}, {
+      rangeState: {
+        firstSelectedValue: null,
+        endDate: null,
+        selecting: false,
+      },
+    }, DateRangePanel.propsToState(props));
+  }
+
+  // 鼠标移动选择结束时间的回调
+  handleChangeRange(rangeState) {
+    this.setState({
+      minDate: new Date(Math.min(rangeState.firstSelectedValue, rangeState.endDate)),
+      maxDate: new Date(Math.max(rangeState.firstSelectedValue, rangeState.endDate))
+    });
+  }
+
+  // 日期时间都选择，确定按钮才可点击
+  confirmBtnDisabled = () => {
+    const {minDate, maxDate, minTime, maxTime, minDateInputText, maxDateInputText} = this.state;
+    return !(minDate && maxDate && minTime && maxTime && minDateInputText && maxDateInputText);
+  }
+
+  // 未选择日期时，时间不可选
+  timePickerDisable = () => {
+    const {minDate, maxDate, minDateInputText, maxDateInputText} = this.state;
+    return !(minDate && maxDate && minDateInputText && maxDateInputText);
+  }
+
+  // 计算结束时间的可选范围
+  getEndTimeSelectableRange = (minTime) => {
+    const { endTimeSelectableRange, endTimeSelectMode, endTimeSelectModeProps } = this.props;
+    //TimePicker模式下返回endTimeSelectableRange
+    return DateRangePanel.getEndTimeSelectableRange({
+      minTime, endTimeSelectMode, endTimeSelectModeProps, endTimeSelectableRange
+    });
+  }
+
   // 计算最大时间
   getMaxTime = (maxTime, minTime) => {
     const { endTimeSelectMode } = this.props;
     if(endTimeSelectMode === 'TimePicker') {
-      return maxTime && TimePanel.isValid(maxTime, converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})) ? maxTime : null
+      return maxTime && TimePanel.isValid(maxTime, converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})) ? maxTime : null;
     }else{
-      return maxTime && TimeSelect.isValid(`${maxTime.getHours()}:${maxTime.getMinutes()}`, this.getEndTimeSelectableRange(minTime)) ? maxTime : null
+      return maxTime && TimeSelect.isValid(`${maxTime.getHours()}:${maxTime.getMinutes()}`, this.getEndTimeSelectableRange(minTime)) ? maxTime : null;
     }
   }
 
@@ -654,13 +689,11 @@ export default class DateRangePanel extends React.Component {
                 <Icon
                   type="left-double"
                   onClick={this.prevYear.bind(this, 'leftDate', leftDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
                 <Icon
                   type="left"
                   onClick={this.prevMonth.bind(this, 'leftDate', leftDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
                 <YearAndMonthPopover
                   value={leftDate.getFullYear()}
                   sourceData={YEARS_ARRAY(yearCount)}
@@ -678,13 +711,11 @@ export default class DateRangePanel extends React.Component {
                 <Icon
                   type="right-double"
                   onClick={this.nextYear.bind(this, 'leftDate', leftDate, this.handleLeftNextYear)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
                 <Icon
                   type="right"
                   onClick={this.nextMonth.bind(this, 'leftDate', leftDate, this.handleLeftNextMonth)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
               </div>
               <DateTable
                 mode={SELECTION_MODES.RANGE}
@@ -704,13 +735,11 @@ export default class DateRangePanel extends React.Component {
                 <Icon
                   type="left-double"
                   onClick={this.prevYear.bind(this, 'rightDate', rightDate, this.handleRightPrevYear)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
                 <Icon
                   type="left"
                   onClick={this.prevMonth.bind(this, 'rightDate', rightDate, this.handleRightPrevMonth)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
                 <YearAndMonthPopover
                   value={rightDate.getFullYear()}
                   sourceData={YEARS_ARRAY(yearCount)}
@@ -728,13 +757,11 @@ export default class DateRangePanel extends React.Component {
                 <Icon
                   type="right-double"
                   onClick={this.nextYear.bind(this, 'rightDate', rightDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
                 <Icon
                   type="right"
                   onClick={this.nextMonth.bind(this, 'rightDate', rightDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`}>
-                </Icon>
+                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
               </div>
               <DateTable
                 mode={SELECTION_MODES.RANGE}

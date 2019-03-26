@@ -36,6 +36,17 @@ const calcScrollTop = value => Math.max(
   (value - 2.5) * 32 + SCROLL_AJUST_VALUE
 )
 
+const PROPS_MATTER = [
+  'hours',
+  "minutes",
+  "seconds",
+  "selectableRange"
+];
+const propsChangeTester = (props, state) => PROPS_MATTER.some(prop => state['__' + prop] !== props[prop]);
+const propsChangeSaver = (props, state) => PROPS_MATTER.forEach(prop => {
+  state['__' + prop] = props[prop];
+});
+
 export default class TimeSpinner extends React.Component {
 
   static get propTypes() {
@@ -69,6 +80,17 @@ export default class TimeSpinner extends React.Component {
     };
   }
 
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // only props has changed
+    if (propsChangeTester(nextProps, prevState)) {
+      let state = propsToState(nextProps);
+      propsChangeSaver(nextProps, state);
+      return state;
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
@@ -87,10 +109,8 @@ export default class TimeSpinner extends React.Component {
     this.ajustScrollTop(this.state);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(propsToState(nextProps), () => {
-      this.ajustScrollTop(this.state);
-    });
+  componentDidUpdate(prevProps, prevState) {
+    this.ajustScrollTop(this.state);
   }
 
   emitSelectRange(type) {
