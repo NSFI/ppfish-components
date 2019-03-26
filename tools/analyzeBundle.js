@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'production';
 
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const config = require('../webpack.config.prod.components');
+const config = require('../webpack.config.prod.dist');
 
 config.plugins.push(new BundleAnalyzerPlugin());
 
