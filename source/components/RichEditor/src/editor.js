@@ -3,7 +3,8 @@ import { findDOMNode } from 'react-dom';
 import ReactQuill, { Quill } from '../quill/index.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { addEventListener } from '../../../utils'; 
+import { addEventListener } from '../../../utils';
+import {polyfill} from 'react-lifecycles-compat';
 import Modal from '../../Modal/index.tsx';
 import Input from '../../Input/index.tsx';
 import Button from '../../Button/index.tsx';
@@ -618,6 +619,6 @@ class RichEditor extends Component {
     );
   }
 }
-
+polyfill(RichEditor);
 export { Quill };
 export default RichEditor;

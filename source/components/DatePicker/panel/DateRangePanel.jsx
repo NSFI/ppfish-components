@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
 import { DateTable } from '../basic';
 import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
@@ -47,7 +48,7 @@ const dateToStr = (date) => {
   return result;
 };
 
-export default class DateRangePanel extends React.Component {
+class DateRangePanel extends React.Component {
   static get propTypes() {
     return {
       prefixCls: PropTypes.string,
@@ -812,3 +813,6 @@ DateRangePanel.isValid = (value, disabledDate) => {
   if(value && value.length >= 2 && value[0] > value[1]) return false;
   return typeof disabledDate === 'function' && (value && value.length >= 2) ? !(disabledDate(value[0]) || disabledDate(value[1])) : true;
 };
+
+polyfill(DateRangePanel);
+export default DateRangePanel;

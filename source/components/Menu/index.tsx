@@ -4,6 +4,7 @@ import RcMenu, {Divider, ItemGroup} from './src';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import warning from 'warning';
+import {polyfill} from 'react-lifecycles-compat';
 import animation from '../../utils/openAnimation';
 import SubMenu from './SubMenu';
 import Item from './MenuItem';
@@ -60,7 +61,7 @@ export interface MenuState {
   openKeys: string[];
 }
 
-export default class Menu extends React.Component<MenuProps, MenuState> {
+class Menu extends React.Component<MenuProps, MenuState> {
   static Divider = Divider;
   static Item = Item;
   static SubMenu = SubMenu;
@@ -280,3 +281,5 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
     return <RcMenu {...this.props} {...menuProps} />;
   }
 }
+polyfill(Menu);
+export default Menu;

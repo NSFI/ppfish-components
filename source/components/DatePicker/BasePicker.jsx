@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Trigger from 'rc-trigger';
+import {polyfill} from 'react-lifecycles-compat';
 import {HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from './constants';
 import {Errors, require_condition} from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
@@ -20,7 +21,7 @@ const isInputValid = (text, date) => {
 };
 
 const $type = Symbol('type');
-export default class BasePicker extends React.Component {
+class BasePicker extends React.Component {
 
   static get propTypes() {
     return {
@@ -403,3 +404,5 @@ export default class BasePicker extends React.Component {
     );
   }
 }
+polyfill(BasePicker);
+export default BasePicker;

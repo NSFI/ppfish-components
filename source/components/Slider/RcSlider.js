@@ -5,6 +5,7 @@ import warning from 'warning';
 import Track from './common/Track';
 import createSlider from './common/createSlider';
 import * as utils from './utils';
+import {polyfill} from 'react-lifecycles-compat';
 
 class Slider extends React.Component {
   static propTypes = {
@@ -199,4 +200,5 @@ class Slider extends React.Component {
   }
 }
 
+polyfill(Slider);
 export default createSlider(Slider);

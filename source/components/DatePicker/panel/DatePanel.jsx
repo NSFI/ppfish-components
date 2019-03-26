@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
+import {polyfill} from 'react-lifecycles-compat';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import TimePicker from '../TimePicker.jsx';
 import { DateTable } from '../basic';
@@ -38,7 +39,7 @@ const isInputValid = (text, date, disabledDate) => {
   return true;
 };
 
-export default class DatePanel extends React.Component {
+class DatePanel extends React.Component {
 
   static get propTypes() {
     return {
@@ -491,3 +492,6 @@ export default class DatePanel extends React.Component {
 DatePanel.isValid = (value, disabledDate) => {
   return typeof disabledDate === 'function' && (value instanceof Date) ? !disabledDate(value) : true;
 };
+
+polyfill(DatePanel);
+export default DatePanel;

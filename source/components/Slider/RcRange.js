@@ -6,6 +6,7 @@ import shallowEqual from 'shallowequal';
 import Track from './common/Track';
 import createSlider from './common/createSlider';
 import * as utils from './utils';
+import {polyfill} from 'react-lifecycles-compat';
 
 class Range extends React.Component {
   static displayName = 'Range';
@@ -409,5 +410,5 @@ class Range extends React.Component {
     return { tracks, handles };
   }
 }
-
+polyfill(Range);
 export default createSlider(Range);

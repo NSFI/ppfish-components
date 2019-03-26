@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
+import {polyfill} from 'react-lifecycles-compat';
 import Icon from '../Icon/index.tsx';
 import {
   fullscreen,
@@ -114,7 +115,7 @@ class PicturePreview extends Component {
       } else {
         newState['current'] = current;
       }
-  
+
       if (source && source.length) {
         let sourceStr = JSON.stringify(source);
         if (sourceStr !== JSON.stringify(imgs)) {
@@ -122,18 +123,18 @@ class PicturePreview extends Component {
         }
       } else if (children) {
         let imgList = [];
-  
+
         imgList = React.Children.map(children, (child) => {
           let img = {};
-  
+
           if (child.type === 'img') {
             img.name = child.props.name || child.props.alt;
             img.src = child.props.src;
           }
-  
+
           return img;
         }).filter((item) => item);
-  
+
         newState['imgs'] = imgList;
       }
     }
@@ -214,7 +215,7 @@ class PicturePreview extends Component {
     if (snapshot) {
       document.body.style.overflow = snapshot;
     }
-    
+
     if (prevState.current != current) {
       this.setContainerStyle();
     }
@@ -731,5 +732,5 @@ class PicturePreview extends Component {
     );
   }
 }
-
+polyfill(PicturePreview);
 export default PicturePreview;

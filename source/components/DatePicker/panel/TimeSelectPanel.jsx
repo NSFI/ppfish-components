@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
+import {polyfill} from 'react-lifecycles-compat';
 import scrollIntoView from 'dom-scroll-into-view';
 import isEqual from 'lodash/isEqual';
 
-export default class TimeSelectPanel extends React.Component {
+class TimeSelectPanel extends React.Component {
 
   static get propTypes() {
     return {
@@ -173,3 +174,5 @@ const nextTime = (time, step) => {
 
   return formatTime(next);
 };
+polyfill(TimeSelectPanel );
+export default TimeSelectPanel;

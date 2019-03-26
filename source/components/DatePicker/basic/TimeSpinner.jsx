@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
 import debounce from 'lodash/debounce';
 import { getRangeHours } from '../../../utils/date';
+import {polyfill} from 'react-lifecycles-compat';
 
 function range(end) {
   let r = [];
@@ -47,7 +48,7 @@ const propsChangeSaver = (props, state) => PROPS_MATTER.forEach(prop => {
   state['__' + prop] = props[prop];
 });
 
-export default class TimeSpinner extends React.Component {
+class TimeSpinner extends React.Component {
 
   static get propTypes() {
     return {
@@ -252,3 +253,7 @@ export default class TimeSpinner extends React.Component {
     );
   }
 }
+
+polyfill(TimeSpinner);
+
+export default TimeSpinner;

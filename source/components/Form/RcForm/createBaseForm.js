@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import AsyncValidator from 'async-validator';
+import {polyfill} from 'react-lifecycles-compat';
 import warning from 'warning';
 import get from 'lodash/get';
 import set from 'lodash/set';
@@ -525,7 +526,7 @@ function createBaseForm(option = {}, mixins = []) {
     });
 
     Form.getDerivedStateFromProps = staticGetDerivedStateFromProps;
-
+    polyfill(Form);
     return argumentContainer(Form, WrappedComponent);
   };
 }
