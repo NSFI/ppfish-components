@@ -339,7 +339,7 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | ---- | ---- | ---- | ---- |
-| animation       | 动画 className | String \| Object { appear, enter, leave } | - |
+| animation       | 动画类名，支持自定义动画。内置的动画类名有：`fade`, `zoom`, `zoom-big`, `zoom-big-fast`, `zoom-up`, `zoom-down`, `zoom-left`, `zoom-right`, `move-up`, `move-down`, `move-left`, `move-right`, `slide-up`, `slide-down`, `slide-left`, `slide-right`, `swing`  | String \| Object { appear, enter, leave } | - |
 | animationAppear | 子元素第一次挂载时是否执行动画 | Boolean | true |
 | component       | 包裹子元素的标签 | String | 'span' |
 | singleMode      | 是否只有单个子元素，如果有多个子元素，请设置为 false | Boolean | true |
