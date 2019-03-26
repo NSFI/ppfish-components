@@ -2223,7 +2223,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | title | 列头显示文字 | String \| ReactNode | - |
 | filtrateTitle | 筛选Checkbox显示文字 | String \| ReactNode | - |
 | width | 列宽度 | String \| Number | - |
-| ellipsis | 该列是否使用ellipsis属性 | Boolean | false |
+| ellipsis | 该列是否使用ellipsis属性,需要配合`scroll.x`使用，且指定列宽度，固定列中使用需要指定为像素宽度。 | Boolean | false |
 
 ### ColumnGroup
 
