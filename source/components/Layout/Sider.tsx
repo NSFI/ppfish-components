@@ -20,6 +20,7 @@ import classNames from 'classnames';
 import omit from 'omit.js';
 import Icon from '../Icon/index';
 import isNumeric from '../../utils/isNumeric';
+import {polyfill} from 'react-lifecycles-compat';
 
 const dimensionMap = {
   xs: '480px',
@@ -50,6 +51,7 @@ export interface SiderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface SiderState {
+  prevCollapsed?: boolean,
   collapsed?: boolean;
   below: boolean;
   belowShow?: boolean;
@@ -67,7 +69,7 @@ const generateId = (() => {
   };
 })();
 
-export default class Sider extends React.Component<SiderProps, SiderState> {
+class Sider extends React.Component<SiderProps, SiderState> {
   static __FISHD_LAYOUT_SIDER: any = true;
 
   static defaultProps = {
@@ -93,6 +95,19 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
   private mql: MediaQueryList;
   private uniqueId: string;
 
+  static getDerivedStateFromProps(nextProps: SiderProps, prevState: SiderState) {
+    if (
+      "collapsed" in nextProps &&
+      nextProps.collapsed !== prevState.prevCollapsed
+    ) {
+      return {
+        prevCollapsed: nextProps.collapsed,
+        collapsed: nextProps.collapsed
+      };
+    }
+    return null;
+  }
+
   constructor(props: SiderProps) {
     super(props);
     this.uniqueId = generateId('fishd-sider-');
@@ -110,6 +125,7 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
       collapsed = props.defaultCollapsed;
     }
     this.state = {
+      prevCollapsed: collapsed,
       collapsed,
       below: false,
     };
@@ -120,14 +136,6 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
       siderCollapsed: this.state.collapsed,
       collapsedWidth: this.props.collapsedWidth,
     };
-  }
-
-  componentWillReceiveProps(nextProps: SiderProps) {
-    if ('collapsed' in nextProps) {
-      this.setState({
-        collapsed: nextProps.collapsed,
-      });
-    }
   }
 
   componentDidMount() {
@@ -234,3 +242,7 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
     );
   }
 }
+
+
+polyfill(Sider);
+export default Sider;
