@@ -1,16 +1,19 @@
 import React, { cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
-import { toArray } from './util.js';
 import Menu from '../../Menu/src/index.js';
 import scrollIntoView from 'dom-scroll-into-view';
 import raf from 'raf';
-import { getSelectKeys, preventDefaultEvent, saveRef } from './util';
+import { toArray, getSelectKeys, preventDefaultEvent, saveRef } from './util';
 
 export default class DropdownMenu extends React.Component {
   static propTypes = {
     defaultActiveFirstOption: PropTypes.bool,
-    value: PropTypes.any,
+    value: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+      PropTypes.array,
+    ]),
     dropdownMenuStyle: PropTypes.object,
     multiple: PropTypes.bool,
     onPopupFocus: PropTypes.func,

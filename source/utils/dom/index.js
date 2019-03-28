@@ -59,6 +59,28 @@ export const addEventListener = (target, eventType, callback) => {
 };
 
 /**
+ * 节点是否包含指定 className
+ * @param  {Element}  node
+ * @param  {String}  className
+ * @return {Boolean}
+ *
+ * @example
+ * dom.hasClass(document.body, 'foo');
+ */
+export function hasClass(node, className) {
+  /* istanbul ignore if */
+  if (!hasDOM || !node) {
+    return false;
+  }
+
+  if (node.classList) {
+    return node.classList.contains(className);
+  } else {
+    return node.className.indexOf(className) > -1;
+  }
+}
+
+/**
  * 添加 className
  * @param {Element} node
  * @param {String} className
@@ -67,16 +89,16 @@ export const addEventListener = (target, eventType, callback) => {
  * dom.addClass(document.body, 'foo');
  */
 export function addClass(node, className, _force) {
-    /* istanbul ignore if */
-    if (!hasDOM || !node) {
-        return;
-    }
+  /* istanbul ignore if */
+  if (!hasDOM || !node) {
+    return;
+  }
 
-    if (node.classList) {
-        node.classList.add(className);
-    } else if (_force === true || !hasClass(node, className)) {
-        node.className += ` ${className}`;
-    }
+  if (node.classList) {
+    node.classList.add(className);
+  } else if (_force === true || !hasClass(node, className)) {
+    node.className += ` ${className}`;
+  }
 }
 
 /**
@@ -88,17 +110,17 @@ export function addClass(node, className, _force) {
  * dom.removeClass(document.body, 'foo');
  */
 export function removeClass(node, className, _force) {
-    /* istanbul ignore if */
-    if (!hasDOM || !node) {
-        return;
-    }
+  /* istanbul ignore if */
+  if (!hasDOM || !node) {
+    return;
+  }
 
-    if (node.classList) {
-        node.classList.remove(className);
-    } else if (_force === true || hasClass(node, className)) {
-        node.className = node.className
-            .replace(className, '')
-            .replace(/\s+/g, ' ')
-            .trim();
-    }
+  if (node.classList) {
+    node.classList.remove(className);
+  } else if (_force === true || hasClass(node, className)) {
+    node.className = node.className
+        .replace(className, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+  }
 }

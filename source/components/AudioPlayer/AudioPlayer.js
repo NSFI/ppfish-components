@@ -292,7 +292,7 @@ class AudioPlayer extends React.Component {
           {
             download ?
               <div className="box download-box">
-                <a download target="_blank" href={src}>
+                <a download target="_blank" rel="noopener noreferrer" href={src}>
                   <Icon className="handle-audio-icon download" type="sound-download" />
                 </a>
               </div>

@@ -18,7 +18,10 @@ class Animate extends Component {
   static propTypes = {
     animation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationAppear: PropTypes.bool,
-    component: PropTypes.any,
+    component: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.string,
+    ]),
     singleMode: PropTypes.bool,
     children: PropTypes.oneOfType([
       PropTypes.element,
