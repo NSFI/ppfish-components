@@ -162,7 +162,7 @@ class SearchInput extends React.Component {
         </span>
 
         {renderPlaceholder ? renderPlaceholder() : null}
-        <span className={clearIconClass} onClick={this.handleClearInput}></span>
+        <span className={clearIconClass} onClick={this.handleClearInput} />
       </span>
     );
   }

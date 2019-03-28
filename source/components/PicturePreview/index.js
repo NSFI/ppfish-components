@@ -194,21 +194,6 @@ class PicturePreview extends Component {
     document.addEventListener("keydown", this.handleKeyDown);
   }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    let { mask, visible } = this.props;
-
-    // 从隐藏状态到展示状态时重新设置容器的样式
-    if (visible && !prevProps.visible) {
-      this.setContainerStyle();
-    }
-
-    if (mask) {
-      return visible ? 'hidden' : this.bodyDefaultOverflow;
-    }
-
-    return null;
-  }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     let { current } = this.state;
 
@@ -235,6 +220,21 @@ class PicturePreview extends Component {
     }
 
     document.removeEventListener("keydown", this.handleKeyDown);
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    let { mask, visible } = this.props;
+
+    // 从隐藏状态到展示状态时重新设置容器的样式
+    if (visible && !prevProps.visible) {
+      this.setContainerStyle();
+    }
+
+    if (mask) {
+      return visible ? 'hidden' : this.bodyDefaultOverflow;
+    }
+
+    return null;
   }
 
   /**

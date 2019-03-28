@@ -317,7 +317,10 @@ class TreeNode extends React.Component {
       );
     }
 
-    const switcherCls = classNames(`${prefixCls}-switcher`, `${prefixCls}-switcher_${expanded ? ICON_OPEN : ICON_CLOSE}`);
+    const switcherCls = classNames(
+      `${prefixCls}-switcher`,
+      `${prefixCls}-switcher_${expanded ? ICON_OPEN : ICON_CLOSE}`
+    );
     return (
       <span onClick={this.onExpand} className={switcherCls}>
         {typeof switcherIcon === 'function' ?

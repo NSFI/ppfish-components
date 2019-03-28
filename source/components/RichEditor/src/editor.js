@@ -208,11 +208,13 @@ class RichEditor extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    /* eslint-disable react/no-did-update-set-state */
     if ((prevState.lastValue != this.state.lastValue) && this.props.supportFontTag) {
       this.setState({
         value: this.formatFontTag(this.state.lastValue)
       });
     }
+    /* eslint-enable react/no-did-update-set-state */
   }
 
   componentWillUnmount() {

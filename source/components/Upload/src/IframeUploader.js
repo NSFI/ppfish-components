@@ -57,7 +57,11 @@ class IframeUploader extends Component {
       response = doc.body.innerHTML;
       props.onSuccess(response, file);
     } catch (err) {
-      warning(false, 'cross domain error for Upload. Maybe server should return document.domain script. see Note from https://github.com/react-component/upload');
+      warning(
+        false,
+        `Cross domain error for Upload. Maybe server should return document.domain script.
+        See Note from https://github.com/react-component/upload`
+      );
       response = 'cross-domain';
       props.onError(err, null, file);
     }
@@ -194,7 +198,7 @@ class IframeUploader extends Component {
     if (this.state.uploading) {
       this.file = {};
       // hack avoid batch
-      this.state.uploading = false;
+      this.state.uploading = false; // eslint-disable-line react/no-direct-mutation-state
       this.setState({
         uploading: false,
       });
@@ -204,7 +208,7 @@ class IframeUploader extends Component {
 
   startUpload() {
     if (!this.state.uploading) {
-      this.state.uploading = true;
+      this.state.uploading = true;  // eslint-disable-line react/no-direct-mutation-state
       this.setState({
         uploading: true,
       });

@@ -136,6 +136,7 @@ let QuillComponent = createClass({
 			this.getEditorConfig()
 		);
 
+		/* eslint-disable react/no-did-mount-set-state */
 		this.setState({
 			editor
 		}, () => {
@@ -149,6 +150,7 @@ let QuillComponent = createClass({
 				this.setEditorContents(this.state.editor, this.state.value);
 			}
 		});
+		/* eslint-enable react/no-did-mount-set-state */
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -408,7 +410,7 @@ QuillComponent.getDerivedStateFromProps = function(nextProps, prevState) {
 		//       a change, regardless of whether they represent the same document.
 		let isEqualContents = isEqual(nextContents, currentContents);
 		if (nextContents && currentContents && nextContents.ops && currentContents.ops) {
-			isEqualContents = isEqual(nextContents.ops, nextValue.ops);
+			isEqualContents = isEqual(nextContents.ops, currentContents.ops);
 		}
 
 		newState['isEqualContents'] = isEqualContents;
