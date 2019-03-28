@@ -4,6 +4,7 @@ import RcMenu, {Divider, ItemGroup} from './src';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import warning from 'warning';
+import {polyfill} from 'react-lifecycles-compat';
 import animation from '../../utils/openAnimation';
 import SubMenu from './SubMenu';
 import Item from './MenuItem';
@@ -60,7 +61,7 @@ export interface MenuState {
   openKeys: string[];
 }
 
-export default class Menu extends React.Component<MenuProps, MenuState> {
+class Menu extends React.Component<MenuProps, MenuState> {
   static Divider = Divider;
   static Item = Item;
   static SubMenu = SubMenu;
@@ -79,11 +80,23 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
     siderCollapsed: PropTypes.bool,
     collapsedWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
+
+  siderCollapsed: boolean;
   switchModeFromInline: boolean;
   leaveAnimationExecutedWhenInlineCollapsed: boolean;
   inlineOpenKeys: string[] = [];
 
-  constructor(props: MenuProps) {
+  static getDerivedStateFromProps(nextProps: MenuProps, prevState: MenuState) {
+    let newState = {};
+
+    if ('openKeys' in nextProps) {
+      newState['openKeys'] = nextProps.openKeys!;
+    }
+
+    return newState;
+  }
+
+  constructor(props: MenuProps, context: SiderContext) {
     super(props);
 
     warning(
@@ -97,6 +110,8 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
       '`inlineCollapsed` should only be used when Menu\'s `mode` is inline.',
     );
 
+    this.switchModeFromInline = true;
+
     let openKeys;
     if ('defaultOpenKeys' in props) {
       openKeys = props.defaultOpenKeys;
@@ -105,8 +120,40 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
     }
 
     this.state = {
-      openKeys: openKeys || [],
+      openKeys: openKeys || []
     };
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if ('openKeys' in this.props) return;
+    let newState = {};
+
+    if (prevProps.mode === 'inline' && this.props.mode !== 'inline') {
+      this.switchModeFromInline = true;
+    }
+
+    if (
+      (this.props.inlineCollapsed && !prevProps.inlineCollapsed) ||
+      (this.context.siderCollapsed && !this.siderCollapsed)
+    ) {
+      const menuNode = findDOMNode(this) as Element;
+      this.switchModeFromInline = (
+        !!prevState.openKeys.length &&
+        !!menuNode.querySelectorAll(`.${this.props.prefixCls}-submenu-open`).length
+      );
+      this.inlineOpenKeys = this.state.openKeys;
+      newState['openKeys'] = [];
+      this.siderCollapsed = this.context.siderCollapsed;
+      this.setState(newState);
+    } else if (
+      (!this.props.inlineCollapsed && prevProps.inlineCollapsed) ||
+      (!this.context.siderCollapsed && this.siderCollapsed)
+    ) {
+      newState['openKeys'] = this.inlineOpenKeys;
+      this.siderCollapsed = this.context.siderCollapsed;
+      this.inlineOpenKeys = [];
+      this.setState(newState);
+    }
   }
 
   getChildContext() {
@@ -114,31 +161,6 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
       inlineCollapsed: this.getInlineCollapsed(),
       menuTheme: this.props.theme,
     };
-  }
-
-  componentWillReceiveProps(nextProps: MenuProps, nextContext: SiderContext) {
-    const {prefixCls} = this.props;
-    if (this.props.mode === 'inline' &&
-      nextProps.mode !== 'inline') {
-      this.switchModeFromInline = true;
-    }
-    if ('openKeys' in nextProps) {
-      this.setState({openKeys: nextProps.openKeys!});
-      return;
-    }
-    if ((nextProps.inlineCollapsed && !this.props.inlineCollapsed) ||
-      (nextContext.siderCollapsed && !this.context.siderCollapsed)) {
-      const menuNode = findDOMNode(this) as Element;
-      this.switchModeFromInline =
-        !!this.state.openKeys.length && !!menuNode.querySelectorAll(`.${prefixCls}-submenu-open`).length;
-      this.inlineOpenKeys = this.state.openKeys;
-      this.setState({openKeys: []});
-    }
-    if ((!nextProps.inlineCollapsed && this.props.inlineCollapsed) ||
-      (!nextContext.siderCollapsed && this.context.siderCollapsed)) {
-      this.setState({openKeys: this.inlineOpenKeys});
-      this.inlineOpenKeys = [];
-    }
   }
 
   handleClick = (e: ClickParam) => {
@@ -206,7 +228,7 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
             ...animation,
             leave: (node: HTMLElement, done: () => void) => animation.leave(node, () => {
               // Make sure inline menu leave animation finished before mode is switched
-              this.switchModeFromInline = false;
+              // this.switchModeFromInline = false;
               this.setState({});
               // when inlineCollapsed change false to true, all submenu will be unmounted,
               // so that we don't need handle animation leaving.
@@ -259,3 +281,5 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
     return <RcMenu {...this.props} {...menuProps} />;
   }
 }
+polyfill(Menu);
+export default Menu;

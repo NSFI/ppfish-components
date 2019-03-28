@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spin 自定义 indicator 1`] = `
+<div
+  class="fishd-spin fishd-spin-spinning"
+>
+  <div
+    class="custom-indicator fishd-spin-dot"
+  />
+</div>
+`;

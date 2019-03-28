@@ -172,7 +172,7 @@ class CustomToolbar extends PureComponent {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let emojiImg = new Image();
     emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
   }

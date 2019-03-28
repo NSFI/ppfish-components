@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isNegativeZero from 'is-negative-zero';
+import {polyfill} from 'react-lifecycles-compat';
+
 import {KeyCode} from '../../../utils';
 import InputHandler from './InputHandler';
 
@@ -15,6 +17,103 @@ function preventDefault(e) {
 function defaultParser(input) {
   /* eslint-disable-next-line */
   return input.replace(/[^\w\.-]+/g, '');
+}
+
+function getValidValue(value, min, max) {
+  let val = parseFloat(value, 10);
+  // https://github.com/ant-design/ant-design/issues/7358
+  if (isNaN(val)) {
+    return value;
+  }
+  if (val < min) {
+    val = min;
+  }
+  if (val > max) {
+    val = max;
+  }
+  return val;
+}
+
+function toPrecisionAsStep(props, num) {
+  if (isNotCompleteNumber(num) || num === '') {
+    return num;
+  }
+  const precision = Math.abs(getMaxPrecision(props, num));
+  if (precision === 0) {
+    return num.toString();
+  }
+  if (!isNaN(precision)) {
+    return Number(num).toFixed(precision);
+  }
+  return num.toString();
+}
+
+// '1.' '1x' 'xx' '' => are not complete numbers
+function isNotCompleteNumber(num) {
+  return (
+    isNaN(num) ||
+    num === '' ||
+    num === null ||
+    (num && num.toString().indexOf('.') === num.toString().length - 1)
+  );
+}
+
+// step={1.0} value={1.51}
+// press +
+// then value should be 2.51, rather than 2.5
+// if this.props.precision is undefined
+// https://github.com/react-component/input-number/issues/39
+// 获取最大数值精度
+function getMaxPrecision(props, currentValue, ratio = 1) {
+  if ('precision' in props) {
+    return props.precision;
+  }
+  const {step} = props;
+  const ratioPrecision = getPrecision(props, ratio);
+  const stepPrecision = getPrecision(props, step);
+  const currentValuePrecision = getPrecision(props, currentValue);
+  if (!currentValue) {
+    return ratioPrecision + stepPrecision;
+  }
+  return Math.max(currentValuePrecision, ratioPrecision + stepPrecision);
+}
+
+//获取数值精度
+function getPrecision(props, value) {
+  if ('precision' in props) {
+    return props.precision;
+  }
+  const valueString = value.toString();
+  if (valueString.indexOf('e-') >= 0) {
+    return parseInt(valueString.slice(valueString.indexOf('e-') + 2), 10);
+  }
+  let precision = 0;
+  if (valueString.indexOf('.') >= 0) {
+    precision = valueString.length - valueString.indexOf('.') - 1;
+  }
+  return precision;
+}
+
+
+function getPrecisionFactor(props, currentValue, ratio = 1) {
+  const precision = getMaxPrecision(props, currentValue, ratio);
+  return Math.pow(10, precision);
+}
+
+function getRatio(e) {
+  let ratio = 1;
+  if (e.metaKey || e.ctrlKey) {
+    ratio = 0.1;
+  } else if (e.shiftKey) {
+    ratio = 10;
+  }
+  return ratio;
+}
+
+function getValueFromEvent(e) {
+  // optimize for chinese input experience
+  // https://github.com/ant-design/ant-design/issues/8196
+  return e.target.value.trim().replace(/。/g, '.');
 }
 
 /**
@@ -33,7 +132,7 @@ const DELAY = 600;
  */
 const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 
-export default class RcInputNumber extends React.Component {
+class RcInputNumber extends React.Component {
   static propTypes = {
     value: PropTypes.oneOfType([
       PropTypes.number,
@@ -90,6 +189,18 @@ export default class RcInputNumber extends React.Component {
     required: false,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {prevProps: nextProps};
+    const {prevProps = {}} = prevState;
+    if ('value' in nextProps && prevProps.value !== nextProps.value) {
+      const value = prevState.focused ? nextProps.value : getValidValue(nextProps.value, nextProps.min, nextProps.max);
+      const inputValue = prevState.inputting ? value : toPrecisionAsStep(nextProps, value);
+      newState.value = value;
+      newState.inputValue = inputValue;
+    }
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -102,25 +213,16 @@ export default class RcInputNumber extends React.Component {
     value = this.toNumber(value);
 
     this.state = {
-      inputValue: this.toPrecisionAsStep(value),
+      inputValue: toPrecisionAsStep(props, value),
       value,
       focused: props.autoFocus,
+      inputting: false,
+      prevProps: props,
     };
   }
 
   componentDidMount() {
     this.componentDidUpdate();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps) {
-      const value = this.state.focused
-        ? nextProps.value : this.getValidValue(nextProps.value, nextProps.min, nextProps.max);
-      this.setState({
-        value,
-        inputValue: this.inputting ? value : this.toPrecisionAsStep(value),
-      });
-    }
   }
 
   componentDidUpdate() {
@@ -193,11 +295,11 @@ export default class RcInputNumber extends React.Component {
     const {onKeyDown} = this.props;
 
     if (e.keyCode === KeyCode.UP) {
-      const ratio = this.getRatio(e);
+      const ratio = getRatio(e);
       this.up(e, ratio);
       this.stop();
     } else if (e.keyCode === KeyCode.DOWN) {
-      const ratio = this.getRatio(e);
+      const ratio = getRatio(e);
       this.down(e, ratio);
       this.stop();
     }
@@ -225,12 +327,16 @@ export default class RcInputNumber extends React.Component {
 
   onChange = (e) => {
     if (this.state.focused) {
-      this.inputting = true;
+      this.setState({
+        inputting: true
+      });
     }
-    const input = this.props.parser(this.getValueFromEvent(e));
+    const input = this.props.parser(getValueFromEvent(e));
     // valid number or invalid string
     const newInputValue = this.toNumberWhenUserInput(input);
-    this.setState({inputValue: newInputValue});
+    this.setState({
+      inputValue: newInputValue
+    });
     this.props.onChange(newInputValue);
   };
 
@@ -252,9 +358,9 @@ export default class RcInputNumber extends React.Component {
   };
 
   onBlur = (e, ...args) => {
-    this.inputting = false;
     this.setState({
       focused: false,
+      inputting: false,
     });
     const value = this.getCurrentValidValue(this.state.inputValue);
     e.persist();  // fix https://github.com/react-component/input-number/issues/51
@@ -267,103 +373,33 @@ export default class RcInputNumber extends React.Component {
     let val = value;
     if (val === '') {
       val = '';
-    } else if (!this.isNotCompleteNumber(val)) {
-      val = this.getValidValue(val);
+    } else if (!isNotCompleteNumber(val)) {
+      val = getValidValue(val, this.props.min, this.props.max);
     } else {
       val = this.state.value;
     }
     return this.toNumber(val);
   }
 
-  getRatio(e) {
-    let ratio = 1;
-    if (e.metaKey || e.ctrlKey) {
-      ratio = 0.1;
-    } else if (e.shiftKey) {
-      ratio = 10;
-    }
-    return ratio;
-  }
-
-  getValueFromEvent(e) {
-    // optimize for chinese input expierence
-    // https://github.com/ant-design/ant-design/issues/8196
-    return e.target.value.trim().replace(/。/g, '.');
-  }
-
-  getValidValue(value, min = this.props.min, max = this.props.max) {
-    let val = parseFloat(value, 10);
-    // https://github.com/ant-design/ant-design/issues/7358
-    if (isNaN(val)) {
-      return value;
-    }
-    if (val < min) {
-      val = min;
-    }
-    if (val > max) {
-      val = max;
-    }
-    return val;
-  }
-
   setValue(v, callback) {
     // trigger onChange
-    const newValue = this.isNotCompleteNumber(parseFloat(v, 10)) ? undefined : parseFloat(v, 10);
+    const newValue = isNotCompleteNumber(parseFloat(v, 10)) ? undefined : parseFloat(v, 10);
     const changed = newValue !== this.state.value ||
       `${newValue}` !== `${this.state.inputValue}`; // https://github.com/ant-design/ant-design/issues/7363
     if (!('value' in this.props)) {
       this.setState({
         value: newValue,
-        inputValue: this.toPrecisionAsStep(v),
+        inputValue: toPrecisionAsStep(this.props, v),
       }, callback);
     } else {
       // always set input value same as value
       this.setState({
-        inputValue: this.toPrecisionAsStep(this.state.value),
+        inputValue: toPrecisionAsStep(this.props, this.state.value),
       }, callback);
     }
     if (changed) {
       this.props.onChange(newValue);
     }
-  }
-
-  getPrecision(value) {
-    if ('precision' in this.props) {
-      return this.props.precision;
-    }
-    const valueString = value.toString();
-    if (valueString.indexOf('e-') >= 0) {
-      return parseInt(valueString.slice(valueString.indexOf('e-') + 2), 10);
-    }
-    let precision = 0;
-    if (valueString.indexOf('.') >= 0) {
-      precision = valueString.length - valueString.indexOf('.') - 1;
-    }
-    return precision;
-  }
-
-  // step={1.0} value={1.51}
-  // press +
-  // then value should be 2.51, rather than 2.5
-  // if this.props.precision is undefined
-  // https://github.com/react-component/input-number/issues/39
-  getMaxPrecision(currentValue, ratio = 1) {
-    if ('precision' in this.props) {
-      return this.props.precision;
-    }
-    const {step} = this.props;
-    const ratioPrecision = this.getPrecision(ratio);
-    const stepPrecision = this.getPrecision(step);
-    const currentValuePrecision = this.getPrecision(currentValue);
-    if (!currentValue) {
-      return ratioPrecision + stepPrecision;
-    }
-    return Math.max(currentValuePrecision, ratioPrecision + stepPrecision);
-  }
-
-  getPrecisionFactor(currentValue, ratio = 1) {
-    const precision = this.getMaxPrecision(currentValue, ratio);
-    return Math.pow(10, precision);
   }
 
   getInputDisplayValue = () => {
@@ -372,7 +408,7 @@ export default class RcInputNumber extends React.Component {
     if (focused) {
       inputDisplayValue = inputValue;
     } else {
-      inputDisplayValue = this.toPrecisionAsStep(value);
+      inputDisplayValue = toPrecisionAsStep(this.props, value);
     }
 
     if (inputDisplayValue === undefined || inputDisplayValue === null) {
@@ -467,32 +503,8 @@ export default class RcInputNumber extends React.Component {
     return num;
   }
 
-  toPrecisionAsStep(num) {
-    if (this.isNotCompleteNumber(num) || num === '') {
-      return num;
-    }
-    const precision = Math.abs(this.getMaxPrecision(num));
-    if (precision === 0) {
-      return num.toString();
-    }
-    if (!isNaN(precision)) {
-      return Number(num).toFixed(precision);
-    }
-    return num.toString();
-  }
-
-  // '1.' '1x' 'xx' '' => are not complete numbers
-  isNotCompleteNumber(num) {
-    return (
-      isNaN(num) ||
-      num === '' ||
-      num === null ||
-      (num && num.toString().indexOf('.') === num.toString().length - 1)
-    );
-  }
-
   toNumber(num) {
-    if (this.isNotCompleteNumber(num)) {
+    if (isNotCompleteNumber(num)) {
       return num;
     }
     if ('precision' in this.props) {
@@ -512,8 +524,8 @@ export default class RcInputNumber extends React.Component {
 
   upStep(val, rat) {
     const {step, min} = this.props;
-    const precisionFactor = this.getPrecisionFactor(val, rat);
-    const precision = Math.abs(this.getMaxPrecision(val, rat));
+    const precisionFactor = getPrecisionFactor(this.props, val, rat);
+    const precision = Math.abs(getMaxPrecision(this.props, val, rat));
     let result;
     if (typeof val === 'number') {
       result =
@@ -527,8 +539,8 @@ export default class RcInputNumber extends React.Component {
 
   downStep(val, rat) {
     const {step, min} = this.props;
-    const precisionFactor = this.getPrecisionFactor(val, rat);
-    const precision = Math.abs(this.getMaxPrecision(val, rat));
+    const precisionFactor = getPrecisionFactor(this.props, val, rat);
+    const precision = Math.abs(getMaxPrecision(this.props, val, rat));
     let result;
     if (typeof val === 'number') {
       result =
@@ -551,7 +563,7 @@ export default class RcInputNumber extends React.Component {
       return;
     }
     const value = this.getCurrentValidValue(this.state.inputValue) || 0;
-    if (this.isNotCompleteNumber(value)) {
+    if (isNotCompleteNumber(value)) {
       return;
     }
     let val = this[`${type}Step`](value, ratio);
@@ -756,3 +768,7 @@ export default class RcInputNumber extends React.Component {
     );
   }
 }
+
+polyfill(RcInputNumber);
+
+export default RcInputNumber;

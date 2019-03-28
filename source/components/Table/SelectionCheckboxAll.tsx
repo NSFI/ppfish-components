@@ -1,14 +1,83 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import {polyfill} from 'react-lifecycles-compat';
+
 import Checkbox, {CheckboxChangeEvent} from '../Checkbox';
 import Dropdown from '../Dropdown';
 import Menu from '../Menu';
 import Icon from '../Icon';
 import {SelectionCheckboxAllProps, SelectionCheckboxAllState, SelectionItem} from './interface';
 
-export default class SelectionCheckboxAll<T> extends React.Component<SelectionCheckboxAllProps<T>, SelectionCheckboxAllState> {
+function checkSelection(props, data, type: string, byDefaultChecked: boolean) {
+  const {store, getCheckboxPropsByItem, getRecordKey} = props;
+  // type should be 'every' | 'some'
+  if (type === 'every' || type === 'some') {
+    return (
+      byDefaultChecked
+        ? data[type]((item, i) => getCheckboxPropsByItem(item, i).defaultChecked)
+        : data[type]((item, i) =>
+        store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0)
+    );
+  }
+  return false;
+}
+
+function getCheckState(props) {
+  const {store, data} = props;
+  let checked;
+  if (!data.length) {
+    checked = false;
+  } else {
+    checked = store.getState().selectionDirty
+      ? checkSelection(props, data, 'every', false)
+      : (
+        checkSelection(props, data, 'every', false) ||
+        checkSelection(props, data, 'every', true)
+      );
+
+  }
+  return checked;
+}
+
+function getIndeterminateState(props) {
+  const {store, data} = props;
+  let indeterminate;
+  if (!data.length) {
+    indeterminate = false;
+  } else {
+    indeterminate = store.getState().selectionDirty
+      ? (checkSelection(props, data, 'some', false) &&
+        !checkSelection(props, data, 'every', false)
+      )
+      : ((checkSelection(props, data, 'some', false) &&
+          !checkSelection(props, data, 'every', false)) ||
+        (checkSelection(props, data, 'some', true) &&
+          !checkSelection(props, data, 'every', true))
+      );
+  }
+  return indeterminate;
+}
+
+function getCheckAndIndeterminateState(props, state) {
+  const checked = getCheckState(props);
+  const indeterminate = getIndeterminateState(props);
+  let newState: SelectionCheckboxAllState = {};
+  if (indeterminate !== state.indeterminate) {
+    newState.indeterminate = indeterminate;
+  }
+  if (checked !== state.checked) {
+    newState.checked = checked;
+  }
+  return newState;
+}
+
+class SelectionCheckboxAll<T> extends React.Component<SelectionCheckboxAllProps<T>, SelectionCheckboxAllState> {
   unsubscribe: () => void;
   defaultSelections: SelectionItem[];
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return getCheckAndIndeterminateState(nextProps, prevState);
+  };
 
   constructor(props: SelectionCheckboxAllProps<T>) {
     super(props);
@@ -26,17 +95,13 @@ export default class SelectionCheckboxAll<T> extends React.Component<SelectionCh
     }];
 
     this.state = {
-      checked: this.getCheckState(props),
-      indeterminate: this.getIndeterminateState(props),
+      checked: getCheckState(props),
+      indeterminate: getIndeterminateState(props),
     };
   }
 
   componentDidMount() {
     this.subscribe();
-  }
-
-  componentWillReceiveProps(nextProps: SelectionCheckboxAllProps<T>) {
-    this.setCheckState(nextProps);
   }
 
   componentWillUnmount() {
@@ -48,80 +113,14 @@ export default class SelectionCheckboxAll<T> extends React.Component<SelectionCh
   subscribe() {
     const {store} = this.props;
     this.unsubscribe = store.subscribe(() => {
-      this.setCheckState(this.props);
+      this.setState(getCheckAndIndeterminateState(this.props, this.state));
     });
   }
 
-  checkSelection(data: T[], type: string, byDefaultChecked: boolean) {
-    const {store, getCheckboxPropsByItem, getRecordKey} = this.props;
-    // type should be 'every' | 'some'
-    if (type === 'every' || type === 'some') {
-      return (
-        byDefaultChecked
-          ? data[type]((item, i) => getCheckboxPropsByItem(item, i).defaultChecked)
-          : data[type]((item, i) =>
-          store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0)
-      );
-    }
-    return false;
-  }
-
-  setCheckState(props: SelectionCheckboxAllProps<T>) {
-    const checked = this.getCheckState(props);
-    const indeterminate = this.getIndeterminateState(props);
-    this.setState((prevState) => {
-      let newState: SelectionCheckboxAllState = {};
-      if (indeterminate !== prevState.indeterminate) {
-        newState.indeterminate = indeterminate;
-      }
-      if (checked !== prevState.checked) {
-        newState.checked = checked;
-      }
-      return newState;
-    });
-  }
-
-  getCheckState(props: SelectionCheckboxAllProps<T>) {
-    const {store, data} = props;
-    let checked;
-    if (!data.length) {
-      checked = false;
-    } else {
-      checked = store.getState().selectionDirty
-        ? this.checkSelection(data, 'every', false)
-        : (
-          this.checkSelection(data, 'every', false) ||
-          this.checkSelection(data, 'every', true)
-        );
-
-    }
-    return checked;
-  }
-
-  getIndeterminateState(props: SelectionCheckboxAllProps<T>) {
-    const {store, data} = props;
-    let indeterminate;
-    if (!data.length) {
-      indeterminate = false;
-    } else {
-      indeterminate = store.getState().selectionDirty
-        ? (
-          this.checkSelection(data, 'some', false) &&
-          !this.checkSelection(data, 'every', false)
-        )
-        : ((this.checkSelection(data, 'some', false) &&
-            !this.checkSelection(data, 'every', false)) ||
-          (this.checkSelection(data, 'some', true) &&
-            !this.checkSelection(data, 'every', true))
-        );
-    }
-    return indeterminate;
-  }
-
-  handleSelectAllChagne = (e: CheckboxChangeEvent) => {
+  handleSelectAllChange = (e: CheckboxChangeEvent) => {
     let checked = e.target.checked;
     this.props.onSelect(checked ? 'all' : 'removeAll', 0, null);
-  }
+  };
 
   renderMenus(selections: SelectionItem[]) {
     return selections.map((selection, index) => {
@@ -181,10 +180,14 @@ export default class SelectionCheckboxAll<T> extends React.Component<SelectionCh
           checked={checked}
           indeterminate={indeterminate}
           disabled={disabled}
-          onChange={this.handleSelectAllChagne}
+          onChange={this.handleSelectAllChange}
         />
         {customSelections}
       </div>
     );
   }
 }
+
+polyfill(SelectionCheckboxAll);
+
+export default SelectionCheckboxAll;

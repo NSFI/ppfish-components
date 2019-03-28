@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import AsyncValidator from 'async-validator';
+import {polyfill} from 'react-lifecycles-compat';
 import warning from 'warning';
 import get from 'lodash/get';
 import set from 'lodash/set';
@@ -34,6 +35,15 @@ function createBaseForm(option = {}, mixins = []) {
     withRef,
   } = option;
 
+
+  const staticGetDerivedStateFromProps = (nextProps, prevState) =>{
+      if (mapPropsToFields) {
+        prevState.__fieldsStore.updateFields(mapPropsToFields(nextProps));
+      }
+      return null;
+  };
+
+
   return function decorate(WrappedComponent) {
     const Form = createReactClass({
       mixins,
@@ -66,14 +76,9 @@ function createBaseForm(option = {}, mixins = []) {
          });
 
         return {
+          __fieldsStore: this.fieldsStore,
           submitting: false,
         };
-      },
-
-      componentWillReceiveProps(nextProps) {
-        if (mapPropsToFields) {
-          this.fieldsStore.updateFields(mapPropsToFields(nextProps));
-        }
       },
 
       onCollectCommon(name, action, args) {
@@ -520,6 +525,8 @@ function createBaseForm(option = {}, mixins = []) {
       },
     });
 
+    Form.getDerivedStateFromProps = staticGetDerivedStateFromProps;
+    polyfill(Form);
     return argumentContainer(Form, WrappedComponent);
   };
 }

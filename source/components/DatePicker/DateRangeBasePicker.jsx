@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Trigger from 'rc-trigger';
+import {polyfill} from 'react-lifecycles-compat';
 import {HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from './constants';
 import {Errors, require_condition} from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
@@ -20,7 +21,8 @@ const isInputValid = (text, date) => {
   return true;
 };
 
-export default class DateRangeBasePicker extends React.Component {
+const $type = Symbol('type');
+class DateRangeBasePicker extends React.Component {
 
   static get propTypes() {
     return {
@@ -63,6 +65,44 @@ export default class DateRangeBasePicker extends React.Component {
     };
   }
 
+  static dateToStr(date, type, format, separator) {
+    if (!date || !isValidValue(date)) return '';
+    const tdate = date;
+    const formatter = (
+      TYPE_VALUE_RESOLVER_MAP['date']
+    ).formatter;
+    const result = formatter(tdate, format || DEFAULT_FORMATS[type], separator);
+    return result;
+  }
+
+
+  static propToState({ value,format,separator },state) {
+
+    const type = state[$type];
+    return {
+      value: value && isValidValueArr(value) ? value : null,
+      text:
+        value && isValidValueArr(value)
+          ? [
+            DateRangeBasePicker.dateToStr(value[0], type, format, separator),
+            DateRangeBasePicker.dateToStr(value[1], type, format, separator)
+          ]
+          : "",
+      confirmValue: value && isValidValueArr(value) ? value : null
+    };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    // 只 value 受控
+    if ('value' in nextProps && !isEqual(prevState.prevPropValue, nextProps.value)) {
+      let state = DateRangeBasePicker.propToState(nextProps, prevState);
+      state.prevPropValue = nextProps.value;
+      return state;
+    }
+    return null;
+  }
+
   constructor(props, _type, state) {
     require_condition(typeof _type === 'string');
     super(props);
@@ -75,17 +115,6 @@ export default class DateRangeBasePicker extends React.Component {
       text: props.value && isValidValueArr(props.value) ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '',
       confirmValue: props.value && isValidValueArr(props.value) ? props.value : null // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // 只 value 受控
-    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this.setState({
-        value: nextProps.value && isValidValueArr(nextProps.value) ? nextProps.value : null,
-        text: nextProps.value && isValidValueArr(nextProps.value) ? [this.dateToStr(nextProps.value[0]), this.dateToStr(nextProps.value[1])] : '',
-        confirmValue: nextProps.value && isValidValueArr(nextProps.value) ? nextProps.value : null
-      });
-    }
   }
 
   isDateValid(date) {
@@ -106,7 +135,7 @@ export default class DateRangeBasePicker extends React.Component {
       value,
       text: value && value.length === 2 ? [this.dateToStr(value[0]), this.dateToStr(value[1])] : '',
     }, ()=> {
-      this.props.onVisibleChange(isKeepPannel)
+      this.props.onVisibleChange(isKeepPannel);
     });
 
     if (isConfirmValue) {
@@ -132,13 +161,7 @@ export default class DateRangeBasePicker extends React.Component {
   }
 
   dateToStr = (date) => {
-    if (!date || !isValidValue(date)) return '';
-    const tdate = date;
-    const formatter = (
-      TYPE_VALUE_RESOLVER_MAP['date']
-    ).formatter;
-    const result = formatter(tdate, this.getFormat(), this.getFormatSeparator());
-    return result;
+    return DateRangeBasePicker.dateToStr(date, this.type, this.getFormat(), this.getFormatSeparator());
   }
 
   parseDate = (dateStr) => {
@@ -154,7 +177,7 @@ export default class DateRangeBasePicker extends React.Component {
     this.setState({
       pickerVisible: !this.state.pickerVisible
     }, ()=> {
-      this.props.onVisibleChange(!this.state.pickerVisible)
+      this.props.onVisibleChange(!this.state.pickerVisible);
     });
   }
 
@@ -401,3 +424,5 @@ export default class DateRangeBasePicker extends React.Component {
     );
   }
 }
+polyfill(DateRangeBasePicker);
+export default DateRangeBasePicker;

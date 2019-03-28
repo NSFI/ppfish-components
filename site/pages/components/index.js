@@ -29,11 +29,8 @@ export default class Components extends React.Component {
     };
   }
 
-  componentWillMount() {
-    window.addEventListener("hashchange", this.setActiveKey, false);
-  }
-
   componentDidMount() {
+    window.addEventListener("hashchange", this.setActiveKey, false);
     this.setActiveKey();
     this.screentRegister = this.enquireScreenRegister();
   }

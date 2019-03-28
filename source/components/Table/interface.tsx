@@ -151,6 +151,9 @@ export interface TableState<T> {
   sortColumn: ColumnProps<T> | null;
   sortOrder?: SortOrder;
   pivot?: number;
+  columns: ColumnProps<T>[];
+  hideColumns: string[];
+  components: any;
 }
 
 export type SelectionItemSelectFn = (key: string[]) => any;
@@ -221,6 +224,8 @@ export interface ColumnFiltrateState {
   visible?: boolean;
   checkedOption?: any[];
   checkedOptionConfirm?: any[];
+  colSpanOption?: any[];
+  prevProps?: any;
 }
 
 export interface FilterMenuProps<T> {
@@ -237,4 +242,6 @@ export interface FilterMenuState {
   selectedKeys: string[];
   keyPathOfSelectedItem: { [key: string]: string };
   visible?: boolean;
+  prevProps: any;
+  neverShown: boolean;
 }

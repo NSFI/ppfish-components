@@ -10,6 +10,40 @@ describe('Form', () => {
     expect(wrapper.hasClass('fishd-form-hide-required-mark')).toBe(true);
   });
 
+  it('Map props to field', () => {
+    const Input = require('../../Input').default
+    class TestForm extends React.Component {
+      render() {
+        const { form: { getFieldDecorator } } = this.props;
+        return (
+          <Form>
+            <Form.Item>
+              {getFieldDecorator('testField')(<Input />)}
+            </Form.Item>
+          </Form>
+        );
+      }
+    }
+
+    const options = {
+      mapPropsToFields: (props) => ({
+        testField: Form.createFormField(({ value: props.testProp }))
+      })
+    }
+    const mapSpy = jest.spyOn(options, 'mapPropsToFields');
+    const WrappedTest = Form.create(options)(TestForm);
+    const wrapper = mount(
+      <WrappedTest testProp={234} />
+    );
+
+    expect(mapSpy).toBeCalled()
+    expect(wrapper.find('input').prop('value')).toBe(234);
+
+    wrapper.setProps({ testProp: "fff" });
+    expect(wrapper.find('input').prop('value')).toBe('fff');
+
+  });
+
   describe('wrappedComponentRef', () => {
     it('warns on functional component', () => {
       if (process.env.REACT === '15') {

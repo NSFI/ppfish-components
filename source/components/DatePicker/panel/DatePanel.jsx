@@ -5,6 +5,7 @@ import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import TimePicker  from '../../TimePicker/index.js';
+import {polyfill} from 'react-lifecycles-compat';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import { DateTable } from '../basic';
 import isEqual from 'lodash/isEqual';
@@ -38,7 +39,7 @@ const isInputValid = (text, date, disabledDate) => {
   return true;
 };
 
-export default class DatePanel extends React.Component {
+class DatePanel extends React.Component {
 
   static get propTypes() {
     return {
@@ -93,6 +94,25 @@ export default class DatePanel extends React.Component {
     };
   }
 
+  static propsToState({value, format, defaultTimeValue}) {
+    const state = {};
+    state.currentDate = isValidValue(value) ? toDate(value) : new Date();  // 日历视图
+    state.date = toDate(value);                                            // 日期
+    state.dateInputText = formatDate(value, dateFormat(format));           // 日期输入框的值(string)，当props.value为null时，值为''
+    state.time = toDate(value || defaultTimeValue);                        // 时间
+    return state;
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if ('value' in nextProps && !isEqual(nextProps.value, prevState.prevPropValue)) {
+       let state = DatePanel.propsToState(nextProps);
+       state.prevPropValue = nextProps.value;
+       return state;
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
@@ -106,23 +126,7 @@ export default class DatePanel extends React.Component {
 
     this.state = Object.assign({}, {
       currentView,
-    }, this.propsToState(props));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // 只 value 受控
-    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this.setState(this.propsToState(nextProps));
-    }
-  }
-
-  propsToState(props) {
-    const state = {};
-    state.currentDate = isValidValue(props.value) ? toDate(props.value) : new Date();  // 日历视图
-    state.date = toDate(props.value);                                                  // 日期
-    state.dateInputText = formatDate(props.value, dateFormat(props.format));           // 日期输入框的值(string)，当props.value为null时，值为''
-    state.time = toDate(props.value || props.defaultTimeValue);                        // 时间
-    return state;
+    }, DatePanel.propsToState(props));
   }
 
   // 年份、月份面板先注释掉，需要时再打开
@@ -401,15 +405,13 @@ export default class DatePanel extends React.Component {
                   <Icon
                     type="left-double"
                     onClick={this.prevYear}
-                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`}>
-                  </Icon>
+                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />
                   {
                     currentView === PICKER_VIEWS.DATE && (
                       <Icon
                         type="left"
                         onClick={this.prevMonth}
-                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`}>
-                      </Icon>)
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />)
                   }
                   <YearAndMonthPopover
                     value={currentDate.getFullYear()}
@@ -438,15 +440,13 @@ export default class DatePanel extends React.Component {
                   <Icon
                     type="right-double"
                     onClick={this.nextYear}
-                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`}>
-                  </Icon>
+                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
                   {
                     currentView === PICKER_VIEWS.DATE && (
                       <Icon
                         type="right"
                         onClick={this.nextMonth}
-                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`}>
-                      </Icon>
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
                     )
                   }
                 </div>
@@ -492,3 +492,6 @@ export default class DatePanel extends React.Component {
 DatePanel.isValid = (value, disabledDate) => {
   return typeof disabledDate === 'function' && (value instanceof Date) ? !disabledDate(value) : true;
 };
+
+polyfill(DatePanel);
+export default DatePanel;

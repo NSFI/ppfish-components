@@ -6,6 +6,7 @@ import shallowEqual from 'shallowequal';
 import Track from './common/Track';
 import createSlider from './common/createSlider';
 import * as utils from './utils';
+import {polyfill} from 'react-lifecycles-compat';
 
 class Range extends React.Component {
   static displayName = 'Range';
@@ -29,6 +30,43 @@ class Range extends React.Component {
     tabIndex: [],
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (!('value' in nextProps || 'min' in nextProps || 'max' in nextProps)) return null;
+
+    const { bounds } = prevState;
+    const value = nextProps.value || bounds;
+
+    let { allowCross, pushable: thershold } = nextProps;
+    const nextBounds = value.map((val, handle) => {
+      const valInRange = utils.ensureValueInRange(val, nextProps);
+      let valNotConflict = valInRange;// = this.ensureValueNotConflict(i, valInRange, nextProps);
+      // this.ensureValueNotConflict
+      handle = handle === undefined ? prevState.handle : handle;
+      thershold = Number(thershold);
+      /* eslint-disable eqeqeq */
+      if (!allowCross && handle != null && bounds !== undefined) {
+        if (handle > 0 && valInRange <= (bounds[handle - 1] + thershold)) {
+          valNotConflict = bounds[handle - 1] + thershold;
+        }
+        if (handle < bounds.length - 1 && valInRange >= (bounds[handle + 1] - thershold)) {
+          valNotConflict = bounds[handle + 1] - thershold;
+        }
+      }
+      /* eslint-enable eqeqeq */
+      return utils.ensureValuePrecision(valNotConflict, nextProps);
+    });
+
+    if (
+      nextBounds.length === bounds.length &&
+      nextBounds.every((v, i) => v === bounds[i])
+    ) {
+      return null;
+    }else{
+      return ({ bounds: nextBounds });
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -49,26 +87,16 @@ class Range extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!('value' in nextProps || 'min' in nextProps || 'max' in nextProps)) return;
-    if (this.props.min === nextProps.min &&
-        this.props.max === nextProps.max &&
-        shallowEqual(this.props.value, nextProps.value)) {
+  componentDidUpdate(prevProps, prevState) {
+    const { bounds: prevBounds } = prevState;
+    const { bounds: nextBounds } = this.state;
+    if (prevBounds.length === nextBounds.length && nextBounds.every((v, i) => v === prevBounds[i])) {
       return;
     }
-
-    const { bounds } = this.state;
-    const value = nextProps.value || bounds;
-    const nextBounds = value.map((v, i) => this.trimAlignValue(v, i, nextProps));
-    if (nextBounds.length === bounds.length && nextBounds.every((v, i) => v === bounds[i])) return;
-
-    this.setState({ bounds: nextBounds });
-
-    if (bounds.some(v => utils.isValueOutOfRange(v, nextProps))) {
-      const newValues = value.map((v) => {
-        return utils.ensureValueInRange(v, nextProps);
-      });
-      this.props.onChange(newValues);
+    const { onChange } = this.props;
+    if (onChange && nextBounds.some(v => utils.isValueOutOfRange(v, this.props))) {
+      const newValues = nextBounds.map((v) => utils.ensureValueInRange(v, this.props));
+      onChange(newValues);
     }
   }
 
@@ -382,5 +410,5 @@ class Range extends React.Component {
     return { tracks, handles };
   }
 }
-
+polyfill(Range);
 export default createSlider(Range);

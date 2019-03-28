@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
+import {polyfill} from 'react-lifecycles-compat';
 import scrollIntoView from 'dom-scroll-into-view';
 import isEqual from 'lodash/isEqual';
 
-export default class TimeSelectPanel extends React.Component {
+class TimeSelectPanel extends React.Component {
 
   static get propTypes() {
     return {
@@ -33,19 +34,25 @@ export default class TimeSelectPanel extends React.Component {
     };
   }
 
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if ('value' in nextProps && !isEqual(nextProps.vlaue, prevState.prevPropValue)) {
+      return { prevPropValue: nextProps.vlaue };
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   componentDidMount() {
     this.scrollToOption();
   }
 
-  componentWillReceiveProps(nextProps) {
-    clearTimeout(this._timer);
-    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this._timer = setTimeout(() => this.scrollToOption(), 0);
-    }
+  componentDidUpdate(){
+    this.scrollToOption();
   }
 
   handleClick(item) {
@@ -167,3 +174,5 @@ const nextTime = (time, step) => {
 
   return formatTime(next);
 };
+polyfill(TimeSelectPanel );
+export default TimeSelectPanel;

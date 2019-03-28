@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders spin demo correctly 1`] = `
+<div>
+  <div
+    class="fishd-spin fishd-spin-spinning"
+  >
+    <span
+      class="fishd-spin-dot fishd-spin-dot-spin"
+    >
+      <i />
+      <i />
+      <i />
+      <i />
+    </span>
+  </div>
+  <div>
+    <div
+      class="fishd-spin fishd-spin-sm fishd-spin-spinning"
+    >
+      <span
+        class="fishd-spin-dot fishd-spin-dot-spin"
+      >
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+    </div>
+    <div
+      class="fishd-spin fishd-spin-spinning"
+    >
+      <span
+        class="fishd-spin-dot fishd-spin-dot-spin"
+      >
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+    </div>
+    <div
+      class="fishd-spin fishd-spin-lg fishd-spin-spinning"
+    >
+      <span
+        class="fishd-spin-dot fishd-spin-dot-spin"
+      >
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+    </div>
+  </div>
+  <div
+    class="fishd-spin-text-loading"
+  >
+    加载中
+    <span
+      class="fishd-spin-text-loading-dot"
+    >
+      <i>
+        .
+      </i>
+    </span>
+  </div>
+  <div
+    class="fishd-spin fishd-spin-spinning"
+  >
+    <i
+      class="fishdicon fishdicon-spin fishdicon-load-line fishd-spin-dot"
+      style="font-size:20px"
+    />
+  </div>
+  <div
+    class="example"
+  >
+    <div
+      class="fishd-spin fishd-spin-spinning fishd-spin-show-text"
+    >
+      <span
+        class="fishd-spin-dot fishd-spin-dot-spin"
+      >
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+      <span
+        class="fishd-spin-text"
+      >
+        加载中...
+      </span>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-spin-nested-loading"
+    >
+      <div
+        class="fishd-spin-nested"
+      >
+        <div
+          class="fishd-alert fishd-alert-info fishd-alert-with-description fishd-alert-no-icon"
+          data-show="true"
+        >
+          <span
+            class="fishd-alert-message"
+          >
+            Alert message title
+          </span>
+          <span
+            class="fishd-alert-description"
+          >
+            Further details about the context of this alert.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      style="margin-top:16px"
+    >
+      Loading state：
+      <span
+        class="fishd-switch"
+        tabindex="0"
+      >
+        <span
+          class="fishd-switch-inner"
+        />
+      </span>
+    </div>
+  </div>
+  <div
+    class="example"
+  >
+    <div
+      class="fishd-spin fishd-spin-spinning"
+    >
+      <span
+        class="fishd-spin-dot fishd-spin-dot-spin"
+      >
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+    </div>
+  </div>
+  <div
+    class="fishd-spin-container"
+    style="height:200px"
+  >
+    <div
+      class="fishd-spin fishd-spin-spinning"
+    >
+      <span
+        class="fishd-spin-dot fishd-spin-dot-spin"
+      >
+        <i />
+        <i />
+        <i />
+        <i />
+      </span>
+    </div>
+  </div>
+</div>
+`;

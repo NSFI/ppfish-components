@@ -78,9 +78,6 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     if ('keyboard' in props) {
       throw new Error(`API 'keyboard' is deprecated. Use 'esc' instead.`);
     }
-  }
-
-  componentWillMount() {
     this.inTransition = false;
     this.titleId = `rcDialogTitle${uuid++}`;
   }

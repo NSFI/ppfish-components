@@ -3,7 +3,8 @@ import { findDOMNode } from 'react-dom';
 import ReactQuill, { Quill } from '../quill/index.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { addEventListener } from '../../../utils'; 
+import { addEventListener } from '../../../utils';
+import {polyfill} from 'react-lifecycles-compat';
 import Modal from '../../Modal/index.tsx';
 import Input from '../../Input/index.tsx';
 import Button from '../../Button/index.tsx';
@@ -72,6 +73,16 @@ class RichEditor extends Component {
     getPopupContainer: () => document.body
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let newState = {};
+
+    if (nextProps.value !== prevState.lastValue) {
+      newState['lastValue'] = newState['value'] = nextProps.value;
+    }
+
+    return newState;
+  }
+
   constructor(props) {
     super(props);
 
@@ -79,13 +90,14 @@ class RichEditor extends Component {
 
     this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
-
+    let formatValue = value;
     if (supportFontTag) {
-      value = this.formatFontTag(value);
+      formatValue = this.formatFontTag(value);
     }
 
     this.state = {
-      value: value || '',
+      lastValue: value,
+      value: formatValue || '',
       showLinkModal: false,
       showVideoModal: false,
       showImageModal: false,
@@ -195,16 +207,10 @@ class RichEditor extends Component {
     /* eslint-enable react/no-did-mount-set-state */
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.state.value) {
-      let newValue = nextProps.value;
-
-      if (this.props.supportFontTag) {
-        newValue = this.formatFontTag(nextProps.value);
-      }
-
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if ((prevState.lastValue != this.state.lastValue) && this.props.supportFontTag) {
       this.setState({
-        value: newValue
+        value: this.formatFontTag(this.state.lastValue)
       });
     }
   }
@@ -613,6 +619,6 @@ class RichEditor extends Component {
     );
   }
 }
-
+polyfill(RichEditor);
 export { Quill };
 export default RichEditor;

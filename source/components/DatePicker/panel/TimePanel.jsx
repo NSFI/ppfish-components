@@ -2,12 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TimeSpinner from '../basic/TimeSpinner.jsx';
+import {polyfill} from 'react-lifecycles-compat';
 import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
 import { DEFAULT_FORMATS } from '../constants';
 import Locale from '../../../utils/date/locale';
 import isEqual from 'lodash/isEqual';
 
-export default class TimePanel extends React.Component {
+const mapPropsToState = (props) => {
+  const { format, value, selectableRange } = props;
+  const state = {
+    format: format || DEFAULT_FORMATS.time,
+    currentDate: value || parseDate('00:00:00', DEFAULT_FORMATS.time),
+    confirmButtonDisabled: value === null || !TimePanel.isValid(value, selectableRange),
+    currentButtonDisabled: !isLimitRange(new Date(), selectableRange, DEFAULT_FORMATS.time)
+  };
+  state.isShowSeconds = (state.format || '').indexOf('ss') !== -1;
+
+  return state;
+};
+class TimePanel extends React.Component {
 
   static get propTypes() {
     return {
@@ -32,33 +45,22 @@ export default class TimePanel extends React.Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.state = this.mapPropsToState(props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // 只 value 受控
-    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this.setState(this.mapPropsToState(nextProps));
-    }
-  }
-
-  mapPropsToState = (props) => {
-    const { format, value } = props;
-    const state = {
-      format: format || DEFAULT_FORMATS.time,
-      currentDate: value || parseDate('00:00:00', DEFAULT_FORMATS.time),
-      confirmButtonDisabled: value === null || !this.isValid(value),
-      currentButtonDisabled: !isLimitRange(new Date(), props.selectableRange, DEFAULT_FORMATS.time)
-    };
-    state.isShowSeconds = (state.format || '').indexOf('ss') !== -1;
-
-    return state;
+  static isValid = (value, selectableRange) => {
+    return value === null || isLimitRange(value, selectableRange, DEFAULT_FORMATS.time);
   };
 
-  isValid = (value) => {
-    return TimePanel.isValid(value, this.props.selectableRange);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if ("value" in nextProps && !isEqual(nextProps.value, prevState.prevPropValue)) {
+      let state = mapPropsToState(nextProps);
+      state.prevPropValue = nextProps.value;
+      return state;
+    }
+    return null;
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = mapPropsToState(props);
   }
 
   handleChange = (date) => {
@@ -75,7 +77,7 @@ export default class TimePanel extends React.Component {
       newDate.setSeconds(date.seconds);
     }
 
-    if(!this.isValid(newDate)){
+    if(!TimePanel.isValid(newDate, this.props.selectableRange)){
       this.setState({
         confirmButtonDisabled: true,
         currentDate: newDate
@@ -183,6 +185,5 @@ export default class TimePanel extends React.Component {
   }
 }
 
-TimePanel.isValid = (value, selectableRange) => {
-  return value === null || isLimitRange(value, selectableRange, DEFAULT_FORMATS.time);
-};
+polyfill(TimePanel);
+export default TimePanel;

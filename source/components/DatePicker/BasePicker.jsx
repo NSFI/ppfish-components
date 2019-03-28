@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Trigger from 'rc-trigger';
+import {polyfill} from 'react-lifecycles-compat';
 import {HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from './constants';
 import {Errors, require_condition} from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
@@ -19,7 +20,8 @@ const isInputValid = (text, date) => {
   return true;
 };
 
-export default class BasePicker extends React.Component {
+const $type = Symbol('type');
+class BasePicker extends React.Component {
 
   static get propTypes() {
     return {
@@ -58,6 +60,46 @@ export default class BasePicker extends React.Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (
+      "value" in nextProps &&
+      !isEqual(nextProps.value, prevState.prevPropValue)
+    ) {
+      const validDate = isValidValue(nextProps.value)
+        ? nextProps.value
+        : null;
+      const text = isValidValue(nextProps.value)
+        ? BasePicker.dateToStr(
+            nextProps.value,
+            prevState[$type],
+            nextProps.format,
+            nextProps.separator,// 这个值当前使用的是undefined
+          )
+        : "";
+      let state = {
+        value: validDate,
+        text: text,
+        // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
+        confirmValue: validDate
+      };
+      state.prevPropValue = nextProps.value;
+      return state;
+    }
+    return null;
+  }
+
+  static dateToStr(date, type, format, separator) {
+    if (!date || !isValidValue(date)) return '';
+    const tdate = date;
+    const formatter = (
+      TYPE_VALUE_RESOLVER_MAP[type] ||
+      TYPE_VALUE_RESOLVER_MAP['default']
+    ).formatter;
+    const result = formatter(tdate, format || DEFAULT_FORMATS[type], separator);
+    return result;
+  }
+
   constructor(props, _type, state) {
     require_condition(typeof _type === 'string');
     super(props);
@@ -66,22 +108,12 @@ export default class BasePicker extends React.Component {
     this.inputClick = false;
 
     this.state = {
+      [$type]: _type,
       pickerVisible: false,
-      value: props.value && isValidValue(props.value) ? props.value : null,
-      text: props.value && isValidValue(props.value) ? this.dateToStr(props.value) : '',
-      confirmValue: props.value && isValidValue(props.value) ? props.value : null // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
+      value: null,
+      text: "",
+      confirmValue: null
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // 只 value 受控
-    if ('value' in nextProps && !isEqual(this.props.value, nextProps.value)) {
-      this.setState({
-        value: nextProps.value && isValidValue(nextProps.value) ? nextProps.value : null,
-        text: nextProps.value && isValidValue(nextProps.value) ? this.dateToStr(nextProps.value) : '',
-        confirmValue: nextProps.value && isValidValue(nextProps.value) ? nextProps.value : null
-      });
-    }
   }
 
   isDateValid(date) {
@@ -102,7 +134,7 @@ export default class BasePicker extends React.Component {
       value,
       text: this.dateToStr(value),
     }, ()=> {
-      this.props.onVisibleChange(isKeepPannel)
+      this.props.onVisibleChange(isKeepPannel);
     });
 
     if (isConfirmValue) {
@@ -114,24 +146,19 @@ export default class BasePicker extends React.Component {
   }
 
   onCancelPicked = () => {
+    const { confirmValue } = this.state;
+
     this.setState({
       pickerVisible: false,
-      value: this.state.confirmValue ? this.state.confirmValue : null,
-      text: this.state.confirmValue ? this.dateToStr(this.state.confirmValue) : ''
+      value: confirmValue ? confirmValue : null,
+      text: confirmValue ? this.dateToStr(confirmValue) : ''
     }, ()=> {
       this.props.onVisibleChange(false);
     });
   }
 
   dateToStr(date) {
-    if (!date || !isValidValue(date)) return '';
-    const tdate = date;
-    const formatter = (
-      TYPE_VALUE_RESOLVER_MAP[this.type] ||
-      TYPE_VALUE_RESOLVER_MAP['default']
-    ).formatter;
-    const result = formatter(tdate, this.getFormat(), this.getFormatSeparator());
-    return result;
+    return BasePicker.dateToStr(date, this.type, this.props.format, this.getFormatSeparator());
   }
 
   // (string) => Date | null
@@ -377,3 +404,5 @@ export default class BasePicker extends React.Component {
     );
   }
 }
+polyfill(BasePicker);
+export default BasePicker;
