@@ -188,6 +188,7 @@ class AudioPlayer extends React.Component {
       controlProgress,
       displayTime,
       download,
+      onCanPlay,
       onLoadedMetadata,
       onCanPlayThrough,
       onAbort,onEnded, onError, onPause, onPlay, onSeeked, ...otherProps

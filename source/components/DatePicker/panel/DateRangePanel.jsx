@@ -9,6 +9,7 @@ import Button from '../../Button/index.tsx';
 import TimePicker  from '../../TimePicker/index.js';
 import { converSelectRange } from '../TimePicker.jsx';
 import TimePanel from './TimePanel.jsx';
+import TimeSelectPanel from './TimeSelectPanel.jsx';
 import YearAndMonthPopover from './YearAndMonthPopover.jsx';
 import isEqual from 'lodash/isEqual';
 import {
@@ -303,7 +304,7 @@ class DateRangePanel extends React.Component {
     if(endTimeSelectMode === 'TimePicker') {
       return maxTime && TimePanel.isValid(maxTime, converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})) ? maxTime : null;
     }else{
-      return maxTime && TimeSelect.isValid(`${maxTime.getHours()}:${maxTime.getMinutes()}`, this.getEndTimeSelectableRange(minTime)) ? maxTime : null;
+      return maxTime && TimeSelectPanel.isValid(`${maxTime.getHours()}:${maxTime.getMinutes()}`, this.getEndTimeSelectableRange(minTime)) ? maxTime : null
     }
   }
 
