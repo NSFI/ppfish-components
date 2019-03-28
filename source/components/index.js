@@ -4,6 +4,7 @@ import '../assets/css/index.less';
 export {default as Affix} from './Affix/index.tsx';
 export {default as Alert} from './Alert/index.tsx';
 export {default as Anchor} from './Anchor/index.tsx';
+export {default as Animate} from './Animate';
 export {default as AudioPlayer} from './AudioPlayer';
 export {default as AutoComplete} from './AutoComplete/index.tsx';
 export {default as Avatar} from './Avatar/index.tsx';

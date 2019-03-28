@@ -131,3 +131,18 @@ export function getStyle(element, styleName) {
     return element.style[styleName];
   }
 }
+
+/**
+ * 生成全局唯一的id
+ * @param  {String} [prefix=''] 前缀字符串
+ * @return {String}
+ *
+ * @example
+ * guid(); // j7jv509c
+ * guid('prefix-'); // prefix-j7jv509d
+ */
+let timestamp = Date.now();
+export function guid(prefix) {
+  prefix = prefix || '';
+  return prefix + (timestamp++).toString(36);
+}
