@@ -154,7 +154,11 @@ const compareTime = function (time1, time2) {
 
 
 const formatTime = function (time) {
-  return (time.hours < 10 ? '0' + time.hours : time.hours) + ':' + (time.minutes < 10 ? '0' + time.minutes : time.minutes);
+  return (
+    time.hours < 10 ?
+    '0' + time.hours : time.hours) + ':' + (time.minutes < 10 ? '0' + time.minutes :
+    time.minutes
+  );
 };
 
 const nextTime = (time, step) => {

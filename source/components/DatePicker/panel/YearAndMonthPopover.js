@@ -68,7 +68,10 @@ export default class YearAndMonthPopover extends React.Component {
                 <li
                   className={classNames({
                     [`${prefixCls}-year-and-month-popover-item`]: true,
-                    'active': value == item || typeof item === 'string' && item.slice(-1) == '月' && value == item.slice(0,-1)
+                    'active': (
+                      value == item ||
+                      typeof item === 'string' && item.slice(-1) == '月' && value == item.slice(0,-1)
+                    )
                   })}
                   key={item}
                   onClick={this.handleOnClick.bind(this, item)}

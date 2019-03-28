@@ -24,7 +24,10 @@ export class Bar extends React.Component {
 
   clickThumbHandler(e) {
     this.startDrag(e);
-    this[this.bar.axis] = (e.currentTarget[this.bar.offset] - (e[this.bar.client] - e.currentTarget.getBoundingClientRect()[this.bar.direction]));
+    this[this.bar.axis] = (
+      e.currentTarget[this.bar.offset] - 
+      (e[this.bar.client] - e.currentTarget.getBoundingClientRect()[this.bar.direction])
+    );
   }
 
   clickTrackHandler(e) {
@@ -71,13 +74,13 @@ export class Bar extends React.Component {
       <div
         ref={root => this.rootRef = root}
         className={classNames(`${prefixCls}-scrollbar__bar`, `is-${this.bar.key}`)}
-        onMouseDown={ this.clickTrackHandler } >
+        onMouseDown={this.clickTrackHandler} >
         <div
           ref={thumb => this.thumbRef = thumb}
           className={`${prefixCls}-scrollbar__thumb`}
-          onMouseDown={ this.clickThumbHandler }
-          style={ renderThumbStyle({ size, move, bar: this.bar }) }>
-        </div>
+          onMouseDown={this.clickThumbHandler}
+          style={renderThumbStyle({ size, move, bar: this.bar })}
+        />
       </div>
     );
   }
@@ -89,8 +92,8 @@ Bar.propTypes = {
   move: PropTypes.number,
   getParentWrap: PropTypes.func.isRequired,
   prefixCls: PropTypes.string
-}
+};
 
 Bar.defaultProps = {
   prefixCls: 'fishd'
-}
+};
