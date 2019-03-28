@@ -24,7 +24,7 @@ class Tree extends React.Component {
     className: PropTypes.string,
     style: PropTypes.object,
     tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    children: PropTypes.any,
+    children: PropTypes.node,
     treeData: PropTypes.array, // Generate treeNode by children
     showLine: PropTypes.bool,
     showIcon: PropTypes.bool,

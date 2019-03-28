@@ -26,7 +26,7 @@ class IframeUploader extends Component {
     accept: PropTypes.string,
     onStart: PropTypes.func,
     multiple: PropTypes.bool,
-    children: PropTypes.any,
+    children: PropTypes.node,
     data: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.func,

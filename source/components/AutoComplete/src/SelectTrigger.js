@@ -39,11 +39,14 @@ export default class SelectTrigger extends React.Component {
     dropdownClassName: PropTypes.string,
     multiple: PropTypes.bool,
     inputValue: PropTypes.string,
-    filterOption: PropTypes.any,
-    options: PropTypes.any,
+    filterOption: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.func,
+    ]),
+    options: PropTypes.array,
     prefixCls: PropTypes.string,
     popupClassName: PropTypes.string,
-    children: PropTypes.any,
+    children: PropTypes.node,
     showAction: PropTypes.arrayOf(PropTypes.string),
   };
 

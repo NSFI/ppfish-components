@@ -21,7 +21,7 @@ export default class DropdownMenu extends React.Component {
     onMenuDeSelect: PropTypes.func,
     onMenuSelect: PropTypes.func,
     prefixCls: PropTypes.string,
-    menuItems: PropTypes.any,
+    menuItems: PropTypes.array,
     inputValue: PropTypes.string,
     visible: PropTypes.bool,
   };

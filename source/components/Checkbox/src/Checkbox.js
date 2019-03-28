@@ -23,7 +23,10 @@ class Checkbox extends React.Component {
     tabIndex: PropTypes.string,
     readOnly: PropTypes.bool,
     autoFocus: PropTypes.bool,
-    value: PropTypes.any,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+    ]),
   };
   static defaultProps = {
     prefixCls: 'rc-checkbox',

@@ -21,7 +21,7 @@ class AjaxUploader extends Component {
       PropTypes.string,
       PropTypes.array,
     ]),
-    children: PropTypes.any,
+    children: PropTypes.node,
     onStart: PropTypes.func,
     data: PropTypes.oneOfType([
       PropTypes.object,
