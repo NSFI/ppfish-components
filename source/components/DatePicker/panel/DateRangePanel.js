@@ -302,9 +302,19 @@ class DateRangePanel extends React.Component {
   getMaxTime = (maxTime, minTime) => {
     const { endTimeSelectMode } = this.props;
     if(endTimeSelectMode === 'TimePicker') {
-      return maxTime && TimePanel.isValid(maxTime, converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})) ? maxTime : null;
+      return (
+        maxTime && TimePanel.isValid(
+          maxTime,
+          converSelectRange({selectableRange:this.getEndTimeSelectableRange(minTime)})
+        ) ? maxTime : null
+      );
     }else{
-      return maxTime && TimeSelectPanel.isValid(`${maxTime.getHours()}:${maxTime.getMinutes()}`, this.getEndTimeSelectableRange(minTime)) ? maxTime : null
+      return (
+        maxTime && TimeSelectPanel.isValid(
+          `${maxTime.getHours()}:${maxTime.getMinutes()}`,
+          this.getEndTimeSelectableRange(minTime)
+        ) ? maxTime : null
+      );
     }
   }
 
@@ -316,8 +326,16 @@ class DateRangePanel extends React.Component {
 
     this.setState({
       maxTime: isSameDate && minTime ? this.getMaxTime(maxTime, minTime) : maxTime,
-      endTimeSelectableRange: endTimeSelectMode === 'TimePicker' && isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectableRange,
-      endTimeSelectModeProps: endTimeSelectMode === 'TimeSelect' && isSameDate && minTime ? this.getEndTimeSelectableRange(minTime) : endTimeSelectModeProps
+      endTimeSelectableRange: (
+        endTimeSelectMode === 'TimePicker' && isSameDate && minTime ?
+        this.getEndTimeSelectableRange(minTime) :
+        endTimeSelectableRange
+      ),
+      endTimeSelectModeProps: (
+        endTimeSelectMode === 'TimeSelect' && isSameDate && minTime ?
+        this.getEndTimeSelectableRange(minTime) :
+        endTimeSelectModeProps
+      )
     });
   }
 
@@ -703,14 +721,18 @@ class DateRangePanel extends React.Component {
                   sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${leftDate.getFullYear()} ${t('datepicker.year')}`}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>
+                    {`${leftDate.getFullYear()} ${t('datepicker.year')}`}
+                  </span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={leftDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'leftDate', leftDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`datepicker.month${leftDate.getMonth() + 1}`)}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>
+                    {t(`datepicker.month${leftDate.getMonth() + 1}`)}
+                  </span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
@@ -749,14 +771,18 @@ class DateRangePanel extends React.Component {
                   sourceData={YEARS_ARRAY(yearCount)}
                   onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{`${rightDate.getFullYear()} ${t('datepicker.year')}`}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>
+                    {`${rightDate.getFullYear()} ${t('datepicker.year')}`}
+                  </span>
                 </YearAndMonthPopover>
                 <YearAndMonthPopover
                   value={rightDate.getMonth() + 1}
                   sourceData={MONTH_ARRRY}
                   onChange={this.handleChangeMonth.bind(this, 'rightDate', rightDate)}
                 >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>{t(`datepicker.month${rightDate.getMonth() + 1}`)}</span>
+                  <span className={`${prefixCls}-date-range-picker__header-label`}>
+                    {t(`datepicker.month${rightDate.getMonth() + 1}`)}
+                  </span>
                 </YearAndMonthPopover>
                 <Icon
                   type="right-double"
@@ -814,7 +840,10 @@ class DateRangePanel extends React.Component {
 
 DateRangePanel.isValid = (value, disabledDate) => {
   if(value && value.length >= 2 && value[0] > value[1]) return false;
-  return typeof disabledDate === 'function' && (value && value.length >= 2) ? !(disabledDate(value[0]) || disabledDate(value[1])) : true;
+  return (
+    typeof disabledDate === 'function' && (value && value.length >= 2) ?
+    !(disabledDate(value[0]) || disabledDate(value[1])) : true
+  );
 };
 
 polyfill(DateRangePanel);

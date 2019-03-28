@@ -35,7 +35,7 @@ const SCROLL_AJUST_VALUE = 85;
 const calcScrollTop = value => Math.max(
   0,
   (value - 2.5) * 32 + SCROLL_AJUST_VALUE
-)
+);
 
 const PROPS_MATTER = [
   'hours',
@@ -138,7 +138,7 @@ class TimeSpinner extends React.Component {
   // type: hours, minutes, seconds
   handleChange(type, value, disabled) {
     if (disabled) return;
-    this.state[type] = value;
+    this.state[type] = value; // eslint-disable-line react/no-direct-mutation-state
     const changed = {};
     changed[type] = value;
     this.setState({}, () => {

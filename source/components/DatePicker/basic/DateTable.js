@@ -34,7 +34,7 @@ export default class DateTable extends React.Component {
 
     this.state = {
       tableRows: [[], [], [], [], [], []],
-    }
+    };
   }
 
   getOffsetWeek(){
@@ -60,7 +60,10 @@ export default class DateTable extends React.Component {
     let day = getFirstDayOfMonth(ndate); // day of first day
     const dateCountOfMonth = getDayCountOfMonth(ndate.getFullYear(), ndate.getMonth());
     // dates count in december is always 31, so offset year is not neccessary
-    const dateCountOfLastMonth = getDayCountOfMonth(ndate.getFullYear(), (ndate.getMonth() === 0 ? 11 : ndate.getMonth() - 1));
+    const dateCountOfLastMonth = getDayCountOfMonth(
+      ndate.getFullYear(),
+      (ndate.getMonth() === 0 ? 11 : ndate.getMonth() - 1)
+    );
     const offsetDaysToWeekOrigin = getOffsetToWeekOrigin(day, firstDayOfWeek);
 
     //tableRows: [ [], [], [], [], [], [] ]
@@ -87,13 +90,23 @@ export default class DateTable extends React.Component {
       }
       */
       if (showWeekNumber) {//prepend week info to the head of each row array
-        row[0] = { type: 'week', text: '第'+ getWeekNumber(new Date(startDate.getTime() + DAY_DURATION * (i * 7 + 1))) + '周' };
+        row[0] = {
+          type: 'week',
+          text: '第'+ getWeekNumber(new Date(startDate.getTime() + DAY_DURATION * (i * 7 + 1))) + '周'
+        };
       }
 
       for (let j = 0; j < 7; j++) {  // columns
         let cell = row[showWeekNumber ? j + 1 : j];
         if (!cell) {
-          row[showWeekNumber ? j + 1 : j]  = { row: i, column: j, type: 'normal', inRange: false, start: false, end: false };
+          row[showWeekNumber ? j + 1 : j]  = {
+            row: i,
+            column: j,
+            type: 'normal',
+            inRange: false,
+            start: false,
+            end: false
+          };
           cell = row[showWeekNumber ? j + 1 : j];
         }
 
@@ -237,7 +250,8 @@ export default class DateTable extends React.Component {
     }
     newDate.setDate(parseInt(cell.text, 10));
 
-    return getWeekNumber(newDate) === deconstructDate(new Date(this.props.value.getTime() + DAY_DURATION)).week; // current date value
+    // current date value
+    return getWeekNumber(newDate) === deconstructDate(new Date(this.props.value.getTime() + DAY_DURATION)).week;
   }
 
   handleMouseMove = (event) => {
@@ -246,7 +260,7 @@ export default class DateTable extends React.Component {
     const getDateOfCell = (row, column, showWeekNumber) => {
       const startDate = this.getStartDate();
       return new Date(startDate.getTime() + (row * 7 + (column - (showWeekNumber ? 1 : 0))) * DAY_DURATION);
-    }
+    };
 
     if (!(mode === SELECTION_MODES.RANGE && rangeState.selecting)) return;
 

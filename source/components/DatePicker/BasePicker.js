@@ -180,7 +180,7 @@ class BasePicker extends React.Component {
     this.setState({
       pickerVisible: !this.state.pickerVisible
     }, ()=> {
-      this.props.onVisibleChange(!this.state.pickerVisible)
+      this.props.onVisibleChange(!this.state.pickerVisible);
     });
   }
 

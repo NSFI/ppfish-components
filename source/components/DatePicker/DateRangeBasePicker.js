@@ -112,8 +112,12 @@ class DateRangeBasePicker extends React.Component {
     this.state = {
       pickerVisible: false,
       value: props.value && isValidValueArr(props.value) ? props.value : null,
-      text: props.value && isValidValueArr(props.value) ? [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : '',
-      confirmValue: props.value && isValidValueArr(props.value) ? props.value : null // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
+      text: (
+        props.value && isValidValueArr(props.value) ?
+        [this.dateToStr(props.value[0]), this.dateToStr(props.value[1])] : ''
+      ),
+      // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
+      confirmValue: props.value && isValidValueArr(props.value) ? props.value : null
     };
   }
 
@@ -150,7 +154,10 @@ class DateRangeBasePicker extends React.Component {
     this.setState({
       pickerVisible: false,
       value: this.state.confirmValue && this.state.confirmValue.length === 2 ? this.state.confirmValue : null,
-      text: this.state.confirmValue && this.state.confirmValue.length === 2 ? [this.dateToStr(new Date(this.state.confirmValue[0])), this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
+      text: (
+        this.state.confirmValue && this.state.confirmValue.length === 2 ?
+        [this.dateToStr(new Date(this.state.confirmValue[0])), this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
+      )
     }, ()=> {
       this.props.onVisibleChange(false);
     });

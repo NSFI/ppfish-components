@@ -418,7 +418,9 @@ class DatePanel extends React.Component {
                     sourceData={YEARS_ARRAY(yearCount)}
                     onChange={this.handleChangeYear}
                   >
-                    <span className={`${prefixCls}-date-picker__header-label`}>{`${currentDate.getFullYear()} ${t('datepicker.year')}`}</span>
+                    <span className={`${prefixCls}-date-picker__header-label`}>
+                      {`${currentDate.getFullYear()} ${t('datepicker.year')}`}
+                    </span>
                   </YearAndMonthPopover>
                   {
                     currentView === PICKER_VIEWS.DATE && (
