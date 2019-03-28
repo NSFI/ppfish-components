@@ -96,10 +96,9 @@
 /* 时间 */
 .video-js .vjs-time-control {
   flex: none;
-  font-size: 1.4em;
   min-width: unset;
   width: auto;
-  line-height: 3.4em;
+  line-height: 3.9em;
   padding: 0 0.2em;
 }
 
@@ -121,6 +120,10 @@
 .vjs-no-flex .vjs-duration {
   display: block;
   color: rgba(255,255,255,0.6);
+}
+.vjs-current-time-display,
+.vjs-duration-display {
+  font-size: 14px;
 }
 
 /* 自定义的按钮样式 */
