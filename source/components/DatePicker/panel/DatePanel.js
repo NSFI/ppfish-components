@@ -6,7 +6,7 @@ import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import TimePicker  from '../../TimePicker/index.js';
 import {polyfill} from 'react-lifecycles-compat';
-import YearAndMonthPopover from './YearAndMonthPopover.jsx';
+import YearAndMonthPopover from './YearAndMonthPopover.js';
 import { DateTable } from '../basic';
 import isEqual from 'lodash/isEqual';
 import {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DateRangeBasePicker from './DateRangeBasePicker.jsx';
-import DateRangePanel from './panel/DateRangePanel.jsx';
+import DateRangeBasePicker from './DateRangeBasePicker.js';
+import DateRangePanel from './panel/DateRangePanel.js';
 
 export default class DateRangePicker extends DateRangeBasePicker {
   static get propTypes() {

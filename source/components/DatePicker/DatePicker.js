@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BasePicker from './BasePicker.jsx';
-import DatePanel from './panel/DatePanel.jsx';
+import BasePicker from './BasePicker.js';
+import DatePanel from './panel/DatePanel.js';
 import { SELECTION_MODES } from '../../utils/date';
 
 export default class DatePicker extends BasePicker {

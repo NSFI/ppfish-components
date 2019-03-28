@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BasePicker from './BasePicker.jsx';
-import TimeSelectPanel from './panel/TimeSelectPanel.jsx';
+import BasePicker from './BasePicker.js';
+import TimeSelectPanel from './panel/TimeSelectPanel.js';
 
 export default class TimeSelect extends BasePicker {
 

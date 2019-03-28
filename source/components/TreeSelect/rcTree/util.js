@@ -1,6 +1,6 @@
 import React, { Children } from 'react';
 import warning from 'warning';
-import TreeNode from './TreeNode.jsx';
+import TreeNode from './TreeNode.js';
 
 const DRAG_SIDE_RANGE = 0.25;
 const DRAG_MIN_GAP = 2;

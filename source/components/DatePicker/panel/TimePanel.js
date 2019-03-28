@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TimeSpinner from '../basic/TimeSpinner.jsx';
+import TimeSpinner from '../basic/TimeSpinner.js';
 import {polyfill} from 'react-lifecycles-compat';
 import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
 import { DEFAULT_FORMATS } from '../constants';

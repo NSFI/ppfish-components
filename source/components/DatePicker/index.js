@@ -1,5 +1,5 @@
-import DatePicker from './DatePicker.jsx';
-import DateRangePicker from './DateRangePicker.jsx';
+import DatePicker from './DatePicker.js';
+import DateRangePicker from './DateRangePicker.js';
 import './style/index.less';
 
 DatePicker.DateRangePicker = DateRangePicker;

@@ -1,5 +1,5 @@
-import Tree from './Tree.jsx';
-import TreeNode from './TreeNode.jsx';
+import Tree from './Tree.js';
+import TreeNode from './TreeNode.js';
 
 Tree.TreeNode = TreeNode;
 

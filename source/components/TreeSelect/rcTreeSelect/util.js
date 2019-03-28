@@ -5,7 +5,7 @@ import {
   convertTreeToEntities as rcConvertTreeToEntities,
   conductCheck as rcConductCheck,
 } from '../rcTree/util.js';
-import SelectNode from './SelectNode.jsx';
+import SelectNode from './SelectNode.js';
 import { SHOW_CHILD, SHOW_PARENT } from './strategies.js';
 
 let warnDeprecatedLabel = false;

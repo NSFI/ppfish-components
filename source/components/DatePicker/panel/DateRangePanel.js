@@ -7,10 +7,10 @@ import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
 import TimePicker  from '../../TimePicker/index.js';
-import { converSelectRange } from '../TimePicker.jsx';
-import TimePanel from './TimePanel.jsx';
-import TimeSelectPanel from './TimeSelectPanel.jsx';
-import YearAndMonthPopover from './YearAndMonthPopover.jsx';
+import { converSelectRange } from '../TimePicker.js';
+import TimePanel from './TimePanel.js';
+import TimeSelectPanel from './TimeSelectPanel.js';
+import YearAndMonthPopover from './YearAndMonthPopover.js';
 import isEqual from 'lodash/isEqual';
 import {
   SELECTION_MODES,
