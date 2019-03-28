@@ -5,22 +5,22 @@
 .@{prefixClass} {
   position: relative;
   width: 100%;
-  height: 36px;
+  height: @audio-player-height-base;
   &-wrap {
     display: flex;
     align-items: center;
     border: @border-width-base @border-style-base @border-color-base;
     border-radius: @border-radius-base;
-    padding: 0 10px;
+    padding: 0 @audio-player-padding-base;
     height: 100%;
     .box {
       text-align: center;
     }
     // 播放区
     .pause-play-box {
-      width: 36px;
+      width: @audio-player-height-base;
       height: 100%;
-      line-height: 36px;
+      line-height: @audio-player-height-base;
     }
     .pause-play-box-enable {
       cursor: pointer;
@@ -31,22 +31,22 @@
     //进度区
     .step-box {
       flex: 1;
-      padding: 0 10px;
+      padding: 0 @audio-player-padding-base;
     }
     .time-box {
-      padding: 0 10px;
+      padding: 0 @audio-player-padding-base;
     }
     //音量调节区
     .volume-box {
       width: 30px;
       height: 100%;
-      line-height: 36px;
+      line-height: @audio-player-height-base;
     }
     //下载区
     .download-box {
       width: 30px;
       height: 100%;
-      line-height: 36px;
+      line-height: @audio-player-height-base;
       a {
         color: @text-6;
       }
@@ -56,6 +56,37 @@
       color: @text-6;
       &:hover {
         color: @text-3;
+      }
+    }
+  }
+  &-sm {
+    height: @audio-player-height-sm;
+    &-wrap {
+      // 播放区
+      padding: 0 @audio-player-padding-sm;
+      .pause-play-box {
+        width: @audio-player-height-sm;
+        height: 100%;
+        line-height: @audio-player-height-sm;
+      }
+      //进度区
+      .step-box {
+        padding: 0 @audio-player-padding-sm;
+      }
+      .time-box {
+        padding: 0 @audio-player-padding-sm;
+      }
+      //音量调节区
+      .volume-box {
+        width: 30px;
+        height: 100%;
+        line-height: @audio-player-height-sm;
+      }
+      //下载区
+      .download-box {
+        width: @audio-player-height-sm;
+        height: 100%;
+        line-height: @audio-player-height-sm;
       }
     }
   }

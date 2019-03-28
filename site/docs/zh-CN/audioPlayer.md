@@ -25,6 +25,40 @@ render() {
 ```
 :::
 
+## 大小
+
+:::demo 
+
+```js
+  state = {
+    size: 'default',
+  };
+
+  handleSizeChange = (e) => {
+    this.setState({ size: e.target.value });
+  }
+  
+  render() {
+    const size = this.state.size;
+    return(
+      <div style={{width:400}}>
+        <Radio.Group value={size} onChange={this.handleSizeChange}>
+          <Radio.Button value="default">Default</Radio.Button>
+          <Radio.Button value="small">Small</Radio.Button>
+        </Radio.Group>
+        <br /><br />
+        <AudioPlayer
+          size={size}
+          src="https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav"
+          title="这是一个demo"
+        />
+      </div>
+      
+    )
+  }
+```
+:::
+
 ## 最简洁版
 :::demo 通过设置 `controlVolume=false` 去掉音量控制按钮；`controlProgress=false` 去掉进度控制；`displayTime=false` 去掉时间
 
@@ -73,6 +107,7 @@ render() {
 | download | 是否需要下载按钮 | Boolean | false |
 | src |  音频元素的当前来源 | String | '' |
 | title   | 鼠标hover之后展示的音频描述 | String | '' |
+| size   | 设置音频播放器的大小 | Enum {'small', 'default'} | 'default' |
 
 支持常用的H5 audio 标签属性和事件
 
