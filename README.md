@@ -1,14 +1,14 @@
-# Fish Design 网易云商服UI组件库
-
 <p align="center">
   <a href="https://nsfi.github.io/ppfish-components/#/home">
     <img width="150" height="150" src="http://ysf.nosdn.127.net/kornketgjocydxcldzywnyfdtclwugdl">
   </a>
 </p>
 
+<h1 align="center">Fish Design 网易云商服UI组件库</h1>
+
 ## Introduction
 
-Fish Design Components is a set of React UI components.
+Fish Design is an enterprise-class UI component library which based on React, helps designers and developers quickly build systems.
 
 ## Features
 
