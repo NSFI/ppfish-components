@@ -20,16 +20,12 @@ export class Scrollbar extends React.Component {
     this.update = this._update.bind(this);
   }
 
-  get wrap(){
-    return this.refs.wrap;
-  }
-
   componentDidMount(){
     if (this.native) return;
     let rafId = requestAnimationFrame(this.update);
     this.cleanRAF = ()=>{
       cancelAnimationFrame(rafId);
-    }
+    };
   }
 
   componentDidUpdate() {
@@ -38,14 +34,17 @@ export class Scrollbar extends React.Component {
       addResizeListener(this.resizeDom, this.update);
       this.cleanResize = ()=>{
         removeResizeListener(this.resizeDom, this.update);
-      }
+      };
     }
   }
-
 
   componentWillUnmount(){
     this.cleanRAF();
     this.cleanResize && this.cleanResize();
+  }
+
+  get wrap(){
+    return this.refs.wrap;
   }
 
   handleScroll() {
@@ -53,7 +52,7 @@ export class Scrollbar extends React.Component {
     this.setState({
       moveY: ((wrap.scrollTop * 100) / wrap.clientHeight),
       moveX: ((wrap.scrollLeft * 100) / wrap.clientWidth)
-    })
+    });
   }
 
   _update() {
@@ -71,7 +70,6 @@ export class Scrollbar extends React.Component {
   }
 
   render() {
-
     /* eslint-disable */
     let {
       native, viewStyle, wrapStyle, viewClass, children, viewComponent, wrapClass, noresize,
@@ -84,9 +82,9 @@ export class Scrollbar extends React.Component {
     if (gutter) {
       const gutterWith = `-${gutter}px`;
       if (Array.isArray(wrapStyle)){
-        style = Object.assign.apply(null, [...wrapStyle, {marginRight: gutterWith, marginBottom: gutterWith}])
+        style = Object.assign.apply(null, [...wrapStyle, {marginRight: gutterWith, marginBottom: gutterWith}]);
       } else {
-        style = Object.assign({}, wrapStyle, {marginRight: gutterWith, marginBottom: gutterWith})
+        style = Object.assign({}, wrapStyle, {marginRight: gutterWith, marginBottom: gutterWith});
       }
     }
 
@@ -105,16 +103,22 @@ export class Scrollbar extends React.Component {
           key={0}
           style={style}
           onScroll={this.handleScroll.bind(this)}
-          className={classNames(wrapClass, `${prefixCls}-scrollbar__wrap`, gutter ? '' : `${prefixCls}-scrollbar__wrap--hidden-default`)}
+          className={
+            classNames(
+              wrapClass,
+              `${prefixCls}-scrollbar__wrap`,
+              gutter ? '' : `${prefixCls}-scrollbar__wrap--hidden-default`
+            )
+          }
         >
           {view}
         </div>
-      )
+      );
       nodes = [
         wrap,
-        <Bar key={1} move={moveX} size={sizeWidth} getParentWrap={()=>this.wrap}></Bar>,
-        <Bar key={2} move={moveY} size={sizeHeight} getParentWrap={()=>this.wrap} vertical={true}></Bar>,
-      ]
+        <Bar key={1} move={moveX} size={sizeWidth} getParentWrap={()=>this.wrap} />,
+        <Bar key={2} move={moveY} size={sizeHeight} getParentWrap={()=>this.wrap} vertical={true} />,
+      ];
     }else {
       nodes = [
         (
@@ -127,10 +131,10 @@ export class Scrollbar extends React.Component {
             {view}
           </div>
         )
-      ]
+      ];
     }
 
-    return React.createElement('div', {className: classNames(`${prefixCls}-scrollbar`, className)}, nodes)
+    return React.createElement('div', {className: classNames(`${prefixCls}-scrollbar`, className)}, nodes);
   }
 }
 
@@ -150,9 +154,9 @@ Scrollbar.propTypes = {
   ]),
   noresize: PropTypes.bool,
   prefixCls: PropTypes.string
-}
+};
 
 Scrollbar.defaultProps = {
   viewComponent: 'div',
   prefixCls: 'fishd'
-}
+};

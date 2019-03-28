@@ -39,6 +39,6 @@ export default class TimeSelect extends BasePicker {
           return str ? this.parseDate(str) : null;
         }}
       />
-    )
+    );
   }
 }

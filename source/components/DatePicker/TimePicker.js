@@ -62,6 +62,6 @@ export default class TimePicker extends BasePicker {
         onPicked={this.onPicked}
         onCancelPicked={this.onCancelPicked}
       />
-    )
+    );
   }
 }
