@@ -20,7 +20,7 @@
     .pause-play-box {
       width: @audio-player-height-base;
       height: 100%;
-      line-height: @audio-player-height-base;
+      line-height: @audio-player-height-base - 2px;
     }
     .pause-play-box-enable {
       cursor: pointer;
@@ -40,13 +40,13 @@
     .volume-box {
       width: 30px;
       height: 100%;
-      line-height: @audio-player-height-base;
+      line-height: @audio-player-height-base - 2px;
     }
     //下载区
     .download-box {
       width: 30px;
       height: 100%;
-      line-height: @audio-player-height-base;
+      line-height: @audio-player-height-base - 2px;
       a {
         color: @text-6;
       }
@@ -67,7 +67,7 @@
       .pause-play-box {
         width: @audio-player-height-sm;
         height: 100%;
-        line-height: @audio-player-height-sm;
+        line-height: @audio-player-height-sm - 2px;
       }
       //进度区
       .step-box {
@@ -75,18 +75,19 @@
       }
       .time-box {
         padding: 0 @audio-player-padding-sm;
+        font-size: 12px;
       }
       //音量调节区
       .volume-box {
         width: 30px;
         height: 100%;
-        line-height: @audio-player-height-sm;
+        line-height: @audio-player-height-sm - 2px;
       }
       //下载区
       .download-box {
         width: @audio-player-height-sm;
         height: 100%;
-        line-height: @audio-player-height-sm;
+        line-height: @audio-player-height-sm - 2px;
       }
     }
   }
