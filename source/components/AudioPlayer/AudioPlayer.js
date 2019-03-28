@@ -11,6 +11,7 @@ class AudioPlayer extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string.isRequired,
     className: PropTypes.string,
+    size: PropTypes.oneOf(['default', 'small']),
     title: PropTypes.string,
     src: PropTypes.string,
     loop: PropTypes.bool,
@@ -36,6 +37,7 @@ class AudioPlayer extends React.Component {
   static defaultProps = {
     prefixCls: 'fishd-audio-player',
     className: '',
+    size: 'default',
     title: '',
     src: '',
     loop: false,
@@ -179,18 +181,19 @@ class AudioPlayer extends React.Component {
       title,
       src,
       className,
+      size,
       loop,
       preload,
       controlVolume,
       controlProgress,
       displayTime,
       download,
-      onCanPlay,
       onLoadedMetadata,
       onCanPlayThrough,
-      onAbort,onEnded, onError, onPause, onPlay, onSeeked, ...otherProps } = this.props;
+      onAbort,onEnded, onError, onPause, onPlay, onSeeked, ...otherProps
+    } = this.props;
 
-    const wrapClass = classNames(`${prefixCls}-wrap`, className);
+    const sizeCls = size === 'small' ? 'sm' : '';
     const pausePlayIcon = !isPlay ? 'play' : 'stop';
     const volumeIcon = () => {
       if (isMuted || currentVolume === 0) {
@@ -203,8 +206,8 @@ class AudioPlayer extends React.Component {
     };
 
     return (
-      <div className={prefixCls}>
-        <div className={classNames(wrapClass)} title={title}>
+      <div className={classNames(prefixCls, className, {[`${prefixCls}-${sizeCls}`]: sizeCls})}>
+        <div className={classNames(`${prefixCls}-wrap`, {[`${prefixCls}-${sizeCls}-wrap`]: sizeCls})} title={title}>
           <div className="audio-box">
             <audio
               ref={instance => this.audioInstance = instance}
