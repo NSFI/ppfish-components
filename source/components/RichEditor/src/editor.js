@@ -45,6 +45,7 @@ class RichEditor extends Component {
     value: PropTypes.string,
     insertImageTip: PropTypes.string,
     popoverPlacement: PropTypes.string,
+    tooltipPlacement: PropTypes.string,
     customInsertImage: PropTypes.func,
     getPopupContainer: PropTypes.func,
     onChange: PropTypes.func,
@@ -63,6 +64,7 @@ class RichEditor extends Component {
     placeholder: '请输入内容',
     prefixCls: 'fishd-richeditor',
     popoverPlacement: 'top',
+    tooltipPlacement: 'bottom',
     resizable: false,
     toolbar: [
       ['link', 'bold', 'italic', 'underline'],
@@ -547,6 +549,7 @@ class RichEditor extends Component {
       onChange,
       onSelectionChange,
       popoverPlacement,
+      tooltipPlacement,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -601,6 +604,7 @@ class RichEditor extends Component {
           handleFormatBackground={this.handleFormatBackground}
           handleFormatSize={this.handleFormatSize}
           popoverPlacement={popoverPlacement}
+          tooltipPlacement={tooltipPlacement}
           getPopupContainer={getPopupContainer}
         />
         <ReactQuill

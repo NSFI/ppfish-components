@@ -146,6 +146,7 @@ class CustomToolbar extends PureComponent {
     iconPrefix: PropTypes.string,
     prefixCls: PropTypes.string,
     popoverPlacement: PropTypes.string,
+    tooltipPlacement: PropTypes.string,
     style: PropTypes.object,
     toolbar: PropTypes.array,
     customEmoji: PropTypes.array,
@@ -165,6 +166,7 @@ class CustomToolbar extends PureComponent {
     customLink: {},
     prefixCls: 'fishd-richeditor',
     popoverPlacement: 'top',
+    tooltipPlacement: 'bottom',
     getPopupContainer: () => document.body
   };
 
@@ -188,6 +190,7 @@ class CustomToolbar extends PureComponent {
       customEmoji,
       customLink,
       popoverPlacement,
+      tooltipPlacement,
       getPopupContainer
     } = this.props;
     let mValue = null,
@@ -283,9 +286,18 @@ class CustomToolbar extends PureComponent {
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
-              <div className={colorCls}>
-                <button type="button" data-role="color" value="" className="ql-color hide" />
-              </div>
+              <Tooltip
+                trigger="hover"
+                placement={tooltipPlacement}
+                title="文字颜色"
+                mouseEnterDelay={0.3}
+              >
+                <div className="item">
+                  <div className={colorCls}>
+                    <button type="button" data-role="color" value="" className="ql-color hide" />
+                  </div>
+                </div>
+              </Tooltip>
             </Popover>
           );
 
@@ -417,9 +429,18 @@ class CustomToolbar extends PureComponent {
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
-              <div className={emojiCls}>
-                <button type="button" data-role="emoji" value="" className="ql-emoji hide" />
-              </div>
+              <Tooltip
+                trigger="hover"
+                placement={tooltipPlacement}
+                title="插入表情"
+                mouseEnterDelay={0.3}
+              >
+                <div className="item">
+                  <div className={emojiCls}>
+                    <button type="button" data-role="emoji" value="" className="ql-emoji hide" />
+                  </div>
+                </div>
+              </Tooltip>
             </Popover>
           );
           tooltip = '插入表情';
@@ -470,9 +491,18 @@ class CustomToolbar extends PureComponent {
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
-              <div className={sizeCls} >
-                <button type="button" data-role="customSize" value="" className="ql-customAttr hide" />
-              </div>
+              <Tooltip
+                trigger="hover"
+                placement={tooltipPlacement}
+                title="文字大小"
+                mouseEnterDelay={0.3}
+              >
+                <div className="item">
+                  <div className={sizeCls} >
+                    <button type="button" data-role="customSize" value="" className="ql-customAttr hide" />
+                  </div>
+                </div>
+              </Tooltip>
             </Popover>
           );
 
@@ -567,9 +597,18 @@ class CustomToolbar extends PureComponent {
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
             >
-              <div className={backgroundCls}>
-                <button type="button" data-role="background" value="" className="ql-background hide" />
-              </div>
+              <Tooltip
+                trigger="hover"
+                placement={tooltipPlacement}
+                title="背景色"
+                mouseEnterDelay={0.3}
+              >
+                <div className="item">
+                  <div className={backgroundCls}>
+                    <button type="button" data-role="background" value="" className="ql-background hide" />
+                  </div>
+                </div>
+              </Tooltip>
             </Popover>
           );
 
@@ -610,12 +649,13 @@ class CustomToolbar extends PureComponent {
       }
     }
 
-    if (value) {
+    let mTypesHasPopover = ['background', 'color', 'emoji', 'size'];
+    if (value && (mTypesHasPopover.indexOf(mType) < 0)) {
       value = (
         <Tooltip
           key={key}
           trigger="hover"
-          placement="bottom"
+          placement={tooltipPlacement}
           title={tooltip}
           mouseEnterDelay={0.3}
         >
