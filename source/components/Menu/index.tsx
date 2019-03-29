@@ -228,7 +228,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
             ...animation,
             leave: (node: HTMLElement, done: () => void) => animation.leave(node, () => {
               // Make sure inline menu leave animation finished before mode is switched
-              // this.switchModeFromInline = false;
+              this.switchModeFromInline = false;
               this.setState({});
               // when inlineCollapsed change false to true, all submenu will be unmounted,
               // so that we don't need handle animation leaving.
