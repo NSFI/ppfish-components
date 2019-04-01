@@ -58,7 +58,6 @@ let defaultSizes = [
   );
 });
 
-const EMOJI_VALUE_DIVIDER = '///***';
 const EMOJI_DEFAULT_WIDTH = 24;
 const EMOJI_DEFAULT_HEIGHT = 24;
 const EMOJI_COSTOM_WIDTH = 74;
@@ -82,12 +81,14 @@ let genEmoji = (data) => {
         <button
           className={"emoji-item " + item.className}
           value={
-            "defaultEmoji" + EMOJI_VALUE_DIVIDER +
-            item.title + EMOJI_VALUE_DIVIDER +
-            resPath + item.imgName + ".png" + EMOJI_VALUE_DIVIDER +
-            EMOJI_DEFAULT_WIDTH + EMOJI_VALUE_DIVIDER +
-            EMOJI_DEFAULT_HEIGHT + EMOJI_VALUE_DIVIDER +
-            "emoticon_" + item.className.replace('-', '_')
+            JSON.stringify({
+              type: "defaultEmoji",
+              alt: item.title,
+              src: resPath + item.imgName + ".png",
+              width: EMOJI_DEFAULT_WIDTH,
+              height: EMOJI_DEFAULT_HEIGHT,
+              id: "emoticon_" + item.className.replace('-', '_')
+            })
           }
           title={item.title}
         />
@@ -124,11 +125,13 @@ let genCustomEmoji = (data) => {
         key={"emoji_extend_" + index}
         className={"emoji-extend-item " + item.className}
         value={
-          "customEmoji" + EMOJI_VALUE_DIVIDER +
-          item.title + EMOJI_VALUE_DIVIDER +
-          item.url + EMOJI_VALUE_DIVIDER +
-          EMOJI_COSTOM_WIDTH + EMOJI_VALUE_DIVIDER +
-          EMOJI_COSTOM_HEIGHT
+          JSON.stringify({
+            type: "customEmoji",
+            alt: item.title,
+            src: item.url,
+            width: EMOJI_DEFAULT_WIDTH,
+            height: EMOJI_DEFAULT_HEIGHT
+          })
         }
         title={item.title}
         src={item.url}
@@ -151,11 +154,13 @@ class CustomToolbar extends PureComponent {
     toolbar: PropTypes.array,
     customEmoji: PropTypes.array,
     customLink: PropTypes.object,
+    customInsertValue: PropTypes.object,
     getPopupContainer: PropTypes.func,
     handleInsertEmoji: PropTypes.func,
     handleFormatBackground: PropTypes.func,
     handleFormatColor: PropTypes.func,
     handleFormatSize: PropTypes.func,
+    handleInsertValue: PropTypes.func,
   };
 
   static defaultProps = {
@@ -164,6 +169,7 @@ class CustomToolbar extends PureComponent {
     toolbar: [],
     customEmoji: [],
     customLink: {},
+    customInsertValue: {},
     prefixCls: 'fishd-richeditor',
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
@@ -186,33 +192,109 @@ class CustomToolbar extends PureComponent {
       handleFormatBackground,
       handleFormatColor,
       handleFormatSize,
+      handleInsertValue,
       prefixCls,
       customEmoji,
       customLink,
+      customInsertValue,
       popoverPlacement,
       tooltipPlacement,
       getPopupContainer
     } = this.props;
-    let mValue = null,
-        value = null,
-        tooltip = null;
+    let mValue = null, value = null, tooltip = null;
 
+    // mType 对象格式：
+    // {'align': 'right'}
+    // {size: ['32px', '24px', '18px', '16px', '13px', '12px']}
     if (typeof mType === 'object') {
       let obj = mType;
       mType = Object.keys(obj)[0];
       mValue = obj[mType];
     }
 
-    // 处理扩展的链接模块
+    // 处理定制的链接模块
     if (mType in customLink) {
-      let entryClass = classNames('action custom-entry', {
-        [`ql-${mType}Entry`]: true,
-        [`${iconPrefix}`]: true,
-        [`${iconPrefix}-richeditor-transfer`]: true
-      }, customLink[mType].className);
+      let customModule = customLink[mType] || {},
+        cls = classNames('action custom-entry', {
+          [`ql-${mType}Entry`]: true,
+          [`${iconPrefix}`]: true,
+          [`${iconPrefix}-richeditor-transfer`]: true,
+          [`${customModule.className}`]: !!customModule.className
+        });
 
-      value = <button className={entryClass} key={key}/>;
-      tooltip = customLink[mType].title || '';
+      value = <button className={cls} key={key}/>;
+      if (customModule.title) {
+        tooltip = customModule.title;
+      }
+    } else if (mType in customInsertValue) {  // 处理定制的插入值
+      let customModule = customInsertValue[mType] || {},
+        cls = classNames('action custom-insert-value ql-customInsertValue', {
+          [`${customModule.className}`]: !!customModule.className
+        }),
+        mValue = customModule.option || [],
+        editable = true,
+        html = null;
+
+      if (customModule.editable != undefined) {
+        editable = customModule.editable;
+      }
+
+      if (Array.isArray(mValue) && mValue.length) {
+        html = mValue.map(function(item, index) {
+          return (
+            <button
+              className="insert-value-item"
+              key={"insert_value_" + index}
+              title={item.title}
+              value={
+                JSON.stringify({
+                  value: item.value,
+                  editable: item.editable != undefined ? item.editable : editable
+                })
+              }
+            >
+              {item.title}
+            </button>
+          );
+        });
+      }
+      let content = (
+        <div className="insert-value-con" onClick={handleInsertValue}>
+          {html}
+        </div>
+      );
+
+      value = (
+        <Popover
+          trigger="click"
+          overlayClassName={`${prefixCls}-insert-value-popover`}
+          content={content}
+          title={null}
+          key={key}
+          placement={popoverPlacement}
+          getPopupContainer={getPopupContainer}
+        >
+          <Tooltip
+            trigger="hover"
+            placement={tooltipPlacement}
+            title={customInsertValue[mType].title ? customInsertValue[mType].title : null}
+            mouseEnterDelay={0.3}
+          >
+            <div className="item">
+              <div className={cls}>
+                <button
+                  type="button"
+                  data-role="customInsertValue"
+                  value=""
+                  className="ql-customInsertValue hide"
+                />
+              </div>
+            </div>
+          </Tooltip>
+        </Popover>
+      );
+
+      tooltip = customInsertValue[mType].title || '';
     } else {
       switch(mType) {
         case 'link': {
@@ -650,7 +732,7 @@ class CustomToolbar extends PureComponent {
     }
 
     let mTypesHasPopover = ['background', 'color', 'emoji', 'size'];
-    if (value && (mTypesHasPopover.indexOf(mType) < 0)) {
+    if (value && (mTypesHasPopover.indexOf(mType) < 0) && !(mType in customInsertValue)) {
       value = (
         <Tooltip
           key={key}

@@ -35,29 +35,6 @@
 ```
 :::
 
-## 定制超链接
-
-:::demo 定制超链接。
-
-```js
-
-  constructor(props) {
-    super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['mylink']];
-  }
-
-  render() {
-    return (
-      <RichEditor
-        customLink={{'mylink': {className: 'my-link', url: 'qiyu://action.qiyukf.com?command=applyHumanStaff', title: '设置为转人工入口'}}}
-        toolbar={this.toolbar}
-        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
-      />
-    );
-  }
-```
-:::
-
 ## 定制文字大小
 
 :::demo 定制文字大小。
@@ -160,6 +137,76 @@
 ```
 :::
 
+## 扩展添加超链接功能
+
+:::demo 扩展工具栏，添加定制超链接的按钮。
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['mylink']];
+  }
+
+  render() {
+    return (
+      <RichEditor
+        customLink={{
+          'mylink': {
+            'className': 'my-link',
+            'title': '设置为转人工入口',
+            'url': 'qiyu://action.qiyukf.com?command=applyHumanStaff'
+          }
+        }}
+        toolbar={this.toolbar}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
+      />
+    );
+  }
+```
+:::
+
+## 扩展插入文本功能
+
+:::demo 扩展工具栏，添加“插入文本”按钮，支持在光标位置处插入自定义文本，可设置该文本是否可编辑（默认可编辑）。
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['myValue']];
+  }
+
+  render() {
+    return (
+      <RichEditor
+        customInsertValue={{
+          'myValue': {
+            'className': 'my-value',
+            'title': '插入变量',
+            'editable': false,
+            'option': [
+              {'value': '${value1}', 'title': 'LongLongLongLongLongLongLongLongLongLongLongTitle1'},
+              {'value': '${value2}', 'title': 'Title2'},
+              {'value': '${value3}', 'title': 'Title3', 'editable': true},
+              {'value': '${value4}', 'title': 'Title4'},
+              {'value': '${value5}', 'title': 'Title5'},
+              {'value': '${value6}', 'title': 'Title6'},
+              {'value': '${value7}', 'title': 'Title7'},
+              {'value': '${value8}', 'title': 'Title8'},
+              {'value': '${value9}', 'title': 'Title9'},
+              {'value': '${value10}', 'title': 'Title10', 'editable': true}
+            ]
+          }
+        }}
+        toolbar={this.toolbar}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
+      />
+    );
+  }
+```
+:::
+
 ## 拖拽改变大小
 
 :::demo 拖拽改变大小。
@@ -229,8 +276,7 @@
 
 ## 插入不可编辑的文本
 
-:::demo 在指定位置插入文本，同时可以设置该文本不可编辑，不可编辑的文本只能被整体删除。
-单击按钮可在光标位置处插入自定义的不可编辑文本。
+:::demo 通过单击外部按钮，在光标位置处插入自定义的文本，同时可以设置该文本不可编辑，设置为不可编辑的文本只能被整体删除。
 
 ```js
   componentDidMount() {
@@ -244,7 +290,7 @@
     let range = quill.getSelection();
 
     if (!range) {
-      message.warning('编辑器处于 unfocus 状态');
+      message.warning('编辑器处于未聚焦状态');
       return;
     }
 
@@ -330,8 +376,9 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
-| customInsertImage | 自定义插入图片。通过此接口可以自己实现插入图片前获取图片的过程。 | (callback: (attrs: Object {src: String, [otherAttr]: String \| Number}) => Void) => Void | - |
-| customLink | 定制文本链接。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选。 `url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'。`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
+| customInsertImage | 自定义插入图片，通过此接口可以自定义插入图片前获取图片的过程，如上传本地图片到服务器、异步获取图片地址等。 | (callback: (attrs: Object {src: String, [otherAttr]: String \| Number}) => Void) => Void | - |
+| customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
+| customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
 | insertImageTip | 插入图片的文字提示 | String | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |

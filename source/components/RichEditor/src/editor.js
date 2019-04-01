@@ -35,6 +35,7 @@ class RichEditor extends Component {
     className: PropTypes.string,
     customEmoji: PropTypes.array,
     customLink: PropTypes.object,
+    customInsertValue: PropTypes.object,
     defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
@@ -60,6 +61,7 @@ class RichEditor extends Component {
   static defaultProps = {
     customEmoji: [],
     customLink: {},
+    customInsertValue: {},
     insertImageTip: '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
     placeholder: '请输入内容',
     prefixCls: 'fishd-richeditor',
@@ -127,16 +129,16 @@ class RichEditor extends Component {
         });
       },
       emoji: function(value) {
-        const EMOJI_VALUE_DIVIDER = '///***';
-        let vList = value.split(EMOJI_VALUE_DIVIDER);
-        let range = this.quill.getSelection();
+        let mValue = JSON.parse(value),
+          range = this.quill.getSelection();
+
         this.quill.insertEmbed(range.index, 'emoji', {
-          type: vList[0],
-          alt: vList[1],
-          src: vList[2],
-          width: vList[3],
-          height: vList[4],
-          id: vList[5]
+          type: mValue.type,
+          alt: mValue.alt,
+          src: mValue.src,
+          width: mValue.width,
+          height: mValue.height,
+          id: mValue.id
         });
         this.quill.setSelection(range.index + 1);
       },
@@ -169,15 +171,29 @@ class RichEditor extends Component {
           this.quill.removeFormat(range, Quill.sources.USER);
         }
       },
+      // 处理定制的插入值
+      customInsertValue: function(value) {
+        let mValue = JSON.parse(value),
+          range = this.quill.getSelection();
+
+        if (mValue.editable === false) {
+          this.quill.insertText(range.index, mValue.value, {
+            customAttr: { editable: false }
+          });
+        } else {
+          this.quill.insertText(range.index, mValue.value);
+        }
+      }
     };
 
-    Object.keys(customLink).forEach((name) => {
-      this.handlers[`${name}Entry`] = function() {
+    // 处理定制的超链接
+    Object.keys(customLink).forEach((moduleName) => {
+      this.handlers[`${moduleName}Entry`] = function() {
         let range = this.quill.getSelection();
         if (range.length !== 0) {
           this.quill.format('myLink', {
-            type: `${name}Entry`,
-            url: customLink[name].url
+            type: `${moduleName}Entry`,
+            url: customLink[moduleName].url
           });
         } else {
           message.error('没有选中文本');
@@ -418,9 +434,9 @@ class RichEditor extends Component {
   };
 
   handleInsertEmoji = (e) => {
-    let { toolbarCtner } = this.state;
-    let target = e.target,
-        clsList = target.classList.value;
+    let { toolbarCtner } = this.state,
+      target = e.target,
+      clsList = target.classList.value;
 
     if (
       (clsList.indexOf('emoji-item') > -1 || clsList.indexOf('emoji-extend-item') > -1)
@@ -434,15 +450,16 @@ class RichEditor extends Component {
 
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'emoji');
-      el.setAttribute('value', target.getAttribute('value'));
+      el.setAttribute('value', target.value);
       el.classList.add('ql-emoji', 'hide');
       el.click();
     }
   };
 
   handleFormatBackground = (e) => {
-    let { toolbarCtner } = this.state;
-    let target = e.target;
+    let { toolbarCtner } = this.state,
+      target = e.target;
+
     if (target.classList.value.indexOf('background-item') > -1 && target.hasAttribute('value')) {
       let el = toolbarCtner.querySelector('button.ql-background[data-role="background"]');
       if (el == null) {
@@ -459,8 +476,9 @@ class RichEditor extends Component {
   };
 
   handleFormatColor = (e) => {
-    let { toolbarCtner } = this.state;
-    let target = e.target;
+    let { toolbarCtner } = this.state,
+      target = e.target;
+
     if (target.classList.value.indexOf('color-item') > -1 && target.hasAttribute('value')) {
       let el = toolbarCtner.querySelector('button.ql-color[data-role="color"]');
       if (el == null) {
@@ -477,8 +495,9 @@ class RichEditor extends Component {
   };
 
   handleFormatSize = (e) => {
-    let { toolbarCtner } = this.state;
-    let target = e.target;
+    let { toolbarCtner } = this.state,
+      target = e.target;
+
     if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
       let el = toolbarCtner.querySelector('button.ql-customAttr[data-role="customSize"]');
       if (el == null) {
@@ -490,6 +509,25 @@ class RichEditor extends Component {
       el.setAttribute('data-role', 'customSize');
       el.setAttribute('value', target.value);
       el.classList.add('ql-customAttr', 'hide');
+      el.click();
+    }
+  };
+
+  handleInsertValue = (e) => {
+    let { toolbarCtner } = this.state,
+      target = e.target;
+
+    if (target.classList.value.indexOf('insert-value-item') > -1 && target.hasAttribute('value')) {
+      let el = toolbarCtner.querySelector('button.ql-customInsertValue[data-role="customInsertValue"]');
+      if (el == null) {
+        el = document.createElement('button');
+        toolbarCtner.querySelector('.custom-insert-value').appendChild(el);
+      }
+
+      el.setAttribute('type', 'button');
+      el.setAttribute('data-role', 'customInsertValue');
+      el.setAttribute('value', target.value);
+      el.classList.add('ql-customInsertValue', 'hide');
       el.click();
     }
   };
@@ -541,8 +579,9 @@ class RichEditor extends Component {
     const {
       className, prefixCls,
       toolbar, placeholder,
-      customLink, resizable,
-      style,
+      customLink,
+      customInsertValue,
+      resizable, style,
       getPopupContainer,
       customEmoji,
       insertImageTip,
@@ -599,10 +638,12 @@ class RichEditor extends Component {
           toolbar={toolbar}
           customEmoji={customEmoji}
           customLink={customLink}
+          customInsertValue={customInsertValue}
           handleInsertEmoji={this.handleInsertEmoji}
           handleFormatColor={this.handleFormatColor}
           handleFormatBackground={this.handleFormatBackground}
           handleFormatSize={this.handleFormatSize}
+          handleInsertValue={this.handleInsertValue}
           popoverPlacement={popoverPlacement}
           tooltipPlacement={tooltipPlacement}
           getPopupContainer={getPopupContainer}
