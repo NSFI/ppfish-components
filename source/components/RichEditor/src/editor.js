@@ -176,6 +176,8 @@ class RichEditor extends Component {
         let mValue = JSON.parse(value),
           range = this.quill.getSelection();
 
+        if (!range) return;
+
         if (mValue.editable === false) {
           this.quill.insertText(range.index, mValue.value, {
             customAttr: { editable: false }
