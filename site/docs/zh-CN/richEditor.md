@@ -174,7 +174,12 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['myValue']];
+    this.toolbar = [
+      ['link', 'bold', 'italic', 'underline'], ['size'], ['color'],
+      [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
+      [{'list': 'ordered'}, {'list': 'bullet'}],
+      ['emoji'], ['image'], ['clean'], ['myValue']
+    ];
   }
 
   render() {
