@@ -158,7 +158,7 @@ class PicturePreview extends Component {
     if (!visible) return;
 
     let newState = {};
-    if (activeIndex !== current) {
+    if (activeIndex !== current && !show) {
       newState['current'] = activeIndex;
     }
 
