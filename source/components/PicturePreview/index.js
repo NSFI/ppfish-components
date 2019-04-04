@@ -173,9 +173,10 @@ class PicturePreview extends Component {
   }
 
   componentDidMount() {
-    const { draggable, toolbar, mask } = this.props;
+    let { draggable, toolbar, mask } = this.props,
+      el = mask === false ? this.$el : this.$root;
 
-    document.body.appendChild(mask ? this.$root : this.$el);
+    document.body.appendChild(el);
     this.setContainerStyle();
 
     if (toolbar && this.$el) {
@@ -207,8 +208,8 @@ class PicturePreview extends Component {
   }
 
   componentWillUnmount() {
-    const { draggable, mask } = this.props;
-    let el = mask ? this.$root : this.$el;
+    let { draggable, mask } = this.props,
+      el = mask === false ? this.$el : this.$root;
 
     if (el && el.parentNode === document.body) {
       document.body.removeChild(el);

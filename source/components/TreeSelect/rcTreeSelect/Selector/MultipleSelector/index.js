@@ -152,7 +152,7 @@ class MultipleSelector extends React.Component {
       // 相同 label 去重
       uniqueTreeNodeByLabel && (labelList = [...new Set(labelList)]);
 
-      selectedValueNodes = labelList.join('、');
+      selectedValueNodes = labelList.filter((item) => item != undefined).join('、');
     }
 
     // const className = `${prefixCls}-selection__rendered`;
