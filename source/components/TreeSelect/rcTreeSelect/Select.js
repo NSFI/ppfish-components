@@ -1,7 +1,9 @@
 /**
  * ARIA: https://www.w3.org/TR/wai-aria/#combobox
- * Sample 1: https://www.w3.org/TR/2017/NOTE-wai-aria-practices-1.1-20171214/examples/combobox/aria1.1pattern/listbox-combo.html
- * Sample 2: https://www.w3.org/blog/wai-components-gallery/widget/combobox-with-aria-autocompleteinline/
+ * Sample 1:
+ * https://www.w3.org/TR/2017/NOTE-wai-aria-practices-1.1-20171214/examples/combobox/aria1.1pattern/listbox-combo.html
+ * Sample 2:
+ * https://www.w3.org/blog/wai-components-gallery/widget/combobox-with-aria-autocompleteinline/
  *
  * Tab logic:
  * Popup is close
@@ -163,75 +165,6 @@ class Select extends React.Component {
     autoExpandParent: true,
     getPopupContainer: () => document.body,
   };
-
-  constructor(props) {
-    super(props);
-
-    const {
-      prefixAria,
-      defaultOpen,
-      open,
-      required,
-      editable,
-      defaultValue,
-      value
-    } = props;
-
-    let disableCloseTag = false;
-    if (required && editable) {
-      let initValue = value || defaultValue;
-      if (typeof initValue == "string" || (Array.isArray(initValue) && initValue.length==1)) {
-        disableCloseTag = true;
-      }
-    }
-
-    this.state = {
-      open: !!open || !!defaultOpen,
-      valueList: [],
-      missValueList: [], // Contains the value not in the tree
-      selectorValueList: [], // Used for multiple selector
-      valueEntities: {},
-      keyEntities: {},
-      searchValue: '',
-
-      init: true,
-      oriValueList: [],
-      curValueList: [],
-
-      // onChange 和 onConfirm 回调函数的回传参数
-      returnValue: [],
-      connectValueList: [],
-      extra: {},
-
-      disableCloseTag
-    };
-
-    this.selectorRef = createRef();
-    this.selectTriggerRef = createRef();
-
-    // ARIA need `aria-controls` props mapping
-    // Since this need user input. Let's generate ourselves
-    this.ariaId = generateAriaId(`${prefixAria}-list`);
-  }
-
-  getChildContext() {
-    return {
-      rcTreeSelect: {
-        onSelectorFocus: this.onSelectorFocus,
-        onSelectorBlur: this.onSelectorBlur,
-        onSelectorKeyDown: this.onComponentKeyDown,
-        onSelectorClear: this.onSelectorClear,
-        onMultipleSelectorRemove: this.onMultipleSelectorRemove,
-
-        onTreeNodeSelect: this.onTreeNodeSelect,
-        onTreeNodeCheck: this.onTreeNodeCheck,
-        onPopupKeyDown: this.onComponentKeyDown,
-
-        onSearchInputChange: this.onSearchInputChange,
-        onSearchInputKeyDown: this.onSearchInputKeyDown,
-      },
-    };
-  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps = {} } = prevState;
@@ -448,6 +381,75 @@ class Select extends React.Component {
     });
 
     return newState;
+  }
+
+  constructor(props) {
+    super(props);
+
+    const {
+      prefixAria,
+      defaultOpen,
+      open,
+      required,
+      editable,
+      defaultValue,
+      value
+    } = props;
+
+    let disableCloseTag = false;
+    if (required && editable) {
+      let initValue = value || defaultValue;
+      if (typeof initValue == "string" || (Array.isArray(initValue) && initValue.length==1)) {
+        disableCloseTag = true;
+      }
+    }
+
+    this.state = {
+      open: !!open || !!defaultOpen,
+      valueList: [],
+      missValueList: [], // Contains the value not in the tree
+      selectorValueList: [], // Used for multiple selector
+      valueEntities: {},
+      keyEntities: {},
+      searchValue: '',
+
+      init: true,
+      oriValueList: [],
+      curValueList: [],
+
+      // onChange 和 onConfirm 回调函数的回传参数
+      returnValue: [],
+      connectValueList: [],
+      extra: {},
+
+      disableCloseTag
+    };
+
+    this.selectorRef = createRef();
+    this.selectTriggerRef = createRef();
+
+    // ARIA need `aria-controls` props mapping
+    // Since this need user input. Let's generate ourselves
+    this.ariaId = generateAriaId(`${prefixAria}-list`);
+  }
+
+  getChildContext() {
+    return {
+      rcTreeSelect: {
+        onSelectorFocus: this.onSelectorFocus,
+        onSelectorBlur: this.onSelectorBlur,
+        onSelectorKeyDown: this.onComponentKeyDown,
+        onSelectorClear: this.onSelectorClear,
+        onMultipleSelectorRemove: this.onMultipleSelectorRemove,
+
+        onTreeNodeSelect: this.onTreeNodeSelect,
+        onTreeNodeCheck: this.onTreeNodeCheck,
+        onPopupKeyDown: this.onComponentKeyDown,
+
+        onSearchInputChange: this.onSearchInputChange,
+        onSearchInputKeyDown: this.onSearchInputKeyDown,
+      },
+    };
   }
 
   componentDidMount() {

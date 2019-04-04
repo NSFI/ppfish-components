@@ -24,7 +24,7 @@ class Tree extends React.Component {
     className: PropTypes.string,
     style: PropTypes.object,
     tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    children: PropTypes.any,
+    children: PropTypes.node,
     treeData: PropTypes.array, // Generate treeNode by children
     showLine: PropTypes.bool,
     showIcon: PropTypes.bool,
@@ -97,68 +97,6 @@ class Tree extends React.Component {
     expandAll: false,
     required: false,
   };
-
-  state = {
-    // TODO: Remove this eslint
-    posEntities: {}, // eslint-disable-line react/no-unused-state
-    keyEntities: {},
-
-    selectedKeys: [],
-    checkedKeys: [],
-    halfCheckedKeys: [],
-    loadedKeys: [],
-    loadingKeys: [],
-
-    treeNode: [],
-  };
-
-  getChildContext() {
-    const {
-      prefixCls, selectable, showIcon, icon, draggable, checkable, checkStrictly, disabled,
-      loadData, filterTreeNode,
-      openTransitionName, openAnimation,
-      switcherIcon,
-    } = this.props;
-
-    return {
-      rcTree: {
-        // root: this,
-
-        prefixCls,
-        selectable,
-        showIcon,
-        icon,
-        switcherIcon,
-        draggable,
-        checkable,
-        checkStrictly,
-        disabled,
-        openTransitionName,
-        openAnimation,
-
-        loadData,
-        filterTreeNode,
-        renderTreeNode: this.renderTreeNode,
-        isKeyChecked: this.isKeyChecked,
-
-        onNodeClick: this.onNodeClick,
-        onNodeDoubleClick: this.onNodeDoubleClick,
-        onNodeExpand: this.onNodeExpand,
-        onNodeSelect: this.onNodeSelect,
-        onNodeCheck: this.onNodeCheck,
-        onNodeLoad: this.onNodeLoad,
-        onNodeMouseEnter: this.onNodeMouseEnter,
-        onNodeMouseLeave: this.onNodeMouseLeave,
-        onNodeContextMenu: this.onNodeContextMenu,
-        onNodeDragStart: this.onNodeDragStart,
-        onNodeDragEnter: this.onNodeDragEnter,
-        onNodeDragOver: this.onNodeDragOver,
-        onNodeDragLeave: this.onNodeDragLeave,
-        onNodeDragEnd: this.onNodeDragEnd,
-        onNodeDrop: this.onNodeDrop,
-      },
-    };
-  }
 
   static getDerivedStateFromProps(props, prevState) {
     const { prevProps } = prevState;
@@ -250,6 +188,67 @@ class Tree extends React.Component {
     }
 
     return newState;
+  }
+
+  state = {
+    posEntities: {}, // eslint-disable-line react/no-unused-state
+    keyEntities: {},
+
+    selectedKeys: [],
+    checkedKeys: [],
+    halfCheckedKeys: [],
+    loadedKeys: [],
+    loadingKeys: [],
+
+    treeNode: [],
+  };
+
+  getChildContext() {
+    const {
+      prefixCls, selectable, showIcon, icon, draggable, checkable, checkStrictly, disabled,
+      loadData, filterTreeNode,
+      openTransitionName, openAnimation,
+      switcherIcon,
+    } = this.props;
+
+    return {
+      rcTree: {
+        // root: this,
+
+        prefixCls,
+        selectable,
+        showIcon,
+        icon,
+        switcherIcon,
+        draggable,
+        checkable,
+        checkStrictly,
+        disabled,
+        openTransitionName,
+        openAnimation,
+
+        loadData,
+        filterTreeNode,
+        renderTreeNode: this.renderTreeNode,
+        isKeyChecked: this.isKeyChecked,
+
+        onNodeClick: this.onNodeClick,
+        onNodeDoubleClick: this.onNodeDoubleClick,
+        onNodeExpand: this.onNodeExpand,
+        onNodeSelect: this.onNodeSelect,
+        onNodeCheck: this.onNodeCheck,
+        onNodeLoad: this.onNodeLoad,
+        onNodeMouseEnter: this.onNodeMouseEnter,
+        onNodeMouseLeave: this.onNodeMouseLeave,
+        onNodeContextMenu: this.onNodeContextMenu,
+        onNodeDragStart: this.onNodeDragStart,
+        onNodeDragEnter: this.onNodeDragEnter,
+        onNodeDragOver: this.onNodeDragOver,
+        onNodeDragLeave: this.onNodeDragLeave,
+        onNodeDragEnd: this.onNodeDragEnd,
+        onNodeDrop: this.onNodeDrop,
+      },
+    };
   }
 
   onNodeDragStart = (event, node) => {

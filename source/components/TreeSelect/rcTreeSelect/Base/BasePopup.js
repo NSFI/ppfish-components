@@ -63,27 +63,6 @@ class BasePopup extends React.Component {
     }),
   };
 
-  constructor(props) {
-    super();
-
-    const {
-      treeDefaultExpandAll, treeDefaultExpandedKeys,
-      keyEntities,
-    } = props;
-
-    // TODO: make `expandedKeyList` control
-    let expandedKeyList = treeDefaultExpandedKeys;
-    if (treeDefaultExpandAll) {
-      expandedKeyList = Object.keys(keyEntities);
-    }
-
-    this.state = {
-      keyList: [],
-      expandedKeyList,
-      loadedKeys: [],
-    };
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps = {}, loadedKeys } = prevState || {};
     const { valueList, valueEntities, keyEntities, filteredTreeNodes, upperSearchValue } = nextProps;
@@ -122,6 +101,27 @@ class BasePopup extends React.Component {
     }
 
     return newState;
+  }
+
+  constructor(props) {
+    super();
+
+    const {
+      treeDefaultExpandAll, treeDefaultExpandedKeys,
+      keyEntities,
+    } = props;
+
+    // TODO: make `expandedKeyList` control
+    let expandedKeyList = treeDefaultExpandedKeys;
+    if (treeDefaultExpandAll) {
+      expandedKeyList = Object.keys(keyEntities);
+    }
+
+    this.state = {
+      keyList: [],
+      expandedKeyList,
+      loadedKeys: [],
+    };
   }
 
   onTreeExpand = (expandedKeyList, extra) => {

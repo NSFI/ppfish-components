@@ -11,6 +11,7 @@ class Selection extends React.Component {
     disableCloseTag: PropTypes.bool,
     editable: PropTypes.bool,
     prefixCls: PropTypes.string,
+    iconPrefix: PropTypes.string,
     maxTagTextLength: PropTypes.number,
     tagWidth: PropTypes.number,
     onRemove: PropTypes.func,
