@@ -109,34 +109,32 @@ class PicturePreview extends Component {
       newState['show'] = newState['lastVisible'] = visible;
     }
 
-    if (visible) {
-      if (activeIndex !== lastActiveIndex) {
-        newState['current'] = newState['lastActiveIndex'] = activeIndex;
-      } else {
-        newState['current'] = current;
-      }
+    if (activeIndex !== lastActiveIndex) {
+      newState['current'] = newState['lastActiveIndex'] = activeIndex;
+    } else {
+      newState['current'] = current;
+    }
 
-      if (source && source.length) {
-        let sourceStr = JSON.stringify(source);
-        if (sourceStr !== JSON.stringify(imgs)) {
-          newState['imgs'] = JSON.parse(sourceStr);
+    if (source && source.length) {
+      let sourceStr = JSON.stringify(source);
+      if (sourceStr !== JSON.stringify(imgs)) {
+        newState['imgs'] = JSON.parse(sourceStr);
+      }
+    } else if (children) {
+      let imgList = [];
+
+      imgList = React.Children.map(children, (child) => {
+        let img = {};
+
+        if (child.type === 'img') {
+          img.name = child.props.name || child.props.alt;
+          img.src = child.props.src;
         }
-      } else if (children) {
-        let imgList = [];
 
-        imgList = React.Children.map(children, (child) => {
-          let img = {};
+        return img;
+      }).filter((item) => item);
 
-          if (child.type === 'img') {
-            img.name = child.props.name || child.props.alt;
-            img.src = child.props.src;
-          }
-
-          return img;
-        }).filter((item) => item);
-
-        newState['imgs'] = imgList;
-      }
+      newState['imgs'] = imgList;
     }
 
     return newState;
@@ -344,6 +342,7 @@ class PicturePreview extends Component {
     this.state.container.isFull && exitfullscreen();
     this.setState({
       show: false,
+      lastVisible: false,
       shown: false,
     }, () => {
       if (mask) {
