@@ -28,7 +28,9 @@
   };
 
   handleClose = () => {
-    console.log('关闭');
+    this.setState({
+      visible: false
+    });
   };
 
   render() {
@@ -82,6 +84,12 @@
     });
   };
 
+  handleClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     const { visible, activeIndex } = this.state;
     return (
@@ -104,6 +112,7 @@
             source={this.props.source}
             toolbar={true}
             visible={visible}
+            onClose={this.handleClose}
           />
         </div>
     );
@@ -133,6 +142,12 @@
     });
   };
 
+  handleClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     const { visible, activeIndex } = this.state;
     return (
@@ -156,6 +171,7 @@
             draggable={true}
             toolbar={true}
             visible={visible}
+            onClose={this.handleClose}
           />
         </div>
     );
@@ -185,6 +201,12 @@
     });
   };
 
+  handleClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     const { visible, activeIndex } = this.state;
     return (
@@ -209,6 +231,7 @@
             toolbar={true}
             mask={false}
             visible={visible}
+            onClose={this.handleClose}
           />
         </div>
     );
@@ -238,6 +261,12 @@
     });
   }
 
+  handleClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     const { visible, activeIndex } = this.state;
     const { source } = this.props;
@@ -259,6 +288,7 @@
           <PicturePreview
             activeIndex={activeIndex}
             visible={visible}
+            onClose={this.handleClose}
           >
             <img src={source && source[0].src} name={source && source[0].name}/>
             <img src={source && source[1].src} name={source && source[1].name}/>
