@@ -28,6 +28,21 @@ render() {
   );
 }
 ```
+
+```less
+.fishd-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #292c33;
+  overflow: hidden;
+  font-size: 24px;
+
+  & h3 {
+    color: #fff;
+  }
+}
+```
 :::
 
 ## 垂直
@@ -45,6 +60,21 @@ render() {
       <div><h3>4</h3></div>
     </Carousel>
   );
+}
+```
+
+```less
+.fishd-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #292c33;
+  overflow: hidden;
+  font-size: 24px;
+
+  & h3 {
+    color: #fff;
+  }
 }
 ```
 :::
@@ -67,6 +97,20 @@ render() {
 }
 ```
 
+```less
+.fishd-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #292c33;
+  overflow: hidden;
+  font-size: 24px;
+
+  & h3 {
+    color: #fff;
+  }
+}
+```
 :::
 
 ## 自动切换
@@ -83,6 +127,21 @@ render() {
       <div><h3>4</h3></div>
     </Carousel>
   );
+}
+```
+
+```less
+.fishd-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #292c33;
+  overflow: hidden;
+  font-size: 24px;
+
+  & h3 {
+    color: #fff;
+  }
 }
 ```
 :::
@@ -103,6 +162,21 @@ render() {
   );
 }
 ```
+
+```less
+.fishd-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #292c33;
+  overflow: hidden;
+  font-size: 24px;
+
+  & h3 {
+    color: #fff;
+  }
+}
+```
 :::
 
 ## 提供帧剩余时间效果
@@ -119,6 +193,21 @@ render() {
       <div><h3>4</h3></div>
     </Carousel>
   );
+}
+```
+
+```less
+.fishd-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #292c33;
+  overflow: hidden;
+  font-size: 24px;
+
+  & h3 {
+    color: #fff;
+  }
 }
 ```
 :::
