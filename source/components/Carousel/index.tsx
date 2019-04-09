@@ -179,9 +179,9 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
       ...restProps
     } = this.props;
     let cls = classNames(
-      prefixCls, `${prefixCls}-${dotsPosition}`, className, {
-        'center': centerMode
-      }
+      prefixCls,
+      `${prefixCls}-${dotsPosition}`,
+      className
     );
     let dotsCls = classNames('slick-dots', {
       'slick-dots-vertical': dotsPosition=='left' || dotsPosition=='right',
