@@ -91,7 +91,10 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
     draggable: false,
     dotsTimer: false,
     autoplaySpeed: 3000,
-    dotsPosition: 'bottom'
+    dotsPosition: 'bottom',
+    centerMode: false,
+    centerPadding: '50px',
+    slidesToShow: 1
   };
 
   innerSlider: any;
@@ -163,23 +166,31 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
 
   render() {
     let {
+      prefixCls,
+      className,
+      style,
       dotsPosition,
       dotsTimer,
-      style,
       nextArrow,
       prevArrow,
+      centerMode,
+      centerPadding,
+      slidesToShow,
       ...restProps
     } = this.props;
-
-    if (restProps.effect === 'fade') {
-      restProps.fade = true;
-    }
-
-    let cls = classNames(restProps.prefixCls, `${restProps.prefixCls}-${dotsPosition}`);
+    let cls = classNames(
+      prefixCls, `${prefixCls}-${dotsPosition}`, className, {
+        'center': centerMode
+      }
+    );
     let dotsCls = classNames('slick-dots', {
       'slick-dots-vertical': dotsPosition=='left' || dotsPosition=='right',
       'timer': restProps.autoplay && dotsTimer
     });
+
+    if (restProps.effect === 'fade') {
+      restProps.fade = true;
+    }
 
     return (
       <div className={cls} style={style}>
@@ -188,6 +199,9 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
           ref={this.saveSlick}
           nextArrow={nextArrow ? nextArrow : <CustomArrow className="slick-next" onClick={this.next}/>}
           prevArrow={prevArrow ? prevArrow : <CustomArrow className="slick-prev" onClick={this.prev}/>}
+          centerMode={centerMode}
+          centerPadding={centerPadding}
+          slidesToShow={slidesToShow}
           dotsClass={dotsCls}
         />
       </div>
