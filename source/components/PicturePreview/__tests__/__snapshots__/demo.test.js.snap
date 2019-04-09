@@ -788,7 +788,34 @@ exports[`Renders picturePreview demo correctly 1`] = `
       >
         <div
           class="canvas"
-        />
+        >
+          <img
+            active="true"
+            alt="pic1"
+            class="img"
+            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+          />
+          <img
+            alt="pic2"
+            class="img"
+            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+          />
+          <img
+            alt="pic3"
+            class="img"
+            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+          />
+          <img
+            alt="pic4"
+            class="img"
+            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
+          />
+          <img
+            alt="pic5"
+            class="img"
+            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+          />
+        </div>
         <i
           class="fishdicon fishdicon-picture-close close"
         />
@@ -804,7 +831,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            1/0
+            1/5
           </div>
           <div
             class="toolbarCon"
