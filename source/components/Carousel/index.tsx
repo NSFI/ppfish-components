@@ -119,15 +119,18 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
 
     this.slickDOM = findDOMNode(this.slick);
     if (autoplay && dotsTimer) {
-      let aniName = (dotsPosition=='left' || dotsPosition=='right') ? 'dotsAniVertical' : 'dotsAni';
-      this.slickDOM.querySelector('.timer').style.setProperty("--dots-ani", `${aniName} ${autoplaySpeed/1000}s infinite`);
+      let aniName = (dotsPosition=='left' || dotsPosition=='right') ? 'dotsAniVertical' : 'dotsAni',
+        timerEl = this.slickDOM.querySelector('.timer');
+      !!timerEl && timerEl.style.setProperty("--dots-ani", `${aniName} ${autoplaySpeed/1000}s infinite`);
 
       this.slickDOM.addEventListener('mouseover', () => {
-        this.slickDOM.querySelector('.timer').style.setProperty("--dots-ani", 'none');
+        let timerEl = this.slickDOM.querySelector('.timer');
+        !!timerEl && timerEl.style.setProperty("--dots-ani", 'none');
       });
 
       this.slickDOM.addEventListener('mouseout', () => {
-        this.slickDOM.querySelector('.timer').style.setProperty("--dots-ani", `${aniName} ${autoplaySpeed/1000}s infinite`);
+        let timerEl = this.slickDOM.querySelector('.timer');
+        !!timerEl && timerEl.style.setProperty("--dots-ani", `${aniName} ${autoplaySpeed/1000}s infinite`);
       });
     }
   }
