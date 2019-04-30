@@ -304,7 +304,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
           !childChecked
           // 注释以下代码，避免异步加载非搜索状态下上级全选不联动的问题。改为搜索状态下上级节点全选联动，半选不联动。
           // 搜索状态的异步加载模式下，当前父节点key不在已加载的节点中，全选子节点时，不选中父节点
-          // (upperSearchValue && loadData && (!loadedKeys || loadedKeys.indexOf(key) == -1))
+          // || (upperSearchValue && loadData && (!loadedKeys || loadedKeys.indexOf(key) == -1))
         ) {
           everyChildChecked = false;
         }

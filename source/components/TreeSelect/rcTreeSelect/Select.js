@@ -650,7 +650,8 @@ class Select extends React.Component {
 
     // When is `treeCheckable` and with `searchValue`, `valueList` is not full filled.
     // We need calculate the missing nodes.
-    if (treeCheckable && !treeCheckStrictly && !searchValue) {
+    // 搜索状态下仍需计算勾选节点的上下联动关系
+    if (treeCheckable && !treeCheckStrictly) {
       let keyList = newValueList.map(({ value: val }) => valueEntities[val].key);
       if (isAdd) {
         keyList = conductCheck(
