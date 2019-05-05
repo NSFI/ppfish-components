@@ -33,7 +33,10 @@ class ImageLoader extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     prefixCls: PropTypes.string,
-    placeholderSize: PropTypes.string,
+    placeholderSize: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]),
     style: PropTypes.object,
     preLoader: PropTypes.oneOfType([
       PropTypes.node,

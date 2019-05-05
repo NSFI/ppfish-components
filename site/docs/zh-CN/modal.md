@@ -526,6 +526,7 @@ render(){
 | --- | --- | --- | --- |
 | afterClose | Modal 完全关闭后的回调 | (e) => Void | - |
 | bodyStyle | Modal body 样式 | Object | {} |
+| cancelButtonDisabled | 取消按钮是否禁用 | Boolean | false |
 | cancelText | 取消按钮文字 | String | 取消 |
 | closable | 是否显示右上角的关闭按钮 | Boolean | true |
 | confirmLoading | 确定按钮 loading | Boolean | - |
@@ -538,6 +539,7 @@ render(){
 | maskStyle | 遮罩样式 | Object | {} |
 | onCancel | 点击遮罩层或右上角叉或取消按钮的回调 | (e) => Void | - |
 | onOk | 点击确定回调 | (e) => Void | - |
+| okButtonDisabled | 确认按钮是否禁用 | Boolean | false |
 | okText | 确认按钮文字 | String | 确定 |
 | okType | 确认按钮类型 | String | primary |
 | style | 可用于设置浮层的样式，调整浮层位置等 | Object | - |

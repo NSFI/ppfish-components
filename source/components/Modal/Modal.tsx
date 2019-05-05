@@ -1,13 +1,13 @@
-import * as React from 'react';
-import Dialog from './DialogWrap';
-import * as PropTypes from 'prop-types';
-import { addEventListener } from '../../utils/index';
-import Button from '../Button';
-import { ButtonType, NativeButtonProps } from '../Button/Button';
+import * as React from "react";
+import Dialog from "./DialogWrap";
+import * as PropTypes from "prop-types";
+import { addEventListener } from "../../utils/index";
+import Button from "../Button";
+import { ButtonType, NativeButtonProps } from "../Button/Button";
 
-import './style/index.less';
+import "./style/index.less";
 
-let mousePosition: { x: number, y: number } | null;
+let mousePosition: { x: number; y: number } | null;
 let mousePositionEventBinded: boolean;
 
 export interface ModalProps {
@@ -38,6 +38,8 @@ export interface ModalProps {
   maskClosable?: boolean;
   okButtonProps?: NativeButtonProps;
   cancelButtonProps?: NativeButtonProps;
+  okButtonDisabled?: boolean,
+  cancelButtonDisabled?: boolean,
   destroyOnClose?: boolean;
   style?: React.CSSProperties;
   wrapClassName?: string;
@@ -75,8 +77,10 @@ export interface ModalFuncProps {
   esc?: boolean;
 }
 
-export type ModalFunc = (props: ModalFuncProps) => {
-  destroy: () => void,
+export type ModalFunc = (
+  props: ModalFuncProps
+) => {
+  destroy: () => void;
 };
 
 export interface ModalLocale {
@@ -94,21 +98,21 @@ export default class Modal extends React.Component<ModalProps, {}> {
   static confirm: ModalFunc;
 
   static defaultProps = {
-    prefixCls: 'fishd-modal',
+    prefixCls: "fishd-modal",
     width: 560,
-    transitionName: 'fishd-modal-zoom',
-    maskTransitionName: '',
+    transitionName: "fishd-modal-zoom",
+    maskTransitionName: "",
     confirmLoading: false,
     visible: false,
-    okType: 'primary' as ButtonType,
+    okType: "primary" as ButtonType,
     okButtonDisabled: false,
     cancelButtonDisabled: false,
     draggable: false,
     maskClosable: false,
     esc: false,
-    okText: '确定',
-    cancelText: '取消',
-    justOkText: '知道了'
+    okText: "确定",
+    cancelText: "取消",
+    justOkText: "知道了"
   };
 
   static propTypes = {
@@ -124,7 +128,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     align: PropTypes.object,
     footer: PropTypes.node,
     title: PropTypes.node,
-    closable: PropTypes.bool,
+    closable: PropTypes.bool
   };
 
   handleCancel = (e: React.MouseEvent<any>) => {
@@ -132,40 +136,52 @@ export default class Modal extends React.Component<ModalProps, {}> {
     if (onCancel) {
       onCancel(e);
     }
-  }
+  };
 
   handleOk = (e: React.MouseEvent<HTMLButtonElement>) => {
     const onOk = this.props.onOk;
     if (onOk) {
       onOk(e);
     }
-  }
+  };
 
   componentDidMount() {
     if (mousePositionEventBinded) {
       return;
     }
     // 只有点击事件支持从鼠标位置动画展开
-    addEventListener(document.documentElement, 'click', (e: MouseEvent) => {
+    addEventListener(document.documentElement, "click", (e: MouseEvent) => {
       mousePosition = {
         x: e.pageX,
-        y: e.pageY,
+        y: e.pageY
       };
       // 100ms 内发生过点击事件，则从点击位置动画展示
       // 否则直接 zoom 展示
       // 这样可以兼容非点击方式展开
-      setTimeout(() => mousePosition = null, 100);
+      setTimeout(() => (mousePosition = null), 100);
     });
     mousePositionEventBinded = true;
   }
 
   render() {
-    const { footer, visible, okText, okType, cancelText, confirmLoading } = this.props;
+    const {
+      footer,
+      visible,
+      okText,
+      okType,
+      cancelText,
+      confirmLoading,
+      cancelButtonDisabled,
+      okButtonDisabled,
+      cancelButtonProps,
+      okButtonProps
+    } = this.props;
     const defaultFooter = (
       <div>
         <Button
           onClick={this.handleCancel}
-          {...this.props.cancelButtonProps}
+          disabled={cancelButtonDisabled}
+          {...cancelButtonProps}
         >
           {cancelText}
         </Button>
@@ -173,7 +189,8 @@ export default class Modal extends React.Component<ModalProps, {}> {
           type={okType}
           loading={confirmLoading}
           onClick={this.handleOk}
-          {...this.props.okButtonProps}
+          disabled={okButtonDisabled}
+          {...okButtonProps}
         >
           {okText}
         </Button>
