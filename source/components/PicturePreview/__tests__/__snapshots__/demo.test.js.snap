@@ -101,6 +101,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
       <div
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
+        tabindex="-1"
       >
         <div
           class="canvas"
@@ -274,6 +275,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
       <div
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
+        tabindex="-1"
       >
         <div
           class="canvas"
@@ -447,6 +449,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
       <div
         class="fishd-picturepreview draggable fishd-picturepreview-hide"
         data-show="false"
+        tabindex="-1"
       >
         <div
           class="canvas"
@@ -613,6 +616,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
     <div
       class="fishd-picturepreview draggable fishd-picturepreview-hide"
       data-show="false"
+      tabindex="-1"
     >
       <div
         class="canvas"
@@ -785,6 +789,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
       <div
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
+        tabindex="-1"
       >
         <div
           class="canvas"
