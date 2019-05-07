@@ -190,11 +190,15 @@ class PicturePreview extends Component {
       document.addEventListener("mouseup", this.handleMouseUp);
     }
 
-    document.addEventListener("keydown", this.handleKeyDown);
+    if (mask) {
+      document.addEventListener("keydown", this.handleKeyDown); 
+    } else {
+      this.$el.addEventListener("keydown", this.handleKeyDown);
+    }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    let { current } = this.state;
+    let { current,show } = this.state;
 
     if (snapshot) {
       document.body.style.overflow = snapshot;
@@ -202,6 +206,10 @@ class PicturePreview extends Component {
 
     if (prevState.current != current) {
       this.setContainerStyle();
+    }
+
+    if (show === true) {
+      this.$el.focus();
     }
   }
 
@@ -218,7 +226,11 @@ class PicturePreview extends Component {
       document.removeEventListener("mouseup", this.handleMouseUp);
     }
 
-    document.removeEventListener("keydown", this.handleKeyDown);
+    if (mask) {
+      document.removeEventListener("keydown", this.handleKeyDown); 
+    } else {
+      this.$el.removeEventListener("keydown", this.handleKeyDown);
+    }
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -592,14 +604,16 @@ class PicturePreview extends Component {
 
   handleKeyDown = (e) => {
     if (!this.state.show) return;
-    e.preventDefault();
     const { esc } = this.props;
 
     if (esc && !this.state.container.isFull && e.keyCode === KeyCode.ESC) {
+      e.preventDefault();
       this.handleClose();
     } else if (e.keyCode === KeyCode.LEFT) {
+      e.preventDefault();
       this.handlePrev();
     } else if (e.keyCode === KeyCode.RIGHT) {
+      e.preventDefault();
       this.handleNext();
     }
   };
@@ -657,6 +671,8 @@ class PicturePreview extends Component {
         onDragStart={(e) => {e.preventDefault();}}
         onMouseDown={draggable ? this.handleMouseDown : null}
         onWheel={this.handleWheel}
+        tabIndex="-1"
+        onClick={()=>{this.$el.focus()}}
       >
         <div className="canvas">
           {
