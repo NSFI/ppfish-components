@@ -67,6 +67,7 @@ class Select extends React.Component {
     visible: PropTypes.bool,
     esc: PropTypes.bool,
     required: PropTypes.bool,
+    filterInactiveOption: PropTypes.bool  // 是否过滤失效的选中项（即不在option列表中）
   };
 
   static defaultProps = {
@@ -106,6 +107,7 @@ class Select extends React.Component {
     visible: false,
     esc: true,
     required: false,
+    filterInactiveOption: false
   };
 
   //获取所有option的[{label,key,title}]
@@ -461,10 +463,20 @@ class Select extends React.Component {
     this.setState({
       selectValueForMultiplePanel: selectValue,
     });
+    let outputSelectedValue = selectValue;
+    // 是否过滤失效的选中项
+    if(this.props.filterInactiveOption) {
+      const optionList = Select.getOptionFromChildren(this.props.children, [], (child) => !child.props.disabled);
+      outputSelectedValue = selectValue.filter((item) => {
+        return !!optionList.find((option) => {
+          return option.key === item.key;
+        })
+      })
+    }
     if (labelInValue) {
-      onChange(selectValue);
+      onChange(outputSelectedValue);
     } else {
-      onChange(selectValue.map(selected => selected.key));
+      onChange(outputSelectedValue.map(selected => selected.key));
     }
   };
 
