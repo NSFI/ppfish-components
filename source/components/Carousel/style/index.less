@@ -101,7 +101,7 @@
     height: 32px;
     width: 32px;
     cursor: pointer;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.2);
     color: #fff;
     top: 50%;
     transform: translateY(-50%);
@@ -110,6 +110,9 @@
     outline: none;
     border-radius: 100%;
     z-index: 1;
+    &:before {
+      opacity: 0.6;
+    }
     &:hover,
     &:focus {
       outline: none;
@@ -118,7 +121,7 @@
       }
     }
     &.slick-disabled:before {
-      opacity: 0.25;
+      opacity: 0.1;
     }
     .fishdicon;
   }
