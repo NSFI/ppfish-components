@@ -205,6 +205,7 @@
   display: inline-block;
   position: relative;
   font-weight: normal;
+  margin-left: 8px;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   .owner-title {
     font-size: 12px;
@@ -215,11 +216,14 @@
     list-style: none;
     position: absolute;
     border-radius: 2px;
-    width: 130px;
-    right: -145px;
+    // width: 130px;
+    // right: -145px;
+    min-width: 100px;
+    width: max-content;
+    left: 25px;
     bottom: -10px;
     font-size: 14px;
-    padding: 12px 0 12px 20px;
+    padding: 12px;
     color: #333;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
