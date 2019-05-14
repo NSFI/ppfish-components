@@ -29,10 +29,7 @@
       <div>
         <Button onClick={this.handleToggle}>展示/隐藏</Button>
         <Animate
-          animation={{
-            enter: 'my-zoom-in',
-            leave: 'my-zoom-out'
-          }}
+          animation="zoom"
         >
           {this.state.visible ? <div className="basic-demo">自定义动画</div> : null}
         </Animate>
@@ -45,52 +42,6 @@
 .basic-demo {
     font-size: 32px;
     text-align: center;
-}
-
-.my-zoom-in {
-    opacity: 0;
-}
-
-.my-zoom-in-active {
-    animation: my-zoom-in 500ms linear;
-}
-
-.my-zoom-out {
-    opacity: 1;
-}
-
-.my-zoom-out-active {
-    animation: my-zoom-out 500ms linear;
-}
-
-@keyframes my-zoom-in {
-    from {
-        opacity: 0;
-        transform: scale3d(.3, .3, .3);
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes my-zoom-out {
-    from {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-        transform: scale3d(.3, .3, .3);
-    }
-
-    to {
-        opacity: 0;
-    }
 }
 ```
 :::
@@ -162,7 +113,7 @@
 }
 
 .expand-enter-active {
-    transition: height 0.3s ease-out;
+    transition: height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .expand-leave {
@@ -170,7 +121,7 @@
 }
 
 .expand-leave-active {
-    transition: height 0.3s ease-out;
+    transition: height 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .notice {
@@ -251,15 +202,7 @@
           animation="fade"
           className="todo-list"
           singleMode={false}
-          beforeAppear={() => console.log('before appear')}
-          onAppear={() => console.log('appear')}
-          afterAppear={() => console.log('after appear')}
-          beforeEnter={() => console.log('before enter')}
-          onEnter={() => console.log('enter')}
-          afterEnter={() => console.log('after enter')}
-          beforeLeave={() => console.log('before leave')}
-          onLeave={() => console.log('leave')}
-          afterLeave={() => console.log('after leave')}>
+        >
           {this.state.items.map((item, i) => (
             <div key={item}>
               {item}
@@ -276,33 +219,6 @@
 ```
 
 ```less
-.fade-appear {
-  opacity: 0.01;
-}
-
-.fade-appear.fade-appear-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
-}
-
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
-}
-
-.fade-leave {
-  opacity: 1;
-}
-
-.fade-leave.fade-leave-active {
-  opacity: 0.01;
-  transition: opacity 800ms ease-in;
-}
-
 .totolist-container {
   padding: 20px;
   border: 1px solid #ccc;
@@ -335,11 +251,86 @@
 ```
 :::
 
+
+## 表格行动画
+
+:::demo 展示表格的行的进场离场动画。
+
+```js
+  constructor(props) {
+    super(props);
+    this.columns = [
+      { title: "title1", dataIndex: "a", key: "a", width: 100 },
+      { title: "title2", dataIndex: "b", key: "b", width: 100 },
+      { title: "title3", dataIndex: "c", key: "c", width: 200 },
+      {
+        title: "Action",
+        dataIndex: "d",
+        key: "d",
+        render: (text, record) => (
+          <a onClick={e => this.onDelete(record.key, e)} href="#">
+            Delete
+          </a>
+        )
+      }
+    ];
+    this.animateBody = props => (
+      <Animate
+        singleMode={false}
+        animation="fade-color"
+        component="tbody"
+        {...props}
+      />
+    );
+    this.state = {
+      data: [
+        { a: "a1", b: "b1", c: "c1", key: "1" },
+        { a: "a2", b: "b2", c: "c2", key: "2" },
+        { a: "a3", b: "b3", c: "c3", key: "3" }
+      ]
+    };
+  }
+
+  onDelete = (key, e) => {
+    e.preventDefault();
+    const data = this.state.data.filter(item => item.key !== key);
+    this.setState({ data });
+  };
+
+  onAdd = () => {
+    const data = [...this.state.data];
+    data.push({
+      a: "new data",
+      b: "new data",
+      c: "new data",
+      key: Date.now()
+    });
+    this.setState({ data });
+  };
+
+  render() {
+    return (
+      <div>
+        <Button style={{ marginBottom: 10 }} onClick={this.onAdd}>添加</Button>
+        <Table
+          columns={this.columns}
+          dataSource={this.state.data}
+          components={{
+            body: { wrapper: this.animateBody }
+          }}
+        />
+      </div>
+    );
+  }
+```
+:::
+
+
 ## API
 
 | 属性 | 说明 | 类型 | 默认值 |
 | ---- | ---- | ---- | ---- |
-| animation       | 动画类名，支持自定义动画。内置的动画类名有：`fade`, `zoom`, `zoom-big`, `zoom-big-fast`, `zoom-up`, `zoom-down`, `zoom-left`, `zoom-right`, `move-up`, `move-down`, `move-left`, `move-right`, `slide-up`, `slide-down`, `slide-left`, `slide-right`, `swing`  | String \| Object { appear, enter, leave } | - |
+| animation       | 动画类名，支持自定义动画。内置的动画类名有：`fade`, `fade-color`, `zoom`, `zoom-big`, `zoom-big-fast`, `zoom-up`, `zoom-down`, `zoom-left`, `zoom-right`, `move-up`, `move-down`, `move-left`, `move-right`, `slide-up`, `slide-down`, `slide-left`, `slide-right`, `swing`  | String \| Object { appear, enter, leave } | - |
 | animationAppear | 子元素第一次挂载时是否执行动画 | Boolean | true |
 | component       | 包裹子元素的标签 | String | 'span' |
 | singleMode      | 是否只有单个子元素，如果有多个子元素，请设置为 false | Boolean | true |
