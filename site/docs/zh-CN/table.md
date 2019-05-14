@@ -2186,7 +2186,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | bordered | 是否展示外边框和列边框 | Boolean | false |
 | childrenColumnName | 指定树形结构的列名 | Array< String > | children |
 | columnFiltrate | 列表筛选显示功能 | Object\| Boolean | false |
-| columns | 表格列的配置描述，具体项见下表 | [ColumnProps](https://git.io/vMMXC)\[] | - |
+| columns | 表格列的配置描述，具体项见下表 | [ColumnProps](https://github.com/NSFI/ppfish-components/blob/master/source/components/Table/interface.tsx#L13)\[] | - |
 | components | 覆盖默认的 table 元素 | Object | - |
 | dataSource | 数据数组 | Array< Object > | - |
 | defaultExpandAllRows | 初始时，是否展开所有行 | Boolean | false |
