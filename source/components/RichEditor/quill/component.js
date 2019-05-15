@@ -203,6 +203,7 @@ let QuillComponent = createClass({
 	Changing one of these props should cause a regular update.
 	*/
 	cleanProps: [
+		'value',
 		'id',
 		'className',
 		'style',
