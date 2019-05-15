@@ -141,6 +141,7 @@
     "less-loader": "^4.1.0",
     "lint-staged": "^5.0.0",
     "loader-utils": "^1.1.0",
+    "lottie-web": "^5.5.2",
     "marked": "^0.5.2",
     "mkdirp": "^0.5.1",
     "npm-run-all": "3.0.0",
