@@ -8,7 +8,7 @@
   }
 
   .@{className}-leave {
-    animation-duration: .5s;
+    animation-duration: 0.5s;
     animation-fill-mode: both;
     animation-play-state: paused;
   }
@@ -18,7 +18,7 @@
     animation-name: ~"@{keyframeName}In";
     animation-play-state: running;
   }
-  
+
   .@{className}-leave.@{className}-leave-active {
     animation-name: ~"@{keyframeName}Out";
     animation-play-state: running;
@@ -30,15 +30,15 @@
 @keyframes fishdFadeColorIn {
   0% {
     opacity: 0;
-    background: #FCFFDA;
+    background: #fcffda;
   }
   20% {
     opacity: 1;
   }
-  80%{
-    background: #FCFFDA;
+  80% {
+    background: #fcffda;
   }
-  100%{
+  100% {
     background: transparent;
     opacity: 1;
   }

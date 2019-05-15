@@ -672,7 +672,7 @@ class PicturePreview extends Component {
         onMouseDown={draggable ? this.handleMouseDown : null}
         onWheel={this.handleWheel}
         tabIndex="-1"
-        onClick={()=>{this.$el.focus()}}
+        onClick={()=>{this.$el.focus();}}
       >
         <div className="canvas">
           {

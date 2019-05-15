@@ -470,8 +470,8 @@ class Select extends React.Component {
       outputSelectedValue = selectValue.filter((item) => {
         return !!optionList.find((option) => {
           return option.key === item.key;
-        })
-      })
+        });
+      });
     }
     if (labelInValue) {
       onChange(outputSelectedValue);
