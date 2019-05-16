@@ -143,6 +143,7 @@ exports[`Renders upload demo correctly 1`] = `
       <div
         class="fishd-picturepreview fishd-picturepreview-hide"
         data-show="false"
+        tabindex="-1"
       >
         <div
           class="canvas"
