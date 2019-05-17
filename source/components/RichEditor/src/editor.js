@@ -215,6 +215,8 @@ class RichEditor extends Component {
         findDOMNode(this.reactQuillRef).querySelector('.ql-editor'),
         'blur',
         () => {
+          if (!this.reactQuillRef) return;
+
           let editor = this.reactQuillRef.getEditor(),
             range = editor.getSelection();
 
