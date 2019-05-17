@@ -26,6 +26,8 @@ class Checkbox extends React.Component {
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.array,
+      PropTypes.number,
+      PropTypes.bool,
     ]),
   };
   static defaultProps = {
