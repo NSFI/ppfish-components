@@ -152,7 +152,8 @@ class RichEditor extends Component {
         let quill = this.getEditor();
         this.setState({
           value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-          showImageModal: true
+          showImageModal: true,
+          curRange: quill.getSelection()
         });
       },
       clean: function() {
@@ -372,7 +373,8 @@ class RichEditor extends Component {
 
   handleImageModalCancel = () => {
     this.setState({
-      showImageModal: false
+      showImageModal: false,
+      curRange: null
     });
   };
 
@@ -387,8 +389,7 @@ class RichEditor extends Component {
         return;
       }
 
-      let range = quill.getSelection(true);
-
+      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
       if (attrs.width == undefined || attrs.height == undefined) {
         getImageSize(attrs.src, (naturalWidth, naturalHeight) => {
           attrs.width = naturalWidth;
@@ -399,7 +400,8 @@ class RichEditor extends Component {
 
           this.setState({
             value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-            showImageModal: false
+            showImageModal: false,
+            curRange: null
           });
         });
       } else {
@@ -408,7 +410,8 @@ class RichEditor extends Component {
 
         this.setState({
           value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-          showImageModal: false
+          showImageModal: false,
+          curRange: null
         });
       }
     };
