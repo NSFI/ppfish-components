@@ -68,7 +68,7 @@ export default class AnchorLink extends React.Component<AnchorLinkProps, any> {
           <div className={wrapperClassName}>
             <a
               className={titleClassName}
-              href={href}
+              // href={href}
               title={typeof title === 'string' ? title : ''}
               onClick={this.handleClick}
             >
@@ -85,7 +85,7 @@ export default class AnchorLink extends React.Component<AnchorLinkProps, any> {
       <div className={wrapperClassName}>
         <a
           className={titleClassName}
-          href={href}
+          // href={href}
           title={typeof title === 'string' ? title : ''}
           onClick={this.handleClick}
         >
