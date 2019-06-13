@@ -291,8 +291,14 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   componentDidUpdate(prevProps: TableProps<T>) {
-    if (this.props.rowSelection && 'selectedRowKeys' in this.props.rowSelection &&
-      !isEqual(this.props.rowSelection.selectedRowKeys, prevProps.rowSelection.selectedRowKeys)) {
+    if (
+      this.props.rowSelection && 'selectedRowKeys' in this.props.rowSelection &&
+      (
+        !prevProps.rowSelection || 
+        !prevProps.rowSelection.selectedRowKeys || 
+        !isEqual(this.props.rowSelection.selectedRowKeys, prevProps.rowSelection.selectedRowKeys)
+      )) 
+    {
       this.store.setState({
         selectedRowKeys: this.props.rowSelection.selectedRowKeys || [],
       });
