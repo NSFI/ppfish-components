@@ -12,7 +12,7 @@ describe('Anchor Render', () => {
       </Anchor>
     );
 
-    wrapper.find('a[href="#API"]').simulate('click');
+    wrapper.find('a').simulate('click');
 
     wrapper.instance().handleScroll();
     expect(wrapper.instance().state).not.toBe(null);
@@ -24,7 +24,7 @@ describe('Anchor Render', () => {
         <Link href="http://www.example.com/#API" title="API" />
       </Anchor>
     );
-    wrapper.find('a[href="http://www.example.com/#API"]').simulate('click');
+    wrapper.find('a').simulate('click');
     expect(wrapper.instance().state.activeLink).toBe('http://www.example.com/#API');
   });
 
@@ -122,7 +122,7 @@ describe('Anchor Render', () => {
       </Anchor>
     );
 
-    wrapper.find(`a[href="${href}"]`).simulate('click');
+    wrapper.find(`a`).simulate('click');
 
     wrapper.instance().handleScroll();
     expect(event).not.toBe(undefined);
