@@ -134,6 +134,11 @@ class DateRangeBasePicker extends React.Component {
   }
 
   onPicked = (value, isKeepPannel = false, isConfirmValue = true) => {
+    // 当为日期范围选择面板时，把结束时间默认设置为23:59:59:999
+    if(this.type == 'daterange' && value && value.length === 2) {
+      value[1] = new Date(value[1].setHours(23,59,59,999));
+    }
+
     this.setState({
       pickerVisible: isKeepPannel,
       value,
