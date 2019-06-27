@@ -14,6 +14,7 @@ import CustomSizeBlot from './formats/size.js';
 import EmojiBlot from './formats/emoji.js';
 import LinkBlot from './formats/link.js';
 import ImageBlot from './formats/image.js';
+import PlainClipboard from './plainClipboard.js';
 import '../style/index.less';
 
 Quill.register(EmojiBlot);
@@ -41,6 +42,7 @@ class RichEditor extends Component {
     prefixCls: PropTypes.string,
     resizable: PropTypes.bool,
     supportFontTag: PropTypes.bool,
+    pastePlainText: PropTypes.bool,
     style: PropTypes.object,
     toolbar: PropTypes.array,
     value: PropTypes.string,
@@ -48,6 +50,7 @@ class RichEditor extends Component {
     popoverPlacement: PropTypes.string,
     tooltipPlacement: PropTypes.string,
     customInsertImage: PropTypes.func,
+    // customInsertVideo: PropTypes.func,
     getPopupContainer: PropTypes.func,
     onChange: PropTypes.func,
     onSelectionChange: PropTypes.func,
@@ -68,6 +71,7 @@ class RichEditor extends Component {
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
     resizable: false,
+    pastePlainText: false,
     toolbar: [
       ['link', 'bold', 'italic', 'underline'],
       ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
@@ -90,7 +94,12 @@ class RichEditor extends Component {
   constructor(props) {
     super(props);
 
-    let { value, customLink, supportFontTag } = this.props;
+    let { value, customLink, supportFontTag, pastePlainText } = this.props;
+
+    // 粘贴时将富文本转为纯文本
+    if (pastePlainText) {
+      Quill.register('modules/clipboard', PlainClipboard, true);
+    }
 
     this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
@@ -385,7 +394,7 @@ class RichEditor extends Component {
     let fileInput = toolbarCtner.querySelector('input.ql-image[type=file]');
     const getImageCb = (attrs) => {
       if (attrs.src == undefined) {
-        message.error('请设置所插入图片的 src 属性');
+        message.error('请设置图片源地址');
         return;
       }
 
@@ -437,6 +446,32 @@ class RichEditor extends Component {
         toolbarCtner.appendChild(fileInput);
       }
       fileInput.click();
+    }
+  };
+
+  handlePickLocalVideo = () => {
+    let { customInsertVideo } = this.props;
+    let quill = this.getEditor();
+
+    const getVideoCb = (attrs) => {
+      if (attrs.src == undefined) {
+        message.error('请设置视频源地址');
+        return;
+      }
+
+      let range = quill.getSelection(true);
+
+      quill.insertEmbed(range.index, 'video', attrs.src);
+      quill.setSelection(range.index + 1, 'silent');
+
+      this.setState({
+        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        showVideoModal: false
+      });
+    };
+
+    if (customInsertVideo && (typeof customInsertVideo === "function")) {
+      customInsertVideo(getVideoCb);
     }
   };
 
@@ -636,6 +671,7 @@ class RichEditor extends Component {
           onOk={this.handleVideoModalOk}
           onCancel={this.handleVideoModalCancel}
         >
+          {/* <Button type="primary" onClick={this.handlePickLocalVideo}>选择本地视频</Button> */}
           <span className="text">视频地址</span>
           <Input ref={el => this.videoModalInputRef = el} style={{ width: '434px' }} defaultValue="http://" />
         </Modal>

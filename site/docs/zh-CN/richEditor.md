@@ -28,7 +28,7 @@
       <RichEditor
         ref={el => this.editorRef = el}
         onChange={this.onChange}
-        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
       />
     );
   }
@@ -159,7 +159,7 @@
           }
         }}
         toolbar={this.toolbar}
-        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
       />
     );
   }
@@ -205,7 +205,7 @@
           }
         }}
         toolbar={this.toolbar}
-        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
       />
     );
   }
@@ -261,6 +261,7 @@
 ```
 :::
 
+
 ## 支持使用 font 标签
 
 :::demo 将 value 中的 font 标签替换为 span 标签，并用 CSS 设定文本样式。
@@ -271,7 +272,7 @@
     return (
       <RichEditor
         supportFontTag
-        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><font size="16px">Fish Design</font></a><font size="16px"> 是基于 React 实现的高质量的<font size="16px" color="red"> UI 组件库</font>。</font></p><p><br></p><p><font size="16px">它的设计原则是简洁、直接、优雅和适应性。</font></p><p><br></p><p><font size="16px">欢迎使用或</font><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><font size="16px">贡献代码</font></a><font size="16px"><img width="24px" height="24px" alt="玫瑰" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></font></p><p><br></p>`}
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><font size="16px">Fish Design</font></a><font size="16px"> 是基于 React 实现的高质量的<font size="16px" color="red"> UI 组件库</font>。</font></p><p><br></p><p><font size="16px">它的设计原则是简洁、直接、优雅和适应性。</font></p><p><br></p><p><font size="16px">欢迎使用或</font><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><font size="16px">贡献代码</font></a><font size="16px"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></font></p><p><br></p>`}
       />
     );
   }
@@ -328,6 +329,21 @@
 ```
 :::
 
+## 支持粘贴纯文本
+
+:::demo 支持在粘贴时将富文本转为纯文本。
+
+```js
+  render() {
+    return (
+      <RichEditor
+        pastePlainText
+        value={`<p><a href="https://nsfi.github.io/ppfish-components/#/home" target="_blank"><span style="font-size: 16px;">Fish Design</span></a><span style="font-size: 16px;"> 是基于 React 实现的高质量的 UI 组件库。</span></p><p><br></p><p><span style="font-size: 16px;">它的设计原则是简洁、直接、优雅和适应性。</span></p><p><br></p><p><span style="font-size: 16px;">欢迎使用或</span><a href="https://github.com/NSFI/ppfish-components/" target="_blank"><span style="font-size: 16px;">贡献代码</span></a><span style="font-size: 16px;"><img width="24px" height="24px" alt="[玫瑰]" src="http://qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png"></span></p><p><br></p>`}
+      />
+    );
+  }
+```
+:::
 
 ## 轻量版
 
@@ -381,7 +397,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
-| customInsertImage | 自定义插入图片，通过此接口可以自定义插入图片前获取图片的过程，如上传本地图片到服务器、异步获取图片地址等。 | (callback: (attrs: Object {src: String, [otherAttr]: String \| Number}) => Void) => Void | - |
+| customInsertImage | 自定义插入图片，通过此接口可以自定义插入图片前获取图片的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (callback: (attrs: Object {src: String, [otherAttr]: String \| Number}) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
 | customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
@@ -394,6 +410,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 | onKeyPress | 按键按下并释放后的回调，对特殊按键如 `shift` 或 `enter` 无效 | (event) => Void | - |
 | onKeyUp | 按键释放后的回调 | (event) => Void | - |
 | onSelectionChange | 选区改变时的回调 | (range, source, editor) => Void | - |
+| pastePlainText | 在粘贴富文本时，将其转换为纯文本 | Boolean | false |
 | placeholder | 内容为空时的占位内容 | String | '请输入内容' |
 | popoverPlacement | 气泡框弹出位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'top' |
 | resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | false |
