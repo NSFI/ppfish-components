@@ -50,7 +50,7 @@ class RichEditor extends Component {
     popoverPlacement: PropTypes.string,
     tooltipPlacement: PropTypes.string,
     customInsertImage: PropTypes.func,
-    // customInsertVideo: PropTypes.func,
+    customInsertVideo: PropTypes.func,
     getPopupContainer: PropTypes.func,
     onChange: PropTypes.func,
     onSelectionChange: PropTypes.func,
@@ -101,7 +101,7 @@ class RichEditor extends Component {
       Quill.register('modules/clipboard', PlainClipboard, true);
     }
 
-    this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
+    // this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
     let formatValue = value;
     if (supportFontTag) {
@@ -321,11 +321,6 @@ class RichEditor extends Component {
         return;
       }
 
-      if (!this.urlValidator.test(val)) {
-        message.error('请输入链接地址');
-        return;
-      }
-
       let quill = this.getEditor();
       quill.format('myLink', {
         // type: 'default',
@@ -337,6 +332,8 @@ class RichEditor extends Component {
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
         showLinkModal: false
       });
+    } else {
+      message.error('请输入链接地址');
     }
   };
 
@@ -357,11 +354,6 @@ class RichEditor extends Component {
         return;
       }
 
-      if (!this.urlValidator.test(val)) {
-        message.error('请输入视频地址');
-        return;
-      }
-
       let quill = this.getEditor();
       quill.format('video', val);
       el.value = 'http://';
@@ -370,6 +362,8 @@ class RichEditor extends Component {
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
         showVideoModal: false
       });
+    } else {
+      message.error('请输入视频地址');
     }
   };
 
