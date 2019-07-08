@@ -35,7 +35,7 @@ export {default as InputNumber} from './InputNumber/index.tsx';
 export {default as Menu} from './Menu/index.tsx';
 export {default as message} from './message/index.tsx';
 export {default as Modal} from './Modal/index.tsx';
-export {default as notification} from './Notification/index.tsx';
+export {default as notification} from './notification/index.tsx';
 export {default as Pagination} from './Pagination/index.tsx';
 export {default as PicturePreview} from './PicturePreview';
 export {default as Popover} from './Popover/index.tsx';
