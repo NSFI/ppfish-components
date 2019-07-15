@@ -510,8 +510,11 @@ class DateRangePanel extends React.Component {
   // 点击日期
   handleRangePick({ minDate, maxDate }, isClose) {
     const { showTime, onPick, format, onError } = this.props;
+    const { minTime, maxTime } = this.state;
+    const pickedMinTime = minTime ? setTime(new Date(minDate), minTime) : minDate;
+    const pickedMaxTime = maxTime ? setTime(new Date(maxDate), maxTime) : maxDate;
 
-    if(minDate && maxDate && onError && onError([minDate, maxDate])) {
+    if(minDate && maxDate && onError && onError([pickedMinTime, pickedMaxTime])) {
       return;
     }
 
