@@ -104,7 +104,7 @@ openNotification = () => {
     description: 'A function will be be called after the notification is closed (automatically after the "duration" time of manually).',
     btn,
     key,
-    onClose: close,
+    onClose: this.close,
   });
 };
 
