@@ -134,9 +134,10 @@ class AudioPlayer extends React.Component {
     }
   }
 
-  millisecondToDate = (time) => {
+  millisecondToDate = (time, format=true) => {
     const second = Math.floor(time % 60);
     let minute = Math.floor(time / 60);
+    if(!format) { return minute*60 + second; }
     let hour;
     if(minute > 60) {
       hour = minute / 60;
@@ -248,7 +249,7 @@ class AudioPlayer extends React.Component {
                 <Slider
                   step={1}
                   min={0}
-                  max={allTime}
+                  max={this.millisecondToDate(allTime, false)}
                   value={currentTime}
                   disabled={disabled}
                   tipMode="all"
