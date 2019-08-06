@@ -31,11 +31,17 @@ class FooterToolbar extends React.Component {
     this.scrollListener = addEventListener(target, 'scroll', () => {
       this.setToolbarPosition();
     });
+    this.resizeListener = addEventListener(target, 'resize', () => {
+      this.setToolbarPosition();
+    });
   }
 
   componentWillUnmount() {
     if (this.scrollListener) {
       this.scrollListener.remove();
+    }
+    if (this.resizeListener) {
+      this.resizeListener.remove();
     }
   }
 
