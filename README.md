@@ -33,6 +33,11 @@ Fish Design is an enterprise-class UI component library which based on React, he
 npm install ppfish --save
 ```
 
+You can also include it via [jsDelivr CDN](https://www.jsdelivr.com/package/npm/ppfish)
+```html
+<script src="https://cdn.jsdelivr.net/npm/ppfish@1/dist/ppfish.min.js"></script>
+```
+
 ## Usage
 
 ```js
