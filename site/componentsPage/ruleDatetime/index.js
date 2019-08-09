@@ -134,7 +134,7 @@ export default class ruleDatetime extends React.Component {
                 </Row>
                 <Row style={{marginBottom: 30}}>
                   <Col span={8}>今年之前的时间显示:</Col>
-                  <Col span={8}>年月日 +时间</Col>
+                  <Col span={8}>年月日+时间</Col>
                   <Col span={8}>2015-08-15 1:00</Col>
                 </Row>
                 <Row style={{marginBottom: 10}}>
@@ -152,7 +152,7 @@ export default class ruleDatetime extends React.Component {
               <div className="demo-content">
                 <p className="demo-content-title">中文展示，以下为实例：（前缀描述）时间长度（后缀描述）</p>
                 <Row style={{marginBottom: 30}}>
-                  <Col span={8}>1年前:</Col>
+                  <Col span={8}>1年前</Col>
                   <Col span={8}>近1年</Col>
                   <Col span={8}>1年后</Col>
                 </Row>
