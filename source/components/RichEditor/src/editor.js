@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { addEventListener } from '../../../utils';
 import {polyfill} from 'react-lifecycles-compat';
+import Spin from '../../Spin/index.tsx';
+import Radio from '../../Radio/index.tsx';
 import Modal from '../../Modal/index.tsx';
 import Input from '../../Input/index.tsx';
 import Button from '../../Button/index.tsx';
@@ -40,13 +42,15 @@ class RichEditor extends Component {
     defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
+    loading: PropTypes.bool,
     resizable: PropTypes.bool,
     supportFontTag: PropTypes.bool,
     pastePlainText: PropTypes.bool,
     style: PropTypes.object,
     toolbar: PropTypes.array,
     value: PropTypes.string,
-    insertImageTip: PropTypes.string,
+    insertImageTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    insertVideoTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     popoverPlacement: PropTypes.string,
     tooltipPlacement: PropTypes.string,
     customInsertImage: PropTypes.func,
@@ -66,10 +70,18 @@ class RichEditor extends Component {
     customLink: {},
     customInsertValue: {},
     insertImageTip: '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
+    insertVideoTip: (
+      <React.Fragment>
+        <span>1、单个视频不超过10M，支持MP4、MPEG4、H264、AAC、WebM、VP8、Vorbis、OggTheora格式。受微信限制，微信端仅支持发送MP4格式视频。</span>
+        <br/>
+        <span>2、最佳显示高度不超过400px, 宽度不超过270px。</span>
+      </React.Fragment>
+    ),
     placeholder: '请输入内容',
     prefixCls: 'fishd-richeditor',
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
+    loading: false,
     resizable: false,
     pastePlainText: false,
     toolbar: [
@@ -88,13 +100,17 @@ class RichEditor extends Component {
       newState['lastValue'] = newState['value'] = nextProps.value;
     }
 
+    if (nextProps.loading !== prevState.loading) {
+      newState['loading'] = nextProps.loading;
+    }
+
     return newState;
   }
 
   constructor(props) {
     super(props);
 
-    let { value, customLink, supportFontTag, pastePlainText } = this.props;
+    let { value, customLink, supportFontTag, pastePlainText, customInsertVideo } = this.props;
 
     // 粘贴时将富文本转为纯文本
     if (pastePlainText) {
@@ -108,13 +124,19 @@ class RichEditor extends Component {
       formatValue = this.formatFontTag(value);
     }
 
+    if (customInsertVideo && (typeof customInsertVideo === "function")) {
+      this.isSupportCustomInsertVideo = true;
+    }
+
     this.state = {
       lastValue: value,
       value: formatValue || '',
+      loading: false,
       showLinkModal: false,
       showVideoModal: false,
       showImageModal: false,
       toolbarCtner: null,
+      curVideoType: "video_link"
     };
     this.handlers = {
       myLink: (value) => {
@@ -333,7 +355,7 @@ class RichEditor extends Component {
         showLinkModal: false
       });
     } else {
-      message.error('请输入链接地址');
+      message.error('链接地址不得为空');
     }
   };
 
@@ -350,25 +372,28 @@ class RichEditor extends Component {
 
     if (val) {
       if (val.length > 1000) {
-        message.error('视频地址不得超过1000个字');
+        message.error('视频链接不得超过1000个字');
+        return;
+      }
+
+      if (val.indexOf('//') < 0) {
+        message.error('视频链接URL格式错误');
         return;
       }
 
       let quill = this.getEditor();
       quill.format('video', val);
-      el.value = 'http://';
 
       this.setState({
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
         showVideoModal: false
       });
     } else {
-      message.error('请输入视频地址');
+      message.error('视频链接URL不得为空');
     }
   };
 
   handleVideoModalCancel = () => {
-    this.videoModalInputRef.input.value = 'http://';
     this.setState({
       showVideoModal: false
     });
@@ -382,10 +407,10 @@ class RichEditor extends Component {
   };
 
   handlePickLocalImage = () => {
-    let { customInsertImage } = this.props;
-    let { toolbarCtner } = this.state;
-    let quill = this.getEditor();
-    let fileInput = toolbarCtner.querySelector('input.ql-image[type=file]');
+    let { customInsertImage } = this.props,
+      { toolbarCtner } = this.state,
+      quill = this.getEditor(),
+      fileInput = toolbarCtner.querySelector('input.ql-image[type=file]');
     const getImageCb = (attrs) => {
       if (attrs.src == undefined) {
         message.error('请设置图片源地址');
@@ -403,7 +428,6 @@ class RichEditor extends Component {
 
           this.setState({
             value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-            showImageModal: false,
             curRange: null
           });
         });
@@ -413,11 +437,14 @@ class RichEditor extends Component {
 
         this.setState({
           value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-          showImageModal: false,
           curRange: null
         });
       }
     };
+
+    this.setState({
+      showImageModal: false
+    });
 
     if (customInsertImage && (typeof customInsertImage === "function")) {
       customInsertImage(getImageCb);
@@ -444,8 +471,8 @@ class RichEditor extends Component {
   };
 
   handlePickLocalVideo = () => {
-    let { customInsertVideo } = this.props;
-    let quill = this.getEditor();
+    let { customInsertVideo } = this.props,
+      quill = this.getEditor();
 
     const getVideoCb = (attrs) => {
       if (attrs.src == undefined) {
@@ -460,9 +487,12 @@ class RichEditor extends Component {
 
       this.setState({
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-        showVideoModal: false
       });
     };
+
+    this.setState({
+      showVideoModal: false
+    });
 
     if (customInsertVideo && (typeof customInsertVideo === "function")) {
       customInsertVideo(getVideoCb);
@@ -610,8 +640,22 @@ class RichEditor extends Component {
     onSelectionChange && onSelectionChange(nextSelection, source, editor);
   };
 
+  handleVideoTypeChange = (e) => {
+    this.setState({
+      curVideoType: e.target.value || "video_link"
+    });
+  };
+
   render() {
-    const { value, showLinkModal, showVideoModal, showImageModal, toolbarCtner } = this.state;
+    const {
+      loading,
+      value,
+      showLinkModal,
+      showVideoModal,
+      showImageModal,
+      toolbarCtner,
+      curVideoType
+    } = this.state;
     const {
       className, prefixCls,
       toolbar, placeholder,
@@ -621,6 +665,7 @@ class RichEditor extends Component {
       getPopupContainer,
       customEmoji,
       insertImageTip,
+      insertVideoTip,
       onChange,
       onSelectionChange,
       popoverPlacement,
@@ -636,6 +681,12 @@ class RichEditor extends Component {
       restProps.value = value;
     }
 
+    // 上传本地视频时Modal无确认和取消按钮
+    let videoFooter = {};
+    if (curVideoType == "video_local") {
+      videoFooter['footer'] = null;
+    }
+
     return (
       <div className={cls} style={style}>
         <Modal
@@ -649,25 +700,47 @@ class RichEditor extends Component {
           <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue="http://" />
         </Modal>
         <Modal
-          title="选择插入图片"
+          title="插入图片"
           className={`${prefixCls}-image-modal`}
           visible={showImageModal}
           footer={null}
           onCancel={this.handleImageModalCancel}
         >
           <Button type="primary" onClick={this.handlePickLocalImage}>选择本地图片</Button>
-          <div className="image-modal-text">{insertImageTip}</div>
+          <div className="tip">{insertImageTip}</div>
         </Modal>
         <Modal
           title="插入视频"
           className={`${prefixCls}-video-modal`}
           visible={showVideoModal}
+          {...videoFooter}
           onOk={this.handleVideoModalOk}
           onCancel={this.handleVideoModalCancel}
         >
-          {/* <Button type="primary" onClick={this.handlePickLocalVideo}>选择本地视频</Button> */}
-          <span className="text">视频地址</span>
-          <Input ref={el => this.videoModalInputRef = el} style={{ width: '434px' }} defaultValue="http://" />
+          <Radio.Group
+            style={{marginBottom: 24}}
+            onChange={this.handleVideoTypeChange}
+            value={curVideoType}
+          >
+            <Radio value="video_link">视频链接</Radio>
+            {this.isSupportCustomInsertVideo ? <Radio value="video_local">本地视频</Radio> : null}
+          </Radio.Group>
+          {
+            curVideoType == "video_local" ? 
+            <React.Fragment>
+              <Button
+                style={{display: 'block'}}
+                type="primary"
+                onClick={this.handlePickLocalVideo}
+              >选择本地视频</Button>
+              <div className="tip">{insertVideoTip}</div>
+            </React.Fragment> : 
+            <Input
+              ref={el => this.videoModalInputRef = el}
+              style={{ width: '434px' }}
+              placeholder="请输入视频链接URL"
+            />
+          }
         </Modal>
         <CustomToolbar
           ref={el => this.toolbarRef = el}
@@ -699,6 +772,14 @@ class RichEditor extends Component {
           onChange={this.handleChange}
           onSelectionChange={this.handleSelectionChange}
         />
+        {
+          loading ? 
+          <Spin style={{
+            position: 'absolute',
+            width: '100%',
+            background: 'rgba(255, 255, 255, 0.75)'
+          }}/> : null
+        }
       </div>
     );
   }

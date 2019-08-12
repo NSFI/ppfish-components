@@ -233,9 +233,19 @@
 :::demo 自定义插入图片，支持附带扩展属性。
 
 ```js
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
   getImageUrl = (callback) => {
-    // 模拟调用接口的异步过程
+    this.setState({
+      loading: true
+    });
+
+    // 模拟上传图片获取URL的异步过程
     setTimeout(() => {
       let imageUrl = "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin";
       callback({
@@ -248,6 +258,10 @@
         'data-size': 123,
         'data-group': 'abc',
       });
+
+      this.setState({
+        loading: false
+      });
     }, 1000);
   }
 
@@ -255,6 +269,54 @@
     return (
       <RichEditor
         customInsertImage={this.getImageUrl}
+        loading={this.state.loading}
+      />
+    );
+  }
+```
+:::
+
+
+## 自定义插入视频
+
+:::demo 自定义插入视频。
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
+  getVideoUrl = (callback) => {
+    this.setState({
+      loading: true
+    });
+
+    // 模拟上传视频获取URL的异步过程
+    setTimeout(() => {
+      callback({
+        src: "https://www.runoob.com/try/demo_source/mov_bbb.mp4"
+        // src: "https://v.qq.com/iframe/player.html?vid=i0670jbe37a&tiny=0&auto=0"
+      });
+      this.setState({
+        loading: false
+      });
+    }, 3000);
+  }
+
+  render() {
+    return (
+      <RichEditor
+        toolbar={[
+          ['link', 'bold', 'italic', 'underline'], 
+          ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], 
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+          ['emoji'], ['image'], ['video'], ['size'], ['clean']
+        ]}
+        customInsertVideo={this.getVideoUrl}
+        loading={this.state.loading}
       />
     );
   }
@@ -397,12 +459,15 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
-| customInsertImage | 自定义插入图片，通过此接口可以自定义插入图片前获取图片的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (callback: (attrs: Object {src: String, [otherAttr]: String \| Number}) => Void) => Void | - |
+| customInsertImage | 自定义插入图片，通过此接口可以自定义插入图片前获取图片的过程，如上传本地图片到服务器、异步获取图片源地址等。 | ((Object {src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
 | customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
+| customInsertVideo | 自定义插入视频，通过此接口可以自定义插入视频前获取视频的过程，如上传本地视频到服务器、异步获取视频源地址等。 | ((Object {src: String}) => Void) => Void | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
-| insertImageTip | 插入图片的文字提示 | String | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
+| insertImageTip | 插入图片的文字提示 | String \| HTMLElement | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
+| insertVideoTip | 插入视频的文字提示 | String \| HTMLElement | '1、单个视频不超过10M，支持MP4、MPEG4、H264、AAC、WebM、VP8、Vorbis、OggTheora格式。受微信限制，微信端仅支持发送MP4格式视频。2、最佳显示高度不超过400px, 宽度不超过270px。' |
+| loading | 是否展示加载中的状态 | Boolean | false |
 | onBlur | 失去焦点时的回调 | (previousRange, source, editor) => Void | - |
 | onChange | 内容改变时的回调 | (content, delta, source, editor) => Void | - |
 | onFocus | 获取焦点时的回调 | (range, source, editor) => Void | - |
