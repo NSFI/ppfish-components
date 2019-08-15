@@ -81,6 +81,7 @@
     flex-direction: column;
     flex: 1;
     border-top: @border-width-base @border-style-base @border-color-base;
+    overflow: hidden; // 修复升级浏览器到Chrome 76后导致的flex布局异常
 
     .ql-editor {
       overflow-y: scroll;
