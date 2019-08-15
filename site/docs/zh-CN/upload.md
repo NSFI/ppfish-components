@@ -105,7 +105,7 @@ render() {
         >
           {fileList.length >= 3 ? null : uploadButton}
         </Upload>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+        <Modal title={null} visible={previewVisible} footer={null} onCancel={this.handleCancel}>
           <img alt="图片" style={{ width: '100%' }} src={previewImage} />
         </Modal>
       </div>
