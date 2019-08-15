@@ -71,7 +71,7 @@ render() {
       uid: -1,
       name: 'xxx.png',
       status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      url: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
     }],
   };
 
@@ -80,9 +80,10 @@ render() {
       previewImage: file.url || file.thumbUrl,
       previewVisible: true,
     });
-  }
+  };
 
-  handleChange = ({ fileList }) => this.setState({ fileList, previewVisible: false })
+  handleChange = ({ fileList }) => this.setState({ fileList, previewVisible: false });
+  handleCancel = () => this.setState({ previewVisible: false });
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
@@ -104,10 +105,9 @@ render() {
         >
           {fileList.length >= 3 ? null : uploadButton}
         </Upload>
-        <PicturePreview
-          source={[{src: previewImage}]}
-          visible={previewVisible}
-        />
+        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+          <img alt="图片" style={{ width: '100%' }} src={previewImage} />
+        </Modal>
       </div>
     );
   }
@@ -384,8 +384,8 @@ render(){
     uid: -1,
     name: 'xxx.png',
     status: 'done',
-    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    url: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
+    thumbUrl: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
   }, {
     uid: -2,
     name: 'yyy.png',
