@@ -120,7 +120,7 @@ export default class Home extends React.Component {
                 </Link>
               </div>
               <div className="resource-item">
-                <a href="http://axure.yixin.im/view?pid=176&mid=489&id=4937" target="_blank">
+                <a href="//axure.yixin.im/view?id=11388&pid=4&mid=434#fishdesign___" target="_blank">
                   <img src={'//ysf.nosdn.127.net/pdkitmnnpikavbkzscsxsgoilftykxza'} alt="资源下载"/>
                   资源下载
                 </a>
