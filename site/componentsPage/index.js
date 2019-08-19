@@ -121,24 +121,16 @@ export const components = {
           props: {
             source: [
               {
-                "src": "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin",
+                "src": "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe",
                 "name": "pic1"
               },
               {
-                "src": "//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf",
+                "src": "//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939",
                 "name": "pic2"
               },
               {
-                "src": "//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd",
+                "src": "//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c",
                 "name": "pic3"
-              },
-              {
-                "src": "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
-                "name": "pic4"
-              },
-              {
-                "src": "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
-                "name": "pic5"
               }
             ]
           }

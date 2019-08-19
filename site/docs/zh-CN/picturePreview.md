@@ -290,11 +290,13 @@
             visible={visible}
             onClose={this.handleClose}
           >
-            <img src={source && source[0].src} name={source && source[0].name}/>
-            <img src={source && source[1].src} name={source && source[1].name}/>
-            <img src={source && source[2].src} name={source && source[2].name}/>
-            <img src={source && source[3].src} name={source && source[3].name}/>
-            <img src={source && source[4].src} name={source && source[4].name}/>
+            {
+              source && source.map((item, index) => {
+                return (
+                  <img key={'pic_' + index} src={item.src} name={item.name}/>
+                );
+              })
+            }
           </PicturePreview>
         </div>
     );
