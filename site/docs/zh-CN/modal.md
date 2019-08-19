@@ -543,9 +543,9 @@ render(){
 | okText | 确认按钮文字 | String | 确定 |
 | okType | 确认按钮类型 | String | primary |
 | style | 可用于设置浮层的样式，调整浮层位置等 | Object | - |
-| title | 标题 | String | ReactNode | - |
+| title | 标题 | String \| ReactNode | - |
 | visible | 对话框是否可见 | Boolean | - |
-| width | 宽度 | String | Number | 520 |
+| width | 宽度 | String \| Number | 520 |
 | wrapClassName | 对话框外层容器的类名 | String | - |
 | zIndex | 设置 Modal 的 `z-index` | Number | 1000 |
 
