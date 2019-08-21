@@ -83,18 +83,18 @@ exports[`Renders upload demo correctly 1`] = `
             <span>
               <a
                 class="fishd-upload-list-item-thumbnail"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="xxx.png"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 />
               </a>
               <a
                 class="fishd-upload-list-item-name"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="xxx.png"
@@ -107,7 +107,7 @@ exports[`Renders upload demo correctly 1`] = `
             class="fishd-upload-list-item-actions"
           >
             <a
-              href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
               rel="noopener noreferrer"
               target="_blank"
               title="预览文件"
@@ -133,68 +133,6 @@ exports[`Renders upload demo correctly 1`] = `
         这里是上传提示
       </div>
     </span>
-    <div
-      class="fishd-picturepreview-root fishd-picturepreview-hide"
-      data-show="false"
-    >
-      <div
-        class="fishd-picturepreview-mask"
-      />
-      <div
-        class="fishd-picturepreview fishd-picturepreview-hide"
-        data-show="false"
-        tabindex="-1"
-      >
-        <div
-          class="canvas"
-        >
-          <img
-            active="true"
-            class="img"
-          />
-        </div>
-        <i
-          class="fishdicon fishdicon-picture-close close"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold prev fishd-picturepreview-hide"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold next fishd-picturepreview-hide"
-        />
-        <div
-          class="toolbar fishd-picturepreview-hide"
-        >
-          <div
-            class="toolbarTitle fishd-picturepreview-hide"
-          >
-            1/1
-          </div>
-          <div
-            class="toolbarCon"
-          >
-            <i
-              class="fishdicon fishdicon-picture-equal icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-fullscreen icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-enlarge icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-micrify icon icon-disabled"
-            />
-            <i
-              class="fishdicon fishdicon-picture-rotate icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-download icon"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <span
     class=""
@@ -482,18 +420,18 @@ exports[`Renders upload demo correctly 1`] = `
             <span>
               <a
                 class="fishd-upload-list-item-thumbnail"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="xxx.png"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 />
               </a>
               <a
                 class="fishd-upload-list-item-name"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="xxx.png"
@@ -558,18 +496,18 @@ exports[`Renders upload demo correctly 1`] = `
             <span>
               <a
                 class="fishd-upload-list-item-thumbnail"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="xxx.png"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 />
               </a>
               <a
                 class="fishd-upload-list-item-name"
-                href="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="xxx.png"

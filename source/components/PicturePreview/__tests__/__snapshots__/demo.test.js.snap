@@ -20,7 +20,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -35,7 +35,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -50,43 +50,13 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
             class="name"
           >
             pic3
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic4"
-            height="60px"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic4
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic5"
-            height="60px"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic5
           </div>
         </div>
       </div>
@@ -110,27 +80,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
-          />
-          <img
-            alt="pic4"
-            class="img"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-          />
-          <img
-            alt="pic5"
-            class="img"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i
@@ -148,7 +108,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            1/5
+            1/3
           </div>
           <div
             class="toolbarCon"
@@ -194,7 +154,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -209,7 +169,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -224,43 +184,13 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
             class="name"
           >
             pic3
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic4"
-            height="60px"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic4
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic5"
-            height="60px"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic5
           </div>
         </div>
       </div>
@@ -284,27 +214,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
-          />
-          <img
-            alt="pic4"
-            class="img"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-          />
-          <img
-            alt="pic5"
-            class="img"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i
@@ -322,7 +242,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            1/5
+            1/3
           </div>
           <div
             class="toolbarCon"
@@ -368,7 +288,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -383,7 +303,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -398,43 +318,13 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
             class="name"
           >
             pic3
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic4"
-            height="60px"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic4
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic5"
-            height="60px"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic5
           </div>
         </div>
       </div>
@@ -458,27 +348,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
-          />
-          <img
-            alt="pic4"
-            class="img"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-          />
-          <img
-            alt="pic5"
-            class="img"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i
@@ -496,7 +376,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            1/5
+            1/3
           </div>
           <div
             class="toolbarCon"
@@ -542,7 +422,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -557,7 +437,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -572,43 +452,13 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
             class="name"
           >
             pic3
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic4"
-            height="60px"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic4
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic5"
-            height="60px"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic5
           </div>
         </div>
       </div>
@@ -625,27 +475,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
           active="true"
           alt="pic1"
           class="img"
-          src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+          src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
         />
         <img
           alt="pic2"
           class="img"
-          src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+          src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
         />
         <img
           alt="pic3"
           class="img"
-          src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
-        />
-        <img
-          alt="pic4"
-          class="img"
-          src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-        />
-        <img
-          alt="pic5"
-          class="img"
-          src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+          src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
         />
       </div>
       <i
@@ -663,7 +503,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
         <div
           class="toolbarTitle fishd-picturepreview-hide"
         >
-          1/5
+          1/3
         </div>
         <div
           class="toolbarCon"
@@ -708,7 +548,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -723,7 +563,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -738,43 +578,13 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
             class="name"
           >
             pic3
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic4"
-            height="60px"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic4
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic5"
-            height="60px"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic5
           </div>
         </div>
       </div>
@@ -798,27 +608,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin"
+            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf"
+            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd"
-          />
-          <img
-            alt="pic4"
-            class="img"
-            src="//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth"
-          />
-          <img
-            alt="pic5"
-            class="img"
-            src="//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i
@@ -836,7 +636,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <div
             class="toolbarTitle fishd-picturepreview-hide"
           >
-            1/5
+            1/3
           </div>
           <div
             class="toolbarCon"
