@@ -1,4 +1,4 @@
-.fade-motion(@className, @keyframeName) {
+.fade-color-motion(@className, @keyframeName) {
   .@{className}-enter,
   .@{className}-appear {
     opacity: 0;
@@ -25,7 +25,7 @@
   }
 }
 
-.fade-motion(fade-color, fishdFadeColor);
+.fade-color-motion(fade-color, fishdFadeColor);
 
 @keyframes fishdFadeColorIn {
   0% {
