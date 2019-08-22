@@ -177,6 +177,12 @@ export const components = {
           type: 'markdown',
           name: 'VideoViewer 视频查看器',
           published: true,
+        },
+        {
+          key: 'guide',
+          type: 'markdown',
+          name: 'Guide 引导',
+          published: true,
         }
       ]
     }, {

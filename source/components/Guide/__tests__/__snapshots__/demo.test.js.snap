@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders guide demo correctly 1`] = `
+<div>
+  <div
+    class="guide-demo"
+  >
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        开始引导
+      </span>
+    </button>
+    <div
+      class="guide-demo-cont"
+    >
+      <h3
+        class="item guide-demo-step-alone"
+      >
+        引导项
+      </h3>
+    </div>
+  </div>
+  <div
+    class="guide-demo"
+  >
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        开始引导
+      </span>
+    </button>
+  </div>
+  <div
+    class="guide-demo"
+  >
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        开始引导
+      </span>
+    </button>
+    <div
+      class="guide-demo-cont"
+    >
+      <h3
+        class="item guide-demo-step1"
+      >
+        第1步
+      </h3>
+      <h3
+        class="item guide-demo-step2"
+      >
+        第2步
+      </h3>
+      <h3
+        class="item guide-demo-step3"
+      >
+        第3步
+      </h3>
+      <h3
+        class="item guide-demo-step4"
+      >
+        第4步
+      </h3>
+    </div>
+  </div>
+</div>
+`;
