@@ -81,6 +81,20 @@ export const components = {
           name: 'DateTime 日期时间',
           component: require('./ruleDatetime'),
           published: true,
+        },
+        {
+          key: 'ruleDateFilter',
+          type: 'react',
+          name: 'DateFilter 日期筛选',
+          component: require('./ruleDateFilter'),
+          published: true,
+        },
+        {
+          key: 'ruleTable',
+          type: 'react',
+          name: 'Table 表格',
+          component: require('./ruleTable'),
+          published: true,
         }
       ]
     }],
