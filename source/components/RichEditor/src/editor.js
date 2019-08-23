@@ -381,8 +381,11 @@ class RichEditor extends Component {
         return;
       }
 
-      let quill = this.getEditor();
+      let quill = this.getEditor(),
+        range = quill.getSelection(true);
       quill.format('video', val);
+      quill.insertText(range.index + 1, '\n');  // 插入视频后换行，避免丢失光标
+      quill.setSelection(range.index + 1, 'silent');
       el.value = '';
 
       this.setState({
