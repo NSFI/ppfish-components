@@ -233,6 +233,9 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
   .fishd-layout-sider-trigger { 
     position:relative
   }
+  .fishd-menu-inline-collapsed {
+    width: auto;
+  }
 }
 ```
 :::
@@ -365,6 +368,9 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
     background: #EBEDF0;
     position: relative;
     top: 8px;
+  }
+  .fishd-menu-inline-collapsed {
+    width: auto;
   }
 }
 ```
