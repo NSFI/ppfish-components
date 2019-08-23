@@ -383,6 +383,7 @@ class RichEditor extends Component {
 
       let quill = this.getEditor();
       quill.format('video', val);
+      el.value = '';
 
       this.setState({
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
@@ -394,6 +395,7 @@ class RichEditor extends Component {
   };
 
   handleVideoModalCancel = () => {
+    this.videoModalInputRef.input.value = '';
     this.setState({
       showVideoModal: false
     });
