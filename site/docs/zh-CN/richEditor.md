@@ -297,14 +297,18 @@
     // 模拟上传视频获取URL的异步过程
     setTimeout(() => {
       callback({
-        src: "https://www.runoob.com/try/demo_source/mov_bbb.mp4"
-        // src: "https://v.qq.com/iframe/player.html?vid=i0670jbe37a&tiny=0&auto=0"
+        'src': "https://www.runoob.com/try/demo_source/mov_bbb.mp4",
+        'data-test': 'test',
       });
       this.setState({
         loading: false
       });
-    }, 3000);
-  }
+    }, 1000);
+  };
+
+  handleClickToolbarBtn = (type) => {
+    // if (type == 'video') return false;
+  };
 
   render() {
     return (
@@ -317,6 +321,10 @@
         ]}
         customInsertVideo={this.getVideoUrl}
         loading={this.state.loading}
+        videoTagAttrs={{
+          'data-test-default': 'test-default'
+        }}
+        onClickToolbarBtn={this.handleClickToolbarBtn}
       />
     );
   }
@@ -470,6 +478,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 | loading | 是否展示加载中的状态 | Boolean | false |
 | onBlur | 失去焦点时的回调 | (previousRange, source, editor) => Void | - |
 | onChange | 内容改变时的回调 | (content, delta, source, editor) => Void | - |
+| onClickToolbarBtn | 点击工具栏按钮的回调，返回 false 时将不再弹出模态框，可用于禁止对应的按钮功能。只支持对超链接按钮、插入图片按钮、插入视频按钮的点击回调，回调参数对应的 type 分别为'link'、'image'、'video'。 | (type) => Void | - |
 | onFocus | 获取焦点时的回调 | (range, source, editor) => Void | - |
 | onKeyDown | 按键按下时的回调，对特殊按键如 `backspace` 、 `delete` 或 `enter` 无效 | (event) => Void | - |
 | onKeyPress | 按键按下并释放后的回调，对特殊按键如 `shift` 或 `enter` 无效 | (event) => Void | - |
@@ -484,6 +493,7 @@ __使用编辑器内置的插入图片模块时，图片数据将以 base64 字�
 | toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
 | tooltipPlacement | tooltip 弹出位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'bottom' |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
+| videoTagAttrs | 设置插入的视频标签的属性，可用于设置视频的width、height、poster及自定义属性等。 | Object | - |
 
 ## 方法
 

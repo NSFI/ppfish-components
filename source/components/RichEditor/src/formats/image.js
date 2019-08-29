@@ -1,7 +1,7 @@
 import Quill from 'quill';
 
 const Embed = Quill.import('blots/embed');
-const getAttrs = (node) => {
+export const getAttrs = (node) => {
   let value = {};
 
   if (node.hasAttributes()) {
