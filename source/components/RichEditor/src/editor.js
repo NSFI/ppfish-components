@@ -17,7 +17,8 @@ import EmojiBlot from './formats/emoji.js';
 import LinkBlot from './formats/link.js';
 import ImageBlot from './formats/image.js';
 import VideoBlot from './formats/video.js';
-import PlainClipboard from './plainClipboard.js';
+import PlainClipboard from './modules/plainClipboard.js';
+import ImageDrop from './modules/imageDrop.js';
 import '../style/index.less';
 
 Quill.register(EmojiBlot);
@@ -25,6 +26,7 @@ Quill.register(LinkBlot);
 Quill.register(ImageBlot);
 Quill.register(CustomSizeBlot);
 Quill.register(VideoBlot);
+Quill.register('modules/imageDrop', ImageDrop, true);
 
 const getImageSize = function(url, callback) {
   let newImage;
@@ -140,6 +142,7 @@ class RichEditor extends Component {
       showVideoModal: false,
       showImageModal: false,
       toolbarCtner: null,
+      curRange: null,
       curVideoType: "video_link"
     };
     this.handlers = {
@@ -170,7 +173,8 @@ class RichEditor extends Component {
         let quill = this.getEditor();
         this.setState({
           value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-          showVideoModal: true
+          showVideoModal: true,
+          curRange: quill.getSelection()  // 防止插入视频时光标定位错误
         });
       },
       emoji: (value) => {
@@ -414,7 +418,7 @@ class RichEditor extends Component {
       }
 
       let quill = this.getEditor(),
-        range = quill.getSelection(true), // 获取选区前先聚焦
+        range = this.state.curRange ? this.state.curRange : quill.getSelection(true), // 获取选区前先聚焦
         { videoTagAttrs } = this.props;
 
       this.insertVideo(range.index, {
@@ -426,7 +430,8 @@ class RichEditor extends Component {
 
       this.setState({
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-        showVideoModal: false
+        showVideoModal: false,
+        curRange: null
       });
     } else {
       message.error('视频链接URL不得为空');
@@ -440,7 +445,8 @@ class RichEditor extends Component {
 
     this.setState({
       curVideoType: "video_link",
-      showVideoModal: false
+      showVideoModal: false,
+      curRange: null
     });
   };
 
@@ -541,8 +547,7 @@ class RichEditor extends Component {
 
   handlePickLocalVideo = () => {
     let { customInsertVideo, videoTagAttrs } = this.props,
-      quill = this.getEditor(),
-      range = quill.getSelection(true); // 获取选区前先聚焦
+      quill = this.getEditor(); // 获取选区前先聚焦
 
     const getVideoCb = (attrs) => {
       if (attrs.src == undefined) {
@@ -550,6 +555,7 @@ class RichEditor extends Component {
         return;
       }
 
+      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
       this.insertVideo(range.index, {
         ...videoTagAttrs,
         ...attrs
@@ -557,6 +563,7 @@ class RichEditor extends Component {
 
       this.setState({
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        curRange: null
       });
     };
 
@@ -836,7 +843,8 @@ class RichEditor extends Component {
             toolbar: {
               container: toolbarCtner,
               handlers: this.handlers
-            }
+            },
+            imageDrop: null
           }}
           placeholder={placeholder}
           onChange={this.handleChange}
