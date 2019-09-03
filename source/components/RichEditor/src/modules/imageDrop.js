@@ -36,7 +36,12 @@ export default class ImageDrop {
 					selection.setBaseAndExtent(range.startContainer, range.startOffset, range.startContainer, range.startOffset);
 				}
 			}
-			this.readFiles(evt.dataTransfer.files, this.insert.bind(this));
+
+			if (this.customDropImage && typeof this.customDropImage == 'function') {
+				this.customDropImage(evt.dataTransfer.files, this.insert.bind(this));
+			} else {
+				this.readFiles(evt.dataTransfer.files, this.insert.bind(this));
+			}
 		}
 	}
 
@@ -46,34 +51,35 @@ export default class ImageDrop {
 	 */
 	handlePaste(evt) {
 		if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
-			this.readFiles(evt.clipboardData.items, dataUrl => {
-				// wait until after the paste when this.quill.getSelection() will return a valid index
-				setTimeout(() => this.insert(dataUrl), 0);
+			if (this.customDropImage && typeof this.customDropImage == 'function') {
+				this.customDropImage(evt.clipboardData.items, this.insert.bind(this));
+			} else {
+				this.readFiles(evt.clipboardData.items, (attrs) => {
+					// wait until after the paste when this.quill.getSelection() will return a valid index
+					setTimeout(() => this.insert(attrs), 0);
 
-				// const selection = this.quill.getSelection();
-				// if (selection) {
-				// 	// we must be in a browser that supports pasting (like Firefox)
-				// 	// so it has already been placed into the editor
-				// }
-				// else {
-				// 	// otherwise we wait until after the paste when this.quill.getSelection()
-				// 	// will return a valid index
-				// 	setTimeout(() => this.insert(dataUrl), 0);
-				// }
-			});
+					// const selection = this.quill.getSelection();
+					// if (selection) {
+					// 	// we must be in a browser that supports pasting (like Firefox)
+					// 	// so it has already been placed into the editor
+					// }
+					// else {
+					// 	// otherwise we wait until after the paste when this.quill.getSelection()
+					// 	// will return a valid index
+					// 	setTimeout(() => this.insert(dataUrl), 0);
+					// }
+				});
+			}
 		}
 	}
 
-	/**
-	 * Insert the image into the document at the current cursor position
-	 * @param {String} dataUrl  The base64-encoded image URI
-	 */
-	insert(dataUrl) {
-		const index = (this.quill.getSelection() || {}).index || this.quill.getLength();
+	insert(attrs) {
+		const range = this.quill.getSelection() || {},
+			index = (range.index != undefined) ? range.index : this.quill.getLength();
 
-		this.quill.insertEmbed(index, 'myImage', {
-			src: dataUrl
-		});
+		if (!attrs.src) return;
+
+		this.quill.insertEmbed(index, 'myImage', attrs);
 		// this.quill.insertEmbed(index, 'image', dataUrl, 'user');
 		this.quill.setSelection(index + 1);
 	}
@@ -94,7 +100,9 @@ export default class ImageDrop {
 			// set up file reader
 			const reader = new FileReader();
 			reader.onload = (evt) => {
-				callback(evt.target.result);
+				callback({
+					src: evt.target.result
+				});
 			};
 			// read the clipboard item or file
 			const blob = file.getAsFile ? file.getAsFile() : file;

@@ -241,28 +241,37 @@
   }
 
   getImageUrl = (files, callback) => {
+    // 排除非图片类型的文件
+    let imgFiles = [].filter.call(files, (file) => {
+      return (file.type.match(/^image\/(gif|jpe?g|a?png|svg|webp|bmp|vnd\.microsoft\.icon)/i));
+    });
+
+    if (!(imgFiles && imgFiles.length)) return;
+
     this.setState({
       loading: true
     });
 
-    // 模拟上传图片获取URL的异步过程
-    setTimeout(() => {
-      let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
-      callback({
-        src: imageUrl,
-        alt: 'image alt',
-        title: 'image title',
-        width: 200,
-        height: 200,
-        'data-url': imageUrl,
-        'data-size': 123,
-        'data-group': 'abc',
-      });
+    [].forEach.call(imgFiles, (file, index) => {
+      // 模拟上传图片至服务器并设置图片URL的异步过程
+      setTimeout(() => {
+        let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
+        callback({
+          src: imageUrl,
+          alt: 'image alt',
+          title: 'image title' + index,
+          width: 200,
+          height: 200,
+          'data-test': 'test'
+        });
 
-      this.setState({
-        loading: false
-      });
-    }, 1000);
+        if (index == (imgFiles.length - 1)) {
+          this.setState({
+            loading: false
+          });
+        }
+      }, 1000);
+    });
   }
 
   render() {
@@ -295,7 +304,7 @@
       loading: true
     });
 
-    // 模拟上传图片获取URL的异步过程
+    // 模拟上传图片至服务器并设置图片URL的异步过程
     setTimeout(() => {
       let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
       callback({
@@ -304,9 +313,7 @@
         title: 'image title',
         width: 200,
         height: 200,
-        'data-url': imageUrl,
-        'data-size': 123,
-        'data-group': 'abc',
+        'data-test': 'test'
       });
 
       this.setState({
