@@ -461,18 +461,20 @@
 
 ## API
 
-__使用编辑器内置的插入图片模块时，图片数据将以 base64 字符串格式嵌入到编辑器内，后端保存该图片数据时会占用较大空间，因此推荐使用自定义插入图片的方式。详情可参考 API `customInsertImage` 和 “自定义插入图片”的 demo。__
+__请注意：默认情况下，使用编辑器内置的插入/粘贴/拖入图片功能时，图片数据将以 base64 字符串格式嵌入到编辑器内，此时后端保存该图片数据将会占用较大的空间，因此推荐使用自定义插入/粘贴/拖入图片的方式获取图片的URL。详情可参考 API `customInsertImage` 和 `customDropImage`，及 demo “自定义插入图片” 和 “自定义粘贴/拖入图片”。__
 
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
-| customInsertImage | 自定义插入图片，通过此接口可以自定义插入图片前获取图片的过程，如上传本地图片到服务器、异步获取图片源地址等。 | ((Object {src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| customDropImage | 自定义粘贴或拖入图片，`imageDrop` 为 true 时有效。通过此接口可以在粘贴或拖入图片时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | ((Object {src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | ((Object {src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
 | customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | customInsertVideo | 自定义插入视频，通过此接口可以自定义插入视频前获取视频的过程，如上传本地视频到服务器、异步获取视频源地址等。 | ((Object {src: String}) => Void) => Void | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
+| imageDrop | 是否支持以粘贴或拖入的方式插入图片 | Boolean | false |
 | insertImageTip | 插入图片的文字提示 | String \| HTMLElement | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
 | insertVideoTip | 插入视频的文字提示 | String \| HTMLElement | '1、单个视频不超过10M，支持MP4、MPEG4、H264、AAC、WebM、VP8、Vorbis、OggTheora格式。受微信限制，微信端仅支持发送MP4格式视频。2、最佳显示高度不超过400px, 宽度不超过270px。' |
 | loading | 是否展示加载中的状态 | Boolean | false |

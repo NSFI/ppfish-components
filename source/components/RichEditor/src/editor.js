@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import ReactQuill, { Quill } from '../quill/index.js';
+import ReactQuill, { Quill } from './quill/index.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { addEventListener } from '../../../utils';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 import Spin from '../../Spin/index.tsx';
 import Radio from '../../Radio/index.tsx';
 import Modal from '../../Modal/index.tsx';
@@ -46,6 +46,7 @@ class RichEditor extends Component {
     defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
+    imageDrop: PropTypes.bool,
     loading: PropTypes.bool,
     resizable: PropTypes.bool,
     supportFontTag: PropTypes.bool,
@@ -58,6 +59,7 @@ class RichEditor extends Component {
     popoverPlacement: PropTypes.string,
     tooltipPlacement: PropTypes.string,
     videoTagAttrs: PropTypes.object,
+    customDropImage: PropTypes.func,
     customInsertImage: PropTypes.func,
     customInsertVideo: PropTypes.func,
     getPopupContainer: PropTypes.func,
@@ -88,6 +90,7 @@ class RichEditor extends Component {
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
     loading: false,
+    imageDrop: false,
     resizable: false,
     pastePlainText: false,
     toolbar: [
@@ -747,6 +750,8 @@ class RichEditor extends Component {
       onSelectionChange,
       popoverPlacement,
       tooltipPlacement,
+      imageDrop,
+      customDropImage,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -844,7 +849,9 @@ class RichEditor extends Component {
               container: toolbarCtner,
               handlers: this.handlers
             },
-            imageDrop: null
+            imageDrop: imageDrop ? {
+              customDropImage
+            } : null
           }}
           placeholder={placeholder}
           onChange={this.handleChange}
