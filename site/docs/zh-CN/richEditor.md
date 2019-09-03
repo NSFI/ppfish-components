@@ -261,7 +261,7 @@
           alt: 'image alt',
           title: 'image title' + index,
           width: 200,
-          height: 200,
+          height: 100,
           'data-test': 'test'
         });
 
@@ -312,7 +312,7 @@
         alt: 'image alt',
         title: 'image title',
         width: 200,
-        height: 200,
+        height: 100,
         'data-test': 'test'
       });
 
