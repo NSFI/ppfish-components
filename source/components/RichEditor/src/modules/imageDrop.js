@@ -12,7 +12,8 @@ export default class ImageDrop {
 	 */
 	constructor(quill, options = {}) {
 		// save the quill reference
-    this.quill = quill;
+		this.quill = quill;
+		this.customDropImage = options.customDropImage || null;
 		// bind handlers to this instance
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handlePaste = this.handlePaste.bind(this);
@@ -46,7 +47,9 @@ export default class ImageDrop {
 	handlePaste(evt) {
 		if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
 			this.readFiles(evt.clipboardData.items, dataUrl => {
+				// wait until after the paste when this.quill.getSelection() will return a valid index
 				setTimeout(() => this.insert(dataUrl), 0);
+
 				// const selection = this.quill.getSelection();
 				// if (selection) {
 				// 	// we must be in a browser that supports pasting (like Firefox)
@@ -67,7 +70,11 @@ export default class ImageDrop {
 	 */
 	insert(dataUrl) {
 		const index = (this.quill.getSelection() || {}).index || this.quill.getLength();
-		this.quill.insertEmbed(index, 'image', dataUrl, 'user');
+
+		this.quill.insertEmbed(index, 'myImage', {
+			src: dataUrl
+		});
+		// this.quill.insertEmbed(index, 'image', dataUrl, 'user');
 		this.quill.setSelection(index + 1);
 	}
 
