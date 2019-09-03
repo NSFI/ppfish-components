@@ -240,7 +240,7 @@
     };
   }
 
-  getImageUrl = (callback) => {
+  getImageUrl = (files, callback) => {
     this.setState({
       loading: true
     });
@@ -517,8 +517,8 @@ __请注意：默认情况下，使用编辑器内置的插入/粘贴/拖入图�
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
-| customDropImage | 自定义粘贴或拖入图片，`imageDrop` 为 true 时有效。通过此接口可以在粘贴或拖入图片时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | ((Object {src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
-| customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | ((Object {src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| customDropImage | 自定义粘贴或拖入图片，`imageDrop` 为 true 时有效。通过此接口可以在粘贴或拖入图片时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (files: DataTransferItemList, callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
 | customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的链接，必须包含用于分隔协议的双斜线 '//'；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | customInsertVideo | 自定义插入视频，通过此接口可以自定义插入视频前获取视频的过程，如上传本地视频到服务器、异步获取视频源地址等。 | ((Object {src: String}) => Void) => Void | - |
