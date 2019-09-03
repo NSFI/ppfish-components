@@ -96,37 +96,37 @@
             {
               id: 0,
               className: 'e0',
-              url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
+              url: '//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe',
               title: 'pic1'
             },
             {
               id: 1,
               className: 'e1',
-              url: '//ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf',
+              url: '//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939',
               title: 'pic2'
             },
             {
               id: 2,
               className: 'e2',
-              url: '//ysf.nosdn.127.net/ijonlnhjaleturyoittndfkpuhbchdkd',
+              url: '//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c',
               title: 'pic3'
             },
             {
               id: 3,
               className: 'e3',
-              url: "//ysf.nosdn.127.net/bqwiuevkyaimbmqcjvealfhejvxzbbth",
+              url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe",
               title: "pic4"
             },
             {
               id: 4,
               className: 'e4',
-              url: "//ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf",
+              url: "//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939",
               title: "pic5"
             },
             {
               id: 5,
               className: 'e5',
-              url: '//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin',
+              url: '//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c',
               title: 'pic6'
             },
           ]
@@ -212,7 +212,7 @@
 ```
 :::
 
-## 拖拽改变大小
+## 拖拽编辑器改变大小
 
 :::demo 拖拽改变大小。
 
@@ -227,6 +227,56 @@
   }
 ```
 :::
+
+## 自定义粘贴/拖入图片
+
+:::demo 自定义粘贴/拖入图片，支持附带扩展属性。
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
+  getImageUrl = (callback) => {
+    this.setState({
+      loading: true
+    });
+
+    // 模拟上传图片获取URL的异步过程
+    setTimeout(() => {
+      let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
+      callback({
+        src: imageUrl,
+        alt: 'image alt',
+        title: 'image title',
+        width: 200,
+        height: 200,
+        'data-url': imageUrl,
+        'data-size': 123,
+        'data-group': 'abc',
+      });
+
+      this.setState({
+        loading: false
+      });
+    }, 1000);
+  }
+
+  render() {
+    return (
+      <RichEditor
+        imageDrop
+        customDropImage={this.getImageUrl}
+        loading={this.state.loading}
+      />
+    );
+  }
+```
+:::
+
 
 ## 自定义插入图片
 
@@ -247,7 +297,7 @@
 
     // 模拟上传图片获取URL的异步过程
     setTimeout(() => {
-      let imageUrl = "//ysf.nosdn.127.net/xcdbmadptmoftklqvwwxzwlvlorxnzin";
+      let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
       callback({
         src: imageUrl,
         alt: 'image alt',
