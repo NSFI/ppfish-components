@@ -596,7 +596,7 @@ class RichEditor extends Component {
 
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'emoji');
-      el.setAttribute('value', target.value);
+      el.setAttribute('value', target.getAttribute('value'));
       el.classList.add('ql-emoji', 'hide');
       el.click();
     }
@@ -615,7 +615,7 @@ class RichEditor extends Component {
 
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'background');
-      el.setAttribute('value', target.value);
+      el.setAttribute('value', target.getAttribute('value'));
       el.classList.add('ql-background', 'hide');
       el.click();
     }
@@ -634,7 +634,7 @@ class RichEditor extends Component {
 
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'color');
-      el.setAttribute('value', target.value);
+      el.setAttribute('value', target.getAttribute('value'));
       el.classList.add('ql-color', 'hide');
       el.click();
     }
@@ -653,7 +653,7 @@ class RichEditor extends Component {
 
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'customSize');
-      el.setAttribute('value', target.value);
+      el.setAttribute('value', target.getAttribute('value'));
       el.classList.add('ql-customAttr', 'hide');
       el.click();
     }
@@ -672,7 +672,7 @@ class RichEditor extends Component {
 
       el.setAttribute('type', 'button');
       el.setAttribute('data-role', 'customInsertValue');
-      el.setAttribute('value', target.value);
+      el.setAttribute('value', target.getAttribute('value'));
       el.classList.add('ql-customInsertValue', 'hide');
       el.click();
     }
