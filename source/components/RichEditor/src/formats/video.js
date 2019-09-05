@@ -8,13 +8,6 @@ class Video extends BlockEmbed {
     let node = super.create(value);
 
     if (Object.prototype.toString.call(value) == "[object Object]") {
-      node.addEventListener('error', (e) => {
-        if (value['error'] && typeof value['error'] == 'function') {
-          value['error']();
-        }
-        message.error('视频无法播放');
-      });
-
       // 默认带控制条
       if (value['controls'] === false) {
         delete value['controls'];

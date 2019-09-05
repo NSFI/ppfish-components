@@ -527,7 +527,14 @@ class RichEditor extends Component {
   insertVideo = (rangeIndex, attrs) => {
     let quill = this.getEditor(),
       prevChar = quill.getText(rangeIndex - 1, 1),
-      nextChar = quill.getText(rangeIndex + 1, 1);
+      nextChar = quill.getText(rangeIndex + 1, 1),
+      videoNode = document.createElement('video');
+
+    videoNode.onerror = () => {
+      message.error('视频无法播放');
+    };
+    videoNode.src = attrs.src;
+    videoNode = null;
 
     if ((rangeIndex > 0) && (prevChar != '\n')) {
       // 在一行的中间插入视频
