@@ -38,25 +38,25 @@ let QuillMixin = {
     let unprivilegedEditor = this.makeUnprivilegedEditor(editor);
 
     this.handleTextChange = function(delta, oldDelta, source) {
-     if (this.onEditorChangeText) {
-       this.onEditorChangeText(
-         editor.root.innerHTML, delta, source,
-         unprivilegedEditor
-       );
-       this.onEditorChangeSelection(
-         editor.getSelection(), source,
-         unprivilegedEditor
-       );
-     }
+      if (this.onEditorChangeText) {
+        this.onEditorChangeText(
+          editor.root.innerHTML, delta, source,
+          unprivilegedEditor
+        );
+        this.onEditorChangeSelection(
+          editor.getSelection(), source,
+          unprivilegedEditor
+        );
+      }
     }.bind(this);
 
     this.handleSelectionChange = function(range, oldRange, source) {
-     if (this.onEditorChangeSelection) {
-       this.onEditorChangeSelection(
-         range, source,
-         unprivilegedEditor
-       );
-     }
+      if (this.onEditorChangeSelection) {
+        this.onEditorChangeSelection(
+          range, source,
+          unprivilegedEditor
+        );
+      }
     }.bind(this);
 
 		this.handleEditorChange = function(eventType, rangeOrDelta, oldRangeOrOldDelta, source) {
