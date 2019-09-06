@@ -33,7 +33,10 @@ export default class ImageDrop {
 				const selection = document.getSelection();
 				const range = document.caretRangeFromPoint(evt.clientX, evt.clientY);
 				if (selection && range) {
-					selection.setBaseAndExtent(range.startContainer, range.startOffset, range.startContainer, range.startOffset);
+					selection.setBaseAndExtent(
+						range.startContainer, range.startOffset,
+						range.startContainer, range.startOffset
+					);
 				}
 			}
 
