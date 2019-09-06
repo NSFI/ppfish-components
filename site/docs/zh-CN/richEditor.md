@@ -154,8 +154,8 @@
         customLink={{
           'mylink': {
             'className': 'my-link',
-            'title': '设置为转人工入口',
-            'url': 'qiyu://action.qiyukf.com?command=applyHumanStaff'
+            'title': '自定义超链接',
+            'url': 'https://nsfi.github.io/ppfish-components/#/home'
           }
         }}
         toolbar={this.toolbar}
