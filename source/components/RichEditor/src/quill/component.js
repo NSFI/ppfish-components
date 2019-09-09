@@ -35,7 +35,7 @@ let QuillComponent = createClass({
 		defaultValue: T.oneOfType([T.string, T.shape({ops: T.array})]),
 		placeholder: T.string,
 		tabIndex: T.number,
-		bounds: T.oneOfType([T.string, T.element]),
+		bounds: T.oneOfType([T.string, T.element, T.object]),
 		scrollingContainer: T.node,
 		onChange: T.func,
 		onSelectionChange: T.func,
