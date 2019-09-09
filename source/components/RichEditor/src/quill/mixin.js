@@ -2,6 +2,9 @@
 
 let Quill = require('quill');
 
+// 只在console展示错误级别的信息
+Quill.debug('error');
+
 function formatOutputHTML(value) {
   if (!value) return value;
 
