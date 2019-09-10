@@ -15,7 +15,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -189,7 +189,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -363,7 +363,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -537,7 +537,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -711,7 +711,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -896,7 +896,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -1088,7 +1088,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -1262,7 +1262,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -1436,7 +1436,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -1610,7 +1610,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -1796,7 +1796,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -1980,7 +1980,7 @@ exports[`Renders richEditor demo correctly 1`] = `
             class="item"
           >
             <button
-              class="action ql-myLink fishdicon fishdicon-richeditor-link"
+              class="action ql-link fishdicon fishdicon-richeditor-link"
             />
           </div>
           <div
@@ -2155,7 +2155,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -2329,7 +2329,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
@@ -2472,7 +2472,7 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <button
-            class="action ql-myLink fishdicon fishdicon-richeditor-link"
+            class="action ql-link fishdicon fishdicon-richeditor-link"
           />
         </div>
         <div
