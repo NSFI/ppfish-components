@@ -96,6 +96,14 @@
       color: @input-placeholder-color;
       font-style: normal;
     }
+
+    .custom-hide {
+      display: none !important;
+    }
+
+    .custom-show {
+      display: block !important;
+    }
   }
 
   .item {
@@ -146,10 +154,6 @@
   //     fill: #fff !important;
   //   }
   // }
-
-  .ql-tooltip {
-    display: none;
-  }
 
   .toolbar-grp {
     // display: inline-block;
@@ -379,6 +383,8 @@
     cursor: pointer;
     border: 1px solid transparent;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &:hover {
       background: @item-hover-bg;

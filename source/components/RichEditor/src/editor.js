@@ -37,6 +37,13 @@ const getImageSize = function(url, callback) {
   newImage.src = url;
 };
 
+class Range {
+  constructor(index, length = 0) {
+    this.index = index;
+    this.length = length;
+  }
+}
+
 class RichEditor extends Component {
   static propTypes = {
     className: PropTypes.string,
@@ -118,6 +125,7 @@ class RichEditor extends Component {
 
   constructor(props) {
     super(props);
+    this.reactQuillNode = document.body;
 
     let { value, customLink, supportFontTag, pastePlainText, customInsertVideo } = this.props;
 
@@ -146,10 +154,11 @@ class RichEditor extends Component {
       showImageModal: false,
       toolbarCtner: null,
       curRange: null,
-      curVideoType: "video_link"
+      curVideoType: "video_link",
+      defaultInputLink: "http://"
     };
     this.handlers = {
-      myLink: (value) => {
+      link: (value, fromAction) => {
         let { onClickToolbarBtn } = this.props;
         if (typeof onClickToolbarBtn == 'function' && onClickToolbarBtn('link') === false) {
           return;
@@ -158,11 +167,20 @@ class RichEditor extends Component {
         let quill = this.getEditor(),
           range = quill.getSelection();
 
-        if (range.length !== 0) {
-          this.setState({
+        if (range && range.length !== 0) {
+          let newState = {
             value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-            showLinkModal: true
-          });
+            showLinkModal: true,
+            defaultInputLink: 'http://',
+            curRange: range
+          };
+
+          // 点击编辑链接触发
+          if (fromAction) {
+            newState['defaultInputLink'] = value;
+          }
+
+          this.setState(newState);
         } else {
           message.error('没有选中文本');
         }
@@ -258,7 +276,7 @@ class RichEditor extends Component {
       this.handlers[`${moduleName}Entry`] = function() {
         let range = this.quill.getSelection();
         if (range.length !== 0) {
-          this.quill.format('myLink', {
+          this.quill.format('link', {
             type: `${moduleName}Entry`,
             url: customLink[moduleName].url
           });
@@ -275,19 +293,64 @@ class RichEditor extends Component {
       toolbarCtner: findDOMNode(this.toolbarRef)
     }, () => {
       if (!this.reactQuillRef) return;
+      this.reactQuillNode = findDOMNode(this.reactQuillRef);
 
       this.onBlurHandler = addEventListener(
-        findDOMNode(this.reactQuillRef).querySelector('.ql-editor'),
-        'blur',
-        () => {
+        this.reactQuillNode.querySelector('.ql-editor'), 'blur', () => {
           if (!this.reactQuillRef) return;
 
-          let editor = this.reactQuillRef.getEditor(),
-            range = editor.getSelection();
+          let quill = this.reactQuillRef.getEditor(),
+            range = quill.getSelection();
 
           if (typeof this.props.onBlur == "function") {
-            this.props.onBlur(range, 'user', editor);
+            this.props.onBlur(range, 'user', quill);
           }
+        }
+      );
+
+      // 编辑超链接
+      this.onClickActionHandler = addEventListener(
+        this.reactQuillNode.querySelector('a.ql-action'), 'click', (event) => {
+          if (!this.reactQuillRef) return;
+
+          let quill = this.reactQuillRef.getEditor();
+          if (!quill) return;
+
+          let tooltip = quill.theme && quill.theme.tooltip;
+          if (tooltip && this.linkRange != null) {
+            tooltip.linkRange = this.linkRange;
+            quill.setSelection(this.linkRange);
+            this.handlers.link(tooltip.preview.getAttribute('href'), true);
+          }
+
+          // if (this.root.classList.contains('ql-editing')) {
+          //   this.save();
+          // } else {
+          //   this.edit('link', this.preview.textContent);
+          // }
+
+          event.preventDefault();
+        }
+      );
+
+      // 删除超链接
+      this.onClickRemoveHandler = addEventListener(
+        this.reactQuillNode.querySelector('a.ql-remove'), 'click', (event) => {
+          if (!this.reactQuillRef) return;
+
+          let quill = this.reactQuillRef.getEditor();
+          if (!quill) return;
+
+          let tooltip = quill.theme && quill.theme.tooltip;
+          if (tooltip && this.linkRange != null) {
+            tooltip.linkRange = this.linkRange;
+            quill.formatText(tooltip.linkRange, 'link', false, 'user');
+            quill.focus();
+            delete tooltip.linkRange;
+            this.linkRange = null;
+          }
+
+          event.preventDefault();
         }
       );
     });
@@ -305,9 +368,9 @@ class RichEditor extends Component {
   }
 
   componentWillUnmount() {
-    if (this.onBlurHandler) {
-      this.onBlurHandler.remove();
-    }
+    this.onBlurHandler && this.onBlurHandler.remove();
+    this.onClickActionHandler && this.onClickActionHandler.remove();
+    this.onClickRemoveHandler && this.onClickRemoveHandler.remove();
   }
 
   formatFontTag = (value) => {
@@ -377,15 +440,16 @@ class RichEditor extends Component {
       }
 
       let quill = this.getEditor();
-      quill.format('myLink', {
+      quill.formatText(this.state.curRange, 'link', {
         // type: 'default',
         url: val
-      });
-      el.value = 'http://';
+      }, 'user');
+      quill.setSelection(this.state.curRange);  // 设置超链接后恢复选区
 
       this.setState({
         value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
-        showLinkModal: false
+        showLinkModal: false,
+        defaultInputLink: 'http://'
       });
     } else {
       message.error('链接地址不得为空');
@@ -393,12 +457,9 @@ class RichEditor extends Component {
   };
 
   handleLinkModalCancel = () => {
-    if (this.linkModalInputRef) {
-      this.linkModalInputRef.input.value = 'http://';
-    }
-
     this.setState({
-      showLinkModal: false
+      showLinkModal: false,
+      defaultInputLink: 'http://'
     });
   };
 
@@ -693,12 +754,78 @@ class RichEditor extends Component {
     }
   };
 
+  handleShowTooltip = (root) => {
+    if (!root) return;
+    root.classList.remove('ql-editing');
+    root.classList.remove('ql-hidden');
+    root.classList.remove('custom-hide');
+    root.classList.add('custom-show');
+  };
+
+  handleHideTooltip = (root) => {
+    if (!root) return;
+    root.classList.remove('custom-show');
+    root.classList.add('ql-hidden');
+    root.classList.add('custom-hide');
+  };
+
+  handleTooltipPosition(tooltip, reference) {
+    let left = reference.left + reference.width/2 - tooltip.root.offsetWidth/2;
+    // root.scrollTop should be 0 if scrollContainer !== root
+    let top = reference.bottom + tooltip.quill.root.scrollTop;
+    tooltip.root.style.left = left + 'px';
+    tooltip.root.style.top = top + 'px';
+    tooltip.root.classList.remove('ql-flip');
+    let containerBounds = tooltip.boundsContainer.getBoundingClientRect();
+    let rootBounds = tooltip.root.getBoundingClientRect();
+    let shift = 0, offset = 15;
+    if (rootBounds.right > containerBounds.right) {
+      shift = containerBounds.right - rootBounds.right;
+      tooltip.root.style.left = (left + shift - offset) + 'px';
+    }
+    if (rootBounds.left < containerBounds.left) {
+      shift = containerBounds.left - rootBounds.left;
+      tooltip.root.style.left = (left + shift + offset) + 'px';
+    }
+    if (rootBounds.bottom > containerBounds.bottom) {
+      let height = rootBounds.bottom - rootBounds.top;
+      let verticalShift = reference.bottom - reference.top + height;
+      tooltip.root.style.top = (top - verticalShift) + 'px';
+      tooltip.root.classList.add('ql-flip');
+    }
+    return shift;
+  };
+
   handleSelectionChange = (nextSelection, source, editor) => {
     // let { toolbarCtner } = this.state;
-    // let quill = this.getEditor();
+    const { onSelectionChange } = this.props;
+    onSelectionChange && onSelectionChange(nextSelection, source, editor);
+
+    let quill = this.getEditor();
+    if (!quill) return;
+
+    let tooltip = quill.theme && quill.theme.tooltip;
+    if (!tooltip) return;
+
+    // 光标定位到超链接上时展示tooltip
+    if (nextSelection && nextSelection.length === 0 && source === 'user') {
+      let [link, offset] = quill.scroll.descendant(LinkBlot, nextSelection.index);
+      if (link != null) {
+        tooltip.linkRange = new Range(nextSelection.index - offset, link.length());
+        this.linkRange = tooltip.linkRange; // 保存到当前实例，在编辑/删除超链接的事件回调中使用
+        let preview = LinkBlot.formats(link.domNode).url;
+        tooltip.preview.textContent = preview;
+        tooltip.preview.setAttribute('href', preview);
+        // 需要在显示后设置位置
+        this.handleShowTooltip(tooltip.root);
+        this.handleTooltipPosition(tooltip, quill.getBounds(tooltip.linkRange));
+        return;
+      }
+    }
+    this.handleHideTooltip(tooltip.root);
 
     // FixBug: 取消高亮区分。a标签添加自定义属性后接带自定义属性的img标签时，在MAC和安卓版的微信公众号中超链接会异常显示出HTML标签。
-    // 区分默认的超链接和自定义超链接的高亮
+    // 区分默认的超链接按钮和自定义超链接按钮的高亮
     // if (nextSelection) {
     //   let curFormat;
 		// 	if (nextSelection.index > 0 && quill.getText(nextSelection.index - 1, 1)!='\n') {
@@ -722,9 +849,6 @@ class RichEditor extends Component {
     //     }
 		// 	}
     // }
-
-    const { onSelectionChange } = this.props;
-    onSelectionChange && onSelectionChange(nextSelection, source, editor);
   };
 
   handleVideoTypeChange = (e) => {
@@ -741,7 +865,8 @@ class RichEditor extends Component {
       showVideoModal,
       showImageModal,
       toolbarCtner,
-      curVideoType
+      curVideoType,
+      defaultInputLink
     } = this.state;
     const {
       className, prefixCls,
@@ -777,16 +902,17 @@ class RichEditor extends Component {
     }
 
     return (
-      <div className={cls} style={style}>
+      <div className={cls} style={style} ref={(el) => this.editorCtner = el}>
         <Modal
           title="插入超链接"
           className={`${prefixCls}-link-modal`}
           visible={showLinkModal}
           onOk={this.handleLinkModalOk}
           onCancel={this.handleLinkModalCancel}
+          destroyOnClose
         >
           <span className="text">超链接地址</span>
-          <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue="http://" />
+          <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue={defaultInputLink} />
         </Modal>
         <Modal
           title="插入图片"
@@ -850,6 +976,7 @@ class RichEditor extends Component {
         <ReactQuill
           {...restProps}
           ref={el => this.reactQuillRef = el}
+          bounds={this.editorCtner}
           className={'editor-body'}
           modules={{
             toolbar: {

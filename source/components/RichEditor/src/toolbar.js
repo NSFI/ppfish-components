@@ -298,7 +298,7 @@ class CustomToolbar extends PureComponent {
     } else {
       switch(mType) {
         case 'link': {
-          const linkCls = classNames('action ql-myLink', {
+          const linkCls = classNames('action ql-link', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-link`]: true
           });
