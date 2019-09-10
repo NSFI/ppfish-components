@@ -87,7 +87,7 @@ class RichEditor extends Component {
     insertImageTip: '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
     insertVideoTip: (
       <React.Fragment>
-        <span>1、单个视频不超过10M，支持MP4、MPEG4、H264、AAC、WebM、VP8、Vorbis、OggTheora格式。受微信限制，微信端仅支持发送MP4格式视频。</span>
+        <span>1、单个视频不超过10M，支持MP4、3GP格式视频。</span>
         <br/>
         <span>2、最佳显示高度不超过400px, 宽度不超过270px。</span>
       </React.Fragment>
@@ -141,8 +141,10 @@ class RichEditor extends Component {
       formatValue = this.formatFontTag(value);
     }
 
+    this.defaultVideoType = "video_link";
     if (customInsertVideo && (typeof customInsertVideo === "function")) {
       this.isSupportCustomInsertVideo = true;
+      this.defaultVideoType = "video_local";
     }
 
     this.state = {
@@ -154,7 +156,7 @@ class RichEditor extends Component {
       showImageModal: false,
       toolbarCtner: null,
       curRange: null,
-      curVideoType: "video_link",
+      curVideoType: this.defaultVideoType,
       defaultInputLink: "http://"
     };
     this.handlers = {
@@ -508,7 +510,7 @@ class RichEditor extends Component {
     }
 
     this.setState({
-      curVideoType: "video_link",
+      curVideoType: this.defaultVideoType,
       showVideoModal: false,
       curRange: null
     });
@@ -853,7 +855,7 @@ class RichEditor extends Component {
 
   handleVideoTypeChange = (e) => {
     this.setState({
-      curVideoType: e.target.value || "video_link"
+      curVideoType: e.target.value || this.defaultVideoType
     });
   };
 
@@ -937,8 +939,8 @@ class RichEditor extends Component {
             onChange={this.handleVideoTypeChange}
             value={curVideoType}
           >
-            <Radio value="video_link">视频链接</Radio>
             {this.isSupportCustomInsertVideo ? <Radio value="video_local">本地视频</Radio> : null}
+            <Radio value="video_link">视频链接</Radio>
           </Radio.Group>
           {
             curVideoType == "video_local" ? 
