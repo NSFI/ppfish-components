@@ -796,7 +796,7 @@ class RichEditor extends Component {
       tooltip.root.classList.add('ql-flip');
     }
     return shift;
-  };
+  }
 
   handleSelectionChange = (nextSelection, source, editor) => {
     // let { toolbarCtner } = this.state;
