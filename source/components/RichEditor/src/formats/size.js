@@ -6,10 +6,11 @@ const setAttr = (node, value) => {
   } else if (Object.prototype.toString.call(value) == "[object Object]") {
     if (value.editable != null) {
       node.setAttribute('contenteditable', value.editable);
-    } else {
-      node.setAttribute('contenteditable', true);
     }
-    node.style.fontSize = value.fontSize;
+
+    if (value.fontSize != null) {
+      node.style.fontSize = value.fontSize;
+    }
   }
 
   return node;
