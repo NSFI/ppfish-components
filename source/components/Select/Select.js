@@ -510,7 +510,9 @@ class Select extends React.Component {
       const {children, mode, labelInValue, onChange} = this.props;
       const {activeKey, selectValue} = this.state;
       const filteredList = this.getFilteredChildren(children); // 筛选过的数组
-      const optionList = Select.getOptionFromChildren(filteredList, [], (child) => !child.props.disabled); // 去除 disabled 选项
+      const optionList = Select.getOptionFromChildren(
+        filteredList, [], (child) => !child.props.disabled
+      ); // 去除 disabled 选项
       const optionListLen = optionList.length;
       if (!optionListLen) return;
       //enter
