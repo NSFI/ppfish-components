@@ -171,7 +171,7 @@ class RichEditor extends Component {
 
         if (range && range.length !== 0) {
           let newState = {
-            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+            value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
             showLinkModal: true,
             defaultInputLink: 'http://',
             curRange: range
@@ -195,7 +195,7 @@ class RichEditor extends Component {
 
         let quill = this.getEditor();
         this.setState({
-          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           showVideoModal: true,
           curRange: quill.getSelection()  // 防止插入视频时光标定位错误
         });
@@ -231,7 +231,7 @@ class RichEditor extends Component {
 
         let quill = this.getEditor();
         this.setState({
-          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           showImageModal: true,
           curRange: quill.getSelection()
         });
@@ -449,7 +449,7 @@ class RichEditor extends Component {
       quill.setSelection(this.state.curRange);  // 设置超链接后恢复选区
 
       this.setState({
-        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
         showLinkModal: false,
         defaultInputLink: 'http://'
       });
@@ -495,7 +495,7 @@ class RichEditor extends Component {
       this.videoModalInputRef && (this.videoModalInputRef.input.value = '');
 
       this.setState({
-        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
         showVideoModal: false,
         curRange: null
       });
@@ -544,7 +544,7 @@ class RichEditor extends Component {
           quill.setSelection(range.index + 1, 'silent');
 
           this.setState({
-            value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+            value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
             curRange: null
           });
         });
@@ -553,7 +553,7 @@ class RichEditor extends Component {
         quill.setSelection(range.index + 1, 'silent');
 
         this.setState({
-          value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           curRange: null
         });
       }
@@ -635,7 +635,7 @@ class RichEditor extends Component {
       });
 
       this.setState({
-        value: quill.getHTML(), // 使 RichEditor 与 Quill 同步
+        value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
         curRange: null
       });
     };
