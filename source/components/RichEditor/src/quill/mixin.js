@@ -8,8 +8,8 @@ Quill.debug('error');
 function formatOutputHTML(value) {
   if (!value) return value;
 
-  // 移除contenteditable属性
-  return value.replace(/contenteditable\s*=\s*['"]\w*['"]/gi, '');
+  // 移除HTML标签上的contenteditable属性
+  return value.replace(/(<[^&<>]+)(contenteditable\s*=\s*['"]\w*['"])([^&<>]*>)/gi, '$1$3');
 }
 
 let QuillMixin = {
