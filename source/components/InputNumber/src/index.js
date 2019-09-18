@@ -334,10 +334,23 @@ class RcInputNumber extends React.Component {
     const input = this.props.parser(getValueFromEvent(e));
     // valid number or invalid string
     const newInputValue = this.toNumberWhenUserInput(input);
-    this.setState({
-      inputValue: newInputValue
-    });
-    this.props.onChange(newInputValue);
+    const reg = /^\d+(\.)?/;
+    // 以.开头的小数 如 .7
+    const regExt = /^\.(?!\.)\d+$|(^\.$)/;
+
+    const conditionInt = !isNaN(newInputValue) && reg.test(newInputValue);
+    const conditionExt = regExt.test(newInputValue);
+    const conditionEpt = newInputValue === '';
+
+    if (conditionInt || conditionExt || conditionEpt) {
+
+      this.setState({
+        inputValue: newInputValue
+      });
+      this.props.onChange(newInputValue);
+    } else {
+      return;
+    }
   };
 
   onMouseUp = (...args) => {

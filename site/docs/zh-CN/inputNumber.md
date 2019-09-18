@@ -152,6 +152,7 @@ render(){
 | step | 每次改变步数，可以为小数 | Number | String | 1 |
 | style | 自定义样式 | Object | - |
 | value | 当前值 | Number | - |
+| placeholder | 默认文字 | String | - |
 
 ## 方法
 
