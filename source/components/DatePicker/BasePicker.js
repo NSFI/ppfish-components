@@ -204,7 +204,7 @@ class BasePicker extends React.Component {
       }, ()=> {
         this.props.onVisibleChange(false);
       });
-      this.refs.inputRoot.blur();
+      this.refInputRoot.blur();
       evt.stopPropagation();
     }
     // enter
@@ -214,7 +214,7 @@ class BasePicker extends React.Component {
       }, ()=>{
         this.saveValidInputValue();
       });
-      this.refs.inputRoot.blur();
+      this.refInputRoot.blur();
     }
   }
 
@@ -376,7 +376,7 @@ class BasePicker extends React.Component {
                   });
                 }
               }}
-              ref="inputRoot"
+              ref={e=> this.refInputRoot = e }
               value={text}
               prefix={prefixIcon()}
               suffix={suffixIcon()}

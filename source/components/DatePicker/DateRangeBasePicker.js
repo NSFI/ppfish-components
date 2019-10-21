@@ -213,7 +213,7 @@ class DateRangeBasePicker extends React.Component {
       }, ()=> {
         this.props.onVisibleChange(false);
       });
-      this.refs.inputRoot.blur();
+      this.refInputRoot.blur();
       evt.stopPropagation();
     }
     // enter
@@ -223,7 +223,7 @@ class DateRangeBasePicker extends React.Component {
       }, ()=>{
         this.saveValidInputValue();
       });
-      this.refs.inputRoot.blur();
+      this.refInputRoot.blur();
     }
   }
 
@@ -381,7 +381,7 @@ class DateRangeBasePicker extends React.Component {
                   });
                 }
               }}
-              ref="inputRoot"
+              ref={e => this.refInputRoot = e}
               value={text && text.length == 2 ? text[0] : ''}
               prefix={prefixIcon()}
             />
