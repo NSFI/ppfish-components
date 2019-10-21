@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DateRangeBasePicker from './DateRangeBasePicker.js';
 import DateRangePanel from './panel/DateRangePanel.js';
+import TimeSelectPanel from './panel/TimeSelectPanel.js';
+import TimePanel from './panel/TimePanel';
+import { converSelectRange } from './TimePicker';
 
 export default class DateRangePicker extends DateRangeBasePicker {
   static get propTypes() {
@@ -22,7 +25,7 @@ export default class DateRangePicker extends DateRangeBasePicker {
   }
 
   static get defaultProps() {
-    return Object.assign({}, DateRangeBasePicker.defaultProps);
+    return Object.assign({}, DateRangePanel.defaultProps, DateRangeBasePicker.defaultProps);
   }
 
   constructor(props) {
@@ -30,7 +33,19 @@ export default class DateRangePicker extends DateRangeBasePicker {
   }
 
   isDateValid(value) {
-    return super.isDateValid(value) && DateRangePanel.isValid(value, this.props.disabledDate);
+    const dateValid = super.isDateValid(value) && DateRangePanel.isValid(value, this.props.disabledDate);
+    // 带时间的日期范围面板，需要检查时间的合法性
+    if(this.props.showTime) {
+      const startTime = value && value.length >= 2 ? value[0] : null;
+      const endTime = value && value.length >= 2 ? value[1] : null;
+      const startTimeSelectValid = startTime && this.props.startTimeSelectMode === 'TimeSelect' && TimeSelectPanel.isValid(this.dateToStr(startTime).split(" ")[1], this.props.startTimeSelectModeProps);
+      const startTimePickerValid = startTime && this.props.startTimeSelectMode === 'TimePicker' && TimePanel.isValid(startTime, converSelectRange({selectableRange:this.props.startTimeSelectableRange}));
+      const endTimeSelectValid = endTime && this.props.endTimeSelectMode === 'TimeSelect' && TimeSelectPanel.isValid(this.dateToStr(endTime).split(" ")[1], this.props.endTimeSelectModeProps);
+      const endTimePickerValid = endTime && this.props.endTimeSelectMode === 'TimePicker' && TimePanel.isValid(endTime, converSelectRange({selectableRange:this.props.endTimeSelectableRange}));
+      return dateValid && ((startTimeSelectValid || startTimePickerValid) && (endTimeSelectValid || endTimePickerValid))
+    }else{
+      return dateValid
+    }
   }
 
   getFormatSeparator = () => {

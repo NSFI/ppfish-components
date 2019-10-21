@@ -281,11 +281,6 @@ class DateRangeBasePicker extends React.Component {
       if(error) {
         this.setState({
           pickerVisible: error,
-          value: this.state.confirmValue && this.state.confirmValue.length === 2 ? this.state.confirmValue : null,
-          text: (
-            this.state.confirmValue && this.state.confirmValue.length === 2 ?
-              [this.dateToStr(new Date(this.state.confirmValue[0])), this.dateToStr(new Date(this.state.confirmValue[1]))] : ''
-          )
         });
         return;
       }
