@@ -37,6 +37,10 @@ export default class DateRangePicker extends DateRangeBasePicker {
     return this.props.separator;
   }
 
+  onError = (value) => {
+    return this.props.onError && typeof this.props.onError === "function" ? this.props.onError(value) : undefined;
+  }
+
   pickerPanel(state) {
     const value = state.value && this.isDateValid(state.value) ? state.value : null;
     return (
