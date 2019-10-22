@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMDTranslator from 'react-md-translator';
+import ReactMDTranslator from './react-md-translator';
 
 import {plainComponents} from '../../componentsPage';
 import renderer from './renderer';
 import * as source from './source.js';
 import Slider from './slider/index.js';
-import 'react-md-translator/style/index.less';
 
 export default class Loadable extends React.Component {
 
