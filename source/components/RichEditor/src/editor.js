@@ -157,7 +157,8 @@ class RichEditor extends Component {
       toolbarCtner: null,
       curRange: null,
       curVideoType: this.defaultVideoType,
-      defaultInputLink: "http://"
+      defaultInputLink: "http://",
+      linkModalTitle: "插入超链接"
     };
     this.handlers = {
       link: (value, fromAction) => {
@@ -180,6 +181,9 @@ class RichEditor extends Component {
           // 点击编辑链接触发
           if (fromAction) {
             newState['defaultInputLink'] = value;
+            newState['linkModalTitle'] = "编辑超链接";
+          } else {
+            newState['linkModalTitle'] = "插入超链接";
           }
 
           this.setState(newState);
@@ -868,7 +872,8 @@ class RichEditor extends Component {
       showImageModal,
       toolbarCtner,
       curVideoType,
-      defaultInputLink
+      defaultInputLink,
+      linkModalTitle
     } = this.state;
     const {
       className, prefixCls,
@@ -906,7 +911,7 @@ class RichEditor extends Component {
     return (
       <div className={cls} style={style} ref={(el) => this.editorCtner = el}>
         <Modal
-          title="插入超链接"
+          title={linkModalTitle}
           className={`${prefixCls}-link-modal`}
           visible={showLinkModal}
           onOk={this.handleLinkModalOk}
