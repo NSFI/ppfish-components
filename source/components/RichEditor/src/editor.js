@@ -971,7 +971,7 @@ class RichEditor extends Component {
           onCancel={this.handleImageModalCancel}
         >
           <Button type="primary" onClick={this.handlePickLocalImage}>选择本地图片</Button>
-          <div className="tip">{insertImageTip}</div>
+          { insertImageTip ? <div className="tip">{insertImageTip}</div> : null }
         </Modal>
         <Modal
           title="插入视频"
@@ -997,7 +997,7 @@ class RichEditor extends Component {
                 type="primary"
                 onClick={this.handlePickLocalVideo}
               >选择本地视频</Button>
-              <div className="tip">{insertVideoTip}</div>
+              { insertVideoTip ? <div className="tip">{insertVideoTip}</div> : null }
             </React.Fragment> : 
             <Input
               ref={el => this.videoModalInputRef = el}
