@@ -126,6 +126,7 @@ class RichEditor extends Component {
   constructor(props) {
     super(props);
     this.reactQuillNode = document.body;
+    this.defaultFontSize = "14px";
 
     let { value, customLink, supportFontTag, pastePlainText, customInsertVideo } = this.props;
 
@@ -863,6 +864,47 @@ class RichEditor extends Component {
     });
   };
 
+  getCurrentSize = () => {
+    let quill = this.getEditor();
+    if (!quill) return null;
+
+    let formats = quill.getFormat(),
+      customAttr = formats && formats.customAttr,
+      customAttrType = Object.prototype.toString.call(customAttr);
+
+    if (!customAttr) return this.defaultFontSize;
+
+    if (customAttrType == "[object Object]") {
+      return customAttr.fontSize || this.defaultFontSize;
+    }
+
+    if (customAttrType == "[object Array]") {
+      let len = customAttr.length;
+      if (len) {
+        let fontSize = customAttr[0].fontSize,
+          hasMultiFontSize = false;
+
+        for (let i=0; i<len; i++) {
+          // 选中的富文本有多种字体大小时不高亮字号
+          if (customAttr[i].fontSize != fontSize) {
+            hasMultiFontSize = true;
+            break;
+          }
+        }
+
+        if (hasMultiFontSize) {
+          return null;
+        } else {
+          return fontSize;
+        }
+      } else {
+        return this.defaultFontSize;
+      }
+    }
+
+    return null;
+  };
+
   render() {
     const {
       loading,
@@ -979,6 +1021,7 @@ class RichEditor extends Component {
           popoverPlacement={popoverPlacement}
           tooltipPlacement={tooltipPlacement}
           getPopupContainer={getPopupContainer}
+          getCurrentSize={this.getCurrentSize}
         />
         <ReactQuill
           {...restProps}

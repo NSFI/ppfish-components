@@ -43,21 +43,6 @@ COLORS.forEach(function(color, index) {
   );
 });
 
-let defaultSizes = [
-  '32px', '24px', '18px', '16px', '13px', '12px'
-].map(function(size, index) {
-  return (
-    <button
-      className="size-item"
-      key={"default_size_" + index}
-      value={size}
-      style={{fontSize: size}}
-    >
-      {size}
-    </button>
-  );
-});
-
 const EMOJI_DEFAULT_WIDTH = 24;
 const EMOJI_DEFAULT_HEIGHT = 24;
 const EMOJI_COSTOM_WIDTH = 74;
@@ -161,6 +146,7 @@ class CustomToolbar extends PureComponent {
     handleFormatColor: PropTypes.func,
     handleFormatSize: PropTypes.func,
     handleInsertValue: PropTypes.func,
+    getCurrentSize: PropTypes.func
   };
 
   static defaultProps = {
@@ -178,6 +164,11 @@ class CustomToolbar extends PureComponent {
 
   constructor(props) {
     super(props);
+
+    this.defaultSizes = ['32px', '24px', '18px', '16px', '13px', '12px'];
+    this.state = {
+      curSize: null
+    };
   }
 
   componentDidMount() {
@@ -542,24 +533,32 @@ class CustomToolbar extends PureComponent {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-size`]: true
           });
-          let sizeHTML = defaultSizes;
+
+          this.curSizeList = this.defaultSizes;
           if (Array.isArray(mValue) && mValue.length) {
-            sizeHTML = mValue.map(function(size, index) {
-              return (
-                <button
-                  className="size-item"
-                  key={"custom_size_" + index}
-                  value={size}
-                  style={{fontSize: size}}
-                >
-                  {size}
-                </button>
-              );
-            });
+            this.curSizeList = mValue;
           }
+
           let content = (
             <div className="size-con" onClick={handleFormatSize}>
-              {sizeHTML}
+              {
+                this.curSizeList && this.curSizeList.map((size, index) => {
+                  const sizeItemCls = classNames('size-item', {
+                    'active': size && (this.state.curSize == size.trim())
+                  });
+
+                  return (
+                    <button
+                      className={sizeItemCls}
+                      key={"custom_size_" + index}
+                      value={size}
+                      style={{fontSize: size}}
+                    >
+                      {size}
+                    </button>
+                  );
+                })
+              }
             </div>
           );
 
@@ -572,6 +571,7 @@ class CustomToolbar extends PureComponent {
               key={key}
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
+              onVisibleChange={this.handleSizePopoverVisibleChange}
             >
               <Tooltip
                 trigger="hover"
@@ -751,7 +751,6 @@ class CustomToolbar extends PureComponent {
 
   genToolbar = (toolbar) => {
     let result = [];
-
     toolbar.forEach((item, index) => {
       // 分组展示的项目
       if (item instanceof Array) {
@@ -779,6 +778,18 @@ class CustomToolbar extends PureComponent {
   //   btn.setAttribute('value', color);
   //   btn.click();
   // };
+
+  handleSizePopoverVisibleChange = (visible) => {
+    if (!visible) return;
+    let { getCurrentSize } = this.props,
+      curSize = getCurrentSize && getCurrentSize();
+
+    if (curSize != this.state.curSize) {
+      this.setState({
+        curSize
+      });
+    }
+  };
 
   render() {
     const { className, style, toolbar } = this.props;
