@@ -533,6 +533,7 @@ __请注意：默认情况下，使用编辑器内置的插入/粘贴/拖入图�
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
 | imageDrop | 是否支持以粘贴或拖入的方式插入图片 | Boolean | false |
 | insertImageTip | 插入图片的文字提示 | String \| HTMLElement | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
+| insertLinkTip | 插入超链接的文字提示 | String \| HTMLElement | - |
 | insertVideoTip | 插入视频的文字提示 | String \| HTMLElement | `<span>1、单个视频不超过10M，支持MP4、3GP格式视频。</span><br/><span>2、最佳显示高度不超过400px, 宽度不超过270px。</span>` |
 | loading | 是否展示加载中的状态 | Boolean | false |
 | onBlur | 失去焦点时的回调 | (previousRange, source, editor) => Void | - |

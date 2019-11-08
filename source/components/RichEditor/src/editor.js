@@ -63,6 +63,7 @@ class RichEditor extends Component {
     value: PropTypes.string,
     insertImageTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     insertVideoTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    insertLinkTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     popoverPlacement: PropTypes.string,
     tooltipPlacement: PropTypes.string,
     videoTagAttrs: PropTypes.object,
@@ -915,6 +916,7 @@ class RichEditor extends Component {
       customEmoji,
       insertImageTip,
       insertVideoTip,
+      insertLinkTip,
       onChange,
       onSelectionChange,
       popoverPlacement,
@@ -950,6 +952,7 @@ class RichEditor extends Component {
         >
           <span className="text">超链接地址</span>
           <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue={defaultInputLink} />
+          { insertLinkTip ? <div className="tip">{insertLinkTip}</div> : null }
         </Modal>
         <Modal
           title="插入图片"
