@@ -167,7 +167,8 @@ class CustomToolbar extends PureComponent {
 
     this.defaultSizes = ['32px', '24px', '18px', '16px', '13px', '12px'];
     this.state = {
-      curSize: null
+      curSize: null,
+      sizePopoverVisible: false
     };
   }
 
@@ -182,7 +183,6 @@ class CustomToolbar extends PureComponent {
       handleInsertEmoji,
       handleFormatBackground,
       handleFormatColor,
-      handleFormatSize,
       handleInsertValue,
       prefixCls,
       customEmoji,
@@ -540,7 +540,7 @@ class CustomToolbar extends PureComponent {
           }
 
           let content = (
-            <div className="size-con" onClick={handleFormatSize}>
+            <div className="size-con" key="custom_size_content" onClick={this.handleSizeItemClick}>
               {
                 this.curSizeList && this.curSizeList.map((size, index) => {
                   const sizeItemCls = classNames('size-item', {
@@ -569,6 +569,7 @@ class CustomToolbar extends PureComponent {
               content={content}
               title={null}
               key={key}
+              visible={this.state.sizePopoverVisible}
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
               onVisibleChange={this.handleSizePopoverVisibleChange}
@@ -580,9 +581,7 @@ class CustomToolbar extends PureComponent {
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
-                  <div className={sizeCls} >
-                    <button type="button" data-role="customSize" value="" className="ql-customAttr hide" />
-                  </div>
+                  <div className={sizeCls}></div>
                 </div>
               </Tooltip>
             </Popover>
@@ -749,6 +748,18 @@ class CustomToolbar extends PureComponent {
     return value;
   };
 
+  handleSizeItemClick = (e) => {
+    let { handleFormatSize } = this.props,
+      target = e.target;
+
+    if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
+      handleFormatSize && handleFormatSize(target.getAttribute('value'));
+      this.setState({
+        sizePopoverVisible: false
+      });
+    }
+  };
+
   genToolbar = (toolbar) => {
     let result = [];
     toolbar.forEach((item, index) => {
@@ -780,6 +791,10 @@ class CustomToolbar extends PureComponent {
   // };
 
   handleSizePopoverVisibleChange = (visible) => {
+    this.setState({
+      sizePopoverVisible: visible
+    });
+
     if (!visible) return;
     let { getCurrentSize } = this.props,
       curSize = getCurrentSize && getCurrentSize();

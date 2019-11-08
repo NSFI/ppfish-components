@@ -715,23 +715,11 @@ class RichEditor extends Component {
     }
   };
 
-  handleFormatSize = (e) => {
-    let { toolbarCtner } = this.state,
-      target = e.target;
-
-    if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
-      let el = toolbarCtner.querySelector('button.ql-customAttr[data-role="customSize"]');
-      if (el == null) {
-        el = document.createElement('button');
-        toolbarCtner.querySelector('.custom-size').appendChild(el);
-      }
-
-      el.setAttribute('type', 'button');
-      el.setAttribute('data-role', 'customSize');
-      el.setAttribute('value', target.getAttribute('value'));
-      el.classList.add('ql-customAttr', 'hide');
-      el.click();
-    }
+  handleFormatSize = (value) => {
+    let quill = this.getEditor();
+    quill && quill.format('customAttr', {
+      fontSize: value
+    });
   };
 
   handleInsertValue = (e) => {
