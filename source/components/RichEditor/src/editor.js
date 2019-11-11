@@ -282,12 +282,25 @@ class RichEditor extends Component {
     // 处理定制的超链接
     Object.keys(customLink).forEach((moduleName) => {
       this.handlers[`${moduleName}Entry`] = function() {
-        let range = this.quill.getSelection();
+        let range = this.quill.getSelection(),
+          url = customLink[moduleName].url;
         if (range.length !== 0) {
-          this.quill.format('link', {
-            type: `${moduleName}Entry`,
-            url: customLink[moduleName].url
-          });
+          if (url) {
+            // 异步获取URL
+            if (Object.prototype.toString.call(url) == "[object Function]") {
+              url((value) => {
+                this.quill.format('link', {
+                  type: `${moduleName}Entry`,
+                  url: value
+                });
+              });
+            } else {
+              this.quill.format('link', {
+                type: `${moduleName}Entry`,
+                url
+              });
+            }
+          } 
         } else {
           message.error('没有选中文本');
         }
