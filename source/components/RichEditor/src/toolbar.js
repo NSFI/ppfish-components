@@ -6,6 +6,8 @@ import emojiList from './emojiList.js';
 import Tooltip from '../../Tooltip/index.tsx';
 import Popover from '../../Popover/index.tsx';
 import Tabs from '../../Tabs/index.tsx';
+import Input from '../../Input/index.tsx';
+import Icon from '../../Icon/index.tsx';
 
 const TabPane = Tabs.TabPane;
 
@@ -166,9 +168,11 @@ class CustomToolbar extends PureComponent {
     super(props);
 
     this.defaultSizes = ['32px', '24px', '18px', '16px', '13px', '12px'];
+    this.curInsertValueList = [];
     this.state = {
       curSize: null,
-      sizePopoverVisible: false
+      sizePopoverVisible: false,
+      curIVSearchValue: ''
     };
   }
 
@@ -176,6 +180,20 @@ class CustomToolbar extends PureComponent {
     let emojiImg = new Image();
     emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
   }
+
+  handleIVSearchChange = (e) => {
+    let value = e.target.value;
+
+    this.setState({
+      curIVSearchValue: value ? value : ''
+    });
+  };
+
+  handleClearIVSearch = () => {
+    this.setState({
+      curIVSearchValue: ''
+    });
+  };
 
   getModuleHTML = (mType, key) => {
     let {
@@ -223,35 +241,66 @@ class CustomToolbar extends PureComponent {
           [`${customModule.className}`]: !!customModule.className
         }),
         mValue = customModule.option || [],
-        editable = true,
-        html = null;
+        editable = true;
 
       if (customModule.editable != undefined) {
         editable = customModule.editable;
       }
 
       if (Array.isArray(mValue) && mValue.length) {
-        html = mValue.map(function(item, index) {
+        this.curInsertValueList = mValue;
+      }
+
+      let filteredValueList = this.curInsertValueList || [];
+      if (customModule.showSearch && this.curInsertValueList && this.curInsertValueList.length) {
+        filteredValueList = this.curInsertValueList.filter((item) => {
           return (
-            <button
-              className="insert-value-item"
-              key={"insert_value_" + index}
-              title={item.title}
-              value={
-                JSON.stringify({
-                  value: item.value,
-                  editable: item.editable != undefined ? item.editable : editable
-                })
-              }
-            >
-              {item.title}
-            </button>
+            item.title && 
+            item.title.toLowerCase().indexOf(this.state.curIVSearchValue.toLowerCase()) > -1
           );
         });
       }
+
       let content = (
         <div className="insert-value-con" onClick={handleInsertValue}>
-          {html}
+          {
+            customModule.showSearch ?
+            <div className="insert-value-search">
+              <Input
+                placeholder={customModule.searchPlaceholder ? customModule.searchPlaceholder : "请输入关键字"}
+                suffix={
+                  this.state.curIVSearchValue ?
+                  <Icon
+                    className="insert-value-icon-clear"
+                    type="close-circle-fill"
+                    onClick={this.handleClearIVSearch}
+                  /> : null
+                }
+                value={this.state.curIVSearchValue}
+                onChange={this.handleIVSearchChange}
+              />
+            </div> : null
+          }
+          {
+            filteredValueList.length ? 
+            filteredValueList.map(function(item, index) {
+              return (
+                <button
+                  className="insert-value-item"
+                  key={"insert_value_" + index}
+                  title={item.title}
+                  value={
+                    JSON.stringify({
+                      value: item.value,
+                      editable: item.editable != undefined ? item.editable : editable
+                    })
+                  }
+                >
+                  {item.title}
+                </button>
+              );
+            }) : <div className="insert-value-empty">暂无数据</div>
+          }
         </div>
       );
 
