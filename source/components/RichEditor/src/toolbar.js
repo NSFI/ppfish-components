@@ -630,7 +630,7 @@ class CustomToolbar extends PureComponent {
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
-                  <div className={sizeCls}></div>
+                  <div className={sizeCls} />
                 </div>
               </Tooltip>
             </Popover>

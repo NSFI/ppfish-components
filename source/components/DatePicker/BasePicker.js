@@ -376,7 +376,7 @@ class BasePicker extends React.Component {
                   });
                 }
               }}
-              ref={e=> this.refInputRoot = e }
+              ref={e=> this.refInputRoot = e}
               value={text}
               prefix={prefixIcon()}
               suffix={suffixIcon()}

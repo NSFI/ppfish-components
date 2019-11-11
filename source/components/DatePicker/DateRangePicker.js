@@ -38,13 +38,25 @@ export default class DateRangePicker extends DateRangeBasePicker {
     if(this.props.showTime) {
       const startTime = value && value.length >= 2 ? value[0] : null;
       const endTime = value && value.length >= 2 ? value[1] : null;
-      const startTimeSelectValid = startTime && this.props.startTimeSelectMode === 'TimeSelect' && TimeSelectPanel.isValid(this.dateToStr(startTime).split(" ")[1], this.props.startTimeSelectModeProps);
-      const startTimePickerValid = startTime && this.props.startTimeSelectMode === 'TimePicker' && TimePanel.isValid(startTime, converSelectRange({selectableRange:this.props.startTimeSelectableRange}));
-      const endTimeSelectValid = endTime && this.props.endTimeSelectMode === 'TimeSelect' && TimeSelectPanel.isValid(this.dateToStr(endTime).split(" ")[1], this.props.endTimeSelectModeProps);
-      const endTimePickerValid = endTime && this.props.endTimeSelectMode === 'TimePicker' && TimePanel.isValid(endTime, converSelectRange({selectableRange:this.props.endTimeSelectableRange}));
-      return dateValid && ((startTimeSelectValid || startTimePickerValid) && (endTimeSelectValid || endTimePickerValid))
+      const startTimeSelectValid = (
+        startTime && this.props.startTimeSelectMode === 'TimeSelect' &&
+        TimeSelectPanel.isValid(this.dateToStr(startTime).split(" ")[1], this.props.startTimeSelectModeProps)
+      );
+      const startTimePickerValid = (
+        startTime && this.props.startTimeSelectMode === 'TimePicker' &&
+        TimePanel.isValid(startTime, converSelectRange({selectableRange:this.props.startTimeSelectableRange}))
+      );
+      const endTimeSelectValid = (
+        endTime && this.props.endTimeSelectMode === 'TimeSelect' &&
+        TimeSelectPanel.isValid(this.dateToStr(endTime).split(" ")[1], this.props.endTimeSelectModeProps)
+      );
+      const endTimePickerValid = (
+        endTime && this.props.endTimeSelectMode === 'TimePicker' &&
+        TimePanel.isValid(endTime, converSelectRange({selectableRange:this.props.endTimeSelectableRange}))
+      );
+      return dateValid && ((startTimeSelectValid || startTimePickerValid) && (endTimeSelectValid || endTimePickerValid));
     }else{
-      return dateValid
+      return dateValid;
     }
   }
 
