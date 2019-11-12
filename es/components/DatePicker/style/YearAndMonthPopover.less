@@ -1,0 +1,27 @@
+@import (reference) "../../../assets/css/index";
+@prefixClass: @fishd-prefix;
+
+.@{prefixClass}-year-and-month-popover {
+  overflow: auto;
+  .scrollbar();
+  overflow-x: hidden;
+  min-width: 60px;
+  text-align: center;
+  max-height: 200px;
+  font-size: @font-size-sm;
+  &-item {
+    cursor: pointer;
+  }
+
+  &-item.active {
+    color: @primary-color;
+  }
+
+  &-item:hover {
+    background-color: @datepicker-hover-background-color;
+  }
+
+  &-item + &-item {
+    margin-top: 8px;
+  }
+}

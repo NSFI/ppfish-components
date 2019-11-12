@@ -1,0 +1,87 @@
+@import (reference) "../../../assets/css/index";
+
+@anchor-border-width: 2px;
+@anchor-border-color: #f2f2f5;
+
+.@{fishd-prefix}-anchor {
+  .reset-component;
+  position: relative;
+  &-wrapper {
+    background-color: @component-background;
+    overflow: auto;
+  }
+
+  &-ink {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    width: 6px;
+    &&-left {
+      left: 0;
+    }
+    &&-right {
+      right: 0;
+    }
+    &:before {
+      content: ' ';
+      position: relative;
+      width: @anchor-border-width;
+      height: 100%;
+      display: block;
+      background-color: @anchor-border-color;
+      margin: 0 auto;
+    }
+    &-ball {
+      display: none;
+      position: absolute;
+      width: 0;
+      left: 3px;
+      border: 1px solid @primary-color;
+      background-color: @component-background;
+      transition: top 0.3s ease-in-out;
+      transform: translateX(-50%);
+      &.visible {
+        display: inline-block;
+      }
+    }
+  }
+
+  &.fixed &-ink &-ink-ball {
+    display: none;
+  }
+
+  &-link {
+    padding: 9px 0 9px 16px;
+    line-height: 1;
+
+    &-title {
+      display: block;
+      position: relative;
+      transition: all 0.3s;
+      color: @text-color;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 8px;
+      &-active {
+        color: @primary-color;
+      }
+      &:only-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-active {
+      transition: background 0.3s ease-in-out;
+    }
+  }
+
+  &-link-group {
+    > .@{fishd-prefix}-anchor-children {
+      margin-bottom: 4px;
+      > .@{fishd-prefix}-anchor-link {
+        padding-left: 28px;
+      }
+    }
+  }
+}

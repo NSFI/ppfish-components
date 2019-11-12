@@ -1,0 +1,34 @@
+@import (reference) "../../assets/css/index";
+
+@ellipsis-prefix-cls: ~"@{fishd-prefix}-ellipsis";
+
+.@{ellipsis-prefix-cls}-ellipsis {
+  overflow: hidden;
+  display: inline-block;
+  word-break: break-all;
+  width: 100%;
+}
+
+.@{ellipsis-prefix-cls}-width-mode {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: auto;
+}
+
+.@{ellipsis-prefix-cls}-lines {
+  position: relative;
+  .shadow {
+    display: block;
+    position: absolute;
+    color: transparent;
+    opacity: 0;
+    z-index: -999;
+  }
+}
+
+.@{ellipsis-prefix-cls}-lineClamp {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+}

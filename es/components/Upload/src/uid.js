@@ -1,0 +1,10 @@
+"use strict";
+
+exports.__esModule = true;
+exports.default = uid;
+var now = +new Date();
+var index = 0;
+
+function uid() {
+  return "rc-upload-" + now + "-" + ++index;
+}

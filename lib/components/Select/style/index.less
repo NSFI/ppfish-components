@@ -1,0 +1,389 @@
+@import (reference) "../../../assets/css/index";
+@import "trigger.less";
+
+@select-prefix: ~"@{fishd-prefix}-select";
+
+/**
+下拉筛选框的高度、行高、选项高度、选项行高变量计算
+ */
+
+//lg
+@select-line-height-lg: @select-height-lg - 2px;
+@select-option-height-lg: @select-height-lg - 8px;
+@select-option-line-height-lg: @select-option-height-lg - 2px;
+//base
+@select-line-height-base: @select-height-base - 2px;
+@select-option-height-base: @select-height-base - 8px;
+@select-option-line-height-base: @select-option-height-base - 2px;
+//sm
+@select-line-height-sm: @select-height-sm - 2px;
+@select-option-height-sm: @select-height-sm - 8px;
+@select-option-line-height-sm: @select-option-height-sm - 2px;
+
+//select面板
+.@{select-prefix} {
+  .reset-component();
+  height: @select-height-base;
+  display: inline-block;
+  position: relative;
+  background: @component-background;
+  //fix vertical-align
+  vertical-align: -(@select-height-base/2 - 5);
+  cursor: pointer;
+  padding-right: 32px;
+  border-radius: @border-radius-base;
+  border: @border-width-base @border-style-base @select-border-color;
+  user-select: none;
+  .clearfix;
+
+  //状态处理
+  &:hover:not(&-disabled) {
+    border-color: @primary-5;
+    border-right: @border-width-base @border-style-base @primary-color;
+  }
+  &:active:not(&-disabled),
+  &:focus:not(&-disabled) {
+    border-color: @primary-color;
+    outline: 0;
+    box-shadow: @box-shadow-active;
+  }
+  //开启状态
+  &.open {
+    border: @border-width-base @border-style-base @primary-color;
+  }
+
+  //禁用状态
+  &&-disabled {
+    background: @disabled-bg;
+    color: @disabled-color;
+    cursor: not-allowed;
+    .@{select-prefix}-placeholder {
+      color: @text-c;
+    }
+    .@{select-prefix}-option-single {
+       color: @disabled-color;
+    }
+    .@{select-prefix}-option-multiple {
+       color: @disabled-color;
+    }
+  }
+
+  //面板内容区
+  &-content {
+    .clearfix;
+  }
+
+  //右侧箭头
+  &-caret {
+    > i {
+      font-size: 12px;
+      position: absolute;
+      right: 18px;
+      color: @text-9;
+      top: 50%;
+      margin-top: -6px;
+      .iconfont-size-under-12px(8px);
+      &:before {
+        transition: all 0.3s ease;
+      }
+      &.open:before {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  //空白提示
+  &-placeholder {
+    position: absolute;
+    font-size: @font-size-base;
+    top: 50%;
+    left: @control-padding-horizontal;
+    color: @input-placeholder-color;
+    line-height: 20px;
+    padding-right: 35px;
+    height: 20px;
+    max-width: 100%;
+    margin-top: -10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  //可清除选项列表
+  &-option-clearable-list {
+    height: auto;
+    cursor: default;
+    margin: 0 0 3px 5px;
+    max-height: @select-height-base*3 - 14px;
+    line-height: @select-line-height-base;
+    overflow: auto;
+    .scrollbar();
+    .clearfix;
+  }
+  //可清除选项
+  &-option-clearable-option {
+    .ellipsis;
+    display: inline-block;
+    //单个选项最多占满一行
+    max-width: calc(~"100% - 5px");
+    height: @select-option-height-base;
+    line-height: @select-option-line-height-base;
+    background: @text-d;
+    color: @text-3;
+    margin-right: 4px;
+    margin-top: 3px;
+    padding: 0 20px 0 @control-padding-horizontal;
+    float: left;
+    position: relative;
+    &-content {
+      position: relative;
+      top: 1px;
+    }
+    &-close {
+      position: absolute;
+      border-radius: @border-radius-base;
+      transform: scale(0.66);
+      color: @text-9;
+      cursor: pointer;
+      right: 5px;
+      top: 1px;
+    }
+  }
+
+  //单选、多选面板
+  &-option-single,
+  &-option-multiple {
+    float: left;
+    color: @text-3;
+    line-height: @select-line-height-base;
+    padding-left: @control-padding-horizontal;
+    width: 100%;
+    .ellipsis();
+  }
+
+  &-loading {
+    position: absolute;
+    padding-left: @control-padding-horizontal;
+    width: 100%;
+    height: 100%;
+    color: @text-9;
+    > div {
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &-small {
+    height: @select-height-sm;
+    font-size: @font-size-sm;
+    //fix vertical-align
+    vertical-align: -(@select-height-sm/2 - 5);
+    .@{select-prefix}-loading {
+      font-size: @font-size-sm;
+    }
+    .@{select-prefix}-option-clearable-list {
+      line-height: @select-line-height-sm;
+      max-height: @select-height-sm*3 - 14px;
+    }
+    .@{select-prefix}-option-clearable-option {
+      height: @select-option-height-sm;
+      line-height: @select-option-line-height-sm;
+    }
+    .@{select-prefix}-option-single,
+    .@{select-prefix}-option-multiple {
+      line-height: @select-line-height-sm;
+    }
+  }
+
+  &-large {
+    height: @select-height-lg;
+    font-size: @font-size-lg;
+    //fix vertical-align
+    vertical-align: -(@select-height-lg/2 - 5);
+    .@{select-prefix}-placeholder {
+      font-size: @font-size-lg;
+    }
+    .@{select-prefix}-option-clearable-list {
+      line-height: @select-line-height-lg;
+      max-height: @select-height-lg*3 - 14px;
+    }
+    .@{select-prefix}-option-clearable-option {
+      height: @select-option-height-lg;
+      line-height: @select-option-line-height-lg;
+    }
+    .@{select-prefix}-option-single,
+    .@{select-prefix}-option-multiple {
+      line-height: @select-line-height-lg;
+    }
+  }
+}
+
+//select下拉面板
+.@{select-prefix}-dropdown {
+  line-height: 1.5;
+  color: @text-color;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  background-color: @component-background;
+  box-shadow: @box-shadow-base;
+  border-radius: @border-radius-base;
+  font-size: @font-size-base;
+  //loading状态
+  &-loading {
+    padding-left: @control-padding-horizontal;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    color: @text-9;
+    user-select: none;
+  }
+  //搜索框
+  &-search {
+    padding: 10px 12px 4px;
+    &-clear {
+      cursor: pointer;
+      font-size: @font-size-sm;
+      color: @text-9;
+      width: 12px;
+      height: 12px;
+      transition: color 0.3s ease, opacity 0.15s ease;
+      &:hover {
+        color: @text-color-secondary;
+      }
+    }
+  }
+  //option列表
+  &-list {
+    overflow: auto;
+    padding: 8px 0;
+    .scrollbar();
+  }
+  //optGroup
+  &-option-group {
+    outline: none;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
+  }
+  &-option-group-label {
+    margin: 0 0 4px;
+    padding-left: 12px;
+    height: 24px;
+    line-height: 24px;
+    background: @text-d;
+    color: @text-9;
+    user-select: none;
+    cursor: default;
+  }
+  //option
+  &-option-item {
+    .ellipsis();
+    user-select: none;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    padding: 5px 35px 5px 12px;
+    line-height: 22px;
+    font-weight: 400;
+    color: @text-2;
+    &:hover:not(&-disabled),
+    &.active:not(&-disabled) {
+      background: @select-hover-bg;
+    }
+    &.checked {
+      color: @primary-color;
+      position: relative;
+    }
+    &.checked-icon {
+      position: relative;
+      &:after {
+        display: inline-block;
+        width: 14px;
+        height: 100%;
+        position: absolute;
+        right: 18px;
+        color: @primary-color;
+        /* stylelint-disable-next-line */
+        font-family: fishdicon;
+        content: "\e671";
+        font-size: 12px;
+      }
+    }
+    &&-disabled {
+      color: @disabled-color;
+      cursor: not-allowed;
+      &::after {
+        color: @disabled-color;
+      }
+    }
+  }
+  //空状态框
+  &-not-found {
+    padding: 5px 27px 5px 12px;
+    color: @text-9;
+    cursor: default;
+  }
+  //多选错误提示栏
+  &-error-panel {
+    padding: 8px;
+    border-top: @border-width-base @border-style-base @border-color-split;
+    &-msg {
+      color: @error-color;
+      margin: 0;
+      text-align: left;
+    }
+  }
+  //多选底部按钮组
+  &-footer {
+    padding: 8px;
+    border-top: @border-width-base @border-style-base @border-color-split;
+    text-align: right;
+    &-btn {
+      width: 80px;
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+//input-addon style fix
+.@{fishd-prefix}-input-group-wrapper {
+  .@{fishd-prefix}-input-group-addon {
+    .@{select-prefix} {
+      height: @select-height-base - 2px;
+      vertical-align: middle;
+    }
+    .@{select-prefix}-option-single {
+      line-height: @select-line-height-base - 2px;
+    }
+  }
+}
+
+.@{fishd-prefix}-input-group-wrapper-lg {
+  .@{fishd-prefix}-input-group-addon {
+    .@{select-prefix}-large {
+      height: @select-height-lg - 2px;
+    }
+    .@{select-prefix}-option-single {
+      line-height: @select-line-height-lg - 2px;
+    }
+  }
+}
+
+.@{fishd-prefix}-input-group-wrapper-sm {
+  .@{fishd-prefix}-input-group-addon {
+    .@{select-prefix}-small {
+      height: @select-height-sm - 2px;
+    }
+    .@{select-prefix}-option-single {
+      line-height: @select-line-height-sm - 2px;
+    }
+  }
+}

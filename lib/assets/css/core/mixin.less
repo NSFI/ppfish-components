@@ -1,0 +1,245 @@
+/* stylelint-disable */
+/**
+ * @description   此文件存放公共的 mixin，使用 function mixin 确保 mixin 不会输出
+ *                (http://less.bootcss.com/features/#mixins-feature-not-outputting-the-mixin)
+ */
+@import "../themes/default";
+
+// Sizing shortcuts
+
+.size(@width; @height) {
+  width: @width;
+  height: @height;
+}
+
+.square(@size) {
+  .size(@size; @size);
+}
+
+// Compatibility for browsers.
+
+// Placeholder text
+.placeholder(@color: @input-placeholder-color) {
+  // Firefox
+  &::-moz-placeholder {
+    color: @color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  // Internet Explorer 10+
+  &:-ms-input-placeholder {
+    color: @color;
+  }
+  // Safari and Chrome
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+}
+
+// mixins for clearfix
+// ------------------------
+.clearfix() {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// scrollbar mixin
+.scrollbar() {
+  /* 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸 */
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 0;
+    background-color: #fff;
+  }
+
+  /* 定义滑块 内阴影+圆角 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    // -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+    // background-color: #646566;
+    background-color: rgba(153, 153, 153, 0.8);
+  }
+}
+
+// iconfont mixin
+.iconfont-mixin() {
+  display: inline-block;
+  font-style: normal;
+  vertical-align: baseline;
+  text-align: center;
+  text-transform: none;
+  line-height: 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &:before {
+    display: block;
+    font-family: "@{iconfont-prefix}" !important;
+  }
+}
+
+.iconfont-font(@content) {
+  font-family: "@{iconfont-prefix}";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: @content;
+}
+
+// for iconfont font size
+// fix chrome 12px bug, support ie
+.iconfont-size-under-12px(@size, @rotate: 0deg) {
+  display: inline-block;
+  @font-scale: unit(@size / 12px);
+  font-size: 12px;
+  // IE9
+  font-size: ~"@{size} \9"; // lesshint duplicateProperty: false
+  transform: scale(@font-scale) rotate(@rotate);
+  :root & {
+    font-size: @font-size-sm; // reset IE9 and above
+  }
+}
+
+// motion
+.motion-common(@duration: @animation-duration-base) {
+  animation-duration: @duration;
+  animation-fill-mode: both;
+}
+
+.motion-common-leave(@duration: @animation-duration-base) {
+  animation-duration: @duration;
+  animation-fill-mode: both;
+}
+
+.make-motion(@className, @keyframeName, @duration: @animation-duration-base) {
+  .@{className}-enter,
+  .@{className}-appear {
+    .motion-common(@duration);
+    animation-play-state: paused;
+  }
+  .@{className}-leave {
+    .motion-common-leave(@duration);
+    animation-play-state: paused;
+  }
+  .@{className}-enter.@{className}-enter-active,
+  .@{className}-appear.@{className}-appear-active {
+    animation-name: ~"@{keyframeName}In";
+    animation-play-state: running;
+  }
+  .@{className}-leave.@{className}-leave-active {
+    animation-name: ~"@{keyframeName}Out";
+    animation-play-state: running;
+    pointer-events: none;
+  }
+}
+
+// reset component
+.reset-component() {
+  font-family: @font-family;
+  font-size: @font-size-base;
+  line-height: @line-height-base;
+  color: @text-color;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Encoded SVG Background
+.encoded-svg-background-i(@svg) {
+  @url: `encodeuricomponent(@{svg}) `;
+  background-image: url("data:image/svg+xml;charset=utf-8,@{url}");
+}
+
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.generate-ellipsis-multiple-lines(10);
+.generate-ellipsis-multiple-lines(@n, @i: 2) when (@i =< @n) {
+  .ellipsis-multiple-line-@{i} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: (@i);
+    -webkit-box-orient: vertical;
+  }
+  .generate-ellipsis-multiple-lines(@n, (@i + 1));
+}
+
+.transform(@t) {
+  transform: @t;
+}
+
+.transform-origin(@to) {
+  transform-origin: @to;
+}
+
+.display-box() {
+  display: flex;
+}
+
+.flex-direction(@direction: row) {
+  flex-direction: @direction;
+}
+
+.flex-wrap(@wrap: nowrap) {
+  flex-wrap: @wrap;
+}
+
+.flex-justify(@justify: flex-start) {
+  justify-content: @justify;
+}
+
+.box-align(@align: center) {
+  align-items: @align;
+}
+
+.box-align-content(@alignContent: stretch) {
+  align-content: @alignContent;
+}
+
+.box-flex(@scale: 1) {
+  flex: @scale;
+}
+
+.border-radius(@radius: 0) {
+  border-top-left-radius: @radius;
+  border-top-right-radius: @radius;
+  border-bottom-left-radius: @radius;
+  border-bottom-right-radius: @radius;
+}
+
+.box-sizing(@sizing: border-box) {
+  -webkit-box-sizing: @sizing;
+}
+
+.hide() {
+  display: none;
+}
+
+.show() {
+  display: block;
+}
+
+.invisible() {
+  visibility: hidden;
+}
+
+.affix() {
+  position: fixed;
+}
+
+// 渐变颜色
+.gradual-color( @direction , @color1, @color2 ) {
+  background: linear-gradient(to @direction, @color1, @color2);
+}
+

@@ -1,0 +1,11 @@
+"use strict";
+
+exports.__esModule = true;
+exports.MEDIA_ERROR = void 0;
+var MEDIA_ERROR = {
+  1: '视频被中止',
+  2: '网络断开，请检查网络',
+  3: '视频解析错误，暂无法播放',
+  4: '格式、服务器或网络问题，暂无法播放'
+};
+exports.MEDIA_ERROR = MEDIA_ERROR;

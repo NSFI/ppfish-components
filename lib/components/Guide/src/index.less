@@ -1,0 +1,351 @@
+/* stylelint-disable */
+
+@import (reference) '../../../assets/css/index';
+
+@guide-prefix: ~"@{fishd-prefix}-guide";
+
+@text-color: #2d2d2d;
+@popover-bg: #ffffff;
+@stage-bg: #ffffff;
+@button-bg: #f1f1f1;
+@disabled-btn-color: #808080;
+
+@popover-z-index: 1000000000;
+@overlay-z-index: 100002;
+@stage-z-index: 100003;
+@highlighted-element-z-index: 100004;
+
+// Note: If you update this duration, make sure to
+// update `ANIMATION_DURATION_MS` constant
+@animation-ms: 500;
+@animation-sec: (@animation-ms / 1000) * 1s;
+
+div#@{guide-prefix}-driver-popover-item {
+  display: none;
+  position: absolute;
+  background: @popover-bg;
+  color: @text-color;
+  margin: 0;
+  padding: 16px 24px;
+  border: 1px solid #ebedf0;
+  border-radius: 2px;
+  width: 360px;
+  box-shadow: 0 2px 6px 0 rgba(23,23,26,0.1);
+  z-index: @popover-z-index;
+
+  .@{guide-prefix}-driver-popover-tip {
+    border: 5px solid @popover-bg;
+    content: '';
+    position: absolute;
+
+    &.bottom {
+      bottom: -10px;
+      border-top-color: @popover-bg;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+
+      &.position-center {
+        left: 49%;
+      }
+
+      &.position-right {
+        right: 20px;
+      }
+    }
+
+    &.left {
+      left: -10px;
+      top: 10px;
+      border-top-color: transparent;
+      border-right-color: @popover-bg;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+
+      &.position-center {
+        top: 46%;
+      }
+
+      &.position-bottom {
+        top: auto;
+        bottom: 20px;
+      }
+    }
+
+    &.right {
+      right: -10px;
+      top: 10px;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: @popover-bg;
+
+      &.position-center {
+        top: 46%;
+      }
+
+      &.position-bottom {
+        top: auto;
+        bottom: 20px;
+      }
+    }
+
+    &.top {
+      top: -10px;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: @popover-bg;
+      border-left-color: transparent;
+
+      &.position-center {
+        left: 49%;
+      }
+
+      &.position-right {
+        right: 20px;
+      }
+    }
+
+    &.mid-center {
+      display: none;
+    }
+  }
+
+  .@{guide-prefix}-driver-close-btn {
+    position: absolute;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+    right: 20px;
+    top: 20px;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+    text-decoration: none;
+    outline: 0;
+
+    &:hover {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      text-decoration: none;
+    }
+  }
+
+  .@{guide-prefix}-driver-popover-footer {
+    display: block;
+    margin-top: 24px;
+
+    .@{guide-prefix}-driver-navigation-btns {
+      float: right;
+    }
+
+    button {
+      line-height: 1.5;
+      display: inline-block;
+      text-align: center;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 0 15px;
+      font-size: 14px;
+      border-radius: 2px;
+      height: 32px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      position: relative;
+      color: #333;
+      background-color: #fff;
+      border-color: #e1e3e6;
+    }
+
+    button.btn-primary {
+      color: #fff;
+      background-color: #337eff;
+      border-color: #337eff;
+    }
+
+    button.@{guide-prefix}-driver-disabled {
+      color: @disabled-btn-color;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .@{guide-prefix}-driver-prev-btn {
+      margin-right: 10px;
+      float: left;
+    }
+
+    .@{guide-prefix}-driver-prev-btn.@{guide-prefix}-driver-disabled {
+      display: none !important;
+    }
+
+    .@{guide-prefix}-driver-skip-btn {
+      float: left;
+      line-height: 32px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .@{guide-prefix}-driver-btn-group {
+      float: right;
+    }
+  }
+
+  .@{guide-prefix}-driver-popover-title {
+    font-weight: 600;
+    display: block;
+    position: relative;
+    font-size: 16px;
+    color: #333;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+
+  .@{guide-prefix}-driver-popover-description {
+    margin-bottom: 0;
+    line-height: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+}
+
+.@{guide-prefix}-driver-clearfix:before {
+  content: "";
+  display: table;
+}
+
+.@{guide-prefix}-driver-clearfix:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.@{guide-prefix}-driver-stage-no-animation {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
+
+  background: transparent !important;
+  outline: 5000px solid rgba(0, 0, 0, 0.75);
+}
+
+div#@{guide-prefix}-driver-page-overlay {
+  background: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  zoom: 1;
+  filter: alpha(opacity=70);
+  opacity: 0.7;
+  z-index: @overlay-z-index !important;
+
+  -webkit-transition: all @animation-sec;
+  -moz-transition: all @animation-sec;
+  -ms-transition: all @animation-sec;
+  -o-transition: all @animation-sec;
+  transition: all @animation-sec;
+}
+
+div#@{guide-prefix}-driver-highlighted-element-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 300px;
+  background: @stage-bg;
+  z-index: @stage-z-index !important;
+  display: none;
+  border-radius: 2px;
+
+  -webkit-transition: all @animation-sec;
+  -moz-transition: all @animation-sec;
+  -ms-transition: all @animation-sec;
+  -o-transition: all @animation-sec;
+  transition: all @animation-sec;
+
+  .@{guide-prefix}-driver-stage-index {
+    position: absolute;
+    top: -14px;
+    left: -14px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    background: #ffc758;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+
+  .@{guide-prefix}-driver-stage-index.left-bottom {
+    top: auto;
+    bottom: -14px;
+  }
+
+  .@{guide-prefix}-driver-stage-index.right-top {
+    left: auto;
+    right: -14px;
+  }
+
+  .@{guide-prefix}-driver-stage-index.right-bottom {
+    top: auto;
+    left: auto;
+    right: -14px;
+    bottom: -14px;
+  }
+}
+
+.@{guide-prefix}-driver-highlighted-element {
+  z-index: @highlighted-element-z-index !important;
+}
+
+.@{guide-prefix}-driver-position-relative {
+  position: relative !important;
+}
+
+.@{guide-prefix}-driver-fix-stacking {
+  z-index: auto !important;
+  opacity: 1 !important;
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  -o-transform: none !important;
+  transform: none !important;
+  -webkit-filter: none !important;
+  -moz-filter: none !important;
+  -ms-filter: none !important;
+  -o-filter: none !important;
+  filter: none !important;
+  -webkit-perspective: none !important;
+  -moz-perspective: none !important;
+  -ms-perspective: none !important;
+  -o-perspective: none !important;
+  perspective: none !important;
+  -webkit-transform-style: flat !important;
+  -moz-transform-style: flat !important;
+  -ms-transform-style: flat !important;
+  transform-style: flat !important;
+  -webkit-transform-box: border-box !important;
+  -moz-transform-box: border-box !important;
+  -ms-transform-box: border-box !important;
+  -o-transform-box: border-box !important;
+  transform-box: border-box !important;
+  will-change: unset !important;
+}

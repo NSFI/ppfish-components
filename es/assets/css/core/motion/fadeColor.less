@@ -1,0 +1,54 @@
+.fade-color-motion(@className, @keyframeName) {
+  .@{className}-enter,
+  .@{className}-appear {
+    opacity: 0;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    animation-play-state: paused;
+  }
+
+  .@{className}-leave {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    animation-play-state: paused;
+  }
+
+  .@{className}-enter.@{className}-enter-active,
+  .@{className}-appear.@{className}-enter-active {
+    animation-name: ~"@{keyframeName}In";
+    animation-play-state: running;
+  }
+
+  .@{className}-leave.@{className}-leave-active {
+    animation-name: ~"@{keyframeName}Out";
+    animation-play-state: running;
+  }
+}
+
+.fade-color-motion(fade-color, fishdFadeColor);
+
+@keyframes fishdFadeColorIn {
+  0% {
+    opacity: 0;
+    background: #fcffda;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    background: #fcffda;
+  }
+  100% {
+    background: transparent;
+    opacity: 1;
+  }
+}
+
+@keyframes fishdFadeColorOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

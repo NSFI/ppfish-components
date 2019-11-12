@@ -1,0 +1,97 @@
+@import (reference) "../../../assets/css/index";
+
+@collapse-prefix-cls: ~"@{fishd-prefix}-collapse";
+.@{collapse-prefix-cls} {
+  height: 100%;
+  border: 1px solid @border-color-base;
+  border-radius: 2px;
+  border-bottom: 0;
+  background-color: #f7f8fa;
+  &-header {
+    position: relative;
+    height: 48px;
+    padding-left: 16px;
+    line-height: 48px;
+    font-size: 14px;
+    box-sizing: content-box;
+    color: #333;
+    cursor: pointer;
+    .close {
+      display: none;
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      text-align: center;
+    }
+    .z-close-show {
+      display: block;
+    }
+    .arrow {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      text-align: center;
+    }
+    .icon {
+      font-size: 10px;
+      color: #999;
+    }
+  }
+  &-header-disabled {
+    cursor: not-allowed;
+    color: @disabled-color;
+    .icon {
+      color: @disabled-color;
+    }
+  }
+  &-header-close {
+    padding-left: 40px;
+    .arrow {
+      top: 50%;
+      left: 16px;
+      right: inherit;
+      transform: translateY(-50%);
+      text-align: center;
+    }
+  }
+  &-header-custom {
+    padding: 0;
+    .arrow {
+      display: none;
+    }
+  }
+  &-content-box {
+    padding: 18px 16px;
+    border-top: 1px solid @border-color-base;
+    background-color: #fff;
+    clear: both;
+  }
+  &-content-active {
+    display: block;
+  }
+  &-item {
+    border-bottom: 1px solid @border-color-base;
+  }
+  &-content-inactive {
+    display: none;
+  }
+  &-item:first-child {
+    .@{collapse-prefix-cls}-header {
+      border-top: 0;
+    }
+  }
+}
+
+.@{collapse-prefix-cls}-borderless {
+  background-color: #fff;
+  border: 0;
+  .@{collapse-prefix-cls}-item {
+     .@{collapse-prefix-cls}-content-box {
+      background-color: transparent;
+      border-top: 0;
+    }
+  }
+}

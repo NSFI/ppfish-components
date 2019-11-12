@@ -1,0 +1,22 @@
+.@{prefixClass}-panel {
+  width: 200px + 22px;
+  background-color: #fff;
+  box-sizing: border-box;
+  outline: none;
+  z-index: 9;
+  border-radius: 4px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  * {
+    box-sizing: border-box;
+  }
+  &-open {
+    display: block;
+  }
+  &-close {
+    display: none;
+  }
+}

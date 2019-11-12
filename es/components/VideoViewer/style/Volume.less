@@ -1,0 +1,84 @@
+@import (reference) "../../../assets/css/index";
+@videoVolumePrefix: ~"@{fishd-prefix}-video-viewer-volume";
+@sliderPrefixClass: ~"@{fishd-prefix}-slider";
+
+.@{videoVolumePrefix} {
+  &-volume-box {
+    width: 30px;
+    height: 150px;
+  }
+
+  // 音量值
+  &-volume-value {
+    font-size: 12px;
+    color: #fff;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  &-volume-slider {
+    height: 120px;
+  }
+
+  // 音量图标
+  &-customer-handle {
+    width: 20px;
+    height: 13px;
+    background-color: #fff;
+    border-radius: 4px;
+    line-height: 10px;
+    text-align: center;
+    border: 1px solid #fff;
+    i {
+      color: #000;
+      font-size: 12px;
+    }
+  }
+
+  // Popover样式覆盖
+  .fishd-popover-arrow {
+    background: none;
+    transform: none;
+    width: 0;
+    height: 0;
+    position: absolute;
+    display: block;
+    border-style: solid;
+  }
+  .fishd-popover-placement-top > .fishd-popover-content > .fishd-popover-arrow {
+    box-shadow: none;
+    border-width: 5px 5px 0;
+    border-top-color: rgba(51, 51, 51, 0.9);
+    transform: none;
+  }
+  .fishd-popover-placement-top .fishd-popover-arrow {
+    left: 50%;
+    margin-left: -5px;
+  }
+  .fishd-popover-inner {
+    background: rgba(51, 51, 51, 0.9);
+  }
+  .fishd-popover-inner-content {
+    padding: 11px 4px;
+  }
+
+  // Slider样式覆盖
+  .@{sliderPrefixClass} {
+    margin: 6px 9px;
+    &-handle {
+      border: none;
+      margin-left: -8px;
+    }
+    &-handle-custom {
+      border-radius: 4px;
+    }
+    &-track {
+      background-color: @video-viewer-primary-color;
+    }
+    &:hover {
+      .@{sliderPrefixClass}-track {
+        background-color: @video-viewer-primary-color;
+      }
+    }
+  }
+}
