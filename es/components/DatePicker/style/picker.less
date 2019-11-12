@@ -58,8 +58,9 @@
         }
       }
       .range-separator {
-        display: flex;
-        align-items: center;
+        display: inline-block;
+        text-align: center;
+        line-height: @datepicker-height;
         /* stylelint-disable-next-line */
         &.disabled {
           color: @datepicker-disable-color;
@@ -75,8 +76,8 @@
       &:hover:not(.disabled) {
         border-color: @primary-5;
       }
-      .@{prefixClass}-date-range-picker-second-input {
-        //width: 93%;
+      .@{prefixClass}-input-affix-wrapper {
+        flex: 0 1 auto;
       }
       .@{prefixClass}-date-range-picker-second-input .@{prefixClass}-input {
         padding-left: 6px;
