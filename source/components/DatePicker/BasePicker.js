@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Trigger from 'rc-trigger';
-import {polyfill} from 'react-lifecycles-compat';
 import {HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from './constants';
 import {Errors, require_condition} from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
@@ -61,7 +60,6 @@ class BasePicker extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-
     if (
       "value" in nextProps &&
       !isEqual(nextProps.value, prevState.prevPropValue)
@@ -100,7 +98,7 @@ class BasePicker extends React.Component {
     return result;
   }
 
-  constructor(props, _type, state) {
+  constructor(props, _type,  state) {
     require_condition(typeof _type === 'string');
     super(props);
 
@@ -404,5 +402,5 @@ class BasePicker extends React.Component {
     );
   }
 }
-polyfill(BasePicker);
+
 export default BasePicker;

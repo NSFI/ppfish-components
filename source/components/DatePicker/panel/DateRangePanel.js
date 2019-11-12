@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
 import { DateTable } from '../basic';
 import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
@@ -849,5 +848,4 @@ DateRangePanel.isValid = (value, disabledDate) => {
   );
 };
 
-polyfill(DateRangePanel);
 export default DateRangePanel;

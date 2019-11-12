@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import {Link} from 'react-router';
 import lottie from 'lottie-web';

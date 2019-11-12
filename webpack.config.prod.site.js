@@ -9,7 +9,6 @@ const demoPath = './site/docs/demoPage/';
 const os = require('os');
 const HappyPack = require('happypack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-// import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 let happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 // WSL下这个uglifyJS有问题。
@@ -150,9 +149,6 @@ module.exports = {
     fs: 'empty'
   },
   plugins: [
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: 'static'
-    // }),
     new webpack.ProgressPlugin((percentage, message, ...args) => {
       console.log(`${(percentage * 100).toFixed(2)}%`, message, ...args); // eslint-disable-line
     }),

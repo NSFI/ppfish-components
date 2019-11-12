@@ -1,7 +1,7 @@
+import 'babel-polyfill';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {enquireScreen, unenquireScreen} from 'enquire-js';
-
 import {Divider, BackTop, Icon, Row, Col, Menu, Drawer, Affix} from '../../../source/components';
 import Layout from '../common/layout';
 import locales from '../../locales';

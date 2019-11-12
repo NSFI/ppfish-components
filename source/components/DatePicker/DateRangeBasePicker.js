@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Input from '../Input/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Trigger from 'rc-trigger';
-import {polyfill} from 'react-lifecycles-compat';
 import {HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from './constants';
 import {Errors, require_condition} from './libs/utils';
 import KEYCODE from '../../utils/KeyCode';
@@ -93,7 +92,6 @@ class DateRangeBasePicker extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-
     // 只 value 受控
     if ('value' in nextProps && !isEqual(prevState.prevPropValue, nextProps.value)) {
       let state = DateRangeBasePicker.propToState(nextProps, prevState);
@@ -436,5 +434,5 @@ class DateRangeBasePicker extends React.Component {
     );
   }
 }
-polyfill(DateRangeBasePicker);
+
 export default DateRangeBasePicker;

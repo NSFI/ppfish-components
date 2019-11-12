@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TimeSpinner from '../basic/TimeSpinner.js';
-import {polyfill} from 'react-lifecycles-compat';
 import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
 import { DEFAULT_FORMATS } from '../constants';
 import Locale from '../../../utils/date/locale';
@@ -185,5 +184,4 @@ class TimePanel extends React.Component {
   }
 }
 
-polyfill(TimePanel);
 export default TimePanel;
