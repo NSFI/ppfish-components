@@ -1,42 +1,40 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = exports.SubMenu = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _rcTrigger = _interopRequireDefault(require("rc-trigger"));
-
-var _utils = require("../../../utils");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _miniStore = require("mini-store");
-
-var _SubPopupMenu = _interopRequireDefault(require("./SubPopupMenu"));
-
-var _placements = _interopRequireDefault(require("./placements"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _util = require("./util");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import Trigger from 'rc-trigger';
+import { KeyCode } from '../../../utils';
+import classNames from 'classnames';
+import { connect } from 'mini-store';
+import SubPopupMenu from './SubPopupMenu';
+import placements from './placements';
+import Animate from 'rc-animate';
+import { noop, loopMenuItemRecursively, getMenuIdFromSubMenuEventKey, menuAllProps } from './util';
 var guid = 0;
 var popupPlacementMap = {
   horizontal: 'bottomLeft',
@@ -46,24 +44,24 @@ var popupPlacementMap = {
 };
 
 var updateDefaultActiveFirst = function updateDefaultActiveFirst(store, eventKey, defaultActiveFirst) {
-  var _Object$assign;
-
-  var menuId = (0, _util.getMenuIdFromSubMenuEventKey)(eventKey);
+  var menuId = getMenuIdFromSubMenuEventKey(eventKey);
   var state = store.getState();
   store.setState({
-    defaultActiveFirst: Object.assign({}, state.defaultActiveFirst, (_Object$assign = {}, _Object$assign[menuId] = defaultActiveFirst, _Object$assign))
+    defaultActiveFirst: _objectSpread({}, state.defaultActiveFirst, _defineProperty({}, menuId, defaultActiveFirst))
   });
 };
 
-var SubMenu =
+export var SubMenu =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(SubMenu, _React$Component);
+  _inherits(SubMenu, _React$Component);
 
   function SubMenu(_props) {
     var _this;
 
-    _this = _React$Component.call(this, _props) || this;
+    _classCallCheck(this, SubMenu);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SubMenu).call(this, _props));
 
     _defineProperty(_assertThisInitialized(_this), "onDestroy", function (key) {
       _this.props.onDestroy(key);
@@ -76,14 +74,14 @@ function (_React$Component) {
           isOpen = _this$props.isOpen,
           store = _this$props.store;
 
-      if (keyCode === _utils.KeyCode.ENTER) {
+      if (keyCode === KeyCode.ENTER) {
         _this.onTitleClick(e);
 
         updateDefaultActiveFirst(store, _this.props.eventKey, true);
         return true;
       }
 
-      if (keyCode === _utils.KeyCode.RIGHT) {
+      if (keyCode === KeyCode.RIGHT) {
         if (isOpen) {
           menu.onKeyDown(e);
         } else {
@@ -96,7 +94,7 @@ function (_React$Component) {
         return true;
       }
 
-      if (keyCode === _utils.KeyCode.LEFT) {
+      if (keyCode === KeyCode.LEFT) {
         var handled;
 
         if (isOpen) {
@@ -114,7 +112,7 @@ function (_React$Component) {
         return handled;
       }
 
-      if (isOpen && (keyCode === _utils.KeyCode.UP || keyCode === _utils.KeyCode.DOWN)) {
+      if (isOpen && (keyCode === KeyCode.UP || keyCode === KeyCode.DOWN)) {
         return menu.onKeyDown(e);
       }
     });
@@ -214,23 +212,23 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getPrefixCls", function () {
-      return _this.props.rootPrefixCls + "-submenu";
+      return "".concat(_this.props.rootPrefixCls, "-submenu");
     });
 
     _defineProperty(_assertThisInitialized(_this), "getActiveClassName", function () {
-      return _this.getPrefixCls() + "-active";
+      return "".concat(_this.getPrefixCls(), "-active");
     });
 
     _defineProperty(_assertThisInitialized(_this), "getDisabledClassName", function () {
-      return _this.getPrefixCls() + "-disabled";
+      return "".concat(_this.getPrefixCls(), "-disabled");
     });
 
     _defineProperty(_assertThisInitialized(_this), "getSelectedClassName", function () {
-      return _this.getPrefixCls() + "-selected";
+      return "".concat(_this.getPrefixCls(), "-selected");
     });
 
     _defineProperty(_assertThisInitialized(_this), "getOpenClassName", function () {
-      return _this.props.rootPrefixCls + "-submenu-open";
+      return "".concat(_this.props.rootPrefixCls, "-submenu-open");
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveMenuInstance", function (c) {
@@ -239,7 +237,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "addKeyPath", function (info) {
-      return Object.assign({}, info, {
+      return _objectSpread({}, info, {
         keyPath: (info.keyPath || []).concat(_this.props.eventKey)
       });
     });
@@ -270,7 +268,7 @@ function (_React$Component) {
       var ret = {
         find: false
       };
-      (0, _util.loopMenuItemRecursively)(_this.props.children, _this.props.selectedKeys, ret);
+      loopMenuItemRecursively(_this.props.children, _this.props.selectedKeys, ret);
       return ret.find;
     });
 
@@ -284,7 +282,7 @@ function (_React$Component) {
         return;
       }
 
-      var popupMenu = _reactDom.default.findDOMNode(_this.menuInstance);
+      var popupMenu = ReactDOM.findDOMNode(_this.menuInstance);
 
       if (popupMenu.offsetWidth >= _this.subMenuTitle.offsetWidth) {
         return;
@@ -292,7 +290,7 @@ function (_React$Component) {
       /* istanbul ignore next */
 
 
-      popupMenu.style.minWidth = _this.subMenuTitle.offsetWidth + "px";
+      popupMenu.style.minWidth = "".concat(_this.subMenuTitle.offsetWidth, "px");
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveSubMenuTitle", function (subMenuTitle) {
@@ -315,274 +313,275 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = SubMenu.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    this.componentDidUpdate();
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    var _this2 = this;
-
-    var _this$props6 = this.props,
-        mode = _this$props6.mode,
-        parentMenu = _this$props6.parentMenu,
-        manualRef = _this$props6.manualRef; // invoke customized ref to expose component to mixin
-
-    if (manualRef) {
-      manualRef(this);
+  _createClass(SubMenu, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.componentDidUpdate();
     }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this2 = this;
 
-    if (mode !== 'horizontal' || !parentMenu.isRootMenu || !this.props.isOpen) {
-      return;
+      var _this$props6 = this.props,
+          mode = _this$props6.mode,
+          parentMenu = _this$props6.parentMenu,
+          manualRef = _this$props6.manualRef; // invoke customized ref to expose component to mixin
+
+      if (manualRef) {
+        manualRef(this);
+      }
+
+      if (mode !== 'horizontal' || !parentMenu.isRootMenu || !this.props.isOpen) {
+        return;
+      }
+
+      this.minWidthTimeout = setTimeout(function () {
+        return _this2.adjustWidth();
+      }, 0);
     }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      var _this$props7 = this.props,
+          onDestroy = _this$props7.onDestroy,
+          eventKey = _this$props7.eventKey;
 
-    this.minWidthTimeout = setTimeout(function () {
-      return _this2.adjustWidth();
-    }, 0);
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    var _this$props7 = this.props,
-        onDestroy = _this$props7.onDestroy,
-        eventKey = _this$props7.eventKey;
-
-    if (onDestroy) {
-      onDestroy(eventKey);
-    }
-    /* istanbul ignore if */
+      if (onDestroy) {
+        onDestroy(eventKey);
+      }
+      /* istanbul ignore if */
 
 
-    if (this.minWidthTimeout) {
-      clearTimeout(this.minWidthTimeout);
-    }
-    /* istanbul ignore if */
+      if (this.minWidthTimeout) {
+        clearTimeout(this.minWidthTimeout);
+      }
+      /* istanbul ignore if */
 
 
-    if (this.mouseenterTimeout) {
-      clearTimeout(this.mouseenterTimeout);
-    }
-  };
-
-  _proto.renderChildren = function renderChildren(children) {
-    var props = this.props;
-    var baseProps = {
-      mode: props.mode === 'horizontal' ? 'vertical' : props.mode,
-      visible: this.props.isOpen,
-      level: props.level + 1,
-      inlineIndent: props.inlineIndent,
-      focusable: false,
-      onClick: this.onSubMenuClick,
-      onSelect: this.onSelect,
-      onDeselect: this.onDeselect,
-      onDestroy: this.onDestroy,
-      selectedKeys: props.selectedKeys,
-      eventKey: props.eventKey + "-menu-",
-      openKeys: props.openKeys,
-      openTransitionName: props.openTransitionName,
-      openAnimation: props.openAnimation,
-      onOpenChange: this.onOpenChange,
-      subMenuOpenDelay: props.subMenuOpenDelay,
-      parentMenu: this,
-      subMenuCloseDelay: props.subMenuCloseDelay,
-      forceSubMenuRender: props.forceSubMenuRender,
-      triggerSubMenuAction: props.triggerSubMenuAction,
-      builtinPlacements: props.builtinPlacements,
-      defaultActiveFirst: props.store.getState().defaultActiveFirst[(0, _util.getMenuIdFromSubMenuEventKey)(props.eventKey)],
-      multiple: props.multiple,
-      prefixCls: props.rootPrefixCls,
-      id: this._menuId,
-      manualRef: this.saveMenuInstance
-    };
-    var haveRendered = this.haveRendered;
-    this.haveRendered = true;
-    this.haveOpened = this.haveOpened || baseProps.visible || baseProps.forceSubMenuRender; // never rendered not planning to, don't render
-
-    if (!this.haveOpened) {
-      return _react.default.createElement("div", null);
-    } // don't show transition on first rendering (no animation for opened menu)
-    // show appear transition if it's not visible (not sure why)
-    // show appear transition if it's not inline mode
-
-
-    var transitionAppear = haveRendered || !baseProps.visible || !baseProps.mode === 'inline';
-    baseProps.className = " " + baseProps.prefixCls + "-sub";
-    var animProps = {};
-
-    if (baseProps.openTransitionName) {
-      animProps.transitionName = baseProps.openTransitionName;
-    } else if (typeof baseProps.openAnimation === 'object') {
-      animProps.animation = Object.assign({}, baseProps.openAnimation);
-
-      if (!transitionAppear) {
-        delete animProps.animation.appear;
+      if (this.mouseenterTimeout) {
+        clearTimeout(this.mouseenterTimeout);
       }
     }
+  }, {
+    key: "renderChildren",
+    value: function renderChildren(children) {
+      var props = this.props;
+      var baseProps = {
+        mode: props.mode === 'horizontal' ? 'vertical' : props.mode,
+        visible: this.props.isOpen,
+        level: props.level + 1,
+        inlineIndent: props.inlineIndent,
+        focusable: false,
+        onClick: this.onSubMenuClick,
+        onSelect: this.onSelect,
+        onDeselect: this.onDeselect,
+        onDestroy: this.onDestroy,
+        selectedKeys: props.selectedKeys,
+        eventKey: "".concat(props.eventKey, "-menu-"),
+        openKeys: props.openKeys,
+        openTransitionName: props.openTransitionName,
+        openAnimation: props.openAnimation,
+        onOpenChange: this.onOpenChange,
+        subMenuOpenDelay: props.subMenuOpenDelay,
+        parentMenu: this,
+        subMenuCloseDelay: props.subMenuCloseDelay,
+        forceSubMenuRender: props.forceSubMenuRender,
+        triggerSubMenuAction: props.triggerSubMenuAction,
+        builtinPlacements: props.builtinPlacements,
+        defaultActiveFirst: props.store.getState().defaultActiveFirst[getMenuIdFromSubMenuEventKey(props.eventKey)],
+        multiple: props.multiple,
+        prefixCls: props.rootPrefixCls,
+        id: this._menuId,
+        manualRef: this.saveMenuInstance
+      };
+      var haveRendered = this.haveRendered;
+      this.haveRendered = true;
+      this.haveOpened = this.haveOpened || baseProps.visible || baseProps.forceSubMenuRender; // never rendered not planning to, don't render
 
-    return _react.default.createElement(_rcAnimate.default, _extends({}, animProps, {
-      showProp: "visible",
-      component: "",
-      transitionAppear: transitionAppear
-    }), _react.default.createElement(_SubPopupMenu.default, _extends({}, baseProps, {
-      id: this._menuId
-    }), children));
-  };
+      if (!this.haveOpened) {
+        return React.createElement("div", null);
+      } // don't show transition on first rendering (no animation for opened menu)
+      // show appear transition if it's not visible (not sure why)
+      // show appear transition if it's not inline mode
 
-  _proto.render = function render() {
-    var _classNames;
 
-    var props = Object.assign({}, this.props);
-    var isOpen = props.isOpen;
-    var prefixCls = this.getPrefixCls();
-    var isInlineMode = props.mode === 'inline';
-    var className = (0, _classnames.default)(prefixCls, prefixCls + "-" + props.mode, (_classNames = {}, _classNames[props.className] = !!props.className, _classNames[this.getOpenClassName()] = isOpen, _classNames[this.getActiveClassName()] = props.active || isOpen && !isInlineMode, _classNames[this.getDisabledClassName()] = props.disabled, _classNames[this.getSelectedClassName()] = this.isChildrenSelected(), _classNames));
+      var transitionAppear = haveRendered || !baseProps.visible || !baseProps.mode === 'inline';
+      baseProps.className = " ".concat(baseProps.prefixCls, "-sub");
+      var animProps = {};
 
-    if (!this._menuId) {
-      if (props.eventKey) {
-        this._menuId = props.eventKey + "$Menu";
-      } else {
-        this._menuId = "$__$" + ++guid + "$Menu";
+      if (baseProps.openTransitionName) {
+        animProps.transitionName = baseProps.openTransitionName;
+      } else if (_typeof(baseProps.openAnimation) === 'object') {
+        animProps.animation = _objectSpread({}, baseProps.openAnimation);
+
+        if (!transitionAppear) {
+          delete animProps.animation.appear;
+        }
       }
+
+      return React.createElement(Animate, _extends({}, animProps, {
+        showProp: "visible",
+        component: "",
+        transitionAppear: transitionAppear
+      }), React.createElement(SubPopupMenu, _extends({}, baseProps, {
+        id: this._menuId
+      }), children));
     }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames;
 
-    var mouseEvents = {};
-    var titleClickEvents = {};
-    var titleMouseEvents = {};
+      var props = _objectSpread({}, this.props);
 
-    if (!props.disabled) {
-      mouseEvents = {
-        onMouseLeave: this.onMouseLeave,
-        onMouseEnter: this.onMouseEnter
-      }; // only works in title, not outer li
+      var isOpen = props.isOpen;
+      var prefixCls = this.getPrefixCls();
+      var isInlineMode = props.mode === 'inline';
+      var className = classNames(prefixCls, "".concat(prefixCls, "-").concat(props.mode), (_classNames = {}, _defineProperty(_classNames, props.className, !!props.className), _defineProperty(_classNames, this.getOpenClassName(), isOpen), _defineProperty(_classNames, this.getActiveClassName(), props.active || isOpen && !isInlineMode), _defineProperty(_classNames, this.getDisabledClassName(), props.disabled), _defineProperty(_classNames, this.getSelectedClassName(), this.isChildrenSelected()), _classNames));
 
-      titleClickEvents = {
-        onClick: this.onTitleClick
+      if (!this._menuId) {
+        if (props.eventKey) {
+          this._menuId = "".concat(props.eventKey, "$Menu");
+        } else {
+          this._menuId = "$__$".concat(++guid, "$Menu");
+        }
+      }
+
+      var mouseEvents = {};
+      var titleClickEvents = {};
+      var titleMouseEvents = {};
+
+      if (!props.disabled) {
+        mouseEvents = {
+          onMouseLeave: this.onMouseLeave,
+          onMouseEnter: this.onMouseEnter
+        }; // only works in title, not outer li
+
+        titleClickEvents = {
+          onClick: this.onTitleClick
+        };
+        titleMouseEvents = {
+          onMouseEnter: this.onTitleMouseEnter,
+          onMouseLeave: this.onTitleMouseLeave
+        };
+      }
+
+      var style = {};
+
+      if (isInlineMode) {
+        style.paddingLeft = props.inlineIndent * props.level;
+      }
+
+      var ariaOwns = {}; // only set aria-owns when menu is open
+      // otherwise it would be an invalid aria-owns value
+      // since corresponding node cannot be found
+
+      if (this.props.isOpen) {
+        ariaOwns = {
+          'aria-owns': this._menuId
+        };
+      }
+
+      var title = React.createElement("div", _extends({
+        ref: this.saveSubMenuTitle,
+        style: style,
+        className: "".concat(prefixCls, "-title")
+      }, titleMouseEvents, titleClickEvents, {
+        "aria-expanded": isOpen
+      }, ariaOwns, {
+        "aria-haspopup": "true",
+        title: typeof props.title === 'string' ? props.title : undefined
+      }), props.title, React.createElement("i", {
+        className: "".concat(prefixCls, "-arrow")
+      }));
+      var children = this.renderChildren(props.children);
+      var getPopupContainer = props.parentMenu.isRootMenu ? props.parentMenu.props.getPopupContainer : function (triggerNode) {
+        return triggerNode.parentNode;
       };
-      titleMouseEvents = {
-        onMouseEnter: this.onTitleMouseEnter,
-        onMouseLeave: this.onTitleMouseLeave
-      };
+      var popupPlacement = popupPlacementMap[props.mode];
+      var popupAlign = props.popupOffset ? {
+        offset: props.popupOffset
+      } : {};
+      var popupClassName = props.mode === 'inline' ? '' : props.popupClassName;
+      var disabled = props.disabled,
+          triggerSubMenuAction = props.triggerSubMenuAction,
+          subMenuOpenDelay = props.subMenuOpenDelay,
+          forceSubMenuRender = props.forceSubMenuRender,
+          subMenuCloseDelay = props.subMenuCloseDelay,
+          builtinPlacements = props.builtinPlacements;
+      menuAllProps.forEach(function (key) {
+        return delete props[key];
+      }); // Set onClick to null, to ignore propagated onClick event
+
+      delete props.onClick;
+      return React.createElement("li", _extends({}, props, mouseEvents, {
+        className: className,
+        role: "menuitem"
+      }), isInlineMode && title, isInlineMode && children, !isInlineMode && React.createElement(Trigger, {
+        prefixCls: prefixCls,
+        popupClassName: "".concat(prefixCls, "-popup ").concat(popupClassName),
+        getPopupContainer: getPopupContainer,
+        builtinPlacements: Object.assign({}, placements, builtinPlacements),
+        popupPlacement: popupPlacement,
+        popupVisible: isOpen,
+        popupAlign: popupAlign,
+        popup: children,
+        action: disabled ? [] : [triggerSubMenuAction],
+        mouseEnterDelay: subMenuOpenDelay,
+        mouseLeaveDelay: subMenuCloseDelay,
+        onPopupVisibleChange: this.onPopupVisibleChange,
+        forceRender: forceSubMenuRender
+      }, title));
     }
-
-    var style = {};
-
-    if (isInlineMode) {
-      style.paddingLeft = props.inlineIndent * props.level;
-    }
-
-    var ariaOwns = {}; // only set aria-owns when menu is open
-    // otherwise it would be an invalid aria-owns value
-    // since corresponding node cannot be found
-
-    if (this.props.isOpen) {
-      ariaOwns = {
-        'aria-owns': this._menuId
-      };
-    }
-
-    var title = _react.default.createElement("div", _extends({
-      ref: this.saveSubMenuTitle,
-      style: style,
-      className: prefixCls + "-title"
-    }, titleMouseEvents, titleClickEvents, {
-      "aria-expanded": isOpen
-    }, ariaOwns, {
-      "aria-haspopup": "true",
-      title: typeof props.title === 'string' ? props.title : undefined
-    }), props.title, _react.default.createElement("i", {
-      className: prefixCls + "-arrow"
-    }));
-
-    var children = this.renderChildren(props.children);
-    var getPopupContainer = props.parentMenu.isRootMenu ? props.parentMenu.props.getPopupContainer : function (triggerNode) {
-      return triggerNode.parentNode;
-    };
-    var popupPlacement = popupPlacementMap[props.mode];
-    var popupAlign = props.popupOffset ? {
-      offset: props.popupOffset
-    } : {};
-    var popupClassName = props.mode === 'inline' ? '' : props.popupClassName;
-    var disabled = props.disabled,
-        triggerSubMenuAction = props.triggerSubMenuAction,
-        subMenuOpenDelay = props.subMenuOpenDelay,
-        forceSubMenuRender = props.forceSubMenuRender,
-        subMenuCloseDelay = props.subMenuCloseDelay,
-        builtinPlacements = props.builtinPlacements;
-
-    _util.menuAllProps.forEach(function (key) {
-      return delete props[key];
-    }); // Set onClick to null, to ignore propagated onClick event
-
-
-    delete props.onClick;
-    return _react.default.createElement("li", _extends({}, props, mouseEvents, {
-      className: className,
-      role: "menuitem"
-    }), isInlineMode && title, isInlineMode && children, !isInlineMode && _react.default.createElement(_rcTrigger.default, {
-      prefixCls: prefixCls,
-      popupClassName: prefixCls + "-popup " + popupClassName,
-      getPopupContainer: getPopupContainer,
-      builtinPlacements: Object.assign({}, _placements.default, builtinPlacements),
-      popupPlacement: popupPlacement,
-      popupVisible: isOpen,
-      popupAlign: popupAlign,
-      popup: children,
-      action: disabled ? [] : [triggerSubMenuAction],
-      mouseEnterDelay: subMenuOpenDelay,
-      mouseLeaveDelay: subMenuCloseDelay,
-      onPopupVisibleChange: this.onPopupVisibleChange,
-      forceRender: forceSubMenuRender
-    }, title));
-  };
+  }]);
 
   return SubMenu;
-}(_react.default.Component);
-
-exports.SubMenu = SubMenu;
+}(React.Component);
 
 _defineProperty(SubMenu, "propTypes", {
-  parentMenu: _propTypes.default.object,
-  title: _propTypes.default.node,
+  parentMenu: PropTypes.object,
+  title: PropTypes.node,
   // children: PropTypes.any,
-  children: _propTypes.default.node,
-  selectedKeys: _propTypes.default.array,
-  openKeys: _propTypes.default.array,
-  onClick: _propTypes.default.func,
-  onOpenChange: _propTypes.default.func,
-  rootPrefixCls: _propTypes.default.string,
-  eventKey: _propTypes.default.string,
-  multiple: _propTypes.default.bool,
-  active: _propTypes.default.bool,
+  children: PropTypes.node,
+  selectedKeys: PropTypes.array,
+  openKeys: PropTypes.array,
+  onClick: PropTypes.func,
+  onOpenChange: PropTypes.func,
+  rootPrefixCls: PropTypes.string,
+  eventKey: PropTypes.string,
+  multiple: PropTypes.bool,
+  active: PropTypes.bool,
   // TODO: remove
-  onItemHover: _propTypes.default.func,
-  onSelect: _propTypes.default.func,
-  triggerSubMenuAction: _propTypes.default.string,
-  onDeselect: _propTypes.default.func,
-  onDestroy: _propTypes.default.func,
-  onMouseEnter: _propTypes.default.func,
-  onMouseLeave: _propTypes.default.func,
-  onTitleMouseEnter: _propTypes.default.func,
-  onTitleMouseLeave: _propTypes.default.func,
-  onTitleClick: _propTypes.default.func,
-  popupOffset: _propTypes.default.array,
-  isOpen: _propTypes.default.bool,
-  store: _propTypes.default.object,
-  mode: _propTypes.default.oneOf(['horizontal', 'vertical', 'vertical-left', 'vertical-right', 'inline']),
-  manualRef: _propTypes.default.func
+  onItemHover: PropTypes.func,
+  onSelect: PropTypes.func,
+  triggerSubMenuAction: PropTypes.string,
+  onDeselect: PropTypes.func,
+  onDestroy: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  onTitleMouseEnter: PropTypes.func,
+  onTitleMouseLeave: PropTypes.func,
+  onTitleClick: PropTypes.func,
+  popupOffset: PropTypes.array,
+  isOpen: PropTypes.bool,
+  store: PropTypes.object,
+  mode: PropTypes.oneOf(['horizontal', 'vertical', 'vertical-left', 'vertical-right', 'inline']),
+  manualRef: PropTypes.func
 });
 
 _defineProperty(SubMenu, "defaultProps", {
-  onMouseEnter: _util.noop,
-  onMouseLeave: _util.noop,
-  onTitleMouseEnter: _util.noop,
-  onTitleMouseLeave: _util.noop,
-  onTitleClick: _util.noop,
-  manualRef: _util.noop,
+  onMouseEnter: noop,
+  onMouseLeave: noop,
+  onTitleMouseEnter: noop,
+  onTitleMouseLeave: noop,
+  onTitleClick: noop,
+  manualRef: noop,
   mode: 'vertical',
   title: ''
 });
 
-var connected = (0, _miniStore.connect)(function (_ref, _ref2) {
+var connected = connect(function (_ref, _ref2) {
   var openKeys = _ref.openKeys,
       activeKey = _ref.activeKey,
       selectedKeys = _ref.selectedKeys;
@@ -595,5 +594,4 @@ var connected = (0, _miniStore.connect)(function (_ref, _ref2) {
   };
 })(SubMenu);
 connected.isSubMenu = true;
-var _default = connected;
-exports.default = _default;
+export default connected;

@@ -1,33 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -52,6 +23,10 @@ var __extends = void 0 && (void 0).__extends || function () {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
 }();
+
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 var AnchorLink =
 /** @class */
@@ -106,8 +81,8 @@ function (_super) {
         title = _c.title,
         children = _c.children;
     var active = this.context.fishdAnchor.activeLink === href;
-    var wrapperClassName = (0, _classnames.default)(prefixCls + "-link", (_a = {}, _a[prefixCls + "-link-active"] = active, _a));
-    var titleClassName = (0, _classnames.default)(prefixCls + "-link-title", (_b = {}, _b[prefixCls + "-link-title-active"] = active, _b));
+    var wrapperClassName = classNames(prefixCls + "-link", (_a = {}, _a[prefixCls + "-link-active"] = active, _a));
+    var titleClassName = classNames(prefixCls + "-link-title", (_b = {}, _b[prefixCls + "-link-title-active"] = active, _b));
 
     if (children) {
       return React.createElement("div", {
@@ -144,5 +119,4 @@ function (_super) {
   return AnchorLink;
 }(React.Component);
 
-var _default = AnchorLink;
-exports.default = _default;
+export default AnchorLink;

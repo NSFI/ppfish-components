@@ -1,41 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _rcTreeSelect = _interopRequireWildcard(require("./rcTreeSelect"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -61,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -77,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -89,6 +52,12 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   }
   return t;
 };
+
+import * as React from 'react';
+import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcTreeSelect';
+import classNames from 'classnames';
+import warning from 'warning';
+import './style/index.less';
 
 var TreeSelect =
 /** @class */
@@ -102,7 +71,7 @@ function (_super) {
       _this.rcTreeSelect = node;
     };
 
-    (0, _warning.default)(props.multiple !== false || !props.treeCheckable, '`multiple` will alway be `true` when `treeCheckable` is true');
+    warning(props.multiple !== false || !props.treeCheckable, '`multiple` will alway be `true` when `treeCheckable` is true');
     return _this;
   }
 
@@ -128,7 +97,7 @@ function (_super) {
         restProps = __rest(_b, ["prefixCls", "className", "size", "notFoundContent", "dropdownStyle", "dropdownClassName", "treeCheckable"]);
 
     var isEditableMul = (restProps.multiple || treeCheckable) && restProps.editable;
-    var cls = (0, _classnames.default)((_a = {}, _a[prefixCls + "-ctner"] = true, _a[prefixCls + "-scroll"] = isEditableMul, _a[prefixCls + "-singleline"] = !isEditableMul, _a[prefixCls + "-lg"] = size === 'large', _a[prefixCls + "-sm"] = size === 'small', _a), className);
+    var cls = classNames((_a = {}, _a[prefixCls + "-ctner"] = true, _a[prefixCls + "-scroll"] = isEditableMul, _a[prefixCls + "-singleline"] = !isEditableMul, _a[prefixCls + "-lg"] = size === 'large', _a[prefixCls + "-sm"] = size === 'small', _a), className);
     var checkable = treeCheckable;
 
     if (checkable) {
@@ -137,8 +106,8 @@ function (_super) {
       });
     }
 
-    return React.createElement(_rcTreeSelect.default, __assign({}, restProps, {
-      dropdownClassName: (0, _classnames.default)(dropdownClassName, prefixCls + "-tree-dropdown"),
+    return React.createElement(RcTreeSelect, __assign({}, restProps, {
+      dropdownClassName: classNames(dropdownClassName, prefixCls + "-tree-dropdown"),
       prefixCls: prefixCls,
       className: cls,
       dropdownStyle: __assign({
@@ -151,10 +120,10 @@ function (_super) {
     }));
   };
 
-  TreeSelect.TreeNode = _rcTreeSelect.TreeNode;
-  TreeSelect.SHOW_ALL = _rcTreeSelect.SHOW_ALL;
-  TreeSelect.SHOW_PARENT = _rcTreeSelect.SHOW_PARENT;
-  TreeSelect.SHOW_CHILD = _rcTreeSelect.SHOW_CHILD;
+  TreeSelect.TreeNode = TreeNode;
+  TreeSelect.SHOW_ALL = SHOW_ALL;
+  TreeSelect.SHOW_PARENT = SHOW_PARENT;
+  TreeSelect.SHOW_CHILD = SHOW_CHILD;
   TreeSelect.defaultProps = {
     autoClearSearchValue: false,
     autoExpandParent: false,
@@ -165,7 +134,7 @@ function (_super) {
     placeholder: '请选择',
     prefixCls: 'fishd-treeselect',
     searchPlaceholder: '请输入关键字',
-    showCheckedStrategy: _rcTreeSelect.SHOW_PARENT,
+    showCheckedStrategy: SHOW_PARENT,
     showSearch: false,
     tagWidth: 100,
     transitionName: 'slide-up',
@@ -180,5 +149,4 @@ function (_super) {
   return TreeSelect;
 }(React.Component);
 
-var _default = TreeSelect;
-exports.default = _default;
+export default TreeSelect;

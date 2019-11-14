@@ -1,7 +1,3 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
 var KeyCode = {
   /**
    * MAC_ENTER
@@ -645,5 +641,4 @@ KeyCode.isCharacterKey = function isCharacterKey(keyCode) {
   }
 };
 
-var _default = KeyCode;
-exports.default = _default;
+export default KeyCode;

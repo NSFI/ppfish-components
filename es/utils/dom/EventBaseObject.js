@@ -1,8 +1,3 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
 function returnFalse() {
   return false;
 }
@@ -45,5 +40,4 @@ EventBaseObject.prototype = {
     this.preventDefault();
   }
 };
-var _default = EventBaseObject;
-exports.default = _default;
+export default EventBaseObject;

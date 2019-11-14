@@ -1,41 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _omit = _interopRequireDefault(require("omit.js"));
-
-var _utils = require("../../utils");
-
-var _raf = _interopRequireDefault(require("raf"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -61,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -76,6 +39,13 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import Animate from 'rc-animate';
+import classNames from 'classnames';
+import omit from 'omit.js';
+import { getScroll, addEventListener } from '../../utils';
+import raf from 'raf';
 
 var easeInOutCubic = function easeInOutCubic(t, b, c, d) {
   var cc = c - b;
@@ -125,11 +95,11 @@ function (_super) {
         _this.setScrollTop(easeInOutCubic(time, scrollTop, 0, 450));
 
         if (time < 450) {
-          (0, _raf.default)(frameFunc);
+          raf(frameFunc);
         }
       };
 
-      (0, _raf.default)(frameFunc);
+      raf(frameFunc);
       (_this.props.onClick || noop)(e);
     };
 
@@ -138,7 +108,7 @@ function (_super) {
           visibilityHeight = _a.visibilityHeight,
           _b = _a.target,
           target = _b === void 0 ? getDefaultTarget : _b;
-      var scrollTop = (0, _utils.getScroll)(target(), true);
+      var scrollTop = getScroll(target(), true);
 
       _this.setState({
         visible: scrollTop > visibilityHeight
@@ -165,7 +135,7 @@ function (_super) {
 
   BackTop.prototype.componentDidMount = function () {
     var getTarget = this.props.target || getDefaultTarget;
-    this.scrollEvent = (0, _utils.addEventListener)(getTarget(), 'scroll', this.handleScroll);
+    this.scrollEvent = addEventListener(getTarget(), 'scroll', this.handleScroll);
     this.handleScroll();
   };
 
@@ -182,19 +152,19 @@ function (_super) {
         _c = _a.className,
         className = _c === void 0 ? '' : _c,
         children = _a.children;
-    var classString = (0, _classnames.default)(prefixCls, className);
+    var classString = classNames(prefixCls, className);
     var defaultElement = React.createElement("div", {
       className: prefixCls + "-content"
     }, React.createElement("div", {
       className: prefixCls + "-icon"
     })); // fix https://fb.me/react-unknown-prop
 
-    var divProps = (0, _omit.default)(this.props, ['prefixCls', 'className', 'children', 'visibilityHeight', 'target']);
+    var divProps = omit(this.props, ['prefixCls', 'className', 'children', 'visibilityHeight', 'target']);
     var backTopBtn = this.state.visible ? React.createElement("div", __assign({}, divProps, {
       className: classString,
       onClick: this.scrollToTop
     }), children || defaultElement) : null;
-    return React.createElement(_rcAnimate.default, {
+    return React.createElement(Animate, {
       component: "",
       transitionName: "fade"
     }, backTopBtn);
@@ -206,5 +176,4 @@ function (_super) {
   return BackTop;
 }(React.Component);
 
-var _default = BackTop;
-exports.default = _default;
+export default BackTop;

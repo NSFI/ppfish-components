@@ -1,47 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.number.constructor");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _omit = _interopRequireDefault(require("omit.js"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -67,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -83,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -96,7 +53,14 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-// Render indicator
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Animate from 'rc-animate';
+import omit from 'omit.js';
+import { polyfill } from 'react-lifecycles-compat';
+import './style/index.less'; // Render indicator
+
 var defaultIndicator = null;
 
 function renderIndicator(props) {
@@ -106,18 +70,18 @@ function renderIndicator(props) {
 
   if (React.isValidElement(indicator)) {
     return React.cloneElement(indicator, {
-      className: (0, _classnames.default)(indicator.props.className, dotClassName)
+      className: classNames(indicator.props.className, dotClassName)
     });
   }
 
   if (React.isValidElement(defaultIndicator)) {
     return React.cloneElement(defaultIndicator, {
-      className: (0, _classnames.default)(defaultIndicator.props.className, dotClassName)
+      className: classNames(defaultIndicator.props.className, dotClassName)
     });
   }
 
   return React.createElement("span", {
-    className: (0, _classnames.default)(dotClassName, prefixCls + "-dot-spin")
+    className: classNames(dotClassName, prefixCls + "-dot-spin")
   }, React.createElement("i", null), React.createElement("i", null), React.createElement("i", null), React.createElement("i", null));
 }
 
@@ -242,9 +206,9 @@ function (_super) {
         restProps = __rest(_c, ["className", "size", "prefixCls", "tip", "wrapperClassName"]);
 
     var spinning = this.state.spinning;
-    var spinClassName = (0, _classnames.default)(prefixCls, (_a = {}, _a[prefixCls + "-sm"] = size === 'small', _a[prefixCls + "-lg"] = size === 'large', _a[prefixCls + "-spinning"] = spinning, _a[prefixCls + "-show-text"] = !!tip, _a), className); // fix https://fb.me/react-unknown-prop
+    var spinClassName = classNames(prefixCls, (_a = {}, _a[prefixCls + "-sm"] = size === 'small', _a[prefixCls + "-lg"] = size === 'large', _a[prefixCls + "-spinning"] = spinning, _a[prefixCls + "-show-text"] = !!tip, _a), className); // fix https://fb.me/react-unknown-prop
 
-    var divProps = (0, _omit.default)(restProps, ['spinning', 'delay', 'indicator']);
+    var divProps = omit(restProps, ['spinning', 'delay', 'indicator']);
     var spinElement = React.createElement("div", __assign({}, divProps, {
       className: spinClassName
     }), renderIndicator(this.props), tip ? React.createElement("span", {
@@ -258,8 +222,8 @@ function (_super) {
         animateClassName += ' ' + wrapperClassName;
       }
 
-      var nestedClassName = (0, _classnames.default)((_b = {}, _b[prefixCls + "-nested"] = true, _b[prefixCls + "-blur"] = spinning, _b));
-      return React.createElement(_rcAnimate.default, __assign({}, divProps, {
+      var nestedClassName = classNames((_b = {}, _b[prefixCls + "-nested"] = true, _b[prefixCls + "-blur"] = spinning, _b));
+      return React.createElement(Animate, __assign({}, divProps, {
         component: "div",
         className: animateClassName,
         style: null,
@@ -292,6 +256,5 @@ function (_super) {
   return Spin;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(Spin);
-var _default = Spin;
-exports.default = _default;
+polyfill(Spin);
+export default Spin;

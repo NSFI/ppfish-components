@@ -1,31 +1,15 @@
-"use strict";
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es7.symbol.async-iterator");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.regexp.replace");
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _domScrollIntoView = _interopRequireDefault(require("dom-scroll-into-view"));
-
-var _has = _interopRequireDefault(require("lodash/has"));
-
-var _createBaseForm = _interopRequireDefault(require("./createBaseForm"));
-
-var _createForm = require("./createForm");
-
-var _utils = require("./utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import ReactDOM from 'react-dom';
+import scrollIntoView from 'dom-scroll-into-view';
+import has from 'lodash/has';
+import createBaseForm from './createBaseForm';
+import { mixin as formMixin } from './createForm';
+import { getParams } from './utils';
 
 function computedStyle(el, prop) {
   var getComputedStyle = window.getComputedStyle;
@@ -68,14 +52,14 @@ function getScrollableContainer(n) {
 
 var mixin = {
   getForm: function getForm() {
-    return Object.assign({}, _createForm.mixin.getForm.call(this), {
+    return _objectSpread({}, formMixin.getForm.call(this), {
       validateFieldsAndScroll: this.validateFieldsAndScroll
     });
   },
   validateFieldsAndScroll: function validateFieldsAndScroll(ns, opt, cb) {
     var _this = this;
 
-    var _getParams = (0, _utils.getParams)(ns, opt, cb),
+    var _getParams = getParams(ns, opt, cb),
         names = _getParams.names,
         callback = _getParams.callback,
         options = _getParams.options;
@@ -86,40 +70,46 @@ var mixin = {
 
         var firstNode;
         var firstTop;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-        for (var _iterator = validNames, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-          var _ref;
+        try {
+          for (var _iterator = validNames[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var name = _step.value;
 
-          if (_isArray) {
-            if (_i >= _iterator.length) break;
-            _ref = _iterator[_i++];
-          } else {
-            _i = _iterator.next();
-            if (_i.done) break;
-            _ref = _i.value;
-          }
+            if (has(error, name)) {
+              var instance = _this.getFieldInstance(name);
 
-          var name = _ref;
+              if (instance) {
+                var node = ReactDOM.findDOMNode(instance);
+                var top = node.getBoundingClientRect().top;
 
-          if ((0, _has.default)(error, name)) {
-            var instance = _this.getFieldInstance(name);
-
-            if (instance) {
-              var node = _reactDom.default.findDOMNode(instance);
-
-              var top = node.getBoundingClientRect().top;
-
-              if (node.type !== 'hidden' && (firstTop === undefined || firstTop > top)) {
-                firstTop = top;
-                firstNode = node;
+                if (node.type !== 'hidden' && (firstTop === undefined || firstTop > top)) {
+                  firstTop = top;
+                  firstNode = node;
+                }
               }
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
             }
           }
         }
 
         if (firstNode) {
           var c = options.container || getScrollableContainer(firstNode);
-          (0, _domScrollIntoView.default)(firstNode, c, Object.assign({
+          scrollIntoView(firstNode, c, _objectSpread({
             onlyScrollIfNeeded: true
           }, options.scroll));
         }
@@ -135,8 +125,7 @@ var mixin = {
 };
 
 function createDOMForm(option) {
-  return (0, _createBaseForm.default)(Object.assign({}, option), [mixin]);
+  return createBaseForm(_objectSpread({}, option), [mixin]);
 }
 
-var _default = createDOMForm;
-exports.default = _default;
+export default createDOMForm;

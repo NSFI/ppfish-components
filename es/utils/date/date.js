@@ -6,19 +6,6 @@
  * @class fecha
  */
 
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.search");
-
-require("core-js/modules/es6.regexp.replace");
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.regexp.match");
-
 var fecha = {};
 var token = /d{1,4}|M{1,4}|yy(?:yy)?|S{1,3}|Do|ZZ|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
 var twoDigits = /\d\d?/;
@@ -323,5 +310,4 @@ fecha.parse = function (dateStr, format, i18nSettings) {
   return date;
 };
 
-var _default = fecha;
-exports.default = _default;
+export default fecha;

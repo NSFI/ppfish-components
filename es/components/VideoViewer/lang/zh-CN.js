@@ -1,10 +1,5 @@
-"use strict";
-
-exports.__esModule = true;
-exports.zh_CN = void 0;
-
 /* eslint-disable max-len */
-var zh_CN = {
+export var zh_CN = {
   "Play": "播放",
   "Pause": "暂停",
   "Current Time": "当前时间",
@@ -88,5 +83,3 @@ var zh_CN = {
   "End of dialog window.": "结束对话视窗"
 };
 /* eslint-enable max-len */
-
-exports.zh_CN = zh_CN;

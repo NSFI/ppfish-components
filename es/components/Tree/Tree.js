@@ -1,41 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _rcTree = _interopRequireWildcard(require("../TreeSelect/rcTree"));
-
-var _DirectoryTree = _interopRequireDefault(require("./DirectoryTree"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _openAnimation = _interopRequireDefault(require("../../utils/openAnimation"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -61,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -76,6 +39,13 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import RcTree, { TreeNode } from '../TreeSelect/rcTree';
+import DirectoryTree from './DirectoryTree';
+import classNames from 'classnames';
+import animation from '../../utils/openAnimation';
+import Icon from '../Icon';
 
 var Tree =
 /** @class */
@@ -102,13 +72,13 @@ function (_super) {
 
       if (showLine) {
         if (isLeaf) {
-          return React.createElement(_Icon.default, {
+          return React.createElement(Icon, {
             type: "file-line",
             className: prefixCls + "-switcher-line-icon"
           });
         }
 
-        return React.createElement(_Icon.default, {
+        return React.createElement(Icon, {
           type: expanded ? 'minus-square' : 'plus-square',
           className: prefixCls + "-switcher-line-icon"
         });
@@ -117,7 +87,7 @@ function (_super) {
           return null;
         }
 
-        return React.createElement(_Icon.default, {
+        return React.createElement(Icon, {
           type: "down-fill",
           className: prefixCls + "-switcher-icon"
         });
@@ -137,11 +107,11 @@ function (_super) {
         showIcon = props.showIcon,
         required = props.required;
     var checkable = props.checkable;
-    return React.createElement(_rcTree.default, __assign({}, props, {
+    return React.createElement(RcTree, __assign({}, props, {
       ref: function ref(node) {
         return _this.tree = node;
       },
-      className: (0, _classnames.default)(!showIcon && prefixCls + "-icon-hide", className),
+      className: classNames(!showIcon && prefixCls + "-icon-hide", className),
       checkable: checkable ? React.createElement("span", {
         className: prefixCls + "-checkbox-inner"
       }) : checkable,
@@ -151,15 +121,15 @@ function (_super) {
     }), this.props.children);
   };
 
-  Tree.TreeNode = _rcTree.TreeNode;
-  Tree.DirectoryTree = _DirectoryTree.default;
+  Tree.TreeNode = TreeNode;
+  Tree.DirectoryTree = DirectoryTree;
   Tree.defaultProps = {
     autoExpandParent: true,
     checkable: false,
     defaultExpandAll: false,
     defaultExpandParent: true,
     required: false,
-    openAnimation: __assign(__assign({}, _openAnimation.default), {
+    openAnimation: __assign(__assign({}, animation), {
       appear: null
     }),
     prefixCls: 'fishd-tree',
@@ -168,5 +138,4 @@ function (_super) {
   return Tree;
 }(React.Component);
 
-var _default = Tree;
-exports.default = _default;
+export default Tree;

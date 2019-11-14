@@ -1,14 +1,11 @@
-"use strict";
-
-exports.__esModule = true;
-exports.isDomElement = exports.getStyleProperty = exports.createNodeFromString = void 0;
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  * Turn a string into a node
  * @param  {String} htmlString to convert
  * @return {HTMLElement|Node}   Converted node element
  */
-var createNodeFromString = function createNodeFromString(htmlString) {
+export var createNodeFromString = function createNodeFromString(htmlString) {
   var div = document.createElement('div');
   div.innerHTML = htmlString.trim(); // Change this to div.childNodes to support multiple top-level nodes
 
@@ -22,13 +19,8 @@ var createNodeFromString = function createNodeFromString(htmlString) {
  * @return {string}
  */
 
-
-exports.createNodeFromString = createNodeFromString;
-
-var getStyleProperty = function getStyleProperty(element, propertyName, prefixVendor) {
-  if (prefixVendor === void 0) {
-    prefixVendor = false;
-  }
+export var getStyleProperty = function getStyleProperty(element, propertyName) {
+  var prefixVendor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
   if (prefixVendor) {
     var prefixes = ['', '-webkit-', '-ms-', 'moz-', '-o-'];
@@ -61,11 +53,6 @@ var getStyleProperty = function getStyleProperty(element, propertyName, prefixVe
  * @returns {boolean}
  */
 
-
-exports.getStyleProperty = getStyleProperty;
-
-var isDomElement = function isDomElement(element) {
-  return element && typeof element === 'object' && 'nodeType' in element;
+export var isDomElement = function isDomElement(element) {
+  return element && _typeof(element) === 'object' && 'nodeType' in element;
 };
-
-exports.isDomElement = isDomElement;

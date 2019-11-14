@@ -1,45 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var React = _interopRequireWildcard(require("react"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-var _index = require("./src/index.js");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-require("./style/index.less");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -65,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -81,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -94,6 +53,12 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import Icon from '../Icon';
+import { Circle } from './src/index.js';
+import classNames from 'classnames';
+import './style/index.less';
 var statusColorMap = {
   normal: '#108ee9',
   exception: '#ff5500',
@@ -163,11 +128,11 @@ function (_super) {
       if (format || progressStatus !== 'exception' && progressStatus !== 'success') {
         text = textFormatter(validProgress(percent), validProgress(successPercent));
       } else if (progressStatus === 'exception') {
-        text = React.createElement(_Icon.default, {
+        text = React.createElement(Icon, {
           type: iconType + "error"
         });
       } else if (progressStatus === 'success') {
-        text = React.createElement(_Icon.default, {
+        text = React.createElement(Icon, {
           type: iconType + "success"
         });
       }
@@ -224,7 +189,7 @@ function (_super) {
       progress = React.createElement("div", {
         className: prefixCls + "-inner",
         style: circleStyle
-      }, React.createElement(_index.Circle, {
+      }, React.createElement(Circle, {
         percent: validProgress(percent),
         strokeWidth: circleWidth,
         trailWidth: circleWidth,
@@ -241,7 +206,7 @@ function (_super) {
       }, message) : null));
     }
 
-    var classString = (0, _classnames.default)(prefixCls, (_a = {}, _a[prefixCls + "-" + (type === 'dashboard' && 'circle' || type)] = true, _a[prefixCls + "-status-" + progressStatus] = true, _a[prefixCls + "-show-info"] = showInfo, _a[prefixCls + "-" + size] = size, _a), className);
+    var classString = classNames(prefixCls, (_a = {}, _a[prefixCls + "-" + (type === 'dashboard' && 'circle' || type)] = true, _a[prefixCls + "-status-" + progressStatus] = true, _a[prefixCls + "-show-info"] = showInfo, _a[prefixCls + "-" + size] = size, _a), className);
     return React.createElement("div", __assign({}, restProps, {
       className: classString
     }), progress, (type === 'circle' || type === 'dashboard') && operation ? React.createElement("span", {
@@ -258,21 +223,20 @@ function (_super) {
     size: 'default'
   };
   Progress.propTypes = {
-    status: _propTypes.default.oneOf(['normal', 'exception', 'active', 'success']),
-    type: _propTypes.default.oneOf(['line', 'circle', 'dashboard']),
-    showInfo: _propTypes.default.bool,
-    percent: _propTypes.default.number,
-    width: _propTypes.default.number,
-    strokeWidth: _propTypes.default.number,
-    strokeLinecap: _propTypes.default.oneOf(['round', 'square']),
-    strokeColor: _propTypes.default.string,
-    trailColor: _propTypes.default.string,
-    format: _propTypes.default.func,
-    gapDegree: _propTypes.default.number,
-    default: _propTypes.default.oneOf(['default', 'small'])
+    status: PropTypes.oneOf(['normal', 'exception', 'active', 'success']),
+    type: PropTypes.oneOf(['line', 'circle', 'dashboard']),
+    showInfo: PropTypes.bool,
+    percent: PropTypes.number,
+    width: PropTypes.number,
+    strokeWidth: PropTypes.number,
+    strokeLinecap: PropTypes.oneOf(['round', 'square']),
+    strokeColor: PropTypes.string,
+    trailColor: PropTypes.string,
+    format: PropTypes.func,
+    gapDegree: PropTypes.number,
+    "default": PropTypes.oneOf(['default', 'small'])
   };
   return Progress;
 }(React.Component);
 
-var _default = Progress;
-exports.default = _default;
+export default Progress;

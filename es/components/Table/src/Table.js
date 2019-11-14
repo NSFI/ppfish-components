@@ -1,82 +1,79 @@
-"use strict";
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.string.fixed");
-
-require("core-js/modules/es6.regexp.constructor");
-
-require("core-js/modules/es6.regexp.match");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _utils = require("../../../utils");
-
-var _miniStore = require("mini-store");
-
-var _merge = _interopRequireDefault(require("lodash/merge"));
-
-var _componentClasses = _interopRequireDefault(require("component-classes"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _utils2 = require("./utils");
-
-var _ColumnManager = _interopRequireDefault(require("./ColumnManager"));
-
-var _HeadTable = _interopRequireDefault(require("./HeadTable"));
-
-var _BodyTable = _interopRequireDefault(require("./BodyTable"));
-
-var _ExpandableTable = _interopRequireDefault(require("./ExpandableTable"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { addEventListener, shallowEqual } from '../../../utils';
+import { Provider, create } from 'mini-store';
+import merge from 'lodash/merge';
+import classes from 'component-classes';
+import { polyfill } from 'react-lifecycles-compat';
+import { debounce, warningOnce, getDataAndAriaProps } from './utils';
+import ColumnManager from './ColumnManager';
+import HeadTable from './HeadTable';
+import BodyTable from './BodyTable';
+import ExpandableTable from './ExpandableTable';
 
 var Table =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(Table, _React$Component);
+  _inherits(Table, _React$Component);
 
-  Table.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.columns && nextProps.columns !== prevState.columns) {
-      return {
-        columns: nextProps.columns,
-        children: null
-      };
-    } else if (nextProps.children !== prevState.children) {
-      return {
-        columns: null,
-        children: nextProps.children
-      };
+  _createClass(Table, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      if (nextProps.columns && nextProps.columns !== prevState.columns) {
+        return {
+          columns: nextProps.columns,
+          children: null
+        };
+      } else if (nextProps.children !== prevState.children) {
+        return {
+          columns: null,
+          children: nextProps.children
+        };
+      }
+
+      return null;
     }
-
-    return null;
-  };
+  }]);
 
   function Table(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, Table);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Table).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "state", {});
 
     _defineProperty(_assertThisInitialized(_this), "getRowKey", function (record, index) {
       var rowKey = _this.props.rowKey;
       var key = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
-      (0, _utils2.warningOnce)(key !== undefined, 'Each record in table should have a unique `key` prop,' + 'or set `rowKey` to an unique primary key.');
+      warningOnce(key !== undefined, 'Each record in table should have a unique `key` prop,' + 'or set `rowKey` to an unique primary key.');
       return key === undefined ? index : key;
     });
 
@@ -97,7 +94,7 @@ function (_React$Component) {
 
       var prefixCls = _this.props.prefixCls;
       var headRows = _this.headTable ? _this.headTable.querySelectorAll('thead') : _this.bodyTable.querySelectorAll('thead');
-      var bodyRows = _this.bodyTable.querySelectorAll("." + prefixCls + "-row") || [];
+      var bodyRows = _this.bodyTable.querySelectorAll(".".concat(prefixCls, "-row")) || [];
       var fixedColumnsHeadRowsHeight = [].map.call(headRows, function (row) {
         return row.getBoundingClientRect().height || 'auto';
       });
@@ -111,7 +108,7 @@ function (_React$Component) {
         return acc;
       }, {});
 
-      if ((0, _utils.shallowEqual)(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) && (0, _utils.shallowEqual)(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)) {
+      if (shallowEqual(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) && shallowEqual(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)) {
         return;
       }
 
@@ -255,11 +252,11 @@ function (_React$Component) {
     });
 
     ['onRowClick', 'onRowDoubleClick', 'onRowContextMenu', 'onRowMouseEnter', 'onRowMouseLeave'].forEach(function (name) {
-      (0, _utils2.warningOnce)(props[name] === undefined, name + " is deprecated, please use onRow instead.");
+      warningOnce(props[name] === undefined, "".concat(name, " is deprecated, please use onRow instead."));
     });
-    (0, _utils2.warningOnce)(props.getBodyWrapper === undefined, 'getBodyWrapper is deprecated, please use custom components instead.');
-    _this.columnManager = new _ColumnManager.default(props.columns, props.children);
-    _this.store = (0, _miniStore.create)({
+    warningOnce(props.getBodyWrapper === undefined, 'getBodyWrapper is deprecated, please use custom components instead.');
+    _this.columnManager = new ColumnManager(props.columns, props.children);
+    _this.store = create({
       currentHoverKey: null,
       fixedColumnsHeadRowsHeight: [],
       fixedColumnsBodyRowsHeight: {}
@@ -267,323 +264,336 @@ function (_React$Component) {
 
     _this.setScrollPosition('left');
 
-    _this.debouncedWindowResize = (0, _utils2.debounce)(_this.handleWindowResize, 150);
+    _this.debouncedWindowResize = debounce(_this.handleWindowResize, 150);
     return _this;
   }
 
-  var _proto = Table.prototype;
+  _createClass(Table, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      return {
+        table: {
+          props: this.props,
+          columnManager: this.columnManager,
+          saveRef: this.saveRef,
+          components: merge({
+            table: 'table',
+            header: {
+              wrapper: 'thead',
+              row: 'tr',
+              cell: 'th'
+            },
+            body: {
+              wrapper: 'tbody',
+              row: 'tr',
+              cell: 'td'
+            }
+          }, this.props.components)
+        }
+      };
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.columnManager.isAnyColumnsFixed()) {
+        this.handleWindowResize();
+        this.resizeEvent = addEventListener(window, 'resize', this.debouncedWindowResize);
+      } // https://github.com/ant-design/ant-design/issues/11635
 
-  _proto.getChildContext = function getChildContext() {
-    return {
-      table: {
-        props: this.props,
-        columnManager: this.columnManager,
-        saveRef: this.saveRef,
-        components: (0, _merge.default)({
-          table: 'table',
-          header: {
-            wrapper: 'thead',
-            row: 'tr',
-            cell: 'th'
-          },
-          body: {
-            wrapper: 'tbody',
-            row: 'tr',
-            cell: 'td'
-          }
-        }, this.props.components)
+
+      if (this.headTable) {
+        this.headTable.scrollLeft = 0;
       }
-    };
-  };
 
-  _proto.componentDidMount = function componentDidMount() {
-    if (this.columnManager.isAnyColumnsFixed()) {
-      this.handleWindowResize();
-      this.resizeEvent = (0, _utils.addEventListener)(window, 'resize', this.debouncedWindowResize);
-    } // https://github.com/ant-design/ant-design/issues/11635
-
-
-    if (this.headTable) {
-      this.headTable.scrollLeft = 0;
-    }
-
-    if (this.bodyTable) {
-      this.bodyTable.scrollLeft = 0;
-    }
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
-    if (this.columnManager.isAnyColumnsFixed()) {
-      this.handleWindowResize();
-
-      if (!this.resizeEvent) {
-        this.resizeEvent = (0, _utils.addEventListener)(window, 'resize', this.debouncedWindowResize);
+      if (this.bodyTable) {
+        this.bodyTable.scrollLeft = 0;
       }
-    } // when table changes to empty, reset scrollLeft
-
-
-    if (prevProps.data.length > 0 && this.props.data.length === 0 && this.hasScrollX()) {
-      this.resetScrollX();
     }
-  };
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.columnManager.isAnyColumnsFixed()) {
+        this.handleWindowResize();
 
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    if (this.resizeEvent) {
-      this.resizeEvent.remove();
+        if (!this.resizeEvent) {
+          this.resizeEvent = addEventListener(window, 'resize', this.debouncedWindowResize);
+        }
+      } // when table changes to empty, reset scrollLeft
+
+
+      if (prevProps.data.length > 0 && this.props.data.length === 0 && this.hasScrollX()) {
+        this.resetScrollX();
+      }
     }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (this.resizeEvent) {
+        this.resizeEvent.remove();
+      }
 
-    if (this.debouncedWindowResize) {
-      this.debouncedWindowResize.cancel();
+      if (this.debouncedWindowResize) {
+        this.debouncedWindowResize.cancel();
+      }
     }
-  };
+  }, {
+    key: "setScrollPosition",
+    value: function setScrollPosition(position) {
+      this.scrollPosition = position;
 
-  _proto.setScrollPosition = function setScrollPosition(position) {
-    this.scrollPosition = position;
+      if (this.tableNode) {
+        var prefixCls = this.props.prefixCls;
 
-    if (this.tableNode) {
+        if (position === 'both') {
+          classes(this.tableNode).remove(new RegExp("^".concat(prefixCls, "-scroll-position-.+$"))).add("".concat(prefixCls, "-scroll-position-left")).add("".concat(prefixCls, "-scroll-position-right"));
+        } else {
+          classes(this.tableNode).remove(new RegExp("^".concat(prefixCls, "-scroll-position-.+$"))).add("".concat(prefixCls, "-scroll-position-").concat(position));
+        }
+      }
+    }
+  }, {
+    key: "setScrollPositionClassName",
+    value: function setScrollPositionClassName() {
+      var node = this.bodyTable;
+      var scrollToLeft = node.scrollLeft === 0;
+      var scrollToRight = node.scrollLeft + 1 >= node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
+
+      if (scrollToLeft && scrollToRight) {
+        this.setScrollPosition('both');
+      } else if (scrollToLeft) {
+        this.setScrollPosition('left');
+      } else if (scrollToRight) {
+        this.setScrollPosition('right');
+      } else if (this.scrollPosition !== 'middle') {
+        this.setScrollPosition('middle');
+      }
+    }
+  }, {
+    key: "resetScrollX",
+    value: function resetScrollX() {
+      if (this.headTable) {
+        this.headTable.scrollLeft = 0;
+      }
+
+      if (this.bodyTable) {
+        this.bodyTable.scrollLeft = 0;
+      }
+    }
+  }, {
+    key: "hasScrollX",
+    value: function hasScrollX() {
+      var _this$props$scroll4 = this.props.scroll,
+          scroll = _this$props$scroll4 === void 0 ? {} : _this$props$scroll4;
+      return 'x' in scroll;
+    }
+  }, {
+    key: "renderMainTable",
+    value: function renderMainTable() {
+      var _this$props = this.props,
+          scroll = _this$props.scroll,
+          prefixCls = _this$props.prefixCls;
+      var isAnyColumnsFixed = this.columnManager.isAnyColumnsFixed();
+      var scrollable = isAnyColumnsFixed || scroll.x || scroll.y;
+      var table = [this.renderTable({
+        columns: this.columnManager.groupedColumns(),
+        isAnyColumnsFixed: isAnyColumnsFixed
+      }), this.renderEmptyText(), this.renderFooter()];
+      return scrollable ? React.createElement("div", {
+        className: "".concat(prefixCls, "-scroll")
+      }, table) : table;
+    }
+  }, {
+    key: "renderLeftFixedTable",
+    value: function renderLeftFixedTable() {
       var prefixCls = this.props.prefixCls;
+      return React.createElement("div", {
+        className: "".concat(prefixCls, "-fixed-left")
+      }, this.renderTable({
+        columns: this.columnManager.leftColumns(),
+        fixed: 'left'
+      }));
+    }
+  }, {
+    key: "renderRightFixedTable",
+    value: function renderRightFixedTable() {
+      var prefixCls = this.props.prefixCls;
+      return React.createElement("div", {
+        className: "".concat(prefixCls, "-fixed-right")
+      }, this.renderTable({
+        columns: this.columnManager.rightColumns(),
+        fixed: 'right'
+      }));
+    }
+  }, {
+    key: "renderTable",
+    value: function renderTable(options) {
+      var columns = options.columns,
+          fixed = options.fixed,
+          isAnyColumnsFixed = options.isAnyColumnsFixed;
+      var _this$props2 = this.props,
+          prefixCls = _this$props2.prefixCls,
+          _this$props2$scroll = _this$props2.scroll,
+          scroll = _this$props2$scroll === void 0 ? {} : _this$props2$scroll;
+      var tableClassName = scroll.x || fixed ? "".concat(prefixCls, "-fixed") : '';
+      var headTable = React.createElement(HeadTable, {
+        key: "head",
+        columns: columns,
+        fixed: fixed,
+        tableClassName: tableClassName,
+        handleBodyScrollLeft: this.handleBodyScrollLeft,
+        expander: this.expander
+      });
+      var bodyTable = React.createElement(BodyTable, {
+        key: "body",
+        columns: columns,
+        fixed: fixed,
+        tableClassName: tableClassName,
+        getRowKey: this.getRowKey,
+        handleWheel: this.handleWheel,
+        handleBodyScroll: this.handleBodyScroll,
+        expander: this.expander,
+        isAnyColumnsFixed: isAnyColumnsFixed
+      });
+      return [headTable, bodyTable];
+    }
+  }, {
+    key: "renderTitle",
+    value: function renderTitle() {
+      var _this$props3 = this.props,
+          title = _this$props3.title,
+          prefixCls = _this$props3.prefixCls;
+      return title ? React.createElement("div", {
+        className: "".concat(prefixCls, "-title"),
+        key: "title"
+      }, title(this.props.data)) : null;
+    }
+  }, {
+    key: "renderFooter",
+    value: function renderFooter() {
+      var _this$props4 = this.props,
+          footer = _this$props4.footer,
+          prefixCls = _this$props4.prefixCls;
+      return footer ? React.createElement("div", {
+        className: "".concat(prefixCls, "-footer"),
+        key: "footer"
+      }, footer(this.props.data)) : null;
+    }
+  }, {
+    key: "renderEmptyText",
+    value: function renderEmptyText() {
+      var _this$props5 = this.props,
+          emptyText = _this$props5.emptyText,
+          prefixCls = _this$props5.prefixCls,
+          data = _this$props5.data;
 
-      if (position === 'both') {
-        (0, _componentClasses.default)(this.tableNode).remove(new RegExp("^" + prefixCls + "-scroll-position-.+$")).add(prefixCls + "-scroll-position-left").add(prefixCls + "-scroll-position-right");
-      } else {
-        (0, _componentClasses.default)(this.tableNode).remove(new RegExp("^" + prefixCls + "-scroll-position-.+$")).add(prefixCls + "-scroll-position-" + position);
+      if (data.length) {
+        return null;
       }
+
+      var emptyClassName = "".concat(prefixCls, "-placeholder");
+      return React.createElement("div", {
+        className: emptyClassName,
+        key: "emptyText"
+      }, typeof emptyText === 'function' ? emptyText() : emptyText);
     }
-  };
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-  _proto.setScrollPositionClassName = function setScrollPositionClassName() {
-    var node = this.bodyTable;
-    var scrollToLeft = node.scrollLeft === 0;
-    var scrollToRight = node.scrollLeft + 1 >= node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
+      var props = this.props;
+      var prefixCls = props.prefixCls;
 
-    if (scrollToLeft && scrollToRight) {
-      this.setScrollPosition('both');
-    } else if (scrollToLeft) {
-      this.setScrollPosition('left');
-    } else if (scrollToRight) {
-      this.setScrollPosition('right');
-    } else if (this.scrollPosition !== 'middle') {
-      this.setScrollPosition('middle');
+      if (this.state.columns) {
+        this.columnManager.reset(props.columns);
+      } else if (this.state.children) {
+        this.columnManager.reset(null, props.children);
+      }
+
+      var className = props.prefixCls;
+
+      if (props.className) {
+        className += " ".concat(props.className);
+      }
+
+      if (props.useFixedHeader || props.scroll && props.scroll.y) {
+        className += " ".concat(prefixCls, "-fixed-header");
+      }
+
+      if (this.scrollPosition === 'both') {
+        className += " ".concat(prefixCls, "-scroll-position-left ").concat(prefixCls, "-scroll-position-right");
+      } else {
+        className += " ".concat(prefixCls, "-scroll-position-").concat(this.scrollPosition);
+      }
+
+      var hasLeftFixed = this.columnManager.isAnyColumnsLeftFixed();
+      var hasRightFixed = this.columnManager.isAnyColumnsRightFixed();
+      var dataAndAriaProps = getDataAndAriaProps(props);
+      return React.createElement(Provider, {
+        store: this.store
+      }, React.createElement(ExpandableTable, _extends({}, props, {
+        columnManager: this.columnManager,
+        getRowKey: this.getRowKey
+      }), function (expander) {
+        _this2.expander = expander;
+        return React.createElement("div", _extends({
+          ref: _this2.saveRef('tableNode'),
+          className: className,
+          style: props.style,
+          id: props.id
+        }, dataAndAriaProps), _this2.renderTitle(), React.createElement("div", {
+          className: "".concat(prefixCls, "-content")
+        }, _this2.renderMainTable(), hasLeftFixed && _this2.renderLeftFixedTable(), hasRightFixed && _this2.renderRightFixedTable()));
+      }));
     }
-  };
-
-  _proto.resetScrollX = function resetScrollX() {
-    if (this.headTable) {
-      this.headTable.scrollLeft = 0;
-    }
-
-    if (this.bodyTable) {
-      this.bodyTable.scrollLeft = 0;
-    }
-  };
-
-  _proto.hasScrollX = function hasScrollX() {
-    var _this$props$scroll4 = this.props.scroll,
-        scroll = _this$props$scroll4 === void 0 ? {} : _this$props$scroll4;
-    return 'x' in scroll;
-  };
-
-  _proto.renderMainTable = function renderMainTable() {
-    var _this$props = this.props,
-        scroll = _this$props.scroll,
-        prefixCls = _this$props.prefixCls;
-    var isAnyColumnsFixed = this.columnManager.isAnyColumnsFixed();
-    var scrollable = isAnyColumnsFixed || scroll.x || scroll.y;
-    var table = [this.renderTable({
-      columns: this.columnManager.groupedColumns(),
-      isAnyColumnsFixed: isAnyColumnsFixed
-    }), this.renderEmptyText(), this.renderFooter()];
-    return scrollable ? _react.default.createElement("div", {
-      className: prefixCls + "-scroll"
-    }, table) : table;
-  };
-
-  _proto.renderLeftFixedTable = function renderLeftFixedTable() {
-    var prefixCls = this.props.prefixCls;
-    return _react.default.createElement("div", {
-      className: prefixCls + "-fixed-left"
-    }, this.renderTable({
-      columns: this.columnManager.leftColumns(),
-      fixed: 'left'
-    }));
-  };
-
-  _proto.renderRightFixedTable = function renderRightFixedTable() {
-    var prefixCls = this.props.prefixCls;
-    return _react.default.createElement("div", {
-      className: prefixCls + "-fixed-right"
-    }, this.renderTable({
-      columns: this.columnManager.rightColumns(),
-      fixed: 'right'
-    }));
-  };
-
-  _proto.renderTable = function renderTable(options) {
-    var columns = options.columns,
-        fixed = options.fixed,
-        isAnyColumnsFixed = options.isAnyColumnsFixed;
-    var _this$props2 = this.props,
-        prefixCls = _this$props2.prefixCls,
-        _this$props2$scroll = _this$props2.scroll,
-        scroll = _this$props2$scroll === void 0 ? {} : _this$props2$scroll;
-    var tableClassName = scroll.x || fixed ? prefixCls + "-fixed" : '';
-
-    var headTable = _react.default.createElement(_HeadTable.default, {
-      key: "head",
-      columns: columns,
-      fixed: fixed,
-      tableClassName: tableClassName,
-      handleBodyScrollLeft: this.handleBodyScrollLeft,
-      expander: this.expander
-    });
-
-    var bodyTable = _react.default.createElement(_BodyTable.default, {
-      key: "body",
-      columns: columns,
-      fixed: fixed,
-      tableClassName: tableClassName,
-      getRowKey: this.getRowKey,
-      handleWheel: this.handleWheel,
-      handleBodyScroll: this.handleBodyScroll,
-      expander: this.expander,
-      isAnyColumnsFixed: isAnyColumnsFixed
-    });
-
-    return [headTable, bodyTable];
-  };
-
-  _proto.renderTitle = function renderTitle() {
-    var _this$props3 = this.props,
-        title = _this$props3.title,
-        prefixCls = _this$props3.prefixCls;
-    return title ? _react.default.createElement("div", {
-      className: prefixCls + "-title",
-      key: "title"
-    }, title(this.props.data)) : null;
-  };
-
-  _proto.renderFooter = function renderFooter() {
-    var _this$props4 = this.props,
-        footer = _this$props4.footer,
-        prefixCls = _this$props4.prefixCls;
-    return footer ? _react.default.createElement("div", {
-      className: prefixCls + "-footer",
-      key: "footer"
-    }, footer(this.props.data)) : null;
-  };
-
-  _proto.renderEmptyText = function renderEmptyText() {
-    var _this$props5 = this.props,
-        emptyText = _this$props5.emptyText,
-        prefixCls = _this$props5.prefixCls,
-        data = _this$props5.data;
-
-    if (data.length) {
-      return null;
-    }
-
-    var emptyClassName = prefixCls + "-placeholder";
-    return _react.default.createElement("div", {
-      className: emptyClassName,
-      key: "emptyText"
-    }, typeof emptyText === 'function' ? emptyText() : emptyText);
-  };
-
-  _proto.render = function render() {
-    var _this2 = this;
-
-    var props = this.props;
-    var prefixCls = props.prefixCls;
-
-    if (this.state.columns) {
-      this.columnManager.reset(props.columns);
-    } else if (this.state.children) {
-      this.columnManager.reset(null, props.children);
-    }
-
-    var className = props.prefixCls;
-
-    if (props.className) {
-      className += " " + props.className;
-    }
-
-    if (props.useFixedHeader || props.scroll && props.scroll.y) {
-      className += " " + prefixCls + "-fixed-header";
-    }
-
-    if (this.scrollPosition === 'both') {
-      className += " " + prefixCls + "-scroll-position-left " + prefixCls + "-scroll-position-right";
-    } else {
-      className += " " + prefixCls + "-scroll-position-" + this.scrollPosition;
-    }
-
-    var hasLeftFixed = this.columnManager.isAnyColumnsLeftFixed();
-    var hasRightFixed = this.columnManager.isAnyColumnsRightFixed();
-    var dataAndAriaProps = (0, _utils2.getDataAndAriaProps)(props);
-    return _react.default.createElement(_miniStore.Provider, {
-      store: this.store
-    }, _react.default.createElement(_ExpandableTable.default, _extends({}, props, {
-      columnManager: this.columnManager,
-      getRowKey: this.getRowKey
-    }), function (expander) {
-      _this2.expander = expander;
-      return _react.default.createElement("div", _extends({
-        ref: _this2.saveRef('tableNode'),
-        className: className,
-        style: props.style,
-        id: props.id
-      }, dataAndAriaProps), _this2.renderTitle(), _react.default.createElement("div", {
-        className: prefixCls + "-content"
-      }, _this2.renderMainTable(), hasLeftFixed && _this2.renderLeftFixedTable(), hasRightFixed && _this2.renderRightFixedTable()));
-    }));
-  };
+  }]);
 
   return Table;
-}(_react.default.Component);
+}(React.Component);
 
-_defineProperty(Table, "propTypes", Object.assign({
-  data: _propTypes.default.array,
-  useFixedHeader: _propTypes.default.bool,
-  columns: _propTypes.default.array,
-  prefixCls: _propTypes.default.string,
-  bodyStyle: _propTypes.default.object,
-  style: _propTypes.default.object,
-  rowKey: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
-  rowClassName: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
-  onRow: _propTypes.default.func,
-  onHeaderRow: _propTypes.default.func,
-  onRowClick: _propTypes.default.func,
-  onRowDoubleClick: _propTypes.default.func,
-  onRowContextMenu: _propTypes.default.func,
-  onRowMouseEnter: _propTypes.default.func,
-  onRowMouseLeave: _propTypes.default.func,
-  showHeader: _propTypes.default.bool,
-  title: _propTypes.default.func,
-  id: _propTypes.default.string,
-  footer: _propTypes.default.func,
-  emptyText: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.func]),
-  scroll: _propTypes.default.object,
-  rowRef: _propTypes.default.func,
-  getBodyWrapper: _propTypes.default.func,
-  children: _propTypes.default.node,
-  components: _propTypes.default.shape({
-    table: _propTypes.default.any,
-    header: _propTypes.default.shape({
-      wrapper: _propTypes.default.any,
-      row: _propTypes.default.any,
-      cell: _propTypes.default.any
+_defineProperty(Table, "propTypes", _objectSpread({
+  data: PropTypes.array,
+  useFixedHeader: PropTypes.bool,
+  columns: PropTypes.array,
+  prefixCls: PropTypes.string,
+  bodyStyle: PropTypes.object,
+  style: PropTypes.object,
+  rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  onRow: PropTypes.func,
+  onHeaderRow: PropTypes.func,
+  onRowClick: PropTypes.func,
+  onRowDoubleClick: PropTypes.func,
+  onRowContextMenu: PropTypes.func,
+  onRowMouseEnter: PropTypes.func,
+  onRowMouseLeave: PropTypes.func,
+  showHeader: PropTypes.bool,
+  title: PropTypes.func,
+  id: PropTypes.string,
+  footer: PropTypes.func,
+  emptyText: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  scroll: PropTypes.object,
+  rowRef: PropTypes.func,
+  getBodyWrapper: PropTypes.func,
+  children: PropTypes.node,
+  components: PropTypes.shape({
+    table: PropTypes.any,
+    header: PropTypes.shape({
+      wrapper: PropTypes.any,
+      row: PropTypes.any,
+      cell: PropTypes.any
     }),
-    body: _propTypes.default.shape({
-      wrapper: _propTypes.default.any,
-      row: _propTypes.default.any,
-      cell: _propTypes.default.any
+    body: PropTypes.shape({
+      wrapper: PropTypes.any,
+      row: PropTypes.any,
+      cell: PropTypes.any
     })
   })
-}, _ExpandableTable.default.PropTypes));
+}, ExpandableTable.PropTypes));
 
 _defineProperty(Table, "childContextTypes", {
-  table: _propTypes.default.any,
-  components: _propTypes.default.any
+  table: PropTypes.any,
+  components: PropTypes.any
 });
 
 _defineProperty(Table, "defaultProps", {
@@ -608,6 +618,5 @@ _defineProperty(Table, "defaultProps", {
   }
 });
 
-(0, _reactLifecyclesCompat.polyfill)(Table);
-var _default = Table;
-exports.default = _default;
+polyfill(Table);
+export default Table;

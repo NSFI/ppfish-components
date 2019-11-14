@@ -1,13 +1,9 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = exports.rcPlacements = void 0;
 var autoAdjustOverflow = {
   adjustX: 1,
   adjustY: 1
 };
 var targetOffset = [0, 0];
-var rcPlacements = {
+export var rcPlacements = {
   left: {
     points: ['cr', 'cl'],
     overflow: autoAdjustOverflow,
@@ -81,6 +77,4 @@ var rcPlacements = {
     targetOffset: targetOffset
   }
 };
-exports.rcPlacements = rcPlacements;
-var _default = rcPlacements;
-exports.default = _default;
+export default rcPlacements;

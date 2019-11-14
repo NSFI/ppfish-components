@@ -1,37 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _omit = _interopRequireDefault(require("omit.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -57,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -72,6 +39,11 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import omit from 'omit.js';
 
 function fixControlledValue(value) {
   if (typeof value === 'undefined' || value === null) {
@@ -125,7 +97,7 @@ function (_super) {
         prefixCls = _b.prefixCls,
         size = _b.size,
         disabled = _b.disabled;
-    return (0, _classnames.default)(prefixCls, (_a = {}, _a[prefixCls + "-sm"] = size === 'small', _a[prefixCls + "-lg"] = size === 'large', _a[prefixCls + "-disabled"] = disabled, _a));
+    return classNames(prefixCls, (_a = {}, _a[prefixCls + "-sm"] = size === 'small', _a[prefixCls + "-lg"] = size === 'large', _a[prefixCls + "-disabled"] = disabled, _a));
   };
 
   Input.prototype.renderLabeledInput = function (children) {
@@ -145,8 +117,8 @@ function (_super) {
     var addonAfter = props.addonAfter ? React.createElement("span", {
       className: addonClassName
     }, props.addonAfter) : null;
-    var className = (0, _classnames.default)(props.prefixCls + "-wrapper", (_a = {}, _a[wrapperClassName] = addonBefore || addonAfter, _a));
-    var groupClassName = (0, _classnames.default)(props.prefixCls + "-group-wrapper", (_b = {}, _b[props.prefixCls + "-group-wrapper-sm"] = props.size === 'small', _b[props.prefixCls + "-group-wrapper-lg"] = props.size === 'large', _b)); // Need another wrapper for changing display:table to display:inline-block
+    var className = classNames(props.prefixCls + "-wrapper", (_a = {}, _a[wrapperClassName] = addonBefore || addonAfter, _a));
+    var groupClassName = classNames(props.prefixCls + "-group-wrapper", (_b = {}, _b[props.prefixCls + "-group-wrapper-sm"] = props.size === 'small', _b[props.prefixCls + "-group-wrapper-lg"] = props.size === 'large', _b)); // Need another wrapper for changing display:table to display:inline-block
     // and put style prop in wrapper
 
     if (addonBefore || addonAfter) {
@@ -180,7 +152,7 @@ function (_super) {
     var suffix = props.suffix ? React.createElement("span", {
       className: props.prefixCls + "-suffix"
     }, props.suffix) : null;
-    var affixWrapperCls = (0, _classnames.default)(props.className, props.prefixCls + "-affix-wrapper", (_a = {}, _a[props.prefixCls + "-affix-wrapper-sm"] = props.size === 'small', _a[props.prefixCls + "-affix-wrapper-lg"] = props.size === 'large', _a));
+    var affixWrapperCls = classNames(props.className, props.prefixCls + "-affix-wrapper", (_a = {}, _a[props.prefixCls + "-affix-wrapper-sm"] = props.size === 'small', _a[props.prefixCls + "-affix-wrapper-lg"] = props.size === 'large', _a));
     return React.createElement("span", {
       className: affixWrapperCls,
       style: props.style
@@ -195,7 +167,7 @@ function (_super) {
         value = _a.value,
         className = _a.className; // Fix https://fb.me/react-unknown-prop
 
-    var otherProps = (0, _omit.default)(this.props, ['prefixCls', 'onPressEnter', 'addonBefore', 'addonAfter', 'prefix', 'suffix']);
+    var otherProps = omit(this.props, ['prefixCls', 'onPressEnter', 'addonBefore', 'addonAfter', 'prefix', 'suffix']);
 
     if ('value' in this.props) {
       otherProps.value = fixControlledValue(value); // Input elements must be either controlled or uncontrolled,
@@ -205,7 +177,7 @@ function (_super) {
     }
 
     return this.renderLabeledIcon(React.createElement("input", __assign({}, otherProps, {
-      className: (0, _classnames.default)(this.getInputClassName(), className),
+      className: classNames(this.getInputClassName(), className),
       onKeyDown: this.handleKeyDown,
       ref: this.saveInput
     })));
@@ -244,5 +216,4 @@ function (_super) {
   return Input;
 }(React.Component);
 
-var _default = Input;
-exports.default = _default;
+export default Input;

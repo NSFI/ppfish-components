@@ -1,19 +1,8 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.replace");
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.regexp.split");
-
 function endsWith(str, suffix) {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
-var _default = function _default(file, acceptedFiles) {
+export default (function (file, acceptedFiles) {
   if (file && acceptedFiles) {
     var acceptedFilesArray = Array.isArray(acceptedFiles) ? acceptedFiles : acceptedFiles.split(',');
     var fileName = file.name || '';
@@ -34,6 +23,4 @@ var _default = function _default(file, acceptedFiles) {
   }
 
   return true;
-};
-
-exports.default = _default;
+});

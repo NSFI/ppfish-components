@@ -1,26 +1,31 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.getScroll = getScroll;
-exports.default = void 0;
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var _react = _interopRequireDefault(require("react"));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var _classnames2 = _interopRequireDefault(require("classnames"));
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var _utils = require("./utils");
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { setTransform, isTransformSupported } from './utils';
 var isDev = process.env.NODE_ENV !== 'production';
-
-function getScroll(w, top) {
-  var ret = w["page" + (top ? 'Y' : 'X') + "Offset"];
-  var method = "scroll" + (top ? 'Top' : 'Left');
+export function getScroll(w, top) {
+  var ret = w["page".concat(top ? 'Y' : 'X', "Offset")];
+  var method = "scroll".concat(top ? 'Top' : 'Left');
 
   if (typeof ret !== 'number') {
     var d = w.document; // ie6,7,8 standard mode
@@ -75,7 +80,7 @@ function _componentDidUpdate(component, init) {
   if (activeTab) {
     var tabNode = activeTab;
     var tabOffset = offset(tabNode);
-    var transformSupported = (0, _utils.isTransformSupported)(inkBarNodeStyle);
+    var transformSupported = isTransformSupported(inkBarNodeStyle);
 
     if (tabBarPosition === 'top' || tabBarPosition === 'bottom') {
       var left = tabOffset.left - containerOffset.left;
@@ -95,14 +100,14 @@ function _componentDidUpdate(component, init) {
 
 
       if (transformSupported) {
-        (0, _utils.setTransform)(inkBarNodeStyle, "translate3d(" + left + "px,0,0)");
-        inkBarNodeStyle.width = width + "px";
+        setTransform(inkBarNodeStyle, "translate3d(".concat(left, "px,0,0)"));
+        inkBarNodeStyle.width = "".concat(width, "px");
         inkBarNodeStyle.height = '';
       } else {
-        inkBarNodeStyle.left = left + "px";
+        inkBarNodeStyle.left = "".concat(left, "px");
         inkBarNodeStyle.top = '';
         inkBarNodeStyle.bottom = '';
-        inkBarNodeStyle.right = wrapNode.offsetWidth - left - width + "px";
+        inkBarNodeStyle.right = "".concat(wrapNode.offsetWidth - left - width, "px");
       }
     } else {
       var top = tabOffset.top - containerOffset.top;
@@ -117,14 +122,14 @@ function _componentDidUpdate(component, init) {
       }
 
       if (transformSupported) {
-        (0, _utils.setTransform)(inkBarNodeStyle, "translate3d(0," + top + "px,0)");
-        inkBarNodeStyle.height = height + "px";
+        setTransform(inkBarNodeStyle, "translate3d(0,".concat(top, "px,0)"));
+        inkBarNodeStyle.height = "".concat(height, "px");
         inkBarNodeStyle.width = '';
       } else {
         inkBarNodeStyle.left = '';
         inkBarNodeStyle.right = '';
-        inkBarNodeStyle.top = top + "px";
-        inkBarNodeStyle.bottom = wrapNode.offsetHeight - top - height + "px";
+        inkBarNodeStyle.top = "".concat(top, "px");
+        inkBarNodeStyle.bottom = "".concat(wrapNode.offsetHeight - top - height, "px");
       }
     }
   }
@@ -135,60 +140,66 @@ function _componentDidUpdate(component, init) {
 var InkTabBarNode =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(InkTabBarNode, _React$Component);
+  _inherits(InkTabBarNode, _React$Component);
 
   function InkTabBarNode() {
-    return _React$Component.apply(this, arguments) || this;
+    _classCallCheck(this, InkTabBarNode);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(InkTabBarNode).apply(this, arguments));
   }
 
-  var _proto = InkTabBarNode.prototype;
+  _createClass(InkTabBarNode, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this = this;
 
-  _proto.componentDidMount = function componentDidMount() {
-    var _this = this;
+      // if (isDev) {
+      // https://github.com/ant-design/ant-design/issues/8678
+      this.timeout = setTimeout(function () {
+        _componentDidUpdate(_this, true);
+      }, 0); // } else {
+      //   componentDidUpdate(this, true);
+      // }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      _componentDidUpdate(this);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearTimeout(this.timeout);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classnames;
 
-    // if (isDev) {
-    // https://github.com/ant-design/ant-design/issues/8678
-    this.timeout = setTimeout(function () {
-      _componentDidUpdate(_this, true);
-    }, 0); // } else {
-    //   componentDidUpdate(this, true);
-    // }
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    _componentDidUpdate(this);
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    clearTimeout(this.timeout);
-  };
-
-  _proto.render = function render() {
-    var _classnames;
-
-    var _this$props = this.props,
-        prefixCls = _this$props.prefixCls,
-        styles = _this$props.styles,
-        inkBarAnimated = _this$props.inkBarAnimated;
-    var className = prefixCls + "-ink-bar";
-    var classes = (0, _classnames2.default)((_classnames = {}, _classnames[className] = true, _classnames[inkBarAnimated ? className + "-animated" : className + "-no-animated"] = true, _classnames));
-    return _react.default.createElement("div", {
-      style: styles.inkBar,
-      className: classes,
-      key: "inkBar",
-      ref: this.props.saveRef('inkBar')
-    });
-  };
+      var _this$props = this.props,
+          prefixCls = _this$props.prefixCls,
+          styles = _this$props.styles,
+          inkBarAnimated = _this$props.inkBarAnimated;
+      var className = "".concat(prefixCls, "-ink-bar");
+      var classes = classnames((_classnames = {}, _defineProperty(_classnames, className, true), _defineProperty(_classnames, inkBarAnimated ? "".concat(className, "-animated") : "".concat(className, "-no-animated"), true), _classnames));
+      return React.createElement("div", {
+        style: styles.inkBar,
+        className: classes,
+        key: "inkBar",
+        ref: this.props.saveRef('inkBar')
+      });
+    }
+  }]);
 
   return InkTabBarNode;
-}(_react.default.Component);
+}(React.Component);
 
-exports.default = InkTabBarNode;
+export { InkTabBarNode as default };
 InkTabBarNode.propTypes = {
-  prefixCls: _propTypes.default.string,
-  styles: _propTypes.default.object,
-  inkBarAnimated: _propTypes.default.bool,
-  saveRef: _propTypes.default.func
+  prefixCls: PropTypes.string,
+  styles: PropTypes.object,
+  inkBarAnimated: PropTypes.bool,
+  saveRef: PropTypes.func
 };
 InkTabBarNode.defaultProps = {
   prefixCls: '',

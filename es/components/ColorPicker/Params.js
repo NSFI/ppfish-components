@@ -1,50 +1,56 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _react = _interopRequireDefault(require("react"));
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _color = _interopRequireDefault(require("./helpers/color"));
-
-var _percentage = _interopRequireDefault(require("./helpers/percentage"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
+import Color from './helpers/color';
+import percentage from './helpers/percentage';
 var modesMap = ['RGB', 'HSB'];
 
 var Params =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(Params, _React$Component);
+  _inherits(Params, _React$Component);
 
-  Params.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var newState = {};
+  _createClass(Params, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var newState = {};
 
-    if ('color' in nextProps) {
-      newState.color = nextProps.color;
-      newState.hex = nextProps.color.hex;
+      if ('color' in nextProps) {
+        newState.color = nextProps.color;
+        newState.hex = nextProps.color.hex;
+      }
+
+      return newState;
     }
-
-    return newState;
-  };
+  }]);
 
   function Params(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this; // 管理 input 的状态
+    _classCallCheck(this, Params);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Params).call(this, props)); // 管理 input 的状态
 
     _defineProperty(_assertThisInitialized(_this), "getChannelInRange", function (value, index) {
       var channelMap = {
@@ -65,15 +71,15 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getPrefixCls", function () {
-      return _this.props.rootPrefixCls + "-params";
+      return "".concat(_this.props.rootPrefixCls, "-params");
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleHexBlur", function () {
       var hex = _this.state.hex;
       var color = null;
 
-      if (_color.default.isValidHex(hex)) {
-        color = new _color.default(hex);
+      if (Color.isValidHex(hex)) {
+        color = new Color(hex);
       }
 
       if (color !== null) {
@@ -92,8 +98,8 @@ function (_React$Component) {
       if (event.nativeEvent.which === 13) {
         var color = null;
 
-        if (_color.default.isValidHex(hex)) {
-          color = new _color.default(hex);
+        if (Color.isValidHex(hex)) {
+          color = new Color(hex);
         }
 
         if (color !== null) {
@@ -188,88 +194,89 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = Params.prototype;
+  _createClass(Params, [{
+    key: "render",
+    value: function render() {
+      var _classNames;
 
-  _proto.render = function render() {
-    var _classNames;
+      var prefixCls = this.getPrefixCls();
+      var _this$props = this.props,
+          enableAlpha = _this$props.enableAlpha,
+          enableHistory = _this$props.enableHistory;
+      var _this$state = this.state,
+          mode = _this$state.mode,
+          color = _this$state.color;
+      var colorChannel = color[mode];
 
-    var prefixCls = this.getPrefixCls();
-    var _this$props = this.props,
-        enableAlpha = _this$props.enableAlpha,
-        enableHistory = _this$props.enableHistory;
-    var _this$state = this.state,
-        mode = _this$state.mode,
-        color = _this$state.color;
-    var colorChannel = color[mode];
+      if (mode === 'HSB') {
+        colorChannel[0] = parseInt(colorChannel[0], 10);
+        colorChannel[1] = percentage(colorChannel[1]);
+        colorChannel[2] = percentage(colorChannel[2]);
+      }
 
-    if (mode === 'HSB') {
-      colorChannel[0] = parseInt(colorChannel[0], 10);
-      colorChannel[1] = (0, _percentage.default)(colorChannel[1]);
-      colorChannel[2] = (0, _percentage.default)(colorChannel[2]);
+      var paramsClasses = classNames((_classNames = {}, _defineProperty(_classNames, prefixCls, true), _defineProperty(_classNames, "".concat(prefixCls, "-has-history"), enableHistory), _defineProperty(_classNames, "".concat(prefixCls, "-has-alpha"), enableAlpha), _classNames));
+      return React.createElement("div", {
+        className: paramsClasses
+      }, React.createElement("div", {
+        className: "".concat(prefixCls, "-input")
+      }, React.createElement("input", {
+        className: "".concat(prefixCls, "-hex"),
+        type: "text",
+        maxLength: "6",
+        onKeyPress: this.handleHexPress,
+        onBlur: this.handleHexBlur,
+        onChange: this.handleHexChange,
+        value: this.state.hex.toLowerCase()
+      }), React.createElement("input", {
+        type: "number",
+        ref: "channel_0",
+        value: colorChannel[0],
+        onChange: this.handleColorChannelChange.bind(null, 0)
+      }), React.createElement("input", {
+        type: "number",
+        ref: "channel_1",
+        value: colorChannel[1],
+        onChange: this.handleColorChannelChange.bind(null, 1)
+      }), React.createElement("input", {
+        type: "number",
+        ref: "channel_2",
+        value: colorChannel[2],
+        onChange: this.handleColorChannelChange.bind(null, 2)
+      }), enableAlpha && React.createElement("input", {
+        type: "number",
+        value: Math.round(this.props.alpha),
+        onChange: this.handleAlphaHandler
+      })), React.createElement("div", {
+        className: "".concat(prefixCls, "-lable")
+      }, React.createElement("label", {
+        className: "".concat(prefixCls, "-lable-hex")
+      }, "Hex"), React.createElement("label", {
+        className: "".concat(prefixCls, "-lable-number"),
+        onClick: this.handleModeChange
+      }, mode[0]), React.createElement("label", {
+        className: "".concat(prefixCls, "-lable-number"),
+        onClick: this.handleModeChange
+      }, mode[1]), React.createElement("label", {
+        className: "".concat(prefixCls, "-lable-number"),
+        onClick: this.handleModeChange
+      }, mode[2]), enableAlpha && React.createElement("label", {
+        className: "".concat(prefixCls, "-lable-alpha")
+      }, "A")));
     }
-
-    var paramsClasses = (0, _classnames.default)((_classNames = {}, _classNames[prefixCls] = true, _classNames[prefixCls + "-has-history"] = enableHistory, _classNames[prefixCls + "-has-alpha"] = enableAlpha, _classNames));
-    return _react.default.createElement("div", {
-      className: paramsClasses
-    }, _react.default.createElement("div", {
-      className: prefixCls + "-input"
-    }, _react.default.createElement("input", {
-      className: prefixCls + "-hex",
-      type: "text",
-      maxLength: "6",
-      onKeyPress: this.handleHexPress,
-      onBlur: this.handleHexBlur,
-      onChange: this.handleHexChange,
-      value: this.state.hex.toLowerCase()
-    }), _react.default.createElement("input", {
-      type: "number",
-      ref: "channel_0",
-      value: colorChannel[0],
-      onChange: this.handleColorChannelChange.bind(null, 0)
-    }), _react.default.createElement("input", {
-      type: "number",
-      ref: "channel_1",
-      value: colorChannel[1],
-      onChange: this.handleColorChannelChange.bind(null, 1)
-    }), _react.default.createElement("input", {
-      type: "number",
-      ref: "channel_2",
-      value: colorChannel[2],
-      onChange: this.handleColorChannelChange.bind(null, 2)
-    }), enableAlpha && _react.default.createElement("input", {
-      type: "number",
-      value: Math.round(this.props.alpha),
-      onChange: this.handleAlphaHandler
-    })), _react.default.createElement("div", {
-      className: prefixCls + "-lable"
-    }, _react.default.createElement("label", {
-      className: prefixCls + "-lable-hex"
-    }, "Hex"), _react.default.createElement("label", {
-      className: prefixCls + "-lable-number",
-      onClick: this.handleModeChange
-    }, mode[0]), _react.default.createElement("label", {
-      className: prefixCls + "-lable-number",
-      onClick: this.handleModeChange
-    }, mode[1]), _react.default.createElement("label", {
-      className: prefixCls + "-lable-number",
-      onClick: this.handleModeChange
-    }, mode[2]), enableAlpha && _react.default.createElement("label", {
-      className: prefixCls + "-lable-alpha"
-    }, "A")));
-  };
+  }]);
 
   return Params;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(Params, "propTypes", {
-  alpha: _propTypes.default.number,
-  color: _propTypes.default.object.isRequired,
-  enableAlpha: _propTypes.default.bool,
-  enableHistory: _propTypes.default.bool,
-  mode: _propTypes.default.oneOf(modesMap),
-  onAlphaChange: _propTypes.default.func,
-  onChange: _propTypes.default.func,
-  rootPrefixCls: _propTypes.default.string
+  alpha: PropTypes.number,
+  color: PropTypes.object.isRequired,
+  enableAlpha: PropTypes.bool,
+  enableHistory: PropTypes.bool,
+  mode: PropTypes.oneOf(modesMap),
+  onAlphaChange: PropTypes.func,
+  onChange: PropTypes.func,
+  rootPrefixCls: PropTypes.string
 });
 
 _defineProperty(Params, "defaultProps", {
@@ -277,6 +284,5 @@ _defineProperty(Params, "defaultProps", {
   enableAlpha: true
 });
 
-(0, _reactLifecyclesCompat.polyfill)(Params);
-var _default = Params;
-exports.default = _default;
+polyfill(Params);
+export default Params;

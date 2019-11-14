@@ -1,12 +1,8 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
 var autoAdjustOverflow = {
   adjustX: 1,
   adjustY: 1
 };
-var _default = {
+export default {
   bottomLeft: {
     points: ['tl', 'bl'],
     overflow: autoAdjustOverflow,
@@ -38,4 +34,3 @@ var _default = {
     offset: [0, -8]
   }
 };
-exports.default = _default;

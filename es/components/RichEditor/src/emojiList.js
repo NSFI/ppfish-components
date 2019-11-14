@@ -1,7 +1,3 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
 var emojiList = [{
   id: 0,
   className: 'emoji-01',
@@ -828,5 +824,4 @@ var emojiList = [{
   imgName: 'emoji_115',
   title: '[自行车]'
 }];
-var _default = emojiList;
-exports.default = _default;
+export default emojiList;

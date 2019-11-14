@@ -1,57 +1,47 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/web.dom.iterable");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-require("core-js/modules/es6.array.iterator");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.object.to-string");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require("core-js/modules/es6.string.iterator");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-require("core-js/modules/es6.weak-map");
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-require("core-js/modules/es6.object.assign");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _src = _interopRequireDefault(require("./src"));
-
-var _constants = require("./src/common/constants");
-
-var _index = _interopRequireDefault(require("../Modal/index.js"));
-
-var _index2 = _interopRequireDefault(require("../Button/index.js"));
-
-require("./index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Driver from './src';
+import { ESC_KEY_CODE, LEFT_KEY_CODE, RIGHT_KEY_CODE } from './src/common/constants';
+import Modal from '../Modal/index.js';
+import Button from '../Button/index.js';
+import './index.less';
 
 var Guide =
 /*#__PURE__*/
 function (_Component) {
-  _inheritsLoose(Guide, _Component);
+  _inherits(Guide, _Component);
 
   function Guide(props) {
     var _this;
 
-    _this = _Component.call(this, props) || this;
+    _classCallCheck(this, Guide);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Guide).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "init", function () {
       var _this$props = _this.props,
@@ -117,8 +107,8 @@ function (_Component) {
       if (!curStep.title) return null;
 
       if (curStep.subtitle) {
-        return _react.default.createElement(_react.default.Fragment, null, curStep.title, _react.default.createElement("div", {
-          className: _this.props.prefixCls + "-fixed-subtitle"
+        return React.createElement(React.Fragment, null, curStep.title, React.createElement("div", {
+          className: "".concat(_this.props.prefixCls, "-fixed-subtitle")
         }, curStep.subtitle));
       } else {
         return curStep.title;
@@ -149,7 +139,7 @@ function (_Component) {
         opt['opacity'] = 0;
       }
 
-      _this.driver = new _src.default(opt);
+      _this.driver = new Driver(opt);
     } else {
       if (props.keyboardControl) {
         window.addEventListener('keyup', _this.onKeyUp.bind(_assertThisInitialized(_this)), false);
@@ -159,112 +149,114 @@ function (_Component) {
     return _this;
   }
 
-  var _proto = Guide.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    var visible = this.state.visible;
-    if (!visible) return;
-    this.init();
-  };
-
-  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var _this2 = this;
-
-    var visible = this.state.visible;
-
-    if (!visible && nextProps.visible) {
-      this.setState({
-        visible: true
-      }, function () {
-        _this2.init();
-      });
+  _createClass(Guide, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var visible = this.state.visible;
+      if (!visible) return;
+      this.init();
     }
-  };
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
 
-  _proto.onKeyUp = function onKeyUp(event) {
-    if (!this.props.keyboardControl || this.props.mode != 'fixed') return;
+      var visible = this.state.visible;
 
-    if (event.keyCode === _constants.ESC_KEY_CODE) {
-      this.handleClose();
-      return;
+      if (!visible && nextProps.visible) {
+        this.setState({
+          visible: true
+        }, function () {
+          _this2.init();
+        });
+      }
     }
+  }, {
+    key: "onKeyUp",
+    value: function onKeyUp(event) {
+      if (!this.props.keyboardControl || this.props.mode != 'fixed') return;
 
-    if (event.keyCode === _constants.RIGHT_KEY_CODE) {
-      this.handleNext();
-    } else if (event.keyCode === _constants.LEFT_KEY_CODE) {
-      this.handlePrev();
+      if (event.keyCode === ESC_KEY_CODE) {
+        this.handleClose();
+        return;
+      }
+
+      if (event.keyCode === RIGHT_KEY_CODE) {
+        this.handleNext();
+      } else if (event.keyCode === LEFT_KEY_CODE) {
+        this.handlePrev();
+      }
     }
-  };
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props2 = this.props,
+          prefixCls = _this$props2.prefixCls,
+          allowClose = _this$props2.allowClose,
+          mode = _this$props2.mode,
+          mask = _this$props2.mask,
+          className = _this$props2.className,
+          style = _this$props2.style,
+          steps = _this$props2.steps,
+          prevBtnText = _this$props2.prevBtnText,
+          nextBtnText = _this$props2.nextBtnText,
+          doneBtnText = _this$props2.doneBtnText,
+          skipBtnText = _this$props2.skipBtnText,
+          _this$state = this.state,
+          visible = _this$state.visible,
+          currentIndex = _this$state.currentIndex,
+          rootCls = classNames("".concat(prefixCls, "-fixed"), _defineProperty({}, className, className)),
+          isFirstStep = currentIndex <= 0,
+          isLastStep = currentIndex >= this.totalCount - 1;
 
-  _proto.render = function render() {
-    var _classNames;
+      if (mode != 'fixed') {
+        return null;
+      }
 
-    var _this$props2 = this.props,
-        prefixCls = _this$props2.prefixCls,
-        allowClose = _this$props2.allowClose,
-        mode = _this$props2.mode,
-        mask = _this$props2.mask,
-        className = _this$props2.className,
-        style = _this$props2.style,
-        steps = _this$props2.steps,
-        prevBtnText = _this$props2.prevBtnText,
-        nextBtnText = _this$props2.nextBtnText,
-        doneBtnText = _this$props2.doneBtnText,
-        skipBtnText = _this$props2.skipBtnText,
-        _this$state = this.state,
-        visible = _this$state.visible,
-        currentIndex = _this$state.currentIndex,
-        rootCls = (0, _classnames.default)(prefixCls + "-fixed", (_classNames = {}, _classNames[className] = className, _classNames)),
-        isFirstStep = currentIndex <= 0,
-        isLastStep = currentIndex >= this.totalCount - 1;
-
-    if (mode != 'fixed') {
-      return null;
+      return React.createElement(Modal, {
+        className: rootCls,
+        style: _objectSpread({}, style),
+        mask: mask,
+        maskClosable: allowClose,
+        title: this.renderTitle(steps[currentIndex]),
+        visible: visible,
+        width: 800,
+        footer: React.createElement(React.Fragment, null, React.createElement("div", {
+          key: "skip",
+          className: "skip",
+          onClick: this.handleClose
+        }, skipBtnText), isFirstStep ? null : React.createElement(Button, {
+          key: "prev",
+          onClick: this.handlePrev
+        }, prevBtnText), React.createElement(Button, {
+          key: "next",
+          type: "primary",
+          onClick: this.handleNext
+        }, isLastStep ? doneBtnText : nextBtnText, " (".concat(currentIndex + 1, "/").concat(steps.length, ")"))),
+        onCancel: this.handleClose
+      }, steps[currentIndex].content);
     }
-
-    return _react.default.createElement(_index.default, {
-      className: rootCls,
-      style: Object.assign({}, style),
-      mask: mask,
-      maskClosable: allowClose,
-      title: this.renderTitle(steps[currentIndex]),
-      visible: visible,
-      width: 800,
-      footer: _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
-        key: "skip",
-        className: "skip",
-        onClick: this.handleClose
-      }, skipBtnText), isFirstStep ? null : _react.default.createElement(_index2.default, {
-        key: "prev",
-        onClick: this.handlePrev
-      }, prevBtnText), _react.default.createElement(_index2.default, {
-        key: "next",
-        type: "primary",
-        onClick: this.handleNext
-      }, isLastStep ? doneBtnText : nextBtnText, " (" + (currentIndex + 1) + "/" + steps.length + ")")),
-      onCancel: this.handleClose
-    }, steps[currentIndex].content);
-  };
+  }]);
 
   return Guide;
-}(_react.Component);
+}(Component);
 
 _defineProperty(Guide, "propTypes", {
-  prefixCls: _propTypes.default.string,
-  className: _propTypes.default.string,
-  style: _propTypes.default.object,
-  mode: _propTypes.default.string,
-  prevBtnText: _propTypes.default.string,
-  nextBtnText: _propTypes.default.string,
-  doneBtnText: _propTypes.default.string,
-  skipBtnText: _propTypes.default.string,
-  steps: _propTypes.default.array.isRequired,
-  visible: _propTypes.default.bool,
-  counter: _propTypes.default.bool,
-  mask: _propTypes.default.bool,
-  allowClose: _propTypes.default.bool,
-  keyboardControl: _propTypes.default.bool,
-  onClose: _propTypes.default.func
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  mode: PropTypes.string,
+  prevBtnText: PropTypes.string,
+  nextBtnText: PropTypes.string,
+  doneBtnText: PropTypes.string,
+  skipBtnText: PropTypes.string,
+  steps: PropTypes.array.isRequired,
+  visible: PropTypes.bool,
+  counter: PropTypes.bool,
+  mask: PropTypes.bool,
+  allowClose: PropTypes.bool,
+  keyboardControl: PropTypes.bool,
+  onClose: PropTypes.func
 });
 
 _defineProperty(Guide, "defaultProps", {
@@ -282,5 +274,4 @@ _defineProperty(Guide, "defaultProps", {
   steps: []
 });
 
-var _default = Guide;
-exports.default = _default;
+export default Guide;

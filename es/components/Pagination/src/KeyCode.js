@@ -1,8 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-var _default = {
+export default {
   ZERO: 48,
   NINE: 57,
   NUMPAD_ZERO: 96,
@@ -13,4 +9,3 @@ var _default = {
   ARROW_UP: 38,
   ARROW_DOWN: 40
 };
-exports.default = _default;

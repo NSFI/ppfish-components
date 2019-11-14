@@ -1,87 +1,6 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.number.constructor");
-
-require("core-js/modules/es6.string.fixed");
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es7.array.includes");
-
-require("core-js/modules/es6.string.includes");
-
-require("core-js/modules/es6.math.sign");
-
-require("core-js/modules/es6.array.find-index");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var ReactDOM = _interopRequireWildcard(require("react-dom"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _src = _interopRequireDefault(require("./src"));
-
-var _Pagination = _interopRequireDefault(require("../Pagination"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-var _Spin = _interopRequireDefault(require("../Spin"));
-
-var _filterDropdown = _interopRequireDefault(require("./filterDropdown"));
-
-var _createStore = _interopRequireDefault(require("./createStore"));
-
-var _SelectionBox = _interopRequireDefault(require("./SelectionBox"));
-
-var _SelectionCheckboxAll = _interopRequireDefault(require("./SelectionCheckboxAll"));
-
-var _ColumnFiltrateModal = _interopRequireDefault(require("./ColumnFiltrateModal"));
-
-var _Column = _interopRequireDefault(require("./Column"));
-
-var _ColumnGroup = _interopRequireDefault(require("./ColumnGroup"));
-
-var _createBodyRow = _interopRequireDefault(require("./createBodyRow"));
-
-var _util = require("./util");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -107,7 +26,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -123,7 +42,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -136,7 +55,7 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+var __spreadArrays = this && this.__spreadArrays || function () {
   for (var s = 0, i = 0, il = arguments.length; i < il; i++) {
     s += arguments[i].length;
   }
@@ -149,6 +68,27 @@ var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
 
   return r;
 };
+
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import warning from 'warning';
+import isEqual from 'lodash/isEqual';
+import { polyfill } from 'react-lifecycles-compat';
+import RcTable from './src';
+import Pagination from '../Pagination';
+import Icon from '../Icon';
+import Spin from '../Spin';
+import FilterDropdown from './filterDropdown';
+import createStore from './createStore';
+import SelectionBox from './SelectionBox';
+import SelectionCheckboxAll from './SelectionCheckboxAll';
+import ColumnFiltrateModal from './ColumnFiltrateModal';
+import Column from './Column';
+import ColumnGroup from './ColumnGroup';
+import createBodyRow from './createBodyRow';
+import { flatArray, treeMap, flatFilter, normalizeColumns } from './util';
 
 function noop() {}
 
@@ -179,7 +119,7 @@ function getComponents(state, components, prevComponents) {
   var newState = {};
 
   if (!state.row || bodyRow !== preBodyRow) {
-    newState.row = (0, _createBodyRow.default)(bodyRow);
+    newState.row = createBodyRow(bodyRow);
   }
 
   newState.components = __assign(__assign({}, components), {
@@ -217,13 +157,13 @@ function isFiltersChanged(newFilters, prevFilters) {
 }
 
 function getSortOrderColumns(columns) {
-  return (0, _util.flatFilter)(columns || [], function (column) {
+  return flatFilter(columns || [], function (column) {
     return 'sortOrder' in column;
   });
 }
 
 function getFilteredValueColumns(columns) {
-  return (0, _util.flatFilter)(columns || [], function (column) {
+  return flatFilter(columns || [], function (column) {
     return typeof column.filteredValue !== 'undefined';
   });
 }
@@ -308,7 +248,7 @@ function (_super) {
 
 
       var currentColumnKeys = [];
-      (0, _util.treeMap)(_this.state.columns, function (c) {
+      treeMap(_this.state.columns, function (c) {
         if (!c.children) {
           currentColumnKeys.push(_this.getColumnKey(c));
         }
@@ -346,7 +286,7 @@ function (_super) {
       } // Controlled current prop will not respond user interaction
 
 
-      if (typeof props.pagination === 'object' && 'current' in props.pagination) {
+      if (_typeof(props.pagination) === 'object' && 'current' in props.pagination) {
         newState.pagination = __assign(__assign({}, pagination), {
           current: _this.state.pagination.current
         });
@@ -591,7 +531,7 @@ function (_super) {
         pagination: pagination
       }; // Controlled current prop will not respond user interaction
 
-      if (props.pagination && typeof props.pagination === 'object' && 'current' in props.pagination) {
+      if (props.pagination && _typeof(props.pagination) === 'object' && 'current' in props.pagination) {
         newState.pagination = __assign(__assign({}, pagination), {
           current: _this.state.pagination.current
         });
@@ -626,7 +566,7 @@ function (_super) {
 
         return React.createElement("span", {
           onClick: stopPropagation
-        }, React.createElement(_SelectionBox.default, __assign({
+        }, React.createElement(SelectionBox, __assign({
           type: type,
           store: _this.store,
           rowIndex: rowIndex,
@@ -639,7 +579,7 @@ function (_super) {
     _this.getRecordKey = function (record, index) {
       var rowKey = _this.props.rowKey;
       var recordKey = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
-      (0, _warning.default)(recordKey !== undefined, 'Each record in dataSource of table should have a unique `key` prop, ' + 'or set `rowKey` of Table to an unique primary key, ' + 'see https://u.ant.design/table-row-key');
+      warning(recordKey !== undefined, 'Each record in dataSource of table should have a unique `key` prop, ' + 'or set `rowKey` of Table to an unique primary key, ' + 'see https://u.ant.design/table-row-key');
       return recordKey === undefined ? index : recordKey;
     };
 
@@ -706,7 +646,7 @@ function (_super) {
       var data = _this.getCurrentPageData();
 
       var expandIconAsCell = _this.props.expandedRowRender && _this.props.expandIconAsCell !== false;
-      var classString = (0, _classnames.default)((_a = {}, _a[prefixCls + "-" + _this.props.size] = true, _a[prefixCls + "-bordered"] = _this.props.bordered, _a[prefixCls + "-empty"] = !data.length, _a[prefixCls + "-without-column-header"] = !showHeader, _a));
+      var classString = classNames((_a = {}, _a[prefixCls + "-" + _this.props.size] = true, _a[prefixCls + "-bordered"] = _this.props.bordered, _a[prefixCls + "-empty"] = !data.length, _a[prefixCls + "-without-column-header"] = !showHeader, _a));
 
       var columns = _this.renderRowSelection(locale);
 
@@ -727,7 +667,7 @@ function (_super) {
         expandIconColumnIndex = restProps.expandIconColumnIndex;
       }
 
-      return React.createElement(_src.default, __assign({
+      return React.createElement(RcTable, __assign({
         key: "table"
       }, restProps, {
         onRow: _this.onRow,
@@ -744,8 +684,8 @@ function (_super) {
       }));
     };
 
-    (0, _warning.default)(!('columnsPageRange' in props || 'columnsPageSize' in props), '`columnsPageRange` and `columnsPageSize` are removed, please use ' + 'fixed columns instead, see: https://u.ant.design/fixed-columns.');
-    var columns = props.columns || (0, _util.normalizeColumns)(props.children);
+    warning(!('columnsPageRange' in props || 'columnsPageSize' in props), '`columnsPageRange` and `columnsPageSize` are removed, please use ' + 'fixed columns instead, see: https://u.ant.design/fixed-columns.');
+    var columns = props.columns || normalizeColumns(props.children);
     var hideColumns = getHideColumns(props);
     _this.state = __assign(__assign(__assign(__assign({}, _this.getDefaultSortOrder(columns)), {
       // 减少状态
@@ -757,7 +697,7 @@ function (_super) {
     }), getComponents({}, props.components)), {
       prevProps: props
     });
-    _this.store = (0, _createStore.default)({
+    _this.store = createStore({
       selectedRowKeys: getRowSelection(props).selectedRowKeys || [],
       selectionDirty: false
     });
@@ -770,7 +710,7 @@ function (_super) {
     var newState = {
       prevProps: nextProps
     };
-    var columns = nextProps.columns || (0, _util.normalizeColumns)(nextProps.children);
+    var columns = nextProps.columns || normalizeColumns(nextProps.children);
     newState.columns = columns;
 
     if ('pagination' in nextProps || 'pagination' in prevProps) {
@@ -835,13 +775,13 @@ function (_super) {
   };
 
   Table.prototype.componentDidUpdate = function (prevProps) {
-    if (this.props.rowSelection && 'selectedRowKeys' in this.props.rowSelection && (!prevProps.rowSelection || !prevProps.rowSelection.selectedRowKeys || !(0, _isEqual.default)(this.props.rowSelection.selectedRowKeys, prevProps.rowSelection.selectedRowKeys))) {
+    if (this.props.rowSelection && 'selectedRowKeys' in this.props.rowSelection && (!prevProps.rowSelection || !prevProps.rowSelection.selectedRowKeys || !isEqual(this.props.rowSelection.selectedRowKeys, prevProps.rowSelection.selectedRowKeys))) {
       this.store.setState({
         selectedRowKeys: this.props.rowSelection.selectedRowKeys || []
       });
     }
 
-    if ('dataSource' in this.props && !(0, _isEqual.default)(this.props.dataSource, prevProps.dataSource)) {
+    if ('dataSource' in this.props && !isEqual(this.props.dataSource, prevProps.dataSource)) {
       this.store.setState({
         selectionDirty: false
       });
@@ -901,7 +841,7 @@ function (_super) {
 
   Table.prototype.getDefaultSortOrder = function (columns) {
     var definedSortState = getSortStateFromColumns(columns);
-    var defaultSortedColumn = (0, _util.flatFilter)(columns || [], function (column) {
+    var defaultSortedColumn = flatFilter(columns || [], function (column) {
       return column.defaultSortOrder != null;
     })[0];
 
@@ -1028,7 +968,7 @@ function (_super) {
 
         return true;
       });
-      var selectionColumnClass = (0, _classnames.default)(prefixCls + "-selection-column", (_a = {}, _a[prefixCls + "-selection-column-custom"] = rowSelection.selections, _a));
+      var selectionColumnClass = classNames(prefixCls + "-selection-column", (_a = {}, _a[prefixCls + "-selection-column-custom"] = rowSelection.selections, _a));
       var selectionColumn = {
         key: 'selection-column',
         render: this.renderSelectionBox(rowSelection.type),
@@ -1044,7 +984,7 @@ function (_super) {
         var checkboxAllDisabled = data.every(function (item, index) {
           return _this.getCheckboxPropsByItem(item, index).disabled;
         });
-        selectionColumn.title = React.createElement(_SelectionCheckboxAll.default, {
+        selectionColumn.title = React.createElement(SelectionCheckboxAll, {
           store: this.store,
           locale: locale,
           data: data,
@@ -1086,9 +1026,9 @@ function (_super) {
     if (columnFiltrate) {
       var filtrateColumn = {
         key: 'filtrate-column',
-        className: (0, _classnames.default)(prefixCls + "-filtrate-column"),
+        className: classNames(prefixCls + "-filtrate-column"),
         width: 50,
-        title: React.createElement(_ColumnFiltrateModal.default, {
+        title: React.createElement(ColumnFiltrateModal, {
           prefixCls: prefixCls,
           columns: this.state.columns,
           hideColumns: this.state.hideColumns,
@@ -1097,7 +1037,7 @@ function (_super) {
         })
       };
 
-      if (typeof columnFiltrate === 'object' && 'fixed' in columnFiltrate) {
+      if (_typeof(columnFiltrate) === 'object' && 'fixed' in columnFiltrate) {
         filtrateColumn.fixed = columnFiltrate.fixed;
       } else if (columns.some(function (column) {
         return column.fixed === 'right' || column.fixed === true;
@@ -1148,7 +1088,7 @@ function (_super) {
         prefixCls = _a.prefixCls,
         dropdownPrefixCls = _a.dropdownPrefixCls;
     var sortOrder = this.state.sortOrder;
-    return (0, _util.treeMap)(columns, function (originColumn, i) {
+    return treeMap(columns, function (originColumn, i) {
       var _a;
 
       var column = __assign({}, originColumn);
@@ -1160,7 +1100,7 @@ function (_super) {
 
       if (column.filters && column.filters.length > 0 || column.filterDropdown) {
         var colFilters = _this.state.filters[key] || [];
-        filterDropdown = React.createElement(_filterDropdown.default, {
+        filterDropdown = React.createElement(FilterDropdown, {
           locale: locale,
           column: column,
           selectedKeys: colFilters,
@@ -1175,7 +1115,7 @@ function (_super) {
         var isSortColumn = _this.isSortColumn(column);
 
         if (isSortColumn) {
-          column.className = (0, _classnames.default)(column.className, (_a = {}, _a[prefixCls + "-column-sort"] = sortOrder, _a));
+          column.className = classNames(column.className, (_a = {}, _a[prefixCls + "-column-sort"] = sortOrder, _a));
         }
 
         var isAscend_1 = isSortColumn && sortOrder === 'ascend';
@@ -1189,7 +1129,7 @@ function (_super) {
                 onClick: function onClick() {
                   return _this.toggleTwoStateSortOrder('ascend', column);
                 }
-              }, React.createElement(_Icon.default, {
+              }, React.createElement(Icon, {
                 type: "a-z"
               }));
             } else if (isDescend_1) {
@@ -1201,7 +1141,7 @@ function (_super) {
                 style: {
                   top: -2
                 }
-              }, React.createElement(_Icon.default, {
+              }, React.createElement(Icon, {
                 type: "z-a"
               }));
             } else {
@@ -1210,7 +1150,7 @@ function (_super) {
                 onClick: function onClick() {
                   return _this.toggleTwoStateSortOrder('ascend', column);
                 }
-              }, React.createElement(_Icon.default, {
+              }, React.createElement(Icon, {
                 type: "a-z"
               }));
             }
@@ -1228,7 +1168,7 @@ function (_super) {
             onClick: function onClick() {
               return _this.toggleSortOrder('ascend', column);
             }
-          }, React.createElement(_Icon.default, {
+          }, React.createElement(Icon, {
             type: "up-fill"
           })), React.createElement("span", {
             className: prefixCls + "-column-sorter-down " + (isDescend_1 ? 'on' : 'off'),
@@ -1236,7 +1176,7 @@ function (_super) {
             onClick: function onClick() {
               return _this.toggleSortOrder('descend', column);
             }
-          }, React.createElement(_Icon.default, {
+          }, React.createElement(Icon, {
             type: "down-fill"
           })));
         }
@@ -1247,7 +1187,7 @@ function (_super) {
       }, column.title, sortButton, filterDropdown);
 
       if (sortButton || filterDropdown) {
-        column.className = (0, _classnames.default)(prefixCls + "-column-has-filters", column.className);
+        column.className = classNames(prefixCls + "-column-has-filters", column.className);
       }
 
       return column;
@@ -1271,10 +1211,10 @@ function (_super) {
 
     var position = pagination.position || 'bottom';
     var total = pagination.total || this.getLocalData().length;
-    return total > 0 && (position === paginationPosition || position === 'both') ? React.createElement(_Pagination.default, __assign({
+    return total > 0 && (position === paginationPosition || position === 'both') ? React.createElement(Pagination, __assign({
       key: "pagination-" + paginationPosition
     }, pagination, {
-      className: (0, _classnames.default)(pagination.className, this.props.prefixCls + "-pagination"),
+      className: classNames(pagination.className, this.props.prefixCls + "-pagination"),
       onChange: this.handlePageChange,
       total: total,
       size: size,
@@ -1307,7 +1247,7 @@ function (_super) {
     var _this = this;
 
     var column;
-    (0, _util.treeMap)(this.state.columns, function (c) {
+    treeMap(this.state.columns, function (c) {
       if (_this.getColumnKey(c) === myKey) {
         column = c;
       }
@@ -1343,11 +1283,11 @@ function (_super) {
   };
 
   Table.prototype.getFlatData = function () {
-    return (0, _util.flatArray)(this.getLocalData());
+    return flatArray(this.getLocalData());
   };
 
   Table.prototype.getFlatCurrentPageData = function () {
-    return (0, _util.flatArray)(this.getCurrentPageData());
+    return flatArray(this.getCurrentPageData());
   };
 
   Table.prototype.recursiveSort = function (data, sorterFn) {
@@ -1422,15 +1362,15 @@ function (_super) {
 
     var paginationPatchClass = this.hasPagination() && data && data.length !== 0 ? prefixCls + "-with-pagination" : prefixCls + "-without-pagination";
     return React.createElement("div", {
-      className: (0, _classnames.default)(prefixCls + "-wrapper", className),
+      className: classNames(prefixCls + "-wrapper", className),
       style: style
-    }, React.createElement(_Spin.default, __assign({}, loading, {
+    }, React.createElement(Spin, __assign({}, loading, {
       className: loading.spinning ? paginationPatchClass + " " + prefixCls + "-spin-holder" : ''
     }), this.renderPagination('top'), table, this.renderPagination('bottom')));
   };
 
-  Table.Column = _Column.default;
-  Table.ColumnGroup = _ColumnGroup.default;
+  Table.Column = Column;
+  Table.ColumnGroup = ColumnGroup;
   Table.propTypes = {
     dataSource: PropTypes.array,
     columns: PropTypes.array,
@@ -1464,6 +1404,5 @@ function (_super) {
   return Table;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(Table);
-var _default = Table;
-exports.default = _default;
+polyfill(Table);
+export default Table;

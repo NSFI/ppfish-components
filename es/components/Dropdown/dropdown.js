@@ -1,37 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _src = _interopRequireDefault(require("./src"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -57,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -72,6 +39,11 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import RcDropdown from './src';
+import classNames from 'classnames';
+import warning from 'warning';
 
 var Dropdown =
 /** @class */
@@ -104,7 +76,7 @@ function (_super) {
 
     if (overlay) {
       var overlayProps = overlay.props;
-      (0, _warning.default)(!overlayProps.mode || overlayProps.mode === 'vertical', "mode=\"" + overlayProps.mode + "\" is not supported for Dropdown's Menu.");
+      warning(!overlayProps.mode || overlayProps.mode === 'vertical', "mode=\"" + overlayProps.mode + "\" is not supported for Dropdown's Menu.");
     }
   };
 
@@ -118,7 +90,7 @@ function (_super) {
     var child = React.Children.only(children);
     var overlay = React.Children.only(overlayElements);
     var dropdownTrigger = React.cloneElement(child, {
-      className: (0, _classnames.default)(child.props.className, prefixCls + "-trigger"),
+      className: classNames(child.props.className, prefixCls + "-trigger"),
       disabled: disabled
     }); // menu cannot be selectable in dropdown defaultly
     // menu should be focusable in dropdown defaultly
@@ -140,7 +112,7 @@ function (_super) {
       alignPoint = true;
     }
 
-    return React.createElement(_src.default, __assign({
+    return React.createElement(RcDropdown, __assign({
       alignPoint: alignPoint
     }, this.props, {
       transitionName: this.getTransitionName(),
@@ -158,5 +130,4 @@ function (_super) {
   return Dropdown;
 }(React.Component);
 
-var _default = Dropdown;
-exports.default = _default;
+export default Dropdown;

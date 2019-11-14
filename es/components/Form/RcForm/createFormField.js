@@ -1,20 +1,15 @@
-"use strict";
-
-exports.__esModule = true;
-exports.isFormField = isFormField;
-exports.default = createFormField;
-
-require("core-js/modules/es6.object.assign");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Field = function Field(fields) {
+  _classCallCheck(this, Field);
+
   Object.assign(this, fields);
 };
 
-function isFormField(obj) {
+export function isFormField(obj) {
   return obj instanceof Field;
 }
-
-function createFormField(field) {
+export default function createFormField(field) {
   if (isFormField(field)) {
     return field;
   }

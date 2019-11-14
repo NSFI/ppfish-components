@@ -1,35 +1,36 @@
-"use strict";
-
-exports.__esModule = true;
-exports.getActiveKey = getActiveKey;
-exports.saveRef = saveRef;
-exports.default = exports.SubPopupMenu = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _miniStore = require("mini-store");
-
-var _utils = require("../../../utils");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _util = require("./util");
-
-var _DOMWrap = _interopRequireDefault(require("./DOMWrap"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'mini-store';
+import { KeyCode, createChainedFunction } from '../../../utils';
+import classNames from 'classnames';
+import { getKeyFromChildrenIndex, loopMenuItem, noop, menuAllProps } from './util';
+import DOMWrap from './DOMWrap';
 
 function allDisabled(arr) {
   if (!arr.length) {
@@ -42,11 +43,9 @@ function allDisabled(arr) {
 }
 
 function updateActiveKey(store, menuId, activeKey) {
-  var _Object$assign;
-
   var state = store.getState();
   store.setState({
-    activeKey: Object.assign({}, state.activeKey, (_Object$assign = {}, _Object$assign[menuId] = activeKey, _Object$assign))
+    activeKey: _objectSpread({}, state.activeKey, _defineProperty({}, menuId, activeKey))
   });
 }
 
@@ -55,15 +54,15 @@ function getEventKey(props) {
   return props.eventKey || '0-menu-';
 }
 
-function getActiveKey(props, originalActiveKey) {
+export function getActiveKey(props, originalActiveKey) {
   var activeKey = originalActiveKey;
   var children = props.children,
       eventKey = props.eventKey;
 
   if (activeKey) {
     var found;
-    (0, _util.loopMenuItem)(children, function (c, i) {
-      if (c && !c.props.disabled && activeKey === (0, _util.getKeyFromChildrenIndex)(c, eventKey, i)) {
+    loopMenuItem(children, function (c, i) {
+      if (c && !c.props.disabled && activeKey === getKeyFromChildrenIndex(c, eventKey, i)) {
         found = true;
       }
     });
@@ -76,9 +75,9 @@ function getActiveKey(props, originalActiveKey) {
   activeKey = null;
 
   if (props.defaultActiveFirst) {
-    (0, _util.loopMenuItem)(children, function (c, i) {
+    loopMenuItem(children, function (c, i) {
       if (!activeKey && c && !c.props.disabled) {
-        activeKey = (0, _util.getKeyFromChildrenIndex)(c, eventKey, i);
+        activeKey = getKeyFromChildrenIndex(c, eventKey, i);
       }
     });
     return activeKey;
@@ -86,8 +85,7 @@ function getActiveKey(props, originalActiveKey) {
 
   return activeKey;
 }
-
-function saveRef(c) {
+export function saveRef(c) {
   if (c) {
     var index = this.instanceArray.indexOf(c);
 
@@ -100,18 +98,17 @@ function saveRef(c) {
     }
   }
 }
-
-var SubPopupMenu =
+export var SubPopupMenu =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(SubPopupMenu, _React$Component);
+  _inherits(SubPopupMenu, _React$Component);
 
   function SubPopupMenu(_props) {
-    var _Object$assign2;
-
     var _this;
 
-    _this = _React$Component.call(this, _props) || this;
+    _classCallCheck(this, SubPopupMenu);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SubPopupMenu).call(this, _props));
 
     _defineProperty(_assertThisInitialized(_this), "onKeyDown", function (e, callback) {
       var keyCode = e.keyCode;
@@ -129,8 +126,8 @@ function (_React$Component) {
 
       var activeItem = null;
 
-      if (keyCode === _utils.KeyCode.UP || keyCode === _utils.KeyCode.DOWN) {
-        activeItem = _this.step(keyCode === _utils.KeyCode.UP ? -1 : 1);
+      if (keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
+        activeItem = _this.step(keyCode === KeyCode.UP ? -1 : 1);
       }
 
       if (activeItem) {
@@ -230,10 +227,11 @@ function (_React$Component) {
       var state = _this.props.store.getState();
 
       var props = _this.props;
-      var key = (0, _util.getKeyFromChildrenIndex)(child, props.eventKey, i);
+      var key = getKeyFromChildrenIndex(child, props.eventKey, i);
       var childProps = child.props;
       var isActive = key === state.activeKey;
-      var newChildProps = Object.assign({
+
+      var newChildProps = _objectSpread({
         mode: props.mode,
         level: props.level,
         inlineIndent: props.inlineIndent,
@@ -242,12 +240,12 @@ function (_React$Component) {
         index: i,
         parentMenu: props.parentMenu,
         // customized ref function, need to be invoked manually in child's componentDidMount
-        manualRef: childProps.disabled ? undefined : (0, _utils.createChainedFunction)(child.ref, saveRef.bind(_assertThisInitialized(_this))),
+        manualRef: childProps.disabled ? undefined : createChainedFunction(child.ref, saveRef.bind(_assertThisInitialized(_this))),
         eventKey: key,
         active: !childProps.disabled && isActive,
         multiple: props.multiple,
         onClick: function onClick(e) {
-          (childProps.onClick || _util.noop)(e);
+          (childProps.onClick || noop)(e);
 
           _this.onClick(e);
         },
@@ -267,7 +265,7 @@ function (_React$Component) {
         newChildProps.triggerSubMenuAction = 'click';
       }
 
-      return _react.default.cloneElement(child, newChildProps);
+      return React.cloneElement(child, newChildProps);
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderMenuItem", function (c, i, subMenuKey) {
@@ -288,120 +286,121 @@ function (_React$Component) {
     });
 
     _props.store.setState({
-      activeKey: Object.assign({}, _props.store.getState().activeKey, (_Object$assign2 = {}, _Object$assign2[_props.eventKey] = getActiveKey(_props, _props.activeKey), _Object$assign2))
+      activeKey: _objectSpread({}, _props.store.getState().activeKey, _defineProperty({}, _props.eventKey, getActiveKey(_props, _props.activeKey)))
     });
 
     _this.instanceArray = [];
     return _this;
   }
 
-  var _proto = SubPopupMenu.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    // invoke customized ref to expose component to mixin
-    if (this.props.manualRef) {
-      this.props.manualRef(this);
+  _createClass(SubPopupMenu, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // invoke customized ref to expose component to mixin
+      if (this.props.manualRef) {
+        this.props.manualRef(this);
+      }
     }
-  };
-
-  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
-    return this.props.visible || nextProps.visible;
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    var props = this.props;
-    var originalActiveKey = 'activeKey' in props ? props.activeKey : props.store.getState().activeKey[getEventKey(props)];
-    var activeKey = getActiveKey(props, originalActiveKey);
-
-    if (activeKey !== originalActiveKey) {
-      updateActiveKey(props.store, getEventKey(props), activeKey);
+  }, {
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.visible || nextProps.visible;
     }
-  } // all keyboard events callbacks run from here at first
-  ;
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var props = this.props;
+      var originalActiveKey = 'activeKey' in props ? props.activeKey : props.store.getState().activeKey[getEventKey(props)];
+      var activeKey = getActiveKey(props, originalActiveKey);
 
-  _proto.render = function render() {
-    var _this2 = this;
+      if (activeKey !== originalActiveKey) {
+        updateActiveKey(props.store, getEventKey(props), activeKey);
+      }
+    } // all keyboard events callbacks run from here at first
 
-    var props = Object.assign({}, this.props);
-    this.instanceArray = [];
-    var className = (0, _classnames.default)(props.prefixCls, props.className, props.prefixCls + "-" + props.mode);
-    var domProps = {
-      className: className,
-      // role could be 'select' and by default set to menu
-      role: props.role || 'menu'
-    };
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-    if (props.id) {
-      domProps.id = props.id;
+      var props = _extends({}, this.props);
+
+      this.instanceArray = [];
+      var className = classNames(props.prefixCls, props.className, "".concat(props.prefixCls, "-").concat(props.mode));
+      var domProps = {
+        className: className,
+        // role could be 'select' and by default set to menu
+        role: props.role || 'menu'
+      };
+
+      if (props.id) {
+        domProps.id = props.id;
+      }
+
+      if (props.focusable) {
+        domProps.tabIndex = '0';
+        domProps.onKeyDown = this.onKeyDown;
+      }
+
+      var prefixCls = props.prefixCls,
+          eventKey = props.eventKey,
+          visible = props.visible;
+      menuAllProps.forEach(function (key) {
+        return delete props[key];
+      }); // Otherwise, the propagated click event will trigger another onClick
+
+      delete props.onClick;
+      return (// ESLint is not smart enough to know that the type of `children` was checked.
+
+        /* eslint-disable */
+        React.createElement(DOMWrap, _extends({}, props, {
+          tag: "ul",
+          hiddenClassName: "".concat(prefixCls, "-hidden"),
+          visible: visible
+        }, domProps), React.Children.map(props.children, function (c, i) {
+          return _this2.renderMenuItem(c, i, eventKey || '0-menu-');
+        }))
+        /*eslint-enable */
+
+      );
     }
-
-    if (props.focusable) {
-      domProps.tabIndex = '0';
-      domProps.onKeyDown = this.onKeyDown;
-    }
-
-    var prefixCls = props.prefixCls,
-        eventKey = props.eventKey,
-        visible = props.visible;
-
-    _util.menuAllProps.forEach(function (key) {
-      return delete props[key];
-    }); // Otherwise, the propagated click event will trigger another onClick
-
-
-    delete props.onClick;
-    return (// ESLint is not smart enough to know that the type of `children` was checked.
-
-      /* eslint-disable */
-      _react.default.createElement(_DOMWrap.default, _extends({}, props, {
-        tag: "ul",
-        hiddenClassName: prefixCls + "-hidden",
-        visible: visible
-      }, domProps), _react.default.Children.map(props.children, function (c, i) {
-        return _this2.renderMenuItem(c, i, eventKey || '0-menu-');
-      }))
-      /*eslint-enable */
-
-    );
-  };
+  }]);
 
   return SubPopupMenu;
-}(_react.default.Component);
-
-exports.SubPopupMenu = SubPopupMenu;
+}(React.Component);
 
 _defineProperty(SubPopupMenu, "propTypes", {
-  onSelect: _propTypes.default.func,
-  onClick: _propTypes.default.func,
-  onDeselect: _propTypes.default.func,
-  onOpenChange: _propTypes.default.func,
-  onDestroy: _propTypes.default.func,
-  openTransitionName: _propTypes.default.string,
-  openAnimation: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]),
-  openKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  visible: _propTypes.default.bool,
+  onSelect: PropTypes.func,
+  onClick: PropTypes.func,
+  onDeselect: PropTypes.func,
+  onOpenChange: PropTypes.func,
+  onDestroy: PropTypes.func,
+  openTransitionName: PropTypes.string,
+  openAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  openKeys: PropTypes.arrayOf(PropTypes.string),
+  visible: PropTypes.bool,
   // children: PropTypes.any,
-  children: _propTypes.default.node,
-  parentMenu: _propTypes.default.object,
-  eventKey: _propTypes.default.string,
-  store: _propTypes.default.shape({
-    getState: _propTypes.default.func,
-    setState: _propTypes.default.func
+  children: PropTypes.node,
+  parentMenu: PropTypes.object,
+  eventKey: PropTypes.string,
+  store: PropTypes.shape({
+    getState: PropTypes.func,
+    setState: PropTypes.func
   }),
   // adding in refactor
-  focusable: _propTypes.default.bool,
-  multiple: _propTypes.default.bool,
-  style: _propTypes.default.object,
-  defaultActiveFirst: _propTypes.default.bool,
-  activeKey: _propTypes.default.string,
-  selectedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  defaultSelectedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  defaultOpenKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  level: _propTypes.default.number,
-  mode: _propTypes.default.oneOf(['horizontal', 'vertical', 'vertical-left', 'vertical-right', 'inline']),
-  triggerSubMenuAction: _propTypes.default.oneOf(['click', 'hover']),
-  inlineIndent: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  manualRef: _propTypes.default.func
+  focusable: PropTypes.bool,
+  multiple: PropTypes.bool,
+  style: PropTypes.object,
+  defaultActiveFirst: PropTypes.bool,
+  activeKey: PropTypes.string,
+  selectedKeys: PropTypes.arrayOf(PropTypes.string),
+  defaultSelectedKeys: PropTypes.arrayOf(PropTypes.string),
+  defaultOpenKeys: PropTypes.arrayOf(PropTypes.string),
+  level: PropTypes.number,
+  mode: PropTypes.oneOf(['horizontal', 'vertical', 'vertical-left', 'vertical-right', 'inline']),
+  triggerSubMenuAction: PropTypes.oneOf(['click', 'hover']),
+  inlineIndent: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  manualRef: PropTypes.func
 });
 
 _defineProperty(SubPopupMenu, "defaultProps", {
@@ -413,9 +412,7 @@ _defineProperty(SubPopupMenu, "defaultProps", {
   visible: true,
   focusable: true,
   style: {},
-  manualRef: _util.noop
+  manualRef: noop
 });
 
-var _default = (0, _miniStore.connect)()(SubPopupMenu);
-
-exports.default = _default;
+export default connect()(SubPopupMenu);

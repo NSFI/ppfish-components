@@ -1,43 +1,14 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-require("core-js/modules/es6.object.assign");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es7.array.includes");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require("core-js/modules/es6.string.includes");
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-require("core-js/modules/es7.symbol.async-iterator");
-
-require("core-js/modules/es6.symbol");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _index = _interopRequireDefault(require("../Input/index.js"));
-
-var _index2 = _interopRequireDefault(require("../Icon/index.js"));
-
-var _rcTrigger = _interopRequireDefault(require("rc-trigger"));
-
-var _constants = require("./constants");
-
-var _utils = require("./libs/utils");
-
-var _KeyCode = _interopRequireDefault(require("../../utils/KeyCode"));
-
-var _date = require("../../utils/date");
-
-var _placements = _interopRequireDefault(require("./placements"));
-
-var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -45,16 +16,31 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Input from '../Input/index.js';
+import Icon from '../Icon/index.js';
+import Trigger from 'rc-trigger';
+import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
+import { Errors, require_condition } from './libs/utils';
+import KEYCODE from '../../utils/KeyCode';
+import { isValidValue, isValidValueArr, equalDateArr } from '../../utils/date';
+import placements from './placements';
+import isEqual from 'lodash/isEqual';
+
 var haveTriggerType = function haveTriggerType(type) {
-  return _constants.HAVE_TRIGGER_TYPES.indexOf(type) !== -1;
+  return HAVE_TRIGGER_TYPES.indexOf(type) !== -1;
 };
 
 var isInputValid = function isInputValid(text, date) {
-  if (text.trim() === '' || !(0, _date.isValidValue)(date)) return false;
+  if (text.trim() === '' || !isValidValue(date)) return false;
   return true;
 };
 
@@ -63,61 +49,64 @@ var $type = Symbol('type');
 var DateRangeBasePicker =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(DateRangeBasePicker, _React$Component);
-
-  DateRangeBasePicker.dateToStr = function dateToStr(date, type, format, separator) {
-    if (!date || !(0, _date.isValidValue)(date)) return '';
-    var tdate = date;
-    var formatter = _constants.TYPE_VALUE_RESOLVER_MAP['date'].formatter;
-    var result = formatter(tdate, format || _constants.DEFAULT_FORMATS[type], separator);
-    return result;
-  };
-
-  DateRangeBasePicker.propToState = function propToState(_ref, state) {
-    var value = _ref.value,
-        format = _ref.format,
-        separator = _ref.separator;
-    var type = state[$type];
-    return {
-      value: value && (0, _date.isValidValueArr)(value) ? value : null,
-      text: value && (0, _date.isValidValueArr)(value) ? [DateRangeBasePicker.dateToStr(value[0], type, format, separator), DateRangeBasePicker.dateToStr(value[1], type, format, separator)] : "",
-      confirmValue: value && (0, _date.isValidValueArr)(value) ? value : null
-    };
-  };
-
-  DateRangeBasePicker.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    // 只 value 受控
-    if ('value' in nextProps && !(0, _isEqual.default)(prevState.prevPropValue, nextProps.value)) {
-      var state = DateRangeBasePicker.propToState(nextProps, prevState);
-      state.prevPropValue = nextProps.value;
-      return state;
-    }
-
-    return null;
-  };
+  _inherits(DateRangeBasePicker, _React$Component);
 
   _createClass(DateRangeBasePicker, null, [{
+    key: "dateToStr",
+    value: function dateToStr(date, type, format, separator) {
+      if (!date || !isValidValue(date)) return '';
+      var tdate = date;
+      var formatter = TYPE_VALUE_RESOLVER_MAP['date'].formatter;
+      var result = formatter(tdate, format || DEFAULT_FORMATS[type], separator);
+      return result;
+    }
+  }, {
+    key: "propToState",
+    value: function propToState(_ref, state) {
+      var value = _ref.value,
+          format = _ref.format,
+          separator = _ref.separator;
+      var type = state[$type];
+      return {
+        value: value && isValidValueArr(value) ? value : null,
+        text: value && isValidValueArr(value) ? [DateRangeBasePicker.dateToStr(value[0], type, format, separator), DateRangeBasePicker.dateToStr(value[1], type, format, separator)] : "",
+        confirmValue: value && isValidValueArr(value) ? value : null
+      };
+    }
+  }, {
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      // 只 value 受控
+      if ('value' in nextProps && !isEqual(prevState.prevPropValue, nextProps.value)) {
+        var state = DateRangeBasePicker.propToState(nextProps, prevState);
+        state.prevPropValue = nextProps.value;
+        return state;
+      }
+
+      return null;
+    }
+  }, {
     key: "propTypes",
     get: function get() {
       return {
-        className: _propTypes.default.string,
-        startPlaceholder: _propTypes.default.string,
-        endPlaceholder: _propTypes.default.string,
-        separator: _propTypes.default.string,
-        format: _propTypes.default.string,
-        placement: _propTypes.default.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
-        prefixCls: _propTypes.default.string,
-        getPopupContainer: _propTypes.default.func,
-        showTrigger: _propTypes.default.bool,
-        allowClear: _propTypes.default.bool,
-        disabled: _propTypes.default.bool,
-        esc: _propTypes.default.bool,
-        value: _propTypes.default.arrayOf(_propTypes.default.instanceOf(Date)),
-        onFocus: _propTypes.default.func,
-        onBlur: _propTypes.default.func,
-        onChange: _propTypes.default.func,
-        onVisibleChange: _propTypes.default.func,
-        style: _propTypes.default.object
+        className: PropTypes.string,
+        startPlaceholder: PropTypes.string,
+        endPlaceholder: PropTypes.string,
+        separator: PropTypes.string,
+        format: PropTypes.string,
+        placement: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
+        prefixCls: PropTypes.string,
+        getPopupContainer: PropTypes.func,
+        showTrigger: PropTypes.bool,
+        allowClear: PropTypes.bool,
+        disabled: PropTypes.bool,
+        esc: PropTypes.bool,
+        value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func,
+        onChange: PropTypes.func,
+        onVisibleChange: PropTypes.func,
+        style: PropTypes.object
       };
     }
   }, {
@@ -144,17 +133,14 @@ function (_React$Component) {
   function DateRangeBasePicker(props, _type, state) {
     var _this;
 
-    (0, _utils.require_condition)(typeof _type === 'string');
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, DateRangeBasePicker);
 
-    _defineProperty(_assertThisInitialized(_this), "onPicked", function (value, isKeepPannel, isConfirmValue) {
-      if (isKeepPannel === void 0) {
-        isKeepPannel = false;
-      }
+    require_condition(typeof _type === 'string');
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(DateRangeBasePicker).call(this, props));
 
-      if (isConfirmValue === void 0) {
-        isConfirmValue = true;
-      }
+    _defineProperty(_assertThisInitialized(_this), "onPicked", function (value) {
+      var isKeepPannel = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var isConfirmValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
       // 当为日期范围选择面板时，把结束时间默认设置为23:59:59:999
       if (_this.type == 'daterange' && value && value.length === 2) {
@@ -195,7 +181,7 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "parseDate", function (dateStr) {
       if (!dateStr) return null;
       var type = _this.type;
-      var parser = _constants.TYPE_VALUE_RESOLVER_MAP['date'].parser;
+      var parser = TYPE_VALUE_RESOLVER_MAP['date'].parser;
       return parser(dateStr, _this.getFormat(), _this.getFormatSeparator());
     });
 
@@ -210,7 +196,7 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "handleKeydown", function (evt) {
       var keyCode = evt.keyCode; // esc
 
-      if (_this.props.esc && keyCode === _KeyCode.default.ESC) {
+      if (_this.props.esc && keyCode === KEYCODE.ESC) {
         _this.setState({
           pickerVisible: false
         }, function () {
@@ -223,7 +209,7 @@ function (_React$Component) {
       } // enter
 
 
-      if (keyCode === _KeyCode.default.ENTER) {
+      if (keyCode === KEYCODE.ENTER) {
         _this.setState({
           pickerVisible: false
         }, function () {
@@ -282,7 +268,7 @@ function (_React$Component) {
           value = _this$state.value,
           confirmValue = _this$state.confirmValue;
 
-      if (_this.isDateValid(value) && !(0, _date.equalDateArr)(value, confirmValue)) {
+      if (_this.isDateValid(value) && !equalDateArr(value, confirmValue)) {
         _this.onPicked(value, false, true);
       } else {
         _this.onCancelPicked();
@@ -293,206 +279,211 @@ function (_React$Component) {
     _this.inputClick = false;
     _this.state = {
       pickerVisible: false,
-      value: props.value && (0, _date.isValidValueArr)(props.value) ? props.value : null,
-      text: props.value && (0, _date.isValidValueArr)(props.value) ? [_this.dateToStr(props.value[0]), _this.dateToStr(props.value[1])] : '',
+      value: props.value && isValidValueArr(props.value) ? props.value : null,
+      text: props.value && isValidValueArr(props.value) ? [_this.dateToStr(props.value[0]), _this.dateToStr(props.value[1])] : '',
       // 增加一个confirmValue记录每次确定的值，当点击"取消"或者空白处时，恢复这个值
-      confirmValue: props.value && (0, _date.isValidValueArr)(props.value) ? props.value : null
+      confirmValue: props.value && isValidValueArr(props.value) ? props.value : null
     };
     return _this;
   }
 
-  var _proto = DateRangeBasePicker.prototype;
+  _createClass(DateRangeBasePicker, [{
+    key: "isDateValid",
+    value: function isDateValid(date) {
+      return date === null || isValidValueArr(date);
+    }
+  }, {
+    key: "pickerPanel",
+    value: function pickerPanel(state, props) {
+      throw new Errors.MethodImplementationRequiredError(props);
+    }
+  }, {
+    key: "getFormatSeparator",
+    value: function getFormatSeparator() {
+      return undefined;
+    }
+  }, {
+    key: "getFormat",
+    value: function getFormat() {
+      return this.props.format || DEFAULT_FORMATS[this.type];
+    }
+  }, {
+    key: "togglePickerVisible",
+    value: function togglePickerVisible() {
+      var _this2 = this;
 
-  _proto.isDateValid = function isDateValid(date) {
-    return date === null || (0, _date.isValidValueArr)(date);
-  };
+      this.setState({
+        pickerVisible: !this.state.pickerVisible
+      }, function () {
+        _this2.props.onVisibleChange(!_this2.state.pickerVisible);
+      });
+    } // 聚焦
 
-  _proto.pickerPanel = function pickerPanel(state, props) {
-    throw new _utils.Errors.MethodImplementationRequiredError(props);
-  };
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
 
-  _proto.getFormatSeparator = function getFormatSeparator() {
-    return undefined;
-  };
+      var _this$props2 = this.props,
+          startPlaceholder = _this$props2.startPlaceholder,
+          endPlaceholder = _this$props2.endPlaceholder,
+          separator = _this$props2.separator,
+          showTrigger = _this$props2.showTrigger,
+          allowClear = _this$props2.allowClear,
+          disabled = _this$props2.disabled,
+          className = _this$props2.className,
+          placement = _this$props2.placement,
+          prefixCls = _this$props2.prefixCls,
+          getPopupContainer = _this$props2.getPopupContainer,
+          style = _this$props2.style;
+      var _this$state2 = this.state,
+          pickerVisible = _this$state2.pickerVisible,
+          value = _this$state2.value,
+          text = _this$state2.text;
 
-  _proto.getFormat = function getFormat() {
-    return this.props.format || _constants.DEFAULT_FORMATS[this.type];
-  };
-
-  _proto.togglePickerVisible = function togglePickerVisible() {
-    var _this2 = this;
-
-    this.setState({
-      pickerVisible: !this.state.pickerVisible
-    }, function () {
-      _this2.props.onVisibleChange(!_this2.state.pickerVisible);
-    });
-  } // 聚焦
-  ;
-
-  _proto.render = function render() {
-    var _this3 = this;
-
-    var _this$props2 = this.props,
-        startPlaceholder = _this$props2.startPlaceholder,
-        endPlaceholder = _this$props2.endPlaceholder,
-        separator = _this$props2.separator,
-        showTrigger = _this$props2.showTrigger,
-        allowClear = _this$props2.allowClear,
-        disabled = _this$props2.disabled,
-        className = _this$props2.className,
-        placement = _this$props2.placement,
-        prefixCls = _this$props2.prefixCls,
-        getPopupContainer = _this$props2.getPopupContainer,
-        style = _this$props2.style;
-    var _this$state2 = this.state,
-        pickerVisible = _this$state2.pickerVisible,
-        value = _this$state2.value,
-        text = _this$state2.text;
-
-    var calcIsShowTrigger = function calcIsShowTrigger() {
-      if (showTrigger !== null) {
-        return !!showTrigger;
-      } else {
-        return haveTriggerType(_this3.type);
-      }
-    };
-
-    var triggerClass = function triggerClass() {
-      return _this3.type.includes('date') || _this3.type.includes('week') ? 'date-line' : 'time-line';
-    }; // 前缀图标
-
-
-    var prefixIcon = function prefixIcon() {
-      if (calcIsShowTrigger()) {
-        return _react.default.createElement(_index2.default, {
-          className: (0, _classnames.default)(prefixCls + "-date-picker-icon", 'prefix-iconfont'),
-          type: triggerClass()
-        });
-      } else {
-        return null;
-      }
-    }; // 后缀图标
-
-
-    var suffixIcon = function suffixIcon() {
-      if (text && allowClear) {
-        return _react.default.createElement(_index2.default, {
-          className: (0, _classnames.default)(prefixCls + "-date-picker-icon", 'suffix-iconfont'),
-          type: "close-circle-fill",
-          onClick: _this3.handleClickCloseIcon
-        });
-      } else {
-        return null;
-      }
-    }; // 下拉面板
-
-
-    var getPickerPanel = function getPickerPanel() {
-      return _this3.pickerPanel(_this3.state);
-    }; // 选择框
-
-
-    var getInputPanel = function getInputPanel() {
-      return _react.default.createElement("span", {
-        className: (0, _classnames.default)(prefixCls + "-date-editor", className, {
-          'is-have-trigger': calcIsShowTrigger(),
-          'is-active': pickerVisible,
-          'is-filled': !!value,
-          'is-disable': disabled
-        }),
-        style: Object.assign({}, style),
-        onClick: function onClick() {
-          return _this3.inputClick = true;
+      var calcIsShowTrigger = function calcIsShowTrigger() {
+        if (showTrigger !== null) {
+          return !!showTrigger;
+        } else {
+          return haveTriggerType(_this3.type);
         }
-      }, _react.default.createElement("div", {
-        className: (0, _classnames.default)(prefixCls + "-date-editor--" + _this3.type, {
-          'is-active': pickerVisible,
-          'disabled': disabled
-        })
-      }, _react.default.createElement(_index.default, {
-        disabled: disabled,
-        type: "text",
-        placeholder: startPlaceholder,
-        onFocus: _this3.handleFocus,
-        onBlur: _this3.handleBlur,
-        onKeyDown: _this3.handleKeydown,
-        onChange: function onChange(e) {
-          var inputValue = e.target.value;
+      };
 
-          var ndate = _this3.parseDate(inputValue);
+      var triggerClass = function triggerClass() {
+        return _this3.type.includes('date') || _this3.type.includes('week') ? 'date-line' : 'time-line';
+      }; // 前缀图标
 
-          if (!isInputValid(inputValue, ndate)) {
-            _this3.setState({
-              text: [inputValue, _this3.state.text[1]],
-              pickerVisible: true
-            });
-          } else {
-            //only set value on a valid date input
-            _this3.setState({
-              text: [inputValue, _this3.state.text[1]],
-              value: [ndate, _this3.state.value[1]],
-              pickerVisible: true
-            });
+
+      var prefixIcon = function prefixIcon() {
+        if (calcIsShowTrigger()) {
+          return React.createElement(Icon, {
+            className: classNames("".concat(prefixCls, "-date-picker-icon"), 'prefix-iconfont'),
+            type: triggerClass()
+          });
+        } else {
+          return null;
+        }
+      }; // 后缀图标
+
+
+      var suffixIcon = function suffixIcon() {
+        if (text && allowClear) {
+          return React.createElement(Icon, {
+            className: classNames("".concat(prefixCls, "-date-picker-icon"), 'suffix-iconfont'),
+            type: "close-circle-fill",
+            onClick: _this3.handleClickCloseIcon
+          });
+        } else {
+          return null;
+        }
+      }; // 下拉面板
+
+
+      var getPickerPanel = function getPickerPanel() {
+        return _this3.pickerPanel(_this3.state);
+      }; // 选择框
+
+
+      var getInputPanel = function getInputPanel() {
+        return React.createElement("span", {
+          className: classNames("".concat(prefixCls, "-date-editor"), className, {
+            'is-have-trigger': calcIsShowTrigger(),
+            'is-active': pickerVisible,
+            'is-filled': !!value,
+            'is-disable': disabled
+          }),
+          style: _objectSpread({}, style),
+          onClick: function onClick() {
+            return _this3.inputClick = true;
           }
+        }, React.createElement("div", {
+          className: classNames("".concat(prefixCls, "-date-editor--").concat(_this3.type), {
+            'is-active': pickerVisible,
+            'disabled': disabled
+          })
+        }, React.createElement(Input, {
+          disabled: disabled,
+          type: "text",
+          placeholder: startPlaceholder,
+          onFocus: _this3.handleFocus,
+          onBlur: _this3.handleBlur,
+          onKeyDown: _this3.handleKeydown,
+          onChange: function onChange(e) {
+            var inputValue = e.target.value;
+
+            var ndate = _this3.parseDate(inputValue);
+
+            if (!isInputValid(inputValue, ndate)) {
+              _this3.setState({
+                text: [inputValue, _this3.state.text[1]],
+                pickerVisible: true
+              });
+            } else {
+              //only set value on a valid date input
+              _this3.setState({
+                text: [inputValue, _this3.state.text[1]],
+                value: [ndate, _this3.state.value[1]],
+                pickerVisible: true
+              });
+            }
+          },
+          ref: "inputRoot",
+          value: text && text.length == 2 ? text[0] : '',
+          prefix: prefixIcon()
+        }), React.createElement("span", {
+          className: classNames("range-separator", {
+            'disabled': disabled
+          })
+        }, separator), React.createElement(Input, {
+          className: "".concat(prefixCls, "-date-range-picker-second-input"),
+          disabled: disabled,
+          type: "text",
+          placeholder: endPlaceholder,
+          onFocus: _this3.handleFocus,
+          onBlur: _this3.handleBlur,
+          onKeyDown: _this3.handleKeydown,
+          onChange: function onChange(e) {
+            var inputValue = e.target.value;
+
+            var ndate = _this3.parseDate(inputValue);
+
+            if (!isInputValid(inputValue, ndate)) {
+              _this3.setState({
+                text: [_this3.state.text[0], inputValue],
+                pickerVisible: true
+              });
+            } else {
+              //only set value on a valid date input
+              _this3.setState({
+                text: [_this3.state.text[0], inputValue],
+                value: [_this3.state.value[0], ndate],
+                pickerVisible: true
+              });
+            }
+          },
+          value: text && text.length == 2 ? text[1] : '',
+          suffix: suffixIcon()
+        })));
+      };
+
+      return React.createElement(Trigger, {
+        action: disabled ? [] : ['click'],
+        builtinPlacements: placements,
+        ref: function ref(node) {
+          return _this3.trigger = node;
         },
-        ref: "inputRoot",
-        value: text && text.length == 2 ? text[0] : '',
-        prefix: prefixIcon()
-      }), _react.default.createElement("span", {
-        className: (0, _classnames.default)("range-separator", {
-          'disabled': disabled
-        })
-      }, separator), _react.default.createElement(_index.default, {
-        className: prefixCls + "-date-range-picker-second-input",
-        disabled: disabled,
-        type: "text",
-        placeholder: endPlaceholder,
-        onFocus: _this3.handleFocus,
-        onBlur: _this3.handleBlur,
-        onKeyDown: _this3.handleKeydown,
-        onChange: function onChange(e) {
-          var inputValue = e.target.value;
-
-          var ndate = _this3.parseDate(inputValue);
-
-          if (!isInputValid(inputValue, ndate)) {
-            _this3.setState({
-              text: [_this3.state.text[0], inputValue],
-              pickerVisible: true
-            });
-          } else {
-            //only set value on a valid date input
-            _this3.setState({
-              text: [_this3.state.text[0], inputValue],
-              value: [_this3.state.value[0], ndate],
-              pickerVisible: true
-            });
-          }
-        },
-        value: text && text.length == 2 ? text[1] : '',
-        suffix: suffixIcon()
-      })));
-    };
-
-    return _react.default.createElement(_rcTrigger.default, {
-      action: disabled ? [] : ['click'],
-      builtinPlacements: _placements.default,
-      ref: function ref(node) {
-        return _this3.trigger = node;
-      },
-      getPopupContainer: getPopupContainer,
-      onPopupVisibleChange: this.onVisibleChange,
-      popup: getPickerPanel(),
-      popupPlacement: placement,
-      popupVisible: pickerVisible,
-      prefixCls: prefixCls + "-date-time-picker-popup",
-      destroyPopupOnHide: true
-    }, getInputPanel());
-  };
+        getPopupContainer: getPopupContainer,
+        onPopupVisibleChange: this.onVisibleChange,
+        popup: getPickerPanel(),
+        popupPlacement: placement,
+        popupVisible: pickerVisible,
+        prefixCls: "".concat(prefixCls, "-date-time-picker-popup"),
+        destroyPopupOnHide: true
+      }, getInputPanel());
+    }
+  }]);
 
   return DateRangeBasePicker;
-}(_react.default.Component);
+}(React.Component);
 
-var _default = DateRangeBasePicker;
-exports.default = _default;
+export default DateRangeBasePicker;

@@ -1,56 +1,35 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/web.dom.iterable");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-require("core-js/modules/es6.array.iterator");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.string.iterator");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require("core-js/modules/es6.weak-map");
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.promise");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.regexp.replace");
-
-require("core-js/modules/es6.number.constructor");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _index = _interopRequireDefault(require("../Icon/index.js"));
-
-var _utils = require("../../utils");
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Animate from 'rc-animate';
+import { polyfill } from 'react-lifecycles-compat';
+import Icon from '../Icon/index.js';
+import { fullscreen, exitfullscreen, KeyCode, getStyle } from '../../utils';
+import './style/index.less';
 var conMaxWidth = 1024,
     conMaxHeight = 768;
 var CON_MAX_WIDTH = conMaxWidth > window.innerWidth ? window.innerWidth : conMaxWidth,
@@ -117,59 +96,64 @@ var getImageSize = function getImageSize(image, callback, scope) {
 var PicturePreview =
 /*#__PURE__*/
 function (_Component) {
-  _inheritsLoose(PicturePreview, _Component);
+  _inherits(PicturePreview, _Component);
 
-  PicturePreview.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var current = prevState.current,
-        imgs = prevState.imgs,
-        lastActiveIndex = prevState.lastActiveIndex,
-        lastVisible = prevState.lastVisible;
-    var activeIndex = nextProps.activeIndex,
-        visible = nextProps.visible,
-        source = nextProps.source,
-        children = nextProps.children;
-    var newState = {};
+  _createClass(PicturePreview, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var current = prevState.current,
+          imgs = prevState.imgs,
+          lastActiveIndex = prevState.lastActiveIndex,
+          lastVisible = prevState.lastVisible;
+      var activeIndex = nextProps.activeIndex,
+          visible = nextProps.visible,
+          source = nextProps.source,
+          children = nextProps.children;
+      var newState = {};
 
-    if (visible !== lastVisible) {
-      newState['show'] = newState['lastVisible'] = visible;
-    }
-
-    if (activeIndex !== lastActiveIndex) {
-      newState['current'] = newState['lastActiveIndex'] = activeIndex;
-    } else {
-      newState['current'] = current;
-    }
-
-    if (source && source.length) {
-      var sourceStr = JSON.stringify(source);
-
-      if (sourceStr !== JSON.stringify(imgs)) {
-        newState['imgs'] = JSON.parse(sourceStr);
+      if (visible !== lastVisible) {
+        newState['show'] = newState['lastVisible'] = visible;
       }
-    } else if (children) {
-      var imgList = [];
-      imgList = _react.default.Children.map(children, function (child) {
-        var img = {};
 
-        if (child.type === 'img') {
-          img.name = child.props.name || child.props.alt;
-          img.src = child.props.src;
+      if (activeIndex !== lastActiveIndex) {
+        newState['current'] = newState['lastActiveIndex'] = activeIndex;
+      } else {
+        newState['current'] = current;
+      }
+
+      if (source && source.length) {
+        var sourceStr = JSON.stringify(source);
+
+        if (sourceStr !== JSON.stringify(imgs)) {
+          newState['imgs'] = JSON.parse(sourceStr);
         }
+      } else if (children) {
+        var imgList = [];
+        imgList = React.Children.map(children, function (child) {
+          var img = {};
 
-        return img;
-      }).filter(function (item) {
-        return item;
-      });
-      newState['imgs'] = imgList;
+          if (child.type === 'img') {
+            img.name = child.props.name || child.props.alt;
+            img.src = child.props.src;
+          }
+
+          return img;
+        }).filter(function (item) {
+          return item;
+        });
+        newState['imgs'] = imgList;
+      }
+
+      return newState;
     }
-
-    return newState;
-  };
+  }]);
 
   function PicturePreview(props) {
     var _this;
 
-    _this = _Component.call(this, props) || this;
+    _classCallCheck(this, PicturePreview);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PicturePreview).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "setContainerStyle", function () {
       if (!_this.imgEl) return;
@@ -224,10 +208,10 @@ function (_Component) {
             }
           });
         } else if (!_this.state.container.isFull) {
-          var oriTop = px2num((0, _utils.getStyle)(_this.$el, 'top')),
-              oriLeft = px2num((0, _utils.getStyle)(_this.$el, 'left')),
-              oriWidth = px2num((0, _utils.getStyle)(_this.$el, 'width')),
-              oriHeight = px2num((0, _utils.getStyle)(_this.$el, 'height'));
+          var oriTop = px2num(getStyle(_this.$el, 'top')),
+              oriLeft = px2num(getStyle(_this.$el, 'left')),
+              oriWidth = px2num(getStyle(_this.$el, 'width')),
+              oriHeight = px2num(getStyle(_this.$el, 'height'));
           css = {
             width: num2px(width),
             height: num2px(height),
@@ -268,7 +252,7 @@ function (_Component) {
       var _this$props = _this.props,
           onClose = _this$props.onClose,
           mask = _this$props.mask;
-      _this.state.container.isFull && (0, _utils.exitfullscreen)();
+      _this.state.container.isFull && exitfullscreen();
 
       _this.setState({
         show: false,
@@ -338,7 +322,7 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleSwitchFull", function () {
       if (!_this.isFullEnabled()) return;
-      _this.state.container.isFull ? (0, _utils.exitfullscreen)() : (0, _utils.fullscreen)(_this.$el);
+      _this.state.container.isFull ? exitfullscreen() : fullscreen(_this.$el);
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleRotate", function () {
@@ -444,8 +428,8 @@ function (_Component) {
         //点击在图片上，并且是全屏模式或者图片比容器大，此时移动图片
         image.startX = e.pageX;
         image.startY = e.pageY;
-        image.marginL = px2num((0, _utils.getStyle)(_this.imgEl, 'margin-left'));
-        image.marginT = px2num((0, _utils.getStyle)(_this.imgEl, 'margin-top'));
+        image.marginL = px2num(getStyle(_this.imgEl, 'margin-left'));
+        image.marginT = px2num(getStyle(_this.imgEl, 'margin-top'));
         _this.moving = 'img';
 
         _this.setState({
@@ -480,9 +464,10 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "handleMouseMove", function (e) {
       if (!_this.moving || !_this.state.show) return;
       e.preventDefault();
+
       var con = _this.state.container,
           image = _this.state.image,
-          conStyle = Object.assign({}, con.style);
+          conStyle = _objectSpread({}, con.style);
 
       if (_this.moving === 'img') {
         setStyle(_this.imgEl, {
@@ -530,15 +515,15 @@ function (_Component) {
       if (!_this.state.show) return;
       var esc = _this.props.esc;
 
-      if (esc && !_this.state.container.isFull && e.keyCode === _utils.KeyCode.ESC) {
+      if (esc && !_this.state.container.isFull && e.keyCode === KeyCode.ESC) {
         e.preventDefault();
 
         _this.handleClose();
-      } else if (e.keyCode === _utils.KeyCode.LEFT) {
+      } else if (e.keyCode === KeyCode.LEFT) {
         e.preventDefault();
 
         _this.handlePrev();
-      } else if (e.keyCode === _utils.KeyCode.RIGHT) {
+      } else if (e.keyCode === KeyCode.RIGHT) {
         e.preventDefault();
 
         _this.handleNext();
@@ -579,268 +564,265 @@ function (_Component) {
     return _this;
   }
 
-  var _proto = PicturePreview.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    var _this$props2 = this.props,
-        draggable = _this$props2.draggable,
-        toolbar = _this$props2.toolbar,
-        mask = _this$props2.mask,
-        el = mask === false ? this.$el : this.$root;
-    document.body.appendChild(el);
-    this.setContainerStyle();
-
-    if (toolbar && this.$el) {
-      // 监听全屏事件
-      this.$el.addEventListener("fullscreenchange", this.handleFullChange);
-      this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
-      this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
-    }
-
-    if (draggable) {
-      // 监听拖动事件
-      document.addEventListener("mousemove", this.handleMouseMove);
-      document.addEventListener("mouseup", this.handleMouseUp);
-    }
-
-    if (mask) {
-      document.addEventListener("keydown", this.handleKeyDown);
-    } else {
-      this.$el.addEventListener("keydown", this.handleKeyDown);
-    }
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps, prevState, snapshot) {
-    var _this$state3 = this.state,
-        current = _this$state3.current,
-        show = _this$state3.show;
-
-    if (snapshot) {
-      document.body.style.overflow = snapshot;
-    }
-
-    if (prevState.current != current) {
+  _createClass(PicturePreview, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this$props2 = this.props,
+          draggable = _this$props2.draggable,
+          toolbar = _this$props2.toolbar,
+          mask = _this$props2.mask,
+          el = mask === false ? this.$el : this.$root;
+      document.body.appendChild(el);
       this.setContainerStyle();
-    }
 
-    if (show === true) {
-      this.$el.focus();
-    }
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    var _this$props3 = this.props,
-        draggable = _this$props3.draggable,
-        mask = _this$props3.mask,
-        el = mask === false ? this.$el : this.$root;
-
-    if (el && el.parentNode === document.body) {
-      document.body.removeChild(el);
-    }
-
-    if (draggable) {
-      document.removeEventListener("mousemove", this.handleMouseMove);
-      document.removeEventListener("mouseup", this.handleMouseUp);
-    }
-
-    if (mask) {
-      document.removeEventListener("keydown", this.handleKeyDown);
-    } else {
-      this.$el.removeEventListener("keydown", this.handleKeyDown);
-    }
-  };
-
-  _proto.getSnapshotBeforeUpdate = function getSnapshotBeforeUpdate(prevProps, prevState) {
-    var _this$props4 = this.props,
-        mask = _this$props4.mask,
-        visible = _this$props4.visible; // 从隐藏状态到展示状态时重新设置容器的样式
-
-    if (visible && !prevProps.visible) {
-      this.setContainerStyle();
-    }
-
-    if (mask) {
-      return visible ? 'hidden' : this.bodyDefaultOverflow;
-    }
-
-    return null;
-  }
-  /**
-   * 切换图片时，根据图片大小确定容器的尺寸及位置
-   */
-  ;
-
-  _proto.render = function render() {
-    var _classNames,
-        _classNames2,
-        _classNames3,
-        _classNames4,
-        _classNames5,
-        _classNames6,
-        _classNames7,
-        _this2 = this;
-
-    var _this$state4 = this.state,
-        show = _this$state4.show,
-        current = _this$state4.current,
-        imgs = _this$state4.imgs,
-        image = _this$state4.image,
-        container = _this$state4.container;
-    var _this$props5 = this.props,
-        className = _this$props5.className,
-        style = _this$props5.style,
-        prefixCls = _this$props5.prefixCls,
-        source = _this$props5.source,
-        children = _this$props5.children,
-        toolbar = _this$props5.toolbar,
-        draggable = _this$props5.draggable,
-        mask = _this$props5.mask,
-        progress = _this$props5.progress;
-    var isFullscreen = container.isFull;
-    var ctnerClass = (0, _classnames.default)(prefixCls, (_classNames = {}, _classNames[className] = className, _classNames['draggable'] = draggable, _classNames[prefixCls + "-hide"] = !show, _classNames));
-    var closeBtnClass = (0, _classnames.default)({
-      'close': !isFullscreen,
-      'close-fullscreen': isFullscreen
-    });
-    var isHide = !(source.length > 1 || !!children && children.length > 1);
-    var leftBtnClass = (0, _classnames.default)('prev', (_classNames2 = {}, _classNames2[prefixCls + "-hide"] = isHide, _classNames2));
-    var rightBtnClass = (0, _classnames.default)('next', (_classNames3 = {}, _classNames3[prefixCls + "-hide"] = isHide, _classNames3));
-    var toolbarClass = (0, _classnames.default)('toolbar', (_classNames4 = {}, _classNames4[prefixCls + "-hide"] = !toolbar, _classNames4));
-    var one2oneClass = (0, _classnames.default)('icon', {
-      'icon-disabled': image.ratio == 1
-    });
-    var zoomInClass = (0, _classnames.default)('icon', {
-      'icon-disabled': image.ratio >= MAX_RATIO
-    });
-    var zoomOutClass = (0, _classnames.default)('icon', {
-      'icon-disabled': image.ratio <= MIN_RATIO
-    });
-    var screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
-    var rootClass = (0, _classnames.default)((_classNames5 = {}, _classNames5[prefixCls + "-root"] = mask, _classNames5[prefixCls + "-hide"] = !show, _classNames5));
-    var maskClass = (0, _classnames.default)(prefixCls + "-mask", (_classNames6 = {}, _classNames6[prefixCls + "-hide"] = !mask, _classNames6));
-    var progressClass = (0, _classnames.default)('toolbarTitle', (_classNames7 = {}, _classNames7[prefixCls + "-hide"] = !progress, _classNames7));
-
-    var renderCtner = _react.default.createElement("div", {
-      "data-show": show,
-      className: ctnerClass,
-      style: Object.assign({}, container.style, {}, style),
-      ref: function ref(node) {
-        return _this2.$el = node;
-      },
-      onDragStart: function onDragStart(e) {
-        e.preventDefault();
-      },
-      onMouseDown: draggable ? this.handleMouseDown : null,
-      onWheel: this.handleWheel,
-      tabIndex: "-1",
-      onClick: function onClick() {
-        _this2.$el.focus();
+      if (toolbar && this.$el) {
+        // 监听全屏事件
+        this.$el.addEventListener("fullscreenchange", this.handleFullChange);
+        this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
+        this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
       }
-    }, _react.default.createElement("div", {
-      className: "canvas"
-    }, imgs.map(function (item, index) {
-      if (current === index) {
-        return _react.default.createElement("img", {
-          key: 'pic_' + index,
-          className: "img",
-          src: item.src ? item.src : null,
-          alt: item.name ? item.name : null,
-          active: "true",
-          ref: function ref(node) {
-            return _this2.imgEl = node;
-          }
-        });
+
+      if (draggable) {
+        // 监听拖动事件
+        document.addEventListener("mousemove", this.handleMouseMove);
+        document.addEventListener("mouseup", this.handleMouseUp);
+      }
+
+      if (mask) {
+        document.addEventListener("keydown", this.handleKeyDown);
       } else {
-        return _react.default.createElement("img", {
-          key: 'pic_' + index,
-          className: "img",
-          src: item.src ? item.src : null,
-          alt: item.name ? item.name : null
-        });
+        this.$el.addEventListener("keydown", this.handleKeyDown);
       }
-    })), _react.default.createElement(_index.default, {
-      type: "picture-close",
-      className: closeBtnClass,
-      onClick: this.handleClose
-    }), _react.default.createElement(_index.default, {
-      type: "arrow-line-Bold",
-      className: leftBtnClass,
-      onClick: this.handlePrev
-    }), _react.default.createElement(_index.default, {
-      type: "arrow-line-Bold",
-      className: rightBtnClass,
-      onClick: this.handleNext
-    }), _react.default.createElement("div", {
-      className: toolbarClass,
-      style: isFullscreen ? {
-        bottom: '20px'
-      } : null
-    }, _react.default.createElement("div", {
-      className: progressClass
-    }, current + 1, "/", imgs.length), _react.default.createElement("div", {
-      className: "toolbarCon"
-    }, _react.default.createElement(_index.default, {
-      type: "picture-equal",
-      className: one2oneClass,
-      onClick: this.handleZoom.bind(this, 1)
-    }), _react.default.createElement(_index.default, {
-      type: screenStatus,
-      className: "icon",
-      onClick: this.handleSwitchFull
-    }), _react.default.createElement(_index.default, {
-      type: "picture-enlarge",
-      className: zoomInClass,
-      onClick: this.handleZoom.bind(this, image.ratio + STEP_RATIO)
-    }), _react.default.createElement(_index.default, {
-      type: "picture-micrify",
-      className: zoomOutClass,
-      onClick: this.handleZoom.bind(this, image.ratio - STEP_RATIO)
-    }), _react.default.createElement(_index.default, {
-      type: "picture-rotate",
-      className: "icon",
-      onClick: this.handleRotate
-    }), _react.default.createElement(_index.default, {
-      type: "picture-download",
-      className: "icon",
-      onClick: this.handleSave
-    }))));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState, snapshot) {
+      var _this$state3 = this.state,
+          current = _this$state3.current,
+          show = _this$state3.show;
 
-    var renderMaskCtner = _react.default.createElement("div", {
-      key: prefixCls + "-root",
-      "data-show": show,
-      className: rootClass,
-      ref: function ref(node) {
-        return _this2.$root = node;
+      if (snapshot) {
+        document.body.style.overflow = snapshot;
       }
-    }, _react.default.createElement("div", {
-      className: maskClass
-    }), renderCtner);
 
-    return _react.default.createElement(_rcAnimate.default, {
-      component: "",
-      showProp: "data-show",
-      transitionName: "zoom",
-      transitionAppear: true
-    }, mask ? renderMaskCtner : renderCtner);
-  };
+      if (prevState.current != current) {
+        this.setContainerStyle();
+      }
+
+      if (show === true) {
+        this.$el.focus();
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      var _this$props3 = this.props,
+          draggable = _this$props3.draggable,
+          mask = _this$props3.mask,
+          el = mask === false ? this.$el : this.$root;
+
+      if (el && el.parentNode === document.body) {
+        document.body.removeChild(el);
+      }
+
+      if (draggable) {
+        document.removeEventListener("mousemove", this.handleMouseMove);
+        document.removeEventListener("mouseup", this.handleMouseUp);
+      }
+
+      if (mask) {
+        document.removeEventListener("keydown", this.handleKeyDown);
+      } else {
+        this.$el.removeEventListener("keydown", this.handleKeyDown);
+      }
+    }
+  }, {
+    key: "getSnapshotBeforeUpdate",
+    value: function getSnapshotBeforeUpdate(prevProps, prevState) {
+      var _this$props4 = this.props,
+          mask = _this$props4.mask,
+          visible = _this$props4.visible; // 从隐藏状态到展示状态时重新设置容器的样式
+
+      if (visible && !prevProps.visible) {
+        this.setContainerStyle();
+      }
+
+      if (mask) {
+        return visible ? 'hidden' : this.bodyDefaultOverflow;
+      }
+
+      return null;
+    }
+    /**
+     * 切换图片时，根据图片大小确定容器的尺寸及位置
+     */
+
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames,
+          _classNames5,
+          _this2 = this;
+
+      var _this$state4 = this.state,
+          show = _this$state4.show,
+          current = _this$state4.current,
+          imgs = _this$state4.imgs,
+          image = _this$state4.image,
+          container = _this$state4.container;
+      var _this$props5 = this.props,
+          className = _this$props5.className,
+          style = _this$props5.style,
+          prefixCls = _this$props5.prefixCls,
+          source = _this$props5.source,
+          children = _this$props5.children,
+          toolbar = _this$props5.toolbar,
+          draggable = _this$props5.draggable,
+          mask = _this$props5.mask,
+          progress = _this$props5.progress;
+      var isFullscreen = container.isFull;
+      var ctnerClass = classNames(prefixCls, (_classNames = {}, _defineProperty(_classNames, className, className), _defineProperty(_classNames, 'draggable', draggable), _defineProperty(_classNames, "".concat(prefixCls, "-hide"), !show), _classNames));
+      var closeBtnClass = classNames({
+        'close': !isFullscreen,
+        'close-fullscreen': isFullscreen
+      });
+      var isHide = !(source.length > 1 || !!children && children.length > 1);
+      var leftBtnClass = classNames('prev', _defineProperty({}, "".concat(prefixCls, "-hide"), isHide));
+      var rightBtnClass = classNames('next', _defineProperty({}, "".concat(prefixCls, "-hide"), isHide));
+      var toolbarClass = classNames('toolbar', _defineProperty({}, "".concat(prefixCls, "-hide"), !toolbar));
+      var one2oneClass = classNames('icon', {
+        'icon-disabled': image.ratio == 1
+      });
+      var zoomInClass = classNames('icon', {
+        'icon-disabled': image.ratio >= MAX_RATIO
+      });
+      var zoomOutClass = classNames('icon', {
+        'icon-disabled': image.ratio <= MIN_RATIO
+      });
+      var screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
+      var rootClass = classNames((_classNames5 = {}, _defineProperty(_classNames5, "".concat(prefixCls, "-root"), mask), _defineProperty(_classNames5, "".concat(prefixCls, "-hide"), !show), _classNames5));
+      var maskClass = classNames("".concat(prefixCls, "-mask"), _defineProperty({}, "".concat(prefixCls, "-hide"), !mask));
+      var progressClass = classNames('toolbarTitle', _defineProperty({}, "".concat(prefixCls, "-hide"), !progress));
+      var renderCtner = React.createElement("div", {
+        "data-show": show,
+        className: ctnerClass,
+        style: _objectSpread({}, container.style, {}, style),
+        ref: function ref(node) {
+          return _this2.$el = node;
+        },
+        onDragStart: function onDragStart(e) {
+          e.preventDefault();
+        },
+        onMouseDown: draggable ? this.handleMouseDown : null,
+        onWheel: this.handleWheel,
+        tabIndex: "-1",
+        onClick: function onClick() {
+          _this2.$el.focus();
+        }
+      }, React.createElement("div", {
+        className: "canvas"
+      }, imgs.map(function (item, index) {
+        if (current === index) {
+          return React.createElement("img", {
+            key: 'pic_' + index,
+            className: "img",
+            src: item.src ? item.src : null,
+            alt: item.name ? item.name : null,
+            active: "true",
+            ref: function ref(node) {
+              return _this2.imgEl = node;
+            }
+          });
+        } else {
+          return React.createElement("img", {
+            key: 'pic_' + index,
+            className: "img",
+            src: item.src ? item.src : null,
+            alt: item.name ? item.name : null
+          });
+        }
+      })), React.createElement(Icon, {
+        type: "picture-close",
+        className: closeBtnClass,
+        onClick: this.handleClose
+      }), React.createElement(Icon, {
+        type: "arrow-line-Bold",
+        className: leftBtnClass,
+        onClick: this.handlePrev
+      }), React.createElement(Icon, {
+        type: "arrow-line-Bold",
+        className: rightBtnClass,
+        onClick: this.handleNext
+      }), React.createElement("div", {
+        className: toolbarClass,
+        style: isFullscreen ? {
+          bottom: '20px'
+        } : null
+      }, React.createElement("div", {
+        className: progressClass
+      }, current + 1, "/", imgs.length), React.createElement("div", {
+        className: "toolbarCon"
+      }, React.createElement(Icon, {
+        type: "picture-equal",
+        className: one2oneClass,
+        onClick: this.handleZoom.bind(this, 1)
+      }), React.createElement(Icon, {
+        type: screenStatus,
+        className: "icon",
+        onClick: this.handleSwitchFull
+      }), React.createElement(Icon, {
+        type: "picture-enlarge",
+        className: zoomInClass,
+        onClick: this.handleZoom.bind(this, image.ratio + STEP_RATIO)
+      }), React.createElement(Icon, {
+        type: "picture-micrify",
+        className: zoomOutClass,
+        onClick: this.handleZoom.bind(this, image.ratio - STEP_RATIO)
+      }), React.createElement(Icon, {
+        type: "picture-rotate",
+        className: "icon",
+        onClick: this.handleRotate
+      }), React.createElement(Icon, {
+        type: "picture-download",
+        className: "icon",
+        onClick: this.handleSave
+      }))));
+      var renderMaskCtner = React.createElement("div", {
+        key: "".concat(prefixCls, "-root"),
+        "data-show": show,
+        className: rootClass,
+        ref: function ref(node) {
+          return _this2.$root = node;
+        }
+      }, React.createElement("div", {
+        className: maskClass
+      }), renderCtner);
+      return React.createElement(Animate, {
+        component: "",
+        showProp: "data-show",
+        transitionName: "zoom",
+        transitionAppear: true
+      }, mask ? renderMaskCtner : renderCtner);
+    }
+  }]);
 
   return PicturePreview;
-}(_react.Component);
+}(Component);
 
 _defineProperty(PicturePreview, "propTypes", {
-  prefixCls: _propTypes.default.string,
-  className: _propTypes.default.string,
-  style: _propTypes.default.object,
-  children: _propTypes.default.node,
-  toolbar: _propTypes.default.bool,
-  source: _propTypes.default.array,
-  draggable: _propTypes.default.bool,
-  esc: _propTypes.default.bool,
-  mask: _propTypes.default.bool,
-  progress: _propTypes.default.bool,
-  visible: _propTypes.default.bool,
-  activeIndex: _propTypes.default.number,
-  onClose: _propTypes.default.func
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  children: PropTypes.node,
+  toolbar: PropTypes.bool,
+  source: PropTypes.array,
+  draggable: PropTypes.bool,
+  esc: PropTypes.bool,
+  mask: PropTypes.bool,
+  progress: PropTypes.bool,
+  visible: PropTypes.bool,
+  activeIndex: PropTypes.number,
+  onClose: PropTypes.func
 });
 
 _defineProperty(PicturePreview, "defaultProps", {
@@ -857,6 +839,5 @@ _defineProperty(PicturePreview, "defaultProps", {
   onClose: function onClose() {}
 });
 
-(0, _reactLifecyclesCompat.polyfill)(PicturePreview);
-var _default = PicturePreview;
-exports.default = _default;
+polyfill(PicturePreview);
+export default PicturePreview;

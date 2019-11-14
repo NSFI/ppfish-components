@@ -1,23 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.createChainedFunction = createChainedFunction;
-exports.getScroll = getScroll;
-exports.getStyle = getStyle;
-exports.guid = guid;
-exports.decodeHTML = exports.shallowEqualArrays = exports.shallowEqual = void 0;
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.regexp.replace");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  * 以浅拷贝的方式判断两个对象是否相等
@@ -25,12 +6,12 @@ require("core-js/modules/es6.object.keys");
  * @param objB
  * @returns {bool}
  */
-var shallowEqual = function shallowEqual(objA, objB) {
+export var shallowEqual = function shallowEqual(objA, objB) {
   if (objA === objB) {
     return true;
   }
 
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+  if (_typeof(objA) !== 'object' || objA === null || _typeof(objB) !== 'object' || objB === null) {
     return false;
   }
 
@@ -52,10 +33,7 @@ var shallowEqual = function shallowEqual(objA, objB) {
 
   return true;
 };
-
-exports.shallowEqual = shallowEqual;
-
-var shallowEqualArrays = function shallowEqualArrays(arrA, arrB) {
+export var shallowEqualArrays = function shallowEqualArrays(arrA, arrB) {
   if (arrA === arrB) {
     return true;
   }
@@ -80,20 +58,14 @@ var shallowEqualArrays = function shallowEqualArrays(arrA, arrB) {
  * @returns {string}
  */
 
-
-exports.shallowEqualArrays = shallowEqualArrays;
-
-var decodeHTML = function decodeHTML(htmlFragment) {
+export var decodeHTML = function decodeHTML(htmlFragment) {
   var temp = document.createElement("div");
   temp.innerHTML = htmlFragment;
   var output = temp.innerText || temp.textContent;
   temp = null;
   return output;
 };
-
-exports.decodeHTML = decodeHTML;
-
-function createChainedFunction() {
+export function createChainedFunction() {
   var args = [].slice.call(arguments, 0);
 
   if (args.length === 1) {
@@ -108,8 +80,7 @@ function createChainedFunction() {
     }
   };
 }
-
-function getScroll(target, top) {
+export function getScroll(target, top) {
   if (typeof window === 'undefined') {
     return 0;
   }
@@ -125,7 +96,6 @@ function getScroll(target, top) {
 
   return ret;
 }
-
 var SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
 var MOZ_HACK_REGEXP = /^moz([A-Z])/;
 
@@ -142,7 +112,7 @@ var camelCase = function camelCase(name) {
  */
 
 
-function getStyle(element, styleName) {
+export function getStyle(element, styleName) {
   if (!element || !styleName) return null;
   styleName = camelCase(styleName);
   if (styleName === 'float') styleName = 'cssFloat';
@@ -164,10 +134,8 @@ function getStyle(element, styleName) {
  * guid('prefix-'); // prefix-j7jv509d
  */
 
-
 var timestamp = Date.now();
-
-function guid(prefix) {
+export function guid(prefix) {
   prefix = prefix || '';
   return prefix + (timestamp++).toString(36);
 }

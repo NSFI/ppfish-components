@@ -1,13 +1,3 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _Tree = _interopRequireDefault(require("./Tree"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _Tree.default;
-exports.default = _default;
+import Tree from './Tree';
+import './style/index.less';
+export default Tree;

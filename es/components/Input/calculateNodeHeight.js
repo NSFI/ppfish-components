@@ -1,14 +1,3 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = calculateNodeHeight;
-
-require("core-js/modules/es6.number.max-safe-integer");
-
-require("core-js/modules/es6.number.constructor");
-
-require("core-js/modules/es6.number.min-safe-integer");
-
 // Thanks to https://github.com/andreypopp/react-textarea-autosize/
 
 /**
@@ -51,7 +40,7 @@ function calculateNodeStyling(node, useCache) {
   return nodeInfo;
 }
 
-function calculateNodeHeight(uiTextNode, useCache, minRows, maxRows) {
+export default function calculateNodeHeight(uiTextNode, useCache, minRows, maxRows) {
   if (useCache === void 0) {
     useCache = false;
   }

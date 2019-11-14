@@ -1,59 +1,50 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.promise");
-
-require("core-js/modules/es6.number.constructor");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _contextTypes = require("./contextTypes");
-
-var _util = require("./util");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import warning from 'warning';
+import { polyfill } from 'react-lifecycles-compat';
+import { treeContextTypes } from './contextTypes';
+import { toArray, convertTreeToEntities, convertDataToTree, getDataAndAria, getPosition, getDragNodesKeys, parseCheckedKeys, conductExpandParent, calcSelectedKeys, calcDropPosition, arrAdd, arrDel, posToArr, mapChildren, conductCheck, conductLoad, warnOnlyTreeNode } from './util';
 
 var Tree =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(Tree, _React$Component);
+  _inherits(Tree, _React$Component);
 
   function Tree() {
+    var _getPrototypeOf2;
+
     var _this;
+
+    _classCallCheck(this, Tree);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Tree)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       posEntities: {},
@@ -76,8 +67,8 @@ function (_React$Component) {
       _this.dragNode = node;
 
       _this.setState({
-        dragNodesKeys: (0, _util.getDragNodesKeys)(children, node),
-        expandedKeys: (0, _util.arrDel)(expandedKeys, eventKey)
+        dragNodesKeys: getDragNodesKeys(children, node),
+        expandedKeys: arrDel(expandedKeys, eventKey)
       });
 
       if (onDragStart) {
@@ -95,7 +86,7 @@ function (_React$Component) {
           pos = _node$props2.pos,
           eventKey = _node$props2.eventKey;
       if (!_this.dragNode) return;
-      var dropPosition = (0, _util.calcDropPosition)(event, node); // Skip if drag node is self
+      var dropPosition = calcDropPosition(event, node); // Skip if drag node is self
 
       if (_this.dragNode.props.eventKey === eventKey && dropPosition === 0) {
         _this.setState({
@@ -127,7 +118,7 @@ function (_React$Component) {
           clearTimeout(_this.delayedDragEnterLogic[key]);
         });
         _this.delayedDragEnterLogic[pos] = setTimeout(function () {
-          var newExpandedKeys = (0, _util.arrAdd)(expandedKeys, eventKey);
+          var newExpandedKeys = arrAdd(expandedKeys, eventKey);
 
           _this.setState({
             expandedKeys: newExpandedKeys
@@ -149,7 +140,7 @@ function (_React$Component) {
       var eventKey = node.props.eventKey; // Update drag position
 
       if (_this.dragNode && eventKey === _this.state.dragOverNodeKey) {
-        var dropPosition = (0, _util.calcDropPosition)(event, node);
+        var dropPosition = calcDropPosition(event, node);
         if (dropPosition === _this.state.dropPosition) return;
 
         _this.setState({
@@ -212,11 +203,11 @@ function (_React$Component) {
       });
 
       if (dragNodesKeys.indexOf(eventKey) !== -1) {
-        (0, _warning.default)(false, 'Can not drop to dragNode(include it\'s children node)');
+        warning(false, 'Can not drop to dragNode(include it\'s children node)');
         return;
       }
 
-      var posArr = (0, _util.posToArr)(pos);
+      var posArr = posToArr(pos);
       var dropResult = {
         event: event,
         node: node,
@@ -267,11 +258,11 @@ function (_React$Component) {
       if (required && !multiple && !targetSelected) return; // Update selected keys
 
       if (!targetSelected) {
-        selectedKeys = (0, _util.arrDel)(selectedKeys, eventKey);
+        selectedKeys = arrDel(selectedKeys, eventKey);
       } else if (!multiple) {
         selectedKeys = [eventKey];
       } else {
-        selectedKeys = (0, _util.arrAdd)(selectedKeys, eventKey);
+        selectedKeys = arrAdd(selectedKeys, eventKey);
       } // [Legacy] Not found related usage in doc or upper libs
 
 
@@ -320,8 +311,8 @@ function (_React$Component) {
       };
 
       if (checkStrictly) {
-        var checkedKeys = checked ? (0, _util.arrAdd)(oriCheckedKeys, eventKey) : (0, _util.arrDel)(oriCheckedKeys, eventKey);
-        var halfCheckedKeys = (0, _util.arrDel)(oriHalfCheckedKeys, eventKey);
+        var checkedKeys = checked ? arrAdd(oriCheckedKeys, eventKey) : arrDel(oriCheckedKeys, eventKey);
+        var halfCheckedKeys = arrDel(oriHalfCheckedKeys, eventKey);
         checkedObj = {
           checked: checkedKeys,
           halfChecked: halfCheckedKeys
@@ -338,7 +329,7 @@ function (_React$Component) {
           checkedKeys: checkedKeys
         });
       } else {
-        var _conductCheck = (0, _util.conductCheck)([eventKey], checked, keyEntities, {
+        var _conductCheck = conductCheck([eventKey], checked, keyEntities, {
           checkedKeys: oriCheckedKeys,
           halfCheckedKeys: oriHalfCheckedKeys
         }, loadData, loadedKeys),
@@ -400,8 +391,8 @@ function (_React$Component) {
                 keyEntities = _this$state3.keyEntities,
                 oriCheckedKeys = _this$state3.checkedKeys,
                 oriHalfCheckedKeys = _this$state3.halfCheckedKeys;
-            var newLoadedKeys = (0, _util.arrAdd)(_this.state.loadedKeys, eventKey);
-            var newLoadingKeys = (0, _util.arrDel)(_this.state.loadingKeys, eventKey); // onLoad should trigger before internal setState to avoid `loadData` trigger twice.
+            var newLoadedKeys = arrAdd(_this.state.loadedKeys, eventKey);
+            var newLoadingKeys = arrDel(_this.state.loadingKeys, eventKey); // onLoad should trigger before internal setState to avoid `loadData` trigger twice.
             // https://github.com/ant-design/ant-design/issues/12464
 
             if (onLoad) {
@@ -414,7 +405,7 @@ function (_React$Component) {
 
 
             if (treeNode.props.halfChecked) {
-              var _conductLoad = (0, _util.conductLoad)([eventKey], treeNode.props.checked, keyEntities, {
+              var _conductLoad = conductLoad([eventKey], treeNode.props.checked, keyEntities, {
                 checkedKeys: oriCheckedKeys,
                 halfCheckedKeys: oriHalfCheckedKeys
               }),
@@ -469,7 +460,7 @@ function (_React$Component) {
             reject();
           });
           return {
-            loadingKeys: (0, _util.arrAdd)(loadingKeys, eventKey)
+            loadingKeys: arrAdd(loadingKeys, eventKey)
           };
         });
       });
@@ -488,13 +479,13 @@ function (_React$Component) {
 
       var index = oriExpandedKeys.indexOf(eventKey);
       var targetExpanded = !expanded;
-      (0, _warning.default)(expanded && index !== -1 || !expanded && index === -1, 'Expand state not sync with index check');
+      warning(expanded && index !== -1 || !expanded && index === -1, 'Expand state not sync with index check');
       var expandedKeys = [];
 
       if (targetExpanded) {
-        expandedKeys = (0, _util.arrAdd)(oriExpandedKeys, eventKey);
+        expandedKeys = arrAdd(oriExpandedKeys, eventKey);
       } else {
-        expandedKeys = (0, _util.arrDel)(oriExpandedKeys, eventKey);
+        expandedKeys = arrDel(oriExpandedKeys, eventKey);
       }
 
       _this.setUncontrolledState({
@@ -583,11 +574,8 @@ function (_React$Component) {
       return checkedKeys.indexOf(key) !== -1;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "renderTreeNode", function (child, index, level) {
-      if (level === void 0) {
-        level = 0;
-      }
-
+    _defineProperty(_assertThisInitialized(_this), "renderTreeNode", function (child, index) {
+      var level = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
       var _this$state5 = _this.state,
           keyEntities = _this$state5.keyEntities,
           _this$state5$expanded = _this$state5.expandedKeys,
@@ -602,15 +590,15 @@ function (_React$Component) {
           loadingKeys = _this$state5$loadingK === void 0 ? [] : _this$state5$loadingK,
           dragOverNodeKey = _this$state5.dragOverNodeKey,
           dropPosition = _this$state5.dropPosition;
-      var pos = (0, _util.getPosition)(level, index);
+      var pos = getPosition(level, index);
       var key = child.key || pos;
 
       if (!keyEntities[key]) {
-        (0, _util.warnOnlyTreeNode)();
+        warnOnlyTreeNode();
         return null;
       }
 
-      return _react.default.cloneElement(child, {
+      return React.cloneElement(child, {
         key: key,
         eventKey: key,
         expanded: expandedKeys.indexOf(key) !== -1,
@@ -630,236 +618,238 @@ function (_React$Component) {
     return _this;
   }
 
-  Tree.getDerivedStateFromProps = function getDerivedStateFromProps(props, prevState) {
-    var prevProps = prevState.prevProps;
-    var newState = {
-      prevProps: props
-    };
-
-    function needSync(name) {
-      return !prevProps && name in props || prevProps && prevProps[name] !== props[name];
-    } // ================== Tree Node ==================
-
-
-    var treeNode = null; // Check if `treeData` or `children` changed and save into the state.
-
-    if (needSync('treeData')) {
-      treeNode = (0, _util.convertDataToTree)(props.treeData);
-    } else if (needSync('children')) {
-      treeNode = (0, _util.toArray)(props.children);
-    } // Tree support filter function which will break the tree structure in the vdm.
-    // We cache the treeNodes in state so that we can return the treeNode in event trigger.
-
-
-    if (treeNode) {
-      newState.treeNode = treeNode; // Calculate the entities data for quick match
-
-      var entitiesMap = (0, _util.convertTreeToEntities)(treeNode);
-      newState.posEntities = entitiesMap.posEntities;
-      newState.keyEntities = entitiesMap.keyEntities;
+  _createClass(Tree, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      var _this$props5 = this.props,
+          prefixCls = _this$props5.prefixCls,
+          selectable = _this$props5.selectable,
+          showIcon = _this$props5.showIcon,
+          icon = _this$props5.icon,
+          draggable = _this$props5.draggable,
+          checkable = _this$props5.checkable,
+          checkStrictly = _this$props5.checkStrictly,
+          disabled = _this$props5.disabled,
+          loadData = _this$props5.loadData,
+          filterTreeNode = _this$props5.filterTreeNode,
+          openTransitionName = _this$props5.openTransitionName,
+          openAnimation = _this$props5.openAnimation,
+          switcherIcon = _this$props5.switcherIcon;
+      return {
+        rcTree: {
+          // root: this,
+          prefixCls: prefixCls,
+          selectable: selectable,
+          showIcon: showIcon,
+          icon: icon,
+          switcherIcon: switcherIcon,
+          draggable: draggable,
+          checkable: checkable,
+          checkStrictly: checkStrictly,
+          disabled: disabled,
+          openTransitionName: openTransitionName,
+          openAnimation: openAnimation,
+          loadData: loadData,
+          filterTreeNode: filterTreeNode,
+          renderTreeNode: this.renderTreeNode,
+          isKeyChecked: this.isKeyChecked,
+          onNodeClick: this.onNodeClick,
+          onNodeDoubleClick: this.onNodeDoubleClick,
+          onNodeExpand: this.onNodeExpand,
+          onNodeSelect: this.onNodeSelect,
+          onNodeCheck: this.onNodeCheck,
+          onNodeLoad: this.onNodeLoad,
+          onNodeMouseEnter: this.onNodeMouseEnter,
+          onNodeMouseLeave: this.onNodeMouseLeave,
+          onNodeContextMenu: this.onNodeContextMenu,
+          onNodeDragStart: this.onNodeDragStart,
+          onNodeDragEnter: this.onNodeDragEnter,
+          onNodeDragOver: this.onNodeDragOver,
+          onNodeDragLeave: this.onNodeDragLeave,
+          onNodeDragEnd: this.onNodeDragEnd,
+          onNodeDrop: this.onNodeDrop
+        }
+      };
     }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-    var keyEntities = newState.keyEntities || prevState.keyEntities; // ================ expandedKeys =================
+      var treeNode = this.state.treeNode;
+      var _this$props6 = this.props,
+          prefixCls = _this$props6.prefixCls,
+          className = _this$props6.className,
+          style = _this$props6.style,
+          focusable = _this$props6.focusable,
+          showLine = _this$props6.showLine,
+          _this$props6$tabIndex = _this$props6.tabIndex,
+          tabIndex = _this$props6$tabIndex === void 0 ? 0 : _this$props6$tabIndex;
+      var domProps = getDataAndAria(this.props);
 
-    if (needSync('expandedKeys') || prevProps && needSync('autoExpandParent')) {
-      newState.expandedKeys = props.autoExpandParent || !prevProps && props.defaultExpandParent ? (0, _util.conductExpandParent)(props.expandedKeys, keyEntities) : props.expandedKeys;
-    } else if (treeNode && props.expandAll || !prevProps && props.defaultExpandAll) {
-      newState.expandedKeys = Object.keys(keyEntities);
-    } else if (!prevProps && props.defaultExpandedKeys) {
-      newState.expandedKeys = props.autoExpandParent || props.defaultExpandParent ? (0, _util.conductExpandParent)(props.defaultExpandedKeys, keyEntities) : props.defaultExpandedKeys;
-    } // ================ selectedKeys =================
-
-
-    if (props.selectable) {
-      if (needSync('selectedKeys')) {
-        newState.selectedKeys = (0, _util.calcSelectedKeys)(props.selectedKeys, props);
-      } else if (!prevProps && props.defaultSelectedKeys) {
-        newState.selectedKeys = (0, _util.calcSelectedKeys)(props.defaultSelectedKeys, props);
-      }
-    } // ================= checkedKeys =================
-
-
-    if (props.checkable) {
-      var checkedKeyEntity;
-
-      if (needSync('checkedKeys')) {
-        checkedKeyEntity = (0, _util.parseCheckedKeys)(props.checkedKeys) || {};
-      } else if (!prevProps && props.defaultCheckedKeys) {
-        checkedKeyEntity = (0, _util.parseCheckedKeys)(props.defaultCheckedKeys) || {};
-      } else if (treeNode) {
-        // If treeNode changed, we also need check it
-        checkedKeyEntity = {
-          checkedKeys: prevState.checkedKeys,
-          halfCheckedKeys: prevState.halfCheckedKeys
-        };
+      if (focusable) {
+        domProps.tabIndex = tabIndex;
+        domProps.onKeyDown = this.onKeyDown;
       }
 
-      if (checkedKeyEntity) {
-        var _checkedKeyEntity = checkedKeyEntity,
-            _checkedKeyEntity$che = _checkedKeyEntity.checkedKeys,
-            checkedKeys = _checkedKeyEntity$che === void 0 ? [] : _checkedKeyEntity$che,
-            _checkedKeyEntity$hal = _checkedKeyEntity.halfCheckedKeys,
-            halfCheckedKeys = _checkedKeyEntity$hal === void 0 ? [] : _checkedKeyEntity$hal;
+      return React.createElement("ul", _extends({}, domProps, {
+        className: classNames(prefixCls, className, _defineProperty({}, "".concat(prefixCls, "-show-line"), showLine)),
+        style: style,
+        role: "tree",
+        unselectable: "on"
+      }), mapChildren(treeNode, function (node, index) {
+        return _this2.renderTreeNode(node, index);
+      }));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(props, prevState) {
+      var prevProps = prevState.prevProps;
+      var newState = {
+        prevProps: props
+      };
 
-        if (!props.checkStrictly) {
-          var conductKeys = (0, _util.conductCheck)(checkedKeys, true, keyEntities, null, props.loadData, props.loadedKeys);
-          checkedKeys = conductKeys.checkedKeys;
-          halfCheckedKeys = conductKeys.halfCheckedKeys;
+      function needSync(name) {
+        return !prevProps && name in props || prevProps && prevProps[name] !== props[name];
+      } // ================== Tree Node ==================
+
+
+      var treeNode = null; // Check if `treeData` or `children` changed and save into the state.
+
+      if (needSync('treeData')) {
+        treeNode = convertDataToTree(props.treeData);
+      } else if (needSync('children')) {
+        treeNode = toArray(props.children);
+      } // Tree support filter function which will break the tree structure in the vdm.
+      // We cache the treeNodes in state so that we can return the treeNode in event trigger.
+
+
+      if (treeNode) {
+        newState.treeNode = treeNode; // Calculate the entities data for quick match
+
+        var entitiesMap = convertTreeToEntities(treeNode);
+        newState.posEntities = entitiesMap.posEntities;
+        newState.keyEntities = entitiesMap.keyEntities;
+      }
+
+      var keyEntities = newState.keyEntities || prevState.keyEntities; // ================ expandedKeys =================
+
+      if (needSync('expandedKeys') || prevProps && needSync('autoExpandParent')) {
+        newState.expandedKeys = props.autoExpandParent || !prevProps && props.defaultExpandParent ? conductExpandParent(props.expandedKeys, keyEntities) : props.expandedKeys;
+      } else if (treeNode && props.expandAll || !prevProps && props.defaultExpandAll) {
+        newState.expandedKeys = Object.keys(keyEntities);
+      } else if (!prevProps && props.defaultExpandedKeys) {
+        newState.expandedKeys = props.autoExpandParent || props.defaultExpandParent ? conductExpandParent(props.defaultExpandedKeys, keyEntities) : props.defaultExpandedKeys;
+      } // ================ selectedKeys =================
+
+
+      if (props.selectable) {
+        if (needSync('selectedKeys')) {
+          newState.selectedKeys = calcSelectedKeys(props.selectedKeys, props);
+        } else if (!prevProps && props.defaultSelectedKeys) {
+          newState.selectedKeys = calcSelectedKeys(props.defaultSelectedKeys, props);
+        }
+      } // ================= checkedKeys =================
+
+
+      if (props.checkable) {
+        var checkedKeyEntity;
+
+        if (needSync('checkedKeys')) {
+          checkedKeyEntity = parseCheckedKeys(props.checkedKeys) || {};
+        } else if (!prevProps && props.defaultCheckedKeys) {
+          checkedKeyEntity = parseCheckedKeys(props.defaultCheckedKeys) || {};
+        } else if (treeNode) {
+          // If treeNode changed, we also need check it
+          checkedKeyEntity = {
+            checkedKeys: prevState.checkedKeys,
+            halfCheckedKeys: prevState.halfCheckedKeys
+          };
         }
 
-        newState.checkedKeys = checkedKeys;
-        newState.halfCheckedKeys = halfCheckedKeys;
+        if (checkedKeyEntity) {
+          var _checkedKeyEntity = checkedKeyEntity,
+              _checkedKeyEntity$che = _checkedKeyEntity.checkedKeys,
+              checkedKeys = _checkedKeyEntity$che === void 0 ? [] : _checkedKeyEntity$che,
+              _checkedKeyEntity$hal = _checkedKeyEntity.halfCheckedKeys,
+              halfCheckedKeys = _checkedKeyEntity$hal === void 0 ? [] : _checkedKeyEntity$hal;
+
+          if (!props.checkStrictly) {
+            var conductKeys = conductCheck(checkedKeys, true, keyEntities, null, props.loadData, props.loadedKeys);
+            checkedKeys = conductKeys.checkedKeys;
+            halfCheckedKeys = conductKeys.halfCheckedKeys;
+          }
+
+          newState.checkedKeys = checkedKeys;
+          newState.halfCheckedKeys = halfCheckedKeys;
+        }
+      } // ================= loadedKeys ==================
+
+
+      if (needSync('loadedKeys')) {
+        newState.loadedKeys = props.loadedKeys;
       }
-    } // ================= loadedKeys ==================
 
-
-    if (needSync('loadedKeys')) {
-      newState.loadedKeys = props.loadedKeys;
+      return newState;
     }
-
-    return newState;
-  };
-
-  var _proto = Tree.prototype;
-
-  _proto.getChildContext = function getChildContext() {
-    var _this$props5 = this.props,
-        prefixCls = _this$props5.prefixCls,
-        selectable = _this$props5.selectable,
-        showIcon = _this$props5.showIcon,
-        icon = _this$props5.icon,
-        draggable = _this$props5.draggable,
-        checkable = _this$props5.checkable,
-        checkStrictly = _this$props5.checkStrictly,
-        disabled = _this$props5.disabled,
-        loadData = _this$props5.loadData,
-        filterTreeNode = _this$props5.filterTreeNode,
-        openTransitionName = _this$props5.openTransitionName,
-        openAnimation = _this$props5.openAnimation,
-        switcherIcon = _this$props5.switcherIcon;
-    return {
-      rcTree: {
-        // root: this,
-        prefixCls: prefixCls,
-        selectable: selectable,
-        showIcon: showIcon,
-        icon: icon,
-        switcherIcon: switcherIcon,
-        draggable: draggable,
-        checkable: checkable,
-        checkStrictly: checkStrictly,
-        disabled: disabled,
-        openTransitionName: openTransitionName,
-        openAnimation: openAnimation,
-        loadData: loadData,
-        filterTreeNode: filterTreeNode,
-        renderTreeNode: this.renderTreeNode,
-        isKeyChecked: this.isKeyChecked,
-        onNodeClick: this.onNodeClick,
-        onNodeDoubleClick: this.onNodeDoubleClick,
-        onNodeExpand: this.onNodeExpand,
-        onNodeSelect: this.onNodeSelect,
-        onNodeCheck: this.onNodeCheck,
-        onNodeLoad: this.onNodeLoad,
-        onNodeMouseEnter: this.onNodeMouseEnter,
-        onNodeMouseLeave: this.onNodeMouseLeave,
-        onNodeContextMenu: this.onNodeContextMenu,
-        onNodeDragStart: this.onNodeDragStart,
-        onNodeDragEnter: this.onNodeDragEnter,
-        onNodeDragOver: this.onNodeDragOver,
-        onNodeDragLeave: this.onNodeDragLeave,
-        onNodeDragEnd: this.onNodeDragEnd,
-        onNodeDrop: this.onNodeDrop
-      }
-    };
-  };
-
-  _proto.render = function render() {
-    var _classNames,
-        _this2 = this;
-
-    var treeNode = this.state.treeNode;
-    var _this$props6 = this.props,
-        prefixCls = _this$props6.prefixCls,
-        className = _this$props6.className,
-        style = _this$props6.style,
-        focusable = _this$props6.focusable,
-        showLine = _this$props6.showLine,
-        _this$props6$tabIndex = _this$props6.tabIndex,
-        tabIndex = _this$props6$tabIndex === void 0 ? 0 : _this$props6$tabIndex;
-    var domProps = (0, _util.getDataAndAria)(this.props);
-
-    if (focusable) {
-      domProps.tabIndex = tabIndex;
-      domProps.onKeyDown = this.onKeyDown;
-    }
-
-    return _react.default.createElement("ul", _extends({}, domProps, {
-      className: (0, _classnames.default)(prefixCls, className, (_classNames = {}, _classNames[prefixCls + "-show-line"] = showLine, _classNames)),
-      style: style,
-      role: "tree",
-      unselectable: "on"
-    }), (0, _util.mapChildren)(treeNode, function (node, index) {
-      return _this2.renderTreeNode(node, index);
-    }));
-  };
+  }]);
 
   return Tree;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(Tree, "propTypes", {
-  prefixCls: _propTypes.default.string,
-  className: _propTypes.default.string,
-  style: _propTypes.default.object,
-  tabIndex: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
-  children: _propTypes.default.node,
-  treeData: _propTypes.default.array,
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.node,
+  treeData: PropTypes.array,
   // Generate treeNode by children
-  showLine: _propTypes.default.bool,
-  showIcon: _propTypes.default.bool,
-  icon: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.func]),
-  focusable: _propTypes.default.bool,
-  selectable: _propTypes.default.bool,
-  disabled: _propTypes.default.bool,
-  multiple: _propTypes.default.bool,
-  checkable: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.node]),
-  checkStrictly: _propTypes.default.bool,
-  draggable: _propTypes.default.bool,
-  defaultExpandParent: _propTypes.default.bool,
-  autoExpandParent: _propTypes.default.bool,
-  defaultExpandAll: _propTypes.default.bool,
-  defaultExpandedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  expandAll: _propTypes.default.bool,
-  expandedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  defaultCheckedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  checkedKeys: _propTypes.default.oneOfType([_propTypes.default.arrayOf(_propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number])), _propTypes.default.object]),
-  defaultSelectedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  selectedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  onClick: _propTypes.default.func,
-  onDoubleClick: _propTypes.default.func,
-  onExpand: _propTypes.default.func,
-  onCheck: _propTypes.default.func,
-  onSelect: _propTypes.default.func,
-  onLoad: _propTypes.default.func,
-  loadData: _propTypes.default.func,
-  loadedKeys: _propTypes.default.arrayOf(_propTypes.default.string),
-  onMouseEnter: _propTypes.default.func,
-  onMouseLeave: _propTypes.default.func,
-  onRightClick: _propTypes.default.func,
-  onDragStart: _propTypes.default.func,
-  onDragEnter: _propTypes.default.func,
-  onDragOver: _propTypes.default.func,
-  onDragLeave: _propTypes.default.func,
-  onDragEnd: _propTypes.default.func,
-  onDrop: _propTypes.default.func,
-  filterTreeNode: _propTypes.default.func,
-  openTransitionName: _propTypes.default.string,
-  openAnimation: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]),
-  switcherIcon: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.func]),
-  required: _propTypes.default.bool
+  showLine: PropTypes.bool,
+  showIcon: PropTypes.bool,
+  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  focusable: PropTypes.bool,
+  selectable: PropTypes.bool,
+  disabled: PropTypes.bool,
+  multiple: PropTypes.bool,
+  checkable: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
+  checkStrictly: PropTypes.bool,
+  draggable: PropTypes.bool,
+  defaultExpandParent: PropTypes.bool,
+  autoExpandParent: PropTypes.bool,
+  defaultExpandAll: PropTypes.bool,
+  defaultExpandedKeys: PropTypes.arrayOf(PropTypes.string),
+  expandAll: PropTypes.bool,
+  expandedKeys: PropTypes.arrayOf(PropTypes.string),
+  defaultCheckedKeys: PropTypes.arrayOf(PropTypes.string),
+  checkedKeys: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])), PropTypes.object]),
+  defaultSelectedKeys: PropTypes.arrayOf(PropTypes.string),
+  selectedKeys: PropTypes.arrayOf(PropTypes.string),
+  onClick: PropTypes.func,
+  onDoubleClick: PropTypes.func,
+  onExpand: PropTypes.func,
+  onCheck: PropTypes.func,
+  onSelect: PropTypes.func,
+  onLoad: PropTypes.func,
+  loadData: PropTypes.func,
+  loadedKeys: PropTypes.arrayOf(PropTypes.string),
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  onRightClick: PropTypes.func,
+  onDragStart: PropTypes.func,
+  onDragEnter: PropTypes.func,
+  onDragOver: PropTypes.func,
+  onDragLeave: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  onDrop: PropTypes.func,
+  filterTreeNode: PropTypes.func,
+  openTransitionName: PropTypes.string,
+  openAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  switcherIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  required: PropTypes.bool
 });
 
-_defineProperty(Tree, "childContextTypes", _contextTypes.treeContextTypes);
+_defineProperty(Tree, "childContextTypes", treeContextTypes);
 
 _defineProperty(Tree, "defaultProps", {
   prefixCls: 'fishd-rc-tree',
@@ -881,6 +871,5 @@ _defineProperty(Tree, "defaultProps", {
   required: false
 });
 
-(0, _reactLifecyclesCompat.polyfill)(Tree);
-var _default = Tree;
-exports.default = _default;
+polyfill(Tree);
+export default Tree;

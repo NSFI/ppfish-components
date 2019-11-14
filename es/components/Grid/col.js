@@ -1,37 +1,6 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -57,7 +26,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -73,7 +42,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -86,6 +55,9 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
 var stringOrNumber = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
 var objectOrNumber = PropTypes.oneOfType([PropTypes.object, PropTypes.number]);
 
@@ -123,14 +95,14 @@ function (_super) {
 
       if (typeof props[size] === 'number') {
         sizeProps.span = props[size];
-      } else if (typeof props[size] === 'object') {
+      } else if (_typeof(props[size]) === 'object') {
         sizeProps = props[size] || {};
       }
 
       delete others[size];
       sizeClassObj = __assign(__assign({}, sizeClassObj), (_a = {}, _a[prefixCls + "-" + size + "-" + sizeProps.span] = sizeProps.span !== undefined, _a[prefixCls + "-" + size + "-order-" + sizeProps.order] = sizeProps.order || sizeProps.order === 0, _a[prefixCls + "-" + size + "-offset-" + sizeProps.offset] = sizeProps.offset || sizeProps.offset === 0, _a[prefixCls + "-" + size + "-push-" + sizeProps.push] = sizeProps.push || sizeProps.push === 0, _a[prefixCls + "-" + size + "-pull-" + sizeProps.pull] = sizeProps.pull || sizeProps.pull === 0, _a));
     });
-    var classes = (0, _classnames.default)((_a = {}, _a[prefixCls + "-" + span] = span !== undefined, _a[prefixCls + "-order-" + order] = order, _a[prefixCls + "-offset-" + offset] = offset, _a[prefixCls + "-push-" + push] = push, _a[prefixCls + "-pull-" + pull] = pull, _a), className, sizeClassObj);
+    var classes = classNames((_a = {}, _a[prefixCls + "-" + span] = span !== undefined, _a[prefixCls + "-order-" + order] = order, _a[prefixCls + "-offset-" + offset] = offset, _a[prefixCls + "-push-" + push] = push, _a[prefixCls + "-pull-" + pull] = pull, _a), className, sizeClassObj);
     return React.createElement("div", __assign({}, others, {
       className: classes,
       style: style
@@ -156,5 +128,4 @@ function (_super) {
   return Col;
 }(React.Component);
 
-var _default = Col;
-exports.default = _default;
+export default Col;

@@ -1,23 +1,14 @@
-"use strict";
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-exports.__esModule = true;
-exports.default = BodyTable;
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.object.assign");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-require("core-js/modules/es6.string.fixed");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _utils = require("./utils");
-
-var _BaseTable = _interopRequireDefault(require("./BaseTable"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function BodyTable(props, _ref) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import { measureScrollbar } from './utils';
+import BaseTable from './BaseTable';
+export default function BodyTable(props, _ref) {
   var table = _ref.table;
   var _table$props = table.props,
       prefixCls = _table$props.prefixCls,
@@ -32,7 +23,9 @@ function BodyTable(props, _ref) {
       isAnyColumnsFixed = props.isAnyColumnsFixed;
   var saveRef = table.saveRef;
   var useFixedHeader = table.props.useFixedHeader;
-  var bodyStyle = Object.assign({}, table.props.bodyStyle);
+
+  var bodyStyle = _objectSpread({}, table.props.bodyStyle);
+
   var innerBodyStyle = {};
 
   if (scroll.x || fixed) {
@@ -55,15 +48,15 @@ function BodyTable(props, _ref) {
     bodyStyle.overflowY = bodyStyle.overflowY || 'scroll';
     useFixedHeader = true; // Add negative margin bottom for scroll bar overflow bug
 
-    var scrollbarWidth = (0, _utils.measureScrollbar)();
+    var scrollbarWidth = measureScrollbar();
 
     if (scrollbarWidth > 0 && fixed) {
-      bodyStyle.marginBottom = "-" + scrollbarWidth + "px";
+      bodyStyle.marginBottom = "-".concat(scrollbarWidth, "px");
       bodyStyle.paddingBottom = '0px';
     }
   }
 
-  var baseTable = _react.default.createElement(_BaseTable.default, {
+  var baseTable = React.createElement(BaseTable, {
     tableClassName: tableClassName,
     hasHead: !useFixedHeader,
     hasBody: true,
@@ -85,12 +78,12 @@ function BodyTable(props, _ref) {
 
     delete bodyStyle.overflowX;
     delete bodyStyle.overflowY;
-    return _react.default.createElement("div", {
+    return React.createElement("div", {
       key: "bodyTable",
-      className: prefixCls + "-body-outer",
-      style: Object.assign({}, bodyStyle)
-    }, _react.default.createElement("div", {
-      className: prefixCls + "-body-inner",
+      className: "".concat(prefixCls, "-body-outer"),
+      style: _objectSpread({}, bodyStyle)
+    }, React.createElement("div", {
+      className: "".concat(prefixCls, "-body-inner"),
       style: innerBodyStyle,
       ref: saveRef(refName),
       onWheel: handleWheel,
@@ -98,26 +91,25 @@ function BodyTable(props, _ref) {
     }, baseTable));
   }
 
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     key: "bodyTable",
-    className: prefixCls + "-body",
+    className: "".concat(prefixCls, "-body"),
     style: bodyStyle,
     ref: saveRef('bodyTable'),
     onWheel: handleWheel,
     onScroll: handleBodyScroll
   }, baseTable);
 }
-
 BodyTable.propTypes = {
-  fixed: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.bool]),
-  columns: _propTypes.default.array.isRequired,
-  tableClassName: _propTypes.default.string.isRequired,
-  handleWheel: _propTypes.default.func.isRequired,
-  handleBodyScroll: _propTypes.default.func.isRequired,
-  getRowKey: _propTypes.default.func.isRequired,
-  expander: _propTypes.default.object.isRequired,
-  isAnyColumnsFixed: _propTypes.default.bool
+  fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  columns: PropTypes.array.isRequired,
+  tableClassName: PropTypes.string.isRequired,
+  handleWheel: PropTypes.func.isRequired,
+  handleBodyScroll: PropTypes.func.isRequired,
+  getRowKey: PropTypes.func.isRequired,
+  expander: PropTypes.object.isRequired,
+  isAnyColumnsFixed: PropTypes.bool
 };
 BodyTable.contextTypes = {
-  table: _propTypes.default.any
+  table: PropTypes.any
 };

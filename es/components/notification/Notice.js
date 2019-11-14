@@ -1,49 +1,44 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/web.dom.iterable");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require("core-js/modules/es6.array.iterator");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-require("core-js/modules/es6.object.to-string");
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-require("core-js/modules/es6.string.iterator");
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 var Notice =
 /*#__PURE__*/
 function (_Component) {
-  _inheritsLoose(Notice, _Component);
+  _inherits(Notice, _Component);
 
   function Notice() {
+    var _getPrototypeOf2;
+
     var _this;
+
+    _classCallCheck(this, Notice);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Notice)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "close", function () {
       _this.clearCloseTimer();
@@ -69,60 +64,63 @@ function (_Component) {
     return _this;
   }
 
-  var _proto = Notice.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    this.startCloseTimer();
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
-    if (this.props.duration !== prevProps.duration || this.props.update) {
-      this.restartCloseTimer();
+  _createClass(Notice, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.startCloseTimer();
     }
-  };
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.duration !== prevProps.duration || this.props.update) {
+        this.restartCloseTimer();
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.clearCloseTimer();
+    }
+  }, {
+    key: "restartCloseTimer",
+    value: function restartCloseTimer() {
+      this.clearCloseTimer();
+      this.startCloseTimer();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _className;
 
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    this.clearCloseTimer();
-  };
-
-  _proto.restartCloseTimer = function restartCloseTimer() {
-    this.clearCloseTimer();
-    this.startCloseTimer();
-  };
-
-  _proto.render = function render() {
-    var _className;
-
-    var props = this.props;
-    var componentClass = props.prefixCls + "-notice";
-    var className = (_className = {}, _className["" + componentClass] = 1, _className[componentClass + "-closable"] = props.closable, _className[props.className] = !!props.className, _className);
-    return _react.default.createElement("div", {
-      className: (0, _classnames.default)(className),
-      style: props.style,
-      onMouseEnter: this.clearCloseTimer,
-      onMouseLeave: this.startCloseTimer
-    }, _react.default.createElement("div", {
-      className: componentClass + "-content"
-    }, props.children), props.closable ? _react.default.createElement("a", {
-      tabIndex: "0",
-      onClick: this.close,
-      className: componentClass + "-close"
-    }, props.closeIcon || _react.default.createElement("span", {
-      className: componentClass + "-close-x"
-    })) : null);
-  };
+      var props = this.props;
+      var componentClass = "".concat(props.prefixCls, "-notice");
+      var className = (_className = {}, _defineProperty(_className, "".concat(componentClass), 1), _defineProperty(_className, "".concat(componentClass, "-closable"), props.closable), _defineProperty(_className, props.className, !!props.className), _className);
+      return React.createElement("div", {
+        className: classNames(className),
+        style: props.style,
+        onMouseEnter: this.clearCloseTimer,
+        onMouseLeave: this.startCloseTimer
+      }, React.createElement("div", {
+        className: "".concat(componentClass, "-content")
+      }, props.children), props.closable ? React.createElement("a", {
+        tabIndex: "0",
+        onClick: this.close,
+        className: "".concat(componentClass, "-close")
+      }, props.closeIcon || React.createElement("span", {
+        className: "".concat(componentClass, "-close-x")
+      })) : null);
+    }
+  }]);
 
   return Notice;
-}(_react.Component);
-
-exports.default = Notice;
+}(Component);
 
 _defineProperty(Notice, "propTypes", {
-  duration: _propTypes.default.number,
-  onClose: _propTypes.default.func,
-  children: _propTypes.default.node,
-  update: _propTypes.default.bool,
-  closeIcon: _propTypes.default.node
+  duration: PropTypes.number,
+  onClose: PropTypes.func,
+  children: PropTypes.node,
+  update: PropTypes.bool,
+  closeIcon: PropTypes.node
 });
 
 _defineProperty(Notice, "defaultProps", {
@@ -133,3 +131,5 @@ _defineProperty(Notice, "defaultProps", {
     right: '50%'
   }
 });
+
+export { Notice as default };

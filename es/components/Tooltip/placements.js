@@ -1,24 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.getOverflowOptions = getOverflowOptions;
-exports.default = getPlacements;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.object.assign");
-
-var _rcPlacements = _interopRequireDefault(require("./rcPlacements"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -34,6 +14,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+import rcPlacements from './rcPlacements';
 var autoAdjustOverflowEnabled = {
   adjustX: 1,
   adjustY: 1
@@ -43,16 +24,14 @@ var autoAdjustOverflowDisabled = {
   adjustY: 0
 };
 var targetOffset = [0, 0];
-
-function getOverflowOptions(autoAdjustOverflow) {
+export function getOverflowOptions(autoAdjustOverflow) {
   if (typeof autoAdjustOverflow === 'boolean') {
     return autoAdjustOverflow ? autoAdjustOverflowEnabled : autoAdjustOverflowDisabled;
   }
 
   return __assign(__assign({}, autoAdjustOverflowDisabled), autoAdjustOverflow);
 }
-
-function getPlacements(config) {
+export default function getPlacements(config) {
   if (config === void 0) {
     config = {};
   }
@@ -119,7 +98,7 @@ function getPlacements(config) {
     placementMap[key] = config.arrowPointAtCenter ? __assign(__assign({}, placementMap[key]), {
       overflow: getOverflowOptions(autoAdjustOverflow),
       targetOffset: targetOffset
-    }) : __assign(__assign({}, _rcPlacements.default[key]), {
+    }) : __assign(__assign({}, rcPlacements[key]), {
       overflow: getOverflowOptions(autoAdjustOverflow)
     });
   });

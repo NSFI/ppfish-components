@@ -1,24 +1,16 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import React from 'react';
+import PropTypes from 'prop-types';
 
 var Pager = function Pager(props) {
-  var prefixCls = props.rootPrefixCls + "-item";
-  var cls = prefixCls + " " + prefixCls + "-" + props.page;
+  var prefixCls = "".concat(props.rootPrefixCls, "-item");
+  var cls = "".concat(prefixCls, " ").concat(prefixCls, "-").concat(props.page);
 
   if (props.active) {
-    cls = cls + " " + prefixCls + "-active";
+    cls = "".concat(cls, " ").concat(prefixCls, "-active");
   }
 
   if (props.className) {
-    cls = cls + " " + props.className;
+    cls = "".concat(cls, " ").concat(props.className);
   }
 
   var handleClick = function handleClick() {
@@ -29,26 +21,25 @@ var Pager = function Pager(props) {
     props.onKeyPress(e, props.onClick, props.page);
   };
 
-  return _react.default.createElement("li", {
+  return React.createElement("li", {
     title: props.showTitle ? props.page : null,
     className: cls,
     onClick: handleClick,
     onKeyPress: handleKeyPress,
     tabIndex: "0"
-  }, props.itemRender(props.page, 'page', _react.default.createElement("a", null, props.page)));
+  }, props.itemRender(props.page, 'page', React.createElement("a", null, props.page)));
 };
 
 Pager.propTypes = {
-  page: _propTypes.default.number,
-  active: _propTypes.default.bool,
-  last: _propTypes.default.bool,
-  locale: _propTypes.default.object,
-  className: _propTypes.default.string,
-  showTitle: _propTypes.default.bool,
-  rootPrefixCls: _propTypes.default.string,
-  onClick: _propTypes.default.func,
-  onKeyPress: _propTypes.default.func,
-  itemRender: _propTypes.default.func
+  page: PropTypes.number,
+  active: PropTypes.bool,
+  last: PropTypes.bool,
+  locale: PropTypes.object,
+  className: PropTypes.string,
+  showTitle: PropTypes.bool,
+  rootPrefixCls: PropTypes.string,
+  onClick: PropTypes.func,
+  onKeyPress: PropTypes.func,
+  itemRender: PropTypes.func
 };
-var _default = Pager;
-exports.default = _default;
+export default Pager;

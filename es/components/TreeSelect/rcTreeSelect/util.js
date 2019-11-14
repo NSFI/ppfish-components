@@ -1,81 +1,44 @@
-"use strict";
-
-exports.__esModule = true;
-exports.toNodeArray = toNodeArray;
-exports.toTitle = toTitle;
-exports.toArray = toArray;
-exports.createRef = createRef;
-exports.flatToHierarchy = flatToHierarchy;
-exports.resetAriaId = resetAriaId;
-exports.generateAriaId = generateAriaId;
-exports.isLabelInValue = isLabelInValue;
-exports.parseSimpleTreeData = parseSimpleTreeData;
-exports.isPosRelated = isPosRelated;
-exports.cleanEntity = cleanEntity;
-exports.getFilterTree = getFilterTree;
-exports.formatInternalValue = formatInternalValue;
-exports.getLabel = getLabel;
-exports.formatSelectorValue = formatSelectorValue;
-exports.convertDataToTree = convertDataToTree;
-exports.convertTreeToEntities = convertTreeToEntities;
-exports.conductCheck = exports.UNSELECTABLE_ATTRIBUTE = exports.UNSELECTABLE_STYLE = void 0;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.regexp.split");
-
-require("core-js/modules/es6.object.assign");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _util = require("../rcTree/util.js");
-
-var _SelectNode = _interopRequireDefault(require("./SelectNode.js"));
-
-var _strategies = require("./strategies.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import warning from 'warning';
+import { convertDataToTree as rcConvertDataToTree, convertTreeToEntities as rcConvertTreeToEntities, conductCheck as rcConductCheck } from '../rcTree/util.js';
+import SelectNode from './SelectNode.js';
+import { SHOW_CHILD, SHOW_PARENT } from './strategies.js';
 var warnDeprecatedLabel = false;
-
-function toNodeArray(children) {
+export function toNodeArray(children) {
   var ret = [];
-
-  _react.default.Children.forEach(children, function (c) {
+  React.Children.forEach(children, function (c) {
     ret.push(c);
   });
-
   return ret;
 } // =================== MISC ====================
 
-
-function toTitle(title) {
+export function toTitle(title) {
   if (typeof title === 'string') {
     return title;
   }
 
   return null;
 }
-
-function toArray(data) {
+export function toArray(data) {
   if (!data) return [];
   return Array.isArray(data) ? data : [data];
 } // Shallow copy of React 16.3 createRef api
 
-
-function createRef() {
+export function createRef() {
   var func = function setRef(node) {
     func.current = node;
   };
@@ -83,13 +46,11 @@ function createRef() {
   return func;
 } // =============== Legacy ===============
 
-
-var UNSELECTABLE_STYLE = {
+export var UNSELECTABLE_STYLE = {
   userSelect: 'none',
   WebkitUserSelect: 'none'
 };
-exports.UNSELECTABLE_STYLE = UNSELECTABLE_STYLE;
-var UNSELECTABLE_ATTRIBUTE = {
+export var UNSELECTABLE_ATTRIBUTE = {
   unselectable: 'unselectable'
 };
 /**
@@ -97,9 +58,7 @@ var UNSELECTABLE_ATTRIBUTE = {
  * This is little hack since use '-' to split the position.
  */
 
-exports.UNSELECTABLE_ATTRIBUTE = UNSELECTABLE_ATTRIBUTE;
-
-function flatToHierarchy(positionList) {
+export function flatToHierarchy(positionList) {
   if (!positionList.length) {
     return [];
   }
@@ -108,9 +67,10 @@ function flatToHierarchy(positionList) {
 
   var posMap = {};
   var parsedList = positionList.slice().map(function (entity) {
-    var clone = Object.assign({}, entity, {
+    var clone = _objectSpread({}, entity, {
       fields: entity.pos.split('-')
     });
+
     delete clone.children;
     return clone;
   });
@@ -157,19 +117,15 @@ function flatToHierarchy(positionList) {
   });
 } // =============== Accessibility ===============
 
-
 var ariaId = 0;
-
-function resetAriaId() {
+export function resetAriaId() {
   ariaId = 0;
 }
-
-function generateAriaId(prefix) {
+export function generateAriaId(prefix) {
   ariaId += 1;
-  return prefix + "_" + ariaId;
+  return "".concat(prefix, "_").concat(ariaId);
 }
-
-function isLabelInValue(props) {
+export function isLabelInValue(props) {
   var treeCheckable = props.treeCheckable,
       treeCheckStrictly = props.treeCheckStrictly,
       labelInValue = props.labelInValue;
@@ -181,8 +137,7 @@ function isLabelInValue(props) {
   return labelInValue || false;
 } // =================== Tree ====================
 
-
-function parseSimpleTreeData(treeData, _ref) {
+export function parseSimpleTreeData(treeData, _ref) {
   var id = _ref.id,
       pId = _ref.pId,
       rootPId = _ref.rootPId;
@@ -190,7 +145,8 @@ function parseSimpleTreeData(treeData, _ref) {
   var rootNodeList = []; // Fill in the map
 
   var nodeList = treeData.map(function (node) {
-    var clone = Object.assign({}, node);
+    var clone = _objectSpread({}, node);
+
     var key = clone[id];
     keyNodes[key] = clone;
     clone.key = clone.key || key;
@@ -220,8 +176,7 @@ function parseSimpleTreeData(treeData, _ref) {
  * e.g. 1-2 not related with 1-21
  */
 
-
-function isPosRelated(pos1, pos2) {
+export function isPosRelated(pos1, pos2) {
   var fields1 = pos1.split('-');
   var fields2 = pos2.split('-');
   var minLen = Math.min(fields1.length, fields2.length);
@@ -241,8 +196,7 @@ function isPosRelated(pos1, pos2) {
  * @param entity
  */
 
-
-function cleanEntity(_ref2) {
+export function cleanEntity(_ref2) {
   var node = _ref2.node,
       pos = _ref2.pos,
       children = _ref2.children;
@@ -264,8 +218,7 @@ function cleanEntity(_ref2) {
  * Such performance hungry!
  */
 
-
-function getFilterTree(treeNodes, searchValue, filterFunc, valueEntities) {
+export function getFilterTree(treeNodes, searchValue, filterFunc, valueEntities) {
   if (!searchValue) {
     return null;
   }
@@ -285,7 +238,7 @@ function getFilterTree(treeNodes, searchValue, filterFunc, valueEntities) {
     });
 
     if (children.length || match) {
-      return _react.default.createElement(_SelectNode.default, _extends({}, node.props, {
+      return React.createElement(SelectNode, _extends({}, node.props, {
         key: valueEntities[node.props.value].key
       }), children);
     }
@@ -302,13 +255,12 @@ function getFilterTree(treeNodes, searchValue, filterFunc, valueEntities) {
  * Convert value to array format to make logic simplify.
  */
 
-
-function formatInternalValue(value, props) {
+export function formatInternalValue(value, props) {
   var valueList = toArray(value); // Parse label in value
 
   if (isLabelInValue(props)) {
     return valueList.map(function (val) {
-      if (typeof val !== 'object' || !val) {
+      if (_typeof(val) !== 'object' || !val) {
         return {
           value: '',
           label: ''
@@ -325,8 +277,7 @@ function formatInternalValue(value, props) {
     };
   });
 }
-
-function getLabel(wrappedValue, entity, treeNodeLabelProp) {
+export function getLabel(wrappedValue, entity, treeNodeLabelProp) {
   if (wrappedValue.label) {
     return wrappedValue.label;
   }
@@ -346,8 +297,7 @@ function getLabel(wrappedValue, entity, treeNodeLabelProp) {
  * `allCheckedNodes` is used for `treeCheckStrictly`
  */
 
-
-function formatSelectorValue(valueList, props, valueEntities) {
+export function formatSelectorValue(valueList, props, valueEntities) {
   var treeNodeLabelProp = props.treeNodeLabelProp,
       treeCheckable = props.treeCheckable,
       treeCheckStrictly = props.treeCheckStrictly,
@@ -363,21 +313,21 @@ function formatSelectorValue(valueList, props, valueEntities) {
       return valueEntities[value];
     }));
 
-    if (showCheckedStrategy === _strategies.SHOW_PARENT) {
+    if (showCheckedStrategy === SHOW_PARENT) {
       // 返回除 label、value 外更多的信息
       // Only get the parent checked value
       return hierarchyList.map(function (_ref4) {
         var _ref4$node$props = _ref4.node.props,
             label = _ref4$node$props.label,
             value = _ref4$node$props.value,
-            restProps = _objectWithoutPropertiesLoose(_ref4$node$props, ["label", "value"]);
+            restProps = _objectWithoutProperties(_ref4$node$props, ["label", "value"]);
 
-        return Object.assign({
+        return _objectSpread({
           label: getLabel(values[value], valueEntities[value], treeNodeLabelProp),
           value: value
         }, restProps);
       });
-    } else if (showCheckedStrategy === _strategies.SHOW_CHILD) {
+    } else if (showCheckedStrategy === SHOW_CHILD) {
       // Only get the children checked value
       var targetValueList = []; // Find the leaf children
 
@@ -385,12 +335,12 @@ function formatSelectorValue(valueList, props, valueEntities) {
         var _ref5$node$props = _ref5.node.props,
             label = _ref5$node$props.label,
             value = _ref5$node$props.value,
-            restProps = _objectWithoutPropertiesLoose(_ref5$node$props, ["label", "value"]),
+            restProps = _objectWithoutProperties(_ref5$node$props, ["label", "value"]),
             children = _ref5.children;
 
         if (!children || children.length === 0) {
           // 返回除 label、value 外更多的信息
-          targetValueList.push(Object.assign({
+          targetValueList.push(_objectSpread({
             label: getLabel(values[value], valueEntities[value], treeNodeLabelProp),
             value: value
           }, restProps));
@@ -417,9 +367,9 @@ function formatSelectorValue(valueList, props, valueEntities) {
   return valueList.map(function (wrappedValue) {
     var label = wrappedValue.label,
         value = wrappedValue.value,
-        restWrappedValue = _objectWithoutPropertiesLoose(wrappedValue, ["label", "value"]);
+        restWrappedValue = _objectWithoutProperties(wrappedValue, ["label", "value"]);
 
-    return Object.assign({
+    return _objectSpread({
       label: getLabel(wrappedValue, valueEntities[wrappedValue.value], treeNodeLabelProp),
       value: wrappedValue.value
     }, restWrappedValue);
@@ -430,17 +380,18 @@ function formatSelectorValue(valueList, props, valueEntities) {
  * This will change the label to title value
  */
 
-
 function processProps(props) {
   var title = props.title,
       label = props.label,
       key = props.key,
       value = props.value;
-  var cloneProps = Object.assign({}, props); // Warning user not to use deprecated label prop.
+
+  var cloneProps = _objectSpread({}, props); // Warning user not to use deprecated label prop.
+
 
   if (label && !title) {
     if (!warnDeprecatedLabel) {
-      (0, _warning.default)(false, '\'label\' in treeData is deprecated. Please use \'title\' instead.');
+      warning(false, '\'label\' in treeData is deprecated. Please use \'title\' instead.');
       warnDeprecatedLabel = true;
     }
 
@@ -454,8 +405,8 @@ function processProps(props) {
   return cloneProps;
 }
 
-function convertDataToTree(treeData) {
-  return (0, _util.convertDataToTree)(treeData, {
+export function convertDataToTree(treeData) {
+  return rcConvertDataToTree(treeData, {
     processProps: processProps
   });
 }
@@ -464,9 +415,8 @@ function convertDataToTree(treeData) {
  * We have additional entities of `valueEntities`
  */
 
-
 function initWrapper(wrapper) {
-  return Object.assign({}, wrapper, {
+  return _objectSpread({}, wrapper, {
     valueEntities: {}
   });
 }
@@ -477,12 +427,10 @@ function processEntity(entity, wrapper) {
   wrapper.valueEntities[value] = entity;
 }
 
-function convertTreeToEntities(treeNodes) {
-  return (0, _util.convertTreeToEntities)(treeNodes, {
+export function convertTreeToEntities(treeNodes) {
+  return rcConvertTreeToEntities(treeNodes, {
     initWrapper: initWrapper,
     processEntity: processEntity
   });
 }
-
-var conductCheck = _util.conductCheck;
-exports.conductCheck = conductCheck;
+export var conductCheck = rcConductCheck;

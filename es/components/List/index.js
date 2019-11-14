@@ -1,43 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.split");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _sortable = _interopRequireDefault(require("./sortable"));
-
-var _Spin = _interopRequireDefault(require("../Spin"));
-
-var _Pagination = _interopRequireDefault(require("../Pagination"));
-
-var _Grid = require("../Grid");
-
-var _Item = _interopRequireDefault(require("./Item"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -63,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -79,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -92,7 +53,7 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+var __spreadArrays = this && this.__spreadArrays || function () {
   for (var s = 0, i = 0, il = arguments.length; i < il; i++) {
     s += arguments[i].length;
   }
@@ -105,6 +66,16 @@ var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
 
   return r;
 };
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Sortable from './sortable';
+import Spin from '../Spin';
+import Pagination from '../Pagination';
+import { Row } from '../Grid';
+import Item from './Item';
+import './style/index.less';
 
 var List =
 /** @class */
@@ -163,7 +134,7 @@ function (_super) {
         emptyText: '暂无数据'
       }, _this.props.locale);
 
-      return _react.default.createElement("div", {
+      return React.createElement("div", {
         className: _this.props.prefixCls + "-empty-text"
       }, locale.emptyText);
     };
@@ -238,7 +209,7 @@ function (_super) {
         break;
     }
 
-    var classString = (0, _classnames.default)(prefixCls, className, (_a = {}, _a[prefixCls + "-vertical"] = itemLayout === 'vertical', _a[prefixCls + "-" + sizeCls] = sizeCls, _a[prefixCls + "-split"] = split, _a[prefixCls + "-bordered"] = bordered, _a[prefixCls + "-loading"] = isLoading, _a[prefixCls + "-grid"] = grid, _a[prefixCls + "-striped"] = striped, _a[prefixCls + "-something-after-last-item"] = this.isSomethingAfterLastItem(), _a));
+    var classString = classNames(prefixCls, className, (_a = {}, _a[prefixCls + "-vertical"] = itemLayout === 'vertical', _a[prefixCls + "-" + sizeCls] = sizeCls, _a[prefixCls + "-split"] = split, _a[prefixCls + "-bordered"] = bordered, _a[prefixCls + "-loading"] = isLoading, _a[prefixCls + "-grid"] = grid, _a[prefixCls + "-striped"] = striped, _a[prefixCls + "-something-after-last-item"] = this.isSomethingAfterLastItem(), _a));
 
     var paginationProps = __assign(__assign(__assign({}, this.defaultPaginationProps), {
       total: dataSource.length,
@@ -251,9 +222,9 @@ function (_super) {
       paginationProps.current = largestPage;
     }
 
-    var paginationContent = pagination ? _react.default.createElement("div", {
+    var paginationContent = pagination ? React.createElement("div", {
       className: prefixCls + "-pagination"
-    }, _react.default.createElement(_Pagination.default, __assign({}, paginationProps, {
+    }, React.createElement(Pagination, __assign({}, paginationProps, {
       onChange: this.defaultPaginationProps.onChange
     }))) : null;
 
@@ -266,7 +237,7 @@ function (_super) {
     }
 
     var childrenContent;
-    childrenContent = isLoading && _react.default.createElement("div", {
+    childrenContent = isLoading && React.createElement("div", {
       style: {
         minHeight: 53
       }
@@ -276,34 +247,32 @@ function (_super) {
       var items = splitDataSource.map(function (item, index) {
         return _this.renderItem(item, index);
       });
-
-      var childrenList = _react.default.Children.map(items, function (child, index) {
-        return _react.default.cloneElement(child, {
+      var childrenList = React.Children.map(items, function (child, index) {
+        return React.cloneElement(child, {
           key: _this.keys[index]
         });
       });
-
-      childrenContent = grid ? _react.default.createElement(_Grid.Row, {
+      childrenContent = grid ? React.createElement(Row, {
         gutter: grid.gutter
       }, childrenList) : childrenList;
     } else if (!children && !isLoading) {
-      childrenContent = _react.default.createElement("div", null, this.renderEmpty());
+      childrenContent = React.createElement("div", null, this.renderEmpty());
     }
 
     var paginationPosition = paginationProps.position || 'bottom';
-    return _react.default.createElement("div", __assign({
+    return React.createElement("div", __assign({
       className: classString
-    }, rest), (paginationPosition === 'top' || paginationPosition === 'both') && paginationContent, header && _react.default.createElement("div", {
+    }, rest), (paginationPosition === 'top' || paginationPosition === 'both') && paginationContent, header && React.createElement("div", {
       className: prefixCls + "-header"
-    }, header), _react.default.createElement(_Spin.default, __assign({}, loadingProp), childrenContent, children), footer && _react.default.createElement("div", {
+    }, header), React.createElement(Spin, __assign({}, loadingProp), childrenContent, children), footer && React.createElement("div", {
       className: prefixCls + "-footer"
     }, footer), loadMore || (paginationPosition === 'bottom' || paginationPosition === 'both') && paginationContent);
   };
 
-  List.Item = _Item.default;
-  List.Sortable = _sortable.default;
+  List.Item = Item;
+  List.Sortable = Sortable;
   List.childContextTypes = {
-    grid: _propTypes.default.any
+    grid: PropTypes.any
   };
   List.defaultProps = {
     dataSource: [],
@@ -315,7 +284,6 @@ function (_super) {
     striped: false
   };
   return List;
-}(_react.default.Component);
+}(React.Component);
 
-var _default = List;
-exports.default = _default;
+export default List;

@@ -1,39 +1,43 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-require("core-js/modules/es6.object.assign");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.number.constructor");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require("core-js/modules/es6.number.parse-int");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var _react = _interopRequireDefault(require("react"));
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _utils = require("../../utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { addEventListener } from '../../utils';
 
 var FooterToolbar =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(FooterToolbar, _React$Component);
+  _inherits(FooterToolbar, _React$Component);
 
   function FooterToolbar(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, FooterToolbar);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(FooterToolbar).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "setToolbarPosition", function () {
       var target = _this.props.target;
@@ -66,57 +70,62 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = FooterToolbar.prototype;
+  _createClass(FooterToolbar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
 
-  _proto.componentDidMount = function componentDidMount() {
-    var _this2 = this;
-
-    this.setToolbarPosition();
-    var target = this.props.target && this.props.target() || window;
-    this.scrollListener = (0, _utils.addEventListener)(target, 'scroll', function () {
-      _this2.setToolbarPosition();
-    });
-    this.resizeListener = (0, _utils.addEventListener)(target, 'resize', function () {
-      _this2.setToolbarPosition();
-    });
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    if (this.scrollListener) {
-      this.scrollListener.remove();
+      this.setToolbarPosition();
+      var target = this.props.target && this.props.target() || window;
+      this.scrollListener = addEventListener(target, 'scroll', function () {
+        _this2.setToolbarPosition();
+      });
+      this.resizeListener = addEventListener(target, 'resize', function () {
+        _this2.setToolbarPosition();
+      });
     }
-
-    if (this.resizeListener) {
-      this.resizeListener.remove();
-    }
-  };
-
-  _proto.render = function render() {
-    var _classNames,
-        _this3 = this;
-
-    var _this$props = this.props,
-        children = _this$props.children,
-        className = _this$props.className,
-        prefixCls = _this$props.prefixCls,
-        style = _this$props.style;
-    var toolbarStyle = Object.assign({}, style, {
-      position: 'absolute',
-      top: this.state.offset
-    });
-    return _react.default.createElement("div", {
-      className: (0, _classnames.default)((_classNames = {}, _classNames[className] = true, _classNames[prefixCls] = true, _classNames)),
-      style: toolbarStyle,
-      ref: function ref(wrapper) {
-        _this3.wrapper = wrapper;
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (this.scrollListener) {
+        this.scrollListener.remove();
       }
-    }, _react.default.createElement("div", {
-      className: prefixCls + "-inner"
-    }, children));
-  };
+
+      if (this.resizeListener) {
+        this.resizeListener.remove();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames,
+          _this3 = this;
+
+      var _this$props = this.props,
+          children = _this$props.children,
+          className = _this$props.className,
+          prefixCls = _this$props.prefixCls,
+          style = _this$props.style;
+
+      var toolbarStyle = _objectSpread({}, style, {
+        position: 'absolute',
+        top: this.state.offset
+      });
+
+      return React.createElement("div", {
+        className: classNames((_classNames = {}, _defineProperty(_classNames, className, true), _defineProperty(_classNames, prefixCls, true), _classNames)),
+        style: toolbarStyle,
+        ref: function ref(wrapper) {
+          _this3.wrapper = wrapper;
+        }
+      }, React.createElement("div", {
+        className: "".concat(prefixCls, "-inner")
+      }, children));
+    }
+  }]);
 
   return FooterToolbar;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(FooterToolbar, "defaultProps", {
   children: null,
@@ -125,12 +134,11 @@ _defineProperty(FooterToolbar, "defaultProps", {
 });
 
 _defineProperty(FooterToolbar, "propTypes", {
-  children: _propTypes.default.node,
-  className: _propTypes.default.string,
-  prefixCls: _propTypes.default.string,
-  target: _propTypes.default.func,
-  style: _propTypes.default.object
+  children: PropTypes.node,
+  className: PropTypes.string,
+  prefixCls: PropTypes.string,
+  target: PropTypes.func,
+  style: PropTypes.object
 });
 
-var _default = FooterToolbar;
-exports.default = _default;
+export default FooterToolbar;

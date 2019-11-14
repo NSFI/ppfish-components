@@ -1,13 +1,5 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = exports.mixin = void 0;
-
-var _createBaseForm = _interopRequireDefault(require("./createBaseForm"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mixin = {
+import createBaseForm from './createBaseForm';
+export var mixin = {
   getForm: function getForm() {
     return {
       getFieldsValue: this.fieldsStore.getFieldsValue,
@@ -31,11 +23,9 @@ var mixin = {
     };
   }
 };
-exports.mixin = mixin;
 
 function createForm(options) {
-  return (0, _createBaseForm.default)(options, [mixin]);
+  return createBaseForm(options, [mixin]);
 }
 
-var _default = createForm;
-exports.default = _default;
+export default createForm;

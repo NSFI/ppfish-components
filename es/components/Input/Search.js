@@ -1,41 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _Input = _interopRequireDefault(require("./Input"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-var _Button = _interopRequireDefault(require("../Button"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -61,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -77,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -89,6 +52,12 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   }
   return t;
 };
+
+import * as React from 'react';
+import classNames from 'classnames';
+import Input from './Input';
+import Icon from '../Icon';
+import Button from '../Button';
 
 var Search =
 /** @class */
@@ -139,24 +108,24 @@ function (_super) {
     var node;
 
     if (!enterButton) {
-      node = React.createElement(_Icon.default, {
+      node = React.createElement(Icon, {
         className: prefixCls + "-icon",
         type: "search-line",
         key: "searchIcon"
       });
-    } else if (enterButtonAsElement.type === _Button.default || enterButtonAsElement.type === 'button') {
-      node = React.cloneElement(enterButtonAsElement, enterButtonAsElement.type === _Button.default ? {
+    } else if (enterButtonAsElement.type === Button || enterButtonAsElement.type === 'button') {
+      node = React.cloneElement(enterButtonAsElement, enterButtonAsElement.type === Button ? {
         className: prefixCls + "-button",
         size: size
       } : {});
     } else {
-      node = React.createElement(_Button.default, {
+      node = React.createElement(Button, {
         className: prefixCls + "-button",
         type: "primary",
         size: size,
         disabled: disabled,
         key: "enterButton"
-      }, enterButton === true ? React.createElement(_Icon.default, {
+      }, enterButton === true ? React.createElement(Icon, {
         type: "search-line"
       }) : enterButton);
     }
@@ -181,8 +150,8 @@ function (_super) {
     delete others.onSearch;
     var buttonOrIcon = this.getButtonOrIcon();
     var searchSuffix = suffix ? [suffix, buttonOrIcon] : buttonOrIcon;
-    var inputClassName = (0, _classnames.default)(prefixCls, className, (_a = {}, _a[prefixCls + "-enter-button"] = !!enterButton, _a[prefixCls + "-" + size] = !!size, _a));
-    return React.createElement(_Input.default, __assign({
+    var inputClassName = classNames(prefixCls, className, (_a = {}, _a[prefixCls + "-enter-button"] = !!enterButton, _a[prefixCls + "-" + size] = !!size, _a));
+    return React.createElement(Input, __assign({
       onPressEnter: this.onSearch
     }, others, {
       size: size,
@@ -201,5 +170,4 @@ function (_super) {
   return Search;
 }(React.Component);
 
-var _default = Search;
-exports.default = _default;
+export default Search;

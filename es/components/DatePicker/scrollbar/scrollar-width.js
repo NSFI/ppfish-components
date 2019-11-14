@@ -1,10 +1,5 @@
-"use strict";
-
-exports.__esModule = true;
-exports.getScrollBarWidth = getScrollBarWidth;
 var scrollBarWidth;
-
-function getScrollBarWidth() {
+export function getScrollBarWidth() {
   if (scrollBarWidth !== undefined) return scrollBarWidth;
   var outer = document.createElement('div');
   outer.className = 'fishd-scrollbar__wrap';

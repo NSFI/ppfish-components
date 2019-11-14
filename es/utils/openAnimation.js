@@ -1,18 +1,10 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _cssAnimation = _interopRequireDefault(require("css-animation"));
-
-var _raf = _interopRequireDefault(require("raf"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import cssAnimation from 'css-animation';
+import raf from 'raf';
 
 function animate(node, show, done) {
   var height;
   var requestAnimationFrameId;
-  return (0, _cssAnimation.default)(node, 'fishd-motion-collapse', {
+  return cssAnimation(node, 'fishd-motion-collapse', {
     start: function start() {
       if (!show) {
         node.style.height = node.offsetHeight + "px";
@@ -25,17 +17,17 @@ function animate(node, show, done) {
     },
     active: function active() {
       if (requestAnimationFrameId) {
-        _raf.default.cancel(requestAnimationFrameId);
+        raf.cancel(requestAnimationFrameId);
       }
 
-      requestAnimationFrameId = (0, _raf.default)(function () {
+      requestAnimationFrameId = raf(function () {
         node.style.height = (show ? height : 0) + "px";
         node.style.opacity = show ? '1' : '0';
       });
     },
     end: function end() {
       if (requestAnimationFrameId) {
-        _raf.default.cancel(requestAnimationFrameId);
+        raf.cancel(requestAnimationFrameId);
       }
 
       node.style.height = '';
@@ -56,5 +48,4 @@ var animation = {
     return animate(node, true, done);
   }
 };
-var _default = animation;
-exports.default = _default;
+export default animation;

@@ -1,21 +1,8 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = HeadTable;
-
-require("core-js/modules/es6.string.fixed");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _utils = require("./utils");
-
-var _BaseTable = _interopRequireDefault(require("./BaseTable"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function HeadTable(props, _ref) {
+import React from 'react';
+import PropTypes from 'prop-types';
+import { measureScrollbar } from './utils';
+import BaseTable from './BaseTable';
+export default function HeadTable(props, _ref) {
   var table = _ref.table;
   var _table$props = table.props,
       prefixCls = _table$props.prefixCls,
@@ -33,10 +20,10 @@ function HeadTable(props, _ref) {
   if (scroll.y) {
     useFixedHeader = true; // Add negative margin bottom for scroll bar overflow bug
 
-    var scrollbarWidth = (0, _utils.measureScrollbar)('horizontal');
+    var scrollbarWidth = measureScrollbar('horizontal');
 
     if (scrollbarWidth > 0 && !fixed) {
-      headStyle.marginBottom = "-" + scrollbarWidth + "px";
+      headStyle.marginBottom = "-".concat(scrollbarWidth, "px");
       headStyle.paddingBottom = '0px';
     }
   }
@@ -45,13 +32,13 @@ function HeadTable(props, _ref) {
     return null;
   }
 
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     key: "headTable",
     ref: fixed ? null : saveRef('headTable'),
-    className: prefixCls + "-header",
+    className: "".concat(prefixCls, "-header"),
     style: headStyle,
     onScroll: handleBodyScrollLeft
-  }, _react.default.createElement(_BaseTable.default, {
+  }, React.createElement(BaseTable, {
     tableClassName: tableClassName,
     hasHead: true,
     hasBody: false,
@@ -60,14 +47,13 @@ function HeadTable(props, _ref) {
     expander: expander
   }));
 }
-
 HeadTable.propTypes = {
-  fixed: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.bool]),
-  columns: _propTypes.default.array.isRequired,
-  tableClassName: _propTypes.default.string.isRequired,
-  handleBodyScrollLeft: _propTypes.default.func.isRequired,
-  expander: _propTypes.default.object.isRequired
+  fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  columns: PropTypes.array.isRequired,
+  tableClassName: PropTypes.string.isRequired,
+  handleBodyScrollLeft: PropTypes.func.isRequired,
+  expander: PropTypes.object.isRequired
 };
 HeadTable.contextTypes = {
-  table: _propTypes.default.any
+  table: PropTypes.any
 };

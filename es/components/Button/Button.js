@@ -1,47 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.split");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _reactDom = require("react-dom");
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _index = _interopRequireDefault(require("../Icon/index"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -67,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -83,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -96,6 +53,13 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
+import * as React from 'react';
+import { findDOMNode } from 'react-dom';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
+import Icon from '../Icon/index';
+import './style/index.less';
 var rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/;
 var isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar);
 
@@ -214,7 +178,7 @@ function (_super) {
 
   Button.prototype.fixTwoCNChar = function () {
     // Fix for HOC usage like <FormatMessage />
-    var node = (0, _reactDom.findDOMNode)(this);
+    var node = findDOMNode(this);
     var buttonText = node.textContent || node.innerText;
 
     if (this.isNeedInserted() && isTwoCNChar(buttonText)) {
@@ -275,9 +239,9 @@ function (_super) {
         break;
     }
 
-    var classes = (0, _classnames.default)(prefixCls, className, (_a = {}, _a[prefixCls + "-" + type] = type, _a[prefixCls + "-" + shape] = shape, _a[prefixCls + "-" + sizeCls] = sizeCls, _a[prefixCls + "-icon-only"] = !children && icon, _a[prefixCls + "-loading"] = loading, _a[prefixCls + "-clicked"] = clicked, _a[prefixCls + "-background-ghost"] = ghost, _a[prefixCls + "-two-chinese-chars"] = hasTwoCNChar, _a));
+    var classes = classNames(prefixCls, className, (_a = {}, _a[prefixCls + "-" + type] = type, _a[prefixCls + "-" + shape] = shape, _a[prefixCls + "-" + sizeCls] = sizeCls, _a[prefixCls + "-icon-only"] = !children && icon, _a[prefixCls + "-loading"] = loading, _a[prefixCls + "-clicked"] = clicked, _a[prefixCls + "-background-ghost"] = ghost, _a[prefixCls + "-two-chinese-chars"] = hasTwoCNChar, _a));
     var iconType = loading ? 'load-line' : icon;
-    var iconNode = iconType ? React.createElement(_index.default, {
+    var iconNode = iconType ? React.createElement(Icon, {
       type: iconType,
       spinning: loading
     }) : null;
@@ -322,6 +286,5 @@ function (_super) {
   return Button;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(Button);
-var _default = Button;
-exports.default = _default;
+polyfill(Button);
+export default Button;

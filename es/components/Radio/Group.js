@@ -1,41 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _shallowequal = _interopRequireDefault(require("shallowequal"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _Radio = _interopRequireDefault(require("./Radio"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -61,7 +24,13 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-// case sensitive
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import shallowEqual from 'shallowequal';
+import { polyfill } from 'react-lifecycles-compat';
+import Radio from './Radio'; // case sensitive
+
 function getCheckedValue(children) {
   var value = null;
   var matched = false;
@@ -148,7 +117,7 @@ function (_super) {
   };
 
   RadioGroup.prototype.shouldComponentUpdate = function (nextProps, nextState) {
-    return !(0, _shallowequal.default)(this.props, nextProps) || !(0, _shallowequal.default)(this.state, nextState);
+    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
   };
 
   RadioGroup.prototype.render = function () {
@@ -163,14 +132,14 @@ function (_super) {
         options = props.options,
         buttonStyle = props.buttonStyle;
     var groupPrefixCls = prefixCls + "-group";
-    var classString = (0, _classnames.default)(groupPrefixCls, groupPrefixCls + "-" + buttonStyle, (_a = {}, _a[groupPrefixCls + "-" + props.size] = props.size, _a), className);
+    var classString = classNames(groupPrefixCls, groupPrefixCls + "-" + buttonStyle, (_a = {}, _a[groupPrefixCls + "-" + props.size] = props.size, _a), className);
     var children = props.children; // 如果存在 options, 优先使用
 
     if (options && options.length > 0) {
       children = options.map(function (option, index) {
         if (typeof option === 'string') {
           // 此处类型自动推导为 string
-          return React.createElement(_Radio.default, {
+          return React.createElement(Radio, {
             key: index,
             prefixCls: prefixCls,
             disabled: _this.props.disabled,
@@ -180,7 +149,7 @@ function (_super) {
           }, option);
         } else {
           // 此处类型自动推导为 { label: string value: string }
-          return React.createElement(_Radio.default, {
+          return React.createElement(Radio, {
             key: index,
             prefixCls: prefixCls,
             disabled: option.disabled || _this.props.disabled,
@@ -212,6 +181,5 @@ function (_super) {
   return RadioGroup;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(RadioGroup);
-var _default = RadioGroup;
-exports.default = _default;
+polyfill(RadioGroup);
+export default RadioGroup;

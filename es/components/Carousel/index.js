@@ -1,41 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _reactDom = require("react-dom");
-
-var _debounce = _interopRequireDefault(require("lodash/debounce"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -61,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -77,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -90,8 +53,13 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-// matchMedia polyfill for
+import * as React from 'react';
+import { findDOMNode } from 'react-dom';
+import debounce from 'lodash/debounce';
+import classNames from 'classnames';
+import './style/index.less'; // matchMedia polyfill for
 // https://github.com/WickyNilliams/enquire.js/issues/82
+
 if (typeof window !== 'undefined') {
   var matchMediaPolyfill = function matchMediaPolyfill(mediaQuery) {
     return {
@@ -109,7 +77,7 @@ if (typeof window !== 'undefined') {
 // Fix https://github.com/ant-design/ant-design/issues/3308
 
 
-var SlickCarousel = require('react-slick').default;
+var SlickCarousel = require('react-slick')["default"];
 
 function CustomArrow(props) {
   var className = props.className,
@@ -145,7 +113,7 @@ function (_super) {
       _this.slick = node;
     };
 
-    _this.onWindowResized = (0, _debounce.default)(_this.onWindowResized, 500, {
+    _this.onWindowResized = debounce(_this.onWindowResized, 500, {
       leading: false
     });
     return _this;
@@ -166,7 +134,7 @@ function (_super) {
 
 
     this.innerSlider = this.slick && this.slick.innerSlider;
-    this.slickDOM = (0, _reactDom.findDOMNode)(this.slick);
+    this.slickDOM = findDOMNode(this.slick);
 
     if (autoplay && dotsTimer) {
       var aniName_1 = dotsPosition == 'left' || dotsPosition == 'right' ? 'dotsAniVertical' : 'dotsAni',
@@ -220,8 +188,8 @@ function (_super) {
         slidesToShow = _a.slidesToShow,
         restProps = __rest(_a, ["prefixCls", "className", "style", "dotsPosition", "dotsTimer", "nextArrow", "prevArrow", "centerMode", "centerPadding", "slidesToShow"]);
 
-    var cls = (0, _classnames.default)(prefixCls, prefixCls + "-" + dotsPosition, className);
-    var dotsCls = (0, _classnames.default)('slick-dots', {
+    var cls = classNames(prefixCls, prefixCls + "-" + dotsPosition, className);
+    var dotsCls = classNames('slick-dots', {
       'slick-dots-vertical': dotsPosition == 'left' || dotsPosition == 'right',
       'timer': restProps.autoplay && dotsTimer
     });
@@ -265,5 +233,4 @@ function (_super) {
   return Carousel;
 }(React.Component);
 
-var _default = Carousel;
-exports.default = _default;
+export default Carousel;

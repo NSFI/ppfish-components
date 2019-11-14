@@ -1,103 +1,103 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-require("core-js/modules/es6.object.assign");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.array.find");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-require("core-js/modules/es6.regexp.to-string");
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-require("core-js/modules/es6.object.to-string");
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-require("core-js/modules/es6.array.find-index");
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var _react = _interopRequireDefault(require("react"));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _rcTrigger = _interopRequireDefault(require("rc-trigger"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _domScrollIntoView = _interopRequireDefault(require("dom-scroll-into-view"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _index = _interopRequireDefault(require("../Button/index.js"));
-
-var _index2 = _interopRequireDefault(require("../Spin/index.js"));
-
-var _index3 = _interopRequireDefault(require("../Icon/index.js"));
-
-var _SelectSearch = _interopRequireDefault(require("./SelectSearch"));
-
-var _placements = _interopRequireDefault(require("./placements"));
-
-var _utils = require("../../utils");
-
-var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import Trigger from 'rc-trigger';
+import Animate from 'rc-animate';
+import scrollIntoView from 'dom-scroll-into-view';
+import { polyfill } from 'react-lifecycles-compat';
+import classNames from 'classnames';
+import Button from '../Button/index.js';
+import Spin from '../Spin/index.js';
+import Icon from '../Icon/index.js';
+import SelectSearch from './SelectSearch';
+import placements from './placements';
+import { KeyCode } from "../../utils";
+import isEqual from 'lodash/isEqual';
 
 var noop = function noop() {};
 
 var Select =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(Select, _React$Component);
+  _inherits(Select, _React$Component);
 
-  //获取所有option的[{label,key,title}]
-  //转换传入的value
-  Select.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var _prevState$prevProps = prevState.prevProps,
-        prevProps = _prevState$prevProps === void 0 ? {} : _prevState$prevProps;
-    var newState = {
-      prevProps: nextProps
-    };
+  _createClass(Select, null, [{
+    key: "getDerivedStateFromProps",
+    //获取所有option的[{label,key,title}]
+    //转换传入的value
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var _prevState$prevProps = prevState.prevProps,
+          prevProps = _prevState$prevProps === void 0 ? {} : _prevState$prevProps;
+      var newState = {
+        prevProps: nextProps
+      };
 
-    if ('visible' in nextProps && !(0, _isEqual.default)(nextProps.visible, prevProps.visible)) {
-      newState.popupVisible = nextProps.visible;
-    }
+      if ('visible' in nextProps && !isEqual(nextProps.visible, prevProps.visible)) {
+        newState.popupVisible = nextProps.visible;
+      }
 
-    if ('value' in nextProps) {
-      var changedValue = Select.getValueFromProps(nextProps.value, nextProps.labelInValue, nextProps.children);
-      var prevValue = Select.getValueFromProps(prevProps.value, prevProps.labelInValue, prevProps.children);
+      if ('value' in nextProps) {
+        var changedValue = Select.getValueFromProps(nextProps.value, nextProps.labelInValue, nextProps.children);
+        var prevValue = Select.getValueFromProps(prevProps.value, prevProps.labelInValue, prevProps.children);
 
-      if (!(0, _isEqual.default)(changedValue, prevValue)) {
-        newState.selectValue = changedValue;
+        if (!isEqual(changedValue, prevValue)) {
+          newState.selectValue = changedValue;
 
-        if (nextProps.mode === 'multiple') {
-          newState.selectValueForMultiplePanel = changedValue;
+          if (nextProps.mode === 'multiple') {
+            newState.selectValueForMultiplePanel = changedValue;
+          }
         }
       }
-    }
 
-    return newState;
-  };
+      return newState;
+    }
+  }]);
 
   function Select(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, Select);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Select).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "setDropdownWidth", function () {
       if (!_this.props.dropdownMatchSelectWidth) {
         return;
       }
 
-      var width = _reactDom.default.findDOMNode(_assertThisInitialized(_this)).offsetWidth;
+      var width = ReactDOM.findDOMNode(_assertThisInitialized(_this)).offsetWidth;
 
       if (width !== _this.state.dropdownWidth) {
         _this.setState({
@@ -236,14 +236,14 @@ function (_React$Component) {
           var indexInMultiple = selectValueForMultiplePanel.findIndex(function (selected) {
             return selected.key === obj.key;
           });
-          changedValue = [].concat(selectValueForMultiplePanel.slice(0, indexInMultiple), selectValueForMultiplePanel.slice(indexInMultiple + 1));
+          changedValue = [].concat(_toConsumableArray(selectValueForMultiplePanel.slice(0, indexInMultiple)), _toConsumableArray(selectValueForMultiplePanel.slice(indexInMultiple + 1)));
           changedObj = {
             selectValue: changedValue,
             selectValueForMultiplePanel: changedValue
           };
         } else {
           //option 点击
-          changedValue = index === -1 ? [].concat(selectValue, [obj]) : [].concat(selectValue.slice(0, index), selectValue.slice(index + 1));
+          changedValue = index === -1 ? [].concat(_toConsumableArray(selectValue), [obj]) : [].concat(_toConsumableArray(selectValue.slice(0, index)), _toConsumableArray(selectValue.slice(index + 1)));
           changedObj = {
             selectValue: changedValue
           };
@@ -268,7 +268,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getProcessedChildren", function (children, dropdownCls) {
-      return _react.default.Children.map(children, function (child) {
+      return React.Children.map(children, function (child) {
         var typeOfChildren = Object.prototype.toString.call(child).slice(8, -1).toLowerCase();
 
         if (!!child && typeOfChildren === 'object' && child.type.isSelectOption) {
@@ -278,8 +278,8 @@ function (_React$Component) {
           var showOptionCheckedIcon = _this.props.showOptionCheckedIcon;
           var value = 'value' in child.props ? child.props.value : child.key; //对children中的Option 进行事件绑定、参数补充
 
-          return _react.default.cloneElement(child, {
-            prefixCls: dropdownCls + "-option",
+          return React.cloneElement(child, {
+            prefixCls: "".concat(dropdownCls, "-option"),
             checked: !!selectValue.find(function (obj) {
               return obj && obj.key === value;
             }),
@@ -292,8 +292,8 @@ function (_React$Component) {
             children: _this.getProcessedChildren(child.props.children, dropdownCls)
           });
         } else if (!!child && typeOfChildren === 'object' && child.type.isSelectOptGroup) {
-          return _react.default.cloneElement(child, {
-            prefixCls: dropdownCls + "-option-group",
+          return React.cloneElement(child, {
+            prefixCls: "".concat(dropdownCls, "-option-group"),
             children: _this.getProcessedChildren(child.props.children, dropdownCls)
           });
         } else {
@@ -302,16 +302,12 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getFilteredChildren", function (children, ChildrenList) {
-      if (ChildrenList === void 0) {
-        ChildrenList = [];
-      }
-
+    _defineProperty(_assertThisInitialized(_this), "getFilteredChildren", function (children) {
+      var ChildrenList = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       var filterOption = _this.props.filterOption;
       var searchValue = _this.state.searchValue;
       var typeOfOption = Object.prototype.toString.call(filterOption).slice(8, -1).toLowerCase();
-
-      _react.default.Children.forEach(children, function (child) {
+      React.Children.forEach(children, function (child) {
         var filterFlag = false;
 
         if (child && child.type && child.type.isSelectOption) {
@@ -327,14 +323,13 @@ function (_React$Component) {
         } else if (child && child.type && child.type.isSelectOptGroup) {
           var _children2 = _this.getFilteredChildren(child.props.children);
 
-          ChildrenList.push(_react.default.cloneElement(child, {
+          ChildrenList.push(React.cloneElement(child, {
             children: _children2,
             _isShow: !!(_children2 && _children2.length) //搜索后分组下没有东西就隐藏该分组
 
           }));
         }
       });
-
       return ChildrenList;
     });
 
@@ -382,11 +377,8 @@ function (_React$Component) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "isSelectAll", function (isMultiplePanel) {
-      if (isMultiplePanel === void 0) {
-        isMultiplePanel = false;
-      }
-
+    _defineProperty(_assertThisInitialized(_this), "isSelectAll", function () {
+      var isMultiplePanel = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var _this$state2 = _this.state,
           selectValueForMultiplePanel = _this$state2.selectValueForMultiplePanel,
           selectValue = _this$state2.selectValue;
@@ -412,13 +404,13 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "handleKeyboardEvent", function (e) {
       var keyCode = e.keyCode;
 
-      if (keyCode === _utils.KeyCode.ESC && _this.props.esc) {
+      if (keyCode === KeyCode.ESC && _this.props.esc) {
         _this.changeVisibleState(false);
 
         return;
       }
 
-      if (keyCode === _utils.KeyCode.ENTER || keyCode === _utils.KeyCode.UP || keyCode === _utils.KeyCode.DOWN) {
+      if (keyCode === KeyCode.ENTER || keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
         e.preventDefault();
         var _this$props4 = _this.props,
             children = _this$props4.children,
@@ -434,7 +426,7 @@ function (_React$Component) {
         var optionListLen = optionList.length;
         if (!optionListLen) return; //enter
 
-        if (keyCode === _utils.KeyCode.ENTER) {
+        if (keyCode === KeyCode.ENTER) {
           var activeTabIndex = optionList.findIndex(function (option) {
             return option.key === activeKey;
           }); // activeKey不在列表中
@@ -460,7 +452,7 @@ function (_React$Component) {
                 });
               } else if (mode === 'multiple') {
                 _this.setState({
-                  selectValue: [].concat(selectValue, [optionList[activeTabIndex]])
+                  selectValue: [].concat(_toConsumableArray(selectValue), [optionList[activeTabIndex]])
                 });
               }
             }
@@ -468,7 +460,7 @@ function (_React$Component) {
         } //38 up 40 down
 
 
-        if (keyCode === _utils.KeyCode.UP || keyCode === _utils.KeyCode.DOWN) {
+        if (keyCode === KeyCode.UP || keyCode === KeyCode.DOWN) {
           // 有activeKey
           if (activeKey !== undefined) {
             var _activeTabIndex = optionList.findIndex(function (option) {
@@ -489,14 +481,14 @@ function (_React$Component) {
 
             var nextActiveKey = undefined;
 
-            if (keyCode === _utils.KeyCode.UP) {
+            if (keyCode === KeyCode.UP) {
               //超出到最后一个
               if (_activeTabIndex === 0) {
                 nextActiveKey = optionList[optionListLen - 1].key;
               } else {
                 nextActiveKey = optionList[_activeTabIndex - 1].key;
               }
-            } else if (keyCode === _utils.KeyCode.DOWN) {
+            } else if (keyCode === KeyCode.DOWN) {
               if (_activeTabIndex + 1 === optionListLen) {
                 nextActiveKey = optionList[0].key;
               } else {
@@ -521,7 +513,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "setActiveOptionIntoView", function (activeKey) {
-      (0, _domScrollIntoView.default)(_reactDom.default.findDOMNode(_this.refs[activeKey]), _reactDom.default.findDOMNode(_this.dropdownList), {
+      scrollIntoView(ReactDOM.findDOMNode(_this.refs[activeKey]), ReactDOM.findDOMNode(_this.dropdownList), {
         onlyScrollIfNeeded: true
       });
     });
@@ -559,363 +551,361 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = Select.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    this.setDropdownWidth();
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    this.setDropdownWidth();
-  } //获取面板宽度
-  ;
-
-  // 聚焦
-  _proto.focus = function focus() {
-    this.focusEvent('focus');
-  } // 失焦
-  ;
-
-  _proto.blur = function blur() {
-    this.focusEvent('blur');
-  } //处理 label、option的click操作
-  ;
-
-  //下拉框内容
-  _proto.getDropdownPanel = function getDropdownPanel() {
-    var _classNames,
-        _this2 = this,
-        _classNames2,
-        _classNames3;
-
-    var _this$props6 = this.props,
-        allowClear = _this$props6.allowClear,
-        children = _this$props6.children,
-        dropdownClassName = _this$props6.dropdownClassName,
-        dropdownStyle = _this$props6.dropdownStyle,
-        errorMessage = _this$props6.errorMessage,
-        extraOptions = _this$props6.extraOptions,
-        loading = _this$props6.loading,
-        maxCount = _this$props6.maxCount,
-        maxScrollHeight = _this$props6.maxScrollHeight,
-        mode = _this$props6.mode,
-        notFoundContent = _this$props6.notFoundContent,
-        onPopupScroll = _this$props6.onPopupScroll,
-        placeholder = _this$props6.placeholder,
-        prefixCls = _this$props6.prefixCls,
-        searchInputProps = _this$props6.searchInputProps,
-        searchPlaceholder = _this$props6.searchPlaceholder,
-        selectAllText = _this$props6.selectAllText,
-        showSearch = _this$props6.showSearch,
-        showSelectAll = _this$props6.showSelectAll,
-        showSingleClear = _this$props6.showSingleClear,
-        required = _this$props6.required;
-    var _this$state4 = this.state,
-        searchValue = _this$state4.searchValue,
-        selectValue = _this$state4.selectValue;
-    var dropdownCls = prefixCls + "-dropdown"; //获取筛选后的children
-
-    var optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls));
-    var showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
-
-    var maxCountError = 'maxCount' in this.props && selectValue.length > maxCount; // maxCount值存在且小于选择数量
-
-    var requiredError = mode === 'multiple' && required && !selectValue.length; // required模式下，必须要有option选择
-
-    var multipleConfirmDisabled = maxCountError || requiredError;
-    var dropdownPanelCls = (0, _classnames.default)(dropdownCls, (_classNames = {}, _classNames[dropdownClassName] = !!dropdownClassName, _classNames));
-    return _react.default.createElement("div", {
-      className: dropdownPanelCls,
-      onKeyDown: this.handleKeyboardEvent,
-      ref: function ref(selection) {
-        return _this2.selection = selection;
-      },
-      style: dropdownStyle,
-      tabIndex: "0"
-    }, loading ? _react.default.createElement("div", {
-      className: dropdownCls + "-loading"
-    }, _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement(_index2.default.Container, {
-      style: {
-        height: 32,
-        justifyContent: 'left'
-      }
-    }, _react.default.createElement(_index2.default, {
-      size: "small",
-      tip: "\u52A0\u8F7D\u4E2D..."
-    }))))) : _react.default.createElement("div", {
-      className: dropdownCls + "-content"
-    }, //搜索框
-    showSearch && _react.default.createElement(_SelectSearch.default, {
-      allowClear: allowClear,
-      emitEmpty: this.emptySearchValue,
-      prefixCls: dropdownCls + "-search",
-      ref: function ref(selectSearch) {
-        return _this2.selectSearch = selectSearch;
-      },
-      searchInputProps: searchInputProps,
-      searchPlaceholder: searchPlaceholder,
-      searchValue: searchValue,
-      updateSearchValue: this.updateSearchValue
-    }), _react.default.createElement("div", {
-      className: dropdownCls + "-list",
-      onScroll: onPopupScroll,
-      ref: function ref(dropdownList) {
-        return _this2.dropdownList = dropdownList;
-      },
-      style: {
-        maxHeight: maxScrollHeight
-      }
-    }, //全选按钮-多选未搜索的情况下存在
-    !searchValue && showSelectAll && mode === 'multiple' && _react.default.createElement("li", {
-      className: (0, _classnames.default)((_classNames2 = {}, _classNames2[dropdownCls + "-option-item"] = true, _classNames2), (_classNames3 = {}, _classNames3['checked checked-icon'] = this.isSelectAll(), _classNames3)),
-      onClick: this.selectAllOption
-    }, selectAllText), //清空选项按钮-单选未搜索的情况下存在
-    !searchValue && showSingleClear && mode === 'single' && _react.default.createElement("li", {
-      className: dropdownCls + "-option-item",
-      onClick: this.emptySelectValue
-    }, placeholder), //预留置顶项
-    extraOptions, //列表及空状态框
-    showNotFoundContent ? _react.default.createElement("div", {
-      className: dropdownCls + "-not-found"
-    }, notFoundContent) : _react.default.createElement("div", {
-      className: dropdownCls + "-filtered-list"
-    }, optionFilteredList)), //多选的点击取消、确定按钮组
-    mode === 'multiple' && _react.default.createElement("div", null, maxCountError && _react.default.createElement("div", {
-      className: dropdownCls + "-error-panel"
-    }, _react.default.createElement("p", {
-      className: dropdownCls + "-error-panel-msg"
-    }, errorMessage)), _react.default.createElement("div", {
-      className: dropdownCls + "-footer"
-    }, _react.default.createElement(_index.default, {
-      className: dropdownCls + "-footer-btn",
-      onClick: this.handleCancelSelect
-    }, "\u53D6\u6D88"), _react.default.createElement(_index.default, {
-      className: dropdownCls + "-footer-btn",
-      onClick: this.handleConfirmSelect,
-      disabled: multipleConfirmDisabled,
-      type: "primary"
-    }, "\u786E\u5B9A")))));
-  } // 获取面板内容
-  ;
-
-  _proto.getSelectionPanel = function getSelectionPanel() {
-    var _classNames4,
-        _classNames5,
-        _classNames6,
-        _classNames7,
-        _classNames8,
-        _classNames9,
-        _classNames10,
-        _this3 = this;
-
-    var _this$props7 = this.props,
-        className = _this$props7.className,
-        tagWidth = _this$props7.tagWidth,
-        disabled = _this$props7.disabled,
-        labelClear = _this$props7.labelClear,
-        loading = _this$props7.loading,
-        maxLabelClearPanelHeight = _this$props7.maxLabelClearPanelHeight,
-        mode = _this$props7.mode,
-        multipleSelectAllText = _this$props7.multipleSelectAllText,
-        onMouseEnter = _this$props7.onMouseEnter,
-        onMouseLeave = _this$props7.onMouseLeave,
-        placeholder = _this$props7.placeholder,
-        prefixCls = _this$props7.prefixCls,
-        showArrow = _this$props7.showArrow,
-        showMultipleSelectAll = _this$props7.showMultipleSelectAll,
-        size = _this$props7.size,
-        style = _this$props7.style;
-    var _this$state5 = this.state,
-        selectValue = _this$state5.selectValue,
-        selectValueForMultiplePanel = _this$state5.selectValueForMultiplePanel,
-        popupVisible = _this$state5.popupVisible;
-    var selectionCls = "" + prefixCls;
-    var selectionPanelCls = (0, _classnames.default)((_classNames4 = {}, _classNames4["" + selectionCls] = true, _classNames4), (_classNames5 = {}, _classNames5[className] = !!className, _classNames5), (_classNames6 = {}, _classNames6[selectionCls + "-disabled"] = disabled, _classNames6), (_classNames7 = {}, _classNames7["open"] = popupVisible, _classNames7), (_classNames8 = {}, _classNames8[selectionCls + "-large"] = size === 'large', _classNames8), (_classNames9 = {}, _classNames9[selectionCls + "-small"] = size === 'small', _classNames9));
-    var panelStyle = Object.assign({}, style);
-
-    if (labelClear) {
-      panelStyle.paddingRight = 0;
-
-      if (mode === 'multiple' && selectValueForMultiplePanel.length) {
-        panelStyle.height = 'auto';
-      }
+  _createClass(Select, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setDropdownWidth();
     }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.setDropdownWidth();
+    } //获取面板宽度
 
-    var multipleTitle = "";
+  }, {
+    key: "focus",
+    // 聚焦
+    value: function focus() {
+      this.focusEvent('focus');
+    } // 失焦
 
-    if (mode === 'multiple' && !labelClear) {
-      var titleArray = selectValueForMultiplePanel.map(function (panel) {
-        return panel.title;
-      });
-      var isShowTitle = titleArray.every(function (title) {
-        return !!title;
-      });
-      multipleTitle = isShowTitle ? titleArray.join("、") : "";
-    }
+  }, {
+    key: "blur",
+    value: function blur() {
+      this.focusEvent('blur');
+    } //处理 label、option的click操作
 
-    return _react.default.createElement("div", {
-      className: selectionPanelCls,
-      onMouseEnter: onMouseEnter,
-      onMouseLeave: onMouseLeave,
-      style: panelStyle
-    }, loading ? _react.default.createElement("div", {
-      className: selectionCls + "-loading"
-    }, _react.default.createElement("div", null, _react.default.createElement(_index2.default.Container, {
-      style: {
-        height: 32,
-        justifyContent: 'left'
-      }
-    }, _react.default.createElement(_index2.default, {
-      size: "small",
-      tip: "\u52A0\u8F7D\u4E2D..."
-    })))) : _react.default.createElement("div", {
-      className: selectionCls + "-content"
-    }, // showArrow并且不是可删除label模式下出现箭头
-    showArrow && !labelClear && _react.default.createElement("div", {
-      className: selectionCls + "-caret"
-    }, _react.default.createElement(_index3.default, {
-      type: "down-fill",
-      className: (0, _classnames.default)((_classNames10 = {}, _classNames10['open'] = popupVisible, _classNames10))
-    })), // 没有值的情况下显示placeholder
-    (!selectValue.length && mode === 'single' || !selectValueForMultiplePanel.length && mode === 'multiple') && _react.default.createElement("div", {
-      unselectable: "on",
-      className: selectionCls + "-placeholder"
-    }, placeholder), // 单选模式下有值显示值的label
-    mode === 'single' && !!selectValue.length && _react.default.createElement("div", {
-      className: selectionCls + "-option-single",
-      title: selectValue[0].title
-    }, selectValue[0].label), // 多选模式下区分labelClear
-    // selectValueForMultiplePanel的更新时机：
-    // 1.初始化value、defaultValue
-    // 2.props.value 更改
-    // 3.多选取消、确定按钮点击
-    // 4.label.click事件
-    mode === 'multiple' && (labelClear ? //仅在有选中数据时渲染，fix空状态面板上方高度问题
-    selectValueForMultiplePanel && selectValueForMultiplePanel.length ? _react.default.createElement(_rcAnimate.default, {
-      onEnd: this.resizeTrigger,
-      component: "div",
-      transitionName: "zoom",
-      style: {
-        maxHeight: maxLabelClearPanelHeight ? maxLabelClearPanelHeight : null
-      },
-      className: selectionCls + "-option-clearable-list"
-    }, selectValueForMultiplePanel.map(function (option) {
-      return _react.default.createElement("div", {
-        className: selectionCls + "-option-clearable-option",
-        style: {
-          width: tagWidth
+  }, {
+    key: "getDropdownPanel",
+    //下拉框内容
+    value: function getDropdownPanel() {
+      var _this2 = this;
+
+      var _this$props6 = this.props,
+          allowClear = _this$props6.allowClear,
+          children = _this$props6.children,
+          dropdownClassName = _this$props6.dropdownClassName,
+          dropdownStyle = _this$props6.dropdownStyle,
+          errorMessage = _this$props6.errorMessage,
+          extraOptions = _this$props6.extraOptions,
+          loading = _this$props6.loading,
+          maxCount = _this$props6.maxCount,
+          maxScrollHeight = _this$props6.maxScrollHeight,
+          mode = _this$props6.mode,
+          notFoundContent = _this$props6.notFoundContent,
+          onPopupScroll = _this$props6.onPopupScroll,
+          placeholder = _this$props6.placeholder,
+          prefixCls = _this$props6.prefixCls,
+          searchInputProps = _this$props6.searchInputProps,
+          searchPlaceholder = _this$props6.searchPlaceholder,
+          selectAllText = _this$props6.selectAllText,
+          showSearch = _this$props6.showSearch,
+          showSelectAll = _this$props6.showSelectAll,
+          showSingleClear = _this$props6.showSingleClear,
+          required = _this$props6.required;
+      var _this$state4 = this.state,
+          searchValue = _this$state4.searchValue,
+          selectValue = _this$state4.selectValue;
+      var dropdownCls = "".concat(prefixCls, "-dropdown"); //获取筛选后的children
+
+      var optionFilteredList = this.getFilteredChildren(this.getProcessedChildren(children, dropdownCls));
+      var showNotFoundContent = !Select.getOptionFromChildren(optionFilteredList).length; // optionList为空判断
+
+      var maxCountError = 'maxCount' in this.props && selectValue.length > maxCount; // maxCount值存在且小于选择数量
+
+      var requiredError = mode === 'multiple' && required && !selectValue.length; // required模式下，必须要有option选择
+
+      var multipleConfirmDisabled = maxCountError || requiredError;
+      var dropdownPanelCls = classNames(dropdownCls, _defineProperty({}, dropdownClassName, !!dropdownClassName));
+      return React.createElement("div", {
+        className: dropdownPanelCls,
+        onKeyDown: this.handleKeyboardEvent,
+        ref: function ref(selection) {
+          return _this2.selection = selection;
         },
-        key: option.key,
-        title: option.title
-      }, _react.default.createElement("span", {
-        className: selectionCls + "-option-clearable-option-content"
-      }, option.label), _react.default.createElement("span", {
-        className: selectionCls + "-option-clearable-option-close",
-        onClick: function onClick(e) {
-          return _this3.onOptionClick(e, option, true);
+        style: dropdownStyle,
+        tabIndex: "0"
+      }, loading ? React.createElement("div", {
+        className: "".concat(dropdownCls, "-loading")
+      }, React.createElement("div", null, React.createElement("div", null, React.createElement(Spin.Container, {
+        style: {
+          height: 32,
+          justifyContent: 'left'
         }
-      }, _react.default.createElement(_index3.default, {
-        type: "close-modal-line"
-      })));
-    })) : null : _react.default.createElement("div", {
-      className: selectionCls + "-option-multiple",
-      title: multipleTitle
-    }, this.isSelectAll(true) && showMultipleSelectAll ? _react.default.createElement("span", null, multipleSelectAllText) : selectValueForMultiplePanel.map(function (option, index) {
-      return _react.default.createElement("span", {
-        key: option.key,
-        className: selectionCls + "-option-multiple-option"
-      }, _react.default.createElement("span", null, option.label), index + 1 !== selectValueForMultiplePanel.length && '、');
-    })))));
-  };
+      }, React.createElement(Spin, {
+        size: "small",
+        tip: "\u52A0\u8F7D\u4E2D..."
+      }))))) : React.createElement("div", {
+        className: "".concat(dropdownCls, "-content")
+      }, //搜索框
+      showSearch && React.createElement(SelectSearch, {
+        allowClear: allowClear,
+        emitEmpty: this.emptySearchValue,
+        prefixCls: "".concat(dropdownCls, "-search"),
+        ref: function ref(selectSearch) {
+          return _this2.selectSearch = selectSearch;
+        },
+        searchInputProps: searchInputProps,
+        searchPlaceholder: searchPlaceholder,
+        searchValue: searchValue,
+        updateSearchValue: this.updateSearchValue
+      }), React.createElement("div", {
+        className: "".concat(dropdownCls, "-list"),
+        onScroll: onPopupScroll,
+        ref: function ref(dropdownList) {
+          return _this2.dropdownList = dropdownList;
+        },
+        style: {
+          maxHeight: maxScrollHeight
+        }
+      }, //全选按钮-多选未搜索的情况下存在
+      !searchValue && showSelectAll && mode === 'multiple' && React.createElement("li", {
+        className: classNames(_defineProperty({}, "".concat(dropdownCls, "-option-item"), true), _defineProperty({}, 'checked checked-icon', this.isSelectAll())),
+        onClick: this.selectAllOption
+      }, selectAllText), //清空选项按钮-单选未搜索的情况下存在
+      !searchValue && showSingleClear && mode === 'single' && React.createElement("li", {
+        className: "".concat(dropdownCls, "-option-item"),
+        onClick: this.emptySelectValue
+      }, placeholder), //预留置顶项
+      extraOptions, //列表及空状态框
+      showNotFoundContent ? React.createElement("div", {
+        className: "".concat(dropdownCls, "-not-found")
+      }, notFoundContent) : React.createElement("div", {
+        className: "".concat(dropdownCls, "-filtered-list")
+      }, optionFilteredList)), //多选的点击取消、确定按钮组
+      mode === 'multiple' && React.createElement("div", null, maxCountError && React.createElement("div", {
+        className: "".concat(dropdownCls, "-error-panel")
+      }, React.createElement("p", {
+        className: "".concat(dropdownCls, "-error-panel-msg")
+      }, errorMessage)), React.createElement("div", {
+        className: "".concat(dropdownCls, "-footer")
+      }, React.createElement(Button, {
+        className: "".concat(dropdownCls, "-footer-btn"),
+        onClick: this.handleCancelSelect
+      }, "\u53D6\u6D88"), React.createElement(Button, {
+        className: "".concat(dropdownCls, "-footer-btn"),
+        onClick: this.handleConfirmSelect,
+        disabled: multipleConfirmDisabled,
+        type: "primary"
+      }, "\u786E\u5B9A")))));
+    } // 获取面板内容
 
-  _proto.render = function render() {
-    var _this4 = this;
+  }, {
+    key: "getSelectionPanel",
+    value: function getSelectionPanel() {
+      var _this3 = this;
 
-    var _this$props8 = this.props,
-        disabled = _this$props8.disabled,
-        dropdownMatchSelectWidth = _this$props8.dropdownMatchSelectWidth,
-        getPopupContainer = _this$props8.getPopupContainer,
-        placement = _this$props8.placement,
-        prefixCls = _this$props8.prefixCls;
-    var _this$state6 = this.state,
-        popupVisible = _this$state6.popupVisible,
-        dropdownWidth = _this$state6.dropdownWidth;
-    var popupStyle = {};
-    var widthProp = dropdownMatchSelectWidth ? 'width' : 'minWidth';
+      var _this$props7 = this.props,
+          className = _this$props7.className,
+          tagWidth = _this$props7.tagWidth,
+          disabled = _this$props7.disabled,
+          labelClear = _this$props7.labelClear,
+          loading = _this$props7.loading,
+          maxLabelClearPanelHeight = _this$props7.maxLabelClearPanelHeight,
+          mode = _this$props7.mode,
+          multipleSelectAllText = _this$props7.multipleSelectAllText,
+          onMouseEnter = _this$props7.onMouseEnter,
+          onMouseLeave = _this$props7.onMouseLeave,
+          placeholder = _this$props7.placeholder,
+          prefixCls = _this$props7.prefixCls,
+          showArrow = _this$props7.showArrow,
+          showMultipleSelectAll = _this$props7.showMultipleSelectAll,
+          size = _this$props7.size,
+          style = _this$props7.style;
+      var _this$state5 = this.state,
+          selectValue = _this$state5.selectValue,
+          selectValueForMultiplePanel = _this$state5.selectValueForMultiplePanel,
+          popupVisible = _this$state5.popupVisible;
+      var selectionCls = "".concat(prefixCls);
+      var selectionPanelCls = classNames(_defineProperty({}, "".concat(selectionCls), true), _defineProperty({}, className, !!className), _defineProperty({}, "".concat(selectionCls, "-disabled"), disabled), _defineProperty({}, "open", popupVisible), _defineProperty({}, "".concat(selectionCls, "-large"), size === 'large'), _defineProperty({}, "".concat(selectionCls, "-small"), size === 'small'));
 
-    if (dropdownWidth) {
-      popupStyle[widthProp] = dropdownWidth + "px";
+      var panelStyle = _objectSpread({}, style);
+
+      if (labelClear) {
+        panelStyle.paddingRight = 0;
+
+        if (mode === 'multiple' && selectValueForMultiplePanel.length) {
+          panelStyle.height = 'auto';
+        }
+      }
+
+      var multipleTitle = "";
+
+      if (mode === 'multiple' && !labelClear) {
+        var titleArray = selectValueForMultiplePanel.map(function (panel) {
+          return panel.title;
+        });
+        var isShowTitle = titleArray.every(function (title) {
+          return !!title;
+        });
+        multipleTitle = isShowTitle ? titleArray.join("、") : "";
+      }
+
+      return React.createElement("div", {
+        className: selectionPanelCls,
+        onMouseEnter: onMouseEnter,
+        onMouseLeave: onMouseLeave,
+        style: panelStyle
+      }, loading ? React.createElement("div", {
+        className: "".concat(selectionCls, "-loading")
+      }, React.createElement("div", null, React.createElement(Spin.Container, {
+        style: {
+          height: 32,
+          justifyContent: 'left'
+        }
+      }, React.createElement(Spin, {
+        size: "small",
+        tip: "\u52A0\u8F7D\u4E2D..."
+      })))) : React.createElement("div", {
+        className: "".concat(selectionCls, "-content")
+      }, // showArrow并且不是可删除label模式下出现箭头
+      showArrow && !labelClear && React.createElement("div", {
+        className: "".concat(selectionCls, "-caret")
+      }, React.createElement(Icon, {
+        type: "down-fill",
+        className: classNames(_defineProperty({}, 'open', popupVisible))
+      })), // 没有值的情况下显示placeholder
+      (!selectValue.length && mode === 'single' || !selectValueForMultiplePanel.length && mode === 'multiple') && React.createElement("div", {
+        unselectable: "on",
+        className: "".concat(selectionCls, "-placeholder")
+      }, placeholder), // 单选模式下有值显示值的label
+      mode === 'single' && !!selectValue.length && React.createElement("div", {
+        className: "".concat(selectionCls, "-option-single"),
+        title: selectValue[0].title
+      }, selectValue[0].label), // 多选模式下区分labelClear
+      // selectValueForMultiplePanel的更新时机：
+      // 1.初始化value、defaultValue
+      // 2.props.value 更改
+      // 3.多选取消、确定按钮点击
+      // 4.label.click事件
+      mode === 'multiple' && (labelClear ? //仅在有选中数据时渲染，fix空状态面板上方高度问题
+      selectValueForMultiplePanel && selectValueForMultiplePanel.length ? React.createElement(Animate, {
+        onEnd: this.resizeTrigger,
+        component: "div",
+        transitionName: "zoom",
+        style: {
+          maxHeight: maxLabelClearPanelHeight ? maxLabelClearPanelHeight : null
+        },
+        className: "".concat(selectionCls, "-option-clearable-list")
+      }, selectValueForMultiplePanel.map(function (option) {
+        return React.createElement("div", {
+          className: "".concat(selectionCls, "-option-clearable-option"),
+          style: {
+            width: tagWidth
+          },
+          key: option.key,
+          title: option.title
+        }, React.createElement("span", {
+          className: "".concat(selectionCls, "-option-clearable-option-content")
+        }, option.label), React.createElement("span", {
+          className: "".concat(selectionCls, "-option-clearable-option-close"),
+          onClick: function onClick(e) {
+            return _this3.onOptionClick(e, option, true);
+          }
+        }, React.createElement(Icon, {
+          type: "close-modal-line"
+        })));
+      })) : null : React.createElement("div", {
+        className: "".concat(selectionCls, "-option-multiple"),
+        title: multipleTitle
+      }, this.isSelectAll(true) && showMultipleSelectAll ? React.createElement("span", null, multipleSelectAllText) : selectValueForMultiplePanel.map(function (option, index) {
+        return React.createElement("span", {
+          key: option.key,
+          className: "".concat(selectionCls, "-option-multiple-option")
+        }, React.createElement("span", null, option.label), index + 1 !== selectValueForMultiplePanel.length && '、');
+      })))));
     }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
 
-    return _react.default.createElement(_rcTrigger.default, {
-      action: disabled ? [] : ['click'],
-      builtinPlacements: _placements.default,
-      ref: function ref(node) {
-        return _this4.trigger = node;
-      },
-      getPopupContainer: getPopupContainer,
-      onPopupVisibleChange: this.visibleChangeFromTrigger,
-      popup: this.getDropdownPanel(),
-      popupPlacement: placement,
-      popupVisible: popupVisible,
-      prefixCls: prefixCls + "-popup",
-      popupStyle: popupStyle
-    }, this.getSelectionPanel());
-  };
+      var _this$props8 = this.props,
+          disabled = _this$props8.disabled,
+          dropdownMatchSelectWidth = _this$props8.dropdownMatchSelectWidth,
+          getPopupContainer = _this$props8.getPopupContainer,
+          placement = _this$props8.placement,
+          prefixCls = _this$props8.prefixCls;
+      var _this$state6 = this.state,
+          popupVisible = _this$state6.popupVisible,
+          dropdownWidth = _this$state6.dropdownWidth;
+      var popupStyle = {};
+      var widthProp = dropdownMatchSelectWidth ? 'width' : 'minWidth';
+
+      if (dropdownWidth) {
+        popupStyle[widthProp] = "".concat(dropdownWidth, "px");
+      }
+
+      return React.createElement(Trigger, {
+        action: disabled ? [] : ['click'],
+        builtinPlacements: placements,
+        ref: function ref(node) {
+          return _this4.trigger = node;
+        },
+        getPopupContainer: getPopupContainer,
+        onPopupVisibleChange: this.visibleChangeFromTrigger,
+        popup: this.getDropdownPanel(),
+        popupPlacement: placement,
+        popupVisible: popupVisible,
+        prefixCls: "".concat(prefixCls, "-popup"),
+        popupStyle: popupStyle
+      }, this.getSelectionPanel());
+    }
+  }]);
 
   return Select;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(Select, "propTypes", {
-  allowClear: _propTypes.default.bool,
-  children: _propTypes.default.node,
-  className: _propTypes.default.string,
-  tagWidth: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
-  defaultActiveFirstOption: _propTypes.default.bool,
-  defaultValue: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.array, _propTypes.default.object]),
-  disabled: _propTypes.default.bool,
-  dropdownClassName: _propTypes.default.string,
-  dropdownMatchSelectWidth: _propTypes.default.bool,
-  dropdownStyle: _propTypes.default.object,
-  errorMessage: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.node]),
-  extraOptions: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.string]),
-  filterOption: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.bool]),
-  getPopupContainer: _propTypes.default.func,
-  labelClear: _propTypes.default.bool,
-  labelInValue: _propTypes.default.bool,
-  loading: _propTypes.default.bool,
-  maxCount: _propTypes.default.number,
-  maxLabelClearPanelHeight: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
-  maxScrollHeight: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
-  mode: _propTypes.default.oneOf(['multiple', 'single']),
-  multipleSelectAllText: _propTypes.default.string,
-  notFoundContent: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.string]),
-  onChange: _propTypes.default.func,
-  onMouseEnter: _propTypes.default.func,
-  onMouseLeave: _propTypes.default.func,
-  onPopupScroll: _propTypes.default.func,
-  onSearch: _propTypes.default.func,
-  onSelect: _propTypes.default.func,
-  onVisibleChange: _propTypes.default.func,
-  placeholder: _propTypes.default.string,
-  placement: _propTypes.default.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
-  prefixCls: _propTypes.default.string,
-  searchInputProps: _propTypes.default.object,
-  searchPlaceholder: _propTypes.default.string,
-  selectAllText: _propTypes.default.string,
-  showArrow: _propTypes.default.bool,
-  showMultipleSelectAll: _propTypes.default.bool,
-  showOptionCheckedIcon: _propTypes.default.bool,
-  showSearch: _propTypes.default.bool,
-  showSelectAll: _propTypes.default.bool,
-  showSingleClear: _propTypes.default.bool,
-  size: _propTypes.default.oneOf(['default', 'small', 'large']),
-  style: _propTypes.default.object,
-  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.array, _propTypes.default.object]),
-  visible: _propTypes.default.bool,
-  esc: _propTypes.default.bool,
-  required: _propTypes.default.bool,
-  filterInactiveOption: _propTypes.default.bool // 是否过滤失效的选中项（即不在option列表中）
+  allowClear: PropTypes.bool,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  tagWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  defaultActiveFirstOption: PropTypes.bool,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
+  disabled: PropTypes.bool,
+  dropdownClassName: PropTypes.string,
+  dropdownMatchSelectWidth: PropTypes.bool,
+  dropdownStyle: PropTypes.object,
+  errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  extraOptions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  filterOption: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  getPopupContainer: PropTypes.func,
+  labelClear: PropTypes.bool,
+  labelInValue: PropTypes.bool,
+  loading: PropTypes.bool,
+  maxCount: PropTypes.number,
+  maxLabelClearPanelHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  mode: PropTypes.oneOf(['multiple', 'single']),
+  multipleSelectAllText: PropTypes.string,
+  notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  onChange: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  onPopupScroll: PropTypes.func,
+  onSearch: PropTypes.func,
+  onSelect: PropTypes.func,
+  onVisibleChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  placement: PropTypes.oneOf(['bottomLeft', 'bottomCenter', 'bottomRight', 'topLeft', 'topCenter', 'topRight']),
+  prefixCls: PropTypes.string,
+  searchInputProps: PropTypes.object,
+  searchPlaceholder: PropTypes.string,
+  selectAllText: PropTypes.string,
+  showArrow: PropTypes.bool,
+  showMultipleSelectAll: PropTypes.bool,
+  showOptionCheckedIcon: PropTypes.bool,
+  showSearch: PropTypes.bool,
+  showSelectAll: PropTypes.bool,
+  showSingleClear: PropTypes.bool,
+  size: PropTypes.oneOf(['default', 'small', 'large']),
+  style: PropTypes.object,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
+  visible: PropTypes.bool,
+  esc: PropTypes.bool,
+  required: PropTypes.bool,
+  filterInactiveOption: PropTypes.bool // 是否过滤失效的选中项（即不在option列表中）
 
 });
 
@@ -959,12 +949,10 @@ _defineProperty(Select, "defaultProps", {
   filterInactiveOption: false
 });
 
-_defineProperty(Select, "getOptionFromChildren", function (children, plainOptionList, filter) {
-  if (plainOptionList === void 0) {
-    plainOptionList = [];
-  }
-
-  _react.default.Children.forEach(children, function (child) {
+_defineProperty(Select, "getOptionFromChildren", function (children) {
+  var plainOptionList = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  var filter = arguments.length > 2 ? arguments[2] : undefined;
+  React.Children.forEach(children, function (child) {
     if (child && child.type && child.type.isSelectOption) {
       var selectOption = {
         label: child.props.children,
@@ -982,7 +970,6 @@ _defineProperty(Select, "getOptionFromChildren", function (children, plainOption
     } else {//  其余暂时不做处理
     }
   });
-
   return plainOptionList;
 });
 
@@ -1038,6 +1025,5 @@ _defineProperty(Select, "getValueFromProps", function (value, labelInValue, chil
   }
 });
 
-(0, _reactLifecyclesCompat.polyfill)(Select);
-var _default = Select;
-exports.default = _default;
+polyfill(Select);
+export default Select;

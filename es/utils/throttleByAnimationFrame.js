@@ -1,14 +1,5 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = throttleByAnimationFrame;
-exports.throttleByAnimationFrameDecorator = throttleByAnimationFrameDecorator;
-
-var _raf = _interopRequireDefault(require("raf"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function throttleByAnimationFrame(fn) {
+import raf from 'raf';
+export default function throttleByAnimationFrame(fn) {
   var requestId;
 
   var later = function later(args) {
@@ -26,18 +17,17 @@ function throttleByAnimationFrame(fn) {
     }
 
     if (requestId == null) {
-      requestId = (0, _raf.default)(later(args));
+      requestId = raf(later(args));
     }
   };
 
   throttled.cancel = function () {
-    return _raf.default.cancel(requestId);
+    return raf.cancel(requestId);
   };
 
   return throttled;
 }
-
-function throttleByAnimationFrameDecorator() {
+export function throttleByAnimationFrameDecorator() {
   return function (target, key, descriptor) {
     var fn = descriptor.value;
     var definingProperty = false;

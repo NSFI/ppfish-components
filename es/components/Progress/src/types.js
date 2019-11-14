@@ -1,13 +1,5 @@
-"use strict";
-
-exports.__esModule = true;
-exports.propTypes = exports.defaultProps = void 0;
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var defaultProps = {
+import PropTypes from 'prop-types';
+export var defaultProps = {
   className: '',
   percent: 0,
   prefixCls: 'rc-progress',
@@ -18,16 +10,14 @@ var defaultProps = {
   trailColor: '#D9D9D9',
   trailWidth: 1
 };
-exports.defaultProps = defaultProps;
-var propTypes = {
-  className: _propTypes.default.string,
-  percent: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  prefixCls: _propTypes.default.string,
-  strokeColor: _propTypes.default.string,
-  strokeLinecap: _propTypes.default.oneOf(['butt', 'round', 'square']),
-  strokeWidth: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  style: _propTypes.default.object,
-  trailColor: _propTypes.default.string,
-  trailWidth: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string])
+export var propTypes = {
+  className: PropTypes.string,
+  percent: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  prefixCls: PropTypes.string,
+  strokeColor: PropTypes.string,
+  strokeLinecap: PropTypes.oneOf(['butt', 'round', 'square']),
+  strokeWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  style: PropTypes.object,
+  trailColor: PropTypes.string,
+  trailWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
-exports.propTypes = propTypes;

@@ -1,24 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.measureScrollbar = measureScrollbar;
-exports.debounce = debounce;
-exports.warningOnce = warningOnce;
-exports.remove = remove;
-exports.getDataAndAriaProps = getDataAndAriaProps;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _warning = _interopRequireDefault(require("warning"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+import warning from 'warning';
 var scrollbarVerticalSize;
 var scrollbarHorizontalSize; // Measure scrollbar width for padding body during modal show/hide
 
@@ -28,11 +8,8 @@ var scrollbarMeasure = {
   width: '50px',
   height: '50px'
 };
-
-function measureScrollbar(direction) {
-  if (direction === void 0) {
-    direction = 'vertical';
-  }
+export function measureScrollbar() {
+  var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'vertical';
 
   if (typeof document === 'undefined' || typeof window === 'undefined') {
     return 0;
@@ -71,8 +48,7 @@ function measureScrollbar(direction) {
   document.body.removeChild(scrollDiv);
   return size;
 }
-
-function debounce(func, wait, immediate) {
+export function debounce(func, wait, immediate) {
   var timeout;
 
   function debounceFunc() {
@@ -112,17 +88,14 @@ function debounce(func, wait, immediate) {
 
   return debounceFunc;
 }
-
 var warned = {};
-
-function warningOnce(condition, format, args) {
+export function warningOnce(condition, format, args) {
   if (!warned[format]) {
-    (0, _warning.default)(condition, format, args);
+    warning(condition, format, args);
     warned[format] = !condition;
   }
 }
-
-function remove(array, item) {
+export function remove(array, item) {
   var index = array.indexOf(item);
   var front = array.slice(0, index);
   var last = array.slice(index + 1, array.length);
@@ -133,8 +106,7 @@ function remove(array, item) {
  * @param {object} props
  */
 
-
-function getDataAndAriaProps(props) {
+export function getDataAndAriaProps(props) {
   return Object.keys(props).reduce(function (memo, key) {
     if (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-') {
       memo[key] = props[key];

@@ -1,29 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.string.fixed");
-
-require("core-js/modules/es6.array.find-index");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _Modal = _interopRequireDefault(require("../Modal"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-var _Checkbox = _interopRequireDefault(require("../Checkbox"));
-
-var _Tooltip = _interopRequireDefault(require("../Tooltip"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -49,7 +24,13 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var CheckboxGroup = _Checkbox.default.Group;
+import React from 'react';
+import { polyfill } from 'react-lifecycles-compat';
+import Modal from '../Modal';
+import Icon from '../Icon';
+import Checkbox from '../Checkbox';
+import ToolTip from '../Tooltip';
+var CheckboxGroup = Checkbox.Group;
 
 var getColumnKey = function getColumnKey(column) {
   if ('colSpan' in column) {
@@ -158,7 +139,7 @@ function (_super) {
         var disabled = !!column.fixed || !!column.children;
         var title = column.filtrateTitle || column.title;
         return {
-          label: _react.default.createElement(_Tooltip.default, {
+          label: React.createElement(ToolTip, {
             title: title
           }, title),
           value: uniqKey,
@@ -184,7 +165,7 @@ function (_super) {
         }) !== -1;
       }).map(function (column) {
         return {
-          label: _react.default.createElement(_Tooltip.default, {
+          label: React.createElement(ToolTip, {
             title: column.filtrateTitle || column.title
           }, column.filtrateTitle || column.title),
           value: getColumnKey(column),
@@ -233,28 +214,28 @@ function (_super) {
         checkedOption = _a.checkedOption;
     var options = this.getOptions();
     var defaultOption = this.getDefaultOption();
-    return _react.default.createElement("div", null, _react.default.createElement(_Icon.default, {
+    return React.createElement("div", null, React.createElement(Icon, {
       className: prefixCls + "-filtrate-icon",
       type: "Settingx",
       onClick: this.showModal
-    }), _react.default.createElement(_Modal.default, {
+    }), React.createElement(Modal, {
       title: "\u9009\u62E9\u9700\u8981\u5C55\u793A\u7684\u6570\u636E\u9879",
       wrapClassName: prefixCls + "-filtrate-modal",
       visible: visible,
       width: 680,
       onOk: this.handleOk,
       onCancel: this.handleCancel
-    }, _react.default.createElement("div", {
+    }, React.createElement("div", {
       className: prefixCls + "-filtrate-modal-enable-list"
-    }, _react.default.createElement(CheckboxGroup, {
+    }, React.createElement(CheckboxGroup, {
       value: checkedOption,
       options: options,
       onChange: this.onChange
-    })), defaultOption && !!defaultOption.length && _react.default.createElement("div", {
+    })), defaultOption && !!defaultOption.length && React.createElement("div", {
       className: prefixCls + "-filtrate-modal-disabled-list"
-    }, _react.default.createElement("p", {
+    }, React.createElement("p", {
       className: "title"
-    }, "\u9ED8\u8BA4\u5C55\u793A\u6570\u636E\u9879"), _react.default.createElement(CheckboxGroup, {
+    }, "\u9ED8\u8BA4\u5C55\u793A\u6570\u636E\u9879"), React.createElement(CheckboxGroup, {
       options: defaultOption,
       defaultValue: defaultOption.map(function (option) {
         return option.value;
@@ -267,8 +248,7 @@ function (_super) {
     hideColumns: []
   };
   return ColumnFiltrateModal;
-}(_react.default.Component);
+}(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(ColumnFiltrateModal);
-var _default = ColumnFiltrateModal;
-exports.default = _default;
+polyfill(ColumnFiltrateModal);
+export default ColumnFiltrateModal;

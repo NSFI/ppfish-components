@@ -1,45 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _RcSlider = _interopRequireDefault(require("./RcSlider"));
-
-var _RcRange = _interopRequireDefault(require("./RcRange"));
-
-var _RcHandle = _interopRequireDefault(require("./RcHandle"));
-
-var _Tooltip = _interopRequireDefault(require("../Tooltip"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -65,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -81,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -93,6 +52,13 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   }
   return t;
 };
+
+import * as React from 'react';
+import RcSlider from './RcSlider';
+import RcRange from './RcRange';
+import RcHandle from './RcHandle';
+import Tooltip from '../Tooltip';
+import './style/index.less';
 
 var Slider =
 /** @class */
@@ -129,13 +95,13 @@ function (_super) {
       var visible = tipFormatter ? visibles[index] || dragging : false;
 
       if (tipMode === 'all') {
-        return React.createElement(_RcHandle.default, __assign({}, restProps, {
+        return React.createElement(RcHandle, __assign({}, restProps, {
           handle: handle,
           value: value
         }));
       }
 
-      return React.createElement(_Tooltip.default, {
+      return React.createElement(Tooltip, {
         prefixCls: tooltipPrefixCls,
         title: tipFormatter ? tipFormatter(value) : '',
         visible: visible,
@@ -143,7 +109,7 @@ function (_super) {
         transitionName: "zoom-down",
         key: index,
         stretch: "minWidth"
-      }, React.createElement(_RcHandle.default, __assign({}, restProps, {
+      }, React.createElement(RcHandle, __assign({}, restProps, {
         value: value,
         handle: handle,
         onMouseEnter: function onMouseEnter() {
@@ -179,13 +145,13 @@ function (_super) {
         restProps = __rest(_a, ["range"]);
 
     if (range) {
-      return React.createElement(_RcRange.default, __assign({}, restProps, {
+      return React.createElement(RcRange, __assign({}, restProps, {
         ref: this.saveSlider,
         handle: this.sliderHandle
       }));
     }
 
-    return React.createElement(_RcSlider.default, __assign({}, restProps, {
+    return React.createElement(RcSlider, __assign({}, restProps, {
       ref: this.saveSlider,
       handle: this.sliderHandle
     }));
@@ -201,5 +167,4 @@ function (_super) {
   return Slider;
 }(React.Component);
 
-var _default = Slider;
-exports.default = _default;
+export default Slider;

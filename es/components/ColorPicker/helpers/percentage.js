@@ -1,8 +1,3 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = percentage;
-
-function percentage(input) {
+export default function percentage(input) {
   return Math.round(input * 100);
 }

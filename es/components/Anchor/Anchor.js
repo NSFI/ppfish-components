@@ -1,51 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.string.link");
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es7.array.includes");
-
-require("core-js/modules/es6.string.includes");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var ReactDOM = _interopRequireWildcard(require("react-dom"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _Affix = _interopRequireDefault(require("../Affix"));
-
-var _utils = require("../../utils");
-
-var _raf = _interopRequireDefault(require("raf"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -71,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -86,6 +39,14 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Affix from '../Affix';
+import { getScroll, addEventListener } from '../../utils';
+import raf from 'raf';
 
 function getDefaultContainer() {
   return window;
@@ -137,7 +98,7 @@ function scrollTo(href, offsetTop, getContainer, callback) {
   }
 
   var container = getContainer();
-  var scrollTop = (0, _utils.getScroll)(container, true);
+  var scrollTop = getScroll(container, true);
   var sharpLinkMatch = sharpMatcherRegx.exec(href);
 
   if (!sharpLinkMatch) {
@@ -166,13 +127,13 @@ function scrollTo(href, offsetTop, getContainer, callback) {
     }
 
     if (time < 450) {
-      (0, _raf.default)(frameFunc);
+      raf(frameFunc);
     } else {
       callback();
     }
   };
 
-  (0, _raf.default)(frameFunc);
+  raf(frameFunc);
 }
 
 var Anchor =
@@ -266,7 +227,7 @@ function (_super) {
 
   Anchor.prototype.componentDidMount = function () {
     var getContainer = this.props.getContainer;
-    this.scrollEvent = (0, _utils.addEventListener)(getContainer(), 'scroll', this.handleScroll);
+    this.scrollEvent = addEventListener(getContainer(), 'scroll', this.handleScroll);
     this.handleScroll();
   };
 
@@ -344,13 +305,13 @@ function (_super) {
         getContainer = _b.getContainer,
         inkPosition = _b.inkPosition;
     var activeLink = this.state.activeLink;
-    var inkClass = (0, _classnames.default)(prefixCls + "-ink-ball", {
+    var inkClass = classNames(prefixCls + "-ink-ball", {
       visible: activeLink,
       left: inkPosition === 'left',
       right: inkPosition === 'right'
     });
-    var wrapperClass = (0, _classnames.default)(className, prefixCls + "-wrapper");
-    var anchorClass = (0, _classnames.default)(prefixCls, {
+    var wrapperClass = classNames(className, prefixCls + "-wrapper");
+    var anchorClass = classNames(prefixCls, {
       'fixed': !affix && !showInkInFixed
     });
 
@@ -358,7 +319,7 @@ function (_super) {
       maxHeight: offsetTop ? "calc(100vh - " + offsetTop + "px)" : '100vh'
     }, style);
 
-    var inkNodeClass = (0, _classnames.default)((_a = {}, _a[prefixCls + "-ink"] = true, _a[prefixCls + "-ink-left"] = inkPosition === 'left', _a[prefixCls + "-ink-right"] = inkPosition === 'right', _a));
+    var inkNodeClass = classNames((_a = {}, _a[prefixCls + "-ink"] = true, _a[prefixCls + "-ink-left"] = inkPosition === 'left', _a[prefixCls + "-ink-right"] = inkPosition === 'right', _a));
     var anchorContent = React.createElement("div", {
       className: wrapperClass,
       style: wrapperStyle
@@ -370,7 +331,7 @@ function (_super) {
       className: inkClass,
       ref: this.saveInkNode
     })), children));
-    return !affix ? anchorContent : React.createElement(_Affix.default, {
+    return !affix ? anchorContent : React.createElement(Affix, {
       offsetTop: offsetTop,
       target: getContainer
     }, anchorContent);
@@ -389,5 +350,4 @@ function (_super) {
   return Anchor;
 }(React.Component);
 
-var _default = Anchor;
-exports.default = _default;
+export default Anchor;

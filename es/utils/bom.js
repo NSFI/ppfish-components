@@ -1,18 +1,9 @@
-"use strict";
-
-exports.__esModule = true;
-exports.getScrollBarSize = exports.checkFullscreen = exports.addFullscreenchangeEvent = exports.exitfullscreen = exports.fullscreen = void 0;
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
 /**
  * 全屏
  * @param  {[type]} element [需要全屏展示的元素]
  * @return {[type]}         [description]
  */
-var fullscreen = function fullscreen(element) {
+export var fullscreen = function fullscreen(element) {
   var func = element.requestFullscreen || element.msRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullScreen;
 
   if (Object.prototype.toString.call(func) == "[object Function]") {
@@ -24,10 +15,7 @@ var fullscreen = function fullscreen(element) {
  * @return {[type]} [description]
  */
 
-
-exports.fullscreen = fullscreen;
-
-var exitfullscreen = function exitfullscreen() {
+export var exitfullscreen = function exitfullscreen() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.msExitFullscreen) {
@@ -44,10 +32,7 @@ var exitfullscreen = function exitfullscreen() {
  * @param {Function} fn      [回调函数]
  */
 
-
-exports.exitfullscreen = exitfullscreen;
-
-var addFullscreenchangeEvent = function addFullscreenchangeEvent(element, fn) {
+export var addFullscreenchangeEvent = function addFullscreenchangeEvent(element, fn) {
   element.addEventListener("fullscreenchange", fn);
   element.addEventListener("mozfullscreenchange", fn);
   element.addEventListener("webkitfullscreenchange", fn);
@@ -58,17 +43,11 @@ var addFullscreenchangeEvent = function addFullscreenchangeEvent(element, fn) {
  * @return {[Boolean]} [description]
  */
 
-
-exports.addFullscreenchangeEvent = addFullscreenchangeEvent;
-
-var checkFullscreen = function checkFullscreen() {
+export var checkFullscreen = function checkFullscreen() {
   return !!(document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled);
 };
-
-exports.checkFullscreen = checkFullscreen;
 var cached;
-
-var getScrollBarSize = function getScrollBarSize(fresh) {
+export var getScrollBarSize = function getScrollBarSize(fresh) {
   if (fresh || cached === undefined) {
     var inner = document.createElement('div');
     inner.style.width = '100%';
@@ -99,5 +78,3 @@ var getScrollBarSize = function getScrollBarSize(fresh) {
 
   return cached;
 };
-
-exports.getScrollBarSize = getScrollBarSize;

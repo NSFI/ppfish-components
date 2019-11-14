@@ -1,9 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = _default;
-
-require("core-js/modules/es6.regexp.replace");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  *  String format template
@@ -19,12 +14,12 @@ var RE_NARGS = /(%|)\{([0-9a-zA-Z_]+)\}/g;
  * @return {String}
  */
 
-function _default(string) {
+export default function (string) {
   for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];
   }
 
-  if (args.length === 1 && typeof args[0] === 'object') {
+  if (args.length === 1 && _typeof(args[0]) === 'object') {
     args = args[0];
   }
 

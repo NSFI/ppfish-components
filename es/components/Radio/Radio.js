@@ -1,43 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _shallowequal = _interopRequireDefault(require("shallowequal"));
-
-var _Checkbox = _interopRequireDefault(require("../Checkbox/src/Checkbox.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -63,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -79,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -92,7 +53,12 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-// case sensitive
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import shallowEqual from 'shallowequal';
+import RcCheckbox from '../Checkbox/src/Checkbox.js'; // case sensitive
+
 var Radio =
 /** @class */
 function (_super) {
@@ -109,7 +75,7 @@ function (_super) {
   }
 
   Radio.prototype.shouldComponentUpdate = function (nextProps, nextState, nextContext) {
-    return !(0, _shallowequal.default)(this.props, nextProps) || !(0, _shallowequal.default)(this.state, nextState) || !(0, _shallowequal.default)(this.context.radioGroup, nextContext.radioGroup);
+    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState) || !shallowEqual(this.context.radioGroup, nextContext.radioGroup);
   };
 
   Radio.prototype.focus = function () {
@@ -144,13 +110,13 @@ function (_super) {
       radioProps.disabled = props.disabled || radioGroup.disabled;
     }
 
-    var wrapperClassString = (0, _classnames.default)(className, (_a = {}, _a[prefixCls + "-wrapper"] = true, _a[prefixCls + "-wrapper-checked"] = radioProps.checked, _a[prefixCls + "-wrapper-disabled"] = radioProps.disabled, _a));
+    var wrapperClassString = classNames(className, (_a = {}, _a[prefixCls + "-wrapper"] = true, _a[prefixCls + "-wrapper-checked"] = radioProps.checked, _a[prefixCls + "-wrapper-disabled"] = radioProps.disabled, _a));
     return React.createElement("label", {
       className: wrapperClassString,
       style: style,
       onMouseEnter: props.onMouseEnter,
       onMouseLeave: props.onMouseLeave
-    }, React.createElement(_Checkbox.default, __assign({}, radioProps, {
+    }, React.createElement(RcCheckbox, __assign({}, radioProps, {
       prefixCls: prefixCls,
       ref: this.saveCheckbox
     })), children !== undefined ? React.createElement("span", null, children) : null);
@@ -166,5 +132,4 @@ function (_super) {
   return Radio;
 }(React.Component);
 
-var _default = Radio;
-exports.default = _default;
+export default Radio;

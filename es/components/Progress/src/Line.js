@@ -1,108 +1,99 @@
-"use strict";
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _enhancer = _interopRequireDefault(require("./enhancer"));
-
-var _types = require("./types");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import React, { Component } from 'react';
+import enhancer from './enhancer';
+import { propTypes, defaultProps } from './types';
 
 var Line =
 /*#__PURE__*/
 function (_Component) {
-  _inheritsLoose(Line, _Component);
+  _inherits(Line, _Component);
 
   function Line() {
-    return _Component.apply(this, arguments) || this;
+    _classCallCheck(this, Line);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Line).apply(this, arguments));
   }
 
-  var _proto = Line.prototype;
+  _createClass(Line, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
 
-  _proto.render = function render() {
-    var _this = this;
+      var _this$props = this.props,
+          className = _this$props.className,
+          percent = _this$props.percent,
+          prefixCls = _this$props.prefixCls,
+          strokeColor = _this$props.strokeColor,
+          strokeLinecap = _this$props.strokeLinecap,
+          strokeWidth = _this$props.strokeWidth,
+          style = _this$props.style,
+          trailColor = _this$props.trailColor,
+          trailWidth = _this$props.trailWidth,
+          restProps = _objectWithoutProperties(_this$props, ["className", "percent", "prefixCls", "strokeColor", "strokeLinecap", "strokeWidth", "style", "trailColor", "trailWidth"]);
 
-    var _this$props = this.props,
-        className = _this$props.className,
-        percent = _this$props.percent,
-        prefixCls = _this$props.prefixCls,
-        strokeColor = _this$props.strokeColor,
-        strokeLinecap = _this$props.strokeLinecap,
-        strokeWidth = _this$props.strokeWidth,
-        style = _this$props.style,
-        trailColor = _this$props.trailColor,
-        trailWidth = _this$props.trailWidth,
-        restProps = _objectWithoutPropertiesLoose(_this$props, ["className", "percent", "prefixCls", "strokeColor", "strokeLinecap", "strokeWidth", "style", "trailColor", "trailWidth"]);
-
-    delete restProps.gapPosition;
-    var pathStyle = {
-      strokeDasharray: '100px, 100px',
-      strokeDashoffset: 100 - percent + "px",
-      transition: 'stroke-dashoffset 0.3s ease 0s, stroke 0.3s linear'
-    };
-    var center = strokeWidth / 2;
-    var right = 100 - strokeWidth / 2;
-    var pathString = "M " + (strokeLinecap === 'round' ? center : 0) + "," + center + "\n           L " + (strokeLinecap === 'round' ? right : 100) + "," + center;
-    var viewBoxString = "0 0 100 " + strokeWidth;
-    return _react.default.createElement("svg", _extends({
-      className: prefixCls + "-line " + className,
-      viewBox: viewBoxString,
-      preserveAspectRatio: "none",
-      style: style
-    }, restProps), _react.default.createElement("path", {
-      className: prefixCls + "-line-trail",
-      d: pathString,
-      strokeLinecap: strokeLinecap,
-      stroke: trailColor,
-      strokeWidth: trailWidth || strokeWidth,
-      fillOpacity: "0"
-    }), _react.default.createElement("path", {
-      className: prefixCls + "-line-path",
-      d: pathString,
-      strokeLinecap: strokeLinecap,
-      stroke: strokeColor,
-      strokeWidth: strokeWidth,
-      fillOpacity: "0",
-      ref: function ref(path) {
-        _this.path = path;
-      },
-      style: pathStyle
-    }));
-  };
+      delete restProps.gapPosition;
+      var pathStyle = {
+        strokeDasharray: '100px, 100px',
+        strokeDashoffset: "".concat(100 - percent, "px"),
+        transition: 'stroke-dashoffset 0.3s ease 0s, stroke 0.3s linear'
+      };
+      var center = strokeWidth / 2;
+      var right = 100 - strokeWidth / 2;
+      var pathString = "M ".concat(strokeLinecap === 'round' ? center : 0, ",").concat(center, "\n           L ").concat(strokeLinecap === 'round' ? right : 100, ",").concat(center);
+      var viewBoxString = "0 0 100 ".concat(strokeWidth);
+      return React.createElement("svg", _extends({
+        className: "".concat(prefixCls, "-line ").concat(className),
+        viewBox: viewBoxString,
+        preserveAspectRatio: "none",
+        style: style
+      }, restProps), React.createElement("path", {
+        className: "".concat(prefixCls, "-line-trail"),
+        d: pathString,
+        strokeLinecap: strokeLinecap,
+        stroke: trailColor,
+        strokeWidth: trailWidth || strokeWidth,
+        fillOpacity: "0"
+      }), React.createElement("path", {
+        className: "".concat(prefixCls, "-line-path"),
+        d: pathString,
+        strokeLinecap: strokeLinecap,
+        stroke: strokeColor,
+        strokeWidth: strokeWidth,
+        fillOpacity: "0",
+        ref: function ref(path) {
+          _this.path = path;
+        },
+        style: pathStyle
+      }));
+    }
+  }]);
 
   return Line;
-}(_react.Component);
+}(Component);
 
-Line.propTypes = _types.propTypes;
-Line.defaultProps = _types.defaultProps;
-
-var _default = (0, _enhancer.default)(Line);
-
-exports.default = _default;
+Line.propTypes = propTypes;
+Line.defaultProps = defaultProps;
+export default enhancer(Line);

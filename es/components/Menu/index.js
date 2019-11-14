@@ -1,51 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _reactDom = require("react-dom");
-
-var _src = _interopRequireWildcard(require("./src"));
-
-var PropTypes = _interopRequireWildcard(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _openAnimation = _interopRequireDefault(require("../../utils/openAnimation"));
-
-var _SubMenu = _interopRequireDefault(require("./SubMenu"));
-
-var _MenuItem = _interopRequireDefault(require("./MenuItem"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -71,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -86,6 +39,18 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import { findDOMNode } from 'react-dom';
+import RcMenu, { Divider, ItemGroup } from './src';
+import * as PropTypes from 'prop-types';
+import classNames from 'classnames';
+import warning from 'warning';
+import { polyfill } from 'react-lifecycles-compat';
+import animation from '../../utils/openAnimation';
+import SubMenu from './SubMenu';
+import Item from './MenuItem';
+import './style/index.less';
 
 var Menu =
 /** @class */
@@ -117,8 +82,8 @@ function (_super) {
       }
     };
 
-    (0, _warning.default)(!('onOpen' in props || 'onClose' in props), '`onOpen` and `onClose` are removed, please use `onOpenChange` instead, ' + 'see: https://u.ant.design/menu-on-open-change.');
-    (0, _warning.default)(!('inlineCollapsed' in props && props.mode !== 'inline'), '`inlineCollapsed` should only be used when Menu\'s `mode` is inline.');
+    warning(!('onOpen' in props || 'onClose' in props), '`onOpen` and `onClose` are removed, please use `onOpenChange` instead, ' + 'see: https://u.ant.design/menu-on-open-change.');
+    warning(!('inlineCollapsed' in props && props.mode !== 'inline'), '`inlineCollapsed` should only be used when Menu\'s `mode` is inline.');
     _this.switchModeFromInline = true;
     var openKeys;
 
@@ -153,7 +118,7 @@ function (_super) {
     }
 
     if (this.props.inlineCollapsed && !prevProps.inlineCollapsed || this.context.siderCollapsed && !this.siderCollapsed) {
-      var menuNode = (0, _reactDom.findDOMNode)(this);
+      var menuNode = findDOMNode(this);
       this.switchModeFromInline = !!prevState.openKeys.length && !!menuNode.querySelectorAll("." + this.props.prefixCls + "-submenu-open").length;
       this.inlineOpenKeys = this.state.openKeys;
       newState['openKeys'] = [];
@@ -232,9 +197,9 @@ function (_super) {
           break;
 
         case 'inline':
-          menuOpenAnimation = __assign(__assign({}, _openAnimation.default), {
+          menuOpenAnimation = __assign(__assign({}, animation), {
             leave: function leave(node, done) {
-              return _openAnimation.default.leave(node, function () {
+              return animation.leave(node, function () {
                 // Make sure inline menu leave animation finished before mode is switched
                 _this.switchModeFromInline = false;
 
@@ -268,7 +233,7 @@ function (_super) {
         theme = _b.theme;
     var menuMode = this.getRealMenuMode();
     var menuOpenAnimation = this.getMenuOpenAnimation(menuMode);
-    var menuClassName = (0, _classnames.default)(className, prefixCls + "-" + theme, (_a = {}, _a[prefixCls + "-inline-collapsed"] = this.getInlineCollapsed(), _a));
+    var menuClassName = classNames(className, prefixCls + "-" + theme, (_a = {}, _a[prefixCls + "-inline-collapsed"] = this.getInlineCollapsed(), _a));
     var menuProps = {
       openKeys: this.state.openKeys,
       onOpenChange: this.handleOpenChange,
@@ -291,13 +256,13 @@ function (_super) {
       return null;
     }
 
-    return React.createElement(_src.default, __assign({}, this.props, menuProps));
+    return React.createElement(RcMenu, __assign({}, this.props, menuProps));
   };
 
-  Menu.Divider = _src.Divider;
-  Menu.Item = _MenuItem.default;
-  Menu.SubMenu = _SubMenu.default;
-  Menu.ItemGroup = _src.ItemGroup;
+  Menu.Divider = Divider;
+  Menu.Item = Item;
+  Menu.SubMenu = SubMenu;
+  Menu.ItemGroup = ItemGroup;
   Menu.defaultProps = {
     prefixCls: 'fishd-menu',
     className: '',
@@ -315,6 +280,5 @@ function (_super) {
   return Menu;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(Menu);
-var _default = Menu;
-exports.default = _default;
+polyfill(Menu);
+export default Menu;

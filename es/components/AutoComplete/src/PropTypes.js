@@ -1,78 +1,68 @@
-"use strict";
-
-exports.__esModule = true;
-exports.SelectPropTypes = void 0;
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import PropTypes from 'prop-types';
 
 function valueType(props, propName, componentName) {
-  var basicType = _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]);
-
-  var labelInValueShape = _propTypes.default.shape({
+  var basicType = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
+  var labelInValueShape = PropTypes.shape({
     key: basicType.isRequired,
-    label: _propTypes.default.node
+    label: PropTypes.node
   });
 
   if (props.labelInValue) {
-    var validate = _propTypes.default.oneOfType([_propTypes.default.arrayOf(labelInValueShape), labelInValueShape]);
-
+    var validate = PropTypes.oneOfType([PropTypes.arrayOf(labelInValueShape), labelInValueShape]);
     var error = validate.apply(void 0, arguments);
 
     if (error) {
-      return new Error("Invalid prop `" + propName + "` supplied to `" + componentName + "`, " + ("when you set `labelInValue` to `true`, `" + propName + "` should in ") + "shape of `{ key: string | number, label?: ReactNode }`.");
+      return new Error("Invalid prop `".concat(propName, "` supplied to `").concat(componentName, "`, ") + "when you set `labelInValue` to `true`, `".concat(propName, "` should in ") + "shape of `{ key: string | number, label?: ReactNode }`.");
     }
   } else if ((props.mode === 'multiple' || props.mode === 'tags' || props.multiple || props.tags) && props[propName] === '') {
-    return new Error("Invalid prop `" + propName + "` of type `string` supplied to `" + componentName + "`, " + "expected `array` when `multiple` or `tags` is `true`.");
+    return new Error("Invalid prop `".concat(propName, "` of type `string` supplied to `").concat(componentName, "`, ") + "expected `array` when `multiple` or `tags` is `true`.");
   } else {
-    var _validate = _propTypes.default.oneOfType([_propTypes.default.arrayOf(basicType), basicType]);
+    var _validate = PropTypes.oneOfType([PropTypes.arrayOf(basicType), basicType]);
 
     return _validate.apply(void 0, arguments);
   }
 }
 
-var SelectPropTypes = {
-  id: _propTypes.default.string,
-  defaultActiveFirstOption: _propTypes.default.bool,
-  multiple: _propTypes.default.bool,
-  filterOption: _propTypes.default.any,
-  children: _propTypes.default.any,
-  showSearch: _propTypes.default.bool,
-  disabled: _propTypes.default.bool,
-  allowClear: _propTypes.default.bool,
-  showArrow: _propTypes.default.bool,
-  tags: _propTypes.default.bool,
-  prefixCls: _propTypes.default.string,
-  className: _propTypes.default.string,
-  transitionName: _propTypes.default.string,
-  optionLabelProp: _propTypes.default.string,
-  optionFilterProp: _propTypes.default.string,
-  animation: _propTypes.default.string,
-  choiceTransitionName: _propTypes.default.string,
-  onChange: _propTypes.default.func,
-  onBlur: _propTypes.default.func,
-  onFocus: _propTypes.default.func,
-  onSelect: _propTypes.default.func,
-  onSearch: _propTypes.default.func,
-  onPopupScroll: _propTypes.default.func,
-  onMouseEnter: _propTypes.default.func,
-  onMouseLeave: _propTypes.default.func,
-  onInputKeyDown: _propTypes.default.func,
-  placeholder: _propTypes.default.any,
-  onDeselect: _propTypes.default.func,
-  labelInValue: _propTypes.default.bool,
+export var SelectPropTypes = {
+  id: PropTypes.string,
+  defaultActiveFirstOption: PropTypes.bool,
+  multiple: PropTypes.bool,
+  filterOption: PropTypes.any,
+  children: PropTypes.any,
+  showSearch: PropTypes.bool,
+  disabled: PropTypes.bool,
+  allowClear: PropTypes.bool,
+  showArrow: PropTypes.bool,
+  tags: PropTypes.bool,
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
+  transitionName: PropTypes.string,
+  optionLabelProp: PropTypes.string,
+  optionFilterProp: PropTypes.string,
+  animation: PropTypes.string,
+  choiceTransitionName: PropTypes.string,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onSelect: PropTypes.func,
+  onSearch: PropTypes.func,
+  onPopupScroll: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  onInputKeyDown: PropTypes.func,
+  placeholder: PropTypes.any,
+  onDeselect: PropTypes.func,
+  labelInValue: PropTypes.bool,
   value: valueType,
   defaultValue: valueType,
-  dropdownStyle: _propTypes.default.object,
-  maxTagTextLength: _propTypes.default.number,
-  maxTagCount: _propTypes.default.number,
-  maxTagPlaceholder: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.func]),
-  tokenSeparators: _propTypes.default.arrayOf(_propTypes.default.string),
-  getInputElement: _propTypes.default.func,
-  showAction: _propTypes.default.arrayOf(_propTypes.default.string),
-  clearIcon: _propTypes.default.node,
-  inputIcon: _propTypes.default.node,
-  removeIcon: _propTypes.default.node
+  dropdownStyle: PropTypes.object,
+  maxTagTextLength: PropTypes.number,
+  maxTagCount: PropTypes.number,
+  maxTagPlaceholder: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  tokenSeparators: PropTypes.arrayOf(PropTypes.string),
+  getInputElement: PropTypes.func,
+  showAction: PropTypes.arrayOf(PropTypes.string),
+  clearIcon: PropTypes.node,
+  inputIcon: PropTypes.node,
+  removeIcon: PropTypes.node
 };
-exports.SelectPropTypes = SelectPropTypes;

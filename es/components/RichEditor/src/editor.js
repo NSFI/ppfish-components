@@ -1,97 +1,61 @@
-"use strict";
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.regexp.replace");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactDom = require("react-dom");
-
-var _index = _interopRequireWildcard(require("./quill/index.js"));
-
-exports.Quill = _index.Quill;
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _utils = require("../../../utils");
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _index2 = _interopRequireDefault(require("../../Spin/index.js"));
-
-var _index3 = _interopRequireDefault(require("../../Radio/index.js"));
-
-var _index4 = _interopRequireDefault(require("../../Modal/index.js"));
-
-var _index5 = _interopRequireDefault(require("../../Input/index.js"));
-
-var _index6 = _interopRequireDefault(require("../../Button/index.js"));
-
-var _index7 = _interopRequireDefault(require("../../message/index.js"));
-
-var _toolbar = _interopRequireDefault(require("./toolbar.js"));
-
-var _size = _interopRequireDefault(require("./formats/size.js"));
-
-var _emoji = _interopRequireDefault(require("./formats/emoji.js"));
-
-var _link = _interopRequireDefault(require("./formats/link.js"));
-
-var _image = _interopRequireDefault(require("./formats/image.js"));
-
-var _video = _interopRequireDefault(require("./formats/video.js"));
-
-var _plainClipboard = _interopRequireDefault(require("./modules/plainClipboard.js"));
-
-var _imageDrop = _interopRequireDefault(require("./modules/imageDrop.js"));
-
-require("../style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-_index.Quill.register(_emoji.default);
-
-_index.Quill.register(_link.default);
-
-_index.Quill.register(_image.default);
-
-_index.Quill.register(_size.default);
-
-_index.Quill.register(_video.default);
-
-_index.Quill.register('modules/imageDrop', _imageDrop.default, true);
+import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
+import ReactQuill, { Quill } from './quill/index.js';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { addEventListener } from '../../../utils';
+import { polyfill } from 'react-lifecycles-compat';
+import Spin from '../../Spin/index.js';
+import Radio from '../../Radio/index.js';
+import Modal from '../../Modal/index.js';
+import Input from '../../Input/index.js';
+import Button from '../../Button/index.js';
+import message from '../../message/index.js';
+import CustomToolbar from './toolbar.js';
+import CustomSizeBlot from './formats/size.js';
+import EmojiBlot from './formats/emoji.js';
+import LinkBlot from './formats/link.js';
+import ImageBlot from './formats/image.js';
+import VideoBlot from './formats/video.js';
+import PlainClipboard from './modules/plainClipboard.js';
+import ImageDrop from './modules/imageDrop.js';
+import '../style/index.less';
+Quill.register(EmojiBlot);
+Quill.register(LinkBlot);
+Quill.register(ImageBlot);
+Quill.register(CustomSizeBlot);
+Quill.register(VideoBlot);
+Quill.register('modules/imageDrop', ImageDrop, true);
 
 var getImageSize = function getImageSize(url, callback) {
   var newImage;
@@ -107,26 +71,31 @@ var getImageSize = function getImageSize(url, callback) {
 var RichEditor =
 /*#__PURE__*/
 function (_Component) {
-  _inheritsLoose(RichEditor, _Component);
+  _inherits(RichEditor, _Component);
 
-  RichEditor.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var newState = {};
+  _createClass(RichEditor, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var newState = {};
 
-    if (nextProps.value !== prevState.lastValue) {
-      newState['lastValue'] = newState['value'] = nextProps.value;
+      if (nextProps.value !== prevState.lastValue) {
+        newState['lastValue'] = newState['value'] = nextProps.value;
+      }
+
+      if (nextProps.loading !== prevState.loading) {
+        newState['loading'] = nextProps.loading;
+      }
+
+      return newState;
     }
-
-    if (nextProps.loading !== prevState.loading) {
-      newState['loading'] = nextProps.loading;
-    }
-
-    return newState;
-  };
+  }]);
 
   function RichEditor(props) {
     var _this;
 
-    _this = _Component.call(this, props) || this;
+    _classCallCheck(this, RichEditor);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RichEditor).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "formatFontTag", function (value) {
       if (!value) return value;
@@ -194,8 +163,7 @@ function (_Component) {
 
       if (val) {
         if (val.length > 1000) {
-          _index7.default.error('链接地址不得超过1000个字');
-
+          message.error('链接地址不得超过1000个字');
           return;
         }
 
@@ -213,7 +181,7 @@ function (_Component) {
           showLinkModal: false
         });
       } else {
-        _index7.default.error('链接地址不得为空');
+        message.error('链接地址不得为空');
       }
     });
 
@@ -236,14 +204,12 @@ function (_Component) {
 
       if (val) {
         if (val.length > 1000) {
-          _index7.default.error('视频链接不得超过1000个字');
-
+          message.error('视频链接不得超过1000个字');
           return;
         }
 
         if (val.indexOf('//') < 0) {
-          _index7.default.error('视频链接URL格式错误');
-
+          message.error('视频链接URL格式错误');
           return;
         }
 
@@ -251,7 +217,7 @@ function (_Component) {
             range = _this.state.curRange ? _this.state.curRange : quill.getSelection(true),
             videoTagAttrs = _this.props.videoTagAttrs;
 
-        _this.insertVideo(range.index, Object.assign({}, videoTagAttrs, {
+        _this.insertVideo(range.index, _objectSpread({}, videoTagAttrs, {
           src: val
         }));
 
@@ -264,7 +230,7 @@ function (_Component) {
           curRange: null
         });
       } else {
-        _index7.default.error('视频链接URL不得为空');
+        message.error('视频链接URL不得为空');
       }
     });
 
@@ -295,8 +261,7 @@ function (_Component) {
 
       var getImageCb = function getImageCb(attrs) {
         if (attrs.src == undefined) {
-          _index7.default.error('请设置图片源地址');
-
+          message.error('请设置图片源地址');
           return;
         }
 
@@ -367,7 +332,7 @@ function (_Component) {
           videoNode = document.createElement('video');
 
       videoNode.onerror = function () {
-        _index7.default.error('视频无法播放');
+        message.error('视频无法播放');
       };
 
       videoNode.src = attrs.src;
@@ -403,14 +368,13 @@ function (_Component) {
 
       var getVideoCb = function getVideoCb(attrs) {
         if (attrs.src == undefined) {
-          _index7.default.error('请设置视频源地址');
-
+          message.error('请设置视频源地址');
           return;
         }
 
         var range = _this.state.curRange ? _this.state.curRange : quill.getSelection(true);
 
-        _this.insertVideo(range.index, Object.assign({}, videoTagAttrs, {}, attrs));
+        _this.insertVideo(range.index, _objectSpread({}, videoTagAttrs, {}, attrs));
 
         _this.setState({
           value: quill.getHTML(),
@@ -580,7 +544,7 @@ function (_Component) {
         _customInsertVideo = _this$props2.customInsertVideo; // 粘贴时将富文本转为纯文本
 
     if (pastePlainText) {
-      _index.Quill.register('modules/clipboard', _plainClipboard.default, true);
+      Quill.register('modules/clipboard', PlainClipboard, true);
     } // this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
 
 
@@ -624,7 +588,7 @@ function (_Component) {
             showLinkModal: true
           });
         } else {
-          _index7.default.error('没有选中文本');
+          message.error('没有选中文本');
         }
       },
       video: function video(value) {
@@ -683,7 +647,7 @@ function (_Component) {
         });
       },
       clean: function clean() {
-        var Parchment = _index.Quill.imports.parchment;
+        var Parchment = Quill.imports.parchment;
 
         var quill = _this.getEditor(),
             range = quill.getSelection();
@@ -699,7 +663,7 @@ function (_Component) {
             }
           });
         } else {
-          quill.removeFormat(range, _index.Quill.sources.USER);
+          quill.removeFormat(range, Quill.sources.USER);
         }
       },
       // 处理定制的插入值
@@ -723,254 +687,258 @@ function (_Component) {
     }; // 处理定制的超链接
 
     Object.keys(customLink).forEach(function (moduleName) {
-      _this.handlers[moduleName + "Entry"] = function () {
+      _this.handlers["".concat(moduleName, "Entry")] = function () {
         var range = this.quill.getSelection();
 
         if (range.length !== 0) {
           this.quill.format('myLink', {
-            type: moduleName + "Entry",
+            type: "".concat(moduleName, "Entry"),
             url: customLink[moduleName].url
           });
         } else {
-          _index7.default.error('没有选中文本');
+          message.error('没有选中文本');
         }
       };
     });
     return _this;
   }
 
-  var _proto = RichEditor.prototype;
+  _createClass(RichEditor, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
 
-  _proto.componentDidMount = function componentDidMount() {
-    var _this2 = this;
-
-    /* eslint-disable react/no-did-mount-set-state */
-    this.setState({
-      toolbarCtner: (0, _reactDom.findDOMNode)(this.toolbarRef)
-    }, function () {
-      if (!_this2.reactQuillRef) return;
-      _this2.onBlurHandler = (0, _utils.addEventListener)((0, _reactDom.findDOMNode)(_this2.reactQuillRef).querySelector('.ql-editor'), 'blur', function () {
-        if (!_this2.reactQuillRef) return;
-
-        var editor = _this2.reactQuillRef.getEditor(),
-            range = editor.getSelection();
-
-        if (typeof _this2.props.onBlur == "function") {
-          _this2.props.onBlur(range, 'user', editor);
-        }
-      });
-    });
-    /* eslint-enable react/no-did-mount-set-state */
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps, prevState, snapshot) {
-    /* eslint-disable react/no-did-update-set-state */
-    if (prevState.lastValue != this.state.lastValue && this.props.supportFontTag) {
+      /* eslint-disable react/no-did-mount-set-state */
       this.setState({
-        value: this.formatFontTag(this.state.lastValue)
+        toolbarCtner: findDOMNode(this.toolbarRef)
+      }, function () {
+        if (!_this2.reactQuillRef) return;
+        _this2.onBlurHandler = addEventListener(findDOMNode(_this2.reactQuillRef).querySelector('.ql-editor'), 'blur', function () {
+          if (!_this2.reactQuillRef) return;
+
+          var editor = _this2.reactQuillRef.getEditor(),
+              range = editor.getSelection();
+
+          if (typeof _this2.props.onBlur == "function") {
+            _this2.props.onBlur(range, 'user', editor);
+          }
+        });
       });
+      /* eslint-enable react/no-did-mount-set-state */
     }
-    /* eslint-enable react/no-did-update-set-state */
-
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    if (this.onBlurHandler) {
-      this.onBlurHandler.remove();
-    }
-  };
-
-  _proto.render = function render() {
-    var _this3 = this;
-
-    var _this$state = this.state,
-        loading = _this$state.loading,
-        value = _this$state.value,
-        showLinkModal = _this$state.showLinkModal,
-        showVideoModal = _this$state.showVideoModal,
-        showImageModal = _this$state.showImageModal,
-        toolbarCtner = _this$state.toolbarCtner,
-        curVideoType = _this$state.curVideoType;
-
-    var _this$props3 = this.props,
-        className = _this$props3.className,
-        prefixCls = _this$props3.prefixCls,
-        toolbar = _this$props3.toolbar,
-        placeholder = _this$props3.placeholder,
-        customLink = _this$props3.customLink,
-        customInsertValue = _this$props3.customInsertValue,
-        resizable = _this$props3.resizable,
-        style = _this$props3.style,
-        getPopupContainer = _this$props3.getPopupContainer,
-        customEmoji = _this$props3.customEmoji,
-        insertImageTip = _this$props3.insertImageTip,
-        insertVideoTip = _this$props3.insertVideoTip,
-        onChange = _this$props3.onChange,
-        onSelectionChange = _this$props3.onSelectionChange,
-        popoverPlacement = _this$props3.popoverPlacement,
-        tooltipPlacement = _this$props3.tooltipPlacement,
-        imageDrop = _this$props3.imageDrop,
-        customDropImage = _this$props3.customDropImage,
-        restProps = _objectWithoutPropertiesLoose(_this$props3, ["className", "prefixCls", "toolbar", "placeholder", "customLink", "customInsertValue", "resizable", "style", "getPopupContainer", "customEmoji", "insertImageTip", "insertVideoTip", "onChange", "onSelectionChange", "popoverPlacement", "tooltipPlacement", "imageDrop", "customDropImage"]);
-
-    delete restProps.customInsertImage;
-    var cls = (0, _classnames.default)("" + prefixCls, {
-      'resizable': resizable
-    }, className);
-
-    if (value) {
-      restProps.value = value;
-    } // 上传本地视频时Modal无确认和取消按钮
-
-
-    var videoFooter = {};
-
-    if (curVideoType == "video_local") {
-      videoFooter['footer'] = null;
-    }
-
-    return _react.default.createElement("div", {
-      className: cls,
-      style: style
-    }, _react.default.createElement(_index4.default, {
-      title: "\u63D2\u5165\u8D85\u94FE\u63A5",
-      className: prefixCls + "-link-modal",
-      visible: showLinkModal,
-      onOk: this.handleLinkModalOk,
-      onCancel: this.handleLinkModalCancel
-    }, _react.default.createElement("span", {
-      className: "text"
-    }, "\u8D85\u94FE\u63A5\u5730\u5740"), _react.default.createElement(_index5.default, {
-      ref: function ref(el) {
-        return _this3.linkModalInputRef = el;
-      },
-      style: {
-        width: '434px'
-      },
-      defaultValue: "http://"
-    })), _react.default.createElement(_index4.default, {
-      title: "\u63D2\u5165\u56FE\u7247",
-      className: prefixCls + "-image-modal",
-      visible: showImageModal,
-      footer: null,
-      onCancel: this.handleImageModalCancel
-    }, _react.default.createElement(_index6.default, {
-      type: "primary",
-      onClick: this.handlePickLocalImage
-    }, "\u9009\u62E9\u672C\u5730\u56FE\u7247"), _react.default.createElement("div", {
-      className: "tip"
-    }, insertImageTip)), _react.default.createElement(_index4.default, _extends({
-      title: "\u63D2\u5165\u89C6\u9891",
-      className: prefixCls + "-video-modal",
-      visible: showVideoModal
-    }, videoFooter, {
-      onOk: this.handleVideoModalOk,
-      onCancel: this.handleVideoModalCancel
-    }), _react.default.createElement(_index3.default.Group, {
-      style: {
-        marginBottom: 24
-      },
-      onChange: this.handleVideoTypeChange,
-      value: curVideoType
-    }, _react.default.createElement(_index3.default, {
-      value: "video_link"
-    }, "\u89C6\u9891\u94FE\u63A5"), this.isSupportCustomInsertVideo ? _react.default.createElement(_index3.default, {
-      value: "video_local"
-    }, "\u672C\u5730\u89C6\u9891") : null), curVideoType == "video_local" ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_index6.default, {
-      style: {
-        display: 'block'
-      },
-      type: "primary",
-      onClick: this.handlePickLocalVideo
-    }, "\u9009\u62E9\u672C\u5730\u89C6\u9891"), _react.default.createElement("div", {
-      className: "tip"
-    }, insertVideoTip)) : _react.default.createElement(_index5.default, {
-      ref: function ref(el) {
-        return _this3.videoModalInputRef = el;
-      },
-      style: {
-        width: '434px'
-      },
-      placeholder: "\u8BF7\u8F93\u5165\u89C6\u9891\u94FE\u63A5URL"
-    })), _react.default.createElement(_toolbar.default, {
-      ref: function ref(el) {
-        return _this3.toolbarRef = el;
-      },
-      className: 'editor-head',
-      toolbar: toolbar,
-      customEmoji: customEmoji,
-      customLink: customLink,
-      customInsertValue: customInsertValue,
-      handleInsertEmoji: this.handleInsertEmoji,
-      handleFormatColor: this.handleFormatColor,
-      handleFormatBackground: this.handleFormatBackground,
-      handleFormatSize: this.handleFormatSize,
-      handleInsertValue: this.handleInsertValue,
-      popoverPlacement: popoverPlacement,
-      tooltipPlacement: tooltipPlacement,
-      getPopupContainer: getPopupContainer
-    }), _react.default.createElement(_index.default, _extends({}, restProps, {
-      ref: function ref(el) {
-        return _this3.reactQuillRef = el;
-      },
-      className: 'editor-body',
-      modules: {
-        toolbar: {
-          container: toolbarCtner,
-          handlers: this.handlers
-        },
-        imageDrop: imageDrop ? {
-          customDropImage: customDropImage
-        } : null
-      },
-      placeholder: placeholder,
-      onChange: this.handleChange,
-      onSelectionChange: this.handleSelectionChange
-    })), loading ? _react.default.createElement(_index2.default, {
-      style: {
-        position: 'absolute',
-        width: '100%',
-        background: 'rgba(255, 255, 255, 0.75)'
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState, snapshot) {
+      /* eslint-disable react/no-did-update-set-state */
+      if (prevState.lastValue != this.state.lastValue && this.props.supportFontTag) {
+        this.setState({
+          value: this.formatFontTag(this.state.lastValue)
+        });
       }
-    }) : null);
-  };
+      /* eslint-enable react/no-did-update-set-state */
+
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (this.onBlurHandler) {
+        this.onBlurHandler.remove();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var _this$state = this.state,
+          loading = _this$state.loading,
+          value = _this$state.value,
+          showLinkModal = _this$state.showLinkModal,
+          showVideoModal = _this$state.showVideoModal,
+          showImageModal = _this$state.showImageModal,
+          toolbarCtner = _this$state.toolbarCtner,
+          curVideoType = _this$state.curVideoType;
+
+      var _this$props3 = this.props,
+          className = _this$props3.className,
+          prefixCls = _this$props3.prefixCls,
+          toolbar = _this$props3.toolbar,
+          placeholder = _this$props3.placeholder,
+          customLink = _this$props3.customLink,
+          customInsertValue = _this$props3.customInsertValue,
+          resizable = _this$props3.resizable,
+          style = _this$props3.style,
+          getPopupContainer = _this$props3.getPopupContainer,
+          customEmoji = _this$props3.customEmoji,
+          insertImageTip = _this$props3.insertImageTip,
+          insertVideoTip = _this$props3.insertVideoTip,
+          onChange = _this$props3.onChange,
+          onSelectionChange = _this$props3.onSelectionChange,
+          popoverPlacement = _this$props3.popoverPlacement,
+          tooltipPlacement = _this$props3.tooltipPlacement,
+          imageDrop = _this$props3.imageDrop,
+          customDropImage = _this$props3.customDropImage,
+          restProps = _objectWithoutProperties(_this$props3, ["className", "prefixCls", "toolbar", "placeholder", "customLink", "customInsertValue", "resizable", "style", "getPopupContainer", "customEmoji", "insertImageTip", "insertVideoTip", "onChange", "onSelectionChange", "popoverPlacement", "tooltipPlacement", "imageDrop", "customDropImage"]);
+
+      delete restProps.customInsertImage;
+      var cls = classNames("".concat(prefixCls), {
+        'resizable': resizable
+      }, className);
+
+      if (value) {
+        restProps.value = value;
+      } // 上传本地视频时Modal无确认和取消按钮
+
+
+      var videoFooter = {};
+
+      if (curVideoType == "video_local") {
+        videoFooter['footer'] = null;
+      }
+
+      return React.createElement("div", {
+        className: cls,
+        style: style
+      }, React.createElement(Modal, {
+        title: "\u63D2\u5165\u8D85\u94FE\u63A5",
+        className: "".concat(prefixCls, "-link-modal"),
+        visible: showLinkModal,
+        onOk: this.handleLinkModalOk,
+        onCancel: this.handleLinkModalCancel
+      }, React.createElement("span", {
+        className: "text"
+      }, "\u8D85\u94FE\u63A5\u5730\u5740"), React.createElement(Input, {
+        ref: function ref(el) {
+          return _this3.linkModalInputRef = el;
+        },
+        style: {
+          width: '434px'
+        },
+        defaultValue: "http://"
+      })), React.createElement(Modal, {
+        title: "\u63D2\u5165\u56FE\u7247",
+        className: "".concat(prefixCls, "-image-modal"),
+        visible: showImageModal,
+        footer: null,
+        onCancel: this.handleImageModalCancel
+      }, React.createElement(Button, {
+        type: "primary",
+        onClick: this.handlePickLocalImage
+      }, "\u9009\u62E9\u672C\u5730\u56FE\u7247"), React.createElement("div", {
+        className: "tip"
+      }, insertImageTip)), React.createElement(Modal, _extends({
+        title: "\u63D2\u5165\u89C6\u9891",
+        className: "".concat(prefixCls, "-video-modal"),
+        visible: showVideoModal
+      }, videoFooter, {
+        onOk: this.handleVideoModalOk,
+        onCancel: this.handleVideoModalCancel
+      }), React.createElement(Radio.Group, {
+        style: {
+          marginBottom: 24
+        },
+        onChange: this.handleVideoTypeChange,
+        value: curVideoType
+      }, React.createElement(Radio, {
+        value: "video_link"
+      }, "\u89C6\u9891\u94FE\u63A5"), this.isSupportCustomInsertVideo ? React.createElement(Radio, {
+        value: "video_local"
+      }, "\u672C\u5730\u89C6\u9891") : null), curVideoType == "video_local" ? React.createElement(React.Fragment, null, React.createElement(Button, {
+        style: {
+          display: 'block'
+        },
+        type: "primary",
+        onClick: this.handlePickLocalVideo
+      }, "\u9009\u62E9\u672C\u5730\u89C6\u9891"), React.createElement("div", {
+        className: "tip"
+      }, insertVideoTip)) : React.createElement(Input, {
+        ref: function ref(el) {
+          return _this3.videoModalInputRef = el;
+        },
+        style: {
+          width: '434px'
+        },
+        placeholder: "\u8BF7\u8F93\u5165\u89C6\u9891\u94FE\u63A5URL"
+      })), React.createElement(CustomToolbar, {
+        ref: function ref(el) {
+          return _this3.toolbarRef = el;
+        },
+        className: 'editor-head',
+        toolbar: toolbar,
+        customEmoji: customEmoji,
+        customLink: customLink,
+        customInsertValue: customInsertValue,
+        handleInsertEmoji: this.handleInsertEmoji,
+        handleFormatColor: this.handleFormatColor,
+        handleFormatBackground: this.handleFormatBackground,
+        handleFormatSize: this.handleFormatSize,
+        handleInsertValue: this.handleInsertValue,
+        popoverPlacement: popoverPlacement,
+        tooltipPlacement: tooltipPlacement,
+        getPopupContainer: getPopupContainer
+      }), React.createElement(ReactQuill, _extends({}, restProps, {
+        ref: function ref(el) {
+          return _this3.reactQuillRef = el;
+        },
+        className: 'editor-body',
+        modules: {
+          toolbar: {
+            container: toolbarCtner,
+            handlers: this.handlers
+          },
+          imageDrop: imageDrop ? {
+            customDropImage: customDropImage
+          } : null
+        },
+        placeholder: placeholder,
+        onChange: this.handleChange,
+        onSelectionChange: this.handleSelectionChange
+      })), loading ? React.createElement(Spin, {
+        style: {
+          position: 'absolute',
+          width: '100%',
+          background: 'rgba(255, 255, 255, 0.75)'
+        }
+      }) : null);
+    }
+  }]);
 
   return RichEditor;
-}(_react.Component);
+}(Component);
 
 _defineProperty(RichEditor, "propTypes", {
-  className: _propTypes.default.string,
-  customEmoji: _propTypes.default.array,
-  customLink: _propTypes.default.object,
-  customInsertValue: _propTypes.default.object,
-  defaultValue: _propTypes.default.string,
-  placeholder: _propTypes.default.string,
-  prefixCls: _propTypes.default.string,
-  imageDrop: _propTypes.default.bool,
-  loading: _propTypes.default.bool,
-  resizable: _propTypes.default.bool,
-  supportFontTag: _propTypes.default.bool,
-  pastePlainText: _propTypes.default.bool,
-  style: _propTypes.default.object,
-  toolbar: _propTypes.default.array,
-  value: _propTypes.default.string,
-  insertImageTip: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.node]),
-  insertVideoTip: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.node]),
-  popoverPlacement: _propTypes.default.string,
-  tooltipPlacement: _propTypes.default.string,
-  videoTagAttrs: _propTypes.default.object,
-  customDropImage: _propTypes.default.func,
-  customInsertImage: _propTypes.default.func,
-  customInsertVideo: _propTypes.default.func,
-  getPopupContainer: _propTypes.default.func,
-  onChange: _propTypes.default.func,
-  onClickToolbarBtn: _propTypes.default.func,
-  onSelectionChange: _propTypes.default.func,
-  onFocus: _propTypes.default.func,
-  onBlur: _propTypes.default.func,
-  onKeyPress: _propTypes.default.func,
-  onKeyDown: _propTypes.default.func,
-  onKeyUp: _propTypes.default.func
+  className: PropTypes.string,
+  customEmoji: PropTypes.array,
+  customLink: PropTypes.object,
+  customInsertValue: PropTypes.object,
+  defaultValue: PropTypes.string,
+  placeholder: PropTypes.string,
+  prefixCls: PropTypes.string,
+  imageDrop: PropTypes.bool,
+  loading: PropTypes.bool,
+  resizable: PropTypes.bool,
+  supportFontTag: PropTypes.bool,
+  pastePlainText: PropTypes.bool,
+  style: PropTypes.object,
+  toolbar: PropTypes.array,
+  value: PropTypes.string,
+  insertImageTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  insertVideoTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  popoverPlacement: PropTypes.string,
+  tooltipPlacement: PropTypes.string,
+  videoTagAttrs: PropTypes.object,
+  customDropImage: PropTypes.func,
+  customInsertImage: PropTypes.func,
+  customInsertVideo: PropTypes.func,
+  getPopupContainer: PropTypes.func,
+  onChange: PropTypes.func,
+  onClickToolbarBtn: PropTypes.func,
+  onSelectionChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onKeyPress: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func
 });
 
 _defineProperty(RichEditor, "defaultProps", {
@@ -978,7 +946,7 @@ _defineProperty(RichEditor, "defaultProps", {
   customLink: {},
   customInsertValue: {},
   insertImageTip: '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
-  insertVideoTip: _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("span", null, "1\u3001\u5355\u4E2A\u89C6\u9891\u4E0D\u8D85\u8FC710M\uFF0C\u652F\u6301MP4\u3001MPEG4\u3001H264\u3001AAC\u3001WebM\u3001VP8\u3001Vorbis\u3001OggTheora\u683C\u5F0F\u3002\u53D7\u5FAE\u4FE1\u9650\u5236\uFF0C\u5FAE\u4FE1\u7AEF\u4EC5\u652F\u6301\u53D1\u9001MP4\u683C\u5F0F\u89C6\u9891\u3002"), _react.default.createElement("br", null), _react.default.createElement("span", null, "2\u3001\u6700\u4F73\u663E\u793A\u9AD8\u5EA6\u4E0D\u8D85\u8FC7400px, \u5BBD\u5EA6\u4E0D\u8D85\u8FC7270px\u3002")),
+  insertVideoTip: React.createElement(React.Fragment, null, React.createElement("span", null, "1\u3001\u5355\u4E2A\u89C6\u9891\u4E0D\u8D85\u8FC710M\uFF0C\u652F\u6301MP4\u3001MPEG4\u3001H264\u3001AAC\u3001WebM\u3001VP8\u3001Vorbis\u3001OggTheora\u683C\u5F0F\u3002\u53D7\u5FAE\u4FE1\u9650\u5236\uFF0C\u5FAE\u4FE1\u7AEF\u4EC5\u652F\u6301\u53D1\u9001MP4\u683C\u5F0F\u89C6\u9891\u3002"), React.createElement("br", null), React.createElement("span", null, "2\u3001\u6700\u4F73\u663E\u793A\u9AD8\u5EA6\u4E0D\u8D85\u8FC7400px, \u5BBD\u5EA6\u4E0D\u8D85\u8FC7270px\u3002")),
   placeholder: '请输入内容',
   prefixCls: 'fishd-richeditor',
   popoverPlacement: 'top',
@@ -1003,6 +971,6 @@ _defineProperty(RichEditor, "defaultProps", {
   }
 });
 
-(0, _reactLifecyclesCompat.polyfill)(RichEditor);
-var _default = RichEditor;
-exports.default = _default;
+polyfill(RichEditor);
+export { Quill };
+export default RichEditor;

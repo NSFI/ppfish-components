@@ -1,25 +1,14 @@
-"use strict";
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.object.assign");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-require("core-js/modules/web.dom.iterable");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 var Marks = function Marks(_ref) {
   var className = _ref.className,
@@ -42,7 +31,7 @@ var Marks = function Marks(_ref) {
     var _classNames;
 
     var markPoint = marks[point];
-    var markPointIsObject = typeof markPoint === 'object' && !_react.default.isValidElement(markPoint);
+    var markPointIsObject = _typeof(markPoint) === 'object' && !React.isValidElement(markPoint);
     var markLabel = markPointIsObject ? markPoint.label : markPoint;
 
     if (!markLabel && markLabel !== 0) {
@@ -50,19 +39,19 @@ var Marks = function Marks(_ref) {
     }
 
     var isActive = !included && point === upperBound || included && point <= upperBound && point >= lowerBound;
-    var markClassName = (0, _classnames.default)((_classNames = {}, _classNames[className + "-text"] = true, _classNames[className + "-text-active"] = isActive, _classNames));
+    var markClassName = classNames((_classNames = {}, _defineProperty(_classNames, "".concat(className, "-text"), true), _defineProperty(_classNames, "".concat(className, "-text-active"), isActive), _classNames));
     var bottomStyle = {
       marginBottom: '-50%',
-      bottom: (point - min) / range * 100 + "%"
+      bottom: "".concat((point - min) / range * 100, "%")
     };
     var leftStyle = {
-      width: markWidth + "%",
-      marginLeft: -markWidth / 2 + "%",
-      left: (point - min) / range * 100 + "%"
+      width: "".concat(markWidth, "%"),
+      marginLeft: "".concat(-markWidth / 2, "%"),
+      left: "".concat((point - min) / range * 100, "%")
     };
     var style = vertical ? bottomStyle : leftStyle;
-    var markStyle = markPointIsObject ? Object.assign({}, style, {}, markPoint.style) : style;
-    return _react.default.createElement("span", {
+    var markStyle = markPointIsObject ? _objectSpread({}, style, {}, markPoint.style) : style;
+    return React.createElement("span", {
       className: markClassName,
       style: markStyle,
       key: point,
@@ -74,21 +63,20 @@ var Marks = function Marks(_ref) {
       }
     }, markLabel);
   });
-  return _react.default.createElement("div", {
+  return React.createElement("div", {
     className: className
   }, elements);
 };
 
 Marks.propTypes = {
-  className: _propTypes.default.string,
-  vertical: _propTypes.default.bool,
-  marks: _propTypes.default.object,
-  included: _propTypes.default.bool,
-  upperBound: _propTypes.default.number,
-  lowerBound: _propTypes.default.number,
-  max: _propTypes.default.number,
-  min: _propTypes.default.number,
-  onClickLabel: _propTypes.default.func
+  className: PropTypes.string,
+  vertical: PropTypes.bool,
+  marks: PropTypes.object,
+  included: PropTypes.bool,
+  upperBound: PropTypes.number,
+  lowerBound: PropTypes.number,
+  max: PropTypes.number,
+  min: PropTypes.number,
+  onClickLabel: PropTypes.func
 };
-var _default = Marks;
-exports.default = _default;
+export default Marks;

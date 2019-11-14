@@ -1,16 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.regexp.match");
-
-var _EventBaseObject = _interopRequireDefault(require("./EventBaseObject"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+import EventBaseObject from './EventBaseObject';
 var TRUE = true;
 var FALSE = false;
 var commonProps = ['altKey', 'bubbles', 'cancelable', 'ctrlKey', 'currentTarget', 'eventPhase', 'metaKey', 'shiftKey', 'target', 'timeStamp', 'view', 'type'];
@@ -168,9 +156,7 @@ function retFalse() {
 function DomEventObject(nativeEvent) {
   var type = nativeEvent.type;
   var isNative = typeof nativeEvent.stopPropagation === 'function' || typeof nativeEvent.cancelBubble === 'boolean';
-
-  _EventBaseObject.default.call(this);
-
+  EventBaseObject.call(this);
   this.nativeEvent = nativeEvent; // in case dom event has been mark as default prevented by lower dom node
 
   var isDefaultPrevented = retFalse;
@@ -226,7 +212,7 @@ function DomEventObject(nativeEvent) {
   this.timeStamp = nativeEvent.timeStamp || Date.now();
 }
 
-var EventBaseObjectProto = _EventBaseObject.default.prototype;
+var EventBaseObjectProto = EventBaseObject.prototype;
 Object.assign(DomEventObject.prototype, EventBaseObjectProto, {
   constructor: DomEventObject,
   preventDefault: function preventDefault() {
@@ -254,5 +240,4 @@ Object.assign(DomEventObject.prototype, EventBaseObjectProto, {
     EventBaseObjectProto.stopPropagation.call(this);
   }
 });
-var _default = DomEventObject;
-exports.default = _default;
+export default DomEventObject;

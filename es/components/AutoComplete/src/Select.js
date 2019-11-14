@@ -1,57 +1,44 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _KeyCode = _interopRequireDefault(require("../../../utils/KeyCode.js"));
-
-var _classnames2 = _interopRequireDefault(require("classnames"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _componentClasses = _interopRequireDefault(require("component-classes"));
-
-var _index = require("../../Menu/src/index.js");
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _Option = _interopRequireDefault(require("./Option"));
-
-var _index2 = _interopRequireDefault(require("../../Icon/index.js"));
-
-var _util = require("./util");
-
-var _SelectTrigger = _interopRequireDefault(require("./SelectTrigger"));
-
-var _PropTypes = require("./PropTypes");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/* eslint func-names: 1 */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { polyfill } from 'react-lifecycles-compat';
+import KeyCode from '../../../utils/KeyCode.js';
+import classnames from 'classnames';
+import Animate from 'rc-animate';
+import classes from 'component-classes';
+import { Item as MenuItem, ItemGroup as MenuItemGroup } from '../../Menu/src/index.js';
+import warning from 'warning';
+import Option from './Option';
+import Icon from '../../Icon/index.js';
+import { childrenToArray, getPropValue, getValuePropValue, isCombobox, isMultipleOrTags, isMultipleOrTagsOrCombobox, isSingleMode, toArray, getMapKey, findIndexInValueBySingleValue, getLabelFromPropsValue, UNSELECTABLE_ATTRIBUTE, UNSELECTABLE_STYLE, preventDefaultEvent, findFirstMenuItem, includesSeparators, splitBySeparators, defaultFilterFn, validateOptionValue, saveRef, toTitle } from './util';
+import SelectTrigger from './SelectTrigger';
+import { SelectPropTypes } from './PropTypes';
 
 function noop() {}
 
@@ -78,18 +65,20 @@ function chaining() {
 var Select =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(Select, _React$Component);
+  _inherits(Select, _React$Component);
 
   function Select(_props) {
     var _this;
 
-    _this = _React$Component.call(this, _props) || this;
+    _classCallCheck(this, Select);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Select).call(this, _props));
 
     _defineProperty(_assertThisInitialized(_this), "onInputChange", function (event) {
       var tokenSeparators = _this.props.tokenSeparators;
       var val = event.target.value;
 
-      if ((0, _util.isMultipleOrTags)(_this.props) && tokenSeparators.length && (0, _util.includesSeparators)(val, tokenSeparators)) {
+      if (isMultipleOrTags(_this.props) && tokenSeparators.length && includesSeparators(val, tokenSeparators)) {
         var nextValue = _this.getValueByInput(val);
 
         if (nextValue !== undefined) {
@@ -109,7 +98,7 @@ function (_React$Component) {
         open: true
       });
 
-      if ((0, _util.isCombobox)(_this.props)) {
+      if (isCombobox(_this.props)) {
         _this.fireChange([val]);
       }
     });
@@ -139,7 +128,7 @@ function (_React$Component) {
 
       if (_this.state.open && !_this.getInputDOMNode()) {
         _this.onInputKeyDown(event);
-      } else if (keyCode === _KeyCode.default.ENTER || keyCode === _KeyCode.default.DOWN) {
+      } else if (keyCode === KeyCode.ENTER || keyCode === KeyCode.DOWN) {
         _this.setOpenState(true);
 
         event.preventDefault();
@@ -156,7 +145,7 @@ function (_React$Component) {
       var state = _this.state;
       var keyCode = event.keyCode;
 
-      if ((0, _util.isMultipleOrTags)(props) && !event.target.value && keyCode === _KeyCode.default.BACKSPACE) {
+      if (isMultipleOrTags(props) && !event.target.value && keyCode === KeyCode.BACKSPACE) {
         event.preventDefault();
         var value = state.value;
 
@@ -167,7 +156,7 @@ function (_React$Component) {
         return;
       }
 
-      if (keyCode === _KeyCode.default.DOWN) {
+      if (keyCode === KeyCode.DOWN) {
         if (!state.open) {
           _this.openIfHasChildren();
 
@@ -175,11 +164,11 @@ function (_React$Component) {
           event.stopPropagation();
           return;
         }
-      } else if (keyCode === _KeyCode.default.ENTER && state.open) {
+      } else if (keyCode === KeyCode.ENTER && state.open) {
         // Aviod trigger form submit when select item
         // https://github.com/ant-design/ant-design/issues/10861
         event.preventDefault();
-      } else if (keyCode === _KeyCode.default.ESC) {
+      } else if (keyCode === KeyCode.ESC) {
         if (state.open) {
           _this.setOpenState(false);
 
@@ -209,13 +198,13 @@ function (_React$Component) {
 
       var value = _this.state.value;
       var props = _this.props;
-      var selectedValue = (0, _util.getValuePropValue)(item);
+      var selectedValue = getValuePropValue(item);
       var lastValue = value[value.length - 1];
 
       _this.fireSelect(selectedValue);
 
-      if ((0, _util.isMultipleOrTags)(props)) {
-        if ((0, _util.findIndexInValueBySingleValue)(value, selectedValue) !== -1) {
+      if (isMultipleOrTags(props)) {
+        if (findIndexInValueBySingleValue(value, selectedValue) !== -1) {
           return;
         }
 
@@ -236,8 +225,8 @@ function (_React$Component) {
 
       var inputValue;
 
-      if ((0, _util.isCombobox)(props)) {
-        inputValue = (0, _util.getPropValue)(item, props.optionLabelProp);
+      if (isCombobox(props)) {
+        inputValue = getPropValue(item, props.optionLabelProp);
       } else {
         inputValue = '';
       }
@@ -252,7 +241,7 @@ function (_React$Component) {
           domEvent = _ref2.domEvent;
 
       if (domEvent.type === 'click') {
-        _this.removeSelected((0, _util.getValuePropValue)(item));
+        _this.removeSelected(getValuePropValue(item));
       }
 
       var _assertThisInitialize = _assertThisInitialized(_this),
@@ -286,7 +275,7 @@ function (_React$Component) {
 
       _this.clearBlurTime();
 
-      if (!(0, _util.isMultipleOrTagsOrCombobox)(_this.props) && e.target === _this.getInputDOMNode()) {
+      if (!isMultipleOrTagsOrCombobox(_this.props) && e.target === _this.getInputDOMNode()) {
         return;
       }
 
@@ -321,19 +310,19 @@ function (_React$Component) {
         var value = _this.state.value;
         var inputValue = _this.state.inputValue;
 
-        if ((0, _util.isSingleMode)(props) && props.showSearch && inputValue && props.defaultActiveFirstOption) {
+        if (isSingleMode(props) && props.showSearch && inputValue && props.defaultActiveFirstOption) {
           var options = _this._options || [];
 
           if (options.length) {
-            var firstOption = (0, _util.findFirstMenuItem)(options);
+            var firstOption = findFirstMenuItem(options);
 
             if (firstOption) {
-              value = [(0, _util.getValuePropValue)(firstOption)];
+              value = [getValuePropValue(firstOption)];
 
               _this.fireChange(value);
             }
           }
-        } else if ((0, _util.isMultipleOrTags)(props) && inputValue) {
+        } else if (isMultipleOrTags(props) && inputValue) {
           _this.state.inputValue = _this.getInputDOMNode().value = ''; // eslint-disable-line react/no-direct-mutation-state
 
           value = _this.getValueByInput(inputValue);
@@ -382,8 +371,8 @@ function (_React$Component) {
       var info;
       optionsInfo = optionsInfo || _this.state.optionsInfo;
 
-      if (optionsInfo[(0, _util.getMapKey)(value)]) {
-        info = optionsInfo[(0, _util.getMapKey)(value)];
+      if (optionsInfo[getMapKey(value)]) {
+        info = optionsInfo[getMapKey(value)];
       }
 
       if (info) {
@@ -393,7 +382,7 @@ function (_React$Component) {
       var defaultLabel = value;
 
       if (_this.props.labelInValue) {
-        var label = (0, _util.getLabelFromPropsValue)(_this.props.value, value);
+        var label = getLabelFromPropsValue(_this.props.value, value);
 
         if (label !== undefined) {
           defaultLabel = label;
@@ -401,7 +390,7 @@ function (_React$Component) {
       }
 
       var defaultInfo = {
-        option: _react.default.createElement(_Option.default, {
+        option: React.createElement(Option, {
           value: value,
           key: value
         }, value),
@@ -433,7 +422,7 @@ function (_React$Component) {
       Object.keys(_this.state.optionsInfo).forEach(function (key) {
         var info = _this.state.optionsInfo[key];
 
-        if ((0, _util.toArray)(info.label).join('') === label) {
+        if (toArray(info.label).join('') === label) {
           value = info.value;
         }
       });
@@ -468,7 +457,7 @@ function (_React$Component) {
           });
         }
 
-        return (0, _util.isMultipleOrTags)(_this.props) ? vls : vls[0];
+        return isMultipleOrTags(_this.props) ? vls : vls[0];
       }
 
       return vls;
@@ -505,21 +494,21 @@ function (_React$Component) {
         hidden = true;
       }
 
-      if ((0, _util.isCombobox)(props) && state.value.length === 1 && !state.value[0]) {
+      if (isCombobox(props) && state.value.length === 1 && !state.value[0]) {
         hidden = false;
       }
 
       var placeholder = props.placeholder;
 
       if (placeholder) {
-        return _react.default.createElement("div", _extends({
-          onMouseDown: _util.preventDefaultEvent,
-          style: Object.assign({
+        return React.createElement("div", _extends({
+          onMouseDown: preventDefaultEvent,
+          style: _objectSpread({
             display: hidden ? 'none' : 'block'
-          }, _util.UNSELECTABLE_STYLE)
-        }, _util.UNSELECTABLE_ATTRIBUTE, {
+          }, UNSELECTABLE_STYLE)
+        }, UNSELECTABLE_ATTRIBUTE, {
           onClick: _this.onPlaceholderClick,
-          className: props.prefixCls + "-selection__placeholder"
+          className: "".concat(props.prefixCls, "-selection__placeholder")
         }), placeholder);
       }
 
@@ -527,28 +516,26 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getInputElement", function () {
-      var _classnames;
-
       var props = _this.props;
-      var inputElement = props.getInputElement ? props.getInputElement() : _react.default.createElement("input", {
+      var inputElement = props.getInputElement ? props.getInputElement() : React.createElement("input", {
         id: props.id,
         autoComplete: "off"
       });
-      var inputCls = (0, _classnames2.default)(inputElement.props.className, (_classnames = {}, _classnames[props.prefixCls + "-search__field"] = true, _classnames)); // https://github.com/ant-design/ant-design/issues/4992#issuecomment-281542159
+      var inputCls = classnames(inputElement.props.className, _defineProperty({}, "".concat(props.prefixCls, "-search__field"), true)); // https://github.com/ant-design/ant-design/issues/4992#issuecomment-281542159
       // Add space to the end of the inputValue as the width measurement tolerance
 
-      return _react.default.createElement("div", {
-        className: props.prefixCls + "-search__field__wrap"
-      }, _react.default.cloneElement(inputElement, {
+      return React.createElement("div", {
+        className: "".concat(props.prefixCls, "-search__field__wrap")
+      }, React.cloneElement(inputElement, {
         ref: _this.saveInputRef,
         onChange: _this.onInputChange,
         onKeyDown: chaining(_this.onInputKeyDown, inputElement.props.onKeyDown, _this.props.onInputKeyDown),
         value: _this.state.inputValue,
         disabled: props.disabled,
         className: inputCls
-      }), _react.default.createElement("span", {
+      }), React.createElement("span", {
         ref: _this.saveInputMirrorRef,
-        className: props.prefixCls + "-search__field__mirror"
+        className: "".concat(props.prefixCls, "-search__field__mirror")
       }, _this.state.inputValue, "\xA0"));
     });
 
@@ -584,7 +571,7 @@ function (_React$Component) {
         backfillValue: undefined
       }; // clear search input value when open is false in singleMode.
 
-      if (!open && (0, _util.isSingleMode)(props) && props.showSearch) {
+      if (!open && isSingleMode(props) && props.showSearch) {
         _this.setInputValue('', false);
       }
 
@@ -599,10 +586,8 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setInputValue", function (inputValue, fireSearch) {
-      if (fireSearch === void 0) {
-        fireSearch = true;
-      }
+    _defineProperty(_assertThisInitialized(_this), "setInputValue", function (inputValue) {
+      var fireSearch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
       if (inputValue !== _this.state.inputValue) {
         _this.setState({
@@ -621,13 +606,13 @@ function (_React$Component) {
           tokenSeparators = _this$props.tokenSeparators;
       var nextValue = _this.state.value;
       var hasNewValue = false;
-      (0, _util.splitBySeparators)(string, tokenSeparators).forEach(function (label) {
+      splitBySeparators(string, tokenSeparators).forEach(function (label) {
         var selectedValue = [label];
 
         if (multiple) {
           var value = _this.getValueByLabel(label);
 
-          if (value && (0, _util.findIndexInValueBySingleValue)(nextValue, value) === -1) {
+          if (value && findIndexInValueBySingleValue(nextValue, value) === -1) {
             nextValue = nextValue.concat(value);
             hasNewValue = true;
 
@@ -635,7 +620,7 @@ function (_React$Component) {
           }
         } else {
           // tag
-          if ((0, _util.findIndexInValueBySingleValue)(nextValue, label) === -1) {
+          if (findIndexInValueBySingleValue(nextValue, label) === -1) {
             nextValue = nextValue.concat(selectedValue);
             hasNewValue = true;
 
@@ -650,7 +635,7 @@ function (_React$Component) {
       var open = _this.state.open;
       var options = _this._options || [];
 
-      if ((0, _util.isMultipleOrTagsOrCombobox)(_this.props) || !_this.props.showSearch) {
+      if (isMultipleOrTagsOrCombobox(_this.props) || !_this.props.showSearch) {
         if (open && !options.length) {
           open = false;
         }
@@ -660,13 +645,13 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleBackfill", function (item) {
-      if (!_this.props.backfill || !((0, _util.isSingleMode)(_this.props) || (0, _util.isCombobox)(_this.props))) {
+      if (!_this.props.backfill || !(isSingleMode(_this.props) || isCombobox(_this.props))) {
         return;
       }
 
-      var key = (0, _util.getValuePropValue)(item);
+      var key = getValuePropValue(item);
 
-      if ((0, _util.isCombobox)(_this.props)) {
+      if (isCombobox(_this.props)) {
         _this.setInputValue(key, false);
       }
 
@@ -676,11 +661,8 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "filterOption", function (input, child, defaultFilter) {
-      if (defaultFilter === void 0) {
-        defaultFilter = _util.defaultFilterFn;
-      }
-
+    _defineProperty(_assertThisInitialized(_this), "filterOption", function (input, child) {
+      var defaultFilter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultFilterFn;
       var value = _this.state.value;
       var lastValue = value[value.length - 1];
 
@@ -740,9 +722,9 @@ function (_React$Component) {
 
 
       if (_this._focused) {
-        (0, _componentClasses.default)(rootRef).add(props.prefixCls + "-focused");
+        classes(rootRef).add("".concat(props.prefixCls, "-focused"));
       } else {
-        (0, _componentClasses.default)(rootRef).remove(props.prefixCls + "-focused");
+        classes(rootRef).remove("".concat(props.prefixCls, "-focused"));
       }
     });
 
@@ -753,7 +735,7 @@ function (_React$Component) {
         var _document = document,
             activeElement = _document.activeElement;
 
-        if (input && (open || (0, _util.isMultipleOrTagsOrCombobox)(_this.props))) {
+        if (input && (open || isMultipleOrTagsOrCombobox(_this.props))) {
           if (activeElement !== input) {
             input.focus();
             _this._focused = true;
@@ -784,7 +766,7 @@ function (_React$Component) {
         return singleValue !== selectedKey;
       });
 
-      var canMultiple = (0, _util.isMultipleOrTags)(props);
+      var canMultiple = isMultipleOrTags(props);
 
       if (canMultiple) {
         var event = selectedKey;
@@ -805,7 +787,7 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "openIfHasChildren", function () {
       var props = _this.props;
 
-      if (_react.default.Children.count(props.children) || (0, _util.isSingleMode)(props)) {
+      if (React.Children.count(props.children) || isSingleMode(props)) {
         _this.setOpenState(true);
       }
     });
@@ -827,12 +809,12 @@ function (_React$Component) {
 
       var options = _this.getOptionsBySingleValue(value);
 
-      props.onChange(vls, (0, _util.isMultipleOrTags)(_this.props) ? options : options[0]);
+      props.onChange(vls, isMultipleOrTags(_this.props) ? options : options[0]);
     });
 
     _defineProperty(_assertThisInitialized(_this), "isChildDisabled", function (key) {
-      return (0, _util.childrenToArray)(_this.props.children).some(function (child) {
-        var childValue = (0, _util.getValuePropValue)(child);
+      return childrenToArray(_this.props.children).some(function (child) {
+        var childValue = getValuePropValue(child);
         return childValue === key && child.props && child.props.disabled;
       });
     });
@@ -861,15 +843,13 @@ function (_React$Component) {
         });
         value.forEach(function (singleValue) {
           var key = singleValue;
-
-          var menuItem = _react.default.createElement(_index.Item, {
-            style: _util.UNSELECTABLE_STYLE,
+          var menuItem = React.createElement(MenuItem, {
+            style: UNSELECTABLE_STYLE,
             role: "option",
-            attribute: _util.UNSELECTABLE_ATTRIBUTE,
+            attribute: UNSELECTABLE_ATTRIBUTE,
             value: key,
             key: key
           }, key);
-
           options.push(menuItem);
           menuItems.push(menuItem);
         });
@@ -881,7 +861,7 @@ function (_React$Component) {
             // 2, filterOption is set to false
             // condition 2 does not mean the option has same value with inputValue
             var filterFn = function filterFn() {
-              return (0, _util.getValuePropValue)(option) === inputValue;
+              return getValuePropValue(option) === inputValue;
             };
 
             if (filterOption !== false) {
@@ -892,10 +872,10 @@ function (_React$Component) {
           });
 
           if (notFindInputItem) {
-            options.unshift(_react.default.createElement(_index.Item, {
-              style: _util.UNSELECTABLE_STYLE,
+            options.unshift(React.createElement(MenuItem, {
+              style: UNSELECTABLE_STYLE,
               role: "option",
-              attribute: _util.UNSELECTABLE_ATTRIBUTE,
+              attribute: UNSELECTABLE_ATTRIBUTE,
               value: inputValue,
               key: inputValue
             }, inputValue));
@@ -904,9 +884,9 @@ function (_React$Component) {
       }
 
       if (!options.length && notFoundContent) {
-        options = [_react.default.createElement(_index.Item, {
-          style: _util.UNSELECTABLE_STYLE,
-          attribute: _util.UNSELECTABLE_ATTRIBUTE,
+        options = [React.createElement(MenuItem, {
+          style: UNSELECTABLE_STYLE,
+          attribute: UNSELECTABLE_ATTRIBUTE,
           disabled: true,
           role: "option",
           value: "NOT_FOUND",
@@ -922,8 +902,7 @@ function (_React$Component) {
       var props = _this.props;
       var inputValue = _this.state.inputValue;
       var tags = props.tags;
-
-      _react.default.Children.forEach(children, function (child) {
+      React.Children.forEach(children, function (child) {
         if (!child) {
           return;
         }
@@ -941,7 +920,7 @@ function (_React$Component) {
               label = key;
             }
 
-            sel.push(_react.default.createElement(_index.ItemGroup, {
+            sel.push(React.createElement(MenuItemGroup, {
               key: key,
               title: label
             }, innerItems));
@@ -950,19 +929,18 @@ function (_React$Component) {
           return;
         }
 
-        (0, _warning.default)(child.type.isSelectOption, 'the children of `Select` should be `Select.Option` or `Select.OptGroup`, ' + ("instead of `" + (child.type.name || child.type.displayName || child.type) + "`."));
-        var childValue = (0, _util.getValuePropValue)(child);
-        (0, _util.validateOptionValue)(childValue, _this.props);
+        warning(child.type.isSelectOption, 'the children of `Select` should be `Select.Option` or `Select.OptGroup`, ' + "instead of `".concat(child.type.name || child.type.displayName || child.type, "`."));
+        var childValue = getValuePropValue(child);
+        validateOptionValue(childValue, _this.props);
 
         if (_this.filterOption(inputValue, child)) {
-          var menuItem = _react.default.createElement(_index.Item, _extends({
-            style: _util.UNSELECTABLE_STYLE,
-            attribute: _util.UNSELECTABLE_ATTRIBUTE,
+          var menuItem = React.createElement(MenuItem, _extends({
+            style: UNSELECTABLE_STYLE,
+            attribute: UNSELECTABLE_ATTRIBUTE,
             value: childValue,
             key: childValue,
             role: "option"
           }, child.props));
-
           sel.push(menuItem);
           menuItems.push(menuItem);
         }
@@ -971,7 +949,6 @@ function (_React$Component) {
           childrenKeys.push(childValue);
         }
       });
-
       return sel;
     });
 
@@ -988,11 +965,11 @@ function (_React$Component) {
           maxTagPlaceholder = props.maxTagPlaceholder,
           showSearch = props.showSearch,
           removeIcon = props.removeIcon;
-      var className = prefixCls + "-selection__rendered"; // search input is inside topControlNode in single, multiple & combobox. 2016/04/13
+      var className = "".concat(prefixCls, "-selection__rendered"); // search input is inside topControlNode in single, multiple & combobox. 2016/04/13
 
       var innerNode = null;
 
-      if ((0, _util.isSingleMode)(props)) {
+      if (isSingleMode(props)) {
         var selectedValue = null;
 
         if (value.length) {
@@ -1019,10 +996,10 @@ function (_React$Component) {
               label = _this$getOptionInfoBy3.label,
               title = _this$getOptionInfoBy3.title;
 
-          selectedValue = _react.default.createElement("div", {
+          selectedValue = React.createElement("div", {
             key: "value",
-            className: prefixCls + "-selection-selected-value",
-            title: (0, _util.toTitle)(title || label),
+            className: "".concat(prefixCls, "-selection-selected-value"),
+            title: toTitle(title || label),
             style: {
               display: showSelectedValue ? 'block' : 'none',
               opacity: opacity
@@ -1033,8 +1010,8 @@ function (_React$Component) {
         if (!showSearch) {
           innerNode = [selectedValue];
         } else {
-          innerNode = [selectedValue, _react.default.createElement("div", {
-            className: prefixCls + "-search " + prefixCls + "-search--inline",
+          innerNode = [selectedValue, React.createElement("div", {
+            className: "".concat(prefixCls, "-search ").concat(prefixCls, "-search--inline"),
             key: "input",
             style: {
               display: open ? 'block' : 'none'
@@ -1051,25 +1028,25 @@ function (_React$Component) {
 
           var omittedValues = _this.getVLForOnChange(value.slice(maxTagCount, value.length));
 
-          var content = "+ " + (value.length - maxTagCount) + " ...";
+          var content = "+ ".concat(value.length - maxTagCount, " ...");
 
           if (maxTagPlaceholder) {
             content = typeof maxTagPlaceholder === 'function' ? maxTagPlaceholder(omittedValues) : maxTagPlaceholder;
           }
 
-          maxTagPlaceholderEl = _react.default.createElement("li", _extends({
-            style: _util.UNSELECTABLE_STYLE
-          }, _util.UNSELECTABLE_ATTRIBUTE, {
-            onMouseDown: _util.preventDefaultEvent,
-            className: prefixCls + "-selection__choice " + prefixCls + "-selection__choice__disabled",
+          maxTagPlaceholderEl = React.createElement("li", _extends({
+            style: UNSELECTABLE_STYLE
+          }, UNSELECTABLE_ATTRIBUTE, {
+            onMouseDown: preventDefaultEvent,
+            className: "".concat(prefixCls, "-selection__choice ").concat(prefixCls, "-selection__choice__disabled"),
             key: 'maxTagPlaceholder',
-            title: (0, _util.toTitle)(content)
-          }), _react.default.createElement("div", {
-            className: prefixCls + "-selection__choice__content"
+            title: toTitle(content)
+          }), React.createElement("div", {
+            className: "".concat(prefixCls, "-selection__choice__content")
           }, content));
         }
 
-        if ((0, _util.isMultipleOrTags)(props)) {
+        if (isMultipleOrTags(props)) {
           selectedValueNodes = limitedCountValue.map(function (singleValue) {
             var info = _this.getOptionInfoBySingleValue(singleValue);
 
@@ -1077,28 +1054,28 @@ function (_React$Component) {
             var title = info.title || content;
 
             if (maxTagTextLength && typeof content === 'string' && content.length > maxTagTextLength) {
-              content = content.slice(0, maxTagTextLength) + "...";
+              content = "".concat(content.slice(0, maxTagTextLength), "...");
             }
 
             var disabled = _this.isChildDisabled(singleValue);
 
-            var choiceClassName = disabled ? prefixCls + "-selection__choice " + prefixCls + "-selection__choice__disabled" : prefixCls + "-selection__choice";
-            return _react.default.createElement("li", _extends({
-              style: _util.UNSELECTABLE_STYLE
-            }, _util.UNSELECTABLE_ATTRIBUTE, {
-              onMouseDown: _util.preventDefaultEvent,
+            var choiceClassName = disabled ? "".concat(prefixCls, "-selection__choice ").concat(prefixCls, "-selection__choice__disabled") : "".concat(prefixCls, "-selection__choice");
+            return React.createElement("li", _extends({
+              style: UNSELECTABLE_STYLE
+            }, UNSELECTABLE_ATTRIBUTE, {
+              onMouseDown: preventDefaultEvent,
               className: choiceClassName,
               key: singleValue,
-              title: (0, _util.toTitle)(title)
-            }), _react.default.createElement("div", {
-              className: prefixCls + "-selection__choice__content"
-            }, content), disabled ? null : _react.default.createElement("span", {
+              title: toTitle(title)
+            }), React.createElement("div", {
+              className: "".concat(prefixCls, "-selection__choice__content")
+            }, content), disabled ? null : React.createElement("span", {
               onClick: function onClick(event) {
                 _this.removeSelected(singleValue, event);
               },
-              className: prefixCls + "-selection__choice__remove"
-            }, removeIcon || _react.default.createElement("i", {
-              className: prefixCls + "-selection__choice__remove-icon"
+              className: "".concat(prefixCls, "-selection__choice__remove")
+            }, removeIcon || React.createElement("i", {
+              className: "".concat(prefixCls, "-selection__choice__remove-icon")
             }, "\xD7")));
           });
         }
@@ -1107,23 +1084,23 @@ function (_React$Component) {
           selectedValueNodes.push(maxTagPlaceholderEl);
         }
 
-        selectedValueNodes.push(_react.default.createElement("li", {
-          className: prefixCls + "-search " + prefixCls + "-search--inline",
+        selectedValueNodes.push(React.createElement("li", {
+          className: "".concat(prefixCls, "-search ").concat(prefixCls, "-search--inline"),
           key: "__input"
         }, _this.getInputElement()));
 
-        if ((0, _util.isMultipleOrTags)(props) && choiceTransitionName) {
-          innerNode = _react.default.createElement(_rcAnimate.default, {
+        if (isMultipleOrTags(props) && choiceTransitionName) {
+          innerNode = React.createElement(Animate, {
             onLeave: _this.onChoiceAnimationLeave,
             component: "ul",
             transitionName: choiceTransitionName
           }, selectedValueNodes);
         } else {
-          innerNode = _react.default.createElement("ul", null, selectedValueNodes);
+          innerNode = React.createElement("ul", null, selectedValueNodes);
         }
       }
 
-      return _react.default.createElement("div", {
+      return React.createElement("div", {
         className: className,
         ref: _this.saveTopCtrlRef
       }, _this.getPlaceholderElement(), innerNode);
@@ -1141,202 +1118,207 @@ function (_React$Component) {
       // a flag for aviod redundant getOptionsInfoFromProps call
       skipBuildOptionsInfo: true
     };
-    _this.saveInputRef = (0, _util.saveRef)(_assertThisInitialized(_this), 'inputRef');
-    _this.saveInputMirrorRef = (0, _util.saveRef)(_assertThisInitialized(_this), 'inputMirrorRef');
-    _this.saveTopCtrlRef = (0, _util.saveRef)(_assertThisInitialized(_this), 'topCtrlRef');
-    _this.saveSelectTriggerRef = (0, _util.saveRef)(_assertThisInitialized(_this), 'selectTriggerRef');
-    _this.saveRootRef = (0, _util.saveRef)(_assertThisInitialized(_this), 'rootRef');
-    _this.saveSelectionRef = (0, _util.saveRef)(_assertThisInitialized(_this), 'selectionRef');
+    _this.saveInputRef = saveRef(_assertThisInitialized(_this), 'inputRef');
+    _this.saveInputMirrorRef = saveRef(_assertThisInitialized(_this), 'inputMirrorRef');
+    _this.saveTopCtrlRef = saveRef(_assertThisInitialized(_this), 'topCtrlRef');
+    _this.saveSelectTriggerRef = saveRef(_assertThisInitialized(_this), 'selectTriggerRef');
+    _this.saveRootRef = saveRef(_assertThisInitialized(_this), 'rootRef');
+    _this.saveSelectionRef = saveRef(_assertThisInitialized(_this), 'selectionRef');
     return _this;
   }
 
-  var _proto = Select.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    if (this.props.autoFocus) {
-      this.focus();
-    }
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    if ((0, _util.isMultipleOrTags)(this.props)) {
-      var inputNode = this.getInputDOMNode();
-      var mirrorNode = this.getInputMirrorDOMNode();
-
-      if (inputNode.value) {
-        inputNode.style.width = '';
-        inputNode.style.width = mirrorNode.clientWidth + "px";
-      } else {
-        inputNode.style.width = '';
+  _createClass(Select, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.autoFocus) {
+        this.focus();
       }
     }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (isMultipleOrTags(this.props)) {
+        var inputNode = this.getInputDOMNode();
+        var mirrorNode = this.getInputMirrorDOMNode();
 
-    this.forcePopupAlign();
-  };
+        if (inputNode.value) {
+          inputNode.style.width = '';
+          inputNode.style.width = "".concat(mirrorNode.clientWidth, "px");
+        } else {
+          inputNode.style.width = '';
+        }
+      }
 
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    this.clearFocusTime();
-    this.clearBlurTime();
-
-    if (this.dropdownContainer) {
-      _reactDom.default.unmountComponentAtNode(this.dropdownContainer);
-
-      document.body.removeChild(this.dropdownContainer);
-      this.dropdownContainer = null;
+      this.forcePopupAlign();
     }
-  };
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.clearFocusTime();
+      this.clearBlurTime();
 
-  _proto.focus = function focus() {
-    if ((0, _util.isSingleMode)(this.props)) {
-      this.selectionRef.focus();
-    } else {
-      this.getInputDOMNode().focus();
+      if (this.dropdownContainer) {
+        ReactDOM.unmountComponentAtNode(this.dropdownContainer);
+        document.body.removeChild(this.dropdownContainer);
+        this.dropdownContainer = null;
+      }
     }
-  };
-
-  _proto.blur = function blur() {
-    if ((0, _util.isSingleMode)(this.props)) {
-      this.selectionRef.blur();
-    } else {
-      this.getInputDOMNode().blur();
+  }, {
+    key: "focus",
+    value: function focus() {
+      if (isSingleMode(this.props)) {
+        this.selectionRef.focus();
+      } else {
+        this.getInputDOMNode().focus();
+      }
     }
-  };
-
-  _proto.renderClear = function renderClear() {
-    var _this$props3 = this.props,
-        prefixCls = _this$props3.prefixCls,
-        allowClear = _this$props3.allowClear,
-        clearIcon = _this$props3.clearIcon;
-    var _this$state2 = this.state,
-        value = _this$state2.value,
-        inputValue = _this$state2.inputValue;
-
-    var clear = _react.default.createElement(_index2.default, _extends({
-      type: "close-circle-fill",
-      key: "clear",
-      className: prefixCls + "-selection__clear",
-      onMouseDown: _util.preventDefaultEvent,
-      style: _util.UNSELECTABLE_STYLE
-    }, _util.UNSELECTABLE_ATTRIBUTE, {
-      onClick: this.onClearSelection
-    }));
-
-    if (!allowClear) {
-      return null;
+  }, {
+    key: "blur",
+    value: function blur() {
+      if (isSingleMode(this.props)) {
+        this.selectionRef.blur();
+      } else {
+        this.getInputDOMNode().blur();
+      }
     }
+  }, {
+    key: "renderClear",
+    value: function renderClear() {
+      var _this$props3 = this.props,
+          prefixCls = _this$props3.prefixCls,
+          allowClear = _this$props3.allowClear,
+          clearIcon = _this$props3.clearIcon;
+      var _this$state2 = this.state,
+          value = _this$state2.value,
+          inputValue = _this$state2.inputValue;
+      var clear = React.createElement(Icon, _extends({
+        type: "close-circle-fill",
+        key: "clear",
+        className: "".concat(prefixCls, "-selection__clear"),
+        onMouseDown: preventDefaultEvent,
+        style: UNSELECTABLE_STYLE
+      }, UNSELECTABLE_ATTRIBUTE, {
+        onClick: this.onClearSelection
+      }));
 
-    if ((0, _util.isCombobox)(this.props)) {
-      if (inputValue) {
+      if (!allowClear) {
+        return null;
+      }
+
+      if (isCombobox(this.props)) {
+        if (inputValue) {
+          return clear;
+        }
+
+        return null;
+      }
+
+      if (inputValue || value.length) {
         return clear;
       }
 
       return null;
     }
+  }, {
+    key: "render",
+    value: function render() {
+      var _rootCls;
 
-    if (inputValue || value.length) {
-      return clear;
-    }
+      var props = this.props;
+      var multiple = isMultipleOrTags(props);
+      var state = this.state;
+      var className = props.className,
+          disabled = props.disabled,
+          prefixCls = props.prefixCls,
+          inputIcon = props.inputIcon;
+      var ctrlNode = this.renderTopControlNode();
+      var open = this.state.open;
 
-    return null;
-  };
-
-  _proto.render = function render() {
-    var _rootCls;
-
-    var props = this.props;
-    var multiple = (0, _util.isMultipleOrTags)(props);
-    var state = this.state;
-    var className = props.className,
-        disabled = props.disabled,
-        prefixCls = props.prefixCls,
-        inputIcon = props.inputIcon;
-    var ctrlNode = this.renderTopControlNode();
-    var open = this.state.open;
-
-    if (open) {
-      this._options = this.renderFilterOptions();
-    }
-
-    var realOpen = this.getRealOpenState();
-    var options = this._options || [];
-    var dataOrAriaAttributeProps = {};
-
-    for (var key in props) {
-      if (props.hasOwnProperty(key) && (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-' || key === 'role')) {
-        dataOrAriaAttributeProps[key] = props[key];
+      if (open) {
+        this._options = this.renderFilterOptions();
       }
+
+      var realOpen = this.getRealOpenState();
+      var options = this._options || [];
+      var dataOrAriaAttributeProps = {};
+
+      for (var key in props) {
+        if (props.hasOwnProperty(key) && (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-' || key === 'role')) {
+          dataOrAriaAttributeProps[key] = props[key];
+        }
+      }
+
+      var extraSelectionProps = _objectSpread({}, dataOrAriaAttributeProps);
+
+      if (!isMultipleOrTagsOrCombobox(props)) {
+        extraSelectionProps = _objectSpread({}, extraSelectionProps, {
+          onKeyDown: this.onKeyDown,
+          tabIndex: props.disabled ? -1 : 0
+        });
+      }
+
+      var rootCls = (_rootCls = {}, _defineProperty(_rootCls, className, !!className), _defineProperty(_rootCls, prefixCls, 1), _defineProperty(_rootCls, "".concat(prefixCls, "-open"), open), _defineProperty(_rootCls, "".concat(prefixCls, "-focused"), open || !!this._focused), _defineProperty(_rootCls, "".concat(prefixCls, "-combobox"), isCombobox(props)), _defineProperty(_rootCls, "".concat(prefixCls, "-disabled"), disabled), _defineProperty(_rootCls, "".concat(prefixCls, "-enabled"), !disabled), _defineProperty(_rootCls, "".concat(prefixCls, "-allow-clear"), !!props.allowClear), _defineProperty(_rootCls, "".concat(prefixCls, "-no-arrow"), !props.showArrow), _rootCls);
+      return React.createElement(SelectTrigger, {
+        onPopupFocus: this.onPopupFocus,
+        onMouseEnter: this.props.onMouseEnter,
+        onMouseLeave: this.props.onMouseLeave,
+        dropdownAlign: props.dropdownAlign,
+        dropdownClassName: props.dropdownClassName,
+        dropdownMatchSelectWidth: props.dropdownMatchSelectWidth,
+        defaultActiveFirstOption: props.defaultActiveFirstOption,
+        dropdownMenuStyle: props.dropdownMenuStyle,
+        transitionName: props.transitionName,
+        animation: props.animation,
+        prefixCls: props.prefixCls,
+        dropdownStyle: props.dropdownStyle,
+        combobox: props.combobox,
+        showSearch: props.showSearch,
+        options: options,
+        multiple: multiple,
+        disabled: disabled,
+        visible: realOpen,
+        inputValue: state.inputValue,
+        value: state.value,
+        backfillValue: state.backfillValue,
+        firstActiveValue: props.firstActiveValue,
+        onDropdownVisibleChange: this.onDropdownVisibleChange,
+        getPopupContainer: props.getPopupContainer,
+        onMenuSelect: this.onMenuSelect,
+        onMenuDeselect: this.onMenuDeselect,
+        onPopupScroll: props.onPopupScroll,
+        showAction: props.showAction,
+        ref: this.saveSelectTriggerRef
+      }, React.createElement("div", {
+        id: props.id,
+        style: props.style,
+        ref: this.saveRootRef,
+        onBlur: this.onOuterBlur,
+        onFocus: this.onOuterFocus,
+        className: classnames(rootCls)
+      }, React.createElement("div", _extends({
+        ref: this.saveSelectionRef,
+        key: "selection",
+        className: "".concat(prefixCls, "-selection\n            ").concat(prefixCls, "-selection--").concat(multiple ? 'multiple' : 'single'),
+        role: "combobox",
+        "aria-autocomplete": "list",
+        "aria-haspopup": "true",
+        "aria-expanded": realOpen
+      }, extraSelectionProps), ctrlNode, this.renderClear(), multiple || !props.showArrow ? null : React.createElement("span", _extends({
+        key: "arrow",
+        className: "".concat(prefixCls, "-arrow"),
+        style: UNSELECTABLE_STYLE
+      }, UNSELECTABLE_ATTRIBUTE, {
+        onClick: this.onArrowClick
+      }), inputIcon || React.createElement("i", {
+        className: "".concat(prefixCls, "-arrow-icon")
+      })))));
     }
-
-    var extraSelectionProps = Object.assign({}, dataOrAriaAttributeProps);
-
-    if (!(0, _util.isMultipleOrTagsOrCombobox)(props)) {
-      extraSelectionProps = Object.assign({}, extraSelectionProps, {
-        onKeyDown: this.onKeyDown,
-        tabIndex: props.disabled ? -1 : 0
-      });
-    }
-
-    var rootCls = (_rootCls = {}, _rootCls[className] = !!className, _rootCls[prefixCls] = 1, _rootCls[prefixCls + "-open"] = open, _rootCls[prefixCls + "-focused"] = open || !!this._focused, _rootCls[prefixCls + "-combobox"] = (0, _util.isCombobox)(props), _rootCls[prefixCls + "-disabled"] = disabled, _rootCls[prefixCls + "-enabled"] = !disabled, _rootCls[prefixCls + "-allow-clear"] = !!props.allowClear, _rootCls[prefixCls + "-no-arrow"] = !props.showArrow, _rootCls);
-    return _react.default.createElement(_SelectTrigger.default, {
-      onPopupFocus: this.onPopupFocus,
-      onMouseEnter: this.props.onMouseEnter,
-      onMouseLeave: this.props.onMouseLeave,
-      dropdownAlign: props.dropdownAlign,
-      dropdownClassName: props.dropdownClassName,
-      dropdownMatchSelectWidth: props.dropdownMatchSelectWidth,
-      defaultActiveFirstOption: props.defaultActiveFirstOption,
-      dropdownMenuStyle: props.dropdownMenuStyle,
-      transitionName: props.transitionName,
-      animation: props.animation,
-      prefixCls: props.prefixCls,
-      dropdownStyle: props.dropdownStyle,
-      combobox: props.combobox,
-      showSearch: props.showSearch,
-      options: options,
-      multiple: multiple,
-      disabled: disabled,
-      visible: realOpen,
-      inputValue: state.inputValue,
-      value: state.value,
-      backfillValue: state.backfillValue,
-      firstActiveValue: props.firstActiveValue,
-      onDropdownVisibleChange: this.onDropdownVisibleChange,
-      getPopupContainer: props.getPopupContainer,
-      onMenuSelect: this.onMenuSelect,
-      onMenuDeselect: this.onMenuDeselect,
-      onPopupScroll: props.onPopupScroll,
-      showAction: props.showAction,
-      ref: this.saveSelectTriggerRef
-    }, _react.default.createElement("div", {
-      id: props.id,
-      style: props.style,
-      ref: this.saveRootRef,
-      onBlur: this.onOuterBlur,
-      onFocus: this.onOuterFocus,
-      className: (0, _classnames2.default)(rootCls)
-    }, _react.default.createElement("div", _extends({
-      ref: this.saveSelectionRef,
-      key: "selection",
-      className: prefixCls + "-selection\n            " + prefixCls + "-selection--" + (multiple ? 'multiple' : 'single'),
-      role: "combobox",
-      "aria-autocomplete": "list",
-      "aria-haspopup": "true",
-      "aria-expanded": realOpen
-    }, extraSelectionProps), ctrlNode, this.renderClear(), multiple || !props.showArrow ? null : _react.default.createElement("span", _extends({
-      key: "arrow",
-      className: prefixCls + "-arrow",
-      style: _util.UNSELECTABLE_STYLE
-    }, _util.UNSELECTABLE_ATTRIBUTE, {
-      onClick: this.onArrowClick
-    }), inputIcon || _react.default.createElement("i", {
-      className: prefixCls + "-arrow-icon"
-    })))));
-  };
+  }]);
 
   return Select;
-}(_react.default.Component);
+}(React.Component);
 
-_defineProperty(Select, "propTypes", _PropTypes.SelectPropTypes);
+_defineProperty(Select, "propTypes", SelectPropTypes);
 
 _defineProperty(Select, "defaultProps", {
   prefixCls: 'rc-select',
@@ -1389,12 +1371,9 @@ _defineProperty(Select, "getDerivedStateFromProps", function (nextProps, prevSta
   return newState;
 });
 
-_defineProperty(Select, "getOptionsFromChildren", function (children, options) {
-  if (options === void 0) {
-    options = [];
-  }
-
-  _react.default.Children.forEach(children, function (child) {
+_defineProperty(Select, "getOptionsFromChildren", function (children) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  React.Children.forEach(children, function (child) {
     if (!child) {
       return;
     }
@@ -1405,7 +1384,6 @@ _defineProperty(Select, "getOptionsFromChildren", function (children, options) {
       options.push(child);
     }
   });
-
   return options;
 });
 
@@ -1413,11 +1391,11 @@ _defineProperty(Select, "getInputValueForCombobox", function (props, optionsInfo
   var value = [];
 
   if ('value' in props && !useDefaultValue) {
-    value = (0, _util.toArray)(props.value);
+    value = toArray(props.value);
   }
 
   if ('defaultValue' in props && useDefaultValue) {
-    value = (0, _util.toArray)(props.defaultValue);
+    value = toArray(props.defaultValue);
   }
 
   if (value.length) {
@@ -1430,8 +1408,8 @@ _defineProperty(Select, "getInputValueForCombobox", function (props, optionsInfo
 
   if (props.labelInValue) {
     label = value.label;
-  } else if (optionsInfo[(0, _util.getMapKey)(value)]) {
-    label = optionsInfo[(0, _util.getMapKey)(value)].label;
+  } else if (optionsInfo[getMapKey(value)]) {
+    label = optionsInfo[getMapKey(value)].label;
   }
 
   if (label === undefined) {
@@ -1442,15 +1420,15 @@ _defineProperty(Select, "getInputValueForCombobox", function (props, optionsInfo
 });
 
 _defineProperty(Select, "getLabelFromOption", function (props, option) {
-  return (0, _util.getPropValue)(option, props.optionLabelProp);
+  return getPropValue(option, props.optionLabelProp);
 });
 
 _defineProperty(Select, "getOptionsInfoFromProps", function (props, preState) {
   var options = Select.getOptionsFromChildren(props.children);
   var optionsInfo = {};
   options.forEach(function (option) {
-    var singleValue = (0, _util.getValuePropValue)(option);
-    optionsInfo[(0, _util.getMapKey)(singleValue)] = {
+    var singleValue = getValuePropValue(option);
+    optionsInfo[getMapKey(singleValue)] = {
       option: option,
       value: singleValue,
       label: Select.getLabelFromOption(props, option),
@@ -1463,7 +1441,7 @@ _defineProperty(Select, "getOptionsInfoFromProps", function (props, preState) {
     var oldOptionsInfo = preState.optionsInfo;
     var value = preState.value;
     value.forEach(function (v) {
-      var key = (0, _util.getMapKey)(v);
+      var key = getMapKey(v);
 
       if (!optionsInfo[key] && oldOptionsInfo[key] !== undefined) {
         optionsInfo[key] = oldOptionsInfo[key];
@@ -1478,11 +1456,11 @@ _defineProperty(Select, "getValueFromProps", function (props, useDefaultValue) {
   var value = [];
 
   if ('value' in props && !useDefaultValue) {
-    value = (0, _util.toArray)(props.value);
+    value = toArray(props.value);
   }
 
   if ('defaultValue' in props && useDefaultValue) {
-    value = (0, _util.toArray)(props.defaultValue);
+    value = toArray(props.defaultValue);
   }
 
   if (props.labelInValue) {
@@ -1495,6 +1473,5 @@ _defineProperty(Select, "getValueFromProps", function (props, useDefaultValue) {
 });
 
 Select.displayName = 'Select';
-(0, _reactLifecyclesCompat.polyfill)(Select);
-var _default = Select;
-exports.default = _default;
+polyfill(Select);
+export default Select;

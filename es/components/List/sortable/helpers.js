@@ -1,9 +1,3 @@
-"use strict";
-
-exports.__esModule = true;
-exports.swapArrayElements = swapArrayElements;
-exports.isMouseBeyond = isMouseBeyond;
-
 /*** Helper functions - they are decoupled because of testability */
 
 /**
@@ -12,7 +6,7 @@ exports.isMouseBeyond = isMouseBeyond;
  * @param {number} indexTo
  * @returns {array}
  */
-function swapArrayElements(items, indexFrom, indexTo) {
+export function swapArrayElements(items, indexFrom, indexTo) {
   var item = items[indexTo];
   items[indexTo] = items[indexFrom];
   items[indexFrom] = item;
@@ -26,8 +20,7 @@ function swapArrayElements(items, indexFrom, indexTo) {
  * @returns {boolean}
  */
 
-
-function isMouseBeyond(mousePos, elementPos, elementSize, moveInMiddle) {
+export function isMouseBeyond(mousePos, elementPos, elementSize, moveInMiddle) {
   var breakPoint;
 
   if (moveInMiddle) {

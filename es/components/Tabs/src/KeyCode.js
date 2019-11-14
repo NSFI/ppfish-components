@@ -1,8 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-var _default = {
+export default {
   /**
    * LEFT
    */
@@ -27,4 +23,3 @@ var _default = {
   DOWN: 40 // also NUM_SOUTH
 
 };
-exports.default = _default;

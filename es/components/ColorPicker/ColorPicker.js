@@ -1,39 +1,54 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-require("core-js/modules/es6.object.assign");
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-var _react = _interopRequireDefault(require("react"));
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-var _reactDom = require("react-dom");
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-var _rcTrigger = _interopRequireDefault(require("rc-trigger"));
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-var _classnames = _interopRequireDefault(require("classnames"));
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var _utils = require("../../utils");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-var _Panel = _interopRequireDefault(require("./Panel"));
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var _placements = _interopRequireDefault(require("./placements"));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _color = _interopRequireDefault(require("./helpers/color"));
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-var _QuickPanel = _interopRequireDefault(require("./QuickPanel"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import { findDOMNode } from 'react-dom';
+import PropTypes from 'prop-types';
+import Trigger from 'rc-trigger';
+import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
+import { KeyCode } from "../../utils";
+import ColorPickerPanel from './Panel';
+import placements from './placements';
+import Color from './helpers/color';
+import QuickPanel from './QuickPanel';
 
 function refFn(field, component) {
   this[field] = component;
@@ -48,29 +63,34 @@ function noop() {}
 var ColorPicker =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(ColorPicker, _React$Component);
+  _inherits(ColorPicker, _React$Component);
 
-  ColorPicker.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var newState = {};
+  _createClass(ColorPicker, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var newState = {};
 
-    if ('color' in nextProps) {
-      newState.color = nextProps.color;
+      if ('color' in nextProps) {
+        newState.color = nextProps.color;
+      }
+
+      if ('alpha' in nextProps && nextProps.alpha !== undefined && nextProps.alpha !== null) {
+        newState.alpha = nextProps.alpha;
+      }
+
+      return newState;
     }
-
-    if ('alpha' in nextProps && nextProps.alpha !== undefined && nextProps.alpha !== null) {
-      newState.alpha = nextProps.alpha;
-    }
-
-    return newState;
-  };
+  }]);
 
   function ColorPicker(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, ColorPicker);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ColorPicker).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (colors) {
-      _this.setState(Object.assign({}, colors), function () {
+      _this.setState(_objectSpread({}, colors), function () {
         _this.props.onChange(_this.state);
       });
     });
@@ -114,10 +134,10 @@ function (_React$Component) {
               colorHistory: colorHistory.length >= maxHistory ? [{
                 color: color,
                 alpha: alpha
-              }].concat(colorHistory.slice(0, -1)) : [{
+              }].concat(_toConsumableArray(colorHistory.slice(0, -1))) : [{
                 color: color,
                 alpha: alpha
-              }].concat(colorHistory)
+              }].concat(_toConsumableArray(colorHistory))
             });
           }
         });
@@ -125,16 +145,16 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getRootDOMNode", function () {
-      return (0, _reactDom.findDOMNode)(_assertThisInitialized(_this));
+      return findDOMNode(_assertThisInitialized(_this));
     });
 
     _defineProperty(_assertThisInitialized(_this), "getTriggerDOMNode", function () {
-      return (0, _reactDom.findDOMNode)(_this.triggerInstance);
+      return findDOMNode(_this.triggerInstance);
     });
 
     _defineProperty(_assertThisInitialized(_this), "getPickerElement", function () {
       if (_this.props.quickMode) {
-        return _react.default.createElement(_QuickPanel.default, {
+        return React.createElement(QuickPanel, {
           __useInComponent: true,
           onMount: _this.onPanelMount,
           defaultColor: _this.state.color,
@@ -149,12 +169,12 @@ function (_React$Component) {
         });
       }
 
-      return _react.default.createElement(_Panel.default, {
+      return React.createElement(ColorPickerPanel, {
         onMount: _this.onPanelMount,
         defaultColor: _this.state.color,
         alpha: _this.state.alpha,
         enableAlpha: _this.props.enableAlpha,
-        prefixCls: _this.props.prefixCls + "-panel",
+        prefixCls: "".concat(_this.props.prefixCls, "-panel"),
         onChange: _this.onChange,
         onBlur: _this.onBlur,
         mode: _this.props.mode,
@@ -167,14 +187,14 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "focus", function () {
       if (!_this.state.visible) {
-        (0, _reactDom.findDOMNode)(_assertThisInitialized(_this)).focus();
+        findDOMNode(_assertThisInitialized(_this)).focus();
       }
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleKeyDown", function (e) {
       var keyCode = e.keyCode;
 
-      if (keyCode === _utils.KeyCode.ESC && _this.props.esc || keyCode === _utils.KeyCode.ENTER) {
+      if (keyCode === KeyCode.ESC && _this.props.esc || keyCode === KeyCode.ENTER) {
         _this.setVisible(false);
       }
     });
@@ -191,100 +211,103 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = ColorPicker.prototype;
+  _createClass(ColorPicker, [{
+    key: "render",
+    value: function render() {
+      var _classNames;
 
-  _proto.render = function render() {
-    var _classNames;
+      var props = this.props;
+      var state = this.state;
+      var classes = ["".concat(props.prefixCls, "-wrap"), props.className];
 
-    var props = this.props;
-    var state = this.state;
-    var classes = [props.prefixCls + "-wrap", props.className];
+      if (state.visible) {
+        classes.push("".concat(props.prefixCls, "-open"));
+      }
 
-    if (state.visible) {
-      classes.push(props.prefixCls + "-open");
+      var children = props.children;
+
+      var _RGB = _slicedToArray(new Color(this.state.color).RGB, 3),
+          r = _RGB[0],
+          g = _RGB[1],
+          b = _RGB[2];
+
+      var RGBA = [r, g, b];
+      RGBA.push(this.state.alpha / 100);
+
+      if (children) {
+        children = React.cloneElement(children, {
+          ref: this.saveTriggerRef,
+          unselectable: 'unselectable',
+          style: _objectSpread({}, props.style, {
+            backgroundColor: "rgba(".concat(RGBA.join(','), ")")
+          }),
+          onMouseDown: prevent
+        });
+      }
+
+      var prefixCls = props.prefixCls,
+          popupStyle = props.popupStyle,
+          getPopupContainer = props.getPopupContainer,
+          align = props.align,
+          animation = props.animation,
+          disabled = props.disabled,
+          transitionName = props.transitionName,
+          quickMode = props.quickMode;
+      var arrowCls = classNames((_classNames = {}, _defineProperty(_classNames, "".concat(prefixCls, "-arrow"), true), _defineProperty(_classNames, 'quick', quickMode), _classNames));
+      return React.createElement("div", {
+        className: classes.join(' ')
+      }, React.createElement(Trigger, {
+        popup: React.createElement("div", {
+          className: "".concat(prefixCls, "-content"),
+          onKeyDown: this.handleKeyDown
+        }, React.createElement("div", {
+          className: arrowCls
+        }), React.createElement("div", {
+          className: "".concat(prefixCls, "-inner")
+        }, this.getPickerElement())),
+        popupAlign: align,
+        builtinPlacements: placements,
+        popupPlacement: 'topCenter',
+        action: disabled ? [] : ['click'],
+        destroyPopupOnHide: true,
+        getPopupContainer: getPopupContainer,
+        popupStyle: popupStyle,
+        popupAnimation: animation,
+        popupTransitionName: transitionName,
+        popupVisible: state.visible,
+        onPopupVisibleChange: this.onVisibleChangeFromTrigger,
+        prefixCls: prefixCls
+      }, children));
     }
-
-    var children = props.children;
-    var _RGB = new _color.default(this.state.color).RGB,
-        r = _RGB[0],
-        g = _RGB[1],
-        b = _RGB[2];
-    var RGBA = [r, g, b];
-    RGBA.push(this.state.alpha / 100);
-
-    if (children) {
-      children = _react.default.cloneElement(children, {
-        ref: this.saveTriggerRef,
-        unselectable: 'unselectable',
-        style: Object.assign({}, props.style, {
-          backgroundColor: "rgba(" + RGBA.join(',') + ")"
-        }),
-        onMouseDown: prevent
-      });
-    }
-
-    var prefixCls = props.prefixCls,
-        popupStyle = props.popupStyle,
-        getPopupContainer = props.getPopupContainer,
-        align = props.align,
-        animation = props.animation,
-        disabled = props.disabled,
-        transitionName = props.transitionName,
-        quickMode = props.quickMode;
-    var arrowCls = (0, _classnames.default)((_classNames = {}, _classNames[prefixCls + "-arrow"] = true, _classNames['quick'] = quickMode, _classNames));
-    return _react.default.createElement("div", {
-      className: classes.join(' ')
-    }, _react.default.createElement(_rcTrigger.default, {
-      popup: _react.default.createElement("div", {
-        className: prefixCls + "-content",
-        onKeyDown: this.handleKeyDown
-      }, _react.default.createElement("div", {
-        className: arrowCls
-      }), _react.default.createElement("div", {
-        className: prefixCls + "-inner"
-      }, this.getPickerElement())),
-      popupAlign: align,
-      builtinPlacements: _placements.default,
-      popupPlacement: 'topCenter',
-      action: disabled ? [] : ['click'],
-      destroyPopupOnHide: true,
-      getPopupContainer: getPopupContainer,
-      popupStyle: popupStyle,
-      popupAnimation: animation,
-      popupTransitionName: transitionName,
-      popupVisible: state.visible,
-      onPopupVisibleChange: this.onVisibleChangeFromTrigger,
-      prefixCls: prefixCls
-    }, children));
-  };
+  }]);
 
   return ColorPicker;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(ColorPicker, "propTypes", {
-  alpha: _propTypes.default.number,
-  children: _propTypes.default.node.isRequired,
-  className: _propTypes.default.string,
-  color: _propTypes.default.string,
-  colorMap: _propTypes.default.array,
-  defaultAlpha: _propTypes.default.number,
-  defaultColor: _propTypes.default.string,
-  disabled: _propTypes.default.bool,
-  enableAlpha: _propTypes.default.bool,
-  enableHistory: _propTypes.default.bool,
-  maxHistory: _propTypes.default.number,
-  mode: _propTypes.default.oneOf(['RGB', 'HSL', 'HSB']),
-  onChange: _propTypes.default.func,
-  onVisibleChange: _propTypes.default.func,
-  prefixCls: _propTypes.default.string.isRequired,
-  quickMode: _propTypes.default.bool,
-  style: _propTypes.default.object,
-  popupStyle: _propTypes.default.object,
-  esc: _propTypes.default.bool
+  alpha: PropTypes.number,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  color: PropTypes.string,
+  colorMap: PropTypes.array,
+  defaultAlpha: PropTypes.number,
+  defaultColor: PropTypes.string,
+  disabled: PropTypes.bool,
+  enableAlpha: PropTypes.bool,
+  enableHistory: PropTypes.bool,
+  maxHistory: PropTypes.number,
+  mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
+  onChange: PropTypes.func,
+  onVisibleChange: PropTypes.func,
+  prefixCls: PropTypes.string.isRequired,
+  quickMode: PropTypes.bool,
+  style: PropTypes.object,
+  popupStyle: PropTypes.object,
+  esc: PropTypes.bool
 });
 
 _defineProperty(ColorPicker, "defaultProps", {
-  children: _react.default.createElement("span", {
+  children: React.createElement("span", {
     className: "fishd-color-picker-trigger"
   }),
   className: '',
@@ -304,6 +327,5 @@ _defineProperty(ColorPicker, "defaultProps", {
   esc: true
 });
 
-(0, _reactLifecyclesCompat.polyfill)(ColorPicker);
-var _default = ColorPicker;
-exports.default = _default;
+polyfill(ColorPicker);
+export default ColorPicker;

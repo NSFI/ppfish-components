@@ -1,18 +1,5 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = upload;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
 function getError(option, xhr) {
-  var msg = "cannot post " + option.action + " " + xhr.status + "'";
+  var msg = "cannot post ".concat(option.action, " ").concat(xhr.status, "'");
   var err = new Error(msg);
   err.status = xhr.status;
   err.method = 'post';
@@ -45,7 +32,7 @@ function getBody(xhr) {
 // }
 
 
-function upload(option) {
+export default function upload(option) {
   var xhr = new XMLHttpRequest();
 
   if (option.onProgress && xhr.upload) {

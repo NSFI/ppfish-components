@@ -1,33 +1,14 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _index = _interopRequireDefault(require("../Icon/index.js"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import Icon from '../Icon/index.js';
+import classNames from 'classnames';
+import './style/index.less';
 
 var Trend = function Trend(props) {
   var _props$colorful = props.colorful,
@@ -41,9 +22,9 @@ var Trend = function Trend(props) {
       size = _props$size === void 0 ? 'small' : _props$size,
       style = props.style,
       value = props.value,
-      restProps = _objectWithoutPropertiesLoose(props, ["colorful", "reverseColor", "flag", "children", "className", "size", "style", "value"]);
+      restProps = _objectWithoutProperties(props, ["colorful", "reverseColor", "flag", "children", "className", "size", "style", "value"]);
 
-  var cls = (0, _classnames.default)('trend-item', {
+  var cls = classNames('trend-item', {
     'trend-item-grey': !colorful,
     'reverse-color': reverseColor && colorful,
     'normal': size == 'normal',
@@ -63,31 +44,30 @@ var Trend = function Trend(props) {
       iconType = 'trenddecline';
     }
 
-    return _react.default.createElement("span", {
+    return React.createElement("span", {
       className: flag
-    }, value && typeof value == 'string' ? "" + mark + value : _react.default.createElement(_index.default, {
+    }, value && typeof value == 'string' ? "".concat(mark).concat(value) : React.createElement(Icon, {
       type: iconType
     }));
   };
 
-  return _react.default.createElement("div", _extends({}, restProps, {
+  return React.createElement("div", _extends({}, restProps, {
     className: cls,
     title: typeof children === 'string' ? children : '',
     style: style
-  }), _react.default.createElement("span", {
+  }), React.createElement("span", {
     className: "value"
   }, children), renderFlag());
 };
 
 Trend.propTypes = {
-  className: _propTypes.default.string,
-  style: _propTypes.default.object,
-  flag: _propTypes.default.string,
-  size: _propTypes.default.string,
-  value: _propTypes.default.string,
-  colorful: _propTypes.default.bool,
-  reverseColor: _propTypes.default.bool,
-  children: _propTypes.default.node
+  className: PropTypes.string,
+  style: PropTypes.object,
+  flag: PropTypes.string,
+  size: PropTypes.string,
+  value: PropTypes.string,
+  colorful: PropTypes.bool,
+  reverseColor: PropTypes.bool,
+  children: PropTypes.node
 };
-var _default = Trend;
-exports.default = _default;
+export default Trend;

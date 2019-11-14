@@ -1,45 +1,4 @@
-"use strict";
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.constructor");
-
-require("core-js/modules/es6.regexp.replace");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _BreadcrumbItem = _interopRequireDefault(require("./BreadcrumbItem"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -64,6 +23,14 @@ var __extends = void 0 && (void 0).__extends || function () {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
 }();
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { cloneElement } from 'react';
+import warning from 'warning';
+import BreadcrumbItem from './BreadcrumbItem';
+import classNames from 'classnames';
+import Icon from '../Icon';
 
 function getBreadcrumbName(route, params) {
   if (!route.breadcrumbName) {
@@ -96,7 +63,7 @@ function (_super) {
 
   Breadcrumb.prototype.componentDidMount = function () {
     var props = this.props;
-    (0, _warning.default)(!('linkRender' in props || 'nameRender' in props), '`linkRender` and `nameRender` are removed, please use `itemRender` instead, ' + 'see: https://u.ant.design/item-render.');
+    warning(!('linkRender' in props || 'nameRender' in props), '`linkRender` and `nameRender` are removed, please use `itemRender` instead, ' + 'see: https://u.ant.design/item-render.');
   };
 
   Breadcrumb.prototype.render = function () {
@@ -128,7 +95,7 @@ function (_super) {
           paths_1.push(path);
         }
 
-        return React.createElement(_BreadcrumbItem.default, {
+        return React.createElement(BreadcrumbItem, {
           separator: separator,
           key: route.breadcrumbName || path,
           maxWidth: maxWidth
@@ -140,8 +107,8 @@ function (_super) {
           return element;
         }
 
-        (0, _warning.default)(element.type && element.type.__FISHD_BREADCRUMB_ITEM, 'Breadcrumb only accepts Breadcrumb.Item as it\'s children');
-        return (0, React.cloneElement)(element, {
+        warning(element.type && element.type.__FISHD_BREADCRUMB_ITEM, 'Breadcrumb only accepts Breadcrumb.Item as it\'s children');
+        return cloneElement(element, {
           separator: separator,
           maxWidth: maxWidth,
           key: index
@@ -149,7 +116,7 @@ function (_super) {
       });
     }
 
-    var cls = (0, _classnames.default)(className, prefixCls, {
+    var cls = classNames(className, prefixCls, {
       'small': size === 'small'
     });
     return React.createElement("div", {
@@ -160,22 +127,21 @@ function (_super) {
 
   Breadcrumb.defaultProps = {
     prefixCls: 'fishd-breadcrumb',
-    separator: React.createElement(_Icon.default, {
+    separator: React.createElement(Icon, {
       type: "arrow-line-regular"
     }),
     size: 'default'
   };
   Breadcrumb.propTypes = {
-    prefixCls: _propTypes.default.string,
-    size: _propTypes.default.string,
-    separator: _propTypes.default.node,
-    routes: _propTypes.default.array,
-    params: _propTypes.default.object,
-    linkRender: _propTypes.default.func,
-    nameRender: _propTypes.default.func
+    prefixCls: PropTypes.string,
+    size: PropTypes.string,
+    separator: PropTypes.node,
+    routes: PropTypes.array,
+    params: PropTypes.object,
+    linkRender: PropTypes.func,
+    nameRender: PropTypes.func
   };
   return Breadcrumb;
 }(React.Component);
 
-var _default = Breadcrumb;
-exports.default = _default;
+export default Breadcrumb;

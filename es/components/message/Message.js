@@ -1,33 +1,7 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.promise");
-
-require("core-js/modules/es6.object.to-string");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _RcNotification = _interopRequireDefault(require("../notification/RcNotification"));
-
-var _index = _interopRequireDefault(require("../Icon/index"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 /* global Promise */
+import * as React from 'react';
+import RcNotification from '../notification/RcNotification';
+import Icon from '../Icon/index';
 var defaultDuration = 3;
 var defaultTop;
 var messageInstance;
@@ -43,7 +17,7 @@ function getMessageInstance(callback) {
     return;
   }
 
-  _RcNotification.default.newInstance({
+  RcNotification.newInstance({
     prefixCls: prefixCls,
     transitionName: transitionName,
     style: {
@@ -97,7 +71,7 @@ function notice(content, duration, type, onClose) {
         style: {},
         content: React.createElement("div", {
           className: prefixCls + "-custom-content " + prefixCls + "-" + type
-        }, React.createElement(_index.default, {
+        }, React.createElement(Icon, {
           type: iconType,
           spinning: type === 'loading'
         }), React.createElement("span", null, content)),
@@ -120,7 +94,7 @@ function notice(content, duration, type, onClose) {
   return result;
 }
 
-var _default = {
+export default {
   info: function info(content, duration, onClose) {
     return notice(content, duration, 'info', onClose);
   },
@@ -175,4 +149,3 @@ var _default = {
     }
   }
 };
-exports.default = _default;

@@ -1,48 +1,34 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/web.dom.iterable");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-require("core-js/modules/es6.array.iterator");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-require("core-js/modules/es6.string.iterator");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require("core-js/modules/es6.weak-map");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-require("core-js/modules/es6.object.assign");
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-require("core-js/modules/es6.promise");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.function.name");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _uid = _interopRequireDefault(require("./uid"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+/* eslint react/sort-comp:0 */
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import classNames from 'classnames';
+import getUid from './uid';
+import warning from 'warning';
 var IFRAME_STYLE = {
   position: 'absolute',
   top: 0,
@@ -55,16 +41,20 @@ var IFRAME_STYLE = {
 var IframeUploader =
 /*#__PURE__*/
 function (_Component) {
-  _inheritsLoose(IframeUploader, _Component);
+  _inherits(IframeUploader, _Component);
 
   function IframeUploader() {
+    var _getPrototypeOf2;
+
     var _this;
+
+    _classCallCheck(this, IframeUploader);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(IframeUploader)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       uploading: false
@@ -95,7 +85,7 @@ function (_Component) {
         response = doc.body.innerHTML;
         props.onSuccess(response, file);
       } catch (err) {
-        (0, _warning.default)(false, "Cross domain error for Upload. Maybe server should return document.domain script.\n        See Note from https://github.com/react-component/upload");
+        warning(false, "Cross domain error for Upload. Maybe server should return document.domain script.\n        See Note from https://github.com/react-component/upload");
         response = 'cross-domain';
         props.onError(err, null, file);
       }
@@ -109,7 +99,7 @@ function (_Component) {
 
 
       var file = _this.file = {
-        uid: (0, _uid.default)(),
+        uid: getUid(),
         name: target.value
       };
 
@@ -144,213 +134,230 @@ function (_Component) {
     return _this;
   }
 
-  var _proto = IframeUploader.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    this.updateIframeWH();
-    this.initIframe();
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    this.updateIframeWH();
-  };
-
-  _proto.getIframeNode = function getIframeNode() {
-    return this.iframe;
-  };
-
-  _proto.getIframeDocument = function getIframeDocument() {
-    return this.getIframeNode().contentDocument;
-  };
-
-  _proto.getFormNode = function getFormNode() {
-    return this.getIframeDocument().getElementById('form');
-  };
-
-  _proto.getFormInputNode = function getFormInputNode() {
-    return this.getIframeDocument().getElementById('input');
-  };
-
-  _proto.getFormDataNode = function getFormDataNode() {
-    return this.getIframeDocument().getElementById('data');
-  };
-
-  _proto.getFileForMultiple = function getFileForMultiple(file) {
-    return this.props.multiple ? [file] : file;
-  };
-
-  _proto.getIframeHTML = function getIframeHTML(domain) {
-    var domainScript = '';
-    var domainInput = '';
-
-    if (domain) {
-      var script = 'script';
-      domainScript = "<" + script + ">document.domain=\"" + domain + "\";</" + script + ">";
-      domainInput = "<input name=\"_documentDomain\" value=\"" + domain + "\" />";
-    }
-
-    return "\n    <!DOCTYPE html>\n    <html>\n    <head>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <style>\n    body,html {padding:0;margin:0;border:0;overflow:hidden;}\n    </style>\n    " + domainScript + "\n    </head>\n    <body>\n    <form method=\"post\"\n    encType=\"multipart/form-data\"\n    action=\"\" id=\"form\"\n    style=\"display:block;height:9999px;position:relative;overflow:hidden;\">\n    <input id=\"input\" type=\"file\"\n     name=\"" + this.props.name + "\"\n     style=\"position:absolute;top:0;right:0;height:9999px;font-size:9999px;cursor:pointer;\"/>\n    " + domainInput + "\n    <span id=\"data\"></span>\n    </form>\n    </body>\n    </html>\n    ";
-  };
-
-  _proto.initIframeSrc = function initIframeSrc() {
-    if (this.domain) {
-      this.getIframeNode().src = "javascript:void((function(){\n        var d = document;\n        d.open();\n        d.domain='" + this.domain + "';\n        d.write('');\n        d.close();\n      })())";
-    }
-  };
-
-  _proto.initIframe = function initIframe() {
-    var iframeNode = this.getIframeNode();
-    var win = iframeNode.contentWindow;
-    var doc;
-    this.domain = this.domain || '';
-    this.initIframeSrc();
-
-    try {
-      doc = win.document;
-    } catch (e) {
-      this.domain = document.domain;
-      this.initIframeSrc();
-      win = iframeNode.contentWindow;
-      doc = win.document;
-    }
-
-    doc.open('text/html', 'replace');
-    doc.write(this.getIframeHTML(this.domain));
-    doc.close();
-    this.getFormInputNode().onchange = this.onChange;
-  };
-
-  _proto.endUpload = function endUpload() {
-    if (this.state.uploading) {
-      this.file = {}; // hack avoid batch
-
-      this.state.uploading = false; // eslint-disable-line react/no-direct-mutation-state
-
-      this.setState({
-        uploading: false
-      });
+  _createClass(IframeUploader, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.updateIframeWH();
       this.initIframe();
     }
-  };
-
-  _proto.startUpload = function startUpload() {
-    if (!this.state.uploading) {
-      this.state.uploading = true; // eslint-disable-line react/no-direct-mutation-state
-
-      this.setState({
-        uploading: true
-      });
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.updateIframeWH();
     }
-  };
+  }, {
+    key: "getIframeNode",
+    value: function getIframeNode() {
+      return this.iframe;
+    }
+  }, {
+    key: "getIframeDocument",
+    value: function getIframeDocument() {
+      return this.getIframeNode().contentDocument;
+    }
+  }, {
+    key: "getFormNode",
+    value: function getFormNode() {
+      return this.getIframeDocument().getElementById('form');
+    }
+  }, {
+    key: "getFormInputNode",
+    value: function getFormInputNode() {
+      return this.getIframeDocument().getElementById('input');
+    }
+  }, {
+    key: "getFormDataNode",
+    value: function getFormDataNode() {
+      return this.getIframeDocument().getElementById('data');
+    }
+  }, {
+    key: "getFileForMultiple",
+    value: function getFileForMultiple(file) {
+      return this.props.multiple ? [file] : file;
+    }
+  }, {
+    key: "getIframeHTML",
+    value: function getIframeHTML(domain) {
+      var domainScript = '';
+      var domainInput = '';
 
-  _proto.updateIframeWH = function updateIframeWH() {
-    var rootNode = _reactDom.default.findDOMNode(this);
-
-    var iframeNode = this.getIframeNode();
-    iframeNode.style.height = rootNode.offsetHeight + "px";
-    iframeNode.style.width = rootNode.offsetWidth + "px";
-  };
-
-  _proto.abort = function abort(file) {
-    if (file) {
-      var uid = file;
-
-      if (file && file.uid) {
-        uid = file.uid;
+      if (domain) {
+        var script = 'script';
+        domainScript = "<".concat(script, ">document.domain=\"").concat(domain, "\";</").concat(script, ">");
+        domainInput = "<input name=\"_documentDomain\" value=\"".concat(domain, "\" />");
       }
 
-      if (uid === this.file.uid) {
+      return "\n    <!DOCTYPE html>\n    <html>\n    <head>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <style>\n    body,html {padding:0;margin:0;border:0;overflow:hidden;}\n    </style>\n    ".concat(domainScript, "\n    </head>\n    <body>\n    <form method=\"post\"\n    encType=\"multipart/form-data\"\n    action=\"\" id=\"form\"\n    style=\"display:block;height:9999px;position:relative;overflow:hidden;\">\n    <input id=\"input\" type=\"file\"\n     name=\"").concat(this.props.name, "\"\n     style=\"position:absolute;top:0;right:0;height:9999px;font-size:9999px;cursor:pointer;\"/>\n    ").concat(domainInput, "\n    <span id=\"data\"></span>\n    </form>\n    </body>\n    </html>\n    ");
+    }
+  }, {
+    key: "initIframeSrc",
+    value: function initIframeSrc() {
+      if (this.domain) {
+        this.getIframeNode().src = "javascript:void((function(){\n        var d = document;\n        d.open();\n        d.domain='".concat(this.domain, "';\n        d.write('');\n        d.close();\n      })())");
+      }
+    }
+  }, {
+    key: "initIframe",
+    value: function initIframe() {
+      var iframeNode = this.getIframeNode();
+      var win = iframeNode.contentWindow;
+      var doc;
+      this.domain = this.domain || '';
+      this.initIframeSrc();
+
+      try {
+        doc = win.document;
+      } catch (e) {
+        this.domain = document.domain;
+        this.initIframeSrc();
+        win = iframeNode.contentWindow;
+        doc = win.document;
+      }
+
+      doc.open('text/html', 'replace');
+      doc.write(this.getIframeHTML(this.domain));
+      doc.close();
+      this.getFormInputNode().onchange = this.onChange;
+    }
+  }, {
+    key: "endUpload",
+    value: function endUpload() {
+      if (this.state.uploading) {
+        this.file = {}; // hack avoid batch
+
+        this.state.uploading = false; // eslint-disable-line react/no-direct-mutation-state
+
+        this.setState({
+          uploading: false
+        });
+        this.initIframe();
+      }
+    }
+  }, {
+    key: "startUpload",
+    value: function startUpload() {
+      if (!this.state.uploading) {
+        this.state.uploading = true; // eslint-disable-line react/no-direct-mutation-state
+
+        this.setState({
+          uploading: true
+        });
+      }
+    }
+  }, {
+    key: "updateIframeWH",
+    value: function updateIframeWH() {
+      var rootNode = ReactDOM.findDOMNode(this);
+      var iframeNode = this.getIframeNode();
+      iframeNode.style.height = "".concat(rootNode.offsetHeight, "px");
+      iframeNode.style.width = "".concat(rootNode.offsetWidth, "px");
+    }
+  }, {
+    key: "abort",
+    value: function abort(file) {
+      if (file) {
+        var uid = file;
+
+        if (file && file.uid) {
+          uid = file.uid;
+        }
+
+        if (uid === this.file.uid) {
+          this.endUpload();
+        }
+      } else {
         this.endUpload();
       }
-    } else {
-      this.endUpload();
     }
-  };
+  }, {
+    key: "post",
+    value: function post(file) {
+      var _this2 = this;
 
-  _proto.post = function post(file) {
-    var _this2 = this;
+      var formNode = this.getFormNode();
+      var dataSpan = this.getFormDataNode();
+      var data = this.props.data;
+      var onStart = this.props.onStart;
 
-    var formNode = this.getFormNode();
-    var dataSpan = this.getFormDataNode();
-    var data = this.props.data;
-    var onStart = this.props.onStart;
-
-    if (typeof data === 'function') {
-      data = data(file);
-    }
-
-    var inputs = document.createDocumentFragment();
-
-    for (var key in data) {
-      if (data.hasOwnProperty(key)) {
-        var input = document.createElement('input');
-        input.setAttribute('name', key);
-        input.value = data[key];
-        inputs.appendChild(input);
-      }
-    }
-
-    dataSpan.appendChild(inputs);
-    new Promise(function (resolve) {
-      var action = _this2.props.action;
-
-      if (typeof action === 'function') {
-        return resolve(action(file));
+      if (typeof data === 'function') {
+        data = data(file);
       }
 
-      resolve(action);
-    }).then(function (action) {
-      formNode.setAttribute('action', action);
-      formNode.submit();
-      dataSpan.innerHTML = '';
-      onStart(file);
-    });
-  };
+      var inputs = document.createDocumentFragment();
 
-  _proto.render = function render() {
-    var _classNames;
+      for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+          var input = document.createElement('input');
+          input.setAttribute('name', key);
+          input.value = data[key];
+          inputs.appendChild(input);
+        }
+      }
 
-    var _this$props = this.props,
-        Tag = _this$props.component,
-        disabled = _this$props.disabled,
-        className = _this$props.className,
-        prefixCls = _this$props.prefixCls,
-        children = _this$props.children,
-        style = _this$props.style;
-    var iframeStyle = Object.assign({}, IFRAME_STYLE, {
-      display: this.state.uploading || disabled ? 'none' : ''
-    });
-    var cls = (0, _classnames.default)((_classNames = {}, _classNames[prefixCls] = true, _classNames[prefixCls + "-disabled"] = disabled, _classNames[className] = className, _classNames));
-    return _react.default.createElement(Tag, {
-      className: cls,
-      style: Object.assign({
-        position: 'relative',
-        zIndex: 0
-      }, style)
-    }, _react.default.createElement("iframe", {
-      ref: this.saveIframe,
-      onLoad: this.onLoad,
-      style: iframeStyle
-    }), children);
-  };
+      dataSpan.appendChild(inputs);
+      new Promise(function (resolve) {
+        var action = _this2.props.action;
+
+        if (typeof action === 'function') {
+          return resolve(action(file));
+        }
+
+        resolve(action);
+      }).then(function (action) {
+        formNode.setAttribute('action', action);
+        formNode.submit();
+        dataSpan.innerHTML = '';
+        onStart(file);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames;
+
+      var _this$props = this.props,
+          Tag = _this$props.component,
+          disabled = _this$props.disabled,
+          className = _this$props.className,
+          prefixCls = _this$props.prefixCls,
+          children = _this$props.children,
+          style = _this$props.style;
+
+      var iframeStyle = _objectSpread({}, IFRAME_STYLE, {
+        display: this.state.uploading || disabled ? 'none' : ''
+      });
+
+      var cls = classNames((_classNames = {}, _defineProperty(_classNames, prefixCls, true), _defineProperty(_classNames, "".concat(prefixCls, "-disabled"), disabled), _defineProperty(_classNames, className, className), _classNames));
+      return React.createElement(Tag, {
+        className: cls,
+        style: _objectSpread({
+          position: 'relative',
+          zIndex: 0
+        }, style)
+      }, React.createElement("iframe", {
+        ref: this.saveIframe,
+        onLoad: this.onLoad,
+        style: iframeStyle
+      }), children);
+    }
+  }]);
 
   return IframeUploader;
-}(_react.Component);
+}(Component);
 
 _defineProperty(IframeUploader, "propTypes", {
-  component: _propTypes.default.string,
-  style: _propTypes.default.object,
-  disabled: _propTypes.default.bool,
-  prefixCls: _propTypes.default.string,
-  className: _propTypes.default.string,
-  accept: _propTypes.default.string,
-  onStart: _propTypes.default.func,
-  multiple: _propTypes.default.bool,
-  children: _propTypes.default.node,
-  data: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.func]),
-  action: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
-  name: _propTypes.default.string
+  component: PropTypes.string,
+  style: PropTypes.object,
+  disabled: PropTypes.bool,
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
+  accept: PropTypes.string,
+  onStart: PropTypes.func,
+  multiple: PropTypes.bool,
+  children: PropTypes.node,
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  action: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  name: PropTypes.string
 });
 
-var _default = IframeUploader;
-exports.default = _default;
+export default IframeUploader;

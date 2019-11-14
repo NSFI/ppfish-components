@@ -1,39 +1,48 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _react = _interopRequireDefault(require("react"));
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 var ContainerRender =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(ContainerRender, _React$Component);
+  _inherits(ContainerRender, _React$Component);
 
   function ContainerRender() {
+    var _getPrototypeOf2;
+
     var _this;
+
+    _classCallCheck(this, ContainerRender);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ContainerRender)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "removeContainer", function () {
       if (_this.container) {
-        _reactDom.default.unmountComponentAtNode(_this.container);
+        ReactDOM.unmountComponentAtNode(_this.container);
 
         _this.container.parentNode.removeChild(_this.container);
 
@@ -54,7 +63,7 @@ function (_React$Component) {
           _this.container = getContainer();
         }
 
-        _reactDom.default.unstable_renderSubtreeIntoContainer(parent, getComponent(props), _this.container, function callback() {
+        ReactDOM.unstable_renderSubtreeIntoContainer(parent, getComponent(props), _this.container, function callback() {
           if (ready) {
             ready.call(this);
           }
@@ -65,47 +74,49 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = ContainerRender.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    if (this.props.autoMount) {
-      this.renderComponent();
+  _createClass(ContainerRender, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.autoMount) {
+        this.renderComponent();
+      }
     }
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    if (this.props.autoMount) {
-      this.renderComponent();
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.props.autoMount) {
+        this.renderComponent();
+      }
     }
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    if (this.props.autoDestroy) {
-      this.removeContainer();
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (this.props.autoDestroy) {
+        this.removeContainer();
+      }
     }
-  };
-
-  _proto.render = function render() {
-    return this.props.children({
-      renderComponent: this.renderComponent,
-      removeContainer: this.removeContainer
-    });
-  };
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.children({
+        renderComponent: this.renderComponent,
+        removeContainer: this.removeContainer
+      });
+    }
+  }]);
 
   return ContainerRender;
-}(_react.default.Component);
-
-exports.default = ContainerRender;
+}(React.Component);
 
 _defineProperty(ContainerRender, "propTypes", {
-  autoMount: _propTypes.default.bool,
-  autoDestroy: _propTypes.default.bool,
-  visible: _propTypes.default.bool,
-  forceRender: _propTypes.default.bool,
-  parent: _propTypes.default.node,
-  getComponent: _propTypes.default.func.isRequired,
-  getContainer: _propTypes.default.func.isRequired,
-  children: _propTypes.default.func.isRequired
+  autoMount: PropTypes.bool,
+  autoDestroy: PropTypes.bool,
+  visible: PropTypes.bool,
+  forceRender: PropTypes.bool,
+  parent: PropTypes.node,
+  getComponent: PropTypes.func.isRequired,
+  getContainer: PropTypes.func.isRequired,
+  children: PropTypes.func.isRequired
 });
 
 _defineProperty(ContainerRender, "defaultProps", {
@@ -113,3 +124,5 @@ _defineProperty(ContainerRender, "defaultProps", {
   autoDestroy: true,
   forceRender: false
 });
+
+export { ContainerRender as default };

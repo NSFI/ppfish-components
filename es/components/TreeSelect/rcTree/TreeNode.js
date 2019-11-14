@@ -1,46 +1,41 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.object.assign");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _index = _interopRequireDefault(require("../../Spin/index.js"));
-
-var _contextTypes = require("./contextTypes");
-
-var _util = require("./util");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Animate from 'rc-animate';
+import { polyfill } from 'react-lifecycles-compat';
+import Spin from '../../Spin/index.js';
+import { nodeContextTypes } from './contextTypes';
+import { toArray, getNodeChildren, getDataAndAria, mapChildren, warnOnlyTreeNode } from './util';
 var ICON_OPEN = 'open';
 var ICON_CLOSE = 'close';
 var defaultTitle = '---';
@@ -48,12 +43,14 @@ var defaultTitle = '---';
 var TreeNode =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(TreeNode, _React$Component);
+  _inherits(TreeNode, _React$Component);
 
   function TreeNode(_props) {
     var _this;
 
-    _this = _React$Component.call(this, _props) || this;
+    _classCallCheck(this, TreeNode);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TreeNode).call(this, _props));
 
     _defineProperty(_assertThisInitialized(_this), "onSelectorClick", function (e) {
       // Click trigger before select/check operation
@@ -180,13 +177,13 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "getNodeChildren", function () {
       var children = _this.props.children;
-      var originList = (0, _util.toArray)(children).filter(function (node) {
+      var originList = toArray(children).filter(function (node) {
         return node;
       });
-      var targetList = (0, _util.getNodeChildren)(originList);
+      var targetList = getNodeChildren(originList);
 
       if (originList.length !== targetList.length) {
-        (0, _util.warnOnlyTreeNode)();
+        warnOnlyTreeNode();
       }
 
       return targetList;
@@ -255,18 +252,18 @@ function (_React$Component) {
       var switcherIcon = switcherIconFromProps || switcherIconFromCtx;
 
       if (_this.isLeaf()) {
-        return _react.default.createElement("span", {
-          className: (0, _classnames.default)(prefixCls + "-switcher", prefixCls + "-switcher-noop")
-        }, typeof switcherIcon === 'function' ? _react.default.createElement(switcherIcon, Object.assign({}, _this.props, {
+        return React.createElement("span", {
+          className: classNames("".concat(prefixCls, "-switcher"), "".concat(prefixCls, "-switcher-noop"))
+        }, typeof switcherIcon === 'function' ? React.createElement(switcherIcon, _objectSpread({}, _this.props, {
           isLeaf: true
         })) : switcherIcon);
       }
 
-      var switcherCls = (0, _classnames.default)(prefixCls + "-switcher", prefixCls + "-switcher_" + (expanded ? ICON_OPEN : ICON_CLOSE));
-      return _react.default.createElement("span", {
+      var switcherCls = classNames("".concat(prefixCls, "-switcher"), "".concat(prefixCls, "-switcher_").concat(expanded ? ICON_OPEN : ICON_CLOSE));
+      return React.createElement("span", {
         onClick: _this.onExpand,
         className: switcherCls
-      }, typeof switcherIcon === 'function' ? _react.default.createElement(switcherIcon, Object.assign({}, _this.props, {
+      }, typeof switcherIcon === 'function' ? React.createElement(switcherIcon, _objectSpread({}, _this.props, {
         isLeaf: false
       })) : switcherIcon);
     });
@@ -285,8 +282,8 @@ function (_React$Component) {
       if (!checkable) return null; // [Legacy] Custom element should be separate with `checkable` in future
 
       var $custom = typeof checkable !== 'boolean' ? checkable : null;
-      return _react.default.createElement("span", {
-        className: (0, _classnames.default)(prefixCls + "-checkbox", checked && prefixCls + "-checkbox-checked", !checked && halfChecked && prefixCls + "-checkbox-indeterminate", (disabled || disableCheckbox) && prefixCls + "-checkbox-disabled"),
+      return React.createElement("span", {
+        className: classNames("".concat(prefixCls, "-checkbox"), checked && "".concat(prefixCls, "-checkbox-checked"), !checked && halfChecked && "".concat(prefixCls, "-checkbox-indeterminate"), (disabled || disableCheckbox) && "".concat(prefixCls, "-checkbox-disabled")),
         onClick: _this.onCheck
       }, $custom);
     });
@@ -305,20 +302,20 @@ function (_React$Component) {
           loadingIcon = null;
 
       if (showIcon && currentIcon) {
-        customIcon = _react.default.createElement("span", {
-          className: (0, _classnames.default)(prefixCls + "-iconEle", prefixCls + "-icon__customize")
-        }, typeof currentIcon === 'function' ? _react.default.createElement(currentIcon, Object.assign({}, _this.props)) : currentIcon);
+        customIcon = React.createElement("span", {
+          className: classNames("".concat(prefixCls, "-iconEle"), "".concat(prefixCls, "-icon__customize"))
+        }, typeof currentIcon === 'function' ? React.createElement(currentIcon, _objectSpread({}, _this.props)) : currentIcon);
       }
 
       if (loadData && loading) {
-        loadingIcon = _react.default.createElement(_index.default, {
+        loadingIcon = React.createElement(Spin, {
           className: prefixCls + '-spinning',
           size: "small"
         });
       }
 
-      return _react.default.createElement("span", {
-        className: prefixCls + "-iconCtner"
+      return React.createElement("span", {
+        className: "".concat(prefixCls, "-iconCtner")
       }, loadingIcon, customIcon);
       /* 废弃的 loading icon
       return (
@@ -344,18 +341,17 @@ function (_React$Component) {
 
       var disabled = _this.isDisabled();
 
-      var wrapClass = prefixCls + "-node-content-wrapper";
+      var wrapClass = "".concat(prefixCls, "-node-content-wrapper");
 
       var $icon = _this.renderIcon();
 
-      var $title = _react.default.createElement("span", {
-        className: prefixCls + "-title"
+      var $title = React.createElement("span", {
+        className: "".concat(prefixCls, "-title")
       }, title);
-
-      return _react.default.createElement("span", {
+      return React.createElement("span", {
         ref: _this.setSelectHandle,
         title: typeof title === 'string' ? title : '',
-        className: (0, _classnames.default)("" + wrapClass, wrapClass + "-" + (_this.getNodeState() || 'normal'), !disabled && (selected || dragNodeHighlight) && prefixCls + "-node-selected", !disabled && draggable && 'draggable'),
+        className: classNames("".concat(wrapClass), "".concat(wrapClass, "-").concat(_this.getNodeState() || 'normal'), !disabled && (selected || dragNodeHighlight) && "".concat(prefixCls, "-node-selected"), !disabled && draggable && 'draggable'),
         draggable: !disabled && draggable || undefined,
         "aria-grabbed": !disabled && draggable || undefined,
         onMouseEnter: _this.onMouseEnter,
@@ -380,8 +376,8 @@ function (_React$Component) {
 
       if (openTransitionName) {
         animProps.transitionName = openTransitionName;
-      } else if (typeof openAnimation === 'object') {
-        animProps.animation = Object.assign({}, openAnimation);
+      } else if (_typeof(openAnimation) === 'object') {
+        animProps.animation = _objectSpread({}, openAnimation);
       } // Children TreeNode
 
 
@@ -394,16 +390,16 @@ function (_React$Component) {
       var $children;
 
       if (expanded) {
-        $children = _react.default.createElement("ul", {
-          className: (0, _classnames.default)(prefixCls + "-child-tree", expanded && prefixCls + "-child-tree-open"),
+        $children = React.createElement("ul", {
+          className: classNames("".concat(prefixCls, "-child-tree"), expanded && "".concat(prefixCls, "-child-tree-open")),
           "data-expanded": expanded,
           role: "group"
-        }, (0, _util.mapChildren)(nodeList, function (node, index) {
+        }, mapChildren(nodeList, function (node, index) {
           return renderTreeNode(node, index, pos);
         }));
       }
 
-      return _react.default.createElement(_rcAnimate.default, _extends({}, animProps, {
+      return React.createElement(Animate, _extends({}, animProps, {
         showProp: "data-expanded",
         component: ""
       }), $children);
@@ -415,114 +411,118 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = TreeNode.prototype;
+  _createClass(TreeNode, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      return _objectSpread({}, this.context, {
+        rcTreeNode: {// onUpCheckConduct: this.onUpCheckConduct,
+        }
+      });
+    } // Isomorphic needn't load data in server side
 
-  _proto.getChildContext = function getChildContext() {
-    return Object.assign({}, this.context, {
-      rcTreeNode: {// onUpCheckConduct: this.onUpCheckConduct,
-      }
-    });
-  } // Isomorphic needn't load data in server side
-  ;
-
-  _proto.componentDidMount = function componentDidMount() {
-    this.syncLoadData(this.props);
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    this.syncLoadData(this.props);
-  };
-
-  _proto.isSelectable = function isSelectable() {
-    var selectable = this.props.selectable;
-    var treeSelectable = this.context.rcTree.selectable; // Ignore when selectable is undefined or null
-
-    if (typeof selectable === 'boolean') {
-      return selectable;
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.syncLoadData(this.props);
     }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.syncLoadData(this.props);
+    }
+  }, {
+    key: "isSelectable",
+    value: function isSelectable() {
+      var selectable = this.props.selectable;
+      var treeSelectable = this.context.rcTree.selectable; // Ignore when selectable is undefined or null
 
-    return treeSelectable;
-  } // Load data to avoid default expanded tree without data
-  ;
+      if (typeof selectable === 'boolean') {
+        return selectable;
+      }
 
-  _proto.render = function render() {
-    var _classNames;
+      return treeSelectable;
+    } // Load data to avoid default expanded tree without data
 
-    var loading = this.props.loading;
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames;
 
-    var _this$props8 = this.props,
-        className = _this$props8.className,
-        style = _this$props8.style,
-        dragOver = _this$props8.dragOver,
-        dragOverGapTop = _this$props8.dragOverGapTop,
-        dragOverGapBottom = _this$props8.dragOverGapBottom,
-        isLeaf = _this$props8.isLeaf,
-        expanded = _this$props8.expanded,
-        selected = _this$props8.selected,
-        checked = _this$props8.checked,
-        halfChecked = _this$props8.halfChecked,
-        otherProps = _objectWithoutPropertiesLoose(_this$props8, ["className", "style", "dragOver", "dragOverGapTop", "dragOverGapBottom", "isLeaf", "expanded", "selected", "checked", "halfChecked"]);
+      var loading = this.props.loading;
 
-    var _this$context$rcTree8 = this.context.rcTree,
-        prefixCls = _this$context$rcTree8.prefixCls,
-        filterTreeNode = _this$context$rcTree8.filterTreeNode,
-        draggable = _this$context$rcTree8.draggable;
-    var disabled = this.isDisabled();
-    var dataOrAriaAttributeProps = (0, _util.getDataAndAria)(otherProps);
-    return _react.default.createElement("li", _extends({
-      className: (0, _classnames.default)(className, (_classNames = {}, _classNames[prefixCls + "-treenode-disabled"] = disabled, _classNames[prefixCls + "-treenode-switcher-" + (expanded ? 'open' : 'close')] = !isLeaf, _classNames[prefixCls + "-treenode-checkbox-checked"] = checked, _classNames[prefixCls + "-treenode-checkbox-indeterminate"] = halfChecked, _classNames[prefixCls + "-treenode-selected"] = selected, _classNames[prefixCls + "-treenode-loading"] = loading, _classNames['drag-over'] = !disabled && dragOver, _classNames['drag-over-gap-top'] = !disabled && dragOverGapTop, _classNames['drag-over-gap-bottom'] = !disabled && dragOverGapBottom, _classNames['filter-node'] = filterTreeNode && filterTreeNode(this), _classNames)),
-      style: style,
-      role: "treeitem",
-      onDragEnter: draggable ? this.onDragEnter : undefined,
-      onDragOver: draggable ? this.onDragOver : undefined,
-      onDragLeave: draggable ? this.onDragLeave : undefined,
-      onDrop: draggable ? this.onDrop : undefined,
-      onDragEnd: draggable ? this.onDragEnd : undefined
-    }, dataOrAriaAttributeProps), this.renderSwitcher(), this.renderCheckbox(), this.renderSelector(), this.renderChildren());
-  };
+      var _this$props8 = this.props,
+          className = _this$props8.className,
+          style = _this$props8.style,
+          dragOver = _this$props8.dragOver,
+          dragOverGapTop = _this$props8.dragOverGapTop,
+          dragOverGapBottom = _this$props8.dragOverGapBottom,
+          isLeaf = _this$props8.isLeaf,
+          expanded = _this$props8.expanded,
+          selected = _this$props8.selected,
+          checked = _this$props8.checked,
+          halfChecked = _this$props8.halfChecked,
+          otherProps = _objectWithoutProperties(_this$props8, ["className", "style", "dragOver", "dragOverGapTop", "dragOverGapBottom", "isLeaf", "expanded", "selected", "checked", "halfChecked"]);
+
+      var _this$context$rcTree8 = this.context.rcTree,
+          prefixCls = _this$context$rcTree8.prefixCls,
+          filterTreeNode = _this$context$rcTree8.filterTreeNode,
+          draggable = _this$context$rcTree8.draggable;
+      var disabled = this.isDisabled();
+      var dataOrAriaAttributeProps = getDataAndAria(otherProps);
+      return React.createElement("li", _extends({
+        className: classNames(className, (_classNames = {}, _defineProperty(_classNames, "".concat(prefixCls, "-treenode-disabled"), disabled), _defineProperty(_classNames, "".concat(prefixCls, "-treenode-switcher-").concat(expanded ? 'open' : 'close'), !isLeaf), _defineProperty(_classNames, "".concat(prefixCls, "-treenode-checkbox-checked"), checked), _defineProperty(_classNames, "".concat(prefixCls, "-treenode-checkbox-indeterminate"), halfChecked), _defineProperty(_classNames, "".concat(prefixCls, "-treenode-selected"), selected), _defineProperty(_classNames, "".concat(prefixCls, "-treenode-loading"), loading), _defineProperty(_classNames, 'drag-over', !disabled && dragOver), _defineProperty(_classNames, 'drag-over-gap-top', !disabled && dragOverGapTop), _defineProperty(_classNames, 'drag-over-gap-bottom', !disabled && dragOverGapBottom), _defineProperty(_classNames, 'filter-node', filterTreeNode && filterTreeNode(this)), _classNames)),
+        style: style,
+        role: "treeitem",
+        onDragEnter: draggable ? this.onDragEnter : undefined,
+        onDragOver: draggable ? this.onDragOver : undefined,
+        onDragLeave: draggable ? this.onDragLeave : undefined,
+        onDrop: draggable ? this.onDrop : undefined,
+        onDragEnd: draggable ? this.onDragEnd : undefined
+      }, dataOrAriaAttributeProps), this.renderSwitcher(), this.renderCheckbox(), this.renderSelector(), this.renderChildren());
+    }
+  }]);
 
   return TreeNode;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(TreeNode, "propTypes", {
-  eventKey: _propTypes.default.string,
+  eventKey: PropTypes.string,
   // Pass by parent `cloneElement`
-  prefixCls: _propTypes.default.string,
-  className: _propTypes.default.string,
-  style: _propTypes.default.object,
-  root: _propTypes.default.object,
-  onSelect: _propTypes.default.func,
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  root: PropTypes.object,
+  onSelect: PropTypes.func,
   // By parent
-  expanded: _propTypes.default.bool,
-  selected: _propTypes.default.bool,
-  checked: _propTypes.default.bool,
-  loaded: _propTypes.default.bool,
-  loading: _propTypes.default.bool,
-  halfChecked: _propTypes.default.bool,
-  children: _propTypes.default.node,
-  title: _propTypes.default.node,
-  pos: _propTypes.default.string,
-  dragOver: _propTypes.default.bool,
-  dragOverGapTop: _propTypes.default.bool,
-  dragOverGapBottom: _propTypes.default.bool,
+  expanded: PropTypes.bool,
+  selected: PropTypes.bool,
+  checked: PropTypes.bool,
+  loaded: PropTypes.bool,
+  loading: PropTypes.bool,
+  halfChecked: PropTypes.bool,
+  children: PropTypes.node,
+  title: PropTypes.node,
+  pos: PropTypes.string,
+  dragOver: PropTypes.bool,
+  dragOverGapTop: PropTypes.bool,
+  dragOverGapBottom: PropTypes.bool,
   // By user
-  isLeaf: _propTypes.default.bool,
-  selectable: _propTypes.default.bool,
-  disabled: _propTypes.default.bool,
-  disableCheckbox: _propTypes.default.bool,
-  icon: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.func]),
-  switcherIcon: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.func])
+  isLeaf: PropTypes.bool,
+  selectable: PropTypes.bool,
+  disabled: PropTypes.bool,
+  disableCheckbox: PropTypes.bool,
+  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  switcherIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func])
 });
 
-_defineProperty(TreeNode, "contextTypes", _contextTypes.nodeContextTypes);
+_defineProperty(TreeNode, "contextTypes", nodeContextTypes);
 
-_defineProperty(TreeNode, "childContextTypes", _contextTypes.nodeContextTypes);
+_defineProperty(TreeNode, "childContextTypes", nodeContextTypes);
 
 _defineProperty(TreeNode, "defaultProps", {
   title: defaultTitle
 });
 
 TreeNode.isTreeNode = 1;
-(0, _reactLifecyclesCompat.polyfill)(TreeNode);
-var _default = TreeNode;
-exports.default = _default;
+polyfill(TreeNode);
+export default TreeNode;

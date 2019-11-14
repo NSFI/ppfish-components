@@ -1,86 +1,83 @@
-"use strict";
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _rcTrigger = _interopRequireDefault(require("rc-trigger"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _Menus = _interopRequireDefault(require("./Menus"));
-
-var _utils = require("../../../utils");
-
-var _arrayTreeFilter = _interopRequireDefault(require("array-tree-filter"));
-
-var _placements = _interopRequireDefault(require("./placements"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React, { Component, cloneElement } from 'react';
+import PropTypes from 'prop-types';
+import Trigger from 'rc-trigger';
+import { polyfill } from 'react-lifecycles-compat';
+import Menus from './Menus';
+import { KeyCode, shallowEqualArrays } from '../../../utils';
+import arrayTreeFilter from 'array-tree-filter';
+import BUILT_IN_PLACEMENTS from './placements';
 
 var Cascader =
 /*#__PURE__*/
 function (_Component) {
-  _inheritsLoose(Cascader, _Component);
+  _inherits(Cascader, _Component);
 
-  Cascader.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var _prevState$prevProps = prevState.prevProps,
-        prevProps = _prevState$prevProps === void 0 ? {} : _prevState$prevProps;
-    var newState = {
-      prevProps: nextProps
-    };
+  _createClass(Cascader, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var _prevState$prevProps = prevState.prevProps,
+          prevProps = _prevState$prevProps === void 0 ? {} : _prevState$prevProps;
+      var newState = {
+        prevProps: nextProps
+      };
 
-    if ('value' in nextProps && !(0, _utils.shallowEqualArrays)(prevProps.value, nextProps.value)) {
-      newState.value = nextProps.value || []; // allow activeValue diff from value
-      // https://github.com/ant-design/ant-design/issues/2767
+      if ('value' in nextProps && !shallowEqualArrays(prevProps.value, nextProps.value)) {
+        newState.value = nextProps.value || []; // allow activeValue diff from value
+        // https://github.com/ant-design/ant-design/issues/2767
 
-      if (!('loadData' in nextProps)) {
-        newState.activeValue = nextProps.value || [];
+        if (!('loadData' in nextProps)) {
+          newState.activeValue = nextProps.value || [];
+        }
       }
-    }
 
-    if ('popupVisible' in nextProps) {
-      newState.popupVisible = nextProps.popupVisible;
-    }
+      if ('popupVisible' in nextProps) {
+        newState.popupVisible = nextProps.popupVisible;
+      }
 
-    return newState;
-  };
+      return newState;
+    }
+  }]);
 
   function Cascader(props) {
     var _this;
 
-    _this = _Component.call(this, props) || this;
+    _classCallCheck(this, Cascader);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Cascader).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "setPopupVisible", function (popupVisible) {
       if (!('popupVisible' in _this.props)) {
@@ -100,7 +97,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChange", function (options, setProps, e) {
-      if (e.type !== 'keydown' || e.keyCode === _utils.KeyCode.ENTER) {
+      if (e.type !== 'keydown' || e.keyCode === KeyCode.ENTER) {
         _this.props.onChange(options.map(function (o) {
           return o[_this.getFieldName('value')];
         }), options);
@@ -177,7 +174,7 @@ function (_Component) {
 
       newState.activeValue = activeValue; //  not change the value by keyboard
 
-      if ('value' in _this.props || e.type === 'keydown' && e.keyCode !== _utils.KeyCode.ENTER) {
+      if ('value' in _this.props || e.type === 'keydown' && e.keyCode !== KeyCode.ENTER) {
         delete newState.value;
       }
 
@@ -193,7 +190,8 @@ function (_Component) {
         return;
       }
 
-      var activeValue = [].concat(_this.state.activeValue);
+      var activeValue = _toConsumableArray(_this.state.activeValue);
+
       var currentLevel = activeValue.length - 1 < 0 ? 0 : activeValue.length - 1;
 
       var currentOptions = _this.getCurrentLevelOptions();
@@ -202,22 +200,22 @@ function (_Component) {
         return o[_this.getFieldName('value')];
       }).indexOf(activeValue[currentLevel]);
 
-      if (e.keyCode !== _utils.KeyCode.DOWN && e.keyCode !== _utils.KeyCode.UP && e.keyCode !== _utils.KeyCode.LEFT && e.keyCode !== _utils.KeyCode.RIGHT && e.keyCode !== _utils.KeyCode.ENTER && e.keyCode !== _utils.KeyCode.BACKSPACE && e.keyCode !== _utils.KeyCode.ESC) {
+      if (e.keyCode !== KeyCode.DOWN && e.keyCode !== KeyCode.UP && e.keyCode !== KeyCode.LEFT && e.keyCode !== KeyCode.RIGHT && e.keyCode !== KeyCode.ENTER && e.keyCode !== KeyCode.BACKSPACE && e.keyCode !== KeyCode.ESC) {
         return;
       } // Press any keys above to reopen menu
 
 
-      if (!_this.state.popupVisible && e.keyCode !== _utils.KeyCode.BACKSPACE && e.keyCode !== _utils.KeyCode.LEFT && e.keyCode !== _utils.KeyCode.RIGHT && e.keyCode !== _utils.KeyCode.ESC) {
+      if (!_this.state.popupVisible && e.keyCode !== KeyCode.BACKSPACE && e.keyCode !== KeyCode.LEFT && e.keyCode !== KeyCode.RIGHT && e.keyCode !== KeyCode.ESC) {
         _this.setPopupVisible(true);
 
         return;
       }
 
-      if (e.keyCode === _utils.KeyCode.DOWN || e.keyCode === _utils.KeyCode.UP) {
+      if (e.keyCode === KeyCode.DOWN || e.keyCode === KeyCode.UP) {
         var nextIndex = currentIndex;
 
         if (nextIndex !== -1) {
-          if (e.keyCode === _utils.KeyCode.DOWN) {
+          if (e.keyCode === KeyCode.DOWN) {
             nextIndex += 1;
             nextIndex = nextIndex >= currentOptions.length ? 0 : nextIndex;
           } else {
@@ -229,13 +227,13 @@ function (_Component) {
         }
 
         activeValue[currentLevel] = currentOptions[nextIndex][_this.getFieldName('value')];
-      } else if (e.keyCode === _utils.KeyCode.LEFT || e.keyCode === _utils.KeyCode.BACKSPACE) {
+      } else if (e.keyCode === KeyCode.LEFT || e.keyCode === KeyCode.BACKSPACE) {
         activeValue.splice(activeValue.length - 1, 1);
-      } else if (e.keyCode === _utils.KeyCode.RIGHT) {
+      } else if (e.keyCode === KeyCode.RIGHT) {
         if (currentOptions[currentIndex] && currentOptions[currentIndex][_this.getFieldName('children')]) {
           activeValue.push(currentOptions[currentIndex][_this.getFieldName('children')][0][_this.getFieldName('value')]);
         }
-      } else if (e.keyCode === _utils.KeyCode.ESC) {
+      } else if (e.keyCode === KeyCode.ESC) {
         _this.props.esc && _this.setPopupVisible(false);
         return;
       }
@@ -281,103 +279,108 @@ function (_Component) {
     return _this;
   }
 
-  var _proto = Cascader.prototype;
-
-  _proto.getPopupDOMNode = function getPopupDOMNode() {
-    return this.trigger.getPopupDomNode();
-  };
-
-  _proto.getFieldName = function getFieldName(name) {
-    return this.props.fieldNames[name] || this.defaultFieldNames[name];
-  };
-
-  _proto.getFieldNames = function getFieldNames() {
-    return this.props.fieldNames;
-  };
-
-  _proto.getCurrentLevelOptions = function getCurrentLevelOptions() {
-    var _this2 = this;
-
-    var _this$props$options = this.props.options,
-        options = _this$props$options === void 0 ? [] : _this$props$options;
-    var _this$state$activeVal = this.state.activeValue,
-        activeValue = _this$state$activeVal === void 0 ? [] : _this$state$activeVal;
-    var result = (0, _arrayTreeFilter.default)(options, function (o, level) {
-      return o[_this2.getFieldName('value')] === activeValue[level];
-    }, {
-      childrenKeyName: this.getFieldName('children')
-    });
-
-    if (result[result.length - 2]) {
-      return result[result.length - 2][this.getFieldName('children')];
+  _createClass(Cascader, [{
+    key: "getPopupDOMNode",
+    value: function getPopupDOMNode() {
+      return this.trigger.getPopupDomNode();
     }
+  }, {
+    key: "getFieldName",
+    value: function getFieldName(name) {
+      return this.props.fieldNames[name] || this.defaultFieldNames[name];
+    }
+  }, {
+    key: "getFieldNames",
+    value: function getFieldNames() {
+      return this.props.fieldNames;
+    }
+  }, {
+    key: "getCurrentLevelOptions",
+    value: function getCurrentLevelOptions() {
+      var _this2 = this;
 
-    return [].concat(options).filter(function (o) {
-      return !o.disabled;
-    });
-  };
+      var _this$props$options = this.props.options,
+          options = _this$props$options === void 0 ? [] : _this$props$options;
+      var _this$state$activeVal = this.state.activeValue,
+          activeValue = _this$state$activeVal === void 0 ? [] : _this$state$activeVal;
+      var result = arrayTreeFilter(options, function (o, level) {
+        return o[_this2.getFieldName('value')] === activeValue[level];
+      }, {
+        childrenKeyName: this.getFieldName('children')
+      });
 
-  _proto.getActiveOptions = function getActiveOptions(activeValue) {
-    var _this3 = this;
+      if (result[result.length - 2]) {
+        return result[result.length - 2][this.getFieldName('children')];
+      }
 
-    return (0, _arrayTreeFilter.default)(this.props.options || [], function (o, level) {
-      return o[_this3.getFieldName('value')] === activeValue[level];
-    }, {
-      childrenKeyName: this.getFieldName('children')
-    });
-  };
+      return _toConsumableArray(options).filter(function (o) {
+        return !o.disabled;
+      });
+    }
+  }, {
+    key: "getActiveOptions",
+    value: function getActiveOptions(activeValue) {
+      var _this3 = this;
 
-  _proto.render = function render() {
-    var _this$props2 = this.props,
-        prefixCls = _this$props2.prefixCls,
-        transitionName = _this$props2.transitionName,
-        popupClassName = _this$props2.popupClassName,
-        options = _this$props2.options,
-        disabled = _this$props2.disabled,
-        builtinPlacements = _this$props2.builtinPlacements,
-        popupPlacement = _this$props2.popupPlacement,
-        children = _this$props2.children,
-        restProps = _objectWithoutPropertiesLoose(_this$props2, ["prefixCls", "transitionName", "popupClassName", "options", "disabled", "builtinPlacements", "popupPlacement", "children"]); // Did not show popup when there is no options
+      return arrayTreeFilter(this.props.options || [], function (o, level) {
+        return o[_this3.getFieldName('value')] === activeValue[level];
+      }, {
+        childrenKeyName: this.getFieldName('children')
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props2 = this.props,
+          prefixCls = _this$props2.prefixCls,
+          transitionName = _this$props2.transitionName,
+          popupClassName = _this$props2.popupClassName,
+          options = _this$props2.options,
+          disabled = _this$props2.disabled,
+          builtinPlacements = _this$props2.builtinPlacements,
+          popupPlacement = _this$props2.popupPlacement,
+          children = _this$props2.children,
+          restProps = _objectWithoutProperties(_this$props2, ["prefixCls", "transitionName", "popupClassName", "options", "disabled", "builtinPlacements", "popupPlacement", "children"]); // Did not show popup when there is no options
 
 
-    var menus = _react.default.createElement("div", null);
+      var menus = React.createElement("div", null);
+      var emptyMenuClassName = '';
 
-    var emptyMenuClassName = '';
+      if (options && options.length > 0) {
+        menus = React.createElement(Menus, _extends({}, this.props, {
+          fieldNames: this.getFieldNames(),
+          defaultFieldNames: this.defaultFieldNames,
+          activeValue: this.state.activeValue,
+          onSelect: this.handleMenuSelect,
+          visible: this.state.popupVisible
+        }));
+      } else {
+        emptyMenuClassName = " ".concat(prefixCls, "-menus-empty");
+      }
 
-    if (options && options.length > 0) {
-      menus = _react.default.createElement(_Menus.default, _extends({}, this.props, {
-        fieldNames: this.getFieldNames(),
-        defaultFieldNames: this.defaultFieldNames,
-        activeValue: this.state.activeValue,
-        onSelect: this.handleMenuSelect,
-        visible: this.state.popupVisible
+      return React.createElement(Trigger, _extends({
+        ref: this.saveTrigger
+      }, restProps, {
+        options: options,
+        disabled: disabled,
+        popupPlacement: popupPlacement,
+        builtinPlacements: builtinPlacements,
+        popupTransitionName: transitionName,
+        action: disabled ? [] : ['click'],
+        popupVisible: disabled ? false : this.state.popupVisible,
+        onPopupVisibleChange: this.handlePopupVisibleChange,
+        prefixCls: "".concat(prefixCls, "-menus"),
+        popupClassName: popupClassName + emptyMenuClassName,
+        popup: menus
+      }), cloneElement(children, {
+        onKeyDown: this.handleKeyDown,
+        tabIndex: disabled ? undefined : 0
       }));
-    } else {
-      emptyMenuClassName = " " + prefixCls + "-menus-empty";
     }
-
-    return _react.default.createElement(_rcTrigger.default, _extends({
-      ref: this.saveTrigger
-    }, restProps, {
-      options: options,
-      disabled: disabled,
-      popupPlacement: popupPlacement,
-      builtinPlacements: builtinPlacements,
-      popupTransitionName: transitionName,
-      action: disabled ? [] : ['click'],
-      popupVisible: disabled ? false : this.state.popupVisible,
-      onPopupVisibleChange: this.handlePopupVisibleChange,
-      prefixCls: prefixCls + "-menus",
-      popupClassName: popupClassName + emptyMenuClassName,
-      popup: menus
-    }), (0, _react.cloneElement)(children, {
-      onKeyDown: this.handleKeyDown,
-      tabIndex: disabled ? undefined : 0
-    }));
-  };
+  }]);
 
   return Cascader;
-}(_react.Component);
+}(Component);
 
 Cascader.defaultProps = {
   options: [],
@@ -388,7 +391,7 @@ Cascader.defaultProps = {
   prefixCls: 'rc-cascader',
   popupClassName: '',
   popupPlacement: 'bottomLeft',
-  builtinPlacements: _placements.default,
+  builtinPlacements: BUILT_IN_PLACEMENTS,
   expandTrigger: 'click',
   fieldNames: {
     label: 'label',
@@ -399,28 +402,27 @@ Cascader.defaultProps = {
   esc: true
 };
 Cascader.propTypes = {
-  value: _propTypes.default.array,
-  defaultValue: _propTypes.default.array,
-  options: _propTypes.default.array.isRequired,
-  onChange: _propTypes.default.func,
-  onPopupVisibleChange: _propTypes.default.func,
-  popupVisible: _propTypes.default.bool,
-  disabled: _propTypes.default.bool,
-  transitionName: _propTypes.default.string,
-  popupClassName: _propTypes.default.string,
-  popupPlacement: _propTypes.default.string,
-  prefixCls: _propTypes.default.string,
-  dropdownMenuColumnStyle: _propTypes.default.object,
-  builtinPlacements: _propTypes.default.object,
-  loadData: _propTypes.default.func,
-  changeOnSelect: _propTypes.default.bool,
-  children: _propTypes.default.node,
-  onKeyDown: _propTypes.default.func,
-  expandTrigger: _propTypes.default.string,
-  fieldNames: _propTypes.default.object,
-  expandIcon: _propTypes.default.node,
-  esc: _propTypes.default.bool
+  value: PropTypes.array,
+  defaultValue: PropTypes.array,
+  options: PropTypes.array.isRequired,
+  onChange: PropTypes.func,
+  onPopupVisibleChange: PropTypes.func,
+  popupVisible: PropTypes.bool,
+  disabled: PropTypes.bool,
+  transitionName: PropTypes.string,
+  popupClassName: PropTypes.string,
+  popupPlacement: PropTypes.string,
+  prefixCls: PropTypes.string,
+  dropdownMenuColumnStyle: PropTypes.object,
+  builtinPlacements: PropTypes.object,
+  loadData: PropTypes.func,
+  changeOnSelect: PropTypes.bool,
+  children: PropTypes.node,
+  onKeyDown: PropTypes.func,
+  expandTrigger: PropTypes.string,
+  fieldNames: PropTypes.object,
+  expandIcon: PropTypes.node,
+  esc: PropTypes.bool
 };
-(0, _reactLifecyclesCompat.polyfill)(Cascader);
-var _default = Cascader;
-exports.default = _default;
+polyfill(Cascader);
+export default Cascader;

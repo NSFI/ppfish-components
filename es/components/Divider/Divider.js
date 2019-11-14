@@ -1,25 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = Divider;
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.regexp.split");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -35,7 +14,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -48,7 +27,9 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-function Divider(_a) {
+import React from 'react';
+import classNames from 'classnames';
+export default function Divider(_a) {
   var _b;
 
   var _c = _a.prefixCls,
@@ -64,17 +45,17 @@ function Divider(_a) {
       restProps = __rest(_a, ["prefixCls", "type", "orientation", "className", "children", "dashed", "textStyle"]);
 
   var orientationPrefix = orientation.length > 0 ? '-' + orientation : orientation;
-  var classString = (0, _classnames.default)(className, prefixCls + "-divider", prefixCls + "-divider-" + type, (_b = {}, _b[prefixCls + "-divider-with-text" + orientationPrefix] = children, _b[prefixCls + "-divider-dashed"] = dashed, _b)); //纵向文字仅支持字符串格式
+  var classString = classNames(className, prefixCls + "-divider", prefixCls + "-divider-" + type, (_b = {}, _b[prefixCls + "-divider-with-text" + orientationPrefix] = children, _b[prefixCls + "-divider-dashed"] = dashed, _b)); //纵向文字仅支持字符串格式
 
   var verticalText = type === 'vertical' && children && children.toString().split('').map(function (text, i) {
-    return _react.default.createElement("span", {
+    return React.createElement("span", {
       className: prefixCls + "-divider-vertical-child",
       key: i
     }, text);
   });
-  return _react.default.createElement("div", __assign({
+  return React.createElement("div", __assign({
     className: classString
-  }, restProps), children && _react.default.createElement("span", {
+  }, restProps), children && React.createElement("span", {
     className: prefixCls + "-divider-inner-text",
     style: textStyle
   }, verticalText ? verticalText : children));

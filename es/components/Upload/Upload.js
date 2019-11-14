@@ -1,45 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.promise");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _index = _interopRequireDefault(require("./src/index.js"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _uniqBy = _interopRequireDefault(require("lodash/uniqBy"));
-
-var _UploadList = _interopRequireDefault(require("./UploadList"));
-
-var _utils = require("./utils");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -65,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -81,6 +40,14 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+import * as React from 'react';
+import { polyfill } from 'react-lifecycles-compat';
+import RcUpload from './src/index.js';
+import classNames from 'classnames';
+import uniqBy from 'lodash/uniqBy';
+import UploadList from './UploadList';
+import { T, fileToObject, genPercentAdd, getFileItem, removeFileItem } from './utils';
+
 var Upload =
 /** @class */
 function (_super) {
@@ -94,7 +61,7 @@ function (_super) {
 
       var nextFileList = _this.state.fileList.concat();
 
-      targetItem = (0, _utils.fileToObject)(file);
+      targetItem = fileToObject(file);
       targetItem.status = 'uploading';
       nextFileList.push(targetItem);
 
@@ -121,7 +88,7 @@ function (_super) {
       }
 
       var fileList = _this.state.fileList;
-      var targetItem = (0, _utils.getFileItem)(file, fileList); // removed
+      var targetItem = getFileItem(file, fileList); // removed
 
       if (!targetItem) {
         return;
@@ -138,7 +105,7 @@ function (_super) {
 
     _this.onProgress = function (e, file) {
       var fileList = _this.state.fileList;
-      var targetItem = (0, _utils.getFileItem)(file, fileList); // removed
+      var targetItem = getFileItem(file, fileList); // removed
 
       if (!targetItem) {
         return;
@@ -157,7 +124,7 @@ function (_super) {
       _this.clearProgressTimer();
 
       var fileList = _this.state.fileList;
-      var targetItem = (0, _utils.getFileItem)(file, fileList); // removed
+      var targetItem = getFileItem(file, fileList); // removed
 
       if (!targetItem) {
         return;
@@ -229,7 +196,7 @@ function (_super) {
       if (result === false) {
         _this.onChange({
           file: file,
-          fileList: (0, _uniqBy.default)(_this.state.fileList.concat(fileList.map(_utils.fileToObject)), function (item) {
+          fileList: uniqBy(_this.state.fileList.concat(fileList.map(fileToObject)), function (item) {
             return item.uid;
           })
         });
@@ -256,7 +223,7 @@ function (_super) {
       var _b = showUploadList,
           showRemoveIcon = _b.showRemoveIcon,
           showPreviewIcon = _b.showPreviewIcon;
-      return React.createElement(_UploadList.default, {
+      return React.createElement(UploadList, {
         listType: listType,
         items: _this.state.fileList,
         onPreview: onPreview,
@@ -299,7 +266,7 @@ function (_super) {
   Upload.prototype.autoUpdateProgress = function (_, file) {
     var _this = this;
 
-    var getPercent = (0, _utils.genPercentAdd)();
+    var getPercent = genPercentAdd();
     var curPercent = 0;
     this.clearProgressTimer();
     this.progressTimer = setInterval(function () {
@@ -321,7 +288,7 @@ function (_super) {
         return;
       }
 
-      var removedFileList = (0, _utils.removeFileItem)(file, _this.state.fileList);
+      var removedFileList = removeFileItem(file, _this.state.fileList);
 
       if (removedFileList) {
         _this.onChange({
@@ -374,7 +341,7 @@ function (_super) {
     }, tip) : null;
 
     if (type === 'drag') {
-      var dragCls = (0, _classnames.default)(prefixCls, (_a = {}, _a[prefixCls + "-drag"] = true, _a[prefixCls + "-drag-uploading"] = this.state.fileList.some(function (file) {
+      var dragCls = classNames(prefixCls, (_a = {}, _a[prefixCls + "-drag"] = true, _a[prefixCls + "-drag-uploading"] = this.state.fileList.some(function (file) {
         return file.status === 'uploading';
       }), _a[prefixCls + "-drag-hover"] = this.state.dragState === 'dragover', _a[prefixCls + "-disabled"] = disabled, _a));
       return React.createElement("span", {
@@ -385,7 +352,7 @@ function (_super) {
         onDrop: this.onFileDrop,
         onDragOver: this.onFileDrop,
         onDragLeave: this.onFileDrop
-      }, React.createElement(_index.default, __assign({}, rcUploadProps, {
+      }, React.createElement(RcUpload, __assign({}, rcUploadProps, {
         action: this.state.action,
         ref: this.saveUpload,
         className: prefixCls + "-btn"
@@ -394,13 +361,13 @@ function (_super) {
       }, children))), uploadTips, uploadList);
     }
 
-    var uploadButtonCls = (0, _classnames.default)(prefixCls, (_b = {}, _b[prefixCls + "-select"] = true, _b[prefixCls + "-select-" + listType] = true, _b[prefixCls + "-disabled"] = disabled, _b));
+    var uploadButtonCls = classNames(prefixCls, (_b = {}, _b[prefixCls + "-select"] = true, _b[prefixCls + "-select-" + listType] = true, _b[prefixCls + "-disabled"] = disabled, _b));
     var uploadButton = React.createElement("div", {
       className: uploadButtonCls,
       style: {
         display: children ? '' : 'none'
       }
-    }, React.createElement(_index.default, __assign({}, rcUploadProps, {
+    }, React.createElement(RcUpload, __assign({}, rcUploadProps, {
       action: this.state.action,
       ref: this.saveUpload
     })));
@@ -425,7 +392,7 @@ function (_super) {
     action: '',
     data: {},
     accept: '',
-    beforeUpload: _utils.T,
+    beforeUpload: T,
     showUploadList: true,
     listType: 'text',
     className: '',
@@ -436,6 +403,5 @@ function (_super) {
   return Upload;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(Upload);
-var _default = Upload;
-exports.default = _default;
+polyfill(Upload);
+export default Upload;

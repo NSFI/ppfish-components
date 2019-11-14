@@ -1,19 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.getFullKeyList = getFullKeyList;
-exports.calcRangeKeys = calcRangeKeys;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _util = require("../TreeSelect/rcTree/util");
-
+import { getNodeChildren, convertTreeToEntities } from '../TreeSelect/rcTree/util';
 var Record;
 
 (function (Record) {
@@ -24,7 +9,7 @@ var Record;
 
 
 function traverseNodesKey(rootChildren, callback) {
-  var nodeList = (0, _util.getNodeChildren)(rootChildren) || [];
+  var nodeList = getNodeChildren(rootChildren) || [];
 
   function processNode(node) {
     var key = node.key,
@@ -38,14 +23,13 @@ function traverseNodesKey(rootChildren, callback) {
   nodeList.forEach(processNode);
 }
 
-function getFullKeyList(children) {
-  var keyEntities = (0, _util.convertTreeToEntities)(children).keyEntities;
+export function getFullKeyList(children) {
+  var keyEntities = convertTreeToEntities(children).keyEntities;
   return Object.keys(keyEntities);
 }
 /** 计算选中范围，只考虑expanded情况以优化性能 */
 
-
-function calcRangeKeys(rootChildren, expandedKeys, startKey, endKey) {
+export function calcRangeKeys(rootChildren, expandedKeys, startKey, endKey) {
   var keys = [];
   var record = Record.None;
 

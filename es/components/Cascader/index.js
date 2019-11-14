@@ -1,57 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.array.find-index");
-
-require("core-js/modules/es6.regexp.split");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _src = _interopRequireDefault(require("./src"));
-
-var _arrayTreeFilter = _interopRequireDefault(require("array-tree-filter"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _omit = _interopRequireDefault(require("omit.js"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _utils = require("../../utils");
-
-var _Input = _interopRequireDefault(require("../Input"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -77,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -93,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -106,7 +53,18 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-// We limit the filtered item count by default
+import * as React from 'react';
+import RcCascader from './src';
+import arrayTreeFilter from 'array-tree-filter';
+import { polyfill } from 'react-lifecycles-compat';
+import classNames from 'classnames';
+import omit from 'omit.js';
+import warning from 'warning';
+import { KeyCode } from '../../utils';
+import Input from '../Input';
+import Icon from '../Icon';
+import './style/index.less'; // We limit the filtered item count by default
+
 var defaultLimit = 50; //搜索项高亮-String类型支持
 
 function highlightKeyword(str, keyword, prefixCls) {
@@ -242,7 +200,7 @@ function (_super) {
     };
 
     _this.handleKeyDown = function (e) {
-      if (e.keyCode === _utils.KeyCode.BACKSPACE) {
+      if (e.keyCode === KeyCode.BACKSPACE) {
         e.stopPropagation();
       }
     };
@@ -332,7 +290,7 @@ function (_super) {
     var names = getFilledFieldNames(this.props);
     var value = this.state.value;
     var unwrappedValue = Array.isArray(value[0]) ? value[0] : value;
-    var selectedOptions = (0, _arrayTreeFilter.default)(options, function (o, level) {
+    var selectedOptions = arrayTreeFilter(options, function (o, level) {
       return o[names.value] === unwrappedValue[level];
     });
     var label = selectedOptions.map(function (o) {
@@ -381,7 +339,7 @@ function (_super) {
         return matchCount_1 >= limit;
       });
     } else {
-      (0, _warning.default)(typeof limit !== 'number', "'limit' of showSearch in Cascader should be positive number or false.");
+      warning(typeof limit !== 'number', "'limit' of showSearch in Cascader should be positive number or false.");
       filtered = flattenOptions.filter(function (path) {
         return filter(_this.state.inputValue, path, names);
       });
@@ -439,17 +397,17 @@ function (_super) {
 
     var value = state.value,
         inputFocused = state.inputFocused;
-    var sizeCls = (0, _classnames.default)((_a = {}, _a[inputPrefixCls + "-lg"] = size === 'large', _a[inputPrefixCls + "-sm"] = size === 'small', _a));
-    var clearIcon = allowClear && !disabled && value.length > 0 || state.inputValue ? React.createElement(_Icon.default, {
+    var sizeCls = classNames((_a = {}, _a[inputPrefixCls + "-lg"] = size === 'large', _a[inputPrefixCls + "-sm"] = size === 'small', _a));
+    var clearIcon = allowClear && !disabled && value.length > 0 || state.inputValue ? React.createElement(Icon, {
       type: "close-circle-fill",
       className: prefixCls + "-picker-clear",
       onClick: this.clearSelection
     }) : null;
-    var arrowCls = (0, _classnames.default)((_b = {}, _b[prefixCls + "-picker-arrow"] = true, _b[prefixCls + "-picker-arrow-expand"] = state.popupVisible, _b));
-    var pickerCls = (0, _classnames.default)(className, prefixCls + "-picker", (_c = {}, _c[prefixCls + "-picker-with-value"] = state.inputValue, _c[prefixCls + "-picker-disabled"] = disabled, _c[prefixCls + "-picker-" + size] = !!size, _c[prefixCls + "-picker-show-search"] = !!showSearch, _c[prefixCls + "-picker-focused"] = inputFocused, _c)); // Fix bug of https://github.com/facebook/react/pull/5004
+    var arrowCls = classNames((_b = {}, _b[prefixCls + "-picker-arrow"] = true, _b[prefixCls + "-picker-arrow-expand"] = state.popupVisible, _b));
+    var pickerCls = classNames(className, prefixCls + "-picker", (_c = {}, _c[prefixCls + "-picker-with-value"] = state.inputValue, _c[prefixCls + "-picker-disabled"] = disabled, _c[prefixCls + "-picker-" + size] = !!size, _c[prefixCls + "-picker-show-search"] = !!showSearch, _c[prefixCls + "-picker-focused"] = inputFocused, _c)); // Fix bug of https://github.com/facebook/react/pull/5004
     // and https://fb.me/react-unknown-prop
 
-    var inputProps = (0, _omit.default)(otherProps, ['onChange', 'options', 'popupPlacement', 'transitionName', 'displayRender', 'onVisibleChange', 'changeOnSelect', 'expandTrigger', 'popupVisible', 'getPopupContainer', 'loadData', 'popupClassName', 'filterOption', 'renderFilteredOption', 'sortFilteredOption', 'notFoundContent', 'fieldNames', 'esc']);
+    var inputProps = omit(otherProps, ['onChange', 'options', 'popupPlacement', 'transitionName', 'displayRender', 'onVisibleChange', 'changeOnSelect', 'expandTrigger', 'popupVisible', 'getPopupContainer', 'loadData', 'popupClassName', 'filterOption', 'renderFilteredOption', 'sortFilteredOption', 'notFoundContent', 'fieldNames', 'esc']);
     var options = props.options;
 
     if (state.inputValue) {
@@ -484,7 +442,7 @@ function (_super) {
     }, React.createElement("span", {
       className: prefixCls + "-picker-label",
       title: typeof label === 'string' ? label : ''
-    }, label), React.createElement(_Input.default, __assign({}, inputProps, {
+    }, label), React.createElement(Input, __assign({}, inputProps, {
       ref: this.saveInput,
       prefixCls: inputPrefixCls,
       placeholder: value && value.length > 0 ? undefined : placeholder,
@@ -497,11 +455,11 @@ function (_super) {
       onBlur: showSearch ? this.handleInputBlur : undefined,
       onKeyDown: this.handleKeyDown,
       onChange: showSearch ? this.handleInputChange : undefined
-    })), clearIcon, React.createElement(_Icon.default, {
+    })), clearIcon, React.createElement(Icon, {
       type: "down-fill",
       className: arrowCls
     }));
-    return React.createElement(_src.default, __assign({}, props, {
+    return React.createElement(RcCascader, __assign({}, props, {
       options: options,
       value: value,
       popupVisible: state.popupVisible,
@@ -525,6 +483,5 @@ function (_super) {
   return Cascader;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(Cascader);
-var _default = Cascader;
-exports.default = _default;
+polyfill(Cascader);
+export default Cascader;

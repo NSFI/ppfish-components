@@ -1,47 +1,6 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var ReactDOM = _interopRequireWildcard(require("react-dom"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _utils = require("../../utils");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _shallowequal = _interopRequireDefault(require("shallowequal"));
-
-var _omit = _interopRequireDefault(require("omit.js"));
-
-var _throttleByAnimationFrame = require("../../utils/throttleByAnimationFrame");
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -67,7 +26,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -83,17 +42,26 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __decorate = void 0 && (void 0).__decorate || function (decorators, target, key, desc) {
+var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
   var c = arguments.length,
       r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
       d;
-  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+  if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
     if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
   }
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-//获取target在屏幕上的绝对定位
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { addEventListener } from '../../utils';
+import classNames from 'classnames';
+import shallowequal from 'shallowequal';
+import omit from 'omit.js';
+import { throttleByAnimationFrameDecorator } from '../../utils/throttleByAnimationFrame';
+import './style/index.less'; //获取target在屏幕上的绝对定位
+
 function getTargetRect(target) {
   return target !== window ? target.getBoundingClientRect() : {
     top: 0,
@@ -185,7 +153,7 @@ function (_super) {
       return;
     }
 
-    if ((0, _shallowequal.default)(affixStyle, originalAffixStyle)) {
+    if (shallowequal(affixStyle, originalAffixStyle)) {
       return;
     }
 
@@ -204,7 +172,7 @@ function (_super) {
   Affix.prototype.setPlaceholderStyle = function (placeholderStyle) {
     var originalPlaceholderStyle = this.state.placeholderStyle;
 
-    if ((0, _shallowequal.default)(placeholderStyle, originalPlaceholderStyle)) {
+    if (shallowequal(placeholderStyle, originalPlaceholderStyle)) {
       return;
     }
 
@@ -353,7 +321,7 @@ function (_super) {
 
     this.clearEventListeners();
     this.events.forEach(function (eventName) {
-      _this.eventHandlers[eventName] = (0, _utils.addEventListener)(target, eventName, _this.updatePosition);
+      _this.eventHandlers[eventName] = addEventListener(target, eventName, _this.updatePosition);
     });
   };
 
@@ -372,8 +340,8 @@ function (_super) {
   Affix.prototype.render = function () {
     var _a;
 
-    var className = (0, _classnames.default)((_a = {}, _a[this.props.prefixCls || 'fishd-affix'] = this.state.affixStyle, _a));
-    var props = (0, _omit.default)(this.props, ['prefixCls', 'offsetTop', 'offsetBottom', 'target', 'onChange']);
+    var className = classNames((_a = {}, _a[this.props.prefixCls || 'fishd-affix'] = this.state.affixStyle, _a));
+    var props = omit(this.props, ['prefixCls', 'offsetTop', 'offsetBottom', 'target', 'onChange']);
 
     var placeholderStyle = __assign(__assign({}, this.state.placeholderStyle), this.props.style);
 
@@ -388,15 +356,14 @@ function (_super) {
   };
 
   Affix.propTypes = {
-    offsetTop: _propTypes.default.number,
-    offsetBottom: _propTypes.default.number,
-    target: _propTypes.default.func
+    offsetTop: PropTypes.number,
+    offsetBottom: PropTypes.number,
+    target: PropTypes.func
   };
 
-  __decorate([(0, _throttleByAnimationFrame.throttleByAnimationFrameDecorator)()], Affix.prototype, "updatePosition", null);
+  __decorate([throttleByAnimationFrameDecorator()], Affix.prototype, "updatePosition", null);
 
   return Affix;
 }(React.Component);
 
-var _default = Affix;
-exports.default = _default;
+export default Affix;

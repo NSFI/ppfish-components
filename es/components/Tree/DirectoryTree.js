@@ -1,55 +1,4 @@
-"use strict";
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.set");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.array.from");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _omit = _interopRequireDefault(require("omit.js"));
-
-var _debounce = _interopRequireDefault(require("lodash/debounce"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _util = require("../TreeSelect/rcTree/util");
-
-var _Tree = _interopRequireDefault(require("./Tree"));
-
-var _util2 = require("./util");
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -75,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -91,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -104,7 +53,7 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+var __spreadArrays = this && this.__spreadArrays || function () {
   for (var s = 0, i = 0, il = arguments.length; i < il; i++) {
     s += arguments[i].length;
   }
@@ -118,17 +67,27 @@ var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
   return r;
 };
 
+import * as React from 'react';
+import classNames from 'classnames';
+import omit from 'omit.js';
+import debounce from 'lodash/debounce';
+import { polyfill } from 'react-lifecycles-compat';
+import { conductExpandParent, convertTreeToEntities } from '../TreeSelect/rcTree/util';
+import Tree from './Tree';
+import { calcRangeKeys, getFullKeyList } from './util';
+import Icon from '../Icon';
+
 function getIcon(props) {
   var isLeaf = props.isLeaf,
       expanded = props.expanded;
 
   if (isLeaf) {
-    return React.createElement(_Icon.default, {
+    return React.createElement(Icon, {
       type: "file-line"
     });
   }
 
-  return React.createElement(_Icon.default, {
+  return React.createElement(Icon, {
     type: expanded ? 'folder-open-line' : 'folder-close-line'
   });
 }
@@ -212,7 +171,7 @@ function (_super) {
         _this.cachedSelectedKeys = newSelectedKeys;
       } else if (multiple && shiftPick) {
         // Shift click
-        newSelectedKeys = Array.from(new Set(__spreadArrays(_this.cachedSelectedKeys || [], (0, _util2.calcRangeKeys)(children, expandedKeys, eventKey, _this.lastSelectedKey))));
+        newSelectedKeys = Array.from(new Set(__spreadArrays(_this.cachedSelectedKeys || [], calcRangeKeys(children, expandedKeys, eventKey, _this.lastSelectedKey))));
       } else {
         // Single click
         newSelectedKeys = [eventKey];
@@ -244,7 +203,7 @@ function (_super) {
     };
 
     _this.setUncontrolledState = function (state) {
-      var newState = (0, _omit.default)(state, Object.keys(_this.props));
+      var newState = omit(state, Object.keys(_this.props));
 
       if (Object.keys(newState).length) {
         _this.setState(newState);
@@ -256,21 +215,21 @@ function (_super) {
         expandedKeys = props.expandedKeys,
         defaultExpandedKeys = props.defaultExpandedKeys,
         children = props.children;
-    var keyEntities = (0, _util.convertTreeToEntities)(children).keyEntities; // Selected keys
+    var keyEntities = convertTreeToEntities(children).keyEntities; // Selected keys
 
     _this.state = {
       selectedKeys: props.selectedKeys || props.defaultSelectedKeys || []
     }; // Expanded keys
 
     if (defaultExpandAll) {
-      _this.state.expandedKeys = (0, _util2.getFullKeyList)(props.children);
+      _this.state.expandedKeys = getFullKeyList(props.children);
     } else if (defaultExpandParent) {
-      _this.state.expandedKeys = (0, _util.conductExpandParent)(expandedKeys || defaultExpandedKeys, keyEntities);
+      _this.state.expandedKeys = conductExpandParent(expandedKeys || defaultExpandedKeys, keyEntities);
     } else {
       _this.state.expandedKeys = expandedKeys || defaultExpandedKeys;
     }
 
-    _this.onDebounceExpand = (0, _debounce.default)(_this.expandFolderNode, 200, {
+    _this.onDebounceExpand = debounce(_this.expandFolderNode, 200, {
       leading: true
     });
     return _this;
@@ -301,8 +260,8 @@ function (_super) {
     var _b = this.state,
         expandedKeys = _b.expandedKeys,
         selectedKeys = _b.selectedKeys;
-    var connectClassName = (0, _classnames.default)(prefixCls + "-directory", className);
-    return React.createElement(_Tree.default, __assign({
+    var connectClassName = classNames(prefixCls + "-directory", className);
+    return React.createElement(Tree, __assign({
       icon: getIcon,
       ref: function ref(node) {
         return _this.tree = node;
@@ -327,6 +286,5 @@ function (_super) {
   return DirectoryTree;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(DirectoryTree);
-var _default = DirectoryTree;
-exports.default = _default;
+polyfill(DirectoryTree);
+export default DirectoryTree;

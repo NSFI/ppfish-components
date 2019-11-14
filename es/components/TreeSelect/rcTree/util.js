@@ -1,81 +1,30 @@
-"use strict";
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.toArray = toArray;
-exports.warnOnlyTreeNode = warnOnlyTreeNode;
-exports.arrDel = arrDel;
-exports.arrAdd = arrAdd;
-exports.posToArr = posToArr;
-exports.getPosition = getPosition;
-exports.isTreeNode = isTreeNode;
-exports.getNodeChildren = getNodeChildren;
-exports.isCheckDisabled = isCheckDisabled;
-exports.traverseTreeNodes = traverseTreeNodes;
-exports.mapChildren = mapChildren;
-exports.getDragNodesKeys = getDragNodesKeys;
-exports.calcDropPosition = calcDropPosition;
-exports.calcSelectedKeys = calcSelectedKeys;
-exports.convertDataToTree = convertDataToTree;
-exports.convertTreeToEntities = convertTreeToEntities;
-exports.parseCheckedKeys = parseCheckedKeys;
-exports.conductCheck = conductCheck;
-exports.conductLoad = conductLoad;
-exports.conductExpandParent = conductExpandParent;
-exports.getDataAndAria = getDataAndAria;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.regexp.split");
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-var _TreeNode = _interopRequireDefault(require("./TreeNode.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+import React, { Children } from 'react';
+import warning from 'warning';
+import TreeNode from './TreeNode.js';
 var DRAG_SIDE_RANGE = 0.25;
 var DRAG_MIN_GAP = 2;
 var onlyTreeNodeWarned = false;
-
-function toArray(children) {
+export function toArray(children) {
   var ret = [];
-
-  _react.Children.forEach(children, function (c) {
+  Children.forEach(children, function (c) {
     ret.push(c);
   });
-
   return ret;
 }
-
-function warnOnlyTreeNode() {
+export function warnOnlyTreeNode() {
   if (onlyTreeNodeWarned) return;
   onlyTreeNodeWarned = true;
-  (0, _warning.default)(false, 'Tree only accept TreeNode as children.');
+  warning(false, 'Tree only accept TreeNode as children.');
 }
-
-function arrDel(list, value) {
+export function arrDel(list, value) {
   var clone = list.slice();
   var index = clone.indexOf(value);
 
@@ -85,8 +34,7 @@ function arrDel(list, value) {
 
   return clone;
 }
-
-function arrAdd(list, value) {
+export function arrAdd(list, value) {
   var clone = list.slice();
 
   if (clone.indexOf(value) === -1) {
@@ -95,32 +43,26 @@ function arrAdd(list, value) {
 
   return clone;
 }
-
-function posToArr(pos) {
+export function posToArr(pos) {
   return pos.split('-');
 }
-
-function getPosition(level, index) {
-  return level + "-" + index;
+export function getPosition(level, index) {
+  return "".concat(level, "-").concat(index);
 }
-
-function isTreeNode(node) {
+export function isTreeNode(node) {
   return node && node.type && node.type.isTreeNode;
 }
-
-function getNodeChildren(children) {
+export function getNodeChildren(children) {
   return toArray(children).filter(isTreeNode);
 }
-
-function isCheckDisabled(node) {
+export function isCheckDisabled(node) {
   var _ref = node.props || {},
       disabled = _ref.disabled,
       disableCheckbox = _ref.disableCheckbox;
 
   return !!(disabled || disableCheckbox);
 }
-
-function traverseTreeNodes(treeNodes, callback) {
+export function traverseTreeNodes(treeNodes, callback) {
   function processNode(node, index, parent) {
     var children = node ? node.props.children : treeNodes;
     var pos = node ? getPosition(parent.pos, index) : 0; // Filter children
@@ -139,7 +81,7 @@ function traverseTreeNodes(treeNodes, callback) {
     } // Process children node
 
 
-    _react.Children.forEach(childList, function (subNode, subIndex) {
+    Children.forEach(childList, function (subNode, subIndex) {
       processNode(subNode, subIndex, {
         node: node,
         pos: pos
@@ -154,8 +96,7 @@ function traverseTreeNodes(treeNodes, callback) {
  * And return single node if children is only one(This can avoid `key` missing check).
  */
 
-
-function mapChildren(children, func) {
+export function mapChildren(children, func) {
   var list = toArray(children).map(func);
 
   if (list.length === 1) {
@@ -164,8 +105,7 @@ function mapChildren(children, func) {
 
   return list;
 }
-
-function getDragNodesKeys(treeNodes, node) {
+export function getDragNodesKeys(treeNodes, node) {
   var _node$props = node.props,
       eventKey = _node$props.eventKey,
       pos = _node$props.pos;
@@ -178,8 +118,7 @@ function getDragNodesKeys(treeNodes, node) {
   return dragNodesKeys;
 } // Only used when drag, not affect SSR.
 
-
-function calcDropPosition(event, treeNode) {
+export function calcDropPosition(event, treeNode) {
   var clientY = event.clientY;
 
   var _treeNode$selectHandl = treeNode.selectHandle.getBoundingClientRect(),
@@ -204,8 +143,7 @@ function calcDropPosition(event, treeNode) {
  * @returns [string]
  */
 
-
-function calcSelectedKeys(selectedKeys, props) {
+export function calcSelectedKeys(selectedKeys, props) {
   if (!selectedKeys) return undefined;
   var multiple = props.multiple;
 
@@ -224,7 +162,6 @@ function calcSelectedKeys(selectedKeys, props) {
  * we need do this to avoid `checkStrictly` use number match
  */
 
-
 function keyListToString(keyList) {
   if (!keyList) return keyList;
   return keyList.map(function (key) {
@@ -236,7 +173,7 @@ var internalProcessProps = function internalProcessProps(props) {
   return props;
 };
 
-function convertDataToTree(treeData, processer) {
+export function convertDataToTree(treeData, processer) {
   if (!treeData) return [];
 
   var _ref3 = processer || {},
@@ -246,10 +183,10 @@ function convertDataToTree(treeData, processer) {
   var list = Array.isArray(treeData) ? treeData : [treeData];
   return list.map(function (_ref4, index) {
     var children = _ref4.children,
-        props = _objectWithoutPropertiesLoose(_ref4, ["children"]);
+        props = _objectWithoutProperties(_ref4, ["children"]);
 
     var childrenNodes = convertDataToTree(children, processer);
-    return _react.default.createElement(_TreeNode.default, _extends({
+    return React.createElement(TreeNode, _extends({
       key: props.key
     }, processProps(props)), childrenNodes);
   });
@@ -261,9 +198,8 @@ function convertDataToTree(treeData, processer) {
  * @param processTreeEntity  User can customize the entity
  */
 
-
-function convertTreeToEntities(treeNodes, _temp) {
-  var _ref5 = _temp === void 0 ? {} : _temp,
+export function convertTreeToEntities(treeNodes) {
+  var _ref5 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       initWrapper = _ref5.initWrapper,
       processEntity = _ref5.processEntity,
       onProcessFinished = _ref5.onProcessFinished;
@@ -316,8 +252,7 @@ function convertTreeToEntities(treeNodes, _temp) {
  * Parse `checkedKeys` to { checkedKeys, halfCheckedKeys } style
  */
 
-
-function parseCheckedKeys(keys) {
+export function parseCheckedKeys(keys) {
   if (!keys) {
     return null;
   } // Convert keys to object format
@@ -331,13 +266,13 @@ function parseCheckedKeys(keys) {
       checkedKeys: keys,
       halfCheckedKeys: undefined
     };
-  } else if (typeof keys === 'object') {
+  } else if (_typeof(keys) === 'object') {
     keyProps = {
       checkedKeys: keys.checked || undefined,
       halfCheckedKeys: keys.halfChecked || undefined
     };
   } else {
-    (0, _warning.default)(false, '`checkedKeys` is not an array or an object');
+    warning(false, '`checkedKeys` is not an array or an object');
     return null;
   }
 
@@ -355,8 +290,7 @@ function parseCheckedKeys(keys) {
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
 
-
-function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys) {
+export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys) {
   var checkedKeys = {};
   var halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
 
@@ -428,7 +362,7 @@ function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKey
     var entity = keyEntities[key];
 
     if (!entity) {
-      (0, _warning.default)(false, "'" + key + "' does not exist in the tree.");
+      warning(false, "'".concat(key, "' does not exist in the tree."));
       return;
     }
 
@@ -471,8 +405,7 @@ function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKey
     halfCheckedKeys: halfCheckedKeyList
   };
 }
-
-function conductLoad(keyList, isCheck, keyEntities, status) {
+export function conductLoad(keyList, isCheck, keyEntities, status) {
   var checkedKeys = {};
   var halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
 
@@ -519,7 +452,7 @@ function conductLoad(keyList, isCheck, keyEntities, status) {
     var entity = keyEntities[key];
 
     if (!entity) {
-      (0, _warning.default)(false, "'" + key + "' does not exist in the tree.");
+      warning(false, "'".concat(key, "' does not exist in the tree."));
       return;
     }
 
@@ -582,8 +515,7 @@ function conductLoad(keyList, isCheck, keyEntities, status) {
  * @param keyEntities
  */
 
-
-function conductExpandParent(keyList, keyEntities) {
+export function conductExpandParent(keyList, keyEntities) {
   var expandedKeys = {};
 
   function conductUp(key) {
@@ -610,8 +542,7 @@ function conductExpandParent(keyList, keyEntities) {
  * @param {object} props
  */
 
-
-function getDataAndAria(props) {
+export function getDataAndAria(props) {
   return Object.keys(props).reduce(function (prev, key) {
     if (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-') {
       prev[key] = props[key];

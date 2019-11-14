@@ -1,12 +1,8 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = exports.placements = void 0;
 var autoAdjustOverflow = {
   adjustX: 1,
   adjustY: 1
 };
-var placements = {
+export var placements = {
   topLeft: {
     points: ['bl', 'tl'],
     overflow: autoAdjustOverflow,
@@ -28,6 +24,4 @@ var placements = {
     offset: [8, 0]
   }
 };
-exports.placements = placements;
-var _default = placements;
-exports.default = _default;
+export default placements;

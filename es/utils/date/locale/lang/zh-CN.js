@@ -1,8 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-var _default = {
+export default {
   datepicker: {
     now: '现在',
     today: '今天',
@@ -54,4 +50,3 @@ var _default = {
     }
   }
 };
-exports.default = _default;

@@ -1,39 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = exports.Meta = void 0;
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _Grid = require("../Grid");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -59,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -75,7 +40,7 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-var __rest = void 0 && (void 0).__rest || function (s, e) {
+var __rest = this && this.__rest || function (s, e) {
   var t = {};
 
   for (var p in s) {
@@ -88,7 +53,11 @@ var __rest = void 0 && (void 0).__rest || function (s, e) {
   return t;
 };
 
-var Meta = function Meta(props) {
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { Col } from '../Grid';
+export var Meta = function Meta(props) {
   var _a = props.prefixCls,
       prefixCls = _a === void 0 ? 'fishd-list' : _a,
       className = props.className,
@@ -97,7 +66,7 @@ var Meta = function Meta(props) {
       description = props.description,
       others = __rest(props, ["prefixCls", "className", "avatar", "title", "description"]);
 
-  var classString = (0, _classnames.default)(prefixCls + "-item-meta", className);
+  var classString = classNames(prefixCls + "-item-meta", className);
   var content = React.createElement("div", {
     className: prefixCls + "-item-meta-content"
   }, title && React.createElement("h4", {
@@ -111,8 +80,6 @@ var Meta = function Meta(props) {
     className: prefixCls + "-item-meta-avatar"
   }, avatar), (title || description) && content);
 };
-
-exports.Meta = Meta;
 
 function getGrid(grid, t) {
   return grid[t] && Math.floor(24 / grid[t]);
@@ -143,7 +110,7 @@ function (_super) {
         className = _b.className,
         others = __rest(_b, ["prefixCls", "children", "actions", "extra", "className"]);
 
-    var classString = (0, _classnames.default)(prefixCls + "-item", className);
+    var classString = classNames(prefixCls + "-item", className);
     var metaContent = [];
     var otherContent = [];
     React.Children.forEach(children, function (element) {
@@ -153,7 +120,7 @@ function (_super) {
         otherContent.push(element);
       }
     });
-    var contentClassString = (0, _classnames.default)(prefixCls + "-item-content", (_a = {}, _a[prefixCls + "-item-content-single"] = metaContent.length < 1, _a));
+    var contentClassString = classNames(prefixCls + "-item-content", (_a = {}, _a[prefixCls + "-item-content-single"] = metaContent.length < 1, _a));
     var content = otherContent.length > 0 ? React.createElement("div", {
       className: contentClassString
     }, otherContent) : null;
@@ -182,7 +149,7 @@ function (_super) {
     }, metaContent, content, actionsContent), React.createElement("div", {
       className: prefixCls + "-item-extra"
     }, extra));
-    var mainContent = grid ? React.createElement(_Grid.Col, {
+    var mainContent = grid ? React.createElement(Col, {
       span: getGrid(grid, 'column'),
       xs: getGrid(grid, 'xs'),
       sm: getGrid(grid, 'sm'),
@@ -200,19 +167,18 @@ function (_super) {
 
   Item.Meta = Meta;
   Item.propTypes = {
-    column: _propTypes.default.oneOf(GridColumns),
-    xs: _propTypes.default.oneOf(GridColumns),
-    sm: _propTypes.default.oneOf(GridColumns),
-    md: _propTypes.default.oneOf(GridColumns),
-    lg: _propTypes.default.oneOf(GridColumns),
-    xl: _propTypes.default.oneOf(GridColumns),
-    xxl: _propTypes.default.oneOf(GridColumns)
+    column: PropTypes.oneOf(GridColumns),
+    xs: PropTypes.oneOf(GridColumns),
+    sm: PropTypes.oneOf(GridColumns),
+    md: PropTypes.oneOf(GridColumns),
+    lg: PropTypes.oneOf(GridColumns),
+    xl: PropTypes.oneOf(GridColumns),
+    xxl: PropTypes.oneOf(GridColumns)
   };
   Item.contextTypes = {
-    grid: _propTypes.default.any
+    grid: PropTypes.any
   };
   return Item;
 }(React.Component);
 
-var _default = Item;
-exports.default = _default;
+export default Item;

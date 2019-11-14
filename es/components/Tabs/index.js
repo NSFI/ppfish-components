@@ -1,43 +1,6 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _reactDom = require("react-dom");
-
-var _index = _interopRequireWildcard(require("./src/index.js"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-var _warning = _interopRequireDefault(require("warning"));
-
-require("./style/index.less");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -63,7 +26,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -78,6 +41,14 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import { findDOMNode } from 'react-dom';
+import RcTabs, { TabPane, TabContent, ScrollableInkTabBar } from './src/index.js';
+import classNames from 'classnames';
+import Icon from '../Icon';
+import warning from 'warning';
+import './style/index.less';
 
 function isFlexSupported() {
   if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
@@ -131,7 +102,7 @@ function (_super) {
 
   Tabs.prototype.componentDidMount = function () {
     var NO_FLEX = ' no-flex';
-    var tabNode = (0, _reactDom.findDOMNode)(this);
+    var tabNode = findDOMNode(this);
 
     if (tabNode && !isFlexSupported() && tabNode.className.indexOf(NO_FLEX) === -1) {
       tabNode.className += NO_FLEX;
@@ -161,7 +132,7 @@ function (_super) {
         animated = _b.animated,
         tabBarGutter = _b.tabBarGutter;
 
-    var _d = typeof animated === 'object' ? {
+    var _d = _typeof(animated) === 'object' ? {
       inkBarAnimated: animated.inkBar,
       tabPaneAnimated: animated.tabPane
     } : {
@@ -178,8 +149,8 @@ function (_super) {
       tabPaneAnimated = 'animated' in this.props ? tabPaneAnimated : false;
     }
 
-    (0, _warning.default)(!(type.indexOf('card') >= 0 && (size === 'small' || size === 'large')), 'Tabs[type=card|editable-card] doesn\'t have small or large size, it\'s by designed.');
-    var cls = (0, _classnames.default)(className, (_a = {}, _a[prefixCls + "-vertical"] = tabPosition === 'left' || tabPosition === 'right', _a[prefixCls + "-" + size] = !!size, _a[prefixCls + "-card"] = type.indexOf('card') >= 0, _a[prefixCls + "-" + type] = true, _a[prefixCls + "-no-animation"] = !tabPaneAnimated, _a)); // only card type tabs can be added and closed
+    warning(!(type.indexOf('card') >= 0 && (size === 'small' || size === 'large')), 'Tabs[type=card|editable-card] doesn\'t have small or large size, it\'s by designed.');
+    var cls = classNames(className, (_a = {}, _a[prefixCls + "-vertical"] = tabPosition === 'left' || tabPosition === 'right', _a[prefixCls + "-" + size] = !!size, _a[prefixCls + "-card"] = type.indexOf('card') >= 0, _a[prefixCls + "-" + type] = true, _a[prefixCls + "-no-animation"] = !tabPaneAnimated, _a)); // only card type tabs can be added and closed
 
     var childrenWithClose = [];
 
@@ -188,7 +159,7 @@ function (_super) {
       React.Children.forEach(children, function (child, index) {
         var closable = child.props.closable;
         closable = typeof closable === 'undefined' ? true : closable;
-        var closeIcon = closable ? React.createElement(_Icon.default, {
+        var closeIcon = closable ? React.createElement(Icon, {
           type: "close-tag-line",
           onClick: function onClick(e) {
             return _this.removeTab(child.key, e);
@@ -203,7 +174,7 @@ function (_super) {
       }); // Add new tab handler
 
       if (!hideAdd) {
-        tabBarExtraContent = React.createElement("span", null, React.createElement(_Icon.default, {
+        tabBarExtraContent = React.createElement("span", null, React.createElement(Icon, {
           type: "upload-plus",
           className: prefixCls + "-new-tab",
           onClick: this.createNewTab
@@ -216,7 +187,7 @@ function (_super) {
     }, tabBarExtraContent) : null;
 
     var renderTabBar = function renderTabBar() {
-      return React.createElement(_index.ScrollableInkTabBar, {
+      return React.createElement(ScrollableInkTabBar, {
         showInkBar: showInkBar,
         inkBarAnimated: inkBarAnimated,
         extraContent: tabBarExtraContent,
@@ -228,12 +199,12 @@ function (_super) {
       });
     };
 
-    return React.createElement(_index.default, __assign({}, this.props, {
+    return React.createElement(RcTabs, __assign({}, this.props, {
       className: cls,
       tabBarPosition: tabPosition,
       renderTabBar: renderTabBar,
       renderTabContent: function renderTabContent() {
-        return React.createElement(_index.TabContent, {
+        return React.createElement(TabContent, {
           animated: tabPaneAnimated,
           animatedWithMargin: true,
           loading: loading
@@ -243,7 +214,7 @@ function (_super) {
     }), childrenWithClose.length > 0 ? childrenWithClose : children);
   };
 
-  Tabs.TabPane = _index.TabPane;
+  Tabs.TabPane = TabPane;
   Tabs.defaultProps = {
     prefixCls: 'fishd-tabs',
     hideAdd: false,
@@ -255,5 +226,4 @@ function (_super) {
   return Tabs;
 }(React.Component);
 
-var _default = Tabs;
-exports.default = _default;
+export default Tabs;

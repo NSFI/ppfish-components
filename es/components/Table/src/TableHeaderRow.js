@@ -1,33 +1,19 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.string.fixed");
-
-require("core-js/modules/es6.object.assign");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _miniStore = require("mini-store");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'mini-store';
+import classNames from 'classnames';
 
 function TableHeaderRow(_ref) {
   var row = _ref.row,
@@ -42,51 +28,51 @@ function TableHeaderRow(_ref) {
     return cell.column;
   }), index);
   var customStyle = rowProps ? rowProps.style : {};
-  var style = Object.assign({
+
+  var style = _objectSpread({
     height: height
   }, customStyle);
-  return _react.default.createElement(HeaderRow, _extends({}, rowProps, {
+
+  return React.createElement(HeaderRow, _extends({}, rowProps, {
     style: style
   }), row.map(function (cell, i) {
     var column = cell.column,
-        cellProps = _objectWithoutPropertiesLoose(cell, ["column"]);
+        cellProps = _objectWithoutProperties(cell, ["column"]);
 
     var customProps = column.onHeaderCell ? column.onHeaderCell(column) : {};
 
     if (column.align) {
-      var _classNames;
-
-      customProps.style = Object.assign({}, customProps.style, {
+      customProps.style = _objectSpread({}, customProps.style, {
         textAlign: column.align
       });
-      customProps.className = (0, _classnames.default)(customProps.className, column.className, (_classNames = {}, _classNames[prefixCls + "-align-" + column.align] = !!column.align, _classNames));
+      customProps.className = classNames(customProps.className, column.className, _defineProperty({}, "".concat(prefixCls, "-align-").concat(column.align), !!column.align));
     }
 
-    return _react.default.createElement(HeaderCell, _extends({}, cellProps, customProps, {
+    return React.createElement(HeaderCell, _extends({}, cellProps, customProps, {
       key: column.key || column.dataIndex || i
     }));
   }));
 }
 
 TableHeaderRow.propTypes = {
-  row: _propTypes.default.array,
-  index: _propTypes.default.number,
-  prefixCls: _propTypes.default.string,
-  height: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
-  components: _propTypes.default.shape({
-    table: _propTypes.default.any,
-    header: _propTypes.default.shape({
-      wrapper: _propTypes.default.any,
-      row: _propTypes.default.any,
-      cell: _propTypes.default.any
+  row: PropTypes.array,
+  index: PropTypes.number,
+  prefixCls: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  components: PropTypes.shape({
+    table: PropTypes.any,
+    header: PropTypes.shape({
+      wrapper: PropTypes.any,
+      row: PropTypes.any,
+      cell: PropTypes.any
     }),
-    body: _propTypes.default.shape({
-      wrapper: _propTypes.default.any,
-      row: _propTypes.default.any,
-      cell: _propTypes.default.any
+    body: PropTypes.shape({
+      wrapper: PropTypes.any,
+      row: PropTypes.any,
+      cell: PropTypes.any
     })
   }),
-  onHeaderRow: _propTypes.default.func
+  onHeaderRow: PropTypes.func
 };
 
 function getRowHeight(state, props) {
@@ -111,10 +97,8 @@ function getRowHeight(state, props) {
   return null;
 }
 
-var _default = (0, _miniStore.connect)(function (state, props) {
+export default connect(function (state, props) {
   return {
     height: getRowHeight(state, props)
   };
 })(TableHeaderRow);
-
-exports.default = _default;

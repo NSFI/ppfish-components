@@ -1,17 +1,6 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.split");
-
-var _format = _interopRequireDefault(require("./format"));
-
-var _zhCN = _interopRequireDefault(require("./lang/zh-CN"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _lang = _zhCN.default;
+import format from './format';
+import defaultLang from './lang/zh-CN';
+var _lang = defaultLang;
 
 function use(lang) {
   _lang = lang;
@@ -24,7 +13,7 @@ function t(path, options) {
   for (var i = 0, j = array.length; i < j; i++) {
     var property = array[i];
     var value = current[property];
-    if (i === j - 1) return (0, _format.default)(value, options);
+    if (i === j - 1) return format(value, options);
     if (!value) return '';
     current = value;
   }
@@ -32,8 +21,7 @@ function t(path, options) {
   return '';
 }
 
-var _default = {
+export default {
   use: use,
   t: t
 };
-exports.default = _default;

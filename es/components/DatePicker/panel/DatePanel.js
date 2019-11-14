@@ -1,43 +1,10 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-require("core-js/modules/es6.object.assign");
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _index = _interopRequireDefault(require("../../Input/index.js"));
-
-var _index2 = _interopRequireDefault(require("../../Icon/index.js"));
-
-var _index3 = _interopRequireDefault(require("../../Button/index.js"));
-
-var _index4 = _interopRequireDefault(require("../../TimePicker/index.js"));
-
-var _YearAndMonthPopover = _interopRequireDefault(require("./YearAndMonthPopover.js"));
-
-var _basic = require("../basic");
-
-var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
-
-var _date = require("../../../utils/date");
-
-var _locale = _interopRequireDefault(require("../../../utils/date/locale"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -45,10 +12,24 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Input from '../../Input/index.js';
+import Icon from '../../Icon/index.js';
+import Button from '../../Button/index.js';
+import TimePicker from '../../TimePicker/index.js';
+import YearAndMonthPopover from './YearAndMonthPopover.js';
+import { DateTable } from '../basic';
+import isEqual from 'lodash/isEqual';
+import { SELECTION_MODES, deconstructDate, formatDate, parseDate, toDate, prevYear, nextYear, prevMonth, nextMonth, timeFormat, dateFormat, MONTH_ARRRY, YEARS_ARRAY, isValidValue, setTime } from '../../../utils/date';
+import Locale from '../../../utils/date/locale';
 var PICKER_VIEWS = {
   YEAR: 'year',
   MONTH: 'month',
@@ -56,73 +37,75 @@ var PICKER_VIEWS = {
 };
 
 var isInputValid = function isInputValid(text, date, disabledDate) {
-  if (text.trim() === '' || !(0, _date.isValidValue)(date) || !DatePanel.isValid(date, disabledDate)) return false;
+  if (text.trim() === '' || !isValidValue(date) || !DatePanel.isValid(date, disabledDate)) return false;
   return true;
 };
 
 var DatePanel =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(DatePanel, _React$Component);
-
-  DatePanel.propsToState = function propsToState(_ref) {
-    var value = _ref.value,
-        format = _ref.format,
-        defaultTimeValue = _ref.defaultTimeValue;
-    var state = {};
-    state.currentDate = (0, _date.isValidValue)(value) ? (0, _date.toDate)(value) : new Date(); // 日历视图
-
-    state.date = (0, _date.toDate)(value); // 日期
-
-    state.dateInputText = (0, _date.formatDate)(value, (0, _date.dateFormat)(format)); // 日期输入框的值(string)，当props.value为null时，值为''
-
-    state.time = (0, _date.toDate)(value || defaultTimeValue); // 时间
-
-    return state;
-  };
-
-  DatePanel.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    if ('value' in nextProps && !(0, _isEqual.default)(nextProps.value, prevState.prevPropValue)) {
-      var state = DatePanel.propsToState(nextProps);
-      state.prevPropValue = nextProps.value;
-      return state;
-    }
-
-    return null;
-  };
+  _inherits(DatePanel, _React$Component);
 
   _createClass(DatePanel, null, [{
+    key: "propsToState",
+    value: function propsToState(_ref) {
+      var value = _ref.value,
+          format = _ref.format,
+          defaultTimeValue = _ref.defaultTimeValue;
+      var state = {};
+      state.currentDate = isValidValue(value) ? toDate(value) : new Date(); // 日历视图
+
+      state.date = toDate(value); // 日期
+
+      state.dateInputText = formatDate(value, dateFormat(format)); // 日期输入框的值(string)，当props.value为null时，值为''
+
+      state.time = toDate(value || defaultTimeValue); // 时间
+
+      return state;
+    }
+  }, {
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      if ('value' in nextProps && !isEqual(nextProps.value, prevState.prevPropValue)) {
+        var state = DatePanel.propsToState(nextProps);
+        state.prevPropValue = nextProps.value;
+        return state;
+      }
+
+      return null;
+    }
+  }, {
     key: "propTypes",
     get: function get() {
       return {
-        prefixCls: _propTypes.default.string,
-        format: _propTypes.default.string,
+        prefixCls: PropTypes.string,
+        format: PropTypes.string,
         //basePicker
-        value: _propTypes.default.instanceOf(Date),
+        value: PropTypes.instanceOf(Date),
         //basePicker
-        onPick: _propTypes.default.func.isRequired,
+        onPick: PropTypes.func.isRequired,
         //basePicker
-        onCancelPicked: _propTypes.default.func.isRequired,
+        onCancelPicked: PropTypes.func.isRequired,
         //basePicker
-        yearCount: _propTypes.default.number,
-        showWeekNumber: _propTypes.default.bool,
-        shortcuts: _propTypes.default.arrayOf(_propTypes.default.shape({
-          text: _propTypes.default.string.isRequired,
-          onClick: _propTypes.default.func.isRequired
+        yearCount: PropTypes.number,
+        showWeekNumber: PropTypes.bool,
+        shortcuts: PropTypes.arrayOf(PropTypes.shape({
+          text: PropTypes.string.isRequired,
+          onClick: PropTypes.func.isRequired
         })),
-        mode: _propTypes.default.oneOf(Object.keys(_date.SELECTION_MODES).map(function (e) {
-          return _date.SELECTION_MODES[e];
+        mode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(function (e) {
+          return SELECTION_MODES[e];
         })),
-        disabledDate: _propTypes.default.func,
-        firstDayOfWeek: _propTypes.default.number,
-        footer: _propTypes.default.func,
+        disabledDate: PropTypes.func,
+        firstDayOfWeek: PropTypes.number,
+        footer: PropTypes.func,
         //时间面板
-        showTime: _propTypes.default.bool,
-        showTimeCurrent: _propTypes.default.bool,
-        timeSelectableRange: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.arrayOf(_propTypes.default.string)]),
-        defaultTimeValue: _propTypes.default.instanceOf(Date),
-        timeSelectMode: _propTypes.default.oneOf(['TimePicker', 'TimeSelect']),
-        timeSelectModeProps: _propTypes.default.object
+        showTime: PropTypes.bool,
+        showTimeCurrent: PropTypes.bool,
+        timeSelectableRange: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+        defaultTimeValue: PropTypes.instanceOf(Date),
+        timeSelectMode: PropTypes.oneOf(['TimePicker', 'TimeSelect']),
+        timeSelectModeProps: PropTypes.object
       };
     }
   }, {
@@ -132,7 +115,7 @@ function (_React$Component) {
         prefixCls: 'fishd',
         yearCount: 50,
         showWeekNumber: false,
-        mode: _date.SELECTION_MODES.DAY,
+        mode: SELECTION_MODES.DAY,
         firstDayOfWeek: 0,
         showTime: false,
         showTimeCurrent: false,
@@ -152,7 +135,9 @@ function (_React$Component) {
   function DatePanel(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, DatePanel);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(DatePanel).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "confirmBtnDisabled", function () {
       var _this$state = _this.state,
@@ -173,7 +158,7 @@ function (_React$Component) {
           disabledDate = _this$props.disabledDate,
           format = _this$props.format;
       var inputText = e.target.value;
-      var ndate = (0, _date.parseDate)(inputText, (0, _date.dateFormat)(format));
+      var ndate = parseDate(inputText, dateFormat(format));
 
       if (!isInputValid(inputText, ndate, disabledDate)) {
         _this.setState({
@@ -193,7 +178,7 @@ function (_React$Component) {
       var date = _this.state.date;
 
       _this.setState({
-        dateInputText: (0, _date.formatDate)(date, (0, _date.dateFormat)(_this.props.format))
+        dateInputText: formatDate(date, dateFormat(_this.props.format))
       });
     });
 
@@ -207,25 +192,25 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "prevYear", function () {
       _this.setState({
-        currentDate: (0, _date.prevYear)(_this.state.currentDate)
+        currentDate: prevYear(_this.state.currentDate)
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "nextYear", function () {
       _this.setState({
-        currentDate: (0, _date.nextYear)(_this.state.currentDate)
+        currentDate: nextYear(_this.state.currentDate)
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "prevMonth", function () {
       _this.setState({
-        currentDate: (0, _date.prevMonth)(_this.state.currentDate)
+        currentDate: prevMonth(_this.state.currentDate)
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "nextMonth", function () {
       _this.setState({
-        currentDate: (0, _date.nextMonth)(_this.state.currentDate)
+        currentDate: nextMonth(_this.state.currentDate)
       });
     });
 
@@ -253,18 +238,18 @@ function (_React$Component) {
           format = _this$props2.format;
       var pdate = value.date;
 
-      if (mode === _date.SELECTION_MODES.DAY) {
+      if (mode === SELECTION_MODES.DAY) {
         if (!showTime) {
           onPick(pdate);
         }
 
         _this.setState({
           date: new Date(pdate),
-          dateInputText: (0, _date.formatDate)(pdate, (0, _date.dateFormat)(format)),
+          dateInputText: formatDate(pdate, dateFormat(format)),
           // 点击日期，左侧日期输入框的值同步变化
           currentDate: pdate
         });
-      } else if (mode === _date.SELECTION_MODES.WEEK) {
+      } else if (mode === SELECTION_MODES.WEEK) {
         onPick(pdate);
       }
     });
@@ -273,7 +258,7 @@ function (_React$Component) {
       var _this$state3 = _this.state,
           date = _this$state3.date,
           time = _this$state3.time;
-      var pickedTime = (0, _date.setTime)(date, time);
+      var pickedTime = setTime(date, time);
 
       _this.props.onPick(pickedTime, false, true);
     });
@@ -296,204 +281,206 @@ function (_React$Component) {
   } // 年份、月份面板先注释掉，需要时再打开
 
 
-  var _proto = DatePanel.prototype;
+  _createClass(DatePanel, [{
+    key: "_pickerContent",
+    value: function _pickerContent() {
+      var _this$props3 = this.props,
+          mode = _this$props3.mode,
+          disabledDate = _this$props3.disabledDate,
+          showWeekNumber = _this$props3.showWeekNumber,
+          firstDayOfWeek = _this$props3.firstDayOfWeek;
+      var _this$state4 = this.state,
+          date = _this$state4.date,
+          currentDate = _this$state4.currentDate;
+      var currentView = this.state.currentView;
+      var result = null;
 
-  _proto._pickerContent = function _pickerContent() {
-    var _this$props3 = this.props,
-        mode = _this$props3.mode,
-        disabledDate = _this$props3.disabledDate,
-        showWeekNumber = _this$props3.showWeekNumber,
-        firstDayOfWeek = _this$props3.firstDayOfWeek;
-    var _this$state4 = this.state,
-        date = _this$state4.date,
-        currentDate = _this$state4.currentDate;
-    var currentView = this.state.currentView;
-    var result = null;
+      switch (currentView) {
+        case PICKER_VIEWS.DATE:
+          result = React.createElement(DateTable, {
+            onPick: this.handleDatePick,
+            date: currentDate,
+            value: date,
+            mode: mode,
+            disabledDate: disabledDate,
+            showWeekNumber: showWeekNumber,
+            firstDayOfWeek: firstDayOfWeek
+          });
+          break;
+        // case PICKER_VIEWS.YEAR:
+        //   result = (<YearTable
+        //     ref="yearTable"
+        //     value={value}
+        //     date={date}
+        //     onPick={this.handleYearPick.bind(this)}
+        //     disabledDate={disabledDate}
+        //   />);
+        //   break;
+        // case PICKER_VIEWS.MONTH:
+        //   result = (<MonthTable
+        //     value={value}
+        //     date={date}
+        //     onPick={this.handleMonthPick.bind(this)}
+        //     disabledDate={disabledDate}
+        //   />);
+        //   break;
 
-    switch (currentView) {
-      case PICKER_VIEWS.DATE:
-        result = _react.default.createElement(_basic.DateTable, {
-          onPick: this.handleDatePick,
-          date: currentDate,
-          value: date,
-          mode: mode,
-          disabledDate: disabledDate,
-          showWeekNumber: showWeekNumber,
-          firstDayOfWeek: firstDayOfWeek
-        });
-        break;
-      // case PICKER_VIEWS.YEAR:
-      //   result = (<YearTable
-      //     ref="yearTable"
-      //     value={value}
-      //     date={date}
-      //     onPick={this.handleYearPick.bind(this)}
-      //     disabledDate={disabledDate}
-      //   />);
-      //   break;
-      // case PICKER_VIEWS.MONTH:
-      //   result = (<MonthTable
-      //     value={value}
-      //     date={date}
-      //     onPick={this.handleMonthPick.bind(this)}
-      //     disabledDate={disabledDate}
-      //   />);
-      //   break;
+        default:
+          throw new Error('invalid currentView value');
+      }
 
-      default:
-        throw new Error('invalid currentView value');
+      return result;
+    } // 日期时间都选择，确定按钮才可点击
+
+  }, {
+    key: "handleShortcutClick",
+    // 点击快捷按钮
+    value: function handleShortcutClick(shortcut) {
+      shortcut.onClick();
+    } // 上一年
+
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props4 = this.props,
+          format = _this$props4.format,
+          shortcuts = _this$props4.shortcuts,
+          yearCount = _this$props4.yearCount,
+          showTime = _this$props4.showTime,
+          showTimeCurrent = _this$props4.showTimeCurrent,
+          timeSelectableRange = _this$props4.timeSelectableRange,
+          footer = _this$props4.footer,
+          prefixCls = _this$props4.prefixCls,
+          timeSelectMode = _this$props4.timeSelectMode,
+          timeSelectModeProps = _this$props4.timeSelectModeProps;
+      var _this$state5 = this.state,
+          currentView = _this$state5.currentView,
+          currentDate = _this$state5.currentDate,
+          dateInputText = _this$state5.dateInputText,
+          time = _this$state5.time;
+
+      var _deconstructDate = deconstructDate(currentDate),
+          month = _deconstructDate.month;
+
+      var t = Locale.t;
+      return React.createElement("div", {
+        className: classNames("".concat(prefixCls, "-picker-panel"), "".concat(prefixCls, "-date-picker"), {
+          'has-sidebar': shortcuts,
+          'has-time': showTime
+        })
+      }, React.createElement("div", {
+        className: "".concat(prefixCls, "-picker-panel__body-wrapper")
+      }, Array.isArray(shortcuts) && React.createElement("div", {
+        className: classNames("".concat(prefixCls, "-picker-panel__sidebar"))
+      }, shortcuts.map(function (e, idx) {
+        return React.createElement("button", {
+          key: idx,
+          type: "button",
+          className: "".concat(prefixCls, "-picker-panel__shortcut"),
+          onClick: function onClick() {
+            return _this2.handleShortcutClick(e);
+          }
+        }, e.text);
+      })), React.createElement("div", {
+        className: "".concat(prefixCls, "-picker-panel__body")
+      }, showTime && React.createElement("div", {
+        className: "".concat(prefixCls, "-date-picker__time-header")
+      }, React.createElement("span", {
+        className: "".concat(prefixCls, "-date-picker__editor-wrap")
+      }, React.createElement(Input, {
+        placeholder: t('datepicker.selectDate'),
+        value: dateInputText,
+        onChange: this.handleDateInputChange,
+        onBlur: this.handleDateInputBlur
+      })), React.createElement("span", {
+        className: "".concat(prefixCls, "-date-picker__editor-wrap")
+      }, timeSelectMode === 'TimePicker' ? React.createElement(TimePicker, {
+        className: "".concat(prefixCls, "-date-picker-time__editor"),
+        placeholder: t('datepicker.selectTime'),
+        format: timeFormat(format),
+        getPopupContainer: function getPopupContainer(node) {
+          return node.parentNode;
+        },
+        showTrigger: false,
+        allowClear: false,
+        disabled: this.timePickerDisable(),
+        value: time,
+        onChange: this.handleTimeInputChange,
+        isShowCurrent: showTimeCurrent,
+        selectableRange: timeSelectableRange
+      }) : React.createElement(TimePicker.TimeSelect, {
+        className: "".concat(prefixCls, "-date-picker-time__editor"),
+        placeholder: t('datepicker.selectTime'),
+        getPopupContainer: function getPopupContainer(node) {
+          return node.parentNode;
+        },
+        showTrigger: false,
+        allowClear: false,
+        disabled: this.timePickerDisable(),
+        value: time,
+        onChange: this.handleTimeInputChange,
+        start: timeSelectModeProps.start,
+        step: timeSelectModeProps.step,
+        end: timeSelectModeProps.end,
+        maxTime: timeSelectModeProps.maxTime,
+        minTime: timeSelectModeProps.minTime
+      }))), currentView !== 'time' && React.createElement("div", {
+        className: "".concat(prefixCls, "-date-picker__header")
+      }, React.createElement(Icon, {
+        type: "left-double",
+        onClick: this.prevYear,
+        className: "".concat(prefixCls, "-picker-panel__icon-btn ").concat(prefixCls, "-date-picker__prev-btn")
+      }), currentView === PICKER_VIEWS.DATE && React.createElement(Icon, {
+        type: "left",
+        onClick: this.prevMonth,
+        className: "".concat(prefixCls, "-picker-panel__icon-btn ").concat(prefixCls, "-date-picker__prev-btn")
+      }), React.createElement(YearAndMonthPopover, {
+        value: currentDate.getFullYear(),
+        sourceData: YEARS_ARRAY(yearCount),
+        onChange: this.handleChangeYear
+      }, React.createElement("span", {
+        className: "".concat(prefixCls, "-date-picker__header-label")
+      }, "".concat(currentDate.getFullYear(), " ").concat(t('datepicker.year')))), currentView === PICKER_VIEWS.DATE && React.createElement(YearAndMonthPopover, {
+        value: currentDate.getMonth() + 1,
+        sourceData: MONTH_ARRRY,
+        onChange: this.handleChangeMonth
+      }, React.createElement("span", {
+        className: classNames("".concat(prefixCls, "-date-picker__header-label"), {
+          active: currentView === 'month'
+        })
+      }, t("datepicker.month".concat(month + 1)))), React.createElement(Icon, {
+        type: "right-double",
+        onClick: this.nextYear,
+        className: "".concat(prefixCls, "-picker-panel__icon-btn ").concat(prefixCls, "-date-picker__next-btn")
+      }), currentView === PICKER_VIEWS.DATE && React.createElement(Icon, {
+        type: "right",
+        onClick: this.nextMonth,
+        className: "".concat(prefixCls, "-picker-panel__icon-btn ").concat(prefixCls, "-date-picker__next-btn")
+      })), React.createElement("div", {
+        className: "".concat(prefixCls, "-picker-panel__content")
+      }, this._pickerContent()))), typeof footer == 'function' && footer() && React.createElement("div", {
+        className: "".concat(prefixCls, "-picker-panel__extra-footer")
+      }, footer()), showTime && currentView === PICKER_VIEWS.DATE && React.createElement("div", {
+        className: "".concat(prefixCls, "-picker-panel__footer")
+      }, React.createElement(Button, {
+        className: "".concat(prefixCls, "-picker-panel__btn cancel"),
+        onClick: this.handleCancel
+      }, t('datepicker.cancel')), React.createElement(Button, {
+        type: "primary",
+        className: "".concat(prefixCls, "-picker-panel__btn confirm"),
+        onClick: this.handleConfirm,
+        disabled: this.confirmBtnDisabled()
+      }, t('datepicker.confirm'))));
     }
-
-    return result;
-  } // 日期时间都选择，确定按钮才可点击
-  ;
-
-  // 点击快捷按钮
-  _proto.handleShortcutClick = function handleShortcutClick(shortcut) {
-    shortcut.onClick();
-  } // 上一年
-  ;
-
-  _proto.render = function render() {
-    var _this2 = this;
-
-    var _this$props4 = this.props,
-        format = _this$props4.format,
-        shortcuts = _this$props4.shortcuts,
-        yearCount = _this$props4.yearCount,
-        showTime = _this$props4.showTime,
-        showTimeCurrent = _this$props4.showTimeCurrent,
-        timeSelectableRange = _this$props4.timeSelectableRange,
-        footer = _this$props4.footer,
-        prefixCls = _this$props4.prefixCls,
-        timeSelectMode = _this$props4.timeSelectMode,
-        timeSelectModeProps = _this$props4.timeSelectModeProps;
-    var _this$state5 = this.state,
-        currentView = _this$state5.currentView,
-        currentDate = _this$state5.currentDate,
-        dateInputText = _this$state5.dateInputText,
-        time = _this$state5.time;
-
-    var _deconstructDate = (0, _date.deconstructDate)(currentDate),
-        month = _deconstructDate.month;
-
-    var t = _locale.default.t;
-    return _react.default.createElement("div", {
-      className: (0, _classnames.default)(prefixCls + "-picker-panel", prefixCls + "-date-picker", {
-        'has-sidebar': shortcuts,
-        'has-time': showTime
-      })
-    }, _react.default.createElement("div", {
-      className: prefixCls + "-picker-panel__body-wrapper"
-    }, Array.isArray(shortcuts) && _react.default.createElement("div", {
-      className: (0, _classnames.default)(prefixCls + "-picker-panel__sidebar")
-    }, shortcuts.map(function (e, idx) {
-      return _react.default.createElement("button", {
-        key: idx,
-        type: "button",
-        className: prefixCls + "-picker-panel__shortcut",
-        onClick: function onClick() {
-          return _this2.handleShortcutClick(e);
-        }
-      }, e.text);
-    })), _react.default.createElement("div", {
-      className: prefixCls + "-picker-panel__body"
-    }, showTime && _react.default.createElement("div", {
-      className: prefixCls + "-date-picker__time-header"
-    }, _react.default.createElement("span", {
-      className: prefixCls + "-date-picker__editor-wrap"
-    }, _react.default.createElement(_index.default, {
-      placeholder: t('datepicker.selectDate'),
-      value: dateInputText,
-      onChange: this.handleDateInputChange,
-      onBlur: this.handleDateInputBlur
-    })), _react.default.createElement("span", {
-      className: prefixCls + "-date-picker__editor-wrap"
-    }, timeSelectMode === 'TimePicker' ? _react.default.createElement(_index4.default, {
-      className: prefixCls + "-date-picker-time__editor",
-      placeholder: t('datepicker.selectTime'),
-      format: (0, _date.timeFormat)(format),
-      getPopupContainer: function getPopupContainer(node) {
-        return node.parentNode;
-      },
-      showTrigger: false,
-      allowClear: false,
-      disabled: this.timePickerDisable(),
-      value: time,
-      onChange: this.handleTimeInputChange,
-      isShowCurrent: showTimeCurrent,
-      selectableRange: timeSelectableRange
-    }) : _react.default.createElement(_index4.default.TimeSelect, {
-      className: prefixCls + "-date-picker-time__editor",
-      placeholder: t('datepicker.selectTime'),
-      getPopupContainer: function getPopupContainer(node) {
-        return node.parentNode;
-      },
-      showTrigger: false,
-      allowClear: false,
-      disabled: this.timePickerDisable(),
-      value: time,
-      onChange: this.handleTimeInputChange,
-      start: timeSelectModeProps.start,
-      step: timeSelectModeProps.step,
-      end: timeSelectModeProps.end,
-      maxTime: timeSelectModeProps.maxTime,
-      minTime: timeSelectModeProps.minTime
-    }))), currentView !== 'time' && _react.default.createElement("div", {
-      className: prefixCls + "-date-picker__header"
-    }, _react.default.createElement(_index2.default, {
-      type: "left-double",
-      onClick: this.prevYear,
-      className: prefixCls + "-picker-panel__icon-btn " + prefixCls + "-date-picker__prev-btn"
-    }), currentView === PICKER_VIEWS.DATE && _react.default.createElement(_index2.default, {
-      type: "left",
-      onClick: this.prevMonth,
-      className: prefixCls + "-picker-panel__icon-btn " + prefixCls + "-date-picker__prev-btn"
-    }), _react.default.createElement(_YearAndMonthPopover.default, {
-      value: currentDate.getFullYear(),
-      sourceData: (0, _date.YEARS_ARRAY)(yearCount),
-      onChange: this.handleChangeYear
-    }, _react.default.createElement("span", {
-      className: prefixCls + "-date-picker__header-label"
-    }, currentDate.getFullYear() + " " + t('datepicker.year'))), currentView === PICKER_VIEWS.DATE && _react.default.createElement(_YearAndMonthPopover.default, {
-      value: currentDate.getMonth() + 1,
-      sourceData: _date.MONTH_ARRRY,
-      onChange: this.handleChangeMonth
-    }, _react.default.createElement("span", {
-      className: (0, _classnames.default)(prefixCls + "-date-picker__header-label", {
-        active: currentView === 'month'
-      })
-    }, t("datepicker.month" + (month + 1)))), _react.default.createElement(_index2.default, {
-      type: "right-double",
-      onClick: this.nextYear,
-      className: prefixCls + "-picker-panel__icon-btn " + prefixCls + "-date-picker__next-btn"
-    }), currentView === PICKER_VIEWS.DATE && _react.default.createElement(_index2.default, {
-      type: "right",
-      onClick: this.nextMonth,
-      className: prefixCls + "-picker-panel__icon-btn " + prefixCls + "-date-picker__next-btn"
-    })), _react.default.createElement("div", {
-      className: prefixCls + "-picker-panel__content"
-    }, this._pickerContent()))), typeof footer == 'function' && footer() && _react.default.createElement("div", {
-      className: prefixCls + "-picker-panel__extra-footer"
-    }, footer()), showTime && currentView === PICKER_VIEWS.DATE && _react.default.createElement("div", {
-      className: prefixCls + "-picker-panel__footer"
-    }, _react.default.createElement(_index3.default, {
-      className: prefixCls + "-picker-panel__btn cancel",
-      onClick: this.handleCancel
-    }, t('datepicker.cancel')), _react.default.createElement(_index3.default, {
-      type: "primary",
-      className: prefixCls + "-picker-panel__btn confirm",
-      onClick: this.handleConfirm,
-      disabled: this.confirmBtnDisabled()
-    }, t('datepicker.confirm'))));
-  };
+  }]);
 
   return DatePanel;
-}(_react.default.Component);
+}(React.Component);
 
 DatePanel.isValid = function (value, disabledDate) {
   return typeof disabledDate === 'function' && value instanceof Date ? !disabledDate(value) : true;
 };
 
-var _default = DatePanel;
-exports.default = _default;
+export default DatePanel;

@@ -1,17 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.T = T;
-exports.fileToObject = fileToObject;
-exports.genPercentAdd = genPercentAdd;
-exports.getFileItem = getFileItem;
-exports.removeFileItem = removeFileItem;
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.object.assign");
-
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -27,13 +14,12 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
-function T() {
+export function T() {
   return true;
 } // Fix IE file.status problem
 // via coping a new Object
 
-
-function fileToObject(file) {
+export function fileToObject(file) {
   return __assign(__assign({}, file), {
     lastModified: file.lastModified,
     lastModifiedDate: file.lastModifiedDate,
@@ -50,8 +36,7 @@ function fileToObject(file) {
  *   - for ie
  */
 
-
-function genPercentAdd() {
+export function genPercentAdd() {
   var k = 0.1;
   var i = 0.01;
   var end = 0.98;
@@ -72,15 +57,13 @@ function genPercentAdd() {
     return start;
   };
 }
-
-function getFileItem(file, fileList) {
+export function getFileItem(file, fileList) {
   var matchKey = file.uid !== undefined ? 'uid' : 'name';
   return fileList.filter(function (item) {
     return item[matchKey] === file[matchKey];
   })[0];
 }
-
-function removeFileItem(file, fileList) {
+export function removeFileItem(file, fileList) {
   var matchKey = file.uid !== undefined ? 'uid' : 'name';
   var removed = fileList.filter(function (item) {
     return item[matchKey] !== file[matchKey];

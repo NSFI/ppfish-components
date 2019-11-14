@@ -1,41 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _Checkbox = _interopRequireDefault(require("../Checkbox"));
-
-var _Dropdown = _interopRequireDefault(require("../Dropdown"));
-
-var _Menu = _interopRequireDefault(require("../Menu"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -60,6 +23,14 @@ var __extends = void 0 && (void 0).__extends || function () {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
 }();
+
+import * as React from 'react';
+import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
+import Checkbox from '../Checkbox';
+import Dropdown from '../Dropdown';
+import Menu from '../Menu';
+import Icon from '../Icon';
 
 function checkSelection(props, data, type, byDefaultChecked) {
   var store = props.store,
@@ -180,7 +151,7 @@ function (_super) {
     var _this = this;
 
     return selections.map(function (selection, index) {
-      return React.createElement(_Menu.default.Item, {
+      return React.createElement(Menu.Item, {
         key: selection.key || index
       }, React.createElement("div", {
         onClick: function onClick() {
@@ -206,24 +177,24 @@ function (_super) {
 
     if (selections) {
       var newSelections = Array.isArray(selections) ? this.defaultSelections.concat(selections) : this.defaultSelections;
-      var menu = React.createElement(_Menu.default, {
+      var menu = React.createElement(Menu, {
         className: selectionPrefixCls + "-menu",
         selectedKeys: []
       }, this.renderMenus(newSelections));
-      customSelections = newSelections.length > 0 ? React.createElement(_Dropdown.default, {
+      customSelections = newSelections.length > 0 ? React.createElement(Dropdown, {
         overlay: menu,
         getPopupContainer: getPopupContainer
       }, React.createElement("div", {
         className: selectionPrefixCls + "-down"
-      }, React.createElement(_Icon.default, {
+      }, React.createElement(Icon, {
         type: "down-bolder"
       }))) : null;
     }
 
     return React.createElement("div", {
       className: selectionPrefixCls
-    }, React.createElement(_Checkbox.default, {
-      className: (0, _classnames.default)((_a = {}, _a[selectionPrefixCls + "-select-all-custom"] = customSelections, _a)),
+    }, React.createElement(Checkbox, {
+      className: classNames((_a = {}, _a[selectionPrefixCls + "-select-all-custom"] = customSelections, _a)),
       checked: checked,
       indeterminate: indeterminate,
       disabled: disabled,
@@ -234,6 +205,5 @@ function (_super) {
   return SelectionCheckboxAll;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(SelectionCheckboxAll);
-var _default = SelectionCheckboxAll;
-exports.default = _default;
+polyfill(SelectionCheckboxAll);
+export default SelectionCheckboxAll;

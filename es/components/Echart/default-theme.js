@@ -1,12 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _echarts = _interopRequireDefault(require("echarts/lib/echarts"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+import echarts from 'echarts/lib/echarts';
 var themeName = 'fishd-default-theme';
 var theme = {
   "color": ["#4d6aff", "#26bd71", "#ffaf0f", "#f8355c", "#7231f5"],
@@ -460,8 +452,5 @@ var theme = {
     }
   }
 };
-
-_echarts.default.registerTheme(themeName, theme);
-
-var _default = themeName;
-exports.default = _default;
+echarts.registerTheme(themeName, theme);
+export default themeName;

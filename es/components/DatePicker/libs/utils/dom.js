@@ -1,11 +1,7 @@
-"use strict";
-
-exports.__esModule = true;
-exports.off = exports.on = void 0;
 var isServer = false;
 /* istanbul ignore next */
 
-var on = function () {
+export var on = function () {
   if (!isServer && document.addEventListener) {
     return function (element, event, handler) {
       if (element && event && handler) {
@@ -22,10 +18,7 @@ var on = function () {
 }();
 /* istanbul ignore next */
 
-
-exports.on = on;
-
-var off = function () {
+export var off = function () {
   if (!isServer && document.removeEventListener) {
     return function (element, event, handler) {
       if (element && event) {
@@ -40,5 +33,3 @@ var off = function () {
     };
   }
 }();
-
-exports.off = off;

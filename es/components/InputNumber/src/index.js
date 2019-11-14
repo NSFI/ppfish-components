@@ -1,45 +1,36 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.number.max-safe-integer");
-
-require("core-js/modules/es6.number.constructor");
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.regexp.replace");
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _isNegativeZero = _interopRequireDefault(require("is-negative-zero"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _utils = require("../../../utils");
-
-var _InputHandler = _interopRequireDefault(require("./InputHandler"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import isNegativeZero from 'is-negative-zero';
+import { polyfill } from 'react-lifecycles-compat';
+import { KeyCode } from '../../../utils';
+import InputHandler from './InputHandler';
 
 function noop() {}
 
@@ -99,10 +90,8 @@ function isNotCompleteNumber(num) {
 // 获取最大数值精度
 
 
-function getMaxPrecision(props, currentValue, ratio) {
-  if (ratio === void 0) {
-    ratio = 1;
-  }
+function getMaxPrecision(props, currentValue) {
+  var ratio = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
   if ('precision' in props) {
     return props.precision;
@@ -141,11 +130,8 @@ function getPrecision(props, value) {
   return precision;
 }
 
-function getPrecisionFactor(props, currentValue, ratio) {
-  if (ratio === void 0) {
-    ratio = 1;
-  }
-
+function getPrecisionFactor(props, currentValue) {
+  var ratio = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
   var precision = getMaxPrecision(props, currentValue, ratio);
   return Math.pow(10, precision);
 }
@@ -188,40 +174,45 @@ var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 var RcInputNumber =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(RcInputNumber, _React$Component);
+  _inherits(RcInputNumber, _React$Component);
 
-  RcInputNumber.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var newState = {
-      prevProps: nextProps
-    };
-    var _prevState$prevProps = prevState.prevProps,
-        prevProps = _prevState$prevProps === void 0 ? {} : _prevState$prevProps;
+  _createClass(RcInputNumber, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var newState = {
+        prevProps: nextProps
+      };
+      var _prevState$prevProps = prevState.prevProps,
+          prevProps = _prevState$prevProps === void 0 ? {} : _prevState$prevProps;
 
-    if ('value' in nextProps && prevProps.value !== nextProps.value) {
-      var value = prevState.focused ? nextProps.value : getValidValue(nextProps.value, nextProps.min, nextProps.max);
-      var inputValue = prevState.inputting ? value : toPrecisionAsStep(nextProps, value);
-      newState.value = value;
-      newState.inputValue = inputValue;
+      if ('value' in nextProps && prevProps.value !== nextProps.value) {
+        var value = prevState.focused ? nextProps.value : getValidValue(nextProps.value, nextProps.min, nextProps.max);
+        var inputValue = prevState.inputting ? value : toPrecisionAsStep(nextProps, value);
+        newState.value = value;
+        newState.inputValue = inputValue;
+      }
+
+      return newState;
     }
-
-    return newState;
-  };
+  }]);
 
   function RcInputNumber(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, RcInputNumber);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RcInputNumber).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "onKeyDown", function (e) {
       var onKeyDown = _this.props.onKeyDown;
 
-      if (e.keyCode === _utils.KeyCode.UP) {
+      if (e.keyCode === KeyCode.UP) {
         var ratio = getRatio(e);
 
         _this.up(e, ratio);
 
         _this.stop();
-      } else if (e.keyCode === _utils.KeyCode.DOWN) {
+      } else if (e.keyCode === KeyCode.DOWN) {
         var _ratio = getRatio(e);
 
         _this.down(e, _ratio);
@@ -430,434 +421,448 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = RcInputNumber.prototype;
+  _createClass(RcInputNumber, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.componentDidUpdate();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      // Restore cursor
+      try {
+        // Firefox set the input cursor after it get focused.
+        // This caused that if an input didn't init with the selection,
+        // set will cause cursor not correct when first focus.
+        // Safari will focus input if set selection. We need skip this.
+        if (this.cursorStart !== undefined && this.state.focused) {
+          // In most cases, the string after cursor is stable.
+          // We can move the cursor before it
+          if ( // If not match full str, try to match part of str
+          !this.partRestoreByAfter(this.cursorAfter)) {
+            // If not match any of then, let's just keep the position
+            // TODO: Logic should not reach here, need check if happens
+            var pos = this.cursorStart + 1; // If not have last string, just position to the end
 
-  _proto.componentDidMount = function componentDidMount() {
-    this.componentDidUpdate();
-  };
+            if (!this.cursorAfter) {
+              pos = this.input.value.length;
+            } else if (this.lastKeyCode === KeyCode.BACKSPACE) {
+              pos = this.cursorStart - 1;
+            } else if (this.lastKeyCode === KeyCode.DELETE) {
+              pos = this.cursorStart;
+            }
 
-  _proto.componentDidUpdate = function componentDidUpdate() {
-    // Restore cursor
-    try {
-      // Firefox set the input cursor after it get focused.
-      // This caused that if an input didn't init with the selection,
-      // set will cause cursor not correct when first focus.
-      // Safari will focus input if set selection. We need skip this.
-      if (this.cursorStart !== undefined && this.state.focused) {
-        // In most cases, the string after cursor is stable.
-        // We can move the cursor before it
-        if ( // If not match full str, try to match part of str
-        !this.partRestoreByAfter(this.cursorAfter)) {
-          // If not match any of then, let's just keep the position
-          // TODO: Logic should not reach here, need check if happens
-          var pos = this.cursorStart + 1; // If not have last string, just position to the end
+            this.fixCaret(pos, pos);
+          } else if (this.currentValue === this.input.value) {
+            // Handle some special key code
+            switch (this.lastKeyCode) {
+              case KeyCode.BACKSPACE:
+                this.fixCaret(this.cursorStart - 1, this.cursorStart - 1);
+                break;
 
-          if (!this.cursorAfter) {
-            pos = this.input.value.length;
-          } else if (this.lastKeyCode === _utils.KeyCode.BACKSPACE) {
-            pos = this.cursorStart - 1;
-          } else if (this.lastKeyCode === _utils.KeyCode.DELETE) {
-            pos = this.cursorStart;
+              case KeyCode.DELETE:
+                this.fixCaret(this.cursorStart + 1, this.cursorStart + 1);
+                break;
+
+              default: // Do nothing
+
+            }
           }
+        }
+      } catch (e) {} // Do nothing
+      // Reset last key
 
-          this.fixCaret(pos, pos);
-        } else if (this.currentValue === this.input.value) {
-          // Handle some special key code
-          switch (this.lastKeyCode) {
-            case _utils.KeyCode.BACKSPACE:
-              this.fixCaret(this.cursorStart - 1, this.cursorStart - 1);
-              break;
 
-            case _utils.KeyCode.DELETE:
-              this.fixCaret(this.cursorStart + 1, this.cursorStart + 1);
-              break;
+      this.lastKeyCode = null; // pressingUpOrDown is true means that someone just click up or down button
 
-            default: // Do nothing
+      if (!this.pressingUpOrDown) {
+        return;
+      }
 
-          }
+      if (this.props.focusOnUpDown && this.state.focused) {
+        if (document.activeElement !== this.input) {
+          this.focus();
         }
       }
-    } catch (e) {} // Do nothing
-    // Reset last key
 
-
-    this.lastKeyCode = null; // pressingUpOrDown is true means that someone just click up or down button
-
-    if (!this.pressingUpOrDown) {
-      return;
+      this.pressingUpOrDown = false;
     }
-
-    if (this.props.focusOnUpDown && this.state.focused) {
-      if (document.activeElement !== this.input) {
-        this.focus();
-      }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.stop();
     }
+  }, {
+    key: "getCurrentValidValue",
+    value: function getCurrentValidValue(value) {
+      var val = value;
 
-    this.pressingUpOrDown = false;
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    this.stop();
-  };
-
-  _proto.getCurrentValidValue = function getCurrentValidValue(value) {
-    var val = value;
-
-    if (val === '') {
-      val = '';
-    } else if (!isNotCompleteNumber(val)) {
-      val = getValidValue(val, this.props.min, this.props.max);
-    } else {
-      val = this.state.value;
-    }
-
-    return this.toNumber(val);
-  };
-
-  _proto.setValue = function setValue(v, callback) {
-    // trigger onChange
-    var newValue = isNotCompleteNumber(parseFloat(v, 10)) ? undefined : parseFloat(v, 10);
-    var changed = newValue !== this.state.value || "" + newValue !== "" + this.state.inputValue; // https://github.com/ant-design/ant-design/issues/7363
-
-    if (!('value' in this.props)) {
-      this.setState({
-        value: newValue,
-        inputValue: toPrecisionAsStep(this.props, v)
-      }, callback);
-    } else {
-      // always set input value same as value
-      this.setState({
-        inputValue: toPrecisionAsStep(this.props, this.state.value)
-      }, callback);
-    }
-
-    if (changed) {
-      this.props.onChange(newValue);
-    }
-  };
-
-  _proto.fixCaret = function fixCaret(start, end) {
-    if (start === undefined || end === undefined || !this.input || !this.input.value) {
-      return;
-    }
-
-    try {
-      var currentStart = this.input.selectionStart;
-      var currentEnd = this.input.selectionEnd;
-
-      if (start !== currentStart || end !== currentEnd) {
-        this.input.setSelectionRange(start, end);
-      }
-    } catch (e) {// Fix error in Chrome:
-      // Failed to read the 'selectionStart' property from 'HTMLInputElement'
-      // http://stackoverflow.com/q/21177489/3040605
-    }
-  };
-
-  _proto.focus = function focus() {
-    this.input.focus();
-    this.recordCursorPosition();
-  };
-
-  _proto.blur = function blur() {
-    this.input.blur();
-  };
-
-  _proto.formatWrapper = function formatWrapper(num) {
-    // http://2ality.com/2012/03/signedzero.html
-    // https://github.com/ant-design/ant-design/issues/9439
-    if ((0, _isNegativeZero.default)(num)) {
-      return '-0';
-    }
-
-    if (this.props.formatter) {
-      return this.props.formatter(num);
-    }
-
-    return num;
-  };
-
-  _proto.toNumber = function toNumber(num) {
-    if (isNotCompleteNumber(num)) {
-      return num;
-    }
-
-    if ('precision' in this.props) {
-      return Number(Number(num).toFixed(this.props.precision));
-    }
-
-    return Number(num);
-  } // '1.0' '1.00'  => may be a inputing number
-  ;
-
-  _proto.toNumberWhenUserInput = function toNumberWhenUserInput(num) {
-    // num.length > 16 => prevent input large number will became Infinity
-    if ((/\.\d*0$/.test(num) || num.length > 16) && this.state.focused) {
-      return num;
-    }
-
-    return this.toNumber(num);
-  };
-
-  _proto.upStep = function upStep(val, rat) {
-    var _this$props3 = this.props,
-        step = _this$props3.step,
-        min = _this$props3.min;
-    var precisionFactor = getPrecisionFactor(this.props, val, rat);
-    var precision = Math.abs(getMaxPrecision(this.props, val, rat));
-    var result;
-
-    if (typeof val === 'number') {
-      result = ((precisionFactor * val + precisionFactor * step * rat) / precisionFactor).toFixed(precision);
-    } else {
-      result = min === -Infinity ? step : min;
-    }
-
-    return this.toNumber(result);
-  };
-
-  _proto.downStep = function downStep(val, rat) {
-    var _this$props4 = this.props,
-        step = _this$props4.step,
-        min = _this$props4.min;
-    var precisionFactor = getPrecisionFactor(this.props, val, rat);
-    var precision = Math.abs(getMaxPrecision(this.props, val, rat));
-    var result;
-
-    if (typeof val === 'number') {
-      result = ((precisionFactor * val - precisionFactor * step * rat) / precisionFactor).toFixed(precision);
-    } else {
-      result = min === -Infinity ? -step : min;
-    }
-
-    return this.toNumber(result);
-  };
-
-  _proto.step = function step(type, e, ratio, recursive) {
-    var _this2 = this;
-
-    if (ratio === void 0) {
-      ratio = 1;
-    }
-
-    this.stop();
-
-    if (e) {
-      e.persist();
-      e.preventDefault();
-    }
-
-    var props = this.props;
-
-    if (props.disabled) {
-      return;
-    }
-
-    var value = this.getCurrentValidValue(this.state.inputValue) || 0;
-
-    if (isNotCompleteNumber(value)) {
-      return;
-    }
-
-    var val = this[type + "Step"](value, ratio);
-    var outOfRange = val > props.max || val < props.min;
-
-    if (val > props.max) {
-      val = props.max;
-    } else if (val < props.min) {
-      val = props.min;
-    }
-
-    this.setValue(val);
-    this.setState({
-      focused: true
-    });
-
-    if (outOfRange) {
-      return;
-    }
-
-    this.autoStepTimer = setTimeout(function () {
-      _this2[type](e, ratio, true);
-    }, recursive ? SPEED : DELAY);
-  };
-
-  _proto.render = function render() {
-    var _classNames;
-
-    var props = Object.assign({}, this.props);
-    var prefixCls = props.prefixCls,
-        disabled = props.disabled,
-        readOnly = props.readOnly,
-        useTouch = props.useTouch;
-    var classes = (0, _classnames.default)((_classNames = {}, _classNames[prefixCls] = true, _classNames[props.className] = !!props.className, _classNames[prefixCls + "-disabled"] = disabled, _classNames[prefixCls + "-focused"] = this.state.focused, _classNames));
-    var upDisabledClass = '';
-    var downDisabledClass = '';
-    var value = this.state.value;
-
-    if (value || value === 0) {
-      if (!isNaN(value)) {
-        var val = Number(value);
-
-        if (val >= props.max) {
-          upDisabledClass = prefixCls + "-handler-up-disabled";
-        }
-
-        if (val <= props.min) {
-          downDisabledClass = prefixCls + "-handler-down-disabled";
-        }
+      if (val === '') {
+        val = '';
+      } else if (!isNotCompleteNumber(val)) {
+        val = getValidValue(val, this.props.min, this.props.max);
       } else {
-        upDisabledClass = prefixCls + "-handler-up-disabled";
-        downDisabledClass = prefixCls + "-handler-down-disabled";
+        val = this.state.value;
+      }
+
+      return this.toNumber(val);
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(v, callback) {
+      // trigger onChange
+      var newValue = isNotCompleteNumber(parseFloat(v, 10)) ? undefined : parseFloat(v, 10);
+      var changed = newValue !== this.state.value || "".concat(newValue) !== "".concat(this.state.inputValue); // https://github.com/ant-design/ant-design/issues/7363
+
+      if (!('value' in this.props)) {
+        this.setState({
+          value: newValue,
+          inputValue: toPrecisionAsStep(this.props, v)
+        }, callback);
+      } else {
+        // always set input value same as value
+        this.setState({
+          inputValue: toPrecisionAsStep(this.props, this.state.value)
+        }, callback);
+      }
+
+      if (changed) {
+        this.props.onChange(newValue);
       }
     }
+  }, {
+    key: "fixCaret",
+    value: function fixCaret(start, end) {
+      if (start === undefined || end === undefined || !this.input || !this.input.value) {
+        return;
+      }
 
-    var dataOrAriaAttributeProps = {};
+      try {
+        var currentStart = this.input.selectionStart;
+        var currentEnd = this.input.selectionEnd;
 
-    for (var key in props) {
-      if (props.hasOwnProperty(key) && (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-' || key === 'role')) {
-        dataOrAriaAttributeProps[key] = props[key];
+        if (start !== currentStart || end !== currentEnd) {
+          this.input.setSelectionRange(start, end);
+        }
+      } catch (e) {// Fix error in Chrome:
+        // Failed to read the 'selectionStart' property from 'HTMLInputElement'
+        // http://stackoverflow.com/q/21177489/3040605
       }
     }
-
-    var editable = !props.readOnly && !props.disabled; // focus state, show input value
-    // unfocus state, show valid value
-
-    var inputDisplayValue = this.getInputDisplayValue();
-    var upEvents;
-    var downEvents;
-
-    if (useTouch) {
-      upEvents = {
-        onTouchStart: editable && !upDisabledClass ? this.up : noop,
-        onTouchEnd: this.stop
-      };
-      downEvents = {
-        onTouchStart: editable && !downDisabledClass ? this.down : noop,
-        onTouchEnd: this.stop
-      };
-    } else {
-      upEvents = {
-        onMouseDown: editable && !upDisabledClass ? this.up : noop,
-        onMouseUp: this.stop,
-        onMouseLeave: this.stop
-      };
-      downEvents = {
-        onMouseDown: editable && !downDisabledClass ? this.down : noop,
-        onMouseUp: this.stop,
-        onMouseLeave: this.stop
-      };
+  }, {
+    key: "focus",
+    value: function focus() {
+      this.input.focus();
+      this.recordCursorPosition();
     }
+  }, {
+    key: "blur",
+    value: function blur() {
+      this.input.blur();
+    }
+  }, {
+    key: "formatWrapper",
+    value: function formatWrapper(num) {
+      // http://2ality.com/2012/03/signedzero.html
+      // https://github.com/ant-design/ant-design/issues/9439
+      if (isNegativeZero(num)) {
+        return '-0';
+      }
 
-    var inputDisplayValueFormat = this.formatWrapper(inputDisplayValue);
-    var isUpDisabled = !!upDisabledClass || disabled || readOnly;
-    var isDownDisabled = !!downDisabledClass || disabled || readOnly; // ref for test
+      if (this.props.formatter) {
+        return this.props.formatter(num);
+      }
 
-    return _react.default.createElement("div", {
-      className: classes,
-      style: props.style,
-      onMouseEnter: props.onMouseEnter,
-      onMouseLeave: props.onMouseLeave,
-      onMouseOver: props.onMouseOver,
-      onMouseOut: props.onMouseOut
-    }, _react.default.createElement("div", {
-      className: prefixCls + "-handler-wrap"
-    }, _react.default.createElement(_InputHandler.default, _extends({
-      ref: this.saveUp,
-      disabled: isUpDisabled,
-      prefixCls: prefixCls,
-      unselectable: "unselectable"
-    }, upEvents, {
-      role: "button",
-      "aria-label": "Increase Value",
-      "aria-disabled": !!isUpDisabled,
-      className: prefixCls + "-handler " + prefixCls + "-handler-up " + upDisabledClass
-    }), this.props.upHandler || _react.default.createElement("span", {
-      unselectable: "unselectable",
-      className: prefixCls + "-handler-up-inner",
-      onClick: preventDefault
-    })), _react.default.createElement(_InputHandler.default, _extends({
-      ref: this.saveDown,
-      disabled: isDownDisabled,
-      prefixCls: prefixCls,
-      unselectable: "unselectable"
-    }, downEvents, {
-      role: "button",
-      "aria-label": "Decrease Value",
-      "aria-disabled": !!isDownDisabled,
-      className: prefixCls + "-handler " + prefixCls + "-handler-down " + downDisabledClass
-    }), this.props.downHandler || _react.default.createElement("span", {
-      unselectable: "unselectable",
-      className: prefixCls + "-handler-down-inner",
-      onClick: preventDefault
-    }))), _react.default.createElement("div", {
-      className: prefixCls + "-input-wrap",
-      role: "spinbutton",
-      "aria-valuemin": props.min,
-      "aria-valuemax": props.max,
-      "aria-valuenow": value
-    }, _react.default.createElement("input", _extends({
-      required: props.required,
-      type: props.type,
-      placeholder: props.placeholder,
-      onClick: props.onClick,
-      onMouseUp: this.onMouseUp,
-      className: prefixCls + "-input",
-      tabIndex: props.tabIndex,
-      autoComplete: "off",
-      onFocus: this.onFocus,
-      onBlur: this.onBlur,
-      onKeyDown: editable ? this.onKeyDown : noop,
-      onKeyUp: editable ? this.onKeyUp : noop,
-      autoFocus: props.autoFocus,
-      maxLength: props.maxLength,
-      readOnly: props.readOnly,
-      disabled: props.disabled,
-      max: props.max,
-      min: props.min,
-      step: props.step,
-      name: props.name,
-      id: props.id,
-      onChange: this.onChange,
-      ref: this.saveInput,
-      value: inputDisplayValueFormat,
-      pattern: props.pattern
-    }, dataOrAriaAttributeProps))));
-  };
+      return num;
+    }
+  }, {
+    key: "toNumber",
+    value: function toNumber(num) {
+      if (isNotCompleteNumber(num)) {
+        return num;
+      }
+
+      if ('precision' in this.props) {
+        return Number(Number(num).toFixed(this.props.precision));
+      }
+
+      return Number(num);
+    } // '1.0' '1.00'  => may be a inputing number
+
+  }, {
+    key: "toNumberWhenUserInput",
+    value: function toNumberWhenUserInput(num) {
+      // num.length > 16 => prevent input large number will became Infinity
+      if ((/\.\d*0$/.test(num) || num.length > 16) && this.state.focused) {
+        return num;
+      }
+
+      return this.toNumber(num);
+    }
+  }, {
+    key: "upStep",
+    value: function upStep(val, rat) {
+      var _this$props3 = this.props,
+          step = _this$props3.step,
+          min = _this$props3.min;
+      var precisionFactor = getPrecisionFactor(this.props, val, rat);
+      var precision = Math.abs(getMaxPrecision(this.props, val, rat));
+      var result;
+
+      if (typeof val === 'number') {
+        result = ((precisionFactor * val + precisionFactor * step * rat) / precisionFactor).toFixed(precision);
+      } else {
+        result = min === -Infinity ? step : min;
+      }
+
+      return this.toNumber(result);
+    }
+  }, {
+    key: "downStep",
+    value: function downStep(val, rat) {
+      var _this$props4 = this.props,
+          step = _this$props4.step,
+          min = _this$props4.min;
+      var precisionFactor = getPrecisionFactor(this.props, val, rat);
+      var precision = Math.abs(getMaxPrecision(this.props, val, rat));
+      var result;
+
+      if (typeof val === 'number') {
+        result = ((precisionFactor * val - precisionFactor * step * rat) / precisionFactor).toFixed(precision);
+      } else {
+        result = min === -Infinity ? -step : min;
+      }
+
+      return this.toNumber(result);
+    }
+  }, {
+    key: "step",
+    value: function step(type, e) {
+      var _this2 = this;
+
+      var ratio = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+      var recursive = arguments.length > 3 ? arguments[3] : undefined;
+      this.stop();
+
+      if (e) {
+        e.persist();
+        e.preventDefault();
+      }
+
+      var props = this.props;
+
+      if (props.disabled) {
+        return;
+      }
+
+      var value = this.getCurrentValidValue(this.state.inputValue) || 0;
+
+      if (isNotCompleteNumber(value)) {
+        return;
+      }
+
+      var val = this["".concat(type, "Step")](value, ratio);
+      var outOfRange = val > props.max || val < props.min;
+
+      if (val > props.max) {
+        val = props.max;
+      } else if (val < props.min) {
+        val = props.min;
+      }
+
+      this.setValue(val);
+      this.setState({
+        focused: true
+      });
+
+      if (outOfRange) {
+        return;
+      }
+
+      this.autoStepTimer = setTimeout(function () {
+        _this2[type](e, ratio, true);
+      }, recursive ? SPEED : DELAY);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames;
+
+      var props = _objectSpread({}, this.props);
+
+      var prefixCls = props.prefixCls,
+          disabled = props.disabled,
+          readOnly = props.readOnly,
+          useTouch = props.useTouch;
+      var classes = classNames((_classNames = {}, _defineProperty(_classNames, prefixCls, true), _defineProperty(_classNames, props.className, !!props.className), _defineProperty(_classNames, "".concat(prefixCls, "-disabled"), disabled), _defineProperty(_classNames, "".concat(prefixCls, "-focused"), this.state.focused), _classNames));
+      var upDisabledClass = '';
+      var downDisabledClass = '';
+      var value = this.state.value;
+
+      if (value || value === 0) {
+        if (!isNaN(value)) {
+          var val = Number(value);
+
+          if (val >= props.max) {
+            upDisabledClass = "".concat(prefixCls, "-handler-up-disabled");
+          }
+
+          if (val <= props.min) {
+            downDisabledClass = "".concat(prefixCls, "-handler-down-disabled");
+          }
+        } else {
+          upDisabledClass = "".concat(prefixCls, "-handler-up-disabled");
+          downDisabledClass = "".concat(prefixCls, "-handler-down-disabled");
+        }
+      }
+
+      var dataOrAriaAttributeProps = {};
+
+      for (var key in props) {
+        if (props.hasOwnProperty(key) && (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-' || key === 'role')) {
+          dataOrAriaAttributeProps[key] = props[key];
+        }
+      }
+
+      var editable = !props.readOnly && !props.disabled; // focus state, show input value
+      // unfocus state, show valid value
+
+      var inputDisplayValue = this.getInputDisplayValue();
+      var upEvents;
+      var downEvents;
+
+      if (useTouch) {
+        upEvents = {
+          onTouchStart: editable && !upDisabledClass ? this.up : noop,
+          onTouchEnd: this.stop
+        };
+        downEvents = {
+          onTouchStart: editable && !downDisabledClass ? this.down : noop,
+          onTouchEnd: this.stop
+        };
+      } else {
+        upEvents = {
+          onMouseDown: editable && !upDisabledClass ? this.up : noop,
+          onMouseUp: this.stop,
+          onMouseLeave: this.stop
+        };
+        downEvents = {
+          onMouseDown: editable && !downDisabledClass ? this.down : noop,
+          onMouseUp: this.stop,
+          onMouseLeave: this.stop
+        };
+      }
+
+      var inputDisplayValueFormat = this.formatWrapper(inputDisplayValue);
+      var isUpDisabled = !!upDisabledClass || disabled || readOnly;
+      var isDownDisabled = !!downDisabledClass || disabled || readOnly; // ref for test
+
+      return React.createElement("div", {
+        className: classes,
+        style: props.style,
+        onMouseEnter: props.onMouseEnter,
+        onMouseLeave: props.onMouseLeave,
+        onMouseOver: props.onMouseOver,
+        onMouseOut: props.onMouseOut
+      }, React.createElement("div", {
+        className: "".concat(prefixCls, "-handler-wrap")
+      }, React.createElement(InputHandler, _extends({
+        ref: this.saveUp,
+        disabled: isUpDisabled,
+        prefixCls: prefixCls,
+        unselectable: "unselectable"
+      }, upEvents, {
+        role: "button",
+        "aria-label": "Increase Value",
+        "aria-disabled": !!isUpDisabled,
+        className: "".concat(prefixCls, "-handler ").concat(prefixCls, "-handler-up ").concat(upDisabledClass)
+      }), this.props.upHandler || React.createElement("span", {
+        unselectable: "unselectable",
+        className: "".concat(prefixCls, "-handler-up-inner"),
+        onClick: preventDefault
+      })), React.createElement(InputHandler, _extends({
+        ref: this.saveDown,
+        disabled: isDownDisabled,
+        prefixCls: prefixCls,
+        unselectable: "unselectable"
+      }, downEvents, {
+        role: "button",
+        "aria-label": "Decrease Value",
+        "aria-disabled": !!isDownDisabled,
+        className: "".concat(prefixCls, "-handler ").concat(prefixCls, "-handler-down ").concat(downDisabledClass)
+      }), this.props.downHandler || React.createElement("span", {
+        unselectable: "unselectable",
+        className: "".concat(prefixCls, "-handler-down-inner"),
+        onClick: preventDefault
+      }))), React.createElement("div", {
+        className: "".concat(prefixCls, "-input-wrap"),
+        role: "spinbutton",
+        "aria-valuemin": props.min,
+        "aria-valuemax": props.max,
+        "aria-valuenow": value
+      }, React.createElement("input", _extends({
+        required: props.required,
+        type: props.type,
+        placeholder: props.placeholder,
+        onClick: props.onClick,
+        onMouseUp: this.onMouseUp,
+        className: "".concat(prefixCls, "-input"),
+        tabIndex: props.tabIndex,
+        autoComplete: "off",
+        onFocus: this.onFocus,
+        onBlur: this.onBlur,
+        onKeyDown: editable ? this.onKeyDown : noop,
+        onKeyUp: editable ? this.onKeyUp : noop,
+        autoFocus: props.autoFocus,
+        maxLength: props.maxLength,
+        readOnly: props.readOnly,
+        disabled: props.disabled,
+        max: props.max,
+        min: props.min,
+        step: props.step,
+        name: props.name,
+        id: props.id,
+        onChange: this.onChange,
+        ref: this.saveInput,
+        value: inputDisplayValueFormat,
+        pattern: props.pattern
+      }, dataOrAriaAttributeProps))));
+    }
+  }]);
 
   return RcInputNumber;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(RcInputNumber, "propTypes", {
-  value: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  defaultValue: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  focusOnUpDown: _propTypes.default.bool,
-  autoFocus: _propTypes.default.bool,
-  onChange: _propTypes.default.func,
-  onKeyDown: _propTypes.default.func,
-  onKeyUp: _propTypes.default.func,
-  prefixCls: _propTypes.default.string,
-  tabIndex: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
-  disabled: _propTypes.default.bool,
-  onFocus: _propTypes.default.func,
-  onBlur: _propTypes.default.func,
-  readOnly: _propTypes.default.bool,
-  max: _propTypes.default.number,
-  min: _propTypes.default.number,
-  step: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  upHandler: _propTypes.default.node,
-  downHandler: _propTypes.default.node,
-  useTouch: _propTypes.default.bool,
-  formatter: _propTypes.default.func,
-  parser: _propTypes.default.func,
-  onMouseEnter: _propTypes.default.func,
-  onMouseLeave: _propTypes.default.func,
-  onMouseOver: _propTypes.default.func,
-  onMouseOut: _propTypes.default.func,
-  onMouseUp: _propTypes.default.func,
-  precision: _propTypes.default.number,
-  required: _propTypes.default.bool,
-  pattern: _propTypes.default.string
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  focusOnUpDown: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func,
+  prefixCls: PropTypes.string,
+  tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  disabled: PropTypes.bool,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  readOnly: PropTypes.bool,
+  max: PropTypes.number,
+  min: PropTypes.number,
+  step: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  upHandler: PropTypes.node,
+  downHandler: PropTypes.node,
+  useTouch: PropTypes.bool,
+  formatter: PropTypes.func,
+  parser: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  onMouseUp: PropTypes.func,
+  precision: PropTypes.number,
+  required: PropTypes.bool,
+  pattern: PropTypes.string
 });
 
 _defineProperty(RcInputNumber, "defaultProps", {
@@ -875,6 +880,5 @@ _defineProperty(RcInputNumber, "defaultProps", {
   required: false
 });
 
-(0, _reactLifecyclesCompat.polyfill)(RcInputNumber);
-var _default = RcInputNumber;
-exports.default = _default;
+polyfill(RcInputNumber);
+export default RcInputNumber;

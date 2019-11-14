@@ -1,62 +1,36 @@
-"use strict";
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-require("core-js/modules/es6.string.starts-with");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-exports.__esModule = true;
-exports.argumentContainer = argumentContainer;
-exports.identity = identity;
-exports.flattenArray = flattenArray;
-exports.treeTraverse = treeTraverse;
-exports.flattenFields = flattenFields;
-exports.normalizeValidateRules = normalizeValidateRules;
-exports.getValidateTriggers = getValidateTriggers;
-exports.getValueFromEvent = getValueFromEvent;
-exports.getErrorStrs = getErrorStrs;
-exports.getParams = getParams;
-exports.isEmptyObject = isEmptyObject;
-exports.hasRules = hasRules;
-exports.startsWith = startsWith;
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.function.name");
-
-var _hoistNonReactStatics = _interopRequireDefault(require("hoist-non-react-statics"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /* eslint-disable no-console */
+import hoistStatics from 'hoist-non-react-statics';
+
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'WrappedComponent';
 }
 
-function argumentContainer(Container, WrappedComponent) {
+export function argumentContainer(Container, WrappedComponent) {
   /* eslint no-param-reassign:0 */
-  Container.displayName = "Form(" + getDisplayName(WrappedComponent) + ")";
+  Container.displayName = "Form(".concat(getDisplayName(WrappedComponent), ")");
   Container.WrappedComponent = WrappedComponent;
-  return (0, _hoistNonReactStatics.default)(Container, WrappedComponent);
+  return hoistStatics(Container, WrappedComponent);
 }
-
-function identity(obj) {
+export function identity(obj) {
   return obj;
 }
-
-function flattenArray(arr) {
+export function flattenArray(arr) {
   return Array.prototype.concat.apply([], arr);
 }
-
-function treeTraverse(path, tree, isLeafNode, errorMessage, callback) {
-  if (path === void 0) {
-    path = '';
-  }
+export function treeTraverse() {
+  var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var tree = arguments.length > 1 ? arguments[1] : undefined;
+  var isLeafNode = arguments.length > 2 ? arguments[2] : undefined;
+  var errorMessage = arguments.length > 3 ? arguments[3] : undefined;
+  var callback = arguments.length > 4 ? arguments[4] : undefined;
 
   if (isLeafNode(path, tree)) {
     callback(path, tree);
@@ -64,33 +38,31 @@ function treeTraverse(path, tree, isLeafNode, errorMessage, callback) {
     return;
   } else if (Array.isArray(tree)) {
     tree.forEach(function (subTree, index) {
-      return treeTraverse(path + "[" + index + "]", subTree, isLeafNode, errorMessage, callback);
+      return treeTraverse("".concat(path, "[").concat(index, "]"), subTree, isLeafNode, errorMessage, callback);
     });
   } else {
     // It's object and not a leaf node
-    if (typeof tree !== 'object') {
+    if (_typeof(tree) !== 'object') {
       console.error(errorMessage);
       return;
     }
 
     Object.keys(tree).forEach(function (subTreeKey) {
       var subTree = tree[subTreeKey];
-      treeTraverse("" + path + (path ? '.' : '') + subTreeKey, subTree, isLeafNode, errorMessage, callback);
+      treeTraverse("".concat(path).concat(path ? '.' : '').concat(subTreeKey), subTree, isLeafNode, errorMessage, callback);
     });
   }
 }
-
-function flattenFields(maybeNestedFields, isLeafNode, errorMessage) {
+export function flattenFields(maybeNestedFields, isLeafNode, errorMessage) {
   var fields = {};
   treeTraverse(undefined, maybeNestedFields, isLeafNode, errorMessage, function (path, node) {
     fields[path] = node;
   });
   return fields;
 }
-
-function normalizeValidateRules(validate, rules, validateTrigger) {
+export function normalizeValidateRules(validate, rules, validateTrigger) {
   var validateRules = validate.map(function (item) {
-    var newItem = Object.assign({}, item, {
+    var newItem = _objectSpread({}, item, {
       trigger: item.trigger || []
     });
 
@@ -110,8 +82,7 @@ function normalizeValidateRules(validate, rules, validateTrigger) {
 
   return validateRules;
 }
-
-function getValidateTriggers(validateRules) {
+export function getValidateTriggers(validateRules) {
   return validateRules.filter(function (item) {
     return !!item.rules && item.rules.length;
   }).map(function (item) {
@@ -120,8 +91,7 @@ function getValidateTriggers(validateRules) {
     return pre.concat(curr);
   }, []);
 }
-
-function getValueFromEvent(e) {
+export function getValueFromEvent(e) {
   // To support custom element
   if (!e || !e.target) {
     return e;
@@ -130,8 +100,7 @@ function getValueFromEvent(e) {
   var target = e.target;
   return target.type === 'checkbox' ? target.checked : target.value;
 }
-
-function getErrorStrs(errors) {
+export function getErrorStrs(errors) {
   if (errors) {
     return errors.map(function (e) {
       if (e && e.message) {
@@ -144,8 +113,7 @@ function getErrorStrs(errors) {
 
   return errors;
 }
-
-function getParams(ns, opt, cb) {
+export function getParams(ns, opt, cb) {
   var names = ns;
   var options = opt;
   var callback = cb;
@@ -175,12 +143,10 @@ function getParams(ns, opt, cb) {
     callback: callback
   };
 }
-
-function isEmptyObject(obj) {
+export function isEmptyObject(obj) {
   return Object.keys(obj).length === 0;
 }
-
-function hasRules(validate) {
+export function hasRules(validate) {
   if (validate) {
     return validate.some(function (item) {
       return item.rules && item.rules.length;
@@ -189,7 +155,6 @@ function hasRules(validate) {
 
   return false;
 }
-
-function startsWith(str, prefix) {
+export function startsWith(str, prefix) {
   return str.lastIndexOf(prefix, 0) === 0;
 }

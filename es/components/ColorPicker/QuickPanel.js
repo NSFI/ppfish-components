@@ -1,69 +1,85 @@
-"use strict";
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-exports.__esModule = true;
-exports.default = void 0;
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-require("core-js/modules/es7.array.includes");
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-require("core-js/modules/es6.string.includes");
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-require("core-js/modules/es6.object.assign");
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var _react = _interopRequireDefault(require("react"));
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-var _rcTrigger = _interopRequireDefault(require("rc-trigger"));
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-var _classnames = _interopRequireDefault(require("classnames"));
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-var _utils = require("../../utils");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var _validationColor = _interopRequireDefault(require("./utils/validationColor"));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _Panel = _interopRequireDefault(require("./Panel"));
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-var _placements = _interopRequireDefault(require("./placements"));
-
-var _color = _interopRequireDefault(require("./helpers/color"));
-
-var _index = _interopRequireDefault(require("../Icon/index.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import Trigger from 'rc-trigger';
+import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
+import { KeyCode } from "../../utils";
+import typeColor from './utils/validationColor';
+import ColorPickerPanel from './Panel';
+import placements from "./placements";
+import Color from "./helpers/color";
+import Icon from '../Icon/index.js';
 
 function noop() {}
 
 var QuickPanel =
 /*#__PURE__*/
 function (_React$Component) {
-  _inheritsLoose(QuickPanel, _React$Component);
+  _inherits(QuickPanel, _React$Component);
 
-  QuickPanel.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
-    var newState = {};
+  _createClass(QuickPanel, null, [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var newState = {};
 
-    if ('color' in nextProps) {
-      newState.color = nextProps.color;
+      if ('color' in nextProps) {
+        newState.color = nextProps.color;
+      }
+
+      if ('alpha' in nextProps && nextProps.alpha !== undefined) {
+        newState.alpha = nextProps.alpha;
+      }
+
+      return newState;
     }
-
-    if ('alpha' in nextProps && nextProps.alpha !== undefined) {
-      newState.alpha = nextProps.alpha;
-    }
-
-    return newState;
-  };
+  }]);
 
   function QuickPanel(props) {
     var _this;
 
-    _this = _React$Component.call(this, props) || this;
+    _classCallCheck(this, QuickPanel);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(QuickPanel).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "onFocus", function () {
       if (_this._blurTimer) {
@@ -90,11 +106,8 @@ function (_React$Component) {
       }, 100);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleChange", function (color, alpha, fireChange) {
-      if (fireChange === void 0) {
-        fireChange = true;
-      }
-
+    _defineProperty(_assertThisInitialized(_this), "handleChange", function (color, alpha) {
+      var fireChange = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
       var _this$props = _this.props,
           disabled = _this$props.disabled,
           onChange = _this$props.onChange,
@@ -117,7 +130,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (colors) {
-      _this.setState(Object.assign({}, colors));
+      _this.setState(_objectSpread({}, colors));
     });
 
     _defineProperty(_assertThisInitialized(_this), "onVisibleChangeFromTrigger", function (visible) {
@@ -140,7 +153,7 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "handleKeyDown", function (e) {
       var keyCode = e.keyCode;
 
-      if (keyCode === _utils.KeyCode.ESC && _this.props.esc || keyCode === _utils.KeyCode.ENTER) {
+      if (keyCode === KeyCode.ESC && _this.props.esc || keyCode === KeyCode.ENTER) {
         _this.setVisible(false, function () {
           _this.props.onChange(_this.state);
         });
@@ -156,11 +169,11 @@ function (_React$Component) {
       var activeIndex = colorMap.indexOf(color);
       if (activeIndex === -1 || visible) return; // LEFT/RIGHT触发选择
 
-      if (keyCode === _utils.KeyCode.LEFT) {
+      if (keyCode === KeyCode.LEFT) {
         _this.handleChange(colorMap[activeIndex - 1 === -1 ? colorMap.length - 1 : activeIndex - 1], 100, false);
       }
 
-      if (keyCode === _utils.KeyCode.RIGHT) {
+      if (keyCode === KeyCode.RIGHT) {
         _this.handleChange(colorMap[activeIndex + 1 === colorMap.length ? 0 : activeIndex + 1], 100, false);
       }
     });
@@ -188,10 +201,10 @@ function (_React$Component) {
               colorHistory: colorHistory.length >= maxHistory ? [{
                 color: color,
                 alpha: alpha
-              }].concat(colorHistory.slice(0, -1)) : [{
+              }].concat(_toConsumableArray(colorHistory.slice(0, -1))) : [{
                 color: color,
                 alpha: alpha
-              }].concat(colorHistory)
+              }].concat(_toConsumableArray(colorHistory))
             });
           }
         });
@@ -205,7 +218,7 @@ function (_React$Component) {
           enableAlpha = _this$props3.enableAlpha,
           enableHistory = _this$props3.enableHistory,
           maxHistory = _this$props3.maxHistory;
-      return _react.default.createElement(_Panel.default, {
+      return React.createElement(ColorPickerPanel, {
         onMount: _this.onPanelMount,
         defaultColor: _this.state.color,
         alpha: _this.state.alpha,
@@ -232,118 +245,122 @@ function (_React$Component) {
     return _this;
   }
 
-  var _proto = QuickPanel.prototype;
+  _createClass(QuickPanel, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.onMount(this.ref);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-  _proto.componentDidMount = function componentDidMount() {
-    this.props.onMount(this.ref);
-  };
+      var _this$props4 = this.props,
+          prefixCls = _this$props4.prefixCls,
+          colorMap = _this$props4.colorMap,
+          userSelectColor = _this$props4.userSelectColor,
+          getPopupContainer = _this$props4.getPopupContainer,
+          disabled = _this$props4.disabled,
+          __useInComponent = _this$props4.__useInComponent,
+          popupStyle = _this$props4.popupStyle;
 
-  _proto.render = function render() {
-    var _this2 = this;
+      var _RGB = _slicedToArray(new Color(this.state.color).RGB, 3),
+          r = _RGB[0],
+          g = _RGB[1],
+          b = _RGB[2];
 
-    var _this$props4 = this.props,
-        prefixCls = _this$props4.prefixCls,
-        colorMap = _this$props4.colorMap,
-        userSelectColor = _this$props4.userSelectColor,
-        getPopupContainer = _this$props4.getPopupContainer,
-        disabled = _this$props4.disabled,
-        __useInComponent = _this$props4.__useInComponent,
-        popupStyle = _this$props4.popupStyle;
-    var _RGB = new _color.default(this.state.color).RGB,
-        r = _RGB[0],
-        g = _RGB[1],
-        b = _RGB[2];
-    var RGBA = [r, g, b];
-    var customChecked = !colorMap.includes(this.state.color);
-    RGBA.push(this.state.alpha / 100);
-    return _react.default.createElement("div", {
-      ref: function ref(_ref) {
-        return _this2.ref = _ref;
-      },
-      className: [prefixCls, this.props.className].join(' '),
-      style: this.props.style,
-      onFocus: this.onFocus,
-      onKeyDown: this.handleSpnKeyDown,
-      onBlur: this.onBlur,
-      tabIndex: "0"
-    }, _react.default.createElement("div", {
-      className: prefixCls + "-inner"
-    }, colorMap.map(function (color, i) {
-      var _classNames;
-
-      var spnClasses = (0, _classnames.default)((_classNames = {}, _classNames[prefixCls + "-color-spn"] = true, _classNames[prefixCls + "-color-spn-active"] = _this2.state.color === color, _classNames));
-      return _react.default.createElement("span", {
-        key: i,
-        className: spnClasses,
-        style: {
-          background: color
+      var RGBA = [r, g, b];
+      var customChecked = !colorMap.includes(this.state.color);
+      RGBA.push(this.state.alpha / 100);
+      return React.createElement("div", {
+        ref: function ref(_ref) {
+          return _this2.ref = _ref;
         },
-        onClick: function onClick() {
-          return _this2.handleChange(color, 100);
-        }
-      });
-    }), userSelectColor && !__useInComponent && _react.default.createElement(_rcTrigger.default, {
-      popup: _react.default.createElement("div", {
-        className: prefixCls + "-content",
-        onKeyDown: this.handleKeyDown
-      }, _react.default.createElement("div", {
-        className: prefixCls + "-arrow"
-      }), _react.default.createElement("div", {
-        className: prefixCls + "-inner"
-      }, this.getPickerElement())),
-      builtinPlacements: _placements.default,
-      popupPlacement: 'topCenter',
-      action: disabled ? [] : ['click'],
-      destroyPopupOnHide: true,
-      popupStyle: popupStyle,
-      getPopupContainer: getPopupContainer,
-      popupVisible: this.state.visible,
-      onPopupVisibleChange: this.onVisibleChangeFromTrigger,
-      prefixCls: "fishd-color-picker-panel"
-    }, _react.default.createElement("span", {
-      className: prefixCls + "-custom-btn"
-    }, _react.default.createElement("span", {
-      className: prefixCls + "-custom-btn-text",
-      style: customChecked ? {
-        backgroundColor: "rgba(" + RGBA.join(',') + ")",
-        color: '#fff',
-        textShadow: '0 0.5px 0.5px rgba(0,0,0,50%)'
-      } : {}
-    }, customChecked && _react.default.createElement(_index.default, {
-      type: "check-line-bold"
-    }), "\u81EA\u5B9A\u4E49")))));
-  };
+        className: [prefixCls, this.props.className].join(' '),
+        style: this.props.style,
+        onFocus: this.onFocus,
+        onKeyDown: this.handleSpnKeyDown,
+        onBlur: this.onBlur,
+        tabIndex: "0"
+      }, React.createElement("div", {
+        className: "".concat(prefixCls, "-inner")
+      }, colorMap.map(function (color, i) {
+        var _classNames;
+
+        var spnClasses = classNames((_classNames = {}, _defineProperty(_classNames, "".concat(prefixCls, "-color-spn"), true), _defineProperty(_classNames, "".concat(prefixCls, "-color-spn-active"), _this2.state.color === color), _classNames));
+        return React.createElement("span", {
+          key: i,
+          className: spnClasses,
+          style: {
+            background: color
+          },
+          onClick: function onClick() {
+            return _this2.handleChange(color, 100);
+          }
+        });
+      }), userSelectColor && !__useInComponent && React.createElement(Trigger, {
+        popup: React.createElement("div", {
+          className: "".concat(prefixCls, "-content"),
+          onKeyDown: this.handleKeyDown
+        }, React.createElement("div", {
+          className: "".concat(prefixCls, "-arrow")
+        }), React.createElement("div", {
+          className: "".concat(prefixCls, "-inner")
+        }, this.getPickerElement())),
+        builtinPlacements: placements,
+        popupPlacement: 'topCenter',
+        action: disabled ? [] : ['click'],
+        destroyPopupOnHide: true,
+        popupStyle: popupStyle,
+        getPopupContainer: getPopupContainer,
+        popupVisible: this.state.visible,
+        onPopupVisibleChange: this.onVisibleChangeFromTrigger,
+        prefixCls: "fishd-color-picker-panel"
+      }, React.createElement("span", {
+        className: "".concat(prefixCls, "-custom-btn")
+      }, React.createElement("span", {
+        className: "".concat(prefixCls, "-custom-btn-text"),
+        style: customChecked ? {
+          backgroundColor: "rgba(".concat(RGBA.join(','), ")"),
+          color: '#fff',
+          textShadow: '0 0.5px 0.5px rgba(0,0,0,50%)'
+        } : {}
+      }, customChecked && React.createElement(Icon, {
+        type: "check-line-bold"
+      }), "\u81EA\u5B9A\u4E49")))));
+    }
+  }]);
 
   return QuickPanel;
-}(_react.default.Component);
+}(React.Component);
 
 _defineProperty(QuickPanel, "propTypes", {
-  __useInComponent: _propTypes.default.bool,
-  alpha: _propTypes.default.number,
-  className: _propTypes.default.string,
-  color: _validationColor.default,
+  __useInComponent: PropTypes.bool,
+  alpha: PropTypes.number,
+  className: PropTypes.string,
+  color: typeColor,
   // Hex string
-  colorHistory: _propTypes.default.array,
-  colorMap: _propTypes.default.array,
-  defaultAlpha: _propTypes.default.number,
-  defaultColor: _validationColor.default,
+  colorHistory: PropTypes.array,
+  colorMap: PropTypes.array,
+  defaultAlpha: PropTypes.number,
+  defaultColor: typeColor,
   // Hex string
-  disabled: _propTypes.default.bool,
-  enableAlpha: _propTypes.default.bool,
-  enableHistory: _propTypes.default.bool,
-  getPopupContainer: _propTypes.default.func,
-  maxHistory: _propTypes.default.number,
-  mode: _propTypes.default.oneOf(['RGB', 'HSL', 'HSB']),
-  onBlur: _propTypes.default.func,
-  onChange: _propTypes.default.func,
-  onFocus: _propTypes.default.func,
-  onMount: _propTypes.default.func,
-  onVisibleChange: _propTypes.default.func,
-  prefixCls: _propTypes.default.string,
-  userSelectColor: _propTypes.default.bool,
-  style: _propTypes.default.object,
-  popupStyle: _propTypes.default.object,
-  esc: _propTypes.default.bool
+  disabled: PropTypes.bool,
+  enableAlpha: PropTypes.bool,
+  enableHistory: PropTypes.bool,
+  getPopupContainer: PropTypes.func,
+  maxHistory: PropTypes.number,
+  mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onMount: PropTypes.func,
+  onVisibleChange: PropTypes.func,
+  prefixCls: PropTypes.string,
+  userSelectColor: PropTypes.bool,
+  style: PropTypes.object,
+  popupStyle: PropTypes.object,
+  esc: PropTypes.bool
 });
 
 _defineProperty(QuickPanel, "defaultProps", {
@@ -369,6 +386,5 @@ _defineProperty(QuickPanel, "defaultProps", {
   esc: true
 });
 
-(0, _reactLifecyclesCompat.polyfill)(QuickPanel);
-var _default = QuickPanel;
-exports.default = _default;
+polyfill(QuickPanel);
+export default QuickPanel;

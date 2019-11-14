@@ -1,10 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _dom = require("./dom");
-
+import { hasDOM } from './dom';
 var animationEndEventNames = {
   WebkitAnimation: 'webkitAnimationEnd',
   OAnimation: 'oAnimationEnd',
@@ -23,7 +17,7 @@ var transitionEventNames = {
  */
 
 function _supportEnd(names) {
-  if (!_dom.hasDOM) {
+  if (!hasDOM) {
     return false;
   }
 
@@ -60,8 +54,7 @@ var animation = _supportEnd(animationEndEventNames);
 
 var transition = _supportEnd(transitionEventNames);
 
-var _default = {
+export default {
   animation: animation,
   transition: transition
 };
-exports.default = _default;

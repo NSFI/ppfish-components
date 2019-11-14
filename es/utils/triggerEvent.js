@@ -1,9 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = triggerEvent;
-
-function triggerEvent(el, type) {
+export default function triggerEvent(el, type) {
   if ('createEvent' in document) {
     // modern browsers, IE9+
     var e = document.createEvent('HTMLEvents');

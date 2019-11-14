@@ -1,8 +1,4 @@
-"use strict";
-
-exports.__esModule = true;
-exports.default = void 0;
-var _default = {
+export default {
   // Options.js
   items_per_page: '条/页',
   jump_to: '跳至',
@@ -16,4 +12,3 @@ var _default = {
   prev_3: '向前 3 页',
   next_3: '向后 3 页'
 };
-exports.default = _default;

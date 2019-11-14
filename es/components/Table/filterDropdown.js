@@ -1,57 +1,4 @@
-"use strict";
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.keys");
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.fixed");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var ReactDOM = _interopRequireWildcard(require("react-dom"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _src = _interopRequireWildcard(require("../Menu/src"));
-
-var _domClosest = _interopRequireDefault(require("dom-closest"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _utils = require("../../utils");
-
-var _Dropdown = _interopRequireDefault(require("../Dropdown"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-var _Checkbox = _interopRequireDefault(require("../Checkbox"));
-
-var _Radio = _interopRequireDefault(require("../Radio"));
-
-var _FilterDropdownMenuWrapper = _interopRequireDefault(require("./FilterDropdownMenuWrapper"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -77,6 +24,19 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { polyfill } from 'react-lifecycles-compat';
+import Menu, { SubMenu, Item as MenuItem } from '../Menu/src';
+import closest from 'dom-closest';
+import classNames from 'classnames';
+import { shallowEqual } from '../../utils';
+import Dropdown from '../Dropdown';
+import Icon from '../Icon';
+import Checkbox from '../Checkbox';
+import Radio from '../Radio';
+import FilterDropdownMenuWrapper from './FilterDropdownMenuWrapper';
+
 var FilterMenu =
 /** @class */
 function (_super) {
@@ -87,7 +47,7 @@ function (_super) {
 
     _this.getNeverShown = function (column) {
       var rootNode = ReactDOM.findDOMNode(_this);
-      var filterBelongToScrollBody = !!(0, _domClosest.default)(rootNode, ".fishd-table-scroll");
+      var filterBelongToScrollBody = !!closest(rootNode, ".fishd-table-scroll");
 
       if (filterBelongToScrollBody) {
         // When fixed column have filters, there will be two dropdown menus
@@ -163,8 +123,8 @@ function (_super) {
       var dropdownSelectedClass = filterd ? prefixCls + "-selected" : '';
       return filterIcon ? React.cloneElement(filterIcon, {
         title: locale.filterTitle,
-        className: (0, _classnames.default)(prefixCls + "-icon", filterIcon.props.className)
-      }) : React.createElement(_Icon.default, {
+        className: classNames(prefixCls + "-icon", filterIcon.props.className)
+      }) : React.createElement(Icon, {
         title: locale.filterTitle,
         type: "filter",
         className: dropdownSelectedClass
@@ -189,7 +149,7 @@ function (_super) {
       prevProps: nextProps
     };
 
-    if ('selectedKeys' in nextProps && !(0, _utils.shallowEqual)(prevProps.selectedKeys, nextProps.selectedKeys)) {
+    if ('selectedKeys' in nextProps && !shallowEqual(prevProps.selectedKeys, nextProps.selectedKeys)) {
       newState.selectedKeys = nextProps.selectedKeys;
     }
 
@@ -244,12 +204,12 @@ function (_super) {
     var column = this.props.column;
     var selectedKeys = this.state.selectedKeys;
     var multiple = 'filterMultiple' in column ? column.filterMultiple : true;
-    var input = multiple ? React.createElement(_Checkbox.default, {
+    var input = multiple ? React.createElement(Checkbox, {
       checked: selectedKeys.indexOf(item.value.toString()) >= 0
-    }) : React.createElement(_Radio.default, {
+    }) : React.createElement(Radio, {
       checked: selectedKeys.indexOf(item.value.toString()) >= 0
     });
-    return React.createElement(_src.Item, {
+    return React.createElement(MenuItem, {
       key: item.value
     }, input, React.createElement("span", null, item.text));
   };
@@ -272,7 +232,7 @@ function (_super) {
           return keyPathOfSelectedItem_1[key].indexOf(item.value) >= 0;
         });
         var subMenuCls = containSelected ? _this.props.dropdownPrefixCls + "-submenu-contain-selected" : '';
-        return React.createElement(_src.SubMenu, {
+        return React.createElement(SubMenu, {
           title: item.text,
           className: subMenuCls,
           key: item.value.toString()
@@ -296,7 +256,7 @@ function (_super) {
         getPopupContainer = _b.getPopupContainer; // default multiple selection in filter dropdown
 
     var multiple = 'filterMultiple' in column ? column.filterMultiple : true;
-    var dropdownMenuClass = (0, _classnames.default)((_a = {}, _a[dropdownPrefixCls + "-menu-without-submenu"] = !this.hasSubMenu(), _a));
+    var dropdownMenuClass = classNames((_a = {}, _a[dropdownPrefixCls + "-menu-without-submenu"] = !this.hasSubMenu(), _a));
     var filterDropdown = column.filterDropdown;
 
     if (filterDropdown && typeof filterDropdown === 'function') {
@@ -317,9 +277,9 @@ function (_super) {
       });
     }
 
-    var menus = filterDropdown ? React.createElement(_FilterDropdownMenuWrapper.default, null, filterDropdown) : React.createElement(_FilterDropdownMenuWrapper.default, {
+    var menus = filterDropdown ? React.createElement(FilterDropdownMenuWrapper, null, filterDropdown) : React.createElement(FilterDropdownMenuWrapper, {
       className: prefixCls + "-dropdown"
-    }, React.createElement(_src.default, {
+    }, React.createElement(Menu, {
       multiple: multiple,
       onClick: this.handleMenuItemClick,
       prefixCls: dropdownPrefixCls + "-menu",
@@ -339,7 +299,7 @@ function (_super) {
       className: prefixCls + "-dropdown-link confirm",
       onClick: this.handleConfirm
     }, locale.filterConfirm)));
-    return React.createElement(_Dropdown.default, {
+    return React.createElement(Dropdown, {
       trigger: ['click'],
       overlay: menus,
       visible: this.state.neverShown ? false : this.state.visible,
@@ -356,6 +316,5 @@ function (_super) {
   return FilterMenu;
 }(React.Component);
 
-(0, _reactLifecyclesCompat.polyfill)(FilterMenu);
-var _default = FilterMenu;
-exports.default = _default;
+polyfill(FilterMenu);
+export default FilterMenu;

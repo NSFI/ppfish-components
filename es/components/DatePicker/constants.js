@@ -1,21 +1,6 @@
-"use strict";
-
-exports.__esModule = true;
-exports.TYPE_VALUE_RESOLVER_MAP = exports.RANGE_PARSER = exports.RANGE_FORMATTER = exports.DATE_PARSER = exports.DATE_FORMATTER = exports.HAVE_TRIGGER_TYPES = exports.DEFAULT_FORMATS = exports.RANGE_SEPARATOR = void 0;
-
-require("core-js/modules/es6.regexp.match");
-
-require("core-js/modules/es6.number.constructor");
-
-require("core-js/modules/es6.regexp.replace");
-
-require("core-js/modules/es6.regexp.split");
-
-var _date = require("../../utils/date");
-
-var RANGE_SEPARATOR = ' - ';
-exports.RANGE_SEPARATOR = RANGE_SEPARATOR;
-var DEFAULT_FORMATS = {
+import { formatDate, parseDate, getWeekNumber, getDateOfISOWeek, deconstructDate, DAY_DURATION } from '../../utils/date';
+export var RANGE_SEPARATOR = ' - ';
+export var DEFAULT_FORMATS = {
   date: 'yyyy-MM-dd',
   month: 'yyyy-MM',
   year: 'yyyy',
@@ -27,60 +12,41 @@ var DEFAULT_FORMATS = {
   daterange: 'yyyy-MM-dd',
   datetimerange: 'yyyy-MM-dd HH:mm:ss'
 };
-exports.DEFAULT_FORMATS = DEFAULT_FORMATS;
-var HAVE_TRIGGER_TYPES = ['date', 'datetime', 'time', 'timeselect', 'week', 'month', 'year', 'daterange', 'timerange', 'datetimerange'];
-exports.HAVE_TRIGGER_TYPES = HAVE_TRIGGER_TYPES;
-
-var DATE_FORMATTER = function DATE_FORMATTER(value, format) {
-  return (0, _date.formatDate)(value, format);
+export var HAVE_TRIGGER_TYPES = ['date', 'datetime', 'time', 'timeselect', 'week', 'month', 'year', 'daterange', 'timerange', 'datetimerange'];
+export var DATE_FORMATTER = function DATE_FORMATTER(value, format) {
+  return formatDate(value, format);
 };
-
-exports.DATE_FORMATTER = DATE_FORMATTER;
-
-var DATE_PARSER = function DATE_PARSER(text, format) {
-  return (0, _date.parseDate)(text, format);
+export var DATE_PARSER = function DATE_PARSER(text, format) {
+  return parseDate(text, format);
 };
-
-exports.DATE_PARSER = DATE_PARSER;
-
-var RANGE_FORMATTER = function RANGE_FORMATTER(value, format, separator) {
-  if (separator === void 0) {
-    separator = RANGE_SEPARATOR;
-  }
+export var RANGE_FORMATTER = function RANGE_FORMATTER(value, format) {
+  var separator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : RANGE_SEPARATOR;
 
   if (Array.isArray(value) && value.length === 2) {
     var start = value[0];
     var end = value[1];
 
     if (start && end) {
-      return (0, _date.formatDate)(start, format) + separator + (0, _date.formatDate)(end, format);
+      return formatDate(start, format) + separator + formatDate(end, format);
     }
   }
 
   return '';
 };
-
-exports.RANGE_FORMATTER = RANGE_FORMATTER;
-
-var RANGE_PARSER = function RANGE_PARSER(text, format, separator) {
-  if (separator === void 0) {
-    separator = RANGE_SEPARATOR;
-  }
-
+export var RANGE_PARSER = function RANGE_PARSER(text, format) {
+  var separator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : RANGE_SEPARATOR;
   var array = text.split(separator);
 
   if (array.length === 2) {
     var range1 = array[0];
     var range2 = array[1];
-    return [(0, _date.parseDate)(range1, format), (0, _date.parseDate)(range2, format)];
+    return [parseDate(range1, format), parseDate(range2, format)];
   }
 
   return [];
 };
-
-exports.RANGE_PARSER = RANGE_PARSER;
-var TYPE_VALUE_RESOLVER_MAP = {
-  default: {
+export var TYPE_VALUE_RESOLVER_MAP = {
+  "default": {
     formatter: function formatter(value) {
       if (!value) return '';
       return '' + value;
@@ -94,7 +60,7 @@ var TYPE_VALUE_RESOLVER_MAP = {
     formatter: function formatter(value, format) {
       if (value instanceof Date) {
         if (!format) {
-          var weekNumber = (0, _date.getWeekNumber)(value);
+          var weekNumber = getWeekNumber(value);
           return value.getFullYear() + 'w' + (weekNumber > 9 ? weekNumber : '0' + weekNumber);
         } else {
           var str = '';
@@ -106,8 +72,8 @@ var TYPE_VALUE_RESOLVER_MAP = {
             str = DATE_FORMATTER(value, format);
 
             if (str) {
-              var weekno = (0, _date.deconstructDate)(new Date(value.getTime() + _date.DAY_DURATION)).week;
-              str = /WW/.test(str) ? str.replace(/WW/, weekno < 10 ? "0" + weekno : weekno) : str.replace(/W/, weekno);
+              var weekno = deconstructDate(new Date(value.getTime() + DAY_DURATION)).week;
+              str = /WW/.test(str) ? str.replace(/WW/, weekno < 10 ? "0".concat(weekno) : weekno) : str.replace(/W/, weekno);
             }
           }
 
@@ -155,7 +121,7 @@ var TYPE_VALUE_RESOLVER_MAP = {
             throw new Error('never reach here');
         }
 
-        return (0, _date.getDateOfISOWeek)(wn.week, date.getFullYear());
+        return getDateOfISOWeek(wn.week, date.getFullYear());
       }
     }
   },
@@ -211,4 +177,3 @@ var TYPE_VALUE_RESOLVER_MAP = {
     }
   }
 };
-exports.TYPE_VALUE_RESOLVER_MAP = TYPE_VALUE_RESOLVER_MAP;

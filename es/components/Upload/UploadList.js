@@ -1,45 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/es6.regexp.split");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _Icon = _interopRequireDefault(require("../Icon"));
-
-var _Tooltip = _interopRequireDefault(require("../Tooltip"));
-
-var _Progress = _interopRequireDefault(require("../Progress"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -65,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -81,6 +40,12 @@ var __assign = void 0 && (void 0).__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+import * as React from 'react';
+import Animate from 'rc-animate';
+import Icon from '../Icon';
+import Tooltip from '../Tooltip';
+import Progress from '../Progress';
+import classNames from 'classnames';
 var fileListItemHeight = 24; // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
 
 var previewFile = function previewFile(file, callback) {
@@ -204,7 +169,7 @@ function (_super) {
       var _a;
 
       var progress;
-      var icon = React.createElement(_Icon.default, {
+      var icon = React.createElement(Icon, {
         type: file.status === 'uploading' ? 'load-line' : 'clip-line',
         spinning: file.status === 'uploading' ? true : false
       });
@@ -215,7 +180,7 @@ function (_super) {
             className: prefixCls + "-list-item-uploading-text"
           }, locale.uploading);
         } else if (!file.thumbUrl && !file.url) {
-          icon = React.createElement(_Icon.default, {
+          icon = React.createElement(Icon, {
             type: "image-line",
             className: prefixCls + "-list-item-thumbnail"
           });
@@ -223,7 +188,7 @@ function (_super) {
           var thumbnail = isImageUrl(file.thumbUrl || file.url) ? React.createElement("img", {
             src: file.thumbUrl || file.url,
             alt: file.name
-          }) : React.createElement(_Icon.default, {
+          }) : React.createElement(Icon, {
             type: "file-line",
             className: prefixCls + "-list-item-icon"
           });
@@ -241,7 +206,7 @@ function (_super) {
 
       if (file.status === 'uploading') {
         // show loading icon if upload progress listener is disabled
-        var loadingProgress = 'percent' in file ? React.createElement(_Progress.default, __assign({
+        var loadingProgress = 'percent' in file ? React.createElement(Progress, __assign({
           type: "line"
         }, _this.props.progressAttr, {
           percent: file.percent,
@@ -258,7 +223,7 @@ function (_super) {
         }, loadingProgress);
       }
 
-      var infoUploadingClass = (0, _classnames.default)((_a = {}, _a[prefixCls + "-list-item"] = true, _a[prefixCls + "-list-item-" + file.status] = true, _a));
+      var infoUploadingClass = classNames((_a = {}, _a[prefixCls + "-list-item"] = true, _a[prefixCls + "-list-item-" + file.status] = true, _a));
       var preview = file.url ? React.createElement("a", __assign({}, file.linkProps, {
         href: file.url,
         target: "_blank",
@@ -288,17 +253,17 @@ function (_super) {
           return _this.handlePreview(file, e);
         },
         title: locale.previewFile
-      }, React.createElement(_Icon.default, {
+      }, React.createElement(Icon, {
         type: "watch-line"
       })) : null;
-      var removeIcon = showRemoveIcon ? React.createElement(_Icon.default, {
+      var removeIcon = showRemoveIcon ? React.createElement(Icon, {
         type: "delete-line",
         title: locale.removeFile,
         onClick: function onClick() {
           return _this.handleClose(file);
         }
       }) : null;
-      var removeIconCross = showRemoveIcon ? React.createElement(_Icon.default, {
+      var removeIconCross = showRemoveIcon ? React.createElement(Icon, {
         type: "hints-alone-error",
         title: locale.removeFile,
         onClick: function onClick() {
@@ -316,7 +281,7 @@ function (_super) {
         message = file.error && file.error.statusText || locale.uploadError;
       }
 
-      var iconAndPreview = file.status === 'error' ? React.createElement(_Tooltip.default, {
+      var iconAndPreview = file.status === 'error' ? React.createElement(Tooltip, {
         title: message
       }, icon, preview) : React.createElement("span", null, icon, preview);
       return React.createElement("div", {
@@ -324,15 +289,15 @@ function (_super) {
         key: file.uid
       }, React.createElement("div", {
         className: prefixCls + "-list-item-info"
-      }, iconAndPreview), actions, React.createElement(_rcAnimate.default, {
+      }, iconAndPreview), actions, React.createElement(Animate, {
         transitionName: "fade",
         component: ""
       }, progress));
     });
     var showScrollbar = listType === 'text' && list.length > maxFileCount;
-    var listClassNames = (0, _classnames.default)((_a = {}, _a[prefixCls + "-list"] = true, _a[prefixCls + "-list-" + listType] = true, _a[prefixCls + "-list-scroll"] = showScrollbar, _a));
+    var listClassNames = classNames((_a = {}, _a[prefixCls + "-list"] = true, _a[prefixCls + "-list-" + listType] = true, _a[prefixCls + "-list-scroll"] = showScrollbar, _a));
     var animationDirection = listType === 'picture-card' ? 'animate-inline' : 'animate';
-    var deleteAllCls = (0, _classnames.default)(prefixCls + "-list-scroll-delete-all", (_b = {}, _b[prefixCls + "-hide"] = !showDeleteAll, _b));
+    var deleteAllCls = classNames(prefixCls + "-list-scroll-delete-all", (_b = {}, _b[prefixCls + "-hide"] = !showDeleteAll, _b));
 
     if (showScrollbar) {
       return React.createElement("div", {
@@ -344,7 +309,7 @@ function (_super) {
         onClick: function onClick() {
           return _this.handleDeleteAll();
         }
-      }, "\u5168\u90E8\u5220\u9664")), React.createElement(_rcAnimate.default, {
+      }, "\u5168\u90E8\u5220\u9664")), React.createElement(Animate, {
         transitionName: prefixCls + "-" + animationDirection,
         component: "div",
         className: listClassNames,
@@ -353,7 +318,7 @@ function (_super) {
         }
       }, list));
     } else {
-      return React.createElement(_rcAnimate.default, {
+      return React.createElement(Animate, {
         transitionName: prefixCls + "-" + animationDirection,
         component: "div",
         className: listClassNames
@@ -376,5 +341,4 @@ function (_super) {
   return UploadList;
 }(React.Component);
 
-var _default = UploadList;
-exports.default = _default;
+export default UploadList;

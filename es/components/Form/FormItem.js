@@ -1,49 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.regexp.replace");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var ReactDOM = _interopRequireWildcard(require("react-dom"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-var _intersperse = _interopRequireDefault(require("intersperse"));
-
-var _rcAnimate = _interopRequireDefault(require("rc-animate"));
-
-var _Grid = require("../Grid");
-
-var _warning = _interopRequireDefault(require("../../utils/warning"));
-
-var _constants = require("./constants");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -69,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -84,6 +39,16 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import intersperse from 'intersperse';
+import Animate from 'rc-animate';
+import { Row, Col } from '../Grid';
+import warning from '../../utils/warning';
+import { FIELD_META_PROP, FIELD_DATA_PROP } from './constants';
 
 var FormItem =
 /** @class */
@@ -134,7 +99,7 @@ function (_super) {
   }
 
   FormItem.prototype.componentDidMount = function () {
-    (0, _warning.default)(this.getControls(this.props.children, true).length <= 1, '`Form.Item` cannot generate `validateStatus` and `help` automatically, ' + 'while there are more than one `getFieldDecorator` in it.');
+    warning(this.getControls(this.props.children, true).length <= 1, '`Form.Item` cannot generate `validateStatus` and `help` automatically, ' + 'while there are more than one `getFieldDecorator` in it.');
   };
 
   FormItem.prototype.getHelpMessage = function () {
@@ -144,7 +109,7 @@ function (_super) {
       var errors = this.getField().errors;
 
       if (errors) {
-        return (0, _intersperse.default)(errors.map(function (e, index) {
+        return intersperse(errors.map(function (e, index) {
           return React.isValidElement(e.message) ? React.cloneElement(e.message, {
             key: index
           }) : e.message;
@@ -176,7 +141,7 @@ function (_super) {
         continue;
       }
 
-      if (_constants.FIELD_META_PROP in child.props) {
+      if (FIELD_META_PROP in child.props) {
         // And means FIELD_DATA_PROP in chidl.props, too.
         controls.push(child);
       } else if (child.props.children) {
@@ -202,11 +167,11 @@ function (_super) {
   };
 
   FormItem.prototype.getMeta = function () {
-    return this.getChildProp(_constants.FIELD_META_PROP);
+    return this.getChildProp(FIELD_META_PROP);
   };
 
   FormItem.prototype.getField = function () {
-    return this.getChildProp(_constants.FIELD_DATA_PROP);
+    return this.getChildProp(FIELD_DATA_PROP);
   };
 
   FormItem.prototype.renderHelp = function () {
@@ -221,7 +186,7 @@ function (_super) {
       this.helpShow = !!children;
     }
 
-    return React.createElement(_rcAnimate.default, {
+    return React.createElement(Animate, {
       transitionName: "show-help",
       component: "",
       transitionAppear: true,
@@ -272,7 +237,7 @@ function (_super) {
     var classes = this.props.prefixCls + "-item-control";
 
     if (validateStatus) {
-      classes = (0, _classnames.default)(this.props.prefixCls + "-item-control", {
+      classes = classNames(this.props.prefixCls + "-item-control", {
         'has-feedback': props.hasFeedback || validateStatus === 'validating',
         'has-success': validateStatus === 'success',
         'has-warning': validateStatus === 'warning',
@@ -292,8 +257,8 @@ function (_super) {
     var _a = this.props,
         prefixCls = _a.prefixCls,
         wrapperCol = _a.wrapperCol;
-    var className = (0, _classnames.default)(prefixCls + "-item-control-wrapper", wrapperCol && wrapperCol.className);
-    return React.createElement(_Grid.Col, __assign({}, wrapperCol, {
+    var className = classNames(prefixCls + "-item-control-wrapper", wrapperCol && wrapperCol.className);
+    return React.createElement(Col, __assign({}, wrapperCol, {
       className: className,
       key: "wrapper"
     }), children);
@@ -332,8 +297,8 @@ function (_super) {
         id = _b.id;
     var context = this.context;
     var required = this.isRequired();
-    var labelColClassName = (0, _classnames.default)(prefixCls + "-item-label", labelCol && labelCol.className);
-    var labelClassName = (0, _classnames.default)((_a = {}, _a[prefixCls + "-item-required"] = required, _a));
+    var labelColClassName = classNames(prefixCls + "-item-label", labelCol && labelCol.className);
+    var labelClassName = classNames((_a = {}, _a[prefixCls + "-item-required"] = required, _a));
     var labelChildren = label; // Keep label is original where there should have no colon
 
     var haveColon = colon && !context.vertical; // Remove duplicated user input colon
@@ -342,7 +307,7 @@ function (_super) {
       labelChildren = label.replace(/[：|:]\s*$/, '');
     }
 
-    return label ? React.createElement(_Grid.Col, __assign({}, labelCol, {
+    return label ? React.createElement(Col, __assign({}, labelCol, {
       className: labelColClassName,
       key: "label"
     }), React.createElement("label", {
@@ -365,8 +330,8 @@ function (_super) {
     var prefixCls = props.prefixCls;
     var style = props.style;
     var itemClassName = (_a = {}, _a[prefixCls + "-item"] = true, _a[prefixCls + "-item-with-help"] = this.helpShow, _a[prefixCls + "-item-no-colon"] = !props.colon, _a["" + props.className] = !!props.className, _a);
-    return React.createElement(_Grid.Row, {
-      className: (0, _classnames.default)(itemClassName),
+    return React.createElement(Row, {
+      className: classNames(itemClassName),
       style: style
     }, children);
   };
@@ -382,23 +347,22 @@ function (_super) {
     colon: true
   };
   FormItem.propTypes = {
-    prefixCls: _propTypes.default.string,
-    label: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.node]),
-    labelCol: _propTypes.default.object,
-    help: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.bool]),
-    validateStatus: _propTypes.default.oneOf(['', 'success', 'warning', 'error', 'validating']),
-    hasFeedback: _propTypes.default.bool,
-    wrapperCol: _propTypes.default.object,
-    className: _propTypes.default.string,
-    id: _propTypes.default.string,
-    children: _propTypes.default.node,
-    colon: _propTypes.default.bool
+    prefixCls: PropTypes.string,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    labelCol: PropTypes.object,
+    help: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
+    validateStatus: PropTypes.oneOf(['', 'success', 'warning', 'error', 'validating']),
+    hasFeedback: PropTypes.bool,
+    wrapperCol: PropTypes.object,
+    className: PropTypes.string,
+    id: PropTypes.string,
+    children: PropTypes.node,
+    colon: PropTypes.bool
   };
   FormItem.contextTypes = {
-    vertical: _propTypes.default.bool
+    vertical: PropTypes.bool
   };
   return FormItem;
 }(React.Component);
 
-var _default = FormItem;
-exports.default = _default;
+export default FormItem;

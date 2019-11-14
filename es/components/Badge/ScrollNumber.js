@@ -1,43 +1,4 @@
-"use strict";
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.string.iterator");
-
-require("core-js/modules/es6.weak-map");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-require("core-js/modules/es6.number.constructor");
-
-require("core-js/modules/es6.regexp.to-string");
-
-require("core-js/modules/es6.object.to-string");
-
-require("core-js/modules/es6.regexp.split");
-
-require("core-js/modules/es6.object.assign");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-var React = _interopRequireWildcard(require("react"));
-
-var _omit = _interopRequireDefault(require("omit.js"));
-
-var _reactLifecyclesCompat = require("react-lifecycles-compat");
-
-var _classnames = _interopRequireDefault(require("classnames"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
+var __extends = this && this.__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
     _extendStatics = Object.setPrototypeOf || {
       __proto__: []
@@ -63,7 +24,7 @@ var __extends = void 0 && (void 0).__extends || function () {
   };
 }();
 
-var __assign = void 0 && (void 0).__assign || function () {
+var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
       s = arguments[i];
@@ -78,6 +39,12 @@ var __assign = void 0 && (void 0).__assign || function () {
 
   return __assign.apply(this, arguments);
 };
+
+import * as React from 'react';
+import { createElement, Component } from 'react';
+import omit from 'omit.js';
+import { polyfill } from 'react-lifecycles-compat';
+import classNames from 'classnames';
 
 function getNumberArray(num) {
   return num ? num.toString().split('').reverse().map(function (i) {
@@ -184,7 +151,7 @@ function (_super) {
   ScrollNumber.prototype.renderCurrentNumber = function (num, i) {
     var position = this.getPositionByNum(num, i);
     var removeTransition = this.state.animateStarted || getNumberArray(this.state.lastCount)[i] === undefined;
-    return (0, React.createElement)('span', {
+    return createElement('span', {
       className: this.props.prefixCls + "-only",
       style: {
         transition: removeTransition ? 'none' : undefined,
@@ -219,10 +186,10 @@ function (_super) {
         _b = _a.component,
         component = _b === void 0 ? 'sup' : _b; // fix https://fb.me/react-unknown-prop
 
-    var restProps = (0, _omit.default)(this.props, ['count', 'onAnimated', 'component', 'prefixCls']);
+    var restProps = omit(this.props, ['count', 'onAnimated', 'component', 'prefixCls']);
 
     var newProps = __assign(__assign({}, restProps), {
-      className: (0, _classnames.default)(prefixCls, className),
+      className: classNames(prefixCls, className),
       title: title
     }); // allow specify the border
     // mock border-color by box-shadow for compatible with old usage:
@@ -233,7 +200,7 @@ function (_super) {
       newProps.style.boxShadow = "0 0 0 1px " + style.borderColor + " inset";
     }
 
-    return (0, React.createElement)(component, newProps, this.renderNumberElement());
+    return createElement(component, newProps, this.renderNumberElement());
   };
 
   ScrollNumber.defaultProps = {
@@ -242,8 +209,7 @@ function (_super) {
     onAnimated: function onAnimated() {}
   };
   return ScrollNumber;
-}(React.Component);
+}(Component);
 
-(0, _reactLifecyclesCompat.polyfill)(ScrollNumber);
-var _default = ScrollNumber;
-exports.default = _default;
+polyfill(ScrollNumber);
+export default ScrollNumber;
