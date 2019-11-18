@@ -40,7 +40,7 @@ class Link extends Inline {
     }
   }
 }
-Link.blotName = 'myLink';
+Link.blotName = 'link';
 Link.tagName = 'A';
 Link.formatCursor = false;  // 是否为光标添加超链接
 // Link.SANITIZED_URL = 'about:blank';

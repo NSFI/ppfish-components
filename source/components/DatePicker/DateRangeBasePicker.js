@@ -131,6 +131,10 @@ class DateRangeBasePicker extends React.Component {
     return undefined;
   }
 
+  onError() {
+    return undefined;
+  }
+
   onPicked = (value, isKeepPannel = false, isConfirmValue = true) => {
     // 当为日期范围选择面板时，把结束时间默认设置为23:59:59:999
     if(this.type == 'daterange' && value && value.length === 2) {
@@ -211,7 +215,7 @@ class DateRangeBasePicker extends React.Component {
       }, ()=> {
         this.props.onVisibleChange(false);
       });
-      this.refs.inputRoot.blur();
+      this.refInputRoot.blur();
       evt.stopPropagation();
     }
     // enter
@@ -221,7 +225,7 @@ class DateRangeBasePicker extends React.Component {
       }, ()=>{
         this.saveValidInputValue();
       });
-      this.refs.inputRoot.blur();
+      this.refInputRoot.blur();
     }
   }
 
@@ -269,6 +273,16 @@ class DateRangeBasePicker extends React.Component {
   // 保存合法的输入值
   saveValidInputValue = () => {
     const {value, confirmValue} = this.state;
+
+    if(value && value.length === 2 && this.onError) {
+      const error = this.onError([value[0], value[1]]);
+      if(error) {
+        this.setState({
+          pickerVisible: error,
+        });
+        return;
+      }
+    }
 
     if (this.isDateValid(value) && !equalDateArr(value, confirmValue)) {
       this.onPicked(value, false, true);
@@ -379,7 +393,7 @@ class DateRangeBasePicker extends React.Component {
                   });
                 }
               }}
-              ref="inputRoot"
+              ref={e => this.refInputRoot = e}
               value={text && text.length == 2 ? text[0] : ''}
               prefix={prefixIcon()}
             />

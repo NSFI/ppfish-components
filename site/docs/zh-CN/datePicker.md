@@ -441,6 +441,7 @@ render() {
           style={{width: 310}}
           value={value6}
           showTime={true}
+          format="yyyy-MM-dd HH:mm"
           placeholder="选择日期"
           onChange={date=> {
             console.debug('DatePicker6 changed: ', date)

@@ -75,21 +75,23 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
       visible: false,
       checkedOption: option,
       checkedOptionConfirm: option,
+      okButtonDisabled: true,
       prevProps: props,
-      colSpanOption: getColSpanOption(columns),
+      colSpanOption: getColSpanOption(columns)
     };
   }
 
   showModal = () => {
     this.setState({
-      visible: true,
+      visible: true
     });
   };
 
   handleOk = () => {
     this.setState({
       visible: false,
-      checkedOptionConfirm: this.state.checkedOption
+      checkedOptionConfirm: this.state.checkedOption,
+      okButtonDisabled: true
     }, () => {
       // 被隐藏的列表key
       this.props.onChange(flatten(
@@ -110,12 +112,20 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
   handleCancel = () => {
     this.setState({
       visible: false,
-      checkedOption: this.state.checkedOptionConfirm
+      checkedOption: this.state.checkedOptionConfirm,
+      okButtonDisabled: true
     });
   };
 
   onChange = (checkedOption) => {
-    this.setState({checkedOption});
+    let { checkedOptionConfirm } = this.state;
+    this.setState({
+      checkedOption,
+      okButtonDisabled: (
+        JSON.stringify(checkedOption && checkedOption.sort()) == 
+        JSON.stringify(checkedOptionConfirm && checkedOptionConfirm.sort())
+      )
+    });
   };
 
   getOptions = () => {
@@ -153,7 +163,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
 
   render() {
     const {prefixCls} = this.props;
-    const {visible, checkedOption} = this.state;
+    const {visible, checkedOption, okButtonDisabled} = this.state;
     const options = this.getOptions();
     const defaultOption = this.getDefaultOption();
     return (
@@ -164,6 +174,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
           wrapClassName={`${prefixCls}-filtrate-modal`}
           visible={visible}
           width={680}
+          okButtonDisabled={okButtonDisabled}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >

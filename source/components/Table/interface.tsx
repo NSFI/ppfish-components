@@ -222,6 +222,7 @@ export interface ColumnFiltrateProps<T> {
 
 export interface ColumnFiltrateState {
   visible?: boolean;
+  okButtonDisabled?: boolean;
   checkedOption?: any[];
   checkedOptionConfirm?: any[];
   colSpanOption?: any[];

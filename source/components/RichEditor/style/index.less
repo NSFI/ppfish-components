@@ -96,6 +96,14 @@
       color: @input-placeholder-color;
       font-style: normal;
     }
+
+    .custom-hide {
+      display: none !important;
+    }
+
+    .custom-show {
+      display: flex !important;
+    }
   }
 
   .item {
@@ -146,10 +154,6 @@
   //     fill: #fff !important;
   //   }
   // }
-
-  .ql-tooltip {
-    display: none;
-  }
 
   .toolbar-grp {
     // display: inline-block;
@@ -317,9 +321,12 @@
     text-align: left;
 
     &:hover {
-      // color: @primary-color;
       background: @richeditor-icon-hover-bg;
     }
+  }
+
+  .size-item.active {
+    color: @primary-color;
   }
 }
 
@@ -366,6 +373,30 @@
     .scrollbar();
   }
 
+  .insert-value-search {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 2px 12px;
+  }
+
+  .insert-value-icon-clear {
+    font-size: 12px;
+    color: @text-9;
+
+    &:hover {
+      color: @text-6;
+    }
+  }
+
+  .insert-value-empty {
+    position: relative;
+    color: @text-9;
+    line-height: 32px;
+    text-align: center;
+    padding: 6px 12px 2px;
+  }
+
   .insert-value-item {
     position: relative;
     display: block;
@@ -379,6 +410,8 @@
     cursor: pointer;
     border: 1px solid transparent;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &:hover {
       background: @item-hover-bg;

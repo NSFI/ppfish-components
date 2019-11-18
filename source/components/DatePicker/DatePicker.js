@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BasePicker from './BasePicker.js';
 import DatePanel from './panel/DatePanel.js';
+import TimeSelectPanel from './panel/TimeSelectPanel.js';
+import TimePanel from './panel/TimePanel';
+import { converSelectRange } from './TimePicker';
 import { SELECTION_MODES } from '../../utils/date';
 
 export default class DatePicker extends BasePicker {
@@ -25,7 +28,7 @@ export default class DatePicker extends BasePicker {
   }
 
   static get defaultProps() {
-    return Object.assign({}, BasePicker.defaultProps);
+    return Object.assign({}, DatePanel.defaultProps, BasePicker.defaultProps);
   }
 
   constructor(props) {
@@ -42,7 +45,21 @@ export default class DatePicker extends BasePicker {
   }
 
   isDateValid(value) {
-    return super.isDateValid(value) && DatePanel.isValid(value, this.props.disabledDate);
+    // 带时间的日期面板，需要检查时间的合法性
+    const dateValid = super.isDateValid(value) && DatePanel.isValid(value, this.props.disabledDate);
+    if(this.props.showTime) {
+      const timeSelectValid = (
+        this.props.timeSelectMode === 'TimeSelect' &&
+        TimeSelectPanel.isValid(this.dateToStr(value).split(" ")[1], this.props.timeSelectModeProps)
+      );
+      const timePickerValid = (
+        this.props.timeSelectMode === 'TimePicker' &&
+        TimePanel.isValid(value, converSelectRange({selectableRange:this.props.timeSelectableRange}))
+      );
+      return dateValid && (timeSelectValid || timePickerValid);
+    }else{
+      return dateValid;
+    }
   }
 
   pickerPanel(state) {
