@@ -95,15 +95,14 @@ __注意：由于组件引入公共样式时使用的是 reference 方式，按�
 
 ## 兼容性
 
-Fish Design 支持所有的现代浏览器和IE9+。
+Fish Design 支持所有的现代浏览器和IE10+。
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Opera |
 | --------- | --------- | --------- | --------- | --------- |
-| IE9,IE10,IE11,Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions|
+| IE10,IE11,Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions|
 
 注意
-- Fish Design对IE9/10只提供有限度的支持。如部分样式和动画效果以及有些使用到了flex布局的组件，在IE9/10下会有问题
-- 对于 IE 系列浏览器，需要提供Polyfill支持
+- Fish Design对IE10只提供有限度的支持。如部分样式和动画效果，在IE10下会有问题
 
 
 ## 演示环境
