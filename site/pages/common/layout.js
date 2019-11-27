@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import React from 'react';
 import {Link} from 'react-router';
 import PropTypes from "prop-types";
