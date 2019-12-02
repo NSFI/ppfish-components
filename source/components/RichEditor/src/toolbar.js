@@ -167,7 +167,7 @@ class CustomToolbar extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.defaultSizes = ['32px', '24px', '18px', '16px', '13px', '12px'];
+    this.defaultSizes = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '12px'];
     this.curInsertValueList = [];
     this.state = {
       curSize: null,
