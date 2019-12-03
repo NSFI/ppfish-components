@@ -48,8 +48,14 @@ export default class DatePicker extends BasePicker {
     // 带时间的日期面板，需要检查时间的合法性
     const dateValid = super.isDateValid(value) && DatePanel.isValid(value, this.props.disabledDate);
     if(this.props.showTime) {
-      const timeSelectValid = this.props.timeSelectMode === 'TimeSelect' && TimeSelectPanel.isValid(this.dateToStr(value).split(" ")[1], this.props.timeSelectModeProps);
-      const timePickerValid = this.props.timeSelectMode === 'TimePicker' && TimePanel.isValid(value, converSelectRange({selectableRange:this.props.timeSelectableRange}));
+      const timeSelectValid = (
+        this.props.timeSelectMode === 'TimeSelect' &&
+        TimeSelectPanel.isValid(this.dateToStr(value).split(" ")[1], this.props.timeSelectModeProps)
+      );
+      const timePickerValid = (
+        this.props.timeSelectMode === 'TimePicker' &&
+        TimePanel.isValid(value, converSelectRange({selectableRange:this.props.timeSelectableRange}))
+      );
       return dateValid && (timeSelectValid || timePickerValid);
     }else{
       return dateValid;
