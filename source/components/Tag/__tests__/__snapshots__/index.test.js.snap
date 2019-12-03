@@ -7,11 +7,12 @@ exports[`Tag can be controlled by visible 1`] = `
 />
 `;
 
-exports[`Tag can be controlled by visible 2`] = `null`;
-
-exports[`Tag can be controlled by visible 3`] = `
+exports[`Tag can be controlled by visible 2`] = `
 <div
-  class="fishd-tag"
-  data-show="true"
+  class="fishd-tag fishd-tag-close"
+  data-show="false"
+  style="width: 0px;"
 />
 `;
+
+exports[`Tag can be controlled by visible 3`] = `null`;
