@@ -1,0 +1,9 @@
+language: node_js
+node_js: stable
+install:
+    - npm install
+script:
+    - npm run test
+    - npm run lint
+    - npm run stylelint
+    - npm run build
