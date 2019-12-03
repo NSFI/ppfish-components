@@ -7,6 +7,8 @@
 <h1 align="center">Fish Design 网易云商服UI组件库</h1>
 
 ## Introduction
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components?ref=badge_shield)
+
 
 Fish Design is an enterprise-class UI component library which based on React, helps designers and developers quickly build systems.
 
@@ -131,3 +133,7 @@ Open your browser and visit http://127.0.0.1:5000
 - react component and react container: named using hump form and uppercase characters at the beginning
 - test file: named with Component + .test + .js format
 - Less:  use stylelint:recommended，see /site/docs/LESS代码规范.md for more details
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components?ref=badge_large)
