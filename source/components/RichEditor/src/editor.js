@@ -288,12 +288,15 @@ class RichEditor extends Component {
           if (url) {
             // 异步获取URL
             if (Object.prototype.toString.call(url) == "[object Function]") {
+              let format = this.quill.getFormat(),
+                prevValue = format && format.link && format.link.url;
+
               url((value) => {
                 this.quill.format('link', {
                   type: `${moduleName}Entry`,
                   url: value
                 });
-              });
+              }, prevValue);
             } else {
               this.quill.format('link', {
                 type: `${moduleName}Entry`,
@@ -964,7 +967,11 @@ class RichEditor extends Component {
           destroyOnClose
         >
           <span className="text">超链接地址</span>
-          <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue={defaultInputLink} />
+          <Input
+            ref={el => this.linkModalInputRef = el}
+            style={{ width: '434px' }}
+            defaultValue={defaultInputLink}
+          />
           { insertLinkTip ? <div className="tip">{insertLinkTip}</div> : null }
         </Modal>
         <Modal

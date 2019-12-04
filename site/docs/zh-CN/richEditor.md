@@ -226,13 +226,15 @@
     this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['mylink']];
 
     this.state = {
-      showModal: false
+      showModal: false,
+      prevValue: null
     };
   }
 
-  getUrl = (cb) => {
+  getUrl = (cb, prevValue) => {
     this.setState({
-      showModal: true
+      showModal: true,
+      prevValue
     });
 
     this.formatLink = cb;
@@ -277,13 +279,17 @@
           value={`<p><a target="_blank" href="https://nsfi.github.io/ppfish-components/#/home">Fish Design</a> 是基于 React 实现的高质量的 UI 组件库。</p><p><br></p><p>它的设计原则是简洁、直接、优雅和适应性。</p><p><br></p><p>欢迎使用或<a target="_blank" href="https://github.com/NSFI/ppfish-components/">贡献代码</a><img class="portrait_icon" data-id="emoticon_emoji_132" data-type="defaultEmoji" alt="[玫瑰]" src="//qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png" width="24" height="24"></p>`}
         />
         <Modal
-          title="插入超链接"
+          title="异步插入超链接"
           destroyOnClose
           visible={this.state.showModal}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <Input ref={this.saveInputRef} placeholder="请输入超链接" />
+          <Input
+            ref={this.saveInputRef}
+            placeholder="请输入超链接"
+            defaultValue={this.state.prevValue}
+          />
         </Modal>
       </React.Fragment>
     );
@@ -607,7 +613,7 @@ __请注意：默认情况下，使用编辑器内置的插入/粘贴/拖入图�
 | customDropImage | 自定义粘贴或拖入图片，`imageDrop` 为 true 时有效。通过此接口可以在粘贴或拖入图片时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (files: DataTransferItemList, callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
 | customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, [showSearch]: Boolean, [searchPlaceholder]: String, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`showSearch` 用于设置选项标题是否支持搜索，默认为 false；`searchPlaceholder` 用于设置搜索的占位符，默认为“请输入关键字”；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
-| customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String | Function, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的超链接或可以返回超链接的函数，必选；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
+| customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String | Function, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的超链接或可以返回超链接的函数，该函数有两个参数，第一个参数为设置超链接的回调函数，第二个参数为当前选中富文本的超链接，必选；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | customInsertVideo | 自定义插入视频，通过此接口可以自定义插入视频前获取视频的过程，如上传本地视频到服务器、异步获取视频源地址等。 | ((Object {src: String}) => Void) => Void | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
