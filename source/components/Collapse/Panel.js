@@ -77,7 +77,6 @@ class CollapsePanel extends Component {
       className,
       prefixCls,
       disabled,
-      header,
       showClose,
       style,
       children,

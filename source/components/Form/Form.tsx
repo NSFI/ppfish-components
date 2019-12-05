@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import createDOMForm from './RcForm/createDOMForm';
 import createFormField from './RcForm/createFormField';
 import omit from 'omit.js';
-import warning from '../../utils/warning';
 import FormItem from './FormItem';
 import { FIELD_META_PROP, FIELD_DATA_PROP } from './constants';
 import {Omit} from '../../utils/type';

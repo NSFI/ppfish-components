@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { Scrollbar } from '../scrollbar';
 import debounce from 'lodash/debounce';
 import { getRangeHours } from '../../../utils/date';
-import {polyfill} from 'react-lifecycles-compat';
 
 function range(end) {
   let r = [];
@@ -80,7 +79,6 @@ class TimeSpinner extends React.Component {
       prefixCls: 'fishd'
     };
   }
-
 
   static getDerivedStateFromProps(nextProps, prevState) {
     // only props has changed
@@ -253,7 +251,5 @@ class TimeSpinner extends React.Component {
     );
   }
 }
-
-polyfill(TimeSpinner);
 
 export default TimeSpinner;

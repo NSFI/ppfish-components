@@ -197,7 +197,7 @@
 | onClose | 关闭引导时的回调函数 | () => {} | - |
 | prevBtnText | 上一步按钮的文案 | String | '上一步' |
 | skipBtnText | 跳过按钮的文案 | String | '跳过' |
-| steps（normal模式） | 定义步骤，详情见下方介绍 | Array < Object { className: String, title: String \| HTMLString, counterPosition: Enum, description: String \| HTMLString, position: Enum } >| - |
+| steps（normal模式） | 定义步骤，详情见下方介绍 | Array < Object { counterPosition: Enum, element: String, popover: Object } >| - |
 | steps（fixed模式） | 定义步骤，详情见下方介绍 | Array < Object { title: String \| HTMLElement, subtitle: String \| HTMLElement, content: String \| HTMLElement } >| - |
 | style（fixed模式） | 容器样式，只在fixed模式有效 | Object | - |
 | visible | 是否展示引导 | Boolean | false |
@@ -207,8 +207,16 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 |:-|:-|:-|:-|
-| className | 步骤弹层容器的类名 | String | - |
 | counterPosition | 步骤计数器的位置 | Enum {'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'leftTop' |
+| element | 要高亮的元素或该元素的CSS选择器 | HTMLElement \| String | - |
+| popover | 步骤弹层容器设置，详情见下方介绍 | Object { className: String, description: String \| HTMLString, position: Enum, title: String \| HTMLString } | - |
+
+
+### steps数组内元素的popover（normal模式）
+
+| 属性 | 说明 | 类型 | 默认值 |
+|:-|:-|:-|:-|
+| className | 步骤弹层容器的类名 | String | - |
 | description | 步骤的介绍 | String \| HTMLString | - |
 | position | 步骤弹层的位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'bottomLeft' |
 | title | 步骤的标题 | String \| HTMLString | - |

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
 import RcDrawer from './src';
 import './style/index.less';
 
@@ -64,7 +63,6 @@ export default class Drawer extends React.Component {
 
   render() {
     const {
-      prefixCls,
       className,
       wrapperClassName,
       width,

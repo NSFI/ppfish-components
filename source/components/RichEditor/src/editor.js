@@ -63,6 +63,7 @@ class RichEditor extends Component {
     value: PropTypes.string,
     insertImageTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     insertVideoTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    insertLinkTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     popoverPlacement: PropTypes.string,
     tooltipPlacement: PropTypes.string,
     videoTagAttrs: PropTypes.object,
@@ -126,6 +127,7 @@ class RichEditor extends Component {
   constructor(props) {
     super(props);
     this.reactQuillNode = document.body;
+    this.defaultFontSize = "14px";
 
     let { value, customLink, supportFontTag, pastePlainText, customInsertVideo } = this.props;
 
@@ -157,7 +159,8 @@ class RichEditor extends Component {
       toolbarCtner: null,
       curRange: null,
       curVideoType: this.defaultVideoType,
-      defaultInputLink: "http://"
+      defaultInputLink: "http://",
+      linkModalTitle: "插入超链接"
     };
     this.handlers = {
       link: (value, fromAction) => {
@@ -180,6 +183,9 @@ class RichEditor extends Component {
           // 点击编辑链接触发
           if (fromAction) {
             newState['defaultInputLink'] = value;
+            newState['linkModalTitle'] = "编辑超链接";
+          } else {
+            newState['linkModalTitle'] = "插入超链接";
           }
 
           this.setState(newState);
@@ -276,12 +282,28 @@ class RichEditor extends Component {
     // 处理定制的超链接
     Object.keys(customLink).forEach((moduleName) => {
       this.handlers[`${moduleName}Entry`] = function() {
-        let range = this.quill.getSelection();
+        let range = this.quill.getSelection(),
+          url = customLink[moduleName].url;
         if (range.length !== 0) {
-          this.quill.format('link', {
-            type: `${moduleName}Entry`,
-            url: customLink[moduleName].url
-          });
+          if (url) {
+            // 异步获取URL
+            if (Object.prototype.toString.call(url) == "[object Function]") {
+              let format = this.quill.getFormat(),
+                prevValue = format && format.link && format.link.url;
+
+              url((value) => {
+                this.quill.format('link', {
+                  type: `${moduleName}Entry`,
+                  url: value
+                });
+              }, prevValue);
+            } else {
+              this.quill.format('link', {
+                type: `${moduleName}Entry`,
+                url
+              });
+            }
+          } 
         } else {
           message.error('没有选中文本');
         }
@@ -710,23 +732,11 @@ class RichEditor extends Component {
     }
   };
 
-  handleFormatSize = (e) => {
-    let { toolbarCtner } = this.state,
-      target = e.target;
-
-    if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
-      let el = toolbarCtner.querySelector('button.ql-customAttr[data-role="customSize"]');
-      if (el == null) {
-        el = document.createElement('button');
-        toolbarCtner.querySelector('.custom-size').appendChild(el);
-      }
-
-      el.setAttribute('type', 'button');
-      el.setAttribute('data-role', 'customSize');
-      el.setAttribute('value', target.getAttribute('value'));
-      el.classList.add('ql-customAttr', 'hide');
-      el.click();
-    }
+  handleFormatSize = (value) => {
+    let quill = this.getEditor();
+    quill && quill.format('customAttr', {
+      fontSize: value
+    });
   };
 
   handleInsertValue = (e) => {
@@ -859,6 +869,47 @@ class RichEditor extends Component {
     });
   };
 
+  getCurrentSize = () => {
+    let quill = this.getEditor();
+    if (!quill) return null;
+
+    let formats = quill.getFormat(),
+      customAttr = formats && formats.customAttr,
+      customAttrType = Object.prototype.toString.call(customAttr);
+
+    if (!customAttr) return this.defaultFontSize;
+
+    if (customAttrType == "[object Object]") {
+      return customAttr.fontSize || this.defaultFontSize;
+    }
+
+    if (customAttrType == "[object Array]") {
+      let len = customAttr.length;
+      if (len) {
+        let fontSize = customAttr[0].fontSize,
+          hasMultiFontSize = false;
+
+        for (let i=0; i<len; i++) {
+          // 选中的富文本有多种字体大小时不高亮字号
+          if (customAttr[i].fontSize != fontSize) {
+            hasMultiFontSize = true;
+            break;
+          }
+        }
+
+        if (hasMultiFontSize) {
+          return null;
+        } else {
+          return fontSize;
+        }
+      } else {
+        return this.defaultFontSize;
+      }
+    }
+
+    return null;
+  };
+
   render() {
     const {
       loading,
@@ -868,7 +919,8 @@ class RichEditor extends Component {
       showImageModal,
       toolbarCtner,
       curVideoType,
-      defaultInputLink
+      defaultInputLink,
+      linkModalTitle
     } = this.state;
     const {
       className, prefixCls,
@@ -880,6 +932,7 @@ class RichEditor extends Component {
       customEmoji,
       insertImageTip,
       insertVideoTip,
+      insertLinkTip,
       onChange,
       onSelectionChange,
       popoverPlacement,
@@ -906,7 +959,7 @@ class RichEditor extends Component {
     return (
       <div className={cls} style={style} ref={(el) => this.editorCtner = el}>
         <Modal
-          title="插入超链接"
+          title={linkModalTitle}
           className={`${prefixCls}-link-modal`}
           visible={showLinkModal}
           onOk={this.handleLinkModalOk}
@@ -914,7 +967,12 @@ class RichEditor extends Component {
           destroyOnClose
         >
           <span className="text">超链接地址</span>
-          <Input ref={el => this.linkModalInputRef = el} style={{ width: '434px' }} defaultValue={defaultInputLink} />
+          <Input
+            ref={el => this.linkModalInputRef = el}
+            style={{ width: '434px' }}
+            defaultValue={defaultInputLink}
+          />
+          { insertLinkTip ? <div className="tip">{insertLinkTip}</div> : null }
         </Modal>
         <Modal
           title="插入图片"
@@ -924,7 +982,7 @@ class RichEditor extends Component {
           onCancel={this.handleImageModalCancel}
         >
           <Button type="primary" onClick={this.handlePickLocalImage}>选择本地图片</Button>
-          <div className="tip">{insertImageTip}</div>
+          { insertImageTip ? <div className="tip">{insertImageTip}</div> : null }
         </Modal>
         <Modal
           title="插入视频"
@@ -950,7 +1008,7 @@ class RichEditor extends Component {
                 type="primary"
                 onClick={this.handlePickLocalVideo}
               >选择本地视频</Button>
-              <div className="tip">{insertVideoTip}</div>
+              { insertVideoTip ? <div className="tip">{insertVideoTip}</div> : null }
             </React.Fragment> : 
             <Input
               ref={el => this.videoModalInputRef = el}
@@ -974,6 +1032,7 @@ class RichEditor extends Component {
           popoverPlacement={popoverPlacement}
           tooltipPlacement={tooltipPlacement}
           getPopupContainer={getPopupContainer}
+          getCurrentSize={this.getCurrentSize}
         />
         <ReactQuill
           {...restProps}

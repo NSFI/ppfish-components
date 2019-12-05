@@ -150,13 +150,13 @@ let QuillMixin = {
         }
 
         // 输入内容包含非空字符时判为非空
-        let notEmpty = true, insert = obj['insert'];
+        let insert = obj['insert'];
         if (typeof insert != 'string') return false;
 
         let insertChars = [...insert];
         if (!insertChars.length) continue;
 
-        notEmpty = insertChars.some((val) => {
+        let notEmpty = insertChars.some((val) => {
           return val!=='' && val!==' ' && val!=='\t' && val!=='\n' && val!=='\ufeff';
         });
         if(notEmpty) return false;
