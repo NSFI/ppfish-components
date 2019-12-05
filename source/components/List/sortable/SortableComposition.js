@@ -45,7 +45,7 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
 
     dragOver = (e) => {
       e.preventDefault();
-      const {moveInMiddle, sortId} = this.props;
+      const {moveInMiddle} = this.props;
       const overEl = e.currentTarget; //underlying element
       const indexDragged = Number(overEl.dataset.id);//index of underlying element in the set DOM elements
       const indexFrom = Number(draggingIndex);

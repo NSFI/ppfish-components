@@ -87,7 +87,7 @@ let QuillComponent = createClass({
 		pollInterval: function(props) {
 			if ('pollInterval' in props) return new Error(
 				'The `pollInterval` property does not have any effect anymore. ' +
-				'You can safely remove it from your props.' +
+				'You can safely remove it from your props. ' +
 				'See: https://github.com/zenoamaro/react-quill#upgrading-to-react-quill-v100.'
 			);
 		},

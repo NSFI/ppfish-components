@@ -7,7 +7,6 @@ See https://quilljs.com/docs/modules/toolbar
 'use strict';
 
 /* eslint-disable react/prefer-es6-class */
-let React = require('react');
 let ReactDOMServer = require('react-dom/server');
 let createClass = require('create-react-class');
 let find = require('lodash/find');

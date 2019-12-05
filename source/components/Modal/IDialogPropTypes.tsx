@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties, SyntheticEvent } from 'react';
+import { CSSProperties, SyntheticEvent } from 'react';
 
 interface IDialogPropTypes {
   /** 对话框是否可见*/

@@ -6,8 +6,12 @@ class Link extends Inline {
     this.formatCursor = false;
     const node = super.create(value);
     node.setAttribute('target', '_blank');
-    node.setAttribute('href', value && value.url);
-    // node.setAttribute('data-type', value && value.type || 'default');
+
+    if (value) {
+      node.setAttribute('href', value.url);
+      // node.setAttribute('data-type', value.type || 'default');
+    }
+
     return node;
   }
 
@@ -16,7 +20,7 @@ class Link extends Inline {
     let domChildren = node.children;
     // let containsCursor = /<\s*span\s*class\s*=\s*['"]\s*ql-cursor\s*['"]\s*>\s*\ufeff\s*<\s*\/\s*span\s*>/gi;
     if (!this.formatCursor && domChildren && domChildren.length==1 && domChildren[0].innerText=="\ufeff") {
-      return;
+      return {};
     }
 
     return {
@@ -35,8 +39,10 @@ class Link extends Inline {
     } else {
       // 在超链接内输入回车时需要为光标添加超链接
       this.statics.formatCursor = true;
-      this.domNode.setAttribute('href', value && value.url);
-      // this.domNode.setAttribute('data-type', value && value.type || 'default');
+      if (value) {
+        this.domNode.setAttribute('href', value.url);
+        // this.domNode.setAttribute('data-type', value.type || 'default');
+      }
     }
   }
 }

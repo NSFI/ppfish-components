@@ -1,6 +1,5 @@
 import Quill from 'quill';
 import { getAttrs } from './image.js';
-import message from '../../../message/index.tsx';
 const BlockEmbed = Quill.import('blots/block/embed');
 
 class Video extends BlockEmbed {

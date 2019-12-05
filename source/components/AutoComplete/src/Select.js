@@ -1222,7 +1222,7 @@ class Select extends React.Component {
   }
 
   renderClear() {
-    const { prefixCls, allowClear, clearIcon } = this.props;
+    const { prefixCls, allowClear } = this.props;
     const { value, inputValue } = this.state;
     const clear = (
       <Icon

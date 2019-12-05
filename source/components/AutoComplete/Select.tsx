@@ -112,8 +112,8 @@ export default class Select extends React.Component<SelectProps, {}> {
 
     warning(
       props.mode !== 'combobox',
-      'The combobox mode of Select is deprecated,' +
-      'it will be removed in next major version,' +
+      'The combobox mode of Select is deprecated, ' +
+      'it will be removed in next major version, ' +
       'please use AutoComplete instead',
     );
   }
