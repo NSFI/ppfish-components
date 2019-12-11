@@ -43,7 +43,7 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean']];
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
   }
 
   render() {
@@ -64,7 +64,7 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], [{'color': ['#000', '#333', 'red', 'green', 'blue']}], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean']];
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], [{'color': ['#000', '#333', 'red', 'green', 'blue']}], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
   }
 
   render() {
@@ -150,7 +150,7 @@
       ['link', 'bold', 'italic', 'underline'], ['size'], ['color'],
       [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
       [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['emoji'], ['image'], ['clean'], ['myValue']
+      ['emoji'], ['image'], ['clean', 'formatPainter'], ['myValue']
     ];
   }
 
@@ -193,7 +193,7 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['mylink']];
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ['mylink']];
   }
 
   render() {
@@ -223,7 +223,7 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean'], ['mylink']];
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ['mylink']];
 
     this.state = {
       showModal: false,
@@ -443,7 +443,7 @@
           ['link', 'bold', 'italic', 'underline'], 
           ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], 
           [{'list': 'ordered'}, {'list': 'bullet'}],
-          ['emoji'], ['image'], ['video'], ['size'], ['clean']
+          ['emoji'], ['image'], ['video'], ['size'], ['clean', 'formatPainter']
         ]}
         customInsertVideo={this.getVideoUrl}
         loading={this.state.loading}
@@ -566,7 +566,7 @@
 
   constructor(props) {
     super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean']];
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
   }
 
   render() {
@@ -588,7 +588,7 @@
   constructor(props) {
     super(props);
     this.toolbar = [
-      ['link', 'bold', 'italic', 'underline'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean']
+      ['link', 'bold', 'italic', 'underline'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
     ];
   }
 
@@ -636,7 +636,7 @@ __请注意：默认情况下，使用编辑器内置的插入/粘贴/拖入图�
 | resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | false |
 | style | 容器样式 | Object | - |
 | supportFontTag | 是否支持 font 标签。设为 true 时，编辑器会将输入的 font 标签替换为 span 标签，并用 CSS 设定文本样式。 | Boolean | false |
-| toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean']]` |
+| toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'formatPainter', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean', 'formatPainter']]` |
 | tooltipPlacement | tooltip 弹出位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'bottom' |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | videoTagAttrs | 设置插入的视频标签的属性，可用于设置视频的width、height、poster及自定义属性等。 | Object | - |
