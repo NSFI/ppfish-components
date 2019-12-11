@@ -141,6 +141,7 @@ class CustomToolbar extends PureComponent {
     toolbar: PropTypes.array,
     customEmoji: PropTypes.array,
     customLink: PropTypes.object,
+    formatPainterActive: PropTypes.bool,
     customInsertValue: PropTypes.object,
     getPopupContainer: PropTypes.func,
     handleInsertEmoji: PropTypes.func,
@@ -148,7 +149,9 @@ class CustomToolbar extends PureComponent {
     handleFormatColor: PropTypes.func,
     handleFormatSize: PropTypes.func,
     handleInsertValue: PropTypes.func,
-    getCurrentSize: PropTypes.func
+    getCurrentSize: PropTypes.func,
+    saveSelectionFormat: PropTypes.func,
+    unsaveSelectionFormat: PropTypes.func
   };
 
   static defaultProps = {
@@ -161,6 +164,7 @@ class CustomToolbar extends PureComponent {
     prefixCls: 'fishd-richeditor',
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
+    formatPainterActive: false,
     getPopupContainer: () => document.body
   };
 
@@ -650,6 +654,17 @@ class CustomToolbar extends PureComponent {
           tooltip = '清除格式';
           break;
         }
+        case 'formatPainter': {
+          const cls = classNames('action ql-formatPainter', {
+            [`${iconPrefix}`]: true,
+            'ql-active': this.props.formatPainterActive,
+            [`${iconPrefix}-richeditor-brushx`]: true
+          });
+
+          value = <button className={cls} key={key} onClick={this.handleFormatPainterClick}/>;
+          tooltip = '格式刷';
+          break;
+        }
         case 'strike': {
           value = <button className="action ql-strike" key={key}/>;
           tooltip = '删除线';
@@ -795,6 +810,20 @@ class CustomToolbar extends PureComponent {
     }
 
     return value;
+  };
+
+  handleFormatPainterClick = () => {
+    let {
+      formatPainterActive,
+      saveSelectionFormat,
+      unsaveSelectionFormat
+    } = this.props;
+
+    if (formatPainterActive) {
+      unsaveSelectionFormat && unsaveSelectionFormat();
+    } else {
+      saveSelectionFormat && saveSelectionFormat();      
+    }
   };
 
   handleSizeItemClick = (e) => {

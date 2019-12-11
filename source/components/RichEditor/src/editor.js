@@ -105,7 +105,7 @@ class RichEditor extends Component {
       ['link', 'bold', 'italic', 'underline'],
       ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
       [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['emoji'], ['image'], ['clean']
+      ['emoji'], ['image'], ['clean', 'formatPainter']
     ],
     getPopupContainer: () => document.body
   };
@@ -149,6 +149,9 @@ class RichEditor extends Component {
       this.defaultVideoType = "video_local";
     }
 
+    // 格式刷保存的格式
+    this.prevSelectionFormat = null;
+
     this.state = {
       lastValue: value,
       value: formatValue || '',
@@ -160,7 +163,8 @@ class RichEditor extends Component {
       curRange: null,
       curVideoType: this.defaultVideoType,
       defaultInputLink: "http://",
-      linkModalTitle: "插入超链接"
+      linkModalTitle: "插入超链接",
+      formatPainterActive: false
     };
     this.handlers = {
       link: (value, fromAction) => {
@@ -816,6 +820,25 @@ class RichEditor extends Component {
     let quill = this.getEditor();
     if (!quill) return;
 
+    // 格式刷
+    if (this.prevSelectionFormat && nextSelection) {
+      // 清除当前选区的格式
+      quill.removeFormat(nextSelection.index, nextSelection.length);
+
+      // 设置当前选区的格式
+      Object.keys(this.prevSelectionFormat).forEach((name) => {
+        quill.format(name, this.prevSelectionFormat[name]);
+      });
+
+      // 取消格式刷高亮
+      this.setState({
+        formatPainterActive: false
+      });
+
+      // 重置保存的格式
+      this.prevSelectionFormat = null;
+    }
+
     let tooltip = quill.theme && quill.theme.tooltip;
     if (!tooltip) return;
 
@@ -908,6 +931,29 @@ class RichEditor extends Component {
     }
 
     return null;
+  };
+
+  handleSaveSelectionFormat = () => {
+    let quill = this.getEditor();
+    if (!quill) return null;
+
+    this.prevSelectionFormat = quill.getFormat();
+
+    // 格式刷高亮
+    this.setState({
+      formatPainterActive: true
+    });
+  };
+
+  handleUnsaveSelectionFormat = () => {
+    if (this.prevSelectionFormat) {
+      this.prevSelectionFormat = null;
+    }
+
+    // 取消格式刷高亮
+    this.setState({
+      formatPainterActive: false
+    });
   };
 
   render() {
@@ -1033,6 +1079,9 @@ class RichEditor extends Component {
           tooltipPlacement={tooltipPlacement}
           getPopupContainer={getPopupContainer}
           getCurrentSize={this.getCurrentSize}
+          formatPainterActive={this.state.formatPainterActive}
+          saveSelectionFormat={this.handleSaveSelectionFormat}
+          unsaveSelectionFormat={this.handleUnsaveSelectionFormat}
         />
         <ReactQuill
           {...restProps}
