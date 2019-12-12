@@ -12,6 +12,7 @@ node_modules
 dist
 es
 lib
+node
 
 #Webstorm metadata
 .idea
@@ -41,3 +42,4 @@ nei.*
 .jshintrc
 package-lock.json
 _book
+.history

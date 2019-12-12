@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 const fs = require("fs");
 const path = require("path");
-const esType = process.argv[process.argv.length-1].trim();
-const filePath = path.resolve(__dirname, '..', '..', esType);
+const fromDir = process.argv[process.argv.length-2].trim();
+const toDir = process.argv[process.argv.length-1].trim();
 const PER = '0777';
 
 const copy = function (src, dst) {
@@ -50,4 +50,4 @@ function exists(url, dest, callback) {
 	});
 }
 
-copy(path.resolve(__dirname, '..', '..', esType === 'temp' ? 'source' : 'temp'), filePath);
+copy(path.resolve(__dirname, '..', '..', fromDir), path.resolve(__dirname, '..', '..', toDir));

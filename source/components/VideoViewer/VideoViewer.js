@@ -6,8 +6,6 @@ import Video from './Video';
 import VideoModal from  './VideoModal';
 import Icon from '../Icon/index.tsx';
 
-import './style/VideoViewer.less';
-
 class VideoViewer extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,

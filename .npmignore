@@ -1,6 +1,7 @@
 /__mocks__
 /coverage
 /dist/site
+/docs
 /site
 /source
 /tools

@@ -8,8 +8,6 @@ import FormItem from './FormItem';
 import { FIELD_META_PROP, FIELD_DATA_PROP } from './constants';
 import {Omit} from '../../utils/type';
 
-import './style/index.less';
-
 type FormCreateOptionMessagesCallback = (...args: any[]) => string;
 
 interface FormCreateOptionMessages {

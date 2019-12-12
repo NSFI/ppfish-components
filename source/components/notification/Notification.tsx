@@ -2,8 +2,6 @@ import * as React from 'react';
 import RcNotification from './RcNotification';
 import Icon from '../Icon';
 
-import './styles/Notification.less';
-
 export type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
 export type IconType =  'success' | 'info' | 'error' | 'warning';

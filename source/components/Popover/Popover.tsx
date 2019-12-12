@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Tooltip, { AbstractTooltipProps, TooltipPlacement, TooltipTrigger } from '../Tooltip';
 import warning from '../../utils/warning';
-import './style/index.less';
 
 export interface PopoverProps extends AbstractTooltipProps {
   title?: React.ReactNode;

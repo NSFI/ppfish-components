@@ -1,7 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import omit from 'omit.js';
-import './style/Icon.less'
 
 export interface IconProps {
   type: string;

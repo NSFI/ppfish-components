@@ -5,8 +5,6 @@ import Slider from '../Slider/index.tsx';
 import Icon from '../Icon/index.tsx';
 import Popover from '../Popover/index.tsx';
 
-import './style/AudioPlayer.less';
-
 class AudioPlayer extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string.isRequired,

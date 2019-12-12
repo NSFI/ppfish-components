@@ -40,7 +40,7 @@ exports[`Form should display custom message 1`] = `
           <span>
             Account does not exist, 
             <a
-              href="https://www.alipay.com/"
+              href="https://www.163.com/"
               rel="noopener noreferrer"
               target="_blank"
             >

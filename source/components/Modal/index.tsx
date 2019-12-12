@@ -1,5 +1,6 @@
 import Modal, { ModalFuncProps } from './Modal';
 import confirm from './confirm';
+import "./style/index.less";
 
 export { ActionButtonProps } from './ActionButton';
 export { ModalProps, ModalFuncProps } from './Modal';

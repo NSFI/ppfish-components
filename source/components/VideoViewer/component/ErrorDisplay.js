@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Icon from '../../Icon/index.tsx';
 import { MEDIA_ERROR } from '../constant';
 
-import '../style/ErrorDisplay.less';
-
 export default class ErrorDisplay extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,

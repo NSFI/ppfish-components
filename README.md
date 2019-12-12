@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">Fish Design 网易云商服UI组件库</h1>
+<h1 align="center">Fish Design</h1>
 
 <div align="center">
 
@@ -24,6 +24,15 @@ Fish Design is an enterprise-class UI component library which based on React, he
 - Testing
 - Linting
 - Working example app
+- Server side rendering
+
+## Browsers Support
+
+- Modern browsers and Internet Explorer 10+
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IE10, IE11, Edge                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                       |
 
 ## Initial Machine Setup
 
@@ -42,16 +51,34 @@ npm install ppfish --save
 
 ## Usage
 
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Button } from 'ppfish';
+  Browser
+  ```js
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import { Button } from 'ppfish';
 
-ReactDOM.render(
-  <Button type="primary">Primary</Button>, document.getElementById('app')
-);
+  ReactDOM.render(
+    <Button type="primary">Primary</Button>, document.getElementById('app')
+  );
 
-```
+  ```
+
+  Node.js SSR
+  ```js
+  const { renderToString } = require('react-dom/server');
+  const Button = require('ppfish/node/components/Button');
+  const http = require('http');
+
+  http.createServer((req, res) => {
+      if (req.url === '/') {
+          res.writeHead(200, {
+              'Content-Type': 'text/html'
+          });
+          const html = renderToString(<Button type="primary">Primary</Button>);
+          res.end(html);
+      }
+  }).listen(8080);
+  ```
 
 ## Development
 
@@ -95,14 +122,16 @@ Open your browser and visit http://127.0.0.1:5000
 .
 ├── /coverage/                        # 运行npm run test:cover输出的测试覆盖率文件
 ├── /dist/                            # 构建输出的文件，使用全局变量方式引用，可用于发布到CDN
+├── /docs                             # 文档
 ├── /es/                              # 构建输出的文件，使用ES Module规范引用，可用于tree shaking优化
 ├── /lib/                             # 构建输出的文件，使用commonjs规范引用
+├── /node/                            # 构建输出的文件，适合node环境运行
 ├── /node_modules/                    # 第三方类库和工具
 ├── /site/                            # 页面入口文件
 | ├── /assets                         # css、images等资源
-| ├── /componentsPage                 # 组件库官网markdown
-| ├── /docs                           # 组件库官网markdown
-| ├── /locales                        # 本地化文案
+| ├── /componentsPage                 # 组件库官网页面
+| ├── /docs                           # 组件库官网文档
+| ├── /locales                        # 组件库官网本地化文案
 | ├── /pages                          # 组件库官网页面入口
 | ├── /static                         # 组件库官网Demo使用的icon
 | ├── /styles                         # 组件库官网页面样式
@@ -111,30 +140,25 @@ Open your browser and visit http://127.0.0.1:5000
 ├── /source/                          # 应用源码
 │ ├── /assets/                        # 可编译静态资源文件
 │ ├── /components/                    # React components
-│ ├── /constants/                     # 常量配置文件
+│ ├── /typings /                      # 常量配置文件
 │ └── /utils/                         # 工具函数
 ├── /tools/                           # 项目运行脚本
-├── .babelrc                          # babel配置文件, https://babeljs.io/docs/usage/babelrc/
-├── .editorconfig                     # 代码风格配置文件, http://editorconfig.org
-├── .eslintignore                     # eslint配置文件, http://eslint.cn/docs/user-guide/configuring
-├── .eslintrc                         # eslint配置文件, http://eslint.cn/docs/user-guide/configuring
-├── .gitignore                        # git配置文件, https://help.github.com/articles/ignoring-files/
-├── .npmignore                        # npm配置文件，配置不需要发布到npm仓库的文件黑名单列表
-├── .stylelintignore                  # stylelint配置文件
-├── .stylelintrc                      # stylelint配置文件
-├── jets.config.js                    # jest配置文件
-├── package.json                      # 配置入口文件地址、依赖和 scripts
-├── postcss.config.js                 # postcss配置文件, https://github.com/postcss/postcss-loader
-├── README.md                         # readme
-├── tsconfig.json                     # TypeScript配置文件
+├── .babelrc                          # 
+├── .editorconfig                     # 
+├── .eslintignore                     # 
+├── .eslintrc                         # 
+├── .gitignore                        # 
+├── .npmignore                        # 
+├── .stylelintignore                  # 
+├── .stylelintrc                      # 
+├── .travis.yml                       # 
+├── jets.config.js                    # 
+├── package.json                      # 
+├── postcss.config.js                 # 
+├── README.md                         # 
+├── tsconfig.json                     # 
 ├── webpack.config.dev.site.js        # 文档网站本地开发编译配置
 ├── webpack.config.prod.components.js # 组件源码生产环境编译配置
 └── webpack.config.prod.site.js       # 文档网站生产环境编译配置
 ```
 
-## Coding styles
-- javascript: use eslint:recommended, see https://eslint.org/docs/rules/ and /site/docs/ESLint规则清单.md  for more details
-- directory、html、css、js: named using hump form
-- react component and react container: named using hump form and uppercase characters at the beginning
-- test file: named with Component + .test + .js format
-- Less:  use stylelint:recommended，see /site/docs/LESS代码规范.md for more details

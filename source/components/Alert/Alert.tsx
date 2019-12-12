@@ -4,8 +4,6 @@ import Animate from 'rc-animate';
 import Icon from '../Icon';
 import classNames from 'classnames';
 
-import './style/index.less';
-
 function noop() { }
 
 function getDataOrAriaProps(props: any) {

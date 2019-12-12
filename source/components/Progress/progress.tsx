@@ -3,7 +3,6 @@ import * as React from 'react';
 import Icon from '../Icon';
 import { Circle } from './src/index.js';
 import classNames from 'classnames';
-import './style/index.less';
 
 const statusColorMap = {
   normal: '#108ee9',
@@ -174,8 +173,8 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     return (
       <div {...restProps} className={classString}>
         {progress}
-        { 
-          (type === 'circle' || type === 'dashboard') && operation 
+        {
+          (type === 'circle' || type === 'dashboard') && operation
           ? <span className={`${prefixCls}-oper`}>{operation}</span>
           : null
         }

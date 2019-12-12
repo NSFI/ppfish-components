@@ -21,7 +21,8 @@ module.exports = {
     "<rootDir>/dist/",
     "<rootDir>/es/",
     "<rootDir>/lib/",
-    "<rootDir>/site/"
+    "<rootDir>/site/",
+    "<rootDir>/.history/"
   ],
   transform: {
     "^.+\\.tsx?$": "ts-jest",

@@ -6,7 +6,6 @@ import omit from 'omit.js';
 import Container from './Container';
 import TextLoading from './TextLoading';
 import {polyfill} from 'react-lifecycles-compat';
-import './style/index.less';
 
 export type SpinSize = 'small' | 'default' | 'large';
 export type SpinIndicator = React.ReactElement<any>;

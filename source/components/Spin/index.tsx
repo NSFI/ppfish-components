@@ -1,6 +1,7 @@
 import Spin from './Spin';
 import Container from './Container';
 import TextLoading from './TextLoading';
+import './style/index.less';
 
 export { SpinProps, SpinIndicator, SpinSize, SpinState } from './Spin';
 export { ContainerProps } from './Container';

@@ -1,11 +1,3 @@
-/**
- * Input Box is in different position for different mode.
- * This not the same design as `Select` cause it's followed by antd 0.x `Select`.
- * We will not follow the new design immediately since antd 3.x is already released.
- *
- * So this file named as Selector to avoid confuse.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -145,7 +137,7 @@ export default function (modeName) {
         <span
           style={style}
           // 用 onMouseDown 代替 onClick，修复加载页面后点击弹层，RcTrigger v2.6.2 中
-          // onDocumentClick 先于 onPopupMouseDown 执行，导致的弹层异常关闭的问题 
+          // onDocumentClick 先于 onPopupMouseDown 执行，导致的弹层异常关闭的问题
           onMouseDown={onClick}
           className={classNames(
             className,

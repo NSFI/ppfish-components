@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import omit from 'omit.js';
 import {polyfill} from 'react-lifecycles-compat';
 
-import './style/index.less';
-
 const defaultSizeMap = {
   small: {
     width: 90,

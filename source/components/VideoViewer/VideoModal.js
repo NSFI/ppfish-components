@@ -4,8 +4,6 @@ import omit from 'omit.js';
 import Modal from '../Modal/index.tsx';
 import Icon from '../Icon/index.tsx';
 
-import './style/VideoModal.less';
-
 class VideoModal extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,

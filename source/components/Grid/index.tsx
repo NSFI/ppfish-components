@@ -1,9 +1,9 @@
-import Row from './row';
-import Col from './col';
+import Row from './Row';
+import Col from './Col';
 import './style/index.less';
 
-export { RowProps } from './row';
-export { ColProps, ColSize } from './col';
+export { RowProps } from './Row';
+export { ColProps, ColSize } from './Col';
 
 export {
   Row,

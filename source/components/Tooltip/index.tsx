@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import {polyfill} from 'react-lifecycles-compat';
 import getPlacements, {AdjustOverflow, PlacementsConfig} from './placements';
 import Button from '../Button';
+import './style/index.less';
 
 export {AdjustOverflow, PlacementsConfig};
 

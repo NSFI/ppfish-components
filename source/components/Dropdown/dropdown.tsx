@@ -1,7 +1,7 @@
 import * as React from 'react';
 import RcDropdown from './src';
 import classNames from 'classnames';
-import DropdownButton from './dropdown-button';
+import DropdownButton from './DropdownButton';
 import warning from 'warning';
 
 export interface DropDownProps {

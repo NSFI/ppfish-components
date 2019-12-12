@@ -4,7 +4,6 @@ import classNames from "classnames";
 import {polyfill} from 'react-lifecycles-compat';
 
 import CollapsePanel from "./Panel";
-import "./style/index.less";
 
 function toArray(activeKey) {
   let currentActiveKey = activeKey;

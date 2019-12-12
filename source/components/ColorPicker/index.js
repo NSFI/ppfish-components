@@ -1,7 +1,7 @@
-import './style/index.less';
 import ColorPicker from './ColorPicker';
 import Panel from './Panel';
 import QuickPanel from './QuickPanel';
+import './style/index.less';
 
 // 单独使用Panel不能使用History
 ColorPicker.Panel = Panel;

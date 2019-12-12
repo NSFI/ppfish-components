@@ -30,6 +30,7 @@ export default class Home extends React.Component {
 
     lottieItems.forEach((item) => {
       let el = document.getElementById(item.id);
+      const container = el.parentNode;
       if (!el) return;
 
       let animation = lottie.loadAnimation({
@@ -40,12 +41,12 @@ export default class Home extends React.Component {
         animationData: item.data
       });
 
-      el.addEventListener('mouseenter', function() {
+      container.addEventListener('mouseenter', function() {
         animation.setDirection(1);
         animation.play();
       });
 
-      el.addEventListener('mouseleave', function() {
+      container.addEventListener('mouseleave', function() {
         animation.setDirection(-1);
         animation.play();
       });

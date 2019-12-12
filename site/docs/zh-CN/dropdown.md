@@ -343,7 +343,7 @@ render(){
 | overlay | 菜单 | [Menu](https://nsfi.github.io/ppfish-components/#/components/menu) | - |
 | placement | 菜单弹出位置 | Enum {'bottomLeft', 'bottomCenter' ,'bottomRight' ,'topLeft' ,'topCenter', 'topRight'}| 'bottomLeft' |
 | style | 自定义样式 | Object | - |
-| trigger | 触发下拉的行为 | Array< `click` | `hover` | `contextMenu` > | ['hover'] |
+| trigger | 触发下拉的行为 | Array< `click` \| `hover` \| `contextMenu` > | ['hover'] |
 | visible | 菜单是否显示 | Boolean | - |
 
 `overlay` 菜单使用 [Menu](https://nsfi.github.io/ppfish-components/#/components/menu/)，还包括菜单项 `Menu.Item`，分割线 `Menu.Divider`。

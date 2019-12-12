@@ -64,7 +64,7 @@ $ npm version 1.3.2-alpha.1
 $ npm run build:dist
 
 # 编译 es 和 lib
-$ npm run build:es
+$ npm run build:others
 
 # 在本地测试打包，检查打包后的文件是否完整，测试该包
 $ npm pack

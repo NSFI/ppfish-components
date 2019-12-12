@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import {polyfill} from 'react-lifecycles-compat';
 import Icon from '../Icon/index';
 import Group from './ButtonGroup';
-import './style/index.less';
 
 const rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/;
 const isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar);

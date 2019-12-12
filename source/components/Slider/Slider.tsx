@@ -4,8 +4,6 @@ import RcRange from './RcRange';
 import RcHandle from './RcHandle';
 import Tooltip from '../Tooltip';
 
-import './style/index.less';
-
 export interface SliderMarks {
   [key: number]: React.ReactNode | {
     style: React.CSSProperties,
