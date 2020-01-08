@@ -239,8 +239,9 @@ class DateRangePanel extends React.Component {
       return rangeResult;
       //TimeSelect模式下返回endTimeSelectModeProps
     }else{
-      let propsResult = endTimeSelectModeProps;
-      propsResult.minTime = dateToStr(minTime);
+      // let propsResult = endTimeSelectModeProps;
+      // propsResult.minTime = dateToStr(minTime);
+      let propsResult = Object.assign({}, endTimeSelectModeProps, { minTime: dateToStr(minTime) });
       return propsResult;
     }
   }
@@ -562,8 +563,8 @@ class DateRangePanel extends React.Component {
       prefixCls,
       startTimeSelectMode,
       startTimeSelectModeProps,
-      endTimeSelectMode,
-      endTimeSelectModeProps
+      endTimeSelectMode
+      //, endTimeSelectModeProps  结束时间展示：日期相同时，依据开始时间变更； 不同日期时，时间为默认传入值
     } = this.props;
     const {
       rangeState,
@@ -576,7 +577,8 @@ class DateRangePanel extends React.Component {
       minTime,
       maxTime,
       startTimeSelectableRange,
-      endTimeSelectableRange
+      endTimeSelectableRange,
+      endTimeSelectModeProps
     } = this.state;
 
     const t = Locale.t;
