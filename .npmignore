@@ -22,3 +22,4 @@ webpack.config.prod.site.js
 .idea
 .vscode
 .project
+.tgz
