@@ -5,8 +5,6 @@ import { addEventListener } from "../../utils/index";
 import Button from "../Button";
 import { ButtonType, NativeButtonProps } from "../Button/Button";
 
-import "./style/index.less";
-
 let mousePosition: { x: number; y: number } | null;
 let mousePositionEventBinded: boolean;
 

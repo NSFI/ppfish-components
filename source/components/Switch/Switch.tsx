@@ -5,8 +5,6 @@ import RcSwitch from './src/Switch';
 import omit from 'omit.js';
 import Wave from '../../utils/wave';
 
-import './style/Switch.less';
-
 export interface SwitchProps {
   prefixCls?: string;
   size?: 'small' | 'default' | 'large';

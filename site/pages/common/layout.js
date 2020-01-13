@@ -127,7 +127,7 @@ export default class Layout extends React.Component {
           <Link to="/home" className="link-item">首页</Link>
           <Link to="/components" className="link-item">组件</Link>
           <a href="//nsfi.github.io/ppfish-demo" target="_blank" className="link-item">{this.getLocale('misc.demo')}</a>
-          <a href="http://jira.netease.com/projects/YSFCOMP/summary" target="_blank" className="link-item">问题反馈</a>
+          <a href="https://github.com/NSFI/ppfish-components/issues" target="_blank" className="link-item">问题反馈</a>
         </div>
         <div className="github">
           <a href="//github.com/NSFI/ppfish-components" target="_blank">

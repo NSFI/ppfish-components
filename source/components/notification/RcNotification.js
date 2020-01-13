@@ -6,8 +6,6 @@ import { createChainedFunction } from '../../utils';
 import classnames from 'classnames';
 import Notice from './Notice';
 
-import './styles/RcNotification.less';
-
 let seed = 0;
 const now = Date.now();
 

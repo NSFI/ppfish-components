@@ -7,8 +7,6 @@ import shallowequal from 'shallowequal';
 import omit from 'omit.js';
 import {throttleByAnimationFrameDecorator} from '../../utils/throttleByAnimationFrame';
 
-import './style/index.less';
-
 //获取target在屏幕上的绝对定位
 function getTargetRect(target: HTMLElement | Window | null): ClientRect {
   return target !== window ?

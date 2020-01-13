@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Button from '../Button';
 import { ButtonGroupProps } from '../Button';
-import Dropdown, { DropDownProps } from './dropdown';
+import Dropdown, { DropDownProps } from './Dropdown';
 import classNames from 'classnames';
 const ButtonGroup = Button.Group;
 

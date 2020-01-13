@@ -11,9 +11,6 @@ import KEYCODE from '../../utils/KeyCode';
 
 videojs.addLanguage("zh-CN",zh_CN);
 
-import 'video.js/dist/video-js.css';
-import './style/Video.css';
-
 export default class VideoViewer extends React.Component {
 
   static propTypes = {

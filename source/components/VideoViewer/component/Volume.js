@@ -5,8 +5,6 @@ import Icon from '../../Icon/index.tsx';
 import Popover from '../../Popover/index.tsx';
 import Slider from '../../Slider/index.tsx';
 
-import '../style/Volume.less';
-
 export default class FullScreen extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,

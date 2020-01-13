@@ -79,7 +79,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           John Brown
                         </a>
@@ -99,7 +99,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 John Brown
                           </a>
@@ -107,7 +107,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -116,7 +116,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -138,7 +138,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Jim Green
                         </a>
@@ -158,7 +158,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 Jim Green
                           </a>
@@ -166,7 +166,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -175,7 +175,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -197,7 +197,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Joe Black
                         </a>
@@ -217,7 +217,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 Joe Black
                           </a>
@@ -225,7 +225,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -234,7 +234,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -379,7 +379,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 John Brown
                           </a>
@@ -387,7 +387,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -396,7 +396,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -432,7 +432,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 Jim Green
                           </a>
@@ -440,7 +440,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -449,7 +449,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -485,7 +485,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 Joe Black
                           </a>
@@ -493,7 +493,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -502,7 +502,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -675,7 +675,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 
                           </a>
@@ -683,7 +683,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -692,7 +692,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -735,7 +735,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 
                           </a>
@@ -743,7 +743,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -752,7 +752,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -795,7 +795,7 @@ exports[`Renders table demo correctly 1`] = `
                       >
                         <span>
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Action 一 
                           </a>
@@ -803,7 +803,7 @@ exports[`Renders table demo correctly 1`] = `
                             class="fishd-divider fishd-divider-vertical"
                           />
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             Delete
                           </a>
@@ -812,7 +812,7 @@ exports[`Renders table demo correctly 1`] = `
                           />
                           <a
                             class="fishd-dropdown-link"
-                            href="javascript:;"
+                            href=""
                           >
                             More actions 
                             <i
@@ -980,7 +980,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           John Brown
                         </a>
@@ -1030,7 +1030,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Jim Green
                         </a>
@@ -1080,7 +1080,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Joe Black
                         </a>
@@ -1131,7 +1131,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Disabled User
                         </a>
@@ -3673,7 +3673,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           John Brown
                         </a>
@@ -3701,7 +3701,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Jim Green
                         </a>
@@ -3729,7 +3729,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Joe Black
                         </a>
@@ -3894,7 +3894,7 @@ exports[`Renders table demo correctly 1`] = `
                         class=""
                       >
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Delete
                         </a>
@@ -3930,7 +3930,7 @@ exports[`Renders table demo correctly 1`] = `
                         class=""
                       >
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Delete
                         </a>
@@ -3966,7 +3966,7 @@ exports[`Renders table demo correctly 1`] = `
                         class=""
                       >
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Delete
                         </a>
@@ -4092,7 +4092,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           John Brown
                         </a>
@@ -4130,7 +4130,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Jim Green
                         </a>
@@ -4168,7 +4168,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Joe Black
                         </a>
@@ -4207,7 +4207,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Jim Red
                         </a>
@@ -4241,7 +4241,7 @@ exports[`Renders table demo correctly 1`] = `
                           style="padding-left:0px"
                         />
                         <a
-                          href="javascript:;"
+                          href=""
                         >
                           Jake White
                         </a>
@@ -7374,7 +7374,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -7442,7 +7442,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -7581,7 +7581,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -7595,7 +7595,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -7894,7 +7894,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -7962,7 +7962,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8030,7 +8030,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8098,7 +8098,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8166,7 +8166,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8234,7 +8234,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8302,7 +8302,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8370,7 +8370,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8438,7 +8438,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8506,7 +8506,7 @@ exports[`Renders table demo correctly 1`] = `
                           class="fishd-table-fixed-columns-in-body"
                         >
                           <a
-                            href="javascript:;"
+                            href=""
                           >
                             action
                           </a>
@@ -8828,7 +8828,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8842,7 +8842,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8856,7 +8856,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8870,7 +8870,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8884,7 +8884,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8898,7 +8898,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8912,7 +8912,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8926,7 +8926,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8940,7 +8940,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>
@@ -8954,7 +8954,7 @@ exports[`Renders table demo correctly 1`] = `
                             class=""
                           >
                             <a
-                              href="javascript:;"
+                              href=""
                             >
                               action
                             </a>

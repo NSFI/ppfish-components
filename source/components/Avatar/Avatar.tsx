@@ -3,8 +3,6 @@ import * as ReactDOM from 'react-dom';
 import Icon from '../Icon';
 import classNames from 'classnames';
 
-import './style/Avatar.less';
-
 export interface AvatarProps {
   /** Shape of avatar, options:`circle`, `square` */
   shape?: 'circle' | 'square';

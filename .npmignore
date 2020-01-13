@@ -1,6 +1,7 @@
 /__mocks__
 /coverage
 /dist/site
+/docs
 /site
 /source
 /tools
@@ -21,3 +22,4 @@ webpack.config.prod.site.js
 .idea
 .vscode
 .project
+.tgz

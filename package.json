@@ -1,15 +1,15 @@
 {
   "name": "ppfish",
-  "version": "1.7.3",
-  "description": "qiyu and prophet ui components",
+  "version": "1.7.4-alpha.2",
+  "description": "fish design ui components",
   "scripts": {
     "precommit": "lint-staged",
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm-run-all --parallel start-message remove-dist",
     "start": "npm-run-all --parallel test:watch open:site lint:watch",
-    "build": "npm-run-all --parallel build:site build:dist build:es",
+    "build": "npm-run-all --parallel build:site build:dist build:others",
     "build:dist": "rimraf dist && babel-node tools/buildDist.js",
-    "build:es": "tools/buildES.sh",
+    "build:others": "tools/buildOthers.sh",
     "stylelint": "stylelint \"source/**/*.less\" --fix",
     "lint": "esw webpack.config.* source tools",
     "lint:watch": "npm run lint -- --watch",
@@ -33,7 +33,8 @@
   "engines": {
     "node": ">=6.11.5"
   },
-  "main": "lib/components/index.js",
+  "main": "node/components/index.js",
+  "browser": "lib/components/index.js",
   "module": "es/components/index.js",
   "jsnext:main": "es/components/index.js",
   "dependencies": {

@@ -1,5 +1,5 @@
 import {Col, ColProps, ColSize} from '../Grid';
-import '../Grid/style/index.less';
+import './style/index.less';
 
 export {ColProps, ColSize};
 

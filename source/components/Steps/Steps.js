@@ -6,8 +6,6 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { isFlexSupported } from './utils';
 
-import './assets/index.less';
-
 export default class Steps extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,

@@ -9,7 +9,7 @@ import {
 } from './src/common/constants';
 import Modal from '../Modal/index.tsx';
 import Button from '../Button/index.tsx';
-import './index.less';
+import './style/index.less';
 
 class Guide extends Component {
   static propTypes = {
@@ -68,11 +68,11 @@ class Guide extends Component {
           this.handleClose();
         }
       };
-  
+
       if (!props.mask) {
         opt['opacity'] = 0;
       }
-  
+
       this.driver = new Driver(opt);
     } else {
       if (props.keyboardControl) {

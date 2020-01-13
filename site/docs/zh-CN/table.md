@@ -49,7 +49,7 @@ const columns = [{
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a href="javascript:;">{text}</a>,
+      render: text => <a href="" onClick={e => e.preventDefault()}>{text}</a>,
     }, {
       title: 'Age',
       dataIndex: 'age',
@@ -63,11 +63,11 @@ const columns = [{
       key: 'action',
       render: (text, record) => (
         <span>
-          <a href="javascript:;">Action 一 {record.name}</a>
+          <a href="" onClick={e => e.preventDefault()}>Action 一 {record.name}</a>
           <Divider type="vertical" />
-          <a href="javascript:;">Delete</a>
+          <a href="" onClick={e => e.preventDefault()}>Delete</a>
           <Divider type="vertical" />
-          <a href="javascript:;" className="fishd-dropdown-link">
+          <a href="" onClick={e => e.preventDefault()} className="fishd-dropdown-link">
             More actions <Icon type="down" />
           </a>
         </span>
@@ -106,7 +106,7 @@ const columns = [{
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a href="javascript:;">{text}</a>,
+      render: text => <a href="" onClick={e => e.preventDefault()}>{text}</a>,
     }, {
       title: 'Age',
       dataIndex: 'age',
@@ -120,11 +120,11 @@ const columns = [{
       key: 'action',
       render: (text, record) => (
         <span>
-          <a href="javascript:;">Action 一 {record.name}</a>
+          <a href="" onClick={e => e.preventDefault()}>Action 一 {record.name}</a>
           <Divider type="vertical" />
-          <a href="javascript:;">Delete</a>
+          <a href="" onClick={e => e.preventDefault()}>Delete</a>
           <Divider type="vertical" />
-          <a href="javascript:;" className="fishd-dropdown-link">
+          <a href="" onClick={e => e.preventDefault()} className="fishd-dropdown-link">
             More actions <Icon type="down" />
           </a>
         </span>
@@ -213,11 +213,11 @@ const columns = [{
           key="action"
           render={(text, record) => (
             <span>
-              <a href="javascript:;">Action 一 {record.name}</a>
+              <a href="" onClick={e => e.preventDefault()}>Action 一 {record.name}</a>
               <Divider type="vertical" />
-              <a href="javascript:;">Delete</a>
+              <a href="" onClick={e => e.preventDefault()}>Delete</a>
               <Divider type="vertical" />
-              <a href="javascript:;" className="fishd-dropdown-link">
+              <a href="" onClick={e => e.preventDefault()} className="fishd-dropdown-link">
                 More actions <Icon type="down" />
               </a>
             </span>
@@ -239,7 +239,7 @@ const columns = [{
     const columns = [{
       title: 'Name',
       dataIndex: 'name',
-      render: text => <a href="javascript:;">{text}</a>,
+      render: text => <a href="" onClick={e => e.preventDefault()}>{text}</a>,
     }, {
       title: 'Age',
       dataIndex: 'age',
@@ -788,7 +788,7 @@ const columns = [{
     const columns = [{
       title: 'Name',
       dataIndex: 'name',
-      render: text => <a href="javascript:;">{text}</a>,
+      render: text => <a href="" onClick={e => e.preventDefault()}>{text}</a>,
     }, {
       title: 'Cash Assets',
       className: 'column-money',
@@ -842,7 +842,7 @@ td.column-money {
       { title: 'Name', dataIndex: 'name', key: 'name' },
       { title: 'Age', dataIndex: 'age', key: 'age' },
       { title: 'Address', dataIndex: 'address', key: 'address' },
-      { title: 'Action', dataIndex: '', key: 'x', render: () => <a href="javascript:;">Delete</a> },
+      { title: 'Action', dataIndex: '', key: 'x', render: () => <a href="" onClick={e => e.preventDefault()}>Delete</a> },
     ];
     
     const data = [
@@ -884,10 +884,10 @@ td.column-money {
       dataIndex: 'name',
       render: (text, row, index) => {
         if (index < 4) {
-          return <a href="javascript:;">{text}</a>;
+          return <a href="" onClick={e => e.preventDefault()}>{text}</a>;
         }
         return {
-          children: <a href="javascript:;">{text}</a>,
+          children: <a href="" onClick={e => e.preventDefault()}>{text}</a>,
           props: {
             colSpan: 5,
           },
@@ -1164,7 +1164,7 @@ td.column-money {
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: () => <a href="javascript:;">action</a>,
+        render: () => <a href="" onClick={e => e.preventDefault()}>action</a>,
       },
     ];
     
@@ -1211,7 +1211,7 @@ td.column-money {
         key: 'operation',
         fixed: 'right',
         width: 100,
-        render: () => <a href="javascript:;">action</a>,
+        render: () => <a href="" onClick={e => e.preventDefault()}>action</a>,
       },
     ];
     
@@ -1437,7 +1437,7 @@ class EditableTable extends React.Component {
       render: (text, record) => (
         this.state.dataSource.length >= 1
           ? (
-              <a href="javascript:;">Delete</a>
+              <a href="" onClick={e => e.preventDefault()}>Delete</a>
           ) : null
       ),
     }];
@@ -1650,7 +1650,7 @@ class Demo extends React.Component {
                   <EditableContext.Consumer>
                     {form => (
                       <a
-                        href="javascript:;"
+                        href="" onClick={e => e.preventDefault()}
                         onClick={() => this.save(form, record.key)}
                         style={{ marginRight: 8 }}
                       >
@@ -1776,10 +1776,10 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
           key: 'operation',
           render: () => (
             <span className="table-operation">
-              <a href="javascript:;">Pause</a>
-              <a href="javascript:;">Stop</a>
+              <a href="" onClick={e => e.preventDefault()}>Pause</a>
+              <a href="" onClick={e => e.preventDefault()}>Stop</a>
               <Dropdown overlay={menu}>
-                <a href="javascript:;">
+                <a href="" onClick={e => e.preventDefault()}>
                   More <Icon type="down" />
                 </a>
               </Dropdown>
@@ -1813,7 +1813,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
       { title: 'Upgraded', dataIndex: 'upgradeNum', key: 'upgradeNum' },
       { title: 'Creator', dataIndex: 'creator', key: 'creator' },
       { title: 'Date', dataIndex: 'createdAt', key: 'createdAt' },
-      { title: 'Action', key: 'operation', render: () => <a href="javascript:;">Publish</a> },
+      { title: 'Action', key: 'operation', render: () => <a href="" onClick={e => e.preventDefault()}>Publish</a> },
     ];
     
     const data = [];
@@ -1915,7 +1915,7 @@ class Demo extends React.Component {
       title: 'Action',
       key: 'action',
       render: () => (
-        <a href="javascript:;">Delete</a>
+        <a href="" onClick={e => e.preventDefault()}>Delete</a>
       ),
     }],
   };
@@ -2007,7 +2007,7 @@ const columns = [{
   dataIndex: 'name',
   key: 'name',
   width: 150,
-  render: text => <a href="javascript:;">{text}</a>,
+  render: text => <a href="" onClick={e => e.preventDefault()}>{text}</a>,
 }, {
   title: 'Age',
   dataIndex: 'age',
@@ -2023,11 +2023,11 @@ const columns = [{
   width: 360,
   render: (text, record) => (
     <span>
-      <a href="javascript:;">Action 一 {record.name}</a>
+      <a href="" onClick={e => e.preventDefault()}>Action 一 {record.name}</a>
       <Divider type="vertical" />
-      <a href="javascript:;">Delete</a>
+      <a href="" onClick={e => e.preventDefault()}>Delete</a>
       <Divider type="vertical" />
-      <a href="javascript:;" className="fishd-dropdown-link">
+      <a href="" onClick={e => e.preventDefault()} className="fishd-dropdown-link">
         More actions <Icon type="down" />
       </a>
     </span>

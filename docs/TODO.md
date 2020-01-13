@@ -1,4 +1,4 @@
-# todo list
+# TODO LIST
 
 ## ~~打包组件为静态文件~~
 - 不需要打包peerDependencies
@@ -22,7 +22,7 @@
 - ~~快照测试表现不符合预期，需要再调试看看；~~
 - source/components下的组件需要补充测试用例；@各组件owner
 
-## 组件
+## ~~组件~~
 - ~~audioPlayer缺少icon和视觉；@王晓玲~~
 
 ## 组件库官网支持多文档
@@ -37,4 +37,8 @@
 
 ## ~~Icon 组件中列出支持的 icon 类型~~
 
-## 更新React即将__UNSAFE的生命周期函数，使用新的生命周期函数做替换。[详情见](https://reactjs.org/docs/react-component.html#the-component-lifecycle)
+## ~~更新React即将__UNSAFE的生命周期函数，使用新的生命周期函数做替换。[详情见](https://reactjs.org/docs/react-component.html#the-component-lifecycle)~~
+
+## 组件支持SSR
+- 编译打包支持打成node包，移除css引用供node环境使用
+- datepicker，移除document is undefined错误

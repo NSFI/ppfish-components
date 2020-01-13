@@ -1,4 +1,4 @@
-import './FooterToolbar.less';
+import './style/index.less';
 
 export default from './FooterToolbar';
 

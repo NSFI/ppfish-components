@@ -19,7 +19,6 @@ import ImageBlot from './formats/image.js';
 import VideoBlot from './formats/video.js';
 import PlainClipboard from './modules/plainClipboard.js';
 import ImageDrop from './modules/imageDrop.js';
-import '../style/index.less';
 
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
@@ -307,7 +306,7 @@ class RichEditor extends Component {
                 url
               });
             }
-          } 
+          }
         } else {
           message.error('没有选中文本');
         }
@@ -517,7 +516,7 @@ class RichEditor extends Component {
         ...videoTagAttrs,
         src: val
       });
-  
+
       this.videoModalInputRef && (this.videoModalInputRef.input.value = '');
 
       this.setState({
@@ -1047,7 +1046,7 @@ class RichEditor extends Component {
             <Radio value="video_link">视频链接</Radio>
           </Radio.Group>
           {
-            curVideoType == "video_local" ? 
+            curVideoType == "video_local" ?
             <React.Fragment>
               <Button
                 style={{display: 'block'}}
@@ -1055,7 +1054,7 @@ class RichEditor extends Component {
                 onClick={this.handlePickLocalVideo}
               >选择本地视频</Button>
               { insertVideoTip ? <div className="tip">{insertVideoTip}</div> : null }
-            </React.Fragment> : 
+            </React.Fragment> :
             <Input
               ref={el => this.videoModalInputRef = el}
               style={{ width: '434px' }}
@@ -1102,7 +1101,7 @@ class RichEditor extends Component {
           onSelectionChange={this.handleSelectionChange}
         />
         {
-          loading ? 
+          loading ?
           <Spin style={{
             position: 'absolute',
             width: '100%',
