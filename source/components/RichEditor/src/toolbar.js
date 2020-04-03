@@ -581,6 +581,15 @@ class CustomToolbar extends PureComponent {
           tooltip = '插入图片';
           break;
         }
+        case 'attachment': {
+          const cls = classNames('action ql-attachment', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-annexx`]: true
+          });
+          value = <button className={cls} key={key}/>;
+          tooltip = '插入附件';
+          break;
+        }
         case 'size': {
           const sizeCls = classNames('action custom-size', {
             [`${iconPrefix}`]: true,

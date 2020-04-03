@@ -89,7 +89,7 @@
       user-select: all;
       // 默认文本的大小和颜色
       font-size: 14px;
-      color: #000;
+      color: #333;
     }
 
     .ql-editor.ql-blank::before {
@@ -103,6 +103,17 @@
 
     .custom-show {
       display: flex !important;
+    }
+
+    // 附件样式
+    [data-ql-link-type="attachment"] {
+      position: relative;
+      display: block;
+      font-family: "fishdicon";
+
+      &:before {
+        content: '\e781';
+      }
     }
   }
 

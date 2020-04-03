@@ -2,14 +2,21 @@ import Quill from 'quill';
 const Inline = Quill.import('blots/inline');
 
 class Link extends Inline {
-  static create(value) {
+  static create(data) {
     this.formatCursor = false;
-    const node = super.create(value);
-    node.setAttribute('target', '_blank');
+    const node = super.create(data);
 
-    if (value) {
-      node.setAttribute('href', value.url);
-      // node.setAttribute('data-type', value.type || 'default');
+    if (data) {
+      node.setAttribute('target', '_blank');
+      node.setAttribute('href', data.url);
+
+      if (data.type != null) {
+        node.setAttribute('data-ql-link-type', data.type);
+        if (data.type == 'attachment') {
+          node.setAttribute('download', "");
+          node.setAttribute('contenteditable', "false");
+        }
+      }
     }
 
     return node;
@@ -24,8 +31,8 @@ class Link extends Inline {
     }
 
     return {
-      // type: node.getAttribute('data-type') || 'default',
-      url: node.getAttribute('href')
+      url: node.getAttribute('href'),
+      type: node.getAttribute('data-ql-link-type')
     };
   }
 
@@ -33,15 +40,21 @@ class Link extends Inline {
   //   return sanitize(url, this.PROTOCOL_WHITELIST) ? url : this.SANITIZED_URL;
   // }
 
-  format(name, value) {
-    if (name !== this.statics.blotName || !value) {
-      super.format(name, value);
+  format(name, data) {
+    if (name !== this.statics.blotName || !data) {
+      super.format(name, data);
     } else {
       // 在超链接内输入回车时需要为光标添加超链接
       this.statics.formatCursor = true;
-      if (value) {
-        this.domNode.setAttribute('href', value.url);
-        // this.domNode.setAttribute('data-type', value.type || 'default');
+      if (data) {
+        this.domNode.setAttribute('href', data.url);
+
+        if (data.type != null) {
+          this.domNode.setAttribute('data-ql-link-type', data.type);
+          if (data.type == 'attachment') {
+            this.domNode.setAttribute('contenteditable', "false");
+          }
+        }
       }
     }
   }

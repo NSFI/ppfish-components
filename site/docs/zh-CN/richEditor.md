@@ -297,9 +297,57 @@
 ```
 :::
 
-## 自定义粘贴/拖入图片
 
-:::demo 自定义粘贴/拖入图片，支持附带扩展属性。
+## 自定义插入图片
+
+:::demo 自定义插入图片，支持附带扩展属性。不配合customInsertImage一起使用时，会将图片转为dataUrl的格式插入。
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
+  getImageUrl = (callback) => {
+    this.setState({
+      loading: true
+    });
+
+    // 模拟上传图片至服务器并设置图片URL的异步过程
+    setTimeout(() => {
+      let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
+      callback({
+        src: imageUrl,
+        alt: 'image alt',
+        title: 'image title',
+        width: 200,
+        height: 100,
+        'data-test': 'test'
+      });
+
+      this.setState({
+        loading: false
+      });
+    }, 1000);
+  }
+
+  render() {
+    return (
+      <RichEditor
+        customInsertImage={this.getImageUrl}
+        loading={this.state.loading}
+      />
+    );
+  }
+```
+:::
+
+
+## 自定义拖入/粘贴图片
+
+:::demo 自定义粘贴/拖入图片，支持附带扩展属性。不配合customDropImage一起使用时，会将图片转为dataUrl的格式插入。
 
 ```js
   constructor(props) {
@@ -348,53 +396,6 @@
       <RichEditor
         imageDrop
         customDropImage={this.getImageUrl}
-        loading={this.state.loading}
-      />
-    );
-  }
-```
-:::
-
-
-## 自定义插入图片
-
-:::demo 自定义插入图片，支持附带扩展属性。
-
-```js
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false
-    };
-  }
-
-  getImageUrl = (callback) => {
-    this.setState({
-      loading: true
-    });
-
-    // 模拟上传图片至服务器并设置图片URL的异步过程
-    setTimeout(() => {
-      let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
-      callback({
-        src: imageUrl,
-        alt: 'image alt',
-        title: 'image title',
-        width: 200,
-        height: 100,
-        'data-test': 'test'
-      });
-
-      this.setState({
-        loading: false
-      });
-    }, 1000);
-  }
-
-  render() {
-    return (
-      <RichEditor
-        customInsertImage={this.getImageUrl}
         loading={this.state.loading}
       />
     );
@@ -456,6 +457,165 @@
   }
 ```
 :::
+
+
+
+## 自定义插入附件
+
+:::demo 自定义插入附件。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
+  getFilesInfo = (callback) => {
+    this.setState({
+      loading: true
+    });
+
+    // 模拟上传文件至服务器并设置URL的异步过程
+    setTimeout(() => {
+      let files = [{
+        name: '普通文件.doc',
+        type: 'other',
+        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+      },{
+        name: '普通文件.pdf',
+        type: 'other',
+        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+      },{
+        name: '图片文件.jpg',
+        type: 'image',
+        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+      },{
+        name: '视频文件.mp4',
+        type: 'video',
+        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+      },{
+        name: '普通文件.txt',
+        type: 'other',
+        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+      }]
+      callback(files);
+
+      this.setState({
+        loading: false
+      });
+    }, 1000);
+  }
+
+  render() {
+    return (
+      <RichEditor
+        toolbar={[
+          ['link', 'bold', 'italic', 'underline'],
+          ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+          ['emoji'], ['image', 'attachment'], ['clean', 'formatPainter']
+        ]}
+        customInsertAttachment={this.getFilesInfo}
+        insertAttchmentTip="支持docx、xlsx、pdf、pptx等常见文件格式，单个文件大小不得超过10M。"
+        loading={this.state.loading}
+        value={`
+        <p>附件测试：<br/>
+        <a data-ql-link-type="attachment" href="https://ysf.nosdn.127.net/huke/aa913f5c4ae24e8d37299af98d7b8408">&nbsp;测试文件.txt</a>
+        </p>
+        <p>欢迎<a target="_blank" href="https://github.com/NSFI/ppfish-components/">贡献代码</a></p>`}
+      />
+    );
+  }
+```
+:::
+
+
+## 自定义拖入/粘贴文件
+
+:::demo 自定义粘贴/拖入文件，图片和视频以内容的形式插入，支持附带扩展属性，其他类型的文件以附件的形式插入。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列。
+
+```js
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
+
+  getFileUrl = (files, callback) => {
+    if (!(files && files.length)) return;
+
+    // TODO：根据file.type过滤掉拖入或粘贴的非文件内容
+
+
+    this.setState({
+      loading: true
+    });
+
+    // 模拟上传文件至服务器并设置URL的异步过程
+    setTimeout(() => {
+      let filesInfo = [
+        {
+          name: '普通文件.doc',
+          type: 'other',
+          url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        },
+        {
+          name: '普通文件.pdf',
+          type: 'other',
+          url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        },
+        {
+          type: 'image',
+          src: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe",
+          // 添加其他可选属性
+          width: 200,
+          height: 100,
+          alt: 'image alt',
+          title: 'image title',
+          'data-test': 'test-image'
+        },
+        {
+          type: 'video',
+          src: "//www.runoob.com/try/demo_source/mov_bbb.mp4",
+          // 添加其他可选属性
+          width: 300,
+          'data-test': 'test-video'
+        },
+        {
+          name: '普通文件.txt',
+          type: 'other',
+          url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        }
+      ];
+      callback(filesInfo);
+
+      this.setState({
+        loading: false
+      });
+    }, 1000);
+  }
+
+  render() {
+    return (
+      <RichEditor
+        toolbar={[
+          ['link', 'bold', 'italic', 'underline'],
+          ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+          ['emoji'], ['image', 'attachment'], ['clean', 'formatPainter']
+        ]}
+        fileDrop
+        customDropFile={this.getFileUrl}
+        loading={this.state.loading}
+      />
+    );
+  }
+```
+:::
+
 
 
 ## 拖拽编辑器改变大小
@@ -602,6 +762,8 @@
 ```
 :::
 
+
+
 ## API
 
 __请注意：默认情况下，使用编辑器内置的插入/粘贴/拖入图片功能时，图片将以Data URL的形式嵌入到页面中，此时后端保存该图片将占用较大的空间，因此推荐使用自定义的方式将图片上传到服务器并设置图片的URL。详情可参考 API `customInsertImage` 和 `customDropImage`，及 demo “自定义插入图片” 和 “自定义粘贴/拖入图片”。__
@@ -610,21 +772,25 @@ __请注意：默认情况下，使用编辑器内置的插入/粘贴/拖入图�
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
-| customDropImage | 自定义粘贴或拖入图片，`imageDrop` 为 true 时有效。通过此接口可以在粘贴或拖入图片时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (files: DataTransferItemList, callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
-| customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的过程，如上传本地图片到服务器、异步获取图片源地址等。 | (callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| customDropFile | 自定义拖入或粘贴文件，`fileDrop` 为 true 时有效。通过此接口可以在粘贴或拖入文件时自定义获取文件URL的逻辑。接口接收一个函数，它的第一个参数为拖拽或粘贴进来的函数列表，第二个参数为一个回调函数，调用该函数可以将文件URL插入到组件中。回调函数接收一个文件信息列表，每个文件信息对象都有一个 type 属性，用于标明文件类型，可选值为 'image'、'video'、'other'（默认值）。当 type 取值为 'image' 或 'video'时，该对象的 src 属性为必选，可选属性有 width、height等。当 type 取值为 'other' 时，该对象的 url 和 name 属性为必选。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列。 | (files: DataTransferItemList \| ClipboardDataItemList, <br/>callback: ([<br/>{type: 'image' \| 'video', src: String[, otherAttrs: String \| Number]} \| <br/>{ type: 'other', url: String, name: String}<br/>]) => Void) => Void | - |
+| customDropImage | 自定义拖入或粘贴图片，`imageDrop` 为 true 时有效。通过此接口可以在粘贴或拖入图片时自定义获取图片URL的逻辑。 | (files: DataTransferItemList \| ClipboardDataItemList, callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| customInsertAttachment | 自定义插入附件。通过此接口可以在点击工具栏中的插入附件按钮时自定义获取附件URL的逻辑。参数中的 type 用于标明文件的类型，用于在插入多个不同类型的文件时对它们进行排序。type的可选值有 'image'、'video'、'other'（默认值）。| (callback: (files: [{name: String, type: 'image' \| 'video' \| 'other', url: String}]) => Void) => Void | - |
+| customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的逻辑。 | (callback: ({src: String[, otherAttrs: String \| Number]} \| [{src: String[, otherAttrs: String \| Number]}]) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, [showSearch]: Boolean, [searchPlaceholder]: String, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`showSearch` 用于设置选项标题是否支持搜索，默认为 false；`searchPlaceholder` 用于设置搜索的占位符，默认为“请输入关键字”；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
-| customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String | Function, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的超链接或可以返回超链接的函数，该函数有两个参数，第一个参数为设置超链接的回调函数，第二个参数为当前选中富文本的超链接，必选；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
-| customInsertVideo | 自定义插入视频，通过此接口可以自定义插入视频前获取视频的过程，如上传本地视频到服务器、异步获取视频源地址等。 | ((Object {src: String}) => Void) => Void | - |
+| customInsertVideo | 自定义插入视频，通过此接口可以自定义插入视频前获取视频的过程，如上传本地视频到服务器、异步获取视频源地址等。 | (({src: String} \| [{src: String}]) => Void) => Void | - |
+| customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String \| Function, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的超链接或可以返回超链接的函数，该函数有两个参数，第一个参数为设置超链接的回调函数，第二个参数为当前选中富文本的超链接，必选；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
+| fileDrop | 是否支持以粘贴或拖入的方式插入文件，需要搭配 `customDropFile` 使用，自定义文件的上传逻辑。`fileDrop` 存在时，`imageDrop` 会失效。插入时图片和视频文件将以富文本内容的形式插入，其他类型的文件将以超链接附件的形式插入。 | Boolean | false |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
-| imageDrop | 是否支持以粘贴或拖入的方式插入图片 | Boolean | false |
+| imageDrop | 是否支持以粘贴或拖入的方式插入图片，搭配 `customDropImage` 使用时，可以自定义图片的上传逻辑，否则图片将以Data URL的形式嵌入到页面中。`fileDrop` 存在时，`imageDrop` 会失效。 | Boolean | false |
+| insertAttchmentTip | 插入附件的文字提示 | String \| HTMLElement | - |
 | insertImageTip | 插入图片的文字提示 | String \| HTMLElement | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
 | insertLinkTip | 插入超链接的文字提示 | String \| HTMLElement | - |
 | insertVideoTip | 插入视频的文字提示 | String \| HTMLElement | `<span>1、单个视频不超过10M，支持MP4、3GP格式视频。</span><br/><span>2、最佳显示高度不超过400px, 宽度不超过270px。</span>` |
 | loading | 是否展示加载中的状态 | Boolean | false |
 | onBlur | 失去焦点时的回调 | (previousRange, source, editor) => Void | - |
 | onChange | 内容改变时的回调 | (content, delta, source, editor) => Void | - |
-| onClickToolbarBtn | 点击工具栏按钮的回调，返回 false 时将不再弹出模态框，可用于禁止对应的按钮功能。只支持对超链接按钮、插入图片按钮、插入视频按钮的点击回调，回调参数对应的 type 分别为'link'、'image'、'video'。 | (type) => Void | - |
+| onClickToolbarBtn | 点击工具栏按钮的回调，返回 false 时将不再弹出模态框，可用于禁止对应的按钮功能。只支持对插入超链接、图片、视频、附件按钮的点击回调，回调参数对应的 type 分别为'link'、'image'、'video'、'attachment'。 | (type) => Void | - |
 | onFocus | 获取焦点时的回调 | (range, source, editor) => Void | - |
 | onKeyDown | 按键按下时的回调，对特殊按键如 `backspace` 、 `delete` 或 `enter` 无效 | (event) => Void | - |
 | onKeyPress | 按键按下并释放后的回调，对特殊按键如 `shift` 或 `enter` 无效 | (event) => Void | - |

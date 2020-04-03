@@ -19,6 +19,7 @@ import ImageBlot from './formats/image.js';
 import VideoBlot from './formats/video.js';
 import PlainClipboard from './modules/plainClipboard.js';
 import ImageDrop from './modules/imageDrop.js';
+import FileDrop from './modules/fileDrop.js';
 
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
@@ -26,6 +27,7 @@ Quill.register(ImageBlot);
 Quill.register(CustomSizeBlot);
 Quill.register(VideoBlot);
 Quill.register('modules/imageDrop', ImageDrop, true);
+Quill.register('modules/fileDrop', FileDrop, true);
 
 const getImageSize = function(url, callback) {
   let newImage;
@@ -53,6 +55,7 @@ class RichEditor extends Component {
     placeholder: PropTypes.string,
     prefixCls: PropTypes.string,
     imageDrop: PropTypes.bool,
+    fileDrop: PropTypes.bool,
     loading: PropTypes.bool,
     resizable: PropTypes.bool,
     supportFontTag: PropTypes.bool,
@@ -67,6 +70,8 @@ class RichEditor extends Component {
     tooltipPlacement: PropTypes.string,
     videoTagAttrs: PropTypes.object,
     customDropImage: PropTypes.func,
+    customDropFile: PropTypes.func,
+    customInsertAttachment: PropTypes.func,
     customInsertImage: PropTypes.func,
     customInsertVideo: PropTypes.func,
     getPopupContainer: PropTypes.func,
@@ -98,6 +103,7 @@ class RichEditor extends Component {
     tooltipPlacement: 'bottom',
     loading: false,
     imageDrop: false,
+    fileDrop: false,
     resizable: false,
     pastePlainText: false,
     toolbar: [
@@ -242,6 +248,19 @@ class RichEditor extends Component {
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           showImageModal: true,
+          curRange: quill.getSelection()
+        });
+      },
+      attachment: () => {
+        let { onClickToolbarBtn } = this.props;
+        if (typeof onClickToolbarBtn == 'function' && onClickToolbarBtn('attachment') === false) {
+          return;
+        }
+
+        let quill = this.getEditor();
+        this.setState({
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
+          showAttachmentModal: true,
           curRange: quill.getSelection()
         });
       },
@@ -548,24 +567,32 @@ class RichEditor extends Component {
     });
   };
 
+  handleAttachmentModalCancel = () => {
+    this.setState({
+      showAttachmentModal: false,
+      curRange: null
+    });
+  };
+
   handlePickLocalImage = () => {
     let { customInsertImage } = this.props,
       { toolbarCtner } = this.state,
       quill = this.getEditor(),
       fileInput = toolbarCtner.querySelector('input.ql-image[type=file]');
-    const getImageCb = (attrs) => {
-      if (attrs.src == undefined) {
+
+    const handleInsertImage = (info) => {
+      if (info.src == undefined) {
         message.error('请设置图片源地址');
         return;
       }
 
       let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
-      if (attrs.width == undefined || attrs.height == undefined) {
-        getImageSize(attrs.src, (naturalWidth, naturalHeight) => {
-          attrs.width = naturalWidth;
-          attrs.height = naturalHeight;
+      if (info.width == undefined || info.height == undefined) {
+        getImageSize(info.src, (naturalWidth, naturalHeight) => {
+          info.width = naturalWidth;
+          info.height = naturalHeight;
 
-          quill.insertEmbed(range.index, 'myImage', attrs);
+          quill.insertEmbed(range.index, 'myImage', info);
           quill.setSelection(range.index + 1, 'silent');
 
           this.setState({
@@ -574,13 +601,23 @@ class RichEditor extends Component {
           });
         });
       } else {
-        quill.insertEmbed(range.index, 'myImage', attrs);
+        quill.insertEmbed(range.index, 'myImage', info);
         quill.setSelection(range.index + 1, 'silent');
 
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           curRange: null
         });
+      }
+    };
+
+    const getImageCb = (imgList) => {
+      if (Array.isArray(imgList)) {
+        imgList.forEach((imgInfo) => {
+          handleInsertImage(imgInfo);
+        });
+      } else {
+        handleInsertImage(imgList);
       }
     };
 
@@ -595,20 +632,72 @@ class RichEditor extends Component {
         fileInput = document.createElement('input');
         fileInput.setAttribute('type', 'file');
         fileInput.setAttribute('accept', 'image/jpg, image/jpeg, image/png, image/gif, image/bmp');
+        fileInput.setAttribute('multiple', 'multiple');
         fileInput.classList.add('ql-image');
         fileInput.addEventListener('change', () => {
-          if (fileInput.files != null && fileInput.files[0] != null) {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-              getImageCb({src: e.target.result});
-              fileInput.value = "";
-            };
-            reader.readAsDataURL(fileInput.files[0]);
+          if (fileInput.files != null && fileInput.files.length) {
+            for (let i=0, len = fileInput.files.length; i<len; i++) {
+              let reader = new FileReader();
+              reader.onload = (e) => {
+                getImageCb({src: e.target.result});
+                fileInput.value = "";
+              };
+              reader.readAsDataURL(fileInput.files[i]);
+            }
           }
         });
         toolbarCtner.appendChild(fileInput);
       }
       fileInput.click();
+    }
+  };
+
+  handlePickLocalFile = () => {
+    let { customInsertAttachment } = this.props,
+      quill = this.getEditor();
+
+    const handleFileInsert = (file) => {
+      if (!file || !file.url || !file.name) {
+        message.error('文件信息读取失败');
+        return;
+      }
+
+      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
+      quill.insertText(range.index, '\n');
+      quill.insertText(range.index, ' ' + file.name, {
+        'link': {
+          type: 'attachment',
+          url: file.url
+        }
+      });
+      quill.setSelection(range.index + 1, 'silent');
+    };
+
+    const getFileCb = (fileList) => {
+      if (Array.isArray(fileList)) {
+        fileList.sort((a, b) => {
+          // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
+          let order = ['other', 'image', 'video'];
+          return order.indexOf(a.type) - order.indexOf(b.type);
+        }).forEach((file) => {
+          handleFileInsert(file);
+        });
+      } else {
+        handleFileInsert(fileList);
+      }
+
+      this.setState({
+        value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
+        curRange: null
+      });
+    };
+
+    this.setState({
+      showAttachmentModal: false
+    });
+
+    if (customInsertAttachment && (typeof customInsertAttachment === "function")) {
+      customInsertAttachment(getFileCb);
     }
   };
 
@@ -647,8 +736,8 @@ class RichEditor extends Component {
     let { customInsertVideo, videoTagAttrs } = this.props,
       quill = this.getEditor(); // 获取选区前先聚焦
 
-    const getVideoCb = (attrs) => {
-      if (attrs.src == undefined) {
+    const handleVideoInsert = (info) => {
+      if (info.src == undefined) {
         message.error('请设置视频源地址');
         return;
       }
@@ -656,8 +745,18 @@ class RichEditor extends Component {
       let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
       this.insertVideo(range.index, {
         ...videoTagAttrs,
-        ...attrs
+        ...info
       });
+    };
+
+    const getVideoCb = (videoList) => {
+      if (Array.isArray(videoList)) {
+        videoList.forEach((videoInfo) => {
+          handleVideoInsert(videoInfo);
+        });
+      } else {
+        handleVideoInsert(videoList);
+      }
 
       this.setState({
         value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
@@ -962,6 +1061,7 @@ class RichEditor extends Component {
       showLinkModal,
       showVideoModal,
       showImageModal,
+      showAttachmentModal,
       toolbarCtner,
       curVideoType,
       defaultInputLink,
@@ -976,6 +1076,7 @@ class RichEditor extends Component {
       getPopupContainer,
       customEmoji,
       insertImageTip,
+      insertAttchmentTip,
       insertVideoTip,
       insertLinkTip,
       onChange,
@@ -983,7 +1084,9 @@ class RichEditor extends Component {
       popoverPlacement,
       tooltipPlacement,
       imageDrop,
+      fileDrop,
       customDropImage,
+      customDropFile,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -999,6 +1102,26 @@ class RichEditor extends Component {
     let videoFooter = {};
     if (curVideoType == "video_local") {
       videoFooter['footer'] = null;
+    }
+
+    let moduleOpts = {
+      toolbar: {
+        container: toolbarCtner,
+        handlers: this.handlers
+      }
+    };
+
+    // fileDrop 为 true 时，使 imageDrop 失效
+    if (fileDrop && customDropFile) {
+      // customDropFile 自定义文件上传逻辑，必选
+      moduleOpts['fileDrop'] = {
+        customDropFile
+      };
+    } else if (imageDrop) {
+      // customDropImage 不存在时，将图片文件转为 dataUrl 格式
+      moduleOpts['imageDrop'] = {
+        customDropImage
+      };
     }
 
     return (
@@ -1028,6 +1151,16 @@ class RichEditor extends Component {
         >
           <Button type="primary" onClick={this.handlePickLocalImage}>选择本地图片</Button>
           { insertImageTip ? <div className="tip">{insertImageTip}</div> : null }
+        </Modal>
+        <Modal
+          title="插入附件"
+          className={`${prefixCls}-image-modal`}
+          visible={showAttachmentModal}
+          footer={null}
+          onCancel={this.handleAttachmentModalCancel}
+        >
+          <Button type="primary" onClick={this.handlePickLocalFile}>选择本地文件</Button>
+          { insertAttchmentTip ? <div className="tip">{insertAttchmentTip}</div> : null }
         </Modal>
         <Modal
           title="插入视频"
@@ -1087,15 +1220,7 @@ class RichEditor extends Component {
           ref={el => this.reactQuillRef = el}
           bounds={this.editorCtner}
           className={'editor-body'}
-          modules={{
-            toolbar: {
-              container: toolbarCtner,
-              handlers: this.handlers
-            },
-            imageDrop: imageDrop ? {
-              customDropImage
-            } : null
-          }}
+          modules={moduleOpts}
           placeholder={placeholder}
           onChange={this.handleChange}
           onSelectionChange={this.handleSelectionChange}
