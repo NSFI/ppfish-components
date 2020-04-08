@@ -1133,14 +1133,12 @@ class RichEditor extends Component {
     if (fileDrop && customDropFile) {
       // customDropFile 自定义文件上传逻辑，必选
       moduleOpts['fileDrop'] = {
-        customDropFile,
-        onChange
+        customDropFile
       };
     } else if (imageDrop) {
       // customDropImage 不存在时，将图片文件转为 dataUrl 格式
       moduleOpts['imageDrop'] = {
-        customDropImage,
-        onChange
+        customDropImage
       };
     }
 
