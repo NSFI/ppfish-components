@@ -657,47 +657,46 @@ class RichEditor extends Component {
     let { customInsertAttachment } = this.props,
       quill = this.getEditor();
 
-    const getFileDelta = (file) => {
+    const handleInsertFile = (file) => {
       if (!file || !file.url || !file.name) {
         message.error('文件信息读取失败');
-        return [];
+        return;
       }
 
-      return [
-        { insert: '\n' },
-        {
-          insert: ' ' + file.name,
-          attributes: {
-            'link': {
-              type: 'attachment',
-              url: file.url,
-              name: file.name
+      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true),
+        displayFileName = ' ' + file.name,
+        contentsDelta = [
+          { retain: range.index },
+          {
+            insert: displayFileName,
+            attributes: {
+              'link': {
+                type: 'attachment',
+                url: file.url,
+                name: file.name
+              }
             }
-          }
-        }
-      ];
+          },
+          { insert: '\n' }
+        ];
+
+      // 插入附件
+      quill.updateContents(contentsDelta);
+      quill.setSelection(range.index + displayFileName.length + 1, 'silent');
     };
 
     const getFileCb = (fileList) => {
-      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true),
-        contentsDelta = [
-          { retain: range.index }
-        ];
-
       if (Array.isArray(fileList)) {
         fileList.sort((a, b) => {
           // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
           let order = ['other', 'image', 'video'];
-          return order.indexOf(b.type) - order.indexOf(a.type);
+          return order.indexOf(a.type) - order.indexOf(b.type);
         }).forEach((file) => {
-          contentsDelta = contentsDelta.concat(getFileDelta(file));
+          handleInsertFile(file)
         });
       } else {
-        contentsDelta = contentsDelta.concat(getFileDelta(fileList));
+        handleInsertFile(fileList)
       }
-
-      // 插入附件
-      quill.updateContents(contentsDelta.concat([{ insert: '\n' }]));
 
       this.setState({
         value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
