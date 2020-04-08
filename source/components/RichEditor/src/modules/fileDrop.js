@@ -62,10 +62,11 @@ export default class FileDrop {
 			}
 
 			this.quill.insertText(index, ' ' + fileInfo.name, {
-			  'link': {
-				type: 'attachment',
-				url: fileInfo.url
-			  }
+				'link': {
+					type: 'attachment',
+					url: fileInfo.url,
+					name: fileInfo.name
+				}
 			});
 			this.quill.setSelection(index + fileInfo.name.length + 1, 'silent');
 		}

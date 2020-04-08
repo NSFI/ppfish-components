@@ -668,7 +668,8 @@ class RichEditor extends Component {
       quill.insertText(range.index, ' ' + file.name, {
         'link': {
           type: 'attachment',
-          url: file.url
+          url: file.url,
+          name: file.name
         }
       });
       quill.setSelection(range.index + 1, 'silent');

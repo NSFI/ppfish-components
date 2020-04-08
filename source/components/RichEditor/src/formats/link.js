@@ -13,7 +13,7 @@ class Link extends Inline {
       if (data.type != null) {
         node.setAttribute('data-ql-link-type', data.type);
         if (data.type == 'attachment') {
-          node.setAttribute('download', "");
+          node.setAttribute('download', data.name || "");
           node.setAttribute('contenteditable', "false");
         }
       }
@@ -32,7 +32,8 @@ class Link extends Inline {
 
     return {
       url: node.getAttribute('href'),
-      type: node.getAttribute('data-ql-link-type')
+      type: node.getAttribute('data-ql-link-type'),
+      name: node.getAttribute('download')
     };
   }
 
@@ -53,6 +54,7 @@ class Link extends Inline {
           this.domNode.setAttribute('data-ql-link-type', data.type);
           if (data.type == 'attachment') {
             this.domNode.setAttribute('contenteditable', "false");
+            this.domNode.setAttribute('download', data.name || "");
           }
         }
       }
