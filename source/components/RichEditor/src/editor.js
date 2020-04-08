@@ -692,10 +692,10 @@ class RichEditor extends Component {
           let order = ['other', 'image', 'video'];
           return order.indexOf(a.type) - order.indexOf(b.type);
         }).forEach((file) => {
-          handleInsertFile(file)
+          handleInsertFile(file);
         });
       } else {
-        handleInsertFile(fileList)
+        handleInsertFile(fileList);
       }
 
       this.setState({
