@@ -48,7 +48,8 @@ export default class FileDrop {
 			}
 
 			this.quill.insertEmbed(index, 'myImage', fileInfo);
-			this.quill.setSelection(index + 1);
+			this.quill.insertText(index + 1, '\n');
+			this.quill.setSelection(index + 2);
 		} else if (fileInfo.type == 'video') {	// 插入视频
 			if (!fileInfo.src) {
 				return;
@@ -61,18 +62,25 @@ export default class FileDrop {
 				return;
 			}
 
-			this.quill.insertText(index, ' ' + fileInfo.name, {
+			let fileName = ' ' + fileInfo.name, fileNameLen = fileName.length;
+			this.quill.insertText(index, fileName, {
 				'link': {
 					type: 'attachment',
 					url: fileInfo.url,
 					name: fileInfo.name
 				}
 			});
-			this.quill.setSelection(index + fileInfo.name.length + 1, 'silent');
+
+			this.quill.insertText(index + fileNameLen, '\n');
+			this.quill.setSelection(index + fileNameLen + 1, 'silent');
 		}
 	}
 
 	insert(fileList) {
+		const range = this.quill.getSelection() || {},
+			index = (range.index != undefined) ? range.index : this.quill.getLength();
+		this.quill.setSelection(index + 1, 'silent');
+
 		if (Array.isArray(fileList)) {
 			fileList.sort((a, b) => {
 				// 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
@@ -84,9 +92,5 @@ export default class FileDrop {
 		} else {
 			fileList && this.handleFileInsert(fileList);
 		}
-
-		const range = this.quill.getSelection() || {},
-			index = (range.index != undefined) ? range.index : this.quill.getLength();
-		this.quill.insertText(index, '\n');
 	}
 }

@@ -664,18 +664,22 @@ class RichEditor extends Component {
       }
 
       let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
-      quill.insertText(range.index, '\n');
-      quill.insertText(range.index, ' ' + file.name, {
+      quill.insertText(range.index+1, '\n');
+      quill.insertText(range.index+1, ' ' + file.name, {
         'link': {
           type: 'attachment',
           url: file.url,
           name: file.name
         }
       });
-      quill.setSelection(range.index + 1, 'silent');
+      quill.setSelection(range.index + 2, 'silent');
     };
 
     const getFileCb = (fileList) => {
+      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
+      quill.insertText(range.index, '\n');
+      quill.setSelection(range.index + 1, 'silent');
+
       if (Array.isArray(fileList)) {
         fileList.sort((a, b) => {
           // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
@@ -946,6 +950,11 @@ class RichEditor extends Component {
     if (nextSelection && nextSelection.length === 0 && source === 'user') {
       let [link, offset] = quill.scroll.descendant(LinkBlot, nextSelection.index);
       if (link != null) {
+        // 附件的超链接不可编辑
+        if (link.domNode.dataset.qlLinkType == "attachment") {
+          return;
+        }
+
         tooltip.linkRange = new Range(nextSelection.index - offset, link.length());
         this.linkRange = tooltip.linkRange; // 保存到当前实例，在编辑/删除超链接的事件回调中使用
         let preview = LinkBlot.formats(link.domNode).url;
