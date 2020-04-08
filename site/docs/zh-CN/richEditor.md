@@ -523,8 +523,7 @@
         value={`
         <p>附件测试：<br/>
         <a data-ql-link-type="attachment" href="https://ysf.nosdn.127.net/huke/aa913f5c4ae24e8d37299af98d7b8408"> 测试文件.txt</a>
-        </p>
-        <p>欢迎<a target="_blank" href="https://github.com/NSFI/ppfish-components/">贡献代码</a></p>`}
+        </p>`}
       />
     );
   }
