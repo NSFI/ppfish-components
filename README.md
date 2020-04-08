@@ -8,7 +8,7 @@
 
 <div align="center">
 
-[![Travis branch](https://api.travis-ci.org/NSFI/ppfish-components.svg?branch=master)](https://www.travis-ci.org/NSFI/ppfish-components) ![CI Status](https://github.com/NSFI/ppfish-components/workflows/test/badge.svg) [![](https://badgen.net/npm/v/ppfish?icon=npm)](https://www.npmjs.com/package/ppfish) [![NPM downloads](http://img.shields.io/npm/dm/ppfish.svg?style=flat-square)](https://www.npmjs.com/package/ppfish) [![Total alerts](https://badgen.net/lgtm/alerts/g/NSFI/ppfish-components)](https://lgtm.com/projects/g/NSFI/ppfish-components/alerts/) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components?ref=badge_shield)
+[![Travis branch](https://api.travis-ci.org/NSFI/ppfish-components.svg?branch=master)](https://www.travis-ci.org/NSFI/ppfish-components) ![CI Status](https://github.com/NSFI/ppfish-components/workflows/test/badge.svg) [![](https://badgen.net/npm/v/ppfish?icon=npm)](https://www.npmjs.com/package/ppfish) [![NPM downloads](http://img.shields.io/npm/dm/ppfish.svg?style=flat-square)](https://www.npmjs.com/package/ppfish) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FNSFI%2Fppfish-components?ref=badge_shield)
 
 </div>
 
