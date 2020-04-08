@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.7.4-alpha.2",
+  "version": "1.7.4-alpha.3",
   "description": "fish design ui components",
   "scripts": {
     "precommit": "lint-staged",
