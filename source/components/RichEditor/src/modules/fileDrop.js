@@ -2,6 +2,7 @@ export default class FileDrop {
 	constructor(quill, options = {}) {
 		this.quill = quill;
 		this.customDropFile = options.customDropFile || null;
+		this.onChange = options.onChange || null;
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handlePaste = this.handlePaste.bind(this);
 		this.quill.root.addEventListener('drop', this.handleDrop, false);
@@ -92,5 +93,12 @@ export default class FileDrop {
 		} else {
 			fileList && this.handleFileInsert(fileList);
 		}
+
+		this.onChange && this.onChange(
+			this.quill.getRawHTML(),
+			this.quill.getContents(),
+			'api',
+			this.quill
+		);
 	}
 }

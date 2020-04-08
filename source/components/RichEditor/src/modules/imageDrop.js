@@ -2,6 +2,7 @@ export default class ImageDrop {
 	constructor(quill, options = {}) {
 		this.quill = quill;
 		this.customDropImage = options.customDropImage || null;
+		this.onChange = options.onChange || null;
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handlePaste = this.handlePaste.bind(this);
 		this.quill.root.addEventListener('drop', this.handleDrop, false);
@@ -51,6 +52,13 @@ export default class ImageDrop {
 
 		this.quill.insertEmbed(index, 'myImage', attrs);
 		this.quill.setSelection(index + 1);
+
+		this.onChange && this.onChange(
+			this.quill.getRawHTML(),
+			this.quill.getContents(),
+			'api',
+			this.quill
+		);
 	}
 
 	// Extract image URIs a list of files from evt.dataTransfer or evt.clipboardData

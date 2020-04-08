@@ -657,40 +657,47 @@ class RichEditor extends Component {
     let { customInsertAttachment } = this.props,
       quill = this.getEditor();
 
-    const handleFileInsert = (file) => {
+    const getFileDelta = (file) => {
       if (!file || !file.url || !file.name) {
         message.error('文件信息读取失败');
-        return;
+        return [];
       }
 
-      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
-      quill.insertText(range.index+1, '\n');
-      quill.insertText(range.index+1, ' ' + file.name, {
-        'link': {
-          type: 'attachment',
-          url: file.url,
-          name: file.name
+      return [
+        { insert: '\n' },
+        {
+          insert: ' ' + file.name,
+          attributes: {
+            'link': {
+              type: 'attachment',
+              url: file.url,
+              name: file.name
+            }
+          }
         }
-      });
-      quill.setSelection(range.index + 2, 'silent');
+      ];
     };
 
     const getFileCb = (fileList) => {
-      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
-      quill.insertText(range.index, '\n');
-      quill.setSelection(range.index + 1, 'silent');
+      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true),
+        contentsDelta = [
+          { retain: range.index }
+        ];
 
       if (Array.isArray(fileList)) {
         fileList.sort((a, b) => {
           // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
           let order = ['other', 'image', 'video'];
-          return order.indexOf(a.type) - order.indexOf(b.type);
+          return order.indexOf(b.type) - order.indexOf(a.type);
         }).forEach((file) => {
-          handleFileInsert(file);
+          contentsDelta = contentsDelta.concat(getFileDelta(file));
         });
       } else {
-        handleFileInsert(fileList);
+        contentsDelta = contentsDelta.concat(getFileDelta(fileList));
       }
+
+      // 插入附件
+      quill.updateContents(contentsDelta.concat([{ insert: '\n' }]));
 
       this.setState({
         value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
@@ -1126,12 +1133,14 @@ class RichEditor extends Component {
     if (fileDrop && customDropFile) {
       // customDropFile 自定义文件上传逻辑，必选
       moduleOpts['fileDrop'] = {
-        customDropFile
+        customDropFile,
+        onChange
       };
     } else if (imageDrop) {
       // customDropImage 不存在时，将图片文件转为 dataUrl 格式
       moduleOpts['imageDrop'] = {
-        customDropImage
+        customDropImage,
+        onChange
       };
     }
 
