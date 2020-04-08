@@ -7,6 +7,17 @@
 @rich-editor-prefix: ~"@{fishd-prefix}-richeditor";
 @icon-normal-color: @text-6;
 
+// 附件样式
+[data-ql-link-type="attachment"] {
+  position: relative;
+  display: block;
+  font-family: "fishdicon";
+
+  &:before {
+    content: '\e781';
+  }
+}
+
 /* stylelint-disable declaration-no-important */
 .@{rich-editor-prefix}-link-modal,
 .@{rich-editor-prefix}-video-modal {
@@ -103,17 +114,6 @@
 
     .custom-show {
       display: flex !important;
-    }
-
-    // 附件样式
-    [data-ql-link-type="attachment"] {
-      position: relative;
-      display: block;
-      font-family: "fishdicon";
-
-      &:before {
-        content: '\e781';
-      }
     }
   }
 
