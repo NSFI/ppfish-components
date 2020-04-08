@@ -89,14 +89,6 @@ let QuillToolbar = createClass({
 		};
 	},
 
-	// componentDidMount: function() {
-	// 	console.warn(
-	// 		'QuillToolbar is deprecated. Consider switching to the official Quill ' +
-	// 		'toolbar format, or providing your own toolbar instead. ' +
-	// 		'See: https://github.com/zenoamaro/react-quill#upgrading-to-react-quill-v1-0-0'
-	// 	);
-	// },
-
 	shouldComponentUpdate: function(nextProps, nextState) {
 		return !isEqual(nextProps, this.props);
 	},
