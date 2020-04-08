@@ -64,6 +64,7 @@ class RichEditor extends Component {
     toolbar: PropTypes.array,
     value: PropTypes.string,
     insertImageTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    insertAttachmentTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     insertVideoTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     insertLinkTip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     popoverPlacement: PropTypes.string,
@@ -1076,7 +1077,7 @@ class RichEditor extends Component {
       getPopupContainer,
       customEmoji,
       insertImageTip,
-      insertAttchmentTip,
+      insertAttachmentTip,
       insertVideoTip,
       insertLinkTip,
       onChange,
@@ -1160,7 +1161,7 @@ class RichEditor extends Component {
           onCancel={this.handleAttachmentModalCancel}
         >
           <Button type="primary" onClick={this.handlePickLocalFile}>选择本地文件</Button>
-          { insertAttchmentTip ? <div className="tip">{insertAttchmentTip}</div> : null }
+          { insertAttachmentTip ? <div className="tip">{insertAttachmentTip}</div> : null }
         </Modal>
         <Modal
           title="插入视频"
