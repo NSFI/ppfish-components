@@ -663,10 +663,11 @@ class RichEditor extends Component {
         return;
       }
 
-      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true),
-        displayFileName = ' ' + file.name,
+      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
+      if (!range) return;
+
+      let displayFileName = ' ' + file.name,
         contentsDelta = [
-          { retain: range.index },
           {
             insert: displayFileName,
             attributes: {
@@ -679,6 +680,11 @@ class RichEditor extends Component {
           },
           { insert: '\n' }
         ];
+
+      // 在开头插入时不能使用retain
+      if (range.index > 0) {
+        contentsDelta.unshift({ retain: range.index });
+      }
 
       // 插入附件
       quill.updateContents(contentsDelta);

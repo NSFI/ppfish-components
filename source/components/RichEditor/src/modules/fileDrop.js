@@ -47,11 +47,16 @@ export default class FileDrop {
         return;
       }
 
-      this.quill.updateContents([
-        { retain: index },
+      let delta = [
         { insert: { 'myImage': fileInfo } },
         { insert: '\n'}
-      ]);
+      ];
+
+      if (index > 0) {
+        delta.unshift({ retain: index });
+      }
+
+      this.quill.updateContents(delta);
       this.quill.setSelection(index + 1);
     } else if (fileInfo.type == 'video') {	// 插入视频
       if (!fileInfo.src) {
@@ -64,22 +69,27 @@ export default class FileDrop {
         return;
       }
 
-      let fileName = ' ' + fileInfo.name, fileNameLen = fileName.length;
-      this.quill.updateContents([
-        { retain: index },
-        { insert: '\n'},
-        {
-          insert: fileName,
-          attributes: {
-            'link': {
-              type: 'attachment',
-              url: fileInfo.url,
-              name: fileInfo.name
+      let displayFileName = ' ' + fileInfo.name,
+        delta = [
+          {
+            insert: displayFileName,
+            attributes: {
+              'link': {
+                type: 'attachment',
+                url: fileInfo.url,
+                name: fileInfo.name
+              }
             }
-          }
-        }
-      ]);
-      this.quill.setSelection(index + fileNameLen + 1, 'silent');
+          },
+          { insert: '\n'}
+        ];
+
+      if (index > 0) {
+        delta.unshift({ retain: index });
+      }
+
+      this.quill.updateContents(delta);
+      this.quill.setSelection(index + displayFileName.length + 1, 'silent');
     }
   }
 
