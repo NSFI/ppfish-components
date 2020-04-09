@@ -666,7 +666,7 @@ class RichEditor extends Component {
       let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
       if (!range) return;
 
-      let displayFileName = ' ' + file.name,
+      let displayFileName = '[附件] ' + file.name,
         contentsDelta = [
           {
             insert: displayFileName,

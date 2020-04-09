@@ -522,7 +522,7 @@
         loading={this.state.loading}
         value={`
         <p>附件测试：<br/>
-        <a data-ql-link-type="attachment" download="测试文件.txt" href="https://ysf.nosdn.127.net/huke/aa913f5c4ae24e8d37299af98d7b8408"> 测试文件.txt</a>
+        <a data-ql-link-type="attachment" download="测试文件.jpg" href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe">[附件] 测试文件.jpg</a>
         </p>`}
       />
     );

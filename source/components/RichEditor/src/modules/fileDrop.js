@@ -69,7 +69,7 @@ export default class FileDrop {
         return;
       }
 
-      let displayFileName = ' ' + fileInfo.name,
+      let displayFileName = '[附件] ' + fileInfo.name,
         delta = [
           {
             insert: displayFileName,
