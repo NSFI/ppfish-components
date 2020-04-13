@@ -183,6 +183,12 @@ class RichEditor extends Component {
           range = quill.getSelection();
 
         if (range && range.length !== 0) {
+          // 附件不能设置超链接
+          let [link, offset] = quill.scroll.descendant(LinkBlot, range.index);
+          if (link && link.domNode.dataset.qlLinkType == "attachment") {
+            return;
+          }
+
           let newState = {
             value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
             showLinkModal: true,
@@ -308,6 +314,12 @@ class RichEditor extends Component {
         let range = this.quill.getSelection(),
           url = customLink[moduleName].url;
         if (range.length !== 0) {
+          // 附件不能设置超链接
+          let [link, offset] = this.quill.scroll.descendant(LinkBlot, range.index);
+          if (link && link.domNode.dataset.qlLinkType == "attachment") {
+            return;
+          }
+
           if (url) {
             // 异步获取URL
             if (Object.prototype.toString.call(url) == "[object Function]") {
