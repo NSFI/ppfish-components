@@ -515,14 +515,21 @@
           ['link', 'bold', 'italic', 'underline'],
           ['size'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}],
           [{'list': 'ordered'}, {'list': 'bullet'}],
-          ['emoji'], ['image', 'attachment'], ['clean', 'formatPainter']
+          ['emoji'], ['image', 'attachment'], ['clean', 'formatPainter'], ['mylink']
         ]}
         customInsertAttachment={this.getFilesInfo}
         insertAttachmentTip="支持docx、xlsx、pdf、pptx等常见文件格式，单个文件大小不得超过10M。"
         loading={this.state.loading}
+        customLink={{
+          'mylink': {
+            'className': 'my-link',
+            'title': '自定义超链接',
+            'url': 'https://nsfi.github.io/ppfish-components/#/home'
+          }
+        }}
         value={`
         <p>附件测试：<br/>
-        <a data-ql-link-type="attachment" download="测试文件.jpg" href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe">[附件] 测试文件.jpg</a>
+        <a data-ql-link-type="attachment" download="测试文件.jpg" href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe">[文件] 测试文件.jpg</a>
         </p>`}
       />
     );
