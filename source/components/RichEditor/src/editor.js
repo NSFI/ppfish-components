@@ -708,18 +708,21 @@ class RichEditor extends Component {
         fileList.sort((a, b) => {
           // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
           let order = ['other', 'image', 'video'];
-          return order.indexOf(a.type) - order.indexOf(b.type);
+          return order.indexOf(b.type) - order.indexOf(a.type);
         }).forEach((file) => {
           handleInsertFile(file);
+          this.setState({
+            value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
+            curRange: null
+          });
         });
       } else {
         handleInsertFile(fileList);
+        this.setState({
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
+          curRange: null
+        });
       }
-
-      this.setState({
-        value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
-        curRange: null
-      });
     };
 
     this.setState({
