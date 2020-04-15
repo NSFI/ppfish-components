@@ -30,6 +30,16 @@ export default class FileDrop {
 
   handlePaste(evt) {
     if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
+      // 不处理粘贴的富文本内容，只处理粘贴的文件
+      console.log('>> evt.clipboardData.items: ', evt.clipboardData.items)
+      for (let i=0, len=evt.clipboardData.items.length; i<len; i++) {
+        let item = evt.clipboardData.items[i];
+
+        if (item.kind != 'file') {
+          return;
+        }
+      }
+
       if (this.customDropFile && typeof this.customDropFile == 'function') {
         this.customDropFile(evt.clipboardData.items, this.insert.bind(this));
       }
