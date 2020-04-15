@@ -1968,6 +1968,17 @@ exports[`Renders richEditor demo correctly 1`] = `
           />
         </div>
       </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <button
+            class="action custom-entry ql-mylinkEntry fishdicon fishdicon-richeditor-transfer my-link"
+          />
+        </div>
+      </div>
     </div>
     <div
       class="quill editor-body"
