@@ -50,7 +50,8 @@ export default class ImageDrop {
     if (!attrs.src) return;
 
     this.quill.insertEmbed(index, 'myImage', attrs);
-    this.quill.setSelection(index + 1);
+    this.quill.insertText(index + 1, ' ');
+    this.quill.setSelection(index + 2);
   }
 
   // Extract image URIs a list of files from evt.dataTransfer or evt.clipboardData

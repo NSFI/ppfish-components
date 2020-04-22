@@ -56,8 +56,15 @@ export default class FileDrop {
         return;
       }
 
+      // 继承列表的样式
+      let listFormat = {};
+      if (curFormat && curFormat.list) {
+        listFormat.list = curFormat.list;
+      }
+
       let delta = [
-        { insert: { 'myImage': fileInfo }, attributes: { ...curFormat } }
+        { insert: { 'myImage': fileInfo }, attributes: { ...listFormat } },
+        { insert: ' ' } // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
       ];
 
       if (index > 0) {
@@ -65,7 +72,7 @@ export default class FileDrop {
       }
 
       this.quill.updateContents(delta);
-      this.quill.setSelection(index + 1);
+      this.quill.setSelection(index + 2);
     } else if (fileInfo.type == 'video') {	// 插入视频
       if (!fileInfo.src) {
         return;
@@ -77,12 +84,18 @@ export default class FileDrop {
         return;
       }
 
+      // 继承列表的样式
+      let listFormat = {};
+      if (curFormat && curFormat.list) {
+        listFormat.list = curFormat.list;
+      }
+
       let displayFileName = '[文件] ' + fileInfo.name,
         delta = [
           {
             insert: displayFileName,
             attributes: {
-              ...curFormat,
+              ...listFormat,
               'link': {
                 type: 'attachment',
                 url: fileInfo.url,
@@ -90,7 +103,7 @@ export default class FileDrop {
               }
             }
           },
-          { insert: '\n', attributes: { ...curFormat } }
+          { insert: ' \n', attributes: { ...listFormat } }
         ];
 
       if (index > 0) {
@@ -98,7 +111,7 @@ export default class FileDrop {
       }
 
       this.quill.updateContents(delta);
-      this.quill.setSelection(index + displayFileName.length + 1, 'silent');
+      this.quill.setSelection(index + displayFileName.length + 2, 'silent');
     }
   }
 

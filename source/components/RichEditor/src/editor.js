@@ -606,7 +606,8 @@ class RichEditor extends Component {
           info.height = naturalHeight;
 
           quill.insertEmbed(range.index, 'myImage', info);
-          quill.setSelection(range.index + 1, 'silent');
+          quill.insertText(range.index + 1, ' ');
+          quill.setSelection(range.index + 2, 'silent');
 
           this.setState({
             value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
@@ -615,7 +616,8 @@ class RichEditor extends Component {
         });
       } else {
         quill.insertEmbed(range.index, 'myImage', info);
-        quill.setSelection(range.index + 1, 'silent');
+        quill.insertText(range.index + 1, ' ');
+        quill.setSelection(range.index + 2, 'silent');
 
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
@@ -678,13 +680,20 @@ class RichEditor extends Component {
       let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
       if (!range) return;
 
+      // 继承列表的样式
+      let curFormat = quill.getFormat(range),
+        listFormat = {};
+
+      if (curFormat && curFormat.list) {
+        listFormat.list = curFormat.list;
+      }
+
       let displayFileName = '[文件] ' + file.name,
-        curFormat = quill.getFormat(range),
         contentsDelta = [
           {
             insert: displayFileName,
             attributes: {
-              ...curFormat,
+              ...listFormat,
               'link': {
                 type: 'attachment',
                 url: file.url,
@@ -693,9 +702,9 @@ class RichEditor extends Component {
             }
           },
           {
-            insert: '\n',
+            insert: ' \n',
             attributes: {
-              ...curFormat
+              ...listFormat
             }
           }
         ];
@@ -707,7 +716,7 @@ class RichEditor extends Component {
 
       // 插入附件
       quill.updateContents(contentsDelta, 'silent');
-      quill.setSelection(range.index + displayFileName.length + 1, 'silent');
+      quill.setSelection(range.index + displayFileName.length + 2, 'silent');
     };
 
     const getFileCb = (fileList) => {
