@@ -679,10 +679,12 @@ class RichEditor extends Component {
       if (!range) return;
 
       let displayFileName = '[文件] ' + file.name,
+        curFormat = quill.getFormat(range),
         contentsDelta = [
           {
             insert: displayFileName,
             attributes: {
+              ...curFormat,
               'link': {
                 type: 'attachment',
                 url: file.url,
@@ -690,7 +692,12 @@ class RichEditor extends Component {
               }
             }
           },
-          { insert: '\n' }
+          {
+            insert: '\n',
+            attributes: {
+              ...curFormat
+            }
+          }
         ];
 
       // 在开头插入时不能使用retain
@@ -699,7 +706,7 @@ class RichEditor extends Component {
       }
 
       // 插入附件
-      quill.updateContents(contentsDelta);
+      quill.updateContents(contentsDelta, 'silent');
       quill.setSelection(range.index + displayFileName.length + 1, 'silent');
     };
 

@@ -48,7 +48,8 @@ export default class FileDrop {
     if (!(fileInfo.url || fileInfo.src)) return;
 
     const range = this.quill.getSelection() || {},
-      index = (range.index != undefined) ? range.index : this.quill.getLength();
+      index = (range.index != undefined) ? range.index : this.quill.getLength(),
+      curFormat = this.quill.getFormat(range);
 
     if (fileInfo.type == 'image') {			// 插入图片
       if (!fileInfo.src) {
@@ -56,8 +57,7 @@ export default class FileDrop {
       }
 
       let delta = [
-        { insert: { 'myImage': fileInfo } },
-        { insert: '\n'}
+        { insert: { 'myImage': fileInfo }, attributes: { ...curFormat } }
       ];
 
       if (index > 0) {
@@ -82,6 +82,7 @@ export default class FileDrop {
           {
             insert: displayFileName,
             attributes: {
+              ...curFormat,
               'link': {
                 type: 'attachment',
                 url: fileInfo.url,
@@ -89,7 +90,7 @@ export default class FileDrop {
               }
             }
           },
-          { insert: '\n'}
+          { insert: '\n', attributes: { ...curFormat } }
         ];
 
       if (index > 0) {
