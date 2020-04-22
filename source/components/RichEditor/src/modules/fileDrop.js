@@ -103,7 +103,7 @@ export default class FileDrop {
               }
             }
           },
-          { insert: ' \n', attributes: { ...listFormat } }
+          { insert: '\n', attributes: { ...listFormat } }
         ];
 
       if (index > 0) {
@@ -111,7 +111,7 @@ export default class FileDrop {
       }
 
       this.quill.updateContents(delta);
-      this.quill.setSelection(index + displayFileName.length + 2, 'silent');
+      this.quill.setSelection(index + displayFileName.length + 1, 'silent');
     }
   }
 

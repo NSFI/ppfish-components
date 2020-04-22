@@ -702,7 +702,7 @@ class RichEditor extends Component {
             }
           },
           {
-            insert: ' \n',
+            insert: '\n',
             attributes: {
               ...listFormat
             }
@@ -716,7 +716,7 @@ class RichEditor extends Component {
 
       // 插入附件
       quill.updateContents(contentsDelta, 'silent');
-      quill.setSelection(range.index + displayFileName.length + 2, 'silent');
+      quill.setSelection(range.index + displayFileName.length + 1, 'silent');
     };
 
     const getFileCb = (fileList) => {
