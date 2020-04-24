@@ -37,15 +37,15 @@ export default class Notice extends Component {
     this.clearCloseTimer();
   }
 
-  close = () => {
+  close = (key) => {
     this.clearCloseTimer();
-    this.props.onClose();
+    this.props.onClose(key);
   }
 
   startCloseTimer = () => {
     if (this.props.duration) {
       this.closeTimer = setTimeout(() => {
-        this.close();
+        this.close('auto');
       }, this.props.duration * 1000);
     }
   }
@@ -76,7 +76,7 @@ export default class Notice extends Component {
       >
         <div className={`${componentClass}-content`}>{props.children}</div>
           {props.closable ?
-            <a tabIndex="0" onClick={this.close} className={`${componentClass}-close`}>
+            <a tabIndex="0" onClick={() => this.close('manual')} className={`${componentClass}-close`}>
               {props.closeIcon || <span className={`${componentClass}-close-x`}/>}
             </a> : null
           }
