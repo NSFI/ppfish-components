@@ -140,7 +140,8 @@ class Sider extends React.Component<SiderProps, SiderState> {
 
   componentDidMount() {
     if (this.mql) {
-      this.mql.addEventListener('change', this.responsiveHandler);
+      // this.mql.addEventListener('change', this.responsiveHandler);
+      this.mql.addListener(this.responsiveHandler);
       this.responsiveHandler((this.mql as any) as MediaQueryListEvent);
     }
 
