@@ -11,7 +11,7 @@ describe('BackTop', () => {
     jest.useRealTimers();
   });
 
-  it('should scroll to top after click it', () => {
+  xit('should scroll to top after click it', () => {
     const wrapper = mount(<BackTop visibilityHeight={-1}/>);
     document.documentElement.scrollTop = 400;
     // trigger scroll manually
