@@ -10,11 +10,14 @@
 }
 
 .@{ellipsis-prefix-cls}-tooltip {
-  .scrollbar();
   overflow-wrap: break-word;
   word-wrap: break-word;
-  max-height: 300px;
-  overflow-y: scroll;
+
+  .fishd-tooltip-inner {
+    .scrollbar();
+    max-height: 300px;
+    overflow-y: scroll;
+  }
 }
 
 .@{ellipsis-prefix-cls}-width-mode {
