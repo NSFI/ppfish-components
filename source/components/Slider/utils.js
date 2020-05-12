@@ -23,7 +23,7 @@ export function getClosestPoint(val, { marks, step, min }) {
     points.push(closestStep);
   }
   const diffs = points.map(point => Math.abs(val - point));
-  return points[diffs.indexOf(Math.min(...diffs))];
+  return points[diffs.indexOf(Math.min(...diffs))] || 0;
 }
 
 export function getPrecision(step) {
