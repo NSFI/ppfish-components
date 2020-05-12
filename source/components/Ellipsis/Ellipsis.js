@@ -74,6 +74,7 @@ const EllipsisText = ({prefix, text, length, tooltip, fullWidthRecognition, tool
 };
 
 EllipsisText.propTypes = {
+  prefix: PropTypes.string,
   text: PropTypes.string,
   length: PropTypes.number,
   tooltip: PropTypes.bool,
