@@ -312,7 +312,7 @@ class RichEditor extends Component {
     Object.keys(customLink).forEach((moduleName) => {
       this.handlers[`${moduleName}Entry`] = function() {
         let range = this.quill.getSelection(),
-          url = customLink[moduleName].url && customLink[moduleName].url.trim();
+          url = customLink[moduleName].url;
         if (range.length !== 0) {
           // 附件不能设置超链接
           let [link, offset] = this.quill.scroll.descendant(LinkBlot, range.index);
@@ -324,7 +324,7 @@ class RichEditor extends Component {
             // 异步获取URL
             if (Object.prototype.toString.call(url) == "[object Function]") {
               let format = this.quill.getFormat(),
-                prevValue = format && format.link && format.link.url && format.link.url.trim();
+                prevValue = format && format.link && format.link.url;
 
               url((value) => {
                 this.quill.format('link', {
