@@ -9,6 +9,17 @@
   width: 100%;
 }
 
+.@{ellipsis-prefix-cls}-tooltip {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  .fishd-tooltip-inner {
+    .scrollbar();
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+}
+
 .@{ellipsis-prefix-cls}-width-mode {
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -568,7 +568,7 @@ class PicturePreview extends Component {
         'margin-left': num2px(e.pageX - image.startX + image.marginL),
         'margin-top': num2px(e.pageY - image.startY + image.marginT)
       });
-    } else if (this.moving === 'con') {
+    } else if (this.moving === 'con' && con && con.rect) {
       conStyle.left = num2px(e.pageX - con.startX + con.rect.left);
       conStyle.top = num2px(e.pageY - con.startY + con.rect.top);
 

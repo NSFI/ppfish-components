@@ -9,11 +9,6 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 const isSupportLineClamp = document.body.style.webkitLineClamp !== undefined;
 
-const TooltipOverlayStyle = {
-  overflowWrap: 'break-word',
-  wordWrap: 'break-word',
-};
-
 export const getStrFullLength = (str = '') =>
   str.split('').reduce((pre, cur) => {
     const charCode = cur.charCodeAt(0);
@@ -39,7 +34,7 @@ export const cutStrByFullLength = (str = '', maxLength) => {
   }, '');
 };
 
-const EllipsisText = ({text, length, tooltip, fullWidthRecognition, tooltipProps, ...other}) => {
+const EllipsisText = ({prefix, text, length, tooltip, fullWidthRecognition, tooltipProps, ...other}) => {
   if (typeof text !== 'string') {
     throw new Error('Ellipsis children must be string.');
   }
@@ -57,7 +52,11 @@ const EllipsisText = ({text, length, tooltip, fullWidthRecognition, tooltipProps
 
   if (tooltip) {
     return (
-      <Tooltip {...tooltipProps} overlayStyle={TooltipOverlayStyle} title={text}>
+      <Tooltip
+        {...tooltipProps} 
+        overlayClassName={`${prefix}-tooltip`}
+        title={text}
+      >
         <span>
           {displayText}
           {tail}
@@ -75,6 +74,7 @@ const EllipsisText = ({text, length, tooltip, fullWidthRecognition, tooltipProps
 };
 
 EllipsisText.propTypes = {
+  prefix: PropTypes.string,
   text: PropTypes.string,
   length: PropTypes.number,
   tooltip: PropTypes.bool,
@@ -282,7 +282,11 @@ export default class Ellipsis extends Component {
         </span>
       );
       return tooltip ? (
-        <Tooltip {...tooltipProps} overlayStyle={TooltipOverlayStyle} title={isEllipsisActive ? children : null}>
+        <Tooltip
+          {...tooltipProps} 
+          overlayClassName={`${prefix}-tooltip`}
+          title={isEllipsisActive ? children : null}
+        >
           {node}
         </Tooltip>
       ) : (
@@ -294,6 +298,7 @@ export default class Ellipsis extends Component {
     if (length) {
       return (
         <EllipsisText
+          prefix={prefix}
           className={cls}
           tooltipProps={tooltipProps}
           length={length}
@@ -320,7 +325,11 @@ export default class Ellipsis extends Component {
       );
 
       return tooltip ? (
-        <Tooltip {...tooltipProps} overlayStyle={TooltipOverlayStyle} title={isEllipsisActive ? children : null}>
+        <Tooltip
+          {...tooltipProps} 
+          overlayClassName={`${prefix}-tooltip`}
+          title={isEllipsisActive ? children : null}
+        >
           {node}
         </Tooltip>
       ) : (
@@ -339,7 +348,10 @@ export default class Ellipsis extends Component {
       <div {...restProps} ref={this.handleRoot} className={cls}>
         <div ref={this.handleContent}>
           {tooltip ? (
-            <Tooltip overlayStyle={TooltipOverlayStyle} title={text}>
+            <Tooltip 
+              overlayClassName={`${prefix}-tooltip`}
+              title={text}
+            >
               {childNode}
             </Tooltip>
           ) : (

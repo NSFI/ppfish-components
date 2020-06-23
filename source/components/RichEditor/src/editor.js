@@ -230,7 +230,7 @@ class RichEditor extends Component {
         quill.insertEmbed(range.index, 'emoji', {
           type: mValue.type,
           alt: mValue.alt,
-          src: mValue.src,
+          src: mValue.src && mValue.src.trim(),
           width: mValue.width,
           height: mValue.height,
           id: mValue.id
@@ -490,7 +490,7 @@ class RichEditor extends Component {
 
   handleLinkModalOk = () => {
     let el = this.linkModalInputRef.input,
-        val = el.value;
+        val = el.value.trim();
 
     if (val) {
       if (val.length > 1000) {
@@ -526,7 +526,7 @@ class RichEditor extends Component {
     let val = null;
 
     if (this.videoModalInputRef) {
-      val = this.videoModalInputRef.input.value;
+      val = this.videoModalInputRef.input.value.trim();
     }
 
     if (val) {
@@ -598,6 +598,8 @@ class RichEditor extends Component {
         message.error('请设置图片源地址');
         return;
       }
+
+      info.src = info.src && info.src.trim();
 
       let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
       if (info.width == undefined || info.height == undefined) {
@@ -696,7 +698,7 @@ class RichEditor extends Component {
               ...listFormat,
               'link': {
                 type: 'attachment',
-                url: file.url,
+                url: file.url && file.url.trim(),
                 name: file.name
               }
             }
@@ -759,7 +761,7 @@ class RichEditor extends Component {
     videoNode.onerror = () => {
       message.error('视频无法播放');
     };
-    videoNode.src = attrs.src;
+    videoNode.src = attrs.src && attrs.src.trim();
     videoNode = null;
 
     if ((rangeIndex > 0) && (prevChar != '\n')) {
@@ -790,6 +792,8 @@ class RichEditor extends Component {
         message.error('请设置视频源地址');
         return;
       }
+
+      info.src = info.src && info.src.trim();
 
       let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
       this.insertVideo(range.index, {
