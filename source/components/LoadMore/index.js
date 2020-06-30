@@ -12,10 +12,10 @@ export default class LoadMore extends React.Component {
   static propTypes = {
     onLoadMore: PropTypes.func,
     status: PropTypes.string,
-    defaultText: PropTypes.string,
-    loadingText: PropTypes.string,
-    errorText: PropTypes.string,
-    endText: PropTypes.string,
+    defaultText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    loadingText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    errorText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    endText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     extraCls: PropTypes.string,
     buttonSize: PropTypes.string,
   };

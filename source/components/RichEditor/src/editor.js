@@ -608,8 +608,7 @@ class RichEditor extends Component {
           info.height = naturalHeight;
 
           quill.insertEmbed(range.index, 'myImage', info);
-          quill.insertText(range.index + 1, ' ');
-          quill.setSelection(range.index + 2, 'silent');
+          quill.setSelection(range.index + 1, 'silent');
 
           this.setState({
             value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
@@ -618,8 +617,7 @@ class RichEditor extends Component {
         });
       } else {
         quill.insertEmbed(range.index, 'myImage', info);
-        quill.insertText(range.index + 1, ' ');
-        quill.setSelection(range.index + 2, 'silent');
+        quill.setSelection(range.index + 1, 'silent');
 
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
