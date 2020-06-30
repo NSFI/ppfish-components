@@ -839,7 +839,7 @@ class TimeRelatedForm extends React.Component {
           label="DatePicker[showTime]"
         >
           {getFieldDecorator('date-time-picker', config)(
-            <DatePicker showTime format="yyyy-MM-DD HH:mm:ss" />
+            <DatePicker showTime format="yyyy-MM-dd HH:mm:ss" />
           )}
         </FormItem>
         <FormItem
@@ -855,7 +855,7 @@ class TimeRelatedForm extends React.Component {
           label="RangePicker[showTime]"
         >
           {getFieldDecorator('range-time-picker', rangeConfig)(
-            <RangePicker showTime format="yyyy-MM-DD HH:mm:ss" />
+            <RangePicker showTime format="yyyy-MM-dd HH:mm:ss" />
           )}
         </FormItem>
         <FormItem
