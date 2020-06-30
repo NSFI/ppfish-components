@@ -113,10 +113,10 @@ render(){
 |---------- |-------- |---------- |-------- |
 | buttonSize  | button大小    | Enum {'default','large','small'}  | 'default'   |
 | className | 自定义类名 | String | - |
-| defaultText  | 正常状态文案    | String   | '查看更多'   |
-| endText  | 完全加载文案    | String   | '没有更多了'   |
-| errorText  | 加载失败文案    | String   | '加载失败，请重试'   |
-| loadingText  | 加载中文案    | String   | '加载中'   |
+| defaultText  | 正常状态文案    | String \| HTMLElement   | '查看更多'   |
+| endText  | 完全加载文案    | String \| HTMLElement   | '没有更多了'   |
+| errorText  | 加载失败文案    | String \| HTMLElement   | '加载失败，请重试'   |
+| loadingText  | 加载中文案    | String \| HTMLElement   | '加载中'   |
 | onLoadMore  | 点击加载事件    | () => Void  |  noop   |
 | status  | 状态    | Enum {'default','loading','error','end'}  |  'default'   |
 | style | 自定义样式 | Object | - |
