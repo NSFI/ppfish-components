@@ -11,6 +11,6 @@ export default {
     'business': '业务组件',
     'feedback': '反馈建议',
     'demo': '演示环境',
-    'version': 'v1.7.5'
+    'version': 'v1.7.6'
   }
 };
