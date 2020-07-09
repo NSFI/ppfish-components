@@ -3,9 +3,9 @@ export default class ImageDrop {
     this.quill = quill;
     this.customDropImage = options.customDropImage || null;
     this.handleDrop = this.handleDrop.bind(this);
-    this.handlePaste = this.handlePaste.bind(this);
+    // this.handlePaste = this.handlePaste.bind(this);
     this.quill.root.addEventListener('drop', this.handleDrop, false);
-    this.quill.root.addEventListener('paste', this.handlePaste, false);
+    // this.quill.root.addEventListener('paste', this.handlePaste, false);
   }
 
   handleDrop(evt) {
@@ -30,18 +30,18 @@ export default class ImageDrop {
     }
   }
 
-  handlePaste(evt) {
-    if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
-      if (this.customDropImage && typeof this.customDropImage == 'function') {
-        this.customDropImage(evt.clipboardData.items, this.insert.bind(this));
-      } else {
-        this.readFiles(evt.clipboardData.items, (attrs) => {
-          // 等待 this.quill.getSelection() 返回有效的 index
-          setTimeout(() => this.insert(attrs), 0);
-        });
-      }
-    }
-  }
+  // handlePaste(evt) {
+  //   if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
+  //     if (this.customDropImage && typeof this.customDropImage == 'function') {
+  //       this.customDropImage(evt.clipboardData.items, this.insert.bind(this));
+  //     } else {
+  //       this.readFiles(evt.clipboardData.items, (attrs) => {
+  //         // 等待 this.quill.getSelection() 返回有效的 index
+  //         setTimeout(() => this.insert(attrs), 0);
+  //       });
+  //     }
+  //   }
+  // }
 
   insert(attrs) {
     const range = this.quill.getSelection() || {},
