@@ -1143,6 +1143,7 @@ class RichEditor extends Component {
       fileDrop,
       customDropImage,
       customDropFile,
+      pastePlainText,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -1177,6 +1178,12 @@ class RichEditor extends Component {
       // customDropImage 不存在时，将图片文件转为 dataUrl 格式
       moduleOpts['imageDrop'] = {
         customDropImage
+      };
+    }
+
+    if (pastePlainText) {
+      moduleOpts['clipboard'] = {
+        pastePlainText: true
       };
     }
 
