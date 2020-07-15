@@ -115,6 +115,7 @@ const columns = [{
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
+      filtrateDefault: true,
     }, {
       title: 'Action',
       key: 'action',
@@ -2264,6 +2265,7 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | filtrateTitle | 筛选Checkbox显示文字 | String \| ReactNode | - |
 | width | 列宽度 | String \| Number | - |
 | ellipsis | 该列是否使用ellipsis属性,需要配合`scroll.x`使用，且指定列宽度，固定列中使用需要指定为像素宽度。 | Boolean | false |
+| filtrateDefault | 默认展示数据项，且按column位置展示，不统一在底部展示，区别columnFiltrate.defaultColumns | Boolean | false |
 
 ### ColumnGroup
 
