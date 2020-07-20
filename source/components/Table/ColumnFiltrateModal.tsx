@@ -122,7 +122,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
     this.setState({
       checkedOption,
       okButtonDisabled: (
-        JSON.stringify(checkedOption && checkedOption.sort()) == 
+        JSON.stringify(checkedOption && checkedOption.sort()) ==
         JSON.stringify(checkedOptionConfirm && checkedOptionConfirm.sort())
       )
     });
@@ -137,7 +137,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
       .map((column) => {
         const uniqKey = getColumnKey(column);
         //fixed /分组不能控制显示隐藏
-        const disabled = !!column.fixed || !!column.children;
+        const disabled = !!column.fixed || !!column.children || !!column.filtrateDefault;
         const title = column.filtrateTitle || column.title;
         return {
           label: <ToolTip title={title}>{title}</ToolTip>,
