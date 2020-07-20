@@ -342,14 +342,19 @@ class DateRangePanel extends React.Component {
   // 开始日期或结束日期发生改变
   handleDateInputChange(e, type) {
     const {disabledDate,format} = this.props;
-    const {minDate, maxDate} = this.state;
+    const {minDate, maxDate, minTime, maxTime} = this.state;
     const text = type === 'min' ? 'minDateInputText' : 'maxDateInputText';
     const value = type === 'min' ? 'minDate' : 'maxDate';
 
     const inputText = e.target.value;
     const ndate = parseDate(inputText, dateFormat(format));
+    const getDate = () => {
+      const ndateMin = [setTime(new Date(ndate), minTime), maxDate];
+      const ndateMax = [minDate, setTime(new Date(ndate), maxTime)];
+      return type === 'min' ? ndateMin : ndateMax;
+    };
 
-    if (!isInputValid(inputText, type === 'min'?[ndate, maxDate]:[minDate, ndate], disabledDate)) {
+    if (!isInputValid(inputText, getDate(), disabledDate)) {
       this.setState({
         [text]: inputText,
       });

@@ -38,6 +38,7 @@ export interface ColumnProps<T> {
   onCell?: (record: T) => any;
   onHeaderCell?: (props: ColumnProps<T>) => any;
   ellipsis?: boolean;
+  filtrateDefault?: boolean;
 }
 
 export interface TableComponents {
