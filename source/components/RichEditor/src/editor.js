@@ -451,7 +451,27 @@ class RichEditor extends Component {
             break;
           }
           case 'size': {
-            tagStyle += 'font-size:' + value + ';';
+            // font标签size属性的value是数字类型，取值范围是[1,7]。
+            let size2pxMap = {
+                "1": '12px',
+                "2": '13px',
+                "3": '16px',
+                "4": '18px',
+                "5": '24px',
+                "6": '32px',
+                "7": '48px'
+              },
+              sizeWithUnit = this.defaultFontSize,
+              val = value && value.trim();
+
+            // value非数字或不在[1,7]范围内时，取默认字体大小
+            if (!/^\d+$/.test(val) || (parseInt(val) > 7) || (parseInt(val) < 1)) {
+              sizeWithUnit = this.defaultFontSize;
+            } else {
+              sizeWithUnit = size2pxMap[val] || this.defaultFontSize;
+            }
+
+            tagStyle += 'font-size:' + sizeWithUnit + ';';
             break;
           }
           case 'face': {
