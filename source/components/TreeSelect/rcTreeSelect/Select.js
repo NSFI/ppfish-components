@@ -369,7 +369,6 @@ class Select extends React.Component {
         filterTreeNodeFn,
         newState.valueEntities || prevState.valueEntities,
       );
-      globalObj.treeNodes=newState.treeNodes;
       globalObj.filteredTreeNodes=newState.filteredTreeNodes;
     }
 
@@ -812,7 +811,6 @@ class Select extends React.Component {
           return nodeValue.indexOf(upperSearchValue) !== -1;
         };
       }
-      globalObj.treeNodes=treeNodes;
       globalObj.filteredTreeNodes=getFilterTree(treeNodes, value, filterTreeNodeFn, valueEntities);
       this.setState({
         filteredTreeNodes:globalObj.filteredTreeNodes,
@@ -1032,9 +1030,10 @@ class Select extends React.Component {
   };
 
   handleConfirm = () => {
-    const { curValueList, connectValueList, extra } = this.state;
+    const { curValueList, connectValueList, extra,treeNodes } = this.state;
     const { onConfirm, onChange, required, editable } = this.props;
-    extra.globaObj=globalObj;
+    globalObj.treeNodes=treeNodes;
+    extra.globalObj=globalObj;
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
     onConfirm && onConfirm(curValueList, connectValueList, extra);
     onChange && onChange(curValueList, connectValueList, extra);
