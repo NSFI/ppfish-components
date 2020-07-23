@@ -344,8 +344,8 @@ class TreeNode extends React.Component {
       <span
         className={classNames(
           `${prefixCls}-checkbox`,
-          checked && `${prefixCls}-checkbox-checked`,
-          !checked && halfChecked && `${prefixCls}-checkbox-indeterminate`,
+          !halfChecked&&checked && `${prefixCls}-checkbox-checked`,
+          halfChecked && `${prefixCls}-checkbox-indeterminate`,
           (disabled || disableCheckbox) && `${prefixCls}-checkbox-disabled`,
         )}
         onClick={this.onCheck}
@@ -501,7 +501,6 @@ class TreeNode extends React.Component {
     } } = this.context;
     const disabled = this.isDisabled();
     const dataOrAriaAttributeProps = getDataAndAria(otherProps);
-
     return (
       <li
         className={classNames(className, {
@@ -528,7 +527,7 @@ class TreeNode extends React.Component {
         onDrop={draggable ? this.onDrop : undefined}
         onDragEnd={draggable ? this.onDragEnd : undefined}
         {...dataOrAriaAttributeProps}
-      >
+      ><span>--{halfChecked?1:0}-{checked?1:0}-{className}</span>
         {this.renderSwitcher()}
         {this.renderCheckbox()}
         {this.renderSelector()}

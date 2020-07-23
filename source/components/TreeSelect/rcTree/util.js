@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import warning from 'warning';
 import TreeNode from './TreeNode.js';
-
+import globalObj from "../globalObj.js";
 const DRAG_SIDE_RANGE = 0.25;
 const DRAG_MIN_GAP = 2;
 
@@ -165,11 +165,12 @@ export function convertDataToTree(treeData, processer) {
 
   const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
-  return list.map(({ children, ...props }, index) => {
+  return list.map((item, index) => {
+    const { children, ...props }=item;
     const childrenNodes = convertDataToTree(children, processer);
 
     return (
-      <TreeNode key={props.key} {...processProps(props)}>
+      <TreeNode srcItem={item} key={props.key} {...processProps(props)}>
         {childrenNodes}
       </TreeNode>
     );
@@ -387,6 +388,12 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       halfCheckedKeyList.push(key);
     }
   });
+
+  if(!globalObj.isInSearch){
+    checkedKeyList.map((key)=>{
+      globalObj.beforeSearchCheckKeys[key]=true;
+    });
+  }
 
   return {
     checkedKeys: checkedKeyList,

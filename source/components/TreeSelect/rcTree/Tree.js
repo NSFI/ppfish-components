@@ -459,6 +459,12 @@ class Tree extends React.Component {
   };
 
   onNodeCheck = (e, treeNode, checked) => {
+    if(treeNode.props.srcItem){
+      treeNode.props.srcItem._checked=checked;
+    }
+    if(this.props.globalObj&&!this.props.globalObj.isInSearch){
+      this.props.globalObj.beforeSearchCheckKeys[treeNode.props.key]=checked;
+    }
     const {
       keyEntities,
       checkedKeys: oriCheckedKeys,
@@ -650,9 +656,14 @@ class Tree extends React.Component {
         nativeEvent: e.nativeEvent,
       });
     }
-
+    if(treeNode.props.srcItem){
+      treeNode.props.srcItem._expanded=targetExpanded;
+    }
     // Async Load data
     if (targetExpanded && loadData) {
+      if(treeNode.props.srcItem){
+        treeNode.props.srcItem._loaded=true;
+      }
       const loadPromise = this.onNodeLoad(treeNode);
       return loadPromise ? loadPromise.then(() => {
         // [Legacy] Refresh logic
@@ -723,25 +734,66 @@ class Tree extends React.Component {
       keyEntities,
       expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],
       loadedKeys = [], loadingKeys = [],
-      dragOverNodeKey, dropPosition,
+      dragOverNodeKey, dropPosition,checkedKeys=[]
     } = this.state;
     const pos = getPosition(level, index);
     const key = child.key || pos;
-
+    const _srcItem=child.props.srcItem;
     if (!keyEntities[key]) {
       warnOnlyTreeNode();
       return null;
     }
 
+    let _isInSearch=false;
+    if(this.props.globalObj){
+      _isInSearch=this.props.globalObj.isInSearch;
+    }
+    let _expanded=expandedKeys.indexOf(key) !== -1;
+    let _checked=this.isKeyChecked(key);
+    let _halfChecked=halfCheckedKeys.indexOf(key) !== -1;
+
+    if(_isInSearch){
+      //在搜索模式下，并且已展开的情况下，作为父节点的半选状态特殊逻辑
+      if(_expanded){
+        let hadCK=false;
+        let hadNoCK=false;
+        if(_srcItem&&_srcItem._loaded&&_srcItem.children){
+          for(let a=0;a<_srcItem.children.length;a++){
+            if(_srcItem.children[a]._checked){
+              hadCK=true;
+            }else{
+              hadNoCK=true;
+            }
+            if(hadCK&&hadNoCK){
+              _halfChecked=true;
+              //遍历数据源里子节点列表，有选择的也有非选择的，则为半选
+              break;
+            }
+          }
+          if(!hadNoCK){
+            //实际子节点个数比查询出的子节点还多，则表示半选
+            if(_srcItem.childCount>child.props.children.length){
+              _halfChecked=true;
+            }
+          }
+        }
+      }      
+    }
+    
+    if(child.props.srcItem){
+      child.props.srcItem._checked=_checked;
+      child.props.srcItem._halfChecked=_halfChecked;
+    }
+    
     return React.cloneElement(child, {
       key,
       eventKey: key,
-      expanded: expandedKeys.indexOf(key) !== -1,
+      expanded:_expanded,
       selected: selectedKeys.indexOf(key) !== -1,
       loaded: loadedKeys.indexOf(key) !== -1,
       loading: loadingKeys.indexOf(key) !== -1,
-      checked: this.isKeyChecked(key),
-      halfChecked: halfCheckedKeys.indexOf(key) !== -1,
+      checked: _checked,
+      halfChecked:_halfChecked,
       pos,
 
       // [Legacy] Drag props

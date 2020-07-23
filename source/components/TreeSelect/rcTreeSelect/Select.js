@@ -45,8 +45,9 @@ import {
   convertDataToTree, convertTreeToEntities, conductCheck,
   flatToHierarchy,
   isPosRelated, isLabelInValue, getFilterTree,
-  cleanEntity,
+  cleanEntity
 } from './util';
+import globalObj from "../globalObj.js";
 import { valueProp } from './propTypes';
 import SelectNode from './SelectNode';
 
@@ -309,7 +310,6 @@ class Select extends React.Component {
           null,
           loadData
         );
-
         // Format value list again for internal usage
         newState.valueList = checkedKeys.map(key => ({
           value: (newState.keyEntities || prevState.keyEntities)[key].value,
@@ -369,6 +369,8 @@ class Select extends React.Component {
         filterTreeNodeFn,
         newState.valueEntities || prevState.valueEntities,
       );
+      globalObj.treeNodes=newState.treeNodes;
+      globalObj.filteredTreeNodes=newState.filteredTreeNodes;
     }
 
     // Checked Strategy
@@ -403,7 +405,7 @@ class Select extends React.Component {
         disableCloseTag = true;
       }
     }
-
+    this.globalObj=globalObj;
     this.state = {
       open: !!open || !!defaultOpen,
       valueList: [],
@@ -785,7 +787,7 @@ class Select extends React.Component {
   onSearchInputChange = ({ target: { value } }) => {
     const { treeNodes, valueEntities } = this.state;
     const { onSearch, filterTreeNode, treeNodeFilterProp } = this.props;
-
+    globalObj.isInSearch=!!value;
     if (onSearch) {
       onSearch(value);
     }
@@ -810,9 +812,10 @@ class Select extends React.Component {
           return nodeValue.indexOf(upperSearchValue) !== -1;
         };
       }
-
+      globalObj.treeNodes=treeNodes;
+      globalObj.filteredTreeNodes=getFilterTree(treeNodes, value, filterTreeNodeFn, valueEntities);
       this.setState({
-        filteredTreeNodes: getFilterTree(treeNodes, value, filterTreeNodeFn, valueEntities),
+        filteredTreeNodes:globalObj.filteredTreeNodes,
       });
     }
   };
@@ -991,7 +994,6 @@ class Select extends React.Component {
     if (triggerSelect) {
       onSelect && onSelect(selectValue, returnValue, connectValueList, extra);
     }
-
     // 每次触发改变都重新设置 curValueList
     if (immediate) {
       // onConfirm && onConfirm(returnValue, labelList, extra);
@@ -1032,7 +1034,7 @@ class Select extends React.Component {
   handleConfirm = () => {
     const { curValueList, connectValueList, extra } = this.state;
     const { onConfirm, onChange, required, editable } = this.props;
-
+    extra.globaObj=globalObj;
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
     onConfirm && onConfirm(curValueList, connectValueList, extra);
     onChange && onChange(curValueList, connectValueList, extra);
@@ -1095,6 +1097,7 @@ class Select extends React.Component {
       focused,
       dropdownPrefixCls: `${prefixCls}-dropdown`,
       ariaId: this.ariaId,
+      globalObj:globalObj,
     };
 
     if (!isMultiple) {

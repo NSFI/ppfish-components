@@ -181,7 +181,7 @@ class BasePopup extends React.Component {
       onTreeNodeCheck,
     } } = this.context;
 
-    const treeProps = {};
+    const treeProps = {globalObj:this.props.globalObj};
 
     if (treeCheckable) {
       treeProps.checkedKeys = keyList;
