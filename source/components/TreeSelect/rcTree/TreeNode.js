@@ -527,7 +527,7 @@ class TreeNode extends React.Component {
         onDrop={draggable ? this.onDrop : undefined}
         onDragEnd={draggable ? this.onDragEnd : undefined}
         {...dataOrAriaAttributeProps}
-      ><span>--{halfChecked?1:0}-{checked?1:0}-{className}</span>
+      >
         {this.renderSwitcher()}
         {this.renderCheckbox()}
         {this.renderSelector()}

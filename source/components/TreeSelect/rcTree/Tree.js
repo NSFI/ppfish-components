@@ -16,6 +16,7 @@ import {
   arrAdd, arrDel, posToArr,
   mapChildren, conductCheck, conductLoad,
   warnOnlyTreeNode,
+  formatEntitiesforSearch
 } from './util';
 
 class Tree extends React.Component {
@@ -458,19 +459,22 @@ class Tree extends React.Component {
     }
   };
 
+  
+
   onNodeCheck = (e, treeNode, checked) => {
     if(treeNode.props.srcItem){
       treeNode.props.srcItem._checked=checked;
     }
-    if(this.props.globalObj&&!this.props.globalObj.isInSearch){
-      this.props.globalObj.beforeSearchCheckKeys[treeNode.props.key]=checked;
-    }
+
     const {
       keyEntities,
       checkedKeys: oriCheckedKeys,
       halfCheckedKeys: oriHalfCheckedKeys,
       loadedKeys
     } = this.state;
+
+    
+
     const { checkStrictly, onCheck, loadData } = this.props;
     const { props: { eventKey } } = treeNode;
 
@@ -492,8 +496,8 @@ class Tree extends React.Component {
         .map(key => keyEntities[key])
         .filter(entity => entity)
         .map(entity => entity.node);
-
-      this.setUncontrolledState({ checkedKeys });
+        let _halfCheckedKeys=formatEntitiesforSearch(keyEntities,[],this.props.globalObj).halfCheckedKeys;
+      this.setUncontrolledState({ checkedKeys,_halfCheckedKeys, });
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
@@ -515,8 +519,9 @@ class Tree extends React.Component {
         eventObj.checkedNodes.push(node);
         eventObj.checkedNodesPositions.push({ node, pos });
       });
-
+      let _halfCheckedKeys=formatEntitiesforSearch(keyEntities,[],this.props.globalObj).halfCheckedKeys;
       this.setUncontrolledState({
+        _halfCheckedKeys,
         checkedKeys,
         halfCheckedKeys,
       });
@@ -732,7 +737,7 @@ class Tree extends React.Component {
   renderTreeNode = (child, index, level = 0) => {
     const {
       keyEntities,
-      expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],
+      expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],_halfCheckedKeys=[],
       loadedKeys = [], loadingKeys = [],
       dragOverNodeKey, dropPosition,checkedKeys=[]
     } = this.state;
@@ -752,31 +757,33 @@ class Tree extends React.Component {
     let _checked=this.isKeyChecked(key);
     let _halfChecked=halfCheckedKeys.indexOf(key) !== -1;
 
-    if(_isInSearch){
+    if(_isInSearch && !_halfChecked){
       //在搜索模式下，并且已展开的情况下，作为父节点的半选状态特殊逻辑
       if(_expanded){
-        let hadCK=false;
-        let hadNoCK=false;
-        if(_srcItem&&_srcItem._loaded&&_srcItem.children){
-          for(let a=0;a<_srcItem.children.length;a++){
-            if(_srcItem.children[a]._checked){
-              hadCK=true;
-            }else{
-              hadNoCK=true;
-            }
-            if(hadCK&&hadNoCK){
-              _halfChecked=true;
-              //遍历数据源里子节点列表，有选择的也有非选择的，则为半选
-              break;
-            }
-          }
-          if(!hadNoCK){
-            //实际子节点个数比查询出的子节点还多，则表示半选
-            if(_srcItem.childCount>child.props.children.length){
-              _halfChecked=true;
-            }
-          }
-        }
+        _halfChecked=_halfCheckedKeys.indexOf(key) !== -1;
+        //_halfChecked=_srcItem._halfChecked;
+        // let hadCK=false;
+        // let hadNoCK=false;
+        // if(_srcItem&&_srcItem._loaded&&_srcItem.children){
+        //   for(let a=0;a<_srcItem.children.length;a++){
+        //     if(_srcItem.children[a]._checked){
+        //       hadCK=true;
+        //     }else{
+        //       hadNoCK=true;
+        //     }
+        //     if(hadCK&&hadNoCK){
+        //       _halfChecked=true;
+        //       //遍历数据源里子节点列表，有选择的也有非选择的，则为半选
+        //       break;
+        //     }
+        //   }
+        //   if(!hadNoCK){
+        //     //实际子节点个数比查询出的子节点还多，则表示半选
+        //     if(_srcItem.childCount>child.props.children.length){
+        //       _halfChecked=true;
+        //     }
+        //   }
+        // }
       }      
     }
     
@@ -784,7 +791,7 @@ class Tree extends React.Component {
       child.props.srcItem._checked=_checked;
       child.props.srcItem._halfChecked=_halfChecked;
     }
-    
+    //console.log(child,_halfChecked);
     return React.cloneElement(child, {
       key,
       eventKey: key,

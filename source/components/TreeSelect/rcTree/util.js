@@ -390,6 +390,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   });
 
   if(!globalObj.isInSearch){
+    globalObj.beforeSearchCheckKeys=[];
     checkedKeyList.map((key)=>{
       globalObj.beforeSearchCheckKeys[key]=true;
     });
@@ -559,4 +560,45 @@ export function getDataAndAria(props) {
     }
     return prev;
   }, {});
+}
+
+
+export function formatEntitiesforSearch(keyEntities,halfCheckedKeys,globalObj){
+  if(!globalObj.isInSearch){
+    return {keyEntities,halfCheckedKeys};
+  }
+  for(let k in keyEntities){
+    let node=keyEntities[k].node;
+    if(!node.props.isLeaf){
+      let hadCk=node.props.children.some(n=>n.props.srcItem._checked);
+      let hadNoCk=node.props.children.some(n=>!n.props.srcItem._checked);
+      if(hadCk&&hadNoCk){
+        //if(node.props.srcItem.childCount>node.props.children.length){
+          //node.props.srcItem._halfChecked=true;
+          halfCheckedKeys=arrAdd(halfCheckedKeys,node.key);
+        //}
+      }
+      if(!hadNoCk){
+        if(node.props.srcItem.childCount>node.props.children.length){
+          halfCheckedKeys=arrAdd(halfCheckedKeys,node.key);
+        }
+      }
+      if(!hadCk){
+        if(globalObj.beforeSearchCheckKeys[node.props.key]){
+          halfCheckedKeys=arrAdd(halfCheckedKeys,node.key);
+        }
+      }
+      // if(!node.props.children.some(n=>n.props.srcItem._checked)){
+      //   if(globalObj.beforeSearchCheckKeys[node.props.key]&&node.props.srcItem.childCount>node.props.children.length){
+      //     //node.props.srcItem._halfChecked=true;
+      //     arrAdd(halfCheckedKeys,node.props.key);
+      //   }else{
+      //     //node.props.srcItem._halfChecked=false;
+      //     //arrDel(halfCheckedKeys,node.props.key);
+      //   }
+      // }
+    }
+  }
+  return {keyEntities,halfCheckedKeys};
+  console.log(halfCheckedKeys,keyEntities);
 }
