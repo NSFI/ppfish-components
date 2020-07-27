@@ -3,9 +3,9 @@ export default class FileDrop {
     this.quill = quill;
     this.customDropFile = options.customDropFile || null;
     this.handleDrop = this.handleDrop.bind(this);
-    // this.handlePaste = this.handlePaste.bind(this);
+    this.handlePaste = this.handlePaste.bind(this);
     this.quill.root.addEventListener('drop', this.handleDrop, false);
-    // this.quill.root.addEventListener('paste', this.handlePaste, false);
+    this.quill.root.addEventListener('paste', this.handlePaste, false);
   }
 
   handleDrop(evt) {
@@ -28,21 +28,22 @@ export default class FileDrop {
     }
   }
 
-  // handlePaste(evt) {
-  //   if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
-  //     // 不处理粘贴的富文本内容，只处理粘贴的文件
-  //     for (let i=0, len=evt.clipboardData.items.length; i<len; i++) {
-  //       let item = evt.clipboardData.items[i];
-  //       if (item.kind != 'file') {
-  //         return;
-  //       }
-  //     }
+  handlePaste(evt) {
+    evt.preventDefault();
+    if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
+      // 不处理粘贴的富文本内容，只处理粘贴的文件
+      for (let i=0, len=evt.clipboardData.items.length; i<len; i++) {
+        let item = evt.clipboardData.items[i];
+        if (item.kind != 'file') {
+          return;
+        }
+      }
 
-  //     if (this.customDropFile && typeof this.customDropFile == 'function') {
-  //       this.customDropFile(evt.clipboardData.items, this.insert.bind(this));
-  //     }
-  //   }
-  // }
+      if (this.customDropFile && typeof this.customDropFile == 'function') {
+        this.customDropFile(evt.clipboardData.items, this.insert.bind(this));
+      }
+    }
+  }
 
   handleFileInsert(fileInfo) {
     if (!(fileInfo.url || fileInfo.src)) return;
