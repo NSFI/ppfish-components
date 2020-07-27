@@ -345,9 +345,9 @@
 :::
 
 
-## 自定义拖入图片
+## 自定义拖入/粘贴图片
 
-:::demo 自定义拖入图片，支持附带扩展属性。不配合customDropImage一起使用时，会将图片转为dataUrl的格式插入。
+:::demo 自定义拖入/粘贴图片，支持附带扩展属性。不配合customDropImage一起使用时，会将图片转为dataUrl的格式插入。
 
 ```js
   constructor(props) {
@@ -538,9 +538,9 @@
 :::
 
 
-## 自定义拖入文件
+## 自定义拖入/粘贴文件
 
-:::demo 自定义拖入文件，图片和视频以内容的形式插入，支持附带扩展属性，其他类型的文件以附件的形式插入。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列。
+:::demo 自定义拖入/粘贴文件，图片和视频以内容的形式插入，支持附带扩展属性，其他类型的文件以附件的形式插入。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列。
 
 ```js
   constructor(props) {
@@ -553,8 +553,8 @@
   getFileUrl = (files, callback) => {
     if (!(files && files.length)) return;
 
-    // TODO：根据file.type过滤掉拖入的非文件内容
-
+    // 根据file.type过滤掉拖入/粘贴的非文件内容
+    // ...
 
     this.setState({
       loading: true
@@ -772,23 +772,23 @@
 
 ## API
 
-__请注意：默认情况下，使用编辑器内置的插入/拖入图片功能时，图片将以Data URL的形式嵌入到页面中，此时后端保存该图片将占用较大的空间，因此推荐使用自定义的方式将图片上传到服务器并设置图片的URL。详情可参考 API `customInsertImage` 和 `customDropImage`，及 demo “自定义插入图片” 和 “自定义拖入图片”。__
+__请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴图片功能时，图片将以Data URL的形式嵌入到页面中，此时后端保存该图片将占用较大的空间，因此推荐使用自定义的方式将图片上传到服务器并设置图片的URL。详情可参考 API `customInsertImage` 和 `customDropImage`，及 demo “自定义插入图片” 和 “自定义拖入/粘贴图片”。__
 
 |属性|说明|类型|默认值|
 |:-|:-|:-|:-|
 | className | 容器类名 | String | - |
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
-| customDropFile | 自定义拖入文件，`fileDrop` 为 true 时有效。通过此接口可以在拖入文件时自定义获取文件URL的逻辑。接口接收一个函数，它的第一个参数为拖拽进来的函数列表，第二个参数为一个回调函数，调用该函数可以将文件URL插入到组件中。回调函数接收一个文件信息列表，每个文件信息对象都有一个 type 属性，用于标明文件类型，可选值为 'image'、'video'、'other'（默认值）。当 type 取值为 'image' 或 'video'时，该对象的 src 属性为必选，可选属性有 width、height等。当 type 取值为 'other' 时，该对象的 url 和 name 属性为必选。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列。 | (files: DataTransferItemList \| ClipboardDataItemList, <br/>callback: ([<br/>{type: 'image' \| 'video', src: String[, otherAttrs: String \| Number]} \| <br/>{ type: 'other', url: String, name: String}<br/>]) => Void) => Void | - |
-| customDropImage | 自定义拖入图片，`imageDrop` 为 true 时有效。通过此接口可以在拖入图片时自定义获取图片URL的逻辑。 | (files: DataTransferItemList \| ClipboardDataItemList, callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| customDropFile | 自定义拖入/粘贴文件，`fileDrop` 为 true 时有效。通过此接口可以在拖入/粘贴文件时自定义获取文件URL的逻辑。接口接收一个函数，它的第一个参数为拖拽进来的函数列表，第二个参数为一个回调函数，调用该函数可以将文件URL插入到组件中。回调函数接收一个文件信息列表，每个文件信息对象都有一个 type 属性，用于标明文件类型，可选值为 'image'、'video'、'other'（默认值）。当 type 取值为 'image' 或 'video'时，该对象的 src 属性为必选，可选属性有 width、height等。当 type 取值为 'other' 时，该对象的 url 和 name 属性为必选。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列。 | (files: DataTransferItemList \| ClipboardDataItemList, <br/>callback: ([<br/>{type: 'image' \| 'video', src: String[, otherAttrs: String \| Number]} \| <br/>{ type: 'other', url: String, name: String}<br/>]) => Void) => Void | - |
+| customDropImage | 自定义拖入/粘贴图片，`imageDrop` 为 true 时有效。通过此接口可以在拖入/粘贴图片时自定义获取图片URL的逻辑。 | (files: DataTransferItemList \| ClipboardDataItemList, callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
 | customInsertAttachment | 自定义插入附件。通过此接口可以在点击工具栏中的插入附件按钮时自定义获取附件URL的逻辑。参数中的 type 用于标明文件的类型，用于在插入多个不同类型的文件时对它们进行排序。type的可选值有 'image'、'video'、'other'（默认值）。| (callback: (files: [{name: String, type: 'image' \| 'video' \| 'other', url: String}]) => Void) => Void | - |
 | customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的逻辑。 | (callback: ({src: String[, otherAttrs: String \| Number]} \| [{src: String[, otherAttrs: String \| Number]}]) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, [showSearch]: Boolean, [searchPlaceholder]: String, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`showSearch` 用于设置选项标题是否支持搜索，默认为 false；`searchPlaceholder` 用于设置搜索的占位符，默认为“请输入关键字”；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
 | customInsertVideo | 自定义插入视频，通过此接口可以自定义插入视频前获取视频的过程，如上传本地视频到服务器、异步获取视频源地址等。 | (({src: String} \| [{src: String}]) => Void) => Void | - |
 | customLink | 扩展添加超链接功能。数据格式为： `{'yourModuleName': {className: String, url: String \| Function, title: String}}`。 `className` 为该模块的类名，可选；`url` 为自定义的超链接或可以返回超链接的函数，该函数有两个参数，第一个参数为设置超链接的回调函数，第二个参数为当前选中富文本的超链接，必选；`title` 为鼠标 hover 时展示的名称，可选。 | Object | - |
 | defaultValue | 编辑器的初始内容，组件不受控 | String \| `HTML String` | - |
-| fileDrop | 是否支持以拖入的方式插入文件，需要搭配 `customDropFile` 使用，自定义文件的上传逻辑。`fileDrop` 存在时，`imageDrop` 会失效。插入时图片和视频文件将以富文本内容的形式插入，其他类型的文件将以超链接附件的形式插入。 | Boolean | false |
+| fileDrop | 是否支持以拖入/粘贴的方式插入文件，需要搭配 `customDropFile` 使用，自定义文件的上传逻辑。`fileDrop` 存在时，`imageDrop` 会失效。插入时图片和视频文件将以富文本内容的形式插入，其他类型的文件将以超链接附件的形式插入。 | Boolean | false |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
-| imageDrop | 是否支持以拖入的方式插入图片，搭配 `customDropImage` 使用时，可以自定义图片的上传逻辑，否则图片将以Data URL的形式嵌入到页面中。`fileDrop` 存在时，`imageDrop` 会失效。 | Boolean | false |
+| imageDrop | 是否支持以拖入/粘贴的方式插入图片，搭配 `customDropImage` 使用时，可以自定义图片的上传逻辑，否则图片将以Data URL的形式嵌入到页面中。`fileDrop` 存在时，`imageDrop` 会失效。 | Boolean | false |
 | insertAttachmentTip | 插入附件的文字提示 | String \| HTMLElement | - |
 | insertImageTip | 插入图片的文字提示 | String \| HTMLElement | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
 | insertLinkTip | 插入超链接的文字提示 | String \| HTMLElement | - |
