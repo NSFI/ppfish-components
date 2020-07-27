@@ -514,7 +514,7 @@ class Select extends React.Component {
     if (!this.isSearchValueControlled()) {
       this.setUncontrolledState({
         searchValue: '',
-        filteredTreeNodes: null,
+        filteredTreeNodes: null
       });
     }
 
@@ -687,7 +687,7 @@ class Select extends React.Component {
     if (!this.isSearchValueControlled() && (autoClearSearchValue || inputValue === null)) {
       this.setUncontrolledState({
         searchValue: '',
-        filteredTreeNodes: null,
+        filteredTreeNodes: null
       });
     }
 
@@ -797,7 +797,7 @@ class Select extends React.Component {
 
     if (!this.isSearchValueControlled()) {
       isSet = this.setUncontrolledState({
-        searchValue: value,
+        searchValue: value
       });
       this.setOpenState(true);
     }
@@ -1092,17 +1092,17 @@ class Select extends React.Component {
         
       }
     }
-    globalObj.searchData={checkedGroups,checkedKefus,uncheckedKefus};
+    return {checkedGroups,checkedKefus,uncheckedKefus};
 
   };
 
   handleConfirm = () => {
     const { curValueList, connectValueList, extra,treeNodes } = this.state;
     const { onConfirm, onChange, required, editable } = this.props;
-    globalObj.treeNodes=treeNodes;console.log(globalObj);
+    globalObj.treeNodes=treeNodes;
     if(globalObj.isInSearch){
       //搜索状态返回的正选反选数据
-      this.setInSearchCheckedData(globalObj);
+      extra.searchData=this.setInSearchCheckedData(globalObj);
     }
     extra.globalObj=globalObj;
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表

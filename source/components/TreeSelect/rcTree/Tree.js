@@ -465,16 +465,12 @@ class Tree extends React.Component {
     if(treeNode.props.srcItem){
       treeNode.props.srcItem._checked=checked;
     }
-
     const {
       keyEntities,
       checkedKeys: oriCheckedKeys,
       halfCheckedKeys: oriHalfCheckedKeys,
       loadedKeys
     } = this.state;
-
-    
-
     const { checkStrictly, onCheck, loadData } = this.props;
     const { props: { eventKey } } = treeNode;
 
@@ -484,7 +480,7 @@ class Tree extends React.Component {
       event: 'check',
       node: treeNode,
       checked,
-      nativeEvent: e.nativeEvent,
+      nativeEvent: e.nativeEvent
     };
 
     if (checkStrictly) {
@@ -496,8 +492,8 @@ class Tree extends React.Component {
         .map(key => keyEntities[key])
         .filter(entity => entity)
         .map(entity => entity.node);
-        let _halfCheckedKeys=formatEntitiesforSearch(keyEntities,[],this.props.globalObj).halfCheckedKeys;
-      this.setUncontrolledState({ checkedKeys,_halfCheckedKeys, });
+
+      this.setUncontrolledState({ checkedKeys,_halfCheckedKeys:formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,this.props.globalObj)});
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
@@ -519,9 +515,8 @@ class Tree extends React.Component {
         eventObj.checkedNodes.push(node);
         eventObj.checkedNodesPositions.push({ node, pos });
       });
-      let _halfCheckedKeys=formatEntitiesforSearch(keyEntities,[],this.props.globalObj).halfCheckedKeys;
+
       this.setUncontrolledState({
-        _halfCheckedKeys,
         checkedKeys,
         halfCheckedKeys,
       });
@@ -757,33 +752,16 @@ class Tree extends React.Component {
     let _checked=this.isKeyChecked(key);
     let _halfChecked=halfCheckedKeys.indexOf(key) !== -1;
 
-    if(_isInSearch && !_halfChecked){
+    if(_isInSearch){
       //在搜索模式下，并且已展开的情况下，作为父节点的半选状态特殊逻辑
-      if(_expanded){
-        _halfChecked=_halfCheckedKeys.indexOf(key) !== -1;
-        //_halfChecked=_srcItem._halfChecked;
-        // let hadCK=false;
-        // let hadNoCK=false;
-        // if(_srcItem&&_srcItem._loaded&&_srcItem.children){
-        //   for(let a=0;a<_srcItem.children.length;a++){
-        //     if(_srcItem.children[a]._checked){
-        //       hadCK=true;
-        //     }else{
-        //       hadNoCK=true;
-        //     }
-        //     if(hadCK&&hadNoCK){
-        //       _halfChecked=true;
-        //       //遍历数据源里子节点列表，有选择的也有非选择的，则为半选
-        //       break;
-        //     }
-        //   }
-        //   if(!hadNoCK){
-        //     //实际子节点个数比查询出的子节点还多，则表示半选
-        //     if(_srcItem.childCount>child.props.children.length){
-        //       _halfChecked=true;
-        //     }
-        //   }
-        // }
+      if(!child.props.isLeaf){
+        if(!_halfChecked){
+          _halfChecked=_halfCheckedKeys.indexOf(key) !== -1;
+
+        }
+        if(_checked&&_srcItem.childCount>child.props.children.length){
+          _halfChecked=true;
+        }
       }      
     }
     
@@ -791,7 +769,7 @@ class Tree extends React.Component {
       child.props.srcItem._checked=_checked;
       child.props.srcItem._halfChecked=_halfChecked;
     }
-    //console.log(child,_halfChecked);
+
     return React.cloneElement(child, {
       key,
       eventKey: key,
@@ -838,6 +816,10 @@ class Tree extends React.Component {
         ))}
       </ul>
     );
+  }
+
+  componentDidUpdate=()=>{
+    this.state._halfCheckedKeys=[];
   }
 }
 

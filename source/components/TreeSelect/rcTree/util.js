@@ -563,42 +563,48 @@ export function getDataAndAria(props) {
 }
 
 
-export function formatEntitiesforSearch(keyEntities,halfCheckedKeys,globalObj){
+export function formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,globalObj){
+  let halfCheckedKeys=[];
   if(!globalObj.isInSearch){
-    return {keyEntities,halfCheckedKeys};
+    return halfCheckedKeys;
   }
+  let temp=[];
   for(let k in keyEntities){
+    
     let node=keyEntities[k].node;
+    temp.push(node);
     if(!node.props.isLeaf){
-      let hadCk=node.props.children.some(n=>n.props.srcItem._checked);
-      let hadNoCk=node.props.children.some(n=>!n.props.srcItem._checked);
-      if(hadCk&&hadNoCk){
-        //if(node.props.srcItem.childCount>node.props.children.length){
-          //node.props.srcItem._halfChecked=true;
-          halfCheckedKeys=arrAdd(halfCheckedKeys,node.key);
-        //}
-      }
-      if(!hadNoCk){
-        if(node.props.srcItem.childCount>node.props.children.length){
-          halfCheckedKeys=arrAdd(halfCheckedKeys,node.key);
+      if(node.key==treeNode.key||node.key==treeNode.props.eventKey){
+        halfCheckedKeys=arrDel(halfCheckedKeys,node.key);
+        if(treeNode.props.srcItem._checked){
+          if(!globalObj.beforeSearchCheckKeys[node.key]&&node.props.srcItem.childCount>node.props.children.length){
+            halfCheckedKeys.push(node.key);
+          }
+        }else{
+          if(globalObj.beforeSearchCheckKeys[node.key]&&node.props.srcItem.childCount>node.props.children.length){
+            halfCheckedKeys.push(node.key);
+          }
+        }
+      }else{
+        let hadCk=node.props.children.some(n=>checkedKeys.indexOf(n.key) !== -1);
+        let hadNoCk=node.props.children.some(n=>checkedKeys.indexOf(n.key) == -1);
+        if(hadCk&&hadNoCk){
+          halfCheckedKeys.push(node.key);
+        }
+        if(!hadNoCk){
+          if(node.props.srcItem.childCount>node.props.children.length){
+            halfCheckedKeys.push(node.key);
+          }
+        }
+        if(!hadCk){
+          if(globalObj.beforeSearchCheckKeys[node.key]&&node.props.srcItem.childCount>node.props.children.length){
+            halfCheckedKeys.push(node.key);
+          }
         }
       }
-      if(!hadCk){
-        if(globalObj.beforeSearchCheckKeys[node.props.key]){
-          halfCheckedKeys=arrAdd(halfCheckedKeys,node.key);
-        }
-      }
-      // if(!node.props.children.some(n=>n.props.srcItem._checked)){
-      //   if(globalObj.beforeSearchCheckKeys[node.props.key]&&node.props.srcItem.childCount>node.props.children.length){
-      //     //node.props.srcItem._halfChecked=true;
-      //     arrAdd(halfCheckedKeys,node.props.key);
-      //   }else{
-      //     //node.props.srcItem._halfChecked=false;
-      //     //arrDel(halfCheckedKeys,node.props.key);
-      //   }
-      // }
+      
     }
   }
-  return {keyEntities,halfCheckedKeys};
-  console.log(halfCheckedKeys,keyEntities);
+  return halfCheckedKeys;
+ 
 }
