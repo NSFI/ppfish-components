@@ -31,15 +31,29 @@ export default class ImageDrop {
   }
 
   handlePaste(evt) {
-    evt.preventDefault();
     if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
-      if (this.customDropImage && typeof this.customDropImage == 'function') {
-        this.customDropImage(evt.clipboardData.items, this.insert.bind(this));
-      } else {
-        this.readFiles(evt.clipboardData.items, (attrs) => {
-          // 等待 this.quill.getSelection() 返回有效的 index
-          setTimeout(() => this.insert(attrs), 0);
-        });
+      let hasFile = false,
+        len = evt.clipboardData.items.length;
+
+      for(let i=0; i<len; i++) {
+        let item = evt.clipboardData.items[i];
+        if (item.kind == 'file') {
+          hasFile = true;
+          break;
+        }
+      }
+
+      // 粘贴文件时禁止浏览器执行默认动作，防止粘贴后插入两次文件。粘贴非文件时执行浏览器默认的动作。
+      if (hasFile) {
+        evt.preventDefault();
+        if (this.customDropImage && typeof this.customDropImage == 'function') {
+          this.customDropImage(evt.clipboardData.items, this.insert.bind(this));
+        } else {
+          this.readFiles(evt.clipboardData.items, (attrs) => {
+            // 等待 this.quill.getSelection() 返回有效的 index
+            setTimeout(() => this.insert(attrs), 0);
+          });
+        }
       }
     }
   }
