@@ -48,6 +48,10 @@ import {
   cleanEntity
 } from './util';
 
+import {
+  isNodeCheckedBeforeSearch
+} from '../rcTree/util';
+
 import globalObj from "../globalObj.js";
 import { valueProp } from './propTypes';
 import SelectNode from './SelectNode';
@@ -788,7 +792,10 @@ class Select extends React.Component {
     const { treeNodes, valueEntities,keyEntities } = this.state;
     const { onSearch, filterTreeNode, treeNodeFilterProp } = this.props;
     globalObj.isInSearch=!!value;
-
+    if(!globalObj.isInSearch){
+      globalObj.searchHalfCheckeds=[];
+    }
+   
     if (onSearch) {
       onSearch(value);
     }
@@ -1031,14 +1038,17 @@ class Select extends React.Component {
     });
   };
 
+  //设置搜索模式下，输出给用户的选择或反选的数据
   setInSearchCheckedData=(obj)=>{
+    console.log("setInSearchCheckedData");
     let queue =[];//[parentNode,node]
     obj.treeNodes.forEach(node => queue.push([null,node]));
     let checkedGroups=[];
     let checkedKefus=[];
     let uncheckedKefus=[];
-    let _hadChildNoChecked=(childs)=>{
-      return childs.some((c)=>!c.props.srcItem._checked||c.props.srcItem._halfChecked);
+    let uncheckedGroups=[];
+    let _allSiblingChecked=(childs)=>{
+      return !childs.some((c)=>!c.props.srcItem._checked||c.props.srcItem._halfChecked);
     };
     while (queue.length) {
       let q = queue.shift();
@@ -1050,11 +1060,12 @@ class Select extends React.Component {
 
       if(node.props.isLeaf){
         if(parentNode){
-          if(obj.beforeSearchCheckKeys[parentNode.key]){
+          if(isNodeCheckedBeforeSearch(parentNode.props.srcItem,obj)){
             //搜索前父节点是选择状态，执行反选逻辑
             if(!checked){
               uncheckedKefus.push(val);
-            }else if(!_hadChildNoChecked(parentNode.props.children)){
+            }else if(_allSiblingChecked(parentNode.props.children)){
+              //所有兄弟节点都处于选择状态
               checkedKefus.push(val);
             }
           }else{
@@ -1070,29 +1081,62 @@ class Select extends React.Component {
           }
         }
       }else{
-        if(checked){
-          //如果父节点直接是选择状态，则直接存入checkedGroups，不需要再遍历子孙节点。
-          if(halfChecked){
-            //同时为halfChecked表示，子节点全选，但实际childCount大于搜索出的子节点个数
-            if (node.props.children) {
-              //准备子节点，插入队列，用于下个轮回遍历
-              //node.props.srcItem._checked_halfChecked=true;
-              node.props.children.forEach(_node => queue.push([node,_node]));
+        if(parentNode){
+          if(isNodeCheckedBeforeSearch(parentNode.props.srcItem,obj)){
+            //搜索前父节点是选择状态，执行反选逻辑
+            if(!checked){
+              if(!halfChecked){
+                uncheckedGroups.push(val);
+              }else{
+                //准备子节点，插入队列，用于下个轮回遍历
+                node.props.children.forEach(_node => queue.push([node,_node]));
+              }
+              
+            }else{
+              if(_allSiblingChecked(parentNode.props.children)){
+                checkedGroups.push(val);
+              }
             }
           }else{
-            checkedGroups.push(val);
+            //搜索前父节点是非选择状态，执行正选逻辑
+            if(checked){
+              if(!halfChecked){
+                checkedGroups.push(val);
+              }else{
+                if (node.props.children) {
+                  node.props.children.forEach(_node => queue.push([node,_node]));
+                }
+              }
+              
+            }else if(halfChecked){
+              node.props.children.forEach(_node => queue.push([node,_node]));
+            }
           }
-          
         }else{
-          if (node.props.children) {
-            //准备子节点，插入队列，用于下个轮回遍历
-            node.props.children.forEach(_node => queue.push([node,_node]));
+          if(checked){
+            if(halfChecked){
+              //同时为halfChecked表示，子节点全选，但实际childCount大于搜索出的子节点个数
+              if (node.props.children) {
+                //准备子节点，插入队列，用于下个轮回遍历
+                node.props.children.forEach(_node => queue.push([node,_node]));
+              }
+            }else{
+              //如果父节点是选择状态，则直接存入checkedGroups，不需要再遍历子孙节点。
+              checkedGroups.push(val);
+            }
+          }else{
+            if(halfChecked){
+              if (node.props.children) {
+                //准备子节点，插入队列，用于下个轮回遍历
+                node.props.children.forEach(_node => queue.push([node,_node]));
+              }
+            }
+            
           }
         }
-        
       }
     }
-    return {checkedGroups,checkedKefus,uncheckedKefus};
+    return {checkedGroups,checkedKefus,uncheckedKefus,uncheckedGroups};
 
   };
 

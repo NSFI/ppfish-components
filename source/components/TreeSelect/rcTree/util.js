@@ -160,15 +160,15 @@ function keyListToString(keyList) {
 }
 
 const internalProcessProps = props => props;
-export function convertDataToTree(treeData, processer) {
+export function convertDataToTree(treeData, processer,parent) {
   if (!treeData) return [];
 
   const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
   return list.map((item, index) => {
     const { children, ...props }=item;
-    const childrenNodes = convertDataToTree(children, processer);
-
+    const childrenNodes = convertDataToTree(children, processer,item);
+    item._parent=parent;
     return (
       <TreeNode srcItem={item} key={props.key} {...processProps(props)}>
         {childrenNodes}
@@ -392,7 +392,13 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   if(!globalObj.isInSearch){
     globalObj.beforeSearchCheckKeys=[];
     checkedKeyList.map((key)=>{
-      globalObj.beforeSearchCheckKeys[key]=true;
+      let _k=key;
+      let arr=key.split("-");
+      if(arr.length){
+        _k=arr[arr.length-1];
+      }
+      
+      globalObj.beforeSearchCheckKeys[_k]=true;
     });
   }
 
@@ -561,28 +567,134 @@ export function getDataAndAria(props) {
     return prev;
   }, {});
 }
+export function isNodeCheckedBeforeSearch(srcItem,globalObj){
+  if(globalObj.beforeSearchCheckKeys[srcItem.value]){
+    return true;
+  }else{
+    let pdata=srcItem._parent;
+    while(pdata){
+      if(globalObj.beforeSearchCheckKeys[pdata.value]){
+        return true;
+      }else{
+        pdata=pdata._parent;
+      }
+    }
+  }
+  return false;
+}
 
-
-export function formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,globalObj){
-  let halfCheckedKeys=[];
+//搜索状态下，选择某个节点时，准备特殊的半选状态的Key，渲染时展示半选效果
+export function formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,globalObj){console.log("formatEntitiesforSearch");
+  //keyEntities--保存了当前所有树节点的扁平化数据。
+  
+  if(!globalObj.searchHalfCheckeds){
+    globalObj.searchHalfCheckeds=[];
+  }
+  let halfCheckedKeys=globalObj.searchHalfCheckeds;
   if(!globalObj.isInSearch){
     return halfCheckedKeys;
   }
-  let temp=[];
+  let delUnChecked=(cks,value)=>{
+    for(var a=0;a<cks.length;a++){
+      if(cks[a]==value){
+        cks.splice(a,1);
+        break;
+      }
+    }
+  }
+  let genParents=(data,ck)=>{
+      let _pdata=data._parent;
+      while(_pdata){
+        delUnChecked(halfCheckedKeys,_pdata.value);
+        if(ck){
+          if(_pdata.children.some(n=>!n._checked||n._halfChecked)){
+            //子节点有未选择或单选的，则父节点也为单选
+            _pdata._halfChecked=true;
+            _pdata._checked=false;
+            halfCheckedKeys.push(_pdata.value);
+          }else{
+            if(isNodeCheckedBeforeSearch(_pdata,globalObj)){
+              _pdata._halfChecked=false;
+              _pdata._checked=true;
+            }else{
+              if(_pdata.children.length&&_pdata.childCount>_pdata.children.length){
+                _pdata._halfChecked=true;
+                _pdata._checked=true;
+                halfCheckedKeys.push(_pdata.value);
+              }
+            }
+            
+          }
+        }else{
+          if(_pdata.children.some(n=>n._checked==true||n._halfChecked==true)){
+            //有子节点是选择的
+            _pdata._halfChecked=true;
+            _pdata._checked=false;
+            halfCheckedKeys.push(_pdata.value);
+          }else{
+            _pdata._checked=false;
+            _pdata._halfChecked=false;
+            if(isNodeCheckedBeforeSearch(_pdata,globalObj)){
+              if(_pdata.children.length&&_pdata.childCount>_pdata.children.length){
+                _pdata._halfChecked=true;
+                halfCheckedKeys.push(_pdata.value);
+              }
+            }
+           
+          }
+          
+        }
+        _pdata=_pdata._parent;
+      }
+
+  };
+  let _srcItem=treeNode.props.srcItem;
+  delUnChecked(halfCheckedKeys,_srcItem.value);
+  if(_srcItem.children){
+    if(treeNode.props.srcItem._checked){
+      if(!isNodeCheckedBeforeSearch(_srcItem,globalObj)){
+        if(_srcItem.children.length&&_srcItem.childCount>_srcItem.children.length){
+          _srcItem._halfChecked=true;
+          halfCheckedKeys.push(_srcItem.value);
+        }
+      }
+    }else{
+      if(isNodeCheckedBeforeSearch(_srcItem,globalObj)){
+        if(_srcItem.children.length&&_srcItem.childCount>_srcItem.children.length){
+          _srcItem_halfChecked=true;
+          halfCheckedKeys.push(_srcItem.value);
+        }
+      }
+    }
+  }
+ 
+  genParents(treeNode.props.srcItem,_srcItem._checked);
+ 
+  return halfCheckedKeys;
+   
+ 
   for(let k in keyEntities){
-    
     let node=keyEntities[k].node;
-    temp.push(node);
     if(!node.props.isLeaf){
+      //刚好是点击的节点。
       if(node.key==treeNode.key||node.key==treeNode.props.eventKey){
         halfCheckedKeys=arrDel(halfCheckedKeys,node.key);
         if(treeNode.props.srcItem._checked){
-          if(!globalObj.beforeSearchCheckKeys[node.key]&&node.props.srcItem.childCount>node.props.children.length){
-            halfCheckedKeys.push(node.key);
+          //搜索前不是选择状态
+          if(!isNodeCheckedBeforeSearch(treeNode.props.srcItem,globalObj)){
+            //实际个数大于子节点个数，说明有节点没有被搜索出来，这时即时选中，也是半选状态
+            if(node.props.children.length>0 && node.props.srcItem.childCount>node.props.children.length){
+              halfCheckedKeys.push(node.key);
+            }
           }
         }else{
-          if(globalObj.beforeSearchCheckKeys[node.key]&&node.props.srcItem.childCount>node.props.children.length){
-            halfCheckedKeys.push(node.key);
+          //搜索前是选择状态
+          if(isNodeCheckedBeforeSearch(treeNode.props.srcItem,globalObj)){
+            //实际个数大于子节点个数，说明有节点没有被搜索出来，这时即时不处于选中状态，也显示为半选状态
+            if(node.props.children.length>0 && node.props.srcItem.childCount>node.props.children.length){
+              halfCheckedKeys.push(node.key);
+            }
+            
           }
         }
       }else{
@@ -592,13 +704,21 @@ export function formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,globalO
           halfCheckedKeys.push(node.key);
         }
         if(!hadNoCk){
-          if(node.props.srcItem.childCount>node.props.children.length){
-            halfCheckedKeys.push(node.key);
+          //子节点全部选中了或没有子节点
+          if(node.props.children.length>0 && node.props.srcItem.childCount>node.props.children.length){
+            if(!isNodeCheckedBeforeSearch(node.props.srcItem,globalObj)){
+              halfCheckedKeys.push(node.key);
+            }
           }
         }
         if(!hadCk){
-          if(globalObj.beforeSearchCheckKeys[node.key]&&node.props.srcItem.childCount>node.props.children.length){
-            halfCheckedKeys.push(node.key);
+          //子节点全部未选中或没有子节点
+          //搜索前是选择状态
+          if(isNodeCheckedBeforeSearch(node.props.srcItem,globalObj)){
+            if(node.props.children.length>0 && node.props.srcItem.childCount>node.props.children.length){
+              halfCheckedKeys.push(node.key);
+            }
+            
           }
         }
       }

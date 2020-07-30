@@ -754,13 +754,16 @@
   state = {
     value: [],
     treeData: [
-      { title: 'Node1', key: 'k1', value: 'n1',childCount:3 },
-      { title: 'Node2', key: 'k2', value: 'n2',childCount:6 },
-      { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
+      { title: 'Node1', key: 'k1', value: 'k1',childCount:3 },
+      { title: 'Node2', key: 'k2', value: 'k2',childCount:6 },
+      { title: 'Node3', key: 'k3', value: 'k3', isLeaf: true }
     ]
   }
 
-  onConfirm = (value) => {
+  onConfirm = (value,obj,ext) => {
+    console.log(value);
+    console.log(obj);
+    console.log(ext);
     this.setState({ value });
   }
   
@@ -772,7 +775,7 @@
     const arr = [];
     const key = treeNode.props.eventKey;
     for (let i = 0; i < 3; i++) {
-      arr.push({ title: `${key}-CNode${i+1}`, key: `${key}-${i}`, value: `${key}-${i}` });
+      arr.push({ title: `${key}-CNode${i+1}`, key: `${key}_k${i}`, value: `${key}_k${i}` });
     }
     return arr;
   }

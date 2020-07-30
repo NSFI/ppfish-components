@@ -16,7 +16,8 @@ import {
   arrAdd, arrDel, posToArr,
   mapChildren, conductCheck, conductLoad,
   warnOnlyTreeNode,
-  formatEntitiesforSearch
+  formatEntitiesforSearch,
+  isNodeCheckedBeforeSearch
 } from './util';
 
 class Tree extends React.Component {
@@ -468,7 +469,7 @@ class Tree extends React.Component {
     const {
       keyEntities,
       checkedKeys: oriCheckedKeys,
-      halfCheckedKeys: oriHalfCheckedKeys,
+      halfCheckedKeys: oriHalfCheckedKeys,_halfCheckedKeys,
       loadedKeys
     } = this.state;
     const { checkStrictly, onCheck, loadData } = this.props;
@@ -756,15 +757,18 @@ class Tree extends React.Component {
       //在搜索模式下，并且已展开的情况下，作为父节点的半选状态特殊逻辑
       if(!child.props.isLeaf){
         if(!_halfChecked){
-          _halfChecked=_halfCheckedKeys.indexOf(key) !== -1;
-
+          _halfChecked=_halfCheckedKeys.indexOf(key) !== -1||_halfCheckedKeys.indexOf(child.props.value) !== -1;
         }
-        if(_checked&&_srcItem.childCount>child.props.children.length){
-          _halfChecked=true;
+        if(_checked){console.log(child);
+          if(!isNodeCheckedBeforeSearch(_srcItem,this.props.globalObj)){
+            if(this.props.children.length&&_srcItem.childCount>this.props.children.length){
+              _halfChecked=true;
+            }
+          }
         }
       }      
     }
-    
+    //保证选择完成后，_checked，_halfChecked标记是正确的。
     if(child.props.srcItem){
       child.props.srcItem._checked=_checked;
       child.props.srcItem._halfChecked=_halfChecked;
