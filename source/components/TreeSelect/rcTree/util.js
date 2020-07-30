@@ -392,7 +392,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   if(!globalObj.isInSearch){
     globalObj.beforeSearchCheckKeys=[];
     checkedKeyList.map((key)=>{
-      let _k=key;
+      let _k=checkedKeyList[key];
       let arr=key.split("-");
       if(arr.length){
         _k=arr[arr.length-1];
@@ -568,12 +568,12 @@ export function getDataAndAria(props) {
   }, {});
 }
 export function isNodeCheckedBeforeSearch(srcItem,globalObj){
-  if(globalObj.beforeSearchCheckKeys[srcItem.value]){
+  if(globalObj.beforeSearchCheckKeys[srcItem.idValue]){
     return true;
   }else{
     let pdata=srcItem._parent;
     while(pdata){
-      if(globalObj.beforeSearchCheckKeys[pdata.value]){
+      if(globalObj.beforeSearchCheckKeys[pdata.idValue]){
         return true;
       }else{
         pdata=pdata._parent;
@@ -607,7 +607,7 @@ export function formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,globalO
       while(_pdata){
         delUnChecked(halfCheckedKeys,_pdata.value);
         if(ck){
-          if(_pdata.children.some(n=>!n._checked||n._halfChecked)){
+          if(_pdata.children.some(n=>checkedKeys.indexOf(n.value)==-1)){
             //子节点有未选择或单选的，则父节点也为单选
             _pdata._halfChecked=true;
             _pdata._checked=false;
@@ -626,7 +626,7 @@ export function formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,globalO
             
           }
         }else{
-          if(_pdata.children.some(n=>n._checked==true||n._halfChecked==true)){
+          if(_pdata.children.some(n=>checkedKeys.indexOf(n.value)!=-1)){
             //有子节点是选择的
             _pdata._halfChecked=true;
             _pdata._checked=false;
@@ -648,28 +648,67 @@ export function formatEntitiesforSearch(keyEntities,checkedKeys,treeNode,globalO
       }
 
   };
+ 
+  let genChilds=(treeNode,ck)=>{
+    let queue=[];
+    treeNode.props.children.forEach(_node => queue.push([treeNode,_node]));
+    let _q=queue.shift();
+    while(_q){
+      let pnode=_q[0];
+      let node=_q[1];
+      let _srcItem=node.props.srcItem;
+      if(ck){
+        _srcItem._checked=true;
+        if(!node.props.isLeaf){
+          if(_srcItem.childCount>node.props.children.length){
+            if(!isNodeCheckedBeforeSearch(_srcItem,globalObj)){
+              _srcItem._halfChecked=true;
+              halfCheckedKeys.push(_srcItem.value);
+              pnode._halfChecked=true;
+              halfCheckedKeys.push(pnode.props.srcItem.value);
+            }
+          }
+          node.props.children.length&&node.props.children.forEach(_node => queue.push([node,_node]));
+        }
+      }else{
+        _srcItem._checked=false;
+        if(!node.props.isLeaf){
+          if(_srcItem.childCount>node.props.children.length){
+            if(isNodeCheckedBeforeSearch(_srcItem,globalObj)){
+              _srcItem._halfChecked=true;
+              halfCheckedKeys.push(_srcItem.value);
+              pnode._halfChecked=true;
+              halfCheckedKeys.push(pnode.props.srcItem.value);
+            }
+          }
+          node.props.children.length&&node.props.children.forEach(_node => queue.push([node,_node]));
+        }
+      }
+      _q=queue.shift();
+    }
+  };
   let _srcItem=treeNode.props.srcItem;
   delUnChecked(halfCheckedKeys,_srcItem.value);
-  if(_srcItem.children){
-    if(treeNode.props.srcItem._checked){
-      if(!isNodeCheckedBeforeSearch(_srcItem,globalObj)){
-        if(_srcItem.children.length&&_srcItem.childCount>_srcItem.children.length){
-          _srcItem._halfChecked=true;
-          halfCheckedKeys.push(_srcItem.value);
-        }
-      }
-    }else{
-      if(isNodeCheckedBeforeSearch(_srcItem,globalObj)){
-        if(_srcItem.children.length&&_srcItem.childCount>_srcItem.children.length){
-          _srcItem_halfChecked=true;
-          halfCheckedKeys.push(_srcItem.value);
-        }
-      }
-    }
-  }
+  // if(_srcItem.children){
+  //   if(treeNode.props.srcItem._checked){
+  //     if(!isNodeCheckedBeforeSearch(_srcItem,globalObj)){
+  //       if(_srcItem.children.length&&_srcItem.childCount>_srcItem.children.length){
+  //         _srcItem._halfChecked=true;
+  //         halfCheckedKeys.push(_srcItem.idValue);
+  //       }
+  //     }
+  //   }else{
+  //     if(isNodeCheckedBeforeSearch(_srcItem,globalObj)){
+  //       if(_srcItem.children.length&&_srcItem.childCount>_srcItem.children.length){
+  //         _srcItem._halfChecked=true;
+  //         halfCheckedKeys.push(_srcItem.idValue);
+  //       }
+  //     }
+  //   }
+  // }
  
   genParents(treeNode.props.srcItem,_srcItem._checked);
- 
+  genChilds(treeNode,_srcItem._checked);
   return halfCheckedKeys;
    
  

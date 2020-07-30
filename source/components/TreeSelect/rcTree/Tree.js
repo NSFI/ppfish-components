@@ -755,17 +755,31 @@ class Tree extends React.Component {
 
     if(_isInSearch){
       //在搜索模式下，并且已展开的情况下，作为父节点的半选状态特殊逻辑
-      if(!child.props.isLeaf){
+      if(!child.props.isLeaf&&!_halfChecked){console.log(_halfChecked);
         if(!_halfChecked){
           _halfChecked=_halfCheckedKeys.indexOf(key) !== -1||_halfCheckedKeys.indexOf(child.props.value) !== -1;
         }
-        if(_checked){console.log(child);
-          if(!isNodeCheckedBeforeSearch(_srcItem,this.props.globalObj)){
-            if(this.props.children.length&&_srcItem.childCount>this.props.children.length){
+        if(!_halfChecked){
+          if(_checked){
+            if(!isNodeCheckedBeforeSearch(_srcItem,this.props.globalObj)){
+              if(child.props.children.length&&_srcItem.childCount>child.props.children.length){
+                _halfChecked=true;
+              }
+            }
+          }else{
+            if(child.props.children.some(n=>this.isKeyChecked(n.key)||halfCheckedKeys.indexOf(n.key) !== -1||n.props.srcItem._halfChecked)){
+              //有个节点是选择状态
               _halfChecked=true;
+            }else{
+              if(isNodeCheckedBeforeSearch(_srcItem,this.props.globalObj)){
+                if(child.props.children.length&&_srcItem.childCount>child.props.children.length){
+                  _halfChecked=true;
+                }
+              }
             }
           }
         }
+        
       }      
     }
     //保证选择完成后，_checked，_halfChecked标记是正确的。

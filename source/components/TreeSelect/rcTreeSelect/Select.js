@@ -1054,7 +1054,7 @@ class Select extends React.Component {
       let q = queue.shift();
       let parentNode=q[0];
       let node=q[1];
-      let val=node.props.srcItem.value;
+      let val=node.props.srcItem.idValue;
       let checked=node.props.srcItem._checked;
       let halfChecked=node.props.srcItem._halfChecked;
 

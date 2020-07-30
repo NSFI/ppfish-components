@@ -755,7 +755,15 @@
     value: [],
     treeData: [
       { title: 'Node1', key: 'k1', value: 'k1',childCount:3 },
-      { title: 'Node2', key: 'k2', value: 'k2',childCount:6 },
+      { title: 'Node2', key: 'k2', value: 'k2',childCount:6,children:[
+        { title: 'Node2-1', key: 'k2-1', value: 'k2-1',childCount:0 },
+        { title: 'Node2-2', key: 'k2-2', value: 'k2-2',childCount:5,children:[
+           { title: 'Node2-2-1', key: 'k2-2-1', value: 'k2-2-1',childCount:0},
+           { title: 'Node2-2-2', key: 'k2-2-2', value: 'k2-2-2',childCount:0},
+           { title: 'Node2-2-3', key: 'k2-2-3', value: 'k2-2-3',childCount:0},
+        ] },
+        { title: 'Node2-3', key: 'k2-3', value: 'k2-3',childCount:0 },
+      ] },
       { title: 'Node3', key: 'k3', value: 'k3', isLeaf: true }
     ]
   }
