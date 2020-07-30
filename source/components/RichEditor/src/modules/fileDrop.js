@@ -29,18 +29,24 @@ export default class FileDrop {
   }
 
   handlePaste(evt) {
-    evt.preventDefault();
     if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
-      // 不处理粘贴的富文本内容，只处理粘贴的文件
-      for (let i=0, len=evt.clipboardData.items.length; i<len; i++) {
+      let hasFile = false,
+        len = evt.clipboardData.items.length;
+
+      for(let i=0; i<len; i++) {
         let item = evt.clipboardData.items[i];
-        if (item.kind != 'file') {
-          return;
+        if (item.kind == 'file') {
+          hasFile = true;
+          break;
         }
       }
 
-      if (this.customDropFile && typeof this.customDropFile == 'function') {
-        this.customDropFile(evt.clipboardData.items, this.insert.bind(this));
+      // 粘贴文件时禁止浏览器执行默认动作，防止粘贴后插入两次文件。粘贴非文件时执行浏览器默认的动作。
+      if (hasFile) {
+        evt.preventDefault();
+        if (this.customDropFile && typeof this.customDropFile == 'function') {
+          this.customDropFile(evt.clipboardData.items, this.insert.bind(this));
+        }
       }
     }
   }
