@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import warning from 'warning';
 import TreeNode from './TreeNode.js';
-
+import globalObj from "../globalObj.js";
 const DRAG_SIDE_RANGE = 0.25;
 const DRAG_MIN_GAP = 2;
 
@@ -160,16 +160,18 @@ function keyListToString(keyList) {
 }
 
 const internalProcessProps = props => props;
-export function convertDataToTree(treeData, processer) {
+export function convertDataToTree(treeData, processer,parentItem) {
   if (!treeData) return [];
 
   const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
-  return list.map(({ children, ...props }, index) => {
-    const childrenNodes = convertDataToTree(children, processer);
-
+  return list.map((item, index) => {
+    const { children, ...props }=item;
+    item._pData=parentItem;
+    const childrenNodes = convertDataToTree(children, processer,item);
+    //给节点的增加_data属性，对应节点的数据源，同时给这个数据源制定_pData属性，用于树形结构的构造，方便后面的遍历业务。
     return (
-      <TreeNode key={props.key} {...processProps(props)}>
+      <TreeNode key={props.key} _data={item} {...processProps(props)}>
         {childrenNodes}
       </TreeNode>
     );
@@ -388,6 +390,19 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     }
   });
 
+  //记录下搜索前选中的节点，以key为ID，也是节点的value值
+  if(!globalObj.isInSearch){
+    globalObj.beforeSearchCheckKeys=[];
+    checkedKeyList.map((key)=>{
+      let _k=checkedKeyList[key];
+      let arr=key.split("-");
+      if(arr.length){
+        _k=arr[arr.length-1];
+      }
+      
+      globalObj.beforeSearchCheckKeys[_k]=true;
+    });
+  }
   return {
     checkedKeys: checkedKeyList,
     halfCheckedKeys: halfCheckedKeyList,
@@ -553,3 +568,36 @@ export function getDataAndAria(props) {
     return prev;
   }, {});
 }
+
+
+//根据childCount更新选择列表ValueList，里面部分父级节点实际子节点个数小于实际节点个数，不应该直接传给用户，而应该传递子节点给用户
+export function resetSearchValueListByChildCount(valueList,globalObj){
+  console.log("resetSearchValueListByChildCount");
+  let newList=[];
+  let delValueList=(newList,dd)=>{
+    for(let i=0;i<newList.length;i++){
+      if((dd.idValue!==undefined&&newList[i].idValue==dd.idValue)||(dd.value!==undefined&&newList[i].value==dd.value)){
+        newList.splice(i,1);
+      }
+    }
+  }
+  for(let i=0;i<valueList.length;i++){
+    let nodeprop=valueList[i];
+    newList.push(nodeprop);
+    if(!nodeprop.isLeaf){
+      let dd=nodeprop._data;
+      if(dd.childCount>nodeprop.children.length){
+        delValueList(newList,dd);
+        nodeprop.children.map(n=>{
+          let nd=Object.assign({},n.props._data);
+          nd.label=nd.title;
+          if(!newList.some(d=>(d.idValue!==undefined&&d.idValue==nd.idValue)||(d.value!==undefined&&d.value==nd.value))){
+            newList.push(nd);
+          }
+        });
+      }
+    }
+  }
+
+  return newList;
+};

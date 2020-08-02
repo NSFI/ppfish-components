@@ -47,8 +47,10 @@ import {
   isPosRelated, isLabelInValue, getFilterTree,
   cleanEntity,
 } from './util';
+import {resetSearchValueListByChildCount} from "../rcTree/util";
 import { valueProp } from './propTypes';
 import SelectNode from './SelectNode';
+import globalObj from "../globalObj.js";
 
 class Select extends React.Component {
   static propTypes = {
@@ -309,7 +311,7 @@ class Select extends React.Component {
           null,
           loadData
         );
-
+        globalObj.checkedKeys=checkedKeys;
         // Format value list again for internal usage
         newState.valueList = checkedKeys.map(key => ({
           value: (newState.keyEntities || prevState.keyEntities)[key].value,
@@ -369,6 +371,7 @@ class Select extends React.Component {
         filterTreeNodeFn,
         newState.valueEntities || prevState.valueEntities,
       );
+      globalObj.filteredTreeNodes=newState.filteredTreeNodes;
     }
 
     // Checked Strategy
@@ -785,7 +788,10 @@ class Select extends React.Component {
   onSearchInputChange = ({ target: { value } }) => {
     const { treeNodes, valueEntities } = this.state;
     const { onSearch, filterTreeNode, treeNodeFilterProp } = this.props;
-
+    globalObj.isInSearch=!!value;
+    if(!globalObj.isInSearch){
+      globalObj.searchHalfCheckeds=[];
+    }
     if (onSearch) {
       onSearch(value);
     }
@@ -810,9 +816,9 @@ class Select extends React.Component {
           return nodeValue.indexOf(upperSearchValue) !== -1;
         };
       }
-
+      globalObj.filteredTreeNodes=getFilterTree(treeNodes, value, filterTreeNodeFn, valueEntities);
       this.setState({
-        filteredTreeNodes: getFilterTree(treeNodes, value, filterTreeNodeFn, valueEntities),
+        filteredTreeNodes: globalObj.filteredTreeNodes,
       });
     }
   };
@@ -1030,9 +1036,14 @@ class Select extends React.Component {
   };
 
   handleConfirm = () => {
-    const { curValueList, connectValueList, extra } = this.state;
+    const { curValueList, connectValueList, extra,treeNodes } = this.state;
     const { onConfirm, onChange, required, editable } = this.props;
-
+    globalObj.treeNodes=treeNodes;console.log(globalObj);
+    if(globalObj.isInSearch){
+      //搜索状态返回的正选反选数据
+      extra.valueObjList=resetSearchValueListByChildCount(connectValueList,globalObj);
+    }
+    extra.globalObj=globalObj;
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
     onConfirm && onConfirm(curValueList, connectValueList, extra);
     onChange && onChange(curValueList, connectValueList, extra);

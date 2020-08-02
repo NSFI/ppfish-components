@@ -17,6 +17,7 @@ import {
   mapChildren, conductCheck, conductLoad,
   warnOnlyTreeNode,
 } from './util';
+import globalObj from "../globalObj.js";
 
 class Tree extends React.Component {
   static propTypes = {
@@ -721,7 +722,7 @@ class Tree extends React.Component {
   renderTreeNode = (child, index, level = 0) => {
     const {
       keyEntities,
-      expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],
+      expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],checkedKeys,
       loadedKeys = [], loadingKeys = [],
       dragOverNodeKey, dropPosition,
     } = this.state;
@@ -732,7 +733,8 @@ class Tree extends React.Component {
       warnOnlyTreeNode();
       return null;
     }
-
+    globalObj.checkedKeys=checkedKeys;
+    globalObj.halfCheckedKeys=halfCheckedKeys;
     return React.cloneElement(child, {
       key,
       eventKey: key,
