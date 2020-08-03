@@ -265,7 +265,8 @@ export function parseCheckedKeys(keys) {
  * @param checkStatus   Can pass current checked status for process (usually for uncheck operation)
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
-export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys) {
+export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck) {
+  console.log("****************conductCheck********************");
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};
@@ -278,13 +279,13 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     halfCheckedKeys[key] = true;
   });
 
+  const isInSearch=globalObj.isInSearch;
   // Conduct up
   function conductUp(key) {
     if (checkedKeys[key] === isCheck) return;
 
     const entity = keyEntities[key];
     if (!entity) return;
-
     const { children, parent, node } = entity;
 
     if (isCheckDisabled(node)) return;
@@ -315,13 +316,52 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     // Update checked status
     if (isCheck) {
       checkedKeys[key] = everyChildChecked;
+      if(isInSearch && everyChildChecked){
+        //在搜索状态下，实际子节点个数大于搜索出的子节点个数，则不能标记为全选
+        if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
+          if(node.props.children&&node.props._data.childCount>node.props.children.length){
+            checkedKeys[key]=false;
+          }
+          if(node.props._data.children&&node.props._data.children.length==node.props._data.childCount){
+            let allckd=true;
+            for(let i=0;i<node.props._data.children.length;i++){
+              if(!node.props._data.children[i]._checked){
+                allckd=false;
+                break;
+              }
+            }
+            if(allckd){
+              checkedKeys[key]=true;
+            }
+          }
+         
+        }else{
+          checkedKeys[key]=true;
+        }
+        
+      }
     } else {
       checkedKeys[key] = false;
+      if(isInSearch){
+        if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
+          //如果搜索前是选中状态，则去掉勾选后，状态为半选
+          if(node.props.children&&node.props._data.childCount>node.props.children.length){
+            someChildChecked=true;
+            node.props._data._checkedNum=0;
+          }
+        }
+      }
+     
     }
     halfCheckedKeys[key] = someChildChecked;
-
+    if(forNodeCheck){
+      node.props._data._checked=checkedKeys[key];
+      node.props._data._halfChecked=halfCheckedKeys[key];
+    }
     if (parent) {
-      conductUp(parent.key);
+      if(parent.key!=key){
+         conductUp(parent.key);
+      }
     }
   }
 
@@ -332,12 +372,43 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     const entity = keyEntities[key];
     if (!entity) return;
 
-    const { children, node } = entity;
+    const { children, node,parent } = entity;
 
     if (isCheckDisabled(node)) return;
 
     checkedKeys[key] = isCheck;
-
+    if(isInSearch&&!node.props.isLeaf){
+      let childs=children || [];
+      if(isCheck){
+        if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
+          if(node.props._data.childCount>childs.length){
+            //实际子节点个数大于搜索出来的子节点个数，需要判断为半选
+            checkedKeys[key] = false;
+            halfCheckedKeys[key] = true;
+            let _parent=parent;
+            //一个节点为半选，它的祖先节点都应该是半选
+            while (_parent){
+              checkedKeys[_parent.key] = false;
+              halfCheckedKeys[_parent.key] = true;
+              _parent.node.props._data._checkedNum=1;
+              _parent=keyEntities[_parent.key].parent;
+            }
+          }
+        }
+      }else{
+        if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
+          if(node.props._data.childCount>childs.length){
+            halfCheckedKeys[key] = true;
+          }
+        }
+      }
+      
+    }
+    if(forNodeCheck){
+      node.props._data._checked=checkedKeys[key];
+      node.props._data._halfChecked=halfCheckedKeys[key];
+    }
+    
     (children || []).forEach((child) => {
       conductDown(child.key);
     });
@@ -353,8 +424,29 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
 
     const { children, parent, node } = entity;
     checkedKeys[key] = isCheck;
-
+    
     if (isCheckDisabled(node)) return;
+
+    if(isInSearch&&isCheck&&!node.props.isLeaf){
+      if(isCheck){
+        if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
+          //实际子节点个数大于搜索出来的子节点个数，需要判断为半选
+          if(children&&node.props._data.childCount>children.length){
+            checkedKeys[key] = false;
+            halfCheckedKeys[key] = true;
+          }
+        }
+      }else{
+        if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
+          halfCheckedKeys[key] = true;
+        }
+      }
+     
+    }
+    if(forNodeCheck){
+      node.props._data._checked=checkedKeys[key];
+      node.props._data._halfChecked=halfCheckedKeys[key];
+    }
 
     // Conduct down
     (children || [])
@@ -364,8 +456,9 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       });
 
     // Conduct up
+    
     if (parent) {
-      conductUp(parent.key);
+        conductUp(parent.key);
     }
   }
 
@@ -393,14 +486,12 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   //记录下搜索前选中的节点，以key为ID，也是节点的value值
   if(!globalObj.isInSearch){
     globalObj.beforeSearchCheckKeys=[];
+    globalObj.beforeSearchHalfCheckKeys=[];
     checkedKeyList.map((key)=>{
-      let _k=checkedKeyList[key];
-      let arr=key.split("-");
-      if(arr.length){
-        _k=arr[arr.length-1];
-      }
-      
-      globalObj.beforeSearchCheckKeys[_k]=true;
+      globalObj.beforeSearchCheckKeys[key]=true;
+    });
+    halfCheckedKeyList.map((key)=>{
+      globalObj.beforeSearchHalfCheckKeys[key]=true;
     });
   }
   return {
@@ -601,3 +692,86 @@ export function resetSearchValueListByChildCount(valueList,globalObj){
 
   return newList;
 };
+
+//判断某个节点搜索前是否是选择状态
+export function isNodeCheckedBeforeSearch(node,keyEntities,globalObj){
+  if(globalObj.beforeSearchCheckKeys[node.key]){
+    return true;
+  }else{
+    let _parent=keyEntities[node.key].parent;
+    while(_parent){
+      if(globalObj.beforeSearchCheckKeys[_parent.key]){
+        return true;
+      }else{
+        _parent=keyEntities[_parent.key||"--"].parent;
+      }
+    }
+  }
+  return false;
+}
+
+
+//判断某个节点搜索前是否是半选择状态
+export function isNodeHalfCheckedBeforeSearch(node,keyEntities,globalObj){
+  if(globalObj.beforeSearchHalfCheckKeys[node.key]){
+    return true;
+  }else{
+    let _parent=keyEntities[node.key].parent;
+    while(_parent){
+      if(globalObj.beforeSearchHalfCheckKeys[_parent.key]){
+        return true;
+      }else{
+        _parent=keyEntities[_parent.key||"--"].parent;
+      }
+    }
+  }
+  return false;
+}
+
+
+// //根据childCount更新选择列表ValueList，里面部分父级节点实际子节点个数小于实际节点个数，不应该直接传给用户，而应该传递子节点给用户
+// export function resetSearchValueListByChildCount(globalObj,valueList){
+//   console.log("resetSearchValueListByChildCount");
+//   let delValueList=(dd)=>{
+//     for(let i=0;i<valueList.length;i++){
+//       if(valueList[i].value==dd.value||valueList[i].value==dd.key){
+//         valueList.splice(i,1);
+//       }
+//     }
+//   }
+
+//   let queue =[];//[parentNode,node]
+//   globalObj.filteredTreeNodes.forEach(node => queue.push([null,node]));
+//   let _isChecked=(node)=>{
+//     return globalObj.checkedKeys.indexOf(node.props._data.key)!=-1||globalObj.checkedKeys.indexOf(node.props._data.value)!=-1;
+//   };
+//   while (queue.length) {
+//     let q = queue.shift();
+//     let parentNode=q[0];
+//     let node=q[1];
+//     let val=node.props._data.idValue;
+//     let dd=node.props._data;
+//     //一级页节点不用处理
+//     if(!node.props.isLeaf||parentNode){
+//       if(node.props.isLeaf){
+//         if(_isChecked(node)){
+//           let nd=Object.assign({},dd);
+//           nd.label=nd.title;
+//           if(!valueList.some(d=>d.value==nd.value)){
+//             valueList.push(nd);
+//           }
+//         }
+        
+        
+//       }else{
+//         if(_isChecked(node)){
+//           if(dd.childCount>node.props.children.length){
+//             delValueList(dd);
+//             node.props.children.forEach(_node => queue.push([node,_node]));
+//           }
+          
+//         }
+//       }
+//     }
+//   }
+// };

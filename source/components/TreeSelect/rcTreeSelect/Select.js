@@ -1116,7 +1116,7 @@ class Select extends React.Component {
     }
 
     delete passProps.loadData;
-
+    console.log("SelectSelectSelectSelectSelectSelectSelectSelectSelectSelectSelectSelectSelect");
     const Popup = isMultiple ? MultiplePopup : SinglePopup;
     const $popup = (
       <Popup

@@ -75,7 +75,6 @@ class SinglePopup extends React.Component {
 
   render() {
     const { required } = this.props;
-
     return (
       <BasePopup
         {...this.props}
