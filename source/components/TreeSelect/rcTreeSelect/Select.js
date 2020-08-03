@@ -467,6 +467,8 @@ class Select extends React.Component {
     if (prevState.valueList !== this.state.valueList) {
       this.forcePopupAlign();
     }
+    console.log("select--componentDidUpdate");
+    globalObj.fromNodeChecks=null;
   }
 
   // ==================== Selector ====================

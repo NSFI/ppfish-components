@@ -266,6 +266,9 @@ export function parseCheckedKeys(keys) {
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
 export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck) {
+  if(globalObj.fromNodeChecks){
+    return globalObj.fromNodeChecks;
+  }
   console.log("****************conductCheck********************");
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
@@ -493,6 +496,12 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     halfCheckedKeyList.map((key)=>{
       globalObj.beforeSearchHalfCheckKeys[key]=true;
     });
+  }
+  if(forNodeCheck){
+    globalObj.fromNodeChecks={ 
+      checkedKeys: checkedKeyList,
+      halfCheckedKeys: halfCheckedKeyList
+    };
   }
   return {
     checkedKeys: checkedKeyList,
