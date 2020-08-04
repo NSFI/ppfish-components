@@ -467,7 +467,20 @@ class Select extends React.Component {
     if (prevState.valueList !== this.state.valueList) {
       this.forcePopupAlign();
     }
-    console.log("select--componentDidUpdate");
+    const {curValueList,connectValueList}=this.state;
+    console.log("select--componentDidUpdate",this.state.curValueList,this.state.connectValueList);
+    //记录下搜索前选中的节点，以key为ID，也是节点的value值
+    if(!globalObj.isInSearch && curValueList){
+      globalObj.beforeSearchCheckKeys=[];
+      globalObj.beforeSearchSyncCheckKeys=[];
+      curValueList.map((key)=>{
+        globalObj.beforeSearchCheckKeys[key]=true;
+      });
+      curValueList.map((key)=>{
+        globalObj.beforeSearchSyncCheckKeys[key]=true;
+        
+      });
+    }
     globalObj.fromNodeChecks=null;
   }
 
@@ -797,7 +810,7 @@ class Select extends React.Component {
     if (onSearch) {
       onSearch(value);
     }
-
+    //globalObj.fromNodeChecks=null;
     let isSet = false;
 
     if (!this.isSearchValueControlled()) {
@@ -1040,7 +1053,7 @@ class Select extends React.Component {
   handleConfirm = () => {
     const { curValueList, connectValueList, extra,treeNodes } = this.state;
     const { onConfirm, onChange, required, editable } = this.props;
-    globalObj.treeNodes=treeNodes;console.log(globalObj);
+    globalObj.treeNodes=treeNodes;
     if(globalObj.isInSearch){
       //搜索状态返回的正选反选数据
       extra.valueObjList=resetSearchValueListByChildCount(connectValueList,globalObj);
@@ -1087,6 +1100,22 @@ class Select extends React.Component {
         }
       });
 
+      if(globalObj.beforeSearchSyncCheckKeys && !globalObj.isInSearch){
+        console.log(globalObj.beforeSearchSyncCheckKeys,keyList);
+        for(let k in globalObj.beforeSearchSyncCheckKeys){
+          if(globalObj.beforeSearchSyncCheckKeys[k]){
+            if(keyList.indexOf(k)==-1){
+              keyList.push(k);
+            }
+          }else{
+            let delI=keyList.indexOf(k);
+            if(delI>-1){
+              keyList.splice(delI,1);
+            }
+            
+          }
+        }
+      }
       let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData).checkedKeys;
       rtValueList = checkedKeys.map(key => {
         return keyEntities[key] && keyEntities[key].value;
@@ -1118,7 +1147,7 @@ class Select extends React.Component {
     }
 
     delete passProps.loadData;
-    console.log("SelectSelectSelectSelectSelectSelectSelectSelectSelectSelectSelectSelectSelect");
+
     const Popup = isMultiple ? MultiplePopup : SinglePopup;
     const $popup = (
       <Popup

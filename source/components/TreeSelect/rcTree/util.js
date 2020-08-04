@@ -263,13 +263,15 @@ export function parseCheckedKeys(keys) {
  * @param isCheck       is check the node or not
  * @param keyEntities   parsed by `convertTreeToEntities` function in Tree
  * @param checkStatus   Can pass current checked status for process (usually for uncheck operation)
+ * @param forNodeCheck  单击复选框时执行此方法，会做特殊处理，不再同时触发其他场景调用此方法重新生成checkedKeys，halfCheckedKeys，会直接放回上次生成的值
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
 export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck) {
+  const isInSearch=globalObj.isInSearch;
   if(globalObj.fromNodeChecks){
     return globalObj.fromNodeChecks;
   }
-  console.log("****************conductCheck********************");
+  console.log(keyList,"****************conductCheck********************");
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};
@@ -281,8 +283,21 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   (checkStatus.halfCheckedKeys || []).forEach((key) => {
     halfCheckedKeys[key] = true;
   });
-
-  const isInSearch=globalObj.isInSearch;
+ 
+  function isExpendAndAllChecked(node){
+    let allckd=true;
+    if(node.props._data.children&&node.props._data.children.length==node.props._data.childCount){
+      for(let i=0;i<node.props._data.children.length;i++){
+        if(!node.props._data.children[i]._checked){
+          allckd=false;
+          break;
+        }
+      }
+    }else{
+      allckd=false;
+    }
+    return  allckd;
+  }
   // Conduct up
   function conductUp(key) {
     if (checkedKeys[key] === isCheck) return;
@@ -325,19 +340,9 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
           if(node.props.children&&node.props._data.childCount>node.props.children.length){
             checkedKeys[key]=false;
           }
-          if(node.props._data.children&&node.props._data.children.length==node.props._data.childCount){
-            let allckd=true;
-            for(let i=0;i<node.props._data.children.length;i++){
-              if(!node.props._data.children[i]._checked){
-                allckd=false;
-                break;
-              }
-            }
-            if(allckd){
-              checkedKeys[key]=true;
-            }
-          }
-         
+          if(isExpendAndAllChecked(node)){
+            checkedKeys[key]=true;
+          }        
         }else{
           checkedKeys[key]=true;
         }
@@ -352,12 +357,18 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
             someChildChecked=true;
             node.props._data._checkedNum=0;
           }
+        }else{
+          if(isExpendAndAllChecked(node)){
+            checkedKeys[key]=true;
+          }  
         }
       }
      
     }
     halfCheckedKeys[key] = someChildChecked;
+    
     if(forNodeCheck){
+      globalObj.beforeSearchSyncCheckKeys[key]=checkedKeys[key];
       node.props._data._checked=checkedKeys[key];
       node.props._data._halfChecked=halfCheckedKeys[key];
     }
@@ -407,7 +418,10 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       }
       
     }
+    globalObj.beforeSearchSyncCheckKeys[key]=checkedKeys[key];
     if(forNodeCheck){
+      console.log(globalObj.beforeSearchSyncCheckKeys);
+      
       node.props._data._checked=checkedKeys[key];
       node.props._data._halfChecked=halfCheckedKeys[key];
     }
@@ -447,6 +461,8 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
      
     }
     if(forNodeCheck){
+      console.log(globalObj.beforeSearchSyncCheckKeys);
+      globalObj.beforeSearchSyncCheckKeys[key]=checkedKeys[key];
       node.props._data._checked=checkedKeys[key];
       node.props._data._halfChecked=halfCheckedKeys[key];
     }
@@ -486,17 +502,6 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     }
   });
 
-  //记录下搜索前选中的节点，以key为ID，也是节点的value值
-  if(!globalObj.isInSearch){
-    globalObj.beforeSearchCheckKeys=[];
-    globalObj.beforeSearchHalfCheckKeys=[];
-    checkedKeyList.map((key)=>{
-      globalObj.beforeSearchCheckKeys[key]=true;
-    });
-    halfCheckedKeyList.map((key)=>{
-      globalObj.beforeSearchHalfCheckKeys[key]=true;
-    });
-  }
   if(forNodeCheck){
     globalObj.fromNodeChecks={ 
       checkedKeys: checkedKeyList,
@@ -718,25 +723,6 @@ export function isNodeCheckedBeforeSearch(node,keyEntities,globalObj){
   }
   return false;
 }
-
-
-//判断某个节点搜索前是否是半选择状态
-export function isNodeHalfCheckedBeforeSearch(node,keyEntities,globalObj){
-  if(globalObj.beforeSearchHalfCheckKeys[node.key]){
-    return true;
-  }else{
-    let _parent=keyEntities[node.key].parent;
-    while(_parent){
-      if(globalObj.beforeSearchHalfCheckKeys[_parent.key]){
-        return true;
-      }else{
-        _parent=keyEntities[_parent.key||"--"].parent;
-      }
-    }
-  }
-  return false;
-}
-
 
 // //根据childCount更新选择列表ValueList，里面部分父级节点实际子节点个数小于实际节点个数，不应该直接传给用户，而应该传递子节点给用户
 // export function resetSearchValueListByChildCount(globalObj,valueList){

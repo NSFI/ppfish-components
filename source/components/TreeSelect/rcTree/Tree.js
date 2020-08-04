@@ -254,6 +254,12 @@ class Tree extends React.Component {
     };
   }
 
+  componentDidUpdate(_, prevState) {
+    const {checkedKeys,halfCheckedKeys}=this.state;
+    globalObj.checkedKeys=checkedKeys;
+    globalObj.halfCheckedKeys=halfCheckedKeys;
+  }
+
   onNodeDragStart = (event, node) => {
     const { expandedKeys } = this.state;
     const { onDragStart } = this.props;
@@ -504,7 +510,8 @@ class Tree extends React.Component {
         .filter(entity => entity)
         .map(entity => entity.node);
 
-      this.setUncontrolledState({ checkedKeys });
+        this.setUncontrolledState({ checkedKeys });
+      
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
@@ -573,9 +580,17 @@ class Tree extends React.Component {
           }
 
           // 半选状态下的节点异步加载完成后，根据其子节点的状态更新该节点及其祖先节点的选择状态
+          let keyList=[eventKey];
+          // if(globalObj.beforeSearchSyncCheckKeys&&!globalObj.isInSearch){
+          //   for(let k in globalObj.beforeSearchSyncCheckKeys){
+          //     if(globalObj.beforeSearchSyncCheckKeys[k]){
+          //       keyList.push(k);
+          //     }
+          //   }
+          // }
           if (treeNode.props.halfChecked) {
             const { checkedKeys, halfCheckedKeys } = conductLoad(
-              [eventKey],
+              keyList,
               treeNode.props.checked,
               keyEntities,
               { checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys }
@@ -746,23 +761,11 @@ class Tree extends React.Component {
     const key = child.key || pos;
     let _halfChecked=halfCheckedKeys.indexOf(key) !== -1;
     let _checked=this.isKeyChecked(key);
-    let _data=child.props._data;
+
     if (!keyEntities[key]) {
       warnOnlyTreeNode();
       return null;
     }
-    globalObj.checkedKeys=checkedKeys;
-    globalObj.halfCheckedKeys=halfCheckedKeys;
-    if(globalObj.isInSearch){
-      // if(_checked){console.log(child.props,1111);
-      //   if(!_halfChecked&&!child.props.isLeaf){
-      //     if(_data.childCount>child.props.children.length){
-      //       _halfChecked=true;console.log(222222);
-      //     }
-      //   }
-      // }
-    }
-    console.log("renderTreeNoderenderTreeNoderenderTreeNoderenderTreeNode");
     return React.cloneElement(child, {
       key,
       eventKey: key,
