@@ -365,10 +365,12 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       }
      
     }
+    if(checkedKeys[key]){
+      someChildChecked=false;
+    }
     halfCheckedKeys[key] = someChildChecked;
     
     if(forNodeCheck){
-      globalObj.beforeSearchSyncCheckKeys[key]=checkedKeys[key];
       node.props._data._checked=checkedKeys[key];
       node.props._data._halfChecked=halfCheckedKeys[key];
     }
@@ -418,10 +420,8 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       }
       
     }
-    globalObj.beforeSearchSyncCheckKeys[key]=checkedKeys[key];
+    console.log(checkedKeys[key],888);
     if(forNodeCheck){
-      console.log(globalObj.beforeSearchSyncCheckKeys);
-      
       node.props._data._checked=checkedKeys[key];
       node.props._data._halfChecked=halfCheckedKeys[key];
     }
@@ -461,8 +461,6 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
      
     }
     if(forNodeCheck){
-      console.log(globalObj.beforeSearchSyncCheckKeys);
-      globalObj.beforeSearchSyncCheckKeys[key]=checkedKeys[key];
       node.props._data._checked=checkedKeys[key];
       node.props._data._halfChecked=halfCheckedKeys[key];
     }

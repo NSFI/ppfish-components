@@ -47,7 +47,7 @@ import {
   isPosRelated, isLabelInValue, getFilterTree,
   cleanEntity,
 } from './util';
-import {resetSearchValueListByChildCount} from "../rcTree/util";
+import {resetSearchValueListByChildCount,isNodeCheckedBeforeSearch} from "../rcTree/util";
 import { valueProp } from './propTypes';
 import SelectNode from './SelectNode';
 import globalObj from "../globalObj.js";
@@ -467,21 +467,25 @@ class Select extends React.Component {
     if (prevState.valueList !== this.state.valueList) {
       this.forcePopupAlign();
     }
-    const {curValueList,connectValueList}=this.state;
+    const {curValueList,connectValueList,checkedKeys,halfCheckedKeys}=this.state;
+    console.log(checkedKeys,curValueList,999);
     console.log("select--componentDidUpdate",this.state.curValueList,this.state.connectValueList);
+    let obj=globalObj;
     //记录下搜索前选中的节点，以key为ID，也是节点的value值
-    if(!globalObj.isInSearch && curValueList){
-      globalObj.beforeSearchCheckKeys=[];
-      globalObj.beforeSearchSyncCheckKeys=[];
+    if(!obj.isInSearch && curValueList){
+      obj.beforeSearchCheckKeys=[];
+      obj.beforeSearchSyncCheckKeys=this.remenberBeforeSearchChecks(obj,curValueList);
       curValueList.map((key)=>{
-        globalObj.beforeSearchCheckKeys[key]=true;
+        obj.beforeSearchCheckKeys[key]=true;
       });
-      curValueList.map((key)=>{
-        globalObj.beforeSearchSyncCheckKeys[key]=true;
+      // curValueList.map((key)=>{
+      //   obj.beforeSearchSyncCheckKeys[key]=true;
         
-      });
+      // });
+      console.log(obj.beforeSearchSyncCheckKeys,777);
     }
-    globalObj.fromNodeChecks=null;
+    
+    obj.fromNodeChecks=null;
   }
 
   // ==================== Selector ====================
@@ -1050,13 +1054,152 @@ class Select extends React.Component {
     });
   };
 
+  //设置搜索模式下，输出给用户的选择或反选的数据
+  remenberBeforeSearchChecks=(obj,curValueList)=>{
+    console.log("setInSearchCheckedData");
+    let queue =[];//[parentNode,node]
+    obj.treeNodes.forEach(node => queue.push([null,node]));
+    let checkKeys=[];
+    while (queue.length) {
+      let q = queue.shift();
+      let parentNode=q[0];
+      let node=q[1];
+      let val=node.props._data.idValue||node.props._data.value;
+      let checked=curValueList.indexOf(node.key)!=-1;
+      //let halfChecked=halfCheckKeys.indexOf(node.key)!=-1;
+
+      if(node.props.isLeaf){
+        if(checked){
+          checkKeys.push(val);
+        }
+      }else{
+          if(checked){
+            checkKeys.push(val);
+          }else{
+              if (node.props.children) {
+                if(node.props.children.some(child=>curValueList.indexOf(child.key)!=-1)){
+                  //准备子节点，插入队列，用于下个轮回遍历
+                  node.props.children.forEach(_node => queue.push([node,_node]));
+                }
+                
+              }
+          }
+      }
+    }
+    return checkKeys;
+
+  };
+
+  //设置搜索模式下，输出给用户的选择或反选的数据
+  setInSearchCheckedData=(obj,keyEntities)=>{
+    console.log("setInSearchCheckedData");
+    let queue =[];//[parentNode,node]
+    obj.filteredTreeNodes.forEach(node => queue.push([null,node]));
+    let checkedGroups=[];
+    let checkedKefus=[];
+    let uncheckedKefus=[];
+    let uncheckedGroups=[];
+    let _allSiblingChecked=(childs)=>{
+      return !childs.some((c)=>!c.props._data._checked||c.props._data._halfChecked);
+    };
+    while (queue.length) {
+      let q = queue.shift();
+      let parentNode=q[0];
+      let node=q[1];
+      let val=node.props._data.idValue||node.props._data.value;
+      let checked=node.props._data._checked;
+      let halfChecked=node.props._data._halfChecked;
+
+      if(node.props.isLeaf){
+        if(parentNode){
+          if(isNodeCheckedBeforeSearch(parentNode,keyEntities,obj)){
+            //搜索前父节点是选择状态，执行反选逻辑
+            if(!checked){
+              uncheckedKefus.push(val);
+            }else if(_allSiblingChecked(parentNode.props.children)){
+              //所有兄弟节点都处于选择状态
+              checkedKefus.push(val);
+            }
+          }else{
+            //搜索前父节点是非选择状态，执行正选逻辑
+            if(checked){
+              checkedKefus.push(val);
+            }
+          }
+        }else{
+          //不存在父节点，直接根据选择状态存入checkedKefus
+          if(checked){
+            checkedKefus.push(val);
+          }
+        }
+      }else{
+        if(parentNode){
+          if(isNodeCheckedBeforeSearch(parentNode,keyEntities,obj)){
+            //搜索前父节点是选择状态，执行反选逻辑
+            if(!checked){
+              if(!halfChecked){
+                uncheckedGroups.push(val);
+              }else{
+                //准备子节点，插入队列，用于下个轮回遍历
+                node.props.children.forEach(_node => queue.push([node,_node]));
+              }
+              
+            }else{
+              if(_allSiblingChecked(parentNode.props.children)){
+                checkedGroups.push(val);
+              }
+            }
+          }else{
+            //搜索前父节点是非选择状态，执行正选逻辑
+            if(checked){
+              if(!halfChecked){
+                checkedGroups.push(val);
+              }else{
+                if (node.props.children) {
+                  node.props.children.forEach(_node => queue.push([node,_node]));
+                }
+              }
+              
+            }else if(halfChecked){
+              node.props.children.forEach(_node => queue.push([node,_node]));
+            }
+          }
+        }else{
+          if(checked){
+            if(halfChecked){
+              //同时为halfChecked表示，子节点全选，但实际childCount大于搜索出的子节点个数
+              if (node.props.children) {
+                //准备子节点，插入队列，用于下个轮回遍历
+                node.props.children.forEach(_node => queue.push([node,_node]));
+              }
+            }else{
+              //如果父节点是选择状态，则直接存入checkedGroups，不需要再遍历子孙节点。
+              checkedGroups.push(val);
+            }
+          }else{
+            if(halfChecked){
+              if (node.props.children) {
+                //准备子节点，插入队列，用于下个轮回遍历
+                node.props.children.forEach(_node => queue.push([node,_node]));
+              }
+            }
+            
+          }
+        }
+      }
+    }
+    return {checkedGroups,checkedKefus,uncheckedKefus,uncheckedGroups};
+
+  };
+
   handleConfirm = () => {
-    const { curValueList, connectValueList, extra,treeNodes } = this.state;
+    const { curValueList, connectValueList, extra,treeNodes,keyEntities } = this.state;
     const { onConfirm, onChange, required, editable } = this.props;
     globalObj.treeNodes=treeNodes;
     if(globalObj.isInSearch){
       //搜索状态返回的正选反选数据
-      extra.valueObjList=resetSearchValueListByChildCount(connectValueList,globalObj);
+      extra.valueObject=this.setInSearchCheckedData(globalObj,keyEntities);
+      console.log(extra.valueObject);
     }
     extra.globalObj=globalObj;
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
@@ -1100,10 +1243,11 @@ class Select extends React.Component {
         }
       });
 
-      if(globalObj.beforeSearchSyncCheckKeys && !globalObj.isInSearch){
-        console.log(globalObj.beforeSearchSyncCheckKeys,keyList);
-        for(let k in globalObj.beforeSearchSyncCheckKeys){
-          if(globalObj.beforeSearchSyncCheckKeys[k]){
+      let obj=globalObj;
+      if(obj.beforeSearchSyncCheckKeys && !obj.isInSearch){
+        console.log(obj.beforeSearchSyncCheckKeys);
+        for(let k in obj.beforeSearchSyncCheckKeys){
+          if(obj.beforeSearchSyncCheckKeys[k]){
             if(keyList.indexOf(k)==-1){
               keyList.push(k);
             }
@@ -1115,6 +1259,7 @@ class Select extends React.Component {
             
           }
         }
+        console.log(keyList);
       }
       let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData).checkedKeys;
       rtValueList = checkedKeys.map(key => {
