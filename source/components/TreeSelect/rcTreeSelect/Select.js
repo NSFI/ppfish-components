@@ -47,7 +47,7 @@ import {
   isPosRelated, isLabelInValue, getFilterTree,
   cleanEntity,
 } from './util';
-import {resetSearchValueListByChildCount,isNodeCheckedBeforeSearch} from "../rcTree/util";
+import {isNodeCheckedBeforeSearch} from "../rcTree/util";
 import { valueProp } from './propTypes';
 import SelectNode from './SelectNode';
 import globalObj from "../globalObj.js";
@@ -309,7 +309,7 @@ class Select extends React.Component {
           true,
           newState.keyEntities || prevState.keyEntities,
           null,
-          loadData
+          loadData,null,false,nextProps.doSearchUnchecked
         );
         globalObj.checkedKeys=checkedKeys;
         // Format value list again for internal usage
@@ -468,23 +468,16 @@ class Select extends React.Component {
       this.forcePopupAlign();
     }
     const {curValueList,connectValueList,checkedKeys,halfCheckedKeys}=this.state;
-    console.log(checkedKeys,curValueList,999);
-    console.log("select--componentDidUpdate",this.state.curValueList,this.state.connectValueList);
     let obj=globalObj;
+    obj.treeNodes=this.state.treeNodes;
     //记录下搜索前选中的节点，以key为ID，也是节点的value值
     if(!obj.isInSearch && curValueList){
       obj.beforeSearchCheckKeys=[];
-      obj.beforeSearchSyncCheckKeys=this.remenberBeforeSearchChecks(obj,curValueList);
+      obj.beforeSearchSyncCheckKeys=this.remenberBeforeSearchChecks(obj);
       curValueList.map((key)=>{
         obj.beforeSearchCheckKeys[key]=true;
       });
-      // curValueList.map((key)=>{
-      //   obj.beforeSearchSyncCheckKeys[key]=true;
-        
-      // });
-      console.log(obj.beforeSearchSyncCheckKeys,777);
     }
-    
     obj.fromNodeChecks=null;
   }
 
@@ -632,7 +625,7 @@ class Select extends React.Component {
       disabled, inputValue,
       treeNodeLabelProp, onSelect,
       treeCheckable, treeCheckStrictly, autoClearSearchValue,
-      loadData,
+      loadData,doSearchUnchecked
     } = this.props;
     const label = node.props[treeNodeLabelProp];
 
@@ -681,7 +674,7 @@ class Select extends React.Component {
           true,
           keyEntities,
           null,
-          loadData
+          loadData,null,false,doSearchUnchecked
         ).checkedKeys;
       } else {
         keyList = conductCheck(
@@ -689,7 +682,7 @@ class Select extends React.Component {
           false,
           keyEntities,
           { checkedKeys: keyList },
-          loadData
+          loadData,null,false,doSearchUnchecked
         ).checkedKeys;
       }
       newValueList = keyList.map(key => {
@@ -738,7 +731,7 @@ class Select extends React.Component {
 
   onTreeNodeCheck = (_, nodeEventInfo) => {
     const { searchValue, keyEntities, valueEntities, curValueList } = this.state;
-    const { treeCheckStrictly, loadData } = this.props;
+    const { treeCheckStrictly, loadData,doSearchUnchecked } = this.props;
 
     const { checkedNodes, checkedNodesPositions } = nodeEventInfo;
     const isAdd = nodeEventInfo.checked;
@@ -776,14 +769,14 @@ class Select extends React.Component {
           true,
           keyEntities,
           null,
-          loadData
+          loadData,null,false,doSearchUnchecked
         ).checkedKeys;
         keyList = conductCheck(
           [nodeEventInfo.node.props.eventKey],
           false,
           keyEntities,
           { checkedKeys: oriCheckedKeys },
-          loadData
+          loadData,null,false,doSearchUnchecked
         ).checkedKeys;
       }
 
@@ -805,7 +798,7 @@ class Select extends React.Component {
   };
 
   onSearchInputChange = ({ target: { value } }) => {
-    const { treeNodes, valueEntities } = this.state;
+    const { treeNodes, valueEntities,curValueList } = this.state;
     const { onSearch, filterTreeNode, treeNodeFilterProp } = this.props;
     globalObj.isInSearch=!!value;
     if(!globalObj.isInSearch){
@@ -813,6 +806,17 @@ class Select extends React.Component {
     }
     if (onSearch) {
       onSearch(value);
+    }
+    if(!value){
+      let obj=globalObj;
+      if(obj.beforeSearchSyncCheckKeys){
+        for(let i=0;i<obj.beforeSearchSyncCheckKeys.length;i++){
+          let k=obj.beforeSearchSyncCheckKeys[i];
+          if(curValueList.indexOf(k)==-1){
+            curValueList.push(k);
+          }
+        }
+      }
     }
     //globalObj.fromNodeChecks=null;
     let isSet = false;
@@ -1055,8 +1059,10 @@ class Select extends React.Component {
   };
 
   //设置搜索模式下，输出给用户的选择或反选的数据
-  remenberBeforeSearchChecks=(obj,curValueList)=>{
-    console.log("setInSearchCheckedData");
+  remenberBeforeSearchChecks=(obj)=>{
+    if(!obj.treeNodes||!globalObj.checkedKeys||!globalObj.halfCheckedKeys){
+      return [];
+    }
     let queue =[];//[parentNode,node]
     obj.treeNodes.forEach(node => queue.push([null,node]));
     let checkKeys=[];
@@ -1064,20 +1070,20 @@ class Select extends React.Component {
       let q = queue.shift();
       let parentNode=q[0];
       let node=q[1];
-      let val=node.props._data.idValue||node.props._data.value;
-      let checked=curValueList.indexOf(node.key)!=-1;
+      let key=node.key;
+      let checked=globalObj.checkedKeys.indexOf(node.key)!=-1;
       //let halfChecked=halfCheckKeys.indexOf(node.key)!=-1;
 
       if(node.props.isLeaf){
         if(checked){
-          checkKeys.push(val);
+          checkKeys.push(key);
         }
       }else{
           if(checked){
-            checkKeys.push(val);
+            checkKeys.push(key);
           }else{
               if (node.props.children) {
-                if(node.props.children.some(child=>curValueList.indexOf(child.key)!=-1)){
+                if(node.props.children.some(child=>globalObj.checkedKeys.indexOf(child.key)!=-1||globalObj.halfCheckedKeys.indexOf(child.key)!=-1)){
                   //准备子节点，插入队列，用于下个轮回遍历
                   node.props.children.forEach(_node => queue.push([node,_node]));
                 }
@@ -1092,23 +1098,26 @@ class Select extends React.Component {
 
   //设置搜索模式下，输出给用户的选择或反选的数据
   setInSearchCheckedData=(obj,keyEntities)=>{
-    console.log("setInSearchCheckedData");
-    let queue =[];//[parentNode,node]
-    obj.filteredTreeNodes.forEach(node => queue.push([null,node]));
     let checkedGroups=[];
     let checkedKefus=[];
     let uncheckedKefus=[];
     let uncheckedGroups=[];
+    if(!obj.treeNodes){
+      return {checkedGroups,checkedKefus,uncheckedKefus,uncheckedGroups};
+    }
+    let queue =[];//[parentNode,node]
+    obj.treeNodes.forEach(node => queue.push([null,node]));
+
     let _allSiblingChecked=(childs)=>{
-      return !childs.some((c)=>!c.props._data._checked||c.props._data._halfChecked);
+      return !childs.some((c)=>obj.checkedKeys.indexOf(c.key)==-1||obj.halfCheckedKeys.indexOf(c.key)==-1);
     };
     while (queue.length) {
       let q = queue.shift();
       let parentNode=q[0];
       let node=q[1];
       let val=node.props._data.idValue||node.props._data.value;
-      let checked=node.props._data._checked;
-      let halfChecked=node.props._data._halfChecked;
+      let checked=obj.checkedKeys.indexOf(node.key)!=-1;
+      let halfChecked=obj.halfCheckedKeys.indexOf(node.key)!=-1;
 
       if(node.props.isLeaf){
         if(parentNode){
@@ -1196,10 +1205,11 @@ class Select extends React.Component {
     const { curValueList, connectValueList, extra,treeNodes,keyEntities } = this.state;
     const { onConfirm, onChange, required, editable } = this.props;
     globalObj.treeNodes=treeNodes;
+    extra.isInSearch=false;
     if(globalObj.isInSearch){
       //搜索状态返回的正选反选数据
       extra.valueObject=this.setInSearchCheckedData(globalObj,keyEntities);
-      console.log(extra.valueObject);
+      extra.isInSearch=true;console.log(extra.valueObject);
     }
     extra.globalObj=globalObj;
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
@@ -1230,7 +1240,7 @@ class Select extends React.Component {
       curValueList,
       disableCloseTag
     } = this.state;
-    const { prefixCls, loadData, treeCheckStrictly, loading, required, editable } = this.props;
+    const { prefixCls, loadData, treeCheckStrictly, loading, required, editable,doSearchUnchecked } = this.props;
     const isMultiple = this.isMultiple();
     let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
 
@@ -1242,26 +1252,8 @@ class Select extends React.Component {
           keyList.push(valueEntities[value].key);
         }
       });
-
-      let obj=globalObj;
-      if(obj.beforeSearchSyncCheckKeys && !obj.isInSearch){
-        console.log(obj.beforeSearchSyncCheckKeys);
-        for(let k in obj.beforeSearchSyncCheckKeys){
-          if(obj.beforeSearchSyncCheckKeys[k]){
-            if(keyList.indexOf(k)==-1){
-              keyList.push(k);
-            }
-          }else{
-            let delI=keyList.indexOf(k);
-            if(delI>-1){
-              keyList.splice(delI,1);
-            }
-            
-          }
-        }
-        console.log(keyList);
-      }
-      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData).checkedKeys;
+      
+      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData,null,false,doSearchUnchecked).checkedKeys;
       rtValueList = checkedKeys.map(key => {
         return keyEntities[key] && keyEntities[key].value;
       });

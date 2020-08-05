@@ -39,7 +39,7 @@ class Tree extends React.Component {
       PropTypes.node,
     ]),
     checkStrictly: PropTypes.bool,
-    doUnchecked:PropTypes.bool,
+    doSearchUnchecked:PropTypes.bool,
     draggable: PropTypes.bool,
     defaultExpandParent: PropTypes.bool,
     autoExpandParent: PropTypes.bool,
@@ -89,7 +89,7 @@ class Tree extends React.Component {
     checkable: false,
     disabled: false,
     checkStrictly: false,
-    doUnchecked:false,
+    doSearchUnchecked:false,
     draggable: false,
     defaultExpandParent: true,
     autoExpandParent: false,
@@ -133,7 +133,11 @@ class Tree extends React.Component {
     }
 
     const keyEntities = newState.keyEntities || prevState.keyEntities;
-
+    if(globalObj.isInSearch){
+      if(globalObj.beforeSearchKeyEntities){
+        Object.assign(keyEntities,globalObj.beforeSearchKeyEntities);
+      }
+    }
     // ================ expandedKeys =================
     if (needSync('expandedKeys') || (prevProps && needSync('autoExpandParent'))) {
       newState.expandedKeys = (props.autoExpandParent || (!prevProps && props.defaultExpandParent)) ?
@@ -173,9 +177,9 @@ class Tree extends React.Component {
       if (checkedKeyEntity) {
         let { checkedKeys = [], halfCheckedKeys = [] } = checkedKeyEntity;
 
-        if (!props.checkStrictly||props.doUnchecked) {
+        if (!props.checkStrictly||props.doSearchUnchecked) {
           const conductKeys = conductCheck(checkedKeys, true, keyEntities,
-          null, props.loadData, props.loadedKeys);
+          null, props.loadData, props.loadedKeys,false,props.doSearchUnchecked);
           checkedKeys = conductKeys.checkedKeys;
           halfCheckedKeys = conductKeys.halfCheckedKeys;
         }
@@ -208,7 +212,7 @@ class Tree extends React.Component {
 
   getChildContext() {
     const {
-      prefixCls, selectable, showIcon, icon, draggable, checkable, checkStrictly,doUnchecked, disabled,
+      prefixCls, selectable, showIcon, icon, draggable, checkable, checkStrictly,doSearchUnchecked, disabled,
       loadData, filterTreeNode,
       openTransitionName, openAnimation,
       switcherIcon,
@@ -217,7 +221,7 @@ class Tree extends React.Component {
     return {
       rcTree: {
         // root: this,
-        doUnchecked,
+        doSearchUnchecked,
         prefixCls,
         selectable,
         showIcon,
@@ -254,10 +258,32 @@ class Tree extends React.Component {
     };
   }
 
-  componentDidUpdate(_, prevState) {
-    const {checkedKeys,halfCheckedKeys}=this.state;
+  _resetTreeInfo=()=>{
+    const {checkedKeys,halfCheckedKeys,treeNodes,keyEntities}=this.state;
     globalObj.checkedKeys=checkedKeys;
     globalObj.halfCheckedKeys=halfCheckedKeys;
+    if(!globalObj.isInSearch){
+      globalObj.treeNodes=treeNodes;
+      globalObj.beforeSearchKeyEntities=keyEntities;
+    }else{
+      let keys=globalObj.beforeSearchSyncCheckKeys;
+      let key=keys.shift();
+      while(key){
+        let delI=checkedKeys.indexOf(key);
+        if(delI==-1){
+          keys.splice(delI,1);
+        }
+        key=keys.shift();
+      }
+    }
+  }
+  componentDidMount(_, prevState) {
+    this._resetTreeInfo();
+    
+  }
+
+  componentDidUpdate(_, prevState) {
+    this._resetTreeInfo();
   }
 
   onNodeDragStart = (event, node) => {
@@ -468,27 +494,13 @@ class Tree extends React.Component {
   };
 
   onNodeCheck = (e, treeNode, checked) => {
-    const _dd=treeNode.props._data;
-    if(_dd._checkedNum==undefined){
-      _dd._checkedNum=0;
-    }
-    if(checked){
-      _dd._checkedNum++;
-    }else{
-      _dd._checkedNum=0;
-    }
-    if(_dd._checkedNum==2){
-      _dd._checkedNum=0;
-      checked=false;
-    }
-
     const {
       keyEntities,
       checkedKeys: oriCheckedKeys,
       halfCheckedKeys: oriHalfCheckedKeys,
       loadedKeys
     } = this.state;
-    const { checkStrictly, onCheck, loadData,doUnchecked } = this.props;
+    const { checkStrictly, onCheck, loadData,doSearchUnchecked } = this.props;
     const { props: { eventKey } } = treeNode;
 
     // Prepare trigger arguments
@@ -500,7 +512,7 @@ class Tree extends React.Component {
       nativeEvent: e.nativeEvent,
     };
 
-    if (checkStrictly&&!doUnchecked) {
+    if (checkStrictly&&!doSearchUnchecked) {
       const checkedKeys = checked ? arrAdd(oriCheckedKeys, eventKey) : arrDel(oriCheckedKeys, eventKey);
       const halfCheckedKeys = arrDel(oriHalfCheckedKeys, eventKey);
       checkedObj = { checked: checkedKeys, halfChecked: halfCheckedKeys };
@@ -515,7 +527,7 @@ class Tree extends React.Component {
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
-      }, loadData, loadedKeys,true);
+      }, loadData, loadedKeys,true,doSearchUnchecked);
 
       checkedObj = checkedKeys;
 

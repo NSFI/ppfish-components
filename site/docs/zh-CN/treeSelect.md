@@ -834,7 +834,7 @@
 
   render() {
     const tProps = {
-      doUnchecked:true,
+      doSearchUnchecked:true,
       showSearch: true,
       treeData: this.state.treeData,
       value: this.state.value,

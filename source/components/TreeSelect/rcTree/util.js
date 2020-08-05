@@ -160,15 +160,14 @@ function keyListToString(keyList) {
 }
 
 const internalProcessProps = props => props;
-export function convertDataToTree(treeData, processer,parentItem) {
+export function convertDataToTree(treeData, processer) {
   if (!treeData) return [];
 
   const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
   return list.map((item, index) => {
     const { children, ...props }=item;
-    item._pData=parentItem;
-    const childrenNodes = convertDataToTree(children, processer,item);
+    const childrenNodes = convertDataToTree(children, processer);
     //给节点的增加_data属性，对应节点的数据源，同时给这个数据源制定_pData属性，用于树形结构的构造，方便后面的遍历业务。
     return (
       <TreeNode key={props.key} _data={item} {...processProps(props)}>
@@ -266,12 +265,11 @@ export function parseCheckedKeys(keys) {
  * @param forNodeCheck  单击复选框时执行此方法，会做特殊处理，不再同时触发其他场景调用此方法重新生成checkedKeys，halfCheckedKeys，会直接放回上次生成的值
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
-export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck) {
+export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck,doSearchUnchecked) {
   const isInSearch=globalObj.isInSearch;
   if(globalObj.fromNodeChecks){
     return globalObj.fromNodeChecks;
   }
-  console.log(keyList,"****************conductCheck********************");
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};
@@ -288,7 +286,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     let allckd=true;
     if(node.props._data.children&&node.props._data.children.length==node.props._data.childCount){
       for(let i=0;i<node.props._data.children.length;i++){
-        if(!node.props._data.children[i]._checked){
+        if(globalObj.checkedKeys.indexOf(node.key)==-1){
           allckd=false;
           break;
         }
@@ -334,23 +332,26 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     // Update checked status
     if (isCheck) {
       checkedKeys[key] = everyChildChecked;
-      if(isInSearch && everyChildChecked){
-        //在搜索状态下，实际子节点个数大于搜索出的子节点个数，则不能标记为全选
-        if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
-          if(node.props.children&&node.props._data.childCount>node.props.children.length){
-            checkedKeys[key]=false;
-          }
-          if(isExpendAndAllChecked(node)){
+      if(isInSearch&&doSearchUnchecked){
+        if(everyChildChecked){
+          //在搜索状态下，实际子节点个数大于搜索出的子节点个数，则不能标记为全选
+          if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
+            if(node.props.children&&node.props._data.childCount>node.props.children.length){
+              checkedKeys[key]=false;
+            }
+            if(isExpendAndAllChecked(node)){
+              checkedKeys[key]=true;
+            }        
+          }else{
             checkedKeys[key]=true;
-          }        
+          }
         }else{
-          checkedKeys[key]=true;
+
         }
-        
       }
     } else {
       checkedKeys[key] = false;
-      if(isInSearch){
+      if(isInSearch&&doSearchUnchecked){
         if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
           //如果搜索前是选中状态，则去掉勾选后，状态为半选
           if(node.props.children&&node.props._data.childCount>node.props.children.length){
@@ -369,11 +370,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       someChildChecked=false;
     }
     halfCheckedKeys[key] = someChildChecked;
-    
-    if(forNodeCheck){
-      node.props._data._checked=checkedKeys[key];
-      node.props._data._halfChecked=halfCheckedKeys[key];
-    }
+
     if (parent) {
       if(parent.key!=key){
          conductUp(parent.key);
@@ -393,7 +390,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     if (isCheckDisabled(node)) return;
 
     checkedKeys[key] = isCheck;
-    if(isInSearch&&!node.props.isLeaf){
+    if(isInSearch&&doSearchUnchecked&&!node.props.isLeaf){
       let childs=children || [];
       if(isCheck){
         if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
@@ -420,11 +417,6 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       }
       
     }
-    console.log(checkedKeys[key],888);
-    if(forNodeCheck){
-      node.props._data._checked=checkedKeys[key];
-      node.props._data._halfChecked=halfCheckedKeys[key];
-    }
     
     (children || []).forEach((child) => {
       conductDown(child.key);
@@ -444,7 +436,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     
     if (isCheckDisabled(node)) return;
 
-    if(isInSearch&&isCheck&&!node.props.isLeaf){
+    if(isInSearch&&doSearchUnchecked&&isCheck&&!node.props.isLeaf){
       if(isCheck){
         if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
           //实际子节点个数大于搜索出来的子节点个数，需要判断为半选
@@ -460,11 +452,6 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       }
      
     }
-    if(forNodeCheck){
-      node.props._data._checked=checkedKeys[key];
-      node.props._data._halfChecked=halfCheckedKeys[key];
-    }
-
     // Conduct down
     (children || [])
       .filter(child => !isCheckDisabled(child.node))
@@ -673,38 +660,6 @@ export function getDataAndAria(props) {
 }
 
 
-//根据childCount更新选择列表ValueList，里面部分父级节点实际子节点个数小于实际节点个数，不应该直接传给用户，而应该传递子节点给用户
-export function resetSearchValueListByChildCount(valueList,globalObj){
-  console.log("resetSearchValueListByChildCount");
-  let newList=[];
-  let delValueList=(newList,dd)=>{
-    for(let i=0;i<newList.length;i++){
-      if((dd.idValue!==undefined&&newList[i].idValue==dd.idValue)||(dd.value!==undefined&&newList[i].value==dd.value)){
-        newList.splice(i,1);
-      }
-    }
-  }
-  for(let i=0;i<valueList.length;i++){
-    let nodeprop=valueList[i];
-    newList.push(nodeprop);
-    if(!nodeprop.isLeaf){
-      let dd=nodeprop._data;
-      if(dd.childCount>nodeprop.children.length){
-        delValueList(newList,dd);
-        nodeprop.children.map(n=>{
-          let nd=Object.assign({},n.props._data);
-          nd.label=nd.title;
-          if(!newList.some(d=>(d.idValue!==undefined&&d.idValue==nd.idValue)||(d.value!==undefined&&d.value==nd.value))){
-            newList.push(nd);
-          }
-        });
-      }
-    }
-  }
-
-  return newList;
-};
-
 //判断某个节点搜索前是否是选择状态
 export function isNodeCheckedBeforeSearch(node,keyEntities,globalObj){
   if(globalObj.beforeSearchCheckKeys[node.key]){
@@ -721,50 +676,3 @@ export function isNodeCheckedBeforeSearch(node,keyEntities,globalObj){
   }
   return false;
 }
-
-// //根据childCount更新选择列表ValueList，里面部分父级节点实际子节点个数小于实际节点个数，不应该直接传给用户，而应该传递子节点给用户
-// export function resetSearchValueListByChildCount(globalObj,valueList){
-//   console.log("resetSearchValueListByChildCount");
-//   let delValueList=(dd)=>{
-//     for(let i=0;i<valueList.length;i++){
-//       if(valueList[i].value==dd.value||valueList[i].value==dd.key){
-//         valueList.splice(i,1);
-//       }
-//     }
-//   }
-
-//   let queue =[];//[parentNode,node]
-//   globalObj.filteredTreeNodes.forEach(node => queue.push([null,node]));
-//   let _isChecked=(node)=>{
-//     return globalObj.checkedKeys.indexOf(node.props._data.key)!=-1||globalObj.checkedKeys.indexOf(node.props._data.value)!=-1;
-//   };
-//   while (queue.length) {
-//     let q = queue.shift();
-//     let parentNode=q[0];
-//     let node=q[1];
-//     let val=node.props._data.idValue;
-//     let dd=node.props._data;
-//     //一级页节点不用处理
-//     if(!node.props.isLeaf||parentNode){
-//       if(node.props.isLeaf){
-//         if(_isChecked(node)){
-//           let nd=Object.assign({},dd);
-//           nd.label=nd.title;
-//           if(!valueList.some(d=>d.value==nd.value)){
-//             valueList.push(nd);
-//           }
-//         }
-        
-        
-//       }else{
-//         if(_isChecked(node)){
-//           if(dd.childCount>node.props.children.length){
-//             delValueList(dd);
-//             node.props.children.forEach(_node => queue.push([node,_node]));
-//           }
-          
-//         }
-//       }
-//     }
-//   }
-// };
