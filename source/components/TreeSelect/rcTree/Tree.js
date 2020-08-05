@@ -179,7 +179,7 @@ class Tree extends React.Component {
 
         if (!props.checkStrictly||props.doSearchUnchecked) {
           const conductKeys = conductCheck(checkedKeys, true, keyEntities,
-          null, props.loadData, props.loadedKeys,false,props.doSearchUnchecked);
+          null, props.loadData, props.loadedKeys);
           checkedKeys = conductKeys.checkedKeys;
           halfCheckedKeys = conductKeys.halfCheckedKeys;
         }
@@ -527,7 +527,7 @@ class Tree extends React.Component {
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
-      }, loadData, loadedKeys,true,doSearchUnchecked);
+      }, loadData, loadedKeys,true);
 
       checkedObj = checkedKeys;
 

@@ -309,7 +309,7 @@ class Select extends React.Component {
           true,
           newState.keyEntities || prevState.keyEntities,
           null,
-          loadData,null,false,nextProps.doSearchUnchecked
+          loadData
         );
         globalObj.checkedKeys=checkedKeys;
         // Format value list again for internal usage
@@ -396,9 +396,10 @@ class Select extends React.Component {
       required,
       editable,
       defaultValue,
-      value
+      value,
+      doSearchUnchecked
     } = props;
-
+    globalObj.doSearchUnchecked=doSearchUnchecked;
     let disableCloseTag = false;
     if (required && editable) {
       let initValue = value || defaultValue;
@@ -625,7 +626,7 @@ class Select extends React.Component {
       disabled, inputValue,
       treeNodeLabelProp, onSelect,
       treeCheckable, treeCheckStrictly, autoClearSearchValue,
-      loadData,doSearchUnchecked
+      loadData
     } = this.props;
     const label = node.props[treeNodeLabelProp];
 
@@ -674,7 +675,7 @@ class Select extends React.Component {
           true,
           keyEntities,
           null,
-          loadData,null,false,doSearchUnchecked
+          loadData
         ).checkedKeys;
       } else {
         keyList = conductCheck(
@@ -682,7 +683,7 @@ class Select extends React.Component {
           false,
           keyEntities,
           { checkedKeys: keyList },
-          loadData,null,false,doSearchUnchecked
+          loadData
         ).checkedKeys;
       }
       newValueList = keyList.map(key => {
@@ -731,7 +732,7 @@ class Select extends React.Component {
 
   onTreeNodeCheck = (_, nodeEventInfo) => {
     const { searchValue, keyEntities, valueEntities, curValueList } = this.state;
-    const { treeCheckStrictly, loadData,doSearchUnchecked } = this.props;
+    const { treeCheckStrictly, loadData } = this.props;
 
     const { checkedNodes, checkedNodesPositions } = nodeEventInfo;
     const isAdd = nodeEventInfo.checked;
@@ -769,14 +770,14 @@ class Select extends React.Component {
           true,
           keyEntities,
           null,
-          loadData,null,false,doSearchUnchecked
+          loadData
         ).checkedKeys;
         keyList = conductCheck(
           [nodeEventInfo.node.props.eventKey],
           false,
           keyEntities,
           { checkedKeys: oriCheckedKeys },
-          loadData,null,false,doSearchUnchecked
+          loadData
         ).checkedKeys;
       }
 
@@ -1240,7 +1241,7 @@ class Select extends React.Component {
       curValueList,
       disableCloseTag
     } = this.state;
-    const { prefixCls, loadData, treeCheckStrictly, loading, required, editable,doSearchUnchecked } = this.props;
+    const { prefixCls, loadData, treeCheckStrictly, loading, required, editable } = this.props;
     const isMultiple = this.isMultiple();
     let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
 
@@ -1253,7 +1254,7 @@ class Select extends React.Component {
         }
       });
       
-      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData,null,false,doSearchUnchecked).checkedKeys;
+      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData).checkedKeys;
       rtValueList = checkedKeys.map(key => {
         return keyEntities[key] && keyEntities[key].value;
       });

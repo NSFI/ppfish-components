@@ -265,8 +265,9 @@ export function parseCheckedKeys(keys) {
  * @param forNodeCheck  单击复选框时执行此方法，会做特殊处理，不再同时触发其他场景调用此方法重新生成checkedKeys，halfCheckedKeys，会直接放回上次生成的值
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
-export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck,doSearchUnchecked) {
+export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck) {
   const isInSearch=globalObj.isInSearch;
+  const doSearchUnchecked=globalObj.doSearchUnchecked;
   if(globalObj.fromNodeChecks){
     return globalObj.fromNodeChecks;
   }
