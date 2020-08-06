@@ -40,6 +40,7 @@ class Tree extends React.Component {
     ]),
     checkStrictly: PropTypes.bool,
     doSearchUnchecked:PropTypes.bool,
+    globalData:PropTypes.object,
     draggable: PropTypes.bool,
     defaultExpandParent: PropTypes.bool,
     autoExpandParent: PropTypes.bool,
@@ -264,6 +265,15 @@ class Tree extends React.Component {
     };
   }
 
+  componentDidMount(_, prevState) {
+    this._resetTreeInfo();
+    
+  }
+
+  componentDidUpdate(_, prevState) {
+    this._resetTreeInfo();
+  }
+
   _resetTreeInfo=()=>{
     //树形加载或更新完成后，保存下最新的状态
     const {checkedKeys,halfCheckedKeys,treeNodes,keyEntities}=this.state;
@@ -289,14 +299,6 @@ class Tree extends React.Component {
       }
       this.props.globalData.beforeSearchSyncCheckKeys=newKeys;
     }
-  }
-  componentDidMount(_, prevState) {
-    this._resetTreeInfo();
-    
-  }
-
-  componentDidUpdate(_, prevState) {
-    this._resetTreeInfo();
   }
 
   onNodeDragStart = (event, node) => {

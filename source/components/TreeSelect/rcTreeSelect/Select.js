@@ -66,6 +66,8 @@ class Select extends React.Component {
     esc: PropTypes.bool,
     required: PropTypes.bool,
 
+    doSearchUnchecked: PropTypes.bool,
+
     defaultOpen: PropTypes.bool,
     defaultValue: valueProp,
 
@@ -1083,7 +1085,8 @@ class Select extends React.Component {
             checkKeys.push(key);
           }else{
               if (node.props.children) {
-                if(node.props.children.some(child=>globalObj.checkedKeys.indexOf(child.key)!=-1||globalObj.halfCheckedKeys.indexOf(child.key)!=-1)){
+                if(node.props.children.some(child=>globalObj.checkedKeys.indexOf(child.key)!=-1||
+                globalObj.halfCheckedKeys.indexOf(child.key)!=-1)){
                   //准备子节点，插入队列，用于下个轮回遍历
                   node.props.children.forEach(_node => queue.push([node,_node]));
                 }
@@ -1253,7 +1256,8 @@ class Select extends React.Component {
         }
       });
       
-      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData,null,false,doSearchUnchecked).checkedKeys;
+      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData,null
+        ,false,doSearchUnchecked).checkedKeys;
       rtValueList = checkedKeys.map(key => {
         return keyEntities[key] && keyEntities[key].value;
       });

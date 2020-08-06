@@ -266,7 +266,8 @@ export function parseCheckedKeys(keys) {
  * @param doSearchUnchecked  是否在搜索情况下，有联动效果
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
-export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys,forNodeCheck,doSearchUnchecked) {
+export function conductCheck(keyList, isCheck, keyEntities, status,
+   loadData, loadedKeys,forNodeCheck,doSearchUnchecked) {
   const isInSearch=globalObj.isInSearch;
   if(globalObj.fromNodeChecks){
     //手动选择某个节点时，记录下计算出的checkedkeys，这样再次执行conductCheck计算时，可以直接返回数据,减少对conductCheck的调用.
@@ -355,8 +356,6 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
           }else{
             checkedKeys[key]=true;
           }
-        }else{
-
         }
       }
     } else {

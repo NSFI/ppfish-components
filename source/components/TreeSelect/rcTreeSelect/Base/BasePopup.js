@@ -29,6 +29,8 @@ class BasePopup extends React.Component {
       PropTypes.bool,
       PropTypes.node,
     ]),
+    doSearchUnchecked: PropTypes.bool,
+    globalData:PropTypes.object,
     treeCheckStrictly: PropTypes.bool,
     treeDefaultExpandAll: PropTypes.bool,
     treeDefaultExpandedKeys: PropTypes.array,
