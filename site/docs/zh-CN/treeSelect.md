@@ -1075,6 +1075,7 @@
 | className | 容器类名 | String | - |
 | defaultValue | 指定默认选中的条目 | String \| Array< String > | - |
 | disabled | 是否禁用 | Boolean | false |
+| doSearchUnchecked | 启用搜索状态下的反选功能 | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Boolean | true |
 | dropdownStyle | 下拉菜单的样式 | Object | - |
