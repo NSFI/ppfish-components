@@ -164,6 +164,8 @@ class BasePopup extends React.Component {
   render() {
     const { keyList, expandedKeyList, loadedKeys } = this.state;
     const {
+      doSearchUnchecked,
+      globalData,
       prefixCls,
       treeNodes, filteredTreeNodes,
       showIcon, treeLine, treeCheckable, treeCheckStrictly, multiple,
@@ -214,6 +216,8 @@ class BasePopup extends React.Component {
       $tree = (
         <Tree
           autoExpandParent={autoExpandParent}
+          doSearchUnchecked={doSearchUnchecked}
+          globalData={globalData}
           prefixCls={`${prefixCls}-tree`}
           className={classNames(!showIcon && `${prefixCls}-tree-icon-hide`)}
           icon={icon}

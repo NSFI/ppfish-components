@@ -17,6 +17,7 @@ import {
   mapChildren, conductCheck, conductLoad,
   warnOnlyTreeNode,
 } from './util';
+import globalObj from "../globalObj.js";
 
 class Tree extends React.Component {
   static propTypes = {
@@ -38,6 +39,7 @@ class Tree extends React.Component {
       PropTypes.node,
     ]),
     checkStrictly: PropTypes.bool,
+    doSearchUnchecked:PropTypes.bool,
     draggable: PropTypes.bool,
     defaultExpandParent: PropTypes.bool,
     autoExpandParent: PropTypes.bool,
@@ -87,6 +89,7 @@ class Tree extends React.Component {
     checkable: false,
     disabled: false,
     checkStrictly: false,
+    doSearchUnchecked:false,
     draggable: false,
     defaultExpandParent: true,
     autoExpandParent: false,
@@ -129,8 +132,17 @@ class Tree extends React.Component {
       newState.keyEntities = entitiesMap.keyEntities;
     }
 
-    const keyEntities = newState.keyEntities || prevState.keyEntities;
-
+    let keyEntities = newState.keyEntities || prevState.keyEntities;
+    if(globalObj.isInSearch&&props.doSearchUnchecked){
+      //搜索状态下，合并keyEntities，这样就能根据非搜索出来的节点，判断父节点是半选还是全选。
+      if(globalObj.beforeSearchKeyEntities){
+        for(let key in globalObj.beforeSearchKeyEntities){
+          if(!keyEntities[key]){
+            keyEntities[key]=globalObj.beforeSearchKeyEntities[key];
+          }
+        }
+      }
+    }
     // ================ expandedKeys =================
     if (needSync('expandedKeys') || (prevProps && needSync('autoExpandParent'))) {
       newState.expandedKeys = (props.autoExpandParent || (!prevProps && props.defaultExpandParent)) ?
@@ -170,9 +182,10 @@ class Tree extends React.Component {
       if (checkedKeyEntity) {
         let { checkedKeys = [], halfCheckedKeys = [] } = checkedKeyEntity;
 
-        if (!props.checkStrictly) {
+        if (!props.checkStrictly||props.doSearchUnchecked) {
+          //props.doSearchUnchecked,搜索状态下也联动
           const conductKeys = conductCheck(checkedKeys, true, keyEntities,
-          null, props.loadData, props.loadedKeys);
+          null, props.loadData, props.loadedKeys,false,props.doSearchUnchecked);
           checkedKeys = conductKeys.checkedKeys;
           halfCheckedKeys = conductKeys.halfCheckedKeys;
         }
@@ -205,7 +218,7 @@ class Tree extends React.Component {
 
   getChildContext() {
     const {
-      prefixCls, selectable, showIcon, icon, draggable, checkable, checkStrictly, disabled,
+      prefixCls, selectable, showIcon, icon, draggable, checkable, checkStrictly,doSearchUnchecked, disabled,
       loadData, filterTreeNode,
       openTransitionName, openAnimation,
       switcherIcon,
@@ -214,7 +227,7 @@ class Tree extends React.Component {
     return {
       rcTree: {
         // root: this,
-
+        doSearchUnchecked,
         prefixCls,
         selectable,
         showIcon,
@@ -249,6 +262,41 @@ class Tree extends React.Component {
         onNodeDrop: this.onNodeDrop,
       },
     };
+  }
+
+  _resetTreeInfo=()=>{
+    //树形加载或更新完成后，保存下最新的状态
+    const {checkedKeys,halfCheckedKeys,treeNodes,keyEntities}=this.state;
+    globalObj.checkedKeys=checkedKeys;
+    globalObj.halfCheckedKeys=halfCheckedKeys;
+    if(!globalObj.isInSearch){
+      //保存搜索前的状态，
+      globalObj.treeNodes=treeNodes;
+      globalObj.beforeSearchKeyEntities=keyEntities;
+    }else{
+      //搜索状态下，更新了选中节点后，同步到beforeSearchSyncCheckKeys
+      let keys=this.props.globalData.beforeSearchSyncCheckKeys;
+      let newKeys=[];
+      let key=keys.shift();
+      while(key){
+        let delI=checkedKeys.indexOf(key);
+        if(delI==-1){
+          keys.splice(delI,1);
+        }else{
+          newKeys.push(key);
+        }
+        key=keys.shift();
+      }
+      this.props.globalData.beforeSearchSyncCheckKeys=newKeys;
+    }
+  }
+  componentDidMount(_, prevState) {
+    this._resetTreeInfo();
+    
+  }
+
+  componentDidUpdate(_, prevState) {
+    this._resetTreeInfo();
   }
 
   onNodeDragStart = (event, node) => {
@@ -465,9 +513,15 @@ class Tree extends React.Component {
       halfCheckedKeys: oriHalfCheckedKeys,
       loadedKeys
     } = this.state;
-    const { checkStrictly, onCheck, loadData } = this.props;
+    const { checkStrictly, onCheck, loadData,doSearchUnchecked } = this.props;
     const { props: { eventKey } } = treeNode;
-
+    if(checked==true){
+      if(globalObj.isInSearch&&doSearchUnchecked&&globalObj.halfCheckedKeys.indexOf(eventKey)!=-1){
+        if(!treeNode.props.children.some(ccc=>globalObj.checkedKeys.indexOf(ccc.key)==-1)){
+          checked=false;//半悬状态下，如果当前子节点都勾选，则强制执行取消勾选的逻辑
+        }
+      }
+    }
     // Prepare trigger arguments
     let checkedObj;
     const eventObj = {
@@ -477,7 +531,7 @@ class Tree extends React.Component {
       nativeEvent: e.nativeEvent,
     };
 
-    if (checkStrictly) {
+    if (checkStrictly&&!doSearchUnchecked) {
       const checkedKeys = checked ? arrAdd(oriCheckedKeys, eventKey) : arrDel(oriCheckedKeys, eventKey);
       const halfCheckedKeys = arrDel(oriHalfCheckedKeys, eventKey);
       checkedObj = { checked: checkedKeys, halfChecked: halfCheckedKeys };
@@ -487,11 +541,12 @@ class Tree extends React.Component {
         .filter(entity => entity)
         .map(entity => entity.node);
 
-      this.setUncontrolledState({ checkedKeys });
+        this.setUncontrolledState({ checkedKeys });
+      
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
-      }, loadData, loadedKeys);
+      }, loadData, loadedKeys,true,doSearchUnchecked);
 
       checkedObj = checkedKeys;
 
@@ -556,9 +611,10 @@ class Tree extends React.Component {
           }
 
           // 半选状态下的节点异步加载完成后，根据其子节点的状态更新该节点及其祖先节点的选择状态
+          let keyList=[eventKey];
           if (treeNode.props.halfChecked) {
             const { checkedKeys, halfCheckedKeys } = conductLoad(
-              [eventKey],
+              keyList,
               treeNode.props.checked,
               keyEntities,
               { checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys }
@@ -721,18 +777,19 @@ class Tree extends React.Component {
   renderTreeNode = (child, index, level = 0) => {
     const {
       keyEntities,
-      expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],
+      expandedKeys = [], selectedKeys = [], halfCheckedKeys = [],checkedKeys,
       loadedKeys = [], loadingKeys = [],
       dragOverNodeKey, dropPosition,
     } = this.state;
     const pos = getPosition(level, index);
     const key = child.key || pos;
+    let _halfChecked=halfCheckedKeys.indexOf(key) !== -1;
+    let _checked=this.isKeyChecked(key);
 
     if (!keyEntities[key]) {
       warnOnlyTreeNode();
       return null;
     }
-
     return React.cloneElement(child, {
       key,
       eventKey: key,
@@ -740,8 +797,8 @@ class Tree extends React.Component {
       selected: selectedKeys.indexOf(key) !== -1,
       loaded: loadedKeys.indexOf(key) !== -1,
       loading: loadingKeys.indexOf(key) !== -1,
-      checked: this.isKeyChecked(key),
-      halfChecked: halfCheckedKeys.indexOf(key) !== -1,
+      checked: _checked,
+      halfChecked: _halfChecked,
       pos,
 
       // [Legacy] Drag props
@@ -763,7 +820,6 @@ class Tree extends React.Component {
       domProps.tabIndex = tabIndex;
       domProps.onKeyDown = this.onKeyDown;
     }
-
     return (
       <ul
         {...domProps}

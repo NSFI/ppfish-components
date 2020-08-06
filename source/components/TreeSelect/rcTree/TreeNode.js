@@ -344,8 +344,8 @@ class TreeNode extends React.Component {
       <span
         className={classNames(
           `${prefixCls}-checkbox`,
-          checked && `${prefixCls}-checkbox-checked`,
-          !checked && halfChecked && `${prefixCls}-checkbox-indeterminate`,
+          !halfChecked&&checked && `${prefixCls}-checkbox-checked`,
+          halfChecked && `${prefixCls}-checkbox-indeterminate`,
           (disabled || disableCheckbox) && `${prefixCls}-checkbox-disabled`,
         )}
         onClick={this.onCheck}
