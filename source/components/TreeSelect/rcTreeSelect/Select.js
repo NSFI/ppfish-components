@@ -434,6 +434,9 @@ class Select extends React.Component {
     // ARIA need `aria-controls` props mapping
     // Since this need user input. Let's generate ourselves
     this.ariaId = generateAriaId(`${prefixAria}-list`);
+    this.globalData={
+      beforeSearchSyncCheckKeys:[]
+    };
   }
 
   getChildContext() {
@@ -467,13 +470,13 @@ class Select extends React.Component {
     if (prevState.valueList !== this.state.valueList) {
       this.forcePopupAlign();
     }
-    const {curValueList,connectValueList,checkedKeys,halfCheckedKeys}=this.state;
+    const {curValueList}=this.state;
     let obj=globalObj;
     obj.treeNodes=this.state.treeNodes;
     //记录下搜索前选中的节点，以key为ID，也是节点的value值
     if(!obj.isInSearch && curValueList){
       obj.beforeSearchCheckKeys=[];
-      obj.beforeSearchSyncCheckKeys=this.remenberBeforeSearchChecks(obj);
+      this.globalData.beforeSearchSyncCheckKeys=this.remenberBeforeSearchChecks(obj);
       curValueList.map((key)=>{
         obj.beforeSearchCheckKeys[key]=true;
       });
@@ -807,8 +810,8 @@ class Select extends React.Component {
     if (onSearch) {
       onSearch(value);
     }
-    if(!value){
-      let obj=globalObj;
+    if(value){
+      let obj=this.globalData;
       if(obj.beforeSearchSyncCheckKeys){
         for(let i=0;i<obj.beforeSearchSyncCheckKeys.length;i++){
           let k=obj.beforeSearchSyncCheckKeys[i];
@@ -1072,7 +1075,6 @@ class Select extends React.Component {
       let node=q[1];
       let key=node.key;
       let checked=globalObj.checkedKeys.indexOf(node.key)!=-1;
-      //let halfChecked=halfCheckKeys.indexOf(node.key)!=-1;
 
       if(node.props.isLeaf){
         if(checked){
@@ -1102,11 +1104,11 @@ class Select extends React.Component {
     let checkedKefus=[];
     let uncheckedKefus=[];
     let uncheckedGroups=[];
-    if(!obj.treeNodes){
+    if(!obj.filteredTreeNodes){
       return {checkedGroups,checkedKefus,uncheckedKefus,uncheckedGroups};
     }
     let queue =[];//[parentNode,node]
-    obj.treeNodes.forEach(node => queue.push([null,node]));
+    obj.filteredTreeNodes.forEach(node => queue.push([null,node]));
 
     let _allSiblingChecked=(childs)=>{
       return !childs.some((c)=>obj.checkedKeys.indexOf(c.key)==-1||obj.halfCheckedKeys.indexOf(c.key)==-1);
@@ -1209,7 +1211,7 @@ class Select extends React.Component {
     if(globalObj.isInSearch){
       //搜索状态返回的正选反选数据
       extra.valueObject=this.setInSearchCheckedData(globalObj,keyEntities);
-      extra.isInSearch=true;console.log(extra.valueObject);
+      extra.isInSearch=true;
     }
     extra.globalObj=globalObj;
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
@@ -1294,6 +1296,7 @@ class Select extends React.Component {
         onTreeExpanded={this.delayForcePopupAlign}
         treeNodes={treeNodes}
         filteredTreeNodes={filteredTreeNodes}
+        globalData={this.globalData}
         onCancel={this.handleCancel}
         onConfirm={this.handleConfirm}
       />

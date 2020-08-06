@@ -270,6 +270,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   if(globalObj.fromNodeChecks){
     return globalObj.fromNodeChecks;
   }
+  //console.log(keyList,"***conductCheck***");
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};
@@ -282,11 +283,12 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     halfCheckedKeys[key] = true;
   });
  
-  function isExpendAndAllChecked(node){
+  function isExpendAndAllChecked(node,crtKey){
     let allckd=true;
     if(node.props._data.children&&node.props._data.children.length==node.props._data.childCount){
       for(let i=0;i<node.props._data.children.length;i++){
-        if(globalObj.checkedKeys.indexOf(node.key)==-1){
+        let _k=node.props._data.children[i].key;
+        if(globalObj.checkedKeys.indexOf(_k)==-1&&_k!=crtKey){
           allckd=false;
           break;
         }
@@ -297,7 +299,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     return  allckd;
   }
   // Conduct up
-  function conductUp(key) {
+  function conductUp(key,crtKey) {
     if (checkedKeys[key] === isCheck) return;
 
     const entity = keyEntities[key];
@@ -317,7 +319,11 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
         const childChecked = checkedKeys[childKey];
         const childHalfChecked = halfCheckedKeys[childKey];
 
-        if (childChecked || childHalfChecked) someChildChecked = true;
+        if (childChecked || childHalfChecked){ 
+          someChildChecked = true;
+        }else if(doSearchUnchecked&&isInSearch&&node.props._data.children.length>children.length){
+          someChildChecked=node.props._data.children.some(ccc=>checkedKeys[ccc.value]||halfCheckedKeys[ccc.value]);
+        }
         if (
           // 取消勾选
           !childChecked
@@ -339,7 +345,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
             if(node.props.children&&node.props._data.childCount>node.props.children.length){
               checkedKeys[key]=false;
             }
-            if(isExpendAndAllChecked(node)){
+            if(isExpendAndAllChecked(node,crtKey)){
               checkedKeys[key]=true;
             }        
           }else{
@@ -359,9 +365,9 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
             node.props._data._checkedNum=0;
           }
         }else{
-          if(isExpendAndAllChecked(node)){
-            checkedKeys[key]=true;
-          }  
+          // if(isExpendAndAllChecked(node)){
+          //   checkedKeys[key]=true;
+          // }  
         }
       }
      
@@ -373,7 +379,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
 
     if (parent) {
       if(parent.key!=key){
-         conductUp(parent.key);
+         conductUp(parent.key,key);
       }
     }
   }
@@ -462,7 +468,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     // Conduct up
     
     if (parent) {
-        conductUp(parent.key);
+        conductUp(parent.key,key);
     }
   }
 

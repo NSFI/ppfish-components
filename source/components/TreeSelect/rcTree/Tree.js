@@ -132,10 +132,15 @@ class Tree extends React.Component {
       newState.keyEntities = entitiesMap.keyEntities;
     }
 
-    const keyEntities = newState.keyEntities || prevState.keyEntities;
+    let keyEntities = newState.keyEntities || prevState.keyEntities;
     if(globalObj.isInSearch){
       if(globalObj.beforeSearchKeyEntities){
-        Object.assign(keyEntities,globalObj.beforeSearchKeyEntities);
+        //Object.assign(keyEntities,globalObj.beforeSearchKeyEntities);
+        for(let key in globalObj.beforeSearchKeyEntities){
+          if(!keyEntities[key]){
+            keyEntities[key]=globalObj.beforeSearchKeyEntities[key];
+          }
+        }
       }
     }
     // ================ expandedKeys =================
@@ -266,15 +271,20 @@ class Tree extends React.Component {
       globalObj.treeNodes=treeNodes;
       globalObj.beforeSearchKeyEntities=keyEntities;
     }else{
-      let keys=globalObj.beforeSearchSyncCheckKeys;
+      //搜索状态下，更新了选中节点后，同步到beforeSearchSyncCheckKeys
+      let keys=this.props.globalData.beforeSearchSyncCheckKeys;
+      let newKeys=[];
       let key=keys.shift();
       while(key){
         let delI=checkedKeys.indexOf(key);
         if(delI==-1){
           keys.splice(delI,1);
+        }else{
+          newKeys.push(key);
         }
         key=keys.shift();
       }
+      this.props.globalData.beforeSearchSyncCheckKeys=newKeys;
     }
   }
   componentDidMount(_, prevState) {
@@ -502,7 +512,13 @@ class Tree extends React.Component {
     } = this.state;
     const { checkStrictly, onCheck, loadData,doSearchUnchecked } = this.props;
     const { props: { eventKey } } = treeNode;
-
+    if(checked==true){
+      if(globalObj.isInSearch&&globalObj.halfCheckedKeys.indexOf(eventKey)!=-1){
+        if(!treeNode.props.children.some(ccc=>globalObj.checkedKeys.indexOf(ccc.key)==-1)){
+          checked=false;//半悬状态下，如果当前子节点都勾选，则强制执行取消勾选的逻辑
+        }
+      }
+    }
     // Prepare trigger arguments
     let checkedObj;
     const eventObj = {
@@ -593,13 +609,6 @@ class Tree extends React.Component {
 
           // 半选状态下的节点异步加载完成后，根据其子节点的状态更新该节点及其祖先节点的选择状态
           let keyList=[eventKey];
-          // if(globalObj.beforeSearchSyncCheckKeys&&!globalObj.isInSearch){
-          //   for(let k in globalObj.beforeSearchSyncCheckKeys){
-          //     if(globalObj.beforeSearchSyncCheckKeys[k]){
-          //       keyList.push(k);
-          //     }
-          //   }
-          // }
           if (treeNode.props.halfChecked) {
             const { checkedKeys, halfCheckedKeys } = conductLoad(
               keyList,
