@@ -754,9 +754,9 @@
   state = {
     value: [],
     treeData: [
-      { title: 'Node1', key: 'k1', value: 'n1' },
-      { title: 'Node2', key: 'k2', value: 'n2' },
-      { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
+      { title: 'Node1', key: 'k1', value: 'k1',childCount:3 },
+      { title: 'Node2', key: 'k2', value: 'k2',childCount:6  },
+      { title: 'Node3', key: 'k3', value: 'k3', isLeaf: true }
     ]
   }
 
@@ -772,7 +772,8 @@
     const arr = [];
     const key = treeNode.props.eventKey;
     for (let i = 0; i < 3; i++) {
-      arr.push({ title: `CNode${i+1}`, key: `${key}-${i}`, value: `${key}-${i}` });
+      let val=`${key}-${i}`;
+      arr.push({ title: `CNode${i+1}`, key: val, value: val });
     }
     return arr;
   }
@@ -825,6 +826,7 @@
 
   render() {
     const tProps = {
+      doSearchUnchecked:true,
       showSearch: true,
       treeData: this.state.treeData,
       value: this.state.value,

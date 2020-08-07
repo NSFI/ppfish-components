@@ -134,16 +134,7 @@ class Tree extends React.Component {
     }
 
     let keyEntities = newState.keyEntities || prevState.keyEntities;
-    if(globalObj.isInSearch&&props.doSearchUnchecked){
-      //搜索状态下，合并keyEntities，这样就能根据非搜索出来的节点，判断父节点是半选还是全选。
-      if(globalObj.beforeSearchKeyEntities){
-        for(let key in globalObj.beforeSearchKeyEntities){
-          if(!keyEntities[key]){
-            keyEntities[key]=globalObj.beforeSearchKeyEntities[key];
-          }
-        }
-      }
-    }
+    
     // ================ expandedKeys =================
     if (needSync('expandedKeys') || (prevProps && needSync('autoExpandParent'))) {
       newState.expandedKeys = (props.autoExpandParent || (!prevProps && props.defaultExpandParent)) ?
@@ -185,6 +176,16 @@ class Tree extends React.Component {
 
         if (!props.checkStrictly||props.doSearchUnchecked) {
           //props.doSearchUnchecked,搜索状态下也联动
+          if(globalObj.isInSearch&&props.doSearchUnchecked){
+            //搜索状态下，合并keyEntities，这样就能根据非搜索出来的节点，判断父节点是半选还是全选。
+            if(globalObj.beforeSearchKeyEntities){
+              for(let key in globalObj.beforeSearchKeyEntities){
+                if(!keyEntities[key]){
+                  keyEntities[key]=globalObj.beforeSearchKeyEntities[key];
+                }
+              }
+            }
+          }
           const conductKeys = conductCheck(checkedKeys, true, keyEntities,
           null, props.loadData, props.loadedKeys,false,props.doSearchUnchecked);
           checkedKeys = conductKeys.checkedKeys;
@@ -285,13 +286,14 @@ class Tree extends React.Component {
       globalObj.beforeSearchKeyEntities=keyEntities;
     }else{
       //搜索状态下，更新了选中节点后，同步到beforeSearchSyncCheckKeys
+      const entitiesMap = convertTreeToEntities(globalObj.filteredTreeNodes);
       let keys=this.props.globalData.beforeSearchSyncCheckKeys;
       let newKeys=[];
       let key=keys.shift();
       while(key){
         let delI=checkedKeys.indexOf(key);
-        if(delI==-1){
-          keys.splice(delI,1);
+        if(delI==-1&&entitiesMap.keyEntities[key]){
+            keys.splice(delI,1);
         }else{
           newKeys.push(key);
         }

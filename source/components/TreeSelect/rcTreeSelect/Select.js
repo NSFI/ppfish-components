@@ -437,7 +437,8 @@ class Select extends React.Component {
     // Since this need user input. Let's generate ourselves
     this.ariaId = generateAriaId(`${prefixAria}-list`);
     this.globalData={
-      beforeSearchSyncCheckKeys:[]
+      beforeSearchSyncCheckKeys:[],
+      beforeSearchSyncHalfCheckKeys:[]
     };
   }
 
@@ -478,7 +479,9 @@ class Select extends React.Component {
     //记录下搜索前选中的节点，以key为ID，也是节点的value值
     if(!obj.isInSearch && curValueList){
       obj.beforeSearchCheckKeys=[];
-      this.globalData.beforeSearchSyncCheckKeys=this.remenberBeforeSearchChecks(obj);
+      const {checkKeys,halfCheckKeys}=this.remenberBeforeSearchChecks(obj);
+      this.globalData.beforeSearchSyncCheckKeys=checkKeys;
+      this.globalData.beforeSearchSyncHalfCheckKeys=halfCheckKeys;
       curValueList.map((key)=>{
         obj.beforeSearchCheckKeys[key]=true;
       });
@@ -809,19 +812,6 @@ class Select extends React.Component {
     if (onSearch) {
       onSearch(value);
     }
-    if(value){
-      let obj=this.globalData;
-      if(obj.beforeSearchSyncCheckKeys){
-        //搜索状态下，curValueList可能为空，这时无法确定他们的父节点半选还是全选，把搜索前同步记录的KEY插入curValueList，这样就可以在进入搜索状态后，正确展示父节点的全选半选
-        for(let i=0;i<obj.beforeSearchSyncCheckKeys.length;i++){
-          let k=obj.beforeSearchSyncCheckKeys[i];
-          if(curValueList.indexOf(k)==-1){
-            curValueList.push(k);
-          }
-        }
-      }
-    }
-
     let isSet = false;
 
     if (!this.isSearchValueControlled()) {
@@ -1064,26 +1054,35 @@ class Select extends React.Component {
   //设置搜索模式下，输出给用户的所有选择的节点KEY
   remenberBeforeSearchChecks=(obj)=>{
     if(!obj.treeNodes||!globalObj.checkedKeys||!globalObj.halfCheckedKeys){
-      return [];
+      return {checkKeys:[],halfCheckKeys:[]};
     }
     let queue =[];//[parentNode,node]
     obj.treeNodes.forEach(node => queue.push([null,node]));
     let checkKeys=[];
+    let halfCheckKeys=[];
     while (queue.length) {
       let q = queue.shift();
       let parentNode=q[0];
       let node=q[1];
       let key=node.key;
       let checked=globalObj.checkedKeys.indexOf(node.key)!=-1;
-
+      let halfchecked=globalObj.halfCheckedKeys.indexOf(node.key)!=-1;
+      
       if(node.props.isLeaf){
         if(checked){
           checkKeys.push(key);
+        }else{
+          if(halfchecked){
+            halfCheckKeys.push(key);
+          }
         }
       }else{
           if(checked){
             checkKeys.push(key);
           }else{
+              if(halfchecked){
+                halfCheckKeys.push(key);
+              }
               if (node.props.children) {
                 if(node.props.children.some(child=>globalObj.checkedKeys.indexOf(child.key)!=-1||
                 globalObj.halfCheckedKeys.indexOf(child.key)!=-1)){
@@ -1095,7 +1094,7 @@ class Select extends React.Component {
           }
       }
     }
-    return checkKeys;
+    return {checkKeys,halfCheckKeys};
 
   };
 
@@ -1218,7 +1217,6 @@ class Select extends React.Component {
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
     onConfirm && onConfirm(curValueList, connectValueList, extra);
     onChange && onChange(curValueList, connectValueList, extra);
-
     this.setState({
       open: false,
       disableCloseTag: !!(required && editable && curValueList.length==1)
@@ -1255,7 +1253,18 @@ class Select extends React.Component {
           keyList.push(valueEntities[value].key);
         }
       });
-      
+
+      let obj=this.globalData;
+      if(obj.beforeSearchSyncCheckKeys){
+        //搜索状态下，curValueList可能为空，这时无法确定他们的父节点半选还是全选，把搜索前同步记录的KEY插入curValueList，这样就可以在进入搜索状态后，正确展示父节点的全选半选
+        for(let i=0;i<obj.beforeSearchSyncCheckKeys.length;i++){
+          let k=obj.beforeSearchSyncCheckKeys[i];
+          if(keyList.indexOf(k)==-1){
+            keyList.push(k);
+          }
+        }
+      }
+
       let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData,null
         ,false,doSearchUnchecked).checkedKeys;
       rtValueList = checkedKeys.map(key => {
