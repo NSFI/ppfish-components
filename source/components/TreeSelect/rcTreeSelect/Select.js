@@ -324,13 +324,16 @@ class Select extends React.Component {
 
       // Fill the missValueList, we still need display in the selector
       newState.missValueList = missValueList;
-
       // Calculate the value list for `Selector` usage
-      newState.selectorValueList = formatSelectorValue(
-        newState.valueList,
-        nextProps,
-        newState.valueEntities || prevState.valueEntities,
-      );
+      if(prevState.globalData.__handleConfirm){
+        newState.selectorValueList = formatSelectorValue(
+          newState.valueList,
+          nextProps,
+          newState.valueEntities || prevState.valueEntities,
+        );
+        prevState.globalData.__handleConfirm=false;
+      }
+      
     }
 
     // [Legacy] To align with `Select` component,
@@ -408,7 +411,10 @@ class Select extends React.Component {
         disableCloseTag = true;
       }
     }
-
+    this.globalData={
+      beforeSearchSyncCheckKeys:[],
+      beforeSearchSyncHalfCheckKeys:[]
+    };
     this.state = {
       open: !!open || !!defaultOpen,
       valueList: [],
@@ -427,7 +433,8 @@ class Select extends React.Component {
       connectValueList: [],
       extra: {},
 
-      disableCloseTag
+      disableCloseTag,
+      globalData:this.globalData
     };
 
     this.selectorRef = createRef();
@@ -436,10 +443,7 @@ class Select extends React.Component {
     // ARIA need `aria-controls` props mapping
     // Since this need user input. Let's generate ourselves
     this.ariaId = generateAriaId(`${prefixAria}-list`);
-    this.globalData={
-      beforeSearchSyncCheckKeys:[],
-      beforeSearchSyncHalfCheckKeys:[]
-    };
+    
   }
 
   getChildContext() {
@@ -1217,6 +1221,7 @@ class Select extends React.Component {
     // curValueList 为已选择的树节点值的列表；connectValueList 为包含已选择的树节点对象所有属性信息的列表
     onConfirm && onConfirm(curValueList, connectValueList, extra);
     onChange && onChange(curValueList, connectValueList, extra);
+    this.globalData.__handleConfirm=true;
     this.setState({
       open: false,
       disableCloseTag: !!(required && editable && curValueList.length==1)
