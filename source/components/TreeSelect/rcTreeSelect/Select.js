@@ -325,7 +325,7 @@ class Select extends React.Component {
       // Fill the missValueList, we still need display in the selector
       newState.missValueList = missValueList;
       // Calculate the value list for `Selector` usage
-      if(prevState.globalData.__handleConfirm){
+      if(prevState.globalData.__handleConfirm||!nextProps.doSearchUnchecked){
         newState.selectorValueList = formatSelectorValue(
           newState.valueList,
           nextProps,
@@ -333,7 +333,6 @@ class Select extends React.Component {
         );
         prevState.globalData.__handleConfirm=false;
       }
-      
     }
 
     // [Legacy] To align with `Select` component,
