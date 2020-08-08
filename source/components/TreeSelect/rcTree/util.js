@@ -366,6 +366,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
           //如果搜索前是选中状态，则去掉勾选后，状态为半选
           if(!someChildChecked&&node.props.children&&node.props._data.childCount>node.props.children.length){
             someChildChecked=true;
+            globalObj.notExpendHalfCheckeds[key]=true;
           }
         }
       }
@@ -375,7 +376,9 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
       someChildChecked=false;
     }
     halfCheckedKeys[key] = someChildChecked;
-
+    if(!someChildChecked&&globalObj.notExpendHalfCheckeds[key]!=undefined){
+      globalObj.notExpendHalfCheckeds[key]=false;
+    }
     if (parent) {
       if(parent.key!=key){
          conductUp(parent.key,key);
@@ -422,6 +425,9 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
         }
       }
       
+      if(!halfCheckedKeys[key]&&globalObj.notExpendHalfCheckeds[key]!=undefined){
+        globalObj.notExpendHalfCheckeds[key]=false;
+      }
     }
     
     (children || []).forEach((child) => {
