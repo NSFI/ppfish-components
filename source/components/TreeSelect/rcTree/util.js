@@ -365,6 +365,8 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
           //如果搜索前是选中状态，则去掉勾选后，状态为半选
           if(node.props.children&&node.props._data.childCount>node.props.children.length){
             someChildChecked=true;
+          }else{
+            someChildChecked=false;
           }
         }
       }
@@ -416,6 +418,8 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
           if(node.props._data.childCount>childs.length){
             halfCheckedKeys[key] = true;
           }
+        }else{
+          halfCheckedKeys[key] = false;
         }
       }
       
@@ -450,7 +454,11 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
         }
       }else{
         if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
-          halfCheckedKeys[key] = true;
+          if(children&&node.props._data.childCount>children.length){
+            halfCheckedKeys[key] = true;
+          }else{
+            halfCheckedKeys[key] = false;
+          }
         }else{
           halfCheckedKeys[key] = false;
         }
