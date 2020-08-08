@@ -16,6 +16,8 @@ import {
   arrAdd, arrDel, posToArr,
   mapChildren, conductCheck, conductLoad,
   warnOnlyTreeNode,
+  isNodeCheckedBeforeSearch,
+  isChildsSomeChecked
 } from './util';
 import globalObj from "../globalObj.js";
 
@@ -521,7 +523,8 @@ class Tree extends React.Component {
     const { props: { eventKey } } = treeNode;
     if(checked==true){
       if(globalObj.isInSearch&&doSearchUnchecked&&globalObj.halfCheckedKeys.indexOf(eventKey)!=-1){
-        if(!treeNode.props.children.some(ccc=>globalObj.checkedKeys.indexOf(ccc.key)==-1)){
+        //if(!treeNode.props.children.some(ccc=>globalObj.checkedKeys.indexOf(ccc.key)==-1)){
+        if(isChildsSomeChecked(treeNode.props.children,oriCheckedKeys)){
           checked=false;//半悬状态下，如果当前子节点都勾选，则强制执行取消勾选的逻辑
         }
       }

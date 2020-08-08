@@ -273,7 +273,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
     //手动选择某个节点时，记录下计算出的checkedkeys，这样再次执行conductCheck计算时，可以直接返回数据,减少对conductCheck的调用.
     return globalObj.fromNodeChecks;
   }
-  //console.log(keyList,"***conductCheck***");
+  console.log(keyList,"***conductCheck***");
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};
@@ -439,7 +439,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
     
     if (isCheckDisabled(node)) return;
 
-    if(isInSearch&&doSearchUnchecked&&isCheck&&!node.props.isLeaf){
+    if(isInSearch&&doSearchUnchecked&&!node.props.isLeaf){
       if(isCheck){
         if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
           //实际子节点个数大于搜索出来的子节点个数，需要判断为半选
@@ -451,6 +451,8 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
       }else{
         if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
           halfCheckedKeys[key] = true;
+        }else{
+          halfCheckedKeys[key] = false;
         }
       }
      
@@ -665,15 +667,38 @@ export function getDataAndAria(props) {
 
 //判断某个节点搜索前是否是选择状态
 export function isNodeCheckedBeforeSearch(node,keyEntities,globalObj){
-  if(globalObj.beforeSearchCheckKeys[node.key]){
+  let key=node;
+  if(typeof node !="string"){
+    key=node.key;
+  }
+  if(globalObj.beforeSearchCheckKeys[key]){
     return true;
   }else{
-    let _parent=keyEntities[node.key].parent;
+    let _parent=keyEntities[key].parent;
     while(_parent){
       if(globalObj.beforeSearchCheckKeys[_parent.key]){
         return true;
       }else{
         _parent=keyEntities[_parent.key||"--"].parent;
+      }
+    }
+  }
+  return false;
+}
+
+
+
+//判断某个节点搜索前是否是选择状态
+export function isChildsSomeChecked(childs,checkedKeys){
+  let queue =[];//[parentNode,node]
+  childs.forEach(node => queue.push(node));
+  while (queue.length) {
+    let child=queue.shift(1);
+    if(checkedKeys.indexOf(child.key)!=-1){
+      return true;
+    }else{
+      if(child.props.children){
+        child.props.children.forEach(node => queue.push(node));
       }
     }
   }

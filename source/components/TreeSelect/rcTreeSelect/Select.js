@@ -883,13 +883,13 @@ class Select extends React.Component {
   // Currently `TreeSelect` align the hide popup logic as `Select` which blur to hide.
   // `documentClickClose` is not accurate anymore. Let's just keep the key word.
   setOpenState = (open, byTrigger = false) => {
-    const { onDropdownVisibleChange } = this.props;
+    const { onDropdownVisibleChange,doSearchUnchecked } = this.props;
     if (onDropdownVisibleChange && onDropdownVisibleChange(open, { documentClickClose: !open && byTrigger }) === false) {
       return;
     }
 
     // 关闭 Popup 时，若有已选择项，则执行取消操作
-    if (!open) {
+    if (!open&&!doSearchUnchecked) {console.log("// 关闭 Popup 时，若有已选择项，则执行取消操作");
       const { oriValueList, curValueList } = this.state;
       const { onCancel } = this.props;
       if (JSON.stringify(oriValueList) !== JSON.stringify(curValueList)) {
@@ -1259,7 +1259,7 @@ class Select extends React.Component {
       });
 
       let obj=this.globalData;
-      if(obj.beforeSearchSyncCheckKeys){
+      if(doSearchUnchecked&&obj.beforeSearchSyncCheckKeys){
         //搜索状态下，curValueList可能为空，这时无法确定他们的父节点半选还是全选，把搜索前同步记录的KEY插入curValueList，这样就可以在进入搜索状态后，正确展示父节点的全选半选
         for(let i=0;i<obj.beforeSearchSyncCheckKeys.length;i++){
           let k=obj.beforeSearchSyncCheckKeys[i];
