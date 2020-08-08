@@ -342,7 +342,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
 
     // Update checked status
     if (isCheck) {
-      checkedKeys[key] = everyChildChecked;
+      checkedKeys[key] = everyChildChecked;//everyChildChecked表示搜索出来的子节点都选中
       if(isInSearch&&doSearchUnchecked){
         if(everyChildChecked){
           if(!isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
@@ -350,7 +350,8 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
             if(node.props.children&&node.props._data.childCount>node.props.children.length){
               checkedKeys[key]=false;
             }
-            if(isExpendAndAllChecked(node,crtKey)){
+            if(!checkedKeys[key]&&isExpendAndAllChecked(node,crtKey)){
+              //如果不在搜索树里的节点都被选中了，这时也要标记为全选
               checkedKeys[key]=true;
             }        
           }else{
@@ -363,10 +364,8 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
       if(isInSearch&&doSearchUnchecked){
         if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
           //如果搜索前是选中状态，则去掉勾选后，状态为半选
-          if(node.props.children&&node.props._data.childCount>node.props.children.length){
+          if(!someChildChecked&&node.props.children&&node.props._data.childCount>node.props.children.length){
             someChildChecked=true;
-          }else{
-            someChildChecked=false;
           }
         }
       }

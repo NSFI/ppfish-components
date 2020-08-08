@@ -313,7 +313,6 @@ class Select extends React.Component {
           null,
           loadData,null,false,nextProps.doSearchUnchecked
         );
-        globalObj.checkedKeys=checkedKeys;
         // Format value list again for internal usage
         newState.valueList = checkedKeys.map(key => ({
           value: (newState.keyEntities || prevState.keyEntities)[key].value,
@@ -1258,16 +1257,16 @@ class Select extends React.Component {
         }
       });
 
-      let obj=this.globalData;
-      if(doSearchUnchecked&&obj.beforeSearchSyncCheckKeys){
-        //搜索状态下，curValueList可能为空，这时无法确定他们的父节点半选还是全选，把搜索前同步记录的KEY插入curValueList，这样就可以在进入搜索状态后，正确展示父节点的全选半选
-        for(let i=0;i<obj.beforeSearchSyncCheckKeys.length;i++){
-          let k=obj.beforeSearchSyncCheckKeys[i];
-          if(keyList.indexOf(k)==-1){
-            keyList.push(k);
-          }
-        }
-      }
+      // let obj=this.globalData;
+      // if(doSearchUnchecked&&obj.beforeSearchSyncCheckKeys){
+      //   //搜索状态下，curValueList可能为空，这时无法确定他们的父节点半选还是全选，把搜索前同步记录的KEY插入curValueList，这样就可以在进入搜索状态后，正确展示父节点的全选半选
+      //   for(let i=0;i<obj.beforeSearchSyncCheckKeys.length;i++){
+      //     let k=obj.beforeSearchSyncCheckKeys[i];
+      //     if(keyList.indexOf(k)==-1){
+      //       keyList.push(k);
+      //     }
+      //   }
+      // }
 
       let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData,null
         ,false,doSearchUnchecked).checkedKeys;
