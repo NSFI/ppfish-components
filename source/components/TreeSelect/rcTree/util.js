@@ -273,7 +273,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
     //手动选择某个节点时，记录下计算出的checkedkeys，这样再次执行conductCheck计算时，可以直接返回数据,减少对conductCheck的调用.
     return globalObj.fromNodeChecks;
   }
-  console.log(keyList,"***conductCheck***");
+  //console.log(keyList,"***conductCheck***");
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};

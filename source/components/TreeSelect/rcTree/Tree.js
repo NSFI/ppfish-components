@@ -796,7 +796,8 @@ class Tree extends React.Component {
       warnOnlyTreeNode();
       return null;
     }
-    if(globalObj.isInSearch && this.props.doSearchUnchecked && !_halfChecked && !child.props.isLeaf && globalObj.notExpendHalfCheckeds){
+    if(globalObj.isInSearch && this.props.doSearchUnchecked && !_halfChecked
+       && !child.props.isLeaf && globalObj.notExpendHalfCheckeds){
       //选中的父节点未展开过，这时搜索出一个节点，取消选中，父节点这个半选状态保留不住，这里做个HANK
       _halfChecked=!!globalObj.notExpendHalfCheckeds[key];
     }

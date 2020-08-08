@@ -888,7 +888,7 @@ class Select extends React.Component {
     }
 
     // 关闭 Popup 时，若有已选择项，则执行取消操作
-    if (!open&&!doSearchUnchecked) {console.log("// 关闭 Popup 时，若有已选择项，则执行取消操作");
+    if (!open&&!doSearchUnchecked) {
       const { oriValueList, curValueList } = this.state;
       const { onCancel } = this.props;
       if (JSON.stringify(oriValueList) !== JSON.stringify(curValueList)) {
