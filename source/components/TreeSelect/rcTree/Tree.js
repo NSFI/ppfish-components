@@ -188,10 +188,21 @@ class Tree extends React.Component {
               }
             }
           }
-          const conductKeys = conductCheck(checkedKeys, true, keyEntities,
-          null, props.loadData, props.loadedKeys,false,props.doSearchUnchecked);
-          checkedKeys = conductKeys.checkedKeys;
-          halfCheckedKeys = conductKeys.halfCheckedKeys;
+          let needUpdate=true;
+          if(props.doSearchUnchecked&&prevProps&&props){
+            if(JSON.stringify(prevProps.checkedKeys)==JSON.stringify(props.checkedKeys)){
+              needUpdate=false;
+            }
+          }
+          if(needUpdate){
+              const conductKeys = conductCheck(checkedKeys, true, keyEntities,
+              null, props.loadData, props.loadedKeys,false,props.doSearchUnchecked);
+              checkedKeys = conductKeys.checkedKeys;
+              halfCheckedKeys = conductKeys.halfCheckedKeys;
+          }else{
+            checkedKeys = globalObj.checkedKeys;
+            halfCheckedKeys = globalObj.halfCheckedKeys;
+          }
         }
 
         newState.checkedKeys = checkedKeys;

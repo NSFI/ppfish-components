@@ -324,7 +324,7 @@ class Select extends React.Component {
       // Fill the missValueList, we still need display in the selector
       newState.missValueList = missValueList;
       // Calculate the value list for `Selector` usage
-      if(prevState.globalData.__handleConfirm||!nextProps.doSearchUnchecked){
+      if(valueRefresh||prevState.globalData.__handleConfirm||!nextProps.doSearchUnchecked){
         newState.selectorValueList = formatSelectorValue(
           newState.valueList,
           nextProps,

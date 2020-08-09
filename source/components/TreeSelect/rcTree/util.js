@@ -419,6 +419,12 @@ export function conductCheck(keyList, isCheck, keyEntities, status,
         if(isNodeCheckedBeforeSearch(node,keyEntities,globalObj)){
           if(node.props._data.childCount>childs.length){
             halfCheckedKeys[key] = true;
+            let _parent=parent;
+            //一个节点为半选，它的祖先节点都应该是半选
+            while (_parent){
+              halfCheckedKeys[_parent.key] = true;
+              _parent=keyEntities[_parent.key].parent;
+            }
           }
         }else{
           halfCheckedKeys[key] = false;
