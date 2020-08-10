@@ -350,7 +350,7 @@ class TreeNode extends React.Component {
         )}
         onClick={this.onCheck}
       >
-        {$custom}{halfChecked?11:22}
+        {$custom}
       </span>
     );
   };
