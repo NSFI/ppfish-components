@@ -316,7 +316,11 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
 
     // Update checked status
     if (isCheck) {
-      checkedKeys[key] = everyChildChecked && checkedNum>=node.props._data.childCount;
+      if(node.props._data&&node.props._data.childCount!=undefined){
+        checkedKeys[key] = everyChildChecked && checkedNum>=node.props._data.childCount;
+      }else{
+        checkedKeys[key] = everyChildChecked;
+      }
     } else {
       checkedKeys[key] = false;
     }
