@@ -754,13 +754,13 @@
   state = {
     value: [],
     treeData: [
-      { title: 'Node1', key: 'k1', value: 'n1' },
-      { title: 'Node2', key: 'k2', value: 'n2' },
-      { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
+      { title: 'Node1', key: 'k1', value: 'k1',childCount:3 },
+      { title: 'Node2', key: 'k2', value: 'k2',childCount:6 },
+      { title: 'Node3', key: 'k3', value: 'k3', isLeaf: true }
     ]
   }
 
-  onConfirm = (value) => {
+  onConfirm = (value,objs) => {console.log(value,objs);
     this.setState({ value });
   }
   
@@ -825,6 +825,7 @@
 
   render() {
     const tProps = {
+      doCheckChildInSearch:true,
       showSearch: true,
       treeData: this.state.treeData,
       value: this.state.value,

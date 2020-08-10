@@ -29,6 +29,7 @@ class BasePopup extends React.Component {
       PropTypes.bool,
       PropTypes.node,
     ]),
+    doCheckChildInSearch: PropTypes.bool,
     treeCheckStrictly: PropTypes.bool,
     treeDefaultExpandAll: PropTypes.bool,
     treeDefaultExpandedKeys: PropTypes.array,
@@ -173,7 +174,8 @@ class BasePopup extends React.Component {
       renderSearch,
       renderResetItem,
       autoExpandParent,
-      icon
+      icon,
+      doCheckChildInSearch
     } = this.props;
     const { rcTreeSelect: {
       onPopupKeyDown,
@@ -213,6 +215,7 @@ class BasePopup extends React.Component {
     } else {
       $tree = (
         <Tree
+          doCheckChildInSearch={doCheckChildInSearch}
           autoExpandParent={autoExpandParent}
           prefixCls={`${prefixCls}-tree`}
           className={classNames(!showIcon && `${prefixCls}-tree-icon-hide`)}

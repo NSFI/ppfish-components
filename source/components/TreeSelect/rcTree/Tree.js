@@ -33,6 +33,7 @@ class Tree extends React.Component {
     selectable: PropTypes.bool,
     disabled: PropTypes.bool,
     multiple: PropTypes.bool,
+    doCheckChildInSearch: PropTypes.bool,
     checkable: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.node,
@@ -170,7 +171,7 @@ class Tree extends React.Component {
       if (checkedKeyEntity) {
         let { checkedKeys = [], halfCheckedKeys = [] } = checkedKeyEntity;
 
-        if (!props.checkStrictly) {
+        if (!props.checkStrictly||props.doCheckChildInSearch) {
           const conductKeys = conductCheck(checkedKeys, true, keyEntities,
           null, props.loadData, props.loadedKeys);
           checkedKeys = conductKeys.checkedKeys;
@@ -465,7 +466,7 @@ class Tree extends React.Component {
       halfCheckedKeys: oriHalfCheckedKeys,
       loadedKeys
     } = this.state;
-    const { checkStrictly, onCheck, loadData } = this.props;
+    const { checkStrictly, onCheck, loadData,doCheckChildInSearch } = this.props;
     const { props: { eventKey } } = treeNode;
 
     // Prepare trigger arguments
@@ -477,7 +478,7 @@ class Tree extends React.Component {
       nativeEvent: e.nativeEvent,
     };
 
-    if (checkStrictly) {
+    if (checkStrictly&&!doCheckChildInSearch) {
       const checkedKeys = checked ? arrAdd(oriCheckedKeys, eventKey) : arrDel(oriCheckedKeys, eventKey);
       const halfCheckedKeys = arrDel(oriHalfCheckedKeys, eventKey);
       checkedObj = { checked: checkedKeys, halfChecked: halfCheckedKeys };

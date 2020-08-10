@@ -63,7 +63,7 @@ class Select extends React.Component {
     editable: PropTypes.bool,
     esc: PropTypes.bool,
     required: PropTypes.bool,
-
+    doCheckChildInSearch: PropTypes.bool,
     defaultOpen: PropTypes.bool,
     defaultValue: valueProp,
 
@@ -1095,6 +1095,7 @@ class Select extends React.Component {
       focused,
       dropdownPrefixCls: `${prefixCls}-dropdown`,
       ariaId: this.ariaId,
+      doCheckChildInSearch:this.props.doCheckChildInSearch
     };
 
     if (!isMultiple) {
