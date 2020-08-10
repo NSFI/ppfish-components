@@ -1113,6 +1113,7 @@
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
 | uniqueTreeNodeByLabel | 是否对选择框中展示的树节点以 Label 去重， `editable` 为 false 时有效 | Boolean | false |
+| doCheckChildInSearch | 只搜索出部分节点情况下，是否只传这些子节点的ID | Boolean | false |
 | value | 受控属性，指定当前选中的树节点 | String \| Array< String > | - |
 
 ### Tree 方法

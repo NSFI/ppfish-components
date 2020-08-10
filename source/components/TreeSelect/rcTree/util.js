@@ -168,7 +168,9 @@ export function convertDataToTree(treeData, processer) {
   return list.map((item, index) => {
     const { children, ...props }=item;
     const childrenNodes = convertDataToTree(children, processer);
-
+    if(item.childCount===undefined){
+      item.childCount=-1;//表示用户未给此数据源赋值，不能执行半选判断逻辑
+    }
     return (
       <TreeNode key={props.key} _data={item} {...processProps(props)}>
         {childrenNodes}
