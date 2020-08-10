@@ -760,7 +760,7 @@
     ]
   }
 
-  onConfirm = (value,objs) => {console.log(value,objs);
+  onConfirm = (value) => {
     this.setState({ value });
   }
   
@@ -1076,6 +1076,7 @@
 | className | 容器类名 | String | - |
 | defaultValue | 指定默认选中的条目 | String \| Array< String > | - |
 | disabled | 是否禁用 | Boolean | false |
+| doCheckChildInSearch | 只搜索出部分节点情况下，是否只传这些子节点的ID | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Boolean | true |
 | dropdownStyle | 下拉菜单的样式 | Object | - |
@@ -1113,7 +1114,6 @@
 | treeNodeLabelProp | 选中后在选择框中显示的 treeNode 属性 | String | 'title' |
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
 | uniqueTreeNodeByLabel | 是否对选择框中展示的树节点以 Label 去重， `editable` 为 false 时有效 | Boolean | false |
-| doCheckChildInSearch | 只搜索出部分节点情况下，是否只传这些子节点的ID | Boolean | false |
 | value | 受控属性，指定当前选中的树节点 | String \| Array< String > | - |
 
 ### Tree 方法

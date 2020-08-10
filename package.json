@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.7.6",
+  "version": "1.7.7-alpha.3",
   "description": "fish design ui components",
   "scripts": {
     "precommit": "lint-staged",
@@ -9,7 +9,7 @@
     "start": "npm-run-all --parallel test:watch open:site lint:watch",
     "build": "npm-run-all --parallel build:site build:dist build:others",
     "build:dist": "rimraf dist && babel-node tools/buildDist.js",
-    "build:others": "tools/buildOthers.sh",
+    "build:others": "sh tools/buildOthers.sh",
     "stylelint": "stylelint \"source/**/*.less\" --fix",
     "lint": "esw webpack.config.* source tools",
     "lint:watch": "npm run lint -- --watch",
@@ -27,8 +27,8 @@
     "analyze": "babel-node ./tools/analyzeBundle.js",
     "open:site": "babel-node --max-old-space-size=4096 tools/openSite.js",
     "build:site": "babel-node --max-old-space-size=4096 tools/buildSite.js",
-    "prepublish:site": "tools/prepare.sh",
-    "publish:site": "tools/release.sh"
+    "prepublish:site": "sh tools/prepare.sh",
+    "publish:site": "sh tools/release.sh"
   },
   "engines": {
     "node": ">=6.11.5"
