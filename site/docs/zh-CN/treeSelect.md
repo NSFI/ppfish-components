@@ -754,9 +754,9 @@
   state = {
     value: [],
     treeData: [
-      { title: 'Node1', key: 'k1', value: 'n1' },
-      { title: 'Node2', key: 'k2', value: 'n2' },
-      { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
+      { title: 'Node1', key: 'k1', value: 'k1',childCount:3 },
+      { title: 'Node2', key: 'k2', value: 'k2',childCount:6 },
+      { title: 'Node3', key: 'k3', value: 'k3', isLeaf: true }
     ]
   }
 
@@ -825,6 +825,7 @@
 
   render() {
     const tProps = {
+      doCheckChildInSearch:true,
       showSearch: true,
       treeData: this.state.treeData,
       value: this.state.value,
@@ -1075,6 +1076,7 @@
 | className | 容器类名 | String | - |
 | defaultValue | 指定默认选中的条目 | String \| Array< String > | - |
 | disabled | 是否禁用 | Boolean | false |
+| doCheckChildInSearch | 只搜索出部分节点情况下，是否只传这些子节点的ID | Boolean | false |
 | dropdownClassName | 下拉菜单的 className 属性 | String | - |
 | dropdownMatchSelectWidth | 下拉菜单和选择器同宽 | Boolean | true |
 | dropdownStyle | 下拉菜单的样式 | Object | - |

@@ -1,7 +1,7 @@
 export default {
   misc: {
     'guide': '指南',
-    'component': '组件',
+    'component': 'Web组件',
     'patterns': '规范',
     'home': '首页',
     'spec': '设计语言',
@@ -11,6 +11,7 @@ export default {
     'business': '业务组件',
     'feedback': '反馈建议',
     'demo': '演示环境',
-    'version': 'v1.7.6'
+    'mobileComponent': 'Mobile组件',
+    'version': 'v1.7.7'
   }
 };

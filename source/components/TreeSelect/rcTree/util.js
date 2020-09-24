@@ -165,11 +165,14 @@ export function convertDataToTree(treeData, processer) {
 
   const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
-  return list.map(({ children, ...props }, index) => {
+  return list.map((item, index) => {
+    const { children, ...props }=item;
     const childrenNodes = convertDataToTree(children, processer);
-
+    if(item.childCount===undefined){
+      item.childCount=-1;//表示用户未给此数据源赋值，不能执行半选判断逻辑
+    }
     return (
-      <TreeNode key={props.key} {...processProps(props)}>
+      <TreeNode key={props.key} _data={item} {...processProps(props)}>
         {childrenNodes}
       </TreeNode>
     );
@@ -275,7 +278,6 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   (checkStatus.halfCheckedKeys || []).forEach((key) => {
     halfCheckedKeys[key] = true;
   });
-
   // Conduct up
   function conductUp(key) {
     if (checkedKeys[key] === isCheck) return;
@@ -290,14 +292,16 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     // Check child node checked status
     let everyChildChecked = true;
     let someChildChecked = false; // Child checked or half checked
-
+    let checkedNum=0;
     (children || [])
       .filter(child => !isCheckDisabled(child.node))
       .forEach((child) => {
         let childKey = child.key;
         const childChecked = checkedKeys[childKey];
         const childHalfChecked = halfCheckedKeys[childKey];
-
+        if(childChecked){
+          checkedNum++;
+        }
         if (childChecked || childHalfChecked) someChildChecked = true;
         if (
           // 取消勾选
@@ -312,7 +316,11 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
 
     // Update checked status
     if (isCheck) {
-      checkedKeys[key] = everyChildChecked;
+      if(node.props._data&&node.props._data.childCount!=undefined){
+        checkedKeys[key] = everyChildChecked && checkedNum>=node.props._data.childCount;
+      }else{
+        checkedKeys[key] = everyChildChecked;
+      }
     } else {
       checkedKeys[key] = false;
     }
