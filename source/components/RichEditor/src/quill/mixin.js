@@ -12,6 +12,12 @@ function formatOutputHTML(value) {
   return value.replace(/(<[^&<>]+)(contenteditable\s*=\s*['"]\w*['"])([^&<>]*>)/gi, '$1$3');
 }
 
+function xssFilter(value) {
+  if (!value) return value;
+
+  return value.replace(/javascript\s*:/ig, '');
+}
+
 let QuillMixin = {
   /**
   Creates an editor on the given element. The editor will
@@ -21,8 +27,8 @@ let QuillMixin = {
     let editor = new Quill($el, config), _this = this;
 
     // 添加与 unprivilegedEditor 相同的方法
-    editor.getHTML = function(){ return formatOutputHTML(editor.root.innerHTML); };
-    editor.getRawHTML = function(){ return editor.root.innerHTML; };
+    editor.getHTML = function(){ return xssFilter(formatOutputHTML(editor.root.innerHTML)); };
+    editor.getRawHTML = function(){ return xssFilter(editor.root.innerHTML); };
     editor.isEmptyContents = function(){ return _this.isEmptyContents(editor); };
 
     if (config.tabIndex !== undefined) {
