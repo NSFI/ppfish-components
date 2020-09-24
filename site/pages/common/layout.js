@@ -108,6 +108,9 @@ export default class Layout extends React.Component {
                 <Link to="/components">{this.getLocale('misc.component')}</Link>
               </li>
               <li className="nav-item">
+                <a href="//nsfi.github.io/fishd-mobile-site/index.html#/zh-CN/components" target="_blank">{this.getLocale('misc.mobileComponent')}</a>
+              </li>
+              <li className="nav-item">
                 <a href="//nsfi.github.io/ppfish-demo" target="_blank">{this.getLocale('misc.demo')}</a>
               </li>
               <span className="nav-version">{this.getLocale('misc.version')}</span>
