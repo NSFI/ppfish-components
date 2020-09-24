@@ -29,6 +29,7 @@ Quill.register(VideoBlot);
 Quill.register('modules/imageDrop', ImageDrop, true);
 Quill.register('modules/fileDrop', FileDrop, true);
 Quill.register(Quill.import('attributors/style/align'), true);
+Quill.register(Quill.import('attributors/style/direction'), true);
 
 const getImageSize = function(url, callback) {
   let newImage;
