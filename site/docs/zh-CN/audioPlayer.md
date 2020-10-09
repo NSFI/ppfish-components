@@ -79,6 +79,30 @@ render() {
 ```
 :::
 
+## 支持调节播放速度
+:::demo 通过设置 `playbackRate="1.0"` 设置默认播放速度
+通过设置 `playbackRates=["2.0", "1.0", "0.5"]` 设置播放速度选择列表
+
+```js
+render() {
+  return(
+    <div style={{width:350}}>
+      <AudioPlayer
+        src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+        download={true}
+        size={"small"}
+        rateOptions={{
+          decimal: 1,
+          range: [2, 1, 0.5]
+        }}
+      />
+    </div>
+
+  )
+}
+```
+:::
+
 ## 支持下载
 :::demo 通过设置 `download=true` 设置音频可下载
 
@@ -127,5 +151,6 @@ render() {
 | onSeeked  | 当用户已移动/跳跃到音频中的新位置时的回调   | 	(e) => Void   | -  |
 | preload  | 音频是否应该在页面加载后进行加载。 可选值有：`auto`指示一旦页面加载，则开始加载音频；`metadata`指示当页面加载后仅加载音频的元数据；`none` 指示页面加载后不应加载音频。 | Enum {'auto', 'metadata', 'none'} | 'metadata' |
 | volume  | 设置音频的当前音量, 必须是介于 0.0 与 1.0 之间的数字。例如：1.0 是最高音量（默认）0.5 是一半音量 （50%）0.0 是静音  | Number |  1.0  |
+| rateOptions | rateOptions.value，设置音频的默认播放速度，值为假值时播放速度为 1 ，但不展示播放速度；rateOptions.suffix，设置展示的播放速度的单位；rateOptions.decimal，设置展示的播放速度的数字精度；rateOptions.range，设置音频播放速度的选择范围，值为[]时不展示选择范围| {value: Number, suffix: String, decimal: Number, range: Array\<Number\>} |  {value: 0, suffix: 'x', decimal: 1, range: []}  |
 
 其他H5 audio属性和事件配置参见 [H5 audio属性说明](http://www.w3school.com.cn/jsref/dom_obj_audio.asp)。
