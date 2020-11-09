@@ -17,7 +17,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
         >
           <audio
             preload="metadata"
-            src="https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav"
+            src="//ysf.qiyukf.net/26952087D69B79839F17040A5DC2E775.wav"
             volume="1"
           >
             您的浏览器不支持 audio 标签。
@@ -144,7 +144,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
         >
           <audio
             preload="metadata"
-            src="https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav"
+            src="//ysf.qiyukf.net/26952087D69B79839F17040A5DC2E775.wav"
             volume="1"
           >
             您的浏览器不支持 audio 标签。
@@ -226,7 +226,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
         >
           <audio
             preload="metadata"
-            src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+            src="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
             volume="1"
           >
             您的浏览器不支持 audio 标签。
@@ -246,6 +246,107 @@ exports[`Renders audioPlayer demo correctly 1`] = `
     style="width:350px"
   >
     <div
+      class="fishd-audio-player fishd-audio-player-sm"
+    >
+      <div
+        class="fishd-audio-player-wrap fishd-audio-player-sm-wrap"
+        title=""
+      >
+        <div
+          class="audio-box"
+        >
+          <audio
+            preload="metadata"
+            src="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+            volume="1"
+          >
+            您的浏览器不支持 audio 标签。
+          </audio>
+        </div>
+        <div
+          class="box pause-play-box pause-play-box-enable"
+        >
+          <i
+            class="fishdicon fishdicon-play handle-audio-icon pause-play"
+          />
+        </div>
+        <div
+          class="box step-box"
+        >
+          <div
+            class="fishd-slider"
+          >
+            <div
+              class="fishd-slider-all-handle"
+              style="position:absolute"
+            />
+            <div
+              class="fishd-slider-rail"
+            />
+            <div
+              class="fishd-slider-track"
+              style="left:0%;width:NaN%"
+            />
+            <div
+              class="fishd-slider-step"
+            />
+            <div
+              aria-disabled="false"
+              aria-valuemax="0"
+              aria-valuemin="0"
+              aria-valuenow="0"
+              class="fishd-slider-handle"
+              role="slider"
+              style="left:NaN%"
+              tabindex="0"
+            />
+            <div
+              class="fishd-slider-mark"
+            />
+          </div>
+        </div>
+        <div
+          class="box time-box"
+        >
+          <span
+            class="current"
+          >
+            0:00 / 0:00
+          </span>
+        </div>
+        <div
+          class="box volume-box"
+        >
+          <i
+            class="fishdicon fishdicon-sound-loud handle-audio-icon control-volume"
+          />
+        </div>
+        <p
+          class="box rate-box"
+        >
+          1.0x
+        </p>
+        <div
+          class="box download-box"
+        >
+          <a
+            download=""
+            href="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i
+              class="fishdicon fishdicon-sound-download handle-audio-icon download"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="width:350px"
+  >
+    <div
       class="fishd-audio-player"
     >
       <div
@@ -257,7 +358,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
         >
           <audio
             preload="metadata"
-            src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+            src="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
             volume="1"
           >
             您的浏览器不支持 audio 标签。
@@ -326,7 +427,7 @@ exports[`Renders audioPlayer demo correctly 1`] = `
         >
           <a
             download=""
-            href="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+            href="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
             rel="noopener noreferrer"
             target="_blank"
           >
