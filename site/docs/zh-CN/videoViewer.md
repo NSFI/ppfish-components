@@ -16,7 +16,7 @@
   render() {
     return(
       <VideoViewer.Video
-        poster='http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf'
+        poster='//ysf.qiyukf.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf'
         sources={[{
           src: "http://vjs.zencdn.net/v/oceans.mp4",
           type:'video/mp4'
@@ -64,7 +64,7 @@
       <div className="source">
         <div className="block">
           <VideoViewer
-            poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            poster="//ysf.qiyukf.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
             modalProps={{
               width: 640
             }}
@@ -112,7 +112,7 @@
         <div className="block">
           <VideoViewer
             failedMessage="已过期"
-            poster="http://ysf.nosdn.127.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
+            poster="//ysf.qiyukf.net/rygnbxiwcgoudyqnzzpypmtxlwpixigf"
             modalProps={{
               width: 640
             }}

@@ -182,7 +182,7 @@ class CustomToolbar extends PureComponent {
 
   componentDidMount() {
     let emojiImg = new Image();
-    emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
+    emojiImg.src = '//ysf.qiyukf.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
   }
 
   handleIVSearchChange = (e) => {

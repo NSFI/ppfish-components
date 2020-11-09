@@ -154,7 +154,7 @@ render(){
   };
   return(
     <ImageLoader
-      src="https://ysf.nosdn.127.net/45689D5A40BE0BCB962C8878CFDEEFA8"
+      src="//ysf.qiyukf.net/45689D5A40BE0BCB962C8878CFDEEFA8"
       preLoader={preLoader}
       style={{'maxWidth': '100%'}}
       imgProps={{style : {'width': '100%'}}}

@@ -15,7 +15,7 @@ render() {
   return(
     <div style={{width:400}}>
       <AudioPlayer
-        src="https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav"
+        src="//ysf.qiyukf.net/26952087D69B79839F17040A5DC2E775.wav"
         title="这是一个demo"
       />
     </div>
@@ -49,7 +49,7 @@ render() {
         <br /><br />
         <AudioPlayer
           size={size}
-          src="https://ysf.nosdn.127.net/26952087D69B79839F17040A5DC2E775.wav"
+          src="//ysf.qiyukf.net/26952087D69B79839F17040A5DC2E775.wav"
           title="这是一个demo"
         />
       </div>
@@ -67,7 +67,7 @@ render() {
   return(
     <div style={{width:56}}>
       <AudioPlayer
-        src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+        src="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
         controlVolume={false}
         controlProgress={false}
         displayTime={false}
@@ -88,7 +88,7 @@ render() {
   return(
     <div style={{width:350}}>
       <AudioPlayer
-        src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+        src="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
         download={true}
         size={"small"}
         rateOptions={{
@@ -111,7 +111,7 @@ render() {
   return(
     <div style={{width:350}}>
       <AudioPlayer
-        src="https://ysf.nosdn.127.net/6DB6A44FF040D96551EC00507730FC4D.wav"
+        src="//ysf.qiyukf.net/6DB6A44FF040D96551EC00507730FC4D.wav"
         download={true}
       />
     </div>
