@@ -59,7 +59,7 @@ export default class Home extends React.Component {
         <div className="m-home-page">
           <div className="banner">
             <div className="left-logo">
-              <img className="logo" src={'//ysf.nosdn.127.net/kornketgjocydxcldzywnyfdtclwugdl'} alt="logo"/>
+              <img className="logo" src={'//ysf.qiyukf.net/kornketgjocydxcldzywnyfdtclwugdl'} alt="logo"/>
             </div>
             <div className="right-desc">
               <h1 className="title">Fish Design</h1>
@@ -104,25 +104,25 @@ export default class Home extends React.Component {
             <div className="resource-list">
               <div className="resource-item">
                 <Link to="/components/contributing/">
-                  <img src={'//ysf.nosdn.127.net/xjupeqkvqvzvofkzalfzyfhpqmjvofrw'} alt="贡献指南"/>
+                  <img src={'//ysf.qiyukf.net/xjupeqkvqvzvofkzalfzyfhpqmjvofrw'} alt="贡献指南"/>
                   贡献指南
                 </Link>
               </div>
               <div className="resource-item">
                 <Link to="/components/changelog/">
-                  <img src={'//ysf.nosdn.127.net/zespbluoxdooiuwbodfuzzniuikphxzu'} alt="更新日志"/>
+                  <img src={'//ysf.qiyukf.net/zespbluoxdooiuwbodfuzzniuikphxzu'} alt="更新日志"/>
                   更新日志
                 </Link>
               </div>
               <div className="resource-item">
                 <Link to="/components/">
-                  <img src={'//ysf.nosdn.127.net/cwknzqyaxbjnbwsldapbridnbtwqzcho'} alt="组件库"/>
+                  <img src={'//ysf.qiyukf.net/cwknzqyaxbjnbwsldapbridnbtwqzcho'} alt="组件库"/>
                   组件库
                 </Link>
               </div>
               <div className="resource-item">
                 <a href="//axure.yixin.im/view?id=11388&pid=4&mid=434#fishdesign___" target="_blank">
-                  <img src={'//ysf.nosdn.127.net/pdkitmnnpikavbkzscsxsgoilftykxza'} alt="资源下载"/>
+                  <img src={'//ysf.qiyukf.net/pdkitmnnpikavbkzscsxsgoilftykxza'} alt="资源下载"/>
                   资源下载
                 </a>
               </div>

@@ -46,7 +46,7 @@ render(){
     <Avatar icon="user-line" />
     <Avatar>U</Avatar>
     <Avatar>USER</Avatar>
-    <Avatar src="https://ysf.nosdn.127.net/ausunifcvhchdzbexjvxcswemqeojqdf" />
+    <Avatar src="//ysf.qiyukf.net/ausunifcvhchdzbexjvxcswemqeojqdf" />
     <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>U</Avatar>
     <Avatar style={{ backgroundColor: '#87d068' }} icon="user-line" />
   </div>)

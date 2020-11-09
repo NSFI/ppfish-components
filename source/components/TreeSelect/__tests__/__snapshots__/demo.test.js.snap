@@ -248,7 +248,7 @@ exports[`Renders treeSelect demo correctly 1`] = `
     tabindex="-1"
   >
     <span
-      class="fishd-treeselect-selection fishd-treeselect-selection--multiple"
+      class="fishd-treeselect-selection fishd-treeselect-selection--multiple readonly"
     >
       <ul
         class="fishd-treeselect-selection__rendered fishd-treeselect-multiple-readonly"
@@ -278,7 +278,7 @@ exports[`Renders treeSelect demo correctly 1`] = `
     tabindex="-1"
   >
     <span
-      class="fishd-treeselect-selection fishd-treeselect-selection--multiple"
+      class="fishd-treeselect-selection fishd-treeselect-selection--multiple readonly"
     >
       <ul
         class="fishd-treeselect-selection__rendered fishd-treeselect-multiple-readonly"
@@ -330,7 +330,7 @@ exports[`Renders treeSelect demo correctly 1`] = `
     tabindex="-1"
   >
     <span
-      class="fishd-treeselect-selection fishd-treeselect-selection--multiple"
+      class="fishd-treeselect-selection fishd-treeselect-selection--multiple readonly"
     >
       <ul
         class="fishd-treeselect-selection__rendered fishd-treeselect-multiple-readonly"

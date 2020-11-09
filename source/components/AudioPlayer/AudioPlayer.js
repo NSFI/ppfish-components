@@ -20,6 +20,7 @@ class AudioPlayer extends React.Component {
     controlVolume: PropTypes.bool,
     controlProgress: PropTypes.bool,
     displayTime: PropTypes.bool,
+    rateOptions: PropTypes.object,
     download: PropTypes.bool,
     onLoadedMetadata: PropTypes.func,
     onCanPlay: PropTypes.func,
@@ -46,6 +47,9 @@ class AudioPlayer extends React.Component {
     controlVolume: true,
     controlProgress: true,
     displayTime: true,
+    rateOptions:{
+      value: 0,
+    },
     download: false,
     onLoadedMetadata: () => {},  // 当浏览器已加载音频的元数据时的回调
     onCanPlay: () => {},         // 当浏览器能够开始播放音频时的回调
@@ -65,15 +69,25 @@ class AudioPlayer extends React.Component {
       isMuted: this.props.muted,                        // 是否静音
       currentVolume: parseInt(this.props.volume * 100), // 当前音量
       volumeOpen: false,                                // 是否打开音量控制
+      rateOpen: false,                                  // 是否打开播放速度调节
       allTime: 0,
       currentTime: 0,
-      disabled: !this.props.src                        // 初始src为空时禁用组件
+      disabled: !this.props.src,                        // 初始src为空时禁用组件
+      rate: this.props.rateOptions.value || 1           // 播放速度
     };
     this.audioInstance = null;
   }
 
+  componentDidMount(){
+    this.controlAudio('changeRate',this.state.rate);
+    if(this.props.autoPlay){
+      this.audioInstance.play();
+    }
+  }
+
   controlAudio = (type, value) => {
     const audio = this.audioInstance;
+    const numberValue = Number(value);
     switch(type) {
       case 'allTime':
         this.setState({
@@ -129,6 +143,17 @@ class AudioPlayer extends React.Component {
           isMuted: !value
         });
         break;
+      case 'changeRate':
+        if(Number.isNaN(numberValue)){
+          throw(new Error(`rateOptions props error:
+          rateOptions.value or item of rateOptions.range can not convert to number`));
+        }
+        audio.playbackRate = numberValue;
+        this.setState({
+          rate: value,
+          rateOpen: false
+        });
+        break;
     }
   }
 
@@ -172,13 +197,20 @@ class AudioPlayer extends React.Component {
       volumeOpen: state
     });
   }
+  // 调节播放速度板状态变化
+  onRateVisibleChange = (state) => {
+    this.setState({
+      rateOpen: state
+    });
+  };
 
   render() {
-    const { isPlay, isMuted, allTime, currentTime, currentVolume, volumeOpen, disabled } = this.state;
+    const { isPlay, isMuted, allTime, currentTime, currentVolume, volumeOpen, rateOpen, disabled, rate } = this.state;
     const {
       prefixCls,
       title,
       src,
+      autoPlay,
       className,
       size,
       loop,
@@ -187,11 +219,15 @@ class AudioPlayer extends React.Component {
       controlProgress,
       displayTime,
       download,
+      rateOptions,
       onCanPlay,
       onLoadedMetadata,
       onCanPlayThrough,
       onAbort,onEnded, onError, onPause, onPlay, onSeeked, ...otherProps
     } = this.props;
+
+    const {value:rateValue = 0, suffix:rateSuffix = 'x', decimal:rateDecimal = 1, range:rateRange = []}=rateOptions;
+    const getRateText = (number) => `${Number(number).toFixed(rateDecimal)}${rateSuffix}`;
 
     const sizeCls = size === 'small' ? 'sm' : '';
     const pausePlayIcon = !isPlay ? 'play' : 'stop';
@@ -288,6 +324,31 @@ class AudioPlayer extends React.Component {
               :
               null
           }
+
+          {rateRange.length ? (
+            <Popover
+              overlayClassName="change-audio-rate"
+              trigger="click"
+              placement="top"
+              visible={rateOpen}
+              onVisibleChange={this.onRateVisibleChange}
+              getPopupContainer={node => node.parentNode}
+              content={rateRange.map(rateItem => (
+                <p
+                  className="change-audio-rate-item"
+                  key={`rate-${rateItem}`}
+                  onClick={() => {
+                    this.controlAudio("changeRate", rateItem);
+                  }}
+                >{getRateText(rateItem)}</p>
+              ))}
+            >
+              {<p className="box rate-box">{getRateText(rate)}</p>}
+            </Popover>
+          ) : rateValue ? (
+            <p className="box rate-box">{getRateText(rateValue)}</p>
+          ) : null}
+
           {
             download ?
               <div className="box download-box">

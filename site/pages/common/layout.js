@@ -92,7 +92,7 @@ export default class Layout extends React.Component {
         <Row>
           <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
             <Link to="/home" rel="noopener noreferrer">
-              <img src={'//ysf.nosdn.127.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-design"/>
+              <img src={'//ysf.qiyukf.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-design"/>
             </Link>
           </Col>
           <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
@@ -122,7 +122,7 @@ export default class Layout extends React.Component {
     const CommonFooter = (!hideFooter &&
       <footer className="footer">
         <div className="logo">
-          <img src={'//ysf.nosdn.127.net/cipiqsfpsbyreuwspfkybadithmnnlmc'} alt="logo"/>
+          <img src={'//ysf.qiyukf.net/cipiqsfpsbyreuwspfkybadithmnnlmc'} alt="logo"/>
           <h3>Fish Design</h3>
           <p className="version">- {this.getLocale('misc.version')} -</p>
         </div>
