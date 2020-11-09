@@ -124,7 +124,7 @@ export default function (modeName) {
         onClick,
         ariaId,
         renderSelection, renderPlaceholder,
-        tabIndex,
+        tabIndex, showArrow
       } = this.props;
       const { rcTreeSelect: { onSelectorKeyDown } } = this.context;
 
@@ -166,7 +166,10 @@ export default function (modeName) {
             key="selection"
             className={classNames(
               `${prefixCls}-selection`,
-              `${prefixCls}-selection--${modeName}`
+              `${prefixCls}-selection--${modeName}`,
+              {
+                'readonly': (modeName == 'multiple') && showArrow
+              }
             )}
           >
             {renderSelection()}
