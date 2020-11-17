@@ -12,6 +12,6 @@ export default {
     'feedback': '反馈建议',
     'demo': '演示环境',
     'mobileComponent': 'Mobile组件',
-    'version': 'v1.7.7'
+    'version': '1.7.7'
   }
 };

@@ -1,94 +1,105 @@
 @import (reference)'../../styles/mixin';
 
+.app {
+  font-family: "PingFangSC-Medium";
+}
+
+.u-qrcode {
+  width: 160px;
+  height: 160px;
+}
+
 .m-home-page {
   background: url("//ysf.qiyukf.net/vuewbfdvoyaojqoeaaefhjskpwpbloor") 0 400px no-repeat;
   background-size: 100px;
+
   .banner {
-    height: 640px;
-    padding: 82px;
-    background: url("//ysf.qiyukf.net/zeenqqdsasgclvvedsbvueqvkzpufgoj") top right no-repeat;
+    padding: 82px 0 74px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("//ysf.nosdn.127.net/zeenqqdsasgclvvedsbvueqvkzpufgoj") top right no-repeat;
   }
+
   .left-logo {
-    width: 50%;
-    float: left;
-    text-align: right;
+    transform: translateX(40px);
+
     img.logo {
-      width: 450px;
+      width: 500px;
+      height: 500px;
       -webkit-user-drag: none;
       user-select: none;
     }
   }
+
   .right-desc {
-    width: 50%;
-    float: left;
-    margin-top: 130px;
-    padding-left: 20px;
     .title {
       font-size: 36px;
-      color: #2e2e33;
-      line-height: 50px;
+      color: #2E2E33;
       margin-bottom: 8px;
     }
+
     .desc {
+      font-family: "PingFangSC-Regular";
       font-size: 20px;
-      line-height: 28px;
-      color: #85888f;
-      margin-bottom: 32px;
+      color: #848B99;
+      max-width: 468px;
+      margin-bottom: 28px;
     }
+
     .button-group {
       .button {
-        border-radius: 100px;
-        display: inline-block;
-        margin-bottom: 20px;
+        width: 167px;
         height: 40px;
-        line-height: 40px;
-        text-align: center;
-        text-decoration: none;
-      }
-      .start {
-        background: #337eff;
-        width: 120px;
-        color: #fff;
-        font-size: 18px;
-        margin-right: 8px;
-        transition: all ease 0.3s;
-      }
-      .start:hover {
-        background: #4c8eff;
-      }
-      .github {
-        border: 1px solid #dbdbdb;
-        width: 140px;
-        background: url('../../assets/fd-web-2.2-github@2x.svg') center no-repeat;
-        background-size: 88px;
-      }
-      .github:hover {
-        border: 1px solid #337eff;
-        background: url('../../assets/fd-github-active.svg') center no-repeat;
-        background-size: 88px;
+        background: #337EFF;
+        border-radius: 100px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "PingFangSC-Semibold";
+        font-size: 16px;
+        color: #FFF;
+        letter-spacing: 0;
+
+        &:last-child {
+          margin-left: 10px;
+        }
+
+        img {
+          width: 16px;
+          height: 16px;
+          margin-left: 14px;
+        }
       }
     }
+
   }
+
   .design {
     text-align: center;
     margin: 0 auto;
     padding-bottom: 120px;
+
     .title {
       font-size: 28px;
       color: #27282a;
       text-align: center;
       margin-bottom: 36px;
     }
+
     .design-list {
       display: flex;
       justify-content: center;
     }
+
     .principle {
       width: 268px;
       height: 228px;
+
       &:not(:last-child) {
         margin-right: 36px;
       }
+
       i {
         display: inline-block;
         text-align: center;
@@ -97,15 +108,18 @@
         background: #337eff;
         margin-bottom: 20px;
       }
+
       h3 {
         font-size: 18px;
         margin-bottom: 16px;
         color: #4f5059;
       }
+
       p {
         font-size: 14px;
         color: #85888f;
       }
+
       img {
         width: 120px;
         -webkit-user-drag: none;
@@ -120,37 +134,45 @@
       margin: auto;
     }
   }
+
   .resource {
     text-align: center;
     margin: 0 auto;
     padding-bottom: 120px;
+
     .title {
       font-size: 28px;
       color: #27282a;
       text-align: center;
       margin-bottom: 36px;
     }
+
     .resource-list {
       display: flex;
       justify-content: center;
     }
+
     .resource-item {
       width: 268px;
+
       &:not(:last-child) {
         margin-right: 36px;
       }
+
       img {
         width: 100%;
         -webkit-user-drag: none;
         user-select: none;
         margin-bottom: 12px;
       }
+
       a {
         font-size: 18px;
         color: #4f5059;
         text-decoration: none;
         display: inline-block;
       }
+
       a:hover {
         color: #337eff;
       }

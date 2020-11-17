@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {Popover} from '../../../source/components';
 import lottie from 'lottie-web';
 import conciseData from '../../assets/lottie/concise.json';
 import immediateData from '../../assets/lottie/immediate.json';
@@ -41,12 +42,12 @@ export default class Home extends React.Component {
         animationData: item.data
       });
 
-      container.addEventListener('mouseenter', function() {
+      container.addEventListener('mouseenter', function () {
         animation.setDirection(1);
         animation.play();
       });
 
-      container.addEventListener('mouseleave', function() {
+      container.addEventListener('mouseleave', function () {
         animation.setDirection(-1);
         animation.play();
       });
@@ -55,18 +56,27 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout fixedHeader>
         <div className="m-home-page">
           <div className="banner">
             <div className="left-logo">
-              <img className="logo" src={'//ysf.qiyukf.net/kornketgjocydxcldzywnyfdtclwugdl'} alt="logo"/>
+              <img className="logo" src={require('../../assets/logo-color.png')} alt="logo" />
             </div>
             <div className="right-desc">
               <h1 className="title">Fish Design</h1>
-              <p className="desc">基于 React 实现的高质量的企业级 UI 组件库，<br/>帮助设计者与开发者快速构建系统。</p>
+              <p className="desc">基于 React 实现的高质量的企业级 UI 组件库，帮助设计者与开发者快速构建系统。</p>
               <div className="button-group">
-                <Link to="/components/" className="button start">Start</Link>
-                <a href="http://github.com/NSFI/ppfish-components/" target="_blank" className="button github">&nbsp;</a>
+                <Link to="/components/" target="_blank" className="button">
+                  Web 组件 | <img src={require('../../assets/fd-web-5.2-logo@2x.svg')}></img>
+                </Link>
+                <a href="https://nsfi.github.io/fishd-mobile-site/index.html" className="button mobile">
+                  Mobile 组件 |
+                  <Popover placement="bottom" content={
+                    <img className="u-qrcode" src="https://nos.netease.com/ysf/9651582ccaba7d6296eed99eb4504c7e.png" />
+                  }>
+                    <img src={require('../../assets/qrcode.svg')}></img>
+                  </Popover>
+                </a>
               </div>
             </div>
           </div>
@@ -76,25 +86,25 @@ export default class Home extends React.Component {
               <div className="principle">
                 <div id="lottie_concise" className="lottie-item" />
                 <h3>简洁｜Concise</h3>
-                <i className="split-icon"/>
+                <i className="split-icon" />
                 <p>如无必要 勿增实体：慎重筛选客户当前需要信息内容</p>
               </div>
               <div className="principle">
                 <div id="lottie_immediate" className="lottie-item" />
                 <h3>直接｜Immediate</h3>
-                <i className="split-icon"/>
+                <i className="split-icon" />
                 <p>提供用户操作后的直接反馈，保证用户的操作结果符合预期</p>
               </div>
               <div className="principle">
                 <div id="lottie_elegent" className="lottie-item" />
                 <h3>优雅｜Elegent</h3>
-                <i className="split-icon"/>
+                <i className="split-icon" />
                 <p>设计方案追求优雅，給使用者有质感的操作感受</p>
               </div>
               <div className="principle">
                 <div id="lottie_adaptability" className="lottie-item" />
                 <h3>适应性｜Adaptability</h3>
-                <i className="split-icon"/>
+                <i className="split-icon" />
                 <p>设计方案提供可扩展能力及适应性，适应不同模式的企业使用</p>
               </div>
             </div>
@@ -104,25 +114,25 @@ export default class Home extends React.Component {
             <div className="resource-list">
               <div className="resource-item">
                 <Link to="/components/contributing/">
-                  <img src={'//ysf.qiyukf.net/xjupeqkvqvzvofkzalfzyfhpqmjvofrw'} alt="贡献指南"/>
+                  <img src={'//ysf.nosdn.127.net/xjupeqkvqvzvofkzalfzyfhpqmjvofrw'} alt="贡献指南" />
                   贡献指南
                 </Link>
               </div>
               <div className="resource-item">
                 <Link to="/components/changelog/">
-                  <img src={'//ysf.qiyukf.net/zespbluoxdooiuwbodfuzzniuikphxzu'} alt="更新日志"/>
+                  <img src={'//ysf.nosdn.127.net/zespbluoxdooiuwbodfuzzniuikphxzu'} alt="更新日志" />
                   更新日志
                 </Link>
               </div>
               <div className="resource-item">
                 <Link to="/components/">
-                  <img src={'//ysf.qiyukf.net/cwknzqyaxbjnbwsldapbridnbtwqzcho'} alt="组件库"/>
+                  <img src={'//ysf.nosdn.127.net/cwknzqyaxbjnbwsldapbridnbtwqzcho'} alt="组件库" />
                   组件库
                 </Link>
               </div>
               <div className="resource-item">
                 <a href="//axure.yixin.im/view?id=11388&pid=4&mid=434#fishdesign___" target="_blank">
-                  <img src={'//ysf.qiyukf.net/pdkitmnnpikavbkzscsxsgoilftykxza'} alt="资源下载"/>
+                  <img src={'//ysf.nosdn.127.net/pdkitmnnpikavbkzscsxsgoilftykxza'} alt="资源下载" />
                   资源下载
                 </a>
               </div>

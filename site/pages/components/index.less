@@ -2,13 +2,16 @@
 
 .component-container {
   height: calc(~"100vh - 64px");
+
   @media (max-width: @screen-lg) {
     height: calc(~"100vh - 128px");
   }
+
   .component-list,
   .component-content {
     height: 100%;
   }
+
   .content {
     background: url("//ysf.qiyukf.net/zeenqqdsasgclvvedsbvueqvkzpufgoj") top right no-repeat;
   }
@@ -18,10 +21,12 @@
 .content {
   vertical-align: top;
   padding: 60px 200px 60px 60px;
+
   //小屏幕去掉右侧快捷导航
   @media screen and (max-width: 1125px) {
     padding: 60px 64px 60px 60px;
   }
+
   border-left: 1px solid #ebedf0;
   margin-left: -1px;
 }
@@ -29,10 +34,11 @@
 //左侧侧边栏，ant-menu 样式覆盖
 /* stylelint-disable */
 .affix-menu-left {
-  > div {
+  >div {
     height: calc(~"100vh - 64px");
     overflow: auto;
     .scrollbar();
+
     &.fishd-affix {
       margin-top: 64px;
     }
@@ -44,8 +50,10 @@
   padding-top: 60px;
   padding-right: 1px;
   border-right: 1px solid #f2f2f5;
-  > .fishd-menu {
+
+  >.fishd-menu {
     border-right: 0;
+
     .fishd-menu-submenu-title {
       padding-left: 40px;
       height: 50px !important;
@@ -53,19 +61,24 @@
       font-size: 16px;
       color: #18181a;
     }
+
     .fishd-menu-item {
       font-size: 14px;
       color: #737380;
       margin: 0 !important;
-      > a {
+
+      >a {
         display: inline;
       }
+
       &:after {
         transition: none;
       }
     }
+
     .fishd-menu-item-selected {
       background: #f7f7fa !important;
+
       &:after {
         right: auto;
         left: 0;
@@ -73,8 +86,10 @@
         border-bottom-right-radius: 5px;
       }
     }
+
     .fishd-menu-item-group-list {
       position: relative;
+
       &:after {
         content: "";
         display: block;
@@ -87,9 +102,11 @@
         width: 2px;
       }
     }
+
     .fishd-menu-item-group {
       .fishd-menu-item-selected {
         background: #fff !important;
+
         &:after {
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
@@ -108,17 +125,21 @@
 //底部导航
 .u-navigation-btm {
   font-size: 14px;
+
   .prev-page {
     text-align: left;
     text-decoration: none;
+
     .prev-page-icon {
       font-size: 12px;
       margin-right: 5px;
     }
   }
+
   .next-page {
     text-align: right;
     text-decoration: none;
+
     .next-page-icon {
       font-size: 12px;
       margin-left: 5px;
