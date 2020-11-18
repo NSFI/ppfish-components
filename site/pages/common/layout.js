@@ -110,7 +110,7 @@ export default class Layout extends React.Component {
                 <a href="//nsfi.github.io/fishd-mobile-site/index.html" target="_blank">{this.getLocale('misc.mobileComponent')}</a>
               </li>
               <a className="nav-version">{this.getLocale('misc.version')}</a>
-              <a className="u-github" href="//github.com/NSFI/ppfish-co" target="_blank">
+              <a className="u-github" href="//github.com/NSFI/ppfish-components" target="_blank">
                 <img style={{width: 25, height: 25}} src={require('../../assets/github.png')} alt="github" />
               </a>
             </ul>
