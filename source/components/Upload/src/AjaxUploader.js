@@ -7,7 +7,7 @@ import defaultRequest from './request';
 import getUid from './uid';
 import attrAccept from './attr-accept';
 import traverseFileTree from './traverseFileTree';
-
+const noop = () => {}
 class AjaxUploader extends Component {
   static propTypes = {
     component: PropTypes.string,
@@ -162,7 +162,7 @@ class AjaxUploader extends Component {
         },
       });
       onStart(file);
-    });
+    }).catch(noop);
   }
 
   reset() {
