@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://nsfi.github.io/ppfish-components/#/home">
-    <img width="150" height="150" src="//ysf.qiyukf.net/kornketgjocydxcldzywnyfdtclwugdl">
+    <img width="150" height="150" src="https://ysf.qiyukf.net/kornketgjocydxcldzywnyfdtclwugdl">
   </a>
 </p>
 
@@ -96,7 +96,7 @@ Open your browser and visit http://127.0.0.1:5000
 
 ## Build
 
-  Build scripts ``````and css etc.
+  Build scripts and css etc.
   ```
   $ npm run build
   ```
