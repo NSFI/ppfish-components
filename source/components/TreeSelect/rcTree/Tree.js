@@ -38,6 +38,7 @@ class Tree extends React.Component {
       PropTypes.node,
     ]),
     checkStrictly: PropTypes.bool,
+    checkType: PropTypes.string, // 联动策略 countDown：从上往下联动,
     draggable: PropTypes.bool,
     defaultExpandParent: PropTypes.bool,
     autoExpandParent: PropTypes.bool,
@@ -169,10 +170,11 @@ class Tree extends React.Component {
 
       if (checkedKeyEntity) {
         let { checkedKeys = [], halfCheckedKeys = [] } = checkedKeyEntity;
-
+        
+        // 处理联动
         if (!props.checkStrictly) {
           const conductKeys = conductCheck(checkedKeys, true, keyEntities,
-          null, props.loadData, props.loadedKeys);
+          null, props.loadData, props.loadedKeys, props.checkType);
           checkedKeys = conductKeys.checkedKeys;
           halfCheckedKeys = conductKeys.halfCheckedKeys;
         }
@@ -465,7 +467,7 @@ class Tree extends React.Component {
       halfCheckedKeys: oriHalfCheckedKeys,
       loadedKeys
     } = this.state;
-    const { checkStrictly, onCheck, loadData } = this.props;
+    const { checkStrictly, onCheck, loadData, checkType } = this.props;
     const { props: { eventKey } } = treeNode;
 
     // Prepare trigger arguments
@@ -477,6 +479,7 @@ class Tree extends React.Component {
       nativeEvent: e.nativeEvent,
     };
 
+    // 处理联动
     if (checkStrictly) {
       const checkedKeys = checked ? arrAdd(oriCheckedKeys, eventKey) : arrDel(oriCheckedKeys, eventKey);
       const halfCheckedKeys = arrDel(oriHalfCheckedKeys, eventKey);
@@ -491,7 +494,7 @@ class Tree extends React.Component {
     } else {
       const { checkedKeys, halfCheckedKeys } = conductCheck([eventKey], checked, keyEntities, {
         checkedKeys: oriCheckedKeys, halfCheckedKeys: oriHalfCheckedKeys,
-      }, loadData, loadedKeys);
+      }, loadData, loadedKeys, checkType);
 
       checkedObj = checkedKeys;
 

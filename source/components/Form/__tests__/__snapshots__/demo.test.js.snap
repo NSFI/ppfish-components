@@ -104,5 +104,3482 @@ exports[`Renders form demo correctly 1`] = `
       </div>
     </div>
   </form>
+  <form
+    class="fishd-form fishd-form-horizontal login-form "
+    id="components-form-demo-normal-login"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-input-affix-wrapper"
+            >
+              <span
+                class="fishd-input-prefix"
+              >
+                <i
+                  class="fishdicon fishdicon-user-line"
+                  style="color:rgba(0,0,0,.25)"
+                />
+              </span>
+              <input
+                class="fishd-input"
+                data-__field="[object Object]"
+                data-__meta="[object Object]"
+                id="userName2"
+                placeholder="Username"
+                type="text"
+                value=""
+              />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-input-affix-wrapper"
+            >
+              <span
+                class="fishd-input-prefix"
+              >
+                <i
+                  class="fishdicon fishdicon-lock-line"
+                  style="color:rgba(0,0,0,.25)"
+                />
+              </span>
+              <input
+                class="fishd-input"
+                data-__field="[object Object]"
+                data-__meta="[object Object]"
+                id="password2"
+                placeholder="Password"
+                type="password"
+                value=""
+              />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox fishd-checkbox-checked"
+              >
+                <input
+                  checked=""
+                  class="fishd-checkbox-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="remember"
+                  type="checkbox"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+              <span>
+                Remember me
+              </span>
+            </label>
+            <a
+              class="login-form-forgot"
+              href=""
+            >
+              Forgot password
+            </a>
+            <button
+              class="fishd-btn login-form-button fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Log in
+              </span>
+            </button>
+            Or 
+            <a
+              href=""
+            >
+              register now!
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form
+    class="fishd-form fishd-form-horizontal"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="email"
+          title="E-mail"
+        >
+          E-mail
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="email"
+              type="text"
+              value=""
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="password3"
+          title="Password"
+        >
+          Password
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="password3"
+              type="password"
+              value=""
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="confirm"
+          title="Confirm Password"
+        >
+          Confirm Password
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="confirm"
+              type="password"
+              value=""
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="nickname1"
+          title=""
+        >
+          <span>
+            Nickname 
+            <i
+              class="fishdicon fishdicon-tip"
+              style="color:#cccccc"
+            />
+          </span>
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="nickname1"
+              type="text"
+              value=""
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="residence"
+          title="Habitual Residence"
+        >
+          Habitual Residence
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-cascader-picker"
+              tabindex="0"
+            >
+              <span
+                class="fishd-cascader-picker-label"
+                title="Zhejiang / Hangzhou / West Lake"
+              >
+                Zhejiang / Hangzhou / West Lake
+              </span>
+              <input
+                autocomplete="off"
+                class="fishd-input fishd-cascader-input "
+                data-__field="[object Object]"
+                data-__meta="[object Object]"
+                id="residence"
+                readonly=""
+                type="text"
+                value=""
+              />
+              <i
+                class="fishdicon fishdicon-close-circle-fill fishd-cascader-picker-clear"
+              />
+              <i
+                class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+              />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="phone"
+          title="Phone Number"
+        >
+          Phone Number
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-input-group-wrapper"
+              style="width:100%"
+            >
+              <span
+                class="fishd-input-wrapper fishd-input-group"
+              >
+                <span
+                  class="fishd-input-group-addon"
+                >
+                  <div
+                    class="fishd-select"
+                    style="width:80px"
+                  >
+                    <div
+                      class="fishd-select-content"
+                    >
+                      <div
+                        class="fishd-select-caret"
+                      >
+                        <i
+                          class="fishdicon fishdicon-down-fill"
+                        />
+                      </div>
+                      <div
+                        class="fishd-select-option-single"
+                      >
+                        +86
+                      </div>
+                    </div>
+                  </div>
+                </span>
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="phone"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="website"
+          title="Website"
+        >
+          Website
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-autocomplete-select-show-search fishd-autocomplete-select-auto-complete fishd-autocomplete-select fishd-autocomplete-select-combobox fishd-autocomplete-select-enabled"
+              id="website"
+            >
+              <div
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="fishd-autocomplete-select-selection
+            fishd-autocomplete-select-selection--single"
+                data-__field="[object Object]"
+                data-__meta="[object Object]"
+                role="combobox"
+              >
+                <div
+                  class="fishd-autocomplete-select-selection__rendered"
+                >
+                  <div
+                    class="fishd-autocomplete-select-selection__placeholder"
+                    style="display:block;user-select:none;-webkit-user-select:none"
+                    unselectable="on"
+                  >
+                    website
+                  </div>
+                  <ul>
+                    <li
+                      class="fishd-autocomplete-select-search fishd-autocomplete-select-search--inline"
+                    >
+                      <div
+                        class="fishd-autocomplete-select-search__field__wrap"
+                      >
+                        <input
+                          class="fishd-input fishd-autocomplete-select-search__field"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="fishd-autocomplete-select-search__field__mirror"
+                        >
+                           
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <span
+                  class="fishd-autocomplete-select-arrow"
+                  style="user-select:none;-webkit-user-select:none"
+                  unselectable="on"
+                >
+                  <i
+                    class="fishd-autocomplete-select-arrow-icon"
+                  />
+                </span>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="captcha"
+          title="Captcha"
+        >
+          Captcha
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-row"
+              style="margin-left:-4px;margin-right:-4px"
+            >
+              <div
+                class="fishd-col-12"
+                style="padding-left:4px;padding-right:4px"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="captcha"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="fishd-col-12"
+                style="padding-left:4px;padding-right:4px"
+              >
+                <button
+                  class="fishd-btn"
+                  type="button"
+                >
+                  <span>
+                    Get captcha
+                  </span>
+                </button>
+              </div>
+            </div>
+          </span>
+          <div
+            class="fishd-form-extra"
+          >
+            We must make sure that your are a human.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-xs-offset-0 fishd-col-sm-16 fishd-col-sm-offset-8"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox"
+              >
+                <input
+                  class="fishd-checkbox-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="agreement"
+                  type="checkbox"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+              <span>
+                I have read the 
+                <a
+                  href=""
+                >
+                  agreement
+                </a>
+              </span>
+            </label>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-xs-offset-0 fishd-col-sm-16 fishd-col-sm-offset-8"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Register
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form
+    class="fishd-form fishd-form-horizontal fishd-advanced-search-form"
+    id="components-form-demo-advanced-search"
+  >
+    <div
+      class="fishd-row"
+      style="margin-left:-12px;margin-right:-12px"
+    >
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:block"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-0"
+              title="Field 0"
+            >
+              Field 0
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-0"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:block"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-1"
+              title="Field 1"
+            >
+              Field 1
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-1"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:block"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-2"
+              title="Field 2"
+            >
+              Field 2
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-2"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:block"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-3"
+              title="Field 3"
+            >
+              Field 3
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-3"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:block"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-4"
+              title="Field 4"
+            >
+              Field 4
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-4"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:block"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-5"
+              title="Field 5"
+            >
+              Field 5
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-5"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:none"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-6"
+              title="Field 6"
+            >
+              Field 6
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-6"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:none"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-7"
+              title="Field 7"
+            >
+              Field 7
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-7"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:none"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-8"
+              title="Field 8"
+            >
+              Field 8
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-8"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-col-8"
+        style="padding-left:12px;padding-right:12px;display:none"
+      >
+        <div
+          class="fishd-row fishd-form-item"
+        >
+          <div
+            class="fishd-form-item-label"
+          >
+            <label
+              class="fishd-form-item-required"
+              for="field-9"
+              title="Field 9"
+            >
+              Field 9
+            </label>
+          </div>
+          <div
+            class="fishd-form-item-control-wrapper"
+          >
+            <div
+              class="fishd-form-item-control"
+            >
+              <span
+                class="fishd-form-item-children"
+              >
+                <input
+                  class="fishd-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="field-9"
+                  placeholder="placeholder"
+                  type="text"
+                  value=""
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row"
+    >
+      <div
+        class="fishd-col-24"
+        style="text-align:right"
+      >
+        <button
+          class="fishd-btn fishd-btn-primary"
+          type="submit"
+        >
+          <span>
+            Search
+          </span>
+        </button>
+        <button
+          class="fishd-btn"
+          style="margin-left:8px"
+          type="button"
+        >
+          <span>
+            Clear
+          </span>
+        </button>
+        <a
+          style="margin-left:8px;font-size:12px"
+        >
+          Collapse 
+          <i
+            class="fishdicon fishdicon-bottom"
+          />
+        </a>
+      </div>
+    </div>
+  </form>
+  <div>
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        New Collection
+      </span>
+    </button>
+  </div>
+  <form
+    class="fishd-form fishd-form-horizontal"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-xs-offset-0 fishd-col-sm-20 fishd-col-sm-offset-4"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-dashed"
+              style="width:60%"
+              type="button"
+            >
+              <i
+                class="fishdicon fishdicon-upload-plus"
+              />
+              <span>
+                 Add field
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-xs-offset-0 fishd-col-sm-20 fishd-col-sm-offset-4"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Submit
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form
+    class="fishd-form fishd-form-horizontal"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="date-picker"
+          title="DatePicker"
+        >
+          DatePicker
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-date-editor is-have-trigger"
+            >
+              <div
+                class="fishd-date-editor--date"
+              >
+                <span
+                  class="fishd-input-affix-wrapper"
+                >
+                  <span
+                    class="fishd-input-prefix"
+                  >
+                    <i
+                      class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+                    />
+                  </span>
+                  <input
+                    class="fishd-input"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="date-time-picker"
+          title="DatePicker[showTime]"
+        >
+          DatePicker[showTime]
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-date-editor is-have-trigger"
+            >
+              <div
+                class="fishd-date-editor--datetime"
+              >
+                <span
+                  class="fishd-input-affix-wrapper"
+                >
+                  <span
+                    class="fishd-input-prefix"
+                  >
+                    <i
+                      class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+                    />
+                  </span>
+                  <input
+                    class="fishd-input"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="range-picker"
+          title="RangePicker"
+        >
+          RangePicker
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-date-editor is-have-trigger"
+            >
+              <div
+                class="fishd-date-editor--daterange"
+              >
+                <span
+                  class="fishd-input-affix-wrapper"
+                >
+                  <span
+                    class="fishd-input-prefix"
+                  >
+                    <i
+                      class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+                    />
+                  </span>
+                  <input
+                    class="fishd-input"
+                    placeholder="开始日期"
+                    type="text"
+                    value=""
+                  />
+                </span>
+                <span
+                  class="range-separator"
+                >
+                  至
+                </span>
+                <span
+                  class="fishd-date-range-picker-second-input fishd-input-affix-wrapper"
+                >
+                  <input
+                    class="fishd-input"
+                    placeholder="结束日期"
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="range-time-picker"
+          title="RangePicker[showTime]"
+        >
+          RangePicker[showTime]
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-date-editor is-have-trigger"
+            >
+              <div
+                class="fishd-date-editor--datetimerange"
+              >
+                <span
+                  class="fishd-input-affix-wrapper"
+                >
+                  <span
+                    class="fishd-input-prefix"
+                  >
+                    <i
+                      class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+                    />
+                  </span>
+                  <input
+                    class="fishd-input"
+                    placeholder="开始日期"
+                    type="text"
+                    value=""
+                  />
+                </span>
+                <span
+                  class="range-separator"
+                >
+                  至
+                </span>
+                <span
+                  class="fishd-date-range-picker-second-input fishd-input-affix-wrapper"
+                >
+                  <input
+                    class="fishd-input"
+                    placeholder="结束日期"
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-8"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="time-picker"
+          title="TimePicker"
+        >
+          TimePicker
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-16"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-date-editor is-have-trigger"
+            >
+              <div
+                class="fishd-date-editor--time"
+              >
+                <span
+                  class="fishd-input-affix-wrapper"
+                >
+                  <span
+                    class="fishd-input-prefix"
+                  >
+                    <i
+                      class="fishdicon fishdicon-time-line fishd-date-picker-icon prefix-iconfont"
+                    />
+                  </span>
+                  <input
+                    class="fishd-input"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-xs-offset-0 fishd-col-sm-16 fishd-col-sm-offset-8"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Submit
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form
+    class="fishd-form fishd-form-inline"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="price"
+          title="Price"
+        >
+          Price
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span>
+              <input
+                class="fishd-input"
+                style="width:57%;margin-right:3%"
+                type="text"
+                value="0"
+              />
+              <div
+                class="fishd-select"
+                style="width:40%"
+              >
+                <div
+                  class="fishd-select-content"
+                >
+                  <div
+                    class="fishd-select-caret"
+                  >
+                    <i
+                      class="fishdicon fishdicon-down-fill"
+                    />
+                  </div>
+                  <div
+                    class="fishd-select-option-single"
+                  >
+                    RMB
+                  </div>
+                </div>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Submit
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div
+    id="components-form-demo-global-state"
+  >
+    <form
+      class="fishd-form fishd-form-inline"
+    >
+      <div
+        class="fishd-row fishd-form-item"
+      >
+        <div
+          class="fishd-form-item-label"
+        >
+          <label
+            class="fishd-form-item-required"
+            for="username3"
+            title="Username"
+          >
+            Username
+          </label>
+        </div>
+        <div
+          class="fishd-form-item-control-wrapper"
+        >
+          <div
+            class="fishd-form-item-control has-success"
+          >
+            <span
+              class="fishd-form-item-children"
+            >
+              <input
+                class="fishd-input"
+                data-__field="[object Object]"
+                data-__meta="[object Object]"
+                id="username3"
+                type="text"
+                value="benjycui"
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <pre
+      class="language-bash"
+    >
+      {
+  "username3": {
+    "value": "benjycui"
+  }
+}
+    </pre>
+  </div>
+  <form
+    class="fishd-form fishd-form-horizontal"
+  >
+    <div
+      class="fishd-row fishd-form-item fishd-form-item-with-help"
+    >
+      <div
+        class="fishd-col-7 fishd-form-item-label"
+      >
+        <label
+          class=""
+          title="Prime between 8 & 12"
+        >
+          Prime between 8 & 12
+        </label>
+      </div>
+      <div
+        class="fishd-col-12 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-input-number"
+            >
+              <div
+                class="fishd-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled="false"
+                  aria-label="Increase Value"
+                  class="fishd-input-number-handler fishd-input-number-handler-up "
+                  role="button"
+                  unselectable="unselectable"
+                >
+                  <span
+                    class="fishd-input-number-handler-up-inner"
+                    unselectable="unselectable"
+                  />
+                </span>
+                <span
+                  aria-disabled="false"
+                  aria-label="Decrease Value"
+                  class="fishd-input-number-handler fishd-input-number-handler-down "
+                  role="button"
+                  unselectable="unselectable"
+                >
+                  <span
+                    class="fishd-input-number-handler-down-inner"
+                    unselectable="unselectable"
+                  />
+                </span>
+              </div>
+              <div
+                aria-valuemax="12"
+                aria-valuemin="8"
+                aria-valuenow="11"
+                class="fishd-input-number-input-wrap"
+                role="spinbutton"
+              >
+                <input
+                  autocomplete="off"
+                  class="fishd-input-number-input"
+                  max="12"
+                  min="8"
+                  step="1"
+                  value="11"
+                />
+              </div>
+            </div>
+          </span>
+          <div
+            class="fishd-form-explain"
+          >
+            A prime is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form
+    class="fishd-form fishd-form-horizontal"
+  >
+    <div
+      class="fishd-row fishd-form-item fishd-form-item-with-help"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Fail"
+        >
+          Fail
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-error"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              placeholder="unavailable choice"
+              type="text"
+            />
+          </span>
+          <div
+            class="fishd-form-explain"
+          >
+            Should be combination of numbers & alphabets
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Warning"
+        >
+          Warning
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-warning"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              placeholder="Warning"
+              type="text"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item fishd-form-item-with-help"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Validating"
+        >
+          Validating
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback is-validating"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              placeholder="I'm the content is being validated"
+              type="text"
+            />
+          </span>
+          <div
+            class="fishd-form-explain"
+          >
+            The information is being validated...
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Success"
+        >
+          Success
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              placeholder="I'm the content"
+              type="text"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Warning"
+        >
+          Warning
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-warning"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              placeholder="Warning"
+              type="text"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item fishd-form-item-with-help"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Fail"
+        >
+          Fail
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-error"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              placeholder="unavailable choice"
+              type="text"
+            />
+          </span>
+          <div
+            class="fishd-form-explain"
+          >
+            Should be combination of numbers & alphabets
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Success"
+        >
+          Success
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-date-editor is-have-trigger"
+              style="width:100%"
+            >
+              <div
+                class="fishd-date-editor--date"
+              >
+                <span
+                  class="fishd-input-affix-wrapper"
+                >
+                  <span
+                    class="fishd-input-prefix"
+                  >
+                    <i
+                      class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+                    />
+                  </span>
+                  <input
+                    class="fishd-input"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Warning"
+        >
+          Warning
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-warning"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-date-editor is-have-trigger"
+              style="width:100%"
+            >
+              <div
+                class="fishd-date-editor--time"
+              >
+                <span
+                  class="fishd-input-affix-wrapper"
+                >
+                  <span
+                    class="fishd-input-prefix"
+                  >
+                    <i
+                      class="fishdicon fishdicon-time-line fishd-date-picker-icon prefix-iconfont"
+                    />
+                  </span>
+                  <input
+                    class="fishd-input"
+                    placeholder=""
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </div>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Error"
+        >
+          Error
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-error"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-select"
+            >
+              <div
+                class="fishd-select-content"
+              >
+                <div
+                  class="fishd-select-caret"
+                >
+                  <i
+                    class="fishdicon fishdicon-down-fill"
+                  />
+                </div>
+                <div
+                  class="fishd-select-option-single"
+                >
+                  Option 1
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item fishd-form-item-with-help"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Validating"
+        >
+          Validating
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback is-validating"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-cascader-picker"
+              tabindex="0"
+            >
+              <span
+                class="fishd-cascader-picker-label"
+                title=""
+              />
+              <input
+                autocomplete="off"
+                class="fishd-input fishd-cascader-input "
+                readonly=""
+                type="text"
+                value=""
+              />
+              <i
+                class="fishdicon fishdicon-close-circle-fill fishd-cascader-picker-clear"
+              />
+              <i
+                class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+              />
+            </span>
+          </span>
+          <div
+            class="fishd-form-explain"
+          >
+            The information is being validated...
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="inline"
+        >
+          inline
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-col-11"
+            >
+              <div
+                class="fishd-row fishd-form-item fishd-form-item-with-help"
+              >
+                <div
+                  class="fishd-form-item-control-wrapper"
+                >
+                  <div
+                    class="fishd-form-item-control has-error"
+                  >
+                    <span
+                      class="fishd-form-item-children"
+                    >
+                      <span
+                        class="fishd-date-editor is-have-trigger"
+                      >
+                        <div
+                          class="fishd-date-editor--date"
+                        >
+                          <span
+                            class="fishd-input-affix-wrapper"
+                          >
+                            <span
+                              class="fishd-input-prefix"
+                            >
+                              <i
+                                class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+                              />
+                            </span>
+                            <input
+                              class="fishd-input"
+                              placeholder=""
+                              type="text"
+                              value=""
+                            />
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                    <div
+                      class="fishd-form-explain"
+                    >
+                      Please select the correct date
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="fishd-col-2"
+            >
+              <span
+                style="display:inline-block;width:100%;text-align:center"
+              >
+                -
+              </span>
+            </div>
+            <div
+              class="fishd-col-11"
+            >
+              <div
+                class="fishd-row fishd-form-item"
+              >
+                <div
+                  class="fishd-form-item-control-wrapper"
+                >
+                  <div
+                    class="fishd-form-item-control"
+                  >
+                    <span
+                      class="fishd-form-item-children"
+                    >
+                      <span
+                        class="fishd-date-editor is-have-trigger"
+                      >
+                        <div
+                          class="fishd-date-editor--date"
+                        >
+                          <span
+                            class="fishd-input-affix-wrapper"
+                          >
+                            <span
+                              class="fishd-input-prefix"
+                            >
+                              <i
+                                class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+                              />
+                            </span>
+                            <input
+                              class="fishd-input"
+                              placeholder=""
+                              type="text"
+                              value=""
+                            />
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Success"
+        >
+          Success
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-input-number"
+              style="width:100%"
+            >
+              <div
+                class="fishd-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled="false"
+                  aria-label="Increase Value"
+                  class="fishd-input-number-handler fishd-input-number-handler-up "
+                  role="button"
+                  unselectable="unselectable"
+                >
+                  <span
+                    class="fishd-input-number-handler-up-inner"
+                    unselectable="unselectable"
+                  />
+                </span>
+                <span
+                  aria-disabled="false"
+                  aria-label="Decrease Value"
+                  class="fishd-input-number-handler fishd-input-number-handler-down "
+                  role="button"
+                  unselectable="unselectable"
+                >
+                  <span
+                    class="fishd-input-number-handler-down-inner"
+                    unselectable="unselectable"
+                  />
+                </span>
+              </div>
+              <div
+                aria-valuemin="-9007199254740991"
+                class="fishd-input-number-input-wrap"
+                role="spinbutton"
+              >
+                <input
+                  autocomplete="off"
+                  class="fishd-input-number-input"
+                  min="-9007199254740991"
+                  step="1"
+                  value=""
+                />
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Success"
+        >
+          Success
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-input-affix-wrapper"
+            >
+              <span
+                class="fishd-input-prefix"
+              >
+                <i
+                  class="fishdicon fishdicon-date-line"
+                  style="color:rgba(0,0,0,.25)"
+                />
+              </span>
+              <input
+                class="fishd-input"
+                placeholder="Enter your username"
+                type="text"
+              />
+              <span
+                class="fishd-input-suffix"
+              >
+                <i
+                  class="fishdicon fishdicon-close-circle-fill"
+                  style="color:rgba(0,0,0,.25)"
+                />
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Success"
+        >
+          Success
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <textarea
+              class="fishd-input"
+              rows="4"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-form-item-label fishd-col-xs-24 fishd-col-sm-5"
+      >
+        <label
+          class=""
+          title="Success"
+        >
+          Success
+        </label>
+      </div>
+      <div
+        class="fishd-form-item-control-wrapper fishd-col-xs-24 fishd-col-sm-12"
+      >
+        <div
+          class="fishd-form-item-control has-feedback has-error"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-input-counter"
+            >
+              <textarea
+                class="fishd-input fishd-input"
+                maxlength="500"
+                placeholder="Autosize height with minimum and maximum number of lines"
+              />
+              <span
+                class="fishd-input-counter-footer"
+              >
+                <span
+                  class="fishd-input-counter-indicator"
+                >
+                  0/500
+                </span>
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form
+    class="fishd-form fishd-form-horizontal"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-5 fishd-form-item-label"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="note"
+          title="Note"
+        >
+          Note
+        </label>
+      </div>
+      <div
+        class="fishd-col-12 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="note"
+              type="text"
+              value=""
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-5 fishd-form-item-label"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="gender"
+          title="Gender"
+        >
+          Gender
+        </label>
+      </div>
+      <div
+        class="fishd-col-12 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-select"
+            >
+              <div
+                class="fishd-select-content"
+              >
+                <div
+                  class="fishd-select-caret"
+                >
+                  <i
+                    class="fishdicon fishdicon-down-fill"
+                  />
+                </div>
+                <div
+                  class="fishd-select-placeholder"
+                  unselectable="on"
+                >
+                  Select a option and change input text above
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-12 fishd-col-offset-5 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Submit
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div
+    class="demo-layout"
+  >
+    <div
+      class="demo-layout-head"
+    >
+      <div
+        class="fishd-radio-group fishd-radio-group-outline"
+      >
+        <label
+          class="fishd-radio-button-wrapper fishd-radio-button-wrapper-checked"
+        >
+          <span
+            class="fishd-radio-button fishd-radio-button-checked"
+          >
+            <input
+              checked=""
+              class="fishd-radio-button-input"
+              type="radio"
+              value="horizontal"
+            />
+            <span
+              class="fishd-radio-button-inner"
+            />
+          </span>
+          <span>
+            Horizontal
+          </span>
+        </label>
+        <label
+          class="fishd-radio-button-wrapper"
+        >
+          <span
+            class="fishd-radio-button"
+          >
+            <input
+              class="fishd-radio-button-input"
+              type="radio"
+              value="vertical"
+            />
+            <span
+              class="fishd-radio-button-inner"
+            />
+          </span>
+          <span>
+            Vertical
+          </span>
+        </label>
+        <label
+          class="fishd-radio-button-wrapper"
+        >
+          <span
+            class="fishd-radio-button"
+          >
+            <input
+              class="fishd-radio-button-input"
+              type="radio"
+              value="inline"
+            />
+            <span
+              class="fishd-radio-button-inner"
+            />
+          </span>
+          <span>
+            Inline
+          </span>
+        </label>
+      </div>
+    </div>
+    <form
+      class="fishd-form fishd-form-horizontal"
+    >
+      <div
+        class="fishd-row fishd-form-item"
+      >
+        <div
+          class="fishd-col-4 fishd-form-item-label"
+        >
+          <label
+            class=""
+            title="Field A"
+          >
+            Field A
+          </label>
+        </div>
+        <div
+          class="fishd-col-14 fishd-form-item-control-wrapper"
+        >
+          <div
+            class="fishd-form-item-control"
+          >
+            <span
+              class="fishd-form-item-children"
+            >
+              <input
+                class="fishd-input"
+                placeholder="input placeholder"
+                type="text"
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-row fishd-form-item"
+      >
+        <div
+          class="fishd-col-4 fishd-form-item-label"
+        >
+          <label
+            class=""
+            title="Field B"
+          >
+            Field B
+          </label>
+        </div>
+        <div
+          class="fishd-col-14 fishd-form-item-control-wrapper"
+        >
+          <div
+            class="fishd-form-item-control"
+          >
+            <span
+              class="fishd-form-item-children"
+            >
+              <input
+                class="fishd-input"
+                placeholder="input placeholder"
+                type="text"
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-row fishd-form-item"
+      >
+        <div
+          class="fishd-col-14 fishd-col-offset-4 fishd-form-item-control-wrapper"
+        >
+          <div
+            class="fishd-form-item-control"
+          >
+            <span
+              class="fishd-form-item-children"
+            >
+              <button
+                class="fishd-btn fishd-btn-primary"
+                type="button"
+              >
+                <span>
+                  Submit
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-4 fishd-form-item-label"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="username4"
+          title="Name"
+        >
+          Name
+        </label>
+      </div>
+      <div
+        class="fishd-col-8 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="username4"
+              placeholder="Please input your name"
+              type="text"
+              value=""
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-4 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="nickname2"
+          title="Nickname"
+        >
+          Nickname
+        </label>
+      </div>
+      <div
+        class="fishd-col-8 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <input
+              class="fishd-input"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="nickname2"
+              placeholder="Please input your nickname"
+              type="text"
+              value=""
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-8 fishd-col-offset-4 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox"
+              >
+                <input
+                  class="fishd-checkbox-input"
+                  type="checkbox"
+                  value="false"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+              <span>
+                Nickname is required
+              </span>
+            </label>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-8 fishd-col-offset-4 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="button"
+            >
+              <span>
+                Check
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form
+    class="fishd-form fishd-form-horizontal"
+    id="components-form-demo-validate-other"
+  >
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          title="Plain Text"
+        >
+          Plain Text
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-form-text"
+            >
+              China
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="select"
+          title="Select"
+        >
+          Select
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-select"
+            >
+              <div
+                class="fishd-select-content"
+              >
+                <div
+                  class="fishd-select-caret"
+                >
+                  <i
+                    class="fishdicon fishdicon-down-fill"
+                  />
+                </div>
+                <div
+                  class="fishd-select-placeholder"
+                  unselectable="on"
+                >
+                  Please select a country
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class="fishd-form-item-required"
+          for="select-multiple"
+          title="Select[multiple]"
+        >
+          Select[multiple]
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-select"
+            >
+              <div
+                class="fishd-select-content"
+              >
+                <div
+                  class="fishd-select-caret"
+                >
+                  <i
+                    class="fishdicon fishdicon-down-fill"
+                  />
+                </div>
+                <div
+                  class="fishd-select-placeholder"
+                  unselectable="on"
+                >
+                  Please select favourite colors
+                </div>
+                <div
+                  class="fishd-select-option-multiple"
+                  title=""
+                />
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="input-number"
+          title="InputNumber"
+        >
+          InputNumber
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control has-success"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-input-number"
+            >
+              <div
+                class="fishd-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled="false"
+                  aria-label="Increase Value"
+                  class="fishd-input-number-handler fishd-input-number-handler-up "
+                  role="button"
+                  unselectable="unselectable"
+                >
+                  <span
+                    class="fishd-input-number-handler-up-inner"
+                    unselectable="unselectable"
+                  />
+                </span>
+                <span
+                  aria-disabled="false"
+                  aria-label="Decrease Value"
+                  class="fishd-input-number-handler fishd-input-number-handler-down "
+                  role="button"
+                  unselectable="unselectable"
+                >
+                  <span
+                    class="fishd-input-number-handler-down-inner"
+                    unselectable="unselectable"
+                  />
+                </span>
+              </div>
+              <div
+                aria-valuemax="10"
+                aria-valuemin="1"
+                aria-valuenow="3"
+                class="fishd-input-number-input-wrap"
+                role="spinbutton"
+              >
+                <input
+                  autocomplete="off"
+                  class="fishd-input-number-input"
+                  data-__field="[object Object]"
+                  data-__meta="[object Object]"
+                  id="input-number"
+                  max="10"
+                  min="1"
+                  step="1"
+                  value="3"
+                />
+              </div>
+            </div>
+            <span
+              class="fishd-form-text"
+            >
+               machines
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="switch"
+          title="Switch"
+        >
+          Switch
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class="fishd-switch"
+              data-__field="[object Object]"
+              data-__meta="[object Object]"
+              id="switch"
+              tabindex="0"
+            >
+              <span
+                class="fishd-switch-inner"
+              />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="slider"
+          title="Slider"
+        >
+          Slider
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-slider fishd-slider-with-marks"
+            >
+              <div
+                class="fishd-slider-rail"
+              />
+              <div
+                class="fishd-slider-track"
+                style="left:0%;width:0%"
+              />
+              <div
+                class="fishd-slider-step"
+              >
+                <span
+                  class="fishd-slider-dot fishd-slider-dot-active"
+                  style="left:0%"
+                />
+                <span
+                  class="fishd-slider-dot"
+                  style="left:20%"
+                />
+                <span
+                  class="fishd-slider-dot"
+                  style="left:40%"
+                />
+                <span
+                  class="fishd-slider-dot"
+                  style="left:60%"
+                />
+                <span
+                  class="fishd-slider-dot"
+                  style="left:80%"
+                />
+                <span
+                  class="fishd-slider-dot"
+                  style="left:100%"
+                />
+              </div>
+              <div
+                aria-disabled="false"
+                aria-valuemax="100"
+                aria-valuemin="0"
+                aria-valuenow="0"
+                class="fishd-slider-handle"
+                role="slider"
+                style="left:0%"
+                tabindex="0"
+              />
+              <div
+                class="fishd-slider-mark"
+              >
+                <span
+                  class="fishd-slider-mark-text fishd-slider-mark-text-active"
+                  style="width:18%;margin-left:-9%;left:0%"
+                >
+                  A
+                </span>
+                <span
+                  class="fishd-slider-mark-text"
+                  style="width:18%;margin-left:-9%;left:20%"
+                >
+                  B
+                </span>
+                <span
+                  class="fishd-slider-mark-text"
+                  style="width:18%;margin-left:-9%;left:40%"
+                >
+                  C
+                </span>
+                <span
+                  class="fishd-slider-mark-text"
+                  style="width:18%;margin-left:-9%;left:60%"
+                >
+                  D
+                </span>
+                <span
+                  class="fishd-slider-mark-text"
+                  style="width:18%;margin-left:-9%;left:80%"
+                >
+                  E
+                </span>
+                <span
+                  class="fishd-slider-mark-text"
+                  style="width:18%;margin-left:-9%;left:100%"
+                >
+                  F
+                </span>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="radio-group"
+          title="Radio.Group"
+        >
+          Radio.Group
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-radio-group fishd-radio-group-outline"
+              id="radio-group"
+            >
+              <label
+                class="fishd-radio-wrapper"
+              >
+                <span
+                  class="fishd-radio"
+                >
+                  <input
+                    class="fishd-radio-input"
+                    type="radio"
+                    value="a"
+                  />
+                  <span
+                    class="fishd-radio-inner"
+                  />
+                </span>
+                <span>
+                  item 1
+                </span>
+              </label>
+              <label
+                class="fishd-radio-wrapper"
+              >
+                <span
+                  class="fishd-radio"
+                >
+                  <input
+                    class="fishd-radio-input"
+                    type="radio"
+                    value="b"
+                  />
+                  <span
+                    class="fishd-radio-inner"
+                  />
+                </span>
+                <span>
+                  item 2
+                </span>
+              </label>
+              <label
+                class="fishd-radio-wrapper"
+              >
+                <span
+                  class="fishd-radio"
+                >
+                  <input
+                    class="fishd-radio-input"
+                    type="radio"
+                    value="c"
+                  />
+                  <span
+                    class="fishd-radio-inner"
+                  />
+                </span>
+                <span>
+                  item 3
+                </span>
+              </label>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="radio-button"
+          title="Radio.Button"
+        >
+          Radio.Button
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="fishd-radio-group fishd-radio-group-outline"
+              id="radio-button"
+            >
+              <label
+                class="fishd-radio-button-wrapper"
+              >
+                <span
+                  class="fishd-radio-button"
+                >
+                  <input
+                    class="fishd-radio-button-input"
+                    type="radio"
+                    value="a"
+                  />
+                  <span
+                    class="fishd-radio-button-inner"
+                  />
+                </span>
+                <span>
+                  item 1
+                </span>
+              </label>
+              <label
+                class="fishd-radio-button-wrapper"
+              >
+                <span
+                  class="fishd-radio-button"
+                >
+                  <input
+                    class="fishd-radio-button-input"
+                    type="radio"
+                    value="b"
+                  />
+                  <span
+                    class="fishd-radio-button-inner"
+                  />
+                </span>
+                <span>
+                  item 2
+                </span>
+              </label>
+              <label
+                class="fishd-radio-button-wrapper"
+              >
+                <span
+                  class="fishd-radio-button"
+                >
+                  <input
+                    class="fishd-radio-button-input"
+                    type="radio"
+                    value="c"
+                  />
+                  <span
+                    class="fishd-radio-button-inner"
+                  />
+                </span>
+                <span>
+                  item 3
+                </span>
+              </label>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="upload"
+          title="Upload"
+        >
+          Upload
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <span
+              class=""
+            >
+              <div
+                class="fishd-upload fishd-upload-select fishd-upload-select-picture"
+                style="display:"
+              />
+              <div
+                class="fishd-upload-list fishd-upload-list-picture"
+              />
+            </span>
+          </span>
+          <div
+            class="fishd-form-extra"
+          >
+            longgggggggggggggggggggggggggggggggggg
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-6 fishd-form-item-label"
+      >
+        <label
+          class=""
+          for="dragger"
+          title="Dragger"
+        >
+          Dragger
+        </label>
+      </div>
+      <div
+        class="fishd-col-14 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <div
+              class="dropbox"
+            >
+              <span
+                class=""
+              >
+                <div
+                  class="fishd-upload fishd-upload-drag"
+                />
+                <div
+                  class="fishd-upload-list fishd-upload-list-text"
+                />
+              </span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-row fishd-form-item"
+    >
+      <div
+        class="fishd-col-12 fishd-col-offset-6 fishd-form-item-control-wrapper"
+      >
+        <div
+          class="fishd-form-item-control"
+        >
+          <span
+            class="fishd-form-item-children"
+          >
+            <button
+              class="fishd-btn fishd-btn-primary"
+              type="submit"
+            >
+              <span>
+                Submit
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 `;
