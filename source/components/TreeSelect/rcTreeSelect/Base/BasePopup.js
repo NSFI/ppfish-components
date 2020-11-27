@@ -31,6 +31,7 @@ class BasePopup extends React.Component {
     ]),
     doCheckChildInSearch: PropTypes.bool,
     treeCheckStrictly: PropTypes.bool,
+    treeCheckType: PropTypes.string,
     treeDefaultExpandAll: PropTypes.bool,
     treeDefaultExpandedKeys: PropTypes.array,
     loadData: PropTypes.func,
@@ -167,7 +168,7 @@ class BasePopup extends React.Component {
     const {
       prefixCls,
       treeNodes, filteredTreeNodes,
-      showIcon, treeLine, treeCheckable, treeCheckStrictly, multiple,
+      showIcon, treeLine, treeCheckable, treeCheckStrictly, treeCheckType, multiple,
       loadData,
       loading,
       ariaId,
@@ -225,6 +226,7 @@ class BasePopup extends React.Component {
           selectable={!treeCheckable}
           checkable={treeCheckable}
           checkStrictly={treeCheckStrictly}
+          checkType={treeCheckType}
           multiple={multiple}
           loadData={loadData}
           loadedKeys={loadedKeys}

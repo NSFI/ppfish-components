@@ -498,6 +498,112 @@
 ```
 :::
 
+## 受控操作示例，单向绑定
+
+:::demo 受控操作示例，单向绑定
+
+```js
+
+  constructor(props){
+    super(props);
+    this.treeData = [{
+      title: '0-0',
+      key: '0-0',
+      children: [{
+        title: '0-0-0',
+        key: '0-0-0',
+        children: [
+          { title: '0-0-0-0', key: '0-0-0-0' },
+          { title: '0-0-0-1', key: '0-0-0-1' },
+          { title: '0-0-0-2', key: '0-0-0-2' },
+        ],
+      }, {
+        title: '0-0-1',
+        key: '0-0-1',
+        children: [
+          { title: '0-0-1-0', key: '0-0-1-0' },
+          { title: '0-0-1-1', key: '0-0-1-1' },
+          { title: '0-0-1-2', key: '0-0-1-2' },
+        ],
+      }, {
+        title: '0-0-2',
+        key: '0-0-2',
+      }],
+    }, {
+      title: '0-1',
+      key: '0-1',
+      children: [
+        { title: '0-1-0-0', key: '0-1-0-0' },
+        { title: '0-1-0-1', key: '0-1-0-1' },
+        { title: '0-1-0-2', key: '0-1-0-2' },
+      ],
+    }, {
+      title: '0-2',
+      key: '0-2',
+    }];
+    this.state = {
+      expandedKeys: ['0-0-0', '0-0-1'],
+      autoExpandParent: true,
+      checkedKeys: ['0-0-0'],
+      selectedKeys: [],
+    }
+  }
+
+  onExpand = (expandedKeys) => {
+    console.log('onExpand', expandedKeys);
+    // if not set autoExpandParent to false, if children expanded, parent can not collapse.
+    // or, you can remove all expanded children keys.
+    this.setState({
+      expandedKeys,
+      autoExpandParent: false,
+    });
+  }
+
+  onCheck = (checkedKeys) => {
+    console.log('onCheck', checkedKeys);
+    this.setState({ checkedKeys });
+  }
+
+  onSelect = (selectedKeys, info) => {
+    console.log('onSelect', info);
+    this.setState({ selectedKeys });
+  }
+
+  renderTreeNodes = (data) => {
+    const TreeNode = Tree.TreeNode;
+    return data.map((item) => {
+      if (item.children) {
+        return (
+          <TreeNode title={item.title} key={item.key} dataRef={item}>
+            {this.renderTreeNodes(item.children)}
+          </TreeNode>
+        );
+      }
+      return <TreeNode {...item} />;
+    });
+  }
+
+  render() {
+    const TreeNode = Tree.TreeNode;
+    return (
+      <Tree
+        checkable
+        onExpand={this.onExpand}
+        expandedKeys={this.state.expandedKeys}
+        autoExpandParent={this.state.autoExpandParent}
+        onCheck={this.onCheck}
+        checkedKeys={this.state.checkedKeys}
+        onSelect={this.onSelect}
+        selectedKeys={this.state.selectedKeys}
+        checkType="countDown"
+      >
+        {this.renderTreeNodes(this.treeData)}
+      </Tree>
+    );
+  }
+```
+:::
+
 
 ## 拖动示例
 
@@ -740,6 +846,7 @@
 | checkable | 节点前添加 Checkbox 复选框 | Boolean | false |
 | checkedKeys | （受控）选中复选框的树节点（注意：父子节点有关联，如果传入父节点key，则子节点自动选中；相应当子节点key都传入，父节点也自动选中。当设置`checkable`和`checkStrictly`，它是一个有`checked`和`halfChecked`属性的对象，并且父子节点的选中与否不再关联 | Array< String > \| {checked: Array< String >, halfChecked: Array< String >} | [] |
 | checkStrictly | checkable状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean | false |
+| checkType | 父子节点联动类型，可选择`CountDown`，可以让联动变成单向，父节点选中时，默认选中所有子节点，子节点全部选中时，不会选中父节点 | String | - |
 | className | 容器类名 | String | - |
 | defaultCheckedKeys | 默认选中复选框的树节点 | Array< String > | [] |
 | defaultExpandAll | 默认展开所有树节点 | Boolean | false |
@@ -777,6 +884,7 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| checkable | 当树为 checkable 时，设置独立节点是否展示 Checkbox | Boolean | - |
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 禁掉响应 | Boolean | false |
 | icon | 自定义当前节点 title 前的图标。可接收组件，props 为当前节点的 props | ReactNode \| (props) => ReactNode | - |

@@ -847,6 +847,123 @@
 ```
 :::
 
+## 多选，单向联动
+
+:::demo 使用勾选框实现多选功能，且单向联动。
+
+
+```js
+
+  state = {
+    value: ['0-0-0'],
+  }
+
+  onConfirm = (value, infoList, extra) => {
+    console.log('选中节点：', value);
+    console.log('详细信息：', infoList);
+    console.log('额外信息：', extra);
+    this.setState({ value });
+  }
+
+  onCancel = (value) => {
+    this.setState({ value });
+  }
+
+  onSelect = (value, valueList, infoList, extra) => {
+    console.log('选中：', value);
+    console.log('已选择：', valueList);
+  }
+
+  render() {
+    const treeData = [{
+      title: 'Node1',
+      value: '0-0',
+      key: '0-0a',
+      children: [{
+        title: 'CNode1',
+        value: '0-0-0',
+        key: '0-0a-0',
+      }, {
+        title: 'CNode2-long-title-CNode2-long-title-CNode2-long-title-CNode2-long-title',
+        value: '0-0-1',
+        key: '0-0a-1',
+      }],
+    }, {
+      title: 'Node2',
+      value: '0-1',
+      key: '0-1a',
+      children: [{
+        title: 'CNode3',
+        value: '0-1-0',
+        key: '0-1a-0',
+      }, {
+        title: 'CNode4',
+        value: '0-1-1',
+        key: '0-1a-1',
+        disabled: true
+      }, {
+        title: 'CNode5',
+        value: '0-1-2',
+        key: '0-1a-2',
+      }, {
+        title: 'CNode6',
+        value: '0-1-3',
+        key: '0-1a-3',
+      }, {
+        title: 'CNode7',
+        value: '0-1-4',
+        key: '0-1a-4',
+      }, {
+        title: 'CNode8',
+        value: '0-1-5',
+        key: '0-1a-5',
+      }, {
+        title: 'CNode9',
+        value: '0-1-6',
+        key: '0-1a-6',
+      }, {
+        title: 'CNode10',
+        value: '0-1-7',
+        key: '0-1a-7',
+      }, {
+        title: 'CNode11',
+        value: '0-1-8',
+        key: '0-1a-8',
+      }, {
+        title: 'CNode12',
+        value: '0-1-9',
+        key: '0-1a-9',
+      }],
+    }];
+    const tProps = {
+      showSearch: true,
+      treeData,
+      treeDefaultExpandedKeys: ['0-0a', '0-1a'],
+      value: this.state.value,
+      onConfirm: this.onConfirm,
+      onCancel: this.onCancel,
+      onSelect: this.onSelect,
+      treeCheckable: true,
+      treeCheckType: 'countDown',
+      style: { width: 300 },
+      dropdownStyle: { width: 300 }
+    };
+    const tPropsDisabled = {
+      disabled: true,
+      treeCheckable: true,
+      style: { width: 300, marginTop: '10px' }
+    };
+    return (
+      <div>
+        <TreeSelect {...tProps} />
+        <br/>
+        <TreeSelect {...tPropsDisabled} />
+      </div>
+    );
+  }
+```
+:::
+
 
 ## 后端搜索
 
@@ -1107,6 +1224,7 @@
 | style | 选择框的样式 | Object | - |
 | tagWidth | 标签的固定宽度，不能超过选择框的宽度，多选时有效 | Number | 100 |
 | treeCheckable | 显示 checkbox | Boolean | false |
+| treeCheckType | 父子节点联动类型，可选择`CountDown`，可以让联动变成单向，父节点选中时，默认选中所有子节点，子节点全部选中时，不会选中父节点 | String | - |
 | treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点。treeData 中 value 必须设置，且其值需在整个树范围内唯一；key 可选，未设置时取 value 的值。 | Array< {value, title, [children, key, icon, disabled, disableCheckbox, selectable, isLeaf]} > | [] |
 | treeDefaultExpandAll | 默认展开所有树节点 | Boolean | false |
 | treeDefaultExpandedKeys | 默认展开的树节点 | Array | [] |
@@ -1129,6 +1247,7 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| checkable | 当树为 checkable 时，设置独立节点是否展示 Checkbox | Boolean | - |
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 是否禁用 | Boolean | false |
 | icon | 自定义当前节点 title 前的图标。可接收组件，props 为当前节点的 props。Tree props 中 `showIcon` 为 true 时有效。 | ReactNode \| (props) => ReactNode | - |

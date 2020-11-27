@@ -264,9 +264,11 @@ export function parseCheckedKeys(keys) {
  * @param isCheck       is check the node or not
  * @param keyEntities   parsed by `convertTreeToEntities` function in Tree
  * @param checkStatus   Can pass current checked status for process (usually for uncheck operation)
+ * @param checkType     联动类型
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
-export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys) {
+export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys, checkType) {
+
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};
@@ -325,6 +327,12 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
       checkedKeys[key] = false;
     }
     halfCheckedKeys[key] = someChildChecked;
+
+    if (checkType === 'countDown') {
+      // 单向联动
+      checkedKeys[key] = false;
+      halfCheckedKeys[key] = false;
+    }
 
     if (parent) {
       conductUp(parent.key);
