@@ -9,10 +9,17 @@ html,
 body {
   height: 100%;
   -webkit-font-smoothing: antialiased;
-  .scrollbar();
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 0;
+  background-color: #fff;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: rgba(153, 153, 153, 0.6);
 }
 
 @media screen and (max-width: 1125px) {
@@ -29,12 +36,14 @@ body {
 
 //主站样式
 .app {
+
   //顶部fixed
   .fixed-header-layout {
-    > .fishd-affix {
+    >.fishd-affix {
       z-index: 11;
     }
   }
+
   .fish-header {
     z-index: 1;
     height: 64px;
@@ -45,16 +54,20 @@ body {
     left: 0;
     width: 100%;
     position: relative;
+
     @media (max-width: @screen-lg) {
       height: 128px;
     }
+
     .header-title {
       text-align: left;
+
       img {
         height: 36px;
         margin: 13px 0 13px 24px;
       }
     }
+
     h1 {
       position: relative;
       margin: 0;
@@ -65,6 +78,7 @@ body {
       font-size: 16px;
       color: #45474d;
       font-weight: bold;
+
       a {
         text-decoration: none;
         font-size: 16px;
@@ -73,6 +87,7 @@ body {
         text-align: center;
         display: block;
       }
+
       img {
         vertical-align: sub;
         pointer-events: none;
@@ -85,13 +100,10 @@ body {
       line-height: 22px;
       padding-left: 60px;
       margin: 22px auto 0;
-      .search-icon {
-        width: 16px;
-        height: 16px;
-        margin-right: -4px;
-        margin-bottom: 2px;
-      }
+
       input {
+        font-family: "PingFangSC-Medium";
+        padding: 0;
         font-size: 14px;
         margin-top: -5px;
         width: 200px;
@@ -107,13 +119,20 @@ body {
         background-color: rgba(255, 255, 255, 0);
         border-radius: 4px;
         transition: all 0.3s;
+
+        &::placeholder {
+          color: #777;
+        }
       }
+
       input:focus {
         outline: 0;
       }
     }
 
     .nav {
+      display: flex;
+      align-items: center;
       float: right;
       line-height: 64px;
       height: 64px;
@@ -131,36 +150,43 @@ body {
     //层级关系需要保留，作样式覆盖
     /* stylelint-disable */
     .nav-item {
+      font-family: "PingFangSC-Regular";
       font-size: 16px;
       margin: 0 0 0 20px;
       float: left;
       list-style: none;
       position: relative;
       cursor: pointer;
+
       &:last-child {
         cursor: default;
         margin-left: 34px;
       }
+
       .nav-lang {
         cursor: pointer;
         display: inline-block;
         height: 100%;
+
         &.active {
           font-weight: 700;
           opacity: 1;
           font-size: 16px;
-          color: @primary-color;
+          color: @text-9;
         }
       }
+
       a {
         text-decoration: none;
         color: #383838;
         display: block;
-        padding: 0 20px;
+        padding: 0 10px;
         transition: all ease 0.3s;
+
         &.active,
         &:hover {
           color: @primary-color;
+
           &:before {
             content: "";
             display: block;
@@ -176,14 +202,25 @@ body {
         }
       }
     }
+
     .nav-version {
+      font-family: "PingFangSC-Medium";
       background: @primary-color;
       font-size: 12px;
       color: #fff;
+      height: 20px;
+      line-height: 20px;
       border-radius: 46px;
-      margin-left: 40px;
-      padding: 4px 13px;
+      margin-left: 20px;
+      margin-right: 20px;
+      padding: 0 20px;
     }
+
+    .u-github {
+      display: flex;
+      align-items: center;
+    }
+
     /* stylelint-enable */
   }
 
@@ -194,39 +231,55 @@ body {
   .footer {
     background-color: #292c33;
     text-align: center;
+
     .logo {
       padding: 55px 0 22px;
+
       img {
         width: 40px;
       }
+
       h3 {
         font-size: 24px;
-        color: #d2d3d6;
+        color: #d2d3d6
       }
+
       .version {
         font-size: 13px;
         color: #65676e;
       }
     }
+
     .link-item {
       font-size: 14px;
       color: #fff;
+      font-family: PingFangSC-Regular;
       display: inline-block;
       min-width: 56px;
       margin-bottom: 50px;
       text-decoration: none;
+
       &:not(:last-child) {
         margin-right: 50px;
       }
     }
+
     .github {
+      font-family: PingFangSC-Regular;
       border-top: 1px solid #404349;
       padding: 15px 0;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+
       img {
         height: 20px;
         position: relative;
-        top: -5px;
       }
+
       span {
         display: inline-block;
         margin-left: 8px;
@@ -242,8 +295,8 @@ body {
   .img-icon-@{size} {
     display: inline-block;
     vertical-align: baseline;
-    width: ~'@{size}px';
-    height: ~'@{size}px';
+    width:~'@{size}px';
+    height:~'@{size}px';
   }
 }
 

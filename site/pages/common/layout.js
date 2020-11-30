@@ -92,13 +92,12 @@ export default class Layout extends React.Component {
         <Row>
           <Col xs={24} sm={24} md={24} lg={6} xl={5} xxl={4} className="header-title">
             <Link to="/home" rel="noopener noreferrer">
-              <img src={'//ysf.qiyukf.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-design"/>
+              <img src={'//ysf.nosdn.127.net/unanqvsjrxhnpwqrulcuumqxicpwsojh'} alt="fish-design" />
             </Link>
           </Col>
           <Col xs={24} sm={24} md={24} lg={18} xl={19} xxl={20} className="header-navbar">
             <div id="search-box" className="search-box">
-              <img src={require('../../assets/fd-web-1.2-icon@2x.svg')} className="search-icon"/>
-              <input type="text" placeholder="在 Fish Design 中搜索" className="fishd-input"/>
+              <input type="text" placeholder="在 Fish Design 中搜索" className="fishd-input" />
             </div>
             <ul className="nav">
               <li className="nav-item">
@@ -108,12 +107,12 @@ export default class Layout extends React.Component {
                 <Link to="/components">{this.getLocale('misc.component')}</Link>
               </li>
               <li className="nav-item">
-                <a href="//nsfi.github.io/fishd-mobile-site/index.html#/zh-CN/components" target="_blank">{this.getLocale('misc.mobileComponent')}</a>
+                <a href="//nsfi.github.io/fishd-mobile-site/index.html" target="_blank">{this.getLocale('misc.mobileComponent')}</a>
               </li>
-              <li className="nav-item">
-                <a href="//nsfi.github.io/ppfish-demo" target="_blank">{this.getLocale('misc.demo')}</a>
-              </li>
-              <span className="nav-version">{this.getLocale('misc.version')}</span>
+              <a className="nav-version">{this.getLocale('misc.version')}</a>
+              <a className="u-github" href="//github.com/NSFI/ppfish-components" target="_blank">
+                <img style={{width: 25, height: 25}} src={require('../../assets/github.png')} alt="github" />
+              </a>
             </ul>
           </Col>
         </Row>
@@ -122,19 +121,20 @@ export default class Layout extends React.Component {
     const CommonFooter = (!hideFooter &&
       <footer className="footer">
         <div className="logo">
-          <img src={'//ysf.qiyukf.net/cipiqsfpsbyreuwspfkybadithmnnlmc'} alt="logo"/>
+          <img src={'//ysf.nosdn.127.net/cipiqsfpsbyreuwspfkybadithmnnlmc'} alt="logo" />
           <h3>Fish Design</h3>
-          <p className="version">- {this.getLocale('misc.version')} -</p>
+          <p className="version">- V  {this.getLocale('misc.version')} -</p>
         </div>
         <div className="link-list">
           <Link to="/home" className="link-item">首页</Link>
-          <Link to="/components" className="link-item">组件</Link>
+          <Link to="/components" className="link-item">Web 组件</Link>
+          <a href="//nsfi.github.io/fishd-mobile-site/index.html" className="link-item">Mobile 组件</a>
           <a href="//nsfi.github.io/ppfish-demo" target="_blank" className="link-item">{this.getLocale('misc.demo')}</a>
-          <a href="https://github.com/NSFI/ppfish-components/issues" target="_blank" className="link-item">问题反馈</a>
+          <a href="//github.com/NSFI/ppfish-components/issues" target="_blank" className="link-item">问题反馈</a>
         </div>
         <div className="github">
           <a href="//github.com/NSFI/ppfish-components" target="_blank">
-            <img src={require('../../assets/fd-web-5.2-logo@2x.svg')} alt="github"/>
+            <img src={require('../../assets/fd-web-5.2-logo@2x.svg')} alt="github" />
             <span>GitHub</span>
           </a>
         </div>

@@ -884,7 +884,7 @@
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| checkable | 当树为 checkable 时，设置独立节点是否展示 Checkbox，默认继承Tree当中的checkable属性 | Boolean | - |
+| checkable | 当树为 checkable 时，设置独立节点是否展示 Checkbox，默认值继承自 checkable 属性 | Boolean | - |
 | disableCheckbox | 禁掉 checkbox | Boolean | false |
 | disabled | 禁掉响应 | Boolean | false |
 | icon | 自定义当前节点 title 前的图标。可接收组件，props 为当前节点的 props | ReactNode \| (props) => ReactNode | - |

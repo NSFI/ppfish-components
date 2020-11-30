@@ -71,7 +71,7 @@ render() {
       uid: -1,
       name: 'xxx.png',
       status: 'done',
-      url: '//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe',
+      url: '//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe',
     }],
   };
 
@@ -384,8 +384,8 @@ render(){
     uid: -1,
     name: 'xxx.png',
     status: 'done',
-    url: '//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe',
-    thumbUrl: '//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe',
+    url: '//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe',
+    thumbUrl: '//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe',
   }, {
     uid: -2,
     name: 'yyy.png',
