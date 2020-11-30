@@ -292,9 +292,7 @@ export function getLabel(wrappedValue, entity, treeNodeLabelProp) {
 /**
  * Convert internal state `valueList` to user needed value list.
  * This will return an array list. You need check if is not multiple when return.
- *
- * `
- * ` is used for `treeCheckStrictly`
+ * `allCheckedNodes` is used for `treeCheckStrictly`
  */
 export function formatSelectorValue(valueList, props, valueEntities) {
   const {
