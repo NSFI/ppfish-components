@@ -1187,6 +1187,382 @@ exports[`Renders tree demo correctly 1`] = `
     </li>
   </ul>
   <ul
+    class="fishd-tree fishd-tree-icon-hide"
+    role="tree"
+    unselectable="on"
+  >
+    <li
+      class="fishd-tree-treenode-switcher-open"
+      role="treeitem"
+    >
+      <span
+        class="fishd-tree-switcher fishd-tree-switcher_open"
+      >
+        <i
+          class="fishdicon fishdicon-down-fill fishd-tree-switcher-icon"
+        />
+      </span>
+      <span
+        class="fishd-tree-checkbox"
+      >
+        <span
+          class="fishd-tree-checkbox-inner"
+        />
+      </span>
+      <span
+        class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-open"
+        title="0-0"
+      >
+        <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
+          class="fishd-tree-title"
+        >
+          0-0
+        </span>
+      </span>
+      <ul
+        class="fishd-tree-child-tree fishd-tree-child-tree-open"
+        data-expanded="true"
+        role="group"
+      >
+        <li
+          class="fishd-tree-treenode-switcher-open fishd-tree-treenode-checkbox-checked"
+          role="treeitem"
+        >
+          <span
+            class="fishd-tree-switcher fishd-tree-switcher_open"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill fishd-tree-switcher-icon"
+            />
+          </span>
+          <span
+            class="fishd-tree-checkbox fishd-tree-checkbox-checked"
+          >
+            <span
+              class="fishd-tree-checkbox-inner"
+            />
+          </span>
+          <span
+            class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-open"
+            title="0-0-0"
+          >
+            <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
+              class="fishd-tree-title"
+            >
+              0-0-0
+            </span>
+          </span>
+          <ul
+            class="fishd-tree-child-tree fishd-tree-child-tree-open"
+            data-expanded="true"
+            role="group"
+          >
+            <li
+              class="fishd-tree-treenode-switcher-close fishd-tree-treenode-checkbox-checked"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              />
+              <span
+                class="fishd-tree-checkbox fishd-tree-checkbox-checked"
+              >
+                <span
+                  class="fishd-tree-checkbox-inner"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-0-0"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-0-0
+                </span>
+              </span>
+            </li>
+            <li
+              class="fishd-tree-treenode-switcher-close fishd-tree-treenode-checkbox-checked"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              />
+              <span
+                class="fishd-tree-checkbox fishd-tree-checkbox-checked"
+              >
+                <span
+                  class="fishd-tree-checkbox-inner"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-0-1"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-0-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="fishd-tree-treenode-switcher-close fishd-tree-treenode-checkbox-checked"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              />
+              <span
+                class="fishd-tree-checkbox fishd-tree-checkbox-checked"
+              >
+                <span
+                  class="fishd-tree-checkbox-inner"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-0-2"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-0-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="fishd-tree-treenode-switcher-open"
+          role="treeitem"
+        >
+          <span
+            class="fishd-tree-switcher fishd-tree-switcher_open"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill fishd-tree-switcher-icon"
+            />
+          </span>
+          <span
+            class="fishd-tree-checkbox"
+          >
+            <span
+              class="fishd-tree-checkbox-inner"
+            />
+          </span>
+          <span
+            class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-open"
+            title="0-0-1"
+          >
+            <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
+              class="fishd-tree-title"
+            >
+              0-0-1
+            </span>
+          </span>
+          <ul
+            class="fishd-tree-child-tree fishd-tree-child-tree-open"
+            data-expanded="true"
+            role="group"
+          >
+            <li
+              class="fishd-tree-treenode-switcher-close"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              />
+              <span
+                class="fishd-tree-checkbox"
+              >
+                <span
+                  class="fishd-tree-checkbox-inner"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-1-0"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-1-0
+                </span>
+              </span>
+            </li>
+            <li
+              class="fishd-tree-treenode-switcher-close"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              />
+              <span
+                class="fishd-tree-checkbox"
+              >
+                <span
+                  class="fishd-tree-checkbox-inner"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-1-1"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-1-1
+                </span>
+              </span>
+            </li>
+            <li
+              class="fishd-tree-treenode-switcher-close"
+              role="treeitem"
+            >
+              <span
+                class="fishd-tree-switcher fishd-tree-switcher-noop"
+              />
+              <span
+                class="fishd-tree-checkbox"
+              >
+                <span
+                  class="fishd-tree-checkbox-inner"
+                />
+              </span>
+              <span
+                class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+                title="0-0-1-2"
+              >
+                <span
+                  class="fishd-tree-iconCtner"
+                />
+                <span
+                  class="fishd-tree-title"
+                >
+                  0-0-1-2
+                </span>
+              </span>
+            </li>
+          </ul>
+        </li>
+        <li
+          class="fishd-tree-treenode-switcher-close"
+          role="treeitem"
+        >
+          <span
+            class="fishd-tree-switcher fishd-tree-switcher-noop"
+          />
+          <span
+            class="fishd-tree-checkbox"
+          >
+            <span
+              class="fishd-tree-checkbox-inner"
+            />
+          </span>
+          <span
+            class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+            title="0-0-2"
+          >
+            <span
+              class="fishd-tree-iconCtner"
+            />
+            <span
+              class="fishd-tree-title"
+            >
+              0-0-2
+            </span>
+          </span>
+        </li>
+      </ul>
+    </li>
+    <li
+      class="fishd-tree-treenode-switcher-close"
+      role="treeitem"
+    >
+      <span
+        class="fishd-tree-switcher fishd-tree-switcher_close"
+      >
+        <i
+          class="fishdicon fishdicon-down-fill fishd-tree-switcher-icon"
+        />
+      </span>
+      <span
+        class="fishd-tree-checkbox"
+      >
+        <span
+          class="fishd-tree-checkbox-inner"
+        />
+      </span>
+      <span
+        class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-close"
+        title="0-1"
+      >
+        <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
+          class="fishd-tree-title"
+        >
+          0-1
+        </span>
+      </span>
+    </li>
+    <li
+      class="fishd-tree-treenode-switcher-close"
+      role="treeitem"
+    >
+      <span
+        class="fishd-tree-switcher fishd-tree-switcher-noop"
+      />
+      <span
+        class="fishd-tree-checkbox"
+      >
+        <span
+          class="fishd-tree-checkbox-inner"
+        />
+      </span>
+      <span
+        class="fishd-tree-node-content-wrapper fishd-tree-node-content-wrapper-normal"
+        title="0-2"
+      >
+        <span
+          class="fishd-tree-iconCtner"
+        />
+        <span
+          class="fishd-tree-title"
+        >
+          0-2
+        </span>
+      </span>
+    </li>
+  </ul>
+  <ul
     class="fishd-tree fishd-tree-icon-hide draggable-tree"
     role="tree"
     unselectable="on"

@@ -45,6 +45,7 @@ class TreeNode extends React.Component {
     isLeaf: PropTypes.bool,
     selectable: PropTypes.bool,
     disabled: PropTypes.bool,
+    checkable: PropTypes.bool,
     disableCheckbox: PropTypes.bool,
     icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     switcherIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
@@ -112,12 +113,12 @@ class TreeNode extends React.Component {
   onCheck = (e) => {
     if (this.isDisabled()) return;
 
-    const { disableCheckbox, checked } = this.props;
+    const { disableCheckbox, checked, checkable: nodeCheckable } = this.props;
     const {
       rcTree: { checkable, onNodeCheck },
     } = this.context;
 
-    if (!checkable || disableCheckbox) return;
+    if (!checkable || disableCheckbox || nodeCheckable === false ) return;
 
     e.preventDefault();
     const targetChecked = !checked;
@@ -331,11 +332,11 @@ class TreeNode extends React.Component {
 
   // Checkbox
   renderCheckbox = () => {
-    const { checked, halfChecked, disableCheckbox } = this.props;
+    const { checked, halfChecked, disableCheckbox, checkable: nodeCheckable } = this.props;
     const { rcTree: { prefixCls, checkable } } = this.context;
     const disabled = this.isDisabled();
 
-    if (!checkable) return null;
+    if (!checkable || nodeCheckable === false) return null;
 
     // [Legacy] Custom element should be separate with `checkable` in future
     const $custom = typeof checkable !== 'boolean' ? checkable : null;
