@@ -83,18 +83,18 @@ exports[`Renders upload demo correctly 1`] = `
             <span>
               <a
                 class="fishd-upload-list-item-thumbnail"
-                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="xxx.png"
-                  src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                  src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 />
               </a>
               <a
                 class="fishd-upload-list-item-name"
-                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="xxx.png"
@@ -107,7 +107,7 @@ exports[`Renders upload demo correctly 1`] = `
             class="fishd-upload-list-item-actions"
           >
             <a
-              href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+              href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
               rel="noopener noreferrer"
               target="_blank"
               title="预览文件"
@@ -420,18 +420,18 @@ exports[`Renders upload demo correctly 1`] = `
             <span>
               <a
                 class="fishd-upload-list-item-thumbnail"
-                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="xxx.png"
-                  src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                  src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 />
               </a>
               <a
                 class="fishd-upload-list-item-name"
-                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="xxx.png"
@@ -496,18 +496,18 @@ exports[`Renders upload demo correctly 1`] = `
             <span>
               <a
                 class="fishd-upload-list-item-thumbnail"
-                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="xxx.png"
-                  src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                  src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 />
               </a>
               <a
                 class="fishd-upload-list-item-name"
-                href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+                href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
                 rel="noopener noreferrer"
                 target="_blank"
                 title="xxx.png"

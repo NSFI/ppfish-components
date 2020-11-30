@@ -72,7 +72,7 @@ export default class Home extends React.Component {
                 <a href="https://nsfi.github.io/fishd-mobile-site/index.html" className="button mobile">
                   Mobile 组件 |
                   <Popover placement="bottom" content={
-                    <img className="u-qrcode" src="https://nos.netease.com/ysf/9651582ccaba7d6296eed99eb4504c7e.png" />
+                    <img className="u-qrcode" src="https://ysf.qiyukf.net/9651582ccaba7d6296eed99eb4504c7e.png" />
                   }>
                     <img src={require('../../assets/qrcode.svg')}></img>
                   </Popover>

@@ -20,7 +20,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -35,7 +35,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -50,7 +50,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
@@ -80,17 +80,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i
@@ -154,7 +154,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -169,7 +169,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -184,7 +184,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
@@ -214,17 +214,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i
@@ -288,7 +288,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -303,7 +303,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -318,7 +318,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
@@ -348,17 +348,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i
@@ -422,7 +422,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -437,7 +437,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -452,7 +452,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
@@ -475,17 +475,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
           active="true"
           alt="pic1"
           class="img"
-          src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+          src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
         />
         <img
           alt="pic2"
           class="img"
-          src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+          src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
         />
         <img
           alt="pic3"
           class="img"
-          src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+          src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
         />
       </div>
       <i
@@ -548,7 +548,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic1"
             height="60px"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
             width="60px"
           />
           <div
@@ -563,7 +563,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic2"
             height="60px"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
             width="60px"
           />
           <div
@@ -578,7 +578,7 @@ exports[`Renders picturePreview demo correctly 1`] = `
           <img
             alt="pic3"
             height="60px"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
             width="60px"
           />
           <div
@@ -608,17 +608,17 @@ exports[`Renders picturePreview demo correctly 1`] = `
             active="true"
             alt="pic1"
             class="img"
-            src="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
           />
           <img
             alt="pic2"
             class="img"
-            src="//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939"
+            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
           />
           <img
             alt="pic3"
             class="img"
-            src="//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c"
+            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
           />
         </div>
         <i

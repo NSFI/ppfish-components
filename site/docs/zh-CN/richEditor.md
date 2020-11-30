@@ -96,37 +96,37 @@
             {
               id: 0,
               className: 'e0',
-              url: '//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe',
+              url: '//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe',
               title: 'pic1'
             },
             {
               id: 1,
               className: 'e1',
-              url: '//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939',
+              url: '//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939',
               title: 'pic2'
             },
             {
               id: 2,
               className: 'e2',
-              url: '//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c',
+              url: '//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c',
               title: 'pic3'
             },
             {
               id: 3,
               className: 'e3',
-              url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe",
+              url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe",
               title: "pic4"
             },
             {
               id: 4,
               className: 'e4',
-              url: "//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939",
+              url: "//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939",
               title: "pic5"
             },
             {
               id: 5,
               className: 'e5',
-              url: '//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c',
+              url: '//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c',
               title: 'pic6'
             },
           ]
@@ -317,7 +317,7 @@
 
     // 模拟上传图片至服务器并设置图片URL的异步过程
     setTimeout(() => {
-      let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
+      let imageUrl = "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe";
       callback({
         src: imageUrl,
         alt: 'image alt',
@@ -372,7 +372,7 @@
     [].forEach.call(imgFiles, (file, index) => {
       // 模拟上传图片至服务器并设置图片URL的异步过程
       setTimeout(() => {
-        let imageUrl = "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe";
+        let imageUrl = "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe";
         callback({
           src: imageUrl,
           alt: 'image alt',
@@ -482,23 +482,23 @@
       let files = [{
         name: '普通文件.doc',
         type: 'other',
-        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
       },{
         name: '普通文件.pdf',
         type: 'other',
-        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
       },{
         name: '图片文件.jpg',
         type: 'image',
-        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
       },{
         name: '视频文件.mp4',
         type: 'video',
-        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
       },{
         name: '普通文件.txt',
         type: 'other',
-        url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+        url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
       }]
       callback(files);
 
@@ -529,7 +529,7 @@
         }}
         value={`
         <p>附件测试：<br/>
-        <a data-ql-link-type="attachment" download="测试文件.jpg" href="//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe">[文件] 测试文件.jpg</a>
+        <a data-ql-link-type="attachment" download="测试文件.jpg" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe">[文件] 测试文件.jpg</a>
         </p>`}
       />
     );
@@ -566,16 +566,16 @@
         {
           name: '普通文件.doc',
           type: 'other',
-          url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+          url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
         },
         {
           name: '普通文件.pdf',
           type: 'other',
-          url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+          url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
         },
         {
           type: 'image',
-          src: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe",
+          src: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe",
           // 添加其他可选属性
           width: 200,
           height: 100,
@@ -593,7 +593,7 @@
         {
           name: '普通文件.txt',
           type: 'other',
-          url: "//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe"
+          url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
         }
       ];
       callback(filesInfo);

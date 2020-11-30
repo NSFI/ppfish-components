@@ -83,18 +83,18 @@
               title: '标题 1',
               subtitle: '春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。',
               content: (
-                <img alt="图片" style={{ width: '100%' }} src={'//nos.netease.com/ysf/3df2280d2319678a091138b0bbba82fe'} />
+                <img alt="图片" style={{ width: '100%' }} src={'//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe'} />
               )
             },
             {
               title: '标题 2',
               content: (
-                <img alt="图片" style={{ width: '100%' }} src={'//nos.netease.com/ysf/080b89be8a980ab9951a1b0de643d939'} />
+                <img alt="图片" style={{ width: '100%' }} src={'//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939'} />
               )
             },
             {
               content: (
-                <img alt="图片" style={{ width: '100%' }} src={'//nos.netease.com/ysf/260c0731b07b2933fe04f1a4d629450c'} />
+                <img alt="图片" style={{ width: '100%' }} src={'//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c'} />
               )
             },
           ]}
