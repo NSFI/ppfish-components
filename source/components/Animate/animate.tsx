@@ -1,11 +1,12 @@
 import React, {
   Component,
-  Children
+  Children,
+  ReactNode,
+  ReactChild,
+  ReactChildren
 } from 'react';
 import PropTypes from 'prop-types';
-import {
-  TransitionGroup
-} from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 import AnimateChild from './child';
 
 const noop = () => {};
@@ -14,7 +15,36 @@ const FirstChild = props => {
   return childrenArray[0] || null;
 };
 
-class Animate extends Component {
+export interface AnimateHooks {
+  beforeAppear?: () => void
+  onAppear?: (node?: HTMLElement) => void
+  afterAppear?: (node?: HTMLElement) => void
+
+  beforeEnter?: (node?: HTMLElement) => void
+  onEnter?: (node?: HTMLElement) => void
+  afterEnter?: (node?: HTMLElement) => void
+
+  beforeLeave?: (node?: HTMLElement) => void
+  afterLeave?: (node?: HTMLElement) => void
+  onLeave?: (node?: HTMLElement) => void
+}
+
+export type AnimateProps  = {
+  animation: string | {
+    appear: string
+    enter: string
+    leave: string
+  }
+  animationAppear: boolean
+  component: ReactNode | string
+  singleMode: boolean
+  children: ReactNode
+} & AnimateHooks
+
+
+export type KeyedReactNode = ReactChild & { key: any }
+
+class Animate extends Component<AnimateProps, any> {
   static propTypes = {
     animation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationAppear: PropTypes.bool,
@@ -95,9 +125,10 @@ class Animate extends Component {
       ...others
     } = this.props;
 
-    const animateChildren = Children.map(children, child => {
+    const animateChildren = Children.map(children, (child: ReactNode) => {
       return (
         <AnimateChild
+          // @ts-ignore
           key={child.key}
           names={this.normalizeNames(animation)}
           onAppear={beforeAppear}
@@ -115,7 +146,7 @@ class Animate extends Component {
       );
     });
 
-    return ( 
+    return (
       <TransitionGroup
         appear={animationAppear}
         component={singleMode ? FirstChild : component}

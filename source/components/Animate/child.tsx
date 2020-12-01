@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
 import {
@@ -7,18 +7,30 @@ import {
   removeClass,
   guid
 } from '../../utils';
+import { AnimateHooks } from './animate';
 
-const noop = () => {};
+const noop = () => { };
 
-function off(node, eventName, callback, useCapture) {
+function off(
+  node: HTMLElement,
+  eventName: string,
+  callback: (e: Event) => void,
+  useCapture = false
+) {
   if (node.removeEventListener) {
-    node.removeEventListener(eventName, callback, useCapture || false);
+    node.removeEventListener(eventName, callback, useCapture);
   }
 }
 
-function on(node, eventName, callback, useCapture) {
+function on(
+  node: HTMLElement,
+  eventName: string,
+  callback: (e: Event) => void,
+  useCapture = false
+) {
+
   if (node.addEventListener) {
-    node.addEventListener(eventName, callback, useCapture || false);
+    node.addEventListener(eventName, callback, useCapture);
   }
 
   return {
@@ -39,7 +51,43 @@ function getStyleProperty(node, name) {
   return ret;
 }
 
-export default class AnimateChild extends Component {
+export type AnimationNames = {
+  appear: string
+  appearActive: string
+  enter: string
+  enterActive: string
+  leave: string
+  leaveActive: string
+}
+
+export type AnimateChildProps =
+  | { names: AnimationNames }
+  & AnimateHooks
+  & {
+    onAppearing?: (node?: HTMLElement) => void
+    onAppeared?: (node?: HTMLElement) => void
+    onEntering?: (node?: HTMLElement) => void
+    onEntered?: (node?: HTMLElement) => void
+    onExit?: (node?: HTMLElement) => void
+    onExiting?: (node?: HTMLElement) => void
+    onExited?: (node?: HTMLElement) => void
+  }
+
+export interface AnimateChildState {
+  node: React.ReactNode
+  endListeners: [
+    transitionend: [],
+    animationend: []
+  ]
+  timeoutMap: object
+}
+
+export interface EndListeners {
+  transitionend: any[]
+  animationend: any[]
+}
+
+export default class AnimateChild extends Component<AnimateChildProps, AnimateChildState> {
   static propTypes = {
     names: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onAppear: PropTypes.func,
@@ -64,6 +112,15 @@ export default class AnimateChild extends Component {
     onExiting: noop,
     onExited: noop,
   };
+
+  endListeners: EndListeners = {
+    transitionend: [],
+    animationend: []
+  }
+  timeoutMap: {}
+  node: HTMLElement = null
+  transitionOff: () => void
+  animationOff: () => void
 
   constructor(props) {
     super(props);
@@ -165,9 +222,8 @@ export default class AnimateChild extends Component {
   };
 
   handleEnter = (node, isAppearing) => {
-    const {
-      names
-    } = this.props;
+    const { names } = this.props;
+
     if (names) {
       this.removeClassNames(node, names);
       const className = isAppearing ? 'appear' : 'enter';
@@ -180,9 +236,8 @@ export default class AnimateChild extends Component {
 
   handleEntering = (node, isAppearing) => {
     setTimeout(() => {
-      const {
-        names
-      } = this.props;
+      const { names } = this.props;
+
       if (names) {
         const className = isAppearing ? 'appearActive' : 'enterActive';
         addClass(node, names[className]);
@@ -196,13 +251,13 @@ export default class AnimateChild extends Component {
   };
 
   handleEntered = (node, isAppearing) => {
-    const {
-      names
-    } = this.props;
-    if (names) {
-      const classNames = isAppearing ?
-        [names.appear, names.appearActive] :
-        [names.enter, names.enterActive];
+    const { names } = this.props;
+
+    if (names && typeof names === 'object') {
+      const classNames = isAppearing
+        ? [names.appear, names.appearActive]
+        : [names.enter, names.enterActive];
+
       classNames.forEach(className => {
         removeClass(node, className);
       });
@@ -213,9 +268,8 @@ export default class AnimateChild extends Component {
   };
 
   handleExit = (node) => {
-    const {
-      names
-    } = this.props;
+    const { names } = this.props;
+
     if (names) {
       this.removeClassNames(node, names);
       addClass(node, names.leave);
@@ -237,9 +291,8 @@ export default class AnimateChild extends Component {
   };
 
   handleExited = (node) => {
-    const {
-      names
-    } = this.props;
+    const { names } = this.props;
+
     if (names) {
       [names.leave, names.leaveActive].forEach(className => {
         removeClass(node, className);

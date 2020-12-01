@@ -142,7 +142,7 @@ export function getStyle(element: HTMLElement, styleName: string) {
  * guid('prefix-'); // prefix-j7jv509d
  */
 let timestamp = Date.now();
-export function guid(prefix: string) {
-  prefix = prefix || "";
+export function guid(prefix?: string) {
+  prefix = prefix || '';
   return prefix + (timestamp++).toString(36);
 }

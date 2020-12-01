@@ -88,7 +88,7 @@ export function hasClass(node, className) {
  * @example
  * dom.addClass(document.body, 'foo');
  */
-export function addClass(node, className, _force) {
+export function addClass(node: HTMLElement, className: string, _force?: boolean) {
   /* istanbul ignore if */
   if (!hasDOM || !node) {
     return;
@@ -109,7 +109,7 @@ export function addClass(node, className, _force) {
  * @example
  * dom.removeClass(document.body, 'foo');
  */
-export function removeClass(node, className, _force) {
+export function removeClass(node: HTMLElement, className: string, _force?: boolean) {
   /* istanbul ignore if */
   if (!hasDOM || !node) {
     return;
