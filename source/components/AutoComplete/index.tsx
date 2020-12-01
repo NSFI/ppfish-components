@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Option, OptGroup } from './src/index.js';
-import Select, { AbstractSelectProps, SelectValue, OptionProps, OptGroupProps } from './Select';
+import { Option, OptGroup } from './src';
+import { SelectValue } from './src/SelectTrigger'
+import Select, { AbstractSelectProps, OptionProps, OptGroupProps } from './Select';
 import classNames from 'classnames';
 import Input from '../Input';
 import InputElement from './InputElement';
@@ -24,28 +25,30 @@ export type ValidInputElement =
   React.ReactElement<AutoCompleteInputProps>;
 
 export interface AutoCompleteProps extends AbstractSelectProps {
+  autoFocus?: boolean;
+  backfill?: boolean;
+  children?:
+    | ValidInputElement
+    | React.ReactElement<OptionProps>
+    | Array<React.ReactElement<OptionProps>>;
+
   value?: SelectValue;
   defaultValue?: SelectValue;
   dataSource?: DataSourceItemType[];
-  autoFocus?: boolean;
-  backfill?: boolean;
   highlightSelected?: boolean;
   optionLabelProp?: string;
   getPopupContainer?: (triggerNode: Element) => HTMLElement;
   onChange?: (value: SelectValue) => void;
   onSelect?: (value: SelectValue, option: Object) => any;
-  children?: ValidInputElement |
-    React.ReactElement<OptionProps> |
-    Array<React.ReactElement<OptionProps>>;
 }
 
 function isSelectOptionOrSelectOptGroup(child: any): Boolean {
   return child && child.type && (child.type.isSelectOption || child.type.isSelectOptGroup);
 }
 
-export default class AutoComplete extends React.Component<AutoCompleteProps, {}> {
-  static Option = Option as React.ClassicComponentClass<OptionProps>;
-  static OptGroup = OptGroup as React.ClassicComponentClass<OptGroupProps>;
+export default class AutoComplete extends React.Component<AutoCompleteProps, any> {
+  static Option = Option;
+  static OptGroup = OptGroup;
 
   static defaultProps = {
     prefixCls: 'fishd-autocomplete-select',
@@ -85,8 +88,14 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
 
   render() {
     let {
-      size, className = '', notFoundContent, prefixCls,
-      optionLabelProp, dataSource, children, highlightSelected
+      size,
+      className = '',
+      notFoundContent,
+      prefixCls,
+      optionLabelProp,
+      dataSource,
+      children,
+      highlightSelected
     } = this.props;
 
     const cls = classNames({
@@ -110,11 +119,12 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
         }
         switch (typeof item) {
           case 'string':
-            return <Option key={item}>{item}</Option>;
+            return <Option key={item} value={item}>{item}</Option>;
           case 'object':
+            const { value: optionValue } = item
             return (
-              <Option key={(item as DataSourceItemObject).value}>
-                {(item as DataSourceItemObject).text}
+              <Option key={optionValue} value={optionValue}>
+                {(item as DataSourceItemObject).value}
               </Option>
             );
           default:

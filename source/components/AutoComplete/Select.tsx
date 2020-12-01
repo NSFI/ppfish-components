@@ -1,30 +1,33 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import RcSelect, { Option, OptGroup } from './src/index.js';
+import RcSelect, { Option, OptGroup } from './src/index';
 import classNames from 'classnames';
 import warning from 'warning';
+
+export type SelectItemValue = { label: string | React.ReactNode, title: string, name: string }
+export type SelectValue = string | string[] | SelectItemValue | SelectItemValue[]
 
 export interface AbstractSelectProps {
   prefixCls?: string;
   className?: string;
+  allowClear?: boolean;
+  disabled?: boolean;
+  filterOption?: boolean | ((inputValue: string, option: React.ReactElement<OptionProps>) => any);
   size?: 'default' | 'large' | 'small';
-  notFoundContent?: React.ReactNode | null;
+  notFoundContent?: string;
   transitionName?: string;
   choiceTransitionName?: string;
   showSearch?: boolean;
-  allowClear?: boolean;
-  disabled?: boolean;
   showArrow?: boolean;
   style?: React.CSSProperties;
   tabIndex?: number;
-  placeholder?: string | React.ReactNode;
+  placeholder?: string;
   defaultActiveFirstOption?: boolean;
   dropdownClassName?: string;
   dropdownStyle?: React.CSSProperties;
   dropdownMenuStyle?: React.CSSProperties;
   dropdownMatchSelectWidth?: boolean;
   onSearch?: (value: string) => any;
-  filterOption?: boolean | ((inputValue: string, option: React.ReactElement<OptionProps>) => any);
   id?: string;
 }
 
@@ -33,14 +36,12 @@ export interface LabeledValue {
   label: React.ReactNode;
 }
 
-export type SelectValue = string | string[] | number | number[] | LabeledValue | LabeledValue[];
-
 export interface SelectProps extends AbstractSelectProps {
   value?: SelectValue;
   defaultValue?: SelectValue;
   mode?: 'default' | 'multiple' | 'tags' | 'combobox' | string;
   optionLabelProp?: string;
-  firstActiveValue?: string | string[];
+  firstActiveValue?: SelectValue | SelectValue[];
   onChange?: (value: SelectValue, option: React.ReactElement<any> | React.ReactElement<any>[]) => void;
   onSelect?: (value: SelectValue, option: React.ReactElement<any>) => any;
   onDeselect?: (value: SelectValue) => any;
@@ -91,8 +92,8 @@ const SelectPropTypes = {
 // export { Option, OptGroup };
 
 export default class Select extends React.Component<SelectProps, {}> {
-  static Option = Option as React.ClassicComponentClass<OptionProps>;
-  static OptGroup = OptGroup as React.ClassicComponentClass<OptGroupProps>;
+  static Option = Option;
+  static OptGroup = OptGroup;
 
   static SECRET_COMBOBOX_MODE_DO_NOT_USE = 'SECRET_COMBOBOX_MODE_DO_NOT_USE';
 
