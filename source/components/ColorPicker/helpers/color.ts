@@ -1,6 +1,16 @@
 import tinycolor from 'tinycolor2';
 
 export default class Color {
+  color = null
+  alphaValue = null
+  redValue = null
+  greenValue = null
+  blueValue = null
+  hueValue = null
+  saturationValue = null
+  brightnessValue = null
+  lightnessValue = null
+
   constructor(input) {
     this.color = tinycolor(input);
 

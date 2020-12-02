@@ -1,28 +1,65 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
-import {KeyCode} from "../../utils";
-import ColorPickerPanel from './Panel';
+import { KeyCode } from '../../utils';
+import ColorPickerPanel, { ModeTypes } from './Panel';
 import placements from './placements';
 import Color from './helpers/color';
+import Panel from './Panel';
 import QuickPanel from './QuickPanel';
+import { PickedColor } from './Board';
 
-function refFn(field, component) {
+function refFn(field: string, component: HTMLElement) {
   this[field] = component;
 }
 
-function prevent(e) {
+function prevent(e: React.MouseEvent) {
   e.preventDefault();
 }
 
-function noop() {
+function noop() {}
+
+interface ColorPickerProps {
+  alpha?: number;
+  className?: string;
+  color?: string;
+  colorHistory: PickedColor[];
+  colorMap?: string[];
+  defaultAlpha?: number;
+  defaultColor?: string;
+  disabled?: boolean;
+  enableAlpha?: boolean;
+  enableHistory?: boolean;
+  getPopupContainer?: (e: HTMLElement) => HTMLElement;
+  onChange?: (state: ColorPickerState) => void;
+  onVisibleChange?: (visible: boolean) => void;
+  quickMode?: boolean;
+  style?: React.CSSProperties;
+  popupStyle?: React.CSSProperties;
+  esc?: boolean;
+  children?: React.ReactNode;
+  maxHistory?: number;
+  mode?: ModeTypes;
+  prefixCls?: string;
+  align?: string;
+  animation?: string;
+  transitionName?: string;
 }
 
-class ColorPicker extends React.Component {
+interface ColorPickerState {
+  color: string;
+  alpha: number;
+  visible: boolean;
+  colorHistory: PickedColor[];
+}
+
+class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
+  static Panel = Panel;
+  static QuickPanel = QuickPanel;
 
   static propTypes = {
     alpha: PropTypes.number,
@@ -47,11 +84,21 @@ class ColorPicker extends React.Component {
   };
 
   static defaultProps = {
-    children: <span className="fishd-color-picker-trigger"/>,
+    children: <span className="fishd-color-picker-trigger" />,
     className: '',
     colorMap: [
-      '#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957',
-      '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af'
+      '#33bbff',
+      '#337eff',
+      '#8a73ff',
+      '#bb67e6',
+      '#f290b6',
+      '#f24957',
+      '#cc613d',
+      '#faa702',
+      '#ffe500',
+      '#aacc00',
+      '#26bf40',
+      '#3dd9af',
     ],
     defaultAlpha: 100,
     defaultColor: '#33bbff',
@@ -68,50 +115,64 @@ class ColorPicker extends React.Component {
     esc: true,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const newState = {};
+  static getDerivedStateFromProps(nextProps: ColorPickerProps) {
+    const newState: ColorPickerState = {
+      color: '',
+      alpha: nextProps.defaultAlpha,
+      visible: false,
+      colorHistory: [],
+    };
+
     if ('color' in nextProps) {
       newState.color = nextProps.color;
     }
-    if ('alpha' in nextProps && nextProps.alpha !== undefined && nextProps.alpha !== null) {
+
+    if (
+      'alpha' in nextProps &&
+      nextProps.alpha !== undefined &&
+      nextProps.alpha !== null
+    ) {
       newState.alpha = nextProps.alpha;
     }
     return newState;
   }
 
-  constructor(props) {
+  saveTriggerRef = null;
+  triggerInstance = null;
+
+  constructor(props: ColorPickerProps) {
     super(props);
 
-    const alpha = typeof props.alpha === 'undefined'
-      ? props.defaultAlpha
-      : Math.min(props.alpha, props.defaultAlpha);
+    const alpha =
+      typeof props.alpha === 'undefined'
+        ? props.defaultAlpha
+        : Math.min(props.alpha, props.defaultAlpha);
 
     this.state = {
       color: props.color || props.defaultColor,
       alpha,
       visible: false,
-      colorHistory: []
+      colorHistory: [],
     };
 
     this.saveTriggerRef = refFn.bind(this, 'triggerInstance');
   }
 
-  onChange = (colors) => {
-    this.setState({...colors}, () => {
-        this.props.onChange(this.state);
-      },
-    );
+  onChange = (colors: ColorPickerState) => {
+    this.setState({ ...colors }, () => {
+      this.props.onChange(this.state);
+    });
   };
 
   onBlur = () => {
     this.setVisible(false);
   };
 
-  onVisibleChangeFromTrigger = (visible) => {
+  onVisibleChangeFromTrigger = (visible: boolean) => {
     this.setVisible(visible);
   };
 
-  onPanelMount = (panelDOMRef) => {
+  onPanelMount = (panelDOMRef: HTMLElement) => {
     if (this.state.visible) {
       setTimeout(() => {
         panelDOMRef.focus();
@@ -119,23 +180,29 @@ class ColorPicker extends React.Component {
     }
   };
 
-  setVisible = (visible, callback) => {
+  setVisible = (visible: boolean, callback?: any) => {
     if (this.state.visible !== visible) {
-      this.setState({visible}, () => {
-          if (typeof callback === 'function') callback();
-          const {onVisibleChange, enableHistory, maxHistory} = this.props;
-          onVisibleChange(this.state.visible);
-          //关闭时记录历史记录
-          if (!this.state.visible && enableHistory) {
-            const {color, alpha, colorHistory} = this.state;
-            if (colorHistory.length && color === colorHistory[0].color && alpha === colorHistory[0].alpha) return;
-            this.setState({
-              colorHistory: colorHistory.length >= maxHistory ?
-                [{color, alpha}, ...colorHistory.slice(0, -1)] : [{color, alpha}, ...colorHistory]
-            });
-          }
-        },
-      );
+      this.setState({ visible }, () => {
+        if (typeof callback === 'function') callback();
+        const { onVisibleChange, enableHistory, maxHistory } = this.props;
+        onVisibleChange(this.state.visible);
+        //关闭时记录历史记录
+        if (!this.state.visible && enableHistory) {
+          const { color, alpha, colorHistory } = this.state;
+          if (
+            colorHistory.length &&
+            color === colorHistory[0].color &&
+            alpha === colorHistory[0].alpha
+          )
+            return;
+          this.setState({
+            colorHistory:
+              colorHistory.length >= maxHistory
+                ? [{ color, alpha }, ...colorHistory.slice(0, -1)]
+                : [{ color, alpha }, ...colorHistory],
+          });
+        }
+      });
     }
   };
 
@@ -185,13 +252,16 @@ class ColorPicker extends React.Component {
 
   focus = () => {
     if (!this.state.visible) {
-      findDOMNode(this).focus();
+      (findDOMNode(this) as HTMLElement).focus();
     }
   };
 
-  handleKeyDown = (e) => {
+  handleKeyDown = (e: React.KeyboardEvent) => {
     const keyCode = e.keyCode;
-    if ((keyCode === KeyCode.ESC && this.props.esc) || keyCode === KeyCode.ENTER) {
+    if (
+      (keyCode === KeyCode.ESC && this.props.esc) ||
+      keyCode === KeyCode.ENTER
+    ) {
       this.setVisible(false);
     }
   };
@@ -212,7 +282,7 @@ class ColorPicker extends React.Component {
     RGBA.push(this.state.alpha / 100);
 
     if (children) {
-      children = React.cloneElement(children, {
+      children = React.cloneElement(children as React.ReactElement<any>, {
         ref: this.saveTriggerRef,
         unselectable: 'unselectable',
         style: {
@@ -236,15 +306,18 @@ class ColorPicker extends React.Component {
 
     const arrowCls = classNames({
       [`${prefixCls}-arrow`]: true,
-      'quick': quickMode
+      quick: quickMode,
     });
 
     return (
       <div className={classes.join(' ')}>
         <Trigger
           popup={
-            <div className={`${prefixCls}-content`} onKeyDown={this.handleKeyDown}>
-              <div className={arrowCls}/>
+            <div
+              className={`${prefixCls}-content`}
+              onKeyDown={this.handleKeyDown}
+            >
+              <div className={arrowCls} />
               <div className={`${prefixCls}-inner`}>
                 {this.getPickerElement()}
               </div>

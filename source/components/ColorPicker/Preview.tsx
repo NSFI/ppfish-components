@@ -1,10 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-
+import { PickedColor } from './Board';
 import Color from './helpers/color';
 
-export default class Preview extends React.Component {
-
+interface PreviewProps {
+  alpha?: number;
+  color?: PickedColor;
+  onChange?: (color: PickedColor) => void;
+  onInputClick?: (e: React.MouseEvent) => void;
+  rootPrefixCls?: string;
+}
+export default class Preview extends React.Component<PreviewProps, any> {
   static propTypes = {
     alpha: PropTypes.number,
     color: PropTypes.object,

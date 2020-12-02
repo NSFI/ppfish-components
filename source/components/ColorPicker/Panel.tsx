@@ -1,22 +1,46 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 import Color from './helpers/color';
 import typeColor from './utils/validationColor';
-import Board from './Board';
+import Board, { PickedColor } from './Board';
 import Preview from './Preview';
 import Ribbon from './Ribbon';
 import Alpha from './Alpha';
 import Params from './Params';
 import History from './History';
 
-function noop() {
+function noop() {}
+
+export type ModeTypes = 'RGB' | 'HSL' | 'HSB';
+
+interface PanelProps {
+  alpha?: number;
+  className?: string;
+  color?: string;
+  colorHistory?: PickedColor[];
+  defaultAlpha?: number;
+  defaultColor?: string;
+  enableAlpha?: boolean;
+  enableHistory?: boolean;
+  maxHistory?: number;
+  mode?: ModeTypes;
+  onBlur?: (node?: React.ReactNode) => void;
+  onChange?: (node?: React.ReactNode) => void;
+  onFocus?: (node?: React.ReactNode) => void;
+  onMount?: (node?: React.ReactNode) => void;
+  prefixCls?: string;
+  style?: CSSProperties;
 }
 
-class Panel extends React.Component {
+interface PanelState {
+  color: any;
+  alpha: number;
+}
 
+class Panel extends React.Component<PanelProps, PanelState> {
   static propTypes = {
     alpha: PropTypes.number,
     className: PropTypes.string,
@@ -53,8 +77,15 @@ class Panel extends React.Component {
     style: {},
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const newState = {};
+  static getDerivedStateFromProps: React.GetDerivedStateFromProps<
+    PanelProps,
+    PanelState
+  > = (nextProps, prevState) => {
+    const newState: PanelState = {
+      color: '',
+      alpha: undefined,
+    };
+
     if ('color' in nextProps) {
       newState.color = new Color(nextProps.color);
     }
@@ -62,20 +93,25 @@ class Panel extends React.Component {
       newState.alpha = nextProps.alpha;
     }
     return newState;
-  }
+  };
 
-  constructor(props) {
+  ref = null;
+  _blurTimer = null;
+  systemColorPickerOpen = null;
+
+  constructor(props: PanelProps) {
     super(props);
 
-    const alpha = typeof props.alpha === 'undefined'
-      ? props.defaultAlpha
-      : Math.min(props.alpha, props.defaultAlpha);
+    const alpha =
+      typeof props.alpha === 'undefined'
+        ? props.defaultAlpha
+        : Math.min(props.alpha, props.defaultAlpha);
 
     const color = new Color(props.color || props.defaultColor);
 
     this.state = {
       color,
-      alpha
+      alpha,
     };
   }
 
@@ -119,7 +155,7 @@ class Panel extends React.Component {
    * @param  {Number} alpha Range 0~100
    */
   handleAlphaChange = alpha => {
-    const {color} = this.state;
+    const { color } = this.state;
     color.alpha = alpha;
 
     this.setState({
@@ -136,11 +172,11 @@ class Panel extends React.Component {
    * color change
    * @param  {Object}  color      tinycolor instance
    */
-  handleChange = (color) => {
-    const {alpha} = this.state;
+  handleChange = color => {
+    const { alpha } = this.state;
     color.alpha = alpha;
 
-    this.setState({color});
+    this.setState({ color });
     this.props.onChange({
       color: color.toHexString(),
       alpha: color.alpha,
@@ -151,20 +187,20 @@ class Panel extends React.Component {
    * 响应 History 的变更
    * @param  {Object} obj color and alpha
    */
-  handleHistoryClick = (obj) => {
+  handleHistoryClick = obj => {
     this.setState({
       color: new Color(obj.color),
-      alpha: obj.alpha
+      alpha: obj.alpha,
     });
     this.props.onChange({
       color: obj.color,
-      alpha: obj.alpha
+      alpha: obj.alpha,
     });
   };
 
   render() {
-    const {prefixCls, enableAlpha, enableHistory, colorHistory} = this.props;
-    const {color, alpha} = this.state;
+    const { prefixCls, enableAlpha, enableHistory, colorHistory } = this.props;
+    const { color, alpha } = this.state;
 
     const wrapClasses = classNames({
       [`${prefixCls}-wrap`]: true,
@@ -173,28 +209,37 @@ class Panel extends React.Component {
 
     return (
       <div
-        ref={(ref) => this.ref = ref}
+        ref={ref => (this.ref = ref)}
         className={[prefixCls, this.props.className].join(' ')}
         style={this.props.style}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
-        tabIndex="0"
+        tabIndex={0}
       >
         <div className={`${prefixCls}-inner`}>
-          <Board rootPrefixCls={prefixCls} color={color} onChange={this.handleChange}/>
+          <Board
+            rootPrefixCls={prefixCls}
+            color={color}
+            onChange={this.handleChange}
+          />
           <div className={wrapClasses}>
             <div className={`${prefixCls}-wrap-ribbon`}>
-              <Ribbon rootPrefixCls={prefixCls} color={color} onChange={this.handleChange}/>
-            </div>
-            {enableAlpha &&
-            <div className={`${prefixCls}-wrap-alpha`}>
-              <Alpha
+              <Ribbon
                 rootPrefixCls={prefixCls}
-                alpha={alpha}
                 color={color}
-                onChange={this.handleAlphaChange}
+                onChange={this.handleChange}
               />
-            </div>}
+            </div>
+            {enableAlpha && (
+              <div className={`${prefixCls}-wrap-alpha`}>
+                <Alpha
+                  rootPrefixCls={prefixCls}
+                  alpha={alpha}
+                  color={color}
+                  onChange={this.handleAlphaChange}
+                />
+              </div>
+            )}
             <div className={`${prefixCls}-wrap-preview`}>
               <Preview
                 rootPrefixCls={prefixCls}
@@ -205,7 +250,10 @@ class Panel extends React.Component {
               />
             </div>
           </div>
-          <div className={`${prefixCls}-wrap`} style={{height: 40, marginTop: 6}}>
+          <div
+            className={`${prefixCls}-wrap`}
+            style={{ height: 40, marginTop: 6 }}
+          >
             <Params
               rootPrefixCls={prefixCls}
               color={color}
@@ -217,14 +265,16 @@ class Panel extends React.Component {
               enableHistory={this.props.enableHistory}
             />
           </div>
-          {enableHistory && <div className={`${prefixCls}-wrap-history`}>
-            <History
-              prefixCls={prefixCls}
-              colorHistory={colorHistory}
-              onHistoryClick={this.handleHistoryClick}
-              maxHistory={this.props.maxHistory}
-            />
-          </div>}
+          {enableHistory && (
+            <div className={`${prefixCls}-wrap-history`}>
+              <History
+                prefixCls={prefixCls}
+                colorHistory={colorHistory}
+                onHistoryClick={this.handleHistoryClick}
+                maxHistory={this.props.maxHistory}
+              />
+            </div>
+          )}
         </div>
       </div>
     );

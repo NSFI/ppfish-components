@@ -1,15 +1,33 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 import Color from './helpers/color';
 import percentage from './helpers/percentage';
+import { PickedColor } from './Board';
+import { ModeTypes } from './Panel';
 
 const modesMap = ['RGB', 'HSB'];
 
-class Params extends React.Component {
+interface ParamsProps {
+  alpha?: number;
+  color?: PickedColor;
+  enableAlpha?: boolean;
+  enableHistory?: boolean;
+  mode?: ModeTypes;
+  onAlphaChange?: (alpha: number) => void;
+  onChange?: (color: PickedColor, flag?: boolean) => void;
+  rootPrefixCls?: string;
+}
 
+interface ParamsState {
+  color: PickedColor;
+  hex: string;
+  mode: ModeTypes;
+}
+
+class Params extends React.Component<ParamsProps, ParamsState> {
   static propTypes = {
     alpha: PropTypes.number,
     color: PropTypes.object.isRequired,
@@ -26,14 +44,22 @@ class Params extends React.Component {
     enableAlpha: true,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const newState = {};
+  static getDerivedStateFromProps: React.GetDerivedStateFromProps<
+    ParamsProps,
+    ParamsState
+  > = (nextProps, prevState) => {
+    const newState: ParamsState = {
+      color: {},
+      hex: '',
+      mode: 'RGB',
+    };
+
     if ('color' in nextProps) {
       newState.color = nextProps.color;
       newState.hex = nextProps.color.hex;
     }
     return newState;
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -48,8 +74,16 @@ class Params extends React.Component {
 
   getChannelInRange = (value, index) => {
     const channelMap = {
-      RGB: [[0, 255], [0, 255], [0, 255]],
-      HSB: [[0, 359], [0, 100], [0, 100]],
+      RGB: [
+        [0, 255],
+        [0, 255],
+        [0, 255],
+      ],
+      HSB: [
+        [0, 359],
+        [0, 100],
+        [0, 100],
+      ],
     };
     const mode = this.state.mode;
     const range = channelMap[mode][index];
@@ -116,7 +150,7 @@ class Params extends React.Component {
 
     const modeIndex = (modesMap.indexOf(mode) + 1) % modesMap.length;
 
-    mode = modesMap[modeIndex];
+    mode = modesMap[modeIndex] as ModeTypes;
 
     this.setState({
       mode,
@@ -136,8 +170,8 @@ class Params extends React.Component {
   };
 
   updateColorByChanel = (channel, value) => {
-    const {color} = this.props;
-    const {mode} = this.state;
+    const { color } = this.props;
+    const { mode } = this.state;
 
     if (mode === 'HSB') {
       if (channel === 'H') {
@@ -162,7 +196,7 @@ class Params extends React.Component {
 
   handleColorChannelChange = (index, event) => {
     const value = this.getChannelInRange(event.target.value, index);
-    const {mode} = this.state;
+    const { mode } = this.state;
     const channel = mode[index];
 
     const color = this.updateColorByChanel(channel, value);
@@ -174,15 +208,15 @@ class Params extends React.Component {
       },
       () => {
         this.props.onChange(color, false);
-      }
+      },
     );
   };
 
   render() {
     const prefixCls = this.getPrefixCls();
 
-    const {enableAlpha, enableHistory} = this.props;
-    const {mode, color} = this.state;
+    const { enableAlpha, enableHistory } = this.props;
+    const { mode, color } = this.state;
     const colorChannel = color[mode];
 
     if (mode === 'HSB') {
@@ -203,7 +237,7 @@ class Params extends React.Component {
           <input
             className={`${prefixCls}-hex`}
             type="text"
-            maxLength="6"
+            maxLength={6}
             onKeyPress={this.handleHexPress}
             onBlur={this.handleHexBlur}
             onChange={this.handleHexChange}
@@ -237,16 +271,27 @@ class Params extends React.Component {
         </div>
         <div className={`${prefixCls}-lable`}>
           <label className={`${prefixCls}-lable-hex`}>Hex</label>
-          <label className={`${prefixCls}-lable-number`} onClick={this.handleModeChange}>
+          <label
+            className={`${prefixCls}-lable-number`}
+            onClick={this.handleModeChange}
+          >
             {mode[0]}
           </label>
-          <label className={`${prefixCls}-lable-number`} onClick={this.handleModeChange}>
+          <label
+            className={`${prefixCls}-lable-number`}
+            onClick={this.handleModeChange}
+          >
             {mode[1]}
           </label>
-          <label className={`${prefixCls}-lable-number`} onClick={this.handleModeChange}>
+          <label
+            className={`${prefixCls}-lable-number`}
+            onClick={this.handleModeChange}
+          >
             {mode[2]}
           </label>
-          {enableAlpha && <label className={`${prefixCls}-lable-alpha`}>A</label>}
+          {enableAlpha && (
+            <label className={`${prefixCls}-lable-alpha`}>A</label>
+          )}
         </div>
       </div>
     );

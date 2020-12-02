@@ -1,16 +1,22 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { PickedColor } from './Board';
 
-export default class Ribbon extends React.Component {
+export interface RibbonProps {
+  color?: PickedColor;
+  onChange?: (color: PickedColor) => void;
+  rootPrefixCls?: string;
+}
 
+export default class Ribbon extends React.Component<RibbonProps, any> {
   static propTypes = {
     color: PropTypes.object,
     onChange: PropTypes.func,
     rootPrefixCls: PropTypes.string,
   };
 
-  constructor(props) {
+  constructor(props: RibbonProps) {
     super(props);
   }
 
@@ -18,7 +24,7 @@ export default class Ribbon extends React.Component {
     this.removeListeners();
   }
 
-  onMouseDown = e => {
+  onMouseDown = (e: React.MouseEvent) => {
     const x = e.clientX;
     const y = e.clientY;
 
@@ -55,7 +61,9 @@ export default class Ribbon extends React.Component {
   };
 
   pointMoveTo = coords => {
-    const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
+    const rect = (ReactDOM.findDOMNode(
+      this,
+    ) as HTMLElement).getBoundingClientRect();
     const width = rect.width;
     let left = coords.x - rect.left;
     left = Math.max(0, left);
@@ -64,7 +72,7 @@ export default class Ribbon extends React.Component {
     const huePercent = left / width;
     const hue = huePercent * 360;
 
-    const {color} = this.props;
+    const { color } = this.props;
 
     color.hue = hue;
 
@@ -79,12 +87,15 @@ export default class Ribbon extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
     const hue = this.props.color.hue;
-    const per = hue / 360 * 100;
+    const per = (hue / 360) * 100;
 
     return (
       <div className={prefixCls}>
-        <span ref="point" style={{left: `${per}%`}}/>
-        <div className={`${prefixCls}-handler`} onMouseDown={this.onMouseDown}/>
+        <span ref="point" style={{ left: `${per}%` }} />
+        <div
+          className={`${prefixCls}-handler`}
+          onMouseDown={this.onMouseDown}
+        />
       </div>
     );
   }

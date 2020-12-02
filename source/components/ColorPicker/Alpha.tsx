@@ -1,13 +1,23 @@
-import React from 'react';
-import {findDOMNode} from 'react-dom';
+import * as React from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 
-function rgbaColor(r, g, b, a) {
+function rgbaColor(r: number, g: number, b: number, a: number) {
   return `rgba(${[r, g, b, a / 100].join(',')})`;
 }
 
-export default class Alpha extends React.Component {
+export interface AlphaProps {
+  alpha?: number;
+  color?: {
+    red: number;
+    green: number;
+    blue: number;
+  };
+  onChange?: (data: any) => void;
+  rootPrefixCls?: string;
+}
 
+export default class Alpha extends React.Component<AlphaProps> {
   static propTypes = {
     alpha: PropTypes.number,
     color: PropTypes.object,
@@ -23,7 +33,7 @@ export default class Alpha extends React.Component {
     this.removeListeners();
   }
 
-  onMouseDown = e => {
+  onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     const x = e.clientX;
     const y = e.clientY;
 
@@ -36,7 +46,7 @@ export default class Alpha extends React.Component {
     window.addEventListener('mouseup', this.onDragEnd);
   };
 
-  onDrag = e => {
+  onDrag = (e: MouseEvent) => {
     const x = e.clientX;
     const y = e.clientY;
     this.pointMoveTo({
@@ -45,7 +55,7 @@ export default class Alpha extends React.Component {
     });
   };
 
-  onDragEnd = e => {
+  onDragEnd = (e: MouseEvent) => {
     const x = e.clientX;
     const y = e.clientY;
     this.pointMoveTo({
@@ -56,8 +66,13 @@ export default class Alpha extends React.Component {
   };
 
   getBackground = () => {
-    const {red, green, blue} = this.props.color;
-    const opacityGradient = `linear-gradient(to right, ${rgbaColor(red, green, blue, 0)} , ${rgbaColor(red, green, blue, 100)})`; // eslint-disable-line max-len
+    const { red, green, blue } = this.props.color;
+    const opacityGradient = `linear-gradient(to right, ${rgbaColor(
+      red,
+      green,
+      blue,
+      0,
+    )} , ${rgbaColor(red, green, blue, 100)})`; // eslint-disable-line max-len
     return opacityGradient;
   };
 
@@ -66,14 +81,14 @@ export default class Alpha extends React.Component {
   };
 
   pointMoveTo = coords => {
-    const rect = findDOMNode(this).getBoundingClientRect();
+    const rect = (findDOMNode(this) as HTMLElement).getBoundingClientRect();
     const width = rect.width;
     let left = coords.x - rect.left;
 
     left = Math.max(0, left);
     left = Math.min(left, width);
 
-    const alpha = Math.round(left / width * 100);
+    const alpha = Math.round((left / width) * 100);
 
     this.props.onChange(alpha);
   };
@@ -85,11 +100,17 @@ export default class Alpha extends React.Component {
 
   render() {
     const prefixCls = this.getPrefixCls();
+    const background = this.getBackground();
+    const left = `${this.props.alpha}%`;
+
     return (
       <div className={prefixCls}>
-        <div ref="bg" className={`${prefixCls}-bg`} style={{background: this.getBackground()}}/>
-        <span style={{left: `${this.props.alpha}%`}}/>
-        <div className={`${prefixCls}-handler`} onMouseDown={this.onMouseDown}/>
+        <div ref="bg" className={`${prefixCls}-bg`} style={{ background }} />
+        <span style={{ left }} />
+        <div
+          className={`${prefixCls}-handler`}
+          onMouseDown={this.onMouseDown}
+        />
       </div>
     );
   }

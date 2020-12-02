@@ -1,9 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import Color from "./helpers/color";
+import Color from './helpers/color';
+import { PickedColor } from './Board';
 
-export default class History extends React.Component {
+interface HistoryProps {
+  colorHistory: PickedColor[];
+  maxHistory: number;
+  onHistoryClick: (node?: any) => void;
+  prefixCls: string;
+}
 
+export default class History extends React.Component<HistoryProps> {
   static propTypes = {
     colorHistory: PropTypes.array,
     maxHistory: PropTypes.number,
@@ -12,10 +19,14 @@ export default class History extends React.Component {
   };
 
   render() {
-    const {prefixCls, colorHistory, maxHistory} = this.props;
+    const { prefixCls, colorHistory, maxHistory } = this.props;
+
     let renderColors = [...colorHistory];
     if (colorHistory.length < maxHistory) {
-      renderColors = [...renderColors, ...new Array(maxHistory - colorHistory.length)];
+      renderColors = [
+        ...renderColors,
+        ...new Array(maxHistory - colorHistory.length),
+      ];
     }
     return (
       <div className={`${prefixCls}-history`}>
@@ -32,23 +43,24 @@ export default class History extends React.Component {
                 key,
                 onClick: () => this.props.onHistoryClick(obj),
                 className: `${prefixCls}-history-color`,
-                style: {background: `rgba(${RGBA.join(',')})`}
+                style: { background: `rgba(${RGBA.join(',')})` },
               };
             } else if (typeof obj === 'string') {
               props = {
                 key,
-                onClick: () => this.props.onHistoryClick({color: obj, alpha: 100}),
+                onClick: () =>
+                  this.props.onHistoryClick({ color: obj, alpha: 100 }),
                 className: `${prefixCls}-history-color`,
-                style: {background: obj}
+                style: { background: obj },
               };
             }
-            return (<span {...props}/>);
+            return <span {...props} />;
           } else {
             const props = {
               key,
               className: `${prefixCls}-history-color`,
             };
-            return (<span {...props}/>);
+            return <span {...props} />;
           }
         })}
       </div>
