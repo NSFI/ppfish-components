@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-class PanelContent extends Component {
+export interface PanelContentProps {
+  isActive: boolean
+  prefixCls: string
+}
+
+class PanelContent extends Component<PanelContentProps, any> {
   static propTypes = {
     prefixCls: PropTypes.string,
     isActive: PropTypes.bool,
     children: PropTypes.node,
   };
+
+  _isActived = false
 
   constructor(props) {
     super(props);
