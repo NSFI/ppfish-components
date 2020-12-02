@@ -79,6 +79,7 @@ class Select extends React.Component {
     disabled: PropTypes.bool,
     children: PropTypes.node,
     labelInValue: PropTypes.bool,
+    immediate: PropTypes.bool,
     maxTagCount: PropTypes.number,
     maxTagPlaceholder: PropTypes.oneOfType([
       PropTypes.node,
@@ -165,6 +166,7 @@ class Select extends React.Component {
     uniqueTreeNodeByLabel: false,
     autoExpandParent: true,
     getPopupContainer: () => document.body,
+    immediate: false,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -616,6 +618,7 @@ class Select extends React.Component {
       treeNodeLabelProp, onSelect,
       treeCheckable, treeCheckStrictly, treeCheckType, autoClearSearchValue,
       loadData,
+      immediate
     } = this.props;
     const label = node.props[treeNodeLabelProp];
 
@@ -705,7 +708,7 @@ class Select extends React.Component {
       triggerNode: node,
     };
 
-    this.triggerChange(missValueList, newValueList, extraInfo, false, isAdd);
+    this.triggerChange(missValueList, newValueList, extraInfo, immediate, isAdd);
   };
 
   onTreeNodeSelect = (_, nodeEventInfo) => {

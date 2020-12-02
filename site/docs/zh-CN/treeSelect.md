@@ -1087,6 +1087,7 @@
       loading: this.state.loading,
       treeCheckable: true,
       labelInValue: true,
+      immediate: true,
       style: {
         width: 300,
       },
@@ -1232,6 +1233,8 @@
 | treeNodeResetTitle | 复位选项的默认文字，单选时有效 | String | '不选择任何分类' |
 | uniqueTreeNodeByLabel | 是否对选择框中展示的树节点以 Label 去重， `editable` 为 false 时有效 | Boolean | false |
 | value | 受控属性，指定当前选中的树节点 | String \| Array< String > | - |
+| labelInValue | 是否把每个选项的 label 包装到 value 中 | Boolean | false |
+| immediate | checkbox勾选后是否立即生效 | Boolean | false |
 
 ### Tree 方法
 
