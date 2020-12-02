@@ -399,15 +399,17 @@ exports[`Renders treeSelect demo correctly 1`] = `
       <ul
         class="fishd-treeselect-selection__rendered fishd-treeselect-multiple-readonly"
         role="menubar"
-        title=""
-      />
+        title="Node7"
+      >
+        Node7
+      </ul>
       <i
         class="fishdicon fishdicon-down-fill fishd-treeselect-arrow"
         style="outline:none"
       />
       <span
         class="fishd-treeselect-search__field__placeholder"
-        style="display:block"
+        style="display:none"
       >
         请选择
       </span>

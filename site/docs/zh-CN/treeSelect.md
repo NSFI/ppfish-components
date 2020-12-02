@@ -975,19 +975,21 @@
     super(props);
     this.lastSearchId = 1;
     this.loadDataTimes = 1;
+    this.treeData = [
+      { title: 'Node1', key: 'k1', value: 'n1' },
+      { title: 'Node2', key: 'k2', value: 'n2' },
+      { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
+    ];
     this.onSearch = this.props.debounce(this.onSearch, 300);
     this.state = {
-      value: [],
-      treeData: [
-        { title: 'Node1', key: 'k1', value: 'n1' },
-        { title: 'Node2', key: 'k2', value: 'n2' },
-        { title: 'Node3', key: 'k3', value: 'n3', isLeaf: true }
-      ],
+      value: [{label: 'Node7', value: 'n7'}],
+      treeData: this.treeData,
       loading: false
     };
   }
 
   onConfirm = (value) => {
+    console.log(value)
     this.setState({ value });
   }
   
@@ -996,20 +998,16 @@
   }
 
   onSearch = (value) => {
-    if(!value) return;
+    // if(!value) return;
     let oldTreeData = [...this.state.treeData];
     this.setState({loading: true});
     setTimeout(() => {
-      this.setState({
-        treeData: [
-          ...oldTreeData,
-          {
-            title: 'New Node' + this.lastSearchId + ': ' + value,
-            key: 'new_key_' + this.lastSearchId,
-            value: 'new_value_' + this.lastSearchId
-          }
-        ],
+      this.setState(state => {
+       return {
+        value: [...state.value],
+        treeData: value ? [] : this.treeData,
         loading: false
+       }
       }, () => {
         this.lastSearchId++;
       });
@@ -1088,6 +1086,7 @@
       loadData: this.onLoadData,
       loading: this.state.loading,
       treeCheckable: true,
+      labelInValue: true,
       style: {
         width: 300,
       },

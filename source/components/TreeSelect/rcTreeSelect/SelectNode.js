@@ -13,7 +13,13 @@ const SelectNode = (props) => (
 
 SelectNode.propTypes = {
   ...TreeNode.propTypes,
-  value: PropTypes.string,
+  value: PropTypes.string || PropTypes.shape({
+    label: PropTypes.node,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+  })
 };
 
 // Let Tree trade as TreeNode to reuse this for performance saving.

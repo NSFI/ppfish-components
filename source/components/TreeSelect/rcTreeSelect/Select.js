@@ -1083,6 +1083,9 @@ class Select extends React.Component {
     if (isMultiple && !treeCheckStrictly) {
       let keyList = [];
       rtValueList.forEach(value => {
+        if(this.isLabelInValue()) {
+          value= value.value;
+        }
         if (valueEntities[value] != undefined) {
           keyList.push(valueEntities[value].key);
         }
@@ -1090,10 +1093,16 @@ class Select extends React.Component {
 
       let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData, null, treeCheckType).checkedKeys;
       rtValueList = checkedKeys.map(key => {
-        return keyEntities[key] && keyEntities[key].value;
+        if(this.isLabelInValue()) {
+          return {
+            value: keyEntities[key] && keyEntities[key].value,
+            label: keyEntities[key] && keyEntities[key].node.props.title
+          };
+        } else {
+          return keyEntities[key] && keyEntities[key].value;
+        }
       });
     }
-
     const passProps = {
       ...this.props,
       isMultiple,
