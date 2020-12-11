@@ -1,11 +1,19 @@
-import EventBaseObject from './EventBaseObject';
+import EventBaseObject from "./EventBaseObject";
 const TRUE = true;
 const FALSE = false;
 const commonProps = [
-  'altKey', 'bubbles', 'cancelable',
-  'ctrlKey', 'currentTarget', 'eventPhase',
-  'metaKey', 'shiftKey', 'target',
-  'timeStamp', 'view', 'type',
+  "altKey",
+  "bubbles",
+  "cancelable",
+  "ctrlKey",
+  "currentTarget",
+  "eventPhase",
+  "metaKey",
+  "shiftKey",
+  "target",
+  "timeStamp",
+  "view",
+  "type"
 ];
 
 function isNullOrUndefined(w) {
@@ -15,30 +23,31 @@ function isNullOrUndefined(w) {
 const eventNormalizers = [
   {
     reg: /^key/,
-    props: ['char', 'charCode', 'key', 'keyCode', 'which'],
+    props: ["char", "charCode", "key", "keyCode", "which"],
     fix(event, nativeEvent) {
       if (isNullOrUndefined(event.which)) {
-        event.which = !isNullOrUndefined(nativeEvent.charCode) ?
-          nativeEvent.charCode : nativeEvent.keyCode;
+        event.which = !isNullOrUndefined(nativeEvent.charCode)
+          ? nativeEvent.charCode
+          : nativeEvent.keyCode;
       }
 
       // add metaKey to non-Mac browsers (use ctrl for PC 's and Meta for Macs)
       if (event.metaKey === undefined) {
         event.metaKey = event.ctrlKey;
       }
-    },
+    }
   },
   {
     reg: /^touch/,
-    props: ['touches', 'changedTouches', 'targetTouches'],
+    props: ["touches", "changedTouches", "targetTouches"]
   },
   {
     reg: /^hashchange$/,
-    props: ['newURL', 'oldURL'],
+    props: ["newURL", "oldURL"]
   },
   {
     reg: /^gesturechange$/i,
-    props: ['rotation', 'scale'],
+    props: ["rotation", "scale"]
   },
   {
     reg: /^(mousewheel|DOMMouseScroll)$/,
@@ -80,7 +89,7 @@ const eventNormalizers = [
         deltaY = wheelDeltaY / 120;
       }
       if (wheelDeltaX !== undefined) {
-        deltaX = -1 * wheelDeltaX / 120;
+        deltaX = (-1 * wheelDeltaX) / 120;
       }
 
       // 默认 deltaY (ie)
@@ -114,15 +123,25 @@ const eventNormalizers = [
          */
         event.delta = delta;
       }
-    },
+    }
   },
   {
     reg: /^mouse|contextmenu|click|mspointer|(^DOMMouseScroll$)/i,
     props: [
-      'buttons', 'clientX', 'clientY', 'button',
-      'offsetX', 'relatedTarget', 'which',
-      'fromElement', 'toElement', 'offsetY',
-      'pageX', 'pageY', 'screenX', 'screenY',
+      "buttons",
+      "clientX",
+      "clientY",
+      "button",
+      "offsetX",
+      "relatedTarget",
+      "which",
+      "fromElement",
+      "toElement",
+      "offsetY",
+      "pageX",
+      "pageY",
+      "screenX",
+      "screenY"
     ],
     fix(event, nativeEvent) {
       let eventDoc;
@@ -132,16 +151,22 @@ const eventNormalizers = [
       const button = nativeEvent.button;
 
       // Calculate pageX/Y if missing and clientX/Y available
-      if (target && isNullOrUndefined(event.pageX) && !isNullOrUndefined(nativeEvent.clientX)) {
+      if (
+        target &&
+        isNullOrUndefined(event.pageX) &&
+        !isNullOrUndefined(nativeEvent.clientX)
+      ) {
         eventDoc = target.ownerDocument || document;
         doc = eventDoc.documentElement;
         body = eventDoc.body;
-        event.pageX = nativeEvent.clientX +
-          (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-          (doc && doc.clientLeft || body && body.clientLeft || 0);
-        event.pageY = nativeEvent.clientY +
-          (doc && doc.scrollTop || body && body.scrollTop || 0) -
-          (doc && doc.clientTop || body && body.clientTop || 0);
+        event.pageX =
+          nativeEvent.clientX +
+          ((doc && doc.scrollLeft) || (body && body.scrollLeft) || 0) -
+          ((doc && doc.clientLeft) || (body && body.clientLeft) || 0);
+        event.pageY =
+          nativeEvent.clientY +
+          ((doc && doc.scrollTop) || (body && body.scrollTop) || 0) -
+          ((doc && doc.clientTop) || (body && body.clientTop) || 0);
       }
 
       // which for click: 1 === left; 2 === middle; 3 === right
@@ -160,12 +185,13 @@ const eventNormalizers = [
 
       // add relatedTarget, if necessary
       if (!event.relatedTarget && event.fromElement) {
-        event.relatedTarget = (event.fromElement === target) ? event.toElement : event.fromElement;
+        event.relatedTarget =
+          event.fromElement === target ? event.toElement : event.fromElement;
       }
 
       return event;
-    },
-  },
+    }
+  }
 ];
 
 function retTrue() {
@@ -179,8 +205,9 @@ function retFalse() {
 function DomEventObject(nativeEvent) {
   const type = nativeEvent.type;
 
-  const isNative = (typeof nativeEvent.stopPropagation === 'function') ||
-    (typeof nativeEvent.cancelBubble === 'boolean');
+  const isNative =
+    typeof nativeEvent.stopPropagation === "function" ||
+    typeof nativeEvent.cancelBubble === "boolean";
 
   EventBaseObject.call(this);
 
@@ -188,12 +215,12 @@ function DomEventObject(nativeEvent) {
 
   // in case dom event has been mark as default prevented by lower dom node
   let isDefaultPrevented = retFalse;
-  if ('defaultPrevented' in nativeEvent) {
+  if ("defaultPrevented" in nativeEvent) {
     isDefaultPrevented = nativeEvent.defaultPrevented ? retTrue : retFalse;
-  } else if ('getPreventDefault' in nativeEvent) {
+  } else if ("getPreventDefault" in nativeEvent) {
     // https://bugzilla.mozilla.org/show_bug.cgi?id=691151
     isDefaultPrevented = nativeEvent.getPreventDefault() ? retTrue : retFalse;
-  } else if ('returnValue' in nativeEvent) {
+  } else if ("returnValue" in nativeEvent) {
     isDefaultPrevented = nativeEvent.returnValue === FALSE ? retTrue : retFalse;
   }
 
@@ -205,7 +232,7 @@ function DomEventObject(nativeEvent) {
   let prop;
   let props = commonProps.concat();
 
-  eventNormalizers.forEach((normalizer) => {
+  eventNormalizers.forEach(normalizer => {
     if (type.match(normalizer.reg)) {
       props = props.concat(normalizer.props);
       if (normalizer.fix) {
@@ -273,7 +300,7 @@ Object.assign(DomEventObject.prototype, EventBaseObjectProto, {
     }
 
     EventBaseObjectProto.stopPropagation.call(this);
-  },
+  }
 });
 
 export default DomEventObject;

@@ -34,7 +34,7 @@ export const MONTH_ARRRY = ['1月', '2月', '3月', '4月', '5月', '6月', '7�
 export const YEARS_ARRAY = (N=50) => {
   const result = [];
   const currentYearNum = (new Date()).getFullYear();
-  const start = Math.max(currentYearNum - parseInt(N / 2), 0);
+  const start = Math.max(currentYearNum - parseInt(String(N / 2)), 0);
   for(let i = 0; i < N; i++) {
     result.push(start + i);
   }
@@ -63,12 +63,12 @@ export const equalYearAndMonth = function (dateA, dateB) {
 // 判断两个日期差(天)
 export const diffDate = (dateA, dateB) => {
   const time = dateB.getTime() - dateA.getTime();
-  const days = parseInt(time / (1000 * 60 * 60 * 24));
+  const days = parseInt(String(time / (1000 * 60 * 60 * 24)));
   return days;
 };
 
 // Date对象
-export const toDate = function(date) {
+export const toDate = function(date): Date {
   return isValidValue(date) ? new Date(date) : null;
 };
 
@@ -92,7 +92,7 @@ export const formatDate = function (date, format) {
 };
 
 // string->Date对象
-export const parseDate = function (string, format) {
+export const parseDate = function (string, format): Date {
   return DateUtils.parse(string, format || 'yyyy-MM-dd');
 };
 

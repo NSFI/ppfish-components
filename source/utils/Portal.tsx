@@ -1,8 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-export default class Portal extends React.Component {
+interface PortalProps {
+  getContainer: () => HTMLElement
+  children: React.ReactNode | React.ReactChildren
+  didUpdate: (props: PortalProps) => void
+}
+
+export default class Portal extends React.Component<PortalProps> {
+  _container: HTMLElement
+
   static propTypes = {
     getContainer: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
@@ -13,7 +21,7 @@ export default class Portal extends React.Component {
     this.createContainer();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: PortalProps) {
     const { didUpdate } = this.props;
     if (didUpdate) {
       didUpdate(prevProps);

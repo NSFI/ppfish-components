@@ -7,7 +7,7 @@ function use(lang) {
   _lang = lang;
 }
 
-function t(path, options) {
+function t(path: string, options?: {}) {
   const array = path.split('.');
   let current = _lang;
 

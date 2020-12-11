@@ -419,6 +419,10 @@ const KeyCode = {
    * WIN_IME
    */
   WIN_IME: 229,
+
+  isTextModifyingKeyEvent: undefined,
+
+  isCharacterKey: undefined
 };
 
 /*
@@ -426,9 +430,12 @@ const KeyCode = {
  */
 KeyCode.isTextModifyingKeyEvent = function isTextModifyingKeyEvent(e) {
   const keyCode = e.keyCode;
-  if (e.altKey && !e.ctrlKey || e.metaKey ||
+  if (
+    (e.altKey && !e.ctrlKey) ||
+    e.metaKey ||
     // Function keys don't generate text
-    keyCode >= KeyCode.F1 && keyCode <= KeyCode.F12) {
+    (keyCode >= KeyCode.F1 && keyCode <= KeyCode.F12)
+  ) {
     return false;
   }
 
@@ -468,23 +475,20 @@ KeyCode.isTextModifyingKeyEvent = function isTextModifyingKeyEvent(e) {
  whether character is entered.
  */
 KeyCode.isCharacterKey = function isCharacterKey(keyCode) {
-  if (keyCode >= KeyCode.ZERO &&
-    keyCode <= KeyCode.NINE) {
+  if (keyCode >= KeyCode.ZERO && keyCode <= KeyCode.NINE) {
     return true;
   }
 
-  if (keyCode >= KeyCode.NUM_ZERO &&
-    keyCode <= KeyCode.NUM_MULTIPLY) {
+  if (keyCode >= KeyCode.NUM_ZERO && keyCode <= KeyCode.NUM_MULTIPLY) {
     return true;
   }
 
-  if (keyCode >= KeyCode.A &&
-    keyCode <= KeyCode.Z) {
+  if (keyCode >= KeyCode.A && keyCode <= KeyCode.Z) {
     return true;
   }
 
   // Safari sends zero key code for non-latin characters.
-  if (window.navigation.userAgent.indexOf('WebKit') !== -1 && keyCode === 0) {
+  if (window.navigator.userAgent.indexOf("WebKit") !== -1 && keyCode === 0) {
     return true;
   }
 

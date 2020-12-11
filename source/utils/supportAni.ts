@@ -18,13 +18,13 @@ const transitionEventNames = {
  * @param  {Object<String>} names
  * @return {Object|false}
  */
-function _supportEnd(names) {
+function _supportEnd(names: { [key: string]: any }) {
   if (!hasDOM) {
       return false;
   }
 
   const el = document.createElement('div');
-  let ret = false;
+  let ret: boolean | { end: string } = false;
 
   for (let key in names) {
     if (names.hasOwnProperty(key)) {

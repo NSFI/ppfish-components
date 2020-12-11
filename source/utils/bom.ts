@@ -4,12 +4,11 @@
  * @return {[type]}         [description]
  */
 export const fullscreen = function(element) {
-  let func = (
+  let func =
     element.requestFullscreen ||
     element.msRequestFullscreen ||
     element.mozRequestFullScreen ||
-    element.webkitRequestFullScreen
-  );
+    element.webkitRequestFullScreen;
 
   if (Object.prototype.toString.call(func) == "[object Function]") {
     func.call(element);
@@ -23,12 +22,12 @@ export const fullscreen = function(element) {
 export const exitfullscreen = function() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
+  } else if (document['msExitFullscreen']) {
+    document['msExitFullscreen']();
+  } else if (document['mozCancelFullScreen']) {
+    document['mozCancelFullScreen']();
+  } else if (document['webkitExitFullscreen']) {
+    document['webkitExitFullscreen']();
   }
 };
 
@@ -51,9 +50,9 @@ export const addFullscreenchangeEvent = function(element, fn) {
 export const checkFullscreen = function() {
   return !!(
     document.fullscreenEnabled ||
-    window.fullScreen ||
-    document.webkitIsFullScreen ||
-    document.msFullscreenEnabled
+    window['fullScreen'] ||
+    document['webkitIsFullScreen'] ||
+    document['msFullscreenEnabled']
   );
 };
 
@@ -61,28 +60,28 @@ let cached;
 
 export const getScrollBarSize = function(fresh) {
   if (fresh || cached === undefined) {
-    const inner = document.createElement('div');
-    inner.style.width = '100%';
-    inner.style.height = '200px';
+    const inner = document.createElement("div");
+    inner.style.width = "100%";
+    inner.style.height = "200px";
 
-    const outer = document.createElement('div');
+    const outer = document.createElement("div");
     const outerStyle = outer.style;
 
-    outerStyle.position = 'absolute';
-    outerStyle.top = 0;
-    outerStyle.left = 0;
-    outerStyle.pointerEvents = 'none';
-    outerStyle.visibility = 'hidden';
-    outerStyle.width = '200px';
-    outerStyle.height = '150px';
-    outerStyle.overflow = 'hidden';
+    outerStyle.position = "absolute";
+    outerStyle.top = '0';
+    outerStyle.left = '0';
+    outerStyle.pointerEvents = "none";
+    outerStyle.visibility = "hidden";
+    outerStyle.width = "200px";
+    outerStyle.height = "150px";
+    outerStyle.overflow = "hidden";
 
     outer.appendChild(inner);
 
     document.body.appendChild(outer);
 
     const widthContained = inner.offsetWidth;
-    outer.style.overflow = 'scroll';
+    outer.style.overflow = "scroll";
     let widthScroll = inner.offsetWidth;
 
     if (widthContained === widthScroll) {

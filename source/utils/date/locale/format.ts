@@ -15,12 +15,14 @@ const RE_NARGS = /(%|)\{([0-9a-zA-Z_]+)\}/g;
  */
 
 export default function(string, ...args) {
-  if (args.length === 1 && typeof args[0] === 'object') {
-    args = args[0];
+  let values
+
+  if ((args as any[]).length === 1 && typeof args[0] === 'object') {
+    values = args[0];
   }
 
   if (!args || !args.hasOwnProperty) {
-    args = {};
+    values = {};
   }
 
   if(!string) return;
@@ -32,7 +34,7 @@ export default function(string, ...args) {
       string[index + match.length] === '}') {
       return i;
     } else {
-      result = Object.prototype.hasOwnProperty.call(args, i) ? args[i] : null;
+      result = Object.prototype.hasOwnProperty.call(values, i) ? values[i] : null;
       if (result === null || result === undefined) {
         return '';
       }

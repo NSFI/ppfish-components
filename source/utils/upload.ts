@@ -1,13 +1,18 @@
 const getError = (option, xhr) => {
   const msg = `cannot post ${option.action} ${xhr.status}'`;
-  const err = new Error(msg);
+  const err: {
+    status?: string
+    method?: string
+    url?: string
+  } & Error = new Error(msg);
+
   err.status = xhr.status;
   err.method = 'post';
   err.url = option.action;
   return err;
 };
 
-const getBody = (xhr) => {
+const getBody = (xhr: XMLHttpRequest) => {
   const text = xhr.responseText || xhr.response;
   if (!text) {
     return text;
@@ -33,13 +38,14 @@ const getBody = (xhr) => {
 // }
 export const upload = (option) => {
   const xhr = new XMLHttpRequest();
+  let percent: number
 
   if (option.onProgress && xhr.upload) {
-    xhr.upload.onprogress = function progress(e) {
+    xhr.upload.onprogress = function progress(e: ProgressEvent<EventTarget>) {
       if (e.total > 0) {
-        e.percent = e.loaded / e.total * 100;
+        percent = e.loaded / e.total * 100;
       }
-      option.onProgress(e);
+      option.onProgress({ percent });
     };
   }
 

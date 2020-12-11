@@ -4,12 +4,17 @@
  * @param objB
  * @returns {bool}
  */
-export const shallowEqual = (objA, objB) => {
+export const shallowEqual = (objA: any, objB: any): boolean => {
   if (objA === objB) {
     return true;
   }
 
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+  if (
+    typeof objA !== "object" ||
+    objA === null ||
+    typeof objB !== "object" ||
+    objB === null
+  ) {
     return false;
   }
 
@@ -31,7 +36,7 @@ export const shallowEqual = (objA, objB) => {
   return true;
 };
 
-export const shallowEqualArrays = (arrA, arrB) => {
+export const shallowEqualArrays = (arrA: any[], arrB: any[]): boolean => {
   if (arrA === arrB) {
     return true;
   }
@@ -55,7 +60,7 @@ export const shallowEqualArrays = (arrA, arrB) => {
  * @param htmlFragment
  * @returns {string}
  */
-export const decodeHTML = (htmlFragment) => {
+export const decodeHTML = (htmlFragment: string): string => {
   let temp = document.createElement("div");
   temp.innerHTML = htmlFragment;
   let output = temp.innerText || temp.textContent;
@@ -78,33 +83,32 @@ export function createChainedFunction() {
   };
 }
 
-
-export function getScroll(target, top) {
-  if (typeof window === 'undefined') {
+export function getScroll(target: HTMLElement | Window | null, top: boolean) {
+  if (typeof window === "undefined") {
     return 0;
   }
 
-  const prop = top ? 'pageYOffset' : 'pageXOffset';
-  const method = top ? 'scrollTop' : 'scrollLeft';
+  const prop = top ? "pageYOffset" : "pageXOffset";
+  const method = top ? "scrollTop" : "scrollLeft";
   const isWindow = target === window;
 
   let ret = isWindow ? target[prop] : target[method];
   // ie6,7,8 standard mode
-  if (isWindow && typeof ret !== 'number') {
+  if (isWindow && typeof ret !== "number") {
     ret = window.document.documentElement[method];
   }
 
   return ret;
 }
 
-
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
 const MOZ_HACK_REGEXP = /^moz([A-Z])/;
 const camelCase = function(name) {
-  return name.replace(
-    SPECIAL_CHARS_REGEXP, (_, separator, letter, offset) => offset
-    ? letter.toUpperCase()
-    : letter).replace(MOZ_HACK_REGEXP, 'Moz$1');
+  return name
+    .replace(SPECIAL_CHARS_REGEXP, (_, separator, letter, offset) =>
+      offset ? letter.toUpperCase() : letter
+    )
+    .replace(MOZ_HACK_REGEXP, "Moz$1");
 };
 
 /**
@@ -113,20 +117,16 @@ const camelCase = function(name) {
  * @param  {[type]} styleName [description] 样式名
  * @return {[type]}           [description]
  */
-export function getStyle(element, styleName) {
-  if (!element || !styleName)
-    return null;
+export function getStyle(element: HTMLElement, styleName: string) {
+  if (!element || !styleName) return null;
 
   styleName = camelCase(styleName);
 
-  if (styleName === 'float')
-    styleName = 'cssFloat';
+  if (styleName === "float") styleName = "cssFloat";
 
   try {
-    const computed = document.defaultView.getComputedStyle(element, '');
-    return element.style[styleName] || computed
-      ? computed[styleName]
-      : null;
+    const computed = document.defaultView.getComputedStyle(element, "");
+    return element.style[styleName] || computed ? computed[styleName] : null;
   } catch (e) {
     return element.style[styleName];
   }
@@ -142,7 +142,7 @@ export function getStyle(element, styleName) {
  * guid('prefix-'); // prefix-j7jv509d
  */
 let timestamp = Date.now();
-export function guid(prefix) {
-  prefix = prefix || '';
+export function guid(prefix: string) {
+  prefix = prefix || "";
   return prefix + (timestamp++).toString(36);
 }
