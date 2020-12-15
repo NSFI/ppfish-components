@@ -15,7 +15,8 @@ function fixControlledValue<T>(value: T) {
   return value;
 }
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
+export interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
   prefixCls?: string;
   className?: string;
   size?: 'large' | 'default' | 'small';
@@ -35,20 +36,14 @@ export default class Input extends React.Component<InputProps, any> {
   static defaultProps = {
     prefixCls: 'fishd-input',
     type: 'text',
-    disabled: false,
+    disabled: false
   };
 
   static propTypes = {
     type: PropTypes.string,
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     size: PropTypes.oneOf(['small', 'default', 'large']),
-    maxLength: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
+    maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     value: PropTypes.any,
     defaultValue: PropTypes.any,
@@ -63,7 +58,7 @@ export default class Input extends React.Component<InputProps, any> {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     prefix: PropTypes.node,
-    suffix: PropTypes.node,
+    suffix: PropTypes.node
   };
 
   input: HTMLInputElement;
@@ -76,7 +71,7 @@ export default class Input extends React.Component<InputProps, any> {
     if (onKeyDown) {
       onKeyDown(e);
     }
-  }
+  };
 
   focus() {
     this.input.focus();
@@ -91,52 +86,45 @@ export default class Input extends React.Component<InputProps, any> {
     return classNames(prefixCls, {
       [`${prefixCls}-sm`]: size === 'small',
       [`${prefixCls}-lg`]: size === 'large',
-      [`${prefixCls}-disabled`]: disabled,
+      [`${prefixCls}-disabled`]: disabled
     });
   }
 
   saveInput = (node: HTMLInputElement) => {
     this.input = node;
-  }
+  };
 
   renderLabeledInput(children: React.ReactElement<any>) {
     const props = this.props;
     // Not wrap when there is not addons
-    if ((!props.addonBefore && !props.addonAfter)) {
+    if (!props.addonBefore && !props.addonAfter) {
       return children;
     }
 
     const wrapperClassName = `${props.prefixCls}-group`;
     const addonClassName = `${wrapperClassName}-addon`;
     const addonBefore = props.addonBefore ? (
-      <span className={addonClassName}>
-        {props.addonBefore}
-      </span>
+      <span className={addonClassName}>{props.addonBefore}</span>
     ) : null;
 
     const addonAfter = props.addonAfter ? (
-      <span className={addonClassName}>
-        {props.addonAfter}
-      </span>
+      <span className={addonClassName}>{props.addonAfter}</span>
     ) : null;
 
     const className = classNames(`${props.prefixCls}-wrapper`, {
-      [wrapperClassName]: (addonBefore || addonAfter),
+      [wrapperClassName]: addonBefore || addonAfter
     });
 
     const groupClassName = classNames(`${props.prefixCls}-group-wrapper`, {
       [`${props.prefixCls}-group-wrapper-sm`]: props.size === 'small',
-      [`${props.prefixCls}-group-wrapper-lg`]: props.size === 'large',
+      [`${props.prefixCls}-group-wrapper-lg`]: props.size === 'large'
     });
 
     // Need another wrapper for changing display:table to display:inline-block
     // and put style prop in wrapper
     if (addonBefore || addonAfter) {
       return (
-        <span
-          className={groupClassName}
-          style={props.style}
-        >
+        <span className={groupClassName} style={props.style}>
           <span className={className}>
             {addonBefore}
             {React.cloneElement(children, { style: null })}
@@ -161,28 +149,24 @@ export default class Input extends React.Component<InputProps, any> {
     }
 
     const prefix = props.prefix ? (
-      <span className={`${props.prefixCls}-prefix`}>
-        {props.prefix}
-      </span>
+      <span className={`${props.prefixCls}-prefix`}>{props.prefix}</span>
     ) : null;
 
     const suffix = props.suffix ? (
-      <span className={`${props.prefixCls}-suffix`}>
-        {props.suffix}
-      </span>
+      <span className={`${props.prefixCls}-suffix`}>{props.suffix}</span>
     ) : null;
 
     const affixWrapperCls = classNames(props.className, `${props.prefixCls}-affix-wrapper`, {
       [`${props.prefixCls}-affix-wrapper-sm`]: props.size === 'small',
-      [`${props.prefixCls}-affix-wrapper-lg`]: props.size === 'large',
+      [`${props.prefixCls}-affix-wrapper-lg`]: props.size === 'large'
     });
     return (
-      <span
-        className={affixWrapperCls}
-        style={props.style}
-      >
+      <span className={affixWrapperCls} style={props.style}>
         {prefix}
-        {React.cloneElement(children, { style: null, className: this.getInputClassName() })}
+        {React.cloneElement(children, {
+          style: null,
+          className: this.getInputClassName()
+        })}
         {suffix}
       </span>
     );
@@ -197,7 +181,7 @@ export default class Input extends React.Component<InputProps, any> {
       'addonBefore',
       'addonAfter',
       'prefix',
-      'suffix',
+      'suffix'
     ]);
 
     if ('value' in this.props) {
@@ -212,7 +196,7 @@ export default class Input extends React.Component<InputProps, any> {
         className={classNames(this.getInputClassName(), className)}
         onKeyDown={this.handleKeyDown}
         ref={this.saveInput}
-      />,
+      />
     );
   }
 

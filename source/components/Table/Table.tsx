@@ -4,22 +4,21 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import warning from 'warning';
 import isEqual from 'lodash/isEqual';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 import RcTable from './src';
 import Pagination from '../Pagination';
 import Icon from '../Icon';
-import Spin from '../Spin';
+import Spin, { SpinProps } from '../Spin';
 import FilterDropdown from './filterDropdown';
-import createStore, {Store} from './createStore';
+import createStore, { Store } from './createStore';
 import SelectionBox from './SelectionBox';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
 import ColumnFiltrateModal from './ColumnFiltrateModal';
 import Column from './Column';
 import ColumnGroup from './ColumnGroup';
 import createBodyRow from './createBodyRow';
-import {flatArray, treeMap, flatFilter, normalizeColumns} from './util';
-import {SpinProps} from '../Spin';
+import { flatArray, treeMap, flatFilter, normalizeColumns } from './util';
 import {
   TableProps,
   TableSize,
@@ -33,13 +32,12 @@ import {
   SelectionInfo,
   TableSelectWay,
   TableRowSelection,
-  PaginationConfig,
+  PaginationConfig
 } from './interface';
-import {RadioChangeEvent} from '../Radio';
-import {CheckboxChangeEvent} from '../Checkbox';
+import { RadioChangeEvent } from '../Radio';
+import { CheckboxChangeEvent } from '../Checkbox';
 
-function noop() {
-}
+function noop() {}
 
 function stopPropagation(e: React.SyntheticEvent<any>) {
   e.stopPropagation();
@@ -54,7 +52,7 @@ function getRowSelection<T>(props: TableProps<T>): TableRowSelection<T> {
 
 const defaultPagination = {
   onChange: noop,
-  onShowSizeChange: noop,
+  onShowSizeChange: noop
 };
 
 function getComponents(state, components: TableComponents = {}, prevComponents?: TableComponents) {
@@ -69,8 +67,8 @@ function getComponents(state, components: TableComponents = {}, prevComponents?:
     ...components,
     body: {
       ...components.body,
-      row: newState.row || state.row,
-    },
+      row: newState.row || state.row
+    }
   };
 
   return newState;
@@ -100,20 +98,16 @@ function isFiltersChanged(newFilters, prevFilters) {
 }
 
 function getSortOrderColumns(columns) {
-  return flatFilter(columns || [],
-    (column) => 'sortOrder' in column,
-  );
+  return flatFilter(columns || [], column => 'sortOrder' in column);
 }
 
 function getFilteredValueColumns(columns) {
-  return flatFilter(columns || [],
-    (column) => typeof column.filteredValue !== 'undefined',
-  );
+  return flatFilter(columns || [], column => typeof column.filteredValue !== 'undefined');
 }
 
 function getFiltersFromColumns(columns) {
   let filters: any = {};
-  getFilteredValueColumns(columns).forEach((col) => {
+  getFilteredValueColumns(columns).forEach(col => {
     const colKey = getColumnKey(col) as string;
     filters[colKey] = col.filteredValue;
   });
@@ -122,18 +116,18 @@ function getFiltersFromColumns(columns) {
 
 function getSortStateFromColumns(columns) {
   // return first column which sortOrder is not falsy
-  const sortedColumn = getSortOrderColumns(columns).filter((col) => col.sortOrder)[0];
+  const sortedColumn = getSortOrderColumns(columns).filter(col => col.sortOrder)[0];
 
   if (sortedColumn) {
     return {
       sortColumn: sortedColumn,
-      sortOrder: sortedColumn.sortOrder,
+      sortOrder: sortedColumn.sortOrder
     };
   }
 
   return {
     sortColumn: null,
-    sortOrder: null,
+    sortOrder: null
   };
 }
 
@@ -160,14 +154,11 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     columnFiltrate: PropTypes.object,
     className: PropTypes.string,
     size: PropTypes.string,
-    loading: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.object,
-    ]),
+    loading: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     bordered: PropTypes.bool,
     onChange: PropTypes.func,
     locale: PropTypes.object,
-    dropdownPrefixCls: PropTypes.string,
+    dropdownPrefixCls: PropTypes.string
   };
 
   static defaultProps = {
@@ -182,22 +173,23 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     indentSize: 20,
     locale: {},
     rowKey: 'key',
-    showHeader: true,
+    showHeader: true
   };
 
   store: Store;
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {prevProps = {}} = prevState;
-    let newState: any = {prevProps: nextProps};
-    const columns = nextProps.columns || normalizeColumns(nextProps.children as React.ReactChildren);
+    const { prevProps = {} } = prevState;
+    let newState: any = { prevProps: nextProps };
+    const columns =
+      nextProps.columns || normalizeColumns(nextProps.children as React.ReactChildren);
     newState.columns = columns;
 
     if ('pagination' in nextProps || 'pagination' in prevProps) {
       const newPagination = {
         ...defaultPagination,
         ...prevState.pagination,
-        ...nextProps.pagination,
+        ...nextProps.pagination
       };
       newPagination.current = newPagination.current || 1;
       newPagination.pageSize = newPagination.pageSize || 10;
@@ -206,16 +198,18 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
     if (getSortOrderColumns(columns).length > 0) {
       const sortState = getSortStateFromColumns(columns);
-      if (sortState.sortColumn !== prevState.sortColumn ||
-        sortState.sortOrder !== prevState.sortOrder) {
-        newState = {...newState, ...sortState};
+      if (
+        sortState.sortColumn !== prevState.sortColumn ||
+        sortState.sortOrder !== prevState.sortOrder
+      ) {
+        newState = { ...newState, ...sortState };
       }
     }
 
     const filteredValueColumns = getFilteredValueColumns(columns);
     if (filteredValueColumns.length > 0) {
       const filtersFromColumns = getFiltersFromColumns(columns);
-      const newFilters = {...prevState.filters};
+      const newFilters = { ...prevState.filters };
       Object.keys(filtersFromColumns).forEach(key => {
         newFilters[key] = filtersFromColumns[key];
       });
@@ -226,8 +220,8 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
     return {
       ...newState,
-      ...getComponents(prevState, nextProps.components, prevProps.components),
-    }
+      ...getComponents(prevState, nextProps.components, prevProps.components)
+    };
   }
 
   constructor(props: TableProps<T>) {
@@ -236,7 +230,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     warning(
       !('columnsPageRange' in props || 'columnsPageSize' in props),
       '`columnsPageRange` and `columnsPageSize` are removed, please use ' +
-      'fixed columns instead, see: https://u.ant.design/fixed-columns.',
+        'fixed columns instead, see: https://u.ant.design/fixed-columns.'
     );
 
     const columns = props.columns || normalizeColumns(props.children as React.ReactChildren);
@@ -252,14 +246,14 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       columns,
       hideColumns,
       ...getComponents({}, props.components),
-      prevProps: props,
+      prevProps: props
     };
 
     this.store = createStore({
       selectedRowKeys: getRowSelection(props).selectedRowKeys || [],
-      selectionDirty: false,
+      selectionDirty: false
     });
-  };
+  }
 
   getCheckboxPropsByItem = (item: T, index: number) => {
     const rowSelection = getRowSelection(this.props);
@@ -281,58 +275,58 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
   getDefaultPagination(props: TableProps<T>) {
     const pagination: PaginationConfig = props.pagination || {};
-    return this.hasPagination(props) ?
-      {
-        ...defaultPagination,
-        ...pagination,
-        current: pagination.defaultCurrent || pagination.current || 1,
-        pageSize: pagination.defaultPageSize || pagination.pageSize || 10,
-      } : {};
+    return this.hasPagination(props)
+      ? {
+          ...defaultPagination,
+          ...pagination,
+          current: pagination.defaultCurrent || pagination.current || 1,
+          pageSize: pagination.defaultPageSize || pagination.pageSize || 10
+        }
+      : {};
   }
 
   componentDidUpdate(prevProps: TableProps<T>) {
     if (
-      this.props.rowSelection && 'selectedRowKeys' in this.props.rowSelection &&
-      (
-        !prevProps.rowSelection || 
-        !prevProps.rowSelection.selectedRowKeys || 
-        !isEqual(this.props.rowSelection.selectedRowKeys, prevProps.rowSelection.selectedRowKeys)
-      )) 
-    {
+      this.props.rowSelection &&
+      'selectedRowKeys' in this.props.rowSelection &&
+      (!prevProps.rowSelection ||
+        !prevProps.rowSelection.selectedRowKeys ||
+        !isEqual(this.props.rowSelection.selectedRowKeys, prevProps.rowSelection.selectedRowKeys))
+    ) {
       this.store.setState({
-        selectedRowKeys: this.props.rowSelection.selectedRowKeys || [],
+        selectedRowKeys: this.props.rowSelection.selectedRowKeys || []
       });
     }
     if ('dataSource' in this.props && !isEqual(this.props.dataSource, prevProps.dataSource)) {
       this.store.setState({
-        selectionDirty: false,
+        selectionDirty: false
       });
     }
   }
 
   onRow = (record: T, index: number) => {
-    const {onRow, prefixCls} = this.props;
+    const { onRow, prefixCls } = this.props;
     const custom = onRow ? onRow(record, index) : {};
     return {
       ...custom,
       prefixCls,
       store: this.store,
-      rowKey: this.getRecordKey(record, index),
+      rowKey: this.getRecordKey(record, index)
     };
   };
 
   setSelectedRowKeys(selectedRowKeys: string[], selectionInfo: SelectionInfo<T>) {
-    const {selectWay, record, checked, changeRowKeys, nativeEvent} = selectionInfo;
+    const { selectWay, record, checked, changeRowKeys, nativeEvent } = selectionInfo;
     const rowSelection = getRowSelection(this.props);
     if (rowSelection && !('selectedRowKeys' in rowSelection)) {
-      this.store.setState({selectedRowKeys});
+      this.store.setState({ selectedRowKeys });
     }
     const data = this.getFlatData();
     if (!rowSelection.onChange && !rowSelection[selectWay]) {
       return;
     }
     const selectedRows = data.filter(
-      (row, i) => selectedRowKeys.indexOf(this.getRecordKey(row, i)) >= 0,
+      (row, i) => selectedRowKeys.indexOf(this.getRecordKey(row, i)) >= 0
     );
     if (rowSelection.onChange) {
       rowSelection.onChange(selectedRowKeys, selectedRows);
@@ -341,12 +335,12 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       rowSelection.onSelect(record!, checked!, selectedRows, nativeEvent!);
     } else if (selectWay === 'onSelectMultiple' && rowSelection.onSelectMultiple) {
       const changeRows = data.filter(
-        (row, i) => changeRowKeys!.indexOf(this.getRecordKey(row, i)) >= 0,
+        (row, i) => changeRowKeys!.indexOf(this.getRecordKey(row, i)) >= 0
       );
       rowSelection.onSelectMultiple(checked!, selectedRows, changeRows);
     } else if (selectWay === 'onSelectAll' && rowSelection.onSelectAll) {
       const changeRows = data.filter(
-        (row, i) => changeRowKeys!.indexOf(this.getRecordKey(row, i)) >= 0,
+        (row, i) => changeRowKeys!.indexOf(this.getRecordKey(row, i)) >= 0
       );
       rowSelection.onSelectAll(checked!, selectedRows, changeRows);
     } else if (selectWay === 'onSelectInvert' && rowSelection.onSelectInvert) {
@@ -361,12 +355,15 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   getDefaultSortOrder(columns?: ColumnProps<T>[]) {
     const definedSortState = getSortStateFromColumns(columns);
 
-    let defaultSortedColumn = flatFilter(columns || [], (column: ColumnProps<T>) => column.defaultSortOrder != null)[0];
+    let defaultSortedColumn = flatFilter(
+      columns || [],
+      (column: ColumnProps<T>) => column.defaultSortOrder != null
+    )[0];
 
     if (defaultSortedColumn && !definedSortState.sortColumn) {
       return {
         sortColumn: defaultSortedColumn,
-        sortOrder: defaultSortedColumn.defaultSortOrder,
+        sortOrder: defaultSortedColumn.defaultSortOrder
       };
     }
 
@@ -374,39 +371,42 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   getSorterFn() {
-    const {sortOrder, sortColumn} = this.state;
-    if (!sortOrder || !sortColumn ||
-      typeof sortColumn.sorter !== 'function') {
+    const { sortOrder, sortColumn } = this.state;
+    if (!sortOrder || !sortColumn || typeof sortColumn.sorter !== 'function') {
       return;
     }
 
     return (a: T, b: T) => {
       const result = (sortColumn!.sorter as CompareFn<T>)(a, b, sortOrder);
       if (result !== 0) {
-        return (sortOrder === 'descend') ? -result : result;
+        return sortOrder === 'descend' ? -result : result;
       }
       return 0;
     };
   }
 
   toggleSortOrder(order: 'ascend' | 'descend', column: ColumnProps<T>) {
-    let {sortColumn, sortOrder} = this.state;
+    let { sortColumn, sortOrder } = this.state;
     // 只同时允许一列进行排序，否则会导致排序顺序的逻辑问题
     let isSortColumn = this.isSortColumn(column);
-    if (!isSortColumn) {  // 当前列未排序
+    if (!isSortColumn) {
+      // 当前列未排序
       sortOrder = order;
       sortColumn = column;
-    } else {                      // 当前列已排序
-      if (sortOrder === order) {  // 切换为未排序状态
+    } else {
+      // 当前列已排序
+      if (sortOrder === order) {
+        // 切换为未排序状态
         sortOrder = undefined;
         sortColumn = null;
-      } else {                    // 切换为排序状态
+      } else {
+        // 切换为排序状态
         sortOrder = order;
       }
     }
     const newState = {
       sortOrder,
-      sortColumn,
+      sortColumn
     };
 
     // Controlled
@@ -416,21 +416,26 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange.apply(null, this.prepareParamsArguments({
-        ...this.state,
-        ...newState,
-      }));
+      onChange.apply(
+        null,
+        this.prepareParamsArguments({
+          ...this.state,
+          ...newState
+        })
+      );
     }
   }
 
   toggleTwoStateSortOrder(order: 'ascend' | 'descend', column: ColumnProps<T>) {
-    let {sortColumn, sortOrder} = this.state;
+    let { sortColumn, sortOrder } = this.state;
     // 只同时允许一列进行排序，否则会导致排序顺序的逻辑问题
     let isSortColumn = this.isSortColumn(column);
-    if (!isSortColumn) {  // 当前列未排序
+    if (!isSortColumn) {
+      // 当前列未排序
       sortOrder = order;
       sortColumn = column;
-    } else {    // 当前列已排序
+    } else {
+      // 当前列已排序
       if (order === 'ascend') {
         sortOrder = 'descend';
       } else if (order === 'descend') {
@@ -439,7 +444,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     }
     const newState = {
       sortOrder,
-      sortColumn,
+      sortColumn
     };
 
     // Controlled
@@ -449,20 +454,22 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange.apply(null, this.prepareParamsArguments({
-        ...this.state,
-        ...newState,
-      }));
+      onChange.apply(
+        null,
+        this.prepareParamsArguments({
+          ...this.state,
+          ...newState
+        })
+      );
     }
   }
 
-
   handleFilter = (column: ColumnProps<T>, nextFilters: string[]) => {
     const props = this.props;
-    let pagination = {...this.state.pagination};
+    let pagination = { ...this.state.pagination };
     const filters = {
       ...this.state.filters,
-      [this.getColumnKey(column) as string]: nextFilters,
+      [this.getColumnKey(column) as string]: nextFilters
     };
     // Remove filters not in current columns
     const currentColumnKeys: string[] = [];
@@ -471,7 +478,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         currentColumnKeys.push(this.getColumnKey(c) as string);
       }
     });
-    Object.keys(filters).forEach((columnKey) => {
+    Object.keys(filters).forEach(columnKey => {
       if (currentColumnKeys.indexOf(columnKey) < 0) {
         delete filters[columnKey];
       }
@@ -485,9 +492,9 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
     const newState = {
       pagination,
-      filters: {},
+      filters: {}
     };
-    const filtersToSetState = {...filters};
+    const filtersToSetState = { ...filters };
     // Remove filters which is controlled
     getFilteredValueColumns(this.state.columns).forEach((col: ColumnProps<T>) => {
       const columnKey = this.getColumnKey(col);
@@ -503,22 +510,25 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     if (typeof props.pagination === 'object' && 'current' in (props.pagination as Object)) {
       newState.pagination = {
         ...pagination,
-        current: this.state.pagination.current,
+        current: this.state.pagination.current
       };
     }
 
     this.setState(newState, () => {
       this.store.setState({
-        selectionDirty: false,
+        selectionDirty: false
       });
       const onChange = this.props.onChange;
       if (onChange) {
-        onChange.apply(null, this.prepareParamsArguments({
-          ...this.state,
-          selectionDirty: false,
-          filters,
-          pagination,
-        }));
+        onChange.apply(
+          null,
+          this.prepareParamsArguments({
+            ...this.state,
+            selectionDirty: false,
+            filters,
+            pagination
+          })
+        );
       }
     });
   };
@@ -542,7 +552,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       const dist = Math.abs(pivot - realIndex);
       let step = 0;
       while (step <= dist) {
-        const i = realIndex + (step * direction);
+        const i = realIndex + step * direction;
         step += 1;
         const row = rows[i];
         const rowKey = this.getRecordKey(row, i);
@@ -560,16 +570,16 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         }
       }
 
-      this.setState({pivot: realIndex});
+      this.setState({ pivot: realIndex });
       this.store.setState({
-        selectionDirty: true,
+        selectionDirty: true
       });
       this.setSelectedRowKeys(selectedRowKeys, {
         selectWay: 'onSelectMultiple',
         record,
         checked,
         changeRowKeys,
-        nativeEvent,
+        nativeEvent
       });
     } else {
       if (checked) {
@@ -578,16 +588,16 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         selectedRowKeys = selectedRowKeys.filter((i: string) => key !== i);
       }
 
-      this.setState({pivot: realIndex});
+      this.setState({ pivot: realIndex });
       this.store.setState({
-        selectionDirty: true,
+        selectionDirty: true
       });
       this.setSelectedRowKeys(selectedRowKeys, {
         selectWay: 'onSelect',
         record,
         checked,
-        changeRowKeys: void (0),
-        nativeEvent,
+        changeRowKeys: void 0,
+        nativeEvent
       });
     }
   };
@@ -600,14 +610,14 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     let key = this.getRecordKey(record, rowIndex);
     selectedRowKeys = [key];
     this.store.setState({
-      selectionDirty: true,
+      selectionDirty: true
     });
     this.setSelectedRowKeys(selectedRowKeys, {
       selectWay: 'onSelect',
       record,
       checked,
-      changeRowKeys: void (0),
-      nativeEvent,
+      changeRowKeys: void 0,
+      nativeEvent
     });
   };
 
@@ -660,10 +670,10 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     }
 
     this.store.setState({
-      selectionDirty: true,
+      selectionDirty: true
     });
     // when select custom selection, callback selections[n].onSelect
-    const {rowSelection} = this.props;
+    const { rowSelection } = this.props;
     let customSelectionStartIndex = 2;
     if (rowSelection && rowSelection.hideDefaultSelections) {
       customSelectionStartIndex = 0;
@@ -674,13 +684,13 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     this.setSelectedRowKeys(selectedRowKeys, {
       selectWay,
       checked,
-      changeRowKeys,
+      changeRowKeys
     });
   };
 
   handlePageChange = (current: number, ...otherArguments: any[]) => {
     const props = this.props;
-    let pagination = {...this.state.pagination};
+    let pagination = { ...this.state.pagination };
     if (current) {
       pagination.current = current;
     } else {
@@ -689,30 +699,35 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     pagination.onChange!(pagination.current, ...otherArguments);
 
     const newState = {
-      pagination,
+      pagination
     };
     // Controlled current prop will not respond user interaction
-    if (props.pagination &&
+    if (
+      props.pagination &&
       typeof props.pagination === 'object' &&
-      'current' in (props.pagination as Object)) {
+      'current' in (props.pagination as Object)
+    ) {
       newState.pagination = {
         ...pagination,
-        current: this.state.pagination.current,
+        current: this.state.pagination.current
       };
     }
     this.setState(newState);
 
     this.store.setState({
-      selectionDirty: false,
+      selectionDirty: false
     });
 
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange.apply(null, this.prepareParamsArguments({
-        ...this.state,
-        selectionDirty: false,
-        pagination,
-      }));
+      onChange.apply(
+        null,
+        this.prepareParamsArguments({
+          ...this.state,
+          selectionDirty: false,
+          pagination
+        })
+      );
     }
   };
 
@@ -721,8 +736,9 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       let rowIndex = this.getRecordKey(record, index); // 从 1 开始
       const props = this.getCheckboxPropsByItem(record, index);
       const handleChange = (e: RadioChangeEvent | CheckboxChangeEvent) => {
-        type === 'radio' ? this.handleRadioSelect(record, rowIndex, e) :
-          this.handleSelect(record, rowIndex, e);
+        type === 'radio'
+          ? this.handleRadioSelect(record, rowIndex, e)
+          : this.handleSelect(record, rowIndex, e);
       };
 
       return (
@@ -742,12 +758,13 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
   getRecordKey = (record: T, index: number) => {
     const rowKey = this.props.rowKey;
-    const recordKey = (typeof rowKey === 'function') ?
-      rowKey(record, index) : (record as any)[rowKey as string];
-    warning(recordKey !== undefined,
+    const recordKey =
+      typeof rowKey === 'function' ? rowKey(record, index) : (record as any)[rowKey as string];
+    warning(
+      recordKey !== undefined,
       'Each record in dataSource of table should have a unique `key` prop, ' +
-      'or set `rowKey` of Table to an unique primary key, ' +
-      'see https://u.ant.design/table-row-key',
+        'or set `rowKey` of Table to an unique primary key, ' +
+        'see https://u.ant.design/table-row-key'
     );
     return recordKey === undefined ? index : recordKey;
   };
@@ -757,7 +774,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   };
 
   renderRowSelection(locale: TableLocale) {
-    const {prefixCls, rowSelection} = this.props;
+    const { prefixCls, rowSelection } = this.props;
     const columns = this.state.columns.concat();
     if (rowSelection) {
       const data = this.getFlatCurrentPageData().filter((item, index) => {
@@ -767,7 +784,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         return true;
       });
       let selectionColumnClass = classNames(`${prefixCls}-selection-column`, {
-        [`${prefixCls}-selection-column-custom`]: rowSelection.selections,
+        [`${prefixCls}-selection-column-custom`]: rowSelection.selections
       });
       const selectionColumn: ColumnProps<any> = {
         key: 'selection-column',
@@ -775,11 +792,13 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         className: selectionColumnClass,
         fixed: rowSelection.fixed,
         width: rowSelection.columnWidth,
-        title: rowSelection.columnTitle,
+        title: rowSelection.columnTitle
       };
-      const {showSelectAll = true} = rowSelection;
+      const { showSelectAll = true } = rowSelection;
       if (rowSelection.type !== 'radio' && showSelectAll) {
-        const checkboxAllDisabled = data.every((item, index) => this.getCheckboxPropsByItem(item, index).disabled);
+        const checkboxAllDisabled = data.every(
+          (item, index) => this.getCheckboxPropsByItem(item, index).disabled
+        );
         selectionColumn.title = (
           <SelectionCheckboxAll
             store={this.store}
@@ -811,19 +830,22 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   renderColumnsFiltrate(columnsProps) {
-    const {prefixCls, columnFiltrate} = this.props;
+    const { prefixCls, columnFiltrate } = this.props;
     const columns = columnsProps.concat();
     if (columnFiltrate) {
       const filtrateColumn: ColumnProps<T> = {
         key: 'filtrate-column',
         className: classNames(`${prefixCls}-filtrate-column`),
         width: 50,
-        title: <ColumnFiltrateModal
-          prefixCls={prefixCls}
-          columns={this.state.columns}
-          hideColumns={this.state.hideColumns}
-          defaultColumns={columnFiltrate.defaultColumns}
-          onChange={this.handleColumnsFiltrateChange}/>,
+        title: (
+          <ColumnFiltrateModal
+            prefixCls={prefixCls}
+            columns={this.state.columns}
+            hideColumns={this.state.hideColumns}
+            defaultColumns={columnFiltrate.defaultColumns}
+            onChange={this.handleColumnsFiltrateChange}
+          />
+        )
       };
       if (typeof columnFiltrate === 'object' && 'fixed' in columnFiltrate) {
         filtrateColumn.fixed = columnFiltrate.fixed;
@@ -840,7 +862,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   handleColumnsFiltrateChange = (hideColumns: string[]) => {
-    const {columnFiltrate} = this.props;
+    const { columnFiltrate } = this.props;
     if (columnFiltrate && columnFiltrate.hideColumnsChange) {
       columnFiltrate.hideColumnsChange(hideColumns);
     }
@@ -854,7 +876,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   getMaxCurrent(total: number) {
-    const {current, pageSize} = this.state.pagination;
+    const { current, pageSize } = this.state.pagination;
     if ((current! - 1) * pageSize! >= total) {
       return Math.floor((total - 1) / pageSize!) + 1;
     }
@@ -862,7 +884,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   isSortColumn(column: ColumnProps<T>) {
-    const {sortColumn} = this.state;
+    const { sortColumn } = this.state;
     if (!column || !sortColumn) {
       return false;
     }
@@ -870,10 +892,10 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   renderColumnsDropdown(columns: ColumnProps<T>[], locale: TableLocale) {
-    const {prefixCls, dropdownPrefixCls} = this.props;
-    const {sortOrder} = this.state;
+    const { prefixCls, dropdownPrefixCls } = this.props;
+    const { sortOrder } = this.state;
     return treeMap(columns, (originColumn, i) => {
-      let column = {...originColumn};
+      let column = { ...originColumn };
       let key = this.getColumnKey(column, i) as string;
       let filterDropdown;
       let sortButton;
@@ -895,7 +917,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         let isSortColumn = this.isSortColumn(column);
         if (isSortColumn) {
           column.className = classNames(column.className, {
-            [`${prefixCls}-column-sort`]: sortOrder,
+            [`${prefixCls}-column-sort`]: sortOrder
           });
         }
         const isAscend = isSortColumn && sortOrder === 'ascend';
@@ -908,52 +930,48 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
                   className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}
                   onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
                 >
-                 <Icon type="a-z"/>
+                  <Icon type="a-z" />
                 </span>
-              )
+              );
             } else if (isDescend) {
               return (
                 <span
                   className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
                   onClick={() => this.toggleTwoStateSortOrder('descend', column)}
-                  style={{top: -2}}
+                  style={{ top: -2 }}
                 >
-                  <Icon type="z-a"/>
+                  <Icon type="z-a" />
                 </span>
-              )
+              );
             } else {
               return (
                 <span
                   className={`${prefixCls}-column-sorter-up`}
                   onClick={() => this.toggleTwoStateSortOrder('ascend', column)}
                 >
-                 <Icon type="a-z"/>
+                  <Icon type="a-z" />
                 </span>
-              )
+              );
             }
           };
-          sortButton = (
-            <div className={`${prefixCls}-column-sorter`}>
-              {sortButtonInner()}
-            </div>
-          )
+          sortButton = <div className={`${prefixCls}-column-sorter`}>{sortButtonInner()}</div>;
         } else {
           sortButton = (
             <div className={`${prefixCls}-column-sorter`}>
-            <span
-              className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}
-              title="↑"
-              onClick={() => this.toggleSortOrder('ascend', column)}
-            >
-              <Icon type="up-fill"/>
-            </span>
+              <span
+                className={`${prefixCls}-column-sorter-up ${isAscend ? 'on' : 'off'}`}
+                title="↑"
+                onClick={() => this.toggleSortOrder('ascend', column)}
+              >
+                <Icon type="up-fill" />
+              </span>
               <span
                 className={`${prefixCls}-column-sorter-down ${isDescend ? 'on' : 'off'}`}
                 title="↓"
                 onClick={() => this.toggleSortOrder('descend', column)}
               >
-              <Icon type="down-fill"/>
-            </span>
+                <Icon type="down-fill" />
+              </span>
             </div>
           );
         }
@@ -980,16 +998,19 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     const nextPagination = {
       ...pagination,
       pageSize,
-      current,
+      current
     };
-    this.setState({pagination: nextPagination});
+    this.setState({ pagination: nextPagination });
 
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange.apply(null, this.prepareParamsArguments({
-        ...this.state,
-        pagination: nextPagination,
-      }));
+      onChange.apply(
+        null,
+        this.prepareParamsArguments({
+          ...this.state,
+          pagination: nextPagination
+        })
+      );
     }
   };
 
@@ -999,15 +1020,15 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       return null;
     }
     let size = 'default';
-    const {pagination} = this.state;
+    const { pagination } = this.state;
     if (pagination.size) {
       size = pagination.size;
-    } else if (this.props.size as string === 'small') {
+    } else if ((this.props.size as string) === 'small') {
       size = 'small';
     }
     let position = pagination.position || 'bottom';
     let total = pagination.total || this.getLocalData().length;
-    return (total > 0 && (position === paginationPosition || position === 'both')) ? (
+    return total > 0 && (position === paginationPosition || position === 'both') ? (
       <Pagination
         key={`pagination-${paginationPosition}`}
         {...pagination}
@@ -1023,7 +1044,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
 
   // Get pagination, filters, sorter
   prepareParamsArguments(state: any): [any, string[], Object] {
-    const pagination = {...state.pagination};
+    const pagination = { ...state.pagination };
     // remove useless handle function in Table.onChange
     delete pagination.onChange;
     delete pagination.onShowSizeChange;
@@ -1083,16 +1104,20 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   recursiveSort(data: T[], sorterFn: (a: any, b: any) => number): T[] {
-    const {childrenColumnName = 'children'} = this.props;
-    return data.sort(sorterFn).map((item: any) => (item[childrenColumnName] ? {
-      ...item,
-      [childrenColumnName]: this.recursiveSort(item[childrenColumnName], sorterFn),
-    } : item));
+    const { childrenColumnName = 'children' } = this.props;
+    return data.sort(sorterFn).map((item: any) =>
+      item[childrenColumnName]
+        ? {
+            ...item,
+            [childrenColumnName]: this.recursiveSort(item[childrenColumnName], sorterFn)
+          }
+        : item
+    );
   }
 
   getLocalData() {
     const state = this.state;
-    const {dataSource} = this.props;
+    const { dataSource } = this.props;
     let data = dataSource || [];
     // 优化本地排序
     data = data.slice(0);
@@ -1102,7 +1127,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     }
     // 筛选
     if (state.filters) {
-      Object.keys(state.filters).forEach((columnKey) => {
+      Object.keys(state.filters).forEach(columnKey => {
         let col = this.findColumn(columnKey) as any;
         if (!col) {
           return;
@@ -1112,9 +1137,11 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
           return;
         }
         const onFilter = col.onFilter;
-        data = onFilter ? data.filter(record => {
-          return values.some(v => onFilter(v, record));
-        }) : data;
+        data = onFilter
+          ? data.filter(record => {
+              return values.some(v => onFilter(v, record));
+            })
+          : data;
       });
     }
     return data;
@@ -1127,10 +1154,10 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       filterReset: '重置',
       emptyText: '暂无数据',
       selectAll: '全选当页',
-      selectInvert: '反选当页',
+      selectInvert: '反选当页'
     };
-    const locale = {...localeDefault, ...this.props.locale};
-    const {style, className, prefixCls, showHeader, activeRowByClick, ...restProps} = this.props;
+    const locale = { ...localeDefault, ...this.props.locale };
+    const { style, className, prefixCls, showHeader, activeRowByClick, ...restProps } = this.props;
     const data = this.getCurrentPageData();
     const expandIconAsCell = this.props.expandedRowRender && this.props.expandIconAsCell !== false;
 
@@ -1138,19 +1165,24 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       [`${prefixCls}-${this.props.size}`]: true,
       [`${prefixCls}-bordered`]: this.props.bordered,
       [`${prefixCls}-empty`]: !data.length,
-      [`${prefixCls}-without-column-header`]: !showHeader,
+      [`${prefixCls}-without-column-header`]: !showHeader
     });
 
     let columns = this.renderRowSelection(locale);
     columns = this.renderColumnsFiltrate(columns);
     columns = this.renderColumnsDropdown(columns, locale);
-    columns = columns.filter(column => this.state.hideColumns.indexOf(column.key && column.key.toString() || column.dataIndex) === -1);
+    columns = columns.filter(
+      column =>
+        this.state.hideColumns.indexOf(
+          (column.key && column.key.toString()) || column.dataIndex
+        ) === -1
+    );
     columns = columns.map((column, i) => {
-      const newColumn = {...column};
+      const newColumn = { ...column };
       newColumn.key = this.getColumnKey(newColumn, i);
       return newColumn;
     });
-    let expandIconColumnIndex = (columns[0] && columns[0].key === 'selection-column') ? 1 : 0;
+    let expandIconColumnIndex = columns[0] && columns[0].key === 'selection-column' ? 1 : 0;
     if ('expandIconColumnIndex' in restProps) {
       expandIconColumnIndex = restProps.expandIconColumnIndex as number;
     }
@@ -1175,32 +1207,27 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   };
 
   render() {
-    const {style, className, prefixCls} = this.props;
+    const { style, className, prefixCls } = this.props;
     const data = this.getCurrentPageData();
 
     let loading = this.props.loading as SpinProps;
     if (typeof loading === 'boolean') {
       loading = {
-        spinning: loading,
+        spinning: loading
       };
     }
 
-    const table = (
-      <div>
-        {this.renderTable(loading)}
-      </div>
-    );
+    const table = <div>{this.renderTable(loading)}</div>;
 
     // if there is no pagination or no data,
     // the height of spin should decrease by half of pagination
-    const paginationPatchClass = (this.hasPagination() && data && data.length !== 0)
-      ? `${prefixCls}-with-pagination` : `${prefixCls}-without-pagination`;
+    const paginationPatchClass =
+      this.hasPagination() && data && data.length !== 0
+        ? `${prefixCls}-with-pagination`
+        : `${prefixCls}-without-pagination`;
 
     return (
-      <div
-        className={classNames(`${prefixCls}-wrapper`, className)}
-        style={style}
-      >
+      <div className={classNames(`${prefixCls}-wrapper`, className)} style={style}>
         <Spin
           {...loading}
           className={loading.spinning ? `${paginationPatchClass} ${prefixCls}-spin-holder` : ''}

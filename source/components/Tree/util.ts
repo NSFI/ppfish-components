@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { getNodeChildren, convertTreeToEntities } from '../TreeSelect/rcTree/util';
+import {
+  getNodeChildren,
+  convertTreeToEntities,
+} from '../TreeSelect/rcTree/util';
 import { FishdTreeNodeProps } from './Tree';
 
 enum Record {
@@ -9,11 +12,17 @@ enum Record {
 }
 
 // TODO: Move this logic into `rc-tree`
-function traverseNodesKey(rootChildren: React.ReactNode | React.ReactNode[], callback: (key: string | number | null) => boolean) {
-  const nodeList:React.ReactNode[] = getNodeChildren(rootChildren) || [];
+function traverseNodesKey(
+  rootChildren: React.ReactNode | React.ReactNode[],
+  callback: (key: string | number | null) => boolean,
+) {
+  const nodeList: React.ReactNode[] = getNodeChildren(rootChildren) || [];
 
   function processNode(node: React.ReactElement<FishdTreeNodeProps>) {
-    const { key, props: { children } } = node;
+    const {
+      key,
+      props: { children },
+    } = node;
     if (callback(key) !== false) {
       traverseNodesKey(children, callback);
     }
@@ -28,7 +37,12 @@ export function getFullKeyList(children: React.ReactNode | React.ReactNode[]) {
 }
 
 /** 计算选中范围，只考虑expanded情况以优化性能 */
-export function calcRangeKeys(rootChildren: React.ReactNode | React.ReactNode[], expandedKeys: string[], startKey?: string, endKey?: string): string[] {
+export function calcRangeKeys(
+  rootChildren: React.ReactNode | React.ReactNode[],
+  expandedKeys: string[],
+  startKey?: string,
+  endKey?: string,
+): string[] {
   const keys: string[] = [];
   let record: Record = Record.None;
 

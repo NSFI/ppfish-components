@@ -1,9 +1,9 @@
 import * as React from 'react';
 import omit from 'omit.js';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
-import TextArea, {TextAreaProps} from './TextArea';
+import TextArea, { TextAreaProps } from './TextArea';
 
 function countValue(value: string) {
   return value.length;
@@ -26,12 +26,12 @@ export interface CounterState {
 class Counter extends React.Component<CounterProps, CounterState> {
   static defaultProps = {
     inputPrefixCls: 'fishd-input',
-    prefixCls: 'fishd-input-counter',
+    prefixCls: 'fishd-input-counter'
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {prevProps = {}} = prevState;
-    const newState: CounterState = {prevProps: nextProps};
+    const { prevProps = {} } = prevState;
+    const newState: CounterState = { prevProps: nextProps };
     if (prevProps.value !== nextProps.value) {
       newState.value = nextProps.value;
     }
@@ -49,7 +49,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
     }
     this.state = {
       value,
-      prevProps: props,
+      prevProps: props
     };
   }
 
@@ -68,9 +68,9 @@ class Counter extends React.Component<CounterProps, CounterState> {
   };
 
   getTextAreaClassName() {
-    const {inputPrefixCls, className, disabled} = this.props;
+    const { inputPrefixCls, className, disabled } = this.props;
     return classNames(inputPrefixCls, className, {
-      [`${inputPrefixCls}-disabled`]: disabled,
+      [`${inputPrefixCls}-disabled`]: disabled
     });
   }
 
@@ -79,10 +79,10 @@ class Counter extends React.Component<CounterProps, CounterState> {
   };
 
   handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const {onChange} = this.props;
+    const { onChange } = this.props;
     const textareaValue = this.textarea && this.textarea.textAreaRef.value;
     this.setState({
-      value: textareaValue,
+      value: textareaValue
     });
     if (onChange) {
       onChange(e);
@@ -90,7 +90,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
   };
 
   getCount = () => {
-    const {count} = this.props;
+    const { count } = this.props;
     const value = this.state.value;
     if (!value) {
       return 0;
@@ -103,10 +103,10 @@ class Counter extends React.Component<CounterProps, CounterState> {
   };
 
   render() {
-    const {inputPrefixCls, className, prefixCls, disabled, limit} = this.props;
+    const { inputPrefixCls, className, prefixCls, disabled, limit } = this.props;
     const inputClassName = classNames(className, {
       [`${prefixCls}`]: true,
-      [`${inputPrefixCls}-disabled`]: disabled,
+      [`${inputPrefixCls}-disabled`]: disabled
     });
     const textareaClassName = classNames(inputPrefixCls, className);
     const otherProps = omit(this.props, [
@@ -129,7 +129,9 @@ class Counter extends React.Component<CounterProps, CounterState> {
           ref={this.saveTextarea}
         />
         <span className={`${prefixCls}-footer`}>
-          <span className={`${prefixCls}-indicator`}>{total}/{limit}</span>
+          <span className={`${prefixCls}-indicator`}>
+            {total}/{limit}
+          </span>
         </span>
       </span>
     );

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-multi-comp */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -28,14 +29,16 @@ class Basic extends React.Component<BasicProps, any> {
     const { prefixCls, className, children, ...others } = this.props;
     const divCls = classNames(className, prefixCls);
     return (
-      <div className={divCls} {...others}>{children}</div>
+      <div className={divCls} {...others}>
+        {children}
+      </div>
     );
   }
 }
 
 class BasicLayout extends React.Component<BasicProps, any> {
   static childContextTypes = {
-    siderHook: PropTypes.object,
+    siderHook: PropTypes.object
   };
   state = { siders: [] };
 
@@ -44,25 +47,27 @@ class BasicLayout extends React.Component<BasicProps, any> {
       siderHook: {
         addSider: (id: string) => {
           this.setState({
-            siders: [...this.state.siders, id],
+            siders: [...this.state.siders, id]
           });
         },
         removeSider: (id: string) => {
           this.setState({
-            siders: this.state.siders.filter(currentId => currentId !== id),
+            siders: this.state.siders.filter(currentId => currentId !== id)
           });
-        },
-      },
+        }
+      }
     };
   }
 
   render() {
     const { prefixCls, className, children, hasSider, ...others } = this.props;
     const divCls = classNames(className, prefixCls, {
-      [`${prefixCls}-has-sider`]: hasSider || this.state.siders.length > 0,
+      [`${prefixCls}-has-sider`]: hasSider || this.state.siders.length > 0
     });
     return (
-      <div className={divCls} {...others}>{children}</div>
+      <div className={divCls} {...others}>
+        {children}
+      </div>
     );
   }
 }
@@ -73,19 +78,19 @@ const Layout: React.ComponentClass<BasicProps> & {
   Content: React.ComponentClass<BasicProps>;
   Sider: React.ComponentClass<SiderProps>;
 } = generator({
-  prefixCls: 'fishd-layout',
+  prefixCls: 'fishd-layout'
 })(BasicLayout);
 
 const Header = generator({
-  prefixCls: 'fishd-layout-header',
+  prefixCls: 'fishd-layout-header'
 })(Basic);
 
 const Footer = generator({
-  prefixCls: 'fishd-layout-footer',
+  prefixCls: 'fishd-layout-footer'
 })(Basic);
 
 const Content = generator({
-  prefixCls: 'fishd-layout-content',
+  prefixCls: 'fishd-layout-content'
 })(Basic);
 
 Layout.Header = Header;

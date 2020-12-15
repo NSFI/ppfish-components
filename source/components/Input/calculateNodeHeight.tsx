@@ -31,7 +31,7 @@ const SIZING_STYLE = [
   'padding-left',
   'padding-right',
   'border-width',
-  'box-sizing',
+  'box-sizing'
 ];
 
 export interface NodeType {
@@ -41,15 +41,13 @@ export interface NodeType {
   boxSizing: string;
 }
 
-let computedStyleCache: {[key: string]: NodeType} = {};
+let computedStyleCache: { [key: string]: NodeType } = {};
 let hiddenTextarea: HTMLTextAreaElement;
 
 function calculateNodeStyling(node: HTMLElement, useCache = false) {
-  const nodeRef = (
-    node.getAttribute('id') ||
+  const nodeRef = (node.getAttribute('id') ||
     node.getAttribute('data-reactid') ||
-    node.getAttribute('name')
-  ) as string;
+    node.getAttribute('name')) as string;
 
   if (useCache && computedStyleCache[nodeRef]) {
     return computedStyleCache[nodeRef];
@@ -57,31 +55,26 @@ function calculateNodeStyling(node: HTMLElement, useCache = false) {
 
   const style = window.getComputedStyle(node);
 
-  const boxSizing = (
+  const boxSizing =
     style.getPropertyValue('box-sizing') ||
     style.getPropertyValue('-moz-box-sizing') ||
-    style.getPropertyValue('-webkit-box-sizing')
-  );
+    style.getPropertyValue('-webkit-box-sizing');
 
-  const paddingSize = (
+  const paddingSize =
     parseFloat(style.getPropertyValue('padding-bottom')) +
-    parseFloat(style.getPropertyValue('padding-top'))
-  );
+    parseFloat(style.getPropertyValue('padding-top'));
 
-  const borderSize = (
+  const borderSize =
     parseFloat(style.getPropertyValue('border-bottom-width')) +
-    parseFloat(style.getPropertyValue('border-top-width'))
-  );
+    parseFloat(style.getPropertyValue('border-top-width'));
 
-  const sizingStyle = SIZING_STYLE
-    .map(name => `${name}:${style.getPropertyValue(name)}`)
-    .join(';');
+  const sizingStyle = SIZING_STYLE.map(name => `${name}:${style.getPropertyValue(name)}`).join(';');
 
   const nodeInfo: NodeType = {
     sizingStyle,
     paddingSize,
     borderSize,
-    boxSizing,
+    boxSizing
   };
 
   if (useCache && nodeRef) {
@@ -95,7 +88,7 @@ export default function calculateNodeHeight(
   uiTextNode: HTMLTextAreaElement,
   useCache = false,
   minRows: number | null = null,
-  maxRows: number | null = null,
+  maxRows: number | null = null
 ) {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea');
@@ -112,10 +105,10 @@ export default function calculateNodeHeight(
 
   // Copy all CSS properties that have an impact on the height of the content in
   // the textbox
-  let {
-    paddingSize, borderSize,
-    boxSizing, sizingStyle,
-  } = calculateNodeStyling(uiTextNode, useCache);
+  let { paddingSize, borderSize, boxSizing, sizingStyle } = calculateNodeStyling(
+    uiTextNode,
+    useCache
+  );
 
   // Need to have the overflow attribute to hide the scrollbar otherwise
   // text-lines will not calculated properly as the shadow will technically be

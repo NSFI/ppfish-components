@@ -1,9 +1,9 @@
-import * as React from "react";
-import Dialog from "./DialogWrap";
-import * as PropTypes from "prop-types";
-import { addEventListener } from "../../utils/index";
-import Button from "../Button";
-import { ButtonType, NativeButtonProps } from "../Button/Button";
+import * as React from 'react';
+import Dialog from './DialogWrap';
+import * as PropTypes from 'prop-types';
+import { addEventListener } from '../../utils/index';
+import Button from '../Button';
+import { ButtonType, NativeButtonProps } from '../Button/Button';
 
 let mousePosition: { x: number; y: number } | null;
 let mousePositionEventBinded: boolean;
@@ -36,8 +36,8 @@ export interface ModalProps {
   maskClosable?: boolean;
   okButtonProps?: NativeButtonProps;
   cancelButtonProps?: NativeButtonProps;
-  okButtonDisabled?: boolean,
-  cancelButtonDisabled?: boolean,
+  okButtonDisabled?: boolean;
+  cancelButtonDisabled?: boolean;
   destroyOnClose?: boolean;
   style?: React.CSSProperties;
   wrapClassName?: string;
@@ -96,21 +96,21 @@ export default class Modal extends React.Component<ModalProps, {}> {
   static confirm: ModalFunc;
 
   static defaultProps = {
-    prefixCls: "fishd-modal",
+    prefixCls: 'fishd-modal',
     width: 560,
-    transitionName: "fishd-modal-zoom",
-    maskTransitionName: "",
+    transitionName: 'fishd-modal-zoom',
+    maskTransitionName: '',
     confirmLoading: false,
     visible: false,
-    okType: "primary" as ButtonType,
+    okType: 'primary' as ButtonType,
     okButtonDisabled: false,
     cancelButtonDisabled: false,
     draggable: false,
     maskClosable: false,
     esc: false,
-    okText: "确定",
-    cancelText: "取消",
-    justOkText: "知道了"
+    okText: '确定',
+    cancelText: '取消',
+    justOkText: '知道了'
   };
 
   static propTypes = {
@@ -148,7 +148,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
       return;
     }
     // 只有点击事件支持从鼠标位置动画展开
-    addEventListener(document.documentElement, "click", (e: MouseEvent) => {
+    addEventListener(document.documentElement, 'click', (e: MouseEvent) => {
       mousePosition = {
         x: e.pageX,
         y: e.pageY
@@ -176,11 +176,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     } = this.props;
     const defaultFooter = (
       <div>
-        <Button
-          onClick={this.handleCancel}
-          disabled={cancelButtonDisabled}
-          {...cancelButtonProps}
-        >
+        <Button onClick={this.handleCancel} disabled={cancelButtonDisabled} {...cancelButtonProps}>
           {cancelText}
         </Button>
         <Button

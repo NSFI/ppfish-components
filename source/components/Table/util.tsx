@@ -5,7 +5,7 @@ export function flatArray(data: any[] = [], childrenName = 'children') {
   const loop = (array: any[]) => {
     array.forEach(item => {
       if (item[childrenName]) {
-        const newItem = {...item};
+        const newItem = { ...item };
         delete newItem[childrenName];
         result.push(newItem);
         if (item[childrenName].length > 0) {
@@ -20,7 +20,11 @@ export function flatArray(data: any[] = [], childrenName = 'children') {
   return result;
 }
 
-export function treeMap<Node>(tree: Node[], mapper: (node: Node, index: number) => any, childrenName = 'children') {
+export function treeMap<Node>(
+  tree: Node[],
+  mapper: (node: Node, index: number) => any,
+  childrenName = 'children'
+) {
   return tree.map((node: any, index) => {
     const extra: any = {};
     if (node[childrenName]) {
@@ -28,7 +32,7 @@ export function treeMap<Node>(tree: Node[], mapper: (node: Node, index: number) 
     }
     return {
       ...mapper(node as Node, index),
-      ...extra,
+      ...extra
     };
   });
 }
@@ -48,12 +52,12 @@ export function flatFilter(tree: any[], callback: Function) {
 
 export function normalizeColumns(elements: React.ReactChildren) {
   const columns: any[] = [];
-  React.Children.forEach(elements, (element) => {
+  React.Children.forEach(elements, element => {
     if (!React.isValidElement(element)) {
       return;
     }
     const column: any = {
-      ...element.props,
+      ...element.props
     };
     if (element.key) {
       column.key = element.key;

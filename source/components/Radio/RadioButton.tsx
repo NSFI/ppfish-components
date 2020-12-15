@@ -8,11 +8,11 @@ export type RadioButtonProps = AbstractCheckboxProps<RadioChangeEvent>;
 // case sensitive
 export default class RadioButton extends React.Component<RadioButtonProps, any> {
   static defaultProps = {
-    prefixCls: 'fishd-radio-button',
+    prefixCls: 'fishd-radio-button'
   };
 
   static contextTypes = {
-    radioGroup: PropTypes.any,
+    radioGroup: PropTypes.any
   };
 
   render() {
@@ -23,8 +23,6 @@ export default class RadioButton extends React.Component<RadioButtonProps, any> 
       radioProps.disabled = this.props.disabled || this.context.radioGroup.disabled;
     }
 
-    return (
-      <Radio {...radioProps} />
-    );
+    return <Radio {...radioProps} />;
   }
 }

@@ -18,7 +18,7 @@ class FooterToolbar extends React.Component<FooterToolbarProps> {
   static defaultProps = {
     children: null,
     className: '',
-    prefixCls: 'fishd-footer-toolbar',
+    prefixCls: 'fishd-footer-toolbar'
   };
 
   static propTypes = {
@@ -26,7 +26,7 @@ class FooterToolbar extends React.Component<FooterToolbarProps> {
     className: PropTypes.string,
     prefixCls: PropTypes.string,
     target: PropTypes.func,
-    style: PropTypes.object,
+    style: PropTypes.object
   };
 
   private scrollListener;
@@ -34,7 +34,7 @@ class FooterToolbar extends React.Component<FooterToolbarProps> {
   private wrapper;
 
   state: Readonly<FooterToolbarState> = {
-    offset: 0,
+    offset: 0
   };
 
   constructor(props: FooterToolbarProps) {
@@ -72,15 +72,13 @@ class FooterToolbar extends React.Component<FooterToolbarProps> {
     }
     const offsetObj = {
       containerHeight: (targetElement as HTMLElement).clientHeight,
-      containerScrollTop: (targetElement as HTMLElement).scrollTop,
+      containerScrollTop: (targetElement as HTMLElement).scrollTop
     };
 
-    const offset =
-      offsetObj.containerHeight + offsetObj.containerScrollTop - wrapperHeight;
-    const maxOffset =
-      (targetElement as HTMLElement).scrollHeight - wrapperHeight;
+    const offset = offsetObj.containerHeight + offsetObj.containerScrollTop - wrapperHeight;
+    const maxOffset = (targetElement as HTMLElement).scrollHeight - wrapperHeight;
     this.setState({
-      offset: offset > maxOffset ? maxOffset : offset,
+      offset: offset > maxOffset ? maxOffset : offset
     });
   };
 
@@ -89,7 +87,7 @@ class FooterToolbar extends React.Component<FooterToolbarProps> {
     const toolbarStyle: React.CSSProperties = {
       ...style,
       position: 'absolute',
-      top: this.state.offset,
+      top: this.state.offset
     };
     return (
       <div

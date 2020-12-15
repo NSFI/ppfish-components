@@ -25,11 +25,11 @@ export default class Dropdown extends React.Component<DropDownProps, any> {
     prefixCls: 'fishd-dropdown',
     mouseEnterDelay: 0.15,
     mouseLeaveDelay: 0.1,
-    placement: 'bottomLeft',
+    placement: 'bottomLeft'
   };
 
   getTransitionName() {
-    const {placement = '', transitionName} = this.props;
+    const { placement = '', transitionName } = this.props;
     if (transitionName !== undefined) {
       return transitionName;
     }
@@ -40,36 +40,38 @@ export default class Dropdown extends React.Component<DropDownProps, any> {
   }
 
   componentDidMount() {
-    const {overlay} = this.props;
+    const { overlay } = this.props;
     if (overlay) {
       const overlayProps = (overlay as React.ReactElement<any>).props;
       warning(
         !overlayProps.mode || overlayProps.mode === 'vertical',
-        `mode="${overlayProps.mode}" is not supported for Dropdown\'s Menu.`,
+        `mode="${overlayProps.mode}" is not supported for Dropdown's Menu.`
       );
     }
   }
 
   render() {
-    const {children, prefixCls, overlay: overlayElements, trigger, disabled} = this.props;
+    const { children, prefixCls, overlay: overlayElements, trigger, disabled } = this.props;
 
     const child = React.Children.only(children);
     const overlay = React.Children.only(overlayElements);
 
     const dropdownTrigger = React.cloneElement(child, {
       className: classNames(child.props.className, `${prefixCls}-trigger`),
-      disabled,
+      disabled
     });
     // menu cannot be selectable in dropdown defaultly
     // menu should be focusable in dropdown defaultly
-    const {selectable = false, focusable = true} = overlay.props;
+    const { selectable = false, focusable = true } = overlay.props;
 
-    const fixedModeOverlay = typeof overlay.type === 'string'
-      ? overlay : React.cloneElement(overlay, {
-        mode: 'vertical',
-        selectable,
-        focusable,
-      });
+    const fixedModeOverlay =
+      typeof overlay.type === 'string'
+        ? overlay
+        : React.cloneElement(overlay, {
+            mode: 'vertical',
+            selectable,
+            focusable
+          });
 
     const triggerActions = disabled ? [] : trigger;
     let alignPoint;

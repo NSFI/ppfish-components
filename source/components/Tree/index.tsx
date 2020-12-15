@@ -4,13 +4,14 @@ import './style/index.less';
 export {
   TreeProps,
   FishdTreeNode,
-  FishdTreeNodeMouseEvent, FishdTreeNodeExpandedEvent, FishdTreeNodeCheckedEvent, FishdTreeNodeSelectedEvent,
-  FishdTreeNodeAttribute, FishdTreeNodeProps,
+  FishdTreeNodeMouseEvent,
+  FishdTreeNodeExpandedEvent,
+  FishdTreeNodeCheckedEvent,
+  FishdTreeNodeSelectedEvent,
+  FishdTreeNodeAttribute,
+  FishdTreeNodeProps
 } from './Tree';
 
-export {
-  ExpandAction as DirectoryTreeExpandAction,
-  DirectoryTreeProps,
-} from './DirectoryTree';
+export { ExpandAction as DirectoryTreeExpandAction, DirectoryTreeProps } from './DirectoryTree';
 
 export default Tree;

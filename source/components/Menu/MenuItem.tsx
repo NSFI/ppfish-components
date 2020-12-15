@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {Item} from './src';
+import { Item } from './src';
 import Tooltip from '../Tooltip';
 
 class MenuItem extends React.Component<any, any> {
   static contextTypes = {
-    inlineCollapsed: PropTypes.bool,
+    inlineCollapsed: PropTypes.bool
   };
   static isMenuItem = 1;
   private menuItem: any;
@@ -17,7 +17,7 @@ class MenuItem extends React.Component<any, any> {
   };
 
   render() {
-    const {inlineCollapsed} = this.context;
+    const { inlineCollapsed } = this.context;
     const props = this.props;
     return (
       <Tooltip
@@ -25,7 +25,7 @@ class MenuItem extends React.Component<any, any> {
         placement="right"
         overlayClassName={`${props.rootPrefixCls}-inline-collapsed-tooltip`}
       >
-        <Item {...props} ref={this.saveMenuItem}/>
+        <Item {...props} ref={this.saveMenuItem} />
       </Tooltip>
     );
   }

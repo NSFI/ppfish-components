@@ -20,7 +20,7 @@ export interface SwitchProps {
 
 export default class Switch extends React.Component<SwitchProps, {}> {
   static defaultProps = {
-    prefixCls: 'fishd-switch',
+    prefixCls: 'fishd-switch'
   };
 
   static propTypes = {
@@ -28,7 +28,7 @@ export default class Switch extends React.Component<SwitchProps, {}> {
     // HACK: https://github.com/ant-design/ant-design/issues/5368
     // size=default and size=large are the same
     size: PropTypes.oneOf(['small', 'default', 'large']),
-    className: PropTypes.string,
+    className: PropTypes.string
   };
 
   private rcSwitch: typeof RcSwitch;
@@ -43,22 +43,18 @@ export default class Switch extends React.Component<SwitchProps, {}> {
 
   saveSwitch = (node: typeof RcSwitch) => {
     this.rcSwitch = node;
-  }
+  };
 
   render() {
     const { prefixCls, size, loading, className = '' } = this.props;
     const classes = classNames(className, {
       [`${prefixCls}-small`]: size === 'small',
       [`${prefixCls}-large`]: size === 'large',
-      [`${prefixCls}-loading`]: loading,
+      [`${prefixCls}-loading`]: loading
     });
     return (
       <Wave insertExtraNode>
-        <RcSwitch
-          {...omit(this.props, ['loading'])}
-          className={classes}
-          ref={this.saveSwitch}
-        />
+        <RcSwitch {...omit(this.props, ['loading'])} className={classes} ref={this.saveSwitch} />
       </Wave>
     );
   }

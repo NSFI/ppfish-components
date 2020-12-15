@@ -11,7 +11,7 @@ export default function createStore(initialState: object): Store {
   function setState(partial: object) {
     state = {
       ...state,
-      ...partial,
+      ...partial
     };
     for (let i = 0; i < listeners.length; i++) {
       listeners[i]();
@@ -34,6 +34,6 @@ export default function createStore(initialState: object): Store {
   return {
     setState,
     getState,
-    subscribe,
+    subscribe
   };
 }

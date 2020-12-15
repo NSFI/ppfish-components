@@ -4,7 +4,7 @@ import Animate from 'rc-animate';
 import Icon from '../Icon';
 import classNames from 'classnames';
 
-function noop() { }
+function noop() {}
 
 function getDataOrAriaProps(props: any) {
   return Object.keys(props).reduce((prev: any, key: string) => {
@@ -17,7 +17,6 @@ function getDataOrAriaProps(props: any) {
     return prev;
   }, {});
 }
-
 
 export interface AlertProps {
   /**
@@ -50,7 +49,7 @@ export default class Alert extends React.Component<AlertProps, any> {
     super(props);
     this.state = {
       closing: true,
-      closed: false,
+      closed: false
     };
   }
   handleClose = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -62,21 +61,30 @@ export default class Alert extends React.Component<AlertProps, any> {
     dom.style.height = `${dom.offsetHeight}px`;
 
     this.setState({
-      closing: false,
+      closing: false
     });
     (this.props.onClose || noop)(e);
-  }
+  };
   animationEnd = () => {
     this.setState({
       closed: true,
-      closing: true,
+      closing: true
     });
     (this.props.afterClose || noop)();
-  }
+  };
   render() {
     let {
-      closable, description, type, prefixCls = 'fishd-alert', message, closeText, showIcon, banner,
-      className = '', style, iconType,
+      closable,
+      description,
+      type,
+      prefixCls = 'fishd-alert',
+      message,
+      closeText,
+      showIcon,
+      banner,
+      className = '',
+      style,
+      iconType
     } = this.props;
 
     // banner模式默认有 Icon
@@ -104,18 +112,22 @@ export default class Alert extends React.Component<AlertProps, any> {
       }
 
       // use outline icon in alert with description
-      if (!!description) {
+      if (description) {
         iconType += '-o';
       }
     }
 
-    let alertCls = classNames(prefixCls, {
-      [`${prefixCls}-${type}`]: true,
-      [`${prefixCls}-close`]: !this.state.closing,
-      [`${prefixCls}-with-description`]: !!description,
-      [`${prefixCls}-no-icon`]: !showIcon,
-      [`${prefixCls}-banner`]: !!banner,
-    }, className);
+    let alertCls = classNames(
+      prefixCls,
+      {
+        [`${prefixCls}-${type}`]: true,
+        [`${prefixCls}-close`]: !this.state.closing,
+        [`${prefixCls}-with-description`]: !!description,
+        [`${prefixCls}-no-icon`]: !showIcon,
+        [`${prefixCls}-banner`]: !!banner
+      },
+      className
+    );
 
     // closeable when closeText is assigned
     if (closeText) {

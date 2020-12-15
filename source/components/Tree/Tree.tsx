@@ -43,7 +43,7 @@ export interface FishdTreeNodeProps {
   [customProp: string]: any;
 }
 
-export interface FishdTreeNode extends React.Component<FishdTreeNodeProps, {}> { }
+export interface FishdTreeNode extends React.Component<FishdTreeNodeProps, {}> {}
 
 export interface FishdTreeNodeBaseEvent {
   node: FishdTreeNode;
@@ -124,7 +124,10 @@ export interface TreeProps {
   /** 展开/收起节点时触发 */
   onExpand?: (expandedKeys: string[], info: FishdTreeNodeExpandedEvent) => void | PromiseLike<any>;
   /** 点击复选框触发 */
-  onCheck?: (checkedKeys: string[] | { checked: string[]; halfChecked: string[] }, e: FishdTreeNodeCheckedEvent) => void;
+  onCheck?: (
+    checkedKeys: string[] | { checked: string[]; halfChecked: string[] },
+    e: FishdTreeNodeCheckedEvent
+  ) => void;
   /** 点击树节点触发 */
   onSelect?: (selectedKeys: string[], e: FishdTreeNodeSelectedEvent) => void;
   /** 单击树节点触发 */
@@ -136,7 +139,7 @@ export interface TreeProps {
   /** 异步加载数据 */
   loadData?: (node: FishdTreeNode) => PromiseLike<any>;
   loadedKeys?: string[];
-  onLoaded?: (loadedKeys: string[], info: { event: 'load', node: FishdTreeNode; }) => void;
+  onLoaded?: (loadedKeys: string[], info: { event: 'load'; node: FishdTreeNode }) => void;
   /** 响应右键点击 */
   onRightClick?: (options: FishdTreeNodeMouseEvent) => void;
   /** 设置节点可拖拽（IE>8）*/
@@ -173,19 +176,16 @@ export default class Tree extends React.Component<TreeProps, any> {
     required: false,
     openAnimation: {
       ...animation,
-      appear: null,
+      appear: null
     },
     prefixCls: 'fishd-tree',
-    showIcon: false,
+    showIcon: false
   };
 
   tree: any;
 
   renderSwitcherIcon = ({ isLeaf, expanded, loading }: FishdTreeNodeProps) => {
-    const {
-      prefixCls,
-      showLine,
-    } = this.props;
+    const { prefixCls, showLine } = this.props;
     // if (loading) {
     //   return (
     //     <Icon
@@ -196,12 +196,7 @@ export default class Tree extends React.Component<TreeProps, any> {
     // }
     if (showLine) {
       if (isLeaf) {
-        return (
-          <Icon
-            type="file-line"
-            className={`${prefixCls}-switcher-line-icon`}
-          />
-        );
+        return <Icon type="file-line" className={`${prefixCls}-switcher-line-icon`} />;
       }
       return (
         <Icon
@@ -213,11 +208,9 @@ export default class Tree extends React.Component<TreeProps, any> {
       if (isLeaf) {
         return null;
       }
-      return (
-        <Icon type="down-fill" className={`${prefixCls}-switcher-icon`} />
-      );
+      return <Icon type="down-fill" className={`${prefixCls}-switcher-icon`} />;
     }
-  }
+  };
 
   render() {
     const props = this.props;
@@ -226,7 +219,7 @@ export default class Tree extends React.Component<TreeProps, any> {
     return (
       <RcTree
         {...props}
-        ref={(node: Tree) => this.tree = node}
+        ref={(node: Tree) => (this.tree = node)}
         className={classNames(!showIcon && `${prefixCls}-icon-hide`, className)}
         checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
         switcherIcon={this.renderSwitcherIcon}

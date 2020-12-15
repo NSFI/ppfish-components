@@ -10,11 +10,9 @@ if (typeof window !== 'undefined') {
     return ({
       media: mediaQuery,
       matches: false,
-      addListener() {
-      },
-      removeListener() {
-      },
-    } as any) as  MediaQueryList;
+      addListener() {},
+      removeListener() {}
+    } as any) as MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
 }
@@ -73,13 +71,7 @@ export interface CarouselProps {
 
 function CustomArrow(props) {
   const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "flex" }}
-      onClick={onClick}
-    />
-  );
+  return <div className={className} style={{ ...style, display: 'flex' }} onClick={onClick} />;
 }
 
 export default class Carousel extends React.Component<CarouselProps, {}> {
@@ -104,7 +96,7 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   constructor(props: CarouselProps) {
     super(props);
     this.onWindowResized = debounce(this.onWindowResized, 500, {
-      leading: false,
+      leading: false
     });
   }
 
@@ -118,18 +110,21 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
 
     this.slickDOM = findDOMNode(this.slick);
     if (autoplay && dotsTimer) {
-      let aniName = (dotsPosition=='left' || dotsPosition=='right') ? 'dotsAniVertical' : 'dotsAni',
+      let aniName =
+          dotsPosition == 'left' || dotsPosition == 'right' ? 'dotsAniVertical' : 'dotsAni',
         timerEl = this.slickDOM.querySelector('.timer');
-      !!timerEl && timerEl.style.setProperty("--dots-ani", `${aniName} ${autoplaySpeed/1000}s infinite`);
+      !!timerEl &&
+        timerEl.style.setProperty('--dots-ani', `${aniName} ${autoplaySpeed / 1000}s infinite`);
 
       this.slickDOM.addEventListener('mouseover', () => {
         let timerEl = this.slickDOM.querySelector('.timer');
-        !!timerEl && timerEl.style.setProperty("--dots-ani", 'none');
+        !!timerEl && timerEl.style.setProperty('--dots-ani', 'none');
       });
 
       this.slickDOM.addEventListener('mouseout', () => {
         let timerEl = this.slickDOM.querySelector('.timer');
-        !!timerEl && timerEl.style.setProperty("--dots-ani", `${aniName} ${autoplaySpeed/1000}s infinite`);
+        !!timerEl &&
+          timerEl.style.setProperty('--dots-ani', `${aniName} ${autoplaySpeed / 1000}s infinite`);
       });
     }
   }
@@ -148,11 +143,11 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
     if (autoplay && this.slick && this.slick.innerSlider && this.slick.innerSlider.autoPlay) {
       this.slick.innerSlider.autoPlay();
     }
-  }
+  };
 
   saveSlick = (node: any) => {
     this.slick = node;
-  }
+  };
 
   next() {
     this.slick.slickNext();
@@ -180,14 +175,10 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
       slidesToShow,
       ...restProps
     } = this.props;
-    let cls = classNames(
-      prefixCls,
-      `${prefixCls}-${dotsPosition}`,
-      className
-    );
+    let cls = classNames(prefixCls, `${prefixCls}-${dotsPosition}`, className);
     let dotsCls = classNames('slick-dots', {
-      'slick-dots-vertical': dotsPosition=='left' || dotsPosition=='right',
-      'timer': restProps.autoplay && dotsTimer
+      'slick-dots-vertical': dotsPosition == 'left' || dotsPosition == 'right',
+      timer: restProps.autoplay && dotsTimer
     });
 
     if (restProps.effect === 'fade') {
@@ -199,8 +190,12 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
         <SlickCarousel
           {...restProps}
           ref={this.saveSlick}
-          nextArrow={nextArrow ? nextArrow : <CustomArrow className="slick-next" onClick={this.next}/>}
-          prevArrow={prevArrow ? prevArrow : <CustomArrow className="slick-prev" onClick={this.prev}/>}
+          nextArrow={
+            nextArrow ? nextArrow : <CustomArrow className="slick-next" onClick={this.next} />
+          }
+          prevArrow={
+            prevArrow ? prevArrow : <CustomArrow className="slick-prev" onClick={this.prev} />
+          }
           centerMode={centerMode}
           centerPadding={centerPadding}
           slidesToShow={slidesToShow}

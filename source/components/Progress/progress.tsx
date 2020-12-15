@@ -7,7 +7,7 @@ import classNames from 'classnames';
 const statusColorMap = {
   normal: '#108ee9',
   exception: '#ff5500',
-  success: '#87d068',
+  success: '#87d068'
 };
 
 export type ProgressType = 'line' | 'circle' | 'dashboard';
@@ -55,7 +55,7 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     showInfo: true,
     trailColor: '#f3f3f3',
     prefixCls: 'fishd-progress',
-    size: 'default' as ProgressSize,
+    size: 'default' as ProgressSize
   };
 
   static propTypes = {
@@ -70,25 +70,45 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     trailColor: PropTypes.string,
     format: PropTypes.func,
     gapDegree: PropTypes.number,
-    default: PropTypes.oneOf(['default', 'small']),
+    default: PropTypes.oneOf(['default', 'small'])
   };
 
   render() {
     const props = this.props;
     const {
-      prefixCls, className, percent = 0, status, format, trailColor, size, successPercent,
-      type, strokeWidth, width, showInfo, gapDegree = 0, gapPosition, strokeColor, strokeLinecap = 'round',
-      extraContent, message, operation, ...restProps
+      prefixCls,
+      className,
+      percent = 0,
+      status,
+      format,
+      trailColor,
+      size,
+      successPercent,
+      type,
+      strokeWidth,
+      width,
+      showInfo,
+      gapDegree = 0,
+      gapPosition,
+      strokeColor,
+      strokeLinecap = 'round',
+      extraContent,
+      message,
+      operation,
+      ...restProps
     } = props;
-    const progressStatus = parseInt((successPercent ? successPercent.toString() : percent.toString()), 10) >= 100 &&
-    !('status' in props) ? 'success' : (status || 'normal');
+    const progressStatus =
+      parseInt(successPercent ? successPercent.toString() : percent.toString(), 10) >= 100 &&
+      !('status' in props)
+        ? 'success'
+        : status || 'normal';
     let progressInfo;
     let progress;
     const textFormatter = format || (percentNumber => `${percentNumber}%`);
 
     if (showInfo) {
       let text;
-      const iconType = (type === 'circle' || type === 'dashboard') ? 'hints-alone-' : 'hints-';
+      const iconType = type === 'circle' || type === 'dashboard' ? 'hints-alone-' : 'hints-';
       if (format || (progressStatus !== 'exception' && progressStatus !== 'success')) {
         text = textFormatter(validProgress(percent), validProgress(successPercent));
       } else if (progressStatus === 'exception') {
@@ -104,16 +124,17 @@ export default class Progress extends React.Component<ProgressProps, {}> {
         width: `${validProgress(percent)}%`,
         height: strokeWidth || (size === 'small' ? 6 : 8),
         background: strokeColor,
-        borderRadius: strokeLinecap === 'square' ? 0 : '100px',
+        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
       };
       const successPercentStyle = {
         width: `${validProgress(successPercent)}%`,
         height: strokeWidth || (size === 'small' ? 6 : 8),
-        borderRadius: strokeLinecap === 'square' ? 0 : '100px',
+        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
       };
-      const successSegment = successPercent !== undefined
-        ? <div className={`${prefixCls}-success-bg`} style={successPercentStyle} />
-        : null;
+      const successSegment =
+        successPercent !== undefined ? (
+          <div className={`${prefixCls}-success-bg`} style={successPercentStyle} />
+        ) : null;
 
       progress = (
         <div className={`${prefixCls}-line-ctner`}>
@@ -121,15 +142,15 @@ export default class Progress extends React.Component<ProgressProps, {}> {
             <div className={`${prefixCls}-outer`}>
               <div className={`${prefixCls}-inner`}>
                 <div className={`${prefixCls}-bg`} style={percentStyle}>
-                  { extraContent ? <div className={`${prefixCls}-extra`}>{extraContent}</div> : null }
+                  {extraContent ? <div className={`${prefixCls}-extra`}>{extraContent}</div> : null}
                 </div>
                 {successSegment}
               </div>
             </div>
             {progressInfo}
           </div>
-          { message ? <span className={`${prefixCls}-msg`}>{message}</span> : null }
-          { operation ? <span className={`${prefixCls}-oper`}>{operation}</span> : null }
+          {message ? <span className={`${prefixCls}-msg`}>{message}</span> : null}
+          {operation ? <span className={`${prefixCls}-oper`}>{operation}</span> : null}
         </div>
       );
     } else if (type === 'circle' || type === 'dashboard') {
@@ -137,11 +158,11 @@ export default class Progress extends React.Component<ProgressProps, {}> {
       const circleStyle = {
         width: circleSize,
         height: circleSize,
-        fontSize: circleSize * 0.15 + 6,
+        fontSize: circleSize * 0.15 + 6
       };
       const circleWidth = strokeWidth || 6;
-      const gapPos = gapPosition || type === 'dashboard' && 'bottom' || 'top';
-      const gapDeg = gapDegree || type === 'dashboard' && 75;
+      const gapPos = gapPosition || (type === 'dashboard' && 'bottom') || 'top';
+      const gapDeg = gapDegree || (type === 'dashboard' && 75);
       progress = (
         <div className={`${prefixCls}-inner`} style={circleStyle}>
           <Circle
@@ -157,27 +178,29 @@ export default class Progress extends React.Component<ProgressProps, {}> {
           />
           <div className={`${prefixCls}-circle-info`}>
             {progressInfo}
-            { message ? <span className={`${prefixCls}-msg`}>{message}</span> : null }
+            {message ? <span className={`${prefixCls}-msg`}>{message}</span> : null}
           </div>
         </div>
       );
     }
 
-    const classString = classNames(prefixCls, {
-      [`${prefixCls}-${type === 'dashboard' && 'circle' || type}`]: true,
-      [`${prefixCls}-status-${progressStatus}`]: true,
-      [`${prefixCls}-show-info`]: showInfo,
-      [`${prefixCls}-${size}`]: size,
-    }, className);
+    const classString = classNames(
+      prefixCls,
+      {
+        [`${prefixCls}-${(type === 'dashboard' && 'circle') || type}`]: true,
+        [`${prefixCls}-status-${progressStatus}`]: true,
+        [`${prefixCls}-show-info`]: showInfo,
+        [`${prefixCls}-${size}`]: size
+      },
+      className
+    );
 
     return (
       <div {...restProps} className={classString}>
         {progress}
-        {
-          (type === 'circle' || type === 'dashboard') && operation
-          ? <span className={`${prefixCls}-oper`}>{operation}</span>
-          : null
-        }
+        {(type === 'circle' || type === 'dashboard') && operation ? (
+          <span className={`${prefixCls}-oper`}>{operation}</span>
+        ) : null}
       </div>
     );
   }

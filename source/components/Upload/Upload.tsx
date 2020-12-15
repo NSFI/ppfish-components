@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 import RcUpload from './src/index.js';
 import classNames from 'classnames';
 import uniqBy from 'lodash/uniqBy';
@@ -13,14 +13,14 @@ import {
   UploadLocale,
   UploadChangeParam,
   UploadType,
-  UploadListType,
+  UploadListType
 } from './interface';
-import {T, fileToObject, genPercentAdd, getFileItem, removeFileItem} from './utils';
+import { T, fileToObject, genPercentAdd, getFileItem, removeFileItem } from './utils';
 
-export {UploadProps};
+export { UploadProps };
 
 class Upload extends React.Component<UploadProps, UploadState> {
-  static Dragger: typeof Dragger;
+  static Dragger = Dragger;
 
   static defaultProps = {
     prefixCls: 'fishd-upload',
@@ -62,7 +62,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     this.state = {
       fileList: props.fileList || props.defaultFileList || [],
       dragState: 'drop',
-      action: props.action || '',
+      action: props.action || ''
     };
   }
 
@@ -78,7 +78,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     nextFileList.push(targetItem);
     this.onChange({
       file: targetItem,
-      fileList: nextFileList,
+      fileList: nextFileList
     });
     // fix ie progress
     if (!(window as any).FormData) {
@@ -92,9 +92,12 @@ class Upload extends React.Component<UploadProps, UploadState> {
     this.clearProgressTimer();
     this.progressTimer = setInterval(() => {
       curPercent = getPercent(curPercent);
-      this.onProgress({
-        percent: curPercent * 100,
-      }, file);
+      this.onProgress(
+        {
+          percent: curPercent * 100
+        },
+        file
+      );
     }, 200);
   }
 
@@ -104,7 +107,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
       if (typeof response === 'string') {
         response = JSON.parse(response);
       }
-    } catch (e) { /* do nothing */
+    } catch (e) {
+      /* do nothing */
     }
     let fileList = this.state.fileList;
     let targetItem = getFileItem(file, fileList);
@@ -115,8 +119,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
     targetItem.status = 'done';
     targetItem.response = response;
     this.onChange({
-      file: {...targetItem},
-      fileList,
+      file: { ...targetItem },
+      fileList
     });
   };
 
@@ -130,8 +134,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
     targetItem.percent = e.percent;
     this.onChange({
       event: e,
-      file: {...targetItem},
-      fileList: this.state.fileList,
+      file: { ...targetItem },
+      fileList: this.state.fileList
     });
   };
 
@@ -147,13 +151,13 @@ class Upload extends React.Component<UploadProps, UploadState> {
     targetItem.response = response;
     targetItem.status = 'error';
     this.onChange({
-      file: {...targetItem},
-      fileList,
+      file: { ...targetItem },
+      fileList
     });
   };
 
   handleRemove(file: UploadFile) {
-    const {onRemove} = this.props;
+    const { onRemove } = this.props;
 
     Promise.resolve(typeof onRemove === 'function' ? onRemove(file) : onRemove).then(ret => {
       // Prevent removing file
@@ -165,21 +169,21 @@ class Upload extends React.Component<UploadProps, UploadState> {
       if (removedFileList) {
         this.onChange({
           file,
-          fileList: removedFileList,
+          fileList: removedFileList
         });
       }
     });
   }
 
   handleDeleteAll = () => {
-    this.state.fileList.forEach((file) => {
+    this.state.fileList.forEach(file => {
       this.upload.abort(file);
       file.status = 'removed'; // eslint-disable-line
     });
 
-    this.setState({fileList: []});
+    this.setState({ fileList: [] });
 
-    const {onDeleteAll} = this.props;
+    const { onDeleteAll } = this.props;
     if (onDeleteAll) {
       onDeleteAll();
     }
@@ -193,10 +197,10 @@ class Upload extends React.Component<UploadProps, UploadState> {
 
   onChange = (info: UploadChangeParam) => {
     if (!('fileList' in this.props)) {
-      this.setState({fileList: info.fileList});
+      this.setState({ fileList: info.fileList });
     }
 
-    const {onChange} = this.props;
+    const { onChange } = this.props;
     if (onChange) {
       onChange(info);
     }
@@ -204,7 +208,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
 
   onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     this.setState({
-      dragState: e.type,
+      dragState: e.type
     });
   };
 
@@ -218,8 +222,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
         file,
         fileList: uniqBy(
           this.state.fileList.concat(fileList.map(fileToObject)),
-          (item: UploadFile) => item.uid,
-        ),
+          (item: UploadFile) => item.uid
+        )
       });
       return false;
     } else if (result && (result as PromiseLike<any>).then) {
@@ -237,8 +241,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
   };
 
   renderUploadList = (locale: UploadLocale) => {
-    const {showUploadList, listType, onPreview, maxFileCount, showDeleteAll} = this.props;
-    const {showRemoveIcon, showPreviewIcon} = showUploadList as any;
+    const { showUploadList, listType, onPreview, maxFileCount, showDeleteAll } = this.props;
+    const { showRemoveIcon, showPreviewIcon } = showUploadList as any;
     return (
       <UploadList
         listType={listType}
@@ -250,7 +254,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
         showPreviewIcon={showPreviewIcon}
         maxFileCount={maxFileCount}
         showDeleteAll={showDeleteAll}
-        locale={{...locale, ...this.props.locale}}
+        locale={{ ...locale, ...this.props.locale }}
       />
     );
   };
@@ -274,32 +278,32 @@ class Upload extends React.Component<UploadProps, UploadState> {
       onProgress: this.onProgress,
       onSuccess: this.onSuccess,
       ...this.props,
-      beforeUpload: this.beforeUpload,
+      beforeUpload: this.beforeUpload
     };
 
     delete rcUploadProps.className;
     delete rcUploadProps.style;
     delete rcUploadProps.action;
 
-    const uploadList = showUploadList ? this.renderUploadList({
-      uploading: '上传中',
-      removeFile: '移除文件',
-      uploadError: '上传错误',
-      previewFile: '预览文件',
-    }) : null;
+    const uploadList = showUploadList
+      ? this.renderUploadList({
+          uploading: '上传中',
+          removeFile: '移除文件',
+          uploadError: '上传错误',
+          previewFile: '预览文件'
+        })
+      : null;
 
-    const uploadTips = tip ? (
-      <div className={`${prefixCls}-tip`}>
-        {tip}
-      </div>
-    ) : null;
+    const uploadTips = tip ? <div className={`${prefixCls}-tip`}>{tip}</div> : null;
 
     if (type === 'drag') {
       const dragCls = classNames(prefixCls, {
         [`${prefixCls}-drag`]: true,
-        [`${prefixCls}-drag-uploading`]: this.state.fileList.some(file => file.status === 'uploading'),
+        [`${prefixCls}-drag-uploading`]: this.state.fileList.some(
+          file => file.status === 'uploading'
+        ),
         [`${prefixCls}-drag-hover`]: this.state.dragState === 'dragover',
-        [`${prefixCls}-disabled`]: disabled,
+        [`${prefixCls}-disabled`]: disabled
       });
       return (
         <span className={className} style={style}>
@@ -309,11 +313,13 @@ class Upload extends React.Component<UploadProps, UploadState> {
             onDragOver={this.onFileDrop}
             onDragLeave={this.onFileDrop}
           >
-            <RcUpload {...rcUploadProps} action={this.state.action} ref={this.saveUpload}
-                      className={`${prefixCls}-btn`}>
-              <div className={`${prefixCls}-drag-container`}>
-                {children}
-              </div>
+            <RcUpload
+              {...rcUploadProps}
+              action={this.state.action}
+              ref={this.saveUpload}
+              className={`${prefixCls}-btn`}
+            >
+              <div className={`${prefixCls}-drag-container`}>{children}</div>
             </RcUpload>
           </div>
           {uploadTips}
@@ -325,12 +331,12 @@ class Upload extends React.Component<UploadProps, UploadState> {
     const uploadButtonCls = classNames(prefixCls, {
       [`${prefixCls}-select`]: true,
       [`${prefixCls}-select-${listType}`]: true,
-      [`${prefixCls}-disabled`]: disabled,
+      [`${prefixCls}-disabled`]: disabled
     });
 
     const uploadButton = (
-      <div className={uploadButtonCls} style={{display: children ? '' : 'none'}}>
-        <RcUpload {...rcUploadProps} action={this.state.action} ref={this.saveUpload}/>
+      <div className={uploadButtonCls} style={{ display: children ? '' : 'none' }}>
+        <RcUpload {...rcUploadProps} action={this.state.action} ref={this.saveUpload} />
       </div>
     );
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {Col} from '../Grid';
-import {ListGridType, ColumnType} from './index';
+import { Col } from '../Grid';
+import { ListGridType, ColumnType } from './index';
 
 export interface ListItemProps {
   className?: string;
@@ -25,14 +25,7 @@ export interface ListItemMetaProps {
 }
 
 export const Meta = (props: ListItemMetaProps) => {
-  const {
-    prefixCls = 'fishd-list',
-    className,
-    avatar,
-    title,
-    description,
-    ...others
-  } = props;
+  const { prefixCls = 'fishd-list', className, avatar, title, description, ...others } = props;
 
   const classString = classNames(`${prefixCls}-item-meta`, className);
 
@@ -67,16 +60,16 @@ export default class Item extends React.Component<ListItemProps, any> {
     md: PropTypes.oneOf(GridColumns),
     lg: PropTypes.oneOf(GridColumns),
     xl: PropTypes.oneOf(GridColumns),
-    xxl: PropTypes.oneOf(GridColumns),
+    xxl: PropTypes.oneOf(GridColumns)
   };
 
   static contextTypes = {
-    grid: PropTypes.any,
+    grid: PropTypes.any
   };
 
   render() {
-    const {grid} = this.context;
-    const {prefixCls = 'fishd-list', children, actions, extra, className, ...others} = this.props;
+    const { grid } = this.context;
+    const { prefixCls = 'fishd-list', children, actions, extra, className, ...others } = this.props;
     const classString = classNames(`${prefixCls}-item`, className);
 
     const metaContent: React.ReactElement<any>[] = [];
@@ -91,19 +84,17 @@ export default class Item extends React.Component<ListItemProps, any> {
     });
 
     const contentClassString = classNames(`${prefixCls}-item-content`, {
-      [`${prefixCls}-item-content-single`]: (metaContent.length < 1),
+      [`${prefixCls}-item-content-single`]: metaContent.length < 1
     });
-    const content = otherContent.length > 0 ? (
-      <div className={contentClassString}>
-        {otherContent}
-      </div>) : null;
+    const content =
+      otherContent.length > 0 ? <div className={contentClassString}>{otherContent}</div> : null;
 
     let actionsContent;
     if (actions && actions.length > 0) {
       const actionsContentItem = (action: React.ReactNode, i: number) => (
         <li key={`${prefixCls}-item-action-${i}`}>
           {action}
-          {i !== (actions.length - 1) && <em className={`${prefixCls}-item-action-split`}/>}
+          {i !== actions.length - 1 && <em className={`${prefixCls}-item-action-split`} />}
         </li>
       );
       actionsContent = (

@@ -6,15 +6,12 @@ import createFormField from './RcForm/createFormField';
 import omit from 'omit.js';
 import FormItem from './FormItem';
 import { FIELD_META_PROP, FIELD_DATA_PROP } from './constants';
-import {Omit} from '../../utils/type';
+import { Omit } from '../../utils/type';
 
 type FormCreateOptionMessagesCallback = (...args: any[]) => string;
 
 interface FormCreateOptionMessages {
-  [messageId: string]:
-    | string
-    | FormCreateOptionMessagesCallback
-    | FormCreateOptionMessages;
+  [messageId: string]: string | FormCreateOptionMessagesCallback | FormCreateOptionMessages;
 }
 
 export interface FormCreateOption<T> {
@@ -102,7 +99,11 @@ export type WrappedFormUtils = {
   validateFields(callback: ValidateCallback): void;
   validateFields(): void;
   /** 与 `validateFields` 相似，但校验完后，如果校验不通过的菜单域不在可见范围内，则自动滚动进可见范围 */
-  validateFieldsAndScroll(fieldNames?: Array<string>, options?: Object, callback?: ValidateCallback): void;
+  validateFieldsAndScroll(
+    fieldNames?: Array<string>,
+    options?: Object,
+    callback?: ValidateCallback
+  ): void;
   validateFieldsAndScroll(fieldNames?: Array<string>, callback?: ValidateCallback): void;
   validateFieldsAndScroll(options?: Object, callback?: ValidateCallback): void;
   validateFieldsAndScroll(callback?: ValidateCallback): void;
@@ -117,7 +118,10 @@ export type WrappedFormUtils = {
   /** 重置一组输入控件的值与状态，如不传入参数，则重置所有组件 */
   resetFields(names?: Array<string>): void;
 
-  getFieldDecorator(id: string, options?: GetFieldDecoratorOptions): (node: React.ReactNode) => React.ReactNode;
+  getFieldDecorator(
+    id: string,
+    options?: GetFieldDecoratorOptions
+  ): (node: React.ReactNode) => React.ReactNode;
 };
 
 export interface FormComponentProps {
@@ -125,12 +129,12 @@ export interface FormComponentProps {
 }
 
 export interface RcBaseFormProps {
-   wrappedComponentRef?: any;
+  wrappedComponentRef?: any;
 }
 
 export interface ComponentDecorator {
   <P extends FormComponentProps>(
-    component: React.ComponentClass<P> | React.SFC<P>,
+    component: React.ComponentClass<P> | React.SFC<P>
   ): React.ComponentClass<RcBaseFormProps & Omit<P, keyof FormComponentProps>>;
 }
 
@@ -141,7 +145,7 @@ export default class Form extends React.Component<FormProps, any> {
     hideRequiredMark: false,
     onSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
-    },
+    }
   };
 
   static propTypes = {
@@ -149,23 +153,25 @@ export default class Form extends React.Component<FormProps, any> {
     layout: PropTypes.oneOf(['horizontal', 'inline', 'vertical']),
     children: PropTypes.any,
     onSubmit: PropTypes.func,
-    hideRequiredMark: PropTypes.bool,
+    hideRequiredMark: PropTypes.bool
   };
 
   static childContextTypes = {
-    vertical: PropTypes.bool,
+    vertical: PropTypes.bool
   };
 
   static Item = FormItem;
 
   static createFormField = createFormField;
 
-  static create = function<TOwnProps>(options: FormCreateOption<TOwnProps> = {}): ComponentDecorator {
+  static create = function <TOwnProps>(
+    options: FormCreateOption<TOwnProps> = {}
+  ): ComponentDecorator {
     return createDOMForm({
       fieldNameProp: 'id',
       ...options,
       fieldMetaProp: FIELD_META_PROP,
-      fieldDataProp: FIELD_DATA_PROP,
+      fieldDataProp: FIELD_DATA_PROP
     });
   };
 
@@ -176,27 +182,29 @@ export default class Form extends React.Component<FormProps, any> {
   getChildContext() {
     const { layout } = this.props;
     return {
-      vertical: layout === 'vertical',
+      vertical: layout === 'vertical'
     };
   }
 
   render() {
-    const {
-      prefixCls, hideRequiredMark, className = '', layout,
-    } = this.props;
-    const formClassName = classNames(prefixCls, {
-      [`${prefixCls}-horizontal`]: layout === 'horizontal',
-      [`${prefixCls}-vertical`]: layout === 'vertical',
-      [`${prefixCls}-inline`]: layout === 'inline',
-      [`${prefixCls}-hide-required-mark`]: hideRequiredMark,
-    }, className);
+    const { prefixCls, hideRequiredMark, className = '', layout } = this.props;
+    const formClassName = classNames(
+      prefixCls,
+      {
+        [`${prefixCls}-horizontal`]: layout === 'horizontal',
+        [`${prefixCls}-vertical`]: layout === 'vertical',
+        [`${prefixCls}-inline`]: layout === 'inline',
+        [`${prefixCls}-hide-required-mark`]: hideRequiredMark
+      },
+      className
+    );
 
     const formProps = omit(this.props, [
       'prefixCls',
       'className',
       'layout',
       'form',
-      'hideRequiredMark',
+      'hideRequiredMark'
     ]);
 
     return <form {...formProps} className={formClassName} />;

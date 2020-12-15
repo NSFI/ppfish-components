@@ -7,10 +7,8 @@ if (typeof window !== 'undefined') {
     return ({
       media: mediaQuery,
       matches: false,
-      addListener() {
-      },
-      removeListener() {
-      },
+      addListener() {},
+      removeListener() {}
     } as any) as MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
@@ -18,7 +16,7 @@ if (typeof window !== 'undefined') {
 }
 
 import * as React from 'react';
-import {Children, cloneElement} from 'react';
+import { Children, cloneElement } from 'react';
 import classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 
@@ -45,12 +43,12 @@ const responsiveMap: BreakpointMap = {
   md: '(min-width: 768px)',
   lg: '(min-width: 992px)',
   xl: '(min-width: 1200px)',
-  xxl: '(min-width: 1600px)',
+  xxl: '(min-width: 1600px)'
 };
 
 export default class Row extends React.Component<RowProps, RowState> {
   static defaultProps = {
-    gutter: 0,
+    gutter: 0
   };
 
   static propTypes = {
@@ -61,52 +59,52 @@ export default class Row extends React.Component<RowProps, RowState> {
     style: PropTypes.object,
     children: PropTypes.node,
     gutter: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    prefixCls: PropTypes.string,
+    prefixCls: PropTypes.string
   };
 
   state: RowState = {
-    screens: {},
+    screens: {}
   };
 
   componentDidMount() {
-    Object.keys(responsiveMap)
-      .map((screen: Breakpoint) => enquire.register(responsiveMap[screen], {
-          match: () => {
-            if (typeof this.props.gutter !== 'object') {
-              return;
+    Object.keys(responsiveMap).map((screen: Breakpoint) =>
+      enquire.register(responsiveMap[screen], {
+        match: () => {
+          if (typeof this.props.gutter !== 'object') {
+            return;
+          }
+          this.setState(prevState => ({
+            screens: {
+              ...prevState.screens,
+              [screen]: true
             }
-            this.setState((prevState) => ({
-              screens: {
-                ...prevState.screens,
-                [screen]: true,
-              },
-            }));
-          },
-          unmatch: () => {
-            if (typeof this.props.gutter !== 'object') {
-              return;
-            }
-            this.setState((prevState) => ({
-              screens: {
-                ...prevState.screens,
-                [screen]: false,
-              },
-            }));
-          },
-          // Keep a empty destory to avoid triggering unmatch when unregister
-          destroy() {
-          },
+          }));
         },
-      ));
+        unmatch: () => {
+          if (typeof this.props.gutter !== 'object') {
+            return;
+          }
+          this.setState(prevState => ({
+            screens: {
+              ...prevState.screens,
+              [screen]: false
+            }
+          }));
+        },
+        // Keep a empty destory to avoid triggering unmatch when unregister
+        destroy() {}
+      })
+    );
   }
 
   componentWillUnmount() {
-    Object.keys(responsiveMap)
-      .map((screen: Breakpoint) => enquire.unregister(responsiveMap[screen]));
+    Object.keys(responsiveMap).map((screen: Breakpoint) =>
+      enquire.unregister(responsiveMap[screen])
+    );
   }
 
   getGutter() {
-    const {gutter} = this.props;
+    const { gutter } = this.props;
     if (typeof gutter === 'object') {
       for (let i = 0; i <= responsiveArray.length; i++) {
         const breakpoint: Breakpoint = responsiveArray[i];
@@ -120,21 +118,33 @@ export default class Row extends React.Component<RowProps, RowState> {
 
   render() {
     const {
-      type, justify, align, className, style, children,
-      prefixCls = 'fishd-row', ...others
+      type,
+      justify,
+      align,
+      className,
+      style,
+      children,
+      prefixCls = 'fishd-row',
+      ...others
     } = this.props;
     const gutter = this.getGutter();
-    const classes = classNames({
-      [prefixCls]: !type,
-      [`${prefixCls}-${type}`]: type,
-      [`${prefixCls}-${type}-${justify}`]: type && justify,
-      [`${prefixCls}-${type}-${align}`]: type && align,
-    }, className);
-    const rowStyle = (gutter as number) > 0 ? {
-      marginLeft: (gutter as number) / -2,
-      marginRight: (gutter as number) / -2,
-      ...style,
-    } : style;
+    const classes = classNames(
+      {
+        [prefixCls]: !type,
+        [`${prefixCls}-${type}`]: type,
+        [`${prefixCls}-${type}-${justify}`]: type && justify,
+        [`${prefixCls}-${type}-${align}`]: type && align
+      },
+      className
+    );
+    const rowStyle =
+      (gutter as number) > 0
+        ? {
+            marginLeft: (gutter as number) / -2,
+            marginRight: (gutter as number) / -2,
+            ...style
+          }
+        : style;
     const cols = Children.map(children, (col: React.ReactElement<HTMLDivElement>) => {
       if (!col) {
         return null;
@@ -144,14 +154,18 @@ export default class Row extends React.Component<RowProps, RowState> {
           style: {
             paddingLeft: (gutter as number) / 2,
             paddingRight: (gutter as number) / 2,
-            ...col.props.style,
-          },
+            ...col.props.style
+          }
         });
       }
       return col;
     });
-    const otherProps = {...others};
+    const otherProps = { ...others };
     delete otherProps.gutter;
-    return <div {...otherProps} className={classes} style={rowStyle}>{cols}</div>;
+    return (
+      <div {...otherProps} className={classes} style={rowStyle}>
+        {cols}
+      </div>
+    );
   }
 }

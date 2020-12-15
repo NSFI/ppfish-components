@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Select, {Option} from '../Select';
+import Select, { Option } from '../Select';
 
 interface OptionProps {
   disabled?: boolean;
@@ -9,7 +9,7 @@ interface OptionProps {
 }
 
 export default class MiniSelect extends React.Component<any, any> {
-  static Option = Option as React.ClassicComponentClass<OptionProps>;
+  static Option = Option;
 
   render() {
     return <Select size="small" {...this.props} />;

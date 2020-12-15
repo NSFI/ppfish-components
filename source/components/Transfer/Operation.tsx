@@ -3,7 +3,7 @@ import Button from '../Button';
 
 export interface TransferOperationProps {
   mode?: 'single' | 'multiple';
-  arrowText?: string,
+  arrowText?: string;
   className?: string;
   leftArrowText?: string;
   rightArrowText?: string;
@@ -26,16 +26,16 @@ export default class Operation extends React.Component<TransferOperationProps, a
       leftActive,
       rightActive,
       className,
-      style,
+      style
     } = this.props;
 
-    if(mode === 'single'){
+    if (mode === 'single') {
       return (
         <div className={className} style={style}>
           {arrowText}
         </div>
-      )
-    }else{
+      );
+    } else {
       return (
         <div className={className} style={style}>
           <Button
@@ -61,4 +61,3 @@ export default class Operation extends React.Component<TransferOperationProps, a
     }
   }
 }
-

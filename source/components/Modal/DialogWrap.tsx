@@ -8,8 +8,8 @@ import './style/index.less';
 const IS_REACT_16 = 'createPortal' in ReactDOM;
 
 class DialogWrap extends React.Component<IDialogPropTypes, any> {
-  static defaultProps  = {
-    visible: false,
+  static defaultProps = {
+    visible: false
   };
 
   _component: React.ReactElement<any>;
@@ -29,9 +29,8 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
     if (this.props.visible) {
       this.renderComponent({
         afterClose: this.removeContainer,
-        onClose() {
-        },
-        visible: false,
+        onClose() {},
+        visible: false
       });
     } else {
       this.removeContainer();
@@ -40,26 +39,19 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
 
   saveDialog = (node: any) => {
     this._component = node;
-  }
+  };
 
   getComponent = (extra = {}) => {
-    return (
-      <Dialog
-        ref={this.saveDialog}
-        {...this.props}
-        {...extra}
-        key="dialog"
-      />
-    );
-  }
+    return <Dialog ref={this.saveDialog} {...this.props} {...extra} key="dialog" />;
+  };
 
   // fix issue #10656
   /*
-  * Custom container should not be return, because in the Portal component, it will remove the
-  * return container element here, if the custom container is the only child of it's component,
-  * like issue #10656, It will has a conflict with removeChild method in react-dom.
-  * So here should add a child (div element) to custom container.
-  * */
+   * Custom container should not be return, because in the Portal component, it will remove the
+   * return container element here, if the custom container is the only child of it's component,
+   * like issue #10656, It will has a conflict with removeChild method in react-dom.
+   * So here should add a child (div element) to custom container.
+   * */
   getContainer = () => {
     const container = document.createElement('div');
     if (this.props.getContainer) {
@@ -68,7 +60,7 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
       document.body.appendChild(container);
     }
     return container;
-  }
+  };
 
   render() {
     const { visible } = this.props;
@@ -84,7 +76,13 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
           getComponent={this.getComponent}
           getContainer={this.getContainer}
         >
-          {({ renderComponent, removeContainer }: { renderComponent: any, removeContainer: any }) => {
+          {({
+            renderComponent,
+            removeContainer
+          }: {
+            renderComponent: any;
+            removeContainer: any;
+          }) => {
             this.renderComponent = renderComponent;
             this.removeContainer = removeContainer;
             return null;
@@ -94,11 +92,7 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
     }
 
     if (visible || this._component) {
-      portal = (
-        <Portal getContainer={this.getContainer}>
-          {this.getComponent()}
-        </Portal>
-      );
+      portal = <Portal getContainer={this.getContainer}>{this.getComponent()}</Portal>;
     }
 
     return portal;

@@ -25,35 +25,36 @@ export default class Item extends React.Component<any, any> {
 
     const className = classNames({
       [`${prefixCls}-content-item`]: true,
-      [`${prefixCls}-content-item-disabled`]: item.disabled,
+      [`${prefixCls}-content-item-disabled`]: item.disabled
     });
 
     const listItem = (
-      <li
-        className={className}
-        title={renderedText}
-      >
-        <span className={`${prefixCls}-content-item-text`} onClick={item.disabled ? undefined : () => onClick(item, direction)}>
-          { mode === 'multiple' ? <Checkbox checked={checked} disabled={item.disabled} /> : null }
+      <li className={className} title={renderedText}>
+        <span
+          className={`${prefixCls}-content-item-text`}
+          onClick={item.disabled ? undefined : () => onClick(item, direction)}
+        >
+          {mode === 'multiple' ? <Checkbox checked={checked} disabled={item.disabled} /> : null}
           <span>{renderedEl}</span>
         </span>
-        {
-          mode === 'single' && direction === 'right' ?
-            <span className={`${prefixCls}-content-item-close`} onClick={item.disabled ? undefined : () => onClose(item)}>
-              <Icon type="close-modal-line"/>
-            </span>
-            : null
-        }
+        {mode === 'single' && direction === 'right' ? (
+          <span
+            className={`${prefixCls}-content-item-close`}
+            onClick={item.disabled ? undefined : () => onClose(item)}
+          >
+            <Icon type="close-modal-line" />
+          </span>
+        ) : null}
       </li>
     );
-    let children: JSX.Element | null = null;
+    let children: React.ReactNode | null = null;
     if (lazy) {
       const lazyProps = {
         height: 32,
         offset: 500,
         throttle: 0,
         debounce: false,
-        ...lazy,
+        ...lazy
       };
       children = <Lazyload {...lazyProps}>{listItem}</Lazyload>;
     } else {
@@ -63,4 +64,3 @@ export default class Item extends React.Component<any, any> {
     return children;
   }
 }
-

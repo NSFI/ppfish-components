@@ -1,14 +1,18 @@
 import * as React from 'react';
-import {SpinProps} from '../Spin';
-import {Store} from './createStore';
-import {RadioChangeEvent} from '../Radio';
-import {CheckboxChangeEvent} from '../Checkbox';
-import {PaginationConfig} from '../Pagination';
+import { SpinProps } from '../Spin';
+import { Store } from './createStore';
+import { RadioChangeEvent } from '../Radio';
+import { CheckboxChangeEvent } from '../Checkbox';
+import { PaginationConfig } from '../Pagination';
 
-export {PaginationConfig} from '../Pagination';
+export { PaginationConfig } from '../Pagination';
 
-export type CompareFn<T> = ((a: T, b: T, sortOrder?: 'ascend' | 'descend') => number);
-export type ColumnFilterItem = { text: string; value: string, children?: ColumnFilterItem[] };
+export type CompareFn<T> = (a: T, b: T, sortOrder?: 'ascend' | 'descend') => number;
+export type ColumnFilterItem = {
+  text: string;
+  value: string;
+  children?: ColumnFilterItem[];
+};
 
 export interface ColumnProps<T> {
   title?: React.ReactNode;
@@ -65,7 +69,12 @@ export interface TableLocale {
 }
 
 export type RowSelectionType = 'checkbox' | 'radio';
-export type SelectionSelectFn<T> = (record: T, selected: boolean, selectedRows: Object[], nativeEvent: Event) => any;
+export type SelectionSelectFn<T> = (
+  record: T,
+  selected: boolean,
+  selectedRows: Object[],
+  nativeEvent: Event
+) => any;
 
 export type TableSelectWay = 'onSelect' | 'onSelectMultiple' | 'onSelectAll' | 'onSelectInvert';
 
@@ -111,7 +120,12 @@ export interface TableProps<T> {
   activeRowByClick?: boolean;
   rowKey?: string | ((record: T, index: number) => string);
   rowClassName?: (record: T, index: number) => string;
-  expandedRowRender?: (record: T, index: number, indent: number, expanded: boolean) => React.ReactNode;
+  expandedRowRender?: (
+    record: T,
+    index: number,
+    indent: number,
+    expanded: boolean
+  ) => React.ReactNode;
   defaultExpandAllRows?: boolean;
   defaultExpandedRowKeys?: string[] | number[];
   expandedRowKeys?: string[] | number[];
@@ -120,9 +134,11 @@ export interface TableProps<T> {
   expandRowByClick?: boolean;
   onExpandedRowsChange?: (expandedRowKeys: string[] | number[]) => void;
   onExpand?: (expanded: boolean, record: T) => void;
-  onChange?: (pagination: PaginationConfig,
-              filters: Record<keyof T, string[]>,
-              sorter: SorterResult<T>,) => void;
+  onChange?: (
+    pagination: PaginationConfig,
+    filters: Record<keyof T, string[]>,
+    sorter: SorterResult<T>
+  ) => void;
   loading?: boolean | SpinProps;
   locale?: Object;
   indentSize?: number;
@@ -134,7 +150,7 @@ export interface TableProps<T> {
   showHeader?: boolean;
   footer?: (currentPageData: Object[]) => React.ReactNode;
   title?: (currentPageData: Object[]) => React.ReactNode;
-  scroll?: { x?: boolean | number | string, y?: boolean | number | string };
+  scroll?: { x?: boolean | number | string; y?: boolean | number | string };
   childrenColumnName?: string;
   bodyStyle?: React.CSSProperties;
   className?: string;

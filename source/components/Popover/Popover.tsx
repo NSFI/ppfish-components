@@ -15,7 +15,7 @@ export default class Popover extends React.Component<PopoverProps, {}> {
     trigger: 'hover' as TooltipTrigger,
     mouseEnterDelay: 0.1,
     mouseLeaveDelay: 0.1,
-    overlayStyle: {},
+    overlayStyle: {}
   };
 
   private tooltip: Tooltip;
@@ -29,31 +29,23 @@ export default class Popover extends React.Component<PopoverProps, {}> {
     warning(
       !('overlay' in this.props),
       'Popover[overlay] is removed, please use Popover[content] instead, ' +
-      'see: https://u.ant.design/popover-content',
+        'see: https://u.ant.design/popover-content'
     );
     return (
       <div>
         {title && <div className={`${prefixCls}-title`}>{title}</div>}
-        <div className={`${prefixCls}-inner-content`}>
-          {content}
-        </div>
+        <div className={`${prefixCls}-inner-content`}>{content}</div>
       </div>
     );
   }
 
   saveTooltip = (node: any) => {
     this.tooltip = node;
-  }
+  };
 
   render() {
     const props = { ...this.props };
     delete props.title;
-    return (
-      <Tooltip
-        {...props}
-        ref={this.saveTooltip}
-        overlay={this.getOverlay()}
-      />
-    );
+    return <Tooltip {...props} ref={this.saveTooltip} overlay={this.getOverlay()} />;
   }
 }

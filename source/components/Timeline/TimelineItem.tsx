@@ -14,21 +14,24 @@ export default class TimelineItem extends React.Component<TimeLineItemProps, any
   static defaultProps = {
     prefixCls: 'fishd-timeline',
     color: 'blue',
-    pending: false,
+    pending: false
   };
 
   render() {
     const { prefixCls, className, color = '', children, pending, dot, ...restProps } = this.props;
 
-    const itemClassName = classNames({
-      [`${prefixCls}-item`]: true,
-      [`${prefixCls}-item-pending`]: pending,
-    }, className);
+    const itemClassName = classNames(
+      {
+        [`${prefixCls}-item`]: true,
+        [`${prefixCls}-item-pending`]: pending
+      },
+      className
+    );
 
     const dotClassName = classNames({
       [`${prefixCls}-item-head`]: true,
       [`${prefixCls}-item-head-custom`]: dot,
-      [`${prefixCls}-item-head-${color}`]: true,
+      [`${prefixCls}-item-head-${color}`]: true
     });
 
     return (
@@ -36,13 +39,13 @@ export default class TimelineItem extends React.Component<TimeLineItemProps, any
         <div className={`${prefixCls}-item-tail`} />
         <div
           className={dotClassName}
-          style={{ borderColor: /blue|red|green/.test(color) ? undefined : color }}
+          style={{
+            borderColor: /blue|red|green/.test(color) ? undefined : color
+          }}
         >
           {dot}
         </div>
-        <div className={`${prefixCls}-item-content`}>
-          {children}
-        </div>
+        <div className={`${prefixCls}-item-content`}>{children}</div>
       </li>
     );
   }
