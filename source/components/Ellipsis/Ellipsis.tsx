@@ -1,117 +1,67 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Tooltip from '../Tooltip/index.tsx';
+import Tooltip, { TooltipProps } from '../Tooltip';
 import ResizeObserver from 'resize-observer-polyfill';
-
+import EllipsisText from './EllipsisText';
 /* eslint react/no-did-mount-set-state: 0 */
 /* eslint no-param-reassign: 0 */
 
+// @ts-ignore
 const isSupportLineClamp = document.body.style.webkitLineClamp !== undefined;
 
-export const getStrFullLength = (str = '') =>
-  str.split('').reduce((pre, cur) => {
-    const charCode = cur.charCodeAt(0);
-    if (charCode >= 0 && charCode <= 128) {
-      return pre + 1;
-    }
-    return pre + 2;
-  }, 0);
+interface EllipsisProps {
+  tooltip?: boolean;
+  tooltipProps?: TooltipProps;
+  length?: number;
+  lines?: number;
+  fullWidthRecognition?: boolean;
+  className?: string;
+  width?: number | string;
+  style?: React.CSSProperties;
+  prefix?: string;
+}
 
-export const cutStrByFullLength = (str = '', maxLength) => {
-  let showLength = 0;
-  return str.split('').reduce((pre, cur) => {
-    const charCode = cur.charCodeAt(0);
-    if (charCode >= 0 && charCode <= 128) {
-      showLength += 1;
-    } else {
-      showLength += 2;
-    }
-    if (showLength <= maxLength) {
-      return pre + cur;
-    }
-    return pre;
-  }, '');
-};
+interface EllipsisState {
+  text: string;
+  targetCount: number;
+  isEllipsisActive: boolean;
+}
 
-const EllipsisText = ({prefix, text, length, tooltip, fullWidthRecognition, tooltipProps, ...other}) => {
-  if (typeof text !== 'string') {
-    throw new Error('Ellipsis children must be string.');
-  }
-  const textLength = fullWidthRecognition ? getStrFullLength(text) : text.length;
-  if (textLength <= length || length < 0) {
-    return <span {...other}>{text}</span>;
-  }
-  const tail = '...';
-  let displayText;
-  if (length - tail.length <= 0) {
-    displayText = '';
-  } else {
-    displayText = fullWidthRecognition ? cutStrByFullLength(text, length) : text.slice(0, length);
-  }
-
-  if (tooltip) {
-    return (
-      <Tooltip
-        {...tooltipProps} 
-        overlayClassName={`${prefix}-tooltip`}
-        title={text}
-      >
-        <span>
-          {displayText}
-          {tail}
-        </span>
-      </Tooltip>
-    );
-  }
-
-  return (
-    <span {...other}>
-      {displayText}
-      {tail}
-    </span>
-  );
-};
-
-EllipsisText.propTypes = {
-  prefix: PropTypes.string,
-  text: PropTypes.string,
-  length: PropTypes.number,
-  tooltip: PropTypes.bool,
-  fullWidthRecognition: PropTypes.bool,
-  tooltipProps: PropTypes.object,
-};
-
-
-export default class Ellipsis extends Component {
-
+export default class Ellipsis extends React.Component<EllipsisProps, EllipsisState> {
   static defaultProps = {
     prefix: 'fishd-ellipsis',
     fullWidthRecognition: false,
     tooltip: true,
-    tooltipProps: {},
+    tooltipProps: {}
   };
 
   static propTypes = {
     prefix: PropTypes.string,
     lines: PropTypes.number,
-    width: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     length: PropTypes.number,
     tooltip: PropTypes.bool,
     tooltipProps: PropTypes.object,
     fullWidthRecognition: PropTypes.bool,
     className: PropTypes.string,
     style: PropTypes.object,
-    children: PropTypes.node,
+    children: PropTypes.node
   };
 
-  state = {
+  private node: HTMLElement | null;
+  private widthNode: HTMLElement | null;
+  private lineClampNode: HTMLElement | null;
+  private resizeObserver;
+  private shadowChildren;
+  private root;
+  private content;
+  private shadow;
+
+  state: Readonly<EllipsisState> = {
     text: '',
     targetCount: 0,
-    isEllipsisActive: false,
+    isEllipsisActive: false
   };
 
   componentDidMount() {
@@ -120,7 +70,7 @@ export default class Ellipsis extends Component {
     }
     // detect ellipsis active in width/lines mode
     if (this.props.width || this.props.lines) {
-      let target;
+      let target: HTMLElement | null;
       if (this.props.width) {
         target = this.widthNode;
       } else if (this.props.lines && isSupportLineClamp) {
@@ -141,7 +91,7 @@ export default class Ellipsis extends Component {
   }
 
   componentDidUpdate(perProps) {
-    const {lines, children} = this.props;
+    const { lines, children } = this.props;
     if (lines !== perProps.lines || children !== perProps.children) {
       this.computeLine();
     }
@@ -151,14 +101,14 @@ export default class Ellipsis extends Component {
     this.resizeObserver && this.resizeObserver.disconnect();
   }
 
-  detectEllipsisActive = (node) => {
+  detectEllipsisActive = (node: HTMLElement) => {
     this.setState({
       isEllipsisActive: node.offsetHeight < node.scrollHeight || node.offsetWidth < node.scrollWidth
     });
   };
 
   computeLine = () => {
-    const {lines} = this.props;
+    const { lines } = this.props;
     if (lines && !isSupportLineClamp) {
       const text = this.shadowChildren.innerText || this.shadowChildren.textContent;
       const lineHeight = parseInt(getComputedStyle(this.root).lineHeight, 10);
@@ -170,7 +120,7 @@ export default class Ellipsis extends Component {
       if (totalHeight <= targetHeight) {
         this.setState({
           text,
-          targetCount: text.length,
+          targetCount: text.length
         });
         return;
       }
@@ -183,7 +133,7 @@ export default class Ellipsis extends Component {
 
       this.setState({
         text,
-        targetCount: count,
+        targetCount: count
       });
     }
   };
@@ -244,7 +194,7 @@ export default class Ellipsis extends Component {
   };
 
   render() {
-    const {text, targetCount, isEllipsisActive} = this.state;
+    const { text, targetCount, isEllipsisActive } = this.state;
     const {
       children,
       lines,
@@ -262,7 +212,7 @@ export default class Ellipsis extends Component {
     const cls = classNames(`${prefix}-ellipsis`, className, {
       [`${prefix}-width-mode`]: width,
       [`${prefix}-line`]: lines && !isSupportLineClamp,
-      [`${prefix}-lineClamp`]: lines && isSupportLineClamp,
+      [`${prefix}-lineClamp`]: lines && isSupportLineClamp
     });
 
     // 一种限制都没有返回原值
@@ -277,13 +227,18 @@ export default class Ellipsis extends Component {
     // 宽度限制
     if (width) {
       const node = (
-        <span ref={node => this.widthNode = node} className={cls} {...restProps} style={{...style, maxWidth: width}}>
+        <span
+          ref={node => (this.widthNode = node)}
+          className={cls}
+          {...restProps}
+          style={{ ...style, maxWidth: width }}
+        >
           {children}
         </span>
       );
       return tooltip ? (
         <Tooltip
-          {...tooltipProps} 
+          {...tooltipProps}
           overlayClassName={`${prefix}-tooltip`}
           title={isEllipsisActive ? children : null}
         >
@@ -318,7 +273,7 @@ export default class Ellipsis extends Component {
       const style = `#${id}{-webkit-line-clamp:${lines};-webkit-box-orient: vertical;}`;
 
       const node = (
-        <div ref={node => this.lineClampNode = node} id={id} className={cls} {...restProps}>
+        <div ref={node => (this.lineClampNode = node)} id={id} className={cls} {...restProps}>
           <style>{style}</style>
           {children}
         </div>
@@ -326,7 +281,7 @@ export default class Ellipsis extends Component {
 
       return tooltip ? (
         <Tooltip
-          {...tooltipProps} 
+          {...tooltipProps}
           overlayClassName={`${prefix}-tooltip`}
           title={isEllipsisActive ? children : null}
         >
@@ -348,10 +303,7 @@ export default class Ellipsis extends Component {
       <div {...restProps} ref={this.handleRoot} className={cls}>
         <div ref={this.handleContent}>
           {tooltip ? (
-            <Tooltip 
-              overlayClassName={`${prefix}-tooltip`}
-              title={text}
-            >
+            <Tooltip overlayClassName={`${prefix}-tooltip`} title={text}>
               {childNode}
             </Tooltip>
           ) : (
