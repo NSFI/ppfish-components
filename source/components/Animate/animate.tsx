@@ -1,31 +1,58 @@
 import React, {
   Component,
-  Children
-} from 'react';
-import PropTypes from 'prop-types';
-import {
-  TransitionGroup
-} from 'react-transition-group';
-import AnimateChild from './child';
+  Children,
+  ReactNode,
+  ReactChild
+} from 'react'
+import PropTypes from 'prop-types'
+import { TransitionGroup } from 'react-transition-group'
+import AnimateChild from './child'
 
-const noop = () => {};
-const FirstChild = props => {
-  const childrenArray = React.Children.toArray(props.children);
-  return childrenArray[0] || null;
-};
+const noop = () => {}
+const FirstChild = (props) => {
+  const childrenArray = React.Children.toArray(props.children)
+  return childrenArray[0] || null
+}
 
-class Animate extends Component {
+export interface AnimateHooks {
+  beforeAppear?: () => void
+  onAppear?: (node?: HTMLElement) => void
+  afterAppear?: (node?: HTMLElement) => void
+
+  beforeEnter?: (node?: HTMLElement) => void
+  onEnter?: (node?: HTMLElement) => void
+  afterEnter?: (node?: HTMLElement) => void
+
+  beforeLeave?: (node?: HTMLElement) => void
+  afterLeave?: (node?: HTMLElement) => void
+  onLeave?: (node?: HTMLElement) => void
+}
+
+export type AnimateProps = {
+  animation:
+    | string
+    | {
+        appear: string
+        enter: string
+        leave: string
+      }
+  animationAppear: boolean
+  component: ReactNode | string
+  singleMode: boolean
+  children: ReactNode
+} & AnimateHooks
+
+export type KeyedReactNode = ReactChild & { key: any }
+
+class Animate extends Component<AnimateProps, any> {
   static propTypes = {
     animation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     animationAppear: PropTypes.bool,
-    component: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.string,
-    ]),
+    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     singleMode: PropTypes.bool,
     children: PropTypes.oneOfType([
       PropTypes.element,
-      PropTypes.arrayOf(PropTypes.element),
+      PropTypes.arrayOf(PropTypes.element)
     ]),
     beforeAppear: PropTypes.func,
     onAppear: PropTypes.func,
@@ -35,8 +62,8 @@ class Animate extends Component {
     afterEnter: PropTypes.func,
     beforeLeave: PropTypes.func,
     onLeave: PropTypes.func,
-    afterLeave: PropTypes.func,
-  };
+    afterLeave: PropTypes.func
+  }
 
   static defaultProps = {
     animationAppear: true,
@@ -50,8 +77,8 @@ class Animate extends Component {
     afterEnter: noop,
     beforeLeave: noop,
     onLeave: noop,
-    afterLeave: noop,
-  };
+    afterLeave: noop
+  }
 
   normalizeNames(names) {
     if (typeof names === 'string') {
@@ -61,8 +88,8 @@ class Animate extends Component {
         enter: `${names}-enter`,
         enterActive: `${names}-enter-active`,
         leave: `${names}-leave`,
-        leaveActive: `${names}-leave-active`,
-      };
+        leaveActive: `${names}-leave-active`
+      }
     }
     if (typeof names === 'object') {
       return {
@@ -71,8 +98,8 @@ class Animate extends Component {
         enter: `${names.enter}`,
         enterActive: `${names.enter}-active`,
         leave: `${names.leave}`,
-        leaveActive: `${names.leave}-active`,
-      };
+        leaveActive: `${names.leave}-active`
+      }
     }
   }
 
@@ -93,11 +120,12 @@ class Animate extends Component {
       onLeave,
       afterLeave,
       ...others
-    } = this.props;
+    } = this.props
 
-    const animateChildren = Children.map(children, child => {
+    const animateChildren = Children.map(children, (child: ReactNode) => {
       return (
         <AnimateChild
+          // @ts-ignore
           key={child.key}
           names={this.normalizeNames(animation)}
           onAppear={beforeAppear}
@@ -112,10 +140,10 @@ class Animate extends Component {
         >
           {child}
         </AnimateChild>
-      );
-    });
+      )
+    })
 
-    return ( 
+    return (
       <TransitionGroup
         appear={animationAppear}
         component={singleMode ? FirstChild : component}
@@ -123,8 +151,8 @@ class Animate extends Component {
       >
         {animateChildren}
       </TransitionGroup>
-    );
+    )
   }
 }
 
-export default Animate;
+export default Animate

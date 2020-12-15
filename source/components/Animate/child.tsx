@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
-import {
-  supportAni,
-  addClass,
-  removeClass,
-  guid
-} from '../../utils';
+import { supportAni, addClass, removeClass, guid } from '../../utils';
+import { AnimateHooks } from './animate';
 
 const noop = () => {};
 
-function off(node, eventName, callback, useCapture) {
+function off(
+  node: HTMLElement,
+  eventName: string,
+  callback: (e: Event) => void,
+  useCapture = false
+) {
   if (node.removeEventListener) {
-    node.removeEventListener(eventName, callback, useCapture || false);
+    node.removeEventListener(eventName, callback, useCapture);
   }
 }
 
-function on(node, eventName, callback, useCapture) {
+function on(
+  node: HTMLElement,
+  eventName: string,
+  callback: (e: Event) => void,
+  useCapture = false
+) {
   if (node.addEventListener) {
-    node.addEventListener(eventName, callback, useCapture || false);
+    node.addEventListener(eventName, callback, useCapture);
   }
 
   return {
-    off: () => off(node, eventName, callback, useCapture),
+    off: () => off(node, eventName, callback, useCapture)
   };
 }
 
@@ -39,7 +45,40 @@ function getStyleProperty(node, name) {
   return ret;
 }
 
-export default class AnimateChild extends Component {
+export type AnimationNames = {
+  appear: string;
+  appearActive: string;
+  enter: string;
+  enterActive: string;
+  leave: string;
+  leaveActive: string;
+};
+
+export type AnimateChildProps = { names: AnimationNames } & AnimateHooks & {
+    onAppearing?: (node?: HTMLElement) => void;
+    onAppeared?: (node?: HTMLElement) => void;
+    onEntering?: (node?: HTMLElement) => void;
+    onEntered?: (node?: HTMLElement) => void;
+    onExit?: (node?: HTMLElement) => void;
+    onExiting?: (node?: HTMLElement) => void;
+    onExited?: (node?: HTMLElement) => void;
+  };
+
+export interface AnimateChildState {
+  node: React.ReactNode;
+  endListeners: {
+    transitionend: [];
+    animationend: [];
+  };
+  timeoutMap: object;
+}
+
+export interface EndListeners {
+  transitionend: any[];
+  animationend: any[];
+}
+
+export default class AnimateChild extends React.Component<AnimateChildProps, AnimateChildState> {
   static propTypes = {
     names: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onAppear: PropTypes.func,
@@ -50,7 +89,7 @@ export default class AnimateChild extends Component {
     onEntered: PropTypes.func,
     onExit: PropTypes.func,
     onExiting: PropTypes.func,
-    onExited: PropTypes.func,
+    onExited: PropTypes.func
   };
 
   static defaultProps = {
@@ -62,14 +101,23 @@ export default class AnimateChild extends Component {
     onEntered: noop,
     onExit: noop,
     onExiting: noop,
-    onExited: noop,
+    onExited: noop
   };
+
+  endListeners: EndListeners = {
+    transitionend: [],
+    animationend: []
+  };
+  timeoutMap: {};
+  node: HTMLElement = null;
+  transitionOff: () => void;
+  animationOff: () => void;
 
   constructor(props) {
     super(props);
     this.endListeners = {
       transitionend: [],
-      animationend: [],
+      animationend: []
     };
     this.timeoutMap = {};
   }
@@ -82,7 +130,7 @@ export default class AnimateChild extends Component {
     });
     this.endListeners = {
       transitionend: [],
-      animationend: [],
+      animationend: []
     };
   }
 
@@ -104,41 +152,27 @@ export default class AnimateChild extends Component {
     };
   };
 
-  addEndListener = (node, done) => {
+  addEndListener = (node: any, done: any) => {
     if (supportAni.transition || supportAni.animation) {
       const id = guid();
 
       this.node = node;
       if (supportAni.transition) {
-        const transitionEndListener = this.generateEndListener(
-          node,
-          done,
-          'transitionend',
-          id
-        );
+        const transitionEndListener = this.generateEndListener(node, done, 'transitionend', id);
         on(node, 'transitionend', transitionEndListener);
         this.endListeners.transitionend.push(transitionEndListener);
       }
       if (supportAni.animation) {
-        const animationEndListener = this.generateEndListener(
-          node,
-          done,
-          'animationend',
-          id
-        );
+        const animationEndListener = this.generateEndListener(node, done, 'animationend', id);
         on(node, 'animationend', animationEndListener);
         this.endListeners.animationend.push(animationEndListener);
       }
 
       setTimeout(() => {
-        const transitionDelay =
-          parseFloat(getStyleProperty(node, 'transition-delay')) || 0;
-        const transitionDuration =
-          parseFloat(getStyleProperty(node, 'transition-duration')) || 0;
-        const animationDelay =
-          parseFloat(getStyleProperty(node, 'animation-delay')) || 0;
-        const animationDuration =
-          parseFloat(getStyleProperty(node, 'animation-duration')) || 0;
+        const transitionDelay = parseFloat(getStyleProperty(node, 'transition-delay')) || 0;
+        const transitionDuration = parseFloat(getStyleProperty(node, 'transition-duration')) || 0;
+        const animationDelay = parseFloat(getStyleProperty(node, 'animation-delay')) || 0;
+        const animationDuration = parseFloat(getStyleProperty(node, 'animation-duration')) || 0;
         const time = Math.max(
           transitionDuration + transitionDelay,
           animationDuration + animationDelay
@@ -164,10 +198,9 @@ export default class AnimateChild extends Component {
     });
   };
 
-  handleEnter = (node, isAppearing) => {
-    const {
-      names
-    } = this.props;
+  handleEnter = (node, isAppearing?: boolean) => {
+    const { names } = this.props;
+
     if (names) {
       this.removeClassNames(node, names);
       const className = isAppearing ? 'appear' : 'enter';
@@ -178,31 +211,28 @@ export default class AnimateChild extends Component {
     hook(node);
   };
 
-  handleEntering = (node, isAppearing) => {
+  handleEntering = (node, isAppearing?: boolean) => {
     setTimeout(() => {
-      const {
-        names
-      } = this.props;
+      const { names } = this.props;
+
       if (names) {
         const className = isAppearing ? 'appearActive' : 'enterActive';
         addClass(node, names[className]);
       }
 
-      const hook = isAppearing ?
-        this.props.onAppearing :
-        this.props.onEntering;
+      const hook = isAppearing ? this.props.onAppearing : this.props.onEntering;
       hook(node);
     }, 10);
   };
 
-  handleEntered = (node, isAppearing) => {
-    const {
-      names
-    } = this.props;
-    if (names) {
-      const classNames = isAppearing ?
-        [names.appear, names.appearActive] :
-        [names.enter, names.enterActive];
+  handleEntered = (node, isAppearing?: boolean) => {
+    const { names } = this.props;
+
+    if (names && typeof names === 'object') {
+      const classNames = isAppearing
+        ? [names.appear, names.appearActive]
+        : [names.enter, names.enterActive];
+
       classNames.forEach(className => {
         removeClass(node, className);
       });
@@ -212,10 +242,9 @@ export default class AnimateChild extends Component {
     hook(node);
   };
 
-  handleExit = (node) => {
-    const {
-      names
-    } = this.props;
+  handleExit = node => {
+    const { names } = this.props;
+
     if (names) {
       this.removeClassNames(node, names);
       addClass(node, names.leave);
@@ -224,11 +253,9 @@ export default class AnimateChild extends Component {
     this.props.onExit(node);
   };
 
-  handleExiting = (node) => {
+  handleExiting = node => {
     setTimeout(() => {
-      const {
-        names
-      } = this.props;
+      const { names } = this.props;
       if (names) {
         addClass(node, names.leaveActive);
       }
@@ -236,10 +263,9 @@ export default class AnimateChild extends Component {
     }, 10);
   };
 
-  handleExited = (node) => {
-    const {
-      names
-    } = this.props;
+  handleExited = node => {
+    const { names } = this.props;
+
     if (names) {
       [names.leave, names.leaveActive].forEach(className => {
         removeClass(node, className);
@@ -267,6 +293,7 @@ export default class AnimateChild extends Component {
     return (
       <Transition
         {...others}
+        timeout={0}
         onEnter={this.handleEnter}
         onEntering={this.handleEntering}
         onEntered={this.handleEntered}
