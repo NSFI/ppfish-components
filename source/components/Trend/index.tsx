@@ -1,10 +1,21 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../Icon/index.tsx';
+import Icon from '../Icon';
 import classNames from 'classnames';
 import './style/index.less';
 
-const Trend = (props) => {
+interface TrendProps {
+  className?: string;
+  style?: React.CSSProperties;
+  flag?: string;
+  size?: string;
+  value?: string;
+  colorful?: boolean;
+  reverseColor?: boolean;
+  children?: React.ReactChildren;
+}
+
+const Trend: React.SFC<TrendProps> = props => {
   const {
     colorful = true,
     reverseColor = false,
@@ -16,17 +27,22 @@ const Trend = (props) => {
     value,
     ...restProps
   } = props;
-  const cls = classNames('trend-item', {
-    'trend-item-grey': !colorful,
-    'reverse-color': reverseColor && colorful,
-    'normal': size=='normal',
-    'large': size=='large'
-  }, className);
+  const cls = classNames(
+    'trend-item',
+    {
+      'trend-item-grey': !colorful,
+      'reverse-color': reverseColor && colorful,
+      normal: size == 'normal',
+      large: size == 'large'
+    },
+    className
+  );
 
   const renderFlag = () => {
     if (!flag) return;
 
-    let iconType = null, mark = null;
+    let iconType = null,
+      mark = null;
     if (flag == 'up') {
       mark = '+';
       iconType = 'trendrise';
@@ -43,7 +59,12 @@ const Trend = (props) => {
   };
 
   return (
-    <div {...restProps} className={cls} title={typeof children === 'string' ? children : ''} style={style}>
+    <div
+      {...restProps}
+      className={cls}
+      title={typeof children === 'string' ? children : ''}
+      style={style}
+    >
       <span className="value">{children}</span>
       {renderFlag()}
     </div>
@@ -58,7 +79,7 @@ Trend.propTypes = {
   value: PropTypes.string,
   colorful: PropTypes.bool,
   reverseColor: PropTypes.bool,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default Trend;
