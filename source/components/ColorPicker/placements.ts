@@ -7,8 +7,8 @@ const placements = {
   topCenter: {
     points: ['bc', 'tc'],
     overflow: autoAdjustOverflow,
-    offset: [0, -8]
-  }
+    offset: [0, -8],
+  },
 };
 
 export default placements;

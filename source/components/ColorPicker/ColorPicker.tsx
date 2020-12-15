@@ -1,15 +1,16 @@
 import React from 'react';
-import {findDOMNode} from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
-import {KeyCode} from "../../utils";
+import { KeyCode } from '../../utils';
 import ColorPickerPanel from './Panel';
 import placements from './placements';
 import Color from './helpers/color';
-import QuickPanel from './QuickPanel';
+import QuickPanel, { ColorType } from './QuickPanel';
+import { ParamsColor } from './Params';
 
 function refFn(field, component) {
   this[field] = component;
@@ -19,10 +20,44 @@ function prevent(e) {
   e.preventDefault();
 }
 
-function noop() {
+function noop() {}
+
+export interface ColorPickerProps {
+  alpha?: number;
+  children?: React.ReactNode;
+  className?: string;
+  color?: string | ParamsColor | Color;
+  colorMap?: string[];
+  defaultAlpha?: number;
+  defaultColor?: string;
+  disabled?: boolean;
+  enableAlpha?: boolean;
+  enableHistory?: boolean;
+  maxHistory?: number;
+  mode?: 'RGB' | 'HSL' | 'HSB';
+  onChange?: (color: any) => void;
+  onVisibleChange?: (visible: boolean) => void;
+  prefixCls?: string;
+  quickMode?: boolean;
+  style?: React.CSSProperties;
+  popupStyle?: React.CSSProperties;
+  esc?: boolean;
+  transitionName?: string;
+  getPopupContainer?: () => HTMLElement;
+  align?: string;
+  animation?: string;
 }
 
-class ColorPicker extends React.Component {
+interface ColorPickerState {
+  visible?: boolean;
+  color?: string;
+  alpha?: number;
+  colorHistory?: ColorType[];
+}
+
+class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
+  static Panel = ColorPickerPanel;
+  static QuickPanel = QuickPanel;
 
   static propTypes = {
     alpha: PropTypes.number,
@@ -43,15 +78,25 @@ class ColorPicker extends React.Component {
     quickMode: PropTypes.bool,
     style: PropTypes.object,
     popupStyle: PropTypes.object,
-    esc: PropTypes.bool,
+    esc: PropTypes.bool
   };
 
   static defaultProps = {
-    children: <span className="fishd-color-picker-trigger"/>,
+    children: <span className="fishd-color-picker-trigger" />,
     className: '',
     colorMap: [
-      '#33bbff', '#337eff', '#8a73ff', '#bb67e6', '#f290b6', '#f24957',
-      '#cc613d', '#faa702', '#ffe500', '#aacc00', '#26bf40', '#3dd9af'
+      '#33bbff',
+      '#337eff',
+      '#8a73ff',
+      '#bb67e6',
+      '#f290b6',
+      '#f24957',
+      '#cc613d',
+      '#faa702',
+      '#ffe500',
+      '#aacc00',
+      '#26bf40',
+      '#3dd9af'
     ],
     defaultAlpha: 100,
     defaultColor: '#33bbff',
@@ -65,11 +110,15 @@ class ColorPicker extends React.Component {
     quickMode: false,
     style: {},
     popupStyle: {},
-    esc: true,
+    esc: true
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const newState = {};
+    const newState: {
+      color?: string;
+      alpha?: number;
+    } = {};
+
     if ('color' in nextProps) {
       newState.color = nextProps.color;
     }
@@ -82,9 +131,10 @@ class ColorPicker extends React.Component {
   constructor(props) {
     super(props);
 
-    const alpha = typeof props.alpha === 'undefined'
-      ? props.defaultAlpha
-      : Math.min(props.alpha, props.defaultAlpha);
+    const alpha =
+      typeof props.alpha === 'undefined'
+        ? props.defaultAlpha
+        : Math.min(props.alpha, props.defaultAlpha);
 
     this.state = {
       color: props.color || props.defaultColor,
@@ -96,22 +146,24 @@ class ColorPicker extends React.Component {
     this.saveTriggerRef = refFn.bind(this, 'triggerInstance');
   }
 
-  onChange = (colors) => {
-    this.setState({...colors}, () => {
-        this.props.onChange(this.state);
-      },
-    );
+  saveTriggerRef: HTMLElement | null;
+  triggerInstance: any;
+
+  onChange = colors => {
+    this.setState({ ...colors }, () => {
+      this.props.onChange(this.state);
+    });
   };
 
   onBlur = () => {
     this.setVisible(false);
   };
 
-  onVisibleChangeFromTrigger = (visible) => {
+  onVisibleChangeFromTrigger = visible => {
     this.setVisible(visible);
   };
 
-  onPanelMount = (panelDOMRef) => {
+  onPanelMount = panelDOMRef => {
     if (this.state.visible) {
       setTimeout(() => {
         panelDOMRef.focus();
@@ -119,23 +171,33 @@ class ColorPicker extends React.Component {
     }
   };
 
-  setVisible = (visible, callback) => {
+  setVisible = (visible: boolean, callback?: any) => {
     if (this.state.visible !== visible) {
-      this.setState({visible}, () => {
-          if (typeof callback === 'function') callback();
-          const {onVisibleChange, enableHistory, maxHistory} = this.props;
-          onVisibleChange(this.state.visible);
-          //关闭时记录历史记录
-          if (!this.state.visible && enableHistory) {
-            const {color, alpha, colorHistory} = this.state;
-            if (colorHistory.length && color === colorHistory[0].color && alpha === colorHistory[0].alpha) return;
-            this.setState({
-              colorHistory: colorHistory.length >= maxHistory ?
-                [{color, alpha}, ...colorHistory.slice(0, -1)] : [{color, alpha}, ...colorHistory]
-            });
-          }
-        },
-      );
+      this.setState({ visible }, () => {
+        if (typeof callback === 'function') callback();
+        const { onVisibleChange, enableHistory, maxHistory } = this.props;
+        onVisibleChange(this.state.visible);
+        //关闭时记录历史记录
+        if (!this.state.visible && enableHistory) {
+          const { color, alpha, colorHistory } = this.state;
+
+          // @ts-ignore
+          if (
+            colorHistory.length &&
+            color === colorHistory[0].color &&
+            alpha === colorHistory[0].alpha
+          )
+            return;
+
+          const history =
+            colorHistory.length >= maxHistory
+              ? [{ color, alpha }, ...colorHistory.slice(0, -1)]
+              : [{ color, alpha }, ...colorHistory];
+
+          // @ts-ignore
+          this.setState({ colorHistory: history });
+        }
+      });
     }
   };
 
@@ -185,11 +247,11 @@ class ColorPicker extends React.Component {
 
   focus = () => {
     if (!this.state.visible) {
-      findDOMNode(this).focus();
+      (findDOMNode(this) as HTMLElement).focus();
     }
   };
 
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     const keyCode = e.keyCode;
     if ((keyCode === KeyCode.ESC && this.props.esc) || keyCode === KeyCode.ENTER) {
       this.setVisible(false);
@@ -212,14 +274,14 @@ class ColorPicker extends React.Component {
     RGBA.push(this.state.alpha / 100);
 
     if (children) {
-      children = React.cloneElement(children, {
+      children = React.cloneElement(children as React.ReactElement<any>, {
         ref: this.saveTriggerRef,
         unselectable: 'unselectable',
         style: {
           ...props.style,
-          backgroundColor: `rgba(${RGBA.join(',')})`,
+          backgroundColor: `rgba(${RGBA.join(',')})`
         },
-        onMouseDown: prevent,
+        onMouseDown: prevent
       });
     }
 
@@ -231,12 +293,12 @@ class ColorPicker extends React.Component {
       animation,
       disabled,
       transitionName,
-      quickMode,
+      quickMode
     } = props;
 
     const arrowCls = classNames({
       [`${prefixCls}-arrow`]: true,
-      'quick': quickMode
+      quick: quickMode
     });
 
     return (
@@ -244,10 +306,8 @@ class ColorPicker extends React.Component {
         <Trigger
           popup={
             <div className={`${prefixCls}-content`} onKeyDown={this.handleKeyDown}>
-              <div className={arrowCls}/>
-              <div className={`${prefixCls}-inner`}>
-                {this.getPickerElement()}
-              </div>
+              <div className={arrowCls} />
+              <div className={`${prefixCls}-inner`}>{this.getPickerElement()}</div>
             </div>
           }
           popupAlign={align}

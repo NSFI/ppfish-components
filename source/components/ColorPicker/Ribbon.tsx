@@ -1,16 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { ParamsColor } from './Params';
+import Color from './helpers/color';
 
-export default class Ribbon extends React.Component {
+interface RibbtonProps {
+  color?: string | ParamsColor | Color;
+  onChange?: (color: ParamsColor) => void;
+  rootPrefixCls?: string;
+}
 
+export default class Ribbon extends React.Component<RibbtonProps> {
   static propTypes = {
     color: PropTypes.object,
     onChange: PropTypes.func,
-    rootPrefixCls: PropTypes.string,
+    rootPrefixCls: PropTypes.string
   };
 
-  constructor(props) {
+  constructor(props: RibbtonProps) {
     super(props);
   }
 
@@ -24,7 +31,7 @@ export default class Ribbon extends React.Component {
 
     this.pointMoveTo({
       x,
-      y,
+      y
     });
 
     window.addEventListener('mousemove', this.onDrag);
@@ -36,7 +43,7 @@ export default class Ribbon extends React.Component {
     const y = e.clientY;
     this.pointMoveTo({
       x,
-      y,
+      y
     });
   };
 
@@ -45,7 +52,7 @@ export default class Ribbon extends React.Component {
     const y = e.clientY;
     this.pointMoveTo({
       x,
-      y,
+      y
     });
     this.removeListeners();
   };
@@ -55,7 +62,7 @@ export default class Ribbon extends React.Component {
   };
 
   pointMoveTo = coords => {
-    const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
+    const rect = (ReactDOM.findDOMNode(this) as HTMLElement).getBoundingClientRect();
     const width = rect.width;
     let left = coords.x - rect.left;
     left = Math.max(0, left);
@@ -64,7 +71,7 @@ export default class Ribbon extends React.Component {
     const huePercent = left / width;
     const hue = huePercent * 360;
 
-    const {color} = this.props;
+    const { color } = this.props;
 
     color.hue = hue;
 
@@ -79,12 +86,12 @@ export default class Ribbon extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
     const hue = this.props.color.hue;
-    const per = hue / 360 * 100;
+    const per = (hue / 360) * 100;
 
     return (
       <div className={prefixCls}>
-        <span ref="point" style={{left: `${per}%`}}/>
-        <div className={`${prefixCls}-handler`} onMouseDown={this.onMouseDown}/>
+        <span ref="point" style={{ left: `${per}%` }} />
+        <div className={`${prefixCls}-handler`} onMouseDown={this.onMouseDown} />
       </div>
     );
   }

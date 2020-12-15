@@ -1,15 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 import Color from './helpers/color';
 import percentage from './helpers/percentage';
 
 const modesMap = ['RGB', 'HSB'];
 
-class Params extends React.Component {
+export type ParamsColor = {
+  hue?: number;
+  saturation?: number;
+  brightness?: number;
+  hex?: string;
+  red?: number;
+  green?: number;
+  blue?: number;
+  alpha?: number;
 
+  toHexString: () => string;
+};
+
+interface ParamsProps {
+  alpha?: number;
+  color?: string | ParamsColor | Color;
+  enableAlpha?: boolean;
+  enableHistory?: boolean;
+  mode?: string;
+  onAlphaChange?: (alpha: number) => void;
+  onChange?: (value: any, flag: boolean) => void;
+  rootPrefixCls?: string;
+}
+
+interface ParamsState {
+  mode: string;
+  hex: string;
+  color: object;
+}
+
+class Params extends React.Component<ParamsProps, ParamsState> {
   static propTypes = {
     alpha: PropTypes.number,
     color: PropTypes.object.isRequired,
@@ -18,16 +47,20 @@ class Params extends React.Component {
     mode: PropTypes.oneOf(modesMap),
     onAlphaChange: PropTypes.func,
     onChange: PropTypes.func,
-    rootPrefixCls: PropTypes.string,
+    rootPrefixCls: PropTypes.string
   };
 
   static defaultProps = {
     mode: modesMap[0],
-    enableAlpha: true,
+    enableAlpha: true
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const newState = {};
+    const newState: {
+      color?: string;
+      hex?: string;
+    } = {};
+
     if ('color' in nextProps) {
       newState.color = nextProps.color;
       newState.hex = nextProps.color.hex;
@@ -35,21 +68,29 @@ class Params extends React.Component {
     return newState;
   }
 
-  constructor(props) {
+  constructor(props: ParamsProps) {
     super(props);
 
     // 管理 input 的状态
     this.state = {
       mode: props.mode,
       hex: props.color.hex,
-      color: props.color, // instanceof tinycolor
+      color: props.color // instanceof tinycolor
     };
   }
 
   getChannelInRange = (value, index) => {
     const channelMap = {
-      RGB: [[0, 255], [0, 255], [0, 255]],
-      HSB: [[0, 359], [0, 100], [0, 100]],
+      RGB: [
+        [0, 255],
+        [0, 255],
+        [0, 255]
+      ],
+      HSB: [
+        [0, 359],
+        [0, 100],
+        [0, 100]
+      ]
     };
     const mode = this.state.mode;
     const range = channelMap[mode][index];
@@ -78,7 +119,7 @@ class Params extends React.Component {
     if (color !== null) {
       this.setState({
         color,
-        hex,
+        hex
       });
       this.props.onChange(color, false);
     }
@@ -96,7 +137,7 @@ class Params extends React.Component {
       if (color !== null) {
         this.setState({
           color,
-          hex,
+          hex
         });
         this.props.onChange(color, false);
       }
@@ -107,7 +148,7 @@ class Params extends React.Component {
     const hex = event.target.value;
 
     this.setState({
-      hex,
+      hex
     });
   };
 
@@ -119,7 +160,7 @@ class Params extends React.Component {
     mode = modesMap[modeIndex];
 
     this.setState({
-      mode,
+      mode
     });
   };
 
@@ -135,9 +176,9 @@ class Params extends React.Component {
     this.props.onAlphaChange(alpha);
   };
 
-  updateColorByChanel = (channel, value) => {
-    const {color} = this.props;
-    const {mode} = this.state;
+  updateColorByChanel = (channel, value): ParamsColor => {
+    const { color } = this.props;
+    const { mode } = this.state;
 
     if (mode === 'HSB') {
       if (channel === 'H') {
@@ -162,7 +203,7 @@ class Params extends React.Component {
 
   handleColorChannelChange = (index, event) => {
     const value = this.getChannelInRange(event.target.value, index);
-    const {mode} = this.state;
+    const { mode } = this.state;
     const channel = mode[index];
 
     const color = this.updateColorByChanel(channel, value);
@@ -170,7 +211,7 @@ class Params extends React.Component {
     this.setState(
       {
         hex: color.hex,
-        color,
+        color
       },
       () => {
         this.props.onChange(color, false);
@@ -181,8 +222,8 @@ class Params extends React.Component {
   render() {
     const prefixCls = this.getPrefixCls();
 
-    const {enableAlpha, enableHistory} = this.props;
-    const {mode, color} = this.state;
+    const { enableAlpha, enableHistory } = this.props;
+    const { mode, color } = this.state;
     const colorChannel = color[mode];
 
     if (mode === 'HSB') {
@@ -194,7 +235,7 @@ class Params extends React.Component {
     const paramsClasses = classNames({
       [prefixCls]: true,
       [`${prefixCls}-has-history`]: enableHistory,
-      [`${prefixCls}-has-alpha`]: enableAlpha,
+      [`${prefixCls}-has-alpha`]: enableAlpha
     });
 
     return (
@@ -203,7 +244,7 @@ class Params extends React.Component {
           <input
             className={`${prefixCls}-hex`}
             type="text"
-            maxLength="6"
+            maxLength={6}
             onKeyPress={this.handleHexPress}
             onBlur={this.handleHexBlur}
             onChange={this.handleHexChange}
