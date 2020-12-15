@@ -1,23 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Button from '../Button/index.tsx';
-
+import Button from '../Button';
 import './style/index.less';
 
-const noop = () => {
-};
+const noop = () => {};
 
-export default class LoadMore extends React.Component {
+interface LoadMoreProps {
+  buttonSize: 'small' | 'default' | 'large';
+  className: string;
+  defaultText: string | React.ReactNode;
+  onLoadMore: () => void;
+  endText: string | React.ReactNode;
+  errorText: string | React.ReactNode;
+  loadingText: string | React.ReactNode;
+  status: string;
+  extraCls: string;
+}
+
+export default class LoadMore extends React.Component<LoadMoreProps> {
   static propTypes = {
     onLoadMore: PropTypes.func,
+    className: PropTypes.string,
     status: PropTypes.string,
     defaultText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     loadingText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     errorText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     endText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     extraCls: PropTypes.string,
-    buttonSize: PropTypes.string,
+    buttonSize: PropTypes.string
   };
 
   static defaultProps = {
@@ -27,17 +38,24 @@ export default class LoadMore extends React.Component {
     loadingText: '加载中',
     errorText: '加载失败，请重试',
     endText: '没有更多了',
-    buttonSize: 'default',
+    buttonSize: 'default'
   };
 
-  constructor(props) {
+  constructor(props: LoadMoreProps) {
     super(props);
   }
 
   render() {
     const {
-      defaultText, onLoadMore, status, buttonSize, loadingText,
-      errorText, endText, extraCls, ...otherProps
+      defaultText,
+      onLoadMore,
+      status,
+      buttonSize,
+      loadingText,
+      errorText,
+      endText,
+      extraCls,
+      ...otherProps
     } = this.props;
     let buttonText;
     switch (status) {
@@ -54,13 +72,23 @@ export default class LoadMore extends React.Component {
         buttonText = endText;
     }
     return (
-      <div className={classNames('fishd-loadmore', {[`${extraCls}`]: !!extraCls})}>
-        {status === 'end' ?
-          <span className="z-load-end">{endText}</span> :
-          <Button size={buttonSize} onClick={onLoadMore} loading={status === 'loading'} {...otherProps}>
+      <div
+        className={classNames('fishd-loadmore', {
+          [`${extraCls}`]: !!extraCls
+        })}
+      >
+        {status === 'end' ? (
+          <span className="z-load-end">{endText}</span>
+        ) : (
+          <Button
+            size={buttonSize}
+            onClick={onLoadMore}
+            loading={status === 'loading'}
+            {...otherProps}
+          >
             {buttonText}
           </Button>
-        }
+        )}
       </div>
     );
   }
