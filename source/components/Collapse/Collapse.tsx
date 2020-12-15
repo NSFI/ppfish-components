@@ -1,9 +1,9 @@
-import React, { Component, Children } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import {polyfill} from 'react-lifecycles-compat';
+import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
 
-import CollapsePanel from "./Panel";
+import CollapsePanel from './Panel';
 
 function toArray(activeKey) {
   let currentActiveKey = activeKey;
@@ -12,19 +12,36 @@ function toArray(activeKey) {
   }
   return currentActiveKey;
 }
-class Collapse extends Component {
+
+export type KeyedReactChild = { key: any; props: any } & React.ReactChild;
+
+export interface CollapseProps {
+  prefixCls: string;
+  className: string;
+  defaultActiveKey: string | string[];
+  activeKey: string | string[];
+  isScrollToHeader: boolean;
+  accordion: boolean;
+  showClose: boolean;
+  bordered: boolean;
+  onChange: (value: string) => void;
+  close: (e) => void;
+  statusList: any[];
+}
+
+export interface CollapseState {
+  activeKey: string | string[];
+  statusList: any[];
+  prevProps?: CollapseProps;
+}
+
+class Collapse extends Component<CollapseProps, CollapseState> {
   static propTypes = {
     children: PropTypes.node,
     prefixCls: PropTypes.string,
     className: PropTypes.string,
-    defaultActiveKey: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
-    ]),
-    activeKey: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
-    ]),
+    defaultActiveKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     // 是否开启功能：点击header后将header置顶
     isScrollToHeader: PropTypes.bool,
     // 是否开启功能：手风琴效果，既每次点击header只展开一项
@@ -39,44 +56,53 @@ class Collapse extends Component {
     close: PropTypes.func
   };
 
+  // class fields
+  collapse: HTMLElement = null;
+
   static defaultProps = {
-    prefixCls: "fishd-collapse",
+    prefixCls: 'fishd-collapse',
     isScrollToHeader: false,
     accordion: false,
     showClose: false,
     bordered: true,
-    onChange() {},
-    close() {}
+    onChange(value) {},
+    close(e: React.MouseEvent) {}
   };
 
   static Panel = CollapsePanel;
 
-  static getDerivedStateFromProps(nextProps,prevState){
-    const {prevProps = {}}=prevState;
-    const newState={
-      prevProps:nextProps,
+  static getDerivedStateFromProps(nextProps: CollapseProps, prevState: CollapseState) {
+    const { prevProps } = prevState;
+    const newState: CollapseState = {
+      prevProps: nextProps,
+      activeKey: '',
+      statusList: []
     };
-    if('activeKey' in nextProps){
+    if ('activeKey' in nextProps) {
       newState.activeKey = toArray(nextProps.activeKey);
     }
-    if(nextProps.statusList !== prevProps.statusList){
+    if (nextProps.statusList !== prevProps.statusList) {
       newState.statusList = nextProps.statusList;
     }
     return newState;
   }
 
+  // class fields
+  currentKey = null;
+
   constructor(props) {
     super(props);
     const { activeKey, defaultActiveKey, statusList } = props;
     let currentActiveKey = defaultActiveKey;
-    if ("activeKey" in props) {
+    if ('activeKey' in props) {
       currentActiveKey = activeKey;
     }
     this.state = {
       // 已激活面板的key
       activeKey: toArray(currentActiveKey),
-      statusList: statusList || new Array(this.props.children.length).fill(true),
-      prevProps:props,
+      statusList:
+        statusList || new Array((this.props.children as React.ReactNode[]).length).fill(true),
+      prevProps: props
     };
     // 当前点击的key
     this.currentKey = null;
@@ -93,6 +119,7 @@ class Collapse extends Component {
       if (this.props.accordion) {
         activeKey = activeKey[0] === key ? [] : [key];
       } else {
+        // @ts-ignore
         activeKey = [...activeKey];
         const index = activeKey.indexOf(key);
         const isActive = index > -1;
@@ -112,7 +139,7 @@ class Collapse extends Component {
   onCloseItem(key) {
     return () => {
       const { children, statusList } = this.props;
-      const keyList = Children.map(children, (child, index) => {
+      const keyList = Children.map(children, (child: KeyedReactChild, index) => {
         return child.key || String(index);
       });
       const index = keyList.findIndex(item => {
@@ -126,7 +153,7 @@ class Collapse extends Component {
   getItems() {
     const activeKey = this.state.activeKey;
     const { prefixCls, accordion, showClose } = this.props;
-    return Children.map(this.props.children, (child, index) => {
+    return Children.map(this.props.children, (child: KeyedReactChild, index) => {
       if (!this.state.statusList[index]) {
         return null;
       }
@@ -151,12 +178,12 @@ class Collapse extends Component {
         onCloseItem: this.onCloseItem(key).bind(this)
       };
 
-      return React.cloneElement(child, props);
+      return React.cloneElement(child as React.ReactElement<any>, props);
     });
   }
 
   setActiveKey(activeKey) {
-    if (!("activeKey" in this.props)) {
+    if (!('activeKey' in this.props)) {
       this.setState({
         activeKey
       });
@@ -197,14 +224,10 @@ class Collapse extends Component {
       clsObj[`${prefixCls}-borderless`] = true;
     }
     if (isScrollToHeader) {
-      style = { overflowY: "auto", overflowX: "hidden" };
+      style = { overflowY: 'auto', overflowX: 'hidden' };
     }
     return (
-      <div
-        className={classNames(clsObj)}
-        ref={node => (this.collapse = node)}
-        style={style}
-      >
+      <div className={classNames(clsObj)} ref={node => (this.collapse = node)} style={style}>
         {this.getItems()}
       </div>
     );
