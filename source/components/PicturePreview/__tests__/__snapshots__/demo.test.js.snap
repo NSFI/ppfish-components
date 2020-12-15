@@ -77,7 +77,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
           class="canvas"
         >
           <img
-            active="true"
             alt="pic1"
             class="img"
             src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
@@ -211,7 +210,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
           class="canvas"
         >
           <img
-            active="true"
             alt="pic1"
             class="img"
             src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
@@ -345,7 +343,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
           class="canvas"
         >
           <img
-            active="true"
             alt="pic1"
             class="img"
             src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
@@ -472,7 +469,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
         class="canvas"
       >
         <img
-          active="true"
           alt="pic1"
           class="img"
           src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
@@ -605,7 +601,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
           class="canvas"
         >
           <img
-            active="true"
             alt="pic1"
             class="img"
             src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"

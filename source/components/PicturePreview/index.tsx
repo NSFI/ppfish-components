@@ -2,25 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
-import {polyfill} from 'react-lifecycles-compat';
-import Icon from '../Icon/index.tsx';
-import {
-  fullscreen,
-  exitfullscreen,
-  KeyCode,
-  getStyle
-} from '../../utils';
+import { polyfill } from 'react-lifecycles-compat';
+import Icon from '../Icon';
+import { fullscreen, exitfullscreen, KeyCode, getStyle } from '../../utils';
 import './style/index.less';
 
-let conMaxWidth = 1024, conMaxHeight = 768;
-const CON_MAX_WIDTH = conMaxWidth > window.innerWidth ? window.innerWidth : conMaxWidth, //容器最大宽度
-  CON_MIN_WIDTH = 360, //容器最小宽度
-  CON_MAX_HEIGHT = conMaxHeight > window.innerHeight ? window.innerHeight : conMaxHeight, //容器最大高度
-  CON_MIN_HEIGHT = 360, //容器最小高度
-  MAX_RATIO = 2, //最大的图片显示比例
-  MIN_RATIO = 0.1, //最小的图片显示比例
-  STEP_RATIO = 0.1, //图片缩放比例步长
-  DEFAULT_RATIO = 0.8; //默认的图片显示比例
+let conMaxWidth = 1024;
+let conMaxHeight = 768;
+const CON_MAX_WIDTH = conMaxWidth > window.innerWidth ? window.innerWidth : conMaxWidth; //容器最大宽度
+const CON_MIN_WIDTH = 360; //容器最小宽度
+const CON_MAX_HEIGHT = conMaxHeight > window.innerHeight ? window.innerHeight : conMaxHeight; //容器最大高度
+const CON_MIN_HEIGHT = 360; //容器最小高度
+const MAX_RATIO = 2; //最大的图片显示比例
+const MIN_RATIO = 0.1; //最小的图片显示比例
+const STEP_RATIO = 0.1; //图片缩放比例步长
+const DEFAULT_RATIO = 0.8; //默认的图片显示比例
 
 function num2px(num) {
   return parseInt(num, 10) + 'px';
@@ -46,22 +42,80 @@ const setStyle = (el, css) => {
   }
 };
 
-const getImageSize = function(image, callback, scope) {
+const getImageSize = function (
+  image: ImageItem & HTMLImageElement,
+  callback: (naturalWidth: number, naturalHeight: number) => void,
+  scope?: any
+) {
   let newImage;
   if (!image.src) {
     callback.call(scope, 0, 0);
-  } else if (image.naturalWidth) {    // 现代浏览器
+  } else if (image.naturalWidth) {
+    // 现代浏览器
     callback.call(scope, image.naturalWidth, image.naturalHeight);
-  } else {    // 低版本浏览器
+  } else {
+    // 低版本浏览器
     newImage = document.createElement('img');
-    newImage.onload = function() {
+    newImage.onload = function () {
       callback.call(scope, this.width, this.height);
     };
     newImage.src = image.src;
   }
 };
 
-class PicturePreview extends Component {
+type ImageItem = {
+  rotateValue?: number;
+  src?: string;
+  alt?: string;
+  name?: string;
+};
+
+interface PicturePreviewProps {
+  activeIndex?: number;
+  className?: string;
+  draggable?: boolean;
+  esc?: boolean;
+  mask?: boolean;
+  onClose?: () => void;
+  progress?: boolean;
+  source?: ImageItem[];
+  style?: React.CSSProperties;
+  toolbar?: boolean;
+  visible?: boolean;
+  prefixCls?: string;
+  children?: React.ReactNode;
+}
+
+interface PicturePreviewState {
+  lastActiveIndex: number; // 初始展示的图片的index
+  current: number; // 当前浏览的图片的index
+  lastVisible: boolean; // 初始显示/隐藏状态
+  show: boolean;
+  imgs: ImageItem[];
+  container: {
+    rect?: {
+      left: number;
+      top: number;
+    };
+    startX?: number;
+    startY?: number;
+    style?: { [key: string]: any };
+    isFull?: boolean; //是否全屏
+  };
+  image: {
+    el: null;
+    startX: number;
+    startY: number;
+    marginL: number;
+    marginT: number;
+    naturalWidth: number;
+    naturalHeight: number;
+    ratio: number; //图片的缩放比例
+  };
+  shown: boolean; //标记是否显示过，第一次显示时居中显示
+}
+
+class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState> {
   static propTypes = {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
@@ -75,7 +129,7 @@ class PicturePreview extends Component {
     progress: PropTypes.bool,
     visible: PropTypes.bool,
     activeIndex: PropTypes.number,
-    onClose: PropTypes.func,
+    onClose: PropTypes.func
   };
 
   static defaultProps = {
@@ -88,21 +142,15 @@ class PicturePreview extends Component {
     progress: false,
     visible: false,
     activeIndex: 0,
-    onClose: () => {},
+    onClose: () => {}
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const {
-      current, imgs,
-      lastActiveIndex,
-      lastVisible
-    } = prevState;
-    const {
-      activeIndex,
-      visible,
-      source,
-      children
-    } = nextProps;
+  static getDerivedStateFromProps: React.GetDerivedStateFromProps<
+    PicturePreviewProps,
+    PicturePreviewState
+  > = (nextProps, prevState) => {
+    const { current, imgs, lastActiveIndex, lastVisible } = prevState;
+    const { activeIndex, visible, source, children } = nextProps;
     let newState = {};
 
     if (visible !== lastVisible) {
@@ -123,8 +171,11 @@ class PicturePreview extends Component {
     } else if (children) {
       let imgList = [];
 
-      imgList = React.Children.map(children, (child) => {
-        let img = {};
+      imgList = React.Children.map(children, (child: React.ReactElement<HTMLImageElement>) => {
+        let img = {
+          name: '',
+          src: ''
+        };
 
         if (child.type === 'img') {
           img.name = child.props.name || child.props.alt;
@@ -132,73 +183,89 @@ class PicturePreview extends Component {
         }
 
         return img;
-      }).filter((item) => item);
+      }).filter(item => item);
 
       newState['imgs'] = imgList;
     }
 
     return newState;
-  }
+  };
 
-  constructor(props) {
+  imgEl: ImageItem & HTMLImageElement = null;
+  downloadImgUrl: string = null;
+  moving: string = ''; //'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
+  bodyDefaultOverflow: string;
+  $el: HTMLElement | null;
+  $root: HTMLElement | null;
+
+  constructor(props: PicturePreviewProps) {
     super(props);
 
     if ('keyboard' in this.props) {
       throw new Error(`API 'keyboard' is deprecated. Use 'esc' instead.`);
     }
 
-    this.imgEl = null;
-    this.downloadImgUrl = null;
-    this.moving = ''; //'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
     this.state = {
-      lastActiveIndex: props.activeIndex || 0,  // 初始展示的图片的index
-      current: props.activeIndex || 0,          // 当前浏览的图片的index
-      lastVisible: props.visible || false,      // 初始显示/隐藏状态
+      lastActiveIndex: props.activeIndex || 0, // 初始展示的图片的index
+      current: props.activeIndex || 0, // 当前浏览的图片的index
+      lastVisible: props.visible || false, // 初始显示/隐藏状态
       show: props.visible || false,
       imgs: props.source || [],
       container: {
+        rect: {
+          left: 0,
+          top: 0
+        },
+        startX: 0,
+        startY: 0,
         style: null,
         isFull: false //是否全屏
       },
       image: {
         el: null,
-        ratio: 0 //图片的缩放比例
+        ratio: 0, //图片的缩放比例
+        startX: 0,
+        startY: 0,
+        marginL: 0,
+        marginT: 0,
+        naturalWidth: 0,
+        naturalHeight: 0
       },
-      shown: false, //标记是否显示过，第一次显示时居中显示
+      shown: false //标记是否显示过，第一次显示时居中显示
     };
 
     this.bodyDefaultOverflow = document.body.style.overflow;
   }
 
   componentDidMount() {
-    let { draggable, toolbar, mask } = this.props,
-      el = mask === false ? this.$el : this.$root;
+    let { draggable, toolbar, mask } = this.props;
+    let el = mask === false ? this.$el : this.$root;
 
     document.body.appendChild(el);
     this.setContainerStyle();
 
     if (toolbar && this.$el) {
       // 监听全屏事件
-      this.$el.addEventListener("fullscreenchange", this.handleFullChange);
-      this.$el.addEventListener("mozfullscreenchange", this.handleFullChange);
-      this.$el.addEventListener("webkitfullscreenchange", this.handleFullChange);
+      this.$el.addEventListener('fullscreenchange', this.handleFullChange);
+      this.$el.addEventListener('mozfullscreenchange', this.handleFullChange);
+      this.$el.addEventListener('webkitfullscreenchange', this.handleFullChange);
     }
 
     if (draggable) {
       // 监听拖动事件
-      document.addEventListener("mousemove", this.handleMouseMove);
-      document.addEventListener("mouseup", this.handleMouseUp);
+      document.addEventListener('mousemove', this.handleMouseMove);
+      document.addEventListener('mouseup', this.handleMouseUp);
     }
 
     if (mask) {
-      document.addEventListener("keydown", this.handleKeyDown); 
+      document.addEventListener('keydown', this.handleKeyDown);
     } else {
-      this.$el.addEventListener("keydown", this.handleKeyDown);
+      this.$el.addEventListener('keydown', this.handleKeyDown);
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    let { current,show } = this.state;
+    let { current, show } = this.state;
 
     if (snapshot) {
       document.body.style.overflow = snapshot;
@@ -222,14 +289,14 @@ class PicturePreview extends Component {
     }
 
     if (draggable) {
-      document.removeEventListener("mousemove", this.handleMouseMove);
-      document.removeEventListener("mouseup", this.handleMouseUp);
+      document.removeEventListener('mousemove', this.handleMouseMove);
+      document.removeEventListener('mouseup', this.handleMouseUp);
     }
 
     if (mask) {
-      document.removeEventListener("keydown", this.handleKeyDown); 
+      document.removeEventListener('keydown', this.handleKeyDown);
     } else {
-      this.$el.removeEventListener("keydown", this.handleKeyDown);
+      this.$el.removeEventListener('keydown', this.handleKeyDown);
     }
   }
 
@@ -271,7 +338,7 @@ class PicturePreview extends Component {
         }
 
         //计算图片的缩放比例
-        imgRatio = (naturalWidth && (width / naturalWidth)) || 0;
+        imgRatio = (naturalWidth && width / naturalWidth) || 0;
 
         //计算容器的高度
         height = naturalHeight * imgRatio;
@@ -282,7 +349,13 @@ class PicturePreview extends Component {
         }
       }
 
-      let css = '';
+      let css = {
+        width: num2px(width),
+        height: num2px(height),
+        left: num2px((window.innerWidth - width) / 2),
+        top: num2px((window.innerHeight - height) / 2)
+      };
+
       if (!this.state.shown) {
         css = {
           width: num2px(width),
@@ -322,25 +395,28 @@ class PicturePreview extends Component {
         });
       }
 
-      this.setState({
-        image: Object.assign({}, this.state.image, {
-          naturalWidth: naturalWidth,
-          naturalHeight: naturalHeight,
-          ratio: imgRatio
-        })
-      }, () => {
-        //待视图更新后再缩放，需要用到con的尺寸
-        this.handleZoom(imgRatio);
-      });
+      this.setState(
+        {
+          image: Object.assign({}, this.state.image, {
+            naturalWidth: naturalWidth,
+            naturalHeight: naturalHeight,
+            ratio: imgRatio
+          })
+        },
+        () => {
+          //待视图更新后再缩放，需要用到con的尺寸
+          this.handleZoom(imgRatio);
+        }
+      );
     });
   };
 
   isFullEnabled = () => {
     return (
       document.fullscreenEnabled ||
-      document.mozFullScreenEnabled ||
-      document.webkitFullscreenEnabled ||
-      document.msFullscreenEnabled
+      document['mozFullScreenEnabled'] ||
+      document['webkitFullscreenEnabled'] ||
+      document['msFullscreenEnabled']
     );
   };
 
@@ -352,43 +428,58 @@ class PicturePreview extends Component {
     const { onClose, mask } = this.props;
 
     this.state.container.isFull && exitfullscreen();
-    this.setState({
-      show: false,
-      lastVisible: false,
-      shown: false,
-    }, () => {
-      if (mask) {
-        document.body.style.overflow = this.bodyDefaultOverflow;
-      }
+    this.setState(
+      {
+        show: false,
+        lastVisible: false,
+        shown: false
+      },
+      () => {
+        if (mask) {
+          document.body.style.overflow = this.bodyDefaultOverflow;
+        }
 
-      if (onClose && typeof onClose == "function") {
-        onClose();
+        if (onClose && typeof onClose == 'function') {
+          onClose();
+        }
       }
-    });
+    );
   };
 
   handlePrev = () => {
     let { current, imgs } = this.state;
-    this.setState({
-      current: current <= 0 ? (imgs.length - 1) : (current - 1),
-      shown: true
-    }, () => {
-      this.setContainerStyle();
-    });
+    this.setState(
+      {
+        current: current <= 0 ? imgs.length - 1 : current - 1,
+        shown: true
+      },
+      () => {
+        this.setContainerStyle();
+      }
+    );
   };
 
   handleNext = () => {
     let { current, imgs } = this.state;
-    this.setState({
-      current: current >= (imgs.length - 1) ? 0 : (current + 1),
-      shown: true
-    }, () => {
-      this.setContainerStyle();
-    });
+    this.setState(
+      {
+        current: current >= imgs.length - 1 ? 0 : current + 1,
+        shown: true
+      },
+      () => {
+        this.setContainerStyle();
+      }
+    );
   };
 
-  handleZoom = (ratio) => {
-    let image = {};
+  handleZoom = ratio => {
+    let image = {
+      ratio: 0,
+      naturalWidth: 0,
+      naturalHeight: 0,
+      marginL: 0,
+      marginT: 0
+    };
 
     //已经是1:1的情况下，不处理
     if (ratio === 1 && this.isOne2One()) return;
@@ -405,16 +496,19 @@ class PicturePreview extends Component {
     image.marginL = (this.$el.clientWidth - width) / 2;
     image.marginT = (this.$el.clientHeight - height) / 2;
 
-    this.setState({
-      image: Object.assign({}, this.state.image, image)
-    }, () => {
-      setStyle(this.imgEl, {
-        'margin-left': num2px(image.marginL),
-        'margin-top': num2px(image.marginT),
-        width: num2px(width),
-        height: num2px(height)
-      });
-    });
+    this.setState(
+      {
+        image: Object.assign({}, this.state.image, image)
+      },
+      () => {
+        setStyle(this.imgEl, {
+          'margin-left': num2px(image.marginL),
+          'margin-top': num2px(image.marginT),
+          width: num2px(width),
+          height: num2px(height)
+        });
+      }
+    );
   };
 
   handleSwitchFull = () => {
@@ -435,20 +529,21 @@ class PicturePreview extends Component {
     setStyle(this.imgEl, {
       '-webkit-ransform': transform,
       '-ms-transform': transform,
-      'transform': transform
+      transform: transform
     });
   };
 
   handleSave = () => {
     if (!(this.imgEl && this.imgEl.src)) return;
 
-    let getBlobImage = (img) => {
-      let canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+    let getBlobImage = img => {
+      let canvas = document.createElement('canvas'),
+        ctx = canvas.getContext('2d');
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      return new Promise((resolve) => {
-        canvas.toBlob((blob) => {
+      return new Promise(resolve => {
+        canvas.toBlob(blob => {
           resolve(blob);
         });
       });
@@ -458,7 +553,7 @@ class PicturePreview extends Component {
     img.crossOrigin = 'anonymous';
     img.onload = () => {
       let promise = getBlobImage(img);
-      promise.then((blob) => {
+      promise.then(blob => {
         let dLink = document.createElement('a');
         dLink.download = this.imgEl.alt || '';
         this.downloadImgUrl = window.URL.createObjectURL(blob);
@@ -476,19 +571,22 @@ class PicturePreview extends Component {
     img.src = this.imgEl.src + '?' + +new Date();
   };
 
-  handleFullChange = (e) => {
+  handleFullChange = e => {
     let con = this.state.container;
 
     if (con.isFull) {
       //从全屏退出到非全屏时，认为是没有显示过，让图片居中显示
-      this.setState({
-        shown: false
-      }, () => {
-        this.setContainerStyle();
-        this.setState({
-          shown: true
-        });
-      });
+      this.setState(
+        {
+          shown: false
+        },
+        () => {
+          this.setContainerStyle();
+          this.setState({
+            shown: true
+          });
+        }
+      );
     } else {
       con.style = {
         left: 0,
@@ -497,9 +595,12 @@ class PicturePreview extends Component {
         height: '100%'
       };
       //等视图更新后，再缩放，要用到con的尺寸
-      this.setState({
-        container: con
-      }, () => this.handleZoom(this.state.image.ratio));
+      this.setState(
+        {
+          container: con
+        },
+        () => this.handleZoom(this.state.image.ratio)
+      );
     }
 
     this.setState({
@@ -510,13 +611,37 @@ class PicturePreview extends Component {
     });
   };
 
-  handleMouseDown = (e) => {
+  handleMouseDown = e => {
     if (!this.state.show) return;
     e.preventDefault();
 
-    let con = {},
-      image = {},
-      tar = e.target;
+    let tar = e.target;
+    let con: {
+      rect: {
+        left: number;
+        top: number;
+      };
+      startX: number;
+      startY: number;
+    } = {
+      rect: {
+        left: 0,
+        top: 0
+      },
+      startX: 0,
+      startY: 0
+    };
+    let image: {
+      startX: number;
+      startY: number;
+      marginL: number;
+      marginT: number;
+    } = {
+      startX: 0,
+      startY: 0,
+      marginL: 0,
+      marginT: 0
+    };
 
     if (tar === this.imgEl && (this.state.container.isFull || isLargger(this.imgEl, this.$el))) {
       //点击在图片上，并且是全屏模式或者图片比容器大，此时移动图片
@@ -536,12 +661,12 @@ class PicturePreview extends Component {
       if (this.props.mask) {
         con.rect = {
           left: elPos.left,
-          top: elPos.top,
+          top: elPos.top
         };
       } else {
         con.rect = {
           left: elPos.left + window.pageXOffset,
-          top: elPos.top + window.pageYOffset,
+          top: elPos.top + window.pageYOffset
         };
       }
 
@@ -555,7 +680,7 @@ class PicturePreview extends Component {
     }
   };
 
-  handleMouseMove = (e) => {
+  handleMouseMove = e => {
     if (!this.moving || !this.state.show) return;
     e.preventDefault();
 
@@ -578,13 +703,13 @@ class PicturePreview extends Component {
     }
   };
 
-  handleMouseUp = (e) => {
+  handleMouseUp = e => {
     if (!this.state.show) return;
     e.preventDefault();
     this.moving = '';
   };
 
-  handleWheel = (e) => {
+  handleWheel = e => {
     if (!this.state.show) return;
     e.preventDefault();
 
@@ -602,7 +727,7 @@ class PicturePreview extends Component {
     this.handleZoom(this.state.image.ratio + (delta > 0 ? STEP_RATIO : -STEP_RATIO));
   };
 
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     if (!this.state.show) return;
     const { esc } = this.props;
 
@@ -620,18 +745,31 @@ class PicturePreview extends Component {
 
   render() {
     const { show, current, imgs, image, container } = this.state;
-    const { className, style, prefixCls, source, children, toolbar, draggable, mask, progress } = this.props;
+    const {
+      className,
+      style,
+      prefixCls,
+      source,
+      children,
+      toolbar,
+      draggable,
+      mask,
+      progress
+    } = this.props;
     let isFullscreen = container.isFull;
     let ctnerClass = classNames(prefixCls, {
       [className]: className,
-      'draggable': draggable,
+      draggable: draggable,
       [`${prefixCls}-hide`]: !show
     });
     let closeBtnClass = classNames({
-      'close': !isFullscreen,
+      close: !isFullscreen,
       'close-fullscreen': isFullscreen
     });
-    let isHide = !(source.length > 1 || (!!children && children.length > 1));
+    let isHide = !(
+      source.length > 1 ||
+      (!!children && (children as React.ReactNodeArray).length > 1)
+    );
     let leftBtnClass = classNames('prev', {
       [`${prefixCls}-hide`]: isHide
     });
@@ -666,47 +804,58 @@ class PicturePreview extends Component {
       <div
         data-show={show}
         className={ctnerClass}
-        style={{...container.style, ...style}}
-        ref={node => this.$el = node}
-        onDragStart={(e) => {e.preventDefault();}}
+        style={{ ...container.style, ...style }}
+        ref={node => (this.$el = node)}
+        onDragStart={e => {
+          e.preventDefault();
+        }}
         onMouseDown={draggable ? this.handleMouseDown : null}
         onWheel={this.handleWheel}
-        tabIndex="-1"
-        onClick={()=>{this.$el.focus();}}
+        tabIndex={-1}
+        onClick={() => {
+          this.$el.focus();
+        }}
       >
         <div className="canvas">
-          {
-            imgs.map((item, index) => {
-              if (current === index) {
-                return (
-                  <img key={'pic_'+index}
-                    className="img"
-                    src={item.src ? item.src : null}
-                    alt={item.name ? item.name : null}
-                    active="true"
-                    ref={node => this.imgEl = node}
-                  />
-                );
-              } else {
-                return (
-                  <img key={'pic_'+index}
-                    className="img"
-                    src={item.src ? item.src : null}
-                    alt={item.name ? item.name : null}
-                  />
-                );
-              }
-            })
-          }
+          {imgs.map((item, index) => {
+            if (current === index) {
+              return (
+                <img
+                  key={'pic_' + index}
+                  className="img"
+                  src={item.src ? item.src : null}
+                  alt={item.name ? item.name : null}
+                  // FIXME: active is not a valid property of <img />
+                  // active={true}
+                  ref={node => (this.imgEl = node)}
+                />
+              );
+            } else {
+              return (
+                <img
+                  key={'pic_' + index}
+                  className="img"
+                  src={item.src ? item.src : null}
+                  alt={item.name ? item.name : null}
+                />
+              );
+            }
+          })}
         </div>
-        <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose}/>
-        <Icon type="arrow-line-Bold" className={leftBtnClass} onClick={this.handlePrev}/>
-        <Icon type="arrow-line-Bold" className={rightBtnClass} onClick={this.handleNext}/>
-        <div className={toolbarClass} style={isFullscreen ? {bottom: '20px'} : null}>
-          <div className={progressClass}>{current+1}/{imgs.length}</div>
+        <Icon type="picture-close" className={closeBtnClass} onClick={this.handleClose} />
+        <Icon type="arrow-line-Bold" className={leftBtnClass} onClick={this.handlePrev} />
+        <Icon type="arrow-line-Bold" className={rightBtnClass} onClick={this.handleNext} />
+        <div className={toolbarClass} style={isFullscreen ? { bottom: '20px' } : null}>
+          <div className={progressClass}>
+            {current + 1}/{imgs.length}
+          </div>
           <div className="toolbarCon">
-            <Icon type="picture-equal" className={one2oneClass} onClick={this.handleZoom.bind(this, 1)}/>
-            <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull}/>
+            <Icon
+              type="picture-equal"
+              className={one2oneClass}
+              onClick={this.handleZoom.bind(this, 1)}
+            />
+            <Icon type={screenStatus} className="icon" onClick={this.handleSwitchFull} />
             <Icon
               type="picture-enlarge"
               className={zoomInClass}
@@ -717,8 +866,8 @@ class PicturePreview extends Component {
               className={zoomOutClass}
               onClick={this.handleZoom.bind(this, image.ratio - STEP_RATIO)}
             />
-            <Icon type="picture-rotate" className="icon" onClick={this.handleRotate}/>
-            <Icon type="picture-download" className="icon" onClick={this.handleSave}/>
+            <Icon type="picture-rotate" className="icon" onClick={this.handleRotate} />
+            <Icon type="picture-download" className="icon" onClick={this.handleSave} />
           </div>
         </div>
       </div>
@@ -729,21 +878,16 @@ class PicturePreview extends Component {
         key={`${prefixCls}-root`}
         data-show={show}
         className={rootClass}
-        ref={node => this.$root = node}
+        ref={node => (this.$root = node)}
       >
         <div className={maskClass} />
-        { renderCtner }
+        {renderCtner}
       </div>
     );
 
     return (
-      <Animate
-        component=""
-        showProp="data-show"
-        transitionName="zoom"
-        transitionAppear={true}
-      >
-        { mask ? renderMaskCtner : renderCtner }
+      <Animate component="" showProp="data-show" transitionName="zoom" transitionAppear={true}>
+        {mask ? renderMaskCtner : renderCtner}
       </Animate>
     );
   }
