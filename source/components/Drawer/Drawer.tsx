@@ -1,12 +1,41 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import RcDrawer from './src';
+import { RcDrawerState } from './src/Drawer';
 
-export default class Drawer extends React.Component {
+type EventType =
+  | React.KeyboardEvent<HTMLDivElement>
+  | React.MouseEvent<HTMLDivElement | HTMLButtonElement>;
+
+interface DrawerProps {
+  className?: string;
+  style?: React.CSSProperties;
+  width?: number | string;
+  height?: number | string;
+  open?: boolean;
+  placement?: string;
+  level?: string | [string, string];
+  levelMove?: number | [number, number];
+  ease?: string;
+  duration?: string;
+  getContainer?: string | React.ReactNode | (() => React.ReactNode) | boolean;
+  handler?: boolean | React.ReactNode;
+  onChange?: (flag: boolean) => void;
+  onMaskClick?: (e: EventType) => void;
+  onHandleClick?: (e: EventType) => void;
+  onCloseClick?: (e: EventType) => void;
+  showMask?: boolean;
+  maskStyle?: React.CSSProperties;
+  closed?: boolean;
+  visible?: boolean;
+  mask?: boolean;
+}
+
+export default class Drawer extends React.Component<DrawerProps, RcDrawerState> {
   static propTypes = {
-    prefixCls: PropTypes.string,
+    // prefixCls: PropTypes.string,
     className: PropTypes.string,
-    wrapperClassName: PropTypes.string,
+    // wrapperClassName: PropTypes.string,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     visible: PropTypes.bool,
@@ -16,7 +45,7 @@ export default class Drawer extends React.Component {
       PropTypes.string,
       PropTypes.object,
       PropTypes.func,
-      PropTypes.bool,
+      PropTypes.bool
     ]),
     style: PropTypes.object,
     mask: PropTypes.bool,
@@ -33,37 +62,21 @@ export default class Drawer extends React.Component {
   };
 
   static defaultProps = {
-    prefixCls: 'fishd-drawer',
+    // prefixCls: "fishd-drawer",
     placement: 'right',
-    onChange: () => { },
-    onMaskClick: () => { },
-    onHandleClick: () => { },
+    onChange: () => {},
+    onMaskClick: () => {},
+    onHandleClick: () => {}
   };
 
-  constructor(props) {
+  constructor(props: DrawerProps) {
     super(props);
-  }
-
-  handleMaskClick = (e) => {
-    this.props.onMaskClick(e);
-  }
-
-  handleChange = (status) => {
-    this.props.onChange(status);
-  }
-
-  handleHandleClick = (e) => {
-    this.props.onHandleClick(e);
-  }
-
-  handleCloseClick = (e) => {
-    this.props.onCloseClick(e);
   }
 
   render() {
     const {
       className,
-      wrapperClassName,
+      // wrapperClassName,
       width,
       height,
       visible,
@@ -76,13 +89,17 @@ export default class Drawer extends React.Component {
       level,
       ease,
       duration,
-      closed
+      closed,
+      onMaskClick,
+      onChange,
+      onHandleClick,
+      onCloseClick
     } = this.props;
 
     return (
       <RcDrawer
         className={className}
-        wrapperClassName={wrapperClassName}
+        // wrapperClassName={wrapperClassName}
         width={width}
         height={height}
         open={visible}
@@ -96,10 +113,10 @@ export default class Drawer extends React.Component {
         maskStyle={maskStyle}
         style={style}
         handler={handler}
-        onMaskClick={this.handleMaskClick}
-        onHandleClick={this.handleHandleClick}
-        onChange={this.handleChange}
-        onCloseClick={this.handleCloseClick}
+        onMaskClick={onMaskClick}
+        onHandleClick={onHandleClick}
+        onChange={onChange}
+        onCloseClick={onCloseClick}
       >
         {this.props.children}
       </RcDrawer>
