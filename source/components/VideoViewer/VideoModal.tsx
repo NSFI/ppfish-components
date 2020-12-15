@@ -1,10 +1,24 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'omit.js';
-import Modal from '../Modal/index.tsx';
-import Icon from '../Icon/index.tsx';
+import Modal from '../Modal';
+import Icon from '../Icon';
 
-class VideoModal extends Component {
+export interface VideoModalProps {
+  prefixCls?: string;
+  width?: string | number;
+  afterClose?: () => void;
+  draggable?: boolean;
+  mask?: boolean;
+  onCancel?: () => void;
+  visible?: boolean;
+  children?: React.ReactNode | React.ReactChildren;
+  wrapClassName?: string;
+  maskStyle?: React.CSSProperties;
+  closable?: boolean;
+}
+
+class VideoModal extends React.Component<VideoModalProps> {
   static propTypes = {
     prefixCls: PropTypes.string,
     children: PropTypes.node,
@@ -16,10 +30,7 @@ class VideoModal extends Component {
     closable: PropTypes.bool,
     onCancel: PropTypes.func,
     afterClose: PropTypes.func,
-    width: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
@@ -40,13 +51,7 @@ class VideoModal extends Component {
   };
 
   render() {
-    const {
-      prefixCls,
-      children,
-      closable,
-      wrapClassName = '',
-      maskStyle
-    } = this.props;
+    const { prefixCls, children, closable, wrapClassName = '', maskStyle } = this.props;
 
     const MODAL_WRAP = `${prefixCls}-modal-wrap`;
 
@@ -56,38 +61,34 @@ class VideoModal extends Component {
       'title',
       'footer',
       'maskStyle',
-      'closable',
+      'closable'
     ]);
 
     const modalProps = {
       ...otherProps,
       wrapClassName: `${wrapClassName} ${MODAL_WRAP}`,
       className: 'fishd-modal',
-      maskStyle: maskStyle ? maskStyle : {backgroundColor: 'rgba(0,0,0,0.2)'},
+      maskStyle: maskStyle ? maskStyle : { backgroundColor: 'rgba(0,0,0,0.2)' },
       // 不显示Modal自带的关闭按钮
       closable: false,
       title: null,
-      footer: null,
+      footer: null
     };
 
     const content = (
       <div className={`${prefixCls}-content`}>
         {children}
         <div className={`${prefixCls}-header`}>
-        {
-          closable ?
-          <Icon type="picture-close" className="icon-close" onClick={this.handleOnClose} />
-          : null
-        }
+          {closable ? (
+            <Icon type="picture-close" className="icon-close" onClick={this.handleOnClose} />
+          ) : null}
         </div>
       </div>
     );
 
     return (
       <Modal {...modalProps}>
-        <div className={`${prefixCls}-inner`}>
-          {content}
-        </div>
+        <div className={`${prefixCls}-inner`}>{content}</div>
       </Modal>
     );
   }
