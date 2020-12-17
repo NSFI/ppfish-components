@@ -1,14 +1,19 @@
 import Quill from 'quill';
+import { quill } from './fileDrop';
 
 const Clipboard = Quill.import('modules/clipboard');
 const Delta = Quill.import('delta');
 
 class PlainClipboard extends Clipboard {
+  quill: quill & {
+    scrollIntoView: Function
+  };
+  options?: {pastePlainText: any};
   constructor(quill, options) {
     super(quill, options);
   }
 
-  onPaste (e) {
+  onPaste (e: ClipboardEvent) {
     if (this.options && this.options.pastePlainText) {
       e.preventDefault();
       const range = this.quill.getSelection(),

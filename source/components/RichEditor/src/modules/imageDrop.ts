@@ -1,5 +1,9 @@
+import { quill } from "./fileDrop";
+
 export default class ImageDrop {
-  constructor(quill, options = {}) {
+  quill: quill;
+  customDropImage: any;
+  constructor(quill, options = { customDropImage: undefined }) {
     this.quill = quill;
     this.customDropImage = options.customDropImage || null;
     this.handleDrop = this.handleDrop.bind(this);
@@ -8,7 +12,7 @@ export default class ImageDrop {
     this.quill.root.addEventListener('paste', this.handlePaste, false);
   }
 
-  handleDrop(evt) {
+  handleDrop(evt: DragEvent): void {
     evt.preventDefault();
     if (evt.dataTransfer && evt.dataTransfer.files && evt.dataTransfer.files.length) {
       if (document.caretRangeFromPoint) {
@@ -30,12 +34,12 @@ export default class ImageDrop {
     }
   }
 
-  handlePaste(evt) {
+  handlePaste(evt: ClipboardEvent): void {
     if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
       let hasFile = false,
         len = evt.clipboardData.items.length;
 
-      for(let i=0; i<len; i++) {
+      for (let i = 0; i < len; i++) {
         let item = evt.clipboardData.items[i];
         if (item.kind == 'file') {
           hasFile = true;
@@ -58,7 +62,7 @@ export default class ImageDrop {
     }
   }
 
-  insert(attrs) {
+  insert(attrs: HTMLImageElement): void {
     const range = this.quill.getSelection() || {},
       index = (range.index != undefined) ? range.index : this.quill.getLength();
 
@@ -69,7 +73,7 @@ export default class ImageDrop {
   }
 
   // Extract image URIs a list of files from evt.dataTransfer or evt.clipboardData
-  readFiles(files, callback) {
+  readFiles(files: DataTransferItemList | FileList, callback: Function): void {
     // check each file for an image
     [].forEach.call(files, file => {
       if (!file.type.match(/^image\/(gif|jpe?g|a?png|svg|webp|bmp|vnd\.microsoft\.icon)/i)) {

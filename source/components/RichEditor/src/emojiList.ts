@@ -1,4 +1,5 @@
-let emojiList = [
+import {EmojiInferface} from './interface'
+let emojiList: Array<EmojiInferface> = [
   {
     id: 0,
     className: 'emoji-01',

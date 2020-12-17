@@ -41,7 +41,7 @@ export {default as PicturePreview} from './PicturePreview';
 export {default as Popover} from './Popover/index.tsx';
 export {default as Progress} from './Progress/index.tsx';
 export {default as Radio} from './Radio/index.tsx';
-export {default as RichEditor} from './RichEditor';
+export {default as RichEditor} from './RichEditor/index.ts';
 export {default as Row} from './Row/index.tsx';
 export {default as Select} from './Select';
 export {default as Slider} from './Slider/index.tsx';

@@ -2,6 +2,7 @@
 React-Quill v1.0.0
 https://github.com/zenoamaro/react-quill
 */
+
 let Quill = require('quill');
 let Component = require('./component');
 
