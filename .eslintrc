@@ -12,7 +12,25 @@
       "experimentalObjectRestSpread": true
     }
   },
+  "overrides": [{
+    "files": ["**/*.ts?(x)"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "warnOnUnsupportedTypeScriptVersion": true
+    },
+    "plugins": ["@typescript-eslint"]
+  }],
   "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
     "import/ignore": [
       "\\.(jpg|png|less|css|json)$"
     ]
@@ -92,7 +110,7 @@
     "import/no-named-as-default-member": 0,
     "import/no-duplicates": 1,
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],
-    "react/forbid-prop-types": [1, {"forbid": ["any"]}],
+    "react/forbid-prop-types": 0,
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,
@@ -109,17 +127,17 @@
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,
     "react/no-danger": 1,
-    "react/no-did-mount-set-state": 1,
-    "react/no-did-update-set-state": 1,
+    "react/no-did-mount-set-state": 0,
+    "react/no-did-update-set-state": 0,
     "react/no-direct-mutation-state": 1,
-    "react/no-multi-comp": [1, { "ignoreStateless": true }],
+    "react/no-multi-comp": 0,
     "react/no-set-state": 0,
     "react/no-unknown-property": 1,
     "react/prefer-es6-class": 1,
-    "react/prop-types": 1,
+    "react/prop-types": 0,
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
-    "react/sort-comp": 1,
+    "react/sort-comp": 0,
     "react/jsx-wrap-multilines": 1,
     "react/jsx-no-comment-textnodes": 1,
     "react/jsx-no-target-blank": 1,

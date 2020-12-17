@@ -7,14 +7,17 @@
     "target": "es5",
     "jsx": "react",
     "lib": [
-      "es5",
-      "dom",
-      "dom.iterable",
-      "es2016"
+      "ESNext",
+      "DOM",
+      "ES2015",
+      "ES2016",
+      "DOM.Iterable"
     ],
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": "./source/"
+    "baseUrl": "./source/",
+    "skipLibCheck": true
   },
   "include": [
     "source/**/*"

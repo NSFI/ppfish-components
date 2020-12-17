@@ -6,13 +6,16 @@
     "target": "ES5",
     "jsx": "react",
     "lib": [
-      "es5",
-      "dom",
-      "dom.iterable",
-      "es2016"
+      "ESNext",
+      "DOM",
+      "ES2015",
+      "ES2016",
+      "DOM.Iterable"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
     "baseUrl": "../../temp/",
     "moduleResolution": "node",
     "typeRoots": [
