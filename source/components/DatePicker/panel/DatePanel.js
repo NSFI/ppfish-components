@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Input from '../../Input/index.tsx';
 import Icon from '../../Icon/index.tsx';
 import Button from '../../Button/index.tsx';
-import TimePicker  from '../../TimePicker/index.js';
+import TimePicker  from '../../TimePicker/index.tsx';
 import YearAndMonthPopover from './YearAndMonthPopover.js';
 import { DateTable } from '../basic';
 import isEqual from 'lodash/isEqual';
