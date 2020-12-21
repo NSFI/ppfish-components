@@ -76,14 +76,16 @@ cd ../../
 
 # CommonJS
 babel "./$temp_dir/" --out-dir "./$lib_dir/"
+tsc --emitDeclarationOnly --outDir lib
 node tools/compileTs/copy.js $lib_dir $node_dir
+
 # less 编译为 css
 compileLess $node_dir
 
 # ES6
 setBabelModules false
 babel "./$temp_dir/" --out-dir "./$es_dir/"
-
+tsc --emitDeclarationOnly --outDir es
 # 清理、还原
 rm -rf $temp_dir
 setBabelModules commonjs

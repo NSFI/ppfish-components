@@ -8,7 +8,6 @@ const webpack = require('webpack');
 const ora = require('ora');
 const config = require('../webpack.config.prod.dist');
 const {chalkError, chalkSuccess, chalkWarning, chalkProcessing} = require('./chalkConfig');
-// const copyComponentsStyle = require('./copyComponentsStyle');
 
 console.log(chalkProcessing('dist: Generating minified bundle for production via Webpack. This will take a moment...'));
 
@@ -19,7 +18,6 @@ webpack(config).run((error, stats) => {
   if (error) { // so a fatal error occurred. Stop here.
     console.log(chalkError(error));
     process.exit(1);
-    return 1;
   }
 
   const jsonStats = stats.toJson();
@@ -27,22 +25,12 @@ webpack(config).run((error, stats) => {
   if (jsonStats.hasErrors) {
     jsonStats.errors.map(error => console.log(chalkError(error)));
     process.exit(1);
-    return;
   }
 
   if (jsonStats.hasWarnings) {
     console.log(chalkWarning('Webpack generated the following warnings: '));
     jsonStats.warnings.map(warning => console.log(chalkWarning(warning)));
   }
-  spinner.start('dist: Copying style files...');
-  // try{
-  //   copyComponentsStyle();
-  // }catch(e){
-  //   console.log(chalkError(e));
-  //   process.exit(1);
-  //   return;
-  // }
-  spinner.stop();
 
   console.log(stats.toString({
     colors: true,
@@ -56,6 +44,5 @@ webpack(config).run((error, stats) => {
 
   // if we got this far, the build succeeded.
   console.log(chalkSuccess('Your app is compiled in production mode in /dist. It\'s ready to roll!'));
-
-  return 0;
+  process.exit(0);
 });
