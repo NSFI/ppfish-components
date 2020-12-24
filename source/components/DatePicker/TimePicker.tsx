@@ -77,9 +77,12 @@ export default class TimePicker extends BasePicker {
         footer?: () => React.ReactNode
         onValueChange?
      */
+    console.log('TimePicker props::: ', this.props)
+    console.log('picked TimePicker props::: ', pick(this.props, ['format', 'isShowCurrent', 'footer', 'onValueChange']))
+
     return (
       <TimePanel
-        {...pick(this.props, ['format', 'isShowCurrent', 'footer', 'onValueChange'])}
+        {...this.props}
         selectableRange={converSelectRange(this.props)}
         onSelectRangeChange={this._onSelectionChange}
         value={value}
