@@ -506,10 +506,10 @@ class Select extends React.Component<SelectProps, SelectState> {
   };
 
   //获取加料后的children
-  getProcessedChildren = (children, dropdownCls) => {
+  getProcessedChildren = (children, dropdownCls: string) => {
     return React.Children.map(children, (child: any) => {
       const typeOfChildren = Object.prototype.toString.call(child).slice(8, -1).toLowerCase();
-      if (!!child && typeOfChildren === 'object' && child.isSelectOption) {
+      if (!!child && typeOfChildren === 'object' && child.type.isSelectOption) {
         const { selectValue, activeKey } = this.state;
         const { showOptionCheckedIcon } = this.props;
         const value = 'value' in child.props ? child.props.value : child.key;
@@ -526,7 +526,7 @@ class Select extends React.Component<SelectProps, SelectState> {
           ref: value,
           children: this.getProcessedChildren(child.props.children, dropdownCls)
         });
-      } else if (!!child && typeOfChildren === 'object' && child.isSelectOptGroup) {
+      } else if (!!child && typeOfChildren === 'object' && child.type.isSelectOptGroup) {
         return React.cloneElement(child, {
           prefixCls: `${dropdownCls}-option-group`,
           children: this.getProcessedChildren(child.props.children, dropdownCls)

@@ -40,6 +40,7 @@ export default class Option extends React.Component<OptionProps> {
 
   onOptionClick = (e: React.MouseEvent<any>, option) => {
     const { disabled, onOptionClick } = this.props;
+
     if (!disabled) {
       onOptionClick && onOptionClick(e, option);
     }
