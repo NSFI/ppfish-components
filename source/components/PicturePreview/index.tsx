@@ -822,7 +822,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
               return (
                 <img
                   key={'pic_' + index}
-                  className="img"
+                  className="img active"
                   src={item.src ? item.src : null}
                   alt={item.name ? item.name : null}
                   // FIXME: active is not a valid property of <img />
