@@ -2,11 +2,6 @@ import Quill from 'quill';
 import { getAttrs } from './image';
 const BlockEmbed = Quill.import('blots/block/embed');
 
-type X = {
-  name: string
-  aeg: number
-}
-
 interface valueType {
   controls?: any,
   [fields: string]: any,

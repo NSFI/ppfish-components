@@ -11,9 +11,9 @@ import Input from '../../Input/index';
 import Icon from '../../Icon/index';
 
 declare module 'react' {
-    interface ImgHTMLAttributes<T>  {
-         value?: string;
-    }
+  interface ImgHTMLAttributes<T> {
+    value?: string;
+  }
 }
 
 import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface'
@@ -172,7 +172,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
   componentDidMount() {
     let emojiImg = new Image();
-    emojiImg.src = '//ysf.nosdn.127.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
+    emojiImg.src = '//ysf.qiyukf.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
   }
 
   handleIVSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
