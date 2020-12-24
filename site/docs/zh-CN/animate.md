@@ -344,3 +344,4 @@
 | beforeLeave     | 执行离场动画前触发的回调函数 | (node: HTMLElement) => Void | () => {} |
 | onLeave         | 执行离场动画，添加 'xxx-leave-active' 类名后触发的回调函数 | (node: HTMLElement) => Void | () => {} |
 | afterLeave      | 执行完离场动画后触发的回调函数 | (node: HTMLElement) => Void | () => {} |
+| timeout      | 动画执行的时间（单位：毫秒） | number \| { appear?: number; enter?: number; exit?: number }; | 500 |

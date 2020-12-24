@@ -62,6 +62,7 @@ export type AnimateChildProps = { names: AnimationNames } & AnimateHooks & {
     onExit?: (node?: HTMLElement) => void;
     onExiting?: (node?: HTMLElement) => void;
     onExited?: (node?: HTMLElement) => void;
+    timeout: number | { appear?: number; enter?: number; exit?: number };
   };
 
 export interface AnimateChildState {
@@ -78,7 +79,10 @@ export interface EndListeners {
   animationend: any[];
 }
 
-export default class AnimateChild extends React.Component<AnimateChildProps, AnimateChildState> {
+export default class AnimateChild extends React.Component<
+  AnimateChildProps,
+  AnimateChildState
+> {
   static propTypes = {
     names: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onAppear: PropTypes.func,
@@ -89,7 +93,8 @@ export default class AnimateChild extends React.Component<AnimateChildProps, Ani
     onEntered: PropTypes.func,
     onExit: PropTypes.func,
     onExiting: PropTypes.func,
-    onExited: PropTypes.func
+    onExited: PropTypes.func,
+    timeout: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
   };
 
   static defaultProps = {
@@ -293,7 +298,6 @@ export default class AnimateChild extends React.Component<AnimateChildProps, Ani
     return (
       <Transition
         {...others}
-        timeout={0}
         onEnter={this.handleEnter}
         onEntering={this.handleEntering}
         onEntered={this.handleEntered}

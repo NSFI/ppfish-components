@@ -35,6 +35,7 @@ export type AnimateProps = {
   component: ReactNode | string;
   singleMode: boolean;
   children: ReactNode;
+  timeout?: number | { appear?: number; enter?: number; exit?: number };
 } & AnimateHooks;
 
 export type KeyedReactNode = ReactChild & { key: any };
@@ -58,6 +59,7 @@ class Animate extends Component<AnimateProps, any> {
     beforeLeave: PropTypes.func,
     onLeave: PropTypes.func,
     afterLeave: PropTypes.func,
+    timeout: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   };
 
   static defaultProps = {
@@ -114,6 +116,7 @@ class Animate extends Component<AnimateProps, any> {
       beforeLeave,
       onLeave,
       afterLeave,
+      timeout=500,
       ...others
     } = this.props;
 
@@ -132,6 +135,7 @@ class Animate extends Component<AnimateProps, any> {
           onExit={beforeLeave}
           onExiting={onLeave}
           onExited={afterLeave}
+          timeout={timeout}
         >
           {child}
         </AnimateChild>
