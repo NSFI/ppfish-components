@@ -1,48 +1,43 @@
-import React, {
-  Component,
-  Children,
-  ReactNode,
-  ReactChild
-} from 'react'
-import PropTypes from 'prop-types'
-import { TransitionGroup } from 'react-transition-group'
-import AnimateChild from './child'
+import React, { Component, Children, ReactNode, ReactChild } from 'react';
+import PropTypes from 'prop-types';
+import { TransitionGroup } from 'react-transition-group';
+import AnimateChild from './child';
 
-const noop = () => {}
-const FirstChild = (props) => {
-  const childrenArray = React.Children.toArray(props.children)
-  return childrenArray[0] || null
-}
+const noop = () => {};
+const FirstChild = props => {
+  const childrenArray = React.Children.toArray(props.children);
+  return childrenArray[0] || null;
+};
 
 export interface AnimateHooks {
-  beforeAppear?: () => void
-  onAppear?: (node?: HTMLElement) => void
-  afterAppear?: (node?: HTMLElement) => void
+  beforeAppear?: () => void;
+  onAppear?: (node?: HTMLElement) => void;
+  afterAppear?: (node?: HTMLElement) => void;
 
-  beforeEnter?: (node?: HTMLElement) => void
-  onEnter?: (node?: HTMLElement) => void
-  afterEnter?: (node?: HTMLElement) => void
+  beforeEnter?: (node?: HTMLElement) => void;
+  onEnter?: (node?: HTMLElement) => void;
+  afterEnter?: (node?: HTMLElement) => void;
 
-  beforeLeave?: (node?: HTMLElement) => void
-  afterLeave?: (node?: HTMLElement) => void
-  onLeave?: (node?: HTMLElement) => void
+  beforeLeave?: (node?: HTMLElement) => void;
+  afterLeave?: (node?: HTMLElement) => void;
+  onLeave?: (node?: HTMLElement) => void;
 }
 
 export type AnimateProps = {
   animation:
     | string
     | {
-        appear: string
-        enter: string
-        leave: string
-      }
-  animationAppear: boolean
-  component: ReactNode | string
-  singleMode: boolean
-  children: ReactNode
-} & AnimateHooks
+        appear: string;
+        enter: string;
+        leave: string;
+      };
+  animationAppear: boolean;
+  component: ReactNode | string;
+  singleMode: boolean;
+  children: ReactNode;
+} & AnimateHooks;
 
-export type KeyedReactNode = ReactChild & { key: any }
+export type KeyedReactNode = ReactChild & { key: any };
 
 class Animate extends Component<AnimateProps, any> {
   static propTypes = {
@@ -52,7 +47,7 @@ class Animate extends Component<AnimateProps, any> {
     singleMode: PropTypes.bool,
     children: PropTypes.oneOfType([
       PropTypes.element,
-      PropTypes.arrayOf(PropTypes.element)
+      PropTypes.arrayOf(PropTypes.element),
     ]),
     beforeAppear: PropTypes.func,
     onAppear: PropTypes.func,
@@ -62,8 +57,8 @@ class Animate extends Component<AnimateProps, any> {
     afterEnter: PropTypes.func,
     beforeLeave: PropTypes.func,
     onLeave: PropTypes.func,
-    afterLeave: PropTypes.func
-  }
+    afterLeave: PropTypes.func,
+  };
 
   static defaultProps = {
     animationAppear: true,
@@ -77,8 +72,8 @@ class Animate extends Component<AnimateProps, any> {
     afterEnter: noop,
     beforeLeave: noop,
     onLeave: noop,
-    afterLeave: noop
-  }
+    afterLeave: noop,
+  };
 
   normalizeNames(names) {
     if (typeof names === 'string') {
@@ -88,8 +83,8 @@ class Animate extends Component<AnimateProps, any> {
         enter: `${names}-enter`,
         enterActive: `${names}-enter-active`,
         leave: `${names}-leave`,
-        leaveActive: `${names}-leave-active`
-      }
+        leaveActive: `${names}-leave-active`,
+      };
     }
     if (typeof names === 'object') {
       return {
@@ -98,8 +93,8 @@ class Animate extends Component<AnimateProps, any> {
         enter: `${names.enter}`,
         enterActive: `${names.enter}-active`,
         leave: `${names.leave}`,
-        leaveActive: `${names.leave}-active`
-      }
+        leaveActive: `${names.leave}-active`,
+      };
     }
   }
 
@@ -120,7 +115,7 @@ class Animate extends Component<AnimateProps, any> {
       onLeave,
       afterLeave,
       ...others
-    } = this.props
+    } = this.props;
 
     const animateChildren = Children.map(children, (child: ReactNode) => {
       return (
@@ -140,8 +135,8 @@ class Animate extends Component<AnimateProps, any> {
         >
           {child}
         </AnimateChild>
-      )
-    })
+      );
+    });
 
     return (
       <TransitionGroup
@@ -151,8 +146,8 @@ class Animate extends Component<AnimateProps, any> {
       >
         {animateChildren}
       </TransitionGroup>
-    )
+    );
   }
 }
 
-export default Animate
+export default Animate;
