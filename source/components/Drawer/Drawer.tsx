@@ -14,6 +14,7 @@ interface DrawerProps {
   height?: number | string;
   open?: boolean;
   placement?: string;
+  wrapperClassName: string | undefined;
   level?: string | [string, string];
   levelMove?: number | [number, number];
   ease?: string;
@@ -35,7 +36,7 @@ export default class Drawer extends React.Component<DrawerProps, RcDrawerState> 
   static propTypes = {
     // prefixCls: PropTypes.string,
     className: PropTypes.string,
-    // wrapperClassName: PropTypes.string,
+    wrapperClassName: PropTypes.string,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     visible: PropTypes.bool,
@@ -76,7 +77,7 @@ export default class Drawer extends React.Component<DrawerProps, RcDrawerState> 
   render() {
     const {
       className,
-      // wrapperClassName,
+      wrapperClassName,
       width,
       height,
       visible,
@@ -99,7 +100,7 @@ export default class Drawer extends React.Component<DrawerProps, RcDrawerState> 
     return (
       <RcDrawer
         className={className}
-        // wrapperClassName={wrapperClassName}
+        wrapperClassName={wrapperClassName}
         width={width}
         height={height}
         open={visible}
