@@ -1,10 +1,25 @@
 import Quill from 'quill';
 const Inline = Quill.import('blots/inline');
 
+interface createType {
+  url: string,
+  type: string | null,
+  name: string
+}
+
 class Link extends Inline {
-  static create(data) {
+  static blotName: string;
+  static tagName: string;
+  static formatCursor: boolean;
+
+  statics: {
+    blotName: string,
+    formatCursor: boolean,
+  };
+  domNode: HTMLElement;
+  static create(data: createType): HTMLElement {
     this.formatCursor = false;
-    const node = super.create(data);
+    const node: HTMLElement = super.create(data);
 
     if (data) {
       node.setAttribute('target', '_blank');
@@ -22,11 +37,15 @@ class Link extends Inline {
     return node;
   }
 
-  static formats(node) {
+  static formats(node: HTMLElement): {
+    url?: string,
+    type?: string,
+    name?: string,
+  } {
     // 修复在超链接后输入回车光标被异常添加超链接的问题
     let domChildren = node.children;
     // let containsCursor = /<\s*span\s*class\s*=\s*['"]\s*ql-cursor\s*['"]\s*>\s*\ufeff\s*<\s*\/\s*span\s*>/gi;
-    if (!this.formatCursor && domChildren && domChildren.length==1 && domChildren[0].innerText=="\ufeff") {
+    if (!this.formatCursor && domChildren && domChildren.length == 1 && (domChildren[0] as HTMLElement).innerText == "\ufeff") {
       return {};
     }
 
@@ -41,7 +60,7 @@ class Link extends Inline {
   //   return sanitize(url, this.PROTOCOL_WHITELIST) ? url : this.SANITIZED_URL;
   // }
 
-  format(name, data) {
+  format(name: string, data?: createType) {
     if (name !== this.statics.blotName || !data) {
       super.format(name, data);
     } else {
@@ -67,7 +86,7 @@ Link.formatCursor = false;  // 是否为光标添加超链接
 // Link.SANITIZED_URL = 'about:blank';
 // Link.PROTOCOL_WHITELIST = ['http', 'https', 'mailto', 'tel'];
 
-function sanitize(url, protocols) {
+function sanitize(url: string, protocols: string): boolean {
   const anchor = document.createElement('a');
   anchor.href = url;
   const protocol = anchor.href.slice(0, anchor.href.indexOf(':'));

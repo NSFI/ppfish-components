@@ -1,9 +1,15 @@
 import Quill from 'quill';
-
 const Embed = Quill.import('blots/embed');
 
+interface EmojiBlotCreateType extends HTMLImageElement {
+  type: string
+}
+
 class EmojiBlot extends Embed {
-  static create(value) {
+  static blotName: string;
+  static tagName: string;
+  
+  static create(value: EmojiBlotCreateType) {
     let node = super.create();
 
     if (value.type === 'defaultEmoji') {
@@ -21,7 +27,7 @@ class EmojiBlot extends Embed {
     return node;
   }
 
-  static formats(node) {
+  static formats(node: EmojiBlotCreateType) {
     return {
       id: node.getAttribute('data-id'),
       type: node.getAttribute('data-type'),
@@ -32,7 +38,7 @@ class EmojiBlot extends Embed {
     };
   }
 
-  static value(node) {
+  static value(node: EmojiBlotCreateType) {
     return {
       id: node.getAttribute('data-id'),
       type: node.getAttribute('data-type'),

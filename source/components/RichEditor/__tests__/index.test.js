@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, render, mount } from 'enzyme';
-import RichEditor from '../index.js';
+import RichEditor from '../index';
 
 xdescribe('<RichEditor />', () => {
   let wrapper,

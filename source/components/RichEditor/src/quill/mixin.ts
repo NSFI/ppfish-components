@@ -5,14 +5,14 @@ let Quill = require('quill');
 // 只在console展示错误级别的信息
 Quill.debug('error');
 
-function formatOutputHTML(value) {
+function formatOutputHTML(value?: string): string {
   if (!value) return value;
 
   // 移除HTML标签上的contenteditable属性
   return value.replace(/(<[^&<>]+)(contenteditable\s*=\s*['"]\w*['"])([^&<>]*>)/gi, '$1$3');
 }
 
-function xssFilter(value) {
+function xssFilter(value?:string): string {
   if (!value) return value;
 
   return value.replace(/javascript\s*:/ig, '');
@@ -159,7 +159,10 @@ let QuillMixin = {
         let insert = obj['insert'];
         if (typeof insert != 'string') return false;
 
-        let insertChars = [...insert];
+        /**
+         * [...insert]
+         */
+        let insertChars = Array.from(insert);
         if (!insertChars.length) continue;
 
         let notEmpty = insertChars.some((val) => {

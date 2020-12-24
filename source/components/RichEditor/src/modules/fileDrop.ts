@@ -1,5 +1,18 @@
+export interface quill{
+  root: HTMLElement,
+  getSelection: Function,
+  getLength: Function,
+  getFormat: Function,
+  updateContents: Function,
+  setSelection: Function,
+  insertEmbed: Function,
+}
+
 export default class FileDrop {
-  constructor(quill, options = {}) {
+  quill: quill
+  customDropFile: any;
+
+  constructor(quill, options = { customDropFile: undefined }) {
     this.quill = quill;
     this.customDropFile = options.customDropFile || null;
     this.handleDrop = this.handleDrop.bind(this);
@@ -8,7 +21,7 @@ export default class FileDrop {
     this.quill.root.addEventListener('paste', this.handlePaste, false);
   }
 
-  handleDrop(evt) {
+  handleDrop(evt: DragEvent): void {
     evt.preventDefault();
     if (evt.dataTransfer && evt.dataTransfer.files && evt.dataTransfer.files.length) {
       if (document.caretRangeFromPoint) {
@@ -28,12 +41,12 @@ export default class FileDrop {
     }
   }
 
-  handlePaste(evt) {
+  handlePaste(evt: ClipboardEvent): void {
     if (evt.clipboardData && evt.clipboardData.items && evt.clipboardData.items.length) {
       let hasFile = false,
         len = evt.clipboardData.items.length;
 
-      for(let i=0; i<len; i++) {
+      for (let i = 0; i < len; i++) {
         let item = evt.clipboardData.items[i];
         if (item.kind == 'file') {
           hasFile = true;
@@ -51,7 +64,7 @@ export default class FileDrop {
     }
   }
 
-  handleFileInsert(fileInfo) {
+  handleFileInsert(fileInfo):void {
     if (!(fileInfo.url || fileInfo.src)) return;
 
     const range = this.quill.getSelection() || {},
@@ -64,12 +77,14 @@ export default class FileDrop {
       }
 
       // 继承列表的样式
-      let listFormat = {};
+      let listFormat = {
+        list: undefined,
+      };
       if (curFormat && curFormat.list) {
         listFormat.list = curFormat.list;
       }
 
-      let delta = [
+      let delta = <any>[
         { insert: { 'myImage': fileInfo }, attributes: { ...listFormat } },
         { insert: ' ' } // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
       ];
@@ -92,7 +107,9 @@ export default class FileDrop {
       }
 
       // 继承列表的样式
-      let listFormat = {};
+      let listFormat = {
+        list: undefined,
+      };
       if (curFormat && curFormat.list) {
         listFormat.list = curFormat.list;
       }
@@ -111,7 +128,7 @@ export default class FileDrop {
             }
           },
           { insert: '\n', attributes: { ...listFormat } }
-        ];
+        ] as any[];
 
       if (index > 0) {
         delta.unshift({ retain: index });
@@ -122,7 +139,7 @@ export default class FileDrop {
     }
   }
 
-  insert(fileList) {
+  insert(fileList: any):void {
     if (Array.isArray(fileList)) {
       fileList.sort((a, b) => {
         // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列

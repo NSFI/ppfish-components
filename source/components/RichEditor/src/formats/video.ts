@@ -1,9 +1,18 @@
 import Quill from 'quill';
-import { getAttrs } from './image.js';
+import { getAttrs } from './image';
 const BlockEmbed = Quill.import('blots/block/embed');
 
+interface valueType {
+  controls?: any,
+  [fields: string]: any,
+}
+
 class Video extends BlockEmbed {
-  static create(value) {
+  static blotName: string;
+  static className: string;
+  static tagName: string;
+
+  static create(value: valueType) {
     let node = super.create(value);
 
     if (Object.prototype.toString.call(value) == "[object Object]") {
@@ -22,7 +31,7 @@ class Video extends BlockEmbed {
 
         try {
           node.setAttribute(key, value[key]);
-        } catch(e) {
+        } catch (e) {
           console.error(e); // eslint-disable-line
         }
       });
@@ -31,15 +40,15 @@ class Video extends BlockEmbed {
     return node;
   }
 
-  static formats(node) {
+  static formats(node: HTMLElement): object {
     return getAttrs(node);
   }
 
-  static value(node) {
+  static value(node: HTMLElement): object {
     return getAttrs(node);
   }
 
-  format(name, value) {
+  format(name?: string, value?: string): any {
     super.format(name, value);
   }
 }
