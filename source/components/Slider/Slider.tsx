@@ -5,19 +5,21 @@ import RcHandle from './RcHandle';
 import Tooltip from '../Tooltip';
 
 export interface SliderMarks {
-  [key: number]: React.ReactNode | {
-    style: React.CSSProperties,
-    label: React.ReactNode,
-  };
+  [key: number]:
+    | React.ReactNode
+    | {
+        style: React.CSSProperties;
+        label: React.ReactNode;
+      };
 }
 
 export type SliderValue = number | [number, number];
 
 export type HandleGeneratorFn = (info: {
-  value: number,
-  dragging: boolean,
-  index: number,
-  rest: any[],
+  value: number;
+  dragging: boolean;
+  index: number;
+  rest: any[];
 }) => React.ReactElement<any>;
 
 export interface SliderProps {
@@ -53,7 +55,7 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
     tooltipPrefixCls: 'fishd-tooltip',
     tipFormatter(value: number) {
       return value.toString();
-    },
+    }
   };
 
   private rcSlider: any;
@@ -61,31 +63,25 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
   constructor(props: SliderProps) {
     super(props);
     this.state = {
-      visibles: {},
+      visibles: {}
     };
   }
 
   toggleTooltipVisible = (index: number, visible: boolean) => {
-    this.setState(({visibles}) => ({
+    this.setState(({ visibles }) => ({
       visibles: {
         ...visibles,
-        [index]: visible,
-      },
+        [index]: visible
+      }
     }));
   };
 
-  sliderHandle: HandleGeneratorFn = ({value, dragging, index, ...restProps}) => {
-    const {tooltipPrefixCls, tipFormatter, tipMode = "default", handle} = this.props;
-    const {visibles} = this.state;
-    const visible = tipFormatter ? (visibles[index] || dragging) : false;
+  sliderHandle: HandleGeneratorFn = ({ value, dragging, index, ...restProps }) => {
+    const { tooltipPrefixCls, tipFormatter, tipMode = 'default', handle } = this.props;
+    const { visibles } = this.state;
+    const visible = tipFormatter ? visibles[index] || dragging : false;
     if (tipMode === 'all') {
-      return (
-        <RcHandle
-          {...restProps}
-          handle={handle}
-          value={value}
-        />
-      )
+      return <RcHandle {...restProps} handle={handle} value={value} />;
     }
     return (
       <Tooltip
@@ -121,10 +117,10 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
   };
 
   render() {
-    const {range, ...restProps} = this.props;
+    const { range, ...restProps } = this.props;
     if (range) {
-      return <RcRange {...restProps} ref={this.saveSlider} handle={this.sliderHandle}/>;
+      return <RcRange {...restProps} ref={this.saveSlider} handle={this.sliderHandle} />;
     }
-    return <RcSlider {...restProps} ref={this.saveSlider} handle={this.sliderHandle}/>;
+    return <RcSlider {...restProps} ref={this.saveSlider} handle={this.sliderHandle} />;
   }
 }

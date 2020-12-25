@@ -1,4 +1,3 @@
-/* global Promise */
 import * as React from 'react';
 import RcNotification from '../notification/RcNotification';
 import Icon from '../Icon/index';
@@ -17,20 +16,23 @@ function getMessageInstance(callback: (i: any) => void) {
     callback(messageInstance);
     return;
   }
-  RcNotification.newInstance({
-    prefixCls,
-    transitionName,
-    style: { top: defaultTop }, // 覆盖原来的样式
-    getContainer,
-    maxCount,
-  }, (instance: any) => {
-    if (messageInstance) {
-      callback(messageInstance);
-      return;
+  RcNotification.newInstance(
+    {
+      prefixCls,
+      transitionName,
+      style: { top: defaultTop }, // 覆盖原来的样式
+      getContainer,
+      maxCount
+    },
+    (instance: any) => {
+      if (messageInstance) {
+        callback(messageInstance);
+        return;
+      }
+      messageInstance = instance;
+      callback(instance);
     }
-    messageInstance = instance;
-    callback(instance);
-  });
+  );
 }
 
 type NoticeType = 'info' | 'success' | 'error' | 'warning' | 'loading';
@@ -49,15 +51,15 @@ function notice(
   content: React.ReactNode,
   duration: (() => void) | number = defaultDuration,
   type: NoticeType,
-  onClose?: () => void,
+  onClose?: () => void
 ): MessageType {
-  const iconType = ({
+  const iconType = {
     info: 'hints-notification',
     success: 'hints-success',
     error: 'hints-error',
     warning: 'hints-warning',
-    loading: 'load-line',
-  })[type];
+    loading: 'load-line'
+  }[type];
 
   if (typeof duration === 'function') {
     onClose = duration;
@@ -65,26 +67,26 @@ function notice(
   }
 
   const target = key++;
-  const closePromise = new Promise((resolve) => {
-    const callback =  () => {
+  const closePromise = new Promise(resolve => {
+    const callback = () => {
       if (typeof onClose === 'function') {
         onClose();
       }
       return resolve(true);
     };
 
-    getMessageInstance((instance) => {
+    getMessageInstance(instance => {
       instance.notice({
         key: target,
         duration,
         style: {},
         content: (
           <div className={`${prefixCls}-custom-content ${prefixCls}-${type}`}>
-            <Icon type={iconType} spinning={type === 'loading'}/>
+            <Icon type={iconType} spinning={type === 'loading'} />
             <span>{content}</span>
           </div>
         ),
-        onClose: callback,
+        onClose: callback
       });
     });
   });
@@ -93,7 +95,8 @@ function notice(
       messageInstance.removeNotice(target);
     }
   };
-  result.then = (filled: ThenableArgument, rejected: ThenableArgument) => closePromise.then(filled, rejected);
+  result.then = (filled: ThenableArgument, rejected: ThenableArgument) =>
+    closePromise.then(filled, rejected);
   result.promise = closePromise;
   return result;
 }
@@ -156,5 +159,5 @@ export default {
       messageInstance.destroy();
       messageInstance = null;
     }
-  },
+  }
 };

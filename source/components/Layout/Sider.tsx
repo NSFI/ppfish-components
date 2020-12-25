@@ -5,10 +5,8 @@ if (typeof window !== 'undefined') {
     return ({
       media: mediaQuery,
       matches: false,
-      addListener() {
-      },
-      removeListener() {
-      },
+      addListener() {},
+      removeListener() {}
     } as any) as MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
@@ -20,7 +18,7 @@ import classNames from 'classnames';
 import omit from 'omit.js';
 import Icon from '../Icon/index';
 import isNumeric from '../../utils/isNumeric';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 const dimensionMap = {
   xs: '480px',
@@ -28,7 +26,7 @@ const dimensionMap = {
   md: '768px',
   lg: '992px',
   xl: '1200px',
-  xxl: '1600px',
+  xxl: '1600px'
 };
 
 export type CollapseType = 'clickTrigger' | 'responsive';
@@ -51,7 +49,7 @@ export interface SiderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface SiderState {
-  prevCollapsed?: boolean,
+  prevCollapsed?: boolean;
   collapsed?: boolean;
   below: boolean;
   belowShow?: boolean;
@@ -80,26 +78,23 @@ class Sider extends React.Component<SiderProps, SiderState> {
     width: 160,
     collapsedWidth: 64,
     style: {},
-    theme: 'dark' as SiderTheme,
+    theme: 'dark' as SiderTheme
   };
 
   static childContextTypes = {
     siderCollapsed: PropTypes.bool,
-    collapsedWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    collapsedWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static contextTypes = {
-    siderHook: PropTypes.object,
+    siderHook: PropTypes.object
   };
 
   private mql: MediaQueryList;
   private uniqueId: string;
 
   static getDerivedStateFromProps(nextProps: SiderProps, prevState: SiderState) {
-    if (
-      "collapsed" in nextProps &&
-      nextProps.collapsed !== prevState.prevCollapsed
-    ) {
+    if ('collapsed' in nextProps && nextProps.collapsed !== prevState.prevCollapsed) {
       return {
         prevCollapsed: nextProps.collapsed,
         collapsed: nextProps.collapsed
@@ -127,14 +122,14 @@ class Sider extends React.Component<SiderProps, SiderState> {
     this.state = {
       prevCollapsed: collapsed,
       collapsed,
-      below: false,
+      below: false
     };
   }
 
   getChildContext() {
     return {
       siderCollapsed: this.state.collapsed,
-      collapsedWidth: this.props.collapsedWidth,
+      collapsedWidth: this.props.collapsedWidth
     };
   }
 
@@ -169,71 +164,89 @@ class Sider extends React.Component<SiderProps, SiderState> {
     if (this.state.collapsed !== mql.matches) {
       this.setCollapsed(mql.matches, 'responsive');
     }
-  }
+  };
 
   setCollapsed = (collapsed: boolean, type: CollapseType) => {
     if (!('collapsed' in this.props)) {
       this.setState({
-        collapsed,
+        collapsed
       });
     }
     const { onCollapse } = this.props;
     if (onCollapse) {
       onCollapse(collapsed, type);
     }
-  }
+  };
 
   toggle = () => {
     const collapsed = !this.state.collapsed;
     this.setCollapsed(collapsed, 'clickTrigger');
-  }
+  };
 
   belowShowChange = () => {
     this.setState({ belowShow: !this.state.belowShow });
-  }
+  };
 
   render() {
-    const { prefixCls, className, theme,
-      collapsible, reverseArrow, trigger, style, width, collapsedWidth,
+    const {
+      prefixCls,
+      className,
+      theme,
+      collapsible,
+      reverseArrow,
+      trigger,
+      style,
+      width,
+      collapsedWidth,
       ...others
     } = this.props;
-    const divProps = omit(others, ['collapsed',
-      'defaultCollapsed', 'onCollapse', 'breakpoint', 'onBreakpoint']);
+    const divProps = omit(others, [
+      'collapsed',
+      'defaultCollapsed',
+      'onCollapse',
+      'breakpoint',
+      'onBreakpoint'
+    ]);
     const rawWidth = this.state.collapsed ? collapsedWidth : width;
     // use "px" as fallback unit for width
     const siderWidth = isNumeric(rawWidth) ? `${rawWidth}px` : String(rawWidth);
     // special trigger when collapsedWidth == 0
-    const zeroWidthTrigger = parseFloat(String(collapsedWidth || 0)) === 0 ? (
-      <span onClick={this.toggle} className={`${prefixCls}-zero-width-trigger`}>
-        <Icon type="bars" />
-      </span>
-    ) : null;
+    const zeroWidthTrigger =
+      parseFloat(String(collapsedWidth || 0)) === 0 ? (
+        <span onClick={this.toggle} className={`${prefixCls}-zero-width-trigger`}>
+          <Icon type="bars" />
+        </span>
+      ) : null;
     const iconObj = {
-      'expanded': reverseArrow ? <Icon type="right" /> : <Icon type="left" />,
-      'collapsed': reverseArrow ? <Icon type="left" /> : <Icon type="right" />,
+      expanded: reverseArrow ? <Icon type="right" /> : <Icon type="left" />,
+      collapsed: reverseArrow ? <Icon type="left" /> : <Icon type="right" />
     };
     const status = this.state.collapsed ? 'collapsed' : 'expanded';
     const defaultTrigger = iconObj[status];
-    const triggerDom = (
-      trigger !== null ?
-        zeroWidthTrigger || (
-          <div className={`${prefixCls}-trigger`} onClick={this.toggle} style={{ width: siderWidth }}>
-            {trigger || defaultTrigger}
-          </div>
-        ) : null
-    );
+    const triggerDom =
+      trigger !== null
+        ? zeroWidthTrigger || (
+            <div
+              className={`${prefixCls}-trigger`}
+              onClick={this.toggle}
+              style={{ width: siderWidth }}
+            >
+              {trigger || defaultTrigger}
+            </div>
+          )
+        : null;
     const divStyle = {
       ...style,
       flex: `0 0 ${siderWidth}`,
       maxWidth: siderWidth, // Fix width transition bug in IE11
       minWidth: siderWidth, // https://github.com/ant-design/ant-design/issues/6349
-      width: siderWidth,
+      width: siderWidth
     };
     const siderCls = classNames(className, prefixCls, `${prefixCls}-${theme}`, {
       [`${prefixCls}-collapsed`]: !!this.state.collapsed,
       [`${prefixCls}-has-trigger`]: collapsible && trigger !== null && !zeroWidthTrigger,
       [`${prefixCls}-below`]: !!this.state.below,
-      [`${prefixCls}-zero-width`]: parseFloat(siderWidth) === 0,
+      [`${prefixCls}-zero-width`]: parseFloat(siderWidth) === 0
     });
     return (
       <div className={siderCls} {...divProps} style={divStyle}>
@@ -243,7 +256,6 @@ class Sider extends React.Component<SiderProps, SiderState> {
     );
   }
 }
-
 
 polyfill(Sider);
 export default Sider;

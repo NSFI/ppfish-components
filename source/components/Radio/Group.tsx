@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 import Radio from './Radio';
-import {RadioGroupProps, RadioGroupState, RadioChangeEvent} from './interface';
+import { RadioGroupProps, RadioGroupState, RadioChangeEvent } from './interface';
 
 // case sensitive
 function getCheckedValue(children: React.ReactNode) {
@@ -17,30 +17,30 @@ function getCheckedValue(children: React.ReactNode) {
       matched = true;
     }
   });
-  return matched ? {value} : undefined;
+  return matched ? { value } : undefined;
 }
 
 class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
   static defaultProps = {
     disabled: false,
     prefixCls: 'fishd-radio',
-    buttonStyle: 'outline',
+    buttonStyle: 'outline'
   };
 
   static childContextTypes = {
-    radioGroup: PropTypes.any,
+    radioGroup: PropTypes.any
   };
 
   static getDerivedStateFromProps(nextProps: RadioGroupProps) {
     if ('value' in nextProps) {
       return {
-        value: nextProps.value,
+        value: nextProps.value
       };
     } else {
       const checkedValue = getCheckedValue(nextProps.children);
       if (checkedValue) {
         return {
-          value: checkedValue.value,
+          value: checkedValue.value
         };
       }
     }
@@ -59,7 +59,7 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
       value = checkedValue && checkedValue.value;
     }
     this.state = {
-      value,
+      value
     };
   }
 
@@ -69,22 +69,21 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
         onChange: this.onRadioChange,
         value: this.state.value,
         disabled: this.props.disabled,
-        name: this.props.name,
-      },
+        name: this.props.name
+      }
     };
   }
 
   shouldComponentUpdate(nextProps: RadioGroupProps, nextState: RadioGroupState) {
-    return !shallowEqual(this.props, nextProps) ||
-      !shallowEqual(this.state, nextState);
+    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
   }
 
   onRadioChange = (ev: RadioChangeEvent) => {
     const lastValue = this.state.value;
-    const {value} = ev.target;
+    const { value } = ev.target;
     if (!('value' in this.props)) {
       this.setState({
-        value,
+        value
       });
     }
 
@@ -96,18 +95,25 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
 
   render() {
     const props = this.props;
-    const {prefixCls, className = '', options, buttonStyle} = props;
+    const { prefixCls, className = '', options, buttonStyle } = props;
     const groupPrefixCls = `${prefixCls}-group`;
-    const classString = classNames(groupPrefixCls, `${groupPrefixCls}-${buttonStyle}`, {
-      [`${groupPrefixCls}-${props.size}`]: props.size,
-    }, className);
+    const classString = classNames(
+      groupPrefixCls,
+      `${groupPrefixCls}-${buttonStyle}`,
+      {
+        [`${groupPrefixCls}-${props.size}`]: props.size
+      },
+      className
+    );
 
-    let children: React.ReactChildren[] | React.ReactElement<any>[] | React.ReactNode = props.children;
+    let children: React.ReactChildren[] | React.ReactElement<any>[] | React.ReactNode =
+      props.children;
 
     // 如果存在 options, 优先使用
     if (options && options.length > 0) {
       children = options.map((option, index) => {
-        if (typeof option === 'string') { // 此处类型自动推导为 string
+        if (typeof option === 'string') {
+          // 此处类型自动推导为 string
           return (
             <Radio
               key={index}
@@ -120,7 +126,8 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
               {option}
             </Radio>
           );
-        } else { // 此处类型自动推导为 { label: string value: string }
+        } else {
+          // 此处类型自动推导为 { label: string value: string }
           return (
             <Radio
               key={index}

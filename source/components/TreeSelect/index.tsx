@@ -39,7 +39,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
 
     warning(
       props.multiple !== false || !props.treeCheckable,
-      '`multiple` will alway be `true` when `treeCheckable` is true',
+      '`multiple` will alway be `true` when `treeCheckable` is true'
     );
   }
 
@@ -53,7 +53,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
 
   saveTreeSelect = (node: typeof RcTreeSelect) => {
     this.rcTreeSelect = node;
-  }
+  };
 
   render() {
     const {
@@ -68,13 +68,16 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     } = this.props;
     const isEditableMul = (restProps.multiple || treeCheckable) && restProps.editable;
 
-    const cls = classNames({
-      [`${prefixCls}-ctner`]: true,
-      [`${prefixCls}-scroll`]: isEditableMul,
-      [`${prefixCls}-singleline`]: !isEditableMul,
-      [`${prefixCls}-lg`]: size === 'large',
-      [`${prefixCls}-sm`]: size === 'small',
-    }, className);
+    const cls = classNames(
+      {
+        [`${prefixCls}-ctner`]: true,
+        [`${prefixCls}-scroll`]: isEditableMul,
+        [`${prefixCls}-singleline`]: !isEditableMul,
+        [`${prefixCls}-lg`]: size === 'large',
+        [`${prefixCls}-sm`]: size === 'small'
+      },
+      className
+    );
 
     let checkable = treeCheckable;
     if (checkable) {
@@ -86,7 +89,11 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
         dropdownClassName={classNames(dropdownClassName, `${prefixCls}-tree-dropdown`)}
         prefixCls={prefixCls}
         className={cls}
-        dropdownStyle={{ maxHeight: '100vh', overflow: 'auto', ...dropdownStyle }}
+        dropdownStyle={{
+          maxHeight: '100vh',
+          overflow: 'auto',
+          ...dropdownStyle
+        }}
         treeCheckable={checkable}
         notFoundContent={notFoundContent}
         ref={this.saveTreeSelect}

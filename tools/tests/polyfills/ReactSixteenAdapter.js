@@ -199,6 +199,7 @@ class ReactSixteenAdapter extends EnzymeAdapter {
           };
           const ReactWrapperComponent = createMountWrapper(el, options);
           const wrappedEl = React.createElement(ReactWrapperComponent, wrapperProps);
+          // eslint-disable-next-line react/no-render-return-value
           instance = ReactDOM.render(wrappedEl, domNode);
           if (typeof callback === 'function') {
             callback();

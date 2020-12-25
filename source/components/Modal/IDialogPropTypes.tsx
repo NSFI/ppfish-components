@@ -1,4 +1,4 @@
-import { CSSProperties, SyntheticEvent } from 'react';
+import * as React from 'react';
 
 interface IDialogPropTypes {
   /** 对话框是否可见*/
@@ -7,18 +7,18 @@ interface IDialogPropTypes {
   title?: React.ReactNode | string;
   className?: string;
   esc?: boolean;
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   mask?: boolean;
   children?: any;
   afterClose?: () => any;
-  onClose?: (e: SyntheticEvent<HTMLDivElement>) => any;
+  onClose?: (e: React.SyntheticEvent<HTMLDivElement>) => any;
   closable?: boolean;
   maskClosable?: boolean;
-  destroyOnClose ?: boolean;
-  draggable ?: boolean;
+  destroyOnClose?: boolean;
+  draggable?: boolean;
   mousePosition?: {
-    x: number,
-    y: number,
+    x: number;
+    y: number;
   };
   footer?: React.ReactNode;
   transitionName?: string;

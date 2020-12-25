@@ -10,10 +10,7 @@ export interface TextLoadingProps {
 
 const TextLoading = (props: TextLoadingProps) => {
   const { text = '加载中', className = '', prefixCls = 'fishd-spin' } = props;
-  const otherProps = omit(props, [
-    'className',
-    'prefixCls',
-  ]);
+  const otherProps = omit(props, ['className', 'prefixCls']);
   const classString = classNames(`${prefixCls}-text-loading`, className);
   return (
     <div {...otherProps} className={classString}>

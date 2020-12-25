@@ -4,14 +4,13 @@
  * @return {[type]}         [description]
  */
 export const fullscreen = function(element) {
-  let func = (
+  let func =
     element.requestFullscreen ||
     element.msRequestFullscreen ||
     element.mozRequestFullScreen ||
-    element.webkitRequestFullScreen
-  );
+    element.webkitRequestFullScreen;
 
-  if (Object.prototype.toString.call(func) == "[object Function]") {
+  if (Object.prototype.toString.call(func) == '[object Function]') {
     func.call(element);
   }
 };
@@ -24,11 +23,11 @@ export const exitfullscreen = function() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
+    document['msExitFullscreen']();
   } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
+    document['mozCancelFullScreen']();
   } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
+    document['webkitExitFullscreen']();
   }
 };
 
@@ -38,10 +37,10 @@ export const exitfullscreen = function() {
  * @param {Function} fn      [回调函数]
  */
 export const addFullscreenchangeEvent = function(element, fn) {
-  element.addEventListener("fullscreenchange", fn);
-  element.addEventListener("mozfullscreenchange", fn);
-  element.addEventListener("webkitfullscreenchange", fn);
-  element.addEventListener("msfullscreenchange", fn);
+  element.addEventListener('fullscreenchange', fn);
+  element.addEventListener('mozfullscreenchange', fn);
+  element.addEventListener('webkitfullscreenchange', fn);
+  element.addEventListener('msfullscreenchange', fn);
 };
 
 /**

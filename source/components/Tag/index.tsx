@@ -36,17 +36,17 @@ class Tag extends React.Component<TagProps, TagState> {
   static defaultProps = {
     prefixCls: 'fishd-tag',
     closable: false,
-    autoShowClose: true,
+    autoShowClose: true
   };
 
   static getDerivedStateFromProps(nextProps: TagProps) {
-    return  ('visible' in nextProps) ? { visible: nextProps.visible } : null;
+    return 'visible' in nextProps ? { visible: nextProps.visible } : null;
   }
 
   state = {
     closing: false,
     closed: false,
-    visible: true,
+    visible: true
   };
 
   componentDidUpdate(_prevProps: TagProps, prevState: TagState) {
@@ -66,7 +66,7 @@ class Tag extends React.Component<TagProps, TagState> {
       return;
     }
     this.setState({ visible: false });
-  }
+  };
 
   close = () => {
     if (this.state.closing || this.state.closed) {
@@ -77,21 +77,21 @@ class Tag extends React.Component<TagProps, TagState> {
     // It's Magic Code, don't know why
     dom.style.width = `${dom.getBoundingClientRect().width}px`;
     this.setState({
-      closing: true,
+      closing: true
     });
-  }
+  };
 
   show = () => {
     this.setState({
-      closed: false,
+      closed: false
     });
-  }
+  };
 
   animationEnd = (_: string, existed: boolean) => {
     if (!existed && !this.state.closed) {
       this.setState({
         closed: true,
-        closing: false,
+        closing: false
       });
 
       const afterClose = this.props.afterClose;
@@ -100,10 +100,10 @@ class Tag extends React.Component<TagProps, TagState> {
       }
     } else {
       this.setState({
-        closed: false,
+        closed: false
       });
     }
-  }
+  };
 
   isPresetColor(color?: string): boolean {
     return false;
@@ -115,39 +115,45 @@ class Tag extends React.Component<TagProps, TagState> {
   }
 
   render() {
-    const { prefixCls, closable, color, className, children, style, autoShowClose, ...otherProps } = this.props;
+    const {
+      prefixCls,
+      closable,
+      color,
+      className,
+      children,
+      style,
+      autoShowClose,
+      ...otherProps
+    } = this.props;
     const isPresetColor = this.isPresetColor(color);
-    const classString = classNames(prefixCls, {
-      [`${prefixCls}-${color}`]: isPresetColor,
-      [`${prefixCls}-has-color`]: (color && !isPresetColor),
-      [`${prefixCls}-close`]: this.state.closing,
-    }, className);
+    const classString = classNames(
+      prefixCls,
+      {
+        [`${prefixCls}-${color}`]: isPresetColor,
+        [`${prefixCls}-has-color`]: color && !isPresetColor,
+        [`${prefixCls}-close`]: this.state.closing
+      },
+      className
+    );
     // fix https://fb.me/react-unknown-prop
-    const divProps = omit(otherProps, [
-      'onClose',
-      'afterClose',
-      'visible',
-    ]);
+    const divProps = omit(otherProps, ['onClose', 'afterClose', 'visible']);
     const tagStyle = {
-      backgroundColor: (color && !isPresetColor) ? color : null,
-      ...style,
+      backgroundColor: color && !isPresetColor ? color : null,
+      ...style
     };
     let closeIcon = null;
     if (closable) {
       if (autoShowClose) {
         closeIcon = <Icon type="close-modal-line" onClick={this.handleIconClick} />;
       } else {
-        closeIcon = <Icon type="close-modal-line" onClick={this.handleIconClick} className="invisible" />;
+        closeIcon = (
+          <Icon type="close-modal-line" onClick={this.handleIconClick} className="invisible" />
+        );
       }
     }
 
     const tag = this.state.closed ? null : (
-      <div
-        data-show={!this.state.closing}
-        {...divProps}
-        className={classString}
-        style={tagStyle}
-      >
+      <div data-show={!this.state.closing} {...divProps} className={classString} style={tagStyle}>
         {children}
         {closeIcon}
       </div>

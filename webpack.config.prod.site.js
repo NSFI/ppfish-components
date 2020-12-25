@@ -61,7 +61,7 @@ const getHappyPackPlugin = () => [
     threadPool: happyThreadPool,
     verbose: true,
   }),
-  new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })
+  new ForkTsCheckerWebpackPlugin()
 ];
 
 

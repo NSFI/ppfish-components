@@ -1,6 +1,6 @@
 import Modal, { ModalFuncProps } from './Modal';
 import confirm from './confirm';
-import "./style/index.less";
+import './style/index.less';
 
 export { ActionButtonProps } from './ActionButton';
 export { ModalProps, ModalFuncProps } from './Modal';
@@ -10,7 +10,7 @@ Modal.info = function (props: ModalFuncProps) {
     type: 'info',
     iconType: 'hints-notification',
     okCancel: false,
-    ...props,
+    ...props
   };
   return confirm(config);
 };
@@ -20,7 +20,7 @@ Modal.success = function (props: ModalFuncProps) {
     type: 'success',
     iconType: 'hints-success',
     okCancel: false,
-    ...props,
+    ...props
   };
   return confirm(config);
 };
@@ -30,7 +30,7 @@ Modal.error = function (props: ModalFuncProps) {
     type: 'error',
     iconType: 'hints-error',
     okCancel: false,
-    ...props,
+    ...props
   };
   return confirm(config);
 };
@@ -40,7 +40,7 @@ Modal.warning = Modal.warn = function (props: ModalFuncProps) {
     type: 'warning',
     iconType: 'hints-warning',
     okCancel: false,
-    ...props,
+    ...props
   };
   return confirm(config);
 };
@@ -49,7 +49,7 @@ Modal.confirm = function (props: ModalFuncProps) {
   const config = {
     type: 'confirm',
     okCancel: true,
-    ...props,
+    ...props
   };
   return confirm(config);
 };

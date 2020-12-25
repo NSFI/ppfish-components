@@ -16,7 +16,7 @@ export function fileToObject(file: RcFile): UploadFile {
     type: file.type,
     uid: file.uid,
     percent: 0,
-    originFileObj: file,
+    originFileObj: file
   } as UploadFile;
 }
 

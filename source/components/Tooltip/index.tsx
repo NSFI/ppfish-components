@@ -1,18 +1,27 @@
 import * as React from 'react';
-import {cloneElement} from 'react';
+import { cloneElement } from 'react';
 import RcTooltip from './RcTooltip';
 import classNames from 'classnames';
-import {polyfill} from 'react-lifecycles-compat';
-import getPlacements, {AdjustOverflow, PlacementsConfig} from './placements';
+import { polyfill } from 'react-lifecycles-compat';
+import getPlacements, { AdjustOverflow, PlacementsConfig } from './placements';
 import Button from '../Button';
 import './style/index.less';
 
-export {AdjustOverflow, PlacementsConfig};
+export { AdjustOverflow, PlacementsConfig };
 
 export type TooltipPlacement =
-  'top' | 'left' | 'right' | 'bottom' |
-  'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' |
-  'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
+  | 'top'
+  | 'left'
+  | 'right'
+  | 'bottom'
+  | 'topLeft'
+  | 'topRight'
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'leftTop'
+  | 'leftBottom'
+  | 'rightTop'
+  | 'rightBottom';
 
 export type TooltipTrigger = 'hover' | 'focus' | 'click' | 'contextMenu';
 
@@ -49,14 +58,14 @@ export interface TooltipProps extends AbstractTooltipProps {
 
 const splitObject = (obj: any, keys: string[]) => {
   const picked: any = {};
-  const omitted: any = {...obj};
+  const omitted: any = { ...obj };
   keys.forEach(key => {
     if (obj && key in obj) {
       picked[key] = obj[key];
       delete omitted[key];
     }
   });
-  return {picked, omitted};
+  return { picked, omitted };
 };
 
 class Tooltip extends React.Component<TooltipProps, any> {
@@ -67,14 +76,14 @@ class Tooltip extends React.Component<TooltipProps, any> {
     mouseEnterDelay: 0.1,
     mouseLeaveDelay: 0.1,
     arrowPointAtCenter: false,
-    autoAdjustOverflow: true,
+    autoAdjustOverflow: true
   };
 
   private tooltip: typeof RcTooltip;
 
   static getDerivedStateFromProps(nextProps: TooltipProps) {
     if ('visible' in nextProps) {
-      return {visible: nextProps.visible}
+      return { visible: nextProps.visible };
     }
     return null;
   }
@@ -83,14 +92,14 @@ class Tooltip extends React.Component<TooltipProps, any> {
     super(props);
 
     this.state = {
-      visible: !!props.visible || !!props.defaultVisible,
+      visible: !!props.visible || !!props.defaultVisible
     };
   }
 
   onVisibleChange = (visible: boolean) => {
-    const {onVisibleChange} = this.props;
+    const { onVisibleChange } = this.props;
     if (!('visible' in this.props)) {
-      this.setState({visible: this.isNoTitle() ? false : visible});
+      this.setState({ visible: this.isNoTitle() ? false : visible });
     }
     if (onVisibleChange && !this.isNoTitle()) {
       onVisibleChange(visible);
@@ -102,16 +111,19 @@ class Tooltip extends React.Component<TooltipProps, any> {
   }
 
   getPlacements() {
-    const {builtinPlacements, arrowPointAtCenter, autoAdjustOverflow} = this.props;
-    return builtinPlacements || getPlacements({
-      arrowPointAtCenter,
-      verticalArrowShift: 8,
-      autoAdjustOverflow,
-    });
+    const { builtinPlacements, arrowPointAtCenter, autoAdjustOverflow } = this.props;
+    return (
+      builtinPlacements ||
+      getPlacements({
+        arrowPointAtCenter,
+        verticalArrowShift: 8,
+        autoAdjustOverflow
+      })
+    );
   }
 
   isHoverTrigger() {
-    const {trigger} = this.props;
+    const { trigger } = this.props;
     if (!trigger || trigger === 'hover') {
       return true;
     }
@@ -125,26 +137,35 @@ class Tooltip extends React.Component<TooltipProps, any> {
   // mouse events don't trigger at disabled button in Chrome
   // https://github.com/react-component/tooltip/issues/18
   getDisabledCompatibleChildren(element: React.ReactElement<any>) {
-    if (((element.type as typeof Button).__FISHD_BUTTON || element.type === 'button') &&
-      element.props.disabled && this.isHoverTrigger()) {
+    if (
+      ((element.type as typeof Button).__FISHD_BUTTON || element.type === 'button') &&
+      element.props.disabled &&
+      this.isHoverTrigger()
+    ) {
       // Pick some layout related style properties up to span
       // Prevent layout bugs like https://github.com/ant-design/ant-design/issues/5254
-      const {picked, omitted} = splitObject(
-        element.props.style,
-        ['position', 'left', 'right', 'top', 'bottom', 'float', 'display', 'zIndex'],
-      );
+      const { picked, omitted } = splitObject(element.props.style, [
+        'position',
+        'left',
+        'right',
+        'top',
+        'bottom',
+        'float',
+        'display',
+        'zIndex'
+      ]);
       const spanStyle = {
-        display: 'inline-block',  // default inline-block is important
+        display: 'inline-block', // default inline-block is important
         ...picked,
-        cursor: 'not-allowed',
+        cursor: 'not-allowed'
       };
       const buttonStyle = {
         ...omitted,
-        pointerEvents: 'none',
+        pointerEvents: 'none'
       };
       const child = cloneElement(element, {
         style: buttonStyle,
-        className: null,
+        className: null
       });
       return (
         <span style={spanStyle} className={element.props.className}>
@@ -156,8 +177,8 @@ class Tooltip extends React.Component<TooltipProps, any> {
   }
 
   isNoTitle() {
-    const {title, overlay} = this.props;
-    return !title && !overlay;  // overlay for old version compatibility
+    const { title, overlay } = this.props;
+    return !title && !overlay; // overlay for old version compatibility
   }
 
   // 动态设置动画点
@@ -165,10 +186,9 @@ class Tooltip extends React.Component<TooltipProps, any> {
     const placements: any = this.getPlacements();
     // 当前返回的位置
     const placement = Object.keys(placements).filter(
-      key => (
+      key =>
         placements[key].points[0] === align.points[0] &&
         placements[key].points[1] === align.points[1]
-      ),
     )[0];
     if (!placement) {
       return;
@@ -177,7 +197,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
     const rect = domNode.getBoundingClientRect();
     const transformOrigin = {
       top: '50%',
-      left: '50%',
+      left: '50%'
     };
     if (placement.indexOf('top') >= 0 || placement.indexOf('Bottom') >= 0) {
       transformOrigin.top = `${rect.height - align.offset[1]}px`;
@@ -197,8 +217,15 @@ class Tooltip extends React.Component<TooltipProps, any> {
   };
 
   render() {
-    const {props, state} = this;
-    const {prefixCls, title, overlay, openClassName, getPopupContainer, getTooltipContainer} = props;
+    const { props, state } = this;
+    const {
+      prefixCls,
+      title,
+      overlay,
+      openClassName,
+      getPopupContainer,
+      getTooltipContainer
+    } = props;
     const children = props.children as React.ReactElement<any>;
     let visible = state.visible;
     // Hide tooltip when there is no title
@@ -207,11 +234,11 @@ class Tooltip extends React.Component<TooltipProps, any> {
     }
 
     const child = this.getDisabledCompatibleChildren(
-      React.isValidElement(children) ? children : <span>{children}</span>,
+      React.isValidElement(children) ? children : <span>{children}</span>
     );
     const childProps = child.props;
     const childCls = classNames(childProps.className, {
-      [openClassName || `${prefixCls}-open`]: true,
+      [openClassName || `${prefixCls}-open`]: true
     });
 
     return (
@@ -225,7 +252,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
         onVisibleChange={this.onVisibleChange}
         onPopupAlign={this.onPopupAlign}
       >
-        {visible ? cloneElement(child, {className: childCls}) : child}
+        {visible ? cloneElement(child, { className: childCls }) : child}
       </RcTooltip>
     );
   }

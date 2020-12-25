@@ -13,19 +13,21 @@ export default class Radio extends React.Component<RadioProps, {}> {
 
   static defaultProps = {
     prefixCls: 'fishd-radio',
-    type: 'radio',
+    type: 'radio'
   };
 
   static contextTypes = {
-    radioGroup: PropTypes.any,
+    radioGroup: PropTypes.any
   };
 
   private rcCheckbox: any;
 
   shouldComponentUpdate(nextProps: RadioProps, nextState: {}, nextContext: RadioGroupContext) {
-    return !shallowEqual(this.props, nextProps) ||
+    return (
+      !shallowEqual(this.props, nextProps) ||
       !shallowEqual(this.state, nextState) ||
-      !shallowEqual(this.context.radioGroup, nextContext.radioGroup);
+      !shallowEqual(this.context.radioGroup, nextContext.radioGroup)
+    );
   }
 
   focus() {
@@ -38,17 +40,11 @@ export default class Radio extends React.Component<RadioProps, {}> {
 
   saveCheckbox = (node: any) => {
     this.rcCheckbox = node;
-  }
+  };
 
   render() {
     const { props, context } = this;
-    const {
-      prefixCls,
-      className,
-      children,
-      style,
-      ...restProps
-    } = props;
+    const { prefixCls, className, children, style, ...restProps } = props;
     const { radioGroup } = context;
     let radioProps: RadioProps = { ...restProps };
     if (radioGroup) {
@@ -60,7 +56,7 @@ export default class Radio extends React.Component<RadioProps, {}> {
     const wrapperClassString = classNames(className, {
       [`${prefixCls}-wrapper`]: true,
       [`${prefixCls}-wrapper-checked`]: radioProps.checked,
-      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled,
+      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled
     });
 
     return (
@@ -70,11 +66,7 @@ export default class Radio extends React.Component<RadioProps, {}> {
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
       >
-        <RcCheckbox
-          {...radioProps}
-          prefixCls={prefixCls}
-          ref={this.saveCheckbox}
-        />
+        <RcCheckbox {...radioProps} prefixCls={prefixCls} ref={this.saveCheckbox} />
         {children !== undefined ? <span>{children}</span> : null}
       </label>
     );

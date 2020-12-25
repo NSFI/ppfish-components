@@ -42,19 +42,25 @@ export default class Checkbox extends React.Component<CheckboxProps, {}> {
   static Group: typeof CheckboxGroup;
   static defaultProps = {
     prefixCls: 'fishd-checkbox',
-    indeterminate: false,
+    indeterminate: false
   };
 
   static contextTypes = {
-    checkboxGroup: PropTypes.any,
+    checkboxGroup: PropTypes.any
   };
 
   private rcCheckbox: any;
 
-  shouldComponentUpdate(nextProps: CheckboxProps, nextState: {}, nextContext: CheckboxGroupContext) {
-    return !shallowEqual(this.props, nextProps) ||
+  shouldComponentUpdate(
+    nextProps: CheckboxProps,
+    nextState: {},
+    nextContext: CheckboxGroupContext
+  ) {
+    return (
+      !shallowEqual(this.props, nextProps) ||
       !shallowEqual(this.state, nextState) ||
-      !shallowEqual(this.context.checkboxGroup, nextContext.checkboxGroup);
+      !shallowEqual(this.context.checkboxGroup, nextContext.checkboxGroup)
+    );
   }
 
   focus() {
@@ -67,7 +73,7 @@ export default class Checkbox extends React.Component<CheckboxProps, {}> {
 
   saveCheckbox = (node: any) => {
     this.rcCheckbox = node;
-  }
+  };
 
   render() {
     const { props, context } = this;
@@ -84,15 +90,16 @@ export default class Checkbox extends React.Component<CheckboxProps, {}> {
     const { checkboxGroup } = context;
     let checkboxProps: CheckboxProps = { ...restProps };
     if (checkboxGroup) {
-      checkboxProps.onChange = () => checkboxGroup.toggleOption({ label: children, value: props.value });
+      checkboxProps.onChange = () =>
+        checkboxGroup.toggleOption({ label: children, value: props.value });
       checkboxProps.checked = checkboxGroup.value.indexOf(props.value) !== -1;
       checkboxProps.disabled = props.disabled || checkboxGroup.disabled;
     }
     const classString = classNames(className, {
-      [`${prefixCls}-wrapper`]: true,
+      [`${prefixCls}-wrapper`]: true
     });
     const checkboxClass = classNames({
-      [`${prefixCls}-indeterminate`]: indeterminate,
+      [`${prefixCls}-indeterminate`]: indeterminate
     });
     return (
       <label

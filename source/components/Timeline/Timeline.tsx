@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import TimelineItem, {TimeLineItemProps} from './TimelineItem';
+import TimelineItem, { TimeLineItemProps } from './TimelineItem';
 import Icon from '../Icon';
 
 export interface TimelineProps {
@@ -19,34 +19,38 @@ export default class Timeline extends React.Component<TimelineProps, any> {
   static defaultProps = {
     prefixCls: 'fishd-timeline',
     reverse: false,
-    mode: '',
+    mode: ''
   };
 
   render() {
     const {
       prefixCls,
-      pending = null, pendingDot,
-      children, className, reverse,
+      pending = null,
+      pendingDot,
+      children,
+      className,
+      reverse,
       mode,
       ...restProps
     } = this.props;
     const pendingNode = typeof pending === 'boolean' ? null : pending;
-    const classString = classNames(prefixCls, {
-      [`${prefixCls}-pending`]: !!pending,
-      [`${prefixCls}-reverse`]: !!reverse,
-      [`${prefixCls}-${mode}`]: !!mode,
-    }, className);
+    const classString = classNames(
+      prefixCls,
+      {
+        [`${prefixCls}-pending`]: !!pending,
+        [`${prefixCls}-reverse`]: !!reverse,
+        [`${prefixCls}-${mode}`]: !!mode
+      },
+      className
+    );
 
-    const pendingItem = !!pending ? (
-      <TimelineItem
-        pending={!!pending}
-        dot={pendingDot || <Icon type="load-line" spinning />}
-      >
+    const pendingItem = pending ? (
+      <TimelineItem pending={!!pending} dot={pendingDot || <Icon type="load-line" spinning />}>
         {pendingNode}
       </TimelineItem>
     ) : null;
 
-    const timeLineItems = !!reverse
+    const timeLineItems = reverse
       ? [pendingItem, ...React.Children.toArray(children).reverse()]
       : [...React.Children.toArray(children), pendingItem];
 
@@ -58,14 +62,22 @@ export default class Timeline extends React.Component<TimelineProps, any> {
       React.cloneElement(ele, {
         className: classNames([
           ele.props.className,
-          (!reverse && !!pending)
-            ? (idx === itemsCount - 2) ? lastCls : ''
-            : (idx === itemsCount - 1) ? lastCls : '',
-          (mode === 'alternate')
-            ? (idx % 2 === 0) ? `${prefixCls}-item-left` : `${prefixCls}-item-right`
-            : (mode === 'right') ? `${prefixCls}-item-right` : '',
-        ]),
-      }),
+          !reverse && !!pending
+            ? idx === itemsCount - 2
+              ? lastCls
+              : ''
+            : idx === itemsCount - 1
+            ? lastCls
+            : '',
+          mode === 'alternate'
+            ? idx % 2 === 0
+              ? `${prefixCls}-item-left`
+              : `${prefixCls}-item-right`
+            : mode === 'right'
+            ? `${prefixCls}-item-right`
+            : ''
+        ])
+      })
     );
 
     return (

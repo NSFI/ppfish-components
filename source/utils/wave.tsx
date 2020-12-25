@@ -2,7 +2,19 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import TransitionEvents from 'css-animation/lib/Event';
 
-export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
+export default class Wave extends React.Component<{
+  insertExtraNode?: boolean;
+}> {
+  componentDidMount() {
+    this.instance = this.bindAnimationEvent(findDOMNode(this) as HTMLElement);
+  }
+
+  componentWillUnmount() {
+    if (this.instance) {
+      this.instance.cancel();
+    }
+  }
+
   private instance?: {
     cancel: () => void;
   };
@@ -10,7 +22,9 @@ export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
   private styleForPesudo: HTMLStyleElement | null;
 
   isNotGrey(color: string) {
-    const match = (color || '').match(/rgba?\((\d*), (\d*), (\d*)(, [\.\d]*)?\)/);
+    const match = (color || '').match(
+      /rgba?\((\d*), (\d*), (\d*)(, [.\d]*)?\)/,
+    );
     if (match && match[1] && match[2] && match[3]) {
       return !(match[1] === match[2] && match[2] === match[3]);
     }
@@ -25,7 +39,9 @@ export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
     const { insertExtraNode } = this.props;
     const extraNode = document.createElement('div');
     extraNode.className = 'fishd-click-animating-node';
-    const attributeName = insertExtraNode ? 'fishd-click-animating' : 'fishd-click-animating-without-extra-node';
+    const attributeName = insertExtraNode
+      ? 'fishd-click-animating'
+      : 'fishd-click-animating-without-extra-node';
     node.removeAttribute(attributeName);
     node.setAttribute(attributeName, 'true');
     // Get wave color from target
@@ -34,16 +50,17 @@ export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
       getComputedStyle(node).getPropertyValue('border-color') ||
       getComputedStyle(node).getPropertyValue('background-color');
     // Not white or transparnt or grey
-    if (waveColor &&
+    if (
+      waveColor &&
       waveColor !== '#ffffff' &&
       waveColor !== 'rgb(255, 255, 255)' &&
       this.isNotGrey(waveColor) &&
-      !/rgba\(\d*, \d*, \d*, 0\)/.test(waveColor) &&  // any transparent rgba color
-      waveColor !== 'transparent') {
+      !/rgba\(\d*, \d*, \d*, 0\)/.test(waveColor) && // any transparent rgba color
+      waveColor !== 'transparent'
+    ) {
       extraNode.style.borderColor = waveColor;
       this.styleForPesudo = document.createElement('style');
-      this.styleForPesudo.innerHTML =
-        `[fishd-click-animating-without-extra-node]:after { border-color: ${waveColor}; }`;
+      this.styleForPesudo.innerHTML = `[fishd-click-animating-without-extra-node]:after { border-color: ${waveColor}; }`;
       document.body.appendChild(this.styleForPesudo);
     }
     if (insertExtraNode) {
@@ -58,11 +75,13 @@ export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
       TransitionEvents.removeEndEventListener(node, transitionEnd);
     };
     TransitionEvents.addEndEventListener(node, transitionEnd);
-  }
+  };
 
   bindAnimationEvent = (node: HTMLElement) => {
-    if (node.getAttribute('disabled') ||
-      node.className.indexOf('disabled') >= 0) {
+    if (
+      node.getAttribute('disabled') ||
+      node.className.indexOf('disabled') >= 0
+    ) {
       return;
     }
     const onClick = (e: MouseEvent) => {
@@ -78,22 +97,12 @@ export default class Wave extends React.Component<{insertExtraNode?: boolean}> {
         node.removeEventListener('click', onClick, true);
       },
     };
-  }
+  };
 
   removeExtraStyleNode() {
     if (this.styleForPesudo && document.body.contains(this.styleForPesudo)) {
       document.body.removeChild(this.styleForPesudo);
       this.styleForPesudo = null;
-    }
-  }
-
-  componentDidMount() {
-    this.instance = this.bindAnimationEvent(findDOMNode(this) as HTMLElement);
-  }
-
-  componentWillUnmount() {
-    if (this.instance) {
-      this.instance.cancel();
     }
   }
 

@@ -16,7 +16,12 @@ export interface BreadcrumbProps {
   routes?: Route[];
   params?: any;
   separator?: React.ReactNode;
-  itemRender?: (route: any, params: any, routes: Array<any>, paths: Array<string>) => React.ReactNode;
+  itemRender?: (
+    route: any,
+    params: any,
+    routes: Array<any>,
+    paths: Array<string>
+  ) => React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
   size?: string;
@@ -30,7 +35,7 @@ function getBreadcrumbName(route: Route, params: any) {
   const paramsKeys = Object.keys(params).join('|');
   const name = route.breadcrumbName.replace(
     new RegExp(`:(${paramsKeys})`, 'g'),
-    (replacement, key) => params[key] || replacement,
+    (replacement, key) => params[key] || replacement
   );
   return name;
 }
@@ -38,9 +43,7 @@ function getBreadcrumbName(route: Route, params: any) {
 function defaultItemRender(route: Route, params: any, routes: Route[], paths: string[]) {
   const isLastItem = routes.indexOf(route) === routes.length - 1;
   const name = getBreadcrumbName(route, params);
-  return isLastItem
-    ? <span>{name}</span>
-    : <a href={`#/${paths.join('/')}`}>{name}</a>;
+  return isLastItem ? <span>{name}</span> : <a href={`#/${paths.join('/')}`}>{name}</a>;
 }
 
 export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
@@ -59,7 +62,7 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
     routes: PropTypes.array,
     params: PropTypes.object,
     linkRender: PropTypes.func,
-    nameRender: PropTypes.func,
+    nameRender: PropTypes.func
   };
 
   componentDidMount() {
@@ -67,20 +70,28 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
     warning(
       !('linkRender' in props || 'nameRender' in props),
       '`linkRender` and `nameRender` are removed, please use `itemRender` instead, ' +
-      'see: https://u.ant.design/item-render.',
+        'see: https://u.ant.design/item-render.'
     );
   }
 
   render() {
     let crumbs;
     const {
-      separator, prefixCls, style, className, routes, params = {},
-      children, itemRender = defaultItemRender, maxWidth, size
+      separator,
+      prefixCls,
+      style,
+      className,
+      routes,
+      params = {},
+      children,
+      itemRender = defaultItemRender,
+      maxWidth,
+      size
     } = this.props;
 
     if (routes && routes.length > 0) {
       const paths: string[] = [];
-      crumbs = routes.map((route) => {
+      crumbs = routes.map(route => {
         route.path = route.path || '';
         let path: string = route.path.replace(/^\//, '');
         Object.keys(params).forEach(key => {
@@ -90,7 +101,11 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
           paths.push(path);
         }
         return (
-          <BreadcrumbItem separator={separator} key={route.breadcrumbName || path} maxWidth={maxWidth}>
+          <BreadcrumbItem
+            separator={separator}
+            key={route.breadcrumbName || path}
+            maxWidth={maxWidth}
+          >
             {itemRender(route, params, routes, paths)}
           </BreadcrumbItem>
         );
@@ -102,18 +117,18 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
         }
         warning(
           element.type && element.type.__FISHD_BREADCRUMB_ITEM,
-          'Breadcrumb only accepts Breadcrumb.Item as it\'s children',
+          "Breadcrumb only accepts Breadcrumb.Item as it's children"
         );
         return cloneElement(element, {
           separator,
           maxWidth,
-          key: index,
+          key: index
         });
       });
     }
 
     let cls = classNames(className, prefixCls, {
-      'small': size === 'small'
+      small: size === 'small'
     });
 
     return (

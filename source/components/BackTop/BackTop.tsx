@@ -2,21 +2,20 @@ import * as React from 'react';
 import Animate from 'rc-animate';
 import classNames from 'classnames';
 import omit from 'omit.js';
-import {getScroll, addEventListener} from '../../utils';
+import { getScroll, addEventListener } from '../../utils';
 import raf from 'raf';
 
 const easeInOutCubic = (t: number, b: number, c: number, d: number) => {
   const cc = c - b;
   t /= d / 2;
   if (t < 1) {
-    return cc / 2 * t * t * t + b;
+    return (cc / 2) * t * t * t + b;
   } else {
-    return cc / 2 * ((t -= 2) * t * t + 2) + b;
+    return (cc / 2) * ((t -= 2) * t * t + 2) + b;
   }
 };
 
-function noop() {
-}
+function noop() {}
 
 function getDefaultTarget() {
   return window;
@@ -33,7 +32,7 @@ export interface BackTopProps {
 
 export default class BackTop extends React.Component<BackTopProps, any> {
   static defaultProps = {
-    visibilityHeight: 400,
+    visibilityHeight: 400
   };
 
   scrollEvent: any;
@@ -41,7 +40,7 @@ export default class BackTop extends React.Component<BackTopProps, any> {
   constructor(props: BackTopProps) {
     super(props);
     this.state = {
-      visible: false,
+      visible: false
     };
   }
 
@@ -81,10 +80,10 @@ export default class BackTop extends React.Component<BackTopProps, any> {
   }
 
   handleScroll = () => {
-    const {visibilityHeight, target = getDefaultTarget} = this.props;
+    const { visibilityHeight, target = getDefaultTarget } = this.props;
     const scrollTop = getScroll(target(), true);
     this.setState({
-      visible: scrollTop > (visibilityHeight as number),
+      visible: scrollTop > (visibilityHeight as number)
     });
   };
 
@@ -101,12 +100,12 @@ export default class BackTop extends React.Component<BackTopProps, any> {
   }
 
   render() {
-    const {prefixCls = 'fishd-back-top', className = '', children} = this.props;
+    const { prefixCls = 'fishd-back-top', className = '', children } = this.props;
     const classString = classNames(prefixCls, className);
 
     const defaultElement = (
       <div className={`${prefixCls}-content`}>
-        <div className={`${prefixCls}-icon`}/>
+        <div className={`${prefixCls}-icon`} />
       </div>
     );
 
@@ -116,7 +115,7 @@ export default class BackTop extends React.Component<BackTopProps, any> {
       'className',
       'children',
       'visibilityHeight',
-      'target',
+      'target'
     ]);
 
     const backTopBtn = this.state.visible ? (

@@ -28,7 +28,7 @@ export default function createTableRow(Component = 'tr') {
       const { selectedRowKeys } = this.store.getState();
 
       this.state = {
-        selected: selectedRowKeys.indexOf(props.rowKey) >= 0,
+        selected: selectedRowKeys.indexOf(props.rowKey) >= 0
       };
     }
 
@@ -55,12 +55,9 @@ export default function createTableRow(Component = 'tr') {
 
     render() {
       const rowProps = omit(this.props, ['prefixCls', 'rowKey', 'store']);
-      const className = classNames(
-        this.props.className,
-        {
-          [`${this.props.prefixCls}-row-selected`]: this.state.selected,
-        },
-      );
+      const className = classNames(this.props.className, {
+        [`${this.props.prefixCls}-row-selected`]: this.state.selected
+      });
 
       return (
         <Component {...rowProps} className={className}>

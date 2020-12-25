@@ -35,15 +35,18 @@ export interface TextAreaState {
 
 export type HTMLTextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export default class TextArea extends React.Component<TextAreaProps & HTMLTextareaProps, TextAreaState> {
+export default class TextArea extends React.Component<
+  TextAreaProps & HTMLTextareaProps,
+  TextAreaState
+> {
   static defaultProps = {
-    prefixCls: 'fishd-input',
+    prefixCls: 'fishd-input'
   };
 
   nextFrameActionId: number;
 
   state = {
-    textareaStyles: {},
+    textareaStyles: {}
   };
 
   textAreaRef: HTMLTextAreaElement;
@@ -71,20 +74,20 @@ export default class TextArea extends React.Component<TextAreaProps & HTMLTextar
   }
 
   resizeTextarea = () => {
-    const {autosize} = this.props;
+    const { autosize } = this.props;
     if (!autosize || !this.textAreaRef) {
       return;
     }
     const minRows = autosize ? (autosize as AutoSizeType).minRows : null;
     const maxRows = autosize ? (autosize as AutoSizeType).maxRows : null;
     const textareaStyles = calculateNodeHeight(this.textAreaRef, false, minRows, maxRows);
-    this.setState({textareaStyles});
+    this.setState({ textareaStyles });
   };
 
   getTextAreaClassName() {
-    const {prefixCls, className, disabled} = this.props;
+    const { prefixCls, className, disabled } = this.props;
     return classNames(prefixCls, className, {
-      [`${prefixCls}-disabled`]: disabled,
+      [`${prefixCls}-disabled`]: disabled
     });
   }
 
@@ -92,14 +95,14 @@ export default class TextArea extends React.Component<TextAreaProps & HTMLTextar
     if (!('value' in this.props)) {
       this.resizeTextarea();
     }
-    const {onChange} = this.props;
+    const { onChange } = this.props;
     if (onChange) {
       onChange(e);
     }
   };
 
   handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    const {onPressEnter, onKeyDown} = this.props;
+    const { onPressEnter, onKeyDown } = this.props;
     if (e.keyCode === 13 && onPressEnter) {
       onPressEnter(e);
     }
@@ -114,14 +117,10 @@ export default class TextArea extends React.Component<TextAreaProps & HTMLTextar
 
   render() {
     const props = this.props;
-    const otherProps = omit(props, [
-      'prefixCls',
-      'onPressEnter',
-      'autosize',
-    ]);
+    const otherProps = omit(props, ['prefixCls', 'onPressEnter', 'autosize']);
     const style = {
       ...props.style,
-      ...this.state.textareaStyles,
+      ...this.state.textareaStyles
     };
     // Fix https://github.com/ant-design/ant-design/issues/6776
     // Make sure it could be reset when using form.getFieldDecorator

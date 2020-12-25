@@ -18,7 +18,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
   const okType = props.okType || 'primary';
   const prefixCls = props.prefixCls || 'fishd-confirm';
   // 默认为 true，保持向下兼容
-  const okCancel = ('okCancel' in props) ? props.okCancel! : true;
+  const okCancel = 'okCancel' in props ? props.okCancel! : true;
   const width = props.width || 416;
   const style = props.style || {};
   // 默认为 false，保持旧版默认行为
@@ -26,11 +26,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
   const okText = props.okText || '确定';
   const cancelText = props.cancelText || '取消';
 
-  const classString = classNames(
-    prefixCls,
-    `${prefixCls}-${props.type}`,
-    props.className,
-  );
+  const classString = classNames(prefixCls, `${prefixCls}-${props.type}`, props.className);
 
   const cancelButton = okCancel && (
     <ActionButton actionFn={onCancel} closeModal={close}>
@@ -77,7 +73,12 @@ export default function confirm(config: ModalFuncProps) {
 
   function close(...args: any[]) {
     if (IS_REACT_16) {
-      render({ ...config, close, visible: false, afterClose: destroy.bind(this, ...args) });
+      render({
+        ...config,
+        close,
+        visible: false,
+        afterClose: destroy.bind(this, ...args)
+      });
     } else {
       destroy(...args);
     }
@@ -88,8 +89,7 @@ export default function confirm(config: ModalFuncProps) {
     if (unmountResult && div.parentNode) {
       div.parentNode.removeChild(div);
     }
-    const triggerCancel = args && args.length &&
-      args.some(param => param && param.triggerCancel);
+    const triggerCancel = args && args.length && args.some(param => param && param.triggerCancel);
     if (config.onCancel && triggerCancel) {
       config.onCancel(...args);
     }
@@ -102,6 +102,6 @@ export default function confirm(config: ModalFuncProps) {
   render({ ...config, visible: true, close });
 
   return {
-    destroy: close,
+    destroy: close
   };
 }

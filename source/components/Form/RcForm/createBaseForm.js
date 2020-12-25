@@ -45,6 +45,7 @@ function createBaseForm(option = {}, mixins = []) {
 
 
   return function decorate(WrappedComponent) {
+    // eslint-disable-next-line react/prefer-es6-class
     const Form = createReactClass({
       mixins,
 

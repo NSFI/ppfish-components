@@ -13,11 +13,14 @@ export interface IconProps {
 
 const Icon = (props: IconProps) => {
   const { type, className = '', spinning } = props;
-  const classString = classNames({
-    fishdicon: true,
-    'fishdicon-spin': spinning || type === 'loading',
-    [`fishdicon-${type}`]: true,
-  }, className);
+  const classString = classNames(
+    {
+      fishdicon: true,
+      'fishdicon-spin': spinning || type === 'loading',
+      [`fishdicon-${type}`]: true
+    },
+    className
+  );
   return <i {...omit(props, ['type', 'spinning'])} className={classString} />;
 };
 

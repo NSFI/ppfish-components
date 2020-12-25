@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Button from '../Button';
-import { ButtonGroupProps } from '../Button';
+import Button, { ButtonGroupProps } from '../Button';
 import Dropdown, { DropDownProps } from './Dropdown';
 import classNames from 'classnames';
 const ButtonGroup = Button.Group;
@@ -16,14 +15,24 @@ export default class DropdownButton extends React.Component<DropdownButtonProps,
   static defaultProps = {
     placement: 'bottomRight',
     type: 'default',
-    prefixCls: 'fishd-dropdown-button',
+    prefixCls: 'fishd-dropdown-button'
   };
 
   render() {
     const {
-      type, disabled, onClick, children,
-      prefixCls, className, overlay, trigger, align,
-      visible, onVisibleChange, placement, getPopupContainer,
+      type,
+      disabled,
+      onClick,
+      children,
+      prefixCls,
+      className,
+      overlay,
+      trigger,
+      align,
+      visible,
+      onVisibleChange,
+      placement,
+      getPopupContainer,
       ...restProps
     } = this.props;
 
@@ -34,22 +43,15 @@ export default class DropdownButton extends React.Component<DropdownButtonProps,
       trigger: disabled ? [] : trigger,
       onVisibleChange,
       placement,
-      getPopupContainer,
+      getPopupContainer
     } as DropDownProps;
     if ('visible' in this.props) {
       dropdownProps.visible = visible;
     }
 
     return (
-      <ButtonGroup
-        {...restProps}
-        className={classNames(prefixCls, className)}
-      >
-        <Button
-          type={type}
-          disabled={disabled}
-          onClick={onClick}
-        >
+      <ButtonGroup {...restProps} className={classNames(prefixCls, className)}>
+        <Button type={type} disabled={disabled} onClick={onClick}>
           {children}
         </Button>
         <Dropdown {...dropdownProps}>
