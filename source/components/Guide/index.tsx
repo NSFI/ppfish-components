@@ -6,23 +6,22 @@ import { ESC_KEY_CODE, LEFT_KEY_CODE, RIGHT_KEY_CODE } from './src/common/consta
 import Modal from '../Modal';
 import Button from '../Button';
 import './style/index.less';
+import withLocale from '../Config/Locale/WithLocale';
+import { LocaleProperties } from '../Locale';
 
 interface GuideProps {
   allowClose?: boolean;
   className?: string;
   counter?: boolean;
-  doneBtnText?: string;
   keyboardControl?: boolean;
   mask?: boolean;
   mode?: string;
-  nextBtnText?: string;
   onClose?: () => void;
-  prevBtnText?: string;
-  skipBtnText?: string;
   steps?: any[];
   style?: React.CSSProperties;
   visible?: boolean;
   prefixCls?: string;
+  Locale: LocaleProperties['Guide'];
 }
 
 interface GuideState {
@@ -30,16 +29,19 @@ interface GuideState {
   currentIndex: number;
 }
 
+@withLocale({ componentName: 'Guide' })
 class Guide extends Component<GuideProps, GuideState> {
   static propTypes = {
     prefixCls: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
     mode: PropTypes.string,
-    prevBtnText: PropTypes.string,
-    nextBtnText: PropTypes.string,
-    doneBtnText: PropTypes.string,
-    skipBtnText: PropTypes.string,
+    Locale: PropTypes.shape({
+      prevBtnText: PropTypes.string,
+      nextBtnText: PropTypes.string,
+      doneBtnText: PropTypes.string,
+      skipBtnText: PropTypes.string,
+    }),
     steps: PropTypes.array.isRequired,
     visible: PropTypes.bool,
     counter: PropTypes.bool,
@@ -52,10 +54,12 @@ class Guide extends Component<GuideProps, GuideState> {
   static defaultProps = {
     prefixCls: 'fishd-guide',
     mode: 'normal',
-    prevBtnText: '上一步',
-    nextBtnText: '下一步',
-    doneBtnText: '知道了',
-    skipBtnText: '跳过',
+    Locale: {
+      prevBtnText: '上一步',
+      nextBtnText: '下一步',
+      doneBtnText: '知道了',
+      skipBtnText: '跳过',
+    },
     allowClose: false,
     keyboardControl: false,
     visible: false,
@@ -79,10 +83,10 @@ class Guide extends Component<GuideProps, GuideState> {
 
     if (props.mode != 'fixed') {
       let opt = {
-        prevBtnText: props.prevBtnText,
-        nextBtnText: props.nextBtnText,
-        doneBtnText: props.doneBtnText,
-        skipBtnText: props.skipBtnText,
+        prevBtnText: props.Locale.prevBtnText || '上一步',
+        nextBtnText: props.Locale.nextBtnText || '下一步',
+        doneBtnText: props.Locale.doneBtnText || '知道了',
+        skipBtnText: props.Locale.skipBtnText || '跳过',
         counter: props.counter,
         allowClose: props.allowClose,
         keyboardControl: props.keyboardControl,
@@ -220,24 +224,27 @@ class Guide extends Component<GuideProps, GuideState> {
 
   render() {
     let {
-        prefixCls,
-        allowClose,
-        mode,
-        mask,
-        className,
-        style,
-        steps,
-        prevBtnText,
-        nextBtnText,
-        doneBtnText,
-        skipBtnText
-      } = this.props,
-      { visible, currentIndex } = this.state,
-      rootCls = classNames(`${prefixCls}-fixed`, {
-        [className]: className
-      }),
-      isFirstStep = currentIndex <= 0,
-      isLastStep = currentIndex >= this.totalCount - 1;
+      prefixCls,
+      allowClose,
+      mode,
+      mask,
+      className,
+      style,
+      steps,
+      Locale,
+    } = this.props,
+    { visible, currentIndex } = this.state,
+    rootCls = classNames(`${prefixCls}-fixed`, {
+      [className]: className
+    }),
+    {
+      prevBtnText = '上一步',
+      nextBtnText = '下一步',
+      doneBtnText = '知道了',
+      skipBtnText = '跳过'
+    } = Locale,
+    isFirstStep = currentIndex <= 0,
+    isLastStep = currentIndex >= this.totalCount - 1;
 
     if (mode != 'fixed') {
       return null;

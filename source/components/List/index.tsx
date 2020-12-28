@@ -8,6 +8,8 @@ import { Row } from '../Grid';
 
 import Item from './Item';
 import './style/index.less';
+import withLocale from '../Config/Locale/WithLocale';
+import { LocaleProperties } from '../Locale';
 
 export { ListItemProps, ListItemMetaProps } from './Item';
 
@@ -47,20 +49,34 @@ export interface ListProps {
   split?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
-  locale?: Object;
+  Locale: LocaleProperties['List'];
+  locale?: LocaleProperties['List'];
   striped?: Boolean;
 }
 
-export interface ListLocale {
-  emptyText: string;
-}
-
+@withLocale({ componentName: 'List' })
 export default class List extends React.Component<ListProps> {
   static Item: typeof Item = Item;
   static Sortable = Sortable;
   static childContextTypes = {
     grid: PropTypes.any
   };
+
+  static propTypes = {
+    Locale: PropTypes.shape({
+      emptyText: PropTypes.string,
+    }),
+    locale: PropTypes.shape({
+      emptyText: PropTypes.string,
+    }),
+    dataSource: PropTypes.array,
+    prefixCls: PropTypes.string,
+    bordered: PropTypes.bool,
+    split: PropTypes.bool,
+    loading: PropTypes.bool,
+    pagination: PropTypes.bool,
+    striped: PropTypes.bool,
+  }
 
   static defaultProps = {
     dataSource: [],
@@ -69,7 +85,10 @@ export default class List extends React.Component<ListProps> {
     split: true,
     loading: false,
     pagination: false,
-    striped: false
+    striped: false,
+    Locale: {
+      emptyText: '暂无数据'
+    },
   };
 
   state = {
@@ -126,11 +145,9 @@ export default class List extends React.Component<ListProps> {
   }
 
   renderEmpty = () => {
-    const locale = {
-      emptyText: '暂无数据',
-      ...this.props.locale
-    };
-    return <div className={`${this.props.prefixCls}-empty-text`}>{locale.emptyText}</div>;
+    const defaultEmptyText = this.props.Locale ? this.props.Locale.emptyText : '暂无数据';
+    const emptyText = this.props.locale ? this.props.locale.emptyText : defaultEmptyText;
+    return <div className={`${this.props.prefixCls}-empty-text`}>{emptyText}</div>;
   };
 
   render() {
@@ -152,7 +169,7 @@ export default class List extends React.Component<ListProps> {
       header,
       footer,
       loading,
-      locale,
+      Locale,
       striped,
       ...rest
     } = this.props;

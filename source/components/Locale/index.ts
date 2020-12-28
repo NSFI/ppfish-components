@@ -14,7 +14,9 @@ export interface LocaleProperties {
   Modal?: keyStringObj,
   Form?: keyStringObj & {
     defaultValidateMessages: keyStringObj,
-  }
+  },
+  Guide?: keyStringObj,
+  List?: keyStringObj,
 };
 
 const Locale = {

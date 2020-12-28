@@ -34,6 +34,15 @@ const localeValues: LocaleProperties = {
       whitespace: '${label}不能为空字符',
     },
   },
+  List: {
+    emptyText: '暂无数据',
+  },
+  Guide: {
+    prevBtnText: '上一步',
+    nextBtnText: '下一步',
+    doneBtnText: '知道了',
+    skipBtnText: '跳过',
+  }
 };
 
 export default localeValues;
