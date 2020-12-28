@@ -7,36 +7,41 @@ function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
-const withLocale = ({ componentName }) => (WrappedComponent) => {
-  class WithLocale extends Component<any> {
-    static displayName: string;
-    state: {
+
+const withLocale = ({ componentName }) =>
+  <WrappedProps extends {}>(WrappedComponent: React.ComponentType<WrappedProps>): any => {
+
+    type WithLocaleProps = WrappedProps;
+    type WithLocaleState = {
       Locale?: object
-    }
-    constructor(props) {
-      super(props);
+    };
 
-      this.state = {
-        Locale: null,
-      };
-    }
+    class WithLocale extends Component<WithLocaleProps, WithLocaleState> {
+      static displayName: string;
+      constructor (props) {
+        super(props);
 
-    render() {
-      return (
-        <Consumer componentName={componentName}>
-          {
-            (Locale) =>
-              <WrappedComponent
-                {...this.props}
-                Locale={Locale}
-              />
-          }
-        </Consumer>
-      );
+        this.state = {
+          Locale: null,
+        };
+      }
+
+      render() {
+        return (
+          <Consumer componentName={componentName}>
+            {
+              (Locale) =>
+                <WrappedComponent
+                  {...this.props as WrappedProps}
+                  Locale={Locale}
+                />
+            }
+          </Consumer>
+        );
+      }
     }
-  }
-  WithLocale.displayName = `WithLocale(${getDisplayName(WrappedComponent)})`;
-  return hoistNonReactStatic(WithLocale, WrappedComponent);
-};
+    WithLocale.displayName = `WithLocale(${getDisplayName(WrappedComponent)})`;
+    return hoistNonReactStatic(WithLocale, WrappedComponent);
+  };
 
 export default withLocale;
