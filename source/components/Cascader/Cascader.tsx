@@ -8,6 +8,8 @@ import warning from 'warning';
 import { KeyCode } from '../../utils';
 import Input from '../Input';
 import Icon from '../Icon';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
 export interface CascaderOptionType {
   value?: string;
@@ -197,13 +199,11 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
   static defaultProps = {
     prefixCls: 'fishd-cascader',
     inputPrefixCls: 'fishd-input',
-    placeholder: '请选择',
     transitionName: 'slide-up',
     popupPlacement: 'bottomLeft',
     options: [],
     disabled: false,
-    allowClear: true,
-    notFoundContent: '无匹配结果'
+    allowClear: true
   };
 
   static getDerivedStateFromProps(nextProps: CascaderProps, { prevProps }: CascaderState) {
@@ -328,8 +328,8 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
     }
   };
 
-  generateFilteredOptions(prefixCls: string | undefined) {
-    const { showSearch, notFoundContent } = this.props;
+  generateFilteredOptions(prefixCls: string | undefined, Locale: LocaleProperties["Cascader"]) {
+    const { showSearch, notFoundContent = Locale.notFoundContent } = this.props;
     const names: FilledFieldNamesType = getFilledFieldNames(this.props);
     const {
       filter = defaultFilterOption,
@@ -399,6 +399,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       inputPrefixCls,
       children,
       placeholder,
+      notFoundContent,
       size,
       disabled,
       className,
@@ -456,32 +457,38 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       'esc'
     ]);
 
-    let options = props.options;
-    if (state.inputValue) {
-      options = this.generateFilteredOptions(prefixCls);
-    }
-    // Dropdown menu should keep previous status until it is fully closed.
-    if (!state.popupVisible) {
-      options = this.cachedOptions;
-    } else {
-      this.cachedOptions = options;
-    }
+    const getOptionsAndDropdownMenuColumnStyle = Locale => {
+      let options = props.options;
+      if (state.inputValue) {
+        options = this.generateFilteredOptions(prefixCls, Locale);
+      }
+      // Dropdown menu should keep previous status until it is fully closed.
+      if (!state.popupVisible) {
+        options = this.cachedOptions;
+      } else {
+        this.cachedOptions = options;
+      }
 
-    const dropdownMenuColumnStyle: { width?: number; height?: string } = {};
-    const isNotFound =
-      (options || []).length === 1 && options[0].value === 'FISHD_CASCADER_NOT_FOUND';
-    if (isNotFound) {
-      dropdownMenuColumnStyle.height = 'auto'; // Height of one row.
-    }
-    // The default value of `matchInputWidth` is `true`
-    const resultListMatchInputWidth =
-      (showSearch as ShowSearchType).matchInputWidth === false ? false : true;
-    if (resultListMatchInputWidth && state.inputValue && this.input) {
-      dropdownMenuColumnStyle.width = this.input.input.offsetWidth;
+      const dropdownMenuColumnStyle: { width?: number; height?: string } = {};
+      const isNotFound =
+        (options || []).length === 1 && options[0].value === 'FISHD_CASCADER_NOT_FOUND';
+      if (isNotFound) {
+        dropdownMenuColumnStyle.height = 'auto'; // Height of one row.
+      }
+      // The default value of `matchInputWidth` is `true`
+      const resultListMatchInputWidth =
+        (showSearch as ShowSearchType).matchInputWidth === false ? false : true;
+      if (resultListMatchInputWidth && state.inputValue && this.input) {
+        dropdownMenuColumnStyle.width = this.input.input.offsetWidth;
+      }
+      return {
+        options,
+        dropdownMenuColumnStyle,
+      };
     }
 
     const label = this.getLabel();
-    const input = children || (
+    const getInput = Locale => children || (
       <span style={style} className={pickerCls}>
         <span
           className={`${prefixCls}-picker-label`}
@@ -493,7 +500,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
           {...inputProps}
           ref={this.saveInput}
           prefixCls={inputPrefixCls}
-          placeholder={value && value.length > 0 ? undefined : placeholder}
+          placeholder={value && value.length > 0 ? undefined : (placeholder || Locale.placeholder)}
           className={`${prefixCls}-input ${sizeCls}`}
           value={state.inputValue}
           disabled={disabled}
@@ -510,17 +517,26 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
     );
 
     return (
-      <RcCascader
-        {...props}
-        options={options}
-        value={value}
-        popupVisible={state.popupVisible}
-        onPopupVisibleChange={this.handlePopupVisibleChange}
-        onChange={this.handleChange}
-        dropdownMenuColumnStyle={dropdownMenuColumnStyle}
-      >
-        {input}
-      </RcCascader>
+      <ConfigConsumer componentName="Cascader">
+        {
+          (Locale: LocaleProperties["Cascader"]) => {
+            return (<RcCascader
+              {...props}
+              {
+                ...getOptionsAndDropdownMenuColumnStyle(Locale)
+              }
+              notFoundContent={notFoundContent || Locale.notFoundContent}
+              placeholder={placeholder || Locale.placeholder}
+              value={value}
+              popupVisible={state.popupVisible}
+              onPopupVisibleChange={this.handlePopupVisibleChange}
+              onChange={this.handleChange}
+            >
+              {getInput(Locale)}
+            </RcCascader>)
+          }
+        }
+      </ConfigConsumer>
     );
   }
 }

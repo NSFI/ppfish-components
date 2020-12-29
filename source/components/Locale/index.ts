@@ -9,6 +9,9 @@ type keyStringObj = {
 
 export interface LocaleProperties {
   locale: string,
+  AudioPlayer?: keyStringObj,
+  AutoComplete?: keyStringObj,
+  Cascader?: keyStringObj,
   global?: keyStringObj,
   Table?: keyStringObj,
   Modal?: keyStringObj,

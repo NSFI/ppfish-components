@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import Slider from '../Slider';
 import Icon from '../Icon';
 import Popover from '../Popover';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
 export interface AudioPlayerProps {
   prefixCls?: string;
@@ -318,123 +320,127 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
     };
 
     return (
-      <div
-        className={classNames(prefixCls, className, {
-          [`${prefixCls}-${sizeCls}`]: sizeCls
-        })}
-      >
-        <div
-          className={classNames(`${prefixCls}-wrap`, {
-            [`${prefixCls}-${sizeCls}-wrap`]: sizeCls
-          })}
-          title={title}
-        >
-          <div className="audio-box">
-            <audio
-              ref={instance => (this.audioInstance = instance)}
-              src={src}
-              preload={preload}
-              loop={loop}
-              volume={currentVolume / 100}
-              onCanPlay={() => this.controlAudio('allTime')}
-              onTimeUpdate={e => this.controlAudio('getCurrentTime')}
-              onLoadedMetadata={onLoadedMetadata}
-              onCanPlayThrough={onCanPlayThrough}
-              onAbort={onAbort}
-              onEnded={onEnded}
-              onError={onError}
-              onPause={onPause}
-              onPlay={onPlay}
-              onSeeked={onSeeked}
-              {...otherProps}
-            >
-              您的浏览器不支持 audio 标签。
-            </audio>
-          </div>
-
-          <div
-            className={`box pause-play-box pause-play-box-${disabled ? 'disabled' : 'enable'}`}
-            onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}
+      <ConfigConsumer componentName="AudioPlayer">
+        {
+          (Locale: LocaleProperties["AudioPlayer"]) => <div
+            className={classNames(prefixCls, className, {
+              [`${prefixCls}-${sizeCls}`]: sizeCls
+            })}
           >
-            <Icon className="handle-audio-icon pause-play" type={pausePlayIcon} />
-          </div>
-
-          {controlProgress ? (
-            <div className="box step-box">
-              <Slider
-                step={1}
-                min={0}
-                max={Number(this.millisecondToDate(allTime, false))}
-                value={currentTime}
-                disabled={disabled}
-                tipMode="all"
-                tipFormatter={(value: number) => this.millisecondToDate(value as number)}
-                onChange={(value: number) => this.controlAudio('changeCurrentTime', value)}
-              />
-            </div>
-          ) : null}
-
-          {displayTime ? (
-            <div className="box time-box">
-              <span className="current">
-                {this.millisecondToDate(currentTime as number) +
-                  ' / ' +
-                  this.millisecondToDate(allTime)}
-              </span>
-            </div>
-          ) : null}
-
-          {controlVolume ? (
-            <Popover
-              overlayClassName="change-audio-volume"
-              trigger="click"
-              placement="top"
-              content={this.getVolumePopupContent()}
-              visible={volumeOpen}
-              onVisibleChange={this.onVolumeVisibleChange}
-              getPopupContainer={node => node.parentElement}
+            <div
+              className={classNames(`${prefixCls}-wrap`, {
+                [`${prefixCls}-${sizeCls}-wrap`]: sizeCls
+              })}
+              title={title}
             >
-              <div className="box volume-box">
-                <Icon className="handle-audio-icon control-volume" type={volumeIcon()} />
-              </div>
-            </Popover>
-          ) : null}
-
-          {rateRange.length ? (
-            <Popover
-              overlayClassName="change-audio-rate"
-              trigger="click"
-              placement="top"
-              visible={rateOpen}
-              onVisibleChange={this.onRateVisibleChange}
-              getPopupContainer={node => node.parentElement}
-              content={rateRange.map(rateItem => (
-                <p
-                  className="change-audio-rate-item"
-                  key={`rate-${rateItem}`}
-                  onClick={() => {
-                    this.controlAudio('changeRate', rateItem);
-                  }}
+              <div className="audio-box">
+                <audio
+                  ref={instance => (this.audioInstance = instance)}
+                  src={src}
+                  preload={preload}
+                  loop={loop}
+                  volume={currentVolume / 100}
+                  onCanPlay={() => this.controlAudio('allTime')}
+                  onTimeUpdate={e => this.controlAudio('getCurrentTime')}
+                  onLoadedMetadata={onLoadedMetadata}
+                  onCanPlayThrough={onCanPlayThrough}
+                  onAbort={onAbort}
+                  onEnded={onEnded}
+                  onError={onError}
+                  onPause={onPause}
+                  onPlay={onPlay}
+                  onSeeked={onSeeked}
+                  {...otherProps}
                 >
-                  {getRateText(rateItem)}
-                </p>
-              ))}
-            >
-              {<p className="box rate-box">{getRateText(rate)}</p>}
-            </Popover>
-          ) : rateValue ? (
-            <p className="box rate-box">{getRateText(rateValue)}</p>
-          ) : null}
+                  {Locale.notSupport}
+                </audio>
+              </div>
 
-          {download ? (
-            <div className="box download-box">
-              <a download target="_blank" rel="noopener noreferrer" href={src}>
-                <Icon className="handle-audio-icon download" type="sound-download" />
-              </a>
+              <div
+                className={`box pause-play-box pause-play-box-${disabled ? 'disabled' : 'enable'}`}
+                onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}
+              >
+                <Icon className="handle-audio-icon pause-play" type={pausePlayIcon} />
+              </div>
+
+              {controlProgress ? (
+                <div className="box step-box">
+                  <Slider
+                    step={1}
+                    min={0}
+                    max={Number(this.millisecondToDate(allTime, false))}
+                    value={currentTime}
+                    disabled={disabled}
+                    tipMode="all"
+                    tipFormatter={(value: number) => this.millisecondToDate(value as number)}
+                    onChange={(value: number) => this.controlAudio('changeCurrentTime', value)}
+                  />
+                </div>
+              ) : null}
+
+              {displayTime ? (
+                <div className="box time-box">
+                  <span className="current">
+                    {this.millisecondToDate(currentTime as number) +
+                      ' / ' +
+                      this.millisecondToDate(allTime)}
+                  </span>
+                </div>
+              ) : null}
+
+              {controlVolume ? (
+                <Popover
+                  overlayClassName="change-audio-volume"
+                  trigger="click"
+                  placement="top"
+                  content={this.getVolumePopupContent()}
+                  visible={volumeOpen}
+                  onVisibleChange={this.onVolumeVisibleChange}
+                  getPopupContainer={node => node.parentElement}
+                >
+                  <div className="box volume-box">
+                    <Icon className="handle-audio-icon control-volume" type={volumeIcon()} />
+                  </div>
+                </Popover>
+              ) : null}
+
+              {rateRange.length ? (
+                <Popover
+                  overlayClassName="change-audio-rate"
+                  trigger="click"
+                  placement="top"
+                  visible={rateOpen}
+                  onVisibleChange={this.onRateVisibleChange}
+                  getPopupContainer={node => node.parentElement}
+                  content={rateRange.map(rateItem => (
+                    <p
+                      className="change-audio-rate-item"
+                      key={`rate-${rateItem}`}
+                      onClick={() => {
+                        this.controlAudio('changeRate', rateItem);
+                      }}
+                    >
+                      {getRateText(rateItem)}
+                    </p>
+                  ))}
+                >
+                  {<p className="box rate-box">{getRateText(rate)}</p>}
+                </Popover>
+              ) : rateValue ? (
+                <p className="box rate-box">{getRateText(rateValue)}</p>
+              ) : null}
+
+              {download ? (
+                <div className="box download-box">
+                  <a download target="_blank" rel="noopener noreferrer" href={src}>
+                    <Icon className="handle-audio-icon download" type="sound-download" />
+                  </a>
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-      </div>
+          </div>
+        }
+      </ConfigConsumer>
     );
   }
 }

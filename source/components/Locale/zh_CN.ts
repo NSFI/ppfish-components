@@ -5,6 +5,16 @@ const localeValues: LocaleProperties = {
   global: {
     placeholder: '请选择',
   },
+  AudioPlayer: {
+    notSupport: '您的浏览器不支持 audio 标签。',
+  },
+  AutoComplete: {
+    notFoundContent: '无匹配结果',
+  },
+  Cascader: {
+    placeholder: '请选择',
+    notFoundContent: '无匹配结果',
+  },
   Table: {
     filterTitle: '筛选',
     filterConfirm: '确定',
