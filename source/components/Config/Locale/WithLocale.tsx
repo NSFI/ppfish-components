@@ -11,14 +11,16 @@ function getDisplayName(WrappedComponent) {
 const withLocale = ({ componentName }) =>
   <WrappedProps extends {}>(WrappedComponent: React.ComponentType<WrappedProps>): any => {
 
-    type WithLocaleProps = WrappedProps;
+    type WithLocaleProps = WrappedProps & {
+      forwardRef: any,
+    };
     type WithLocaleState = {
       Locale?: object
     };
 
     class WithLocale extends Component<WithLocaleProps, WithLocaleState> {
       static displayName: string;
-      constructor (props) {
+      constructor(props) {
         super(props);
 
         this.state = {
@@ -27,12 +29,14 @@ const withLocale = ({ componentName }) =>
       }
 
       render() {
+        const { forwardRef, ...otherProps } = this.props;
         return (
           <Consumer componentName={componentName}>
             {
               (Locale) =>
                 <WrappedComponent
-                  {...this.props as WrappedProps}
+                  ref={forwardRef}
+                  {...otherProps as WrappedProps}
                   Locale={Locale}
                 />
             }
@@ -40,8 +44,12 @@ const withLocale = ({ componentName }) =>
         );
       }
     }
+
     WithLocale.displayName = `WithLocale(${getDisplayName(WrappedComponent)})`;
-    return hoistNonReactStatic(WithLocale, WrappedComponent);
+    return React.forwardRef(function WithLocaleRef(props, ref) {
+      const WithLocaleRef = hoistNonReactStatic(WithLocale, WrappedComponent)
+      return <WithLocaleRef {...props as WrappedProps} forwardedRef={ref} />;
+    });
   };
 
 export default withLocale;
