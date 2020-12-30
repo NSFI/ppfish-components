@@ -4,9 +4,7 @@ import LocaleConsumer from './Locale/Consumer';
 export default function ConfigConsumer(props) {
   return <LocaleConsumer componentName={props.componentName}>
     {
-      (value) => {
-        return props.children(value);
-      }
+      (value, lang) => props.children(value, lang)
     }
   </LocaleConsumer>
 }

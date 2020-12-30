@@ -6,12 +6,12 @@ type keyStringObj = {
   [propName: string]: string | object,
 }
 
-
 export interface LocaleProperties {
   locale: string,
   global?: keyStringObj,
   Table?: keyStringObj,
   Modal?: keyStringObj,
+  DatePicker?: keyStringObj,
   Form?: keyStringObj & {
     defaultValidateMessages: keyStringObj,
   }

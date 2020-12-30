@@ -28,7 +28,10 @@ export const dateFormat = (format) => {
 };
 
 // 月份数组
-export const MONTH_ARRRY = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+export const MONTH_ARRRY = {
+  zh_CN: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+  en_US: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+};
 
 // 年份数组
 export const YEARS_ARRAY = (N=50) => {
