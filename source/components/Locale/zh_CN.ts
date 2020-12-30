@@ -44,6 +44,12 @@ const localeValues: LocaleProperties = {
       whitespace: '${label}不能为空字符',
     },
   },
+  LoadMore: {
+    defaultText: '查看更多',
+    loadingText: '加载中',
+    errorText: '加载失败，请重试',
+    endText: '没有更多了',
+  }
 };
 
 export default localeValues;

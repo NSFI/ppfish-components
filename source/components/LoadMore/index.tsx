@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Button from '../Button';
 import './style/index.less';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
 const noop = () => {};
 
@@ -57,39 +59,47 @@ export default class LoadMore extends React.Component<LoadMoreProps> {
       extraCls,
       ...otherProps
     } = this.props;
-    let buttonText;
-    switch (status) {
-      case 'default':
-        buttonText = defaultText;
-        break;
-      case 'loading':
-        buttonText = loadingText;
-        break;
-      case 'error':
-        buttonText = errorText;
-        break;
-      case 'end':
-        buttonText = endText;
-    }
     return (
-      <div
-        className={classNames('fishd-loadmore', {
-          [`${extraCls}`]: !!extraCls
-        })}
-      >
-        {status === 'end' ? (
-          <span className="z-load-end">{endText}</span>
-        ) : (
-          <Button
-            size={buttonSize}
-            onClick={onLoadMore}
-            loading={status === 'loading'}
-            {...otherProps}
-          >
-            {buttonText}
-          </Button>
-        )}
-      </div>
+      <ConfigConsumer componentName="LoadMore">
+        {
+          (Locale: LocaleProperties["LoadMore"]) =>
+            <div
+              className={classNames('fishd-loadmore', {
+                [`${extraCls}`]: !!extraCls
+              })}
+            >
+              {status === 'end' ? (
+                <span className="z-load-end">{Locale.endText}</span>
+              ) : (
+                <Button
+                  size={buttonSize}
+                  onClick={onLoadMore}
+                  loading={status === 'loading'}
+                  {...otherProps}
+                >
+                  {(() => {
+                      switch (status) {
+                        case 'default':
+                          return Locale.defaultText;
+                          break;
+                        case 'loading':
+                          return Locale.loadingText;
+                          break;
+                        case 'error':
+                          return Locale.errorText;
+                          break;
+                        case 'end':
+                          return Locale.endText;
+                      }
+                    }
+                  )()}
+                </Button>
+              )}
+            </div>
+        }
+
+      </ConfigConsumer>
+
     );
   }
 }

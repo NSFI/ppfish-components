@@ -14,6 +14,12 @@ const LocaleValue: LocaleProperties = {
   },
   Table: {
     filterTitle: 'filters',
+  },
+  LoadMore: {
+    defaultText: 'Show More',
+    loadingText: 'Loading',
+    errorText: 'Failed to load. Please try again',
+    endText: 'No data',
   }
 }
 
