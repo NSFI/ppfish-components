@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Spin, { SpinProps } from '../Spin';
@@ -8,7 +8,7 @@ import { Row } from '../Grid';
 
 import Item from './Item';
 import './style/index.less';
-import withLocale from '../Config/Locale/WithLocale';
+import ConfigConsumer from '../Config/Consumer';
 import { LocaleProperties } from '../Locale';
 
 export { ListItemProps, ListItemMetaProps } from './Item';
@@ -49,13 +49,11 @@ export interface ListProps {
   split?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
-  Locale: LocaleProperties['List'];
   locale?: LocaleProperties['List'];
   striped?: Boolean;
 }
 
-@withLocale({ componentName: 'List' })
-export default class List extends React.Component<ListProps> {
+class List extends React.Component<ListProps> {
   static Item: typeof Item = Item;
   static Sortable = Sortable;
   static childContextTypes = {
@@ -63,9 +61,6 @@ export default class List extends React.Component<ListProps> {
   };
 
   static propTypes = {
-    Locale: PropTypes.shape({
-      emptyText: PropTypes.string,
-    }),
     locale: PropTypes.shape({
       emptyText: PropTypes.string,
     }),
@@ -86,9 +81,6 @@ export default class List extends React.Component<ListProps> {
     loading: false,
     pagination: false,
     striped: false,
-    Locale: {
-      emptyText: '暂无数据'
-    },
   };
 
   state = {
@@ -144,8 +136,8 @@ export default class List extends React.Component<ListProps> {
     return !!(loadMore || pagination || footer);
   }
 
-  renderEmpty = () => {
-    const defaultEmptyText = this.props.Locale ? this.props.Locale.emptyText : '暂无数据';
+  renderEmpty = (Locale: LocaleProperties['List']) => {
+    const defaultEmptyText = Locale ? Locale.emptyText : '暂无数据';
     const emptyText = this.props.locale ? this.props.locale.emptyText : defaultEmptyText;
     return <div className={`${this.props.prefixCls}-empty-text`}>{emptyText}</div>;
   };
@@ -169,7 +161,6 @@ export default class List extends React.Component<ListProps> {
       header,
       footer,
       loading,
-      Locale,
       striped,
       ...rest
     } = this.props;
@@ -232,35 +223,49 @@ export default class List extends React.Component<ListProps> {
       }
     }
 
-    let childrenContent;
-    childrenContent = isLoading && <div style={{ minHeight: 53 }} />;
-    if (splitDataSource.length > 0) {
-      const items = splitDataSource.map((item: any, index: number) => this.renderItem(item, index));
-      const childrenList = React.Children.map(items, (child: any, index) =>
-        React.cloneElement(child, {
-          key: this.keys[index]
-        })
-      );
+    const renderChildrenContent = (Locale: LocaleProperties['List']) => {
+      let childrenContent: ReactNode;
+      childrenContent = isLoading && <div style={{ minHeight: 53 }} />;
+      if (splitDataSource.length > 0) {
+        const items = splitDataSource.map((item: any, index: number) => this.renderItem(item, index));
+        const childrenList = React.Children.map(items, (child: any, index) =>
+          React.cloneElement(child, {
+            key: this.keys[index]
+          })
+        );
 
-      childrenContent = grid ? <Row gutter={grid.gutter}>{childrenList}</Row> : childrenList;
-    } else if (!children && !isLoading) {
-      childrenContent = <div>{this.renderEmpty()}</div>;
+        childrenContent = grid ? <Row gutter={grid.gutter}>{childrenList}</Row> : childrenList;
+      } else if (!children && !isLoading) {
+        childrenContent = <div>{this.renderEmpty(Locale)}</div>;
+      }
+
+      return childrenContent
     }
 
     const paginationPosition = paginationProps.position || 'bottom';
 
     return (
-      <div className={classString} {...rest}>
-        {(paginationPosition === 'top' || paginationPosition === 'both') && paginationContent}
-        {header && <div className={`${prefixCls}-header`}>{header}</div>}
-        <Spin {...loadingProp}>
-          {childrenContent}
-          {children}
-        </Spin>
-        {footer && <div className={`${prefixCls}-footer`}>{footer}</div>}
-        {loadMore ||
-          ((paginationPosition === 'bottom' || paginationPosition === 'both') && paginationContent)}
-      </div>
+      <ConfigConsumer componentName="List">
+        {
+          (Locale: LocaleProperties['List']) => {
+            return (
+              <div className={classString} {...rest}>
+                {(paginationPosition === 'top' || paginationPosition === 'both') && paginationContent}
+                {header && <div className={`${prefixCls}-header`}>{header}</div>}
+                <Spin {...loadingProp}>
+                  {renderChildrenContent(Locale)}
+                  {children}
+                </Spin>
+                {footer && <div className={`${prefixCls}-footer`}>{footer}</div>}
+                {loadMore ||
+                  ((paginationPosition === 'bottom' || paginationPosition === 'both') && paginationContent)}
+              </div>
+            )
+          }
+        }
+      </ConfigConsumer>
     );
   }
 }
+
+export default List;
