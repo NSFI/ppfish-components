@@ -1,8 +1,17 @@
 import * as React from 'react';
-import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcTreeSelect';
+import RcTreeSelect, {
+  TreeNode,
+  SHOW_ALL,
+  SHOW_PARENT,
+  SHOW_CHILD,
+} from './rcTreeSelect';
 import classNames from 'classnames';
 import { TreeSelectProps } from './interface';
 import warning from 'warning';
+
+import ConfigConsumer from '../Config/Locale/Consumer';
+import { LocaleProperties } from '../Locale';
+
 import './style/index.less';
 
 export default class TreeSelect extends React.Component<TreeSelectProps, any> {
@@ -18,18 +27,15 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
     editable: true,
     esc: true,
     required: false,
-    placeholder: '请选择',
     prefixCls: 'fishd-treeselect',
-    searchPlaceholder: '请输入关键字',
     showCheckedStrategy: SHOW_PARENT,
     showSearch: false,
     tagWidth: 100,
     transitionName: 'slide-up',
     treeCheckStrictly: false,
-    treeNodeResetTitle: '不选择任何分类',
     placement: 'bottomLeft',
     uniqueTreeNodeByLabel: false,
-    getPopupContainer: () => document.body
+    getPopupContainer: () => document.body,
   };
 
   private rcTreeSelect: any;
@@ -39,9 +45,23 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
 
     warning(
       props.multiple !== false || !props.treeCheckable,
-      '`multiple` will alway be `true` when `treeCheckable` is true'
+      '`multiple` will alway be `true` when `treeCheckable` is true',
     );
   }
+
+  // i18n
+  genPropsByLocale = Locale => {
+    const {
+      placeholder = Locale.placeholder,
+      searchPlaceholder = Locale.searchPlaceholder,
+      treeNodeResetTitle = Locale.treeNodeResetTitle,
+    } = this.props;
+    return {
+      searchPlaceholder,
+      placeholder,
+      treeNodeResetTitle,
+    };
+  };
 
   focus() {
     this.rcTreeSelect.focus();
@@ -66,7 +86,8 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
       treeCheckable,
       ...restProps
     } = this.props;
-    const isEditableMul = (restProps.multiple || treeCheckable) && restProps.editable;
+    const isEditableMul =
+      (restProps.multiple || treeCheckable) && restProps.editable;
 
     const cls = classNames(
       {
@@ -74,9 +95,9 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
         [`${prefixCls}-scroll`]: isEditableMul,
         [`${prefixCls}-singleline`]: !isEditableMul,
         [`${prefixCls}-lg`]: size === 'large',
-        [`${prefixCls}-sm`]: size === 'small'
+        [`${prefixCls}-sm`]: size === 'small',
       },
-      className
+      className,
     );
 
     let checkable = treeCheckable;
@@ -84,20 +105,30 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
       checkable = <span className={`${prefixCls}-tree-checkbox-inner`} />;
     }
     return (
-      <RcTreeSelect
-        {...restProps}
-        dropdownClassName={classNames(dropdownClassName, `${prefixCls}-tree-dropdown`)}
-        prefixCls={prefixCls}
-        className={cls}
-        dropdownStyle={{
-          maxHeight: '100vh',
-          overflow: 'auto',
-          ...dropdownStyle
+      <ConfigConsumer componentName="TreeSelect">
+        {(Locale: LocaleProperties['TreeSelect']) => {
+          return (
+            <RcTreeSelect
+              {...restProps}
+              {...this.genPropsByLocale(Locale)}
+              dropdownClassName={classNames(
+                dropdownClassName,
+                `${prefixCls}-tree-dropdown`,
+              )}
+              prefixCls={prefixCls}
+              className={cls}
+              dropdownStyle={{
+                maxHeight: '100vh',
+                overflow: 'auto',
+                ...dropdownStyle,
+              }}
+              treeCheckable={checkable}
+              notFoundContent={notFoundContent}
+              ref={this.saveTreeSelect}
+            />
+          );
         }}
-        treeCheckable={checkable}
-        notFoundContent={notFoundContent}
-        ref={this.saveTreeSelect}
-      />
+      </ConfigConsumer>
     );
   }
 }
