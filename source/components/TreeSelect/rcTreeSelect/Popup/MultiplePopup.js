@@ -5,6 +5,8 @@ import SearchInput from '../SearchInput';
 import { createRef } from '../util';
 import Button from '../../../Button/index.tsx';
 
+import ConfigConsumer from '../../../Config/Locale/Consumer';
+
 class MultiplePopup extends React.Component {
   static propTypes = {
     ...BasePopup.propTypes,
@@ -65,26 +67,31 @@ class MultiplePopup extends React.Component {
     );
   };
 
-  renderConfirmBtn = () => {
+  renderConfirmBtn = (Locale) => {
     const { onCancel, onConfirm, disableConfirm } = this.props;
 
     return (
       <div className="dropdown-confirm">
-        <Button onClick={onCancel}>取消</Button>
-        <Button type="primary" onClick={onConfirm} disabled={disableConfirm}>确定</Button>
+        <Button onClick={onCancel}>{Locale.cancelText}</Button>
+        <Button type="primary" onClick={onConfirm} disabled={disableConfirm}>
+          {Locale.okText}
+        </Button>
       </div>
     );
   };
 
   render() {
     return (
-      <div>
-        <BasePopup
-          {...this.props}
-          renderSearch={this.renderSearch}
-        />
-        {this.renderConfirmBtn()}
-      </div>
+      <ConfigConsumer componentName="TreeSelect">
+        {Locale => {
+          return (
+            <div>
+              <BasePopup {...this.props} renderSearch={this.renderSearch} />
+              {this.renderConfirmBtn(Locale)}
+            </div>
+          );
+        }}
+      </ConfigConsumer>
     );
   }
 }
