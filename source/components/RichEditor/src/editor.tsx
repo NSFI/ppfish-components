@@ -21,7 +21,9 @@ import PlainClipboard from "./modules/plainClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 
-import {RichEditorProps, RichEditorState} from './interface'
+import { RichEditorProps, RichEditorState } from './interface'
+import ConfigConsumer from '../../Config/Consumer';
+import { LocaleProperties } from '../../Locale';
 
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
@@ -33,12 +35,12 @@ Quill.register("modules/fileDrop", FileDrop, true);
 Quill.register(Quill.import('attributors/style/align'), true);
 Quill.register(Quill.import('attributors/style/direction'), true);
 
-const getImageSize = function(
+const getImageSize = function (
   url: string,
-  callback: (width: number|string, height: number|string) => void
+  callback: (width: number | string, height: number | string) => void
 ) {
   let newImage = document.createElement("img");
-  newImage.onload = function(this: GlobalEventHandlers & {width?: number|string, height?: number|string}) {
+  newImage.onload = function (this: GlobalEventHandlers & { width?: number | string, height?: number | string }) {
     // callback(this.width, this.height);
     callback(this.width, this.height);
   };
@@ -48,7 +50,7 @@ const getImageSize = function(
 class Range {
   index: number;
   length: number;
-  constructor(index: number, length = 0) {
+  constructor (index: number, length = 0) {
     this.index = index;
     this.length = length;
   }
@@ -57,46 +59,40 @@ class Range {
 
 
 class RichEditor extends Component<RichEditorProps, RichEditorState> {
-    reactQuillNode: Element | Text
-    defaultFontSize: string
-    
-    defaultVideoType: string
-    isSupportCustomInsertVideo: boolean
-    prevSelectionFormat: any
-    handlers: {
-        link: Function,
-        video: Function,
-        emoji: Function,
-        image: Function,
-        attachment: Function,
-        clean: Function,
-        customInsertValue: Function
-    }
-    editorCtner: HTMLDivElement
-    linkModalInputRef: any
-    videoModalInputRef: any
-    toolbarRef: React.ReactInstance
-    reactQuillRef: ReactQuill
-    onClickRemoveHandler: any
-    onClickActionHandler: any
-    onBlurHandler: any
-    linkRange: any
+  reactQuillNode: Element | Text
+  defaultFontSize: string
+  Locale: LocaleProperties['RichEditor']
+
+  defaultVideoType: string
+  isSupportCustomInsertVideo: boolean
+  prevSelectionFormat: any
+  handlers: {
+    link: Function,
+    video: Function,
+    emoji: Function,
+    image: Function,
+    attachment: Function,
+    clean: Function,
+    customInsertValue: Function
+  }
+  editorCtner: HTMLDivElement
+  linkModalInputRef: any
+  videoModalInputRef: any
+  toolbarRef: React.ReactInstance
+  reactQuillRef: ReactQuill
+  onClickRemoveHandler: any
+  onClickActionHandler: any
+  onBlurHandler: any
+  linkRange: any
 
 
   static defaultProps = {
     customEmoji: [],
     customLink: {},
     customInsertValue: {},
-    insertImageTip:
-      "支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。",
-    insertVideoTip: (
-      <React.Fragment>
-        <span>1、单个视频不超过10M，支持MP4、3GP格式视频。</span>
-        <br />
-        <span>2、最佳显示高度不超过400px, 宽度不超过270px。</span>
-      </React.Fragment>
-    ),
-    placeholder: "请输入内容",
+    insertImageTip: true,
+    insertVideoTip: true,
+    placeholder: true,
     prefixCls: "fishd-richeditor",
     popoverPlacement: "top",
     tooltipPlacement: "bottom",
@@ -132,10 +128,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     return newState;
   }
 
-  constructor(props: RichEditorProps) {
+  constructor (props: RichEditorProps) {
     super(props);
     this.reactQuillNode = document.body;
     this.defaultFontSize = "14px";
+    this.Locale = {};
 
     let {
       value,
@@ -177,7 +174,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       curRange: null,
       curVideoType: this.defaultVideoType,
       defaultInputLink: "http://",
-      linkModalTitle: "插入超链接",
+      linkModalTitle: "",
       formatPainterActive: false
     };
     this.handlers = {
@@ -210,14 +207,14 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           // 点击编辑链接触发
           if (fromAction) {
             newState["defaultInputLink"] = value;
-            newState["linkModalTitle"] = "编辑超链接";
+            newState["linkModalTitle"] = this.Locale.editLink;
           } else {
-            newState["linkModalTitle"] = "插入超链接";
+            newState["linkModalTitle"] = this.Locale.insertLink;
           }
 
           this.setState(newState);
         } else {
-          message.error("没有选中文本");
+          message.error(this.Locale.noSelectionText);
         }
       },
       video: value => {
@@ -330,7 +327,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
     // 处理定制的超链接
     Object.keys(customLink).forEach(moduleName => {
-      this.handlers[`${moduleName}Entry`] = function() {
+      const that = this;
+      this.handlers[`${moduleName}Entry`] = function () {
         let range = this.quill.getSelection(),
           url = customLink[moduleName].url;
         if (range.length !== 0) {
@@ -363,7 +361,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
             }
           }
         } else {
-          message.error("没有选中文本");
+          message.error(that.Locale.noSelectionText);
         }
       };
     });
@@ -489,14 +487,14 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           case "size": {
             // font标签size属性的value是数字类型，取值范围是[1,7]。
             let size2pxMap = {
-                "1": "12px",
-                "2": "13px",
-                "3": "16px",
-                "4": "18px",
-                "5": "24px",
-                "6": "32px",
-                "7": "48px"
-              },
+              "1": "12px",
+              "2": "13px",
+              "3": "16px",
+              "4": "18px",
+              "5": "24px",
+              "6": "32px",
+              "7": "48px"
+            },
               sizeWithUnit = this.defaultFontSize,
               val = value && value.trim();
 
@@ -539,7 +537,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     this.reactQuillRef.blur();
   };
 
-  getEditor = ():ReactQuill|undefined => {
+  getEditor = (): ReactQuill | undefined => {
     if (!this.reactQuillRef) return;
     return this.reactQuillRef.getEditor() as ReactQuill;
   };
@@ -550,7 +548,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
     if (val) {
       if (val.length > 1000) {
-        message.error("链接地址不得超过1000个字");
+        message.error(this.Locale.linkToolongError);
         return;
       }
 
@@ -572,7 +570,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         defaultInputLink: "http://"
       });
     } else {
-      message.error("链接地址不得为空");
+      message.error(this.Locale.linkEmptyTip);
     }
   };
 
@@ -592,12 +590,12 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
     if (val) {
       if (val.length > 1000) {
-        message.error("视频链接不得超过1000个字");
+        message.error(this.Locale.videoLinkTooLongError);
         return;
       }
 
       if (val.indexOf("//") < 0) {
-        message.error("视频链接URL格式错误");
+        message.error(this.Locale.videoUrlFormattingError);
         return;
       }
 
@@ -620,7 +618,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         curRange: null
       });
     } else {
-      message.error("视频链接URL不得为空");
+      message.error(this.Locale.noVideoUrlErrorTip);
     }
   };
 
@@ -658,7 +656,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
     const handleInsertImage = info => {
       if (info.src == undefined) {
-        message.error("请设置图片源地址");
+        message.error(this.Locale.noPicSrcTip);
         return;
       }
 
@@ -741,7 +739,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
     const handleInsertFile = file => {
       if (!file || !file.url || !file.name) {
-        message.error("文件信息读取失败");
+        message.error(this.Locale.noFileInfoTip);
         return;
       }
 
@@ -752,13 +750,13 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
       // 继承列表的样式
       let curFormat = quill.getFormat(range),
-        listFormat: {list?:any} = {};
+        listFormat: { list?: any } = {};
 
       if (curFormat && curFormat.list) {
         listFormat.list = curFormat.list;
       }
 
-      let displayFileName = "[文件] " + file.name,
+      let displayFileName = (this.Locale.file) + file.name,
         contentsDelta: any[] = [
           {
             insert: displayFileName,
@@ -832,7 +830,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       videoNode = document.createElement("video");
 
     videoNode.onerror = () => {
-      message.error("视频无法播放");
+      message.error(this.Locale.VideoCantPlayTip);
     };
     videoNode.src = attrs.src && attrs.src.trim();
     videoNode = null;
@@ -862,7 +860,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
     const handleVideoInsert = info => {
       if (info.src == undefined) {
-        message.error("请设置视频源地址");
+        message.error(this.Locale.noVideoLinkErrorTip);
         return;
       }
 
@@ -1294,128 +1292,145 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     }
 
     return (
-      <div className={cls} style={style} ref={el => (this.editorCtner = el)}>
-        <Modal
-          title={linkModalTitle}
-          className={`${prefixCls}-link-modal`}
-          visible={showLinkModal}
-          onOk={this.handleLinkModalOk}
-          onCancel={this.handleLinkModalCancel}
-          destroyOnClose
-        >
-          <span className="text">超链接地址</span>
-          <Input
-            ref={el => (this.linkModalInputRef = el)}
-            style={{ width: "434px" }}
-            defaultValue={defaultInputLink}
-          />
-          {insertLinkTip ? <div className="tip">{insertLinkTip}</div> : null}
-        </Modal>
-        <Modal
-          title="插入图片"
-          className={`${prefixCls}-image-modal`}
-          visible={showImageModal}
-          footer={null}
-          onCancel={this.handleImageModalCancel}
-        >
-          <Button type="primary" onClick={this.handlePickLocalImage}>
-            选择本地图片
-          </Button>
-          {insertImageTip ? <div className="tip">{insertImageTip}</div> : null}
-        </Modal>
-        <Modal
-          title="插入附件"
-          className={`${prefixCls}-image-modal`}
-          visible={showAttachmentModal}
-          footer={null}
-          onCancel={this.handleAttachmentModalCancel}
-        >
-          <Button type="primary" onClick={this.handlePickLocalFile}>
-            选择本地文件
-          </Button>
-          {insertAttachmentTip ? (
-            <div className="tip">{insertAttachmentTip}</div>
-          ) : null}
-        </Modal>
-        <Modal
-          title="插入视频"
-          className={`${prefixCls}-video-modal`}
-          visible={showVideoModal}
-          {...videoFooter}
-          onOk={this.handleVideoModalOk}
-          onCancel={this.handleVideoModalCancel}
-        >
-          <Radio.Group
-            style={{ marginBottom: 24 }}
-            onChange={this.handleVideoTypeChange}
-            value={curVideoType}
-          >
-            {this.isSupportCustomInsertVideo ? (
-              <Radio value="video_local">本地视频</Radio>
-            ) : null}
-            <Radio value="video_link">视频链接</Radio>
-          </Radio.Group>
-          {curVideoType == "video_local" ? (
-            <React.Fragment>
-              <Button
-                style={{ display: "block" }}
-                type="primary"
-                onClick={this.handlePickLocalVideo}
-              >
-                选择本地视频
-              </Button>
-              {insertVideoTip ? (
-                <div className="tip">{insertVideoTip}</div>
-              ) : null}
-            </React.Fragment>
-          ) : (
-            <Input
-              ref={el => (this.videoModalInputRef = el)}
-              style={{ width: "434px" }}
-              placeholder="请输入视频链接URL"
-            />
-          )}
-        </Modal>
-        <CustomToolbar
-          ref={el => (this.toolbarRef = el)}
-          className={"editor-head"}
-          toolbar={toolbar}
-          customEmoji={customEmoji}
-          customLink={customLink}
-          customInsertValue={customInsertValue}
-          handleInsertEmoji={this.handleInsertEmoji}
-          handleFormatColor={this.handleFormatColor}
-          handleFormatBackground={this.handleFormatBackground}
-          handleFormatSize={this.handleFormatSize}
-          handleInsertValue={this.handleInsertValue}
-          popoverPlacement={popoverPlacement}
-          tooltipPlacement={tooltipPlacement}
-          getPopupContainer={getPopupContainer}
-          getCurrentSize={this.getCurrentSize}
-          formatPainterActive={this.state.formatPainterActive}
-          saveSelectionFormat={this.handleSaveSelectionFormat}
-          unsaveSelectionFormat={this.handleUnsaveSelectionFormat}
-        />
-        <ReactQuill
-          {...restProps}
-          ref={el => (this.reactQuillRef = el)}
-          bounds={this.editorCtner}
-          className={"editor-body"}
-          modules={moduleOpts}
-          placeholder={placeholder}
-          onChange={this.handleChange}
-          onSelectionChange={this.handleSelectionChange}
-        />
-        {loading ? (
-          <Spin
-            style={{
-              position: "absolute",
-              width: "100%",
-              background: "rgba(255, 255, 255, 0.75)"
-            }}
-          />
-        ) : null}
-      </div>
+      <ConfigConsumer componentName='RichEditor'>
+        {
+          (Locale: LocaleProperties['RichEditor']) => {
+            this.Locale = Locale;
+            return (
+              <div className={cls} style={style} ref={el => (this.editorCtner = el)}>
+                <Modal
+                  title={linkModalTitle || this.Locale.linkModalTitle}
+                  className={`${prefixCls}-link-modal`}
+                  visible={showLinkModal}
+                  onOk={this.handleLinkModalOk}
+                  onCancel={this.handleLinkModalCancel}
+                  destroyOnClose
+                >
+                  <span className="text">{Locale.HyperlinkAddress}</span>
+                  <Input
+                    ref={el => (this.linkModalInputRef = el)}
+                    style={{ width: "434px" }}
+                    defaultValue={defaultInputLink}
+                  />
+                  {insertLinkTip ? <div className="tip">{insertLinkTip}</div> : null}
+                </Modal>
+                <Modal
+                  title={Locale.insertPicture}
+                  className={`${prefixCls}-image-modal`}
+                  visible={showImageModal}
+                  footer={null}
+                  onCancel={this.handleImageModalCancel}
+                >
+                  <Button type="primary" onClick={this.handlePickLocalImage}>
+                    {Locale.selectLocalImage}
+                  </Button>
+                  {insertImageTip ? <div className="tip">{Locale.inserImageTip || insertImageTip}</div> : null}
+                </Modal>
+                <Modal
+                  title={Locale.insertAttachment}
+                  className={`${prefixCls}-image-modal`}
+                  visible={showAttachmentModal}
+                  footer={null}
+                  onCancel={this.handleAttachmentModalCancel}
+                >
+                  <Button type="primary" onClick={this.handlePickLocalFile}>
+                    {Locale.selectLocalFile}
+                  </Button>
+                  {insertAttachmentTip ? (
+                    <div className="tip">{insertAttachmentTip}</div>
+                  ) : null}
+                </Modal>
+                <Modal
+                  title={Locale.insertVideo}
+                  className={`${prefixCls}-video-modal`}
+                  visible={showVideoModal}
+                  {...videoFooter}
+                  onOk={this.handleVideoModalOk}
+                  onCancel={this.handleVideoModalCancel}
+                >
+                  <Radio.Group
+                    style={{ marginBottom: 24 }}
+                    onChange={this.handleVideoTypeChange}
+                    value={curVideoType}
+                  >
+                    {this.isSupportCustomInsertVideo ? (
+                      <Radio value="video_local">{Locale.localVideo}</Radio>
+                    ) : null}
+                    <Radio value="video_link">{Locale.videoLink}</Radio>
+                  </Radio.Group>
+                  {curVideoType == "video_local" ? (
+                    <React.Fragment>
+                      <Button
+                        style={{ display: "block" }}
+                        type="primary"
+                        onClick={this.handlePickLocalVideo}
+                      >
+                        {Locale.selectLocalVideo}
+                      </Button>
+                      {insertVideoTip ? (
+                        insertVideoTip === true
+                          ? <div className="tip">{
+                            <React.Fragment>
+                              <span>{Locale.rule1}</span>
+                              <br />
+                              <span>{Locale.rule2}</span>
+                            </React.Fragment>
+                          }</div>
+                          : insertVideoTip
+                      ) : null}
+                    </React.Fragment>
+                  ) : (
+                      <Input
+                        ref={el => (this.videoModalInputRef = el)}
+                        style={{ width: "434px" }}
+                        placeholder={Locale.PleaseEnterTheVideolinkURL}
+                      />
+                    )}
+                </Modal>
+                <CustomToolbar
+                  ref={el => (this.toolbarRef = el)}
+                  className={"editor-head"}
+                  toolbar={toolbar}
+                  customEmoji={customEmoji}
+                  customLink={customLink}
+                  customInsertValue={customInsertValue}
+                  handleInsertEmoji={this.handleInsertEmoji}
+                  handleFormatColor={this.handleFormatColor}
+                  handleFormatBackground={this.handleFormatBackground}
+                  handleFormatSize={this.handleFormatSize}
+                  handleInsertValue={this.handleInsertValue}
+                  popoverPlacement={popoverPlacement}
+                  tooltipPlacement={tooltipPlacement}
+                  getPopupContainer={getPopupContainer}
+                  getCurrentSize={this.getCurrentSize}
+                  formatPainterActive={this.state.formatPainterActive}
+                  saveSelectionFormat={this.handleSaveSelectionFormat}
+                  unsaveSelectionFormat={this.handleUnsaveSelectionFormat}
+                />
+                <ReactQuill
+                  {...restProps}
+                  ref={el => (this.reactQuillRef = el)}
+                  bounds={this.editorCtner}
+                  className={"editor-body"}
+                  modules={moduleOpts}
+                  placeholder={Locale.placeholder}
+                  onChange={this.handleChange}
+                  onSelectionChange={this.handleSelectionChange}
+                />
+                {loading ? (
+                  <Spin
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      background: "rgba(255, 255, 255, 0.75)"
+                    }}
+                  />
+                ) : null}
+              </div>
+            )
+          }
+        }
+      </ConfigConsumer>
     );
   }
 }

@@ -2,31 +2,28 @@ import zh_CN from "./zh_CN";
 import en_US from './en_US';
 
 
-type keyStringObj = {
-  [propName: string]: string | object,
-}
 type keyString = {
   [propName: string]: string,
 }
 
 export interface LocaleProperties {
   locale: string;
-  AudioPlayer?: keyStringObj;
-  AutoComplete?: keyStringObj;
-  Cascader?: keyStringObj;
-  global?: keyStringObj;
+  AudioPlayer?: keyString;
+  AutoComplete?: keyString;
+  Cascader?: keyString;
+  global?: keyString;
   Table?: keyString;
-  Modal?: keyStringObj;
-  Form?: keyStringObj & {
-    defaultValidateMessages: keyStringObj,
-  },
-  Guide?: keyStringObj,
-  List?: keyStringObj,
-  Spin?: keyStringObj;
+  Modal?: keyString;
+  Guide?: keyString,
+  List?: keyString,
+  Spin?: keyString;
+  RichEditor?: keyString,
+  Pagination?: keyString,
+  VideoViewer?: keyString,
   Select?: keyString;
-  Transfer?: keyStringObj;
-  TreeSelect?: keyStringObj;
-  Upload?: keyStringObj;
+  Transfer?: keyString;
+  TreeSelect?: keyString;
+  Upload?: keyString;
 };
 
 const Locale = {
