@@ -6,6 +6,10 @@ type keyString = {
   [propName: string]: string,
 }
 
+type keyStringObj = {
+  [propName: string]: string | object,
+}
+
 export interface LocaleProperties {
   locale: string,
   LoadMore?: keyString,
@@ -17,6 +21,7 @@ export interface LocaleProperties {
   Modal?: keyString;
   Guide?: keyString,
   List?: keyString,
+  DatePicker?: keyStringObj,
   Spin?: keyString;
   RichEditor?: keyString,
   Pagination?: keyString,

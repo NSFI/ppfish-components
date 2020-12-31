@@ -12,14 +12,14 @@ export function getLocale(Locale: string, componentName?: string) {
 
 export default function LocaleConsumer({ componentName, children }: {
   componentName: string,
-  children: (params: object) => React.ReactNode
+  children: (params: object, locale: string) => React.ReactNode
 }) {
   return <Consumer>
     {
       (value) => {
         const { Locale } = value;
         const ComponentLocal = getLocale(Locale, componentName);
-        return children(ComponentLocal || {});
+        return children(ComponentLocal || {}, Locale);
       }
     }
   </Consumer>
