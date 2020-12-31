@@ -6,19 +6,17 @@ import { ESC_KEY_CODE, LEFT_KEY_CODE, RIGHT_KEY_CODE } from './src/common/consta
 import Modal from '../Modal';
 import Button from '../Button';
 import './style/index.less';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
 interface GuideProps {
   allowClose?: boolean;
   className?: string;
   counter?: boolean;
-  doneBtnText?: string;
   keyboardControl?: boolean;
   mask?: boolean;
   mode?: string;
-  nextBtnText?: string;
   onClose?: () => void;
-  prevBtnText?: string;
-  skipBtnText?: string;
   steps?: any[];
   style?: React.CSSProperties;
   visible?: boolean;
@@ -36,10 +34,6 @@ class Guide extends Component<GuideProps, GuideState> {
     className: PropTypes.string,
     style: PropTypes.object,
     mode: PropTypes.string,
-    prevBtnText: PropTypes.string,
-    nextBtnText: PropTypes.string,
-    doneBtnText: PropTypes.string,
-    skipBtnText: PropTypes.string,
     steps: PropTypes.array.isRequired,
     visible: PropTypes.bool,
     counter: PropTypes.bool,
@@ -52,10 +46,6 @@ class Guide extends Component<GuideProps, GuideState> {
   static defaultProps = {
     prefixCls: 'fishd-guide',
     mode: 'normal',
-    prevBtnText: '上一步',
-    nextBtnText: '下一步',
-    doneBtnText: '知道了',
-    skipBtnText: '跳过',
     allowClose: false,
     keyboardControl: false,
     visible: false,
@@ -79,10 +69,6 @@ class Guide extends Component<GuideProps, GuideState> {
 
     if (props.mode != 'fixed') {
       let opt = {
-        prevBtnText: props.prevBtnText,
-        nextBtnText: props.nextBtnText,
-        doneBtnText: props.doneBtnText,
-        skipBtnText: props.skipBtnText,
         counter: props.counter,
         allowClose: props.allowClose,
         keyboardControl: props.keyboardControl,
@@ -220,60 +206,71 @@ class Guide extends Component<GuideProps, GuideState> {
 
   render() {
     let {
-        prefixCls,
-        allowClose,
-        mode,
-        mask,
-        className,
-        style,
-        steps,
-        prevBtnText,
-        nextBtnText,
-        doneBtnText,
-        skipBtnText
-      } = this.props,
-      { visible, currentIndex } = this.state,
-      rootCls = classNames(`${prefixCls}-fixed`, {
-        [className]: className
-      }),
-      isFirstStep = currentIndex <= 0,
-      isLastStep = currentIndex >= this.totalCount - 1;
+      prefixCls,
+      allowClose,
+      mode,
+      mask,
+      className,
+      style,
+      steps,
+    } = this.props,
+    { visible, currentIndex } = this.state,
+    rootCls = classNames(`${prefixCls}-fixed`, {
+      [className]: className
+    }),
+    isFirstStep = currentIndex <= 0,
+    isLastStep = currentIndex >= this.totalCount - 1;
 
     if (mode != 'fixed') {
       return null;
     }
 
     return (
-      <Modal
-        className={rootCls}
-        style={{
-          ...style
-        }}
-        mask={mask}
-        maskClosable={allowClose}
-        title={this.renderTitle(steps[currentIndex])}
-        visible={visible}
-        width={800}
-        footer={
-          <React.Fragment>
-            <div key="skip" className="skip" onClick={this.handleClose}>
-              {skipBtnText}
-            </div>
-            {isFirstStep ? null : (
-              <Button key="prev" onClick={this.handlePrev}>
-                {prevBtnText}
-              </Button>
-            )}
-            <Button key="next" type="primary" onClick={this.handleNext}>
-              {isLastStep ? doneBtnText : nextBtnText}
-              {` (${currentIndex + 1}/${steps.length})`}
-            </Button>
-          </React.Fragment>
+      <ConfigConsumer componentName="Guide">
+        {
+          (Locale: LocaleProperties['Guide']) => {
+            const {
+              prevBtnText = '上一步',
+              nextBtnText = '下一步',
+              doneBtnText = '知道了',
+              skipBtnText = '跳过',
+            } = Locale;
+
+            return (
+              <Modal
+                className={rootCls}
+                style={{
+                  ...style
+                }}
+                mask={mask}
+                maskClosable={allowClose}
+                title={this.renderTitle(steps[currentIndex])}
+                visible={visible}
+                width={800}
+                footer={
+                  <React.Fragment>
+                    <div key="skip" className="skip" onClick={this.handleClose}>
+                      {skipBtnText}
+                    </div>
+                    {isFirstStep ? null : (
+                      <Button key="prev" onClick={this.handlePrev}>
+                        {prevBtnText}
+                      </Button>
+                    )}
+                    <Button key="next" type="primary" onClick={this.handleNext}>
+                      {isLastStep ? doneBtnText : nextBtnText}
+                      {` (${currentIndex + 1}/${steps.length})`}
+                    </Button>
+                  </React.Fragment>
+                }
+                onCancel={this.handleClose}
+              >
+                {steps[currentIndex].content}
+              </Modal>
+            )
+          }
         }
-        onCancel={this.handleClose}
-      >
-        {steps[currentIndex].content}
-      </Modal>
+      </ConfigConsumer>
     );
   }
 }

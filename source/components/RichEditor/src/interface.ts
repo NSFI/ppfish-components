@@ -35,7 +35,7 @@ export interface RichEditorProps {
   value?: string;
   insertImageTip?: string | Element;
   insertAttachmentTip?: string | Element;
-  insertVideoTip?: string | Element;
+  insertVideoTip?: boolean | string | Element;
   insertLinkTip?: string | Element;
   popoverPlacement?: TooltipPlacement;
   tooltipPlacement?: TooltipPlacement;

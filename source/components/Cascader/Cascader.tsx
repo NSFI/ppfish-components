@@ -457,7 +457,8 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       'esc'
     ]);
 
-    const getOptionsAndDropdownMenuColumnStyle = Locale => {
+    const getOptionsAndOthers = Locale => {
+      let { notFoundContent = Locale.notFoundContent, placeholder = Locale.placeholder } = this.props;
       let options = props.options;
       if (state.inputValue) {
         options = this.generateFilteredOptions(prefixCls, Locale);
@@ -484,37 +485,42 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       return {
         options,
         dropdownMenuColumnStyle,
+        notFoundContent,
+        placeholder
       };
     }
 
     const label = this.getLabel();
-    const getInput = Locale => children || (
-      <span style={style} className={pickerCls}>
-        <span
-          className={`${prefixCls}-picker-label`}
-          title={typeof label === 'string' ? label : ''}
-        >
-          {label}
+    const getInput = Locale => {
+      let { placeholder = Locale.placeholder } = this.props;
+      return children || (
+        <span style={style} className={pickerCls}>
+          <span
+            className={`${prefixCls}-picker-label`}
+            title={typeof label === 'string' ? label : ''}
+          >
+            {label}
+          </span>
+          <Input
+            {...inputProps}
+            ref={this.saveInput}
+            prefixCls={inputPrefixCls}
+            placeholder={value && value.length > 0 ? undefined : placeholder}
+            className={`${prefixCls}-input ${sizeCls}`}
+            value={state.inputValue}
+            disabled={disabled}
+            readOnly={!showSearch}
+            autoComplete="off"
+            onClick={showSearch ? this.handleInputClick : undefined}
+            onBlur={showSearch ? this.handleInputBlur : undefined}
+            onKeyDown={this.handleKeyDown}
+            onChange={showSearch ? this.handleInputChange : undefined}
+          />
+          {clearIcon}
+          <Icon type="down-fill" className={arrowCls} />
         </span>
-        <Input
-          {...inputProps}
-          ref={this.saveInput}
-          prefixCls={inputPrefixCls}
-          placeholder={value && value.length > 0 ? undefined : (placeholder || Locale.placeholder)}
-          className={`${prefixCls}-input ${sizeCls}`}
-          value={state.inputValue}
-          disabled={disabled}
-          readOnly={!showSearch}
-          autoComplete="off"
-          onClick={showSearch ? this.handleInputClick : undefined}
-          onBlur={showSearch ? this.handleInputBlur : undefined}
-          onKeyDown={this.handleKeyDown}
-          onChange={showSearch ? this.handleInputChange : undefined}
-        />
-        {clearIcon}
-        <Icon type="down-fill" className={arrowCls} />
-      </span>
-    );
+      );
+    }
 
     return (
       <ConfigConsumer componentName="Cascader">
@@ -523,10 +529,8 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
             return (<RcCascader
               {...props}
               {
-                ...getOptionsAndDropdownMenuColumnStyle(Locale)
+                ...getOptionsAndOthers(Locale)
               }
-              notFoundContent={notFoundContent || Locale.notFoundContent}
-              placeholder={placeholder || Locale.placeholder}
               value={value}
               popupVisible={state.popupVisible}
               onPopupVisibleChange={this.handlePopupVisibleChange}
