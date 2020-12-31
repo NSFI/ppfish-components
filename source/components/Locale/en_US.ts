@@ -12,8 +12,14 @@ const LocaleValue: LocaleProperties = {
     placeholder: 'Please select',
     notFoundContent: 'No data'
   },
+   LoadMore: {
+    defaultText: 'Show More',
+    loadingText: 'Loading',
+    errorText: 'Failed to load. Please try again',
+    endText: 'No data',
+  },
   Table: {
-    filterTitle: 'filters',
+    filterTitle: 'filters', 
     filterConfirm: 'OK',
     filterReset: 'Reset',
     filterEmptyText: 'No filters',

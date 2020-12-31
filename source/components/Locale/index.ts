@@ -7,7 +7,8 @@ type keyString = {
 }
 
 export interface LocaleProperties {
-  locale: string;
+  locale: string,
+  LoadMore?: keyString,
   AudioPlayer?: keyString;
   AutoComplete?: keyString;
   Cascader?: keyString;

@@ -158,6 +158,12 @@ const localeValues: LocaleProperties = {
     doneBtnText: '知道了',
     skipBtnText: '跳过',
   },
+  LoadMore: {
+    defaultText: '查看更多',
+    loadingText: '加载中',
+    errorText: '加载失败，请重试',
+    endText: '没有更多了',
+  },
   VideoViewer: {
     fullScreen: '全屏',
     cancelFullScreen: '取消全屏',
