@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Icon from '../../Icon/index.tsx';
 import Tooltip from '../../Tooltip/index.tsx';
+import ConfigConsumer from '../../Config/Consumer';
 
 export default class FullScreen extends Component {
   static propTypes = {
@@ -42,10 +43,10 @@ export default class FullScreen extends Component {
   handleClick = () => {
     const { isFullScreen } = this.state;
 
-    if(!isFullScreen) {
+    if (!isFullScreen) {
       this.player.requestFullscreen();
 
-    }else{
+    } else {
       this.player.exitFullscreen();
     }
 
@@ -57,18 +58,31 @@ export default class FullScreen extends Component {
   render() {
     const { prefixCls } = this.props;
     const { isFullScreen } = this.state;
-    const title = !isFullScreen ? '全屏' : '取消全屏';
 
     return (
-      <div className={classnames(prefixCls, "fishd-video-js-customer-button")} onClick={()=>this.handleClick()}>
-        <Tooltip title={<span style={{wordBreak:'keep-all'}}>{title}</span>} getPopupContainer={(e) => e.parentNode} >
-          <a>
-            {
-              !isFullScreen ? <Icon type="video-fullscreen"/> : <Icon type="video-shrink"/>
-            }
-          </a>
-        </Tooltip>
-      </div>
+      <ConfigConsumer componentName="VideoViewer">
+        {
+          (Locale) => {
+            const title = !isFullScreen ? Locale.fullScreen : Locale.cancelFullScreen;
+            return (
+              <div
+                className={classnames(prefixCls, "fishd-video-js-customer-button")}
+                onClick={() => this.handleClick()}
+              >
+                <Tooltip
+                  title={<span style={{ wordBreak: 'keep-all' }}>{title}</span>}
+                  getPopupContainer={(e) => e.parentNode} >
+                  <a>
+                    {
+                      !isFullScreen ? <Icon type="video-fullscreen" /> : <Icon type="video-shrink" />
+                    }
+                  </a>
+                </Tooltip>
+              </div>
+            );
+          }
+        }
+      </ConfigConsumer>
     );
   }
 }
