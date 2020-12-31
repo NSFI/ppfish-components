@@ -36,8 +36,10 @@ import {
 } from './interface';
 import { RadioChangeEvent } from '../Radio';
 import { CheckboxChangeEvent } from '../Checkbox';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
-function noop() {}
+function noop() { }
 
 function stopPropagation(e: React.SyntheticEvent<any>) {
   e.stopPropagation();
@@ -230,7 +232,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     warning(
       !('columnsPageRange' in props || 'columnsPageSize' in props),
       '`columnsPageRange` and `columnsPageSize` are removed, please use ' +
-        'fixed columns instead, see: https://u.ant.design/fixed-columns.'
+      'fixed columns instead, see: https://u.ant.design/fixed-columns.'
     );
 
     const columns = props.columns || normalizeColumns(props.children as React.ReactChildren);
@@ -277,11 +279,11 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     const pagination: PaginationConfig = props.pagination || {};
     return this.hasPagination(props)
       ? {
-          ...defaultPagination,
-          ...pagination,
-          current: pagination.defaultCurrent || pagination.current || 1,
-          pageSize: pagination.defaultPageSize || pagination.pageSize || 10
-        }
+        ...defaultPagination,
+        ...pagination,
+        current: pagination.defaultCurrent || pagination.current || 1,
+        pageSize: pagination.defaultPageSize || pagination.pageSize || 10
+      }
       : {};
   }
 
@@ -763,8 +765,8 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     warning(
       recordKey !== undefined,
       'Each record in dataSource of table should have a unique `key` prop, ' +
-        'or set `rowKey` of Table to an unique primary key, ' +
-        'see https://u.ant.design/table-row-key'
+      'or set `rowKey` of Table to an unique primary key, ' +
+      'see https://u.ant.design/table-row-key'
     );
     return recordKey === undefined ? index : recordKey;
   };
@@ -1108,9 +1110,9 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     return data.sort(sorterFn).map((item: any) =>
       item[childrenColumnName]
         ? {
-            ...item,
-            [childrenColumnName]: this.recursiveSort(item[childrenColumnName], sorterFn)
-          }
+          ...item,
+          [childrenColumnName]: this.recursiveSort(item[childrenColumnName], sorterFn)
+        }
         : item
     );
   }
@@ -1139,22 +1141,23 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         const onFilter = col.onFilter;
         data = onFilter
           ? data.filter(record => {
-              return values.some(v => onFilter(v, record));
-            })
+            return values.some(v => onFilter(v, record));
+          })
           : data;
       });
     }
     return data;
   }
 
-  renderTable = (loading: SpinProps) => {
+  renderTable = (loading: SpinProps, Locale: LocaleProperties["Table"]) => {
+    const { filterTitle, filterConfirm, filterReset, emptyText, selectAll, selectInvert } = Locale;
     const localeDefault = {
-      filterTitle: '筛选',
-      filterConfirm: '确定',
-      filterReset: '重置',
-      emptyText: '暂无数据',
-      selectAll: '全选当页',
-      selectInvert: '反选当页'
+      filterTitle,
+      filterConfirm,
+      filterReset,
+      emptyText,
+      selectAll,
+      selectInvert
     };
     const locale = { ...localeDefault, ...this.props.locale };
     const { style, className, prefixCls, showHeader, activeRowByClick, ...restProps } = this.props;
@@ -1217,7 +1220,6 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       };
     }
 
-    const table = <div>{this.renderTable(loading)}</div>;
 
     // if there is no pagination or no data,
     // the height of spin should decrease by half of pagination
@@ -1227,16 +1229,22 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         : `${prefixCls}-without-pagination`;
 
     return (
-      <div className={classNames(`${prefixCls}-wrapper`, className)} style={style}>
-        <Spin
-          {...loading}
-          className={loading.spinning ? `${paginationPatchClass} ${prefixCls}-spin-holder` : ''}
-        >
-          {this.renderPagination('top')}
-          {table}
-          {this.renderPagination('bottom')}
-        </Spin>
-      </div>
+      <ConfigConsumer componentName="Table">
+        {
+          (Locale: LocaleProperties["Table"]) =>
+            <div className={classNames(`${prefixCls}-wrapper`, className)} style={style}>
+              <Spin
+                {...loading}
+                className={loading.spinning ? `${paginationPatchClass} ${prefixCls}-spin-holder` : ''}
+              >
+                {this.renderPagination('top')}
+                <div>{this.renderTable(loading, Locale)}</div>
+                {this.renderPagination('bottom')}
+              </Spin>
+            </div>
+        }
+      </ConfigConsumer>
+
     );
   }
 }

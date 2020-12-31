@@ -6,7 +6,7 @@ import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 import ToolTip from '../Tooltip';
 import { ColumnFiltrateProps, ColumnFiltrateState } from './interface';
-
+import ConfigConsumer from "../Config/Consumer";
 const CheckboxGroup = Checkbox.Group;
 
 const getColumnKey = column => {
@@ -182,31 +182,37 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
     const options = this.getOptions();
     const defaultOption = this.getDefaultOption();
     return (
-      <div>
-        <Icon className={`${prefixCls}-filtrate-icon`} type="Settingx" onClick={this.showModal} />
-        <Modal
-          title="选择需要展示的数据项"
-          wrapClassName={`${prefixCls}-filtrate-modal`}
-          visible={visible}
-          width={680}
-          okButtonDisabled={okButtonDisabled}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <div className={`${prefixCls}-filtrate-modal-enable-list`}>
-            <CheckboxGroup value={checkedOption} options={options} onChange={this.onChange} />
-          </div>
-          {defaultOption && !!defaultOption.length && (
-            <div className={`${prefixCls}-filtrate-modal-disabled-list`}>
-              <p className="title">默认展示数据项</p>
-              <CheckboxGroup
-                options={defaultOption}
-                defaultValue={defaultOption.map(option => option.value)}
-              />
-            </div>
-          )}
-        </Modal>
-      </div>
+      <ConfigConsumer componentName="Table">
+        {(Locale) => {
+          return (<div>
+            <Icon className={`${prefixCls}-filtrate-icon`} type="Settingx" onClick={this.showModal} />
+            <Modal
+              title={Locale.modalTitle}
+              wrapClassName={`${prefixCls}-filtrate-modal`}
+              visible={visible}
+              width={680}
+              okButtonDisabled={okButtonDisabled}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+              okText={Locale.okText}
+              cancelText={Locale.cancelText}
+            >
+              <div className={`${prefixCls}-filtrate-modal-enable-list`}>
+                <CheckboxGroup value={checkedOption} options={options} onChange={this.onChange} />
+              </div>
+              {defaultOption && !!defaultOption.length && (
+                <div className={`${prefixCls}-filtrate-modal-disabled-list`}>
+                  <p className="title">{Locale.defaultOptionTitle}</p>
+                  <CheckboxGroup
+                    options={defaultOption}
+                    defaultValue={defaultOption.map(option => option.value)}
+                  />
+                </div>
+              )}
+            </Modal>
+          </div>)
+        }}
+        </ConfigConsumer>
     );
   }
 }

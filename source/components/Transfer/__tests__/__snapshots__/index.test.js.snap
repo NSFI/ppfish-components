@@ -1,192 +1,190 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Transfer should render correctly 1`] = `
-<div>
+<div
+  class="fishd-transfer"
+>
   <div
-    class="fishd-transfer"
+    class="fishd-transfer-list"
   >
     <div
-      class="fishd-transfer-list"
+      class="fishd-transfer-list-header"
     >
-      <div
-        class="fishd-transfer-list-header"
+      <label
+        class="fishd-checkbox-wrapper"
       >
-        <label
-          class="fishd-checkbox-wrapper"
+        <span
+          class="fishd-checkbox fishd-checkbox-checked"
         >
+          <input
+            checked=""
+            class="fishd-checkbox-input"
+            type="checkbox"
+          />
           <span
-            class="fishd-checkbox fishd-checkbox-checked"
-          >
-            <input
-              checked=""
-              class="fishd-checkbox-input"
-              type="checkbox"
-            />
-            <span
-              class="fishd-checkbox-inner"
-            />
-          </span>
-        </label>
-        <span
-          class="fishd-transfer-list-header-title"
-        />
-        <span
-          class="fishd-transfer-list-header-selected"
-        >
-          1/2 
+            class="fishd-checkbox-inner"
+          />
         </span>
-      </div>
-      <div
-        class="fishd-transfer-list-body"
+      </label>
+      <span
+        class="fishd-transfer-list-header-title"
+      />
+      <span
+        class="fishd-transfer-list-header-selected"
       >
-        <ul
-          class="fishd-transfer-list-content"
-        >
-          <li
-            class="fishd-transfer-list-content-item"
-          >
-            <span
-              class="fishd-transfer-list-content-item-text"
-            >
-              <label
-                class="fishd-checkbox-wrapper"
-              >
-                <span
-                  class="fishd-checkbox fishd-checkbox-checked"
-                >
-                  <input
-                    checked=""
-                    class="fishd-checkbox-input"
-                    type="checkbox"
-                  />
-                  <span
-                    class="fishd-checkbox-inner"
-                  />
-                </span>
-              </label>
-              <span />
-            </span>
-          </li>
-          <li
-            class="fishd-transfer-list-content-item fishd-transfer-list-content-item-disabled"
-          >
-            <span
-              class="fishd-transfer-list-content-item-text"
-            >
-              <label
-                class="fishd-checkbox-wrapper"
-              >
-                <span
-                  class="fishd-checkbox fishd-checkbox-disabled"
-                >
-                  <input
-                    class="fishd-checkbox-input"
-                    disabled=""
-                    type="checkbox"
-                  />
-                  <span
-                    class="fishd-checkbox-inner"
-                  />
-                </span>
-              </label>
-              <span />
-            </span>
-          </li>
-        </ul>
-        <div
-          class="fishd-transfer-list-body-not-found"
-        >
-          暂无相关信息
-        </div>
-      </div>
+        1/2 
+      </span>
     </div>
     <div
-      class="fishd-transfer-operation"
+      class="fishd-transfer-list-body"
     >
-      <button
-        class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
-        type="button"
+      <ul
+        class="fishd-transfer-list-content"
       >
-        <i
-          class="fishdicon fishdicon-right"
-        />
-      </button>
-      <button
-        class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
-        disabled=""
-        type="button"
-      >
-        <i
-          class="fishdicon fishdicon-left"
-        />
-      </button>
-    </div>
-    <div
-      class="fishd-transfer-list"
-    >
-      <div
-        class="fishd-transfer-list-header"
-      >
-        <label
-          class="fishd-checkbox-wrapper"
+        <li
+          class="fishd-transfer-list-content-item"
         >
           <span
-            class="fishd-checkbox"
+            class="fishd-transfer-list-content-item-text"
           >
-            <input
-              class="fishd-checkbox-input"
-              type="checkbox"
-            />
-            <span
-              class="fishd-checkbox-inner"
-            />
-          </span>
-        </label>
-        <span
-          class="fishd-transfer-list-header-title"
-        />
-        <span
-          class="fishd-transfer-list-header-selected"
-        >
-          0/1 
-        </span>
-      </div>
-      <div
-        class="fishd-transfer-list-body"
-      >
-        <ul
-          class="fishd-transfer-list-content"
-        >
-          <li
-            class="fishd-transfer-list-content-item"
-          >
-            <span
-              class="fishd-transfer-list-content-item-text"
+            <label
+              class="fishd-checkbox-wrapper"
             >
-              <label
-                class="fishd-checkbox-wrapper"
+              <span
+                class="fishd-checkbox fishd-checkbox-checked"
               >
+                <input
+                  checked=""
+                  class="fishd-checkbox-input"
+                  type="checkbox"
+                />
                 <span
-                  class="fishd-checkbox"
-                >
-                  <input
-                    class="fishd-checkbox-input"
-                    type="checkbox"
-                  />
-                  <span
-                    class="fishd-checkbox-inner"
-                  />
-                </span>
-              </label>
-              <span />
-            </span>
-          </li>
-        </ul>
-        <div
-          class="fishd-transfer-list-body-not-found"
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+            </label>
+            <span />
+          </span>
+        </li>
+        <li
+          class="fishd-transfer-list-content-item fishd-transfer-list-content-item-disabled"
         >
-          请从左侧选择添加
-        </div>
+          <span
+            class="fishd-transfer-list-content-item-text"
+          >
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox fishd-checkbox-disabled"
+              >
+                <input
+                  class="fishd-checkbox-input"
+                  disabled=""
+                  type="checkbox"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+            </label>
+            <span />
+          </span>
+        </li>
+      </ul>
+      <div
+        class="fishd-transfer-list-body-not-found"
+      >
+        暂无相关信息
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-transfer-operation"
+  >
+    <button
+      class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
+      type="button"
+    >
+      <i
+        class="fishdicon fishdicon-right"
+      />
+    </button>
+    <button
+      class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="fishdicon fishdicon-left"
+      />
+    </button>
+  </div>
+  <div
+    class="fishd-transfer-list"
+  >
+    <div
+      class="fishd-transfer-list-header"
+    >
+      <label
+        class="fishd-checkbox-wrapper"
+      >
+        <span
+          class="fishd-checkbox"
+        >
+          <input
+            class="fishd-checkbox-input"
+            type="checkbox"
+          />
+          <span
+            class="fishd-checkbox-inner"
+          />
+        </span>
+      </label>
+      <span
+        class="fishd-transfer-list-header-title"
+      />
+      <span
+        class="fishd-transfer-list-header-selected"
+      >
+        0/1 
+      </span>
+    </div>
+    <div
+      class="fishd-transfer-list-body"
+    >
+      <ul
+        class="fishd-transfer-list-content"
+      >
+        <li
+          class="fishd-transfer-list-content-item"
+        >
+          <span
+            class="fishd-transfer-list-content-item-text"
+          >
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox"
+              >
+                <input
+                  class="fishd-checkbox-input"
+                  type="checkbox"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+            </label>
+            <span />
+          </span>
+        </li>
+      </ul>
+      <div
+        class="fishd-transfer-list-body-not-found"
+      >
+        请从左侧选择添加
       </div>
     </div>
   </div>
@@ -194,199 +192,197 @@ exports[`Transfer should render correctly 1`] = `
 `;
 
 exports[`Transfer should show sorted targetkey 1`] = `
-<div>
+<div
+  class="fishd-transfer"
+>
   <div
-    class="fishd-transfer"
+    class="fishd-transfer-list"
   >
     <div
-      class="fishd-transfer-list"
+      class="fishd-transfer-list-header"
     >
-      <div
-        class="fishd-transfer-list-header"
+      <label
+        class="fishd-checkbox-wrapper"
       >
-        <label
-          class="fishd-checkbox-wrapper"
+        <span
+          class="fishd-checkbox"
         >
+          <input
+            class="fishd-checkbox-input"
+            type="checkbox"
+          />
           <span
-            class="fishd-checkbox"
-          >
-            <input
-              class="fishd-checkbox-input"
-              type="checkbox"
-            />
-            <span
-              class="fishd-checkbox-inner"
-            />
-          </span>
-        </label>
-        <span
-          class="fishd-transfer-list-header-title"
-        />
-        <span
-          class="fishd-transfer-list-header-selected"
-        >
-          0/1 
+            class="fishd-checkbox-inner"
+          />
         </span>
-      </div>
-      <div
-        class="fishd-transfer-list-body"
+      </label>
+      <span
+        class="fishd-transfer-list-header-title"
+      />
+      <span
+        class="fishd-transfer-list-header-selected"
       >
-        <ul
-          class="fishd-transfer-list-content"
-        >
-          <li
-            class="fishd-transfer-list-content-item"
-            title="a"
-          >
-            <span
-              class="fishd-transfer-list-content-item-text"
-            >
-              <label
-                class="fishd-checkbox-wrapper"
-              >
-                <span
-                  class="fishd-checkbox"
-                >
-                  <input
-                    class="fishd-checkbox-input"
-                    type="checkbox"
-                  />
-                  <span
-                    class="fishd-checkbox-inner"
-                  />
-                </span>
-              </label>
-              <span>
-                a
-              </span>
-            </span>
-          </li>
-        </ul>
-        <div
-          class="fishd-transfer-list-body-not-found"
-        >
-          暂无相关信息
-        </div>
-      </div>
+        0/1 
+      </span>
     </div>
     <div
-      class="fishd-transfer-operation"
+      class="fishd-transfer-list-body"
     >
-      <button
-        class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
-        disabled=""
-        type="button"
+      <ul
+        class="fishd-transfer-list-content"
       >
-        <i
-          class="fishdicon fishdicon-right"
-        />
-      </button>
-      <button
-        class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
-        disabled=""
-        type="button"
-      >
-        <i
-          class="fishdicon fishdicon-left"
-        />
-      </button>
-    </div>
-    <div
-      class="fishd-transfer-list"
-    >
-      <div
-        class="fishd-transfer-list-header"
-      >
-        <label
-          class="fishd-checkbox-wrapper"
+        <li
+          class="fishd-transfer-list-content-item"
+          title="a"
         >
           <span
-            class="fishd-checkbox"
+            class="fishd-transfer-list-content-item-text"
           >
-            <input
-              class="fishd-checkbox-input"
-              type="checkbox"
-            />
-            <span
-              class="fishd-checkbox-inner"
-            />
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox"
+              >
+                <input
+                  class="fishd-checkbox-input"
+                  type="checkbox"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+            </label>
+            <span>
+              a
+            </span>
           </span>
-        </label>
-        <span
-          class="fishd-transfer-list-header-title"
-        />
-        <span
-          class="fishd-transfer-list-header-selected"
-        >
-          0/2 
-        </span>
-      </div>
+        </li>
+      </ul>
       <div
-        class="fishd-transfer-list-body"
+        class="fishd-transfer-list-body-not-found"
       >
-        <ul
-          class="fishd-transfer-list-content"
+        暂无相关信息
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-transfer-operation"
+  >
+    <button
+      class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="fishdicon fishdicon-right"
+      />
+    </button>
+    <button
+      class="fishd-btn fishd-btn-primary fishd-btn-sm fishd-btn-icon-only"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="fishdicon fishdicon-left"
+      />
+    </button>
+  </div>
+  <div
+    class="fishd-transfer-list"
+  >
+    <div
+      class="fishd-transfer-list-header"
+    >
+      <label
+        class="fishd-checkbox-wrapper"
+      >
+        <span
+          class="fishd-checkbox"
         >
-          <li
-            class="fishd-transfer-list-content-item"
-            title="c"
-          >
-            <span
-              class="fishd-transfer-list-content-item-text"
-            >
-              <label
-                class="fishd-checkbox-wrapper"
-              >
-                <span
-                  class="fishd-checkbox"
-                >
-                  <input
-                    class="fishd-checkbox-input"
-                    type="checkbox"
-                  />
-                  <span
-                    class="fishd-checkbox-inner"
-                  />
-                </span>
-              </label>
-              <span>
-                c
-              </span>
-            </span>
-          </li>
-          <li
-            class="fishd-transfer-list-content-item"
-            title="b"
-          >
-            <span
-              class="fishd-transfer-list-content-item-text"
-            >
-              <label
-                class="fishd-checkbox-wrapper"
-              >
-                <span
-                  class="fishd-checkbox"
-                >
-                  <input
-                    class="fishd-checkbox-input"
-                    type="checkbox"
-                  />
-                  <span
-                    class="fishd-checkbox-inner"
-                  />
-                </span>
-              </label>
-              <span>
-                b
-              </span>
-            </span>
-          </li>
-        </ul>
-        <div
-          class="fishd-transfer-list-body-not-found"
+          <input
+            class="fishd-checkbox-input"
+            type="checkbox"
+          />
+          <span
+            class="fishd-checkbox-inner"
+          />
+        </span>
+      </label>
+      <span
+        class="fishd-transfer-list-header-title"
+      />
+      <span
+        class="fishd-transfer-list-header-selected"
+      >
+        0/2 
+      </span>
+    </div>
+    <div
+      class="fishd-transfer-list-body"
+    >
+      <ul
+        class="fishd-transfer-list-content"
+      >
+        <li
+          class="fishd-transfer-list-content-item"
+          title="c"
         >
-          请从左侧选择添加
-        </div>
+          <span
+            class="fishd-transfer-list-content-item-text"
+          >
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox"
+              >
+                <input
+                  class="fishd-checkbox-input"
+                  type="checkbox"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+            </label>
+            <span>
+              c
+            </span>
+          </span>
+        </li>
+        <li
+          class="fishd-transfer-list-content-item"
+          title="b"
+        >
+          <span
+            class="fishd-transfer-list-content-item-text"
+          >
+            <label
+              class="fishd-checkbox-wrapper"
+            >
+              <span
+                class="fishd-checkbox"
+              >
+                <input
+                  class="fishd-checkbox-input"
+                  type="checkbox"
+                />
+                <span
+                  class="fishd-checkbox-inner"
+                />
+              </span>
+            </label>
+            <span>
+              b
+            </span>
+          </span>
+        </li>
+      </ul>
+      <div
+        class="fishd-transfer-list-body-not-found"
+      >
+        请从左侧选择添加
       </div>
     </div>
   </div>

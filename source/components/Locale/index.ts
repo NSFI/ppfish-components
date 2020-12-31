@@ -6,7 +6,6 @@ type keyString = {
   [propName: string]: string,
 }
 
-
 export interface LocaleProperties {
   locale: string,
   AudioPlayer?: keyString,
@@ -18,6 +17,11 @@ export interface LocaleProperties {
   RichEditor?: keyString,
   Pagination?: keyString,
   VideoViewer?: keyString,
+  Spin?: keyString;
+  Select?: keyString;
+  Transfer?: keyString;
+  TreeSelect?: keyString;
+  Upload?: keyString;
 };
 
 const Locale = {

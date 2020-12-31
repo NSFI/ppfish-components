@@ -3,23 +3,24 @@ import { LocaleProperties } from '.';
 const localeValues: LocaleProperties = {
   locale: 'zh_CN',
   global: {
-    placeholder: '请选择',
+    placeholder: '请选择'
   },
   AudioPlayer: {
-    notSupport: '您的浏览器不支持 audio 标签。',
+    notSupport: '您的浏览器不支持 audio 标签。'
   },
   AutoComplete: {
-    notFoundContent: '无匹配结果',
+    notFoundContent: '无匹配结果'
   },
   Cascader: {
     placeholder: '请选择',
-    notFoundContent: '无匹配结果',
+    notFoundContent: '无匹配结果'
   },
   Table: {
     filterTitle: '筛选',
     filterConfirm: '确定',
     filterReset: '重置',
     filterEmptyText: '无筛选项',
+    emptyText: '暂无数据',
     selectAll: '全选当页',
     selectInvert: '反选当页',
     selectionAll: '全选所有',
@@ -29,6 +30,10 @@ const localeValues: LocaleProperties = {
     triggerDesc: '点击降序',
     triggerAsc: '点击升序',
     cancelSort: '取消排序',
+    modalTitle: '选择需要展示的数据项',
+    defaultOptionTitle: '默认展示数据项',
+    okText: '确定',
+    cancelText: '取消',
   },
   Modal: {
     okText: '确定',
@@ -105,6 +110,44 @@ const localeValues: LocaleProperties = {
     bold: '粗体',
     temporarilyNoData: '暂无数据',
     enterKeyWordPlease: '请输入关键字',
+    justOkText: '知道了'
+  },
+  Spin: {
+    loading: '加载中'
+  },
+  Select: {
+    errorMessage: '超过选项上限',
+    multipleSelectAllText: '所有选项',
+    notFoundContent: '无匹配结果',
+    placeholder: '请选择',
+    searchPlaceholder: '请输入关键字',
+    selectAllText: '选择所有',
+    confirmText: '确定',
+    cancelText: '取消',
+    loading: '加载中...'
+  },
+  Transfer: {
+    notFoundContent: '无匹配结果',
+    sourceNotFoundContent: '暂无相关信息',
+    targetNotFonudContent: '请从左侧选择添加',
+    searchPlaceholder: '请输入关键字',
+  },
+  TreeSelect: {
+    placeholder: '请选择',
+    searchPlaceholder: '请输入关键字',
+    treeNodeResetTitle: '不选择任何分类',
+    notFoundContent: '无匹配结果',
+    okText: '确定',
+    cancelText: '取消',
+  },
+  Upload: {
+    uploading: '上传中',
+    removeFile: '移除文件',
+    uploadError: '上传错误',
+    previewFile: '预览文件',
+    cancelText: '取消',
+    deleteText: '全部删除',
+    uploadedTip: '已上传 ${length} 项'
   },
   VideoViewer: {
     fullScreen: '全屏',
