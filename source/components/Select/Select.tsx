@@ -15,7 +15,10 @@ import { KeyCode } from '../../utils';
 import isEqual from 'lodash/isEqual';
 import Option from './Option';
 import OptGroup from './OptGroup';
-const noop = () => {};
+import { LocaleContext } from '../Config/Locale/Context';
+import { LocaleProperties } from '../Locale';
+import LocaleList from '../Locale/index';
+const noop = () => { };
 
 interface SelectProps {
   allowClear?: boolean;
@@ -157,33 +160,27 @@ class Select extends React.Component<SelectProps, SelectState> {
     required: PropTypes.bool,
     filterInactiveOption: PropTypes.bool // 是否过滤失效的选中项（即不在option列表中）
   };
-
+  static contextType = LocaleContext;
   static defaultProps: SelectProps = {
     allowClear: true,
     tagWidth: 100,
     defaultActiveFirstOption: false,
     disabled: false,
     dropdownMatchSelectWidth: true,
-    errorMessage: '超过选项上限',
     filterOption: true,
     labelClear: false,
     labelInValue: false,
     loading: false,
     maxScrollHeight: 250,
     mode: 'single',
-    multipleSelectAllText: '所有选项',
-    notFoundContent: '无匹配结果',
     onChange: noop,
     onPopupScroll: noop,
     onSearch: noop,
     onSelect: noop,
     onVisibleChange: noop,
-    placeholder: '请选择',
     placement: 'bottomLeft',
     prefixCls: 'fishd-select',
     searchInputProps: {},
-    searchPlaceholder: '请输入关键字',
-    selectAllText: '选择所有',
     showArrow: true,
     showMultipleSelectAll: false,
     showOptionCheckedIcon: true,
@@ -750,29 +747,29 @@ class Select extends React.Component<SelectProps, SelectState> {
   };
 
   //下拉框内容
-  getDropdownPanel() {
+  getDropdownPanel(Locale: LocaleProperties['Select']) {
     const {
       allowClear,
       children,
       dropdownClassName,
       dropdownStyle,
-      errorMessage,
       extraOptions,
       loading,
       maxCount,
       maxScrollHeight,
       mode,
-      notFoundContent,
       onPopupScroll,
-      placeholder,
       prefixCls,
       searchInputProps,
-      searchPlaceholder,
-      selectAllText,
       showSearch,
       showSelectAll,
       showSingleClear,
-      required
+      required,
+      errorMessage = Locale.errorMessage,
+      notFoundContent = Locale.notFoundContent,
+      placeholder =  Locale.placeholder,
+      searchPlaceholder = Locale.searchPlaceholder,
+      selectAllText = Locale.selectAllText,
     } = this.props;
     const { searchValue, selectValue } = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
@@ -898,7 +895,7 @@ class Select extends React.Component<SelectProps, SelectState> {
   }
 
   // 获取面板内容
-  getSelectionPanel() {
+  getSelectionPanel(Locale: LocaleProperties['Select']) {
     const {
       className,
       tagWidth,
@@ -907,15 +904,15 @@ class Select extends React.Component<SelectProps, SelectState> {
       loading,
       maxLabelClearPanelHeight,
       mode,
-      multipleSelectAllText,
       onMouseEnter,
       onMouseLeave,
-      placeholder,
       prefixCls,
       showArrow,
       showMultipleSelectAll,
       size,
-      style
+      style,
+      placeholder=Locale.placeholder,
+      multipleSelectAllText = Locale.multipleSelectAllText,
     } = this.props;
     const { selectValue, selectValueForMultiplePanel, popupVisible } = this.state;
     const selectionCls = `${prefixCls}`;
@@ -1049,7 +1046,7 @@ class Select extends React.Component<SelectProps, SelectState> {
       dropdownMatchSelectWidth,
       getPopupContainer,
       placement,
-      prefixCls
+      prefixCls,
     } = this.props;
 
     const { popupVisible, dropdownWidth } = this.state;
@@ -1058,21 +1055,25 @@ class Select extends React.Component<SelectProps, SelectState> {
     if (dropdownWidth) {
       popupStyle[widthProp] = `${dropdownWidth}px`;
     }
+  
+    const LocaleContextValue = this.context;
+    const LocaleValue= LocaleContextValue['Locale'];
+    const Locale = LocaleList[LocaleValue] && LocaleList[LocaleValue]['Select'];
     return (
-      <Trigger
-        action={disabled ? [] : ['click']}
-        builtinPlacements={placements}
-        ref={node => (this.trigger = node)}
-        getPopupContainer={getPopupContainer}
-        onPopupVisibleChange={this.visibleChangeFromTrigger}
-        popup={this.getDropdownPanel()}
-        popupPlacement={placement}
-        popupVisible={popupVisible}
-        prefixCls={`${prefixCls}-popup`}
-        popupStyle={popupStyle}
-      >
-        {this.getSelectionPanel()}
-      </Trigger>
+         <Trigger
+            action={disabled ? [] : ['click']}
+            builtinPlacements={placements}
+            ref={node => (this.trigger = node)}
+            getPopupContainer={getPopupContainer}
+            onPopupVisibleChange={this.visibleChangeFromTrigger}
+            popup={this.getDropdownPanel(Locale)}
+            popupPlacement={placement}
+            popupVisible={popupVisible}
+            prefixCls={`${prefixCls}-popup`}
+            popupStyle={popupStyle}
+          >
+            {this.getSelectionPanel(Locale)}
+          </Trigger>
     );
   }
 }
