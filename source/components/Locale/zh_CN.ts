@@ -149,6 +149,15 @@ const localeValues: LocaleProperties = {
     deleteText: '全部删除',
     uploadedTip: '已上传 ${length} 项'
   },
+  List: {
+    emptyText: '暂无数据',
+  },
+  Guide: {
+    prevBtnText: '上一步',
+    nextBtnText: '下一步',
+    doneBtnText: '知道了',
+    skipBtnText: '跳过',
+  },
   VideoViewer: {
     fullScreen: '全屏',
     cancelFullScreen: '取消全屏',

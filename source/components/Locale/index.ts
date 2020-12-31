@@ -7,17 +7,19 @@ type keyString = {
 }
 
 export interface LocaleProperties {
-  locale: string,
-  AudioPlayer?: keyString,
-  AutoComplete?: keyString,
-  Cascader?: keyString,
-  global?: keyString,
-  Table?: keyString,
-  Modal?: keyString,
+  locale: string;
+  AudioPlayer?: keyString;
+  AutoComplete?: keyString;
+  Cascader?: keyString;
+  global?: keyString;
+  Table?: keyString;
+  Modal?: keyString;
+  Guide?: keyString,
+  List?: keyString,
+  Spin?: keyString;
   RichEditor?: keyString,
   Pagination?: keyString,
   VideoViewer?: keyString,
-  Spin?: keyString;
   Select?: keyString;
   Transfer?: keyString;
   TreeSelect?: keyString;
