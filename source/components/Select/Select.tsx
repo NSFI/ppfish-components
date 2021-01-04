@@ -1057,8 +1057,7 @@ class Select extends React.Component<SelectProps, SelectState> {
     }
   
     const LocaleContextValue = this.context;
-    const LocaleValue= LocaleContextValue['Locale'];
-    const Locale = LocaleList[LocaleValue] && LocaleList[LocaleValue]['Select'];
+    const Locale = LocaleContextValue && LocaleContextValue['Select'];
     return (
          <Trigger
             action={disabled ? [] : ['click']}

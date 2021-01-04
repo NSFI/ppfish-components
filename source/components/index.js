@@ -62,4 +62,4 @@ export { default as Trend } from './Trend/index.tsx';
 export { default as Upload } from './Upload/index.tsx';
 export { default as VideoViewer } from './VideoViewer/index.tsx';
 export { default as Guide } from './Guide/index.tsx';
-export { default as Config } from './Config/index.ts';
+export { ConfigProvider } from './Config/index.ts';

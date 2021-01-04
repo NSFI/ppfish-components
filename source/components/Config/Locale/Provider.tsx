@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
+import zh_CN from '../../Locale/zh_CN';
+import { LocaleProperties } from '../../Locale';
 
 import { Provider } from './Context';
-import { getLocale } from './Consumer';
 
 let runtimeLocale: {
   locale?: string,
@@ -16,21 +17,24 @@ export function getRuntimeLocale(componentName) {
 }
 
 // 部分组件如Modal 可以通过函数式调用  所以需要runtimeLocale提供支撑
-export function changeRuntimeLocale(LocaleValue = 'zh_CN') {
-  runtimeLocale = getLocale(LocaleValue);
+export function changeRuntimeLocale(LocaleValue?: LocaleProperties) {
+  if (!LocaleValue || !LocaleValue.locale) {
+      runtimeLocale = zh_CN;
+  }
+  runtimeLocale = LocaleValue;
 };
 
 export default (props: {
-  value: {
-    Locale: string,
-  }
+  Locale: LocaleProperties,
   children?: React.ReactNode
 }) => {
+  const Locale = (props.Locale) || zh_CN;
+  const { children } = props;
   const renderProvider = () => {
-    changeRuntimeLocale(props.value && props.value.Locale);
+    changeRuntimeLocale(Locale);
     return props.children
   }
-  return <Provider value={props.value}>
+  return <Provider value={Locale}>
     {
       renderProvider()
     }

@@ -328,6 +328,7 @@ class DatePanel extends React.Component {
 
             const monthSelector = currentView === PICKER_VIEWS.DATE && (
               <YearAndMonthPopover
+                key="month"
                 value={currentDate.getMonth() + 1}
                 sourceData={MONTH_ARRRY[lang]}
                 onChange={(month) => this.handleChangeMonth(month, Locales)}
@@ -342,7 +343,8 @@ class DatePanel extends React.Component {
               </YearAndMonthPopover>
             );
 
-           const yearSelector =  (<YearAndMonthPopover
+            const yearSelector = (<YearAndMonthPopover
+              key="year"
               value={currentDate.getFullYear()}
               sourceData={YEARS_ARRAY(yearCount)}
               onChange={this.handleChangeYear}
@@ -352,7 +354,7 @@ class DatePanel extends React.Component {
               </span>
             </YearAndMonthPopover>);
 
-            const selectors =  lang === 'zh_CN' ? [ yearSelector, monthSelector ] : [ monthSelector, yearSelector ]
+            const selectors =  lang === 'zh_CN' ? [ yearSelector, monthSelector ] : [ monthSelector, yearSelector ];
 
             return (<div
               className={classNames(
@@ -497,7 +499,7 @@ class DatePanel extends React.Component {
                   </div>
                 )
               }
-            </div>)
+            </div>);
           }
         }
       </ConfigConsumer>

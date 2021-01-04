@@ -2,9 +2,6 @@ import { LocaleProperties } from '.';
 
 const localeValues: LocaleProperties = {
   locale: 'zh_CN',
-  global: {
-    placeholder: '请选择'
-  },
   AudioPlayer: {
     notSupport: '您的浏览器不支持 audio 标签。'
   },
@@ -38,7 +35,6 @@ const localeValues: LocaleProperties = {
   Modal: {
     okText: '确定',
     cancelText: '取消',
-    // justOkText: '知道了',
   },
   Pagination: {
     items_per_page: '条/页',

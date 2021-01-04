@@ -1,19 +1,17 @@
+import { LocaleProperties } from '../Locale';
 import React from 'react'
 import LocaleProvider from './Locale/Provider';
 
 export default function ConfigProvider(props: {
-  value: {
-    Locale?: {
-      Locale: string
-    }
-  }
+  Locale: LocaleProperties
   children: React.ReactNode
 }) {
-  const { value } = props;
-  const { Locale } = value;
-  return <LocaleProvider value={Locale}>
-    {
-      props.children
-    }
-  </LocaleProvider>
+  const { Locale, children } = props;
+  return (
+    <LocaleProvider Locale={Locale}>
+      {
+        children
+      }
+    </LocaleProvider>
+  )
 }

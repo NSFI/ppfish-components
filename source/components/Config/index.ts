@@ -5,3 +5,5 @@ export default {
   Consumer,
   Provider
 }
+
+export const ConfigProvider = Provider;
