@@ -2,6 +2,7 @@
   "name": "ppfish",
   "version": "1.8.0-alpha.1.1",
   "description": "fish design ui components",
+  "typings": "lib/components/index.d.ts",
   "scripts": {
     "precommit": "lint-staged",
     "start-message": "babel-node tools/startMessage.js",
