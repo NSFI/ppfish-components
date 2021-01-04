@@ -19,9 +19,10 @@ export function getRuntimeLocale(componentName) {
 // 部分组件如Modal 可以通过函数式调用  所以需要runtimeLocale提供支撑
 export function changeRuntimeLocale(LocaleValue?: LocaleProperties) {
   if (!LocaleValue || !LocaleValue.locale) {
-      runtimeLocale = zh_CN;
+    runtimeLocale = zh_CN;
+  } else {
+    runtimeLocale = LocaleValue;
   }
-  runtimeLocale = LocaleValue;
 };
 
 export default (props: {
