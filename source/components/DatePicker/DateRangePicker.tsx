@@ -5,6 +5,8 @@ import DateRangePanel from './panel/DateRangePanel';
 import TimeSelectPanel from './panel/TimeSelectPanel';
 import TimePanel from './panel/TimePanel';
 import { converSelectRange } from './TimePicker';
+import { LocaleProperties } from '../Locale';
+import ConfigConsumer from '../Config/Consumer';
 
 export default class DateRangePicker extends DateRangeBasePicker {
   static get propTypes() {
@@ -106,14 +108,20 @@ export default class DateRangePicker extends DateRangeBasePicker {
       state.value && this.isDateValid(state.value) ? state.value : null;
 
     return (
-      // @ts-ignore to much unmatched props
-      <DateRangePanel
-        {...this.props}
-        value={value}
-        onPick={this.onPicked}
-        onCancelPicked={this.onCancelPicked}
-        dateToStr={this.dateToStr}
-      />
+      <ConfigConsumer componentName="DatePicker">
+      {
+        (Locales: LocaleProperties["DatePicker"]) => (
+          // @ts-ignore to much unmatched props
+          <DateRangePanel
+            {...this.props}
+            value={value}
+            onPick={this.onPicked}
+            onCancelPicked={this.onCancelPicked}
+            dateToStr={this.dateToStr}
+          />
+            )
+      }
+    </ConfigConsumer>
     );
   }
 }

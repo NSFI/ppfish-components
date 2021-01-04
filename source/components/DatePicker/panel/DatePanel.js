@@ -26,6 +26,8 @@ import {
   setTime
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
+import ConfigConsumer from '../../Config/Consumer';
+import { LocaleProperties } from '../..//Locale';
 
 const PICKER_VIEWS = {
   YEAR: 'year',
@@ -263,10 +265,10 @@ class DatePanel extends React.Component {
   }
 
   // 切换月份
-  handleChangeMonth = (month) => {
-    const { currentDate } = this.state;
+  handleChangeMonth = (month, locales) => {const { currentDate } = this.state;
+    // FIXME: 通过截取 month 的方式不好扩展功能
     this.setState({
-      currentDate: new Date((new Date(currentDate).setMonth(parseInt(month.slice(0,-1)) - 1)))
+      currentDate: new Date((new Date(currentDate).setMonth(parseInt(locales[month]) - 1)))
     });
   }
 
@@ -314,178 +316,193 @@ class DatePanel extends React.Component {
       timeSelectMode,
       timeSelectModeProps
     } = this.props;
+
     const { currentView, currentDate, dateInputText, time } = this.state;
     const { month } = deconstructDate(currentDate);
     const t = Locale.t;
 
     return (
-      <div
-        className={classNames(
-          `${prefixCls}-picker-panel`,
-          `${prefixCls}-date-picker`,
-          {
-            'has-sidebar': shortcuts,
-            'has-time': showTime
-          })
-        }
-      >
+      <ConfigConsumer componentName="DatePicker">
+        {
+          (Locales, lang) => {
 
-        <div className={`${prefixCls}-picker-panel__body-wrapper`}>
-          {
-            Array.isArray(shortcuts) && (
-              <div className={classNames(`${prefixCls}-picker-panel__sidebar`)}>
+            const monthSelector = currentView === PICKER_VIEWS.DATE && (
+              <YearAndMonthPopover
+                key="month"
+                value={currentDate.getMonth() + 1}
+                sourceData={MONTH_ARRRY[lang]}
+                onChange={(month) => this.handleChangeMonth(month, Locales)}
+              >
+                <span
+                  className={
+                    classNames(`${prefixCls}-date-picker__header-label`, {
+                      active: currentView === 'month'
+                    })
+                  }
+                >{Locales[`month${month + 1}`]}</span>
+              </YearAndMonthPopover>
+            );
+
+            const yearSelector = (<YearAndMonthPopover
+              key="year"
+              value={currentDate.getFullYear()}
+              sourceData={YEARS_ARRAY(yearCount)}
+              onChange={this.handleChangeYear}
+            >
+              <span className={`${prefixCls}-date-picker__header-label`}>
+                {`${currentDate.getFullYear()} ${Locales.year}`}
+              </span>
+            </YearAndMonthPopover>);
+
+            const selectors =  lang === 'zh_CN' ? [ yearSelector, monthSelector ] : [ monthSelector, yearSelector ];
+
+            return (<div
+              className={classNames(
+                `${prefixCls}-picker-panel`,
+                `${prefixCls}-date-picker`,
                 {
-                  shortcuts.map((e, idx) => {
-                    return (
-                      <button
-                        key={idx}
-                        type="button"
-                        className={`${prefixCls}-picker-panel__shortcut`}
-                        onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
-                    );
-                  })
-                }
-              </div>
-            )
-          }
-          <div className={`${prefixCls}-picker-panel__body`}>
-            {
-              showTime && (
-                <div className={`${prefixCls}-date-picker__time-header`}>
-                  <span className={`${prefixCls}-date-picker__editor-wrap`}>
-                    <Input
-                      placeholder={t('datepicker.selectDate')}
-                      value={dateInputText}
-                      onChange={this.handleDateInputChange}
-                      onBlur={this.handleDateInputBlur}
-                    />
-                  </span>
-                  <span className={`${prefixCls}-date-picker__editor-wrap`}>
-                    {
-                      timeSelectMode === 'TimePicker' ?
-                      <TimePicker
-                        className={`${prefixCls}-date-picker-time__editor`}
-                        placeholder={t('datepicker.selectTime')}
-                        format={timeFormat(format)}
-                        getPopupContainer={(node) => node.parentNode}
-                        showTrigger={false}
-                        allowClear={false}
-                        disabled={this.timePickerDisable()}
-                        value={time}
-                        onChange={this.handleTimeInputChange}
-                        isShowCurrent={showTimeCurrent}
-                        selectableRange={timeSelectableRange}
-                      />
-                      :
-                      <TimePicker.TimeSelect
-                        className={`${prefixCls}-date-picker-time__editor`}
-                        placeholder={t('datepicker.selectTime')}
-                        getPopupContainer={(node) => node.parentNode}
-                        showTrigger={false}
-                        allowClear={false}
-                        disabled={this.timePickerDisable()}
-                        value={time}
-                        onChange={this.handleTimeInputChange}
-                        start={timeSelectModeProps.start}
-                        step={timeSelectModeProps.step}
-                        end={timeSelectModeProps.end}
-                        maxTime={timeSelectModeProps.maxTime}
-                        minTime={timeSelectModeProps.minTime}
-                      />
-                    }
-                  </span>
-                </div>
-              )
-            }
+                  'has-sidebar': shortcuts,
+                  'has-time': showTime
+                })
+              }
+            >
 
-            {
-              currentView !== 'time' && (
-                <div className={`${prefixCls}-date-picker__header`}>
-                  <Icon
-                    type="left-double"
-                    onClick={this.prevYear}
-                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />
+              <div className={`${prefixCls}-picker-panel__body-wrapper`}>
+                {
+                  Array.isArray(shortcuts) && (
+                    <div className={classNames(`${prefixCls}-picker-panel__sidebar`)}>
+                      {
+                        shortcuts.map((e, idx) => {
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className={`${prefixCls}-picker-panel__shortcut`}
+                              onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
+                          );
+                        })
+                      }
+                    </div>
+                  )
+                }
+                <div className={`${prefixCls}-picker-panel__body`}>
                   {
-                    currentView === PICKER_VIEWS.DATE && (
-                      <Icon
-                        type="left"
-                        onClick={this.prevMonth}
-                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />)
-                  }
-                  <YearAndMonthPopover
-                    value={currentDate.getFullYear()}
-                    sourceData={YEARS_ARRAY(yearCount)}
-                    onChange={this.handleChangeYear}
-                  >
-                    <span className={`${prefixCls}-date-picker__header-label`}>
-                      {`${currentDate.getFullYear()} ${t('datepicker.year')}`}
-                    </span>
-                  </YearAndMonthPopover>
-                  {
-                    currentView === PICKER_VIEWS.DATE && (
-                      <YearAndMonthPopover
-                        value={currentDate.getMonth() + 1}
-                        sourceData={MONTH_ARRRY}
-                        onChange={this.handleChangeMonth}
-                      >
-                        <span
-                          className={
-                            classNames(`${prefixCls}-date-picker__header-label`, {
-                              active: currentView === 'month'
-                            })
+                    showTime && (
+                      <div className={`${prefixCls}-date-picker__time-header`}>
+                        <span className={`${prefixCls}-date-picker__editor-wrap`}>
+                          <Input
+                            placeholder={Locales.selectDate}
+                            value={dateInputText}
+                            onChange={this.handleDateInputChange}
+                            onBlur={this.handleDateInputBlur}
+                          />
+                        </span>
+                        <span className={`${prefixCls}-date-picker__editor-wrap`}>
+                          {
+                            timeSelectMode === 'TimePicker' ?
+                            <TimePicker
+                              className={`${prefixCls}-date-picker-time__editor`}
+                              placeholder={Locales.selectTime}
+                              format={timeFormat(format)}
+                              getPopupContainer={(node) => node.parentNode}
+                              showTrigger={false}
+                              allowClear={false}
+                              disabled={this.timePickerDisable()}
+                              value={time}
+                              onChange={this.handleTimeInputChange}
+                              isShowCurrent={showTimeCurrent}
+                              selectableRange={timeSelectableRange}
+                            />
+                            :
+                            <TimePicker.TimeSelect
+                              className={`${prefixCls}-date-picker-time__editor`}
+                              placeholder={Locales.selectTime}
+                              getPopupContainer={(node) => node.parentNode}
+                              showTrigger={false}
+                              allowClear={false}
+                              disabled={this.timePickerDisable()}
+                              value={time}
+                              onChange={this.handleTimeInputChange}
+                              start={timeSelectModeProps.start}
+                              step={timeSelectModeProps.step}
+                              end={timeSelectModeProps.end}
+                              maxTime={timeSelectModeProps.maxTime}
+                              minTime={timeSelectModeProps.minTime}
+                            />
                           }
-                        >{t(`datepicker.month${month + 1}`)}</span>
-                      </YearAndMonthPopover>
+                        </span>
+                      </div>
                     )
                   }
-                  <Icon
-                    type="right-double"
-                    onClick={this.nextYear}
-                    className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
+
                   {
-                    currentView === PICKER_VIEWS.DATE && (
-                      <Icon
-                        type="right"
-                        onClick={this.nextMonth}
-                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
+                    currentView !== 'time' && (
+                      <div className={`${prefixCls}-date-picker__header`}>
+                        <Icon
+                          type="left-double"
+                          onClick={this.prevYear}
+                          className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />
+                        {
+                          currentView === PICKER_VIEWS.DATE && (
+                            <Icon
+                              type="left"
+                              onClick={this.prevMonth}
+                              className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />)
+                        }
+
+                       {selectors}
+
+                        <Icon
+                          type="right-double"
+                          onClick={this.nextYear}
+                          className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
+                        {
+                          currentView === PICKER_VIEWS.DATE && (
+                            <Icon
+                              type="right"
+                              onClick={this.nextMonth}
+                              className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
+                          )
+                        }
+                      </div>
                     )
                   }
+                  <div className={`${prefixCls}-picker-panel__content`}>
+                    {this._pickerContent()}
+                  </div>
                 </div>
-              )
-            }
-            <div className={`${prefixCls}-picker-panel__content`}>
-              {this._pickerContent()}
-            </div>
-          </div>
-        </div>
-        {
-          typeof footer == 'function' && footer() && (
-            <div
-              className={`${prefixCls}-picker-panel__extra-footer`}
-            >
-              {footer()}
-            </div>
-          )
+              </div>
+              {
+                typeof footer == 'function' && footer() && (
+                  <div
+                    className={`${prefixCls}-picker-panel__extra-footer`}
+                  >
+                    {footer()}
+                  </div>
+                )
+              }
+              {
+                showTime && currentView === PICKER_VIEWS.DATE && (
+                  <div
+                    className={`${prefixCls}-picker-panel__footer`}
+                  >
+                    <Button
+                      className={`${prefixCls}-picker-panel__btn cancel`}
+                      onClick={this.handleCancel}>{Locales.cancel}
+                    </Button>
+                    <Button
+                      type="primary"
+                      className={`${prefixCls}-picker-panel__btn confirm`}
+                      onClick={this.handleConfirm}
+                      disabled={this.confirmBtnDisabled()}>{Locales.confirm}
+                    </Button>
+                  </div>
+                )
+              }
+            </div>);
+          }
         }
-        {
-          showTime && currentView === PICKER_VIEWS.DATE && (
-            <div
-              className={`${prefixCls}-picker-panel__footer`}
-            >
-              <Button
-                className={`${prefixCls}-picker-panel__btn cancel`}
-                onClick={this.handleCancel}>{t('datepicker.cancel')}
-              </Button>
-              <Button
-                type="primary"
-                className={`${prefixCls}-picker-panel__btn confirm`}
-                onClick={this.handleConfirm}
-                disabled={this.confirmBtnDisabled()}>{t('datepicker.confirm')}
-              </Button>
-            </div>
-          )
-        }
-      </div>
+      </ConfigConsumer>
     );
   }
 }

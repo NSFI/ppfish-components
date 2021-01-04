@@ -17,6 +17,8 @@ declare module 'react' {
 }
 
 import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface'
+import ConfigConsumer from '../../Config/Consumer';
+import { LocaleProperties } from '../../Locale';
 
 const TabPane = Tabs.TabPane;
 const COLORS: string[] = [
@@ -156,9 +158,10 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
   private defaultSizes: Array<string>
   private curSizeList: Array<string>
   private curInsertValueList: Array<any>
+  private Locale: LocaleProperties['RichEditor']
   public toolbarCtner: HTMLDivElement
 
-  constructor(props: CustomToolbarProps) {
+  constructor (props: CustomToolbarProps) {
     super(props);
 
     this.defaultSizes = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '12px'];
@@ -206,6 +209,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     } = this.props;
     let mValue: any = null, value: JSX.Element | null = null, tooltip: string | null = null;
 
+    const { Locale } = this;
     // mType 对象格式：
     // {'align': 'right'}
     // {size: ['32px', '24px', '18px', '16px', '13px', '12px']}
@@ -261,7 +265,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             customModule.showSearch ?
               <div className="insert-value-search">
                 <Input
-                  placeholder={customModule.searchPlaceholder ? customModule.searchPlaceholder : "请输入关键字"}
+                  placeholder={customModule.searchPlaceholder ? customModule.searchPlaceholder : (Locale.enterKeyWordPlease)}
                   suffix={
                     this.state.curIVSearchValue ?
                       <Icon
@@ -293,7 +297,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                     {item.title}
                   </button>
                 );
-              }) : <div className="insert-value-empty">暂无数据</div>
+              }) : <div className="insert-value-empty">{Locale.temporarilyNoData}</div>
           }
         </div>
       );
@@ -337,7 +341,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-link`]: true
           });
           value = <button className={linkCls} key={key} />;
-          tooltip = '超链接';
+          tooltip = Locale.hyperlinks || 'link';
           break;
         }
         case 'bold': {
@@ -346,7 +350,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-bold`]: true
           });
           value = <button className={boldCls} key={key} />;
-          tooltip = '粗体';
+          tooltip = Locale.bold;
           break;
         }
         case 'italic': {
@@ -355,7 +359,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-tilt`]: true
           });
           value = <button className={italicCls} key={key} />;
-          tooltip = '斜体';
+          tooltip = Locale.italic;
           break;
         }
         case 'underline': {
@@ -364,7 +368,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-underline`]: true
           });
           value = <button className={underlineCls} key={key} />;
-          tooltip = '下划线';
+          tooltip = Locale.underline;
           break;
         }
         case 'color': {
@@ -405,7 +409,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               <Tooltip
                 trigger="hover"
                 placement={tooltipPlacement}
-                title="文字颜色"
+                title={Locale.fontColor}
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
@@ -430,23 +434,23 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           //     </ColorPicker>
           //   </div>
           // );
-          tooltip = '文字颜色';
+          tooltip = Locale.fontColor;
           break;
         }
         case 'align': {
           if (typeof mValue === 'string') {
             let alignIconType = 'richeditor-align-lef';
-            tooltip = '居左';
+            tooltip = Locale.alignLeft;
 
             if (mValue == 'right') {
               alignIconType = 'richeditor-align-rig';
-              tooltip = '居右';
+              tooltip = Locale.alignRight;
             } else if (mValue == 'center') {
               alignIconType = 'richeditor-align-mid';
-              tooltip = '居中';
+              tooltip = Locale.alignCenter;
             } else if (mValue == 'justify') {
               alignIconType = 'richeditor-align-all';
-              tooltip = '两端对齐';
+              tooltip = Locale.alignJustified;
             }
 
             const alignCls = classNames('action ql-align', {
@@ -477,11 +481,11 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         }
         case 'list': {
           let listIconType = 'richeditor-list';
-          tooltip = '无序列表';
+          tooltip = Locale.unOrderedList;
 
           if (mValue == 'ordered') {
             listIconType = 'richeditor-numberlis';
-            tooltip = '有序列表';
+            tooltip = Locale.orderedList;
           }
 
           const listCls = classNames('action ql-list', {
@@ -507,7 +511,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
           if (customEmoji && customEmoji.length) {
             let tabPanes = [
-              <TabPane tab="默认表情" key="emoji_default">
+              <TabPane tab={Locale.defaultEmoji} key="emoji_default">
                 <div className="emoji-ctner">
                   <div className="emoji-con" onClick={handleInsertEmoji}>
                     {defaultEmojis}
@@ -548,7 +552,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               <Tooltip
                 trigger="hover"
                 placement={tooltipPlacement}
-                title="插入表情"
+                title={Locale.insertEmoji}
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
@@ -559,7 +563,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               </Tooltip>
             </Popover>
           );
-          tooltip = '插入表情';
+          tooltip = Locale.insertEmoji;
           break;
         }
         case 'image': {
@@ -568,7 +572,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-picture`]: true
           });
           value = <button className={imageCls} key={key} />;
-          tooltip = '插入图片';
+          tooltip = Locale.insertPicture;
           break;
         }
         case 'attachment': {
@@ -577,7 +581,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-annexx`]: true
           });
           value = <button className={cls} key={key} />;
-          tooltip = '插入附件';
+          tooltip = Locale.insertAttachment;
           break;
         }
         case 'size': {
@@ -629,7 +633,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               <Tooltip
                 trigger="hover"
                 placement={tooltipPlacement}
-                title="文字大小"
+                title={Locale.fontSize}
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
@@ -639,7 +643,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             </Popover>
           );
 
-          tooltip = '文字大小';
+          tooltip = Locale.fontSize;
 
           break;
         }
@@ -650,7 +654,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           });
 
           value = <button className={cleanCls} key={key} />;
-          tooltip = '清除格式';
+          tooltip = Locale.clearFormat;
           break;
         }
         case 'formatPainter': {
@@ -661,30 +665,30 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           });
 
           value = <button className={cls} key={key} onClick={this.handleFormatPainterClick} />;
-          tooltip = '格式刷';
+          tooltip = Locale.brushFormat;
           break;
         }
         case 'strike': {
           value = <button className="action ql-strike" key={key} />;
-          tooltip = '删除线';
+          tooltip = Locale.strike;
           break;
         }
         case 'blockquote': {
           value = <button className="action ql-blockquote" key={key} />;
-          tooltip = '块引用';
+          tooltip = Locale.blockquote;
           break;
         }
         case 'code-block': {
           value = <button className="action ql-code-block" key={key} />;
-          tooltip = '代码块';
+          tooltip = Locale.codeBlock;
           break;
         }
         case 'script': {
           value = <button type="button" className="action ql-script" value={mValue} key={key} />;
           if (mValue == 'super') {
-            tooltip = '上脚标';
+            tooltip = Locale.superSciprt;
           } else {
-            tooltip = '下脚标';
+            tooltip = Locale.subScript;
           }
 
           break;
@@ -693,16 +697,16 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           value = <button type="button" className="action ql-indent" value={mValue} key={key} />;
 
           if (mValue == '-1') {
-            tooltip = '减少缩进';
+            tooltip = Locale.decreaseIndent;
           } else {
-            tooltip = '增加缩进';
+            tooltip = Locale.increaseIndent;
           }
 
           break;
         }
         case 'direction': {
           value = <button type="button" className="action ql-direction" value={mValue} key={key} />;
-          tooltip = '文字方向';
+          tooltip = Locale.textDirection;
           break;
         }
         case 'background': {
@@ -744,7 +748,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               <Tooltip
                 trigger="hover"
                 placement={tooltipPlacement}
-                title="背景色"
+                title={Locale.backgroundColor}
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
@@ -756,12 +760,12 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             </Popover>
           );
 
-          tooltip = '背景色';
+          tooltip = Locale.backgroundColor;
           break;
         }
         case 'video': {
           value = <button type="button" className="action ql-video" value={mValue} key={key} />;
-          tooltip = '插入视频';
+          tooltip = Locale.insertVideo;
           break;
         }
         // case 'header': {
@@ -887,9 +891,19 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     const { className, style, toolbar } = this.props;
 
     return (
-      <div className={className} ref={node => this.toolbarCtner = node} style={style}>
-        {this.genToolbar(toolbar)}
-      </div>
+      <ConfigConsumer componentName="RichEditor">
+        {
+          (Locale: LocaleProperties['RichEditor']) => {
+            this.Locale = Locale;
+            return (
+              <div className={className} ref={node => this.toolbarCtner = node} style={style}>
+                {this.genToolbar(toolbar)}
+              </div>
+            )
+          }
+        }
+
+      </ConfigConsumer>
     );
   }
 }

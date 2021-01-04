@@ -40,6 +40,11 @@ export const components = {
       name: '设计资源',
       published: true,
     }, {
+      key: 'i18n',
+      type: 'markdown',
+      name: '国际化',
+      published: true,
+    }, {
       key: 'customTheme',
       type: 'markdown',
       name: '定制主题',
@@ -513,6 +518,16 @@ export const components = {
           name: 'Spin 加载中',
           published: true,
         }]
+    }, {
+      key: '其他',
+      children: [
+        {
+          key: 'configProvider',
+          type: 'markdown',
+          name: 'ConfigProvider 全局化配置',
+          published: true,
+        }
+      ]
     }
   ],
 };

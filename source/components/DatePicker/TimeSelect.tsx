@@ -2,6 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import BasePicker, { BasePickerProps } from './BasePicker';
 import TimeSelectPanel from './panel/TimeSelectPanel';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
 export type TimeSelectProps = {
   start?: string;
@@ -48,14 +50,20 @@ export default class TimeSelect extends BasePicker {
   pickerPanel(state) {
     const value = state.value && this.isDateValid(state.value) ? this.dateToStr(state.value) : null;
     return (
-      <TimeSelectPanel
-        {...this.props}
-        value={value}
-        onPicked={this.onPicked}
-        dateParser={str => {
-          return str ? this.parseDate(str) : null;
-        }}
-      />
+      <ConfigConsumer componentName="DatePicker">
+        {
+          (Locales: LocaleProperties["DatePicker"]) => (
+            <TimeSelectPanel
+              {...this.props}
+              value={value}
+              onPicked={this.onPicked}
+              dateParser={str => {
+                return str ? this.parseDate(str) : null;
+              }}
+            />
+        )
+      }
+      </ConfigConsumer>
     );
   }
 }

@@ -62,3 +62,4 @@ export { default as Trend } from './Trend';
 export { default as Upload } from './Upload';
 export { default as VideoViewer } from './VideoViewer';
 export { default as Guide } from './Guide';
+export { ConfigProvider } from './Config';

@@ -12,6 +12,7 @@ import placements from './placements';
 import isEqual from 'lodash/isEqual';
 import { Placement } from './BasePicker';
 import { TimeSelectProps } from './TimeSelect';
+import ConfigConsumer from '../Config/Consumer';
 
 const haveTriggerType = type => {
   return HAVE_TRIGGER_TYPES.indexOf(type) !== -1;
@@ -442,7 +443,7 @@ class DateRangeBasePicker extends React.Component<
     };
 
     // 选择框
-    const getInputPanel = () => {
+    const getInputPanel = (locales) => {
       return (
         <span
           className={classNames(`${prefixCls}-date-editor`, className, {
@@ -489,7 +490,7 @@ class DateRangeBasePicker extends React.Component<
               prefix={prefixIcon()}
             />
             <span className={classNames('range-separator', { disabled: disabled })}>
-              {separator}
+              {locales.separator}
             </span>
             <Input
               className={`${prefixCls}-date-range-picker-second-input`}
@@ -525,20 +526,26 @@ class DateRangeBasePicker extends React.Component<
     };
 
     return (
-      <Trigger
-        action={disabled ? [] : ['click']}
-        builtinPlacements={placements}
-        ref={node => (this.trigger = node)}
-        getPopupContainer={getPopupContainer}
-        onPopupVisibleChange={this.onVisibleChange}
-        popup={getPickerPanel()}
-        popupPlacement={placement}
-        popupVisible={pickerVisible}
-        prefixCls={`${prefixCls}-date-time-picker-popup`}
-        destroyPopupOnHide={true}
-      >
-        {getInputPanel()}
-      </Trigger>
+      <ConfigConsumer componentName="DatePicker">
+        {
+          (Locales) => (
+            <Trigger
+              action={disabled ? [] : ['click']}
+              builtinPlacements={placements}
+              ref={node => (this.trigger = node)}
+              getPopupContainer={getPopupContainer}
+              onPopupVisibleChange={this.onVisibleChange}
+              popup={getPickerPanel()}
+              popupPlacement={placement}
+              popupVisible={pickerVisible}
+              prefixCls={`${prefixCls}-date-time-picker-popup`}
+              destroyPopupOnHide={true}
+            >
+              {getInputPanel(Locales)}
+            </Trigger>
+          )
+        }
+      </ConfigConsumer>
     );
   }
 }

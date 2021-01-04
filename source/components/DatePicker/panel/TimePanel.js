@@ -6,6 +6,7 @@ import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
 import { DEFAULT_FORMATS } from '../constants';
 import Locale from '../../../utils/date/locale';
 import isEqual from 'lodash/isEqual';
+import ConfigConsumer from '../../Config/Consumer';
 
 const mapPropsToState = (props) => {
   const { format, value, selectableRange } = props;
@@ -126,60 +127,66 @@ class TimePanel extends React.Component {
     const $t = Locale.t;
 
     return (
-      <div
-        ref="root"
-        className={`${prefixCls}-picker-panel ${prefixCls}-time-panel`}
-      >
-        <div className={classNames(`${prefixCls}-time-panel__content`, { 'has-seconds': isShowSeconds })}>
-          <TimeSpinner
-            ref="spinner"
-            isShowSeconds={isShowSeconds}
-            hours={hours}
-            minutes={minutes}
-            seconds={seconds}
-            selectableRange={selectableRange}
-            onSelectRangeChange={onSelectRangeChange}
-            onChange={this.handleChange}
-          />
-        </div>
+      <ConfigConsumer componentName="DatePicker">
         {
-          typeof footer == 'function' && footer() && (
+          (Locales) => (
             <div
-              className={`${prefixCls}-time-panel__extra-footer`}
+              className={`${prefixCls}-picker-panel ${prefixCls}-time-panel`}
             >
-              {footer()}
+              <div className={classNames(`${prefixCls}-time-panel__content`, { 'has-seconds': isShowSeconds })}>
+                <TimeSpinner
+                  isShowSeconds={isShowSeconds}
+                  hours={hours}
+                  minutes={minutes}
+                  seconds={seconds}
+                  selectableRange={selectableRange}
+                  onSelectRangeChange={onSelectRangeChange}
+                  onChange={this.handleChange}
+                />
+              </div>
+              {
+                typeof footer == 'function' && footer() && (
+                  <div
+                    className={`${prefixCls}-time-panel__extra-footer`}
+                  >
+                    {footer()}
+                  </div>
+                )
+              }
+              <div className={`${prefixCls}-time-panel__footer`}>
+                <div>
+                  {
+                    isShowCurrent ?
+                      <button
+                        type="button"
+                        disabled={currentButtonDisabled}
+                        className={
+                          classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : currentButtonDisabled})
+                        }
+                        onClick={this.handleCurrent}>{Locales.now}
+                      </button>
+                      :
+                      null
+                  }
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className={`${prefixCls}-time-panel__btn cancel`}
+                    onClick={this.handleCancel}>{Locales.cancel}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={confirmButtonDisabled}
+                    className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : confirmButtonDisabled})}
+                    onClick={() => this.handleConfirm(false, true)}>{Locales.confirm}
+                  </button>
+                </div>
+              </div>
             </div>
           )
         }
-        <div className={`${prefixCls}-time-panel__footer`}>
-          <div>
-            {
-              isShowCurrent ?
-                <button
-                  type="button"
-                  disabled={currentButtonDisabled}
-                  className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : currentButtonDisabled})}
-                  onClick={this.handleCurrent}>{$t('datepicker.now')}
-                </button>
-                :
-                null
-            }
-          </div>
-          <div>
-            <button
-              type="button"
-              className={`${prefixCls}-time-panel__btn cancel`}
-              onClick={this.handleCancel}>{$t('datepicker.cancel')}
-            </button>
-            <button
-              type="button"
-              disabled={confirmButtonDisabled}
-              className={classNames(`${prefixCls}-time-panel__btn confirm`, {'disabled' : confirmButtonDisabled})}
-              onClick={() => this.handleConfirm(false, true)}>{$t('datepicker.confirm')}
-            </button>
-          </div>
-        </div>
-      </div>
+      </ConfigConsumer>
     );
   }
 }
