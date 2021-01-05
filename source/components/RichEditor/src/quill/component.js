@@ -1,7 +1,7 @@
 'use strict';
-import * as React from 'react';
 
 /* eslint-disable react/prefer-es6-class */
+let React = require('react');
 let ReactDOM = require('react-dom');
 let createClass = require('create-react-class');
 let QuillMixin = require('./mixin');
@@ -21,30 +21,6 @@ const quillDirtyProps = [
 	'theme',
 	'children',
 ];
-
-export interface QuillComponentProps {
-  id?: string,
-  className?: string,
-  theme?: string,
-  style?: object,
-  readOnly?: boolean,
-  value?: string | {opts: any[]},
-  defaultValue?: string | {opts: any[]},
-  placeholder?: string,
-  tabIndex?:number,
-  bounds?: string|React.ReactElement<any>|object,
-  scrollingContainer?: React.ReactElement<any>,
-  onChange?: Function,
-  onSelectionChange?: Function,
-  onFocus?: Function,
-  onBlur?: Function,
-  onKeyPress?: Function,
-  onKeyDown?: Function,
-  onKeyUp?: Function,
-  modules?: {
-    toolbar?: any[],
-  }
-}
 
 let QuillComponent = createClass({
 

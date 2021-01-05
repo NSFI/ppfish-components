@@ -7,8 +7,10 @@
 ConfigProvider 使用 React 的 [Context](https://reactjs.org/docs/context.html) 特性，只需在应用外围包裹一次即可全局生效。
 
 ```js
-import { ConfigProvider } from 'ppfish';
-import zh_CN from 'ppfish/components/Locale/zh_CN';
+import { Config, Locale } from 'ppfish';
+
+const ConfigProvider = Config.Provider;
+const { zh_CN } = Locale;
 
 export default () => (
   <ConfigProvider Locale={zh_CN}>
@@ -75,6 +77,8 @@ export default () => (
   }
   render() {
     const {currentLocale} = this.state; 
+    const ConfigProvider = Config.Provider;
+    
     return (
       <div className="configProviderDemo">
         <ConfigProvider Locale={currentLocale}>

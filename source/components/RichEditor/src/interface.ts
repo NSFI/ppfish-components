@@ -16,6 +16,30 @@ export interface RichEditorState {
   showAttachmentModal?: boolean;
 }
 
+export interface QuillComponentProps {
+  id?: string,
+  className?: string,
+  theme?: string,
+  style?: object,
+  readOnly?: boolean,
+  value?: string | {opts: any[]},
+  defaultValue?: string | {opts: any[]},
+  placeholder?: string,
+  tabIndex?:number,
+  bounds?: string|React.ReactElement<any>|object,
+  scrollingContainer?: React.ReactElement<any>,
+  onChange?: Function,
+  onSelectionChange?: Function,
+  onFocus?: Function,
+  onBlur?: Function,
+  onKeyPress?: Function,
+  onKeyDown?: Function,
+  onKeyUp?: Function,
+  modules?: {
+    toolbar?: any[],
+  }
+}
+
 export interface RichEditorProps {
   className?: string;
   customEmoji?: any[];
