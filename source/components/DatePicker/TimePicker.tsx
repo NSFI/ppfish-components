@@ -6,6 +6,8 @@ import { TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
 import debounce from 'lodash/debounce';
 import TimeSelect from './TimeSelect';
 import pick from 'lodash/pick';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
 export const converSelectRange = props => {
   let selectableRange = [];
@@ -64,31 +66,21 @@ export default class TimePicker extends BasePicker {
 
   pickerPanel(state) {
     const value = state.value && this.isDateValid(state.value) ? state.value : null;
-
-    /**
-        prefixCls?: string
-        format?: string                  //basePicker
-        value?: Date         //basePicker
-        onPicked?: (date: Date, isKeepPannelOpen: boolean, isConfirmValue: boolean) => void       //basePicker
-        onCancelPicked?: () => void //basePicker
-        selectableRange?: Array<{ start: Date, end: Date }>[]
-        onSelectRangeChange?: (range) => void
-        isShowCurrent?: boolean
-        footer?: () => React.ReactNode
-        onValueChange?
-     */
-    console.log('TimePicker props::: ', this.props)
-    console.log('picked TimePicker props::: ', pick(this.props, ['format', 'isShowCurrent', 'footer', 'onValueChange']))
-
     return (
-      <TimePanel
-        {...this.props}
-        selectableRange={converSelectRange(this.props)}
-        onSelectRangeChange={this._onSelectionChange}
-        value={value}
-        onPicked={this.onPicked}
-        onCancelPicked={this.onCancelPicked}
-      />
+      <ConfigConsumer componentName="DatePicker">
+        {
+          (Locales: LocaleProperties["DatePicker"]) => (
+            <TimePanel
+              {...this.props, Locales}
+              selectableRange={converSelectRange(this.props)}
+              ONSELECTRANGECHANGE={this._onSelectionChange}
+              value={value}
+              onPicked={this.onPicked}
+              onCancelPicked={this.onCancelPicked}
+            />
+          )
+        }
+      </ConfigConsumer>
     );
   }
 }

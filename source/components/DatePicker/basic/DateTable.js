@@ -14,6 +14,7 @@ import {
   getOffsetToWeekOrigin
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
+import ConfigConsumer from '../../Config/Consumer';
 
 function isFunction(func) {
   return typeof func === 'function';
@@ -365,41 +366,47 @@ export default class DateTable extends React.Component {
     const {mode, showWeekNumber, prefixCls} = this.props;
 
     return (
-      <table
-        cellSpacing="0"
-        cellPadding="0"
-        onClick={this.handleClick}
-        onMouseMove={this.handleMouseMove}
-        className={classNames(`${prefixCls}-date-table`, { 'is-week-mode': mode === 'week' })}
-      >
-        <tbody>
-
-        <tr>
-          {showWeekNumber && <th>周</th>}
-          {
-            this.WEEKS().map((e, idx)=> <th key={idx}>{$t(`datepicker.weeks.${e}`)}</th> )
-          }
-        </tr>
-
+      <ConfigConsumer componentName="DatePicker">
         {
-          this.getMarkedRangeRows().map((row, idx) => {
-            return (
-              <tr
-                key={idx}
-                className={classNames(`${prefixCls}-date-table__row`, { 'current': row.isWeekActive })}>
+          (Locale) => (
+            <table
+              cellSpacing="0"
+              cellPadding="0"
+              onClick={this.handleClick}
+              onMouseMove={this.handleMouseMove}
+              className={classNames(`${prefixCls}-date-table`, { 'is-week-mode': mode === 'week' })}
+            >
+              <tbody>
+
+              <tr>
+                {showWeekNumber && <th>{Locale.week}</th>}
                 {
-                  row.map((cell, idx) => (
-                    <td className={this.getCellClasses(cell)} key={idx}>
-                      <div><span>{cell.text}</span></div>
-                    </td>
-                  ))
+                  this.WEEKS().map((e, idx)=> <th key={idx}>{Locale['weeks'][e]}</th> )
                 }
               </tr>
-            );
-          })
+
+              {
+                this.getMarkedRangeRows().map((row, idx) => {
+                  return (
+                    <tr
+                      key={idx}
+                      className={classNames(`${prefixCls}-date-table__row`, { 'current': row.isWeekActive })}>
+                      {
+                        row.map((cell, idx) => (
+                          <td className={this.getCellClasses(cell)} key={idx}>
+                            <div><span>{cell.text}</span></div>
+                          </td>
+                        ))
+                      }
+                    </tr>
+                  );
+                })
+              }
+              </tbody>
+            </table>
+          )
         }
-        </tbody>
-      </table>
+      </ConfigConsumer>
     );
   }
 }

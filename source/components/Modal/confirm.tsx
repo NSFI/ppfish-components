@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import Icon from '../Icon/index';
 import Dialog, { ModalFuncProps } from './Modal';
 import ActionButton from './ActionButton';
+import { getRuntimeLocale } from '../Config/Locale/Provider';
+import { LocaleProperties } from '../Locale';
+
 
 interface ConfirmDialogProps extends ModalFuncProps {
   afterClose?: () => void;
@@ -13,6 +16,8 @@ interface ConfirmDialogProps extends ModalFuncProps {
 const IS_REACT_16 = !!ReactDOM.createPortal;
 
 const ConfirmDialog = (props: ConfirmDialogProps) => {
+  const runtimeLocale: LocaleProperties['Modal'] = getRuntimeLocale('Modal');
+
   const { onCancel, onOk, close, zIndex, afterClose, visible, esc } = props;
   const iconType = props.iconType || 'hints-descriptions';
   const okType = props.okType || 'primary';
@@ -23,8 +28,8 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
   const style = props.style || {};
   // 默认为 false，保持旧版默认行为
   const maskClosable = props.maskClosable === undefined ? false : props.maskClosable;
-  const okText = props.okText || '确定';
-  const cancelText = props.cancelText || '取消';
+  const okText = props.okText || runtimeLocale.okText;
+  const cancelText = props.cancelText || runtimeLocale.cancelText;
 
   const classString = classNames(prefixCls, `${prefixCls}-${props.type}`, props.className);
 
@@ -33,7 +38,6 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
       {cancelText}
     </ActionButton>
   );
-
   return (
     <Dialog
       className={classString}
@@ -59,7 +63,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
         <div className={`${prefixCls}-btns`}>
           {cancelButton}
           <ActionButton type={okType} actionFn={onOk} closeModal={close} autoFocus>
-            {okText}
+            {okText || runtimeLocale.okText}
           </ActionButton>
         </div>
       </div>

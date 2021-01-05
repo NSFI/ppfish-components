@@ -15,6 +15,8 @@ export { default as Button } from './Button';
 export { default as Cascader } from './Cascader';
 export { default as Carousel } from './Carousel';
 export { default as Checkbox } from './Checkbox';
+export { default as Config } from './Config';
+export { default as Locale } from './Locale';
 export { default as Col } from './Col';
 export { default as Collapse } from './Collapse';
 export { default as ColorPicker } from './ColorPicker';

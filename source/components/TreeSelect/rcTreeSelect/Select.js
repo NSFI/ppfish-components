@@ -28,23 +28,33 @@ import KeyCode from '../../../utils/KeyCode.js';
 import { shallowEqual } from '../../../utils/other.js';
 import raf from 'raf';
 
+import ConfigConsumer from '../../Config/Locale/Consumer';
+
 import SelectTrigger from './SelectTrigger';
 import { selectorContextTypes } from './Base/BaseSelector';
 import { popupContextTypes } from './Base/BasePopup';
 import SingleSelector from './Selector/SingleSelector';
-import MultipleSelector, { multipleSelectorContextTypes } from './Selector/MultipleSelector';
+import MultipleSelector, {
+  multipleSelectorContextTypes,
+} from './Selector/MultipleSelector';
 import SinglePopup from './Popup/SinglePopup';
 import MultiplePopup from './Popup/MultiplePopup';
 
 import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './strategies';
 
 import {
-  createRef, generateAriaId,
-  formatInternalValue, formatSelectorValue,
+  createRef,
+  generateAriaId,
+  formatInternalValue,
+  formatSelectorValue,
   parseSimpleTreeData,
-  convertDataToTree, convertTreeToEntities, conductCheck,
+  convertDataToTree,
+  convertTreeToEntities,
+  conductCheck,
   flatToHierarchy,
-  isPosRelated, isLabelInValue, getFilterTree,
+  isPosRelated,
+  isLabelInValue,
+  getFilterTree,
   cleanEntity,
 } from './util';
 import { valueProp } from './propTypes';
@@ -68,10 +78,7 @@ class Select extends React.Component {
     defaultValue: valueProp,
 
     showSearch: PropTypes.bool,
-    placeholder: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.string,
-    ]),
+    placeholder: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     inputValue: PropTypes.string, // [Legacy] Deprecated. Use `searchValue` instead.
     searchValue: PropTypes.string,
     autoClearSearchValue: PropTypes.bool,
@@ -80,14 +87,9 @@ class Select extends React.Component {
     children: PropTypes.node,
     labelInValue: PropTypes.bool,
     maxTagCount: PropTypes.number,
-    maxTagPlaceholder: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
+    maxTagPlaceholder: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     maxTagTextLength: PropTypes.number,
-    showCheckedStrategy: PropTypes.oneOf([
-      SHOW_ALL, SHOW_PARENT, SHOW_CHILD,
-    ]),
+    showCheckedStrategy: PropTypes.oneOf([SHOW_ALL, SHOW_PARENT, SHOW_CHILD]),
 
     dropdownMatchSelectWidth: PropTypes.bool,
     tagWidth: PropTypes.number,
@@ -96,17 +98,11 @@ class Select extends React.Component {
     treeNodeFilterProp: PropTypes.string,
     treeNodeLabelProp: PropTypes.string,
     treeNodeResetTitle: PropTypes.string,
-    treeCheckable: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.node,
-    ]),
+    treeCheckable: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
     treeCheckStrictly: PropTypes.bool,
     treeCheckType: PropTypes.string, // countDown单向绑定
     showIcon: PropTypes.bool,
-    icon: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.node,
-    ]),
+    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
     treeLine: PropTypes.bool,
     treeDefaultExpandAll: PropTypes.bool,
     treeDefaultExpandedKeys: PropTypes.array,
@@ -114,10 +110,7 @@ class Select extends React.Component {
     loading: PropTypes.bool,
     uniqueTreeNodeByLabel: PropTypes.bool,
     filterTreeNode: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-    notFoundContent: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-    ]),
+    notFoundContent: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     getPopupContainer: PropTypes.func,
     onSearch: PropTypes.func,
     onSelect: PropTypes.func,
@@ -142,7 +135,6 @@ class Select extends React.Component {
   };
 
   static defaultProps = {
-    placeholder: '请选择',
     prefixCls: 'fishd-rc-tree-select',
     iconPrefix: 'fishdicon',
     prefixAria: 'fishd-rc-tree-select',
@@ -159,9 +151,7 @@ class Select extends React.Component {
     // ref: https://github.com/react-component/select/pull/71
     treeNodeFilterProp: 'title',
     treeNodeLabelProp: 'title',
-    treeNodeResetTitle: '不选择任何分类',
     showIcon: false,
-    notFoundContent: '无匹配结果',
     uniqueTreeNodeByLabel: false,
     autoExpandParent: true,
     getPopupContainer: () => document.body,
@@ -170,11 +160,13 @@ class Select extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps = {} } = prevState;
     const {
-      treeCheckable, treeCheckStrictly,
-      filterTreeNode, treeNodeFilterProp,
+      treeCheckable,
+      treeCheckStrictly,
+      filterTreeNode,
+      treeNodeFilterProp,
       treeDataSimpleMode,
       treeCheckType,
-      loadData
+      loadData,
     } = nextProps;
     const newState = {
       prevProps: nextProps,
@@ -193,7 +185,7 @@ class Select extends React.Component {
     let valueRefresh = false;
 
     // Open
-    processState('open', (propValue) => {
+    processState('open', propValue => {
       newState.open = !!propValue;
     });
 
@@ -201,7 +193,7 @@ class Select extends React.Component {
     let treeNodes;
     let treeDataChanged = false;
     let treeDataModeChanged = false;
-    processState('treeData', (propValue) => {
+    processState('treeData', propValue => {
       treeNodes = convertDataToTree(propValue);
       treeDataChanged = true;
     });
@@ -221,18 +213,18 @@ class Select extends React.Component {
     if (treeDataSimpleMode && (treeDataChanged || treeDataModeChanged)) {
       const simpleMapper = {
         id: 'id',
-        pId:'pId',
+        pId: 'pId',
         rootPId: null,
         ...(treeDataSimpleMode !== true ? treeDataSimpleMode : {}),
       };
       treeNodes = convertDataToTree(
-        parseSimpleTreeData(nextProps.treeData, simpleMapper)
+        parseSimpleTreeData(nextProps.treeData, simpleMapper),
       );
     }
 
     // If `treeData` not provide, use children TreeNodes
     if (!nextProps.treeData) {
-      processState('children', (propValue) => {
+      processState('children', propValue => {
         treeNodes = Array.isArray(propValue) ? propValue : [propValue];
       });
     }
@@ -258,13 +250,13 @@ class Select extends React.Component {
         newState.curValueList = nextProps.defaultValue;
       }
 
-      processState('defaultValue', (propValue) => {
+      processState('defaultValue', propValue => {
         newState.valueList = formatInternalValue(propValue, nextProps);
         valueRefresh = true;
       });
     }
 
-    processState('value', (propValue) => {
+    processState('value', propValue => {
       newState.oriValueList = nextProps.value;
       newState.curValueList = nextProps.value;
       newState.valueList = formatInternalValue(propValue, nextProps);
@@ -286,20 +278,21 @@ class Select extends React.Component {
       }
 
       // Get key by value
-      latestValueList
-        .forEach((wrapperValue) => {
-          const { value } = wrapperValue;
-          const entity = (newState.valueEntities || prevState.valueEntities)[value];
+      latestValueList.forEach(wrapperValue => {
+        const { value } = wrapperValue;
+        const entity = (newState.valueEntities || prevState.valueEntities)[
+          value
+        ];
 
-          if (entity) {
-            keyList.push(entity.key);
-            filteredValueList.push(wrapperValue);
-            return;
-          }
+        if (entity) {
+          keyList.push(entity.key);
+          filteredValueList.push(wrapperValue);
+          return;
+        }
 
-          // If not match, it may caused by ajax load. We need keep this
-          missValueList.push(wrapperValue);
-        });
+        // If not match, it may caused by ajax load. We need keep this
+        missValueList.push(wrapperValue);
+      });
 
       // We need calculate the value when tree is checked tree
       if (treeCheckable && !treeCheckStrictly) {
@@ -311,7 +304,7 @@ class Select extends React.Component {
           null,
           loadData,
           null,
-          treeCheckType
+          treeCheckType,
         );
 
         // Format value list again for internal usage
@@ -336,14 +329,14 @@ class Select extends React.Component {
     // [Legacy] To align with `Select` component,
     // We use `searchValue` instead of `inputValue` but still keep the api
     // `inputValue` support `null` to work as `autoClearSearchValue`
-    processState('inputValue', (propValue) => {
+    processState('inputValue', propValue => {
       if (propValue !== null) {
         newState.searchValue = propValue;
       }
     });
 
     // Search value
-    processState('searchValue', (propValue) => {
+    processState('searchValue', propValue => {
       newState.searchValue = propValue;
     });
 
@@ -352,7 +345,10 @@ class Select extends React.Component {
       newState.searchValue !== undefined ||
       (prevState.searchValue && treeNodes)
     ) {
-      const searchValue = newState.searchValue !== undefined ? newState.searchValue : prevState.searchValue;
+      const searchValue =
+        newState.searchValue !== undefined
+          ? newState.searchValue
+          : prevState.searchValue;
       const upperSearchValue = String(searchValue).toUpperCase();
 
       let filterTreeNodeFn = filterTreeNode;
@@ -362,7 +358,9 @@ class Select extends React.Component {
       } else if (typeof filterTreeNodeFn !== 'function') {
         // When is not function (true or undefined), use inner filter
         filterTreeNodeFn = (_, node) => {
-          const nodeValue = String(node.props[treeNodeFilterProp]).toUpperCase();
+          const nodeValue = String(
+            node.props[treeNodeFilterProp],
+          ).toUpperCase();
           return nodeValue.indexOf(upperSearchValue) !== -1;
         };
       }
@@ -377,11 +375,13 @@ class Select extends React.Component {
 
     // Checked Strategy
     processState('showCheckedStrategy', () => {
-      newState.selectorValueList = newState.selectorValueList || formatSelectorValue(
-        newState.valueList || prevState.valueList,
-        nextProps,
-        newState.valueEntities || prevState.valueEntities,
-      );
+      newState.selectorValueList =
+        newState.selectorValueList ||
+        formatSelectorValue(
+          newState.valueList || prevState.valueList,
+          nextProps,
+          newState.valueEntities || prevState.valueEntities,
+        );
     });
 
     return newState;
@@ -397,13 +397,16 @@ class Select extends React.Component {
       required,
       editable,
       defaultValue,
-      value
+      value,
     } = props;
 
     let disableCloseTag = false;
     if (required && editable) {
       let initValue = value || defaultValue;
-      if (typeof initValue == "string" || (Array.isArray(initValue) && initValue.length==1)) {
+      if (
+        typeof initValue == 'string' ||
+        (Array.isArray(initValue) && initValue.length == 1)
+      ) {
         disableCloseTag = true;
       }
     }
@@ -426,7 +429,7 @@ class Select extends React.Component {
       connectValueList: [],
       extra: {},
 
-      disableCloseTag
+      disableCloseTag,
     };
 
     this.selectorRef = createRef();
@@ -436,6 +439,20 @@ class Select extends React.Component {
     // Since this need user input. Let's generate ourselves
     this.ariaId = generateAriaId(`${prefixAria}-list`);
   }
+
+  // i18n
+  genPropsByLocale = (Locale) => {
+    const {
+      placeholder = Locale.placeholder,
+      treeNodeResetTitle = Locale.treeNodeResetTitle,
+      notFoundContent = Locale.notFoundContent,
+    } = this.props;
+    return {
+      placeholder,
+      treeNodeResetTitle,
+      notFoundContent,
+    };
+  };
 
   getChildContext() {
     return {
@@ -483,7 +500,7 @@ class Select extends React.Component {
   };
 
   // Handle key board event in both Selector and Popup
-  onComponentKeyDown = (event) => {
+  onComponentKeyDown = event => {
     const { open } = this.state;
     const { esc } = this.props;
     const { keyCode } = event;
@@ -494,7 +511,11 @@ class Select extends React.Component {
       }
     } else if (KeyCode.ESC === keyCode) {
       esc && this.setOpenState(false);
-    } else if ([KeyCode.UP, KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT].indexOf(keyCode) !== -1) {
+    } else if (
+      [KeyCode.UP, KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT].indexOf(
+        keyCode,
+      ) !== -1
+    ) {
       // TODO: Handle `open` state
       event.stopPropagation();
     }
@@ -507,7 +528,7 @@ class Select extends React.Component {
     onDeselect(wrappedValue, node, nodeEventInfo);
   };
 
-  onSelectorClear = (event) => {
+  onSelectorClear = event => {
     const { disabled } = this.props;
     if (disabled) return;
 
@@ -528,7 +549,14 @@ class Select extends React.Component {
 
     const { valueList, missValueList, valueEntities } = this.state;
 
-    const { treeCheckable, treeCheckStrictly, treeNodeLabelProp, disabled, required, editable } = this.props;
+    const {
+      treeCheckable,
+      treeCheckStrictly,
+      treeNodeLabelProp,
+      disabled,
+      required,
+      editable,
+    } = this.props;
     if (disabled) return;
 
     // Find trigger entity
@@ -539,12 +567,12 @@ class Select extends React.Component {
     if (triggerEntity) {
       // If value is in tree
       if (treeCheckable && !treeCheckStrictly) {
-        newValueList = valueList.filter(({value}) => {
+        newValueList = valueList.filter(({ value }) => {
           const entity = valueEntities[value];
           return !isPosRelated(entity.pos, triggerEntity.pos);
         });
       } else {
-        newValueList = valueList.filter(({value}) => value !== removeValue);
+        newValueList = valueList.filter(({ value }) => value !== removeValue);
       }
     }
 
@@ -560,30 +588,37 @@ class Select extends React.Component {
 
     // [Legacy] Little hack on this to make same action as `onCheck` event.
     if (treeCheckable) {
-      const filteredEntityList = newValueList.map(({ value }) => valueEntities[value]);
+      const filteredEntityList = newValueList.map(
+        ({ value }) => valueEntities[value],
+      );
 
       deselectInfo.event = 'check';
       deselectInfo.checked = false;
       deselectInfo.checkedNodes = filteredEntityList.map(({ node }) => node);
-      deselectInfo.checkedNodesPositions = filteredEntityList
-        .map(({ node, pos }) => ({ node, pos }));
-
+      deselectInfo.checkedNodesPositions = filteredEntityList.map(
+        ({ node, pos }) => ({ node, pos }),
+      );
 
       if (treeCheckStrictly) {
         extraInfo.allCheckedNodes = deselectInfo.checkedNodes;
       } else {
         // TODO: It's too expansive to get `halfCheckedKeys` in onDeselect. Not pass this.
-        extraInfo.allCheckedNodes = flatToHierarchy(filteredEntityList)
-          .map(({ node }) => node);
+        extraInfo.allCheckedNodes = flatToHierarchy(filteredEntityList).map(
+          ({ node }) => node,
+        );
       }
     } else {
       deselectInfo.event = 'select';
       deselectInfo.selected = false;
-      deselectInfo.selectedNodes = newValueList.map(({ value }) => (valueEntities[value] || {}).node);
+      deselectInfo.selectedNodes = newValueList.map(
+        ({ value }) => (valueEntities[value] || {}).node,
+      );
     }
 
     // Some value user pass prop is not in the tree, we also need clean it
-    const newMissValueList = missValueList.filter(({ value }) => value !== removeValue);
+    const newMissValueList = missValueList.filter(
+      ({ value }) => value !== removeValue,
+    );
 
     let wrappedValue;
     if (this.isLabelInValue()) {
@@ -596,7 +631,7 @@ class Select extends React.Component {
     }
 
     this.setState({
-      disableCloseTag: !!(required && editable && newValueList.length==1)
+      disableCloseTag: !!(required && editable && newValueList.length == 1),
     });
 
     this.onDeselect(wrappedValue, triggerNode, deselectInfo);
@@ -610,11 +645,22 @@ class Select extends React.Component {
 
     const { node } = nodeEventInfo;
     const { value } = node.props;
-    const { missValueList, valueEntities, keyEntities, treeNodes, searchValue } = this.state;
     const {
-      disabled, inputValue,
-      treeNodeLabelProp, onSelect,
-      treeCheckable, treeCheckStrictly, treeCheckType, autoClearSearchValue,
+      missValueList,
+      valueEntities,
+      keyEntities,
+      treeNodes,
+      searchValue,
+    } = this.state;
+    const {
+      disabled,
+      inputValue,
+      treeNodeLabelProp,
+      onSelect,
+      treeCheckable,
+      treeCheckStrictly,
+      treeCheckType,
+      autoClearSearchValue,
       loadData,
     } = this.props;
     const label = node.props[treeNodeLabelProp];
@@ -651,13 +697,15 @@ class Select extends React.Component {
     //   label: props[treeNodeLabelProp],
     // }));
     // 返回节点对象所有的属性信息
-    let newValueList = nodeList.map(({ props }) => (props));
+    let newValueList = nodeList.map(({ props }) => props);
 
     // When is `treeCheckable` and with `searchValue`, `valueList` is not full filled.
     // We need calculate the missing nodes.
     // 搜索状态下仍需计算勾选节点的上下联动关系
     if (treeCheckable && !treeCheckStrictly) {
-      let keyList = newValueList.map(({ value: val }) => valueEntities[val].key);
+      let keyList = newValueList.map(
+        ({ value: val }) => valueEntities[val].key,
+      );
       if (isAdd) {
         keyList = conductCheck(
           keyList,
@@ -666,7 +714,7 @@ class Select extends React.Component {
           null,
           loadData,
           null,
-          treeCheckType
+          treeCheckType,
         ).checkedKeys;
       } else {
         keyList = conductCheck(
@@ -676,11 +724,13 @@ class Select extends React.Component {
           { checkedKeys: keyList },
           loadData,
           null,
-          treeCheckType
+          treeCheckType,
         ).checkedKeys;
       }
       newValueList = keyList.map(key => {
-        const { node: { props } } = keyEntities[key];
+        const {
+          node: { props },
+        } = keyEntities[key];
         // return {
         //   value: props.value,
         //   label: props[treeNodeLabelProp],
@@ -691,7 +741,10 @@ class Select extends React.Component {
     }
 
     // Clean up `searchValue` when this prop is set
-    if (!this.isSearchValueControlled() && (autoClearSearchValue || inputValue === null)) {
+    if (
+      !this.isSearchValueControlled() &&
+      (autoClearSearchValue || inputValue === null)
+    ) {
       this.setUncontrolledState({
         searchValue: '',
         filteredTreeNodes: null,
@@ -720,11 +773,18 @@ class Select extends React.Component {
     const { selectedNodes } = nodeEventInfo;
     const isAdd = nodeEventInfo.selected;
 
-    this.onValueTrigger(isAdd, selectedNodes, nodeEventInfo, { selected: isAdd });
+    this.onValueTrigger(isAdd, selectedNodes, nodeEventInfo, {
+      selected: isAdd,
+    });
   };
 
   onTreeNodeCheck = (_, nodeEventInfo) => {
-    const { searchValue, keyEntities, valueEntities, curValueList } = this.state;
+    const {
+      searchValue,
+      keyEntities,
+      valueEntities,
+      curValueList,
+    } = this.state;
     const { treeCheckStrictly, treeCheckType, loadData } = this.props;
 
     const { checkedNodes, checkedNodesPositions } = nodeEventInfo;
@@ -746,7 +806,7 @@ class Select extends React.Component {
       extraInfo.allCheckedNodes = nodeEventInfo.checkedNodes;
     } else if (searchValue) {
       const oriKeyList = curValueList
-        .map((value) => valueEntities[value])
+        .map(value => valueEntities[value])
         .filter(entity => entity)
         .map(({ key }) => key);
 
@@ -755,7 +815,9 @@ class Select extends React.Component {
         keyList = Array.from(
           new Set([
             ...oriKeyList,
-            ...checkedNodeList.map(({ props: { value } }) => valueEntities[value].key),
+            ...checkedNodeList.map(
+              ({ props: { value } }) => valueEntities[value].key,
+            ),
           ]),
         );
       } else {
@@ -766,7 +828,7 @@ class Select extends React.Component {
           null,
           loadData,
           null,
-          treeCheckType
+          treeCheckType,
         ).checkedKeys;
         keyList = conductCheck(
           [nodeEventInfo.node.props.eventKey],
@@ -775,7 +837,7 @@ class Select extends React.Component {
           { checkedKeys: oriCheckedKeys },
           loadData,
           null,
-          treeCheckType
+          treeCheckType,
         ).checkedKeys;
       }
 
@@ -783,7 +845,9 @@ class Select extends React.Component {
       checkedNodeList = keyList.map(key => keyEntities[key].node);
 
       // Let's follow as not `treeCheckStrictly` format
-      extraInfo.allCheckedNodes = keyList.map(key => cleanEntity(keyEntities[key]));
+      extraInfo.allCheckedNodes = keyList.map(key =>
+        cleanEntity(keyEntities[key]),
+      );
     } else {
       extraInfo.allCheckedNodes = flatToHierarchy(checkedNodesPositions);
     }
@@ -792,7 +856,7 @@ class Select extends React.Component {
   };
 
   // ==================== Trigger =====================
-  onDropdownVisibleChange = (open) => {
+  onDropdownVisibleChange = open => {
     this.setOpenState(open, true);
   };
 
@@ -820,22 +884,28 @@ class Select extends React.Component {
       let filterTreeNodeFn = filterTreeNode;
       if (!filterTreeNodeFn) {
         filterTreeNodeFn = (_, node) => {
-          const nodeValue = String(node.props[treeNodeFilterProp]).toUpperCase();
+          const nodeValue = String(
+            node.props[treeNodeFilterProp],
+          ).toUpperCase();
           return nodeValue.indexOf(upperSearchValue) !== -1;
         };
       }
 
       this.setState({
-        filteredTreeNodes: getFilterTree(treeNodes, value, filterTreeNodeFn, valueEntities),
+        filteredTreeNodes: getFilterTree(
+          treeNodes,
+          value,
+          filterTreeNodeFn,
+          valueEntities,
+        ),
       });
     }
   };
 
-  onSearchInputKeyDown = (event) => {
+  onSearchInputKeyDown = event => {
     // Remove
     // const { searchValue, valueList } = this.state;
     // const { keyCode } = event;
-
     // if (
     //   KeyCode.BACKSPACE === keyCode &&
     //   this.isMultiple() &&
@@ -850,7 +920,7 @@ class Select extends React.Component {
   /**
    * Only update the value which is not in props
    */
-  setUncontrolledState = (state) => {
+  setUncontrolledState = state => {
     let needSync = false;
     const newState = {};
 
@@ -873,7 +943,12 @@ class Select extends React.Component {
   // `documentClickClose` is not accurate anymore. Let's just keep the key word.
   setOpenState = (open, byTrigger = false) => {
     const { onDropdownVisibleChange } = this.props;
-    if (onDropdownVisibleChange && onDropdownVisibleChange(open, { documentClickClose: !open && byTrigger }) === false) {
+    if (
+      onDropdownVisibleChange &&
+      onDropdownVisibleChange(open, {
+        documentClickClose: !open && byTrigger,
+      }) === false
+    ) {
       return;
     }
 
@@ -883,7 +958,7 @@ class Select extends React.Component {
       const { onCancel } = this.props;
       if (JSON.stringify(oriValueList) !== JSON.stringify(curValueList)) {
         this.setState({
-          curValueList: oriValueList
+          curValueList: oriValueList,
         });
         onCancel && onCancel(oriValueList);
       }
@@ -909,7 +984,7 @@ class Select extends React.Component {
   isSearchValueControlled = () => {
     const { inputValue } = this.props;
     if ('searchValue' in this.props) return true;
-    return ('inputValue' in this.props) && inputValue !== null;
+    return 'inputValue' in this.props && inputValue !== null;
   };
 
   // TODO: onChoiceAnimationLeave
@@ -933,21 +1008,40 @@ class Select extends React.Component {
    * 1. Update state valueList.
    * 2. Fire `onChange` event to user.
    */
-  triggerChange = (missValueList, valueList, extraInfo = {}, immediate = false, triggerSelect = false) => {
+  triggerChange = (
+    missValueList,
+    valueList,
+    extraInfo = {},
+    immediate = false,
+    triggerSelect = false,
+  ) => {
     const { valueEntities } = this.state;
-    const { onChange, disabled, onConfirm, onSelect, treeNodeLabelProp } = this.props;
+    const {
+      onChange,
+      disabled,
+      onConfirm,
+      onSelect,
+      treeNodeLabelProp,
+    } = this.props;
 
     if (disabled) return;
 
     // Trigger
     const extra = {
       // [Legacy] Always return as array contains label & value
-      preValue: this.state.selectorValueList.map(({ label, value }) => ({ label, value })),
+      preValue: this.state.selectorValueList.map(({ label, value }) => ({
+        label,
+        value,
+      })),
       ...extraInfo,
     };
 
     // Format value by `treeCheckStrictly`
-    const selectorValueList = formatSelectorValue(valueList, this.props, valueEntities);
+    const selectorValueList = formatSelectorValue(
+      valueList,
+      this.props,
+      valueEntities,
+    );
 
     if (!('value' in this.props)) {
       this.setState({
@@ -972,7 +1066,10 @@ class Select extends React.Component {
     let returnValue;
 
     if (this.isLabelInValue()) {
-      returnValue = connectValueList.map(({ label, value }) => ({ label, value }));
+      returnValue = connectValueList.map(({ label, value }) => ({
+        label,
+        value,
+      }));
     } else {
       labelList = [];
       returnValue = connectValueList.map(({ label, value }) => {
@@ -988,7 +1085,7 @@ class Select extends React.Component {
     this.setState({
       returnValue,
       connectValueList,
-      extra
+      extra,
     });
 
     let selectValue;
@@ -1014,7 +1111,7 @@ class Select extends React.Component {
       onChange && onChange(returnValue, connectValueList, extra);
     } else {
       this.setState({
-        curValueList: returnValue
+        curValueList: returnValue,
       });
     }
 
@@ -1039,7 +1136,7 @@ class Select extends React.Component {
     onCancel && onCancel(oriValueList);
     this.setState({
       curValueList: oriValueList,
-      open: false
+      open: false,
     });
   };
 
@@ -1053,7 +1150,7 @@ class Select extends React.Component {
 
     this.setState({
       open: false,
-      disableCloseTag: !!(required && editable && curValueList.length==1)
+      disableCloseTag: !!(required && editable && curValueList.length == 1),
     });
   };
 
@@ -1065,19 +1162,34 @@ class Select extends React.Component {
   };
 
   // ===================== Render =====================
-  render() {
+  renderTreeSelect(Locale) {
     const {
-      valueList, missValueList, selectorValueList,
-      valueEntities, keyEntities,
+      valueList,
+      missValueList,
+      selectorValueList,
+      valueEntities,
+      keyEntities,
       searchValue,
-      open, focused,
-      treeNodes, filteredTreeNodes,
+      open,
+      focused,
+      treeNodes,
+      filteredTreeNodes,
       curValueList,
-      disableCloseTag
+      disableCloseTag,
     } = this.state;
-    const { prefixCls, loadData, treeCheckStrictly, treeCheckType, loading, required, editable } = this.props;
+    const {
+      prefixCls,
+      loadData,
+      treeCheckStrictly,
+      treeCheckType,
+      loading,
+      required,
+      editable,
+    } = this.props;
     const isMultiple = this.isMultiple();
-    let rtValueList = Array.isArray(curValueList) ? [...curValueList] : [curValueList];
+    let rtValueList = Array.isArray(curValueList)
+      ? [...curValueList]
+      : [curValueList];
 
     // 非 treeCheckStrictly 下的多选，在选中节点后有父子层级的联动
     if (isMultiple && !treeCheckStrictly) {
@@ -1088,7 +1200,15 @@ class Select extends React.Component {
         }
       });
 
-      let checkedKeys = conductCheck(keyList, true, keyEntities, null, loadData, null, treeCheckType).checkedKeys;
+      let checkedKeys = conductCheck(
+        keyList,
+        true,
+        keyEntities,
+        null,
+        loadData,
+        null,
+        treeCheckType,
+      ).checkedKeys;
       rtValueList = checkedKeys.map(key => {
         return keyEntities[key] && keyEntities[key].value;
       });
@@ -1109,7 +1229,7 @@ class Select extends React.Component {
       focused,
       dropdownPrefixCls: `${prefixCls}-dropdown`,
       ariaId: this.ariaId,
-      doCheckChildInSearch:this.props.doCheckChildInSearch
+      doCheckChildInSearch: this.props.doCheckChildInSearch,
     };
 
     if (!isMultiple) {
@@ -1125,7 +1245,8 @@ class Select extends React.Component {
     const $popup = (
       <Popup
         {...passProps}
-        loadData={searchValue ? null : loadData}  // 有搜索内容时不触发异步加载
+        {...this.genPropsByLocale(Locale)}
+        loadData={searchValue ? null : loadData} // 有搜索内容时不触发异步加载
         loading={loading}
         onTreeExpanded={this.delayForcePopupAlign}
         treeNodes={treeNodes}
@@ -1136,9 +1257,11 @@ class Select extends React.Component {
     );
 
     const Selector = isMultiple ? MultipleSelector : SingleSelector;
+
     const $selector = (
       <Selector
         {...passProps}
+        {...this.genPropsByLocale(Locale)}
         ref={this.selectorRef}
         onChoiceAnimationLeave={this.forcePopupAlign}
       />
@@ -1167,9 +1290,23 @@ class Select extends React.Component {
     };
 
     return (
-      <SelectTrigger {...triggerProps} ref={this.selectTriggerRef} >
+      <SelectTrigger
+        {...triggerProps}
+        {...this.genPropsByLocale(Locale)}
+        ref={this.selectTriggerRef}
+      >
         {$selector}
       </SelectTrigger>
+    );
+  }
+
+  render() {
+    return (
+      <ConfigConsumer componentName="TreeSelect">
+        {(Locale) => {
+          return this.renderTreeSelect(Locale);
+        }}
+      </ConfigConsumer>
     );
   }
 }

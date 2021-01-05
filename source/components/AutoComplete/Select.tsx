@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import RcSelect, { Option, OptGroup } from './src/index.js';
 import classNames from 'classnames';
 import warning from 'warning';
+import ConfigConsumer from '../Config/Consumer';
+import { LocaleProperties } from '../Locale';
 
 export interface AbstractSelectProps {
   prefixCls?: string;
@@ -183,8 +185,14 @@ export default class Select extends React.Component<SelectProps, {}> {
   };
 
   render() {
-    return this.renderSelect({
-      notFoundContent: '无匹配结果'
-    });
+    return (<ConfigConsumer componentName="AutoComplete">
+      {
+        (Locale: LocaleProperties["AutoComplete"]) => {
+          return this.renderSelect({
+            notFoundContent: (Locale.notFoundContent as string)
+          });
+        }
+      }
+    </ConfigConsumer>)
   }
 }

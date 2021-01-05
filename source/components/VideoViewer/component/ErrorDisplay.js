@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../../Icon/index.tsx';
 import { MEDIA_ERROR } from '../constant';
+import ConfigConsumer from '../../Config/Consumer';
 
 export default class ErrorDisplay extends Component {
   static propTypes = {
@@ -56,22 +57,31 @@ export default class ErrorDisplay extends Component {
     const errorMessage = mediaError !== null ? MEDIA_ERROR[mediaError.code] : '';
 
     return (
-      <div className={prefixCls}>
+      <ConfigConsumer componentName="VideoViewer">
         {
-          mediaError ?
-            <div className={`${prefixCls}-msg`}>
-              {errorMessage}
-              {
-                mediaError.code === 2 ?
-                  <a className={`${prefixCls}-retry`} onClick={this.handleRetry}>
-                    <Icon type="picture-rotate"/>重试
-                  </a>
-                  : null
-              }
-            </div>
-            : null
+          (Locale) => {
+            return (
+              <div className={prefixCls}>
+                {
+                  mediaError ?
+                    <div className={`${prefixCls}-msg`}>
+                      {errorMessage}
+                      {
+                        mediaError.code === 2 ?
+                          <a className={`${prefixCls}-retry`} onClick={this.handleRetry}>
+                            <Icon type="picture-rotate" />
+                            {Locale.retry}
+                          </a>
+                          : null
+                      }
+                    </div>
+                    : null
+                }
+              </div>
+            );
+          }
         }
-      </div>
+      </ConfigConsumer>
     );
   }
 }

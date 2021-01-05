@@ -32,6 +32,7 @@ import {
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
 import {TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from '../constants';
+import ConfigConsumer from '../../Config/Consumer';
 
 const TimeSelect = TimePicker.TimeSelect;
 
@@ -490,7 +491,7 @@ class DateRangePanel extends React.Component {
   }
 
   // 切换月份
-  handleChangeMonth(type, date, month){
+  handleChangeMonth(type, date, month, locales){
     this.setState({
       [type]: new Date((new Date(date)).setMonth((parseInt(month.slice(0,-1)) - 1)))
     }, ()=>{
@@ -589,260 +590,268 @@ class DateRangePanel extends React.Component {
     const t = Locale.t;
 
     return (
-      <div
-        className={classNames(
-          `${prefixCls}-picker-panel`,
-          `${prefixCls}-date-range-picker`,
-          {
-            'has-sidebar': shortcuts,
-            'has-time': showTime
-          })}
-      >
-        <div className={`${prefixCls}-picker-panel__body-wrapper`}>
-          {
-            Array.isArray(shortcuts) && (
-              <div className={`${prefixCls}-picker-panel__sidebar`}>
-                {
-                  shortcuts.map((e, idx) => {
-                    return (
-                      <button
-                        key={idx}
-                        type="button"
-                        className={`${prefixCls}-picker-panel__shortcut`}
-                        onClick={() => this.handleShortcutClick(e)}>{e.text}
-                      </button>
-                    );
-                  })
-                }
-              </div>
-            )
-          }
-          <div className={`${prefixCls}-picker-panel__body`}>
-            {
-              showTime && (
-                <div className={`${prefixCls}-date-range-picker__time-header`}>
-                  <span className={`${prefixCls}-date-range-picker__editors-wrap is-left`}>
-                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
-                      <Input
-                        placeholder={Locale.t('datepicker.startDate')}
-                        className={`${prefixCls}-date-range-picker__editor`}
-                        value={minDateInputText}
-                        onChange={value => this.handleDateInputChange(value, 'min')}
-                        onBlur={value => this.handleDateInputBlur(value, 'min')}
-                      />
-                    </span>
-                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
-                      {
-                        startTimeSelectMode === 'TimePicker' ?
-                          <TimePicker
-                            className={`${prefixCls}-date-range-picker__editor`}
-                            placeholder={Locale.t('datepicker.startTime')}
-                            format={timeFormat(format)}
-                            getPopupContainer={(node) => node.parentNode}
-                            showTrigger={false}
-                            allowClear={false}
-                            disabled={this.timePickerDisable()}
-                            value={minTime}
-                            onChange={value => this.handleTimeInputChange(value, 'min')}
-                            isShowCurrent={showTimeCurrent}
-                            selectableRange={startTimeSelectableRange}
-                          />
-                          :
-                          <TimePicker.TimeSelect
-                            className={`${prefixCls}-date-range-picker__editor`}
-                            placeholder={Locale.t('datepicker.startTime')}
-                            getPopupContainer={(node) => node.parentNode}
-                            showTrigger={false}
-                            allowClear={false}
-                            disabled={this.timePickerDisable()}
-                            value={minTime}
-                            onChange={value => this.handleTimeInputChange(value, 'min')}
-                            start={startTimeSelectModeProps.start}
-                            step={startTimeSelectModeProps.step}
-                            end={startTimeSelectModeProps.end}
-                            maxTime={startTimeSelectModeProps.maxTime}
-                            minTime={startTimeSelectModeProps.minTime}
-                          />
-                      }
-                    </span>
-                  </span>
-                  <span className={`${prefixCls}-date-range-picker__editors-wrap is-right`}>
-                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
-                      <Input
-                        placeholder={Locale.t('datepicker.endDate')}
-                        className={`${prefixCls}-date-range-picker__editor`}
-                        value={maxDateInputText}
-                        readOnly={!minDate}
-                        onChange={value => this.handleDateInputChange(value, 'max')}
-                        onBlur={value => this.handleDateInputBlur(value, 'max')}
-                      />
-                    </span>
-                    <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
-                      {
-                        endTimeSelectMode === 'TimePicker' ?
-                          <TimePicker
-                            className={`${prefixCls}-date-range-picker__editor`}
-                            placeholder={Locale.t('datepicker.endTime')}
-                            format={timeFormat(format)}
-                            getPopupContainer={(node) => node.parentNode}
-                            showTrigger={false}
-                            allowClear={false}
-                            disabled={this.timePickerDisable()}
-                            value={maxTime}
-                            onChange={value => this.handleTimeInputChange(value, 'max')}
-                            isShowCurrent={showTimeCurrent}
-                            selectableRange={endTimeSelectableRange}
-                          />
-                          :
-                          <TimePicker.TimeSelect
-                            className={`${prefixCls}-date-range-picker__editor`}
-                            placeholder={Locale.t('datepicker.endTime')}
-                            getPopupContainer={(node) => node.parentNode}
-                            showTrigger={false}
-                            allowClear={false}
-                            disabled={this.timePickerDisable()}
-                            value={maxTime}
-                            onChange={value => this.handleTimeInputChange(value, 'max')}
-                            start={endTimeSelectModeProps.start}
-                            step={endTimeSelectModeProps.step}
-                            end={endTimeSelectModeProps.end}
-                            maxTime={endTimeSelectModeProps.maxTime}
-                            minTime={endTimeSelectModeProps.minTime}
-                          />
-                      }
-                    </span>
-                  </span>
-                </div>
-              )
-            }
-            <div className={`${prefixCls}-picker-panel__content ${prefixCls}-date-range-picker__content is-left`}>
-              <div className={`${prefixCls}-date-range-picker__header`}>
-                <Icon
-                  type="left-double"
-                  onClick={this.prevYear.bind(this, 'leftDate', leftDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
-                <Icon
-                  type="left"
-                  onClick={this.prevMonth.bind(this, 'leftDate', leftDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
-                <YearAndMonthPopover
-                  value={leftDate.getFullYear()}
-                  sourceData={YEARS_ARRAY(yearCount)}
-                  onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
-                >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>
-                    {`${leftDate.getFullYear()} ${t('datepicker.year')}`}
-                  </span>
-                </YearAndMonthPopover>
-                <YearAndMonthPopover
-                  value={leftDate.getMonth() + 1}
-                  sourceData={MONTH_ARRRY}
-                  onChange={this.handleChangeMonth.bind(this, 'leftDate', leftDate)}
-                >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>
-                    {t(`datepicker.month${leftDate.getMonth() + 1}`)}
-                  </span>
-                </YearAndMonthPopover>
-                <Icon
-                  type="right-double"
-                  onClick={this.nextYear.bind(this, 'leftDate', leftDate, this.handleLeftNextYear)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
-                <Icon
-                  type="right"
-                  onClick={this.nextMonth.bind(this, 'leftDate', leftDate, this.handleLeftNextMonth)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
-              </div>
-              <DateTable
-                mode={SELECTION_MODES.RANGE}
-                date={leftDate}
-                value={minDate}
-                minDate={minDate}
-                maxDate={maxDate}
-                rangeState={rangeState}
-                disabledDate={disabledDate}
-                onChangeRange={this.handleChangeRange.bind(this)}
-                onPick={this.handleRangePick.bind(this)}
-                firstDayOfWeek={firstDayOfWeek}
-              />
-            </div>
-            <div className={`${prefixCls}-picker-panel__content ${prefixCls}-date-range-picker__content is-right`}>
-              <div className={`${prefixCls}-date-range-picker__header`}>
-                <Icon
-                  type="left-double"
-                  onClick={this.prevYear.bind(this, 'rightDate', rightDate, this.handleRightPrevYear)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
-                <Icon
-                  type="left"
-                  onClick={this.prevMonth.bind(this, 'rightDate', rightDate, this.handleRightPrevMonth)}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
-                <YearAndMonthPopover
-                  value={rightDate.getFullYear()}
-                  sourceData={YEARS_ARRAY(yearCount)}
-                  onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
-                >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>
-                    {`${rightDate.getFullYear()} ${t('datepicker.year')}`}
-                  </span>
-                </YearAndMonthPopover>
-                <YearAndMonthPopover
-                  value={rightDate.getMonth() + 1}
-                  sourceData={MONTH_ARRRY}
-                  onChange={this.handleChangeMonth.bind(this, 'rightDate', rightDate)}
-                >
-                  <span className={`${prefixCls}-date-range-picker__header-label`}>
-                    {t(`datepicker.month${rightDate.getMonth() + 1}`)}
-                  </span>
-                </YearAndMonthPopover>
-                <Icon
-                  type="right-double"
-                  onClick={this.nextYear.bind(this, 'rightDate', rightDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
-                <Icon
-                  type="right"
-                  onClick={this.nextMonth.bind(this, 'rightDate', rightDate, ()=>{})}
-                  className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
-              </div>
-              <DateTable
-                mode={SELECTION_MODES.RANGE}
-                date={rightDate}
-                value={maxDate}
-                minDate={minDate}
-                maxDate={maxDate}
-                rangeState={rangeState}
-                disabledDate={disabledDate}
-                onChangeRange={this.handleChangeRange.bind(this)}
-                onPick={this.handleRangePick.bind(this)}
-                firstDayOfWeek={firstDayOfWeek}
-              />
-            </div>
-          </div>
-        </div>
+      <ConfigConsumer componentName="DatePicker">
         {
-          typeof footer === 'function' && footer() && (
+          (Locales, lang) => (
             <div
-              className={`${prefixCls}-picker-panel__extra-footer`}
+              className={classNames(
+                `${prefixCls}-picker-panel`,
+                `${prefixCls}-date-range-picker`,
+                {
+                  'has-sidebar': shortcuts,
+                  'has-time': showTime
+                })}
             >
-              {footer()}
+              <div className={`${prefixCls}-picker-panel__body-wrapper`}>
+                {
+                  Array.isArray(shortcuts) && (
+                    <div className={`${prefixCls}-picker-panel__sidebar`}>
+                      {
+                        shortcuts.map((e, idx) => {
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className={`${prefixCls}-picker-panel__shortcut`}
+                              onClick={() => this.handleShortcutClick(e)}>{e.text}
+                            </button>
+                          );
+                        })
+                      }
+                    </div>
+                  )
+                }
+                <div className={`${prefixCls}-picker-panel__body`}>
+                  {
+                    showTime && (
+                      <div className={`${prefixCls}-date-range-picker__time-header`}>
+                        <span className={`${prefixCls}-date-range-picker__editors-wrap is-left`}>
+                          <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
+                            <Input
+                              placeholder={Locales.startDate}
+                              className={`${prefixCls}-date-range-picker__editor`}
+                              value={minDateInputText}
+                              onChange={value => this.handleDateInputChange(value, 'min')}
+                              onBlur={value => this.handleDateInputBlur(value, 'min')}
+                            />
+                          </span>
+                          <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
+                            {
+                              startTimeSelectMode === 'TimePicker' ?
+                                <TimePicker
+                                  className={`${prefixCls}-date-range-picker__editor`}
+                                  placeholder={Locales.startTime}
+                                  format={timeFormat(format)}
+                                  getPopupContainer={(node) => node.parentNode}
+                                  showTrigger={false}
+                                  allowClear={false}
+                                  disabled={this.timePickerDisable()}
+                                  value={minTime}
+                                  onChange={value => this.handleTimeInputChange(value, 'min')}
+                                  isShowCurrent={showTimeCurrent}
+                                  selectableRange={startTimeSelectableRange}
+                                />
+                                :
+                                <TimePicker.TimeSelect
+                                  className={`${prefixCls}-date-range-picker__editor`}
+                                  placeholder={Locales.startTime}
+                                  getPopupContainer={(node) => node.parentNode}
+                                  showTrigger={false}
+                                  allowClear={false}
+                                  disabled={this.timePickerDisable()}
+                                  value={minTime}
+                                  onChange={value => this.handleTimeInputChange(value, 'min')}
+                                  start={startTimeSelectModeProps.start}
+                                  step={startTimeSelectModeProps.step}
+                                  end={startTimeSelectModeProps.end}
+                                  maxTime={startTimeSelectModeProps.maxTime}
+                                  minTime={startTimeSelectModeProps.minTime}
+                                />
+                            }
+                          </span>
+                        </span>
+                        <span className={`${prefixCls}-date-range-picker__editors-wrap is-right`}>
+                          <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
+                            <Input
+                              placeholder={Locales.endDate}
+                              className={`${prefixCls}-date-range-picker__editor`}
+                              value={maxDateInputText}
+                              readOnly={!minDate}
+                              onChange={value => this.handleDateInputChange(value, 'max')}
+                              onBlur={value => this.handleDateInputBlur(value, 'max')}
+                            />
+                          </span>
+                          <span className={`${prefixCls}-date-range-picker__time-picker-wrap`}>
+                            {
+                              endTimeSelectMode === 'TimePicker' ?
+                                <TimePicker
+                                  className={`${prefixCls}-date-range-picker__editor`}
+                                  placeholder={Locales.endTime}
+                                  format={timeFormat(format)}
+                                  getPopupContainer={(node) => node.parentNode}
+                                  showTrigger={false}
+                                  allowClear={false}
+                                  disabled={this.timePickerDisable()}
+                                  value={maxTime}
+                                  onChange={value => this.handleTimeInputChange(value, 'max')}
+                                  isShowCurrent={showTimeCurrent}
+                                  selectableRange={endTimeSelectableRange}
+                                />
+                                :
+                                <TimePicker.TimeSelect
+                                  className={`${prefixCls}-date-range-picker__editor`}
+                                  placeholder={Locales.endTime}
+                                  getPopupContainer={(node) => node.parentNode}
+                                  showTrigger={false}
+                                  allowClear={false}
+                                  disabled={this.timePickerDisable()}
+                                  value={maxTime}
+                                  onChange={value => this.handleTimeInputChange(value, 'max')}
+                                  start={endTimeSelectModeProps.start}
+                                  step={endTimeSelectModeProps.step}
+                                  end={endTimeSelectModeProps.end}
+                                  maxTime={endTimeSelectModeProps.maxTime}
+                                  minTime={endTimeSelectModeProps.minTime}
+                                />
+                            }
+                          </span>
+                        </span>
+                      </div>
+                    )
+                  }
+                  <div className={`${prefixCls}-picker-panel__content ${prefixCls}-date-range-picker__content is-left`}>
+                    <div className={`${prefixCls}-date-range-picker__header`}>
+                      <Icon
+                        type="left-double"
+                        onClick={this.prevYear.bind(this, 'leftDate', leftDate, ()=>{})}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
+                      <Icon
+                        type="left"
+                        onClick={this.prevMonth.bind(this, 'leftDate', leftDate, ()=>{})}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
+                      <YearAndMonthPopover
+                        value={leftDate.getFullYear()}
+                        sourceData={YEARS_ARRAY(yearCount)}
+                        onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
+                      >
+                        <span className={`${prefixCls}-date-range-picker__header-label`}>
+                          {`${leftDate.getFullYear()} ${Locales.year}`}
+                        </span>
+                      </YearAndMonthPopover>
+                      <YearAndMonthPopover
+                        value={leftDate.getMonth() + 1}
+                        sourceData={MONTH_ARRRY[lang]}
+                        onChange={() => this.handleChangeMonth.bind(this, 'leftDate', leftDate, Locales)}
+                      >
+                        <span className={`${prefixCls}-date-range-picker__header-label`}>
+                          {Locales[`month${leftDate.getMonth() + 1}`]}
+                        </span>
+                      </YearAndMonthPopover>
+                      <Icon
+                        type="right-double"
+                        onClick={this.nextYear.bind(this, 'leftDate', leftDate, this.handleLeftNextYear)}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
+                      <Icon
+                        type="right"
+                        onClick={this.nextMonth.bind(this, 'leftDate', leftDate, this.handleLeftNextMonth)}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
+                    </div>
+                    <DateTable
+                      mode={SELECTION_MODES.RANGE}
+                      date={leftDate}
+                      value={minDate}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                      rangeState={rangeState}
+                      disabledDate={disabledDate}
+                      onChangeRange={this.handleChangeRange.bind(this)}
+                      onPick={this.handleRangePick.bind(this)}
+                      firstDayOfWeek={firstDayOfWeek}
+                    />
+                  </div>
+                  <div className={`${prefixCls}-picker-panel__content ${prefixCls}-date-range-picker__content is-right`}>
+                    <div className={`${prefixCls}-date-range-picker__header`}>
+                      <Icon
+                        type="left-double"
+                        onClick={this.prevYear.bind(this, 'rightDate', rightDate, this.handleRightPrevYear)}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
+                      <Icon
+                        type="left"
+                        onClick={this.prevMonth.bind(this, 'rightDate', rightDate, this.handleRightPrevMonth)}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__prev-btn`} />
+                      <YearAndMonthPopover
+                        value={rightDate.getFullYear()}
+                        sourceData={YEARS_ARRAY(yearCount)}
+                        onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
+                      >
+                        <span className={`${prefixCls}-date-range-picker__header-label`}>
+                          {`${rightDate.getFullYear()} ${Locales.year}`}
+                        </span>
+                      </YearAndMonthPopover>
+                      <YearAndMonthPopover
+                        value={rightDate.getMonth() + 1}
+                        sourceData={MONTH_ARRRY[lang]}
+                        onChange={() => this.handleChangeMonth.bind(this, 'rightDate', rightDate, Locales)}
+                      >
+                        <span className={`${prefixCls}-date-range-picker__header-label`}>
+                          {Locales[`month${rightDate.getMonth() + 1}`]}
+                        </span>
+                      </YearAndMonthPopover>
+                      <Icon
+                        type="right-double"
+                        onClick={this.nextYear.bind(this, 'rightDate', rightDate, ()=>{})}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
+                      <Icon
+                        type="right"
+                        onClick={this.nextMonth.bind(this, 'rightDate', rightDate, ()=>{})}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-range-picker__next-btn`} />
+                    </div>
+                    <DateTable
+                      mode={SELECTION_MODES.RANGE}
+                      date={rightDate}
+                      value={maxDate}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                      rangeState={rangeState}
+                      disabledDate={disabledDate}
+                      onChangeRange={this.handleChangeRange.bind(this)}
+                      onPick={this.handleRangePick.bind(this)}
+                      firstDayOfWeek={firstDayOfWeek}
+                    />
+                  </div>
+                </div>
+              </div>
+              {
+                typeof footer === 'function' && footer() && (
+                  <div
+                    className={`${prefixCls}-picker-panel__extra-footer`}
+                  >
+                    {footer()}
+                  </div>
+                )
+              }
+              {
+                showTime && (
+                  <div className={`${prefixCls}-picker-panel__footer`}>
+                    <Button
+                      className={`${prefixCls}-picker-panel__btn cancel`}
+                      onClick={this.handleCancel}>{ Locales.cancel }
+                    </Button>
+                    <Button
+                      type="primary"
+                      className={
+                        classNames(`${prefixCls}-picker-panel__btn confirm`, {'disabled': this.confirmBtnDisabled()})
+                      }
+                      onClick={this.handleConfirm}
+                      disabled={this.confirmBtnDisabled()}>{ Locales.confirm }
+                    </Button>
+                  </div>
+                )
+              }
             </div>
           )
         }
-        {
-          showTime && (
-            <div className={`${prefixCls}-picker-panel__footer`}>
-              <Button
-                className={`${prefixCls}-picker-panel__btn cancel`}
-                onClick={this.handleCancel}>{ Locale.t('datepicker.cancel') }
-              </Button>
-              <Button
-                type="primary"
-                className={classNames(`${prefixCls}-picker-panel__btn confirm`, {'disabled': this.confirmBtnDisabled()})}
-                onClick={this.handleConfirm}
-                disabled={this.confirmBtnDisabled()}>{ Locale.t('datepicker.confirm') }
-              </Button>
-            </div>
-          )
-        }
-      </div>
+      </ConfigConsumer>
     );
   }
 }
