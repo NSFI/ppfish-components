@@ -14,7 +14,7 @@ class PanelContent extends Component<PanelContentProps, any> {
     children: PropTypes.node
   };
 
-  _isActived = false;
+  _isActived: boolean;
 
   constructor(props) {
     super(props);
