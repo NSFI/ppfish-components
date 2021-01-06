@@ -30,8 +30,8 @@ export interface CollapseProps {
 }
 
 export interface CollapseState {
-  activeKey: string | string[];
-  statusList: any[];
+  activeKey?: string | string[];
+  statusList?: any[];
   prevProps?: CollapseProps;
 }
 
@@ -74,9 +74,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
   static getDerivedStateFromProps(nextProps: CollapseProps, prevState: CollapseState) {
     const { prevProps } = prevState;
     const newState: CollapseState = {
-      prevProps: nextProps,
-      activeKey: '',
-      statusList: []
+      prevProps: nextProps
     };
     if ('activeKey' in nextProps) {
       newState.activeKey = toArray(nextProps.activeKey);
