@@ -874,7 +874,7 @@ class Select extends React.Component<SelectProps, SelectState> {
                       className={`${dropdownCls}-footer-btn`}
                       onClick={this.handleCancelSelect}
                     >
-                      取消
+                      {Locale.cancelText}
                     </Button>
                     <Button
                       className={`${dropdownCls}-footer-btn`}
@@ -882,7 +882,7 @@ class Select extends React.Component<SelectProps, SelectState> {
                       disabled={multipleConfirmDisabled}
                       type="primary"
                     >
-                      确定
+                      {Locale.confirmText}
                     </Button>
                   </div>
                 </div>
