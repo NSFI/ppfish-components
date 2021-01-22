@@ -71,13 +71,13 @@ export default class TimePicker extends BasePicker {
         {
           (Locales: LocaleProperties["DatePicker"]) => (
             <TimePanel
+              {...this.props}
               selectableRange={converSelectRange(this.props)}
               ONSELECTRANGECHANGE={this._onSelectionChange}
               value={value}
               onPicked={this.onPicked}
               onCancelPicked={this.onCancelPicked}
               Locales={Locales}
-              {...this.props }
             />
           )
         }
