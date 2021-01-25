@@ -78,6 +78,7 @@ const LocaleValue: LocaleProperties = {
     Oct: '10',
     Nov: '11',
     Dec: '12',
+    MONTH_ARRAY: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     week: 'Week',
     weeks: {
       sun: 'Sun',
@@ -131,7 +132,7 @@ const LocaleValue: LocaleProperties = {
     next_3: 'Next 3 Pages'
   },
    RichEditor: {
-    // editor 
+    // editor
     insertImageTip: 'JPG, JPEG, PNG, GIF, BMP format images, best display height no more than 400px, width no more than 270px.',
     rule1: '1、Single video does not exceed 10M, supports MP4, 3GP format video',
     rule2: '2、The best display height is no more than 400px',
