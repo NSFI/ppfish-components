@@ -198,7 +198,7 @@ class Select extends React.Component<SelectProps, SelectState> {
   //获取所有option的[{label,key,title}]
   static getOptionFromChildren = (children, plainOptionList = [], filter?) => {
     React.Children.forEach(children, (child: any) => {
-      if (child && child.type.isSelectOption) {
+      if (child && child.type && child.type.isSelectOption) {
         const selectOption = {
           label: child.props.children,
           key: 'value' in child.props ? child.props.value : child.key,
@@ -209,7 +209,7 @@ class Select extends React.Component<SelectProps, SelectState> {
         } else {
           plainOptionList.push(selectOption);
         }
-      } else if (child && child.type.isSelectOptGroup) {
+      } else if (child && child.type && child.type.isSelectOptGroup) {
         Select.getOptionFromChildren(child.props.children, plainOptionList, filter);
       } else {
         //  其余暂时不做处理
