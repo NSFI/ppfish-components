@@ -51,7 +51,7 @@ const localeValues: LocaleProperties = {
     next_3: '向后 3 页',
   },
   RichEditor: {
-    // editor 
+    // editor
     insertImageTip: '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
     rule1: '1、单个视频不超过10M，支持MP4、3GP格式视频。',
     rule2: '2、最佳显示高度不超过400px',
@@ -200,6 +200,7 @@ const localeValues: LocaleProperties = {
     '10月': '10',
     '11月': '11',
     '12月': '12',
+    MONTH_ARRAY: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     week: '周次',
     weeks: {
       sun: '日',

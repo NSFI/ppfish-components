@@ -22,7 +22,6 @@ import {
   dateFormat,
   formatDate,
   parseDate,
-  MONTH_ARRRY,
   YEARS_ARRAY,
   isValidValue,
   isValidValueArr,
@@ -740,7 +739,7 @@ class DateRangePanel extends React.Component {
                       </YearAndMonthPopover>
                       <YearAndMonthPopover
                         value={leftDate.getMonth() + 1}
-                        sourceData={MONTH_ARRRY[lang]}
+                        sourceData={Locales.MONTH_ARRAY}
                         onChange={() => this.handleChangeMonth.bind(this, 'leftDate', leftDate, Locales)}
                       >
                         <span className={`${prefixCls}-date-range-picker__header-label`}>
@@ -790,7 +789,7 @@ class DateRangePanel extends React.Component {
                       </YearAndMonthPopover>
                       <YearAndMonthPopover
                         value={rightDate.getMonth() + 1}
-                        sourceData={MONTH_ARRRY[lang]}
+                        sourceData={Locales.MONTH_ARRAY}
                         onChange={() => this.handleChangeMonth.bind(this, 'rightDate', rightDate, Locales)}
                       >
                         <span className={`${prefixCls}-date-range-picker__header-label`}>

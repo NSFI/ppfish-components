@@ -20,7 +20,6 @@ import {
   nextMonth,
   timeFormat,
   dateFormat,
-  MONTH_ARRRY,
   YEARS_ARRAY,
   isValidValue,
   setTime
@@ -330,7 +329,7 @@ class DatePanel extends React.Component {
               <YearAndMonthPopover
                 key="month"
                 value={currentDate.getMonth() + 1}
-                sourceData={MONTH_ARRRY[lang]}
+                sourceData={Locales.MONTH_ARRAY}
                 onChange={(month) => this.handleChangeMonth(month, Locales)}
               >
                 <span
@@ -354,7 +353,8 @@ class DatePanel extends React.Component {
               </span>
             </YearAndMonthPopover>);
 
-            const selectors =  lang === 'zh_CN' ? [ yearSelector, monthSelector ] : [ monthSelector, yearSelector ];
+            // TODO: 配置此处展示方式
+            const selectors = lang === 'en_US' ? [ monthSelector, yearSelector ] : [ yearSelector, monthSelector ] ;
 
             return (<div
               className={classNames(
