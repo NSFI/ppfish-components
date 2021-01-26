@@ -506,7 +506,7 @@ class Select extends React.Component<SelectProps, SelectState> {
   getProcessedChildren = (children, dropdownCls: string) => {
     return React.Children.map(children, (child: any) => {
       const typeOfChildren = Object.prototype.toString.call(child).slice(8, -1).toLowerCase();
-      if (!!child && typeOfChildren === 'object' && child.type.isSelectOption) {
+      if (!!child && typeOfChildren === 'object' && child.type && child.type.isSelectOption) {
         const { selectValue, activeKey } = this.state;
         const { showOptionCheckedIcon } = this.props;
         const value = 'value' in child.props ? child.props.value : child.key;
@@ -523,7 +523,7 @@ class Select extends React.Component<SelectProps, SelectState> {
           ref: value,
           children: this.getProcessedChildren(child.props.children, dropdownCls)
         });
-      } else if (!!child && typeOfChildren === 'object' && child.type.isSelectOptGroup) {
+      } else if (!!child && typeOfChildren === 'object' && child.type && child.type.isSelectOptGroup) {
         return React.cloneElement(child, {
           prefixCls: `${dropdownCls}-option-group`,
           children: this.getProcessedChildren(child.props.children, dropdownCls)
@@ -541,7 +541,7 @@ class Select extends React.Component<SelectProps, SelectState> {
     const typeOfOption = Object.prototype.toString.call(filterOption).slice(8, -1).toLowerCase();
     React.Children.forEach(children, (child: any) => {
       let filterFlag = false;
-      if (child && child.type.isSelectOption) {
+      if (child && child.type && child.type.isSelectOption) {
         if (typeOfOption === 'function') {
           filterFlag = (filterOption as Function)(searchValue, child);
         } else if (typeOfOption === 'boolean') {
@@ -550,7 +550,7 @@ class Select extends React.Component<SelectProps, SelectState> {
         if (filterFlag) {
           ChildrenList.push(child);
         }
-      } else if (child && child.type.isSelectOptGroup) {
+      } else if (child && child.type && child.type.isSelectOptGroup) {
         const children = this.getFilteredChildren(child.props.children);
         ChildrenList.push(
           React.cloneElement(child, {
