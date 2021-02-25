@@ -475,8 +475,6 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   handleZoom = ratio => {
     let image = {
       ratio: 0,
-      naturalWidth: 0,
-      naturalHeight: 0,
       marginL: 0,
       marginT: 0
     };
