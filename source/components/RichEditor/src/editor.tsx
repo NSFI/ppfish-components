@@ -61,6 +61,7 @@ class Range {
 class RichEditor extends Component<RichEditorProps, RichEditorState> {
   reactQuillNode: Element | Text
   defaultFontSize: string
+  defaultLinkPrefix: string
   Locale: LocaleProperties['RichEditor']
 
   defaultVideoType: string
@@ -132,6 +133,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     super(props);
     this.reactQuillNode = document.body;
     this.defaultFontSize = "14px";
+    this.defaultLinkPrefix = "https://";
     this.Locale = {};
 
     let {
@@ -173,7 +175,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       toolbarCtner: null,
       curRange: null,
       curVideoType: this.defaultVideoType,
-      defaultInputLink: "http://",
+      defaultInputLink: this.defaultLinkPrefix,
       linkModalTitle: "",
       formatPainterActive: false
     };
@@ -200,7 +202,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           let newState = {
             value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
             showLinkModal: true,
-            defaultInputLink: "http://",
+            defaultInputLink: this.defaultLinkPrefix,
             curRange: range
           };
 
@@ -567,7 +569,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       this.setState({
         value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
         showLinkModal: false,
-        defaultInputLink: "http://"
+        defaultInputLink: this.defaultLinkPrefix
       });
     } else {
       message.error(this.Locale.linkEmptyTip);
@@ -577,7 +579,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   handleLinkModalCancel = () => {
     this.setState({
       showLinkModal: false,
-      defaultInputLink: "http://"
+      defaultInputLink: this.defaultLinkPrefix
     });
   };
 
