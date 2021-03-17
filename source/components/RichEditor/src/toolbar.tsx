@@ -341,7 +341,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-link`]: true
           });
           value = <button className={linkCls} key={key} />;
-          tooltip = Locale.hyperlinks || 'link';
+          tooltip = Locale.hyperlinks;
           break;
         }
         case 'bold': {

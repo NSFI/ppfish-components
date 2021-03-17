@@ -80,6 +80,7 @@ const localeValues: LocaleProperties = {
     editLink: '编辑超链接',
 
     //toolbar
+    hyperlinks: '超链接',
     backgroundColor: '背景色',
     textDirection: '文字方向',
     increaseIndent: '增加缩进',

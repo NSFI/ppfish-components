@@ -161,6 +161,7 @@ const LocaleValue: LocaleProperties = {
     editLink: 'Edit link',
 
     //toolbar
+    hyperlinks: 'Hyperlinks',
     backgroundColor: 'Background color',
     textDirection: 'Text direction',
     increaseIndent: 'Increase indent',

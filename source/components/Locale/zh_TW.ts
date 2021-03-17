@@ -80,6 +80,7 @@ const localeValues: LocaleProperties = {
     editLink: '編輯超鏈接',
 
     //toolbar
+    hyperlinks: '超鏈接',
     backgroundColor: '背景色',
     textDirection: '文字方向',
     increaseIndent: '增加縮進',
