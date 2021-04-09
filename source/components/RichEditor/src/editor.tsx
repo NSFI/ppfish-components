@@ -1324,7 +1324,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   <span className="text">{Locale.HyperlinkAddress}</span>
                   <Input
                     ref={el => (this.linkModalInputRef = el)}
-                    style={{ width: "434px" }}
+                    style={{ width: "420px" }}
                     defaultValue={defaultInputLink}
                   />
                   {insertLinkTip ? <div className="tip">{insertLinkTip}</div> : null}

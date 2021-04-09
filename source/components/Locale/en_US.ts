@@ -144,7 +144,7 @@ const LocaleValue: LocaleProperties = {
     selectLocalImage: "Select local image",
     insertAttachment: "Insert the attachment",
     selectLocalFile: "Select local files",
-    HyperlinkAddress: 'Hyperlink address',
+    HyperlinkAddress: 'Link address',
     insertPicture: 'Insert the picture',
     noVideoLinkErrorTip: 'Please set the video source address',
     VideoCantPlayTip: "The video cannot be played",
@@ -161,7 +161,7 @@ const LocaleValue: LocaleProperties = {
     editLink: 'Edit link',
 
     //toolbar
-    hyperlinks: 'Hyperlink',
+    hyperlinks: 'Link',
     backgroundColor: 'Background color',
     textDirection: 'Text direction',
     increaseIndent: 'Increase indent',
