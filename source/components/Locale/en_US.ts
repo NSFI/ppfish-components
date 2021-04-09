@@ -114,7 +114,7 @@ const LocaleValue: LocaleProperties = {
     skipBtnText: 'Skip',
   },
   Modal: {
-    okText: 'ok',
+    okText: 'OK',
     cancelText: 'cancel',
   },
   Pagination: {
@@ -188,7 +188,10 @@ const LocaleValue: LocaleProperties = {
     bold: 'Bold',
     temporarilyNoData: 'No Data',
     enterKeyWordPlease: 'Please enter the keywords',
-    justOkText: 'OK'
+    justOkText: 'OK',
+    accessLink: 'Access the ink',
+    edit: 'edit',
+    deleteText: 'delete',
   },
   VideoViewer: {
     fullScreen: 'fullScreen',
@@ -221,7 +224,7 @@ const LocaleValue: LocaleProperties = {
     searchPlaceholder: 'Search here',
     treeNodeResetTitle: 'Do not select any category',
     notFoundContent: 'No Data',
-    okText: 'Ok',
+    okText: 'OK',
     cancelText: 'Cancel',
   },
   Upload: {

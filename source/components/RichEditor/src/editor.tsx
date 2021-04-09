@@ -1209,6 +1209,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     });
   };
 
+  // 变更伪类的content
+  changePseudoElementText = () => {
+    const { accessLink,edit,deleteText } = this.Locale;
+    const elEdit = document.querySelector('.ql-snow .ql-tooltip a.ql-action');
+    const elDelete = document.querySelector('.ql-snow .ql-tooltip a.ql-remove');
+    const elAccessLink = document.querySelector('.ql-snow .ql-tooltip');
+    
+    elEdit && elEdit.setAttribute('data-after-content',edit);
+    elDelete && elDelete.setAttribute('data-before-content',deleteText);
+    elAccessLink && elAccessLink.setAttribute('data-before-content',accessLink);
+  }
+
   render() {
     const {
       loading,
@@ -1298,6 +1310,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         {
           (Locale: LocaleProperties['RichEditor']) => {
             this.Locale = Locale;
+            this.changePseudoElementText();
             return (
               <div className={cls} style={style} ref={el => (this.editorCtner = el)}>
                 <Modal

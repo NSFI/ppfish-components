@@ -912,7 +912,7 @@
   white-space: nowrap;
 }
 .ql-snow .ql-tooltip::before {
-  content: "访问链接：";
+  content: attr(data-before-content);
   line-height: 26px;
   margin-right: 8px;
 }
@@ -934,12 +934,12 @@
 }
 .ql-snow .ql-tooltip a.ql-action::after {
   border-right: 1px solid #e1e3e6;
-  content: '编辑';
+  content: attr(data-after-content);
   margin-left: 13px;
   padding-right: 8px;
 }
 .ql-snow .ql-tooltip a.ql-remove::before {
-  content: '删除';
+  content: attr(data-before-content);
   margin-left: 8px;
 }
 .ql-snow .ql-tooltip a {

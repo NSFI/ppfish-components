@@ -31,6 +31,9 @@ const localeValues: LocaleProperties = {
     defaultOptionTitle: '默認展示數據項',
     okText: '確定',
     cancelText: '取消',
+    accessLink: '訪問鏈接',
+    edit: '編輯',
+    deleteText: '删除',
   },
   Modal: {
     okText: '確定',
