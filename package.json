@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.8.1",
+  "version": "1.8.2-alpha.1",
   "description": "fish design ui components",
   "typings": "lib/components/index.d.ts",
   "scripts": {
