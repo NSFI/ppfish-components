@@ -67,7 +67,7 @@ const localeValues: LocaleProperties = {
     insertPicture: '插入图片',
     noVideoLinkErrorTip: '请设置视频源地址',
     VideoCantPlayTip: '视频无法播放',
-    file: '[文件]',
+    file: '[文件] ',
     noFileInfoTip: '文件信息读取失败',
     noPicSrcTip: '请设置图片源地址',
     noVideoUrlErrorTip: '视频链接URL不得为空',

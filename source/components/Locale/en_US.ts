@@ -148,7 +148,7 @@ const LocaleValue: LocaleProperties = {
     insertPicture: 'Insert the picture',
     noVideoLinkErrorTip: 'Please set the video source address',
     VideoCantPlayTip: "The video cannot be played",
-    file: '[file]',
+    file: '[File] ',
     noFileInfoTip: 'Failed to read file information',
     noPicSrcTip: 'Please set the picture source address',
     noVideoUrlErrorTip: 'The video link URL cannot be empty',

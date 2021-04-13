@@ -445,6 +445,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         );
       }
     );
+    this.changePseudoElementText();
     /* eslint-enable react/no-did-mount-set-state */
   }
 
@@ -458,6 +459,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         value: this.formatFontTag(this.state.lastValue)
       });
     }
+    this.changePseudoElementText();
     /* eslint-enable react/no-did-update-set-state */
   }
 
@@ -1212,9 +1214,10 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   // 变更伪类的content
   changePseudoElementText = () => {
     const { accessLink,edit,deleteText } = this.Locale;
-    const elEdit = document.querySelector('.ql-snow .ql-tooltip a.ql-action');
-    const elDelete = document.querySelector('.ql-snow .ql-tooltip a.ql-remove');
-    const elAccessLink = document.querySelector('.ql-snow .ql-tooltip');
+    const editorCtner = this.editorCtner;
+    const elEdit = editorCtner.querySelector('.ql-snow .ql-tooltip a.ql-action');
+    const elDelete = editorCtner.querySelector('.ql-snow .ql-tooltip a.ql-remove');
+    const elAccessLink = editorCtner.querySelector('.ql-snow .ql-tooltip');
     
     elEdit && elEdit.setAttribute('data-after-content',edit);
     elDelete && elDelete.setAttribute('data-before-content',deleteText);
@@ -1310,7 +1313,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         {
           (Locale: LocaleProperties['RichEditor']) => {
             this.Locale = Locale;
-            this.changePseudoElementText();
             return (
               <div className={cls} style={style} ref={el => (this.editorCtner = el)}>
                 <Modal
