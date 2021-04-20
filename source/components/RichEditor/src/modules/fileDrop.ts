@@ -114,7 +114,7 @@ export default class FileDrop {
         listFormat.list = curFormat.list;
       }
 
-      let displayFileName = '[File] ' + fileInfo.name,
+      let displayFileName = '[文件] ' + fileInfo.name,
         delta = [
           {
             insert: displayFileName,
