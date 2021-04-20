@@ -93,7 +93,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     customInsertValue: {},
     insertImageTip: true,
     insertVideoTip: true,
-    placeholder: true,
+    placeholder: '',
     prefixCls: "fishd-richeditor",
     popoverPlacement: "top",
     tooltipPlacement: "bottom",
@@ -446,6 +446,9 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       }
     );
     this.changePseudoElementText();
+    setTimeout(() => {
+      this.changeEditorPlaceholder();
+    }, 10);
     /* eslint-enable react/no-did-mount-set-state */
   }
 
@@ -460,6 +463,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       });
     }
     this.changePseudoElementText();
+    this.changeEditorPlaceholder();
     /* eslint-enable react/no-did-update-set-state */
   }
 
@@ -1224,6 +1228,12 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     elAccessLink && elAccessLink.setAttribute('data-before-content',accessLink);
   }
 
+  // 变更编辑器placeholder
+  changeEditorPlaceholder = () => {
+    const root = this.getEditor()?.root;
+    root && root.setAttribute('data-placeholder', this.props.placeholder || this.Locale.placeholder);
+  }
+
   render() {
     const {
       loading,
@@ -1430,7 +1440,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   bounds={this.editorCtner}
                   className={"editor-body"}
                   modules={moduleOpts}
-                  placeholder={Locale.placeholder}
+                  // placeholder={Locale.placeholder}
                   onChange={this.handleChange}
                   onSelectionChange={this.handleSelectionChange}
                 />

@@ -31,9 +31,6 @@ const localeValues: LocaleProperties = {
     defaultOptionTitle: '默認展示數據項',
     okText: '確定',
     cancelText: '取消',
-    accessLink: '訪問鏈接',
-    edit: '編輯',
-    deleteText: '删除',
   },
   Modal: {
     okText: '確定',
@@ -110,7 +107,11 @@ const localeValues: LocaleProperties = {
     bold: '粗體',
     temporarilyNoData: '暫無數據',
     enterKeyWordPlease: '請輸入關鍵字',
-    justOkText: '知道了'
+    placeholder: '請輸入內容',
+    justOkText: '知道了',
+    accessLink: '訪問鏈接',
+    edit: '編輯',
+    deleteText: '删除',
   },
   Spin: {
     loading: '加載中'

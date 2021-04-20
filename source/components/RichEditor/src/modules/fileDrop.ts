@@ -1,6 +1,3 @@
-import { getRuntimeLocale } from '../../../Config/Locale/Provider';
-import { LocaleProperties } from '../../../Locale';
-
 export interface quill{
   root: HTMLElement,
   getSelection: Function,
@@ -117,8 +114,7 @@ export default class FileDrop {
         listFormat.list = curFormat.list;
       }
 
-      const runtimeLocale: LocaleProperties['RichEditor'] = getRuntimeLocale('RichEditor');
-      let displayFileName = runtimeLocale.file + fileInfo.name,
+      let displayFileName = '[File] ' + fileInfo.name,
         delta = [
           {
             insert: displayFileName,

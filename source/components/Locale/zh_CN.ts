@@ -107,6 +107,7 @@ const localeValues: LocaleProperties = {
     bold: '粗体',
     temporarilyNoData: '暂无数据',
     enterKeyWordPlease: '请输入关键字',
+    placeholder: '请输入内容',
     justOkText: '知道了',
     accessLink: '访问链接',
     edit: '编辑',

@@ -75,6 +75,61 @@ export default () => (
       content: 'some messages...some messages...',
     });
   }
+  
+getFileUrl = (files, callback) => {
+    if (!(files && files.length)) return;
+
+    // 根据file.type过滤掉拖入/粘贴的非文件内容
+    // ...
+
+    this.setState({
+      loading: true
+    });
+
+    // 模拟上传文件至服务器并设置URL的异步过程
+    setTimeout(() => {
+      let filesInfo = [
+        {
+          name: '普通文件.doc',
+          type: 'other',
+          url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
+        },
+        {
+          name: '普通文件.pdf',
+          type: 'other',
+          url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
+        },
+        {
+          type: 'image',
+          src: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe",
+          // 添加其他可选属性
+          width: 200,
+          height: 100,
+          alt: 'image alt',
+          title: 'image title',
+          'data-test': 'test-image'
+        },
+        {
+          type: 'video',
+          src: "//www.runoob.com/try/demo_source/mov_bbb.mp4",
+          // 添加其他可选属性
+          width: 300,
+          'data-test': 'test-video'
+        },
+        {
+          name: '普通文件.txt',
+          type: 'other',
+          url: "//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
+        }
+      ];
+      callback(filesInfo);
+
+      this.setState({
+        loading: false
+      });
+    }, 1000);
+  }
+
   render() {
     const {currentLocale} = this.state; 
     const ConfigProvider = Config.Provider;
@@ -127,7 +182,7 @@ export default () => (
               showTime={true}
               />
           </Row>
-          <RichEditor />
+          <RichEditor fileDrop customDropFile={this.getFileUrl} />
         </ConfigProvider>
       </div>
     )

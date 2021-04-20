@@ -188,6 +188,7 @@ const LocaleValue: LocaleProperties = {
     bold: 'Bold',
     temporarilyNoData: 'No data',
     enterKeyWordPlease: 'Please enter the keywords',
+    placeholder: 'Please enter content',
     justOkText: 'OK',
     accessLink: 'Access the link',
     edit: 'Edit',
