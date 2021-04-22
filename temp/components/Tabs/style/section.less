@@ -1,0 +1,144 @@
+@tab-prefix-cls: ~"@{fishd-prefix}-tabs";
+
+/* stylelint-disable declaration-no-important */
+.@{tab-prefix-cls} {
+  &&-section > &-bar,
+  &&-highlighted-section > &-bar,
+  &&-borderless-section > &-bar {
+    border-bottom: none;
+  }
+
+  &&-section > &-bar &-nav-container,
+  &&-highlighted-section > &-bar &-nav-container,
+  &&-borderless-section > &-bar &-nav-container {
+    height: @tabs-card-height;
+    overflow: visible;
+  }
+
+  &&-section > &-bar &-tab,
+  &&-highlighted-section > &-bar &-tab {
+    margin: 0;
+    padding: 0 20px;
+    transition: all 0.3s @ease-in-out;
+    line-height: @tabs-card-height - 2px;
+    border: @border-width-base @border-style-base @border-color-base;
+    border-left: none;
+  }
+
+  &&-borderless-section > &-bar &-tab {
+    border: none;
+    margin: 0;
+    box-shadow: @border-width-base 0 0 0 @border-color-base;
+    padding: 0 20px;
+
+    &:last-child {
+      box-shadow: none;
+    }
+  }
+
+  &&-borderless-section > &-bar &-tab:first-child {
+    padding-left: 0;
+  }
+
+  &&-section > &-bar &-tab:first-child,
+  &&-highlighted-section > &-bar &-tab:first-child {
+    border-left: @border-width-base @border-style-base @border-color-base;
+    border-radius: @border-radius-base 0 0 @border-radius-base;
+    box-shadow: none !important;
+  }
+
+  &&-section > &-bar &-tab:last-child,
+  &&-highlighted-section > &-bar &-tab:last-child {
+    border-radius: 0 @border-radius-base @border-radius-base 0;
+  }
+
+  &&-section > &-bar &-tab-active {
+    background: @component-background;
+    border-color: @primary-color !important;
+    color: @tabs-card-active-color;
+    box-shadow: -@border-width-base 0 0 0 @primary-color;
+    z-index: 1;
+  }
+  &&-highlighted-section > &-bar &-tab-active {
+    background: @tabs-card-active-color;
+    border-color: @primary-color !important;
+    color: @component-background;
+    box-shadow: -@border-width-base 0 0 0 @primary-color;
+    z-index: 1;
+  }
+  &&-section > &-bar &-tab-inactive,
+  &&-highlighted-section > &-bar &-tab-inactive {
+    padding: 0;
+  }
+  &&-section > &-bar &-nav-wrap,
+  &&-highlighted-section > &-bar &-nav-wrap {
+    margin-bottom: 0;
+  }
+  &&-section > &-bar &-tab .@{iconfont-prefix}-close-tag-line,
+  &&-highlighted-section > &-bar &-tab .@{iconfont-prefix}-close-tag-line {
+    color: @text-color-secondary;
+    transition: all 0.3s;
+    font-size: @font-size-sm;
+    margin-left: 3px;
+    margin-right: -5px;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    height: @font-size-base;
+    &:hover {
+      color: @heading-color;
+    }
+  }
+
+  &&-section &-content > &-tabpane,
+  &&-highlighted-section &-content > &-tabpane,
+  &&-editable-card &-content > &-tabpane {
+    transition: none !important;
+    &-inactive {
+      overflow: hidden;
+    }
+  }
+
+  &&-section > &-bar &-tab:hover .@{iconfont-prefix}-close-tag-line,
+  &&-highlighted-section > &-bar &-tab:hover .@{iconfont-prefix}-close-tag-line {
+    opacity: 1;
+  }
+
+  &-extra-content {
+    line-height: @tabs-card-height;
+
+    .@{tab-prefix-cls}-new-tab {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: @border-radius-sm;
+      border: @border-width-base @border-style-base @border-color-split;
+      font-size: 12px;
+      color: @text-color;
+      transition: all 0.3s;
+      &:hover {
+        color: @tabs-card-active-color;
+        border-color: @tabs-card-active-color;
+      }
+    }
+  }
+
+  // https://github.com/ant-design/ant-design/issues/9104
+  &&-section&-bottom > &-bar &-tab,
+  &&-highlighted-section&-bottom > &-bar &-tab {
+    border-bottom: @border-width-base @border-style-base @border-color-split;
+    border-top: 0;
+    border-radius: 0 0 @border-radius-base @border-radius-base;
+  }
+
+  &&-section&-bottom > &-bar &-tab-active,
+  &&-highlighted-section&-bottom > &-bar &-tab-active {
+    color: @primary-color;
+    padding-bottom: 0;
+    padding-top: 1px;
+  }
+}
+/* stylelint-enable */

@@ -349,8 +349,8 @@ class DateRangePanel extends React.Component {
     const inputText = e.target.value;
     const ndate = parseDate(inputText, dateFormat(format));
     const getDate = () => {
-      const ndateMin = [setTime(new Date(ndate), minTime), maxDate];
-      const ndateMax = [minDate, setTime(new Date(ndate), maxTime)];
+      const ndateMin = [minTime?setTime(new Date(ndate), minTime):new Date(ndate) , maxDate];
+      const ndateMax = [minDate, maxTime?setTime(new Date(ndate), maxTime):new Date(ndate)];
       return type === 'min' ? ndateMin : ndateMax;
     };
 
@@ -544,9 +544,15 @@ class DateRangePanel extends React.Component {
 
   // 点击确定按钮
   handleConfirm = () => {
+    const { onError } = this.props;
     const { minDate, maxDate, minTime, maxTime } = this.state;
     const pickedMinTime = setTime(new Date(minDate), minTime);
     const pickedMaxTime = setTime(new Date(maxDate), maxTime);
+
+    if(pickedMinTime && pickedMaxTime && onError && onError([pickedMinTime, pickedMaxTime])) {
+      return;
+    }
+
     this.props.onPick([pickedMinTime, pickedMaxTime], false, true);
   }
 

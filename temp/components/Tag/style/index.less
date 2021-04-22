@@ -1,0 +1,137 @@
+@import (reference) "../../../assets/css/index";
+
+@tag-prefix-cls: ~"@{fishd-prefix}-tag";
+
+/* stylelint-disable declaration-no-important */
+.@{tag-prefix-cls} {
+  .reset-component;
+  display: inline-flex;
+  align-items: center;
+  // line-height: 20px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: @border-radius-base;
+  // border: @border-width-base @border-style-base @border-color-base;
+  background: @tag-default-bg;
+  font-size: @tag-font-size;
+  transition: all 0.3s @ease-out;
+  opacity: 1;
+  margin-right: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    opacity: 0.85;
+    .@{iconfont-prefix}-close-modal-line.invisible {
+      opacity: 1;
+    }
+  }
+  &:only-child {
+    margin-right: 0;
+  }
+
+  &,
+  a,
+  a:hover {
+    color: @tag-default-color;
+  }
+
+  > a:first-child:last-child {
+    display: inline-block;
+    // margin: 0 -8px;
+    // padding: 0 8px;
+  }
+
+  .@{iconfont-prefix}-close-modal-line.invisible {
+    opacity: 0;
+  }
+
+  .@{iconfont-prefix}-close-modal-line {
+    .iconfont-size-under-12px(8px);
+    cursor: pointer;
+    margin-left: 3px;
+    transition: all 0.3s;
+    color: @text-color-secondary;
+    font-weight: bold;
+
+    &:hover {
+      color: @heading-color;
+    }
+  }
+
+  &-has-color {
+    border-color: transparent;
+    &,
+    a,
+    a:hover,
+    .@{iconfont-prefix}-close-modal-line,
+    .@{iconfont-prefix}-close-modal-line:hover {
+      color: #fff;
+    }
+  }
+
+  &-checkable {
+    background-color: transparent;
+    border-color: transparent;
+
+    &:not(&-checked):hover {
+      color: @primary-color;
+    }
+
+    &:active,
+    &-checked {
+      color: #fff;
+    }
+
+    &-checked {
+      background-color: @primary-6;
+    }
+
+    &:active {
+      background-color: @primary-7;
+    }
+  }
+
+  &-close {
+    width: 0 !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-zoom-enter,
+  &-zoom-appear {
+    animation: fishdFadeIn 0.2s @ease-in-out-circ;
+    animation-fill-mode: both;
+  }
+
+  &-zoom-leave {
+    animation: fishdZoomOut 0.3s @ease-in-out-circ;
+    animation-fill-mode: both;
+  }
+
+  // @colors: pink, magenta, red, volcano, orange, yellow, gold, cyan, lime, green, blue, geekblue, purple;
+
+  // // mixin to iterate over colors and create CSS class for each one
+  // .make-color-classes(@i: length(@colors)) when (@i > 0) {
+  //   .make-color-classes(@i - 1);
+  //   @color: extract(@colors, @i);
+  //   @lightColor: "@{color}-1";
+  //   @lightBorderColor: "@{color}-3";
+  //   @darkColor: "@{color}-6";
+  //   &-@{color} {
+  //     color: @@darkColor;
+  //     background: @@lightColor;
+  //     border-color: @@lightBorderColor;
+  //   }
+  //   &-@{color}-inverse {
+  //     background: @@darkColor;
+  //     border-color: @@darkColor;
+  //     color: #fff;
+  //   }
+  // }
+
+  // .make-color-classes();
+}
+/* stylelint-enable */
