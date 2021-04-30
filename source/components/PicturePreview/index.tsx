@@ -384,7 +384,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
           width: num2px(width),
           height: num2px(height),
           left: num2px(oriLeft + (oriWidth - width) / 2),
-          top: num2px(oriTop + (oriHeight - height) / 2)
+          top: num2px(oriTop + Math.trunc((oriHeight - height) / 2))
         };
 
         this.setState({
