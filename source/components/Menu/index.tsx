@@ -53,7 +53,7 @@ export interface MenuProps {
   inlineCollapsed?: boolean;
   subMenuCloseDelay?: number;
   subMenuOpenDelay?: number;
-  getPopupContainer?: (triggerNode: Element) => HTMLElement;
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   focusable?: boolean;
 }
 

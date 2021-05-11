@@ -34,7 +34,7 @@ interface SelectProps {
   errorMessage?: string | React.ReactNode;
   extraOptions?: string | React.ReactNode;
   filterOption?: boolean | ((value: SelectValue, child?: React.ReactNode) => void);
-  getPopupContainer?: () => HTMLElement | React.ReactNode;
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   labelClear?: boolean;
   labelInValue?: boolean;
   loading?: boolean;

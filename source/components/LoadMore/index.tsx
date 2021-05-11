@@ -10,14 +10,14 @@ const noop = () => {};
 
 interface LoadMoreProps {
   buttonSize: 'small' | 'default' | 'large';
-  className: string;
+  className?: string;
   defaultText: string | React.ReactNode;
   onLoadMore: () => void;
   endText: string | React.ReactNode;
   errorText: string | React.ReactNode;
   loadingText: string | React.ReactNode;
   status: string;
-  extraCls: string;
+  extraCls?: string;
 }
 
 export default class LoadMore extends React.Component<LoadMoreProps> {

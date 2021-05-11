@@ -24,7 +24,7 @@ const isInputValid = (text, date) => {
 };
 
 const $type = Symbol('type');
-type GetPopupContainer = (triggerNode?: Element) => HTMLElement;
+type GetPopupContainer = (triggerNode: HTMLElement) => HTMLElement;
 
 interface DateRangeBasePickerProps {
   className?: string;
