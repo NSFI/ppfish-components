@@ -49,7 +49,7 @@ export type BasePickerProps = {
   format?: string;
   placement?: Placement;
   prefixCls?: string;
-  getPopupContainer?: (node: HTMLElement) => HTMLElement | Node;
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   showTrigger?: boolean;
   firstDayOfWeek?: number;
   disabledDate?: (date?: Date, mode?: Mode) => boolean;

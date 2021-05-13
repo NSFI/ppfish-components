@@ -69,7 +69,7 @@ export interface RichEditorProps {
   customInsertAttachment?: Function;
   customInsertImage?: Function;
   customInsertVideo?: Function;
-  getPopupContainer?: (triggerNode: Element) => HTMLElement;
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   onChange?: Function;
   onClickToolbarBtn?: Function;
   onSelectionChange?: Function;
@@ -91,7 +91,7 @@ export interface ModuleHtmlType {
   customInsertValue?: object,
   popoverPlacement?: TooltipPlacement,
   tooltipPlacement?: TooltipPlacement,
-  getPopupContainer?: (triggerNode: Element) => HTMLElement,
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement,
 }
 
 export interface CustomToolbarProps extends ModuleHtmlType {

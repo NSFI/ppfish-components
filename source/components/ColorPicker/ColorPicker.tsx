@@ -43,7 +43,7 @@ export interface ColorPickerProps {
   popupStyle?: React.CSSProperties;
   esc?: boolean;
   transitionName?: string;
-  getPopupContainer?: () => HTMLElement;
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   align?: string;
   animation?: string;
 }

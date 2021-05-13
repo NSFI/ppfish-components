@@ -1,0 +1,164 @@
+@import (reference) "../../../assets/css/index";
+@import (reference) "../../Input/style/mixin";
+@import "../../Checkbox/style/mixin";
+@import "./Select.less";
+@import "./TreeSelect.less";
+
+@select-prefix: ~"@{fishd-prefix}-treeselect";
+@select-tree-ctner-prefix: ~"@{fishd-prefix}-treeselect-ctner";
+
+/* stylelint-disable declaration-no-important */
+.@{select-prefix}-dropdown {
+  overflow: hidden;
+
+  .hide {
+    display: none;
+  }
+
+  .select-search-icon {
+    position: absolute;
+    right: 0;
+  }
+
+  .select-clear-icon {
+    opacity: 1;
+  }
+
+  .@{select-prefix}-search__field__wrap:hover {
+    .@{select-prefix}-search__field {
+      border-color: @primary-color !important;
+    }
+  }
+
+  .@{select-prefix}-search__field:focus {
+    border-color: @primary-color !important;
+    // box-shadow: @box-shadow-base;
+    // outline: 0;
+    box-shadow: 0 0 0 2px rgba(51, 126, 255, 0.2);
+  }
+
+  .dropdown-confirm {
+    position: relative;
+    display: flex;
+    align-items: center;
+    // justify-content: space-around;
+    justify-content: flex-end;
+    height: 48px;
+    // box-sizing: border-box;
+    // border-top: @border-width-base @border-style-base @border-color-base;
+    border-top: @border-width-base @border-style-base #ebedf0;
+    border-radius: 0 0 @border-radius-base @border-radius-base;
+    overflow: hidden;
+
+    .@{fishd-prefix}-btn {
+      width: 80px;
+      margin-right: 10px;
+    }
+
+    .@{fishd-prefix}-btn:last-child {
+      margin-right: 8px;
+    }
+  }
+
+  &-reset {
+    position: relative;
+    display: inline-block;
+    padding: 0 4px;
+    margin: 0 12px 2px 12px;
+    height: 28px;
+    line-height: 28px;
+    width: ~"calc(100% - 24px)";
+    border-radius: @border-radius-base;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.65);
+    // overflow: hidden;
+
+    &:hover {
+      background-color: @item-hover-bg;
+    }
+  }
+
+  .@{select-prefix}-base-popup {
+    max-height: 236px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .scrollbar();
+  }
+}
+
+.@{select-prefix}-scroll.@{select-prefix}-disabled {
+  overflow: hidden !important;
+}
+
+.@{select-prefix}-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 89px;
+}
+
+.@{select-prefix}-singleline {
+  height: @input-height-base;
+}
+
+.@{select-prefix}-singleline.@{select-prefix}-lg {
+  height: @input-height-lg;
+}
+
+.@{select-prefix}-singleline.@{select-prefix}-sm {
+  height: @input-height-sm;
+}
+
+.@{select-tree-ctner-prefix}.@{select-prefix}-open {
+  border-color: @input-hover-border-color;
+}
+
+.@{select-tree-ctner-prefix} {
+  outline: none !important;
+  user-select: none;
+  display: inline-block;
+  cursor: pointer;
+
+  box-sizing: border-box;
+  border-radius: @border-radius-base;
+  border: @border-width-base @border-style-base @border-color-base;
+
+  // strange align fix for chrome but works
+  // https://gw.alipayobjects.com/zos/rmsportal/VFTfKXJuogBAXcvfAUWJ.gif
+  // border-top-width: @border-width-base + 0.02px;
+  transition: all 0.3s @ease-in-out;
+
+  .scrollbar();
+
+  &:hover {
+    .hover;
+    box-shadow: none;
+  }
+
+  .@{select-prefix}-focused &,
+  &:focus,
+  &:active {
+    .active;
+    box-shadow: @box-shadow-active;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .@{select-prefix}-multiple-readonly {
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 30px;
+    cursor: pointer;
+    margin-left: @control-padding-horizontal;
+  }
+}
+
+.@{select-prefix}-disabled .@{select-prefix}-multiple-readonly {
+  cursor: not-allowed;
+}
+/* stylelint-enable */

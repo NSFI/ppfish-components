@@ -90,7 +90,7 @@ export interface CascaderProps {
   onVisibleChange?: (popupVisible: boolean) => void;
   prefixCls?: string;
   inputPrefixCls?: string;
-  getPopupContainer?: (triggerNode?: HTMLElement) => HTMLElement;
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   popupVisible?: boolean;
   fieldNames?: FieldNamesType;
   esc?: boolean;

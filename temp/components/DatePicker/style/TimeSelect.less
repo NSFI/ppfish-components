@@ -1,0 +1,38 @@
+.@{prefixClass} {
+  &-picker-panel {
+    &.time-select-panel {
+      // 覆盖picker-panel
+      .@{prefixClass}-picker-panel__content {
+        max-height: 200px;
+        margin: 0;
+      }
+    }
+    .time-select-item {
+      padding: 8px 10px;
+      font-size: @font-size-base;
+      &.selected:not(.disabled) {
+        color: @primary-color;
+      }
+      &.selected:after {
+        display: inline-block;
+        width: 14px;
+        height: 100%;
+        position: absolute;
+        right: 15px;
+        color: @primary-color;
+        /* stylelint-disable-next-line */
+        font-family: "@{iconfont-prefix}";
+        content: "\e671";
+        font-size: @font-size-sm;
+      }
+      &.disabled {
+        color: @datepicker-disable-color;
+        cursor: not-allowed;
+      }
+      &:not(.disabled):not(.selected):hover {
+        background-color: @datepicker-hover-background-color;
+        cursor: pointer;
+      }
+    }
+  }
+}

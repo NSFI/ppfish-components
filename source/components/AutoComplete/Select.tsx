@@ -59,7 +59,7 @@ export interface SelectProps extends AbstractSelectProps {
   maxTagPlaceholder?: React.ReactNode | ((omittedValues: SelectValue[]) => React.ReactNode);
   optionFilterProp?: string;
   labelInValue?: boolean;
-  getPopupContainer?: (triggerNode: Element) => HTMLElement;
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   tokenSeparators?: string[];
   getInputElement?: () => React.ReactElement<any>;
   autoFocus?: boolean;
