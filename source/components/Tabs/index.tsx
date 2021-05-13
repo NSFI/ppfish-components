@@ -145,11 +145,6 @@ export default class Tabs extends React.Component<TabsProps, any> {
       tabPaneAnimated = 'animated' in this.props ? tabPaneAnimated : false;
     }
 
-    warning(
-      !(type.indexOf('card') >= 0 && (size === 'small' || size === 'large')),
-      "Tabs[type=card|editable-card] doesn't have small or large size, it's by designed."
-    );
-
     const cls = classNames(className, {
       [`${prefixCls}-vertical`]: tabPosition === 'left' || tabPosition === 'right',
       [`${prefixCls}-${size}`]: !!size,
