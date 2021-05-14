@@ -3,22 +3,11 @@
  * when manipulating positions across the application
  */
 export default class Position {
-  /**
-   * @param {number} left
-   * @param {number} top
-   * @param {number} right
-   * @param {number} bottom
-   */
-  constructor({
-    left = 0,
-    top = 0,
-    right = 0,
-    bottom = 0,
-  } = {}) {
-    this.left = left;
-    this.right = right;
-    this.top = top;
-    this.bottom = bottom;
+  constructor(props) {
+    this.left = props.left || 0;
+    this.right = props.right || 0;
+    this.top = props.top || 0;
+    this.bottom = props.bottom || 0;
   }
 
   /**

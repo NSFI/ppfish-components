@@ -2,10 +2,10 @@ import {
   ANIMATION_DURATION_MS,
   CLASS_DRIVER_HIGHLIGHTED_ELEMENT,
   CLASS_FIX_STACKING_CONTEXT,
-  CLASS_POSITION_RELATIVE,
-} from '../common/constants';
-import { getStyleProperty } from '../common/utils';
-import Position from './position';
+  CLASS_POSITION_RELATIVE
+} from "../common/constants";
+import { getStyleProperty } from "../common/utils";
+import Position from "./position";
 
 /**
  * Wrapper around DOMElements to enrich them
@@ -22,22 +22,14 @@ export default class Element {
    * @param {Window} window
    * @param {Document} document
    */
-  constructor({
-    node,
-    options,
-    popover,
-    stage,
-    overlay,
-    window,
-    document,
-  } = {}) {
-    this.node = node;
-    this.document = document;
-    this.window = window;
-    this.options = options;
-    this.overlay = overlay;
-    this.popover = popover;
-    this.stage = stage;
+  constructor(props) {
+    this.node = props.node || {};
+    this.document = props.document || {};
+    this.window = props.window || {};
+    this.options = props.options || {};
+    this.overlay = props.overlay || {};
+    this.popover = props.popover || {};
+    this.stage = props.stage || {};
     this.animationTimeout = null;
   }
 
@@ -61,10 +53,10 @@ export default class Element {
     }
 
     return (
-      top >= this.window.pageYOffset
-      && left >= this.window.pageXOffset
-      && (top + height) <= (this.window.pageYOffset + this.window.innerHeight)
-      && (left + width) <= (this.window.pageXOffset + this.window.innerWidth)
+      top >= this.window.pageYOffset &&
+      left >= this.window.pageXOffset &&
+      top + height <= this.window.pageYOffset + this.window.innerHeight &&
+      left + width <= this.window.pageXOffset + this.window.innerWidth
     );
   }
 
@@ -75,7 +67,7 @@ export default class Element {
   scrollManually() {
     const elementRect = this.node.getBoundingClientRect();
     const absoluteElementTop = elementRect.top + this.window.pageYOffset;
-    const middle = absoluteElementTop - (this.window.innerHeight / 2);
+    const middle = absoluteElementTop - this.window.innerHeight / 2;
 
     this.window.scrollTo(0, middle);
   }
@@ -97,10 +89,12 @@ export default class Element {
     }
 
     try {
-      this.node.scrollIntoView(this.options.scrollIntoViewOptions || {
-        behavior: 'instant',
-        block: 'center',
-      });
+      this.node.scrollIntoView(
+        this.options.scrollIntoViewOptions || {
+          behavior: "instant",
+          block: "center"
+        }
+      );
     } catch (e) {
       // `block` option is not allowed in older versions of firefox, scroll manually
       this.scrollManually();
@@ -118,15 +112,17 @@ export default class Element {
     const documentElement = this.document.documentElement;
     const window = this.window;
 
-    const scrollTop = this.window.pageYOffset || documentElement.scrollTop || body.scrollTop;
-    const scrollLeft = window.pageXOffset || documentElement.scrollLeft || body.scrollLeft;
+    const scrollTop =
+      this.window.pageYOffset || documentElement.scrollTop || body.scrollTop;
+    const scrollLeft =
+      window.pageXOffset || documentElement.scrollLeft || body.scrollLeft;
     const elementRect = this.node.getBoundingClientRect();
 
     return new Position({
       top: elementRect.top + scrollTop,
       left: elementRect.left + scrollLeft,
       right: elementRect.left + scrollLeft + elementRect.width,
-      bottom: elementRect.top + scrollTop + elementRect.height,
+      bottom: elementRect.top + scrollTop + elementRect.height
     });
   }
 
@@ -215,7 +211,9 @@ export default class Element {
     this.node.classList.remove(CLASS_DRIVER_HIGHLIGHTED_ELEMENT);
     this.node.classList.remove(CLASS_POSITION_RELATIVE);
 
-    const stackFixes = this.document.querySelectorAll(`.${CLASS_FIX_STACKING_CONTEXT}`);
+    const stackFixes = this.document.querySelectorAll(
+      `.${CLASS_FIX_STACKING_CONTEXT}`
+    );
     for (let counter = 0; counter < stackFixes.length; counter++) {
       stackFixes[counter].classList.remove(CLASS_FIX_STACKING_CONTEXT);
     }
@@ -246,30 +244,34 @@ export default class Element {
   fixStackingContext() {
     let parentNode = this.node.parentNode;
     while (parentNode) {
-      if (!parentNode.tagName || parentNode.tagName.toLowerCase() === 'body') {
+      if (!parentNode.tagName || parentNode.tagName.toLowerCase() === "body") {
         break;
       }
 
-      const zIndex = getStyleProperty(parentNode, 'z-index');
-      const opacity = parseFloat(getStyleProperty(parentNode, 'opacity'));
-      const transform = getStyleProperty(parentNode, 'transform', true);
-      const transformStyle = getStyleProperty(parentNode, 'transform-style', true);
-      const transformBox = getStyleProperty(parentNode, 'transform-box', true);
-      const filter = getStyleProperty(parentNode, 'filter', true);
-      const perspective = getStyleProperty(parentNode, 'perspective', true);
+      const zIndex = getStyleProperty(parentNode, "z-index");
+      const opacity = parseFloat(getStyleProperty(parentNode, "opacity"));
+      const transform = getStyleProperty(parentNode, "transform", true);
+      const transformStyle = getStyleProperty(
+        parentNode,
+        "transform-style",
+        true
+      );
+      const transformBox = getStyleProperty(parentNode, "transform-box", true);
+      const filter = getStyleProperty(parentNode, "filter", true);
+      const perspective = getStyleProperty(parentNode, "perspective", true);
 
       // Stacking context gets disturbed if
       // - Parent has z-index
       // - Opacity is below 0
       // - Filter/transform or perspective is applied
       if (
-        /[0-9]+/.test(zIndex)
-        || opacity < 1
-        || (transform && transform !== 'none')
-        || (transformStyle && transformStyle !== 'flat')
-        || (transformBox && transformBox !== 'border-box')
-        || (filter && filter !== 'none')
-        || (perspective && perspective !== 'none')
+        /[0-9]+/.test(zIndex) ||
+        opacity < 1 ||
+        (transform && transform !== "none") ||
+        (transformStyle && transformStyle !== "flat") ||
+        (transformBox && transformBox !== "border-box") ||
+        (filter && filter !== "none") ||
+        (perspective && perspective !== "none")
       ) {
         parentNode.classList.add(CLASS_FIX_STACKING_CONTEXT);
       }
@@ -284,8 +286,8 @@ export default class Element {
    * @private
    */
   canMakeRelative() {
-    const currentPosition = this.getStyleProperty('position');
-    const avoidPositionsList = ['absolute', 'fixed', 'relative'];
+    const currentPosition = this.getStyleProperty("position");
+    const avoidPositionsList = ["absolute", "fixed", "relative"];
 
     // Because if the element has any of these positions, making it
     // relative will break the UI
@@ -373,8 +375,18 @@ export default class Element {
     const html = this.document.documentElement;
 
     return {
-      height: Math.max(body.scrollHeight, body.offsetHeight, html.scrollHeight, html.offsetHeight),
-      width: Math.max(body.scrollWidth, body.offsetWidth, html.scrollWidth, html.offsetWidth),
+      height: Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        html.scrollHeight,
+        html.offsetHeight
+      ),
+      width: Math.max(
+        body.scrollWidth,
+        body.offsetWidth,
+        html.scrollWidth,
+        html.offsetWidth
+      )
     };
   }
 
@@ -386,7 +398,7 @@ export default class Element {
   getSize() {
     return {
       height: Math.max(this.node.scrollHeight, this.node.offsetHeight),
-      width: Math.max(this.node.scrollWidth, this.node.offsetWidth),
+      width: Math.max(this.node.scrollWidth, this.node.offsetWidth)
     };
   }
 }

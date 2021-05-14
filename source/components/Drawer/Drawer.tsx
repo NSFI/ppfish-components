@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import RcDrawer from './src';
-import { RcDrawerState } from './src/Drawer';
 
 type EventType =
   | React.KeyboardEvent<HTMLDivElement>
@@ -32,7 +31,7 @@ interface DrawerProps {
   mask?: boolean;
 }
 
-export default class Drawer extends React.Component<DrawerProps, RcDrawerState> {
+export default class Drawer extends React.Component<DrawerProps> {
   static propTypes = {
     // prefixCls: PropTypes.string,
     className: PropTypes.string,
