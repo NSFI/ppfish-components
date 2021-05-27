@@ -36,6 +36,10 @@ function isLargger(el1, el2) {
   return el1.clientHeight > el2.clientHeight || el1.clientWidth > el2.clientWidth;
 }
 
+function isSourceChange(oldSource: ImageItem[], newSource: ImageItem[]): boolean {
+  return JSON.stringify(oldSource) !== JSON.stringify(newSource);
+}
+
 const setStyle = (el, css) => {
   for (let key in css) {
     el.style[key] = css[key];
@@ -113,6 +117,7 @@ interface PicturePreviewState {
     ratio: number; //图片的缩放比例
   };
   shown: boolean; //标记是否显示过，第一次显示时居中显示
+  sourceChange: boolean // 资源是否发生改变
 }
 
 class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState> {
@@ -142,7 +147,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     progress: false,
     visible: false,
     activeIndex: 0,
-    onClose: () => {}
+    onClose: () => { }
   };
 
   static getDerivedStateFromProps: React.GetDerivedStateFromProps<
@@ -169,9 +174,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         newState['imgs'] = JSON.parse(sourceStr);
       }
     } else if (children) {
-      let imgList = [];
-
-      imgList = React.Children.map(children, (child: React.ReactElement<HTMLImageElement>) => {
+      const imgList = React.Children.map(children, (child: React.ReactElement<HTMLImageElement>) => {
         let img = {
           name: '',
           src: ''
@@ -187,6 +190,8 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
 
       newState['imgs'] = imgList;
     }
+
+    // newState['sourceChange'] = Reflect.has(newState, 'imgs') && isSourceChange(imgs, newState['imgs'])
 
     return newState;
   };
@@ -231,7 +236,8 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         naturalWidth: 0,
         naturalHeight: 0
       },
-      shown: false //标记是否显示过，第一次显示时居中显示
+      shown: false, //标记是否显示过，第一次显示时居中显示
+      sourceChange: false // source是否改变
     };
 
     this.bodyDefaultOverflow = document.body.style.overflow;
@@ -265,13 +271,19 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    let { current, show } = this.state;
+    console.log('didupdate');
+    let { current, show, imgs } = this.state;
+
+    const sourceChange = isSourceChange(prevState.imgs, imgs);
+
 
     if (snapshot) {
       document.body.style.overflow = snapshot;
     }
 
-    if (prevState.current != current) {
+    // 是否需要更新容器样式 切换图片 || 显示状态发生改变 || 资源发生改变
+    const shouldUpdate = prevState.current != current || (this.props.visible && !prevProps.visible) || sourceChange;
+    if (shouldUpdate) {
       this.setContainerStyle();
     }
 
@@ -302,11 +314,6 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     let { mask, visible } = this.props;
-
-    // 从隐藏状态到展示状态时重新设置容器的样式
-    if (visible && !prevProps.visible) {
-      this.setContainerStyle();
-    }
 
     if (mask) {
       return visible ? 'hidden' : this.bodyDefaultOverflow;
@@ -452,9 +459,6 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       {
         current: current <= 0 ? imgs.length - 1 : current - 1,
         shown: true
-      },
-      () => {
-        this.setContainerStyle();
       }
     );
   };
@@ -465,9 +469,6 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       {
         current: current >= imgs.length - 1 ? 0 : current + 1,
         shown: true
-      },
-      () => {
-        this.setContainerStyle();
       }
     );
   };
