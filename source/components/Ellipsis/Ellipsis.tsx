@@ -176,9 +176,9 @@ export default class Ellipsis extends React.Component<EllipsisProps, EllipsisSta
     if (!node) {
       return;
     }
-
-    const isEllipsisActive = node.offsetHeight < node.scrollHeight || node.offsetWidth < node.scrollWidth;
-    const tooltipVisible = visible && isEllipsisActive;
+    
+    const tooltipVisible = visible && (node.offsetHeight < node.scrollHeight || node.offsetWidth < node.scrollWidth);
+    
     this.setState(state => {
       const shouldReset = state.tooltipVisible !== tooltipVisible;
       return shouldReset ? { tooltipVisible } : null;
