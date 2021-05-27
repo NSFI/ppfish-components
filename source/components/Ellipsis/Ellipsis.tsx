@@ -2,7 +2,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Tooltip, { TooltipProps } from '../Tooltip';
-import ResizeObserver from 'resize-observer-polyfill';
 import EllipsisText from './EllipsisText';
 /* eslint react/no-did-mount-set-state: 0 */
 /* eslint no-param-reassign: 0 */
@@ -25,7 +24,7 @@ interface EllipsisProps {
 interface EllipsisState {
   text: string;
   targetCount: number;
-  isEllipsisActive: boolean;
+  tooltipVisible: boolean;
 }
 
 export default class Ellipsis extends React.Component<EllipsisProps, EllipsisState> {
@@ -52,7 +51,6 @@ export default class Ellipsis extends React.Component<EllipsisProps, EllipsisSta
   private node: HTMLElement | null;
   private widthNode: HTMLElement | null;
   private lineClampNode: HTMLElement | null;
-  private resizeObserver;
   private shadowChildren;
   private root;
   private content;
@@ -61,32 +59,12 @@ export default class Ellipsis extends React.Component<EllipsisProps, EllipsisSta
   state: Readonly<EllipsisState> = {
     text: '',
     targetCount: 0,
-    isEllipsisActive: false
+    tooltipVisible: false
   };
 
   componentDidMount() {
     if (this.node) {
       this.computeLine();
-    }
-    // detect ellipsis active in width/lines mode
-    if (this.props.width || this.props.lines) {
-      let target: HTMLElement | null;
-      if (this.props.width) {
-        target = this.widthNode;
-      } else if (this.props.lines && isSupportLineClamp) {
-        target = this.lineClampNode;
-      } else {
-        return;
-      }
-      this.detectEllipsisActive(target);
-      this.resizeObserver = new ResizeObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.target === target) {
-            this.detectEllipsisActive(target);
-          }
-        });
-      });
-      this.resizeObserver.observe(target);
     }
   }
 
@@ -97,14 +75,14 @@ export default class Ellipsis extends React.Component<EllipsisProps, EllipsisSta
     }
   }
 
-  componentWillUnmount() {
-    this.resizeObserver && this.resizeObserver.disconnect();
-  }
-
-  detectEllipsisActive = (node: HTMLElement) => {
-    this.setState({
-      isEllipsisActive: node.offsetHeight < node.scrollHeight || node.offsetWidth < node.scrollWidth
-    });
+  getTargetNode = () => {
+    let target: HTMLElement | null;
+    if (this.props.width) {
+      target = this.widthNode;
+    } else if (this.props.lines && isSupportLineClamp) {
+      target = this.lineClampNode;
+    }
+    return target;
   };
 
   computeLine = () => {
@@ -193,8 +171,22 @@ export default class Ellipsis extends React.Component<EllipsisProps, EllipsisSta
     this.shadowChildren = n;
   };
 
+  handleTooltipVisibleChange = visible => {
+    const node = this.getTargetNode();
+    if (!node) {
+      return;
+    }
+    
+    const tooltipVisible = visible && (node.offsetHeight < node.scrollHeight || node.offsetWidth < node.scrollWidth);
+    
+    this.setState(state => {
+      const shouldReset = state.tooltipVisible !== tooltipVisible;
+      return shouldReset ? { tooltipVisible } : null;
+    });
+  };
+
   render() {
-    const { text, targetCount, isEllipsisActive } = this.state;
+    const { text, targetCount, tooltipVisible } = this.state;
     const {
       children,
       lines,
@@ -240,7 +232,9 @@ export default class Ellipsis extends React.Component<EllipsisProps, EllipsisSta
         <Tooltip
           {...tooltipProps}
           overlayClassName={`${prefix}-tooltip`}
-          title={isEllipsisActive ? children : null}
+          title={children}
+          visible={tooltipVisible}
+          onVisibleChange={this.handleTooltipVisibleChange}
         >
           {node}
         </Tooltip>
@@ -283,7 +277,9 @@ export default class Ellipsis extends React.Component<EllipsisProps, EllipsisSta
         <Tooltip
           {...tooltipProps}
           overlayClassName={`${prefix}-tooltip`}
-          title={isEllipsisActive ? children : null}
+          title={children}
+          visible={tooltipVisible}
+          onVisibleChange={this.handleTooltipVisibleChange}
         >
           {node}
         </Tooltip>
