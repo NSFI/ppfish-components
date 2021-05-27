@@ -17,8 +17,7 @@ import Option from './Option';
 import OptGroup from './OptGroup';
 import { LocaleContext } from '../Config/Locale/Context';
 import { LocaleProperties } from '../Locale';
-import LocaleList from '../Locale/index';
-const noop = () => { };
+const noop = () => {};
 
 interface SelectProps {
   allowClear?: boolean;
@@ -220,7 +219,10 @@ class Select extends React.Component<SelectProps, SelectState> {
 
   //转换传入的value
   static getValueFromProps = (value, labelInValue, children) => {
-    const valueType = Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+    const valueType = Object.prototype.toString
+      .call(value)
+      .slice(8, -1)
+      .toLowerCase();
     const optionList = Select.getOptionFromChildren(children, []);
     if (labelInValue) {
       //labelInValue数据从传入数据中取
@@ -505,7 +507,10 @@ class Select extends React.Component<SelectProps, SelectState> {
   //获取加料后的children
   getProcessedChildren = (children, dropdownCls: string) => {
     return React.Children.map(children, (child: any) => {
-      const typeOfChildren = Object.prototype.toString.call(child).slice(8, -1).toLowerCase();
+      const typeOfChildren = Object.prototype.toString
+        .call(child)
+        .slice(8, -1)
+        .toLowerCase();
       if (!!child && typeOfChildren === 'object' && child.type && child.type.isSelectOption) {
         const { selectValue, activeKey } = this.state;
         const { showOptionCheckedIcon } = this.props;
@@ -523,7 +528,12 @@ class Select extends React.Component<SelectProps, SelectState> {
           ref: value,
           children: this.getProcessedChildren(child.props.children, dropdownCls)
         });
-      } else if (!!child && typeOfChildren === 'object' && child.type && child.type.isSelectOptGroup) {
+      } else if (
+        !!child &&
+        typeOfChildren === 'object' &&
+        child.type &&
+        child.type.isSelectOptGroup
+      ) {
         return React.cloneElement(child, {
           prefixCls: `${dropdownCls}-option-group`,
           children: this.getProcessedChildren(child.props.children, dropdownCls)
@@ -538,7 +548,10 @@ class Select extends React.Component<SelectProps, SelectState> {
   getFilteredChildren = (children, ChildrenList = []) => {
     const { filterOption } = this.props;
     const { searchValue } = this.state;
-    const typeOfOption = Object.prototype.toString.call(filterOption).slice(8, -1).toLowerCase();
+    const typeOfOption = Object.prototype.toString
+      .call(filterOption)
+      .slice(8, -1)
+      .toLowerCase();
     React.Children.forEach(children, (child: any) => {
       let filterFlag = false;
       if (child && child.type && child.type.isSelectOption) {
@@ -767,9 +780,9 @@ class Select extends React.Component<SelectProps, SelectState> {
       required,
       errorMessage = Locale.errorMessage,
       notFoundContent = Locale.notFoundContent,
-      placeholder =  Locale.placeholder,
+      placeholder = Locale.placeholder,
       searchPlaceholder = Locale.searchPlaceholder,
-      selectAllText = Locale.selectAllText,
+      selectAllText = Locale.selectAllText
     } = this.props;
     const { searchValue, selectValue } = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
@@ -804,90 +817,77 @@ class Select extends React.Component<SelectProps, SelectState> {
           </div>
         ) : (
           <div className={`${dropdownCls}-content`}>
-            {
-              //搜索框
-              showSearch && (
-                <SelectSearch
-                  allowClear={allowClear}
-                  emitEmpty={this.emptySearchValue}
-                  prefixCls={`${dropdownCls}-search`}
-                  ref={selectSearch => (this.selectSearch = selectSearch)}
-                  searchInputProps={searchInputProps}
-                  searchPlaceholder={searchPlaceholder}
-                  searchValue={searchValue}
-                  updateSearchValue={this.updateSearchValue}
-                />
-              )
-            }
+            {//搜索框
+            showSearch && (
+              <SelectSearch
+                allowClear={allowClear}
+                emitEmpty={this.emptySearchValue}
+                prefixCls={`${dropdownCls}-search`}
+                ref={selectSearch => (this.selectSearch = selectSearch)}
+                searchInputProps={searchInputProps}
+                searchPlaceholder={searchPlaceholder}
+                searchValue={searchValue}
+                updateSearchValue={this.updateSearchValue}
+              />
+            )}
             <div
               className={`${dropdownCls}-list`}
               onScroll={onPopupScroll}
               ref={dropdownList => (this.dropdownList = dropdownList)}
               style={{ maxHeight: maxScrollHeight }}
             >
-              {
-                //全选按钮-多选未搜索的情况下存在
-                !searchValue && showSelectAll && mode === 'multiple' && (
-                  <li
-                    className={classNames(
-                      { [`${dropdownCls}-option-item`]: true },
-                      { ['checked checked-icon']: this.isSelectAll() }
-                    )}
-                    onClick={this.selectAllOption}
-                  >
-                    {selectAllText}
-                  </li>
-                )
-              }
-              {
-                //清空选项按钮-单选未搜索的情况下存在
-                !searchValue && showSingleClear && mode === 'single' && (
-                  <li className={`${dropdownCls}-option-item`} onClick={this.emptySelectValue}>
-                    {placeholder}
-                  </li>
-                )
-              }
+              {//全选按钮-多选未搜索的情况下存在
+              !searchValue && showSelectAll && mode === 'multiple' && (
+                <li
+                  className={classNames(
+                    { [`${dropdownCls}-option-item`]: true },
+                    { ['checked checked-icon']: this.isSelectAll() }
+                  )}
+                  onClick={this.selectAllOption}
+                >
+                  {selectAllText}
+                </li>
+              )}
+              {//清空选项按钮-单选未搜索的情况下存在
+              !searchValue && showSingleClear && mode === 'single' && (
+                <li className={`${dropdownCls}-option-item`} onClick={this.emptySelectValue}>
+                  {placeholder}
+                </li>
+              )}
               {
                 //预留置顶项
                 extraOptions
               }
-              {
-                //列表及空状态框
-                showNotFoundContent ? (
-                  <div className={`${dropdownCls}-not-found`}>{notFoundContent}</div>
-                ) : (
-                  <div className={`${dropdownCls}-filtered-list`}>{optionFilteredList}</div>
-                )
-              }
+              {//列表及空状态框
+              showNotFoundContent ? (
+                <div className={`${dropdownCls}-not-found`}>{notFoundContent}</div>
+              ) : (
+                <div className={`${dropdownCls}-filtered-list`}>{optionFilteredList}</div>
+              )}
             </div>
-            {
-              //多选的点击取消、确定按钮组
-              mode === 'multiple' && (
-                <div>
-                  {maxCountError && (
-                    <div className={`${dropdownCls}-error-panel`}>
-                      <p className={`${dropdownCls}-error-panel-msg`}>{errorMessage}</p>
-                    </div>
-                  )}
-                  <div className={`${dropdownCls}-footer`}>
-                    <Button
-                      className={`${dropdownCls}-footer-btn`}
-                      onClick={this.handleCancelSelect}
-                    >
-                      {Locale.cancelText}
-                    </Button>
-                    <Button
-                      className={`${dropdownCls}-footer-btn`}
-                      onClick={this.handleConfirmSelect}
-                      disabled={multipleConfirmDisabled}
-                      type="primary"
-                    >
-                      {Locale.confirmText}
-                    </Button>
+            {//多选的点击取消、确定按钮组
+            mode === 'multiple' && (
+              <div>
+                {maxCountError && (
+                  <div className={`${dropdownCls}-error-panel`}>
+                    <p className={`${dropdownCls}-error-panel-msg`}>{errorMessage}</p>
                   </div>
+                )}
+                <div className={`${dropdownCls}-footer`}>
+                  <Button className={`${dropdownCls}-footer-btn`} onClick={this.handleCancelSelect}>
+                    {Locale.cancelText}
+                  </Button>
+                  <Button
+                    className={`${dropdownCls}-footer-btn`}
+                    onClick={this.handleConfirmSelect}
+                    disabled={multipleConfirmDisabled}
+                    type="primary"
+                  >
+                    {Locale.confirmText}
+                  </Button>
                 </div>
-              )
-            }
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -911,8 +911,8 @@ class Select extends React.Component<SelectProps, SelectState> {
       showMultipleSelectAll,
       size,
       style,
-      placeholder=Locale.placeholder,
-      multipleSelectAllText = Locale.multipleSelectAllText,
+      placeholder = Locale.placeholder,
+      multipleSelectAllText = Locale.multipleSelectAllText
     } = this.props;
     const { selectValue, selectValueForMultiplePanel, popupVisible } = this.state;
     const selectionCls = `${prefixCls}`;
@@ -956,84 +956,78 @@ class Select extends React.Component<SelectProps, SelectState> {
           </div>
         ) : (
           <div className={`${selectionCls}-content`}>
-            {
-              // showArrow并且不是可删除label模式下出现箭头
-              showArrow && !labelClear && (
-                <div className={`${selectionCls}-caret`}>
-                  <Icon type="down-fill" className={classNames({ ['open']: popupVisible })} />
-                </div>
-              )
-            }
-            {
-              // 没有值的情况下显示placeholder
-              ((!selectValue.length && mode === 'single') ||
-                (!selectValueForMultiplePanel.length && mode === 'multiple')) && (
-                <div className={`${selectionCls}-placeholder`}>{placeholder}</div>
-              )
-            }
-            {
-              // 单选模式下有值显示值的label
-              mode === 'single' && !!selectValue.length && (
-                <div className={`${selectionCls}-option-single`} title={selectValue[0].title}>
-                  {selectValue[0].label}
-                </div>
-              )
-            }
-            {
-              // 多选模式下区分labelClear
-              // selectValueForMultiplePanel的更新时机：
-              // 1.初始化value、defaultValue
-              // 2.props.value 更改
-              // 3.多选取消、确定按钮点击
-              // 4.label.click事件
-              mode === 'multiple' &&
-                (labelClear ? (
-                  //仅在有选中数据时渲染，fix空状态面板上方高度问题
-                  selectValueForMultiplePanel && selectValueForMultiplePanel.length ? (
-                    <Animate
-                      onEnd={this.resizeTrigger}
-                      component="div"
-                      transitionName="zoom"
-                      style={{
-                        maxHeight: maxLabelClearPanelHeight ? maxLabelClearPanelHeight : null
-                      }}
-                      className={`${selectionCls}-option-clearable-list`}
-                    >
-                      {selectValueForMultiplePanel.map(option => (
-                        <div
-                          className={`${selectionCls}-option-clearable-option`}
-                          style={{ width: tagWidth }}
-                          key={option.key}
-                          title={option.title}
-                        >
-                          <span className={`${selectionCls}-option-clearable-option-content`}>
-                            {option.label}
-                          </span>
+            {// showArrow并且不是可删除label模式下出现箭头
+            showArrow && !labelClear && (
+              <div className={`${selectionCls}-caret`}>
+                <Icon type="down-fill" className={classNames({ ['open']: popupVisible })} />
+              </div>
+            )}
+            {// 没有值的情况下显示placeholder
+            ((!selectValue.length && mode === 'single') ||
+              (!selectValueForMultiplePanel.length && mode === 'multiple')) && (
+              <div className={`${selectionCls}-placeholder`}>{placeholder}</div>
+            )}
+            {// 单选模式下有值显示值的label
+            mode === 'single' && !!selectValue.length && (
+              <div className={`${selectionCls}-option-single`} title={selectValue[0].title}>
+                {selectValue[0].label}
+              </div>
+            )}
+            {// 多选模式下区分labelClear
+            // selectValueForMultiplePanel的更新时机：
+            // 1.初始化value、defaultValue
+            // 2.props.value 更改
+            // 3.多选取消、确定按钮点击
+            // 4.label.click事件
+            mode === 'multiple' &&
+              (labelClear ? (
+                //仅在有选中数据时渲染，fix空状态面板上方高度问题
+                selectValueForMultiplePanel && selectValueForMultiplePanel.length ? (
+                  <Animate
+                    onEnd={this.resizeTrigger}
+                    component="div"
+                    transitionName="zoom"
+                    style={{
+                      maxHeight: maxLabelClearPanelHeight ? maxLabelClearPanelHeight : null
+                    }}
+                    className={`${selectionCls}-option-clearable-list`}
+                  >
+                    {selectValueForMultiplePanel.map(option => (
+                      <div
+                        className={`${selectionCls}-option-clearable-option`}
+                        style={{ width: tagWidth }}
+                        key={option.key}
+                        title={option.title}
+                      >
+                        <span className={`${selectionCls}-option-clearable-option-content`}>
+                          {option.label}
+                        </span>
+                        {!disabled && (
                           <span
                             className={`${selectionCls}-option-clearable-option-close`}
                             onClick={e => this.onOptionClick(e, option, true)}
                           >
                             <Icon type="close-modal-line" />
                           </span>
-                        </div>
-                      ))}
-                    </Animate>
-                  ) : null
-                ) : (
-                  <div className={`${selectionCls}-option-multiple`} title={multipleTitle}>
-                    {this.isSelectAll(true) && showMultipleSelectAll ? (
-                      <span>{multipleSelectAllText}</span>
-                    ) : (
-                      selectValueForMultiplePanel.map((option, index) => (
-                        <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
-                          <span>{option.label}</span>
-                          {index + 1 !== selectValueForMultiplePanel.length && '、'}
-                        </span>
-                      ))
-                    )}
-                  </div>
-                ))
-            }
+                        )}
+                      </div>
+                    ))}
+                  </Animate>
+                ) : null
+              ) : (
+                <div className={`${selectionCls}-option-multiple`} title={multipleTitle}>
+                  {this.isSelectAll(true) && showMultipleSelectAll ? (
+                    <span>{multipleSelectAllText}</span>
+                  ) : (
+                    selectValueForMultiplePanel.map((option, index) => (
+                      <span key={option.key} className={`${selectionCls}-option-multiple-option`}>
+                        <span>{option.label}</span>
+                        {index + 1 !== selectValueForMultiplePanel.length && '、'}
+                      </span>
+                    ))
+                  )}
+                </div>
+              ))}
           </div>
         )}
       </div>
@@ -1046,7 +1040,7 @@ class Select extends React.Component<SelectProps, SelectState> {
       dropdownMatchSelectWidth,
       getPopupContainer,
       placement,
-      prefixCls,
+      prefixCls
     } = this.props;
 
     const { popupVisible, dropdownWidth } = this.state;
@@ -1055,24 +1049,24 @@ class Select extends React.Component<SelectProps, SelectState> {
     if (dropdownWidth) {
       popupStyle[widthProp] = `${dropdownWidth}px`;
     }
-  
+
     const LocaleContextValue = this.context;
     const Locale = LocaleContextValue && LocaleContextValue['Select'];
     return (
-         <Trigger
-            action={disabled ? [] : ['click']}
-            builtinPlacements={placements}
-            ref={node => (this.trigger = node)}
-            getPopupContainer={getPopupContainer}
-            onPopupVisibleChange={this.visibleChangeFromTrigger}
-            popup={this.getDropdownPanel(Locale)}
-            popupPlacement={placement}
-            popupVisible={popupVisible}
-            prefixCls={`${prefixCls}-popup`}
-            popupStyle={popupStyle}
-          >
-            {this.getSelectionPanel(Locale)}
-          </Trigger>
+      <Trigger
+        action={disabled ? [] : ['click']}
+        builtinPlacements={placements}
+        ref={node => (this.trigger = node)}
+        getPopupContainer={getPopupContainer}
+        onPopupVisibleChange={this.visibleChangeFromTrigger}
+        popup={this.getDropdownPanel(Locale)}
+        popupPlacement={placement}
+        popupVisible={popupVisible}
+        prefixCls={`${prefixCls}-popup`}
+        popupStyle={popupStyle}
+      >
+        {this.getSelectionPanel(Locale)}
+      </Trigger>
     );
   }
 }
