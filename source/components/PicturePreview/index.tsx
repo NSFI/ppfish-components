@@ -117,7 +117,6 @@ interface PicturePreviewState {
     ratio: number; //图片的缩放比例
   };
   shown: boolean; //标记是否显示过，第一次显示时居中显示
-  sourceChange: boolean // 资源是否发生改变
 }
 
 class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState> {
@@ -191,8 +190,6 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       newState['imgs'] = imgList;
     }
 
-    // newState['sourceChange'] = Reflect.has(newState, 'imgs') && isSourceChange(imgs, newState['imgs'])
-
     return newState;
   };
 
@@ -237,7 +234,6 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         naturalHeight: 0
       },
       shown: false, //标记是否显示过，第一次显示时居中显示
-      sourceChange: false // source是否改变
     };
 
     this.bodyDefaultOverflow = document.body.style.overflow;
