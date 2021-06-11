@@ -91,8 +91,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     customEmoji: [],
     customLink: {},
     customInsertValue: {},
-    insertImageTip: true,
-    insertVideoTip: true,
+    insertImageTip: true, // 为true时展示对应语言的默认值
+    insertVideoTip: true, // 为true时展示对应语言的默认值
     placeholder: '',
     prefixCls: "fishd-richeditor",
     popoverPlacement: "top",
@@ -1351,7 +1351,13 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   <Button type="primary" onClick={this.handlePickLocalImage}>
                     {Locale.selectLocalImage}
                   </Button>
-                  {insertImageTip ? <div className="tip">{Locale.inserImageTip || insertImageTip}</div> : null}
+                  {
+                    insertImageTip ? (
+                      <div className="tip">
+                        {(insertImageTip === true) ? Locale.insertImageTip : insertImageTip}
+                      </div>
+                    ) : null
+                  }
                 </Modal>
                 <Modal
                   title={Locale.insertAttachment}
@@ -1394,17 +1400,20 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                       >
                         {Locale.selectLocalVideo}
                       </Button>
-                      {insertVideoTip ? (
-                        insertVideoTip === true
-                          ? <div className="tip">{
+                      {
+                        insertVideoTip ? (
+                        <div className="tip">
+                          {
+                            (insertVideoTip === true) ?
                             <React.Fragment>
                               <span>{Locale.rule1}</span>
                               <br />
                               <span>{Locale.rule2}</span>
-                            </React.Fragment>
-                          }</div>
-                          : insertVideoTip
-                      ) : null}
+                            </React.Fragment> : insertVideoTip
+                          }
+                        </div>
+                        ) : null
+                      }
                     </React.Fragment>
                   ) : (
                       <Input
