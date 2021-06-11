@@ -789,7 +789,9 @@ __请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴�
 | fileDrop | 是否支持以拖入/粘贴的方式插入文件，需要搭配 `customDropFile` 使用，自定义文件的上传逻辑。`fileDrop` 存在时，`imageDrop` 会失效。插入时图片和视频文件将以富文本内容的形式插入，其他类型的文件将以超链接附件的形式插入。 | Boolean | false |
 | getPopupContainer | 弹出菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。 | () => HTMLElement | () => document.body |
 | imageDrop | 是否支持以拖入/粘贴的方式插入图片，搭配 `customDropImage` 使用时，可以自定义图片的上传逻辑，否则图片将以Data URL的形式嵌入到页面中。`fileDrop` 存在时，`imageDrop` 会失效。 | Boolean | false |
+| insertAttachmentModalVisible | 插入附件时是否展示弹窗提示。置为false时，点击插入附件按钮会直接调用插入附件的方法 | Boolean | true |
 | insertAttachmentTip | 插入附件的文字提示 | String \| HTMLElement | - |
+| insertImageModalVisible | 插入图片时是否展示弹窗提示。置为false时，点击插入图片按钮会直接调用插入图片的方法 | Boolean | true |
 | insertImageTip | 插入图片的文字提示 | String \| HTMLElement | '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。' |
 | insertLinkTip | 插入超链接的文字提示 | String \| HTMLElement | - |
 | insertVideoTip | 插入视频的文字提示 | String \| HTMLElement | `<span>1、单个视频不超过10M，支持MP4、3GP格式视频。</span><br/><span>2、最佳显示高度不超过400px, 宽度不超过270px。</span>` |
