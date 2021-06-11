@@ -58,7 +58,9 @@ export interface RichEditorProps {
   toolbar?: any[];
   value?: string;
   insertImageTip?: boolean | string | Element;
+  insertImageModalVisible?: boolean;
   insertAttachmentTip?: string | Element;
+  insertAttachmentModalVisible?: boolean;
   insertVideoTip?: boolean | string | Element;
   insertLinkTip?: string | Element;
   popoverPlacement?: TooltipPlacement;

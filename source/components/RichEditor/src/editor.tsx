@@ -56,8 +56,6 @@ class Range {
   }
 }
 
-
-
 class RichEditor extends Component<RichEditorProps, RichEditorState> {
   reactQuillNode: Element | Text
   defaultFontSize: string
@@ -92,6 +90,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     customLink: {},
     customInsertValue: {},
     insertImageTip: true, // 为true时展示对应语言的默认值
+    insertImageModalVisible: true,
+    insertAttachmentModalVisible: true,
     insertVideoTip: true, // 为true时展示对应语言的默认值
     placeholder: '',
     prefixCls: "fishd-richeditor",
@@ -259,7 +259,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       //   }
       // },
       image: () => {
-        let { onClickToolbarBtn } = this.props;
+        let { onClickToolbarBtn, insertImageModalVisible } = this.props;
         if (
           typeof onClickToolbarBtn == "function" &&
           onClickToolbarBtn("image") === false
@@ -267,15 +267,21 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           return;
         }
 
+        let showImageModal = true;
+        if (!insertImageModalVisible) {
+          showImageModal = false;
+          this.handlePickLocalImage();
+        }
+
         let quill = this.getEditor();
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
-          showImageModal: true,
+          showImageModal,
           curRange: quill.getSelection()
         });
       },
       attachment: () => {
-        let { onClickToolbarBtn } = this.props;
+        let { onClickToolbarBtn, insertAttachmentModalVisible } = this.props;
         if (
           typeof onClickToolbarBtn == "function" &&
           onClickToolbarBtn("attachment") === false
@@ -283,10 +289,16 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           return;
         }
 
+        let showAttachmentModal = true;
+        if (!insertAttachmentModalVisible) {
+          showAttachmentModal = false;
+          this.handlePickLocalFile();
+        }
+
         let quill = this.getEditor();
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
-          showAttachmentModal: true,
+          showAttachmentModal,
           curRange: quill.getSelection()
         });
       },
