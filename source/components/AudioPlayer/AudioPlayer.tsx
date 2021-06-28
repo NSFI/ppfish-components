@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Slider from '../Slider';
 import Icon from '../Icon';
@@ -53,144 +52,93 @@ export interface AudioPlayerState {
   rate: number;
 }
 
-class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
-  static propTypes = {
-    prefixCls: PropTypes.string.isRequired,
-    className: PropTypes.string,
-    size: PropTypes.oneOf(['default', 'small']),
-    title: PropTypes.string,
-    src: PropTypes.string,
-    loop: PropTypes.bool,
-    preload: PropTypes.string,
-    autoPlay: PropTypes.bool,
-    muted: PropTypes.bool,
-    volume: PropTypes.number,
-    controlVolume: PropTypes.bool,
-    controlProgress: PropTypes.bool,
-    displayTime: PropTypes.bool,
-    rateOptions: PropTypes.object,
-    download: PropTypes.bool,
-    onLoadedMetadata: PropTypes.func,
-    onCanPlay: PropTypes.func,
-    onCanPlayThrough: PropTypes.func,
-    onAbort: PropTypes.func,
-    onEnded: PropTypes.func,
-    onError: PropTypes.func,
-    onPause: PropTypes.func,
-    onPlay: PropTypes.func,
-    onSeeked: PropTypes.func
-  };
+const AudioPlayer: React.FC<AudioPlayerProps> = props => {
+  const {
+    prefixCls,
+    title,
+    src,
+    autoPlay,
+    className,
+    size,
+    loop,
+    preload,
+    controlVolume,
+    controlProgress,
+    displayTime,
+    download,
+    rateOptions,
+    onCanPlay,
+    onLoadedMetadata,
+    onCanPlayThrough,
+    onAbort,
+    onEnded,
+    onError,
+    onPause,
+    onPlay,
+    onSeeked,
+    ...otherProps
+  } = props;
 
-  static defaultProps: AudioPlayerProps = {
-    prefixCls: 'fishd-audio-player',
-    className: '',
-    size: 'default',
-    title: '',
-    src: '',
-    loop: false,
-    preload: 'metadata',
-    autoPlay: false,
-    muted: false,
-    volume: 1.0,
-    controlVolume: true,
-    controlProgress: true,
-    displayTime: true,
-    rateOptions: { value: 0 },
-    download: false,
-    onLoadedMetadata: () => {}, // 当浏览器已加载音频的元数据时的回调
-    onCanPlay: () => {}, // 当浏览器能够开始播放音频时的回调
-    onCanPlayThrough: () => {}, // 当浏览器可在不因缓冲而停顿的情况下进行播放时的回调
-    onAbort: () => {}, // 当音频的加载已放弃时(如切换到其他资源)的回调
-    onEnded: () => {}, // 当目前的播放列表已结束时的回调
-    onError: () => {}, // 当在音频加载期间发生错误时的回调
-    onPause: () => {}, // 当音频暂停时的回调
-    onPlay: () => {}, // 当音频已开始或不再暂停时的回调
-    onSeeked: () => {} // 当用户已移动/跳跃到音频中的新位置时的回调
-  };
+  const [isPlay, setIsPlay] = React.useState<boolean>();
+  const [isMuted, setIsMuted] = React.useState<boolean>();
+  const [currentVolume, setCurrentVolume] = React.useState<number>(parseInt(String(props.volume * 100)));
+  const [volumeOpen, setVolumeOpen] = React.useState<boolean>(false);
+  const [rateOpen, setRateOpen] = React.useState<boolean>(false);
+  const [allTime, setAllTime] = React.useState<number>(0);
+  const [currentTime, setCurrentTime] = React.useState<number>(0);
+  const [disabled, setDisabled] = React.useState<boolean>(!src);
+  const [rate, setRate] = React.useState<number>(rateOptions?.value || 1);
 
-  audioInstance: HTMLAudioElement | null = null;
+  const audioInstance = React.useRef<HTMLAudioElement>();
 
-  constructor(props: AudioPlayerProps) {
-    super(props);
-    this.state = {
-      isPlay: this.props.autoPlay, // 是否随即播放
-      isMuted: this.props.muted, // 是否静音
-      currentVolume: parseInt(String(this.props.volume * 100)), // 当前音量
-      volumeOpen: false, // 是否打开音量控制
-      rateOpen: false, // 是否打开播放速度调节
-      allTime: 0,
-      currentTime: 0,
-      disabled: !this.props.src, // 初始src为空时禁用组件
-      rate: this.props.rateOptions.value || 1 // 播放速度
-    };
-    this.audioInstance = null;
-  }
-
-  componentDidMount() {
-    this.controlAudio('changeRate', this.state.rate);
-    if (this.props.autoPlay) {
-      this.audioInstance.play();
+  React.useEffect(() => {
+    controlAudio('changeRate', rate);
+    if (autoPlay) {
+      audioInstance.current.play();
     }
-  }
+  }, []);
 
-  controlAudio = (type: string, value?: number) => {
-    const audio = this.audioInstance;
+  const controlAudio = (type: string, value?: number) => {
+    const audio = audioInstance.current;
     const numberValue = Number(value);
     switch (type) {
       case 'allTime':
-        this.setState({
-          allTime: audio.duration,
-          // 音频总时长为0时禁用组件
-          disabled: parseInt(String(audio.duration)) === 0
-        });
-        this.props.onCanPlay();
+        setAllTime(audio.duration);
+        setDisabled(parseInt(String(audio.duration)) === 0);
+        props.onCanPlay();
         break;
       case 'play':
-        if (this.state.disabled) {
+        if (disabled) {
           return;
         }
         audio.play();
-        this.setState({
-          isPlay: true
-        });
+        setIsPlay(true);
         break;
       case 'pause':
-        if (this.state.disabled) {
+        if (disabled) {
           return;
         }
         audio.pause();
-        this.setState({
-          isPlay: false
-        });
+        setIsPlay(false);
         break;
       case 'changeCurrentTime':
-        this.setState({
-          currentTime: value
-        });
+        setCurrentTime(value);
 
         audio.currentTime = value as number;
         if (value == audio.duration) {
-          this.setState({
-            isPlay: false
-          });
+          setIsPlay(false);
         }
         break;
       case 'getCurrentTime':
-        this.setState({
-          currentTime: audio.currentTime
-        });
+        setCurrentTime(audio.currentTime);
         if (audio.currentTime == audio.duration) {
-          this.setState({
-            isPlay: false
-          });
+          setIsPlay(false);
         }
         break;
       case 'changeVolume':
         audio.volume = (value as number) / 100;
-        this.setState({
-          currentVolume: value as number,
-          isMuted: !value
-        });
+        setCurrentVolume(value);
+        setIsMuted(!value);
         break;
       case 'changeRate':
         if (Number.isNaN(numberValue)) {
@@ -198,15 +146,13 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
           rateOptions.value or item of rateOptions.range can not convert to number`);
         }
         audio.playbackRate = numberValue;
-        this.setState({
-          rate: value as number,
-          rateOpen: false
-        });
+        setRate(value);
+        setRateOpen(false);
         break;
     }
   };
 
-  millisecondToDate = (time: number, format = true) => {
+  const millisecondToDate = (time: number, format = true) => {
     const second = Math.floor(time % 60);
     let minute = Math.floor(time / 60);
     if (!format) {
@@ -221,8 +167,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
     return `${minute}:${second >= 10 ? second : `0${second}`}`;
   };
 
-  getVolumePopupContent = () => {
-    const { currentVolume } = this.state;
+  const getVolumePopupContent = () => {
     return (
       <div className="change-audio-volume-box">
         <div className="change-audio-volume-value">{currentVolume}%</div>
@@ -239,7 +184,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
             }
             tipFormatter={null}
             defaultValue={currentVolume}
-            onChange={(value: number) => this.controlAudio('changeVolume', value)}
+            onChange={(value: number) => controlAudio('changeVolume', value)}
           />
         </div>
       </div>
@@ -247,202 +192,183 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
   };
 
   // 调节音量面板状态变化
-  onVolumeVisibleChange = (state: boolean) => {
-    this.setState({
-      volumeOpen: state
-    });
+  const onVolumeVisibleChange = (state: boolean) => {
+    setVolumeOpen(state);
   };
 
   // 调节播放速度板状态变化
-  onRateVisibleChange = (state: boolean) => {
-    this.setState({
-      rateOpen: state
-    });
+  const onRateVisibleChange = (state: boolean) => {
+    setRateOpen(state);
   };
 
-  render() {
-    const {
-      isPlay,
-      isMuted,
-      allTime,
-      currentTime,
-      currentVolume,
-      volumeOpen,
-      rateOpen,
-      disabled,
-      rate
-    } = this.state;
+  const {
+    value: rateValue = 0,
+    suffix: rateSuffix = 'x',
+    decimal: rateDecimal = 1,
+    range: rateRange = [],
+  } = rateOptions;
+  const getRateText = (rate: number) => `${Number(rate).toFixed(rateDecimal)}${rateSuffix}`;
 
-    const {
-      prefixCls,
-      title,
-      src,
-      autoPlay,
-      className,
-      size,
-      loop,
-      preload,
-      controlVolume,
-      controlProgress,
-      displayTime,
-      download,
-      rateOptions,
-      onCanPlay,
-      onLoadedMetadata,
-      onCanPlayThrough,
-      onAbort,
-      onEnded,
-      onError,
-      onPause,
-      onPlay,
-      onSeeked,
-      ...otherProps
-    } = this.props;
+  const sizeCls = size === 'small' ? 'sm' : '';
+  const pausePlayIcon = !isPlay ? 'play' : 'stop';
+  const volumeIcon = () => {
+    if (isMuted || currentVolume === 0) {
+      return 'sound-mute';
+    } else if (currentVolume > 0 && currentVolume <= 50) {
+      return 'sound-medium';
+    } else {
+      return 'sound-loud';
+    }
+  };
 
-    const {
-      value: rateValue = 0,
-      suffix: rateSuffix = 'x',
-      decimal: rateDecimal = 1,
-      range: rateRange = []
-    } = rateOptions;
-    const getRateText = (rate: number) => `${Number(rate).toFixed(rateDecimal)}${rateSuffix}`;
-
-    const sizeCls = size === 'small' ? 'sm' : '';
-    const pausePlayIcon = !isPlay ? 'play' : 'stop';
-    const volumeIcon = () => {
-      if (isMuted || currentVolume === 0) {
-        return 'sound-mute';
-      } else if (currentVolume > 0 && currentVolume <= 50) {
-        return 'sound-medium';
-      } else {
-        return 'sound-loud';
-      }
-    };
-
-    return (
-      <ConfigConsumer componentName="AudioPlayer">
-        {
-          (Locale: LocaleProperties["AudioPlayer"]) => <div
-            className={classNames(prefixCls, className, {
-              [`${prefixCls}-${sizeCls}`]: sizeCls
+  return (
+    <ConfigConsumer componentName="AudioPlayer">
+      {(Locale: LocaleProperties['AudioPlayer']) => (
+        <div
+          className={classNames(prefixCls, className, {
+            [`${prefixCls}-${sizeCls}`]: sizeCls,
+          })}
+        >
+          <div
+            className={classNames(`${prefixCls}-wrap`, {
+              [`${prefixCls}-${sizeCls}-wrap`]: sizeCls,
             })}
+            title={title}
           >
-            <div
-              className={classNames(`${prefixCls}-wrap`, {
-                [`${prefixCls}-${sizeCls}-wrap`]: sizeCls
-              })}
-              title={title}
-            >
-              <div className="audio-box">
-                <audio
-                  ref={instance => (this.audioInstance = instance)}
-                  src={src}
-                  preload={preload}
-                  loop={loop}
-                  volume={currentVolume / 100}
-                  onCanPlay={() => this.controlAudio('allTime')}
-                  onTimeUpdate={e => this.controlAudio('getCurrentTime')}
-                  onLoadedMetadata={onLoadedMetadata}
-                  onCanPlayThrough={onCanPlayThrough}
-                  onAbort={onAbort}
-                  onEnded={onEnded}
-                  onError={onError}
-                  onPause={onPause}
-                  onPlay={onPlay}
-                  onSeeked={onSeeked}
-                  {...otherProps}
-                >
-                  {Locale.notSupport}
-                </audio>
-              </div>
-
-              <div
-                className={`box pause-play-box pause-play-box-${disabled ? 'disabled' : 'enable'}`}
-                onClick={() => this.controlAudio(isPlay ? 'pause' : 'play')}
+            <div className="audio-box">
+              <audio
+                ref={audioInstance}
+                src={src}
+                preload={preload}
+                loop={loop}
+                volume={currentVolume / 100}
+                onCanPlay={() => controlAudio('allTime')}
+                onTimeUpdate={e => controlAudio('getCurrentTime')}
+                onLoadedMetadata={onLoadedMetadata}
+                onCanPlayThrough={onCanPlayThrough}
+                onAbort={onAbort}
+                onEnded={onEnded}
+                onError={onError}
+                onPause={onPause}
+                onPlay={onPlay}
+                onSeeked={onSeeked}
+                {...otherProps}
               >
-                <Icon className="handle-audio-icon pause-play" type={pausePlayIcon} />
-              </div>
-
-              {controlProgress ? (
-                <div className="box step-box">
-                  <Slider
-                    step={1}
-                    min={0}
-                    max={Number(this.millisecondToDate(allTime, false))}
-                    value={currentTime}
-                    disabled={disabled}
-                    tipMode="all"
-                    tipFormatter={(value: number) => this.millisecondToDate(value as number)}
-                    onChange={(value: number) => this.controlAudio('changeCurrentTime', value)}
-                  />
-                </div>
-              ) : null}
-
-              {displayTime ? (
-                <div className="box time-box">
-                  <span className="current">
-                    {this.millisecondToDate(currentTime as number) +
-                      ' / ' +
-                      this.millisecondToDate(allTime)}
-                  </span>
-                </div>
-              ) : null}
-
-              {controlVolume ? (
-                <Popover
-                  overlayClassName="change-audio-volume"
-                  trigger="click"
-                  placement="top"
-                  content={this.getVolumePopupContent()}
-                  visible={volumeOpen}
-                  onVisibleChange={this.onVolumeVisibleChange}
-                  getPopupContainer={node => node.parentElement}
-                >
-                  <div className="box volume-box">
-                    <Icon className="handle-audio-icon control-volume" type={volumeIcon()} />
-                  </div>
-                </Popover>
-              ) : null}
-
-              {rateRange.length ? (
-                <Popover
-                  overlayClassName="change-audio-rate"
-                  trigger="click"
-                  placement="top"
-                  visible={rateOpen}
-                  onVisibleChange={this.onRateVisibleChange}
-                  getPopupContainer={node => node.parentElement}
-                  content={rateRange.map(rateItem => (
-                    <p
-                      className="change-audio-rate-item"
-                      key={`rate-${rateItem}`}
-                      onClick={() => {
-                        this.controlAudio('changeRate', rateItem);
-                      }}
-                    >
-                      {getRateText(rateItem)}
-                    </p>
-                  ))}
-                >
-                  {<p className="box rate-box">{getRateText(rate)}</p>}
-                </Popover>
-              ) : rateValue ? (
-                <p className="box rate-box">{getRateText(rateValue)}</p>
-              ) : null}
-
-              {download ? (
-                <div className="box download-box">
-                  <a download target="_blank" rel="noopener noreferrer" href={src}>
-                    <Icon className="handle-audio-icon download" type="sound-download" />
-                  </a>
-                </div>
-              ) : null}
+                {Locale.notSupport}
+              </audio>
             </div>
+
+            <div
+              className={`box pause-play-box pause-play-box-${disabled ? 'disabled' : 'enable'}`}
+              onClick={() => controlAudio(isPlay ? 'pause' : 'play')}
+            >
+              <Icon className="handle-audio-icon pause-play" type={pausePlayIcon} />
+            </div>
+
+            {controlProgress ? (
+              <div className="box step-box">
+                <Slider
+                  step={1}
+                  min={0}
+                  max={Number(millisecondToDate(allTime, false))}
+                  value={currentTime}
+                  disabled={disabled}
+                  tipMode="all"
+                  tipFormatter={(value: number) => millisecondToDate(value as number)}
+                  onChange={(value: number) => controlAudio('changeCurrentTime', value)}
+                />
+              </div>
+            ) : null}
+
+            {displayTime ? (
+              <div className="box time-box">
+                <span className="current">
+                  {millisecondToDate(currentTime as number) + ' / ' + millisecondToDate(allTime)}
+                </span>
+              </div>
+            ) : null}
+
+            {controlVolume ? (
+              <Popover
+                overlayClassName="change-audio-volume"
+                trigger="click"
+                placement="top"
+                content={getVolumePopupContent()}
+                visible={volumeOpen}
+                onVisibleChange={onVolumeVisibleChange}
+                getPopupContainer={node => node.parentElement}
+              >
+                <div className="box volume-box">
+                  <Icon className="handle-audio-icon control-volume" type={volumeIcon()} />
+                </div>
+              </Popover>
+            ) : null}
+
+            {rateRange.length ? (
+              <Popover
+                overlayClassName="change-audio-rate"
+                trigger="click"
+                placement="top"
+                visible={rateOpen}
+                onVisibleChange={onRateVisibleChange}
+                getPopupContainer={node => node.parentElement}
+                content={rateRange.map(rateItem => (
+                  <p
+                    className="change-audio-rate-item"
+                    key={`rate-${rateItem}`}
+                    onClick={() => {
+                      controlAudio('changeRate', rateItem);
+                    }}
+                  >
+                    {getRateText(rateItem)}
+                  </p>
+                ))}
+              >
+                {<p className="box rate-box">{getRateText(rate)}</p>}
+              </Popover>
+            ) : rateValue ? (
+              <p className="box rate-box">{getRateText(rateValue)}</p>
+            ) : null}
+
+            {download ? (
+              <div className="box download-box">
+                <a download target="_blank" rel="noopener noreferrer" href={src}>
+                  <Icon className="handle-audio-icon download" type="sound-download" />
+                </a>
+              </div>
+            ) : null}
           </div>
-        }
-      </ConfigConsumer>
-    );
-  }
-}
+        </div>
+      )}
+    </ConfigConsumer>
+  );
+};
+
+AudioPlayer.defaultProps = {
+  prefixCls: 'fishd-audio-player',
+  className: '',
+  size: 'default',
+  title: '',
+  src: '',
+  loop: false,
+  preload: 'metadata',
+  autoPlay: false,
+  muted: false,
+  volume: 1.0,
+  controlVolume: true,
+  controlProgress: true,
+  displayTime: true,
+  rateOptions: { value: 0 },
+  download: false,
+  onLoadedMetadata: () => {}, // 当浏览器已加载音频的元数据时的回调
+  onCanPlay: () => {}, // 当浏览器能够开始播放音频时的回调
+  onCanPlayThrough: () => {}, // 当浏览器可在不因缓冲而停顿的情况下进行播放时的回调
+  onAbort: () => {}, // 当音频的加载已放弃时(如切换到其他资源)的回调
+  onEnded: () => {}, // 当目前的播放列表已结束时的回调
+  onError: () => {}, // 当在音频加载期间发生错误时的回调
+  onPause: () => {}, // 当音频暂停时的回调
+  onPlay: () => {}, // 当音频已开始或不再暂停时的回调
+  onSeeked: () => {}, // 当用户已移动/跳跃到音频中的新位置时的回调
+};
 
 export default AudioPlayer;
