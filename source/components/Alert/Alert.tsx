@@ -44,7 +44,7 @@ export interface AlertProps {
 }
 
 const Alert: React.FC<AlertProps> = props => {
-  const { onClose,afterClose } = props;
+  const { onClose, afterClose } = props;
   const ref = React.useRef<React.ReactNode>();
   const [closing, setClosing] = React.useState<boolean>(true);
   const [closed, setClosed] = React.useState<boolean>(false);
@@ -77,7 +77,7 @@ const Alert: React.FC<AlertProps> = props => {
     banner,
     className = '',
     style,
-    iconType
+    iconType,
   } = props;
 
   // banner模式默认有 Icon
@@ -117,9 +117,9 @@ const Alert: React.FC<AlertProps> = props => {
       [`${prefixCls}-close`]: !closing,
       [`${prefixCls}-with-description`]: !!description,
       [`${prefixCls}-no-icon`]: !showIcon,
-      [`${prefixCls}-banner`]: !!banner
+      [`${prefixCls}-banner`]: !!banner,
     },
-    className
+    className,
   );
 
   // closeable when closeText is assigned
