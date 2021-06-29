@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import RcSelect, { Option, OptGroup } from './src/index.js';
 import classNames from 'classnames';
 import warning from 'warning';
@@ -45,7 +44,7 @@ export interface SelectProps extends AbstractSelectProps {
   firstActiveValue?: string | string[];
   onChange?: (
     value: SelectValue,
-    option: React.ReactElement<any> | React.ReactElement<any>[]
+    option: React.ReactElement<any> | React.ReactElement<any>[],
   ) => void;
   onSelect?: (value: SelectValue, option: React.ReactElement<any>) => any;
   onDeselect?: (value: SelectValue) => any;
@@ -63,6 +62,7 @@ export interface SelectProps extends AbstractSelectProps {
   tokenSeparators?: string[];
   getInputElement?: () => React.ReactElement<any>;
   autoFocus?: boolean;
+  children?: React.ReactNode,
 }
 
 export interface OptionProps {
@@ -80,87 +80,45 @@ export interface SelectLocale {
   notFoundContent?: string;
 }
 
-const SelectPropTypes = {
-  prefixCls: PropTypes.string,
-  className: PropTypes.string,
-  size: PropTypes.oneOf(['default', 'large', 'small']),
-  notFoundContent: PropTypes.any,
-  showSearch: PropTypes.bool,
-  optionLabelProp: PropTypes.string,
-  transitionName: PropTypes.string,
-  choiceTransitionName: PropTypes.string,
-  id: PropTypes.string
-};
-
 // => It is needless to export the declaration of below two inner components.
 // export { Option, OptGroup };
 
-export default class Select extends React.Component<SelectProps, {}> {
-  static Option = Option as React.ClassicComponentClass<OptionProps>;
-  static OptGroup = OptGroup as React.ClassicComponentClass<OptGroupProps>;
-
-  static SECRET_COMBOBOX_MODE_DO_NOT_USE = 'SECRET_COMBOBOX_MODE_DO_NOT_USE';
-
-  static defaultProps = {
-    prefixCls: 'fishd-autocomplete-select',
-    showSearch: false,
-    transitionName: 'slide-up',
-    choiceTransitionName: 'zoom'
-  };
-
-  static propTypes = SelectPropTypes;
-
-  private rcSelect: any;
-
-  constructor(props: SelectProps) {
-    super(props);
-
+const InternalSelect: React.ForwardRefRenderFunction<unknown, SelectProps> = (props, ref) => {
+  React.useEffect(() => {
     warning(
       props.mode !== 'combobox',
       'The combobox mode of Select is deprecated, ' +
         'it will be removed in next major version, ' +
-        'please use AutoComplete instead'
+        'please use AutoComplete instead',
     );
-  }
+  }, []);
 
-  focus() {
-    this.rcSelect.focus();
-  }
-
-  blur() {
-    this.rcSelect.blur();
-  }
-
-  saveSelect = (node: any) => {
-    this.rcSelect = node;
-  };
-
-  getNotFoundContent(locale: SelectLocale) {
-    const { notFoundContent } = this.props;
-    if (this.isCombobox()) {
+  const getNotFoundContent = (locale: SelectLocale) => {
+    const { notFoundContent } = props;
+    if (isCombobox()) {
       // AutoComplete don't have notFoundContent defaultly
       return notFoundContent === undefined ? null : notFoundContent;
     }
     return notFoundContent === undefined ? locale.notFoundContent : notFoundContent;
-  }
+  };
 
-  isCombobox() {
-    const { mode } = this.props;
+  const isCombobox = () => {
+    const { mode } = props;
     return mode === 'combobox' || mode === Select.SECRET_COMBOBOX_MODE_DO_NOT_USE;
-  }
+  };
 
-  renderSelect = (locale: SelectLocale) => {
-    const { prefixCls, className = '', size, mode, ...restProps } = this.props;
+  const renderSelect = (locale: SelectLocale) => {
+    const { prefixCls, className = '', size, mode, ...restProps } = props;
     const cls = classNames(
       {
         [`${prefixCls}-lg`]: size === 'large',
-        [`${prefixCls}-sm`]: size === 'small'
+        [`${prefixCls}-sm`]: size === 'small',
       },
-      className
+      className,
     );
 
-    let { optionLabelProp } = this.props;
-    if (this.isCombobox()) {
+    let { optionLabelProp } = props;
+    if (isCombobox()) {
       // children 带 dom 结构时，无法填入输入框
       optionLabelProp = optionLabelProp || 'value';
     }
@@ -168,7 +126,7 @@ export default class Select extends React.Component<SelectProps, {}> {
     const modeConfig = {
       multiple: mode === 'multiple',
       tags: mode === 'tags',
-      combobox: this.isCombobox()
+      combobox: isCombobox(),
     };
 
     return (
@@ -178,21 +136,46 @@ export default class Select extends React.Component<SelectProps, {}> {
         prefixCls={prefixCls}
         className={cls}
         optionLabelProp={optionLabelProp || 'children'}
-        notFoundContent={this.getNotFoundContent(locale)}
-        ref={this.saveSelect}
+        notFoundContent={getNotFoundContent(locale)}
+        ref={ref}
       />
     );
   };
 
-  render() {
-    return (<ConfigConsumer componentName="AutoComplete">
-      {
-        (Locale: LocaleProperties["AutoComplete"]) => {
-          return this.renderSelect({
-            notFoundContent: (Locale.notFoundContent as string)
-          });
-        }
-      }
-    </ConfigConsumer>)
-  }
+  return (
+    <ConfigConsumer componentName="AutoComplete">
+      {(Locale: LocaleProperties['AutoComplete']) => {
+        return renderSelect({
+          notFoundContent: Locale.notFoundContent as string,
+        });
+      }}
+    </ConfigConsumer>
+  );
+};
+
+const SelectRef = React.forwardRef(InternalSelect);
+
+type InternalSelectType = typeof SelectRef;
+
+export interface SelectInterface extends InternalSelectType {
+  SECRET_COMBOBOX_MODE_DO_NOT_USE: string;
+  Option: typeof Option;
+  OptGroup: typeof OptGroup;
 }
+
+const Select: SelectInterface = SelectRef as SelectInterface;
+
+Select.displayName = 'Select';
+
+Select.SECRET_COMBOBOX_MODE_DO_NOT_USE = 'SECRET_COMBOBOX_MODE_DO_NOT_USE';
+Select.Option = Option;
+Select.OptGroup = OptGroup;
+
+Select.defaultProps = {
+  prefixCls: 'fishd-autocomplete-select',
+  showSearch: false,
+  transitionName: 'slide-up',
+  choiceTransitionName: 'zoom',
+};
+
+export default Select;

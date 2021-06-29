@@ -43,31 +43,36 @@ export interface AutoCompleteProps extends AbstractSelectProps {
     | Array<React.ReactElement<OptionProps>>;
 }
 
+export interface AutoCompleteRef {
+  focus: () => void,
+  blur: () => void,
+}
+
 function isSelectOptionOrSelectOptGroup(child: any): Boolean {
   return child && child.type && (child.type.isSelectOption || child.type.isSelectOptGroup);
 }
 
-export default class AutoComplete extends React.Component<AutoCompleteProps, {}> {
-  static Option = Option;
-  static OptGroup = OptGroup;
+const InternalAutoComplete: React.ForwardRefRenderFunction<AutoCompleteRef, AutoCompleteProps> = (
+  props,
+  ref,
+) => {
+  React.useImperativeHandle(ref, () => ({
+    focus: () => {
+      select.current.focus();
+    },
 
-  static defaultProps = {
-    prefixCls: 'fishd-autocomplete-select',
-    transitionName: 'slide-up',
-    optionLabelProp: 'children',
-    choiceTransitionName: 'zoom',
-    showSearch: false,
-    filterOption: false,
-    highlightSelected: true
-  };
+    blur: () => {
+      select.current.blur();
+    },
+  }));
 
-  private select: any;
+  const select = React.useRef<HTMLElement>();
 
-  getInputElement = () => {
-    const { children } = this.props;
+  const getInputElement = () => {
+    const { children } = props;
     const element =
       children && React.isValidElement(children) && children.type !== Option ? (
-        React.Children.only(this.props.children)
+        (React.Children.only(props.children) as JSX.Element)
       ) : (
         <Input />
       );
@@ -77,79 +82,93 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
     return <InputElement {...elementProps}>{element}</InputElement>;
   };
 
-  focus() {
-    this.select.focus();
-  }
-
-  blur() {
-    this.select.blur();
-  }
-
-  saveSelect = (node: any) => {
-    this.select = node;
+  const saveSelect = (node: any) => {
+    select.current = node;
   };
 
-  render() {
-    let {
-      size,
-      className = '',
-      notFoundContent,
-      prefixCls,
-      optionLabelProp,
-      dataSource,
-      children,
-      highlightSelected
-    } = this.props;
+  let {
+    size,
+    className = '',
+    notFoundContent,
+    prefixCls,
+    optionLabelProp,
+    dataSource,
+    children,
+    highlightSelected,
+  } = props;
 
-    const cls = classNames({
-      [`${prefixCls}-lg`]: size === 'large',
-      [`${prefixCls}-sm`]: size === 'small',
-      [className]: !!className,
-      [`${prefixCls}-show-search`]: true,
-      [`${prefixCls}-auto-complete`]: true
-    });
+  const cls = classNames({
+    [`${prefixCls}-lg`]: size === 'large',
+    [`${prefixCls}-sm`]: size === 'small',
+    [className]: !!className,
+    [`${prefixCls}-show-search`]: true,
+    [`${prefixCls}-auto-complete`]: true,
+  });
 
-    let options;
-    const childArray = React.Children.toArray(children);
-    if (childArray.length && isSelectOptionOrSelectOptGroup(childArray[0])) {
-      options = children;
-    } else {
-      options = dataSource
-        ? dataSource.map(item => {
-            if (React.isValidElement(item)) {
-              return item;
-            }
-            switch (typeof item) {
-              case 'string':
-                return <Option key={item}>{item}</Option>;
-              case 'object':
-                return (
-                  <Option key={(item as DataSourceItemObject).value}>
-                    {(item as DataSourceItemObject).text}
-                  </Option>
-                );
-              default:
-                throw new Error(
-                  'AutoComplete[dataSource] only supports type `string[] | Object[]`.'
-                );
-            }
-          })
-        : [];
-    }
-
-    return (
-      <Select
-        {...this.props}
-        className={cls}
-        dropdownClassName={highlightSelected ? null : `${prefixCls}-nohighlight`}
-        mode={Select.SECRET_COMBOBOX_MODE_DO_NOT_USE}
-        optionLabelProp={optionLabelProp}
-        getInputElement={this.getInputElement}
-        notFoundContent={notFoundContent}
-        ref={this.saveSelect}
-      >
-        {options}
-      </Select>
-    );
+  let options;
+  const childArray = React.Children.toArray(children);
+  if (childArray.length && isSelectOptionOrSelectOptGroup(childArray[0])) {
+    options = children;
+  } else {
+    options = dataSource
+      ? dataSource.map(item => {
+          if (React.isValidElement(item)) {
+            return item;
+          }
+          switch (typeof item) {
+            case 'string':
+              return <Option key={item}>{item}</Option>;
+            case 'object':
+              return (
+                <Option key={(item as DataSourceItemObject).value}>
+                  {(item as DataSourceItemObject).text}
+                </Option>
+              );
+            default:
+              throw new Error('AutoComplete[dataSource] only supports type `string[] | Object[]`.');
+          }
+        })
+      : [];
   }
+
+  return (
+    <Select
+      {...props}
+      className={cls}
+      dropdownClassName={highlightSelected ? null : `${prefixCls}-nohighlight`}
+      mode={Select.SECRET_COMBOBOX_MODE_DO_NOT_USE}
+      optionLabelProp={optionLabelProp}
+      getInputElement={getInputElement}
+      notFoundContent={notFoundContent}
+      ref={saveSelect}
+    >
+      {options}
+    </Select>
+  );
+};
+
+const AutoCompleteRef = React.forwardRef(InternalAutoComplete);
+
+type AutoCompleteRefType = typeof AutoCompleteRef;
+
+export interface AutoCompleteInterface extends AutoCompleteRefType {
+  Option: typeof Option;
+  OptGroup: typeof OptGroup;
 }
+
+const AutoComplete = AutoCompleteRef as AutoCompleteInterface;
+
+AutoComplete.defaultProps = {
+  prefixCls: 'fishd-autocomplete-select',
+  transitionName: 'slide-up',
+  optionLabelProp: 'children',
+  choiceTransitionName: 'zoom',
+  showSearch: false,
+  filterOption: false,
+  highlightSelected: true,
+};
+
+AutoComplete.Option = Option;
+AutoComplete.OptGroup = OptGroup;
+
+export default AutoComplete;

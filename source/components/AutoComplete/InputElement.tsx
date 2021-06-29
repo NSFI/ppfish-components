@@ -1,36 +1,47 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
 export interface InputElementProps {
   children: React.ReactElement<any>;
 }
 
-export default class InputElement extends React.Component<InputElementProps, any> {
-  private ele: HTMLInputElement;
+export interface InputElementRef {
+  focus: () => void,
+  blur: () => void,
+}
 
-  focus = () => {
-    this.ele.focus
-      ? this.ele.focus()
-      : (ReactDOM.findDOMNode(this.ele) as HTMLInputElement).focus();
-  };
-  blur = () => {
-    this.ele.blur ? this.ele.blur() : (ReactDOM.findDOMNode(this.ele) as HTMLInputElement).blur();
-  };
-  saveRef = (ele: HTMLInputElement) => {
-    this.ele = ele;
-    const { ref: childRef } = this.props.children as any;
+const InternalInputElement: React.ForwardRefRenderFunction<InputElementRef, InputElementProps> = (
+  props,
+  ref,
+) => {
+  React.useImperativeHandle(ref, () => ({
+    focus: () => {
+      ele.current.focus();
+    },
+    blur: () => {
+      ele.current.blur();
+    },
+  }));
+
+  const ele = React.useRef<HTMLInputElement>();
+  const saveRef = (elem: HTMLInputElement) => {
+    ele.current = elem;
+    const { ref: childRef } = props.children as any;
     if (typeof childRef === 'function') {
-      childRef(ele);
+      childRef(elem);
     }
   };
-  render() {
-    return React.cloneElement(
-      this.props.children,
-      {
-        ...this.props,
-        ref: this.saveRef
-      },
-      null
-    );
-  }
-}
+
+  return React.cloneElement(
+    props.children,
+    {
+      ...props,
+      ref: saveRef,
+    },
+    null,
+  );
+};
+
+const InputElement = React.forwardRef(InternalInputElement);
+
+InputElement.displayName = 'InputElement';
+
+export default InputElement;
