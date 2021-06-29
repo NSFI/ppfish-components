@@ -8,7 +8,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
   testURL: 'http://localhost',
-  testMatch: ['**/AutoComplete/__tests__/**/*.(js|jsx|ts|tsx)'],
+  testMatch: ['**/Avatar/__tests__/**/*.(js|jsx|ts|tsx)'],
 
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

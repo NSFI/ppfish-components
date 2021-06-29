@@ -83,6 +83,7 @@ exports[`Renders avatar demo correctly 1`] = `
     >
       <span
         class="fishd-avatar-string"
+        style="opacity:0"
       >
         U
       </span>
@@ -92,6 +93,7 @@ exports[`Renders avatar demo correctly 1`] = `
     >
       <span
         class="fishd-avatar-string"
+        style="opacity:0"
       >
         USER
       </span>
@@ -109,6 +111,7 @@ exports[`Renders avatar demo correctly 1`] = `
     >
       <span
         class="fishd-avatar-string"
+        style="opacity:0"
       >
         U
       </span>
@@ -129,6 +132,7 @@ exports[`Renders avatar demo correctly 1`] = `
     >
       <span
         class="fishd-avatar-string"
+        style="opacity:0"
       >
         U
       </span>
