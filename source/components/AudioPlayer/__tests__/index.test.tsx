@@ -5,7 +5,7 @@ import AudioPlayer from '../index';
 describe('<AudioPlayer />', () => {
   let wrapper;
   const props = {
-    source: '//ysf.qiyukf.net/26952087D69B79839F17040A5DC2E775.wav',
+    src: '//ysf.qiyukf.net/26952087D69B79839F17040A5DC2E775.wav',
     controlVolume: true,
     download: true,
   };

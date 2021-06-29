@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { mount } from 'enzyme';
-import Anchor from '../index.tsx';
+import Anchor from '../index';
 import context from '../context';
 
 const { Link } = Anchor;
@@ -29,7 +29,7 @@ describe('Anchor Render', () => {
   it('Anchor render perfectly for complete href - scroll', () => {
     let root = document.getElementById('root');
     if (!root) {
-      root = document.createElement('div', { id: 'root' });
+      root = document.createElement('div');
       root.id = 'root';
       document.body.appendChild(root);
     }
@@ -46,7 +46,7 @@ describe('Anchor Render', () => {
     const scrollToSpy = jest.spyOn(window, 'scrollTo');
     let root = document.getElementById('root');
     if (!root) {
-      root = document.createElement('div', { id: 'root' });
+      root = document.createElement('div');
       root.id = 'root';
       document.body.appendChild(root);
     }

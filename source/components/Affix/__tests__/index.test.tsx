@@ -1,16 +1,20 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import Affix from '../Affix';
-import Button from '../../Button/index.tsx';
+import Affix, { AffixProps } from '../Affix';
+import Button from '../../Button/index';
 
-const events = {};
+const events: {
+  [key: string]: any;
+} = {};
 
 function $$(className) {
   return document.body.querySelectorAll(className);
 }
 
-class AffixMounter extends React.Component {
+class AffixMounter extends React.Component<Partial<AffixProps>> {
+  container: HTMLElement;
+
   componentDidMount() {
     debugger;
     this.container.addEventListener = jest.fn().mockImplementation((event, cb) => {
@@ -27,7 +31,7 @@ class AffixMounter extends React.Component {
       <div
         style={{
           height: 100,
-          overflowY: 'scroll'
+          overflowY: 'scroll',
         }}
         ref={node => {
           this.container = node;
@@ -37,7 +41,7 @@ class AffixMounter extends React.Component {
           className="background"
           style={{
             paddingTop: 60,
-            height: 300
+            height: 300,
           }}
         >
           <Affix target={() => this.container} {...this.props}>
@@ -68,14 +72,14 @@ describe('Affix Render', () => {
         left: 0,
         right: 0,
         top: 50 - top,
-        width: 195
+        width: 195,
       };
     });
     wrapper.instance().container.scrollTop = top;
 
     act(() => {
       events.scroll({
-        type: 'scroll'
+        type: 'scroll',
       });
       jest.runAllTimers();
       wrapper.update();
@@ -100,7 +104,7 @@ describe('Affix Render', () => {
     document.body.innerHTML = '<div id="mounter" />';
 
     wrapper = mount(<AffixMounter offsetBottom={0} />, {
-      attachTo: document.getElementById('mounter')
+      attachTo: document.getElementById('mounter'),
     });
     jest.runAllTimers();
 
@@ -118,7 +122,7 @@ describe('Affix Render', () => {
     document.body.innerHTML = '<div id="mounter" />';
 
     wrapper = mount(<AffixMounter offsetTop={0} />, {
-      attachTo: document.getElementById('mounter')
+      attachTo: document.getElementById('mounter'),
     });
     jest.runAllTimers();
 
@@ -126,7 +130,7 @@ describe('Affix Render', () => {
     expect(wrapper.find('.fishd-affix').instance().style.top).toBe('0px');
     act(() => {
       wrapper.setProps({
-        offsetTop: 10
+        offsetTop: 10,
       });
       jest.runAllTimers();
     });
