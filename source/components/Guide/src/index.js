@@ -71,7 +71,6 @@ export default class Driver {
 
   /**
    * Getter for steps property
-   * @readonly
    * @public
    */
   getSteps() {
