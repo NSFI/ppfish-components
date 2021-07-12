@@ -27,25 +27,26 @@ export interface BackTopProps {
   target?: () => HTMLElement | Window;
   prefixCls?: string;
   className?: string;
+  duration?: number;
   style?: React.CSSProperties;
 }
 
-export default class BackTop extends React.Component<BackTopProps, any> {
-  static defaultProps = {
-    visibilityHeight: 400
-  };
+const BackTop: React.FC<BackTopProps> = props => {
+  const scrollEvent = React.useRef<any>();
+  const [visible, setVisible] = React.useState(false);
 
-  scrollEvent: any;
+  React.useEffect(() => {
+    const getTarget = props.target || getDefaultTarget;
+    scrollEvent.current = addEventListener(getTarget(), 'scroll', handleScroll);
+    handleScroll();
 
-  constructor(props: BackTopProps) {
-    super(props);
-    this.state = {
-      visible: false
+    return () => {
+      scrollEvent.current && scrollEvent.current.remove();
     };
-  }
+  });
 
-  getCurrentScrollTop = () => {
-    const getTarget = this.props.target || getDefaultTarget;
+  const getCurrentScrollTop = () => {
+    const getTarget = props.target || getDefaultTarget;
     const targetNode = getTarget();
     if (targetNode === window) {
       return window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
@@ -53,23 +54,24 @@ export default class BackTop extends React.Component<BackTopProps, any> {
     return (targetNode as HTMLElement).scrollTop;
   };
 
-  scrollToTop = (e: React.MouseEvent<HTMLDivElement>) => {
-    const scrollTop = this.getCurrentScrollTop();
+  const scrollToTop = (e: React.MouseEvent<HTMLDivElement>) => {
+    const {duration} = props;
+    const scrollTop = getCurrentScrollTop();
     const startTime = Date.now();
     const frameFunc = () => {
       const timestamp = Date.now();
       const time = timestamp - startTime;
-      this.setScrollTop(easeInOutCubic(time, scrollTop, 0, 450));
-      if (time < 450) {
+      setScrollTop(easeInOutCubic(time, scrollTop, 0, duration));
+      if (time < duration) {
         raf(frameFunc);
       }
     };
     raf(frameFunc);
-    (this.props.onClick || noop)(e);
+    (props.onClick || noop)(e);
   };
 
-  setScrollTop(value: number) {
-    const getTarget = this.props.target || getDefaultTarget;
+  const setScrollTop = (value: number) => {
+    const getTarget = props.target || getDefaultTarget;
     const targetNode = getTarget();
     if (targetNode === window) {
       document.body.scrollTop = value;
@@ -77,57 +79,48 @@ export default class BackTop extends React.Component<BackTopProps, any> {
     } else {
       (targetNode as HTMLElement).scrollTop = value;
     }
-  }
-
-  handleScroll = () => {
-    const { visibilityHeight, target = getDefaultTarget } = this.props;
-    const scrollTop = getScroll(target(), true);
-    this.setState({
-      visible: scrollTop > (visibilityHeight as number)
-    });
   };
 
-  componentDidMount() {
-    const getTarget = this.props.target || getDefaultTarget;
-    this.scrollEvent = addEventListener(getTarget(), 'scroll', this.handleScroll);
-    this.handleScroll();
-  }
+  const handleScroll = () => {
+    const { visibilityHeight, target = getDefaultTarget } = props;
+    const scrollTop = getScroll(target(), true);
+    setVisible(scrollTop > (visibilityHeight as number));
+  };
 
-  componentWillUnmount() {
-    if (this.scrollEvent) {
-      this.scrollEvent.remove();
-    }
-  }
+  const { prefixCls = 'fishd-back-top', className = '', children } = props;
+  const classString = classNames(prefixCls, className);
 
-  render() {
-    const { prefixCls = 'fishd-back-top', className = '', children } = this.props;
-    const classString = classNames(prefixCls, className);
+  const defaultElement = (
+    <div className={`${prefixCls}-content`}>
+      <div className={`${prefixCls}-icon`} />
+    </div>
+  );
 
-    const defaultElement = (
-      <div className={`${prefixCls}-content`}>
-        <div className={`${prefixCls}-icon`} />
-      </div>
-    );
+  // fix https://fb.me/react-unknown-prop
+  const divProps = omit(props, [
+    'prefixCls',
+    'className',
+    'children',
+    'visibilityHeight',
+    'target',
+  ]);
 
-    // fix https://fb.me/react-unknown-prop
-    const divProps = omit(this.props, [
-      'prefixCls',
-      'className',
-      'children',
-      'visibilityHeight',
-      'target'
-    ]);
+  const backTopBtn = visible ? (
+    <div {...divProps} className={classString} onClick={scrollToTop}>
+      {children || defaultElement}
+    </div>
+  ) : null;
 
-    const backTopBtn = this.state.visible ? (
-      <div {...divProps} className={classString} onClick={this.scrollToTop}>
-        {children || defaultElement}
-      </div>
-    ) : null;
+  return (
+    <Animate component="" transitionName="fade">
+      {backTopBtn}
+    </Animate>
+  );
+};
 
-    return (
-      <Animate component="" transitionName="fade">
-        {backTopBtn}
-      </Animate>
-    );
-  }
-}
+BackTop.defaultProps = {
+  visibilityHeight: 400,
+  duration: 450,
+};
+
+export default BackTop;

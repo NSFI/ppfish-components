@@ -31,7 +31,7 @@
 render(){
   return(
     <div id="components-back-top-demo-custom">
-      <BackTop>
+      <BackTop duration={200}>
         <div className="fishd-back-top-inner">UP</div>
       </BackTop>
       <p>Scroll down to see the bottom-right
@@ -74,4 +74,5 @@ render(){
 | onClick | 点击按钮的回调函数 | (e) => Void | - |
 | style | 额外样式 | Object | - |
 | target | 设置需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数 | () => HTMLElement | () => window |
+| duration | 回到顶部所需时间（ms）	| Number | 450 |
 | visibilityHeight | 滚动高度达到此参数值才出现 `BackTop` | Number | 400 |
