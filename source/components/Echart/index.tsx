@@ -29,7 +29,7 @@ export default class Echart extends Component<EchartProps> {
     lazyUpdate: false,
     style: { height: '300px' },
     className: '',
-    onChartReady: () => {},
+    onChartReady: () => { },
     showLoading: false,
     loadingOption: null,
     onEvents: {},
@@ -46,6 +46,15 @@ export default class Echart extends Component<EchartProps> {
   getInstance() {
     // @ts-ignore
     return this.echarts_react.getEchartsInstance();
+  }
+
+  componentDidMount() {
+    const echartInstance = this.echarts_react.getEchartsInstance();
+    echartInstance.clear();
+
+    setTimeout(() => {
+      echartInstance.setOption(this.props.option);
+    }, 100);
   }
 
   render() {
