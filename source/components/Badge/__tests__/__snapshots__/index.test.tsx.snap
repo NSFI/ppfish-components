@@ -12,7 +12,7 @@ exports[`Badge should be compatible with borderColor style 1`] = `
   >
     <span
       class="fishd-scroll-number-only"
-      style="-ms-transform:translateY(-1400%);-webkit-transform:translateY(-1400%);transform:translateY(-1400%)"
+      style="transition:none;-ms-transform:translateY(-1400%);-webkit-transform:translateY(-1400%);transform:translateY(-1400%)"
     >
       <p
         class=""
@@ -206,11 +206,13 @@ exports[`Badge should render when count is changed 1`] = `
       >
         <ScrollNumber
           className="fishd-badge-count fishd-badge-multiple-words"
+          component="sup"
           count={10}
           data-show={true}
           key="scrollNumber"
           onAnimated={[Function]}
           prefixCls="fishd-scroll-number"
+          show={true}
           title={10}
         >
           <sup
@@ -456,11 +458,13 @@ exports[`Badge should render when count is changed 2`] = `
       >
         <ScrollNumber
           className="fishd-badge-count fishd-badge-multiple-words"
+          component="sup"
           count={11}
           data-show={true}
           key="scrollNumber"
           onAnimated={[Function]}
           prefixCls="fishd-scroll-number"
+          show={true}
           title={11}
         >
           <sup
@@ -899,11 +903,13 @@ exports[`Badge should render when count is changed 3`] = `
       >
         <ScrollNumber
           className="fishd-badge-count fishd-badge-multiple-words"
+          component="sup"
           count={11}
           data-show={true}
           key="scrollNumber"
           onAnimated={[Function]}
           prefixCls="fishd-scroll-number"
+          show={true}
           title={11}
         >
           <sup
@@ -1342,11 +1348,13 @@ exports[`Badge should render when count is changed 4`] = `
       >
         <ScrollNumber
           className="fishd-badge-count fishd-badge-multiple-words"
+          component="sup"
           count={10}
           data-show={true}
           key="scrollNumber"
           onAnimated={[Function]}
           prefixCls="fishd-scroll-number"
+          show={true}
           title={10}
         >
           <sup
@@ -1785,11 +1793,13 @@ exports[`Badge should render when count is changed 5`] = `
       >
         <ScrollNumber
           className="fishd-badge-count"
+          component="sup"
           count={9}
           data-show={true}
           key="scrollNumber"
           onAnimated={[Function]}
           prefixCls="fishd-scroll-number"
+          show={true}
           title={9}
         >
           <sup

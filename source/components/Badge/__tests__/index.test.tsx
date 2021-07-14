@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount, render } from 'enzyme';
-import Badge from '../index.tsx';
-import Tooltip from '../../Tooltip/index.tsx';
+import Badge from '../index';
+import Tooltip from '../../Tooltip/index';
+import { act } from 'react-dom/test-utils';
 
 describe('Badge', () => {
   beforeEach(() => {
@@ -24,41 +25,60 @@ describe('Badge', () => {
 
   it('should have an overriden title attribute', () => {
     const badge = mount(<Badge count={10} title="Custom title" />);
-    expect(badge.find('.fishd-scroll-number').getDOMNode().attributes.getNamedItem('title').value).toEqual('Custom title');
+    expect(
+      badge.find('.fishd-scroll-number').getDOMNode().attributes.getNamedItem('title').value,
+    ).toEqual('Custom title');
   });
 
   it('should be composable with Tooltip', () => {
     const wrapper = mount(
       <Tooltip title="Fix the error">
         <Badge status="error" />
-      </Tooltip>
+      </Tooltip>,
     );
     wrapper.find('Badge').simulate('mouseenter');
-    jest.runAllTimers();
-    expect(wrapper.instance().tooltip.props.visible).toBe(true);
+    act(() => {
+      jest.runAllTimers();
+    });
+    expect(wrapper.find('.fishd-tooltip-hidden').length).toBe(0);
   });
 
   it('should render when count is changed', () => {
     const wrapper = mount(<Badge count={9} />);
     wrapper.setProps({ count: 10 });
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(wrapper).toMatchSnapshot();
     wrapper.setProps({ count: 11 });
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(wrapper).toMatchSnapshot();
     wrapper.setProps({ count: 11 });
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(wrapper).toMatchSnapshot();
     wrapper.setProps({ count: 10 });
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(wrapper).toMatchSnapshot();
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     wrapper.setProps({ count: 9 });
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should be compatible with borderColor style', () => {
-    const wrapper = render(<Badge count={4} style={{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }} />);
+    const wrapper = render(
+      <Badge
+        count={4}
+        style={{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }}
+      />,
+    );
     expect(wrapper).toMatchSnapshot();
   });
 });
