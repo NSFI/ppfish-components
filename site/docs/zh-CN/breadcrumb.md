@@ -73,6 +73,7 @@ render() {
 
 ## API
 
+### Breadcrumb
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 容器类名 | String | - |
@@ -83,6 +84,13 @@ render() {
 | separator | 自定义分隔符 | String \| ReactNode | `<Icon type="arrow-line-regular" />` |
 | size | 自定义大小 | Enum {'default', 'small'} | 'default' |
 | style | 容器样式 | Object | - |
+
+### Breadcrumb.Item
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | 自定义类名 | String | - |
+| href | 链接的目的地	 | String | - |
+| onClick | 单击事件 |(e:MouseEvent) => void	| - |
 
 ### 和 browserHistory 配合
 

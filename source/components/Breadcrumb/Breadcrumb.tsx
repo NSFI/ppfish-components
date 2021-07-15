@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { cloneElement } from 'react';
 import warning from 'warning';
 import BreadcrumbItem from './BreadcrumbItem';
@@ -20,7 +19,7 @@ export interface BreadcrumbProps {
     route: any,
     params: any,
     routes: Array<any>,
-    paths: Array<string>
+    paths: Array<string>,
   ) => React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -35,7 +34,7 @@ function getBreadcrumbName(route: Route, params: any) {
   const paramsKeys = Object.keys(params).join('|');
   const name = route.breadcrumbName.replace(
     new RegExp(`:(${paramsKeys})`, 'g'),
-    (replacement, key) => params[key] || replacement
+    (replacement, key) => params[key] || replacement,
   );
   return name;
 }
@@ -46,95 +45,80 @@ function defaultItemRender(route: Route, params: any, routes: Route[], paths: st
   return isLastItem ? <span>{name}</span> : <a href={`#/${paths.join('/')}`}>{name}</a>;
 }
 
-export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
-  static Item: typeof BreadcrumbItem;
-
-  static defaultProps = {
-    prefixCls: 'fishd-breadcrumb',
-    separator: <Icon type="arrow-line-regular" />,
-    size: 'default'
-  };
-
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    size: PropTypes.string,
-    separator: PropTypes.node,
-    routes: PropTypes.array,
-    params: PropTypes.object,
-    linkRender: PropTypes.func,
-    nameRender: PropTypes.func
-  };
-
-  componentDidMount() {
-    const props = this.props;
-    warning(
-      !('linkRender' in props || 'nameRender' in props),
-      '`linkRender` and `nameRender` are removed, please use `itemRender` instead, ' +
-        'see: https://u.ant.design/item-render.'
-    );
-  }
-
-  render() {
-    let crumbs;
-    const {
-      separator,
-      prefixCls,
-      style,
-      className,
-      routes,
-      params = {},
-      children,
-      itemRender = defaultItemRender,
-      maxWidth,
-      size
-    } = this.props;
-
-    if (routes && routes.length > 0) {
-      const paths: string[] = [];
-      crumbs = routes.map(route => {
-        route.path = route.path || '';
-        let path: string = route.path.replace(/^\//, '');
-        Object.keys(params).forEach(key => {
-          path = path.replace(`:${key}`, params[key]);
-        });
-        if (path) {
-          paths.push(path);
-        }
-        return (
-          <BreadcrumbItem
-            separator={separator}
-            key={route.breadcrumbName || path}
-            maxWidth={maxWidth}
-          >
-            {itemRender(route, params, routes, paths)}
-          </BreadcrumbItem>
-        );
-      });
-    } else if (children) {
-      crumbs = React.Children.map(children, (element: any, index) => {
-        if (!element) {
-          return element;
-        }
-        warning(
-          element.type && element.type.__FISHD_BREADCRUMB_ITEM,
-          "Breadcrumb only accepts Breadcrumb.Item as it's children"
-        );
-        return cloneElement(element, {
-          separator,
-          maxWidth,
-          key: index
-        });
-      });
-    }
-
-    let cls = classNames(className, prefixCls, {
-      small: size === 'small'
-    });
-
-    return (
-      <div className={cls} style={style}>
-        {crumbs}
-      </div>
-    );
-  }
+export interface CompoundBreadcrumb extends React.FC<BreadcrumbProps> {
+  Item: typeof BreadcrumbItem;
 }
+
+const Breadcrumb: CompoundBreadcrumb = props => {
+  let crumbs;
+  const {
+    separator,
+    prefixCls,
+    style,
+    className,
+    routes,
+    params = {},
+    children,
+    itemRender = defaultItemRender,
+    maxWidth,
+    size,
+  } = props;
+
+  if (routes && routes.length > 0) {
+    const paths: string[] = [];
+    crumbs = routes.map(route => {
+      route.path = route.path || '';
+      let path: string = route.path.replace(/^\//, '');
+      Object.keys(params).forEach(key => {
+        path = path.replace(`:${key}`, params[key]);
+      });
+      if (path) {
+        paths.push(path);
+      }
+      return (
+        <BreadcrumbItem
+          separator={separator}
+          key={route.breadcrumbName || path}
+          maxWidth={maxWidth}
+        >
+          {itemRender(route, params, routes, paths)}
+        </BreadcrumbItem>
+      );
+    });
+  } else if (children) {
+    crumbs = React.Children.map(children, (element: any, index) => {
+      if (!element) {
+        return element;
+      }
+      warning(
+        element.type && element.type.__FISHD_BREADCRUMB_ITEM,
+        "Breadcrumb only accepts Breadcrumb.Item as it's children",
+      );
+      return cloneElement(element, {
+        separator,
+        maxWidth,
+        key: index,
+      });
+    });
+  }
+
+  let cls = classNames(className, prefixCls, {
+    small: size === 'small',
+  });
+
+  return (
+    <div className={cls} style={style}>
+      {crumbs}
+    </div>
+  );
+};
+
+Breadcrumb.Item = BreadcrumbItem;
+
+Breadcrumb.defaultProps = {
+  prefixCls: 'fishd-breadcrumb',
+  separator: <Icon type="arrow-line-regular" />,
+  size: 'default',
+};
+
+export default Breadcrumb;
