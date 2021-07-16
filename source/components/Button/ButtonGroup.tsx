@@ -9,7 +9,7 @@ export interface ButtonGroupProps {
   prefixCls?: string;
 }
 
-const ButtonGroup: React.SFC<ButtonGroupProps> = props => {
+const ButtonGroup: React.FC<ButtonGroupProps> = props => {
   const { prefixCls = 'fishd-btn-group', size, className, ...others } = props;
 
   // large => lg

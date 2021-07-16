@@ -15,6 +15,9 @@ render(){
     <Button type="primary">Primary</Button>
     <Button>Default</Button>
     <Button type="danger">Danger</Button>
+    <Button type="dashed">Danger</Button>
+    <Button type="text">Default</Button>
+    <Button type="link">link</Button>
   </div>)
 }
 ```
@@ -399,7 +402,7 @@ render(){
 | shape | 设置按钮形状 | Enum {'circle', 'circle-outline'} | - |
 | size | 设置按钮大小 | Enum {'small', 'large', 'default'} | 'default' |
 | target | 相当于 a 链接的 target 属性，href 存在时生效 | String | - |
-| type | 设置按钮类型 | Enum {'primary', 'dashed', 'danger', 'default'} | 'default' |
+| type | 设置按钮类型 | Enum {'primary', 'dashed', 'danger', 'text', 'link',  'default'} | 'default' |
 
 `<Button>Hello world!</Button>` 最终会被渲染为 `<button><span>Hello world!</span></button>`，并且除了上表中的属性，其它属性都会直接传到 `<button></button>`。
 

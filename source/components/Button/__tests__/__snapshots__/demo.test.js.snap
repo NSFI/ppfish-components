@@ -29,6 +29,30 @@ exports[`Renders button demo correctly 1`] = `
         Danger
       </span>
     </button>
+    <button
+      class="fishd-btn fishd-btn-dashed"
+      type="button"
+    >
+      <span>
+        Danger
+      </span>
+    </button>
+    <button
+      class="fishd-btn fishd-btn-text"
+      type="button"
+    >
+      <span>
+        Default
+      </span>
+    </button>
+    <button
+      class="fishd-btn fishd-btn-link"
+      type="button"
+    >
+      <span>
+        link
+      </span>
+    </button>
   </div>
   <div
     class="components-button-demo-button-group"
