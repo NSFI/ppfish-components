@@ -162,7 +162,7 @@ class Select extends React.Component<SelectProps, SelectState> {
   static contextType = LocaleContext;
   static defaultProps: SelectProps = {
     allowClear: true,
-    tagWidth: 100,
+    tagWidth: 'auto',
     defaultActiveFirstOption: false,
     disabled: false,
     dropdownMatchSelectWidth: true,

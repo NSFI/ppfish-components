@@ -412,7 +412,7 @@ exports[`Renders select demo correctly 1`] = `
         >
           <div
             class="fishd-select-option-clearable-option"
-            style="width:100px"
+            style="width:auto"
           >
             <span
               class="fishd-select-option-clearable-option-content"
@@ -429,7 +429,7 @@ exports[`Renders select demo correctly 1`] = `
           </div>
           <div
             class="fishd-select-option-clearable-option"
-            style="width:100px"
+            style="width:auto"
           >
             <span
               class="fishd-select-option-clearable-option-content"
