@@ -111,57 +111,6 @@
       margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
     }
   }
-
-  .effect() {
-    animation-duration: 0.3s;
-    animation-fill-mode: both;
-  }
-
-  &-zoom-enter,
-  &-zoom-appear {
-    opacity: 0;
-    .effect();
-    animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-    animation-play-state: paused;
-  }
-
-  &-zoom-leave {
-    .effect();
-    animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
-    animation-play-state: paused;
-  }
-
-  &-zoom-enter&-zoom-enter-active,
-  &-zoom-appear&-zoom-appear-active {
-    animation-name: rcDialogZoomIn;
-    animation-play-state: running;
-  }
-
-  &-zoom-leave&-zoom-leave-active {
-    animation-name: rcDialogZoomOut;
-    animation-play-state: running;
-  }
-
-  @keyframes rcDialogZoomIn {
-    0% {
-      opacity: 0;
-      transform: scale(0, 0);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1, 1);
-    }
-  }
-  @keyframes rcDialogZoomOut {
-    0% {
-
-      transform: scale(1, 1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(0, 0);
-    }
-  }
 }
 
 @media (max-width: @screen-sm-max) {
