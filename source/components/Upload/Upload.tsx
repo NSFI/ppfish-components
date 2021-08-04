@@ -259,6 +259,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
       showUploadList,
       listType,
       onPreview,
+      disabled,
       maxFileCount,
       showDeleteAll,
     } = this.props;
@@ -270,7 +271,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
         onPreview={onPreview}
         onRemove={this.handleManualRemove}
         onDeleteAll={this.handleDeleteAll}
-        showRemoveIcon={showRemoveIcon}
+        showRemoveIcon={!disabled && showRemoveIcon}
         showPreviewIcon={showPreviewIcon}
         maxFileCount={maxFileCount}
         showDeleteAll={showDeleteAll}
