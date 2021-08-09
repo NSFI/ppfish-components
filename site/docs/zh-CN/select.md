@@ -665,6 +665,7 @@ render(){
 | multipleSelectAllText | 在多选模式下选项全部选中时，在已选框中显示的特定的文案 | String | '全部选中' |
 | notFoundContent | 当下拉列表为空时显示的内容 | String \| ReactNode | '无匹配结果' |
 | onChange | 选中 option时，调用此函数 | (value) => Void | - |
+| onDeselect | 多选模式下取消选定时的回调 | (value) => Void | - |
 | onMouseEnter | 鼠标移入时回调 | (value) => Void | - |
 | onMouseLeave | 鼠标移出时回调 | (value) => Void | - |
 | onPopupScroll | 下拉列表滚动时的回调 | (value) => Void | - |
