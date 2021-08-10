@@ -7,12 +7,12 @@ import classNames from 'classnames';
 // https://github.com/WickyNilliams/enquire.js/issues/82
 if (typeof window !== 'undefined') {
   const matchMediaPolyfill = (mediaQuery: string) => {
-    return ({
+    return {
       media: mediaQuery,
       matches: false,
       addListener() {},
-      removeListener() {}
-    } as any) as MediaQueryList;
+      removeListener() {},
+    } as any as MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
 }
@@ -67,6 +67,7 @@ export interface CarouselProps {
   variableWidth?: boolean;
   useCSS?: boolean;
   slickGoTo?: number;
+  children?: React.ReactNode;
 }
 
 function CustomArrow(props) {
@@ -74,134 +75,140 @@ function CustomArrow(props) {
   return <div className={className} style={{ ...style, display: 'flex' }} onClick={onClick} />;
 }
 
-export default class Carousel extends React.Component<CarouselProps, {}> {
-  static defaultProps = {
-    dots: true,
-    arrows: false,
-    prefixCls: 'fishd-carousel',
-    draggable: false,
-    dotsTimer: false,
-    autoplaySpeed: 3000,
-    dotsPosition: 'bottom',
-    centerMode: false,
-    centerPadding: '50px',
-    slidesToShow: 1
+export interface CarouselRef {
+  goTo: (slide: number, dontAnimate?: boolean) => void;
+  next: () => void;
+  prev: () => void;
+  autoPlay: boolean;
+  innerSlider: any;
+}
+
+const InternalCarousel: React.ForwardRefRenderFunction<CarouselRef, CarouselProps> = (
+  props,
+  ref,
+) => {
+  const slickRef = React.useRef<any>();
+  React.useImperativeHandle(
+    ref,
+    () => ({
+      goTo,
+      autoPlay: slickRef.current.innerSlider.autoPlay,
+      innerSlider: slickRef.current.innerSlider,
+      prev,
+      next,
+    }),
+    [slickRef.current],
+  );
+
+  const goTo = (slide: number, dontAnimate = false) => {
+    slickRef.current.slickGoTo(slide, dontAnimate);
   };
 
-  innerSlider: any;
+  const prev = () => {
+    slickRef.current.slickPrev();
+  };
 
-  private slick: any;
-  private slickDOM: any;
+  const next = () => {
+    slickRef.current.slickNext();
+  };
 
-  constructor(props: CarouselProps) {
-    super(props);
-    this.onWindowResized = debounce(this.onWindowResized, 500, {
-      leading: false
-    });
-  }
+  React.useEffect(() => {
+    const { autoplay, autoplaySpeed, dotsPosition, dotsTimer } = props;
+    const innerSlider = slickRef.current && slickRef.current.innerSlider;
 
-  componentDidMount() {
-    const { autoplay, autoplaySpeed, dotsPosition, dotsTimer } = this.props;
-    if (autoplay) {
-      window.addEventListener('resize', this.onWindowResized);
-    }
-    // https://github.com/ant-design/ant-design/issues/7191
-    this.innerSlider = this.slick && this.slick.innerSlider;
+    let fn = () => {
+      const { autoplay } = props;
+      if (autoplay && innerSlider && slickRef.current.innerSlider.autoPlay) {
+        slickRef.current.innerSlider.autoPlay();
+      }
+    };
 
-    this.slickDOM = findDOMNode(this.slick);
+    const slickDOM = findDOMNode(slickRef.current) as HTMLElement;
     if (autoplay && dotsTimer) {
       let aniName =
           dotsPosition == 'left' || dotsPosition == 'right' ? 'dotsAniVertical' : 'dotsAni',
-        timerEl = this.slickDOM.querySelector('.timer');
+        timerEl = slickDOM.querySelector('.timer') as HTMLElement;
       !!timerEl &&
         timerEl.style.setProperty('--dots-ani', `${aniName} ${autoplaySpeed / 1000}s infinite`);
 
-      this.slickDOM.addEventListener('mouseover', () => {
-        let timerEl = this.slickDOM.querySelector('.timer');
+      slickDOM.addEventListener('mouseover', () => {
+        let timerEl = slickDOM.querySelector('.timer') as HTMLElement;
         !!timerEl && timerEl.style.setProperty('--dots-ani', 'none');
       });
 
-      this.slickDOM.addEventListener('mouseout', () => {
-        let timerEl = this.slickDOM.querySelector('.timer');
+      slickDOM.addEventListener('mouseout', () => {
+        let timerEl = slickDOM.querySelector('.timer') as HTMLElement;
         !!timerEl &&
           timerEl.style.setProperty('--dots-ani', `${aniName} ${autoplaySpeed / 1000}s infinite`);
       });
     }
-  }
-
-  componentWillUnmount() {
-    const { autoplay } = this.props;
     if (autoplay) {
-      window.removeEventListener('resize', this.onWindowResized);
-      (this.onWindowResized as any).cancel();
+      const onWindowResized = debounce(fn, 500, {
+        leading: false,
+      });
+      window.addEventListener('resize', onWindowResized);
+
+      return () => {
+        window.removeEventListener('resize', onWindowResized);
+        (onWindowResized as any).cancel();
+      };
     }
+  }, [slickRef.current, props.autoplay]);
+
+  let {
+    prefixCls,
+    className,
+    style,
+    dotsPosition,
+    dotsTimer,
+    nextArrow,
+    prevArrow,
+    centerMode,
+    centerPadding,
+    slidesToShow,
+    ...restProps
+  } = props;
+  let cls = classNames(prefixCls, `${prefixCls}-${dotsPosition}`, className);
+  let dotsCls = classNames('slick-dots', {
+    'slick-dots-vertical': dotsPosition == 'left' || dotsPosition == 'right',
+    timer: restProps.autoplay && dotsTimer,
+  });
+
+  if (restProps.effect === 'fade') {
+    restProps.fade = true;
   }
 
-  onWindowResized = () => {
-    // Fix https://github.com/ant-design/ant-design/issues/2550
-    const { autoplay } = this.props;
-    if (autoplay && this.slick && this.slick.innerSlider && this.slick.innerSlider.autoPlay) {
-      this.slick.innerSlider.autoPlay();
-    }
-  };
+  return (
+    <div className={cls} style={style}>
+      <SlickCarousel
+        {...restProps}
+        ref={slickRef}
+        nextArrow={nextArrow ? nextArrow : <CustomArrow className="slick-next" onClick={next} />}
+        prevArrow={prevArrow ? prevArrow : <CustomArrow className="slick-prev" onClick={prev} />}
+        centerMode={centerMode}
+        centerPadding={centerPadding}
+        slidesToShow={slidesToShow}
+        dotsClass={dotsCls}
+      />
+    </div>
+  );
+};
 
-  saveSlick = (node: any) => {
-    this.slick = node;
-  };
+const Carousel = React.forwardRef<CarouselRef, CarouselProps>(InternalCarousel);
 
-  next() {
-    this.slick.slickNext();
-  }
+Carousel.displayName = 'Carousel';
 
-  prev() {
-    this.slick.slickPrev();
-  }
+Carousel.defaultProps = {
+  dots: true,
+  arrows: false,
+  prefixCls: 'fishd-carousel',
+  draggable: false,
+  dotsTimer: false,
+  autoplaySpeed: 3000,
+  dotsPosition: 'bottom',
+  centerMode: false,
+  centerPadding: '50px',
+  slidesToShow: 1,
+};
 
-  goTo(slide: number) {
-    this.slick.slickGoTo(slide);
-  }
-
-  render() {
-    let {
-      prefixCls,
-      className,
-      style,
-      dotsPosition,
-      dotsTimer,
-      nextArrow,
-      prevArrow,
-      centerMode,
-      centerPadding,
-      slidesToShow,
-      ...restProps
-    } = this.props;
-    let cls = classNames(prefixCls, `${prefixCls}-${dotsPosition}`, className);
-    let dotsCls = classNames('slick-dots', {
-      'slick-dots-vertical': dotsPosition == 'left' || dotsPosition == 'right',
-      timer: restProps.autoplay && dotsTimer
-    });
-
-    if (restProps.effect === 'fade') {
-      restProps.fade = true;
-    }
-
-    return (
-      <div className={cls} style={style}>
-        <SlickCarousel
-          {...restProps}
-          ref={this.saveSlick}
-          nextArrow={
-            nextArrow ? nextArrow : <CustomArrow className="slick-next" onClick={this.next} />
-          }
-          prevArrow={
-            prevArrow ? prevArrow : <CustomArrow className="slick-prev" onClick={this.prev} />
-          }
-          centerMode={centerMode}
-          centerPadding={centerPadding}
-          slidesToShow={slidesToShow}
-          dotsClass={dotsCls}
-        />
-      </div>
-    );
-  }
-}
+export default Carousel;
