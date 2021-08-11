@@ -168,7 +168,7 @@ exports[`Renders avatar demo correctly 1`] = `
         >
           <span
             class="fishd-scroll-number-only"
-            style="-ms-transform:translateY(-1100%);-webkit-transform:translateY(-1100%);transform:translateY(-1100%)"
+            style="transition:none;-ms-transform:translateY(-1100%);-webkit-transform:translateY(-1100%);transform:translateY(-1100%)"
           >
             <p
               class=""

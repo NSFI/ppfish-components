@@ -2,8 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Carousel, { CarouselRef } from '../index';
 
-const sleep = (timeout = 500) => new Promise(resolve => setTimeout(resolve, timeout));
-
 describe('Carousel', () => {
   beforeAll(() => {
     jest.useFakeTimers();
@@ -25,7 +23,6 @@ describe('Carousel', () => {
   });
 
   it('should has prev, next and go function', async () => {
-    // jest.useRealTimers();
     const ref = React.createRef<CarouselRef>();
     const wrapper = mount(
       <Carousel speed={1} ref={ref} dots={false}>
@@ -40,16 +37,13 @@ describe('Carousel', () => {
     expect(typeof goTo).toBe('function');
     expect(ref.current.innerSlider.state.currentSlide).toBe(0);
     goTo(2);
-    // await sleep();
     jest.runAllTimers();
     expect(ref.current.innerSlider.state.currentSlide).toBe(2);
     ref.current.prev();
-    // await sleep();
     jest.runAllTimers();
     expect(ref.current.innerSlider.state.currentSlide).toBe(1);
     next();
     jest.runAllTimers();
-    // await sleep();
     expect(ref.current.innerSlider.state.currentSlide).toBe(2);
   });
 
