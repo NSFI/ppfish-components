@@ -251,6 +251,8 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       this.$el.addEventListener('fullscreenchange', this.handleFullChange);
       this.$el.addEventListener('mozfullscreenchange', this.handleFullChange);
       this.$el.addEventListener('webkitfullscreenchange', this.handleFullChange);
+
+      this.$el.addEventListener('mousewheel', this.handleWheel, { passive: false });
     }
 
     if (draggable) {
@@ -267,7 +269,6 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('didupdate');
     let { current, show, imgs } = this.state;
 
     const sourceChange = isSourceChange(prevState.imgs, imgs);
@@ -295,6 +296,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     if (el && el.parentNode === document.body) {
       document.body.removeChild(el);
     }
+    this.$el.removeEventListener('mousewheel', this.handleWheel);
 
     if (draggable) {
       document.removeEventListener('mousemove', this.handleMouseMove);
@@ -805,7 +807,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
           e.preventDefault();
         }}
         onMouseDown={draggable ? this.handleMouseDown : null}
-        onWheel={this.handleWheel}
+        // onWheel={this.handleWheel}
         tabIndex={-1}
         onClick={() => {
           this.$el.focus();
