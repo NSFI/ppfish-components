@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Checkbox from '../index.tsx';
+import Checkbox from '../index';
 import focusTest from '../../../../tools/tests/focusTest';
 
 describe('Checkbox', () => {

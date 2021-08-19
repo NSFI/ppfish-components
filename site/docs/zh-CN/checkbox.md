@@ -229,6 +229,7 @@ render(){
 | onChange | 变化时回调函数 | (checkedValue) => Void | - |
 | options | 指定可选项 | String \| Array< String > | [] |
 | value | 指定选中的选项 |  String \| Array< String > | [] |
+| name  |	CheckboxGroup 下所有 input[type="checkbox"] 的 name 属性 |  string
 
 ## 方法
 

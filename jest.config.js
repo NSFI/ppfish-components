@@ -11,6 +11,7 @@ const refactoredComp = [
   'Breadcrumb',
   'Button',
   'Carousel',
+  'Checkbox',
 ];
 
 const getRefactoredCompMatch = name => {

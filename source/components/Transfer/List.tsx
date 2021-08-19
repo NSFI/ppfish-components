@@ -282,7 +282,6 @@ export default class TransferList extends React.Component<TransferListProps, any
     const checkedAll = checkStatus === 'all';
     const checkAllCheckbox = (
       <Checkbox
-        ref="checkbox"
         checked={checkedAll}
         indeterminate={checkStatus === 'part'}
         onChange={() => this.props.handleSelectAll(filteredDataSource, checkedAll)}
