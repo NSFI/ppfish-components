@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Echart should give correct ref 1`] = `
+<Echart
+  className="my-echarts"
+  lazyUpdate={false}
+  loadingOption={null}
+  notMerge={false}
+  onChartReady={[Function]}
+  option={
+    Object {
+      "legend": Object {
+        "data": Array [
+          "直接访问",
+          "邮件营销",
+          "联盟广告",
+          "视频广告",
+          "搜索引擎",
+        ],
+        "orient": "vertical",
+        "x": "left",
+      },
+      "series": Array [
+        Object {
+          "avoidLabelOverlap": false,
+          "data": Array [
+            Object {
+              "name": "直接访问",
+              "value": 335,
+            },
+            Object {
+              "name": "邮件营销",
+              "value": 310,
+            },
+            Object {
+              "name": "联盟广告",
+              "value": 234,
+            },
+            Object {
+              "name": "视频广告",
+              "value": 135,
+            },
+            Object {
+              "name": "搜索引擎",
+              "value": 1548,
+            },
+          ],
+          "label": Object {
+            "emphasis": Object {
+              "show": true,
+              "textStyle": Object {
+                "fontSize": "30",
+                "fontWeight": "bold",
+              },
+            },
+            "normal": Object {
+              "position": "center",
+              "show": false,
+            },
+          },
+          "labelLine": Object {
+            "normal": Object {
+              "show": false,
+            },
+          },
+          "name": "访问来源",
+          "radius": Array [
+            "50%",
+            "70%",
+          ],
+          "type": "pie",
+        },
+      ],
+      "tooltip": Object {
+        "formatter": "{a} <br/>{b}: {c} ({d}%)",
+        "trigger": "item",
+      },
+    }
+  }
+  opts={Object {}}
+  prefixCls="fishd-chart"
+  showLoading={false}
+  style={
+    Object {
+      "height": 500,
+      "width": 500,
+    }
+  }
+  theme="fishd-default-theme"
+>
+  <EchartsReact
+    className="fishd-chart my-echarts"
+    echarts={Object {}}
+    lazyUpdate={false}
+    loadingOption={null}
+    notMerge={false}
+    onChartReady={[Function]}
+    onEvents={Object {}}
+    option={
+      Object {
+        "legend": Object {
+          "data": Array [
+            "直接访问",
+            "邮件营销",
+            "联盟广告",
+            "视频广告",
+            "搜索引擎",
+          ],
+          "orient": "vertical",
+          "x": "left",
+        },
+        "series": Array [
+          Object {
+            "avoidLabelOverlap": false,
+            "data": Array [
+              Object {
+                "name": "直接访问",
+                "value": 335,
+              },
+              Object {
+                "name": "邮件营销",
+                "value": 310,
+              },
+              Object {
+                "name": "联盟广告",
+                "value": 234,
+              },
+              Object {
+                "name": "视频广告",
+                "value": 135,
+              },
+              Object {
+                "name": "搜索引擎",
+                "value": 1548,
+              },
+            ],
+            "label": Object {
+              "emphasis": Object {
+                "show": true,
+                "textStyle": Object {
+                  "fontSize": "30",
+                  "fontWeight": "bold",
+                },
+              },
+              "normal": Object {
+                "position": "center",
+                "show": false,
+              },
+            },
+            "labelLine": Object {
+              "normal": Object {
+                "show": false,
+              },
+            },
+            "name": "访问来源",
+            "radius": Array [
+              "50%",
+              "70%",
+            ],
+            "type": "pie",
+          },
+        ],
+        "tooltip": Object {
+          "formatter": "{a} <br/>{b}: {c} ({d}%)",
+          "trigger": "item",
+        },
+      }
+    }
+    opts={Object {}}
+    shouldSetOption={[Function]}
+    showLoading={false}
+    style={
+      Object {
+        "height": 500,
+        "width": 500,
+      }
+    }
+    theme="fishd-default-theme"
+  >
+    <div
+      className="echarts-for-react fishd-chart my-echarts"
+      style={
+        Object {
+          "height": 500,
+          "width": 500,
+        }
+      }
+    />
+  </EchartsReact>
+</Echart>
+`;

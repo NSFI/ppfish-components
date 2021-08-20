@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders echart demo correctly 1`] = `
+<div>
+  <div
+    class="echarts-for-react fishd-chart my-echarts"
+    style="height:500px;width:500px"
+  />
+  <div
+    class="echarts-for-react fishd-chart my-echarts"
+    style="height:500px;width:500px"
+  />
+  <div
+    class="echarts-for-react fishd-chart echarts"
+    style="height:500px;width:800px"
+  />
+  <div
+    class="browser-mockup"
+  >
+    <iframe
+      height="500"
+      src="./demo/echartRequired.html"
+    />
+  </div>
+</div>
+`;

@@ -12,6 +12,7 @@ const refactoredComp = [
   'Button',
   'Carousel',
   'Checkbox',
+  'Echart',
 ];
 
 const getRefactoredCompMatch = name => {
@@ -22,7 +23,7 @@ const getRefactoredCompMatch = name => {
 };
 
 module.exports = {
-  setupFiles: ['<rootDir>/tools/tests/setup.js'],
+  setupFiles: ['<rootDir>/tools/tests/setup.js', 'jest-canvas-mock'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':

@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import ReactEchartsCore from 'echarts-for-react/lib/core';
 import defaultTheme from './default-theme';
 
 interface EventMap {
   [key: string]: (...args: any[]) => any;
+}
+
+export interface EchartCoreRef {
+  getInstance: () => any;
+  echarts_react: any;
 }
 
 type Option = { [key: string]: any };
@@ -25,82 +29,69 @@ export interface EchartCoreProps {
   echarts?: any;
 }
 
-export default class EchartCore extends Component<EchartCoreProps, any> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    option: PropTypes.object,
-    opts: PropTypes.object,
-    events: PropTypes.object,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    theme: PropTypes.string,
-    notMerge: PropTypes.bool,
-    lazyUpdate: PropTypes.bool,
-    onChartReady: PropTypes.func,
-    loadingOption: PropTypes.object,
-    showLoading: PropTypes.bool,
-    echarts: PropTypes.object
-  };
+const InternalEchartCore: React.ForwardRefRenderFunction<EchartCoreRef, EchartCoreProps> = (
+  props,
+  ref,
+) => {
+  const echartCoreRef = React.useRef<any>();
 
-  static defaultProps = {
-    prefixCls: 'fishd-chart',
-    theme: defaultTheme,
-    echarts: {},
-    notMerge: false,
-    lazyUpdate: false,
-    style: { height: '300px' },
-    className: '',
-    onChartReady: () => {},
-    showLoading: false,
-    loadingOption: null,
-    onEvents: {},
-    opts: {}
-  };
+  React.useImperativeHandle(ref, () => ({
+    getInstance: () => {
+      return echartCoreRef.current;
+    },
+    echarts_react: echartCoreRef.current,
+  }));
 
-  constructor(props) {
-    super(props);
-    this.echarts_react = null;
-  }
+  const {
+    prefixCls,
+    className,
+    style,
+    theme,
+    option,
+    opts,
+    events,
+    notMerge,
+    lazyUpdate,
+    onChartReady,
+    loadingOption,
+    showLoading,
+    echarts,
+  } = props;
+  return (
+    <ReactEchartsCore
+      ref={e => (echartCoreRef.current = e)}
+      echarts={echarts}
+      className={classNames(prefixCls, className)}
+      style={style}
+      option={option}
+      opts={opts}
+      onEvents={events}
+      theme={theme}
+      notMerge={notMerge}
+      lazyUpdate={lazyUpdate}
+      onChartReady={onChartReady}
+      loadingOption={loadingOption}
+      showLoading={showLoading}
+    />
+  );
+};
 
-  echarts_react: any;
+const EchartCore = React.forwardRef<EchartCoreRef, EchartCoreProps>(InternalEchartCore);
 
-  getInstance() {
-    // @ts-ignore
-    return this.echarts_react.getEchartsInstance();
-  }
+EchartCore.displayName = 'EchartCore';
 
-  render() {
-    const {
-      prefixCls,
-      className,
-      style,
-      theme,
-      option,
-      opts,
-      events,
-      notMerge,
-      lazyUpdate,
-      onChartReady,
-      loadingOption,
-      showLoading,
-      echarts
-    } = this.props;
-    return (
-      <ReactEchartsCore
-        ref={e => (this.echarts_react = e)}
-        echarts={echarts}
-        className={classNames(prefixCls, className)}
-        style={style}
-        option={option}
-        opts={opts}
-        onEvents={events}
-        theme={theme}
-        notMerge={notMerge}
-        lazyUpdate={lazyUpdate}
-        onChartReady={onChartReady}
-        loadingOption={loadingOption}
-        showLoading={showLoading}
-      />
-    );
-  }
-}
+EchartCore.defaultProps = {
+  prefixCls: 'fishd-chart',
+  theme: defaultTheme,
+  echarts: {},
+  notMerge: false,
+  lazyUpdate: false,
+  style: { height: '300px' },
+  className: '',
+  onChartReady: () => {},
+  showLoading: false,
+  loadingOption: null,
+  opts: {},
+};
+
+export default EchartCore;
