@@ -44,11 +44,12 @@ interface SelectProps {
   multipleSelectAllText?: string;
   notFoundContent?: string | React.ReactNode;
   onChange?: (value?: any) => void;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onPopupScroll?: () => void;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  onPopupScroll?: React.UIEventHandler<HTMLDivElement>;
   onSearch?: (value: any) => void;
   onSelect?: (value: any) => void;
+  onDeselect?: (value: any) => void;
   onVisibleChange?: (value: any) => void;
   placeholder?: string;
   placement?: 'bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight';
@@ -126,6 +127,7 @@ class Select extends React.Component<SelectProps, SelectState> {
     onPopupScroll: PropTypes.func,
     onSearch: PropTypes.func,
     onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
     onVisibleChange: PropTypes.func,
     placeholder: PropTypes.string,
     placement: PropTypes.oneOf([
@@ -176,6 +178,7 @@ class Select extends React.Component<SelectProps, SelectState> {
     onPopupScroll: noop,
     onSearch: noop,
     onSelect: noop,
+    onDeselect: noop,
     onVisibleChange: noop,
     placement: 'bottomLeft',
     prefixCls: 'fishd-select',
@@ -449,7 +452,7 @@ class Select extends React.Component<SelectProps, SelectState> {
   //处理 label、option的click操作
   onOptionClick = (e, obj, clickInLabel) => {
     e && e.stopPropagation();
-    const { onChange, mode, onSelect, labelInValue } = this.props;
+    const { onChange, mode, onSelect, onDeselect, labelInValue } = this.props;
     const { selectValue } = this.state;
     const index = selectValue.findIndex(selected => selected.key === obj.key);
     if (mode === 'single') {
@@ -501,7 +504,12 @@ class Select extends React.Component<SelectProps, SelectState> {
       }
     }
     //fire onSelect event => option/label click
-    onSelect(obj);
+    if(clickInLabel) {
+      onDeselect(obj);
+    } else {
+      onSelect(obj);
+    }
+    
   };
 
   //获取加料后的children

@@ -68,6 +68,10 @@
     display: inline-block;
   }
 
+  &&-disabled {
+    cursor: not-allowed;
+  }
+
   &&-select-picture-card {
     border: @border-width-base dashed @border-color-base;
     width: @upload-pictrue-card-size;
@@ -93,6 +97,9 @@
 
     &:hover {
       border-color: @primary-color;
+      .@{upload-prefix-cls}-disabled& {
+        border-color: @border-color-base;
+      }
     }
   }
 
@@ -407,7 +414,7 @@
       overflow: hidden;
 
       &:before {
-        content: ' ';
+        content: " ";
         position: absolute;
         z-index: 1;
         background-color: rgba(0, 0, 0, 0.5);
