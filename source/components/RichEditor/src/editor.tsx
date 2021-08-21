@@ -723,20 +723,20 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       showImageModal: false
     });
 
-    if (customInsertImage && typeof customInsertImage === "function") {
-      customInsertImage(getImageCb);
-    } else {
-      if (fileInput == null) {
-        fileInput = document.createElement("input");
-        fileInput.setAttribute("type", "file");
-        fileInput.setAttribute(
-          "accept",
-          "image/jpg, image/jpeg, image/png, image/gif, image/bmp"
-        );
-        fileInput.setAttribute("multiple", "multiple");
-        fileInput.classList.add("ql-image");
-        fileInput.addEventListener("change", () => {
-          if (fileInput.files != null && fileInput.files.length) {
+    if (fileInput == null) {
+      fileInput = document.createElement("input");
+      fileInput.setAttribute("type", "file");
+      fileInput.setAttribute(
+        "accept",
+        "image/jpg, image/jpeg, image/png, image/gif, image/bmp"
+      );
+      fileInput.setAttribute("multiple", "multiple");
+      fileInput.classList.add("ql-image");
+      fileInput.addEventListener("change", () => {
+        if (fileInput.files != null && fileInput.files.length) {
+          if (customInsertImage && typeof customInsertImage === "function") {
+            customInsertImage(fileInput.files, getImageCb);
+          } else {
             for (let i = 0, len = fileInput.files.length; i < len; i++) {
               let reader = new FileReader();
               reader.onload = e => {
@@ -746,11 +746,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
               reader.readAsDataURL(fileInput.files[i]);
             }
           }
-        });
-        toolbarCtner.appendChild(fileInput);
-      }
-      fileInput.click();
+        }
+      });
+      toolbarCtner.appendChild(fileInput);
     }
+    fileInput.click();
   };
 
   handlePickLocalFile = () => {
@@ -1234,7 +1234,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     const elEdit = editorCtner.querySelector('.ql-snow .ql-tooltip a.ql-action');
     const elDelete = editorCtner.querySelector('.ql-snow .ql-tooltip a.ql-remove');
     const elAccessLink = editorCtner.querySelector('.ql-snow .ql-tooltip');
-    
+
     elEdit && elEdit.setAttribute('data-after-content',edit);
     elDelete && elDelete.setAttribute('data-before-content',deleteText);
     elAccessLink && elAccessLink.setAttribute('data-before-content',accessLink);
