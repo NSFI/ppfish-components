@@ -7,24 +7,13 @@
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "ES2015",
-      "ES2016",
-      "DOM.Iterable"
-    ],
+    "lib": ["ESNext", "DOM", "ES2015", "ES2016", "DOM.Iterable"],
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": "./source/",
     "skipLibCheck": true
   },
-  "include": [
-    "source/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "include": ["source/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

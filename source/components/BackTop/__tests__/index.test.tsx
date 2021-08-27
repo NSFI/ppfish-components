@@ -22,7 +22,7 @@ describe('BackTop', () => {
     wrapper.find('.fishd-back-top').simulate('click');
 
     jest.runAllTimers();
-    expect(document.documentElement.scrollTop).toBe(0);
+    expect(Math.ceil(document.documentElement.scrollTop)).toBe(0);
     scrollToSpy.mockRestore();
   });
 

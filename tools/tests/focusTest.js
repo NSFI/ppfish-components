@@ -1,8 +1,15 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-export default function focusTest(Component) {
+export default function focusTest(Component, componetRef = false) {
   describe('focus and blur', () => {
+    const getCorrectInstance = (wrapper) => {
+      if(componetRef) {
+        return wrapper.instance();
+      }
+      return wrapper.find('input').instance();
+    };
+
     beforeAll(() => {
       jest.useFakeTimers();
     });
@@ -24,7 +31,7 @@ export default function focusTest(Component) {
     it('focus() and onFocus', () => {
       const handleFocus = jest.fn();
       const wrapper = mount(<Component onFocus={handleFocus} />, { attachTo: container });
-      wrapper.find('input').instance().focus();
+      getCorrectInstance(wrapper).focus();
       jest.runAllTimers();
       expect(handleFocus).toBeCalled();
     });
@@ -32,9 +39,9 @@ export default function focusTest(Component) {
     it('blur() and onBlur', () => {
       const handleBlur = jest.fn();
       const wrapper = mount(<Component onBlur={handleBlur} />, { attachTo: container });
-      wrapper.find('input').instance().focus();
+      getCorrectInstance(wrapper).focus();
       jest.runAllTimers();
-      wrapper.find('input').instance().blur();
+      getCorrectInstance(wrapper).blur();
       jest.runAllTimers();
       expect(handleBlur).toBeCalled();
     });

@@ -88,7 +88,7 @@
     "no-this-before-super": 2,
     "require-yield": 2,
     "quotes": 0,
-    "no-console": 1,
+    "no-console": 2,
     "no-debugger": 1,
     "no-var": 1,
     "no-unused-vars": 0,

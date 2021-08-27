@@ -23,7 +23,7 @@ export function flatArray(data: any[] = [], childrenName = 'children') {
 export function treeMap<Node>(
   tree: Node[],
   mapper: (node: Node, index: number) => any,
-  childrenName = 'children'
+  childrenName = 'children',
 ) {
   return tree.map((node: any, index) => {
     const extra: any = {};
@@ -32,7 +32,7 @@ export function treeMap<Node>(
     }
     return {
       ...mapper(node as Node, index),
-      ...extra
+      ...extra,
     };
   });
 }
@@ -57,7 +57,7 @@ export function normalizeColumns(elements: React.ReactChildren) {
       return;
     }
     const column: any = {
-      ...element.props
+      ...(element.props as object),
     };
     if (element.key) {
       column.key = element.key;

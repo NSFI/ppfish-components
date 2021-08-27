@@ -25,7 +25,7 @@ export default class Dropdown extends React.Component<DropDownProps, any> {
     prefixCls: 'fishd-dropdown',
     mouseEnterDelay: 0.15,
     mouseLeaveDelay: 0.1,
-    placement: 'bottomLeft'
+    placement: 'bottomLeft',
   };
 
   getTransitionName() {
@@ -45,7 +45,7 @@ export default class Dropdown extends React.Component<DropDownProps, any> {
       const overlayProps = (overlay as React.ReactElement<any>).props;
       warning(
         !overlayProps.mode || overlayProps.mode === 'vertical',
-        `mode="${overlayProps.mode}" is not supported for Dropdown's Menu.`
+        `mode="${overlayProps.mode}" is not supported for Dropdown's Menu.`,
       );
     }
   }
@@ -53,12 +53,12 @@ export default class Dropdown extends React.Component<DropDownProps, any> {
   render() {
     const { children, prefixCls, overlay: overlayElements, trigger, disabled } = this.props;
 
-    const child = React.Children.only(children);
-    const overlay = React.Children.only(overlayElements);
+    const child = React.Children.only(children) as React.ReactElement;
+    const overlay = React.Children.only(overlayElements) as React.ReactElement;
 
     const dropdownTrigger = React.cloneElement(child, {
       className: classNames(child.props.className, `${prefixCls}-trigger`),
-      disabled
+      disabled,
     });
     // menu cannot be selectable in dropdown defaultly
     // menu should be focusable in dropdown defaultly
@@ -70,7 +70,7 @@ export default class Dropdown extends React.Component<DropDownProps, any> {
         : React.cloneElement(overlay, {
             mode: 'vertical',
             selectable,
-            focusable
+            focusable,
           });
 
     const triggerActions = disabled ? [] : trigger;
