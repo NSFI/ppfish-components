@@ -4,11 +4,11 @@ module.exports = {
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/tools/assetsTransformer.js',
-    '\\.(css|less)$': '<rootDir>/tools/assetsTransformer.js'
+    '\\.(css|less)$': '<rootDir>/tools/assetsTransformer.js',
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
   testURL: 'http://localhost',
-  testMatch: ['**/Button/__tests__/**/*.(js|jsx|ts|tsx)'],
+  testMatch: ['**/Cascader/__tests__/**/*.(js|jsx|ts|tsx)'],
 
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
@@ -17,21 +17,21 @@ module.exports = {
     '<rootDir>/es/',
     '<rootDir>/lib/',
     '<rootDir>/site/',
-    '<rootDir>/.history/'
+    '<rootDir>/.history/',
   ],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.jsx?$': 'babel-jest',
-    '^.+\\.md$': '<rootDir>/tools/markdownDemoTransformer.js'
+    '^.+\\.md$': '<rootDir>/tools/markdownDemoTransformer.js',
   },
   globals: {
     'ts-jest': {
       diagnostics: {
-        warnOnly: true
+        warnOnly: true,
       },
       babelConfig: '.babelrc',
-      tsConfig: 'tsconfig.json'
-    }
+      tsConfig: 'tsconfig.json',
+    },
   },
   verbose: true,
   notify: false,
@@ -43,7 +43,7 @@ module.exports = {
     '!<rootDir>/dist/*',
     '!<rootDir>/es/*',
     '!<rootDir>/lib/*',
-    '!<rootDir>/site/*'
+    '!<rootDir>/site/*',
   ],
-  coverageDirectory: '<rootDir>/coverage'
+  coverageDirectory: '<rootDir>/coverage',
 };
