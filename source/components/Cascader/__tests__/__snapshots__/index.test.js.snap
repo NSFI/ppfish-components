@@ -368,95 +368,6 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
               >
                 <Menus
                   activeValue={Array []}
-                  allowClear={true}
-                  builtinPlacements={
-                    Object {
-                      "bottomCenter": Object {
-                        "offset": Array [
-                          0,
-                          8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "tc",
-                          "bc",
-                        ],
-                      },
-                      "bottomLeft": Object {
-                        "offset": Array [
-                          0,
-                          8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "tl",
-                          "bl",
-                        ],
-                      },
-                      "bottomRight": Object {
-                        "offset": Array [
-                          0,
-                          8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "tr",
-                          "br",
-                        ],
-                      },
-                      "topCenter": Object {
-                        "offset": Array [
-                          0,
-                          -8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "bc",
-                          "tc",
-                        ],
-                      },
-                      "topLeft": Object {
-                        "offset": Array [
-                          0,
-                          -8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "bl",
-                          "tl",
-                        ],
-                      },
-                      "topRight": Object {
-                        "offset": Array [
-                          0,
-                          -8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "br",
-                          "tr",
-                        ],
-                      },
-                    }
-                  }
                   defaultFieldNames={
                     Object {
                       "children": "children",
@@ -464,13 +375,11 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                       "value": "value",
                     }
                   }
-                  disabled={false}
                   dropdownMenuColumnStyle={
                     Object {
                       "width": 0,
                     }
                   }
-                  esc={true}
                   expandIcon=""
                   expandTrigger="click"
                   fieldNames={
@@ -480,10 +389,6 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                       "value": "value",
                     }
                   }
-                  inputPrefixCls="fishd-input"
-                  notFoundContent="无匹配结果"
-                  onChange={[Function]}
-                  onPopupVisibleChange={[Function]}
                   onSelect={[Function]}
                   options={
                     Array [
@@ -603,17 +508,7 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
                       },
                     ]
                   }
-                  placeholder="请选择"
-                  popupClassName=""
-                  popupPlacement="bottomLeft"
-                  popupVisible={true}
                   prefixCls="fishd-cascader"
-                  showSearch={
-                    Object {
-                      "filter": [Function],
-                    }
-                  }
-                  transitionName="slide-up"
                   value={Array []}
                   visible={true}
                 >
@@ -782,95 +677,6 @@ exports[`Cascader should render not found content 1`] = `
               >
                 <Menus
                   activeValue={Array []}
-                  allowClear={true}
-                  builtinPlacements={
-                    Object {
-                      "bottomCenter": Object {
-                        "offset": Array [
-                          0,
-                          8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "tc",
-                          "bc",
-                        ],
-                      },
-                      "bottomLeft": Object {
-                        "offset": Array [
-                          0,
-                          8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "tl",
-                          "bl",
-                        ],
-                      },
-                      "bottomRight": Object {
-                        "offset": Array [
-                          0,
-                          8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "tr",
-                          "br",
-                        ],
-                      },
-                      "topCenter": Object {
-                        "offset": Array [
-                          0,
-                          -8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "bc",
-                          "tc",
-                        ],
-                      },
-                      "topLeft": Object {
-                        "offset": Array [
-                          0,
-                          -8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "bl",
-                          "tl",
-                        ],
-                      },
-                      "topRight": Object {
-                        "offset": Array [
-                          0,
-                          -8,
-                        ],
-                        "overflow": Object {
-                          "adjustX": 1,
-                          "adjustY": 1,
-                        },
-                        "points": Array [
-                          "br",
-                          "tr",
-                        ],
-                      },
-                    }
-                  }
                   defaultFieldNames={
                     Object {
                       "children": "children",
@@ -878,14 +684,12 @@ exports[`Cascader should render not found content 1`] = `
                       "value": "value",
                     }
                   }
-                  disabled={false}
                   dropdownMenuColumnStyle={
                     Object {
                       "height": "auto",
                       "width": 0,
                     }
                   }
-                  esc={true}
                   expandIcon=""
                   expandTrigger="click"
                   fieldNames={
@@ -895,10 +699,6 @@ exports[`Cascader should render not found content 1`] = `
                       "value": "value",
                     }
                   }
-                  inputPrefixCls="fishd-input"
-                  notFoundContent="无匹配结果"
-                  onChange={[Function]}
-                  onPopupVisibleChange={[Function]}
                   onSelect={[Function]}
                   options={
                     Array [
@@ -909,17 +709,7 @@ exports[`Cascader should render not found content 1`] = `
                       },
                     ]
                   }
-                  placeholder="请选择"
-                  popupClassName=""
-                  popupPlacement="bottomLeft"
-                  popupVisible={true}
                   prefixCls="fishd-cascader"
-                  showSearch={
-                    Object {
-                      "filter": [Function],
-                    }
-                  }
-                  transitionName="slide-up"
                   value={Array []}
                   visible={true}
                 >
