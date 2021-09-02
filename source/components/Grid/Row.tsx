@@ -46,69 +46,53 @@ const responsiveMap: BreakpointMap = {
   xxl: '(min-width: 1600px)'
 };
 
-export default class Row extends React.Component<RowProps, RowState> {
-  static defaultProps = {
-    gutter: 0
-  };
+const Row: React.FC<RowProps> = (props) => {
+  const {
+    gutter,
+    type,
+    justify,
+    align,
+    className,
+    style,
+    children,
+    prefixCls = 'fishd-row',
+    ...others
+  } = props;
 
-  static propTypes = {
-    type: PropTypes.string,
-    align: PropTypes.string,
-    justify: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    children: PropTypes.node,
-    gutter: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    prefixCls: PropTypes.string
-  };
-
-  state: RowState = {
-    screens: {}
-  };
-
-  componentDidMount() {
+  const [screens, setScreens] = React.useState({});
+  React.useEffect(() => {
     Object.keys(responsiveMap).map((screen: Breakpoint) =>
       enquire.register(responsiveMap[screen], {
         match: () => {
-          if (typeof this.props.gutter !== 'object') {
+          if (typeof gutter !== 'object') {
             return;
           }
-          this.setState(prevState => ({
-            screens: {
-              ...prevState.screens,
-              [screen]: true
-            }
-          }));
+
+          setScreens({ ...screens, [screen]: true })
         },
         unmatch: () => {
-          if (typeof this.props.gutter !== 'object') {
+          if (typeof gutter !== 'object') {
             return;
           }
-          this.setState(prevState => ({
-            screens: {
-              ...prevState.screens,
-              [screen]: false
-            }
-          }));
+          setScreens({ ...screens, [screen]: false })
         },
         // Keep a empty destory to avoid triggering unmatch when unregister
         destroy() {}
       })
     );
-  }
 
-  componentWillUnmount() {
-    Object.keys(responsiveMap).map((screen: Breakpoint) =>
-      enquire.unregister(responsiveMap[screen])
-    );
-  }
+    return () => {
+      Object.keys(responsiveMap).map((screen: Breakpoint) =>
+        enquire.unregister(responsiveMap[screen])
+      );
+    }
+  }, [])
 
-  getGutter() {
-    const { gutter } = this.props;
+  const getGutter = () => {
     if (typeof gutter === 'object') {
       for (let i = 0; i <= responsiveArray.length; i++) {
         const breakpoint: Breakpoint = responsiveArray[i];
-        if (this.state.screens[breakpoint] && gutter[breakpoint] !== undefined) {
+        if (screens[breakpoint] && gutter[breakpoint] !== undefined) {
           return gutter[breakpoint];
         }
       }
@@ -116,56 +100,54 @@ export default class Row extends React.Component<RowProps, RowState> {
     return gutter;
   }
 
-  render() {
-    const {
-      type,
-      justify,
-      align,
-      className,
-      style,
-      children,
-      prefixCls = 'fishd-row',
-      ...others
-    } = this.props;
-    const gutter = this.getGutter();
-    const classes = classNames(
-      {
-        [prefixCls]: !type,
-        [`${prefixCls}-${type}`]: type,
-        [`${prefixCls}-${type}-${justify}`]: type && justify,
-        [`${prefixCls}-${type}-${align}`]: type && align
-      },
-      className
-    );
-    const rowStyle =
-      (gutter as number) > 0
-        ? {
-            marginLeft: (gutter as number) / -2,
-            marginRight: (gutter as number) / -2,
-            ...style
-          }
-        : style;
-    const cols = Children.map(children, (col: React.ReactElement<HTMLDivElement>) => {
-      if (!col) {
-        return null;
-      }
-      if (col.props && (gutter as number) > 0) {
-        return cloneElement(col, {
-          style: {
-            paddingLeft: (gutter as number) / 2,
-            paddingRight: (gutter as number) / 2,
-            ...col.props.style
-          }
-        });
-      }
-      return col;
-    });
-    const otherProps = { ...others };
-    delete otherProps.gutter;
-    return (
-      <div {...otherProps} className={classes} style={rowStyle}>
-        {cols}
-      </div>
-    );
-  }
+  const calcGutter = getGutter();
+
+  const getClasses = () => classNames(
+    {
+      [prefixCls]: !type,
+      [`${prefixCls}-${type}`]: type,
+      [`${prefixCls}-${type}-${justify}`]: type && justify,
+      [`${prefixCls}-${type}-${align}`]: type && align
+    },
+    className
+  );
+
+  const getStyle = () => (calcGutter as number) > 0
+    ? {
+      marginLeft: (calcGutter as number) / -2,
+      marginRight: (calcGutter as number) / -2,
+      ...style
+    }
+    : style;
+
+  const cols = Children.map(children, (col: React.ReactElement<HTMLDivElement>) => {
+    if (!col) {
+      return null;
+    }
+    if (col.props && (calcGutter as number) > 0) {
+      return cloneElement(col, {
+        style: {
+          paddingLeft: (calcGutter as number) / 2,
+          paddingRight: (calcGutter as number) / 2,
+          ...col.props.style
+        }
+      });
+    }
+    return col;
+  });
+
+  const otherProps = { ...others };
+
+
+  return (
+    <div {...otherProps} className={getClasses()} style={getStyle()}>
+      {cols}
+    </div>
+  );
 }
+
+Row.defaultProps = {
+  gutter: 0
+}
+
+export default Row;
