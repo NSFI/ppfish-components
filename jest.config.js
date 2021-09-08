@@ -32,7 +32,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
   testURL: 'http://localhost',
-  testMatch: [...getRefactoredCompMatch()],
+  testMatch: [...getRefactoredCompMatch('Collapse')],
 
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

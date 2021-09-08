@@ -1,77 +1,52 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../Icon';
 import PanelContent from './PanelContent';
 
 export interface CollapsePanelProps {
-  header: string | number | Function;
-  onItemClick: () => void;
-  disabled: boolean;
-  onCloseItem: () => void;
-  itemKey: string;
-  className: string;
-  prefixCls: string;
-  showClose: boolean;
-  style: React.CSSProperties;
-  isActive: boolean;
+  // Css
+  prefixCls?: string;
+  className?: string;
+  style?: React.CSSProperties;
+
+  // Header
+  header?: string | number | Function;
+
+  // Status
+  showClose?: boolean;
+  disabled?: boolean;
+  isActive?: boolean;
+
+  // Ref
+  itemKey?: () => void;
+
+  // Event
+  onItemClick?: () => void;
+  onCloseItem?: () => void;
 }
 
 export interface CollapsePanelState {
   isCustom: boolean;
 }
 
-class CollapsePanel extends Component<CollapsePanelProps, CollapsePanelState> {
-  static propTypes = {
-    itemKey: PropTypes.func,
-    className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    style: PropTypes.object,
-    children: PropTypes.node,
-    openAnimation: PropTypes.object,
-    prefixCls: PropTypes.string,
-    disabled: PropTypes.bool,
-    header: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]),
-    showClose: PropTypes.bool,
-    isActive: PropTypes.bool,
-    onItemClick: PropTypes.func,
-    onCloseItem: PropTypes.func
-  };
+const Panel: FC<CollapsePanelProps> = (props) => {
 
-  static defaultProps = {
-    isActive: false,
-    disabled: false,
-    style: {},
-    onItemClick() {},
-    onCloseItem() {}
-  };
-
-  constructor(props) {
-    super(props);
-    this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleItemClose = this.handleItemClose.bind(this);
-    this.state = {
-      isCustom: typeof this.props.header === 'function' //是否显示箭头,不可关闭时不显示
-    };
-  }
-
-  handleItemClick() {
-    const { onItemClick, disabled } = this.props;
+  const { disabled, onItemClick, onCloseItem, header, prefixCls, showClose, isActive, className, style, children, itemKey } = props;
+  const handleItemClick = () => {
     if (!disabled) {
       onItemClick();
     }
   }
 
-  handleItemClose(e) {
+  const handleItemClose = (e) => {
     e.stopPropagation();
-    const { onCloseItem, disabled } = this.props;
     if (!disabled) {
       onCloseItem();
     }
   }
 
-  getHeader = status => {
-    const { header } = this.props;
-
+  const getHeader = (status: boolean) => {
     if (typeof header === 'function') {
       return header(status);
     } else {
@@ -79,62 +54,66 @@ class CollapsePanel extends Component<CollapsePanelProps, CollapsePanelState> {
     }
   };
 
-  render() {
-    const {
-      itemKey,
-      className,
-      prefixCls,
-      disabled,
-      showClose,
-      style,
-      children,
-      isActive
-    } = this.props;
-    const { isCustom } = this.state;
-    const headerCls = classNames({
-      [`${prefixCls}-header`]: true,
-      [`${prefixCls}-header-disabled`]: disabled,
-      [`${prefixCls}-header-close`]: showClose, // 可关闭时，箭头放置在左侧
-      [`${prefixCls}-header-custom`]: isCustom
-    });
-    const itemCls = classNames({
-      // 'clearfix': true,
-      [`${prefixCls}-item`]: true,
-      [`${prefixCls}-item-active`]: isActive,
-      [className]: className
-    });
-    const closeCls = classNames({
-      close: true,
-      'z-close-show': showClose
-    });
-    const getArrowIcon = isActive => {
-      if (isActive) {
-        return <Icon className="icon" type="top" />;
-      } else {
-        return <Icon className="icon" type="bottom" />;
-      }
-    };
-    return (
-      <div className={itemCls} style={style}>
-        <div
-          className={headerCls}
-          onClick={this.handleItemClick}
-          role="tab"
-          aria-expanded={isActive}
-          ref={itemKey}
-        >
-          <div className="arrow">{getArrowIcon(isActive)}</div>
-          <div className="title">{this.getHeader(isActive)}</div>
-          <div className={closeCls} onClick={this.handleItemClose}>
-            <Icon className="icon" type="picture-close" />
-          </div>
+
+  const isCustom = typeof header === 'function' //是否显示箭头,不可关闭时不显示
+
+
+  const headerCls = classNames({
+    [`${prefixCls}-header`]: true,
+    [`${prefixCls}-header-disabled`]: disabled,
+    [`${prefixCls}-header-close`]: showClose, // 可关闭时，箭头放置在左侧
+    [`${prefixCls}-header-custom`]: isCustom
+  });
+
+  const itemCls = classNames({
+    // 'clearfix': true,
+    [`${prefixCls}-item`]: true,
+    [`${prefixCls}-item-active`]: isActive,
+    [className]: className
+  });
+
+  const closeCls = classNames({
+    close: true,
+    'z-close-show': showClose
+  });
+
+  const getArrowIcon = (isActive: boolean) => {
+    if (isActive) {
+      return <Icon className="icon" type="top" />;
+    } else {
+      return <Icon className="icon" type="bottom" />;
+    }
+  };
+
+  return (
+    <div className={itemCls} style={style}>
+      <div
+        className={headerCls}
+        onClick={handleItemClick}
+        role="tab"
+        aria-expanded={isActive}
+        ref={itemKey}
+      >
+        <div className="arrow">{getArrowIcon(isActive)}</div>
+        <div className="title">{getHeader(isActive)}</div>
+        <div className={closeCls} onClick={handleItemClose}>
+          <Icon className="icon" type="picture-close" />
         </div>
-        <PanelContent prefixCls={prefixCls} isActive={isActive}>
-          {children}
-        </PanelContent>
       </div>
-    );
-  }
+      <PanelContent prefixCls={prefixCls} isActive={isActive}>
+        {children}
+      </PanelContent>
+    </div>
+  );
 }
 
-export default CollapsePanel;
+Panel.defaultProps = {
+  isActive: false,
+  disabled: false,
+  style: {},
+  onItemClick() { },
+  onCloseItem() { }
+}
+
+
+export default Panel;

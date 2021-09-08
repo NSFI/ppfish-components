@@ -1,0 +1,873 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders collapse demo correctly 1`] = `
+<div>
+  <div
+    class="fishd-collapse"
+  >
+    <div
+      class="fishd-collapse-item fishd-collapse-item-active"
+    >
+      <div
+        aria-expanded="true"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-top icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 1
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+      <div
+        class="fishd-collapse-content fishd-collapse-content-active"
+        role="tabpanel"
+      >
+        <div
+          class="fishd-collapse-content-box"
+        >
+          <p>
+            
+    A dog is a type of domesticated animal.
+    Known for its loyalty and faithfulness,
+    it can be found as a welcome guest in many households across the world.
+  
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 2
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header fishd-collapse-header-disabled"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 3
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-collapse"
+  >
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 1
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 2
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 3
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-collapse"
+  >
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 1
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 2
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 3
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-collapse collapse-demo"
+    style="overflow-y:auto;overflow-x:hidden"
+  >
+    <div
+      class="fishd-collapse-item fishd-collapse-item-active"
+    >
+      <div
+        aria-expanded="true"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-top icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 1
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+      <div
+        class="fishd-collapse-content fishd-collapse-content-active"
+        role="tabpanel"
+      >
+        <div
+          class="fishd-collapse-content-box"
+        >
+          <p
+            style="padding-left:24px"
+          >
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 2
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 3
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 4
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 5
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 6
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 7
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 8
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 9
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-collapse fishd-collapse-borderless"
+  >
+    <div
+      class="fishd-collapse-item fishd-collapse-item-active"
+      style="background:#f7f7f7;border-radius:4px;margin-bottom:24px;border:0;overflow:hidden"
+    >
+      <div
+        aria-expanded="true"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-top icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 1
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+      <div
+        class="fishd-collapse-content fishd-collapse-content-active"
+        role="tabpanel"
+      >
+        <div
+          class="fishd-collapse-content-box"
+        >
+          <p>
+            
+    A dog is a type of domesticated animal.
+    Known for its loyalty and faithfulness,
+    it can be found as a welcome guest in many households across the world.
+  
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+      style="background:#f7f7f7;border-radius:4px;margin-bottom:24px;border:0;overflow:hidden"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 2
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+      style="background:#f7f7f7;border-radius:4px;margin-bottom:24px;border:0;overflow:hidden"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 3
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-collapse"
+  >
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header fishd-collapse-header-close"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 1
+        </div>
+        <div
+          class="close z-close-show"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header fishd-collapse-header-close"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 2
+        </div>
+        <div
+          class="close z-close-show"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header fishd-collapse-header-close"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 3
+        </div>
+        <div
+          class="close z-close-show"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-collapse"
+  >
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header fishd-collapse-header-custom"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          <div>
+            <i
+              class="fishdicon fishdicon-plus-square icon"
+              style="margin-right:20px;margin-left:16px"
+            />
+            自定义  header
+          </div>
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 2
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-collapse-item"
+    >
+      <div
+        aria-expanded="false"
+        class="fishd-collapse-header"
+        role="tab"
+      >
+        <div
+          class="arrow"
+        >
+          <i
+            class="fishdicon fishdicon-bottom icon"
+          />
+        </div>
+        <div
+          class="title"
+        >
+          This is panel header 3
+        </div>
+        <div
+          class="close"
+        >
+          <i
+            class="fishdicon fishdicon-picture-close icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
