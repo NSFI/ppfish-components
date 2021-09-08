@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import createDOMForm from './RcForm/createDOMForm';
 import createFormField from './RcForm/createFormField';
 import omit from 'omit.js';
+import FormList from './FormList';
 import FormItem from './FormItem';
 import { FIELD_META_PROP, FIELD_DATA_PROP } from './constants';
 import { Omit } from '../../utils/type';
@@ -160,6 +161,7 @@ export default class Form extends React.Component<FormProps, any> {
     vertical: PropTypes.bool
   };
 
+  static List = FormList;
   static Item = FormItem;
 
   static createFormField = createFormField;

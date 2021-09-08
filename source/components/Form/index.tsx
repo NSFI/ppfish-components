@@ -8,6 +8,7 @@ export {
   ValidateCallback,
   ValidationRule
 } from './Form';
+export { FormListProps } from './FormList';
 export { FormItemProps } from './FormItem';
 
 export default Form;

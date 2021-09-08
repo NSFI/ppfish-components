@@ -771,6 +771,341 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
+## 使用 FormList 的动态增减表单项
+
+:::demo 使用 FormList 来实现动态增加、减少表单项。
+
+```js
+const FormList = Form.List;
+const FormItem = Form.Item;
+
+class DynamicFieldList extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      console.log('Received values of form: ', values);
+      if (!err) {
+      }
+    });
+  }
+
+  render() {
+    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 4 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 20 },
+      },
+    };
+    const formItemLayoutWithOutLabel = {
+      wrapperCol: {
+        xs: { span: 24, offset: 0 },
+        sm: { span: 20, offset: 4 },
+      },
+    };
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <FormList name={'passengers'} form={this.props.form}>
+          {(fields, action) => {
+            return (
+              <React.Fragment>
+                {fields.map((field, index) => {
+                  const { key, name: namePrefix } = field;
+                  return (
+                    <FormItem
+                      {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                      label={index === 0 ? 'Passengers' : ''}
+                      required={false}
+                      key={key}
+                    >
+                      {getFieldDecorator(`${namePrefix}.name`, {
+                        validateTrigger: ['onChange', 'onBlur'],
+                        rules: [{
+                          required: true,
+                          whitespace: true,
+                          message: "Please input passenger's name or delete this field.",
+                        }],
+                      })(
+                        <Input placeholder="passenger name" style={{ width: '60%', marginRight: 8 }} />
+                      )}
+                      {fields.length > 1 ? (
+                        <Icon
+                          className="dynamic-delete-button"
+                          type="form-minus"
+                          disabled={fields.length === 1}
+                          onClick={() => action.remove(index)}
+                        />
+                      ) : null}
+                    </FormItem>
+                  )
+                })}
+                <FormItem {...formItemLayoutWithOutLabel}>
+                  <Button type="dashed" onClick={() => action.add()} style={{ width: '60%' }}>
+                    <Icon type="upload-plus" /> Add field
+                  </Button>
+                </FormItem>
+              </React.Fragment>
+            )
+          }}
+        </FormList>
+        <FormItem {...formItemLayoutWithOutLabel}>
+          <Button type="primary" htmlType="submit">Submit</Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(DynamicFieldList);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+```
+
+```less
+.dynamic-delete-button {
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  color: #999;
+  transition: all 0.3s;
+}
+.dynamic-delete-button:hover {
+  color: #c5c5c5;
+}
+.dynamic-delete-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+```
+:::
+
+## 使用 FormList 的动态增减嵌套字段表单
+
+:::demo 使用 FormList 来实现动态增加、减少表单项。
+
+```js
+const FormList = Form.List;
+const FormItem = Form.Item;
+
+class DynamicFieldList extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      console.log('Received values of form: ', values);
+      if (!err) {
+      }
+    });
+  }
+
+  render() {
+    const { form } = this.props;
+    const { getFieldDecorator, getFieldValue } = form;
+    const initialValues = [
+      {
+        name: 'John',
+        age: 18
+      }
+    ]
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 4 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 20 },
+      },
+    };
+    const formItemLayoutWithOutLabel = {
+      wrapperCol: {
+        xs: { span: 24, offset: 0 },
+        sm: { span: 20, offset: 4 },
+      },
+    };
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <FormList name={'users'} form={form} initialValues={initialValues}>
+          {(fields, action) => {
+            return (
+              <React.Fragment>
+                {fields.map((field, index) => {
+                  const { key, name: namePrefix, initialValue = {} } = field;
+                  return (
+                    <div key={key} className='dynamic-card'>
+                      <FormItem
+                        label={'Name'}
+                        {...formItemLayout}
+                      >
+                        {getFieldDecorator(`${namePrefix}.name`, {
+                          initialValue: initialValue.name,
+                          validateTrigger: ['onChange', 'onBlur'],
+                          rules: [{
+                            required: true,
+                            whitespace: true,
+                            message: "Missing name",
+                          }],
+                        })(
+                          <Input placeholder="passenger name" style={{ width: '60%', marginRight: 8 }} />
+                        )}
+                      </FormItem>
+                      <FormItem
+                        label={'Age'}
+                        {...formItemLayout}
+                      >
+                        {getFieldDecorator(`${namePrefix}.age`, {
+                          initialValue: initialValue.age,
+                          validateTrigger: ['onChange', 'onBlur'],
+                          rules: [{
+                            required: true,
+                            message: "Missing age",
+                          }],
+                        })(
+                          <Input placeholder="passenger age" style={{ width: '60%', marginRight: 8 }} />
+                        )}
+                      </FormItem>
+                      <FormList
+                        name={`${namePrefix}.phone`}
+                        form={form}
+                        initialValues={['']}
+                      >
+                        {(phoneFields, phoneAction) => {
+                          return phoneFields.map((phoneField, index) => {
+                            const phoneLength = phoneFields.length;
+                            return (
+                              <React.Fragment>
+                                <FormItem
+                                  key={phoneFields.key}
+                                  label={index === 0 ? 'Phone' : ''}
+                                  {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                                >
+                                  {getFieldDecorator(`${phoneField.name}`, {
+                                    initialValue: phoneField.initialValue,
+                                    validateTrigger: ['onChange', 'onBlur'],
+                                    rules: [{
+                                      required: true,
+                                      whitespace: true,
+                                      message: "Missing phone",
+                                    }],
+                                  })(
+                                    <Input
+                                      placeholder="passenger phone"
+                                      style={{ width: '60%', marginRight: 8 }}
+                                    />
+                                  )}
+                                  {phoneLength > 1 ? (
+                                    <React.Fragment>
+                                      <Icon
+                                        className="dynamic-phone-button"
+                                        type="delete-line"
+                                        onClick={() => phoneAction.remove(index)}
+                                      />
+                                      <Icon
+                                        className="dynamic-phone-button"
+                                        type="bottom"
+                                        onClick={() => phoneAction.move(index, (index + phoneLength + 1) % phoneLength)}
+                                      />
+                                      <Icon
+                                        className="dynamic-phone-button"
+                                        type="top"
+                                        onClick={() => phoneAction.move(index, (index + phoneLength - 1) % phoneLength)}
+                                      />
+                                    </React.Fragment>
+                                  ) : null}
+                                </FormItem>
+                                {index === phoneLength - 1 ? (
+                                  <FormItem {...formItemLayoutWithOutLabel}>
+                                    <Button
+                                      type="dashed"
+                                      onClick={() => phoneAction.add()}
+                                    ><Icon type="upload-plus" /> Add phone</Button>
+                                  </FormItem>
+                                ) : null}
+                              </React.Fragment>
+                            )
+                          })
+                        }}
+                      </FormList>
+                      {fields.length > 1 ? (
+                        <Icon
+                          className="dynamic-delete-button"
+                          type="delete-line"
+                          disabled={fields.length === 1}
+                          onClick={() => action.remove(index)}
+                        />
+                      ) : null}
+                    </div>
+                  )
+                })}
+                <FormItem>
+                  <Button type="dashed" onClick={() => action.add()}>
+                    <Icon type="upload-plus" /> Add field
+                  </Button>
+                </FormItem>
+              </React.Fragment>
+            )
+          }}
+        </FormList>
+        <FormItem>
+          <Button type="primary" htmlType="submit">Submit</Button>
+        </FormItem>
+      </Form>
+    );
+  }
+}
+
+const Demo = Form.create()(DynamicFieldList);
+ReactDOM.render(<Demo {...context.props}/>,mountNode);
+```
+
+```less
+.dynamic-card {
+  position: relative;
+  padding: 20px;
+  border: 1px solid #f2f3f5;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.dynamic-delete-button {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  padding: 3px;
+  font-size: 20px;
+  color: #999;
+  transition: all 0.3s;
+}
+.dynamic-delete-button:hover {
+  border-color: #337eff;
+  color: #337eff;
+}
+.dynamic-delete-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.dynamic-phone-button {
+  margin-right: 8px;
+  padding: 3px;
+  border: 1px solid #999;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 15px;
+  color: #999;
+  transition: all 0.3s;
+  &:hover {
+    border-color: #337eff;
+    color: #337eff;
+  }
+}
+```
+:::
+
 ## 时间类控件
 
 :::demo 时间类组件的 `value` 为 `Date` 类型。
@@ -1884,6 +2219,23 @@ this.form // => The instance of CustomizedForm
 | required | 是否必填，如不设置，则会根据校验规则自动生成 | Boolean | false |
 | validateStatus | 校验状态，如不设置，则会根据校验规则自动生成，可选：'success' 'warning' 'error' 'validating' | String | - |
 | wrapperCol | 需要为输入控件设置布局样式时，使用该属性，用法同 labelCol | [Object](https://nsfi.github.io/ppfish-components/#/components/grid/) | - |
+
+### Form.List
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| form | 经过 Form.create 包装的组件自带的 this.props.form 属性 | object | - |
+| children | 渲染函数 | (fields: { name, key, initialValue }[], operation: { add, remove }) => React.ReactNode | - |
+| initialValues | FormList 的默认值，会传递给 children 渲染函数 | any[] | - |
+| name | 字段名 | string | - |
+
+### Form.List operation
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| add | 新增表单项 | (defaultValue?: any, index?: number) => void | list.length |
+| remove | 删除表单项 | (index: number) => void | - |
+| move | 移动表单项 | (from: number, to: number) => void | - |
 
 ### 校验规则
 
