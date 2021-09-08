@@ -13,6 +13,9 @@ const refactoredComp = [
   'Carousel',
   'Checkbox',
   'Echart',
+  'Cascader',
+  'Grid',
+  'Collapse',
 ];
 
 const getRefactoredCompMatch = name => {
@@ -32,7 +35,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
   testURL: 'http://localhost',
-  testMatch: [...getRefactoredCompMatch('Collapse')],
+  testMatch: [...getRefactoredCompMatch()],
 
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
