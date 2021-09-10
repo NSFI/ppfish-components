@@ -16,6 +16,7 @@ const refactoredComp = [
   'Cascader',
   'Grid',
   'Collapse',
+  'FooterToolbar',
 ];
 
 const getRefactoredCompMatch = name => {
