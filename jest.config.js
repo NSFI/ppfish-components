@@ -16,6 +16,7 @@ const refactoredComp = [
   'Cascader',
   'Grid',
   'Collapse',
+  'Ellipsis',
   'FooterToolbar',
   'InputNumber',
   'Menu',
@@ -39,7 +40,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
   testURL: 'http://localhost',
-  testMatch: [...getRefactoredCompMatch('Table')],
+  testMatch: [...getRefactoredCompMatch()],
 
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

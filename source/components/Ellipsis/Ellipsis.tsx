@@ -1,15 +1,15 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Tooltip, { TooltipProps } from '../Tooltip';
+import { TooltipProps } from '../Tooltip';
 import EllipsisText from './EllipsisText';
-/* eslint react/no-did-mount-set-state: 0 */
-/* eslint no-param-reassign: 0 */
+import EllipsisWidth from './EllipsisWidth';
+import EllipsisLine from './EllipsisLine';
+import EllipsisLineClamp from './EllipsisLineClamp';
 
 // @ts-ignore
 const isSupportLineClamp = document.body.style.webkitLineClamp !== undefined;
 
-interface EllipsisProps {
+export interface EllipsisProps {
   tooltip?: boolean;
   tooltipProps?: TooltipProps;
   length?: number;
@@ -19,300 +19,105 @@ interface EllipsisProps {
   width?: number | string;
   style?: React.CSSProperties;
   prefix?: string;
+  children: React.ReactNode;
 }
 
-interface EllipsisState {
-  text: string;
-  targetCount: number;
-  tooltipVisible: boolean;
-}
+const Ellipsis = (props: EllipsisProps) => {
+  const {
+    children,
+    lines,
+    length,
+    width,
+    className,
+    tooltip,
+    style,
+    fullWidthRecognition,
+    prefix,
+    tooltipProps,
+    ...restProps
+  } = props;
 
-export default class Ellipsis extends React.Component<EllipsisProps, EllipsisState> {
-  static defaultProps = {
-    prefix: 'fishd-ellipsis',
-    fullWidthRecognition: false,
-    tooltip: true,
-    tooltipProps: {}
-  };
+  const cls = classNames(`${prefix}-ellipsis`, className, {
+    [`${prefix}-width-mode`]: width,
+    [`${prefix}-line`]: lines && !isSupportLineClamp,
+    [`${prefix}-lineClamp`]: lines && isSupportLineClamp,
+  });
 
-  static propTypes = {
-    prefix: PropTypes.string,
-    lines: PropTypes.number,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    length: PropTypes.number,
-    tooltip: PropTypes.bool,
-    tooltipProps: PropTypes.object,
-    fullWidthRecognition: PropTypes.bool,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    children: PropTypes.node
-  };
-
-  private node: HTMLElement | null;
-  private widthNode: HTMLElement | null;
-  private lineClampNode: HTMLElement | null;
-  private shadowChildren;
-  private root;
-  private content;
-  private shadow;
-
-  state: Readonly<EllipsisState> = {
-    text: '',
-    targetCount: 0,
-    tooltipVisible: false
-  };
-
-  componentDidMount() {
-    if (this.node) {
-      this.computeLine();
-    }
-  }
-
-  componentDidUpdate(perProps) {
-    const { lines, children } = this.props;
-    if (lines !== perProps.lines || children !== perProps.children) {
-      this.computeLine();
-    }
-  }
-
-  getTargetNode = () => {
-    let target: HTMLElement | null;
-    if (this.props.width) {
-      target = this.widthNode;
-    } else if (this.props.lines && isSupportLineClamp) {
-      target = this.lineClampNode;
-    }
-    return target;
-  };
-
-  computeLine = () => {
-    const { lines } = this.props;
-    if (lines && !isSupportLineClamp) {
-      const text = this.shadowChildren.innerText || this.shadowChildren.textContent;
-      const lineHeight = parseInt(getComputedStyle(this.root).lineHeight, 10);
-      const targetHeight = lines * lineHeight;
-      this.content.style.height = `${targetHeight}px`;
-      const totalHeight = this.shadowChildren.offsetHeight;
-      const shadowNode = this.shadow.firstChild;
-
-      if (totalHeight <= targetHeight) {
-        this.setState({
-          text,
-          targetCount: text.length
-        });
-        return;
-      }
-
-      // bisection
-      const len = text.length;
-      const mid = Math.ceil(len / 2);
-
-      const count = this.bisection(targetHeight, mid, 0, len, text, shadowNode);
-
-      this.setState({
-        text,
-        targetCount: count
-      });
-    }
-  };
-
-  bisection = (th, m, b, e, text, shadowNode) => {
-    const suffix = '...';
-    let mid = m;
-    let end = e;
-    let begin = b;
-    shadowNode.innerHTML = text.substring(0, mid) + suffix;
-    let sh = shadowNode.offsetHeight;
-
-    if (sh <= th) {
-      shadowNode.innerHTML = text.substring(0, mid + 1) + suffix;
-      sh = shadowNode.offsetHeight;
-      if (sh > th || mid === begin) {
-        return mid;
-      }
-      begin = mid;
-      if (end - begin === 1) {
-        mid = 1 + begin;
-      } else {
-        mid = Math.floor((end - begin) / 2) + begin;
-      }
-      return this.bisection(th, mid, begin, end, text, shadowNode);
-    }
-    if (mid - 1 < 0) {
-      return mid;
-    }
-    shadowNode.innerHTML = text.substring(0, mid - 1) + suffix;
-    sh = shadowNode.offsetHeight;
-    if (sh <= th) {
-      return mid - 1;
-    }
-    end = mid;
-    mid = Math.floor((end - begin) / 2) + begin;
-    return this.bisection(th, mid, begin, end, text, shadowNode);
-  };
-
-  handleRoot = n => {
-    this.root = n;
-  };
-
-  handleContent = n => {
-    this.content = n;
-  };
-
-  handleNode = n => {
-    this.node = n;
-  };
-
-  handleShadow = n => {
-    this.shadow = n;
-  };
-
-  handleShadowChildren = n => {
-    this.shadowChildren = n;
-  };
-
-  handleTooltipVisibleChange = visible => {
-    const node = this.getTargetNode();
-    if (!node) {
-      return;
-    }
-    
-    const tooltipVisible = visible && (node.offsetHeight < node.scrollHeight || node.offsetWidth < node.scrollWidth);
-    
-    this.setState(state => {
-      const shouldReset = state.tooltipVisible !== tooltipVisible;
-      return shouldReset ? { tooltipVisible } : null;
-    });
-  };
-
-  render() {
-    const { text, targetCount, tooltipVisible } = this.state;
-    const {
-      children,
-      lines,
-      length,
-      width,
-      className,
-      tooltip,
-      style,
-      fullWidthRecognition,
-      prefix,
-      tooltipProps,
-      ...restProps
-    } = this.props;
-
-    const cls = classNames(`${prefix}-ellipsis`, className, {
-      [`${prefix}-width-mode`]: width,
-      [`${prefix}-line`]: lines && !isSupportLineClamp,
-      [`${prefix}-lineClamp`]: lines && isSupportLineClamp
-    });
-
-    // 一种限制都没有返回原值
-    if (!lines && !length && !width) {
-      return (
-        <span className={cls} {...restProps}>
-          {children}
-        </span>
-      );
-    }
-
-    // 宽度限制
-    if (width) {
-      const node = (
-        <span
-          ref={node => (this.widthNode = node)}
-          className={cls}
-          {...restProps}
-          style={{ ...style, maxWidth: width }}
-        >
-          {children}
-        </span>
-      );
-      return tooltip ? (
-        <Tooltip
-          {...tooltipProps}
-          overlayClassName={`${prefix}-tooltip`}
-          title={children}
-          visible={tooltipVisible}
-          onVisibleChange={this.handleTooltipVisibleChange}
-        >
-          {node}
-        </Tooltip>
-      ) : (
-        node
-      );
-    }
-
-    // 字数限制
-    if (length) {
-      return (
-        <EllipsisText
-          prefix={prefix}
-          className={cls}
-          tooltipProps={tooltipProps}
-          length={length}
-          text={children || ''}
-          tooltip={tooltip}
-          fullWidthRecognition={fullWidthRecognition}
-          {...restProps}
-        />
-      );
-    }
-
-    //行数限制
-    const id = `fishd-ellipsis-${`${new Date().getTime()}${Math.floor(Math.random() * 100)}`}`;
-
-    // support document.body.style.webkitLineClamp
-    if (isSupportLineClamp) {
-      const style = `#${id}{-webkit-line-clamp:${lines};-webkit-box-orient: vertical;}`;
-
-      const node = (
-        <div ref={node => (this.lineClampNode = node)} id={id} className={cls} {...restProps}>
-          <style>{style}</style>
-          {children}
-        </div>
-      );
-
-      return tooltip ? (
-        <Tooltip
-          {...tooltipProps}
-          overlayClassName={`${prefix}-tooltip`}
-          title={children}
-          visible={tooltipVisible}
-          onVisibleChange={this.handleTooltipVisibleChange}
-        >
-          {node}
-        </Tooltip>
-      ) : (
-        node
-      );
-    }
-
-    const childNode = (
-      <span ref={this.handleNode}>
-        {targetCount > 0 && text.substring(0, targetCount)}
-        {targetCount > 0 && targetCount < text.length && '...'}
+  // 一种限制都没有返回原值
+  if (!lines && !length && !width) {
+    return (
+      <span className={cls} {...restProps}>
+        {children}
       </span>
     );
+  }
 
+  if (width) {
     return (
-      <div {...restProps} ref={this.handleRoot} className={cls}>
-        <div ref={this.handleContent}>
-          {tooltip ? (
-            <Tooltip overlayClassName={`${prefix}-tooltip`} title={text}>
-              {childNode}
-            </Tooltip>
-          ) : (
-            childNode
-          )}
-          <div className={`${prefix}-shadow`} ref={this.handleShadowChildren}>
-            {children}
-          </div>
-          <div className={`${prefix}-shadow`} ref={this.handleShadow}>
-            <span>{text}</span>
-          </div>
-        </div>
-      </div>
+      <EllipsisWidth
+        className={cls}
+        prefix={prefix}
+        style={style}
+        tooltip={tooltip}
+        tooltipProps={tooltipProps}
+        width={width}
+        {...restProps}
+      >
+        {children}
+      </EllipsisWidth>
     );
   }
-}
+
+  // 字数限制
+  if (length) {
+    return (
+      <EllipsisText
+        className={cls}
+        prefix={prefix}
+        tooltipProps={tooltipProps}
+        length={length}
+        text={children || ''}
+        tooltip={tooltip}
+        fullWidthRecognition={fullWidthRecognition}
+        {...restProps}
+      />
+    );
+  }
+
+  if (isSupportLineClamp) {
+    return (
+      <EllipsisLineClamp
+        className={cls}
+        prefix={prefix}
+        tooltip={tooltip}
+        tooltipProps={tooltipProps}
+        lines={lines}
+        {...restProps}
+      >
+        {children}
+      </EllipsisLineClamp>
+    );
+  }
+
+  return (
+    <EllipsisLine
+      className={cls}
+      prefix={prefix}
+      tooltip={tooltip}
+      tooltipProps={tooltipProps}
+      lines={lines}
+      {...restProps}
+    >
+      {children}
+    </EllipsisLine>
+  );
+};
+
+Ellipsis.defaultProps = {
+  prefix: 'fishd-ellipsis',
+  fullWidthRecognition: false,
+  tooltip: true,
+  tooltipProps: {},
+};
+
+export default Ellipsis;
