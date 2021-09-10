@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, memo, useRef } from 'react';
 import classnames from 'classnames';
 
 export interface PanelContentProps {
@@ -7,40 +6,26 @@ export interface PanelContentProps {
   prefixCls: string;
 }
 
-class PanelContent extends Component<PanelContentProps, any> {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    isActive: PropTypes.bool,
-    children: PropTypes.node
-  };
+const PanelContent: FC<PanelContentProps> = memo((props) => {
 
-  _isActived: boolean;
+  const isActivedRef = useRef<boolean>(false);
 
-  constructor(props) {
-    super(props);
+  isActivedRef.current = isActivedRef.current || props.isActive;
+  if (!isActivedRef.current) {
+    return null;
   }
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.isActive || nextProps.isActive;
-  }
-
-  render() {
-    this._isActived = this._isActived || this.props.isActive;
-    if (!this._isActived) {
-      return null;
-    }
-    const { prefixCls, isActive, children } = this.props;
-    const contentCls = classnames({
-      [`${prefixCls}-content`]: true,
-      [`${prefixCls}-content-active`]: isActive,
-      [`${prefixCls}-content-inactive`]: !isActive
-    });
-    return (
-      <div className={contentCls} role="tabpanel">
-        <div className={`${prefixCls}-content-box`}>{children}</div>
-      </div>
-    );
-  }
-}
+  const { prefixCls, isActive, children } = props;
+  const contentCls = classnames({
+    [`${prefixCls}-content`]: true,
+    [`${prefixCls}-content-active`]: isActive,
+    [`${prefixCls}-content-inactive`]: !isActive
+  });
+  return (
+    <div className={contentCls} role="tabpanel">
+      <div className={`${prefixCls}-content-box`}>{children}</div>
+    </div>
+  );
+}, (prevProp, nextProps) => !prevProp.isActive && !nextProps.isActive)
 
 export default PanelContent;

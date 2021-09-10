@@ -13,6 +13,10 @@ const refactoredComp = [
   'Carousel',
   'Checkbox',
   'Echart',
+  'Cascader',
+  'Grid',
+  'Collapse',
+  'FooterToolbar',
 ];
 
 const getRefactoredCompMatch = name => {

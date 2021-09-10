@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grid Col should render 1`] = `
+<Col
+  span={2}
+>
+  <div
+    className="fishd-col-2"
+  />
+</Col>
+`;
+
+exports[`Grid Row should render 1`] = `
+<Row
+  gutter={0}
+>
+  <div
+    className="fishd-row"
+  />
+</Row>
+`;
+
+exports[`Grid Row wrapped Col should render 1`] = `
+<Row
+  gutter={0}
+>
+  <div
+    className="fishd-row"
+  >
+    <Col
+      key=".0"
+      span={12}
+    >
+      <div
+        className="fishd-col-12"
+      />
+    </Col>
+    <Col
+      key=".1"
+      span={12}
+    >
+      <div
+        className="fishd-col-12"
+      />
+    </Col>
+  </div>
+</Row>
+`;
+
+exports[`Grid when order is set should render correct 1`] = `
+<Row
+  gutter={0}
+  type="flex"
+>
+  <div
+    className="fishd-row-flex"
+  >
+    <Col
+      key=".0"
+      order={4}
+      span={6}
+    >
+      <div
+        className="fishd-col-6 fishd-col-order-4"
+      >
+        1 col-order-4
+      </div>
+    </Col>
+    <Col
+      key=".1"
+      order={3}
+      span={6}
+    >
+      <div
+        className="fishd-col-6 fishd-col-order-3"
+      >
+        2 col-order-3
+      </div>
+    </Col>
+    <Col
+      key=".2"
+      order={2}
+      span={6}
+    >
+      <div
+        className="fishd-col-6 fishd-col-order-2"
+      >
+        3 col-order-2
+      </div>
+    </Col>
+    <Col
+      key=".3"
+      order={1}
+      span={6}
+    >
+      <div
+        className="fishd-col-6 fishd-col-order-1"
+      >
+        4 col-order-1
+      </div>
+    </Col>
+  </div>
+</Row>
+`;
+
+exports[`Grid when type is flex should render 1`] = `
+<Row
+  gutter={0}
+  type="flex"
+>
+  <div
+    className="fishd-row-flex"
+  >
+    <Col
+      key=".0"
+      span={12}
+    >
+      <div
+        className="fishd-col-12"
+      >
+        1
+      </div>
+    </Col>
+    <Col
+      key=".1"
+      span={12}
+    >
+      <div
+        className="fishd-col-12"
+      >
+        2
+      </div>
+    </Col>
+  </div>
+</Row>
+`;
