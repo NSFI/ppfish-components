@@ -30,7 +30,7 @@ const RcCascader: React.FC<RcCascaderProps> = (
       setActiveValue(props.value)
     }
 
-  }, [loadData])
+  }, [props])
 
 
   const [popupVisible, setPopupVisible] = useControlledState(false, { value: props.popupVisible, onChange: onPopupVisibleChange });
@@ -270,8 +270,8 @@ const RcCascader: React.FC<RcCascaderProps> = (
 
 RcCascader.defaultProps = {
   options: [],
-  onChange() {},
-  onPopupVisibleChange() {},
+  onChange() { },
+  onPopupVisibleChange() { },
   disabled: false,
   transitionName: '',
   prefixCls: 'rc-cascader',
