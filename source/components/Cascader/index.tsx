@@ -9,5 +9,6 @@ export {
   ShowSearchType,
   CascaderProps,
   CascaderState
-} from './Cascader';
+} from './interface';
+
 export default Cascader;
