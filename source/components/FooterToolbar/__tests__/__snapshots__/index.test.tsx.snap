@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FooterToolbar FooterToolbar should render 1`] = `
+<Page>
+  <div
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
+    <FooterToolbar
+      className=""
+      prefixCls="fishd-footer-toolbar"
+    >
+      <div
+        className=" fishd-footer-toolbar"
+        style={
+          Object {
+            "position": "absolute",
+            "top": -100,
+          }
+        }
+      >
+        <div
+          className="fishd-footer-toolbar-inner"
+        >
+          footer
+        </div>
+      </div>
+    </FooterToolbar>
+  </div>
+</Page>
+`;
