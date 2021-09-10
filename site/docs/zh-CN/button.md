@@ -15,8 +15,8 @@ render(){
     <Button type="primary">Primary</Button>
     <Button>Default</Button>
     <Button type="danger">Danger</Button>
-    <Button type="dashed">Danger</Button>
-    <Button type="text">Default</Button>
+    <Button type="dashed">dashed</Button>
+    <Button type="text">text</Button>
     <Button type="link">link</Button>
   </div>)
 }

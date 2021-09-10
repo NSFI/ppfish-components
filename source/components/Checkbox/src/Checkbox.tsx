@@ -42,7 +42,9 @@ const InternalRcCheckbox: React.ForwardRefRenderFunction<HTMLInputElement, Props
   );
 
   React.useEffect(() => {
+   if('checked' in props) {
     setChecked(props.checked);
+   }
   }, [props.checked]);
 
   const handleChange = e => {

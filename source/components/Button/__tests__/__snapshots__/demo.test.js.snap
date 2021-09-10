@@ -34,7 +34,7 @@ exports[`Renders button demo correctly 1`] = `
       type="button"
     >
       <span>
-        Danger
+        dashed
       </span>
     </button>
     <button
@@ -42,7 +42,7 @@ exports[`Renders button demo correctly 1`] = `
       type="button"
     >
       <span>
-        Default
+        text
       </span>
     </button>
     <button
