@@ -341,6 +341,8 @@ render(){
 | getPopupContainer | 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。[示例](https://codepen.io/afc163/pen/zEjNOy?editors=0010) |  () => HTMLElement | () => document.body |
 | onVisibleChange | 菜单显示状态改变时调用，参数为 visible | (visible) => Void | - |
 | overlay | 菜单 | [Menu](https://nsfi.github.io/ppfish-components/#/components/menu) | - |
+| overlayClassName | 下拉根元素的类名称 | string | - |
+| overlayStyle | 下拉根元素的样式 | CSSProperties | - |
 | placement | 菜单弹出位置 | Enum {'bottomLeft', 'bottomCenter' ,'bottomRight' ,'topLeft' ,'topCenter', 'topRight'}| 'bottomLeft' |
 | style | 自定义样式 | Object | - |
 | trigger | 触发下拉的行为 | Array< `click` \| `hover` \| `contextMenu` > | ['hover'] |
