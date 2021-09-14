@@ -11,40 +11,38 @@ exports[`Renders inputNumber demo correctly 1`] = `
       <span
         aria-disabled="false"
         aria-label="Increase Value"
-        class="fishd-input-number-handler fishd-input-number-handler-up "
+        class="fishd-input-number-handler fishd-input-number-handler-up"
         role="button"
-        unselectable="unselectable"
+        unselectable="on"
       >
         <span
           class="fishd-input-number-handler-up-inner"
-          unselectable="unselectable"
+          unselectable="on"
         />
       </span>
       <span
         aria-disabled="false"
         aria-label="Decrease Value"
-        class="fishd-input-number-handler fishd-input-number-handler-down "
+        class="fishd-input-number-handler fishd-input-number-handler-down"
         role="button"
-        unselectable="unselectable"
+        unselectable="on"
       >
         <span
           class="fishd-input-number-handler-down-inner"
-          unselectable="unselectable"
+          unselectable="on"
         />
       </span>
     </div>
     <div
-      aria-valuemax="10"
-      aria-valuemin="1"
-      aria-valuenow="3"
       class="fishd-input-number-input-wrap"
-      role="spinbutton"
     >
       <input
+        aria-valuemax="10"
+        aria-valuemin="1"
+        aria-valuenow="3"
         autocomplete="off"
         class="fishd-input-number-input"
-        max="10"
-        min="1"
+        role="spinbutton"
         step="1"
         value="3"
       />
@@ -60,40 +58,38 @@ exports[`Renders inputNumber demo correctly 1`] = `
         <span
           aria-disabled="false"
           aria-label="Increase Value"
-          class="fishd-input-number-handler fishd-input-number-handler-up "
+          class="fishd-input-number-handler fishd-input-number-handler-up"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-up-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
         <span
           aria-disabled="false"
           aria-label="Decrease Value"
-          class="fishd-input-number-handler fishd-input-number-handler-down "
+          class="fishd-input-number-handler fishd-input-number-handler-down"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-down-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
       </div>
       <div
-        aria-valuemax="100000"
-        aria-valuemin="1"
-        aria-valuenow="3"
         class="fishd-input-number-input-wrap"
-        role="spinbutton"
       >
         <input
+          aria-valuemax="100000"
+          aria-valuemin="1"
+          aria-valuenow="3"
           autocomplete="off"
           class="fishd-input-number-input"
-          max="100000"
-          min="1"
+          role="spinbutton"
           step="1"
           value="3"
         />
@@ -108,40 +104,38 @@ exports[`Renders inputNumber demo correctly 1`] = `
         <span
           aria-disabled="false"
           aria-label="Increase Value"
-          class="fishd-input-number-handler fishd-input-number-handler-up "
+          class="fishd-input-number-handler fishd-input-number-handler-up"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-up-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
         <span
           aria-disabled="false"
           aria-label="Decrease Value"
-          class="fishd-input-number-handler fishd-input-number-handler-down "
+          class="fishd-input-number-handler fishd-input-number-handler-down"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-down-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
       </div>
       <div
-        aria-valuemax="100000"
-        aria-valuemin="1"
-        aria-valuenow="3"
         class="fishd-input-number-input-wrap"
-        role="spinbutton"
       >
         <input
+          aria-valuemax="100000"
+          aria-valuemin="1"
+          aria-valuenow="3"
           autocomplete="off"
           class="fishd-input-number-input"
-          max="100000"
-          min="1"
+          role="spinbutton"
           step="1"
           value="3"
         />
@@ -156,40 +150,38 @@ exports[`Renders inputNumber demo correctly 1`] = `
         <span
           aria-disabled="false"
           aria-label="Increase Value"
-          class="fishd-input-number-handler fishd-input-number-handler-up "
+          class="fishd-input-number-handler fishd-input-number-handler-up"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-up-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
         <span
           aria-disabled="false"
           aria-label="Decrease Value"
-          class="fishd-input-number-handler fishd-input-number-handler-down "
+          class="fishd-input-number-handler fishd-input-number-handler-down"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-down-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
       </div>
       <div
-        aria-valuemax="100000"
-        aria-valuemin="1"
-        aria-valuenow="3"
         class="fishd-input-number-input-wrap"
-        role="spinbutton"
       >
         <input
+          aria-valuemax="100000"
+          aria-valuemin="1"
+          aria-valuenow="3"
           autocomplete="off"
           class="fishd-input-number-input"
-          max="100000"
-          min="1"
+          role="spinbutton"
           step="1"
           value="3"
         />
@@ -204,43 +196,41 @@ exports[`Renders inputNumber demo correctly 1`] = `
         class="fishd-input-number-handler-wrap"
       >
         <span
-          aria-disabled="true"
+          aria-disabled="false"
           aria-label="Increase Value"
-          class="fishd-input-number-handler fishd-input-number-handler-up "
+          class="fishd-input-number-handler fishd-input-number-handler-up"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-up-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
         <span
-          aria-disabled="true"
+          aria-disabled="false"
           aria-label="Decrease Value"
-          class="fishd-input-number-handler fishd-input-number-handler-down "
+          class="fishd-input-number-handler fishd-input-number-handler-down"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-down-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
       </div>
       <div
-        aria-valuemax="10"
-        aria-valuemin="1"
-        aria-valuenow="3"
         class="fishd-input-number-input-wrap"
-        role="spinbutton"
       >
         <input
+          aria-valuemax="10"
+          aria-valuemin="1"
+          aria-valuenow="3"
           autocomplete="off"
           class="fishd-input-number-input"
           disabled=""
-          max="10"
-          min="1"
+          role="spinbutton"
           step="1"
           value="3"
         />
@@ -268,39 +258,37 @@ exports[`Renders inputNumber demo correctly 1`] = `
       <span
         aria-disabled="false"
         aria-label="Increase Value"
-        class="fishd-input-number-handler fishd-input-number-handler-up "
+        class="fishd-input-number-handler fishd-input-number-handler-up"
         role="button"
-        unselectable="unselectable"
+        unselectable="on"
       >
         <span
           class="fishd-input-number-handler-up-inner"
-          unselectable="unselectable"
+          unselectable="on"
         />
       </span>
       <span
         aria-disabled="false"
         aria-label="Decrease Value"
-        class="fishd-input-number-handler fishd-input-number-handler-down "
+        class="fishd-input-number-handler fishd-input-number-handler-down"
         role="button"
-        unselectable="unselectable"
+        unselectable="on"
       >
         <span
           class="fishd-input-number-handler-down-inner"
-          unselectable="unselectable"
+          unselectable="on"
         />
       </span>
     </div>
     <div
-      aria-valuemax="10"
-      aria-valuemin="0"
       class="fishd-input-number-input-wrap"
-      role="spinbutton"
     >
       <input
+        aria-valuemax="10"
+        aria-valuemin="0"
         autocomplete="off"
         class="fishd-input-number-input"
-        max="10"
-        min="0"
+        role="spinbutton"
         step="0.1"
         value=""
       />
@@ -316,38 +304,36 @@ exports[`Renders inputNumber demo correctly 1`] = `
         <span
           aria-disabled="false"
           aria-label="Increase Value"
-          class="fishd-input-number-handler fishd-input-number-handler-up "
+          class="fishd-input-number-handler fishd-input-number-handler-up"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-up-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
         <span
           aria-disabled="false"
           aria-label="Decrease Value"
-          class="fishd-input-number-handler fishd-input-number-handler-down "
+          class="fishd-input-number-handler fishd-input-number-handler-down"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-down-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
       </div>
       <div
-        aria-valuemin="-9007199254740991"
-        aria-valuenow="1000"
         class="fishd-input-number-input-wrap"
-        role="spinbutton"
       >
         <input
+          aria-valuenow="1000"
           autocomplete="off"
           class="fishd-input-number-input"
-          min="-9007199254740991"
+          role="spinbutton"
           step="1"
           value="$ 1,000"
         />
@@ -364,43 +350,491 @@ exports[`Renders inputNumber demo correctly 1`] = `
           aria-label="Increase Value"
           class="fishd-input-number-handler fishd-input-number-handler-up fishd-input-number-handler-up-disabled"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-up-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
         <span
           aria-disabled="false"
           aria-label="Decrease Value"
-          class="fishd-input-number-handler fishd-input-number-handler-down "
+          class="fishd-input-number-handler fishd-input-number-handler-down"
           role="button"
-          unselectable="unselectable"
+          unselectable="on"
         >
           <span
             class="fishd-input-number-handler-down-inner"
-            unselectable="unselectable"
+            unselectable="on"
           />
         </span>
       </div>
       <div
-        aria-valuemax="100"
-        aria-valuemin="0"
-        aria-valuenow="100"
         class="fishd-input-number-input-wrap"
-        role="spinbutton"
       >
         <input
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="100"
           autocomplete="off"
           class="fishd-input-number-input"
-          max="100"
-          min="0"
+          role="spinbutton"
           step="1"
           value="100%"
         />
       </div>
     </div>
+  </div>
+  <div>
+    <div
+      class="fishd-input-number fishd-input-number-out-of-range"
+    >
+      <div
+        class="fishd-input-number-handler-wrap"
+      >
+        <span
+          aria-disabled="true"
+          aria-label="Increase Value"
+          class="fishd-input-number-handler fishd-input-number-handler-up fishd-input-number-handler-up-disabled"
+          role="button"
+          unselectable="on"
+        >
+          <span
+            class="fishd-input-number-handler-up-inner"
+            unselectable="on"
+          />
+        </span>
+        <span
+          aria-disabled="false"
+          aria-label="Decrease Value"
+          class="fishd-input-number-handler fishd-input-number-handler-down"
+          role="button"
+          unselectable="on"
+        >
+          <span
+            class="fishd-input-number-handler-down-inner"
+            unselectable="on"
+          />
+        </span>
+      </div>
+      <div
+        class="fishd-input-number-input-wrap"
+      >
+        <input
+          aria-valuemax="10"
+          aria-valuemin="1"
+          aria-valuenow="100"
+          autocomplete="off"
+          class="fishd-input-number-input"
+          role="spinbutton"
+          step="1"
+          value="100"
+        />
+      </div>
+    </div>
+    <button
+      class="fishd-btn fishd-btn-primary"
+      type="button"
+    >
+      <span>
+        Reset
+      </span>
+    </button>
+  </div>
+  <div>
+    <div
+      class="fishd-input-number-group-wrapper"
+    >
+      <div
+        class="fishd-input-number-wrapper fishd-input-number-group"
+      >
+        <div
+          class="fishd-input-number-group-addon"
+        >
+          +
+        </div>
+        <div
+          class="fishd-input-number"
+        >
+          <div
+            class="fishd-input-number-handler-wrap"
+          >
+            <span
+              aria-disabled="false"
+              aria-label="Increase Value"
+              class="fishd-input-number-handler fishd-input-number-handler-up"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-up-inner"
+                unselectable="on"
+              />
+            </span>
+            <span
+              aria-disabled="false"
+              aria-label="Decrease Value"
+              class="fishd-input-number-handler fishd-input-number-handler-down"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-down-inner"
+                unselectable="on"
+              />
+            </span>
+          </div>
+          <div
+            class="fishd-input-number-input-wrap"
+          >
+            <input
+              aria-valuenow="100"
+              autocomplete="off"
+              class="fishd-input-number-input"
+              role="spinbutton"
+              step="1"
+              value="100"
+            />
+          </div>
+        </div>
+        <div
+          class="fishd-input-number-group-addon"
+        >
+          $
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-input-number-group-wrapper"
+    >
+      <div
+        class="fishd-input-number-wrapper fishd-input-number-group"
+      >
+        <div
+          class="fishd-input-number-group-addon"
+        >
+          <div
+            class="fishd-select select-before"
+          >
+            <div
+              class="fishd-select-content"
+            >
+              <div
+                class="fishd-select-caret"
+              >
+                <i
+                  class="fishdicon fishdicon-down-fill"
+                />
+              </div>
+              <div
+                class="fishd-select-option-single"
+              >
+                +
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="fishd-input-number"
+        >
+          <div
+            class="fishd-input-number-handler-wrap"
+          >
+            <span
+              aria-disabled="false"
+              aria-label="Increase Value"
+              class="fishd-input-number-handler fishd-input-number-handler-up"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-up-inner"
+                unselectable="on"
+              />
+            </span>
+            <span
+              aria-disabled="false"
+              aria-label="Decrease Value"
+              class="fishd-input-number-handler fishd-input-number-handler-down"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-down-inner"
+                unselectable="on"
+              />
+            </span>
+          </div>
+          <div
+            class="fishd-input-number-input-wrap"
+          >
+            <input
+              aria-valuenow="100"
+              autocomplete="off"
+              class="fishd-input-number-input"
+              role="spinbutton"
+              step="1"
+              value="100"
+            />
+          </div>
+        </div>
+        <div
+          class="fishd-input-number-group-addon"
+        >
+          <div
+            class="fishd-select select-after"
+          >
+            <div
+              class="fishd-select-content"
+            >
+              <div
+                class="fishd-select-caret"
+              >
+                <i
+                  class="fishdicon fishdicon-down-fill"
+                />
+              </div>
+              <div
+                class="fishd-select-option-single"
+              >
+                $
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-input-number-group-wrapper"
+    >
+      <div
+        class="fishd-input-number-wrapper fishd-input-number-group"
+      >
+        <div
+          class="fishd-input-number-group-addon"
+        >
+          <i
+            class="fishdicon fishdicon-Settingx"
+          />
+        </div>
+        <div
+          class="fishd-input-number"
+        >
+          <div
+            class="fishd-input-number-handler-wrap"
+          >
+            <span
+              aria-disabled="false"
+              aria-label="Increase Value"
+              class="fishd-input-number-handler fishd-input-number-handler-up"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-up-inner"
+                unselectable="on"
+              />
+            </span>
+            <span
+              aria-disabled="false"
+              aria-label="Decrease Value"
+              class="fishd-input-number-handler fishd-input-number-handler-down"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-down-inner"
+                unselectable="on"
+              />
+            </span>
+          </div>
+          <div
+            class="fishd-input-number-input-wrap"
+          >
+            <input
+              aria-valuenow="100"
+              autocomplete="off"
+              class="fishd-input-number-input"
+              role="spinbutton"
+              step="1"
+              value="100"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="fishd-input-number-group-wrapper"
+    >
+      <div
+        class="fishd-input-number-wrapper fishd-input-number-group"
+      >
+        <div
+          class="fishd-input-number"
+        >
+          <div
+            class="fishd-input-number-handler-wrap"
+          >
+            <span
+              aria-disabled="false"
+              aria-label="Increase Value"
+              class="fishd-input-number-handler fishd-input-number-handler-up"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-up-inner"
+                unselectable="on"
+              />
+            </span>
+            <span
+              aria-disabled="false"
+              aria-label="Decrease Value"
+              class="fishd-input-number-handler fishd-input-number-handler-down"
+              role="button"
+              unselectable="on"
+            >
+              <span
+                class="fishd-input-number-handler-down-inner"
+                unselectable="on"
+              />
+            </span>
+          </div>
+          <div
+            class="fishd-input-number-input-wrap"
+          >
+            <input
+              aria-valuenow="100"
+              autocomplete="off"
+              class="fishd-input-number-input"
+              role="spinbutton"
+              step="1"
+              value="100"
+            />
+          </div>
+        </div>
+        <div
+          class="fishd-input-number-group-addon"
+        >
+          <i
+            class="fishdicon fishdicon-Settingx"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-input-number fishd-input-number-borderless"
+  >
+    <div
+      class="fishd-input-number-handler-wrap"
+    >
+      <span
+        aria-disabled="false"
+        aria-label="Increase Value"
+        class="fishd-input-number-handler fishd-input-number-handler-up"
+        role="button"
+        unselectable="on"
+      >
+        <span
+          class="fishd-input-number-handler-up-inner"
+          unselectable="on"
+        />
+      </span>
+      <span
+        aria-disabled="false"
+        aria-label="Decrease Value"
+        class="fishd-input-number-handler fishd-input-number-handler-down"
+        role="button"
+        unselectable="on"
+      >
+        <span
+          class="fishd-input-number-handler-down-inner"
+          unselectable="on"
+        />
+      </span>
+    </div>
+    <div
+      class="fishd-input-number-input-wrap"
+    >
+      <input
+        aria-valuemax="10"
+        aria-valuemin="1"
+        aria-valuenow="3"
+        autocomplete="off"
+        class="fishd-input-number-input"
+        role="spinbutton"
+        step="1"
+        value="3"
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      class="fishd-input-number"
+    >
+      <div
+        class="fishd-input-number-handler-wrap"
+      >
+        <span
+          aria-disabled="false"
+          aria-label="Increase Value"
+          class="fishd-input-number-handler fishd-input-number-handler-up"
+          role="button"
+          unselectable="on"
+        >
+          <span
+            class="fishd-input-number-handler-up-inner"
+            unselectable="on"
+          />
+        </span>
+        <span
+          aria-disabled="false"
+          aria-label="Decrease Value"
+          class="fishd-input-number-handler fishd-input-number-handler-down"
+          role="button"
+          unselectable="on"
+        >
+          <span
+            class="fishd-input-number-handler-down-inner"
+            unselectable="on"
+          />
+        </span>
+      </div>
+      <div
+        class="fishd-input-number-input-wrap"
+      >
+        <input
+          aria-valuemax="10"
+          aria-valuemin="1"
+          aria-valuenow="3"
+          autocomplete="off"
+          class="fishd-input-number-input"
+          role="spinbutton"
+          step="1"
+          value="3"
+        />
+      </div>
+    </div>
+    <label
+      class="fishd-checkbox-wrapper"
+    >
+      <span
+        class="fishd-checkbox"
+      >
+        <input
+          class="fishd-checkbox-input"
+          type="checkbox"
+        />
+        <span
+          class="fishd-checkbox-inner"
+        />
+      </span>
+      <span>
+        Toggle keyboard
+      </span>
+    </label>
   </div>
 </div>
 `;

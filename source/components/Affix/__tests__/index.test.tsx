@@ -16,7 +16,6 @@ class AffixMounter extends React.Component<Partial<AffixProps>> {
   container: HTMLElement;
 
   componentDidMount() {
-    debugger;
     this.container.addEventListener = jest.fn().mockImplementation((event, cb) => {
       events[event] = cb;
     });

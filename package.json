@@ -59,6 +59,7 @@
     "raf": "^3.4.0",
     "rc-animate": "^2.4.4",
     "rc-trigger": "^2.5.4",
+    "rc-util": "^5.13.2",
     "react-dom-factories": "^1.0.0",
     "react-draggable": "^3.0.5",
     "react-lazy-load": "^3.0.13",

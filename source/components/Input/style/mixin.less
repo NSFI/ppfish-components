@@ -70,6 +70,19 @@
     .disabled();
   }
 
+  &-borderless {
+    &,
+    &:hover,
+    &:focus,
+    &-focused,
+    &-disabled,
+    &[disabled] {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
   // Reset height for `textarea`s
   textarea& {
     padding: @input-padding-horizontal;

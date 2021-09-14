@@ -1,16 +1,27 @@
-@import (reference) "../../Input/style/mixin";
+@import (reference) '../../Input/style/mixin';
 
-@input-number-prefix-cls: ~"@{fishd-prefix}-input-number";
+@input-number-prefix-cls: ~'@{fishd-prefix}-input-number';
 
 .@{input-number-prefix-cls} {
-  .reset-component;
-  .input;
+  .reset-component();
+  .input();
   margin: 0;
   padding: 0;
   display: inline-block;
   border: @border-width-base @border-style-base @border-color-base;
   border-radius: @border-radius-base;
   width: 100px;
+
+  //== Style for input-group: input with label, with button or dropdown...
+  &-group {
+    .reset-component();
+    .input-group(~'@{input-number-prefix-cls}');
+    &-wrapper {
+      display: inline-block;
+      text-align: start;
+      vertical-align: top; 
+    }
+  }
 
   &-handler {
     text-align: center;
@@ -64,6 +75,12 @@
     }
   }
 
+  &-readonly {
+    .@{input-number-prefix-cls}-handler-wrap {
+      display: none;
+    }
+  }
+
   &-input {
     width: 100%;
     text-align: left;
@@ -76,6 +93,12 @@
     border-radius: @border-radius-base;
     padding: 0 @control-padding-horizontal - 1px;
     .placeholder();
+
+    &[type='number']::-webkit-inner-spin-button,
+    &[type='number']::-webkit-outer-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
   }
 
   &-lg {
@@ -108,6 +131,22 @@
     border-radius: 0 @border-radius-base @border-radius-base 0;
     transition: opacity 0.24s linear 0.1s;
     z-index: 2; // https://github.com/ant-design/ant-design/issues/6289
+
+    // Fix input number inside Menu makes icon too large
+    // We arise the selector priority by nest selector here
+    // https://github.com/ant-design/ant-design/issues/14367
+    .@{input-number-prefix-cls}-handler {
+      .@{input-number-prefix-cls}-handler-up-inner,
+      .@{input-number-prefix-cls}-handler-down-inner {
+        min-width: auto;
+        margin-right: 0;
+        font-size: 7px;
+      }
+    }
+
+    .@{input-number-prefix-cls}-borderless & {
+      border-left-width: 0;
+    }
   }
 
   &-handler-wrap:hover &-handler {
@@ -119,13 +158,15 @@
   }
 
   &-handler-up {
+    border-top-right-radius: @border-radius-base;
     cursor: pointer;
     &-inner {
       top: 50%;
+      text-align: center;
       margin-top: -6px;
       &:before {
         text-align: center;
-        content: "\e6ac";
+        content: '\e6ac';
       }
     }
     &:hover {
@@ -135,20 +176,27 @@
   }
 
   &-handler-down {
+    top: 0;
     border-top: @border-width-base @border-style-base @border-color-base;
-    top: -1px;
+    border-bottom-right-radius: @border-radius-base;
     cursor: pointer;
     &-inner {
       top: 50%;
+      text-align: center;
       margin-top: -6px;
+
       &:before {
         text-align: center;
-        content: "\e6ad";
+        content: '\e6ad';
       }
     }
     &:hover {
       /* stylelint-disable-next-line */
       height: 60% !important;
+    }
+
+    .@{input-number-prefix-cls}-borderless & {
+      border-top-width: 0;
     }
   }
 
@@ -160,5 +208,16 @@
   &-handler-up-disabled:hover &-handler-up-inner,
   &-handler-down-disabled:hover &-handler-down-inner {
     color: @disabled-color;
+  }
+
+  &-borderless {
+    box-shadow: none;
+  }
+
+  // ===================== Out Of Range =====================
+  &-out-of-range {
+    input {
+      color: @error-color;
+    }
   }
 }
