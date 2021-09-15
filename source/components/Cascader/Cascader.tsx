@@ -7,6 +7,7 @@ import omit from 'omit.js';
 import warning from 'warning';
 import { KeyCode } from '../../utils';
 import Input from '../Input';
+import { InputRef } from "../Input/Input";
 import Icon from '../Icon';
 import ConfigConsumer from '../Config/Consumer';
 import { LocaleProperties } from '../Locale';
@@ -185,7 +186,7 @@ function useInput({ value, popupVisible, handleValueChange, handlePopupVisibleCh
     return displayRender(label, selectedOptions);
   }
 
-  const inputRef = React.useRef<Input>();
+  const inputRef = React.useRef<InputRef>();
   const { inputPrefixCls, size, allowClear, disabled, prefixCls, className, showSearch, children, style } = props;
 
   const renderInput = Locale => {

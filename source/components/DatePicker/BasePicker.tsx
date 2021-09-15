@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input, { InputProps } from '../Input';
+import { InputRef } from "../Input/Input";
 import Icon from '../Icon';
 import Trigger from 'rc-trigger';
 import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
@@ -174,7 +175,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
 
   type: string;
   inputClick: boolean;
-  refInputRoot: Input;
+  refInputRoot: InputRef;
   trigger: any;
 
   constructor(props, _type?, state?) {

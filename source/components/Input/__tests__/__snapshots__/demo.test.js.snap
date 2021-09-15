@@ -1,0 +1,697 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders input demo correctly 1`] = `
+<div>
+  <input
+    class="fishd-input"
+    placeholder="Basic usage"
+    type="text"
+  />
+  <div
+    class="example-input"
+  >
+    <input
+      class="fishd-input fishd-input-lg"
+      placeholder="large size"
+      type="text"
+    />
+    <input
+      class="fishd-input"
+      placeholder="default size"
+      type="text"
+    />
+    <input
+      class="fishd-input fishd-input-sm"
+      placeholder="small size"
+      type="text"
+    />
+  </div>
+  <div>
+    <div
+      style="margin-bottom:16px"
+    >
+      <span
+        class="fishd-input-group-wrapper"
+      >
+        <span
+          class="fishd-input-wrapper fishd-input-group"
+        >
+          <span
+            class="fishd-input-group-addon"
+          >
+            Http://
+          </span>
+          <input
+            class="fishd-input"
+            type="text"
+            value="mysite"
+          />
+          <span
+            class="fishd-input-group-addon"
+          >
+            .com
+          </span>
+        </span>
+      </span>
+    </div>
+    <div
+      style="margin-bottom:16px"
+    >
+      <span
+        class="fishd-input-group-wrapper"
+      >
+        <span
+          class="fishd-input-wrapper fishd-input-group"
+        >
+          <span
+            class="fishd-input-group-addon"
+          >
+            <div
+              class="fishd-select"
+              style="width:100px"
+            >
+              <div
+                class="fishd-select-content"
+              >
+                <div
+                  class="fishd-select-caret"
+                >
+                  <i
+                    class="fishdicon fishdicon-down-fill"
+                  />
+                </div>
+                <div
+                  class="fishd-select-option-single"
+                >
+                  Http://
+                </div>
+              </div>
+            </div>
+          </span>
+          <input
+            class="fishd-input"
+            type="text"
+            value="mysite"
+          />
+          <span
+            class="fishd-input-group-addon"
+          >
+            <div
+              class="fishd-select"
+              style="width:80px"
+            >
+              <div
+                class="fishd-select-content"
+              >
+                <div
+                  class="fishd-select-caret"
+                >
+                  <i
+                    class="fishdicon fishdicon-down-fill"
+                  />
+                </div>
+                <div
+                  class="fishd-select-option-single"
+                >
+                  .com
+                </div>
+              </div>
+            </div>
+          </span>
+        </span>
+      </span>
+    </div>
+    <div
+      style="margin-bottom:16px"
+    >
+      <span
+        class="fishd-input-group-wrapper"
+      >
+        <span
+          class="fishd-input-wrapper fishd-input-group"
+        >
+          <input
+            class="fishd-input"
+            type="text"
+            value="mysite"
+          />
+          <span
+            class="fishd-input-group-addon"
+          >
+            <i
+              class="fishdicon fishdicon-search-line"
+            />
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+  <div>
+    <span
+      class="fishd-input-group fishd-input-group-lg"
+    >
+      <div
+        class="fishd-col-5"
+      >
+        <input
+          class="fishd-input"
+          type="text"
+          value="0571"
+        />
+      </div>
+      <div
+        class="fishd-col-8"
+      >
+        <input
+          class="fishd-input"
+          type="text"
+          value="26888888"
+        />
+      </div>
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <input
+        class="fishd-input"
+        style="width:20%"
+        type="text"
+        value="0571"
+      />
+      <input
+        class="fishd-input"
+        style="width:30%"
+        type="text"
+        value="26888888"
+      />
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <div
+        class="fishd-select"
+        style="width:120px"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <div
+            class="fishd-select-option-single"
+          >
+            Zhejiang
+          </div>
+        </div>
+      </div>
+      <input
+        class="fishd-input"
+        style="width:50%"
+        type="text"
+        value="Xihu District, Hangzhou"
+      />
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <div
+        class="fishd-select"
+        style="width:120px"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <div
+            class="fishd-select-option-single"
+          >
+            Option1
+          </div>
+        </div>
+      </div>
+      <input
+        class="fishd-input"
+        style="width:50%"
+        type="text"
+        value="input content"
+      />
+      <div
+        class="fishd-input-number"
+      >
+        <div
+          class="fishd-input-number-handler-wrap"
+        >
+          <span
+            aria-disabled="false"
+            aria-label="Increase Value"
+            class="fishd-input-number-handler fishd-input-number-handler-up"
+            role="button"
+            unselectable="on"
+          >
+            <span
+              class="fishd-input-number-handler-up-inner"
+              unselectable="on"
+            />
+          </span>
+          <span
+            aria-disabled="false"
+            aria-label="Decrease Value"
+            class="fishd-input-number-handler fishd-input-number-handler-down"
+            role="button"
+            unselectable="on"
+          >
+            <span
+              class="fishd-input-number-handler-down-inner"
+              unselectable="on"
+            />
+          </span>
+        </div>
+        <div
+          class="fishd-input-number-input-wrap"
+        >
+          <input
+            autocomplete="off"
+            class="fishd-input-number-input"
+            role="spinbutton"
+            step="1"
+            value=""
+          />
+        </div>
+      </div>
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <input
+        class="fishd-input"
+        style="width:50%"
+        type="text"
+        value="input content"
+      />
+      <span
+        class="fishd-date-editor is-have-trigger"
+        style="width:300px"
+      >
+        <div
+          class="fishd-date-editor--date"
+        >
+          <span
+            class="fishd-input-affix-wrapper"
+          >
+            <span
+              class="fishd-input-prefix"
+            >
+              <i
+                class="fishdicon fishdicon-date-line fishd-date-picker-icon prefix-iconfont"
+              />
+            </span>
+            <input
+              class="fishd-input"
+              placeholder=""
+              type="text"
+              value=""
+            />
+          </span>
+        </div>
+      </span>
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <div
+        class="fishd-select"
+        style="width:120px"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <div
+            class="fishd-select-option-single"
+          >
+            Option1-1
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-select"
+        style="width:120px"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <div
+            class="fishd-select-option-single"
+          >
+            Option2-2
+          </div>
+        </div>
+      </div>
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <div
+        class="fishd-select"
+        style="width:120px"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <div
+            class="fishd-select-option-single"
+          >
+            Between
+          </div>
+        </div>
+      </div>
+      <input
+        class="fishd-input"
+        placeholder="Minimum"
+        style="width:120px;text-align:center"
+        type="text"
+      />
+      <input
+        class="fishd-input fishd-input-disabled"
+        disabled=""
+        placeholder="~"
+        style="width:40px;border-left:0;pointer-events:none;background-color:#fff"
+        type="text"
+      />
+      <input
+        class="fishd-input"
+        placeholder="Maximum"
+        style="width:120px;text-align:center;border-left:0"
+        type="text"
+      />
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <div
+        class="fishd-select"
+        style="width:120px"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <div
+            class="fishd-select-option-single"
+          >
+            Sign Up
+          </div>
+        </div>
+      </div>
+      <div
+        class="fishd-autocomplete-select-show-search fishd-autocomplete-select-auto-complete fishd-autocomplete-select fishd-autocomplete-select-combobox fishd-autocomplete-select-enabled"
+        style="width:200px"
+      >
+        <div
+          aria-autocomplete="list"
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="fishd-autocomplete-select-selection
+            fishd-autocomplete-select-selection--single"
+          role="combobox"
+        >
+          <div
+            class="fishd-autocomplete-select-selection__rendered"
+          >
+            <div
+              class="fishd-autocomplete-select-selection__placeholder"
+              style="display:block;user-select:none;-webkit-user-select:none"
+              unselectable="on"
+            >
+              Email
+            </div>
+            <ul>
+              <li
+                class="fishd-autocomplete-select-search fishd-autocomplete-select-search--inline"
+              >
+                <div
+                  class="fishd-autocomplete-select-search__field__wrap"
+                >
+                  <input
+                    class="fishd-input fishd-autocomplete-select-search__field"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="fishd-autocomplete-select-search__field__mirror"
+                  >
+                     
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <span
+            class="fishd-autocomplete-select-arrow"
+            style="user-select:none;-webkit-user-select:none"
+            unselectable="on"
+          >
+            <i
+              class="fishd-autocomplete-select-arrow-icon"
+            />
+          </span>
+        </div>
+      </div>
+    </span>
+    <br />
+    <span
+      class="fishd-input-group fishd-input-group-compact"
+    >
+      <div
+        class="fishd-select"
+        style="width:120px"
+      >
+        <div
+          class="fishd-select-content"
+        >
+          <div
+            class="fishd-select-caret"
+          >
+            <i
+              class="fishdicon fishdicon-down-fill"
+            />
+          </div>
+          <div
+            class="fishd-select-option-single"
+          >
+            Home
+          </div>
+        </div>
+      </div>
+      <span
+        class="fishd-cascader-picker"
+        style="width:300px"
+        tabindex="0"
+      >
+        <span
+          class="fishd-cascader-picker-label"
+          title=""
+        />
+        <input
+          autocomplete="off"
+          class="fishd-input fishd-cascader-input "
+          placeholder="Select Address"
+          readonly=""
+          type="text"
+          value=""
+        />
+        <i
+          class="fishdicon fishdicon-down-fill fishd-cascader-picker-arrow"
+        />
+      </span>
+    </span>
+  </div>
+  <div>
+    <span
+      class="fishd-input-search fishd-input-affix-wrapper"
+      style="width:200px"
+    >
+      <input
+        class="fishd-input"
+        placeholder="input search text"
+        type="text"
+      />
+      <span
+        class="fishd-input-suffix"
+      >
+        <i
+          class="fishdicon fishdicon-search-line fishd-input-search-icon"
+        />
+      </span>
+    </span>
+    <br />
+    <br />
+    <span
+      class="fishd-input-search fishd-input-search-enter-button fishd-input-affix-wrapper"
+    >
+      <input
+        class="fishd-input"
+        placeholder="input search text"
+        type="text"
+      />
+      <span
+        class="fishd-input-suffix"
+      >
+        <button
+          class="fishd-btn fishd-input-search-button fishd-btn-primary"
+          type="button"
+        >
+          <i
+            class="fishdicon fishdicon-search-line"
+          />
+        </button>
+      </span>
+    </span>
+    <br />
+    <br />
+    <span
+      class="fishd-input-search fishd-input-search-enter-button fishd-input-search-large fishd-input-affix-wrapper fishd-input-affix-wrapper-lg"
+    >
+      <input
+        class="fishd-input fishd-input-lg"
+        placeholder="input search text"
+        type="text"
+      />
+      <span
+        class="fishd-input-suffix"
+      >
+        <button
+          class="fishd-btn fishd-input-search-button fishd-btn-primary fishd-btn-lg"
+          type="button"
+        >
+          <span>
+            Search
+          </span>
+        </button>
+      </span>
+    </span>
+  </div>
+  <textarea
+    class="fishd-input"
+    rows="4"
+  />
+  <div>
+    <textarea
+      class="fishd-input"
+      placeholder="Autosize height based on content lines"
+    />
+    <div
+      style="margin:24px 0"
+    />
+    <textarea
+      class="fishd-input"
+      placeholder="Autosize height with minimum and maximum number of lines"
+    />
+  </div>
+  <div>
+    <span
+      class="fishd-input-counter"
+    >
+      <textarea
+        class="fishd-input fishd-input"
+        maxlength="50"
+        placeholder="Autosize height based on content lines"
+      >
+        这是一段默认文本
+      </textarea>
+      <span
+        class="fishd-input-counter-footer"
+      >
+        <span
+          class="fishd-input-counter-indicator"
+        >
+          8/50
+        </span>
+      </span>
+    </span>
+    <div
+      style="margin:24px 0"
+    />
+    <span
+      class="fishd-input-counter"
+    >
+      <textarea
+        class="fishd-input fishd-input"
+        maxlength="500"
+        placeholder="Autosize height with minimum and maximum number of lines"
+      />
+      <span
+        class="fishd-input-counter-footer"
+      >
+        <span
+          class="fishd-input-counter-indicator"
+        >
+          0/500
+        </span>
+      </span>
+    </span>
+  </div>
+  <span
+    class="fishd-input-affix-wrapper"
+  >
+    <span
+      class="fishd-input-prefix"
+    >
+      <i
+        class="fishdicon fishdicon-date-line"
+        style="color:rgba(0,0,0,.25)"
+      />
+    </span>
+    <input
+      class="fishd-input"
+      placeholder="Enter your username"
+      type="text"
+      value=""
+    />
+  </span>
+</div>
+`;

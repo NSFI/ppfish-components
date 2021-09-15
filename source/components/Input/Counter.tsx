@@ -1,9 +1,8 @@
 import * as React from 'react';
 import omit from 'omit.js';
 import classNames from 'classnames';
-import { polyfill } from 'react-lifecycles-compat';
-
-import TextArea, { TextAreaProps } from './TextArea';
+import TextArea, { TextAreaProps, TextAreaRef } from './TextArea';
+import useControlledState from '../../hooks/useControlledState';
 
 function countValue(value: string) {
   return value.length;
@@ -14,84 +13,43 @@ export interface CounterProps extends TextAreaProps {
   prefixCls?: string;
   limit: number;
   count?: (value: string) => number;
-  value: any;
-  defaultValue: any;
-}
-
-export interface CounterState {
   value?: any;
-  prevProps: CounterProps;
+  defaultValue?: any;
 }
 
-class Counter extends React.Component<CounterProps, CounterState> {
-  static defaultProps = {
-    inputPrefixCls: 'fishd-input',
-    prefixCls: 'fishd-input-counter'
+export interface CounterRef {
+  focus: () => void;
+  blur: () => void;
+  textarea: TextAreaRef;
+}
+
+const InternalCounter: React.ForwardRefRenderFunction<CounterRef, CounterProps> = (props, ref) => {
+  const [value, setValue] = useControlledState('', {
+    value: props.value,
+    defaultValue: props.defaultValue,
+  });
+  const textareaRef = React.useRef<TextAreaRef>(null);
+
+  const focus = () => {
+    textareaRef.current.focus();
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { prevProps = {} } = prevState;
-    const newState: CounterState = { prevProps: nextProps };
-    if (prevProps.value !== nextProps.value) {
-      newState.value = nextProps.value;
-    }
-
-    return newState;
-  }
-
-  constructor(props) {
-    super(props);
-    let value = '';
-    if ('value' in props) {
-      value = props.value;
-    } else if ('defaultValue' in props) {
-      value = props.defaultValue;
-    }
-    this.state = {
-      value,
-      prevProps: props
-    };
-  }
-
-  private textarea: TextArea;
-
-  focus() {
-    this.textarea.focus();
-  }
-
-  blur() {
-    this.textarea.blur();
-  }
-
-  saveTextarea = (node: TextArea) => {
-    this.textarea = node;
+  const handleClick = () => {
+    focus();
   };
 
-  getTextAreaClassName() {
-    const { inputPrefixCls, className, disabled } = this.props;
-    return classNames(inputPrefixCls, className, {
-      [`${inputPrefixCls}-disabled`]: disabled
-    });
-  }
-
-  handleClick = () => {
-    this.focus();
-  };
-
-  handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { onChange } = this.props;
-    const textareaValue = this.textarea && this.textarea.textAreaRef.value;
-    this.setState({
-      value: textareaValue
-    });
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { onChange } = props;
+    const textarea = textareaRef.current;
+    const textareaValue = textarea && textarea.textAreaRef.value;
+    setValue(textareaValue);
     if (onChange) {
       onChange(e);
     }
   };
 
-  getCount = () => {
-    const { count } = this.props;
-    const value = this.state.value;
+  const getCount = () => {
+    const { count } = props;
     if (!value) {
       return 0;
     }
@@ -102,42 +60,55 @@ class Counter extends React.Component<CounterProps, CounterState> {
     return countValue(String(value));
   };
 
-  render() {
-    const { inputPrefixCls, className, prefixCls, disabled, limit } = this.props;
-    const inputClassName = classNames(className, {
-      [`${prefixCls}`]: true,
-      [`${inputPrefixCls}-disabled`]: disabled
-    });
-    const textareaClassName = classNames(inputPrefixCls, className);
-    const otherProps = omit(this.props, [
-      'inputPrefixCls',
-      'prefixCls',
-      'limit',
-      'count',
-      'value',
-      'onChange'
-    ]);
-    const total = this.getCount();
-    return (
-      <span className={inputClassName} onClick={this.handleClick}>
-        <TextArea
-          {...otherProps}
-          className={textareaClassName}
-          maxLength={limit}
-          onChange={this.handleTextareaChange}
-          value={this.state.value}
-          ref={this.saveTextarea}
-        />
-        <span className={`${prefixCls}-footer`}>
-          <span className={`${prefixCls}-indicator`}>
-            {total}/{limit}
-          </span>
+  React.useImperativeHandle(ref, () => ({
+    focus,
+    blur: () => {
+      textareaRef.current.blur();
+    },
+    textarea: textareaRef.current,
+  }));
+
+  const { inputPrefixCls, className, prefixCls, disabled, limit } = props;
+  const inputClassName = classNames(className, {
+    [`${prefixCls}`]: true,
+    [`${inputPrefixCls}-disabled`]: disabled,
+  });
+  const textareaClassName = classNames(inputPrefixCls, className);
+  const otherProps = omit(props, [
+    'inputPrefixCls',
+    'prefixCls',
+    'limit',
+    'count',
+    'value',
+    'onChange',
+  ]);
+  const total = getCount();
+  return (
+    <span className={inputClassName} onClick={handleClick}>
+      <TextArea
+        {...otherProps}
+        className={textareaClassName}
+        maxLength={limit}
+        onChange={handleTextareaChange}
+        value={value}
+        ref={textareaRef}
+      />
+      <span className={`${prefixCls}-footer`}>
+        <span className={`${prefixCls}-indicator`}>
+          {total}/{limit}
         </span>
       </span>
-    );
-  }
-}
+    </span>
+  );
+};
 
-polyfill(Counter);
+const Counter = React.forwardRef(InternalCounter);
+
+Counter.displayName = 'Counter';
+
+Counter.defaultProps = {
+  inputPrefixCls: 'fishd-input',
+  prefixCls: 'fishd-input-counter',
+};
 
 export default Counter;

@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../Input';
+import { InputRef } from "../Input/Input";
 import Icon from '../Icon';
 
 interface SelectSearchProps {
@@ -24,7 +25,7 @@ export default class SelectSearch extends React.Component<SelectSearchProps> {
     updateSearchValue: PropTypes.func
   };
 
-  searchInput: Input;
+  searchInput: InputRef;
 
   constructor(props: SelectSearchProps) {
     super(props);

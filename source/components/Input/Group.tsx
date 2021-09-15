@@ -10,7 +10,7 @@ export interface GroupProps {
   compact?: boolean;
 }
 
-const Group: React.StatelessComponent<GroupProps> = props => {
+const Group: React.FC<GroupProps> = props => {
   const { prefixCls = 'fishd-input-group', className = '' } = props;
   const cls = classNames(
     prefixCls,

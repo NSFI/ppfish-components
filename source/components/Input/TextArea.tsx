@@ -23,86 +23,60 @@ export interface AutoSizeType {
   maxRows?: number;
 }
 
-export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export type HTMLTextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+export interface TextAreaProps extends HTMLTextareaProps {
   prefixCls?: string;
   autosize?: boolean | AutoSizeType;
   onPressEnter?: React.KeyboardEventHandler<HTMLTextAreaElement>;
 }
 
-export interface TextAreaState {
-  textareaStyles?: React.CSSProperties;
+export interface TextAreaRef {
+  textAreaRef: HTMLTextAreaElement;
+  focus: () => void;
+  blur: () => void;
+  resizeTextarea: () => void;
 }
 
-export type HTMLTextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+const InternalTextArea: React.ForwardRefRenderFunction<TextAreaRef, TextAreaProps> = (
+  props,
+  ref,
+) => {
+  const [textareaStyles, setTextareaStyles] = React.useState<React.CSSProperties>({});
+  const nextFrameActionIdRef = React.useRef<number>(null);
+  const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
 
-export default class TextArea extends React.Component<
-  TextAreaProps & HTMLTextareaProps,
-  TextAreaState
-> {
-  static defaultProps = {
-    prefixCls: 'fishd-input'
-  };
-
-  nextFrameActionId: number;
-
-  state = {
-    textareaStyles: {}
-  };
-
-  textAreaRef: HTMLTextAreaElement;
-
-  componentDidMount() {
-    this.resizeTextarea();
-  }
-
-  componentDidUpdate(prevProps: TextAreaProps) {
-    // Re-render with the new content then recalculate the height as required.
-    if (this.props.value !== prevProps.value) {
-      if (this.nextFrameActionId) {
-        clearNextFrameAction(this.nextFrameActionId);
-      }
-      this.nextFrameActionId = onNextFrame(this.resizeTextarea);
-    }
-  }
-
-  focus() {
-    this.textAreaRef.focus();
-  }
-
-  blur() {
-    this.textAreaRef.blur();
-  }
-
-  resizeTextarea = () => {
-    const { autosize } = this.props;
-    if (!autosize || !this.textAreaRef) {
+  const resizeTextarea = () => {
+    const { autosize } = props;
+    const textAreaNode = textAreaRef.current;
+    if (!autosize || !textAreaNode) {
       return;
     }
     const minRows = autosize ? (autosize as AutoSizeType).minRows : null;
     const maxRows = autosize ? (autosize as AutoSizeType).maxRows : null;
-    const textareaStyles = calculateNodeHeight(this.textAreaRef, false, minRows, maxRows);
-    this.setState({ textareaStyles });
+    const textareaStyles = calculateNodeHeight(textAreaNode, false, minRows, maxRows);
+    setTextareaStyles(textareaStyles);
   };
 
-  getTextAreaClassName() {
-    const { prefixCls, className, disabled } = this.props;
+  const getTextAreaClassName = () => {
+    const { prefixCls, className, disabled } = props;
     return classNames(prefixCls, className, {
-      [`${prefixCls}-disabled`]: disabled
+      [`${prefixCls}-disabled`]: disabled,
     });
-  }
+  };
 
-  handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (!('value' in this.props)) {
-      this.resizeTextarea();
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (!('value' in props)) {
+      resizeTextarea();
     }
-    const { onChange } = this.props;
+    const { onChange } = props;
     if (onChange) {
       onChange(e);
     }
   };
 
-  handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    const { onPressEnter, onKeyDown } = this.props;
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const { onPressEnter, onKeyDown } = props;
     if (e.keyCode === 13 && onPressEnter) {
       onPressEnter(e);
     }
@@ -111,31 +85,53 @@ export default class TextArea extends React.Component<
     }
   };
 
-  saveTextAreaRef = (textArea: HTMLTextAreaElement) => {
-    this.textAreaRef = textArea;
-  };
+  React.useImperativeHandle(ref, () => ({
+    textAreaRef: textAreaRef.current,
+    focus: () => {
+      textAreaRef.current.focus();
+    },
+    blur: () => {
+      textAreaRef.current.blur();
+    },
+    resizeTextarea,
+  }));
 
-  render() {
-    const props = this.props;
-    const otherProps = omit(props, ['prefixCls', 'onPressEnter', 'autosize']);
-    const style = {
-      ...props.style,
-      ...this.state.textareaStyles
-    };
-    // Fix https://github.com/ant-design/ant-design/issues/6776
-    // Make sure it could be reset when using form.getFieldDecorator
-    if ('value' in otherProps) {
-      otherProps.value = otherProps.value || '';
+  React.useEffect(() => {
+    const nextFrameActionId = nextFrameActionIdRef.current;
+    if (nextFrameActionId) {
+      clearNextFrameAction(nextFrameActionId);
     }
-    return (
-      <textarea
-        {...otherProps}
-        className={this.getTextAreaClassName()}
-        style={style}
-        onKeyDown={this.handleKeyDown}
-        onChange={this.handleTextareaChange}
-        ref={this.saveTextAreaRef}
-      />
-    );
+    nextFrameActionIdRef.current = onNextFrame(resizeTextarea);
+  }, [props.value]);
+
+  const otherProps = omit(props, ['prefixCls', 'onPressEnter', 'autosize']);
+  const style = {
+    ...props.style,
+    ...textareaStyles,
+  };
+  // Fix https://github.com/ant-design/ant-design/issues/6776
+  // Make sure it could be reset when using form.getFieldDecorator
+  if ('value' in otherProps) {
+    otherProps.value = otherProps.value || '';
   }
-}
+  return (
+    <textarea
+      {...otherProps}
+      className={getTextAreaClassName()}
+      style={style}
+      onKeyDown={handleKeyDown}
+      onChange={handleTextareaChange}
+      ref={textAreaRef}
+    />
+  );
+};
+
+const TextArea = React.forwardRef(InternalTextArea);
+
+TextArea.displayName = 'TextArea';
+
+TextArea.defaultProps = {
+  prefixCls: 'fishd-input',
+};
+
+export default TextArea;

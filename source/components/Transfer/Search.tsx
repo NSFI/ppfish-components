@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Icon from '../Icon';
 import Input from '../Input';
+import { InputRef } from '../Input/Input';
 
 export interface TransferSearchProps {
   prefixCls?: string;
@@ -12,8 +13,10 @@ export interface TransferSearchProps {
 
 export default class Search extends React.Component<TransferSearchProps, any> {
   static defaultProps = {
-    placeholder: ''
+    placeholder: '',
   };
+
+  input: InputRef;
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { onChange } = this.props;
@@ -48,7 +51,7 @@ export default class Search extends React.Component<TransferSearchProps, any> {
           placeholder={placeholder}
           className={prefixCls}
           value={value}
-          ref="input"
+          ref={el => (this.input = el)}
           onChange={this.handleChange}
         />
         {icon}

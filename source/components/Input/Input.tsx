@@ -27,44 +27,26 @@ export interface InputProps
   suffix?: React.ReactNode;
 }
 
-export default class Input extends React.Component<InputProps, any> {
-  static Group: typeof Group;
-  static Search: typeof Search;
-  static TextArea: typeof TextArea;
-  static Counter: typeof Counter;
-
-  static defaultProps = {
-    prefixCls: 'fishd-input',
-    type: 'text',
-    disabled: false
-  };
-
-  static propTypes = {
-    type: PropTypes.string,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    size: PropTypes.oneOf(['small', 'default', 'large']),
-    maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    disabled: PropTypes.bool,
-    value: PropTypes.any,
-    defaultValue: PropTypes.any,
-    className: PropTypes.string,
-    addonBefore: PropTypes.node,
-    addonAfter: PropTypes.node,
-    prefixCls: PropTypes.string,
-    autosize: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-    onPressEnter: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    prefix: PropTypes.node,
-    suffix: PropTypes.node
-  };
-
+export interface InputRef {
   input: HTMLInputElement;
+  focus: () => void;
+  blur: () => void;
+}
 
-  handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { onPressEnter, onKeyDown } = this.props;
+const InternalInput: React.ForwardRefRenderFunction<InputRef, InputProps> = (props, ref) => {
+  const inputRef = React.useRef(null);
+  React.useImperativeHandle(ref, () => ({
+    input: inputRef.current,
+    focus: () => {
+      inputRef.current.focus();
+    },
+    blur: () => {
+      inputRef.current.blur();
+    },
+  }));
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { onPressEnter, onKeyDown } = props;
     if (e.keyCode === 13 && onPressEnter) {
       onPressEnter(e);
     }
@@ -73,29 +55,16 @@ export default class Input extends React.Component<InputProps, any> {
     }
   };
 
-  focus() {
-    this.input.focus();
-  }
-
-  blur() {
-    this.input.blur();
-  }
-
-  getInputClassName() {
-    const { prefixCls, size, disabled } = this.props;
+  const getInputClassName = () => {
+    const { prefixCls, size, disabled } = props;
     return classNames(prefixCls, {
       [`${prefixCls}-sm`]: size === 'small',
       [`${prefixCls}-lg`]: size === 'large',
-      [`${prefixCls}-disabled`]: disabled
+      [`${prefixCls}-disabled`]: disabled,
     });
-  }
-
-  saveInput = (node: HTMLInputElement) => {
-    this.input = node;
   };
 
-  renderLabeledInput(children: React.ReactElement<any>) {
-    const props = this.props;
+  const renderLabeledInput = (children: React.ReactElement<any>) => {
     // Not wrap when there is not addons
     if (!props.addonBefore && !props.addonAfter) {
       return children;
@@ -112,12 +81,12 @@ export default class Input extends React.Component<InputProps, any> {
     ) : null;
 
     const className = classNames(`${props.prefixCls}-wrapper`, {
-      [wrapperClassName]: addonBefore || addonAfter
+      [wrapperClassName]: addonBefore || addonAfter,
     });
 
     const groupClassName = classNames(`${props.prefixCls}-group-wrapper`, {
       [`${props.prefixCls}-group-wrapper-sm`]: props.size === 'small',
-      [`${props.prefixCls}-group-wrapper-lg`]: props.size === 'large'
+      [`${props.prefixCls}-group-wrapper-lg`]: props.size === 'large',
     });
 
     // Need another wrapper for changing display:table to display:inline-block
@@ -140,10 +109,9 @@ export default class Input extends React.Component<InputProps, any> {
         {addonAfter}
       </span>
     );
-  }
+  };
 
-  renderLabeledIcon(children: React.ReactElement<any>) {
-    const { props } = this;
+  const renderLabeledIcon = (children: React.ReactElement<any>) => {
     if (!('prefix' in props || 'suffix' in props)) {
       return children;
     }
@@ -158,49 +126,88 @@ export default class Input extends React.Component<InputProps, any> {
 
     const affixWrapperCls = classNames(props.className, `${props.prefixCls}-affix-wrapper`, {
       [`${props.prefixCls}-affix-wrapper-sm`]: props.size === 'small',
-      [`${props.prefixCls}-affix-wrapper-lg`]: props.size === 'large'
+      [`${props.prefixCls}-affix-wrapper-lg`]: props.size === 'large',
     });
     return (
       <span className={affixWrapperCls} style={props.style}>
         {prefix}
         {React.cloneElement(children, {
           style: null,
-          className: this.getInputClassName()
+          className: getInputClassName(),
         })}
         {suffix}
       </span>
     );
-  }
+  };
 
-  renderInput() {
-    const { value, className } = this.props;
+  const renderInput = () => {
+    const { value, className } = props;
     // Fix https://fb.me/react-unknown-prop
-    const otherProps = omit(this.props, [
+    const otherProps = omit(props, [
       'prefixCls',
       'onPressEnter',
       'addonBefore',
       'addonAfter',
       'prefix',
-      'suffix'
+      'suffix',
     ]);
 
-    if ('value' in this.props) {
+    if ('value' in props) {
       otherProps.value = fixControlledValue(value);
       // Input elements must be either controlled or uncontrolled,
       // specify either the value prop, or the defaultValue prop, but not both.
       delete otherProps.defaultValue;
     }
-    return this.renderLabeledIcon(
+    return renderLabeledIcon(
       <input
         {...otherProps}
-        className={classNames(this.getInputClassName(), className)}
-        onKeyDown={this.handleKeyDown}
-        ref={this.saveInput}
-      />
+        className={classNames(getInputClassName(), className)}
+        onKeyDown={handleKeyDown}
+        ref={inputRef}
+      />,
     );
-  }
+  };
 
-  render() {
-    return this.renderLabeledInput(this.renderInput());
-  }
+  return renderLabeledInput(renderInput());
+};
+
+interface InputInterface
+  extends React.ForwardRefExoticComponent<InputProps & React.RefAttributes<InputRef>> {
+  Group: typeof Group;
+  Search: typeof Search;
+  TextArea: typeof TextArea;
+  Counter: typeof Counter;
 }
+
+const Input = React.forwardRef(InternalInput) as InputInterface;
+
+Input.displayName = 'Input';
+
+Input.defaultProps = {
+  prefixCls: 'fishd-input',
+  type: 'text',
+  disabled: false,
+};
+
+Input.propTypes = {
+  type: PropTypes.string,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  size: PropTypes.oneOf(['small', 'default', 'large']),
+  maxLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  disabled: PropTypes.bool,
+  value: PropTypes.any,
+  defaultValue: PropTypes.any,
+  className: PropTypes.string,
+  addonBefore: PropTypes.node,
+  addonAfter: PropTypes.node,
+  prefixCls: PropTypes.string,
+  onPressEnter: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  prefix: PropTypes.node,
+  suffix: PropTypes.node,
+};
+
+export default Input;

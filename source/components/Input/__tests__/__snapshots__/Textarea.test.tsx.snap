@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextArea maxLength should support maxLength 1`] = `
+<textarea
+  class="fishd-input"
+  maxlength="10"
+/>
+`;
+
+exports[`TextArea should support disabled 1`] = `
+<textarea
+  class="fishd-input fishd-input-disabled"
+  disabled=""
+/>
+`;

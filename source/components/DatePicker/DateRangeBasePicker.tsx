@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Input from '../Input';
+import { InputRef } from "../Input/Input";
 import Icon from '../Icon';
 import Trigger from 'rc-trigger';
 import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
@@ -156,7 +157,7 @@ class DateRangeBasePicker extends React.Component<
 
   type: string;
   inputClick: boolean;
-  refInputRoot: Input;
+  refInputRoot: InputRef;
   trigger: unknown;
 
   constructor(props: DateRangeBasePickerProps, _type, state: DateRangeBasePickerState) {

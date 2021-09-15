@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input.Search should support ReactNode suffix without error 1`] = `
+<span
+  class="fishd-input-search fishd-input-affix-wrapper"
+>
+  <input
+    class="fishd-input"
+    type="text"
+  />
+  <span
+    class="fishd-input-suffix"
+  >
+    <div>
+      ok
+    </div>
+    <i
+      class="fishdicon fishdicon-search-line fishd-input-search-icon"
+    />
+  </span>
+</span>
+`;
+
+exports[`Input.Search should support addonAfter 1`] = `
+<span
+  class="fishd-input-group-wrapper"
+>
+  <span
+    class="fishd-input-wrapper fishd-input-group"
+  >
+    <span
+      class="fishd-input-search fishd-input-affix-wrapper"
+    >
+      <input
+        class="fishd-input"
+        type="text"
+      />
+      <span
+        class="fishd-input-suffix"
+      >
+        <i
+          class="fishdicon fishdicon-search-line fishd-input-search-icon"
+        />
+      </span>
+    </span>
+    <span
+      class="fishd-input-group-addon"
+    >
+      <span>
+        Addon After
+      </span>
+    </span>
+  </span>
+</span>
+`;
+
+exports[`Input.Search should support addonAfter 2`] = `
+<span
+  class="fishd-input-group-wrapper"
+>
+  <span
+    class="fishd-input-wrapper fishd-input-group"
+  >
+    <span
+      class="fishd-input-search fishd-input-search-enter-button fishd-input-affix-wrapper"
+    >
+      <input
+        class="fishd-input"
+        type="text"
+      />
+      <span
+        class="fishd-input-suffix"
+      >
+        <button
+          class="fishd-btn fishd-input-search-button fishd-btn-primary"
+          type="button"
+        >
+          <i
+            class="fishdicon fishdicon-search-line"
+          />
+        </button>
+      </span>
+    </span>
+    <span
+      class="fishd-input-group-addon"
+    >
+      <span>
+        Addon After
+      </span>
+    </span>
+  </span>
+</span>
+`;
+
+exports[`Input.Search should support custom Button 1`] = `
+<span
+  class="fishd-input-search fishd-input-search-enter-button fishd-input-affix-wrapper"
+>
+  <input
+    class="fishd-input"
+    type="text"
+  />
+  <span
+    class="fishd-input-suffix"
+  >
+    <button
+      class="fishd-btn fishd-input-search-button"
+      type="button"
+    >
+      <span>
+        ok
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`Input.Search should support custom button 1`] = `
+<span
+  class="fishd-input-search fishd-input-search-enter-button fishd-input-affix-wrapper"
+>
+  <input
+    class="fishd-input"
+    type="text"
+  />
+  <span
+    class="fishd-input-suffix"
+  >
+    <button
+      type="button"
+    >
+      ok
+    </button>
+  </span>
+</span>
+`;
+
+exports[`Input.Search should support invalid addonAfter 1`] = `
+<span
+  class="fishd-input-group-wrapper"
+>
+  <span
+    class="fishd-input-wrapper fishd-input-group"
+  >
+    <span
+      class="fishd-input-search fishd-input-search-enter-button fishd-input-affix-wrapper"
+    >
+      <input
+        class="fishd-input"
+        type="text"
+      />
+      <span
+        class="fishd-input-suffix"
+      >
+        <button
+          class="fishd-btn fishd-input-search-button fishd-btn-primary"
+          type="button"
+        >
+          <i
+            class="fishdicon fishdicon-search-line"
+          />
+        </button>
+      </span>
+    </span>
+    <span
+      class="fishd-input-group-addon"
+    />
+  </span>
+</span>
+`;
+
+exports[`Input.Search should support invalid suffix 1`] = `
+<span
+  class="fishd-input-search fishd-input-affix-wrapper"
+>
+  <input
+    class="fishd-input"
+    type="text"
+  />
+  <span
+    class="fishd-input-suffix"
+  >
+    <i
+      class="fishdicon fishdicon-search-line fishd-input-search-icon"
+    />
+  </span>
+</span>
+`;
