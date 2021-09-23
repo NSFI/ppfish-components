@@ -22,6 +22,8 @@ const refactoredComp = [
   'Menu',
   'Layout',
   'Dropdown',
+  'Input',
+  'ImageLoader',
 ];
 
 const getRefactoredCompMatch = name => {
@@ -59,9 +61,6 @@ module.exports = {
   },
   globals: {
     'ts-jest': {
-      diagnostics: {
-        warnOnly: true,
-      },
       babelConfig: '.babelrc',
       tsConfig: 'tsconfig.json',
     },
