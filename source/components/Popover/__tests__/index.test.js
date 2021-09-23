@@ -16,7 +16,7 @@ describe('Popover', () => {
 
     const popup = popover.instance().getPopupDomNode();
     expect(popup).not.toBe(null);
-    expect(popup.className).toContain('fishd-popover-placement-top');
+    expect(popover.find('Trigger PopupInner').props().visible).toBeTruthy();
     expect(popup.innerHTML).toMatchSnapshot();
     expect(popup.innerHTML).toMatchSnapshot();
   });

@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
-import Menu from '../../Menu/src/index.js';
+import Menu from '../../Menu';
 import scrollIntoView from 'dom-scroll-into-view';
 import raf from 'raf';
 import { toArray, getSelectKeys, preventDefaultEvent, saveRef } from './util';
@@ -9,11 +9,7 @@ import { toArray, getSelectKeys, preventDefaultEvent, saveRef } from './util';
 export default class DropdownMenu extends React.Component {
   static propTypes = {
     defaultActiveFirstOption: PropTypes.bool,
-    value: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array]),
     dropdownMenuStyle: PropTypes.object,
     multiple: PropTypes.bool,
     onPopupFocus: PropTypes.func,
@@ -63,21 +59,14 @@ export default class DropdownMenu extends React.Component {
       const scrollIntoViewOpts = {
         onlyScrollIfNeeded: true,
       };
-      if (
-        (!props.value || props.value.length === 0) &&
-        props.firstActiveValue
-      ) {
+      if ((!props.value || props.value.length === 0) && props.firstActiveValue) {
         scrollIntoViewOpts.alignWithTop = true;
       }
 
       // Delay to scroll since current frame item position is not ready when pre view is by filter
       // https://github.com/ant-design/ant-design/issues/11268#issuecomment-406634462
       raf(() => {
-        scrollIntoView(
-          itemComponent,
-          findDOMNode(this.menuRef),
-          scrollIntoViewOpts
-        );
+        scrollIntoView(itemComponent, findDOMNode(this.menuRef), scrollIntoViewOpts);
       });
     }
   };
@@ -118,9 +107,7 @@ export default class DropdownMenu extends React.Component {
         const clone = item => {
           if (
             (!foundFirst && selectedKeys.indexOf(item.key) !== -1) ||
-            (!foundFirst &&
-              !selectedKeys.length &&
-              firstActiveValue.indexOf(item.key) !== -1)
+            (!foundFirst && !selectedKeys.length && firstActiveValue.indexOf(item.key) !== -1)
           ) {
             foundFirst = true;
             return cloneElement(item, {

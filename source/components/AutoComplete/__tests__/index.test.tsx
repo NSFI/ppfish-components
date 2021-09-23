@@ -1,13 +1,22 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import AutoComplete from '../index';
 import Input from '../../Input';
-import focusTest from '../../../../tools/tests/focusTest.js';
+import focusTest from '../../../../tools/tests/focusTest';
 
 describe('AutoComplete with Custom Input Element Render', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   focusTest(AutoComplete);
 
-  it('AutoComplete with custom Input render perfectly', () => {
+  it('AutoComplete with custom Input render perfectly', async () => {
     const wrapper = mount(
       <AutoComplete dataSource={['12345', '23456', '34567']}>
         <textarea />
@@ -15,14 +24,21 @@ describe('AutoComplete with Custom Input Element Render', () => {
     );
 
     expect(wrapper.find('textarea').length).toBe(1);
-    wrapper.find('textarea').simulate('change', { target: { value: '123' } });
-    const dropdownWrapper = wrapper.find('Trigger');
+
+    await act(async () => {
+      wrapper.find('textarea').simulate('change', { target: { value: '123' } });
+      jest.runAllTimers();
+    });
+
+    wrapper.update();
 
     // should not filter data source defaultly
-    expect(dropdownWrapper.find('MenuItem').length).toBe(3);
+    expect(
+      wrapper.find('.fishd-autocomplete-select-dropdown-menu-item').hostNodes().length,
+    ).toBe(3);
   });
 
-  it('AutoComplete should work when dataSource is object array', () => {
+  it('AutoComplete should work when dataSource is object array', async () => {
     const wrapper = mount(
       <AutoComplete
         dataSource={[
@@ -34,22 +50,34 @@ describe('AutoComplete with Custom Input Element Render', () => {
       </AutoComplete>,
     );
     expect(wrapper.find('input').length).toBe(1);
-    wrapper.find('input').simulate('change', { target: { value: 'a' } });
-
+    await act(async () => {
+      wrapper.find('input').simulate('change', { target: { value: 'a' } });
+    });
+    wrapper.update();
     // should not filter data source defaultly
-    expect(wrapper.find('MenuItem').length).toBe(2);
+    expect(wrapper.find('.fishd-autocomplete-select-dropdown-menu-item').hostNodes().length).toBe(
+      2,
+    );
   });
 
-  it('legacy AutoComplete.Option should be compatiable', () => {
+  it('legacy AutoComplete.Option should be compatiable', async () => {
     const wrapper = mount(
       <AutoComplete>
         <AutoComplete.Option value="111">111</AutoComplete.Option>
         <AutoComplete.Option value="222">222</AutoComplete.Option>
       </AutoComplete>,
     );
+
     expect(wrapper.find('input').length).toBe(1);
-    wrapper.find('input').simulate('change', { target: { value: '1' } });
-    expect(wrapper.find('MenuItem').length).toBe(2);
+
+    await act(async () => {
+      wrapper.find('input').simulate('change', { target: { value: '1' } });
+      jest.runAllTimers();
+    });
+    wrapper.update();
+    expect(wrapper.find('.fishd-autocomplete-select-dropdown-menu-item').hostNodes().length).toBe(
+      2,
+    );
   });
 
   it('should not override custom input className', () => {

@@ -5,37 +5,37 @@ exports[`Renders layout demo correctly 1`] = `
   <div
     id="components-layout-demo-basic"
   >
-    <div
+    <section
       class="fishd-layout"
     >
-      <div
+      <header
         class="fishd-layout-header"
       >
         Header
-      </div>
-      <div
+      </header>
+      <main
         class="fishd-layout-content"
       >
         Content
-      </div>
-      <div
+      </main>
+      <footer
         class="fishd-layout-footer"
       >
         Footer
-      </div>
-    </div>
-    <div
+      </footer>
+    </section>
+    <section
       class="fishd-layout"
     >
-      <div
+      <header
         class="fishd-layout-header"
       >
         Header
-      </div>
-      <div
+      </header>
+      <section
         class="fishd-layout"
       >
-        <div
+        <aside
           class="fishd-layout-sider fishd-layout-sider-dark"
           style="flex:0 0 160px;max-width:160px;min-width:160px;width:160px"
         >
@@ -44,36 +44,36 @@ exports[`Renders layout demo correctly 1`] = `
           >
             Sider
           </div>
-        </div>
-        <div
+        </aside>
+        <main
           class="fishd-layout-content"
         >
           Content
-        </div>
-      </div>
-      <div
+        </main>
+      </section>
+      <footer
         class="fishd-layout-footer"
       >
         Footer
-      </div>
-    </div>
-    <div
+      </footer>
+    </section>
+    <section
       class="fishd-layout"
     >
-      <div
+      <header
         class="fishd-layout-header"
       >
         Header
-      </div>
-      <div
+      </header>
+      <section
         class="fishd-layout"
       >
-        <div
+        <main
           class="fishd-layout-content"
         >
           Content
-        </div>
-        <div
+        </main>
+        <aside
           class="fishd-layout-sider fishd-layout-sider-dark"
           style="flex:0 0 160px;max-width:160px;min-width:160px;width:160px"
         >
@@ -82,18 +82,18 @@ exports[`Renders layout demo correctly 1`] = `
           >
             Sider
           </div>
-        </div>
-      </div>
-      <div
+        </aside>
+      </section>
+      <footer
         class="fishd-layout-footer"
       >
         Footer
-      </div>
-    </div>
-    <div
+      </footer>
+    </section>
+    <section
       class="fishd-layout"
     >
-      <div
+      <aside
         class="fishd-layout-sider fishd-layout-sider-dark"
         style="flex:0 0 160px;max-width:160px;min-width:160px;width:160px"
       >
@@ -102,32 +102,32 @@ exports[`Renders layout demo correctly 1`] = `
         >
           Sider
         </div>
-      </div>
-      <div
+      </aside>
+      <section
         class="fishd-layout"
       >
-        <div
+        <header
           class="fishd-layout-header"
         >
           Header
-        </div>
-        <div
+        </header>
+        <main
           class="fishd-layout-content"
         >
           Content
-        </div>
-        <div
+        </main>
+        <footer
           class="fishd-layout-footer"
         >
           Footer
-        </div>
-      </div>
-    </div>
+        </footer>
+      </section>
+    </section>
   </div>
-  <div
-    class="components-layout-demo-side fishd-layout"
+  <section
+    class="fishd-layout components-layout-demo-side"
   >
-    <div
+    <aside
       class="fishd-layout-sider fishd-layout-sider-dark fishd-layout-sider-has-trigger"
       style="flex:0 0 160px;max-width:160px;min-width:160px;width:160px"
     >
@@ -147,106 +147,148 @@ exports[`Renders layout demo correctly 1`] = `
           </span>
         </div>
         <ul
-          class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+          class="fishd-menu fishd-menu-root fishd-menu-inline fishd-menu-dark"
+          data-menu-list="true"
+          dir="ltr"
           role="menu"
+          tabindex="0"
         >
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项一
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项一
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item fishd-menu-item-selected"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项二
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项二
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项三
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项三
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项四
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项四
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-submenu fishd-menu-submenu-inline"
-            role="menuitem"
+            role="none"
           >
             <div
               aria-expanded="false"
               aria-haspopup="true"
               class="fishd-menu-submenu-title"
+              role="menuitem"
               style="padding-left:24px"
+              tabindex="-1"
             >
-              <span>
-                <div
-                  class="img-icon-14 fishdicon"
-                />
+              <span
+                class="fishd-menu-title-content"
+              >
                 <span>
-                  功能项四
+                  <div
+                    class="img-icon-14 fishdicon"
+                  />
+                  <span>
+                    功能项四
+                  </span>
                 </span>
               </span>
               <i
                 class="fishd-menu-submenu-arrow"
               />
             </div>
-            <div />
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项五
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项五
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项六
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项六
+              </span>
             </span>
           </li>
         </ul>
+        <div
+          aria-hidden="true"
+          style="display:none"
+        />
       </div>
       <div
         class="fishd-layout-sider-trigger"
@@ -256,15 +298,15 @@ exports[`Renders layout demo correctly 1`] = `
           class="fishdicon fishdicon-left"
         />
       </div>
-    </div>
-    <div
+    </aside>
+    <section
       class="fishd-layout"
     >
-      <div
+      <header
         class="fishd-layout-header"
         style="background:#fff;padding:0"
       />
-      <div
+      <main
         class="fishd-layout-content"
       >
         <div
@@ -272,19 +314,19 @@ exports[`Renders layout demo correctly 1`] = `
         >
           内容模块
         </div>
-      </div>
-      <div
+      </main>
+      <footer
         class="fishd-layout-footer"
         style="text-align:center"
       >
         Fish Design
-      </div>
-    </div>
-  </div>
-  <div
-    class="components-layout-demo-custom-trigger fishd-layout"
+      </footer>
+    </section>
+  </section>
+  <section
+    class="fishd-layout components-layout-demo-custom-trigger"
   >
-    <div
+    <aside
       class="fishd-layout-sider fishd-layout-sider-dark"
       style="flex:0 0 160px;max-width:160px;min-width:160px;width:160px"
     >
@@ -304,11 +346,14 @@ exports[`Renders layout demo correctly 1`] = `
           </span>
         </div>
         <ul
-          class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+          class="fishd-menu fishd-menu-root fishd-menu-inline fishd-menu-dark"
+          data-menu-list="true"
+          dir="ltr"
           role="menu"
+          tabindex="0"
         >
           <li
-            class=" fishd-menu-item-group"
+            class="fishd-menu-item-group"
           >
             <div
               class="fishd-menu-item-group-title"
@@ -323,30 +368,40 @@ exports[`Renders layout demo correctly 1`] = `
                 class="fishd-menu-item"
                 role="menuitem"
                 style="padding-left:24px"
+                tabindex="-1"
               >
-                <div
-                  class="img-icon-14 fishdicon"
-                />
-                <span>
-                  功能项一
+                <span
+                  class="fishd-menu-title-content"
+                >
+                  <div
+                    class="img-icon-14 fishdicon"
+                  />
+                  <span>
+                    功能项一
+                  </span>
                 </span>
               </li>
               <li
                 class="fishd-menu-item fishd-menu-item-selected"
                 role="menuitem"
                 style="padding-left:24px"
+                tabindex="-1"
               >
-                <div
-                  class="img-icon-14 fishdicon"
-                />
-                <span>
-                  功能项二
+                <span
+                  class="fishd-menu-title-content"
+                >
+                  <div
+                    class="img-icon-14 fishdicon"
+                  />
+                  <span>
+                    功能项二
+                  </span>
                 </span>
               </li>
             </ul>
           </li>
           <li
-            class=" fishd-menu-item-group"
+            class="fishd-menu-item-group"
           >
             <div
               class="fishd-menu-item-group-title"
@@ -361,59 +416,83 @@ exports[`Renders layout demo correctly 1`] = `
                 class="fishd-menu-item"
                 role="menuitem"
                 style="padding-left:24px"
+                tabindex="-1"
               >
-                <div
-                  class="img-icon-14 fishdicon"
-                />
-                <span>
-                  功能项三
+                <span
+                  class="fishd-menu-title-content"
+                >
+                  <div
+                    class="img-icon-14 fishdicon"
+                  />
+                  <span>
+                    功能项三
+                  </span>
                 </span>
               </li>
               <li
                 class="fishd-menu-item"
                 role="menuitem"
                 style="padding-left:24px"
+                tabindex="-1"
               >
-                <div
-                  class="img-icon-14 fishdicon"
-                />
-                <span>
-                  功能项四
+                <span
+                  class="fishd-menu-title-content"
+                >
+                  <div
+                    class="img-icon-14 fishdicon"
+                  />
+                  <span>
+                    功能项四
+                  </span>
                 </span>
               </li>
               <li
                 class="fishd-menu-item"
                 role="menuitem"
                 style="padding-left:24px"
+                tabindex="-1"
               >
-                <div
-                  class="img-icon-14 fishdicon"
-                />
-                <span>
-                  功能项五
+                <span
+                  class="fishd-menu-title-content"
+                >
+                  <div
+                    class="img-icon-14 fishdicon"
+                  />
+                  <span>
+                    功能项五
+                  </span>
                 </span>
               </li>
               <li
                 class="fishd-menu-item"
                 role="menuitem"
                 style="padding-left:24px"
+                tabindex="-1"
               >
-                <div
-                  class="img-icon-14 fishdicon"
-                />
-                <span>
-                  功能项六
+                <span
+                  class="fishd-menu-title-content"
+                >
+                  <div
+                    class="img-icon-14 fishdicon"
+                  />
+                  <span>
+                    功能项六
+                  </span>
                 </span>
               </li>
             </ul>
           </li>
         </ul>
+        <div
+          aria-hidden="true"
+          style="display:none"
+        />
       </div>
-    </div>
-    <div
+    </aside>
+    <section
       class="fishd-layout"
     >
-      <div
+      <header
         class="fishd-layout-header"
         style="background:#fff;padding:0"
       >
@@ -423,8 +502,8 @@ exports[`Renders layout demo correctly 1`] = `
         <span
           class="trigger-split-line"
         />
-      </div>
-      <div
+      </header>
+      <main
         class="fishd-layout-content"
       >
         <div
@@ -432,13 +511,13 @@ exports[`Renders layout demo correctly 1`] = `
         >
           内容模块
         </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="components-layout-demo-responsive fishd-layout"
+      </main>
+    </section>
+  </section>
+  <section
+    class="fishd-layout components-layout-demo-responsive"
   >
-    <div
+    <aside
       class="fishd-layout-sider fishd-layout-sider-dark"
       style="flex:0 0 160px;max-width:160px;min-width:160px;width:160px"
     >
@@ -458,92 +537,129 @@ exports[`Renders layout demo correctly 1`] = `
           </span>
         </div>
         <ul
-          class="fishd-menu fishd-menu-dark fishd-menu-root fishd-menu-inline"
+          class="fishd-menu fishd-menu-root fishd-menu-inline fishd-menu-dark"
+          data-menu-list="true"
+          dir="ltr"
           role="menu"
+          tabindex="0"
         >
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项一
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项一
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item fishd-menu-item-selected"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项二
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项二
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项三
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项三
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项四
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项四
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项五
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项五
+              </span>
             </span>
           </li>
           <li
             class="fishd-menu-item"
             role="menuitem"
             style="padding-left:24px"
+            tabindex="-1"
           >
-            <div
-              class="img-icon-14 fishdicon"
-            />
-            <span>
-              功能项六
+            <span
+              class="fishd-menu-title-content"
+            >
+              <div
+                class="img-icon-14 fishdicon"
+              />
+              <span>
+                功能项六
+              </span>
             </span>
           </li>
         </ul>
+        <div
+          aria-hidden="true"
+          style="display:none"
+        />
       </div>
-    </div>
-    <div
+    </aside>
+    <section
       class="fishd-layout"
     >
-      <div
+      <header
         class="fishd-layout-header"
         style="background:#fff;padding:0"
       />
-      <div
+      <main
         class="fishd-layout-content"
       >
         <div
@@ -551,14 +667,14 @@ exports[`Renders layout demo correctly 1`] = `
         >
           内容模块
         </div>
-      </div>
-      <div
+      </main>
+      <footer
         class="fishd-layout-footer"
         style="text-align:center"
       >
         Fish Design
-      </div>
-    </div>
-  </div>
+      </footer>
+    </section>
+  </section>
 </div>
 `;

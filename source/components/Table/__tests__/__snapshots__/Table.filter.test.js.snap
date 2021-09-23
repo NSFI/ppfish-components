@@ -27,25 +27,410 @@ exports[`Table.filter override custom filter correctly 1`] = `
 `;
 
 exports[`Table.filter renders custom content correctly 1`] = `
-<div>
-  <div
-    class="fishd-dropdown  fishd-dropdown-placement-bottomLeft  fishd-dropdown-hidden"
-  >
-    <div>
+<Trigger
+  action={
+    Array [
+      "click",
+    ]
+  }
+  afterPopupVisibleChange={[Function]}
+  autoDestroy={false}
+  blurDelay={0.15}
+  builtinPlacements={
+    Object {
+      "bottomCenter": Object {
+        "offset": Array [
+          0,
+          8,
+        ],
+        "overflow": Object {
+          "adjustX": 1,
+          "adjustY": 1,
+        },
+        "points": Array [
+          "tc",
+          "bc",
+        ],
+        "targetOffset": Array [
+          0,
+          0,
+        ],
+      },
+      "bottomLeft": Object {
+        "offset": Array [
+          0,
+          8,
+        ],
+        "overflow": Object {
+          "adjustX": 1,
+          "adjustY": 1,
+        },
+        "points": Array [
+          "tl",
+          "bl",
+        ],
+        "targetOffset": Array [
+          0,
+          0,
+        ],
+      },
+      "bottomRight": Object {
+        "offset": Array [
+          0,
+          8,
+        ],
+        "overflow": Object {
+          "adjustX": 1,
+          "adjustY": 1,
+        },
+        "points": Array [
+          "tr",
+          "br",
+        ],
+        "targetOffset": Array [
+          0,
+          0,
+        ],
+      },
+      "topCenter": Object {
+        "offset": Array [
+          0,
+          -8,
+        ],
+        "overflow": Object {
+          "adjustX": 1,
+          "adjustY": 1,
+        },
+        "points": Array [
+          "bc",
+          "tc",
+        ],
+        "targetOffset": Array [
+          0,
+          0,
+        ],
+      },
+      "topLeft": Object {
+        "offset": Array [
+          0,
+          -8,
+        ],
+        "overflow": Object {
+          "adjustX": 1,
+          "adjustY": 1,
+        },
+        "points": Array [
+          "bl",
+          "tl",
+        ],
+        "targetOffset": Array [
+          0,
+          0,
+        ],
+      },
+      "topRight": Object {
+        "offset": Array [
+          0,
+          -8,
+        ],
+        "overflow": Object {
+          "adjustX": 1,
+          "adjustY": 1,
+        },
+        "points": Array [
+          "br",
+          "tr",
+        ],
+        "targetOffset": Array [
+          0,
+          0,
+        ],
+      },
+    }
+  }
+  defaultPopupVisible={false}
+  defaultVisible={false}
+  destroyPopupOnHide={false}
+  focusDelay={0}
+  getDocument={[Function]}
+  getPopupClassNameFromAlign={[Function]}
+  getPopupContainer={[Function]}
+  hideAction={Array []}
+  mask={false}
+  maskClosable={true}
+  mouseEnterDelay={0.15}
+  mouseLeaveDelay={0.1}
+  onPopupAlign={[Function]}
+  onPopupVisibleChange={[Function]}
+  onVisibleChange={[Function]}
+  overlay={
+    <FilterDropdownMenuWrapper
+      focusable={true}
+      mode="vertical"
+      selectable={false}
+    >
       <div
-        class="custom-filter-dropdown"
+        className="custom-filter-dropdown"
       >
         custom filter
       </div>
-    </div>
-  </div>
-</div>
+    </FilterDropdownMenuWrapper>
+  }
+  popup={
+    <FilterDropdownMenuWrapper
+      focusable={true}
+      mode="vertical"
+      onClick={[Function]}
+      prefixCls="fishd-dropdown-menu"
+      selectable={false}
+    >
+      <div
+        className="custom-filter-dropdown"
+      >
+        custom filter
+      </div>
+    </FilterDropdownMenuWrapper>
+  }
+  popupAlign={Object {}}
+  popupClassName=""
+  popupPlacement="bottomLeft"
+  popupStyle={Object {}}
+  popupTransitionName="slide-up"
+  popupVisible={true}
+  prefixCls="fishd-dropdown"
+  showAction={Array []}
+  visible={true}
+>
+  <Icon
+    className="fishd-dropdown-trigger"
+    key="trigger"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onTouchStart={[Function]}
+    title="筛选"
+    type="filter"
+  >
+    <i
+      className="fishdicon fishdicon-filter fishd-dropdown-trigger"
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onTouchStart={[Function]}
+      title="筛选"
+    />
+  </Icon>
+  <ForwardRef
+    didUpdate={[Function]}
+    getContainer={[Function]}
+    key="portal"
+  >
+    <Portal
+      containerInfo={
+        <div
+          style="position: absolute; top: 0px; left: 0px; width: 100%;"
+        >
+          <div>
+            <div
+              class="fishd-dropdown"
+              style="opacity: 0; pointer-events: none;"
+            >
+              <div>
+                <div
+                  class="custom-filter-dropdown"
+                >
+                  custom filter
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <Popup
+        align={
+          Object {
+            "offset": Array [
+              0,
+              8,
+            ],
+            "overflow": Object {
+              "adjustX": 1,
+              "adjustY": 1,
+            },
+            "points": Array [
+              "tl",
+              "bl",
+            ],
+            "targetOffset": Array [
+              0,
+              0,
+            ],
+          }
+        }
+        className=""
+        destroyPopupOnHide={false}
+        getClassNameFromAlign={[Function]}
+        getRootDomNode={[Function]}
+        mask={false}
+        onAlign={[Function]}
+        onMouseDown={[Function]}
+        onTouchStart={[Function]}
+        prefixCls="fishd-dropdown"
+        style={Object {}}
+        transitionName="slide-up"
+        visible={true}
+      >
+        <div>
+          <Mask
+            align={
+              Object {
+                "offset": Array [
+                  0,
+                  8,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "bl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              }
+            }
+            className=""
+            destroyPopupOnHide={false}
+            getClassNameFromAlign={[Function]}
+            getRootDomNode={[Function]}
+            mask={false}
+            onAlign={[Function]}
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+            prefixCls="fishd-dropdown"
+            style={Object {}}
+            transitionName="slide-up"
+            visible={true}
+          />
+          <PopupInner
+            align={
+              Object {
+                "offset": Array [
+                  0,
+                  8,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "bl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              }
+            }
+            className=""
+            destroyPopupOnHide={false}
+            getClassNameFromAlign={[Function]}
+            getRootDomNode={[Function]}
+            mask={false}
+            onAlign={[Function]}
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+            prefixCls="fishd-dropdown"
+            style={Object {}}
+            transitionName="slide-up"
+            visible={true}
+          >
+            <CSSMotion
+              leavedClassName="fishd-dropdown-hidden"
+              motionName="slide-up"
+              onAppearEnd={[Function]}
+              onAppearPrepare={[Function]}
+              onEnterEnd={[Function]}
+              onEnterPrepare={[Function]}
+              onLeaveEnd={[Function]}
+              removeOnLeave={false}
+              visible={true}
+            >
+              <DomWrapper>
+                <Align
+                  align={
+                    Object {
+                      "offset": Array [
+                        0,
+                        8,
+                      ],
+                      "overflow": Object {
+                        "adjustX": 1,
+                        "adjustY": 1,
+                      },
+                      "points": Array [
+                        "tl",
+                        "bl",
+                      ],
+                      "targetOffset": Array [
+                        0,
+                        0,
+                      ],
+                    }
+                  }
+                  disabled={false}
+                  key="popup"
+                  monitorWindowResize={true}
+                  onAlign={[Function]}
+                  target={[Function]}
+                >
+                  <div
+                    className="fishd-dropdown"
+                    onMouseDownCapture={[Function]}
+                    onTouchStartCapture={[Function]}
+                    style={
+                      Object {
+                        "opacity": 0,
+                        "pointerEvents": "none",
+                        "zIndex": undefined,
+                      }
+                    }
+                  >
+                    <FilterDropdownMenuWrapper
+                      focusable={true}
+                      mode="vertical"
+                      onClick={[Function]}
+                      prefixCls="fishd-dropdown-menu"
+                      selectable={false}
+                    >
+                      <div
+                        onClick={[Function]}
+                      >
+                        <div
+                          className="custom-filter-dropdown"
+                        >
+                          custom filter
+                        </div>
+                      </div>
+                    </FilterDropdownMenuWrapper>
+                  </div>
+                </Align>
+              </DomWrapper>
+            </CSSMotion>
+          </PopupInner>
+        </div>
+      </Popup>
+    </Portal>
+  </ForwardRef>
+</Trigger>
 `;
 
 exports[`Table.filter renders custom filter icon correctly 1`] = `
 <span
   class="fishd-table-filter-icon fishd-dropdown-trigger"
-  style=""
   title="筛选"
 >
   filtered
@@ -55,7 +440,6 @@ exports[`Table.filter renders custom filter icon correctly 1`] = `
 exports[`Table.filter renders custom filter icon correctly 2`] = `
 <span
   class="fishd-table-filter-icon fishd-dropdown-trigger"
-  style=""
   title="筛选"
 >
   unfiltered

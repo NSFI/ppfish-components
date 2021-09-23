@@ -14,7 +14,7 @@ const RcCascader: React.FC<RcCascaderProps> = (
   props,
 
 ) => {
-  const triggerRef = React.useRef<{ getPopupDOMNode?: () => any, getRootDomNode?: () => any }>();
+  const triggerRef = React.useRef<any>();
   // useImperativeHandle(ref, () => ({
   //   getPopupDOMNode() {
   //     return triggerRef.current.getPopupDOMNode();

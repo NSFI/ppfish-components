@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout renders string width correctly 1`] = `
+<aside
+  class="fishd-layout-sider fishd-layout-sider-dark"
+  style="flex:0 0 200px;max-width:200px;min-width:200px;width:200px"
+>
+  <div
+    class="fishd-layout-sider-children"
+  >
+    Sider
+  </div>
+</aside>
+`;
+
+exports[`Layout should be controlled by collapsed 1`] = `
+<Sider
+  collapsedWidth={64}
+  collapsible={false}
+  defaultCollapsed={false}
+  prefixCls="fishd-layout-sider"
+  reverseArrow={false}
+  style={Object {}}
+  theme="dark"
+  width={160}
+>
+  <aside
+    className="fishd-layout-sider fishd-layout-sider-dark"
+    style={
+      Object {
+        "flex": "0 0 160px",
+        "maxWidth": "160px",
+        "minWidth": "160px",
+        "width": "160px",
+      }
+    }
+  >
+    <div
+      className="fishd-layout-sider-children"
+    >
+      Sider
+    </div>
+  </aside>
+</Sider>
+`;
+
+exports[`Layout should be controlled by collapsed 2`] = `
+<Sider
+  collapsed={true}
+  collapsedWidth={64}
+  collapsible={false}
+  defaultCollapsed={false}
+  prefixCls="fishd-layout-sider"
+  reverseArrow={false}
+  style={Object {}}
+  theme="dark"
+  width={160}
+>
+  <aside
+    className="fishd-layout-sider fishd-layout-sider-dark fishd-layout-sider-collapsed"
+    style={
+      Object {
+        "flex": "0 0 64px",
+        "maxWidth": "64px",
+        "minWidth": "64px",
+        "width": "64px",
+      }
+    }
+  >
+    <div
+      className="fishd-layout-sider-children"
+    >
+      Sider
+    </div>
+  </aside>
+</Sider>
+`;

@@ -37,6 +37,7 @@ export { default as InputNumber } from './InputNumber';
 export { default as Menu } from './Menu';
 export { default as message } from './message';
 export { default as Modal } from './Modal';
+export { default as Motion } from './Motion';
 export { default as notification } from './notification';
 export { default as Pagination } from './Pagination';
 export { default as PicturePreview } from './PicturePreview';

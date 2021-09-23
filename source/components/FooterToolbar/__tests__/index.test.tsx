@@ -8,26 +8,26 @@ describe('FooterToolbar', () => {
     originGetComputedStyle = Object.getOwnPropertyDescriptor(window, 'getComputedStyle').value;
     Object.defineProperty(window, 'getComputedStyle', {
       value: () => ({
-        height: 100
-      })
+        height: 100,
+      }),
     });
-  })
+  });
 
   afterAll(() => {
     Object.defineProperty(window, 'getComputedStyle', {
-      value: originGetComputedStyle
+      value: originGetComputedStyle,
     });
-  })
+  });
 
   it('FooterToolbar should render', () => {
     const Page = () => {
       return (
-        <div style={{ position: 'relative'}}>
+        <div style={{ position: 'relative' }}>
           <FooterToolbar>footer</FooterToolbar>
         </div>
       );
     };
-    const wrapper = mount(<Page/>);
+    const wrapper = mount(<Page />);
     expect(wrapper).toMatchSnapshot();
   });
 });

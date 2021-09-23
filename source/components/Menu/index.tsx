@@ -1,285 +1,130 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
-import RcMenu, { Divider, ItemGroup } from './src';
-import * as PropTypes from 'prop-types';
+import RcMenu, { ItemGroup, MenuProps as RcMenuProps } from './src';
 import classNames from 'classnames';
-import warning from 'warning';
-import { polyfill } from 'react-lifecycles-compat';
-import animation from '../../utils/openAnimation';
-import SubMenu from './SubMenu';
-import Item from './MenuItem';
-import { SiderContext } from '../Layout/Sider';
+import Icon from '../Icon';
+import omit from 'rc-util/lib/omit';
+import SubMenu, { SubMenuProps } from './SubMenu';
+import Item, { MenuItemProps } from './MenuItem';
+import warning from '../../utils/warning';
+import { SiderContext, SiderContextProps } from '../Layout/Sider';
+import collapseMotion from '../../utils/motion';
+import { cloneElement } from '../../utils/reactNode';
+import MenuContext, { MenuTheme } from './MenuContext';
+import MenuDivider from './MenuDivider';
+
 import './style/index.less';
 
-export interface SelectParam {
-  key: string;
-  keyPath: Array<string>;
-  item: any;
-  domEvent: any;
-  selectedKeys: Array<string>;
-}
+export { MenuDividerProps } from './MenuDivider';
 
-export interface ClickParam {
-  key: string;
-  keyPath: Array<string>;
-  item: any;
-  domEvent: any;
-}
+export { MenuItemGroupProps } from './src';
 
 export type MenuMode = 'vertical' | 'vertical-left' | 'vertical-right' | 'horizontal' | 'inline';
 
-export type MenuTheme = 'light' | 'dark';
-
-export interface MenuProps {
-  id?: string;
+export interface MenuProps extends RcMenuProps {
   theme?: MenuTheme;
-  mode?: MenuMode;
-  selectable?: boolean;
-  selectedKeys?: Array<string>;
-  defaultSelectedKeys?: Array<string>;
-  openKeys?: Array<string>;
-  defaultOpenKeys?: Array<string>;
-  onOpenChange?: (openKeys: string[]) => void;
-  onSelect?: (param: SelectParam) => void;
-  onDeselect?: (param: SelectParam) => void;
-  onClick?: (param: ClickParam) => void;
-  style?: React.CSSProperties;
-  openAnimation?: string | Object;
-  openTransitionName?: string | Object;
-  className?: string;
-  prefixCls?: string;
-  multiple?: boolean;
   inlineIndent?: number;
-  inlineCollapsed?: boolean;
-  subMenuCloseDelay?: number;
-  subMenuOpenDelay?: number;
-  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
-  focusable?: boolean;
 }
 
-export interface MenuState {
-  openKeys: string[];
-}
+type InternalMenuProps = MenuProps &
+  SiderContextProps & {
+    collapsedWidth?: string | number;
+  };
 
-class Menu extends React.Component<MenuProps, MenuState> {
-  static Divider = Divider;
-  static Item = Item;
-  static SubMenu = SubMenu;
-  static ItemGroup = ItemGroup;
+class InternalMenu extends React.Component<InternalMenuProps> {
   static defaultProps: Partial<MenuProps> = {
     prefixCls: 'fishd-menu',
+    // focusable: false,
     className: '',
     theme: 'light', // or dark
-    focusable: false
-  };
-  static childContextTypes = {
-    inlineCollapsed: PropTypes.bool,
-    menuTheme: PropTypes.string
-  };
-  static contextTypes = {
-    siderCollapsed: PropTypes.bool,
-    collapsedWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
-  siderCollapsed: boolean;
-  switchModeFromInline: boolean;
-  leaveAnimationExecutedWhenInlineCollapsed: boolean;
-  inlineOpenKeys: string[] = [];
-
-  static getDerivedStateFromProps(nextProps: MenuProps, prevState: MenuState) {
-    let newState = {};
-
-    if ('openKeys' in nextProps) {
-      newState['openKeys'] = nextProps.openKeys!;
-    }
-
-    return newState;
-  }
-
-  constructor(props: MenuProps, context: SiderContext) {
+  constructor(props: InternalMenuProps) {
     super(props);
 
     warning(
-      !('onOpen' in props || 'onClose' in props),
-      '`onOpen` and `onClose` are removed, please use `onOpenChange` instead, ' +
-        'see: https://u.ant.design/menu-on-open-change.'
+      !('inlineCollapsed' in props && props.mode !== 'inline'),
+      '`inlineCollapsed` should only be used when `mode` is inline.',
     );
 
     warning(
-      !('inlineCollapsed' in props && props.mode !== 'inline'),
-      "`inlineCollapsed` should only be used when Menu's `mode` is inline."
+      !(props.siderCollapsed !== undefined && 'inlineCollapsed' in props),
+      '`inlineCollapsed` not control Menu under Sider. Should set `collapsed` on Sider instead.',
     );
-
-    this.switchModeFromInline = true;
-
-    let openKeys;
-    if ('defaultOpenKeys' in props) {
-      openKeys = props.defaultOpenKeys;
-    } else if ('openKeys' in props) {
-      openKeys = props.openKeys;
-    }
-
-    this.state = {
-      openKeys: openKeys || []
-    };
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if ('openKeys' in this.props) return;
-    let newState = {};
-
-    if (prevProps.mode === 'inline' && this.props.mode !== 'inline') {
-      this.switchModeFromInline = true;
-    }
-
-    if (
-      (this.props.inlineCollapsed && !prevProps.inlineCollapsed) ||
-      (this.context.siderCollapsed && !this.siderCollapsed)
-    ) {
-      const menuNode = findDOMNode(this) as Element;
-      this.switchModeFromInline =
-        !!prevState.openKeys.length &&
-        !!menuNode.querySelectorAll(`.${this.props.prefixCls}-submenu-open`).length;
-      this.inlineOpenKeys = this.state.openKeys;
-      newState['openKeys'] = [];
-      this.siderCollapsed = this.context.siderCollapsed;
-      this.setState(newState);
-    } else if (
-      (!this.props.inlineCollapsed && prevProps.inlineCollapsed) ||
-      (!this.context.siderCollapsed && this.siderCollapsed)
-    ) {
-      newState['openKeys'] = this.inlineOpenKeys;
-      this.siderCollapsed = this.context.siderCollapsed;
-      this.inlineOpenKeys = [];
-      this.setState(newState);
-    }
-  }
-
-  getChildContext() {
-    return {
-      inlineCollapsed: this.getInlineCollapsed(),
-      menuTheme: this.props.theme
-    };
-  }
-
-  handleClick = (e: ClickParam) => {
-    this.handleOpenChange([]);
-
-    const { onClick } = this.props;
-    if (onClick) {
-      onClick(e);
-    }
-  };
-  handleOpenChange = (openKeys: string[]) => {
-    this.setOpenKeys(openKeys);
-
-    const { onOpenChange } = this.props;
-    if (onOpenChange) {
-      onOpenChange(openKeys);
-    }
-  };
-
-  setOpenKeys(openKeys: string[]) {
-    if (!('openKeys' in this.props)) {
-      this.setState({ openKeys });
-    }
-  }
-
-  getRealMenuMode() {
-    const inlineCollapsed = this.getInlineCollapsed();
-    if (this.switchModeFromInline && inlineCollapsed) {
-      return 'inline';
-    }
-    const { mode } = this.props;
-    return inlineCollapsed ? 'vertical' : mode;
   }
 
   getInlineCollapsed() {
-    const { inlineCollapsed } = this.props;
-    if (this.context.siderCollapsed !== undefined) {
-      return this.context.siderCollapsed;
+    const { inlineCollapsed, siderCollapsed } = this.props;
+    if (siderCollapsed !== undefined) {
+      return siderCollapsed;
     }
     return inlineCollapsed;
   }
 
-  getMenuOpenAnimation(menuMode: MenuMode) {
-    const { openAnimation, openTransitionName } = this.props;
-    let menuOpenAnimation = openAnimation || openTransitionName;
-    if (openAnimation === undefined && openTransitionName === undefined) {
-      switch (menuMode) {
-        case 'horizontal':
-          menuOpenAnimation = 'slide-up';
-          break;
-        case 'vertical':
-        case 'vertical-left':
-        case 'vertical-right':
-          // When mode switch from inline
-          // submenu should hide without animation
-          if (this.switchModeFromInline) {
-            menuOpenAnimation = '';
-            this.switchModeFromInline = false;
-          } else {
-            menuOpenAnimation = 'zoom-big';
-          }
-          break;
-        case 'inline':
-          menuOpenAnimation = {
-            ...animation,
-            leave: (node: HTMLElement, done: () => void) =>
-              animation.leave(node, () => {
-                // Make sure inline menu leave animation finished before mode is switched
-                this.switchModeFromInline = false;
-                this.setState({});
-                // when inlineCollapsed change false to true, all submenu will be unmounted,
-                // so that we don't need handle animation leaving.
-                if (this.getRealMenuMode() === 'vertical') {
-                  return;
-                }
-                done();
-              })
-          };
-          break;
-        default:
-      }
-    }
-    return menuOpenAnimation;
-  }
+  renderMenu = () => {
+    const { prefixCls, className, theme, expandIcon, ...restProps } = this.props;
+
+    const passedProps = omit(restProps, ['siderCollapsed', 'collapsedWidth']);
+    const inlineCollapsed = this.getInlineCollapsed();
+
+    const defaultMotions = {
+      horizontal: { motionName: `slide-up` },
+      inline: collapseMotion,
+      other: { motionName: `zoom-big` },
+    };
+    const menuClassName = classNames(`${prefixCls}-${theme}`, className);
+
+    const direction = 'ltr';
+    return (
+      <MenuContext.Provider
+        value={{
+          prefixCls,
+          inlineCollapsed: inlineCollapsed || false,
+          fishdMenuTheme: theme,
+          firstLevel: true,
+        }}
+      >
+        <RcMenu
+          // getPopupContainer={}
+          overflowedIndicator={<Icon type="more-point" />}
+          overflowedIndicatorPopupClassName={`${prefixCls}-${theme}`}
+          {...passedProps}
+          inlineCollapsed={inlineCollapsed}
+          className={menuClassName}
+          prefixCls={prefixCls}
+          direction={direction}
+          defaultMotions={defaultMotions}
+          expandIcon={cloneElement(expandIcon, {
+            className: `${prefixCls}-submenu-expand-icon`,
+          })}
+        />
+      </MenuContext.Provider>
+    );
+  };
 
   render() {
-    const { prefixCls, className, theme } = this.props;
-    const menuMode = this.getRealMenuMode();
-    const menuOpenAnimation = this.getMenuOpenAnimation(menuMode!);
-
-    const menuClassName = classNames(className, `${prefixCls}-${theme}`, {
-      [`${prefixCls}-inline-collapsed`]: this.getInlineCollapsed()
-    });
-
-    const menuProps: MenuProps = {
-      openKeys: this.state.openKeys,
-      onOpenChange: this.handleOpenChange,
-      className: menuClassName,
-      mode: menuMode
-    };
-
-    if (menuMode !== 'inline') {
-      // closing vertical popup submenu after click it
-      menuProps.onClick = this.handleClick;
-      menuProps.openTransitionName = menuOpenAnimation;
-    } else {
-      menuProps.openAnimation = menuOpenAnimation;
-    }
-
-    // https://github.com/ant-design/ant-design/issues/8587
-    const { collapsedWidth } = this.context;
-    if (
-      this.getInlineCollapsed() &&
-      (collapsedWidth === 0 || collapsedWidth === '0' || collapsedWidth === '0px')
-    ) {
-      return null;
-    }
-
-    return <RcMenu {...this.props} {...menuProps} />;
+    return this.renderMenu();
   }
 }
-polyfill(Menu);
+
+// We should keep this as ref-able
+class Menu extends React.Component<MenuProps, {}> {
+  static Divider = MenuDivider;
+
+  static Item = Item;
+
+  static SubMenu = SubMenu;
+
+  static ItemGroup = ItemGroup;
+
+  render() {
+    return (
+      <SiderContext.Consumer>
+        {(context: SiderContextProps) => <InternalMenu {...this.props} {...context} />}
+      </SiderContext.Consumer>
+    );
+  }
+}
+
+export { MenuTheme, SubMenuProps, MenuItemProps };
+
 export default Menu;

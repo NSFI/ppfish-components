@@ -1,33 +1,77 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { SubMenu as RcSubMenu, useFullPath } from './src';
 import classNames from 'classnames';
-import { SubMenu as RcSubMenu } from './src';
+import omit from 'rc-util/lib/omit';
+import MenuContext from './MenuContext';
+import { isValidElement, cloneElement } from '../../utils/reactNode';
 
-class SubMenu extends React.Component<any, any> {
-  static contextTypes = {
-    menuTheme: PropTypes.string
-  };
-  // fix issue:https://github.com/ant-design/ant-design/issues/8666
-  static isSubMenu = 1;
-  private subMenu: any;
-  onKeyDown = (e: React.MouseEvent<HTMLElement>) => {
-    this.subMenu.onKeyDown(e);
-  };
-  saveSubMenu = (subMenu: any) => {
-    this.subMenu = subMenu;
-  };
+interface TitleEventEntity {
+  key: string;
+  domEvent: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>;
+}
 
-  render() {
-    const { rootPrefixCls, className } = this.props;
-    const theme = this.context.menuTheme;
-    return (
-      <RcSubMenu
-        {...this.props}
-        ref={this.saveSubMenu}
-        popupClassName={classNames(`${rootPrefixCls}-${theme}`, className)}
-      />
+export interface SubMenuProps {
+  className?: string;
+  disabled?: boolean;
+  level?: number;
+  title?: React.ReactNode;
+  icon?: React.ReactNode;
+  style?: React.CSSProperties;
+  onTitleClick?: (e: TitleEventEntity) => void;
+  onTitleMouseEnter?: (e: TitleEventEntity) => void;
+  onTitleMouseLeave?: (e: TitleEventEntity) => void;
+  popupOffset?: [number, number];
+  popupClassName?: string;
+  children?: React.ReactNode;
+}
+
+function SubMenu(props: SubMenuProps) {
+  const { popupClassName, icon, title } = props;
+  const context = React.useContext(MenuContext);
+  const { prefixCls, inlineCollapsed, fishdMenuTheme } = context;
+
+  const parentPath = useFullPath();
+
+  let titleNode: React.ReactNode;
+
+  if (!icon) {
+    titleNode =
+      inlineCollapsed && !parentPath.length && title && typeof title === 'string' ? (
+        <div className={`${prefixCls}-inline-collapsed-noicon`}>{title.charAt(0)}</div>
+      ) : (
+        <span className={`${prefixCls}-title-content`}>{title}</span>
+      );
+  } else {
+    // inline-collapsed.md demo 依赖 span 来隐藏文字,有 icon 属性，则内部包裹一个 span
+    // ref: https://github.com/ant-design/ant-design/pull/23456
+    const titleIsSpan = isValidElement(title) && title.type === 'span';
+    titleNode = (
+      <>
+        {cloneElement(icon, {
+          className: classNames(
+            isValidElement(icon) ? icon.props?.className : '',
+            `${prefixCls}-item-icon`,
+          ),
+        })}
+        {titleIsSpan ? title : <span className={`${prefixCls}-title-content`}>{title}</span>}
+      </>
     );
   }
+
+  return (
+    <MenuContext.Provider
+      value={{
+        ...context,
+        firstLevel: false,
+      }}
+    >
+      <RcSubMenu
+        {...omit(props, ['icon'])}
+        title={titleNode}
+        popupClassName={classNames(prefixCls, `${prefixCls}-${fishdMenuTheme}`, popupClassName)}
+      />
+    </MenuContext.Provider>
+  );
 }
 
 export default SubMenu;

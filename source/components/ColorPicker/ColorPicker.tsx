@@ -78,7 +78,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
     quickMode: PropTypes.bool,
     style: PropTypes.object,
     popupStyle: PropTypes.object,
-    esc: PropTypes.bool
+    esc: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -96,7 +96,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
       '#ffe500',
       '#aacc00',
       '#26bf40',
-      '#3dd9af'
+      '#3dd9af',
     ],
     defaultAlpha: 100,
     defaultColor: '#33bbff',
@@ -110,7 +110,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
     quickMode: false,
     style: {},
     popupStyle: {},
-    esc: true
+    esc: true,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -140,7 +140,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
       color: props.color || props.defaultColor,
       alpha,
       visible: false,
-      colorHistory: []
+      colorHistory: [],
     };
 
     this.saveTriggerRef = refFn.bind(this, 'triggerInstance');
@@ -279,9 +279,9 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
         unselectable: 'unselectable',
         style: {
           ...props.style,
-          backgroundColor: `rgba(${RGBA.join(',')})`
+          backgroundColor: `rgba(${RGBA.join(',')})`,
         },
-        onMouseDown: prevent
+        onMouseDown: prevent,
       });
     }
 
@@ -293,12 +293,12 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
       animation,
       disabled,
       transitionName,
-      quickMode
+      quickMode,
     } = props;
 
     const arrowCls = classNames({
       [`${prefixCls}-arrow`]: true,
-      quick: quickMode
+      quick: quickMode,
     });
 
     return (
@@ -310,7 +310,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
               <div className={`${prefixCls}-inner`}>{this.getPickerElement()}</div>
             </div>
           }
-          popupAlign={align}
+          popupAlign={align as unknown}
           builtinPlacements={placements}
           popupPlacement={'topCenter'}
           action={disabled ? [] : ['click']}
@@ -323,7 +323,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
           onPopupVisibleChange={this.onVisibleChangeFromTrigger}
           prefixCls={prefixCls}
         >
-          {children}
+          {children as React.ReactElement}
         </Trigger>
       </div>
     );

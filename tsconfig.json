@@ -12,6 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": "./source/",
+    "downlevelIteration": true,
     "skipLibCheck": true
   },
   "include": ["source/**/*"],

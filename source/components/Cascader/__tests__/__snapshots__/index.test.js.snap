@@ -3,7 +3,8 @@
 exports[`Cascader can be selected 1`] = `
 <div>
   <div
-    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+    class="fishd-cascader-menus"
+    style="opacity:0;pointer-events:none"
   >
     <div>
       <ul
@@ -49,7 +50,8 @@ exports[`Cascader can be selected 1`] = `
 exports[`Cascader can be selected 2`] = `
 <div>
   <div
-    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+    class="fishd-cascader-menus"
+    style="opacity:0;pointer-events:none"
   >
     <div>
       <ul
@@ -102,76 +104,15 @@ exports[`Cascader can be selected 2`] = `
 </div>
 `;
 
-exports[`Cascader can be selected 3`] = `
-<div>
-  <div
-    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft  fishd-cascader-menus-hidden"
-  >
-    <div>
-      <ul
-        class="fishd-cascader-menu"
-      >
-        <li
-          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
-          title="Zhejiang"
-        >
-          Zhejiang
-          <span
-            class="fishd-cascader-menu-item-expand-icon"
-          />
-        </li>
-        <li
-          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand"
-          title="Jiangsu"
-        >
-          Jiangsu
-          <span
-            class="fishd-cascader-menu-item-expand-icon"
-          />
-        </li>
-      </ul>
-      <ul
-        class="fishd-cascader-menu"
-      >
-        <li
-          class="fishd-cascader-menu-item fishd-cascader-menu-item-expand fishd-cascader-menu-item-active"
-          title="Hangzhou"
-        >
-          Hangzhou
-          <span
-            class="fishd-cascader-menu-item-expand-icon"
-          />
-        </li>
-      </ul>
-      <ul
-        class="fishd-cascader-menu"
-      >
-        <li
-          class="fishd-cascader-menu-item fishd-cascader-menu-item-active"
-          title="West Lake"
-        >
-          West Lake
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-`;
+exports[`Cascader can be selected 3`] = `<div />`;
 
-exports[`Cascader popup correctly when panel is hidden 1`] = `
-<div>
-  <div
-    class="fishd-cascader-menus  fishd-cascader-menus-empty fishd-cascader-menus-placement-bottomLeft  fishd-cascader-menus-hidden"
-  >
-    <div />
-  </div>
-</div>
-`;
+exports[`Cascader popup correctly when panel is hidden 1`] = `<div />`;
 
 exports[`Cascader popup correctly when panel is open 1`] = `
 <div>
   <div
-    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+    class="fishd-cascader-menus"
+    style="opacity:0;pointer-events:none"
   >
     <div>
       <ul
@@ -204,7 +145,8 @@ exports[`Cascader popup correctly when panel is open 1`] = `
 exports[`Cascader popup correctly with defaultValue 1`] = `
 <div>
   <div
-    class="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
+    class="fishd-cascader-menus"
+    style="opacity:0;pointer-events:none"
   >
     <div>
       <ul
@@ -259,11 +201,6 @@ exports[`Cascader popup correctly with defaultValue 1`] = `
 
 exports[`Cascader should highlight keyword and filter when search in Cascader 1`] = `
 <Popup
-  action={
-    Array [
-      "click",
-    ]
-  }
   align={
     Object {
       "offset": Array [
@@ -294,285 +231,314 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
   visible={true}
 >
   <div>
-    <Animate
-      animation={Object {}}
-      component=""
-      componentProps={Object {}}
-      exclusive={true}
-      onAppear={[Function]}
-      onEnd={[Function]}
-      onEnter={[Function]}
-      onLeave={[Function]}
-      showProp="xVisible"
-      transitionAppear={true}
-      transitionEnter={true}
-      transitionLeave={true}
+    <Mask
+      align={
+        Object {
+          "offset": Array [
+            0,
+            8,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "tl",
+            "bl",
+          ],
+        }
+      }
+      className=""
+      destroyPopupOnHide={false}
+      getClassNameFromAlign={[Function]}
+      getRootDomNode={[Function]}
+      mask={false}
+      onAlign={[Function]}
+      onMouseDown={[Function]}
+      onTouchStart={[Function]}
+      prefixCls="fishd-cascader-menus"
+      style={Object {}}
       transitionName="slide-up"
+      visible={true}
+    />
+    <PopupInner
+      align={
+        Object {
+          "offset": Array [
+            0,
+            8,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "tl",
+            "bl",
+          ],
+        }
+      }
+      className=""
+      destroyPopupOnHide={false}
+      getClassNameFromAlign={[Function]}
+      getRootDomNode={[Function]}
+      mask={false}
+      onAlign={[Function]}
+      onMouseDown={[Function]}
+      onTouchStart={[Function]}
+      prefixCls="fishd-cascader-menus"
+      style={Object {}}
+      transitionName="slide-up"
+      visible={true}
     >
-      <AnimateChild
-        animation={Object {}}
-        key="popup"
-        transitionAppear={true}
-        transitionEnter={true}
-        transitionLeave={true}
-        transitionName="slide-up"
+      <CSSMotion
+        leavedClassName="fishd-cascader-menus-hidden"
+        motionName="slide-up"
+        onAppearEnd={[Function]}
+        onAppearPrepare={[Function]}
+        onEnterEnd={[Function]}
+        onEnterPrepare={[Function]}
+        onLeaveEnd={[Function]}
+        removeOnLeave={false}
+        visible={true}
       >
-        <Align
-          align={
-            Object {
-              "offset": Array [
-                0,
-                8,
-              ],
-              "overflow": Object {
-                "adjustX": 1,
-                "adjustY": 1,
-              },
-              "points": Array [
-                "tl",
-                "bl",
-              ],
+        <DomWrapper>
+          <Align
+            align={
+              Object {
+                "offset": Array [
+                  0,
+                  8,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "bl",
+                ],
+              }
             }
-          }
-          childrenProps={
-            Object {
-              "visible": "xVisible",
-            }
-          }
-          disabled={false}
-          key="popup"
-          monitorBufferTime={50}
-          monitorWindowResize={true}
-          onAlign={[Function]}
-          target={[Function]}
-          xVisible={true}
-        >
-          <PopupInner
-            className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
-            hiddenClassName="fishd-cascader-menus-hidden"
-            onMouseDown={[Function]}
-            onTouchStart={[Function]}
-            prefixCls="fishd-cascader-menus"
-            style={Object {}}
-            visible={true}
+            disabled={true}
+            key="popup"
+            monitorWindowResize={true}
+            onAlign={[Function]}
+            target={[Function]}
           >
             <div
-              className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
-              onMouseDown={[Function]}
-              onTouchStart={[Function]}
-              style={Object {}}
+              className="fishd-cascader-menus"
+              onMouseDownCapture={[Function]}
+              onTouchStartCapture={[Function]}
+              style={
+                Object {
+                  "opacity": 0,
+                  "pointerEvents": "none",
+                  "zIndex": undefined,
+                }
+              }
             >
-              <LazyRenderBox
-                className="fishd-cascader-menus-content"
+              <Menus
+                activeValue={Array []}
+                defaultFieldNames={
+                  Object {
+                    "children": "children",
+                    "label": "label",
+                    "value": "value",
+                  }
+                }
+                dropdownMenuColumnStyle={
+                  Object {
+                    "width": 0,
+                  }
+                }
+                expandIcon=""
+                expandTrigger="click"
+                fieldNames={
+                  Object {
+                    "children": "children",
+                    "label": "label",
+                    "value": "value",
+                  }
+                }
+                onSelect={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "__IS_FILTERED_OPTION": true,
+                      "disabled": false,
+                      "label": Array [
+                        "Jiangsu",
+                        Array [
+                          " / ",
+                          "Nanjing",
+                        ],
+                        Array [
+                          " / ",
+                          "Zhong Hua Men",
+                        ],
+                      ],
+                      "path": Array [
+                        Object {
+                          "children": Array [
+                            Object {
+                              "children": Array [
+                                Object {
+                                  "label": "Zhong Hua Men",
+                                  "value": "zhonghuamen",
+                                },
+                              ],
+                              "label": "Nanjing",
+                              "value": "nanjing",
+                            },
+                          ],
+                          "label": "Jiangsu",
+                          "value": "jiangsu",
+                        },
+                        Object {
+                          "children": Array [
+                            Object {
+                              "label": "Zhong Hua Men",
+                              "value": "zhonghuamen",
+                            },
+                          ],
+                          "label": "Nanjing",
+                          "value": "nanjing",
+                        },
+                        Object {
+                          "label": "Zhong Hua Men",
+                          "value": "zhonghuamen",
+                        },
+                      ],
+                      "value": Array [
+                        "jiangsu",
+                        "nanjing",
+                        "zhonghuamen",
+                      ],
+                    },
+                    Object {
+                      "__IS_FILTERED_OPTION": true,
+                      "disabled": false,
+                      "label": Array [
+                        "Zhejiang",
+                        Array [
+                          " / ",
+                          Array [
+                            "Hang",
+                            Array [
+                              <span
+                                className="fishd-cascader-menu-item-keyword"
+                              >
+                                z
+                              </span>,
+                              "hou",
+                            ],
+                          ],
+                        ],
+                        Array [
+                          " / ",
+                          "West Lake",
+                        ],
+                      ],
+                      "path": Array [
+                        Object {
+                          "children": Array [
+                            Object {
+                              "children": Array [
+                                Object {
+                                  "label": "West Lake",
+                                  "value": "xihu",
+                                },
+                              ],
+                              "label": "Hangzhou",
+                              "value": "hangzhou",
+                            },
+                          ],
+                          "label": "Zhejiang",
+                          "value": "zhejiang",
+                        },
+                        Object {
+                          "children": Array [
+                            Object {
+                              "label": "West Lake",
+                              "value": "xihu",
+                            },
+                          ],
+                          "label": "Hangzhou",
+                          "value": "hangzhou",
+                        },
+                        Object {
+                          "label": "West Lake",
+                          "value": "xihu",
+                        },
+                      ],
+                      "value": Array [
+                        "zhejiang",
+                        "hangzhou",
+                        "xihu",
+                      ],
+                    },
+                  ]
+                }
+                prefixCls="fishd-cascader"
+                value={Array []}
                 visible={true}
               >
-                <Menus
-                  activeValue={Array []}
-                  defaultFieldNames={
-                    Object {
-                      "children": "children",
-                      "label": "label",
-                      "value": "value",
-                    }
-                  }
-                  dropdownMenuColumnStyle={
-                    Object {
-                      "width": 0,
-                    }
-                  }
-                  expandIcon=""
-                  expandTrigger="click"
-                  fieldNames={
-                    Object {
-                      "children": "children",
-                      "label": "label",
-                      "value": "value",
-                    }
-                  }
-                  onSelect={[Function]}
-                  options={
-                    Array [
+                <div>
+                  <ul
+                    className="fishd-cascader-menu"
+                    key="0"
+                    style={
                       Object {
-                        "__IS_FILTERED_OPTION": true,
-                        "disabled": false,
-                        "label": Array [
-                          "Jiangsu",
-                          Array [
-                            " / ",
-                            "Nanjing",
-                          ],
-                          Array [
-                            " / ",
-                            "Zhong Hua Men",
-                          ],
-                        ],
-                        "path": Array [
-                          Object {
-                            "children": Array [
-                              Object {
-                                "children": Array [
-                                  Object {
-                                    "label": "Zhong Hua Men",
-                                    "value": "zhonghuamen",
-                                  },
-                                ],
-                                "label": "Nanjing",
-                                "value": "nanjing",
-                              },
-                            ],
-                            "label": "Jiangsu",
-                            "value": "jiangsu",
-                          },
-                          Object {
-                            "children": Array [
-                              Object {
-                                "label": "Zhong Hua Men",
-                                "value": "zhonghuamen",
-                              },
-                            ],
-                            "label": "Nanjing",
-                            "value": "nanjing",
-                          },
-                          Object {
-                            "label": "Zhong Hua Men",
-                            "value": "zhonghuamen",
-                          },
-                        ],
-                        "value": Array [
-                          "jiangsu",
-                          "nanjing",
-                          "zhonghuamen",
-                        ],
-                      },
-                      Object {
-                        "__IS_FILTERED_OPTION": true,
-                        "disabled": false,
-                        "label": Array [
-                          "Zhejiang",
-                          Array [
-                            " / ",
-                            Array [
-                              "Hang",
-                              Array [
-                                <span
-                                  className="fishd-cascader-menu-item-keyword"
-                                >
-                                  z
-                                </span>,
-                                "hou",
-                              ],
-                            ],
-                          ],
-                          Array [
-                            " / ",
-                            "West Lake",
-                          ],
-                        ],
-                        "path": Array [
-                          Object {
-                            "children": Array [
-                              Object {
-                                "children": Array [
-                                  Object {
-                                    "label": "West Lake",
-                                    "value": "xihu",
-                                  },
-                                ],
-                                "label": "Hangzhou",
-                                "value": "hangzhou",
-                              },
-                            ],
-                            "label": "Zhejiang",
-                            "value": "zhejiang",
-                          },
-                          Object {
-                            "children": Array [
-                              Object {
-                                "label": "West Lake",
-                                "value": "xihu",
-                              },
-                            ],
-                            "label": "Hangzhou",
-                            "value": "hangzhou",
-                          },
-                          Object {
-                            "label": "West Lake",
-                            "value": "xihu",
-                          },
-                        ],
-                        "value": Array [
-                          "zhejiang",
-                          "hangzhou",
-                          "xihu",
-                        ],
-                      },
-                    ]
-                  }
-                  prefixCls="fishd-cascader"
-                  value={Array []}
-                  visible={true}
-                >
-                  <div>
-                    <ul
-                      className="fishd-cascader-menu"
-                      key="0"
-                      style={
-                        Object {
-                          "width": 0,
-                        }
+                        "width": 0,
                       }
+                    }
+                  >
+                    <li
+                      className="fishd-cascader-menu-item"
+                      key="jiangsu,nanjing,zhonghuamen"
+                      onClick={[Function]}
+                      title=""
                     >
-                      <li
-                        className="fishd-cascader-menu-item"
-                        key="jiangsu,nanjing,zhonghuamen"
-                        onClick={[Function]}
-                        title=""
+                      Jiangsu
+                       / 
+                      Nanjing
+                       / 
+                      Zhong Hua Men
+                    </li>
+                    <li
+                      className="fishd-cascader-menu-item"
+                      key="zhejiang,hangzhou,xihu"
+                      onClick={[Function]}
+                      title=""
+                    >
+                      Zhejiang
+                       / 
+                      Hang
+                      <span
+                        className="fishd-cascader-menu-item-keyword"
+                        key="seperator"
                       >
-                        Jiangsu
-                         / 
-                        Nanjing
-                         / 
-                        Zhong Hua Men
-                      </li>
-                      <li
-                        className="fishd-cascader-menu-item"
-                        key="zhejiang,hangzhou,xihu"
-                        onClick={[Function]}
-                        title=""
-                      >
-                        Zhejiang
-                         / 
-                        Hang
-                        <span
-                          className="fishd-cascader-menu-item-keyword"
-                          key="seperator"
-                        >
-                          z
-                        </span>
-                        hou
-                         / 
-                        West Lake
-                      </li>
-                    </ul>
-                  </div>
-                </Menus>
-              </LazyRenderBox>
+                        z
+                      </span>
+                      hou
+                       / 
+                      West Lake
+                    </li>
+                  </ul>
+                </div>
+              </Menus>
             </div>
-          </PopupInner>
-        </Align>
-      </AnimateChild>
-    </Animate>
+          </Align>
+        </DomWrapper>
+      </CSSMotion>
+    </PopupInner>
   </div>
 </Popup>
 `;
 
 exports[`Cascader should render not found content 1`] = `
 <Popup
-  action={
-    Array [
-      "click",
-    ]
-  }
   align={
     Object {
       "offset": Array [
@@ -603,144 +569,178 @@ exports[`Cascader should render not found content 1`] = `
   visible={true}
 >
   <div>
-    <Animate
-      animation={Object {}}
-      component=""
-      componentProps={Object {}}
-      exclusive={true}
-      onAppear={[Function]}
-      onEnd={[Function]}
-      onEnter={[Function]}
-      onLeave={[Function]}
-      showProp="xVisible"
-      transitionAppear={true}
-      transitionEnter={true}
-      transitionLeave={true}
+    <Mask
+      align={
+        Object {
+          "offset": Array [
+            0,
+            8,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "tl",
+            "bl",
+          ],
+        }
+      }
+      className=""
+      destroyPopupOnHide={false}
+      getClassNameFromAlign={[Function]}
+      getRootDomNode={[Function]}
+      mask={false}
+      onAlign={[Function]}
+      onMouseDown={[Function]}
+      onTouchStart={[Function]}
+      prefixCls="fishd-cascader-menus"
+      style={Object {}}
       transitionName="slide-up"
+      visible={true}
+    />
+    <PopupInner
+      align={
+        Object {
+          "offset": Array [
+            0,
+            8,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "tl",
+            "bl",
+          ],
+        }
+      }
+      className=""
+      destroyPopupOnHide={false}
+      getClassNameFromAlign={[Function]}
+      getRootDomNode={[Function]}
+      mask={false}
+      onAlign={[Function]}
+      onMouseDown={[Function]}
+      onTouchStart={[Function]}
+      prefixCls="fishd-cascader-menus"
+      style={Object {}}
+      transitionName="slide-up"
+      visible={true}
     >
-      <AnimateChild
-        animation={Object {}}
-        key="popup"
-        transitionAppear={true}
-        transitionEnter={true}
-        transitionLeave={true}
-        transitionName="slide-up"
+      <CSSMotion
+        leavedClassName="fishd-cascader-menus-hidden"
+        motionName="slide-up"
+        onAppearEnd={[Function]}
+        onAppearPrepare={[Function]}
+        onEnterEnd={[Function]}
+        onEnterPrepare={[Function]}
+        onLeaveEnd={[Function]}
+        removeOnLeave={false}
+        visible={true}
       >
-        <Align
-          align={
-            Object {
-              "offset": Array [
-                0,
-                8,
-              ],
-              "overflow": Object {
-                "adjustX": 1,
-                "adjustY": 1,
-              },
-              "points": Array [
-                "tl",
-                "bl",
-              ],
+        <DomWrapper>
+          <Align
+            align={
+              Object {
+                "offset": Array [
+                  0,
+                  8,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "bl",
+                ],
+              }
             }
-          }
-          childrenProps={
-            Object {
-              "visible": "xVisible",
-            }
-          }
-          disabled={false}
-          key="popup"
-          monitorBufferTime={50}
-          monitorWindowResize={true}
-          onAlign={[Function]}
-          target={[Function]}
-          xVisible={true}
-        >
-          <PopupInner
-            className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
-            hiddenClassName="fishd-cascader-menus-hidden"
-            onMouseDown={[Function]}
-            onTouchStart={[Function]}
-            prefixCls="fishd-cascader-menus"
-            style={Object {}}
-            visible={true}
+            disabled={true}
+            key="popup"
+            monitorWindowResize={true}
+            onAlign={[Function]}
+            target={[Function]}
           >
             <div
-              className="fishd-cascader-menus  fishd-cascader-menus-placement-bottomLeft "
-              onMouseDown={[Function]}
-              onTouchStart={[Function]}
-              style={Object {}}
+              className="fishd-cascader-menus"
+              onMouseDownCapture={[Function]}
+              onTouchStartCapture={[Function]}
+              style={
+                Object {
+                  "opacity": 0,
+                  "pointerEvents": "none",
+                  "zIndex": undefined,
+                }
+              }
             >
-              <LazyRenderBox
-                className="fishd-cascader-menus-content"
+              <Menus
+                activeValue={Array []}
+                defaultFieldNames={
+                  Object {
+                    "children": "children",
+                    "label": "label",
+                    "value": "value",
+                  }
+                }
+                dropdownMenuColumnStyle={
+                  Object {
+                    "height": "auto",
+                    "width": 0,
+                  }
+                }
+                expandIcon=""
+                expandTrigger="click"
+                fieldNames={
+                  Object {
+                    "children": "children",
+                    "label": "label",
+                    "value": "value",
+                  }
+                }
+                onSelect={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "disabled": true,
+                      "label": "无匹配结果",
+                      "value": "FISHD_CASCADER_NOT_FOUND",
+                    },
+                  ]
+                }
+                prefixCls="fishd-cascader"
+                value={Array []}
                 visible={true}
               >
-                <Menus
-                  activeValue={Array []}
-                  defaultFieldNames={
-                    Object {
-                      "children": "children",
-                      "label": "label",
-                      "value": "value",
-                    }
-                  }
-                  dropdownMenuColumnStyle={
-                    Object {
-                      "height": "auto",
-                      "width": 0,
-                    }
-                  }
-                  expandIcon=""
-                  expandTrigger="click"
-                  fieldNames={
-                    Object {
-                      "children": "children",
-                      "label": "label",
-                      "value": "value",
-                    }
-                  }
-                  onSelect={[Function]}
-                  options={
-                    Array [
+                <div>
+                  <ul
+                    className="fishd-cascader-menu"
+                    key="0"
+                    style={
                       Object {
-                        "disabled": true,
-                        "label": "无匹配结果",
-                        "value": "FISHD_CASCADER_NOT_FOUND",
-                      },
-                    ]
-                  }
-                  prefixCls="fishd-cascader"
-                  value={Array []}
-                  visible={true}
-                >
-                  <div>
-                    <ul
-                      className="fishd-cascader-menu"
-                      key="0"
-                      style={
-                        Object {
-                          "height": "auto",
-                          "width": 0,
-                        }
+                        "height": "auto",
+                        "width": 0,
                       }
+                    }
+                  >
+                    <li
+                      className="fishd-cascader-menu-item fishd-cascader-menu-item-disabled"
+                      key="FISHD_CASCADER_NOT_FOUND"
+                      onClick={[Function]}
+                      title="无匹配结果"
                     >
-                      <li
-                        className="fishd-cascader-menu-item fishd-cascader-menu-item-disabled"
-                        key="FISHD_CASCADER_NOT_FOUND"
-                        onClick={[Function]}
-                        title="无匹配结果"
-                      >
-                        无匹配结果
-                      </li>
-                    </ul>
-                  </div>
-                </Menus>
-              </LazyRenderBox>
+                      无匹配结果
+                    </li>
+                  </ul>
+                </div>
+              </Menus>
             </div>
-          </PopupInner>
-        </Align>
-      </AnimateChild>
-    </Animate>
+          </Align>
+        </DomWrapper>
+      </CSSMotion>
+    </PopupInner>
   </div>
 </Popup>
 `;

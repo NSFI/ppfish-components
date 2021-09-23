@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import KeyCode from 'rc-util/lib/KeyCode';
 import InputNumber, { InputNumberProps } from '..';
-import focusTest from '../../../../tools/tests/focusTest.js';
+import focusTest from '../../../../tools/tests/focusTest';
 
 const assignMethodsToWrapper: (any) => any = wrapper => {
   const methods = {

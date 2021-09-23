@@ -175,7 +175,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
   type: string;
   inputClick: boolean;
   refInputRoot: Input;
-  trigger: HTMLElement | null;
+  trigger: any;
 
   constructor(props, _type?, state?) {
     super(props);
@@ -486,7 +486,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
         ref={node => (this.trigger = node)}
         getPopupContainer={getPopupContainer}
         onPopupVisibleChange={this.onVisibleChange}
-        popup={getPickerPanel()}
+        popup={getPickerPanel() as unknown}
         popupPlacement={placement}
         popupVisible={pickerVisible}
         prefixCls={`${prefixCls}-date-time-picker-popup`}

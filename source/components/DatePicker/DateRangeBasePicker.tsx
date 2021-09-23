@@ -157,7 +157,7 @@ class DateRangeBasePicker extends React.Component<
   type: string;
   inputClick: boolean;
   refInputRoot: Input;
-  trigger: Trigger;
+  trigger: unknown;
 
   constructor(props: DateRangeBasePickerProps, _type, state: DateRangeBasePickerState) {
     super(props);
@@ -535,7 +535,7 @@ class DateRangeBasePicker extends React.Component<
               ref={node => (this.trigger = node)}
               getPopupContainer={getPopupContainer}
               onPopupVisibleChange={this.onVisibleChange}
-              popup={getPickerPanel()}
+              popup={getPickerPanel() as unknown}
               popupPlacement={placement}
               popupVisible={pickerVisible}
               prefixCls={`${prefixCls}-date-time-picker-popup`}

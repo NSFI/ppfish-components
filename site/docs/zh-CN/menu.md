@@ -37,12 +37,12 @@
         <Menu.Item key="pie">
           <IconPie className="img-icon-12 fishdicon" />Nav2
         </Menu.Item>
-        <SubMenu title={<span><IconGrid className="img-icon-12 fishdicon"  />Nav3 - Submenu</span>}>
-          <MenuItemGroup title="Item 1">
+        <SubMenu key="nav3" title={<span><IconGrid className="img-icon-12 fishdicon" />Nav3 - Submenu</span>}>
+          <MenuItemGroup key="item1" title="Item 1">
             <Menu.Item key="setting:1">Option 1</Menu.Item>
             <Menu.Item key="setting:2">Option 2</Menu.Item>
           </MenuItemGroup>
-          <MenuItemGroup title="Item 2">
+          <MenuItemGroup key="item2" title="Item 2">
             <Menu.Item key="setting:3">Option 3</Menu.Item>
             <Menu.Item key="setting:4">Option 4</Menu.Item>
           </MenuItemGroup>
@@ -209,7 +209,7 @@ render(){
             <SubMenu key="sub3" title={<span><IconPhone className="img-icon-12 fishdicon" /><span>Navigation Three</span></span>}>
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
-              <SubMenu key="sub3" title="Submenu">
+              <SubMenu key="sub4" title="Submenu">
                 <Menu.Item key="11">Option 11</Menu.Item>
                 <Menu.Item key="12">Option 12</Menu.Item>
               </SubMenu>
@@ -373,12 +373,14 @@ render(){
 | mode | 菜单类型 | Enum {'vertical', 'vertical-left', 'vertical-right', 'horizontal', 'inline'} | 'vertical' |
 | multiple | 是否允许多选 | Boolean | false |
 | openKeys | 当前展开的 SubMenu 菜单项 key 数组 | Array< String > | - |
-| selectable | 是否允许选中 | Boolean | true |
+| overflowedIndicator | 自定义 Menu 折叠时的图标 | ReactNode | - |
+| selectable | 是否允许选中 | Boolean | true | ReactNode | - |
 | selectedKeys | 当前选中的菜单项 key 数组 | Array< String > | - |
 | style | 根节点样式 | Object | - |
 | subMenuCloseDelay | 用户鼠标离开子菜单后关闭延时，单位：秒 | Number | 0.1 |
 | subMenuOpenDelay | 用户鼠标进入子菜单后开启延时，单位：秒 | Number | 0 |
 | theme | 主题颜色 | Enum {'light', 'dark'} | 'light' |
+| triggerSubMenuAction | SubMenu 展开/关闭的触发行为 | hover | click | 'hover'
 | onClick | 点击 MenuItem 调用此函数 | ({ item, key, keyPath }) => Void | - |
 | onDeselect | 取消选中时调用，仅在 multiple 生效 | ({ item, key, selectedKeys }) => Void | - |
 | onOpenChange | SubMenu 展开/关闭的回调 | (openKeys: Array< String >) => Void | - |

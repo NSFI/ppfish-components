@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, mount} from 'enzyme';
+import { render, mount } from 'enzyme';
 import Table from '../index.tsx';
 
 describe('Table.filter', () => {
@@ -8,14 +8,14 @@ describe('Table.filter', () => {
     title: 'Name',
     dataIndex: 'name',
     filters: [
-      {text: 'Boy', value: 'boy'},
-      {text: 'Girl', value: 'girl'},
+      { text: 'Boy', value: 'boy' },
+      { text: 'Girl', value: 'girl' },
       {
         text: 'Title',
         value: 'title',
         children: [
-          {text: 'Designer', value: 'designer'},
-          {text: 'Coder', value: 'coder'},
+          { text: 'Designer', value: 'designer' },
+          { text: 'Coder', value: 'coder' },
         ],
       },
     ],
@@ -23,21 +23,14 @@ describe('Table.filter', () => {
   };
 
   const data = [
-    {key: 0, name: 'Jack'},
-    {key: 1, name: 'Lucy'},
-    {key: 2, name: 'Tom'},
-    {key: 3, name: 'Jerry'},
+    { key: 0, name: 'Jack' },
+    { key: 1, name: 'Lucy' },
+    { key: 2, name: 'Tom' },
+    { key: 3, name: 'Jerry' },
   ];
 
   function createTable(props) {
-    return (
-      <Table
-        columns={[column]}
-        dataSource={data}
-        pagination={false}
-        {...props}
-      />
-    );
+    return <Table columns={[column]} dataSource={data} pagination={false} {...props} />;
   }
 
   function renderedNames(wrapper) {
@@ -68,40 +61,56 @@ describe('Table.filter', () => {
   // });
 
   it('renders custom content correctly', () => {
-    const filter = (
-      <div className="custom-filter-dropdown">
-        custom filter
-      </div>
+    jest.useFakeTimers();
+    const filter = <div className="custom-filter-dropdown">custom filter</div>;
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filterDropdown: filter,
+          },
+        ],
+      }),
     );
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filterDropdown: filter,
-      }],
-    }));
 
-    const dropdownWrapper = render(wrapper.find('Trigger').instance().getComponent());
-    expect(dropdownWrapper).toMatchSnapshot();
+    // open
+    wrapper.find('.fishd-dropdown-trigger').first().simulate('click');
+
+    jest.runAllTimers();
+    wrapper.update();
+
+    expect(wrapper.find('Trigger')).toMatchSnapshot();
   });
 
   it('override custom filter correctly', () => {
     /* eslint-disable-next-line */
-    const filterDropdown = ({prefixCls, setSelectedKeys, confirm, clearFilters}) => {
+    const filterDropdown = ({ prefixCls, setSelectedKeys, confirm, clearFilters }) => {
       return (
         <div className={`${prefixCls}-view`} id="customFilter">
-          <span onClick={() => setSelectedKeys([42])} id="setSelectedKeys">setSelectedKeys</span>
-          <span onClick={() => confirm()} id="confirm">Confirm</span>
-          <span onClick={() => clearFilters()} id="reset">Reset</span>
+          <span onClick={() => setSelectedKeys([42])} id="setSelectedKeys">
+            setSelectedKeys
+          </span>
+          <span onClick={() => confirm()} id="confirm">
+            Confirm
+          </span>
+          <span onClick={() => clearFilters()} id="reset">
+            Reset
+          </span>
         </div>
       );
     };
 
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filterDropdown,
-      }],
-    }));
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filterDropdown,
+          },
+        ],
+      }),
+    );
 
     const filterMenu = wrapper.find('FilterMenu').instance();
 
@@ -126,21 +135,27 @@ describe('Table.filter', () => {
   });
 
   it('can be controlled by filterDropdownVisible', () => {
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filterDropdownVisible: true,
-      }],
-    }));
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filterDropdownVisible: true,
+          },
+        ],
+      }),
+    );
 
     let dropdown = wrapper.find('Dropdown').first();
     expect(dropdown.props().visible).toBe(true);
 
     wrapper.setProps({
-      columns: [{
-        ...column,
-        filterDropdownVisible: false,
-      }],
+      columns: [
+        {
+          ...column,
+          filterDropdownVisible: false,
+        },
+      ],
     });
 
     dropdown = wrapper.find('Dropdown').first();
@@ -148,29 +163,37 @@ describe('Table.filter', () => {
   });
 
   it('if the filter is visible it should ignore the selectedKeys changes', () => {
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filterDropdownVisible: true,
-      }],
-    }));
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filterDropdownVisible: true,
+          },
+        ],
+      }),
+    );
 
     const filterMenu = wrapper.find('FilterMenu').instance();
     expect(filterMenu.state.selectedKeys).toEqual([]);
     wrapper.find('FilterMenu').find('input[type="checkbox"]').first().simulate('click');
     expect(filterMenu.state.selectedKeys).toEqual(['boy']);
-    wrapper.setProps({dataSource: [...data, {key: 999, name: 'Chris'}]});
+    wrapper.setProps({ dataSource: [...data, { key: 999, name: 'Chris' }] });
     expect(filterMenu.state.selectedKeys).toEqual(['boy']);
   });
 
   it('fires change event when visible change', () => {
     const handleChange = jest.fn();
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        onFilterDropdownVisibleChange: handleChange,
-      }],
-    }));
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            onFilterDropdownVisibleChange: handleChange,
+          },
+        ],
+      }),
+    );
 
     wrapper.find('.fishd-dropdown-trigger').first().simulate('click');
 
@@ -178,37 +201,49 @@ describe('Table.filter', () => {
   });
 
   it('can be controlled by filteredValue', () => {
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filteredValue: ['Lucy'],
-      }],
-    }));
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filteredValue: ['Lucy'],
+          },
+        ],
+      }),
+    );
 
     expect(wrapper.find('tbody tr').length).toBe(1);
     wrapper.setProps({
-      columns: [{
-        ...column,
-        filteredValue: [],
-      }],
+      columns: [
+        {
+          ...column,
+          filteredValue: [],
+        },
+      ],
     });
     expect(wrapper.find('tbody tr').length).toBe(4);
   });
 
   it('can be controlled by filteredValue null', () => {
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filteredValue: ['Lucy'],
-      }],
-    }));
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filteredValue: ['Lucy'],
+          },
+        ],
+      }),
+    );
 
     expect(wrapper.find('tbody tr').length).toBe(1);
     wrapper.setProps({
-      columns: [{
-        ...column,
-        filteredValue: null,
-      }],
+      columns: [
+        {
+          ...column,
+          filteredValue: null,
+        },
+      ],
     });
     expect(wrapper.find('tbody tr').length).toBe(4);
   });
@@ -268,7 +303,8 @@ describe('Table.filter', () => {
   // });
 
   it('works with JSX in controlled mode', () => {
-    const {Column} = Table;
+    jest.useFakeTimers();
+    const { Column } = Table;
 
     class App extends React.Component {
       state = {
@@ -276,11 +312,11 @@ describe('Table.filter', () => {
       };
 
       handleChange = (pagination, filters) => {
-        this.setState({filters});
+        this.setState({ filters });
       };
 
       render() {
-        const {filters} = this.state;
+        const { filters } = this.state;
         return (
           <Table dataSource={data} onChange={this.handleChange}>
             <Column
@@ -288,8 +324,8 @@ describe('Table.filter', () => {
               dataIndex="name"
               key="name"
               filters={[
-                {text: 'Jack', value: 'Jack'},
-                {text: 'Lucy', value: 'Lucy'},
+                { text: 'Jack', value: 'Jack' },
+                { text: 'Lucy', value: 'Lucy' },
               ]}
               filteredValue={filters.name}
               onFilter={filterFn}
@@ -299,15 +335,20 @@ describe('Table.filter', () => {
       }
     }
 
-    const wrapper = mount(<App/>);
-    const dropdownWrapper = mount(wrapper.find('Trigger').instance().getComponent());
+    const wrapper = mount(<App />);
 
-    dropdownWrapper.find('MenuItem').first().simulate('click');
-    dropdownWrapper.find('.confirm').simulate('click');
+    // Open
+    wrapper.find('.fishd-dropdown-trigger').first().simulate('click');
+
+    jest.runAllTimers();
+    wrapper.update();
+
+    wrapper.find('MenuItem').first().simulate('click');
+    wrapper.find('.confirm').simulate('click');
     wrapper.update();
     expect(renderedNames(wrapper)).toEqual(['Jack']);
 
-    dropdownWrapper.find('.clear').simulate('click');
+    wrapper.find('.clear').simulate('click');
     wrapper.update();
     expect(renderedNames(wrapper)).toEqual(['Jack', 'Lucy', 'Tom', 'Jerry']);
   });
@@ -323,8 +364,8 @@ describe('Table.filter', () => {
             dataIndex: 'name',
             key: 'name',
             filters: [
-              {text: 'Jack', value: 'Jack'},
-              {text: 'Lucy', value: 'Lucy'},
+              { text: 'Jack', value: 'Jack' },
+              { text: 'Lucy', value: 'Lucy' },
             ],
             onFilter: filterFn,
             filteredValue: ['Jack'],
@@ -338,30 +379,32 @@ describe('Table.filter', () => {
       },
     ];
     const testData = [
-      {key: 0, name: 'Jack', age: 11},
-      {key: 1, name: 'Lucy', age: 20},
-      {key: 2, name: 'Tom', age: 21},
-      {key: 3, name: 'Jerry', age: 22},
+      { key: 0, name: 'Jack', age: 11 },
+      { key: 1, name: 'Lucy', age: 20 },
+      { key: 2, name: 'Tom', age: 21 },
+      { key: 3, name: 'Jerry', age: 22 },
     ];
-    const wrapper = mount(
-      <Table columns={columns} dataSource={testData}/>
-    );
+    const wrapper = mount(<Table columns={columns} dataSource={testData} />);
 
     expect(renderedNames(wrapper)).toEqual(['Jack']);
   });
 
   it('confirm filter when dropdown hidden', () => {
     const handleChange = jest.fn();
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filters: [
-          {text: 'Jack', value: 'Jack'},
-          {text: 'Lucy', value: 'Lucy'},
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filters: [
+              { text: 'Jack', value: 'Jack' },
+              { text: 'Lucy', value: 'Lucy' },
+            ],
+          },
         ],
-      }],
-      onChange: handleChange,
-    }));
+        onChange: handleChange,
+      }),
+    );
 
     wrapper.find('.fishd-dropdown-trigger').first().simulate('click');
     wrapper.find('.fishd-dropdown-menu-item').first().simulate('click');
@@ -371,13 +414,17 @@ describe('Table.filter', () => {
   });
 
   it('renders custom filter icon correctly', () => {
-    const filterIcon = (filtered) => <span>{filtered ? 'filtered' : 'unfiltered'}</span>;
-    const wrapper = mount(createTable({
-      columns: [{
-        ...column,
-        filterIcon
-      }],
-    }));
+    const filterIcon = filtered => <span>{filtered ? 'filtered' : 'unfiltered'}</span>;
+    const wrapper = mount(
+      createTable({
+        columns: [
+          {
+            ...column,
+            filterIcon,
+          },
+        ],
+      }),
+    );
 
     wrapper.find('.fishd-dropdown-trigger').first().simulate('click');
     wrapper.find('.fishd-dropdown-menu-item').first().simulate('click');
