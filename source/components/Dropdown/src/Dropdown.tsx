@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import Trigger from 'rc-trigger';
-import useControlledState from "../../../hooks/useControlledState";
+import useControlledState from '../../../hooks/useControlledState';
 import placements from './placements';
 
 export interface RcDropDownProps {
@@ -26,22 +27,21 @@ export interface RcDropDownProps {
   defaultVisible?: boolean;
 }
 
-const Dropdown = (props: RcDropDownProps, ref) => {
+const InternalDropdown: React.ForwardRefRenderFunction<any, RcDropDownProps> = (props, ref) => {
+  const { visible, defaultVisible } = props;
   const {
-    prefixCls = 'rc-dropdown',
-    visible,
-    defaultVisible = false,
+    prefixCls,
     children,
     transitionName,
     animation,
     align,
-    placement = 'bottomLeft',
+    placement,
     getPopupContainer,
     showAction = [],
     hideAction,
-    overlayClassName = '',
-    overlayStyle = {},
-    trigger = ['hover'],
+    overlayClassName,
+    overlayStyle,
+    trigger,
     ...otherProps
   } = props;
 
@@ -51,7 +51,7 @@ const Dropdown = (props: RcDropDownProps, ref) => {
     onChange: props.onVisibleChange,
   });
 
-  const triggerRef = React.useRef(null);
+  const triggerRef = React.useRef<any>(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
 
   const onClick = e => {
@@ -141,4 +141,39 @@ const Dropdown = (props: RcDropDownProps, ref) => {
   );
 };
 
-export default React.forwardRef(Dropdown);
+const Dropdown = React.forwardRef(InternalDropdown);
+
+Dropdown.propTypes = {
+  minOverlayWidthMatchTrigger: PropTypes.bool,
+  onVisibleChange: PropTypes.func,
+  onOverlayClick: PropTypes.func,
+  prefixCls: PropTypes.string,
+  children: PropTypes.node,
+  transitionName: PropTypes.string,
+  overlayClassName: PropTypes.string,
+  animation: PropTypes.string,
+  align: PropTypes.object,
+  overlayStyle: PropTypes.object,
+  placement: PropTypes.string,
+  overlay: PropTypes.node,
+  trigger: PropTypes.array,
+  alignPoint: PropTypes.bool,
+  showAction: PropTypes.array,
+  hideAction: PropTypes.array,
+  getPopupContainer: PropTypes.func,
+  visible: PropTypes.bool,
+  defaultVisible: PropTypes.bool,
+};
+
+Dropdown.defaultProps = {
+  prefixCls: 'rc-dropdown',
+  trigger: ['hover'],
+  showAction: [],
+  overlayClassName: '',
+  overlayStyle: {},
+  defaultVisible: false,
+  onVisibleChange() {},
+  placement: 'bottomLeft',
+};
+
+export default Dropdown;
