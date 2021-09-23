@@ -13,7 +13,7 @@ export default class Stage extends Element {
    * @param {Document} document
    */
   constructor(options, window, document) {
-    super();
+    super(options);
 
     this.options = options;
     this.window = window;
