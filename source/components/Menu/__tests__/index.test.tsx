@@ -50,7 +50,7 @@ const expectSubMenuBehavior = (menu, enter = noop, leave = noop) => {
     if (getSubMenu().length) {
       expect(
         getSubMenu().hasClass('fishd-menu-submenu-hidden') ||
-        getSubMenu().hasClass('fishd-menu-hidden') ||
+          getSubMenu().hasClass('fishd-menu-hidden') ||
           getSubMenu().hasClass(AnimationClassNames[mode]),
       ).toBeTruthy();
     }
@@ -61,11 +61,11 @@ describe('Menu', () => {
   window.requestAnimationFrame = callback => window.setTimeout(callback, 16);
   window.cancelAnimationFrame = window.clearTimeout;
 
-  beforeAll(() => {
+  beforeEach(() => {
     jest.useFakeTimers();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.useRealTimers();
   });
 
@@ -420,6 +420,14 @@ describe('Menu', () => {
   });
 
   describe('open submenu when click submenu title', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
     const toggleMenu = (wrapper, index, event) => {
       wrapper.find('.fishd-menu-submenu-title').at(index).simulate(event);
       jest.runAllTimers();

@@ -1,5 +1,5 @@
 source/assets/css/core/base.less
 *.js
 *.tsx
-components/style/color/*
+source/assets/css/color/*
 

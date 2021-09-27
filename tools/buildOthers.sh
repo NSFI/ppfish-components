@@ -19,7 +19,7 @@ compileLess() {
           then
               # echo $1"/"$file   #在此处处理文件即可
               newfile=`echo $1"/"$file | sed 's/.less/.css/g'`
-              lessc $1"/"$file $newfile
+              lessc --js $1"/"$file $newfile
           fi
           if [ "$file" = "index.js" ]  # 约定index.less作为入口文件
           then

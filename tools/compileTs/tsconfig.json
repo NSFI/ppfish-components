@@ -21,7 +21,8 @@
     "typeRoots": [
       "../../source/typings",
       "../../node_modules/@types"
-    ]
+    ],
+    "downlevelIteration": true,
   },
   "include": [
     "../../temp/**/*"
