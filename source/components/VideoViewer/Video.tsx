@@ -1,6 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import videojs from 'video.js';
+import './component/vjsDownLoad';
+import './component/vjsFullScreen';
+import './component/vjsVolume';
+import './component/vjsPlay';
+import './component/vjsErrorDisplay';
 import { zh_CN } from './lang/zh-CN';
 import KEYCODE from '../../utils/KeyCode';
 
