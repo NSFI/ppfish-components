@@ -686,6 +686,7 @@ render(){
 | size | 选择框大小，可选 `large` `small` | Enum {'large','small'} | default |
 | tagWidth | 可清除选项的宽度（仅在mode = 'multiple' 且 labelClear = true 生效） | String \| Number | 100 |
 | value | 指定当前选中的条目 | String \| Array< String > \| Number \| Array< Number > | - |
+| virtual | 设置 false 时关闭虚拟滚动 | boolean | true |
 | visible | 下拉选择框显示隐藏 | Boolean | - |
 | esc | 是否ESC关闭弹出框 | Boolean | true |
 | required | 限定多选模式下至少需要选择一项选项 | Boolean | false |
