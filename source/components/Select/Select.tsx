@@ -423,20 +423,16 @@ class Select extends React.Component<SelectProps, SelectState> {
   };
 
   // 焦点操作
-  focusEvent = event => {
+  focusEvent = (event: 'focus' | 'blur') => {
     const { showSearch, loading } = this.props;
     if (loading) return;
-    const targetElement = showSearch
-      ? this.selectSearch && this.selectSearch.searchInput.input
-      : this.selection;
-    if (targetElement) {
-      targetElement[event]();
-    } else {
-      setTimeout(() => {
-        const targetElement = showSearch ? this.selectSearch.searchInput.input : this.selection;
-        targetElement && targetElement[event]();
-      });
-    }
+
+    setTimeout(() => {
+      const targetElement = showSearch
+        ? this.selectSearch && this.selectSearch.searchInput.input
+        : this.selection;
+      targetElement && targetElement[event]();
+    }, 100);
   };
 
   // 聚焦
@@ -509,7 +505,7 @@ class Select extends React.Component<SelectProps, SelectState> {
     } else {
       onSelect(obj);
     }
-    
+
   };
 
   //获取加料后的children
