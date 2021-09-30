@@ -44,7 +44,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
   testURL: 'http://localhost',
-  testMatch: [...getRefactoredCompMatch('Spin')],
+  testMatch: [...getRefactoredCompMatch('Steps')],
 
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

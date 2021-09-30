@@ -28,39 +28,27 @@ export interface StepProps {
   };
 }
 
-export default class Step extends React.Component<StepProps> {
-  static propTypes = {
-    className: PropTypes.string,
-    prefixCls: PropTypes.string,
-    style: PropTypes.object,
-    wrapperStyle: PropTypes.object,
-    itemWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    status: PropTypes.string,
-    iconPrefix: PropTypes.string,
-    icon: PropTypes.node,
-    adjustMarginRight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    stepNumber: PropTypes.string,
-    description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    progressDot: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    tailContent: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    icons: PropTypes.shape({
-      finish: PropTypes.node,
-      error: PropTypes.node
-    })
-  };
-  renderIconNode() {
-    const {
-      prefixCls,
-      progressDot,
-      stepNumber,
-      status,
-      title,
-      description,
-      icon,
-      iconPrefix,
-      icons
-    } = this.props;
+const Step: React.FC<StepProps> = (props) => {
+  const {
+    className,
+    prefixCls,
+    style,
+    itemWidth,
+    status = 'wait',
+    iconPrefix,
+    icon,
+    wrapperStyle,
+    adjustMarginRight,
+    stepNumber,
+    description,
+    title,
+    progressDot,
+    tailContent,
+    icons,
+    ...restProps
+  } = props;
+
+  function renderIconNode() {
     let iconNode: React.ReactNode;
     const iconClassName = classNames(`${prefixCls}-icon`, `${iconPrefix}icon`, {
       [`${iconPrefix}icon-${icon}`]: icon && isString(icon),
@@ -98,45 +86,29 @@ export default class Step extends React.Component<StepProps> {
 
     return iconNode;
   }
-  render() {
-    const {
-      className,
-      prefixCls,
-      style,
-      itemWidth,
-      status = 'wait',
-      iconPrefix,
-      icon,
-      wrapperStyle,
-      adjustMarginRight,
-      stepNumber,
-      description,
-      title,
-      progressDot,
-      tailContent,
-      icons,
-      ...restProps
-    } = this.props;
 
-    const classString = classNames(`${prefixCls}-item`, `${prefixCls}-item-${status}`, className, {
-      [`${prefixCls}-item-custom`]: icon
-    });
-    const stepItemStyle = { ...style };
-    if (itemWidth) {
-      stepItemStyle.width = itemWidth;
-    }
-    if (adjustMarginRight) {
-      stepItemStyle.marginRight = adjustMarginRight;
-    }
-    return (
-      <div {...restProps} className={classString} style={stepItemStyle}>
-        <div className={`${prefixCls}-item-tail`}>{tailContent}</div>
-        <div className={`${prefixCls}-item-icon`}>{this.renderIconNode()}</div>
-        <div className={`${prefixCls}-item-content`}>
-          <div className={`${prefixCls}-item-title`}>{title}</div>
-          {description && <div className={`${prefixCls}-item-description`}>{description}</div>}
-        </div>
-      </div>
-    );
+
+  const classString = classNames(`${prefixCls}-item`, `${prefixCls}-item-${status}`, className, {
+    [`${prefixCls}-item-custom`]: icon
+  });
+  const stepItemStyle = { ...style };
+  if (itemWidth) {
+    stepItemStyle.width = itemWidth;
   }
+  if (adjustMarginRight) {
+    stepItemStyle.marginRight = adjustMarginRight;
+  }
+  return (
+    <div {...restProps} className={classString} style={stepItemStyle}>
+      <div className={`${prefixCls}-item-tail`}>{tailContent}</div>
+      <div className={`${prefixCls}-item-icon`}>{renderIconNode()}</div>
+      <div className={`${prefixCls}-item-content`}>
+        <div className={`${prefixCls}-item-title`}>{title}</div>
+        {description && <div className={`${prefixCls}-item-description`}>{description}</div>}
+      </div>
+    </div>
+  );
+
 }
+
+export default Step;
