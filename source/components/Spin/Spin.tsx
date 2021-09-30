@@ -67,9 +67,10 @@ const Spin: SpinInterface = (props) => {
 
   const delayTimeout = React.useRef<number>();
   React.useEffect(() => {
+    // 防止快速切换时，innerSpinning未能展示正确的状态
+    clearDelayTimeout();
 
     if (spinning && delay && !isNaN(Number(delay))) {
-      clearDelayTimeout()
       delayTimeout.current = window.setTimeout(() => {
         setInnerSpinning(true);
       }, delay)
