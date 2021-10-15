@@ -84,7 +84,7 @@ export default class YearAndMonthPopover extends React.Component {
 
     return (
       <Popover
-        transitionName={''}
+        transitionName="slide-up"
         content={content()}
         trigger="click"
         placement="bottom"

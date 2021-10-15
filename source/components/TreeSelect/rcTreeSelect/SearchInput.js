@@ -7,8 +7,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {polyfill} from 'react-lifecycles-compat';
-import {createRef} from './util';
+import { polyfill } from 'react-lifecycles-compat';
+import { createRef } from './util';
 import classNames from 'classnames';
 
 export const searchContextTypes = {
@@ -33,8 +33,8 @@ class SearchInput extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const newState = {prevProps: nextProps};
-    const {prevProps = {}} = prevState;
+    const newState = { prevProps: nextProps };
+    const { prevProps = {} } = prevState;
     if (nextProps.searchValue != prevProps.searchValue) {
       newState.showClear = !!nextProps.searchValue;
     }
@@ -47,12 +47,12 @@ class SearchInput extends React.Component {
     this.inputRef = createRef();
     this.mirrorInputRef = createRef();
     this.state = {
-      showClear: !!this.props.searchValue
+      showClear: !!this.props.searchValue,
     };
   }
 
   componentDidMount() {
-    const {open, needAlign} = this.props;
+    const { open, needAlign } = this.props;
     if (needAlign) {
       this.alignInputWidth();
     }
@@ -63,7 +63,7 @@ class SearchInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {open, searchValue, needAlign} = this.props;
+    const { open, searchValue, needAlign } = this.props;
 
     if (open && prevProps.open !== open) {
       this.focus();
@@ -79,21 +79,17 @@ class SearchInput extends React.Component {
    * ref: https://github.com/react-component/tree-select/issues/65
    */
   alignInputWidth = () => {
-    this.inputRef.current.style.width =
-      `${this.mirrorInputRef.current.clientWidth}px`;
+    this.inputRef.current.style.width = `${this.mirrorInputRef.current.clientWidth}px`;
   };
 
   /**
    * Need additional timeout for focus cause parent dom is not ready when didMount trigger
    */
-  focus = (isDidMount) => {
+  focus = () => {
     if (this.inputRef.current) {
-      this.inputRef.current.focus();
-      if (isDidMount) {
-        setTimeout(() => {
-          this.inputRef.current.focus();
-        }, 0);
-      }
+      setTimeout(() => {
+        this.inputRef.current.focus();
+      }, 50);
     }
   };
 
@@ -107,35 +103,37 @@ class SearchInput extends React.Component {
     let r = this.inputRef;
     r.current.value = '';
 
-    this.handleInputChange({target: {value: ''}});
+    this.handleInputChange({ target: { value: '' } });
   };
 
-  handleInputChange = (e) => {
-    const {rcTreeSelect: {onSearchInputChange, onSearchInputKeyDown}} = this.context;
-    let {target: {value}} = e;
+  handleInputChange = e => {
+    const {
+      rcTreeSelect: { onSearchInputChange, onSearchInputKeyDown },
+    } = this.context;
+    let {
+      target: { value },
+    } = e;
 
     if (value) {
-      this.setState({showClear: true});
+      this.setState({ showClear: true });
     } else {
-      this.setState({showClear: false});
+      this.setState({ showClear: false });
     }
 
     onSearchInputChange(e);
   };
 
   render() {
-    const {searchValue, prefixCls, disabled, renderPlaceholder, open, ariaId} = this.props;
+    const { searchValue, prefixCls, disabled, renderPlaceholder, open, ariaId } = this.props;
     const {
-      rcTreeSelect: {
-        onSearchInputChange, onSearchInputKeyDown,
-      }
+      rcTreeSelect: { onSearchInputChange, onSearchInputKeyDown },
     } = this.context;
-    const {showClear} = this.state;
+    const { showClear } = this.state;
 
     let clearIconClass = classNames({
-      'hide': !showClear,
+      hide: !showClear,
       'select-clear-icon': true,
-      [`${prefixCls}-selection__clear`]: true
+      [`${prefixCls}-selection__clear`]: true,
     });
 
     return (
@@ -148,16 +146,12 @@ class SearchInput extends React.Component {
           value={searchValue}
           disabled={disabled}
           className={`${prefixCls}-search__field`}
-
           aria-label="filter select"
           aria-autocomplete="list"
           aria-controls={open ? ariaId : undefined}
           aria-multiline="false"
         />
-        <span
-          ref={this.mirrorInputRef}
-          className={`${prefixCls}-search__field__mirror`}
-        >
+        <span ref={this.mirrorInputRef} className={`${prefixCls}-search__field__mirror`}>
           {searchValue}&nbsp;
         </span>
 

@@ -109,6 +109,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
     prefixCls: 'fishd-color-picker',
     quickMode: false,
     style: {},
+    transitionName: 'slide-up',
     popupStyle: {},
     esc: true,
   };
@@ -167,7 +168,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
     if (this.state.visible) {
       setTimeout(() => {
         panelDOMRef.focus();
-      }, 0);
+      }, 50);
     }
   };
 

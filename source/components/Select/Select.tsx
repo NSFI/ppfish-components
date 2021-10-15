@@ -432,7 +432,7 @@ class Select extends React.Component<SelectProps, SelectState> {
         ? this.selectSearch && this.selectSearch.searchInput.input
         : this.selection;
       targetElement && targetElement[event]();
-    }, 100);
+    }, 50);
   };
 
   // 聚焦
@@ -1068,6 +1068,7 @@ class Select extends React.Component<SelectProps, SelectState> {
         popupVisible={popupVisible}
         prefixCls={`${prefixCls}-popup`}
         popupStyle={popupStyle}
+        popupTransitionName="slide-up"
       >
         {this.getSelectionPanel(Locale)}
       </Trigger>

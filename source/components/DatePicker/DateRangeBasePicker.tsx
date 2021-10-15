@@ -538,6 +538,7 @@ class DateRangeBasePicker extends React.Component<
               onPopupVisibleChange={this.onVisibleChange}
               popup={getPickerPanel() as unknown}
               popupPlacement={placement}
+              popupTransitionName="slide-up"
               popupVisible={pickerVisible}
               prefixCls={`${prefixCls}-date-time-picker-popup`}
               destroyPopupOnHide={true}

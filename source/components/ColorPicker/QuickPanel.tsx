@@ -189,7 +189,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
     if (this.state.visible) {
       setTimeout(() => {
         panelDOMRef.focus();
-      }, 0);
+      }, 50);
     }
   };
 
@@ -321,6 +321,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
                   <div className={`${prefixCls}-inner`}>{this.getPickerElement()}</div>
                 </div>
               }
+              popupTransitionName="slide-up"
               builtinPlacements={placements}
               popupPlacement={'topCenter'}
               action={disabled ? [] : ['click']}
