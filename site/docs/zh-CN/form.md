@@ -1876,7 +1876,6 @@ this.form // => The instance of CustomizedForm
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| colon | 配合 label 属性使用，表示是否显示 label 后面的冒号 | Boolean | true |
 | extra | 额外的提示信息，和 help 类似，当需要错误信息和提示文案同时出现时，可以使用这个。 | String \| ReactNode | - |
 | hasFeedback | 配合 validateStatus 属性使用，展示校验状态图标，建议只配合 Input 组件使用 | Boolean | false |
 | help | 提示信息，如不设置，则会根据校验规则自动生成 | String \| ReactNode | - |
