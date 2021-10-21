@@ -1,8 +1,16 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:react/recommended",
+    "plugin:import/typescript"
+  ],
   "plugins": [
+    "react",
     "import",
-    "react"
+    "@typescript-eslint",
+    "react-hooks"
   ],
   "parserOptions": {
     "ecmaVersion": 6,
@@ -12,23 +20,18 @@
       "experimentalObjectRestSpread": true
     }
   },
-  "overrides": [{
-    "files": ["**/*.ts?(x)"],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "warnOnUnsupportedTypeScriptVersion": true
-    },
-    "plugins": ["@typescript-eslint"]
-  }],
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
       }
     },
     "import/ignore": [
@@ -92,13 +95,20 @@
     "no-debugger": 1,
     "no-var": 1,
     "no-unused-vars": 0,
-    "semi": [1, "always"],
+    "semi": [
+      1,
+      "always"
+    ],
     "no-trailing-spaces": 0,
-    "max-len": ["error", 121],
+    "max-len": [
+      "error",
+      121
+    ],
     "eol-last": 0,
     "no-underscore-dangle": 0,
     "no-alert": 0,
     "no-lone-blocks": 0,
+    "no-prototype-builtins": "off",
     "jsx-quotes": 1,
     "import/named": 0,
     "import/extensions": 0,
@@ -109,7 +119,12 @@
     "import/no-named-as-default": 0,
     "import/no-named-as-default-member": 0,
     "import/no-duplicates": 1,
-    "react/display-name": [ 1, {"ignoreTranspilerName": false }],
+    "react/display-name": [
+      1,
+      {
+        "ignoreTranspilerName": false
+      }
+    ],
     "react/forbid-prop-types": 0,
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
@@ -149,7 +164,8 @@
     "react/no-render-return-value": 1,
     "react/no-string-refs": 0,
     "react/no-unescaped-entities": 1,
-    "react/require-render-return": 1
+    "react/require-render-return": 1,
+    "react-hooks/rules-of-hooks": 2
   },
   "globals": {
     "define": true,

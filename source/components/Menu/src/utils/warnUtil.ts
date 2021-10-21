@@ -9,7 +9,8 @@ export function warnItemProp<T extends { item: React.ReactInstance }>({ item, ..
     get: () => {
       warning(
         false,
-        '`info.item` is deprecated since we will move to function component that not provides React Node instance in future.',
+        `"info.item" is deprecated since we will move to 
+        function component that not provides React Node instance in future.`,
       );
 
       return item;

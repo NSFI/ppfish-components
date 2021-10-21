@@ -199,7 +199,13 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
     const { htmlType, ...otherProps } = rest;
 
     return (
-      <button {...otherProps} type={htmlType || 'button'} className={classes} onClick={handleClick} ref={buttonRef}>
+      <button
+        {...otherProps}
+        type={htmlType || 'button'}
+        className={classes}
+        onClick={handleClick}
+        ref={buttonRef}
+      >
         {iconNode}
         {kids}
       </button>
@@ -209,9 +215,9 @@ const InternalButton: React.ForwardRefRenderFunction<unknown, ButtonProps> = (pr
 
 const ButtonRef = React.forwardRef<unknown, ButtonProps>(InternalButton);
 
-type ButtonRef = typeof ButtonRef;
+type ButtonRefInterface = typeof ButtonRef;
 
-interface ButtonInterface extends ButtonRef {
+interface ButtonInterface extends ButtonRefInterface {
   Group: typeof Group;
   __FISHD_BUTTON: boolean;
 }

@@ -30,21 +30,32 @@ export interface CollapsePanelState {
   isCustom: boolean;
 }
 
-const Panel: FC<CollapsePanelProps> = (props) => {
-
-  const { disabled, onItemClick, onCloseItem, header, prefixCls, showClose, isActive, className, style, children, itemKey } = props;
+const Panel: FC<CollapsePanelProps> = props => {
+  const {
+    disabled,
+    onItemClick,
+    onCloseItem,
+    header,
+    prefixCls,
+    showClose,
+    isActive,
+    className,
+    style,
+    children,
+    itemKey,
+  } = props;
   const handleItemClick = () => {
     if (!disabled) {
       onItemClick();
     }
-  }
+  };
 
-  const handleItemClose = (e) => {
+  const handleItemClose = e => {
     e.stopPropagation();
     if (!disabled) {
       onCloseItem();
     }
-  }
+  };
 
   const getHeader = (status: boolean) => {
     if (typeof header === 'function') {
@@ -54,27 +65,25 @@ const Panel: FC<CollapsePanelProps> = (props) => {
     }
   };
 
-
-  const isCustom = typeof header === 'function' //是否显示箭头,不可关闭时不显示
-
+  const isCustom = typeof header === 'function'; //是否显示箭头,不可关闭时不显示
 
   const headerCls = classNames({
     [`${prefixCls}-header`]: true,
     [`${prefixCls}-header-disabled`]: disabled,
     [`${prefixCls}-header-close`]: showClose, // 可关闭时，箭头放置在左侧
-    [`${prefixCls}-header-custom`]: isCustom
+    [`${prefixCls}-header-custom`]: isCustom,
   });
 
   const itemCls = classNames({
     // 'clearfix': true,
     [`${prefixCls}-item`]: true,
     [`${prefixCls}-item-active`]: isActive,
-    [className]: className
+    [className]: className,
   });
 
   const closeCls = classNames({
     close: true,
-    'z-close-show': showClose
+    'z-close-show': showClose,
   });
 
   const getArrowIcon = (isActive: boolean) => {
@@ -105,15 +114,14 @@ const Panel: FC<CollapsePanelProps> = (props) => {
       </PanelContent>
     </div>
   );
-}
+};
 
 Panel.defaultProps = {
   isActive: false,
   disabled: false,
   style: {},
-  onItemClick() { },
-  onCloseItem() { }
-}
-
+  onItemClick() {},
+  onCloseItem() {},
+};
 
 export default Panel;

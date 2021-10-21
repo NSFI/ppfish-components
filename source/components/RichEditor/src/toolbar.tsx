@@ -16,20 +16,36 @@ declare module 'react' {
   }
 }
 
-import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface'
+import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
 import { LocaleProperties } from '../../Locale';
 
 const TabPane = Tabs.TabPane;
 const COLORS: string[] = [
-  '#E53333', '#E56600', '#FF9900',
-  '#64451D', '#DFC5A4', '#FFE500',
-  '#009900', '#006600', '#99BB00',
-  '#B8D100', '#60D978', '#00D5FF',
-  '#337FE5', '#003399', '#4C33E5',
-  '#9933E5', '#CC33E5', '#EE33EE',
-  '#ffffff', '#cccccc', '#999999',
-  '#666666', '#333333', '#000000',
+  '#E53333',
+  '#E56600',
+  '#FF9900',
+  '#64451D',
+  '#DFC5A4',
+  '#FFE500',
+  '#009900',
+  '#006600',
+  '#99BB00',
+  '#B8D100',
+  '#60D978',
+  '#00D5FF',
+  '#337FE5',
+  '#003399',
+  '#4C33E5',
+  '#9933E5',
+  '#CC33E5',
+  '#EE33EE',
+  '#ffffff',
+  '#cccccc',
+  '#999999',
+  '#666666',
+  '#333333',
+  '#000000',
 ];
 let defaultBackgrounds: Array<JSX.Element> = [];
 let defaultColors: Array<JSX.Element> = [];
@@ -37,22 +53,21 @@ COLORS.forEach(function (color: string, index: number) {
   defaultBackgrounds.push(
     <button
       className="background-item"
-      key={"default_background_" + index}
+      key={'default_background_' + index}
       value={color}
       title={color}
       style={{ backgroundColor: color }}
-    />
-
+    />,
   );
 
   defaultColors.push(
     <button
       className="color-item"
-      key={"default_color_" + index}
+      key={'default_color_' + index}
       value={color}
       title={color}
       style={{ backgroundColor: color }}
-    />
+    />,
   );
 });
 
@@ -75,30 +90,28 @@ let genEmoji = (data: Array<EmojiInferface>) => {
     }
 
     tmpObj[grpIndex].push(
-      <div className="emoji-item-ctner" key={"emoji_" + grpIndex + "_" + index} >
+      <div className="emoji-item-ctner" key={'emoji_' + grpIndex + '_' + index}>
         <button
-          className={"emoji-item " + item.className}
-          value={
-            JSON.stringify({
-              type: "defaultEmoji",
-              alt: item.title,
-              src: resPath + item.imgName + ".png",
-              width: EMOJI_DEFAULT_WIDTH,
-              height: EMOJI_DEFAULT_HEIGHT,
-              id: "emoticon_" + item.className.replace('-', '_')
-            })
-          }
+          className={'emoji-item ' + item.className}
+          value={JSON.stringify({
+            type: 'defaultEmoji',
+            alt: item.title,
+            src: resPath + item.imgName + '.png',
+            width: EMOJI_DEFAULT_WIDTH,
+            height: EMOJI_DEFAULT_HEIGHT,
+            id: 'emoticon_' + item.className.replace('-', '_'),
+          })}
           title={item.title}
         />
-      </div>
+      </div>,
     );
   });
 
-  Object.keys(tmpObj).forEach((key) => {
+  Object.keys(tmpObj).forEach(key => {
     result.push(
-      <div className="emoji-row" key={"emoji_row_" + key}>
+      <div className="emoji-row" key={'emoji_row_' + key}>
         {tmpObj[key]}
-      </div>
+      </div>,
     );
   });
 
@@ -110,7 +123,7 @@ let genCustomEmoji = (data: Array<EmojiInferface>) => {
   if (!(data && data.length)) return;
 
   let sortedData = data.sort((a, b) => {
-    if (typeof a.id != "number" || typeof b.id != "number") {
+    if (typeof a.id != 'number' || typeof b.id != 'number') {
       return 0;
     } else {
       return a.id - b.id;
@@ -120,17 +133,15 @@ let genCustomEmoji = (data: Array<EmojiInferface>) => {
   return sortedData.map((item: EmojiInferface, index: number) => {
     return (
       <img
-        key={"emoji_extend_" + index}
-        className={"emoji-extend-item " + item.className}
-        value={
-          JSON.stringify({
-            type: "customEmoji",
-            alt: item.title,
-            src: item.url,
-            width: EMOJI_DEFAULT_WIDTH,
-            height: EMOJI_DEFAULT_HEIGHT
-          })
-        }
+        key={'emoji_extend_' + index}
+        className={'emoji-extend-item ' + item.className}
+        value={JSON.stringify({
+          type: 'customEmoji',
+          alt: item.title,
+          src: item.url,
+          width: EMOJI_DEFAULT_WIDTH,
+          height: EMOJI_DEFAULT_HEIGHT,
+        })}
         title={item.title}
         src={item.url}
         width={EMOJI_COSTOM_WIDTH}
@@ -141,7 +152,7 @@ let genCustomEmoji = (data: Array<EmojiInferface>) => {
   });
 };
 
-class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState>{
+class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState> {
   static defaultProps = {
     className: '',
     iconPrefix: 'fishdicon',
@@ -153,15 +164,15 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
     formatPainterActive: false,
-    getPopupContainer: () => document.body
+    getPopupContainer: () => document.body,
   };
-  private defaultSizes: Array<string>
-  private curSizeList: Array<string>
-  private curInsertValueList: Array<any>
-  private Locale: LocaleProperties['RichEditor']
-  public toolbarCtner: HTMLDivElement
+  private defaultSizes: Array<string>;
+  private curSizeList: Array<string>;
+  private curInsertValueList: Array<any>;
+  private Locale: LocaleProperties['RichEditor'];
+  public toolbarCtner: HTMLDivElement;
 
-  constructor (props: CustomToolbarProps) {
+  constructor(props: CustomToolbarProps) {
     super(props);
 
     this.defaultSizes = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '12px'];
@@ -169,7 +180,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     this.state = {
       curSize: null,
       sizePopoverVisible: false,
-      curIVSearchValue: ''
+      curIVSearchValue: '',
     };
   }
 
@@ -182,13 +193,13 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     let value = e.target.value;
 
     this.setState({
-      curIVSearchValue: value ? value : ''
+      curIVSearchValue: value ? value : '',
     });
   };
 
   handleClearIVSearch = () => {
     this.setState({
-      curIVSearchValue: ''
+      curIVSearchValue: '',
     });
   };
 
@@ -205,9 +216,11 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
       customInsertValue,
       popoverPlacement,
       tooltipPlacement,
-      getPopupContainer
+      getPopupContainer,
     } = this.props;
-    let mValue: any = null, value: JSX.Element | null = null, tooltip: string | null = null;
+    let mValue: any = null,
+      value: JSX.Element | null = null,
+      tooltip: string | null = null;
 
     const { Locale } = this;
     // mType 对象格式：
@@ -226,17 +239,18 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           [`ql-${mType}Entry`]: true,
           [`${iconPrefix}`]: true,
           [`${iconPrefix}-richeditor-transfer`]: true,
-          [`${customModule.className}`]: !!customModule.className
+          [`${customModule.className}`]: !!customModule.className,
         });
 
       value = <button className={cls} key={key} />;
       if (customModule.title) {
         tooltip = customModule.title;
       }
-    } else if (mType in customInsertValue) {  // 处理定制的插入值
+    } else if (mType in customInsertValue) {
+      // 处理定制的插入值
       let customModule = customInsertValue[mType] || {},
         cls = classNames('action custom-insert-value ql-customInsertValue', {
-          [`${customModule.className}`]: !!customModule.className
+          [`${customModule.className}`]: !!customModule.className,
         }),
         mValue = customModule.option || [],
         editable = true;
@@ -251,7 +265,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
       let filteredValueList = this.curInsertValueList || [];
       if (customModule.showSearch && this.curInsertValueList && this.curInsertValueList.length) {
-        filteredValueList = this.curInsertValueList.filter((item) => {
+        filteredValueList = this.curInsertValueList.filter(item => {
           return (
             item.title &&
             item.title.toLowerCase().indexOf(this.state.curIVSearchValue.toLowerCase()) > -1
@@ -261,44 +275,47 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
       let content: JSX.Element = (
         <div className="insert-value-con" onClick={handleInsertValue}>
-          {
-            customModule.showSearch ?
-              <div className="insert-value-search">
-                <Input
-                  placeholder={customModule.searchPlaceholder ? customModule.searchPlaceholder : (Locale.enterKeyWordPlease)}
-                  suffix={
-                    this.state.curIVSearchValue ?
-                      <Icon
-                        className="insert-value-icon-clear"
-                        type="close-circle-fill"
-                        onClick={this.handleClearIVSearch}
-                      /> : null
-                  }
-                  value={this.state.curIVSearchValue}
-                  onChange={this.handleIVSearchChange}
-                />
-              </div> : null
-          }
-          {
-            filteredValueList.length ?
-              filteredValueList.map(function (item, index) {
-                return (
-                  <button
-                    className="insert-value-item"
-                    key={"insert_value_" + index}
-                    title={item.title}
-                    value={
-                      JSON.stringify({
-                        value: item.value,
-                        editable: item.editable != undefined ? item.editable : editable
-                      })
-                    }
-                  >
-                    {item.title}
-                  </button>
-                );
-              }) : <div className="insert-value-empty">{Locale.temporarilyNoData}</div>
-          }
+          {customModule.showSearch ? (
+            <div className="insert-value-search">
+              <Input
+                placeholder={
+                  customModule.searchPlaceholder
+                    ? customModule.searchPlaceholder
+                    : Locale.enterKeyWordPlease
+                }
+                suffix={
+                  this.state.curIVSearchValue ? (
+                    <Icon
+                      className="insert-value-icon-clear"
+                      type="close-circle-fill"
+                      onClick={this.handleClearIVSearch}
+                    />
+                  ) : null
+                }
+                value={this.state.curIVSearchValue}
+                onChange={this.handleIVSearchChange}
+              />
+            </div>
+          ) : null}
+          {filteredValueList.length ? (
+            filteredValueList.map(function (item, index) {
+              return (
+                <button
+                  className="insert-value-item"
+                  key={'insert_value_' + index}
+                  title={item.title}
+                  value={JSON.stringify({
+                    value: item.value,
+                    editable: item.editable != undefined ? item.editable : editable,
+                  })}
+                >
+                  {item.title}
+                </button>
+              );
+            })
+          ) : (
+            <div className="insert-value-empty">{Locale.temporarilyNoData}</div>
+          )}
         </div>
       );
 
@@ -338,7 +355,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'link': {
           const linkCls = classNames('action ql-link', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-link`]: true
+            [`${iconPrefix}-richeditor-link`]: true,
           });
           value = <button className={linkCls} key={key} />;
           tooltip = Locale.hyperlinks;
@@ -347,7 +364,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'bold': {
           const boldCls = classNames('action ql-bold', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-bold`]: true
+            [`${iconPrefix}-richeditor-bold`]: true,
           });
           value = <button className={boldCls} key={key} />;
           tooltip = Locale.bold;
@@ -356,7 +373,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'italic': {
           const italicCls = classNames('action ql-italic', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-tilt`]: true
+            [`${iconPrefix}-richeditor-tilt`]: true,
           });
           value = <button className={italicCls} key={key} />;
           tooltip = Locale.italic;
@@ -365,7 +382,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'underline': {
           const underlineCls = classNames('action ql-underline', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-underline`]: true
+            [`${iconPrefix}-richeditor-underline`]: true,
           });
           value = <button className={underlineCls} key={key} />;
           tooltip = Locale.underline;
@@ -374,7 +391,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'color': {
           const colorCls = classNames('action custom-color', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-color`]: true
+            [`${iconPrefix}-richeditor-color`]: true,
           });
           let colorHTML = defaultColors;
           if (Array.isArray(mValue) && mValue.length) {
@@ -382,7 +399,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               return (
                 <button
                   className="color-item"
-                  key={"custom_color_" + index}
+                  key={'custom_color_' + index}
                   value={color}
                   title={color}
                   style={{ backgroundColor: color }}
@@ -455,7 +472,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
             const alignCls = classNames('action ql-align', {
               [`${iconPrefix}`]: true,
-              [`${iconPrefix}-${alignIconType}`]: true
+              [`${iconPrefix}-${alignIconType}`]: true,
             });
             value = <button type="button" className={alignCls} value={mValue} key={key} />;
           }
@@ -490,7 +507,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
           const listCls = classNames('action ql-list', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-${listIconType}`]: true
+            [`${iconPrefix}-${listIconType}`]: true,
           });
 
           value = <button type="button" className={listCls} value={mValue} key={key} />;
@@ -499,7 +516,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'emoji': {
           const emojiCls = classNames('action custom-emoji', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-expressio`]: true
+            [`${iconPrefix}-richeditor-expressio`]: true,
           });
           let content = (
             <div className="emoji-ctner">
@@ -517,7 +534,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                     {defaultEmojis}
                   </div>
                 </div>
-              </TabPane>
+              </TabPane>,
             ];
 
             customEmoji.forEach((item, index) => {
@@ -528,15 +545,11 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                       {genCustomEmoji(item.data)}
                     </div>
                   </div>
-                </TabPane>
+                </TabPane>,
               );
             });
 
-            content = (
-              <Tabs defaultActiveKey="emoji_default">
-                {tabPanes}
-              </Tabs>
-            );
+            content = <Tabs defaultActiveKey="emoji_default">{tabPanes}</Tabs>;
           }
 
           value = (
@@ -569,7 +582,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'image': {
           const imageCls = classNames('action ql-image', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-picture`]: true
+            [`${iconPrefix}-richeditor-picture`]: true,
           });
           value = <button className={imageCls} key={key} />;
           tooltip = Locale.insertPicture;
@@ -578,7 +591,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'attachment': {
           const cls = classNames('action ql-attachment', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-annexx`]: true
+            [`${iconPrefix}-richeditor-annexx`]: true,
           });
           value = <button className={cls} key={key} />;
           tooltip = Locale.insertAttachment;
@@ -587,7 +600,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'size': {
           const sizeCls = classNames('action custom-size', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-size`]: true
+            [`${iconPrefix}-richeditor-size`]: true,
           });
 
           this.curSizeList = this.defaultSizes;
@@ -597,24 +610,23 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
           let content = (
             <div className="size-con" key="custom_size_content" onClick={this.handleSizeItemClick}>
-              {
-                this.curSizeList && this.curSizeList.map((size, index) => {
+              {this.curSizeList &&
+                this.curSizeList.map((size, index) => {
                   const sizeItemCls = classNames('size-item', {
-                    'active': size && (this.state.curSize == size.trim())
+                    active: size && this.state.curSize == size.trim(),
                   });
 
                   return (
                     <button
                       className={sizeItemCls}
-                      key={"custom_size_" + index}
+                      key={'custom_size_' + index}
                       value={size}
                       style={{ fontSize: size }}
                     >
                       {size}
                     </button>
                   );
-                })
-              }
+                })}
             </div>
           );
 
@@ -650,7 +662,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'clean': {
           const cleanCls = classNames('action ql-clean', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-clear`]: true
+            [`${iconPrefix}-richeditor-clear`]: true,
           });
 
           value = <button className={cleanCls} key={key} />;
@@ -661,7 +673,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           const cls = classNames('action ql-formatPainter', {
             [`${iconPrefix}`]: true,
             'ql-active': this.props.formatPainterActive,
-            [`${iconPrefix}-richeditor-brushx`]: true
+            [`${iconPrefix}-richeditor-brushx`]: true,
           });
 
           value = <button className={cls} key={key} onClick={this.handleFormatPainterClick} />;
@@ -713,7 +725,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           // value = <div className="item" key={key}><select className="ql-background" /></div>;
           const backgroundCls = classNames('action custom-background', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-fontbkcol`]: true
+            [`${iconPrefix}-richeditor-fontbkcol`]: true,
           });
           let backgroundHTML = defaultBackgrounds;
           if (Array.isArray(mValue) && mValue.length) {
@@ -721,7 +733,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               return (
                 <button
                   className="background-item"
-                  key={"custom_background_" + index}
+                  key={'custom_background_' + index}
                   value={color}
                   title={color}
                   style={{ backgroundColor: color }}
@@ -753,7 +765,12 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               >
                 <div className="item">
                   <div className={backgroundCls}>
-                    <button type="button" data-role="background" value="" className="ql-background hide" />
+                    <button
+                      type="button"
+                      data-role="background"
+                      value=""
+                      className="ql-background hide"
+                    />
                   </div>
                 </div>
               </Tooltip>
@@ -798,7 +815,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     }
 
     let mTypesHasPopover = ['background', 'color', 'emoji', 'size'];
-    if (value && (mTypesHasPopover.indexOf(mType) < 0) && !(mType in customInsertValue)) {
+    if (value && mTypesHasPopover.indexOf(mType) < 0 && !(mType in customInsertValue)) {
       value = (
         <Tooltip
           key={key}
@@ -816,11 +833,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
   };
 
   handleFormatPainterClick = () => {
-    let {
-      formatPainterActive,
-      saveSelectionFormat,
-      unsaveSelectionFormat
-    } = this.props;
+    let { formatPainterActive, saveSelectionFormat, unsaveSelectionFormat } = this.props;
 
     if (formatPainterActive) {
       unsaveSelectionFormat && unsaveSelectionFormat();
@@ -829,19 +842,19 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     }
   };
 
-  handleSizeItemClick = (e) => {
+  handleSizeItemClick = e => {
     let { handleFormatSize } = this.props,
       target = e.target;
 
     if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
       handleFormatSize && handleFormatSize(target.getAttribute('value'));
       this.setState({
-        sizePopoverVisible: false
+        sizePopoverVisible: false,
       });
     }
   };
 
-  genToolbar = (toolbar) => {
+  genToolbar = toolbar => {
     let result = [];
     toolbar.forEach((item, index) => {
       // 分组展示的项目
@@ -853,12 +866,11 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         result.push(
           <div className="toolbar-grp" key={'toolbar_' + index}>
             {grpItems}
-          </div>
+          </div>,
         );
-      } else {  // 单个展示的项目
-        result.push(
-          this.getModuleHTML(item, 'toolbar_' + index)
-        );
+      } else {
+        // 单个展示的项目
+        result.push(this.getModuleHTML(item, 'toolbar_' + index));
       }
     });
 
@@ -871,9 +883,9 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
   //   btn.click();
   // };
 
-  handleSizePopoverVisibleChange = (visible) => {
+  handleSizePopoverVisibleChange = visible => {
     this.setState({
-      sizePopoverVisible: visible
+      sizePopoverVisible: visible,
     });
 
     if (!visible) return;
@@ -882,7 +894,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
     if (curSize != this.state.curSize) {
       this.setState({
-        curSize
+        curSize,
       });
     }
   };
@@ -892,17 +904,14 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
     return (
       <ConfigConsumer componentName="RichEditor">
-        {
-          (Locale: LocaleProperties['RichEditor']) => {
-            this.Locale = Locale;
-            return (
-              <div className={className} ref={node => this.toolbarCtner = node} style={style}>
-                {this.genToolbar(toolbar)}
-              </div>
-            )
-          }
-        }
-
+        {(Locale: LocaleProperties['RichEditor']) => {
+          this.Locale = Locale;
+          return (
+            <div className={className} ref={node => (this.toolbarCtner = node)} style={style}>
+              {this.genToolbar(toolbar)}
+            </div>
+          );
+        }}
       </ConfigConsumer>
     );
   }

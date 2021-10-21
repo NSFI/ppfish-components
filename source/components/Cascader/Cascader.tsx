@@ -1,4 +1,12 @@
-import React, { CSSProperties, forwardRef, ReactNode, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  CSSProperties,
+  forwardRef,
+  ReactNode,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import RcCascader from './src';
 import arrayTreeFilter from 'array-tree-filter';
 import { polyfill } from 'react-lifecycles-compat';
@@ -7,7 +15,7 @@ import omit from 'omit.js';
 import warning from 'warning';
 import { KeyCode } from '../../utils';
 import Input from '../Input';
-import { InputRef } from "../Input/Input";
+import { InputRef } from '../Input/Input';
 import Icon from '../Icon';
 import ConfigConsumer from '../Config/Consumer';
 import { LocaleProperties } from '../Locale';
@@ -18,10 +26,8 @@ import {
   FilledFieldNamesType,
   CascaderProps,
   ShowSearchType,
-  RcCascaderProps
-} from './interface'
-
-
+  RcCascaderProps,
+} from './interface';
 
 // We limit the filtered item count by default
 const defaultLimit = 50;
@@ -32,11 +38,11 @@ function highlightKeyword(str: string, keyword: string, prefixCls: string | unde
     index === 0
       ? node
       : [
-        <span className={`${prefixCls}-menu-item-keyword`} key="seperator">
-          {keyword}
-        </span>,
-        node
-      ]
+          <span className={`${prefixCls}-menu-item-keyword`} key="seperator">
+            {keyword}
+          </span>,
+          node,
+        ],
   );
 }
 
@@ -44,7 +50,7 @@ function highlightKeyword(str: string, keyword: string, prefixCls: string | unde
 function defaultFilterOption(
   inputValue: string,
   path: CascaderOptionType[],
-  names: FilledFieldNamesType
+  names: FilledFieldNamesType,
 ) {
   return path.some(option => (option[names.label] as string).indexOf(inputValue) > -1);
 }
@@ -54,7 +60,7 @@ function defaultRenderFilteredOption(
   inputValue: string,
   path: CascaderOptionType[],
   prefixCls: string | undefined,
-  names: FilledFieldNamesType
+  names: FilledFieldNamesType,
 ) {
   return path.map((option, index) => {
     const label = option[names.label];
@@ -71,7 +77,7 @@ function defaultSortFilteredOption(
   a: CascaderOptionType[],
   b: CascaderOptionType[],
   inputValue: string,
-  names: FilledFieldNamesType
+  names: FilledFieldNamesType,
 ) {
   function callback(elem: CascaderOptionType) {
     return (elem[names.label] as string).indexOf(inputValue) > -1;
@@ -86,7 +92,7 @@ function getFilledFieldNames(props: CascaderProps) {
   const names: FilledFieldNamesType = {
     children: fieldNames.children || 'children',
     label: fieldNames.label || 'label',
-    value: fieldNames.value || 'value'
+    value: fieldNames.value || 'value',
   };
   return names;
 }
@@ -94,7 +100,7 @@ function getFilledFieldNames(props: CascaderProps) {
 function flattenTree(
   options: CascaderOptionType[],
   props: CascaderProps,
-  ancestor: CascaderOptionType[] = []
+  ancestor: CascaderOptionType[] = [],
 ) {
   const names: FilledFieldNamesType = getFilledFieldNames(props);
   let flattenOptions = [] as CascaderOptionType[][];
@@ -113,34 +119,42 @@ function flattenTree(
 
 const defaultDisplayRender = (label: string[]) => label.join(' / ');
 
-const getInputProps = (otherProps) => omit(otherProps, [
-  'onChange',
-  'options',
-  'popupPlacement',
-  'transitionName',
-  'displayRender',
-  'onVisibleChange',
-  'changeOnSelect',
-  'expandTrigger',
-  'popupVisible',
-  'getPopupContainer',
-  'loadData',
-  'popupClassName',
-  'filterOption',
-  'renderFilteredOption',
-  'sortFilteredOption',
-  'notFoundContent',
-  'fieldNames',
-  'esc'
-]);
+const getInputProps = otherProps =>
+  omit(otherProps, [
+    'onChange',
+    'options',
+    'popupPlacement',
+    'transitionName',
+    'displayRender',
+    'onVisibleChange',
+    'changeOnSelect',
+    'expandTrigger',
+    'popupVisible',
+    'getPopupContainer',
+    'loadData',
+    'popupClassName',
+    'filterOption',
+    'renderFilteredOption',
+    'sortFilteredOption',
+    'notFoundContent',
+    'fieldNames',
+    'esc',
+  ]);
 
-function useInput({ value, popupVisible, handleValueChange, handlePopupVisibleChange, props, otherProps }) {
-  const [inputFocused, setInputFocused] = useState(false)
-  const [inputValue, setInputValue] = useState('')
+function useInput({
+  value,
+  popupVisible,
+  handleValueChange,
+  handlePopupVisibleChange,
+  props,
+  otherProps,
+}) {
+  const [inputFocused, setInputFocused] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const handleInputBlur = () => {
     setInputFocused(false);
-  }
+  };
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     // Prevent `Trigger` behaviour.
@@ -180,21 +194,31 @@ function useInput({ value, popupVisible, handleValueChange, handlePopupVisibleCh
     const unwrappedValue = Array.isArray(value[0]) ? value[0] : value;
     const selectedOptions: CascaderOptionType[] = arrayTreeFilter(
       options,
-      (o: CascaderOptionType, level: number) => o[names.value] === unwrappedValue[level]
+      (o: CascaderOptionType, level: number) => o[names.value] === unwrappedValue[level],
     );
     const label = selectedOptions.map(o => o[names.label]);
     return displayRender(label, selectedOptions);
   }
 
   const inputRef = React.useRef<InputRef>();
-  const { inputPrefixCls, size, allowClear, disabled, prefixCls, className, showSearch, children, style } = props;
+  const {
+    inputPrefixCls,
+    size,
+    allowClear,
+    disabled,
+    prefixCls,
+    className,
+    showSearch,
+    children,
+    style,
+  } = props;
 
   const renderInput = Locale => {
-    const inputProps = getInputProps(otherProps)
+    const inputProps = getInputProps(otherProps);
     const label = getLabel();
     const sizeCls = classNames({
       [`${inputPrefixCls}-lg`]: size === 'large',
-      [`${inputPrefixCls}-sm`]: size === 'small'
+      [`${inputPrefixCls}-sm`]: size === 'small',
     });
     const clearIcon =
       (allowClear && !disabled && value.length > 0) || inputValue ? (
@@ -206,61 +230,66 @@ function useInput({ value, popupVisible, handleValueChange, handlePopupVisibleCh
       ) : null;
     const arrowCls = classNames({
       [`${prefixCls}-picker-arrow`]: true,
-      [`${prefixCls}-picker-arrow-expand`]: popupVisible
+      [`${prefixCls}-picker-arrow-expand`]: popupVisible,
     });
     const pickerCls = classNames(className, `${prefixCls}-picker`, {
       [`${prefixCls}-picker-with-value`]: inputValue,
       [`${prefixCls}-picker-disabled`]: disabled,
       [`${prefixCls}-picker-${size}`]: !!size,
       [`${prefixCls}-picker-show-search`]: !!showSearch,
-      [`${prefixCls}-picker-focused`]: inputFocused
+      [`${prefixCls}-picker-focused`]: inputFocused,
     });
 
     let { placeholder = Locale.placeholder } = props;
-    return children || (
-      <span style={style} className={pickerCls}>
-        <span
-          className={`${prefixCls}-picker-label`}
-          title={typeof label === 'string' ? label : ''}
-        >
-          {label}
+    return (
+      children || (
+        <span style={style} className={pickerCls}>
+          <span
+            className={`${prefixCls}-picker-label`}
+            title={typeof label === 'string' ? label : ''}
+          >
+            {label}
+          </span>
+          <Input
+            {...inputProps}
+            ref={inputRef}
+            prefixCls={inputPrefixCls}
+            placeholder={value && value.length > 0 ? undefined : placeholder}
+            className={`${prefixCls}-input ${sizeCls}`}
+            value={inputValue}
+            disabled={disabled}
+            readOnly={!showSearch}
+            autoComplete="off"
+            onClick={showSearch ? handleInputClick : undefined}
+            onBlur={showSearch ? handleInputBlur : undefined}
+            onKeyDown={handleKeyDown}
+            onChange={showSearch ? handleInputChange : undefined}
+          />
+          {clearIcon}
+          <Icon type="down-fill" className={arrowCls} />
         </span>
-        <Input
-          {...inputProps}
-          ref={inputRef}
-          prefixCls={inputPrefixCls}
-          placeholder={value && value.length > 0 ? undefined : placeholder}
-          className={`${prefixCls}-input ${sizeCls}`}
-          value={inputValue}
-          disabled={disabled}
-          readOnly={!showSearch}
-          autoComplete="off"
-          onClick={showSearch ? handleInputClick : undefined}
-          onBlur={showSearch ? handleInputBlur : undefined}
-          onKeyDown={handleKeyDown}
-          onChange={showSearch ? handleInputChange : undefined}
-        />
-        {clearIcon}
-        <Icon type="down-fill" className={arrowCls} />
-      </span>
+      )
     );
-  }
+  };
 
   return {
     inputValue,
     setInputValue,
     setInputFocused,
     renderInput,
-    inputRef
-  }
+    inputRef,
+  };
 }
 
 interface RefCascaderProps {
-  focus: () => void
-  blur: () => void
+  focus: () => void;
+  blur: () => void;
 }
 
-const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, CascaderProps> = (props, ref) => {
+const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, CascaderProps> = (
+  props,
+  ref,
+) => {
   const {
     prefixCls,
     inputPrefixCls,
@@ -276,9 +305,17 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
     ...otherProps
   } = props;
 
-  const [flattenOptions, setFlattenOptions] = useState(props.showSearch ? flattenTree(props.options, props) : undefined);
-  const [value, setValue] = useControlledState([], { value: props.value, defaultValue: props.defaultValue })
-  const [popupVisible, setPopupVisible] = useControlledState(false, { value: props.popupVisible, onChange: props.onVisibleChange });
+  const [flattenOptions, setFlattenOptions] = useState(
+    props.showSearch ? flattenTree(props.options, props) : undefined,
+  );
+  const [value, setValue] = useControlledState([], {
+    value: props.value,
+    defaultValue: props.defaultValue,
+  });
+  const [popupVisible, setPopupVisible] = useControlledState(false, {
+    value: props.popupVisible,
+    onChange: props.onVisibleChange,
+  });
 
   const handlePopupVisibleChange = (popupVisible: boolean) => {
     setPopupVisible(popupVisible);
@@ -301,25 +338,28 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
     if (props.showSearch) {
       setFlattenOptions(flattenTree(props.options, props));
     }
+  }, [props.options]);
 
-  }, [props.options])
+  const { inputValue, setInputValue, setInputFocused, renderInput, inputRef } = useInput({
+    value,
+    handleValueChange,
+    popupVisible,
+    handlePopupVisibleChange,
+    props,
+    otherProps,
+  });
 
-  const {
-    inputValue,
-    setInputValue,
-    setInputFocused,
-    renderInput,
-    inputRef
-  } = useInput({ value, handleValueChange, popupVisible, handlePopupVisibleChange, props, otherProps });
-
-  function generateFilteredOptions(prefixCls: string | undefined, Locale: LocaleProperties["Cascader"]) {
+  function generateFilteredOptions(
+    prefixCls: string | undefined,
+    Locale: LocaleProperties['Cascader'],
+  ) {
     const { showSearch, notFoundContent = Locale.notFoundContent } = props;
     const names: FilledFieldNamesType = getFilledFieldNames(props);
     const {
       filter = defaultFilterOption,
       render = defaultRenderFilteredOption,
       sort = defaultSortFilteredOption,
-      limit = defaultLimit
+      limit = defaultLimit,
     } = showSearch as ShowSearchType;
 
     // Limit the filter if needed
@@ -339,7 +379,7 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
     } else {
       warning(
         typeof limit !== 'number',
-        "'limit' of showSearch in Cascader should be positive number or false."
+        "'limit' of showSearch in Cascader should be positive number or false.",
       );
       filtered = flattenOptions.filter(path => filter(inputValue, path, names));
     }
@@ -351,7 +391,7 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
           path,
           [names.label]: render(inputValue, path, prefixCls, names),
           [names.value]: path.map((o: CascaderOptionType) => o[names.value]),
-          disabled: path.some((o: CascaderOptionType) => !!o.disabled)
+          disabled: path.some((o: CascaderOptionType) => !!o.disabled),
         } as CascaderOptionType;
       });
     }
@@ -359,13 +399,13 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
       {
         [names.label]: notFoundContent,
         [names.value]: 'FISHD_CASCADER_NOT_FOUND',
-        disabled: true
-      }
+        disabled: true,
+      },
     ];
   }
 
   const cachedOptions = useRef([]);
-  const getOptionsAndOthers = (Locale: LocaleProperties["Cascader"]) => {
+  const getOptionsAndOthers = (Locale: LocaleProperties['Cascader']) => {
     let options = props.options;
     if (inputValue) {
       options = generateFilteredOptions(prefixCls, Locale);
@@ -394,7 +434,7 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
       options,
       dropdownMenuColumnStyle,
     };
-  }
+  };
 
   const handleChange = (value: any, selectedOptions: CascaderOptionType[]) => {
     setInputValue('');
@@ -414,8 +454,8 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
 
     blur() {
       inputRef.current.focus();
-    }
-  }))
+    },
+  }));
 
   const rcCascaderProps: RcCascaderProps = omit(props, [
     'style',
@@ -428,30 +468,28 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
     'notFoundContent',
     'displayRender',
     'onVisibleChange',
-    'getPopupContainer'
-  ])
+    'getPopupContainer',
+  ]);
 
   return (
     <ConfigConsumer componentName="Cascader">
-      {
-        (Locale: LocaleProperties["Cascader"]) => {
-          return (<RcCascader
+      {(Locale: LocaleProperties['Cascader']) => {
+        return (
+          <RcCascader
             {...rcCascaderProps}
-            {
-            ...getOptionsAndOthers(Locale)
-            }
+            {...getOptionsAndOthers(Locale)}
             value={value}
             popupVisible={popupVisible}
             onPopupVisibleChange={handlePopupVisibleChange}
             onChange={handleChange}
           >
             {renderInput(Locale)}
-          </RcCascader>)
-        }
-      }
+          </RcCascader>
+        );
+      }}
     </ConfigConsumer>
   );
-}
+};
 
 const Cascader = forwardRef<unknown, CascaderProps>(InternalCascader);
 Cascader.displayName = 'Cascader';
@@ -464,6 +502,6 @@ Cascader.defaultProps = {
   options: [] as CascaderProps['options'],
   disabled: false as CascaderProps['disabled'],
   allowClear: true as CascaderProps['allowClear'],
-}
+};
 
 export default Cascader;

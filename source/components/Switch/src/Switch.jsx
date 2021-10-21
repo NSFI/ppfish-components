@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { polyfill } from 'react-lifecycles-compat';
 
-function noop() {
-}
+function noop() {}
 
 class Switch extends Component {
-
   static getDerivedStateFromProps(nextProps) {
     const newState = {};
     const { checked } = nextProps;
@@ -55,27 +53,30 @@ class Switch extends Component {
     const checked = !this.state.checked;
     this.setChecked(checked);
     onClick(checked);
-  }
+  };
 
-  handleKeyDown = (e) => {
-    if (e.keyCode === 37) { // Left
+  handleKeyDown = e => {
+    if (e.keyCode === 37) {
+      // Left
       this.setChecked(false);
-    } else if (e.keyCode === 39) { // Right
+    } else if (e.keyCode === 39) {
+      // Right
       this.setChecked(true);
-    } else if (e.keyCode === 32 || e.keyCode === 13) { // Space, Enter
+    } else if (e.keyCode === 32 || e.keyCode === 13) {
+      // Space, Enter
       this.toggle();
     }
-  }
+  };
 
   // Handle auto focus when click switch in Chrome
-  handleMouseUp = (e) => {
+  handleMouseUp = e => {
     if (this.node) {
       this.node.blur();
     }
     if (this.props.onMouseUp) {
       this.props.onMouseUp(e);
     }
-  }
+  };
 
   focus() {
     this.node.focus();
@@ -85,15 +86,23 @@ class Switch extends Component {
     this.node.blur();
   }
 
-  saveNode = (node) => {
+  saveNode = node => {
     this.node = node;
-  }
+  };
 
   render() {
-    const { className, prefixCls, disabled, loadingIcon,
-      checkedChildren, tabIndex, unCheckedChildren, ...restProps } = this.props;
+    const {
+      className,
+      prefixCls,
+      disabled,
+      loadingIcon,
+      checkedChildren,
+      tabIndex,
+      unCheckedChildren,
+      ...restProps
+    } = this.props;
     const checked = this.state.checked;
-    const switchTabIndex = disabled ? -1 : (tabIndex || 0);
+    const switchTabIndex = disabled ? -1 : tabIndex || 0;
     const switchClassName = classNames({
       [className]: !!className,
       [prefixCls]: true,

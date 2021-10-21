@@ -41,7 +41,7 @@ interface CollapseInterface extends React.FC<CollapseProps> {
   Panel: typeof CollapsePanel;
 }
 
-const Collapse: CollapseInterface = (props) => {
+const Collapse: CollapseInterface = props => {
   const {
     prefixCls,
     className,
@@ -54,15 +54,17 @@ const Collapse: CollapseInterface = (props) => {
     bordered,
     onChange,
     close,
-    children
+    children,
   } = props;
   const [currentActiveKey, setCurrentActiveKey] = React.useState(toArray(defaultActiveKey));
 
   useUpdateEffect(() => {
-    setCurrentActiveKey(toArray(activeKey))
+    setCurrentActiveKey(toArray(activeKey));
   }, [activeKey]);
 
-  const [currentStatusList, setCurrentStatusList] = React.useState(statusList || new Array((children as React.ReactNode[]).length).fill(true))
+  const [currentStatusList, setCurrentStatusList] = React.useState(
+    statusList || new Array((children as React.ReactNode[]).length).fill(true),
+  );
   useUpdateEffect(() => {
     setCurrentStatusList(statusList);
   }, [statusList]);
@@ -91,7 +93,7 @@ const Collapse: CollapseInterface = (props) => {
 
       // 更新
       if (!Reflect.has(props, 'activeKey')) {
-        setCurrentActiveKey(activeKey)
+        setCurrentActiveKey(activeKey);
       }
       onChange(accordion ? activeKey[0] : activeKey);
     };
@@ -131,21 +133,18 @@ const Collapse: CollapseInterface = (props) => {
         prefixCls,
         children: child.props.children,
         onItemClick: onClickItem(key),
-        onCloseItem: onCloseItem(key)
+        onCloseItem: onCloseItem(key),
       };
 
       return React.cloneElement(child as React.ReactElement<any>, props);
     });
   }
 
-
   React.useEffect(() => {
     scrollToHeader();
-  })
-
+  });
 
   const collapseRef = React.useRef<HTMLDivElement>();
-
 
   function scrollToHeader() {
     const currentKey = currentKeyRef.current;
@@ -178,14 +177,13 @@ const Collapse: CollapseInterface = (props) => {
     }
 
     return classNames(classes);
-
   }
 
   function getStyle() {
     const styles = {};
 
     if (isScrollToHeader) {
-      Object.assign(styles, { overflowY: 'auto', overflowX: 'hidden' })
+      Object.assign(styles, { overflowY: 'auto', overflowX: 'hidden' });
     }
 
     return styles;
@@ -196,7 +194,7 @@ const Collapse: CollapseInterface = (props) => {
       {getItems()}
     </div>
   );
-}
+};
 
 Collapse.defaultProps = {
   prefixCls: 'fishd-collapse',
@@ -204,10 +202,9 @@ Collapse.defaultProps = {
   accordion: false,
   showClose: false,
   bordered: true,
-  onChange(value) { },
-  close(statusList: any[]) { }
+  onChange(value) {},
+  close(statusList: any[]) {},
 };
-
 
 Collapse.Panel = CollapsePanel;
 

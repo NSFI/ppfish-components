@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm test
+./node_modules/.bin/lint-staged -c lint-staged.config.js

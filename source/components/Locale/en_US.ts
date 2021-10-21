@@ -3,14 +3,14 @@ import { LocaleProperties } from '.';
 const LocaleValue: LocaleProperties = {
   locale: 'en_US',
   AudioPlayer: {
-    notSupport: 'Your browser does not support the audio tag'
+    notSupport: 'Your browser does not support the audio tag',
   },
   AutoComplete: {
-    notFoundContent: 'No data'
+    notFoundContent: 'No data',
   },
   Cascader: {
     placeholder: 'Please select',
-    notFoundContent: 'No data'
+    notFoundContent: 'No data',
   },
   LoadMore: {
     defaultText: 'Show more',
@@ -78,7 +78,20 @@ const LocaleValue: LocaleProperties = {
     Oct: '10',
     Nov: '11',
     Dec: '12',
-    MONTH_ARRAY: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    MONTH_ARRAY: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
     week: 'Week',
     weeks: {
       sun: 'Sun',
@@ -87,7 +100,7 @@ const LocaleValue: LocaleProperties = {
       wed: 'Wed',
       thu: 'Thu',
       fri: 'Fri',
-      sat: 'Sat'
+      sat: 'Sat',
     },
     months: {
       jan: 'Jan',
@@ -101,11 +114,11 @@ const LocaleValue: LocaleProperties = {
       sep: 'Sep',
       oct: 'Oct',
       nov: 'Nov',
-      dec: 'Dec'
-    }
+      dec: 'Dec',
+    },
   },
   List: {
-    emptyText: 'No Data'
+    emptyText: 'No Data',
   },
   Guide: {
     prevBtnText: 'Prev',
@@ -129,25 +142,26 @@ const LocaleValue: LocaleProperties = {
     prev_5: 'Previous 5 pages',
     next_5: 'Next 5 pages',
     prev_3: 'Previous 3 pages',
-    next_3: 'Next 3 pages'
+    next_3: 'Next 3 pages',
   },
-   RichEditor: {
+  RichEditor: {
     // editor
-    insertImageTip: 'Support jpg, jpeg, png, gif, bmp format pictures, the best display height does not exceed 400px, width does not exceed 270px.',
+    insertImageTip: `Support jpg, jpeg, png, gif, bmp format pictures, 
+      the best display height does not exceed 400px, width does not exceed 270px.`,
     rule1: '1. A single video does not exceed 10M, and supports MP4 and 3GP format video.',
     rule2: '2. The best display height does not exceed 400px',
-    PleaseEnterTheVideolinkURL: "Please enter the video link URL",
+    PleaseEnterTheVideolinkURL: 'Please enter the video link URL',
     selectLocalVideo: 'Select local video',
     videoLink: 'Video link',
-    localVideo: "Local video",
+    localVideo: 'Local video',
     insertVideo: 'Insert the video',
-    selectLocalImage: "Select local image",
-    insertAttachment: "Insert the attachment",
-    selectLocalFile: "Select local files",
+    selectLocalImage: 'Select local image',
+    insertAttachment: 'Insert the attachment',
+    selectLocalFile: 'Select local files',
     HyperlinkAddress: 'Link address',
     insertPicture: 'Insert the picture',
     noVideoLinkErrorTip: 'Please set the video source address',
-    VideoCantPlayTip: "The video cannot be played",
+    VideoCantPlayTip: 'The video cannot be played',
     file: '[File] ',
     noFileInfoTip: 'Failed to read file information',
     noPicSrcTip: 'Please set the picture source address',
@@ -198,7 +212,7 @@ const LocaleValue: LocaleProperties = {
     fullScreen: 'FullScreen',
     cancelFullScreen: 'CancelFullScreen',
     download: 'Download',
-    retry: 'Retry'
+    retry: 'Retry',
   },
   Spin: {
     loading: 'Loading...',
@@ -212,7 +226,7 @@ const LocaleValue: LocaleProperties = {
     selectAllText: 'Select all',
     confirmText: 'OK',
     cancelText: 'Cancel',
-    loading: 'Loading...'
+    loading: 'Loading...',
   },
   Transfer: {
     notFoundContent: 'No data',
@@ -235,7 +249,7 @@ const LocaleValue: LocaleProperties = {
     previewFile: 'Preview',
     cancelText: 'Cancel',
     deleteText: 'Delete all',
-    uploadedTip: '${length} item uploaded'
+    uploadedTip: '${length} item uploaded',
   },
 };
 

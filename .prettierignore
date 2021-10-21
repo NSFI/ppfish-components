@@ -6,8 +6,6 @@ site/
 tools/
 docs/
 coverage/
-source/*/*.js
-source/*/*.jsx
 .gitignore
 .npmignore
 .prettierignore

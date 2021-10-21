@@ -4,16 +4,12 @@ import Menus from './Menus';
 import { KeyCode, shallowEqualArrays } from '../../../utils';
 import arrayTreeFilter from 'array-tree-filter';
 import BUILT_IN_PLACEMENTS from './placements';
-import { CascaderOptionType, RcCascaderProps, SelectEvent } from '../interface'
+import { CascaderOptionType, RcCascaderProps, SelectEvent } from '../interface';
 import useControlledState from '../../../hooks/useControlledState';
-
 
 const defaultFieldNames = Object.freeze({ label: 'label', value: 'value', children: 'children' });
 
-const RcCascader: React.FC<RcCascaderProps> = (
-  props,
-
-) => {
+const RcCascader: React.FC<RcCascaderProps> = props => {
   const triggerRef = React.useRef<any>();
   // useImperativeHandle(ref, () => ({
   //   getPopupDOMNode() {
@@ -27,24 +23,26 @@ const RcCascader: React.FC<RcCascaderProps> = (
 
   React.useEffect(() => {
     if (!loadData) {
-      setActiveValue(props.value)
+      setActiveValue(props.value);
     }
+  }, [props]);
 
-  }, [props])
-
-
-  const [popupVisible, setPopupVisible] = useControlledState(false, { value: props.popupVisible, onChange: onPopupVisibleChange });
+  const [popupVisible, setPopupVisible] = useControlledState(false, {
+    value: props.popupVisible,
+    onChange: onPopupVisibleChange,
+  });
 
   const handlePopupVisibleChange = (popupVisible: boolean) => {
-    setPopupVisible(popupVisible)
-  }
+    setPopupVisible(popupVisible);
+  };
 
-  const getFieldName = (name) => {
+  const getFieldName = name => {
     return props.fieldNames[name] || defaultFieldNames[name];
-  }
+  };
 
   const isKeyDownEvent = (e: SelectEvent): e is React.KeyboardEvent => e.type === 'keydown';
-  const isConfirmEventType = (e: SelectEvent) => isKeyDownEvent(e) ? (e.keyCode === KeyCode.ENTER) : e.type === 'click';
+  const isConfirmEventType = (e: SelectEvent) =>
+    isKeyDownEvent(e) ? e.keyCode === KeyCode.ENTER : e.type === 'click';
 
   const getCurrentLevelOptions = () => {
     const { options } = props;
@@ -57,7 +55,7 @@ const RcCascader: React.FC<RcCascaderProps> = (
       return result[result.length - 2][getFieldName('children')];
     }
     return [...options].filter(o => !o.disabled);
-  }
+  };
 
   const getActiveOptions = (activeValue: string[]) =>
     arrayTreeFilter(
@@ -70,11 +68,13 @@ const RcCascader: React.FC<RcCascaderProps> = (
     const { onChange } = props;
 
     if (isConfirmEventType(e)) {
-      onChange(options.map(o => o[getFieldName('value')]), options);
-      setPopupVisible(visible)
+      onChange(
+        options.map(o => o[getFieldName('value')]),
+        options,
+      );
+      setPopupVisible(visible);
     }
-  }
-
+  };
 
   const handleMenuSelect = (targetOption, menuIndex, e) => {
     const { changeOnSelect, loadData, expandTrigger } = props;
@@ -83,7 +83,6 @@ const RcCascader: React.FC<RcCascaderProps> = (
     if (triggerNode && triggerNode.focus) {
       triggerNode.focus();
     }
-
 
     if (!targetOption || targetOption.disabled) {
       return;
@@ -108,15 +107,12 @@ const RcCascader: React.FC<RcCascaderProps> = (
     // e.keyCode === KeyCode.ENTER || e.type === 'click'
     const canSyncValue = isConfirmEventType(e);
 
-    if (
-      !targetOption[getFieldName('children')] ||
-      !targetOption[getFieldName('children')].length
-    ) {
+    if (!targetOption[getFieldName('children')] || !targetOption[getFieldName('children')].length) {
       handleChange(activeOptions, false, e);
       // set value to activeValue when select leaf option
       canSyncValue && setValue(newActiveValue);
-
-    } else if (changeOnSelect && (e.type === 'click' || e.type === 'keydown')) {  // add e.type judgement to prevent `onChange` being triggered by mouseEnter
+    } else if (changeOnSelect && (e.type === 'click' || e.type === 'keydown')) {
+      // add e.type judgement to prevent `onChange` being triggered by mouseEnter
       if (expandTrigger === 'hover') {
         handleChange(activeOptions, false, e);
       } else {
@@ -126,7 +122,6 @@ const RcCascader: React.FC<RcCascaderProps> = (
       // set value to activeValue on every select
       canSyncValue && setValue(newActiveValue);
     }
-
   };
 
   const handleKeyDown = e => {
@@ -183,14 +178,9 @@ const RcCascader: React.FC<RcCascaderProps> = (
     } else if (e.keyCode === KeyCode.LEFT || e.keyCode === KeyCode.BACKSPACE) {
       newActiveValue.splice(newActiveValue.length - 1, 1);
     } else if (e.keyCode === KeyCode.RIGHT) {
-      if (
-        currentOptions[currentIndex] &&
-        currentOptions[currentIndex][getFieldName('children')]
-      ) {
+      if (currentOptions[currentIndex] && currentOptions[currentIndex][getFieldName('children')]) {
         newActiveValue.push(
-          currentOptions[currentIndex][getFieldName('children')][0][
-          getFieldName('value')
-          ],
+          currentOptions[currentIndex][getFieldName('children')][0][getFieldName('value')],
         );
       }
     } else if (e.keyCode === KeyCode.ESC) {
@@ -227,9 +217,10 @@ const RcCascader: React.FC<RcCascaderProps> = (
 
   // render Menus
   const isEmptyOptions = !options || options.length === 0;
-  const menus = isEmptyOptions
-    ? <div />
-    : <Menus
+  const menus = isEmptyOptions ? (
+    <div />
+  ) : (
+    <Menus
       prefixCls={prefixCls}
       dropdownMenuColumnStyle={dropdownMenuColumnStyle}
       value={value}
@@ -241,10 +232,10 @@ const RcCascader: React.FC<RcCascaderProps> = (
       defaultFieldNames={defaultFieldNames}
       fieldNames={fieldNames}
       expandIcon={expandIcon}
-    />;
+    />
+  );
 
   const emptyMenuClassName = isEmptyOptions ? ` ${prefixCls}-menus-empty` : '';
-
 
   return (
     <Trigger
@@ -267,11 +258,10 @@ const RcCascader: React.FC<RcCascaderProps> = (
   );
 };
 
-
 RcCascader.defaultProps = {
   options: [],
-  onChange() { },
-  onPopupVisibleChange() { },
+  onChange() {},
+  onPopupVisibleChange() {},
   disabled: false,
   transitionName: '',
   prefixCls: 'rc-cascader',

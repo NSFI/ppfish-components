@@ -101,9 +101,9 @@ const InternalCheckbox: React.ForwardRefRenderFunction<HTMLInputElement, Checkbo
 
 const CheckboxRef = React.forwardRef<HTMLInputElement, CheckboxProps>(InternalCheckbox);
 
-type CheckboxRef = typeof CheckboxRef;
+type CheckboxRefInterface = typeof CheckboxRef;
 
-interface CheckboxInterface extends CheckboxRef {
+interface CheckboxInterface extends CheckboxRefInterface {
   Group: typeof CheckboxGroup;
 }
 

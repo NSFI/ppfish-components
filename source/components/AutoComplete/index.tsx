@@ -43,19 +43,19 @@ export interface AutoCompleteProps extends AbstractSelectProps {
     | Array<React.ReactElement<OptionProps>>;
 }
 
-export interface AutoCompleteRef {
-  focus: () => void,
-  blur: () => void,
+export interface AutoCompleteRefInterface {
+  focus: () => void;
+  blur: () => void;
 }
 
 function isSelectOptionOrSelectOptGroup(child: any): Boolean {
   return child && child.type && (child.type.isSelectOption || child.type.isSelectOptGroup);
 }
 
-const InternalAutoComplete: React.ForwardRefRenderFunction<AutoCompleteRef, AutoCompleteProps> = (
-  props,
-  ref,
-) => {
+const InternalAutoComplete: React.ForwardRefRenderFunction<
+  AutoCompleteRefInterface,
+  AutoCompleteProps
+> = (props, ref) => {
   React.useImperativeHandle(ref, () => ({
     focus: () => {
       select.current.focus();
