@@ -25,6 +25,7 @@ const refactoredComp = [
   'Input',
   'ImageLoader',
   'Guide',
+  'Tag',
 ];
 
 const getRefactoredCompMatch = name => {
@@ -44,7 +45,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
   testURL: 'http://localhost',
-  testMatch: [...getRefactoredCompMatch('**')],
+  testMatch: [...getRefactoredCompMatch('Tag')],
 
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

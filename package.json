@@ -38,6 +38,7 @@
   "module": "es/components/index.js",
   "jsnext:main": "es/components/index.js",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
     "array-tree-filter": "^2.1.0",
     "async-validator": "^1.8.5",
     "classnames": "^2.2.5",
@@ -122,7 +123,7 @@
     "copy-to-clipboard": "^3.0.8",
     "copy-webpack-plugin": "^4.5.4",
     "coveralls": "^2.13.1",
-    "create-react-context": "^0.2.3",
+    "create-react-context": "^0.3.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "enquire-js": "^0.2.1",

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import classNames from 'classnames';
+import * as React from "react";
+import classNames from "classnames";
 
 export interface CheckableTagProps {
   prefixCls?: string;
@@ -8,25 +8,24 @@ export interface CheckableTagProps {
   onChange?: (checked: boolean) => void;
 }
 
-export default class CheckableTag extends React.Component<CheckableTagProps> {
-  handleClick = () => {
-    const { checked, onChange } = this.props;
+const CheckableTag:React.FC<CheckableTagProps> = props => {
+
+  const { prefixCls = "fishd-tag", className, checked, onChange, ...restProps } = props;
+  const cls = classNames(
+    prefixCls,
+    {
+      [`${prefixCls}-checkable`]: true,
+      [`${prefixCls}-checkable-checked`]: checked
+    },
+    className
+  );
+
+  const handleClick = () => {
+    const { checked, onChange } = props;
     if (onChange) {
       onChange(!checked);
     }
   };
-  render() {
-    const { prefixCls = 'fishd-tag', className, checked, ...restProps } = this.props;
-    const cls = classNames(
-      prefixCls,
-      {
-        [`${prefixCls}-checkable`]: true,
-        [`${prefixCls}-checkable-checked`]: checked
-      },
-      className
-    );
-
-    delete (restProps as any).onChange; // TypeScript cannot check delete now.
-    return <div {...(restProps as any)} className={cls} onClick={this.handleClick} />;
-  }
-}
+  return <div {...restProps} className={cls} onClick={handleClick} />;
+};
+export default CheckableTag;
