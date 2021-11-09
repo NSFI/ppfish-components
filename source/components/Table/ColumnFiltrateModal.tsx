@@ -6,7 +6,7 @@ import Icon from '../Icon';
 import Checkbox from '../Checkbox';
 import ToolTip from '../Tooltip';
 import { ColumnFiltrateProps, ColumnFiltrateState } from './interface';
-import ConfigConsumer from "../Config/Consumer";
+import ConfigConsumer from '../Config/Consumer';
 const CheckboxGroup = Checkbox.Group;
 
 const getColumnKey = column => {
@@ -43,7 +43,7 @@ const getColSpanOption = columns => {
         key: column.filtrateTitle || column.title,
         value: columns
           .slice(index, index + column.colSpan)
-          .map(column => column.key || column.dataIndex)
+          .map(column => column.key || column.dataIndex),
       });
     }
   });
@@ -53,7 +53,7 @@ const getColSpanOption = columns => {
 class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, ColumnFiltrateState> {
   static defaultProps = {
     defaultColumns: [],
-    hideColumns: []
+    hideColumns: [],
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -80,13 +80,13 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
       checkedOptionConfirm: option,
       okButtonDisabled: true,
       prevProps: props,
-      colSpanOption: getColSpanOption(columns)
+      colSpanOption: getColSpanOption(columns),
     };
   }
 
   showModal = () => {
     this.setState({
-      visible: true
+      visible: true,
     });
   };
 
@@ -95,7 +95,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
       {
         visible: false,
         checkedOptionConfirm: this.state.checkedOption,
-        okButtonDisabled: true
+        okButtonDisabled: true,
       },
       () => {
         // 被隐藏的列表key
@@ -105,17 +105,17 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
               .filter(column => this.state.checkedOptionConfirm.indexOf(column.value) === -1)
               .map(column => {
                 const indexOfColSpan = this.state.colSpanOption.findIndex(
-                  option => option.key === column.value
+                  option => option.key === column.value,
                 );
                 if (indexOfColSpan !== -1) {
                   return this.state.colSpanOption[indexOfColSpan].value;
                 } else {
                   return column.value;
                 }
-              })
-          )
+              }),
+          ),
         );
-      }
+      },
     );
   };
 
@@ -123,7 +123,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
     this.setState({
       visible: false,
       checkedOption: this.state.checkedOptionConfirm,
-      okButtonDisabled: true
+      okButtonDisabled: true,
     });
   };
 
@@ -133,7 +133,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
       checkedOption,
       okButtonDisabled:
         JSON.stringify(checkedOption && checkedOption.sort()) ==
-        JSON.stringify(checkedOptionConfirm && checkedOptionConfirm.sort())
+        JSON.stringify(checkedOptionConfirm && checkedOptionConfirm.sort()),
     });
   };
 
@@ -152,7 +152,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
           return {
             label: <ToolTip title={title}>{title}</ToolTip>,
             value: uniqKey,
-            disabled: disabled
+            disabled: disabled,
           };
         })
         // 去除默认展示数据项
@@ -172,7 +172,7 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
           </ToolTip>
         ),
         value: getColumnKey(column),
-        disabled: true
+        disabled: true,
       }));
   };
 
@@ -183,36 +183,42 @@ class ColumnFiltrateModal<T> extends React.Component<ColumnFiltrateProps<T>, Col
     const defaultOption = this.getDefaultOption();
     return (
       <ConfigConsumer componentName="Table">
-        {(Locale) => {
-          return (<div>
-            <Icon className={`${prefixCls}-filtrate-icon`} type="Settingx" onClick={this.showModal} />
-            <Modal
-              title={Locale.modalTitle}
-              wrapClassName={`${prefixCls}-filtrate-modal`}
-              visible={visible}
-              width={680}
-              okButtonDisabled={okButtonDisabled}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
-              okText={Locale.okText}
-              cancelText={Locale.cancelText}
-            >
-              <div className={`${prefixCls}-filtrate-modal-enable-list`}>
-                <CheckboxGroup value={checkedOption} options={options} onChange={this.onChange} />
-              </div>
-              {defaultOption && !!defaultOption.length && (
-                <div className={`${prefixCls}-filtrate-modal-disabled-list`}>
-                  <p className="title">{Locale.defaultOptionTitle}</p>
-                  <CheckboxGroup
-                    options={defaultOption}
-                    defaultValue={defaultOption.map(option => option.value)}
-                  />
+        {Locale => {
+          return (
+            <div>
+              <Icon
+                className={`${prefixCls}-filtrate-icon`}
+                type="Settingx"
+                onClick={this.showModal}
+              />
+              <Modal
+                title={Locale.modalTitle}
+                wrapClassName={`${prefixCls}-filtrate-modal`}
+                visible={visible}
+                width={680}
+                okButtonDisabled={okButtonDisabled}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+                okText={Locale.okText}
+                cancelText={Locale.cancelText}
+              >
+                <div className={`${prefixCls}-filtrate-modal-enable-list`}>
+                  <CheckboxGroup value={checkedOption} options={options} onChange={this.onChange} />
                 </div>
-              )}
-            </Modal>
-          </div>)
+                {defaultOption && !!defaultOption.length && (
+                  <div className={`${prefixCls}-filtrate-modal-disabled-list`}>
+                    <p className="title">{Locale.defaultOptionTitle}</p>
+                    <CheckboxGroup
+                      options={defaultOption}
+                      defaultValue={defaultOption.map(option => option.value)}
+                    />
+                  </div>
+                )}
+              </Modal>
+            </div>
+          );
         }}
-        </ConfigConsumer>
+      </ConfigConsumer>
     );
   }
 }

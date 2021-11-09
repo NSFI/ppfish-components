@@ -15,13 +15,7 @@ import {
   UploadType,
   UploadListType,
 } from './interface';
-import {
-  T,
-  fileToObject,
-  genPercentAdd,
-  getFileItem,
-  removeFileItem,
-} from './utils';
+import { T, fileToObject, genPercentAdd, getFileItem, removeFileItem } from './utils';
 
 import ConfigConsumer from '../Config/Locale/Consumer';
 import { LocaleProperties } from '../Locale';
@@ -47,10 +41,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     tip: '',
   };
 
-  static getDerivedStateFromProps(
-    nextProps: UploadProps,
-    prevState: UploadState,
-  ) {
+  static getDerivedStateFromProps(nextProps: UploadProps, prevState: UploadState) {
     const newState: any = {};
     // action 受控
     if ('action' in nextProps && prevState.action !== nextProps.action) {
@@ -171,9 +162,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
   handleRemove(file: UploadFile) {
     const { onRemove } = this.props;
 
-    Promise.resolve(
-      typeof onRemove === 'function' ? onRemove(file) : onRemove,
-    ).then(ret => {
+    Promise.resolve(typeof onRemove === 'function' ? onRemove(file) : onRemove).then(ret => {
       // Prevent removing file
       if (ret === false) {
         return;
@@ -255,14 +244,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
   };
 
   renderUploadList = (locale: UploadLocale) => {
-    const {
-      showUploadList,
-      listType,
-      onPreview,
-      disabled,
-      maxFileCount,
-      showDeleteAll,
-    } = this.props;
+    const { showUploadList, listType, onPreview, disabled, maxFileCount, showDeleteAll } =
+      this.props;
     const { showRemoveIcon, showPreviewIcon } = showUploadList as any;
     return (
       <UploadList
@@ -315,9 +298,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
         })
       : null;
 
-    const uploadTips = tip ? (
-      <div className={`${prefixCls}-tip`}>{tip}</div>
-    ) : null;
+    const uploadTips = tip ? <div className={`${prefixCls}-tip`}>{tip}</div> : null;
 
     if (type === 'drag') {
       const dragCls = classNames(prefixCls, {
@@ -358,15 +339,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
     });
 
     const uploadButton = (
-      <div
-        className={uploadButtonCls}
-        style={{ display: children ? '' : 'none' }}
-      >
-        <RcUpload
-          {...rcUploadProps}
-          action={this.state.action}
-          ref={this.saveUpload}
-        />
+      <div className={uploadButtonCls} style={{ display: children ? '' : 'none' }}>
+        <RcUpload {...rcUploadProps} action={this.state.action} ref={this.saveUpload} />
       </div>
     );
 
@@ -390,7 +364,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
       );
     }
 
-    return renderNode
+    return renderNode;
   }
 
   render() {

@@ -16,11 +16,11 @@ interface OptionProps {
   onOptionClick?: (e: React.MouseEvent<any>, option: any) => void;
 }
 
-export type OptionInterface = React.ForwardRefExoticComponent<OptionProps & React.RefAttributes<HTMLDivElement>>
-  & { isSelectOption: true }
+export type OptionInterface = React.ForwardRefExoticComponent<
+  OptionProps & React.RefAttributes<HTMLDivElement>
+> & { isSelectOption: true };
 
-
-const InternalOption: React.ForwardRefRenderFunction<unknown, OptionProps> = (props) => {
+const InternalOption: React.ForwardRefRenderFunction<unknown, OptionProps> = props => {
   const {
     prefixCls,
     value,
@@ -30,7 +30,7 @@ const InternalOption: React.ForwardRefRenderFunction<unknown, OptionProps> = (pr
     disabled,
     showOptionCheckedIcon,
     children,
-    onOptionClick
+    onOptionClick,
   } = props;
 
   const handleOptionClick = (e: React.MouseEvent<any>, option) => {
@@ -46,7 +46,7 @@ const InternalOption: React.ForwardRefRenderFunction<unknown, OptionProps> = (pr
     { [`checked-icon`]: !!checked && showOptionCheckedIcon },
     { [`active`]: 'activeKey' in props && activeKey === value },
     { [`${prefixCls}-item`]: true },
-    { [`${prefixCls}-item-disabled`]: !!disabled }
+    { [`${prefixCls}-item-disabled`]: !!disabled },
   );
 
   return (
@@ -58,14 +58,14 @@ const InternalOption: React.ForwardRefRenderFunction<unknown, OptionProps> = (pr
       {children}
     </li>
   );
-}
+};
 
 const Option = React.forwardRef<unknown, OptionProps>(InternalOption) as OptionInterface;
 
 Option.isSelectOption = true;
 Option.defaultProps = {
   prefixCls: 'fishd-select-dropdown-option',
-  showOptionCheckedIcon: true
+  showOptionCheckedIcon: true,
 };
 Option.displayName = 'Option';
 

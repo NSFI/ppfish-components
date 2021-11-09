@@ -9,16 +9,19 @@ export function getLocale(Locale: object, componentName?: string) {
   return currentLocale || {};
 }
 
-export default function LocaleConsumer({ componentName, children }: {
-  componentName: string,
-  children: (params: object, locale: string) => React.ReactNode
+export default function LocaleConsumer({
+  componentName,
+  children,
+}: {
+  componentName: string;
+  children: (params: object, locale: string) => React.ReactNode;
 }) {
-  return <Consumer>
-    {
-      (Locale) => {
+  return (
+    <Consumer>
+      {Locale => {
         const ComponentLocal = getLocale(Locale, componentName);
         return children(ComponentLocal || {}, Locale.locale);
-      }
-    }
-  </Consumer>
+      }}
+    </Consumer>
+  );
 }

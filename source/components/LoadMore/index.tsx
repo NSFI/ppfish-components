@@ -30,7 +30,7 @@ export default class LoadMore extends React.Component<LoadMoreProps> {
     errorText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     endText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     extraCls: PropTypes.string,
-    buttonSize: PropTypes.string
+    buttonSize: PropTypes.string,
   };
 
   static defaultProps = {
@@ -40,7 +40,7 @@ export default class LoadMore extends React.Component<LoadMoreProps> {
     loadingText: '加载中',
     errorText: '加载失败，请重试',
     endText: '没有更多了',
-    buttonSize: 'default'
+    buttonSize: 'default',
   };
 
   constructor(props: LoadMoreProps) {
@@ -61,45 +61,38 @@ export default class LoadMore extends React.Component<LoadMoreProps> {
     } = this.props;
     return (
       <ConfigConsumer componentName="LoadMore">
-        {
-          (Locale: LocaleProperties["LoadMore"]) =>
-            <div
-              className={classNames('fishd-loadmore', {
-                [`${extraCls}`]: !!extraCls
-              })}
-            >
-              {status === 'end' ? (
-                <span className="z-load-end">{Locale.endText}</span>
-              ) : (
-                <Button
-                  size={buttonSize}
-                  onClick={onLoadMore}
-                  loading={status === 'loading'}
-                  {...otherProps}
-                >
-                  {(() => {
-                      switch (status) {
-                        case 'default':
-                          return Locale.defaultText;
-                          break;
-                        case 'loading':
-                          return Locale.loadingText;
-                          break;
-                        case 'error':
-                          return Locale.errorText;
-                          break;
-                        case 'end':
-                          return Locale.endText;
-                      }
-                    }
-                  )()}
-                </Button>
-              )}
-            </div>
-        }
-
+        {(Locale: LocaleProperties['LoadMore']) => (
+          <div
+            className={classNames('fishd-loadmore', {
+              [`${extraCls}`]: !!extraCls,
+            })}
+          >
+            {status === 'end' ? (
+              <span className="z-load-end">{Locale.endText}</span>
+            ) : (
+              <Button
+                size={buttonSize}
+                onClick={onLoadMore}
+                loading={status === 'loading'}
+                {...otherProps}
+              >
+                {(() => {
+                  switch (status) {
+                    case 'default':
+                      return Locale.defaultText;
+                    case 'loading':
+                      return Locale.loadingText;
+                    case 'error':
+                      return Locale.errorText;
+                    case 'end':
+                      return Locale.endText;
+                  }
+                })()}
+              </Button>
+            )}
+          </div>
+        )}
       </ConfigConsumer>
-
     );
   }
 }

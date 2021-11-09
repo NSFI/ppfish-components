@@ -81,7 +81,7 @@
     "no-unused-labels": 2,
     "no-useless-escape": 1,
     "no-delete-var": 2,
-    "no-undef": 1,
+    "no-undef": 0,
     "no-mixed-spaces-and-tabs": 1,
     "constructor-super": 1,
     "no-class-assign": 1,

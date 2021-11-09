@@ -29,16 +29,18 @@ const InernalEchart: React.ForwardRefRenderFunction<EchartRef, EchartProps> = (p
 
   const echartRef = React.useRef<any>();
 
-   React.useImperativeHandle(ref, () => ({
+  React.useImperativeHandle(ref, () => ({
     getInstance: () => {
       return echartRef.current;
     },
-    echarts_react: echartRef.current
+    echarts_react: echartRef.current,
   }));
 
   return (
     <ReactEcharts
-      ref={e => {echartRef.current = e}}
+      ref={e => {
+        echartRef.current = e;
+      }}
       className={classNames(prefixCls, className)}
       style={style}
       option={option}

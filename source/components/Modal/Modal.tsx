@@ -77,9 +77,7 @@ export interface ModalFuncProps {
   esc?: boolean;
 }
 
-export type ModalFunc = (
-  props: ModalFuncProps
-) => {
+export type ModalFunc = (props: ModalFuncProps) => {
   destroy: () => void;
 };
 
@@ -128,7 +126,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     align: PropTypes.object,
     footer: PropTypes.node,
     title: PropTypes.node,
-    closable: PropTypes.bool
+    closable: PropTypes.bool,
   };
 
   handleCancel = (e: React.MouseEvent<any>) => {
@@ -153,7 +151,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
     addEventListener(document.documentElement, 'click', (e: MouseEvent) => {
       mousePosition = {
         x: e.pageX,
-        y: e.pageY
+        y: e.pageY,
       };
       // 100ms 内发生过点击事件，则从点击位置动画展示
       // 否则直接 zoom 展示
@@ -174,37 +172,42 @@ export default class Modal extends React.Component<ModalProps, {}> {
       cancelButtonDisabled,
       okButtonDisabled,
       cancelButtonProps,
-      okButtonProps
+      okButtonProps,
     } = this.props;
     return (
       <ConfigConsumer componentName="Modal">
-        {
-          (Locale: LocaleProperties['Modal']) => {
-            const defaultFooter = (
-              <div>
-                <Button onClick={this.handleCancel} disabled={cancelButtonDisabled} {...cancelButtonProps}>
-                  {cancelText || Locale.cancelText}
-                </Button>
-                <Button
-                  type={okType}
-                  loading={confirmLoading}
-                  onClick={this.handleOk}
-                  disabled={okButtonDisabled}
-                  {...okButtonProps}
-                >
-                  {okText || Locale.okText}
-                </Button>
-              </div>);
+        {(Locale: LocaleProperties['Modal']) => {
+          const defaultFooter = (
+            <div>
+              <Button
+                onClick={this.handleCancel}
+                disabled={cancelButtonDisabled}
+                {...cancelButtonProps}
+              >
+                {cancelText || Locale.cancelText}
+              </Button>
+              <Button
+                type={okType}
+                loading={confirmLoading}
+                onClick={this.handleOk}
+                disabled={okButtonDisabled}
+                {...okButtonProps}
+              >
+                {okText || Locale.okText}
+              </Button>
+            </div>
+          );
 
-            return <Dialog
+          return (
+            <Dialog
               {...this.props}
               footer={footer === undefined ? defaultFooter : footer}
               visible={visible}
               mousePosition={mousePosition}
               onClose={this.handleCancel}
             />
-          }
-        }
+          );
+        }}
       </ConfigConsumer>
     );
   }

@@ -11,9 +11,9 @@ interface OptGroupProps {
 
 type InternalOptGroupInterface = React.ForwardRefRenderFunction<HTMLDivElement, OptGroupProps>;
 
-export type OptGroupInterface = React.ForwardRefExoticComponent<OptGroupProps & React.RefAttributes<HTMLDivElement>>
-  & { isSelectOptGroup: true }
-
+export type OptGroupInterface = React.ForwardRefExoticComponent<
+  OptGroupProps & React.RefAttributes<HTMLDivElement>
+> & { isSelectOptGroup: true };
 
 const InternalOptGroup: InternalOptGroupInterface = (props, ref) => {
   const { children, label, prefixCls, _isShow } = props;
@@ -25,18 +25,17 @@ const InternalOptGroup: InternalOptGroupInterface = (props, ref) => {
       </div>
     )
   );
-}
+};
 
 // TODO valid
 const OptGroup = React.forwardRef(InternalOptGroup) as OptGroupInterface;
 
 OptGroup.defaultProps = {
   _isShow: true,
-  prefixCls: 'fishd-select-dropdown-option-group'
-}
+  prefixCls: 'fishd-select-dropdown-option-group',
+};
 
 OptGroup.isSelectOptGroup = true;
 OptGroup.displayName = 'OptGroup';
-
 
 export default OptGroup;

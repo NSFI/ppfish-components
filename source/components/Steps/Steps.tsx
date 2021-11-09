@@ -19,10 +19,10 @@ interface StepsState {
 }
 
 interface StepsInterface extends React.FC<StepsProps> {
-  Step: React.FC<StepProps>
+  Step: React.FC<StepProps>;
 }
 
-const Steps: StepsInterface = (props) => {
+const Steps: StepsInterface = props => {
   const {
     prefixCls,
     style = {},
@@ -47,7 +47,7 @@ const Steps: StepsInterface = (props) => {
     if (calcTimeout.current) {
       clearTimeout(calcTimeout.current);
     }
-  }
+  };
 
   React.useEffect(() => {
     if (!isFlexSupported()) {
@@ -56,7 +56,7 @@ const Steps: StepsInterface = (props) => {
 
     return () => {
       clearCalcTimeout();
-    }
+    };
   }, []);
 
   const ref = React.useRef<HTMLDivElement>();
@@ -74,14 +74,17 @@ const Steps: StepsInterface = (props) => {
         // +1 for fit edge bug of digit width, like 35.4px
         const offsetWidth = ((domNode.lastChild as HTMLElement).offsetWidth || 0) + 1;
         // Reduce shake bug
-        if (lastStepOffsetWidth !== offsetWidth && Math.abs(lastStepOffsetWidth - offsetWidth) > 3) {
-          setLastStepOffsetWidth(offsetWidth)
+        if (
+          lastStepOffsetWidth !== offsetWidth &&
+          Math.abs(lastStepOffsetWidth - offsetWidth) > 3
+        ) {
+          setLastStepOffsetWidth(offsetWidth);
         }
       });
     }
   };
 
-  const debounceCalcStepOffsetWidth = useDebounce(calcStepOffsetWidth, { wait: 150 })
+  const debounceCalcStepOffsetWidth = useDebounce(calcStepOffsetWidth, { wait: 150 });
   debounceCalcStepOffsetWidth();
 
   // Render
@@ -91,56 +94,53 @@ const Steps: StepsInterface = (props) => {
   const classString = classNames(prefixCls, `${prefixCls}-${direction}`, className, {
     [`${prefixCls}-${size}`]: size,
     [`${prefixCls}-label-${adjustedlabelPlacement}`]: direction === 'horizontal',
-    [`${prefixCls}-dot`]: !!progressDot
+    [`${prefixCls}-dot`]: !!progressDot,
   });
 
   return (
     <div className={classString} style={style} ref={ref}>
-      {
-        React.Children.map(filteredChildren, (child: React.ReactElement<StepsProps>, index) => {
-          if (!child) {
-            return null;
+      {React.Children.map(filteredChildren, (child: React.ReactElement<StepsProps>, index) => {
+        if (!child) {
+          return null;
+        }
+
+        const stepNumber = initial + index;
+        const childProps = {
+          stepNumber: `${stepNumber + 1}`,
+          prefixCls,
+          iconPrefix,
+          wrapperStyle: style,
+          progressDot,
+          icons,
+          ...child.props,
+        };
+
+        if (!flexSupported && direction !== 'vertical' && index !== lastIndex) {
+          childProps.itemWidth = `${100 / lastIndex}%`;
+          childProps.adjustMarginRight = -Math.round(lastStepOffsetWidth / lastIndex + 1);
+        }
+
+        // fix tail color
+        if (status === 'error' && index === current - 1) {
+          childProps.className = `${prefixCls}-next-error`;
+        }
+
+        if (!child.props.status) {
+          if (stepNumber === current) {
+            childProps.status = status;
+          } else if (stepNumber < current) {
+            childProps.status = 'finish';
+          } else {
+            childProps.status = 'wait';
           }
+        }
 
-          const stepNumber = initial + index;
-          const childProps = {
-            stepNumber: `${stepNumber + 1}`,
-            prefixCls,
-            iconPrefix,
-            wrapperStyle: style,
-            progressDot,
-            icons,
-            ...child.props
-          };
-
-          if (!flexSupported && direction !== 'vertical' && index !== lastIndex) {
-            childProps.itemWidth = `${100 / lastIndex}%`;
-            childProps.adjustMarginRight = -Math.round(lastStepOffsetWidth / lastIndex + 1);
-          }
-
-          // fix tail color
-          if (status === 'error' && index === current - 1) {
-            childProps.className = `${prefixCls}-next-error`;
-          }
-
-          if (!child.props.status) {
-            if (stepNumber === current) {
-              childProps.status = status;
-            } else if (stepNumber < current) {
-              childProps.status = 'finish';
-            } else {
-              childProps.status = 'wait';
-            }
-          }
-
-          // @ts-ignore
-          return React.cloneElement(child, childProps);
-        })
-      }
+        // @ts-ignore
+        return React.cloneElement(child, childProps);
+      })}
     </div>
   );
-
-}
+};
 
 Steps.Step = Step;
 
@@ -153,7 +153,7 @@ Steps.defaultProps = {
   current: 0,
   status: 'process',
   size: '',
-  progressDot: false
-}
+  progressDot: false,
+};
 
 export default Steps;

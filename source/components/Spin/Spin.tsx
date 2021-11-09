@@ -35,13 +35,13 @@ function renderIndicator(props: SpinProps): React.ReactNode {
   const dotClassName = `${prefixCls}-dot`;
   if (React.isValidElement(indicator)) {
     return React.cloneElement(indicator as SpinIndicator, {
-      className: classNames((indicator as SpinIndicator).props.className, dotClassName)
+      className: classNames((indicator as SpinIndicator).props.className, dotClassName),
     });
   }
 
   if (React.isValidElement(defaultIndicator)) {
     return React.cloneElement(defaultIndicator as SpinIndicator, {
-      className: classNames((defaultIndicator as SpinIndicator).props.className, dotClassName)
+      className: classNames((defaultIndicator as SpinIndicator).props.className, dotClassName),
     });
   }
 
@@ -56,13 +56,23 @@ function renderIndicator(props: SpinProps): React.ReactNode {
 }
 
 interface SpinInterface extends React.FC<SpinProps> {
-  Container: typeof Container,
-  TextLoading: typeof TextLoading,
-  setDefaultIndicator: (indicator: React.ReactNode) => void
+  Container: typeof Container;
+  TextLoading: typeof TextLoading;
+  setDefaultIndicator: (indicator: React.ReactNode) => void;
 }
 
-const Spin: SpinInterface = (props) => {
-  const { className, size, prefixCls, tip, wrapperClassName, spinning, delay, indicator, ...restProps } = props;
+const Spin: SpinInterface = props => {
+  const {
+    className,
+    size,
+    prefixCls,
+    tip,
+    wrapperClassName,
+    spinning,
+    delay,
+    indicator,
+    ...restProps
+  } = props;
   const [innerSpinning, setInnerSpinning] = React.useState(props.spinning);
 
   const delayTimeout = React.useRef<number>();
@@ -73,18 +83,17 @@ const Spin: SpinInterface = (props) => {
     if (spinning && delay && !isNaN(Number(delay))) {
       delayTimeout.current = window.setTimeout(() => {
         setInnerSpinning(true);
-      }, delay)
+      }, delay);
     } else {
-      setInnerSpinning(spinning)
+      setInnerSpinning(spinning);
     }
-
-  }, [spinning, delay])
+  }, [spinning, delay]);
 
   const clearDelayTimeout = () => {
     if (delayTimeout.current) {
       clearTimeout(delayTimeout.current);
     }
-  }
+  };
 
   function isNestedPattern() {
     return !!(props && props.children);
@@ -97,9 +106,9 @@ const Spin: SpinInterface = (props) => {
       [`${prefixCls}-sm`]: size === 'small',
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-spinning`]: innerSpinning,
-      [`${prefixCls}-show-text`]: !!tip
+      [`${prefixCls}-show-text`]: !!tip,
     },
-    className
+    className,
   );
 
   // fix https://fb.me/react-unknown-prop
@@ -119,7 +128,7 @@ const Spin: SpinInterface = (props) => {
     }
     const nestedClassName = classNames({
       [`${prefixCls}-nested`]: true,
-      [`${prefixCls}-blur`]: innerSpinning
+      [`${prefixCls}-blur`]: innerSpinning,
     });
     return (
       <Animate
@@ -138,19 +147,19 @@ const Spin: SpinInterface = (props) => {
   }
 
   return spinElement;
-}
+};
 
 Spin.defaultProps = {
   prefixCls: 'fishd-spin',
   spinning: true,
   size: 'default' as SpinSize,
-  wrapperClassName: ''
-}
+  wrapperClassName: '',
+};
 
 Spin.Container = Container;
 Spin.TextLoading = TextLoading;
-Spin.setDefaultIndicator = (indicator) => {
+Spin.setDefaultIndicator = indicator => {
   defaultIndicator = indicator;
-}
+};
 
 export default Spin;

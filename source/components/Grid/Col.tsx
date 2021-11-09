@@ -22,7 +22,7 @@ export interface ColProps extends ColSize, React.HTMLAttributes<HTMLDivElement> 
   prefixCls?: string;
 }
 
-const Col: React.FC<ColProps> = (props) => {
+const Col: React.FC<ColProps> = props => {
   const {
     span,
     order,
@@ -54,7 +54,7 @@ const Col: React.FC<ColProps> = (props) => {
       [`${prefixCls}-${size}-offset-${sizeProps.offset}`]:
         sizeProps.offset || sizeProps.offset === 0,
       [`${prefixCls}-${size}-push-${sizeProps.push}`]: sizeProps.push || sizeProps.push === 0,
-      [`${prefixCls}-${size}-pull-${sizeProps.pull}`]: sizeProps.pull || sizeProps.pull === 0
+      [`${prefixCls}-${size}-pull-${sizeProps.pull}`]: sizeProps.pull || sizeProps.pull === 0,
     };
   });
   const classes = classNames(
@@ -63,10 +63,10 @@ const Col: React.FC<ColProps> = (props) => {
       [`${prefixCls}-order-${order}`]: order,
       [`${prefixCls}-offset-${offset}`]: offset,
       [`${prefixCls}-push-${push}`]: push,
-      [`${prefixCls}-pull-${pull}`]: pull
+      [`${prefixCls}-pull-${pull}`]: pull,
     },
     className,
-    sizeClassObj
+    sizeClassObj,
   );
 
   return (
@@ -74,5 +74,5 @@ const Col: React.FC<ColProps> = (props) => {
       {children}
     </div>
   );
-}
+};
 export default Col;

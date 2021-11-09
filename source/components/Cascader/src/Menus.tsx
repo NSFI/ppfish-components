@@ -3,7 +3,6 @@ import arrayTreeFilter from 'array-tree-filter';
 import { findDOMNode } from 'react-dom';
 import { MenusProps, CascaderOptionType, SelectEventHandler, MenuItemProps } from '../interface';
 
-
 const Menus: React.FC<MenusProps> = props => {
   const { prefixCls, dropdownMenuColumnStyle, visible } = props;
   const menuItemsRef = React.useRef<React.ReactNode>([]);
@@ -53,7 +52,9 @@ const Menus: React.FC<MenusProps> = props => {
 
   function getOption(option: CascaderOptionType, menuIndex: number) {
     const { prefixCls, expandTrigger, expandIcon } = props;
-    const handleSelect: SelectEventHandler = (e) => { props.onSelect(option, menuIndex, e) };
+    const handleSelect: SelectEventHandler = e => {
+      props.onSelect(option, menuIndex, e);
+    };
 
     const expandProps: MenuItemProps = {
       onClick: handleSelect,
@@ -68,8 +69,8 @@ const Menus: React.FC<MenusProps> = props => {
     }
 
     if (expandTrigger === 'hover' && hasChildren) {
-      expandProps.onMouseEnter = (event) => delayOnSelect(handleSelect, event);
-      expandProps.onMouseLeave = (e) => delayOnSelect();
+      expandProps.onMouseEnter = event => delayOnSelect(handleSelect, event);
+      expandProps.onMouseLeave = e => delayOnSelect();
     }
 
     if (isActiveOption(option, menuIndex)) {
@@ -113,8 +114,6 @@ const Menus: React.FC<MenusProps> = props => {
     return result;
   }
 
-
-
   function scrollActiveItemToView() {
     // scroll into view
     const optionsLength = getShowOptions().length;
@@ -130,8 +129,6 @@ const Menus: React.FC<MenusProps> = props => {
   React.useEffect(() => {
     scrollActiveItemToView();
   }, [visible]);
-
-
 
   return (
     <div>

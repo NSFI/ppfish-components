@@ -4,12 +4,12 @@
 let enquire: any;
 if (typeof window !== 'undefined') {
   const matchMediaPolyfill = (mediaQuery: string) => {
-    return ({
+    return {
       media: mediaQuery,
       matches: false,
       addListener() {},
-      removeListener() {}
-    } as any) as MediaQueryList;
+      removeListener() {},
+    } as any as MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
   enquire = require('enquire.js');
@@ -43,10 +43,10 @@ const responsiveMap: BreakpointMap = {
   md: '(min-width: 768px)',
   lg: '(min-width: 992px)',
   xl: '(min-width: 1200px)',
-  xxl: '(min-width: 1600px)'
+  xxl: '(min-width: 1600px)',
 };
 
-const Row: React.FC<RowProps> = (props) => {
+const Row: React.FC<RowProps> = props => {
   const {
     gutter,
     type,
@@ -68,25 +68,25 @@ const Row: React.FC<RowProps> = (props) => {
             return;
           }
 
-          setScreens({ ...screens, [screen]: true })
+          setScreens({ ...screens, [screen]: true });
         },
         unmatch: () => {
           if (typeof gutter !== 'object') {
             return;
           }
-          setScreens({ ...screens, [screen]: false })
+          setScreens({ ...screens, [screen]: false });
         },
         // Keep a empty destory to avoid triggering unmatch when unregister
-        destroy() {}
-      })
+        destroy() {},
+      }),
     );
 
     return () => {
       Object.keys(responsiveMap).map((screen: Breakpoint) =>
-        enquire.unregister(responsiveMap[screen])
+        enquire.unregister(responsiveMap[screen]),
       );
-    }
-  }, [])
+    };
+  }, []);
 
   const getGutter = () => {
     if (typeof gutter === 'object') {
@@ -98,27 +98,29 @@ const Row: React.FC<RowProps> = (props) => {
       }
     }
     return gutter;
-  }
+  };
 
   const calcGutter = getGutter();
 
-  const getClasses = () => classNames(
-    {
-      [prefixCls]: !type,
-      [`${prefixCls}-${type}`]: type,
-      [`${prefixCls}-${type}-${justify}`]: type && justify,
-      [`${prefixCls}-${type}-${align}`]: type && align
-    },
-    className
-  );
+  const getClasses = () =>
+    classNames(
+      {
+        [prefixCls]: !type,
+        [`${prefixCls}-${type}`]: type,
+        [`${prefixCls}-${type}-${justify}`]: type && justify,
+        [`${prefixCls}-${type}-${align}`]: type && align,
+      },
+      className,
+    );
 
-  const getStyle = () => (calcGutter as number) > 0
-    ? {
-      marginLeft: (calcGutter as number) / -2,
-      marginRight: (calcGutter as number) / -2,
-      ...style
-    }
-    : style;
+  const getStyle = () =>
+    (calcGutter as number) > 0
+      ? {
+          marginLeft: (calcGutter as number) / -2,
+          marginRight: (calcGutter as number) / -2,
+          ...style,
+        }
+      : style;
 
   const cols = Children.map(children, (col: React.ReactElement<HTMLDivElement>) => {
     if (!col) {
@@ -129,8 +131,8 @@ const Row: React.FC<RowProps> = (props) => {
         style: {
           paddingLeft: (calcGutter as number) / 2,
           paddingRight: (calcGutter as number) / 2,
-          ...col.props.style
-        }
+          ...col.props.style,
+        },
       });
     }
     return col;
@@ -138,16 +140,15 @@ const Row: React.FC<RowProps> = (props) => {
 
   const otherProps = { ...others };
 
-
   return (
     <div {...otherProps} className={getClasses()} style={getStyle()}>
       {cols}
     </div>
   );
-}
+};
 
 Row.defaultProps = {
-  gutter: 0
-}
+  gutter: 0,
+};
 
 export default Row;

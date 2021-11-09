@@ -15,7 +15,7 @@ export interface FormListState {
   initialValues: any[];
 }
 
-const move = function(array: any[], moveIndex: number, toIndex: number) {
+const move = function (array: any[], moveIndex: number, toIndex: number) {
   const { length } = array;
   if (moveIndex < 0 || moveIndex >= length || toIndex < 0 || toIndex >= length) {
     return array;
@@ -42,7 +42,7 @@ const move = function(array: any[], moveIndex: number, toIndex: number) {
     ];
   }
   return array;
-}
+};
 
 class FormList extends Component<FormListProps, FormListState> {
   static defaultProps = {
@@ -77,21 +77,30 @@ class FormList extends Component<FormListProps, FormListState> {
   };
 
   setKeys = (keys, callback?: () => void) => {
-    this.setState({
-      keys,
-    }, callback);
+    this.setState(
+      {
+        keys,
+      },
+      callback,
+    );
   };
 
   setId = (id, callback?: () => void) => {
-    this.setState({
-      id,
-    }, callback);
+    this.setState(
+      {
+        id,
+      },
+      callback,
+    );
   };
 
   setInitialValues = (initialValues, callback?: () => void) => {
-    this.setState({
-      initialValues,
-    }, callback);
+    this.setState(
+      {
+        initialValues,
+      },
+      callback,
+    );
   };
 
   get currValue() {
@@ -102,7 +111,7 @@ class FormList extends Component<FormListProps, FormListState> {
     return value;
   }
 
-  setFormValue = (value) => {
+  setFormValue = value => {
     const { name, form } = this.props;
     const { setFieldsValue } = form;
     setFieldsValue({
@@ -119,10 +128,7 @@ class FormList extends Component<FormListProps, FormListState> {
       addIndex = index;
     } else {
       addIndex = currValue.length;
-      if (
-        process.env.NODE_ENV !== 'production' &&
-        (index < 0 || index > currValue.length)
-      ) {
+      if (process.env.NODE_ENV !== 'production' && (index < 0 || index > currValue.length)) {
         warning(
           false,
           `The second parameter of the add function should be a valid positive number.`,
@@ -183,7 +189,7 @@ class FormList extends Component<FormListProps, FormListState> {
     this.setKeys(nextKeys);
     this.setInitialValues(nextInitialValues);
     this.setFormValue(nextValue);
-  }
+  };
 
   get fields() {
     const { name } = this.props;

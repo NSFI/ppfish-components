@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Input from '../Input';
-import { InputRef } from "../Input/Input";
+import { InputRef } from '../Input/Input';
 import Icon from '../Icon';
 interface SelectSearchProps {
   prefixCls: string;
@@ -16,11 +16,14 @@ interface SelectSearchProps {
 }
 
 interface RefSelectSearchProps {
-  focus: () => void
-  blur: () => void
+  focus: () => void;
+  blur: () => void;
 }
 
-const InternalSelectSearch: React.ForwardRefRenderFunction<RefSelectSearchProps, SelectSearchProps> = (props, ref) => {
+const InternalSelectSearch: React.ForwardRefRenderFunction<
+  RefSelectSearchProps,
+  SelectSearchProps
+> = (props, ref) => {
   const {
     allowClear,
     emitEmpty,
@@ -28,7 +31,7 @@ const InternalSelectSearch: React.ForwardRefRenderFunction<RefSelectSearchProps,
     searchInputProps,
     searchPlaceholder,
     searchValue,
-    updateSearchValue
+    updateSearchValue,
   } = props;
 
   const inputRef = React.useRef<InputRef>();
@@ -39,9 +42,8 @@ const InternalSelectSearch: React.ForwardRefRenderFunction<RefSelectSearchProps,
     },
     blur: () => {
       inputRef.current.blur();
-    }
-  }))
-
+    },
+  }));
 
   const suffix = searchValue && allowClear && (
     <Icon type="close-circle-fill" className={`${prefixCls}-clear`} onClick={emitEmpty} />
@@ -59,11 +61,9 @@ const InternalSelectSearch: React.ForwardRefRenderFunction<RefSelectSearchProps,
       />
     </div>
   );
-}
-
+};
 
 const SelectSearch = React.forwardRef<unknown, SelectSearchProps>(InternalSelectSearch);
 SelectSearch.displayName = 'SelectSearch';
 
 export default SelectSearch;
-

@@ -28,7 +28,7 @@ export interface StepProps {
   };
 }
 
-const Step: React.FC<StepProps> = (props) => {
+const Step: React.FC<StepProps> = props => {
   const {
     className,
     prefixCls,
@@ -53,7 +53,7 @@ const Step: React.FC<StepProps> = (props) => {
     const iconClassName = classNames(`${prefixCls}-icon`, `${iconPrefix}icon`, {
       [`${iconPrefix}icon-${icon}`]: icon && isString(icon),
       [`${iconPrefix}icon-check-line`]: !icon && status === 'finish',
-      [`${iconPrefix}icon-close-tag-line`]: !icon && status === 'error'
+      [`${iconPrefix}icon-close-tag-line`]: !icon && status === 'error',
     });
     const iconDot = <span className={`${prefixCls}-icon-dot`} />;
     // `progressDot` enjoy the highest priority
@@ -65,7 +65,7 @@ const Step: React.FC<StepProps> = (props) => {
               index: Number(stepNumber - 1),
               status,
               title,
-              description
+              description,
             })}
           </span>
         );
@@ -87,9 +87,8 @@ const Step: React.FC<StepProps> = (props) => {
     return iconNode;
   }
 
-
   const classString = classNames(`${prefixCls}-item`, `${prefixCls}-item-${status}`, className, {
-    [`${prefixCls}-item-custom`]: icon
+    [`${prefixCls}-item-custom`]: icon,
   });
   const stepItemStyle = { ...style };
   if (itemWidth) {
@@ -108,7 +107,6 @@ const Step: React.FC<StepProps> = (props) => {
       </div>
     </div>
   );
-
-}
+};
 
 export default Step;

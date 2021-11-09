@@ -3,7 +3,7 @@ import Provider from './Provider';
 
 export default {
   Consumer,
-  Provider
-}
+  Provider,
+};
 
 export const ConfigProvider = Provider;
