@@ -26,6 +26,8 @@ const refactoredComp = [
   'ImageLoader',
   'Guide',
   'Timeline',
+  'message',
+  'notification',
 ];
 
 const getRefactoredCompMatch = name => {

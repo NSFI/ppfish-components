@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import message from '../index.tsx';
+import message from '../index';
 
 describe('message', () => {
   beforeEach(() => {
@@ -17,6 +17,7 @@ describe('message', () => {
       top: 100,
     });
     message.info('whatever');
+    //@ts-ignore
     expect(document.querySelectorAll('.fishd-message')[0].style.top).toBe('100px');
   });
 
@@ -79,6 +80,7 @@ describe('message', () => {
     const now = Date.now();
     message.info('whatever', () => {
       // calculate the approximately duration value
+      //@ts-ignore
       const aboutDuration = parseInt((Date.now() - now) / 1000, 10);
       expect(aboutDuration).toBe(defaultDuration);
       done();
@@ -91,6 +93,7 @@ describe('message', () => {
     const now = Date.now();
     message.info('whatever').then(() => {
       // calculate the approximately duration value
+      //@ts-ignore
       const aboutDuration = parseInt((Date.now() - now) / 1000, 10);
       expect(aboutDuration).toBe(defaultDuration);
     });

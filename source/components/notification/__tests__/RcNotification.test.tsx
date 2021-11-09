@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import RcNotification from '../RcNotification';
+import RcNotification from '../src';
 
 describe('rc-notification', () => {
 

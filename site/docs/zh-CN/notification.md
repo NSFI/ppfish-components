@@ -239,6 +239,7 @@ render(){
 - `notification.info(config)`
 - `notification.warning(config)`
 - `notification.warn(config)`
+- `notification.open(config)`
 - `notification.close(key: String)`
 - `notification.destroy()`
 
@@ -246,16 +247,20 @@ config 参数如下：
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| bottom | 消息从底部弹出时，距离底部的位置，单位像素	| number | 24 |
 | btn | 自定义关闭按钮 | ReactNode | - |
 | className | 自定义 CSS class | String | - |
+| closeIcon | 自定义关闭图标 | ReactNode | - |
 | description | 通知提醒内容，必选 | String | ReactNode | - |
 | duration | 默认 4.5 秒后自动关闭，配置为 null 则不自动关闭 | Number | 4.5 |
+| getContainer | 配置渲染节点的输出位置	| () => HTMLNode | () => document.body |
 | icon | 自定义图标 | ReactNode | - |
 | key | 当前通知唯一标志 | String | - |
 | message | 通知提醒标题，必选 | String | ReactNode | - |
 | onClose | 点击默认关闭按钮时触发的回调函数，函数参数 key 为关闭方式，manual 表示点击关闭按钮关闭；auto 表示自动关闭 | (key: String) => Void | - |
 | placement | 弹出位置，可选 `'topLeft'` `'topRight'` `'bottomLeft'` `'bottomRight'` | Enum {'topLeft', 'topRight', 'bottomLeft', 'bottomRight'} | 'topRight' |
 | style | 自定义内联样式 | Object | - |
+| top | 消息从顶部弹出时，距离顶部的位置，单位像素	| number | 24 |
 
 还提供了一个全局配置方法，在调用前提前配置，全局一次生效。
 
@@ -272,7 +277,11 @@ notification.config({
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | bottom | 消息从底部弹出时，距离底部的位置，单位像素。 | Number | 24 |
+| closeIcon | 自定义关闭图标 | ReactNode | - |
 | duration | 默认自动关闭延时，单位秒 | Number | 4.5 |
 | getContainer | 配置渲染节点的输出位置 | () => HTMLElement | () => document.body |
 | placement | 弹出位置，可选 `'topLeft'` `'topRight'` `'bottomLeft'` `'bottomRight'` | Enum {'topLeft', 'topRight', 'bottomLeft', 'bottomRight'} | 'topRight' |
 | top | 消息从顶部弹出时，距离顶部的位置，单位像素。 | Number | 24 |
+| maxCount | 最大显示数, 超过限制时，最早的消息会被自动关闭	| Number | - |
+
+### 全局方法
