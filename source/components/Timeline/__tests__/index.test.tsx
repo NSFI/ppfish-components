@@ -1,16 +1,17 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import TimeLine from '../index.tsx';
+import { mount } from 'enzyme';
+import TimeLine from '../index';
 
-const {Item} = TimeLine;
+const { Item } = TimeLine;
 
-const wrapperFactory = (timeLineProps = {}) => mount(
-  <TimeLine type="editable-card" {...timeLineProps}>
-    <Item key="1">foo</Item>
-    <Item key="2">bar</Item>
-    <Item key="3">baz</Item>
-  </TimeLine>
-);
+const wrapperFactory = (timeLineProps = {}) =>
+  mount(
+    <TimeLine {...timeLineProps}>
+      <Item key="1">foo</Item>
+      <Item key="2">bar</Item>
+      <Item key="3">baz</Item>
+    </TimeLine>,
+  );
 
 describe('TimeLine', () => {
   describe('renders items without passing any props correctly', () => {
@@ -25,7 +26,9 @@ describe('TimeLine', () => {
     });
 
     it('its last item is marked as the last item', () => {
-      expect(wrapper.find('li.fishd-timeline-item').last().hasClass('fishd-timeline-item-last')).toBe(true);
+      expect(
+        wrapper.find('li.fishd-timeline-item').last().hasClass('fishd-timeline-item-last'),
+      ).toBe(true);
     });
   });
 
@@ -34,56 +37,66 @@ describe('TimeLine', () => {
     const pendingDot = <i>dot</i>;
 
     it('has one extra timeline item', () => {
-      const wrapper = wrapperFactory({pending});
+      const wrapper = wrapperFactory({ pending });
       expect(wrapper.find('li.fishd-timeline-item')).toHaveLength(4);
     });
 
     it('has extra pending timeline item', () => {
-      const wrapper = wrapperFactory({pending});
+      const wrapper = wrapperFactory({ pending });
       expect(wrapper.find('li.fishd-timeline-item-pending')).toHaveLength(1);
     });
 
-    it('renders the pending timeline item as long as it receive a truthy prop value to \'pending\'', () => {
-      const wrapper = wrapperFactory({pending: true});
+    it("renders the pending timeline item as long as it receive a truthy prop value to 'pending'", () => {
+      const wrapper = wrapperFactory({ pending: true });
       expect(wrapper.find('li.fishd-timeline-item-pending')).toBeTruthy();
     });
 
     it('its last item is marked as the pending item', () => {
-      const wrapper = wrapperFactory({pending});
-      expect(wrapper.find('li.fishd-timeline-item').last().hasClass('fishd-timeline-item-pending')).toBe(true);
+      const wrapper = wrapperFactory({ pending });
+      expect(
+        wrapper.find('li.fishd-timeline-item').last().hasClass('fishd-timeline-item-pending'),
+      ).toBe(true);
     });
 
     it('its second to last item is marked as the last item', () => {
-      const wrapper = wrapperFactory({pending});
+      const wrapper = wrapperFactory({ pending });
       const items = wrapper.find('li.fishd-timeline-item');
       expect(items.at(items.length - 2).hasClass('fishd-timeline-item-last')).toBe(true);
     });
 
     it('has the correct pending node', () => {
-      const wrapper = wrapperFactory({pending});
+      const wrapper = wrapperFactory({ pending });
       expect(wrapper.find('li.fishd-timeline-item-pending').contains(pending)).toBe(true);
     });
 
     it('has the correct pending dot node', () => {
-      const wrapper = wrapperFactory({pending, pendingDot});
+      const wrapper = wrapperFactory({ pending, pendingDot });
       expect(wrapper.find('li.fishd-timeline-item-pending').contains(pendingDot)).toBe(true);
     });
 
-    it('has no pending dot if without passing a truthy \'pending\' prop', () => {
-      const wrapper = wrapperFactory({pendingDot});
+    it("has no pending dot if without passing a truthy 'pending' prop", () => {
+      const wrapper = wrapperFactory({ pendingDot });
       expect(wrapper.find('li.fishd-timeline-item-pending').contains(pendingDot)).toBe(false);
     });
   });
 
   describe('the item rendering sequence is controlled by reverse', () => {
     it('items is in order when prop reverse is false', () => {
-      const wrapper = wrapperFactory({reverse: false});
-      expect(wrapper.find('.fishd-timeline-item-content').map(w => w.text())).toEqual(['foo', 'bar', 'baz']);
+      const wrapper = wrapperFactory({ reverse: false });
+      expect(wrapper.find('.fishd-timeline-item-content').map(w => w.text())).toEqual([
+        'foo',
+        'bar',
+        'baz',
+      ]);
     });
 
     it('items is reversed when prop reverse is true', () => {
-      const wrapper = wrapperFactory({reverse: true});
-      expect(wrapper.find('.fishd-timeline-item-content').map(w => w.text())).toEqual(['baz', 'bar', 'foo']);
+      const wrapper = wrapperFactory({ reverse: true });
+      expect(wrapper.find('.fishd-timeline-item-content').map(w => w.text())).toEqual([
+        'baz',
+        'bar',
+        'foo',
+      ]);
     });
   });
 
@@ -91,13 +104,17 @@ describe('TimeLine', () => {
     const pending = <div>pending...</div>;
 
     it('its last item is marked as the last item', () => {
-      const wrapper = wrapperFactory({pending, reverse: true});
-      expect(wrapper.find('li.fishd-timeline-item').last().hasClass('fishd-timeline-item-last')).toBe(true);
+      const wrapper = wrapperFactory({ pending, reverse: true });
+      expect(
+        wrapper.find('li.fishd-timeline-item').last().hasClass('fishd-timeline-item-last'),
+      ).toBe(true);
     });
 
     it('its first item is marked as the pending item', () => {
-      const wrapper = wrapperFactory({pending, reverse: true});
-      expect(wrapper.find('li.fishd-timeline-item').first().hasClass('fishd-timeline-item-pending')).toBe(true);
+      const wrapper = wrapperFactory({ pending, reverse: true });
+      expect(
+        wrapper.find('li.fishd-timeline-item').first().hasClass('fishd-timeline-item-pending'),
+      ).toBe(true);
     });
   });
 });
