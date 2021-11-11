@@ -170,4 +170,13 @@ describe('Input.Search', () => {
       wrapper.find('button').simulate('mousedown');
     }).not.toThrow();
   });
+
+  it('should support focus() blur() input', () => {
+    const ref = React.createRef<any>();
+    const defaultValue = 'test defaultValue';
+    mount(<Search ref={ref} defaultValue={defaultValue} />);
+    ref.current.input.focus();
+    ref.current.input.blur();
+    expect(ref.current.input.input.value).toBe(defaultValue);
+  });
 });

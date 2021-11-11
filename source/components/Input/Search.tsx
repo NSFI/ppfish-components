@@ -1,6 +1,5 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { composeRef } from 'rc-util/lib/ref';
 import Input, { InputProps, InputRef } from './Input';
 import Icon from '../Icon';
 import Button from '../Button';
@@ -14,7 +13,11 @@ export interface SearchProps extends InputProps {
   enterButton?: boolean | React.ReactNode;
 }
 
-const InternalSearch: React.ForwardRefRenderFunction<InputRef, SearchProps> = (props, ref) => {
+export interface SearchRef {
+  input: InputRef;
+}
+
+const InternalSearch: React.ForwardRefRenderFunction<SearchRef, SearchProps> = (props, ref) => {
   const inputRef = React.useRef<InputRef>();
 
   const onSearch = (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLInputElement>) => {
@@ -70,6 +73,11 @@ const InternalSearch: React.ForwardRefRenderFunction<InputRef, SearchProps> = (p
     [`${prefixCls}-enter-button`]: !!enterButton,
     [`${prefixCls}-${size}`]: !!size,
   });
+
+  React.useImperativeHandle(ref, () => ({
+    input: inputRef.current,
+  }));
+
   return (
     <Input
       onPressEnter={onSearch}
@@ -78,7 +86,7 @@ const InternalSearch: React.ForwardRefRenderFunction<InputRef, SearchProps> = (p
       className={inputClassName}
       prefixCls={inputPrefixCls}
       suffix={searchSuffix}
-      ref={composeRef(inputRef, ref)}
+      ref={inputRef}
     />
   );
 };
