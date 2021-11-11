@@ -271,6 +271,7 @@
 | download	| 是否显示下载按钮 | Boolean  |  false  |
 | downloadSrc | 下载地址 | String | '' |
 | bigPlayButton	| 是否显示开始大按钮 | Boolean  |  true  |
+| keepFocus	| 是否保持视频聚焦。多个视频同时播放时会抢夺焦点，建议关闭 | Boolean  |  true  |
 
 #### 方法
 | 名称     | 描述    |

@@ -26,6 +26,7 @@ interface VideoViewerProps {
   download?: boolean;
   downloadSrc?: string;
   bigPlayButton?: boolean;
+  keepFocus?: boolean;
 }
 
 export default class VideoViewer extends React.Component<VideoViewerProps> {
@@ -42,7 +43,8 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
     preload: PropTypes.oneOf(['auto', 'none', 'metadata']),
     controls: PropTypes.bool,
     download: PropTypes.bool,
-    bigPlayButton: PropTypes.bool
+    bigPlayButton: PropTypes.bool,
+    keepFocus: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -58,7 +60,8 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
     preload: 'auto', // 预加载('auto' 自动 ’metadata' 元数据信息 ，比如视频长度，尺寸等 'none'  不预加载任何数据，直到用户开始播放才开始下载)
     controls: true, // 是否显示控制条
     download: false, // 是否显示下载按钮
-    bigPlayButton: true // 是否显示大按钮
+    bigPlayButton: true, // 是否显示大按钮
+    keepFocus: true, // 是否自动聚焦
   };
 
   player: any;
@@ -70,7 +73,7 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
   }
 
   componentDidMount() {
-    const { download, bigPlayButton, ...otherProps } = this.props;
+    const { download, bigPlayButton, keepFocus, ...otherProps } = this.props;
 
     const initOptions = {
       //aspectRatio: '16:9',
@@ -85,48 +88,50 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
       controlBar: {
         children: [
           {
-            name: 'progressControl'
+            name: 'progressControl',
           },
           {
-            name: 'vjsPlay'
+            name: 'vjsPlay',
           },
           {
-            name: 'currentTimeDisplay'
+            name: 'currentTimeDisplay',
           },
           {
-            name: 'timeDivider'
+            name: 'timeDivider',
           },
           {
-            name: 'durationDisplay'
+            name: 'durationDisplay',
           },
           {
-            name: 'vjsFullScreen'
+            name: 'vjsFullScreen',
           },
           {
-            name: download ? 'vjsDownLoad' : ''
+            name: download ? 'vjsDownLoad' : '',
           },
           {
-            name: 'vjsVolume'
-          }
-        ]
+            name: 'vjsVolume',
+          },
+        ],
       },
       errorDisplay: {
         children: [
           {
-            name: 'vjsErrorDisplay'
-          }
-        ]
-      }
+            name: 'vjsErrorDisplay',
+          },
+        ],
+      },
     };
 
     const option = Object.assign({}, initOptions, otherProps);
 
     // instantiate video.js
     this.player = videojs(this.videoNode, option, () => {
-      this.player.on('timeupdate', e => {
-        // 控制焦点
-        this.videoPlayerRef.focus();
-      });
+      if (keepFocus) {
+        this.player.on('timeupdate', e => {
+          // 控制焦点
+          this.videoPlayerRef.focus();
+        });
+      }
     });
   }
 
