@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Upload from '../index.tsx';
 // import Form from '../../Form';
-import { setup, teardown } from '../src/mock.js';
+import { setup, teardown } from '../src/mock';
 
 const successRequest = ({ onSuccess, file }) => {
   setTimeout(() => {
@@ -18,19 +18,22 @@ const errorRequest = ({ onError }) => {
 
 const delay = timeout => new Promise(resolve => setTimeout(resolve, timeout));
 
-const fileList = [{
-  uid: '-1',
-  name: 'xxx.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
-}, {
-  uid: '-2',
-  name: 'yyy.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-}];
+const fileList = [
+  {
+    uid: '-1',
+    name: 'xxx.png',
+    status: 'done',
+    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
+  },
+  {
+    uid: '-2',
+    name: 'yyy.png',
+    status: 'done',
+    url: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
+    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  },
+];
 
 xdescribe('Upload List', () => {
   beforeEach(() => setup());
@@ -41,7 +44,7 @@ xdescribe('Upload List', () => {
     const wrapper = mount(
       <Upload defaultFileList={fileList} listType="picture">
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     fileList.forEach((file, i) => {
       const linkNode = wrapper.find('.fishd-upload-list-item-thumbnail').at(i);
@@ -53,23 +56,26 @@ xdescribe('Upload List', () => {
 
   // https://github.com/ant-design/ant-design/issues/7269
   it('should remove correct item when uid is 0', async () => {
-    const list = [{
-      uid: '0',
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
-    }, {
-      uid: '1',
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
-    }];
+    const list = [
+      {
+        uid: '0',
+        name: 'xxx.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
+      },
+      {
+        uid: '1',
+        name: 'xxx.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/IQKRngzUuFzJzGzRJXUs.png',
+      },
+    ];
     const wrapper = mount(
       <Upload defaultFileList={list}>
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     expect(wrapper.find('.fishd-upload-list-item').length).toBe(2);
     wrapper.find('.fishd-upload-list-item').at(0).find('.fishdicon-cross').simulate('click');
@@ -78,7 +84,7 @@ xdescribe('Upload List', () => {
     expect(wrapper.find('.fishd-upload-list-item').hostNodes().length).toBe(1);
   });
 
-  it('should be uploading when upload a file', (done) => {
+  it('should be uploading when upload a file', done => {
     let wrapper;
     const onChange = ({ file }) => {
       if (file.status === 'uploading') {
@@ -96,18 +102,16 @@ xdescribe('Upload List', () => {
         customRequest={successRequest}
       >
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     wrapper.find('input').simulate('change', {
       target: {
-        files: [
-          { name: 'foo.png' },
-        ],
+        files: [{ name: 'foo.png' }],
       },
     });
   });
 
-  it('handle error', (done) => {
+  it('handle error', done => {
     let wrapper;
     const onChange = ({ file }) => {
       if (file.status !== 'uploading') {
@@ -122,13 +126,11 @@ xdescribe('Upload List', () => {
         customRequest={errorRequest}
       >
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     wrapper.find('input').simulate('change', {
       target: {
-        files: [
-          { name: 'foo.png' },
-        ],
+        files: [{ name: 'foo.png' }],
       },
     });
   });
@@ -143,14 +145,12 @@ xdescribe('Upload List', () => {
         beforeUpload={() => false}
       >
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
 
     wrapper.find('input').simulate('change', {
       target: {
-        files: [
-          { name: 'foo.png' },
-        ],
+        files: [{ name: 'foo.png' }],
       },
     });
 
@@ -221,13 +221,9 @@ xdescribe('Upload List', () => {
   it('should support onPreview', () => {
     const handlePreview = jest.fn();
     const wrapper = mount(
-      <Upload
-        listType="picture-card"
-        defaultFileList={fileList}
-        onPreview={handlePreview}
-      >
+      <Upload listType="picture-card" defaultFileList={fileList} onPreview={handlePreview}>
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     wrapper.find('.fishdicon-eye-o').at(0).simulate('click');
     expect(handlePreview).toBeCalledWith(fileList[0]);
@@ -246,7 +242,7 @@ xdescribe('Upload List', () => {
         onChange={handleChange}
       >
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     wrapper.find('.fishdicon-delete').at(0).simulate('click');
     expect(handleRemove).toBeCalledWith(fileList[0]);
@@ -263,13 +259,9 @@ xdescribe('Upload List', () => {
     delete newFile.thumbUrl;
     newFileList.push(newFile);
     const wrapper = mount(
-      <Upload
-        listType="picture-card"
-        defaultFileList={newFileList}
-        onPreview={handlePreview}
-      >
+      <Upload listType="picture-card" defaultFileList={newFileList} onPreview={handlePreview}>
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     wrapper.setState({});
     await delay(200);
@@ -338,12 +330,9 @@ xdescribe('Upload List', () => {
     ];
 
     const wrapper = mount(
-      <Upload
-        listType="picture"
-        defaultFileList={list}
-      >
+      <Upload listType="picture" defaultFileList={list}>
         <button type="button">upload</button>
-      </Upload>
+      </Upload>,
     );
     expect(wrapper.render()).toMatchSnapshot();
   });

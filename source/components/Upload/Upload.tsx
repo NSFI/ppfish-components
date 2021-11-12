@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { polyfill } from 'react-lifecycles-compat';
-import RcUpload from './src/index.js';
+import RcUpload from './src/index';
 import classNames from 'classnames';
 import uniqBy from 'lodash/uniqBy';
 import Dragger from './Dragger';
@@ -19,93 +19,85 @@ import { T, fileToObject, genPercentAdd, getFileItem, removeFileItem } from './u
 
 import ConfigConsumer from '../Config/Locale/Consumer';
 import { LocaleProperties } from '../Locale';
+import { RcUploadRef } from './src/Upload';
+import useControlledState from '../../hooks/useControlledState';
 
 export { UploadProps };
 
-class Upload extends React.Component<UploadProps, UploadState> {
-  static Dragger = Dragger;
+export type InternalUploadRef = {
+  upload: RcUploadRef;
+};
 
-  static defaultProps = {
-    prefixCls: 'fishd-upload',
-    type: 'select' as UploadType,
-    multiple: false,
-    action: '',
-    data: {},
-    accept: '',
-    beforeUpload: T,
-    showUploadList: true,
-    listType: 'text' as UploadListType, // or pictrue
-    className: '',
-    disabled: false,
-    supportServerRender: true,
-    tip: '',
-  };
+function useFreshFn<T extends (...args: any[]) => any>(fn: T) {
+  const fnRef = React.useRef<T>();
+  fnRef.current = fn;
 
-  static getDerivedStateFromProps(nextProps: UploadProps, prevState: UploadState) {
-    const newState: any = {};
-    // action 受控
-    if ('action' in nextProps && prevState.action !== nextProps.action) {
-      newState.action = nextProps.action;
-    }
+  return (...args: Parameters<T>) => fnRef.current(...args);
+}
 
-    if ('fileList' in nextProps) {
-      newState.fileList = nextProps.fileList || [];
-    }
-    return newState;
-  }
+const InternalUpload: React.ForwardRefRenderFunction<InternalUploadRef, UploadProps> = (
+  props,
+  ref,
+) => {
+  const {
+    action,
+    onRemove,
+    onDeleteAll,
+    showUploadList,
+    listType,
+    onPreview,
+    disabled,
+    maxFileCount,
+    showDeleteAll,
+  } = props;
 
-  recentUploadStatus: boolean | PromiseLike<any>;
-  progressTimer: any;
+  const [fileList, setFileList] = useControlledState([], {
+    value: props.fileList,
+    defaultValue: props.defaultFileList,
+  });
+  const [dragState, setDragState] = React.useState('drop');
 
-  private upload: any;
+  const uploadRef = React.useRef<RcUploadRef>();
+  React.useImperativeHandle(ref, () => ({
+    upload: uploadRef.current,
+  }));
 
-  constructor(props: UploadProps) {
-    super(props);
-
-    this.state = {
-      fileList: props.fileList || props.defaultFileList || [],
-      dragState: 'drop',
-      action: props.action || '',
+  React.useEffect(() => {
+    return () => {
+      clearProgressTimer();
     };
-  }
+  }, []);
 
-  componentWillUnmount() {
-    this.clearProgressTimer();
-  }
-
-  onStart = (file: RcFile) => {
-    let targetItem;
-    let nextFileList = this.state.fileList.concat();
-    targetItem = fileToObject(file);
+  const onStart = useFreshFn((file: RcFile) => {
+    const targetItem = fileToObject(file);
     targetItem.status = 'uploading';
+
+    const nextFileList = fileList.concat();
     nextFileList.push(targetItem);
-    this.onChange({
+
+    onChange({
       file: targetItem,
       fileList: nextFileList,
     });
     // fix ie progress
     if (!(window as any).FormData) {
-      this.autoUpdateProgress(0, targetItem);
+      autoUpdateProgress(0, targetItem);
     }
-  };
+  });
 
-  autoUpdateProgress(_: any, file: UploadFile) {
+  const progressTimerRef = React.useRef<number>();
+  const autoUpdateProgress = (_: any, file: UploadFile) => {
     const getPercent = genPercentAdd();
     let curPercent = 0;
-    this.clearProgressTimer();
-    this.progressTimer = setInterval(() => {
+    clearProgressTimer();
+    progressTimerRef.current = window.setInterval(() => {
       curPercent = getPercent(curPercent);
-      this.onProgress(
-        {
-          percent: curPercent * 100,
-        },
-        file,
-      );
+      onProgress({ percent: curPercent * 100 }, file);
     }, 200);
-  }
+  };
 
-  onSuccess = (response: any, file: UploadFile) => {
-    this.clearProgressTimer();
+  const onSuccess = useFreshFn((response: any, file: UploadFile) => {
+    clearProgressTimer();
     try {
       if (typeof response === 'string') {
         response = JSON.parse(response);
@@ -113,38 +105,36 @@ class Upload extends React.Component<UploadProps, UploadState> {
     } catch (e) {
       /* do nothing */
     }
-    let fileList = this.state.fileList;
-    let targetItem = getFileItem(file, fileList);
+    const targetItem = getFileItem(file, fileList);
     // removed
     if (!targetItem) {
       return;
     }
     targetItem.status = 'done';
     targetItem.response = response;
-    this.onChange({
+    onChange({
       file: { ...targetItem },
       fileList,
     });
-  };
+  });
 
-  onProgress = (e: { percent: number }, file: UploadFile) => {
-    let fileList = this.state.fileList;
+  const onProgress = useFreshFn((e: { percent: number }, file: UploadFile) => {
     let targetItem = getFileItem(file, fileList);
     // removed
     if (!targetItem) {
       return;
     }
     targetItem.percent = e.percent;
-    this.onChange({
+    onChange({
       event: e,
       file: { ...targetItem },
-      fileList: this.state.fileList,
+      fileList: fileList,
     });
-  };
+  });
 
-  onError = (error: Error, response: any, file: UploadFile) => {
-    this.clearProgressTimer();
-    let fileList = this.state.fileList;
+  const onError = useFreshFn((error: Error, response: any, file: UploadFile) => {
+    clearProgressTimer();
+
     let targetItem = getFileItem(file, fileList);
     // removed
     if (!targetItem) {
@@ -153,78 +143,72 @@ class Upload extends React.Component<UploadProps, UploadState> {
     targetItem.error = error;
     targetItem.response = response;
     targetItem.status = 'error';
-    this.onChange({
+    onChange({
       file: { ...targetItem },
       fileList,
     });
-  };
+  });
 
-  handleRemove(file: UploadFile) {
-    const { onRemove } = this.props;
-
+  const handleRemove = (file: UploadFile) => {
     Promise.resolve(typeof onRemove === 'function' ? onRemove(file) : onRemove).then(ret => {
       // Prevent removing file
       if (ret === false) {
         return;
       }
 
-      const removedFileList = removeFileItem(file, this.state.fileList);
+      const removedFileList = removeFileItem(file, fileList);
       if (removedFileList) {
-        this.onChange({
+        onChange({
           file,
           fileList: removedFileList,
         });
       }
     });
-  }
+  };
 
-  handleDeleteAll = () => {
-    this.state.fileList.forEach(file => {
-      this.upload.abort(file);
+  const handleDeleteAll = () => {
+    fileList.forEach(file => {
+      uploadRef.current.abort(file);
       file.status = 'removed'; // eslint-disable-line
     });
 
-    this.setState({ fileList: [] });
+    setFileList([]);
 
-    const { onDeleteAll } = this.props;
     if (onDeleteAll) {
       onDeleteAll();
     }
   };
 
-  handleManualRemove = (file: UploadFile) => {
-    this.upload.abort(file);
+  const handleManualRemove = (file: UploadFile) => {
+    uploadRef.current.abort(file);
     file.status = 'removed'; // eslint-disable-line
-    this.handleRemove(file);
+    handleRemove(file);
   };
 
-  onChange = (info: UploadChangeParam) => {
-    if (!('fileList' in this.props)) {
-      this.setState({ fileList: info.fileList });
+  const onChange = (info: UploadChangeParam) => {
+    if (!('fileList' in props)) {
+      setFileList([...info.fileList]);
     }
 
-    const { onChange } = this.props;
-    if (onChange) {
-      onChange(info);
+    if (props.onChange) {
+      props.onChange(info);
     }
   };
 
-  onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    this.setState({
-      dragState: e.type,
-    });
+  const onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    setDragState(e.type);
   };
 
-  beforeUpload = (file: RcFile, fileList: RcFile[]) => {
-    if (!this.props.beforeUpload) {
+  const beforeUpload = (file: RcFile, innerFileList: RcFile[]) => {
+    if (!props.beforeUpload) {
       return true;
     }
-    const result = this.props.beforeUpload(file, fileList);
+    const result = props.beforeUpload(file, innerFileList);
     if (result === false) {
-      this.onChange({
+      onChange({
         file,
         fileList: uniqBy(
-          this.state.fileList.concat(fileList.map(fileToObject)),
+          fileList.concat(innerFileList.map(fileToObject)),
           (item: UploadFile) => item.uid,
         ),
       });
@@ -235,35 +219,29 @@ class Upload extends React.Component<UploadProps, UploadState> {
     return true;
   };
 
-  clearProgressTimer() {
-    clearInterval(this.progressTimer);
-  }
-
-  saveUpload = (node: typeof RcUpload) => {
-    this.upload = node;
+  const clearProgressTimer = () => {
+    clearInterval(progressTimerRef.current);
   };
 
-  renderUploadList = (locale: UploadLocale) => {
-    const { showUploadList, listType, onPreview, disabled, maxFileCount, showDeleteAll } =
-      this.props;
+  const renderUploadList = (locale: UploadLocale) => {
     const { showRemoveIcon, showPreviewIcon } = showUploadList as any;
     return (
       <UploadList
         listType={listType}
-        items={this.state.fileList}
+        items={fileList}
         onPreview={onPreview}
-        onRemove={this.handleManualRemove}
-        onDeleteAll={this.handleDeleteAll}
+        onRemove={handleManualRemove}
+        onDeleteAll={handleDeleteAll}
         showRemoveIcon={!disabled && showRemoveIcon}
         showPreviewIcon={showPreviewIcon}
         maxFileCount={maxFileCount}
         showDeleteAll={showDeleteAll}
-        locale={{ ...locale, ...this.props.locale }}
+        locale={{ ...locale, ...props.locale }}
       />
     );
   };
 
-  renderUpload(Locale) {
+  const renderUpload = Locale => {
     const {
       prefixCls = '',
       className,
@@ -274,15 +252,15 @@ class Upload extends React.Component<UploadProps, UploadState> {
       disabled,
       children,
       tip,
-    } = this.props;
+    } = props;
 
     const rcUploadProps = {
-      onStart: this.onStart,
-      onError: this.onError,
-      onProgress: this.onProgress,
-      onSuccess: this.onSuccess,
-      ...this.props,
-      beforeUpload: this.beforeUpload,
+      onStart: onStart,
+      onError: onError,
+      onProgress: onProgress,
+      onSuccess: onSuccess,
+      ...props,
+      beforeUpload: beforeUpload,
     };
 
     delete rcUploadProps.className;
@@ -290,7 +268,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     delete rcUploadProps.action;
 
     const uploadList = showUploadList
-      ? this.renderUploadList({
+      ? renderUploadList({
           uploading: Locale.uploading as string,
           removeFile: Locale.removeFile as string,
           uploadError: Locale.uploadError as string,
@@ -303,24 +281,22 @@ class Upload extends React.Component<UploadProps, UploadState> {
     if (type === 'drag') {
       const dragCls = classNames(prefixCls, {
         [`${prefixCls}-drag`]: true,
-        [`${prefixCls}-drag-uploading`]: this.state.fileList.some(
-          file => file.status === 'uploading',
-        ),
-        [`${prefixCls}-drag-hover`]: this.state.dragState === 'dragover',
+        [`${prefixCls}-drag-uploading`]: fileList.some(file => file.status === 'uploading'),
+        [`${prefixCls}-drag-hover`]: dragState === 'dragover',
         [`${prefixCls}-disabled`]: disabled,
       });
       return (
         <span className={className} style={style}>
           <div
             className={dragCls}
-            onDrop={this.onFileDrop}
-            onDragOver={this.onFileDrop}
-            onDragLeave={this.onFileDrop}
+            onDrop={onFileDrop}
+            onDragOver={onFileDrop}
+            onDragLeave={onFileDrop}
           >
             <RcUpload
               {...rcUploadProps}
-              action={this.state.action}
-              ref={this.saveUpload}
+              action={action}
+              ref={uploadRef}
               className={`${prefixCls}-btn`}
             >
               <div className={`${prefixCls}-drag-container`}>{children}</div>
@@ -340,7 +316,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
 
     const uploadButton = (
       <div className={uploadButtonCls} style={{ display: children ? '' : 'none' }}>
-        <RcUpload {...rcUploadProps} action={this.state.action} ref={this.saveUpload} />
+        <RcUpload {...rcUploadProps} action={action} ref={uploadRef} />
       </div>
     );
 
@@ -365,19 +341,40 @@ class Upload extends React.Component<UploadProps, UploadState> {
     }
 
     return renderNode;
-  }
+  };
 
-  render() {
-    return (
-      <ConfigConsumer componentName="Upload">
-        {(Locale: LocaleProperties['Upload']) => {
-          return this.renderUpload(Locale);
-        }}
-      </ConfigConsumer>
-    );
-  }
+  return (
+    <ConfigConsumer componentName="Upload">
+      {(Locale: LocaleProperties['Upload']) => {
+        return renderUpload(Locale);
+      }}
+    </ConfigConsumer>
+  );
+};
+
+interface UploadInterface
+  extends React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<InternalUploadRef>> {
+  Dragger: typeof Dragger;
 }
 
-polyfill(Upload);
+const Upload = React.forwardRef(InternalUpload) as UploadInterface;
+
+Upload.defaultProps = {
+  prefixCls: 'fishd-upload',
+  type: 'select' as UploadType,
+  multiple: false,
+  action: '',
+  data: {},
+  accept: '',
+  beforeUpload: T,
+  showUploadList: true,
+  listType: 'text' as UploadListType, // or pictrue
+  className: '',
+  disabled: false,
+  supportServerRender: true,
+  tip: '',
+};
+
+Upload.Dragger = Dragger;
 
 export default Upload;

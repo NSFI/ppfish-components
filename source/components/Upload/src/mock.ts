@@ -4,10 +4,12 @@ export function setup() {
   mock.setup();
   mock.post('http://upload.com/', (req, res) => {
     req.headers({
-      'content-length': 100,
+      'content-length': '100',
     });
-    req.body('thisisbody');
+
+    res.body('thisisbody');
     return res;
   });
 }
+
 export const teardown = mock.teardown.bind(mock);

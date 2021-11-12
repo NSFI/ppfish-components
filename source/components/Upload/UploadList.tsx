@@ -30,10 +30,7 @@ const extname = (url: string) => {
 
 const isImageUrl = (url: string): boolean => {
   const extension = extname(url);
-  if (
-    /^data:image\//.test(url) ||
-    /(webp|svg|png|gif|jpg|jpeg|bmp)$/i.test(extension)
-  ) {
+  if (/^data:image\//.test(url) || /(webp|svg|png|gif|jpg|jpeg|bmp)$/i.test(extension)) {
     return true;
   } else if (/^data:/.test(url)) {
     // other file types of base64
@@ -45,51 +42,31 @@ const isImageUrl = (url: string): boolean => {
   return true;
 };
 
-export default class UploadList extends React.Component<UploadListProps, any> {
-  static defaultProps = {
-    listType: 'text' as UploadListType, // or picture
-    progressAttr: {
-      strokeWidth: 2,
-      showInfo: false,
-    },
-    prefixCls: 'fishd-upload',
-    showRemoveIcon: true,
-    showPreviewIcon: true,
-    maxFileCount: 5,
-    showDeleteAll: true,
-  };
+const UploadList: React.FC<UploadListProps> = props => {
+  const {
+    listType,
+    items = [],
+    prefixCls,
+    showPreviewIcon,
+    showRemoveIcon,
+    showDeleteAll,
 
-  handleClose = (file: UploadFile) => {
-    const { onRemove } = this.props;
-    if (onRemove) {
-      onRemove(file);
-    }
-  };
+    locale,
+    maxFileCount,
+    progressAttr,
 
-  handleDeleteAll = () => {
-    const { onDeleteAll } = this.props;
-    if (onDeleteAll) {
-      onDeleteAll();
-    }
-  };
+    onRemove,
+    onDeleteAll,
+    onPreview,
+  } = props;
 
-  handlePreview = (file: UploadFile, e: React.SyntheticEvent<HTMLElement>) => {
-    const { onPreview } = this.props;
-    if (!onPreview) {
+  const [, forceRender] = React.useReducer(s => s + 1, 0);
+
+  React.useEffect(() => {
+    if (listType !== 'picture' && listType !== 'picture-card') {
       return;
     }
-    e.preventDefault();
-    return onPreview(file);
-  };
-
-  componentDidUpdate() {
-    if (
-      this.props.listType !== 'picture' &&
-      this.props.listType !== 'picture-card'
-    ) {
-      return;
-    }
-    (this.props.items || []).forEach(file => {
+    items.forEach(file => {
       if (
         typeof document === 'undefined' ||
         typeof window === 'undefined' ||
@@ -100,29 +77,38 @@ export default class UploadList extends React.Component<UploadListProps, any> {
       ) {
         return;
       }
-      /*eslint-disable */
+
       file.thumbUrl = '';
-      /*eslint-enable */
+
       previewFile(file.originFileObj, (previewDataUrl: string) => {
-        /*eslint-disable */
         file.thumbUrl = previewDataUrl;
-        /*eslint-enable */
-        this.forceUpdate();
+
+        forceRender();
       });
     });
-  }
+  });
 
-  renderUploadList(Locale) {
-    const {
-      prefixCls,
-      items = [],
-      listType,
-      showPreviewIcon,
-      showRemoveIcon,
-      locale,
-      showDeleteAll,
-      maxFileCount,
-    } = this.props;
+  const handleClose = (file: UploadFile) => {
+    if (onRemove) {
+      onRemove(file);
+    }
+  };
+
+  const handleDeleteAll = () => {
+    if (onDeleteAll) {
+      onDeleteAll();
+    }
+  };
+
+  const handlePreview = (file: UploadFile, e: React.SyntheticEvent<HTMLElement>) => {
+    if (!onPreview) {
+      return;
+    }
+    e.preventDefault();
+    return onPreview(file);
+  };
+
+  const renderUploadList = Locale => {
     const list = items.map(file => {
       let progress;
       let icon = (
@@ -134,18 +120,9 @@ export default class UploadList extends React.Component<UploadListProps, any> {
 
       if (listType === 'picture' || listType === 'picture-card') {
         if (listType === 'picture-card' && file.status === 'uploading') {
-          icon = (
-            <div className={`${prefixCls}-list-item-uploading-text`}>
-              {locale.uploading}
-            </div>
-          );
+          icon = <div className={`${prefixCls}-list-item-uploading-text`}>{locale.uploading}</div>;
         } else if (!file.thumbUrl && !file.url) {
-          icon = (
-            <Icon
-              type="image-line"
-              className={`${prefixCls}-list-item-thumbnail`}
-            />
-          );
+          icon = <Icon type="image-line" className={`${prefixCls}-list-item-thumbnail`} />;
         } else {
           let thumbnail = isImageUrl((file.thumbUrl || file.url) as string) ? (
             <img src={file.thumbUrl || file.url} alt={file.name} />
@@ -155,7 +132,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
           icon = (
             <a
               className={`${prefixCls}-list-item-thumbnail`}
-              onClick={e => this.handlePreview(file, e)}
+              onClick={e => handlePreview(file, e)}
               href={file.url || file.thumbUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -172,13 +149,10 @@ export default class UploadList extends React.Component<UploadListProps, any> {
           'percent' in file ? (
             <Progress
               type="line"
-              {...this.props.progressAttr}
+              {...progressAttr}
               percent={file.percent}
               operation={
-                <div
-                  className={`${prefixCls}-action-cancel`}
-                  onClick={() => this.handleClose(file)}
-                >
+                <div className={`${prefixCls}-action-cancel`} onClick={() => handleClose(file)}>
                   {Locale.cancelText}
                 </div>
               }
@@ -202,7 +176,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
           target="_blank"
           rel="noopener noreferrer"
           className={`${prefixCls}-list-item-name`}
-          onClick={e => this.handlePreview(file, e)}
+          onClick={e => handlePreview(file, e)}
           title={file.name}
         >
           {file.name}
@@ -210,7 +184,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
       ) : (
         <span
           className={`${prefixCls}-list-item-name`}
-          onClick={e => this.handlePreview(file, e)}
+          onClick={e => handlePreview(file, e)}
           title={file.name}
         >
           {file.name}
@@ -226,24 +200,20 @@ export default class UploadList extends React.Component<UploadListProps, any> {
           target="_blank"
           rel="noopener noreferrer"
           style={file.url || file.thumbUrl ? undefined : style}
-          onClick={e => this.handlePreview(file, e)}
+          onClick={e => handlePreview(file, e)}
           title={locale.previewFile}
         >
           <Icon type="watch-line" />
         </a>
       ) : null;
       const removeIcon = showRemoveIcon ? (
-        <Icon
-          type="delete-line"
-          title={locale.removeFile}
-          onClick={() => this.handleClose(file)}
-        />
+        <Icon type="delete-line" title={locale.removeFile} onClick={() => handleClose(file)} />
       ) : null;
       const removeIconCross = showRemoveIcon ? (
         <Icon
           type="hints-alone-error"
           title={locale.removeFile}
-          onClick={() => this.handleClose(file)}
+          onClick={() => handleClose(file)}
         />
       ) : null;
       const actions =
@@ -290,8 +260,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
       [`${prefixCls}-list-${listType}`]: true,
       [`${prefixCls}-list-scroll`]: showScrollbar,
     });
-    const animationDirection =
-      listType === 'picture-card' ? 'animate-inline' : 'animate';
+    const animationDirection = listType === 'picture-card' ? 'animate-inline' : 'animate';
     const deleteAllCls = classNames(`${prefixCls}-list-scroll-delete-all`, {
       [`${prefixCls}-hide`]: !showDeleteAll,
     });
@@ -303,10 +272,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
         <div className={null}>
           <div className={`${prefixCls}-list-scroll-info`}>
             <span>{(Locale.uploadedTip as string).replace('${length}', String(list.length))}</span>
-            <span
-              className={deleteAllCls}
-              onClick={() => this.handleDeleteAll()}
-            >
+            <span className={deleteAllCls} onClick={() => handleDeleteAll()}>
               {Locale.deleteText}
             </span>
           </div>
@@ -315,8 +281,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
             component="div"
             className={listClassNames}
             style={{
-              height:
-                fileListItemHeight * maxFileCount + fileListItemHeight / 2,
+              height: fileListItemHeight * maxFileCount + fileListItemHeight / 2,
             }}
           >
             {list}
@@ -336,14 +301,28 @@ export default class UploadList extends React.Component<UploadListProps, any> {
     }
 
     return renderNode;
-  }
-  render() {
-    return (
-      <ConfigConsumer componentName="Upload">
-        {(Locale: LocaleProperties['Upload']) => {
-          return this.renderUploadList(Locale);
-        }}
-      </ConfigConsumer>
-    );
-  }
-}
+  };
+
+  return (
+    <ConfigConsumer componentName="Upload">
+      {(Locale: LocaleProperties['Upload']) => {
+        return renderUploadList(Locale);
+      }}
+    </ConfigConsumer>
+  );
+};
+
+UploadList.defaultProps = {
+  listType: 'text' as UploadListType, // or picture
+  progressAttr: {
+    strokeWidth: 2,
+    showInfo: false,
+  },
+  prefixCls: 'fishd-upload',
+  showRemoveIcon: true,
+  showPreviewIcon: true,
+  maxFileCount: 5,
+  showDeleteAll: true,
+};
+
+export default UploadList;

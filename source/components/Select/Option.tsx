@@ -16,11 +16,9 @@ interface OptionProps {
   onOptionClick?: (e: React.MouseEvent<any>, option: any) => void;
 }
 
-export type OptionInterface = React.ForwardRefExoticComponent<
-  OptionProps & React.RefAttributes<HTMLDivElement>
-> & { isSelectOption: true };
+export type OptionInterface = React.FC<OptionProps> & { isSelectOption: true };
 
-const InternalOption: React.ForwardRefRenderFunction<unknown, OptionProps> = props => {
+const Option: OptionInterface = props => {
   const {
     prefixCls,
     value,
@@ -59,8 +57,6 @@ const InternalOption: React.ForwardRefRenderFunction<unknown, OptionProps> = pro
     </li>
   );
 };
-
-const Option = React.forwardRef<unknown, OptionProps>(InternalOption) as OptionInterface;
 
 Option.isSelectOption = true;
 Option.defaultProps = {

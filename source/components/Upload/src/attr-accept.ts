@@ -1,8 +1,10 @@
-function endsWith(str, suffix) {
+import { AjaxUploaderInterface, RcFile } from '../interface';
+
+function endsWith(str: string, suffix: string) {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
-export default (file, acceptedFiles) => {
+export default (file: RcFile, acceptedFiles: AjaxUploaderInterface['accept']) => {
   if (file && acceptedFiles) {
     const acceptedFilesArray = Array.isArray(acceptedFiles)
       ? acceptedFiles

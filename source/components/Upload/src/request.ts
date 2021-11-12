@@ -1,13 +1,15 @@
-function getError(option, xhr) {
+import { UploadProgressEvent, UploadRequestError } from '../interface';
+
+function getError(option, xhr: XMLHttpRequest) {
   const msg = `cannot post ${option.action} ${xhr.status}'`;
-  const err = new Error(msg);
+  const err = new Error(msg) as UploadRequestError;
   err.status = xhr.status;
   err.method = 'post';
   err.url = option.action;
   return err;
 }
 
-function getBody(xhr) {
+function getBody(xhr: XMLHttpRequest) {
   const text = xhr.responseText || xhr.response;
   if (!text) {
     return text;
@@ -35,9 +37,9 @@ export default function upload(option) {
   const xhr = new XMLHttpRequest();
 
   if (option.onProgress && xhr.upload) {
-    xhr.upload.onprogress = function progress(e) {
+    xhr.upload.onprogress = function progress(e: UploadProgressEvent) {
       if (e.total > 0) {
-        e.percent = e.loaded / e.total * 100;
+        e.percent = (e.loaded / e.total) * 100;
       }
       option.onProgress(e);
     };
@@ -66,7 +68,6 @@ export default function upload(option) {
 
     option.onSuccess(getBody(xhr), xhr);
   };
-
 
   xhr.open('post', option.action, true);
 
