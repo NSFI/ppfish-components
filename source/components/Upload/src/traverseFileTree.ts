@@ -35,7 +35,8 @@ const traverseFileTree = (
     }
   };
   for (const file of files) {
-    _traverseFileTree(file.webkitGetAsEntry());
+    // FIXME: any类型
+    _traverseFileTree(file.webkitGetAsEntry() as any);
   }
 };
 
