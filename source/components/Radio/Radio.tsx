@@ -1,74 +1,50 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React, { createRef, useContext } from 'react';
 import classNames from 'classnames';
-import shallowEqual from 'shallowequal';
 import RcCheckbox from '../Checkbox/src/Checkbox';
-import RadioGroup from './Group';
-import RadioButton from './RadioButton';
-import { RadioProps, RadioGroupContext } from './interface';
-// case sensitive
-export default class Radio extends React.Component<RadioProps, {}> {
-  static Group: typeof RadioGroup;
-  static Button: typeof RadioButton;
+import { RadioChangeEvent, RadioProps } from './interface';
+import RadioContext from './context';
 
-  static defaultProps = {
-    prefixCls: 'fishd-radio',
-    type: 'radio'
+const InternalRadio: React.ForwardRefRenderFunction<HTMLInputElement, RadioProps> = (props, ref) => {
+  const context = useContext(RadioContext);
+  const { prefixCls, className, children, style, ...restProps } = props;
+
+  const onChange = (e: RadioChangeEvent) => {
+    context?.onChange?.(e);
   };
 
-  static contextTypes = {
-    radioGroup: PropTypes.any
-  };
-
-  private rcCheckbox: any;
-
-  shouldComponentUpdate(nextProps: RadioProps, nextState: {}, nextContext: RadioGroupContext) {
-    return (
-      !shallowEqual(this.props, nextProps) ||
-      !shallowEqual(this.state, nextState) ||
-      !shallowEqual(this.context.radioGroup, nextContext.radioGroup)
-    );
+  let radioProps: RadioProps = { ...restProps };
+  if (context) {
+    radioProps.name = context.name;
+    radioProps.onChange = onChange;
+    radioProps.checked = props.value === context.value;
+    radioProps.disabled = props.disabled || context.disabled;
   }
 
-  focus() {
-    this.rcCheckbox.focus();
-  }
+  const wrapperClassString = classNames(className, {
+    [`${prefixCls}-wrapper`]: true,
+    [`${prefixCls}-wrapper-checked`]: radioProps.checked,
+    [`${prefixCls}-wrapper-disabled`]: radioProps.disabled,
+  });
 
-  blur() {
-    this.rcCheckbox.blur();
-  }
+  return (
+    <label
+      className={wrapperClassString}
+      style={style}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
+    >
+      <RcCheckbox {...radioProps} type="radio" prefixCls={prefixCls} ref={ref} />
+      {children !== undefined ? <span>{children}</span> : null}
+    </label>
+  );
+};
 
-  saveCheckbox = (node: any) => {
-    this.rcCheckbox = node;
-  };
+const Radio = React.forwardRef<unknown, RadioProps>(InternalRadio);
 
-  render() {
-    const { props, context } = this;
-    const { prefixCls, className, children, style, ...restProps } = props;
-    const { radioGroup } = context;
-    let radioProps: RadioProps = { ...restProps };
-    if (radioGroup) {
-      radioProps.name = radioGroup.name;
-      radioProps.onChange = radioGroup.onChange;
-      radioProps.checked = props.value === radioGroup.value;
-      radioProps.disabled = props.disabled || radioGroup.disabled;
-    }
-    const wrapperClassString = classNames(className, {
-      [`${prefixCls}-wrapper`]: true,
-      [`${prefixCls}-wrapper-checked`]: radioProps.checked,
-      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled
-    });
+Radio.defaultProps = {
+  prefixCls: 'fishd-radio',
+};
 
-    return (
-      <label
-        className={wrapperClassString}
-        style={style}
-        onMouseEnter={props.onMouseEnter}
-        onMouseLeave={props.onMouseLeave}
-      >
-        <RcCheckbox {...radioProps} prefixCls={prefixCls} ref={this.saveCheckbox} />
-        {children !== undefined ? <span>{children}</span> : null}
-      </label>
-    );
-  }
-}
+Radio.displayName = 'Radio';
+
+export default Radio;

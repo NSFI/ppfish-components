@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
-import Radio from '../Radio.tsx';
+import Radio from '../Radio';
 import focusTest from '../../../../tools/tests/focusTest';
 
 describe('Radio', () => {
@@ -15,12 +15,7 @@ describe('Radio', () => {
     const onMouseEnter = jest.fn();
     const onMouseLeave = jest.fn();
 
-    const wrapper = shallow(
-      <Radio
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      />
-    );
+    const wrapper = shallow(<Radio onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />);
 
     wrapper.simulate('mouseenter');
     expect(onMouseEnter).toHaveBeenCalled();
