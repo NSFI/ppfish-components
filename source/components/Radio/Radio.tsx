@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC, memo, useContext } from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
@@ -6,6 +6,7 @@ import RcCheckbox from '../Checkbox/src/Checkbox';
 import RadioGroup from './Group';
 import RadioButton from './RadioButton';
 import { RadioProps, RadioGroupContext } from './interface';
+import RadioContext from './context';
 // case sensitive
 export default class Radio extends React.Component<RadioProps, {}> {
   static Group: typeof RadioGroup;
@@ -13,11 +14,11 @@ export default class Radio extends React.Component<RadioProps, {}> {
 
   static defaultProps = {
     prefixCls: 'fishd-radio',
-    type: 'radio'
+    type: 'radio',
   };
 
   static contextTypes = {
-    radioGroup: PropTypes.any
+    radioGroup: PropTypes.any,
   };
 
   private rcCheckbox: any;
@@ -56,7 +57,7 @@ export default class Radio extends React.Component<RadioProps, {}> {
     const wrapperClassString = classNames(className, {
       [`${prefixCls}-wrapper`]: true,
       [`${prefixCls}-wrapper-checked`]: radioProps.checked,
-      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled
+      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled,
     });
 
     return (
@@ -72,3 +73,27 @@ export default class Radio extends React.Component<RadioProps, {}> {
     );
   }
 }
+
+let rcCheckbox;
+
+const Radio2: FC<RadioProps> = memo(props => {
+  const context = useContext(RadioContext);
+
+  return (
+    <div />
+    // <label
+    //   className={wrapperClassString}
+    //   style={style}
+    //   onMouseEnter={props.onMouseEnter}
+    //   onMouseLeave={props.onMouseLeave}
+    // >
+    //   <RcCheckbox {...radioProps} prefixCls={prefixCls} ref={this.saveCheckbox} />
+    //   {children !== undefined ? <span>{children}</span> : null}
+    // </label>
+  );
+});
+
+Radio.defaultProps = {
+  prefixCls: 'fishd-radio',
+  type: 'radio',
+};
