@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider should show correct placement tooltip when set tooltipPlacement 1`] = `
+<div>
+  <div
+    class="fishd-tooltip"
+    style="opacity:0;pointer-events:none"
+  >
+    <div
+      class="fishd-tooltip-content"
+    >
+      <div
+        class="fishd-tooltip-arrow"
+      />
+      <div
+        class="fishd-tooltip-inner"
+      >
+        30
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider should show correct placement tooltip when set tooltipPlacement 2`] = `<div />`;
+
+exports[`Slider should show tooltip when hovering slider handler 1`] = `
+<div>
+  <div
+    class="fishd-tooltip"
+    style="opacity:0;pointer-events:none"
+  >
+    <div
+      class="fishd-tooltip-content"
+    >
+      <div
+        class="fishd-tooltip-arrow"
+      />
+      <div
+        class="fishd-tooltip-inner"
+      >
+        30
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Slider should show tooltip when hovering slider handler 2`] = `<div />`;

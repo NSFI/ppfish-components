@@ -28,6 +28,7 @@ const refactoredComp = [
   'Timeline',
   'message',
   'notification',
+  'Slider',
 ];
 
 const getRefactoredCompMatch = name => {

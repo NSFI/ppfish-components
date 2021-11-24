@@ -1,49 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {addEventListener} from '../../../utils';
+import { addEventListener } from '../../../utils';
 import classNames from 'classnames';
 import warning from 'warning';
 import Steps from './Steps';
 import Marks from './Marks';
 import Handle from '../RcHandle';
 import * as utils from '../utils';
-import Tip from "./Tip";
+import Tip from './Tip';
+import type { GenericSliderProps, GenericSliderState, GenericSlider } from '../interface';
 
-function noop() {
-}
+function noop() {}
 
-export default function createSlider(Component) {
+export default function createSlider<
+  Props extends GenericSliderProps,
+  State extends GenericSliderState,
+>(Component: GenericSlider<Props, State>): React.ComponentClass<Props, State> {
   return class ComponentEnhancer extends Component {
     static displayName = `ComponentEnhancer(${Component.displayName})`;
-    static propTypes = {
-      ...Component.propTypes,
-      min: PropTypes.number,
-      max: PropTypes.number,
-      step: PropTypes.number,
-      marks: PropTypes.object,
-      included: PropTypes.bool,
-      className: PropTypes.string,
-      prefixCls: PropTypes.string,
-      disabled: PropTypes.bool,
-      children: PropTypes.node,
-      onBeforeChange: PropTypes.func,
-      onChange: PropTypes.func,
-      onAfterChange: PropTypes.func,
-      handle: PropTypes.func,
-      dots: PropTypes.bool,
-      vertical: PropTypes.bool,
-      style: PropTypes.object,
-      minimumTrackStyle: PropTypes.object, // just for compatibility, will be deperecate
-      maximumTrackStyle: PropTypes.object, // just for compatibility, will be deperecate
-      handleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]),
-      trackStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]),
-      railStyle: PropTypes.object,
-      dotStyle: PropTypes.object,
-      activeDotStyle: PropTypes.object,
-      autoFocus: PropTypes.bool,
-      onFocus: PropTypes.func,
-      onBlur: PropTypes.func,
-    };
 
     static defaultProps = {
       ...Component.defaultProps,
@@ -53,9 +26,9 @@ export default function createSlider(Component) {
       max: 100,
       step: 1,
       marks: {},
-      handle({index, ...restProps}) {
+      handle({ index, ...restProps }) {
         delete restProps.dragging;
-        return <Handle {...restProps} key={index}/>;
+        return <Handle {...restProps} key={index} />;
       },
       onBeforeChange: noop,
       onChange: noop,
@@ -71,21 +44,46 @@ export default function createSlider(Component) {
       activeDotStyle: {},
     };
 
+    handlesRefs: any;
+
+    sliderRef: HTMLDivElement;
+
+    document: Document;
+
+    dragOffset: number;
+
+    prevMovedHandleIndex: number;
+
+    onTouchMoveListener: any;
+
+    onTouchUpListener: any;
+
+    onMouseMoveListener: any;
+
+    onMouseUpListener: any;
+
+    onMove: any;
+
+    tipPercent: any;
+
+    tipOffset: any;
+
+    tipVisible: boolean;
+
     constructor(props) {
       super(props);
 
       if (process.env.NODE_ENV !== 'production') {
-        const {step, max, min} = props;
+        const { step, max, min } = props;
         warning(
           step && Math.floor(step) === step ? (max - min) % step === 0 : true,
           'Slider[max] - Slider[min] (%s) should be a multiple of Slider[step] (%s)',
           max - min,
-          step
+          step,
         );
       }
       this.handlesRefs = {};
       this.tipPercent = 0;
-
     }
 
     componentWillUnmount() {
@@ -98,7 +96,7 @@ export default function createSlider(Component) {
       this.document = this.sliderRef && this.sliderRef.ownerDocument;
     }
 
-    onMouseDown = (e) => {
+    onMouseDown = e => {
       if (e.button !== 0) {
         return;
       }
@@ -117,7 +115,7 @@ export default function createSlider(Component) {
       this.addDocumentMouseEvents();
     };
 
-    onTouchStart = (e) => {
+    onTouchStart = e => {
       if (utils.isNotTouchEvent(e)) return;
 
       const isVertical = this.props.vertical;
@@ -134,8 +132,8 @@ export default function createSlider(Component) {
       utils.pauseEvent(e);
     };
 
-    onFocus = (e) => {
-      const {onFocus, vertical} = this.props;
+    onFocus = e => {
+      const { onFocus, vertical } = this.props;
       if (utils.isEventFromHandle(e, this.handlesRefs)) {
         const handlePosition = utils.getHandleCenterPosition(vertical, e.target);
         this.dragOffset = 0;
@@ -147,8 +145,8 @@ export default function createSlider(Component) {
       }
     };
 
-    onBlur = (e) => {
-      const {onBlur} = this.props;
+    onBlur = e => {
+      const { onBlur } = this.props;
       this.onEnd(e);
       if (onBlur) {
         onBlur(e);
@@ -182,7 +180,7 @@ export default function createSlider(Component) {
       }
     };
 
-    onMouseMoveTooltip = (e) => {
+    onMouseMoveTooltip = e => {
       this.tipOffset = utils.getMousePosition(this.props.vertical, e) - this.getSliderStart();
       this.tipPercent = this.calcValueByPos(utils.getMousePosition(this.props.vertical, e));
       this.tipVisible = !(this.tipOffset > this.getSliderLength() || this.tipOffset < 0);
@@ -199,7 +197,7 @@ export default function createSlider(Component) {
       this.forceUpdate();
     };
 
-    onMouseMove = (e) => {
+    onMouseMove = e => {
       if (!this.sliderRef) {
         this.onEnd();
         return;
@@ -208,7 +206,7 @@ export default function createSlider(Component) {
       this.onMove(e, position - this.dragOffset);
     };
 
-    onTouchMove = (e) => {
+    onTouchMove = e => {
       if (utils.isNotTouchEvent(e) || !this.sliderRef) {
         this.onEnd();
         return;
@@ -218,7 +216,7 @@ export default function createSlider(Component) {
       this.onMove(e, position - this.dragOffset);
     };
 
-    onKeyDown = (e) => {
+    onKeyDown = e => {
       if (this.sliderRef && utils.isEventFromHandle(e, this.handlesRefs)) {
         this.onKeyboard(e);
       }
@@ -254,7 +252,7 @@ export default function createSlider(Component) {
     }
 
     calcValue(offset) {
-      const {vertical, min, max} = this.props;
+      const { vertical, min, max } = this.props;
       const ratio = Math.abs(Math.max(offset, 0) / this.getSliderLength());
       const value = vertical ? (1 - ratio) * (max - min) + min : ratio * (max - min) + min;
       return value;
@@ -267,12 +265,12 @@ export default function createSlider(Component) {
     }
 
     calcOffset(value) {
-      const {min, max} = this.props;
+      const { min, max } = this.props;
       const ratio = (value - min) / (max - min);
       return ratio * 100;
     }
 
-    saveSlider = (slider) => {
+    saveSlider = slider => {
       this.sliderRef = slider;
     };
 
@@ -282,7 +280,7 @@ export default function createSlider(Component) {
 
     onClickMarkLabel = (e, value) => {
       e.stopPropagation();
-      this.onChange({value});
+      this.onChange({ value });
     };
 
     render() {
@@ -304,9 +302,9 @@ export default function createSlider(Component) {
         dotStyle,
         activeDotStyle,
         tipMode,
-        tipFormatter
+        tipFormatter,
       } = this.props;
-      const {tracks, handles} = super.render();
+      const { tracks, handles } = super.render() as any;
       const showTipComponent = !disabled && tipMode === 'all';
       let tipComponentListener = {};
       if (showTipComponent) {
@@ -337,14 +335,15 @@ export default function createSlider(Component) {
         >
           {
             // 添加滚动条tooltip功能，tipMode="all"
-            showTipComponent &&
-            <Tip
-              prefixCls={prefixCls}
-              title={tipFormatter ? tipFormatter(this.tipPercent) : ''}
-              position={this.tipOffset}
-              visible={this.tipVisible}
-              vertical={this.props.vertical}
-            />
+            showTipComponent && (
+              <Tip
+                prefixCls={prefixCls}
+                title={tipFormatter ? tipFormatter(this.tipPercent) : ''}
+                position={this.tipOffset}
+                visible={this.tipVisible}
+                vertical={this.props.vertical}
+              />
+            )
           }
           <div
             className={`${prefixCls}-rail`}

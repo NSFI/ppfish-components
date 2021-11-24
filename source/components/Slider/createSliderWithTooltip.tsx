@@ -1,14 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Tooltip from '../Tooltip/index.tsx';
+import Tooltip, { TooltipProps } from '../Tooltip/index';
 import Handle from './RcHandle';
 
+interface WrapperProps {
+  handleStyle: React.CSSProperties[] | React.CSSProperties;
+  tipProps: TooltipProps;
+}
+
+interface WrapperStates {
+  visibles: {
+    [index: number]: boolean;
+  };
+}
+
 export default function createSliderWithTooltip(Component) {
-  return class ComponentWrapper extends React.Component {
-    static propTypes = {
-      handleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]),
-      tipProps: PropTypes.object,
-    };
+  return class ComponentWrapper extends React.Component<WrapperProps, WrapperStates> {
     static defaultProps = {
       handleStyle: [{}],
       tipProps: {},
@@ -18,7 +24,7 @@ export default function createSliderWithTooltip(Component) {
       this.state = { visibles: {} };
     }
     handleTooltipVisibleChange = (index, visible) => {
-      this.setState((prevState) => {
+      this.setState(prevState => {
         return {
           visibles: {
             ...prevState.visibles,
@@ -28,15 +34,12 @@ export default function createSliderWithTooltip(Component) {
       });
     };
     handleWithTooltip = ({ value, dragging, index, disabled, ...restProps }) => {
-      const {
-        tipProps,
-        handleStyle,
-      } = this.props;
+      const { tipProps, handleStyle } = this.props;
 
       const {
         prefixCls = 'rc-slider-tooltip',
         placement = 'top',
-        visible = visible || false,
+        visible = false,
         ...restTooltipProps
       } = tipProps;
 
@@ -55,7 +58,6 @@ export default function createSliderWithTooltip(Component) {
           visible={(!disabled && (this.state.visibles[index] || dragging)) || visible}
           key={index}
         >
-
           <Handle
             {...restProps}
             style={{

@@ -1,9 +1,8 @@
 import { findDOMNode } from 'react-dom';
-import {KeyCode} from '../../utils';
+import { KeyCode } from '../../utils';
 
 export function isEventFromHandle(e, handles) {
-  return Object.keys(handles)
-    .some(key => e.target === findDOMNode(handles[key]));
+  return Object.keys(handles).some(key => e.target === findDOMNode(handles[key]));
 }
 
 export function isValueOutOfRange(value, { min, max }) {
@@ -11,15 +10,13 @@ export function isValueOutOfRange(value, { min, max }) {
 }
 
 export function isNotTouchEvent(e) {
-  return e.touches.length > 1 ||
-    (e.type.toLowerCase() === 'touchend' && e.touches.length > 0);
+  return e.touches.length > 1 || (e.type.toLowerCase() === 'touchend' && e.touches.length > 0);
 }
 
 export function getClosestPoint(val, { marks, step, min }) {
   const points = Object.keys(marks).map(parseFloat);
   if (step !== null) {
-    const closestStep =
-            Math.round((val - min) / step) * step + min;
+    const closestStep = Math.round((val - min) / step) * step + min;
     points.push(closestStep);
   }
   const diffs = points.map(point => Math.abs(val - point));
@@ -45,9 +42,7 @@ export function getTouchPosition(vertical, e) {
 
 export function getHandleCenterPosition(vertical, handle) {
   const coords = handle.getBoundingClientRect();
-  return vertical ?
-    coords.top + (coords.height * 0.5) :
-    coords.left + (coords.width * 0.5);
+  return vertical ? coords.top + coords.height * 0.5 : coords.left + coords.width * 0.5;
 }
 
 export function ensureValueInRange(val, { max, min }) {
@@ -63,8 +58,7 @@ export function ensureValueInRange(val, { max, min }) {
 export function ensureValuePrecision(val, props) {
   const { step } = props;
   const closestPoint = getClosestPoint(val, props);
-  return step === null ? closestPoint :
-    parseFloat(closestPoint.toFixed(getPrecision(step)));
+  return step === null ? closestPoint : parseFloat(closestPoint.toFixed(getPrecision(step)));
 }
 
 export function pauseEvent(e) {
@@ -82,11 +76,16 @@ export function getKeyboardValueMutator(e) {
     case KeyCode.LEFT:
       return (value, props) => value - props.step;
 
-    case KeyCode.END: return (value, props) => props.max;
-    case KeyCode.HOME: return (value, props) => props.min;
-    case KeyCode.PAGE_UP: return (value, props) => value + props.step * 2;
-    case KeyCode.PAGE_DOWN: return (value, props) => value - props.step * 2;
+    case KeyCode.END:
+      return (value, props) => props.max;
+    case KeyCode.HOME:
+      return (value, props) => props.min;
+    case KeyCode.PAGE_UP:
+      return (value, props) => value + props.step * 2;
+    case KeyCode.PAGE_DOWN:
+      return (value, props) => value - props.step * 2;
 
-    default: return undefined;
+    default:
+      return undefined;
   }
 }
