@@ -14,7 +14,7 @@ export default function LocaleConsumer({
   children,
 }: {
   componentName: string;
-  children: (params: object, locale: string) => React.ReactNode;
+  children: (value: object, lang: string) => React.ReactNode;
 }) {
   return (
     <Consumer>

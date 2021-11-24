@@ -10,7 +10,7 @@ function off(
   node: HTMLElement,
   eventName: string,
   callback: (e: Event) => void,
-  useCapture = false
+  useCapture = false,
 ) {
   if (node.removeEventListener) {
     node.removeEventListener(eventName, callback, useCapture);
@@ -21,14 +21,14 @@ function on(
   node: HTMLElement,
   eventName: string,
   callback: (e: Event) => void,
-  useCapture = false
+  useCapture = false,
 ) {
   if (node.addEventListener) {
     node.addEventListener(eventName, callback, useCapture);
   }
 
   return {
-    off: () => off(node, eventName, callback, useCapture)
+    off: () => off(node, eventName, callback, useCapture),
   };
 }
 
@@ -79,10 +79,7 @@ export interface EndListeners {
   animationend: any[];
 }
 
-export default class AnimateChild extends React.Component<
-  AnimateChildProps,
-  AnimateChildState
-> {
+export default class AnimateChild extends React.Component<AnimateChildProps, AnimateChildState> {
   static propTypes = {
     names: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onAppear: PropTypes.func,
@@ -94,7 +91,7 @@ export default class AnimateChild extends React.Component<
     onExit: PropTypes.func,
     onExiting: PropTypes.func,
     onExited: PropTypes.func,
-    timeout: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
+    timeout: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   };
 
   static defaultProps = {
@@ -106,23 +103,27 @@ export default class AnimateChild extends React.Component<
     onEntered: noop,
     onExit: noop,
     onExiting: noop,
-    onExited: noop
+    onExited: noop,
   };
 
   endListeners: EndListeners = {
     transitionend: [],
-    animationend: []
+    animationend: [],
   };
+
   timeoutMap: {};
+
   node: HTMLElement = null;
+
   transitionOff: () => void;
+
   animationOff: () => void;
 
   constructor(props) {
     super(props);
     this.endListeners = {
       transitionend: [],
-      animationend: []
+      animationend: [],
     };
     this.timeoutMap = {};
   }
@@ -135,7 +136,7 @@ export default class AnimateChild extends React.Component<
     });
     this.endListeners = {
       transitionend: [],
-      animationend: []
+      animationend: [],
     };
   }
 
@@ -180,7 +181,7 @@ export default class AnimateChild extends React.Component<
         const animationDuration = parseFloat(getStyleProperty(node, 'animation-duration')) || 0;
         const time = Math.max(
           transitionDuration + transitionDelay,
-          animationDuration + animationDelay
+          animationDuration + animationDelay,
         );
 
         this.timeoutMap[id] = setTimeout(() => {

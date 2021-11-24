@@ -17,13 +17,14 @@ export const getAttrs = (node: Element): object => {
 
 class ImageBlot extends Embed {
   static blotName: string;
+
   static tagName: string;
 
   static create(value: object): HTMLElement {
     let node: HTMLElement = super.create();
 
-    if (Object.prototype.toString.call(value) == "[object Object]") {
-      Object.keys(value).forEach((key) => {
+    if (Object.prototype.toString.call(value) == '[object Object]') {
+      Object.keys(value).forEach(key => {
         try {
           node.setAttribute(key, value[key]);
         } catch (e) {
@@ -35,11 +36,11 @@ class ImageBlot extends Embed {
     return node;
   }
 
-  static formats(node:HTMLElement):object {
+  static formats(node: HTMLElement): object {
     return getAttrs(node);
   }
 
-  static value(node:HTMLElement):object {
+  static value(node: HTMLElement): object {
     return getAttrs(node);
   }
 

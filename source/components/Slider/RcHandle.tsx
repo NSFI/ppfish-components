@@ -28,6 +28,7 @@ export default class Handle extends React.Component<HandleProps, HandleStates> {
   };
 
   private onMouseUpListener: any;
+
   private handle: any;
 
   componentDidMount() {

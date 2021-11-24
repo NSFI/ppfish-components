@@ -166,10 +166,15 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     formatPainterActive: false,
     getPopupContainer: () => document.body,
   };
+
   private defaultSizes: Array<string>;
+
   private curSizeList: Array<string>;
+
   private curInsertValueList: Array<any>;
+
   private Locale: LocaleProperties['RichEditor'];
+
   public toolbarCtner: HTMLDivElement;
 
   constructor(props: CustomToolbarProps) {

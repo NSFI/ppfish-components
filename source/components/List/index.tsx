@@ -55,7 +55,9 @@ export interface ListProps {
 
 class List extends React.Component<ListProps> {
   static Item: typeof Item = Item;
+
   static Sortable = Sortable;
+
   static childContextTypes = {
     grid: PropTypes.any,
   };

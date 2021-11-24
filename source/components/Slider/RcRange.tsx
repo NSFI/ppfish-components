@@ -93,13 +93,21 @@ class Range extends React.Component<RangeProps, RangeStates> {
   }
 
   private _getPointsCache: any;
+
   private calcValueByPos: any;
+
   private startValue: any;
+
   private startPosition: any;
+
   private prevMovedHandleIndex: any;
+
   private removeDocumentEvents: any;
+
   private handlesRefs: any;
+
   private calcOffset: any;
+
   private saveHandle: any;
 
   constructor(props) {

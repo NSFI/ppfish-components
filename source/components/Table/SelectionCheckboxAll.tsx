@@ -15,7 +15,7 @@ function checkSelection(props, data, type: string, byDefaultChecked: boolean) {
     return byDefaultChecked
       ? data[type]((item, i) => getCheckboxPropsByItem(item, i).defaultChecked)
       : data[type](
-          (item, i) => store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0
+          (item, i) => store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0,
         );
   }
   return false;
@@ -67,6 +67,7 @@ class SelectionCheckboxAll<T> extends React.Component<
   SelectionCheckboxAllState
 > {
   unsubscribe: () => void;
+
   defaultSelections: SelectionItem[];
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -82,18 +83,18 @@ class SelectionCheckboxAll<T> extends React.Component<
           {
             key: 'all',
             text: props.locale.selectAll,
-            onSelect: () => {}
+            onSelect: () => {},
           },
           {
             key: 'invert',
             text: props.locale.selectInvert,
-            onSelect: () => {}
-          }
+            onSelect: () => {},
+          },
         ];
 
     this.state = {
       checked: getCheckState(props),
-      indeterminate: getIndeterminateState(props)
+      indeterminate: getIndeterminateState(props),
     };
   }
 
@@ -168,7 +169,7 @@ class SelectionCheckboxAll<T> extends React.Component<
       <div className={selectionPrefixCls}>
         <Checkbox
           className={classNames({
-            [`${selectionPrefixCls}-select-all-custom`]: customSelections
+            [`${selectionPrefixCls}-select-all-custom`]: customSelections,
           })}
           checked={checked}
           indeterminate={indeterminate}

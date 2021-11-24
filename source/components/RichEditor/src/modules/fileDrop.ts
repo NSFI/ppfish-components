@@ -1,15 +1,16 @@
-export interface quill{
-  root: HTMLElement,
-  getSelection: Function,
-  getLength: Function,
-  getFormat: Function,
-  updateContents: Function,
-  setSelection: Function,
-  insertEmbed: Function,
+export interface quill {
+  root: HTMLElement;
+  getSelection: Function;
+  getLength: Function;
+  getFormat: Function;
+  updateContents: Function;
+  setSelection: Function;
+  insertEmbed: Function;
 }
 
 export default class FileDrop {
-  quill: quill
+  quill: quill;
+
   customDropFile: any;
 
   constructor(quill, options = { customDropFile: undefined }) {
@@ -29,8 +30,10 @@ export default class FileDrop {
         const range = document.caretRangeFromPoint(evt.clientX, evt.clientY);
         if (selection && range) {
           selection.setBaseAndExtent(
-            range.startContainer, range.startOffset,
-            range.startContainer, range.startOffset
+            range.startContainer,
+            range.startOffset,
+            range.startContainer,
+            range.startOffset,
           );
         }
       }
@@ -64,14 +67,15 @@ export default class FileDrop {
     }
   }
 
-  handleFileInsert(fileInfo):void {
+  handleFileInsert(fileInfo): void {
     if (!(fileInfo.url || fileInfo.src)) return;
 
     const range = this.quill.getSelection() || {},
-      index = (range.index != undefined) ? range.index : this.quill.getLength(),
+      index = range.index != undefined ? range.index : this.quill.getLength(),
       curFormat = this.quill.getFormat(range);
 
-    if (fileInfo.type == 'image') {			// 插入图片
+    if (fileInfo.type == 'image') {
+      // 插入图片
       if (!fileInfo.src) {
         return;
       }
@@ -85,8 +89,8 @@ export default class FileDrop {
       }
 
       let delta = <any>[
-        { insert: { 'myImage': fileInfo }, attributes: { ...listFormat } },
-        { insert: ' ' } // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
+        { insert: { myImage: fileInfo }, attributes: { ...listFormat } },
+        { insert: ' ' }, // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
       ];
 
       if (index > 0) {
@@ -95,13 +99,15 @@ export default class FileDrop {
 
       this.quill.updateContents(delta);
       this.quill.setSelection(index + 2);
-    } else if (fileInfo.type == 'video') {	// 插入视频
+    } else if (fileInfo.type == 'video') {
+      // 插入视频
       if (!fileInfo.src) {
         return;
       }
       this.quill.insertEmbed(index, 'myVideo', fileInfo);
       this.quill.setSelection(index + 2);
-    } else {								// 插入附件
+    } else {
+      // 插入附件
       if (!fileInfo.url || !fileInfo.name) {
         return;
       }
@@ -120,14 +126,14 @@ export default class FileDrop {
             insert: displayFileName,
             attributes: {
               ...listFormat,
-              'link': {
+              link: {
                 type: 'attachment',
                 url: fileInfo.url,
-                name: fileInfo.name
-              }
-            }
+                name: fileInfo.name,
+              },
+            },
           },
-          { insert: '\n', attributes: { ...listFormat } }
+          { insert: '\n', attributes: { ...listFormat } },
         ] as any[];
 
       if (index > 0) {
@@ -139,15 +145,17 @@ export default class FileDrop {
     }
   }
 
-  insert(fileList: any):void {
+  insert(fileList: any): void {
     if (Array.isArray(fileList)) {
-      fileList.sort((a, b) => {
-        // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
-        let order = ['other', 'image', 'video'];
-        return order.indexOf(b.type) - order.indexOf(a.type);
-      }).forEach((file) => {
-        file && this.handleFileInsert(file);
-      });
+      fileList
+        .sort((a, b) => {
+          // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
+          let order = ['other', 'image', 'video'];
+          return order.indexOf(b.type) - order.indexOf(a.type);
+        })
+        .forEach(file => {
+          file && this.handleFileInsert(file);
+        });
     } else {
       fileList && this.handleFileInsert(fileList);
     }

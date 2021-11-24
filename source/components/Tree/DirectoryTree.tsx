@@ -10,7 +10,7 @@ import Tree, {
   FishdTreeNodeAttribute,
   FishdTreeNodeExpandedEvent,
   FishdTreeNodeSelectedEvent,
-  FishdTreeNode
+  FishdTreeNode,
 } from './Tree';
 import { calcRangeKeys, getFullKeyList } from './util';
 import Icon from '../Icon';
@@ -38,15 +38,18 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
   static defaultProps = {
     prefixCls: 'fishd-tree',
     showIcon: true,
-    expandAction: 'click'
+    expandAction: 'click',
   };
 
   state: DirectoryTreeState;
+
   tree: Tree;
+
   onDebounceExpand: (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => void;
 
   // Shift click usage
   lastSelectedKey?: string;
+
   cachedSelectedKeys?: string[];
 
   static getDerivedStateFromProps(nextProps: DirectoryTreeProps) {
@@ -63,18 +66,13 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
   constructor(props: DirectoryTreeProps) {
     super(props);
 
-    const {
-      defaultExpandAll,
-      defaultExpandParent,
-      expandedKeys,
-      defaultExpandedKeys,
-      children
-    } = props;
+    const { defaultExpandAll, defaultExpandParent, expandedKeys, defaultExpandedKeys, children } =
+      props;
     const { keyEntities } = convertTreeToEntities(children);
 
     // Selected keys
     this.state = {
-      selectedKeys: props.selectedKeys || props.defaultSelectedKeys || []
+      selectedKeys: props.selectedKeys || props.defaultSelectedKeys || [],
     };
 
     // Expanded keys
@@ -83,14 +81,14 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
     } else if (defaultExpandParent) {
       this.state.expandedKeys = conductExpandParent(
         expandedKeys || defaultExpandedKeys,
-        keyEntities
+        keyEntities,
       );
     } else {
       this.state.expandedKeys = expandedKeys || defaultExpandedKeys;
     }
 
     this.onDebounceExpand = debounce(this.expandFolderNode, 200, {
-      leading: true
+      leading: true,
     });
   }
 
@@ -157,8 +155,8 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
       newSelectedKeys = Array.from(
         new Set([
           ...(this.cachedSelectedKeys || []),
-          ...calcRangeKeys(children, expandedKeys, eventKey, this.lastSelectedKey)
-        ])
+          ...calcRangeKeys(children, expandedKeys, eventKey, this.lastSelectedKey),
+        ]),
       );
     } else {
       // Single click

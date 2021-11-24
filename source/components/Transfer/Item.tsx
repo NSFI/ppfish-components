@@ -9,6 +9,7 @@ export default class Item extends React.Component<any, any> {
   shouldComponentUpdate(...args: any[]) {
     return PureRenderMixin.shouldComponentUpdate.apply(this, args);
   }
+
   render() {
     const {
       mode,
@@ -20,12 +21,12 @@ export default class Item extends React.Component<any, any> {
       checked,
       prefixCls,
       onClick,
-      onClose
+      onClose,
     } = this.props;
 
     const className = classNames({
       [`${prefixCls}-content-item`]: true,
-      [`${prefixCls}-content-item-disabled`]: item.disabled
+      [`${prefixCls}-content-item-disabled`]: item.disabled,
     });
 
     const listItem = (
@@ -54,7 +55,7 @@ export default class Item extends React.Component<any, any> {
         offset: 500,
         throttle: 0,
         debounce: false,
-        ...lazy
+        ...lazy,
       };
       children = <Lazyload {...lazyProps}>{listItem}</Lazyload>;
     } else {

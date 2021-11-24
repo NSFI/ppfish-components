@@ -2,13 +2,14 @@ import Quill from 'quill';
 const Embed = Quill.import('blots/embed');
 
 interface EmojiBlotCreateType extends HTMLImageElement {
-  type: string
+  type: string;
 }
 
 class EmojiBlot extends Embed {
   static blotName: string;
+
   static tagName: string;
-  
+
   static create(value: EmojiBlotCreateType) {
     let node = super.create();
 

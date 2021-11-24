@@ -26,6 +26,7 @@ function del(p) {
     }
   }
 }
+
 function fileDisplay(filePath) {
   //根据文件路径读取文件，返回文件列表
   fs.readdir(filePath, function (err, files) {
@@ -68,6 +69,7 @@ function fileDisplay(filePath) {
     }
   });
 }
+
 function delTest(dirPath) {
   let files = fs.readdirSync(dirPath);
   files.forEach(function (file) {

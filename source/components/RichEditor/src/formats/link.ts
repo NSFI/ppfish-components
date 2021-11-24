@@ -9,14 +9,18 @@ interface createType {
 
 class Link extends Inline {
   static blotName: string;
+
   static tagName: string;
+
   static formatCursor: boolean;
 
   statics: {
     blotName: string;
     formatCursor: boolean;
   };
+
   domNode: HTMLElement;
+
   static create(data: createType): HTMLElement {
     this.formatCursor = false;
     const node: HTMLElement = super.create(data);

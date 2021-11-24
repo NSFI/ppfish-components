@@ -30,7 +30,6 @@ export default function LocaleProvider(props: {
   children?: React.ReactNode;
 }) {
   const Locale = props.Locale || zh_CN;
-  const { children } = props;
   const renderProvider = () => {
     changeRuntimeLocale(Locale);
     return props.children;

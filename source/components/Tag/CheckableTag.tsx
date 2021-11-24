@@ -15,15 +15,16 @@ export default class CheckableTag extends React.Component<CheckableTagProps> {
       onChange(!checked);
     }
   };
+
   render() {
     const { prefixCls = 'fishd-tag', className, checked, ...restProps } = this.props;
     const cls = classNames(
       prefixCls,
       {
         [`${prefixCls}-checkable`]: true,
-        [`${prefixCls}-checkable-checked`]: checked
+        [`${prefixCls}-checkable-checked`]: checked,
       },
-      className
+      className,
     );
 
     delete (restProps as any).onChange; // TypeScript cannot check delete now.

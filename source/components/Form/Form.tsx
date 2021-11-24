@@ -103,7 +103,7 @@ export type WrappedFormUtils = {
   validateFieldsAndScroll(
     fieldNames?: Array<string>,
     options?: Object,
-    callback?: ValidateCallback
+    callback?: ValidateCallback,
   ): void;
   validateFieldsAndScroll(fieldNames?: Array<string>, callback?: ValidateCallback): void;
   validateFieldsAndScroll(options?: Object, callback?: ValidateCallback): void;
@@ -121,7 +121,7 @@ export type WrappedFormUtils = {
 
   getFieldDecorator(
     id: string,
-    options?: GetFieldDecoratorOptions
+    options?: GetFieldDecoratorOptions,
   ): (node: React.ReactNode) => React.ReactNode;
 };
 
@@ -135,7 +135,7 @@ export interface RcBaseFormProps {
 
 export interface ComponentDecorator {
   <P extends FormComponentProps>(
-    component: React.ComponentClass<P> | React.SFC<P>
+    component: React.ComponentClass<P> | React.SFC<P>,
   ): React.ComponentClass<RcBaseFormProps & Omit<P, keyof FormComponentProps>>;
 }
 
@@ -146,7 +146,7 @@ export default class Form extends React.Component<FormProps, any> {
     hideRequiredMark: false,
     onSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
-    }
+    },
   };
 
   static propTypes = {
@@ -154,26 +154,27 @@ export default class Form extends React.Component<FormProps, any> {
     layout: PropTypes.oneOf(['horizontal', 'inline', 'vertical']),
     children: PropTypes.any,
     onSubmit: PropTypes.func,
-    hideRequiredMark: PropTypes.bool
+    hideRequiredMark: PropTypes.bool,
   };
 
   static childContextTypes = {
-    vertical: PropTypes.bool
+    vertical: PropTypes.bool,
   };
 
   static List = FormList;
+
   static Item = FormItem;
 
   static createFormField = createFormField;
 
   static create = function <TOwnProps>(
-    options: FormCreateOption<TOwnProps> = {}
+    options: FormCreateOption<TOwnProps> = {},
   ): ComponentDecorator {
     return createDOMForm({
       fieldNameProp: 'id',
       ...options,
       fieldMetaProp: FIELD_META_PROP,
-      fieldDataProp: FIELD_DATA_PROP
+      fieldDataProp: FIELD_DATA_PROP,
     });
   };
 
@@ -184,7 +185,7 @@ export default class Form extends React.Component<FormProps, any> {
   getChildContext() {
     const { layout } = this.props;
     return {
-      vertical: layout === 'vertical'
+      vertical: layout === 'vertical',
     };
   }
 
@@ -196,9 +197,9 @@ export default class Form extends React.Component<FormProps, any> {
         [`${prefixCls}-horizontal`]: layout === 'horizontal',
         [`${prefixCls}-vertical`]: layout === 'vertical',
         [`${prefixCls}-inline`]: layout === 'inline',
-        [`${prefixCls}-hide-required-mark`]: hideRequiredMark
+        [`${prefixCls}-hide-required-mark`]: hideRequiredMark,
       },
-      className
+      className,
     );
 
     const formProps = omit(this.props, [
@@ -206,7 +207,7 @@ export default class Form extends React.Component<FormProps, any> {
       'className',
       'layout',
       'form',
-      'hideRequiredMark'
+      'hideRequiredMark',
     ]);
 
     return <form {...formProps} className={formClassName} />;

@@ -35,7 +35,9 @@ interface QuickPanelState {
 
 class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
   _blurTimer: any;
+
   ref: HTMLDivElement;
+
   systemColorPickerOpen: boolean;
 
   static propTypes = {
@@ -62,7 +64,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
     userSelectColor: PropTypes.bool,
     style: PropTypes.object,
     popupStyle: PropTypes.object,
-    esc: PropTypes.bool
+    esc: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -85,7 +87,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
       '#333333',
       '#666666',
       '#999999',
-      '#cccccc'
+      '#cccccc',
     ],
     defaultAlpha: 100,
     defaultColor: '#33bbff',
@@ -102,7 +104,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
     userSelectColor: true,
     style: {},
     popupStyle: {},
-    esc: true
+    esc: true,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -130,7 +132,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
       color: props.color || props.defaultColor,
       alpha,
       visible: false,
-      colorHistory: props.colorHistory
+      colorHistory: props.colorHistory,
     };
   }
 
@@ -213,14 +215,14 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
       this.handleChange(
         colorMap[activeIndex - 1 === -1 ? colorMap.length - 1 : activeIndex - 1],
         100,
-        false
+        false,
       );
     }
     if (keyCode === KeyCode.RIGHT) {
       this.handleChange(
         colorMap[activeIndex + 1 === colorMap.length ? 0 : activeIndex + 1],
         100,
-        false
+        false,
       );
     }
   };
@@ -244,7 +246,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
             colorHistory:
               colorHistory.length >= maxHistory
                 ? [{ color, alpha }, ...colorHistory.slice(0, -1)]
-                : [{ color, alpha }, ...colorHistory]
+                : [{ color, alpha }, ...colorHistory],
           });
         }
       });
@@ -279,7 +281,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
       getPopupContainer,
       disabled,
       __useInComponent,
-      popupStyle
+      popupStyle,
     } = this.props;
     const [r, g, b] = new Color(this.state.color).RGB;
     const RGBA = [r, g, b];
@@ -302,7 +304,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
           {colorMap.map((color, i) => {
             const spnClasses = classNames({
               [`${prefixCls}-color-spn`]: true,
-              [`${prefixCls}-color-spn-active`]: this.state.color === color
+              [`${prefixCls}-color-spn-active`]: this.state.color === color,
             });
             return (
               <span
@@ -340,7 +342,7 @@ class QuickPanel extends React.Component<QuickPanelProps, QuickPanelState> {
                       ? {
                           backgroundColor: `rgba(${RGBA.join(',')})`,
                           color: '#fff',
-                          textShadow: '0 0.5px 0.5px rgba(0,0,0,50%)'
+                          textShadow: '0 0.5px 0.5px rgba(0,0,0,50%)',
                         }
                       : {}
                   }

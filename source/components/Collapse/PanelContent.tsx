@@ -30,4 +30,6 @@ const PanelContent: FC<PanelContentProps> = memo(
   (prevProp, nextProps) => !prevProp.isActive && !nextProps.isActive,
 );
 
+PanelContent.displayName = 'PanelContent';
+
 export default PanelContent;

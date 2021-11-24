@@ -51,7 +51,9 @@ const getImageSize = function (
 
 class Range {
   index: number;
+
   length: number;
+
   constructor(index: number, length = 0) {
     this.index = index;
     this.length = length;
@@ -60,13 +62,19 @@ class Range {
 
 class RichEditor extends Component<RichEditorProps, RichEditorState> {
   reactQuillNode: Element | Text;
+
   defaultFontSize: string;
+
   defaultLinkPrefix: string;
+
   Locale: LocaleProperties['RichEditor'];
 
   defaultVideoType: string;
+
   isSupportCustomInsertVideo: boolean;
+
   prevSelectionFormat: any;
+
   handlers: {
     link: Function;
     video: Function;
@@ -76,14 +84,23 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     clean: Function;
     customInsertValue: Function;
   };
+
   editorCtner: HTMLDivElement;
+
   linkModalInputRef: any;
+
   videoModalInputRef: any;
+
   toolbarRef: React.ReactInstance;
+
   reactQuillRef: ReactQuill;
+
   onClickRemoveHandler: any;
+
   onClickActionHandler: any;
+
   onBlurHandler: any;
+
   linkRange: any;
 
   static defaultProps = {

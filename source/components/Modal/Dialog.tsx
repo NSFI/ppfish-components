@@ -38,7 +38,7 @@ function offset(el: any) {
   const rect = el.getBoundingClientRect();
   const pos = {
     left: rect.left,
-    top: rect.top
+    top: rect.top,
   };
   const doc = el.ownerDocument;
   const w = doc.defaultView || doc.parentWindow;
@@ -57,20 +57,31 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     maskClosable: true,
     destroyOnClose: false,
     draggable: false,
-    prefixCls: 'rc-dialog'
+    prefixCls: 'rc-dialog',
   };
 
   private inTransition: boolean;
+
   private titleId: string;
+
   private openTime: number;
+
   private lastOutSideFocusNode: HTMLElement | null;
+
   private wrap: HTMLElement | null;
+
   private dialog: any;
+
   private header: any;
+
   private body: any;
+
   private footer: any;
+
   private sentinel: HTMLElement | null;
+
   private bodyIsOverflowing: boolean;
+
   private scrollbarWidth: number;
 
   constructor(props: IDialogPropTypes) {
@@ -103,7 +114,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
           const elOffset = offset(dialogNode);
           setTransformOrigin(
             dialogNode,
-            `${mousePosition.x - elOffset.left}px ${mousePosition.y - elOffset.top}px`
+            `${mousePosition.x - elOffset.left}px ${mousePosition.y - elOffset.top}px`,
           );
         } else {
           setTransformOrigin(dialogNode, '');
@@ -143,6 +154,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     if (this.footer) difference += this.footer.offsetHeight;
     return difference;
   };
+
   onAnimateLeave = () => {
     const { afterClose } = this.props;
     // need demo?
@@ -156,6 +168,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       afterClose();
     }
   };
+
   onMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // android trigger click on open (fastclick??)
     if (Date.now() - this.openTime < 300) {
@@ -165,6 +178,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       this.close(e);
     }
   };
+
   onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const props = this.props;
     if (props.esc && e.keyCode === KeyCode.ESC) {
@@ -185,6 +199,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       }
     }
   };
+
   getDialogElement = () => {
     const props = this.props;
     const closable = props.closable;
@@ -231,7 +246,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     const dialog = (
       <div
         className={classNames(`${prefixCls}-dialog`, {
-          draggable: props.draggable
+          draggable: props.draggable,
         })}
       >
         <div className={`${prefixCls}-content`}>
@@ -282,6 +297,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       </Animate>
     );
   };
+
   getZIndexStyle = () => {
     const style: any = {};
     const props = this.props;
@@ -290,12 +306,15 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     }
     return style;
   };
+
   getWrapStyle = (): any => {
     return { ...this.getZIndexStyle(), ...this.props.wrapStyle };
   };
+
   getMaskStyle = () => {
     return { ...this.getZIndexStyle(), ...this.props.maskStyle };
   };
+
   getMaskElement = () => {
     const props = this.props;
     let maskElement;
@@ -327,11 +346,13 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     }
     return maskElement;
   };
+
   setScrollbar = () => {
     if (this.bodyIsOverflowing && this.scrollbarWidth !== undefined) {
       document.body.style.paddingRight = `${this.scrollbarWidth}px`;
     }
   };
+
   addScrollingEffect = () => {
     openCount++;
     if (openCount !== 1) {
@@ -342,6 +363,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     document.body.style.overflow = 'hidden';
     // this.adjustDialog();
   };
+
   removeScrollingEffect = () => {
     openCount--;
     if (openCount !== 0) {
@@ -351,12 +373,14 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
     this.resetScrollbar();
     // this.resetAdjustments();
   };
+
   close = (e: any) => {
     const { onClose } = this.props;
     if (onClose) {
       onClose(e);
     }
   };
+
   checkScrollbar = () => {
     let fullWindowWidth = window.innerWidth;
     if (!fullWindowWidth) {
@@ -369,9 +393,11 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       this.scrollbarWidth = getScrollBarSize();
     }
   };
+
   resetScrollbar = () => {
     document.body.style.paddingRight = '';
   };
+
   adjustDialog = () => {
     if (this.wrap && this.scrollbarWidth !== undefined) {
       const modalIsOverflowing = this.wrap.scrollHeight > document.documentElement.clientHeight;
@@ -383,6 +409,7 @@ export default class Dialog extends React.Component<IDialogPropTypes, any> {
       }px`;
     }
   };
+
   resetAdjustments = () => {
     if (this.wrap) {
       this.wrap.style.paddingLeft = this.wrap.style.paddingLeft = '';

@@ -24,6 +24,7 @@ export const converSelectRange = props => {
 
 export default class TimePicker extends BasePicker {
   _onSelectionChange: (range: any) => void;
+
   refInputRoot;
 
   static TimeSelect = TimeSelect;
@@ -35,13 +36,13 @@ export default class TimePicker extends BasePicker {
         // '18:30:00 - 20:30:00' or ['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']
         selectableRange: PropTypes.oneOfType([
           PropTypes.string,
-          PropTypes.arrayOf(PropTypes.string)
+          PropTypes.arrayOf(PropTypes.string),
         ]),
         isShowCurrent: PropTypes.bool,
         footer: PropTypes.func,
-        onValueChange: PropTypes.func
+        onValueChange: PropTypes.func,
       },
-      BasePicker.propTypes
+      BasePicker.propTypes,
     );
   }
 
@@ -68,19 +69,17 @@ export default class TimePicker extends BasePicker {
     const value = state.value && this.isDateValid(state.value) ? state.value : null;
     return (
       <ConfigConsumer componentName="DatePicker">
-        {
-          (Locales: LocaleProperties["DatePicker"]) => (
-            <TimePanel
-              {...this.props}
-              selectableRange={converSelectRange(this.props)}
-              ONSELECTRANGECHANGE={this._onSelectionChange}
-              value={value}
-              onPicked={this.onPicked}
-              onCancelPicked={this.onCancelPicked}
-              Locales={Locales}
-            />
-          )
-        }
+        {(Locales: LocaleProperties['DatePicker']) => (
+          <TimePanel
+            {...this.props}
+            selectableRange={converSelectRange(this.props)}
+            ONSELECTRANGECHANGE={this._onSelectionChange}
+            value={value}
+            onPicked={this.onPicked}
+            onCancelPicked={this.onCancelPicked}
+            Locales={Locales}
+          />
+        )}
       </ConfigConsumer>
     );
   }

@@ -145,7 +145,9 @@ const emptyObject = {};
 
 class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   static Column = Column;
+
   static ColumnGroup = ColumnGroup;
+
   static propTypes = {
     dataSource: PropTypes.array,
     columns: PropTypes.array,

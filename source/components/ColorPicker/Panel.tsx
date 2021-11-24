@@ -41,7 +41,9 @@ interface PanelState {
 
 class Panel extends React.Component<PanelProps, PanelState> {
   ref: HTMLDivElement;
+
   systemColorPickerOpen: boolean;
+
   _blurTimer: any;
 
   static propTypes = {
@@ -60,7 +62,7 @@ class Panel extends React.Component<PanelProps, PanelState> {
     onFocus: PropTypes.func,
     onMount: PropTypes.func,
     prefixCls: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
   };
 
   static defaultProps = {
@@ -77,7 +79,7 @@ class Panel extends React.Component<PanelProps, PanelState> {
     onFocus: noop,
     onMount: noop,
     prefixCls: 'fishd-color-picker-panel',
-    style: {}
+    style: {},
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -107,7 +109,7 @@ class Panel extends React.Component<PanelProps, PanelState> {
 
     this.state = {
       color,
-      alpha
+      alpha,
     };
   }
 
@@ -156,11 +158,11 @@ class Panel extends React.Component<PanelProps, PanelState> {
 
     this.setState({
       alpha,
-      color
+      color,
     });
     this.props.onChange({
       color: color.toHexString(),
-      alpha
+      alpha,
     });
   };
 
@@ -175,7 +177,7 @@ class Panel extends React.Component<PanelProps, PanelState> {
     this.setState({ color });
     this.props.onChange({
       color: color.toHexString(),
-      alpha: color.alpha
+      alpha: color.alpha,
     });
   };
 
@@ -186,11 +188,11 @@ class Panel extends React.Component<PanelProps, PanelState> {
   handleHistoryClick = obj => {
     this.setState({
       color: new Color(obj.color),
-      alpha: obj.alpha
+      alpha: obj.alpha,
     });
     this.props.onChange({
       color: obj.color,
-      alpha: obj.alpha
+      alpha: obj.alpha,
     });
   };
 
@@ -200,7 +202,7 @@ class Panel extends React.Component<PanelProps, PanelState> {
 
     const wrapClasses = classNames({
       [`${prefixCls}-wrap`]: true,
-      [`${prefixCls}-wrap-has-alpha`]: enableAlpha
+      [`${prefixCls}-wrap-has-alpha`]: enableAlpha,
     });
 
     return (

@@ -70,6 +70,7 @@ const Collapse: CollapseInterface = props => {
   }, [statusList]);
 
   const currentKeyRef = React.useRef('');
+
   function onClickItem(key: string) {
     return () => {
       let activeKey = currentActiveKey;
@@ -113,6 +114,7 @@ const Collapse: CollapseInterface = props => {
   }
 
   const panelsRef = React.useRef({});
+
   function getItems() {
     const activeKey = currentActiveKey;
     return React.Children.map(props.children, (child: KeyedReactChild, index) => {

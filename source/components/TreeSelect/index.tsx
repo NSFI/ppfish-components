@@ -1,10 +1,5 @@
 import * as React from 'react';
-import RcTreeSelect, {
-  TreeNode,
-  SHOW_ALL,
-  SHOW_PARENT,
-  SHOW_CHILD,
-} from './rcTreeSelect';
+import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './rcTreeSelect';
 import classNames from 'classnames';
 import { TreeSelectProps } from './interface';
 import warning from 'warning';
@@ -16,8 +11,11 @@ import './style/index.less';
 
 export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   static TreeNode = TreeNode;
+
   static SHOW_ALL = SHOW_ALL;
+
   static SHOW_PARENT = SHOW_PARENT;
+
   static SHOW_CHILD = SHOW_CHILD;
 
   static defaultProps = {
@@ -86,8 +84,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
       treeCheckable,
       ...restProps
     } = this.props;
-    const isEditableMul =
-      (restProps.multiple || treeCheckable) && restProps.editable;
+    const isEditableMul = (restProps.multiple || treeCheckable) && restProps.editable;
 
     const cls = classNames(
       {
@@ -111,10 +108,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
             <RcTreeSelect
               {...restProps}
               {...this.genPropsByLocale(Locale)}
-              dropdownClassName={classNames(
-                dropdownClassName,
-                `${prefixCls}-tree-dropdown`,
-              )}
+              dropdownClassName={classNames(dropdownClassName, `${prefixCls}-tree-dropdown`)}
               prefixCls={prefixCls}
               className={cls}
               dropdownStyle={{

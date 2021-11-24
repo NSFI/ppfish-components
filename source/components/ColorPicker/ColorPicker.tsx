@@ -57,6 +57,7 @@ interface ColorPickerState {
 
 class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
   static Panel = ColorPickerPanel;
+
   static QuickPanel = QuickPanel;
 
   static propTypes = {
@@ -148,6 +149,7 @@ class ColorPicker extends React.Component<ColorPickerProps, ColorPickerState> {
   }
 
   saveTriggerRef: HTMLElement | null;
+
   triggerInstance: any;
 
   onChange = colors => {
