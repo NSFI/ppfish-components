@@ -1,12 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {addEventListener} from '../../utils';
+import { addEventListener } from '../../utils';
 
-export default class Handle extends React.Component {
+interface HandleProps {
+  prefixCls?: string;
+  className?: string;
+  vertical?: boolean;
+  offset?: number;
+  style?: React.CSSProperties;
+  disabled?: boolean;
+  min?: number;
+  max?: number;
+  value?: number;
+  tabIndex?: number;
+  handle?: React.ReactNode;
+  onMouseEnter?: React.MouseEventHandler;
+  onMouseLeave?: React.MouseEventHandler;
+}
+
+interface HandleStates {
+  clickFocused: boolean;
+}
+
+export default class Handle extends React.Component<HandleProps, HandleStates> {
   state = {
     clickFocused: false,
   };
+
+  private onMouseUpListener: any;
+  private handle: any;
 
   componentDidMount() {
     // mouseup won't trigger if mouse moved out of handle,
@@ -21,7 +43,7 @@ export default class Handle extends React.Component {
   }
 
   setClickFocus(focused) {
-    this.setState({clickFocused: focused});
+    this.setState({ clickFocused: focused });
   }
 
   handleMouseUp = () => {
@@ -53,7 +75,17 @@ export default class Handle extends React.Component {
 
   render() {
     const {
-      prefixCls, vertical, offset, style, disabled, min, max, value, tabIndex, handle, ...restProps
+      prefixCls,
+      vertical,
+      offset,
+      style,
+      disabled,
+      min,
+      max,
+      value,
+      tabIndex,
+      handle,
+      ...restProps
     } = this.props;
 
     const elClassName = classNames({
@@ -62,7 +94,7 @@ export default class Handle extends React.Component {
       [`${prefixCls}-handle-click-focused`]: this.state.clickFocused,
     });
 
-    const postionStyle = vertical ? {bottom: `${offset}%`} : {left: `${offset}%`};
+    const postionStyle = vertical ? { bottom: `${offset}%` } : { left: `${offset}%` };
     const elStyle = {
       ...style,
       ...postionStyle,
@@ -82,7 +114,7 @@ export default class Handle extends React.Component {
       <div
         ref={node => (this.handle = node)}
         role="slider"
-        tabIndex={disabled ? null : (tabIndex || 0)}
+        tabIndex={disabled ? null : tabIndex || 0}
         {...ariaProps}
         {...restProps}
         className={elClassName}
@@ -95,17 +127,3 @@ export default class Handle extends React.Component {
     );
   }
 }
-
-Handle.propTypes = {
-  prefixCls: PropTypes.string,
-  className: PropTypes.string,
-  vertical: PropTypes.bool,
-  offset: PropTypes.number,
-  style: PropTypes.object,
-  disabled: PropTypes.bool,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  value: PropTypes.number,
-  tabIndex: PropTypes.number,
-  handle: PropTypes.node,
-};
