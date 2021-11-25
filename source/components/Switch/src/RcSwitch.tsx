@@ -1,21 +1,56 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import omit from 'omit.js';
 import classNames from 'classnames';
 import { polyfill } from 'react-lifecycles-compat';
 
 function noop() {}
 
-class Switch extends Component {
+export interface RcSwitchProps {
+  prefixCls?: string;
+  className?: string;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean) => any;
+  onMouseUp?: (e: React.MouseEvent) => any;
+  onClick?: (checked: boolean) => any;
+  checkedChildren?: React.ReactNode;
+  unCheckedChildren?: React.ReactNode;
+  disabled?: boolean;
+  loadingIcon?: React.ReactNode;
+  tabIndex?: number;
+  autoFocus?: boolean;
+}
+
+interface RcSwitchState {
+  checked: boolean;
+  clicked: boolean;
+}
+
+class RcSwitch extends Component<RcSwitchProps, RcSwitchState> {
+  static defaultProps = {
+    prefixCls: 'rc-switch',
+    checkedChildren: null,
+    unCheckedChildren: null,
+    className: '',
+    defaultChecked: false,
+    onChange: noop,
+    onClick: noop,
+  };
+
   static getDerivedStateFromProps(nextProps) {
     const newState = {};
     const { checked } = nextProps;
 
     if ('checked' in nextProps) {
-      newState.checked = !!checked;
+      (newState as RcSwitchState).checked = !!checked;
     }
 
     return newState;
   }
+
+  public node: any;
+
+  timeoutCurrent: any;
 
   constructor(props) {
     super(props);
@@ -26,7 +61,7 @@ class Switch extends Component {
     } else {
       checked = !!props.defaultChecked;
     }
-    this.state = { checked };
+    this.state = { checked, clicked: false };
   }
 
   componentDidMount() {
@@ -34,6 +69,20 @@ class Switch extends Component {
     if (autoFocus && !disabled) {
       this.focus();
     }
+  }
+
+  setClicked() {
+    this.setState({
+      clicked: true,
+    });
+    clearTimeout(this.timeoutCurrent);
+    this.timeoutCurrent = window.setTimeout(
+      () =>
+        this.setState({
+          clicked: false,
+        }),
+      500,
+    );
   }
 
   setChecked(checked) {
@@ -52,6 +101,7 @@ class Switch extends Component {
     const { onClick } = this.props;
     const checked = !this.state.checked;
     this.setChecked(checked);
+    this.setClicked();
     onClick(checked);
   };
 
@@ -86,7 +136,7 @@ class Switch extends Component {
     this.node.blur();
   }
 
-  saveNode = node => {
+  saveNode = (node: HTMLSpanElement) => {
     this.node = node;
   };
 
@@ -102,16 +152,18 @@ class Switch extends Component {
       ...restProps
     } = this.props;
     const checked = this.state.checked;
+    const clicked = this.state.clicked;
     const switchTabIndex = disabled ? -1 : tabIndex || 0;
     const switchClassName = classNames({
       [className]: !!className,
       [prefixCls]: true,
       [`${prefixCls}-checked`]: checked,
+      [`${prefixCls}-clicked`]: clicked,
       [`${prefixCls}-disabled`]: disabled,
     });
     return (
       <span
-        {...restProps}
+        {...omit(restProps, ['onChange', 'checked', 'defaultChecked'])}
         className={switchClassName}
         tabIndex={switchTabIndex}
         ref={this.saveNode}
@@ -123,37 +175,12 @@ class Switch extends Component {
         <span className={`${prefixCls}-inner`}>
           {checked ? checkedChildren : unCheckedChildren}
         </span>
+        <span className={`${prefixCls}-wave`} />
       </span>
     );
   }
 }
 
-Switch.propTypes = {
-  className: PropTypes.string,
-  prefixCls: PropTypes.string,
-  disabled: PropTypes.bool,
-  checkedChildren: PropTypes.any,
-  unCheckedChildren: PropTypes.any,
-  onChange: PropTypes.func,
-  onMouseUp: PropTypes.func,
-  onClick: PropTypes.func,
-  tabIndex: PropTypes.number,
-  checked: PropTypes.bool,
-  defaultChecked: PropTypes.bool,
-  autoFocus: PropTypes.bool,
-  loadingIcon: PropTypes.node,
-};
+polyfill(RcSwitch);
 
-Switch.defaultProps = {
-  prefixCls: 'rc-switch',
-  checkedChildren: null,
-  unCheckedChildren: null,
-  className: '',
-  defaultChecked: false,
-  onChange: noop,
-  onClick: noop,
-};
-
-polyfill(Switch);
-
-export default Switch;
+export default RcSwitch;

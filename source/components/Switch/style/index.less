@@ -1,7 +1,7 @@
 @import (reference) "../../../assets/css/index";
 
 @switch-prefix-cls: ~"@{fishd-prefix}-switch";
-@switch-duration: 0.36s;
+@switch-duration: 0.2s;
 
 .@{switch-prefix-cls} {
   .reset-component;
@@ -16,7 +16,7 @@
   border: 1px solid transparent;
   background-color: @disabled-color;
   cursor: pointer;
-  transition: all @switch-duration;
+  transition: all @switch-duration ease-in-out;
   user-select: none;
 
   &-inner {
@@ -38,16 +38,11 @@
     background-color: @component-background;
     content: " ";
     cursor: pointer;
-    transition: all @switch-duration @ease-in-out-circ;
+    transition: all @switch-duration ease-in-out;
   }
 
   &:after {
     box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
-  }
-
-  &:active:before,
-  &:active:after {
-    width: 24px;
   }
 
   &:before {
@@ -95,11 +90,6 @@
       width: @switch-sm-height - 4px;
       height: @switch-sm-height - 4px;
     }
-
-    &:active:before,
-    &:active:after {
-      width: 16px;
-    }
   }
 
   &-large {
@@ -117,11 +107,6 @@
     &:after {
       width: @switch-lg-height - 4px;
       height: @switch-lg-height - 4px;
-    }
-
-    &:active:before,
-    &:active:after {
-      width: 28px;
     }
   }
 
@@ -148,7 +133,7 @@
   }
 
   &-small&-loading:before {
-    animation: AntSwitchSmallLoadingCircle 1s infinite linear;
+    animation: fishdSwitchSmallLoadingCircle 1s infinite linear;
     font-weight: bold;
   }
 
@@ -162,13 +147,32 @@
 
     &:before {
       left: 100%;
-      margin-left: -19px;
+      margin-left: -17px;
     }
 
     &:after {
       left: 100%;
       transform: translateX(-100%);
       margin-left: -1px;
+    }
+  }
+
+  &-wave {
+    display: none;
+  }
+
+  &-clicked {
+    .@{switch-prefix-cls}-wave {
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      bottom: -1px;
+      right: -1px;
+      border-radius: inherit;
+      border: 0 solid @primary-color;
+      opacity: 0.4;
+      animation: switchEffect 0.4s;
+      display: block;
     }
   }
 
@@ -182,7 +186,19 @@
   }
 }
 
-@keyframes AntSwitchSmallLoadingCircle {
+
+@keyframes switchEffect {
+  to {
+    opacity: 0;
+    top: -6px;
+    left: -6px;
+    bottom: -6px;
+    right: -6px;
+    border-width: 6px;
+  }
+}
+
+@keyframes fishdSwitchSmallLoadingCircle {
   0% {
     transform-origin: 50% 50%;
     transform: rotate(0deg) scale(0.66667);

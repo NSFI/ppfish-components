@@ -1600,12 +1600,14 @@ exports[`Renders badge demo correctly 1`] = `
         />
       </span>
       <span
-        checked=""
         class="fishd-switch fishd-switch-checked"
         tabindex="0"
       >
         <span
           class="fishd-switch-inner"
+        />
+        <span
+          class="fishd-switch-wave"
         />
       </span>
     </div>
