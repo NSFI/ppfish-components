@@ -1,8 +1,6 @@
 import React from 'react';
-import { RadioGroupContext } from './interface';
+import { RadioGroupContextProps } from './interface';
 
-const RadioContext = React.createContext<RadioGroupContext>({
-  radioGroup: {},
-} as RadioGroupContext);
+const RadioContext = React.createContext<RadioGroupContextProps | null>(null);
 
 export default RadioContext;
