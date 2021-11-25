@@ -6,12 +6,7 @@
     "plugin:react/recommended",
     "plugin:import/typescript"
   ],
-  "plugins": [
-    "react",
-    "import",
-    "@typescript-eslint",
-    "react-hooks"
-  ],
+  "plugins": ["react", "import", "@typescript-eslint", "react-hooks"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -26,17 +21,10 @@
     },
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     },
-    "import/ignore": [
-      "\\.(jpg|png|less|css|json)$"
-    ]
+    "import/ignore": ["\\.(jpg|png|less|css|json)$"]
   },
   "env": {
     "es6": true,
@@ -95,15 +83,9 @@
     "no-debugger": 1,
     "no-var": 1,
     "no-unused-vars": 0,
-    "semi": [
-      1,
-      "always"
-    ],
+    "semi": [1, "always"],
     "no-trailing-spaces": 0,
-    "max-len": [
-      "error",
-      121
-    ],
+    "max-len": ["error", 121],
     "eol-last": 0,
     "no-underscore-dangle": 0,
     "no-alert": 0,
@@ -119,6 +101,11 @@
     "import/no-named-as-default": 0,
     "import/no-named-as-default-member": 0,
     "import/no-duplicates": 1,
+    "padding-line-between-statements": [
+      1,
+      { "blankLine": "always", "prev": "*", "next": "function" }
+    ],
+    "lines-between-class-members": [1, "always"],
     "react/display-name": [
       1,
       {

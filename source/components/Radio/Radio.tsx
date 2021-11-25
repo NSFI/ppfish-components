@@ -9,15 +9,16 @@ import { RadioProps, RadioGroupContext } from './interface';
 // case sensitive
 export default class Radio extends React.Component<RadioProps, {}> {
   static Group: typeof RadioGroup;
+
   static Button: typeof RadioButton;
 
   static defaultProps = {
     prefixCls: 'fishd-radio',
-    type: 'radio'
+    type: 'radio',
   };
 
   static contextTypes = {
-    radioGroup: PropTypes.any
+    radioGroup: PropTypes.any,
   };
 
   private rcCheckbox: any;
@@ -56,7 +57,7 @@ export default class Radio extends React.Component<RadioProps, {}> {
     const wrapperClassString = classNames(className, {
       [`${prefixCls}-wrapper`]: true,
       [`${prefixCls}-wrapper-checked`]: radioProps.checked,
-      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled
+      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled,
     });
 
     return (

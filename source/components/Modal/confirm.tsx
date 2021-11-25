@@ -7,13 +7,12 @@ import ActionButton from './ActionButton';
 import { getRuntimeLocale } from '../Config/Locale/Provider';
 import { LocaleProperties } from '../Locale';
 
-
 interface ConfirmDialogProps extends ModalFuncProps {
   afterClose?: () => void;
   close: (...args: any[]) => void;
 }
 
-const IS_REACT_16 = !!ReactDOM.createPortal;
+const SUPPORT_PORTAL = !!ReactDOM.createPortal;
 
 const ConfirmDialog = (props: ConfirmDialogProps) => {
   const runtimeLocale: LocaleProperties['Modal'] = getRuntimeLocale('Modal');
@@ -38,6 +37,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
       {cancelText}
     </ActionButton>
   );
+
   return (
     <Dialog
       className={classString}
@@ -74,12 +74,12 @@ export default function confirm(config: ModalFuncProps) {
   document.body.appendChild(div);
 
   function close(...args: any[]) {
-    if (IS_REACT_16) {
+    if (SUPPORT_PORTAL) {
       render({
         ...config,
         close,
         visible: false,
-        afterClose: destroy.bind(this, ...args)
+        afterClose: destroy.bind(this, ...args),
       });
     } else {
       destroy(...args);
@@ -104,6 +104,6 @@ export default function confirm(config: ModalFuncProps) {
   render({ ...config, visible: true, close });
 
   return {
-    destroy: close
+    destroy: close,
   };
 }

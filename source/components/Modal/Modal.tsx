@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Dialog from './DialogWrap';
+import DialogWrap from './DialogWrap';
 import * as PropTypes from 'prop-types';
 import { addEventListener } from '../../utils/index';
 import Button from '../Button';
@@ -89,10 +89,15 @@ export interface ModalLocale {
 
 export default class Modal extends React.Component<ModalProps, {}> {
   static info: ModalFunc;
+
   static success: ModalFunc;
+
   static error: ModalFunc;
+
   static warn: ModalFunc;
+
   static warning: ModalFunc;
+
   static confirm: ModalFunc;
 
   static defaultProps = {
@@ -108,25 +113,6 @@ export default class Modal extends React.Component<ModalProps, {}> {
     draggable: false,
     maskClosable: false,
     esc: false,
-    // okText: '确定',
-    // cancelText: '取消',
-    // justOkText: '知道了'
-  };
-
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    onOk: PropTypes.func,
-    onCancel: PropTypes.func,
-    okText: PropTypes.node,
-    cancelText: PropTypes.node,
-    draggable: PropTypes.bool,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    confirmLoading: PropTypes.bool,
-    visible: PropTypes.bool,
-    align: PropTypes.object,
-    footer: PropTypes.node,
-    title: PropTypes.node,
-    closable: PropTypes.bool,
   };
 
   handleCancel = (e: React.MouseEvent<any>) => {
@@ -199,7 +185,7 @@ export default class Modal extends React.Component<ModalProps, {}> {
           );
 
           return (
-            <Dialog
+            <DialogWrap
               {...this.props}
               footer={footer === undefined ? defaultFooter : footer}
               visible={visible}

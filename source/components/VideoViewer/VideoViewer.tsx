@@ -30,7 +30,7 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
     failedMessage: PropTypes.string,
     modalProps: PropTypes.object,
     videoProps: PropTypes.object,
-    onThumbClick: PropTypes.func
+    onThumbClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -38,18 +38,19 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
     poster: null,
     width: 240,
     height: 135,
-    failedMessage: null
+    failedMessage: null,
   };
 
   video: React.RefObject<any>;
 
   static Video = Video;
+
   static VideoModal = VideoModal;
 
   constructor(props) {
     super(props);
     this.state = {
-      videoModalVisible: false
+      videoModalVisible: false,
     };
     this.video = React.createRef<Video>();
   }
@@ -60,7 +61,7 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
 
     this.setState(
       {
-        videoModalVisible: true
+        videoModalVisible: true,
       },
       () => {
         const video = this.video && this.video.current;
@@ -68,7 +69,7 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
         if (player && typeof player.play === 'function') {
           player.play();
         }
-      }
+      },
     );
     this.props.onThumbClick && this.props.onThumbClick(e);
   };
@@ -86,7 +87,7 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
   // 点击模态框关闭按钮
   handleCancel = e => {
     this.setState({
-      videoModalVisible: false
+      videoModalVisible: false,
     });
     this.props.modalProps.onCancel && this.props.modalProps.onCancel();
   };
@@ -101,7 +102,7 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
 
     const thumbCls = classnames({
       [`${prefixCls}-thumb`]: true,
-      [`${prefixCls}-thumb-disabled`]: failedMessage !== null
+      [`${prefixCls}-thumb-disabled`]: failedMessage !== null,
     });
 
     const wrapStyle = { width, height };
@@ -113,7 +114,7 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
             <div
               className={classnames([
                 `${prefixCls}-thumb-status`,
-                `${prefixCls}-thumb-big-play-button`
+                `${prefixCls}-thumb-big-play-button`,
               ])}
             >
               <Icon type="play" />
@@ -122,7 +123,7 @@ class VideoViewer extends React.Component<VideoViewerProps, VideoViewerState> {
             <div
               className={classnames([
                 `${prefixCls}-thumb-status`,
-                `${prefixCls}-thumb-failed-message`
+                `${prefixCls}-thumb-failed-message`,
               ])}
             >
               <span>{failedMessage}</span>

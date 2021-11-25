@@ -19,10 +19,12 @@ export default function createSliderWithTooltip(Component) {
       handleStyle: [{}],
       tipProps: {},
     };
+
     constructor(props) {
       super(props);
       this.state = { visibles: {} };
     }
+
     handleTooltipVisibleChange = (index, visible) => {
       this.setState(prevState => {
         return {
@@ -33,6 +35,7 @@ export default function createSliderWithTooltip(Component) {
         };
       });
     };
+
     handleWithTooltip = ({ value, dragging, index, disabled, ...restProps }) => {
       const { tipProps, handleStyle } = this.props;
 
@@ -70,6 +73,7 @@ export default function createSliderWithTooltip(Component) {
         </Tooltip>
       );
     };
+
     render() {
       return <Component {...this.props} handle={this.handleWithTooltip} />;
     }

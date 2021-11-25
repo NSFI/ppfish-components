@@ -32,7 +32,9 @@ export interface DecimalClass {
  */
 export class NumberDecimal implements DecimalClass {
   origin: string = '';
+
   number: number;
+
   empty: boolean;
 
   constructor(value: ValueType) {
@@ -114,12 +116,18 @@ export class NumberDecimal implements DecimalClass {
 
 export class BigIntDecimal implements DecimalClass {
   origin: string = '';
+
   negative: boolean;
+
   integer: bigint;
+
   decimal: bigint;
+
   /** BigInt will convert `0009` to `9`. We need record the len of decimal */
   decimalLen: number;
+
   empty: boolean;
+
   nan: boolean;
 
   constructor(value: string | number) {

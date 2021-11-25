@@ -37,6 +37,7 @@ const ForwardRef = 14;
 function ensureKeyOrUndefined(key) {
   return key || (key === '' ? '' : undefined);
 }
+
 function nodeAndSiblingsArray(nodeWithSibling) {
   const array = [];
   let node = nodeWithSibling;
@@ -183,6 +184,7 @@ class ReactSixteenAdapter extends EnzymeAdapter {
       },
     };
   }
+
   createMountRenderer(options) {
     assertDomAvailable('mount');
     const domNode = options.attachTo || global.document.createElement('div');

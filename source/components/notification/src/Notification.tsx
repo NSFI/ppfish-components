@@ -104,7 +104,7 @@ class Notification extends Component<NotificationProps, NotificationState> {
     const { maxCount } = this.props;
     this.setState((previousState: NotificationState) => {
       const { notices } = previousState;
-      const noticeIndex = notices.map((v) => v.notice.key).indexOf(key);
+      const noticeIndex = notices.map(v => v.notice.key).indexOf(key);
       const updatedNotices = notices.concat();
       if (noticeIndex !== -1) {
         updatedNotices.splice(noticeIndex, 1, { notice, holderCallback });
@@ -205,7 +205,7 @@ class Notification extends Component<NotificationProps, NotificationState> {
                   key={key}
                   className={classNames(motionClassName, `${prefixCls}-hook-holder`)}
                   style={{ ...motionStyle }}
-                  ref={(div) => {
+                  ref={div => {
                     if (typeof key === 'undefined') {
                       return;
                     }
@@ -246,6 +246,7 @@ Notification.newInstance = function newNotificationInstance(properties, callback
     document.body.appendChild(div);
   }
   let called = false;
+
   function ref(notification: Notification) {
     if (called) {
       return;

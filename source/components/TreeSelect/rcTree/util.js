@@ -166,10 +166,10 @@ export function convertDataToTree(treeData, processer) {
   const { processProps = internalProcessProps } = processer || {};
   const list = Array.isArray(treeData) ? treeData : [treeData];
   return list.map((item, index) => {
-    const { children, ...props }=item;
+    const { children, ...props } = item;
     const childrenNodes = convertDataToTree(children, processer);
-    if(item.childCount===undefined){
-      item.childCount=-1;//表示用户未给此数据源赋值，不能执行半选判断逻辑
+    if (item.childCount === undefined) {
+      item.childCount = -1; //表示用户未给此数据源赋值，不能执行半选判断逻辑
     }
     return (
       <TreeNode key={props.key} _data={item} {...processProps(props)}>
@@ -185,9 +185,10 @@ export function convertDataToTree(treeData, processer) {
  * @param treeNodes
  * @param processTreeEntity  User can customize the entity
  */
-export function convertTreeToEntities(treeNodes, { initWrapper, processEntity, onProcessFinished } = {}) {
-
-
+export function convertTreeToEntities(
+  treeNodes,
+  { initWrapper, processEntity, onProcessFinished } = {},
+) {
   const posEntities = {};
   const keyEntities = {};
   let wrapper = {
@@ -199,7 +200,7 @@ export function convertTreeToEntities(treeNodes, { initWrapper, processEntity, o
     wrapper = initWrapper(wrapper) || wrapper;
   }
 
-  traverseTreeNodes(treeNodes, (item) => {
+  traverseTreeNodes(treeNodes, item => {
     const { node, index, pos, key, parentPos } = item;
     const entity = { node, index, key, pos };
 
@@ -267,19 +268,27 @@ export function parseCheckedKeys(keys) {
  * @param checkType     联动类型
  * @returns {{checkedKeys: [], halfCheckedKeys: []}}
  */
-export function conductCheck(keyList, isCheck, keyEntities, status, loadData, loadedKeys, checkType) {
-
+export function conductCheck(
+  keyList,
+  isCheck,
+  keyEntities,
+  status,
+  loadData,
+  loadedKeys,
+  checkType,
+) {
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {};
 
-  (checkStatus.checkedKeys || []).forEach((key) => {
+  (checkStatus.checkedKeys || []).forEach(key => {
     checkedKeys[key] = true;
   });
 
-  (checkStatus.halfCheckedKeys || []).forEach((key) => {
+  (checkStatus.halfCheckedKeys || []).forEach(key => {
     halfCheckedKeys[key] = true;
   });
+
   // Conduct up
   function conductUp(key) {
     if (checkedKeys[key] === isCheck) return;
@@ -294,14 +303,14 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     // Check child node checked status
     let everyChildChecked = true;
     let someChildChecked = false; // Child checked or half checked
-    let checkedNum=0;
+    let checkedNum = 0;
     (children || [])
       .filter(child => !isCheckDisabled(child.node))
-      .forEach((child) => {
+      .forEach(child => {
         let childKey = child.key;
         const childChecked = checkedKeys[childKey];
         const childHalfChecked = halfCheckedKeys[childKey];
-        if(childChecked){
+        if (childChecked) {
           checkedNum++;
         }
         if (childChecked || childHalfChecked) someChildChecked = true;
@@ -318,9 +327,9 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
 
     // Update checked status
     if (isCheck) {
-      if(node.props._data&&node.props._data.childCount!=undefined){
-        checkedKeys[key] = everyChildChecked && checkedNum>=node.props._data.childCount;
-      }else{
+      if (node.props._data && node.props._data.childCount != undefined) {
+        checkedKeys[key] = everyChildChecked && checkedNum >= node.props._data.childCount;
+      } else {
         checkedKeys[key] = everyChildChecked;
       }
     } else {
@@ -352,7 +361,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
 
     checkedKeys[key] = isCheck;
 
-    (children || []).forEach((child) => {
+    (children || []).forEach(child => {
       conductDown(child.key);
     });
   }
@@ -373,7 +382,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     // Conduct down
     (children || [])
       .filter(child => !isCheckDisabled(child.node))
-      .forEach((child) => {
+      .forEach(child => {
         conductDown(child.key);
       });
 
@@ -383,7 +392,7 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
     }
   }
 
-  (keyList || []).forEach((key) => {
+  (keyList || []).forEach(key => {
     conduct(key);
   });
 
@@ -391,14 +400,14 @@ export function conductCheck(keyList, isCheck, keyEntities, status, loadData, lo
   const halfCheckedKeyList = [];
 
   // Fill checked list
-  Object.keys(checkedKeys).forEach((key) => {
+  Object.keys(checkedKeys).forEach(key => {
     if (checkedKeys[key]) {
       checkedKeyList.push(key);
     }
   });
 
   // Fill half checked list
-  Object.keys(halfCheckedKeys).forEach((key) => {
+  Object.keys(halfCheckedKeys).forEach(key => {
     if (!checkedKeys[key] && halfCheckedKeys[key]) {
       halfCheckedKeyList.push(key);
     }
@@ -414,14 +423,14 @@ export function conductLoad(keyList, isCheck, keyEntities, status) {
   const checkedKeys = {};
   const halfCheckedKeys = {}; // Record the key has some child checked (include child half checked)
   let checkStatus = status || {},
-      oriCheckedKeys = checkStatus.checkedKeys || [],
-      oriHalfCheckedKeys = checkStatus.halfCheckedKeys || [];
+    oriCheckedKeys = checkStatus.checkedKeys || [],
+    oriHalfCheckedKeys = checkStatus.halfCheckedKeys || [];
 
-  oriCheckedKeys.forEach((key) => {
+  oriCheckedKeys.forEach(key => {
     checkedKeys[key] = true;
   });
 
-  oriHalfCheckedKeys.forEach((key) => {
+  oriHalfCheckedKeys.forEach(key => {
     halfCheckedKeys[key] = true;
   });
 
@@ -440,7 +449,7 @@ export function conductLoad(keyList, isCheck, keyEntities, status) {
     let everyChildChecked = true;
     (children || [])
       .filter(child => !isCheckDisabled(child.node))
-      .forEach((child) => {
+      .forEach(child => {
         let childKey = child.key;
         if (!checkedKeys[childKey]) {
           everyChildChecked = false;
@@ -473,7 +482,7 @@ export function conductLoad(keyList, isCheck, keyEntities, status) {
     // Conduct down
     (children || [])
       .filter(child => !isCheckDisabled(child.node))
-      .forEach((child) => {
+      .forEach(child => {
         let childKey = child.key;
         const entity = keyEntities[childKey];
         if (!entity) return;
@@ -482,7 +491,7 @@ export function conductLoad(keyList, isCheck, keyEntities, status) {
 
         if (isCheckDisabled(node)) return;
 
-        if(!checkedKeys[childKey]) {
+        if (!checkedKeys[childKey]) {
           everyChildChecked = false;
         }
       });
@@ -498,7 +507,7 @@ export function conductLoad(keyList, isCheck, keyEntities, status) {
     }
   }
 
-  (keyList || []).forEach((key) => {
+  (keyList || []).forEach(key => {
     conduct(key);
   });
 
@@ -506,14 +515,14 @@ export function conductLoad(keyList, isCheck, keyEntities, status) {
   const halfCheckedKeyList = [];
 
   // Fill checked list
-  Object.keys(checkedKeys).forEach((key) => {
+  Object.keys(checkedKeys).forEach(key => {
     if (checkedKeys[key]) {
       checkedKeyList.push(key);
     }
   });
 
   // Fill half checked list
-  Object.keys(halfCheckedKeys).forEach((key) => {
+  Object.keys(halfCheckedKeys).forEach(key => {
     if (!checkedKeys[key] && halfCheckedKeys[key]) {
       halfCheckedKeyList.push(key);
     }
@@ -550,7 +559,7 @@ export function conductExpandParent(keyList, keyEntities) {
     }
   }
 
-  (keyList || []).forEach((key) => {
+  (keyList || []).forEach(key => {
     conductUp(key);
   });
 
@@ -563,7 +572,7 @@ export function conductExpandParent(keyList, keyEntities) {
  */
 export function getDataAndAria(props) {
   return Object.keys(props).reduce((prev, key) => {
-    if ((key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-')) {
+    if (key.substr(0, 5) === 'data-' || key.substr(0, 5) === 'aria-') {
       prev[key] = props[key];
     }
     return prev;

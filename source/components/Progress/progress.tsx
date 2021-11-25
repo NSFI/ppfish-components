@@ -7,7 +7,7 @@ import classNames from 'classnames';
 const statusColorMap = {
   normal: '#108ee9',
   exception: '#ff5500',
-  success: '#87d068'
+  success: '#87d068',
 };
 
 export type ProgressType = 'line' | 'circle' | 'dashboard';
@@ -47,6 +47,7 @@ const validProgress = (progress: number | undefined) => {
 
 export default class Progress extends React.Component<ProgressProps, {}> {
   static Line: any;
+
   static Circle: any;
 
   static defaultProps = {
@@ -55,7 +56,7 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     showInfo: true,
     trailColor: '#f3f3f3',
     prefixCls: 'fishd-progress',
-    size: 'default' as ProgressSize
+    size: 'default' as ProgressSize,
   };
 
   static propTypes = {
@@ -70,7 +71,7 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     trailColor: PropTypes.string,
     format: PropTypes.func,
     gapDegree: PropTypes.number,
-    default: PropTypes.oneOf(['default', 'small'])
+    default: PropTypes.oneOf(['default', 'small']),
   };
 
   render() {
@@ -124,12 +125,12 @@ export default class Progress extends React.Component<ProgressProps, {}> {
         width: `${validProgress(percent)}%`,
         height: strokeWidth || (size === 'small' ? 6 : 8),
         background: strokeColor,
-        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+        borderRadius: strokeLinecap === 'square' ? 0 : '100px',
       };
       const successPercentStyle = {
         width: `${validProgress(successPercent)}%`,
         height: strokeWidth || (size === 'small' ? 6 : 8),
-        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+        borderRadius: strokeLinecap === 'square' ? 0 : '100px',
       };
       const successSegment =
         successPercent !== undefined ? (
@@ -158,7 +159,7 @@ export default class Progress extends React.Component<ProgressProps, {}> {
       const circleStyle = {
         width: circleSize,
         height: circleSize,
-        fontSize: circleSize * 0.15 + 6
+        fontSize: circleSize * 0.15 + 6,
       };
       const circleWidth = strokeWidth || 6;
       const gapPos = gapPosition || (type === 'dashboard' && 'bottom') || 'top';
@@ -190,9 +191,9 @@ export default class Progress extends React.Component<ProgressProps, {}> {
         [`${prefixCls}-${(type === 'dashboard' && 'circle') || type}`]: true,
         [`${prefixCls}-status-${progressStatus}`]: true,
         [`${prefixCls}-show-info`]: showInfo,
-        [`${prefixCls}-${size}`]: size
+        [`${prefixCls}-${size}`]: size,
       },
-      className
+      className,
     );
 
     return (

@@ -61,13 +61,21 @@ class Slider extends React.Component<SliderProps, SliderStates> {
 
     return { value: nextValue };
   }
+
   private startValue: any;
+
   private startPosition: any;
+
   private prevMovedHandleIndex: any;
+
   private removeDocumentEvents: any;
+
   private saveHandle: any;
+
   private calcValueByPos: any;
+
   private focus: any;
+
   private calcOffset: any;
 
   constructor(props) {

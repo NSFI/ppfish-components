@@ -1,8 +1,10 @@
-import { quill } from "./fileDrop";
+import { quill } from './fileDrop';
 
 export default class ImageDrop {
   quill: quill;
+
   customDropImage: any;
+
   constructor(quill, options = { customDropImage: undefined }) {
     this.quill = quill;
     this.customDropImage = options.customDropImage || null;
@@ -20,8 +22,10 @@ export default class ImageDrop {
         const range = document.caretRangeFromPoint(evt.clientX, evt.clientY);
         if (selection && range) {
           selection.setBaseAndExtent(
-            range.startContainer, range.startOffset,
-            range.startContainer, range.startOffset
+            range.startContainer,
+            range.startOffset,
+            range.startContainer,
+            range.startOffset,
           );
         }
       }
@@ -53,7 +57,7 @@ export default class ImageDrop {
         if (this.customDropImage && typeof this.customDropImage == 'function') {
           this.customDropImage(evt.clipboardData.items, this.insert.bind(this));
         } else {
-          this.readFiles(evt.clipboardData.items, (attrs) => {
+          this.readFiles(evt.clipboardData.items, attrs => {
             // 等待 this.quill.getSelection() 返回有效的 index
             setTimeout(() => this.insert(attrs), 0);
           });
@@ -64,7 +68,7 @@ export default class ImageDrop {
 
   insert(attrs: HTMLImageElement): void {
     const range = this.quill.getSelection() || {},
-      index = (range.index != undefined) ? range.index : this.quill.getLength();
+      index = range.index != undefined ? range.index : this.quill.getLength();
 
     if (!attrs.src) return;
 
@@ -82,9 +86,9 @@ export default class ImageDrop {
       }
 
       const reader = new FileReader();
-      reader.onload = (evt) => {
+      reader.onload = evt => {
         callback({
-          src: evt.target.result
+          src: evt.target.result,
         });
       };
 

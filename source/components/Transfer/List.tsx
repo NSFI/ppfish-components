@@ -57,25 +57,28 @@ export default class TransferList extends React.Component<TransferListProps, any
     titleText: '',
     showSearch: false,
     render: noop,
-    lazy: {}
+    lazy: {},
   };
 
   timer: number;
+
   triggerScrollTimer: number;
+
   fixIERepaintTimer: number;
+
   notFoundNode: HTMLDivElement;
 
   constructor(props: TransferListProps) {
     super(props);
     this.state = {
-      mounted: false
+      mounted: false,
     };
   }
 
   componentDidMount() {
     this.timer = window.setTimeout(() => {
       this.setState({
-        mounted: true
+        mounted: true,
       });
     }, 0);
   }
@@ -154,7 +157,7 @@ export default class TransferList extends React.Component<TransferListProps, any
     const isRenderResultPlain = isRenderResultPlainObject(renderResult);
     return {
       renderedText: isRenderResultPlain ? renderResult.value : renderResult,
-      renderedEl: isRenderResultPlain ? renderResult.label : renderResult
+      renderedEl: isRenderResultPlain ? renderResult.label : renderResult,
     };
   };
 
@@ -195,7 +198,7 @@ export default class TransferList extends React.Component<TransferListProps, any
       notFoundContent,
       itemUnit,
       itemsUnit,
-      onScroll
+      onScroll,
     } = this.props;
 
     // Custom Layout
@@ -203,7 +206,7 @@ export default class TransferList extends React.Component<TransferListProps, any
     const bodyDom = body({ ...this.props });
 
     const listCls = classNames(prefixCls, {
-      [`${prefixCls}-with-footer`]: !!footerDom
+      [`${prefixCls}-with-footer`]: !!footerDom,
     });
 
     const filteredDataSource: TransferItem[] = [];

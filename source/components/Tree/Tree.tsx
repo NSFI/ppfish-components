@@ -126,7 +126,7 @@ export interface TreeProps {
   /** 点击复选框触发 */
   onCheck?: (
     checkedKeys: string[] | { checked: string[]; halfChecked: string[] },
-    e: FishdTreeNodeCheckedEvent
+    e: FishdTreeNodeCheckedEvent,
   ) => void;
   /** 点击树节点触发 */
   onSelect?: (selectedKeys: string[], e: FishdTreeNodeSelectedEvent) => void;
@@ -166,6 +166,7 @@ export interface TreeProps {
 
 export default class Tree extends React.Component<TreeProps, any> {
   static TreeNode: React.ComponentClass<FishdTreeNodeProps> = TreeNode;
+
   static DirectoryTree = DirectoryTree;
 
   static defaultProps = {
@@ -176,10 +177,10 @@ export default class Tree extends React.Component<TreeProps, any> {
     required: false,
     openAnimation: {
       ...animation,
-      appear: null
+      appear: null,
     },
     prefixCls: 'fishd-tree',
-    showIcon: false
+    showIcon: false,
   };
 
   tree: any;

@@ -5,11 +5,11 @@ import { ContainerRender, Portal } from '../../utils';
 import IDialogPropTypes from './IDialogPropTypes';
 import './style/index.less';
 
-const IS_REACT_16 = 'createPortal' in ReactDOM;
+const SUPPORT_PORTAL = 'createPortal' in ReactDOM;
 
 class DialogWrap extends React.Component<IDialogPropTypes, any> {
   static defaultProps = {
-    visible: false
+    visible: false,
   };
 
   _component: React.ReactElement<any>;
@@ -23,14 +23,14 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
   }
 
   componentWillUnmount() {
-    if (IS_REACT_16) {
+    if (SUPPORT_PORTAL) {
       return;
     }
     if (this.props.visible) {
       this.renderComponent({
         afterClose: this.removeContainer,
         onClose() {},
-        visible: false
+        visible: false,
       });
     } else {
       this.removeContainer();
@@ -67,7 +67,7 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
 
     let portal: any = null;
 
-    if (!IS_REACT_16) {
+    if (!SUPPORT_PORTAL) {
       return (
         <ContainerRender
           parent={this}
@@ -78,7 +78,7 @@ class DialogWrap extends React.Component<IDialogPropTypes, any> {
         >
           {({
             renderComponent,
-            removeContainer
+            removeContainer,
           }: {
             renderComponent: any;
             removeContainer: any;

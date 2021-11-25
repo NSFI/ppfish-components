@@ -65,7 +65,9 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
   };
 
   player: any;
+
   videoNode: React.ReactNode | Element;
+
   videoPlayerRef: HTMLDivElement;
 
   constructor(props) {

@@ -197,10 +197,15 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   };
 
   imgEl: ImageItem & HTMLImageElement = null;
+
   downloadImgUrl: string = null;
+
   moving: string = ''; //'img'表示正在移动图片 'con'表示正在移动容器 ''表示没有移动
+
   bodyDefaultOverflow: string;
+
   $el: HTMLElement | null;
+
   $root: HTMLElement | null;
 
   constructor(props: PicturePreviewProps) {

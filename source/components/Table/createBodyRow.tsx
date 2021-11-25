@@ -19,6 +19,7 @@ export interface BodyRowClass extends React.ComponentClass {}
 export default function createTableRow(Component = 'tr') {
   class BodyRow extends React.Component<BodyRowProps, BodyRowState> {
     private store: Store;
+
     private unsubscribe: () => void;
 
     constructor(props: BodyRowProps) {
@@ -28,7 +29,7 @@ export default function createTableRow(Component = 'tr') {
       const { selectedRowKeys } = this.store.getState();
 
       this.state = {
-        selected: selectedRowKeys.indexOf(props.rowKey) >= 0
+        selected: selectedRowKeys.indexOf(props.rowKey) >= 0,
       };
     }
 
@@ -56,7 +57,7 @@ export default function createTableRow(Component = 'tr') {
     render() {
       const rowProps = omit(this.props, ['prefixCls', 'rowKey', 'store']);
       const className = classNames(this.props.className, {
-        [`${this.props.prefixCls}-row-selected`]: this.state.selected
+        [`${this.props.prefixCls}-row-selected`]: this.state.selected,
       });
 
       return (

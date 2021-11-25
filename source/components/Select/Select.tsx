@@ -87,10 +87,15 @@ interface SelectState {
 
 class Select extends React.Component<SelectProps, SelectState> {
   static Option: OptionInterface = Option;
+
   static OptGroup: OptGroupInterface = OptGroup;
+
   private listRef: any;
+
   private trigger: any;
+
   private selection: any;
+
   private selectSearch: any;
 
   static propTypes = {
@@ -162,7 +167,9 @@ class Select extends React.Component<SelectProps, SelectState> {
     required: PropTypes.bool,
     filterInactiveOption: PropTypes.bool, // 是否过滤失效的选中项（即不在option列表中）
   };
+
   static contextType = LocaleContext;
+
   static defaultProps: SelectProps = {
     virtual: true,
     allowClear: true,
