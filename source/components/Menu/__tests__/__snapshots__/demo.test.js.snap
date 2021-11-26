@@ -398,6 +398,9 @@ exports[`Renders menu demo correctly 1`] = `
       <span
         class="fishd-switch-inner"
       />
+      <span
+        class="fishd-switch-wave"
+      />
     </span>
      Change Theme
     <ul
@@ -715,6 +718,9 @@ exports[`Renders menu demo correctly 1`] = `
       <span
         class="fishd-switch-inner"
       />
+      <span
+        class="fishd-switch-wave"
+      />
     </span>
      Change Mode
     <span
@@ -727,6 +733,9 @@ exports[`Renders menu demo correctly 1`] = `
     >
       <span
         class="fishd-switch-inner"
+      />
+      <span
+        class="fishd-switch-wave"
       />
     </span>
      Change Theme

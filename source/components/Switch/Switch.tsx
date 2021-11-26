@@ -1,9 +1,7 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import RcSwitch from './src/Switch';
+import RcSwitch from './src/RcSwitch';
 import omit from 'omit.js';
-import Wave from '../../utils/wave';
 
 export interface SwitchProps {
   prefixCls?: string;
@@ -20,18 +18,10 @@ export interface SwitchProps {
 
 export default class Switch extends React.Component<SwitchProps, {}> {
   static defaultProps = {
-    prefixCls: 'fishd-switch'
+    prefixCls: 'fishd-switch',
   };
 
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    // HACK: https://github.com/ant-design/ant-design/issues/5368
-    // size=default and size=large are the same
-    size: PropTypes.oneOf(['small', 'default', 'large']),
-    className: PropTypes.string
-  };
-
-  private rcSwitch: typeof RcSwitch;
+  private rcSwitch: RcSwitch;
 
   focus() {
     this.rcSwitch.focus();
@@ -41,7 +31,7 @@ export default class Switch extends React.Component<SwitchProps, {}> {
     this.rcSwitch.blur();
   }
 
-  saveSwitch = (node: typeof RcSwitch) => {
+  saveSwitch = (node: RcSwitch) => {
     this.rcSwitch = node;
   };
 
@@ -50,12 +40,10 @@ export default class Switch extends React.Component<SwitchProps, {}> {
     const classes = classNames(className, {
       [`${prefixCls}-small`]: size === 'small',
       [`${prefixCls}-large`]: size === 'large',
-      [`${prefixCls}-loading`]: loading
+      [`${prefixCls}-loading`]: loading,
     });
     return (
-      <Wave insertExtraNode>
-        <RcSwitch {...omit(this.props, ['loading'])} className={classes} ref={this.saveSwitch} />
-      </Wave>
+      <RcSwitch {...omit(this.props, ['loading'])} className={classes} ref={this.saveSwitch} />
     );
   }
 }
