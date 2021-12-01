@@ -258,8 +258,8 @@ function transformCode(codes, filename) {
 
 module.exports = {
   canInstrument: true,
-  getCacheKey(fileData, filename, configString, options) {
-    const { instrument, rootDir } = options;
+  getCacheKey(fileData, filename, options) {
+    const { instrument, config, configString } = options;
     return crypto
       .createHash('md5')
       .update(fileData)
@@ -268,14 +268,14 @@ module.exports = {
       .update('\0', 'utf8')
       .update(fileData)
       .update('\0', 'utf8')
-      .update(path.relative(rootDir, filename))
+      .update(path.relative(config.rootDir, filename))
       .update('\0', 'utf8')
       .update(configString)
       .update('\0', 'utf8')
       .update(instrument ? 'instrument' : '')
       .digest('hex');
   },
-  process(src, filename, config, options) {
+  process(src, filename, options) {
     //截取出demo中的js代码
     let sourceCodes = [];
     src.replace(/:::\s?(demo|display)\s?([^]+?):::/g, (match, demoType, demoContent, offset) => {

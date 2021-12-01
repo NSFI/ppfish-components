@@ -8,7 +8,7 @@ describe('Form', () => {
       <Form>
         <Form.Item label="label:">input</Form.Item>
         <Form.Item label="label：">input</Form.Item>
-      </Form>
+      </Form>,
     );
     expect(wrapper.find('.fishd-form-item-label label').at(0).text()).not.toContain(':');
     expect(wrapper.find('.fishd-form-item-label label').at(1).text()).not.toContain('：');
@@ -17,9 +17,13 @@ describe('Form', () => {
   it('should not remove duplicated user input colon when props colon is false', () => {
     const wrapper = mount(
       <Form>
-        <Form.Item label="label:" colon={false}>input</Form.Item>
-        <Form.Item label="label：" colon={false}>input</Form.Item>
-      </Form>
+        <Form.Item label="label:" colon={false}>
+          input
+        </Form.Item>
+        <Form.Item label="label：" colon={false}>
+          input
+        </Form.Item>
+      </Form>,
     );
     expect(wrapper.find('.fishd-form-item-label label').at(0).text()).toContain(':');
     expect(wrapper.find('.fishd-form-item-label label').at(1).text()).toContain('：');
@@ -30,7 +34,7 @@ describe('Form', () => {
       <Form layout="vertical">
         <Form.Item label="label:">input</Form.Item>
         <Form.Item label="label：">input</Form.Item>
-      </Form>
+      </Form>,
     );
     expect(wrapper.find('.fishd-form-item-label label').at(0).text()).toContain(':');
     expect(wrapper.find('.fishd-form-item-label label').at(1).text()).toContain('：');
@@ -45,7 +49,7 @@ describe('Form', () => {
       <Form>
         <Form.Item {...formItemLayout}>input</Form.Item>
         <Form.Item>input</Form.Item>
-      </Form>
+      </Form>,
     );
     expect(wrapper.find('.fishd-form-item-control-wrapper').hostNodes().length).toBe(2);
     expect(wrapper.find('.fishd-form-item-control-wrapper.fishd-col-14').length).toBe(1);
@@ -55,19 +59,21 @@ describe('Form', () => {
   it('focus correct input when click label', () => {
     const Form1 = Form.create()(({ form }) => (
       <Form>
-        <Form.Item label="label 1">
-          {form.getFieldDecorator('test')(<input />)}
-        </Form.Item>
+        <Form.Item label="label 1">{form.getFieldDecorator('test')(<input />)}</Form.Item>
       </Form>
     ));
     const Form2 = Form.create()(({ form }) => (
       <Form>
-        <Form.Item label="label 2">
-          {form.getFieldDecorator('test2')(<input />)}
-        </Form.Item>
+        <Form.Item label="label 2">{form.getFieldDecorator('test2')(<input />)}</Form.Item>
       </Form>
     ));
-    const wrapper = mount(<div><Form1 /><Form2 /></div>);
+    const wrapper = mount(
+      <div>
+        <Form1 />
+        <Form2 />
+      </div>,
+      { attachTo: document.body },
+    );
     wrapper.find('Form label').at(0).simulate('click');
     expect(wrapper.find('Form input').at(0).getDOMNode()).toBe(document.activeElement);
     wrapper.find('Form label').at(1).simulate('click');

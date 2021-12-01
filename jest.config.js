@@ -30,7 +30,7 @@ const refactoredComp = [
   'notification',
   'Slider',
   'Modal',
-  'Switch'
+  'Switch',
 ];
 
 const getRefactoredCompMatch = name => {
@@ -41,6 +41,7 @@ const getRefactoredCompMatch = name => {
 };
 
 module.exports = {
+  testEnvironment: 'jsdom',
   setupFiles: ['<rootDir>/tools/tests/setup.js', 'jest-canvas-mock'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   moduleNameMapper: {
@@ -48,7 +49,7 @@ module.exports = {
       '<rootDir>/tools/assetsTransformer.js',
     '\\.(css|less)$': '<rootDir>/tools/assetsTransformer.js',
   },
-  moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx', 'md'],
+  moduleFileExtensions: ['js', 'json', 'jsx', 'md', 'ts', 'tsx'],
   testURL: 'http://localhost',
   testMatch: [...getRefactoredCompMatch('**')],
 
@@ -69,7 +70,7 @@ module.exports = {
   globals: {
     'ts-jest': {
       babelConfig: '.babelrc',
-      tsConfig: 'tsconfig.json',
+      tsconfig: 'tsconfig.json',
     },
   },
   verbose: true,
@@ -85,4 +86,5 @@ module.exports = {
     '!<rootDir>/site/*',
   ],
   coverageDirectory: '<rootDir>/coverage',
+  preset: 'ts-jest',
 };
