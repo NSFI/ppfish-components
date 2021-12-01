@@ -13,7 +13,8 @@
     "esModuleInterop": true,
     "baseUrl": "./source/",
     "downlevelIteration": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["@types/jest", "node"],
   },
   "include": ["source/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

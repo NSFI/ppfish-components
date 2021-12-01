@@ -7,12 +7,14 @@ import Tooltip from '../../Tooltip';
 import Menu from '../index';
 import collapseMotion from '../../../utils/motion';
 import mountTest from '../../../../tools/tests/mountTest';
+import { sleep } from '../../../../tools/tests/utils';
 
 const { SubMenu } = Menu;
 
 const noop = () => {};
 
-const expectSubMenuBehavior = (menu, enter = noop, leave = noop) => {
+const expectSubMenuBehavior = async (menu, enter = noop, leave = noop) => {
+  jest.useFakeTimers();
   if (!menu.prop('openKeys') && !menu.prop('defaultOpenKeys')) {
     expect(menu.find('ul.fishd-menu-sub').length).toBe(0);
   }
@@ -46,26 +48,26 @@ const expectSubMenuBehavior = (menu, enter = noop, leave = noop) => {
     leave();
     jest.runAllTimers();
     menu.update();
-
-    if (getSubMenu().length) {
-      expect(
-        getSubMenu().hasClass('fishd-menu-submenu-hidden') ||
-          getSubMenu().hasClass('fishd-menu-hidden') ||
-          getSubMenu().hasClass(AnimationClassNames[mode]),
-      ).toBeTruthy();
-    }
   });
+
+  if (getSubMenu().length) {
+    expect(
+      getSubMenu().hasClass('fishd-menu-submenu-hidden') ||
+        getSubMenu().hasClass('fishd-menu-hidden') ||
+        getSubMenu().hasClass(AnimationClassNames[mode]),
+    ).toBeTruthy();
+  }
 };
 
 describe('Menu', () => {
   window.requestAnimationFrame = callback => window.setTimeout(callback, 16);
   window.cancelAnimationFrame = window.clearTimeout;
 
-  beforeEach(() => {
+  beforeAll(() => {
     jest.useFakeTimers();
   });
 
-  afterEach(() => {
+  afterAll(() => {
     jest.useRealTimers();
   });
 
@@ -420,14 +422,6 @@ describe('Menu', () => {
   });
 
   describe('open submenu when click submenu title', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-
-    afterEach(() => {
-      jest.useRealTimers();
-    });
-
     const toggleMenu = (wrapper, index, event) => {
       wrapper.find('.fishd-menu-submenu-title').at(index).simulate(event);
       jest.runAllTimers();
@@ -451,7 +445,7 @@ describe('Menu', () => {
       );
     });
 
-    it('inline menu collapseMotion should be triggered', async () => {
+    it('inline menu collapseMotion should be triggered', () => {
       const cloneMotion = {
         ...collapseMotion,
         motionDeadline: 1,
@@ -473,7 +467,6 @@ describe('Menu', () => {
       wrapper.find('div.fishd-menu-submenu-title').simulate('click');
 
       act(() => {
-        jest.runAllTimers();
         wrapper.update();
       });
 

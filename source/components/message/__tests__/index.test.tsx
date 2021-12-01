@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import message from '../index';
+import { getInstance } from '../Message';
 
 describe('message', () => {
   beforeEach(() => {
@@ -45,7 +46,7 @@ describe('message', () => {
     expect(document.querySelectorAll('.fishd-message-notice').length).toBe(5);
     expect(document.querySelectorAll('.fishd-message-notice')[4].textContent).toBe('last');
     jest.runAllTimers();
-    expect(document.querySelectorAll('.fishd-message-notice').length).toBe(0);
+    expect(getInstance().component.state.notices).toHaveLength(0);
   });
 
   it('should be able to hide manually', () => {
@@ -54,10 +55,10 @@ describe('message', () => {
     expect(document.querySelectorAll('.fishd-message-notice').length).toBe(2);
     hide1();
     jest.runAllTimers();
-    expect(document.querySelectorAll('.fishd-message-notice').length).toBe(1);
+    expect(getInstance().component.state.notices).toHaveLength(1);
     hide2();
     jest.runAllTimers();
-    expect(document.querySelectorAll('.fishd-message-notice').length).toBe(0);
+    expect(getInstance().component.state.notices).toHaveLength(0);
   });
 
   it('should be able to destroy globally', () => {
@@ -74,7 +75,7 @@ describe('message', () => {
     message.info('whatever', () => {});
   });
 
-  it('should have the default duration when using the onClose arguments', (done) => {
+  it('should have the default duration when using the onClose arguments', done => {
     jest.useRealTimers();
     const defaultDuration = 3;
     const now = Date.now();
@@ -115,7 +116,7 @@ describe('message', () => {
     expect(document.querySelectorAll('.fishd-message-notice').length).toBe(1);
     hide();
     jest.runAllTimers();
-    expect(document.querySelectorAll('.fishd-message-notice').length).toBe(0);
+    expect(getInstance().component.state.notices).toHaveLength(0);
   });
 
   // https://github.com/ant-design/ant-design/issues/8201
