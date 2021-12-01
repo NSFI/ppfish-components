@@ -1,11 +1,11 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React, { FC, memo, useState } from 'react';
 import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
-import { polyfill } from 'react-lifecycles-compat';
 
 import Radio from './Radio';
 import { RadioGroupProps, RadioGroupState, RadioChangeEvent } from './interface';
+import { RadioContextProvider } from './context';
+import useUpdateEffect from '../../hooks/useUpdatEffect';
 
 // case sensitive
 function getCheckedValue(children: React.ReactNode) {
@@ -20,27 +20,139 @@ function getCheckedValue(children: React.ReactNode) {
   return matched ? { value } : undefined;
 }
 
-class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
+const RadioGroup: FC<RadioGroupProps> = props => {
+  const { prefixCls, className = '', options, buttonStyle, disabled } = props;
+
+  const [value, setValue] = useState(() => {
+    let value;
+    if ('value' in props) {
+      value = props.value;
+    } else if ('defaultValue' in props) {
+      value = props.defaultValue;
+    } else {
+      const checkedValue = getCheckedValue(props.children);
+      value = checkedValue && checkedValue.value;
+    }
+    return value;
+  });
+
+  useUpdateEffect(() => {
+    if ('value' in props) {
+      setValue(props.value);
+    } else {
+      const checkedValue = getCheckedValue(props.children);
+      if (checkedValue) {
+        setValue(checkedValue.value);
+      }
+    }
+  }, [props.value, props.children]);
+
+  const groupPrefixCls = `${prefixCls}-group`;
+  const classString = classNames(
+    groupPrefixCls,
+    `${groupPrefixCls}-${buttonStyle}`,
+    {
+      [`${groupPrefixCls}-${props.size}`]: props.size,
+    },
+    className,
+  );
+
+  let children: React.ReactChildren[] | React.ReactElement<any>[] | React.ReactNode =
+    props.children;
+
+  const onRadioChange = (ev: RadioChangeEvent) => {
+    const lastValue = value;
+    const val = ev.target.value;
+    if (!('value' in props)) {
+      setValue(val);
+    }
+
+    const onChange = props.onChange;
+    if (onChange && val !== lastValue) {
+      onChange(ev);
+    }
+  };
+
+  // 如果存在 options, 优先使用
+  if (options && options.length > 0) {
+    children = options.map((option, index) => {
+      if (typeof option === 'string') {
+        // 此处类型自动推导为 string
+        return (
+          <Radio
+            key={index}
+            prefixCls={prefixCls}
+            disabled={disabled}
+            value={option}
+            onChange={onRadioChange}
+            checked={value === option}
+          >
+            {option}
+          </Radio>
+        );
+      } else {
+        // 此处类型自动推导为 { label: string value: string }
+        return (
+          <Radio
+            key={index}
+            prefixCls={prefixCls}
+            disabled={option.disabled || disabled}
+            value={option.value}
+            onChange={onRadioChange}
+            checked={value === option.value}
+          >
+            {option.label}
+          </Radio>
+        );
+      }
+    });
+  }
+
+  return (
+    <RadioContextProvider
+      value={{
+        onChange: onRadioChange,
+        value,
+        disabled: props.disabled,
+        name: props.name,
+      }}
+    >
+      <div
+        className={classString}
+        style={props.style}
+        onMouseEnter={props.onMouseEnter}
+        onMouseLeave={props.onMouseLeave}
+        id={props.id}
+      >
+        {children}
+      </div>
+    </RadioContextProvider>
+  );
+};
+
+RadioGroup.defaultProps = {
+  disabled: false,
+  prefixCls: 'fishd-radio',
+  buttonStyle: 'outline',
+};
+
+class RadioGroup2 extends React.Component<RadioGroupProps, RadioGroupState> {
   static defaultProps = {
     disabled: false,
     prefixCls: 'fishd-radio',
-    buttonStyle: 'outline'
-  };
-
-  static childContextTypes = {
-    radioGroup: PropTypes.any
+    buttonStyle: 'outline',
   };
 
   static getDerivedStateFromProps(nextProps: RadioGroupProps) {
     if ('value' in nextProps) {
       return {
-        value: nextProps.value
+        value: nextProps.value,
       };
     } else {
       const checkedValue = getCheckedValue(nextProps.children);
       if (checkedValue) {
         return {
-          value: checkedValue.value
+          value: checkedValue.value,
         };
       }
     }
@@ -59,7 +171,7 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
       value = checkedValue && checkedValue.value;
     }
     this.state = {
-      value
+      value,
     };
   }
 
@@ -69,8 +181,8 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
         onChange: this.onRadioChange,
         value: this.state.value,
         disabled: this.props.disabled,
-        name: this.props.name
-      }
+        name: this.props.name,
+      },
     };
   }
 
@@ -83,7 +195,7 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
     const { value } = ev.target;
     if (!('value' in this.props)) {
       this.setState({
-        value
+        value,
       });
     }
 
@@ -101,9 +213,9 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
       groupPrefixCls,
       `${groupPrefixCls}-${buttonStyle}`,
       {
-        [`${groupPrefixCls}-${props.size}`]: props.size
+        [`${groupPrefixCls}-${props.size}`]: props.size,
       },
-      className
+      className,
     );
 
     let children: React.ReactChildren[] | React.ReactElement<any>[] | React.ReactNode =
@@ -158,6 +270,4 @@ class RadioGroup extends React.Component<RadioGroupProps, RadioGroupState> {
   }
 }
 
-polyfill(RadioGroup);
-
-export default RadioGroup;
+export default memo(RadioGroup);

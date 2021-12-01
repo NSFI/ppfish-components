@@ -1,28 +1,28 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React, { FC, useContext } from 'react';
 import { AbstractCheckboxProps } from '../Checkbox/Checkbox';
 import Radio from './Radio';
 import { RadioChangeEvent } from './interface';
+import RadioContext from './context';
 
 export type RadioButtonProps = AbstractCheckboxProps<RadioChangeEvent>;
 // case sensitive
-export default class RadioButton extends React.Component<RadioButtonProps, any> {
-  static defaultProps = {
-    prefixCls: 'fishd-radio-button'
-  };
 
-  static contextTypes = {
-    radioGroup: PropTypes.any
-  };
+// todo ref check
+const RadioButton: FC<RadioButtonProps> = props => {
+  const context = useContext(RadioContext);
+  const radioProps: RadioButtonProps = { ...props };
 
-  render() {
-    const radioProps: RadioButtonProps = { ...this.props };
-    if (this.context.radioGroup) {
-      radioProps.onChange = this.context.radioGroup.onChange;
-      radioProps.checked = this.props.value === this.context.radioGroup.value;
-      radioProps.disabled = this.props.disabled || this.context.radioGroup.disabled;
-    }
-
-    return <Radio {...radioProps} />;
+  if (context) {
+    radioProps.onChange = context.onChange;
+    radioProps.checked = props.value === context.value;
+    radioProps.disabled = props.disabled || context.disabled;
   }
-}
+
+  return <Radio {...radioProps} />;
+};
+
+RadioButton.defaultProps = {
+  prefixCls: 'fishd-radio-button',
+};
+
+export default RadioButton;
