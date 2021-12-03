@@ -4,5 +4,5 @@ module.exports = {
   'source/**/*.(j|t)s?(x)': filenames =>
     filenames.map(filename => `prettier --write '${filename}'`),
   // .less
-  'source/**/*.less': filenames => filenames.map(filename => [`stylelint --fix`, 'git add']),
+  'source/**/*.less': filenames => filenames.map(filename => `npm run stylelint`),
 };
