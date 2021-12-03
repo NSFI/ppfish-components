@@ -3,8 +3,8 @@ require('./polyfills/MutationObserver.js')(global);
 require('./polyfills/getSelection.js')(global);
 
 // fix "Warning: useLayoutEffect does nothing on the server"?
-import React from "react"; 
-React.useLayoutEffect = React.useEffect; 
+import React from "react";
+React.useLayoutEffect = React.useEffect;
 
 if (typeof window !== 'undefined') {
   global.window.resizeTo = (width, height) => {

@@ -52,7 +52,6 @@ module.exports = {
   moduleFileExtensions: ['js', 'json', 'jsx', 'md', 'ts', 'tsx'],
   testURL: 'http://localhost',
   testMatch: [...getRefactoredCompMatch('**')],
-
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/tools/',
@@ -69,8 +68,8 @@ module.exports = {
   },
   globals: {
     'ts-jest': {
-      babelConfig: '.babelrc',
       tsconfig: 'tsconfig.json',
+      babelConfig: '.babelrc',
     },
   },
   verbose: true,
@@ -86,5 +85,6 @@ module.exports = {
     '!<rootDir>/site/*',
   ],
   coverageDirectory: '<rootDir>/coverage',
-  preset: 'ts-jest',
+  // preset: 'ts-jest',
+  preset: 'ts-jest/presets/js-with-babel',
 };

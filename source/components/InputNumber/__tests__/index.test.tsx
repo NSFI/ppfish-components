@@ -44,7 +44,7 @@ const assignMethodsToWrapper: (any) => any = wrapper => {
 };
 
 describe('InputNumber', () => {
-  focusTest(InputNumber);
+  focusTest(InputNumber, () => document.querySelector('.fishd-input-number-input'));
 
   it('should return null when blur a empty input number', () => {
     const onChange = jest.fn();

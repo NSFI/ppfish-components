@@ -37,6 +37,7 @@ const expectSubMenuBehavior = async (menu, enter = noop, leave = noop) => {
     if (mode === 'inline') {
       return menu.find('ul.fishd-menu-sub.fishd-menu-inline').hostNodes().at(0);
     }
+
     return menu.find('div.fishd-menu-submenu-popup').hostNodes().at(0);
   }
 
@@ -73,27 +74,27 @@ describe('Menu', () => {
 
   mountTest(() => (
     <Menu>
-      <Menu.Item />
-      <Menu.ItemGroup />
-      <Menu.SubMenu />
+      <Menu.Item key="1" />
+      <Menu.ItemGroup key="2" />
+      <Menu.SubMenu key="3" />
     </Menu>
   ));
 
   mountTest(() => (
     <Menu>
-      <Menu.Item />
+      <Menu.Item key="1" />
       <>
-        <Menu.ItemGroup />
-        <Menu.SubMenu />
+        <Menu.ItemGroup key="2-1" />
+        <Menu.SubMenu key="2-2" />
         {null}
       </>
       <>
-        <Menu.Item />
+        <Menu.Item key="3" />
       </>
       {undefined}
       <>
         <>
-          <Menu.Item />
+          <Menu.Item key="4" />
         </>
       </>
     </Menu>

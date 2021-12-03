@@ -51,7 +51,6 @@ describe('<Select />', () => {
     const triggerValue = { label: '1', title: undefined, key: 1 };
     const onSelect = jest.fn((...args) => {
       console.log(args);
-      debugger;
     });
     const onDeselect = jest.fn();
     wrapper = mount(

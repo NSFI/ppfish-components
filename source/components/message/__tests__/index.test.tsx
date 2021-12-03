@@ -34,7 +34,6 @@ describe('message', () => {
     message.info('whatever');
     expect(document.querySelectorAll('.custom-container').length).toBe(1);
   });
-
   it('should be able to config maxCount', () => {
     message.config({
       maxCount: 5,
@@ -101,6 +100,7 @@ describe('message', () => {
   });
 
   // https://github.com/ant-design/ant-design/issues/8201
+
   it('should hide message correctly', () => {
     let hide;
     class Test extends React.Component {

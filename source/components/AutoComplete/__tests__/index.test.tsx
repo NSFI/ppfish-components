@@ -14,7 +14,7 @@ describe('AutoComplete with Custom Input Element Render', () => {
     jest.useRealTimers();
   });
 
-  focusTest(AutoComplete);
+  focusTest(AutoComplete, () => document.querySelector('.fishd-autocomplete-select'));
 
   it('AutoComplete with custom Input render perfectly', async () => {
     const wrapper = mount(
@@ -33,9 +33,9 @@ describe('AutoComplete with Custom Input Element Render', () => {
     wrapper.update();
 
     // should not filter data source defaultly
-    expect(
-      wrapper.find('.fishd-autocomplete-select-dropdown-menu-item').hostNodes().length,
-    ).toBe(3);
+    expect(wrapper.find('.fishd-autocomplete-select-dropdown-menu-item').hostNodes().length).toBe(
+      3,
+    );
   });
 
   it('AutoComplete should work when dataSource is object array', async () => {

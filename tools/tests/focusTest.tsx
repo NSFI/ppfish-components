@@ -1,20 +1,23 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
 
-export default function focusTest(Component, componetRef = false) {
+
+export default function focusTest(Component, getDOMNode: () => HTMLElement, props = {}) {
+  const getDOMNodeWithError = () => {
+    let returnNode = getDOMNode();
+    if (!returnNode) {
+      throw new Error('DOM node is not available');
+    }
+    return returnNode;
+  };
   describe('focus and blur', () => {
-    const getCorrectInstance = (wrapper) => {
-      if(componetRef) {
-        return wrapper.instance();
-      }
-      return wrapper.find('input').instance();
-    };
+    let container = null;
 
     beforeAll(() => {
       jest.useFakeTimers();
     });
 
-    let container;
     beforeEach(() => {
       container = document.createElement('div');
       document.body.appendChild(container);
@@ -25,30 +28,53 @@ export default function focusTest(Component, componetRef = false) {
     });
 
     afterEach(() => {
-      document.body.removeChild(container);
+      unmountComponentAtNode(container);
+      container.remove();
+      container = null;
     });
 
     it('focus() and onFocus', () => {
       const handleFocus = jest.fn();
-      const wrapper = mount(<Component onFocus={handleFocus} />, { attachTo: container });
-      getCorrectInstance(wrapper).focus();
+      let focusNode = null;
+      act(() => {
+        render(<Component {...props} onFocus={handleFocus} />, container);
+      });
+      focusNode = getDOMNodeWithError();
+      expect(focusNode).not.toBe(null);
+      act(() => {
+        focusNode.dispatchEvent(new FocusEvent('focusin', { bubbles: true, relatedTarget: null }));
+      });
       jest.runAllTimers();
       expect(handleFocus).toBeCalled();
     });
 
     it('blur() and onBlur', () => {
       const handleBlur = jest.fn();
-      const wrapper = mount(<Component onBlur={handleBlur} />, { attachTo: container });
-      getCorrectInstance(wrapper).focus();
+      let focusNode = null;
+      act(() => {
+        render(<Component {...props} onBlur={handleBlur} />, container);
+      });
+      focusNode = getDOMNodeWithError();
+      expect(focusNode).not.toBe(null);
+      act(() => {
+        getDOMNodeWithError().dispatchEvent(new FocusEvent('focusin', { bubbles: true, relatedTarget: null }));
+      });
       jest.runAllTimers();
-      getCorrectInstance(wrapper).blur();
+      act(() => {
+        getDOMNodeWithError().dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
+      });
       jest.runAllTimers();
       expect(handleBlur).toBeCalled();
     });
 
     it('autoFocus', () => {
       const handleFocus = jest.fn();
-      mount(<Component autoFocus onFocus={handleFocus} />, { attachTo: container });
+      let focusNode = null;
+      act(() => {
+        render(<Component {...props} autoFocus onFocus={handleFocus} />, container);
+      });
+      focusNode = getDOMNodeWithError();
+      expect(focusNode).not.toBe(null);
       jest.runAllTimers();
       expect(handleFocus).toBeCalled();
     });

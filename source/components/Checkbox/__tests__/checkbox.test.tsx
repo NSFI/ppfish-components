@@ -4,18 +4,13 @@ import Checkbox from '../index';
 import focusTest from '../../../../tools/tests/focusTest';
 
 describe('Checkbox', () => {
-  focusTest(Checkbox);
+  focusTest(Checkbox, () => document.querySelector('.fishd-checkbox-input'));
 
   it('responses hover events', () => {
     const onMouseEnter = jest.fn();
     const onMouseLeave = jest.fn();
 
-    const wrapper = shallow(
-      <Checkbox
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      />
-    );
+    const wrapper = shallow(<Checkbox onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />);
 
     wrapper.simulate('mouseenter');
     expect(onMouseEnter).toHaveBeenCalled();
