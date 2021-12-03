@@ -129,6 +129,7 @@ module.exports = {
           chunks: 'all'
         },
         sources: {
+          priority: 10,
           name: 'sources',
           test: /source/,
           chunks: 'all'

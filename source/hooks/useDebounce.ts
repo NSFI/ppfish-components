@@ -1,4 +1,5 @@
-import { debounce, DebouncedFunc } from 'lodash';
+import debounce from 'lodash/debounce';
+import { DebouncedFunc } from 'lodash';
 import { useCallback, useRef } from 'react';
 import useUnmount from './useUnmount';
 
