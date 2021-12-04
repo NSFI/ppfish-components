@@ -4,14 +4,11 @@ import RcCheckbox from '../Checkbox/src/Checkbox';
 import { RadioChangeEvent, RadioProps } from './interface';
 import RadioContext from './context';
 
-// todo check  ref
-const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (props, ref) => {
+const InternalRadio: React.ForwardRefRenderFunction<HTMLInputElement, RadioProps> = (props, ref) => {
   const context = useContext(RadioContext);
-  const checkBoxRef = createRef<HTMLInputElement>();
   const { prefixCls, className, children, style, ...restProps } = props;
 
   const onChange = (e: RadioChangeEvent) => {
-    // props.onChange?.(e);
     context?.onChange?.(e);
   };
 
@@ -36,7 +33,7 @@ const InternalRadio: React.ForwardRefRenderFunction<HTMLElement, RadioProps> = (
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
     >
-      <RcCheckbox {...radioProps} type="radio" prefixCls={prefixCls} ref={checkBoxRef} />
+      <RcCheckbox {...radioProps} type="radio" prefixCls={prefixCls} ref={ref} />
       {children !== undefined ? <span>{children}</span> : null}
     </label>
   );

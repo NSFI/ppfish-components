@@ -4,8 +4,14 @@ import Button from './RadioButton';
 import './style/index.less';
 import { RadioProps } from './interface';
 
-//todo
-export * from './interface';
+export {
+  RadioGroupProps,
+  RadioGroupState,
+  RadioGroupContextProps,
+  RadioProps,
+  RadioChangeEventTarget,
+  RadioChangeEvent,
+} from './interface';
 
 interface CompoundedComponent
   extends React.ForwardRefExoticComponent<RadioProps & React.RefAttributes<HTMLElement>> {
