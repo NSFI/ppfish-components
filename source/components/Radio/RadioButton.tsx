@@ -7,7 +7,6 @@ import RadioContext from './context';
 export type RadioButtonProps = AbstractCheckboxProps<RadioChangeEvent>;
 // case sensitive
 
-// todo ref check
 const RadioButton: FC<RadioButtonProps> = props => {
   const context = useContext(RadioContext);
   const radioProps: RadioButtonProps = { ...props };
