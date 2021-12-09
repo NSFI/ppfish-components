@@ -15,6 +15,7 @@ import createStore, { Store } from './createStore';
 import SelectionBox from './SelectionBox';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
 import ColumnFiltrateModal from './ColumnFiltrateModal';
+import ColumnFiltrateDraggableModal from './ColumnFiltrateDraggableModal';
 import Column from './Column';
 import ColumnGroup from './ColumnGroup';
 import createBodyRow from './createBodyRow';
@@ -143,6 +144,26 @@ function getColumnKey(column, index?: number) {
  */
 const emptyObject = {};
 
+const getColumns = (props) => {
+  const { columns } = props;
+  let newColumns = columns || normalizeColumns(props.children as React.ReactChildren);
+  // 如果draggable模式，需要将columns按照 sortedColumns 排序
+  if (props.columnFiltrate?.draggable && props.columnFiltrate?.sortedColumns && props.columnFiltrate?.sortedColumns.length > 0) {
+    let sortedColumns = props.columnFiltrate.sortedColumns;
+    newColumns.sort((a, b) => {
+      let aKey = getColumnKey(a);
+      let bKey = getColumnKey(b);
+      if (sortedColumns.indexOf(aKey) == -1) {
+        sortedColumns.push(aKey);}
+      if (sortedColumns.indexOf(bKey) == -1) {
+        sortedColumns.push(bKey);
+      }
+      return sortedColumns.indexOf(aKey) - sortedColumns.indexOf(bKey);
+    });
+  }
+  return newColumns;
+}
+
 class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   static Column = Column;
   static ColumnGroup = ColumnGroup;
@@ -183,8 +204,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps = {} } = prevState;
     let newState: any = { prevProps: nextProps };
-    const columns =
-      nextProps.columns || normalizeColumns(nextProps.children as React.ReactChildren);
+    const columns = getColumns(nextProps);
     newState.columns = columns;
 
     if ('pagination' in nextProps || 'pagination' in prevProps) {
@@ -235,8 +255,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       'fixed columns instead, see: https://u.ant.design/fixed-columns.'
     );
 
-    const columns = props.columns || normalizeColumns(props.children as React.ReactChildren);
-
+    const columns = getColumns(props);
     const hideColumns = getHideColumns(props);
 
     this.state = {
@@ -840,14 +859,23 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         className: classNames(`${prefixCls}-filtrate-column`),
         width: 50,
         title: (
-          <ColumnFiltrateModal
-            prefixCls={prefixCls}
-            columns={this.state.columns}
-            hideColumns={this.state.hideColumns}
-            defaultColumns={columnFiltrate.defaultColumns}
-            onChange={this.handleColumnsFiltrateChange}
-          />
-        )
+            columnFiltrate.draggable ?
+              <ColumnFiltrateDraggableModal
+                prefixCls={prefixCls}
+                columns={this.state.columns}
+                hideColumns={this.state.hideColumns}
+                defaultColumns={columnFiltrate.defaultColumns}
+                onChange={this.handleColumnsFiltrateDraggableChange}
+              />
+              :
+              <ColumnFiltrateModal
+                prefixCls={prefixCls}
+                columns={this.state.columns}
+                hideColumns={this.state.hideColumns}
+                defaultColumns={columnFiltrate.defaultColumns}
+                onChange={this.handleColumnsFiltrateChange}
+              />
+        ),
       };
       if (typeof columnFiltrate === 'object' && 'fixed' in columnFiltrate) {
         filtrateColumn.fixed = columnFiltrate.fixed;
@@ -862,6 +890,19 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     }
     return columns;
   }
+
+  handleColumnsFiltrateDraggableChange = (hideColumns: string[], sortedColumns: string[]) => {
+    const { columnFiltrate } = this.props;
+    if (columnFiltrate && columnFiltrate.hideColumnsChange) {
+      columnFiltrate.hideColumnsChange(hideColumns);
+    }
+    if (columnFiltrate && columnFiltrate.sortedColumnsChange) {
+      columnFiltrate.sortedColumnsChange(sortedColumns);
+    }
+    this.setState({
+      hideColumns,
+    });
+  };
 
   handleColumnsFiltrateChange = (hideColumns: string[]) => {
     const { columnFiltrate } = this.props;

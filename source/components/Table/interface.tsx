@@ -43,6 +43,7 @@ export interface ColumnProps<T> {
   onHeaderCell?: (props: ColumnProps<T>) => any;
   ellipsis?: boolean;
   filtrateDefault?: boolean;
+  selected?: boolean;
 }
 
 export interface TableComponents {
@@ -227,6 +228,9 @@ export interface FiltrateProps {
   hideColumns?: string[];
   defaultColumns?: string[];
   hideColumnsChange?: (e) => void;
+  draggable?: boolean;
+  sortedColumns?: string[];
+  sortedColumnsChange?: (e) => void;
 }
 
 export interface ColumnFiltrateProps<T> {
@@ -234,7 +238,7 @@ export interface ColumnFiltrateProps<T> {
   columns: ColumnProps<T>[];
   hideColumns?: string[];
   defaultColumns?: string[];
-  onChange?: (e) => void;
+  onChange?: (hideColumns: string[], sortedColumns?: string[]) => void;
 }
 
 export interface ColumnFiltrateState {
