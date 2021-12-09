@@ -160,6 +160,85 @@ const columns = [{
 :::
 
 
+## 控制列的显示 - 列可拖拽排序模式
+
+:::demo 
+```js
+  constructor() {
+    super();
+    this.state = {
+      sortedColumns: []
+    }
+  }
+
+  render() {
+    const columns = [{
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a href="" onClick={e => e.preventDefault()}>{text}</a>,
+    }, {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+    }, {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+      filtrateDefault: true,
+    }, {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <a href="" onClick={e => e.preventDefault()}>Action 一 {record.name}</a>
+          <Divider type="vertical" />
+          <a href="" onClick={e => e.preventDefault()}>Delete</a>
+          <Divider type="vertical" />
+          <a href="" onClick={e => e.preventDefault()} className="fishd-dropdown-link">
+            More actions <Icon type="down" />
+          </a>
+        </span>
+      ),
+    }];
+    const data = [{
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    }, {
+      key: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    }, {
+      key: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    }];
+    return (
+      <Table 
+        columns={columns} 
+        dataSource={data} 
+        columnFiltrate={{
+          defaultColumns:['age'],
+          hideColumns:['name'],
+          hideColumnsChange:(x) =>console.log(x),
+          draggable: true,
+          sortedColumns: this.state.sortedColumns,
+          sortedColumnsChange:(sortedColumns) => {
+            this.setState({
+              sortedColumns
+            })
+          }
+      }}/>
+    );
+  }
+```
+:::
+
+
 ## JSX 风格的 API
 :::demo 使用 JSX 风格的 API。
 > 这个只是一个描述 `columns` 的语法糖，所以你不能用其他组件去包裹 `Column` 和 `ColumnGroup`。
@@ -2320,6 +2399,9 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 | fixed | 是否fixed | Enum {'left','right'} | - |
 | hideColumns | 初始化组件时需要隐藏的columns的key[] | Array< String > | - |
 | hideColumnsChange | 选择隐藏的列后的回调 | (hideColumns:Array< String >) => Void | - |
+| draggable | 是否开启列可拖拽排序模式 | Boolean | false |
+| sortedColumns | 开启列可拖拽排序模式时生效，排序的columns的key[] | Array< String > | - |
+| sortedColumnsChange | 开启列可拖拽排序模式时生效，排序的columns的key[]发生变化的回调  | Boolean | false |
 
 > 隐藏列表项有以下限制：
 
