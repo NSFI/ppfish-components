@@ -8,10 +8,6 @@ export default class DragAndDrop extends Component {
   }
 
   render() {
-    return (
-      <DndProvider backend={HTML5Backend}>
-        {this.props.children}
-      </DndProvider>
-    )
+    return <DndProvider backend={HTML5Backend}>{this.props.children}</DndProvider>;
   }
 }

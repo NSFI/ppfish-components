@@ -1,8 +1,7 @@
 // .lintstagedrc.js
 module.exports = {
   // .ts .js .tsx .jsx
-  'source/**/*.(j|t)s?(x)': filenames =>
-    filenames.map(filename => `prettier --write '${filename}'`),
+  'source/**/*.(j|t)s?(x)': () => `npm run lint`,
   // .less
-  'source/**/*.less': filenames => filenames.map(filename => `npm run stylelint`),
+  'source/**/*.less': () => `npm run stylelint`,
 };

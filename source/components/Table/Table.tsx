@@ -144,17 +144,22 @@ function getColumnKey(column, index?: number) {
  */
 const emptyObject = {};
 
-const getColumns = (props) => {
+const getColumns = props => {
   const { columns } = props;
   let newColumns = columns || normalizeColumns(props.children as React.ReactChildren);
   // 如果draggable模式，需要将columns按照 sortedColumns 排序
-  if (props.columnFiltrate?.draggable && props.columnFiltrate?.sortedColumns && props.columnFiltrate?.sortedColumns.length > 0) {
+  if (
+    props.columnFiltrate?.draggable &&
+    props.columnFiltrate?.sortedColumns &&
+    props.columnFiltrate?.sortedColumns.length > 0
+  ) {
     let sortedColumns = props.columnFiltrate.sortedColumns;
     newColumns.sort((a, b) => {
       let aKey = getColumnKey(a);
       let bKey = getColumnKey(b);
       if (sortedColumns.indexOf(aKey) == -1) {
-        sortedColumns.push(aKey);}
+        sortedColumns.push(aKey);
+      }
       if (sortedColumns.indexOf(bKey) == -1) {
         sortedColumns.push(bKey);
       }
@@ -162,7 +167,7 @@ const getColumns = (props) => {
     });
   }
   return newColumns;
-}
+};
 
 class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   static Column = Column;
@@ -860,23 +865,22 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         key: 'filtrate-column',
         className: classNames(`${prefixCls}-filtrate-column`),
         width: 50,
-        title: (
-            columnFiltrate.draggable ?
-              <ColumnFiltrateDraggableModal
-                prefixCls={prefixCls}
-                columns={this.state.columns}
-                hideColumns={this.state.hideColumns}
-                defaultColumns={columnFiltrate.defaultColumns}
-                onChange={this.handleColumnsFiltrateDraggableChange}
-              />
-              :
-              <ColumnFiltrateModal
-                prefixCls={prefixCls}
-                columns={this.state.columns}
-                hideColumns={this.state.hideColumns}
-                defaultColumns={columnFiltrate.defaultColumns}
-                onChange={this.handleColumnsFiltrateChange}
-              />
+        title: columnFiltrate.draggable ? (
+          <ColumnFiltrateDraggableModal
+            prefixCls={prefixCls}
+            columns={this.state.columns}
+            hideColumns={this.state.hideColumns}
+            defaultColumns={columnFiltrate.defaultColumns}
+            onChange={this.handleColumnsFiltrateDraggableChange}
+          />
+        ) : (
+          <ColumnFiltrateModal
+            prefixCls={prefixCls}
+            columns={this.state.columns}
+            hideColumns={this.state.hideColumns}
+            defaultColumns={columnFiltrate.defaultColumns}
+            onChange={this.handleColumnsFiltrateChange}
+          />
         ),
       };
       if (typeof columnFiltrate === 'object' && 'fixed' in columnFiltrate) {
