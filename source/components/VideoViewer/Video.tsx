@@ -134,6 +134,11 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
           this.videoPlayerRef.focus();
         });
       }
+      this.player.on('ended', e => {
+        setTimeout(() => {
+          this.player?.controlBar?.progressControl?.seekBar?.update?.();
+        }, 50);
+      });
     });
   }
 
