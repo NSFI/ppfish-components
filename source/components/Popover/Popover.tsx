@@ -1,56 +1,35 @@
-import * as React from 'react';
-import Tooltip, {
-  AbstractTooltipProps,
-  TooltipPlacement,
-  TooltipRef,
-  TooltipTrigger,
-} from '../Tooltip';
-import warning from '../../utils/warning';
+import React, { forwardRef } from 'react';
+import Tooltip, { AbstractTooltipProps, TooltipRef } from '../Tooltip';
 
 export interface PopoverProps extends AbstractTooltipProps {
   title?: React.ReactNode;
   content?: React.ReactNode;
 }
 
-export default class Popover extends React.Component<PopoverProps, {}> {
-  static defaultProps = {
-    prefixCls: 'fishd-popover',
-    placement: 'top' as TooltipPlacement,
-    transitionName: 'zoom-big',
-    trigger: 'hover' as TooltipTrigger,
-    mouseEnterDelay: 0.1,
-    mouseLeaveDelay: 0.1,
-    overlayStyle: {},
-  };
+const Popover = forwardRef<TooltipRef, PopoverProps>(function Popover(props, ref) {
+  const { title, content, ...rest } = props;
 
-  private tooltip: TooltipRef;
-
-  getPopupDomNode() {
-    return this.tooltip.getPopupDomNode();
-  }
-
-  getOverlay() {
-    const { title, prefixCls, content } = this.props;
-    warning(
-      !('overlay' in this.props),
-      'Popover[overlay] is removed, please use Popover[content] instead, ' +
-        'see: https://u.ant.design/popover-content',
-    );
+  const getOverlay = () => {
+    const { prefixCls } = props;
     return (
       <div>
         {title && <div className={`${prefixCls}-title`}>{title}</div>}
         <div className={`${prefixCls}-inner-content`}>{content}</div>
       </div>
     );
-  }
-
-  saveTooltip = (node: any) => {
-    this.tooltip = node;
   };
 
-  render() {
-    const props = { ...this.props };
-    delete props.title;
-    return <Tooltip {...props} ref={this.saveTooltip} overlay={this.getOverlay()} />;
-  }
-}
+  return <Tooltip {...rest} ref={ref} overlay={getOverlay()} />;
+});
+
+Popover.defaultProps = {
+  prefixCls: 'fishd-popover',
+  placement: 'top' as const,
+  transitionName: 'zoom-big',
+  trigger: 'hover' as const,
+  mouseEnterDelay: 0.1,
+  mouseLeaveDelay: 0.1,
+  overlayStyle: {},
+};
+
+export default Popover;
