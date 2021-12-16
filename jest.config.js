@@ -25,6 +25,7 @@ const refactoredComp = [
   'Input',
   'ImageLoader',
   'Guide',
+  'PicturePreview'
 ];
 
 const getRefactoredCompMatch = name => {
