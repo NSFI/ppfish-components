@@ -34,6 +34,7 @@
     "jest": true
   },
   "rules": {
+    
     "no-compare-neg-zero": 2,
     "no-cond-assign": 2,
     "no-constant-condition": 2,
@@ -64,7 +65,8 @@
     "no-fallthrough": 1,
     "no-global-assign": 1,
     "no-octal": 1,
-    "no-redeclare": 2,
+    "no-redeclare" : "off" , 
+    "@typescript-eslint/no-redeclare" : [ "error" ],
     "no-self-assign": 2,
     "no-unused-labels": 2,
     "no-useless-escape": 1,
