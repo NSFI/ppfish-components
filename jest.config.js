@@ -31,7 +31,8 @@ const refactoredComp = [
   'Slider',
   'Modal',
   'Switch',
-  'PicturePreview'
+  'PicturePreview',
+  'Radio',
 ];
 
 const getRefactoredCompMatch = name => {
