@@ -852,7 +852,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     return columns;
   }
 
-  renderColumnsFiltrate(columnsProps) {
+  renderColumnsFiltrate(columnsProps, locale) {
     const { prefixCls, columnFiltrate } = this.props;
     const columns = columnsProps.concat();
     if (columnFiltrate) {
@@ -863,6 +863,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         title: (
             columnFiltrate.draggable ?
               <ColumnFiltrateDraggableModal
+                locale={locale}
                 prefixCls={prefixCls}
                 columns={this.state.columns}
                 hideColumns={this.state.hideColumns}
@@ -1193,7 +1194,16 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   renderTable = (loading: SpinProps, Locale: LocaleProperties['Table']) => {
-    const { filterTitle, filterConfirm, filterReset, emptyText, selectAll, selectInvert } = Locale;
+    const { 
+      filterTitle, 
+      filterConfirm, 
+      filterReset, 
+      emptyText, 
+      selectAll, 
+      selectInvert,
+      draggableTitle, 
+      draggableAction 
+    } = Locale;
     const localeDefault = {
       filterTitle,
       filterConfirm,
@@ -1201,6 +1211,8 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       emptyText,
       selectAll,
       selectInvert,
+      draggableTitle,
+      draggableAction
     };
     const locale = { ...localeDefault, ...this.props.locale };
     const { style, className, prefixCls, showHeader, activeRowByClick, ...restProps } = this.props;
@@ -1215,7 +1227,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     });
 
     let columns = this.renderRowSelection(locale);
-    columns = this.renderColumnsFiltrate(columns);
+    columns = this.renderColumnsFiltrate(columns, locale);
     columns = this.renderColumnsDropdown(columns, locale);
     columns = columns.filter(
       column =>

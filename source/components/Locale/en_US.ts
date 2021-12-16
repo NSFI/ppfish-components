@@ -37,6 +37,8 @@ const LocaleValue: LocaleProperties = {
     defaultOptionTitle: 'Default display data items',
     okText: 'OK',
     cancelText: 'Cancel',
+    draggableTitle: 'Field',
+    draggableAction: 'Adjust the order'
   },
   DatePicker: {
     now: 'Now',

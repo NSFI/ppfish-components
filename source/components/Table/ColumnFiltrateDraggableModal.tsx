@@ -51,6 +51,7 @@ const getColSpanOption = columns => {
   return colSpanOption;
 };
 
+let DraggableTable = null;
 class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProps<T>, ColumnFiltrateState> {
   static defaultProps = {
     columns: [],
@@ -84,6 +85,23 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
       prevProps: props,
       colSpanOption: getColSpanOption(columns)
     };
+  }
+
+  componentDidMount() {
+    DraggableTable = TableDraggableHOC(Table, {
+      dnd: true,
+      renderBodyRow(props) {
+        const { index, ...restProps } = props;
+        return <tr {...restProps} />;
+      },
+      dndRow(props) {
+        if (props.record.selected) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    });
   }
 
   showModal = () => {
@@ -181,25 +199,11 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
   }
 
   render() {
-    const { prefixCls, defaultColumns } = this.props;
+    const { prefixCls, defaultColumns, locale } = this.props;
     const { visible, checkedOption, okButtonDisabled } = this.state;
-    const DraggableTable = TableDraggableHOC(Table, {
-      dnd: true,
-      renderBodyRow(props) {
-        const { index, ...restProps } = props;
-        return <tr {...restProps} />;
-      },
-      dndRow(props) {
-        if (props.record.selected) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    });
     const draggableTableColumns = [
       {
-        title: '字段',
+        title: locale.draggableTitle,
         dataIndex: 'title',
         render: (val, row) => {
           return (
@@ -210,7 +214,7 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
         }
       },
       {
-        title: '拖拽排序',
+        title: locale.draggableAction,
         dataIndex: 'operate',
         render: (val, row) => {
           let isDefault = defaultColumns.findIndex(key => key === getColumnKey(row)) != -1;
@@ -243,31 +247,34 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
                 okText={Locale.okText}
                 cancelText={Locale.cancelText}
               >
-                <DraggableTable
-                  rowKey='key'
-                  columns={draggableTableColumns}
-                  dataSource={this.getDataSource()}
-                  pagination={false}
-                  rowSelection={{
-                    selectedRowKeys: checkedOption,
-                    hideDefaultSelections: true,
-                    showSelectAll: true,
-                    type: 'checkbox',
-                    onChange: this.onChange,
-                    getCheckboxProps: (record) => {
-                      let isDefault = defaultColumns.findIndex(key => key === getColumnKey(record)) != -1;
-                      return ({
-                        disabled: isDefault,
-                        name: record.title,
-                        checked: isDefault || checkedOption.findIndex(key => key === getColumnKey(record)) != -1
-                      })
-                    }
-                  }}
-                  onRowMoved={(fields) => {
-                    const checkedOption = fields.filter(each => each.selected).map(column => getColumnKey(column));
-                    this.onChange(checkedOption);
-                  }}
-                />
+                {
+                  DraggableTable ?
+                    <DraggableTable
+                      rowKey="key"
+                      columns={draggableTableColumns}
+                      dataSource={this.getDataSource()}
+                      pagination={false}
+                      rowSelection={{
+                        selectedRowKeys: checkedOption,
+                        hideDefaultSelections: true,
+                        showSelectAll: true,
+                        type: 'checkbox',
+                        onChange: this.onChange,
+                        getCheckboxProps: (record) => {
+                          let isDefault = defaultColumns.findIndex(key => key === getColumnKey(record)) != -1;
+                          return ({
+                            disabled: isDefault || record.filtrateDefault,
+                            name: record.title,
+                            checked: isDefault || checkedOption.findIndex(key => key === getColumnKey(record)) != -1
+                          });
+                        }
+                      }}
+                      onRowMoved={(fields) => {
+                        const checkedOption = fields.filter(each => each.selected).map(column => getColumnKey(column));
+                        this.onChange(checkedOption);
+                      }}
+                    />: null
+                }
               </Modal>
             </div>
           );
