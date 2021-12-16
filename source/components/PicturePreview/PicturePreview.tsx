@@ -1,8 +1,7 @@
 import React, { FC, MutableRefObject, useCallback, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
-import Icon from '../Icon';
-import { getStyle, KeyCode } from '../../utils';
+import { getStyle, KeyCode, Portal } from '../../utils';
 import usePrevious from '../../hooks/usePrevious';
 import useSetState from '../../hooks/useSetState';
 import useFullscreen from '../../hooks/useFullscreen';
@@ -52,6 +51,7 @@ interface PicturePreviewProps {
   visible?: boolean;
   prefixCls?: string;
   children?: React.ReactNode;
+  getContainer?: () => HTMLElement;
 }
 
 /**
@@ -127,6 +127,8 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
   const imgElRef: MutableRefObject<ImageItem & HTMLImageElement> = useRef(); // 代替之前的 this.imgEl
   const elRef: MutableRefObject<HTMLDivElement> = useRef(); // 代替之前的 this.$el
   const rootRef: MutableRefObject<HTMLDivElement> = useRef(); // 代替之前的 this.$root
+  const elMountedRef = useRef<boolean>(false);
+  const elMounted = elMountedRef.current;
 
   const handleZoom = useCallback(
     (ratio: number) => {
@@ -232,7 +234,7 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
         left: num2px((window.innerWidth - width) / 2),
         top: num2px((window.innerHeight - height) / 2),
       };
-      // console.log('setContainerStyle', _shown, shown, width, height, imgRatio);
+
       if (!_shown) {
         css = {
           width: num2px(width),
@@ -284,26 +286,24 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
     });
   };
 
-  useEventListener('mousewheel', handleWheel, { target: elRef, open: !!toolbar });
-  useEventListener('mousemove', handleMouseMove, { target: elRef, open: !!draggable });
-  useEventListener('mouseup', handleMouseUp, { target: elRef, open: !!draggable });
-  useEventListener('mousedown', handleMouseDown, { target: elRef, open: !!draggable });
-  useEventListener('keydown', handleKeyDown, { target: document, open: !!mask });
-  useEventListener('keydown', handleKeyDown, { target: elRef, open: !mask });
+  useEventListener('mousewheel', handleWheel, { target: elRef, open: elMounted && !!toolbar });
+  useEventListener('mousemove', handleMouseMove, { target: elRef, open: elMounted && !!draggable });
+  useEventListener('mouseup', handleMouseUp, { target: elRef, open: elMounted && !!draggable });
+  useEventListener('mousedown', handleMouseDown, { target: elRef, open: elMounted && !!draggable });
+  useEventListener('keydown', handleKeyDown, { target: document, open: elMounted && !!mask });
+  useEventListener('keydown', handleKeyDown, { target: elRef, open: elMounted && !mask });
 
   useEffect(() => {
     // lifecycle
-    const el = mask === false ? elRef.current : rootRef.current;
-    document.body.appendChild(el);
     // mounted
-    setContainerStyle();
-
-    return () => {
-      if (el && el.parentNode === document.body) {
-        document.body.removeChild(el);
-      }
-    };
+    setTimeout(() => {
+      setContainerStyle();
+    }, 20);
   }, []);
+
+  useEffect(() => {
+    elMountedRef.current = !!elRef.current;
+  }, [elRef.current]);
 
   useUpdateEffect(() => {
     // componentDidUpdate
@@ -350,8 +350,6 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
       });
     }
   }, [source, children]);
-
-  // console.log('render', { container, image, props });
 
   const handleClose = useCallback(() => {
     isFullscreen && exitFull();
@@ -414,7 +412,7 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
     prefixCls,
     handleClose,
     handlePrev,
-    handleNext
+    handleNext,
   };
 
   const renderMain = (
@@ -468,16 +466,22 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
       [`${prefixCls}-hide`]: !mask,
     });
     return (
-      <AnimateWrapper>
-        <div key={`${prefixCls}-root`} ref={rootRef} data-show={show} className={rootClass}>
-          <div className={maskClass} />
-          {renderMain}
-        </div>
-      </AnimateWrapper>
+      <Portal getContainer={props.getContainer}>
+        <AnimateWrapper>
+          <div key={`${prefixCls}-root`} ref={rootRef} data-show={show} className={rootClass}>
+            <div className={maskClass} />
+            {renderMain}
+          </div>
+        </AnimateWrapper>
+      </Portal>
     );
   }
 
-  return <AnimateWrapper>{renderMain}</AnimateWrapper>;
+  return (
+    <Portal getContainer={props.getContainer}>
+      <AnimateWrapper>{renderMain}</AnimateWrapper>
+    </Portal>
+  );
 };
 
 PicturePreview.defaultProps = {
@@ -491,6 +495,7 @@ PicturePreview.defaultProps = {
   visible: false,
   activeIndex: 0,
   onClose: () => {},
+  getContainer: () => document.body,
 };
 
 export default PicturePreview;

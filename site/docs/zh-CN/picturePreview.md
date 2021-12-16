@@ -318,3 +318,4 @@
 | style | 图片容器样式 | Object | - |
 | toolbar | 是否展示工具栏 | Boolean | false |
 | visible | 是否展示图片查看器 | Boolean | false |
+| getContainer | 指定 PicturePreview 挂载的 HTML 节点 | (instance) => HTMLElement | () => document.body |
