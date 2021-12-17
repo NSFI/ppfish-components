@@ -61,75 +61,62 @@ exports[`Renders picturePreview demo correctly 1`] = `
         </div>
       </div>
     </div>
+  </div>
+  <div>
     <div
-      class="fishd-picturepreview-root fishd-picturepreview-hide"
-      data-show="false"
+      class="demo-picpreview"
     >
       <div
-        class="fishd-picturepreview-mask"
-      />
+        class="tips"
+      >
+        点击图片预览
+      </div>
       <div
-        class="fishd-picturepreview fishd-picturepreview-hide"
-        data-show="false"
-        tabindex="-1"
+        class="pics"
       >
         <div
-          class="canvas"
+          class="item"
         >
           <img
             alt="pic1"
-            class="img active"
+            height="60px"
             src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
+            width="60px"
           />
+          <div
+            class="name"
+          >
+            pic1
+          </div>
+        </div>
+        <div
+          class="item"
+        >
           <img
             alt="pic2"
-            class="img"
+            height="60px"
             src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
+            width="60px"
           />
+          <div
+            class="name"
+          >
+            pic2
+          </div>
+        </div>
+        <div
+          class="item"
+        >
           <img
             alt="pic3"
-            class="img"
+            height="60px"
             src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
+            width="60px"
           />
-        </div>
-        <i
-          class="fishdicon fishdicon-picture-close close"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold prev"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold next"
-        />
-        <div
-          class="toolbar fishd-picturepreview-hide"
-        >
           <div
-            class="toolbarTitle fishd-picturepreview-hide"
+            class="name"
           >
-            1/3
-          </div>
-          <div
-            class="toolbarCon"
-          >
-            <i
-              class="fishdicon fishdicon-picture-equal icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-fullscreen icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-enlarge icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-micrify icon icon-disabled"
-            />
-            <i
-              class="fishdicon fishdicon-picture-rotate icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-download icon"
-            />
+            pic3
           </div>
         </div>
       </div>
@@ -194,79 +181,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fishd-picturepreview-root fishd-picturepreview-hide"
-      data-show="false"
-    >
-      <div
-        class="fishd-picturepreview-mask"
-      />
-      <div
-        class="fishd-picturepreview fishd-picturepreview-hide"
-        data-show="false"
-        tabindex="-1"
-      >
-        <div
-          class="canvas"
-        >
-          <img
-            alt="pic1"
-            class="img active"
-            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
-          />
-          <img
-            alt="pic2"
-            class="img"
-            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
-          />
-          <img
-            alt="pic3"
-            class="img"
-            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
-          />
-        </div>
-        <i
-          class="fishdicon fishdicon-picture-close close"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold prev"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold next"
-        />
-        <div
-          class="toolbar"
-        >
-          <div
-            class="toolbarTitle fishd-picturepreview-hide"
-          >
-            1/3
-          </div>
-          <div
-            class="toolbarCon"
-          >
-            <i
-              class="fishdicon fishdicon-picture-equal icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-fullscreen icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-enlarge icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-micrify icon icon-disabled"
-            />
-            <i
-              class="fishdicon fishdicon-picture-rotate icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-download icon"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <div>
     <div
@@ -327,79 +241,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fishd-picturepreview-root fishd-picturepreview-hide"
-      data-show="false"
-    >
-      <div
-        class="fishd-picturepreview-mask"
-      />
-      <div
-        class="fishd-picturepreview draggable fishd-picturepreview-hide"
-        data-show="false"
-        tabindex="-1"
-      >
-        <div
-          class="canvas"
-        >
-          <img
-            alt="pic1"
-            class="img active"
-            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
-          />
-          <img
-            alt="pic2"
-            class="img"
-            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
-          />
-          <img
-            alt="pic3"
-            class="img"
-            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
-          />
-        </div>
-        <i
-          class="fishdicon fishdicon-picture-close close"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold prev"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold next"
-        />
-        <div
-          class="toolbar"
-        >
-          <div
-            class="toolbarTitle fishd-picturepreview-hide"
-          >
-            1/3
-          </div>
-          <div
-            class="toolbarCon"
-          >
-            <i
-              class="fishdicon fishdicon-picture-equal icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-fullscreen icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-enlarge icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-micrify icon icon-disabled"
-            />
-            <i
-              class="fishdicon fishdicon-picture-rotate icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-download icon"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <div>
     <div
@@ -456,204 +297,6 @@ exports[`Renders picturePreview demo correctly 1`] = `
             class="name"
           >
             pic3
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="fishd-picturepreview draggable fishd-picturepreview-hide"
-      data-show="false"
-      tabindex="-1"
-    >
-      <div
-        class="canvas"
-      >
-        <img
-          alt="pic1"
-          class="img active"
-          src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
-        />
-        <img
-          alt="pic2"
-          class="img"
-          src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
-        />
-        <img
-          alt="pic3"
-          class="img"
-          src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
-        />
-      </div>
-      <i
-        class="fishdicon fishdicon-picture-close close"
-      />
-      <i
-        class="fishdicon fishdicon-arrow-line-Bold prev"
-      />
-      <i
-        class="fishdicon fishdicon-arrow-line-Bold next"
-      />
-      <div
-        class="toolbar"
-      >
-        <div
-          class="toolbarTitle fishd-picturepreview-hide"
-        >
-          1/3
-        </div>
-        <div
-          class="toolbarCon"
-        >
-          <i
-            class="fishdicon fishdicon-picture-equal icon"
-          />
-          <i
-            class="fishdicon fishdicon-picture-fullscreen icon"
-          />
-          <i
-            class="fishdicon fishdicon-picture-enlarge icon"
-          />
-          <i
-            class="fishdicon fishdicon-picture-micrify icon icon-disabled"
-          />
-          <i
-            class="fishdicon fishdicon-picture-rotate icon"
-          />
-          <i
-            class="fishdicon fishdicon-picture-download icon"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div>
-    <div
-      class="demo-picpreview"
-    >
-      <div
-        class="tips"
-      >
-        点击图片预览
-      </div>
-      <div
-        class="pics"
-      >
-        <div
-          class="item"
-        >
-          <img
-            alt="pic1"
-            height="60px"
-            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic1
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic2"
-            height="60px"
-            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic2
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <img
-            alt="pic3"
-            height="60px"
-            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
-            width="60px"
-          />
-          <div
-            class="name"
-          >
-            pic3
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="fishd-picturepreview-root fishd-picturepreview-hide"
-      data-show="false"
-    >
-      <div
-        class="fishd-picturepreview-mask"
-      />
-      <div
-        class="fishd-picturepreview fishd-picturepreview-hide"
-        data-show="false"
-        tabindex="-1"
-      >
-        <div
-          class="canvas"
-        >
-          <img
-            alt="pic1"
-            class="img active"
-            src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe"
-          />
-          <img
-            alt="pic2"
-            class="img"
-            src="//ysf.qiyukf.net/080b89be8a980ab9951a1b0de643d939"
-          />
-          <img
-            alt="pic3"
-            class="img"
-            src="//ysf.qiyukf.net/260c0731b07b2933fe04f1a4d629450c"
-          />
-        </div>
-        <i
-          class="fishdicon fishdicon-picture-close close"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold prev"
-        />
-        <i
-          class="fishdicon fishdicon-arrow-line-Bold next"
-        />
-        <div
-          class="toolbar fishd-picturepreview-hide"
-        >
-          <div
-            class="toolbarTitle fishd-picturepreview-hide"
-          >
-            1/3
-          </div>
-          <div
-            class="toolbarCon"
-          >
-            <i
-              class="fishdicon fishdicon-picture-equal icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-fullscreen icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-enlarge icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-micrify icon icon-disabled"
-            />
-            <i
-              class="fishdicon fishdicon-picture-rotate icon"
-            />
-            <i
-              class="fishdicon fishdicon-picture-download icon"
-            />
           </div>
         </div>
       </div>
