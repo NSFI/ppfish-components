@@ -24,7 +24,7 @@ const flatten = arr => {
 
 const getCheckedOptions = (columns, hideColumns, defaultColumns) => {
   return (
-      columns
+    columns
       // 去除默认列
       .filter(column => defaultColumns.findIndex(key => key === getColumnKey(column)) === -1)
       // 去除表头合并不显示的列
@@ -83,7 +83,7 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
       checkedOptionConfirm: option,
       okButtonDisabled: true,
       prevProps: props,
-      colSpanOption: getColSpanOption(columns)
+      colSpanOption: getColSpanOption(columns),
     };
   }
 
@@ -134,7 +134,8 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
                 }
               }),
           ),
-          this.props.defaultColumns.concat(this.state.checkedOption)
+
+          this.props.defaultColumns.concat(this.state.checkedOption),
         );
       },
     );
@@ -151,7 +152,7 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
   onChange = checkedOption => {
     this.setState({
       checkedOption,
-      okButtonDisabled: false
+      okButtonDisabled: false,
     });
   };
 
@@ -181,13 +182,17 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
   getDataSource = () => {
     const { columns, defaultColumns } = this.props;
     const { checkedOption } = this.state;
-    let selectRows = columns.filter(column => defaultColumns.findIndex(key => key === getColumnKey(column)) != -1);
+    let selectRows = columns.filter(
+      column => defaultColumns.findIndex(key => key === getColumnKey(column)) != -1,
+    );
     let unSelectRows = [];
     for (let key of checkedOption) {
       selectRows = selectRows.concat(columns.filter(each => each.key == key));
     }
 
-    for (let each of columns.filter(column => defaultColumns.findIndex(key => key === getColumnKey(column)) === -1)) {
+    for (let each of columns.filter(
+      column => defaultColumns.findIndex(key => key === getColumnKey(column)) === -1,
+    )) {
       if (checkedOption.includes(each.key)) {
         each.selected = true;
       } else {
@@ -196,7 +201,7 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
       }
     }
     return selectRows.concat(unSelectRows);
-  }
+  };
 
   render() {
     const { prefixCls, defaultColumns, locale } = this.props;
@@ -206,12 +211,8 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
         title: locale.draggableTitle,
         dataIndex: 'title',
         render: (val, row) => {
-          return (
-            <span>
-              {val}
-            </span>
-          );
-        }
+          return <span>{val}</span>;
+        },
       },
       {
         title: locale.draggableAction,
@@ -219,11 +220,11 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
         render: (val, row) => {
           let isDefault = defaultColumns.findIndex(key => key === getColumnKey(row)) != -1;
           if (checkedOption.findIndex(key => key === getColumnKey(row)) != -1 && !isDefault) {
-            return <Icon type="sound-drag" />
+            return <Icon type="sound-drag" />;
           } else {
-            return null
+            return null;
           }
-        }
+        },
       },
     ];
     return (
