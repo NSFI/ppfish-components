@@ -67,6 +67,8 @@ export interface TableLocale {
   emptyText?: React.ReactNode | (() => React.ReactNode);
   selectAll?: React.ReactNode;
   selectInvert?: React.ReactNode;
+  draggableTitle?: string;
+  draggableAction?: string;
 }
 
 export type RowSelectionType = 'checkbox' | 'radio';
@@ -234,6 +236,7 @@ export interface FiltrateProps {
 }
 
 export interface ColumnFiltrateProps<T> {
+  locale?: TableLocale;
   prefixCls?: string;
   columns: ColumnProps<T>[];
   hideColumns?: string[];

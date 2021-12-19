@@ -857,7 +857,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     return columns;
   }
 
-  renderColumnsFiltrate(columnsProps) {
+  renderColumnsFiltrate(columnsProps, locale) {
     const { prefixCls, columnFiltrate } = this.props;
     const columns = columnsProps.concat();
     if (columnFiltrate) {
@@ -865,22 +865,24 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
         key: 'filtrate-column',
         className: classNames(`${prefixCls}-filtrate-column`),
         width: 50,
-        title: columnFiltrate.draggable ? (
-          <ColumnFiltrateDraggableModal
-            prefixCls={prefixCls}
-            columns={this.state.columns}
-            hideColumns={this.state.hideColumns}
-            defaultColumns={columnFiltrate.defaultColumns}
-            onChange={this.handleColumnsFiltrateDraggableChange}
-          />
-        ) : (
-          <ColumnFiltrateModal
-            prefixCls={prefixCls}
-            columns={this.state.columns}
-            hideColumns={this.state.hideColumns}
-            defaultColumns={columnFiltrate.defaultColumns}
-            onChange={this.handleColumnsFiltrateChange}
-          />
+        title: (
+            columnFiltrate.draggable ?
+              <ColumnFiltrateDraggableModal
+                locale={locale}
+                prefixCls={prefixCls}
+                columns={this.state.columns}
+                hideColumns={this.state.hideColumns}
+                defaultColumns={columnFiltrate.defaultColumns}
+                onChange={this.handleColumnsFiltrateDraggableChange}
+              />
+              :
+              <ColumnFiltrateModal
+                prefixCls={prefixCls}
+                columns={this.state.columns}
+                hideColumns={this.state.hideColumns}
+                defaultColumns={columnFiltrate.defaultColumns}
+                onChange={this.handleColumnsFiltrateChange}
+              />
         ),
       };
       if (typeof columnFiltrate === 'object' && 'fixed' in columnFiltrate) {
@@ -1197,7 +1199,16 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
   }
 
   renderTable = (loading: SpinProps, Locale: LocaleProperties['Table']) => {
-    const { filterTitle, filterConfirm, filterReset, emptyText, selectAll, selectInvert } = Locale;
+    const { 
+      filterTitle, 
+      filterConfirm, 
+      filterReset, 
+      emptyText, 
+      selectAll, 
+      selectInvert,
+      draggableTitle, 
+      draggableAction 
+    } = Locale;
     const localeDefault = {
       filterTitle,
       filterConfirm,
@@ -1205,6 +1216,8 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
       emptyText,
       selectAll,
       selectInvert,
+      draggableTitle,
+      draggableAction
     };
     const locale = { ...localeDefault, ...this.props.locale };
     const { style, className, prefixCls, showHeader, activeRowByClick, ...restProps } = this.props;
@@ -1219,7 +1232,7 @@ class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     });
 
     let columns = this.renderRowSelection(locale);
-    columns = this.renderColumnsFiltrate(columns);
+    columns = this.renderColumnsFiltrate(columns, locale);
     columns = this.renderColumnsDropdown(columns, locale);
     columns = columns.filter(
       column =>
