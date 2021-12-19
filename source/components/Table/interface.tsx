@@ -43,6 +43,7 @@ export interface ColumnProps<T> {
   onHeaderCell?: (props: ColumnProps<T>) => any;
   ellipsis?: boolean;
   filtrateDefault?: boolean;
+  selected?: boolean;
 }
 
 export interface TableComponents {
@@ -66,6 +67,8 @@ export interface TableLocale {
   emptyText?: React.ReactNode | (() => React.ReactNode);
   selectAll?: React.ReactNode;
   selectInvert?: React.ReactNode;
+  draggableTitle?: string;
+  draggableAction?: string;
 }
 
 export type RowSelectionType = 'checkbox' | 'radio';
@@ -227,14 +230,18 @@ export interface FiltrateProps {
   hideColumns?: string[];
   defaultColumns?: string[];
   hideColumnsChange?: (e) => void;
+  draggable?: boolean;
+  sortedColumns?: string[];
+  sortedColumnsChange?: (e) => void;
 }
 
 export interface ColumnFiltrateProps<T> {
+  locale?: TableLocale;
   prefixCls?: string;
   columns: ColumnProps<T>[];
   hideColumns?: string[];
   defaultColumns?: string[];
-  onChange?: (e) => void;
+  onChange?: (hideColumns: string[], sortedColumns?: string[]) => void;
 }
 
 export interface ColumnFiltrateState {

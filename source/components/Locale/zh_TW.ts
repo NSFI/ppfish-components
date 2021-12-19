@@ -31,6 +31,8 @@ const localeValues: LocaleProperties = {
     defaultOptionTitle: '默認展示數據項',
     okText: '確定',
     cancelText: '取消',
+    draggableTitle: '字段',
+    draggableAction: '拖拽排序'
   },
   Modal: {
     okText: '確定',

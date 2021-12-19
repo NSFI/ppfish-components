@@ -582,6 +582,277 @@ exports[`Renders table demo correctly 1`] = `
                     <col />
                     <col />
                     <col />
+                    <col
+                      style="width:50px;min-width:50px"
+                    />
+                  </colgroup>
+                  <thead
+                    class="fishd-table-thead"
+                  >
+                    <tr>
+                      <th
+                        class=""
+                      >
+                        <span>
+                          Age
+                        </span>
+                      </th>
+                      <th
+                        class=""
+                      >
+                        <span>
+                          Address
+                        </span>
+                      </th>
+                      <th
+                        class=""
+                      >
+                        <span>
+                          Action
+                        </span>
+                      </th>
+                      <th
+                        class="fishd-table-filtrate-column"
+                      >
+                        <span>
+                          <div>
+                            <i
+                              class="fishdicon fishdicon-Settingx fishd-table-filtrate-icon"
+                            />
+                          </div>
+                        </span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    class="fishd-table-tbody"
+                  >
+                    <tr
+                      class="fishd-table-row fishd-table-row-level-0"
+                      data-row-key="1"
+                    >
+                      <td
+                        class=""
+                      >
+                        <span
+                          class="fishd-table-row-indent indent-level-0"
+                          style="padding-left:0px"
+                        />
+                        32
+                      </td>
+                      <td
+                        class=""
+                      >
+                        New York No. 1 Lake Park
+                      </td>
+                      <td
+                        class=""
+                      >
+                        <span>
+                          <a
+                            href=""
+                          >
+                            Action 一 John Brown
+                          </a>
+                          <div
+                            class="fishd-divider fishd-divider-vertical"
+                          />
+                          <a
+                            href=""
+                          >
+                            Delete
+                          </a>
+                          <div
+                            class="fishd-divider fishd-divider-vertical"
+                          />
+                          <a
+                            class="fishd-dropdown-link"
+                            href=""
+                          >
+                            More actions 
+                            <i
+                              class="fishdicon fishdicon-down"
+                            />
+                          </a>
+                        </span>
+                      </td>
+                      <td
+                        class="fishd-table-filtrate-column"
+                      />
+                    </tr>
+                    <tr
+                      class="fishd-table-row fishd-table-row-level-0"
+                      data-row-key="2"
+                    >
+                      <td
+                        class=""
+                      >
+                        <span
+                          class="fishd-table-row-indent indent-level-0"
+                          style="padding-left:0px"
+                        />
+                        42
+                      </td>
+                      <td
+                        class=""
+                      >
+                        London No. 1 Lake Park
+                      </td>
+                      <td
+                        class=""
+                      >
+                        <span>
+                          <a
+                            href=""
+                          >
+                            Action 一 Jim Green
+                          </a>
+                          <div
+                            class="fishd-divider fishd-divider-vertical"
+                          />
+                          <a
+                            href=""
+                          >
+                            Delete
+                          </a>
+                          <div
+                            class="fishd-divider fishd-divider-vertical"
+                          />
+                          <a
+                            class="fishd-dropdown-link"
+                            href=""
+                          >
+                            More actions 
+                            <i
+                              class="fishdicon fishdicon-down"
+                            />
+                          </a>
+                        </span>
+                      </td>
+                      <td
+                        class="fishd-table-filtrate-column"
+                      />
+                    </tr>
+                    <tr
+                      class="fishd-table-row fishd-table-row-level-0"
+                      data-row-key="3"
+                    >
+                      <td
+                        class=""
+                      >
+                        <span
+                          class="fishd-table-row-indent indent-level-0"
+                          style="padding-left:0px"
+                        />
+                        32
+                      </td>
+                      <td
+                        class=""
+                      >
+                        Sidney No. 1 Lake Park
+                      </td>
+                      <td
+                        class=""
+                      >
+                        <span>
+                          <a
+                            href=""
+                          >
+                            Action 一 Joe Black
+                          </a>
+                          <div
+                            class="fishd-divider fishd-divider-vertical"
+                          />
+                          <a
+                            href=""
+                          >
+                            Delete
+                          </a>
+                          <div
+                            class="fishd-divider fishd-divider-vertical"
+                          />
+                          <a
+                            class="fishd-dropdown-link"
+                            href=""
+                          >
+                            More actions 
+                            <i
+                              class="fishdicon fishdicon-down"
+                            />
+                          </a>
+                        </span>
+                      </td>
+                      <td
+                        class="fishd-table-filtrate-column"
+                      />
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul
+          class="fishd-pagination fishd-table-pagination"
+          unselectable="unselectable"
+        >
+          <li
+            aria-disabled="true"
+            class="fishd-pagination-disabled fishd-pagination-prev"
+            title="上一页"
+          >
+            <a
+              class="fishd-pagination-item-link"
+            />
+          </li>
+          <li
+            class="fishd-pagination-item fishd-pagination-item-1 fishd-pagination-item-active"
+            tabindex="0"
+            title="1"
+          >
+            <a>
+              1
+            </a>
+          </li>
+          <li
+            aria-disabled="true"
+            class="fishd-pagination-disabled fishd-pagination-next"
+            title="下一页"
+          >
+            <a
+              class="fishd-pagination-item-link"
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    class="fishd-table-wrapper"
+  >
+    <div
+      class="fishd-spin-nested-loading"
+    >
+      <div
+        class="fishd-spin-nested"
+      >
+        <div>
+          <div
+            class="fishd-table fishd-table-default fishd-table-scroll-position-left"
+          >
+            <div
+              class="fishd-table-content"
+            >
+              <div
+                class="fishd-table-body"
+              >
+                <table
+                  class=""
+                >
+                  <colgroup>
+                    <col />
+                    <col />
+                    <col />
                     <col />
                     <col />
                   </colgroup>
