@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'enzyme';
-import List from '../index.tsx';
+import List from '../index';
 
 describe('List', () => {
   it('renders empty list', () => {

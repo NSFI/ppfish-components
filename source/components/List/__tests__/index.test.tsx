@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import List from '../index.tsx';
+import List from '../index';
 
 const ListItem = List.Item;
 
@@ -10,8 +10,10 @@ describe('List', () => {
     const dataSource = [];
 
     const wrapper = mount(
-      <List renderItem={renderItem} dataSource={dataSource} Locale={{ emptyText: '暂无数据' }} />
+      <List renderItem={renderItem} dataSource={dataSource} locale={{ emptyText: '暂无数据' }} />
     );
+
+    // @ts-ignore
     expect(wrapper.find('div').first().props().locale).toBe(undefined);
   });
 });

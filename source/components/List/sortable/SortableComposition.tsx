@@ -1,37 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {swapArrayElements, isMouseBeyond} from './helpers.js';
+import { swapArrayElements, isMouseBeyond } from './helpers';
 
 export const VERTICAL = 'VERTICAL';
 export const HORIZONTAL = 'HORIZONTAL';
-
 
 /*** Higher-order component - this component works like a factory for draggable items */
 
 let draggingIndex = null;
 
+export interface InterProps {
+  items: any[];
+  onSortItems: (item) => void;
+  sortId?: number;
+  moveInMiddle?: boolean;
+}
+
 export function SortableComposition(Component, flowDirection = VERTICAL) {
-
-  return class Sortable extends React.Component {
-
-    static propTypes = {
-      items: PropTypes.array.isRequired,
-      onSortItems: PropTypes.func.isRequired,
-      sortId: PropTypes.number,
-      moveInMiddle: PropTypes.bool,
-    };
-
+  return class Sortable extends React.Component<InterProps> {
     static defaultProps = {
-      moveInMiddle: false
+      moveInMiddle: false,
     };
 
-
-    sortEnd = (e) => {
+    sortEnd = e => {
       e.preventDefault();
       draggingIndex = null;
     };
 
-    sortStart = (e) => {
+    sortStart = e => {
       draggingIndex = e.currentTarget.dataset.id;
       let dt = e.dataTransfer;
       if (dt !== undefined) {
@@ -43,11 +38,11 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
       }
     };
 
-    dragOver = (e) => {
+    dragOver = e => {
       e.preventDefault();
-      const {moveInMiddle} = this.props;
+      const { moveInMiddle } = this.props;
       const overEl = e.currentTarget; //underlying element
-      const indexDragged = Number(overEl.dataset.id);//index of underlying element in the set DOM elements
+      const indexDragged = Number(overEl.dataset.id); //index of underlying element in the set DOM elements
       const indexFrom = Number(draggingIndex);
       const height = overEl.getBoundingClientRect().height;
       const width = overEl.getBoundingClientRect().width;
@@ -56,7 +51,7 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
       const topOffset = overEl.getBoundingClientRect().top;
       const leftOffset = overEl.getBoundingClientRect().left;
       let mouseBeyond;
-      let {items} = this.props;
+      let { items } = this.props;
 
       if (flowDirection === VERTICAL) {
         mouseBeyond = isMouseBeyond(positionY, topOffset, height, moveInMiddle);
@@ -74,9 +69,7 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
     };
 
     render() {
-      let newProps = Object.assign({}, this.props);
-      delete newProps.onSortItems;
-      const {sortId, moveInMiddle, items, ...props} = newProps;
+      const { sortId, moveInMiddle, items, onSortItems, ...props } = this.props;
       return (
         <Component
           draggable={true}
@@ -92,5 +85,4 @@ export function SortableComposition(Component, flowDirection = VERTICAL) {
       );
     }
   };
-
 }

@@ -1,8 +1,8 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import classNames from 'classnames';
 import { Col } from '../Grid';
 import { ListGridType, ColumnType } from './index';
+import ListGridContext from './context';
 
 export interface ListItemProps {
   className?: string;
@@ -48,24 +48,12 @@ function getGrid(grid: ListGridType, t: ColumnType) {
   return grid[t] && Math.floor(24 / grid[t]!);
 }
 
-const GridColumns = ['', 1, 2, 3, 4, 6, 8, 12, 24];
-
 export default class Item extends React.Component<ListItemProps, any> {
   static Meta: typeof Meta = Meta;
 
-  static propTypes = {
-    column: PropTypes.oneOf(GridColumns),
-    xs: PropTypes.oneOf(GridColumns),
-    sm: PropTypes.oneOf(GridColumns),
-    md: PropTypes.oneOf(GridColumns),
-    lg: PropTypes.oneOf(GridColumns),
-    xl: PropTypes.oneOf(GridColumns),
-    xxl: PropTypes.oneOf(GridColumns)
-  };
+  static contextType = ListGridContext
 
-  static contextTypes = {
-    grid: PropTypes.any
-  };
+  context!: React.ContextType<typeof ListGridContext>
 
   render() {
     const { grid } = this.context;
@@ -73,6 +61,7 @@ export default class Item extends React.Component<ListItemProps, any> {
     const classString = classNames(`${prefixCls}-item`, className);
 
     const metaContent: React.ReactElement<any>[] = [];
+
     const otherContent: React.ReactElement<any>[] = [];
 
     React.Children.forEach(children, (element: React.ReactElement<any>) => {

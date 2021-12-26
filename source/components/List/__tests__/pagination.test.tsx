@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, mount} from 'enzyme';
-import List from '../index.tsx';
+import List from '../index';
 
 describe('List.pagination', () => {
   const data = [
@@ -33,7 +33,7 @@ describe('List.pagination', () => {
   }
 
   it('renders pagination correctly', () => {
-    const wrapper = render(createList());
+    const wrapper = render(createList({}));
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -55,7 +55,7 @@ describe('List.pagination', () => {
   });
 
   it('paginate data', () => {
-    const wrapper = mount(createList());
+    const wrapper = mount(createList({}));
 
     expect(renderedNames(wrapper)).toEqual(['Jack', 'Lucy']);
     wrapper
@@ -66,7 +66,7 @@ describe('List.pagination', () => {
   });
 
   it('repaginates when pageSize change', () => {
-    const wrapper = mount(createList());
+    const wrapper = mount(createList({}));
 
     wrapper.setProps({pagination: {pageSize: 1}});
     expect(renderedNames(wrapper)).toEqual(['Jack']);
@@ -96,7 +96,7 @@ describe('List.pagination', () => {
 
   // https://codepen.io/afc163/pen/pWVRJV?editors=001
   it('should display pagination as prop pagination change between true and false', () => {
-    const wrapper = mount(createList());
+    const wrapper = mount(createList({}));
     expect(wrapper.find('.fishd-pagination')).toHaveLength(1);
     expect(wrapper.find('.fishd-pagination-item')).toHaveLength(2);
     wrapper.setProps({pagination: false});

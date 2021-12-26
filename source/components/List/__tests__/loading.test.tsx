@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'enzyme';
-import List from '../index.tsx';
-import Icon from '../../Icon/index.tsx';
+import List from '../index';
+import Icon from '../../Icon/index';
 
 describe('List', () => {
   it('renders empty loading', () => {
@@ -29,7 +29,7 @@ describe('List', () => {
   });
 
   it('renders object loading with indicator', () => {
-    const antIcon = <Icon type="loading" style={{fontSize: 24}} spin="true"/>;
+    const antIcon = <Icon type="loading" style={{fontSize: 24}} spinning />;
 
     const loading = {
       spinning: true,

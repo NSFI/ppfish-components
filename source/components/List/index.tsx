@@ -1,15 +1,15 @@
 import React, { ReactNode } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Spin, { SpinProps } from '../Spin';
 import Sortable from './sortable';
 import Pagination, { PaginationConfig } from '../Pagination';
 import { Row } from '../Grid';
-
 import Item from './Item';
-import './style/index.less';
 import ConfigConsumer from '../Config/Consumer';
 import { LocaleProperties } from '../Locale';
+import { ListGridContextProvider } from './context';
+
+import './style/index.less';
 
 export { ListItemProps, ListItemMetaProps } from './Item';
 
@@ -58,23 +58,6 @@ class List extends React.Component<ListProps> {
 
   static Sortable = Sortable;
 
-  static childContextTypes = {
-    grid: PropTypes.any,
-  };
-
-  static propTypes = {
-    locale: PropTypes.shape({
-      emptyText: PropTypes.string,
-    }),
-    dataSource: PropTypes.array,
-    prefixCls: PropTypes.string,
-    bordered: PropTypes.bool,
-    split: PropTypes.bool,
-    loading: PropTypes.bool,
-    pagination: PropTypes.bool,
-    striped: PropTypes.bool,
-  };
-
   static defaultProps = {
     dataSource: [],
     prefixCls: 'fishd-list',
@@ -105,12 +88,6 @@ class List extends React.Component<ListProps> {
   };
 
   private keys: { [key: string]: string } = {};
-
-  getChildContext() {
-    return {
-      grid: this.props.grid,
-    };
-  }
 
   renderItem = (item: React.ReactElement<any>, index: number) => {
     const { dataSource, renderItem, rowKey } = this.props;
@@ -164,6 +141,7 @@ class List extends React.Component<ListProps> {
       footer,
       loading,
       striped,
+      locale, // 提取, 不放入 rest, 符合 index 单测
       ...rest
     } = this.props;
 
@@ -249,24 +227,27 @@ class List extends React.Component<ListProps> {
     const paginationPosition = paginationProps.position || 'bottom';
 
     return (
-      <ConfigConsumer componentName="List">
-        {(Locale: LocaleProperties['List']) => {
-          return (
-            <div className={classString} {...rest}>
-              {(paginationPosition === 'top' || paginationPosition === 'both') && paginationContent}
-              {header && <div className={`${prefixCls}-header`}>{header}</div>}
-              <Spin {...loadingProp}>
-                {renderChildrenContent(Locale)}
-                {children}
-              </Spin>
-              {footer && <div className={`${prefixCls}-footer`}>{footer}</div>}
-              {loadMore ||
-                ((paginationPosition === 'bottom' || paginationPosition === 'both') &&
-                  paginationContent)}
-            </div>
-          );
-        }}
-      </ConfigConsumer>
+      <ListGridContextProvider value={{ grid }}>
+        <ConfigConsumer componentName="List">
+          {(Locale: LocaleProperties['List']) => {
+            return (
+              <div className={classString} {...rest}>
+                {(paginationPosition === 'top' || paginationPosition === 'both') &&
+                  paginationContent}
+                {header && <div className={`${prefixCls}-header`}>{header}</div>}
+                <Spin {...loadingProp}>
+                  {renderChildrenContent(Locale)}
+                  {children}
+                </Spin>
+                {footer && <div className={`${prefixCls}-footer`}>{footer}</div>}
+                {loadMore ||
+                  ((paginationPosition === 'bottom' || paginationPosition === 'both') &&
+                    paginationContent)}
+              </div>
+            );
+          }}
+        </ConfigConsumer>
+      </ListGridContextProvider>
     );
   }
 }
