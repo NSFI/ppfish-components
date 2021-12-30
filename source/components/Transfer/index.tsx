@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { polyfill } from 'react-lifecycles-compat';
 
@@ -31,7 +30,7 @@ export interface TransferProps {
   prefixCls?: string;
   className?: string;
   mode?: 'single' | 'multiple';
-  dataSource: TransferItem[];
+  dataSource?: TransferItem[];
   targetKeys?: string[];
   selectedKeys?: string[];
   render?: (record: TransferItem) => React.ReactNode | void;
@@ -77,30 +76,6 @@ class Transfer extends React.Component<TransferProps, any> {
     render: noop,
     showSearch: false,
     operation: '>',
-  };
-
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    dataSource: PropTypes.array,
-    render: PropTypes.func,
-    targetKeys: PropTypes.array,
-    onChange: PropTypes.func,
-    height: PropTypes.number,
-    style: PropTypes.object,
-    listStyle: PropTypes.object,
-    operationStyle: PropTypes.object,
-    className: PropTypes.string,
-    titles: PropTypes.array,
-    operations: PropTypes.array,
-    operation: PropTypes.string,
-    showSearch: PropTypes.bool,
-    filterOption: PropTypes.func,
-    searchPlaceholder: PropTypes.string,
-    notFoundContent: PropTypes.node,
-    body: PropTypes.func,
-    footer: PropTypes.func,
-    rowKey: PropTypes.func,
-    lazy: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   };
 
   static getDerivedStateFromProps(nextProps: TransferProps, prevState) {

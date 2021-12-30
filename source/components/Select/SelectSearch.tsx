@@ -3,16 +3,16 @@ import Input from '../Input';
 import { InputRef } from '../Input/Input';
 import Icon from '../Icon';
 interface SelectSearchProps {
-  prefixCls: string;
+  prefixCls?: string;
 
-  searchValue: string;
-  searchInputProps: object;
-  searchPlaceholder: string;
+  searchValue?: string;
+  searchInputProps?: object;
+  searchPlaceholder?: string;
 
-  allowClear: boolean;
+  allowClear?: boolean;
 
-  emitEmpty: (event: React.MouseEvent<any>) => void;
-  updateSearchValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  emitEmpty?: (event: React.MouseEvent<any>) => void;
+  updateSearchValue?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface RefSelectSearchProps {

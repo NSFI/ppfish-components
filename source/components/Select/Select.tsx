@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import Animate from 'rc-animate';
@@ -97,76 +96,6 @@ class Select extends React.Component<SelectProps, SelectState> {
   private selection: any;
 
   private selectSearch: any;
-
-  static propTypes = {
-    allowClear: PropTypes.bool,
-    children: PropTypes.node,
-    className: PropTypes.string,
-    tagWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    defaultActiveFirstOption: PropTypes.bool,
-    defaultValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.array,
-      PropTypes.object,
-    ]),
-    disabled: PropTypes.bool,
-    dropdownClassName: PropTypes.string,
-    dropdownMatchSelectWidth: PropTypes.bool,
-    dropdownStyle: PropTypes.object,
-    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    extraOptions: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    filterOption: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-    getPopupContainer: PropTypes.func,
-    labelClear: PropTypes.bool,
-    labelInValue: PropTypes.bool,
-    loading: PropTypes.bool,
-    maxCount: PropTypes.number,
-    maxLabelClearPanelHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    maxScrollHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    mode: PropTypes.oneOf(['multiple', 'single']),
-    multipleSelectAllText: PropTypes.string,
-    notFoundContent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    onChange: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onPopupScroll: PropTypes.func,
-    onSearch: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
-    onVisibleChange: PropTypes.func,
-    placeholder: PropTypes.string,
-    placement: PropTypes.oneOf([
-      'bottomLeft',
-      'bottomCenter',
-      'bottomRight',
-      'topLeft',
-      'topCenter',
-      'topRight',
-    ]),
-    prefixCls: PropTypes.string,
-    searchInputProps: PropTypes.object,
-    searchPlaceholder: PropTypes.string,
-    selectAllText: PropTypes.string,
-    showArrow: PropTypes.bool,
-    showMultipleSelectAll: PropTypes.bool,
-    showOptionCheckedIcon: PropTypes.bool,
-    showSearch: PropTypes.bool,
-    showSelectAll: PropTypes.bool,
-    showSingleClear: PropTypes.bool,
-    size: PropTypes.oneOf(['default', 'small', 'large']),
-    style: PropTypes.object,
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.array,
-      PropTypes.object,
-    ]),
-    visible: PropTypes.bool,
-    esc: PropTypes.bool,
-    required: PropTypes.bool,
-    filterInactiveOption: PropTypes.bool, // 是否过滤失效的选中项（即不在option列表中）
-  };
 
   static contextType = LocaleContext;
 

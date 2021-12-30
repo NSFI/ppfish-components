@@ -26,29 +26,29 @@ function isRenderResultPlainObject(result: any) {
 
 export interface TransferListProps {
   mode?: 'single' | 'multiple';
-  direction: string;
-  prefixCls: string;
-  titleText: string;
-  dataSource: TransferItem[];
-  filter: string;
+  direction?: string;
+  prefixCls?: string;
+  titleText?: string;
+  dataSource?: TransferItem[];
+  filter?: string;
   filterOption?: (filterText: any, item: any) => boolean;
   style?: React.CSSProperties;
-  checkedKeys: string[];
-  handleFilter: (e: any) => void;
-  handleSelect: (selectedItem: any, checked: boolean) => void;
-  handleSelectAll: (dataSource: any[], checkAll: boolean) => void;
+  checkedKeys?: string[];
+  handleFilter?: (e: any) => void;
+  handleSelect?: (selectedItem: any, checked: boolean) => void;
+  handleSelectAll?: (dataSource: any[], checkAll: boolean) => void;
   handleClose?: (selectedItem: any) => void;
-  handleClear: () => void;
+  handleClear?: () => void;
   render?: (item: any) => any;
   showSearch?: boolean;
-  searchPlaceholder: string;
-  notFoundContent: React.ReactNode;
-  itemUnit: string;
-  itemsUnit: string;
+  searchPlaceholder?: string;
+  notFoundContent?: React.ReactNode;
+  itemUnit?: string;
+  itemsUnit?: string;
   body?: (props: any) => any;
   footer?: (props: any) => any;
   lazy?: boolean | {};
-  onScroll: Function;
+  onScroll?: Function;
 }
 
 export default class TransferList extends React.Component<TransferListProps, any> {
