@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Icon from '../Icon';
 import classNames from 'classnames';
 import './style/index.less';
@@ -15,7 +14,7 @@ interface TrendProps {
   children?: React.ReactChildren;
 }
 
-const Trend: React.SFC<TrendProps> = props => {
+const Trend: React.FC<TrendProps> = props => {
   const {
     colorful = true,
     reverseColor = false,
@@ -69,17 +68,6 @@ const Trend: React.SFC<TrendProps> = props => {
       {renderFlag()}
     </div>
   );
-};
-
-Trend.propTypes = {
-  className: PropTypes.string,
-  style: PropTypes.object,
-  flag: PropTypes.string,
-  size: PropTypes.string,
-  value: PropTypes.string,
-  colorful: PropTypes.bool,
-  reverseColor: PropTypes.bool,
-  children: PropTypes.node
 };
 
 export default Trend;
