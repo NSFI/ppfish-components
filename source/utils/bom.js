@@ -49,11 +49,10 @@ export const addFullscreenchangeEvent = function(element, fn) {
  */
 export const checkFullscreen = function() {
   return !!(
-    document.fullscreenEnabled ||
-    window.fullScreen ||
-    document.webkitIsFullScreen ||
-    document.msFullscreenEnabled
-  );
+    document.fullscreenElement ||
+    document.mozFullScreenElement ||
+    document.webkitFullscreenElement
+);
 };
 
 let cached;

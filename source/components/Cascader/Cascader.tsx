@@ -309,7 +309,7 @@ const InternalCascader: React.ForwardRefRenderFunction<RefCascaderProps, Cascade
     props.showSearch ? flattenTree(props.options, props) : undefined,
   );
   const [value, setValue] = useControlledState([], {
-    value: props.value,
+    value: Array.isArray(props.value) ? props.value : undefined,
     defaultValue: props.defaultValue,
   });
   const [popupVisible, setPopupVisible] = useControlledState(false, {

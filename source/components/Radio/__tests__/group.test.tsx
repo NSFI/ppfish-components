@@ -1,14 +1,12 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
-import Radio from '../Radio.tsx';
-import RadioGroup from '../Group.tsx';
+import { mount, render } from 'enzyme';
+import Radio from '../Radio';
+import RadioGroup from '../Group';
 
 describe('Radio', () => {
   function createRadioGroup(props) {
     return (
-      <RadioGroup
-        {...props}
-      >
+      <RadioGroup {...props}>
         <Radio value="A">A</Radio>
         <Radio value="B">B</Radio>
         <Radio value="C">C</Radio>
@@ -23,25 +21,17 @@ describe('Radio', () => {
       { label: 'C', value: 'C' },
     ];
 
-    return (
-      <RadioGroup
-        {...props}
-        options={options}
-      />
-    );
+    return <RadioGroup {...props} options={options} />;
   }
 
   it('responses hover events', () => {
     const onMouseEnter = jest.fn();
     const onMouseLeave = jest.fn();
 
-    const wrapper = shallow(
-      <RadioGroup
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
+    const wrapper = mount(
+      <RadioGroup onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         <Radio />
-      </RadioGroup>
+      </RadioGroup>,
     );
 
     wrapper.simulate('mouseenter');
@@ -57,46 +47,43 @@ describe('Radio', () => {
     const wrapper = mount(
       createRadioGroup({
         onChange,
-      })
+      }),
     );
     const radios = wrapper.find('input');
 
     // uncontrolled component
-    wrapper.setState({ value: 'B' });
     radios.at(0).simulate('change');
     expect(onChange.mock.calls.length).toBe(1);
 
-    // controlled component
-    wrapper.setProps({ value: 'A' });
     radios.at(1).simulate('change');
     expect(onChange.mock.calls.length).toBe(2);
+
+    // controlled component
+    wrapper.setProps({ value: 'C' });
+    expect(wrapper.find('.fishd-radio-wrapper').at(2).text()).toBe('C');
   });
 
-  it('won\'t fire change events when value not changes', () => {
+  it("won't fire change events when value not changes", () => {
     const onChange = jest.fn();
 
     const wrapper = mount(
       createRadioGroup({
         onChange,
-      })
+      }),
     );
     const radios = wrapper.find('input');
 
     // uncontrolled component
-    wrapper.setState({ value: 'B' });
     radios.at(1).simulate('change');
-    expect(onChange.mock.calls.length).toBe(0);
+    expect(onChange.mock.calls.length).toBe(1);
 
     // controlled component
-    wrapper.setProps({ value: 'A' });
-    radios.at(0).simulate('change');
-    expect(onChange.mock.calls.length).toBe(0);
+    radios.at(1).simulate('change');
+    expect(onChange.mock.calls.length).toBe(1);
   });
 
   it('optional should correct render', () => {
-    const wrapper = mount(
-      createRadioGroupByOption()
-    );
+    const wrapper = mount(createRadioGroupByOption({}));
     const radios = wrapper.find('input');
 
     expect(radios.length).toBe(3);
@@ -104,13 +91,13 @@ describe('Radio', () => {
 
   it('all children should have a name property', () => {
     const GROUP_NAME = 'radiogroup';
-    const wrapper = mount(
-      createRadioGroup({ name: GROUP_NAME })
-    );
+    const wrapper = mount(createRadioGroup({ name: GROUP_NAME }));
 
-    expect(wrapper.find('input[type="radio"]').forEach((el) => {
-      expect(el.props().name).toEqual(GROUP_NAME);
-    }));
+    expect(
+      wrapper.find('input[type="radio"]').forEach(el => {
+        expect(el.props().name).toEqual(GROUP_NAME);
+      }),
+    );
   });
 
   it('passes prefixCls down to radio', () => {
@@ -119,9 +106,7 @@ describe('Radio', () => {
       { label: 'Orange', value: 'Orange' },
     ];
 
-    const wrapper = render(
-      <RadioGroup prefixCls="my-radio" options={options} />
-    );
+    const wrapper = render(<RadioGroup prefixCls="my-radio" options={options} />);
 
     expect(wrapper).toMatchSnapshot();
   });
