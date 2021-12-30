@@ -65,6 +65,7 @@ export interface TreeSelectProps extends AbstractSelectProps {
   treeCheckable?: boolean | React.ReactNode;
   treeCheckStrictly?: boolean;
   treeData?: Array<TreeData>;
+  treeCheckType?: 'countDown';
   treeDataSimpleMode?: boolean | Object;
   treeDefaultExpandAll?: boolean;
   treeDefaultExpandedKeys?: Array<string>;

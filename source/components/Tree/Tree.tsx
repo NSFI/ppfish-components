@@ -1,6 +1,6 @@
 import * as React from 'react';
 import RcTree, { TreeNode } from '../TreeSelect/rcTree';
-import DirectoryTree from './DirectoryTree';
+import DirectoryTree, {DirectoryTreeProps} from './DirectoryTree';
 import classNames from 'classnames';
 import animation from '../../utils/openAnimation';
 import Icon from '../Icon';
@@ -113,6 +113,8 @@ export interface TreeProps {
   expandedKeys?: string[];
   /** （受控）选中复选框的树节点 */
   checkedKeys?: string[] | { checked: string[]; halfChecked: string[] };
+  /** 默认选中所有子节点，子节点全部选中时，不会选中父节点 */
+  checkType?: 'countDown';
   /** 默认选中复选框的树节点 */
   defaultCheckedKeys?: string[];
   /** （受控）设置选中的树节点 */
@@ -163,38 +165,12 @@ export interface TreeProps {
   /* 单选模式下是否为必选 */
   required?: boolean;
 }
+const InternalTree: React.ForwardRefRenderFunction<unknown, TreeProps> = (props, ref) => {
+  const { prefixCls, className, style, showIcon, required } = props;
+  let checkable = props.checkable;
+  const renderSwitcherIcon = ({ isLeaf, expanded, loading }: FishdTreeNodeProps) => {
+    const { prefixCls, showLine } = props;
 
-export default class Tree extends React.Component<TreeProps, any> {
-  static TreeNode: React.ComponentClass<FishdTreeNodeProps> = TreeNode;
-
-  static DirectoryTree = DirectoryTree;
-
-  static defaultProps = {
-    autoExpandParent: true,
-    checkable: false,
-    defaultExpandAll: false,
-    defaultExpandParent: true,
-    required: false,
-    openAnimation: {
-      ...animation,
-      appear: null,
-    },
-    prefixCls: 'fishd-tree',
-    showIcon: false,
-  };
-
-  tree: any;
-
-  renderSwitcherIcon = ({ isLeaf, expanded, loading }: FishdTreeNodeProps) => {
-    const { prefixCls, showLine } = this.props;
-    // if (loading) {
-    //   return (
-    //     <Icon
-    //       type="load-line" spin={true}
-    //       className={`${prefixCls}-switcher-loading-icon`}
-    //     />
-    //   );
-    // }
     if (showLine) {
       if (isLeaf) {
         return <Icon type="file-line" className={`${prefixCls}-switcher-line-icon`} />;
@@ -212,23 +188,47 @@ export default class Tree extends React.Component<TreeProps, any> {
       return <Icon type="down-fill" className={`${prefixCls}-switcher-icon`} />;
     }
   };
-
-  render() {
-    const props = this.props;
-    const { prefixCls, className, style, showIcon, required } = props;
-    let checkable = props.checkable;
-    return (
-      <RcTree
-        {...props}
-        ref={(node: Tree) => (this.tree = node)}
-        className={classNames(!showIcon && `${prefixCls}-icon-hide`, className)}
-        checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
-        switcherIcon={this.renderSwitcherIcon}
-        required={required}
-        style={style}
-      >
-        {this.props.children}
-      </RcTree>
-    );
-  }
+  return (
+    <RcTree
+      {...props}
+      openAnimation= {{
+        ...animation,
+        appear: null,
+      }}
+      ref={ref}
+      className={classNames(!showIcon && `${prefixCls}-icon-hide`, className)}
+      checkable={checkable ? <span className={`${prefixCls}-checkbox-inner`} /> : checkable}
+      switcherIcon={renderSwitcherIcon}
+      required={required}
+      style={style}
+    >
+      {props.children}
+    </RcTree>
+  );
+};
+const TreeRef = React.forwardRef<unknown, TreeProps>(InternalTree);
+type TreeRefInterface = typeof TreeRef;
+interface TreeInterface extends TreeRefInterface {
+  DirectoryTree: typeof DirectoryTree;
+  TreeNode: React.ComponentClass<FishdTreeNodeProps>;
+  __FISHD_TREE: boolean;
 }
+
+const Tree = TreeRef as TreeInterface;
+Tree.displayName = 'Button';
+
+Tree.defaultProps = {
+  autoExpandParent: true,
+  checkable: false,
+  defaultExpandAll: false,
+  defaultExpandParent: true,
+  required: false,
+  prefixCls: 'fishd-tree',
+  showIcon: false,
+};
+
+Tree.DirectoryTree = DirectoryTree;
+Tree.TreeNode = TreeNode;
+Tree.__FISHD_TREE = true;
+
+export default Tree;
