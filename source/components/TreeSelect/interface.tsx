@@ -83,4 +83,5 @@ export interface TreeSelectProps extends AbstractSelectProps {
   onReset?: (value: any) => void;
   onSearch?: (value: any) => void;
   onSelect?: (value: any) => void;
+  esc?: boolean;
 }
