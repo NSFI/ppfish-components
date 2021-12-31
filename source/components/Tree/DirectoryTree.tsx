@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import omit from 'omit.js';
 import debounce from 'lodash/debounce';
 import { polyfill } from 'react-lifecycles-compat';
+import RcTree from '../TreeSelect/rcTree';
 import { conductExpandParent, convertTreeToEntities } from '../TreeSelect/rcTree/util';
 
 import Tree, {
@@ -43,7 +44,7 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
 
   state: DirectoryTreeState;
 
-  tree: Tree;
+  tree:  React.RefObject<RcTree>;
 
   onDebounceExpand: (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => void;
 
@@ -65,7 +66,7 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
 
   constructor(props: DirectoryTreeProps) {
     super(props);
-
+    this.tree = React.createRef<RcTree>();
     const { defaultExpandAll, defaultExpandParent, expandedKeys, defaultExpandedKeys, children } =
       props;
     const { keyEntities } = convertTreeToEntities(children);
@@ -181,11 +182,10 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
     }
 
     // Get internal rc-tree
-    const internalTree = this.tree.tree;
-
+    const internalTree = this.tree;
     // Call internal rc-tree expand function
     // https://github.com/ant-design/ant-design/issues/12567
-    internalTree.onNodeExpand(event, node);
+    internalTree.current.onNodeExpand(event, node);
   };
 
   setUncontrolledState = (state: DirectoryTreeState) => {
@@ -203,7 +203,7 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
     return (
       <Tree
         icon={getIcon}
-        ref={(node: Tree) => (this.tree = node)}
+        ref={this.tree}
         {...props}
         prefixCls={prefixCls}
         className={connectClassName}
