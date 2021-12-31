@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Progress from '../index.tsx';
+import Progress from '../index';
 
 describe('Progress', () => {
   it('successPercent should decide the progress status when it exists', () => {

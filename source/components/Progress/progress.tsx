@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import * as React from 'react';
 import Icon from '../Icon';
 import { Circle } from './src/index.js';
@@ -57,21 +56,6 @@ export default class Progress extends React.Component<ProgressProps, {}> {
     trailColor: '#f3f3f3',
     prefixCls: 'fishd-progress',
     size: 'default' as ProgressSize,
-  };
-
-  static propTypes = {
-    status: PropTypes.oneOf(['normal', 'exception', 'active', 'success']),
-    type: PropTypes.oneOf(['line', 'circle', 'dashboard']),
-    showInfo: PropTypes.bool,
-    percent: PropTypes.number,
-    width: PropTypes.number,
-    strokeWidth: PropTypes.number,
-    strokeLinecap: PropTypes.oneOf(['round', 'square']),
-    strokeColor: PropTypes.string,
-    trailColor: PropTypes.string,
-    format: PropTypes.func,
-    gapDegree: PropTypes.number,
-    default: PropTypes.oneOf(['default', 'small']),
   };
 
   render() {
