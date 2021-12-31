@@ -79,7 +79,6 @@
   "peerDependencies": {
     "prop-types": "> 15.5.10",
     "react": ">=16.9.0",
-    "rc-util": ">=5.15.0",
     "react-dom": ">=16.9.0"
   },
   "devDependencies": {

@@ -1,51 +1,3 @@
-const refactoredComp = [
-  'Affix',
-  'Alert',
-  'Anchor',
-  'Animate',
-  'AudioPlayer',
-  'AutoComplete',
-  'Avatar',
-  'BackTop',
-  'Badge',
-  'Breadcrumb',
-  'Button',
-  'Carousel',
-  'Checkbox',
-  'Echart',
-  'Cascader',
-  'Grid',
-  'Collapse',
-  'Ellipsis',
-  'FooterToolbar',
-  'InputNumber',
-  'Menu',
-  'Layout',
-  'Dropdown',
-  'Input',
-  'ImageLoader',
-  'Guide',
-  'Timeline',
-  'message',
-  'notification',
-  'Slider',
-  'Modal',
-  'Switch',
-  'PicturePreview',
-  'Radio',
-  'Popover',
-  'Tag',
-  'List',
-  'Tabs',
-];
-
-const getRefactoredCompMatch = name => {
-  if (name) {
-    return [`**/${name}/__tests__/**/*.(js|jsx|ts|tsx)`];
-  }
-  return refactoredComp.map(compName => `**/${compName}/__tests__/**/*.(js|jsx|ts|tsx)`);
-};
-
 module.exports = {
   testEnvironment: 'jsdom',
   setupFiles: ['<rootDir>/tools/tests/setup.js', 'jest-canvas-mock'],
@@ -57,7 +9,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'json', 'jsx', 'md', 'ts', 'tsx'],
   testURL: 'http://localhost',
-  testMatch: [...getRefactoredCompMatch('**')],
+  testMatch: ['**/*/__tests__/**/*.(js|jsx|ts|tsx)'],
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/tools/',
