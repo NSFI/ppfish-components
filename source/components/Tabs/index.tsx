@@ -3,7 +3,6 @@ import { findDOMNode } from 'react-dom';
 import RcTabs, { TabPane, TabContent, ScrollableInkTabBar } from './src/index.js';
 import classNames from 'classnames';
 import Icon from '../Icon';
-import warning from 'warning';
 import './style/index.less';
 
 function isFlexSupported() {
@@ -61,169 +60,169 @@ export interface TabPaneProps {
   forceRender?: boolean;
 }
 
-export default class Tabs extends React.Component<TabsProps, any> {
-  static TabPane = TabPane as React.ClassicComponentClass<TabPaneProps>;
+type TabsFuncType = React.FC<TabsProps> & {
+  TabPane: React.ClassicComponentClass<TabPaneProps>;
+};
 
-  static defaultProps = {
-    prefixCls: 'fishd-tabs',
-    hideAdd: false,
-    loading: false,
-    size: 'default',
-    tabPosition: 'top',
-    type: 'line'
-  };
+const Tabs: TabsFuncType = props => {
+  const rcTabsRef = React.useRef<RcTabs>();
 
-  createNewTab = (targetKey: React.MouseEvent<HTMLElement>) => {
-    const onEdit = this.props.onEdit;
+  const createNewTab = (targetKey: React.MouseEvent<HTMLElement>) => {
+    const onEdit = props.onEdit;
     if (onEdit) {
       onEdit(targetKey, 'add');
     }
   };
 
-  removeTab = (targetKey: string, e: React.MouseEvent<HTMLElement>) => {
+  const removeTab = (targetKey: string, e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     if (!targetKey) {
       return;
     }
 
-    const onEdit = this.props.onEdit;
+    const onEdit = props.onEdit;
     if (onEdit) {
       onEdit(targetKey, 'remove');
     }
   };
 
-  handleChange = (activeKey: string) => {
-    const onChange = this.props.onChange;
+  const handleChange = (activeKey: string) => {
+    const onChange = props.onChange;
     if (onChange) {
       onChange(activeKey);
     }
   };
 
-  componentDidMount() {
+  React.useEffect(() => {
     const NO_FLEX = ' no-flex';
-    const tabNode = findDOMNode(this) as Element;
+    const tabNode = findDOMNode(rcTabsRef.current) as Element;
     if (tabNode && !isFlexSupported() && tabNode.className.indexOf(NO_FLEX) === -1) {
       tabNode.className += NO_FLEX;
     }
-  }
+  }, []);
 
-  render() {
-    let {
-      prefixCls,
-      className = '',
-      size,
-      type,
-      tabPosition,
-      children,
-      tabBarExtraContent,
-      tabBarStyle,
-      hideAdd,
-      loading,
-      onTabClick,
-      onPrevClick,
-      onNextClick,
-      animated,
-      tabBarGutter
-    } = this.props;
+  let {
+    prefixCls,
+    className = '',
+    size,
+    type,
+    tabPosition,
+    children,
+    tabBarExtraContent,
+    tabBarStyle,
+    hideAdd,
+    loading,
+    onTabClick,
+    onPrevClick,
+    onNextClick,
+    animated,
+    tabBarGutter,
+  } = props;
 
-    let { inkBarAnimated, tabPaneAnimated } =
-      typeof animated === 'object'
-        ? {
-            inkBarAnimated: animated.inkBar,
-            tabPaneAnimated: animated.tabPane
-          }
-        : {
-            inkBarAnimated: animated,
-            tabPaneAnimated: animated
-          };
-
-    let showInkBar = true;
-
-    // card tabs should not have animation
-    if (type !== 'line') {
-      showInkBar = false;
-      tabPaneAnimated = 'animated' in this.props ? tabPaneAnimated : false;
-    }
-
-    const cls = classNames(className, {
-      [`${prefixCls}-vertical`]: tabPosition === 'left' || tabPosition === 'right',
-      [`${prefixCls}-${size}`]: !!size,
-      [`${prefixCls}-card`]: type.indexOf('card') >= 0,
-      [`${prefixCls}-${type}`]: true,
-      [`${prefixCls}-no-animation`]: !tabPaneAnimated
-    });
-
-    // only card type tabs can be added and closed
-    let childrenWithClose: React.ReactElement<any>[] = [];
-
-    if (type === 'editable-card') {
-      childrenWithClose = [];
-      React.Children.forEach(
-        children as React.ReactNode,
-        (child: React.ReactElement<any>, index) => {
-          let closable = child.props.closable;
-          closable = typeof closable === 'undefined' ? true : closable;
-          const closeIcon = closable ? (
-            <Icon type="close-tag-line" onClick={e => this.removeTab(child.key as string, e)} />
-          ) : null;
-          childrenWithClose.push(
-            React.cloneElement(child, {
-              tab: (
-                <div className={closable ? undefined : `${prefixCls}-tab-unclosable`}>
-                  {child.props.tab}
-                  {closeIcon}
-                </div>
-              ),
-              key: child.key || index
-            })
-          );
+  let { inkBarAnimated, tabPaneAnimated } =
+    typeof animated === 'object'
+      ? {
+          inkBarAnimated: animated.inkBar,
+          tabPaneAnimated: animated.tabPane,
         }
-      );
-      // Add new tab handler
-      if (!hideAdd) {
-        tabBarExtraContent = (
-          <span>
-            <Icon
-              type="upload-plus"
-              className={`${prefixCls}-new-tab`}
-              onClick={this.createNewTab}
-            />
-            {tabBarExtraContent}
-          </span>
-        );
-      }
-    }
+      : {
+          inkBarAnimated: animated,
+          tabPaneAnimated: animated,
+        };
 
-    tabBarExtraContent = tabBarExtraContent ? (
-      <div className={`${prefixCls}-extra-content`}>{tabBarExtraContent}</div>
-    ) : null;
+  let showInkBar = true;
 
-    const renderTabBar = () => (
-      <ScrollableInkTabBar
-        showInkBar={showInkBar}
-        inkBarAnimated={inkBarAnimated}
-        extraContent={tabBarExtraContent}
-        onTabClick={onTabClick}
-        onPrevClick={onPrevClick}
-        onNextClick={onNextClick}
-        style={tabBarStyle}
-        tabBarGutter={tabBarGutter}
-      />
-    );
-
-    return (
-      <RcTabs
-        {...this.props}
-        className={cls}
-        tabBarPosition={tabPosition}
-        renderTabBar={renderTabBar}
-        renderTabContent={() => (
-          <TabContent animated={tabPaneAnimated} animatedWithMargin loading={loading} />
-        )}
-        onChange={this.handleChange}
-      >
-        {childrenWithClose.length > 0 ? childrenWithClose : children}
-      </RcTabs>
-    );
+  // card tabs should not have animation
+  if (type !== 'line') {
+    showInkBar = false;
+    tabPaneAnimated = 'animated' in props ? tabPaneAnimated : false;
   }
-}
+
+  const cls = classNames(className, {
+    [`${prefixCls}-vertical`]: tabPosition === 'left' || tabPosition === 'right',
+    [`${prefixCls}-${size}`]: !!size,
+    [`${prefixCls}-card`]: type.indexOf('card') >= 0,
+    [`${prefixCls}-${type}`]: true,
+    [`${prefixCls}-no-animation`]: !tabPaneAnimated,
+  });
+
+  // only card type tabs can be added and closed
+  let childrenWithClose: React.ReactElement<any>[] = [];
+
+  if (type === 'editable-card') {
+    childrenWithClose = [];
+    React.Children.forEach(children as React.ReactNode, (child: React.ReactElement<any>, index) => {
+      let closable = child.props.closable;
+      closable = typeof closable === 'undefined' ? true : closable;
+      const closeIcon = closable ? (
+        <Icon type="close-tag-line" onClick={e => removeTab(child.key as string, e)} />
+      ) : null;
+      childrenWithClose.push(
+        React.cloneElement(child, {
+          tab: (
+            <div className={closable ? undefined : `${prefixCls}-tab-unclosable`}>
+              {child.props.tab}
+              {closeIcon}
+            </div>
+          ),
+          key: child.key || index,
+        }),
+      );
+    });
+    // Add new tab handler
+    if (!hideAdd) {
+      tabBarExtraContent = (
+        <span>
+          <Icon type="upload-plus" className={`${prefixCls}-new-tab`} onClick={createNewTab} />
+          {tabBarExtraContent}
+        </span>
+      );
+    }
+  }
+
+  tabBarExtraContent = tabBarExtraContent ? (
+    <div className={`${prefixCls}-extra-content`}>{tabBarExtraContent}</div>
+  ) : null;
+
+  const renderTabBar = () => (
+    <ScrollableInkTabBar
+      showInkBar={showInkBar}
+      inkBarAnimated={inkBarAnimated}
+      extraContent={tabBarExtraContent}
+      onTabClick={onTabClick}
+      onPrevClick={onPrevClick}
+      onNextClick={onNextClick}
+      style={tabBarStyle}
+      tabBarGutter={tabBarGutter}
+    />
+  );
+
+  return (
+    <RcTabs
+      {...props}
+      className={cls}
+      tabBarPosition={tabPosition}
+      renderTabBar={renderTabBar}
+      renderTabContent={() => (
+        <TabContent animated={tabPaneAnimated} animatedWithMargin loading={loading} />
+      )}
+      onChange={handleChange}
+      ref={rcTabsRef}
+    >
+      {childrenWithClose.length > 0 ? childrenWithClose : children}
+    </RcTabs>
+  );
+};
+
+Tabs.TabPane = TabPane;
+
+Tabs.defaultProps = {
+  prefixCls: 'fishd-tabs',
+  hideAdd: false,
+  loading: false,
+  size: 'default',
+  tabPosition: 'top',
+  type: 'line',
+};
+
+export default Tabs;

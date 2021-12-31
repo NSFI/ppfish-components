@@ -35,7 +35,8 @@ const refactoredComp = [
   'Radio',
   'Popover',
   'Tag',
-  'List'
+  'List',
+  'Tabs',
 ];
 
 const getRefactoredCompMatch = name => {
