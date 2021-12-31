@@ -44,7 +44,7 @@ class DirectoryTree extends React.Component<DirectoryTreeProps, DirectoryTreeSta
 
   state: DirectoryTreeState;
 
-  tree:  React.RefObject<RcTree>;
+  tree: React.RefObject<RcTree>;
 
   onDebounceExpand: (event: React.MouseEvent<HTMLElement>, node: FishdTreeNode) => void;
 

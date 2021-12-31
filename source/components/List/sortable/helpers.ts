@@ -1,6 +1,5 @@
 /*** Helper functions - they are decoupled because of testability */
 
-
 /**
  * @param {array} items
  * @param {number} indexFrom
@@ -24,7 +23,7 @@ export function swapArrayElements(items, indexFrom, indexTo) {
 export function isMouseBeyond(mousePos, elementPos, elementSize, moveInMiddle) {
   let breakPoint;
   if (moveInMiddle) {
-    breakPoint = elementSize / 2;//break point is set to the middle line of element
+    breakPoint = elementSize / 2; //break point is set to the middle line of element
   } else {
     breakPoint = 0;
   }

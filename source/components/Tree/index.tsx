@@ -9,7 +9,7 @@ export {
   FishdTreeNodeCheckedEvent,
   FishdTreeNodeSelectedEvent,
   FishdTreeNodeAttribute,
-  FishdTreeNodeProps
+  FishdTreeNodeProps,
 } from './Tree';
 
 export { ExpandAction as DirectoryTreeExpandAction, DirectoryTreeProps } from './DirectoryTree';

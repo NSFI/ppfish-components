@@ -10,8 +10,10 @@ import { LocaleProperties } from '../Locale';
 import './style/index.less';
 import { useMemo } from 'react';
 
-
-const InternalTreeSelect:React.ForwardRefRenderFunction<unknown, TreeSelectProps> = (props, ref) => {
+const InternalTreeSelect: React.ForwardRefRenderFunction<unknown, TreeSelectProps> = (
+  props,
+  ref,
+) => {
   const {
     prefixCls,
     className,
@@ -36,7 +38,7 @@ const InternalTreeSelect:React.ForwardRefRenderFunction<unknown, TreeSelectProps
     };
   });
 
-  const genPropsByLocale = (Locale) => {
+  const genPropsByLocale = Locale => {
     const {
       placeholder = Locale.placeholder,
       searchPlaceholder = Locale.searchPlaceholder,
@@ -52,7 +54,6 @@ const InternalTreeSelect:React.ForwardRefRenderFunction<unknown, TreeSelectProps
   const isEditableMul = useMemo(() => {
     return (multiple || treeCheckable) && editable;
   }, [multiple, editable, treeCheckable]);
-
 
   const cls = classNames(
     {

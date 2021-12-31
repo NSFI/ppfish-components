@@ -10,7 +10,7 @@ describe('List', () => {
     const dataSource = [];
 
     const wrapper = mount(
-      <List renderItem={renderItem} dataSource={dataSource} locale={{ emptyText: '暂无数据' }} />
+      <List renderItem={renderItem} dataSource={dataSource} locale={{ emptyText: '暂无数据' }} />,
     );
 
     // @ts-ignore

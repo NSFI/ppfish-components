@@ -1,6 +1,6 @@
 import * as React from 'react';
 import RcTree, { TreeNode } from '../TreeSelect/rcTree';
-import DirectoryTree, {DirectoryTreeProps} from './DirectoryTree';
+import DirectoryTree from './DirectoryTree';
 import classNames from 'classnames';
 import animation from '../../utils/openAnimation';
 import Icon from '../Icon';
@@ -191,7 +191,7 @@ const InternalTree: React.ForwardRefRenderFunction<unknown, TreeProps> = (props,
   return (
     <RcTree
       {...props}
-      openAnimation= {{
+      openAnimation={{
         ...animation,
         appear: null,
       }}
