@@ -66,7 +66,7 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
 
   player: any;
 
-  videoNode: React.ReactNode | Element;
+  videoNode: HTMLVideoElement;
 
   videoPlayerRef: HTMLDivElement;
 
@@ -124,7 +124,7 @@ export default class VideoViewer extends React.Component<VideoViewerProps> {
       },
     };
 
-    const option = Object.assign({}, initOptions, otherProps);
+    const option = Object.assign({}, initOptions, otherProps) as any;
 
     // instantiate video.js
     this.player = videojs(this.videoNode, option, () => {

@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Icon from '../../Icon/index.tsx';
+import Icon from '../../Icon/index';
+import type { VideoJsPlayer } from 'video.js';
 
-export default class Play extends Component {
-  static propTypes = {
-    prefixCls: PropTypes.string,
-    vjsComponent: PropTypes.object
+interface PlayProps {
+  prefixCls?: string;
+  vjsComponent: any;
+}
+
+interface PlayState {
+  isPlay: boolean;
+}
+
+export default class Play extends Component<PlayProps, PlayState> {
+  static defaultProps = {
+    prefixCls: 'fishd-video-viewer-play',
   };
 
-  static defaultProps = {
-    prefixCls: 'fishd-video-viewer-play'
-  }
+  public player: VideoJsPlayer;
 
   constructor(props) {
     super(props);
@@ -20,7 +26,7 @@ export default class Play extends Component {
     this.player = props.vjsComponent.player_;
 
     this.state = {
-      isPlay: false
+      isPlay: false,
     };
   }
 
@@ -39,25 +45,24 @@ export default class Play extends Component {
   handleClick = () => {
     const { isPlay } = this.state;
 
-    if(!isPlay) {
+    if (!isPlay) {
       this.player.play();
-
-    }else{
+    } else {
       this.player.pause();
     }
 
     this.setState({
-      isPlay: !isPlay
+      isPlay: !isPlay,
     });
-  }
+  };
 
-  setPlay = (isPlay) => {
+  setPlay = isPlay => {
     return () => {
       this.setState({
-        isPlay: isPlay
+        isPlay: isPlay,
       });
     };
-  }
+  };
 
   render() {
     const { prefixCls } = this.props;
@@ -66,12 +71,12 @@ export default class Play extends Component {
     const pausePlayIcon = !isPlay ? 'play' : 'stop';
 
     return (
-      <div className={classnames(prefixCls, "fishd-video-js-customer-button")} onClick={()=>this.handleClick()}>
+      <div
+        className={classnames(prefixCls, 'fishd-video-js-customer-button')}
+        onClick={() => this.handleClick()}
+      >
         <a>
-          <Icon
-            className={`${prefixCls}-customer-handle`}
-            type={pausePlayIcon}
-          />
+          <Icon className={`${prefixCls}-customer-handle`} type={pausePlayIcon} />
         </a>
       </div>
     );
