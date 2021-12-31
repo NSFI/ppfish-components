@@ -21,7 +21,7 @@ export default class Item extends React.Component<any, any> {
       checked,
       prefixCls,
       onClick,
-      onClose,
+      onClose: propsOnClose,
     } = this.props;
 
     const className = classNames({
@@ -29,19 +29,25 @@ export default class Item extends React.Component<any, any> {
       [`${prefixCls}-content-item-disabled`]: item.disabled,
     });
 
+    const onClose = (e, item) => {
+      e.stopPropagation();
+      propsOnClose(item);
+    };
+
     const listItem = (
-      <li className={className} title={renderedText}>
-        <span
-          className={`${prefixCls}-content-item-text`}
-          onClick={item.disabled ? undefined : () => onClick(item, direction)}
-        >
+      <li
+        className={className}
+        title={renderedText}
+        onClick={item.disabled ? undefined : () => onClick(item, direction)}
+      >
+        <span className={`${prefixCls}-content-item-text`}>
           {mode === 'multiple' ? <Checkbox checked={checked} disabled={item.disabled} /> : null}
           <span>{renderedEl}</span>
         </span>
         {mode === 'single' && direction === 'right' ? (
           <span
             className={`${prefixCls}-content-item-close`}
-            onClick={item.disabled ? undefined : () => onClose(item)}
+            onClick={item.disabled ? undefined : e => onClose(e, item)}
           >
             <Icon type="close-modal-line" />
           </span>
