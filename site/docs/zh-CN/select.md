@@ -38,6 +38,42 @@
 ```
 :::
 
+## 自定义左下角操作栏
+
+:::demo 自定义左下角操作栏
+```js
+  state = {
+    customOptions: [],
+    count: 999,
+  }
+  onAdd = () => {
+    const {customOptions, count} = this.state
+    this.setState({
+      customOptions: [...customOptions, count+1],
+      count: count + 1
+    })
+  }
+  render() {
+    return (
+      <div className="demo-select">
+        <Select style={{width: 300}} customAction={<div><Button onClick={this.onAdd}>新增</Button></div>}>
+          <Select.Option value={0}>{'选项0'}</Select.Option>
+          <Select.Option value={1}>{'选项1'}</Select.Option>
+          <Select.Option value={2}>{'选项2'}</Select.Option>
+          <Select.Option value={3}>{'选项3'}</Select.Option>
+          {
+            this.state.customOptions.map((i) => {
+              return <Select.Option key={i} value={i}>选项{i}</Select.Option>
+            })
+          }
+        </Select>
+      </div>
+    )
+  }
+```
+
+:::
+
 ## 限制多选个数
 
 :::demo 最基本的下拉筛选使用方式
@@ -56,6 +92,7 @@
     )
   }
 ```
+
 :::
 
 ## 添加额外的内容
@@ -690,6 +727,7 @@ render(){
 | visible | 下拉选择框显示隐藏 | Boolean | - |
 | esc | 是否ESC关闭弹出框 | Boolean | true |
 | required | 限定多选模式下至少需要选择一项选项 | Boolean | false |
+| customAction | 左下角自定义操作 | ReactNode \| String | - |
 
 > 注意，如果发现下拉菜单跟随页面滚动，或者需要在其他弹层中触发 Select，请尝试使用 getPopupContainer={triggerNode => triggerNode.parentNode} 将下拉弹层渲染节点固定在触发器的父元素中。
 
