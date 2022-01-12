@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 import classNames from 'classnames';
 import Slider from '../Slider';
 import Icon from '../Icon';
@@ -51,8 +51,10 @@ export interface AudioPlayerState {
   disabled: boolean;
   rate: number;
 }
-
-const AudioPlayer: React.FC<AudioPlayerProps> = props => {
+const InternalAudioPlayer: React.ForwardRefRenderFunction<unknown, AudioPlayerProps> = (
+  props,
+  ref,
+) => {
   const {
     prefixCls,
     title,
@@ -81,7 +83,9 @@ const AudioPlayer: React.FC<AudioPlayerProps> = props => {
 
   const [isPlay, setIsPlay] = React.useState<boolean>();
   const [isMuted, setIsMuted] = React.useState<boolean>();
-  const [currentVolume, setCurrentVolume] = React.useState<number>(parseInt(String(props.volume * 100)));
+  const [currentVolume, setCurrentVolume] = React.useState<number>(
+    parseInt(String(props.volume * 100)),
+  );
   const [volumeOpen, setVolumeOpen] = React.useState<boolean>(false);
   const [rateOpen, setRateOpen] = React.useState<boolean>(false);
   const [allTime, setAllTime] = React.useState<number>(0);
@@ -90,6 +94,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = props => {
   const [rate, setRate] = React.useState<number>(rateOptions?.value || 1);
 
   const audioInstance = React.useRef<HTMLAudioElement>();
+
+  useImperativeHandle(ref, () => {
+    return {
+      audioInstance: audioInstance.current,
+    };
+  });
 
   React.useEffect(() => {
     controlAudio('changeRate', rate);
@@ -344,6 +354,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = props => {
   );
 };
 
+const AudioPlayer = React.forwardRef<unknown, AudioPlayerProps>(InternalAudioPlayer);
 AudioPlayer.defaultProps = {
   prefixCls: 'fishd-audio-player',
   className: '',
