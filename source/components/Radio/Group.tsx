@@ -17,8 +17,7 @@ function getCheckedValue(children: React.ReactNode) {
   });
   return matched ? { value } : undefined;
 }
-
-const RadioGroup: FC<RadioGroupProps> = props => {
+const InternalRadioGroup: React.ForwardRefRenderFunction<unknown, RadioGroupProps> = (props, ref) => {
   const {
     prefixCls,
     className = '',
@@ -142,7 +141,7 @@ const RadioGroup: FC<RadioGroupProps> = props => {
     </RadioContextProvider>
   );
 };
-
+const RadioGroup = React.forwardRef(InternalRadioGroup);
 RadioGroup.defaultProps = {
   disabled: false,
   prefixCls: 'fishd-radio',
