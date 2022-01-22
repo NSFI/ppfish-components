@@ -110,19 +110,20 @@ const InternalForm: React.ForwardRefRenderFunction<FormInstance, FormProps> = (p
 };
 
 
-// 验证下被 forwardRef 包装后是否有效
-(InternalForm as any).defaultProps = {
+
+
+const Form = React.forwardRef<FormInstance, FormProps>(InternalForm) as <Values = any>(
+  props: React.PropsWithChildren<FormProps<Values>> & { ref?: React.Ref<FormInstance<Values>> },
+) => React.ReactElement;
+
+(Form as any).defaultProps = {
   prefixCls: 'fishd-form',
-  layout: 'horizontal' as FormLayout,
+  layout: 'horizontal',
   hideRequiredMark: false,
   onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
   },
 }
-
-const Form = React.forwardRef<FormInstance, FormProps>(InternalForm) as <Values = any>(
-  props: React.PropsWithChildren<FormProps<Values>> & { ref?: React.Ref<FormInstance<Values>> },
-) => React.ReactElement;
 
 
 export { useForm, List, FormInstance };

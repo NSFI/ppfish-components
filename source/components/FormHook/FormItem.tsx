@@ -346,7 +346,7 @@ function FormItem<Values = any>(props: FormItemProps<Values>): React.ReactElemen
         );
         if (Array.isArray(children) && hasName) {
           warning(false, 'Form.Item'+
-            '`children` is array of render props cannot have `name`.');
+            ' `children` is array of render props cannot have `name`.');
           childNode = children;
         } else if (isRenderProps && (!(shouldUpdate || dependencies) || hasName)) {
           warning(
@@ -367,7 +367,7 @@ function FormItem<Values = any>(props: FormItemProps<Values>): React.ReactElemen
         } else if (isValidElement(children)) {
           warning(
             children.props.defaultValue === undefined,
-            'Form.Item' +
+            'Form.Item ' +
               '`defaultValue` will not work on controlled Field. You should use `initialValues` of Form instead.',
           );
 
@@ -415,5 +415,11 @@ function FormItem<Values = any>(props: FormItemProps<Values>): React.ReactElemen
     </Field>
   );
 }
+
+FormItem.defaultProps = {
+  hasFeedback: false,
+  prefixCls: 'fishd-form',
+  colon: true
+};
 
 export default FormItem;
