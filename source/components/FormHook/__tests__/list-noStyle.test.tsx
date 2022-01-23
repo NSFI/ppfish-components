@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '..';
-import Input from '../../input';
+import Input from '../../Input';
 import { FormListOperation } from '../FormList';
 import { sleep } from '../../../../tools/tests/utils';
 

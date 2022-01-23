@@ -3,8 +3,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Form from '..';
-import Input from '../../input';
-import Button from '../../button';
+import Input from '../../Input';
+import Button from '../../Button';
 
 describe('Form.Ref', () => {
   const Test = ({

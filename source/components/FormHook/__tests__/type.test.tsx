@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Form, { FormInstance } from '../index';
-import Input from '../../input';
+import Input from '../../Input';
 
 interface FormValues {
   username?: string;

@@ -5,9 +5,9 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 import Form from '..';
 import * as Util from '../util';
 
-import Input from '../../input';
-import Button from '../../button';
-import Select from '../../select';
+import Input from '../../Input';
+import Button from '../../Button';
+import Select from '../../Select';
 
 import mountTest from '../../../../tools/tests/mountTest';
 import { sleep } from '../../../../tools/tests/utils';

@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import Form from '..';
-import Input from '../../input';
-import Button from '../../button';
+import Input from '../../Input';
+import Button from '../../Button';
 import { sleep } from '../../../../tools/tests/utils';
 
 describe('Form.List', () => {
