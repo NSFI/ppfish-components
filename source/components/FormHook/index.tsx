@@ -4,6 +4,7 @@ import ErrorList, { ErrorListProps } from './ErrorList';
 import List, { FormListProps } from './FormList';
 import { FormProvider } from './context';
 import { Rule, RuleObject, RuleRender } from './rcFieldForm/interface';
+import '../Form/style/index.less';
 
 type InternalFormType = typeof InternalForm;
 

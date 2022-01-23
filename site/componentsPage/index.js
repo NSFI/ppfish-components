@@ -307,6 +307,12 @@ export const components = {
           published: true,
         },
         {
+          key: 'formHook',
+          type: 'markdown',
+          name: 'FormHook 表单',
+          published: true,
+        },
+        {
           key: 'input',
           type: 'markdown',
           name: 'Input 输入框',

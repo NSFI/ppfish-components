@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Form item hidden noStyle should not work when hidden 1`] = `
+<form
+  class="fishd-form fishd-form-horizontal"
+>
+  <div
+    class="fishd-row fishd-form-item fishd-form-item-hidden"
+  >
+    <div
+      class="fishd-form-item-control"
+    >
+      <div
+        class="fishd-form-item-control-input"
+      >
+        <div
+          class="fishd-form-item-control-input-content"
+        >
+          <input
+            class="fishd-input"
+            id="light"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form Form item hidden should work 1`] = `
+<form
+  class="fishd-form fishd-form-horizontal"
+>
+  <div
+    class="fishd-row fishd-form-item fishd-form-item-hidden"
+  >
+    <div
+      class="fishd-form-item-control"
+    >
+      <div
+        class="fishd-form-item-control-input"
+      >
+        <div
+          class="fishd-form-item-control-input-content"
+        >
+          <input
+            class="fishd-input"
+            id="light"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`Form Form.Item should support data-*、aria-* and custom attribute 1`] = `
+<form
+  class="fishd-form fishd-form-horizontal"
+>
+  <div
+    aria-hidden="true"
+    cccc="bbbb"
+    class="fishd-row fishd-form-item"
+    data-text="123"
+  >
+    <div
+      class="fishd-form-item-control"
+    >
+      <div
+        class="fishd-form-item-control-input"
+      >
+        <div
+          class="fishd-form-item-control-input-content"
+        >
+          text
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;

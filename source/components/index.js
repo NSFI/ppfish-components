@@ -28,6 +28,7 @@ export { default as Echart } from './Echart';
 export { default as Ellipsis } from './Ellipsis';
 export { default as FooterToolbar } from './FooterToolbar';
 export { default as Form } from './Form';
+export { default as FormHook } from './FormHook';
 export { default as ImageLoader } from './ImageLoader';
 export { default as Layout } from './Layout';
 export { default as LoadMore } from './LoadMore';
