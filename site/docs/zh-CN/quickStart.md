@@ -25,7 +25,7 @@ ReactDOM.render(
 
 通常情况下可能只使用了部分组件，如果你使用 `import { Button } from 'ppfish'`，babel通常会把整个ppfish打包出来。
 你可以使用babel插件，比如 [babel-plugin-transform-imports](https://www.npmjs.com/package/babel-plugin-transform-imports)，将这种写法在编译时自动转换成 `import Button from 'ppfish/es/components/Button'`; 
-不过你需要告诉 [babel-plugin-transform-imports]((https://www.npmjs.com/package/babel-plugin-transform-imports)) 插件ppfish组件的路径名规则。
+不过你需要告诉 [babel-plugin-transform-imports](https://www.npmjs.com/package/babel-plugin-transform-imports) 插件ppfish组件的路径名规则。
 
 ```js
 // 列举babel7支持的babel.config.js配置写法：
