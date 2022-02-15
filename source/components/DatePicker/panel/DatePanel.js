@@ -26,7 +26,6 @@ import {
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
 import ConfigConsumer from '../../Config/Consumer';
-import { LocaleProperties } from '../..//Locale';
 
 const PICKER_VIEWS = {
   YEAR: 'year',
