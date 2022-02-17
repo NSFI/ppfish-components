@@ -658,6 +658,22 @@
 ```
 :::
 
+## 支持图片缩放
+
+:::demo 图片的缩放
+
+```js
+  render() {
+    return (
+      <RichEditor
+        imageResize={true}
+        value={`<img src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" alt="image alt" title="image title" width="200" height="100" data-test="test">`}
+      />
+    );
+  }
+```
+:::
+
 
 ## 插入不可编辑的文本
 
@@ -754,7 +770,7 @@
   constructor(props) {
     super(props);
     this.toolbar = [
-      ['link', 'bold', 'italic', 'underline'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
+      ['link', 'bold', 'italic', 'underline'], ['color', 'background'], [{'lineHeight':['1', '1.15','1.5','2.0','2.5' ,'3.0']}], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
     ];
   }
 

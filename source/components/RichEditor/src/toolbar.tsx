@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList';
 // import ColorPicker from '../../ColorPicker/index.js';
@@ -156,6 +155,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     getPopupContainer: () => document.body
   };
   private defaultSizes: Array<string>
+  private defaultLineHeight: Array<string>
   private curSizeList: Array<string>
   private curInsertValueList: Array<any>
   private Locale: LocaleProperties['RichEditor']
@@ -165,6 +165,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     super(props);
 
     this.defaultSizes = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '12px'];
+    this.defaultLineHeight = ['1', '1.15','1.5','2.0','2.5' ,'3.0'];
     this.curInsertValueList = [];
     this.state = {
       curSize: null,
@@ -768,24 +769,71 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           tooltip = Locale.insertVideo;
           break;
         }
-        // case 'header': {
-        //   if (typeof mValue === 'string' || typeof mValue === 'number') {
-        //     value = <button type="button" className="ql-header" value={mValue} key={key}/>;
-        //   } else if (mValue instanceof Array && mValue.length){
-        //     value = (
-        //       // <div className="item" key={key}>
-        //         <select className="ql-header" defaultValue="normal">
-        //           {
-        //             mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
-        //           }
-        //           <option value="normal" />
-        //         </select>
-        //       // </div>
-        //     );
-        //   }
-        //   tooltip = '标题';
-        //   break;
-        // }
+        case 'header': {
+          if (typeof mValue === 'string' || typeof mValue === 'number') {
+            value = <button type="button" className="ql-header" value={mValue} key={key}/>;
+          } else if (mValue instanceof Array && mValue.length){
+            value = (
+              // <div className="item" key={key}>
+                <select className="ql-header" defaultValue="normal">
+                  {
+                    mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
+                  }
+                  {/*<option value="normal" />*/}
+                </select>
+              // </div>
+            );
+          }
+          tooltip = '标题';
+          break;
+        }
+        case 'lineHeight': {
+          const sizeCls = classNames('action ', {
+            [`${iconPrefix}`]: true,
+          });
+
+          let content = (
+            <div className="size-con" key="line-height_content" onClick={this.handleSizeItemClick}>
+              {
+                this.curSizeList && this.curSizeList.map((size, index) => {
+                  const sizeItemCls = classNames('size-item', {
+                    // 'active': size && (this.state.curSize == size.trim())
+                  });
+
+                  return (
+                    <button
+                      className={sizeItemCls}
+                      key={"line-height_" + index}
+                      value={size}
+                      style={{ fontSize: size }}
+                    >
+                      {size}
+                    </button>
+                  );
+                })
+              }
+            </div>
+          );
+
+          value = (
+            <Popover
+              trigger="click"
+              overlayClassName={`${prefixCls}-size-popover`}
+              content={content}
+              title={null}
+              key={key}
+              placement={popoverPlacement}
+              getPopupContainer={getPopupContainer}
+              // onVisibleChange={this.handleSizePopoverVisibleChange}
+            >
+                <div className="item">
+                  <div className={sizeCls}>行高</div>
+                </div>
+            </Popover>
+          );
+          tooltip = Locale.lineHeight;
+          break;
+        }
         // case 'font': {
         //   value = <select className="ql-font" />;
         //   tooltip = '字体';

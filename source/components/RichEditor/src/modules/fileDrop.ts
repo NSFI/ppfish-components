@@ -85,7 +85,7 @@ export default class FileDrop {
       }
 
       let delta = <any>[
-        { insert: { 'myImage': fileInfo }, attributes: { ...listFormat } },
+        { insert: { 'image': fileInfo }, attributes: { ...listFormat } },
         { insert: ' ' } // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
       ];
 

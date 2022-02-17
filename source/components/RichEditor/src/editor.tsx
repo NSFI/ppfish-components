@@ -1,7 +1,6 @@
 import React, { Component, ReactInstance, ImgHTMLAttributes } from "react";
 import { findDOMNode } from "react-dom";
 import ReactQuill, { Quill } from "./quill/index";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import { addEventListener } from "../../../utils";
 import { polyfill } from "react-lifecycles-compat";
@@ -20,6 +19,8 @@ import VideoBlot from "./formats/video";
 import PlainClipboard from "./modules/plainClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
+import ImageResize, {PlaceholderRegister,EmbedPlaceholder} from "./modules/imageResize";
+import lineHeight from "./formats/lineHeight";
 
 import { RichEditorProps, RichEditorState } from './interface'
 import ConfigConsumer from '../../Config/Consumer';
@@ -30,10 +31,49 @@ Quill.register(LinkBlot);
 Quill.register(ImageBlot);
 Quill.register(CustomSizeBlot);
 Quill.register(VideoBlot);
+Quill.register(lineHeight, true);
 Quill.register("modules/imageDrop", ImageDrop, true);
 Quill.register("modules/fileDrop", FileDrop, true);
+Quill.register("modules/resize", ImageResize, true);
 Quill.register(Quill.import('attributors/style/align'), true);
 Quill.register(Quill.import('attributors/style/direction'), true);
+
+
+class TagPlaceholder extends EmbedPlaceholder {
+  static tagName: string[]
+}
+// default to ['iframe', 'video']
+TagPlaceholder.tagName = ['iframe', 'embed']
+// important!!! must be null or don't set it
+// TagPlaceholder.className = null
+
+// replace default video blot
+class VideoPlaceholder extends EmbedPlaceholder {
+  static blotName: string
+  static tagName: string
+  static create (value) {
+    let video = value
+    if (typeof value === 'string') {
+      video = {
+        'data-embed-source': encodeURIComponent(
+          `<video src="${value}" controls preload="auto"></video>`
+        ),
+        'data-type': 'video',
+        'data-src': value
+      }
+    }
+    return super.create(video)
+  }
+}
+VideoPlaceholder.blotName = 'video'
+VideoPlaceholder.tagName = 'video'
+
+class ClassPlaceholder extends EmbedPlaceholder {
+  static className:string
+}
+ClassPlaceholder.className = 'ql-embed'
+
+PlaceholderRegister([TagPlaceholder, VideoPlaceholder, ClassPlaceholder])
 
 const getImageSize = function (
   url: string,
@@ -73,6 +113,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     attachment: Function,
     clean: Function,
     customInsertValue: Function
+    lineHeight: Function
   }
   editorCtner: HTMLDivElement
   linkModalInputRef: any
@@ -102,6 +143,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     fileDrop: false,
     resizable: false,
     pastePlainText: false,
+    imageResize: false,
     toolbar: [
       ["link", "bold", "italic", "underline"],
       ["size"],
@@ -319,6 +361,12 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           });
         } else {
           quill.removeFormat(range, Quill.sources.USER);
+        }
+      },
+      lineHeight: function (value) {
+        console.log('run111')
+        if(value){
+          this.quill.format('lineHeight', value)
         }
       },
       // 处理定制的插入值
@@ -690,7 +738,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           info.width = naturalWidth;
           info.height = naturalHeight;
 
-          quill.insertEmbed(range.index, "myImage", info);
+          quill.insertEmbed(range.index, "image", info);
           quill.setSelection(range.index + 1, "silent");
 
           this.setState({
@@ -699,7 +747,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           });
         });
       } else {
-        quill.insertEmbed(range.index, "myImage", info);
+        quill.insertEmbed(range.index, "image", info);
         quill.setSelection(range.index + 1, "silent");
 
         this.setState({
@@ -1234,7 +1282,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     const elEdit = editorCtner.querySelector('.ql-snow .ql-tooltip a.ql-action');
     const elDelete = editorCtner.querySelector('.ql-snow .ql-tooltip a.ql-remove');
     const elAccessLink = editorCtner.querySelector('.ql-snow .ql-tooltip');
-    
+
     elEdit && elEdit.setAttribute('data-after-content',edit);
     elDelete && elDelete.setAttribute('data-before-content',deleteText);
     elAccessLink && elAccessLink.setAttribute('data-before-content',accessLink);
@@ -1283,6 +1331,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       customDropImage,
       customDropFile,
       pastePlainText,
+      imageResize,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -1322,6 +1371,10 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       moduleOpts["imageDrop"] = {
         customDropImage
       };
+    }
+
+    if(imageResize){
+      moduleOpts["resize"] = {}
     }
 
     if (pastePlainText) {

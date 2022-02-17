@@ -54,6 +54,7 @@ export interface RichEditorProps {
   resizable?: boolean;
   supportFontTag?: boolean;
   pastePlainText?: boolean;
+  imageResize?: boolean;
   style?: object;
   toolbar?: any[];
   value?: string;
