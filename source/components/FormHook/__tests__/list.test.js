@@ -66,15 +66,15 @@ describe('Form.List', () => {
         jest.runAllTimers();
       });
       wrapper.update();
-      expect(wrapper.find('.fishd-form-item-explain div').length).toBe(1);
+      expect(wrapper.find('.fishd-formHook-item-explain div').length).toBe(1);
 
       operate('.remove-0');
       expect(wrapper.find(Input).length).toBe(2);
-      expect(wrapper.find('.fishd-form-item-explain div').length).toBe(1);
+      expect(wrapper.find('.fishd-formHook-item-explain div').length).toBe(1);
 
       operate('.remove-1');
       expect(wrapper.find(Input).length).toBe(1);
-      expect(wrapper.find('.fishd-form-item-explain div').length).toBe(0);
+      expect(wrapper.find('.fishd-formHook-item-explain div').length).toBe(0);
 
       jest.useRealTimers();
     });
@@ -192,10 +192,10 @@ describe('Form.List', () => {
     }
 
     await addItem();
-    expect(wrapper.find('.fishd-form-item-explain div').text()).toEqual('At least 2');
+    expect(wrapper.find('.fishd-formHook-item-explain div').text()).toEqual('At least 2');
 
     await addItem();
-    expect(wrapper.find('.fishd-form-item-explain div')).toHaveLength(0);
+    expect(wrapper.find('.fishd-formHook-item-explain div')).toHaveLength(0);
 
     jest.useRealTimers();
   });

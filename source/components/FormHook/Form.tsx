@@ -14,10 +14,9 @@ export type FormLayout = 'horizontal' | 'inline' | 'vertical';
 /**
  * 没有添加 Size
  * config context 中的全局配置未添加 getPrefixCls, direction, form 等情况
- * RequiredMark 暂不实现
+ * RequiredMark , rtl 暂不实现
  * colon 特意删除
  *
- * TODO 验证defaultProps
  */
 
 export interface FormProps<Values = any> extends Omit<RcFormProps<Values>, 'form'> {
@@ -117,8 +116,9 @@ const Form = React.forwardRef<FormInstance, FormProps>(InternalForm) as <Values 
 ) => React.ReactElement;
 
 (Form as any).defaultProps = {
-  prefixCls: 'fishd-form',
+  prefixCls: 'fishd-formHook',
   layout: 'horizontal',
+  labelAlign: 'left', // 按照 Form 的标准 默认靠左
   hideRequiredMark: false,
   onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

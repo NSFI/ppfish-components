@@ -14,7 +14,7 @@ import { sleep } from '../../../../tools/tests/utils';
 
 jest.mock('scroll-into-view-if-needed');
 
-describe('Form', () => {
+describe('FormHook', () => {
   mountTest(Form);
   mountTest(Form.Item);
 
@@ -65,8 +65,8 @@ describe('Form', () => {
       );
 
       await change(wrapper, 0, '', true);
-      expect(wrapper.find('.fishd-form-item-with-help').length).toBeTruthy();
-      expect(wrapper.find('.fishd-form-item-has-error').length).toBeTruthy();
+      expect(wrapper.find('.fishd-formHook-item-with-help').length).toBeTruthy();
+      expect(wrapper.find('.has-error').length).toBeTruthy();
 
       expect(onChange).toHaveBeenCalled();
 
@@ -120,11 +120,11 @@ describe('Form', () => {
 
       const wrapper = mount(<Demo />);
       await change(wrapper, 0, '1', true);
-      expect(wrapper.find('.fishd-form-item-explain').text()).toEqual('aaa');
+      expect(wrapper.find('.fishd-formHook-item-explain').text()).toEqual('aaa');
       await change(wrapper, 0, '2', true);
-      expect(wrapper.find('.fishd-form-item-explain').text()).toEqual('ccc');
+      expect(wrapper.find('.fishd-formHook-item-explain').text()).toEqual('ccc');
       await change(wrapper, 0, '1', true);
-      expect(wrapper.find('.fishd-form-item-explain').text()).toEqual('aaa');
+      expect(wrapper.find('.fishd-formHook-item-explain').text()).toEqual('aaa');
 
       jest.useRealTimers();
     });
@@ -309,11 +309,11 @@ describe('Form', () => {
       </Form>,
     );
 
-    expect(wrapper.find('.fishd-form-item-required')).toHaveLength(0);
+    expect(wrapper.find('.fishd-formHook-item-required')).toHaveLength(0);
 
     wrapper.find('input[type="checkbox"]').simulate('change', { target: { checked: true } });
     wrapper.update();
-    expect(wrapper.find('.fishd-form-item-required')).toHaveLength(1);
+    expect(wrapper.find('.fishd-formHook-item-required')).toHaveLength(1);
   });
 
   describe('should show related className when customize help', () => {
@@ -326,7 +326,7 @@ describe('Form', () => {
         </Form>,
       );
 
-      expect(wrapper.exists('.fishd-form-item-with-help')).toBeTruthy();
+      expect(wrapper.exists('.fishd-formHook-item-with-help')).toBeTruthy();
     });
 
     it('empty string', () => {
@@ -338,7 +338,7 @@ describe('Form', () => {
         </Form>,
       );
 
-      expect(wrapper.exists('.fishd-form-item-with-help')).toBeTruthy();
+      expect(wrapper.exists('.fishd-formHook-item-with-help')).toBeTruthy();
     });
   });
 
@@ -370,12 +370,12 @@ describe('Form', () => {
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < 3; i += 1) {
       await change(wrapper, 0, '', true);
-      expect(wrapper.find('.fishd-form-item-explain').first().text()).toEqual("'name' is required");
+      expect(wrapper.find('.fishd-formHook-item-explain').first().text()).toEqual("'name' is required");
 
       await change(wrapper, 0, 'p', true);
       await sleep(100);
       wrapper.update();
-      expect(wrapper.find('.fishd-form-item-explain').first().text()).toEqual('not a p');
+      expect(wrapper.find('.fishd-formHook-item-explain').first().text()).toEqual('not a p');
     }
     /* eslint-enable */
 
@@ -398,8 +398,8 @@ describe('Form', () => {
 
     const wrapper = mount(<App />);
     wrapper.find('button').simulate('click');
-    expect(wrapper.find('.fishd-form-item').first().hasClass('fishd-form-item-with-help')).toBeTruthy();
-    expect(wrapper.find('.fishd-form-item-explain').text()).toEqual('bamboo');
+    expect(wrapper.find('.fishd-formHook-item').first().hasClass('fishd-formHook-item-with-help')).toBeTruthy();
+    expect(wrapper.find('.fishd-formHook-item-explain').text()).toEqual('bamboo');
   });
 
   it('warning when use `dependencies` but `name` is empty & children is not a render props', () => {
@@ -457,7 +457,7 @@ describe('Form', () => {
         <input />
       </Form.Item>,
     );
-    expect(wrapper.find('.fishd-form-item-explain').length).toBeTruthy();
+    expect(wrapper.find('.fishd-formHook-item-explain').length).toBeTruthy();
   });
 
   it('Form.Item with `help` should display error style when validate failed', async () => {
@@ -472,8 +472,9 @@ describe('Form', () => {
     );
 
     await change(wrapper, 0, '', true);
-    expect(wrapper.find('.fishd-form-item').first().hasClass('fishd-form-item-has-error')).toBeTruthy();
-    expect(wrapper.find('.fishd-form-item-explain').text()).toEqual('help');
+
+    expect(wrapper.find('.fishd-formHook-item').first().hasClass('has-error')).toBeTruthy();
+    expect(wrapper.find('.fishd-formHook-item-explain').text()).toEqual('help');
 
     jest.useRealTimers();
   });
@@ -489,15 +490,15 @@ describe('Form', () => {
       </Form>,
     );
     await change(wrapper, 0, '1', true);
-    expect(wrapper.find('.fishd-form-item-explain').length).toBeFalsy();
+    expect(wrapper.find('.fishd-formHook-item-explain').length).toBeFalsy();
 
     await change(wrapper, 0, '', true);
-    expect(wrapper.find('.fishd-form-item-explain').length).toBeTruthy();
+    expect(wrapper.find('.fishd-formHook-item-explain').length).toBeTruthy();
 
     await change(wrapper, 0, '123', true);
     await sleep(800);
     wrapper.update();
-    expect(wrapper.find('.fishd-form-item-explain').length).toBeFalsy();
+    expect(wrapper.find('.fishd-formHook-item-explain').length).toBeFalsy();
 
     jest.useRealTimers();
   });
@@ -510,7 +511,7 @@ describe('Form', () => {
       </Form.Item>,
     );
 
-    expect(wrapper.find('.fishd-form-item-required')).toHaveLength(1);
+    expect(wrapper.find('.fishd-formHook-item-required')).toHaveLength(1);
   });
 
   it('0 is a validate Field', () => {
@@ -604,7 +605,7 @@ describe('Form', () => {
     await sleep(100);
     wrapper.update();
     await sleep(100);
-    expect(wrapper.find('.fishd-form-item-explain').first().text()).toEqual('Bamboo is good!');
+    expect(wrapper.find('.fishd-formHook-item-explain').first().text()).toEqual('Bamboo is good!');
   });
 
   it('`name` support template when label is not provided', async () => {
@@ -621,7 +622,7 @@ describe('Form', () => {
     await sleep(100);
     wrapper.update();
     await sleep(100);
-    expect(wrapper.find('.fishd-form-item-explain').first().text()).toEqual('Bamboo is good!');
+    expect(wrapper.find('.fishd-formHook-item-explain').first().text()).toEqual('Bamboo is good!');
   });
 
   it('`messageVariables` support validate', async () => {
@@ -638,7 +639,7 @@ describe('Form', () => {
     await sleep(100);
     wrapper.update();
     await sleep(100);
-    expect(wrapper.find('.fishd-form-item-explain').first().text()).toEqual('Bamboo is good!');
+    expect(wrapper.find('.fishd-formHook-item-explain').first().text()).toEqual('Bamboo is good!');
   });
 
   it('validation message should has alert role', async () => {
@@ -656,7 +657,7 @@ describe('Form', () => {
     await sleep(100);
     wrapper.update();
     await sleep(100);
-    expect(wrapper.find('.fishd-form-item-explain div').getDOMNode().getAttribute('role')).toBe(
+    expect(wrapper.find('.fishd-formHook-item-explain div').getDOMNode().getAttribute('role')).toBe(
       'alert',
     );
   });
@@ -757,12 +758,12 @@ describe('Form', () => {
 
     const wrapper = mount(<Demo />);
     await Promise.resolve();
-    expect(wrapper.find('.fishd-form-item').last().hasClass('fishd-form-item-with-help')).toBeTruthy();
+    expect(wrapper.find('.fishd-formHook-item').last().hasClass('fishd-formHook-item-with-help')).toBeTruthy();
 
     wrapper.setState({ showA: false });
     await Promise.resolve();
     wrapper.update();
-    expect(wrapper.find('.fishd-form-item').last().hasClass('fishd-form-item-with-help')).toBeFalsy();
+    expect(wrapper.find('.fishd-formHook-item').last().hasClass('fishd-formHook-item-with-help')).toBeFalsy();
   });
 
   it('no warning of initialValue & getValueProps & preserve', () => {
@@ -833,7 +834,7 @@ describe('Form', () => {
       </Form>,
     );
 
-    expect(wrapper.find('form').hasClass('fishd-form-hide-required-mark')).toBeTruthy();
+    expect(wrapper.find('form').hasClass('fishd-formHook-hide-required-mark')).toBeTruthy();
   });
 
   it('_internalItemRender api test', () => {
@@ -955,8 +956,8 @@ describe('Form', () => {
     );
 
     await change(wrapper, 0, '', true);
-    expect(wrapper.find('.fishd-form-item-with-help').length).toBeTruthy();
-    expect(wrapper.find('.fishd-form-item-has-warning').length).toBeTruthy();
+    expect(wrapper.find('.fishd-formHook-item-with-help').length).toBeTruthy();
+    expect(wrapper.find('.has-warning').length).toBeTruthy();
 
     jest.useRealTimers();
   });
@@ -1008,7 +1009,7 @@ describe('Form', () => {
         </Form>,
       );
 
-      expect(wrapper.exists('.fishd-form-item-no-colon')).toBeFalsy();
+      expect(wrapper.exists('.fishd-formHook-item-no-colon')).toBeFalsy();
     });
 
     it('set Form.Item colon false', () => {
@@ -1020,7 +1021,7 @@ describe('Form', () => {
         </Form>,
       );
 
-      expect(wrapper.find('.fishd-form-item-no-colon')).toBeTruthy();
+      expect(wrapper.find('.fishd-formHook-item-no-colon')).toBeTruthy();
     });
 
     it('set Form colon false', () => {
@@ -1032,7 +1033,7 @@ describe('Form', () => {
         </Form>,
       );
 
-      expect(wrapper.find('.fishd-form-item-no-colon')).toBeTruthy();
+      expect(wrapper.find('.fishd-formHook-item-no-colon')).toBeTruthy();
     });
   });
 });

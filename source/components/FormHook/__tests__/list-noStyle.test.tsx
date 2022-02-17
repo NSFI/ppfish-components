@@ -66,7 +66,7 @@ describe('Form.List.NoStyle', () => {
     });
 
     // Match error message
-    expect(wrapper.find('.fishd-form-item-explain-error').text()).toEqual(
+    expect(wrapper.find('.fishd-formHook-item-explain-error').text()).toEqual(
       "'users.1.first' is required",
     );
 

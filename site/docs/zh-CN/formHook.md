@@ -3,9 +3,9 @@
 高性能表单控件，自带数据域管理。包含数据录入、校验以及对应样式。
 
 
-## 代码演示
+## 基本使用
 
-:::demo 水平登录栏，常用在顶部导航栏中。
+:::demo 基本的表单数据域控制展示，包含布局、初始化、验证、提交。
 
 ```js
 
@@ -21,7 +21,7 @@ const Demo = () => {
   return (
     <FormHook
       name="basic"
-      labelCol={{ span: 8 }}
+      labelCol={{ span: 4 }}
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
@@ -44,11 +44,11 @@ const Demo = () => {
         <Input />
       </FormHook.Item>
 
-      <FormHook.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+      <FormHook.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 4, span: 16 }}>
         <Checkbox>Remember me</Checkbox>
       </FormHook.Item>
 
-      <FormHook.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <FormHook.Item wrapperCol={{ offset: 4, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
@@ -61,78 +61,105 @@ ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
 :::
 
-## 水平登录栏
+## 表单方法调用 
 
-:::demo 水平登录栏，常用在顶部导航栏中。
+:::demo 通过 FormHook.useForm 对表单数据域进行交互。 
+注意 useForm 是 React Hooks 的实现，只能用于函数组件，class 组件请查看下面的例子。
 
 ```js
-const FormItem = Form.Item;
+const { Option } = Select;
 
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
+};
+const tailLayout = {
+  wrapperCol: { offset: 4, span: 16 },
+};
 
-class HorizontalLoginForm extends React.Component {
-  componentDidMount() {
-    // To disabled submit button at the beginning.
-    this.props.form.validateFields();
-  }
+const Demo = () => {
+  const [form] = FormHook.useForm();
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
+  const onGenderChange = (value: string) => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue({ note: 'Hi, man!' });
+        return;
+      case 'female':
+        form.setFieldsValue({ note: 'Hi, lady!' });
+        return;
+      case 'other':
+        form.setFieldsValue({ note: 'Hi there!' });
+    }
+  };
+
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
+
+  const onReset = () => {
+    form.resetFields();
+  };
+
+  const onFill = () => {
+    form.setFieldsValue({
+      note: 'Hello world!',
+      gender: 'male',
     });
-  }
+  };
 
-  render() {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-
-    // Only show error after a field is touched.
-    const userNameError = isFieldTouched('userName1') && getFieldError('userName1');
-    const passwordError = isFieldTouched('password1') && getFieldError('password1');
-    return (
-      <Form layout="inline" onSubmit={this.handleSubmit}>
-        <FormItem
-          validateStatus={userNameError ? 'error' : ''}
-          help={userNameError || ''}
+  return (
+    <FormHook {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+      <FormHook.Item name="note" label="Note" rules={[{ required: true }]}>
+        <Input />
+      </FormHook.Item>
+      <FormHook.Item name="gender" label="Gender" rules={[{ required: true }]}>
+        <Select
+          placeholder="Select a option and change input text above"
+          onChange={onGenderChange}
+          allowClear
         >
-          {getFieldDecorator('userName1', {
-            rules: [{ required: true, message: 'Please input your username!' }],
-          })(
-            <Input prefix={<Icon type="user-line" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-          )}
-        </FormItem>
-        <FormItem
-          validateStatus={passwordError ? 'error' : ''}
-          help={passwordError || ''}
-        >
-          {getFieldDecorator('password1', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
-          })(
-            <Input prefix={<Icon type="lock-line" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-          )}
-        </FormItem>
-        <FormItem>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={hasErrors(getFieldsError())}
-          >
-            Log in
-          </Button>
-        </FormItem>
-      </Form>
-    );
-  }
-}
-
-const Demo = Form.create()(HorizontalLoginForm);
-
+          <Option value="male">male</Option>
+          <Option value="female">female</Option>
+          <Option value="other">other</Option>
+        </Select>
+      </FormHook.Item>
+      <FormHook.Item
+        noStyle
+        shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
+      >
+        {({ getFieldValue }) =>
+          getFieldValue('gender') === 'other' ? (
+            <Form.Item name="customizeGender" label="Customize Gender" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+          ) : null
+        }
+      </FormHook.Item>
+      <FormHook.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+        <Button htmlType="button" onClick={onReset}>
+          Reset
+        </Button>
+        <Button type="link" htmlType="button" onClick={onFill}>
+          Fill form
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+console.log(context)
 ReactDOM.render(<Demo {...context.props}/>,mountNode);
 ```
+
+```less
+#control-hooks .fishd-btn {
+  margin-right: 8px;
+}
+```
+
 :::
 
 ## 登录框

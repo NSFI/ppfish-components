@@ -2,19 +2,19 @@
 
 exports[`Form Form item hidden noStyle should not work when hidden 1`] = `
 <form
-  class="fishd-form fishd-form-horizontal"
+  class="fishd-formHook fishd-formHook-horizontal"
 >
   <div
-    class="fishd-row fishd-form-item fishd-form-item-hidden"
+    class="fishd-row fishd-formHook-item fishd-formHook-item-hidden"
   >
     <div
-      class="fishd-form-item-control"
+      class="fishd-formHook-item-control"
     >
       <div
-        class="fishd-form-item-control-input"
+        class="fishd-formHook-item-control-input"
       >
         <div
-          class="fishd-form-item-control-input-content"
+          class="fishd-formHook-item-control-input-content"
         >
           <input
             class="fishd-input"
@@ -31,19 +31,19 @@ exports[`Form Form item hidden noStyle should not work when hidden 1`] = `
 
 exports[`Form Form item hidden should work 1`] = `
 <form
-  class="fishd-form fishd-form-horizontal"
+  class="fishd-formHook fishd-formHook-horizontal"
 >
   <div
-    class="fishd-row fishd-form-item fishd-form-item-hidden"
+    class="fishd-row fishd-formHook-item fishd-formHook-item-hidden"
   >
     <div
-      class="fishd-form-item-control"
+      class="fishd-formHook-item-control"
     >
       <div
-        class="fishd-form-item-control-input"
+        class="fishd-formHook-item-control-input"
       >
         <div
-          class="fishd-form-item-control-input-content"
+          class="fishd-formHook-item-control-input-content"
         >
           <input
             class="fishd-input"
@@ -60,22 +60,107 @@ exports[`Form Form item hidden should work 1`] = `
 
 exports[`Form Form.Item should support data-*、aria-* and custom attribute 1`] = `
 <form
-  class="fishd-form fishd-form-horizontal"
+  class="fishd-formHook fishd-formHook-horizontal"
 >
   <div
     aria-hidden="true"
     cccc="bbbb"
-    class="fishd-row fishd-form-item"
+    class="fishd-row fishd-formHook-item"
     data-text="123"
   >
     <div
-      class="fishd-form-item-control"
+      class="fishd-formHook-item-control"
     >
       <div
-        class="fishd-form-item-control-input"
+        class="fishd-formHook-item-control-input"
       >
         <div
-          class="fishd-form-item-control-input-content"
+          class="fishd-formHook-item-control-input-content"
+        >
+          text
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`FormHook Form item hidden noStyle should not work when hidden 1`] = `
+<form
+  class="fishd-formHook fishd-formHook-horizontal"
+>
+  <div
+    class="fishd-row fishd-formHook-item fishd-formHook-item-hidden"
+  >
+    <div
+      class="fishd-formHook-item-control"
+    >
+      <div
+        class="fishd-formHook-item-control-input"
+      >
+        <div
+          class="fishd-formHook-item-control-input-content"
+        >
+          <input
+            class="fishd-input"
+            id="light"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`FormHook Form item hidden should work 1`] = `
+<form
+  class="fishd-formHook fishd-formHook-horizontal"
+>
+  <div
+    class="fishd-row fishd-formHook-item fishd-formHook-item-hidden"
+  >
+    <div
+      class="fishd-formHook-item-control"
+    >
+      <div
+        class="fishd-formHook-item-control-input"
+      >
+        <div
+          class="fishd-formHook-item-control-input-content"
+        >
+          <input
+            class="fishd-input"
+            id="light"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`FormHook Form.Item should support data-*、aria-* and custom attribute 1`] = `
+<form
+  class="fishd-formHook fishd-formHook-horizontal"
+>
+  <div
+    aria-hidden="true"
+    cccc="bbbb"
+    class="fishd-row fishd-formHook-item"
+    data-text="123"
+  >
+    <div
+      class="fishd-formHook-item-control"
+    >
+      <div
+        class="fishd-formHook-item-control-input"
+      >
+        <div
+          class="fishd-formHook-item-control-input-content"
         >
           text
         </div>

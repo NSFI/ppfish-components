@@ -57,7 +57,7 @@ const FormList: React.FC<FormListProps> = ({ prefixCls, children, ...props }) =>
 };
 
 FormList.defaultProps = {
-  prefixCls: 'fishd-form',
+  prefixCls: 'fishd-formHook',
 };
 
 export default FormList;
