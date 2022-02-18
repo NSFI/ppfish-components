@@ -776,14 +776,13 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             value = <button type="button" className="ql-header" value={mValue} key={key}/>;
           } else if (mValue instanceof Array && mValue.length){
             value = (
-              // <div className="item" key={key}>
+              <div className="item toolbar-header-item" key={key} >
                 <select className="ql-header" defaultValue="normal">
                   {
                     mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
                   }
-                  {/*<option value="normal" />*/}
                 </select>
-              // </div>
+              </div>
             );
           }
           tooltip = '标题';
@@ -848,7 +847,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
       }
     }
 
-    let mTypesHasPopover = ['background', 'color', 'emoji', 'size'];
+    let mTypesHasPopover = ['background', 'color', 'emoji', 'size' ,'header'];
     if (value && (mTypesHasPopover.indexOf(mType) < 0) && !(mType in customInsertValue)) {
       value = (
         <Tooltip
