@@ -117,10 +117,12 @@ export interface CustomToolbarProps extends ModuleHtmlType {
     event: React.MouseEvent
   ) => void;
   handleFormatSize?: Function;
+  handleFormatLineHeight?: Function;
   handleInsertValue?: (
     event: React.MouseEvent
   ) => void;
   getCurrentSize?: Function;
+  getCurrentLineHeight?: Function;
   saveSelectionFormat?: Function;
   unsaveSelectionFormat?: Function;
 }
@@ -136,5 +138,7 @@ export interface EmojiInferface {
 export interface CustomToolbarState {
   curSize: null | string;
   sizePopoverVisible: boolean;
+  curLineHeight:  null | string,
+  lineHeightPopoverVisible: boolean,
   curIVSearchValue: string;
 }

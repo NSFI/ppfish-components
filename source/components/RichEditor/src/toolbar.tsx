@@ -15,7 +15,7 @@ declare module 'react' {
   }
 }
 
-import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface'
+import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
 import { LocaleProperties } from '../../Locale';
 
@@ -165,11 +165,13 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     super(props);
 
     this.defaultSizes = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '12px'];
-    this.defaultLineHeight = ['1', '1.15','1.5','2.0','2.5' ,'3.0'];
+    this.defaultLineHeight = ['1', '1.15', '1.42', '1.5','2.0','2.5' ,'3.0'];
     this.curInsertValueList = [];
     this.state = {
       curSize: null,
       sizePopoverVisible: false,
+      curLineHeight: '',
+      lineHeightPopoverVisible: false,
       curIVSearchValue: ''
     };
   }
@@ -266,7 +268,8 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             customModule.showSearch ?
               <div className="insert-value-search">
                 <Input
-                  placeholder={customModule.searchPlaceholder ? customModule.searchPlaceholder : (Locale.enterKeyWordPlease)}
+                  placeholder={customModule.searchPlaceholder ? customModule.searchPlaceholder :
+                    (Locale.enterKeyWordPlease)}
                   suffix={
                     this.state.curIVSearchValue ?
                       <Icon
@@ -595,7 +598,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           if (Array.isArray(mValue) && mValue.length) {
             this.curSizeList = mValue;
           }
-
           let content = (
             <div className="size-con" key="custom_size_content" onClick={this.handleSizeItemClick}>
               {
@@ -788,26 +790,27 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'lineHeight': {
-          const sizeCls = classNames('action ', {
+          const sizeCls = classNames('action custom-lineHeight', {
             [`${iconPrefix}`]: true,
           });
 
+          this.defaultLineHeight =  (mValue || this.defaultLineHeight);
+
           let content = (
-            <div className="size-con" key="line-height_content" onClick={this.handleSizeItemClick}>
+            <div className="line-height-con" key="line-height_content" onClick={this.handleLineHeightItemClick}>
               {
-                this.curSizeList && this.curSizeList.map((size, index) => {
-                  const sizeItemCls = classNames('size-item', {
-                    // 'active': size && (this.state.curSize == size.trim())
+                this.defaultLineHeight && this.defaultLineHeight.map((height, index) => {
+                  const sizeItemCls = classNames('line-height-item', {
+                    'active': height && (Number(this.state.curLineHeight) == Number(height))
                   });
 
                   return (
                     <button
                       className={sizeItemCls}
                       key={"line-height_" + index}
-                      value={size}
-                      style={{ fontSize: size }}
+                      value={height}
                     >
-                      {size}
+                      {height}
                     </button>
                   );
                 })
@@ -818,19 +821,19 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           value = (
             <Popover
               trigger="click"
-              overlayClassName={`${prefixCls}-size-popover`}
+              visible={this.state.lineHeightPopoverVisible}
+              overlayClassName={`${prefixCls}-line-height-popover`}
               content={content}
               title={null}
               key={key}
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
-              // onVisibleChange={this.handleSizePopoverVisibleChange}
+              onVisibleChange={this.handleLineHeightPopoverVisibleChange}
             >
-                <div className="item">
-                  <div className={sizeCls}>行高</div>
-                </div>
+               <div className={sizeCls}>行距</div>
             </Popover>
           );
+
           tooltip = Locale.lineHeight;
           break;
         }
@@ -862,6 +865,18 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
     return value;
   };
+
+  handleLineHeightItemClick = e=>{
+    let { handleFormatLineHeight } = this.props,
+      target = e.target;
+
+    if (target.classList.value.indexOf('line-height-item') > -1 && target.hasAttribute('value')) {
+      handleFormatLineHeight && handleFormatLineHeight(target.getAttribute('value'));
+      this.setState({
+        lineHeightPopoverVisible: false
+      });
+    }
+  }
 
   handleFormatPainterClick = () => {
     let {
@@ -935,6 +950,23 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     }
   };
 
+  handleLineHeightPopoverVisibleChange = (visible) => {
+    this.setState({
+      lineHeightPopoverVisible: visible
+    });
+
+    if (!visible) return;
+
+    let { getCurrentLineHeight } = this.props,
+      curLineHeight = getCurrentLineHeight && getCurrentLineHeight();
+
+    if (curLineHeight != this.state.curLineHeight) {
+      this.setState({
+        curLineHeight
+      });
+    }
+  };
+
   render() {
     const { className, style, toolbar } = this.props;
 
@@ -947,7 +979,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               <div className={className} ref={node => this.toolbarCtner = node} style={style}>
                 {this.genToolbar(toolbar)}
               </div>
-            )
+            );
           }
         }
 

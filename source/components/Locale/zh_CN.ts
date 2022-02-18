@@ -114,6 +114,7 @@ const localeValues: LocaleProperties = {
     accessLink: '访问链接',
     edit: '编辑',
     deleteText: '删除',
+    lineHeight: '行距',
   },
   Spin: {
     loading: '加载中'

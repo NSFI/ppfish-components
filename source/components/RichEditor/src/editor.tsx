@@ -38,43 +38,6 @@ Quill.register("modules/resize", ImageResize, true);
 Quill.register(Quill.import('attributors/style/align'), true);
 Quill.register(Quill.import('attributors/style/direction'), true);
 
-
-class TagPlaceholder extends EmbedPlaceholder {
-  static tagName: string[]
-}
-// default to ['iframe', 'video']
-TagPlaceholder.tagName = ['iframe', 'embed']
-// important!!! must be null or don't set it
-// TagPlaceholder.className = null
-
-// replace default video blot
-class VideoPlaceholder extends EmbedPlaceholder {
-  static blotName: string
-  static tagName: string
-  static create (value) {
-    let video = value
-    if (typeof value === 'string') {
-      video = {
-        'data-embed-source': encodeURIComponent(
-          `<video src="${value}" controls preload="auto"></video>`
-        ),
-        'data-type': 'video',
-        'data-src': value
-      }
-    }
-    return super.create(video)
-  }
-}
-VideoPlaceholder.blotName = 'video'
-VideoPlaceholder.tagName = 'video'
-
-class ClassPlaceholder extends EmbedPlaceholder {
-  static className:string
-}
-ClassPlaceholder.className = 'ql-embed'
-
-PlaceholderRegister([TagPlaceholder, VideoPlaceholder, ClassPlaceholder])
-
 const getImageSize = function (
   url: string,
   callback: (width: number | string, height: number | string) => void
@@ -113,7 +76,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     attachment: Function,
     clean: Function,
     customInsertValue: Function
-    lineHeight: Function
   }
   editorCtner: HTMLDivElement
   linkModalInputRef: any
@@ -361,12 +323,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           });
         } else {
           quill.removeFormat(range, Quill.sources.USER);
-        }
-      },
-      lineHeight: function (value) {
-        console.log('run111')
-        if(value){
-          this.quill.format('lineHeight', value)
         }
       },
       // 处理定制的插入值
@@ -1045,6 +1001,12 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       });
   };
 
+  handleFormatLineHeight = value => {
+    let quill = this.getEditor();
+    quill &&
+      quill.format("lineHeight", value);
+  };
+
   handleInsertValue = e => {
     let { toolbarCtner } = this.state,
       target = e.target;
@@ -1210,6 +1172,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       curVideoType: e.target.value || this.defaultVideoType
     });
   };
+
+  getCurrentLineHeight = ()=>{
+    let quill = this.getEditor();
+    if (!quill) return null;
+    let formats = quill.getFormat()
+
+    if(formats && formats.lineHeight){
+      return formats.lineHeight
+    }
+
+    return null
+  }
 
   getCurrentSize = () => {
     let quill = this.getEditor();
@@ -1499,11 +1473,13 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   handleFormatColor={this.handleFormatColor}
                   handleFormatBackground={this.handleFormatBackground}
                   handleFormatSize={this.handleFormatSize}
+                  handleFormatLineHeight={this.handleFormatLineHeight}
                   handleInsertValue={this.handleInsertValue}
                   popoverPlacement={popoverPlacement}
                   tooltipPlacement={tooltipPlacement}
                   getPopupContainer={getPopupContainer}
                   getCurrentSize={this.getCurrentSize}
+                  getCurrentLineHeight={this.getCurrentLineHeight}
                   formatPainterActive={this.state.formatPainterActive}
                   saveSelectionFormat={this.handleSaveSelectionFormat}
                   unsaveSelectionFormat={this.handleUnsaveSelectionFormat}

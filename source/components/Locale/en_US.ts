@@ -195,6 +195,7 @@ const LocaleValue: LocaleProperties = {
     accessLink: 'Access the link',
     edit: 'Edit',
     deleteText: 'Delete',
+    lineHeight: 'lineHeight',
   },
   VideoViewer: {
     fullScreen: 'FullScreen',

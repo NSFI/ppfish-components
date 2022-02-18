@@ -19,7 +19,6 @@ let inline = Quill.import('blots/inline')
 class lineHeight extends inline {
   static blotName: string;
   static tagName: string;
-  static className: string;
 
   // Resitery 调用该create方法 create对象在富文本中
   static create(value){
@@ -30,16 +29,13 @@ class lineHeight extends inline {
   }
 
   static formats(value) {
-    console.log(value)
-    console.log(value.style.lineHeight)
     return value.style.lineHeight;
   }
 }
 
 // blotName
 lineHeight.blotName  = 'lineHeight';
-// class名将用于匹配blot名称
-lineHeight.className = 'lineHeight';
+
 // 标签类型自定义
 lineHeight.tagName   = 'span';
 

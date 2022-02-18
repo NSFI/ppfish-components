@@ -254,6 +254,7 @@
   .custom-color,
   .custom-size,
   .custom-emoji,
+  .custom-lineHeight,
   .custom-entry {
     .custom-icon;
   }
@@ -331,6 +332,37 @@
   }
 
   .size-item.active {
+    color: @primary-color;
+  }
+}
+
+.@{rich-editor-prefix}-line-height-popover {
+  .@{popover-prefix}-inner-content {
+    padding: 0;
+  }
+
+  .line-height-con {
+    position: relative;
+    display: inline-block;
+    padding: 5px 0;
+  }
+
+  .line-height-item {
+    display: block;
+    width: 100%;
+    padding: 3px 5px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      background: @richeditor-icon-hover-bg;
+    }
+  }
+
+  .line-height-item.active {
     color: @primary-color;
   }
 }
