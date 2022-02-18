@@ -23,49 +23,28 @@ export default class Toolbar extends BaseModule {
   _defineAlignments () {
     this.alignments = [
       {
-        icon: `<svg viewbox="0 0 18 18">
-                <path class="ql-fill" d="M15,8H13a1,1,0,0,1,0-2h2A1,1,0,0,1,15,8Z"/>
-                <path class="ql-fill" d="M15,12H13a1,1,0,0,1,0-2h2A1,1,0,0,1,15,12Z"/>
-                <path class="ql-fill" d="M15,16H5a1,1,0,0,1,0-2H15A1,1,0,0,1,15,16Z"/>
-                <path class="ql-fill" d="M15,4H5A1,1,0,0,1,5,2H15A1,1,0,0,1,15,4Z"/>
-                <rect class="ql-fill" x="2" y="6" width="8" height="6" rx="1" ry="1"/>
-              </svg>`  ,
+        icon: `<i class="fishdicon fishdicon-richeditor-align-lef"></i>`  ,
         apply: () => {
           ImageFormatClass.add(this.activeEle, 'left');
         },
         isApplied: () => ImageFormatClass.value(this.activeEle) === 'left'
       },
       {
-        icon: `<svg viewbox="0 0 18 18">
-                <path class="ql-fill" d="M14,16H4a1,1,0,0,1,0-2H14A1,1,0,0,1,14,16Z"/>
-                <path class="ql-fill" d="M14,4H4A1,1,0,0,1,4,2H14A1,1,0,0,1,14,4Z"/>
-                <rect class="ql-fill" x="3" y="6" width="12" height="6" rx="1" ry="1"/>
-              </svg>`,
+        icon: `<i class="fishdicon fishdicon-richeditor-align-mid"></i>`,
         apply: () => {
           ImageFormatClass.add(this.activeEle, 'center');
         },
         isApplied: () => ImageFormatClass.value(this.activeEle) === 'center'
       },
       {
-        icon: `<svg viewbox="0 0 18 18">
-                <path class="ql-fill" d="M5,8H3A1,1,0,0,1,3,6H5A1,1,0,0,1,5,8Z"/>
-                <path class="ql-fill" d="M5,12H3a1,1,0,0,1,0-2H5A1,1,0,0,1,5,12Z"/>
-                <path class="ql-fill" d="M13,16H3a1,1,0,0,1,0-2H13A1,1,0,0,1,13,16Z"/>
-                <path class="ql-fill" d="M13,4H3A1,1,0,0,1,3,2H13A1,1,0,0,1,13,4Z"/>
-                <rect class="ql-fill" x="8" y="6" width="8" height="6" rx="1" ry="1"
-                transform="translate(24 18) rotate(-180)"/>
-              </svg>`,
+        icon: `<i class="fishdicon fishdicon-richeditor-align-rig"></i>`,
         apply: () => {
           ImageFormatClass.add(this.activeEle, 'right');
         },
         isApplied: () => ImageFormatClass.value(this.activeEle) === 'right'
       },
       {
-        icon:`<svg viewbox="0 0 18 18">
-                <path class="ql-fill" d="M13,16H5a1,1,0,0,1,0-2h8A1,1,0,0,1,13,16Z"/>
-                <path class="ql-fill" d="M13,4H5A1,1,0,0,1,5,2h8A1,1,0,0,1,13,4Z"/>
-                <rect class="ql-fill" x="2" y="6" width="14" height="6" rx="1" ry="1"/>
-              </svg>`,
+        icon:`<i class="fishdicon fishdicon-richeditor-align-all"></i>`,
         apply: () => {
           ImageFormatClass.add(this.activeEle, 'full');
         },
