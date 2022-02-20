@@ -19,8 +19,9 @@ import VideoBlot from "./formats/video";
 import PlainClipboard from "./modules/plainClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
-import ImageResize, {PlaceholderRegister,EmbedPlaceholder} from "./modules/imageResize";
+import ImageResize from "./modules/imageResize";
 import lineHeight from "./formats/lineHeight";
+import {fullscreen,exitfullscreen} from '../../../utils';
 
 import { RichEditorProps, RichEditorState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
@@ -72,6 +73,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     link: Function,
     video: Function,
     emoji: Function,
+    fullscreen: Function,
     image: Function,
     attachment: Function,
     clean: Function,
@@ -183,7 +185,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       curVideoType: this.defaultVideoType,
       defaultInputLink: this.defaultLinkPrefix,
       linkModalTitle: "",
-      formatPainterActive: false
+      formatPainterActive: false,
+      fullScreen: false
     };
     this.handlers = {
       link: (value, fromAction) => {
@@ -239,6 +242,14 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           showVideoModal: true,
           curRange: quill.getSelection() // 防止插入视频时光标定位错误
+        });
+      },
+      fullscreen: value => {
+        // document.body.requestFullscreen()
+        this.setState(prev => ({
+          fullScreen: !prev.fullScreen
+        }), () => {
+          document.body.style.overflow = this.state.fullScreen ? 'hidden' : 'auto';
         });
       },
       emoji: value => {
@@ -735,6 +746,10 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
     this.setState({
       showImageModal: false
+    }, ()=>{
+      if(this.state.fullScreen){
+        document.body.style.overflow = 'hidden';
+      }
     });
 
     if (customInsertImage && typeof customInsertImage === "function") {
@@ -1289,7 +1304,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       toolbarCtner,
       curVideoType,
       defaultInputLink,
-      linkModalTitle
+      linkModalTitle,
+      fullScreen
     } = this.state;
     const {
       className,
@@ -1322,11 +1338,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     const cls = classNames(
       `${prefixCls}`,
       {
+        fullScreen,
         resizable: resizable
       },
       className
     );
-
     if (value) {
       restProps.value = value;
     }
@@ -1373,7 +1389,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           (Locale: LocaleProperties['RichEditor']) => {
             this.Locale = Locale;
             return (
-              <div className={cls} style={style} ref={el => (this.editorCtner = el)}>
+              <div className={cls} id={'hash'} style={style} ref={el => (this.editorCtner = el)}>
                 <Modal
                   title={linkModalTitle || this.Locale.linkModalTitle}
                   className={`${prefixCls}-link-modal`}
@@ -1493,6 +1509,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   formatPainterActive={this.state.formatPainterActive}
                   saveSelectionFormat={this.handleSaveSelectionFormat}
                   unsaveSelectionFormat={this.handleUnsaveSelectionFormat}
+                  fullScreen={fullScreen}
                 />
                 <ReactQuill
                   {...restProps}

@@ -771,6 +771,16 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           tooltip = Locale.insertVideo;
           break;
         }
+        case 'fullscreen': {
+          const fullScreenCls = classNames('action ql-fullscreen', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-video-shrink`]: this.props.fullScreen,
+            [`${iconPrefix}-video-fullscreen`]: !this.props.fullScreen,
+          });
+          value = <button type="button" className={fullScreenCls} value={mValue} key={'fullScreen'} />;
+          tooltip = '全屏';
+          break;
+        }
         case 'header': {
           if (typeof mValue === 'string' || typeof mValue === 'number') {
             value = <button type="button" className="ql-header" value={mValue} key={key}/>;
@@ -799,7 +809,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'lineHeight': {
-          const sizeCls = classNames('action custom-lineHeight', {
+          const lineHeightCls = classNames('action custom-lineHeight', {
             [`${iconPrefix}`]: true,
           });
 
@@ -839,7 +849,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               getPopupContainer={getPopupContainer}
               onVisibleChange={this.handleLineHeightPopoverVisibleChange}
             >
-               <div className={sizeCls}>行距</div>
+               <div className={lineHeightCls}>行距</div>
             </Popover>
           );
 

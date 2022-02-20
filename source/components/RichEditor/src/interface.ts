@@ -14,6 +14,7 @@ export interface RichEditorState {
   linkModalTitle: string;
   formatPainterActive: boolean;
   showAttachmentModal?: boolean;
+  fullScreen: boolean;
 }
 
 export interface QuillComponentProps {
@@ -106,6 +107,7 @@ export interface CustomToolbarProps extends ModuleHtmlType {
   customEmoji?: any[];
   customLink?: object;
   formatPainterActive?: boolean;
+  fullScreen?: boolean;
   customInsertValue?: object;
   handleInsertEmoji?: (
     event: React.MouseEvent
