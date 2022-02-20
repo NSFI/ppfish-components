@@ -770,7 +770,7 @@
   constructor(props) {
     super(props);
     this.toolbar = [
-      ['link', 'bold', 'italic', 'underline'],[{ header: [1, 2, 3, 4 ,5, 6] }], ['color', 'background'], ['lineHeight'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
+      ['link', 'bold', 'italic', 'underline'],['undo' , 'redo' ] , [{ header: [ 1,2, 3, 4 ,5, 6, false] }], ['color', 'background'], ['lineHeight'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
     ];
   }
 

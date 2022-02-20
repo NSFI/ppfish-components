@@ -22,7 +22,7 @@ import FileDrop from "./modules/fileDrop";
 import ImageResize, {PlaceholderRegister,EmbedPlaceholder} from "./modules/imageResize";
 import lineHeight from "./formats/lineHeight";
 
-import { RichEditorProps, RichEditorState } from './interface'
+import { RichEditorProps, RichEditorState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
 import { LocaleProperties } from '../../Locale';
 
@@ -76,6 +76,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     attachment: Function,
     clean: Function,
     customInsertValue: Function
+    undo: Function
+    redo: Function
   }
   editorCtner: HTMLDivElement
   linkModalInputRef: any
@@ -324,6 +326,14 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         } else {
           quill.removeFormat(range, Quill.sources.USER);
         }
+      },
+      undo: () => {
+        let quill = this.getEditor();
+        quill && quill.history.undo();
+      },
+      redo: ()=>{
+        let quill = this.getEditor();
+        quill && quill.history.redo();
       },
       // 处理定制的插入值
       customInsertValue: value => {
@@ -1176,13 +1186,13 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   getCurrentLineHeight = ()=>{
     let quill = this.getEditor();
     if (!quill) return null;
-    let formats = quill.getFormat()
+    let formats = quill.getFormat();
 
     if(formats && formats.lineHeight){
-      return formats.lineHeight
+      return formats.lineHeight;
     }
 
-    return null
+    return null;
   }
 
   getCurrentSize = () => {
@@ -1348,7 +1358,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     }
 
     if(imageResize){
-      moduleOpts["resize"] = {}
+      moduleOpts["resize"] = {};
     }
 
     if (pastePlainText) {
@@ -1358,7 +1368,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     }
 
     return (
-      <ConfigConsumer componentName='RichEditor'>
+      <ConfigConsumer componentName="RichEditor">
         {
           (Locale: LocaleProperties['RichEditor']) => {
             this.Locale = Locale;
@@ -1504,7 +1514,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   />
                 ) : null}
               </div>
-            )
+            );
           }
         }
       </ConfigConsumer>

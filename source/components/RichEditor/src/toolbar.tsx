@@ -777,7 +777,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           } else if (mValue instanceof Array && mValue.length){
             value = (
               <div className="item toolbar-header-item" key={key} >
-                <select className="ql-header" defaultValue="normal">
+                <select className="ql-header" defaultValue="false">
                   {
                     mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
                   }
@@ -786,6 +786,16 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             );
           }
           tooltip = '标题';
+          break;
+        }
+        case 'undo' :{
+          value = <button type="button" className="action ql-undo" value={'undo'} key={key}>undo</button>;
+          tooltip = 'undo';
+          break;
+        }
+        case 'redo': {
+          value = <button type="button" className="action ql-redo" value={'redo'} key={key}>redo</button>;
+          tooltip = 'redo';
           break;
         }
         case 'lineHeight': {
