@@ -782,6 +782,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'header': {
+          // [{ header: [ 1,2, 3, 4 ,5, 6, false] }]
           if (typeof mValue === 'string' || typeof mValue === 'number') {
             value = <button type="button" className="ql-header" value={mValue} key={key}/>;
           } else if (mValue instanceof Array && mValue.length){
@@ -799,18 +800,21 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'undo' :{
-          value = <button type="button" className="action ql-undo" value={'undo'} key={key}>undo</button>;
-          tooltip = 'undo';
+          value = <button type="button" className={`action ql-undo ${iconPrefix} ${iconPrefix}-richeditor-undo`}
+                          value={'undo'} key={key}/>;
+          tooltip = '撤销';
           break;
         }
         case 'redo': {
-          value = <button type="button" className="action ql-redo" value={'redo'} key={key}>redo</button>;
-          tooltip = 'redo';
+          value = <button type="button" className={`action ql-redo ${iconPrefix} ${iconPrefix}-richeditor-redo`}
+                          value={'redo'} key={key}/>;
+          tooltip = '恢复';
           break;
         }
         case 'lineHeight': {
           const lineHeightCls = classNames('action custom-lineHeight', {
             [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-line-height`]: true
           });
 
           this.defaultLineHeight =  (mValue || this.defaultLineHeight);
@@ -849,7 +853,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               getPopupContainer={getPopupContainer}
               onVisibleChange={this.handleLineHeightPopoverVisibleChange}
             >
-               <div className={lineHeightCls}>行距</div>
+               <div className={lineHeightCls}/>
             </Popover>
           );
 

@@ -21,7 +21,6 @@ import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
 import lineHeight from "./formats/lineHeight";
-import {fullscreen,exitfullscreen} from '../../../utils';
 
 import { RichEditorProps, RichEditorState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
