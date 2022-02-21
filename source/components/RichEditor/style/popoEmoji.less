@@ -1,0 +1,97 @@
+/* stylelint-disable declaration-no-important */
+.portrait_icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.custom_icon {
+  width: 74px;
+  height: 74px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.@{rich-editor-prefix}-emoji-popover {
+
+  .@{popover-prefix}-inner-content {
+    padding: 0;
+  }
+
+  .@{tabs-prefix}-bar {
+    margin-bottom: 0;
+  }
+
+  .emoji-ctner {
+    width: 402px;
+    height: 220px;
+    overflow-y: scroll;
+    .scrollbar();
+  }
+
+  .emoji-con {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    padding: 10px 8px 12px 10px;
+
+    .emoji-extend-item {
+      display: block;
+      margin-top: 2px;
+      margin-left: 2px;
+      padding: 0;
+      outline: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      float: left;
+    }
+
+    .emoji-row {
+      height: 36px;
+      margin-top: 2px;
+      margin-left: 2px;
+    }
+
+    .emoji-item-ctner {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      margin-left: 2px;
+      border-radius: 2px;
+      justify-content: center;
+      align-items: center;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:hover {
+        background-color: @text-d;
+      }
+
+      &:hover .emoji-item {
+        background-color: @text-d;
+      }
+    }
+
+    .popo-emoji-item {
+      display: inline-block;
+      width: 22px;
+      height: 20px;
+      padding: 0;
+      // margin-left: 20px;
+      background: @component-background url('//res.qiyukf.net/popoEmoji/e7b66811d98f8dd26951829880bb14dc') no-repeat;
+      background-size: 22px auto;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .emoji-001 {
+      background-position: -0 -0;
+    }
+
+  }
+}
+/* stylelint-enable */

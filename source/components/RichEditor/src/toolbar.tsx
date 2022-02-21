@@ -8,6 +8,7 @@ import Popover from '../../Popover/index';
 import Tabs from '../../Tabs/index';
 import Input from '../../Input/index';
 import Icon from '../../Icon/index';
+import popoEmojiList from "./popoEmojiList";
 
 declare module 'react' {
   interface ImgHTMLAttributes<T> {
@@ -103,7 +104,53 @@ let genEmoji = (data: Array<EmojiInferface>) => {
 
   return result;
 };
+let genPoPoEmoji = (data: Array<EmojiInferface>) => {
+  let colSize = 10,
+    resPath = '//res.qiyukf.net/popoEmoji/',
+    tmpObj: { ['grpIndex']?: Array<any> } = {},
+    result = [];
+
+  data.forEach((item: EmojiInferface, index: number) => {
+    let grpIndex = parseInt((item.id / colSize).toString(), 10);
+
+    if (typeof tmpObj[grpIndex] == 'undefined') {
+      tmpObj[grpIndex] = [];
+    }
+
+    tmpObj[grpIndex].push(
+      <div className="emoji-item-ctner" key={"popo-emoji_" + grpIndex + "_" + index} >
+        <button
+          className={"popo-emoji-item " + item.className}
+          value={
+            JSON.stringify({
+              type: "defaultEmoji",
+              alt: item.title,
+              src: resPath + item.url,
+              width: EMOJI_DEFAULT_WIDTH,
+              height: EMOJI_DEFAULT_HEIGHT,
+              id: "emoticon_" + item.className.replace('-', '_')
+            })
+          }
+          title={item.title}
+        />
+      </div>
+    );
+  });
+
+  Object.keys(tmpObj).forEach((key) => {
+    result.push(
+      <div className="emoji-row" key={"emoji_row_" + key}>
+        {tmpObj[key]}
+      </div>
+    );
+  });
+
+  return result;
+};
+
 let defaultEmojis = genEmoji(emojiList);
+let popoEmojis = genPoPoEmoji(popoEmojiList);
+
 
 let genCustomEmoji = (data: Array<EmojiInferface>) => {
   if (!(data && data.length)) return;
@@ -179,6 +226,8 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
   componentDidMount() {
     let emojiImg = new Image();
     emojiImg.src = '//ysf.qiyukf.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
+    let popoEmojiImg = new Image();
+    popoEmojiImg.src = '//res.qiyukf.net/popoEmoji/e7b66811d98f8dd26951829880bb14dc';
   }
 
   handleIVSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -505,25 +554,23 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-expressio`]: true
           });
-          let content = (
-            <div className="emoji-ctner">
-              <div className="emoji-con" onClick={handleInsertEmoji}>
-                {defaultEmojis}
-              </div>
-            </div>
-          );
-
-          if (customEmoji && customEmoji.length) {
-            let tabPanes = [
-              <TabPane tab={Locale.defaultEmoji} key="emoji_default">
-                <div className="emoji-ctner">
-                  <div className="emoji-con" onClick={handleInsertEmoji}>
-                    {defaultEmojis}
-                  </div>
+          let tabPanes = [
+            <TabPane tab={Locale.defaultEmoji} key="emoji_default">
+              <div className="emoji-ctner">
+                <div className="emoji-con" onClick={handleInsertEmoji}>
+                  {popoEmojis}
                 </div>
-              </TabPane>
-            ];
-
+              </div>
+            </TabPane>,
+            <TabPane tab={Locale.emojiEmoji} key="emoji_default_1">
+              <div className="emoji-ctner">
+                <div className="emoji-con" onClick={handleInsertEmoji}>
+                  {defaultEmojis}
+                </div>
+              </div>
+            </TabPane>
+          ];
+          if (customEmoji && customEmoji.length) {
             customEmoji.forEach((item, index) => {
               tabPanes.push(
                 <TabPane tab={item.name} key={'custom_emoji_' + index}>
@@ -535,13 +582,12 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                 </TabPane>
               );
             });
-
-            content = (
-              <Tabs defaultActiveKey="emoji_default">
-                {tabPanes}
-              </Tabs>
-            );
           }
+          let content = (
+            <Tabs defaultActiveKey="emoji_default">
+              {tabPanes}
+            </Tabs>
+          );
 
           value = (
             <Popover
@@ -772,7 +818,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'fullscreen': {
-          const {fullScreen} = this.props
+          const {fullScreen} = this.props;
           const fullScreenCls = classNames('action ql-fullscreen', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-video-shrink`]: fullScreen,
@@ -802,14 +848,14 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         //   break;
         // }
         case 'undo' :{
-          value = <button type="button" className={`action ql-undo ${iconPrefix} ${iconPrefix}-richeditor-undo`}
-                          value={'undo'} key={key}/>;
+          value = (<button type="button" className={`action ql-undo ${iconPrefix} ${iconPrefix}-richeditor-undo`}
+                          value={'undo'} key={key}/>);
           tooltip = Locale.undo;
           break;
         }
         case 'redo': {
-          value = <button type="button" className={`action ql-redo ${iconPrefix} ${iconPrefix}-richeditor-redo`}
-                          value={'redo'} key={key}/>;
+          value = (<button type="button" className={`action ql-redo ${iconPrefix} ${iconPrefix}-richeditor-redo`}
+                          value={'redo'} key={key}/>);
           tooltip = Locale.redo;
           break;
         }

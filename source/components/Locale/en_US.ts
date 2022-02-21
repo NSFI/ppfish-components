@@ -178,6 +178,7 @@ const LocaleValue: LocaleProperties = {
     fontSize: 'Font size',
     insertEmoji: 'Insert emoji',
     defaultEmoji: 'Default emoji',
+    emojiEmoji: 'emoji',
     orderedList: 'Ordered list',
     unOrderedList: 'Unordered list',
     alignJustified: 'Full-justified',

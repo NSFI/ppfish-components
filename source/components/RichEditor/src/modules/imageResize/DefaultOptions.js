@@ -8,7 +8,7 @@ export default {
     image: {
       attribute: ['width', 'height'],
       limit: {
-        minWidth: 1
+        minWidth: 10
       }
     },
     'embed-placeholder': {
@@ -35,8 +35,8 @@ export default {
     },
     handle: {
       position: 'absolute',
-      height: '12px',
-      width: '12px',
+      height: '10px',
+      width: '10px',
       backgroundColor: 'white',
       border: '1px solid #777',
       boxSizing: 'border-box',

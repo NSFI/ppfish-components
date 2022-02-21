@@ -97,6 +97,7 @@ const localeValues: LocaleProperties = {
     fontSize: '文字大小',
     insertEmoji: '插入表情',
     defaultEmoji: '默认表情',
+    emojiEmoji: 'emoji表情',
     orderedList: '有序列表',
     unOrderedList: '无序列表',
     alignJustified: '两端对齐',
