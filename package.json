@@ -35,7 +35,6 @@
     "node": ">=6.11.5"
   },
   "main": "node/components/index.js",
-  "browser": "lib/components/index.js",
   "module": "es/components/index.js",
   "jsnext:main": "es/components/index.js",
   "dependencies": {

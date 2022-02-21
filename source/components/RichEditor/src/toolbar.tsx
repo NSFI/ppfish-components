@@ -106,12 +106,12 @@ let genEmoji = (data: Array<EmojiInferface>) => {
 };
 let genPoPoEmoji = (data: Array<EmojiInferface>) => {
   let colSize = 10,
-    resPath = '//res.qiyukf.net/popoEmoji/',
     tmpObj: { ['grpIndex']?: Array<any> } = {},
     result = [];
 
   data.forEach((item: EmojiInferface, index: number) => {
-    let grpIndex = parseInt((item.id / colSize).toString(), 10);
+    // 这里从 1 开始
+    let grpIndex = parseInt(((item.id-1) / colSize).toString(), 10);
 
     if (typeof tmpObj[grpIndex] == 'undefined') {
       tmpObj[grpIndex] = [];
@@ -125,7 +125,7 @@ let genPoPoEmoji = (data: Array<EmojiInferface>) => {
             JSON.stringify({
               type: "defaultEmoji",
               alt: item.title,
-              src: resPath + item.url,
+              src: item.url,
               width: EMOJI_DEFAULT_WIDTH,
               height: EMOJI_DEFAULT_HEIGHT,
               id: "emoticon_" + item.className.replace('-', '_')
@@ -227,7 +227,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     let emojiImg = new Image();
     emojiImg.src = '//ysf.qiyukf.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
     let popoEmojiImg = new Image();
-    popoEmojiImg.src = '//res.qiyukf.net/popoEmoji/e7b66811d98f8dd26951829880bb14dc';
+    popoEmojiImg.src = '//res.qiyukf.net/popoEmoji/3d9748e5febbc2116ce8e5e9d1096077';
   }
 
   handleIVSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
