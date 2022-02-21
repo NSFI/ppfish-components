@@ -196,6 +196,10 @@ const LocaleValue: LocaleProperties = {
     edit: 'Edit',
     deleteText: 'Delete',
     lineHeight: 'lineHeight',
+    fullScreen: 'fullScreen',
+    exitFullScreen: 'exitFullScreen',
+    undo: 'undo',
+    redo: 'redo',
   },
   VideoViewer: {
     fullScreen: 'FullScreen',

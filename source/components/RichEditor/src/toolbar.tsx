@@ -772,43 +772,45 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'fullscreen': {
+          const {fullScreen} = this.props
           const fullScreenCls = classNames('action ql-fullscreen', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-video-shrink`]: this.props.fullScreen,
-            [`${iconPrefix}-video-fullscreen`]: !this.props.fullScreen,
+            [`${iconPrefix}-video-shrink`]: fullScreen,
+            [`${iconPrefix}-video-fullscreen`]: !fullScreen,
           });
           value = <button type="button" className={fullScreenCls} value={mValue} key={'fullScreen'} />;
-          tooltip = '全屏';
+          tooltip = fullScreen ? Locale.exitFullScreen : Locale.fullScreen;
           break;
         }
-        case 'header': {
-          // [{ header: [ 1,2, 3, 4 ,5, 6, false] }]
-          if (typeof mValue === 'string' || typeof mValue === 'number') {
-            value = <button type="button" className="ql-header" value={mValue} key={key}/>;
-          } else if (mValue instanceof Array && mValue.length){
-            value = (
-              <div className="item toolbar-header-item" key={key} >
-                <select className="ql-header" defaultValue="false">
-                  {
-                    mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
-                  }
-                </select>
-              </div>
-            );
-          }
-          tooltip = '标题';
-          break;
-        }
+        // case 'header': {
+        //  // 使用原生quill的样式, 弹窗可能会有些不一样, 先不开放此功能, 还有一点是多语言比较麻烦
+        //   // [{ header: [ 1,2, 3, 4 ,5, 6, false] }]
+        //   if (typeof mValue === 'string' || typeof mValue === 'number') {
+        //     value = <button type="button" className="ql-header" value={mValue} key={key}/>;
+        //   } else if (mValue instanceof Array && mValue.length){
+        //     value = (
+        //       <div className="item toolbar-header-item" key={key} >
+        //         <select className="ql-header" defaultValue="false">
+        //           {
+        //             mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
+        //           }
+        //         </select>
+        //       </div>
+        //     );
+        //   }
+        //   tooltip = '标题';
+        //   break;
+        // }
         case 'undo' :{
           value = <button type="button" className={`action ql-undo ${iconPrefix} ${iconPrefix}-richeditor-undo`}
                           value={'undo'} key={key}/>;
-          tooltip = '撤销';
+          tooltip = Locale.undo;
           break;
         }
         case 'redo': {
           value = <button type="button" className={`action ql-redo ${iconPrefix} ${iconPrefix}-richeditor-redo`}
                           value={'redo'} key={key}/>;
-          tooltip = '恢复';
+          tooltip = Locale.redo;
           break;
         }
         case 'lineHeight': {

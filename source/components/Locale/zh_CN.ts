@@ -115,6 +115,10 @@ const localeValues: LocaleProperties = {
     edit: '编辑',
     deleteText: '删除',
     lineHeight: '行距',
+    fullScreen: '全屏',
+    exitFullScreen: '退出全屏',
+    undo: '撤销',
+    redo: '恢复',
   },
   Spin: {
     loading: '加载中'
