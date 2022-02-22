@@ -1388,7 +1388,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           (Locale: LocaleProperties['RichEditor']) => {
             this.Locale = Locale;
             return (
-              <div className={cls} id={'hash'} style={style} ref={el => (this.editorCtner = el)}>
+              <div className={cls} style={style} ref={el => (this.editorCtner = el)}>
                 <Modal
                   title={linkModalTitle || this.Locale.linkModalTitle}
                   className={`${prefixCls}-link-modal`}

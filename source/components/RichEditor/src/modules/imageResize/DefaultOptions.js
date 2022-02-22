@@ -72,7 +72,8 @@ export default {
       height: '20px',
       background: 'white',
       border: '1px solid #999',
-      verticalAlign: 'middle'
+      verticalAlign: 'middle',
+      lineHeight: '20px'
     },
     toolbarButtonSvg: {}
   }
