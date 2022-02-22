@@ -550,7 +550,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     img.crossOrigin = 'anonymous';
     img.onload = () => {
       let promise = getBlobImage(img);
-      promise.then(blob => {
+      promise.then((blob: Blob) => {
         let dLink = document.createElement('a');
         dLink.download = this.imgEl.alt || '';
         this.downloadImgUrl = window.URL.createObjectURL(blob);
