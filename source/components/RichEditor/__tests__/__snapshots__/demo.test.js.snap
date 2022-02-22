@@ -4,7 +4,6 @@ exports[`Renders richEditor demo correctly 1`] = `
 <div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -179,7 +178,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -354,7 +352,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -529,7 +526,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -704,7 +700,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -897,7 +892,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -1083,7 +1077,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -1269,7 +1262,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -1444,7 +1436,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -1619,7 +1610,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -1806,7 +1796,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -1999,7 +1988,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -2181,7 +2169,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor resizable"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -2356,7 +2343,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -2531,7 +2517,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -2716,7 +2701,6 @@ exports[`Renders richEditor demo correctly 1`] = `
     </button>
     <div
       class="fishd-richeditor"
-      id="hash"
     >
       <div
         class="editor-head"
@@ -2892,7 +2876,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -3067,7 +3050,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
@@ -3211,7 +3193,6 @@ exports[`Renders richEditor demo correctly 1`] = `
   </div>
   <div
     class="fishd-richeditor"
-    id="hash"
   >
     <div
       class="editor-head"
