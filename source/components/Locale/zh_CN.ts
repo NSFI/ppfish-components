@@ -120,6 +120,7 @@ const localeValues: LocaleProperties = {
     exitFullScreen: '退出全屏',
     undo: '撤销',
     redo: '恢复',
+    defaultLineHeight: '默认',
   },
   Spin: {
     loading: '加载中'

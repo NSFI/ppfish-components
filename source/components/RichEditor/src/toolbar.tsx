@@ -881,7 +881,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                       key={"line-height_" + index}
                       value={height}
                     >
-                      {height}
+                      {height=='1.42'  ? Locale.defaultLineHeight : height}
                     </button>
                   );
                 })

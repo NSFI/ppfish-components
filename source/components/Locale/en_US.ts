@@ -201,7 +201,8 @@ const LocaleValue: LocaleProperties = {
     exitFullScreen: 'exitFullScreen',
     undo: 'undo',
     redo: 'redo',
-  },
+    defaultLineHeight: 'default',
+   },
   VideoViewer: {
     fullScreen: 'FullScreen',
     cancelFullScreen: 'CancelFullScreen',
