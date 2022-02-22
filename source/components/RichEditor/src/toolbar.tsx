@@ -227,7 +227,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     let emojiImg = new Image();
     emojiImg.src = '//ysf.qiyukf.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
     let popoEmojiImg = new Image();
-    popoEmojiImg.src = '//res.qiyukf.net/popoEmoji/3d9748e5febbc2116ce8e5e9d1096077';
+    popoEmojiImg.src = '//res.qiyukf.net/popoEmoji/1db9cdcfa8d23a0d22e0dc49b3fa7670';
   }
 
   handleIVSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
