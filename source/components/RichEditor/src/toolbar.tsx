@@ -907,7 +907,16 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               getPopupContainer={getPopupContainer}
               onVisibleChange={this.handleLineHeightPopoverVisibleChange}
             >
-               <div className={lineHeightCls}/>
+              <Tooltip
+                trigger="hover"
+                placement={tooltipPlacement}
+                title={Locale.fontSize}
+                mouseEnterDelay={0.3}
+              >
+                <div className="item">
+                  <div className={lineHeightCls}/>
+                </div>
+              </Tooltip>
             </Popover>
           );
 
@@ -925,7 +934,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
       }
     }
 
-    let mTypesHasPopover = ['background', 'color', 'emoji', 'size' ,'header'];
+    let mTypesHasPopover = ['background', 'color', 'emoji', 'size' ,'header' , 'lineHeight'];
     if (value && (mTypesHasPopover.indexOf(mType) < 0) && !(mType in customInsertValue)) {
       value = (
         <Tooltip
