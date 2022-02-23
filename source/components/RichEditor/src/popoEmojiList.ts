@@ -820,29 +820,29 @@ let popoEmojiList: Array<EmojiInferface> = [
     title: '[秀一下]'
   }
   ,
-  // {
-  //   id: 104,
-  //   className: 'popoEmoji-104',
-  //   imgName: 'popoEmoji_104',
-  //   url: 'https://res.qiyukf.net/popoEmoji/133b30466462566bae9a5af1302625ae',
-  //   title: '[done]'
-  // }
-  // ,
-  // {
-  //   id: 105,
-  //   className: 'popoEmoji-105',
-  //   imgName: 'popoEmoji_105',
-  //   url: 'https://res.qiyukf.net/popoEmoji/133b30466462566bae9a5af1302625ae',
-  //   title: '[1]'
-  // }
-  // ,
-  // {
-  //   id: 106,
-  //   className: 'popoEmoji-106',
-  //   imgName: 'popoEmoji_106',
-  //   url: 'https://res.qiyukf.net/popoEmoji/133b30466462566bae9a5af1302625ae',
-  //   title: '[+1]'
-  // }
+  {
+    id: 104,
+    className: 'popoEmoji-104',
+    imgName: 'popoEmoji_104',
+    url: 'https://res.qiyukf.net/popoEmoji/fb8db743beaa4dd8e8e12ecfd436e1de',
+    title: '[done]'
+  }
+  ,
+  {
+    id: 105,
+    className: 'popoEmoji-105',
+    imgName: 'popoEmoji_105',
+    url: 'https://res.qiyukf.net/popoEmoji/1e6ce702f4c60dd28dfa4c9ae137917c',
+    title: '[1]'
+  }
+  ,
+  {
+    id: 106,
+    className: 'popoEmoji-106',
+    imgName: 'popoEmoji_106',
+    url: 'https://res.qiyukf.net/popoEmoji/da85978b8790f5236a3b9fed36116652',
+    title: '[+1]'
+  }
 ];
 
 export default popoEmojiList;
