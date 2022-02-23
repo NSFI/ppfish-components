@@ -323,18 +323,29 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
         let quill = this.getEditor(),
           range = quill.getSelection();
-
         if (range == null) return;
-        if (range.length == 0) {
-          let formats = quill.getFormat();
-          Object.keys(formats).forEach(name => {
-            // Clean functionality in existing apps only clean inline formats
-            if (Parchment.query(name, Parchment.Scope.INLINE) != null) {
-              quill.format(name, false);
-            }
+        // 只在有选中的时候 clean, 原方案removeFormat 会清除图片,自定义格式, 或者清除失败的情况
+        if (range.length !== 0) {
+          let formatArr = ['strike','bold','link','color','background','underline','font','size','direction'];
+          const {index, length} = range;
+          quill.format( 'blockquote', false);
+          // quill.format( 'code-block', false); // 全选时可能会失败
+          quill.format( 'indent', false);
+          quill.format( 'script', false);
+          quill.format( 'align', false);
+          quill.format( 'list', false);
+          formatArr.forEach(type => {
+            quill.formatText(index, length, type, false);
           });
-        } else {
-          quill.removeFormat(range, Quill.sources.USER);
+          // 兼容 code-block 全选格式化失败的问题
+          const deltas = quill.getContents().map(delta => {
+            const attributes = delta.attributes;
+            if (attributes && attributes['code-block']) {
+              delete attributes['code-block'];
+            }
+            return delta;
+          });
+          quill.setContents(deltas);
         }
       },
       undo: () => {
@@ -824,7 +835,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
             }
           }
         ];
-
       // 在开头插入时不能使用retain
       if (range.index > 0) {
         contentsDelta.unshift({ retain: range.index });
