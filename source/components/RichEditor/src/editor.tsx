@@ -329,7 +329,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           let formatArr = ['strike','bold','link','color','background','underline','font','size','direction'];
           const {index, length} = range;
           quill.format( 'blockquote', false);
-          // quill.format( 'code-block', false); // 全选时可能会失败
+          quill.format( 'code-block', false); // 全选时,或者选中再加一个空白行 可能会失败
           quill.format( 'indent', false);
           quill.format( 'script', false);
           quill.format( 'align', false);
@@ -337,15 +337,19 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           formatArr.forEach(type => {
             quill.formatText(index, length, type, false);
           });
-          // 兼容 code-block 全选格式化失败的问题
-          const deltas = quill.getContents().map(delta => {
+
+          // 兼容 code-block 全选, 半全选 格式化失败的问题
+          let start = index;
+          quill.getContents(index, length).forEach((delta, line, all) => {
+            let lineLength = (delta.insert && delta.insert.length) || 0;
+
             const attributes = delta.attributes;
             if (attributes && attributes['code-block']) {
-              delete attributes['code-block'];
+              quill.removeFormat(start,  lineLength);
             }
-            return delta;
+
+            start += lineLength;
           });
-          quill.setContents(deltas);
         }
       },
       undo: () => {
