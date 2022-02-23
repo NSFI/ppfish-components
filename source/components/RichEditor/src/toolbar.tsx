@@ -257,8 +257,13 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
       customInsertValue,
       popoverPlacement,
       tooltipPlacement,
-      getPopupContainer
+      getPopupContainer,
+      fullScreen
     } = this.props;
+
+    // 兼容全屏时向上显示看不见的问题
+    popoverPlacement = fullScreen ? 'bottom' : popoverPlacement
+
     let mValue: any = null, value: JSX.Element | null = null, tooltip: string | null = null;
 
     const { Locale } = this;
@@ -818,7 +823,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'fullscreen': {
-          const {fullScreen} = this.props;
           const fullScreenCls = classNames('action ql-fullscreen', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-video-shrink`]: fullScreen,
@@ -865,7 +869,9 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-line-height`]: true
           });
 
-          this.defaultLineHeight =  (mValue || this.defaultLineHeight);
+          if(Array.isArray(mValue)) {
+            this.defaultLineHeight = mValue || this.defaultLineHeight
+          }
 
           let content = (
             <div className="line-height-con" key="line-height_content" onClick={this.handleLineHeightItemClick}>
