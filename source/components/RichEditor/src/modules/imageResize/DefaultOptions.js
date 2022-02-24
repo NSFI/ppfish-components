@@ -8,7 +8,8 @@ export default {
     image: {
       attribute: ['width', 'height'],
       limit: {
-        minWidth: 10
+        minWidth: 10,
+        ratio: true // 默认按照原图片比例 缩放
       }
     },
     'embed-placeholder': {

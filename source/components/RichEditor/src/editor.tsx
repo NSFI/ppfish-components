@@ -121,6 +121,17 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     ],
     getPopupContainer: () => document.body
   };
+  private imageSizeParams: any = {
+      parchment: {
+        image: {
+          attribute: ['width', 'height'],
+          limit: {
+            ratio: true,
+            minWidth: 50
+          }
+        }
+      },
+    }
 
   static getDerivedStateFromProps(nextProps: RichEditorProps, prevState: any) {
     let newState = {};
@@ -155,7 +166,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     if (pastePlainText) {
       Quill.register("modules/clipboard", PlainClipboard, true);
     }
-
     // this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
     let formatValue = value;
@@ -523,6 +533,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     this.onBlurHandler && this.onBlurHandler.remove();
     this.onClickActionHandler && this.onClickActionHandler.remove();
     this.onClickRemoveHandler && this.onClickRemoveHandler.remove();
+  }
+
+  calculateEditorImageSize = () => {
+    if(this.props.imageResize){
+      const maxWidth = this.reactQuillRef?.editingArea?.clientWidth;
+      if(maxWidth){
+        this.imageSizeParams.parchment.image.limit.maxWidth = maxWidth;
+        return this.imageSizeParams;
+      }else{
+        return this.imageSizeParams;
+      }
+    }
   }
 
   formatFontTag = value => {
@@ -1388,7 +1410,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     }
 
     if(imageResize){
-      moduleOpts["resize"] = {};
+      moduleOpts["resize"] = this.calculateEditorImageSize();
     }
 
     if (pastePlainText) {

@@ -71,6 +71,11 @@ export default class Resize extends BaseModule {
     // store the natural size
     this.naturalSize = this.getNaturalSize()
     // set the proper cursor everywhere
+
+
+    let { width, height } = this.naturalSize
+    this.localRatio = height/width
+
     this.setCursor(this.dragBox.style.cursor)
 
     this.handleDragProxy = evt => this.handleDrag(evt)
@@ -124,14 +129,18 @@ export default class Resize extends BaseModule {
 
   calcSize (size, limit = {}) {
     let { width, height } = size
-
     // keep ratio
     if (limit.ratio) {
       let limitHeight
+
+      if(limit.ratio !== true) {
+        this.localRatio = limit.ratio
+      }
+
       if (limit.minWidth) width = Math.max(limit.minWidth, width)
       if (limit.maxWidth) width = Math.min(limit.maxWidth, width)
 
-      height = width * limit.ratio
+      height = width * this.localRatio
 
       if (limit.minHeight && height < limit.minHeight) {
         limitHeight = true
@@ -143,7 +152,7 @@ export default class Resize extends BaseModule {
       }
 
       if (limitHeight) {
-        width = height / limit.ratio
+        width = height / this.localRatio
       }
     } else {
       if (size.width) {
@@ -174,6 +183,7 @@ export default class Resize extends BaseModule {
     } else {
       size = ele.getAttribute('data-size').split(',')
     }
+
     return {
       width: parseInt(size[0]),
       height: parseInt(size[1])

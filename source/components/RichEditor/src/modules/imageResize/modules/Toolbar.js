@@ -43,13 +43,13 @@ export default class Toolbar extends BaseModule {
         },
         isApplied: () => ImageFormatClass.value(this.activeEle) === 'right'
       },
-      {
-        icon:`<i class="fishdicon fishdicon-richeditor-align-all"></i>`,
-        apply: () => {
-          ImageFormatClass.add(this.activeEle, 'full');
-        },
-        isApplied: () => ImageFormatClass.value(this.activeEle) === 'full'
-      }
+      // {
+      //   icon:`<i class="fishdicon fishdicon-richeditor-align-all"></i>`,
+      //   apply: () => {
+      //     ImageFormatClass.add(this.activeEle, 'full');
+      //   },
+      //   isApplied: () => ImageFormatClass.value(this.activeEle) === 'full'
+      // }
     ];
   }
 

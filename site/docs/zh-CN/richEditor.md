@@ -667,7 +667,7 @@
     return (
       <RichEditor
         imageResize={true}
-        value={`<img src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" alt="image alt" title="image title" width="200" height="100" data-test="test">`}
+        value={`<img src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" alt="image alt" title="image title" width="200" height="87" data-test="test">`}
       />
     );
   }
