@@ -326,7 +326,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         if (range == null) return;
         // 只在有选中的时候 clean, 原方案removeFormat 会清除图片,自定义格式, 或者清除失败的情况
         if (range.length !== 0) {
-          let formatArr = ['strike','bold','link','color','background','underline','font','size','direction'];
+          let formatArr = ['strike','bold','link','color','background','underline','font','size','direction',
+            'customAttr'];
           const {index, length} = range;
           quill.format( 'blockquote', false);
           quill.format( 'code-block', false); // 全选时,或者选中再加一个空白行 可能会失败
