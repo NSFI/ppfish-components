@@ -910,7 +910,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               <Tooltip
                 trigger="hover"
                 placement={tooltipPlacement}
-                title={Locale.fontSize}
+                title={Locale.lineHeight}
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
@@ -920,7 +920,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             </Popover>
           );
 
-          tooltip = Locale.lineHeight;
           break;
         }
         // case 'font': {
