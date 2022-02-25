@@ -6,7 +6,7 @@ const webpackConfig = require('../webpack.config.dev.site');
 const reportURL = require('report-url');
 const path = require('path');
 
-const PORT = 1231;
+const PORT = 5000;
 const bundler = webpack(webpackConfig);
 reportURL({
   tip: '可用的内网网址',
