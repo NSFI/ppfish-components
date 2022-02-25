@@ -342,6 +342,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           quill.format( 'blockquote', false);
           quill.format( 'code-block', false); // 全选时,或者选中再加一个空白行 可能会失败
           quill.format( 'indent', false);
+          quill.format( 'italic', false);
           quill.format( 'script', false);
           quill.format( 'align', false);
           quill.format( 'list', false);
