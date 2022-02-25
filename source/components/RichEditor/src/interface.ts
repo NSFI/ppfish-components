@@ -82,6 +82,7 @@ export interface RichEditorProps {
   onKeyPress?: Function;
   onKeyDown?: Function;
   onKeyUp?: Function;
+  attachmentIconMap ?: Record<string, string>
 }
 
 export interface ModuleHtmlType {

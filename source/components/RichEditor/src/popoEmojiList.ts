@@ -422,8 +422,8 @@ let popoEmojiList: Array<EmojiInferface> = [
   ,
   {
     id: 54,
-    className: 'popoEmoji-053',
-    imgName: 'popoEmoji_053',
+    className: 'popoEmoji-054',
+    imgName: 'popoEmoji_054',
     url: 'https://res.qiyukf.net/popoEmoji/2e7be9e5fb1f06a5c3f42cb535ed80d9',
     title: '[撒娇]'
   }
@@ -745,7 +745,7 @@ let popoEmojiList: Array<EmojiInferface> = [
     className: 'popoEmoji-094',
     imgName: 'popoEmoji_094',
     url: 'https://res.qiyukf.net/popoEmoji/63d06cf71c49499c3403793fa2975f96',
-    title: '[哇]'
+    title: '[打脸]'
   }
   ,
   {
