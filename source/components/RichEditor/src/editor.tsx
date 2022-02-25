@@ -20,7 +20,7 @@ import PlainClipboard from "./modules/plainClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
-import lineHeight from "./formats/lineHeight";
+import attachBlot from "./formats/attach";
 
 import { RichEditorProps, RichEditorState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
@@ -29,9 +29,9 @@ import { LocaleProperties } from '../../Locale';
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
 Quill.register(ImageBlot);
-Quill.register(CustomSizeBlot);
 Quill.register(VideoBlot);
-Quill.register(lineHeight, true);
+Quill.register(attachBlot);
+Quill.register(CustomSizeBlot);
 Quill.register("modules/imageDrop", ImageDrop, true);
 Quill.register("modules/fileDrop", FileDrop, true);
 Quill.register("modules/resize", ImageResize, true);
@@ -1065,8 +1065,9 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
   handleFormatLineHeight = value => {
     let quill = this.getEditor();
-    quill &&
-      quill.format("lineHeight", value);
+    quill.format("customAttr", {
+      lineHeight: value
+    });
   };
 
   handleInsertValue = e => {
@@ -1240,8 +1241,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     if (!quill) return null;
     let formats = quill.getFormat();
 
-    if(formats && formats.lineHeight){
-      return formats.lineHeight;
+    if(formats && formats.customAttr && formats.customAttr.lineHeight){
+      return formats.customAttr.lineHeight;
     }
 
     return null;
