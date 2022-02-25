@@ -517,6 +517,9 @@
           [{'list': 'ordered'}, {'list': 'bullet'}],
           ['emoji'], ['image', 'attachment'], ['clean', 'formatPainter'], ['mylink']
         ]}
+        attachmentIconMap={{
+            video: '//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd'
+        }}
         customInsertAttachment={this.getFilesInfo}
         insertAttachmentTip="支持docx、xlsx、pdf、pptx等常见文件格式，单个文件大小不得超过10M。"
         loading={this.state.loading}
@@ -528,9 +531,9 @@
           }
         }}
         value={`
-        <p>附件测试：<br/>
-        <a data-ql-link-type="attachment" download="测试文件.jpg" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe">[文件] 测试文件.jpg</a>
-        </p>`}
+        <p>附件测试, 文件类型的图片需自定义：<br/></p>
+        <div contenteditable="false" title="普通文件.txt" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" style="display: inline-block; border: 1px solid rgb(221, 221, 221); padding: 4px; margin: 4px; user-select: text;"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" style="width: 25px; height: 25px; display: inline-block;"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" download="" style="margin-left: 4px; vertical-align: middle; text-decoration: none;">普通文件.txt</a></div>
+        `}
       />
     );
   }
@@ -831,6 +834,7 @@ __请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴�
 | tooltipPlacement | tooltip 弹出位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'bottom' |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | videoTagAttrs | 设置插入的视频标签的属性，可用于设置视频的width、height、poster及自定义属性等。 | Object | - |
+| attachmentIconMap | 插入的附件, 前面的图片样式, 如果不传递, 会自动使用默认图片 | Object | - |
 
 ## 方法
 

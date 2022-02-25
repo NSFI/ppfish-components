@@ -821,59 +821,40 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   };
 
   handlePickLocalFile = () => {
-    let { customInsertAttachment } = this.props,
+    let { customInsertAttachment , attachmentIconMap = {} } = this.props,
       quill = this.getEditor();
 
-    const handleInsertFile = file => {
+    const handleInsertFile = (file, rangeIndex) => {
       if (!file || !file.url || !file.name) {
         message.error(this.Locale.noFileInfoTip);
         return;
       }
+      let  nextChar = quill.getText(rangeIndex + 1, 1);
 
-      let range = this.state.curRange
-        ? this.state.curRange
-        : quill.getSelection(true);
-      if (!range) return;
-
-      // 继承列表的样式
-      let curFormat = quill.getFormat(range),
-        listFormat: { list?: any } = {};
-
-      if (curFormat && curFormat.list) {
-        listFormat.list = curFormat.list;
-      }
-
-      let displayFileName = (this.Locale.file) + file.name,
-        contentsDelta: any[] = [
-          {
-            insert: displayFileName,
-            attributes: {
-              ...listFormat,
-              link: {
-                type: "attachment",
-                url: file.url && file.url.trim(),
-                name: file.name
-              }
-            }
-          },
-          {
-            insert: "\n",
-            attributes: {
-              ...listFormat
-            }
-          }
-        ];
-      // 在开头插入时不能使用retain
-      if (range.index > 0) {
-        contentsDelta.unshift({ retain: range.index });
-      }
+      const attrs = {
+        url: file.url && file.url.trim(),
+        name: file.name,
+        iconUrl: attachmentIconMap[file.type] || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
+      };
 
       // 插入附件
-      quill.updateContents(contentsDelta, "silent");
-      quill.setSelection(range.index + displayFileName.length + 1, "silent");
+      // 在一行的中间插入
+      if (nextChar && nextChar != "\n") {
+        quill.insertText(rangeIndex, "\n"); // 插入前换行，避免丢失文字
+        quill.insertEmbed(rangeIndex + 1, "attach", attrs);
+        quill.setSelection(rangeIndex + 1, "silent");
+      } else {
+        // 在一行的末尾插入
+        quill.insertEmbed(rangeIndex + 1, "attach", attrs);
+        quill.insertText(rangeIndex + 2, "\n"); // 插入后换行，避免丢失光标
+        quill.setSelection(rangeIndex + 2, "silent");
+      }
     };
 
     const getFileCb = fileList => {
+      let range = this.state.curRange
+        ? this.state.curRange
+        : quill.getSelection(true);
       if (Array.isArray(fileList)) {
         fileList
           .sort((a, b) => {
@@ -881,15 +862,15 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
             let order = ["other", "image", "video"];
             return order.indexOf(b.type) - order.indexOf(a.type);
           })
-          .forEach(file => {
-            handleInsertFile(file);
+          .forEach((file, index) => {
+            handleInsertFile(file, range.index );
             this.setState({
               value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
               curRange: null
             });
           });
       } else {
-        handleInsertFile(fileList);
+        handleInsertFile(fileList, range.index);
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           curRange: null
