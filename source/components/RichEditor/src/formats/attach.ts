@@ -24,30 +24,25 @@ class Attach extends BlockEmbed {
     let node = super.create(data);
 
     const defaultImage = data.iconUrl
-
     const img = document.createElement("img");
     img.src = defaultImage;
-    img.style.cssText = "width: 25px;height: 25px; display: inline-Block;";
+    img.setAttribute('class', 'attach_icon');
     node.appendChild(img);
 
     const ALabel = document.createElement("a");
-    ALabel.style.cssText = `
-      margin-left: 4px;
-      vertical-align: middle;
-      text-decoration: none;
-      `;
 
     ALabel.innerText = data.name;
     ALabel.href = data.url;
     ALabel.target = "_blank";
+    ALabel.setAttribute('class', 'attach_text');
     ALabel.setAttribute('download', data.name || "");
     node.appendChild(ALabel);
 
-    node.style.cssText = `display:inline-block;border:1px solid #ddd;padding:4px;margin: 4px;user-select: text;`;
     node.setAttribute("contenteditable", "false");
     node.setAttribute("title", data.name);
     node.setAttribute('href', data.url);
     node.setAttribute('iconUrl', defaultImage);
+    node.setAttribute('class', 'attach_file');
 
     return node;
   }

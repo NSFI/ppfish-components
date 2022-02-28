@@ -834,7 +834,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       const attrs = {
         url: file.url && file.url.trim(),
         name: file.name,
-        iconUrl: attachmentIconMap[file.type] || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
+        iconUrl: attachmentIconMap[file.type] || attachmentIconMap['default']
+          || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
       };
 
       // 插入附件
