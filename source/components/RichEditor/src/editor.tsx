@@ -1047,7 +1047,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
   handleFormatLineHeight = value => {
     let quill = this.getEditor();
-    quill.format("customAttr", {
+    quill && quill.format("customAttr", {
       lineHeight: value
     });
   };
