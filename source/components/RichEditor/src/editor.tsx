@@ -731,6 +731,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     });
   };
 
+  // 图片选择回调
   handlePickLocalImage = () => {
     let { customInsertImage } = this.props,
       { toolbarCtner } = this.state,
@@ -1352,6 +1353,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       customDropFile,
       pastePlainText,
       imageResize,
+      attachmentIconMap,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -1384,7 +1386,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     if (fileDrop && customDropFile) {
       // customDropFile 自定义文件上传逻辑，必选
       moduleOpts["fileDrop"] = {
-        customDropFile
+        customDropFile,
+        attachmentIconMap
       };
     } else if (imageDrop) {
       // customDropImage 不存在时，将图片文件转为 dataUrl 格式
