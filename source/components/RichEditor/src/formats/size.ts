@@ -22,7 +22,9 @@ const setAttr = (node: setAttrType['node'], value: setAttrType['value']): HTMLEl
 
     if (value.fontSize != null) {
       node.style.fontSize = (value.fontSize as string);
-      node.style.backgroundColor = 'inherit'
+      if(!node.style.backgroundColor){
+        node.style.backgroundColor = 'inherit'
+      }
     }
 
     if(value.lineHeight !== null){

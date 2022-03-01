@@ -731,6 +731,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     });
   };
 
+  // 图片选择回调
   handlePickLocalImage = () => {
     let { customInsertImage } = this.props,
       { toolbarCtner } = this.state,
@@ -834,7 +835,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       const attrs = {
         url: file.url && file.url.trim(),
         name: file.name,
-        iconUrl: attachmentIconMap[file.type] || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
+        iconUrl: attachmentIconMap[file.type] || attachmentIconMap['default']
+          || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
       };
 
       // 插入附件
@@ -1046,7 +1048,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
   handleFormatLineHeight = value => {
     let quill = this.getEditor();
-    quill.format("customAttr", {
+    quill && quill.format("customAttr", {
       lineHeight: value
     });
   };
@@ -1351,6 +1353,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       customDropFile,
       pastePlainText,
       imageResize,
+      attachmentIconMap,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -1383,7 +1386,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     if (fileDrop && customDropFile) {
       // customDropFile 自定义文件上传逻辑，必选
       moduleOpts["fileDrop"] = {
-        customDropFile
+        customDropFile,
+        attachmentIconMap
       };
     } else if (imageDrop) {
       // customDropImage 不存在时，将图片文件转为 dataUrl 格式
