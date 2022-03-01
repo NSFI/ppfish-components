@@ -836,6 +836,7 @@ __请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴�
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | videoTagAttrs | 设置插入的视频标签的属性，可用于设置视频的width、height、poster及自定义属性等。 | Object | - |
 | attachmentIconMap | 插入的附件, 前面的图片样式, 如果不传递, 会自动使用默认图片, 如果类型是default, 则会将其当成默认图片 | Object | - |
+| historyConfig | 撤销, 恢复的配置 | Object | - |
 
 ## 方法
 

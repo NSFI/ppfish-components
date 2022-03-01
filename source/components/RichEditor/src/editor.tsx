@@ -121,6 +121,13 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     ],
     getPopupContainer: () => document.body
   };
+
+  historyConfig = {
+      delay: 0, // 设置为 0, 每一个字符都会被记录
+      maxStack: 100,
+      userOnly: false
+  }
+
   private imageSizeParams: any = {
       parchment: {
         image: {
@@ -1354,6 +1361,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       pastePlainText,
       imageResize,
       attachmentIconMap,
+      historyConfig,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
@@ -1379,7 +1387,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       toolbar: {
         container: toolbarCtner,
         handlers: this.handlers
-      }
+      },
+      history: historyConfig || this.historyConfig,
     };
 
     // fileDrop 为 true 时，使 imageDrop 失效
