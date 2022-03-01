@@ -533,7 +533,7 @@
         }}
         value={`
         <p>附件测试, 文件类型的图片需自定义：<br/></p>
-        <div contenteditable="false" title="未知文件" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_file"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_icon"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" class="attach_text" download="未知文件">未知文件</a></div>
+        <section contenteditable="false" title="未知文件" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_file"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_icon"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" class="attach_text" download="未知文件">未知文件</a></div>
         `}
       />
     );
