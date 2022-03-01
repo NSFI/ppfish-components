@@ -994,4 +994,9 @@
       text-decoration: none;
     }
   }
+
+  u, em, s, strong {
+    // 使用 inline-block 会和 u, em, s, strong和特性冲突
+    display: inline-flex;
+  }
 }

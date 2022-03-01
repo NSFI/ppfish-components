@@ -533,7 +533,7 @@
         }}
         value={`
         <p>附件测试, 文件类型的图片需自定义：<br/></p>
-        <div contenteditable="false" title="未知文件" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_file"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_icon"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" class="attach_text" download="未知文件">未知文件</a></div>
+        <section contenteditable="false" title="未知文件" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_file"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_icon"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" class="attach_text" download="未知文件">未知文件</a></div>
         `}
       />
     );
@@ -774,7 +774,7 @@
   constructor(props) {
     super(props);
     this.toolbar = [
-      ['link', 'bold', 'italic', 'underline'], ['undo' , 'redo'], ['lineHeight'], ['fullscreen'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image','attachment'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
+      ['link', 'bold', 'italic', 'underline', 'strike'], ['undo' , 'redo'], ['lineHeight'], ['fullscreen'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image','attachment'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
     ];
   }
 
@@ -836,6 +836,7 @@ __请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴�
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | videoTagAttrs | 设置插入的视频标签的属性，可用于设置视频的width、height、poster及自定义属性等。 | Object | - |
 | attachmentIconMap | 插入的附件, 前面的图片样式, 如果不传递, 会自动使用默认图片, 如果类型是default, 则会将其当成默认图片 | Object | - |
+| historyConfig | 撤销, 恢复的配置 | Object | - |
 
 ## 方法
 

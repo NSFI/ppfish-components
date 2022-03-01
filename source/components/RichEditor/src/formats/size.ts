@@ -29,7 +29,8 @@ const setAttr = (node: setAttrType['node'], value: setAttrType['value']): HTMLEl
 
     if(value.lineHeight !== null){
       node.style.lineHeight = value.lineHeight
-      node.style.display = 'inline-Block'
+      // node.style.display = 'inline-Block' // 不能继承 斜体下划线等
+      node.style.display = 'inline-flex' // 尝试使用
     }
   }
 
