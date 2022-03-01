@@ -3228,6 +3228,13 @@ exports[`Renders richEditor demo correctly 1`] = `
             class="action ql-underline fishdicon fishdicon-richeditor-underline"
           />
         </div>
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-strike"
+          />
+        </div>
       </div>
       <div
         class="toolbar-grp"
