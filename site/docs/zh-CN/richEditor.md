@@ -674,7 +674,7 @@
       <RichEditor
         imageResize={true}
         toolbar={this.toolbar}
-        value={`<img src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" alt="image alt" title="image title" width="200" height="87" data-test="test">`}
+        value={`<img height="87" width="200" class="upload-img" data-group="ysf" data-size="11317" data-url="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe">`}
       />
     );
   }
