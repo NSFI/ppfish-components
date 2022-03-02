@@ -667,10 +667,13 @@
 :::demo 图片的缩放
 
 ```js
+ toolbar = [['link', 'bold', 'italic', 'underline'],['fullscreen'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
+
   render() {
     return (
       <RichEditor
         imageResize={true}
+        toolbar={this.toolbar}
         value={`<img src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" alt="image alt" title="image title" width="200" height="87" data-test="test">`}
       />
     );

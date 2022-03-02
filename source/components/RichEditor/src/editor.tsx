@@ -543,17 +543,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     this.onClickRemoveHandler && this.onClickRemoveHandler.remove();
   }
 
-  calculateEditorImageSize = () => {
-    if(this.props.imageResize){
-      const maxWidth = this.reactQuillRef?.editingArea?.clientWidth;
-      if(maxWidth){
-        this.imageSizeParams.parchment.image.limit.maxWidth = maxWidth;
-        return this.imageSizeParams;
-      }else{
-        return this.imageSizeParams;
-      }
-    }
-  }
+  // calculateEditorImageSize = () => {
+  //  在 imageResize 改变的时候, reRender 传值的值还是之前的
+  //   if(this.props.imageResize){
+  //     const maxWidth = this.reactQuillRef?.editingArea?.clientWidth;
+  //     if(maxWidth){
+  //       this.imageSizeParams.parchment.image.limit.maxWidth = maxWidth;
+  //       return this.imageSizeParams;
+  //     }else{
+  //       return this.imageSizeParams;
+  //     }
+  //   }
+  // }
 
   formatFontTag = value => {
     if (!value) return value;
@@ -1406,7 +1407,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     }
 
     if(imageResize){
-      moduleOpts["resize"] = this.calculateEditorImageSize();
+      moduleOpts["resize"] = this.imageSizeParams;
     }
 
     if (pastePlainText) {

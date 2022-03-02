@@ -75,6 +75,7 @@ export default class Resize extends BaseModule {
 
     let { width, height } = this.naturalSize
     this.localRatio = height/width
+    this.editorMaxWidth = this. quill.container.clientWidth - 30
 
     this.setCursor(this.dragBox.style.cursor)
 
@@ -137,8 +138,11 @@ export default class Resize extends BaseModule {
         this.localRatio = limit.ratio
       }
 
+      // const maxWidth = Math.max(limit.maxWidth || 0, this.editorMaxWidth)
+
       if (limit.minWidth) width = Math.max(limit.minWidth, width)
       if (limit.maxWidth) width = Math.min(limit.maxWidth, width)
+      if (this.editorMaxWidth) width = Math.min(this.editorMaxWidth, width)
 
       height = width * this.localRatio
 
