@@ -2559,6 +2559,18 @@ exports[`Renders richEditor demo correctly 1`] = `
         <div
           class="item"
         >
+          <button
+            class="action ql-fullscreen fishdicon fishdicon-video-fullscreen"
+            type="button"
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
           <div
             class="action custom-size fishdicon fishdicon-richeditor-size"
           />
@@ -2580,37 +2592,6 @@ exports[`Renders richEditor demo correctly 1`] = `
               value=""
             />
           </div>
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-align fishdicon fishdicon-richeditor-align-lef"
-            type="button"
-            value=""
-          />
-        </div>
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-align fishdicon fishdicon-richeditor-align-mid"
-            type="button"
-            value="center"
-          />
-        </div>
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-align fishdicon fishdicon-richeditor-align-rig"
-            type="button"
-            value="right"
-          />
         </div>
       </div>
       <div
