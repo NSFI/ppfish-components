@@ -12,6 +12,7 @@ class Attach extends BlockEmbed {
   static blotName: string;
   static tagName: string;
   static formatCursor: boolean;
+  static className: string;
 
   statics: {
     blotName: string;
@@ -82,6 +83,7 @@ class Attach extends BlockEmbed {
 }
 
 Attach.blotName = "attach";
-Attach.tagName = "section"; // 使用 div 会与 复制版上面的文字冲突 note: 添加 Attach.className 可避免冲突
+Attach.tagName = "div";
+Attach.className = "attach_file";
 
 export {Attach as default};
