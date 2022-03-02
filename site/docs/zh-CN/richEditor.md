@@ -533,7 +533,7 @@
         }}
         value={`
         <p>附件测试, 文件类型的图片需自定义：<br/></p>
-        <section contenteditable="false" title="未知文件" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_file"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_icon"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" class="attach_text" download="未知文件">未知文件</a></div>
+        <div contenteditable="false" title="未知文件" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_file"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_icon"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" class="attach_text" download="未知文件">未知文件</a></div>
         `}
       />
     );
@@ -667,11 +667,14 @@
 :::demo 图片的缩放
 
 ```js
+ toolbar = [['link', 'bold', 'italic', 'underline'],['fullscreen'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
+
   render() {
     return (
       <RichEditor
         imageResize={true}
-        value={`<img src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" alt="image alt" title="image title" width="200" height="87" data-test="test">`}
+        toolbar={this.toolbar}
+        value={`<img height="87" width="200" class="upload-img" data-group="ysf" data-size="11317" data-url="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe">`}
       />
     );
   }

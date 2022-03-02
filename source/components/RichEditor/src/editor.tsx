@@ -363,8 +363,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
             let lineLength = (delta.insert && delta.insert.length) || 0;
 
             const attributes = delta.attributes;
-            if (attributes && attributes['code-block']) {
-              quill.removeFormat(start,  lineLength);
+            if (attributes) {
+              // 遗漏点: 如果先选择背景色和字体颜色, 在方法, 清除格式的时候, 只有这里判断
+              if (attributes['code-block'] || attributes['customAttr']) {
+                quill.removeFormat(start, lineLength);
+              }
             }
 
             start += lineLength;
@@ -543,17 +546,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     this.onClickRemoveHandler && this.onClickRemoveHandler.remove();
   }
 
-  calculateEditorImageSize = () => {
-    if(this.props.imageResize){
-      const maxWidth = this.reactQuillRef?.editingArea?.clientWidth;
-      if(maxWidth){
-        this.imageSizeParams.parchment.image.limit.maxWidth = maxWidth;
-        return this.imageSizeParams;
-      }else{
-        return this.imageSizeParams;
-      }
-    }
-  }
+  // calculateEditorImageSize = () => {
+  //  在 imageResize 改变的时候, reRender 传值的值还是之前的
+  //   if(this.props.imageResize){
+  //     const maxWidth = this.reactQuillRef?.editingArea?.clientWidth;
+  //     if(maxWidth){
+  //       this.imageSizeParams.parchment.image.limit.maxWidth = maxWidth;
+  //       return this.imageSizeParams;
+  //     }else{
+  //       return this.imageSizeParams;
+  //     }
+  //   }
+  // }
 
   formatFontTag = value => {
     if (!value) return value;
@@ -1406,7 +1410,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     }
 
     if(imageResize){
-      moduleOpts["resize"] = this.calculateEditorImageSize();
+      moduleOpts["resize"] = this.imageSizeParams;
     }
 
     if (pastePlainText) {
