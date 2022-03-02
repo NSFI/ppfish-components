@@ -82,6 +82,6 @@ class Attach extends BlockEmbed {
 }
 
 Attach.blotName = "attach";
-Attach.tagName = "section"; // 使用 div 会与 复制版上面的文字冲突
+Attach.tagName = "section"; // 使用 div 会与 复制版上面的文字冲突 note: 添加 Attach.className 可避免冲突
 
 export {Attach as default};
