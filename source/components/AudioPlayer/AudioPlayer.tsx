@@ -114,7 +114,7 @@ const InternalAudioPlayer: React.ForwardRefRenderFunction<unknown, AudioPlayerPr
     switch (type) {
       case 'allTime':
         setAllTime(audio.duration);
-        setDisabled(parseInt(String(audio.duration)) === 0);
+        setDisabled(isNaN(audio.duration) || !isFinite(audio.duration));
         props.onCanPlay();
         break;
       case 'play':
