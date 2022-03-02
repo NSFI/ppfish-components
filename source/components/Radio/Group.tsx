@@ -17,7 +17,7 @@ function getCheckedValue(children: React.ReactNode) {
   });
   return matched ? { value } : undefined;
 }
-const InternalRadioGroup: React.ForwardRefRenderFunction<unknown, RadioGroupProps> = (props, ref) => {
+const InternalRadioGroup: React.ForwardRefRenderFunction<HTMLDivElement, RadioGroupProps> = (props, ref) => {
   const {
     prefixCls,
     className = '',
@@ -135,6 +135,7 @@ const InternalRadioGroup: React.ForwardRefRenderFunction<unknown, RadioGroupProp
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         id={id}
+        ref={ref}
       >
         {childrenToRender}
       </div>
