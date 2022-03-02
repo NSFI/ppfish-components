@@ -363,8 +363,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
             let lineLength = (delta.insert && delta.insert.length) || 0;
 
             const attributes = delta.attributes;
-            if (attributes && attributes['code-block']) {
-              quill.removeFormat(start,  lineLength);
+            if (attributes) {
+              // 遗漏点: 如果先选择背景色和字体颜色, 在方法, 清除格式的时候, 只有这里判断
+              if (attributes['code-block'] || attributes['customAttr']) {
+                quill.removeFormat(start, lineLength);
+              }
             }
 
             start += lineLength;
