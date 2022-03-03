@@ -999,4 +999,11 @@
     // 使用 inline-block 会和 u, em, s, strong和特性冲突
     display: inline-flex;
   }
+
+  // 在全屏时如果有文字大小和背景色, 换行之后光标可能会消失(非全屏基本不会出现)
+  // 可能的原因是 光标没有宽度, 这里使用 padding 制造宽度, 然后用 margin 消除, 避免背景色的影响
+  .ql-cursor {
+    padding-left: 1px;
+    margin-left: -1px;
+  }
 }
