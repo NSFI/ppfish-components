@@ -12,10 +12,14 @@ export type RequiredMark = boolean | 'optional';
 export type FormLayout = 'horizontal' | 'inline' | 'vertical';
 
 /**
- * 没有添加 Size
+ * 没有添加 Size  需要有一个全局的 SizeContext, 所有组件都要配合
  * config context 中的全局配置未添加 getPrefixCls, direction, form 等情况
- * RequiredMark , rtl 暂不实现
+ * RequiredMark - optional, rtl 暂不实现
  * colon 特意删除
+ *
+ * antd 中 form 的表单标签可换行功能 需要 Col 组件的支持
+ *
+ * 缺少 Space 组件
  *
  */
 

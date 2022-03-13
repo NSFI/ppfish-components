@@ -136,18 +136,17 @@
         margin-inline-start: @margin-xss;
       }
 
-      //&::after {
-      //  & when (@form-item-trailing-colon=true) {
-      //    content: ':';
-      //  }
-      //  & when not (@form-item-trailing-colon=true) {
-      //    content: ' ';
-      //  }
-      //
-      //  position: relative;
-      //  top: -0.5px;
-      //  margin: 0 8px 0 2px;
-      //}
+      &::after {
+        & when (@form-item-trailing-colon=true) {
+          content: ' ';
+        }
+        & when not (@form-item-trailing-colon=true) {
+          content: ' ';
+        }
+        //position: relative;
+        //top: -0.5px;
+        //margin: 0 8px 0 2px;
+      }
 
       //&.@{form-item-prefix-cls}-no-colon::after {
       //  content: ' ';
@@ -163,7 +162,7 @@
     flex-direction: column;
     flex-grow: 1;
 
-    &:first-child:not([class^=~"'@{fishd-prefix}-col-'"]):not([class*=~"' @{fishd-prefix}-col-'"]) {
+    &:first-child:not([class^="'@{fishd-prefix}-col-'"]):not([class*="' @{fishd-prefix}-col-'"]) {
       width: 100%;
     }
   }
@@ -219,7 +218,9 @@
 // >>>>>>>>>> Motion <<<<<<<<<<
 // Explain holder
 .@{fishd-prefix}-formHook-show-help {
-  transition: height @animation-duration-slow linear, min-height @animation-duration-slow linear,
+  transition:
+ height @animation-duration-slow linear,
+ min-height @animation-duration-slow linear,
   margin-bottom @animation-duration-slow @ease-in-out,
   opacity @animation-duration-slow @ease-in-out;
 
@@ -235,8 +236,10 @@
 // Explain
 .@{fishd-prefix}-formHook-show-help-item {
   overflow: hidden;
-  transition: height @animation-duration-slow @ease-in-out,
-  opacity @animation-duration-slow @ease-in-out, transform @animation-duration-slow @ease-in-out !important;
+  transition:
+ height @animation-duration-slow @ease-in-out,
+  opacity @animation-duration-slow @ease-in-out,
+ transform @animation-duration-slow @ease-in-out !important;
 
   &-appear,
   &-enter {

@@ -116,7 +116,7 @@ const FormItemLabel: React.FC<FormItemLabelProps & { required?: boolean; prefixC
         const labelClassName = classNames({
           [`${prefixCls}-item-required`]: required,
           [`${prefixCls}-item-required-mark-optional`]: requiredMark === 'optional',
-          [`${prefixCls}-item-no-colon`]: !computedColon,
+          // [`${prefixCls}-item-no-colon`]: !computedColon,
         });
 
         return (
