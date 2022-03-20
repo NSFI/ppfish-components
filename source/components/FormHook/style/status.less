@@ -55,20 +55,16 @@
     > .@{fishd-prefix}-select .@{fishd-prefix}-select-clear,
     :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
     :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-clear,
-    :not(.@{fishd-prefix}-input-number-group-addon)
-      > .@{fishd-prefix}-select
+    :not(.@{fishd-prefix}-input-number-group-addon) > .@{fishd-prefix}-select
       .@{fishd-prefix}-select-arrow,
-    :not(.@{fishd-prefix}-input-number-group-addon)
-      > .@{fishd-prefix}-select
+    :not(.@{fishd-prefix}-input-number-group-addon) > .@{fishd-prefix}-select
       .@{fishd-prefix}-select-clear {
       right: 32px;
     }
     > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection-selected-value,
-    :not(.@{fishd-prefix}-input-group-addon)
-      > .@{fishd-prefix}-select
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select
       .@{fishd-prefix}-select-selection-selected-value,
-    :not(.@{fishd-prefix}-input-number-group-addon)
-      > .@{fishd-prefix}-select
+    :not(.@{fishd-prefix}-input-number-group-addon) > .@{fishd-prefix}-select
       .@{fishd-prefix}-select-selection-selected-value {
       padding-right: 42px;
     }
@@ -249,8 +245,7 @@
     // Cascader
     .@{fishd-prefix}-cascader-picker {
       &:hover
-        .@{fishd-prefix}-cascader-picker-label:hover
-        + .@{fishd-prefix}-cascader-input.@{fishd-prefix}-input {
+        .@{fishd-prefix}-cascader-picker-label:hover + .@{fishd-prefix}-cascader-input.@{fishd-prefix}-input {
         border-color: @error-color;
       }
 

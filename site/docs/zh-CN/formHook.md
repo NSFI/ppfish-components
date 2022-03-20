@@ -352,7 +352,7 @@ const Demo = () => {
   
   const onFill = () => {
     form.setFieldsValue({
-      url: 'https://taobao.com/',
+      url: 'https://www.163.com/',
     });
   }
 
@@ -390,6 +390,201 @@ ReactDOM.render(<Demo />, mountNode);
 ```less
 #non-blocking .fishd-btn {
   margin-right: 8px;
+}
+```
+:::
+
+
+## 动态增减表单项
+
+:::demo 动态增加、减少表单项。add 方法参数可用于设置初始值。
+
+```js
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 4 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 20 },
+  },
+};
+const formItemLayoutWithOutLabel = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 4 },
+  },
+};
+const DynamicFieldSet = () => {
+  const onFinish = values => {
+    console.log('Received values of form:', values);
+  };
+
+  return (
+    <FormHook name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinish}>
+      <FormHook.List
+        name="names"
+        rules={[
+          {
+            validator: async (_, names) => {
+              if (!names || names.length < 2) {
+                return Promise.reject(new Error('At least 2 passengers'));
+              }
+            },
+          },
+        ]}
+      >
+        {(fields, { add, remove }, { errors }) => (
+          <React.Fragment>
+            {fields.map((field, index) => (
+              <FormHook.Item
+                {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                label={index === 0 ? 'Passengers' : ''}
+                required={false}
+                key={field.key}
+              >
+                <FormHook.Item
+                  {...field}
+                  validateTrigger={['onChange', 'onBlur']}
+                  rules={[
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: "Please input passenger's name or delete this field.",
+                    },
+                  ]}
+                  noStyle
+                >
+                  <Input placeholder="passenger name" style={{ width: '60%' }} />
+                </FormHook.Item>
+                {fields.length > 1 ? (
+                    <Icon type="form-minus" className="dynamic-delete-button"
+                          onClick={() => remove(field.name)} />
+                ) : null}
+              </FormHook.Item>
+            ))}
+            <FormHook.Item>
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                style={{ width: '60%' }}
+              >
+                <Icon type="upload-plus" /> Add field
+              </Button>
+              <Button
+                type="dashed"
+                onClick={() => {
+                  add('The head item', 0);
+                }}
+                style={{ width: '60%', marginTop: '20px' }}
+              >
+                <Icon type="upload-plus" /> Add field at head
+              </Button>
+              <FormHook.ErrorList errors={errors} />
+            </FormHook.Item>
+          </React.Fragment>
+        )}
+      </FormHook.List>
+      <FormHook.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<DynamicFieldSet />, mountNode);
+```
+```less
+.dynamic-delete-button {
+  position: relative;
+  top: 4px;
+  margin: 0 8px;
+  color: #999;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.dynamic-delete-button:hover {
+  color: #777;
+}
+.dynamic-delete-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+```
+:::
+
+## 动态增减嵌套字段
+
+:::demo 嵌套表单字段需要对 field 进行拓展，将 field.name 应用于控制字段。
+
+```js
+
+const Demo = () => {
+  const onFinish = values => {
+    console.log('Received values of form:', values);
+  };
+
+  return (
+    <FormHook name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+      <FormHook.List name="users">
+        {(fields, { add, remove }) => (
+          <React.Fragment>
+            {fields.map(({ key, name, ...restField }) => (
+              <div className="form-item-space" key={key}>
+                <FormHook.Item
+                  {...restField}
+                  name={[name, 'first']}
+                  rules={[{ required: true, message: 'Missing first name' }]}
+                >
+                  <Input placeholder="First Name" />
+                </FormHook.Item>
+                <FormHook.Item
+                  {...restField}
+                  name={[name, 'last']}
+                  rules={[{ required: true, message: 'Missing last name' }]}
+                >
+                  <Input placeholder="Last Name" />
+                </FormHook.Item>
+                <Icon type="form-minus" onClick={() => remove(name)} />
+              </div>
+            ))}
+            <FormHook.Item>
+              <Button className="add-button" type="dashed" onClick={() => add()} >
+                <Icon type="upload-plus" />
+                Add field
+              </Button>
+            </FormHook.Item>
+          </React.Fragment>
+        )}
+      </FormHook.List>
+      <FormHook.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<Demo />, mountNode);
+```
+```less
+.form-item-space{
+  display: flex;
+  margin-bottom: 8px;
+  gap: 8px;
+  
+  >i {
+    padding-top: 8px;
+  }
+}
+
+.add-button{
+  width: 100%;
 }
 ```
 :::
