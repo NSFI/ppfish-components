@@ -589,6 +589,429 @@ ReactDOM.render(<Demo />, mountNode);
 ```
 :::
 
+## 复杂的动态增减表单项
+
+:::demo 这个例子演示了一个表单中包含多个表单控件的情况。
+
+```js
+
+const { Option } = Select;
+
+const areas = [
+  { label: 'Beijing', value: 'Beijing' },
+  { label: 'Shanghai', value: 'Shanghai' },
+];
+
+const sights = {
+  Beijing: ['Tiananmen', 'Great Wall'],
+  Shanghai: ['Oriental Pearl', 'The Bund'],
+};
+
+const Demo = () => {
+  const [form] = FormHook.useForm();
+
+  const onFinish = values => {
+    console.log('Received values of form:', values);
+  };
+
+  const handleChange = () => {
+    form.setFieldsValue({ sights: [] });
+  };
+
+  return (
+    <FormHook layout={"horizontal"} form={form} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+      <FormHook.Item name="area" label="Area" rules={[{ required: true, message: 'Missing area' }]}>
+        <Select options={areas} onChange={handleChange} />
+      </FormHook.Item>
+      <FormHook.List name="sights">
+        {(fields, { add, remove }) => (
+          <React.Fragment>
+            {fields.map(field => (
+              <div key={field.key} className="form-item-space">
+                <FormHook.Item
+                  noStyle
+                  shouldUpdate={(prevValues, curValues) =>
+                    prevValues.area !== curValues.area || prevValues.sights !== curValues.sights
+                  }
+                >
+                  {() => (
+                    <FormHook.Item
+                      {...field}
+                      label="Sight"
+                      name={[field.name, 'sight']}
+                      rules={[{ required: true, message: 'Missing sight' }]}
+                    >
+                      <Select disabled={!form.getFieldValue('area')} style={{ width: 130 }}>
+                        {(sights[form.getFieldValue('area')] || []).map(item => (
+                          <Option key={item} value={item}>
+                            {item}
+                          </Option>
+                        ))}
+                      </Select>
+                    </FormHook.Item>
+                  )}
+                </FormHook.Item>
+                <FormHook.Item
+                  {...field}
+                  label="Price"
+                  name={[field.name, 'price']}
+                  rules={[{ required: true, message: 'Missing price' }]}
+                >
+                  <Input />
+                </FormHook.Item>
+                <Icon type="form-minus" onClick={() => remove(field.name)} />
+              </div>
+            ))}
+
+            <FormHook.Item>
+              <Button type="dashed" onClick={() => add()}  className='add-button'>
+                <Icon type="upload-plus" />
+                Add sights
+              </Button>
+            </FormHook.Item>
+          </React.Fragment>
+        )}
+      </FormHook.List>
+      <FormHook.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<Demo />, mountNode);
+```
+```less
+.form-item-space{
+  display: flex;
+  margin-bottom: 8px;
+  gap: 8px;
+  align-items: center;
+  
+  >i {
+    padding-top: 8px;
+  }
+}
+
+.add-button{
+  width: 100%;
+}
+```
+:::
+
+## 嵌套结构与校验信息
+
+:::demo name 属性支持嵌套数据结构。通过 validateMessages 或 message 自定义校验信息模板，模板内容可参考此处。
+
+```js
+
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    email: '${label} is not a valid email!',
+    number: '${label} is not a valid number!',
+  },
+  number: {
+    range: '${label} must be between ${min} and ${max}',
+  },
+};
+const Demo = () => {
+  const onFinish = (values) => {
+    console.log(values);
+  };
+
+  return (
+    <FormHook {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+      <FormHook.Item
+        name={['user', 'name']}
+        label="Name"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input />
+      </FormHook.Item>
+      <FormHook.Item
+        name={['user', 'email']}
+        label="Email"
+        rules={[
+          {
+            type: 'email',
+          },
+        ]}
+      >
+        <Input />
+      </FormHook.Item>
+      <FormHook.Item
+        name={['user', 'age']}
+        label="Age"
+        rules={[
+          {
+            type: 'number',
+            min: 0,
+            max: 99,
+          },
+        ]}
+      >
+        <InputNumber />
+      </FormHook.Item>
+      <FormHook.Item name={['user', 'website']} label="Website">
+        <Input />
+      </FormHook.Item>
+      <FormHook.Item name={['user', 'introduction']} label="Introduction">
+        <Input.TextArea />
+      </FormHook.Item>
+      <FormHook.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<Demo />, mountNode);
+```
+:::
+
+## 复杂一点的控件
+`style` 进行内联布局，或者添加 `noStyle` 作为纯粹的无样式绑定组件（类似 3.x 中的 `getFieldDecorator`）。
+
+```
+- <Form.Item label="Field" name="field">
+-   <Input />
+- </Form.Item>
++ <Form.Item label="Field">
++   <Form.Item name="field" noStyle><Input /></Form.Item> // 直接包裹才会绑定表单
++   <span>description</span>
++ </Form.Item>
+```
+
+这里展示了三种典型场景：
+
+*   `Username`：输入框后面有描述文案或其他组件，在 `Form.Item` 内使用 `<Form.Item name="field" noStyle />` 去绑定对应子控件。
+
+*   `Address`：有两个控件，在 `Form.Item` 内使用两个 `<Form.Item name="field" noStyle />` 分别绑定对应控件。
+
+*   `BirthDate`：有两个内联控件，错误信息展示各自控件下，使用两个 `<Form.Item name="field" />` 分别绑定对应控件，并修改 `style` 使其内联布局。
+
+> 注意，在 label 对应的 Form.Item 上不要在指定 `name` 属性，这个 Item 只作为布局作用。
+
+更复杂的封装复用方式可以参考下面的 `自定义表单控件` 演示。
+:::demo 
+
+```js
+
+const { Option } = Select;
+
+
+const Demo = () => {
+  const onFinish = (values) => {
+    console.log(values);
+  };
+
+  return (
+    <FormHook name="complex-form" onFinish={onFinish} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
+      <FormHook.Item label="Username">
+          <FormHook.Item
+            name="username"
+            noStyle
+            rules={[{ required: true, message: 'Username is required' }]}
+          >
+            <Input style={{ width: 160 }} placeholder="Please input" />
+          </FormHook.Item>
+          <Tooltip title="Useful information">
+            <span style={{marginLeft:8,color: '#1890ff'}}>Need Help?</span>
+          </Tooltip>
+      </FormHook.Item>
+      <FormHook.Item label="Address">
+        <Input.Group compact>
+          <FormHook.Item
+            name={['address', 'province']}
+            noStyle
+            rules={[{ required: true, message: 'Province is required' }]}
+          >
+            <Select style={{width: 160}} placeholder="Select province">
+              <Option value="Zhejiang">Zhejiang</Option>
+              <Option value="Jiangsu">Jiangsu</Option>
+            </Select>
+          </FormHook.Item>
+          <FormHook.Item
+            name={['address', 'street']}
+            noStyle
+            rules={[{ required: true, message: 'Street is required' }]}
+          >
+            <Input style={{ width: '50%' }} placeholder="Input street" />
+          </FormHook.Item>
+        </Input.Group>
+      </FormHook.Item>
+      <FormHook.Item label="BirthDate" style={{ marginBottom: 0 }}>
+        <FormHook.Item
+          name="year"
+          rules={[{ required: true }]}
+          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+        >
+          <Input placeholder="Input birth year" />
+        </FormHook.Item>
+        <FormHook.Item
+          name="month"
+          rules={[{ required: true }]}
+          style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
+        >
+          <Input placeholder="Input birth month" />
+        </FormHook.Item>
+      </FormHook.Item>
+      <FormHook.Item label=" " colon={false}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<Demo />, mountNode);
+```
+:::
+
+## 自定义表单控件
+自定义或第三方的表单控件，也可以与 Form 组件一起使用。只要该组件遵循以下的约定：
+
+> *   提供受控属性 `value` 或其它与 [`valuePropName`](https://ant.design/components/form-cn/#Form.Item) 的值同名的属性。
+>
+> *   提供 `onChange` 事件或 [`trigger`](https://ant.design/components/form-cn/#Form.Item) 的值同名的事件。
+
+
+:::demo 
+
+```js
+const { Option } = Select;
+const { useState } = React
+const PriceInput = ({ value = {}, onChange }) => {
+  const [number, setNumber] = useState(0);
+  const [currency, setCurrency] = useState('rmb');
+
+  const triggerChange = (changedValue) => {
+    onChange && onChange({
+      number,
+      currency,
+      ...value,
+      ...changedValue,
+    });
+  };
+
+  const onNumberChange = (e) => {
+    const newNumber = parseInt(e.target.value || '0', 10);
+
+    if (Number.isNaN(number)) {
+      return;
+    }
+
+    if (!('number' in value)) {
+      setNumber(newNumber);
+    }
+
+    triggerChange({
+      number: newNumber,
+    });
+  };
+
+  const onCurrencyChange = (newCurrency) => {
+    if (!('currency' in value)) {
+      setCurrency(newCurrency);
+    }
+
+    triggerChange({
+      currency: newCurrency,
+    });
+  };
+
+  return (
+    <span>
+      <Input
+        type="text"
+        value={value.number || number}
+        onChange={onNumberChange}
+        style={{
+          width: 100,
+        }}
+      />
+      <Select
+        value={value.currency || currency}
+        style={{
+          width: 80,
+          margin: '0 8px',
+        }}
+        onChange={onCurrencyChange}
+      >
+        <Option value="rmb">RMB</Option>
+        <Option value="dollar">Dollar</Option>
+      </Select>
+    </span>
+  );
+};
+
+const Demo = () => {
+  const onFinish = (values) => {
+    console.log('Received values from form: ', values);
+  };
+
+  const checkPrice = (_, value) => {
+    if (value.number > 0) {
+      return Promise.resolve();
+    }
+
+    return Promise.reject(new Error('Price must be greater than zero!'));
+  };
+
+  return (
+    <FormHook
+      name="customized_form_controls"
+      layout="inline"
+      onFinish={onFinish}
+      initialValues={{
+        price: {
+          number: 0,
+          currency: 'rmb',
+        },
+      }}
+    >
+      <FormHook.Item
+        name="price"
+        label="Price"
+        rules={[
+          {
+            validator: checkPrice,
+          },
+        ]}
+      >
+        <PriceInput />
+      </FormHook.Item>
+      <FormHook.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<Demo />, mountNode);
+```
+:::
+
 
 
 ## API

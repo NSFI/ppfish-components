@@ -21,6 +21,8 @@ export type FormLayout = 'horizontal' | 'inline' | 'vertical';
  *
  * 缺少 Space 组件
  *
+ * 因为 Col 组件的不一样, 导致 form 的 layout 即使默认是horizontal, 如果没传span, 也会和 vertical 一样
+ *
  */
 
 export interface FormProps<Values = any> extends Omit<RcFormProps<Values>, 'form'> {
