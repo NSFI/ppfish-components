@@ -2,7 +2,6 @@
 
 高性能表单控件，自带数据域管理。包含数据录入、校验以及对应样式。
 
-
 ## 基本使用
 
 :::demo 基本的表单数据域控制展示，包含布局、初始化、验证、提交。
@@ -33,7 +32,7 @@ const Demo = () => {
         name="username"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
-        <Input />
+        <Input/>
       </FormHook.Item>
 
       <FormHook.Item
@@ -41,7 +40,7 @@ const Demo = () => {
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input />
+        <Input/>
       </FormHook.Item>
 
       <FormHook.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 4, span: 16 }}>
@@ -57,14 +56,14 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />,mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
+
 :::
 
-## 表单方法调用 
+## 表单方法调用
 
-:::demo 通过 FormHook.useForm 对表单数据域进行交互。 
-注意 useForm 是 React Hooks 的实现，只能用于函数组件，class 组件请查看下面的例子。
+:::demo 通过 FormHook.useForm 对表单数据域进行交互。 注意 useForm 是 React Hooks 的实现，只能用于函数组件，class 组件请查看下面的例子。
 
 ```js
 const { Option } = Select;
@@ -111,7 +110,7 @@ const Demo = () => {
   return (
     <FormHook {...layout} form={form} name="control-hooks" onFinish={onFinish}>
       <FormHook.Item name="note" label="Note" rules={[{ required: true }]}>
-        <Input />
+        <Input/>
       </FormHook.Item>
       <FormHook.Item name="gender" label="Gender" rules={[{ required: true }]}>
         <Select
@@ -131,7 +130,7 @@ const Demo = () => {
         {({ getFieldValue }) =>
           getFieldValue('gender') === 'other' ? (
             <Form.Item name="customizeGender" label="Customize Gender" rules={[{ required: true }]}>
-              <Input />
+              <Input/>
             </Form.Item>
           ) : null
         }
@@ -151,7 +150,7 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />,mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
 
 ```less
@@ -164,8 +163,7 @@ ReactDOM.render(<Demo />,mountNode);
 
 ## Class 表单方法调用
 
-:::demo 表单方法调用（Class component） 。
-我们推荐使用 Form.useForm 创建表单数据域进行控制。如果是在 class component 下，你也可以通过 ref 获取数据域。
+:::demo 表单方法调用（Class component） 。 我们推荐使用 Form.useForm 创建表单数据域进行控制。如果是在 class component 下，你也可以通过 ref 获取数据域。
 
 ```js
 const { Option } = Select;
@@ -177,7 +175,6 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 4, span: 16 },
 };
-
 
 
 class Demo extends React.Component {
@@ -215,7 +212,7 @@ class Demo extends React.Component {
     return (
       <FormHook {...layout} ref={this.formRef} name="control-ref" onFinish={this.onFinish}>
         <FormHook.Item name="note" label="Note" rules={[{ required: true }]}>
-          <Input />
+          <Input/>
         </FormHook.Item>
         <FormHook.Item name="gender" label="Gender" rules={[{ required: true }]}>
           <Select
@@ -239,7 +236,7 @@ class Demo extends React.Component {
                 label="Customize Gender"
                 rules={[{ required: true }]}
               >
-                <Input />
+                <Input/>
               </FormHook.Item>
             ) : null
           }
@@ -260,7 +257,7 @@ class Demo extends React.Component {
   }
 }
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
 
 ```less
@@ -288,16 +285,16 @@ const FormLayoutDemo = () => {
   const formItemLayout =
     formLayout === 'horizontal'
       ? {
-          labelCol: { span: 4 },
-          wrapperCol: { span: 14 },
-        }
+        labelCol: { span: 4 },
+        wrapperCol: { span: 14 },
+      }
       : null;
 
   const buttonItemLayout =
     formLayout === 'horizontal'
       ? {
-          wrapperCol: { span: 14, offset: 4 },
-        }
+        wrapperCol: { span: 14, offset: 4 },
+      }
       : null;
 
   return (
@@ -316,10 +313,10 @@ const FormLayoutDemo = () => {
         </Radio.Group>
       </FormHook.Item>
       <FormHook.Item label="Field A">
-        <Input placeholder="input placeholder" />
+        <Input placeholder="input placeholder"/>
       </FormHook.Item>
       <FormHook.Item label="Field B">
-        <Input placeholder="input placeholder" />
+        <Input placeholder="input placeholder"/>
       </FormHook.Item>
       <FormHook.Item {...buttonItemLayout}>
         <Button type="primary">Submit</Button>
@@ -328,11 +325,10 @@ const FormLayoutDemo = () => {
   );
 };
 
-ReactDOM.render(<FormLayoutDemo />, mountNode);
+ReactDOM.render(<FormLayoutDemo/>, mountNode);
 ```
 
 :::
-
 
 ## 非阻塞校验
 
@@ -345,18 +341,18 @@ const Demo = () => {
   const onFinish = () => {
     message.success('Submit success!');
   };
-  
+
   const onFinishFailed = () => {
     message.error('Submit failed!');
   };
-  
+
   const onFill = () => {
     form.setFieldsValue({
       url: 'https://www.163.com/',
     });
   }
 
-  
+
   return (
     <FormHook
       form={form}
@@ -371,7 +367,7 @@ const Demo = () => {
         label="URL"
         rules={[{ required: true }, { type: 'url', warningOnly: true }, { type: 'string', min: 6 }]}
       >
-        <Input placeholder="input placeholder" />
+        <Input placeholder="input placeholder"/>
       </FormHook.Item>
       <FormHook.Item>
         <Button type="primary" htmlType="submit">
@@ -385,15 +381,16 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
+
 ```less
 #non-blocking .fishd-btn {
   margin-right: 8px;
 }
 ```
-:::
 
+:::
 
 ## 动态增减表单项
 
@@ -456,11 +453,11 @@ const DynamicFieldSet = () => {
                   ]}
                   noStyle
                 >
-                  <Input placeholder="passenger name" style={{ width: '60%' }} />
+                  <Input placeholder="passenger name" style={{ width: '60%' }}/>
                 </FormHook.Item>
                 {fields.length > 1 ? (
-                    <Icon type="form-minus" className="dynamic-delete-button"
-                          onClick={() => remove(field.name)} />
+                  <Icon type="form-minus" className="dynamic-delete-button"
+                        onClick={() => remove(field.name)}/>
                 ) : null}
               </FormHook.Item>
             ))}
@@ -470,7 +467,8 @@ const DynamicFieldSet = () => {
                 onClick={() => add()}
                 style={{ width: '60%' }}
               >
-                <Icon type="upload-plus" /> Add field
+                <Icon type="upload-plus"/>
+                Add field
               </Button>
               <Button
                 type="dashed"
@@ -479,9 +477,10 @@ const DynamicFieldSet = () => {
                 }}
                 style={{ width: '60%', marginTop: '20px' }}
               >
-                <Icon type="upload-plus" /> Add field at head
+                <Icon type="upload-plus"/>
+                Add field at head
               </Button>
-              <FormHook.ErrorList errors={errors} />
+              <FormHook.ErrorList errors={errors}/>
             </FormHook.Item>
           </React.Fragment>
         )}
@@ -495,8 +494,9 @@ const DynamicFieldSet = () => {
   );
 };
 
-ReactDOM.render(<DynamicFieldSet />, mountNode);
+ReactDOM.render(<DynamicFieldSet/>, mountNode);
 ```
+
 ```less
 .dynamic-delete-button {
   position: relative;
@@ -507,14 +507,17 @@ ReactDOM.render(<DynamicFieldSet />, mountNode);
   cursor: pointer;
   transition: all 0.3s;
 }
+
 .dynamic-delete-button:hover {
   color: #777;
 }
+
 .dynamic-delete-button[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
 }
 ```
+
 :::
 
 ## 动态增减嵌套字段
@@ -540,21 +543,21 @@ const Demo = () => {
                   name={[name, 'first']}
                   rules={[{ required: true, message: 'Missing first name' }]}
                 >
-                  <Input placeholder="First Name" />
+                  <Input placeholder="First Name"/>
                 </FormHook.Item>
                 <FormHook.Item
                   {...restField}
                   name={[name, 'last']}
                   rules={[{ required: true, message: 'Missing last name' }]}
                 >
-                  <Input placeholder="Last Name" />
+                  <Input placeholder="Last Name"/>
                 </FormHook.Item>
-                <Icon type="form-minus" onClick={() => remove(name)} />
+                <Icon type="form-minus" onClick={() => remove(name)}/>
               </div>
             ))}
             <FormHook.Item>
-              <Button className="add-button" type="dashed" onClick={() => add()} >
-                <Icon type="upload-plus" />
+              <Button className="add-button" type="dashed" onClick={() => add()}>
+                <Icon type="upload-plus"/>
                 Add field
               </Button>
             </FormHook.Item>
@@ -570,23 +573,25 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
+
 ```less
-.form-item-space{
+.form-item-space {
   display: flex;
   margin-bottom: 8px;
   gap: 8px;
-  
-  >i {
+
+  > i {
     padding-top: 8px;
   }
 }
 
-.add-button{
+.add-button {
   width: 100%;
 }
 ```
+
 :::
 
 ## 复杂的动态增减表单项
@@ -621,7 +626,7 @@ const Demo = () => {
   return (
     <FormHook layout={"horizontal"} form={form} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
       <FormHook.Item name="area" label="Area" rules={[{ required: true, message: 'Missing area' }]}>
-        <Select options={areas} onChange={handleChange} />
+        <Select options={areas} onChange={handleChange}/>
       </FormHook.Item>
       <FormHook.List name="sights">
         {(fields, { add, remove }) => (
@@ -657,15 +662,15 @@ const Demo = () => {
                   name={[field.name, 'price']}
                   rules={[{ required: true, message: 'Missing price' }]}
                 >
-                  <Input />
+                  <Input/>
                 </FormHook.Item>
-                <Icon type="form-minus" onClick={() => remove(field.name)} />
+                <Icon type="form-minus" onClick={() => remove(field.name)}/>
               </div>
             ))}
 
             <FormHook.Item>
-              <Button type="dashed" onClick={() => add()}  className='add-button'>
-                <Icon type="upload-plus" />
+              <Button type="dashed" onClick={() => add()} className='add-button'>
+                <Icon type="upload-plus"/>
                 Add sights
               </Button>
             </FormHook.Item>
@@ -681,24 +686,26 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
+
 ```less
-.form-item-space{
+.form-item-space {
   display: flex;
   margin-bottom: 8px;
   gap: 8px;
   align-items: center;
-  
-  >i {
+
+  > i {
     padding-top: 8px;
   }
 }
 
-.add-button{
+.add-button {
   width: 100%;
 }
 ```
+
 :::
 
 ## 嵌套结构与校验信息
@@ -741,7 +748,7 @@ const Demo = () => {
           },
         ]}
       >
-        <Input />
+        <Input/>
       </FormHook.Item>
       <FormHook.Item
         name={['user', 'email']}
@@ -752,7 +759,7 @@ const Demo = () => {
           },
         ]}
       >
-        <Input />
+        <Input/>
       </FormHook.Item>
       <FormHook.Item
         name={['user', 'age']}
@@ -765,13 +772,13 @@ const Demo = () => {
           },
         ]}
       >
-        <InputNumber />
+        <InputNumber/>
       </FormHook.Item>
       <FormHook.Item name={['user', 'website']} label="Website">
-        <Input />
+        <Input/>
       </FormHook.Item>
       <FormHook.Item name={['user', 'introduction']} label="Introduction">
-        <Input.TextArea />
+        <Input.TextArea/>
       </FormHook.Item>
       <FormHook.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit">
@@ -782,11 +789,13 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
+
 :::
 
 ## 复杂一点的控件
+
 `style` 进行内联布局，或者添加 `noStyle` 作为纯粹的无样式绑定组件（类似 3.x 中的 `getFieldDecorator`）。
 
 ```
@@ -801,16 +810,17 @@ ReactDOM.render(<Demo />, mountNode);
 
 这里展示了三种典型场景：
 
-*   `Username`：输入框后面有描述文案或其他组件，在 `Form.Item` 内使用 `<Form.Item name="field" noStyle />` 去绑定对应子控件。
+* `Username`：输入框后面有描述文案或其他组件，在 `Form.Item` 内使用 `<Form.Item name="field" noStyle />` 去绑定对应子控件。
 
-*   `Address`：有两个控件，在 `Form.Item` 内使用两个 `<Form.Item name="field" noStyle />` 分别绑定对应控件。
+* `Address`：有两个控件，在 `Form.Item` 内使用两个 `<Form.Item name="field" noStyle />` 分别绑定对应控件。
 
-*   `BirthDate`：有两个内联控件，错误信息展示各自控件下，使用两个 `<Form.Item name="field" />` 分别绑定对应控件，并修改 `style` 使其内联布局。
+* `BirthDate`：有两个内联控件，错误信息展示各自控件下，使用两个 `<Form.Item name="field" />` 分别绑定对应控件，并修改 `style` 使其内联布局。
 
 > 注意，在 label 对应的 Form.Item 上不要在指定 `name` 属性，这个 Item 只作为布局作用。
 
 更复杂的封装复用方式可以参考下面的 `自定义表单控件` 演示。
-:::demo 
+
+:::demo
 
 ```js
 
@@ -825,16 +835,16 @@ const Demo = () => {
   return (
     <FormHook name="complex-form" onFinish={onFinish} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
       <FormHook.Item label="Username">
-          <FormHook.Item
-            name="username"
-            noStyle
-            rules={[{ required: true, message: 'Username is required' }]}
-          >
-            <Input style={{ width: 160 }} placeholder="Please input" />
-          </FormHook.Item>
-          <Tooltip title="Useful information">
-            <span style={{marginLeft:8,color: '#1890ff'}}>Need Help?</span>
-          </Tooltip>
+        <FormHook.Item
+          name="username"
+          noStyle
+          rules={[{ required: true, message: 'Username is required' }]}
+        >
+          <Input style={{ width: 160 }} placeholder="Please input"/>
+        </FormHook.Item>
+        <Tooltip title="Useful information">
+          <span style={{ marginLeft: 8, color: '#1890ff' }}>Need Help?</span>
+        </Tooltip>
       </FormHook.Item>
       <FormHook.Item label="Address">
         <Input.Group compact>
@@ -843,7 +853,7 @@ const Demo = () => {
             noStyle
             rules={[{ required: true, message: 'Province is required' }]}
           >
-            <Select style={{width: 160}} placeholder="Select province">
+            <Select style={{ width: 160 }} placeholder="Select province">
               <Option value="Zhejiang">Zhejiang</Option>
               <Option value="Jiangsu">Jiangsu</Option>
             </Select>
@@ -853,7 +863,7 @@ const Demo = () => {
             noStyle
             rules={[{ required: true, message: 'Street is required' }]}
           >
-            <Input style={{ width: '50%' }} placeholder="Input street" />
+            <Input style={{ width: '50%' }} placeholder="Input street"/>
           </FormHook.Item>
         </Input.Group>
       </FormHook.Item>
@@ -863,14 +873,14 @@ const Demo = () => {
           rules={[{ required: true }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
-          <Input placeholder="Input birth year" />
+          <Input placeholder="Input birth year"/>
         </FormHook.Item>
         <FormHook.Item
           name="month"
           rules={[{ required: true }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
         >
-          <Input placeholder="Input birth month" />
+          <Input placeholder="Input birth month"/>
         </FormHook.Item>
       </FormHook.Item>
       <FormHook.Item label=" " colon={false}>
@@ -882,19 +892,18 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
+
 :::
 
 ## 自定义表单控件
-自定义或第三方的表单控件，也可以与 Form 组件一起使用。只要该组件遵循以下的约定：
 
-> *   提供受控属性 `value` 或其它与 [`valuePropName`](https://ant.design/components/form-cn/#Form.Item) 的值同名的属性。
+:::demo 自定义或第三方的表单控件，也可以与 Form 组件一起使用。只要该组件遵循以下的约定：
+
+> * 提供受控属性 `value` 或其它与 [`valuePropName`](https://ant.design/components/form-cn/#Form.Item) 的值同名的属性。
 >
-> *   提供 `onChange` 事件或 [`trigger`](https://ant.design/components/form-cn/#Form.Item) 的值同名的事件。
-
-
-:::demo 
+> * 提供 `onChange` 事件或 [`trigger`](https://ant.design/components/form-cn/#Form.Item) 的值同名的事件。
 
 ```js
 const { Option } = Select;
@@ -997,7 +1006,7 @@ const Demo = () => {
           },
         ]}
       >
-        <PriceInput />
+        <PriceInput/>
       </FormHook.Item>
       <FormHook.Item>
         <Button type="primary" htmlType="submit">
@@ -1008,11 +1017,334 @@ const Demo = () => {
   );
 };
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Demo/>, mountNode);
 ```
+
 :::
 
+## 表单数据存储于上层组件
 
+:::demo
+
+通过 `onFieldsChange` 和 `fields`
+，可以把表单的数据存储到上层组件或者 [Redux](https://github.com/reactjs/redux)、[dva](https://github.com/dvajs/dva)
+中，更多可参考 [rc-field-form 示例](https://rc-field-form.react-component.now.sh/?selectedKind=rc-field-form&selectedStory=StateForm-redux&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)。
+
+**注意：** 将表单数据存储于外部容器[并非好的实践](https://github.com/reduxjs/redux/issues/1287#issuecomment-175351978)，如无必要请避免使用。
+
+```js
+const { useState } = React
+const CustomizedForm = ({ onChange, fields }) => (
+  <FormHook
+    name="global_state"
+    layout="inline"
+    fields={fields}
+    onFieldsChange={(_, allFields) => {
+      onChange(allFields);
+    }}
+  >
+    <FormHook.Item
+      name="username"
+      label="Username"
+      rules={[
+        {
+          required: true,
+          message: 'Username is required!',
+        },
+      ]}
+    >
+      <Input/>
+    </FormHook.Item>
+  </FormHook>
+);
+
+const Demo = () => {
+  const [fields, setFields] = useState([
+    {
+      name: ['username'],
+      value: 'Ant Design',
+    },
+  ]);
+  return (
+    <React.Fragment>
+      <CustomizedForm
+        fields={fields}
+        onChange={(newFields) => {
+          setFields(newFields);
+        }}
+      />
+      <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre>
+    </React.Fragment>
+  );
+};
+
+ReactDOM.render(<Demo/>, mountNode);
+```
+
+```less
+.language-bash {
+  max-width: 400px;
+  border-radius: 6px;
+  margin-top: 24px;
+}
+
+```
+
+:::
+
+## 多表单联动
+
+:::demo
+
+通过 `Form.Provider` 在表单间处理数据。本例子中，Modal 的确认按钮在 Form 之外，通过 `form.submit`
+方法调用表单提交功能。反之，则推荐使用 `<Button htmlType="submit" />` 调用 web 原生提交逻辑。
+
+```js
+const { useState, useRef, useEffect } = React
+
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
+
+// reset form fields when modal is form, closed
+const useResetFormOnCloseModal = ({ form, visible }) => {
+  const prevVisibleRef = useRef();
+  useEffect(() => {
+    prevVisibleRef.current = visible;
+  }, [visible]);
+  const prevVisible = prevVisibleRef.current;
+  useEffect(() => {
+    if (!visible && prevVisible) {
+      form.resetFields();
+    }
+  }, [visible]);
+};
+
+const ModalForm = ({ visible, onCancel }) => {
+  const [form] = FormHook.useForm();
+  useResetFormOnCloseModal({
+    form,
+    visible,
+  });
+
+  const onOk = () => {
+    form.submit();
+  };
+
+  return (
+    <Modal title="Basic Drawer" visible={visible} onOk={onOk} onCancel={onCancel}>
+      <FormHook form={form} layout="vertical" name="userForm">
+        <FormHook.Item
+          name="name"
+          label="User Name"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input/>
+        </FormHook.Item>
+        <FormHook.Item
+          name="age"
+          label="User Age"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <InputNumber/>
+        </FormHook.Item>
+      </FormHook>
+    </Modal>
+  );
+};
+
+
+const Demo = () => {
+  const [visible, setVisible] = useState(false);
+
+  const showUserModal = () => {
+    setVisible(true);
+  };
+
+  const hideUserModal = () => {
+    setVisible(false);
+  };
+
+  const onFinish = (values) => {
+    console.log('Finish:', values);
+  };
+
+  return (
+    <FormHook.Provider
+      onFormFinish={(name, { values, forms }) => {
+        if (name === 'userForm') {
+          const { basicForm } = forms;
+          const users = basicForm.getFieldValue('users') || [];
+          basicForm.setFieldsValue({
+            users: [...users, values],
+          });
+          setVisible(false);
+        }
+      }}
+    >
+      <FormHook {...layout} name="basicForm" onFinish={onFinish}>
+        <FormHook.Item
+          name="group"
+          label="Group Name"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input/>
+        </FormHook.Item>
+        <FormHook.Item
+          label="User List"
+          shouldUpdate={(prevValues, curValues) => prevValues.users !== curValues.users}
+        >
+          {({ getFieldValue }) => {
+            const users = getFieldValue('users') || [];
+            return users.length ? (
+              <ul>
+                {users.map((user, index) => (
+                  <li key={index} className="user">
+                    <Avatar icon="user-line"/>
+                    {user.name} - {user.age}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="text">
+                ( No user yet. )
+              </div>
+            );
+          }}
+        </FormHook.Item>
+        <FormHook.Item {...tailLayout}>
+          <Button htmlType="submit" type="primary">
+            Submit
+          </Button>
+          <Button
+            htmlType="button"
+            style={{
+              margin: '0 8px',
+            }}
+            onClick={showUserModal}
+          >
+            Add User
+          </Button>
+        </FormHook.Item>
+      </FormHook>
+
+      <ModalForm visible={visible} onCancel={hideUserModal}/>
+    </FormHook.Provider>
+  );
+};
+
+ReactDOM.render(<Demo/>, mountNode);
+```
+
+```less
+ul {
+  list-style: none;
+}
+
+.user {
+  margin-bottom: 8px;
+  .fishd-avatar{
+    margin-right: 8px;
+  }
+}
+
+```
+
+:::
+
+## 内联登录栏
+
+:::demo
+
+内联登录栏，常用在顶部导航栏中。
+```js
+const { useState, useEffect } = React
+
+const HorizontalLoginForm = () => {
+  const [form] = FormHook.useForm();
+  const [, forceUpdate] = useState({}); // To disable submit button at the beginning.
+
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
+
+  const onFinish = (values) => {
+    console.log('Finish:', values);
+  };
+
+  return (
+    <FormHook form={form} name="horizontal_login" layout="inline" onFinish={onFinish}>
+      <FormHook.Item
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+      >
+        <Input prefix={<Icon type="user-line" />} placeholder="Username" />
+      </FormHook.Item>
+      <FormHook.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<Icon type="lock-line" />}
+          type="password"
+          placeholder="Password"
+        />
+      </FormHook.Item>
+      <FormHook.Item shouldUpdate>
+        {() => (
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={
+              !form.isFieldsTouched(true) ||
+              !!form.getFieldsError().filter(({ errors }) => errors.length).length
+            }
+          >
+            Log in
+          </Button>
+        )}
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<HorizontalLoginForm/>, mountNode);
+```
+
+:::
 
 ## API
 
@@ -1030,7 +1362,8 @@ ReactDOM.render(<Demo />, mountNode);
 使用方式如下：
 
 ```js
-class CustomizedForm extends React.Component {}
+class CustomizedForm extends React.Component {
+}
 
 CustomizedForm = Form.create({})(CustomizedForm);
 ```
@@ -1047,11 +1380,13 @@ CustomizedForm = Form.create({})(CustomizedForm);
 经过 `Form.create` 之后如果要拿到 `ref`，可以使用 `wrappedComponentRef` 。
 
 ```js
-class CustomizedForm extends React.Component { ... }
+class CustomizedForm extends React.Component {
+...
+}
 
 // use wrappedComponentRef
-const EnhancedForm =  Form.create()(CustomizedForm);
-<EnhancedForm wrappedComponentRef={(form) => this.form = form} />
+const EnhancedForm = Form.create()(CustomizedForm);
+<EnhancedForm wrappedComponentRef={(form) => this.form = form}/>
 this.form // => The instance of CustomizedForm
 ```
 
@@ -1086,9 +1421,10 @@ this.form // => The instance of CustomizedForm
 | options.force | 对已经校验过的表单域，在 validateTrigger 再次被触发时是否再次校验 | Boolean | false |
 | options.scroll | 定义 validateFieldsAndScroll 的滚动行为，详细配置见 [dom-scroll-into-view config](https://github.com/yiminghe/dom-scroll-into-view#function-parameter) | Object | {} |
 
-#### `this.props.form.getFieldDecorator(id, options)` 
+#### `this.props.form.getFieldDecorator(id, options)`
 
-经过 `getFieldDecorator` 包装的控件，表单控件会自动添加 `value`（或 `valuePropName` 指定的其他属性） `onChange`（或 `trigger` 指定的其他属性），数据同步将被 Form 接管，这会导致以下结果：
+经过 `getFieldDecorator` 包装的控件，表单控件会自动添加 `value`（或 `valuePropName` 指定的其他属性） `onChange`（或 `trigger` 指定的其他属性），数据同步将被 Form
+接管，这会导致以下结果：
 
 1. 你**不再需要也不应该**用 `onChange` 来做同步，但还是可以继续监听 `onChange` 等事件。
 2. 你不能用控件的 `value` `defaultValue` 等属性来设置表单域的值，默认值可以用 `getFieldDecorator` 里的 `initialValue`。
