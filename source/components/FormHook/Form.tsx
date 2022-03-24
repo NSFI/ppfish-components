@@ -23,6 +23,7 @@ export type FormLayout = 'horizontal' | 'inline' | 'vertical';
  *
  * 因为 Col 组件的不一样, 导致 form 的 layout 即使默认是horizontal, 如果没传span, 也会和 vertical 一样
  *
+ * FormItem hasFeedback 属性没有 FormItemStatusContext 支持, 这里使用老的一套 有.has-feedback属性 input 则显示
  */
 
 export interface FormProps<Values = any> extends Omit<RcFormProps<Values>, 'form'> {

@@ -36,9 +36,9 @@ export interface FormItemInputProps {
 }
 
 const iconMap: { [key: string]: any } = {
-  success: <Icon type="hints-success-o" />,
-  warning: <Icon type="hints-warning-o" />,
-  error: <Icon type="hints-error-o" />,
+  success: <Icon type="hints-success" />,
+  warning: <Icon type="hints-warning" />,
+  error: <Icon type="hints-error" />,
   validating: <Icon type="load-line" spinning={true} />,
 };
 
@@ -69,7 +69,7 @@ const FormItemInput: React.FC<FormItemInputProps & FormItemInputMiscProps> = pro
   const icon =
     hasFeedback && IconNode ? (
       <span className={`${baseClassName}-children-icon`}>
-        <IconNode />
+        {IconNode}
       </span>
     ) : null;
 

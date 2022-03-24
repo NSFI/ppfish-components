@@ -1346,6 +1346,434 @@ ReactDOM.render(<HorizontalLoginForm/>, mountNode);
 
 :::
 
+## 登录框
+
+:::demo
+普通的登录框，可以容纳更多的元素。
+```js
+const NormalLoginForm = () => {
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
+
+  return (
+    <FormHook
+      name="normal_login"
+      className="login-form"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+    >
+      <FormHook.Item
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Username!',
+          },
+        ]}
+      >
+        <Input prefix={<Icon type="user-line" />} placeholder="Username" />
+      </FormHook.Item>
+      <FormHook.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Password!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<Icon type="lock-line" />}
+          type="password"
+          placeholder="Password"
+        />
+      </FormHook.Item>
+      <FormHook.Item>
+        <FormHook.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox>Remember me</Checkbox>
+        </FormHook.Item>
+
+        <a className="login-form-forgot" href="">
+          Forgot password
+        </a>
+      </FormHook.Item>
+
+      <FormHook.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          Log in
+        </Button>
+        Or <a href="">register now!</a>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+
+ReactDOM.render(<NormalLoginForm/>, mountNode);
+```
+```less
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+
+```
+:::
+
+## 注册新用户
+
+:::demo
+用户填写必须的信息以注册新用户。
+
+
+```js
+const { Option } = Select;
+const { useState } = React;
+
+const residences = [
+  {
+    value: 'zhejiang',
+    label: 'Zhejiang',
+    children: [
+      {
+        value: 'hangzhou',
+        label: 'Hangzhou',
+        children: [
+          {
+            value: 'xihu',
+            label: 'West Lake',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'jiangsu',
+    label: 'Jiangsu',
+    children: [
+      {
+        value: 'nanjing',
+        label: 'Nanjing',
+        children: [
+          {
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+          },
+        ],
+      },
+    ],
+  },
+];
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 16,
+    },
+  },
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
+const RegistrationForm = () => {
+  const [form] = FormHook.useForm();
+
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
+
+  const prefixSelector = (
+    <FormHook.Item name="prefix" noStyle>
+      <Select
+        style={{
+          width: 100
+        }}
+      >
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+      </Select>
+    </FormHook.Item>
+  );
+  const suffixSelector = (
+    <FormHook.Item name="suffix" noStyle>
+      <Select
+        style={{
+          width: 100,
+        }}
+      >
+        <Option value="USD">$</Option>
+        <Option value="CNY">¥</Option>
+      </Select>
+    </FormHook.Item>
+  );
+  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
+
+  const onWebsiteChange = (value) => {
+    if (!value) {
+      setAutoCompleteResult([]);
+    } else {
+      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
+    }
+  };
+
+  const websiteOptions = autoCompleteResult.map((website) => ({
+    label: website,
+    value: website,
+  }));
+  return (
+    <FormHook
+      {...formItemLayout}
+      form={form}
+      name="register"
+      onFinish={onFinish}
+      initialValues={{
+        residence: ['zhejiang', 'hangzhou', 'xihu'],
+        prefix: '86',
+      }}
+      scrollToFirstError
+    >
+      <FormHook.Item
+        name="email"
+        label="E-mail"
+        rules={[
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
+        ]}
+      >
+        <Input />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="password"
+        label="Password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+        hasFeedback
+      >
+        <Input type="password" />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="confirm"
+        label="Confirm Password"
+        dependencies={['password']}
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: 'Please confirm your password!',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+
+              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+            },
+          }),
+        ]}
+      >
+        <Input type="password" />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="nickname"
+        label="Nickname"
+        tooltip="What do you want others to call you?"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your nickname!',
+            whitespace: true,
+          },
+        ]}
+      >
+        <Input />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="residence"
+        label="Habitual Residence"
+        rules={[
+          {
+            type: 'array',
+            required: true,
+            message: 'Please select your habitual residence!',
+          },
+        ]}
+      >
+        <Cascader options={residences} />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="phone"
+        label="Phone Number"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your phone number!',
+          },
+        ]}
+      >
+        <Input
+          addonBefore={prefixSelector}
+          style={{
+            width: '100%',
+          }}
+        />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="donation"
+        label="Donation"
+        rules={[
+          {
+            required: true,
+            message: 'Please input donation amount!',
+          },
+        ]}
+      >
+        <InputNumber
+          addonAfter={suffixSelector}
+          style={{
+            width: '100%',
+          }}
+        />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="website"
+        label="Website"
+        rules={[
+          {
+            required: true,
+            message: 'Please input website!',
+          },
+        ]}
+      >
+        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
+          <Input />
+        </AutoComplete>
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="intro"
+        label="Intro"
+        rules={[
+          {
+            required: true,
+            message: 'Please input Intro',
+          },
+        ]}
+      >
+        <Input.TextArea />
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="gender"
+        label="Gender"
+        rules={[
+          {
+            required: true,
+            message: 'Please select gender!',
+          },
+        ]}
+      >
+        <Select placeholder="select your gender">
+          <Option value="male">Male</Option>
+          <Option value="female">Female</Option>
+          <Option value="other">Other</Option>
+        </Select>
+      </FormHook.Item>
+
+      <FormHook.Item label="Captcha" extra="We must make sure that your are a human.">
+        <Row gutter={8}>
+          <Col span={12}>
+            <FormHook.Item
+              name="captcha"
+              noStyle
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input the captcha you got!',
+                },
+              ]}
+            >
+              <Input />
+            </FormHook.Item>
+          </Col>
+          <Col span={12}>
+            <Button>Get captcha</Button>
+          </Col>
+        </Row>
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="agreement"
+        valuePropName="checked"
+        rules={[
+          {
+            validator: (_, value) =>
+              value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
+          },
+        ]}
+        {...tailFormItemLayout}
+      >
+        <Checkbox>
+          I have read the <a href="">agreement</a>
+        </Checkbox>
+      </FormHook.Item>
+      <FormHook.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">
+          Register
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<RegistrationForm />, mountNode);
+```
+:::
+
 ## API
 
 ### Form

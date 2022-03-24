@@ -2,7 +2,7 @@
 @import '../../Input/style/mixin';
 
 @form-prefix-cls: ~'@{fishd-prefix}-formHook';
-@form-item-prefix-cls: ~'@{form-prefix-cls}-item';
+@form-item-prefix-cls: ~'@{form-prefix-cls}-item'; // fishd-formHook-item
 
 .@{form-item-prefix-cls} {
   // ================================================================
@@ -24,7 +24,7 @@
     }
   }
 
-  .has-feedback {
+  &.has-feedback {
     // ========================= Input =========================
     .@{fishd-prefix}-input {
       padding-right: 24px;
@@ -93,13 +93,11 @@
         padding-right: @input-padding-horizontal-sm + @font-size-base * 1.3;
       }
     }
-
     // ===================== Status Group ======================
-    &.@{form-item-prefix-cls} {
-      .has-success,
-      .has-warning,
-      .has-error,
-      .is-validating {
+      &.has-success,
+      &.has-warning,
+      &.has-error,
+      &.is-validating {
         // ====================== Icon ======================
         .@{form-item-prefix-cls}-children-icon {
           position: absolute;
@@ -117,22 +115,21 @@
           pointer-events: none;
         }
       }
-    }
   }
 
   // ======================== Success ========================
-  .has-success {
-    &.@{form-item-prefix-cls}-has-feedback .@{form-item-prefix-cls}-children-icon {
+  &.has-success {
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
       color: @success-color;
       animation-name: diffZoomIn1 !important;
     }
   }
 
   // ======================== Warning ========================
-  .has-warning {
+  &.has-warning {
     .form-control-validation(@warning-color; @warning-color; @form-warning-input-bg; @warning-color-hover; @warning-color-outline);
 
-    &.@{form-item-prefix-cls}-has-feedback .@{form-item-prefix-cls}-children-icon {
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
       color: @warning-color;
       animation-name: diffZoomIn3 !important;
     }
@@ -172,10 +169,10 @@
   }
 
   // ========================= Error =========================
-  .has-error {
+  &.has-error {
     .form-control-validation(@error-color; @error-color; @form-error-input-bg; @error-color-hover; @error-color-outline);
 
-    &.@{form-item-prefix-cls}-has-feedback .@{form-item-prefix-cls}-children-icon {
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
       color: @error-color;
       animation-name: diffZoomIn2 !important;
     }
@@ -297,8 +294,8 @@
   }
 
   // ====================== Validating =======================
-  .is-validating {
-    &.@{form-item-prefix-cls}-has-feedback .@{form-item-prefix-cls}-children-icon {
+  &.is-validating {
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
       display: inline-block;
       color: @primary-color;
     }
