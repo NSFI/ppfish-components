@@ -2169,6 +2169,484 @@ ReactDOM.render(<RawForm/>, mountNode);
 
 :::
 
+## 自定义校验
+
+:::demo
+
+我们提供了 `validateStatus` `help` `hasFeedback` 等属性，你可以不通过 Form 自己定义校验的时机和内容。
+
+1. `validateStatus`: 校验状态，可选 'success', 'warning', 'error', 'validating'。
+
+2. `hasFeedback`：用于给输入框添加反馈图标。
+
+3. `help`：设置校验文案。
+
+```js
+const { DateRangePicker } = DatePicker;
+const { Option } = Select;
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 6,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 14,
+    },
+  },
+};
+
+ReactDOM.render(
+  <FormHook {...formItemLayout}>
+    <FormHook.Item
+      label="Fail"
+      validateStatus="error"
+      help="Should be combination of numbers & alphabets"
+    >
+      <Input placeholder="unavailable choice" id="error"/>
+    </FormHook.Item>
+
+    <FormHook.Item label="Warning" validateStatus="warning">
+      <Input placeholder="Warning" id="warning" prefix={<Icon type="empty-basis"/>}/>
+    </FormHook.Item>
+
+    <FormHook.Item
+      label="Validating"
+      hasFeedback
+      validateStatus="validating"
+      help="The information is being validated..."
+    >
+      <Input placeholder="I'm the content is being validated" id="validating"/>
+    </FormHook.Item>
+
+    <FormHook.Item label="Success" hasFeedback validateStatus="success">
+      <Input placeholder="I'm the content" id="success"/>
+    </FormHook.Item>
+
+    <FormHook.Item label="Warning" hasFeedback validateStatus="warning">
+      <Input placeholder="Warning" id="warning2"/>
+    </FormHook.Item>
+
+    <FormHook.Item
+      label="Fail"
+      hasFeedback
+      validateStatus="error"
+      help="Should be combination of numbers & alphabets"
+    >
+      <Input placeholder="unavailable choice" id="error2"/>
+    </FormHook.Item>
+
+    <FormHook.Item label="Success" hasFeedback validateStatus="success">
+      <DatePicker
+        style={{
+          width: '100%',
+        }}
+      />
+    </FormHook.Item>
+
+    <FormHook.Item label="Warning" hasFeedback validateStatus="warning">
+      <TimePicker
+        style={{
+          width: '100%',
+        }}
+      />
+    </FormHook.Item>
+
+    <FormHook.Item label="Error" hasFeedback validateStatus="error">
+      <DateRangePicker
+        style={{
+          width: '100%',
+        }}
+      />
+    </FormHook.Item>
+
+    <FormHook.Item label="Error" hasFeedback validateStatus="error">
+      <Select placeholder="I'm Select" allowClear>
+        <Option value="1">Option 1</Option>
+        <Option value="2">Option 2</Option>
+        <Option value="3">Option 3</Option>
+      </Select>
+    </FormHook.Item>
+
+    <FormHook.Item
+      label="Validating"
+      hasFeedback
+      validateStatus="error"
+      help="Something breaks the rule."
+    >
+      <Cascader
+        placeholder="I'm Cascader"
+        options={[
+          {
+            value: 'xx',
+            label: 'xx',
+          },
+        ]}
+        allowClear
+      />
+    </FormHook.Item>
+
+    <FormHook.Item label="Warning" hasFeedback validateStatus="warning" help="Need to be checked">
+      <TreeSelect
+        placeholder="I'm TreeSelect"
+        treeData={[
+          {
+            value: 'xx',
+            title: 'xx',
+          },
+        ]}
+        style={{ width: '100%' }}
+      />
+    </FormHook.Item>
+
+    <FormHook.Item
+      label="inline"
+      style={{
+        marginBottom: 0,
+      }}
+    >
+      <FormHook.Item
+        validateStatus="error"
+        help="Please select right date"
+        style={{
+          display: 'inline-block',
+          width: 'calc(50% - 12px)',
+        }}
+      >
+        <DatePicker/>
+      </FormHook.Item>
+      <span
+        style={{
+          display: 'inline-block',
+          width: '24px',
+          lineHeight: '32px',
+          textAlign: 'center',
+        }}
+      >
+        -
+      </span>
+      <FormHook.Item
+        style={{
+          display: 'inline-block',
+          width: 'calc(50% - 12px)',
+        }}
+      >
+        <DatePicker/>
+      </FormHook.Item>
+    </FormHook.Item>
+
+    <FormHook.Item label="Success" hasFeedback validateStatus="success">
+      <InputNumber
+        style={{
+          width: '100%',
+        }}
+      />
+    </FormHook.Item>
+
+    <FormHook.Item label="Success" hasFeedback validateStatus="success">
+      <Input placeholder="with allowClear"/>
+    </FormHook.Item>
+
+    <FormHook.Item label="Warning" hasFeedback validateStatus="warning">
+      <Input type="password" placeholder="with input password"/>
+    </FormHook.Item>
+
+    <FormHook.Item label="Error" hasFeedback validateStatus="error">
+      <Input type="password" placeholder="with input password and allowClear"/>
+    </FormHook.Item>
+
+    <FormHook.Item label="Fail" validateStatus="error" hasFeedback help="Should have something">
+      <Input.TextArea/>
+    </FormHook.Item>
+  </FormHook>,
+  mountNode,
+);
+```
+
+:::
+
+## 动态校验规则
+
+:::demo 根据不同情况执行不同的校验规则。
+
+```js
+const { useState, useEffect } = React
+const formItemLayout = {
+  labelCol: {
+    span: 4,
+  },
+  wrapperCol: {
+    span: 8,
+  },
+};
+const formTailLayout = {
+  labelCol: {
+    span: 4,
+  },
+  wrapperCol: {
+    span: 8,
+    offset: 4,
+  },
+};
+
+const DynamicRule = () => {
+  const [form] = FormHook.useForm();
+  const [checkNick, setCheckNick] = useState(false);
+  useEffect(() => {
+    form.validateFields(['nickname']);
+  }, [checkNick]);
+
+  const onCheckboxChange = (e) => {
+    setCheckNick(e.target.checked);
+  };
+
+  const onCheck = async () => {
+    try {
+      const values = await form.validateFields();
+      console.log('Success:', values);
+    } catch (errorInfo) {
+      console.log('Failed:', errorInfo);
+    }
+  };
+
+  return (
+    <FormHook form={form} name="dynamic_rule">
+      <FormHook.Item
+        {...formItemLayout}
+        name="username"
+        label="Name"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your name',
+          },
+        ]}
+      >
+        <Input placeholder="Please input your name"/>
+      </FormHook.Item>
+      <FormHook.Item
+        {...formItemLayout}
+        name="nickname"
+        label="Nickname"
+        rules={[
+          {
+            required: checkNick,
+            message: 'Please input your nickname',
+          },
+        ]}
+      >
+        <Input placeholder="Please input your nickname"/>
+      </FormHook.Item>
+      <FormHook.Item {...formTailLayout}>
+        <Checkbox checked={checkNick} onChange={onCheckboxChange}>
+          Nickname is required
+        </Checkbox>
+      </FormHook.Item>
+      <FormHook.Item {...formTailLayout}>
+        <Button type="primary" onClick={onCheck}>
+          Check
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<DynamicRule/>, mountNode);
+```
+
+:::
+
+## 校验其他组件
+
+:::demo 以上演示没有出现的表单控件对应的校验演示。
+
+```js
+const { useState, useEffect } = React
+
+
+const { Option } = Select;
+
+const formItemLayout = {
+  labelCol: { span: 6 },
+  wrapperCol: { span: 14 },
+};
+
+const normFile = (e: any) => {
+  console.log('Upload event:', e);
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+};
+
+
+const Demo = () => {
+  const onFinish = (values: any) => {
+    console.log('Received values of form: ', values);
+  };
+
+  return (
+    <FormHook
+      name="validate_other"
+      {...formItemLayout}
+      onFinish={onFinish}
+      initialValues={{
+        'input-number': 3,
+        'checkbox-group': ['A', 'B'],
+        rate: 3.5,
+      }}
+    >
+      <FormHook.Item label="Plain Text">
+        <span className="ant-form-text">China</span>
+      </FormHook.Item>
+      <FormHook.Item
+        name="select"
+        label="Select"
+        hasFeedback
+        rules={[{ required: true, message: 'Please select your country!' }]}
+      >
+        <Select placeholder="Please select a country">
+          <Option value="china">China</Option>
+          <Option value="usa">U.S.A</Option>
+        </Select>
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="select-multiple"
+        label="Select[multiple]"
+        rules={[{ required: true, message: 'Please select your favourite colors!', type: 'array' }]}
+      >
+        <Select mode="multiple" placeholder="Please select favourite colors">
+          <Option value="red">Red</Option>
+          <Option value="green">Green</Option>
+          <Option value="blue">Blue</Option>
+        </Select>
+      </FormHook.Item>
+
+      <FormHook.Item label="InputNumber">
+        <FormHook.Item name="input-number" noStyle>
+          <InputNumber min={1} max={10}/>
+        </FormHook.Item>
+        <span className="ant-form-text">machines</span>
+      </FormHook.Item>
+
+      <FormHook.Item name="switch" label="Switch" valuePropName="checked">
+        <Switch/>
+      </FormHook.Item>
+
+      <FormHook.Item name="slider" label="Slider">
+        <Slider
+          marks={{
+            0: 'A',
+            20: 'B',
+            40: 'C',
+            60: 'D',
+            80: 'E',
+            100: 'F',
+          }}
+        />
+      </FormHook.Item>
+
+      <FormHook.Item name="radio-group" label="Radio.Group">
+        <Radio.Group>
+          <Radio value="a">item 1</Radio>
+          <Radio value="b">item 2</Radio>
+          <Radio value="c">item 3</Radio>
+        </Radio.Group>
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="radio-button"
+        label="Radio.Button"
+        rules={[{ required: true, message: 'Please pick an item!' }]}
+      >
+        <Radio.Group>
+          <Radio.Button value="a">item 1</Radio.Button>
+          <Radio.Button value="b">item 2</Radio.Button>
+          <Radio.Button value="c">item 3</Radio.Button>
+        </Radio.Group>
+      </FormHook.Item>
+
+      <FormHook.Item name="checkbox-group" label="Checkbox.Group">
+        <Checkbox.Group>
+          <Row>
+            <Col span={8}>
+              <Checkbox value="A" style={{ lineHeight: '32px' }}>
+                A
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="B" style={{ lineHeight: '32px' }} disabled>
+                B
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="C" style={{ lineHeight: '32px' }}>
+                C
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="D" style={{ lineHeight: '32px' }}>
+                D
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="E" style={{ lineHeight: '32px' }}>
+                E
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="F" style={{ lineHeight: '32px' }}>
+                F
+              </Checkbox>
+            </Col>
+          </Row>
+        </Checkbox.Group>
+      </FormHook.Item>
+
+      <FormHook.Item
+        name="upload"
+        label="Upload"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+        extra="longgggggggggggggggggggggggggggggggggg"
+      >
+        <Upload name="logo" action="/upload.do" listType="picture">
+          <Button><Icon type="upload-line"/>Click to upload
+          </Button>
+        </Upload>
+      </FormHook.Item>
+
+      <FormHook.Item label="Dragger">
+        <FormHook.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
+          <Upload.Dragger name="files" action="/upload.do">
+            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+          </Upload.Dragger>
+        </FormHook.Item>
+      </FormHook.Item>
+
+      <FormHook.Item wrapperCol={{ span: 12, offset: 6 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<Demo/>, mountNode);
+```
+
+:::
+
 ## API
 
 ### Form

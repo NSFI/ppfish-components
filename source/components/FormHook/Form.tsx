@@ -30,6 +30,8 @@ export type FormLayout = 'horizontal' | 'inline' | 'vertical';
  * DatePicker 中不能选择月, 待加强
  *
  * DateRangePicker 第一次点击时有 warning 需要处理  `DateTable: prop type `rangeState.endDate` is invalid`
+ *
+ * 数字输入框 和 hasFeed 的兼容有些问题
  */
 
 export interface FormProps<Values = any> extends Omit<RcFormProps<Values>, 'form'> {

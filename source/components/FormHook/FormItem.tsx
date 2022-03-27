@@ -232,7 +232,7 @@ function FormItem<Values = any>(props: FormItemProps<Values>): React.ReactElemen
       'has-success': mergedValidateStatus === 'success',
       'has-warning': mergedValidateStatus === 'warning',
       'has-error': mergedValidateStatus === 'error',
-      [`${prefixCls}-item-is-validating`]: mergedValidateStatus === 'validating',
+      [`is-validating`]: mergedValidateStatus === 'validating',
       [`${prefixCls}-item-hidden`]: hidden,
     };
 
