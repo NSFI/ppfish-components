@@ -24,6 +24,12 @@ export type FormLayout = 'horizontal' | 'inline' | 'vertical';
  * 因为 Col 组件的不一样, 导致 form 的 layout 即使默认是horizontal, 如果没传span, 也会和 vertical 一样
  *
  * FormItem hasFeedback 属性没有 FormItemStatusContext 支持, 这里使用老的一套 有.has-feedback属性 input 则显示
+ *
+ * 置空存在在现在的Col 组件上存在动画问题, 查看高级搜索 demo, 去除 fields 样式
+ *
+ * DatePicker 中不能选择月, 待加强
+ *
+ * DateRangePicker 第一次点击时有 warning 需要处理  `DateTable: prop type `rangeState.endDate` is invalid`
  */
 
 export interface FormProps<Values = any> extends Omit<RcFormProps<Values>, 'form'> {

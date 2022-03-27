@@ -1266,7 +1266,8 @@ ul {
 
 .user {
   margin-bottom: 8px;
-  .fishd-avatar{
+
+  .fishd-avatar {
     margin-right: 8px;
   }
 }
@@ -1280,6 +1281,7 @@ ul {
 :::demo
 
 内联登录栏，常用在顶部导航栏中。
+
 ```js
 const { useState, useEffect } = React
 
@@ -1306,7 +1308,7 @@ const HorizontalLoginForm = () => {
           },
         ]}
       >
-        <Input prefix={<Icon type="user-line" />} placeholder="Username" />
+        <Input prefix={<Icon type="user-line"/>} placeholder="Username"/>
       </FormHook.Item>
       <FormHook.Item
         name="password"
@@ -1318,7 +1320,7 @@ const HorizontalLoginForm = () => {
         ]}
       >
         <Input
-          prefix={<Icon type="lock-line" />}
+          prefix={<Icon type="lock-line"/>}
           type="password"
           placeholder="Password"
         />
@@ -1348,8 +1350,8 @@ ReactDOM.render(<HorizontalLoginForm/>, mountNode);
 
 ## 登录框
 
-:::demo
-普通的登录框，可以容纳更多的元素。
+:::demo 普通的登录框，可以容纳更多的元素。
+
 ```js
 const NormalLoginForm = () => {
   const onFinish = (values) => {
@@ -1374,7 +1376,7 @@ const NormalLoginForm = () => {
           },
         ]}
       >
-        <Input prefix={<Icon type="user-line" />} placeholder="Username" />
+        <Input prefix={<Icon type="user-line"/>} placeholder="Username"/>
       </FormHook.Item>
       <FormHook.Item
         name="password"
@@ -1386,7 +1388,7 @@ const NormalLoginForm = () => {
         ]}
       >
         <Input
-          prefix={<Icon type="lock-line" />}
+          prefix={<Icon type="lock-line"/>}
           type="password"
           placeholder="Password"
         />
@@ -1405,7 +1407,8 @@ const NormalLoginForm = () => {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <a href="">register now!</a>
+        Or
+        <a href="">register now!</a>
       </FormHook.Item>
     </FormHook>
   );
@@ -1414,25 +1417,27 @@ const NormalLoginForm = () => {
 
 ReactDOM.render(<NormalLoginForm/>, mountNode);
 ```
+
 ```less
 .login-form {
   max-width: 300px;
 }
+
 .login-form-forgot {
   float: right;
 }
+
 .login-form-button {
   width: 100%;
 }
 
 ```
+
 :::
 
 ## 注册新用户
 
-:::demo
-用户填写必须的信息以注册新用户。
-
+:::demo 用户填写必须的信息以注册新用户。
 
 ```js
 const { Option } = Select;
@@ -1573,7 +1578,7 @@ const RegistrationForm = () => {
           },
         ]}
       >
-        <Input />
+        <Input/>
       </FormHook.Item>
 
       <FormHook.Item
@@ -1587,7 +1592,7 @@ const RegistrationForm = () => {
         ]}
         hasFeedback
       >
-        <Input type="password" />
+        <Input type="password"/>
       </FormHook.Item>
 
       <FormHook.Item
@@ -1611,7 +1616,7 @@ const RegistrationForm = () => {
           }),
         ]}
       >
-        <Input type="password" />
+        <Input type="password"/>
       </FormHook.Item>
 
       <FormHook.Item
@@ -1626,7 +1631,7 @@ const RegistrationForm = () => {
           },
         ]}
       >
-        <Input />
+        <Input/>
       </FormHook.Item>
 
       <FormHook.Item
@@ -1640,7 +1645,7 @@ const RegistrationForm = () => {
           },
         ]}
       >
-        <Cascader options={residences} />
+        <Cascader options={residences}/>
       </FormHook.Item>
 
       <FormHook.Item
@@ -1690,7 +1695,7 @@ const RegistrationForm = () => {
         ]}
       >
         <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
-          <Input />
+          <Input/>
         </AutoComplete>
       </FormHook.Item>
 
@@ -1704,7 +1709,7 @@ const RegistrationForm = () => {
           },
         ]}
       >
-        <Input.TextArea />
+        <Input.TextArea/>
       </FormHook.Item>
 
       <FormHook.Item
@@ -1737,7 +1742,7 @@ const RegistrationForm = () => {
                 },
               ]}
             >
-              <Input />
+              <Input/>
             </FormHook.Item>
           </Col>
           <Col span={12}>
@@ -1758,7 +1763,8 @@ const RegistrationForm = () => {
         {...tailFormItemLayout}
       >
         <Checkbox>
-          I have read the <a href="">agreement</a>
+          I have read the
+          <a href="">agreement</a>
         </Checkbox>
       </FormHook.Item>
       <FormHook.Item {...tailFormItemLayout}>
@@ -1770,8 +1776,397 @@ const RegistrationForm = () => {
   );
 };
 
-ReactDOM.render(<RegistrationForm />, mountNode);
+ReactDOM.render(<RegistrationForm/>, mountNode);
 ```
+
+:::
+
+## 高级搜索
+
+:::demo 三列栅格式的表单排列方式，常用于数据表格的高级搜索。
+
+有部分定制的样式代码，由于输入标签长度不确定，需要根据具体情况自行调整。
+
+```js
+const { Option } = Select;
+const { useState } = React;
+const AdvancedSearchForm = () => {
+  const [expand, setExpand] = useState(false);
+  const [form] = FormHook.useForm();
+
+  const getFields = () => {
+    const count = expand ? 10 : 6;
+    const children = [];
+
+    for (let i = 0; i < count; i++) {
+      children.push(
+        <Col span={8} key={i}>
+          <FormHook.Item
+            name={`field-${i}`}
+            label={`Field ${i}`}
+            rules={[
+              {
+                required: true,
+                message: 'Input something!',
+              },
+            ]}
+          >
+            {i % 3 !== 1 ? (
+              <Input placeholder="placeholder"/>
+            ) : (
+              <Select>
+                <Option value="1">1</Option>
+                <Option value="2">
+                  longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+                </Option>
+              </Select>
+            )}
+          </FormHook.Item>
+        </Col>,
+      );
+    }
+
+    return children;
+  };
+
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
+
+  return (
+    <FormHook
+      form={form}
+      name="advanced_search"
+      className="advanced-search-form"
+      onFinish={onFinish}
+    >
+      <Row gutter={24} className='fields'>{getFields()}</Row>
+      <Row>
+        <Col
+          span={24}
+          style={{
+            textAlign: 'right',
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Search
+          </Button>
+          <Button
+            style={{
+              margin: '0 8px',
+            }}
+            onClick={() => {
+              form.resetFields();
+            }}
+          >
+            Clear
+          </Button>
+          <a
+            style={{
+              fontSize: 12,
+            }}
+            onClick={() => {
+              setExpand(!expand);
+            }}
+          >
+            {expand ? <Icon type="top"/> : <Icon type="bottom"/>} Collapse
+          </a>
+        </Col>
+      </Row>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(
+  <div>
+    <AdvancedSearchForm/>
+    <div className="search-result-list">Search Result List</div>
+  </div>,
+  mountNode,
+);
+
+```
+
+```less
+.advanced-search-form {
+  padding: 24px;
+  background: #fbfbfb;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+
+  & .fishd-formHook-item {
+    display: flex;
+  }
+
+  & .fishd-formHook-item-control-wrapper {
+    flex: 1;
+  }
+}
+
+
+.search-result-list {
+  margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 2px;
+  background-color: #fafafa;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.fields {
+  display: flex;
+  flex-flow: row wrap;
+}
+```
+
+:::
+
+## 弹出层中的新建表单
+
+:::demo 当用户访问一个展示了某个列表的页面，想新建一项但又不想跳转页面时，可以用 Modal 弹出一个表单，用户填写必要信息后创建新的项。
+
+```js
+const { useState } = React
+const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+  const [form] = FormHook.useForm();
+  return (
+    <Modal
+      visible={visible}
+      title="Create a new collection"
+      okText="Create"
+      cancelText="Cancel"
+      onCancel={onCancel}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            form.resetFields();
+            onCreate(values);
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+      }}
+    >
+      <FormHook
+        form={form}
+        layout="vertical"
+        name="form_in_modal"
+        initialValues={{
+          modifier: 'public',
+        }}
+      >
+        <FormHook.Item
+          name="title"
+          label="Title"
+          rules={[
+            {
+              required: true,
+              message: 'Please input the title of collection!',
+            },
+          ]}
+        >
+          <Input/>
+        </FormHook.Item>
+        <FormHook.Item name="description" label="Description">
+          <Input type="textarea"/>
+        </FormHook.Item>
+        <FormHook.Item name="modifier" className="collection-create-form_last-form-item">
+          <Radio.Group>
+            <Radio value="public">Public</Radio>
+            <Radio value="private">Private</Radio>
+          </Radio.Group>
+        </FormHook.Item>
+      </FormHook>
+    </Modal>
+  );
+};
+const CollectionsPage = () => {
+  const [visible, setVisible] = useState(false);
+
+  const onCreate = (values) => {
+    console.log('Received values of form: ', values);
+    setVisible(false);
+  };
+
+  return (
+    <div>
+      <Button
+        type="primary"
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        New Collection
+      </Button>
+      <CollectionCreateForm
+        visible={visible}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
+    </div>
+  );
+};
+
+ReactDOM.render(<CollectionsPage/>, mountNode);
+
+```
+
+:::
+
+## 时间类控件
+
+:::demo 时间类组件的 value 类型为 Date 对象。
+
+```js
+const { DateRangePicker } = DatePicker;
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 16,
+    },
+  },
+};
+const config = {
+  rules: [
+    {
+      type: 'object',
+      required: true,
+      message: 'Please select time!',
+    },
+  ],
+};
+const rangeConfig = {
+  rules: [
+    {
+      type: 'array',
+      required: true,
+      message: 'Please select time!',
+    },
+  ],
+};
+
+const TimeRelatedForm = () => {
+  const onFinish = (fieldsValue) => {
+    // Should format date value before submit.
+    console.log('Received values of form: ', fieldsValue);
+  };
+
+  return (
+    <FormHook name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
+      <FormHook.Item name="date-picker" label="DatePicker" {...config}>
+        <DatePicker/>
+      </FormHook.Item>
+      <FormHook.Item name="date-time-picker" label="DatePicker[showTime]" {...config}>
+        <DatePicker showTime format="yyyy-MM-dd HH:mm:ss"/>
+      </FormHook.Item>
+      <FormHook.Item name="range-picker" label="RangePicker" {...rangeConfig}>
+        <DateRangePicker/>
+      </FormHook.Item>
+      <FormHook.Item name="range-time-picker" label="RangePicker[showTime]" {...rangeConfig}>
+        <DateRangePicker showTime format="yyyy-MM-dd HH:mm:ss"/>
+      </FormHook.Item>
+      <FormHook.Item name="time-picker" label="TimePicker" {...config}>
+        <TimePicker/>
+      </FormHook.Item>
+      <FormHook.Item
+        wrapperCol={{
+          xs: {
+            span: 24,
+            offset: 0,
+          },
+          sm: {
+            span: 16,
+            offset: 8,
+          },
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<TimeRelatedForm/>, mountNode);
+```
+
+:::
+
+## 自行处理表单数据
+
+:::demo Form 具有自动收集数据并校验的功能，但如果您不需要这个功能，或者默认的行为无法满足业务需求，可以选择自行处理数据。
+
+```js
+const { DateRangePicker } = DatePicker;
+const { useState } = React;
+
+function validatePrimeNumber(number) {
+  if (number === 11) {
+    return {
+      validateStatus: 'success',
+      errorMsg: null,
+    };
+  }
+
+  return {
+    validateStatus: 'error',
+    errorMsg: 'The prime between 8 and 12 is 11!',
+  };
+}
+
+const formItemLayout = {
+  labelCol: {
+    span: 7,
+  },
+  wrapperCol: {
+    span: 12,
+  },
+};
+
+const RawForm = () => {
+  const [number, setNumber] = useState({
+    value: 11,
+  });
+  const tips =
+    'A prime is a natural number greater than 1 that has no positive divisors other than 1 and itself.';
+
+  const onNumberChange = (value) => {
+    setNumber({ ...validatePrimeNumber(value), value });
+  };
+
+  return (
+    <FormHook>
+      <FormHook.Item
+        {...formItemLayout}
+        label="Prime between 8 & 12"
+        validateStatus={number.validateStatus}
+        help={number.errorMsg || tips}
+      >
+        <InputNumber min={8} max={12} value={number.value} onChange={onNumberChange}/>
+      </FormHook.Item>
+    </FormHook>
+  );
+};
+
+ReactDOM.render(<RawForm/>, mountNode);
+```
+
 :::
 
 ## API
