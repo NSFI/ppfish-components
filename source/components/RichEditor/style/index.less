@@ -97,6 +97,9 @@
     .ql-editor {
       overflow-y: scroll;
       .scrollbar();
+      -moz-user-select: all;
+      -ms-user-select: auto;
+      -webkit-user-select: auto;  // fix bug: safari can't edit
       user-select: all;
       // 默认文本的大小和颜色
       font-size: 14px;
