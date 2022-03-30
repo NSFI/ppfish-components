@@ -55,6 +55,7 @@ const getHappyPackPlugin = () => [
         loader: 'less-loader',
         options: {
           sourceMap: false,
+          javascriptEnabled: true,
         }
       }
     ],
@@ -128,6 +129,7 @@ module.exports = {
           chunks: 'all'
         },
         sources: {
+          priority: 10,
           name: 'sources',
           test: /source/,
           chunks: 'all'
