@@ -43,6 +43,7 @@ describe('Anchor Render', () => {
   });
 
   it('Anchor render perfectly for complete href - scrollTo', async () => {
+
     const scrollToSpy = jest.spyOn(window, 'scrollTo');
     let root = document.getElementById('root');
     if (!root) {
@@ -54,7 +55,7 @@ describe('Anchor Render', () => {
     const HelperWrapper = () => {
       const { scrollTo } = useContext(context);
 
-      React.useEffect(() => {
+      React.useLayoutEffect(() => {
         scrollTo('##API');
       }, []);
       return null;
