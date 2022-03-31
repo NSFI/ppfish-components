@@ -319,6 +319,37 @@
       display: none;
     }
   }
+
+  .find-modal{
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 300px;
+    height: 140px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(41, 34, 34, 0.2);
+    padding: 4px 16px 8px 16px;
+
+    .@{tabs-prefix}-bar{
+      border-bottom-width: 0;
+    }
+
+    .find-input-box{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+
+      > label {
+        width: 70px;
+      }
+
+      &+label{
+        margin-left: 54px;
+        margin-top: 8px;
+      }
+    }
+  }
 }
 
 .@{rich-editor-prefix}-size-popover {
