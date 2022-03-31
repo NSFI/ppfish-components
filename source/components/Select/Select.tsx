@@ -70,6 +70,7 @@ interface SelectProps {
   esc?: boolean;
   required?: boolean;
   filterInactiveOption?: boolean;
+  customAction?: React.ReactNode | string;
 }
 
 type SelectValue = { key: string; label: string; title: string };
@@ -729,6 +730,7 @@ class Select extends React.Component<SelectProps, SelectState> {
       placeholder = Locale.placeholder,
       searchPlaceholder = Locale.searchPlaceholder,
       selectAllText = Locale.selectAllText,
+      customAction,
     } = this.props;
     const { searchValue, selectValue } = this.state;
     const dropdownCls = `${prefixCls}-dropdown`;
@@ -837,6 +839,19 @@ class Select extends React.Component<SelectProps, SelectState> {
             >
               {item => item}
             </List>
+            {/* 渲染自定义 action */}
+            {mode === 'single' && customAction && (
+              <div className={`${dropdownCls}-footer`}>
+                <div
+                  className={`${dropdownCls}-footer-custom`}
+                  onClick={() => {
+                    this.changeVisibleState(false);
+                  }}
+                >
+                  {customAction}
+                </div>
+              </div>
+            )}
             {
               //多选的点击取消、确定按钮组
               mode === 'multiple' && (
@@ -847,20 +862,30 @@ class Select extends React.Component<SelectProps, SelectState> {
                     </div>
                   )}
                   <div className={`${dropdownCls}-footer`}>
-                    <Button
-                      className={`${dropdownCls}-footer-btn`}
-                      onClick={this.handleCancelSelect}
-                    >
-                      {Locale.cancelText}
-                    </Button>
-                    <Button
-                      className={`${dropdownCls}-footer-btn`}
-                      onClick={this.handleConfirmSelect}
-                      disabled={multipleConfirmDisabled}
-                      type="primary"
-                    >
-                      {Locale.confirmText}
-                    </Button>
+                    {customAction && (
+                      <div
+                        className={`${dropdownCls}-footer-custom`}
+                        onClick={this.handleCancelSelect}
+                      >
+                        {customAction}
+                      </div>
+                    )}
+                    <div className={`${dropdownCls}-footer-default`}>
+                      <Button
+                        className={`${dropdownCls}-footer-btn`}
+                        onClick={this.handleCancelSelect}
+                      >
+                        {Locale.cancelText}
+                      </Button>
+                      <Button
+                        className={`${dropdownCls}-footer-btn`}
+                        onClick={this.handleConfirmSelect}
+                        disabled={multipleConfirmDisabled}
+                        type="primary"
+                      >
+                        {Locale.confirmText}
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )

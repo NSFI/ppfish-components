@@ -76,6 +76,31 @@ exports[`Renders select demo correctly 1`] = `
   >
     <div
       class="fishd-select"
+      style="width:300px"
+    >
+      <div
+        class="fishd-select-content"
+      >
+        <div
+          class="fishd-select-caret"
+        >
+          <i
+            class="fishdicon fishdicon-down-fill"
+          />
+        </div>
+        <div
+          class="fishd-select-placeholder"
+        >
+          请选择
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="demo-select"
+  >
+    <div
+      class="fishd-select"
       style="width:300px;margin:10px;padding-right:0"
     >
       <div
