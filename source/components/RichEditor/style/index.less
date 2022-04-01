@@ -41,7 +41,7 @@
   &:before {
     position: absolute;
     cursor: nw-resize;
-    content: '\e6db';
+    content: "\e6db";
     right: 0;
     bottom: 0;
     width: 12px;
@@ -53,8 +53,8 @@
 }
 
 .@{rich-editor-prefix}.fullScreen {
-  width: 100vw!important;
-  height: 100vh!important;
+  width: 100vw !important;
+  height: 100vh !important;
   position: fixed;
   top: 0;
   left: 0;
@@ -133,7 +133,7 @@
       outline: none;
     }
 
-    &.toolbar-header-item{
+    &.toolbar-header-item {
       width: 100px;
     }
   }
@@ -186,7 +186,7 @@
 
       &:after {
         position: absolute;
-        content: '';
+        content: "";
         top: 0;
         right: -1px;
         border-right: @border-width-base @border-style-base @border-color-base;
@@ -303,15 +303,15 @@
       content: "\e6c2";
     }
 
-    &[data-value='center']:before {
+    &[data-value="center"]:before {
       content: "\e6c7";
     }
 
-    &[data-value='right']:before {
+    &[data-value="right"]:before {
       content: "\e6c9";
     }
 
-    &[data-value='justify']:before {
+    &[data-value="justify"]:before {
       content: "\e6cf";
     }
 
@@ -320,7 +320,12 @@
     }
   }
 
-  .find-modal{
+  .ql-searched-string {
+    background-color: #f8ff00;
+    display: inline;
+  }
+
+  .find-modal {
     position: absolute;
     top: 35px;
     right: 0;
@@ -330,23 +335,39 @@
     box-shadow: 0 2px 6px rgba(41, 34, 34, 0.2);
     padding: 4px 16px 8px 16px;
 
-    .@{tabs-prefix}-bar{
+    .@{tabs-prefix}-bar {
       border-bottom-width: 0;
     }
 
-    .find-input-box{
+    .find-input-box {
       display: flex;
       justify-content: space-around;
       align-items: center;
-
 
       > label {
         width: 70px;
       }
 
-      &+label{
+      & + label {
         margin-left: 54px;
         margin-top: 8px;
+      }
+
+      input {
+        padding-right: 61px;
+      }
+    }
+
+    .search-range {
+      color: #333;
+      > i {
+        font-size: 10px;
+        color: #999;
+        cursor: pointer;
+
+        &:hover {
+          color: #333;
+        }
       }
     }
   }

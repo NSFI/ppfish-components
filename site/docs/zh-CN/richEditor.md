@@ -649,15 +649,17 @@
 :::demo
 
 ```js
- toolbar = [['link', 'bold', 'italic', 'underline'],['fullscreen'],['findAndReplace'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
+ toolbar = [['link', 'bold', 'italic', 'underline'],['color', 'background'],['fullscreen'],['findAndReplace'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
 
   render() {
     return (
       <RichEditor
-        value={`倘若当时没有失掉那件首饰，她现在会走到什么样的境界?谁知道?谁知道?人生真是古怪，真是变化无常啊。无论是害您或者救您，只消一点点小事。
-            她每天吃晚饭的时候，就在那张小圆桌跟前和她的丈夫对面坐下了，桌上盖的白布要三天才换一回，丈夫把那只汤池的盖子一揭开，就用一种高兴的神气说道：“哈!好肉汤!世上没有比它更好的……”因此她又梦想那些丰盛精美的筵席了，梦想那些光辉灿烂的银器皿了，梦想那些满绣着仙境般的园林和其间的古装仕女以及古怪飞禽的壁衣了;她梦想那些用名贵的盘子盛着的佳肴美味了，梦想那些在吃着一份肉色粉红的鲈鱼或者一份松鸡翅膀的时候带着朗爽的微笑去细听的情话了。
-            她用陶醉的姿态舞着，用兴奋的动作舞着，她沉醉在欢乐里，她满意于自己的容貌的胜利，满意于自己的成绩的光荣;满意于那一切阿谀赞叹和那场使得女性认为异常完备而且甜美的凯歌，一种幸福的祥云包围着她。所以她什么都不思虑了。
-`       }
+        value={`
+          <p>Beauty </p>
+          <p>There were a sensitivity and a beauty to her that have nothing to do with looks. She was one to be listened to, whose words were so easy to take to heart. </p>
+          <p>It is said that the true nature of being is veiled. The labor of words, the expression of art, the seemingly ceaseless buzz that is human thought all have in common the need to get at what really is so. The hope to draw close to and possess the truth of being can be a feverish one. In some cases it can even be fatal, if pleasure is one's truth and its attainment more important than life itself. In other lives, though, the search for what is truthful gives life. </p>
+          <p>I used to find notes left in the collection basket, beautiful notes about my homilies and about the writer's thoughts on the daily scriptural readings. The person who penned the notes would add reflections to my thoughts and would always include some quotes from poets and mystics he or she had read and remembered and loved. The notes fascinated me. Here was someone immersed in a search for truth and beauty. Words had been treasured, words that were beautiful. And I felt as if the words somehow delighted in being discovered, for they were obviously very generous to the as yet anonymous writer of the notes. And now this person was in turn learning the secret of sharing them. Beauty so shines when given away. The only truth that exists is, in that sense, free.</p>
+        `}
         toolbar={this.toolbar}
       />
     );

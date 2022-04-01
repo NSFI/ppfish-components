@@ -21,12 +21,14 @@ import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
 import attachBlot from "./formats/attach";
+import SearchedStringBlot from "./formats/SearchBlot";
 
 import { RichEditorProps, RichEditorState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
 import { LocaleProperties } from '../../Locale';
 import FindModal from "./findModal";
 
+Quill.register(SearchedStringBlot);
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
 Quill.register(ImageBlot);
