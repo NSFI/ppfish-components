@@ -835,6 +835,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'findAndReplace': {
           const findAndReplaceCls = classNames('action ql-findAndReplace', {
             [`${iconPrefix}`]: true,
+            [`${iconPrefix}-search-line`]: true
           });
           value = <button type="button" className={findAndReplaceCls} value={mValue} key={'findAndReplace'} />;
           tooltip = '查找与替换';
