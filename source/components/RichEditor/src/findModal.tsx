@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Tabs from "../../Tabs";
 import Input from "../../Input";
 import Checkbox from "../../Checkbox";
@@ -23,24 +23,26 @@ const FindModal = (props) => {
     if(value){
       let totalText = quill.getText();
       let re = new RegExp(value, "gi");
-      let match = re.test(totalText);
-      if (match) {
-        console.dir(totalText)
-        let indices = (occurrencesIndices = totalText.getIndicesOf(
-          value
-        ));
-        let length = (SearchedStringLength =
-          value.length);
+      const length = value.length;
+      let match;
+      while ((match = re.exec(totalText)) !== null) {
+        // 目标文本在文档中的位置
+        const index = match.index;
 
-        indices.forEach(index =>
-          quill.formatText(index, length, "SearchedString", true)
-        );
-      } else {
-        occurrencesIndices = null;
-        currentIndex = 0;
+        // 匹配到目标文本之后，我们可以对该文本做高亮或替换的处理
+
+        // 高亮
+       quill.formatText(index, length, 'background', '#f2d123');
+        console.log(index)
+
+        // 替换
+        // this.quill.deleteText(index, length);
+        // this.quill.insertText(index, 'DevUI', 'link', 'https://devui.design/');
       }
     }
   };
+
+  useEffect(()=>{},[])
 
   return (
     <div className={"find-modal"}>
