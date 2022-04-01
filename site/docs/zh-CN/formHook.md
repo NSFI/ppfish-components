@@ -1,8 +1,13 @@
 # FormHook 表单 【交互：叶婧婕 |视觉：徐剑杰 |开发：张煜| 维护：张煜】
 
-> 此组件于 2.1.0 版本新增, 使用时注意版本支持
+**此组件于 2.1.0 版本新增, 使用时注意版本支持**
+
 
 高性能表单控件，自带数据域管理。包含数据录入、校验以及对应样式。
+
+tips:  
+本组件中的例子 可以使用 `const Form = FormHook` 替代 `FormHook` , 方便后期转换
+
 
 ## 基本使用
 
@@ -798,7 +803,7 @@ ReactDOM.render(<Demo/>, mountNode);
 
 ## 复杂一点的控件
 
-`style` 进行内联布局，或者添加 `noStyle` 作为纯粹的无样式绑定组件（类似 3.x 中的 `getFieldDecorator`）。
+`style` 进行内联布局，或者添加 `noStyle` 作为纯粹的无样式绑定组件（类似 1.x 中的 `getFieldDecorator`）。
 
 ```
 - <Form.Item label="Field" name="field">
