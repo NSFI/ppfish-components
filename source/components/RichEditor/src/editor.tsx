@@ -1567,7 +1567,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   onSelectionChange={this.handleSelectionChange}
                 />
                 {
-                  findVisible ? <FindModal/>: null
+                  findVisible ? <FindModal  getEditor={this.getEditor}/>: null
                 }
                 {loading ? (
                   <Spin
