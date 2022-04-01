@@ -84,7 +84,6 @@ class FindModal extends React.Component<IProps> {
   leftClick = () => {};
 
   rightClick = () => {
-    // todo 如果下一个在屏幕外卖, 则跳转?
     const { getEditor } = this.props;
     const quill = getEditor();
     // 先回复上一个的样式为 true
@@ -101,11 +100,26 @@ class FindModal extends React.Component<IProps> {
 
     // 下一个的 format
     quill.formatText(nextIndex.index, this.searchKey.length, "SearchedString", {
-      active: true
+      active: true,
     });
+    this.checkView(nextIndex.index)
     this.currentPosition += 1;
     this.forceUpdate();
   };
+
+  checkView = (index) => {
+    const { getEditor } = this.props;
+    const quill = getEditor();
+    const scrollingContainer = quill.scrollingContainer;
+    let bounds = quill.getBounds(index + this.searchKey.length, 1);
+    if (!quill.hasFocus() && (
+        bounds.top < scrollingContainer.scrollTop ||
+        bounds.top > scrollingContainer.scrollTop + scrollingContainer.offsetHeight
+      )
+    ) {
+      scrollingContainer.scrollTop = bounds.top - scrollingContainer.offsetHeight / 3;
+    }
+  }
 
   render() {
     return (
