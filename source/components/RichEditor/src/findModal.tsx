@@ -8,7 +8,7 @@ const TabPane = Tabs.TabPane;
 let occurrencesIndices = [];
 let currentIndex = 0;
 let SearchedStringLength = 0;
-
+// todo  使用 class
 const FindModal = (props) => {
   const {getEditor} = props;
 
@@ -41,8 +41,6 @@ const FindModal = (props) => {
       }
     }
   };
-
-  useEffect(()=>{},[])
 
   return (
     <div className={"find-modal"}>
