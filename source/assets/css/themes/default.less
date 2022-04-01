@@ -57,11 +57,29 @@
 // 成功
 @success-color          : @assistant-success;
 @processing-color       : @blue-6;
+@success-color-hover: color(~`colorPalette('@{success-color}', 5) `);
+@success-color-active: color(~`colorPalette('@{success-color}', 7) `);
+@success-color-outline: fade(@success-color, @outline-fade);
+@success-color-deprecated-bg: color(~`colorPalette('@{success-color}', 1) `);
+@success-color-deprecated-border: color(~`colorPalette('@{success-color}', 3) `);
+
 // 失败
 @error-color            : @assistant-danger;
 @highlight-color        : @assistant-danger;
+@error-color-hover: color(~`colorPalette('@{error-color}', 5) `);
+@error-color-active: color(~`colorPalette('@{error-color}', 7) `);
+@error-color-outline: fade(@error-color, @outline-fade);
+@error-color-deprecated-bg: color(~`colorPalette('@{error-color}', 1) `);
+@error-color-deprecated-border: color(~`colorPalette('@{error-color}', 3) `);
+
 // 警告
 @warning-color          : @assistant-warning;
+@warning-color-hover: color(~`colorPalette('@{warning-color}', 5) `);
+@warning-color-active: color(~`colorPalette('@{warning-color}', 7) `);
+@warning-color-outline: fade(@warning-color, @outline-fade);
+@warning-color-deprecated-bg: color(~`colorPalette('@{warning-color}', 1) `);
+@warning-color-deprecated-border: color(~`colorPalette('@{warning-color}', 3) `);
+
 @normal-color           : #d9d9d9;
 
 // -------- 表格或列表项目的背景色 -----------
@@ -180,8 +198,16 @@
 @outline-width          : 2px;
 @outline-color          : @primary-color;
 @outline-offset         : 0 0;
+@outline-fade           : 20%;
 
 @box-shadow-active      : @outline-offset @outline-blur-size @outline-width fade(@primary-color, 20%);
+
+// vertical margins
+@margin-lg: 24px; // containers
+@margin-md: 16px; // small containers and buttons
+@margin-sm: 12px; // Form controls and items
+@margin-xs: 8px; // small items
+@margin-xss: 4px; // more small
 
 // -------- iconfont图标库 -----------
 @iconfont-prefix        : fishdicon;
@@ -374,6 +400,10 @@
 @form-item-asterisk-color    : @primary-color;
 @form-vertical-label-padding : 0 0 8px;
 @form-vertical-label-margin  : 0;
+@form-warning-input-bg: @input-bg;
+@form-item-label-font-size: @font-size-base;
+@form-item-label-height: @input-height-base;
+@form-error-input-bg: @input-bg;
 
 // Grid system
 @grid-columns           : 24;

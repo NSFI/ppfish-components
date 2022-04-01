@@ -1,0 +1,307 @@
+@import (reference) "../../../assets/css/index";
+@import '../../Input/style/mixin';
+
+@form-prefix-cls: ~'@{fishd-prefix}-formHook';
+@form-item-prefix-cls: ~'@{form-prefix-cls}-item'; // fishd-formHook-item
+
+.@{form-item-prefix-cls} {
+  // ================================================================
+  // =                            Status                            =
+  // ================================================================
+
+  /* Some non-status related component style is in `components.less` */
+
+  // ========================= Explain =========================
+
+  /* To support leave along ErrorList. We add additional className to handle explain style */
+  &-explain {
+    &-error {
+      color: @error-color;
+    }
+
+    &-warning {
+      color: @warning-color;
+    }
+  }
+
+  &.has-feedback {
+    // ========================= Input =========================
+    .@{fishd-prefix}-input {
+      padding-right: 24px;
+    }
+
+    .@{fishd-prefix}-treeselect {
+      padding-right: 12px;
+    }
+    // https://github.com/ant-design/ant-design/issues/19884
+    .@{fishd-prefix}-input-affix-wrapper {
+      .@{fishd-prefix}-input-suffix {
+        padding-right: 18px;
+      }
+    }
+
+    // Fix issue: https://github.com/ant-design/ant-design/issues/7854
+    .@{fishd-prefix}-input-search:not(.@{fishd-prefix}-input-search-enter-button) {
+      .@{fishd-prefix}-input-suffix {
+        right: 28px;
+      }
+    }
+
+    // ======================== Switch =========================
+    .@{fishd-prefix}-switch {
+      margin: 2px 0 4px;
+    }
+
+    // ======================== Select =========================
+    // Fix overlapping between feedback icon and <Select>'s arrow.
+    // https://github.com/ant-design/ant-design/issues/4431
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-clear,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-arrow,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select .@{fishd-prefix}-select-clear,
+    :not(.@{fishd-prefix}-input-number-group-addon) > .@{fishd-prefix}-select
+      .@{fishd-prefix}-select-arrow,
+    :not(.@{fishd-prefix}-input-number-group-addon) > .@{fishd-prefix}-select
+      .@{fishd-prefix}-select-clear {
+      right: 32px;
+    }
+    > .@{fishd-prefix}-select .@{fishd-prefix}-select-selection-selected-value,
+    :not(.@{fishd-prefix}-input-group-addon) > .@{fishd-prefix}-select
+      .@{fishd-prefix}-select-selection-selected-value,
+    :not(.@{fishd-prefix}-input-number-group-addon) > .@{fishd-prefix}-select
+      .@{fishd-prefix}-select-selection-selected-value {
+      padding-right: 42px;
+    }
+
+    // ======================= Cascader ========================
+    .@{fishd-prefix}-cascader-picker {
+      &-arrow {
+        margin-right: 19px;
+      }
+
+      &-clear {
+        right: 32px;
+      }
+    }
+
+    // ======================== Picker =========================
+    // Fix issue: https://github.com/ant-design/ant-design/issues/4783
+    .@{fishd-prefix}-picker {
+      padding-right: @input-padding-horizontal-base + @font-size-base * 1.3;
+
+      &-large {
+        padding-right: @input-padding-horizontal-lg + @font-size-base * 1.3;
+      }
+
+      &-small {
+        padding-right: @input-padding-horizontal-sm + @font-size-base * 1.3;
+      }
+    }
+    // ===================== Status Group ======================
+      &.has-success,
+      &.has-warning,
+      &.has-error,
+      &.is-validating {
+        // ====================== Icon ======================
+        .@{form-item-prefix-cls}-children-icon {
+          position: absolute;
+          top: 50%;
+          right: 0;
+          z-index: 1;
+          width: @input-height-base;
+          height: 20px;
+          margin-top: -10px;
+          font-size: @font-size-base;
+          line-height: 20px;
+          text-align: center;
+          visibility: visible;
+          animation: zoomIn 0.3s @ease-out-back;
+          pointer-events: none;
+        }
+      }
+  }
+
+  // ======================== Success ========================
+  &.has-success {
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
+      color: @success-color;
+      animation-name: diffZoomIn1 !important;
+    }
+  }
+
+  // ======================== Warning ========================
+  &.has-warning {
+    .form-control-validation(@warning-color; @warning-color; @form-warning-input-bg; @warning-color-hover; @warning-color-outline);
+
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
+      color: @warning-color;
+      animation-name: diffZoomIn3 !important;
+    }
+
+    // Select
+    .@{fishd-prefix}-select:not(.@{fishd-prefix}-select-disabled):not(.@{fishd-prefix}-select-customize-input) {
+      .@{fishd-prefix}-select-selector {
+        background-color: @form-warning-input-bg;
+        border-color: @warning-color !important;
+      }
+      &.@{fishd-prefix}-select-open .@{fishd-prefix}-select-selector,
+      &.@{fishd-prefix}-select-focused .@{fishd-prefix}-select-selector {
+        .active(@warning-color);
+      }
+    }
+
+    // InputNumber, TimePicker
+    .@{fishd-prefix}-input-number,
+    .@{fishd-prefix}-picker {
+      background-color: @form-warning-input-bg;
+      border-color: @warning-color;
+
+      &-focused,
+      &:focus {
+        .active(@warning-color);
+      }
+
+      &:not([disabled]):hover {
+        background-color: @form-warning-input-bg;
+        border-color: @warning-color;
+      }
+    }
+
+    .@{fishd-prefix}-cascader-picker:focus .@{fishd-prefix}-cascader-input {
+      .active(@warning-color);
+    }
+  }
+
+  // ========================= Error =========================
+  &.has-error {
+    .form-control-validation(@error-color; @error-color; @form-error-input-bg; @error-color-hover; @error-color-outline);
+
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
+      color: @error-color;
+      animation-name: diffZoomIn2 !important;
+    }
+
+    // Select
+    .@{fishd-prefix}-select:not(.@{fishd-prefix}-select-disabled):not(.@{fishd-prefix}-select-customize-input) {
+      .@{fishd-prefix}-select-selector {
+        background-color: @form-error-input-bg;
+        border-color: @error-color !important;
+      }
+      &.@{fishd-prefix}-select-open .@{fishd-prefix}-select-selector,
+      &.@{fishd-prefix}-select-focused .@{fishd-prefix}-select-selector {
+        .active(@error-color);
+      }
+    }
+
+    // fixes https://github.com/ant-design/ant-design/issues/20482
+    .@{fishd-prefix}-input-group-addon,
+    .@{fishd-prefix}-input-number-group-addon {
+      .@{fishd-prefix}-select {
+        &.@{fishd-prefix}-select-single:not(.@{fishd-prefix}-select-customize-input)
+          .@{fishd-prefix}-select-selector {
+          background-color: inherit;
+          border: 0;
+          box-shadow: none;
+        }
+      }
+    }
+
+    .@{fishd-prefix}-select.@{fishd-prefix}-select-auto-complete {
+      .@{fishd-prefix}-input:focus {
+        border-color: @error-color;
+      }
+    }
+
+    // InputNumber, TimePicker
+    .@{fishd-prefix}-input-number,
+    .@{fishd-prefix}-picker {
+      background-color: @form-error-input-bg;
+      border-color: @error-color;
+
+      &-focused,
+      &:focus {
+        .active(@error-color);
+      }
+
+      &:not([disabled]):hover {
+        background-color: @form-error-input-bg;
+        border-color: @error-color;
+      }
+    }
+
+    .@{fishd-prefix}-mention-wrapper {
+      .@{fishd-prefix}-mention-editor {
+        &,
+        &:not([disabled]):hover {
+          background-color: @form-error-input-bg;
+          border-color: @error-color;
+        }
+      }
+      &.@{fishd-prefix}-mention-active:not([disabled]) .@{fishd-prefix}-mention-editor,
+      .@{fishd-prefix}-mention-editor:not([disabled]):focus {
+        .active(@error-color);
+      }
+    }
+
+    // Cascader
+    .@{fishd-prefix}-cascader-picker {
+      &:hover
+        .@{fishd-prefix}-cascader-picker-label:hover + .@{fishd-prefix}-cascader-input.@{fishd-prefix}-input {
+        border-color: @error-color;
+      }
+
+      &:focus .@{fishd-prefix}-cascader-input {
+        background-color: @form-error-input-bg;
+        .active(@error-color);
+      }
+    }
+
+    // Transfer
+    .@{fishd-prefix}-transfer {
+      &-list {
+        border-color: @error-color;
+
+        &-search:not([disabled]) {
+          border-color: @input-border-color;
+
+          &:hover {
+            .hover();
+          }
+
+          &:focus {
+            .active();
+          }
+        }
+      }
+    }
+
+    // Radio.Group
+    .@{fishd-prefix}-radio-button-wrapper {
+      border-color: @error-color !important;
+
+      &:not(:first-child) {
+        &::before {
+          background-color: @error-color;
+        }
+      }
+    }
+
+    // Mentions
+    .@{fishd-prefix}-mentions {
+      border-color: @error-color !important;
+
+      &-focused,
+      &:focus {
+        .active(@error-color);
+      }
+    }
+  }
+
+  // ====================== Validating =======================
+  &.is-validating {
+    &.has-feedback .@{form-item-prefix-cls}-children-icon {
+      display: inline-block;
+      color: @primary-color;
+    }
+  }
+}

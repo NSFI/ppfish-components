@@ -1,0 +1,72 @@
+@import (reference) "../../../assets/css/index";
+
+@form-prefix-cls: ~'@{fishd-prefix}-formHook';
+@form-item-prefix-cls: ~'@{form-prefix-cls}-item';
+
+// ================================================================
+// =                      Children Component                      =
+// ================================================================
+.@{form-item-prefix-cls} {
+  // input[type=file]
+  .@{fishd-prefix}-upload {
+    background: transparent;
+  }
+  .@{fishd-prefix}-upload.@{fishd-prefix}-upload-drag {
+    background: @background-color-light;
+  }
+
+  input[type='radio'],
+  input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+  }
+
+  // Radios and checkboxes on same line
+  .@{fishd-prefix}-radio-inline,
+  .@{fishd-prefix}-checkbox-inline {
+    display: inline-block;
+    margin-left: 8px;
+    font-weight: normal;
+    vertical-align: middle;
+    cursor: pointer;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .@{fishd-prefix}-checkbox-vertical,
+  .@{fishd-prefix}-radio-vertical {
+    display: block;
+  }
+
+  .@{fishd-prefix}-checkbox-vertical + .@{fishd-prefix}-checkbox-vertical,
+  .@{fishd-prefix}-radio-vertical + .@{fishd-prefix}-radio-vertical {
+    margin-left: 0;
+  }
+
+  .@{fishd-prefix}-input-number {
+    + .@{form-prefix-cls}-text {
+      margin-left: 8px;
+    }
+
+    &-handler-wrap {
+      z-index: 2; // https://github.com/ant-design/ant-design/issues/6289
+    }
+  }
+
+  .@{fishd-prefix}-select,
+  .@{fishd-prefix}-cascader-picker {
+    width: 100%;
+  }
+
+  // Don't impact select inside input group and calendar header select
+  .@{fishd-prefix}-picker-calendar-year-select,
+  .@{fishd-prefix}-picker-calendar-month-select,
+  .@{fishd-prefix}-input-group .@{fishd-prefix}-select,
+  .@{fishd-prefix}-input-group .@{fishd-prefix}-cascader-picker,
+  .@{fishd-prefix}-input-number-group .@{fishd-prefix}-select,
+  .@{fishd-prefix}-input-number-group .@{fishd-prefix}-cascader-picker {
+    width: auto;
+  }
+}
