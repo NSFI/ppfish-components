@@ -39,7 +39,7 @@ class FindModal extends React.Component<IProps> {
   };
 
   search = debounce((key: string) => {
-    console.log('search 触发')
+    console.log('search 触发');
     this.indices = [];
     this.removeStyle();
     if (!key) {
@@ -94,15 +94,19 @@ class FindModal extends React.Component<IProps> {
       true
     );
 
-    // 获取下一个, todo 如果下一个不在, 那就变成第 1 个
-    const nextIndex = this.indices[this.currentPosition];
+    // 获取下一个, 如果下一个不在, 那就变成第 1 个
+    let nextIndex = this.indices[this.currentPosition];
+    if(!nextIndex){
+      nextIndex = this.indices[0];
+      this.currentPosition = 0;
+    }
     this.currentIndex = nextIndex.index;
 
     // 下一个的 format
     quill.formatText(nextIndex.index, this.searchKey.length, "SearchedString", {
       active: true,
     });
-    this.checkView(nextIndex.index)
+    this.checkView(nextIndex.index);
     this.currentPosition += 1;
     this.forceUpdate();
   };
