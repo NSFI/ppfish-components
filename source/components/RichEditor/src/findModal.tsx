@@ -39,12 +39,12 @@ class FindModal extends React.Component<IProps, IState> {
       checked: e.target.checked
     });
     this.removeStyle();
-    this.search(this.state.searchKey);
+    this.search();
   };
 
   editorOnChange = (delta, oldDelta, source) => {
     if (source == 'user') {
-      this.search(this.state.searchKey);
+      this.search();
     }
   }
 
@@ -68,19 +68,20 @@ class FindModal extends React.Component<IProps, IState> {
     quill.formatText(0, quill.getText().length, "SearchedString", false);
   };
 
-  search: (key: string) => void = debounce((key: string) => {
+  search: () => void = debounce(() => {
     this.setState({
       indices: []
     });
+    const {searchKey} = this.state
     this.removeStyle();
-    if (!key) {
+    if (!searchKey) {
       return;
     }
     const { getEditor } = this.props;
     const quill = getEditor();
     let totalText = quill.getText();
-    let re = new RegExp(key, this.state.checked ? "g" : "gi");
-    const length = key.length;
+    let re = new RegExp(searchKey, this.state.checked ? "g" : "gi");
+    const length = searchKey.length;
     let match;
     let indices = [];
     while ((match = re.exec(totalText)) !== null) {
@@ -105,7 +106,7 @@ class FindModal extends React.Component<IProps, IState> {
     this.setState({
       searchKey: value
     });
-    this.search(value);
+    this.search();
   };
 
   leftClick = () => {
@@ -211,7 +212,7 @@ class FindModal extends React.Component<IProps, IState> {
       quill.insertText(indices[length].index, newString);
     }
     // 结束后重新搜索
-    this.search(searchKey);
+    this.search();
   };
 
   replace = () => {
@@ -223,7 +224,7 @@ class FindModal extends React.Component<IProps, IState> {
     // 删除, 添加
     quill.deleteText(this.currentIndex, searchKey.length);
     quill.insertText(this.currentIndex, this.replaceKey);
-    this.search(searchKey);
+    this.search();
   };
 
   renderSearch = () => {
