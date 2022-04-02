@@ -42,11 +42,27 @@ class FindModal extends React.Component<IProps, IState> {
     this.search(this.state.searchKey);
   };
 
+  editorOnChange = (delta, oldDelta, source) => {
+    if (source == 'user') {
+      this.search(this.state.searchKey);
+    }
+  }
+
+  componentDidMount() {
+    const { getEditor } = this.props;
+    const quill = getEditor();
+    quill && quill.on('text-change', this.editorOnChange);
+  }
+
   componentWillUnmount() {
     this.removeStyle();
+    const { getEditor } = this.props;
+    const quill = getEditor();
+    quill && quill.off('text-change', this.editorOnChange);
   }
 
   removeStyle = () => {
+    // 删除全部搜索样式
     const { getEditor } = this.props;
     const quill = getEditor();
     quill.formatText(0, quill.getText().length, "SearchedString", false);
@@ -66,17 +82,12 @@ class FindModal extends React.Component<IProps, IState> {
     let re = new RegExp(key, this.state.checked ? "g" : "gi");
     const length = key.length;
     let match;
-    let flag = true;
     let indices = [];
     while ((match = re.exec(totalText)) !== null) {
       // 目标文本在文档中的位置
       const index = match.index;
-
-      // 匹配到目标文本之后，我们可以对该文本做高亮或替换的处理
-
-      // 高亮
-      quill.formatText(index, length, "SearchedString", { active: flag });
-      flag = false;
+      // 高亮, 第 0 个默认选中
+      quill.formatText(index, length, "SearchedString", { active: indices.length === 0 });
       indices.push({ index });
     }
     if (indices.length) {
@@ -162,6 +173,7 @@ class FindModal extends React.Component<IProps, IState> {
   };
 
   checkView = index => {
+    // 检查选中的目标是否在窗口中, 如果不在则需要滚动
     const { getEditor } = this.props;
     const { searchKey } = this.state;
     const quill = getEditor();
@@ -192,10 +204,13 @@ class FindModal extends React.Component<IProps, IState> {
     const { getEditor } = this.props;
     const quill = getEditor();
     let length = indices.length;
+    // 遍历 indices 尾部替换
     while (length--) {
+      // 先删除再添加
       quill.deleteText(indices[length].index, oldStringLen);
       quill.insertText(indices[length].index, newString);
     }
+    // 结束后重新搜索
     this.search(searchKey);
   };
 
@@ -205,6 +220,7 @@ class FindModal extends React.Component<IProps, IState> {
     if (!indices.length) return;
     const { getEditor } = this.props;
     const quill = getEditor();
+    // 删除, 添加
     quill.deleteText(this.currentIndex, searchKey.length);
     quill.insertText(this.currentIndex, this.replaceKey);
     this.search(searchKey);
