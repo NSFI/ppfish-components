@@ -20,7 +20,7 @@ class FindModal extends React.Component<IProps> {
   private searchKey: string = "";
   private indices = [];
   private currentIndex = null;
-  private currentPosition = 1;
+  private currentPosition = 0;
 
   onCheck = e => {
     this.flags = e.target.checked ? "g" : "gi";
@@ -69,7 +69,7 @@ class FindModal extends React.Component<IProps> {
     }
     if (this.indices.length) {
       this.currentIndex = this.indices[0].index;
-      this.currentPosition = 1;
+      this.currentPosition = 0;
     }
     this.forceUpdate();
   }, 300);
@@ -81,12 +81,36 @@ class FindModal extends React.Component<IProps> {
     this.search(value);
   };
 
-  leftClick = () => {};
+  leftClick = () => {
+    const { getEditor } = this.props;
+    const quill = getEditor();
+    // 先恢复上一个的样式为 true
+    quill.formatText(
+      this.currentIndex,
+      this.searchKey.length,
+      "SearchedString",
+      true
+    );
+    // 获取上一个
+    this.currentPosition -= 1;
+    let prevIndex = this.indices[this.currentPosition];
+    if(!prevIndex){
+      prevIndex = this.indices[this.indices.length-1];
+      this.currentPosition = this.indices.length-1;
+    }
+    this.currentIndex = prevIndex.index;
+    // 下一个的 format
+    quill.formatText(prevIndex.index, this.searchKey.length, "SearchedString", {
+      active: true,
+    });
+    this.checkView(prevIndex.index);
+    this.forceUpdate();
+  };
 
   rightClick = () => {
     const { getEditor } = this.props;
     const quill = getEditor();
-    // 先回复上一个的样式为 true
+    // 先恢复上一个的样式为 true
     quill.formatText(
       this.currentIndex,
       this.searchKey.length,
@@ -94,6 +118,7 @@ class FindModal extends React.Component<IProps> {
       true
     );
 
+    this.currentPosition += 1;
     // 获取下一个, 如果下一个不在, 那就变成第 1 个
     let nextIndex = this.indices[this.currentPosition];
     if(!nextIndex){
@@ -107,7 +132,6 @@ class FindModal extends React.Component<IProps> {
       active: true,
     });
     this.checkView(nextIndex.index);
-    this.currentPosition += 1;
     this.forceUpdate();
   };
 
@@ -138,7 +162,7 @@ class FindModal extends React.Component<IProps> {
                   this.indices.length ? (
                     <span className={"search-range"}>
                       <Icon onClick={this.leftClick} type="left" />
-                      {this.currentPosition} / {this.indices.length}
+                      {this.currentPosition+1} / {this.indices.length}
                       <Icon onClick={this.rightClick} type="right" />
                     </span>
                   ) : null

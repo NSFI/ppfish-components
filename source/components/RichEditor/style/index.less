@@ -321,12 +321,13 @@
   }
 
   .ql-searched-string {
-    background-color: #f8ff00;
+    // 这里需要保证权重, 避免查找的显示被背景色和字体颜色覆盖
+    background-color: #f8ff00!important;
     display: inline;
 
     &.search-active{
-      background-color: #5555e5;
-      color: #fff;
+      background-color: #5555e5!important;
+      color: #fff!important;
     }
   }
 
