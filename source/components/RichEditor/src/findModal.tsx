@@ -4,7 +4,8 @@ import Input from "../../Input";
 import Checkbox from "../../Checkbox";
 import ReactQuill from "./quill/index";
 import Icon from "../../Icon";
-import debounce from 'lodash/debounce';
+import Button from "../../Button";
+import debounce from "lodash/debounce";
 
 const TabPane = Tabs.TabPane;
 
@@ -39,7 +40,7 @@ class FindModal extends React.Component<IProps> {
   };
 
   search = debounce((key: string) => {
-    console.log('search 触发');
+    console.log("search 触发");
     this.indices = [];
     this.removeStyle();
     if (!key) {
@@ -94,14 +95,14 @@ class FindModal extends React.Component<IProps> {
     // 获取上一个
     this.currentPosition -= 1;
     let prevIndex = this.indices[this.currentPosition];
-    if(!prevIndex){
-      prevIndex = this.indices[this.indices.length-1];
-      this.currentPosition = this.indices.length-1;
+    if (!prevIndex) {
+      prevIndex = this.indices[this.indices.length - 1];
+      this.currentPosition = this.indices.length - 1;
     }
     this.currentIndex = prevIndex.index;
     // 下一个的 format
     quill.formatText(prevIndex.index, this.searchKey.length, "SearchedString", {
-      active: true,
+      active: true
     });
     this.checkView(prevIndex.index);
     this.forceUpdate();
@@ -121,7 +122,7 @@ class FindModal extends React.Component<IProps> {
     this.currentPosition += 1;
     // 获取下一个, 如果下一个不在, 那就变成第 1 个
     let nextIndex = this.indices[this.currentPosition];
-    if(!nextIndex){
+    if (!nextIndex) {
       nextIndex = this.indices[0];
       this.currentPosition = 0;
     }
@@ -129,25 +130,26 @@ class FindModal extends React.Component<IProps> {
 
     // 下一个的 format
     quill.formatText(nextIndex.index, this.searchKey.length, "SearchedString", {
-      active: true,
+      active: true
     });
     this.checkView(nextIndex.index);
     this.forceUpdate();
   };
 
-  checkView = (index) => {
+  checkView = index => {
     const { getEditor } = this.props;
     const quill = getEditor();
     const scrollingContainer = quill.scrollingContainer;
     let bounds = quill.getBounds(index + this.searchKey.length, 1);
-    if (!quill.hasFocus() && (
-        bounds.top < scrollingContainer.scrollTop ||
-        bounds.top > scrollingContainer.scrollTop + scrollingContainer.offsetHeight
-      )
+    if (
+      bounds.top < scrollingContainer.scrollTop ||
+      bounds.top >
+        scrollingContainer.scrollTop + scrollingContainer.offsetHeight
     ) {
-      scrollingContainer.scrollTop = bounds.top - scrollingContainer.offsetHeight / 3;
+      scrollingContainer.scrollTop =
+        bounds.top - scrollingContainer.offsetHeight / 3;
     }
-  }
+  };
 
   render() {
     return (
@@ -162,7 +164,7 @@ class FindModal extends React.Component<IProps> {
                   this.indices.length ? (
                     <span className={"search-range"}>
                       <Icon onClick={this.leftClick} type="left" />
-                      {this.currentPosition+1} / {this.indices.length}
+                      {this.currentPosition + 1} / {this.indices.length}
                       <Icon onClick={this.rightClick} type="right" />
                     </span>
                   ) : null
@@ -172,7 +174,32 @@ class FindModal extends React.Component<IProps> {
             <Checkbox onChange={this.onCheck}>区分大小写</Checkbox>
           </TabPane>
           <TabPane tab="替换" key="2">
-            Tab 3
+            <div className={"find-input-box"}>
+              <label>查找</label>
+              <Input
+                onChange={this.onChange}
+                suffix={
+                  this.indices.length ? (
+                    <span className={"search-range"}>
+                      <Icon onClick={this.leftClick} type="left" />
+                      {this.currentPosition + 1} / {this.indices.length}
+                      <Icon onClick={this.rightClick} type="right" />
+                    </span>
+                  ) : null
+                }
+              />
+            </div>
+            <Checkbox onChange={this.onCheck}>区分大小写</Checkbox>
+            <div className={"find-input-box replace-input"}>
+              <label>替换为</label>
+              <Input />
+            </div>
+            <div className={"replace-buttons"}>
+              <Button size={"small"}>全部替换</Button>
+              <Button size={"small"} type={"primary"}>
+                替换
+              </Button>
+            </div>
           </TabPane>
         </Tabs>
       </div>

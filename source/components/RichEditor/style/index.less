@@ -322,12 +322,12 @@
 
   .ql-searched-string {
     // 这里需要保证权重, 避免查找的显示被背景色和字体颜色覆盖
-    background-color: #f8ff00!important;
+    background-color: #f8ff00 !important;
     display: inline;
 
-    &.search-active{
-      background-color: #5555e5!important;
-      color: #fff!important;
+    &.search-active {
+      background-color: #5555e5 !important;
+      color: #fff !important;
     }
   }
 
@@ -336,7 +336,6 @@
     top: 35px;
     right: 0;
     width: 300px;
-    height: 140px;
     background-color: #fff;
     box-shadow: 0 2px 6px rgba(41, 34, 34, 0.2);
     padding: 4px 16px 8px 16px;
@@ -350,13 +349,19 @@
       justify-content: space-around;
       align-items: center;
 
+      &.replace-input {
+        input {
+          padding-right: 31px;
+        }
+      }
+
       > label {
-        width: 70px;
+        width: 55px;
+        flex-shrink: 0;
       }
 
       & + label {
-        margin-left: 54px;
-        margin-top: 8px;
+        margin: 8px 0 8px 55px;
       }
 
       input {
@@ -376,6 +381,14 @@
         &:hover {
           color: #333;
         }
+      }
+    }
+
+    .replace-buttons {
+      margin: 16px 0 8px;
+      text-align: right;
+      > button {
+        margin-left: 16px;
       }
     }
   }
