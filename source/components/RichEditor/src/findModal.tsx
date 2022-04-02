@@ -52,8 +52,7 @@ class FindModal extends React.Component<IProps, IState> {
     quill.formatText(0, quill.getText().length, "SearchedString", false);
   };
 
-  search = debounce((key: string) => {
-    console.log("search 触发");
+  search: (key: string) => void = debounce((key: string) => {
     this.setState({
       indices: []
     });
@@ -79,9 +78,6 @@ class FindModal extends React.Component<IProps, IState> {
       quill.formatText(index, length, "SearchedString", { active: flag });
       flag = false;
       indices.push({ index });
-      // 替换
-      // this.quill.deleteText(index, length);
-      // this.quill.insertText(index, 'DevUI', 'link', 'https://devui.design/');
     }
     if (indices.length) {
       this.currentIndex = indices[0].index;
@@ -203,52 +199,54 @@ class FindModal extends React.Component<IProps, IState> {
     this.search(searchKey);
   };
 
-  replace = () => {};
+  replace = () => {
+    if (!this.replaceKey) return;
+    const { indices, searchKey } = this.state;
+    if (!indices.length) return;
+    const { getEditor } = this.props;
+    const quill = getEditor();
+    quill.deleteText(this.currentIndex, searchKey.length);
+    quill.insertText(this.currentIndex, this.replaceKey);
+    this.search(searchKey);
+  };
+
+  renderSearch = () => {
+    let { currentPosition, indices, searchKey, checked } = this.state;
+
+    return (
+      <>
+        <div className={"find-input-box"}>
+          <label>查找</label>
+          <Input
+            onChange={this.onChange}
+            value={searchKey}
+            suffix={
+              indices.length ? (
+                <span className={"search-range"}>
+                  <Icon onClick={this.leftClick} type="left" />
+                  {currentPosition + 1} / {indices.length}
+                  <Icon onClick={this.rightClick} type="right" />
+                </span>
+              ) : null
+            }
+          />
+        </div>
+        <Checkbox checked={checked} onChange={this.onCheck}>
+          区分大小写
+        </Checkbox>
+      </>
+    );
+  };
 
   render() {
-    let { currentPosition, indices, searchKey, checked } = this.state;
     return (
       <div className={"find-modal"}>
         <Tabs defaultActiveKey="1" size={"small"}>
           <TabPane tab="查找" key="1">
-            <div className={"find-input-box"}>
-              <label>查找</label>
-              <Input
-                onChange={this.onChange}
-                value={searchKey}
-                suffix={
-                  indices.length ? (
-                    <span className={"search-range"}>
-                      <Icon onClick={this.leftClick} type="left" />
-                      {currentPosition + 1} / {indices.length}
-                      <Icon onClick={this.rightClick} type="right" />
-                    </span>
-                  ) : null
-                }
-              />
-            </div>
-            <Checkbox checked={checked} onChange={this.onCheck}>
-              区分大小写
-            </Checkbox>
+            {this.renderSearch()}
           </TabPane>
           <TabPane tab="替换" key="2">
-            <div className={"find-input-box"}>
-              <label>查找</label>
-              <Input
-                onChange={this.onChange}
-                value={searchKey}
-                suffix={
-                  indices.length ? (
-                    <span className={"search-range"}>
-                      <Icon onClick={this.leftClick} type="left" />
-                      {currentPosition + 1} / {indices.length}
-                      <Icon onClick={this.rightClick} type="right" />
-                    </span>
-                  ) : null
-                }
-              />
-            </div>
-            <Checkbox checked={checked} onChange={this.onCheck}>区分大小写</Checkbox>
+            {this.renderSearch()}
             <div className={"find-input-box replace-input"}>
               <label>替换为</label>
               <Input onChange={this.replaceOnChange} />
@@ -257,7 +255,7 @@ class FindModal extends React.Component<IProps, IState> {
               <Button size={"small"} onClick={this.replaceAll}>
                 全部替换
               </Button>
-              <Button size={"small"} type={"primary"}>
+              <Button size={"small"} type={"primary"} onClick={this.replace}>
                 替换
               </Button>
             </div>
