@@ -1,6 +1,6 @@
 'use strict';
 
-let Quill = require('quill');
+import Quill from '../quillCore/quill'
 
 // 只在console展示错误级别的信息
 Quill.debug('error');
@@ -98,7 +98,7 @@ let QuillMixin = {
     let sel = editor.getSelection();
 
     if (typeof value === 'string') {
-      editor.setContents(editor.clipboard.convert(value));
+      editor.setContents(editor.clipboard.convert({html:value}));
     } else {
       editor.setContents(value);
     }

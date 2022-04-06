@@ -1,4 +1,4 @@
-import Quill from 'quill';
+import {Quill} from '../quill';
 import { quill } from './fileDrop';
 
 const Clipboard = Quill.import('modules/clipboard');
@@ -21,7 +21,7 @@ class PlainClipboard extends Clipboard {
         delta = new Delta().retain(range.index).delete(range.length).insert(text),
         index = text.length + range.index,
         length = 0;
-  
+
       this.quill.updateContents(delta, 'silent');
       this.quill.setSelection(index, length, 'silent');
       this.quill.scrollIntoView();
