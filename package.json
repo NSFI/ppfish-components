@@ -56,6 +56,7 @@
     "mini-store": "^2.0.0",
     "omit.js": "^1.0.0",
     "parchment": "2.0.0-dev.2",
+    "positioning": "2.0.1",
     "query-string": "^4.2.2",
     "quill-delta": "4.2.2",
     "raf": "^3.4.0",

@@ -20,6 +20,7 @@ import PlainClipboard from "./modules/plainClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
+import TableUI from "./modules/table";
 import attachBlot from "./formats/attach";
 
 import { RichEditorProps, RichEditorState } from './interface';
@@ -37,6 +38,7 @@ Quill.register("modules/fileDrop", FileDrop, true);
 Quill.register("modules/resize", ImageResize, true);
 Quill.register(Quill.import('attributors/style/align'), true);
 Quill.register(Quill.import('attributors/style/direction'), true);
+Quill.register({'modules/tableUI': TableUI}, true);
 
 const getImageSize = function (
   url: string,
@@ -117,7 +119,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       [{ list: "ordered" }, { list: "bullet" }],
       ["emoji"],
       ["image"],
-      ["clean", "formatPainter"]
+      ["clean", "formatPainter"],
+      ["table"]
     ],
     getPopupContainer: () => document.body
   };
@@ -1057,6 +1060,14 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       });
   };
 
+  handleInsertTable = (row: number, col: number) => {
+    let quill = this.getEditor();
+    if (quill) {
+      const table = quill.getModule('table');
+      table.insertTable(row, col);
+    }
+  };
+
   handleFormatLineHeight = value => {
     let quill = this.getEditor();
     quill && quill.format("customAttr", {
@@ -1393,6 +1404,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         handlers: this.handlers
       },
       history: historyConfig || this.historyConfig,
+      table: true,
+      tableUI: true,
     };
 
     // fileDrop 为 true 时，使 imageDrop 失效
@@ -1535,6 +1548,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   handleFormatColor={this.handleFormatColor}
                   handleFormatBackground={this.handleFormatBackground}
                   handleFormatSize={this.handleFormatSize}
+                  handleInsertTable={this.handleInsertTable}
                   handleFormatLineHeight={this.handleFormatLineHeight}
                   handleInsertValue={this.handleInsertValue}
                   popoverPlacement={popoverPlacement}

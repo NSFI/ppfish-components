@@ -121,6 +121,7 @@ export interface CustomToolbarProps extends ModuleHtmlType {
     event: React.MouseEvent
   ) => void;
   handleFormatSize?: Function;
+  handleInsertTable?: Function;
   handleFormatLineHeight?: Function;
   handleInsertValue?: (
     event: React.MouseEvent
@@ -142,6 +143,7 @@ export interface EmojiInferface {
 export interface CustomToolbarState {
   curSize: null | string;
   sizePopoverVisible: boolean;
+  tablePopoverVisible: boolean;
   curLineHeight:  null | string,
   lineHeightPopoverVisible: boolean,
   curIVSearchValue: string;
