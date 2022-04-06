@@ -1,4 +1,3 @@
-import DropdownIcon from '../assets/icons/dropdown.svg';
 
 let optionsCounter = 0;
 
@@ -76,7 +75,11 @@ class Picker {
   buildLabel() {
     const label = document.createElement('span');
     label.classList.add('ql-picker-label');
-    label.innerHTML = DropdownIcon;
+    label.innerHTML = `<svg viewbox="0 0 18 18">
+                        <polygon class="ql-stroke" points="7 11 9 13 11 11 7 11"></polygon>
+                        <polygon class="ql-stroke" points="7 7 9 5 11 7 7 7"></polygon>
+                      </svg>
+                      `;
     label.tabIndex = '0';
     label.setAttribute('role', 'button');
     label.setAttribute('aria-expanded', 'false');
