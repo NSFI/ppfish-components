@@ -3,7 +3,7 @@ import BaseModule from './BaseModule'
 export default class Keyboard extends BaseModule {
   static injectInit (quill) {
     // left/right
-    const bindings = quill.keyboard.bindings
+    const bindings = quill.keyboard.bindings;
     bindings[this.keys.LEFT].unshift(
       this.makeArrowHandler(this.keys.LEFT, false)
     )
@@ -144,13 +144,13 @@ export default class Keyboard extends BaseModule {
 }
 
 Keyboard.keys = {
-  BACKSPACE: 8,
-  TAB: 9,
-  ENTER: 13,
-  ESCAPE: 27,
-  LEFT: 37,
-  UP: 38,
-  RIGHT: 39,
-  DOWN: 40,
-  DELETE: 46
+  BACKSPACE: 'Backspace',
+  TAB: 'Tab',
+  ENTER: 'Enter',
+  ESCAPE: 'Escape',
+  LEFT: 'ArrowLeft',
+  UP: 'ArrowUp',
+  RIGHT: 'ArrowRight',
+  DOWN: 'ArrowDown',
+  DELETE: 'Delete'
 }

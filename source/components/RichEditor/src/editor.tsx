@@ -34,7 +34,7 @@ Quill.register(attachBlot);
 Quill.register(CustomSizeBlot);
 Quill.register("modules/imageDrop", ImageDrop, true);
 Quill.register("modules/fileDrop", FileDrop, true);
-// Quill.register("modules/resize", ImageResize, true);
+Quill.register("modules/resize", ImageResize, true);
 Quill.register(Quill.import('attributors/style/align'), true);
 Quill.register(Quill.import('attributors/style/direction'), true);
 
@@ -170,9 +170,9 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     } = this.props;
 
     // 粘贴时将富文本转为纯文本
-    // if (pastePlainText) {
-    //   Quill.register("modules/clipboard", PlainClipboard, true);
-    // }
+    if (pastePlainText) {
+      Quill.register("modules/clipboard", PlainClipboard, true);
+    }
     // this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
     let formatValue = value;
@@ -1409,9 +1409,9 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       };
     }
 
-    // if(imageResize){
-    //   moduleOpts["resize"] = this.imageSizeParams;
-    // }
+    if(imageResize){
+      moduleOpts["resize"] = this.imageSizeParams;
+    }
 
     if (pastePlainText) {
       moduleOpts["clipboard"] = {

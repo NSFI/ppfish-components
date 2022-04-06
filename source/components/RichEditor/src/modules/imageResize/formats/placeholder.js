@@ -105,7 +105,7 @@ EmbedPlaceholder.blotName = 'embed-placeholder'
 EmbedPlaceholder.tagName = 'span'
 EmbedPlaceholder.scope = Parchment.Scope.INLINE_BLOT
 
-Container.allowedChildren.push(EmbedPlaceholder)
+// Container.allowedChildren.push(EmbedPlaceholder)
 Scroll.allowedChildren.push(EmbedPlaceholder)
 
 class TagPlaceholder extends EmbedPlaceholder {}
