@@ -9,6 +9,10 @@ import Tabs from '../../Tabs/index';
 import Input from '../../Input/index';
 import Icon from '../../Icon/index';
 import popoEmojiList from "./popoEmojiList";
+import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface';
+import ConfigConsumer from '../../Config/Consumer';
+import { LocaleProperties } from '../../Locale';
+import InsertTable from "./insertTable";
 
 declare module 'react' {
   interface ImgHTMLAttributes<T> {
@@ -16,9 +20,6 @@ declare module 'react' {
   }
 }
 
-import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface';
-import ConfigConsumer from '../../Config/Consumer';
-import { LocaleProperties } from '../../Locale';
 
 const TabPane = Tabs.TabPane;
 const COLORS: string[] = [
@@ -263,7 +264,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     } = this.props;
 
     // 兼容全屏时向上显示看不见的问题
-    popoverPlacement = fullScreen ? 'bottom' : popoverPlacement
+    popoverPlacement = fullScreen ? 'bottom' : popoverPlacement;
 
     let mValue: any = null, value: JSX.Element | null = null, tooltip: string | null = null;
 
@@ -703,7 +704,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'table': {
-          const sizeCls = classNames('action custom-size', {
+          const sizeCls = classNames('action custom-table', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-size`]: true
           });
@@ -739,7 +740,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             <Popover
               trigger="click"
               overlayClassName={`${prefixCls}-size-popover`}
-              content={content}
+              content={<InsertTable />}
               title={null}
               key={key}
               visible={this.state.tablePopoverVisible}
@@ -750,7 +751,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               <Tooltip
                 trigger="hover"
                 placement={tooltipPlacement}
-                title={Locale.fontSize}
+                title={Locale.table}
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
@@ -759,8 +760,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               </Tooltip>
             </Popover>
           );
-
-          tooltip = Locale.fontSize;
 
           break;
         }
@@ -933,7 +932,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           });
 
           if(Array.isArray(mValue)) {
-            this.defaultLineHeight = mValue || this.defaultLineHeight
+            this.defaultLineHeight = mValue || this.defaultLineHeight;
           }
 
           let content = (
@@ -996,7 +995,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
       }
     }
 
-    let mTypesHasPopover = ['background', 'color', 'emoji', 'size' ,'header' , 'lineHeight'];
+    let mTypesHasPopover = ['background', 'color', 'emoji', 'size' ,'header' , 'lineHeight', 'table'];
     if (value && (mTypesHasPopover.indexOf(mType) < 0) && !(mType in customInsertValue)) {
       value = (
         <Tooltip

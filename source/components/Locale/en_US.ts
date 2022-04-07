@@ -202,6 +202,7 @@ const LocaleValue: LocaleProperties = {
     undo: 'undo',
     redo: 'redo',
     defaultLineHeight: 'default',
+    table: 'Insert table'
    },
   VideoViewer: {
     fullScreen: 'FullScreen',

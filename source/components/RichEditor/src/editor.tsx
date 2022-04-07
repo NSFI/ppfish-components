@@ -119,8 +119,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       [{ list: "ordered" }, { list: "bullet" }],
       ["emoji"],
       ["image"],
-      ["clean", "formatPainter"],
-      ["table"]
+      ["clean", "formatPainter"]
     ],
     getPopupContainer: () => document.body
   };

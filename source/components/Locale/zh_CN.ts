@@ -121,6 +121,7 @@ const localeValues: LocaleProperties = {
     undo: '撤销',
     redo: '恢复',
     defaultLineHeight: '默认',
+    table: '插入表格'
   },
   Spin: {
     loading: '加载中'

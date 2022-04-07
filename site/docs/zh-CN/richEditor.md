@@ -35,6 +35,27 @@
 ```
 :::
 
+## 添加表格
+
+:::demo 
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ["table"]];
+  }
+
+  render() {
+    return (
+      <RichEditor
+        toolbar={this.toolbar}
+      />
+    );
+  }
+```
+:::
+
 ## 定制文字大小
 
 :::demo 定制文字大小。
@@ -777,7 +798,7 @@
   constructor(props) {
     super(props);
     this.toolbar = [
-      ['link', 'bold', 'italic', 'underline', 'strike'], ['undo' , 'redo'], ['lineHeight'], ['fullscreen'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image','attachment'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
+      ['link', 'bold', 'italic', 'underline', 'strike'], ['undo' , 'redo'], ['lineHeight'], ['fullscreen'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image','attachment'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter'], ["table"]
     ];
   }
 

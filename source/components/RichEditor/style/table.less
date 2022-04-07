@@ -54,3 +54,36 @@
     }
   }
 }
+
+.ql-table-popover {
+  padding: 6px;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  &-box {
+    padding: 8px;
+    margin-top: 6px;
+    border: 1px solid rgb(224, 224, 224);
+    width: 198px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-cell {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-color: rgb(224, 224, 224);
+    margin: 2px;
+    cursor: pointer;
+
+    &.active{
+      background-color: #bcdefb;
+    }
+  }
+}
