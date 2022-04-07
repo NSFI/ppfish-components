@@ -40,7 +40,6 @@ import ColorPicker from './ui/color-picker';
 import IconPicker from './ui/icon-picker';
 import Tooltip from './ui/tooltip';
 
-import BubbleTheme from './themes/bubble';
 import SnowTheme from './themes/snow';
 
 Quill.register(
@@ -96,7 +95,6 @@ Quill.register(
     'modules/table': Table,
     'modules/toolbar': Toolbar,
 
-    'themes/bubble': BubbleTheme,
     'themes/snow': SnowTheme,
 
     'ui/icons': Icons,
