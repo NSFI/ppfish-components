@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 export default {
   blockquote: `<svg viewbox="0 0 18 18">
                 <rect class="ql-fill ql-stroke" height="3" width="3" x="4" y="5"></rect>
@@ -86,3 +88,4 @@ export default {
             <rect class="ql-fill" height="1" width="3" x="12" y="12"></rect>
           </svg>`
 };
+/* eslint-enable max-len */

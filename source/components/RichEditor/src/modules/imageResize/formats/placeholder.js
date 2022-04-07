@@ -120,7 +120,7 @@ function convertPlaceholderHTML (html = '') {
   if (!html) return '';
 
   const matchReg = new RegExp(
-    `class\\s*=\\s*(?:"[^"]*\\b(${ClassNamePlaceholder.className})\\b[^"]*"|'[^']*\\b(${ClassNamePlaceholder.className})\\b[^']*')`
+    `class\\s*=\\s*(?:"[^"]*\\b(${ClassNamePlaceholder.className})\\b[^"]*"|'[^']*\\b(${ClassNamePlaceholder.className})\\b[^']*')` // eslint-disable-line
   );
   return html.replace(tagReg, (m, tag, attrs = '') => {
     if (
