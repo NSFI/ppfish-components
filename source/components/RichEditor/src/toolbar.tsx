@@ -704,9 +704,9 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'table': {
-          const sizeCls = classNames('action custom-table', {
+          const tableCls = classNames('action custom-table', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-richeditor-size`]: true
+            [`${iconPrefix}-biaoge`]: true
           });
           const {tablePopoverVisible} =this.state;
 
@@ -729,7 +729,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
-                  <div className={sizeCls} />
+                  <div className={tableCls} />
                 </div>
               </Tooltip>
             </Popover>

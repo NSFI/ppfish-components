@@ -121,7 +121,14 @@ const localeValues: LocaleProperties = {
     undo: '撤销',
     redo: '恢复',
     defaultLineHeight: '默认',
-    table: '插入表格'
+    table: '插入表格',
+    insertColRight: '右侧插入列',
+    insertColLeft: '左侧插入列',
+    insertRowBelow: '下方插入行',
+    insertRowAbove: '上方插入行',
+    deleteCol: '删除列',
+    deleteRow: '删除行',
+    deleteTable: '删除表格'
   },
   Spin: {
     loading: '加载中'

@@ -202,7 +202,14 @@ const LocaleValue: LocaleProperties = {
     undo: 'undo',
     redo: 'redo',
     defaultLineHeight: 'default',
-    table: 'Insert table'
+    table: 'Insert table',
+    insertColRight: 'Insert column right',
+    insertColLeft: 'Insert column left',
+    insertRowBelow: 'Insert column below',
+    insertRowAbove: 'Insert column above',
+    deleteCol: 'Delete column',
+    deleteRow: 'Delete row',
+    deleteTable: 'Delete table'
    },
   VideoViewer: {
     fullScreen: 'FullScreen',
