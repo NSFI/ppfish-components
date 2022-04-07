@@ -1062,6 +1062,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   handleInsertTable = (row: number, col: number) => {
     let quill = this.getEditor();
     if (quill) {
+      quill.focus();
       const table = quill.getModule('table');
       table.insertTable(row, col);
     }

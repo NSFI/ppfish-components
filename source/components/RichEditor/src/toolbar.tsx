@@ -708,42 +708,16 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-size`]: true
           });
-
-          this.curSizeList = this.defaultSizes;
-          if (Array.isArray(mValue) && mValue.length) {
-            this.curSizeList = mValue;
-          }
-          let content = (
-            <div className="size-con" key="custom_size_content" onClick={this.handleTableItemClick}>
-              {
-                this.curSizeList && this.curSizeList.map((size, index) => {
-                  const sizeItemCls = classNames('size-item', {
-                    'active': size && (this.state.curSize == size.trim())
-                  });
-
-                  return (
-                    <button
-                      className={sizeItemCls}
-                      key={"custom_size_" + index}
-                      value={size}
-                      style={{ fontSize: size }}
-                    >
-                      {size}
-                    </button>
-                  );
-                })
-              }
-            </div>
-          );
+          const {tablePopoverVisible} =this.state;
 
           value = (
             <Popover
               trigger="click"
               overlayClassName={`${prefixCls}-size-popover`}
-              content={<InsertTable />}
+              content={<InsertTable visible={tablePopoverVisible} chooseItemHandle={this.handleTableInsertPopover} />}
               title={null}
               key={key}
-              visible={this.state.tablePopoverVisible}
+              visible={tablePopoverVisible}
               placement={popoverPlacement}
               getPopupContainer={getPopupContainer}
               onVisibleChange={this.handleTablePopoverVisibleChange}
@@ -1051,19 +1025,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     }
   };
 
-  handleTableItemClick = (e) => {
-    let { handleFormatSize, handleInsertTable } = this.props,
-      target = e.target;
-
-    if (target.classList.value.indexOf('size-item') > -1 && target.hasAttribute('value')) {
-      handleFormatSize && handleFormatSize(target.getAttribute('value'));
-      handleInsertTable && handleInsertTable(3, 3);
-      this.setState({
-        tablePopoverVisible: false
-      });
-    }
-  };
-
   genToolbar = (toolbar) => {
     let result = [];
     toolbar.forEach((item, index) => {
@@ -1114,17 +1075,16 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     this.setState({
       tablePopoverVisible: visible
     });
-
-    if (!visible) return;
-    let { getCurrentSize } = this.props,
-      curSize = getCurrentSize && getCurrentSize();
-
-    if (curSize != this.state.curSize) {
-      this.setState({
-        curSize
-      });
-    }
   };
+
+  handleTableInsertPopover = (row:number, col:number)=>{
+    let { handleInsertTable} = this.props;
+    handleInsertTable && handleInsertTable(row, col);
+    this.setState({
+      tablePopoverVisible: false
+    });
+  }
+
 
   handleLineHeightPopoverVisibleChange = (visible) => {
     this.setState({

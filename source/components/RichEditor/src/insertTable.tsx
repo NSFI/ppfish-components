@@ -4,12 +4,17 @@ import classNames from "classnames";
 
 const preClass = "ql-table-popover";
 
+interface IProps {
+  chooseItemHandle: (row: number, col: number) => void;
+  visible: boolean;
+}
+
 interface IState {
   activeRow: number;
   activeCol: number;
 }
 
-class InsertTable extends Component<{}, IState> {
+class InsertTable extends Component<IProps, IState> {
   cellClass = `${preClass}-cell`;
   state = {
     activeRow: 0,
@@ -49,13 +54,19 @@ class InsertTable extends Component<{}, IState> {
       const position = target.dataset.position;
       if (position) {
         const tuple: string[] = position.split(",");
-
-        // this.setState({
-        //   activeRow: Number(tuple[0]),
-        //   activeCol: Number(tuple[1])
-        // });
+        this.props.chooseItemHandle(Number(tuple[0]) + 1, Number(tuple[1]) + 1);
       }
     }
+  };
+
+  static getDerivedStateFromProps = (nextProps: Readonly<IProps>) => {
+    if (!nextProps.visible) {
+      return {
+        activeRow: 0,
+        activeCol: 0
+      };
+    }
+    return null;
   };
 
   render() {
