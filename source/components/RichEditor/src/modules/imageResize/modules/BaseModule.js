@@ -1,14 +1,14 @@
 export default class BaseModule {
   constructor (resizer) {
-    this.resizer = resizer
-    this.quill = resizer.quill
-    this.overlay = resizer.overlay
-    this.activeEle = resizer.activeEle
-    this.blot = resizer.blot
-    this.options = resizer.options
+    this.resizer = resizer;
+    this.quill = resizer.quill;
+    this.overlay = resizer.overlay;
+    this.activeEle = resizer.activeEle;
+    this.blot = resizer.blot;
+    this.options = resizer.options;
     this.requestUpdate = () => {
-      resizer.onUpdate(true)
-    }
+      resizer.onUpdate(true);
+    };
   }
   /*
     requestUpdate (passed in by the library during construction, above) can be used to let the library know that

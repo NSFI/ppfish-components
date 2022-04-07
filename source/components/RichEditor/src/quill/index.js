@@ -3,7 +3,7 @@ React-Quill v1.0.0
 https://github.com/zenoamaro/react-quill
 */
 
-import Quill from '../quillCore/quill'
+import Quill from '../quillCore/quill';
 let Component = require('./component');
 
 module.exports = Component;

@@ -1,39 +1,39 @@
 import { Quill } from "../../../quill";
 
 // BEGIN allow image alignment styles
-const ATTRIBUTES = ['alt', 'height', 'width', 'style', 'data-size']
+const ATTRIBUTES = ['alt', 'height', 'width', 'style', 'data-size'];
 
-var BaseImageFormat = Quill.import('formats/image')
+let BaseImageFormat = Quill.import('formats/image');
 class Image extends BaseImageFormat {
   static formats (domNode) {
     if (domNode.__handling && domNode.__formats) {
-      return domNode.__formats
+      return domNode.__formats;
     }
 
     return ATTRIBUTES.reduce(function (formats, attribute) {
       if (domNode.hasAttribute(attribute)) {
-        formats[attribute] = domNode.getAttribute(attribute)
+        formats[attribute] = domNode.getAttribute(attribute);
       }
-      return formats
-    }, {})
+      return formats;
+    }, {});
   }
 
   format (name, value) {
     if (ATTRIBUTES.indexOf(name) > -1) {
       if (value) {
-        this.domNode.setAttribute(name, value)
+        this.domNode.setAttribute(name, value);
       } else {
-        this.domNode.removeAttribute(name)
+        this.domNode.removeAttribute(name);
       }
     } else {
-      super.format(name, value)
+      super.format(name, value);
     }
   }
 
   handling (handling) {
-    this.domNode.__formats = this.constructor.formats(this.domNode)
-    this.domNode.__handling = handling
+    this.domNode.__formats = this.constructor.formats(this.domNode);
+    this.domNode.__handling = handling;
   }
 }
 
-export { Image, ATTRIBUTES }
+export { Image, ATTRIBUTES };

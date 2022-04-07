@@ -1,4 +1,4 @@
-import Quill from '../quillCore/quill'
+import Quill from '../quillCore/quill';
 import { positionElements, Placement } from 'positioning';
 import '../../style/table.less';
 
