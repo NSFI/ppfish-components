@@ -115,6 +115,8 @@ export default class TableUI {
     this.toggle.addEventListener('click', this.toggleClickHandler);
     this.quill.on(QuillEvents.EDITOR_CHANGE, this.editorChangeHandler);
     this.quill.root.addEventListener('contextmenu', this.contextMenuHandler);
+    // fix: toggle and menu separate from the table
+    this.quill.root.addEventListener('scroll', this.scrollHandler);
   }
 
   editorChangeHandler = (
@@ -134,6 +136,12 @@ export default class TableUI {
     }
     evt.preventDefault();
     this.showMenu();
+  };
+
+  scrollHandler = (evt: MouseEvent) => {
+    evt.preventDefault();
+    this.hideToggle();
+    this.hideMenu();
   };
 
   toggleClickHandler = (e) => {
@@ -285,7 +293,7 @@ export default class TableUI {
   }
 
   hideToggle() {
-    this.toggle.classList.add('ql-table-toggle_hidden');
+    this.toggle && this.toggle.classList.add('ql-table-toggle_hidden');
   }
 
   toggleMenu() {
