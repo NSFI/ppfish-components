@@ -308,6 +308,7 @@ export default class TableUI {
     this.hideMenu();
     this.quill.off(QuillEvents.EDITOR_CHANGE, this.editorChangeHandler);
     this.quill.root.removeEventListener('contextmenu', this.contextMenuHandler);
+    this.quill.root.removeEventListener('scroll', this.scrollHandler);
     this.toggle.removeEventListener('click', this.toggleClickHandler);
     this.toggle.remove();
     this.toggle = null;
