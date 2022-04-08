@@ -35,26 +35,6 @@
 ```
 :::
 
-## 添加表格
-
-:::demo 
-
-```js
-
-  constructor(props) {
-    super(props);
-    this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ["table"]];
-  }
-
-  render() {
-    return (
-      <RichEditor
-        toolbar={this.toolbar}
-      />
-    );
-  }
-```
-:::
 
 ## 定制文字大小
 
@@ -762,6 +742,27 @@
       <RichEditor
         pastePlainText
         value={`<p><a target="_blank" href="https://nsfi.github.io/ppfish-components/#/home">Fish Design</a> 是基于 React 实现的高质量的 UI 组件库。</p><p><br></p><p>它的设计原则是简洁、直接、优雅和适应性。</p><p><br></p><p>欢迎使用或<a target="_blank" href="https://github.com/NSFI/ppfish-components/">贡献代码</a><img class="portrait_icon" data-id="emoticon_emoji_132" data-type="defaultEmoji" alt="[玫瑰]" src="//qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png" width="24" height="24"></p>`}
+      />
+    );
+  }
+```
+:::
+
+## 插入表格
+
+:::demo 
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ["table"]];
+  }
+
+  render() {
+    return (
+      <RichEditor
+        toolbar={this.toolbar}
       />
     );
   }
