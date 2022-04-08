@@ -29,7 +29,7 @@ class InsertTable extends Component<IProps, IState> {
     });
   }
 
-  mouseCallback = throttle(ev => {
+  mouseCallback = ev => {
     const target = ev.target;
     if (target.classList.contains(this.cellClass)) {
       const position = target.dataset.position;
@@ -41,7 +41,7 @@ class InsertTable extends Component<IProps, IState> {
         });
       }
     }
-  }, 16);
+  };
 
   mouseoverHandle = ev => {
     ev.persist();
