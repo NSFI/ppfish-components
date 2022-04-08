@@ -331,11 +331,11 @@
 
   .ql-searched-string {
     // 这里需要保证权重, 避免查找的显示被背景色和字体颜色覆盖
-    background-color: #f8ff00 !important;
+    background-color: #FFAF0F !important;
     display: inline;
 
     &.search-active {
-      background-color: #5555e5 !important;
+      background-color: #337eff !important;
       color: #fff !important;
     }
   }
@@ -358,10 +358,8 @@
       justify-content: space-around;
       align-items: center;
 
-      &.replace-input {
-        input {
-          padding-right: 31px;
-        }
+      &.replace-input input {
+        padding-right: 31px;
       }
 
       > label {
@@ -386,10 +384,10 @@
         font-size: 10px;
         color: #999;
         cursor: pointer;
+      }
 
-        &:hover {
-          color: #333;
-        }
+      > i:hover {
+        color: #333;
       }
     }
 

@@ -1,4 +1,4 @@
-import Quill from 'quill';
+import {Quill} from '../quill';
 const Inline = Quill.import('blots/inline');
 
 class SearchedStringBlot extends Inline {
@@ -17,7 +17,6 @@ class SearchedStringBlot extends Inline {
   }
 
   format(name?: any, value?: any) {
-    // console.log('format', name, value, this.domNode);
     if(name === 'SearchedString' && value === true) {
       if(this.domNode.classList.contains('search-active')){
         this.domNode.classList.remove('search-active');

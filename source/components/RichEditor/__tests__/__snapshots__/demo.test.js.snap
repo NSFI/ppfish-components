@@ -2386,205 +2386,6 @@ exports[`Renders richEditor demo correctly 1`] = `
           class="item"
         >
           <div
-            class="action custom-color fishdicon fishdicon-richeditor-color"
-          >
-            <button
-              class="ql-color hide"
-              data-role="color"
-              type="button"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          class="item"
-        >
-          <div
-            class="action custom-background fishdicon fishdicon-richeditor-fontbkcol"
-          >
-            <button
-              class="ql-background hide"
-              data-role="background"
-              type="button"
-              value=""
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-fullscreen fishdicon fishdicon-video-fullscreen"
-            type="button"
-          />
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-findAndReplace fishdicon fishdicon-search-line"
-            type="button"
-          />
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <div
-            class="action custom-size fishdicon fishdicon-richeditor-size"
-          />
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <div
-            class="action custom-color fishdicon fishdicon-richeditor-color"
-          >
-            <button
-              class="ql-color hide"
-              data-role="color"
-              type="button"
-              value=""
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-list fishdicon fishdicon-richeditor-numberlis"
-            type="button"
-            value="ordered"
-          />
-        </div>
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-list fishdicon fishdicon-richeditor-list"
-            type="button"
-            value="bullet"
-          />
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <div
-            class="action custom-emoji fishdicon fishdicon-richeditor-expressio"
-          >
-            <button
-              class="ql-emoji hide"
-              data-role="emoji"
-              type="button"
-              value=""
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-image fishdicon fishdicon-richeditor-picture"
-          />
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-clean fishdicon fishdicon-richeditor-clear"
-          />
-        </div>
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-formatPainter fishdicon fishdicon-richeditor-brushx"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      class="quill editor-body"
-    >
-      <div />
-    </div>
-  </div>
-  <div
-    class="fishd-richeditor"
-  >
-    <div
-      class="editor-head"
-    >
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-link fishdicon fishdicon-richeditor-link"
-          />
-        </div>
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-bold fishdicon fishdicon-richeditor-bold"
-          />
-        </div>
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-italic fishdicon fishdicon-richeditor-tilt"
-          />
-        </div>
-        <div
-          class="item"
-        >
-          <button
-            class="action ql-underline fishdicon fishdicon-richeditor-underline"
-          />
-        </div>
-      </div>
-      <div
-        class="toolbar-grp"
-      >
-        <div
-          class="item"
-        >
-          <div
             class="action custom-size fishdicon fishdicon-richeditor-size"
           />
         </div>
@@ -3218,6 +3019,205 @@ exports[`Renders richEditor demo correctly 1`] = `
         >
           <button
             class="action ql-formatPainter fishdicon fishdicon-richeditor-brushx"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="quill editor-body"
+    >
+      <div />
+    </div>
+  </div>
+  <div
+    class="fishd-richeditor"
+  >
+    <div
+      class="editor-head"
+    >
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-link fishdicon fishdicon-richeditor-link"
+          />
+        </div>
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-bold fishdicon fishdicon-richeditor-bold"
+          />
+        </div>
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-italic fishdicon fishdicon-richeditor-tilt"
+          />
+        </div>
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-underline fishdicon fishdicon-richeditor-underline"
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <div
+            class="action custom-color fishdicon fishdicon-richeditor-color"
+          >
+            <button
+              class="ql-color hide"
+              data-role="color"
+              type="button"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="item"
+        >
+          <div
+            class="action custom-background fishdicon fishdicon-richeditor-fontbkcol"
+          >
+            <button
+              class="ql-background hide"
+              data-role="background"
+              type="button"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-fullscreen fishdicon fishdicon-video-fullscreen"
+            type="button"
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <div
+            class="action custom-size fishdicon fishdicon-richeditor-size"
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <div
+            class="action custom-color fishdicon fishdicon-richeditor-color"
+          >
+            <button
+              class="ql-color hide"
+              data-role="color"
+              type="button"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-list fishdicon fishdicon-richeditor-numberlis"
+            type="button"
+            value="ordered"
+          />
+        </div>
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-list fishdicon fishdicon-richeditor-list"
+            type="button"
+            value="bullet"
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <div
+            class="action custom-emoji fishdicon fishdicon-richeditor-expressio"
+          >
+            <button
+              class="ql-emoji hide"
+              data-role="emoji"
+              type="button"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-image fishdicon fishdicon-richeditor-picture"
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-clean fishdicon fishdicon-richeditor-clear"
+          />
+        </div>
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-formatPainter fishdicon fishdicon-richeditor-brushx"
+          />
+        </div>
+      </div>
+      <div
+        class="toolbar-grp"
+      >
+        <div
+          class="item"
+        >
+          <button
+            class="action ql-findAndReplace fishdicon fishdicon-search-line"
+            type="button"
           />
         </div>
       </div>
