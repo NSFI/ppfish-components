@@ -1,5 +1,6 @@
 import Quill from '../quillCore/quill';
 import positions from 'position.js';
+import { LocaleProperties } from '../../../Locale';
 import '../../style/table.less';
 
 interface Range {
@@ -31,12 +32,12 @@ export interface MenuItem {
 }
 
 export interface TableUIOptions {
-  maxRowCount?: number;
+  Locale: LocaleProperties['RichEditor'];
 }
 
 export default class TableUI {
   DEFAULTS: TableUIOptions = {
-    maxRowCount: -1,
+    Locale: {}
   };
 
   quill: Quill;
@@ -62,24 +63,14 @@ export default class TableUI {
         title: Locale.insertColRight,
         icon: 'fishdicon-youlie',
         handler: () => {
-          if (
-            !(this.options.maxRowCount > 0) ||
-            this.getColCount() < this.options.maxRowCount
-          ) {
-            this.table.insertColumnRight();
-          }
+          this.table.insertColumnRight();
         },
       },
       {
         title: Locale.insertColLeft,
         icon: 'fishdicon-zuolie',
         handler: () => {
-          if (
-            !(this.options.maxRowCount > 0) ||
-            this.getColCount() < this.options.maxRowCount
-          ) {
-            this.table.insertColumnLeft();
-          }
+          this.table.insertColumnLeft();
         },
       },
       {
@@ -166,6 +157,7 @@ export default class TableUI {
     return !!(formats['table'] && !range.length);
   }
 
+  /*
   getColCount(range: Range = null) {
     if (!range) {
       range = this.quill.getSelection();
@@ -177,11 +169,28 @@ export default class TableUI {
     if (!table) {
       return 0;
     }
+
     const maxColumns = table.rows().reduce((max, row) => {
       return Math.max(row.children.length, max);
     }, 0);
     return maxColumns;
   }
+
+  getRowCount(range: Range = null) {
+    if (!range) {
+      range = this.quill.getSelection();
+    }
+    if (!range) {
+      return 0;
+    }
+    const [table] = this.table.getTable(range);
+    if (!table) {
+      return 0;
+    }
+
+    return table.rows().length;
+  }
+  */
 
   showMenu() {
     this.hideMenu();
@@ -250,9 +259,6 @@ export default class TableUI {
       const [cell, offset] = this.quill.getLine(range.index);
       const containerBounds = this.quill.container.getBoundingClientRect();
       let bounds = cell.domNode.getBoundingClientRect();
-
-      console.log(">> containerBounds: ", containerBounds, this.quill.container);
-      console.log(">> bounds: ", bounds, cell.domNode);
 
       bounds = {
         bottom: bounds.bottom - containerBounds.top,
