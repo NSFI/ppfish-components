@@ -1405,7 +1405,9 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       },
       history: historyConfig || this.historyConfig,
       table: true,
-      tableUI: true,
+      tableUI: {
+        Locale: this.Locale
+      },
     };
 
     // fileDrop 为 true 时，使 imageDrop 失效

@@ -94,9 +94,12 @@
     border-top: @border-width-base @border-style-base @border-color-base;
     overflow: hidden; // 修复升级浏览器到Chrome 76后导致的flex布局异常
 
-    .ql-editor {
-      overflow-y: scroll;
+    .ql-container {
       .scrollbar();
+      overflow: auto;
+    }
+
+    .ql-editor {
       -moz-user-select: all;
       -ms-user-select: auto;
       -webkit-user-select: auto;  // fix bug: safari can't edit

@@ -1,6 +1,5 @@
 import Quill from '../quillCore/quill';
-import { positionElements, Placement } from 'positioning';
-// import Locale, { LocaleProperties } from '../../../Locale';
+import positions from 'position.js';
 import '../../style/table.less';
 
 interface Range {
@@ -25,14 +24,6 @@ enum QuillSources {
   USER = 'user',
 }
 
-const DEFAULT_PLACEMENT: Placement[] = [
-  'bottom-left',
-  'bottom-right',
-  'top-left',
-  'top-right',
-  'auto',
-];
-
 export interface MenuItem {
   title: string;
   icon: string;
@@ -54,68 +45,7 @@ export default class TableUI {
   menu: HTMLElement;
   position: any;
   table: any;
-
-  menuItems: MenuItem[] = [
-    {
-      title: 'Insert column right',
-      icon: 'fishdicon-youlie',
-      handler: () => {
-        if (
-          !(this.options.maxRowCount > 0) ||
-          this.getColCount() < this.options.maxRowCount
-        ) {
-          this.table.insertColumnRight();
-        }
-      },
-    },
-    {
-      title: 'Insert column left',
-      icon: 'fishdicon-zuolie',
-      handler: () => {
-        if (
-          !(this.options.maxRowCount > 0) ||
-          this.getColCount() < this.options.maxRowCount
-        ) {
-          this.table.insertColumnLeft();
-        }
-      },
-    },
-    {
-      title: 'Insert row above',
-      icon: 'fishdicon-shanghang',
-      handler: () => {
-        this.table.insertRowAbove();
-      },
-    },
-    {
-      title: 'Insert row below',
-      icon: 'fishdicon-xiahang',
-      handler: () => {
-        this.table.insertRowBelow();
-      },
-    },
-    {
-      title: 'Delete column',
-      icon: 'fishdicon-shanlie',
-      handler: () => {
-        this.table.deleteColumn();
-      },
-    },
-    {
-      title: 'Delete row',
-      icon: 'fishdicon-shanhang',
-      handler: () => {
-        this.table.deleteRow();
-      },
-    },
-    {
-      title: 'Delete table',
-      icon: 'fishdicon-delete-line',
-      handler: () => {
-        this.table.deleteTable();
-      },
-    },
-  ];
+  menuItems: MenuItem[];
 
   constructor(quill: Quill, options: any) {
     this.quill = quill;
@@ -126,8 +56,71 @@ export default class TableUI {
       return;
     }
 
+    const Locale = this.options.Locale;
+    this.menuItems = [
+      {
+        title: Locale.insertColRight,
+        icon: 'fishdicon-youlie',
+        handler: () => {
+          if (
+            !(this.options.maxRowCount > 0) ||
+            this.getColCount() < this.options.maxRowCount
+          ) {
+            this.table.insertColumnRight();
+          }
+        },
+      },
+      {
+        title: Locale.insertColLeft,
+        icon: 'fishdicon-zuolie',
+        handler: () => {
+          if (
+            !(this.options.maxRowCount > 0) ||
+            this.getColCount() < this.options.maxRowCount
+          ) {
+            this.table.insertColumnLeft();
+          }
+        },
+      },
+      {
+        title: Locale.insertRowAbove,
+        icon: 'fishdicon-shanghang',
+        handler: () => {
+          this.table.insertRowAbove();
+        },
+      },
+      {
+        title: Locale.insertRowBelow,
+        icon: 'fishdicon-xiahang',
+        handler: () => {
+          this.table.insertRowBelow();
+        },
+      },
+      {
+        title: Locale.deleteCol,
+        icon: 'fishdicon-shanlie',
+        handler: () => {
+          this.table.deleteColumn();
+        },
+      },
+      {
+        title: Locale.deleteRow,
+        icon: 'fishdicon-shanhang',
+        handler: () => {
+          this.table.deleteRow();
+        },
+      },
+      {
+        title: Locale.deleteTable,
+        icon: 'fishdicon-delete-line',
+        handler: () => {
+          this.table.deleteTable();
+        },
+      },
+    ];
+
     this.toggle = quill.addContainer('ql-table-toggle');
-    this.toggle.classList.add('ql-table-toggle_hidden', 'fishdicon', 'fishdicon-gengduo2');
+    this.toggle.classList.add('fishdicon', 'fishdicon-gengduo2', 'ql-table-toggle_hidden');
     this.toggle.addEventListener('click', this.toggleClickHandler);
     this.quill.on(QuillEvents.EDITOR_CHANGE, this.editorChangeHandler);
     this.quill.root.addEventListener('contextmenu', this.contextMenuHandler);
@@ -197,7 +190,17 @@ export default class TableUI {
     this.menuItems.forEach((it) => {
       this.menu.appendChild(this.createMenuItem(it));
     });
-    positionElements(this.toggle, this.menu, DEFAULT_PLACEMENT, false);
+
+    // set menu position
+    const position = positions(this.menu, this.toggle, {
+      popup: 'top-left',
+      anchor: 'bottom-left',
+    }, {
+      offsetParent: this.quill.container
+    });
+    this.menu.style.top = `${position.top}px`;
+    this.menu.style.left = `${position.left}px`;
+
     document.addEventListener('click', this.docClickHandler);
   }
 
@@ -247,20 +250,25 @@ export default class TableUI {
       const [cell, offset] = this.quill.getLine(range.index);
       const containerBounds = this.quill.container.getBoundingClientRect();
       let bounds = cell.domNode.getBoundingClientRect();
+
+      console.log(">> containerBounds: ", containerBounds, this.quill.container);
+      console.log(">> bounds: ", bounds, cell.domNode);
+
       bounds = {
         bottom: bounds.bottom - containerBounds.top,
         height: bounds.height,
         left: bounds.left - containerBounds.left,
         right: bounds.right - containerBounds.left,
-        top: bounds.top - containerBounds.top,
+        top: bounds.top - containerBounds.top + this.quill.container.scrollTop,
         width: bounds.width,
       };
 
       this.showToggle(bounds);
     } else {
       this.hideToggle();
-      this.hideMenu();
     }
+
+    this.hideMenu();
   }
 
   showToggle(position: any) {
