@@ -41,7 +41,7 @@ class InsertTable extends Component<IProps, IState> {
         });
       }
     }
-  }, 200);
+  }, 16);
 
   mouseoverHandle = ev => {
     ev.persist();
