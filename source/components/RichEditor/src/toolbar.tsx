@@ -868,6 +868,15 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           tooltip = fullScreen ? Locale.exitFullScreen : Locale.fullScreen;
           break;
         }
+        case 'findAndReplace': {
+          const findAndReplaceCls = classNames('action ql-findAndReplace', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-search-line`]: true
+          });
+          value = <button type="button" className={findAndReplaceCls} value={mValue} key={'findAndReplace'} />;
+          tooltip = '查找与替换';
+          break;
+        }
         // case 'header': {
         //  // 使用原生quill的样式, 弹窗可能会有些不一样, 先不开放此功能, 还有一点是多语言比较麻烦
         //   // [{ header: [ 1,2, 3, 4 ,5, 6, false] }]

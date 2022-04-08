@@ -15,6 +15,7 @@ export interface RichEditorState {
   formatPainterActive: boolean;
   showAttachmentModal?: boolean;
   fullScreen: boolean;
+  findVisible: boolean;
 }
 
 export interface QuillComponentProps {

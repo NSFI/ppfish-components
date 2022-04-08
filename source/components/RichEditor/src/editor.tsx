@@ -22,11 +22,14 @@ import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
 import TableUI from "./modules/table";
 import attachBlot from "./formats/attach";
+import SearchedStringBlot from "./formats/SearchBlot";
 
 import { RichEditorProps, RichEditorState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
 import { LocaleProperties } from '../../Locale';
+import FindModal from "./findModal";
 
+Quill.register(SearchedStringBlot);
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
 Quill.register(ImageBlot);
@@ -79,6 +82,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     attachment: Function,
     clean: Function,
     customInsertValue: Function
+    findAndReplace: Function
     undo: Function
     redo: Function
   }
@@ -204,7 +208,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       defaultInputLink: this.defaultLinkPrefix,
       linkModalTitle: "",
       formatPainterActive: false,
-      fullScreen: false
+      fullScreen: false,
+      findVisible: false
     };
     this.handlers = {
       link: (value, fromAction) => {
@@ -399,6 +404,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         } else {
           quill.insertText(range.index, mValue.value);
         }
+      },
+      findAndReplace: val=>{
+        this.setState(prev => ({
+          findVisible: !prev.findVisible
+        }));
       }
     };
 
@@ -1348,7 +1358,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       curVideoType,
       defaultInputLink,
       linkModalTitle,
-      fullScreen
+      fullScreen,
+      findVisible
     } = this.state;
     const {
       className,
@@ -1573,6 +1584,9 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   onChange={this.handleChange}
                   onSelectionChange={this.handleSelectionChange}
                 />
+                {
+                  findVisible ? <FindModal  getEditor={this.getEditor}/>: null
+                }
                 {loading ? (
                   <Spin
                     style={{
