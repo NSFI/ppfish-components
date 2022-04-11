@@ -176,4 +176,4 @@ let QuillMixin = {
   }
 };
 
-module.exports = QuillMixin;
+export default QuillMixin

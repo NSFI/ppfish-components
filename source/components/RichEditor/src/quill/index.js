@@ -4,10 +4,14 @@ https://github.com/zenoamaro/react-quill
 */
 
 import Quill from '../quillCore/quill';
-let Component = require('./component');
+import Component from './component';
+import Mixin from './mixin';
+import Toolbar from './toolbar';
 
-module.exports = Component;
-module.exports.default = Component;
-module.exports.Quill = Quill;
-module.exports.Mixin = require('./mixin');
-module.exports.Toolbar = require('./toolbar');
+export default Component;
+export {
+  Component,
+  Quill,
+  Mixin,
+  Toolbar
+};
