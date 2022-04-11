@@ -11,6 +11,7 @@ const TabPane = Tabs.TabPane;
 
 interface IProps {
   getEditor: () => ReactQuill;
+  closeFindModal: () => void;
 }
 
 interface IState {
@@ -43,22 +44,22 @@ class FindModal extends React.Component<IProps, IState> {
   };
 
   editorOnChange = (delta, oldDelta, source) => {
-    if (source == 'user') {
+    if (source == "user") {
       this.search();
     }
-  }
+  };
 
   componentDidMount() {
     const { getEditor } = this.props;
     const quill = getEditor();
-    quill && quill.on('text-change', this.editorOnChange);
+    quill && quill.on("text-change", this.editorOnChange);
   }
 
   componentWillUnmount() {
     this.removeStyle();
     const { getEditor } = this.props;
     const quill = getEditor();
-    quill && quill.off('text-change', this.editorOnChange);
+    quill && quill.off("text-change", this.editorOnChange);
   }
 
   removeStyle = () => {
@@ -72,7 +73,7 @@ class FindModal extends React.Component<IProps, IState> {
     this.setState({
       indices: []
     });
-    const {searchKey} = this.state
+    const { searchKey } = this.state;
     this.removeStyle();
     if (!searchKey) {
       return;
@@ -88,7 +89,9 @@ class FindModal extends React.Component<IProps, IState> {
       // 目标文本在文档中的位置
       const index = match.index;
       // 高亮, 第 0 个默认选中
-      quill.formatText(index, length, "SearchedString", { active: indices.length === 0 });
+      quill.formatText(index, length, "SearchedString", {
+        active: indices.length === 0
+      });
       indices.push({ index });
     }
     if (indices.length) {
@@ -258,6 +261,7 @@ class FindModal extends React.Component<IProps, IState> {
   render() {
     return (
       <div className={"find-modal"}>
+        <Icon type="hints-alone-error" onClick={this.props.closeFindModal} />
         <Tabs defaultActiveKey="1" size={"small"}>
           <TabPane tab="查找" key="1">
             {this.renderSearch()}

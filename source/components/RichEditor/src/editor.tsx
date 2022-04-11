@@ -648,6 +648,12 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     return this.reactQuillRef.getEditor() as ReactQuill;
   };
 
+  closeFindModal = () => {
+    this.setState({
+      findVisible: false
+    });
+  }
+
   handleLinkModalOk = () => {
     let el = this.linkModalInputRef.input,
       val = el.value.trim();
@@ -1585,7 +1591,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   onSelectionChange={this.handleSelectionChange}
                 />
                 {
-                  findVisible ? <FindModal  getEditor={this.getEditor}/>: null
+                  findVisible ? <FindModal closeFindModal={this.closeFindModal}  getEditor={this.getEditor}/>: null
                 }
                 {loading ? (
                   <Spin

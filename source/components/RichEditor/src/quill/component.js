@@ -1,10 +1,9 @@
 'use strict';
-
+import QuillMixin from './mixin';
 /* eslint-disable react/prefer-es6-class */
 let React = require('react');
 let ReactDOM = require('react-dom');
 let createClass = require('create-react-class');
-let QuillMixin = require('./mixin');
 let some = require('lodash/some');
 let isEqual = require('lodash/isEqual');
 let T = require('prop-types');
