@@ -177,3 +177,4 @@ let QuillMixin = {
 };
 
 export default QuillMixin
+
