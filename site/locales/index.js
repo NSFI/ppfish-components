@@ -1,3 +1,5 @@
+import pkg from '../../package.json';
+
 export default {
   misc: {
     'guide': '指南',
@@ -12,6 +14,10 @@ export default {
     'feedback': '反馈建议',
     'demo': '演示环境',
     'mobileComponent': 'Mobile组件',
-    'version': '2.0.1'
+    'version': pkg.version,
+  },
+  docVersions: {
+    'v1.8.5': 'https://ppfish-v185.surge.sh/',
+    'v1.8.4': 'https://ppfish-v184.surge.sh/'
   }
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import PropTypes from "prop-types";
 
-import {Row, Col} from '../../../source/components';
+import {Row, Col, Menu, Dropdown} from '../../../source/components';
 import Affix from '../../../source/components/Affix/index.tsx';
 import locales from '../../locales';
 
@@ -87,6 +87,18 @@ export default class Layout extends React.Component {
 
   render() {
     const {children, hideFooter} = this.props;
+    const docVersions = locales.docVersions;
+    const menu = (
+      <Menu>
+        { Object.keys(docVersions).map(version => {
+          const link = docVersions[version];
+          return (
+          <Menu.Item key={version} title={version}>
+            <a href={link} target="_blank" rel="noreferrer">{version}</a>
+          </Menu.Item>);
+        }) }
+      </Menu>
+    );
     const CommonHeader = (
       <header className="fish-header">
         <Row>
@@ -109,7 +121,13 @@ export default class Layout extends React.Component {
               <li className="nav-item">
                 <a href="//nsfi.github.io/fishd-mobile-site/index.html" target="_blank">{this.getLocale('misc.mobileComponent')}</a>
               </li>
-              <a className="nav-version">{this.getLocale('misc.version')}</a>
+
+              <Dropdown overlay={menu} trigger={['click']}>
+                <a className="nav-version">{this.getLocale('misc.version')}</a>
+              </Dropdown>
+              
+
+              
               <a className="u-github" href="//github.com/NSFI/ppfish-components" target="_blank">
                 <img style={{width: 25, height: 25}} src={require('../../assets/github.png')} alt="github" />
               </a>
