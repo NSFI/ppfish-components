@@ -139,6 +139,28 @@
 :::
 
 
+## 表情包可选
+
+:::demo 表情包可选, 可配置属性: `[{'emoji': ['default',emoji']}]`。
+
+```js
+
+constructor(props){
+  super(props);
+  this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], [{'emoji': ['emoji']}],  [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['image'], ['clean', 'formatPainter']];
+}
+
+render() {
+  return (
+    <RichEditor
+      toolbar={this.toolbar}
+    />
+  );
+}
+```
+:::
+
+
 ## 扩展插入文本功能
 
 :::demo 扩展工具栏，添加“插入文本”按钮，支持在光标位置处插入自定义文本，可设置该文本是否可编辑（默认可编辑）。
