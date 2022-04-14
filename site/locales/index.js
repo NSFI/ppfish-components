@@ -1,3 +1,4 @@
+import pkg from '../../package.json';
 export default {
   misc: {
     'guide': '指南',
@@ -12,6 +13,6 @@ export default {
     'feedback': '反馈建议',
     'demo': '演示环境',
     'mobileComponent': 'Mobile组件',
-    'version': '1.8.5'
+    'version': pkg.version,
   }
 };
