@@ -562,14 +562,14 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-richeditor-expressio`]: true
           });
           let tabPanes = [
-            <TabPane tab={Locale.defaultEmoji} key="emoji_default">
+            <TabPane tab={Locale.defaultEmoji} key="default">
               <div className="emoji-ctner">
                 <div className="emoji-con" onClick={handleInsertEmoji}>
                   {popoEmojis}
                 </div>
               </div>
             </TabPane>,
-            <TabPane tab={Locale.emojiEmoji} key="emoji_default_1">
+            <TabPane tab={Locale.emojiEmoji} key="emoji">
               <div className="emoji-ctner">
                 <div className="emoji-con" onClick={handleInsertEmoji}>
                   {defaultEmojis}
@@ -577,6 +577,11 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               </div>
             </TabPane>
           ];
+          if(Array.isArray(mValue)){
+            tabPanes = tabPanes.filter((tab)=>{
+              return mValue.includes(tab.key);
+            });
+          }
           if (customEmoji && customEmoji.length) {
             customEmoji.forEach((item, index) => {
               tabPanes.push(
