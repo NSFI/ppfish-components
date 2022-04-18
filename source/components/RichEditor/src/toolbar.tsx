@@ -199,6 +199,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
     formatPainterActive: false,
+    insertTableDisabled: false,
     getPopupContainer: () => document.body
   };
   private defaultSizes: Array<string>
@@ -678,7 +679,8 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
         case 'table': {
           const tableCls = classNames('action custom-table', {
             [`${iconPrefix}`]: true,
-            [`${iconPrefix}-biaoge`]: true
+            [`${iconPrefix}-biaoge`]: true,
+            'ql-btn-disabled': this.props.insertTableDisabled
           });
           const {tablePopoverVisible} =this.state;
 
@@ -1047,13 +1049,15 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
   };
 
   handleTableInsertPopover = (row:number, col:number)=>{
-    let { handleInsertTable} = this.props;
+    let { handleInsertTable, insertTableDisabled } = this.props;
+
+    if (insertTableDisabled) return;
+
     handleInsertTable && handleInsertTable(row, col);
     this.setState({
       tablePopoverVisible: false
     });
   }
-
 
   handleLineHeightPopoverVisibleChange = (visible) => {
     this.setState({

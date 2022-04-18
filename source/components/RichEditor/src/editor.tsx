@@ -20,7 +20,7 @@ import PlainClipboard from "./modules/plainClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
-import TableUI from "./modules/table";
+import TableUI, { isTable } from "./modules/table";
 import attachBlot from "./formats/attach";
 import SearchedStringBlot from "./formats/SearchBlot";
 
@@ -207,6 +207,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       defaultInputLink: this.defaultLinkPrefix,
       linkModalTitle: "",
       formatPainterActive: false,
+      insertTableDisabled: false,
       fullScreen: false,
       findVisible: false
     };
@@ -1145,6 +1146,17 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     let quill = this.getEditor();
     if (!quill) return;
 
+    // 处理插入表格按钮的禁用状态，禁止嵌套插入表格
+    if (isTable(quill)) {
+      this.setState({
+        insertTableDisabled: true
+      });
+    } else {
+      this.setState({
+        insertTableDisabled: false
+      });
+    }
+
     // 格式刷
     if (this.prevSelectionFormat && nextSelection) {
       // 清除当前选区的格式
@@ -1521,6 +1533,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   getCurrentSize={this.getCurrentSize}
                   getCurrentLineHeight={this.getCurrentLineHeight}
                   formatPainterActive={this.state.formatPainterActive}
+                  insertTableDisabled={this.state.insertTableDisabled}
                   saveSelectionFormat={this.handleSaveSelectionFormat}
                   unsaveSelectionFormat={this.handleUnsaveSelectionFormat}
                   fullScreen={fullScreen}
