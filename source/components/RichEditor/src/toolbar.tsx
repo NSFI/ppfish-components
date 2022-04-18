@@ -2,7 +2,6 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import classNames from 'classnames';
 import emojiList from './emojiList';
-// import ColorPicker from '../../ColorPicker/index.js';
 import Tooltip, { TooltipPlacement } from '../../Tooltip/index';
 import Popover from '../../Popover/index';
 import Tabs from '../../Tabs/index';
@@ -480,20 +479,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               </Tooltip>
             </Popover>
           );
-
-          // value = <div className="item"><select className="ql-color" /></div>;
-          // value = (
-          //   <div className="custom-color" key={key}>
-          //     <ColorPicker
-          //       className={"custom-color-picker"}
-          //       enableHistory={true}
-          //       enableAlpha={false}
-          //       onClose={this.handleColorSelect.bind(this)}
-          //     >
-          //       <button className="ql-customColor" />
-          //     </ColorPicker>
-          //   </div>
-          // );
           tooltip = Locale.fontColor;
           break;
         }
@@ -519,24 +504,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             });
             value = <button type="button" className={alignCls} value={mValue} key={key} />;
           }
-          // else if (mValue instanceof Array && mValue.length) {
-          //   value = (
-          //     <div className="item" key={key}>
-          //       <select className="ql-align">
-          //         <option />
-          //         {
-          //           mValue.map((val, idx) => {
-          //             return <option key={key+'_option_'+idx} value={val} />;
-          //           })
-          //         }
-          //       </select>
-          //     </div>
-          //   );
-          //   tooltip = '对齐';
-          // } else {
-          //   value = <div className="item" key={key}><select className="ql-align" /></div>;
-          //   tooltip = '对齐';
-          // }
           break;
         }
         case 'list': {
@@ -805,7 +772,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'background': {
-          // value = <div className="item" key={key}><select className="ql-background" /></div>;
           const backgroundCls = classNames('action custom-background', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-fontbkcol`]: true
@@ -972,11 +938,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
           break;
         }
-        // case 'font': {
-        //   value = <select className="ql-font" />;
-        //   tooltip = '字体';
-        //   break;
-        // }
         default: {
           break;
         }
@@ -1062,12 +1023,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
     return result;
   };
-
-  // handleColorSelect = ({color}) => {
-  //   let btn = this.toolbarCtner.querySelector('.ql-customColor');
-  //   btn.setAttribute('value', color);
-  //   btn.click();
-  // };
 
   handleSizePopoverVisibleChange = (visible: boolean) => {
     this.setState({
