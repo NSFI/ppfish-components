@@ -232,16 +232,12 @@ export default class TableUI {
   createMenuItem(item: MenuItem) {
     const node = document.createElement('div');
     node.classList.add('ql-table-menu__item');
+    node.title = item.title;
 
     const iconSpan = document.createElement('span');
     iconSpan.classList.add('ql-table-menu__item-icon', 'fishdicon', item.icon);
 
-    const textSpan = document.createElement('span');
-    textSpan.classList.add('ql-table-menu__item-text');
-    textSpan.innerText = item.title;
-
     node.appendChild(iconSpan);
-    node.appendChild(textSpan);
     node.addEventListener(
       'click',
       (e) => {
