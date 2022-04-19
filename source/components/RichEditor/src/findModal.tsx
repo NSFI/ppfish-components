@@ -66,7 +66,7 @@ class FindModal extends React.Component<IProps, IState> {
     // 删除全部搜索样式
     const { getEditor } = this.props;
     const quill = getEditor();
-    quill.formatText(0, quill.getText().length, "SearchedString", false);
+    quill && quill.formatText(0, quill.getText().length, "SearchedString", false);
   };
 
   search: () => void = debounce(() => {
