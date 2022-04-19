@@ -333,15 +333,18 @@
     }
   }
 
+  .ql-searched-string-active{
+    display: inline;
+    .ql-searched-string {
+        background-color: #337eff !important;
+        color: #fff !important;
+    }
+  }
+
   .ql-searched-string {
     // 这里需要保证权重, 避免查找的显示被背景色和字体颜色覆盖
     background-color: #FFAF0F !important;
     display: inline;
-
-    &.search-active {
-      background-color: #337eff !important;
-      color: #fff !important;
-    }
   }
 
   .find-modal {

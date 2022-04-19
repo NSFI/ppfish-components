@@ -66,7 +66,11 @@ class FindModal extends React.Component<IProps, IState> {
     // 删除全部搜索样式
     const { getEditor } = this.props;
     const quill = getEditor();
-    quill && quill.formatText(0, quill.getText().length, "SearchedString", false);
+    if (quill) {
+      const length = quill.getText().length;
+      quill.formatText(0, length, "SearchedString", false);
+      quill.formatText(0, length, "SearchedStringActive", false);
+    }
   };
 
   search: () => void = debounce(() => {
@@ -89,9 +93,9 @@ class FindModal extends React.Component<IProps, IState> {
       // 目标文本在文档中的位置
       const index = match.index;
       // 高亮, 第 0 个默认选中
-      quill.formatText(index, length, "SearchedString", {
-        active: indices.length === 0
-      });
+      quill.formatText(index, length, "SearchedString", true);
+      indices.length === 0 &&
+        quill.formatText(index, length, "SearchedStringActive", true);
       indices.push({ index });
     }
     if (indices.length) {
@@ -121,8 +125,8 @@ class FindModal extends React.Component<IProps, IState> {
     quill.formatText(
       this.currentIndex,
       searchKey.length,
-      "SearchedString",
-      true
+      "SearchedStringActive",
+      false
     );
     // 获取上一个
     const last = this.state.currentPosition - 1;
@@ -138,9 +142,12 @@ class FindModal extends React.Component<IProps, IState> {
     }
     this.currentIndex = prevIndex.index;
     // 下一个的 format
-    quill.formatText(prevIndex.index, searchKey.length, "SearchedString", {
-      active: true
-    });
+    quill.formatText(
+      prevIndex.index,
+      searchKey.length,
+      "SearchedStringActive",
+      true
+    );
     this.checkView(prevIndex.index);
   };
 
@@ -152,9 +159,10 @@ class FindModal extends React.Component<IProps, IState> {
     quill.formatText(
       this.currentIndex,
       searchKey.length,
-      "SearchedString",
-      true
+      "SearchedStringActive",
+      false
     );
+
     const next = this.state.currentPosition + 1;
     this.setState({
       currentPosition: next
@@ -170,9 +178,12 @@ class FindModal extends React.Component<IProps, IState> {
     this.currentIndex = nextIndex.index;
 
     // 下一个的 format
-    quill.formatText(nextIndex.index, searchKey.length, "SearchedString", {
-      active: true
-    });
+    quill.formatText(
+      nextIndex.index,
+      searchKey.length,
+      "SearchedStringActive",
+      true
+    );
     this.checkView(nextIndex.index);
   };
 
@@ -272,10 +283,19 @@ class FindModal extends React.Component<IProps, IState> {
               <Input onChange={this.replaceOnChange} />
             </div>
             <div className={"replace-buttons"}>
-              <Button disabled={!indices.length} size={"small"} onClick={this.replaceAll}>
+              <Button
+                disabled={!indices.length}
+                size={"small"}
+                onClick={this.replaceAll}
+              >
                 全部替换
               </Button>
-              <Button disabled={!indices.length} size={"small"} type={"primary"} onClick={this.replace}>
+              <Button
+                disabled={!indices.length}
+                size={"small"}
+                type={"primary"}
+                onClick={this.replace}
+              >
                 替换
               </Button>
             </div>
