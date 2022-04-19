@@ -128,7 +128,16 @@ const localeValues: LocaleProperties = {
     insertRowAbove: '上方插入行',
     deleteCol: '删除列',
     deleteRow: '删除行',
-    deleteTable: '删除表格'
+    deleteTable: '删除表格',
+    tableDesc: '插入支持富文本的表格',
+
+    // find
+    findAndReplace: '查找与替换',
+    find: '查找',
+    replace: '替换',
+    caseSensitive: '区分大小写',
+    replaceTo: '替换为',
+    replaceAll: '全部替换',
   },
   Spin: {
     loading: '加载中'

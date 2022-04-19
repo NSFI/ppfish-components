@@ -6,12 +6,14 @@ import ReactQuill from "./quill/index";
 import Icon from "../../Icon";
 import Button from "../../Button";
 import debounce from "lodash/debounce";
+import {LocaleProperties} from "../../Locale";
 
 const TabPane = Tabs.TabPane;
 
 interface IProps {
   getEditor: () => ReactQuill;
   closeFindModal: () => void;
+  locale: LocaleProperties['RichEditor']
 }
 
 interface IState {
@@ -66,7 +68,11 @@ class FindModal extends React.Component<IProps, IState> {
     // 删除全部搜索样式
     const { getEditor } = this.props;
     const quill = getEditor();
-    quill.formatText(0, quill.getText().length, "SearchedString", false);
+    if (quill) {
+      const length = quill.getText().length;
+      quill.formatText(0, length, "SearchedString", false);
+      quill.formatText(0, length, "SearchedStringActive", false);
+    }
   };
 
   search: () => void = debounce(() => {
@@ -89,9 +95,9 @@ class FindModal extends React.Component<IProps, IState> {
       // 目标文本在文档中的位置
       const index = match.index;
       // 高亮, 第 0 个默认选中
-      quill.formatText(index, length, "SearchedString", {
-        active: indices.length === 0
-      });
+      quill.formatText(index, length, "SearchedString", true);
+      indices.length === 0 &&
+        quill.formatText(index, length, "SearchedStringActive", true);
       indices.push({ index });
     }
     if (indices.length) {
@@ -121,8 +127,8 @@ class FindModal extends React.Component<IProps, IState> {
     quill.formatText(
       this.currentIndex,
       searchKey.length,
-      "SearchedString",
-      true
+      "SearchedStringActive",
+      false
     );
     // 获取上一个
     const last = this.state.currentPosition - 1;
@@ -138,9 +144,12 @@ class FindModal extends React.Component<IProps, IState> {
     }
     this.currentIndex = prevIndex.index;
     // 下一个的 format
-    quill.formatText(prevIndex.index, searchKey.length, "SearchedString", {
-      active: true
-    });
+    quill.formatText(
+      prevIndex.index,
+      searchKey.length,
+      "SearchedStringActive",
+      true
+    );
     this.checkView(prevIndex.index);
   };
 
@@ -152,9 +161,10 @@ class FindModal extends React.Component<IProps, IState> {
     quill.formatText(
       this.currentIndex,
       searchKey.length,
-      "SearchedString",
-      true
+      "SearchedStringActive",
+      false
     );
+
     const next = this.state.currentPosition + 1;
     this.setState({
       currentPosition: next
@@ -170,9 +180,12 @@ class FindModal extends React.Component<IProps, IState> {
     this.currentIndex = nextIndex.index;
 
     // 下一个的 format
-    quill.formatText(nextIndex.index, searchKey.length, "SearchedString", {
-      active: true
-    });
+    quill.formatText(
+      nextIndex.index,
+      searchKey.length,
+      "SearchedStringActive",
+      true
+    );
     this.checkView(nextIndex.index);
   };
 
@@ -198,7 +211,6 @@ class FindModal extends React.Component<IProps, IState> {
   };
 
   replaceAll = () => {
-    if (!this.replaceKey) return;
     const { indices, searchKey } = this.state;
     if (!indices.length) return;
 
@@ -219,7 +231,6 @@ class FindModal extends React.Component<IProps, IState> {
   };
 
   replace = () => {
-    if (!this.replaceKey) return;
     const { indices, searchKey } = this.state;
     if (!indices.length) return;
     const { getEditor } = this.props;
@@ -232,11 +243,11 @@ class FindModal extends React.Component<IProps, IState> {
 
   renderSearch = () => {
     let { currentPosition, indices, searchKey, checked } = this.state;
-
+    const { locale } = this.props;
     return (
       <>
         <div className={"find-input-box"}>
-          <label>查找</label>
+          <label>{locale.find}</label>
           <Input
             onChange={this.onChange}
             value={searchKey}
@@ -252,32 +263,43 @@ class FindModal extends React.Component<IProps, IState> {
           />
         </div>
         <Checkbox checked={checked} onChange={this.onCheck}>
-          区分大小写
+          {locale.caseSensitive}
         </Checkbox>
       </>
     );
   };
 
   render() {
+    let { indices } = this.state;
+    const { locale } = this.props;
     return (
       <div className={"find-modal"}>
         <Icon type="hints-alone-error" onClick={this.props.closeFindModal} />
         <Tabs defaultActiveKey="1" size={"small"}>
-          <TabPane tab="查找" key="1">
+          <TabPane tab={locale.find} key="1">
             {this.renderSearch()}
           </TabPane>
-          <TabPane tab="替换" key="2">
+          <TabPane tab={locale.replace} key="2">
             {this.renderSearch()}
             <div className={"find-input-box replace-input"}>
-              <label>替换为</label>
+              <label>{locale.replaceTo}</label>
               <Input onChange={this.replaceOnChange} />
             </div>
             <div className={"replace-buttons"}>
-              <Button size={"small"} onClick={this.replaceAll}>
-                全部替换
+              <Button
+                disabled={!indices.length}
+                size={"small"}
+                onClick={this.replaceAll}
+              >
+                {locale.replaceAll}
               </Button>
-              <Button size={"small"} type={"primary"} onClick={this.replace}>
-                替换
+              <Button
+                disabled={!indices.length}
+                size={"small"}
+                type={"primary"}
+                onClick={this.replace}
+              >
+                {locale.replace}
               </Button>
             </div>
           </TabPane>

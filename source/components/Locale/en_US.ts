@@ -209,7 +209,16 @@ const LocaleValue: LocaleProperties = {
     insertRowAbove: 'Insert column above',
     deleteCol: 'Delete column',
     deleteRow: 'Delete row',
-    deleteTable: 'Delete table'
+    deleteTable: 'Delete table',
+    tableDesc: 'Insert a table',
+
+    // find
+    findAndReplace: 'Find and replace',
+    find: 'find',
+    replace: 'replace',
+    caseSensitive: 'Case sensitive',
+    replaceTo: 'replace with',
+    replaceAll: 'Replace all',
    },
   VideoViewer: {
     fullScreen: 'FullScreen',

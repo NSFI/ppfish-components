@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import classNames from "classnames";
+import { LocaleProperties } from "../../Locale";
 
 const preClass = "ql-table-popover";
 
 interface IProps {
   chooseItemHandle: (row: number, col: number) => void;
   visible: boolean;
+  locale: LocaleProperties["RichEditor"];
 }
 
 interface IState {
@@ -43,7 +45,6 @@ class InsertTable extends Component<IProps, IState> {
   };
 
   mouseoverHandle = ev => {
-    ev.persist();
     this.mouseCallback(ev);
   };
 
@@ -70,10 +71,11 @@ class InsertTable extends Component<IProps, IState> {
 
   render() {
     let { activeCol, activeRow } = this.state;
+    const { locale } = this.props;
     return (
       <div className={preClass}>
         <div className={`${preClass}-header`}>
-          <span>插入支持富文本的表格</span>
+          <span>{locale.tableDesc}</span>
           <span>
             {activeCol + 1}×{activeRow + 1}
           </span>

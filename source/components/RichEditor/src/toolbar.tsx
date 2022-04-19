@@ -689,11 +689,10 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             <Popover
               trigger="click"
               overlayClassName={`${prefixCls}-size-popover`}
-              content={
-                <InsertTable
+              content={<InsertTable
+                  locale={this.Locale}
                   visible={tablePopoverVisible}
-                  chooseItemHandle={this.handleTableInsertPopover}
-                />
+                  chooseItemHandle={this.handleTableInsertPopover} />
               }
               title={null}
               key={key}
@@ -854,7 +853,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}-search-line`]: true
           });
           value = <button type="button" className={findAndReplaceCls} value={mValue} key={'findAndReplace'} />;
-          tooltip = '查找与替换';
+          tooltip = Locale.findAndReplace;
           break;
         }
         // case 'header': {
