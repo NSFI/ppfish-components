@@ -3557,8 +3557,8 @@ exports[`Renders richEditor demo correctly 1`] = `
         <div
           class="item"
         >
-          <div
-            class="action custom-table fishdicon fishdicon-biaoge"
+          <button
+            class="action ql-customTable fishdicon fishdicon-biaoge"
           />
         </div>
       </div>
@@ -4069,8 +4069,8 @@ exports[`Renders richEditor demo correctly 1`] = `
         <div
           class="item"
         >
-          <div
-            class="action custom-table fishdicon fishdicon-biaoge"
+          <button
+            class="action ql-customTable fishdicon fishdicon-biaoge"
           />
         </div>
       </div>
