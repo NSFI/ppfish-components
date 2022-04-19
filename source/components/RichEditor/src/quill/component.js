@@ -411,5 +411,5 @@ QuillComponent.getDerivedStateFromProps = function(nextProps, prevState) {
 };
 
 polyfill(QuillComponent);
-export default QuillComponent
+export default QuillComponent;
 
