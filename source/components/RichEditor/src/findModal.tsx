@@ -198,7 +198,6 @@ class FindModal extends React.Component<IProps, IState> {
   };
 
   replaceAll = () => {
-    if (!this.replaceKey) return;
     const { indices, searchKey } = this.state;
     if (!indices.length) return;
 
@@ -219,7 +218,6 @@ class FindModal extends React.Component<IProps, IState> {
   };
 
   replace = () => {
-    if (!this.replaceKey) return;
     const { indices, searchKey } = this.state;
     if (!indices.length) return;
     const { getEditor } = this.props;
@@ -259,6 +257,7 @@ class FindModal extends React.Component<IProps, IState> {
   };
 
   render() {
+    let { indices } = this.state;
     return (
       <div className={"find-modal"}>
         <Icon type="hints-alone-error" onClick={this.props.closeFindModal} />
@@ -273,10 +272,10 @@ class FindModal extends React.Component<IProps, IState> {
               <Input onChange={this.replaceOnChange} />
             </div>
             <div className={"replace-buttons"}>
-              <Button size={"small"} onClick={this.replaceAll}>
+              <Button disabled={!indices.length} size={"small"} onClick={this.replaceAll}>
                 全部替换
               </Button>
-              <Button size={"small"} type={"primary"} onClick={this.replace}>
+              <Button disabled={!indices.length} size={"small"} type={"primary"} onClick={this.replace}>
                 替换
               </Button>
             </div>
