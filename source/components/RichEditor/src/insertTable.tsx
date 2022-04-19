@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import throttle from "lodash/throttle";
 import classNames from "classnames";
 
 const preClass = "ql-table-popover";
