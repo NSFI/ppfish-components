@@ -20,7 +20,7 @@ import PlainClipboard from "./modules/plainClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
-import TableUI from "./modules/table";
+import TableUI, { isTable } from "./modules/table";
 import attachBlot from "./formats/attach";
 import SearchedStringBlot from "./formats/SearchBlot";
 import SearchedStringActiveBlot from "./formats/SearchActiveBlot";
@@ -51,7 +51,6 @@ const getImageSize = function (
 ) {
   let newImage = document.createElement("img");
   newImage.onload = function (this: GlobalEventHandlers & { width?: number | string, height?: number | string }) {
-    // callback(this.width, this.height);
     callback(this.width, this.height);
   };
   newImage.src = url;
@@ -87,6 +86,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     findAndReplace: Function
     undo: Function
     redo: Function
+    customTable: Function
   }
   editorCtner: HTMLDivElement
   linkModalInputRef: any
@@ -210,6 +210,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       defaultInputLink: this.defaultLinkPrefix,
       linkModalTitle: "",
       formatPainterActive: false,
+      insertTableDisabled: false,
       fullScreen: false,
       findVisible: false
     };
@@ -270,7 +271,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         });
       },
       fullscreen: value => {
-        // document.body.requestFullscreen()
         this.setState(prev => ({
           fullScreen: !prev.fullScreen
         }), () => {
@@ -292,14 +292,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         });
         quill.setSelection(range.index + 1);
       },
-      // customColor: (color) => {
-      //   let quill = this.getEditor(),
-      //     range = quill.getSelection();
-
-      //   if (range.length !== 0) {
-      //     quill.format('color', color);
-      //   }
-      // },
       image: () => {
         let { onClickToolbarBtn, insertImageModalVisible } = this.props;
         if (
@@ -411,7 +403,24 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         this.setState(prev => ({
           findVisible: !prev.findVisible
         }));
-      }
+      },
+      customTable: value => {
+        let { onClickToolbarBtn } = this.props;
+        if (
+          typeof onClickToolbarBtn == "function" &&
+          onClickToolbarBtn("table") === false
+        ) {
+          return;
+        }
+
+        const quill = this.getEditor();
+        if (!quill) return;
+
+        this.setState({
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
+          curRange: quill.getSelection() // 保存range，用于判断插入表格时光标是否在表格内
+        });
+      },
     };
 
     // 处理定制的超链接
@@ -498,12 +507,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
               this.handlers.link(tooltip.preview.getAttribute("href"), true);
             }
 
-            // if (this.root.classList.contains('ql-editing')) {
-            //   this.save();
-            // } else {
-            //   this.edit('link', this.preview.textContent);
-            // }
-
             event.preventDefault();
           }
         );
@@ -559,19 +562,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     this.onClickActionHandler && this.onClickActionHandler.remove();
     this.onClickRemoveHandler && this.onClickRemoveHandler.remove();
   }
-
-  // calculateEditorImageSize = () => {
-  //  在 imageResize 改变的时候, reRender 传值的值还是之前的
-  //   if(this.props.imageResize){
-  //     const maxWidth = this.reactQuillRef?.editingArea?.clientWidth;
-  //     if(maxWidth){
-  //       this.imageSizeParams.parchment.image.limit.maxWidth = maxWidth;
-  //       return this.imageSizeParams;
-  //     }else{
-  //       return this.imageSizeParams;
-  //     }
-  //   }
-  // }
 
   formatFontTag = value => {
     if (!value) return value;
@@ -1170,12 +1160,22 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   }
 
   handleSelectionChange = (nextSelection, source, editor) => {
-    // let { toolbarCtner } = this.state;
     const { onSelectionChange } = this.props;
     onSelectionChange && onSelectionChange(nextSelection, source, editor);
 
     let quill = this.getEditor();
     if (!quill) return;
+
+    // 处理插入表格按钮的禁用状态，禁止嵌套插入表格
+    if (isTable(quill, quill.getSelection() || this.state.curRange)) {
+      this.setState({
+        insertTableDisabled: true
+      });
+    } else {
+      this.setState({
+        insertTableDisabled: false
+      });
+    }
 
     // 格式刷
     if (this.prevSelectionFormat && nextSelection) {
@@ -1226,31 +1226,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       }
     }
     this.handleHideTooltip(tooltip.root);
-
-    // FixBug: 取消高亮区分。a标签添加自定义属性后接带自定义属性的img标签时，在MAC和安卓版的微信公众号中超链接会异常显示出HTML标签。
-    // 区分默认的超链接按钮和自定义超链接按钮的高亮
-    // if (nextSelection) {
-    //   let curFormat;
-    // 	if (nextSelection.index > 0 && quill.getText(nextSelection.index - 1, 1)!='\n') {
-    // 		curFormat = quill.getFormat(nextSelection.index - 1, 1);
-    // 	} else {
-    // 		curFormat = quill.getFormat(nextSelection.index, 1);
-    // 	}
-
-    //   toolbarCtner.querySelector('.link-active')
-    //   && toolbarCtner.querySelector('.link-active').classList.remove('link-active');
-
-    //   if ('myLink' in curFormat) {
-    //     let linkType = curFormat['myLink'].type || 'default';
-    //     if (linkType == 'default') {
-    //       toolbarCtner.querySelector('.ql-myLink')
-    //       && toolbarCtner.querySelector('.ql-myLink').classList.add('link-active');
-    //     } else {
-    //       toolbarCtner.querySelector(`.ql-${linkType}`)
-    //       && toolbarCtner.querySelector(`.ql-${linkType}`).classList.add('link-active');
-    //     }
-    // 	}
-    // }
   };
 
   handleVideoTypeChange = e => {
@@ -1578,6 +1553,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                   getCurrentSize={this.getCurrentSize}
                   getCurrentLineHeight={this.getCurrentLineHeight}
                   formatPainterActive={this.state.formatPainterActive}
+                  insertTableDisabled={this.state.insertTableDisabled}
                   saveSelectionFormat={this.handleSaveSelectionFormat}
                   unsaveSelectionFormat={this.handleUnsaveSelectionFormat}
                   fullScreen={fullScreen}

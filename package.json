@@ -50,6 +50,7 @@
     "echarts-for-react": "^2.0.15-beta.0",
     "enquire.js": "^2.1.1",
     "eventemitter3": "4.0.0",
+    "hoist-non-react-statics": "^3.3.0",
     "intersperse": "^1.0.0",
     "is-negative-zero": "^2.0.0",
     "lodash": "^4.17.10",

@@ -808,6 +808,7 @@ render() {
   render() {
     return (
       <RichEditor
+        imageResize
         toolbar={this.toolbar}
       />
     );

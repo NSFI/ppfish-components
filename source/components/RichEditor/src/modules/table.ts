@@ -35,6 +35,18 @@ export interface TableUIOptions {
   Locale: LocaleProperties['RichEditor'];
 }
 
+export const isTable = (quill, range?: Range) => {
+  if (!range) {
+    range = quill.getSelection();
+  }
+  if (!range) {
+    return false;
+  }
+  const formats = quill.getFormat(range.index);
+
+  return !!(formats['table'] && !range.length);
+};
+
 export default class TableUI {
   DEFAULTS: TableUIOptions = {
     Locale: {}
@@ -131,7 +143,7 @@ export default class TableUI {
   };
 
   contextMenuHandler = (evt: MouseEvent) => {
-    if (!this.isTable()) {
+    if (!isTable(this.quill)) {
       return true;
     }
     evt.preventDefault();
@@ -152,18 +164,6 @@ export default class TableUI {
   };
 
   docClickHandler = () => this.hideMenu;
-
-  isTable(range?: Range) {
-    if (!range) {
-      range = this.quill.getSelection();
-    }
-    if (!range) {
-      return false;
-    }
-    const formats = this.quill.getFormat(range.index);
-
-    return !!(formats['table'] && !range.length);
-  }
 
   /*
   getColCount(range: Range = null) {
@@ -262,7 +262,7 @@ export default class TableUI {
       return;
     }
 
-    const show = this.isTable(range);
+    const show = isTable(this.quill, range);
     if (show) {
       const [cell, offset] = this.quill.getLine(range.index);
       const containerBounds = this.quill.container.getBoundingClientRect();
