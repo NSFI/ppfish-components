@@ -6,12 +6,14 @@ import ReactQuill from "./quill/index";
 import Icon from "../../Icon";
 import Button from "../../Button";
 import debounce from "lodash/debounce";
+import {LocaleProperties} from "../../Locale";
 
 const TabPane = Tabs.TabPane;
 
 interface IProps {
   getEditor: () => ReactQuill;
   closeFindModal: () => void;
+  locale: LocaleProperties['RichEditor']
 }
 
 interface IState {
@@ -241,11 +243,11 @@ class FindModal extends React.Component<IProps, IState> {
 
   renderSearch = () => {
     let { currentPosition, indices, searchKey, checked } = this.state;
-
+    const { locale } = this.props;
     return (
       <>
         <div className={"find-input-box"}>
-          <label>查找</label>
+          <label>{locale.find}</label>
           <Input
             onChange={this.onChange}
             value={searchKey}
@@ -261,7 +263,7 @@ class FindModal extends React.Component<IProps, IState> {
           />
         </div>
         <Checkbox checked={checked} onChange={this.onCheck}>
-          区分大小写
+          {locale.caseSensitive}
         </Checkbox>
       </>
     );
@@ -269,17 +271,18 @@ class FindModal extends React.Component<IProps, IState> {
 
   render() {
     let { indices } = this.state;
+    const { locale } = this.props;
     return (
       <div className={"find-modal"}>
         <Icon type="hints-alone-error" onClick={this.props.closeFindModal} />
         <Tabs defaultActiveKey="1" size={"small"}>
-          <TabPane tab="查找" key="1">
+          <TabPane tab={locale.find} key="1">
             {this.renderSearch()}
           </TabPane>
-          <TabPane tab="替换" key="2">
+          <TabPane tab={locale.replace} key="2">
             {this.renderSearch()}
             <div className={"find-input-box replace-input"}>
-              <label>替换为</label>
+              <label>{locale.replaceTo}</label>
               <Input onChange={this.replaceOnChange} />
             </div>
             <div className={"replace-buttons"}>
@@ -288,7 +291,7 @@ class FindModal extends React.Component<IProps, IState> {
                 size={"small"}
                 onClick={this.replaceAll}
               >
-                全部替换
+                {locale.replaceAll}
               </Button>
               <Button
                 disabled={!indices.length}
@@ -296,7 +299,7 @@ class FindModal extends React.Component<IProps, IState> {
                 type={"primary"}
                 onClick={this.replace}
               >
-                替换
+                {locale.replace}
               </Button>
             </div>
           </TabPane>
