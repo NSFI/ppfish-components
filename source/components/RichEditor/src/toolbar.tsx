@@ -677,18 +677,24 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'table': {
-          const tableCls = classNames('action custom-table', {
+          const { insertTableDisabled } = this.props;
+          const tableCls = classNames('action ql-customTable', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-biaoge`]: true,
-            'ql-btn-disabled': this.props.insertTableDisabled
+            'ql-btn-disabled': insertTableDisabled
           });
-          const {tablePopoverVisible} =this.state;
+          const { tablePopoverVisible } = this.state;
 
           value = (
             <Popover
               trigger="click"
               overlayClassName={`${prefixCls}-size-popover`}
-              content={<InsertTable visible={tablePopoverVisible} chooseItemHandle={this.handleTableInsertPopover} />}
+              content={
+                <InsertTable
+                  visible={tablePopoverVisible}
+                  chooseItemHandle={this.handleTableInsertPopover}
+                />
+              }
               title={null}
               key={key}
               visible={tablePopoverVisible}
@@ -703,11 +709,12 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                 mouseEnterDelay={0.3}
               >
                 <div className="item">
-                  <div className={tableCls} />
+                  <button className={tableCls} key={key} />
                 </div>
               </Tooltip>
             </Popover>
           );
+          tooltip = Locale.table;
 
           break;
         }
@@ -1043,14 +1050,15 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
   };
 
   handleTablePopoverVisibleChange = (visible: boolean) => {
+    const { insertTableDisabled } = this.props;
+
     this.setState({
-      tablePopoverVisible: visible
+      tablePopoverVisible: insertTableDisabled ? false : visible
     });
   };
 
   handleTableInsertPopover = (row:number, col:number)=>{
     let { handleInsertTable, insertTableDisabled } = this.props;
-
     if (insertTableDisabled) return;
 
     handleInsertTable && handleInsertTable(row, col);

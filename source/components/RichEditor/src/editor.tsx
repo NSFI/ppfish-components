@@ -84,6 +84,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     findAndReplace: Function
     undo: Function
     redo: Function
+    customTable: Function
   }
   editorCtner: HTMLDivElement
   linkModalInputRef: any
@@ -400,7 +401,24 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         this.setState(prev => ({
           findVisible: !prev.findVisible
         }));
-      }
+      },
+      customTable: value => {
+        let { onClickToolbarBtn } = this.props;
+        if (
+          typeof onClickToolbarBtn == "function" &&
+          onClickToolbarBtn("table") === false
+        ) {
+          return;
+        }
+
+        const quill = this.getEditor();
+        if (!quill) return;
+
+        this.setState({
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
+          curRange: quill.getSelection() // 保存range，用于判断插入表格时光标是否在表格内
+        });
+      },
     };
 
     // 处理定制的超链接
@@ -1147,7 +1165,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     if (!quill) return;
 
     // 处理插入表格按钮的禁用状态，禁止嵌套插入表格
-    if (isTable(quill)) {
+    if (isTable(quill, quill.getSelection() || this.state.curRange)) {
       this.setState({
         insertTableDisabled: true
       });
