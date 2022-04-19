@@ -215,8 +215,15 @@ export default class TableUI {
     }, {
       offsetParent: this.quill.container
     });
+
+    // dynamic adjustment when the menu cannot be displayed completely
+    if (this.quill.container.clientWidth - position.left < 190) {
+      this.menu.style.left = `${this.quill.container.clientWidth - 190}px`;
+    } else {
+      this.menu.style.left = `${position.left}px`;
+    }
+
     this.menu.style.top = `${position.top}px`;
-    this.menu.style.left = `${position.left}px`;
 
     document.addEventListener('click', this.docClickHandler);
   }
