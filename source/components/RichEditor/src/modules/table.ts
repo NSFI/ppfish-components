@@ -217,8 +217,8 @@ export default class TableUI {
     });
 
     // dynamic adjustment when the menu cannot be displayed completely
-    if (this.quill.container.clientWidth - position.left < 190) {
-      this.menu.style.left = `${this.quill.container.clientWidth - 190}px`;
+    if (this.quill.container.clientWidth - position.left < this.menu.clientWidth) {
+      this.menu.style.left = `${this.quill.container.clientWidth - this.menu.clientWidth}px`;
     } else {
       this.menu.style.left = `${position.left}px`;
     }
