@@ -6,14 +6,19 @@ import ReactQuill from "./quill/index";
 import Icon from "../../Icon";
 import Button from "../../Button";
 import debounce from "lodash/debounce";
-import {LocaleProperties} from "../../Locale";
+import { LocaleProperties } from "../../Locale";
 
 const TabPane = Tabs.TabPane;
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  //$&表示整个被匹配的字符串
+}
 
 interface IProps {
   getEditor: () => ReactQuill;
   closeFindModal: () => void;
-  locale: LocaleProperties['RichEditor']
+  locale: LocaleProperties["RichEditor"];
 }
 
 interface IState {
@@ -75,6 +80,27 @@ class FindModal extends React.Component<IProps, IState> {
     }
   };
 
+  specialArray = [];
+
+  countSpecial = (index, lastIndex) => {
+    const { getEditor } = this.props;
+    const quill = getEditor();
+    const delta = quill.getContents();
+    // 获取上一个节点到当前节点的 delta
+    const restDelta = delta.slice(lastIndex, index);
+    const initValue = this.specialArray.length
+      ? this.specialArray[this.specialArray.length - 1]
+      : 0;
+    const num = restDelta.reduce((num, op) => {
+      if (typeof op.insert === "object") {
+        return num + 1;
+      }
+      return num;
+    }, initValue);
+    this.specialArray.push(num);
+    return index + num;
+  };
+
   search: () => void = debounce(() => {
     this.setState({
       indices: []
@@ -91,17 +117,23 @@ class FindModal extends React.Component<IProps, IState> {
     const length = searchKey.length;
     let match;
     let indices = [];
+    this.specialArray = [];
     while ((match = re.exec(totalText)) !== null) {
       // 目标文本在文档中的位置
-      const index = match.index;
+      let index = match.index;
+      // 计算 从最初到 index 有多少个特殊 insert
+      index = this.countSpecial(
+        index,
+        indices.length ? indices[indices.length - 1].index : 0
+      );
+
       // 高亮, 第 0 个默认选中
       quill.formatText(index, length, "SearchedString", true);
-      indices.length === 0 &&
-        quill.formatText(index, length, "SearchedStringActive", true);
       indices.push({ index });
     }
     if (indices.length) {
       this.currentIndex = indices[0].index;
+      quill.formatText(indices[0].index, length, "SearchedStringActive", true);
       this.setState({
         currentPosition: 0,
         indices
