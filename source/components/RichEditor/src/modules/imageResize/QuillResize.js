@@ -254,7 +254,8 @@ export default class QuillResize {
       this.selectedBlots = [];
       return;
     }
-    const leaves = this.quill.scroll.descendants(Parchment.Leaf, range.index, range.length);
+
+    const leaves = this.quill.scroll.descendants(Parchment.LeafBlot, range.index, range.length);
     const blots = leaves.filter(blot => {
       const canBeHandle = !!this.options.parchment[blot.statics.blotName];
       if (canBeHandle) blot.domNode.classList.add(this.options.selectedClass);
