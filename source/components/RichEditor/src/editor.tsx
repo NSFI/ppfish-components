@@ -179,11 +179,10 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       customInsertVideo
     } = this.props;
 
-    // 粘贴时将富文本转为纯文本
+    // 粘贴时的功能扩展
     if (pastePlainText || pasteFormater) {
       Quill.register("modules/clipboard", CustomClipboard, true);
     }
-    // this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
     let formatValue = value;
     if (supportFontTag) {
