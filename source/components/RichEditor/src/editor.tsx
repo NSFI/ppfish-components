@@ -1,4 +1,4 @@
-import React, { Component, ReactInstance, ImgHTMLAttributes } from "react";
+import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 import ReactQuill, { Quill } from "./quill/index";
 import classNames from "classnames";
@@ -16,7 +16,7 @@ import EmojiBlot from "./formats/emoji";
 import LinkBlot from "./formats/link";
 import ImageBlot from "./formats/image";
 import VideoBlot from "./formats/video";
-import PlainClipboard from "./modules/plainClipboard";
+import CustomClipboard from "./modules/customClipboard";
 import ImageDrop from "./modules/imageDrop";
 import FileDrop from "./modules/fileDrop";
 import ImageResize from "./modules/imageResize";
@@ -117,6 +117,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     resizable: false,
     pastePlainText: false,
     imageResize: false,
+    pasteFormater: null,
     toolbar: [
       ["link", "bold", "italic", "underline"],
       ["size"],
@@ -174,12 +175,13 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       customLink,
       supportFontTag,
       pastePlainText,
+      pasteFormater,
       customInsertVideo
     } = this.props;
 
     // 粘贴时将富文本转为纯文本
-    if (pastePlainText) {
-      Quill.register("modules/clipboard", PlainClipboard, true);
+    if (pastePlainText || pasteFormater) {
+      Quill.register("modules/clipboard", CustomClipboard, true);
     }
     // this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
@@ -1368,6 +1370,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       customDropImage,
       customDropFile,
       pastePlainText,
+      pasteFormater,
       imageResize,
       attachmentIconMap,
       historyConfig,
@@ -1422,10 +1425,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       moduleOpts["resize"] = this.imageSizeParams;
     }
 
-    if (pastePlainText) {
-      moduleOpts["clipboard"] = {
-        pastePlainText: true
-      };
+    if (pastePlainText || pasteFormater) {
+      const clipboardOpt = {};
+
+      if (pastePlainText) {
+        clipboardOpt['pastePlainText'] = true;
+      }
+
+      if (pasteFormater) {
+        clipboardOpt['pasteFormater'] = pasteFormater;
+      }
+
+      moduleOpts["clipboard"] = clipboardOpt;
     }
 
     return (

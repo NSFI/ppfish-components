@@ -803,12 +803,17 @@ render() {
   constructor(props) {
     super(props);
     this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ["table"]];
+    this.pasteFormater = (html) => {
+      // 粘贴时过滤表格
+      return html.replace(/<table.*?table>/ig, '');
+    };
   }
 
   render() {
     return (
       <RichEditor
         imageResize
+        pasteFormater={this.pasteFormater}
         toolbar={this.toolbar}
       />
     );
@@ -897,6 +902,7 @@ __请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴�
 | onKeyPress | 按键按下并释放后的回调，对特殊按键如 `shift` 或 `enter` 无效 | (event) => Void | - |
 | onKeyUp | 按键释放后的回调 | (event) => Void | - |
 | onSelectionChange | 选区改变时的回调 | (range, source, editor) => Void | - |
+| pasteFormater | 在粘贴内容时，将对html进行格式化处理 | (htmlString) => String | null |
 | pastePlainText | 在粘贴富文本时，将其转换为纯文本 | Boolean | false |
 | placeholder | 内容为空时的占位内容 | String | '请输入内容' |
 | popoverPlacement | 气泡框弹出位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'top' |
