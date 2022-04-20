@@ -38,14 +38,12 @@ class CustomClipboard extends Clipboard {
         this.quill.updateContents(delta, 'silent');
         this.quill.setSelection(index, length, 'silent');
         this.quill.scrollIntoView();
-      } else {
-        if (pasteFormater) {
-          newHtml = pasteFormater(newHtml);
-        }
-
+      } else if (pasteFormater) {
+        newHtml = pasteFormater(newHtml);
         newText = newHtml.innerText ? newHtml.innerText() : newHtml;
-
         super.onPaste(range, { text: newText, html: newHtml });
+      } else {
+        super.onPaste(range, { text, html });
       }
     } else {
       super.onPaste(range, { text, html });

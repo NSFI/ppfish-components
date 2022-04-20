@@ -813,7 +813,7 @@ render() {
     return (
       <RichEditor
         imageResize
-        pasteFormater={this.pasteFormater}
+        // pasteFormater={this.pasteFormater}
         toolbar={this.toolbar}
       />
     );
