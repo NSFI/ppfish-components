@@ -282,10 +282,17 @@
     .custom-icon;
   }
 
-  .custom-table {
+  .ql-customTable {
     .custom-icon;
     padding: 3px 4px 3px 3px;
     font-size: 16px;
+  }
+
+  .ql-btn-disabled {
+    cursor: not-allowed !important;
+    color: #999 !important;
+    background-color: #f2f3f5 !important;
+    border-color: #e1e3e6 !important;
   }
 
   .ql-myLink,
@@ -295,6 +302,7 @@
   .ql-underline,
   .ql-list,
   .ql-image,
+  .ql-table,
   .ql-clean {
     svg {
       display: none;
@@ -333,15 +341,18 @@
     }
   }
 
+  .ql-searched-string-active {
+    display: inline;
+    .ql-searched-string {
+        background-color: #337eff !important;
+        color: #fff !important;
+    }
+  }
+
   .ql-searched-string {
     // 这里需要保证权重, 避免查找的显示被背景色和字体颜色覆盖
-    background-color: #FFAF0F !important;
+    background-color: #ffaf0f !important;
     display: inline;
-
-    &.search-active {
-      background-color: #337eff !important;
-      color: #fff !important;
-    }
   }
 
   .find-modal {

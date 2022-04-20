@@ -13,12 +13,9 @@ class PlainClipboard extends Clipboard {
     super(quill, options);
   }
 
-  onPaste (e: ClipboardEvent) {
+  onPaste (range, { text, html }) {
     if (this.options && this.options.pastePlainText) {
-      e.preventDefault();
-      const range = this.quill.getSelection(),
-        text = e.clipboardData.getData('text/plain'),
-        delta = new Delta().retain(range.index).delete(range.length).insert(text),
+      const delta = new Delta().retain(range.index).delete(range.length).insert(text),
         index = text.length + range.index,
         length = 0;
 
@@ -26,7 +23,7 @@ class PlainClipboard extends Clipboard {
       this.quill.setSelection(index, length, 'silent');
       this.quill.scrollIntoView();
     } else {
-      super.onPaste(e);
+      super.onPaste(range, { text, html });
     }
   }
 }

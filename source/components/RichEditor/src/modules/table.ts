@@ -35,6 +35,18 @@ export interface TableUIOptions {
   Locale: LocaleProperties['RichEditor'];
 }
 
+export const isTable = (quill, range?: Range) => {
+  if (!range) {
+    range = quill.getSelection();
+  }
+  if (!range) {
+    return false;
+  }
+  const formats = quill.getFormat(range.index);
+
+  return !!(formats['table'] && !range.length);
+};
+
 export default class TableUI {
   DEFAULTS: TableUIOptions = {
     Locale: {}
@@ -131,7 +143,7 @@ export default class TableUI {
   };
 
   contextMenuHandler = (evt: MouseEvent) => {
-    if (!this.isTable()) {
+    if (!isTable(this.quill)) {
       return true;
     }
     evt.preventDefault();
@@ -152,18 +164,6 @@ export default class TableUI {
   };
 
   docClickHandler = () => this.hideMenu;
-
-  isTable(range?: Range) {
-    if (!range) {
-      range = this.quill.getSelection();
-    }
-    if (!range) {
-      return false;
-    }
-    const formats = this.quill.getFormat(range.index);
-
-    return !!(formats['table'] && !range.length);
-  }
 
   /*
   getColCount(range: Range = null) {
@@ -215,8 +215,15 @@ export default class TableUI {
     }, {
       offsetParent: this.quill.container
     });
+
+    // dynamic adjustment when the menu cannot be displayed completely
+    if (this.quill.container.clientWidth - position.left < this.menu.clientWidth) {
+      this.menu.style.left = `${this.quill.container.clientWidth - this.menu.clientWidth}px`;
+    } else {
+      this.menu.style.left = `${position.left}px`;
+    }
+
     this.menu.style.top = `${position.top}px`;
-    this.menu.style.left = `${position.left}px`;
 
     document.addEventListener('click', this.docClickHandler);
   }
@@ -232,16 +239,12 @@ export default class TableUI {
   createMenuItem(item: MenuItem) {
     const node = document.createElement('div');
     node.classList.add('ql-table-menu__item');
+    node.title = item.title;
 
     const iconSpan = document.createElement('span');
     iconSpan.classList.add('ql-table-menu__item-icon', 'fishdicon', item.icon);
 
-    const textSpan = document.createElement('span');
-    textSpan.classList.add('ql-table-menu__item-text');
-    textSpan.innerText = item.title;
-
     node.appendChild(iconSpan);
-    node.appendChild(textSpan);
     node.addEventListener(
       'click',
       (e) => {
@@ -262,7 +265,7 @@ export default class TableUI {
       return;
     }
 
-    const show = this.isTable(range);
+    const show = isTable(this.quill, range);
     if (show) {
       const [cell, offset] = this.quill.getLine(range.index);
       const containerBounds = this.quill.container.getBoundingClientRect();

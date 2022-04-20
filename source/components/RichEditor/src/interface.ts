@@ -13,6 +13,7 @@ export interface RichEditorState {
   defaultInputLink: string;
   linkModalTitle: string;
   formatPainterActive: boolean;
+  insertTableDisabled: boolean;
   showAttachmentModal?: boolean;
   fullScreen: boolean;
   findVisible: boolean;
@@ -110,6 +111,7 @@ export interface CustomToolbarProps extends ModuleHtmlType {
   customEmoji?: any[];
   customLink?: object;
   formatPainterActive?: boolean;
+  insertTableDisabled?: boolean;
   fullScreen?: boolean;
   customInsertValue?: object;
   handleInsertEmoji?: (
