@@ -228,8 +228,9 @@ class FindModal extends React.Component<IProps, IState> {
     const quill = getEditor();
     const scrollingContainer = quill.scrollingContainer;
     let bounds = quill.getBounds(index + searchKey.length, 1);
+    // bounds.top + scrollingContainer.scrollTop 等于目标到最顶部的距离
     if (
-      bounds.top < scrollingContainer.scrollTop ||
+      bounds.top < 0 ||
       bounds.top >
         scrollingContainer.scrollTop + scrollingContainer.offsetHeight
     ) {
