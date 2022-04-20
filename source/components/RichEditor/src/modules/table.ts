@@ -223,7 +223,11 @@ export default class TableUI {
       this.menu.style.left = `${position.left}px`;
     }
 
-    this.menu.style.top = `${position.top}px`;
+    if (this.quill.container.clientHeight - position.top < this.menu.clientHeight) {
+      this.menu.style.top = `${this.quill.container.clientHeight - this.menu.clientHeight}px`;
+    } else {
+      this.menu.style.top = `${position.top}px`;
+    }
 
     document.addEventListener('click', this.docClickHandler);
   }

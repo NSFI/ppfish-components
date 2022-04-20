@@ -57,6 +57,7 @@ export interface RichEditorProps {
   resizable?: boolean;
   supportFontTag?: boolean;
   pastePlainText?: boolean;
+  pasteFormater?: Function;
   imageResize?: boolean;
   style?: object;
   toolbar?: any[];
@@ -84,8 +85,8 @@ export interface RichEditorProps {
   onKeyPress?: Function;
   onKeyDown?: Function;
   onKeyUp?: Function;
-  attachmentIconMap ?: Record<string, string>
-  historyConfig ?: Record<string, any>
+  attachmentIconMap?: Record<string, string>
+  historyConfig?: Record<string, any>
 }
 
 export interface ModuleHtmlType {
