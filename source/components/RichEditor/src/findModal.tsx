@@ -113,7 +113,7 @@ class FindModal extends React.Component<IProps, IState> {
     const { getEditor } = this.props;
     const quill = getEditor();
     let totalText = quill.getText();
-    let re = new RegExp(searchKey, this.state.checked ? "g" : "gi");
+    let re = new RegExp(escapeRegExp(searchKey), this.state.checked ? "g" : "gi");
     const length = searchKey.length;
     let match;
     let indices = [];
