@@ -110,7 +110,7 @@ class Toolbar extends Module {
   update(range) {
     const formats = range == null ? {} : this.quill.getFormat(range);
     this.controls.forEach(pair => {
-      const [format, input] = pair;
+      let [format, input] = pair;
       if (input.tagName === 'SELECT') {
         let option;
         if (range == null) {
@@ -135,6 +135,10 @@ class Toolbar extends Module {
       } else if (input.hasAttribute('value')) {
         // both being null should match (default values)
         // '1' should match with 1 (headers)
+        // 针对 orderedList 的特殊判断, 为了不修改 toolbar 的外层配置在此加上兼容
+        if(formats.orderedList){
+          format = 'orderedList';
+        }
         const isActive =
           formats[format] === input.getAttribute('value') ||
           (formats[format] != null &&
@@ -251,7 +255,11 @@ Toolbar.DEFAULTS = {
           this.quill.format('list', 'unchecked', Quill.sources.USER);
         }
       } else {
-        this.quill.format('list', value, Quill.sources.USER);
+        if(value === 'ordered'){
+          this.quill.format('orderedList', value, Quill.sources.USER);
+        } else {
+          this.quill.format('list', value, Quill.sources.USER);
+        }
       }
     },
   },

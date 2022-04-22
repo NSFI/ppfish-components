@@ -355,6 +355,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           quill.format( 'script', false);
           quill.format( 'align', false);
           quill.format( 'list', false);
+          quill.format( 'orderedList', false);
           formatArr.forEach(type => {
             quill.formatText(index, length, type, false);
           });
