@@ -234,6 +234,9 @@ function applyFormat(delta, format, value) {
       return newDelta.push(op);
     }
     const formats = value ? { [format]: value } : {};
+    if( formats.list === 'ordered') {
+      formats.orderedList = true;
+    }
     return newDelta.insert(op.insert, { ...formats, ...op.attributes });
   }, new Delta());
 }
@@ -414,7 +417,7 @@ function matchIndent(node, delta, scroll) {
   const match = scroll.query(node);
   if (
     match == null ||
-    match.blotName !== 'list' ||
+    match.blotName !== 'list'  || match.blotName !== 'orderedList'  ||
     !deltaEndsWith(delta, '\n')
   ) {
     return delta;
