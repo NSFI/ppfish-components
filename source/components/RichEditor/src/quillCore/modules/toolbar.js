@@ -136,7 +136,7 @@ class Toolbar extends Module {
         // both being null should match (default values)
         // '1' should match with 1 (headers)
         // 针对 orderedList 的特殊判断, 为了不修改 toolbar 的外层配置在此加上兼容
-        if(formats.orderedList){
+        if(formats.orderedList && format === 'list'){
           format = 'orderedList';
         }
         const isActive =
