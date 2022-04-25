@@ -279,7 +279,7 @@ Keyboard.DEFAULTS = {
     indent: {
       // highlight tab or tab at beginning of list, indent or blockquote
       key: 'Tab',
-      format: ['blockquote', 'indent', 'list'],
+      format: ['blockquote', 'indent', 'list', 'orderedList'],
       handler(range, context) {
         if (context.collapsed && context.offset !== 0) return true;
         this.quill.format('indent', '+1', Quill.sources.USER);
@@ -289,7 +289,7 @@ Keyboard.DEFAULTS = {
     outdent: {
       key: 'Tab',
       shiftKey: true,
-      format: ['blockquote', 'indent', 'list'],
+      format: ['blockquote', 'indent', 'list', 'orderedList'],
       // highlight tab or tab at beginning of list, indent or blockquote
       handler(range, context) {
         if (context.collapsed && context.offset !== 0) return true;
@@ -304,12 +304,14 @@ Keyboard.DEFAULTS = {
       metaKey: null,
       ctrlKey: null,
       altKey: null,
-      format: ['indent', 'list'],
+      format: ['indent', 'list', 'orderedList'],
       offset: 0,
       handler(range, context) {
         if (context.format.indent != null) {
           this.quill.format('indent', '-1', Quill.sources.USER);
-        } else if (context.format.list != null) {
+        } else if (context.format.orderedList != null) {
+          this.quill.format('orderedList', false, Quill.sources.USER);
+        }else if (context.format.list != null) {
           this.quill.format('list', false, Quill.sources.USER);
         }
       },
@@ -352,10 +354,10 @@ Keyboard.DEFAULTS = {
     'list empty enter': {
       key: 'Enter',
       collapsed: true,
-      format: ['list'],
+      format: ['list', 'orderedList'],
       empty: true,
       handler(range, context) {
-        const formats = { list: false };
+        const formats = context.format.orderedList ?  {orderedList: false} : { list: false };
         if (context.format.indent) {
           formats.indent = false;
         }
@@ -491,13 +493,14 @@ Keyboard.DEFAULTS = {
           default:
             value = 'ordered';
         }
+
         this.quill.insertText(range.index, ' ', Quill.sources.USER);
         this.quill.history.cutoff();
         const delta = new Delta()
           .retain(range.index - offset)
           .delete(length + 1)
           .retain(line.length() - 2 - offset)
-          .retain(1, { list: value });
+          .retain(1, value === 'ordered' ?  {'orderedList': 'ordered'} :{ list: value });
         this.quill.updateContents(delta, Quill.sources.USER);
         this.quill.history.cutoff();
         this.quill.setSelection(range.index - length, Quill.sources.SILENT);

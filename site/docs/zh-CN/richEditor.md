@@ -141,13 +141,13 @@
 
 ## 表情包可选
 
-:::demo 表情包可选, 可配置属性: `[{'emoji': ['default',emoji']}]`。
+:::demo 表情包可选, 可配置属性: `[{'emoji': ['default',emoji']}]`, 默认只显示 emoji。
 
 ```js
 
 constructor(props){
   super(props);
-  this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], [{'emoji': ['emoji']}],  [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['image'], ['clean', 'formatPainter']];
+  this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], [{'emoji': ['default','emoji']}],  [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['image'], ['clean', 'formatPainter']];
 }
 
 render() {

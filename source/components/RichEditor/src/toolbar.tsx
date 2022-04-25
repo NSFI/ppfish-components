@@ -545,6 +545,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               </div>
             </TabPane>
           ];
+          mValue = mValue || ['emoji'];
           if(Array.isArray(mValue)){
             tabPanes = tabPanes.filter((tab)=>{
               return mValue.includes(tab.key);

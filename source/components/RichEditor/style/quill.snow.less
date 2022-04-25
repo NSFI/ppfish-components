@@ -32,7 +32,6 @@
 }
 .ql-editor {
   box-sizing: border-box;
-  counter-reset: list-0;
   line-height: 1.42;
   height: 100%;
   outline: none;
@@ -311,6 +310,13 @@
 .ql-editor table {
   table-layout: fixed;
   width: 100%;
+}
+.ql-editor table {
+  border-collapse: collapse;
+}
+.ql-editor td {
+  border: 1px solid #000;
+  padding: 2px 5px;
 }
 .ql-editor table td {
   outline: none;
