@@ -780,8 +780,7 @@ render() {
   editorRef = React.createRef()
 
   close = () => {
-    console.log(this.editorRef)
-    this.editorRef.current && this.editorRef.current.closeFindModal()
+    this.editorRef.current && this.editorRef.current.closeFindModal() // 返回一个 promise
   }
 
   render() {

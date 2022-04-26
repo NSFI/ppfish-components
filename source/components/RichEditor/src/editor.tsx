@@ -642,9 +642,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     return this.reactQuillRef.getEditor() as ReactQuill;
   };
 
-  closeFindModal = () => {
+  _closeFindModal = () => {
     this.setState({
       findVisible: false
+    });
+  }
+
+  // 提供给外部的关闭操作
+  closeFindModal = () => {
+    return new Promise(resolve=>{
+      this.setState({
+        findVisible: false
+      }, () => resolve(''));
     });
   }
 
@@ -1582,7 +1591,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                 {
                   findVisible ? <FindModal
                                   locale={this.Locale}
-                                  closeFindModal={this.closeFindModal}
+                                  closeFindModal={this._closeFindModal}
                                   getEditor={this.getEditor}/>
                     : null
                 }
