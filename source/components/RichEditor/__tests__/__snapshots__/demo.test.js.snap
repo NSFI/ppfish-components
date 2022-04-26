@@ -3384,6 +3384,14 @@ exports[`Renders richEditor demo correctly 1`] = `
       <div />
     </div>
   </div>
+  <button
+    class="fishd-btn close-button fishd-btn-primary"
+    type="button"
+  >
+    <span>
+      手动关闭查找模式
+    </span>
+  </button>
   <div
     class="fishd-richeditor"
   >
