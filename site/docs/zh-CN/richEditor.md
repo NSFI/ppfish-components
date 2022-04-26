@@ -772,24 +772,40 @@ render() {
 
 ## 查找与替换
 
-:::demo
+:::demo 在启用此功能后, 需要在保存时手动关闭查找模式, 避免保存了查找的高亮标签而造成详情的展示错误问题
 
 ```js
  toolbar = [['link', 'bold', 'italic', 'underline'],['color', 'background'],['fullscreen'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ['findAndReplace']];
+  
+  editorRef = React.createRef()
+
+  close = () => {
+    this.editorRef.current && this.editorRef.current.closeFindModal() // 返回一个 promise
+  }
 
   render() {
     return (
-      <RichEditor
-        value={`
-          <p>Beauty </p>
-          <p>There were a sensitivity and a beauty to her that have nothing to do with looks. She was one to be listened to, whose words were so easy to take to heart. </p>
-          <p>It is said that the true nature of being is veiled. The labor of words, the expression of art, the seemingly ceaseless buzz that is human thought all have in common the need to get at what really is so. The hope to draw close to and possess the truth of being can be a feverish one. In some cases it can even be fatal, if pleasure is one's truth and its attainment more important than life itself. In other lives, though, the search for what is truthful gives life. </p>
-          <p>I used to find notes left in the collection basket, beautiful notes about my homilies and about the writer's thoughts on the daily scriptural readings. The person who penned the notes would add reflections to my thoughts and would always include some quotes from poets and mystics he or she had read and remembered and loved. The notes fascinated me. Here was someone immersed in a search for truth and beauty. Words had been treasured, words that were beautiful. And I felt as if the words somehow delighted in being discovered, for they were obviously very generous to the as yet anonymous writer of the notes. And now this person was in turn learning the secret of sharing them. Beauty so shines when given away. The only truth that exists is, in that sense, free.</p>
-        `}
-        toolbar={this.toolbar}
-      />
+      <React.Fragment>
+        <RichEditor
+          ref={this.editorRef}
+          value={`
+            <p>Beauty </p>
+            <p>There were a sensitivity and a beauty to her that have nothing to do with looks. She was one to be listened to, whose words were so easy to take to heart. </p>
+            <p>It is said that the true nature of being is veiled. The labor of words, the expression of art, the seemingly ceaseless buzz that is human thought all have in common the need to get at what really is so. The hope to draw close to and possess the truth of being can be a feverish one. In some cases it can even be fatal, if pleasure is one's truth and its attainment more important than life itself. In other lives, though, the search for what is truthful gives life. </p>
+            <p>I used to find notes left in the collection basket, beautiful notes about my homilies and about the writer's thoughts on the daily scriptural readings. The person who penned the notes would add reflections to my thoughts and would always include some quotes from poets and mystics he or she had read and remembered and loved. The notes fascinated me. Here was someone immersed in a search for truth and beauty. Words had been treasured, words that were beautiful. And I felt as if the words somehow delighted in being discovered, for they were obviously very generous to the as yet anonymous writer of the notes. And now this person was in turn learning the secret of sharing them. Beauty so shines when given away. The only truth that exists is, in that sense, free.</p>
+          `}
+          toolbar={this.toolbar}
+        />
+        <Button type="primary" className="close-button" onClick={this.close}>手动关闭查找模式</Button>
+      </React.Fragment>
     );
   }
+```
+```less
+.close-button{
+  margin-top: 16px
+}
+
 ```
 :::
 
