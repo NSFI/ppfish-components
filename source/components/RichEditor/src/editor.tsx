@@ -134,7 +134,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   historyConfig = {
       delay: 0, // 设置为 0, 每一个字符都会被记录
       maxStack: 100,
-      userOnly: false
+      userOnly: true
   }
 
   private imageSizeParams: any = {

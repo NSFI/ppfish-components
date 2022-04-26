@@ -7,6 +7,7 @@ import Icon from "../../Icon";
 import Button from "../../Button";
 import debounce from "lodash/debounce";
 import { LocaleProperties } from "../../Locale";
+import Emitter from './quillCore/core/emitter';
 
 const TabPane = Tabs.TabPane;
 
@@ -75,8 +76,8 @@ class FindModal extends React.Component<IProps, IState> {
     const quill = getEditor();
     if (quill) {
       const length = quill.getText().length;
-      quill.formatText(0, length, "SearchedString", false);
-      quill.formatText(0, length, "SearchedStringActive", false);
+      quill.formatText(0, length, "SearchedString", false, Emitter.sources.API);
+      quill.formatText(0, length, "SearchedStringActive", false, Emitter.sources.API);
     }
   };
 
@@ -128,12 +129,12 @@ class FindModal extends React.Component<IProps, IState> {
       );
 
       // 高亮, 第 0 个默认选中
-      quill.formatText(index, length, "SearchedString", true);
+      quill.formatText(index, length, "SearchedString", true, Emitter.sources.API);
       indices.push({ index });
     }
     if (indices.length) {
       this.currentIndex = indices[0].index;
-      quill.formatText(indices[0].index, length, "SearchedStringActive", true);
+      quill.formatText(indices[0].index, length, "SearchedStringActive", true, Emitter.sources.API);
       this.setState({
         currentPosition: 0,
         indices
@@ -160,7 +161,8 @@ class FindModal extends React.Component<IProps, IState> {
       this.currentIndex,
       searchKey.length,
       "SearchedStringActive",
-      false
+      false,
+      Emitter.sources.API
     );
     // 获取上一个
     const last = this.state.currentPosition - 1;
@@ -180,7 +182,8 @@ class FindModal extends React.Component<IProps, IState> {
       prevIndex.index,
       searchKey.length,
       "SearchedStringActive",
-      true
+      true,
+      Emitter.sources.API
     );
     this.checkView(prevIndex.index);
   };
@@ -194,7 +197,8 @@ class FindModal extends React.Component<IProps, IState> {
       this.currentIndex,
       searchKey.length,
       "SearchedStringActive",
-      false
+      false,
+      Emitter.sources.API
     );
 
     const next = this.state.currentPosition + 1;
@@ -216,7 +220,8 @@ class FindModal extends React.Component<IProps, IState> {
       nextIndex.index,
       searchKey.length,
       "SearchedStringActive",
-      true
+      true,
+      Emitter.sources.API
     );
     this.checkView(nextIndex.index);
   };
@@ -256,8 +261,8 @@ class FindModal extends React.Component<IProps, IState> {
     // 遍历 indices 尾部替换
     while (length--) {
       // 先删除再添加
-      quill.deleteText(indices[length].index, oldStringLen);
-      quill.insertText(indices[length].index, newString);
+      quill.deleteText(indices[length].index, oldStringLen, Emitter.sources.USER);
+      quill.insertText(indices[length].index, newString, Emitter.sources.USER);
     }
     // 结束后重新搜索
     this.search();
@@ -269,8 +274,8 @@ class FindModal extends React.Component<IProps, IState> {
     const { getEditor } = this.props;
     const quill = getEditor();
     // 删除, 添加
-    quill.deleteText(this.currentIndex, searchKey.length);
-    quill.insertText(this.currentIndex, this.replaceKey);
+    quill.deleteText(this.currentIndex, searchKey.length, Emitter.sources.USER);
+    quill.insertText(this.currentIndex, this.replaceKey, Emitter.sources.USER);
     this.search();
   };
 
