@@ -1,4 +1,4 @@
-import Quill from 'quill';
+import {Quill} from '../quill';
 
 const Embed = Quill.import('blots/embed');
 export const getAttrs = (node: Element): object => {
@@ -49,7 +49,7 @@ class ImageBlot extends Embed {
   }
 }
 
-ImageBlot.blotName = 'myImage';
+ImageBlot.blotName = 'image';
 ImageBlot.tagName = 'img';
 
 export default ImageBlot;

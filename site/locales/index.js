@@ -1,5 +1,4 @@
 import pkg from '../../package.json';
-
 export default {
   misc: {
     'guide': '指南',

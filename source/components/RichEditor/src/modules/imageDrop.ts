@@ -72,7 +72,7 @@ export default class ImageDrop {
 
     if (!attrs.src) return;
 
-    this.quill.insertEmbed(index, 'myImage', attrs);
+    this.quill.insertEmbed(index, 'image', attrs);
     this.quill.setSelection(index + 1);
   }
 

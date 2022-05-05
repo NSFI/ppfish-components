@@ -1,39 +1,49 @@
-import React, { Component, ReactInstance, ImgHTMLAttributes } from 'react';
-import { findDOMNode } from 'react-dom';
-import ReactQuill, { Quill } from './quill/index';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { addEventListener } from '../../../utils';
-import { polyfill } from 'react-lifecycles-compat';
-import Spin from '../../Spin/index';
-import Radio from '../../Radio/index';
-import Modal from '../../Modal/index';
-import Input from '../../Input/index';
-import Button from '../../Button/index';
-import message from '../../message/index';
-import CustomToolbar from './toolbar';
-import CustomSizeBlot from './formats/size';
-import EmojiBlot from './formats/emoji';
-import LinkBlot from './formats/link';
-import ImageBlot from './formats/image';
-import VideoBlot from './formats/video';
-import PlainClipboard from './modules/plainClipboard';
-import ImageDrop from './modules/imageDrop';
-import FileDrop from './modules/fileDrop';
+import React, { Component } from "react";
+import { findDOMNode } from "react-dom";
+import ReactQuill, { Quill } from "./quill/index";
+import classNames from "classnames";
+import { addEventListener } from "../../../utils";
+import { polyfill } from "react-lifecycles-compat";
+import Spin from "../../Spin/index";
+import Radio from "../../Radio/index";
+import Modal from "../../Modal/index";
+import Input from "../../Input/index";
+import Button from "../../Button/index";
+import message from "../../message/index";
+import CustomToolbar from "./toolbar";
+import CustomSizeBlot from "./formats/size";
+import EmojiBlot from "./formats/emoji";
+import LinkBlot from "./formats/link";
+import ImageBlot from "./formats/image";
+import VideoBlot from "./formats/video";
+import CustomClipboard from "./modules/customClipboard";
+import ImageDrop from "./modules/imageDrop";
+import FileDrop from "./modules/fileDrop";
+import ImageResize from "./modules/imageResize";
+import TableUI, { isTable } from "./modules/table";
+import attachBlot from "./formats/attach";
+import SearchedStringBlot from "./formats/SearchBlot";
+import SearchedStringActiveBlot from "./formats/SearchActiveBlot";
 
 import { RichEditorProps, RichEditorState } from './interface';
 import ConfigConsumer from '../../Config/Consumer';
 import { LocaleProperties } from '../../Locale';
+import FindModal from "./findModal";
 
+Quill.register(SearchedStringBlot);
+Quill.register(SearchedStringActiveBlot);
 Quill.register(EmojiBlot);
 Quill.register(LinkBlot);
 Quill.register(ImageBlot);
-Quill.register(CustomSizeBlot);
 Quill.register(VideoBlot);
+Quill.register(attachBlot);
+Quill.register(CustomSizeBlot);
 Quill.register('modules/imageDrop', ImageDrop, true);
 Quill.register('modules/fileDrop', FileDrop, true);
+Quill.register("modules/resize", ImageResize, true);
 Quill.register(Quill.import('attributors/style/align'), true);
 Quill.register(Quill.import('attributors/style/direction'), true);
+Quill.register({'modules/tableUI': TableUI}, true);
 
 const getImageSize = function (
   url: string,
@@ -43,7 +53,6 @@ const getImageSize = function (
   newImage.onload = function (
     this: GlobalEventHandlers & { width?: number | string; height?: number | string },
   ) {
-    // callback(this.width, this.height);
     callback(this.width, this.height);
   };
   newImage.src = url;
@@ -79,10 +88,15 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     link: Function;
     video: Function;
     emoji: Function;
+    fullscreen: Function,
     image: Function;
     attachment: Function;
     clean: Function;
-    customInsertValue: Function;
+    customInsertValue: Function
+    findAndReplace: Function
+    undo: Function
+    redo: Function
+    customTable: Function;
   };
 
   editorCtner: HTMLDivElement;
@@ -120,6 +134,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     fileDrop: false,
     resizable: false,
     pastePlainText: false,
+    imageResize: false,
+    pasteFormater: null,
     toolbar: [
       ['link', 'bold', 'italic', 'underline'],
       ['size'],
@@ -132,6 +148,24 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     ],
     getPopupContainer: () => document.body,
   };
+
+  historyConfig = {
+      delay: 0, // 设置为 0, 每一个字符都会被记录
+      maxStack: 100,
+      userOnly: true
+  }
+
+  private imageSizeParams: any = {
+      parchment: {
+        image: {
+          attribute: ['width', 'height'],
+          limit: {
+            ratio: true,
+            minWidth: 50
+          }
+        }
+      },
+    }
 
   static getDerivedStateFromProps(nextProps: RichEditorProps, prevState: any) {
     let newState = {};
@@ -154,14 +188,12 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     this.defaultLinkPrefix = 'https://';
     this.Locale = {};
 
-    let { value, customLink, supportFontTag, pastePlainText, customInsertVideo } = this.props;
+    let { value, customLink, supportFontTag, pastePlainText,pasteFormater, customInsertVideo } = this.props;
 
-    // 粘贴时将富文本转为纯文本
-    if (pastePlainText) {
-      Quill.register('modules/clipboard', PlainClipboard, true);
+    // 粘贴时的功能扩展
+    if (pastePlainText || pasteFormater) {
+      Quill.register('modules/clipboard', CustomClipboard, true);
     }
-
-    // this.urlValidator = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,63}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/i;
     this.onBlurHandler = null;
     let formatValue = value;
     if (supportFontTag) {
@@ -188,8 +220,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       curRange: null,
       curVideoType: this.defaultVideoType,
       defaultInputLink: this.defaultLinkPrefix,
-      linkModalTitle: '',
+      linkModalTitle: "",
       formatPainterActive: false,
+      insertTableDisabled: false,
+      fullScreen: false,
+      findVisible: false
     };
     this.handlers = {
       link: (value, fromAction) => {
@@ -241,6 +276,13 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           curRange: quill.getSelection(), // 防止插入视频时光标定位错误
         });
       },
+      fullscreen: value => {
+        this.setState(prev => ({
+          fullScreen: !prev.fullScreen
+        }), () => {
+          document.body.style.overflow = this.state.fullScreen ? 'hidden' : 'auto';
+        });
+      },
       emoji: value => {
         let quill = this.getEditor(),
           range = quill.getSelection(),
@@ -256,14 +298,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         });
         quill.setSelection(range.index + 1);
       },
-      // customColor: (color) => {
-      //   let quill = this.getEditor(),
-      //     range = quill.getSelection();
-
-      //   if (range.length !== 0) {
-      //     quill.format('color', color);
-      //   }
-      // },
       image: () => {
         let { onClickToolbarBtn, insertImageModalVisible } = this.props;
         if (typeof onClickToolbarBtn == 'function' && onClickToolbarBtn('image') === false) {
@@ -307,19 +341,48 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
 
         let quill = this.getEditor(),
           range = quill.getSelection();
-
         if (range == null) return;
-        if (range.length == 0) {
-          let formats = quill.getFormat();
-          Object.keys(formats).forEach(name => {
-            // Clean functionality in existing apps only clean inline formats
-            if (Parchment.query(name, Parchment.Scope.INLINE) != null) {
-              quill.format(name, false);
-            }
+        // 只在有选中的时候 clean, 原方案removeFormat 会清除图片,自定义格式, 或者清除失败的情况
+        if (range.length !== 0) {
+          let formatArr = ['strike','bold','link','color','background','underline','font','size','direction',
+            'customAttr'];
+          const {index, length} = range;
+          quill.format( 'blockquote', false);
+          quill.format( 'code-block', false); // 全选时,或者选中再加一个空白行 可能会失败
+          quill.format( 'indent', false);
+          quill.format( 'italic', false);
+          quill.format( 'script', false);
+          quill.format( 'align', false);
+          quill.format( 'list', false);
+          quill.format( 'orderedList', false);
+          formatArr.forEach(type => {
+            quill.formatText(index, length, type, false);
           });
-        } else {
-          quill.removeFormat(range, Quill.sources.USER);
+
+          // 兼容 code-block 全选, 半全选 格式化失败的问题
+          let start = index;
+          quill.getContents(index, length).forEach((delta, line, all) => {
+            let lineLength = (delta.insert && delta.insert.length) || 0;
+
+            const attributes = delta.attributes;
+            if (attributes) {
+              // 遗漏点: 如果先选择背景色和字体颜色, 在方法, 清除格式的时候, 只有这里判断
+              if (attributes['code-block'] || attributes['customAttr']) {
+                quill.removeFormat(start, lineLength);
+              }
+            }
+
+            start += lineLength;
+          });
         }
+      },
+      undo: () => {
+        let quill = this.getEditor();
+        quill && quill.history.undo();
+      },
+      redo: ()=>{
+        let quill = this.getEditor();
+        quill && quill.history.redo();
       },
       // 处理定制的插入值
       customInsertValue: value => {
@@ -336,6 +399,28 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
         } else {
           quill.insertText(range.index, mValue.value);
         }
+      },
+      findAndReplace: val=>{
+        this.setState(prev => ({
+          findVisible: !prev.findVisible
+        }));
+      },
+      customTable: value => {
+        let { onClickToolbarBtn } = this.props;
+        if (
+          typeof onClickToolbarBtn == "function" &&
+          onClickToolbarBtn("table") === false
+        ) {
+          return;
+        }
+
+        const quill = this.getEditor();
+        if (!quill) return;
+
+        this.setState({
+          value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
+          curRange: quill.getSelection() // 保存range，用于判断插入表格时光标是否在表格内
+        });
       },
     };
 
@@ -419,12 +504,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
               quill.setSelection(this.linkRange);
               this.handlers.link(tooltip.preview.getAttribute('href'), true);
             }
-
-            // if (this.root.classList.contains('ql-editing')) {
-            //   this.save();
-            // } else {
-            //   this.edit('link', this.preview.textContent);
-            // }
 
             event.preventDefault();
           },
@@ -556,6 +635,21 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     return this.reactQuillRef.getEditor() as ReactQuill;
   };
 
+  _closeFindModal = () => {
+    this.setState({
+      findVisible: false
+    });
+  }
+
+  // 提供给外部的关闭操作
+  closeFindModal = () => {
+    return new Promise(resolve=>{
+      this.setState({
+        findVisible: false
+      }, () => resolve(''));
+    });
+  }
+
   handleLinkModalOk = () => {
     let el = this.linkModalInputRef.input,
       val = el.value.trim();
@@ -660,6 +754,7 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     });
   };
 
+  // 图片选择回调
   handlePickLocalImage = () => {
     let { customInsertImage } = this.props,
       { toolbarCtner } = this.state,
@@ -680,8 +775,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           info.width = naturalWidth;
           info.height = naturalHeight;
 
-          quill.insertEmbed(range.index, 'myImage', info);
-          quill.setSelection(range.index + 1, 'silent');
+          quill.insertEmbed(range.index, "image", info);
+          quill.setSelection(range.index + 1, "silent");
 
           this.setState({
             value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
@@ -689,8 +784,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
           });
         });
       } else {
-        quill.insertEmbed(range.index, 'myImage', info);
-        quill.setSelection(range.index + 1, 'silent');
+        quill.insertEmbed(range.index, "image", info);
+        quill.setSelection(range.index + 1, "silent");
 
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
@@ -710,7 +805,11 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     };
 
     this.setState({
-      showImageModal: false,
+      showImageModal: false
+    }, ()=>{
+      if(this.state.fullScreen){
+        document.body.style.overflow = 'hidden';
+      }
     });
 
     if (customInsertImage && typeof customInsertImage === 'function') {
@@ -741,58 +840,41 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   };
 
   handlePickLocalFile = () => {
-    let { customInsertAttachment } = this.props,
+    let { customInsertAttachment , attachmentIconMap = {} } = this.props,
       quill = this.getEditor();
 
-    const handleInsertFile = file => {
+    const handleInsertFile = (file, rangeIndex) => {
       if (!file || !file.url || !file.name) {
         message.error(this.Locale.noFileInfoTip);
         return;
       }
+      let  nextChar = quill.getText(rangeIndex + 1, 1);
 
-      let range = this.state.curRange ? this.state.curRange : quill.getSelection(true);
-      if (!range) return;
-
-      // 继承列表的样式
-      let curFormat = quill.getFormat(range),
-        listFormat: { list?: any } = {};
-
-      if (curFormat && curFormat.list) {
-        listFormat.list = curFormat.list;
-      }
-
-      let displayFileName = this.Locale.file + file.name,
-        contentsDelta: any[] = [
-          {
-            insert: displayFileName,
-            attributes: {
-              ...listFormat,
-              link: {
-                type: 'attachment',
-                url: file.url && file.url.trim(),
-                name: file.name,
-              },
-            },
-          },
-          {
-            insert: '\n',
-            attributes: {
-              ...listFormat,
-            },
-          },
-        ];
-
-      // 在开头插入时不能使用retain
-      if (range.index > 0) {
-        contentsDelta.unshift({ retain: range.index });
-      }
+      const attrs = {
+        url: file.url && file.url.trim(),
+        name: file.name,
+        iconUrl: attachmentIconMap[file.type] || attachmentIconMap['default']
+          || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
+      };
 
       // 插入附件
-      quill.updateContents(contentsDelta, 'silent');
-      quill.setSelection(range.index + displayFileName.length + 1, 'silent');
+      // 在一行的中间插入
+      if (nextChar && nextChar != "\n") {
+        quill.insertText(rangeIndex, "\n"); // 插入前换行，避免丢失文字
+        quill.insertEmbed(rangeIndex + 1, "attach", attrs);
+        quill.setSelection(rangeIndex + 1, "silent");
+      } else {
+        // 在一行的末尾插入
+        quill.insertEmbed(rangeIndex + 1, "attach", attrs);
+        quill.insertText(rangeIndex + 2, "\n"); // 插入后换行，避免丢失光标
+        quill.setSelection(rangeIndex + 2, "silent");
+      }
     };
 
     const getFileCb = fileList => {
+      let range = this.state.curRange
+        ? this.state.curRange
+        : quill.getSelection(true);
       if (Array.isArray(fileList)) {
         fileList
           .sort((a, b) => {
@@ -800,15 +882,15 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
             let order = ['other', 'image', 'video'];
             return order.indexOf(b.type) - order.indexOf(a.type);
           })
-          .forEach(file => {
-            handleInsertFile(file);
+          .forEach((file, index) => {
+            handleInsertFile(file, range.index );
             this.setState({
               value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
               curRange: null,
             });
           });
       } else {
-        handleInsertFile(fileList);
+        handleInsertFile(fileList, range.index);
         this.setState({
           value: quill.getRawHTML(), // 使 RichEditor 与 Quill 同步
           curRange: null,
@@ -968,6 +1050,22 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       });
   };
 
+  handleInsertTable = (row: number, col: number) => {
+    let quill = this.getEditor();
+    if (quill) {
+      quill.focus();
+      const table = quill.getModule('table');
+      table.insertTable(row, col);
+    }
+  };
+
+  handleFormatLineHeight = value => {
+    let quill = this.getEditor();
+    quill && quill.format("customAttr", {
+      lineHeight: value
+    });
+  };
+
   handleInsertValue = e => {
     let { toolbarCtner } = this.state,
       target = e.target;
@@ -1041,12 +1139,22 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
   }
 
   handleSelectionChange = (nextSelection, source, editor) => {
-    // let { toolbarCtner } = this.state;
     const { onSelectionChange } = this.props;
     onSelectionChange && onSelectionChange(nextSelection, source, editor);
 
     let quill = this.getEditor();
     if (!quill) return;
+
+    // 处理插入表格按钮的禁用状态，禁止嵌套插入表格
+    if (isTable(quill, quill.getSelection() || this.state.curRange)) {
+      this.setState({
+        insertTableDisabled: true
+      });
+    } else {
+      this.setState({
+        insertTableDisabled: false
+      });
+    }
 
     // 格式刷
     if (this.prevSelectionFormat && nextSelection) {
@@ -1091,31 +1199,6 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       }
     }
     this.handleHideTooltip(tooltip.root);
-
-    // FixBug: 取消高亮区分。a标签添加自定义属性后接带自定义属性的img标签时，在MAC和安卓版的微信公众号中超链接会异常显示出HTML标签。
-    // 区分默认的超链接按钮和自定义超链接按钮的高亮
-    // if (nextSelection) {
-    //   let curFormat;
-    // 	if (nextSelection.index > 0 && quill.getText(nextSelection.index - 1, 1)!='\n') {
-    // 		curFormat = quill.getFormat(nextSelection.index - 1, 1);
-    // 	} else {
-    // 		curFormat = quill.getFormat(nextSelection.index, 1);
-    // 	}
-
-    //   toolbarCtner.querySelector('.link-active')
-    //   && toolbarCtner.querySelector('.link-active').classList.remove('link-active');
-
-    //   if ('myLink' in curFormat) {
-    //     let linkType = curFormat['myLink'].type || 'default';
-    //     if (linkType == 'default') {
-    //       toolbarCtner.querySelector('.ql-myLink')
-    //       && toolbarCtner.querySelector('.ql-myLink').classList.add('link-active');
-    //     } else {
-    //       toolbarCtner.querySelector(`.ql-${linkType}`)
-    //       && toolbarCtner.querySelector(`.ql-${linkType}`).classList.add('link-active');
-    //     }
-    // 	}
-    // }
   };
 
   handleVideoTypeChange = e => {
@@ -1123,6 +1206,18 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       curVideoType: e.target.value || this.defaultVideoType,
     });
   };
+
+  getCurrentLineHeight = ()=>{
+    let quill = this.getEditor();
+    if (!quill) return null;
+    let formats = quill.getFormat();
+
+    if(formats && formats.customAttr && formats.customAttr.lineHeight){
+      return formats.customAttr.lineHeight;
+    }
+
+    return null;
+  }
 
   getCurrentSize = () => {
     let quill = this.getEditor();
@@ -1220,6 +1315,8 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       curVideoType,
       defaultInputLink,
       linkModalTitle,
+      fullScreen,
+      findVisible
     } = this.state;
     const {
       className,
@@ -1245,17 +1342,21 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       customDropImage,
       customDropFile,
       pastePlainText,
+      pasteFormater,
+      imageResize,
+      attachmentIconMap,
+      historyConfig,
       ...restProps
     } = this.props;
     delete restProps.customInsertImage;
     const cls = classNames(
       `${prefixCls}`,
       {
+        fullScreen,
         resizable: resizable,
       },
       className,
     );
-
     if (value) {
       restProps.value = value;
     }
@@ -1269,15 +1370,21 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
     let moduleOpts = {
       toolbar: {
         container: toolbarCtner,
-        handlers: this.handlers,
+        handlers: this.handlers
+      },
+      history: historyConfig || this.historyConfig,
+      table: true,
+      tableUI: {
+        Locale: this.Locale
       },
     };
 
     // fileDrop 为 true 时，使 imageDrop 失效
     if (fileDrop && customDropFile) {
       // customDropFile 自定义文件上传逻辑，必选
-      moduleOpts['fileDrop'] = {
+      moduleOpts["fileDrop"] = {
         customDropFile,
+        attachmentIconMap
       };
     } else if (imageDrop) {
       // customDropImage 不存在时，将图片文件转为 dataUrl 格式
@@ -1286,10 +1393,22 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
       };
     }
 
-    if (pastePlainText) {
-      moduleOpts['clipboard'] = {
-        pastePlainText: true,
-      };
+    if(imageResize){
+      moduleOpts["resize"] = this.imageSizeParams;
+    }
+
+    if (pastePlainText || pasteFormater) {
+      const clipboardOpt = {};
+
+      if (pastePlainText) {
+        clipboardOpt['pastePlainText'] = true;
+      }
+
+      if (pasteFormater) {
+        clipboardOpt['pasteFormater'] = pasteFormater;
+      }
+
+      moduleOpts["clipboard"] = clipboardOpt;
     }
 
     return (
@@ -1402,15 +1521,16 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                 handleFormatColor={this.handleFormatColor}
                 handleFormatBackground={this.handleFormatBackground}
                 handleFormatSize={this.handleFormatSize}
-                handleInsertValue={this.handleInsertValue}
+                handleInsertTable={this.handleInsertTable}
+                  handleFormatLineHeight={this.handleFormatLineHeight}handleInsertValue={this.handleInsertValue}
                 popoverPlacement={popoverPlacement}
                 tooltipPlacement={tooltipPlacement}
                 getPopupContainer={getPopupContainer}
                 getCurrentSize={this.getCurrentSize}
-                formatPainterActive={this.state.formatPainterActive}
-                saveSelectionFormat={this.handleSaveSelectionFormat}
+                getCurrentLineHeight={this.getCurrentLineHeight}formatPainterActive={this.state.formatPainterActive}
+                insertTableDisabled={this.state.insertTableDisabled}saveSelectionFormat={this.handleSaveSelectionFormat}
                 unsaveSelectionFormat={this.handleUnsaveSelectionFormat}
-              />
+              fullScreen={fullScreen}/>
               <ReactQuill
                 {...restProps}
                 ref={el => (this.reactQuillRef = el)}
@@ -1419,8 +1539,14 @@ class RichEditor extends Component<RichEditorProps, RichEditorState> {
                 modules={moduleOpts}
                 // placeholder={Locale.placeholder}
                 onChange={this.handleChange}
-                onSelectionChange={this.handleSelectionChange}
-              />
+                onSelectionChange={this.handleSelectionChange}/>
+                {
+                  findVisible ? <FindModal
+                                  locale={this.Locale}
+                                  closeFindModal={this._closeFindModal}
+                                  getEditor={this.getEditor}/>
+                    : null
+              }
               {loading ? (
                 <Spin
                   style={{

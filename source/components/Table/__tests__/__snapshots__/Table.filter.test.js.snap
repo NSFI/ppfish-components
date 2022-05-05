@@ -231,7 +231,7 @@ exports[`Table.filter renders custom content correctly 1`] = `
           <div>
             <div
               class="fishd-dropdown"
-              style="opacity: 0; pointer-events: none;"
+              style="opacity: 0;"
             >
               <div>
                 <div
@@ -394,7 +394,7 @@ exports[`Table.filter renders custom content correctly 1`] = `
                     style={
                       Object {
                         "opacity": 0,
-                        "pointerEvents": "none",
+                        "pointerEvents": undefined,
                         "zIndex": undefined,
                       }
                     }

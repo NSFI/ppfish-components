@@ -35,6 +35,7 @@
 ```
 :::
 
+
 ## 定制文字大小
 
 :::demo 定制文字大小。
@@ -134,6 +135,28 @@
       />
     );
   }
+```
+:::
+
+
+## 表情包可选
+
+:::demo 表情包可选, 可配置属性: `[{'emoji': ['default',emoji']}]`, 默认只显示 emoji。
+
+```js
+
+constructor(props){
+  super(props);
+  this.toolbar = [['link', 'bold', 'italic', 'underline'], ['size'], [{'emoji': ['default','emoji']}],  [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['image'], ['clean', 'formatPainter']];
+}
+
+render() {
+  return (
+    <RichEditor
+      toolbar={this.toolbar}
+    />
+  );
+}
 ```
 :::
 
@@ -517,6 +540,10 @@
           [{'list': 'ordered'}, {'list': 'bullet'}],
           ['emoji'], ['image', 'attachment'], ['clean', 'formatPainter'], ['mylink']
         ]}
+        attachmentIconMap={{
+            video: '//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd',
+            default: '//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd'
+        }}
         customInsertAttachment={this.getFilesInfo}
         insertAttachmentTip="支持docx、xlsx、pdf、pptx等常见文件格式，单个文件大小不得超过10M。"
         loading={this.state.loading}
@@ -528,9 +555,9 @@
           }
         }}
         value={`
-        <p>附件测试：<br/>
-        <a data-ql-link-type="attachment" download="测试文件.jpg" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe">[文件] 测试文件.jpg</a>
-        </p>`}
+        <p>附件测试, 文件类型的图片需自定义：<br/></p>
+        <div contenteditable="false" title="未知文件" href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" iconurl="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_file"><img src="//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd" class="attach_icon"><a href="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" target="_blank" class="attach_text" download="未知文件">未知文件</a></div>
+        `}
       />
     );
   }
@@ -640,7 +667,6 @@
 ```
 :::
 
-
 ## 支持使用 font 标签
 
 :::demo 将 value 中的 font 标签替换为 span 标签，并用 CSS 设定文本样式。
@@ -652,6 +678,25 @@
       <RichEditor
         supportFontTag
         value={`<p><a target="_blank" href="https://nsfi.github.io/ppfish-components/#/home">Fish Design</a> 是基于 React 实现的高质量的 UI 组件库。</p><p><br></p><p><font color="#26BD71" size="5">它的设计原则是简洁、直接、优雅和适应性。</font></p><p><br></p><p>欢迎使用或<a target="_blank" href="https://github.com/NSFI/ppfish-components/">贡献代码</a><img class="portrait_icon" data-id="emoticon_emoji_132" data-type="defaultEmoji" alt="[玫瑰]" src="//qiyukf.com/sdk/res/portrait/emoji/new_emoji_25.png" width="24" height="24"></p>`}
+      />
+    );
+  }
+```
+:::
+
+## 支持图片缩放
+
+:::demo 图片的缩放
+
+```js
+ toolbar = [['link', 'bold', 'italic', 'underline'],['fullscreen'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter']];
+
+  render() {
+    return (
+      <RichEditor
+        imageResize={true}
+        toolbar={this.toolbar}
+        value={`<img height="87" width="200" class="upload-img" data-group="ysf" data-size="11317" data-url="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe" src="//ysf.qiyukf.net/3df2280d2319678a091138b0bbba82fe">`}
       />
     );
   }
@@ -724,6 +769,74 @@
 ```
 :::
 
+
+## 查找与替换
+
+:::demo 在启用此功能后, 需要在保存时手动关闭查找模式, 避免保存了查找的高亮标签而造成详情的展示错误问题
+
+```js
+ toolbar = [['link', 'bold', 'italic', 'underline'],['color', 'background'],['fullscreen'], ['size'], ['color'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ['findAndReplace']];
+  
+  editorRef = React.createRef()
+
+  close = () => {
+    this.editorRef.current && this.editorRef.current.closeFindModal() // 返回一个 promise
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <RichEditor
+          ref={this.editorRef}
+          value={`
+            <p>Beauty </p>
+            <p>There were a sensitivity and a beauty to her that have nothing to do with looks. She was one to be listened to, whose words were so easy to take to heart. </p>
+            <p>It is said that the true nature of being is veiled. The labor of words, the expression of art, the seemingly ceaseless buzz that is human thought all have in common the need to get at what really is so. The hope to draw close to and possess the truth of being can be a feverish one. In some cases it can even be fatal, if pleasure is one's truth and its attainment more important than life itself. In other lives, though, the search for what is truthful gives life. </p>
+            <p>I used to find notes left in the collection basket, beautiful notes about my homilies and about the writer's thoughts on the daily scriptural readings. The person who penned the notes would add reflections to my thoughts and would always include some quotes from poets and mystics he or she had read and remembered and loved. The notes fascinated me. Here was someone immersed in a search for truth and beauty. Words had been treasured, words that were beautiful. And I felt as if the words somehow delighted in being discovered, for they were obviously very generous to the as yet anonymous writer of the notes. And now this person was in turn learning the secret of sharing them. Beauty so shines when given away. The only truth that exists is, in that sense, free.</p>
+          `}
+          toolbar={this.toolbar}
+        />
+        <Button type="primary" className="close-button" onClick={this.close}>手动关闭查找模式</Button>
+      </React.Fragment>
+    );
+  }
+```
+```less
+.close-button{
+  margin-top: 16px
+}
+
+```
+:::
+
+
+## 插入表格
+
+:::demo 
+
+```js
+
+  constructor(props) {
+    super(props);
+    this.toolbar = [['link', 'bold', 'italic', 'underline'], [{size: ['32px', '24px', '18px']}], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['clean', 'formatPainter'], ["table"]];
+    this.pasteFormater = (html) => {
+      // 粘贴时过滤表格
+      return html.replace(/<table.*?table>/ig, '');
+    };
+  }
+
+  render() {
+    return (
+      <RichEditor
+        imageResize
+        // pasteFormater={this.pasteFormater}
+        toolbar={this.toolbar}
+      />
+    );
+  }
+```
+:::
+
 ## 轻量版
 
 :::demo 轻量版。
@@ -754,7 +867,7 @@
   constructor(props) {
     super(props);
     this.toolbar = [
-      ['link', 'bold', 'italic', 'underline'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter']
+      ['link', 'bold', 'italic', 'underline', 'strike'], ['undo' , 'redo'], ['lineHeight'], ['fullscreen'], ['color', 'background'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}], ['size'], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image','attachment'], ['video'], ['strike'], ['blockquote'], ['code-block'], [{'script': 'sub'}, {'script': 'super'}], [{'indent': '-1'}, {'indent': '+1'}], [{direction: "rtl"}], ['clean', 'formatPainter'], ["table"]
     ];
   }
 
@@ -780,6 +893,7 @@ __请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴�
 | customEmoji | 定制表情包 | Array< Object {name: String, id: Number, [className]: String, url: String, [title]: String} > | - |
 | customDropFile | 自定义拖入/粘贴文件，`fileDrop` 为 true 时有效。通过此接口可以在拖入/粘贴文件时自定义获取文件URL的逻辑。接口接收一个函数，它的第一个参数为拖拽进来的函数列表，第二个参数为一个回调函数，调用该函数可以将文件URL插入到组件中。回调函数接收一个文件信息列表，每个文件信息对象都有一个 type 属性，用于标明文件类型，可选值为 'image'、'video'、'other'（默认值）。当 type 取值为 'image' 或 'video'时，该对象的 src 属性为必选，可选属性有 width、height等。当 type 取值为 'other' 时，该对象的 url 和 name 属性为必选。单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列。 | (files: DataTransferItemList \| ClipboardDataItemList, <br/>callback: ([<br/>{type: 'image' \| 'video', src: String[, otherAttrs: String \| Number]} \| <br/>{ type: 'other', url: String, name: String}<br/>]) => Void) => Void | - |
 | customDropImage | 自定义拖入/粘贴图片，`imageDrop` 为 true 时有效。通过此接口可以在拖入/粘贴图片时自定义获取图片URL的逻辑。 | (files: DataTransferItemList \| ClipboardDataItemList, callback: ({src: String[, otherAttrs: String \| Number]}) => Void) => Void | - |
+| imageResize | 图片可以缩放大小，`imageResize` 为 true 时有效。 | Boolean | false |
 | customInsertAttachment | 自定义插入附件。通过此接口可以在点击工具栏中的插入附件按钮时自定义获取附件URL的逻辑。参数中的 type 用于标明文件的类型，用于在插入多个不同类型的文件时对它们进行排序。type的可选值有 'image'、'video'、'other'（默认值）。| (callback: (files: [{name: String, type: 'image' \| 'video' \| 'other', url: String}]) => Void) => Void | - |
 | customInsertImage | 自定义插入图片。通过此接口可以在点击工具栏中的插入图片按钮时自定义获取图片URL的逻辑。 | (callback: ({src: String[, otherAttrs: String \| Number]} \| [{src: String[, otherAttrs: String \| Number]}]) => Void) => Void | - |
 | customInsertValue | 扩展插入文本功能。数据格式为： `{'yourModuleName': {className: String, title: String, [editable]: Boolean, [showSearch]: Boolean, [searchPlaceholder]: String, option: Array< Object {value: String, title: String, [editable]: Boolean} >}}`。`className` 为该模块的类名，用于定制图标；`title` 为鼠标 hover 时展示的名称；`editable` 用于设置所有选项插入的文本是否可编辑，默认为 true；`showSearch` 用于设置选项标题是否支持搜索，默认为 false；`searchPlaceholder` 用于设置搜索的占位符，默认为“请输入关键字”；`option` 为选项列表，`option.editable` 用于设置单个选项插入的文本值是否可编辑，优先级比 `editable` 高。| Object | - |
@@ -804,16 +918,19 @@ __请注意：默认情况下，使用编辑器内置的插入、拖入/粘贴�
 | onKeyPress | 按键按下并释放后的回调，对特殊按键如 `shift` 或 `enter` 无效 | (event) => Void | - |
 | onKeyUp | 按键释放后的回调 | (event) => Void | - |
 | onSelectionChange | 选区改变时的回调 | (range, source, editor) => Void | - |
+| pasteFormater | 在粘贴内容时，将对html进行格式化处理 | (htmlString) => String | null |
 | pastePlainText | 在粘贴富文本时，将其转换为纯文本 | Boolean | false |
 | placeholder | 内容为空时的占位内容 | String | '请输入内容' |
 | popoverPlacement | 气泡框弹出位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'top' |
 | resizable | 是否支持拖拽改变编辑区域的大小 | Boolean | false |
 | style | 容器样式 | Object | - |
 | supportFontTag | 是否支持 font 标签。设为 true 时，编辑器会将输入的 font 标签替换为 span 标签，并用 CSS 设定文本样式。 | Boolean | false |
-| toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'formatPainter', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean', 'formatPainter']]` |
+| toolbar | 定制工具栏。数组类型，可选的元素值有：`'link', 'bold', 'italic', 'underline', 'color', {'color': ['#000', '#333', 'red', 'green', 'blue']}, 'background', {'background': ['#000', '#333', 'red', 'green', 'blue']}, {'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}, {'list': 'ordered'}, {'list': 'bullet'}, 'emoji', 'image', 'undo' , 'redo', 'lineHeight', 'fullscreen', 'size', {size: ['32px', '24px', '18px', '16px', '13px', '12px']}, 'clean', 'formatPainter', 'strike', 'blockquote', 'code-block', {'script': 'sub'}, {'script': 'super'}, {'indent': '-1'}, {'indent': '+1'}, {direction: "rtl"}, 'video', 'findAndReplace', 'table'`。<br/>可以将一个或多个子项放在一个数组中分组展示。| Array | `[['link', 'bold', 'italic', 'underline'], ['color'], [{'align': ''}, {'align': 'center'}, {'align': 'right'}], [{'list': 'ordered'}, {'list': 'bullet'}], ['emoji'], ['image'], ['size'], ['clean', 'formatPainter']]` |
 | tooltipPlacement | tooltip 弹出位置 | Enum {'top', 'left', 'right', 'bottom', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'} | 'bottom' |
 | value | 编辑器的内容，组件受控，改变 `value` 将会改变编辑器的内容 | String \| `HTML String` | - |
 | videoTagAttrs | 设置插入的视频标签的属性，可用于设置视频的width、height、poster及自定义属性等。 | Object | - |
+| attachmentIconMap | 插入的附件, 前面的图片样式, 如果不传递, 会自动使用默认图片, 如果类型是default, 则会将其当成默认图片 | Object | - |
+| historyConfig | 撤销, 恢复的配置 | Object | - |
 
 ## 方法
 

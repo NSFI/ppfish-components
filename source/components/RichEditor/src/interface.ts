@@ -13,7 +13,10 @@ export interface RichEditorState {
   defaultInputLink: string;
   linkModalTitle: string;
   formatPainterActive: boolean;
+  insertTableDisabled: boolean;
   showAttachmentModal?: boolean;
+  fullScreen: boolean;
+  findVisible: boolean;
 }
 
 export interface QuillComponentProps {
@@ -54,6 +57,8 @@ export interface RichEditorProps {
   resizable?: boolean;
   supportFontTag?: boolean;
   pastePlainText?: boolean;
+  pasteFormater?: Function;
+  imageResize?: boolean;
   style?: object;
   toolbar?: any[];
   value?: string;
@@ -80,6 +85,8 @@ export interface RichEditorProps {
   onKeyPress?: Function;
   onKeyDown?: Function;
   onKeyUp?: Function;
+  attachmentIconMap?: Record<string, string>
+  historyConfig?: Record<string, any>
 }
 
 export interface ModuleHtmlType {
@@ -105,13 +112,18 @@ export interface CustomToolbarProps extends ModuleHtmlType {
   customEmoji?: any[];
   customLink?: object;
   formatPainterActive?: boolean;
+  insertTableDisabled?: boolean;
+  fullScreen?: boolean;
   customInsertValue?: object;
   handleInsertEmoji?: (event: React.MouseEvent) => void;
   handleFormatBackground?: (event: React.MouseEvent) => void;
   handleFormatColor?: (event: React.MouseEvent) => void;
   handleFormatSize?: Function;
+  handleInsertTable?: Function;
+  handleFormatLineHeight?: Function;
   handleInsertValue?: (event: React.MouseEvent) => void;
   getCurrentSize?: Function;
+  getCurrentLineHeight?: Function;
   saveSelectionFormat?: Function;
   unsaveSelectionFormat?: Function;
 }
@@ -127,5 +139,8 @@ export interface EmojiInferface {
 export interface CustomToolbarState {
   curSize: null | string;
   sizePopoverVisible: boolean;
+  tablePopoverVisible: boolean;
+  curLineHeight:  null | string,
+  lineHeightPopoverVisible: boolean,
   curIVSearchValue: string;
 }

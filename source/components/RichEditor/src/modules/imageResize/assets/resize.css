@@ -1,0 +1,56 @@
+.ql-resize-style-left {
+    float: left;
+    margin: 0 1em 1em 0;
+}
+.ql-resize-style-center {
+    display: block;
+    margin: auto;
+}
+.ql-resize-style-right {
+    float: right;
+    margin: 0 0 1em 1em;
+}
+.ql-resize-style-full {
+    width: 100% !important;
+}
+
+.ql-embed-placeholder {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 400px;
+    height: 225px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: default !important;
+    margin-bottom: 1em;
+    padding: 2em;
+    /* user-select: none; */
+}
+.ql-embed-placeholder:hover {
+    background-color: #e8e8e8;
+}
+.ql-embed-placeholder::before {
+    content: "<" attr(data-type) ">";
+    font-size: 1.5em;
+    margin-bottom: .5em;
+    text-transform: uppercase;
+}
+.ql-embed-placeholder::after {
+    content: attr(data-src);
+    color: #666;
+}
+
+.ql-embed-placeholder.active {
+  border-color: #abc9e9;
+  background-color: #d2e5f9;
+}
+.ql-embed-placeholder.selected {
+  color: #fff;
+  border-color: #4185d2;
+  background-color: #5f9de2;
+}
+.ql-embed-placeholder.selected::after {
+  color: #fff;
+}

@@ -1,21 +1,27 @@
-export interface quill {
-  root: HTMLElement;
-  getSelection: Function;
-  getLength: Function;
-  getFormat: Function;
-  updateContents: Function;
-  setSelection: Function;
-  insertEmbed: Function;
+export interface quill{
+  root: HTMLElement,
+  getSelection: Function,
+  getLength: Function,
+  getFormat: Function,
+  updateContents: Function,
+  setSelection: Function,
+  insertEmbed: Function,
+  insertText: Function,
 }
 
 export default class FileDrop {
   quill: quill;
 
   customDropFile: any;
+  private attachmentIconMap: any;
 
-  constructor(quill, options = { customDropFile: undefined }) {
+  constructor(quill, options = {
+    customDropFile: undefined,
+    attachmentIconMap : undefined
+  }) {
     this.quill = quill;
     this.customDropFile = options.customDropFile || null;
+    this.attachmentIconMap = options.attachmentIconMap || {}
     this.handleDrop = this.handleDrop.bind(this);
     this.handlePaste = this.handlePaste.bind(this);
     this.quill.root.addEventListener('drop', this.handleDrop, false);
@@ -89,8 +95,8 @@ export default class FileDrop {
       }
 
       let delta = <any>[
-        { insert: { myImage: fileInfo }, attributes: { ...listFormat } },
-        { insert: ' ' }, // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
+        { insert: { 'image': fileInfo }, attributes: { ...listFormat } },
+        { insert: ' ' } // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
       ];
 
       if (index > 0) {
@@ -111,37 +117,15 @@ export default class FileDrop {
       if (!fileInfo.url || !fileInfo.name) {
         return;
       }
-
-      // 继承列表的样式
-      let listFormat = {
-        list: undefined,
+      const attrs = {
+        url: fileInfo.url && fileInfo.url.trim(),
+        name: fileInfo.name,
+        iconUrl: this.attachmentIconMap[fileInfo.type] || this.attachmentIconMap['default']
+          || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
       };
-      if (curFormat && curFormat.list) {
-        listFormat.list = curFormat.list;
-      }
 
-      let displayFileName = '[文件] ' + fileInfo.name,
-        delta = [
-          {
-            insert: displayFileName,
-            attributes: {
-              ...listFormat,
-              link: {
-                type: 'attachment',
-                url: fileInfo.url,
-                name: fileInfo.name,
-              },
-            },
-          },
-          { insert: '\n', attributes: { ...listFormat } },
-        ] as any[];
-
-      if (index > 0) {
-        delta.unshift({ retain: index });
-      }
-
-      this.quill.updateContents(delta);
-      this.quill.setSelection(index + displayFileName.length + 1, 'silent');
+      this.quill.insertEmbed(index, "attach", attrs);
+      this.quill.setSelection(index, 'silent');
     }
   }
 

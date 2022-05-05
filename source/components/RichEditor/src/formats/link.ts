@@ -1,4 +1,4 @@
-import Quill from 'quill';
+import {Quill} from '../quill';
 const Inline = Quill.import('blots/inline');
 
 interface createType {

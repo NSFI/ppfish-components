@@ -1,0 +1,90 @@
+/* stylelint-disable declaration-no-important */
+
+.ql-table-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background: #fff;
+  color: #ccc;
+  border-radius: 50%;
+  font-size: 16px;
+  margin: 5px 0 0 -17px;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+
+  &_hidden {
+    display: none !important;
+  }
+
+  &:hover {
+    color: #999;
+  }
+}
+
+.ql-table-menu {
+  display: flex;
+  flex-direction: row;
+  margin-top: 4px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background: #fff;
+  z-index: 2100;
+  box-shadow:
+ rgba(15, 15, 15, 0.05) 0 0 0 1px,
+ rgba(15, 15, 15, 0.1) 0 3px 6px,
+    rgba(15, 15, 15, 0.2) 0 9px 24px;
+  border-radius: 4px;
+  animation: fadeIn 0.05s ease-in forwards;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    min-height: 32px;
+    padding: 5px;
+
+    &:hover {
+      background-color: #f2f3f5;
+    }
+
+    &-icon {
+      font-size: 17px;
+    }
+  }
+}
+
+.ql-table-popover {
+  padding: 6px;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  &-box {
+    padding: 8px;
+    margin-top: 6px;
+    border: 1px solid rgb(224, 224, 224);
+    width: 198px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-cell {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-color: rgb(224, 224, 224);
+    margin: 2px;
+    cursor: pointer;
+
+    &.active {
+      background-color: #337eff;
+    }
+  }
+}

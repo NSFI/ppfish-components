@@ -3,11 +3,15 @@ React-Quill v1.0.0
 https://github.com/zenoamaro/react-quill
 */
 
-let Quill = require('quill');
-let Component = require('./component');
+import Quill from '../quillCore/quill';
+import Component from './component';
+import Mixin from './mixin';
+import Toolbar from './toolbar';
 
-module.exports = Component;
-module.exports.default = Component;
-module.exports.Quill = Quill;
-module.exports.Mixin = require('./mixin');
-module.exports.Toolbar = require('./toolbar');
+export default Component;
+export {
+  Component,
+  Quill,
+  Mixin,
+  Toolbar
+};

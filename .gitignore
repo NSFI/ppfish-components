@@ -41,6 +41,7 @@ nei.*
 
 .jshintrc
 package-lock.json
+pnpm-lock.yaml
 _book
 .history
 temp

@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import emojiList from './emojiList';
-// import ColorPicker from '../../ColorPicker/index.js';
 import Tooltip, { TooltipPlacement } from '../../Tooltip/index';
 import Popover from '../../Popover/index';
 import Tabs from '../../Tabs/index';
 import Input from '../../Input/index';
 import Icon from '../../Icon/index';
+import popoEmojiList from "./popoEmojiList";
+import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface';
+import ConfigConsumer from '../../Config/Consumer';
+import { LocaleProperties } from '../../Locale';
+import InsertTable from "./insertTable";
 
 declare module 'react' {
   interface ImgHTMLAttributes<T> {
@@ -16,36 +19,16 @@ declare module 'react' {
   }
 }
 
-import { CustomToolbarProps, EmojiInferface, CustomToolbarState } from './interface';
-import ConfigConsumer from '../../Config/Consumer';
-import { LocaleProperties } from '../../Locale';
-
 const TabPane = Tabs.TabPane;
 const COLORS: string[] = [
-  '#E53333',
-  '#E56600',
-  '#FF9900',
-  '#64451D',
-  '#DFC5A4',
-  '#FFE500',
-  '#009900',
-  '#006600',
-  '#99BB00',
-  '#B8D100',
-  '#60D978',
-  '#00D5FF',
-  '#337FE5',
-  '#003399',
-  '#4C33E5',
-  '#9933E5',
-  '#CC33E5',
-  '#EE33EE',
-  '#ffffff',
-  '#cccccc',
-  '#999999',
-  '#666666',
-  '#333333',
-  '#000000',
+  '#E53333', '#E56600', '#FF9900',
+  '#64451D', '#DFC5A4', '#FFE500',
+  '#009900', '#006600', '#99BB00',
+  '#B8D100', '#60D978', '#00D5FF',
+  '#337FE5', '#003399', '#4C33E5',
+  '#9933E5', '#CC33E5', '#EE33EE',
+  '#ffffff', '#cccccc', '#999999',
+  '#666666', '#333333', '#000000',
 ];
 let defaultBackgrounds: Array<JSX.Element> = [];
 let defaultColors: Array<JSX.Element> = [];
@@ -90,20 +73,22 @@ let genEmoji = (data: Array<EmojiInferface>) => {
     }
 
     tmpObj[grpIndex].push(
-      <div className="emoji-item-ctner" key={'emoji_' + grpIndex + '_' + index}>
+      <div className="emoji-item-ctner" key={"emoji_" + grpIndex + "_" + index} >
         <button
-          className={'emoji-item ' + item.className}
-          value={JSON.stringify({
-            type: 'defaultEmoji',
-            alt: item.title,
-            src: resPath + item.imgName + '.png',
-            width: EMOJI_DEFAULT_WIDTH,
-            height: EMOJI_DEFAULT_HEIGHT,
-            id: 'emoticon_' + item.className.replace('-', '_'),
-          })}
+          className={"emoji-item " + item.className}
+          value={
+            JSON.stringify({
+              type: "defaultEmoji",
+              alt: item.title,
+              src: resPath + item.imgName + ".png",
+              width: EMOJI_DEFAULT_WIDTH,
+              height: EMOJI_DEFAULT_HEIGHT,
+              id: "emoticon_" + item.className.replace('-', '_')
+            })
+          }
           title={item.title}
         />
-      </div>,
+      </div>
     );
   });
 
@@ -117,7 +102,53 @@ let genEmoji = (data: Array<EmojiInferface>) => {
 
   return result;
 };
+let genPoPoEmoji = (data: Array<EmojiInferface>) => {
+  let colSize = 10,
+    tmpObj: { ['grpIndex']?: Array<any> } = {},
+    result = [];
+
+  data.forEach((item: EmojiInferface, index: number) => {
+    // 这里从 1 开始
+    let grpIndex = parseInt(((item.id-1) / colSize).toString(), 10);
+
+    if (typeof tmpObj[grpIndex] == 'undefined') {
+      tmpObj[grpIndex] = [];
+    }
+
+    tmpObj[grpIndex].push(
+      <div className="emoji-item-ctner" key={"popo-emoji_" + grpIndex + "_" + index} >
+        <button
+          className={"popo-emoji-item " + item.className}
+          value={
+            JSON.stringify({
+              type: "defaultEmoji",
+              alt: item.title,
+              src: item.url,
+              width: EMOJI_DEFAULT_WIDTH,
+              height: EMOJI_DEFAULT_HEIGHT,
+              id: "emoticon_" + item.className.replace('-', '_')
+            })
+          }
+          title={item.title}
+        />
+      </div>
+    );
+  });
+
+  Object.keys(tmpObj).forEach((key) => {
+    result.push(
+      <div className="emoji-row" key={"emoji_row_" + key}>
+        {tmpObj[key]}
+      </div>
+    );
+  });
+
+  return result;
+};
+
 let defaultEmojis = genEmoji(emojiList);
+let popoEmojis = genPoPoEmoji(popoEmojiList);
+
 
 let genCustomEmoji = (data: Array<EmojiInferface>) => {
   if (!(data && data.length)) return;
@@ -164,11 +195,13 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     popoverPlacement: 'top',
     tooltipPlacement: 'bottom',
     formatPainterActive: false,
+    insertTableDisabled: false,
     getPopupContainer: () => document.body,
   };
 
   private defaultSizes: Array<string>;
 
+  private defaultLineHeight: Array<string>
   private curSizeList: Array<string>;
 
   private curInsertValueList: Array<any>;
@@ -181,17 +214,23 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     super(props);
 
     this.defaultSizes = ['32px', '24px', '20px', '18px', '16px', '14px', '13px', '12px'];
+    this.defaultLineHeight = ['1', '1.15', '1.42', '1.5','2.0','2.5' ,'3.0'];
     this.curInsertValueList = [];
     this.state = {
       curSize: null,
       sizePopoverVisible: false,
+      tablePopoverVisible: false,
+      curLineHeight: '',
+      lineHeightPopoverVisible: false,
       curIVSearchValue: '',
     };
   }
 
   componentDidMount() {
-    let emojiImg = new Image();
+    let emojiImg = new Image(); // emoji 表情
     emojiImg.src = '//ysf.qiyukf.net/wwfttuqcqzrxhhyjacexkgalzzkwqagy';
+    let popoEmojiImg = new Image(); // popo 表情
+    popoEmojiImg.src = '//res.qiyukf.net/popoEmoji/b6e8603537419833078b79ebc7513fd7';
   }
 
   handleIVSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,7 +261,12 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
       popoverPlacement,
       tooltipPlacement,
       getPopupContainer,
+      fullScreen
     } = this.props;
+
+    // 兼容全屏时向上显示看不见的问题
+    popoverPlacement = fullScreen ? 'bottom' : popoverPlacement;
+
     let mValue: any = null,
       value: JSX.Element | null = null,
       tooltip: string | null = null;
@@ -442,20 +486,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
               </Tooltip>
             </Popover>
           );
-
-          // value = <div className="item"><select className="ql-color" /></div>;
-          // value = (
-          //   <div className="custom-color" key={key}>
-          //     <ColorPicker
-          //       className={"custom-color-picker"}
-          //       enableHistory={true}
-          //       enableAlpha={false}
-          //       onClose={this.handleColorSelect.bind(this)}
-          //     >
-          //       <button className="ql-customColor" />
-          //     </ColorPicker>
-          //   </div>
-          // );
           tooltip = Locale.fontColor;
           break;
         }
@@ -481,24 +511,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             });
             value = <button type="button" className={alignCls} value={mValue} key={key} />;
           }
-          // else if (mValue instanceof Array && mValue.length) {
-          //   value = (
-          //     <div className="item" key={key}>
-          //       <select className="ql-align">
-          //         <option />
-          //         {
-          //           mValue.map((val, idx) => {
-          //             return <option key={key+'_option_'+idx} value={val} />;
-          //           })
-          //         }
-          //       </select>
-          //     </div>
-          //   );
-          //   tooltip = '对齐';
-          // } else {
-          //   value = <div className="item" key={key}><select className="ql-align" /></div>;
-          //   tooltip = '对齐';
-          // }
           break;
         }
         case 'list': {
@@ -523,25 +535,29 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-expressio`]: true,
           });
-          let content = (
-            <div className="emoji-ctner">
-              <div className="emoji-con" onClick={handleInsertEmoji}>
-                {defaultEmojis}
-              </div>
-            </div>
-          );
-
-          if (customEmoji && customEmoji.length) {
-            let tabPanes = [
-              <TabPane tab={Locale.defaultEmoji} key="emoji_default">
-                <div className="emoji-ctner">
-                  <div className="emoji-con" onClick={handleInsertEmoji}>
-                    {defaultEmojis}
-                  </div>
+          let tabPanes = [
+            <TabPane tab={Locale.defaultEmoji} key="default">
+              <div className="emoji-ctner">
+                <div className="emoji-con" onClick={handleInsertEmoji}>
+                  {popoEmojis}
                 </div>
-              </TabPane>,
-            ];
-
+              </div>
+            </TabPane>,
+            <TabPane tab={Locale.emojiEmoji} key="emoji">
+              <div className="emoji-ctner">
+                <div className="emoji-con" onClick={handleInsertEmoji}>
+                  {defaultEmojis}
+                </div>
+              </div>
+            </TabPane>,
+          ];
+          mValue = mValue || ['emoji'];
+          if(Array.isArray(mValue)){
+            tabPanes = tabPanes.filter((tab)=>{
+              return mValue.includes(tab.key);
+            });
+          }
+          if (customEmoji && customEmoji.length) {
             customEmoji.forEach((item, index) => {
               tabPanes.push(
                 <TabPane tab={item.name} key={'custom_emoji_' + index}>
@@ -553,9 +569,12 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
                 </TabPane>,
               );
             });
-
-            content = <Tabs defaultActiveKey="emoji_default">{tabPanes}</Tabs>;
           }
+          let content = (
+            <Tabs defaultActiveKey="emoji_default">
+              {tabPanes}
+            </Tabs>
+          );
 
           value = (
             <Popover
@@ -612,7 +631,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           if (Array.isArray(mValue) && mValue.length) {
             this.curSizeList = mValue;
           }
-
           let content = (
             <div className="size-con" key="custom_size_content" onClick={this.handleSizeItemClick}>
               {this.curSizeList &&
@@ -661,6 +679,47 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           );
 
           tooltip = Locale.fontSize;
+
+          break;
+        }
+        case 'table': {
+          const { insertTableDisabled } = this.props;
+          const tableCls = classNames('action ql-customTable', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-biaoge`]: true,
+            'ql-btn-disabled': insertTableDisabled
+          });
+          const { tablePopoverVisible } = this.state;
+
+          value = (
+            <Popover
+              trigger="click"
+              overlayClassName={`${prefixCls}-size-popover`}
+              content={<InsertTable
+                  locale={this.Locale}
+                  visible={tablePopoverVisible}
+                  chooseItemHandle={this.handleTableInsertPopover} />
+              }
+              title={null}
+              key={key}
+              visible={tablePopoverVisible}
+              placement={popoverPlacement}
+              getPopupContainer={getPopupContainer}
+              onVisibleChange={this.handleTablePopoverVisibleChange}
+            >
+              <Tooltip
+                trigger="hover"
+                placement={tooltipPlacement}
+                title={Locale.table}
+                mouseEnterDelay={0.3}
+              >
+                <div className="item">
+                  <button className={tableCls} key={key} />
+                </div>
+              </Tooltip>
+            </Popover>
+          );
+          tooltip = Locale.table;
 
           break;
         }
@@ -727,7 +786,6 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           break;
         }
         case 'background': {
-          // value = <div className="item" key={key}><select className="ql-background" /></div>;
           const backgroundCls = classNames('action custom-background', {
             [`${iconPrefix}`]: true,
             [`${iconPrefix}-richeditor-fontbkcol`]: true,
@@ -790,36 +848,122 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
           tooltip = Locale.insertVideo;
           break;
         }
+        case 'fullscreen': {
+          const fullScreenCls = classNames('action ql-fullscreen', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-video-shrink`]: fullScreen,
+            [`${iconPrefix}-video-fullscreen`]: !fullScreen,
+          });
+          value = <button type="button" className={fullScreenCls} value={mValue} key={'fullScreen'} />;
+          tooltip = fullScreen ? Locale.exitFullScreen : Locale.fullScreen;
+          break;
+        }
+        case 'findAndReplace': {
+          const findAndReplaceCls = classNames('action ql-findAndReplace', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-search-line`]: true
+          });
+          value = <button type="button" className={findAndReplaceCls} value={mValue} key={'findAndReplace'} />;
+          tooltip = Locale.findAndReplace;
+          break;
+        }
         // case 'header': {
+        //  // 使用原生quill的样式, 弹窗可能会有些不一样, 先不开放此功能, 还有一点是多语言比较麻烦
+        //   // [{ header: [ 1,2, 3, 4 ,5, 6, false] }]
         //   if (typeof mValue === 'string' || typeof mValue === 'number') {
         //     value = <button type="button" className="ql-header" value={mValue} key={key}/>;
         //   } else if (mValue instanceof Array && mValue.length){
         //     value = (
-        //       // <div className="item" key={key}>
-        //         <select className="ql-header" defaultValue="normal">
+        //       <div className="item toolbar-header-item" key={key} >
+        //         <select className="ql-header" defaultValue="false">
         //           {
         //             mValue.map((val, idx) => <option key={key+'_option_'+idx} value={val} />)
         //           }
-        //           <option value="normal" />
         //         </select>
-        //       // </div>
+        //       </div>
         //     );
         //   }
         //   tooltip = '标题';
         //   break;
         // }
-        // case 'font': {
-        //   value = <select className="ql-font" />;
-        //   tooltip = '字体';
-        //   break;
-        // }
+        case 'undo' :{
+          value = (<button type="button" className={`action ql-undo ${iconPrefix} ${iconPrefix}-richeditor-undo`}
+                          value={'undo'} key={key}/>);
+          tooltip = Locale.undo;
+          break;
+        }
+        case 'redo': {
+          value = (<button type="button" className={`action ql-redo ${iconPrefix} ${iconPrefix}-richeditor-redo`}
+                          value={'redo'} key={key}/>);
+          tooltip = Locale.redo;
+          break;
+        }
+        case 'lineHeight': {
+          const lineHeightCls = classNames('action custom-lineHeight', {
+            [`${iconPrefix}`]: true,
+            [`${iconPrefix}-richeditor-line-height`]: true
+          });
+
+          if(Array.isArray(mValue)) {
+            this.defaultLineHeight = mValue || this.defaultLineHeight;
+          }
+
+          let content = (
+            <div className="line-height-con" key="line-height_content" onClick={this.handleLineHeightItemClick}>
+              {
+                this.defaultLineHeight && this.defaultLineHeight.map((height, index) => {
+                  const sizeItemCls = classNames('line-height-item', {
+                    'active': height && (Number(this.state.curLineHeight) == Number(height))
+                  });
+
+                  return (
+                    <button
+                      className={sizeItemCls}
+                      key={"line-height_" + index}
+                      value={height}
+                    >
+                      {height=='1.42'  ? Locale.defaultLineHeight : height}
+                    </button>
+                  );
+                })
+              }
+            </div>
+          );
+
+          value = (
+            <Popover
+              trigger="click"
+              visible={this.state.lineHeightPopoverVisible}
+              overlayClassName={`${prefixCls}-line-height-popover`}
+              content={content}
+              title={null}
+              key={key}
+              placement={popoverPlacement}
+              getPopupContainer={getPopupContainer}
+              onVisibleChange={this.handleLineHeightPopoverVisibleChange}
+            >
+              <Tooltip
+                trigger="hover"
+                placement={tooltipPlacement}
+                title={Locale.lineHeight}
+                mouseEnterDelay={0.3}
+              >
+                <div className="item">
+                  <div className={lineHeightCls}/>
+                </div>
+              </Tooltip>
+            </Popover>
+          );
+
+          break;
+        }
         default: {
           break;
         }
       }
     }
 
-    let mTypesHasPopover = ['background', 'color', 'emoji', 'size'];
+    let mTypesHasPopover = ['background', 'color', 'emoji', 'size' ,'header' , 'lineHeight', 'table'];
     if (value && mTypesHasPopover.indexOf(mType) < 0 && !(mType in customInsertValue)) {
       value = (
         <Tooltip
@@ -836,6 +980,18 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
 
     return value;
   };
+
+  handleLineHeightItemClick = e=>{
+    let { handleFormatLineHeight } = this.props,
+      target = e.target;
+
+    if (target.classList.value.indexOf('line-height-item') > -1 && target.hasAttribute('value')) {
+      handleFormatLineHeight && handleFormatLineHeight(target.getAttribute('value'));
+      this.setState({
+        lineHeightPopoverVisible: false
+      });
+    }
+  }
 
   handleFormatPainterClick = () => {
     let { formatPainterActive, saveSelectionFormat, unsaveSelectionFormat } = this.props;
@@ -882,13 +1038,7 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     return result;
   };
 
-  // handleColorSelect = ({color}) => {
-  //   let btn = this.toolbarCtner.querySelector('.ql-customColor');
-  //   btn.setAttribute('value', color);
-  //   btn.click();
-  // };
-
-  handleSizePopoverVisibleChange = visible => {
+  handleSizePopoverVisibleChange = (visible: boolean) => {
     this.setState({
       sizePopoverVisible: visible,
     });
@@ -900,6 +1050,41 @@ class CustomToolbar extends PureComponent<CustomToolbarProps, CustomToolbarState
     if (curSize != this.state.curSize) {
       this.setState({
         curSize,
+      });
+    }
+  };
+
+  handleTablePopoverVisibleChange = (visible: boolean) => {
+    const { insertTableDisabled } = this.props;
+
+    this.setState({
+      tablePopoverVisible: insertTableDisabled ? false : visible
+    });
+  };
+
+  handleTableInsertPopover = (row:number, col:number)=>{
+    let { handleInsertTable, insertTableDisabled } = this.props;
+    if (insertTableDisabled) return;
+
+    handleInsertTable && handleInsertTable(row, col);
+    this.setState({
+      tablePopoverVisible: false
+    });
+  }
+
+  handleLineHeightPopoverVisibleChange = (visible) => {
+    this.setState({
+      lineHeightPopoverVisible: visible
+    });
+
+    if (!visible) return;
+
+    let { getCurrentLineHeight } = this.props,
+      curLineHeight = getCurrentLineHeight && getCurrentLineHeight();
+
+    if (curLineHeight != this.state.curLineHeight) {
+      this.setState({
+        curLineHeight
       });
     }
   };

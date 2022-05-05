@@ -1,6 +1,7 @@
 @import (reference) "../../../assets/css/index";
 @import "./quill.snow.less";
 @import "./emoji.less";
+@import "./popoEmoji.less";
 
 @tabs-prefix: ~"@{fishd-prefix}-tabs";
 @popover-prefix: ~"@{fishd-prefix}-popover";
@@ -40,7 +41,7 @@
   &:before {
     position: absolute;
     cursor: nw-resize;
-    content: '\e6db';
+    content: "\e6db";
     right: 0;
     bottom: 0;
     width: 12px;
@@ -49,6 +50,16 @@
     background-color: #fff;
     z-index: 10;
   }
+}
+
+.@{rich-editor-prefix}.fullScreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  background: white;
 }
 
 .@{rich-editor-prefix} {
@@ -84,8 +95,8 @@
     overflow: hidden; // 修复升级浏览器到Chrome 76后导致的flex布局异常
 
     .ql-editor {
-      overflow-y: scroll;
       .scrollbar();
+      overflow-y: auto;
       -moz-user-select: all;
       -ms-user-select: auto;
       -webkit-user-select: auto;  // fix bug: safari can't edit
@@ -93,6 +104,10 @@
       // 默认文本的大小和颜色
       font-size: 14px;
       color: #333;
+    }
+
+    .ql-editor td {
+      border: 1px solid #ddd;
     }
 
     .ql-editor.ql-blank::before {
@@ -123,6 +138,10 @@
     .ql-picker:focus,
     .ql-picker-label:focus {
       outline: none;
+    }
+
+    &.toolbar-header-item {
+      width: 100px;
     }
   }
 
@@ -174,7 +193,7 @@
 
       &:after {
         position: absolute;
-        content: '';
+        content: "";
         top: 0;
         right: -1px;
         border-right: @border-width-base @border-style-base @border-color-base;
@@ -257,8 +276,23 @@
   .custom-color,
   .custom-size,
   .custom-emoji,
+  .custom-lineHeight,
+  .custom-background,
   .custom-entry {
     .custom-icon;
+  }
+
+  .ql-customTable {
+    .custom-icon;
+    padding: 3px 4px 3px 3px;
+    font-size: 16px;
+  }
+
+  .ql-btn-disabled {
+    cursor: not-allowed !important;
+    color: #999 !important;
+    background-color: #f2f3f5 !important;
+    border-color: #e1e3e6 !important;
   }
 
   .ql-myLink,
@@ -268,6 +302,7 @@
   .ql-underline,
   .ql-list,
   .ql-image,
+  .ql-table,
   .ql-clean {
     svg {
       display: none;
@@ -289,15 +324,15 @@
       content: "\e6c2";
     }
 
-    &[data-value='center']:before {
+    &[data-value="center"]:before {
       content: "\e6c7";
     }
 
-    &[data-value='right']:before {
+    &[data-value="right"]:before {
       content: "\e6c9";
     }
 
-    &[data-value='justify']:before {
+    &[data-value="justify"]:before {
       content: "\e6cf";
     }
 
@@ -305,11 +340,95 @@
       display: none;
     }
   }
+
+  .ql-searched-string-active {
+    display: inline;
+    .ql-searched-string {
+        background-color: #337eff !important;
+        color: #fff !important;
+    }
+  }
+
+  .ql-searched-string {
+    // 这里需要保证权重, 避免查找的显示被背景色和字体颜色覆盖
+    background-color: #ffaf0f !important;
+    display: inline;
+  }
+
+  .find-modal {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(41, 34, 34, 0.2);
+    padding: 4px 18px 8px 18px;
+
+    > i {
+      position: absolute;
+      right: 3px;
+      top: 6px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .@{tabs-prefix}-bar {
+      border-bottom-width: 0;
+    }
+
+    .find-input-box {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      &.replace-input input {
+        padding-right: 31px;
+      }
+
+      > label {
+        width: 55px;
+        flex-shrink: 0;
+      }
+
+      & + label {
+        margin: 8px 0 8px 55px;
+      }
+
+      input {
+        padding-right: 61px;
+      }
+    }
+
+    .search-range {
+      color: #333;
+      user-select: none;
+
+      > i {
+        font-size: 10px;
+        color: #999;
+        cursor: pointer;
+      }
+
+      > i:hover {
+        color: #333;
+      }
+    }
+
+    .replace-buttons {
+      margin: 16px 0 8px;
+      text-align: right;
+      > button {
+        margin-left: 16px;
+      }
+    }
+  }
 }
 
 .@{rich-editor-prefix}-size-popover {
   .@{popover-prefix}-inner-content {
     padding: 0;
+    max-height: 300px;
+    overflow: auto;
   }
 
   .size-con {
@@ -334,6 +453,37 @@
   }
 
   .size-item.active {
+    color: @primary-color;
+  }
+}
+
+.@{rich-editor-prefix}-line-height-popover {
+  .@{popover-prefix}-inner-content {
+    padding: 0;
+  }
+
+  .line-height-con {
+    position: relative;
+    display: inline-block;
+    padding: 5px 0;
+  }
+
+  .line-height-item {
+    display: block;
+    width: 100%;
+    padding: 3px 5px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      background: @richeditor-icon-hover-bg;
+    }
+  }
+
+  .line-height-item.active {
     color: @primary-color;
   }
 }
