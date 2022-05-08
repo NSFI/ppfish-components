@@ -20,7 +20,8 @@ class CustomClipboard extends Clipboard {
   onPaste (range, { text, html }) {
     if (this.options) {
       const { pastePlainText, pasteFormater } = this.options;
-      let newText = text, newHtml = html;
+      let newText = text;
+      let newHtml = html ? html : text; // fix: empty html string on Windows
 
       if (pastePlainText) {
         newHtml = text;
