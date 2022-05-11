@@ -16,7 +16,6 @@ interface setAttrType {
 const setAttr = (node: setAttrType['node'], value: setAttrType['value']): HTMLElement => {
   if (typeof value == 'string' || typeof value == 'number') {
     node.style.fontSize = value as string;
-    node.style.backgroundColor = 'inherit';
   } else if (Object.prototype.toString.call(value) == '[object Object]') {
     if (value.editable != null) {
       node.setAttribute('contenteditable', value.editable as string);
@@ -24,14 +23,11 @@ const setAttr = (node: setAttrType['node'], value: setAttrType['value']): HTMLEl
 
     if (value.fontSize != null) {
       node.style.fontSize = value.fontSize as string;
-      if(!node.style.backgroundColor){
-        node.style.backgroundColor = 'inherit';
-      }
     }
 
-    if(value.lineHeight !== null){
+    if(value.lineHeight != null) {
       node.style.lineHeight = value.lineHeight;
-      node.style.display = 'inline-Block';
+      node.style.display = 'inline-block';
     }
   }
 
