@@ -54,7 +54,7 @@ class ListItem extends Block {
 }
 ListItem.blotName = 'orderedList';
 ListItem.tagName = 'LI';
-// ListItem.className = 'ordered-li';
+ListItem.className = 'ordered-li';
 
 
 ListContainer.allowedChildren = [ListItem];
