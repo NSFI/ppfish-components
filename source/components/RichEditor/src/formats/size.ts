@@ -23,7 +23,7 @@ const setAttr = (node: setAttrType['node'], value: setAttrType['value']): HTMLEl
       node.style.fontSize = (value.fontSize as string);
     }
 
-    if(value.lineHeight != null) {
+    if(value.lineHeight) {
       node.style.lineHeight = value.lineHeight;
       node.style.display = 'inline-block';
     }
