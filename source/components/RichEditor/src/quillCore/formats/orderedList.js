@@ -55,6 +55,7 @@ class ListItem extends Block {
 ListItem.blotName = 'orderedList';
 ListItem.tagName = 'LI';
 ListItem.className = 'ordered-li';
+// 用来区分 list, 删除旧无法和 list 的 li 区别了
 
 
 ListContainer.allowedChildren = [ListItem];
