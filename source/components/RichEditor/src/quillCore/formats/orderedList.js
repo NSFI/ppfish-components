@@ -27,21 +27,21 @@ class ListItem extends Block {
 
   constructor(scroll, domNode) {
     super(scroll, domNode);
-    const ui = domNode.ownerDocument.createElement('span');
-    const listEventHandler = e => {
-      if (!scroll.isEnabled()) return;
-      const format = this.statics.formats(domNode, scroll);
-      if (format === 'checked') {
-        this.format('list', 'unchecked');
-        e.preventDefault();
-      } else if (format === 'unchecked') {
-        this.format('list', 'checked');
-        e.preventDefault();
-      }
-    };
-    ui.addEventListener('mousedown', listEventHandler);
-    ui.addEventListener('touchstart', listEventHandler);
-    this.attachUI(ui);
+    // const ui = domNode.ownerDocument.createElement('span');
+    // const listEventHandler = e => {
+    //   if (!scroll.isEnabled()) return;
+    //   const format = this.statics.formats(domNode, scroll);
+    //   if (format === 'checked') {
+    //     this.format('list', 'unchecked');
+    //     e.preventDefault();
+    //   } else if (format === 'unchecked') {
+    //     this.format('list', 'checked');
+    //     e.preventDefault();
+    //   }
+    // };
+    // ui.addEventListener('mousedown', listEventHandler);
+    // ui.addEventListener('touchstart', listEventHandler);
+    // this.attachUI(ui);
   }
 
   format(name, value) {
@@ -54,7 +54,7 @@ class ListItem extends Block {
 }
 ListItem.blotName = 'orderedList';
 ListItem.tagName = 'LI';
-ListItem.className = 'ordered-li';
+// ListItem.className = 'ordered-li';
 
 
 ListContainer.allowedChildren = [ListItem];
