@@ -27,6 +27,7 @@ class Attach extends BlockEmbed {
     const img = document.createElement("img");
     img.src = defaultImage;
     img.setAttribute("class", "attach_icon");
+    img.style.cssText = "width: 25px;height: 25px;";
     node.appendChild(img);
 
     const ALabel = document.createElement("a");
@@ -34,16 +35,20 @@ class Attach extends BlockEmbed {
     ALabel.innerText = data.name;
     ALabel.href = data.url;
     ALabel.target = "_blank";
-    ALabel.setAttribute("class", "attach_text");
+    ALabel.style.cssText = `
+      margin-left: 4px;
+      vertical-align: middle;
+      text-decoration: none;
+      display: inline;
+    `;
     ALabel.setAttribute("download", data.name || "");
     node.appendChild(ALabel);
 
+    node.style.cssText = `display:inline-block;border:1px solid #ddd;padding:4px;margin: 4px;user-select: text;`;
     node.setAttribute("contenteditable", "false");
     node.setAttribute("data-title", data.name);
     node.setAttribute("data-href", data.url);
     node.setAttribute("data-iconUrl", defaultImage);
-    node.setAttribute("class", "attach_file");
-
     return node;
   }
 
