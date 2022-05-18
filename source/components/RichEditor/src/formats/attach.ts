@@ -1,11 +1,11 @@
-import {Quill} from "../quill";
+import { Quill } from "../quill";
 
 const BlockEmbed = Quill.import("blots/block/embed");
 
 interface createType {
   url: string;
   name: string;
-  iconUrl?: string
+  iconUrl?: string;
 }
 
 class Attach extends BlockEmbed {
@@ -23,11 +23,10 @@ class Attach extends BlockEmbed {
   static create(data: createType): HTMLElement {
     this.formatCursor = false;
     let node = super.create(data);
-
-    const defaultImage = data.iconUrl
+    const defaultImage = data.iconUrl;
     const img = document.createElement("img");
     img.src = defaultImage;
-    img.setAttribute('class', 'attach_icon');
+    img.setAttribute("class", "attach_icon");
     node.appendChild(img);
 
     const ALabel = document.createElement("a");
@@ -35,15 +34,15 @@ class Attach extends BlockEmbed {
     ALabel.innerText = data.name;
     ALabel.href = data.url;
     ALabel.target = "_blank";
-    ALabel.setAttribute('class', 'attach_text');
-    ALabel.setAttribute('download', data.name || "");
+    ALabel.setAttribute("class", "attach_text");
+    ALabel.setAttribute("download", data.name || "");
     node.appendChild(ALabel);
 
     node.setAttribute("contenteditable", "false");
-    node.setAttribute("title", data.name);
-    node.setAttribute('href', data.url);
-    node.setAttribute('iconUrl', defaultImage);
-    node.setAttribute('class', 'attach_file');
+    node.setAttribute("data-title", data.name);
+    node.setAttribute("data-href", data.url);
+    node.setAttribute("data-iconUrl", defaultImage);
+    node.setAttribute("class", "attach_file");
 
     return node;
   }
@@ -51,14 +50,14 @@ class Attach extends BlockEmbed {
   static formats(
     node: HTMLElement
   ): {
-    href?: string;
-    title?: string;
-    iconUrl?: string;
+    'data-href'?: string;
+    'data-title'?: string;
+    'data-iconUrl'?: string;
   } {
     return {
-      href: node.getAttribute("href"),
-      title: node.getAttribute("title"),
-      iconUrl: node.getAttribute("iconUrl")
+      'data-href': node.getAttribute("data-href") || node.getAttribute("href"),
+      'data-title': node.getAttribute("data-title") || node.getAttribute("title"),
+      'data-iconUrl': node.getAttribute("data-iconUrl") || node.getAttribute("iconUrl")
     };
   }
 
@@ -66,16 +65,16 @@ class Attach extends BlockEmbed {
     this.statics.formatCursor = true;
     if (data) {
       this.domNode.setAttribute(name, data && data.toString());
-      const label = this.domNode.querySelector('a')
+      const label = this.domNode.querySelector("a");
 
-      if(name === 'iconUrl'){
-        const img = this.domNode.querySelector('img');
-        img.src = data
-      }else if (name === 'href') {
-        label.setAttribute(name, data && data.toString());
-      }else if(name === 'title'){
-        label.innerText = data
-        label.setAttribute('download', data || "");
+      if (name === "data-iconUrl") {
+        const img = this.domNode.querySelector("img");
+        img.src = data;
+      } else if (name === "data-href") {
+        label.setAttribute('href', data && data.toString());
+      } else if (name === "data-title") {
+        label.innerText = data;
+        label.setAttribute("download", data || "");
       }
     }
     super.format(name, data);
@@ -86,4 +85,4 @@ Attach.blotName = "attach";
 Attach.tagName = "div";
 Attach.className = "attach_file";
 
-export {Attach as default};
+export { Attach as default };
