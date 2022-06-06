@@ -30,6 +30,8 @@ class ImageBlot extends Embed {
           console.error(e); // eslint-disable-line
         }
       });
+    } else if (typeof value == 'string') {
+      node.setAttribute('src', value);
     }
 
     return node;
