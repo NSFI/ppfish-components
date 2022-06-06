@@ -23,8 +23,8 @@ export default class FileDrop {
     this.attachmentIconMap = options.attachmentIconMap || {}
     this.handleDrop = this.handleDrop.bind(this);
     this.handlePaste = this.handlePaste.bind(this);
-    this.quill.root.addEventListener('drop', this.handleDrop, false);
-    this.quill.root.addEventListener('paste', this.handlePaste, false);
+    this.quill.root.addEventListener('drop', this.handleDrop, true);
+    this.quill.root.addEventListener('paste', this.handlePaste, true);
   }
 
   handleDrop(evt: DragEvent): void {
