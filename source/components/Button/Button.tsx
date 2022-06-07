@@ -55,7 +55,7 @@ export interface BaseButtonProps {
 }
 
 export type AnchorButtonProps = {
-  href: string;
+  href?: string;
   target?: string;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 } & BaseButtonProps &
@@ -230,16 +230,16 @@ class Button extends React.Component<ButtonProps, any> {
         ? React.Children.map(children, child => insertSpace(child, this.isNeedInserted()))
         : null;
 
-    if ('href' in rest) {
+    if ('href' in this.props) {
       return (
-        <a {...rest} className={classes} onClick={this.handleClick}>
+        <a {...(rest as AnchorButtonProps)} className={classes} onClick={this.handleClick}>
           {iconNode}
           {kids}
         </a>
       );
     } else {
       // React does not recognize the `htmlType` prop on a DOM element. Here we pick it out of `rest`.
-      const { htmlType, ...otherProps } = rest;
+      const { htmlType, ...otherProps } = rest as NativeButtonProps;
 
       return (
         <button
