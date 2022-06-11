@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+import 'regenerator-runtime/runtime';
 require('./polyfills/MutationObserver.js')(global);
 require('./polyfills/getSelection.js')(global);
 

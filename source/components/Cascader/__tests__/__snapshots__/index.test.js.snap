@@ -4,7 +4,7 @@ exports[`Cascader can be selected 1`] = `
 <div>
   <div
     class="fishd-cascader-menus"
-    style="opacity:0;pointer-events:none"
+    style="opacity:0"
   >
     <div>
       <ul
@@ -51,7 +51,7 @@ exports[`Cascader can be selected 2`] = `
 <div>
   <div
     class="fishd-cascader-menus"
-    style="opacity:0;pointer-events:none"
+    style="opacity:0"
   >
     <div>
       <ul
@@ -112,7 +112,7 @@ exports[`Cascader popup correctly when panel is open 1`] = `
 <div>
   <div
     class="fishd-cascader-menus"
-    style="opacity:0;pointer-events:none"
+    style="opacity:0"
   >
     <div>
       <ul
@@ -146,7 +146,7 @@ exports[`Cascader popup correctly with defaultValue 1`] = `
 <div>
   <div
     class="fishd-cascader-menus"
-    style="opacity:0;pointer-events:none"
+    style="opacity:0"
   >
     <div>
       <ul
@@ -333,7 +333,7 @@ exports[`Cascader should highlight keyword and filter when search in Cascader 1`
               style={
                 Object {
                   "opacity": 0,
-                  "pointerEvents": "none",
+                  "pointerEvents": undefined,
                   "zIndex": undefined,
                 }
               }
@@ -671,7 +671,7 @@ exports[`Cascader should render not found content 1`] = `
               style={
                 Object {
                   "opacity": 0,
-                  "pointerEvents": "none",
+                  "pointerEvents": undefined,
                   "zIndex": undefined,
                 }
               }

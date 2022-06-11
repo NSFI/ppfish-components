@@ -2312,6 +2312,20 @@ ReactDOM.render(
         style={{ width: '100%' }}
       />
     </FormHook.Item>
+    
+    
+    <FormHook.Item label="Error" hasFeedback validateStatus="error" help="Need to be checked">
+      <TreeSelect
+        placeholder="I'm TreeSelect"
+        treeData={[
+          {
+            value: 'xx',
+            title: 'xx',
+          },
+        ]}
+        style={{ width: '100%' }}
+      />
+    </FormHook.Item>
 
     <FormHook.Item
       label="inline"
