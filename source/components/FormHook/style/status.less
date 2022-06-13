@@ -140,13 +140,21 @@
 
     // Select
     .@{fishd-prefix}-select:not(.@{fishd-prefix}-select-disabled):not(.@{fishd-prefix}-select-customize-input) {
-      .@{fishd-prefix}-select-selector {
         background-color: @form-warning-input-bg;
         border-color: @warning-color !important;
+
+      .@{iconfont-prefix}-down-fill {
+        color: @warning-color;
       }
-      &.@{fishd-prefix}-select-open .@{fishd-prefix}-select-selector,
-      &.@{fishd-prefix}-select-focused .@{fishd-prefix}-select-selector {
-        .active(@warning-color);
+    }
+
+    // TreeSelect
+    .@{fishd-prefix}-treeselect:not(.@{fishd-prefix}-treeselect-disabled) {
+      background-color: @form-warning-input-bg;
+      border-color: @warning-color !important;
+
+      .@{iconfont-prefix}-down-fill {
+        color: @warning-color;
       }
     }
 
@@ -183,13 +191,21 @@
 
     // Select
     .@{fishd-prefix}-select:not(.@{fishd-prefix}-select-disabled):not(.@{fishd-prefix}-select-customize-input) {
-      .@{fishd-prefix}-select-selector {
         background-color: @form-error-input-bg;
         border-color: @error-color !important;
+
+      .@{iconfont-prefix}-down-fill {
+        color: @error-color;
       }
-      &.@{fishd-prefix}-select-open .@{fishd-prefix}-select-selector,
-      &.@{fishd-prefix}-select-focused .@{fishd-prefix}-select-selector {
-        .active(@error-color);
+    }
+
+    // TreeSelect
+    .@{fishd-prefix}-treeselect:not(.@{fishd-prefix}-treeselect-disabled) {
+      background-color: @form-error-input-bg;
+      border-color: @error-color !important;
+
+      .@{iconfont-prefix}-down-fill {
+        color: @error-color;
       }
     }
 

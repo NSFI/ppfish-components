@@ -4,7 +4,7 @@ exports[`Slider should show correct placement tooltip when set tooltipPlacement 
 <div>
   <div
     class="fishd-tooltip"
-    style="opacity:0;pointer-events:none"
+    style="opacity:0"
   >
     <div
       class="fishd-tooltip-content"
@@ -28,7 +28,7 @@ exports[`Slider should show tooltip when hovering slider handler 1`] = `
 <div>
   <div
     class="fishd-tooltip"
-    style="opacity:0;pointer-events:none"
+    style="opacity:0"
   >
     <div
       class="fishd-tooltip-content"
