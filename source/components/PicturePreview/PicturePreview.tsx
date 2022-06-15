@@ -457,6 +457,16 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
     </div>
   );
 
+  const getContainer = () => {
+    const container = document.createElement('div');
+    if (props.getContainer) {
+      props.getContainer().appendChild(container);
+    } else {
+      document.body.appendChild(container);
+    }
+    return container;
+  };
+
   if (mask) {
     const rootClass = classNames({
       [`${prefixCls}-root`]: mask,
@@ -466,7 +476,7 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
       [`${prefixCls}-hide`]: !mask,
     });
     return (
-      <Portal getContainer={props.getContainer}>
+      <Portal getContainer={getContainer}>
         <AnimateWrapper>
           <div key={`${prefixCls}-root`} ref={rootRef} data-show={show} className={rootClass}>
             <div className={maskClass} />
@@ -478,7 +488,7 @@ const PicturePreview: FC<PicturePreviewProps> = props => {
   }
 
   return (
-    <Portal getContainer={props.getContainer}>
+    <Portal getContainer={getContainer}>
       <AnimateWrapper>{renderMain}</AnimateWrapper>
     </Portal>
   );
