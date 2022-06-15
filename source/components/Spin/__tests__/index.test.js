@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount, render } from 'enzyme';
 import Spin from '../index';
 
@@ -47,14 +48,19 @@ describe('Spin', () => {
     expect(wrapper.find('.fishd-spin').hasClass('fishd-spin-spinning')).toBe(false);
 
     wrapper.setProps({ spinning: true });
-    jest.advanceTimersByTime(280);
+    act(() => {
+      jest.advanceTimersByTime(280);
+    })
     expect(wrapper.find('.fishd-spin').hasClass('fishd-spin-spinning')).toBe(false);
-
-    jest.advanceTimersByTime(20);
+    act(() => {
+      jest.advanceTimersByTime(20);
+    })
     wrapper.update();
     expect(wrapper.find('.fishd-spin').hasClass('fishd-spin-spinning')).toBe(true);
 
-    jest.advanceTimersByTime(20);
+    act(() => {
+      jest.advanceTimersByTime(20);
+    })
     wrapper.update();
     expect(wrapper.find('.fishd-spin').hasClass('fishd-spin-spinning')).toBe(true);
 
@@ -62,7 +68,9 @@ describe('Spin', () => {
     wrapper.update();
     expect(wrapper.find('.fishd-spin').hasClass('fishd-spin-spinning')).toBe(false);
 
-    jest.advanceTimersByTime(20);
+    act(() => {
+      jest.advanceTimersByTime(20);
+    })
     expect(wrapper.find('.fishd-spin').hasClass('fishd-spin-spinning')).toBe(false);
   });
 });

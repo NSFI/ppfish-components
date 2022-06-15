@@ -2,7 +2,7 @@
 import Dialog from '../index.tsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react-dom/test-utils';
+import TestUtils, { act } from 'react-dom/test-utils';
 const Simulate = TestUtils.Simulate;
 
 const ESC_KEYCODE = 27;
@@ -142,7 +142,9 @@ describe('<Modal />', () => {
     wrapper.setState({
       visible: false,
     });
-    jest.advanceTimersByTime(30);
+    act(() => {
+      jest.advanceTimersByTime(30);
+    })
     wrapper.setState({
       visible: true,
     });

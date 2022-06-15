@@ -1,5 +1,5 @@
 'use strict';
-
+export {};
 let Quill = require('quill');
 
 // 只在console展示错误级别的信息

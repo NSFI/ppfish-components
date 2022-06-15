@@ -17,6 +17,7 @@ module.exports = {
     '<rootDir>/es/',
     '<rootDir>/lib/',
     '<rootDir>/site/',
+    '<rootDir>/temp/',
     '<rootDir>/.history/',
   ],
   transform: {
@@ -41,6 +42,7 @@ module.exports = {
     '!<rootDir>/es/*',
     '!<rootDir>/lib/*',
     '!<rootDir>/site/*',
+    '!<rootDir>/temp/*',
   ],
   coverageDirectory: '<rootDir>/coverage',
   // preset: 'ts-jest',
