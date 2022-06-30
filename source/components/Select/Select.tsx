@@ -32,7 +32,7 @@ interface SelectProps {
   dropdownStyle?: React.CSSProperties;
   errorMessage?: string | React.ReactNode;
   extraOptions?: string | React.ReactNode;
-  filterOption?: boolean | ((value: SelectValue, child?: React.ReactNode) => void);
+  filterOption?: boolean | ((inputValue, option) => boolean);
   getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   labelClear?: boolean;
   labelInValue?: boolean;
