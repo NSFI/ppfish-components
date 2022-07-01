@@ -18,6 +18,16 @@ import { LocaleContext } from '../Config/Locale/Context';
 import { LocaleProperties } from '../Locale';
 const noop = () => {};
 
+interface OptionProps {
+  disabled?: boolean;
+  value?: string | number;
+  title?: string;
+  label?: React.ReactNode;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
 interface SelectProps {
   virtual?: boolean;
   allowClear?: boolean;
@@ -32,7 +42,7 @@ interface SelectProps {
   dropdownStyle?: React.CSSProperties;
   errorMessage?: string | React.ReactNode;
   extraOptions?: string | React.ReactNode;
-  filterOption?: boolean | ((value: SelectValue, child?: React.ReactNode) => void);
+  filterOption?: boolean | ((inputValue: string, option: React.ReactElement<OptionProps>) => boolean);
   getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   labelClear?: boolean;
   labelInValue?: boolean;
