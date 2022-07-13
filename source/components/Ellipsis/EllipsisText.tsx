@@ -36,7 +36,14 @@ export interface EllipsisTextProps {
   fullWidthRecognition: boolean;
   tooltipProps: TooltipProps;
 }
-
+const getCustomClsNames=function(className){
+  let clsarr=className?.split(" ");
+  if(clsarr&&clsarr.length){
+    //原来这里一直没有赋值任何className，所以过滤掉fishd-ellipsis默认样式，只赋值用户增加的自定义样式，避免引起意外的BUG。
+    clsarr=clsarr.filter(item=>item.indexOf("fishd-ellipsis")==-1);
+  }
+  return (clsarr||[]).join(" ")
+}
 const EllipsisText: React.SFC<EllipsisTextProps> = ({
   prefix,
   text,
@@ -52,7 +59,7 @@ const EllipsisText: React.SFC<EllipsisTextProps> = ({
   }
   const textLength = fullWidthRecognition ? getStrFullLength(text) : text.length;
   if (textLength <= length || length < 0) {
-    return <span {...other}>{text}</span>;
+    return <span {...other} className={getCustomClsNames(className)}>{text}</span>;
   }
   const tail = '...';
   let displayText;
@@ -65,7 +72,7 @@ const EllipsisText: React.SFC<EllipsisTextProps> = ({
   if (tooltip) {
     return (
       <Tooltip {...tooltipProps} overlayClassName={`${prefix}-tooltip`} title={text}>
-        <span>
+        <span className={getCustomClsNames(className)}>
           {displayText}
           {tail}
         </span>
