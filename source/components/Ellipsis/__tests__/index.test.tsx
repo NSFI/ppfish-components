@@ -68,13 +68,14 @@ describe('Ellipsis', () => {
         123456
       </Ellipsis>,
     );
-    const node = wrapper.find('.fishd-ellipsis-ellipsis');
+  
+    const node = wrapper.find('.fishd-ellipsis-ellipsis').hostNodes();
     expect(node.text()).toBe('12345...');
 
     const prevNodes = wrapper.render().find('.fishd-ellipsis-tooltip');
     expect(prevNodes.length).toBe(0);
 
-    const self = wrapper.find('.fishd-ellipsis-ellipsis');
+    const self = wrapper.find('.fishd-ellipsis-ellipsis').hostNodes();
     self.at(0).simulate('click');
 
     const currNodes = wrapper.render().find('.fishd-ellipsis-tooltip');
@@ -87,13 +88,13 @@ describe('Ellipsis', () => {
         12345
       </Ellipsis>,
     );
-    const node = wrapper.find('.fishd-ellipsis-ellipsis');
+    const node = wrapper.find('.fishd-ellipsis-ellipsis').hostNodes();
     expect(node.text()).toBe('12345');
 
     const prevNodes = wrapper.render().find('.fishd-ellipsis-tooltip');
     expect(prevNodes.length).toBe(0);
 
-    const self = wrapper.find('.fishd-ellipsis-ellipsis');
+    const self = wrapper.find('.fishd-ellipsis-ellipsis').hostNodes();
     self.at(0).simulate('click');
 
     const currNodes = wrapper.render().find('.fishd-ellipsis-tooltip');
