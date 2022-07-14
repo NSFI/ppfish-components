@@ -491,8 +491,10 @@ class DateRangePanel extends React.Component {
 
   // 切换月份
   handleChangeMonth(type, date, month, locales){
+    const monthNumber = locales.MONTH_ARRAY.indexOf(month);
+
     this.setState({
-      [type]: new Date((new Date(date)).setMonth((parseInt(locales[month]) - 1)))
+      [type]: new Date((new Date(date)).setMonth((monthNumber)))
     }, ()=>{
       // 切换完月份，若左边日历小于等于右边日历，保持右边日历是左边日历的下一月
       const { leftDate, rightDate } = this.state;
@@ -740,7 +742,7 @@ class DateRangePanel extends React.Component {
                         onChange={this.handleChangeYear.bind(this, 'leftDate', leftDate)}
                       >
                         <span className={`${prefixCls}-date-range-picker__header-label`}>
-                          {`${leftDate.getFullYear()} ${Locales.year}`}
+                          {`${leftDate.getFullYear()}${Locales.year}`}
                         </span>
                       </YearAndMonthPopover>
                       <YearAndMonthPopover
@@ -749,7 +751,7 @@ class DateRangePanel extends React.Component {
                         onChange={(month) => this.handleChangeMonth.call(this, 'leftDate', leftDate, month, Locales)}
                       >
                         <span className={`${prefixCls}-date-range-picker__header-label`}>
-                          {Locales[`month${leftDate.getMonth() + 1}`]}
+                          {Locales.MONTH_ARRAY[leftDate.getMonth()]}
                         </span>
                       </YearAndMonthPopover>
                       <Icon
@@ -790,7 +792,7 @@ class DateRangePanel extends React.Component {
                         onChange={this.handleChangeYear.bind(this, 'rightDate', rightDate)}
                       >
                         <span className={`${prefixCls}-date-range-picker__header-label`}>
-                          {`${rightDate.getFullYear()} ${Locales.year}`}
+                          {`${rightDate.getFullYear()}${Locales.year}`}
                         </span>
                       </YearAndMonthPopover>
                       <YearAndMonthPopover
@@ -799,7 +801,7 @@ class DateRangePanel extends React.Component {
                         onChange={(month) => this.handleChangeMonth.call(this, 'rightDate', rightDate, month, Locales)}
                       >
                         <span className={`${prefixCls}-date-range-picker__header-label`}>
-                          {Locales[`month${rightDate.getMonth() + 1}`]}
+                          {Locales.MONTH_ARRAY[rightDate.getMonth()]}
                         </span>
                       </YearAndMonthPopover>
                       <Icon
