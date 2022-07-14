@@ -1,3 +1,26 @@
+## [1.8.8](https://github.com/NSFI/ppfish-components/compare/v1.8.8-alpha.6...v1.8.8) (2022-07-14)
+
+
+### Bug Fixes
+
+* 修复ellipsis组件无法设置className问题 ([e1f9d25](https://github.com/NSFI/ppfish-components/commit/e1f9d255bff1ecb1e0fe552424d1cd6399f293a4))
+* ts 高版本导致 jest 报错问题修改 ([b4d2058](https://github.com/NSFI/ppfish-components/commit/b4d205872e2883fa292fab3a37cc22abfc653e12))
+
+
+### Performance Improvements
+
+* 优化日期多语言结构 ([60513d3](https://github.com/NSFI/ppfish-components/commit/60513d38ea1aec8c252c4cc54644ea31eb18493e))
+* 优化ts类型 ([05a0e20](https://github.com/NSFI/ppfish-components/commit/05a0e208c39ed019d5bcf8724714d2a97e815b02))
+* remove useless code ([77a1841](https://github.com/NSFI/ppfish-components/commit/77a1841d0e9a4d036cc6c40e17ba044d8d634cad))
+* update other lang file ([fd0c123](https://github.com/NSFI/ppfish-components/commit/fd0c12376da1b52f3728ba763d396ccd6e97eb45))
+
+
+### Reverts
+
+* Revert "feat: set optional href attr" ([9c44d78](https://github.com/NSFI/ppfish-components/commit/9c44d789c693c02e01ee32691f8fc355890f9975))
+
+
+
 ## [1.8.8-alpha.6](https://github.com/NSFI/ppfish-components/compare/v1.8.8-alpha.5...v1.8.8-alpha.6) (2022-06-07)
 
 
