@@ -13,7 +13,6 @@ import {
   hasClass,
   getOffsetToWeekOrigin
 } from '../../../utils/date';
-import Locale from '../../../utils/date/locale';
 import ConfigConsumer from '../../Config/Consumer';
 
 function isFunction(func) {
@@ -362,7 +361,6 @@ export default class DateTable extends React.Component {
   }
 
   render() {
-    const $t = Locale.t;
     const {mode, showWeekNumber, prefixCls} = this.props;
 
     return (
