@@ -263,9 +263,9 @@ class DatePanel extends React.Component {
 
   // 切换月份
   handleChangeMonth = (month, locales) => {const { currentDate } = this.state;
-    // FIXME: 通过截取 month 的方式不好扩展功能
+    const monthNumber = locales.MONTH_ARRAY.indexOf(month);
     this.setState({
-      currentDate: new Date((new Date(currentDate).setMonth(parseInt(locales[month]) - 1)))
+      currentDate: new Date((new Date(currentDate).setMonth(monthNumber)))
     });
   }
 
@@ -335,7 +335,7 @@ class DatePanel extends React.Component {
                       active: currentView === 'month'
                     })
                   }
-                >{Locales[`month${month + 1}`]}</span>
+                >{Locales.MONTH_ARRAY[month]}</span>
               </YearAndMonthPopover>
             );
 
@@ -346,7 +346,7 @@ class DatePanel extends React.Component {
               onChange={this.handleChangeYear}
             >
               <span className={`${prefixCls}-date-picker__header-label`}>
-                {`${currentDate.getFullYear()} ${Locales.year}`}
+                {`${currentDate.getFullYear()}${Locales.year}`}
               </span>
             </YearAndMonthPopover>);
 
