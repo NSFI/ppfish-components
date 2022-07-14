@@ -24,9 +24,7 @@ import {
   isValidValue,
   setTime
 } from '../../../utils/date';
-import Locale from '../../../utils/date/locale';
 import ConfigConsumer from '../../Config/Consumer';
-import { LocaleProperties } from '../..//Locale';
 
 const PICKER_VIEWS = {
   YEAR: 'year',
@@ -318,7 +316,6 @@ class DatePanel extends React.Component {
 
     const { currentView, currentDate, dateInputText, time } = this.state;
     const { month } = deconstructDate(currentDate);
-    const t = Locale.t;
 
     return (
       <ConfigConsumer componentName="DatePicker">

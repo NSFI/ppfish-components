@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import TimeSpinner from '../basic/TimeSpinner.js';
 import { limitRange, isLimitRange, parseDate } from '../../../utils/date';
 import { DEFAULT_FORMATS } from '../constants';
-import Locale from '../../../utils/date/locale';
 import isEqual from 'lodash/isEqual';
 import ConfigConsumer from '../../Config/Consumer';
 
@@ -123,8 +122,6 @@ class TimePanel extends React.Component {
     const hours = currentDate ? currentDate.getHours() : null;
     const minutes = currentDate ? currentDate.getMinutes() : null;
     const seconds = currentDate ? currentDate.getSeconds() : null;
-
-    const $t = Locale.t;
 
     return (
       <ConfigConsumer componentName="DatePicker">

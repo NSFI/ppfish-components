@@ -29,7 +29,6 @@ import {
   equalYearAndMonth,
   diffDate
 } from '../../../utils/date';
-import Locale from '../../../utils/date/locale';
 import {TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS} from '../constants';
 import ConfigConsumer from '../../Config/Consumer';
 
@@ -591,8 +590,6 @@ class DateRangePanel extends React.Component {
       endTimeSelectableRange,
       endTimeSelectModeProps
     } = this.state;
-
-    const t = Locale.t;
 
     return (
       <ConfigConsumer componentName="DatePicker">
