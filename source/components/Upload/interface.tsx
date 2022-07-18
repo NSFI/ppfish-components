@@ -59,11 +59,11 @@ export interface UploadProps {
   fileList?: Array<UploadFile>;
   action?: string | ((file: UploadFile) => PromiseLike<any>);
   directory?: boolean;
-  data?: Object | ((file: UploadFile) => any);
+  data?: Record<string, any> | ((file: UploadFile) => any);
   headers?: HttpRequestHeader;
   showUploadList?: boolean | ShowUploadListInterface;
   multiple?: boolean;
-  accept?: string | String[];
+  accept?: string | string[];
   beforeUpload?: (file: RcFile, FileList: RcFile[]) => boolean | PromiseLike<any>;
   onChange?: (info: UploadChangeParam) => void;
   listType?: UploadListType;
@@ -95,7 +95,7 @@ export interface UploadListProps {
   onRemove?: (file: UploadFile) => void | boolean;
   onDeleteAll?: () => void;
   items?: Array<UploadFile>;
-  progressAttr?: Object;
+  progressAttr?: Record<string, any>;
   prefixCls?: string;
   showRemoveIcon?: boolean;
   showPreviewIcon?: boolean;

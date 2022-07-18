@@ -1,10 +1,10 @@
-import {Quill} from '../quill';
+import { Quill } from '../quill';
 const Inline = Quill.import('blots/inline');
 
 interface createType {
-  url: string,
-  type: string | null,
-  name: string
+  url: string;
+  type: string | null;
+  name: string;
 }
 
 class Link extends Inline {
@@ -13,8 +13,8 @@ class Link extends Inline {
   static formatCursor: boolean;
 
   statics: {
-    blotName: string,
-    formatCursor: boolean,
+    blotName: string;
+    formatCursor: boolean;
   };
   domNode: HTMLElement;
   static create(data: createType): HTMLElement {
@@ -28,8 +28,8 @@ class Link extends Inline {
       if (data.type != null) {
         node.setAttribute('data-ql-link-type', data.type);
         if (data.type == 'attachment') {
-          node.setAttribute('download', data.name || "");
-          node.setAttribute('contenteditable', "false");
+          node.setAttribute('download', data.name || '');
+          node.setAttribute('contenteditable', 'false');
         }
       }
     }
@@ -37,22 +37,29 @@ class Link extends Inline {
     return node;
   }
 
-  static formats(node: HTMLElement): {
-    url?: string,
-    type?: string,
-    name?: string,
+  static formats(
+    node: HTMLElement,
+  ): {
+    url?: string;
+    type?: string;
+    name?: string;
   } {
     // 修复在超链接后输入回车光标被异常添加超链接的问题
-    let domChildren = node.children;
+    const domChildren = node.children;
     // let containsCursor = /<\s*span\s*class\s*=\s*['"]\s*ql-cursor\s*['"]\s*>\s*\ufeff\s*<\s*\/\s*span\s*>/gi;
-    if (!this.formatCursor && domChildren && domChildren.length == 1 && (domChildren[0] as HTMLElement).innerText == "\ufeff") {
+    if (
+      !this.formatCursor &&
+      domChildren &&
+      domChildren.length == 1 &&
+      (domChildren[0] as HTMLElement).innerText == '\ufeff'
+    ) {
       return {};
     }
 
     return {
       url: node.getAttribute('href'),
       type: node.getAttribute('data-ql-link-type'),
-      name: node.getAttribute('download')
+      name: node.getAttribute('download'),
     };
   }
 
@@ -72,8 +79,8 @@ class Link extends Inline {
         if (data.type != null) {
           this.domNode.setAttribute('data-ql-link-type', data.type);
           if (data.type == 'attachment') {
-            this.domNode.setAttribute('contenteditable', "false");
-            this.domNode.setAttribute('download', data.name || "");
+            this.domNode.setAttribute('contenteditable', 'false');
+            this.domNode.setAttribute('download', data.name || '');
           }
         }
       }
@@ -82,7 +89,7 @@ class Link extends Inline {
 }
 Link.blotName = 'link';
 Link.tagName = 'A';
-Link.formatCursor = false;  // 是否为光标添加超链接
+Link.formatCursor = false; // 是否为光标添加超链接
 // Link.SANITIZED_URL = 'about:blank';
 // Link.PROTOCOL_WHITELIST = ['http', 'https', 'mailto', 'tel'];
 

@@ -24,7 +24,7 @@ export interface ColumnProps<T> {
   filters?: ColumnFilterItem[];
   onFilter?: (value: any, record: T) => boolean;
   filterMultiple?: boolean;
-  filterDropdown?: React.ReactNode | ((props: Object) => React.ReactNode);
+  filterDropdown?: React.ReactNode | ((props: Record<string, any>) => React.ReactNode);
   filterDropdownVisible?: boolean;
   onFilterDropdownVisibleChange?: (visible: boolean) => void;
   sorter?: boolean | CompareFn<T>;
@@ -75,8 +75,8 @@ export type RowSelectionType = 'checkbox' | 'radio';
 export type SelectionSelectFn<T> = (
   record: T,
   selected: boolean,
-  selectedRows: Object[],
-  nativeEvent: Event
+  selectedRows: Record<string, any>[],
+  nativeEvent: Event,
 ) => any;
 
 export type TableSelectWay = 'onSelect' | 'onSelectMultiple' | 'onSelectAll' | 'onSelectInvert';
@@ -84,12 +84,20 @@ export type TableSelectWay = 'onSelect' | 'onSelectMultiple' | 'onSelectAll' | '
 export interface TableRowSelection<T> {
   type?: RowSelectionType;
   selectedRowKeys?: string[] | number[];
-  onChange?: (selectedRowKeys: string[] | number[], selectedRows: Object[]) => void;
-  getCheckboxProps?: (record: T) => Object;
+  onChange?: (selectedRowKeys: string[] | number[], selectedRows: Record<string, any>[]) => void;
+  getCheckboxProps?: (record: T) => Record<string, any>;
   onSelect?: SelectionSelectFn<T>;
-  onSelectMultiple?: (selected: boolean, selectedRows: Object[], changeRows: Object[]) => void;
-  onSelectAll?: (selected: boolean, selectedRows: Object[], changeRows: Object[]) => void;
-  onSelectInvert?: (selectedRows: Object[]) => void;
+  onSelectMultiple?: (
+    selected: boolean,
+    selectedRows: Record<string, any>[],
+    changeRows: Record<string, any>[],
+  ) => void;
+  onSelectAll?: (
+    selected: boolean,
+    selectedRows: Record<string, any>[],
+    changeRows: Record<string, any>[],
+  ) => void;
+  onSelectInvert?: (selectedRows: Record<string, any>[]) => void;
   selections?: SelectionItem[] | boolean;
   hideDefaultSelections?: boolean;
   fixed?: boolean;
@@ -127,7 +135,7 @@ export interface TableProps<T> {
     record: T,
     index: number,
     indent: number,
-    expanded: boolean
+    expanded: boolean,
   ) => React.ReactNode;
   defaultExpandAllRows?: boolean;
   defaultExpandedRowKeys?: string[] | number[];
@@ -140,10 +148,10 @@ export interface TableProps<T> {
   onChange?: (
     pagination: PaginationConfig,
     filters: Record<keyof T, string[]>,
-    sorter: SorterResult<T>
+    sorter: SorterResult<T>,
   ) => void;
   loading?: boolean | SpinProps;
-  locale?: Object;
+  locale?: Record<string, any>;
   indentSize?: number;
   onRowClick?: (record: T, index: number, event: Event) => void;
   onRow?: (record: T, index: number) => any;
@@ -151,8 +159,8 @@ export interface TableProps<T> {
   useFixedHeader?: boolean;
   bordered?: boolean;
   showHeader?: boolean;
-  footer?: (currentPageData: Object[]) => React.ReactNode;
-  title?: (currentPageData: Object[]) => React.ReactNode;
+  footer?: (currentPageData: Record<string, any>[]) => React.ReactNode;
+  title?: (currentPageData: Record<string, any>[]) => React.ReactNode;
   scroll?: { x?: boolean | number | string; y?: boolean | number | string };
   childrenColumnName?: string;
   bodyStyle?: React.CSSProperties;

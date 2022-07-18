@@ -7,7 +7,6 @@ import ActionButton from './ActionButton';
 import { getRuntimeLocale } from '../Config/Locale/Provider';
 import { LocaleProperties } from '../Locale';
 
-
 interface ConfirmDialogProps extends ModalFuncProps {
   afterClose?: () => void;
   close: (...args: any[]) => void;
@@ -70,7 +69,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
 };
 
 export default function confirm(config: ModalFuncProps) {
-  let div = document.createElement('div');
+  const div = document.createElement('div');
   document.body.appendChild(div);
 
   function close(...args: any[]) {
@@ -79,7 +78,7 @@ export default function confirm(config: ModalFuncProps) {
         ...config,
         close,
         visible: false,
-        afterClose: destroy.bind(this, ...args)
+        afterClose: destroy.bind(this, ...args),
       });
     } else {
       destroy(...args);
@@ -104,6 +103,6 @@ export default function confirm(config: ModalFuncProps) {
   render({ ...config, visible: true, close });
 
   return {
-    destroy: close
+    destroy: close,
   };
 }

@@ -6,23 +6,23 @@ import { polyfill } from 'react-lifecycles-compat';
 const defaultSizeMap = {
   small: {
     width: 90,
-    height: 60
+    height: 60,
   },
   default: {
     width: 150,
-    height: 100
+    height: 100,
   },
   large: {
     width: 240,
-    height: 160
-  }
+    height: 160,
+  },
 };
 
 const Status = {
   PENDING: 'pending',
   LOADING: 'loading',
   LOADED: 'loaded',
-  FAILED: 'failed'
+  FAILED: 'failed',
 };
 
 type StatusValue = 'pending' | 'loading' | 'loaded' | 'failed';
@@ -58,14 +58,14 @@ class ImageLoader extends React.Component<ImageLoaderProps, ImageLoaderState> {
     src: PropTypes.string,
     onLoad: PropTypes.func,
     onError: PropTypes.func,
-    imgProps: PropTypes.object
+    imgProps: PropTypes.object,
   };
 
   static defaultProps = {
     prefixCls: 'fishd-image-loader',
     placeholderSize: 'default',
     onLoad: noop,
-    onError: noop
+    onError: noop,
   };
 
   static getDerivedStateFromProps: React.GetDerivedStateFromProps<
@@ -88,7 +88,7 @@ class ImageLoader extends React.Component<ImageLoaderProps, ImageLoaderState> {
 
     this.state = {
       status: (props.src ? Status.LOADING : Status.PENDING) as StatusValue,
-      prevProps: props
+      prevProps: props,
     };
   }
 
@@ -120,7 +120,7 @@ class ImageLoader extends React.Component<ImageLoaderProps, ImageLoaderState> {
   base64Img = cls => {
     const { placeholderSize } = this.props;
     let sizeProps = {
-      width: '100%'
+      width: '100%',
     };
     if (typeof placeholderSize === 'object') {
       sizeProps = Object.assign({}, sizeProps, placeholderSize);
@@ -170,9 +170,9 @@ class ImageLoader extends React.Component<ImageLoaderProps, ImageLoaderState> {
 
   render() {
     const { style, preLoader, failedLoader } = this.props;
-    let wrapperProps = {
+    const wrapperProps = {
       style: {},
-      className: this.getClassName()
+      className: this.getClassName(),
     };
 
     if (style) {

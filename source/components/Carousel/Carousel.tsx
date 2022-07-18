@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import debounce from 'lodash/debounce';
@@ -11,7 +12,7 @@ if (typeof window !== 'undefined') {
       media: mediaQuery,
       matches: false,
       addListener() {},
-      removeListener() {}
+      removeListener() {},
     } as any) as MediaQueryList;
   };
   window.matchMedia = window.matchMedia || matchMediaPolyfill;
@@ -85,7 +86,7 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
     dotsPosition: 'bottom',
     centerMode: false,
     centerPadding: '50px',
-    slidesToShow: 1
+    slidesToShow: 1,
   };
 
   innerSlider: any;
@@ -96,7 +97,7 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   constructor(props: CarouselProps) {
     super(props);
     this.onWindowResized = debounce(this.onWindowResized, 500, {
-      leading: false
+      leading: false,
     });
   }
 
@@ -110,19 +111,19 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
 
     this.slickDOM = findDOMNode(this.slick);
     if (autoplay && dotsTimer) {
-      let aniName =
+      const aniName =
           dotsPosition == 'left' || dotsPosition == 'right' ? 'dotsAniVertical' : 'dotsAni',
         timerEl = this.slickDOM.querySelector('.timer');
       !!timerEl &&
         timerEl.style.setProperty('--dots-ani', `${aniName} ${autoplaySpeed / 1000}s infinite`);
 
       this.slickDOM.addEventListener('mouseover', () => {
-        let timerEl = this.slickDOM.querySelector('.timer');
+        const timerEl = this.slickDOM.querySelector('.timer');
         !!timerEl && timerEl.style.setProperty('--dots-ani', 'none');
       });
 
       this.slickDOM.addEventListener('mouseout', () => {
-        let timerEl = this.slickDOM.querySelector('.timer');
+        const timerEl = this.slickDOM.querySelector('.timer');
         !!timerEl &&
           timerEl.style.setProperty('--dots-ani', `${aniName} ${autoplaySpeed / 1000}s infinite`);
       });
@@ -162,7 +163,7 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
   }
 
   render() {
-    let {
+    const {
       prefixCls,
       className,
       style,
@@ -175,10 +176,10 @@ export default class Carousel extends React.Component<CarouselProps, {}> {
       slidesToShow,
       ...restProps
     } = this.props;
-    let cls = classNames(prefixCls, `${prefixCls}-${dotsPosition}`, className);
-    let dotsCls = classNames('slick-dots', {
+    const cls = classNames(prefixCls, `${prefixCls}-${dotsPosition}`, className);
+    const dotsCls = classNames('slick-dots', {
       'slick-dots-vertical': dotsPosition == 'left' || dotsPosition == 'right',
-      timer: restProps.autoplay && dotsTimer
+      timer: restProps.autoplay && dotsTimer,
     });
 
     if (restProps.effect === 'fade') {

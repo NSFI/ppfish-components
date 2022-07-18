@@ -1,11 +1,11 @@
-import {Quill} from '../quill';
+import { Quill } from '../quill';
 
 const Embed = Quill.import('blots/embed');
 export const getAttrs = (node: Element): object => {
-  let value = {};
+  const value = {};
 
   if (node.hasAttributes()) {
-    let attrs = node.attributes;
+    const attrs = node.attributes;
 
     for (let i = attrs.length - 1; i >= 0; i--) {
       value[attrs[i].name] = attrs[i].value;
@@ -20,10 +20,10 @@ class ImageBlot extends Embed {
   static tagName: string;
 
   static create(value: object): HTMLElement {
-    let node: HTMLElement = super.create();
+    const node: HTMLElement = super.create();
 
-    if (Object.prototype.toString.call(value) == "[object Object]") {
-      Object.keys(value).forEach((key) => {
+    if (Object.prototype.toString.call(value) == '[object Object]') {
+      Object.keys(value).forEach(key => {
         try {
           node.setAttribute(key, value[key]);
         } catch (e) {
@@ -37,11 +37,11 @@ class ImageBlot extends Embed {
     return node;
   }
 
-  static formats(node:HTMLElement):object {
+  static formats(node: HTMLElement): object {
     return getAttrs(node);
   }
 
-  static value(node:HTMLElement):object {
+  static value(node: HTMLElement): object {
     return getAttrs(node);
   }
 

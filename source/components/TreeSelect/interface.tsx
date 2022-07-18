@@ -11,7 +11,7 @@ interface OptionProps {
 interface PopupAlign {
   points?: Array<string>;
   offset?: Array<number>;
-  overflow?: Object;
+  overflow?: Record<string, any>;
   ignoreShake?: boolean;
 }
 
@@ -65,7 +65,7 @@ export interface TreeSelectProps extends AbstractSelectProps {
   treeCheckable?: boolean | React.ReactNode;
   treeCheckStrictly?: boolean;
   treeData?: Array<TreeData>;
-  treeDataSimpleMode?: boolean | Object;
+  treeDataSimpleMode?: boolean | Record<string, any>;
   treeDefaultExpandAll?: boolean;
   treeDefaultExpandedKeys?: Array<string>;
   treeNodeFilterProp?: string;

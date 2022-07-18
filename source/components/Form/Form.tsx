@@ -85,32 +85,36 @@ export type GetFieldDecoratorOptions = {
 // function create
 export type WrappedFormUtils = {
   /** 获取一组输入控件的值，如不传入参数，则获取全部组件的值 */
-  getFieldsValue(fieldNames?: Array<string>): Object;
+  getFieldsValue(fieldNames?: Array<string>): Record<string, any>;
   /** 获取一个输入控件的值*/
   getFieldValue(fieldName: string): any;
   /** 设置一组输入控件的值*/
-  setFieldsValue(obj: Object): void;
+  setFieldsValue(obj: Record<string, any>): void;
   /** 设置一组输入控件的值*/
-  setFields(obj: Object): void;
+  setFields(obj: Record<string, any>): void;
   /** 校验并获取一组输入域的值与 Error */
-  validateFields(fieldNames: Array<string>, options: Object, callback: ValidateCallback): void;
+  validateFields(
+    fieldNames: Array<string>,
+    options: Record<string, any>,
+    callback: ValidateCallback,
+  ): void;
   validateFields(fieldNames: Array<string>, callback: ValidateCallback): void;
-  validateFields(options: Object, callback: ValidateCallback): void;
+  validateFields(options: Record<string, any>, callback: ValidateCallback): void;
   validateFields(callback: ValidateCallback): void;
   validateFields(): void;
   /** 与 `validateFields` 相似，但校验完后，如果校验不通过的菜单域不在可见范围内，则自动滚动进可见范围 */
   validateFieldsAndScroll(
     fieldNames?: Array<string>,
-    options?: Object,
-    callback?: ValidateCallback
+    options?: Record<string, any>,
+    callback?: ValidateCallback,
   ): void;
   validateFieldsAndScroll(fieldNames?: Array<string>, callback?: ValidateCallback): void;
-  validateFieldsAndScroll(options?: Object, callback?: ValidateCallback): void;
+  validateFieldsAndScroll(options?: Record<string, any>, callback?: ValidateCallback): void;
   validateFieldsAndScroll(callback?: ValidateCallback): void;
   validateFieldsAndScroll(): void;
   /** 获取某个输入控件的 Error */
-  getFieldError(name: string): Object[];
-  getFieldsError(names?: Array<string>): Object;
+  getFieldError(name: string): Record<string, any>[];
+  getFieldsError(names?: Array<string>): Record<string, any>;
   /** 判断一个输入控件是否在校验状态*/
   isFieldValidating(name: string): boolean;
   isFieldTouched(name: string): boolean;
@@ -120,7 +124,7 @@ export type WrappedFormUtils = {
 
   getFieldDecorator(
     id: string,
-    options?: GetFieldDecoratorOptions
+    options?: GetFieldDecoratorOptions,
   ): (node: React.ReactNode) => React.ReactNode;
 };
 
@@ -134,7 +138,7 @@ export interface RcBaseFormProps {
 
 export interface ComponentDecorator {
   <P extends FormComponentProps>(
-    component: React.ComponentClass<P> | React.SFC<P>
+    component: React.ComponentClass<P> | React.SFC<P>,
   ): React.ComponentClass<RcBaseFormProps & Omit<P, keyof FormComponentProps>>;
 }
 
@@ -145,7 +149,7 @@ export default class Form extends React.Component<FormProps, any> {
     hideRequiredMark: false,
     onSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
-    }
+    },
   };
 
   static propTypes = {
@@ -153,25 +157,25 @@ export default class Form extends React.Component<FormProps, any> {
     layout: PropTypes.oneOf(['horizontal', 'inline', 'vertical']),
     children: PropTypes.any,
     onSubmit: PropTypes.func,
-    hideRequiredMark: PropTypes.bool
+    hideRequiredMark: PropTypes.bool,
   };
 
   static childContextTypes = {
-    vertical: PropTypes.bool
+    vertical: PropTypes.bool,
   };
 
   static Item = FormItem;
 
   static createFormField = createFormField;
 
-  static create = function <TOwnProps>(
-    options: FormCreateOption<TOwnProps> = {}
+  static create = function<TOwnProps>(
+    options: FormCreateOption<TOwnProps> = {},
   ): ComponentDecorator {
     return createDOMForm({
       fieldNameProp: 'id',
       ...options,
       fieldMetaProp: FIELD_META_PROP,
-      fieldDataProp: FIELD_DATA_PROP
+      fieldDataProp: FIELD_DATA_PROP,
     });
   };
 
@@ -182,7 +186,7 @@ export default class Form extends React.Component<FormProps, any> {
   getChildContext() {
     const { layout } = this.props;
     return {
-      vertical: layout === 'vertical'
+      vertical: layout === 'vertical',
     };
   }
 
@@ -194,9 +198,9 @@ export default class Form extends React.Component<FormProps, any> {
         [`${prefixCls}-horizontal`]: layout === 'horizontal',
         [`${prefixCls}-vertical`]: layout === 'vertical',
         [`${prefixCls}-inline`]: layout === 'inline',
-        [`${prefixCls}-hide-required-mark`]: hideRequiredMark
+        [`${prefixCls}-hide-required-mark`]: hideRequiredMark,
       },
-      className
+      className,
     );
 
     const formProps = omit(this.props, [
@@ -204,7 +208,7 @@ export default class Form extends React.Component<FormProps, any> {
       'className',
       'layout',
       'form',
-      'hideRequiredMark'
+      'hideRequiredMark',
     ]);
 
     return <form {...formProps} className={formClassName} />;

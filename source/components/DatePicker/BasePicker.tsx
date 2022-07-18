@@ -27,7 +27,7 @@ export enum Mode {
   MONTH = 'month',
   WEEK = 'week',
   DAY = 'day',
-  RANGE = 'range'
+  RANGE = 'range',
 }
 
 export type Placement =
@@ -93,8 +93,8 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
           text: PropTypes.string.isRequired,
-          onClick: PropTypes.func.isRequired
-        })
+          onClick: PropTypes.func.isRequired,
+        }),
       ),
       placement: PropTypes.oneOf([
         'bottomLeft',
@@ -102,7 +102,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
         'bottomRight',
         'topLeft',
         'topCenter',
-        'topRight'
+        'topRight',
       ]),
       prefixCls: PropTypes.string,
       firstDayOfWeek: PropTypes.number,
@@ -117,7 +117,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
       onChange: PropTypes.func,
       onVisibleChange: PropTypes.func,
       style: PropTypes.object,
-      yearCount: PropTypes.number
+      yearCount: PropTypes.number,
     };
   }
 
@@ -133,7 +133,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
       onFocus: () => {},
       onBlur: () => {},
       onChange: () => {},
-      onVisibleChange: () => {}
+      onVisibleChange: () => {},
     };
   }
 
@@ -148,14 +148,14 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
             nextProps.value,
             prevState[$type],
             nextProps.format,
-            nextProps.separator // 这个值当前使用的是undefined
+            nextProps.separator, // 这个值当前使用的是undefined
           )
         : '';
-      let state: BasePickerState = {
+      const state: BasePickerState = {
         value: validDate,
         text: text,
         // 增加一个confirmValue记录每次确定的值，当点击"取消"或者输入不合法时，恢复这个值
-        confirmValue: validDate
+        confirmValue: validDate,
       };
       state.prevPropValue = nextProps.value;
       return state;
@@ -190,7 +190,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
       pickerVisible: false,
       value: null,
       text: '',
-      confirmValue: null
+      confirmValue: null,
     };
   }
 
@@ -211,16 +211,16 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
       {
         pickerVisible: isKeepPannel,
         value,
-        text: this.dateToStr(value)
+        text: this.dateToStr(value),
       },
       () => {
         this.props.onVisibleChange(isKeepPannel);
-      }
+      },
     );
 
     if (isConfirmValue) {
       this.setState({
-        confirmValue: value
+        confirmValue: value,
       });
       this.props.onChange(value);
     }
@@ -233,11 +233,11 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
       {
         pickerVisible: false,
         value: confirmValue ? confirmValue : null,
-        text: confirmValue ? this.dateToStr(confirmValue) : ''
+        text: confirmValue ? this.dateToStr(confirmValue) : '',
       },
       () => {
         this.props.onVisibleChange(false);
-      }
+      },
     );
   };
 
@@ -260,11 +260,11 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
   togglePickerVisible() {
     this.setState(
       {
-        pickerVisible: !this.state.pickerVisible
+        pickerVisible: !this.state.pickerVisible,
       },
       () => {
         this.props.onVisibleChange(!this.state.pickerVisible);
-      }
+      },
     );
   }
 
@@ -285,11 +285,11 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
     if (this.props.esc && keyCode === KEYCODE.ESC) {
       this.setState(
         {
-          pickerVisible: false
+          pickerVisible: false,
         },
         () => {
           this.props.onVisibleChange(false);
-        }
+        },
       );
       this.refInputRoot.blur();
       evt.stopPropagation();
@@ -298,11 +298,11 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
     if (keyCode === KEYCODE.ENTER) {
       this.setState(
         {
-          pickerVisible: false
+          pickerVisible: false,
         },
         () => {
           this.saveValidInputValue();
-        }
+        },
       );
       this.refInputRoot.blur();
     }
@@ -323,12 +323,12 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
           text: '',
           value: null,
           pickerVisible: false,
-          confirmValue: null
+          confirmValue: null,
         },
         () => {
           this.props.onVisibleChange(false);
           this.props.onChange(null);
-        }
+        },
       );
     }
   };
@@ -343,7 +343,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
 
     this.setState(
       {
-        pickerVisible: visible
+        pickerVisible: visible,
       },
       () => {
         if (!visible) {
@@ -351,7 +351,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
         } else {
           this.props.onVisibleChange(visible);
         }
-      }
+      },
     );
   };
 
@@ -376,7 +376,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
       showTrigger,
       allowClear,
       disabled,
-      style
+      style,
     } = this.props;
     const { pickerVisible, value, text } = this.state;
 
@@ -434,7 +434,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
             'is-have-trigger': calcIsShowTrigger(),
             'is-active': pickerVisible,
             'is-filled': !!value,
-            'is-disable': disabled
+            'is-disable': disabled,
           })}
           style={{ ...style }}
           onClick={() => (this.inputClick = true)}
@@ -442,7 +442,7 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
           <div
             className={classNames(`${prefixCls}-date-editor--${this.type}`, {
               'is-active': pickerVisible,
-              disabled: disabled
+              disabled: disabled,
             })}
           >
             <Input
@@ -458,14 +458,14 @@ class BasePicker extends React.Component<BasePickerProps, BasePickerState> {
                 if (!isInputValid(inputValue, ndate)) {
                   this.setState({
                     text: inputValue,
-                    pickerVisible: true
+                    pickerVisible: true,
                   });
                 } else {
                   //only set value on a valid date input
                   this.setState({
                     text: inputValue,
                     value: ndate,
-                    pickerVisible: true
+                    pickerVisible: true,
                   });
                 }
               }}

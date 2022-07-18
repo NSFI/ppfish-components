@@ -1,10 +1,10 @@
-import {Quill} from '../quill';
+import { Quill } from '../quill';
 import { getAttrs } from './image';
 const BlockEmbed = Quill.import('blots/block/embed');
 
 interface valueType {
-  controls?: any,
-  [fields: string]: any,
+  controls?: any;
+  [fields: string]: any;
 }
 
 class Video extends BlockEmbed {
@@ -13,9 +13,9 @@ class Video extends BlockEmbed {
   static tagName: string;
 
   static create(value: valueType) {
-    let node = super.create(value);
+    const node = super.create(value);
 
-    if (Object.prototype.toString.call(value) == "[object Object]") {
+    if (Object.prototype.toString.call(value) == '[object Object]') {
       // 默认带控制条
       if (value['controls'] === false) {
         delete value['controls'];
@@ -23,8 +23,8 @@ class Video extends BlockEmbed {
         value['controls'] = true;
       }
 
-      Object.keys(value).forEach((key) => {
-        let valType = typeof value[key];
+      Object.keys(value).forEach(key => {
+        const valType = typeof value[key];
         if (valType == 'function' || valType == 'object') {
           return;
         }

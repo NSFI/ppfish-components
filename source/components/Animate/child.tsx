@@ -10,7 +10,7 @@ function off(
   node: HTMLElement,
   eventName: string,
   callback: (e: Event) => void,
-  useCapture = false
+  useCapture = false,
 ) {
   if (node.removeEventListener) {
     node.removeEventListener(eventName, callback, useCapture);
@@ -21,14 +21,14 @@ function on(
   node: HTMLElement,
   eventName: string,
   callback: (e: Event) => void,
-  useCapture = false
+  useCapture = false,
 ) {
   if (node.addEventListener) {
     node.addEventListener(eventName, callback, useCapture);
   }
 
   return {
-    off: () => off(node, eventName, callback, useCapture)
+    off: () => off(node, eventName, callback, useCapture),
   };
 }
 
@@ -79,10 +79,7 @@ export interface EndListeners {
   animationend: any[];
 }
 
-export default class AnimateChild extends React.Component<
-  AnimateChildProps,
-  AnimateChildState
-> {
+export default class AnimateChild extends React.Component<AnimateChildProps, AnimateChildState> {
   static propTypes = {
     names: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     onAppear: PropTypes.func,
@@ -94,7 +91,7 @@ export default class AnimateChild extends React.Component<
     onExit: PropTypes.func,
     onExiting: PropTypes.func,
     onExited: PropTypes.func,
-    timeout: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
+    timeout: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   };
 
   static defaultProps = {
@@ -106,12 +103,12 @@ export default class AnimateChild extends React.Component<
     onEntered: noop,
     onExit: noop,
     onExiting: noop,
-    onExited: noop
+    onExited: noop,
   };
 
   endListeners: EndListeners = {
     transitionend: [],
-    animationend: []
+    animationend: [],
   };
   timeoutMap: {};
   node: HTMLElement = null;
@@ -122,7 +119,7 @@ export default class AnimateChild extends React.Component<
     super(props);
     this.endListeners = {
       transitionend: [],
-      animationend: []
+      animationend: [],
     };
     this.timeoutMap = {};
   }
@@ -135,7 +132,7 @@ export default class AnimateChild extends React.Component<
     });
     this.endListeners = {
       transitionend: [],
-      animationend: []
+      animationend: [],
     };
   }
 
@@ -180,7 +177,7 @@ export default class AnimateChild extends React.Component<
         const animationDuration = parseFloat(getStyleProperty(node, 'animation-duration')) || 0;
         const time = Math.max(
           transitionDuration + transitionDelay,
-          animationDuration + animationDelay
+          animationDuration + animationDelay,
         );
 
         this.timeoutMap[id] = setTimeout(() => {
@@ -199,7 +196,7 @@ export default class AnimateChild extends React.Component<
 
   removeClassNames = (node, names) => {
     Object.keys(names).forEach(key => {
-      removeClass(node, names[key]);
+      removeClass(node, names[key], false);
     });
   };
 
@@ -209,7 +206,7 @@ export default class AnimateChild extends React.Component<
     if (names) {
       this.removeClassNames(node, names);
       const className = isAppearing ? 'appear' : 'enter';
-      addClass(node, names[className]);
+      addClass(node, names[className], false);
     }
 
     const hook = isAppearing ? this.props.onAppear : this.props.onEnter;
@@ -222,7 +219,7 @@ export default class AnimateChild extends React.Component<
 
       if (names) {
         const className = isAppearing ? 'appearActive' : 'enterActive';
-        addClass(node, names[className]);
+        addClass(node, names[className], false);
       }
 
       const hook = isAppearing ? this.props.onAppearing : this.props.onEntering;
@@ -239,7 +236,7 @@ export default class AnimateChild extends React.Component<
         : [names.enter, names.enterActive];
 
       classNames.forEach(className => {
-        removeClass(node, className);
+        removeClass(node, className, false);
       });
     }
 
@@ -252,7 +249,7 @@ export default class AnimateChild extends React.Component<
 
     if (names) {
       this.removeClassNames(node, names);
-      addClass(node, names.leave);
+      addClass(node, names.leave, false);
     }
 
     this.props.onExit(node);
@@ -262,7 +259,7 @@ export default class AnimateChild extends React.Component<
     setTimeout(() => {
       const { names } = this.props;
       if (names) {
-        addClass(node, names.leaveActive);
+        addClass(node, names.leaveActive, false);
       }
       this.props.onExiting(node);
     }, 10);
@@ -273,7 +270,7 @@ export default class AnimateChild extends React.Component<
 
     if (names) {
       [names.leave, names.leaveActive].forEach(className => {
-        removeClass(node, className);
+        removeClass(node, className, false);
       });
     }
 

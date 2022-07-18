@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BasePopup from '../Base/BasePopup';
 import SearchInput from '../SearchInput';
 import { createRef } from '../util';
-import Button from '../../../Button/index.tsx';
+import Button from '../../../Button/index';
 
 import ConfigConsumer from '../../../Config/Locale/Consumer';
 
@@ -67,7 +67,7 @@ class MultiplePopup extends React.Component {
     );
   };
 
-  renderConfirmBtn = (Locale) => {
+  renderConfirmBtn = Locale => {
     const { onCancel, onConfirm, disableConfirm } = this.props;
 
     return (

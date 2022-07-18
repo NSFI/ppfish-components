@@ -40,7 +40,7 @@ class Guide extends Component<GuideProps, GuideState> {
     mask: PropTypes.bool,
     allowClose: PropTypes.bool,
     keyboardControl: PropTypes.bool,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
@@ -51,7 +51,7 @@ class Guide extends Component<GuideProps, GuideState> {
     visible: false,
     counter: true,
     mask: true,
-    steps: []
+    steps: [],
   };
 
   totalCount: number = 0;
@@ -62,19 +62,19 @@ class Guide extends Component<GuideProps, GuideState> {
 
     this.state = {
       visible: props.visible,
-      currentIndex: 0
+      currentIndex: 0,
     };
 
     this.totalCount = props.steps.length;
 
     if (props.mode != 'fixed') {
-      let opt = {
+      const opt = {
         counter: props.counter,
         allowClose: props.allowClose,
         keyboardControl: props.keyboardControl,
         onReset: () => {
           this.handleClose();
-        }
+        },
       };
 
       if (!props.mask) {
@@ -90,7 +90,7 @@ class Guide extends Component<GuideProps, GuideState> {
   }
 
   componentDidMount() {
-    let { visible } = this.state;
+    const { visible } = this.state;
 
     if (!visible) return;
 
@@ -99,22 +99,22 @@ class Guide extends Component<GuideProps, GuideState> {
 
   // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
-    let { visible } = this.state;
+    const { visible } = this.state;
 
     if (!visible && nextProps.visible) {
       this.setState(
         {
-          visible: true
+          visible: true,
         },
         () => {
           this.init();
-        }
+        },
       );
     }
   }
 
   init = () => {
-    let { steps, mode } = this.props;
+    const { steps, mode } = this.props;
 
     if (!(steps && steps.length) || mode == 'fixed') return;
 
@@ -146,13 +146,13 @@ class Guide extends Component<GuideProps, GuideState> {
   handleClose = () => {
     this.setState(
       {
-        visible: false
+        visible: false,
       },
       () => {
         this.setState({
-          currentIndex: 0
+          currentIndex: 0,
         });
-      }
+      },
     );
 
     this.props.onClose && this.props.onClose();
@@ -170,7 +170,7 @@ class Guide extends Component<GuideProps, GuideState> {
     }
 
     this.setState({
-      currentIndex: nextIndex
+      currentIndex: nextIndex,
     });
   };
 
@@ -185,7 +185,7 @@ class Guide extends Component<GuideProps, GuideState> {
     }
 
     this.setState({
-      currentIndex: nextIndex
+      currentIndex: nextIndex,
     });
   };
 
@@ -205,21 +205,13 @@ class Guide extends Component<GuideProps, GuideState> {
   };
 
   render() {
-    let {
-      prefixCls,
-      allowClose,
-      mode,
-      mask,
-      className,
-      style,
-      steps,
-    } = this.props,
-    { visible, currentIndex } = this.state,
-    rootCls = classNames(`${prefixCls}-fixed`, {
-      [className]: className
-    }),
-    isFirstStep = currentIndex <= 0,
-    isLastStep = currentIndex >= this.totalCount - 1;
+    let { prefixCls, allowClose, mode, mask, className, style, steps } = this.props,
+      { visible, currentIndex } = this.state,
+      rootCls = classNames(`${prefixCls}-fixed`, {
+        [className]: className,
+      }),
+      isFirstStep = currentIndex <= 0,
+      isLastStep = currentIndex >= this.totalCount - 1;
 
     if (mode != 'fixed') {
       return null;
@@ -227,49 +219,47 @@ class Guide extends Component<GuideProps, GuideState> {
 
     return (
       <ConfigConsumer componentName="Guide">
-        {
-          (Locale: LocaleProperties['Guide']) => {
-            const {
-              prevBtnText = '上一步',
-              nextBtnText = '下一步',
-              doneBtnText = '知道了',
-              skipBtnText = '跳过',
-            } = Locale;
+        {(Locale: LocaleProperties['Guide']) => {
+          const {
+            prevBtnText = '上一步',
+            nextBtnText = '下一步',
+            doneBtnText = '知道了',
+            skipBtnText = '跳过',
+          } = Locale;
 
-            return (
-              <Modal
-                className={rootCls}
-                style={{
-                  ...style
-                }}
-                mask={mask}
-                maskClosable={allowClose}
-                title={this.renderTitle(steps[currentIndex])}
-                visible={visible}
-                width={800}
-                footer={
-                  <React.Fragment>
-                    <div key="skip" className="skip" onClick={this.handleClose}>
-                      {skipBtnText}
-                    </div>
-                    {isFirstStep ? null : (
-                      <Button key="prev" onClick={this.handlePrev}>
-                        {prevBtnText}
-                      </Button>
-                    )}
-                    <Button key="next" type="primary" onClick={this.handleNext}>
-                      {isLastStep ? doneBtnText : nextBtnText}
-                      {` (${currentIndex + 1}/${steps.length})`}
+          return (
+            <Modal
+              className={rootCls}
+              style={{
+                ...style,
+              }}
+              mask={mask}
+              maskClosable={allowClose}
+              title={this.renderTitle(steps[currentIndex])}
+              visible={visible}
+              width={800}
+              footer={
+                <React.Fragment>
+                  <div key="skip" className="skip" onClick={this.handleClose}>
+                    {skipBtnText}
+                  </div>
+                  {isFirstStep ? null : (
+                    <Button key="prev" onClick={this.handlePrev}>
+                      {prevBtnText}
                     </Button>
-                  </React.Fragment>
-                }
-                onCancel={this.handleClose}
-              >
-                {steps[currentIndex].content}
-              </Modal>
-            )
-          }
-        }
+                  )}
+                  <Button key="next" type="primary" onClick={this.handleNext}>
+                    {isLastStep ? doneBtnText : nextBtnText}
+                    {` (${currentIndex + 1}/${steps.length})`}
+                  </Button>
+                </React.Fragment>
+              }
+              onCancel={this.handleClose}
+            >
+              {steps[currentIndex].content}
+            </Modal>
+          );
+        }}
       </ConfigConsumer>
     );
   }

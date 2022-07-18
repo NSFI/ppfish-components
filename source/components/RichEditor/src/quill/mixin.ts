@@ -1,6 +1,7 @@
+/* eslint-disable */
 'use strict';
 
-import Quill from '../quillCore/quill'
+import Quill from '../quillCore/quill';
 
 // 只在console展示错误级别的信息
 Quill.debug('error');
@@ -12,24 +13,31 @@ function formatOutputHTML(value?: string): string {
   return value.replace(/(<[^&<>]+)(contenteditable\s*=\s*['"]\w*['"])([^&<>]*>)/gi, '$1$3');
 }
 
-function xssFilter(value?:string): string {
+function xssFilter(value?: string): string {
   if (!value) return value;
 
-  return value.replace(/javascript\s*:/ig, '');
+  return value.replace(/javascript\s*:/gi, '');
 }
 
-let QuillMixin = {
+const QuillMixin = {
   /**
   Creates an editor on the given element. The editor will
   be passed the configuration, have its events bound,
   */
   createEditor: function($el, config) {
-    let editor = new Quill($el, config), _this = this;
+    const editor: any = new Quill($el, config),
+      _this = this;
 
     // 添加与 unprivilegedEditor 相同的方法
-    editor.getHTML = function(){ return xssFilter(formatOutputHTML(editor.root.innerHTML)); };
-    editor.getRawHTML = function(){ return xssFilter(editor.root.innerHTML); };
-    editor.isEmptyContents = function(){ return _this.isEmptyContents(editor); };
+    editor.getHTML = function() {
+      return xssFilter(formatOutputHTML(editor.root.innerHTML));
+    };
+    editor.getRawHTML = function() {
+      return xssFilter(editor.root.innerHTML);
+    };
+    editor.isEmptyContents = function() {
+      return _this.isEmptyContents(editor);
+    };
 
     if (config.tabIndex !== undefined) {
       this.setEditorTabIndex(editor, config.tabIndex);
@@ -44,39 +52,30 @@ let QuillMixin = {
     // Expose the editor on change events via a weaker,
     // unprivileged proxy object that does not allow
     // accidentally modifying editor state.
-    let unprivilegedEditor = this.makeUnprivilegedEditor(editor);
+    const unprivilegedEditor = this.makeUnprivilegedEditor(editor);
 
     this.handleTextChange = function(delta, oldDelta, source) {
       if (this.onEditorChangeText) {
-        this.onEditorChangeText(
-          editor.root.innerHTML, delta, source,
-          unprivilegedEditor
-        );
-        this.onEditorChangeSelection(
-          editor.getSelection(), source,
-          unprivilegedEditor
-        );
+        this.onEditorChangeText(editor.root.innerHTML, delta, source, unprivilegedEditor);
+        this.onEditorChangeSelection(editor.getSelection(), source, unprivilegedEditor);
       }
     }.bind(this);
 
     this.handleSelectionChange = function(range, oldRange, source) {
       if (this.onEditorChangeSelection) {
-        this.onEditorChangeSelection(
-          range, source,
-          unprivilegedEditor
-        );
+        this.onEditorChangeSelection(range, source, unprivilegedEditor);
       }
     }.bind(this);
 
-		this.handleEditorChange = function(eventType, rangeOrDelta, oldRangeOrOldDelta, source) {
-			if (eventType === Quill.events.SELECTION_CHANGE) {
-				this.handleSelectionChange(rangeOrDelta, oldRangeOrOldDelta, source);
-			}
+    this.handleEditorChange = function(eventType, rangeOrDelta, oldRangeOrOldDelta, source) {
+      if (eventType === Quill.events.SELECTION_CHANGE) {
+        this.handleSelectionChange(rangeOrDelta, oldRangeOrOldDelta, source);
+      }
 
-			if (eventType === Quill.events.TEXT_CHANGE) {
-				this.handleTextChange(rangeOrDelta, oldRangeOrOldDelta, source);
-			}
-		}.bind(this);
+      if (eventType === Quill.events.TEXT_CHANGE) {
+        this.handleTextChange(rangeOrDelta, oldRangeOrOldDelta, source);
+      }
+    }.bind(this);
 
     editor.on('editor-change', this.handleEditorChange);
   },
@@ -95,10 +94,10 @@ let QuillMixin = {
   the cursor won't move.
   */
   setEditorContents: function(editor, value) {
-    let sel = editor.getSelection();
+    const sel = editor.getSelection();
 
     if (typeof value === 'string') {
-      editor.setContents(editor.clipboard.convert({html:value}));
+      editor.setContents(editor.clipboard.convert({ html: value }));
     } else {
       editor.setContents(value);
     }
@@ -109,9 +108,9 @@ let QuillMixin = {
   setEditorSelection: function(editor, range) {
     if (range) {
       // Validate bounds before applying.
-      let length = editor.getLength();
-      range.index = Math.max(0, Math.min(range.index, length-1));
-      range.length = Math.max(0, Math.min(range.length, (length-1) - range.index));
+      const length = editor.getLength();
+      range.index = Math.max(0, Math.min(range.index, length - 1));
+      range.length = Math.max(0, Math.min(range.length, length - 1 - range.index));
     }
     editor.setSelection(range);
   },
@@ -128,53 +127,70 @@ let QuillMixin = {
   without any state-modificating methods.
   */
   makeUnprivilegedEditor: function(editor) {
-    let e = editor, _this = this;
+    const e = editor,
+      _this = this;
     return {
-      getLength:      function(){ return e.getLength.apply(e, arguments); },
-      getText:        function(){ return e.getText.apply(e, arguments); },
-      getHTML:        function(){ return formatOutputHTML(e.root.innerHTML); },
-      getRawHTML:     function(){ return e.root.innerHTML; },
-      getContents:    function(){ return e.getContents.apply(e, arguments); },
-      getSelection:   function(){ return e.getSelection.apply(e, arguments); },
-      getBounds:      function(){ return e.getBounds.apply(e, arguments); },
-      isEmptyContents: function(){ return _this.isEmptyContents(e); }
+      getLength: function() {
+        return e.getLength.apply(e, arguments);
+      },
+      getText: function() {
+        return e.getText.apply(e, arguments);
+      },
+      getHTML: function() {
+        return formatOutputHTML(e.root.innerHTML);
+      },
+      getRawHTML: function() {
+        return e.root.innerHTML;
+      },
+      getContents: function() {
+        return e.getContents.apply(e, arguments);
+      },
+      getSelection: function() {
+        return e.getSelection.apply(e, arguments);
+      },
+      getBounds: function() {
+        return e.getBounds.apply(e, arguments);
+      },
+      isEmptyContents: function() {
+        return _this.isEmptyContents(e);
+      },
     };
   },
 
   /* 检查输入的内容是否全部为空字符（空格、回车符、制表符）*/
-  isEmptyContents: function(editor){
-    let delta = editor.getContents();
+  isEmptyContents: function(editor) {
+    const delta = editor.getContents();
     if (delta && delta.ops && Array.isArray(delta.ops)) {
-      for (let i=0; i < delta.ops.length; i++) {
-        let obj = delta.ops[i];
+      for (let i = 0; i < delta.ops.length; i++) {
+        const obj = delta.ops[i];
         if (!obj.hasOwnProperty('insert')) return false;
 
         // 设置了项目符号时判为非空
         if (obj.hasOwnProperty('attributes')) {
-          let attrs = obj['attributes'] || {}, list = attrs['list'];
+          const attrs = obj['attributes'] || {},
+            list = attrs['list'];
           if (list) return false;
         }
 
         // 输入内容包含非空字符时判为非空
-        let insert = obj['insert'];
+        const insert = obj['insert'];
         if (typeof insert != 'string') return false;
 
         /**
          * [...insert]
          */
-        let insertChars = Array.from(insert);
+        const insertChars = Array.from(insert);
         if (!insertChars.length) continue;
 
-        let notEmpty = insertChars.some((val) => {
-          return val!=='' && val!==' ' && val!=='\t' && val!=='\n' && val!=='\ufeff';
+        const notEmpty = insertChars.some(val => {
+          return val !== '' && val !== ' ' && val !== '\t' && val !== '\n' && val !== '\ufeff';
         });
-        if(notEmpty) return false;
+        if (notEmpty) return false;
       }
       return true;
     }
     return false;
-  }
+  },
 };
 
-export default QuillMixin
-
+export default QuillMixin;

@@ -36,14 +36,14 @@ export interface AutoCompleteProps extends AbstractSelectProps {
   optionLabelProp?: string;
   getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
   onChange?: (value: SelectValue) => void;
-  onSelect?: (value: SelectValue, option: Object) => any;
+  onSelect?: (value: SelectValue, option: Record<string, any>) => any;
   children?:
     | ValidInputElement
     | React.ReactElement<OptionProps>
     | Array<React.ReactElement<OptionProps>>;
 }
 
-function isSelectOptionOrSelectOptGroup(child: any): Boolean {
+function isSelectOptionOrSelectOptGroup(child: any): boolean {
   return child && child.type && (child.type.isSelectOption || child.type.isSelectOptGroup);
 }
 
@@ -58,7 +58,7 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
     choiceTransitionName: 'zoom',
     showSearch: false,
     filterOption: false,
-    highlightSelected: true
+    highlightSelected: true,
   };
 
   private select: any;
@@ -90,7 +90,7 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
   };
 
   render() {
-    let {
+    const {
       size,
       className = '',
       notFoundContent,
@@ -98,7 +98,7 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
       optionLabelProp,
       dataSource,
       children,
-      highlightSelected
+      highlightSelected,
     } = this.props;
 
     const cls = classNames({
@@ -106,7 +106,7 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
       [`${prefixCls}-sm`]: size === 'small',
       [className]: !!className,
       [`${prefixCls}-show-search`]: true,
-      [`${prefixCls}-auto-complete`]: true
+      [`${prefixCls}-auto-complete`]: true,
     });
 
     let options;
@@ -130,7 +130,7 @@ export default class AutoComplete extends React.Component<AutoCompleteProps, {}>
                 );
               default:
                 throw new Error(
-                  'AutoComplete[dataSource] only supports type `string[] | Object[]`.'
+                  'AutoComplete[dataSource] only supports type `string[] | Object[]`.',
                 );
             }
           })

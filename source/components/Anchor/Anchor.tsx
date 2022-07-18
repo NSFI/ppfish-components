@@ -48,7 +48,7 @@ function scrollTo(
   href: string,
   offsetTop = 0,
   getContainer: () => AnchorContainer,
-  callback = () => {}
+  callback = () => {},
 ) {
   const container = getContainer();
   const scrollTop = getScroll(container, true);
@@ -101,7 +101,7 @@ export interface AnchorProps {
   getContainer?: () => AnchorContainer;
   onClick?: (
     e: React.MouseEvent<HTMLElement>,
-    link: { title: React.ReactNode; href: string }
+    link: { title: React.ReactNode; href: string },
   ) => void;
 }
 
@@ -123,7 +123,7 @@ export interface FishdAnchor {
   scrollTo: (link: string) => void;
   onClick?: (
     e: React.MouseEvent<HTMLElement>,
-    link: { title: React.ReactNode; href: string }
+    link: { title: React.ReactNode; href: string },
   ) => void;
 }
 
@@ -135,15 +135,15 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
     inkPosition: 'left',
     affix: true,
     showInkInFixed: false,
-    getContainer: getDefaultContainer
+    getContainer: getDefaultContainer,
   };
 
   static childContextTypes = {
-    fishdAnchor: PropTypes.object
+    fishdAnchor: PropTypes.object,
   };
 
   state = {
-    activeLink: null
+    activeLink: null,
   };
 
   private inkNode: HTMLSpanElement = null;
@@ -166,7 +166,7 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
       },
       activeLink: this.state.activeLink,
       scrollTo: this.handleScrollTo,
-      onClick: this.props.onClick
+      onClick: this.props.onClick,
     };
     return { fishdAnchor };
   }
@@ -193,7 +193,7 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
     }
     const { offsetTop, bounds } = this.props;
     this.setState({
-      activeLink: this.getCurrentAnchor(offsetTop, bounds)
+      activeLink: this.getCurrentAnchor(offsetTop, bounds),
     });
   };
 
@@ -207,7 +207,7 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
   };
 
   getCurrentAnchor(offsetTop = 0, bounds = 5): string {
-    let activeLink = '';
+    const activeLink = '';
     if (typeof document === 'undefined') {
       return activeLink;
     }
@@ -226,7 +226,7 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
         if (top < offsetTop + bounds) {
           linkSections.push({
             link,
-            top
+            top,
           });
         }
       }
@@ -266,31 +266,31 @@ export default class Anchor extends React.Component<AnchorProps, AnchorState> {
       showInkInFixed,
       children,
       getContainer,
-      inkPosition
+      inkPosition,
     } = this.props;
     const { activeLink } = this.state;
 
     const inkClass = classNames(`${prefixCls}-ink-ball`, {
       visible: activeLink,
       left: inkPosition === 'left',
-      right: inkPosition === 'right'
+      right: inkPosition === 'right',
     });
 
     const wrapperClass = classNames(className, `${prefixCls}-wrapper`);
 
     const anchorClass = classNames(prefixCls, {
-      fixed: !affix && !showInkInFixed
+      fixed: !affix && !showInkInFixed,
     });
 
     const wrapperStyle = {
       maxHeight: offsetTop ? `calc(100vh - ${offsetTop}px)` : '100vh',
-      ...style
+      ...style,
     };
 
     const inkNodeClass = classNames({
       [`${prefixCls}-ink`]: true,
       [`${prefixCls}-ink-left`]: inkPosition === 'left',
-      [`${prefixCls}-ink-right`]: inkPosition === 'right'
+      [`${prefixCls}-ink-right`]: inkPosition === 'right',
     });
 
     const anchorContent = (

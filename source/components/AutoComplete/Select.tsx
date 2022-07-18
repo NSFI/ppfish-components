@@ -45,7 +45,7 @@ export interface SelectProps extends AbstractSelectProps {
   firstActiveValue?: string | string[];
   onChange?: (
     value: SelectValue,
-    option: React.ReactElement<any> | React.ReactElement<any>[]
+    option: React.ReactElement<any> | React.ReactElement<any>[],
   ) => void;
   onSelect?: (value: SelectValue, option: React.ReactElement<any>) => any;
   onDeselect?: (value: SelectValue) => any;
@@ -89,15 +89,15 @@ const SelectPropTypes = {
   optionLabelProp: PropTypes.string,
   transitionName: PropTypes.string,
   choiceTransitionName: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
 };
 
 // => It is needless to export the declaration of below two inner components.
 // export { Option, OptGroup };
 
 export default class Select extends React.Component<SelectProps, {}> {
-  static Option = Option as React.ClassicComponentClass<OptionProps>;
-  static OptGroup = OptGroup as React.ClassicComponentClass<OptGroupProps>;
+  static Option = (Option as unknown) as React.ClassicComponentClass<OptionProps>;
+  static OptGroup = (OptGroup as unknown) as React.ClassicComponentClass<OptGroupProps>;
 
   static SECRET_COMBOBOX_MODE_DO_NOT_USE = 'SECRET_COMBOBOX_MODE_DO_NOT_USE';
 
@@ -105,7 +105,7 @@ export default class Select extends React.Component<SelectProps, {}> {
     prefixCls: 'fishd-autocomplete-select',
     showSearch: false,
     transitionName: 'slide-up',
-    choiceTransitionName: 'zoom'
+    choiceTransitionName: 'zoom',
   };
 
   static propTypes = SelectPropTypes;
@@ -119,7 +119,7 @@ export default class Select extends React.Component<SelectProps, {}> {
       props.mode !== 'combobox',
       'The combobox mode of Select is deprecated, ' +
         'it will be removed in next major version, ' +
-        'please use AutoComplete instead'
+        'please use AutoComplete instead',
     );
   }
 
@@ -154,9 +154,9 @@ export default class Select extends React.Component<SelectProps, {}> {
     const cls = classNames(
       {
         [`${prefixCls}-lg`]: size === 'large',
-        [`${prefixCls}-sm`]: size === 'small'
+        [`${prefixCls}-sm`]: size === 'small',
       },
-      className
+      className,
     );
 
     let { optionLabelProp } = this.props;
@@ -168,7 +168,7 @@ export default class Select extends React.Component<SelectProps, {}> {
     const modeConfig = {
       multiple: mode === 'multiple',
       tags: mode === 'tags',
-      combobox: this.isCombobox()
+      combobox: this.isCombobox(),
     };
 
     return (
@@ -185,14 +185,14 @@ export default class Select extends React.Component<SelectProps, {}> {
   };
 
   render() {
-    return (<ConfigConsumer componentName="AutoComplete">
-      {
-        (Locale: LocaleProperties["AutoComplete"]) => {
+    return (
+      <ConfigConsumer componentName="AutoComplete">
+        {(Locale: LocaleProperties['AutoComplete']) => {
           return this.renderSelect({
-            notFoundContent: (Locale.notFoundContent as string)
+            notFoundContent: Locale.notFoundContent as string,
           });
-        }
-      }
-    </ConfigConsumer>)
+        }}
+      </ConfigConsumer>
+    );
   }
 }

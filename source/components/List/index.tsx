@@ -50,14 +50,14 @@ export interface ListProps {
   header?: React.ReactNode;
   footer?: React.ReactNode;
   locale?: LocaleProperties['List'];
-  striped?: Boolean;
+  striped?: boolean;
 }
 
 class List extends React.Component<ListProps> {
   static Item: typeof Item = Item;
   static Sortable = Sortable;
   static childContextTypes = {
-    grid: PropTypes.any
+    grid: PropTypes.any,
   };
 
   static propTypes = {
@@ -71,7 +71,7 @@ class List extends React.Component<ListProps> {
     loading: PropTypes.bool,
     pagination: PropTypes.bool,
     striped: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
     dataSource: [],
@@ -84,7 +84,7 @@ class List extends React.Component<ListProps> {
   };
 
   state = {
-    paginationCurrent: 1
+    paginationCurrent: 1,
   };
 
   defaultPaginationProps = {
@@ -93,20 +93,20 @@ class List extends React.Component<ListProps> {
     onChange: (page: number, pageSize: number) => {
       const { pagination } = this.props;
       this.setState({
-        paginationCurrent: page
+        paginationCurrent: page,
       });
       if (pagination && pagination.onChange) {
         pagination.onChange(page, pageSize);
       }
     },
-    total: 0
+    total: 0,
   };
 
   private keys: { [key: string]: string } = {};
 
   getChildContext() {
     return {
-      grid: this.props.grid
+      grid: this.props.grid,
     };
   }
 
@@ -168,7 +168,7 @@ class List extends React.Component<ListProps> {
     let loadingProp = loading;
     if (typeof loadingProp === 'boolean') {
       loadingProp = {
-        spinning: loadingProp
+        spinning: loadingProp,
       };
     }
     const isLoading = loadingProp && loadingProp.spinning;
@@ -193,14 +193,14 @@ class List extends React.Component<ListProps> {
       [`${prefixCls}-loading`]: isLoading,
       [`${prefixCls}-grid`]: grid,
       [`${prefixCls}-striped`]: striped,
-      [`${prefixCls}-something-after-last-item`]: this.isSomethingAfterLastItem()
+      [`${prefixCls}-something-after-last-item`]: this.isSomethingAfterLastItem(),
     });
 
     const paginationProps = {
       ...this.defaultPaginationProps,
       total: dataSource.length,
       current: paginationCurrent,
-      ...(pagination || {})
+      ...(pagination || {}),
     };
 
     const largestPage = Math.ceil(paginationProps.total / paginationProps.pageSize);
@@ -218,7 +218,7 @@ class List extends React.Component<ListProps> {
       if (dataSource.length > (paginationProps.current - 1) * paginationProps.pageSize) {
         splitDataSource = [...dataSource].splice(
           (paginationProps.current - 1) * paginationProps.pageSize,
-          paginationProps.pageSize
+          paginationProps.pageSize,
         );
       }
     }
@@ -227,11 +227,13 @@ class List extends React.Component<ListProps> {
       let childrenContent: ReactNode;
       childrenContent = isLoading && <div style={{ minHeight: 53 }} />;
       if (splitDataSource.length > 0) {
-        const items = splitDataSource.map((item: any, index: number) => this.renderItem(item, index));
+        const items = splitDataSource.map((item: any, index: number) =>
+          this.renderItem(item, index),
+        );
         const childrenList = React.Children.map(items, (child: any, index) =>
           React.cloneElement(child, {
-            key: this.keys[index]
-          })
+            key: this.keys[index],
+          }),
         );
 
         childrenContent = grid ? <Row gutter={grid.gutter}>{childrenList}</Row> : childrenList;
@@ -239,30 +241,29 @@ class List extends React.Component<ListProps> {
         childrenContent = <div>{this.renderEmpty(Locale)}</div>;
       }
 
-      return childrenContent
-    }
+      return childrenContent;
+    };
 
     const paginationPosition = paginationProps.position || 'bottom';
 
     return (
       <ConfigConsumer componentName="List">
-        {
-          (Locale: LocaleProperties['List']) => {
-            return (
-              <div className={classString} {...rest}>
-                {(paginationPosition === 'top' || paginationPosition === 'both') && paginationContent}
-                {header && <div className={`${prefixCls}-header`}>{header}</div>}
-                <Spin {...loadingProp}>
-                  {renderChildrenContent(Locale)}
-                  {children}
-                </Spin>
-                {footer && <div className={`${prefixCls}-footer`}>{footer}</div>}
-                {loadMore ||
-                  ((paginationPosition === 'bottom' || paginationPosition === 'both') && paginationContent)}
-              </div>
-            )
-          }
-        }
+        {(Locale: LocaleProperties['List']) => {
+          return (
+            <div className={classString} {...rest}>
+              {(paginationPosition === 'top' || paginationPosition === 'both') && paginationContent}
+              {header && <div className={`${prefixCls}-header`}>{header}</div>}
+              <Spin {...loadingProp}>
+                {renderChildrenContent(Locale)}
+                {children}
+              </Spin>
+              {footer && <div className={`${prefixCls}-footer`}>{footer}</div>}
+              {loadMore ||
+                ((paginationPosition === 'bottom' || paginationPosition === 'both') &&
+                  paginationContent)}
+            </div>
+          );
+        }}
       </ConfigConsumer>
     );
   }

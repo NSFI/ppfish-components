@@ -1,17 +1,17 @@
 export interface Store {
-  setState: (partial: Object) => void;
+  setState: (partial: Record<string, any>) => void;
   getState: () => any;
   subscribe: (listener: () => void) => () => void;
 }
 
-export default function createStore(initialState: object): Store {
+export default function createStore(initialState: Record<string, any>): Store {
   let state = initialState;
   const listeners: any[] = [];
 
-  function setState(partial: object) {
+  function setState(partial: Record<string, any>) {
     state = {
       ...state,
-      ...partial
+      ...partial,
     };
     for (let i = 0; i < listeners.length; i++) {
       listeners[i]();
@@ -34,6 +34,6 @@ export default function createStore(initialState: object): Store {
   return {
     setState,
     getState,
-    subscribe
+    subscribe,
   };
 }

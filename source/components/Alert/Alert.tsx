@@ -49,26 +49,26 @@ export default class Alert extends React.Component<AlertProps, any> {
     super(props);
     this.state = {
       closing: true,
-      closed: false
+      closed: false,
     };
   }
   handleClose = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    let dom = ReactDOM.findDOMNode(this) as HTMLElement;
+    const dom = ReactDOM.findDOMNode(this) as HTMLElement;
     dom.style.height = `${dom.offsetHeight}px`;
     // Magic code
     // 重复一次后才能正确设置 height
     dom.style.height = `${dom.offsetHeight}px`;
 
     this.setState({
-      closing: false
+      closing: false,
     });
     (this.props.onClose || noop)(e);
   };
   animationEnd = () => {
     this.setState({
       closed: true,
-      closing: true
+      closing: true,
     });
     (this.props.afterClose || noop)();
   };
@@ -84,7 +84,7 @@ export default class Alert extends React.Component<AlertProps, any> {
       banner,
       className = '',
       style,
-      iconType
+      iconType,
     } = this.props;
 
     // banner模式默认有 Icon
@@ -117,16 +117,16 @@ export default class Alert extends React.Component<AlertProps, any> {
       }
     }
 
-    let alertCls = classNames(
+    const alertCls = classNames(
       prefixCls,
       {
         [`${prefixCls}-${type}`]: true,
         [`${prefixCls}-close`]: !this.state.closing,
         [`${prefixCls}-with-description`]: !!description,
         [`${prefixCls}-no-icon`]: !showIcon,
-        [`${prefixCls}-banner`]: !!banner
+        [`${prefixCls}-banner`]: !!banner,
       },
-      className
+      className,
     );
 
     // closeable when closeText is assigned

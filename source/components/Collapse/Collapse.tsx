@@ -53,7 +53,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
     // 是否显示面板的状态数组
     statusList: PropTypes.array,
     onChange: PropTypes.func,
-    close: PropTypes.func
+    close: PropTypes.func,
   };
 
   // class fields
@@ -66,7 +66,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
     showClose: false,
     bordered: true,
     onChange(value) {},
-    close(e: React.MouseEvent) {}
+    close(e: React.MouseEvent) {},
   };
 
   static Panel = CollapsePanel;
@@ -74,7 +74,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
   static getDerivedStateFromProps(nextProps: CollapseProps, prevState: CollapseState) {
     const { prevProps } = prevState;
     const newState: CollapseState = {
-      prevProps: nextProps
+      prevProps: nextProps,
     };
     if ('activeKey' in nextProps) {
       newState.activeKey = toArray(nextProps.activeKey);
@@ -100,7 +100,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
       activeKey: toArray(currentActiveKey),
       statusList:
         statusList || new Array((this.props.children as React.ReactNode[]).length).fill(true),
-      prevProps: props
+      prevProps: props,
     };
     // 当前点击的key
     this.currentKey = null;
@@ -173,7 +173,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
         prefixCls,
         children: child.props.children,
         onItemClick: this.onClickItem(key).bind(this),
-        onCloseItem: this.onCloseItem(key).bind(this)
+        onCloseItem: this.onCloseItem(key).bind(this),
       };
 
       return React.cloneElement(child as React.ReactElement<any>, props);
@@ -183,7 +183,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
   setActiveKey(activeKey) {
     if (!('activeKey' in this.props)) {
       this.setState({
-        activeKey
+        activeKey,
       });
     }
     this.props.onChange(this.props.accordion ? activeKey[0] : activeKey);
@@ -202,7 +202,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
     const elRect = el && el.getBoundingClientRect();
     const diff = collapse.scrollHeight - collapse.clientHeight;
     if (collapseRect && elRect) {
-      let toTop = collapse.scrollTop + elRect.top - collapseRect.top;
+      const toTop = collapse.scrollTop + elRect.top - collapseRect.top;
       if (toTop < diff) {
         collapse.scrollTop = toTop;
       }
@@ -212,7 +212,7 @@ class Collapse extends Component<CollapseProps, CollapseState> {
 
   render() {
     const { prefixCls, className, isScrollToHeader, bordered } = this.props;
-    let clsObj = {};
+    const clsObj = {};
     let style = null;
     clsObj[prefixCls] = true;
     if (className) {

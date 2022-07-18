@@ -1,3 +1,4 @@
+/* eslint-disable react/no-find-dom-node */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -58,7 +59,7 @@ function getOffset(element: HTMLElement, target: HTMLElement | Window | null) {
     top: elemRect.top - targetRect.top + scrollTop - clientTop,
     left: elemRect.left - targetRect.left + scrollLeft - clientLeft,
     width: elemRect.width,
-    height: elemRect.height
+    height: elemRect.height,
   };
 }
 
@@ -94,7 +95,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
   static propTypes = {
     offsetTop: PropTypes.number,
     offsetBottom: PropTypes.number,
-    target: PropTypes.func
+    target: PropTypes.func,
   };
 
   scrollEvent: any;
@@ -109,7 +110,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
 
   state: AffixState = {
     affixStyle: undefined,
-    placeholderStyle: undefined
+    placeholderStyle: undefined,
   };
 
   private fixedNode?: HTMLElement | null;
@@ -141,7 +142,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
       return;
     }
     this.setState({
-      placeholderStyle: placeholderStyle as React.CSSProperties
+      placeholderStyle: placeholderStyle as React.CSSProperties,
     });
   }
 
@@ -154,17 +155,18 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     this.placeholderNode!.style.cssText = '';
     this.setAffixStyle(e, {
       ...affixStyle,
-      width: this.placeholderNode!.offsetWidth
+      width: this.placeholderNode!.offsetWidth,
     });
     this.setPlaceholderStyle({
-      width: this.placeholderNode!.offsetWidth
+      width: this.placeholderNode!.offsetWidth,
     });
   }
 
   //滚动以及window.resize监听处理方法
   @throttleByAnimationFrameDecorator()
   updatePosition(e: any) {
-    let { offsetTop, offsetBottom, offset, target = getDefaultTarget } = this.props;
+    let { offsetTop } = this.props;
+    const { offsetBottom, offset, target = getDefaultTarget } = this.props;
     const targetNode = target();
 
     // Backwards support
@@ -176,12 +178,12 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     const elemOffset = getOffset(affixNode, targetNode);
     const elemSize = {
       width: this.fixedNode!.offsetWidth,
-      height: this.fixedNode!.offsetHeight
+      height: this.fixedNode!.offsetHeight,
     };
 
     const offsetMode = {
       top: false,
-      bottom: false
+      bottom: false,
     };
     // Default to `offsetTop=0`.
     if (typeof offsetTop !== 'number' && typeof offsetBottom !== 'number') {
@@ -194,8 +196,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
 
     const targetRect = getTargetRect(targetNode);
     const targetInnerHeight =
-      (targetNode as Window).innerHeight ||
-      (targetNode as HTMLElement).clientHeight;
+      (targetNode as Window).innerHeight || (targetNode as HTMLElement).clientHeight;
     if (scrollTop > elemOffset.top - (offsetTop as number) && offsetMode.top) {
       // Fixed Top
       const width = elemOffset.width;
@@ -204,18 +205,14 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
         position: 'fixed',
         top,
         left: targetRect.left + elemOffset.left,
-        width
+        width,
       });
       this.setPlaceholderStyle({
         width,
-        height: elemSize.height
+        height: elemSize.height,
       });
     } else if (
-      scrollTop <
-        elemOffset.top +
-          elemSize.height +
-          (offsetBottom as number) -
-          targetInnerHeight &&
+      scrollTop < elemOffset.top + elemSize.height + (offsetBottom as number) - targetInnerHeight &&
       offsetMode.bottom
     ) {
       // Fixed Bottom
@@ -225,11 +222,11 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
         position: 'fixed',
         bottom: targetBottomOffet + (offsetBottom as number),
         left: targetRect.left + elemOffset.left,
-        width
+        width,
       });
       this.setPlaceholderStyle({
         width,
-        height: elemOffset.height
+        height: elemOffset.height,
       });
     } else {
       const { affixStyle } = this.state;
@@ -289,11 +286,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
     this.clearEventListeners();
 
     this.events.forEach(eventName => {
-      this.eventHandlers[eventName] = addEventListener(
-        target,
-        eventName,
-        this.updatePosition,
-      );
+      this.eventHandlers[eventName] = addEventListener(target, eventName, this.updatePosition);
     });
   }
 
@@ -316,7 +309,7 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
 
   render() {
     const className = classNames({
-      [this.props.prefixCls || 'fishd-affix']: this.state.affixStyle
+      [this.props.prefixCls || 'fishd-affix']: this.state.affixStyle,
     });
 
     const props = omit(this.props, [
@@ -324,19 +317,15 @@ export default class Affix extends React.Component<AffixProps, AffixState> {
       'offsetTop',
       'offsetBottom',
       'target',
-      'onChange'
+      'onChange',
     ]);
     const placeholderStyle = {
       ...this.state.placeholderStyle,
-      ...this.props.style
+      ...this.props.style,
     };
     return (
       <div {...props} style={placeholderStyle} ref={this.savePlaceholderNode}>
-        <div
-          className={className}
-          ref={this.saveFixedNode}
-          style={this.state.affixStyle}
-        >
+        <div className={className} ref={this.saveFixedNode} style={this.state.affixStyle}>
           {this.props.children}
         </div>
       </div>

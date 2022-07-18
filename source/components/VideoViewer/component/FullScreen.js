@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Icon from '../../Icon/index.tsx';
-import Tooltip from '../../Tooltip/index.tsx';
+import Icon from '../../Icon/index';
+import Tooltip from '../../Tooltip/index';
 import ConfigConsumer from '../../Config/Consumer';
 
 export default class FullScreen extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
-    vjsComponent: PropTypes.object
+    vjsComponent: PropTypes.object,
   };
 
   static defaultProps = {
-    prefixCls: 'fishd-video-viewer-fullscreen'
-  }
+    prefixCls: 'fishd-video-viewer-fullscreen',
+  };
 
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ export default class FullScreen extends Component {
     this.player = props.vjsComponent.player_;
 
     this.state = {
-      isFullScreen: this.player.isFullscreen()
+      isFullScreen: this.player.isFullscreen(),
     };
   }
 
@@ -36,24 +36,23 @@ export default class FullScreen extends Component {
 
   setFullScreen = () => {
     this.setState({
-      isFullScreen: this.player.isFullscreen()
+      isFullScreen: this.player.isFullscreen(),
     });
-  }
+  };
 
   handleClick = () => {
     const { isFullScreen } = this.state;
 
     if (!isFullScreen) {
       this.player.requestFullscreen();
-
     } else {
       this.player.exitFullscreen();
     }
 
     this.setState({
-      isFullScreen: !isFullScreen
+      isFullScreen: !isFullScreen,
     });
-  }
+  };
 
   render() {
     const { prefixCls } = this.props;
@@ -61,27 +60,24 @@ export default class FullScreen extends Component {
 
     return (
       <ConfigConsumer componentName="VideoViewer">
-        {
-          (Locale) => {
-            const title = !isFullScreen ? Locale.fullScreen : Locale.cancelFullScreen;
-            return (
-              <div
-                className={classnames(prefixCls, "fishd-video-js-customer-button")}
-                onClick={() => this.handleClick()}
+        {Locale => {
+          const title = !isFullScreen ? Locale.fullScreen : Locale.cancelFullScreen;
+          return (
+            <div
+              className={classnames(prefixCls, 'fishd-video-js-customer-button')}
+              onClick={() => this.handleClick()}
+            >
+              <Tooltip
+                title={<span style={{ wordBreak: 'keep-all' }}>{title}</span>}
+                getPopupContainer={e => e.parentNode}
               >
-                <Tooltip
-                  title={<span style={{ wordBreak: 'keep-all' }}>{title}</span>}
-                  getPopupContainer={(e) => e.parentNode} >
-                  <a>
-                    {
-                      !isFullScreen ? <Icon type="video-fullscreen" /> : <Icon type="video-shrink" />
-                    }
-                  </a>
-                </Tooltip>
-              </div>
-            );
-          }
-        }
+                <a>
+                  {!isFullScreen ? <Icon type="video-fullscreen" /> : <Icon type="video-shrink" />}
+                </a>
+              </Tooltip>
+            </div>
+          );
+        }}
       </ConfigConsumer>
     );
   }

@@ -20,7 +20,7 @@ export interface BreadcrumbProps {
     route: any,
     params: any,
     routes: Array<any>,
-    paths: Array<string>
+    paths: Array<string>,
   ) => React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
@@ -35,7 +35,7 @@ function getBreadcrumbName(route: Route, params: any) {
   const paramsKeys = Object.keys(params).join('|');
   const name = route.breadcrumbName.replace(
     new RegExp(`:(${paramsKeys})`, 'g'),
-    (replacement, key) => params[key] || replacement
+    (replacement, key) => params[key] || replacement,
   );
   return name;
 }
@@ -52,7 +52,7 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
   static defaultProps = {
     prefixCls: 'fishd-breadcrumb',
     separator: <Icon type="arrow-line-regular" />,
-    size: 'default'
+    size: 'default',
   };
 
   static propTypes = {
@@ -62,7 +62,7 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
     routes: PropTypes.array,
     params: PropTypes.object,
     linkRender: PropTypes.func,
-    nameRender: PropTypes.func
+    nameRender: PropTypes.func,
   };
 
   componentDidMount() {
@@ -70,7 +70,7 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
     warning(
       !('linkRender' in props || 'nameRender' in props),
       '`linkRender` and `nameRender` are removed, please use `itemRender` instead, ' +
-        'see: https://u.ant.design/item-render.'
+        'see: https://u.ant.design/item-render.',
     );
   }
 
@@ -86,7 +86,7 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
       children,
       itemRender = defaultItemRender,
       maxWidth,
-      size
+      size,
     } = this.props;
 
     if (routes && routes.length > 0) {
@@ -117,18 +117,18 @@ export default class Breadcrumb extends React.Component<BreadcrumbProps, any> {
         }
         warning(
           element.type && element.type.__FISHD_BREADCRUMB_ITEM,
-          "Breadcrumb only accepts Breadcrumb.Item as it's children"
+          "Breadcrumb only accepts Breadcrumb.Item as it's children",
         );
         return cloneElement(element, {
           separator,
           maxWidth,
-          key: index
+          key: index,
         });
       });
     }
 
-    let cls = classNames(className, prefixCls, {
-      small: size === 'small'
+    const cls = classNames(className, prefixCls, {
+      small: size === 'small',
     });
 
     return (

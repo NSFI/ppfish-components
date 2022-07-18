@@ -31,7 +31,7 @@ export interface AbstractTooltipProps {
   style?: React.CSSProperties;
   overlayStyle?: React.CSSProperties;
   placement?: TooltipPlacement;
-  builtinPlacements?: Object;
+  builtinPlacements?: Record<string, any>;
   defaultVisible?: boolean;
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
@@ -76,7 +76,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
     mouseEnterDelay: 0.1,
     mouseLeaveDelay: 0.1,
     arrowPointAtCenter: false,
-    autoAdjustOverflow: true
+    autoAdjustOverflow: true,
   };
 
   private tooltip: typeof RcTooltip;
@@ -92,7 +92,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
     super(props);
 
     this.state = {
-      visible: !!props.visible || !!props.defaultVisible
+      visible: !!props.visible || !!props.defaultVisible,
     };
   }
 
@@ -107,7 +107,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
   };
 
   getPopupDomNode() {
-    return this.tooltip.getPopupDomNode();
+    return (this.tooltip as any).getPopupDomNode();
   }
 
   getPlacements() {
@@ -117,7 +117,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
       getPlacements({
         arrowPointAtCenter,
         verticalArrowShift: 8,
-        autoAdjustOverflow
+        autoAdjustOverflow,
       })
     );
   }
@@ -152,20 +152,20 @@ class Tooltip extends React.Component<TooltipProps, any> {
         'bottom',
         'float',
         'display',
-        'zIndex'
+        'zIndex',
       ]);
       const spanStyle = {
         display: 'inline-block', // default inline-block is important
         ...picked,
-        cursor: 'not-allowed'
+        cursor: 'not-allowed',
       };
       const buttonStyle = {
         ...omitted,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
       };
       const child = cloneElement(element, {
         style: buttonStyle,
-        className: null
+        className: null,
       });
       return (
         <span style={spanStyle} className={element.props.className}>
@@ -188,7 +188,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
     const placement = Object.keys(placements).filter(
       key =>
         placements[key].points[0] === align.points[0] &&
-        placements[key].points[1] === align.points[1]
+        placements[key].points[1] === align.points[1],
     )[0];
     if (!placement) {
       return;
@@ -197,7 +197,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
     const rect = domNode.getBoundingClientRect();
     const transformOrigin = {
       top: '50%',
-      left: '50%'
+      left: '50%',
     };
     if (placement.indexOf('top') >= 0 || placement.indexOf('Bottom') >= 0) {
       transformOrigin.top = `${rect.height - align.offset[1]}px`;
@@ -224,7 +224,7 @@ class Tooltip extends React.Component<TooltipProps, any> {
       overlay,
       openClassName,
       getPopupContainer,
-      getTooltipContainer
+      getTooltipContainer,
     } = props;
     const children = props.children as React.ReactElement<any>;
     let visible = state.visible;
@@ -234,18 +234,18 @@ class Tooltip extends React.Component<TooltipProps, any> {
     }
 
     const child = this.getDisabledCompatibleChildren(
-      React.isValidElement(children) ? children : <span>{children}</span>
+      React.isValidElement(children) ? children : <span>{children}</span>,
     );
     const childProps = child.props;
     const childCls = classNames(childProps.className, {
-      [openClassName || `${prefixCls}-open`]: true
+      [openClassName || `${prefixCls}-open`]: true,
     });
 
     return (
       <RcTooltip
         {...this.props}
         getTooltipContainer={getPopupContainer || getTooltipContainer}
-        ref={this.saveTooltip}
+        ref={this.saveTooltip as any}
         builtinPlacements={this.getPlacements()}
         overlay={overlay || title || ''}
         visible={visible}

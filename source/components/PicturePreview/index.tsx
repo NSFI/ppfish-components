@@ -7,8 +7,8 @@ import Icon from '../Icon';
 import { fullscreen, exitfullscreen, KeyCode, getStyle } from '../../utils';
 import './style/index.less';
 
-let conMaxWidth = 1024;
-let conMaxHeight = 768;
+const conMaxWidth = 1024;
+const conMaxHeight = 768;
 const CON_MAX_WIDTH = conMaxWidth > window.innerWidth ? window.innerWidth : conMaxWidth; //容器最大宽度
 const CON_MIN_WIDTH = 360; //容器最小宽度
 const CON_MAX_HEIGHT = conMaxHeight > window.innerHeight ? window.innerHeight : conMaxHeight; //容器最大高度
@@ -41,15 +41,15 @@ function isSourceChange(oldSource: ImageItem[], newSource: ImageItem[]): boolean
 }
 
 const setStyle = (el, css) => {
-  for (let key in css) {
+  for (const key in css) {
     el.style[key] = css[key];
   }
 };
 
-const getImageSize = function (
+const getImageSize = function(
   image: ImageItem & HTMLImageElement,
   callback: (naturalWidth: number, naturalHeight: number) => void,
-  scope?: any
+  scope?: any,
 ) {
   let newImage;
   if (!image.src) {
@@ -60,7 +60,7 @@ const getImageSize = function (
   } else {
     // 低版本浏览器
     newImage = document.createElement('img');
-    newImage.onload = function () {
+    newImage.onload = function() {
       callback.call(scope, this.width, this.height);
     };
     newImage.src = image.src;
@@ -133,7 +133,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     progress: PropTypes.bool,
     visible: PropTypes.bool,
     activeIndex: PropTypes.number,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
@@ -146,7 +146,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     progress: false,
     visible: false,
     activeIndex: 0,
-    onClose: () => { }
+    onClose: () => {},
   };
 
   static getDerivedStateFromProps: React.GetDerivedStateFromProps<
@@ -155,7 +155,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   > = (nextProps, prevState) => {
     const { current, imgs, lastActiveIndex, lastVisible } = prevState;
     const { activeIndex, visible, source, children } = nextProps;
-    let newState = {};
+    const newState = {};
 
     if (visible !== lastVisible) {
       newState['show'] = newState['lastVisible'] = visible;
@@ -168,24 +168,27 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     }
 
     if (source && source.length) {
-      let sourceStr = JSON.stringify(source);
+      const sourceStr = JSON.stringify(source);
       if (sourceStr !== JSON.stringify(imgs)) {
         newState['imgs'] = JSON.parse(sourceStr);
       }
     } else if (children) {
-      const imgList = React.Children.map(children, (child: React.ReactElement<HTMLImageElement>) => {
-        let img = {
-          name: '',
-          src: ''
-        };
+      const imgList = React.Children.map(
+        children,
+        (child: React.ReactElement<HTMLImageElement>) => {
+          const img = {
+            name: '',
+            src: '',
+          };
 
-        if (child.type === 'img') {
-          img.name = child.props.name || child.props.alt;
-          img.src = child.props.src;
-        }
+          if (child.type === 'img') {
+            img.name = child.props.name || child.props.alt;
+            img.src = child.props.src;
+          }
 
-        return img;
-      }).filter(item => item);
+          return img;
+        },
+      ).filter(item => item);
 
       newState['imgs'] = imgList;
     }
@@ -216,12 +219,12 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       container: {
         rect: {
           left: 0,
-          top: 0
+          top: 0,
         },
         startX: 0,
         startY: 0,
         style: null,
-        isFull: false //是否全屏
+        isFull: false, //是否全屏
       },
       image: {
         el: null,
@@ -231,7 +234,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         marginL: 0,
         marginT: 0,
         naturalWidth: 0,
-        naturalHeight: 0
+        naturalHeight: 0,
       },
       shown: false, //标记是否显示过，第一次显示时居中显示
     };
@@ -240,8 +243,8 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   }
 
   componentDidMount() {
-    let { draggable, toolbar, mask } = this.props;
-    let el = mask === false ? this.$el : this.$root;
+    const { draggable, toolbar, mask } = this.props;
+    const el = mask === false ? this.$el : this.$root;
 
     document.body.appendChild(el);
     this.setContainerStyle();
@@ -269,17 +272,17 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    let { current, show, imgs } = this.state;
+    const { current, show, imgs } = this.state;
 
     const sourceChange = isSourceChange(prevState.imgs, imgs);
-
 
     if (snapshot) {
       document.body.style.overflow = snapshot;
     }
 
     // 是否需要更新容器样式 切换图片 || 显示状态发生改变 || 资源发生改变
-    const shouldUpdate = prevState.current != current || (this.props.visible && !prevProps.visible) || sourceChange;
+    const shouldUpdate =
+      prevState.current != current || (this.props.visible && !prevProps.visible) || sourceChange;
     if (shouldUpdate) {
       this.setContainerStyle();
     }
@@ -290,7 +293,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   }
 
   componentWillUnmount() {
-    let { draggable, mask } = this.props,
+    const { draggable, mask } = this.props,
       el = mask === false ? this.$el : this.$root;
 
     if (el && el.parentNode === document.body) {
@@ -311,7 +314,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    let { mask, visible } = this.props;
+    const { mask, visible } = this.props;
 
     if (mask) {
       return visible ? 'hidden' : this.bodyDefaultOverflow;
@@ -358,7 +361,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         width: num2px(width),
         height: num2px(height),
         left: num2px((window.innerWidth - width) / 2),
-        top: num2px((window.innerHeight - height) / 2)
+        top: num2px((window.innerHeight - height) / 2),
       };
 
       if (!this.state.shown) {
@@ -366,7 +369,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
           width: num2px(width),
           height: num2px(height),
           left: num2px((window.innerWidth - width) / 2),
-          top: num2px((window.innerHeight - height) / 2)
+          top: num2px((window.innerHeight - height) / 2),
         };
 
         if (!this.props.mask) {
@@ -377,11 +380,11 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         this.setState({
           container: {
             style: css,
-            isFull: this.state.container.isFull
-          }
+            isFull: this.state.container.isFull,
+          },
         });
       } else if (!this.state.container.isFull) {
-        let oriTop = px2num(getStyle(this.$el, 'top')),
+        const oriTop = px2num(getStyle(this.$el, 'top')),
           oriLeft = px2num(getStyle(this.$el, 'left')),
           oriWidth = px2num(getStyle(this.$el, 'width')),
           oriHeight = px2num(getStyle(this.$el, 'height'));
@@ -389,14 +392,14 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
           width: num2px(width),
           height: num2px(height),
           left: num2px(oriLeft + (oriWidth - width) / 2),
-          top: num2px(oriTop + Math.trunc((oriHeight - height) / 2))
+          top: num2px(oriTop + Math.trunc((oriHeight - height) / 2)),
         };
 
         this.setState({
           container: {
             style: css,
-            isFull: this.state.container.isFull
-          }
+            isFull: this.state.container.isFull,
+          },
         });
       }
 
@@ -405,13 +408,13 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
           image: Object.assign({}, this.state.image, {
             naturalWidth: naturalWidth,
             naturalHeight: naturalHeight,
-            ratio: imgRatio
-          })
+            ratio: imgRatio,
+          }),
         },
         () => {
           //待视图更新后再缩放，需要用到con的尺寸
           this.handleZoom(imgRatio);
-        }
+        },
       );
     });
   };
@@ -437,7 +440,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       {
         show: false,
         lastVisible: false,
-        shown: false
+        shown: false,
       },
       () => {
         if (mask) {
@@ -447,35 +450,31 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         if (onClose && typeof onClose == 'function') {
           onClose();
         }
-      }
+      },
     );
   };
 
   handlePrev = () => {
-    let { current, imgs } = this.state;
-    this.setState(
-      {
-        current: current <= 0 ? imgs.length - 1 : current - 1,
-        shown: true
-      }
-    );
+    const { current, imgs } = this.state;
+    this.setState({
+      current: current <= 0 ? imgs.length - 1 : current - 1,
+      shown: true,
+    });
   };
 
   handleNext = () => {
-    let { current, imgs } = this.state;
-    this.setState(
-      {
-        current: current >= imgs.length - 1 ? 0 : current + 1,
-        shown: true
-      }
-    );
+    const { current, imgs } = this.state;
+    this.setState({
+      current: current >= imgs.length - 1 ? 0 : current + 1,
+      shown: true,
+    });
   };
 
   handleZoom = ratio => {
-    let image = {
+    const image = {
       ratio: 0,
       marginL: 0,
-      marginT: 0
+      marginT: 0,
     };
 
     //已经是1:1的情况下，不处理
@@ -487,7 +486,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
 
     image.ratio = ratio;
 
-    let width = this.state.image.naturalWidth * ratio,
+    const width = this.state.image.naturalWidth * ratio,
       height = this.state.image.naturalHeight * ratio;
 
     image.marginL = (this.$el.clientWidth - width) / 2;
@@ -495,16 +494,16 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
 
     this.setState(
       {
-        image: Object.assign({}, this.state.image, image)
+        image: Object.assign({}, this.state.image, image),
       },
       () => {
         setStyle(this.imgEl, {
           'margin-left': num2px(image.marginL),
           'margin-top': num2px(image.marginT),
           width: num2px(width),
-          height: num2px(height)
+          height: num2px(height),
         });
-      }
+      },
     );
   };
 
@@ -517,7 +516,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   handleRotate = () => {
     if (!this.imgEl) return;
 
-    let old = this.imgEl.rotateValue || 0,
+    const old = this.imgEl.rotateValue || 0,
       rotate = old + 90,
       transform = 'rotate(' + rotate + 'deg)';
 
@@ -526,15 +525,15 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     setStyle(this.imgEl, {
       '-webkit-ransform': transform,
       '-ms-transform': transform,
-      transform: transform
+      transform: transform,
     });
   };
 
   handleSave = () => {
     if (!(this.imgEl && this.imgEl.src)) return;
 
-    let getBlobImage = img => {
-      let canvas = document.createElement('canvas'),
+    const getBlobImage = img => {
+      const canvas = document.createElement('canvas'),
         ctx = canvas.getContext('2d');
       canvas.width = img.width;
       canvas.height = img.height;
@@ -546,12 +545,12 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       });
     };
 
-    let img = new Image();
+    const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {
-      let promise = getBlobImage(img);
+      const promise = getBlobImage(img);
       promise.then((blob: Blob) => {
-        let dLink = document.createElement('a');
+        const dLink = document.createElement('a');
         dLink.download = this.imgEl.alt || '';
         this.downloadImgUrl = window.URL.createObjectURL(blob);
         dLink.href = this.downloadImgUrl;
@@ -569,42 +568,42 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   };
 
   handleFullChange = e => {
-    let con = this.state.container;
+    const con = this.state.container;
 
     if (con.isFull) {
       //从全屏退出到非全屏时，认为是没有显示过，让图片居中显示
       this.setState(
         {
-          shown: false
+          shown: false,
         },
         () => {
           this.setContainerStyle();
           this.setState({
-            shown: true
+            shown: true,
           });
-        }
+        },
       );
     } else {
       con.style = {
         left: 0,
         top: 0,
         width: '100%',
-        height: '100%'
+        height: '100%',
       };
       //等视图更新后，再缩放，要用到con的尺寸
       this.setState(
         {
-          container: con
+          container: con,
         },
-        () => this.handleZoom(this.state.image.ratio)
+        () => this.handleZoom(this.state.image.ratio),
       );
     }
 
     this.setState({
       container: {
         style: this.state.container.style,
-        isFull: !con.isFull
-      }
+        isFull: !con.isFull,
+      },
     });
   };
 
@@ -612,8 +611,8 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     if (!this.state.show) return;
     e.preventDefault();
 
-    let tar = e.target;
-    let con: {
+    const tar = e.target;
+    const con: {
       rect: {
         left: number;
         top: number;
@@ -623,12 +622,12 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     } = {
       rect: {
         left: 0,
-        top: 0
+        top: 0,
       },
       startX: 0,
-      startY: 0
+      startY: 0,
     };
-    let image: {
+    const image: {
       startX: number;
       startY: number;
       marginL: number;
@@ -637,7 +636,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       startX: 0,
       startY: 0,
       marginL: 0,
-      marginT: 0
+      marginT: 0,
     };
 
     if (tar === this.imgEl && (this.state.container.isFull || isLargger(this.imgEl, this.$el))) {
@@ -649,21 +648,21 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
 
       this.moving = 'img';
       this.setState({
-        image: Object.assign({}, this.state.image, image)
+        image: Object.assign({}, this.state.image, image),
       });
     } else if (!this.state.container.isFull) {
       //非全屏模式下，移动容器
-      let elPos = this.$el.getBoundingClientRect();
+      const elPos = this.$el.getBoundingClientRect();
 
       if (this.props.mask) {
         con.rect = {
           left: elPos.left,
-          top: elPos.top
+          top: elPos.top,
         };
       } else {
         con.rect = {
           left: elPos.left + window.pageXOffset,
-          top: elPos.top + window.pageYOffset
+          top: elPos.top + window.pageYOffset,
         };
       }
 
@@ -672,7 +671,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
 
       this.moving = 'con';
       this.setState({
-        container: Object.assign({}, this.state.container, con)
+        container: Object.assign({}, this.state.container, con),
       });
     }
   };
@@ -681,21 +680,21 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     if (!this.moving || !this.state.show) return;
     e.preventDefault();
 
-    let con = this.state.container,
+    const con = this.state.container,
       image = this.state.image,
       conStyle = { ...con.style };
 
     if (this.moving === 'img') {
       setStyle(this.imgEl, {
         'margin-left': num2px(e.pageX - image.startX + image.marginL),
-        'margin-top': num2px(e.pageY - image.startY + image.marginT)
+        'margin-top': num2px(e.pageY - image.startY + image.marginT),
       });
     } else if (this.moving === 'con' && con && con.rect) {
       conStyle.left = num2px(e.pageX - con.startX + con.rect.left);
       conStyle.top = num2px(e.pageY - con.startY + con.rect.top);
 
       this.setState({
-        container: Object.assign({}, this.state.container, { style: conStyle })
+        container: Object.assign({}, this.state.container, { style: conStyle }),
       });
     }
   };
@@ -751,50 +750,50 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
       toolbar,
       draggable,
       mask,
-      progress
+      progress,
     } = this.props;
-    let isFullscreen = container.isFull;
-    let ctnerClass = classNames(prefixCls, {
+    const isFullscreen = container.isFull;
+    const ctnerClass = classNames(prefixCls, {
       [className]: className,
       draggable: draggable,
-      [`${prefixCls}-hide`]: !show
+      [`${prefixCls}-hide`]: !show,
     });
-    let closeBtnClass = classNames({
+    const closeBtnClass = classNames({
       close: !isFullscreen,
-      'close-fullscreen': isFullscreen
+      'close-fullscreen': isFullscreen,
     });
-    let isHide = !(
+    const isHide = !(
       source.length > 1 ||
       (!!children && (children as React.ReactNodeArray).length > 1)
     );
-    let leftBtnClass = classNames('prev', {
-      [`${prefixCls}-hide`]: isHide
+    const leftBtnClass = classNames('prev', {
+      [`${prefixCls}-hide`]: isHide,
     });
-    let rightBtnClass = classNames('next', {
-      [`${prefixCls}-hide`]: isHide
+    const rightBtnClass = classNames('next', {
+      [`${prefixCls}-hide`]: isHide,
     });
-    let toolbarClass = classNames('toolbar', {
-      [`${prefixCls}-hide`]: !toolbar
+    const toolbarClass = classNames('toolbar', {
+      [`${prefixCls}-hide`]: !toolbar,
     });
-    let one2oneClass = classNames('icon', {
-      'icon-disabled': image.ratio == 1
+    const one2oneClass = classNames('icon', {
+      'icon-disabled': image.ratio == 1,
     });
-    let zoomInClass = classNames('icon', {
-      'icon-disabled': image.ratio >= MAX_RATIO
+    const zoomInClass = classNames('icon', {
+      'icon-disabled': image.ratio >= MAX_RATIO,
     });
-    let zoomOutClass = classNames('icon', {
-      'icon-disabled': image.ratio <= MIN_RATIO
+    const zoomOutClass = classNames('icon', {
+      'icon-disabled': image.ratio <= MIN_RATIO,
     });
-    let screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
-    let rootClass = classNames({
+    const screenStatus = isFullscreen ? 'picture-shrink' : 'picture-fullscreen';
+    const rootClass = classNames({
       [`${prefixCls}-root`]: mask,
-      [`${prefixCls}-hide`]: !show
+      [`${prefixCls}-hide`]: !show,
     });
-    let maskClass = classNames(`${prefixCls}-mask`, {
-      [`${prefixCls}-hide`]: !mask
+    const maskClass = classNames(`${prefixCls}-mask`, {
+      [`${prefixCls}-hide`]: !mask,
     });
-    let progressClass = classNames('toolbarTitle', {
-      [`${prefixCls}-hide`]: !progress
+    const progressClass = classNames('toolbarTitle', {
+      [`${prefixCls}-hide`]: !progress,
     });
 
     const renderCtner = (

@@ -40,13 +40,13 @@ export interface ShowSearchType {
     inputValue: string,
     path: CascaderOptionType[],
     prefixCls: string | undefined,
-    names: FilledFieldNamesType
+    names: FilledFieldNamesType,
   ) => React.ReactNode;
   sort?: (
     a: CascaderOptionType[],
     b: CascaderOptionType[],
     inputValue: string,
-    names: FilledFieldNamesType
+    names: FilledFieldNamesType,
   ) => number;
   matchInputWidth?: boolean;
   limit?: number | false;
@@ -117,8 +117,8 @@ function highlightKeyword(str: string, keyword: string, prefixCls: string | unde
           <span className={`${prefixCls}-menu-item-keyword`} key="seperator">
             {keyword}
           </span>,
-          node
-        ]
+          node,
+        ],
   );
 }
 
@@ -126,7 +126,7 @@ function highlightKeyword(str: string, keyword: string, prefixCls: string | unde
 function defaultFilterOption(
   inputValue: string,
   path: CascaderOptionType[],
-  names: FilledFieldNamesType
+  names: FilledFieldNamesType,
 ) {
   return path.some(option => (option[names.label] as string).indexOf(inputValue) > -1);
 }
@@ -136,7 +136,7 @@ function defaultRenderFilteredOption(
   inputValue: string,
   path: CascaderOptionType[],
   prefixCls: string | undefined,
-  names: FilledFieldNamesType
+  names: FilledFieldNamesType,
 ) {
   return path.map((option, index) => {
     const label = option[names.label];
@@ -153,7 +153,7 @@ function defaultSortFilteredOption(
   a: CascaderOptionType[],
   b: CascaderOptionType[],
   inputValue: string,
-  names: FilledFieldNamesType
+  names: FilledFieldNamesType,
 ) {
   function callback(elem: CascaderOptionType) {
     return (elem[names.label] as string).indexOf(inputValue) > -1;
@@ -168,7 +168,7 @@ function getFilledFieldNames(props: CascaderProps) {
   const names: FilledFieldNamesType = {
     children: fieldNames.children || 'children',
     label: fieldNames.label || 'label',
-    value: fieldNames.value || 'value'
+    value: fieldNames.value || 'value',
   };
   return names;
 }
@@ -176,7 +176,7 @@ function getFilledFieldNames(props: CascaderProps) {
 function flattenTree(
   options: CascaderOptionType[],
   props: CascaderProps,
-  ancestor: CascaderOptionType[] = []
+  ancestor: CascaderOptionType[] = [],
 ) {
   const names: FilledFieldNamesType = getFilledFieldNames(props);
   let flattenOptions = [] as CascaderOptionType[][];
@@ -203,12 +203,12 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
     popupPlacement: 'bottomLeft',
     options: [],
     disabled: false,
-    allowClear: true
+    allowClear: true,
   };
 
   static getDerivedStateFromProps(nextProps: CascaderProps, { prevProps }: CascaderState) {
     const newState: Partial<CascaderState> = {
-      prevProps: nextProps
+      prevProps: nextProps,
     };
 
     if ('value' in nextProps) {
@@ -236,7 +236,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       inputFocused: false,
       popupVisible: props.popupVisible,
       flattenOptions: props.showSearch ? flattenTree(props.options, props) : undefined,
-      prevProps: props
+      prevProps: props,
     };
   }
 
@@ -256,7 +256,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       this.setState({
         popupVisible,
         inputFocused: popupVisible,
-        inputValue: popupVisible ? this.state.inputValue : ''
+        inputValue: popupVisible ? this.state.inputValue : '',
       });
     }
 
@@ -268,7 +268,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
 
   handleInputBlur = () => {
     this.setState({
-      inputFocused: false
+      inputFocused: false,
     });
   };
 
@@ -311,7 +311,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
     const unwrappedValue = Array.isArray(value[0]) ? value[0] : value;
     const selectedOptions: CascaderOptionType[] = arrayTreeFilter(
       options,
-      (o: CascaderOptionType, level: number) => o[names.value] === unwrappedValue[level]
+      (o: CascaderOptionType, level: number) => o[names.value] === unwrappedValue[level],
     );
     const label = selectedOptions.map(o => o[names.label]);
     return displayRender(label, selectedOptions);
@@ -328,14 +328,14 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
     }
   };
 
-  generateFilteredOptions(prefixCls: string | undefined, Locale: LocaleProperties["Cascader"]) {
+  generateFilteredOptions(prefixCls: string | undefined, Locale: LocaleProperties['Cascader']) {
     const { showSearch, notFoundContent = Locale.notFoundContent } = this.props;
     const names: FilledFieldNamesType = getFilledFieldNames(this.props);
     const {
       filter = defaultFilterOption,
       render = defaultRenderFilteredOption,
       sort = defaultSortFilteredOption,
-      limit = defaultLimit
+      limit = defaultLimit,
     } = showSearch as ShowSearchType;
     const { flattenOptions = [], inputValue } = this.state;
     // Limit the filter if needed
@@ -355,7 +355,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
     } else {
       warning(
         typeof limit !== 'number',
-        "'limit' of showSearch in Cascader should be positive number or false."
+        "'limit' of showSearch in Cascader should be positive number or false.",
       );
       filtered = flattenOptions.filter(path => filter(this.state.inputValue, path, names));
     }
@@ -367,7 +367,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
           path,
           [names.label]: render(inputValue, path, prefixCls, names),
           [names.value]: path.map((o: CascaderOptionType) => o[names.value]),
-          disabled: path.some((o: CascaderOptionType) => !!o.disabled)
+          disabled: path.some((o: CascaderOptionType) => !!o.disabled),
         } as CascaderOptionType;
       });
     }
@@ -375,8 +375,8 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       {
         [names.label]: notFoundContent,
         [names.value]: 'FISHD_CASCADER_NOT_FOUND',
-        disabled: true
-      }
+        disabled: true,
+      },
     ];
   }
 
@@ -412,7 +412,7 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
 
     const sizeCls = classNames({
       [`${inputPrefixCls}-lg`]: size === 'large',
-      [`${inputPrefixCls}-sm`]: size === 'small'
+      [`${inputPrefixCls}-sm`]: size === 'small',
     });
     const clearIcon =
       (allowClear && !disabled && value.length > 0) || state.inputValue ? (
@@ -424,14 +424,14 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       ) : null;
     const arrowCls = classNames({
       [`${prefixCls}-picker-arrow`]: true,
-      [`${prefixCls}-picker-arrow-expand`]: state.popupVisible
+      [`${prefixCls}-picker-arrow-expand`]: state.popupVisible,
     });
     const pickerCls = classNames(className, `${prefixCls}-picker`, {
       [`${prefixCls}-picker-with-value`]: state.inputValue,
       [`${prefixCls}-picker-disabled`]: disabled,
       [`${prefixCls}-picker-${size}`]: !!size,
       [`${prefixCls}-picker-show-search`]: !!showSearch,
-      [`${prefixCls}-picker-focused`]: inputFocused
+      [`${prefixCls}-picker-focused`]: inputFocused,
     });
 
     // Fix bug of https://github.com/facebook/react/pull/5004
@@ -454,11 +454,14 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
       'sortFilteredOption',
       'notFoundContent',
       'fieldNames',
-      'esc'
+      'esc',
     ]);
 
     const getOptionsAndOthers = Locale => {
-      let { notFoundContent = Locale.notFoundContent, placeholder = Locale.placeholder } = this.props;
+      const {
+        notFoundContent = Locale.notFoundContent,
+        placeholder = Locale.placeholder,
+      } = this.props;
       let options = props.options;
       if (state.inputValue) {
         options = this.generateFilteredOptions(prefixCls, Locale);
@@ -486,60 +489,60 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
         options,
         dropdownMenuColumnStyle,
         notFoundContent,
-        placeholder
+        placeholder,
       };
-    }
+    };
 
     const label = this.getLabel();
     const getInput = Locale => {
-      let { placeholder = Locale.placeholder } = this.props;
-      return children || (
-        <span style={style} className={pickerCls}>
-          <span
-            className={`${prefixCls}-picker-label`}
-            title={typeof label === 'string' ? label : ''}
-          >
-            {label}
+      const { placeholder = Locale.placeholder } = this.props;
+      return (
+        children || (
+          <span style={style} className={pickerCls}>
+            <span
+              className={`${prefixCls}-picker-label`}
+              title={typeof label === 'string' ? label : ''}
+            >
+              {label}
+            </span>
+            <Input
+              {...inputProps}
+              ref={this.saveInput}
+              prefixCls={inputPrefixCls}
+              placeholder={value && value.length > 0 ? undefined : placeholder}
+              className={`${prefixCls}-input ${sizeCls}`}
+              value={state.inputValue}
+              disabled={disabled}
+              readOnly={!showSearch}
+              autoComplete="off"
+              onClick={showSearch ? this.handleInputClick : undefined}
+              onBlur={showSearch ? this.handleInputBlur : undefined}
+              onKeyDown={this.handleKeyDown}
+              onChange={showSearch ? this.handleInputChange : undefined}
+            />
+            {clearIcon}
+            <Icon type="down-fill" className={arrowCls} />
           </span>
-          <Input
-            {...inputProps}
-            ref={this.saveInput}
-            prefixCls={inputPrefixCls}
-            placeholder={value && value.length > 0 ? undefined : placeholder}
-            className={`${prefixCls}-input ${sizeCls}`}
-            value={state.inputValue}
-            disabled={disabled}
-            readOnly={!showSearch}
-            autoComplete="off"
-            onClick={showSearch ? this.handleInputClick : undefined}
-            onBlur={showSearch ? this.handleInputBlur : undefined}
-            onKeyDown={this.handleKeyDown}
-            onChange={showSearch ? this.handleInputChange : undefined}
-          />
-          {clearIcon}
-          <Icon type="down-fill" className={arrowCls} />
-        </span>
+        )
       );
-    }
+    };
 
     return (
       <ConfigConsumer componentName="Cascader">
-        {
-          (Locale: LocaleProperties["Cascader"]) => {
-            return (<RcCascader
+        {(Locale: LocaleProperties['Cascader']) => {
+          return (
+            <RcCascader
               {...props}
-              {
-                ...getOptionsAndOthers(Locale)
-              }
+              {...getOptionsAndOthers(Locale)}
               value={value}
               popupVisible={state.popupVisible}
               onPopupVisibleChange={this.handlePopupVisibleChange}
               onChange={this.handleChange}
             >
               {getInput(Locale)}
-            </RcCascader>)
-          }
-        }
+            </RcCascader>
+          );
+        }}
       </ConfigConsumer>
     );
   }

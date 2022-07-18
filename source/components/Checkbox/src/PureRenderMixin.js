@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.

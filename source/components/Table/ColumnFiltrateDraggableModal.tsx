@@ -17,7 +17,7 @@ const getColumnKey = column => {
 };
 
 const flatten = arr => {
-  return arr.reduce(function (prev, next) {
+  return arr.reduce(function(prev, next) {
     return prev.concat(Array.isArray(next) ? flatten(next) : next);
   }, []);
 };
@@ -52,7 +52,10 @@ const getColSpanOption = columns => {
 };
 
 let DraggableTable = null;
-class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProps<T>, ColumnFiltrateState> {
+class ColumnFiltrateDraggableModal<T> extends React.Component<
+  ColumnFiltrateProps<T>,
+  ColumnFiltrateState
+> {
   static defaultProps = {
     columns: [],
     defaultColumns: [],
@@ -100,7 +103,7 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
         } else {
           return false;
         }
-      }
+      },
     });
   }
 
@@ -185,12 +188,12 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
     let selectRows = columns.filter(
       column => defaultColumns.findIndex(key => key === getColumnKey(column)) != -1,
     );
-    let unSelectRows = [];
-    for (let key of checkedOption) {
+    const unSelectRows = [];
+    for (const key of checkedOption) {
       selectRows = selectRows.concat(columns.filter(each => each.key == key));
     }
 
-    for (let each of columns.filter(
+    for (const each of columns.filter(
       column => defaultColumns.findIndex(key => key === getColumnKey(column)) === -1,
     )) {
       if (checkedOption.includes(each.key)) {
@@ -218,7 +221,7 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
         title: locale.draggableAction,
         dataIndex: 'operate',
         render: (val, row) => {
-          let isDefault = defaultColumns.findIndex(key => key === getColumnKey(row)) != -1;
+          const isDefault = defaultColumns.findIndex(key => key === getColumnKey(row)) != -1;
           if (checkedOption.findIndex(key => key === getColumnKey(row)) != -1 && !isDefault) {
             return <Icon type="sound-drag" />;
           } else {
@@ -248,34 +251,38 @@ class ColumnFiltrateDraggableModal<T> extends React.Component<ColumnFiltrateProp
                 okText={Locale.okText}
                 cancelText={Locale.cancelText}
               >
-                {
-                  DraggableTable ?
-                    <DraggableTable
-                      rowKey="key"
-                      columns={draggableTableColumns}
-                      dataSource={this.getDataSource()}
-                      pagination={false}
-                      rowSelection={{
-                        selectedRowKeys: checkedOption,
-                        hideDefaultSelections: true,
-                        showSelectAll: true,
-                        type: 'checkbox',
-                        onChange: this.onChange,
-                        getCheckboxProps: (record) => {
-                          let isDefault = defaultColumns.findIndex(key => key === getColumnKey(record)) != -1;
-                          return ({
-                            disabled: isDefault || record.filtrateDefault,
-                            name: record.title,
-                            checked: isDefault || checkedOption.findIndex(key => key === getColumnKey(record)) != -1
-                          });
-                        }
-                      }}
-                      onRowMoved={(fields) => {
-                        const checkedOption = fields.filter(each => each.selected).map(column => getColumnKey(column));
-                        this.onChange(checkedOption);
-                      }}
-                    />: null
-                }
+                {DraggableTable ? (
+                  <DraggableTable
+                    rowKey="key"
+                    columns={draggableTableColumns}
+                    dataSource={this.getDataSource()}
+                    pagination={false}
+                    rowSelection={{
+                      selectedRowKeys: checkedOption,
+                      hideDefaultSelections: true,
+                      showSelectAll: true,
+                      type: 'checkbox',
+                      onChange: this.onChange,
+                      getCheckboxProps: record => {
+                        const isDefault =
+                          defaultColumns.findIndex(key => key === getColumnKey(record)) != -1;
+                        return {
+                          disabled: isDefault || record.filtrateDefault,
+                          name: record.title,
+                          checked:
+                            isDefault ||
+                            checkedOption.findIndex(key => key === getColumnKey(record)) != -1,
+                        };
+                      },
+                    }}
+                    onRowMoved={fields => {
+                      const checkedOption = fields
+                        .filter(each => each.selected)
+                        .map(column => getColumnKey(column));
+                      this.onChange(checkedOption);
+                    }}
+                  />
+                ) : null}
               </Modal>
             </div>
           );

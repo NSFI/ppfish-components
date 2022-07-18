@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from '../Tooltip/index.tsx';
+import Tooltip from '../Tooltip/index';
 import Handle from './RcHandle';
 
 export default function createSliderWithTooltip(Component) {
@@ -18,7 +18,7 @@ export default function createSliderWithTooltip(Component) {
       this.state = { visibles: {} };
     }
     handleTooltipVisibleChange = (index, visible) => {
-      this.setState((prevState) => {
+      this.setState(prevState => {
         return {
           visibles: {
             ...prevState.visibles,
@@ -28,10 +28,7 @@ export default function createSliderWithTooltip(Component) {
       });
     };
     handleWithTooltip = ({ value, dragging, index, disabled, ...restProps }) => {
-      const {
-        tipProps,
-        handleStyle,
-      } = this.props;
+      const { tipProps, handleStyle } = this.props;
 
       const {
         prefixCls = 'rc-slider-tooltip',
@@ -55,7 +52,6 @@ export default function createSliderWithTooltip(Component) {
           visible={(!disabled && (this.state.visibles[index] || dragging)) || visible}
           key={index}
         >
-
           <Handle
             {...restProps}
             style={{

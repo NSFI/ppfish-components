@@ -34,11 +34,7 @@ export const HAVE_TRIGGER_TYPES = [
   'datetimerange',
 ];
 
-export const DATE_FORMATTER = function(
-  value,
-  format,
-  separator = RANGE_SEPARATOR,
-) {
+export const DATE_FORMATTER = function(value, format, separator = RANGE_SEPARATOR) {
   return formatDate(value, format);
 };
 
@@ -46,11 +42,7 @@ export const DATE_PARSER = function(text, format, separator = RANGE_SEPARATOR) {
   return parseDate(text, format);
 };
 
-export const RANGE_FORMATTER = function(
-  value,
-  format,
-  separator = RANGE_SEPARATOR,
-) {
+export const RANGE_FORMATTER = function(value, format, separator = RANGE_SEPARATOR) {
   if (Array.isArray(value) && value.length === 2) {
     const start = value[0];
     const end = value[1];
@@ -62,11 +54,7 @@ export const RANGE_FORMATTER = function(
   return '';
 };
 
-export const RANGE_PARSER = function(
-  text,
-  format,
-  separator = RANGE_SEPARATOR,
-) {
+export const RANGE_PARSER = function(text, format, separator = RANGE_SEPARATOR) {
   const array = text.split(separator);
   if (array.length === 2) {
     const range1 = array[0];
@@ -92,11 +80,7 @@ export const TYPE_VALUE_RESOLVER_MAP = {
       if (value instanceof Date) {
         if (!format) {
           const weekNumber = getWeekNumber(value);
-          return (
-            value.getFullYear() +
-            'w' +
-            (weekNumber > 9 ? weekNumber : '0' + weekNumber)
-          );
+          return value.getFullYear() + 'w' + (weekNumber > 9 ? weekNumber : '0' + weekNumber);
         } else {
           let str = '';
           if (format.indexOf('W') === -1) {
@@ -108,9 +92,7 @@ export const TYPE_VALUE_RESOLVER_MAP = {
           } else {
             str = DATE_FORMATTER(value, format);
             if (str) {
-              let weekno = deconstructDate(
-                new Date(value.getTime() + DAY_DURATION),
-              ).week;
+              const weekno = deconstructDate(new Date(value.getTime() + DAY_DURATION)).week;
               const toReplaceText = weekno < 10 ? `0${weekno}` : `${weekno}`;
               str = /WW/.test(str)
                 ? str.replace(/WW/, toReplaceText)
@@ -125,7 +107,7 @@ export const TYPE_VALUE_RESOLVER_MAP = {
     },
     parser(text, format) {
       const weekno = (matcher, src) => {
-        let str = src.substr(matcher.index, matcher.length);
+        const str = src.substr(matcher.index, matcher.length);
         if (/\d\d?/.test(str)) {
           return { week: Number(str), isValid: true };
         } else {
@@ -133,8 +115,8 @@ export const TYPE_VALUE_RESOLVER_MAP = {
         }
       };
 
-      let date = DATE_PARSER(text, format);
-      let matcher = format.match(/(WW?)/);
+      const date = DATE_PARSER(text, format);
+      const matcher = format.match(/(WW?)/);
       let wn = null;
 
       if (!matcher) return date;
@@ -199,7 +181,7 @@ export const TYPE_VALUE_RESOLVER_MAP = {
       return '' + value;
     },
     parser(text) {
-      let result = Number(text);
+      const result = Number(text);
 
       if (!isNaN(text)) {
         return result;

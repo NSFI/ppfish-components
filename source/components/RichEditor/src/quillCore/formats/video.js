@@ -22,7 +22,7 @@ class Video extends BlockEmbed {
   }
 
   static sanitize(url) {
-    return Link.sanitize(url); // eslint-disable-line import/no-named-as-default-member
+    return Link.sanitize(url);
   }
 
   static value(domNode) {

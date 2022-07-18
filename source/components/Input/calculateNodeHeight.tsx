@@ -31,7 +31,7 @@ const SIZING_STYLE = [
   'padding-left',
   'padding-right',
   'border-width',
-  'box-sizing'
+  'box-sizing',
 ];
 
 export interface NodeType {
@@ -41,7 +41,7 @@ export interface NodeType {
   boxSizing: string;
 }
 
-let computedStyleCache: { [key: string]: NodeType } = {};
+const computedStyleCache: { [key: string]: NodeType } = {};
 let hiddenTextarea: HTMLTextAreaElement;
 
 function calculateNodeStyling(node: HTMLElement, useCache = false) {
@@ -74,7 +74,7 @@ function calculateNodeStyling(node: HTMLElement, useCache = false) {
     sizingStyle,
     paddingSize,
     borderSize,
-    boxSizing
+    boxSizing,
   };
 
   if (useCache && nodeRef) {
@@ -88,7 +88,7 @@ export default function calculateNodeHeight(
   uiTextNode: HTMLTextAreaElement,
   useCache = false,
   minRows: number | null = null,
-  maxRows: number | null = null
+  maxRows: number | null = null,
 ) {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea');
@@ -105,9 +105,9 @@ export default function calculateNodeHeight(
 
   // Copy all CSS properties that have an impact on the height of the content in
   // the textbox
-  let { paddingSize, borderSize, boxSizing, sizingStyle } = calculateNodeStyling(
+  const { paddingSize, borderSize, boxSizing, sizingStyle } = calculateNodeStyling(
     uiTextNode,
-    useCache
+    useCache,
   );
 
   // Need to have the overflow attribute to hide the scrollbar otherwise
@@ -132,7 +132,7 @@ export default function calculateNodeHeight(
   if (minRows !== null || maxRows !== null) {
     // measure height of a textarea with a single row
     hiddenTextarea.value = ' ';
-    let singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
+    const singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
     if (minRows !== null) {
       minHeight = singleRowHeight * minRows;
       if (boxSizing === 'border-box') {

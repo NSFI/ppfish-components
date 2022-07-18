@@ -5,7 +5,7 @@ import warning from 'warning';
 import Track from './common/Track';
 import createSlider from './common/createSlider';
 import * as utils from './utils';
-import {polyfill} from 'react-lifecycles-compat';
+import { polyfill } from 'react-lifecycles-compat';
 
 class Slider extends React.Component {
   static propTypes = {
@@ -17,40 +17,36 @@ class Slider extends React.Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-
     if (!('value' in nextProps || 'min' in nextProps || 'max' in nextProps)) return null;
 
     const prevValue = prevState.value;
-    const value = nextProps.value !== undefined
-      ? nextProps.value
-      : prevValue;
+    const value = nextProps.value !== undefined ? nextProps.value : prevValue;
     const val = utils.ensureValueInRange(value, nextProps);
     const nextValue = utils.ensureValuePrecision(val, nextProps);
     if (nextValue === prevValue) return null;
 
-    return ({ value: nextValue });
+    return { value: nextValue };
   }
 
   constructor(props) {
     super(props);
 
-    const defaultValue = props.defaultValue !== undefined ?
-            props.defaultValue : props.min;
-    const value = props.value !== undefined ?
-            props.value : defaultValue;
+    const defaultValue = props.defaultValue !== undefined ? props.defaultValue : props.min;
+    const value = props.value !== undefined ? props.value : defaultValue;
 
     this.state = {
       value: this.trimAlignValue(value),
       dragging: false,
     };
+    // eslint-disable-next-line no-undef
     if (process.env.NODE_ENV !== 'production') {
       warning(
         !('minimumTrackStyle' in props),
-        'minimumTrackStyle will be deprecate, please use trackStyle instead.'
+        'minimumTrackStyle will be deprecate, please use trackStyle instead.',
       );
       warning(
         !('maximumTrackStyle' in props),
-        'maximumTrackStyle will be deprecate, please use railStyle instead.'
+        'maximumTrackStyle will be deprecate, please use railStyle instead.',
       );
     }
   }
@@ -65,10 +61,10 @@ class Slider extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     let prevValue = prevState.value;
     let currentValue = this.state.value;
-    const {onChange} = this.props;
+    const { onChange } = this.props;
     if (prevValue !== currentValue) {
       if (onChange && utils.isValueOutOfRange(currentValue, this.props)) {
-         onChange(currentValue);
+        onChange(currentValue);
       }
     }
   }
@@ -105,7 +101,7 @@ class Slider extends React.Component {
     this.setState({ dragging: false });
     this.removeDocumentEvents();
     this.props.onAfterChange(this.getValue());
-  }
+  };
 
   onMove(e, position) {
     utils.pauseEvent(e);

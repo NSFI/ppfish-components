@@ -42,11 +42,11 @@ export default class Checkbox extends React.Component<CheckboxProps, {}> {
   static Group: typeof CheckboxGroup;
   static defaultProps = {
     prefixCls: 'fishd-checkbox',
-    indeterminate: false
+    indeterminate: false,
   };
 
   static contextTypes = {
-    checkboxGroup: PropTypes.any
+    checkboxGroup: PropTypes.any,
   };
 
   private rcCheckbox: any;
@@ -54,7 +54,7 @@ export default class Checkbox extends React.Component<CheckboxProps, {}> {
   shouldComponentUpdate(
     nextProps: CheckboxProps,
     nextState: {},
-    nextContext: CheckboxGroupContext
+    nextContext: CheckboxGroupContext,
   ) {
     return (
       !shallowEqual(this.props, nextProps) ||
@@ -88,7 +88,7 @@ export default class Checkbox extends React.Component<CheckboxProps, {}> {
       ...restProps
     } = props;
     const { checkboxGroup } = context;
-    let checkboxProps: CheckboxProps = { ...restProps };
+    const checkboxProps: CheckboxProps = { ...restProps };
     if (checkboxGroup) {
       checkboxProps.onChange = () =>
         checkboxGroup.toggleOption({ label: children, value: props.value });
@@ -96,10 +96,10 @@ export default class Checkbox extends React.Component<CheckboxProps, {}> {
       checkboxProps.disabled = props.disabled || checkboxGroup.disabled;
     }
     const classString = classNames(className, {
-      [`${prefixCls}-wrapper`]: true
+      [`${prefixCls}-wrapper`]: true,
     });
     const checkboxClass = classNames({
-      [`${prefixCls}-indeterminate`]: indeterminate
+      [`${prefixCls}-indeterminate`]: indeterminate,
     });
     return (
       <label

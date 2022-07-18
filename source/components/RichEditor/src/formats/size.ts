@@ -1,29 +1,31 @@
-import { Quill } from "../quill";
+import { Quill } from '../quill';
 const Inline = Quill.import('blots/inline');
 
-
 interface setAttrType {
-  node: HTMLElement,
-  value: string | number | {
-    editable?: boolean | string,
-    fontSize: string | number,
-    lineHeight: string
-  }
+  node: HTMLElement;
+  value:
+    | string
+    | number
+    | {
+        editable?: boolean | string;
+        fontSize: string | number;
+        lineHeight: string;
+      };
 }
 
 const setAttr = (node: setAttrType['node'], value: setAttrType['value']): HTMLElement => {
   if (typeof value == 'string' || typeof value == 'number') {
     node.style.fontSize = value as string;
-  } else if (Object.prototype.toString.call(value) == "[object Object]") {
+  } else if (Object.prototype.toString.call(value) == '[object Object]') {
     if (value.editable != null) {
-      node.setAttribute('contenteditable', (value.editable as string));
+      node.setAttribute('contenteditable', value.editable as string);
     }
 
     if (value.fontSize != null) {
-      node.style.fontSize = (value.fontSize as string);
+      node.style.fontSize = value.fontSize as string;
     }
 
-    if(value.lineHeight) {
+    if (value.lineHeight) {
       node.style.lineHeight = value.lineHeight;
       node.style.display = 'inline-block';
     }
@@ -38,25 +40,27 @@ class CustomAttrBlot extends Inline {
   static tagName: string;
 
   statics: {
-    blotName: string,
-  }
+    blotName: string;
+  };
   domNode: HTMLElement;
 
   static create(value): HTMLElement {
-    let node = super.create();
+    const node = super.create();
     return setAttr(node, value);
   }
 
-  static formats(node: HTMLElement): {
-    fontSize: string,
-    editable: string,
-    lineHeight: string,
+  static formats(
+    node: HTMLElement,
+  ): {
+    fontSize: string;
+    editable: string;
+    lineHeight: string;
   } {
     // 返回值不能为 null（Fix bug: Cannot read property 'mutations' of undefined）
     return {
       lineHeight: node.style.lineHeight,
       fontSize: node.style.fontSize,
-      editable: node.getAttribute('contenteditable')
+      editable: node.getAttribute('contenteditable'),
     };
   }
 

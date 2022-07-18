@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { setTransform, isTransformSupported } from './utils';
 
-const isDev = process.env.NODE_ENV !== 'production';
-
 export function getScroll(w, top) {
   let ret = w[`page${top ? 'Y' : 'X'}Offset`];
   const method = `scroll${top ? 'Top' : 'Left'}`;
@@ -36,7 +34,8 @@ function offset(elem) {
   x += getScroll(w);
   y += getScroll(w, true);
   return {
-    left: x, top: y,
+    left: x,
+    top: y,
   };
 }
 
@@ -132,11 +131,7 @@ export default class InkTabBarNode extends React.Component {
     const className = `${prefixCls}-ink-bar`;
     const classes = classnames({
       [className]: true,
-      [
-        inkBarAnimated ?
-          `${className}-animated` :
-          `${className}-no-animated`
-        ]: true,
+      [inkBarAnimated ? `${className}-animated` : `${className}-no-animated`]: true,
     });
     return (
       <div

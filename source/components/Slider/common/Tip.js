@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from '../../Tooltip/index.tsx';
+import Tooltip from '../../Tooltip/index';
 
 export default class Tip extends React.Component {
   static propTypes = {
@@ -10,14 +10,11 @@ export default class Tip extends React.Component {
     position: PropTypes.number,
     vertical: PropTypes.bool,
     visible: PropTypes.bool,
-    title: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.string
-    ])
+    title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   };
 
   render() {
-    const {visible, position, vertical, title, prefixCls} = this.props;
+    const { visible, position, vertical, title, prefixCls } = this.props;
     const tipStyle = {
       position: 'absolute',
     };
@@ -36,9 +33,8 @@ export default class Tip extends React.Component {
 
     return (
       <Tooltip title={title} visible={visible}>
-        <div className={`${prefixCls}-all-handle`} style={tipStyle}/>
+        <div className={`${prefixCls}-all-handle`} style={tipStyle} />
       </Tooltip>
     );
   }
 }
-

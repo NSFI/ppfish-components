@@ -1,8 +1,8 @@
-import {Quill} from '../quill';
+import { Quill } from '../quill';
 const Embed = Quill.import('blots/embed');
 
 interface EmojiBlotCreateType extends HTMLImageElement {
-  type: string
+  type: string;
 }
 
 class EmojiBlot extends Embed {
@@ -10,7 +10,7 @@ class EmojiBlot extends Embed {
   static tagName: string;
 
   static create(value: EmojiBlotCreateType) {
-    let node = super.create();
+    const node = super.create();
 
     if (value.type === 'defaultEmoji') {
       node.setAttribute('class', 'portrait_icon');

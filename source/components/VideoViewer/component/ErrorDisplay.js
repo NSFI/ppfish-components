@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../../Icon/index.tsx';
+import Icon from '../../Icon/index';
 import { MEDIA_ERROR } from '../constant';
 import ConfigConsumer from '../../Config/Consumer';
 
 export default class ErrorDisplay extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
-    vjsComponent: PropTypes.object
+    vjsComponent: PropTypes.object,
   };
 
   static defaultProps = {
-    prefixCls: 'fishd-video-error'
-  }
+    prefixCls: 'fishd-video-error',
+  };
 
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ export default class ErrorDisplay extends Component {
 
     this.state = {
       // MediaError对象, 包含了音频/视频的错误状态。http://www.w3school.com.cn/tags/av_prop_error.asp
-      mediaError: null
+      mediaError: null,
     };
   }
 
@@ -36,9 +36,9 @@ export default class ErrorDisplay extends Component {
 
   getMediaError = () => {
     this.setState({
-      mediaError: this.player.error()
+      mediaError: this.player.error(),
     });
-  }
+  };
 
   // 断网重试
   handleRetry = () => {
@@ -48,7 +48,7 @@ export default class ErrorDisplay extends Component {
     this.player.load();
     this.player.currentTime(currentTime);
     this.player.play();
-  }
+  };
 
   render() {
     const { vjsComponent, prefixCls } = this.props;
@@ -58,29 +58,23 @@ export default class ErrorDisplay extends Component {
 
     return (
       <ConfigConsumer componentName="VideoViewer">
-        {
-          (Locale) => {
-            return (
-              <div className={prefixCls}>
-                {
-                  mediaError ?
-                    <div className={`${prefixCls}-msg`}>
-                      {errorMessage}
-                      {
-                        mediaError.code === 2 ?
-                          <a className={`${prefixCls}-retry`} onClick={this.handleRetry}>
-                            <Icon type="picture-rotate" />
-                            {Locale.retry}
-                          </a>
-                          : null
-                      }
-                    </div>
-                    : null
-                }
-              </div>
-            );
-          }
-        }
+        {Locale => {
+          return (
+            <div className={prefixCls}>
+              {mediaError ? (
+                <div className={`${prefixCls}-msg`}>
+                  {errorMessage}
+                  {mediaError.code === 2 ? (
+                    <a className={`${prefixCls}-retry`} onClick={this.handleRetry}>
+                      <Icon type="picture-rotate" />
+                      {Locale.retry}
+                    </a>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          );
+        }}
       </ConfigConsumer>
     );
   }

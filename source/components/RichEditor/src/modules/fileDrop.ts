@@ -1,26 +1,29 @@
-export interface quill{
-  root: HTMLElement,
-  getSelection: Function,
-  getLength: Function,
-  getFormat: Function,
-  updateContents: Function,
-  setSelection: Function,
-  insertEmbed: Function,
-  insertText: Function,
+export interface quill {
+  root: HTMLElement;
+  getSelection: Function;
+  getLength: Function;
+  getFormat: Function;
+  updateContents: Function;
+  setSelection: Function;
+  insertEmbed: Function;
+  insertText: Function;
 }
 
 export default class FileDrop {
-  quill: quill
+  quill: quill;
   customDropFile: any;
   private attachmentIconMap: any;
 
-  constructor(quill, options = {
-    customDropFile: undefined,
-    attachmentIconMap : undefined
-  }) {
+  constructor(
+    quill,
+    options = {
+      customDropFile: undefined,
+      attachmentIconMap: undefined,
+    },
+  ) {
     this.quill = quill;
     this.customDropFile = options.customDropFile || null;
-    this.attachmentIconMap = options.attachmentIconMap || {}
+    this.attachmentIconMap = options.attachmentIconMap || {};
     this.handleDrop = this.handleDrop.bind(this);
     this.handlePaste = this.handlePaste.bind(this);
     this.quill.root.addEventListener('drop', this.handleDrop, true);
@@ -35,8 +38,10 @@ export default class FileDrop {
         const range = document.caretRangeFromPoint(evt.clientX, evt.clientY);
         if (selection && range) {
           selection.setBaseAndExtent(
-            range.startContainer, range.startOffset,
-            range.startContainer, range.startOffset
+            range.startContainer,
+            range.startOffset,
+            range.startContainer,
+            range.startOffset,
           );
         }
       }
@@ -53,7 +58,7 @@ export default class FileDrop {
         len = evt.clipboardData.items.length;
 
       for (let i = 0; i < len; i++) {
-        let item = evt.clipboardData.items[i];
+        const item = evt.clipboardData.items[i];
         if (item.kind == 'file') {
           hasFile = true;
           break;
@@ -70,29 +75,30 @@ export default class FileDrop {
     }
   }
 
-  handleFileInsert(fileInfo):void {
+  handleFileInsert(fileInfo): void {
     if (!(fileInfo.url || fileInfo.src)) return;
 
     const range = this.quill.getSelection() || {},
-      index = (range.index != undefined) ? range.index : this.quill.getLength(),
+      index = range.index != undefined ? range.index : this.quill.getLength(),
       curFormat = this.quill.getFormat(range);
 
-    if (fileInfo.type == 'image') {			// 插入图片
+    if (fileInfo.type == 'image') {
+      // 插入图片
       if (!fileInfo.src) {
         return;
       }
 
       // 继承列表的样式
-      let listFormat = {
+      const listFormat = {
         list: undefined,
       };
       if (curFormat && curFormat.list) {
         listFormat.list = curFormat.list;
       }
 
-      let delta = <any>[
-        { insert: { 'image': fileInfo }, attributes: { ...listFormat } },
-        { insert: ' ' } // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
+      const delta = <any>[
+        { insert: { image: fileInfo }, attributes: { ...listFormat } },
+        { insert: ' ' }, // 在图片后添加一个空格，避免图片与附件相邻时，再在图片后拖入附件，图片异常添加附件的样式
       ];
 
       if (index > 0) {
@@ -101,37 +107,43 @@ export default class FileDrop {
 
       this.quill.updateContents(delta);
       this.quill.setSelection(index + 2);
-    } else if (fileInfo.type == 'video') {	// 插入视频
+    } else if (fileInfo.type == 'video') {
+      // 插入视频
       if (!fileInfo.src) {
         return;
       }
       this.quill.insertEmbed(index, 'myVideo', fileInfo);
       this.quill.setSelection(index + 2);
-    } else {								// 插入附件
+    } else {
+      // 插入附件
       if (!fileInfo.url || !fileInfo.name) {
         return;
       }
       const attrs = {
         url: fileInfo.url && fileInfo.url.trim(),
         name: fileInfo.name,
-        iconUrl: this.attachmentIconMap[fileInfo.type] || this.attachmentIconMap['default']
-          || "//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd"
+        iconUrl:
+          this.attachmentIconMap[fileInfo.type] ||
+          this.attachmentIconMap['default'] ||
+          '//res.qiyukf.net/operation/2edfafe507a11ad70724973bb505addd',
       };
 
-      this.quill.insertEmbed(index, "attach", attrs);
+      this.quill.insertEmbed(index, 'attach', attrs);
       this.quill.setSelection(index, 'silent');
     }
   }
 
-  insert(fileList: any):void {
+  insert(fileList: any): void {
     if (Array.isArray(fileList)) {
-      fileList.sort((a, b) => {
-        // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
-        let order = ['other', 'image', 'video'];
-        return order.indexOf(b.type) - order.indexOf(a.type);
-      }).forEach((file) => {
-        file && this.handleFileInsert(file);
-      });
+      fileList
+        .sort((a, b) => {
+          // 单次插入多个不同类型的文件时，按”视频 -> 图片 -> 其他文件“的顺序排列
+          const order = ['other', 'image', 'video'];
+          return order.indexOf(b.type) - order.indexOf(a.type);
+        })
+        .forEach(file => {
+          file && this.handleFileInsert(file);
+        });
     } else {
       fileList && this.handleFileInsert(fileList);
     }

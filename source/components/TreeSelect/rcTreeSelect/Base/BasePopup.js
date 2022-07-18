@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { polyfill } from 'react-lifecycles-compat';
 import Tree from '../../rcTree';
-import Spin from '../../../Spin/index.tsx';
+import Spin from '../../../Spin/index';
 
 export const popupContextTypes = {
   onPopupKeyDown: PropTypes.func.isRequired,
@@ -19,16 +19,10 @@ class BasePopup extends React.Component {
     valueEntities: PropTypes.object,
     keyEntities: PropTypes.object,
     showIcon: PropTypes.bool,
-    icon: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.node,
-    ]),
+    icon: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
     treeLine: PropTypes.bool,
     treeNodeFilterProp: PropTypes.string,
-    treeCheckable: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.node,
-    ]),
+    treeCheckable: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
     doCheckChildInSearch: PropTypes.bool,
     treeCheckStrictly: PropTypes.bool,
     treeCheckType: PropTypes.string,
@@ -41,10 +35,7 @@ class BasePopup extends React.Component {
 
     treeNodes: PropTypes.node,
     filteredTreeNodes: PropTypes.node,
-    notFoundContent: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-    ]),
+    notFoundContent: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 
     ariaId: PropTypes.string,
 
@@ -67,7 +58,13 @@ class BasePopup extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { prevProps = {}, loadedKeys } = prevState || {};
-    const { valueList, valueEntities, keyEntities, filteredTreeNodes, upperSearchValue } = nextProps;
+    const {
+      valueList,
+      valueEntities,
+      keyEntities,
+      filteredTreeNodes,
+      upperSearchValue,
+    } = nextProps;
 
     const newState = {
       prevProps: nextProps,
@@ -84,16 +81,24 @@ class BasePopup extends React.Component {
     // 清空搜索内容后恢复搜索前的展开状态
     if (upperSearchValue && !prevState.savedExpandedKeyList) {
       // 保存搜索前展开的节点
-      newState.prevExpandedKeyList = Array.isArray(prevState.expandedKeyList) ? [...prevState.expandedKeyList] : [];
+      newState.prevExpandedKeyList = Array.isArray(prevState.expandedKeyList)
+        ? [...prevState.expandedKeyList]
+        : [];
       newState.savedExpandedKeyList = true;
     } else if (!upperSearchValue && prevState.savedExpandedKeyList) {
       // 恢复搜索前展开的节点
-      newState.expandedKeyList = Array.isArray(prevState.prevExpandedKeyList) ? [...prevState.prevExpandedKeyList] : [];
+      newState.expandedKeyList = Array.isArray(prevState.prevExpandedKeyList)
+        ? [...prevState.prevExpandedKeyList]
+        : [];
       newState.savedExpandedKeyList = false;
     }
 
     // Show all when tree is in filter mode
-    if (filteredTreeNodes && filteredTreeNodes.length && filteredTreeNodes !== prevProps.filteredTreeNodes) {
+    if (
+      filteredTreeNodes &&
+      filteredTreeNodes.length &&
+      filteredTreeNodes !== prevProps.filteredTreeNodes
+    ) {
       newState.expandedKeyList = Object.keys(keyEntities);
     }
 
@@ -108,10 +113,7 @@ class BasePopup extends React.Component {
   constructor(props) {
     super();
 
-    const {
-      treeDefaultExpandAll, treeDefaultExpandedKeys,
-      keyEntities,
-    } = props;
+    const { treeDefaultExpandAll, treeDefaultExpandedKeys, keyEntities } = props;
 
     // TODO: make `expandedKeyList` control
     let expandedKeyList = treeDefaultExpandedKeys;
@@ -134,7 +136,7 @@ class BasePopup extends React.Component {
     onExpand && onExpand(expandedKeyList, extra);
   };
 
-  onLoad = (loadedKeys) => {
+  onLoad = loadedKeys => {
     this.setState({ loadedKeys });
   };
 
@@ -142,12 +144,12 @@ class BasePopup extends React.Component {
    * This method pass to Tree component which is used for add filtered class
    * in TreeNode > li
    */
-  filterTreeNode = (treeNode) => {
+  filterTreeNode = treeNode => {
     const { upperSearchValue, treeNodeFilterProp } = this.props;
 
     const filterVal = treeNode.props[treeNodeFilterProp];
     if (typeof filterVal === 'string') {
-      return upperSearchValue && (filterVal).toUpperCase().indexOf(upperSearchValue) !== -1;
+      return upperSearchValue && filterVal.toUpperCase().indexOf(upperSearchValue) !== -1;
     }
 
     return false;
@@ -158,7 +160,7 @@ class BasePopup extends React.Component {
 
     return (
       <span className={`${prefixCls}-not-found`}>
-        { loading ? <Spin size="small"/> : notFoundContent }
+        {loading ? <Spin size="small" /> : notFoundContent}
       </span>
     );
   };
@@ -167,8 +169,14 @@ class BasePopup extends React.Component {
     const { keyList, expandedKeyList, loadedKeys } = this.state;
     const {
       prefixCls,
-      treeNodes, filteredTreeNodes,
-      showIcon, treeLine, treeCheckable, treeCheckStrictly, treeCheckType, multiple,
+      treeNodes,
+      filteredTreeNodes,
+      showIcon,
+      treeLine,
+      treeCheckable,
+      treeCheckStrictly,
+      treeCheckType,
+      multiple,
       loadData,
       loading,
       ariaId,
@@ -176,13 +184,11 @@ class BasePopup extends React.Component {
       renderResetItem,
       autoExpandParent,
       icon,
-      doCheckChildInSearch
+      doCheckChildInSearch,
     } = this.props;
-    const { rcTreeSelect: {
-      onPopupKeyDown,
-      onTreeNodeSelect,
-      onTreeNodeCheck,
-    } } = this.context;
+    const {
+      rcTreeSelect: { onPopupKeyDown, onTreeNodeSelect, onTreeNodeCheck },
+    } = this.context;
 
     const treeProps = {};
 

@@ -13,11 +13,11 @@ export default class Radio extends React.Component<RadioProps, {}> {
 
   static defaultProps = {
     prefixCls: 'fishd-radio',
-    type: 'radio'
+    type: 'radio',
   };
 
   static contextTypes = {
-    radioGroup: PropTypes.any
+    radioGroup: PropTypes.any,
   };
 
   private rcCheckbox: any;
@@ -46,7 +46,7 @@ export default class Radio extends React.Component<RadioProps, {}> {
     const { props, context } = this;
     const { prefixCls, className, children, style, ...restProps } = props;
     const { radioGroup } = context;
-    let radioProps: RadioProps = { ...restProps };
+    const radioProps: RadioProps = { ...restProps };
     if (radioGroup) {
       radioProps.name = radioGroup.name;
       radioProps.onChange = radioGroup.onChange;
@@ -56,7 +56,7 @@ export default class Radio extends React.Component<RadioProps, {}> {
     const wrapperClassString = classNames(className, {
       [`${prefixCls}-wrapper`]: true,
       [`${prefixCls}-wrapper-checked`]: radioProps.checked,
-      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled
+      [`${prefixCls}-wrapper-disabled`]: radioProps.disabled,
     });
 
     return (

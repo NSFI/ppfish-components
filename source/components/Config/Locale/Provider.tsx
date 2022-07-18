@@ -5,7 +5,7 @@ import { LocaleProperties } from '../../Locale';
 import { Provider } from './Context';
 
 let runtimeLocale: {
-  locale?: string,
+  locale?: string;
 } = {};
 
 export function getRuntimeLocale(componentName) {
@@ -23,21 +23,16 @@ export function changeRuntimeLocale(LocaleValue?: LocaleProperties) {
   } else {
     runtimeLocale = LocaleValue;
   }
-};
+}
 
-export default (props: {
-  Locale: LocaleProperties,
-  children?: React.ReactNode
-}) => {
-  const Locale = (props.Locale) || zh_CN;
+const ProviderWrap = (props: { Locale: LocaleProperties; children?: React.ReactNode }) => {
+  const Locale = props.Locale || zh_CN;
   const { children } = props;
   const renderProvider = () => {
     changeRuntimeLocale(Locale);
-    return props.children
-  }
-  return <Provider value={Locale}>
-    {
-      renderProvider()
-    }
-  </Provider>
+    return props.children;
+  };
+  return <Provider value={Locale}>{renderProvider()}</Provider>;
 };
+
+export default ProviderWrap;

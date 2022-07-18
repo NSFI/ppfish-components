@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Icon from '../../Icon/index.tsx';
-import Popover from '../../Popover/index.tsx';
-import Slider from '../../Slider/index.tsx';
+import Icon from '../../Icon/index';
+import Popover from '../../Popover/index';
+import Slider from '../../Slider/index';
 
 export default class FullScreen extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
-    vjsComponent: PropTypes.object
+    vjsComponent: PropTypes.object,
   };
 
   static defaultProps = {
-    prefixCls: 'fishd-video-viewer-volume'
-  }
+    prefixCls: 'fishd-video-viewer-volume',
+  };
 
   constructor(props) {
     super(props);
@@ -21,37 +21,37 @@ export default class FullScreen extends Component {
     this.player = props.vjsComponent.player_;
 
     this.state = {
-      isMuted: false,                                        // 是否静音
-      currentVolume: parseInt(this.player.volume() * 100),   // 当前音量
-      lastVolume: parseInt(this.player.volume() * 100),      // 记录上一次音量，点击音量时恢复
-      volumeOpen: false,                                     // 是否打开音量控制
+      isMuted: false, // 是否静音
+      currentVolume: parseInt(this.player.volume() * 100), // 当前音量
+      lastVolume: parseInt(this.player.volume() * 100), // 记录上一次音量，点击音量时恢复
+      volumeOpen: false, // 是否打开音量控制
     };
   }
 
   // 音量值变化
-  handleChangeVolume = (value) => {
+  handleChangeVolume = value => {
     this.setState({
       currentVolume: value,
       lastVolume: value,
-      isMuted: !value
+      isMuted: !value,
     });
-  }
+  };
 
   // 音量面板状态变化
-  onVolumeVisibleChange = (state) => {
+  onVolumeVisibleChange = state => {
     this.setState({
-      volumeOpen: state
+      volumeOpen: state,
     });
-  }
+  };
 
   // 点击音量
   handleVolumeClick = () => {
     const { isMuted, lastVolume } = this.state;
     this.setState({
       isMuted: !isMuted,
-      currentVolume: isMuted ? lastVolume : 0
+      currentVolume: isMuted ? lastVolume : 0,
     });
-  }
+  };
 
   render() {
     const { prefixCls } = this.props;
@@ -79,10 +79,14 @@ export default class FullScreen extends Component {
               min={0}
               max={100}
               step={1}
-              handle={<div className={`${prefixCls}-customer-handle`}><Icon type="sound-drag"/></div>}
+              handle={
+                <div className={`${prefixCls}-customer-handle`}>
+                  <Icon type="sound-drag" />
+                </div>
+              }
               tipFormatter={null}
               value={currentVolume}
-              onChange={(value) => this.handleChangeVolume(value)}
+              onChange={value => this.handleChangeVolume(value)}
             />
           </div>
         </div>
@@ -90,16 +94,16 @@ export default class FullScreen extends Component {
     };
 
     return (
-      <div className={classnames(prefixCls, "fishd-video-js-customer-button")}>
+      <div className={classnames(prefixCls, 'fishd-video-js-customer-button')}>
         <Popover
           trigger="hover"
           placement="top"
           content={getVolumePopupContent(currentVolume)}
           visible={volumeOpen}
           onVisibleChange={this.onVolumeVisibleChange}
-          getPopupContainer={(node)=>node.parentNode}
+          getPopupContainer={node => node.parentNode}
         >
-          <Icon className="control-volume" type={volumeIcon()} onClick={this.handleVolumeClick}/>
+          <Icon className="control-volume" type={volumeIcon()} onClick={this.handleVolumeClick} />
         </Popover>
       </div>
     );

@@ -15,7 +15,7 @@ function checkSelection(props, data, type: string, byDefaultChecked: boolean) {
     return byDefaultChecked
       ? data[type]((item, i) => getCheckboxPropsByItem(item, i).defaultChecked)
       : data[type](
-          (item, i) => store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0
+          (item, i) => store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0,
         );
   }
   return false;
@@ -52,7 +52,7 @@ function getIndeterminateState(props) {
 function getCheckAndIndeterminateState(props, state) {
   const checked = getCheckState(props);
   const indeterminate = getIndeterminateState(props);
-  let newState: SelectionCheckboxAllState = {};
+  const newState: SelectionCheckboxAllState = {};
   if (indeterminate !== state.indeterminate) {
     newState.indeterminate = indeterminate;
   }
@@ -82,18 +82,18 @@ class SelectionCheckboxAll<T> extends React.Component<
           {
             key: 'all',
             text: props.locale.selectAll,
-            onSelect: () => {}
+            onSelect: () => {},
           },
           {
             key: 'invert',
             text: props.locale.selectInvert,
-            onSelect: () => {}
-          }
+            onSelect: () => {},
+          },
         ];
 
     this.state = {
       checked: getCheckState(props),
-      indeterminate: getIndeterminateState(props)
+      indeterminate: getIndeterminateState(props),
     };
   }
 
@@ -115,7 +115,7 @@ class SelectionCheckboxAll<T> extends React.Component<
   }
 
   handleSelectAllChange = (e: CheckboxChangeEvent) => {
-    let checked = e.target.checked;
+    const checked = e.target.checked;
     this.props.onSelect(checked ? 'all' : 'removeAll', 0, null);
   };
 
@@ -139,12 +139,12 @@ class SelectionCheckboxAll<T> extends React.Component<
     const { disabled, prefixCls, selections, getPopupContainer } = this.props;
     const { checked, indeterminate } = this.state;
 
-    let selectionPrefixCls = `${prefixCls}-selection`;
+    const selectionPrefixCls = `${prefixCls}-selection`;
 
     let customSelections: React.ReactNode = null;
 
     if (selections) {
-      let newSelections = Array.isArray(selections)
+      const newSelections = Array.isArray(selections)
         ? this.defaultSelections.concat(selections)
         : this.defaultSelections;
 
@@ -168,7 +168,7 @@ class SelectionCheckboxAll<T> extends React.Component<
       <div className={selectionPrefixCls}>
         <Checkbox
           className={classNames({
-            [`${selectionPrefixCls}-select-all-custom`]: customSelections
+            [`${selectionPrefixCls}-select-all-custom`]: customSelections,
           })}
           checked={checked}
           indeterminate={indeterminate}

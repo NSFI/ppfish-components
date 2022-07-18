@@ -22,13 +22,13 @@ export interface PaginationProps {
   size?: string;
   simple?: boolean;
   style?: React.CSSProperties;
-  locale?: Object;
+  locale?: Record<string, any>;
   className?: string;
   prefixCls?: string;
   selectPrefixCls?: string;
   itemRender?: (
     page: number,
-    type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next'
+    type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
   ) => React.ReactNode;
 }
 
@@ -39,7 +39,7 @@ export interface PaginationConfig extends PaginationProps {
 export default class Pagination extends React.Component<PaginationProps, {}> {
   static defaultProps = {
     prefixCls: 'fishd-pagination',
-    selectPrefixCls: 'fishd-select'
+    selectPrefixCls: 'fishd-select',
   };
 
   render() {

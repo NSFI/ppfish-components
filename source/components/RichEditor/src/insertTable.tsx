@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import classNames from "classnames";
-import { LocaleProperties } from "../../Locale";
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import { LocaleProperties } from '../../Locale';
 
-const preClass = "ql-table-popover";
+const preClass = 'ql-table-popover';
 
 interface IProps {
   chooseItemHandle: (row: number, col: number) => void;
   visible: boolean;
-  locale: LocaleProperties["RichEditor"];
+  locale: LocaleProperties['RichEditor'];
 }
 
 interface IState {
@@ -19,7 +19,7 @@ class InsertTable extends Component<IProps, IState> {
   cellClass = `${preClass}-cell`;
   state = {
     activeRow: 0,
-    activeCol: 0
+    activeCol: 0,
   };
   private cellArr: undefined[][];
 
@@ -35,10 +35,10 @@ class InsertTable extends Component<IProps, IState> {
     if (target.classList.contains(this.cellClass)) {
       const position = target.dataset.position;
       if (position) {
-        const tuple: string[] = position.split(",");
+        const tuple: string[] = position.split(',');
         this.setState({
           activeRow: Number(tuple[0]),
-          activeCol: Number(tuple[1])
+          activeCol: Number(tuple[1]),
         });
       }
     }
@@ -53,7 +53,7 @@ class InsertTable extends Component<IProps, IState> {
     if (target.classList.contains(this.cellClass)) {
       const position = target.dataset.position;
       if (position) {
-        const tuple: string[] = position.split(",");
+        const tuple: string[] = position.split(',');
         this.props.chooseItemHandle(Number(tuple[0]) + 1, Number(tuple[1]) + 1);
       }
     }
@@ -63,14 +63,14 @@ class InsertTable extends Component<IProps, IState> {
     if (!nextProps.visible) {
       return {
         activeRow: 0,
-        activeCol: 0
+        activeCol: 0,
       };
     }
     return null;
   };
 
   render() {
-    let { activeCol, activeRow } = this.state;
+    const { activeCol, activeRow } = this.state;
     const { locale } = this.props;
     return (
       <div className={preClass}>
@@ -91,7 +91,7 @@ class InsertTable extends Component<IProps, IState> {
                 <div
                   data-position={`${rowIndex},${colIndex}`}
                   className={classNames(this.cellClass, {
-                    active: rowIndex <= activeRow && colIndex <= activeCol
+                    active: rowIndex <= activeRow && colIndex <= activeCol,
                   })}
                   key={`${rowIndex}${colIndex}`}
                 />
