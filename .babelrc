@@ -1,8 +1,5 @@
 {
-  "presets": [
-    ["@babel/preset-env", { "modules": "commonjs" }],
-    "@babel/preset-react"
-  ],
+  "presets": [["@babel/preset-env", { "modules": "commonjs" }], "@babel/preset-react"],
   "plugins": [
     "@babel/plugin-proposal-export-default-from",
     "@babel/plugin-proposal-logical-assignment-operators",

@@ -8,15 +8,15 @@
 .babelrc
 .editorconfig
 .eslintignore
-.eslintrc
+.eslintrc.js
 .stylelintignore
-.stylelintrc
+.stylelintrc.js
 jest.config.js
 postcss.config.js
 tsconfig.json
 webpack.config.dev.site.js
-webpack.config.prod.dist.js
 webpack.config.prod.site.js
+gulpfile.js
 
 .DS_Store
 .idea
