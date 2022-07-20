@@ -1,3 +1,12 @@
+## [1.8.9](https://github.com/NSFI/ppfish-components/compare/v1.8.8...v1.8.9) (2022-07-20)
+
+
+### Bug Fixes
+
+* 在内容尾部插入视频后，再次编辑时出现尾部光标丢失问题 ([a7ef5e9](https://github.com/NSFI/ppfish-components/commit/a7ef5e996d5895a73a132d5e7371536f6044dc3c))
+
+
+
 ## [1.8.8](https://github.com/NSFI/ppfish-components/compare/v1.8.8-alpha.6...v1.8.8) (2022-07-14)
 
 
