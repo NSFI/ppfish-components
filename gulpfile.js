@@ -5,7 +5,6 @@ const del = require('del');
 const webpackStream = require('webpack-stream');
 const webpack = require('webpack5');
 const through = require('through2');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const tsconfig = {
   compilerOptions: {
@@ -135,11 +134,7 @@ function umdWebpack() {
           resolve: {
             extensions: ['.js', '.json'],
           },
-          plugins: [
-            new BundleAnalyzerPlugin({
-              analyzerMode: 'json',
-            }),
-          ],
+          plugins: [],
           module: {
             rules: [
               {

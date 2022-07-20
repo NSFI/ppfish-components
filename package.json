@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.8.9",
+  "version": "1.9.0",
   "description": "fish design ui components",
   "scripts": {
     "dev": "babel-node --max-old-space-size=4096 tools/openSite.js",
@@ -19,12 +19,14 @@
     "lint-fix": "npm run lint-fix:script && npm run lint-fix:style",
     "lint-fix:script": "npm run lint:script -- --fix",
     "lint-fix:style": "npm run lint:style -- --fix",
-    "publish": "npm publish ./lib"
+    "pub": "npm publish ./lib",
+    "pub:alpha": "npm publish ./lib --tag alpha",
+    "pub:dev": "npm publish ./lib --tag dev"
   },
   "engines": {
     "node": ">=6.11.5"
   },
-  "types": "./es/index.d.ts",
+  "types": "./es/components/index.d.ts",
   "typings": "./es/components/index.d.ts",
   "main": "./cjs/components/index.js",
   "module": "./es/components/index.js",
