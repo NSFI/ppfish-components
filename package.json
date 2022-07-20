@@ -21,7 +21,8 @@
     "lint-fix:style": "npm run lint:style -- --fix",
     "pub": "npm publish ./lib",
     "pub:alpha": "npm publish ./lib --tag alpha",
-    "pub:dev": "npm publish ./lib --tag dev"
+    "pub:dev": "npm publish ./lib --tag dev",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=6.11.5"
