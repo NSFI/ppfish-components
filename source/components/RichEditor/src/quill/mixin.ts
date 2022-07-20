@@ -98,7 +98,10 @@ let QuillMixin = {
     let sel = editor.getSelection();
 
     if (typeof value === 'string') {
-      editor.setContents(editor.clipboard.convert({html:value}));
+      editor.setContents(editor.clipboard.convert({
+        html: `${value}<p><br></p>`,
+        text: '\n',
+      }));
     } else {
       editor.setContents(value);
     }
