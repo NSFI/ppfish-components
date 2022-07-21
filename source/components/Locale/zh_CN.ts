@@ -3,14 +3,14 @@ import { LocaleProperties } from '.';
 const localeValues: LocaleProperties = {
   locale: 'zh_CN',
   AudioPlayer: {
-    notSupport: '您的浏览器不支持 audio 标签。'
+    notSupport: '您的浏览器不支持 audio 标签。',
   },
   AutoComplete: {
-    notFoundContent: '无匹配结果'
+    notFoundContent: '无匹配结果',
   },
   Cascader: {
     placeholder: '请选择',
-    notFoundContent: '无匹配结果'
+    notFoundContent: '无匹配结果',
   },
   Table: {
     filterTitle: '筛选',
@@ -54,17 +54,18 @@ const localeValues: LocaleProperties = {
   },
   RichEditor: {
     // editor
-    insertImageTip: '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
+    insertImageTip:
+      '支持jpg、jpeg、png、gif、bmp格式的图片，最佳显示高度不超过400px，宽度不超过270px。',
     rule1: '1、单个视频不超过10M，支持MP4、3GP格式视频。',
     rule2: '2、最佳显示高度不超过400px',
-    PleaseEnterTheVideolinkURL: "请输入视频链接URL",
+    PleaseEnterTheVideolinkURL: '请输入视频链接URL',
     selectLocalVideo: '选择本地视频',
     videoLink: '视频链接',
-    localVideo: "本地视频",
+    localVideo: '本地视频',
     insertVideo: '插入视频',
-    selectLocalImage: "选择本地图片",
-    insertAttachment: "插入附件",
-    selectLocalFile: "选择本地文件",
+    selectLocalImage: '选择本地图片',
+    insertAttachment: '插入附件',
+    selectLocalFile: '选择本地文件',
     HyperlinkAddress: '超链接地址',
     insertPicture: '插入图片',
     noVideoLinkErrorTip: '请设置视频源地址',
@@ -116,7 +117,7 @@ const localeValues: LocaleProperties = {
     deleteText: '删除',
   },
   Spin: {
-    loading: '加载中'
+    loading: '加载中',
   },
   Select: {
     errorMessage: '超过选项上限',
@@ -127,7 +128,7 @@ const localeValues: LocaleProperties = {
     selectAllText: '选择所有',
     confirmText: '确定',
     cancelText: '取消',
-    loading: '加载中...'
+    loading: '加载中...',
   },
   Transfer: {
     notFoundContent: '无匹配结果',
@@ -150,7 +151,7 @@ const localeValues: LocaleProperties = {
     previewFile: '预览文件',
     cancelText: '取消',
     deleteText: '全部删除',
-    uploadedTip: '已上传 ${length} 项'
+    uploadedTip: '已上传 ${length} 项',
   },
   List: {
     emptyText: '暂无数据',
@@ -183,31 +184,20 @@ const localeValues: LocaleProperties = {
     endDate: '结束日期',
     endTime: '结束时间',
     year: '年',
-    month1: '1 月',
-    month2: '2 月',
-    month3: '3 月',
-    month4: '4 月',
-    month5: '5 月',
-    month6: '6 月',
-    month7: '7 月',
-    month8: '8 月',
-    month9: '9 月',
-    month10: '10 月',
-    month11: '11 月',
-    month12: '12 月',
-    '1月': '1',
-    '2月': '2',
-    '3月': '3',
-    '4月': '4',
-    '5月': '5',
-    '6月': '6',
-    '7月': '7',
-    '8月': '8',
-    '9月': '9',
-    '10月': '10',
-    '11月': '11',
-    '12月': '12',
-    MONTH_ARRAY: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    MONTH_ARRAY: [
+      '1月',
+      '2月',
+      '3月',
+      '4月',
+      '5月',
+      '6月',
+      '7月',
+      '8月',
+      '9月',
+      '10月',
+      '11月',
+      '12月',
+    ],
     week: '周次',
     weeks: {
       sun: '日',
@@ -216,7 +206,7 @@ const localeValues: LocaleProperties = {
       wed: '三',
       thu: '四',
       fri: '五',
-      sat: '六'
+      sat: '六',
     },
     months: {
       jan: '一月',
@@ -230,15 +220,15 @@ const localeValues: LocaleProperties = {
       sep: '九月',
       oct: '十月',
       nov: '十一月',
-      dec: '十二月'
-    }
+      dec: '十二月',
+    },
   },
   VideoViewer: {
     fullScreen: '全屏',
     cancelFullScreen: '取消全屏',
     download: '下载',
-    retry: '重试'
-  }
+    retry: '重试',
+  },
 };
 
 export default localeValues;
