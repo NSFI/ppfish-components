@@ -1,7 +1,13 @@
-node_modules/**/*.*
 node_modules/
 dist/
 es/
 lib/
 coverage/
 source/**/__tests__/
+
+gulpfile.js
+.eslintrc.js
+postcss.config.js
+jest.config.js
+webpack.config.dev.site.js
+webpack.config.prod.site.js
