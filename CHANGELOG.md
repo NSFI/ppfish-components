@@ -1,3 +1,9 @@
+# [2.2.0](https://github.com/NSFI/ppfish-components/compare/v2.1.4...v2.2.0) (2022-07-21)
+
+### Performance Improvements
+
+- 优化日期组件多语言结构 ([123b4fc](https://github.com/NSFI/ppfish-components/commit/123b4fc1eff5aff2317713e5656f8284a37391fc))
+
 ## [2.1.5](https://github.com/NSFI/ppfish-components/compare/v2.1.4...v2.1.5) (2022-07-21)
 
 ### Bug Fixes

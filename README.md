@@ -60,26 +60,6 @@ import { Button } from 'ppfish';
 ReactDOM.render(<Button type="primary">Primary</Button>, document.getElementById('app'));
 ```
 
-Node.js SSR
-
-```js
-const { renderToString } = require('react-dom/server');
-const Button = require('ppfish/node/components/Button');
-const http = require('http');
-
-http
-  .createServer((req, res) => {
-    if (req.url === '/') {
-      res.writeHead(200, {
-        'Content-Type': 'text/html',
-      });
-      const html = renderToString(<Button type="primary">Primary</Button>);
-      res.end(html);
-    }
-  })
-  .listen(8080);
-```
-
 ## Development
 
 Install npm(or cnpm) package
@@ -91,7 +71,7 @@ $ npm install
 Start development in your default browser
 
 ```
-$ npm start
+$ npm run dev
 ```
 
 Open your browser and visit http://127.0.0.1:5000
@@ -107,7 +87,7 @@ $ npm run build
 Build site
 
 ```
-$ npm run build:site
+$ npm run docs:build
 ```
 
 ## Links
@@ -126,9 +106,7 @@ $ npm run build:site
 ├── /coverage/                        # 运行npm run test:cover输出的测试覆盖率文件
 ├── /dist/                            # 构建输出的文件，使用全局变量方式引用，可用于发布到CDN
 ├── /docs                             # 项目文档
-├── /es/                              # 构建输出的文件，使用ES Module规范引用，可用于tree shaking优化
-├── /lib/                             # 构建输出的文件，使用commonjs规范引用
-├── /node/                            # 构建输出的文件，适合node环境运行
+├── /lib/                             # 构建输出的文件
 ├── /node_modules/                    #
 ├── /site/                            # 组件库官网
 | ├── /assets                         #
@@ -150,11 +128,11 @@ $ npm run build:site
 ├── .babelrc                          #
 ├── .editorconfig                     #
 ├── .eslintignore                     #
-├── .eslintrc                         #
+├── .eslintrc.js                      #
 ├── .gitignore                        #
 ├── .npmignore                        #
 ├── .stylelintignore                  #
-├── .stylelintrc                      #
+├── .stylelintrc.js                   #
 ├── .travis.yml                       #
 ├── jets.config.js                    #
 ├── package.json                      #
@@ -162,6 +140,5 @@ $ npm run build:site
 ├── README.md                         #
 ├── tsconfig.json                     #
 ├── webpack.config.dev.site.js        # 文档网站本地开发编译配置
-├── webpack.config.prod.components.js # 组件源码生产环境编译配置
 └── webpack.config.prod.site.js       # 文档网站生产环境编译配置
 ```
