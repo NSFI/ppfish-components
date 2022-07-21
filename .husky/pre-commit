@@ -1,5 +1,4 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-npm test
-./node_modules/.bin/lint-staged -c lint-staged.config.js
+npx --no-install pretty-quick --staged

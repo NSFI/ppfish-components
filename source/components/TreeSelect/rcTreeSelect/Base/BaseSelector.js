@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { polyfill } from 'react-lifecycles-compat';
 import { createRef } from '../util';
-import Icon from '../../../Icon/index.tsx';
+import Icon from '../../../Icon/index';
 
 export const selectorPropTypes = {
   prefixCls: PropTypes.string,
@@ -49,7 +49,7 @@ export default function (modeName) {
 
     static defaultProps = {
       tabIndex: 0,
-    }
+    };
 
     constructor() {
       super();
@@ -59,7 +59,9 @@ export default function (modeName) {
 
     onFocus = (...args) => {
       const { onFocus, focused } = this.props;
-      const { rcTreeSelect: { onSelectorFocus } } = this.context;
+      const {
+        rcTreeSelect: { onSelectorFocus },
+      } = this.context;
 
       if (!focused) {
         onSelectorFocus();
@@ -72,7 +74,9 @@ export default function (modeName) {
 
     onBlur = (...args) => {
       const { onBlur } = this.props;
-      const { rcTreeSelect: { onSelectorBlur } } = this.context;
+      const {
+        rcTreeSelect: { onSelectorBlur },
+      } = this.context;
 
       // TODO: Not trigger when is inner component get focused
       onSelectorBlur();
@@ -84,26 +88,24 @@ export default function (modeName) {
 
     focus = () => {
       this.domRef.current.focus();
-    }
+    };
 
     blur = () => {
       this.domRef.current.focus();
-    }
+    };
 
     renderClear() {
       const { prefixCls, allowClear, valueList } = this.props;
-      const { rcTreeSelect: { onSelectorClear } } = this.context;
+      const {
+        rcTreeSelect: { onSelectorClear },
+      } = this.context;
 
       if (!allowClear || !valueList.length || !valueList[0].value) {
         return null;
       }
 
       return (
-        <span
-          key="clear"
-          className={`${prefixCls}-selection__clear`}
-          onClick={onSelectorClear}
-        />
+        <span key="clear" className={`${prefixCls}-selection__clear`} onClick={onSelectorClear} />
       );
     }
 
@@ -114,19 +116,35 @@ export default function (modeName) {
         return null;
       }
 
-      return <Icon key="arrow" type="down-fill" className={`${prefixCls}-arrow`} style={{ outline: 'none' }} />;
+      return (
+        <Icon
+          key="arrow"
+          type="down-fill"
+          className={`${prefixCls}-arrow`}
+          style={{ outline: 'none' }}
+        />
+      );
     }
 
     render() {
       const {
-        prefixCls, className, style,
-        open, focused, disabled, allowClear,
+        prefixCls,
+        className,
+        style,
+        open,
+        focused,
+        disabled,
+        allowClear,
         onClick,
         ariaId,
-        renderSelection, renderPlaceholder,
-        tabIndex, showArrow
+        renderSelection,
+        renderPlaceholder,
+        tabIndex,
+        showArrow,
       } = this.props;
-      const { rcTreeSelect: { onSelectorKeyDown } } = this.context;
+      const {
+        rcTreeSelect: { onSelectorKeyDown },
+      } = this.context;
 
       let myTabIndex = tabIndex;
       if (disabled) {
@@ -139,17 +157,13 @@ export default function (modeName) {
           // 用 onMouseDown 代替 onClick，修复加载页面后点击弹层，RcTrigger v2.6.2 中
           // onDocumentClick 先于 onPopupMouseDown 执行，导致的弹层异常关闭的问题
           onMouseDown={onClick}
-          className={classNames(
-            className,
-            prefixCls,
-            {
-              [`${prefixCls}-open`]: open,
-              [`${prefixCls}-focused`]: open || focused,
-              [`${prefixCls}-disabled`]: disabled,
-              [`${prefixCls}-enabled`]: !disabled,
-              [`${prefixCls}-allow-clear`]: allowClear,
-            }
-          )}
+          className={classNames(className, prefixCls, {
+            [`${prefixCls}-open`]: open,
+            [`${prefixCls}-focused`]: open || focused,
+            [`${prefixCls}-disabled`]: disabled,
+            [`${prefixCls}-enabled`]: !disabled,
+            [`${prefixCls}-allow-clear`]: allowClear,
+          })}
           ref={this.domRef}
           role="combobox"
           aria-expanded={open}
@@ -164,13 +178,9 @@ export default function (modeName) {
         >
           <span
             key="selection"
-            className={classNames(
-              `${prefixCls}-selection`,
-              `${prefixCls}-selection--${modeName}`,
-              {
-                'readonly': (modeName == 'multiple') && showArrow
-              }
-            )}
+            className={classNames(`${prefixCls}-selection`, `${prefixCls}-selection--${modeName}`, {
+              readonly: modeName == 'multiple' && showArrow,
+            })}
           >
             {renderSelection()}
             {this.renderClear()}

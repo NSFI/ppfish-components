@@ -17,7 +17,6 @@ export default {
     'version': pkg.version,
   },
   docVersions: {
-    'v1.8.5': 'https://ppfish-v185.surge.sh/',
-    'v1.8.4': 'https://ppfish-v184.surge.sh/'
+    'v1.x': 'https://ppfish-v1x.surge.sh/',
   }
 };

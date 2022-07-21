@@ -9,7 +9,7 @@ import classes from 'component-classes';
 import Menu from '../../Menu';
 import warning from 'warning';
 import Option from './Option';
-import Icon from '../../Icon/index.tsx';
+import Icon from '../../Icon/index';
 import {
   childrenToArray,
   getPropValue,

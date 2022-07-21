@@ -7,7 +7,7 @@ import {
   getTransformPropValue,
   getMarginStyle,
 } from './utils';
-import Spin from '../../Spin/index.tsx';
+import Spin from '../../Spin/index';
 
 export default class TabContent extends React.Component {
   getTabPanes() {
@@ -18,23 +18,25 @@ export default class TabContent extends React.Component {
 
     if (props.loading) {
       return (
-        <Spin.Container style={{height: '100%', width: '100%', minHeight: '28px'}}>
-          <Spin spinning={true}/>
+        <Spin.Container style={{ height: '100%', width: '100%', minHeight: '28px' }}>
+          <Spin spinning={true} />
         </Spin.Container>
       );
     }
 
-    React.Children.forEach(children, (child) => {
+    React.Children.forEach(children, child => {
       if (!child) {
         return;
       }
       const key = child.key;
       const active = activeKey === key;
-      newChildren.push(React.cloneElement(child, {
-        active,
-        destroyInactiveTabPane: props.destroyInactiveTabPane,
-        rootPrefixCls: props.prefixCls,
-      }));
+      newChildren.push(
+        React.cloneElement(child, {
+          active,
+          destroyInactiveTabPane: props.destroyInactiveTabPane,
+          rootPrefixCls: props.prefixCls,
+        }),
+      );
     });
 
     return newChildren;
@@ -42,23 +44,18 @@ export default class TabContent extends React.Component {
 
   render() {
     const { props } = this;
-    const {
-      prefixCls, children, activeKey,
-      tabBarPosition, animated, animatedWithMargin,
-    } = props;
+    const { prefixCls, children, activeKey, tabBarPosition, animated, animatedWithMargin } = props;
     let { style } = props;
     const classes = classnames({
       [`${prefixCls}-content`]: true,
-      [animated ?
-        `${prefixCls}-content-animated` :
-        `${prefixCls}-content-no-animated`]: true,
+      [animated ? `${prefixCls}-content-animated` : `${prefixCls}-content-no-animated`]: true,
     });
     if (animated) {
       const activeIndex = getActiveIndex(children, activeKey);
       if (activeIndex !== -1) {
-        const animatedStyle = animatedWithMargin ?
-                getMarginStyle(activeIndex, tabBarPosition) :
-                getTransformPropValue(getTransformByIndex(activeIndex, tabBarPosition));
+        const animatedStyle = animatedWithMargin
+          ? getMarginStyle(activeIndex, tabBarPosition)
+          : getTransformPropValue(getTransformByIndex(activeIndex, tabBarPosition));
         style = {
           ...style,
           ...animatedStyle,
@@ -71,10 +68,7 @@ export default class TabContent extends React.Component {
       }
     }
     return (
-      <div
-        className={classes}
-        style={style}
-      >
+      <div className={classes} style={style}>
         {this.getTabPanes()}
       </div>
     );

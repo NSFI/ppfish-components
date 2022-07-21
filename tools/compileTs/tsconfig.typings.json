@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "include": [ "../../source/components/index.js" ],
-  "compilerOptions": {
-    "allowJs": true,
-    "declaration": true,
-    "emitDeclarationOnly": true
-  }
-}

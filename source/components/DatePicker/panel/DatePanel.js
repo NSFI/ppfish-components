@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from '../../Input/index.tsx';
-import Icon from '../../Icon/index.tsx';
-import Button from '../../Button/index.tsx';
-import TimePicker  from '../../TimePicker/index.tsx';
+import Input from '../../Input/index';
+import Icon from '../../Icon/index';
+import Button from '../../Button/index';
+import TimePicker from '../../TimePicker/index';
 import YearAndMonthPopover from './YearAndMonthPopover.js';
 import { DateTable } from '../basic';
 import isEqual from 'lodash/isEqual';
@@ -22,7 +22,7 @@ import {
   dateFormat,
   YEARS_ARRAY,
   isValidValue,
-  setTime
+  setTime,
 } from '../../../utils/date';
 import Locale from '../../../utils/date/locale';
 import ConfigConsumer from '../../Config/Consumer';
@@ -34,26 +34,26 @@ const PICKER_VIEWS = {
 };
 
 const isInputValid = (text, date, disabledDate) => {
-  if(text.trim() === '' || !isValidValue(date) || !DatePanel.isValid(date, disabledDate)) return false;
+  if (text.trim() === '' || !isValidValue(date) || !DatePanel.isValid(date, disabledDate))
+    return false;
   return true;
 };
 
 class DatePanel extends React.Component {
-
   static get propTypes() {
     return {
       prefixCls: PropTypes.string,
-      format: PropTypes.string,                  //basePicker
-      value: PropTypes.instanceOf(Date),         //basePicker
-      onPick: PropTypes.func.isRequired,         //basePicker
+      format: PropTypes.string, //basePicker
+      value: PropTypes.instanceOf(Date), //basePicker
+      onPick: PropTypes.func.isRequired, //basePicker
       onCancelPicked: PropTypes.func.isRequired, //basePicker
       yearCount: PropTypes.number,
       showWeekNumber: PropTypes.bool,
       shortcuts: PropTypes.arrayOf(
         PropTypes.shape({
           text: PropTypes.string.isRequired,
-          onClick: PropTypes.func.isRequired
-        })
+          onClick: PropTypes.func.isRequired,
+        }),
       ),
       mode: PropTypes.oneOf(Object.keys(SELECTION_MODES).map(e => SELECTION_MODES[e])),
       disabledDate: PropTypes.func,
@@ -64,11 +64,11 @@ class DatePanel extends React.Component {
       showTimeCurrent: PropTypes.bool,
       timeSelectableRange: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
+        PropTypes.arrayOf(PropTypes.string),
       ]),
       defaultTimeValue: PropTypes.instanceOf(Date),
-      timeSelectMode: PropTypes.oneOf(['TimePicker','TimeSelect']),
-      timeSelectModeProps: PropTypes.object
+      timeSelectMode: PropTypes.oneOf(['TimePicker', 'TimeSelect']),
+      timeSelectModeProps: PropTypes.object,
     };
   }
 
@@ -89,25 +89,24 @@ class DatePanel extends React.Component {
         step: '00:30',
         minTime: '',
         maxTime: '',
-      }
+      },
     };
   }
 
-  static propsToState({value, format, defaultTimeValue}) {
+  static propsToState({ value, format, defaultTimeValue }) {
     const state = {};
-    state.currentDate = isValidValue(value) ? toDate(value) : new Date();  // 日历视图
-    state.date = toDate(value);                                            // 日期
-    state.dateInputText = formatDate(value, dateFormat(format));           // 日期输入框的值(string)，当props.value为null时，值为''
-    state.time = toDate(value || defaultTimeValue);                        // 时间
+    state.currentDate = isValidValue(value) ? toDate(value) : new Date(); // 日历视图
+    state.date = toDate(value); // 日期
+    state.dateInputText = formatDate(value, dateFormat(format)); // 日期输入框的值(string)，当props.value为null时，值为''
+    state.time = toDate(value || defaultTimeValue); // 时间
     return state;
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-
     if ('value' in nextProps && !isEqual(nextProps.value, prevState.prevPropValue)) {
-       let state = DatePanel.propsToState(nextProps);
-       state.prevPropValue = nextProps.value;
-       return state;
+      let state = DatePanel.propsToState(nextProps);
+      state.prevPropValue = nextProps.value;
+      return state;
     }
     return null;
   }
@@ -123,9 +122,13 @@ class DatePanel extends React.Component {
     //     currentView = PICKER_VIEWS.YEAR; break;
     // }
 
-    this.state = Object.assign({}, {
-      currentView,
-    }, DatePanel.propsToState(props));
+    this.state = Object.assign(
+      {},
+      {
+        currentView,
+      },
+      DatePanel.propsToState(props),
+    );
   }
 
   // 年份、月份面板先注释掉，需要时再打开
@@ -146,7 +149,8 @@ class DatePanel extends React.Component {
             disabledDate={disabledDate}
             showWeekNumber={showWeekNumber}
             firstDayOfWeek={firstDayOfWeek}
-          />);
+          />
+        );
 
         break;
       // case PICKER_VIEWS.YEAR:
@@ -175,19 +179,19 @@ class DatePanel extends React.Component {
 
   // 日期时间都选择，确定按钮才可点击
   confirmBtnDisabled = () => {
-    const {date, time} = this.state;
+    const { date, time } = this.state;
     return !(date && time);
-  }
+  };
 
   // 未选择日期时，时间不可选
   timePickerDisable = () => {
-    const {date, dateInputText} = this.state;
+    const { date, dateInputText } = this.state;
     return !(date && dateInputText);
-  }
+  };
 
   // 日期输入框变化
-  handleDateInputChange = (e) => {
-    const {disabledDate, format} = this.props;
+  handleDateInputChange = e => {
+    const { disabledDate, format } = this.props;
 
     const inputText = e.target.value;
     let ndate = parseDate(inputText, dateFormat(format));
@@ -195,31 +199,32 @@ class DatePanel extends React.Component {
       this.setState({
         dateInputText: inputText,
       });
-    }else{//only set value on a valid date input
+    } else {
+      //only set value on a valid date input
       this.setState({
         dateInputText: inputText,
         date: new Date(ndate),
-        currentDate: new Date(ndate)
+        currentDate: new Date(ndate),
       });
     }
-  }
+  };
 
   // 日期输入框失焦时，重置入合法值
-  handleDateInputBlur = (e) => {
-    const {date} = this.state;
+  handleDateInputBlur = e => {
+    const { date } = this.state;
     this.setState({
-      dateInputText: formatDate(date, dateFormat(this.props.format))
+      dateInputText: formatDate(date, dateFormat(this.props.format)),
     });
-  }
+  };
 
   // 时间输入框变化
-  handleTimeInputChange = (val) => {
+  handleTimeInputChange = val => {
     if (val) {
       this.setState({
         time: new Date(val),
       });
     }
-  }
+  };
 
   // 点击快捷按钮
   handleShortcutClick(shortcut) {
@@ -229,49 +234,50 @@ class DatePanel extends React.Component {
   // 上一年
   prevYear = () => {
     this.setState({
-      currentDate: prevYear(this.state.currentDate)
+      currentDate: prevYear(this.state.currentDate),
     });
-  }
+  };
 
   // 下一年
   nextYear = () => {
     this.setState({
-      currentDate: nextYear(this.state.currentDate)
+      currentDate: nextYear(this.state.currentDate),
     });
-  }
+  };
 
   // 上一月
   prevMonth = () => {
     this.setState({
-      currentDate: prevMonth(this.state.currentDate)
+      currentDate: prevMonth(this.state.currentDate),
     });
-  }
+  };
 
   // 下一月
   nextMonth = () => {
     this.setState({
-      currentDate: nextMonth(this.state.currentDate)
+      currentDate: nextMonth(this.state.currentDate),
     });
-  }
+  };
 
   // 切换年份
-  handleChangeYear = (year) => {
+  handleChangeYear = year => {
     const { currentDate } = this.state;
     this.setState({
       currentDate: new Date(new Date(currentDate).setFullYear(year)),
     });
-  }
+  };
 
   // 切换月份
-  handleChangeMonth = (month, locales) => {const { currentDate } = this.state;
+  handleChangeMonth = (month, locales) => {
+    const { currentDate } = this.state;
     // FIXME: 通过截取 month 的方式不好扩展功能
     this.setState({
-      currentDate: new Date((new Date(currentDate).setMonth(parseInt(locales[month]) - 1)))
+      currentDate: new Date(new Date(currentDate).setMonth(parseInt(locales[month]) - 1)),
     });
-  }
+  };
 
   // 点击日期
-  handleDatePick = (value) => {
+  handleDatePick = value => {
     const { mode, showTime, onPick, format } = this.props;
     const pdate = value.date;
 
@@ -282,24 +288,24 @@ class DatePanel extends React.Component {
       this.setState({
         date: new Date(pdate),
         dateInputText: formatDate(pdate, dateFormat(format)), // 点击日期，左侧日期输入框的值同步变化
-        currentDate: pdate
+        currentDate: pdate,
       });
     } else if (mode === SELECTION_MODES.WEEK) {
       onPick(pdate);
     }
-  }
+  };
 
   // 点击确定按钮
   handleConfirm = () => {
     const { date, time } = this.state;
     const pickedTime = setTime(date, time);
     this.props.onPick(pickedTime, false, true);
-  }
+  };
 
   // 点击取消按钮
   handleCancel = () => {
     this.props.onCancelPicked();
-  }
+  };
 
   render() {
     const {
@@ -312,7 +318,7 @@ class DatePanel extends React.Component {
       footer,
       prefixCls,
       timeSelectMode,
-      timeSelectModeProps
+      timeSelectModeProps,
     } = this.props;
 
     const { currentView, currentDate, dateInputText, time } = this.state;
@@ -321,27 +327,26 @@ class DatePanel extends React.Component {
 
     return (
       <ConfigConsumer componentName="DatePicker">
-        {
-          (Locales, lang) => {
-
-            const monthSelector = currentView === PICKER_VIEWS.DATE && (
-              <YearAndMonthPopover
-                key="month"
-                value={currentDate.getMonth() + 1}
-                sourceData={Locales.MONTH_ARRAY}
-                onChange={(month) => this.handleChangeMonth(month, Locales)}
+        {(Locales, lang) => {
+          const monthSelector = currentView === PICKER_VIEWS.DATE && (
+            <YearAndMonthPopover
+              key="month"
+              value={currentDate.getMonth() + 1}
+              sourceData={Locales.MONTH_ARRAY}
+              onChange={month => this.handleChangeMonth(month, Locales)}
+            >
+              <span
+                className={classNames(`${prefixCls}-date-picker__header-label`, {
+                  active: currentView === 'month',
+                })}
               >
-                <span
-                  className={
-                    classNames(`${prefixCls}-date-picker__header-label`, {
-                      active: currentView === 'month'
-                    })
-                  }
-                >{Locales[`month${month + 1}`]}</span>
-              </YearAndMonthPopover>
-            );
+                {Locales[`month${month + 1}`]}
+              </span>
+            </YearAndMonthPopover>
+          );
 
-            const yearSelector = (<YearAndMonthPopover
+          const yearSelector = (
+            <YearAndMonthPopover
               key="year"
               value={currentDate.getFullYear()}
               sourceData={YEARS_ARRAY(yearCount)}
@@ -350,164 +355,151 @@ class DatePanel extends React.Component {
               <span className={`${prefixCls}-date-picker__header-label`}>
                 {`${currentDate.getFullYear()} ${Locales.year}`}
               </span>
-            </YearAndMonthPopover>);
+            </YearAndMonthPopover>
+          );
 
-            // TODO: 配置此处展示方式
-            const selectors = lang === 'en_US' ? [ monthSelector, yearSelector ] : [ yearSelector, monthSelector ] ;
+          // TODO: 配置此处展示方式
+          const selectors =
+            lang === 'en_US' ? [monthSelector, yearSelector] : [yearSelector, monthSelector];
 
-            return (<div
-              className={classNames(
-                `${prefixCls}-picker-panel`,
-                `${prefixCls}-date-picker`,
-                {
-                  'has-sidebar': shortcuts,
-                  'has-time': showTime
-                })
-              }
+          return (
+            <div
+              className={classNames(`${prefixCls}-picker-panel`, `${prefixCls}-date-picker`, {
+                'has-sidebar': shortcuts,
+                'has-time': showTime,
+              })}
             >
-
               <div className={`${prefixCls}-picker-panel__body-wrapper`}>
-                {
-                  Array.isArray(shortcuts) && (
-                    <div className={classNames(`${prefixCls}-picker-panel__sidebar`)}>
-                      {
-                        shortcuts.map((e, idx) => {
-                          return (
-                            <button
-                              key={idx}
-                              type="button"
-                              className={`${prefixCls}-picker-panel__shortcut`}
-                              onClick={() => this.handleShortcutClick(e)}>{e.text}</button>
-                          );
-                        })
-                      }
-                    </div>
-                  )
-                }
+                {Array.isArray(shortcuts) && (
+                  <div className={classNames(`${prefixCls}-picker-panel__sidebar`)}>
+                    {shortcuts.map((e, idx) => {
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          className={`${prefixCls}-picker-panel__shortcut`}
+                          onClick={() => this.handleShortcutClick(e)}
+                        >
+                          {e.text}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
                 <div className={`${prefixCls}-picker-panel__body`}>
-                  {
-                    showTime && (
-                      <div className={`${prefixCls}-date-picker__time-header`}>
-                        <span className={`${prefixCls}-date-picker__editor-wrap`}>
-                          <Input
-                            placeholder={Locales.selectDate}
-                            value={dateInputText}
-                            onChange={this.handleDateInputChange}
-                            onBlur={this.handleDateInputBlur}
+                  {showTime && (
+                    <div className={`${prefixCls}-date-picker__time-header`}>
+                      <span className={`${prefixCls}-date-picker__editor-wrap`}>
+                        <Input
+                          placeholder={Locales.selectDate}
+                          value={dateInputText}
+                          onChange={this.handleDateInputChange}
+                          onBlur={this.handleDateInputBlur}
+                        />
+                      </span>
+                      <span className={`${prefixCls}-date-picker__editor-wrap`}>
+                        {timeSelectMode === 'TimePicker' ? (
+                          <TimePicker
+                            className={`${prefixCls}-date-picker-time__editor`}
+                            placeholder={Locales.selectTime}
+                            format={timeFormat(format)}
+                            getPopupContainer={node => node.parentNode}
+                            showTrigger={false}
+                            allowClear={false}
+                            disabled={this.timePickerDisable()}
+                            value={time}
+                            onChange={this.handleTimeInputChange}
+                            isShowCurrent={showTimeCurrent}
+                            selectableRange={timeSelectableRange}
                           />
-                        </span>
-                        <span className={`${prefixCls}-date-picker__editor-wrap`}>
-                          {
-                            timeSelectMode === 'TimePicker' ?
-                            <TimePicker
-                              className={`${prefixCls}-date-picker-time__editor`}
-                              placeholder={Locales.selectTime}
-                              format={timeFormat(format)}
-                              getPopupContainer={(node) => node.parentNode}
-                              showTrigger={false}
-                              allowClear={false}
-                              disabled={this.timePickerDisable()}
-                              value={time}
-                              onChange={this.handleTimeInputChange}
-                              isShowCurrent={showTimeCurrent}
-                              selectableRange={timeSelectableRange}
-                            />
-                            :
-                            <TimePicker.TimeSelect
-                              className={`${prefixCls}-date-picker-time__editor`}
-                              placeholder={Locales.selectTime}
-                              getPopupContainer={(node) => node.parentNode}
-                              showTrigger={false}
-                              allowClear={false}
-                              disabled={this.timePickerDisable()}
-                              value={time}
-                              onChange={this.handleTimeInputChange}
-                              start={timeSelectModeProps.start}
-                              step={timeSelectModeProps.step}
-                              end={timeSelectModeProps.end}
-                              maxTime={timeSelectModeProps.maxTime}
-                              minTime={timeSelectModeProps.minTime}
-                            />
-                          }
-                        </span>
-                      </div>
-                    )
-                  }
+                        ) : (
+                          <TimePicker.TimeSelect
+                            className={`${prefixCls}-date-picker-time__editor`}
+                            placeholder={Locales.selectTime}
+                            getPopupContainer={node => node.parentNode}
+                            showTrigger={false}
+                            allowClear={false}
+                            disabled={this.timePickerDisable()}
+                            value={time}
+                            onChange={this.handleTimeInputChange}
+                            start={timeSelectModeProps.start}
+                            step={timeSelectModeProps.step}
+                            end={timeSelectModeProps.end}
+                            maxTime={timeSelectModeProps.maxTime}
+                            minTime={timeSelectModeProps.minTime}
+                          />
+                        )}
+                      </span>
+                    </div>
+                  )}
 
-                  {
-                    currentView !== 'time' && (
-                      <div className={`${prefixCls}-date-picker__header`}>
+                  {currentView !== 'time' && (
+                    <div className={`${prefixCls}-date-picker__header`}>
+                      <Icon
+                        type="left-double"
+                        onClick={this.prevYear}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`}
+                      />
+                      {currentView === PICKER_VIEWS.DATE && (
                         <Icon
-                          type="left-double"
-                          onClick={this.prevYear}
-                          className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />
-                        {
-                          currentView === PICKER_VIEWS.DATE && (
-                            <Icon
-                              type="left"
-                              onClick={this.prevMonth}
-                              className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`} />)
-                        }
+                          type="left"
+                          onClick={this.prevMonth}
+                          className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__prev-btn`}
+                        />
+                      )}
 
-                       {selectors}
+                      {selectors}
 
+                      <Icon
+                        type="right-double"
+                        onClick={this.nextYear}
+                        className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`}
+                      />
+                      {currentView === PICKER_VIEWS.DATE && (
                         <Icon
-                          type="right-double"
-                          onClick={this.nextYear}
-                          className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
-                        {
-                          currentView === PICKER_VIEWS.DATE && (
-                            <Icon
-                              type="right"
-                              onClick={this.nextMonth}
-                              className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`} />
-                          )
-                        }
-                      </div>
-                    )
-                  }
+                          type="right"
+                          onClick={this.nextMonth}
+                          className={`${prefixCls}-picker-panel__icon-btn ${prefixCls}-date-picker__next-btn`}
+                        />
+                      )}
+                    </div>
+                  )}
                   <div className={`${prefixCls}-picker-panel__content`}>
                     {this._pickerContent()}
                   </div>
                 </div>
               </div>
-              {
-                typeof footer == 'function' && footer() && (
-                  <div
-                    className={`${prefixCls}-picker-panel__extra-footer`}
+              {typeof footer == 'function' && footer() && (
+                <div className={`${prefixCls}-picker-panel__extra-footer`}>{footer()}</div>
+              )}
+              {showTime && currentView === PICKER_VIEWS.DATE && (
+                <div className={`${prefixCls}-picker-panel__footer`}>
+                  <Button
+                    className={`${prefixCls}-picker-panel__btn cancel`}
+                    onClick={this.handleCancel}
                   >
-                    {footer()}
-                  </div>
-                )
-              }
-              {
-                showTime && currentView === PICKER_VIEWS.DATE && (
-                  <div
-                    className={`${prefixCls}-picker-panel__footer`}
+                    {Locales.cancel}
+                  </Button>
+                  <Button
+                    type="primary"
+                    className={`${prefixCls}-picker-panel__btn confirm`}
+                    onClick={this.handleConfirm}
+                    disabled={this.confirmBtnDisabled()}
                   >
-                    <Button
-                      className={`${prefixCls}-picker-panel__btn cancel`}
-                      onClick={this.handleCancel}>{Locales.cancel}
-                    </Button>
-                    <Button
-                      type="primary"
-                      className={`${prefixCls}-picker-panel__btn confirm`}
-                      onClick={this.handleConfirm}
-                      disabled={this.confirmBtnDisabled()}>{Locales.confirm}
-                    </Button>
-                  </div>
-                )
-              }
-            </div>);
-          }
-        }
+                    {Locales.confirm}
+                  </Button>
+                </div>
+              )}
+            </div>
+          );
+        }}
       </ConfigConsumer>
     );
   }
 }
 
 DatePanel.isValid = (value, disabledDate) => {
-  return typeof disabledDate === 'function' && (value instanceof Date) ? !disabledDate(value) : true;
+  return typeof disabledDate === 'function' && value instanceof Date ? !disabledDate(value) : true;
 };
 
 export default DatePanel;
