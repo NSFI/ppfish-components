@@ -22,7 +22,7 @@
     "pub": "npm publish ./lib",
     "pub:alpha": "npm publish ./lib --tag alpha",
     "pub:dev": "npm publish ./lib --tag dev",
-    "prepare": "husky install"
+    "prepublishOnly": "node ./tools/npg.js"
   },
   "engines": {
     "node": ">=6.11.5"
