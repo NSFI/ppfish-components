@@ -1,6 +1,6 @@
 import { Quill } from '../quill';
 
-const BlockEmbed = Quill.import('blots/block/embed');
+const Embed = Quill.import('blots/embed');
 
 interface createType {
   url: string;
@@ -8,7 +8,7 @@ interface createType {
   iconUrl?: string;
 }
 
-class Attach extends BlockEmbed {
+class Attach extends Embed {
   static blotName: string;
   static tagName: string;
   static formatCursor: boolean;
@@ -52,9 +52,7 @@ class Attach extends BlockEmbed {
     return node;
   }
 
-  static formats(
-    node: HTMLElement,
-  ): {
+  static formats(node: HTMLElement): {
     'data-href'?: string;
     'data-title'?: string;
     'data-iconUrl'?: string;
