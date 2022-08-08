@@ -563,8 +563,12 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
         dLink.click();
       });
     };
-    // 在URL后添加随机数以避免浏览器缓存，使crossOrigin生效
-    img.src = this.imgEl.src + '?' + +new Date();
+    // 在URL后添加随机数以避免浏览器缓存，使crossOrigin生效(拼接前判断 src 中是否已有 ?)
+    if (this.imgEl.src && this.imgEl.src.indexOf('?') < 0) {
+      img.src = this.imgEl.src + '?' + +new Date();
+    } else {
+      img.src = this.imgEl.src + '&' + +new Date();
+    }
   };
 
   handleFullChange = e => {
