@@ -90,6 +90,7 @@ function buildES() {
             },
           ],
         ],
+        sourceType: 'unambiguous',
       }),
     )
     .pipe(gulp.dest('lib/es/'));
