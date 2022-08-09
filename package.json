@@ -19,7 +19,7 @@
     "lint-fix": "npm run lint-fix:script && npm run lint-fix:style",
     "lint-fix:script": "npm run lint:script -- --fix",
     "lint-fix:style": "npm run lint:style -- --fix",
-    "pub": "npm publish ./lib",
+    "pub": "npm publish ./lib --tag previous",
     "pub:alpha": "npm publish ./lib --tag alpha",
     "pub:dev": "npm publish ./lib --tag dev",
     "prepublishOnly": "node ./tools/npg.js"
