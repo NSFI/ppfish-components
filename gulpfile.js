@@ -4,6 +4,8 @@ const ts = require('gulp-typescript');
 const del = require('del');
 const webpackStream = require('webpack-stream');
 const webpack = require('webpack5');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const through = require('through2');
 
 const tsconfig = {
@@ -135,11 +137,17 @@ function umdWebpack() {
           mode: 'production',
           optimization: {
             usedExports: true,
+            // minimizer: [
+            //   new OptimizeCssAssetsWebpackPlugin()
+            // ]
           },
           resolve: {
             extensions: ['.js', '.json'],
           },
-          plugins: [],
+          plugins: [
+            new MiniCssExtractPlugin({ filename: 'ppfish.min.css' }),
+            // new OptimizeCssAssetsWebpackPlugin()
+          ],
           module: {
             rules: [
               {
@@ -165,11 +173,11 @@ function umdWebpack() {
               },
               {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
               },
               {
                 test: /\.less$/i,
-                use: ['style-loader', 'css-loader', 'less-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
               },
             ],
           },
@@ -183,7 +191,7 @@ function umdWebpack() {
         webpack,
       ),
     )
-    .pipe(gulp.dest('lib/umd/'));
+    .pipe(gulp.dest('lib/dist/'));
 }
 
 function copyMetaFiles() {
