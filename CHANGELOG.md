@@ -1,9 +1,14 @@
-## [1.9.2](https://github.com/NSFI/ppfish-components/compare/v1.9.1...v1.9.2) (2022-08-09)
+## [1.9.3](https://github.com/NSFI/ppfish-components/compare/v1.9.1...v1.9.3) (2022-08-11)
+
+### Bug Fixes
+
+- PicturePreview src 拼接参数时, 判断是否已有 ? ([1e49919](https://github.com/NSFI/ppfish-components/commit/1e499193b97efec81f6119842951a962eae4ef70))
 
 ## [1.9.1](https://github.com/NSFI/ppfish-components/compare/v1.8.9...v1.9.1) (2022-08-04)
 
 ### Features
 
+- prettier 依赖添加 ([e015d2a](https://github.com/NSFI/ppfish-components/commit/e015d2aa294450dba1ad2520c4cd65194361c16e))
 - 附件继承的类型修改 ([1300aad](https://github.com/NSFI/ppfish-components/commit/1300aadba2bf8cebf06bc80cbf407e7146aec0d8))
 
 ## [1.8.9](https://github.com/NSFI/ppfish-components/compare/v1.8.8...v1.8.9) (2022-07-20)
