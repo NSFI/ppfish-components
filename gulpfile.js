@@ -34,14 +34,18 @@ function buildStyle() {
       ignore: ['**/__tests__/**/*'],
     })
     .pipe(gulp.dest('./lib/es'))
-    .pipe(gulp.dest('./lib/cjs'));
+    .pipe(gulp.dest('./lib/lib'));
 }
 
 function copyAssets() {
   return gulp
     .src('./source/assets/**/*')
     .pipe(gulp.dest('lib/es/assets'))
-    .pipe(gulp.dest('lib/cjs/assets'));
+    .pipe(gulp.dest('lib/lib/assets'));
+}
+
+function copyLib() {
+  return gulp.src('./lib/lib/**/*').pipe(gulp.dest('lib/node'));
 }
 
 function buildCJS() {
@@ -52,7 +56,7 @@ function buildCJS() {
         plugins: ['@babel/plugin-transform-modules-commonjs'],
       }),
     )
-    .pipe(gulp.dest('lib/cjs/'));
+    .pipe(gulp.dest('lib/lib/'));
 }
 
 function buildES() {
@@ -112,7 +116,7 @@ function buildDeclaration() {
       /* Ignore compiler errors */
     })
     .pipe(gulp.dest('lib/es/'))
-    .pipe(gulp.dest('lib/cjs/'));
+    .pipe(gulp.dest('lib/lib/'));
 }
 
 function umdWebpack() {
@@ -215,4 +219,5 @@ exports.default = gulp.series(
   copyMetaFiles,
   generatePackageJSON,
   gulp.parallel(umdWebpack),
+  copyLib,
 );

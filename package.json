@@ -29,7 +29,7 @@
   },
   "types": "./es/components/index.d.ts",
   "typings": "./es/components/index.d.ts",
-  "main": "./cjs/components/index.js",
+  "main": "./lib/components/index.js",
   "module": "./es/components/index.js",
   "unpkg": "./umd/ppfish.min.js",
   "dependencies": {
