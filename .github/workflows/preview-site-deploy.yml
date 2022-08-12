@@ -1,0 +1,40 @@
+name: Preview Site Deploy
+
+on:
+  push:
+    branches:
+      - 1.x-stable
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 'build bundle and deploy'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 'install and docs:build'
+        run: |
+          npm install
+          npm run docs:build
+
+      - name: run predeploy
+        id: predeploy
+        run: npm run predeploy
+
+      - name: Deploy 🚀 （github pages）
+        if: ${{ steps.predeploy.outputs.deployGithubPages == 'true' }}
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist/site # The folder the action should deploy.
+
+      - name: 'deploy surge'
+        run: |
+          export DEPLOY_DOMAIN=https://preview-${{ steps.predeploy.outputs.version }}-shockingsrose.surge.sh
+          npx surge --project ./dist/site --domain $DEPLOY_DOMAIN --token ${{ secrets.SURGE_TOKEN }}
