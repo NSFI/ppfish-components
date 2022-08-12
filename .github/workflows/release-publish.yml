@@ -1,0 +1,47 @@
+name: Release Publish
+
+on:
+  push:
+    tags:
+      - v1.*
+      - v2.*
+
+jobs:
+  bump-version:
+    name: 'Bump Version on master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout source code'
+        uses: 'actions/checkout@v2'
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: run predeploy
+        id: predeploy
+        run: |
+          echo ${{ github.ref }}
+          echo ${{ github.ref_name }}
+          npm install
+          npm run predeploy
+
+      - name: Create a Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # run: gh release create ${{ steps.package-version.outputs.current-version}} --target master -p
+        run: |
+          if [[ ${{ steps.predeploy.outputs.prerelease }} == 'true' ]]; then IS_PRERELEASE="-p"; else IS_PRERELEASE=""; fi
+          echo IS_PRERELEASE: $IS_PRERELEASE
+          gh release create ${{ steps.predeploy.outputs.version }} --target master $IS_PRERELEASE --notes '${{ steps.predeploy.outputs.changeLog }}'
+
+      - name: 'npm publish'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm run build
+          npm run ${{ steps.predeploy.outputs.pubScript }}
