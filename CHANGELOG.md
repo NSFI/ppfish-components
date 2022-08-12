@@ -1,3 +1,5 @@
+## [1.9.4-alpha.0](https://github.com/NSFI/ppfish-components/compare/v1.9.3...v1.9.4-alpha.0) (2022-08-12)
+
 ## [1.9.3](https://github.com/NSFI/ppfish-components/compare/v1.9.1...v1.9.3) (2022-08-11)
 
 ### Bug Fixes
