@@ -458,10 +458,8 @@ class Cascader extends React.Component<CascaderProps, CascaderState> {
     ]);
 
     const getOptionsAndOthers = Locale => {
-      const {
-        notFoundContent = Locale.notFoundContent,
-        placeholder = Locale.placeholder,
-      } = this.props;
+      const { notFoundContent = Locale.notFoundContent, placeholder = Locale.placeholder } =
+        this.props;
       let options = props.options;
       if (state.inputValue) {
         options = this.generateFilteredOptions(prefixCls, Locale);
