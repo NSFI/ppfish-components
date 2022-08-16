@@ -13,7 +13,7 @@ const run = async () => {
   const version = pkg.version;
 
   /**获取最新版本changeLog */
-  const [, changeLog] = /(###\s+[\w.]+\n[\s\S]+?)###/.exec(changeLogData);
+  const [, changeLog] = /(###[\w.\s]+\n[\s\S]+?)##\s\[/.exec(changeLogData);
 
   const outputs = { version, changeLog, deployGithubPages: !!DEPLOY_GITHUB_PAGES };
 
