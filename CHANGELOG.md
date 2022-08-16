@@ -1,3 +1,10 @@
+## [1.9.4-alpha.1](https://github.com/NSFI/ppfish-components/compare/v1.9.4-alpha.0...v1.9.4-alpha.1) (2022-08-16)
+
+### Bug Fixes
+
+- Cascader 组件重复设置 className 问题 ([a9aa47a](https://github.com/NSFI/ppfish-components/commit/a9aa47a93eaaece63ae5c61523cd7a58fa7129fa))
+- 修复 Notifaction、Tabs、TabPanel 组件 ts 类型错误 ([49b33dc](https://github.com/NSFI/ppfish-components/commit/49b33dc1dc2bf350358444771aca3be12fb78781))
+
 ## [1.9.4-alpha.0](https://github.com/NSFI/ppfish-components/compare/v1.9.3...v1.9.4-alpha.0) (2022-08-12)
 
 ## [1.9.3](https://github.com/NSFI/ppfish-components/compare/v1.9.1...v1.9.3) (2022-08-11)
