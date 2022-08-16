@@ -46,28 +46,28 @@ function getPlacementStyle(placement: NotificationPlacement) {
       style = {
         left: 0,
         top: defaultTop,
-        bottom: 'auto'
+        bottom: 'auto',
       };
       break;
     case 'topRight':
       style = {
         right: 0,
         top: defaultTop,
-        bottom: 'auto'
+        bottom: 'auto',
       };
       break;
     case 'bottomLeft':
       style = {
         left: 0,
         top: 'auto',
-        bottom: defaultBottom
+        bottom: defaultBottom,
       };
       break;
     default:
       style = {
         right: 0,
         top: 'auto',
-        bottom: defaultBottom
+        bottom: defaultBottom,
       };
       break;
   }
@@ -77,7 +77,7 @@ function getPlacementStyle(placement: NotificationPlacement) {
 function getNotificationInstance(
   prefixCls: string,
   placement: NotificationPlacement,
-  callback: (n: any) => void
+  callback: (n: any) => void,
 ) {
   const cacheKey = `${prefixCls}-${placement}`;
   if (notificationInstance[cacheKey]) {
@@ -89,12 +89,12 @@ function getNotificationInstance(
       prefixCls,
       className: `${prefixCls}-${placement}`,
       style: getPlacementStyle(placement),
-      getContainer: defaultGetContainer
+      getContainer: defaultGetContainer,
     },
     (notification: any) => {
       notificationInstance[cacheKey] = notification;
       callback(notification);
-    }
+    },
   );
 }
 
@@ -102,7 +102,7 @@ const typeToIcon = {
   success: 'hints-success-o',
   info: 'hints-notification-o',
   error: 'hints-error-o',
-  warning: 'hints-warning-o'
+  warning: 'hints-warning-o',
 };
 
 export interface ArgsProps {
@@ -110,7 +110,7 @@ export interface ArgsProps {
   description: React.ReactNode;
   btn?: React.ReactNode;
   key?: string;
-  onClose?: () => void;
+  onClose?: (key: string) => void;
   duration?: number | null;
   icon?: React.ReactNode;
   placement?: NotificationPlacement;
@@ -160,9 +160,9 @@ function notice(args: ArgsProps) {
         onClose: args.onClose,
         key: args.key,
         style: args.style || {},
-        className: args.className
+        className: args.className,
       });
-    }
+    },
   );
 }
 
@@ -170,7 +170,7 @@ const api: any = {
   open: notice,
   close(key: string) {
     Object.keys(notificationInstance).forEach(cacheKey =>
-      notificationInstance[cacheKey].removeNotice(key)
+      notificationInstance[cacheKey].removeNotice(key),
     );
   },
   config: setNotificationConfig,
@@ -179,14 +179,14 @@ const api: any = {
       notificationInstance[cacheKey].destroy();
       delete notificationInstance[cacheKey];
     });
-  }
+  },
 };
 
 ['success', 'info', 'warning', 'error'].forEach(type => {
   api[type] = (args: ArgsProps) =>
     api.open({
       ...args,
-      type
+      type,
     });
 });
 

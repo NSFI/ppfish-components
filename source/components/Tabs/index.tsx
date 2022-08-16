@@ -43,6 +43,7 @@ export interface TabsProps {
   tabBarGutter?: number;
   type?: TabsType;
   tabPosition?: TabsPosition;
+  children?: React.ReactNode;
   onEdit?: (targetKey: string | React.MouseEvent<HTMLElement>, action: any) => void;
   onChange?: (activeKey: string) => void;
   onTabClick?: Function;
@@ -59,6 +60,7 @@ export interface TabPaneProps {
   className?: string;
   disabled?: boolean;
   forceRender?: boolean;
+  children?: React.ReactNode;
 }
 
 export default class Tabs extends React.Component<TabsProps, any> {
@@ -70,7 +72,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
     loading: false,
     size: 'default',
     tabPosition: 'top',
-    type: 'line'
+    type: 'line',
   };
 
   createNewTab = (targetKey: React.MouseEvent<HTMLElement>) => {
@@ -123,18 +125,18 @@ export default class Tabs extends React.Component<TabsProps, any> {
       onPrevClick,
       onNextClick,
       animated,
-      tabBarGutter
+      tabBarGutter,
     } = this.props;
 
     let { inkBarAnimated, tabPaneAnimated } =
       typeof animated === 'object'
         ? {
             inkBarAnimated: animated.inkBar,
-            tabPaneAnimated: animated.tabPane
+            tabPaneAnimated: animated.tabPane,
           }
         : {
             inkBarAnimated: animated,
-            tabPaneAnimated: animated
+            tabPaneAnimated: animated,
           };
 
     let showInkBar = true;
@@ -150,7 +152,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
       [`${prefixCls}-${size}`]: !!size,
       [`${prefixCls}-card`]: type.indexOf('card') >= 0,
       [`${prefixCls}-${type}`]: true,
-      [`${prefixCls}-no-animation`]: !tabPaneAnimated
+      [`${prefixCls}-no-animation`]: !tabPaneAnimated,
     });
 
     // only card type tabs can be added and closed
@@ -174,10 +176,10 @@ export default class Tabs extends React.Component<TabsProps, any> {
                   {closeIcon}
                 </div>
               ),
-              key: child.key || index
-            })
+              key: child.key || index,
+            }),
           );
-        }
+        },
       );
       // Add new tab handler
       if (!hideAdd) {

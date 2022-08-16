@@ -6,12 +6,12 @@ const webpackConfig = require('../webpack.config.dev.site');
 const reportURL = require('report-url');
 const path = require('path');
 
-const PORT = 5000;
+const PORT = 5001;
 const bundler = webpack(webpackConfig);
 reportURL({
   tip: '可用的内网网址',
   port: PORT,
-  search: ''
+  search: '',
 });
 
 new WebpackDevServer(bundler, {
@@ -19,7 +19,7 @@ new WebpackDevServer(bundler, {
   publicPath: '/',
   hot: true,
   historyApiFallback: {
-    index: '/site/'
+    index: '/site/',
   },
   stats: { colors: true },
   open: true,
