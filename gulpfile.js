@@ -5,8 +5,9 @@ const del = require('del');
 const webpackStream = require('webpack-stream');
 const webpack = require('webpack5');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const through = require('through2');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const tsconfig = {
   compilerOptions: {
@@ -137,17 +138,13 @@ function umdWebpack() {
           mode: 'production',
           optimization: {
             usedExports: true,
-            // minimizer: [
-            //   new OptimizeCssAssetsWebpackPlugin()
-            // ]
+            minimize: true,
+            minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
           },
           resolve: {
             extensions: ['.js', '.json'],
           },
-          plugins: [
-            new MiniCssExtractPlugin({ filename: 'ppfish.min.css' }),
-            // new OptimizeCssAssetsWebpackPlugin()
-          ],
+          plugins: [new MiniCssExtractPlugin({ filename: 'ppfish.min.css' })],
           module: {
             rules: [
               {
@@ -184,13 +181,16 @@ function umdWebpack() {
           externals: [
             {
               react: 'React',
-              'react-dom': 'ReactDom',
+              'react-dom': 'ReactDOM',
             },
           ],
         },
         webpack,
       ),
     )
+    .on('error', error => {
+      console.log(error);
+    })
     .pipe(gulp.dest('lib/dist/'));
 }
 
