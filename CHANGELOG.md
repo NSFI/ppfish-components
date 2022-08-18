@@ -1,3 +1,9 @@
+## [1.9.4-alpha.2](https://github.com/NSFI/ppfish-components/compare/v1.9.4-alpha.1...v1.9.4-alpha.2) (2022-08-18)
+
+### Bug Fixes
+
+- 修复 AudioPlayer 0.x 秒音频不能播放问题 ([0ac0904](https://github.com/NSFI/ppfish-components/commit/0ac0904172967277c6c598d0c511289ae33ff219))
+
 ## [1.9.4-alpha.1](https://github.com/NSFI/ppfish-components/compare/v1.9.4-alpha.0...v1.9.4-alpha.1) (2022-08-16)
 
 ### Bug Fixes
