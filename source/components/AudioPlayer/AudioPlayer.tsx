@@ -78,7 +78,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
     onError: PropTypes.func,
     onPause: PropTypes.func,
     onPlay: PropTypes.func,
-    onSeeked: PropTypes.func
+    onSeeked: PropTypes.func,
   };
 
   static defaultProps: AudioPlayerProps = {
@@ -105,7 +105,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
     onError: () => {}, // 当在音频加载期间发生错误时的回调
     onPause: () => {}, // 当音频暂停时的回调
     onPlay: () => {}, // 当音频已开始或不再暂停时的回调
-    onSeeked: () => {} // 当用户已移动/跳跃到音频中的新位置时的回调
+    onSeeked: () => {}, // 当用户已移动/跳跃到音频中的新位置时的回调
   };
 
   audioInstance: HTMLAudioElement | null = null;
@@ -121,7 +121,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
       allTime: 0,
       currentTime: 0,
       disabled: !this.props.src, // 初始src为空时禁用组件
-      rate: this.props.rateOptions.value || 1 // 播放速度
+      rate: this.props.rateOptions.value || 1, // 播放速度
     };
     this.audioInstance = null;
   }
@@ -140,8 +140,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
       case 'allTime':
         this.setState({
           allTime: audio.duration,
-          // 音频总时长为0时禁用组件
-          disabled: parseInt(String(audio.duration)) === 0
+          disabled: isNaN(audio.duration) || !isFinite(audio.duration),
         });
         this.props.onCanPlay();
         break;
@@ -151,7 +150,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
         }
         audio.play();
         this.setState({
-          isPlay: true
+          isPlay: true,
         });
         break;
       case 'pause':
@@ -160,28 +159,28 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
         }
         audio.pause();
         this.setState({
-          isPlay: false
+          isPlay: false,
         });
         break;
       case 'changeCurrentTime':
         this.setState({
-          currentTime: value
+          currentTime: value,
         });
 
         audio.currentTime = value as number;
         if (value == audio.duration) {
           this.setState({
-            isPlay: false
+            isPlay: false,
           });
         }
         break;
       case 'getCurrentTime':
         this.setState({
-          currentTime: audio.currentTime
+          currentTime: audio.currentTime,
         });
         if (audio.currentTime == audio.duration) {
           this.setState({
-            isPlay: false
+            isPlay: false,
           });
         }
         break;
@@ -189,7 +188,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
         audio.volume = (value as number) / 100;
         this.setState({
           currentVolume: value as number,
-          isMuted: !value
+          isMuted: !value,
         });
         break;
       case 'changeRate':
@@ -200,7 +199,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
         audio.playbackRate = numberValue;
         this.setState({
           rate: value as number,
-          rateOpen: false
+          rateOpen: false,
         });
         break;
     }
@@ -249,14 +248,14 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
   // 调节音量面板状态变化
   onVolumeVisibleChange = (state: boolean) => {
     this.setState({
-      volumeOpen: state
+      volumeOpen: state,
     });
   };
 
   // 调节播放速度板状态变化
   onRateVisibleChange = (state: boolean) => {
     this.setState({
-      rateOpen: state
+      rateOpen: state,
     });
   };
 
@@ -270,7 +269,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
       volumeOpen,
       rateOpen,
       disabled,
-      rate
+      rate,
     } = this.state;
 
     const {
@@ -303,7 +302,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
       value: rateValue = 0,
       suffix: rateSuffix = 'x',
       decimal: rateDecimal = 1,
-      range: rateRange = []
+      range: rateRange = [],
     } = rateOptions;
     const getRateText = (rate: number) => `${Number(rate).toFixed(rateDecimal)}${rateSuffix}`;
 
@@ -321,15 +320,15 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
 
     return (
       <ConfigConsumer componentName="AudioPlayer">
-        {
-          (Locale: LocaleProperties["AudioPlayer"]) => <div
+        {(Locale: LocaleProperties['AudioPlayer']) => (
+          <div
             className={classNames(prefixCls, className, {
-              [`${prefixCls}-${sizeCls}`]: sizeCls
+              [`${prefixCls}-${sizeCls}`]: sizeCls,
             })}
           >
             <div
               className={classNames(`${prefixCls}-wrap`, {
-                [`${prefixCls}-${sizeCls}-wrap`]: sizeCls
+                [`${prefixCls}-${sizeCls}-wrap`]: sizeCls,
               })}
               title={title}
             >
@@ -439,7 +438,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
               ) : null}
             </div>
           </div>
-        }
+        )}
       </ConfigConsumer>
     );
   }
