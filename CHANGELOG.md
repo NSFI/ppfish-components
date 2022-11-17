@@ -1,3 +1,9 @@
+## [1.9.4-alpha.3](https://github.com/NSFI/ppfish-components/compare/v1.9.4-alpha.2...v1.9.4-alpha.3) (2022-11-17)
+
+### Features
+
+- 修改 treeSelect 的 labelInValue 的问题 ([6a35bc8](https://github.com/NSFI/ppfish-components/commit/6a35bc85b6a8a86d68ba49a9f466d3f9ac7a320a))
+
 ## [1.9.4-alpha.2](https://github.com/NSFI/ppfish-components/compare/v1.9.4-alpha.1...v1.9.4-alpha.2) (2022-08-18)
 
 ### Bug Fixes
