@@ -1195,7 +1195,11 @@ class Select extends React.Component {
     if (isMultiple && !treeCheckStrictly) {
       let keyList = [];
       rtValueList.forEach(value => {
-        if (valueEntities[value] != undefined) {
+        if (this.isLabelInValue()) {
+          if (valueEntities[value.value] !== undefined) {
+            keyList.push(valueEntities[value.value].key);
+          }
+        } else if (valueEntities[value] != undefined) {
           keyList.push(valueEntities[value].key);
         }
       });
@@ -1210,6 +1214,13 @@ class Select extends React.Component {
         treeCheckType,
       ).checkedKeys;
       rtValueList = checkedKeys.map(key => {
+        if (this.isLabelInValue()) {  // 解决开启了labelInValue勾选没法选中的问题
+          const props = keyEntities[key]?.node?.props || {};
+          return {
+            label: props.title || '',
+            value: props.value || ''
+          }
+        }
         return keyEntities[key] && keyEntities[key].value;
       });
     }
