@@ -199,11 +199,11 @@ const InternalUpload: React.ForwardRefRenderFunction<InternalUploadRef, UploadPr
     setDragState(e.type);
   };
 
-  const beforeUpload = (file: RcFile, innerFileList: RcFile[]) => {
+  const beforeUpload = async (file: RcFile, innerFileList: RcFile[]) => {
     if (!props.beforeUpload) {
       return true;
     }
-    const result = props.beforeUpload(file, innerFileList);
+    const result = await props.beforeUpload(file, innerFileList);
     if (result === false) {
       onChange({
         file,
