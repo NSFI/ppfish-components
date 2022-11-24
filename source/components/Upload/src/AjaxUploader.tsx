@@ -34,6 +34,11 @@ const InternalAjaxUploader: React.ForwardRefRenderFunction<AjaxUploaderRef, Ajax
 
     const reqsRef = React.useRef({});
     const inputRef = React.useRef<HTMLInputElement>();
+    const propsRef = React.useRef(null)
+    React.useEffect(() => {
+      propsRef.current = props
+    }, [props]);
+
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const files = [...e.target.files];
@@ -138,13 +143,13 @@ const InternalAjaxUploader: React.ForwardRefRenderFunction<AjaxUploaderRef, Ajax
         return;
       }
 
-      const { data } = props;
+      const { data } = propsRef.current;
       const { onStart, onProgress } = props;
 
       const mergedData = typeof data === 'function' ? data(file) : data;
 
       new Promise(resolve => {
-        const { action } = props;
+        const { action } = propsRef.current;
         if (typeof action === 'function') {
           return resolve(action(file));
         }
