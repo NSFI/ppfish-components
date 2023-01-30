@@ -5,6 +5,10 @@ import Module from '../core/module';
 class Uploader extends Module {
   constructor(quill, options) {
     super(quill, options);
+    // 这里的执行结果, 图片 drop, 自动读取 base64 渲染, 因为自定义图片上传, 会用接口传, 这里就没必要了
+    if (quill.options.modules.imageDrop?.customDropImage) {
+      return;
+    }
     quill.root.addEventListener('drop', e => {
       e.preventDefault();
       let native;
@@ -54,10 +58,7 @@ Uploader.DEFAULTS = {
         return delta.insert({ image });
       }, new Delta().retain(range.index).delete(range.length));
       this.quill.updateContents(update, Emitter.sources.USER);
-      this.quill.setSelection(
-        range.index + images.length,
-        Emitter.sources.SILENT,
-      );
+      this.quill.setSelection(range.index + images.length, Emitter.sources.SILENT);
     });
   },
 };
