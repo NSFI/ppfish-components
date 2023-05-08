@@ -9,9 +9,7 @@ import './style/index.less';
 
 const conMaxWidth = 1024;
 const conMaxHeight = 768;
-const CON_MAX_WIDTH = conMaxWidth > window.innerWidth ? window.innerWidth : conMaxWidth; //容器最大宽度
 const CON_MIN_WIDTH = 360; //容器最小宽度
-const CON_MAX_HEIGHT = conMaxHeight > window.innerHeight ? window.innerHeight : conMaxHeight; //容器最大高度
 const CON_MIN_HEIGHT = 360; //容器最小高度
 const MAX_RATIO = 2; //最大的图片显示比例
 const MIN_RATIO = 0.1; //最小的图片显示比例
@@ -330,6 +328,8 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
     if (!this.imgEl) return;
 
     getImageSize(this.imgEl, (naturalWidth, naturalHeight) => {
+      const CON_MAX_WIDTH = conMaxWidth > window.innerWidth ? window.innerWidth : conMaxWidth; // 容器最大宽度
+      const CON_MAX_HEIGHT = conMaxHeight > window.innerHeight ? window.innerHeight : conMaxHeight; // 容器最大高度
       let width, height, imgRatio;
 
       if (naturalWidth == 0 || naturalHeight == 0) {
