@@ -1,6 +1,6 @@
 {
   "name": "ppfish",
-  "version": "1.9.4-alpha.4",
+  "version": "1.9.4-alpha.5",
   "description": "fish design ui components",
   "scripts": {
     "dev": "babel-node --max-old-space-size=4096 tools/openSite.js",
