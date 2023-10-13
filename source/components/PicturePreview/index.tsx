@@ -44,7 +44,7 @@ const setStyle = (el, css) => {
   }
 };
 
-const getImageSize = function(
+const getImageSize = function (
   image: ImageItem & HTMLImageElement,
   callback: (naturalWidth: number, naturalHeight: number) => void,
   scope?: any,
@@ -58,7 +58,7 @@ const getImageSize = function(
   } else {
     // 低版本浏览器
     newImage = document.createElement('img');
-    newImage.onload = function() {
+    newImage.onload = function () {
       callback.call(scope, this.width, this.height);
     };
     newImage.src = image.src;
@@ -471,6 +471,7 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
   };
 
   handleZoom = ratio => {
+    if (!this.imgEl) return;
     const image = {
       ratio: 0,
       marginL: 0,
@@ -745,17 +746,8 @@ class PicturePreview extends Component<PicturePreviewProps, PicturePreviewState>
 
   render() {
     const { show, current, imgs, image, container } = this.state;
-    const {
-      className,
-      style,
-      prefixCls,
-      source,
-      children,
-      toolbar,
-      draggable,
-      mask,
-      progress,
-    } = this.props;
+    const { className, style, prefixCls, source, children, toolbar, draggable, mask, progress } =
+      this.props;
     const isFullscreen = container.isFull;
     const ctnerClass = classNames(prefixCls, {
       [className]: className,
