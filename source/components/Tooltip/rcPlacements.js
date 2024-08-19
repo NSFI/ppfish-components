@@ -1,6 +1,7 @@
 const autoAdjustOverflow = {
   adjustX: 1,
   adjustY: 1,
+  alwaysByViewport: true,
 };
 
 const targetOffset = [0, 0];

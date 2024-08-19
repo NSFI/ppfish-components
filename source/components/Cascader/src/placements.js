@@ -1,6 +1,7 @@
 const autoAdjustOverflow = {
   adjustX: 1,
   adjustY: 1,
+  alwaysByViewport: true,
 };
 
 export default {
@@ -22,16 +23,16 @@ export default {
   topLeft: {
     points: ['bl', 'tl'],
     overflow: autoAdjustOverflow,
-    offset: [0, -8]
+    offset: [0, -8],
   },
   topCenter: {
     points: ['bc', 'tc'],
     overflow: autoAdjustOverflow,
-    offset: [0, -8]
+    offset: [0, -8],
   },
   topRight: {
     points: ['br', 'tr'],
     overflow: autoAdjustOverflow,
-    offset: [0, -8]
+    offset: [0, -8],
   },
 };
