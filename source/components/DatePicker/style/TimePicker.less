@@ -1,7 +1,6 @@
 .@{prefixClass} {
   &-time-panel {
-    position: absolute;
-    left: 0;
+    position: relative;
     z-index: @zindex-dropdown;
     user-select: none;
     box-sizing: content-box;
@@ -13,7 +12,7 @@
 
       &::after,
       &::before {
-        content: ":";
+        content: ':';
         top: 50%;
         color: @primary-color;
         position: absolute;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input, { InputProps } from '../Input';
+import Input from '../Input';
 import Icon from '../Icon';
 import Trigger from 'rc-trigger';
 import { HAVE_TRIGGER_TYPES, TYPE_VALUE_RESOLVER_MAP, DEFAULT_FORMATS } from './constants';
