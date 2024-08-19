@@ -1,3 +1,16 @@
+## [1.9.5](https://github.com/NSFI/ppfish-components/compare/v1.9.4-alpha.3...v1.9.5) (2024-08-19)
+
+### Bug Fixes
+
+- 修复 base64 上传的 bug ([9572ba9](https://github.com/NSFI/ppfish-components/commit/9572ba918c99aea1bde3a3cfb4eee8e09c26c529))
+- 修复 select 弹窗定位问题 ([b72ffb0](https://github.com/NSFI/ppfish-components/commit/b72ffb07950e1a035a804123c44a87cc118fabeb))
+- handleZoom 时偶现 imgEl 为 null 的情况 ([618d040](https://github.com/NSFI/ppfish-components/commit/618d0409eb35b25b0f02f2d9ad8e797efd62e9c7))
+- PicturePreview 实时计算窗口大小 ([230675b](https://github.com/NSFI/ppfish-components/commit/230675b9740a602c2ac145e2e7d01ffe990a1a69))
+
+### Features
+
+- 优化弹窗定位 ([e441086](https://github.com/NSFI/ppfish-components/commit/e4410868db453008bb257e7d342cd0804e00d7f3))
+
 ## [1.9.4](https://github.com/NSFI/ppfish-components/compare/v1.9.4-alpha.3...v1.9.4) (2024-08-19)
 
 ### Bug Fixes
